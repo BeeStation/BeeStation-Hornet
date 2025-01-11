@@ -14,7 +14,6 @@
 	rites_list = list(
 		/datum/religion_rites/expand_shadows,
 		/datum/religion_rites/shadow_obelisk,
-		/datum/religion_rites/shadow_conversion,
 		/datum/religion_rites/shadow_conversion
 	)
 
@@ -41,13 +40,6 @@
 	return TRUE
 
 
-/datum/religion_sect/shadow_sect/on_select(mob/living/user)
-	. = ..()
-	if(!user)
-		return
-	user.set_species(/datum/species/shadow)
-
-
 // Shadow sect construction
 /obj/structure/destructible/religion/shadow_obelisk
 	name = "Shadow Obelisk"
@@ -67,15 +59,19 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
-		if(user.mind?.holy_role == NONE)
-			to_chat(user, "<span class='warning'>Only the faithful may control the disposition of [src]!</span>")
-			return
 		anchored = !anchored
 		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 		user.do_attack_animation(src)
 		return
-	if(I.tool_behaviour == TOOL_WRENCH)
+	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
+		if (!archoned)
+			anchored = !anchored
+			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			user.do_attack_animation(src)
+		else
+			to_chat(user,"<span class='notice'>You feel like only nullrod coudl move this obelisc.</span>")
 		return
 	return ..()
 
@@ -103,6 +99,8 @@
 	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
 		return
 	var/atom/P = parent
+	if(!p.archoned)
+		return
 	var/turf/T = P.loc
 	if(!istype(T))
 		return
@@ -166,10 +164,9 @@
 
 
 /datum/religion_rites/shadow_obelisk
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	name = "Obelisk Manifestation"
 	desc = "Creates an obelisk that generates favor when in a dark area."
-	ritual_length = 30 SECONDS
+	ritual_length = 20 SECONDS
 	ritual_invocations = list(
 		"Let the shadows combine...",
 		"... Solidify and grow ...",
@@ -191,10 +188,9 @@
 
 
 /datum/religion_rites/expand_shadows
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	name = "Shadow Expansion"
 	desc = "Grow the reach of shadows extending from the altar, and any obelisks."
-	ritual_length = 45 SECONDS
+	ritual_length = 30 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
 		"... Kill the light ...",
@@ -205,7 +201,7 @@
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if((sect.light_power <= -10) || (sect.light_reach >= 20))
+	if((sect.light_power <= -10) || (sect.light_reach >= 15))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
 		return FALSE
 	return ..()
@@ -216,7 +212,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!sect)
 		return
-	sect.light_reach += 2
+	sect.light_reach += 1.5
 	sect.light_power -= 1
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
