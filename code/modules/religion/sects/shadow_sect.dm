@@ -59,6 +59,7 @@
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.obelisk_number = sect.obelisk_number - 1
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -174,7 +175,7 @@
 		"... Solidify and grow ...",
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
-	favor_cost = 100 + 200 * sect.obelisk_number
+	favor_cost = 100
 
 
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
@@ -199,7 +200,7 @@
 		"... Kill the light ...",
 		"... Encompass it all in darkness ...")
 	invoke_msg = "Shadows, reach your tendrils from my altar, and extend thy domain."
-	favor_cost = 200 + 400 * sect.obelisk_number
+	favor_cost = 200
 
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
