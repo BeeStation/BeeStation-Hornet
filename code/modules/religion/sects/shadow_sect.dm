@@ -80,7 +80,7 @@
 
 
 // Favor generator component. Used on the altar and obelisks
-/datum/component/dark_favor //Original code by DingoDongler
+/datum/component/dark_favor
 	var/mob/living/creator
 
 
@@ -92,12 +92,12 @@
 	START_PROCESSING(SSobj, src)
 
 
-/datum/component/dark_favor/Destroy() //Original code by DingoDongler
+/datum/component/dark_favor/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
 
-/datum/component/dark_favor/process(delta_time) //Original code by DingoDongler
+/datum/component/dark_favor/process(delta_time)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
 		return
@@ -110,7 +110,7 @@
 	sect.adjust_favor(favor_gained, creator)
 
 
-/**** Shadow rites ****/ //Original code by DingoDongler, Remade by Wikimody
+/**** Shadow rites ****/
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
 
 
