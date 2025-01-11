@@ -48,8 +48,8 @@
 	icon_state = "shadow-obelisk"
 	anchored = FALSE
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
-	var/max_integrity = 500
-	var/damage_deflection = 10
+	max_integrity = 300
+	damage_deflection = 10
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
