@@ -63,6 +63,8 @@
 	var/datum/looping_sound/firealarm/soundloop
 	///Keeps track of if we're playing the alarm sound loop (as only one firelock per group should be). Used during power changes.
 	var/is_playing_alarm = FALSE
+	///Delay before we deactivate the firelock after detecting the air is fine.
+	var/activation_delay
 
 /datum/armor/door_firedoor
 	melee = 30
@@ -249,13 +251,16 @@
 		alarm_type = result
 		if(!ignore_alarms)
 			start_activation_process(result)
+			if(activation_delay)
+				deltimer(activation_delay)
+				activation_delay = null
 	else if(length(issue_turfs))
 		issue_turfs -= checked_turf
 		if(length(issue_turfs) && alarm_type != FIRELOCK_ALARM_TYPE_GENERIC)
 			return
 		alarm_type = null
 		if(!ignore_alarms)
-			start_deactivation_process()
+			activation_delay = addtimer(CALLBACK(src, PROC_REF(start_deactivation_process)), 5 SECONDS, TIMER_STOPPABLE)
 
 
 
