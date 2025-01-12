@@ -15550,7 +15550,9 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "ccP" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "ccQ" = (
@@ -15639,11 +15641,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"ceh" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/turf/open/floor/plating,
-/area/engine/atmos)
 "cei" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
@@ -15689,18 +15686,15 @@
 /area/space/nearstation)
 "cfw" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/space,
 /area/space/nearstation)
 "cfx" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 9
+/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
+	dir = 8
 	},
-/turf/open/space,
-/area/space/nearstation)
+/turf/open/floor/iron/dark,
+/area/engine/atmos)
 "cfy" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
@@ -17177,11 +17171,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
@@ -44736,9 +44730,9 @@
 /area/maintenance/department/science/xenobiology)
 "lSI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
+	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "lST" = (
 /obj/structure/table/glass,
@@ -57604,13 +57598,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "qEw" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/turf/open/floor/catwalk_floor/iron,
+/turf/open/floor/iron,
 /area/engine/atmos)
 "qEx" = (
 /obj/effect/turf_decal/siding/wood{
@@ -67294,8 +67285,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
@@ -120954,8 +120945,8 @@ bXj
 bYx
 btP
 gkS
-ccP
-ceh
+cfx
+bYy
 cfw
 cgA
 chP
@@ -121212,8 +121203,8 @@ bIS
 bZH
 cbg
 ccP
-bYy
-cfx
+bza
+aaf
 bAR
 bAR
 bAR
@@ -121982,8 +121973,8 @@ bXm
 bYz
 bFU
 fQF
-ccP
-ceh
+cfx
+bYy
 cfw
 cgA
 chS
@@ -122240,8 +122231,8 @@ bIS
 bZK
 cbk
 ccP
-bYy
-cfx
+bza
+aaf
 bAR
 bAR
 bAR
