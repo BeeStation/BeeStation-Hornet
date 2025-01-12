@@ -30,10 +30,6 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_loss))
 
-	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
-	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
-
-
 
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
@@ -202,13 +198,6 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
 
-/// Called when [TRAIT_NIGHT_VISION] is added to the mob.
-/mob/living/proc/on_night_vision_trait_gain(datum/source)
-	SIGNAL_HANDLER
-
-/// Called when [TRAIT_NIGHT_VISION] is removed from the mob.
-/mob/living/proc/on_night_vision_trait_loss(datum/source)
-	SIGNAL_HANDLER
 
 
 /**
