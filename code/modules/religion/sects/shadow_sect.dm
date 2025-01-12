@@ -5,7 +5,7 @@
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
-	favor = 10000 // real number is 0 this is for testing
+	favor = 0
 	max_favor = 50000
 	desired_items = list(
 		/obj/item/flashlight)
@@ -273,11 +273,11 @@
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/cost = 200 * sect.light_power * -1
+	var/cost = 200 * sect.light_power * -1 + 200
 	if(sect.favor < cost)
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
 		return FALSE
-	if((sect.light_power <= -11) || (sect.light_reach >= 15))
+	if((sect.light_power <= -10) || (sect.light_reach >= 15))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
 		return FALSE
 	return ..()
