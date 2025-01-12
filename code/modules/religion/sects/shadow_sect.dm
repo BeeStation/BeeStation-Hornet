@@ -238,14 +238,23 @@
 	favor_cost = 100
 
 
+/datum/religion_rites/shadow_obelisk/perform_rite(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	var/cost = 100 * sect.obelisk_number + 100
+	if(sect.favor < cost)
+		to_chat(user, "<span class='warning'>Your obelisc are getting harder to summon, as more matterialise. You need [cost] favor.</span>")
+		return FALSE
+	return ..()
+
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
 	var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	var/cost = 100 * sect.obelisk_number * -1
+	sect.adjust_favor(cost, user)
 	sect.obelisks += obelisk
 	sect.obelisk_number = sect.obelisk_number + 1
 	obelisk.AddComponent(/datum/component/dark_favor, user)
-	obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
 
@@ -264,7 +273,11 @@
 
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if((sect.light_power <= -10) || (sect.light_reach >= 15))
+	var/cost = 200 * sect.light_power * -1
+	if(sect.favor < cost)
+		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
+		return FALSE
+	if((sect.light_power <= -11) || (sect.light_reach >= 15))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
 		return FALSE
 	return ..()
@@ -275,6 +288,8 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!sect)
 		return
+	var/cost = 200 * sect.light_power + 200
+	sect.adjust_favor(cost, user)
 	sect.light_reach += 1.5
 	sect.light_power -= 1
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -299,7 +314,7 @@
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
-		for(var/mob/each_mob in range(D,sect.light_reach))
+		for(var/mob/each_mob in range(D, sect.light_reach))
 			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
