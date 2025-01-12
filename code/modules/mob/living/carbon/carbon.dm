@@ -1035,7 +1035,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		for(var/i in artpaths)
 			var/datum/martial_art/M = i
 			artnames[initial(M.name)] = M
-		var/result = input(usr, "Choose the martial art to teach","JUDO CHOP") as null|anything in artnames
+		var/result = input(usr, "Choose the martial art to teach","JUDO CHOP") as null|anything in sort_list(artnames)
 		if(!usr)
 			return
 		if(QDELETED(src))
@@ -1050,7 +1050,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(href_list[VV_HK_GIVE_TRAUMA] && check_rights(R_FUN|R_DEBUG))
 		var/list/traumas = subtypesof(/datum/brain_trauma)
-		var/result = input(usr, "Choose the brain trauma to apply","Traumatize") as null|anything in traumas
+		var/result = input(usr, "Choose the brain trauma to apply","Traumatize") as null|anything in sort_list(traumas)
 		if(!usr)
 			return
 		if(QDELETED(src))
@@ -1070,7 +1070,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(href_list[VV_HK_HALLUCINATION] && check_rights(R_FUN))
 		var/list/hallucinations = subtypesof(/datum/hallucination)
-		var/result = input(usr, "Choose the hallucination to apply","Send Hallucination") as null|anything in hallucinations
+		var/result = input(usr, "Choose the hallucination to apply","Send Hallucination") as null|anything in sort_list(hallucinations)
 		if(!usr)
 			return
 		if(QDELETED(src))
@@ -1087,7 +1087,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			to_chat(usr, "Mob cannot mutate")
 			return
 		var/list/mutations = subtypesof(/datum/mutation)
-		var/result = input(usr, "Choose the mutation to give", "Mutate") as null|anything in mutations
+		var/result = input(usr, "Choose the mutation to give", "Mutate") as null|anything in sort_list(mutations)
 		if(!usr)
 			return
 		if(!result)
@@ -1112,7 +1112,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(!dna)
 			to_chat(usr, "Mob doesn't have DNA")
 			return
-		var/result = input(usr, "Choose the mutation to remove", "Un-mutate") as null|anything in dna.mutations
+		var/result = input(usr, "Choose the mutation to remove", "Un-mutate") as null|anything in sort_list(dna.mutations)
 		if(!usr)
 			return
 		if(QDELETED(src))

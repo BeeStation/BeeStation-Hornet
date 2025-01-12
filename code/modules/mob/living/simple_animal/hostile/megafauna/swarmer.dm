@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = "swarmer_console"
 	health = 375
 	maxHealth = 375 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	gps_name = "Hungry Signal"
 	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
