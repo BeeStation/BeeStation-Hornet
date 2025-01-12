@@ -87,7 +87,7 @@
 	prefixes = list("Sleeping ", "Regenerative ")
 	suffixes = list(" Coma")
 	var/deathgasp = FALSE
-	var/stabilize = TRUE
+	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
 	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
 						<b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\

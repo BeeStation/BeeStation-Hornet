@@ -17,7 +17,7 @@
 	item_state = "welding"
 	clothing_flags = SNUG_FIT
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	armor_type = /datum/armor/utility_welding
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT

@@ -34,23 +34,22 @@
 	var/obj/item/clothing/shoes/magboots/boots = H.shoes
 	boots.toggle()
 
-/*
 /datum/outfit/admin //for admeem shenanigans and testing things that arent related to equipment, not a subtype of debug just in case debug changes things
 	name = "Admin outfit"
 
-	id = /obj/item/card/id/advanced/debug
+	id = /obj/item/card/id/syndicate/debug
 	uniform = /obj/item/clothing/under/misc/patriotsuit
 	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/administrative
 	backpack_contents = list(
-		/obj/item/melee/energy/axe = 1,
+		/obj/item/melee/transforming/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
 		/obj/item/gun/magic/wand/resurrection/debug = 1,
 		/obj/item/gun/magic/wand/death/debug = 1,
 		/obj/item/debug/human_spawner = 1,
 		/obj/item/debug/omnitool = 1,
 		/obj/item/storage/box/stabilized = 1,
-)
+	)
 	belt = /obj/item/storage/belt/utility/chief/full
 	ears = /obj/item/radio/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/hud/debug
@@ -66,7 +65,6 @@
 	W.registered_name = H.real_name
 	W.update_label()
 	W.update_icon()
-*/
 
 /datum/outfit/space
 	name = "Standard Space Gear"

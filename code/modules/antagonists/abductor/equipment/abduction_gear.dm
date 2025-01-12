@@ -771,7 +771,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/head/helmet/abductor/equipped(mob/living/user, slot)

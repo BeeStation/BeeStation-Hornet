@@ -367,7 +367,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	outfit = /datum/outfit/job/miner
 
 /obj/effect/mob_spawn/human/miner/mod
-	outfit = /datum/outfit/job/engineer/mod
+	outfit = /datum/outfit/job/miner/equipped/mod
 
 /obj/effect/mob_spawn/human/miner/explorer
 	outfit = /datum/outfit/job/miner/equipped

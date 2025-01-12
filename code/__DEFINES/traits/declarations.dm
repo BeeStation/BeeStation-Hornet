@@ -100,8 +100,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSLIPWATER		"noslip_water"
 /// Stops all slipping and sliding from ocurring
 #define TRAIT_NOSLIPALL "noslip_all"
-/// Prevents some severe head injuries being sustained from heavy collisions or blunt force injuries.
-#define TRAIT_HEAD_INJURY_BLOCKED "head_injury_blocked"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"

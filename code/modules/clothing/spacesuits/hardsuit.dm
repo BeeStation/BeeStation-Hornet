@@ -908,7 +908,7 @@
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	hardsuit_type = "medical"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor_type = /datum/armor/hardsuit_medical
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
 	clothing_traits = list(TRAIT_REAGENT_SCANNER)
@@ -955,7 +955,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort and protects the eyes from intense light."
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 
 /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit"

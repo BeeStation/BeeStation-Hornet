@@ -175,12 +175,12 @@
 	icon_state = "sunhudscience"
 	item_state = "sunhudscience"
 	emissive_state = "sun_emissive"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/science/sciencesun/degraded
 	name = "degraded science sunglasses"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/science/night
 	name = "night vision science goggles"
@@ -297,7 +297,7 @@
 /obj/item/clothing/glasses/sunglasses/advanced/
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -371,7 +371,7 @@
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
 	custom_materials = list(/datum/material/iron = 250)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
@@ -385,7 +385,7 @@
 	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also has enhanced shielding which blocks flashes."
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	glass_colour_type = /datum/client_colour/glass_colour/green
 	force_glass_colour = TRUE
@@ -427,7 +427,7 @@
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
@@ -487,7 +487,7 @@
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "chameleon thermals"
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
