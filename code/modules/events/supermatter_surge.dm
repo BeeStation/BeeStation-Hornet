@@ -43,12 +43,12 @@
 	supermatter.matter_power += power * power_proportion
 	var/datum/gas_mixture/gas_puff = new
 	var/selected_gas = pick(4;/datum/gas/carbon_dioxide, 4;/datum/gas/water_vapor, 1;/datum/gas/bz)
-	gas_puff.gases[selected_gas][MOLES] = 500
+	ADD_MOLES(selected_gas, gas_puff, 500)
 
 	gas_puff.temperature = (500)
 	var/energy_ratio = (power * 500 * (1-power_proportion)) / gas_puff.thermal_energy()
 	if(energy_ratio < 1) // energy output we want is lower than current energy, reduce the amount of gas we puff out
-		gas_puff.gases[/datum/gas/water_vapor][MOLES] = energy_ratio * 500
+		SET_MOLES(/datum/gas/water_vapor, gas_puff, energy_ratio * 500)
 
 	else // energy output we want is higher than current energy, increase its actual heat
 		gas_puff.temperature = (energy_ratio * 500)
