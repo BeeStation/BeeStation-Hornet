@@ -78,32 +78,32 @@
 	if (ismob(AM))
 		return
 	if (sect.night_vision_active)
-		ADD_TRAIT(AM,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT)
+		ADD_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/change_of_NV()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.night_vision_active)
 		for(var/mob/each_mob in range(src,sect.light_reach))
-			ADD_TRAIT(each_mob,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT)
+			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	else
 		for(var/mob/each_mob in range(src,sect.light_reach))
-			REMOVE_TRAIT(each_mob,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT)
+			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/unanchored_NV()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.night_vision_active)
 		for(var/mob/each_mob in range(src,sect.light_reach))
-			REMOVE_TRAIT(each_mob,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT)
+			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
 	src.proximity_mon.set_range(0)
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_exited(datum/source, atom/movable/AM)
 	if (ismob(AM))
 		return
-	if (HAS_TRAIT_FROM(AM,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT))
-		REMOVE_TRAIT(AM,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT)
+	if (HAS_TRAIT_FROM(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT))
+		REMOVE_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
@@ -312,7 +312,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		for(var/mob/each_mob in range(D, sect.light_reach))
-			ADD_TRAIT(each_mob,NIGHTVISION_FOV_RANGE, FROM_SHADOW_SECT)
+			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 
