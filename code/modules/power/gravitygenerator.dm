@@ -128,14 +128,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	//Gravity value when on
 	var/setting = 1
 
-	/// The gravity field created by the generator.
-	var/datum/proximity_monitor/advanced/gravity/gravity_field
-	/// Audio for when the gravgen is on
-	var/datum/looping_sound/gravgen/soundloop
-
 /obj/machinery/gravity_generator/main/Initialize(mapload)
 	. = ..()
-	soundloop = new(src, start_immediately = FALSE)
 	setup_parts()
 	middle.add_overlay("activated")
 	update_list()
