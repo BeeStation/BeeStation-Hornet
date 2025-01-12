@@ -52,14 +52,14 @@
 	max_integrity = 300
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/datum/proximity_monitor/proximity_monitor
+	var/datum/proximity_monitor/proximity_mon
 
 
-/obj/structure/destructible/religion/shadow_obelisk/Initialize()
+/obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(!proximity_monitor)
-		proximity_monitor = new(src, sect.light_reach)
+	if(!proximity_mon)
+		proximity_mon = new(src, sect.light_reach, FALSE)
 
 	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exited))
@@ -97,7 +97,7 @@
 		for(var/mob/each_mob in range(src,sect.light_reach))
 			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
-	src.proximity_monitor.set_range(0)
+	src.proximity_mon.set_range(0)
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_exited(datum/source, atom/movable/AM)
 	if (ismob(AM))
@@ -110,7 +110,6 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
 		if(anchored)
-			STOP_PROCESSING(SSobj, src)
 			src.unanchored_NV()
 			anchored = !anchored
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
@@ -118,20 +117,18 @@
 			user.do_attack_animation(src)
 			return
 		else
-			START_PROCESSING(SSobj, src)
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-			src.proximity_monitor.set_range(sect.light_reach)
+			src.proximity_mon.set_range(sect.light_reach,)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 			return
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if (!anchored)
-			START_PROCESSING(SSobj, src)
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-			src.proximity_monitor.set_range(sect.light_reach)
+			src.proximity_mon.set_range(sect.light_reach)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
@@ -296,7 +293,7 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-			D.proximity_monitor.set_range(sect.light_reach)
+			D.proximity_mon.set_range(sect.light_reach)
 
 
 /datum/religion_rites/nigth_vision_aura
