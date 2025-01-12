@@ -288,7 +288,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!sect)
 		return
-	var/cost = 200 * sect.light_power + 200
+	var/cost = 200 * sect.light_power
 	sect.adjust_favor(cost, user)
 	sect.light_reach += 1.5
 	sect.light_power -= 1
