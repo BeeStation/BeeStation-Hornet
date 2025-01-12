@@ -117,14 +117,18 @@ Buildable meters
 	pixel_x += rand(-5, 5)
 	pixel_y += rand(-5, 5)
 
-	//Flipping handled manually due to custom handling for trinary pipes
-	AddComponent(/datum/component/simple_rotation)
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 	// Only 'normal' pipes
 	if(type != /obj/item/pipe/quaternary)
 		return ..()
 
 	return ..()
+
+/obj/item/pipe/proc/can_be_rotated(mob/user)
+	if(anchored)
+		return FALSE
+	return TRUE
 
 /obj/item/pipe/proc/make_from_existing(obj/machinery/atmospherics/make_from)
 	p_init_dir = make_from.get_init_directions()
@@ -134,11 +138,6 @@ Buildable meters
 	pipe_type = make_from.type
 	paintable = make_from.paintable
 	pipe_color = make_from.pipe_color
-
-/obj/item/pipe/trinary/flippable/make_from_existing(obj/machinery/atmospherics/components/trinary/make_from)
-	..()
-	if(make_from.flipped)
-		do_a_flip()
 
 /obj/item/pipe/dropped()
 	if(loc)
@@ -162,23 +161,6 @@ Buildable meters
 	icon_state = initial(fakeA.pipe_state)
 	if(ispath(pipe_type,/obj/machinery/atmospherics/pipe/heat_exchanging))
 		resistance_flags |= FIRE_PROOF | LAVA_PROOF
-
-/obj/item/pipe/verb/flip()
-	set category = "Object"
-	set name = "Invert Pipe"
-	set src in view(1)
-
-	if ( usr.incapacitated() )
-		return
-
-	do_a_flip()
-
-/obj/item/pipe/proc/do_a_flip()
-	setDir(REVERSE_DIR(dir))
-
-/obj/item/pipe/trinary/flippable/do_a_flip()
-	setDir(turn(dir, flipped ? 45 : -45))
-	flipped = !flipped
 
 /obj/item/pipe/Move()
 	var/old_dir = dir
@@ -365,18 +347,6 @@ Buildable meters
 /obj/item/pipe/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The pipe layer is set to [piping_layer].</span>"
-
-/obj/item/pipe/trinary/flippable/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>You can flip the device by Alt-Clicking it.</span>"
-
-/obj/item/pipe/trinary/flippable/AltClick(mob/user)
-	. = ..()
-	if(. == TRUE)
-		return
-	do_a_flip()
-	balloon_alert(user, "pipe was flipped")
-	return TRUE
 
 /obj/item/pipe_meter
 	name = "meter"
