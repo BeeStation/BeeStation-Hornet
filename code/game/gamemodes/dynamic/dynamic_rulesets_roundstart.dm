@@ -664,11 +664,8 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/vampire/execute()
-	for(var/datum/mind/candidate_minds as anything in assigned)
-		if(!candidate_minds.make_vampire())
-			message_admins("[ADMIN_LOOKUPFLW(candidate_minds)] was selected by the [name] ruleset, but couldn't be made into a Vampire.")
-			assigned -= candidate_minds
-			continue
-		GLOB.pre_setup_antags -= candidate_minds
-		candidate_minds.special_role = ROLE_VAMPIRE
+	for(var/datum/mind/candidate_mind as anything in assigned)
+		candidate_mind.make_vampire()
+		GLOB.pre_setup_antags -= candidate_mind
+		candidate_mind.special_role = ROLE_VAMPIRE
 	return TRUE

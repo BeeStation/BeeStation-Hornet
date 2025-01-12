@@ -294,7 +294,7 @@
 // EXPLANATION
 /datum/objective/vampire/embrace/update_explanation_text()
 	. = ..()
-	explanation_text = "Use the Candelabrum to Rank your Favorite Vassal up enough to become a Vampire."
+	explanation_text = "Use the Persuasion rack to Rank your Favorite Vassal up enough to become a Vampire."
 
 // WIN CONDITIONS?
 /datum/objective/vampire/embrace/check_completion()

@@ -250,7 +250,7 @@
 /**
  * Called when we are successfully turn a Vassal into a Favorite Vassal
  * args:
- * vampiredatum - antagonist datum of the Vampire who turned them into a Vassal.
+ * source - antagonist datum of the Vampire who turned them into a Vassal.
  * vassaldatum - the antagonist datum of the Vassal being offered up.
  */
 /datum/vampire_clan/proc/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)

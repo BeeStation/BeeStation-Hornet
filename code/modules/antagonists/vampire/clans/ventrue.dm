@@ -80,9 +80,10 @@
 			to_chat(target, "<span class='notice'>You feel yourself able to take cuts and stabbings like it's nothing.</span>")
 		if(6 to INFINITY)
 			to_chat(target, "<span class='notice'>You feel your heart stop pumping for the last time as you begin to thirst for blood, you feel... dead.</span>")
+			message_admins("[vassaldatum.owner] has become a Vampire, and was created by [vampiredatum.owner].")
+			log_admin("[vampiredatum.owner] has become a Vampire, and was created by [vampiredatum.owner].")
+			target.mind.make_vampire()
 
-			target.mind.remove_antag_datum(/datum/antagonist/vassal/favorite)
-			target.mind.make_vampire(vampiredatum.owner)
 			SEND_SIGNAL(vampiredatum.owner, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)

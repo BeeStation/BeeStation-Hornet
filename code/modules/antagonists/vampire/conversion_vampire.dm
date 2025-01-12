@@ -71,17 +71,3 @@
 	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	return TRUE
-
-/*
- *	# make_vampire
- *
- * MIND Helper proc that turns the person into a Vampire
- * Args:
- * creator - Person attempting to convert them.
- */
-/datum/mind/proc/make_vampire(datum/mind/creator)
-	var/datum/antagonist/vampiredatum = add_antag_datum(/datum/antagonist/vampire)
-	if(vampiredatum && creator)
-		message_admins("[src] has become a Vampire, and was created by [creator].")
-		log_admin("[src] has become a Vampire, and was created by [creator].")
-	return vampiredatum

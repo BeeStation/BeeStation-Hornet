@@ -139,7 +139,7 @@
 	. = ..()
 
 /datum/action/cooldown/vampire/proc/pay_cost()
-	// Vassals can sometimes get a power
+	// Vassals get powers too!
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))

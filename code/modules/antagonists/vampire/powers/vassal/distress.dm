@@ -2,7 +2,7 @@
 	name = "Distress"
 	desc = "Injure yourself, allowing you to make a desperate call for help to your Master."
 	button_icon_state = "power_distress"
-	power_explanation = "Use this Power anywhere and your Master will instantly be alerted of your location."
+	power_explanation = "Use this Power anywhere and your Master will instantly be alerted to your location."
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = NONE

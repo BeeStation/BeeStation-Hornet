@@ -383,7 +383,7 @@
 
 /// Blood Throne - Allows Vampires to remotely speak with their Vassals. - Code (Mostly) stolen from comfy chairs (armrests) and chairs (layers)
 /obj/structure/vampire/bloodthrone
-	name = "wicked throne"
+	name = "blood throne"
 	desc = "Twisted metal shards jut from the arm rests. Very uncomfortable looking. It would take a masochistic sort to sit on this jagged piece of furniture."
 	icon = 'icons/vampires/vamp_obj_64.dmi'
 	icon_state = "throne"
@@ -391,7 +391,7 @@
 	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
-	ghost_desc = "This is a Vampire throne, any Vampire sitting on it can remotely speak to their Vassals by attempting to speak aloud."
+	ghost_desc = "This is a blood throne, any Vampire sitting on it can remotely speak to their Vassals by attempting to speak aloud."
 	vampire_desc = "This is a blood throne, sitting on it will allow you to telepathically speak to your vassals by simply speaking."
 	vassal_desc = "This is a blood throne, it allows your Master to telepathically speak to you and others like you."
 	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\

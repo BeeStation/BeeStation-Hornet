@@ -6,7 +6,7 @@
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = NONE
-	bloodcost = 10
+	bloodcost = 50
 	cooldown_time = 10 SECONDS
 
 /datum/action/cooldown/vampire/vassal_fold/can_use(mob/living/carbon/user, trigger_flags)

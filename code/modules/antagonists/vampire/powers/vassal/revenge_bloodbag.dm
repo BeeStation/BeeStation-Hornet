@@ -2,11 +2,11 @@
 	name = "Create Blood"
 	desc = "Convert a blood bag into Vampiric Blood."
 	button_icon_state = "power_bleed"
-	power_explanation = "Use this power with a bloodbag inhand to fill it with Vampiric Blood which is used to reset ex-vassal deconversion timers."
+	power_explanation = "Use this power with a bloodbag in hand to fill it with Vampiric Blood which is used to reset ex-vassal deconversion timers."
 	power_flags = NONE
 	check_flags = NONE
 	purchase_flags = NONE
-	bloodcost = 10
+	bloodcost = 150
 	cooldown_time = 10 SECONDS
 
 /datum/action/cooldown/vampire/vassal_blood/can_use(mob/living/carbon/user, trigger_flags)
@@ -27,7 +27,6 @@
 	var/blood_bag = locate(/obj/item/reagent_containers/blood) in owner.held_items
 	if(blood_bag)
 		var/mob/living/living_owner = owner
-		living_owner.blood_volume -= 150
 		QDEL_NULL(blood_bag)
 		var/obj/item/reagent_containers/blood/OMinus/vampire/new_bag = new(owner.loc)
 		owner.put_in_active_hand(new_bag)
