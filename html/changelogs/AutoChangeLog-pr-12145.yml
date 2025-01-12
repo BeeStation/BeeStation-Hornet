@@ -1,0 +1,4 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - tweak: zombies no longer have healing stunted by stasis
