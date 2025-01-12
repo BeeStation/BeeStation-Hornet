@@ -206,7 +206,6 @@
 /mob/living/proc/on_night_vision_trait_gain(datum/source)
 	SIGNAL_HANDLER
 
-
 /// Called when [TRAIT_NIGHT_VISION] is removed from the mob.
 /mob/living/proc/on_night_vision_trait_loss(datum/source)
 	SIGNAL_HANDLER
