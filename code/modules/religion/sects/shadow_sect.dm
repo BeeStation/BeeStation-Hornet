@@ -310,6 +310,7 @@
 /datum/religion_rites/nigth_vision_aura/invoke_effect(mob/living/user, atom/religious_tool)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	sect.night_vision_active = !sect.night_vision_active
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		for(var/mob/each_mob in range(D, sect.light_reach))
 			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
