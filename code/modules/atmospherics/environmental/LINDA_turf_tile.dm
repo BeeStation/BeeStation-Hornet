@@ -64,7 +64,7 @@
 	if(active_hotspot)
 		QDEL_NULL(active_hotspot)
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/near_turf in atmos_adjacent_turfs)
+	for(var/turf/open/near_turf in atmos_adjacent_turfs)
 		SSair.add_to_active(near_turf)
 	return ..()
 
