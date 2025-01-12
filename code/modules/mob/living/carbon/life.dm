@@ -266,7 +266,9 @@
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
-	return 1
+	breath.garbage_collect()
+
+	return TRUE
 
 //Fourth and final link in a breath chain
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)

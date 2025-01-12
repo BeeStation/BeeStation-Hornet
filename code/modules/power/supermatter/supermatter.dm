@@ -536,6 +536,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		ADD_MOLES(/datum/gas/oxygen, removed, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
+		removed.garbage_collect()
+
 		if(produces_gas)
 			env.merge(removed)
 			air_update_turf(FALSE, FALSE)
