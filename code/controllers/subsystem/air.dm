@@ -350,6 +350,7 @@ SUBSYSTEM_DEF(air)
 		currentrun.len--
 		if(!M)
 			atmos_machinery -= M
+			continue
 		if(M.process_atmos() == PROCESS_KILL)
 			stop_processing_machine(M)
 		if(MC_TICK_CHECK)
