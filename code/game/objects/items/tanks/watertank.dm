@@ -484,23 +484,23 @@
 	return ..()
 
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
-	//var/uses_pack = istype(tank, /obj/item/watertank/atmos)
+	var/uses_pack = istype(tank, /obj/item/watertank/atmos)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = RESIN_LAUNCHER
-			if(tank)
+			if(uses_pack)
 				tank.update_icon()
 			balloon_alert(user, "Launcher mode")
 			return
 		if(RESIN_LAUNCHER)
 			nozzle_mode = RESIN_FOAM
-			if(tank)
+			if(uses_pack)
 				tank.update_icon()
 			balloon_alert(user, "Foamer mode")
 			return
 		if(RESIN_FOAM)
 			nozzle_mode = EXTINGUISHER
-			if(tank)
+			if(uses_pack)
 				tank.update_icon()
 			balloon_alert(user, "Extinguisher mode")
 			return
