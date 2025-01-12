@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 /obj/machinery/airalarm/proc/check_enviroment()
 	var/turf/our_turf = connected_sensor ? get_turf(connected_sensor) : get_turf(src)
 	var/datum/gas_mixture/environment = our_turf.return_air()
-	if(isnull(environment))
+	if(isnull(environment) || (machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 	check_danger(our_turf, environment, environment.temperature)
 
