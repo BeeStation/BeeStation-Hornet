@@ -48523,8 +48523,7 @@
 	},
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/escape)
