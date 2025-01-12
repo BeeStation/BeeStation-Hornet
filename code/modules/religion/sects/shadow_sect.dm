@@ -25,6 +25,8 @@
 	var/night_vision_active = FALSE
 
 
+#define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
+
 //Shadow sect doesn't heal
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
@@ -54,10 +56,10 @@
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Initialize()
+	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!proximity_monitor)
 		proximity_monitor = new(src, sect.light_reach)
-
 
 	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exited))
@@ -78,6 +80,25 @@
 	if (sect.night_vision_active)
 		ADD_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/change_of_NV()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.night_vision_active)
+		for(var/mob/each_mob in range(src,sect.light_reach))
+			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+	else
+		for(var/mob/each_mob in range(src,sect.light_reach))
+			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/unanchored_NV()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.night_vision_active)
+		for(var/mob/each_mob in range(src,sect.light_reach))
+			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
+	src.proximity_monitor.set_range(0)
+
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_exited(datum/source, atom/movable/AM)
 	if (ismob(AM))
 		return
@@ -86,15 +107,31 @@
 
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
-		anchored = !anchored
-		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
-		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-		user.do_attack_animation(src)
-		return
+		if(anchored)
+			STOP_PROCESSING(SSobj, src)
+			src.unanchored_NV()
+			anchored = !anchored
+			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			user.do_attack_animation(src)
+			return
+		else
+			START_PROCESSING(SSobj, src)
+			anchored = !anchored
+			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+			src.proximity_monitor.set_range(sect.light_reach)
+			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			user.do_attack_animation(src)
+			return
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if (!anchored)
+			START_PROCESSING(SSobj, src)
 			anchored = !anchored
+			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+			src.proximity_monitor.set_range(sect.light_reach)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
@@ -139,9 +176,6 @@
 
 
 /**** Shadow rites ****/
-#define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
-
-
 /datum/religion_rites/shadow_conversion
 	name = "Shadowperson Conversion"
 	desc = "Converts a humanoid into a shadowperson, a race blessed by darkness."
