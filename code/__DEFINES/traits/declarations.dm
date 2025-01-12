@@ -327,5 +327,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
-
+#define TRAIT_NIGHT_VISION "gives_night_vision"
 // END TRAIT DEFINES
