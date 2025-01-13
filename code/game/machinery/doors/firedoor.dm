@@ -172,6 +172,11 @@
 			return
 	to_chat(user, "<span class='warning'>You try to pull the card reader. Nothing happens.</span>")
 
+/obj/machinery/door/firedoor/on_emag(mob/user)
+	..()
+	playsound(src, 'sound/machines/beep.ogg', 50, 1)
+	open()
+
 /obj/machinery/door/firedoor/proc/log_opening(obj/item/card/id/I, mob/user, safe)
 	var/safestate = "UNK_STATE:"
 	switch(safe)
