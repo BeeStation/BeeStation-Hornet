@@ -328,4 +328,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 #define TRAIT_NIGHT_VISION "night_vision"
+/// This trait does nothing and shoudn't ever do anything.
+/// Its the best way i see to add simple bool on a mob without messing with any variables and have trait functionality
+#define TRAIT_PROGRAMING_HELP "programers_help"
 // END TRAIT DEFINES

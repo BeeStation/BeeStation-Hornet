@@ -94,6 +94,8 @@
 	if(sect.night_vision_active)
 		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+			ADD_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_effect(mob/living/affected_mob)
@@ -101,11 +103,15 @@
 	if(!src.anchored)
 		return
 	if(sect.night_vision_active)
+		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+			ADD_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			return
 		else
 			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	else
+		if(HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+			REMOVE_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
 		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			return
 		else
@@ -115,15 +121,23 @@
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
 	if(!src.anchored)
 		return
-	if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
-		REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+	if(HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+		REMOVE_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
+		addtimer(CALLBACK(src, PROC_REF(process_nigth_vision_removal),affected_mob), 3 SECONDS)
+
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/process_nigth_vision_removal(mob/living/affected_mob)
+	if(!HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
+			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/unanchored_NV()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/mob/each_mob in range(src,sect.light_reach))
-		if(HAS_TRAIT_FROM(each_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
-			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+		if(HAS_TRAIT_FROM(each_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+			REMOVE_TRAIT(each_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
+			addtimer(CALLBACK(src, PROC_REF(process_nigth_vision_removal),each_mob), 3 SECONDS)
 	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
 
 
@@ -257,7 +271,7 @@
 /datum/religion_rites/shadow_obelisk
 	name = "Obelisk Manifestation"
 	desc = "Creates an obelisk that generates favor when in a dark area."
-	ritual_length = 20 SECONDS
+	ritual_length = 15 SECONDS
 	ritual_invocations = list(
 		"Let the shadows combine...",
 		"... Solidify and grow ...",
@@ -290,7 +304,7 @@
 /datum/religion_rites/expand_shadows
 	name = "Shadow Expansion"
 	desc = "Grow the reach of shadows extending from the altar, and any obelisks."
-	ritual_length = 30 SECONDS
+	ritual_length = 20 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
 		"... Kill the light ...",
