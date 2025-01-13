@@ -146,7 +146,12 @@
 
 // called to vent all gas in holder to a location
 /obj/structure/disposalholder/proc/vent_gas(turf/T)
-	T.assume_air(gas)
+	var/datum/gas_mixture/removed = gas.remove(gas.total_moles())
+	//Removed can be null if there is no atmosphere in gas variable
+	if(!removed)
+		return
+
+	T.assume_air(removed)
 
 /obj/structure/disposalholder/AllowDrop()
 	return TRUE
