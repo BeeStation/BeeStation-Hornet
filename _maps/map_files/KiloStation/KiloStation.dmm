@@ -22159,6 +22159,7 @@
 	pixel_x = 27;
 	pixel_y = -4
 	},
+/obj/item/rollerbed,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "fjZ" = (
@@ -56736,6 +56737,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/machinery/iv_drip,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "qtJ" = (
@@ -78566,13 +78568,11 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 26
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/computer/crew,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "xoe" = (

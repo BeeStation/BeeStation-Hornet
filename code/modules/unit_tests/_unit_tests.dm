@@ -58,6 +58,7 @@
 #include "quirks.dm"
 #include "random_ruin_mapsize.dm"
 #include "rcd.dm"
+#include "reagent_grinder.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
 #include "security_levels.dm"

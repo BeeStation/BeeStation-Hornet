@@ -42081,18 +42081,14 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "kTH" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
 	},
-/obj/item/stack/medical/gauze,
-/obj/item/clothing/under/rank/medical/doctor/purple{
-	pixel_y = -4
+/obj/machinery/computer/crew{
+	dir = 4
 	},
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
@@ -72671,6 +72667,13 @@
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 1
 	},
+/obj/item/clothing/under/rank/medical/doctor/purple{
+	pixel_y = -4
+	},
+/obj/item/stack/medical/gauze,
+/obj/item/reagent_containers/syringe,
+/obj/item/storage/firstaid/regular,
+/obj/item/rollerbed,
 /turf/open/floor/iron/white/smooth_corner,
 /area/security/brig)
 "wdQ" = (
