@@ -19966,6 +19966,7 @@
 	id = "toxinsdriver";
 	name = "Toxins Launcher Bay Door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/science/misc_lab)
 "fji" = (
@@ -62981,7 +62982,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/loading_area,
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/grid/steel,
 /area/science/misc_lab)
 "qjE" = (
