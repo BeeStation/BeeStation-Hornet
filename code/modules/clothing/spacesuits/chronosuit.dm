@@ -48,7 +48,6 @@
 
 /obj/item/clothing/suit/space/chronos/Initialize(mapload)
 	teleport_now.chronosuit = src
-	teleport_now.target = src
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
@@ -107,7 +106,7 @@
 			camera.remove_target_ui()
 			camera.forceMove(user)
 			user.reset_perspective(camera)
-		teleport_now.UpdateButtonIcon()
+		teleport_now.update_buttons()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(atom/location)
 	var/mob/living/carbon/human/user = src.loc
@@ -121,7 +120,7 @@
 		if(camera)
 			camera.remove_target_ui()
 
-		teleport_now.UpdateButtonIcon()
+		teleport_now.update_buttons()
 
 		var/list/nonsafe_slots = list(ITEM_SLOT_BELT, ITEM_SLOT_BACK)
 		var/list/exposed = list()
@@ -340,10 +339,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/chronos_target)
 	chronosuit = null
 	return ..()
 
-/datum/action/innate/chrono_teleport/IsAvailable()
+/datum/action/innate/chrono_teleport/is_available()
 	return (chronosuit && chronosuit.activated && chronosuit.camera && !chronosuit.teleporting)
 
-/datum/action/innate/chrono_teleport/Activate()
-	if(IsAvailable())
+/datum/action/innate/chrono_teleport/on_activate()
+	if(is_available())
 		if(chronosuit.camera)
 			chronosuit.chronowalk(chronosuit.camera)

@@ -65,6 +65,8 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define TELEPORT_CHANNEL_WORMHOLE "wormhole"
 /// Magic teleportation, does whatever it wants (unless there's antimagic)
 #define TELEPORT_CHANNEL_MAGIC "magic"
+/// Magic teleportation cast by the user
+#define TELEPORT_CHANNEL_MAGIC_SELF "magic_self"
 /// Cult teleportation, does whatever it wants (unless there's holiness)
 #define TELEPORT_CHANNEL_CULT "cult"
 /// Teleportation with only a sender, but not disrupted by the BOH

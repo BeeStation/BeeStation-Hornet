@@ -6900,18 +6900,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
-"bta" = (
-/obj/structure/table/wood/fancy,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/clothing/suit/hooded/chaplain_hoodie,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
-/obj/item/book/granter/spell/smoke/lesser,
-/turf/open/floor/iron/dark,
-/area/chapel/office)
 "btc" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/effect/turf_decal/tile/blue{
@@ -51958,16 +51946,24 @@
 	broken = 1
 	},
 /area/engine/engineering)
-"oOg" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
+"oNw" = (
+/obj/structure/table/wood/fancy,
+/obj/machinery/light/small{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
+"oNy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/iron,
-/area/security/brig/aft)
+/turf/open/space/basic,
+/area/space)
 "oOp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance{
@@ -98105,7 +98101,7 @@ tcA
 eJn
 uLN
 aEC
-oOg
+oNy
 bQH
 nKN
 fVc
@@ -106272,7 +106268,7 @@ tcB
 alf
 unx
 aWG
-bta
+oNw
 btC
 eAC
 uow
