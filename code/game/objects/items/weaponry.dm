@@ -29,13 +29,13 @@ oranges says: This is a meme relating to the english translation of the ss13 rus
 mrdoombringer sez: and remember kids, if you try and PR a fix for this item's grammar, you are admitting that you are, indeed, a newfriend.
 for further reading, please see: https://github.com/tgstation/tgstation/pull/30173 and https://translate.google.com/translate?sl=auto&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=%2F%2Flurkmore.to%2FSS13&edit-text=&act=url
 */
-/obj/item/banhammer/attack(mob/M, mob/user)
+/obj/item/banhammer/attack(mob/M, mob/living/user)
 	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = FALSE))
 		M.visible_message("<span class='danger'>[user] are stroking the head of [M] with a bangammer</span>", "<span class='userdanger'>[user] are stroking the head with a bangammer</span>", "you hear a bangammer stroking a head");
 	else
 		M.visible_message("<span class='danger'>[M] has been banned FOR NO REISIN by [user]</span>", "<span class='userdanger'>You have been banned FOR NO REISIN by [user]</span>", "you hear a banhammer banning someone")
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
-	if(user.a_intent != INTENT_HELP)
+	if(user.combat_mode)
 		return ..(M, user)
 
 /obj/item/sord
@@ -880,7 +880,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
 	return
 
-/obj/item/slapper/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/slapper/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/structure/table))
 		return ..()
 
@@ -889,7 +889,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(!proximity_flag)
 		return
 
-	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
+	if(user.combat_mode && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
 		transform = transform.Scale(5) // BIG slap
 		if(HAS_TRAIT(user, TRAIT_HULK))
 			transform = transform.Scale(2)
@@ -931,12 +931,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "\improper ACME Extendo-Hand"
 	desc = "A novelty extendo-hand produced by the ACME corporation. Originally designed to knock out roadrunners."
 
-/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user)
+/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user, params)
 	var/dist = get_dist(M, user)
 	if(dist < reach)
 		to_chat(user, "<span class='warning'>[M] is too close to use [src] on.</span>")
 		return
-	M.attack_hand(user)
+	var/list/modifiers = params2list(params)
+	M.attack_hand(user, modifiers)
 
 
 /obj/item/highfive

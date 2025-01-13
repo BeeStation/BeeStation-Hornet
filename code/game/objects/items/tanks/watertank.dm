@@ -171,7 +171,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	amount_per_transfer_from_this = 50
-	possible_transfer_amounts = list(25,50,100)
+	possible_transfer_amounts = list(50)
+	can_toggle_range = FALSE
 	volume = 500
 	item_flags = NOBLUDGEON | ABSTRACT | ISWEAPON  // don't put in storage
 	slot_flags = 0
@@ -184,9 +185,6 @@
 	if(!istype(tank))
 		return INITIALIZE_HINT_QDEL
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-
-/obj/item/reagent_containers/spray/mister/attack_self()
-	return
 
 /obj/item/reagent_containers/spray/mister/doMove(atom/destination)
 	if(destination && (destination != tank?.loc || !ismob(destination)))
@@ -223,13 +221,12 @@
 	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = list(5,10)
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
+/obj/item/reagent_containers/spray/mister/janitor/mode_change_message(mob/user)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK

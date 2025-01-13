@@ -17,7 +17,7 @@
 	icon_living = "daemon"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speed = 1
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/magic/demon_attack1.ogg'

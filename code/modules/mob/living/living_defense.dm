@@ -85,6 +85,20 @@
 		else
 				return 0
 
+/mob/living/proc/set_combat_mode(new_mode, silent = TRUE)
+	if(combat_mode == new_mode)
+		return
+	. = combat_mode
+	combat_mode = new_mode
+	if(hud_used?.action_intent)
+		hud_used.action_intent.update_appearance()
+	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
+		return
+	if(combat_mode)
+		SEND_SOUND(src, sound('sound/misc/ui_togglecombat.ogg', volume = 25)) //Sound from interbay!
+	else
+		SEND_SOUND(src, sound('sound/misc/ui_toggleoffcombat.ogg', volume = 25)) //Slightly modified version of the above
+
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
@@ -132,6 +146,9 @@
 	adjust_fire_stacks(3)
 	IgniteMob()
 
+/**
+ * Called when this mob is grabbed by another mob.
+ */
 /mob/living/proc/grabbedby(mob/living/user, supress_message = FALSE)
 	. = TRUE
 	if(user == src || anchored || !isturf(user.loc))
@@ -175,9 +192,6 @@
 				return FALSE
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
 				return FALSE
-			if(user.a_intent != INTENT_GRAB)
-				to_chat(user, "<span class='notice'>You must be on grab intent to upgrade your grab further!</span>")
-				return FALSE
 		user.setGrabState(user.grab_state + 1)
 		switch(user.grab_state)
 			if(GRAB_AGGRESSIVE)
@@ -211,7 +225,7 @@
 		return TRUE
 
 
-/mob/living/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(!SSticker.HasRoundStarted())
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
@@ -279,7 +293,7 @@
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return FALSE
 
-	if (M.a_intent == INTENT_HARM)
+	if (M.combat_mode)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
 			return FALSE
@@ -296,53 +310,47 @@
 		return TRUE
 	return FALSE
 
-/mob/living/attack_larva(mob/living/carbon/alien/larva/L)
-	switch(L.a_intent)
-		if("help")
-			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>", \
-							"<span class='notice'>[L.name] rubs its head against you.</span>", null, null, L)
-			to_chat(L, "<span class='notice'>You rub your head against [src].</span>")
-			return FALSE
+/mob/living/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
+	if(L.combat_mode)
+		if(HAS_TRAIT(L, TRAIT_PACIFISM))
+			to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+			return
 
+		L.do_attack_animation(src)
+		if(prob(90))
+			log_combat(L, src, "attacked")
+			visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
+							"<span class='userdanger'>[L.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, L)
+			to_chat(L, "<span class='danger'>You bite [src]!</span>")
+			playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
+			return TRUE
 		else
-			if(HAS_TRAIT(L, TRAIT_PACIFISM))
-				to_chat(L, "<span class='notice'>You don't want to hurt anyone!</span>")
-				return
-
-			L.do_attack_animation(src)
-			if(prob(90))
-				log_combat(L, src, "attacked")
-				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
-								"<span class='userdanger'>[L.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, L)
-				to_chat(L, "<span class='danger'>You bite [src]!</span>")
-				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
-				return TRUE
-			else
-				visible_message("<span class='danger'>[L.name]'s bite misses [src]!</span>", \
-								"<span class='danger'>You avoid [L.name]'s bite!</span>", "<span class='hear'>You hear the sound of jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, L)
-				to_chat(L, "<span class='warning'>Your bite misses [src]!</span>")
+			visible_message("<span class='danger'>[L.name]'s bite misses [src]!</span>", \
+							"<span class='danger'>You avoid [L.name]'s bite!</span>", "<span class='hear'>You hear the sound of jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, L)
+			to_chat(L, "<span class='warning'>Your bite misses [src]!</span>")
+	else
+		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>", \
+						"<span class='notice'>[L.name] rubs its head against you.</span>", null, null, L)
+		to_chat(L, "<span class='notice'>You rub your head against [src].</span>")
+		return FALSE
 	return FALSE
 
-/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M)
-	switch(M.a_intent)
-		if ("help")
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
-							"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
-			to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+		return TRUE
+	if(M.combat_mode)
+		if(HAS_TRAIT(M, TRAIT_PACIFISM))
+			to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
 			return FALSE
-		if ("grab")
-			grabbedby(M)
-			return FALSE
-		if("harm")
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
-				return FALSE
-			M.do_attack_animation(src)
-			return TRUE
-		if("disarm")
-			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return TRUE
+		M.do_attack_animation(src)
+		return TRUE
+	else
+		visible_message("<span class='notice'>[M] caresses [src] with its scythe-like arm.</span>", \
+						"<span class='notice'>[M] caresses you with its scythe-like arm.</span>", null, null, M)
+		to_chat(M, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
+		return FALSE
 
 /mob/living/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))

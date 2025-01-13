@@ -46,8 +46,8 @@
 	sleep(20) //dramatic pause
 	return TOXLOSS
 
-/obj/item/reagent_containers/cup/soda_cans/attack(mob/M, mob/user)
-	if(iscarbon(M) && !reagents.total_volume && user.a_intent == INTENT_HARM && user.is_zone_selected(BODY_ZONE_HEAD))
+/obj/item/reagent_containers/cup/soda_cans/attack(mob/M, mob/living/user)
+	if(iscarbon(M) && !reagents.total_volume && user.combat_mode && user.is_zone_selected(BODY_ZONE_HEAD))
 		if(M == user)
 			user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
 		else
@@ -126,6 +126,14 @@
 /obj/item/reagent_containers/cup/soda_cans/attack_self(mob/user)
 	if(!is_drainable())
 		open_soda(user)
+		return
+	return ..()
+
+/obj/item/reagent_containers/cup/soda_cans/attack_self_secondary(mob/user)
+	if(!is_drainable())
+		playsound(src, 'sound/effects/can_shake.ogg', 50, TRUE)
+		user.visible_message("<span class='danger'>[user] shakes [src]!</span>", "<span class='danger'>You shake up [src]!</span>", vision_distance=2)
+		fizziness += SODA_FIZZINESS_SHAKE
 		return
 	return ..()
 

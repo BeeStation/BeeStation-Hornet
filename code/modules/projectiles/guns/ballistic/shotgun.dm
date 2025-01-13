@@ -334,51 +334,39 @@
 	slot_flags = ITEM_SLOT_BELT
 	recoil = SAWN_OFF_RECOIL
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook
+/obj/item/gun/ballistic/shotgun/hook
 	name = "hook modified sawn-off shotgun"
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
+	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	worn_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
-	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	can_sawoff = FALSE
-	force = 10 //it has a hook on it
+	semi_auto = TRUE
+	flags_1 = CONDUCT_1
+	force = 18 //it has a hook on it
+	sharpness = SHARP //it does in fact, have a hook on it
 	attack_verb_continuous = list("slashes", "hooks", "stabs")
 	attack_verb_simple = list("slash", "hook", "stab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	//our hook gun!
 	var/obj/item/gun/magic/hook/bounty/hook
-	var/toggled = FALSE
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/Initialize(mapload)
+/obj/item/gun/ballistic/shotgun/hook/Initialize(mapload)
 	. = ..()
 	hook = new /obj/item/gun/magic/hook/bounty(src)
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/AltClick(mob/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-	if(toggled)
-		to_chat(user,"<span class='notice'>You switch to the shotgun.</span>")
-		fire_sound = initial(fire_sound)
-	else
-		to_chat(user,"<span class='notice'>You switch to the hook.</span>")
-		fire_sound = 'sound/weapons/batonextend.ogg'
-	toggled = !toggled
-
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/examine(mob/user)
+/obj/item/gun/ballistic/shotgun/hook/examine(mob/user)
 	. = ..()
-	if(toggled)
-		. += "<span class='notice'>Alt-click to switch to the shotgun.</span>"
-	else
-		. += "<span class='notice'>Alt-click to switch to the hook.</span>"
+	. += "<span class='notice'>Right-click to shoot the hook.</span>"
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/afterattack(atom/target, mob/living/user, flag, params)
-	if(toggled)
-		hook.afterattack(target, user, flag, params)
-	else
-		return ..()
+/obj/item/gun/ballistic/shotgun/hook/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	hook.afterattack(target, user, proximity_flag, click_parameters)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Lever action shotgun, formerly on thefactory.dm
 

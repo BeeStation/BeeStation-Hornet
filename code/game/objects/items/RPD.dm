@@ -538,7 +538,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 						P.update()
 						P.add_fingerprint(usr)
-						P.setPipingLayer(piping_layer)
+						P.set_piping_layer(piping_layer)
 						if(findtext("[queued_p_type]", "/obj/machinery/atmospherics/pipe") && !findtext("[queued_p_type]", "layer_manifold"))
 							P.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY)
 						if(mode & WRENCH_MODE)
@@ -591,8 +591,8 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 						tube.setDir(queued_p_dir)
 
 						if(queued_p_flipped)
-							tube.setDir(turn(queued_p_dir, 45))
-							tube.simple_rotate_flip()
+							tube.setDir(turn(queued_p_dir, 45 + ROTATION_FLIP))
+							tube.AfterRotation(user, ROTATION_FLIP)
 
 						tube.add_fingerprint(usr)
 						if(mode & WRENCH_MODE)

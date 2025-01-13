@@ -74,7 +74,7 @@
 		to_chat(user, "<span class='notice'>[src] cannot be used unless bolted to the ground.</span>")
 		return
 
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(!iscarbon(L))
 			to_chat(user, "<span class='danger'>This item is not suitable for the gibber!</span>")
@@ -124,8 +124,9 @@
 	set category = "Object"
 	set name = "empty gibber"
 	set src in oview(1)
-
 	if(usr.incapacitated())
+		return
+	if(!usr.canUseTopic())
 		return
 	src.go_out()
 	add_fingerprint(usr)

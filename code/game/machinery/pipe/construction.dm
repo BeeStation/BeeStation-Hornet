@@ -37,10 +37,6 @@ Buildable meters
 /obj/item/pipe/quaternary
 	RPD_type = PIPE_ONEDIR
 
-/obj/item/pipe/ComponentInitialize()
-	//Flipping handled manually due to custom handling for trinary pipes
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE)
-
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 
 /obj/item/pipe/Initialize(mapload, _pipe_type, _dir, obj/machinery/atmospherics/make_from)
@@ -53,6 +49,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	update()
 	pixel_x += rand(-5, 5)
 	pixel_y += rand(-5, 5)
+
+	//Flipping handled manually due to custom handling for trinary pipes
+	AddComponent(/datum/component/simple_rotation, ROTATION_NO_FLIPPING)
 	return ..()
 
 /obj/item/pipe/proc/make_from_existing(obj/machinery/atmospherics/make_from)
@@ -70,9 +69,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 /obj/item/pipe/dropped()
 	..()
 	if(loc)
-		setPipingLayer(piping_layer)
+		set_piping_layer(piping_layer)
 
-/obj/item/pipe/proc/setPipingLayer(new_layer = PIPING_LAYER_DEFAULT)
+/obj/item/pipe/proc/set_piping_layer(new_layer = PIPING_LAYER_DEFAULT)
 	var/obj/machinery/atmospherics/fakeA = pipe_type
 
 	if(initial(fakeA.pipe_flags) & PIPING_ALL_LAYER)
@@ -91,7 +90,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 
 /obj/item/pipe/verb/flip()
 	set category = "Object"
-	set name = "Flip Pipe"
+	set name = "Invert Pipe"
 	set src in view(1)
 
 	if(usr.incapacitated() || !isliving(usr))
@@ -189,6 +188,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 			sleep(5)
 		C.blood_volume = 0
 	return(OXYLOSS|BRUTELOSS)
+
+/obj/item/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The pipe layer is set to [piping_layer].</span>"
+	. += "<span class='notice'>You can change the pipe layer by Right-Clicking the device.</span>"
+
+/obj/item/pipe/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	var/layer_to_set = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
+	set_piping_layer(layer_to_set)
+	balloon_alert(user, "pipe layer set to [piping_layer]")
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/pipe/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
+/obj/item/pipe/trinary/flippable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can flip the device by Right-Clicking it.</span>"
+
+/obj/item/pipe/trinary/flippable/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	do_a_flip()
+	balloon_alert(user, "pipe was flipped")
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/pipe_meter
 	name = "meter"

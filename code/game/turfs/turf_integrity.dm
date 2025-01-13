@@ -204,7 +204,7 @@
 /turf/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if (!can_hit)
 		return ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		..(user, 1)
 		user.visible_message("<span class='danger'>[user] smashes [src]!</span>", "<span class='danger'>You smash [src]!</span>", null, COMBAT_MESSAGE_RANGE)
 		if(density)

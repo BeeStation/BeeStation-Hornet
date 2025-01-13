@@ -171,10 +171,9 @@ have ways of interacting with a specific mob and control it.
 
 /datum/ai_controller/monkey/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
-	if(user.a_intent == INTENT_HARM && prob(MONKEY_RETALIATE_HARM_PROB))
+	if(prob(MONKEY_RETALIATE_PROB))
 		retaliate(user)
-	else if(user.a_intent == INTENT_DISARM && prob(MONKEY_RETALIATE_DISARM_PROB))
-		retaliate(user)
+
 
 /datum/ai_controller/monkey/proc/on_attack_paw(datum/source, mob/living/user)
 	SIGNAL_HANDLER

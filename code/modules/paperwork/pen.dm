@@ -137,7 +137,7 @@
 		return
 
 	if(!force)
-		if(M.can_inject(user, 1))
+		if(M.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
 			if(!stealth)
 				to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
@@ -223,11 +223,15 @@
 /obj/item/pen/edagger
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	sharpness = SHARP
 	var/on = FALSE
 
 /obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/edagger.ogg', TRUE)
+	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/blade1.ogg')
+
+/obj/item/pen/edagger/is_sharp()
+	return on * sharpness
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -257,8 +261,6 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 	updateEmbedding()
-	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
-	butchering.butchering_enabled = on
 	update_icon()
 
 /obj/item/pen/edagger/update_icon()

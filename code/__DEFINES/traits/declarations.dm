@@ -202,6 +202,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
  */
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
+/// Properly wielded two handed item
+#define TRAIT_WIELDED "wielded"
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
