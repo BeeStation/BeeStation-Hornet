@@ -288,8 +288,12 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
 	var/mob/living/carbon/offerer
-	var/mob/living/carbon/taker
 	var/obj/item/receiving
+
+/atom/movable/screen/alert/give/Destroy()
+	offerer = null
+	receiving = null
+	return ..()
 
 /**
  * Handles assigning most of the variables for the alert that pops up when an item is offered
@@ -309,7 +313,6 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.offerer = offerer
-	src.taker = taker
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
@@ -319,10 +322,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
 /atom/movable/screen/alert/give/proc/handle_transfer()
-	var/mob/living/carbon/taker = owner || src.taker
-	if(!taker)
-		qdel(src)
-		return
+	var/mob/living/carbon/taker = owner
 	taker.take(offerer, receiving)
 
 /// Gives the player the option to succumb while in critical condition
