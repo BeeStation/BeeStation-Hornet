@@ -138,9 +138,10 @@
 			user.do_attack_animation(src)
 			return
 		else
-			for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
-				if(locate(src) in range(6,D) && D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eaother!</span>")
+			var/list/current_objects = view_or_range(5, src, "range")
+			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
+				if(D.anchored)
+					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eachother!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -150,9 +151,10 @@
 			return
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if (!anchored)
-			for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
-				if(locate(src) in range(6,D) && D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eaother!</span>")
+			var/list/current_objects = view_or_range(5, src, "range")
+			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
+				if(D.anchored)
+					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eachother!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -163,6 +165,7 @@
 			to_chat(user,"<span class='warning'>You feel like only nullrod coudl move this obelisc.</span>")
 		return
 	return ..()
+
 
 
 // Favor generator component. Used on the altar and obelisks
