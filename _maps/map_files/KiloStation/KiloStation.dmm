@@ -48004,7 +48004,7 @@
 	},
 /area/hallway/primary/port)
 "nFL" = (
-/obj/structure/closet/secure_closet/RD,
+/obj/structure/closet/secure_closet/research_director,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28
 	},

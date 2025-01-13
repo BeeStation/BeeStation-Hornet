@@ -531,7 +531,6 @@
 	armor_type = /datum/armor/beret_med
 	strip_delay = 60
 
-
 /datum/armor/beret_med
 	bio = 20
 
@@ -541,6 +540,43 @@
 	icon_state = "beret_cmo"
 	armor_type = /datum/armor/beret_cmo
 	strip_delay = 60
+
+/obj/item/clothing/head/utility/surgerycap
+	name = "blue surgery cap"
+	icon_state = "surgicalcap"
+	desc = "A blue medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+	flags_inv = HIDEHAIR //Cover your head doctor!
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/head/utility/surgerycap/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "loosening" : "tightening"] strings...")
+	if(!do_after(user, 3 SECONDS, src))
+		return
+	flags_inv ^= HIDEHAIR
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened "] strings")
+	return TRUE
+
+/obj/item/clothing/head/utility/surgerycap/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use in hand to [flags_inv & HIDEHAIR ? "loosen" : "tighten"] the strings.</span>"
+
+/obj/item/clothing/head/utility/surgerycap/purple
+	name = "burgundy surgery cap"
+	icon_state = "surgicalcapwine"
+	desc = "A burgundy medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+
+/obj/item/clothing/head/utility/surgerycap/green
+	name = "green surgery cap"
+	icon_state = "surgicalcapgreen"
+	desc = "A green medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+
+/obj/item/clothing/head/utility/surgerycap/cmo
+	name = "turquoise surgery cap"
+	icon_state = "surgicalcapcmo"
+	desc = "The CMO's medical surgery cap to prevent their hair from entering the insides of the patient!"
 
 //CentCom
 
