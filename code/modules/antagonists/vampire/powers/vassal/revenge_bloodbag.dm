@@ -26,7 +26,6 @@
 /datum/action/cooldown/vampire/vassal_blood/ActivatePower(trigger_flags)
 	var/blood_bag = locate(/obj/item/reagent_containers/blood) in owner.held_items
 	if(blood_bag)
-		var/mob/living/living_owner = owner
 		QDEL_NULL(blood_bag)
 		var/obj/item/reagent_containers/blood/OMinus/vampire/new_bag = new(owner.loc)
 		owner.put_in_active_hand(new_bag)

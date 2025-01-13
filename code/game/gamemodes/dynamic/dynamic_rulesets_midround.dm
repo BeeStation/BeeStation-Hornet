@@ -313,6 +313,7 @@
 	living_players -= selected_mobs
 	var/datum/mind/candidate_mind = selected_mobs.mind
 	candidate_mind.make_vampire()
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(candidate_mind.current)
 	vampiredatum.vampire_level_unspent = rand(2,3)
 	message_admins("[ADMIN_LOOKUPFLW(selected_mobs)] was selected by the [name] ruleset and has been made into a midround Vampire.")
 	log_game("DYNAMIC: [key_name(selected_mobs)] was selected by the [name] ruleset and has been made into a midround Vampire.")
