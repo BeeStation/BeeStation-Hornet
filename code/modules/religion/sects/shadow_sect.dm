@@ -6,7 +6,7 @@
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
 	favor = 0
-	max_favor = 50000
+	max_favor = 100000
 	desired_items = list(
 		/obj/item/flashlight)
 	rites_list = list(
@@ -52,58 +52,79 @@
 	max_integrity = 300
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/datum/proximity_monitor/proximity_mon
+	var/list/affected_mobs = list()
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
 	. = ..()
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(!proximity_mon)
-		proximity_mon = new(src, sect.light_reach, FALSE)
-
-	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
-	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exited))
-
+	START_PROCESSING(SSobj, src)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.obelisk_number = sect.obelisk_number - 1
 	STOP_PROCESSING(SSobj, src)
+	for(var/X in affected_mobs)
+		on_mob_leave(X)
 	return ..()
 
 
-/obj/structure/destructible/religion/shadow_obelisk/proc/on_entered(datum/source, atom/movable/AM)
+/obj/structure/destructible/religion/shadow_obelisk/process()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if (ismob(AM))
+	if(!src.anchored)
 		return
-	if (sect.night_vision_active)
-		ADD_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+	var/list/current_mobs = view_or_range(sect.light_reach, src, "range")
+	for(var/mob/living/mob_in_range in current_mobs)
+		if(!(mob_in_range in affected_mobs))
+			on_mob_enter(mob_in_range)
+			affected_mobs[mob_in_range] = 0
+
+		affected_mobs[mob_in_range]++
+		on_mob_effect(mob_in_range)
+
+	for(var/M in affected_mobs - current_mobs)
+		on_mob_leave(M)
+		affected_mobs -= M
 
 
-/obj/structure/destructible/religion/shadow_obelisk/proc/change_of_NV()
+/obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_enter(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!src.anchored)
+		return
 	if(sect.night_vision_active)
-		for(var/mob/each_mob in range(src,sect.light_reach))
-			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
+			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_effect(mob/living/affected_mob)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!src.anchored)
+		return
+	if(sect.night_vision_active)
+		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
+			return
+		else
+			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	else
-		for(var/mob/each_mob in range(src,sect.light_reach))
-			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
+			return
+		else
+			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
+	if(!src.anchored)
+		return
+	if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
+		REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/unanchored_NV()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.night_vision_active)
-		for(var/mob/each_mob in range(src,sect.light_reach))
+	for(var/mob/each_mob in range(src,sect.light_reach))
+		if(HAS_TRAIT_FROM(each_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
-	src.proximity_mon.set_range(0)
-
-/obj/structure/destructible/religion/shadow_obelisk/proc/on_exited(datum/source, atom/movable/AM)
-	if (ismob(AM))
-		return
-	if (HAS_TRAIT_FROM(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT))
-		REMOVE_TRAIT(AM,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
@@ -117,29 +138,32 @@
 			user.do_attack_animation(src)
 			return
 		else
+			for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
+				if(locate(src) in range(6,D) && D.anchored)
+					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eaother!</span>")
+					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-			src.proximity_mon.set_range(sect.light_reach,)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 			return
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if (!anchored)
+			for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
+				if(locate(src) in range(6,D) && D.anchored)
+					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eaother!</span>")
+					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-			src.proximity_mon.set_range(sect.light_reach)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 		else
-			to_chat(user,"<span class='notice'>You feel like only nullrod coudl move this obelisc.</span>")
+			to_chat(user,"<span class='warning'>You feel like only nullrod coudl move this obelisc.</span>")
 		return
 	return ..()
 
-//if(locate(/obj/structure/destructible/religion/shadow_obelisk) in range(6,get_turf()))
-//		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
-//		return
 
 // Favor generator component. Used on the altar and obelisks
 /datum/component/dark_favor
@@ -297,7 +321,6 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-			D.proximity_mon.set_range(sect.light_reach)
 
 
 /datum/religion_rites/nigth_vision_aura
@@ -315,11 +338,6 @@
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.night_vision_active = !sect.night_vision_active
-	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
-		for(var/mob/each_mob in range(D, sect.light_reach))
-			ADD_TRAIT(each_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
-
-
 
 
 #undef DARKNESS_INVERSE_COLOR
