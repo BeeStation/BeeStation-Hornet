@@ -96,7 +96,7 @@
 	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
 	var/datum/alarm_handler/alarm_manager
 
-	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = PROC_REF(check_air_dangerlevel)) //STOP NAGGING ME
+	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = PROC_REF(check_air_dangerlevel))
 
 	var/list/TLV = list( // Breathable air.
 		"pressure"		= new/datum/tlv(HAZARD_LOW_PRESSURE, WARNING_LOW_PRESSURE, WARNING_HIGH_PRESSURE, HAZARD_HIGH_PRESSURE), // kPa. Values are hazard_min, warning_min, warning_max, hazard_max
@@ -350,7 +350,7 @@
 				investigate_log(" threshold value for [env]:[name] was set to [value] by [key_name(usr)]", INVESTIGATE_ATMOS)
 				var/turf/our_turf = get_turf(src)
 				var/datum/gas_mixture/environment = our_turf.return_air()
-				check_air_dangerlevel(our_turf, environment, environment.return_temperature())
+				check_air_dangerlevel(our_turf, environment, environment.return_temperature()) //this one works
 				. = TRUE
 		if("mode")
 			mode = text2num(params["mode"])
@@ -375,7 +375,7 @@
 			if(!wires.is_cut(WIRE_POWER))
 				shorted = FALSE
 				wires.ui_update()
-				update_icon()
+				update_icon_state()
 		if(WIRE_AI)
 			if(!wires.is_cut(WIRE_AI))
 				aidisabled = FALSE
@@ -549,7 +549,6 @@
 
 /obj/machinery/airalarm/update_appearance(updates)
 	. = ..()
-
 	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted)
 		set_light(0)
 		return
@@ -635,7 +634,7 @@
 
 	if(old_danger_level != danger_level)
 		INVOKE_ASYNC(src, PROC_REF(apply_danger_level))
-	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
+s	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
 		INVOKE_ASYNC(src, PROC_REF(apply_mode), src)
 
@@ -688,13 +687,13 @@
 				to_chat(user, "<span class='notice'>You cut the final wires.</span>")
 				new /obj/item/stack/cable_coil(loc, 5)
 				buildstage = 1
-				update_icon()
+				update_icon_state()
 				return
 			else if(W.tool_behaviour == TOOL_SCREWDRIVER)  // Opening that Air Alarm up.
 				W.play_tool_sound(src)
 				panel_open = !panel_open
 				to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
-				update_icon()
+				update_icon_state()
 				return
 			else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda))// trying to unlock the interface with an ID card
 				togglelock(user)
@@ -713,7 +712,7 @@
 						new /obj/item/electronics/airalarm( src.loc )
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 						buildstage = 0
-						update_icon()
+						update_icon_state()
 				return
 
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -734,14 +733,14 @@
 						shorted = 0
 						post_alert(0)
 						buildstage = 2
-						update_icon()
+						update_icon_state()
 				return
 		if(0)
 			if(istype(W, /obj/item/electronics/airalarm))
 				if(user.temporarilyRemoveItemFromInventory(W))
 					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
 					buildstage = 1
-					update_icon()
+					update_icon_state()
 					qdel(W)
 				return
 
@@ -752,7 +751,7 @@
 				user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 				"<span class='notice'>You adapt an air alarm circuit and slot it into the assembly.</span>")
 				buildstage = 1
-				update_icon()
+				update_icon_state()
 				return
 
 			if(W.tool_behaviour == TOOL_WRENCH)
@@ -775,7 +774,7 @@
 			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class='notice'>You adapt an air alarm circuit and slot it into the assembly.</span>")
 			buildstage = 1
-			update_icon()
+			update_icon_state()
 			return TRUE
 	return FALSE
 
@@ -804,7 +803,7 @@
 
 /obj/machinery/airalarm/atom_break(damage_flag)
 	..()
-	update_icon()
+	update_icon_state()
 
 /obj/machinery/airalarm/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
