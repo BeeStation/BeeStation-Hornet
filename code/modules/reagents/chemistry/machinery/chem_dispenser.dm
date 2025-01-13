@@ -396,6 +396,7 @@
 	if(beaker)
 		try_put_in_hand(beaker, user)
 		beaker = null
+		update_appearance()
 	if(new_beaker)
 		beaker = new_beaker
 	update_appearance()
