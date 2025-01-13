@@ -104,7 +104,7 @@
 /area/template_noop)
 "L" = (
 /obj/structure/kitchenspike{
-	contents = list(/obj/effect/mob_spawn/human)
+	contents = list(/obj/effect/mob_spawn/corpse/human)
 	},
 /turf/open/floor/iron/freezer,
 /area/template_noop)
