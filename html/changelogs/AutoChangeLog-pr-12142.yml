@@ -1,5 +1,0 @@
-author: Geatish
-delete-after: true
-changes:
-  - bugfix: writing a caption after taking a picture has now the correct 256 character
-      limit.
