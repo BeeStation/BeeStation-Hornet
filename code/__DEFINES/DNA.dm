@@ -50,6 +50,7 @@
 #define GELADIKINESIS		/datum/mutation/geladikinesis
 #define CRYOKINESIS /datum/mutation/cryokinesis
 #define CLUWNEMUT   /datum/mutation/cluwne
+#define CURSEDCLUWNEMUT	/datum/mutation/cluwne/cursed
 #define WAXSALIVA   /datum/mutation/wax_saliva
 #define STRONGWINGS /datum/mutation/strongwings
 #define CATCLAWS    /datum/mutation/catclaws

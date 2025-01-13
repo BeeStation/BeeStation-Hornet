@@ -77,7 +77,7 @@
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
 					/obj/item/clothing/head/soft/cargo,
-					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
+					/obj/item/clothing/mask/bandana/skull/black)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
 
@@ -1099,6 +1099,17 @@
 	crate_name = "power cell crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
+/datum/supply_pack/engineering/sealant
+	name = "Engine Sealant Crate"
+	desc = "Nuclear reactor looking a bit cracked? Don't be afraid to slap on some NT brand sealant to patch those holes right up!"
+	cost = 1000
+	max_supply = 1
+	contains = list(/obj/item/sealant,
+					/obj/item/sealant,
+					/obj/item/sealant)
+	crate_name = "sealant crate"
+	crate_type = /obj/structure/closet/crate/engineering/
+
 /datum/supply_pack/engineering/shuttle_engine
 	name = "Shuttle Engine Crate"
 	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
@@ -1124,6 +1135,20 @@
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
 	crate_name = "toolbox crate"
+
+/datum/supply_pack/engineering/fuel_rods
+	name = "Uranium Fuel Rod Crate"
+	desc = "A five nuclear reactor grade fuel rod crate. Warning: Due to budget constraints, this crate is not lead-lined! Wear radiation protection around this crate."
+	cost = 3000
+	max_supply = 2
+	access_budget = ACCESS_ENGINE
+	contains = list(/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod)
+	crate_name = "fuel rod crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_pack/engineering/vending/engineering
 	name = "Engineering Vending Crate"
@@ -1335,6 +1360,28 @@
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
 	crate_name = "collector crate"
+
+/datum/supply_pack/engine/nuclear_reactor
+	name = "RBMK Nuclear Reactor Engine Crate"
+	desc = "Contains the boards for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
+	cost = 7000
+	max_supply = 1
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
+	contains = list(/obj/item/RBMK_box/core,
+					/obj/item/RBMK_box/body/coolant_input,
+					/obj/item/RBMK_box/body/moderator_input,
+					/obj/item/RBMK_box/body/waste_output,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/circuitboard/computer/control_rods,
+					/obj/item/book/manual/wiki/rbmk)
+	crate_name = "nuclear engine crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
 
 /datum/supply_pack/engine/sing_gen
 	name = "Singularity Generator Crate"
@@ -2000,10 +2047,12 @@
 	max_supply = 4
 	access = ACCESS_TELEPORTER
 	access = ACCESS_TELEPORTER
-	contains = list(/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen)
+	contains = list(
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen,
+		/obj/machinery/power/shieldwallgen
+	)
 	crate_name = "shield generators crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 

@@ -286,6 +286,10 @@
 /obj/item/reagent_containers/cup/beaker/synthflesh
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 50)
 
+/obj/item/reagent_containers/cup/beaker/large/nanites
+	name = "suspicious nanite reserve tank"
+	list_reagents = list(/datum/reagent/medicine/leporazine = 30, /datum/reagent/medicine/syndicate_nanites = 40, /datum/reagent/medicine/stabilizing_nanites = 30)
+
 /obj/item/reagent_containers/cup/bucket
 	name = "bucket"
 	desc = "It's a bucket."
@@ -303,7 +307,7 @@
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50, STAMINA = 0, BLEED = 0) //Weak melee protection, because you can wear it on your head
+	armor_type = /datum/armor/cup_bucket
 	slot_equipment_priority = list( \
 		ITEM_SLOT_BACK, ITEM_SLOT_ID,\
 		ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
@@ -314,6 +318,12 @@
 		ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET,\
 		ITEM_SLOT_DEX_STORAGE
 	)
+
+
+/datum/armor/cup_bucket
+	melee = 10
+	fire = 75
+	acid = 50
 
 /obj/item/reagent_containers/cup/bucket/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/mop))
@@ -354,129 +364,6 @@
 		slot_equipment_priority.Insert(index, ITEM_SLOT_HEAD)
 		return
 	return ..()
-
-/obj/item/reagent_containers/cup/waterbottle
-	name = "bottle of water"
-	desc = "A bottle of water filled at an old Earth bottling facility."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "smallbottle"
-	item_state = "bottle"
-	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
-	custom_materials = list(/datum/material/glass=0)
-	volume = 50
-	amount_per_transfer_from_this = 10
-	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
-
-	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
-	var/cap_icon_state = "bottle_cap_small"
-	var/cap_on = TRUE
-	var/cap_lost = FALSE
-	var/mutable_appearance/cap_overlay
-	var/flip_chance = 10
-
-/obj/item/reagent_containers/cup/waterbottle/Initialize(mapload)
-	. = ..()
-	cap_overlay = mutable_appearance(icon, cap_icon_state)
-	if(cap_on)
-		spillable = FALSE
-		update_icon()
-
-/obj/item/reagent_containers/cup/waterbottle/update_overlays()
-	. = ..()
-	if(cap_on)
-		. += cap_overlay
-
-/obj/item/reagent_containers/cup/waterbottle/examine(mob/user)
-	. = ..()
-	if(cap_lost)
-		. += "<span class='notice'>The cap seems to be missing.</span>"
-	else if(cap_on)
-		. += "<span class='notice'>The cap is firmly on to prevent spilling. Alt-click to remove the cap.</span>"
-	else
-		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
-
-/obj/item/reagent_containers/cup/waterbottle/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(cap_lost)
-		to_chat(user, "<span class='warning'>The cap seems to be missing! Where did it go?</span>")
-		return
-
-	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
-	if(cap_on || fumbled)
-		cap_on = FALSE
-		spillable = TRUE
-		animate(src, transform = null, time = 2, loop = 0)
-		if(fumbled)
-			to_chat(user, "<span class='warning'>You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?</span>")
-			cap_lost = TRUE
-		else
-			to_chat(user, "<span class='notice'>You remove the cap from [src].</span>")
-	else
-		cap_on = TRUE
-		spillable = FALSE
-		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
-	update_icon()
-
-/obj/item/reagent_containers/cup/waterbottle/is_refillable()
-	if(cap_on)
-		return FALSE
-	. = ..()
-
-/obj/item/reagent_containers/cup/waterbottle/is_drainable()
-	if(cap_on)
-		return FALSE
-	. = ..()
-
-/obj/item/reagent_containers/cup/waterbottle/attack(mob/M, mob/user, obj/target)
-	if(cap_on && reagents.total_volume && istype(M))
-		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
-		return
-	. = ..()
-
-/obj/item/reagent_containers/cup/waterbottle/afterattack(obj/target, mob/user, proximity)
-	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && user.a_intent == INTENT_HARM)))
-		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
-		return
-
-	else if(istype(target, /obj/item/reagent_containers/cup/waterbottle))
-		var/obj/item/reagent_containers/cup/waterbottle/WB = target
-		if(WB.cap_on)
-			to_chat(user, "<span class='warning'>[WB] has a cap firmly twisted on!</span>")
-	. = ..()
-
-// heehoo bottle flipping
-/obj/item/reagent_containers/cup/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	. = ..()
-	if(cap_on && reagents.total_volume)
-		if(prob(flip_chance)) // landed upright
-			src.visible_message("<span class='notice'>[src] lands upright!</span>")
-			if(throwingdatum?.thrower)
-				SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
-		else // landed on it's side
-			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
-
-/obj/item/reagent_containers/cup/waterbottle/pickup(mob/user)
-	..()
-	animate(src, transform = null, time = 1, loop = 0)
-
-/obj/item/reagent_containers/cup/waterbottle/empty
-	list_reagents = list()
-	cap_on = FALSE
-
-/obj/item/reagent_containers/cup/waterbottle/large
-	desc = "A fresh commercial-sized bottle of water."
-	icon_state = "largebottle"
-	custom_materials = list(/datum/material/glass=0)
-	list_reagents = list(/datum/reagent/water = 100)
-	volume = 100
-	amount_per_transfer_from_this = 20
-	cap_icon_state = "bottle_cap"
-	icon_state_preview = "waterbottle_large"
-
-/obj/item/reagent_containers/cup/waterbottle/large/empty
-	list_reagents = list()
-	cap_on = FALSE
 
 /obj/item/pestle
 	name = "pestle"

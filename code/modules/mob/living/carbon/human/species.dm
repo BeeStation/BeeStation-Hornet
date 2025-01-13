@@ -32,7 +32,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/skinned_type
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
-	var/species_language_holder = /datum/language_holder
+	/// What languages this species can understand and say.
+	/// Use a [language holder datum][/datum/language_holder] typepath in this var.
+	/// Should never be null.
+	var/datum/language_holder/species_language_holder = /datum/language_holder/human_basic
 	/**
 	  * Visible CURRENT bodyparts that are unique to a species.
 	  * DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK
@@ -156,6 +159,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
 
+	/// Do we try to prevent reset_perspective() from working? Useful for Dullahans to stop perspective changes when they're looking through their head.
+	var/prevent_perspective_change = FALSE
+
+	//Should we preload this species's organs?
+	var/preload = TRUE
+
 ///////////
 // PROCS //
 ///////////
@@ -269,9 +278,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
   * C - carbon, the owner of the species datum AKA whoever we're regenerating organs in
   * old_species - datum, used when regenerate organs is called in a switching species to remove old mutant organs.
   * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
-  * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
-  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE,list/excluded_zones)
+  * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
+ * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
+ */
+/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
 	//what should be put in if there is no mutantorgan (brains handled seperately)
 	var/list/slot_mutantorgans = list(
 		ORGAN_SLOT_BRAIN = mutantbrain,
@@ -307,8 +317,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
+
+		if(visual_only && !initial(neworgan.visual))
+			continue
+
 		var/used_neworgan = FALSE
-		neworgan = new neworgan()
+		neworgan = SSwardrobe.provide_type(neworgan)
 		var/should_have = neworgan.get_availability(src) //organ proc that points back to a species trait (so if the species is supposed to have this organ)
 
 		if(oldorgan && (!should_have || replace_current) && !(oldorgan.zone in excluded_zones) && !(oldorgan.organ_flags & (ORGAN_UNREMOVABLE)))
@@ -320,7 +334,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					oldorgan = null
 			else
 				oldorgan.Remove(C, special = TRUE)
-				required_organs -= oldorgan
+				required_organs -= oldorgan.type
 				QDEL_NULL(oldorgan) //we cannot just tab this out because we need to skip the deleting if it is a decoy brain.
 
 		if(oldorgan)
@@ -328,7 +342,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else if(should_have && !(initial(neworgan.zone) in excluded_zones))
 			used_neworgan = TRUE
 			neworgan.Insert(C, TRUE, FALSE)
-			required_organs |= neworgan
+			required_organs |= neworgan.type
 
 		if(!used_neworgan)
 			qdel(neworgan)
@@ -348,7 +362,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/organ_path in mutant_organs)
 		var/obj/item/organ/current_organ = C.getorgan(organ_path)
 		if(!current_organ || replace_current)
-			var/obj/item/organ/replacement = new organ_path()
+			var/obj/item/organ/replacement = SSwardrobe.provide_type(organ_path)
 			// If there's an existing mutant organ, we're technically replacing it.
 			// Let's abuse the snowflake proc. Basically retains
 			// feature parity with every other organ too.
@@ -418,7 +432,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.mob_biotypes = inherent_biotypes
 
-	regenerate_organs(C,old_species)
+	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
@@ -470,6 +484,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown=speedmod)
 
+	// All languages associated with this language holder are added with source [LANGUAGE_SPECIES]
+	// rather than source [LANGUAGE_ATOM], so we can track what to remove if our species changes again
+	var/datum/language_holder/gaining_holder = GLOB.prototype_language_holders[species_language_holder]
+	for(var/language in gaining_holder.understood_languages)
+		C.grant_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
+	for(var/language in gaining_holder.spoken_languages)
+		C.grant_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
+	for(var/language in gaining_holder.blocked_languages)
+		C.add_blocked_language(language, LANGUAGE_SPECIES)
+
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
 
@@ -500,6 +524,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/i in inherent_factions)
 			C.faction -= i
 	C.remove_movespeed_modifier(/datum/movespeed_modifier/species)
+
+	// Removes all languages previously associated with [LANGUAGE_SPECIES], gaining our new species will add new ones back
+	var/datum/language_holder/losing_holder = GLOB.prototype_language_holders[species_language_holder]
+	for(var/language in losing_holder.understood_languages)
+		C.remove_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
+	for(var/language in losing_holder.spoken_languages)
+		C.remove_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
+	for(var/language in losing_holder.blocked_languages)
+		C.remove_blocked_language(language, LANGUAGE_SPECIES)
+
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
 /datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
@@ -1762,6 +1796,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
+	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
 
 	if (I.bleed_force)
@@ -1797,17 +1832,25 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!I.force)
 		return 0 //item force is zero
 
-	//dismemberment
-	var/dismemberthreshold = ((affecting.max_damage * 2) - affecting.get_damage()) //don't take the current hit into account.
-	var/attackforce = (((I.w_class - 3) * 5) + ((I.attack_weight - 1) * 14) + ((I.is_sharp()-1) * 20)) //all the variables that go into ripping off a limb in one handy package. Force is absent because it's already been taken into account by the limb being damaged
-	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
-		dismemberthreshold -= 30
-	if(I.is_sharp())
-		attackforce = max(attackforce, I.force)
-	if(attackforce >= dismemberthreshold && I.force >= 10)
-		if(affecting.dismember(I.damtype))
-			I.add_mob_blood(H)
-			playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
+	var/dismember_limb = FALSE
+	var/weapon_sharpness = I.is_sharp()
+
+	if(((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
+		dismember_limb = TRUE
+		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
+		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
+
+	else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && H.stat == DEAD))
+		//Delimbing cannot normally occur with blunt weapons
+		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
+
+		if(limb_damage >= affecting.max_damage)
+			dismember_limb = TRUE
+			//You can only cut a limb off if it is already damaged enough to be fully disabled
+
+	if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
+		I.add_mob_blood(H)
+		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
 	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
 		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
@@ -2380,6 +2423,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(isturf(H.loc))
 			var/turf/T = H.loc
 			T.Entered(H)
+	H.refresh_gravity()
 
 ///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
 /datum/species/proc/get_custom_icons(var/part)
@@ -2452,6 +2496,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_cough_sound(mob/living/carbon/user)
 	return
 
+/datum/species/proc/get_cry_sound(mob/living/carbon/user)
+	return
+
 /datum/species/proc/get_gasp_sound(mob/living/carbon/user)
 	return
 
@@ -2462,6 +2509,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/get_sniff_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_giggle_sound(mob/living/carbon/user)
 	return
 
 /datum/species/proc/get_clear_sound(mob/living/carbon/user)
@@ -2496,6 +2546,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /// Given a human, will adjust it before taking a picture for the preferences UI.
 /// This should create a CONSISTENT result, so the icons don't randomly change.
 /datum/species/proc/prepare_human_for_preview(mob/living/carbon/human/human)
+	return
+
+/**
+ * Owner login
+ */
+
+/**
+ * A simple proc to be overwritten if something needs to be done when a mob logs in. Does nothing by default.
+ *
+ * Arguments:
+ * * owner - The owner of our species.
+ */
+/datum/species/proc/on_owner_login(mob/living/carbon/human/owner)
 	return
 
 /**
@@ -2906,21 +2969,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Returns a list containing perks, or an empty list.
  */
 /datum/species/proc/create_pref_language_perk()
-	var/list/to_add = list()
 
 	// Grab galactic common as a path, for comparisons
 	var/datum/language/common_language = /datum/language/common
 
 	// Now let's find all the languages they can speak that aren't common
 	var/list/bonus_languages = list()
-	var/datum/language_holder/temp_holder = new species_language_holder()
-	for(var/datum/language/language_type as anything in temp_holder.spoken_languages)
+	var/datum/language_holder/basic_holder = GLOB.prototype_language_holders[species_language_holder]
+	for(var/datum/language/language_type as anything in basic_holder.spoken_languages)
 		if(ispath(language_type, common_language))
 			continue
 		bonus_languages += initial(language_type.name)
 
-	// If we have any languages we can speak: create a perk for them all
-	if(length(bonus_languages))
+	if(!length(bonus_languages))
+		return // You're boring
+
+	var/list/to_add = list()
+	if(common_language in basic_holder.spoken_languages)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "comment",
@@ -2928,7 +2993,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "Alongside [initial(common_language.name)], [plural_form] gain the ability to speak [english_list(bonus_languages)].",
 		))
 
-	qdel(temp_holder)
+	else
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "comment",
+			SPECIES_PERK_NAME = "Foreign Speaker",
+			SPECIES_PERK_DESC = "[plural_form] may not speak [initial(common_language.name)], but they can speak [english_list(bonus_languages)].",
+		))
 
 	return to_add
 
@@ -2939,3 +3010,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //Use this to return dynamic heights, such as making felinids shorter on halloween or something
 /datum/species/proc/get_species_height()
 	return species_height
+
+/datum/species/proc/get_types_to_preload()
+	var/list/to_store = list()
+	to_store += mutant_organs
+	//for(var/obj/item/organ/external/horny as anything in external_organs)
+	//	to_store += horny //Haha get it?
+
+	//Don't preload brains, cause reuse becomes a horrible headache
+	to_store += mutantheart
+	to_store += mutantlungs
+	to_store += mutanteyes
+	to_store += mutantears
+	to_store += mutanttongue
+	to_store += mutantliver
+	to_store += mutantstomach
+	to_store += mutantappendix
+	//Store wings for now...
+	to_store += mutantwings
+	//We don't cache mutant hands because it's not constrained enough, too high a potential for failure
+	return to_store

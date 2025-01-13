@@ -175,7 +175,7 @@
 	if(armed)
 		if(ismob(AM))
 			var/mob/MM = AM
-			if(!(MM.movement_type & (FLOATING|FLYING)))
+			if(!(MM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 				if(ishuman(AM))
 					var/mob/living/carbon/H = AM
 					if(H.m_intent == MOVE_INTENT_RUN)

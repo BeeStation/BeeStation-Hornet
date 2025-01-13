@@ -467,12 +467,11 @@
 			inserted_list[key] = temp[key]
 
 /// for sorting clients or mobs by ckey
-/proc/sort_key(list/ckey_list, order=1)
+/proc/sort_key(list/ckey_list, order = 1)
 	return sortTim(ckey_list, order >= 0 ? GLOBAL_PROC_REF(cmp_ckey_asc) : GLOBAL_PROC_REF(cmp_ckey_dsc))
 
 /// Specifically for sorting record datums in a list.
-/proc/sort_record(list/record_list, field = "name", order = 1)
-	GLOB.cmp_field = field
+/proc/sort_record(list/record_list, order = 1)
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 /// sorting any value in a list with any comparator
@@ -532,13 +531,19 @@
 // Returns the key based on the index
 #define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)
 
-/// Returns datum/data/record
-/proc/find_record(field, value, list/inserted_list)
-	for(var/datum/data/record/record_to_check in inserted_list)
-		if(record_to_check.fields[field] == value)
-			return record_to_check
+/**
+ * Returns the first record in the list that matches the name
+ *
+ * Make sure to supply it with the proper record list.
+ * Either GLOB.manifest.general or GLOB.manifest.locked
+ *
+ * If no record is found, returns null
+ */
+/proc/find_record(value, list/inserted_list)
+	for(var/datum/record/target in inserted_list)
+		if(target.name == value)
+			return target
 	return null
-
 
 /**
  * Move a single element from position from_index within a list, to position to_index

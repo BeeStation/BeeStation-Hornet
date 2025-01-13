@@ -32,7 +32,7 @@
 			new /obj/item/chameleon(src) // 7 tc
 
 		if("stealth")
-			new /obj/item/gun/energy/kinetic_accelerator/crossbow(src)
+			new /obj/item/gun/energy/recharge/ebow(src)
 			new /obj/item/pen/sleepy(src)
 			new /obj/item/healthanalyzer/rad_laser(src)
 			new /obj/item/chameleon(src)
@@ -379,7 +379,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
+	STR.set_holdable(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
 
 /obj/item/storage/box/syndie_kit/space/PopulateContents()
 	if(prob(50))
@@ -616,8 +616,9 @@
 
 /obj/item/storage/box/syndie_kit/derringer
 	name = "'Infiltrator' pistol bundle"
-	desc = "Contains a Syndicate issued coat pistol, and one Match grade .38-special speed loader."
+	desc = "Contains a Syndicate issued coat pistol, and one Match grade .357 speed loader."
 
 /obj/item/storage/box/syndie_kit/derringer/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/pistol/der38(src)
-	new /obj/item/ammo_box/c38/match(src)
+	for (var/i in 1 to 6)
+		new /obj/item/ammo_casing/a357(src)

@@ -9,8 +9,8 @@
 
 /datum/chemical_reaction/cooking_oil
 	name = "Cooking Oil"
-	id = /datum/reagent/consumable/cooking_oil
-	results = list(/datum/reagent/consumable/cooking_oil = 4)
+	id = /datum/reagent/consumable/nutriment/fat/oil
+	results = list(/datum/reagent/consumable/nutriment/fat/oil = 4)
 	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
 
 /datum/chemical_reaction/lube
@@ -29,7 +29,7 @@
 	name = "Spray Tan"
 	id = /datum/reagent/spraytan
 	results = list(/datum/reagent/spraytan = 2)
-	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/consumable/cornoil = 1)
+	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/consumable/nutriment/fat/oil = 1)
 
 /datum/chemical_reaction/impedrezene
 	name = "Impedrezene"
@@ -47,7 +47,7 @@
 	name = "Glycerol"
 	id = /datum/reagent/glycerol
 	results = list(/datum/reagent/glycerol = 1)
-	required_reagents = list(/datum/reagent/consumable/cornoil = 3, /datum/reagent/toxin/acid = 1)
+	required_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = 3, /datum/reagent/toxin/acid = 1)
 
 /datum/chemical_reaction/sodiumchloride
 	name = "Sodium Chloride"
@@ -121,8 +121,9 @@
 /datum/chemical_reaction/meatification
 	name = "Meatification"
 	id = "meatification"
-	required_reagents = list(/datum/reagent/liquidgibs = 10, /datum/reagent/consumable/nutriment = 10, /datum/reagent/carbon = 10)
+	required_reagents = list(/datum/reagent/liquidgibs = 10, /datum/reagent/consumable/nutriment = 10)
 	mob_react = FALSE
+	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

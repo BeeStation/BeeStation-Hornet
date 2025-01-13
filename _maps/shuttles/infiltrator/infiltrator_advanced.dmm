@@ -192,7 +192,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "at" = (
-/obj/machinery/computer/med_data/syndie{
+/obj/machinery/computer/records/medical/syndie{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -269,7 +269,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/bridge)
 "az" = (
-/obj/machinery/computer/secure_data/syndie{
+/obj/machinery/computer/records/security/syndie{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -1099,6 +1099,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/medbot/nukie,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "cd" = (

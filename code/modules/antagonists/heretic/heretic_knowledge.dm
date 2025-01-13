@@ -426,6 +426,10 @@
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
+	/// The announcement text. %USER% is replaced with the user's real name.
+	var/announcement_text
+	/// The sound to use for the announcement.
+	var/announcement_sound
 
 /datum/heretic_knowledge/final/on_research(mob/user)
 	. = ..()
@@ -472,6 +476,12 @@
 		var/mob/living/carbon/human/human_user = user
 		human_user.physiology.brute_mod *= 0.5
 		human_user.physiology.burn_mod *= 0.5
+
+	priority_announce(
+		text = "[generate_heretic_text()] [replacetext_char(announcement_text, "%USER%", "[user.real_name]")] [generate_heretic_text()]",
+		title = "[generate_heretic_text()]",
+		sound = announcement_sound,
+	)
 
 	return TRUE
 

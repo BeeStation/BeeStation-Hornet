@@ -58,6 +58,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	suit_store = /obj/item/gun/energy/disabler
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads/head_of_security
+	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

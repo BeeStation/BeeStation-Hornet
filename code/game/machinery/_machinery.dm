@@ -145,9 +145,16 @@ Class Procs:
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
+	armor_type = /datum/armor/obj_machinery
+
+/datum/armor/obj_machinery
+	melee = 25
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 70
+
 /obj/machinery/Initialize(mapload)
-	if(!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -596,7 +603,7 @@ Class Procs:
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
-			set_machine_stat(machine_stat & MAINT)
+			set_machine_stat(machine_stat | MAINT)
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE

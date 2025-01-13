@@ -406,6 +406,33 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/micro_laser = 1)
 
+/obj/item/circuitboard/machine/shieldwallgen
+	name = "Shieldwall Generator (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/shieldwallgen
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/sheet/plasmaglass = 1,
+		/obj/item/stack/cable_coil = 5
+		)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/shieldwallgen/atmos
+	name = "Atmospheric Holofield Generator (Machine Board)"
+	build_path = /obj/machinery/power/shieldwallgen/atmos
+
+/obj/item/circuitboard/machine/shieldwallgen/atmos/strong
+	name = "High Power Atmospheric Holofield Generator (Machine Board)"
+	build_path = /obj/machinery/power/shieldwallgen/atmos/strong
+	req_components = list(
+		/obj/item/stock_parts/manipulator/nano = 2,
+		/obj/item/stock_parts/micro_laser/high = 2,
+		/obj/item/stock_parts/capacitor/adv = 2,
+		/obj/item/stack/sheet/plasmaglass = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
+
 //Generic
 
 
@@ -999,6 +1026,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 //Service
 
+/obj/item/circuitboard/machine/photobooth
+	name = "Photobooth"
+	icon_state = "service"
+	build_path = /obj/machinery/photobooth
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
+
+/obj/item/circuitboard/machine/photobooth/security
+	name = "Security Photobooth"
+	icon_state = "security"
+	build_path = /obj/machinery/photobooth/security
 
 /obj/item/circuitboard/machine/biogenerator
 	name = "biogenerator (Machine Board)"

@@ -74,7 +74,7 @@
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
 	SSticker.mode.update_clockcult_icons_added(owner)
 	var/datum/language_holder/LH = owner.current.get_language_holder()
-	LH.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	LH.grant_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
@@ -86,7 +86,7 @@
 		owner_mob.remove_overlay(forbearance)
 		qdel(forbearance)
 	var/datum/language_holder/LH = owner.current.get_language_holder()
-	LH.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	LH.remove_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()

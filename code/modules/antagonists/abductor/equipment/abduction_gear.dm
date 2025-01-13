@@ -13,7 +13,7 @@
 	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30, BLEED = 40)
+	armor_type = /datum/armor/abductor_vest
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(
 		/obj/item/abductor,
@@ -29,13 +29,32 @@
 	/// Cooldown in seconds
 	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30, BLEED = 40)
-	var/combat_armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90, STAMINA = 60, BLEED = 80)
 
-/obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
-	. = ..()
-	stealth_armor = getArmor(arglist(stealth_armor))
-	combat_armor = getArmor(arglist(combat_armor))
+/datum/armor/abductor_combat
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 50
+	rad = 15
+	bio = 50
+	fire = 90
+	acid = 90
+	stamina = 30
+	bleed = 40
+
+/datum/armor/abductor_vest
+	melee = 15
+	bullet = 15
+	laser = 15
+	energy = 25
+	bomb = 15
+	rad = 50
+	bio = 15
+	fire = 70
+	acid = 70
+	stamina = 60
+	bleed = 80
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
@@ -50,11 +69,11 @@
 		if(VEST_STEALTH)
 			mode = VEST_COMBAT
 			DeactivateStealth()
-			armor = combat_armor
+			set_armor(/datum/armor/abductor_combat)
 			icon_state = "vest_combat"
 		if(VEST_COMBAT)// TO STEALTH
 			mode = VEST_STEALTH
-			armor = stealth_armor
+			set_armor(/datum/armor/abductor_vest)
 			icon_state = "vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
@@ -75,12 +94,20 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
+		RegisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_disguise_name))
 		M.name_override = disguise.name
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
 		M.update_inv_hands()
+
+/obj/item/clothing/suit/armor/abductor/vest/proc/return_disguise_name(mob/living/carbon/human/source, list/identity)
+	SIGNAL_HANDLER
+	if(identity[VISIBLE_NAME_FORCED]) // name-forcing overrides disguise
+		return
+	identity[VISIBLE_NAME_FACE] = disguise.name
+	identity[VISIBLE_NAME_ID] = ""
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -89,6 +116,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
+		UnregisterSignal(M, COMSIG_HUMAN_GET_VISIBLE_NAME)
 		M.name_override = null
 		M.cut_overlays()
 		M.regenerate_icons()
@@ -877,8 +905,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "abductor-suit"
 	item_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/under_abductor
 	can_adjust = FALSE
+
+/datum/armor/under_abductor
+	bomb = 10
+	bio = 10
 
 #undef VEST_STEALTH
 #undef VEST_COMBAT

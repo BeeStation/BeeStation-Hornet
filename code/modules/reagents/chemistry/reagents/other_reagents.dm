@@ -227,7 +227,7 @@
 	if(isoozeling(M))
 		var/touch_mod = 0
 		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
-			touch_mod = M.get_permeability_protection()
+			touch_mod = M.getarmor(null, BIO) * 0.01
 		M.blood_volume = max(M.blood_volume - 30 * (1 - touch_mod), 0)
 		if(touch_mod < 0.9)
 			to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
@@ -850,6 +850,14 @@
 	color = "#484848" // rgb: 72, 72, 72A
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_mult = 0 // apparently tasteless.
+
+/datum/reagent/mercury/lead_acetate
+	name = "Lead Acetate"
+	description = "A sweet neurotoxic chemical. The secret of Roman sweet wine."
+	color = "#AAAAAA"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
+	taste_description = "sweetness"
+	taste_mult = 3
 
 /datum/reagent/mercury/on_mob_life(mob/living/carbon/M)
 	if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc))
@@ -2191,12 +2199,12 @@
 
 /datum/reagent/consumable/ratlight/on_mob_metabolize(mob/living/L)
 	L.add_blocked_language(subtypesof(/datum/language/) - /datum/language/ratvar, LANGUAGE_REAGENT)
-	L.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.grant_language(/datum/language/ratvar, source = LANGUAGE_REAGENT)
 	..()
 
 /datum/reagent/consumable/ratlight/on_mob_end_metabolize(mob/living/L)
 	L.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_REAGENT)
-	L.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.remove_language(/datum/language/ratvar, source = LANGUAGE_REAGENT)
 	L.set_light(-1)
 
 	..()

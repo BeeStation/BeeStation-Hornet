@@ -252,7 +252,7 @@ GENE SCANNER
 				trauma_text += trauma_desc
 			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
 		if(length(C.last_mind?.quirks))
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.last_mind.get_quirk_string()].</span>"
+			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_quirk_string()].</span>"
 	if(advanced)
 		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
 

@@ -311,7 +311,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.max_items = 2
-	STR.can_hold = typecacheof(list(/obj/item/gun/energy/dueling))
+	STR.set_holdable(list(/obj/item/gun/energy/dueling))
 
 /obj/item/storage/lockbox/dueling/PopulateContents()
 	. = ..()

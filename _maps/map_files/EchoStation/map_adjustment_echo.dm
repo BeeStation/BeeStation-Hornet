@@ -21,6 +21,7 @@
 	change_job_position(JOB_NAME_JANITOR, 1)
 	change_job_position(JOB_NAME_LAWYER, 1)
 	change_job_position(JOB_NAME_BOTANIST, 1)
+	change_job_position(JOB_NAME_SHAFTMINER, 1)
 	change_job_access(JOB_NAME_ASSISTANT, ACCESS_MAINT_TUNNELS) // sample code
 
 /datum/map_adjustment/echo_station/on_mapping_init()

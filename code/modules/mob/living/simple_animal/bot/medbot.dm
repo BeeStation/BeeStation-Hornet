@@ -79,11 +79,23 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	heal_threshold = 0
 	declare_crit = 0
 
+/mob/living/simple_animal/bot/medbot/nukie
+	name = "\improper Oppenheimer"
+	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate."
+	skin = MEDBOT_SKIN_BEZERK
+	health = 40
+	maxHealth = 40
+	radio_key = /obj/item/encryptionkey/syndicate
+	radio_channel = RADIO_CHANNEL_SYNDICATE
+	heal_threshold = 30
+	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
+	faction = list(FACTION_SYNDICATE, "neutral", "silicon")
+
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
 	heal_threshold = 30
 	declare_crit = TRUE
-	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/kelobic
+	reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
@@ -117,8 +129,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
-	skin = new_skin
-	update_icon()
+
+	if(!isnull(new_skin))
+		skin = new_skin
+	update_appearance()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
@@ -177,9 +191,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 // Actions received from TGUI
 /mob/living/simple_animal/bot/medbot/ui_act(action, params)
-	. = ..()
-	if(. || (locked && !usr.has_unlimited_silicon_privilege))
-		return
+	if(..())
+		return TRUE
 	switch(action)
 		if("eject")
 			if (!isnull(reagent_glass))

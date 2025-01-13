@@ -75,11 +75,11 @@
 		if(id_card)
 			.["user"]["card_found"] = TRUE
 			.["user"]["name"] = id_card.registered_name || id_card.registered_account?.account_holder || "Unknown"
-			var/datum/data/record/R = find_record("name", id_card.registered_name, GLOB.data_core.general)
+			var/datum/record/crew/R = find_record(id_card.registered_name, GLOB.manifest.general)
 			if(!R)
-				R = find_record("name", id_card.registered_account.account_holder, GLOB.data_core.general)
+				R = find_record(id_card.registered_account.account_holder, GLOB.manifest.general)
 			if(R)
-				.["user"]["job"] = R.fields["rank"]
+				.["user"]["job"] = R.rank
 			else if(id_card.assignment)
 				.["user"]["job"] = id_card.assignment
 			else if(id_card.registered_account?.account_job)
@@ -157,7 +157,7 @@
 	icon_deny = "mining-deny"
 	prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
 	//Direct mining tools go here
-		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
+		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/recharge/kinetic_accelerator,							500),
 		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
@@ -326,7 +326,7 @@
 /obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
+	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_GATEWAY)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"

@@ -645,7 +645,7 @@
 	var/energy_recharge_cyborg_drain_coefficient = 0.4
 	var/cyborg_cell_critical_percentage = 0.05
 	var/mob/living/silicon/robot/host = null
-	var/datum/proximity_monitor/advanced/dampening_field
+	var/datum/proximity_monitor/advanced/peaceborg_dampener/dampening_field
 	var/projectile_damage_coefficient = 0.5
 	/// Energy cost per tracked projectile damage amount per second
 	var/projectile_damage_tick_ecost_coefficient = 10
@@ -696,10 +696,9 @@
 /obj/item/borg/projectile_dampen/proc/activate_field()
 	if(istype(dampening_field))
 		QDEL_NULL(dampening_field)
-	dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener, list("current_range" = field_radius, "host" = src, "projector" = src))
 	var/mob/living/silicon/robot/owner = get_host()
-	if(owner)
-		owner.module.allow_riding = FALSE
+	dampening_field = new(owner, field_radius, TRUE, src)
+	owner?.module.allow_riding = FALSE
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
@@ -730,6 +729,13 @@
 	. = ..()
 	host = loc
 
+/obj/item/borg/projectile_dampen/cyborg_unequip(mob/user)
+	if(!active)
+		return
+	deactivate_field()
+	update_appearance()
+	to_chat(user, "<span class='boldnotice'>[src] deactivates itself.</span>")
+
 /obj/item/borg/projectile_dampen/on_mob_death()
 	deactivate_field()
 	. = ..()
@@ -737,11 +743,6 @@
 /obj/item/borg/projectile_dampen/process(delta_time)
 	process_recharge(delta_time)
 	process_usage(delta_time)
-	update_location()
-
-/obj/item/borg/projectile_dampen/proc/update_location()
-	if(dampening_field)
-		dampening_field.HandleMove()
 
 /obj/item/borg/projectile_dampen/proc/process_usage(delta_time)
 	var/usage = 0
