@@ -135,9 +135,9 @@
 		return TRUE
 
 	if(target_temperature == T20C)
-		target_temperature = max_temperature
-	else if(target_temperature == max_temperature)
 		target_temperature = min_temperature
+	else if(target_temperature == min_temperature)
+		target_temperature = max_temperature
 	else
 		target_temperature = T20C
 
