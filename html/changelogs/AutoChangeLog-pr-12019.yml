@@ -1,0 +1,4 @@
+author: BarteG44
+delete-after: true
+changes:
+  - rscadd: made it possible to map crate shelves with pre placed crates
