@@ -9782,6 +9782,18 @@
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
+"cnN" = (
+/obj/effect/turf_decal/edges/borderfloor{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This room was mapped in 2022 and is completely unchanged in the final 2025 version. Jannitors just had it all figured out before everyone else - BarteG";
+	name = "Cardstation - Janitor Closet"
+	},
+/turf/open/floor/iron/half{
+	dir = 1
+	},
+/area/hallway/primary/central)
 "cnS" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "telelab";
@@ -30228,7 +30240,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "This room was mapped in 2022 and is completely unchanged in the final 2025 version. Jannitors just had it all figured out before everyone else - BarteG";
+	desc = "This room was mapped in 2022 and is completely unchanged in the final 2025 version. Janitors had it all figured out before everyone else - BarteG";
 	name = "Cardstation - Janitor Closet"
 	},
 /turf/open/floor/iron,
@@ -42392,6 +42404,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-6"
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This room was mapped in 2022 and is completely unchanged in the final 2025 version. Jannitors just had it all figured out before everyone else - BarteG";
+	name = "Cardstation - Janitor Closet"
 	},
 /turf/open/floor/plating,
 /area/storage/tech)
@@ -97594,6 +97610,10 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/line,
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This room was mapped in 2022 and is completely unchanged in the final 2025 version. Janitors had it all figured out before everyone else - BarteG";
+	name = "Cardstation - Janitor Closet"
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "xww" = (
@@ -132581,7 +132601,7 @@ lan
 lan
 lan
 wvz
-ehr
+cnN
 ehr
 ehr
 ehr
