@@ -144,6 +144,7 @@
 // Favor generator component. Used on the altar and obelisks
 /datum/component/dark_favor
 	var/mob/living/creator
+	var/obj/structure/par
 
 
 /datum/component/dark_favor/Initialize(mob/living/L)
@@ -151,6 +152,7 @@
 	if(!L)
 		return
 	creator = L
+	par = parent
 	START_PROCESSING(SSobj, src)
 
 
@@ -161,6 +163,8 @@
 
 /datum/component/dark_favor/process(delta_time)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!par.anchored)
+		return
 	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
 		return
 	var/atom/P = parent
