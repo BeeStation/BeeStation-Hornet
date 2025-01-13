@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 /datum/dream/heretic/GenerateDream(mob/living/carbon/dreamer)
 	// how
 	if (!IS_HERETIC(dreamer) || !COOLDOWN_FINISHED(dreamer, manus_dream_cooldown) || !GLOB.reality_smash_track.smashes.len)
-		return pick_weight(GLOB.dreams).GenerateDream(dreamer)
+		return CALLBACK(pick_weight(GLOB.dreams), PROC_REF(GenerateDream), dreamer)
 	COOLDOWN_START(dreamer, manus_dream_cooldown, 5 MINUTES)
 
 	. = list()
