@@ -4516,6 +4516,17 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
+"bcm" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	id = 2;
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/hallway/secondary/entry)
 "bcB" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold/pink/visible{
@@ -21429,6 +21440,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/customs)
+"fBr" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	id = 2;
+	dir = 4
+	},
+/turf/open/floor/iron/grid/steel,
+/area/hallway/secondary/entry)
 "fBt" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/cardboard,
@@ -62425,12 +62447,17 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "qdw" = (
@@ -63144,11 +63171,16 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "qmf" = (
@@ -85104,7 +85136,13 @@
 /area/quartermaster/sorting)
 "vEQ" = (
 /obj/effect/turf_decal/stripes/full,
-/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	id = 2;
+	dir = 8
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "vER" = (
@@ -86750,6 +86788,17 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
+"vWU" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/machinery/power/shieldwallgen/atmos/strong/roundstart{
+	id = 2;
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/hallway/secondary/entry)
 "vXA" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -111400,7 +111449,7 @@ tAB
 wru
 uMd
 uMd
-vEQ
+fBr
 wuF
 vJY
 loh
@@ -115757,7 +115806,7 @@ uMd
 uMd
 uMd
 uMd
-vEQ
+vWU
 uMd
 uMd
 uMd
@@ -116271,7 +116320,7 @@ bMi
 uZN
 xuO
 xuO
-vEQ
+bcm
 xuO
 wpP
 uZN
