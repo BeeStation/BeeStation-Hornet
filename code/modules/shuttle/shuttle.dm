@@ -429,7 +429,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		underlying_turf_area[T] = current_area
 	//Change areas
 	current_area.contents -= T
-	T.transfer_area_lighting(current_area, A)
+	T.change_area(current_area, A)
 
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
 

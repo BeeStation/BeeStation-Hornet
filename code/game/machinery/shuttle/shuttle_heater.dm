@@ -113,15 +113,15 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
 	update_adjacent_engines()
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
-		return
+		return TRUE
 	if(default_pry_open(I))
-		return
+		return TRUE
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
-			return
+			return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
-	return ..()
+		return TRUE
+	return TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/update_adjacent_engines()
 	var/engine_turf
