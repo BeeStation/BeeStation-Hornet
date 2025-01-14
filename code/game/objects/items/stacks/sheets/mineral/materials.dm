@@ -25,10 +25,11 @@ Mineral Sheets
 	item_state = "sheet-sandstone"
 	throw_speed = 3
 	throw_range = 5
-	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/sandstone=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/closed/wall/mineral/sandstone
+	material_type = /datum/material/sandstone
 
 /obj/item/stack/sheet/mineral/sandstone/get_recipes()
 	return GLOB.sandstone_recipes

@@ -71,8 +71,10 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "snow block"
 	force = 1
 	throwforce = 2
+	custom_materials = list(/datum/material/snow = MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/consumable/ice = 20)
 	merge_type = /obj/item/stack/sheet/snow
+	material_type = /datum/material/snow
 
 /obj/item/stack/sheet/snow/get_recipes()
 	return GLOB.snow_recipes
@@ -105,7 +107,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
+	custom_materials = list(/datum/material/cardboard = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/cardboard
+	material_type = /datum/material/cardboard
 
 /obj/item/stack/sheet/cardboard/get_recipes()
 	return GLOB.cardboard_recipes
@@ -149,3 +153,44 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/meat/get_recipes()
 	return GLOB.meat_recipes
+
+/obj/item/stack/sheet/meat/fifty
+	amount = 50
+/obj/item/stack/sheet/meat/twenty
+	amount = 20
+/obj/item/stack/sheet/meat/five
+	amount = 5
+
+/obj/item/stack/sheet/pizza
+	name = "pepperoni sheetzzas"
+	desc = "It's a delicious pepperoni sheetzza!"
+	singular_name = "pepperoni sheetzza"
+	icon_state = "sheet-pizza"
+	custom_materials = list(/datum/material/pizza = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/pizza
+	material_type = /datum/material/pizza
+	material_modifier = 1
+
+/obj/item/stack/sheet/pizza/fifty
+	amount = 50
+/obj/item/stack/sheet/pizza/twenty
+	amount = 20
+/obj/item/stack/sheet/pizza/five
+	amount = 5
+
+/obj/item/stack/sheet/sandblock
+	name = "blocks of sand"
+	desc = "You're too old to be playing with sandcastles. Now you build... sandstations."
+	singular_name = "block of sand"
+	icon_state = "sheet-sandstone"
+	custom_materials = list(/datum/material/sand = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/sandblock
+	material_type = /datum/material/sand
+	material_modifier = 1
+
+/obj/item/stack/sheet/sandblock/fifty
+	amount = 50
+/obj/item/stack/sheet/sandblock/twenty
+	amount = 20
+/obj/item/stack/sheet/sandblock/five
+	amount = 5
