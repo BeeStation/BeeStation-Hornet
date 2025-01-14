@@ -219,6 +219,8 @@
 /obj/structure/statue/snow
 	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/snow
+	custom_materials = list(/datum/material/snow=MINERAL_MATERIAL_AMOUNT*5)
+	abstract_type = /obj/structure/statue/snow
 
 
 /obj/structure/statue/snow/snowman
@@ -287,10 +289,10 @@
 	return ..()
 
 /*
- Hit the block to start
- Point with the chisel at the target to choose what to sculpt or hit block to choose from preset statue types.
- Hit block again to start sculpting.
- Moving interrupts
+*Hit the block to start
+*Point with the chisel at the target to choose what to sculpt or hit block to choose from preset statue types.
+*Hit block again to start sculpting.
+*Moving interrupts
 */
 /obj/item/chisel/pre_attack(atom/A, mob/living/user, params)
 	. = ..()

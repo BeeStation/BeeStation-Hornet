@@ -241,7 +241,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "sandstone"
 	desc = "Bialtaakid 'ant taerif ma hdha."
 	color = "#B77D31"
-	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
 	value_per_unit = 0.0025
 	//armor_modifiers = list("melee" = 0.5, "bullet" = 0.5, "laser" = 1.25, "energy" = 0.5, "bomb" = 0.5, "bio" = 0.25, "rad" = 1.5, "fire" = 1.5, "acid" = 1.5)
@@ -265,7 +265,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "runed metal"
 	desc = "Mir'ntrath barhah Nar'sie."
 	color = "#3C3434"
-	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	value_per_unit = 0.75
 	//armor_modifiers = list("melee" = 1.2, "bullet" = 1.2, "laser" = 1, "energy" = 1, "bomb" = 1.2, "bio" = 1.2, "rad" = 1.5, "fire" = 1.5, "acid" = 1.5)
@@ -276,7 +276,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "bronze"
 	desc = "Clock Cult? Never heard of it."
 	color = "#92661A"
-	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/bronze
 	value_per_unit = 0.025
 	//armor_modifiers = list("melee" = 1, "bullet" = 1, "laser" = 1, "energy" = 1, "bomb" = 1, "bio" = 1, "rad" = 1.5, "fire" = 1.5, "acid" = 1.5)
@@ -334,7 +334,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "bone"
 	desc = "Man, building with this will make you the coolest caveman on the block."
 	color = "#e3dac9"
-	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/bone
 	value_per_unit = 0.05
 	//armor_modifiers = list("melee" = 1.2, "bullet" = 0.75, "laser" = 0.75, "energy" = 1.2, "bomb" = 1, "bio" = 1, "rad" = 1.5, "fire" = 1.5, "acid" = 1.5)
@@ -344,7 +344,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "bamboo"
 	desc = "If it's good enough for pandas, it's good enough for you."
 	color = "#339933"
-	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/bamboo
 	value_per_unit = 0.0025
 	//armor_modifiers = list("melee" = 0.5, "bullet" = 0.5, "laser" = 0.5, "energy" = 0.5, "bomb" = 0.5, "bio" = 0.51, "rad" = 1.5, "fire" = 0.5, "acid" = 1.5)

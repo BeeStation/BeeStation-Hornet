@@ -9,6 +9,8 @@
 	var/cistern = 0			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
+	var/buildstacktype = /obj/item/stack/sheet/iron //they're metal now, shut up
+	var/buildstackamount = 1
 
 
 /obj/structure/toilet/Initialize(mapload)
@@ -73,6 +75,15 @@
 /obj/structure/toilet/update_icon()
 	icon_state = "toilet[open][cistern]"
 
+/obj/structure/toilet/deconstruct()
+	if(!(flags_1 & NODECONSTRUCT_1))
+		if(buildstacktype)
+			new buildstacktype(loc,buildstackamount)
+		else
+			for(var/i in custom_materials)
+				var/datum/material/M = i
+				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+	..()
 
 /obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)
@@ -83,6 +94,9 @@
 			cistern = !cistern
 			update_icon()
 
+	else if(I.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
+		I.play_tool_sound(src)
+		deconstruct()
 	else if(cistern)
 		if(user.a_intent != INTENT_HARM)
 			if(I.w_class > WEIGHT_CLASS_NORMAL)
@@ -113,6 +127,10 @@
 	. = ..()
 	if (secret_type)
 		new secret_type(src)
+
+/obj/structure/toilet/greyscale
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
+	buildstacktype = null
 
 /obj/structure/urinal
 	name = "urinal"
@@ -219,6 +237,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	anchored = TRUE
 	var/busy = FALSE 	//Something's being washed at the moment
 	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
+	var/buildstacktype = /obj/item/stack/sheet/iron
+	var/buildstackamount = 1
 
 
 /obj/structure/sinkframe
@@ -323,6 +343,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
 
+	if(O.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
+		O.play_tool_sound(src)
+		deconstruct()
+		return
+
 	if(istype(O, /obj/item/stack/medical/gauze))
 		var/obj/item/stack/medical/gauze/G = O
 		new /obj/item/reagent_containers/cup/rag(src.loc)
@@ -389,6 +414,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 /obj/structure/sink/puddle/deconstruct(disassembled = TRUE)
 	qdel(src)
 
+/obj/structure/sink/greyscale
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
+	buildstacktype = null
+
 
 //Shower Curtains//
 //Defines used are pre-existing in layers.dm//
@@ -452,11 +481,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 		return
 	toggle(user)
 
-/obj/structure/curtain/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
-	new /obj/item/stack/sheet/plastic (loc, 2)
-	new /obj/item/stack/rods (loc, 1)
-	qdel(src)
+/obj/structure/sink/deconstruct()
+	if(!(flags_1 & NODECONSTRUCT_1))
+		if(buildstacktype)
+			new buildstacktype(loc,buildstackamount)
+		else
+			for(var/i in custom_materials)
+				var/datum/material/M = i
+				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+	..()
+
 
 /obj/structure/curtain/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
