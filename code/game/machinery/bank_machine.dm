@@ -114,10 +114,10 @@
 			say("All station budgets depleted. Halting siphon.")
 			end_siphon()
 			return
-		playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
 		siphoning_credits += siphon_amount
 		target_budget.adjust_money(-siphon_amount)
 
+	playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
 	if(next_warning < world.time && prob(15))
 		var/area/A = get_area(loc)
 		var/message = "Unauthorized credit withdrawal underway in [initial(A.name)]!!"
