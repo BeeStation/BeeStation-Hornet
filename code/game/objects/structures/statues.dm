@@ -43,6 +43,7 @@
 	return ..()
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
+	if(!(flags_1 & NODECONSTRUCT_1))
 		var/amount_mod = disassembled ? 0 : -2
 		for(var/mat in custom_materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(mat)
@@ -90,9 +91,8 @@
 
 
 /obj/structure/statue/plasma/bullet_act(obj/projectile/Proj)
-	if(custom_materials[/datum/material/plasma])
-		var/plasma_amount = round(custom_materials[/datum/material/plasma]/MINERAL_MATERIAL_AMOUNT)
-		atmos_spawn_air("plasma=[plasma_amount*10];TEMP=[exposed_temperature]")
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(6, Proj?.firer)
 	. = ..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
@@ -200,7 +200,6 @@
 /obj/structure/statue/sandstone
 	max_integrity = 50
 	impressiveness = 15
-	custom_materials = list(/datum/material/sandstone=MINERAL_MATERIAL_AMOUNT*5)
 	abstract_type = /obj/structure/statue/sandstone
 
 /obj/structure/statue/sandstone/assistant
@@ -261,6 +260,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
+	bleed_force = BLEED_SURFACE
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5
 	throw_speed = 3

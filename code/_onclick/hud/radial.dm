@@ -233,6 +233,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		else
 			var/atom/movable/AM = choices_values[choice_id] //Movables only
 			E.name = AM.name
+		else if(ispath(choices_values[choice_id],/atom))
+			var/atom/A = choices_values[choice_id]
+			E.name = initial(A.name)
 		E.choice = choice_id
 		E.maptext = null
 		E.next_page = FALSE
