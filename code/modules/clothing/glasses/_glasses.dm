@@ -79,8 +79,10 @@
 	icon_state = "meson"
 	item_state = "meson"
 	emissive_state = "meson_emissive"
-	clothing_traits = list(TRAIT_MESON_VISION, TRAIT_MADNESS_IMMUNE)
+	clothing_traits = list(TRAIT_MADNESS_IMMUNE)
 	darkness_view = 2
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
