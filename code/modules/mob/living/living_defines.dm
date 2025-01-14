@@ -173,4 +173,4 @@
 	var/gravity_state = null
 
 	//If we are currently leaning on something, and what that object is
-	var/leaned_object
+	var/atom/leaned_object
