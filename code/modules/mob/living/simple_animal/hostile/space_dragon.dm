@@ -133,6 +133,7 @@
 		tearing_wall = TRUE
 		if(do_after(src, timetotear, target = thewall))
 			if(istype(thewall, /turf/open))
+				tearing_wall = FALSE
 				return
 			thewall.dismantle_wall(1)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)

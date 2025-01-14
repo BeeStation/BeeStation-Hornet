@@ -60,7 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
 			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
 			return
 
-		var/txt = stripped_input(user, "What would you like to write on the back?", "Photo Writing", max_length=128)
+		var/txt = stripped_input(user, "What would you like to write on the back? 256 characters max.", "Photo Writing", max_length=256)
 
 		if(txt && user.canUseTopic(src, BE_CLOSE))
 			scribble = txt

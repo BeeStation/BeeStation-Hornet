@@ -21,11 +21,18 @@
 	///Legacy code, handles the coloring of the overlay of the cutlets made from this.
 	var/slab_color = "#FF0000"
 
+/obj/item/food/meat/slab/Initialize(mapload)
+	. = ..()
+	make_dryable()
+
 /obj/item/food/meat/slab/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe?
 
 /obj/item/food/meat/slab/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/plain, 3, 30)
+
+/obj/item/food/meat/slab/proc/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy)
 
 ///////////////////////////////////// HUMAN MEATS //////////////////////////////////////////////////////
 
@@ -40,6 +47,9 @@
 /obj/item/food/meat/slab/human/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/plain/human, 3, 30)
 
+/obj/item/food/meat/slab/human/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lean)
+
 /obj/item/food/meat/slab/human/mutant/slime
 	icon_state = "slimemeat"
 	desc = "Because jello wasn't offensive enough to vegans."
@@ -50,6 +60,9 @@
 	tastes = list("slime" = 1, "jelly" = 1)
 	foodtypes = MEAT | RAW | TOXIC
 
+/obj/item/food/meat/slab/human/mutant/slime/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/jelly)
+
 /obj/item/food/meat/slab/human/mutant/golem
 	icon_state = "golemmeat"
 	desc = "Edible rocks, welcome to the future."
@@ -59,6 +72,9 @@
 	)
 	tastes = list("rock" = 1)
 	foodtypes = MEAT | RAW | GROSS
+
+/obj/item/food/meat/slab/human/mutant/golem/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/rock_candy)
 
 /obj/item/food/meat/slab/human/mutant/golem/adamantine
 	icon_state = "agolemmeat"
@@ -74,12 +90,21 @@
 /obj/item/food/meat/slab/human/mutant/lizard/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/lizard, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
 
+/obj/item/food/meat/slab/human/mutant/lizard/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lizard)
+
 /obj/item/food/meat/slab/human/mutant/diona
 	name = "diona meat"
 	icon_state = "plantmeat"
 	desc = "All the joys of healthy eating with all the fun of cannibalism."
 	tastes = list("salad" = 1, "wood" = 1, "bitterness" = 1)
 	foodtypes = VEGETABLES
+
+/obj/item/food/meat/slab/human/mutant/diona/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/diona, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
+
+/obj/item/food/meat/slab/human/mutant/diona/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/diona)
 
 /obj/item/food/meat/slab/human/mutant/shadow
 	icon_state = "shadowmeat"
@@ -97,11 +122,17 @@
 	tastes = list("maggots" = 1, "the inside of a reactor" = 1)
 	foodtypes = MEAT | RAW | GROSS | GORE
 
+/obj/item/food/meat/slab/human/mutant/fly/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
+
 /obj/item/food/meat/slab/human/mutant/moth
 	icon_state = "mothmeat"
 	desc = "Unpleasantly powdery and dry. Kind of pretty, though."
 	tastes = list("dust" = 1, "powder" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/slab/human/mutant/moth/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
 
 /obj/item/food/meat/slab/human/mutant/skeleton
 	name = "bone"
@@ -112,6 +143,9 @@
 
 /obj/item/food/meat/slab/human/mutant/skeleton/make_processable()
 	return //skeletons dont have cutlets. Its a bone, Genius.
+
+/obj/item/food/meat/slab/human/mutant/skeleton/make_dryable()
+	return	//I agree. It's a bone, Genius.
 
 /obj/item/food/meat/slab/human/mutant/zombie
 	name = " meat (rotten)"
@@ -127,11 +161,17 @@
 	tastes = list("pure electricity" = 2, "meat" = 1)
 	foodtypes = RAW | MEAT | TOXIC | GORE
 
+/obj/item/food/meat/slab/human/mutant/ethereal/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/ethereal)
+
 /obj/item/food/meat/slab/human/mutant/apid
 	icon_state = "apidmeat"
 	desc = "Smells like flowers, hopefully doesn't taste like one."
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/slab/human/mutant/apid/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bees)
 
 /obj/item/food/meat/slab/human/mutant/psyphoza
 	icon_state = "psyphoza_meat"
@@ -140,6 +180,12 @@
 	tastes = list("pop candy" = 1, "meat" = 1)
 	foodtypes = VEGETABLES | RAW | GORE
 	microwaved_type = /obj/item/food/meat/steak/plain/human/psyphoza
+
+/obj/item/food/meat/slab/human/mutant/psyphoza/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/psyphoza, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
+
+/obj/item/food/meat/slab/human/mutant/psyphoza/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/mushroom)
 
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
@@ -152,6 +198,9 @@
 /obj/item/food/meat/slab/synthmeat/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/synth, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
 
+/obj/item/food/meat/slab/synthmeat/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/synthmeat)
+
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	//icon_state = "meatproduct"
@@ -159,14 +208,23 @@
 	tastes = list("meat flavoring" = 2, "modified starches" = 2, "natural & artificial dyes" = 1, "butyric acid" = 1) // its supposed to be various processed chemicals seen in very processed food. Butyric acid is a reference to how a certain North American Candymaker puts a chemical commonly seen in vomit into chocolate
 	foodtypes = RAW | MEAT
 
+/obj/item/food/meat/slab/meatproduct/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/pemmican)
+
 /obj/item/food/meat/slab/monkey
 	name = "monkey meat"
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/slab/monkey/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/monkey)
 
 /obj/item/food/meat/slab/mouse
 	name = "mouse meat"
 	desc = "A slab of mouse meat. Best not eat it raw."
 	foodtypes = RAW | MEAT | GORE
+
+/obj/item/food/meat/slab/mouse/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/mouse)
 
 /obj/item/food/meat/slab/corgi
 	name = "corgi meat"
@@ -254,6 +312,9 @@
 /obj/item/food/meat/slab/spider/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/spider, rand(40 SECONDS, 70 SECONDS), TRUE, TRUE)
 
+/obj/item/food/meat/slab/spider/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
+
 /obj/item/food/meat/slab/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
@@ -293,6 +354,9 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 		/datum/reagent/consumable/nutriment/fat = 5 //Plenty of fat!
 	)
+
+/obj/item/food/meat/slab/gorilla/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/monkey)
 
 /obj/item/food/meat/rawbacon
 	name = "raw piece of bacon"
@@ -395,6 +459,9 @@
 	) //low fat
 	tastes = list("chicken" = 1)
 
+/obj/item/food/meat/slab/chicken/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lean)
+
 /obj/item/food/meat/slab/chicken/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/chicken, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe? (no this is chicken)
 
@@ -407,6 +474,9 @@
 	desc = "a light slab of mothroach meat"
 	tastes = list("gross" = 1)
 	foodtypes = RAW | MEAT | GORE
+
+/obj/item/food/meat/slab/mothroach/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
 
 /obj/item/food/meat/slab/dolphinmeat
 	name = "uncooked dolphin fillet"
@@ -517,6 +587,11 @@
 	name = "psyphoza steak"
 	icon_state = "psyphoza_meat_cooked"
 	tastes = list("dirt" = 3, "wood" = 1)
+	foodtypes = VEGETABLES
+
+/obj/item/food/meat/steak/plain/human/diona
+	name = "diona steak"
+	tastes = list("salad" = 3, "plant fibre" = 1)
 	foodtypes = VEGETABLES
 
 /obj/item/food/meat/steak/meatproduct

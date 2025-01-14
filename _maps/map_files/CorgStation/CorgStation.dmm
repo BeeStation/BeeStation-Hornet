@@ -2094,7 +2094,9 @@
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "azP" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/bridge)
@@ -37977,8 +37979,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
+/obj/machinery/computer/crew{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "mhf" = (
@@ -56404,7 +56407,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/bridge)
