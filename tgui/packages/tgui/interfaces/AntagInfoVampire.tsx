@@ -56,7 +56,7 @@ const ObjectivePrintout = (props: any, context: any) => {
 export const AntagInfoVampire = (props: any, context: any) => {
   const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
-    <Window width={620} height={580} theme="syndicate">
+    <Window width={620} height={580} theme="narsie">
       <Window.Content>
         <Tabs>
           <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 1} onClick={() => setTab(1)}>
@@ -97,13 +97,9 @@ const VampireIntro = () => {
                 your blood to run too low, or you&#39;ll enter a
               </span>
               <span className={'color-red'}> Frenzy</span>!<br />
-              <span>
-                Beware of your Humanity level! The more Humanity you lose, the easier it is to fall into a{' '}
-                <span className={'color-red'}> Frenzy</span>!
-              </span>
               <br />
               <span>
-                Avoid using your Feed ability while near others, or else you will risk <i>breaking the Masquerade</i>!
+                Avoid using your Feed ability while near mortals, or else you will risk <i>breaking the Masquerade</i>!
               </span>
             </Stack.Item>
           </Stack>
