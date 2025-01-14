@@ -1,4 +1,4 @@
-/// Things with this component can be leaned onto, optionally exclusive to RMB dragging
+/// Things with this component can be leaned onto, optionally exclusive to RMB dragging in the future
 /datum/component/leanable
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	/// How much will mobs that lean onto this object be offset
@@ -10,16 +10,15 @@
 	. = ..()
 	src.leaning_offset = leaning_offset
 	if(!mousedrop_receive(parent, leaner, leaner))
-		stopped_leaning()
+		qdel(src, TRUE)
 
 /datum/component/leanable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 	RegisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING, PROC_REF(stopped_leaning))
 
 /datum/component/leanable/UnregisterFromParent()
-	for(var/datum/component/leanable/N in parent.datum_components)
-		UnregisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO)
-		UnregisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING)
+	UnregisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO)
+	UnregisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING)
 
 /datum/component/leanable/proc/stopped_leaning(obj/source)
 	SIGNAL_HANDLER
