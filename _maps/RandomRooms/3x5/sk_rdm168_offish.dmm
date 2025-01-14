@@ -87,7 +87,7 @@
 /obj/structure/table/wood,
 /obj/item/fish_feed,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 
