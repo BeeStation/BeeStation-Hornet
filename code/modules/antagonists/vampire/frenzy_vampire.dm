@@ -91,4 +91,4 @@
 	var/mob/living/carbon/human/user = owner
 	if(!vampiredatum?.frenzied)
 		return
-	user.adjustFireLoss(1.5 + (vampiredatum.humanity_lost / 10))
+	user.adjustFireLoss(1.5)

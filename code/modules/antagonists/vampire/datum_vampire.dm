@@ -29,8 +29,6 @@
 	///Used for assigning your reputation
 	var/vampire_reputation
 
-	///Amount of Humanity lost
-	var/humanity_lost = 0
 	///Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
 	///How many Masquerade Infractions do we have?

@@ -29,13 +29,6 @@
 /datum/antagonist/vampire/proc/AddBloodVolume(value)
 	vampire_blood_volume = clamp(vampire_blood_volume + value, 0, max_blood_volume)
 
-/datum/antagonist/vampire/proc/AddHumanityLost(value)
-	if(humanity_lost >= 500)
-		to_chat(owner.current, "<span class='warning'>You hit the maximum amount of lost Humanty, you are far from Human.</span>")
-		return
-	humanity_lost += value
-	to_chat(owner.current, "<span class='warning'>You feel as if you lost some of your humanity, you will now enter Frenzy at [FRENZY_THRESHOLD_ENTER + (humanity_lost * 5)] Blood.</span>")
-
 /// mult: SILENT feed is 1/3 the amount
 /datum/antagonist/vampire/proc/handle_feeding(mob/living/carbon/target, mult=1, power_level)
 	// Starts at 15 (now 8 since we doubled the Feed time)
@@ -241,7 +234,7 @@
 		owner.current.set_blurriness((8 - 8 * (vampire_blood_volume / BLOOD_VOLUME_BAD))*2 SECONDS)
 
 	// The more blood, the better the Regeneration, get too low blood, and you enter Frenzy.
-	if(vampire_blood_volume < (FRENZY_THRESHOLD_ENTER + (humanity_lost * 5)) && !frenzied)
+	if(vampire_blood_volume < FRENZY_THRESHOLD_ENTER && !frenzied)
 		owner.current.apply_status_effect(/datum/status_effect/frenzy)
 	else if(vampire_blood_volume < BLOOD_VOLUME_BAD)
 		additional_regen = 0.1

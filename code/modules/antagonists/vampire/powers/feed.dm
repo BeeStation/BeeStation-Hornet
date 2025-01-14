@@ -54,9 +54,8 @@
 		to_chat(user, "<span class='notice'>You slowly release [feed_target].</span>")
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
-			vampiredatum_power.AddHumanityLost(10)
-
 	target_ref = null
+
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
 	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, TRAIT_FEED)
@@ -70,7 +69,6 @@
 		if(vampiredatum_power.my_clan && vampiredatum_power.my_clan.blood_drink_type != VAMPIRE_DRINK_INHUMANELY)
 			var/mob/living/user = owner
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
-			vampiredatum_power.AddHumanityLost(1)
 		vampiredatum_power.AddBloodVolume(25)
 		DeactivatePower()
 		feed_target.death()
