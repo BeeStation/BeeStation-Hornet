@@ -32,10 +32,17 @@
 		var/obj/item/holochip/H = I
 		value = H.credits
 	if(value)
-		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-		if(D)
-			D.adjust_money(value)
-			to_chat(user, "<span class='notice'>You deposit [I]. The Cargo Budget is now $[D.account_balance].</span>")
+		var/list/budgets_to_give_money_to = list()
+		for(var/datum/bank_account/department/D in SSeconomy.budget_accounts)
+			if(!D.nonstation_account)
+				budgets_to_give_money_to += D.department_id
+
+		var/rounded_money_amount = round(value / (length(budgets_to_give_money_to)))
+		for(var/budget_department_id as anything in budgets_to_give_money_to)
+			var/datum/bank_account/target_budget = SSeconomy.get_budget_account(budget_department_id)
+			target_budget.adjust_money(rounded_money_amount)
+
+		to_chat(user, "<span class='notice'>You deposit [I] into all station budgets.</span>")
 		qdel(I)
 		return
 	return ..()
