@@ -12,12 +12,12 @@
 /obj/item/organ/cyberimp/bci/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/integrated_circuit/circuit = new(src)
-	circuit.add_component(new /obj/item/circuit_component/equipment_action/bci(null, "One"))
-
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/bci_core,
-	), SHELL_CAPACITY_SMALL, starting_circuit = circuit)
+		new /obj/item/circuit_component/equipment_action/bci(null, "One"),
+		new /obj/item/circuit_component/equipment_action/bci(null, "Two"),
+		new /obj/item/circuit_component/equipment_action/bci(null, "Three"),
+	), SHELL_CAPACITY_SMALL)
 
 /obj/item/organ/cyberimp/bci/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
