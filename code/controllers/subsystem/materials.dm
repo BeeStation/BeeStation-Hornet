@@ -49,6 +49,7 @@ SUBSYSTEM_DEF(materials)
 		if(global_mat_recipes)
 			if(ref.categories[MAT_CATEGORY_BASE_RECIPES])
 				global_mat_recipes += SSmaterials.rigid_stack_recipes.Copy()
+				global_mat_recipes += SSmaterials.base_stack_recipes.Copy()
 			/* put more material recipes here. example:
 			if(ref.categories[MAT_CATEGORY_SOME_NEW_RECIPES])
 				global_mat_recipes += SSmaterials.SOME_NEW_RECIPES.Copy()
