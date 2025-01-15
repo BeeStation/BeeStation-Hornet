@@ -490,7 +490,9 @@
 		return
 	if(!target_appearance_with_filters)
 		target_appearance_with_filters = new(current_target)
-		target_appearance_with_filters.appearance_flags |= KEEP_TOGETHER
+		// KEEP_APART in case carving block gets KEEP_TOGETHER from somewhere like material texture filters.
+		target_appearance_with_filters.appearance_flags |= KEEP_TOGETHER | KEEP_APART
+		//Doesn't use filter helpers because MAs aren't atoms
 		target_appearance_with_filters.filters = filter(type="color",color=greyscale_with_value_bump,space=FILTER_COLOR_HSV)
 	completion = value
 	var/static/icon/white = icon('icons/effects/alphacolors.dmi', "white")
@@ -569,7 +571,7 @@
 	content_ma.underlays -= underlays_to_remove
 
 	content_ma.filters = filter(type="color",color=greyscale_with_value_bump,space=FILTER_COLOR_HSV)
-	update_icon()
+	update_appearance()
 
 /obj/structure/statue/custom/update_overlays()
 	. = ..()
