@@ -41,8 +41,12 @@
 		value = H.credits
 	if(value)
 		var/rounded_money_amount = round(value / (length(list_of_budgets)))
-		for(var/datum/bank_account/budget_department_id as anything in list_of_budgets)
-			budget_department_id.adjust_money(rounded_money_amount)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+			var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+			united_budget.adjust_money(value)
+		else
+			for(var/datum/bank_account/budget_department_id as anything in list_of_budgets)
+				budget_department_id.adjust_money(rounded_money_amount)
 
 		to_chat(user, "<span class='notice'>You deposit [I] into all station budgets.</span>")
 		qdel(I)
@@ -63,8 +67,12 @@
 	var/list/data = list()
 	var/total_balance = 0
 
-	for(var/datum/bank_account/each as anything in list_of_budgets)
-		total_balance += each.account_balance
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+		total_balance = united_budget.account_balance
+	else
+		for(var/datum/bank_account/each as anything in list_of_budgets)
+			total_balance += each.account_balance
 
 	data["current_balance"] = total_balance
 	data["siphoning"] = siphoning
@@ -106,16 +114,25 @@
 		return
 
 	var/siphon_amount = 100 * delta_time
-	for(var/datum/bank_account/target_budget as anything in list_of_budgets)
-		if(!target_budget.has_money(siphon_amount))
-			empty_budgets += 1
-			continue
-		if(empty_budgets >= length(list_of_budgets))
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+		if(!united_budget.has_money(siphon_amount))
 			say("All station budgets depleted. Halting siphon.")
 			end_siphon()
 			return
 		siphoning_credits += siphon_amount
-		target_budget.adjust_money(-siphon_amount)
+		united_budget.adjust_money(-siphon_amount)
+	else
+		for(var/datum/bank_account/target_budget as anything in list_of_budgets)
+			if(!target_budget.has_money(siphon_amount))
+				empty_budgets += 1
+				continue
+			if(empty_budgets >= length(list_of_budgets))
+				say("All station budgets depleted. Halting siphon.")
+				end_siphon()
+				return
+			siphoning_credits += siphon_amount
+			target_budget.adjust_money(-siphon_amount)
 
 	playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
 	if(next_warning < world.time && prob(15))
