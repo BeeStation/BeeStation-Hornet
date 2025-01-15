@@ -174,7 +174,8 @@
 
 /obj/machinery/door/firedoor/on_emag(mob/user)
 	..()
-	playsound(src, 'sound/machines/beep.ogg', 50, 1)
+	playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+	do_sparks(5, TRUE, src)
 	open()
 
 /obj/machinery/door/firedoor/proc/log_opening(obj/item/card/id/I, mob/user, safe)
@@ -295,7 +296,7 @@
 
 
 /obj/machinery/door/firedoor/close()
-	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP))
+	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP) || (obj_flags & EMAGGED))
 		return
 	if(!density && !operating) //This is hacky but gets the sound to play on time.
 		playsound(src, 'sound/machines/firedoor_close.ogg', 30, 1)
@@ -548,6 +549,8 @@
 			. += "<span class='notice'>The maintenance panel is missing <i>wires</i> and the circuit board is <b>loosely connected</b>.</span>"
 		if(CONSTRUCTION_NOCIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
+	if(obj_flags & EMAGGED)
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/structure/firelock_frame/update_icon()
 	..()
