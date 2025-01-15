@@ -852,6 +852,14 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_mult = 0 // apparently tasteless.
 
+/datum/reagent/mercury/lead_acetate
+	name = "Lead Acetate"
+	description = "A sweet neurotoxic chemical. The secret of Roman sweet wine."
+	color = "#AAAAAA"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
+	taste_description = "sweetness"
+	taste_mult = 3
+
 /datum/reagent/mercury/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc))
 		step(M, pick(GLOB.cardinals))
