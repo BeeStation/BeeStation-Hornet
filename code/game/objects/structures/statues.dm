@@ -265,6 +265,7 @@
 	name = "chisel"
 	desc = "breaking and making art since 4000 BC. This one uses advanced technology to allow creation of lifelike moving statues."
 	icon = 'icons/obj/statue.dmi'
+	worn_icon_state = "screwdriver"
 	icon_state = "chisel"
 	item_state = "screwdriver_nuke"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
