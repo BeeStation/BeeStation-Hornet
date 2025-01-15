@@ -1,3 +1,7 @@
+/// This controls the delay for the sculpt rock breaking sound
+/// Every 4th iterator while sculpting will emit a sound (rougly every couple of seconds)
+#define SCULPT_SOUND_INCREMENT 4
+
 
 /obj/structure/statue
 	name = "statue"
@@ -23,6 +27,15 @@
 /obj/structure/statue/Initialize(mapload)
 	. = ..()
 	AddElement(art_type, impressiveness)
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, .proc/can_user_rotate), CALLBACK(src, .proc/can_be_rotated), null)
+
+/obj/structure/statue/proc/can_be_rotated(mob/user)
+	if(!anchored)
+		return TRUE
+	to_chat(user, "<span class='warning'>It's bolted to the floor, you'll need to unwrench it first.</span>")
+
+/obj/structure/statue/proc/can_user_rotate(mob/user)
+	return isliving(user) && user.canUseTopic(src, BE_CLOSE, no_dexterity = ismonkey(user))
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
@@ -33,11 +46,8 @@
 			if(!W.tool_start_check(user, amount=0))
 				return FALSE
 
-			user.visible_message("[user] is slicing apart the [name].", \
-								"<span class='notice'>You are slicing apart the [name]...</span>")
+			user.balloon_alert(user, "slicing apart...")
 			if(W.use_tool(src, user, 40, volume=50))
-				user.visible_message("[user] slices apart the [name].", \
-									"<span class='notice'>You slice apart the [name]!</span>")
 				deconstruct(TRUE)
 			return
 	return ..()
@@ -49,7 +59,7 @@
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(mat)
 			var/amount = max(0,round(custom_materials[mat]/MINERAL_MATERIAL_AMOUNT) + amount_mod)
 			if(amount > 0)
-				new custom_material.sheet_type(drop_location(),amount)
+				new custom_material.sheet_type(drop_location(), amount)
 	qdel(src)
 
 //////////////////////////////////////STATUES/////////////////////////////////////////////////////////////
@@ -271,7 +281,7 @@
 	attack_verb_continuous = list("stabs")
 	attack_verb_simple = list("stab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	usesound = list('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg')
+	usesound = list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	sharpness = SHARP
@@ -294,20 +304,25 @@
 *Hit block again to start sculpting.
 *Moving interrupts
 */
-/obj/item/chisel/pre_attack(atom/A, mob/living/user, params)
+/obj/item/chisel/pre_attack(atom/target, mob/living/user, params)
 	. = ..()
 	if(sculpting)
-		return
-	if(istype(A,/obj/structure/carving_block))
-		if(A == prepared_block && (prepared_block.current_target || prepared_block.current_preset_type))
+		return TRUE
+	if(istype(target, /obj/structure/carving_block))
+		var/obj/structure/carving_block/sculpt_block = target
+
+		if(sculpt_block.completion) // someone already started sculpting this so just finish
+			set_block(sculpt_block, user, silent = TRUE)
+			start_sculpting(user)
+		else if(sculpt_block == prepared_block && (prepared_block.current_target || prepared_block.current_preset_type))
 			start_sculpting(user)
 		else if(!prepared_block)
-			set_block(A,user)
-		else if(A == prepared_block)
+			set_block(sculpt_block, user)
+		else if(sculpt_block == prepared_block)
 			show_generic_statues_prompt(user)
 		return TRUE
 	else if(prepared_block) //We're aiming at something next to us with block prepared
-		prepared_block.set_target(A,user)
+		prepared_block.set_target(target, user)
 		return TRUE
 
 // We aim at something distant.
@@ -316,8 +331,10 @@
 	if(!proximity_flag && !sculpting && prepared_block && ismovable(target) && prepared_block.completion == 0)
 		prepared_block.set_target(target,user)
 
+/// Starts or continues the sculpting action on the carving block material
 /obj/item/chisel/proc/start_sculpting(mob/living/user)
-	to_chat(user,"<span class='notice'>You start sculpting [prepared_block].</span>",type=MESSAGE_TYPE_INFO)
+	user.balloon_alert(user, "sculpting block...")
+	playsound(src, pick(usesound), 75, TRUE)
 	sculpting = TRUE
 	//How long whole process takes
 	var/sculpting_time = 30 SECONDS
@@ -326,9 +343,12 @@
 	var/interrupted = FALSE
 	var/remaining_time = sculpting_time - (prepared_block.completion * sculpting_time)
 
-	var/datum/progressbar/total_progress_bar = new(user, sculpting_time, prepared_block )
+	var/datum/progressbar/total_progress_bar = new(user, sculpting_time, prepared_block)
 	while(remaining_time > 0 && !interrupted)
-		if(do_after(user,sculpting_period, target = prepared_block, progress = FALSE))
+		if(do_after(user, sculpting_period, target = prepared_block, progress = FALSE))
+			var/time_delay = !(remaining_time % SCULPT_SOUND_INCREMENT)
+			if(time_delay)
+				playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 			remaining_time -= sculpting_period
 			prepared_block.set_completion((sculpting_time - remaining_time)/sculpting_time)
 			total_progress_bar.update(sculpting_time - remaining_time)
@@ -337,41 +357,55 @@
 	total_progress_bar.end_progress()
 	if(!interrupted && !QDELETED(prepared_block))
 		prepared_block.create_statue()
-		to_chat(user,"<span class='notice'>The statue is finished!</span>",type=MESSAGE_TYPE_INFO)
-	break_sculpting()
+		user.balloon_alert(user, "statue finished")
+	stop_sculpting(silent = !interrupted)
 
-/obj/item/chisel/proc/set_block(obj/structure/carving_block/B,mob/living/user)
+/// To setup the sculpting target for the carving block
+/obj/item/chisel/proc/set_block(obj/structure/carving_block/B, mob/living/user, silent = FALSE)
 	prepared_block = B
 	tracked_user = user
-	RegisterSignal(tracked_user,COMSIG_MOVABLE_MOVED,PROC_REF(break_sculpting))
-	to_chat(user,"<span class='notice'>You prepare to work on [B].</span>",type=MESSAGE_TYPE_INFO)
+	RegisterSignal(tracked_user, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	if(!silent)
+		user.balloon_alert(user, "select sculpt target")
 
 /obj/item/chisel/dropped(mob/user, silent)
 	. = ..()
-	break_sculpting()
+	stop_sculpting()
 
-/obj/item/chisel/proc/break_sculpting()
+/// Cancel the sculpting action
+/obj/item/chisel/proc/stop_sculpting(silent = FALSE)
 	SIGNAL_HANDLER
 	sculpting = FALSE
 	if(prepared_block && prepared_block.completion == 0)
 		prepared_block.reset_target()
 	prepared_block = null
+
+	if(!silent && tracked_user)
+		tracked_user.balloon_alert(tracked_user, "sculpting cancelled!")
+
 	if(tracked_user)
-		UnregisterSignal(tracked_user,COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(tracked_user, COMSIG_MOVABLE_MOVED)
 		tracked_user = null
+
+/obj/item/chisel/proc/on_moved()
+	SIGNAL_HANDLER
+
+	stop_sculpting()
 
 /obj/item/chisel/proc/show_generic_statues_prompt(mob/living/user)
 	var/list/choices = list()
 	for(var/statue_path in prepared_block.get_possible_statues())
-		var/obj/structure/statue/S = statue_path
-		choices[statue_path] = image(icon=initial(S.icon),icon_state=initial(S.icon_state))
-	var/choice = show_radial_menu(user, prepared_block , choices, require_near = TRUE)
+		var/obj/structure/statue/abstract_statue = statue_path
+		choices[statue_path] = image(icon = initial(abstract_statue.icon), icon_state = initial(abstract_statue.icon_state))
+	if(!choices.len)
+		user.balloon_alert(user, "no abstract statues for material!")
+
+	var/choice = show_radial_menu(user, prepared_block, choices, require_near = TRUE)
 	if(choice)
 		prepared_block.current_preset_type = choice
 		var/image/chosen_looks = choices[choice]
 		prepared_block.current_target = chosen_looks.appearance
-		var/obj/structure/statue/S = choice
-		to_chat(user,"<span class='notice'>You decide to sculpt [prepared_block] into [initial(S.name)].</span>",type=MESSAGE_TYPE_INFO)
+		user.balloon_alert(user, "abstract statue selected")
 
 
 /obj/structure/carving_block
@@ -379,7 +413,7 @@
 	desc = "ready for sculpting."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "block"
-	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS | MATERIAL_ADD_PREFIX
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	density = TRUE
 
 	/// The thing it will look like - Unmodified resulting statue appearance
@@ -392,8 +426,6 @@
 	var/completion = 0
 	/// Greyscaled target with cutout filter
 	var/mutable_appearance/target_appearance_with_filters
-	/// Cutout filter for main block sprite
-	var/partial_uncover_filter
 	/// HSV color filters parameters
 	var/static/list/greyscale_with_value_bump = list(0,0,0, 0,0,0, 0,0,1, 0,0,-0.05)
 
@@ -402,13 +434,16 @@
 	target_appearance_with_filters = null
 	return ..()
 
-/obj/structure/carving_block/proc/set_target(atom/movable/target,mob/living/user)
-	if(!is_viable_target(target))
-		to_chat(user,"You won't be able to carve that.")
+/obj/structure/carving_block/proc/set_target(atom/movable/target, mob/living/user)
+	if(!is_viable_target(user, target))
 		return
-	current_target = target.appearance
+	if(istype(target,/obj/structure/statue/custom))
+		var/obj/structure/statue/custom/original = target
+		current_target = original.content_ma
+	else
+		current_target = target.appearance
 	var/mutable_appearance/ma = current_target
-	to_chat(user,"<span class='notice'>You decide to sculpt [src] into [ma.name].</span>",type=MESSAGE_TYPE_INFO)
+	user.balloon_alert(user, "sculpt target is [ma.name]")
 
 /obj/structure/carving_block/proc/reset_target()
 	current_target = null
@@ -419,16 +454,19 @@
 	. = ..()
 	if(target_appearance_with_filters)
 		//We're only keeping one instance here that changes in the middle so we have to clone it to avoid managed overlay issues
-		var/mutable_appearance/clone = new(target_appearance_with_filters)
-		. += clone
+		target_appearance_with_filters = new(current_target)
+		// KEEP_APART in case carving block gets KEEP_TOGETHER from somewhere like material texture filters.
+		target_appearance_with_filters.appearance_flags |= KEEP_TOGETHER | KEEP_APART
 
-/obj/structure/carving_block/proc/is_viable_target(atom/movable/target)
+/obj/structure/carving_block/proc/is_viable_target(mob/living/user, atom/movable/target)
 	//Only things on turfs
 	if(!isturf(target.loc))
+		user.balloon_alert(user, "no sculpt target!")
 		return FALSE
 	//No big icon things
 	var/icon/thing_icon = icon(target.icon, target.icon_state)
 	if(thing_icon.Height() != world.icon_size || thing_icon.Width() != world.icon_size)
+		user.balloon_alert(user, "sculpt target is too big!")
 		return FALSE
 	return TRUE
 
@@ -458,16 +496,13 @@
 	switch(value)
 		if(0)
 			//delete uncovered and reset filters
-			filters -= partial_uncover_filter
-			target_appearance_with_filters = null
+			remove_filter("partial_uncover")
 		else
 			var/mask_offset = min(world.icon_size,round(completion * world.icon_size))
-			if(partial_uncover_filter)
-				filters -= partial_uncover_filter
-			partial_uncover_filter = filter(type="alpha",icon=white,y=-mask_offset)
-			filters += partial_uncover_filter
+			remove_filter("partial_uncover")
+			add_filter("partial_uncover", 1, alpha_mask_filter(icon = white, y = -mask_offset))
 			target_appearance_with_filters.filters = filter(type="alpha",icon=white,y=-mask_offset,flags=MASK_INVERSE)
-	update_icon()
+	update_appearance()
 
 
 /// Returns a list of preset statues carvable from this block depending on the custom materials
@@ -514,6 +549,24 @@
 	content_ma.pixel_x = 0
 	content_ma.pixel_y = 0
 	content_ma.alpha = 255
+
+	var/static/list/plane_whitelist = list(FLOAT_PLANE, GAME_PLANE, FLOOR_PLANE)
+
+	/// Ideally we'd have knowledge what we're removing but i'd have to be done on target appearance retrieval
+	var/list/overlays_to_remove = list()
+	for(var/mutable_appearance/special_overlay as anything in content_ma.overlays)
+		if(special_overlay.plane in plane_whitelist)
+			continue
+		overlays_to_remove += special_overlay
+	content_ma.overlays -= overlays_to_remove
+
+	var/list/underlays_to_remove = list()
+	for(var/mutable_appearance/special_underlay as anything in content_ma.underlays)
+		if(special_underlay.plane in plane_whitelist)
+			continue
+		underlays_to_remove += special_underlay
+	content_ma.underlays -= underlays_to_remove
+
 	content_ma.filters = filter(type="color",color=greyscale_with_value_bump,space=FILTER_COLOR_HSV)
 	update_icon()
 
@@ -521,3 +574,6 @@
 	. = ..()
 	if(content_ma)
 		. += content_ma
+
+
+#undef SCULPT_SOUND_INCREMENT
