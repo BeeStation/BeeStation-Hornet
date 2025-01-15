@@ -5,7 +5,6 @@
 $thickness: base.em(2px) !default;
 
 .ModularFabricator {
-
   height: 100%;
 
   .horizontal {
@@ -95,7 +94,8 @@ $thickness: base.em(2px) !default;
     padding-bottom: 5px;
   }
 
-  .item_name, .item_desc {
+  .item_name,
+  .item_desc {
     display: block;
     margin-left: 5px;
     word-wrap: break-word;

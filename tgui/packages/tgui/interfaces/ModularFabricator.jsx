@@ -246,14 +246,8 @@ export const ModFabCategoryItems = (props, context) => {
           <Table.Row key={item.design_id} height="1px" className="item_row">
             <Table.Cell height="inherit" pr={0}>
               <div className="item_property_container">
-                <div className="item_name">
-                  {item.name}
-                </div>
-                {!!item.desc && (
-                  <div className="item_desc">
-                    {item.desc}
-                  </div>
-                )}
+                <div className="item_name">{item.name}</div>
+                {!!item.desc && <div className="item_desc">{item.desc}</div>}
               </div>
             </Table.Cell>
             <Table.Cell pl={0} className="item_costs">
@@ -307,38 +301,36 @@ export const ModFabCategoryItems = (props, context) => {
 export const ModFabSecurityMessage = (props, context) => {
   const { act, data } = useBackend(context);
   const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
-  return (
-    show_unlock_bar ? (
-      <NoticeBox className="ModularFabricator__security_header" color={sec_interface_unlock ? 'green' : 'red'}>
-        <Flex align="center">
-          <Flex.Item grow={1}>
-            Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid ID to unlock safety controls.
-          </Flex.Item>
-          <Flex.Item>
-            <Button
-              m={0}
-              color={sec_interface_unlock ? 'green' : 'red'}
-              icon={sec_interface_unlock ? 'unlock' : 'lock'}
-              content={hacked ? 'Reactivate' : 'Deactivate'}
-              onClick={() => act('toggle_safety')}
-            />
-          </Flex.Item>
-          <Flex.Item mx={1}>
-            <Button
-              m={0}
-              color={sec_interface_unlock ? 'green' : 'red'}
-              icon={sec_interface_unlock ? 'unlock' : 'lock'}
-              content={sec_interface_unlock ? 'Unlocked' : 'Locked'}
-              onClick={() => act('toggle_lock')}
-            />
-          </Flex.Item>
-        </Flex>
-      </NoticeBox>
-    ) : (
-      <NoticeBox textAlign="center" color="orange">
-        Nanotrasen Fabrication Unit V1.0.4
-      </NoticeBox>
-    )
+  return show_unlock_bar ? (
+    <NoticeBox className="ModularFabricator__security_header" color={sec_interface_unlock ? 'green' : 'red'}>
+      <Flex align="center">
+        <Flex.Item grow={1}>
+          Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid ID to unlock safety controls.
+        </Flex.Item>
+        <Flex.Item>
+          <Button
+            m={0}
+            color={sec_interface_unlock ? 'green' : 'red'}
+            icon={sec_interface_unlock ? 'unlock' : 'lock'}
+            content={hacked ? 'Reactivate' : 'Deactivate'}
+            onClick={() => act('toggle_safety')}
+          />
+        </Flex.Item>
+        <Flex.Item mx={1}>
+          <Button
+            m={0}
+            color={sec_interface_unlock ? 'green' : 'red'}
+            icon={sec_interface_unlock ? 'unlock' : 'lock'}
+            content={sec_interface_unlock ? 'Unlocked' : 'Locked'}
+            onClick={() => act('toggle_lock')}
+          />
+        </Flex.Item>
+      </Flex>
+    </NoticeBox>
+  ) : (
+    <NoticeBox textAlign="center" color="orange">
+      Nanotrasen Fabrication Unit V1.0.4
+    </NoticeBox>
   );
 };
 
@@ -459,69 +451,70 @@ export const OutputDir = (props, context) => {
 export const MaterialData = (props, context) => {
   const { act, data } = useBackend(context);
   const { materials = [] } = data;
-  return (
-    materials.filter(material => material.amount > 0).length === 0 ? (
-      <div className="material_warning">
-        No materials inserted
-      </div>
-    ) : (
-      <>
-      <Box bold width="100%" textAlign="center" mb={1}>Materials</Box>
-    <Flex direction="column">
-      {materials.filter(material => material.amount > 0).map((material) => (
-        <Flex.Item key={material.datum}>
-          <Flex direction="row">
-            <Flex.Item>
-              <Box>{capitalize(material.name)}</Box>
+  return materials.filter((material) => material.amount > 0).length === 0 ? (
+    <div className="material_warning">No materials inserted</div>
+  ) : (
+    <>
+      <Box bold width="100%" textAlign="center" mb={1}>
+        Materials
+      </Box>
+      <Flex direction="column">
+        {materials
+          .filter((material) => material.amount > 0)
+          .map((material) => (
+            <Flex.Item key={material.datum}>
+              <Flex direction="row">
+                <Flex.Item>
+                  <Box>{capitalize(material.name)}</Box>
+                </Flex.Item>
+                <Flex.Item grow={1} />
+                <Flex.Item mr={1}>
+                  <Box>{material.amount} sheets</Box>
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    color="green"
+                    disabled={material.amount < 1}
+                    content="x1"
+                    onClick={() =>
+                      act('eject_material', {
+                        material_datum: material.datum,
+                        amount: 1,
+                      })
+                    }
+                  />
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    color="green"
+                    disabled={material.amount < 10}
+                    content="x10"
+                    onClick={() =>
+                      act('eject_material', {
+                        material_datum: material.datum,
+                        amount: 10,
+                      })
+                    }
+                  />
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    color="green"
+                    disabled={material.amount < 50}
+                    content="x50"
+                    onClick={() =>
+                      act('eject_material', {
+                        material_datum: material.datum,
+                        amount: 50,
+                      })
+                    }
+                  />
+                </Flex.Item>
+              </Flex>
             </Flex.Item>
-            <Flex.Item grow={1} />
-            <Flex.Item mr={1}>
-              <Box>{material.amount} sheets</Box>
-            </Flex.Item>
-            <Flex.Item>
-              <Button
-                color="green"
-                disabled={material.amount < 1}
-                content="x1"
-                onClick={() =>
-                  act('eject_material', {
-                    material_datum: material.datum,
-                    amount: 1,
-                  })
-                }
-              />
-            </Flex.Item>
-            <Flex.Item>
-              <Button
-                color="green"
-                disabled={material.amount < 10}
-                content="x10"
-                onClick={() =>
-                  act('eject_material', {
-                    material_datum: material.datum,
-                    amount: 10,
-                  })
-                }
-              />
-            </Flex.Item>
-            <Flex.Item>
-              <Button
-                color="green"
-                disabled={material.amount < 50}
-                content="x50"
-                onClick={() =>
-                  act('eject_material', {
-                    material_datum: material.datum,
-                    amount: 50,
-                  })
-                }
-              />
-            </Flex.Item>
-          </Flex>
-        </Flex.Item>
-      ))}
-    </Flex>
-    </>)
+          ))}
+      </Flex>
+    </>
   );
 };
 
