@@ -772,7 +772,7 @@
 /obj/machinery/door/airlock/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
 
-	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of airlocks & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/door/airlock/attack_silicon(mob/user)

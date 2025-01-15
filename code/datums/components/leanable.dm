@@ -13,38 +13,43 @@
 	src.leaning_offset = leaning_offset
 	var/atom/leanable_atom = parent
 	is_currently_leanable = leanable_atom.density
-	mousedrop_receive(parent, leaner, leaner)
+	leaning_mob = leaner
 
 /datum/component/leanable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 	RegisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING, PROC_REF(stopped_leaning))
 	RegisterSignal(parent, COMSIG_ATOM_DENSITY_CHANGED, PROC_REF(on_density_change))
+	if(!mousedrop_receive(parent, leaning_mob, leaning_mob))
+		stopped_leaning(src)
 
 /datum/component/leanable/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO)
 	UnregisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING)
 	UnregisterSignal(parent, COMSIG_ATOM_DENSITY_CHANGED)
+	leaning_mob = null
 
 /datum/component/leanable/proc/stopped_leaning(obj/source)
 	SIGNAL_HANDLER
 	qdel(src)
 
 /datum/component/leanable/proc/mousedrop_receive(atom/source, atom/movable/dropped, mob/user, params)
-	var/mob/living/leaner = dropped
-	if(dropped != user)
-		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
-	if(!iscarbon(dropped) && !iscyborg(dropped))
-		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
-	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN)
-		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
-	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING))
-		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
-	if(ISDIAGONALDIR(get_dir(leaner, source))) //Not leaning on a corner, idiot
-		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
-	if(!is_currently_leanable)
-		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
+	if(dropped != user) //Have we been dropped on a valid leanable object?
+		return FALSE
 
+	var/mob/living/leaner = dropped
 	leaning_mob = leaner
+
+	if(!iscarbon(dropped) && !iscyborg(dropped)) //Are we not a cyborg or carbon?
+		return FALSE
+	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+		return FALSE
+	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
+		return FALSE
+	if(ISDIAGONALDIR(get_dir(leaner, source))) //Not leaning on a corner, idiot
+		return FALSE
+	if(!is_currently_leanable) //Is the object currently able to be leaned on?
+		return FALSE
+
 	leaner.apply_status_effect(STATUS_EFFECT_LEANING, source, leaning_offset)
 	return TRUE
 
