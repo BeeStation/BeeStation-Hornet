@@ -1848,6 +1848,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		return
 	. = density
 	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_DENSITY_CHANGED)
 
 /**
   * Causes effects when the atom gets hit by a rust effect from heretics

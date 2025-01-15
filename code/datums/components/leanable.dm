@@ -5,20 +5,25 @@
 	var/leaning_offset = 11
 	/// Leaning mob of our parent, as only one person can lean on us at a time
 	var/mob/living/leaning_mob
+	/// Is this object currently leanable?
+	var/is_currently_leanable = TRUE
 
 /datum/component/leanable/Initialize(mob/living/leaner, leaning_offset = 11)
 	. = ..()
 	src.leaning_offset = leaning_offset
-	if(!mousedrop_receive(parent, leaner, leaner))
-		qdel(src, TRUE)
+	var/atom/leanable_atom = parent
+	is_currently_leanable = leanable_atom.density
+	mousedrop_receive(parent, leaner, leaner)
 
 /datum/component/leanable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 	RegisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING, PROC_REF(stopped_leaning))
+	RegisterSignal(parent, COMSIG_ATOM_DENSITY_CHANGED, PROC_REF(on_density_change))
 
 /datum/component/leanable/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO)
 	UnregisterSignal(leaning_mob, COMSIG_LIVING_STOPPED_LEANING)
+	UnregisterSignal(parent, COMSIG_ATOM_DENSITY_CHANGED)
 
 /datum/component/leanable/proc/stopped_leaning(obj/source)
 	SIGNAL_HANDLER
@@ -27,19 +32,27 @@
 /datum/component/leanable/proc/mousedrop_receive(atom/source, atom/movable/dropped, mob/user, params)
 	var/mob/living/leaner = dropped
 	if(dropped != user)
-		return FALSE
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(!iscarbon(dropped) && !iscyborg(dropped))
-		return FALSE
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN)
-		return FALSE
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING))
-		return FALSE
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(ISDIAGONALDIR(get_dir(leaner, source))) //Not leaning on a corner, idiot
-		return FALSE
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
+	if(!is_currently_leanable)
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 	leaning_mob = leaner
 	leaner.apply_status_effect(STATUS_EFFECT_LEANING, source, leaning_offset)
 	return TRUE
+
+/datum/component/leanable/proc/on_density_change()
+	SIGNAL_HANDLER
+	is_currently_leanable = !is_currently_leanable
+	if(!is_currently_leanable)
+		leaning_mob.stop_leaning(src)
 
 /**
  * Makes the mob lean on an atom

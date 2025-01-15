@@ -717,7 +717,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
 		if(W.get_virtual_z_level() == get_virtual_z_level() && get_dist(src, W) <= 2 && !W.density && !W.recharging)
-			W.density = TRUE
+			W.set_density(TRUE)
 			W.update_state()
 			W.spread_density()
 	density_timer = addtimer(CALLBACK(src, PROC_REF(lose_density)), 3000, TIMER_STOPPABLE)
