@@ -631,12 +631,10 @@
 /mob/living/simple_animal/hostile/proc/enter_charge(var/atom/target)
 	if((mobility_flags & (MOBILITY_MOVE | MOBILITY_STAND)) != (MOBILITY_MOVE | MOBILITY_STAND) || charge_state)
 		return FALSE
-
 	if(!(COOLDOWN_FINISHED(src, charge_cooldown)) || !has_gravity() || !target.has_gravity())
 		return FALSE
 	Shake(3, 3, 1 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(handle_charge_target), target, 1.5 SECONDS, TIMER_STOPPABLE))
-
 
 /**
   * Proc that throws the mob at the target after the windup.
@@ -645,7 +643,6 @@
 	charge_state = TRUE
 	throw_at(target, charge_distance, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(charge_end)))
 	COOLDOWN_START(src, charge_cooldown, charge_frequency)
-	return TRUE
 
 /**
   * Proc that handles a charge attack after it's concluded.
