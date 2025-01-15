@@ -93,6 +93,7 @@
 	var/frequency = FREQ_ATMOS_CONTROL
 	var/alarm_frequency = FREQ_ATMOS_ALARMS
 	var/datum/radio_frequency/radio_connection
+
 	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
 	var/datum/alarm_handler/alarm_manager
 
@@ -114,7 +115,6 @@
 		GAS_NITRYL		= new/datum/tlv/dangerous,
 		GAS_PLUOXIUM	= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
-
 
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
@@ -141,7 +141,6 @@
 	))
 	GLOB.zclear_atoms += src
 
-
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
 	QDEL_NULL(wires)
@@ -165,7 +164,6 @@
 	else if(!shorted)
 		return ..()
 	return UI_CLOSE
-
 
 /obj/machinery/airalarm/ui_state(mob/user)
 	return GLOB.default_state
@@ -302,6 +300,8 @@
 	return data
 
 /obj/machinery/airalarm/ui_act(action, params)
+	. = ..()
+
 	if(..() || buildstage != 2)
 		return
 	if((locked && !usr.has_unlimited_silicon_privilege) || (usr.has_unlimited_silicon_privilege && aidisabled))
@@ -368,19 +368,17 @@
 	if(.)
 		update_appearance()
 
-
 /obj/machinery/airalarm/proc/reset(wire)
 	switch(wire)
 		if(WIRE_POWER)
 			if(!wires.is_cut(WIRE_POWER))
 				shorted = FALSE
 				wires.ui_update()
-				update_icon_state()
+				update_appearance()
 		if(WIRE_AI)
 			if(!wires.is_cut(WIRE_AI))
 				aidisabled = FALSE
 				wires.ui_update()
-
 
 /obj/machinery/airalarm/proc/shock(mob/user, prb)
 	if((machine_stat & (NOPOWER)))/// Unpowered, no shock
@@ -634,7 +632,7 @@
 
 	if(old_danger_level != danger_level)
 		INVOKE_ASYNC(src, PROC_REF(apply_danger_level))
-s	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
+	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
 		INVOKE_ASYNC(src, PROC_REF(apply_mode), src)
 
@@ -712,7 +710,7 @@ s	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 
 						new /obj/item/electronics/airalarm( src.loc )
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 						buildstage = 0
-						update_icon_state()
+						update_appearance()
 				return
 
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -733,14 +731,14 @@ s	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 
 						shorted = 0
 						post_alert(0)
 						buildstage = 2
-						update_icon_state()
+						update_appearance()
 				return
 		if(0)
 			if(istype(W, /obj/item/electronics/airalarm))
 				if(user.temporarilyRemoveItemFromInventory(W))
 					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
 					buildstage = 1
-					update_icon_state()
+					update_appearance()
 					qdel(W)
 				return
 
@@ -774,7 +772,7 @@ s	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 
 			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class='notice'>You adapt an air alarm circuit and slot it into the assembly.</span>")
 			buildstage = 1
-			update_icon_state()
+			update_appearance()
 			return TRUE
 	return FALSE
 
