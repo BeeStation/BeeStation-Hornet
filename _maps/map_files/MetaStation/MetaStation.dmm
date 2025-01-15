@@ -41013,6 +41013,7 @@
 /obj/item/paper_bin/construction,
 /obj/item/airlock_painter,
 /obj/machinery/airalarm/directional/east,
+/obj/item/chisel,
 /turf/open/floor/iron,
 /area/storage/art)
 "kya" = (

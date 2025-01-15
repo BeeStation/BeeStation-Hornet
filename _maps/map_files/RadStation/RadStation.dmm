@@ -48013,6 +48013,7 @@
 	pixel_y = -32
 	},
 /obj/structure/table/wood,
+/obj/item/chisel,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "pjf" = (

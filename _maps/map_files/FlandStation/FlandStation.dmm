@@ -24677,6 +24677,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
+/obj/item/chisel,
 /turf/open/floor/iron/cafeteria,
 /area/storage/art)
 "gnK" = (

@@ -51192,6 +51192,7 @@
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/wood,
+/obj/item/chisel,
 /turf/open/floor/wood,
 /area/library)
 "qAg" = (
