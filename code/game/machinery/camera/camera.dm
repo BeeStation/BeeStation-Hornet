@@ -497,7 +497,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		return FALSE
 	if(machine_stat & EMPED)
 		return FALSE
-	if(is_jammed(JAMMER_PROTECTION_CAMERAS))
+	if(is_jammed(JAMMER_PROTECTION_CAMERAS) == JAM_FULL)
 		return FALSE
 	return TRUE
 

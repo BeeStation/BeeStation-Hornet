@@ -290,12 +290,15 @@ effective or pretty fucking useless.
 ///Parameters:
 /// - Protection level: The amount of protection that the atom has. See jamming_defines.dm
 /atom/proc/is_jammed(protection_level)
+	. = JAM_NONE
 	var/turf/position = get_turf(src)
+	var/area/location = position.loc
+	if (protection_level <= location.area_jamming_level)
+		. = JAM_MINOR
 	for(var/datum/component/radio_jamming/jammer as anything in GLOB.active_jammers)
 		//Check to see if the jammer is strong enough to block this signal
 		if (protection_level > jammer.intensity)
 			continue
 		var/turf/jammer_turf = get_turf(jammer.parent)
 		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
-			return TRUE
-	return FALSE
+			return JAM_FULL
