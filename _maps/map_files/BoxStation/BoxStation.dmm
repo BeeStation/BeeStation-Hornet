@@ -5403,14 +5403,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bjm" = (
-/obj/structure/table,
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
 	departmentType = 2;
 	pixel_y = 30
 	},
+/obj/machinery/suit_storage_unit/industrial/loader,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "bjp" = (
@@ -24008,6 +24006,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
+"gnn" = (
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/morgue)
 "gnK" = (
 /obj/structure/dresser,
 /obj/machinery/newscaster{
@@ -39591,6 +39593,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "mAN" = (
@@ -103440,7 +103444,7 @@ pmc
 sHA
 tyR
 cBD
-obY
+gnn
 snx
 cAL
 cAL

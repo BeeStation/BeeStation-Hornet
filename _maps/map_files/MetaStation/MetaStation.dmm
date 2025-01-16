@@ -2652,6 +2652,7 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/suit_storage_unit/industrial/loader,
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
 "azw" = (
@@ -29526,12 +29527,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "gdn" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -29540,6 +29535,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/suit_storage_unit/medical,
 /turf/open/floor/iron,
 /area/medical/storage)
 "gdv" = (
@@ -43135,6 +43131,11 @@
 	dir = 8
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/open/floor/iron,
 /area/medical/storage)
 "lqg" = (

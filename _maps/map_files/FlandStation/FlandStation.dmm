@@ -10527,12 +10527,6 @@
 /turf/open/floor/iron/freezer,
 /area/medical/surgery)
 "cLG" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
 /obj/machinery/door/window/southright{
 	name = "Miscellaneous Medical Supplies";
 	req_access_txt = "5"
@@ -10546,7 +10540,7 @@
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
-/obj/item/book/manual/wiki/sopmedical,
+/obj/machinery/suit_storage_unit/medical,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "cLH" = (
@@ -50402,6 +50396,12 @@
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/syringes,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "mNx" = (

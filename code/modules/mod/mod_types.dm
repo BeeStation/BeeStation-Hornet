@@ -97,6 +97,7 @@
 
 /obj/item/mod/control/pre_equipped/loader
 	theme = /datum/mod_theme/loader
+	req_access = list(ACCESS_CARGO, ACCESS_MINERAL_STOREROOM) //Cargo techs, quartermasters, and skeleton access miners
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
@@ -128,6 +129,7 @@
 
 /obj/item/mod/control/pre_equipped/medical
 	theme = /datum/mod_theme/medical
+	req_access = list(ACCESS_MEDICAL, ACCESS_EVA) //CMOs, Paramedics, and Skeleton access medical doctors
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
@@ -138,6 +140,7 @@
 /obj/item/mod/control/pre_equipped/rescue
 	theme = /datum/mod_theme/rescue
 	applied_cell = /obj/item/stock_parts/cell/super
+	req_access = list(ACCESS_MEDICAL, ACCESS_EVA) //CMOs, Paramedics, and Skeleton access medical doctors
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
