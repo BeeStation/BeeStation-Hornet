@@ -755,6 +755,14 @@
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Misc")
 
+/datum/design/chisel
+	name = "Chisel"
+	id = "chisel"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 75)
+	build_path = /obj/item/chisel
+	category = list("initial","Tools")
+
 //hacked autolathe recipes
 /datum/design/flamethrower
 	name = "Flamethrower"

@@ -39005,6 +39005,7 @@
 "mls" = (
 /obj/structure/table/wood,
 /obj/item/storage/crayons,
+/obj/item/chisel,
 /turf/open/floor/wood,
 /area/library)
 "mlV" = (

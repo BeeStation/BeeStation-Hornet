@@ -8766,6 +8766,7 @@
 	},
 /obj/item/hand_labeler,
 /obj/machinery/light/small,
+/obj/item/chisel,
 /turf/open/floor/iron/dark,
 /area/library)
 "bJS" = (

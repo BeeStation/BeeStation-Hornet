@@ -956,6 +956,7 @@
 #include "code\datums\materials\alloys.dm"
 #include "code\datums\materials\basemats.dm"
 #include "code\datums\materials\meat.dm"
+#include "code\datums\materials\pizza.dm"
 #include "code\datums\mocking\client.dm"
 #include "code\datums\mood_events\drink_events.dm"
 #include "code\datums\mood_events\drug_events.dm"

@@ -33,10 +33,12 @@
 	throwforce = 5
 	max_amount = 12
 	w_class = WEIGHT_CLASS_NORMAL
+	custom_materials = list(/datum/material/bone = MINERAL_MATERIAL_AMOUNT)
 	throw_speed = 1
 	throw_range = 3
 	grind_results = list(/datum/reagent/carbon = 10)
 	merge_type = /obj/item/stack/sheet/bone
+	material_type = /datum/material/bone
 
 /* Sinew */
 

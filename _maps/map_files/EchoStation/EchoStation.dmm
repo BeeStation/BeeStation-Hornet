@@ -48051,6 +48051,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/chisel,
 /turf/open/floor/carpet/purple,
 /area/library/abandoned)
 "ycn" = (

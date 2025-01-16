@@ -16,10 +16,17 @@ SUBSYSTEM_DEF(materials)
 	var/list/materialtypes_by_category
 	///A cache of all material combinations that have been used
 	var/list/list/material_combos
-	///List of stackcrafting recipes for materials using rigid materials
-	var/list/rigid_stack_recipes = list(
+	///List of stackcrafting recipes for materials using base recipes
+	var/list/base_stack_recipes = list(
 		new /datum/stack_recipe("chair", /obj/structure/chair/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 		new /datum/stack_recipe("Floor tile", /obj/item/stack/tile/material, 1, 4, 20, applies_mats = TRUE),
+		new /datum/stack_recipe("toilet", /obj/structure/toilet/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
+		new /datum/stack_recipe("sink", /obj/structure/sink/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
+	)
+
+	///List of stackcrafting recipes for materials using rigid recipes
+	var/list/rigid_stack_recipes = list(
+		new /datum/stack_recipe("Carving block", /obj/structure/carving_block, 5, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 	)
 
 ///Ran on initialize, populated the materials and materials_by_category dictionaries with their appropiate vars (See these variables for more info)
@@ -44,6 +51,7 @@ SUBSYSTEM_DEF(materials)
 		if(global_mat_recipes)
 			if(ref.categories[MAT_CATEGORY_BASE_RECIPES])
 				global_mat_recipes += SSmaterials.rigid_stack_recipes.Copy()
+				global_mat_recipes += SSmaterials.base_stack_recipes.Copy()
 			/* put more material recipes here. example:
 			if(ref.categories[MAT_CATEGORY_SOME_NEW_RECIPES])
 				global_mat_recipes += SSmaterials.SOME_NEW_RECIPES.Copy()

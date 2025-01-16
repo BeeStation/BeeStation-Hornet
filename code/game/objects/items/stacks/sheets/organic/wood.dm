@@ -44,9 +44,11 @@ Woods Sheets
 	force = 10
 	throwforce = 10
 	armor_type = /datum/armor/sheet_bamboo
+	custom_materials = list(/datum/material/bamboo = MINERAL_MATERIAL_AMOUNT)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)
+	material_type = /datum/material/bamboo
 
 
 /datum/armor/sheet_bamboo
@@ -73,9 +75,10 @@ Woods Sheets
 	icon_state = "sheet-paper"
 	item_state = "sheet-paper"
 	icon = 'icons/obj/stacks/organic.dmi'
+	custom_materials = list(/datum/material/paper = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/paperframes
 	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/sheet/paperframes
+	material_type = /datum/material/paper
 
 /obj/item/stack/sheet/paperframes/get_recipes()
 	return GLOB.paperframe_recipes
