@@ -1,0 +1,9 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Added the white replica jackboots, a subvariant of the replica jackboots.
+  - tweak: Sorted the icon in the worn icon files.
+  - bugfix: Added the ERROR icons to the clothing files.
+  - imageadd: Implemented some new icons for the jackboots, aswell better icons for
+      the rainbow shoes, kindlekicks (to fit better in line with the current shoes)
+      and the shoes spawner (only seen in mapmaking).
