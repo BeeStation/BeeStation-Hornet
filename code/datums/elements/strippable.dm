@@ -116,7 +116,7 @@
 /// Start the equipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
-	if(isclothing(source))
+	if(isclothing(source) && !HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
 		source.visible_message(
 			"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
 			"<span class='notice'>[user] tries to put [equipping] on you.</span>",
@@ -166,11 +166,12 @@
 	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
 		return FALSE
 
-	source.visible_message(
-		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
-		ignored_mobs = user,
-	)
+	if(!HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
+		source.visible_message(
+			"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
+			"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
+			ignored_mobs = user,
+		)
 
 	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
 	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
