@@ -19,9 +19,14 @@
 	//Check if the gas is moving from one pipenet to the other
 	var/is_gas_flowing = FALSE
 
+/obj/machinery/atmospherics/components/binary/temperature_gate/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Maximize target temperature")
+
 /obj/machinery/atmospherics/components/binary/temperature_gate/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
+		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 	return ..()
@@ -29,7 +34,7 @@
 /obj/machinery/atmospherics/components/binary/temperature_gate/AltClick(mob/user)
 	if(can_interact(user))
 		target_temperature = max_temperature
-		balloon_alert(user, "You set the target temperature to [target_temperature] K.")
+		balloon_alert(user, "target temperature set to [target_temperature] K")
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 	return ..()

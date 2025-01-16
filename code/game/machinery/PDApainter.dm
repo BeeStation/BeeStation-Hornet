@@ -220,6 +220,17 @@
 		storedid = null
 		update_icon()
 
+/obj/machinery/pdapainter/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	if(storedpda || storedid)
+		context.add_attack_hand_action("Paint Item")
+		context.add_alt_click_action("Eject Item")
+	else
+		context.add_left_click_item_action("Insert", /obj/item/modular_computer/tablet/pda)
+		context.add_left_click_item_action("Insert", /obj/item/card/id)
+	if (machine_stat & BROKEN)
+		context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	context.add_generic_unfasten_actions(src)
+
 /proc/get_card_style_list(emagged)
 	var/static/valid_jobs = list(
 		"----Command----", "Command (Custom)",JOB_NAME_CAPTAIN,"Acting Captain",
