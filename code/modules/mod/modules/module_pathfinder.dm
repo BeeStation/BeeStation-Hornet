@@ -10,7 +10,8 @@
 		The implant is stored in the module and needs to be injected in a human to function. \
 		Nakamura Engineering swears up and down there's airbrakes."
 	icon_state = "pathfinder"
-	complexity = 2
+	complexity = 1
+	module_type = MODULE_USABLE
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
@@ -22,8 +23,18 @@
 	implant = new(src)
 
 /obj/item/mod/module/pathfinder/Destroy()
-	implant = null
+	QDEL_NULL(implant)
 	return ..()
+
+/obj/item/mod/module/pathfinder/Exited(atom/movable/gone, direction)
+	if(gone == implant)
+		implant = null
+		update_icon_state()
+	return ..()
+
+/obj/item/mod/module/pathfinder/update_icon_state()
+	. = ..()
+	icon_state = implant ? "pathfinder" : "pathfinder_empty"
 
 /obj/item/mod/module/pathfinder/examine(mob/user)
 	. = ..()
@@ -46,8 +57,6 @@
 	else
 		target.visible_message("<span class='notice'>[user] implants [target].", "<span class='notice'>[user] implants you with [implant].</span>")
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
-	icon_state = "pathfinder_empty"
-	implant = null
 
 /obj/item/mod/module/pathfinder/proc/attach(mob/living/user)
 	if(!ishuman(user))
@@ -62,6 +71,22 @@
 	balloon_alert(human_user, "[mod] attached")
 	playsound(mod, 'sound/machines/ping.ogg', 50, TRUE)
 	drain_power(use_power_cost)
+	module_type = MODULE_PASSIVE
+
+/obj/item/mod/module/pathfinder/on_use()
+	. = ..()
+	if (!ishuman(mod.wearer) || !implant)
+		return
+	if(!implant.implant(mod.wearer, mod.wearer))
+		balloon_alert(mod.wearer, "can't implant!")
+		return
+	balloon_alert(mod.wearer, "implanted")
+	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
+	module_type = MODULE_PASSIVE
+	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[REF(mod.wearer)]
+	if(existing_action)
+		//mod.remove_item_action(existing_action)
+		qdel(existing_action)
 
 /obj/item/implant/mod
 	name = "MOD pathfinder implant"
