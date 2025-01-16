@@ -13,7 +13,7 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
 	armor_type = /datum/armor/machinery_door
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
 	damage_deflection = 10
@@ -57,7 +57,7 @@
 	. = ..()
 	set_init_door_layer()
 	update_freelook_sight()
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
@@ -93,6 +93,7 @@
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/machinery/door/Bumped(atom/movable/AM)
@@ -128,7 +129,8 @@
 /obj/machinery/door/Move()
 	var/turf/T = loc
 	. = ..()
-	move_update_air(T)
+	if(density) //Gotta be closed my friend
+		move_update_air(T)
 
 /obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -198,31 +200,6 @@
 
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
 	return
-
-/obj/machinery/door/proc/is_holding_pressure()
-	var/turf/open/T = loc
-	if(!T)
-		return FALSE
-	if(!density)
-		return FALSE
-	// alrighty now we check for how much pressure we're holding back
-	var/min_moles = T.air.total_moles()
-	var/max_moles = min_moles
-	// okay this is a bit hacky. First, we set density to 0 and recalculate our adjacent turfs
-	density = FALSE
-	T.ImmediateCalculateAdjacentTurfs()
-	// then we use those adjacent turfs to figure out what the difference between the lowest and highest pressures we'd be holding is
-	for(var/turf/open/T2 in T.atmos_adjacent_turfs)
-		if((flags_1 & ON_BORDER_1) && get_dir(src, T2) != dir)
-			continue
-		var/moles = T2.air.total_moles()
-		if(moles < min_moles)
-			min_moles = moles
-		if(moles > max_moles)
-			max_moles = moles
-	density = TRUE
-	T.ImmediateCalculateAdjacentTurfs() // alright lets put it back
-	return max_moles - min_moles > 20
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent != INTENT_HARM && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe)))
@@ -306,7 +283,7 @@
 	update_appearance()
 	set_opacity(0)
 	operating = FALSE
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	update_freelook_sight()
 	if(autoclose)
 		spawn(autoclose)
@@ -340,7 +317,7 @@
 	if(visible && !glass)
 		set_opacity(1)
 	operating = FALSE
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
@@ -397,11 +374,6 @@
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
-
-/obj/machinery/door/BlockThermalConductivity() // All non-glass airlocks block heat, this is intended.
-	if(opacity || heat_proof)
-		return 1
-	return 0
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

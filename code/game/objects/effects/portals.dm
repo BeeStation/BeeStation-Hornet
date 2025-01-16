@@ -138,16 +138,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 		return FALSE
 	atmos_source.atmos_adjacent_turfs[atmos_destination] = TRUE
 	atmos_destination.atmos_adjacent_turfs[atmos_source] = TRUE
-	atmos_source.air_update_turf(FALSE)
-	atmos_destination.air_update_turf(FALSE)
+	atmos_source.air_update_turf(FALSE, FALSE)
+	atmos_destination.air_update_turf(FALSE, FALSE)
 
 /obj/effect/portal/proc/unlink_atmos()
 	if(istype(atmos_source))
-		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source))
+		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source, FALSE))
 			LAZYREMOVE(atmos_source.atmos_adjacent_turfs, atmos_destination)
 		atmos_source = null
 	if(istype(atmos_destination))
-		if(istype(atmos_source) && !atmos_destination.Adjacent(atmos_source) && !CANATMOSPASS(atmos_source, atmos_destination))
+		if(istype(atmos_source) && !atmos_destination.Adjacent(atmos_source) && !CANATMOSPASS(atmos_source, atmos_destination, FALSE))
 			LAZYREMOVE(atmos_destination.atmos_adjacent_turfs, atmos_source)
 		atmos_destination = null
 
