@@ -32,10 +32,11 @@
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(istype(user, /mob/living/carbon/human/consistent) || istype(user, /mob/living/carbon/human/dummy))
-		//Fake people need not apply (it fucks up my unit tests)
-		return
+	//If proper servant
 	if(is_servant_of_ratvar(user) && allow_any)
+		return
+	//Dead brain and in a testing mob? we must be in a fake environment! Lets not fuck it up
+	if((!user.client) && ishumantesting(user))
 		return
 	to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
 	user.dropItemToGround(src, TRUE)
@@ -145,7 +146,7 @@
 	icon_state = "wraith_specs"
 	invis_view = SEE_INVISIBLE_SPIRIT
 	invis_override = null
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/yellow
@@ -192,7 +193,7 @@
 	armor_type = /datum/armor/helmet_clockcult
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	bang_protect = 3
 
 

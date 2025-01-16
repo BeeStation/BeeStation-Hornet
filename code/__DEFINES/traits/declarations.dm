@@ -72,8 +72,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NORADDAMAGE		"no_rad_damage"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
-#define TRAIT_NODISMEMBER		"dismember_immunity"
-#define TRAIT_NOFIRE			"nonflammable"
+#define TRAIT_NODISMEMBER "dismember_immunity"
+#define TRAIT_NOFIRE "nonflammable"
+/// Prevents plasmamen from self-igniting
+#define TRAIT_NOSELFIGNITION "no_selfignition"
 #define TRAIT_NOGUNS			"no_guns"
 #define TRAIT_NOHUNGER			"no_hunger"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
@@ -86,7 +88,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EASYLIMBDISABLE	"easy_limb_disable"
 #define TRAIT_TOXINLOVER		"toxinlover"
 #define TRAIT_NOHAIRLOSS		"no_hair_loss"
+/// reduces the use time of syringes, pills, patches and medigels but only when using on someone
+#define TRAIT_FASTMED "fast_med_use"
 #define TRAIT_NOBREATH			"no_breath"
+/// Like antimagic, but doesn't block the user from casting
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
 #define TRAIT_SEE_ANTIMAGIC		"see_anti_magic"
 #define TRAIT_DEPRESSION		"depression"
 #define TRAIT_JOLLY				"jolly"
@@ -118,9 +124,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DISK_VERIFIER     "disk-verifier"
 #define TRAIT_MULTILINGUAL		"multilingual" //I know another language
 #define TRAIT_LINGUIST			"linguist"
-#define TRAIT_NOMOBSWAP         "no-mob-swap"
-#define TRAIT_XRAY_VISION       "xray_vision"
-#define TRAIT_THERMAL_VISION    "thermal_vision"
+#define TRAIT_NOMOBSWAP "no-mob-swap"
+/// Gives us turf, mob and object vision through walls
+#define TRAIT_XRAY_VISION "xray_vision"
+/// Gives us mob vision through walls and slight night vision
+#define TRAIT_THERMAL_VISION "thermal_vision"
+/// Gives us turf vision through walls and slight night vision
+#define TRAIT_MESON_VISION "meson_vision"
+/// Gives us Night vision
+#define TRAIT_TRUE_NIGHT_VISION "true_night_vision"
+/// Lets us scan reagents
+#define TRAIT_REAGENT_SCANNER "reagent_scanner"
+/// Lets us scan boozepower
+#define  TRAIT_BOOZEPOWER_SCANNER "boozepower_scanner"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
 #define TRAIT_SURGEON           "surgeon" //Grants access to all surgeries
@@ -133,8 +149,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MEDICAL_METABOLISM "medical-metabolism"
 #define TRAIT_ALWAYS_CLEAN      "always-clean"
 #define TRAIT_BOOZE_SLIDER      "booze-slider"
-#define TRAIT_QUICK_CARRY		"quick-carry"
-#define TRAIT_QUICKER_CARRY		"quicker-carry"
+/// We place people into a fireman carry quicker than standard
+#define TRAIT_QUICK_CARRY "quick-carry"
+/// We place people into a fireman carry especially quickly compared to quick_carry
+#define TRAIT_QUICKER_CARRY "quicker-carry"
+#define TRAIT_QUICK_BUILD "quick-build"
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE "unstable"
 #define TRAIT_OIL_FRIED "oil_fried"
@@ -142,10 +161,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND 		"beefriend"
 #define TRAIT_PLANTHEALING		"planthealing"
-#define TRAIT_MEDICAL_HUD		"med_hud"
-#define TRAIT_SECURITY_HUD		"sec_hud"
+#define TRAIT_MEDICAL_HUD "med_hud"
+#define TRAIT_SECURITY_HUD "sec_hud"
+/// for something granting you a diagnostic hud
 #define TRAIT_DIAGNOSTIC_HUD "diag_hud"
-#define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
+/// Is a medbot healing you
+#define TRAIT_MEDIBOTCOMINGTHROUGH "medbot"
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_BLUSHING 			"blushing"
 #define TRAIT_CRYING			"crying"
@@ -202,6 +223,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
  */
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
+/// Properly wielded two handed item
+#define TRAIT_WIELDED "wielded"
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
@@ -213,6 +236,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AREA_SENSITIVE "area-sensitive"
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+
+/// Climbable trait, given and taken by the climbable element when added or removed. Exists to be easily checked via HAS_TRAIT().
+#define TRAIT_CLIMBABLE "trait_climbable"
 
 /**
  * Item Traits

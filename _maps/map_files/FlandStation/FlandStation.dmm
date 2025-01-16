@@ -26262,10 +26262,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"gIB" = (
-/obj/effect/landmark/loneops,
-/turf/open/floor/plating/asteroid/airless,
-/area/asteroid/nearstation)
 "gIC" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
@@ -26915,13 +26911,6 @@
 	},
 /turf/open/floor/engine/co2/light,
 /area/engine/atmos)
-"gPN" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/effect/turf_decal/bot,
-/obj/item/pen,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "gPO" = (
 /turf/open/floor/wood,
 /area/hallway/primary/aft)
@@ -28178,10 +28167,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"hhI" = (
-/obj/effect/landmark/loneops,
-/turf/open/floor/plating/asteroid/airless,
-/area/space/nearstation)
 "hhW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40130,6 +40115,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"kje" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/nearstation)
 "kjg" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -65904,6 +65893,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"qQU" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "qRb" = (
 /obj/machinery/air_sensor/atmos/nitrous_tank,
 /turf/open/floor/engine/n2o/light,
@@ -84357,6 +84350,11 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
+/area/quartermaster/storage)
+"vue" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "vuf" = (
 /obj/structure/disposalpipe/segment{
@@ -125684,7 +125682,7 @@ nnx
 nnx
 csJ
 tsN
-gIB
+kje
 tsN
 xJu
 hSG
@@ -126313,7 +126311,7 @@ kuT
 vVR
 uaf
 wMZ
-gPN
+vue
 aJR
 quh
 qpR
@@ -135860,7 +135858,7 @@ kHH
 kHH
 kHH
 abN
-hhI
+qQU
 abN
 abN
 abN
