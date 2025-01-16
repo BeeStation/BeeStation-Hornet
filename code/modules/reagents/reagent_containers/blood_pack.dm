@@ -87,21 +87,34 @@
 /obj/item/reagent_containers/blood/universal
 	blood_type = "U"
 
-/obj/item/reagent_containers/blood/attackby(obj/item/I, mob/user, params)
-	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
-		if(!user.is_literate())
-			to_chat(user, "<span class='notice'>You scribble illegibly on the label of [src]!</span>")
+/obj/item/reagent_containers/blood/attack(mob/living/victim, mob/living/attacker, params)
+	if(!can_drink(victim, attacker))
+		return
+
+	if(victim != attacker)
+		if(!do_after(victim, 5 SECONDS, attacker))
 			return
-		var/t = stripped_input(user, "What would you like to label the blood pack?", name, null, 53)
-		if(!user.canUseTopic(src, BE_CLOSE))
-			return
-		if(user.get_active_held_item() != I)
-			return
-		if(t)
-			labelled = 1
-			name = "blood pack - [t]"
-		else
-			labelled = 0
-			update_pack_name()
-	else
-		return ..()
+		attacker.visible_message(
+			"<span class='notice'>[attacker] forces [victim] to drink from the [src].</span>",
+			"<span class='notice'>You put the [src] up to [victim]'s mouth.</span>",
+		)
+		reagents.trans_to(victim, 5, transfered_by = attacker, method = INGEST)
+		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
+		return TRUE
+
+	while(do_after(victim, 1 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
+		victim.visible_message(
+			"<span class='notice'>[victim] puts the [src] up to their mouth.</span>",
+			"<span class='notice'>You take a sip from the [src].</span>",
+		)
+		reagents.trans_to(victim, 5, transfered_by = attacker, method = INGEST)
+		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
+	return TRUE
+
+/obj/item/reagent_containers/blood/proc/can_drink(mob/living/victim, mob/living/attacker)
+	if(!canconsume(victim, attacker))
+		return FALSE
+	if(!reagents || !reagents.total_volume)
+		to_chat(victim, "<span class='warning'>[src] is empty!</span>")
+		return FALSE
+	return TRUE
