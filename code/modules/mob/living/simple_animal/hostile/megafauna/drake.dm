@@ -565,7 +565,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 	name = "lesser ash drake"
 	maxHealth = 200
 	health = 200
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	obj_damage = 80
 	melee_damage = 30
 	mouse_opacity = MOUSE_OPACITY_ICON

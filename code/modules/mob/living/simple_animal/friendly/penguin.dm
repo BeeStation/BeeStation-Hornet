@@ -12,7 +12,7 @@
 	speak_language = /datum/language/metalanguage
 	emote_hear = list("squawk!", "gakkers!", "noots.","NOOTS!")
 	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
-	faction = list("penguin")
+	faction = list(FACTION_PENGUIN)
 	minbodytemp = 0
 	see_in_dark = 5
 	speak_chance = 1

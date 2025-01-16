@@ -728,7 +728,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	initial_language_holder = /datum/language_holder/lightbringer
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	light_range = 4
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
 	minbodytemp = 0

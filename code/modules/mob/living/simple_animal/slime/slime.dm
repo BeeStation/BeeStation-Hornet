@@ -8,7 +8,7 @@
 	gender = NEUTER
 	var/is_adult = 0
 	var/docile = 0
-	faction = list("slime","neutral")
+	faction = list(FACTION_SLIME,FACTION_NEUTRAL)
 
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
