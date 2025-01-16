@@ -26,7 +26,7 @@
 
 	for(var/datum/bank_account/department/each_account in SSeconomy.budget_accounts)
 		if(!each_account.nonstation_account)
-			list_of_budgets += target_budget
+			list_of_budgets += each_account
 
 
 /obj/machinery/computer/bank_machine/Destroy()
