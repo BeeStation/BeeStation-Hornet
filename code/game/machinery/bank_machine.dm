@@ -40,15 +40,15 @@
 		var/obj/item/holochip/H = I
 		value = H.credits
 	if(value)
-		var/rounded_money_amount = round(value / (length(list_of_budgets)))
 		if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 			var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			united_budget.adjust_money(value)
+			to_chat(user, "<span class='notice'>You deposit [value] into a station budget account.</span>")
 		else
+			var/rounded_money_amount = round(value / length(list_of_budgets))
 			for(var/datum/bank_account/budget_department_id as anything in list_of_budgets)
 				budget_department_id.adjust_money(rounded_money_amount)
-
-		to_chat(user, "<span class='notice'>You deposit [I] into all station budgets.</span>")
+			to_chat(user, "<span class='notice'>You deposit [value] into all station budgets.</span>")
 		qdel(I)
 		return
 	return ..()
