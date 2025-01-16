@@ -1572,7 +1572,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(radiation > RAD_MOB_MUTATE)
 		if(prob(1))
 			to_chat(H, "<span class='danger'>You mutate!</span>")
-			H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			H.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 			H.emote("gasp")
 			H.domutcheck()
 

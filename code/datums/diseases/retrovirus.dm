@@ -66,10 +66,13 @@
 				to_chat(affected_mob, "<span class='danger'>Your entire body vibrates.</span>")
 
 			if (prob(35))
-				if(prob(50))
-					scramble_dna(affected_mob, 1, 0, rand(15,45))
-				else
-					scramble_dna(affected_mob, 0, 1, rand(15,45))
+				switch(rand(1,3))
+					if(1)
+						scramble_dna(affected_mob, 1, 0, 0, rand(15,45))
+					if(2)
+						scramble_dna(affected_mob, 0, 1, 0, rand(15,45))
+					if(3)
+						scramble_dna(affected_mob, 0, 0, 1, rand(15,45))
 
 		if(4)
 			if(restcure)
@@ -78,7 +81,10 @@
 					cure()
 					return
 			if (prob(60))
-				if(prob(50))
-					scramble_dna(affected_mob, 1, 0, rand(50,75))
-				else
-					scramble_dna(affected_mob, 0, 1, rand(50,75))
+				switch(rand(1,3))
+					if(1)
+						scramble_dna(affected_mob, 1, 0, 0, rand(15,45))
+					if(2)
+						scramble_dna(affected_mob, 0, 1, 0, rand(15,45))
+					if(3)
+						scramble_dna(affected_mob, 0, 0, 1, rand(15,45))
