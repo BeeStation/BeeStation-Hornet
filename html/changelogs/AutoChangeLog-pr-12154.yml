@@ -1,0 +1,6 @@
+author: rkz, cacogen
+delete-after: true
+changes:
+  - rscadd: players can be individually given items by shift+ctrl+clicking them
+  - bugfix: fixes harddels and give alert not clearing
+  - bugfix: Dead, crit, and sleeping people cannot take offered items
