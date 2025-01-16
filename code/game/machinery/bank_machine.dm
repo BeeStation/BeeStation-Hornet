@@ -118,25 +118,31 @@
 		end_siphon()
 		return
 
+// #define SIPHON_MONEY_COUNT << remove this
+#define SIPHON_AMOUNT 500 // << you know where this belongs.
+////------------
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+		var/amount_to_siphon = SIPHON_AMOUNT * delta_time
 		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-		if(!united_budget.has_money(SIPHON_AMOUNT * 8 )) //8 is the number of stationside budgets
+		if(!united_budget.has_money(amount_to_siphon ))
 			say("All station budgets depleted. Halting siphon.")
 			end_siphon()
 			return
-		siphoning_credits += SIPHON_AMOUNT * 8
-		united_budget.adjust_money(-(SIPHON_AMOUNT * 8))
+		siphoning_credits += amount_to_siphon 
+		united_budget.adjust_money(-amount_to_siphon)
 	else
+		// var/empty_budgets  belongs here
+		var/amount_to_siphon = round((SIPHON_AMOUNT * delta_time) / length(list_of_budgets))
 		for(var/datum/bank_account/target_budget as anything in list_of_budgets)
-			if(!target_budget.has_money(SIPHON_AMOUNT))
+			if(!target_budget.has_money(amount_to_siphon))
 				empty_budgets += 1
 				continue
 			if(empty_budgets >= length(list_of_budgets))
 				say("All station budgets depleted. Halting siphon.")
 				end_siphon()
 				return
-			siphoning_credits += SIPHON_AMOUNT
-			target_budget.adjust_money(-(SIPHON_AMOUNT))
+			siphoning_credits += amount_to_siphon
+			target_budget.adjust_money(-amount_to_siphon)
 
 	playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
 	if(next_warning < world.time && prob(15))
