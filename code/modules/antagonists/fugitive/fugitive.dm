@@ -7,6 +7,7 @@
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
 	count_against_dynamic_roll_chance = FALSE
+	required_living_playtime = 1
 	var/datum/team/fugitive/fugitive_team
 	var/is_captured = FALSE
 	var/living_on_capture = TRUE
