@@ -1,3 +1,6 @@
+#define SIPHON_MONEY_COUNT 100
+#define SIPHON_AMOUNT SIPHON_MONEY_COUNT * delta_time
+
 /obj/machinery/computer/bank_machine
 	name = "bank machine"
 	desc = "A machine used to deposit and withdraw station funds."
@@ -21,13 +24,13 @@
 	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 
-	for(var/datum/bank_account/department/D in SSeconomy.budget_accounts)
-		if(!D.nonstation_account)
-			var/datum/bank_account/target_budget = SSeconomy.get_budget_account(D.department_id)
+	for(var/datum/bank_account/department/each_account in SSeconomy.budget_accounts)
+		if(!each_account.nonstation_account)
 			list_of_budgets += target_budget
 
 
 /obj/machinery/computer/bank_machine/Destroy()
+	end_siphon()
 	QDEL_NULL(radio)
 	. = ..()
 
@@ -98,6 +101,8 @@
 	siphoning = TRUE
 
 /obj/machinery/computer/bank_machine/proc/end_siphon()
+	if(!siphoning || !siphoning_credits)
+		return
 	siphoning = FALSE
 	new /obj/item/holochip(drop_location(), siphoning_credits) //get the loot
 	siphoning_credits = 0
@@ -113,26 +118,25 @@
 		end_siphon()
 		return
 
-	var/siphon_amount = 100 * delta_time
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-		if(!united_budget.has_money(siphon_amount))
+		if(!united_budget.has_money(SIPHON_AMOUNT * 8 )) //8 is the number of stationside budgets
 			say("All station budgets depleted. Halting siphon.")
 			end_siphon()
 			return
-		siphoning_credits += siphon_amount
-		united_budget.adjust_money(-siphon_amount)
+		siphoning_credits += SIPHON_AMOUNT * 8
+		united_budget.adjust_money(-(SIPHON_AMOUNT * 8))
 	else
 		for(var/datum/bank_account/target_budget as anything in list_of_budgets)
-			if(!target_budget.has_money(siphon_amount))
+			if(!target_budget.has_money(SIPHON_AMOUNT))
 				empty_budgets += 1
 				continue
 			if(empty_budgets >= length(list_of_budgets))
 				say("All station budgets depleted. Halting siphon.")
 				end_siphon()
 				return
-			siphoning_credits += siphon_amount
-			target_budget.adjust_money(-siphon_amount)
+			siphoning_credits += SIPHON_AMOUNT
+			target_budget.adjust_money(-(SIPHON_AMOUNT))
 
 	playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
 	if(next_warning < world.time && prob(15))
