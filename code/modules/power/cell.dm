@@ -71,6 +71,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	. = ..()
 	if(grown_battery)
 		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
+		return // we don't add more overlays if this is a plant battery
+
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)

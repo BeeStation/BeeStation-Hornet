@@ -21,6 +21,8 @@
 	var/obj/item/bodybag/foldedbag_instance = null
 	var/tagged = 0 // so closet code knows to put the tag overlay back
 
+	has_closed_overlay = FALSE
+
 /obj/structure/closet/body_bag/Destroy()
 	// If we have a stored bag, and it's in nullspace (not in someone's hand), delete it.
 	if (foldedbag_instance && !foldedbag_instance.loc)

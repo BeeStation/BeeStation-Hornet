@@ -225,7 +225,7 @@
 	if(modifystate)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 		if(single_shot_type_overlay)
-			. += "[icon_state]_[initial(shot.select_name)]"
+			. += mutable_appearance(icon, "[icon_state]_[initial(shot.select_name)]")
 		overlay_icon_state += "_[initial(shot.select_name)]"
 
 	var/ratio = get_charge_ratio()
