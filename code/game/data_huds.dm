@@ -9,11 +9,11 @@
 
 /atom/proc/add_to_all_human_data_huds()
 	for(var/datum/atom_hud/data/human/hud in GLOB.huds)
-		hud.add_to_hud(src)
+		hud.add_atom_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
 	for(var/datum/atom_hud/data/hud in GLOB.huds)
-		hud.remove_from_hud(src)
+		hud.remove_atom_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -32,12 +32,12 @@
 		return 0
 	return 1
 
-/datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
+/datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/M, mob/living/carbon/H)
 	if(check_sensors(H))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
-	check_sensors(H) ? add_to_hud(H) : remove_from_hud(H)
+	check_sensors(H) ? add_atom_to_hud(H) : remove_atom_from_hud(H)
 
 /datum/atom_hud/data/human/medical/advanced
 
@@ -58,6 +58,8 @@
 	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_NANITE_FULL_HUD, DIAG_LAUNCHPAD_HUD, DIAG_WAKE_HUD, DIAG_PATH_HUD)
 
 /datum/atom_hud/data/bot_path
+	// This hud exists so the bot can see itself, that's all
+	uses_global_hud_category = FALSE
 	hud_icons = list(DIAG_PATH_HUD)
 
 /datum/atom_hud/abductor
@@ -69,12 +71,12 @@
 /datum/atom_hud/ai_detector
 	hud_icons = list(AI_DETECT_HUD)
 
-/datum/atom_hud/ai_detector/add_hud_to(mob/M)
+/datum/atom_hud/ai_detector/show_to(mob/new_viewer)
 	..()
-	if(M && (hudusers.len == 1))
-		for(var/V in GLOB.ai_eyes)
-			var/mob/camera/ai_eye/E = V
-			E.update_ai_detect_hud()
+	if(!new_viewer || hud_users.len != 1)
+		return
+	for(var/mob/camera/ai_eye/eye as anything in GLOB.ai_eyes)
+		eye.update_ai_detect_hud()
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -259,22 +261,29 @@
 	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
 		holder = hud_list[i]
 		holder.icon_state = null
+		set_hud_image_inactive(i)
+
 	for(var/obj/item/implant/I in implants)
 		if(istype(I, /obj/item/implant/tracking))
 			holder = hud_list[IMPTRACK_HUD]
 			var/icon/IC = icon(icon, icon_state, dir)
 			holder.pixel_y = IC.Height() - world.icon_size
 			holder.icon_state = "hud_imp_tracking"
+			set_hud_image_active(IMPTRACK_HUD)
+
 		else if(istype(I, /obj/item/implant/chem))
 			holder = hud_list[IMPCHEM_HUD]
 			var/icon/IC = icon(icon, icon_state, dir)
 			holder.pixel_y = IC.Height() - world.icon_size
 			holder.icon_state = "hud_imp_chem"
-	if(has_mindshield_hud_icon())
+			set_hud_image_active(IMPCHEM_HUD)
+
+	if(has_mindshield_hud_icon(src))
 		holder = hud_list[IMPLOYAL_HUD]
 		var/icon/IC = icon(icon, icon_state, dir)
 		holder.pixel_y = IC.Height() - world.icon_size
 		holder.icon_state = "hud_imp_loyal"
+		set_hud_image_active(IMPLOYAL_HUD)
 
 /mob/living/proc/has_mindshield_hud_icon()
 	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
@@ -282,6 +291,10 @@
 	return HAS_TRAIT(src, TRAIT_MINDSHIELD) || HAS_TRAIT(src, TRAIT_FAKE_MINDSHIELD)
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
+	if(!hud_list)
+		// We haven't finished initializing yet, huds will be updated once we are
+		return
+
 	var/image/holder = hud_list[WANTED_HUD]
 	var/icon/sec_icon = icon(icon, icon_state, dir)
 	holder.pixel_y = sec_icon.Height() - world.icon_size
@@ -289,11 +302,13 @@
 
 	if(!perp_name || isnull(GLOB.manifest))
 		holder.icon_state = null
+		set_hud_image_inactive(WANTED_HUD)
 		return
 
 	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
 	if(isnull(target))
 		holder.icon_state = null
+		set_hud_image_inactive(WANTED_HUD)
 		return
 
 	switch(target.wanted_status)
@@ -309,6 +324,10 @@
 			holder.icon_state = "huddischarged"
 		if(WANTED_NONE)
 			holder.icon_state = null
+			set_hud_image_inactive(WANTED_HUD)
+			return
+	set_hud_image_active(WANTED_HUD)
+
 
 //Utility functions
 
@@ -397,10 +416,13 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	if(!shell) //Not an AI shell
 		holder.icon_state = null
+		set_hud_image_inactive(DIAG_TRACK_HUD)
+		return
 	else if(deployed) //AI shell in use by an AI
 		holder.icon_state = "hudtrackingai"
-	else	//Empty AI shell
+	else //Empty AI shell
 		holder.icon_state = "hudtracking"
+	set_hud_image_active(DIAG_TRACK_HUD)
 
 //AI side tracking of AI shell control
 /mob/living/silicon/ai/proc/diag_hud_set_deployed() //Shows tracking beacons on the mech
@@ -409,8 +431,10 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	if(!deployed_shell)
 		holder.icon_state = null
+		set_hud_image_inactive(DIAG_TRACK_HUD)
 	else //AI is currently controlling a shell
 		holder.icon_state = "hudtrackingai"
+		set_hud_image_active(DIAG_TRACK_HUD)
 
 /*~~~~~~~~~~~~~~~~~~~~
 	BIG STOMPY MECHS
@@ -437,9 +461,12 @@
 	var/image/holder = hud_list[DIAG_STAT_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = null
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
+		set_hud_image_active(DIAG_STAT_HUD)
+		return
+	holder.icon_state = null
+	set_hud_image_inactive(DIAG_STAT_HUD)
 
 /obj/vehicle/sealed/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
 	var/image/holder = hud_list[DIAG_TRACK_HUD]
@@ -510,8 +537,10 @@
 	Airlocks!
 ~~~~~~~~~~~~~*/
 /obj/machinery/door/airlock/proc/diag_hud_set_electrified()
+	if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
+		set_hud_image_inactive(DIAG_AIRLOCK_HUD)
+		return
+
 	var/image/holder = hud_list[DIAG_AIRLOCK_HUD]
-	if(secondsElectrified != MACHINE_NOT_ELECTRIFIED)
-		holder.icon_state = "electrified"
-	else
-		holder.icon_state = ""
+	holder.icon_state = "electrified"
+	set_hud_image_active(DIAG_AIRLOCK_HUD)
