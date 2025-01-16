@@ -76,17 +76,6 @@
 /datum/emote/spin/run_emote(mob/user, params ,  type_override, intentional)
 	. = ..()
 	user.spin(20, 1)
-	if(isliving(user))
-		var/mob/living/L = user
-		L.confused += 2
-	if(iscyborg(user) && user.has_buckled_mobs())
-		var/mob/living/silicon/robot/R = user
-		var/datum/component/riding/riding_datum = R.GetComponent(/datum/component/riding)
-		if(riding_datum)
-			for(var/mob/M in R.buckled_mobs)
-				riding_datum.force_dismount(M)
-		else
-			R.unbuckle_all_mobs()
 
 /datum/emote/inhale
 	key = "inhale"
