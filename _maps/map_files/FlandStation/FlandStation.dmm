@@ -16456,11 +16456,13 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "eqe" = (
-/obj/effect/landmark/start/cook,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "eqg" = (
@@ -66341,6 +66343,11 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/warden)
+"qWg" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/landmark/start/cook,
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "qWv" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -119586,7 +119593,7 @@ tOC
 kDz
 qAN
 mib
-mib
+qWg
 eqe
 vqH
 vqH
