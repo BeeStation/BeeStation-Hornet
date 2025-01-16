@@ -162,7 +162,8 @@
 	/// The type of alert given to people when offered, in case you need to override some behavior (like for high-fives)
 	var/give_alert_type = /atom/movable/screen/alert/give
 
-/datum/status_effect/offering/on_creation(mob/living/new_owner, obj/item/offer, give_alert_override)
+
+/datum/status_effect/offering/on_creation(mob/living/new_owner, obj/item/offer, give_alert_override, mob/living/carbon/offered)
 	. = ..()
 	if(!.)
 		return
@@ -170,10 +171,14 @@
 	if(give_alert_override)
 		give_alert_type = give_alert_override
 
-	for(var/mob/living/carbon/possible_taker in orange(1, owner))
-		if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
-			continue
-		register_candidate(possible_taker)
+	if(offered && owner.CanReach(offered) && !IS_DEAD_OR_INCAP(offered) && offered.can_hold_items())
+		register_candidate(offered)
+	else
+		for(var/mob/living/carbon/possible_taker in orange(1, owner))
+			if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
+				continue
+				
+			register_candidate(possible_taker)
 
 	if(!possible_takers) // no one around
 		qdel(src)
@@ -183,10 +188,10 @@
 	RegisterSignals(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
 
 /datum/status_effect/offering/Destroy()
-	for(var/i in possible_takers)
-		var/mob/living/carbon/removed_taker = i
+	for(var/mob/living/carbon/removed_taker as anything in possible_takers)
 		remove_candidate(removed_taker)
 	LAZYCLEARLIST(possible_takers)
+	offered_item = null
 	return ..()
 
 /// Hook up the specified carbon mob to be offered the item in question, give them the alert and signals and all
@@ -212,6 +217,9 @@
 	SIGNAL_HANDLER
 	if(owner.CanReach(taker) && !IS_DEAD_OR_INCAP(taker))
 		return
+
+	taker.balloon_alert(taker, "You moved out of range of [owner]!")
+	remove_candidate(taker)
 
 /// The offerer moved, see if anyone is out of range now
 /datum/status_effect/offering/proc/check_owner_in_range(mob/living/carbon/source)
