@@ -329,27 +329,15 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold[/obj/item/gun/medbeam] = TRUE
-	preload = TRUE
 
 /obj/item/storage/belt/medical/ert/PopulateContents()
-	SSwardrobe.provide_type(/obj/item/healthanalyzer/advanced)
-	SSwardrobe.provide_type(/obj/item/surgical_drapes)
-	SSwardrobe.provide_type(/obj/item/scalpel/advanced)
-	SSwardrobe.provide_type(/obj/item/retractor/advanced)
-	SSwardrobe.provide_type(/obj/item/surgicaldrill/advanced)
-	SSwardrobe.provide_type(/obj/item/reagent_containers/medspray/sterilizine)
-	SSwardrobe.provide_type(/obj/item/gun/medbeam)
-
-/obj/item/storage/belt/medical/ert/get_types_to_preload()
-	var/list/to_preload = list()
-	to_preload += /obj/item/healthanalyzer/advanced
-	to_preload += /obj/item/surgical_drapes
-	to_preload += /obj/item/scalpel/advanced
-	to_preload += /obj/item/retractor/advanced
-	to_preload += /obj/item/surgicaldrill/advanced
-	to_preload += /obj/item/reagent_containers/medspray/sterilizine
-	to_preload += /obj/item/gun/medbeam
-	return to_preload
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/scalpel/advanced(src)
+	new /obj/item/retractor/advanced(src)
+	new /obj/item/surgicaldrill/advanced(src)
+	new /obj/item/reagent_containers/medspray/sterilizine(src)
+	new /obj/item/gun/medbeam(src)
 
 /obj/item/storage/belt/security
 	name = "security belt"
