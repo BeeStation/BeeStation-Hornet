@@ -116,6 +116,8 @@
 		GAS_PLUOXIUM	= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
+GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
+
 /obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
 	wires = new /datum/wires/airalarm(src)
@@ -135,17 +137,19 @@
 	update_appearance()
 
 	set_frequency(frequency)
+
 	AddElement(/datum/element/connect_loc, atmos_connections)
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/air_alarm,
 	))
-	GLOB.zclear_atoms += src
+
+	GLOB.air_alarms += src
 
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
 	QDEL_NULL(wires)
 	QDEL_NULL(alarm_manager)
-	GLOB.zclear_atoms -= src
+	GLOB.air_alarms -= src
 	return ..()
 
 /obj/machinery/airalarm/examine(mob/user)
@@ -258,16 +262,16 @@
 				))
 		data["mode"] = mode
 		data["modes"] = list()
-		data["modes"] += list(list("name" = "Filtering - Scrubs out contaminants", 				"mode" = AALARM_MODE_SCRUBBING,		"selected" = mode == AALARM_MODE_SCRUBBING, 	"danger" = 0))
-		data["modes"] += list(list("name" = "Contaminated - Scrubs out ALL contaminants quickly","mode" = AALARM_MODE_CONTAMINATED,	"selected" = mode == AALARM_MODE_CONTAMINATED,	"danger" = 0))
-		data["modes"] += list(list("name" = "Draught - Siphons out air while replacing",		"mode" = AALARM_MODE_VENTING,		"selected" = mode == AALARM_MODE_VENTING,		"danger" = 0))
-		data["modes"] += list(list("name" = "Refill - Triple vent output",						"mode" = AALARM_MODE_REFILL,		"selected" = mode == AALARM_MODE_REFILL,		"danger" = 1))
-		data["modes"] += list(list("name" = "Cycle - Siphons air before replacing", 			"mode" = AALARM_MODE_REPLACEMENT,	"selected" = mode == AALARM_MODE_REPLACEMENT, 	"danger" = 1))
-		data["modes"] += list(list("name" = "Siphon - Siphons air out of the room", 			"mode" = AALARM_MODE_SIPHON,		"selected" = mode == AALARM_MODE_SIPHON, 		"danger" = 1))
-		data["modes"] += list(list("name" = "Panic Siphon - Siphons air out of the room quickly","mode" = AALARM_MODE_PANIC,		"selected" = mode == AALARM_MODE_PANIC, 		"danger" = 1))
-		data["modes"] += list(list("name" = "Off - Shuts off vents and scrubbers", 				"mode" = AALARM_MODE_OFF,			"selected" = mode == AALARM_MODE_OFF, 			"danger" = 0))
+		data["modes"] += list(list("name" = "Filtering - Scrubs out contaminants"				,"mode" = AALARM_MODE_SCRUBBING		,"selected" = mode == AALARM_MODE_SCRUBBING		,"danger" = 0))
+		data["modes"] += list(list("name" = "Contaminated - Scrubs out ALL contaminants quickly","mode" = AALARM_MODE_CONTAMINATED	,"selected" = mode == AALARM_MODE_CONTAMINATED	,"danger" = 0))
+		data["modes"] += list(list("name" = "Draught - Siphons out air while replacing"			,"mode" = AALARM_MODE_VENTING		,"selected" = mode == AALARM_MODE_VENTING		,"danger" = 0))
+		data["modes"] += list(list("name" = "Refill - Triple vent output"						,"mode" = AALARM_MODE_REFILL		,"selected" = mode == AALARM_MODE_REFILL		,"danger" = 1))
+		data["modes"] += list(list("name" = "Cycle - Siphons air before replacing"				,"mode" = AALARM_MODE_REPLACEMENT	,"selected" = mode == AALARM_MODE_REPLACEMENT	,"danger" = 1))
+		data["modes"] += list(list("name" = "Siphon - Siphons air out of the room"				,"mode" = AALARM_MODE_SIPHON		,"selected" = mode == AALARM_MODE_SIPHON		,"danger" = 1))
+		data["modes"] += list(list("name" = "Panic Siphon - Siphons air out of the room quickly","mode" = AALARM_MODE_PANIC			,"selected" = mode == AALARM_MODE_PANIC			,"danger" = 1))
+		data["modes"] += list(list("name" = "Off - Shuts off vents and scrubbers"				,"mode" = AALARM_MODE_OFF			,"selected" = mode == AALARM_MODE_OFF			,"danger" = 0))
 		if(obj_flags & EMAGGED)
-			data["modes"] += list(list("name" = "Flood - Shuts off scrubbers and opens vents",	"mode" = AALARM_MODE_FLOOD,			"selected" = mode == AALARM_MODE_FLOOD, 		"danger" = 1))
+			data["modes"] += list(list("name" = "Flood - Shuts off scrubbers and opens vents"	,"mode" = AALARM_MODE_FLOOD			,"selected" = mode == AALARM_MODE_FLOOD			,"danger" = 1))
 
 		var/datum/tlv/selected
 		var/list/thresholds = list()
@@ -384,7 +388,7 @@
 	if((machine_stat & (NOPOWER)))/// Unpowered, no shock
 		return TRUE
 	if(!prob(prb))
-		return FALSE ///You don't get shocked today... altought when was the last time soneone got shocked by a fire alarm?
+		return FALSE ///You don't get shocked today... altought when was the last time someone got shocked by a fire alarm?
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start() //sparks always.
@@ -636,6 +640,25 @@
 		mode = AALARM_MODE_SCRUBBING
 		INVOKE_ASYNC(src, PROC_REF(apply_mode), src)
 
+///Apply the current danger level based on the Air
+/obj/machinery/airalarm/proc/apply_danger_level()
+	var/area/A = get_area(src)
+
+	var/new_area_danger_level = 0
+	for(var/obj/machinery/airalarm/AA in A)
+		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
+			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
+
+	var/did_anything_happen
+	if(new_area_danger_level)
+		did_anything_happen = alarm_manager.send_alarm(ALARM_ATMOS)
+	else
+		did_anything_happen = alarm_manager.clear_alarm(ALARM_ATMOS)
+	if(did_anything_happen) //if something actually changed
+		post_alert(new_area_danger_level)
+
+	update_appearance()
+
 /obj/machinery/airalarm/proc/post_alert(alert_level)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
 
@@ -658,24 +681,6 @@
 		A.unset_pressure_alarm_effect()
 
 	frequency.post_signal(src, alert_signal, range = -1)
-
-/obj/machinery/airalarm/proc/apply_danger_level()
-	var/area/A = get_area(src)
-
-	var/new_area_danger_level = 0
-	for(var/obj/machinery/airalarm/AA in A)
-		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
-			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
-
-	var/did_anything_happen
-	if(new_area_danger_level)
-		did_anything_happen = alarm_manager.send_alarm(ALARM_ATMOS)
-	else
-		did_anything_happen = alarm_manager.clear_alarm(ALARM_ATMOS)
-	if(did_anything_happen) //if something actually changed
-		post_alert(new_area_danger_level)
-
-	update_appearance()
 
 /obj/machinery/airalarm/attackby(obj/item/W, mob/user, params)
 	switch(buildstage)
