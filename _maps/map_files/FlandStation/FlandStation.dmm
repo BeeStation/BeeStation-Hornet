@@ -49178,8 +49178,8 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "mwS" = (
-/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/photobooth,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "mwT" = (
@@ -60225,7 +60225,6 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/trimline/red/corner,
-/obj/structure/chair/fancy/bench,
 /obj/machinery/button/door{
 	id = "BrigSideWindows";
 	name = "Brig Side entrance Shutters Control";
@@ -60240,6 +60239,7 @@
 	pixel_y = 25;
 	req_access_txt = "2"
 	},
+/obj/machinery/photobooth/security,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "pvU" = (
@@ -68177,10 +68177,10 @@
 /turf/open/floor/vault,
 /area/engine/break_room)
 "rwJ" = (
-/obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	dir = 4
 	},
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "rxc" = (
