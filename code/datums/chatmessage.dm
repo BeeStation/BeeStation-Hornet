@@ -18,6 +18,8 @@
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
+/// Maximum height of the message. If you ever change maximum characters in a message, increase this.
+#define MESSAGE_HEIGHT 150
 
 // Message types
 #define CHATMESSAGE_CANNOT_HEAR 0
@@ -57,10 +59,6 @@
 	var/eol_complete
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
-	/// Contains the reference to the next chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/next
-	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/prev
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
 	/// Color of the message
@@ -81,10 +79,9 @@
   * * lifespan - The lifespan of the message in deciseconds
   */
 /datum/chatmessage/New(text, atom/target, list/client/hearers, language_icon, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN)
-	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, hearers, language_icon, extra_classes, lifespan)
+	generate_image(text, target, hearers, language_icon, extra_classes, lifespan)
 
 /datum/chatmessage/Destroy()
 	if (hearers)
@@ -204,32 +201,16 @@
 	//Add on the icons.
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
-	// Approximate text height
-	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
-	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
-	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
-
-	// Translate any existing messages upwards, apply exponential decay factors to timers
+	// Expire old messages
 	message_loc = get_atom_on_turf(target)
-	if (LAZYLEN(message_loc.chat_messages))
-		var/idx = 1
-		var/combined_height = approx_lines
-		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
-			if(!m?.message)
+	if(LAZYLEN(message_loc.chat_messages))
+		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.chat_messages)
+			if (!m.message || m.isFading)
 				continue
-			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
-			combined_height += m.approx_lines
 
-			// When choosing to update the remaining time we have to be careful not to update the
-			// scheduled time once the EOL has been executed.
-			if (!m.isFading)
-				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
-				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
-				if (remaining_time)
-					deltimer(m.fadertimer, SSrunechat)
-					m.fadertimer = addtimer(CALLBACK(m, PROC_REF(end_of_life)), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
-				else
-					m.end_of_life()
+			if (timeleft(m.fadertimer, SSrunechat))
+				deltimer(m.fadertimer, SSrunechat)
+			m.end_of_life()
 
 	// Reset z index if relevant
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
@@ -248,11 +229,11 @@
 	message.alpha = 0
 	message.pixel_y = bound_height - MESSAGE_FADE_PIXEL_Y
 	message.maptext_width = CHAT_MESSAGE_WIDTH
-	message.maptext_height = mheight
+	message.maptext_height = MESSAGE_HEIGHT
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
-	message.maptext = MAPTEXT(complete_text)
+	message.maptext = MAPTEXT("<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>")
 
 	// Show the message to clients
 	for(var/client/C as() in hearers)
@@ -492,7 +473,7 @@
 	//handle color
 	if(color)
 		tgt_color = color
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner)
+	generate_image(text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
 	if(!QDELETED(message_loc))
@@ -519,13 +500,16 @@
 	else
 		message_loc = get_atom_on_turf(target)
 
+	//We get rid of old alerts so it doesn't clutter up the screen
 	if(LAZYLEN(message_loc.balloon_alerts))
-		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.balloon_alerts)  //We get rid of old alerts so it doesn't clutter up the screen
-			if (!m.isFading)
-				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
-				if (sched_remaining)
-					deltimer(m.fadertimer, SSrunechat)
-				m.end_of_life()
+		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.balloon_alerts)
+			if (m.isFading)
+				continue
+
+			var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
+			if (sched_remaining)
+				deltimer(m.fadertimer, SSrunechat)
+			m.end_of_life()
 
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
@@ -533,7 +517,7 @@
 	message.alpha = 0
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
-	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
+	message.maptext_height = MESSAGE_HEIGHT
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
@@ -548,13 +532,11 @@
 
 	// Animate the message
 	animate(message, alpha = 255, pixel_y = world.icon_size * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
-
 	LAZYADD(message_loc.balloon_alerts, src)
 
 	// Register with the runechat SS to handle EOL and destruction
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
-
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
@@ -585,3 +567,4 @@
 #undef CM_COLOR_SAT_MAX
 #undef CM_COLOR_LUM_MIN
 #undef CM_COLOR_LUM_MAX
+#undef MESSAGE_HEIGHT
