@@ -468,3 +468,17 @@
 	icon_state = "cooking_learing_sweets"
 	oneuse = FALSE
 	remarks = list("So that is how icing is made!", "Placing fruit on top? How simple...", "Huh layering cake seems harder then this...", "This book smells like candy", "A clown must have made this page, or they forgot to spell check it before printing...", "Wait, a way to cook slime to be safe?")
+
+// Miscelaneous. This entire file needs to be sorted eventally anyways.
+
+/obj/item/book/granter/art_of_thievery
+	name = "The Art of Thievery"
+	desc = "A book that seems to contain a picture by picture guide to pickpocketing people without being noticed."
+	icon_state = "cooking_learing_sweets"
+	remarks = list("Oh, I'm NOT supposed to fiddle with their pockets...", "Practice with bells on a jumpsuit...", "Wait for the right moment to snag what's unrightfully mine...", "So THAT'S how I keep losing credits...", "Divert their attention with small talk...")
+
+/obj/item/book/granter/art_of_thievery/on_reading_finished(mob/user)
+	to_chat(user, "<span class='notice'>You learned how to pickpocket people stealthily.</span>")
+	user.log_message("[user] learned how to pickpocket people stealthily.", LOG_ATTACK, color="orange")
+	ADD_TRAIT(user, TRAIT_STEALTH_PICKPOCKET, "art_of_thievery")
+	onlearned(user)
