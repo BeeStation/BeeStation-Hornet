@@ -72,24 +72,34 @@
 	vis_contents = contents // It really do be that shrimple.
 	return
 
-/obj/structure/crate_shelf/proc/load(obj/structure/closet/crate/crate, mob/user)
-	var/next_free = shelf_contents.Find(null) // Find the first empty slot in the shelf.
-	if(!next_free) // If we don't find an empty slot, return early.
+/obj/structure/crate_shelf/proc/try_load(obj/structure/closet/crate/crate, mob/user)
+	if(!get_free_slot())
 		balloon_alert(user, "shelf full!")
 		return FALSE
 	if(do_after(user, use_delay, target = crate))
-		if(shelf_contents[next_free] != null)
-			return FALSE // Something has been added to the shelf while we were waiting, abort!
-		if(crate.opened) // If the crate is open, try to close it.
-			if(!crate.close())
-				return FALSE // If we fail to close it, don't load it into the shelf.
-		shelf_contents[next_free] = crate // Insert a reference to the crate into the free slot.
-		crate.forceMove(src) // Insert the crate into the shelf.
-		crate.pixel_y = DEFAULT_SHELF_VERTICAL_OFFSET * (next_free - 1) // Adjust the vertical offset of the crate to look like it's on the shelf.
-		crate.layer = ABOVE_MOB_LAYER + 0.02 * (next_free - 1) // Adjust the layer of the crate to look like it's in the shelf.
-		handle_visuals()
-		return TRUE
+		load(crate)
+		return
 	return FALSE // If the do_after() is interrupted, return FALSE!
+
+/obj/structure/crate_shelf/proc/load(obj/structure/closet/crate/crate)
+	if(!get_free_slot())
+		return FALSE // Something has been added to the shelf while we were waiting, abort!
+	var/next_free = get_free_slot()
+	if(crate.opened) // If the crate is open, try to close it.
+		if(!crate.close())
+			return FALSE // If we fail to close it, don't load it into the shelf.
+	shelf_contents[next_free] = crate // Insert a reference to the crate into the free slot.
+	crate.forceMove(src) // Insert the crate into the shelf.
+	crate.pixel_y = DEFAULT_SHELF_VERTICAL_OFFSET * (next_free - 1) // Adjust the vertical offset of the crate to look like it's on the shelf.
+	crate.layer = ABOVE_MOB_LAYER + 0.02 * (next_free - 1) // Adjust the layer of the crate to look like it's in the shelf.
+	handle_visuals()
+	return TRUE
+
+/obj/structure/crate_shelf/proc/get_free_slot()
+	var/next_free = shelf_contents.Find(null) // Find the first empty slot in the shelf.
+	if(!next_free) // If we don't find an empty slot, return FALSE.
+		return FALSE
+	return next_free
 
 /obj/structure/crate_shelf/proc/unload(obj/structure/closet/crate/crate, mob/user, turf/unload_turf)
 	if(!unload_turf)

@@ -42162,24 +42162,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
-"kTH" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
-/obj/effect/turf_decal/tile/red/half{
-	dir = 1
-	},
-/obj/item/stack/medical/gauze,
-/obj/item/clothing/under/rank/medical/doctor/purple{
-	pixel_y = -4
-	},
-/turf/open/floor/iron/white/smooth_half{
-	dir = 1
-	},
-/area/security/brig)
 "kTP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -43959,17 +43941,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/brig)
-"lGc" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/holywater{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/organ/heart,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/book/granter/action/spell/smoke/lesser,
-/turf/open/floor/cult,
-/area/chapel/office)
 "lGm" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -67917,6 +67888,17 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"ulq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/holywater{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/organ/heart,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/cult,
+/area/chapel/office)
 "uls" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -69994,6 +69976,23 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"vay" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 1
+	},
+/obj/item/clothing/under/rank/medical/doctor/purple{
+	pixel_y = -4
+	},
+/obj/item/stack/medical/gauze,
+/obj/item/reagent_containers/syringe,
+/obj/item/storage/firstaid/regular,
+/obj/item/rollerbed,
+/turf/open/floor/iron/white/smooth_corner,
+/area/security/brig)
 "vaz" = (
 /obj/machinery/vending/tool,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -71903,6 +71902,20 @@
 /obj/machinery/newscaster,
 /turf/closed/wall,
 /area/security/main)
+"vIQ" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
+	},
+/obj/effect/turf_decal/tile/red/half{
+	dir = 1
+	},
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/open/floor/iron/white/smooth_half{
+	dir = 1
+	},
+/area/security/brig)
 "vIU" = (
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -72985,16 +72998,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"wdz" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/turf_decal/tile/red/anticorner{
-	dir = 1
-	},
-/turf/open/floor/iron/white/smooth_corner,
-/area/security/brig)
 "wdQ" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
@@ -101799,7 +101802,7 @@ cCe
 eEV
 jRz
 cLa
-lGc
+ulq
 cLa
 oUI
 cOh
@@ -105293,8 +105296,8 @@ aaa
 aaa
 lMJ
 ajm
-wdz
-kTH
+vay
+vIQ
 lTw
 hbB
 xfg

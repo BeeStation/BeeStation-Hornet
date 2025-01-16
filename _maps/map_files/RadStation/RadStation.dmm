@@ -33164,17 +33164,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
-"kDF" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
-/obj/item/book/granter/action/spell/smoke/lesser,
-/turf/open/floor/carpet/grimy,
-/area/chapel/office)
 "kDQ" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
@@ -57077,13 +57066,6 @@
 	dir = 10
 	},
 /area/science/research)
-"scM" = (
-/obj/machinery/defibrillator_mount{
-	pixel_x = -32
-	},
-/obj/machinery/camera/directional/west,
-/turf/open/floor/iron/white,
-/area/security/brig/medbay)
 "scT" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -62575,6 +62557,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"tOn" = (
+/obj/machinery/defibrillator_mount{
+	pixel_x = -32
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/security/brig/medbay)
 "tPk" = (
 /obj/structure/closet/crate,
 /obj/structure/cable/yellow{
@@ -70316,6 +70308,17 @@
 /obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/chapel/main)
+"wyr" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/carpet/grimy,
+/area/chapel/office)
 "wyu" = (
 /obj/structure/closet,
 /obj/item/stack/sheet/glass/fifty,
@@ -99268,7 +99271,7 @@ rhT
 wIb
 uJB
 aCn
-scM
+tOn
 wSw
 dNb
 rzL
@@ -111606,7 +111609,7 @@ rNr
 dea
 dzY
 gyP
-kDF
+wyr
 rNr
 gsA
 yeA

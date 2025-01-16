@@ -103,6 +103,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSLIPWATER		"noslip_water"
 /// Stops all slipping and sliding from ocurring
 #define TRAIT_NOSLIPALL "noslip_all"
+//Inherent trait preventing effects of stasis on a mob
+#define TRAIT_NOSTASIS "no_stasis"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"

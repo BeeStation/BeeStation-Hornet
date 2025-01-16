@@ -14906,18 +14906,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"dSV" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -27;
-	use_power = 0
-	},
-/turf/open/floor/iron/white,
-/area/security/main)
 "dTb" = (
 /obj/machinery/requests_console{
 	department = "Law Office";
@@ -48059,6 +48047,17 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
+"mhm" = (
+/obj/structure/table/wood/fancy,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/cult,
+/area/chapel/office)
 "mho" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "mixwindows";
@@ -58878,6 +58877,18 @@
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
+"pcx" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -27;
+	use_power = 0
+	},
+/obj/machinery/computer/crew{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/security/main)
 "pcC" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -84096,17 +84107,6 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
-"vsd" = (
-/obj/structure/table/wood/fancy,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart{
-	pixel_x = 8;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/book/granter/action/spell/smoke/lesser,
-/turf/open/floor/cult,
-/area/chapel/office)
 "vsi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -116452,7 +116452,7 @@ abN
 kHH
 yjW
 fIp
-vsd
+mhm
 yjW
 aMO
 byH
@@ -132176,7 +132176,7 @@ wrM
 kpl
 soq
 jIM
-dSV
+pcx
 xIV
 qRp
 xHm

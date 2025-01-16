@@ -663,6 +663,11 @@
 	},
 /turf/open/floor/iron/tech,
 /area/maintenance/fore/secondary)
+"ahL" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical,
+/turf/open/floor/iron/techmaint,
+/area/security/brig)
 "ahO" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
@@ -19695,17 +19700,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"eBh" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/security/brig)
 "eBl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -25765,6 +25759,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
+"gWZ" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/computer/crew{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/security/brig)
 "gXf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57967,21 +57972,6 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
-"tMt" = (
-/obj/machinery/airalarm/directional/west{
-	pixel_x = -22
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/machinery/camera/directional/west,
-/obj/structure/table/wood/fancy,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/book/granter/action/spell/smoke/lesser,
-/turf/open/floor/iron/dark,
-/area/chapel/office)
 "tMw" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -61969,6 +61959,21 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
+"vvZ" = (
+/obj/machinery/airalarm/directional/west{
+	pixel_x = -22
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/camera/directional/west,
+/obj/structure/table/wood/fancy,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
 "vwb" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -99265,7 +99270,7 @@ aiX
 hxz
 gBM
 wgR
-eBh
+gWZ
 aaQ
 yhC
 tWo
@@ -100035,7 +100040,7 @@ anF
 aiX
 iiK
 iiK
-flQ
+ahL
 ikG
 aiX
 ndP
@@ -113430,7 +113435,7 @@ aBF
 aFw
 gWQ
 aJJ
-tMt
+vvZ
 aMW
 aFw
 aFu

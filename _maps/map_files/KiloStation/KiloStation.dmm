@@ -6491,24 +6491,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
-"boW" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/machinery/button/door{
-	id = "Cabin_3Privacy";
-	name = "Cabin 3 Privacy Toggle";
-	pixel_x = -24;
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/crew_quarters/locker)
 "boZ" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -19433,6 +19415,14 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/port)
+"epC" = (
+/obj/effect/landmark/start/brig_physician,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/machinery/iv_drip,
+/turf/open/floor/iron/showroomfloor,
+/area/security/main)
 "epX" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Starboard Hallway Departure Checkpoint";
@@ -22222,24 +22212,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
-"fjT" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer,
-/obj/item/storage/box/bodybags,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/obj/machinery/light_switch{
-	pixel_x = 27;
-	pixel_y = -4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
 "fjZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -27414,6 +27386,12 @@
 	luminosity = 2
 	},
 /area/quartermaster/warehouse)
+"gUI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/space/basic,
+/area/space)
 "gUJ" = (
 /obj/machinery/shower{
 	dir = 4
@@ -36551,6 +36529,25 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"jNm" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer,
+/obj/item/storage/box/bodybags,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5;
+	pixel_y = -1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = -4
+	},
+/obj/item/rollerbed,
+/turf/open/floor/iron/showroomfloor,
+/area/security/main)
 "jNn" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
@@ -51945,24 +51942,6 @@
 	broken = 1
 	},
 /area/engine/engineering)
-"oNw" = (
-/obj/structure/table/wood/fancy,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/clothing/suit/hooded/chaplain_hoodie,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/soulstone/anybody/chaplain,
-/obj/item/organ/heart,
-/obj/item/book/granter/action/spell/smoke/lesser,
-/turf/open/floor/iron/dark,
-/area/chapel/office)
-"oNy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/space/basic,
-/area/space)
 "oOp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance{
@@ -53619,6 +53598,24 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"prj" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/machinery/button/door{
+	id = "Cabin_3Privacy";
+	name = "Cabin 3 Privacy Toggle";
+	pixel_x = -24;
+	pixel_y = -24
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/crew_quarters/locker)
 "prq" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;37;47"
@@ -57031,13 +57028,6 @@
 /obj/item/reagent_containers/syringe,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
-"qty" = (
-/obj/effect/landmark/start/brig_physician,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
 "qtJ" = (
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
@@ -73562,6 +73552,17 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"vKw" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/vending/wallmed/lite{
+	pixel_y = 26
+	},
+/obj/machinery/camera/directional/north,
+/obj/machinery/computer/crew,
+/turf/open/floor/iron/showroomfloor,
+/area/security/main)
 "vKZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/ore_silo,
@@ -79013,19 +79014,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
-"xoa" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
-/obj/machinery/vending/wallmed/lite{
-	pixel_y = 26
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
 "xoe" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
@@ -81382,6 +81370,18 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"xXJ" = (
+/obj/structure/table/wood/fancy,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart,
+/obj/item/book/granter/action/spell/smoke/lesser,
+/turf/open/floor/iron/dark,
+/area/chapel/office)
 "xYb" = (
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible{
 	dir = 1
@@ -98101,7 +98101,7 @@ tcA
 eJn
 uLN
 aEC
-oNy
+gUI
 bQH
 nKN
 fVc
@@ -99132,7 +99132,7 @@ eWH
 olW
 mzE
 vxa
-qty
+epC
 wDw
 exu
 uoK
@@ -99388,7 +99388,7 @@ bQy
 hEG
 ciO
 dgh
-xoa
+vKw
 qNA
 xEE
 agS
@@ -99645,7 +99645,7 @@ aav
 kAF
 xWN
 mzE
-fjT
+jNm
 wLG
 aYT
 aey
@@ -103483,7 +103483,7 @@ wip
 uQJ
 bIV
 dCv
-boW
+prj
 cBW
 cBv
 sYx
@@ -106268,7 +106268,7 @@ tcB
 alf
 unx
 aWG
-oNw
+xXJ
 btC
 eAC
 uow
