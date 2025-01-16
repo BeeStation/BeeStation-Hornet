@@ -1,5 +1,4 @@
-#define SIPHON_MONEY_COUNT 100
-#define SIPHON_AMOUNT SIPHON_MONEY_COUNT * delta_time
+#define SIPHON_AMOUNT 500
 
 /obj/machinery/computer/bank_machine
 	name = "bank machine"
@@ -109,7 +108,6 @@
 
 
 /obj/machinery/computer/bank_machine/process(delta_time)
-	var/empty_budgets = 0
 	..()
 	if(!siphoning)
 		return
@@ -118,20 +116,17 @@
 		end_siphon()
 		return
 
-// #define SIPHON_MONEY_COUNT << remove this
-#define SIPHON_AMOUNT 500 // << you know where this belongs.
-////------------
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 		var/amount_to_siphon = SIPHON_AMOUNT * delta_time
 		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-		if(!united_budget.has_money(amount_to_siphon ))
+		if(!united_budget.has_money(amount_to_siphon))
 			say("All station budgets depleted. Halting siphon.")
 			end_siphon()
 			return
-		siphoning_credits += amount_to_siphon 
+		siphoning_credits += amount_to_siphon
 		united_budget.adjust_money(-amount_to_siphon)
 	else
-		// var/empty_budgets  belongs here
+		var/empty_budgets = 0
 		var/amount_to_siphon = round((SIPHON_AMOUNT * delta_time) / length(list_of_budgets))
 		for(var/datum/bank_account/target_budget as anything in list_of_budgets)
 			if(!target_budget.has_money(amount_to_siphon))
