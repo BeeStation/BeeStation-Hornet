@@ -41,6 +41,8 @@
 
 	if(!iscarbon(dropped) && !iscyborg(dropped)) //Are we not a cyborg or carbon?
 		return FALSE
+	if(!(usr == leaner)) //Are we trying to lean someone else?
+		return FALSE
 	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
@@ -93,7 +95,11 @@
 		COMSIG_HUMAN_DISARM_HIT,
 		COMSIG_MOVABLE_PULLED,
 		COMSIG_PARENT_QDELETING,
-		COMSIG_LIVING_RESIST
+		COMSIG_LIVING_RESIST,
+		COMSIG_LIVING_STATUS_PARALYZE,
+		COMSIG_LIVING_STATUS_KNOCKDOWN,
+		COMSIG_LIVING_STATUS_STUN,
+		COMSIG_LIVING_STATUS_SLEEP
 	), PROC_REF(stop_leaning))
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
 	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
@@ -109,7 +115,11 @@
 		COMSIG_MOVABLE_PULLED,
 		COMSIG_ATOM_TELEPORT_ACT,
 		COMSIG_PARENT_QDELETING,
-		COMSIG_LIVING_RESIST
+		COMSIG_LIVING_RESIST,
+		COMSIG_LIVING_STATUS_PARALYZE,
+		COMSIG_LIVING_STATUS_KNOCKDOWN,
+		COMSIG_LIVING_STATUS_STUN,
+		COMSIG_LIVING_STATUS_SLEEP
 	))
 	UnregisterSignal(leaned_object, COMSIG_AIRLOCK_OPEN)
 	leaned_object = null
