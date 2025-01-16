@@ -95,26 +95,19 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(surgery.location != I.zone || target.getorganslot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(surgery.location)]!</span>")
+		var/obj/item/bodypart/target_bodypart = target.get_bodypart(check_zone(surgery.location))
+		if (!target_bodypart)
+			CRASH("Surgery somehow was completed when the target didn't have the correct bodypart at [surgery.location].")
+		if (!(I.slot in target_bodypart.organ_slots) || target.getorganslot(I.slot))
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(check_zone(surgery.location))]!</span>")
 			return -1
-		if(istype(I, /obj/item/organ/brain/positron))
-			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
-			if(!affected)
-				return -1
-			if(IS_ORGANIC_LIMB(affected))
-				to_chat(user, "<span class='notice'>You can't put [I] into a meat enclosure!</span>")
-				return -1
-			if(!isipc(target))
-				to_chat(user, "<span class='notice'>[target] does not have the proper connectors to interface with [I].</span>")
-				return -1
 		var/obj/item/organ/meatslab = tool
 		if(!meatslab.useable)
 			to_chat(user, "<span class='warning'>[I] seems to have been chewed on, you can't use this!</span>")
 			return -1
-		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(surgery.location)]...</span>",
-			"<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(surgery.location)].</span>",
-			"<span class='notice'>[user] begins to insert something into [target]'s [parse_zone(surgery.location)].</span>")
+		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(check_zone(surgery.location))]...</span>",
+			"<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(check_zone(surgery.location))].</span>",
+			"<span class='notice'>[user] begins to insert something into [target]'s [parse_zone(check_zone(surgery.location))].</span>")
 		log_combat(user, target, "tried to insert [I.name] into")
 
 	else if(implement_type in implements_extract)
@@ -125,7 +118,7 @@
 			return -1
 		else
 			for(var/obj/item/organ/O in organs)
-				O.on_find(user)
+				O.on_find(user, surgery.location)
 				organs -= O
 				organs[O.name] = O
 

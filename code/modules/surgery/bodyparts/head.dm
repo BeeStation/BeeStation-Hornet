@@ -15,6 +15,19 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 100
 	is_dimorphic = TRUE
+	organ_slots = list(
+		ORGAN_SLOT_BRAIN,
+		ORGAN_SLOT_EARS,
+		ORGAN_SLOT_BREATHING_TUBE,
+		ORGAN_SLOT_EYES,
+		ORGAN_SLOT_HUD,
+		ORGAN_SLOT_TONGUE,
+		ORGAN_SLOT_VOICE,
+		ORGAN_SLOT_ADAMANTINE_RESONATOR,
+		ORGAN_SLOT_BRAIN_ANTIDROP,
+		ORGAN_SLOT_BRAIN_ANTISTUN,
+		ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
+	)
 
 	var/mob/living/brain/brainmob = null //The current occupant.
 	var/obj/item/organ/brain/brain = null //The brain organ

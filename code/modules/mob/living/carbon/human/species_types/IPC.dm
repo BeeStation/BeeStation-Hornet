@@ -61,14 +61,6 @@
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/appendix/A = C.getorganslot("appendix") //See below.
-	if(A)
-		A.Remove(C)
-		QDEL_NULL(A)
-	var/obj/item/organ/lungs/L = C.getorganslot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
-	if(L)
-		L.Remove(C)
-		QDEL_NULL(L)
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
