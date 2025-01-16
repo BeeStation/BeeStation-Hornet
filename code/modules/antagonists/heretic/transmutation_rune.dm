@@ -22,8 +22,8 @@
 	if(!IS_HERETIC(user))
 		return
 
-	. += "<span class='notice'>Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.</span>"
-	. += "<span class='notice'>You can use your <i>Mansus Grasp</i> on the rune to remove it.</span>"
+	. += span_notice("Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.")
+	. += span_notice("You can use your <i>Mansus Grasp</i> on the rune to remove it.")
 
 /obj/effect/heretic_rune/can_interact(mob/living/user)
 	. = ..()
@@ -138,7 +138,7 @@
 		// Let them know it screwed up
 		loc.balloon_alert(user, "ritual failed, missing components!")
 		// Then let them know what they're missing
-		to_chat(user, "<span class='hierophant'>You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\".</span>")
+		to_chat(user, span_hierophant("You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\"."))
 		return FALSE
 
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.

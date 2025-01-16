@@ -20,7 +20,7 @@
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	if(slot_flags & ITEM_SLOT_NECK)
-		to_chat(user, "<span class='warning'>You must undo [src] in order to push it into a hat!</span>")
+		to_chat(user, span_warning("You must undo [src] in order to push it into a hat!"))
 		return
 	adjustmask(user)
 	if(greyscale_config == initial(greyscale_config) && greyscale_config_worn == initial(greyscale_config_worn))
@@ -44,13 +44,13 @@
 		var/mob/living/carbon/C = user
 		var/matrix/widen = matrix()
 		if(!user.is_holding(src))
-			to_chat(user, "<span class='warning'>You must be holding [src] in order to tie it!</span>")
+			to_chat(user, span_warning("You must be holding [src] in order to tie it!"))
 			return
 		if((C.get_item_by_slot(ITEM_SLOT_HEAD == src)) || (C.get_item_by_slot(ITEM_SLOT_MASK) == src))
-			to_chat(user, "<span class='warning'>You can't tie [src] while wearing it!</span>")
+			to_chat(user, span_warning("You can't tie [src] while wearing it!"))
 			return
 		if(slot_flags & ITEM_SLOT_HEAD)
-			to_chat(user, "<span class='warning'>You must undo [src] before you can tie it into a neckerchief!</span>")
+			to_chat(user, span_warning("You must undo [src] before you can tie it into a neckerchief!"))
 			return
 		if(slot_flags & ITEM_SLOT_MASK)
 			undyeable = TRUE
@@ -58,13 +58,13 @@
 			worn_y_offset = -3
 			widen.Scale(1.25, 1)
 			transform = widen
-			user.visible_message("<span class='notice'>[user] ties [src] up like a neckerchief.</span>", "<span class='notice'>You tie [src] up like a neckerchief.</span>")
+			user.visible_message(span_notice("[user] ties [src] up like a neckerchief."), span_notice("You tie [src] up like a neckerchief."))
 		else
 			undyeable = initial(undyeable)
 			slot_flags = initial(slot_flags)
 			worn_y_offset = initial(worn_y_offset)
 			transform = initial(transform)
-			user.visible_message("<span class='notice'>[user] unties the neckerchief.</span>", "<span class='notice'>You untie the neckerchief.</span>")
+			user.visible_message(span_notice("[user] unties the neckerchief."), span_notice("You untie the neckerchief."))
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"

@@ -590,7 +590,7 @@
 			else
 				return //if target is null and we don't have a specific target, cancel
 			if (effectAnnounce)
-				deadchat_broadcast("<span class='deadsay'>A special package is being launched at the station!</span>", turf_target = target_turf)
+				deadchat_broadcast(span_deadsay("A special package is being launched at the station!"), turf_target = target_turf)
 
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target_turf)
@@ -615,7 +615,7 @@
 			var/turf/target_turf = get_turf(target)
 			setDropoff(target_turf)
 			customDropoff = TRUE
-			to_chat(user, "<span class = 'notice'> You've selected [target_turf] at [COORD(target_turf)] as your dropoff location.</span>")
+			to_chat(user, span_notice(" You've selected [target_turf] at [COORD(target_turf)] as your dropoff location."))
 			ui_update()
 
 /datum/centcom_podlauncher/proc/refreshView()

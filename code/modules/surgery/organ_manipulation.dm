@@ -85,43 +85,43 @@
 	I = null
 	if(istype(tool, /obj/item/organ_storage))
 		if(!tool.contents.len)
-			to_chat(user, "<span class='notice'>There is nothing inside [tool]!</span>")
+			to_chat(user, span_notice("There is nothing inside [tool]!"))
 			return -1
 		I = tool.contents[1]
 		if(!isorgan(I))
-			to_chat(user, "<span class='notice'>You cannot put [I] into [target]'s [parse_zone(surgery.location)]!</span>")
+			to_chat(user, span_notice("You cannot put [I] into [target]'s [parse_zone(surgery.location)]!"))
 			return -1
 		tool = I
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
 		if(surgery.location != I.zone || target.getorganslot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(surgery.location)]!</span>")
+			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(surgery.location)]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
 			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
 			if(!affected)
 				return -1
 			if(IS_ORGANIC_LIMB(affected))
-				to_chat(user, "<span class='notice'>You can't put [I] into a meat enclosure!</span>")
+				to_chat(user, span_notice("You can't put [I] into a meat enclosure!"))
 				return -1
 			if(!isipc(target))
-				to_chat(user, "<span class='notice'>[target] does not have the proper connectors to interface with [I].</span>")
+				to_chat(user, span_notice("[target] does not have the proper connectors to interface with [I]."))
 				return -1
 		var/obj/item/organ/meatslab = tool
 		if(!meatslab.useable)
-			to_chat(user, "<span class='warning'>[I] seems to have been chewed on, you can't use this!</span>")
+			to_chat(user, span_warning("[I] seems to have been chewed on, you can't use this!"))
 			return -1
-		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(surgery.location)]...</span>",
-			"<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(surgery.location)].</span>",
-			"<span class='notice'>[user] begins to insert something into [target]'s [parse_zone(surgery.location)].</span>")
+		display_results(user, target, span_notice("You begin to insert [tool] into [target]'s [parse_zone(surgery.location)]..."),
+			span_notice("[user] begins to insert [tool] into [target]'s [parse_zone(surgery.location)]."),
+			span_notice("[user] begins to insert something into [target]'s [parse_zone(surgery.location)]."))
 		log_combat(user, target, "tried to insert [I.name] into")
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.getorganszone(surgery.location)
 		if(!organs.len)
-			to_chat(user, "<span class='notice'>There are no removable organs in [target]'s [parse_zone(surgery.location)]!</span>")
+			to_chat(user, span_notice("There are no removable organs in [target]'s [parse_zone(surgery.location)]!"))
 			return -1
 		else
 			for(var/obj/item/organ/O in organs)
@@ -134,7 +134,7 @@
 				I = organs[I]
 				if(!I)
 					return -1
-				display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [parse_zone(surgery.location)]...</span>",
+				display_results(user, target, span_notice("You begin to extract [I] from [target]'s [parse_zone(surgery.location)]..."),
 					"[user] begins to extract [I] from [target]'s [parse_zone(surgery.location)].",
 					"[user] begins to extract something from [target]'s [parse_zone(surgery.location)].")
 				log_combat(user, target, "tried to extract [I.name] from")
@@ -153,21 +153,21 @@
 			I = tool
 		user.temporarilyRemoveItemFromInventory(I, TRUE)
 		I.Insert(target)
-		display_results(user, target, "<span class='notice'>You insert [tool] into [target]'s [parse_zone(surgery.location)].</span>",
+		display_results(user, target, span_notice("You insert [tool] into [target]'s [parse_zone(surgery.location)]."),
 			"[user] inserts [tool] into [target]'s [parse_zone(surgery.location)]!",
 			"[user] inserts something into [target]'s [parse_zone(surgery.location)]!")
 		log_combat(user, target, "surgically installed [I.name] into")
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
-			display_results(user, target, "<span class='notice'>You successfully extract [I] from [target]'s [parse_zone(surgery.location)].</span>",
+			display_results(user, target, span_notice("You successfully extract [I] from [target]'s [parse_zone(surgery.location)]."),
 				"[user] successfully extracts [I] from [target]'s [parse_zone(surgery.location)]!",
 				"[user] successfully extracts something from [target]'s [parse_zone(surgery.location)]!")
 			log_combat(user, target, "surgically removed [I.name] from")
 			I.Remove(target)
 			I.forceMove(get_turf(target))
 		else
-			display_results(user, target, "<span class='notice'>You can't extract anything from [target]'s [parse_zone(surgery.location)]!</span>",
+			display_results(user, target, span_notice("You can't extract anything from [target]'s [parse_zone(surgery.location)]!"),
 				"[user] can't seem to extract anything from [target]'s [parse_zone(surgery.location)]!",
 				"[user] can't seem to extract anything from [target]'s [parse_zone(surgery.location)]!")
 	return 0

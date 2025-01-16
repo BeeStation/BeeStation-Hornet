@@ -101,11 +101,11 @@
 	if(!proximity)
 		return
 	if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED) || target.color != initial(target.color))
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
+		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
 		if(!do_after(user, 10, target = target))
-			to_chat(user, "<span class='notice'>You fail to clean \the [target.name]!.</span>")
+			to_chat(user, span_notice("You fail to clean \the [target.name]!."))
 			return
-		to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+		to_chat(user, span_notice("You clean \the [target.name]."))
 		if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
 			var/obj/item/clothing/C = target
 			var/mob/living/carbon/human/H = user
@@ -117,5 +117,5 @@
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			target.set_opacity(initial(target.opacity))
 		if(target.color != initial(target.color))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, span_notice("You clean \the [target.name]."))
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

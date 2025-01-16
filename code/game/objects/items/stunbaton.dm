@@ -32,7 +32,7 @@
 	return cell
 
 /obj/item/melee/baton/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/melee/baton/Initialize(mapload)
@@ -93,9 +93,9 @@
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>\The [src] is [round(cell.percent())]% charged.</span>"
+		. += span_notice("\The [src] is [round(cell.percent())]% charged.")
 	else
-		. += "<span class='warning'>\The [src] does not have a power source installed.</span>"
+		. += span_warning("\The [src] does not have a power source installed.")
 
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -139,8 +139,8 @@
 
 /obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED))
-		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!</span>", \
-							"<span class='userdanger'>You accidentally hit yourself with [src], electrocuting yourself badly!</span>")
+		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!"), \
+							span_userdanger("You accidentally hit yourself with [src], electrocuting yourself badly!"))
 		user.adjustStaminaLoss(stunforce*3)
 		user.stuttering = 20
 		user.do_jitter_animation(20)
@@ -162,8 +162,8 @@
 				user.do_attack_animation(M)
 				return
 		else
-			M.visible_message("<span class='warning'>[user] has prodded [M] with [src]. Luckily it was off.</span>", \
-							"<span class='warning'>[user] has prodded you with [src]. Luckily it was off</span>")
+			M.visible_message(span_warning("[user] has prodded [M] with [src]. Luckily it was off."), \
+							span_warning("[user] has prodded you with [src]. Luckily it was off"))
 	else
 		if(turned_on)
 			baton_stun(M, user)
@@ -211,8 +211,8 @@
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
-		target.visible_message("<span class='danger'>[user] has electrocuted [target] with [src]!</span>", \
-								"<span class='userdanger'>[user] has electrocuted you with [src]!</span>")
+		target.visible_message(span_danger("[user] has electrocuted [target] with [src]!"), \
+								span_userdanger("[user] has electrocuted you with [src]!"))
 		log_combat(user, target, "stunned", src)
 
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)

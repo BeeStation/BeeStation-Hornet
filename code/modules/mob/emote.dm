@@ -11,7 +11,7 @@
 
 	if(!length(key_emotes))
 		if(intentional)
-			to_chat(src, "<span class='notice'>'[act]' emote does not exist. Say *help for a list.</span>")
+			to_chat(src, span_notice("'[act]' emote does not exist. Say *help for a list."))
 		return FALSE
 	var/silenced = FALSE
 	for(var/datum/emote/emote in key_emotes)
@@ -25,7 +25,7 @@
 		//SEND_SIGNAL(src, COMSIG_MOB_EMOTED(emote.key))
 		return TRUE
 	if(intentional && !silenced)
-		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
+		to_chat(src, span_notice("Unusable emote '[act]'. Say *help for a list."))
 	return FALSE
 
 /datum/emote/flip
@@ -54,15 +54,15 @@
 		if(prob(20))
 			flippy_mcgee.Knockdown(1 SECONDS)
 			flippy_mcgee.visible_message(
-				"<span class='notice'>[flippy_mcgee] attempts to do a flip and falls over, what a doofus!</span>",
-				"<span class='notice'>You attempt to do a flip while still off balance from the last flip and fall down!</span>"
+				span_notice("[flippy_mcgee] attempts to do a flip and falls over, what a doofus!"),
+				span_notice("You attempt to do a flip while still off balance from the last flip and fall down!")
 			)
 			if(prob(50))
 				flippy_mcgee.adjustBruteLoss(1)
 		else
 			flippy_mcgee.visible_message(
-				"<span class='notice'>[flippy_mcgee] stumbles a bit after their flip.</span>",
-				"<span class='notice'>You stumble a bit from still being off balance from your last flip.</span>"
+				span_notice("[flippy_mcgee] stumbles a bit after their flip."),
+				span_notice("You stumble a bit from still being off balance from your last flip.")
 			)
 
 /datum/emote/spin

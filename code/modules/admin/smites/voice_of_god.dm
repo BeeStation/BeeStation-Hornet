@@ -8,7 +8,7 @@
 	if(isnull(target_sound) || isnull(target_speech)) //The user pressed "Cancel"
 		return
 
-	target.visible_message("<span class='warning'>[target] faints!</span>", "<span class='narsie'>[target_speech]</span>")
+	target.visible_message(span_warning("[target] faints!"), span_narsie("[target_speech]"))
 	target.playsound_local(get_turf(target), target_sound, 200, 1)
 	target.Paralyze(300, ignore_canstun = TRUE)
 	target.Jitter(100)

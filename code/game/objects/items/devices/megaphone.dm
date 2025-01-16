@@ -13,7 +13,7 @@
 	var/cooldown = 5 SECONDS
 
 /obj/item/megaphone/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is uttering [user.p_their()] last words into \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	spamcheck = 0//so they dont have to worry about recharging
 	user.say("AAAAAAAAAAAARGHHHHH", forced="megaphone suicide")//he must have died while coding this
 	return OXYLOSS
@@ -34,7 +34,7 @@
 
 	if (user.get_active_held_item() == src)
 		if(spamcheck > world.time)
-			to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
+			to_chat(user, span_warning("\The [src] needs to recharge!"))
 		else
 			playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
 			spamcheck = world.time + cooldown
@@ -42,7 +42,7 @@
 
 /obj/item/megaphone/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+	to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
 	voicespan = list(SPAN_REALLYBIG, "userdanger")
 
 /obj/item/megaphone/sec
@@ -92,18 +92,18 @@
 		playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
 		speech_args[SPEECH_SPANS] |= voicespan
 	else
-		to_chat(user, "<span class='warning'>You neeed to wait a bit before you can use [src] again!</span>")
+		to_chat(user, span_warning("You neeed to wait a bit before you can use [src] again!"))
 
 /obj/item/megaphone/nospam/examine(mob/user)
 	. = ..()
 	var/charges = maximum_charge - length(charges_list)
 	switch(charges)
 		if(2 to INFINITY)
-			. += "<span class='notice'>It has [charges] charges remaining.</span>"
+			. += span_notice("It has [charges] charges remaining.")
 		if(1)
-			. += "<span class='notice'>It has [charges] charge remaining.</span>"
+			. += span_notice("It has [charges] charge remaining.")
 		if(-INFINITY to 0)
-			. += "<span class='warning'>It needs to recharge!</span>"
+			. += span_warning("It needs to recharge!")
 
 /obj/item/megaphone/nospam/Destroy()
 	STOP_PROCESSING(SSobj, src)

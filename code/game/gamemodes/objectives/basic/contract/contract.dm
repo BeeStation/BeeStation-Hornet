@@ -13,7 +13,7 @@
 		if(affected_contract.contract == src)
 			affected_contract.generate(hub.assigned_targets)
 			hub.assigned_targets.Add(affected_contract.contract.target)
-			to_chat(owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+			to_chat(owner.current, span_userdanger("<BR>Contract target out of reach. Contract rerolled."))
 			break
 
 // Generate a random valid area on the station that the dropoff will happen.

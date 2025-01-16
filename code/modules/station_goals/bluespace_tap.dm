@@ -25,7 +25,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? span_greenannounce("[highscore]") : span_boldannounce("[highscore]")]")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -409,7 +409,7 @@
 /obj/machinery/power/bluespace_tap/on_emag(mob/user)
 	..()
 	do_sparks(5, FALSE, src)
-	user?.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+	user?.visible_message(span_warning("[user] overrides the safety protocols of [src]."), span_warning("You override the safety protocols."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

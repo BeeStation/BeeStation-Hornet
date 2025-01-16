@@ -33,7 +33,7 @@
 /datum/component/buffer/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	if(target)
-		examine_list += "<span class='notice'>Its buffer contains [target].</span>"
+		examine_list += span_notice("Its buffer contains [target].")
 
 /datum/component/buffer/proc/self_flush_buffer(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -41,7 +41,7 @@
 		return NONE
 	flush_buffer()
 	if (user)
-		to_chat(user, "<span class='notice'>You flush the buffer of [source]!</span>")
+		to_chat(user, span_notice("You flush the buffer of [source]!"))
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/buffer/proc/populate_buffer(datum/source, datum/buffer_entity)

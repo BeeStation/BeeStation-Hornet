@@ -46,7 +46,7 @@
 	big_guy.start_pulling(batman)
 	big_guy.setDir(get_dir(big_guy, batman))
 
-	batman.visible_message("<span class='warning'>[batman] gets a slightly too tight hug from [big_guy]!</span>", "<span class='userdanger'>You feel your body break as [big_guy] embraces you!</span>")
+	batman.visible_message(span_warning("[batman] gets a slightly too tight hug from [big_guy]!"), span_userdanger("You feel your body break as [big_guy] embraces you!"))
 
 	if(iscarbon(batman))
 		var/mob/living/carbon/carbon_batman = batman
@@ -129,8 +129,8 @@
 	var/mob/living/living_target = target
 	controller.PauseAi(1.5 SECONDS)
 	living_target.visible_message(
-		"<span class='info'>[pawn] starts trying to give [held_item] to [living_target]!</span>",
-		"<span class='warning'>[pawn] tries to give you [held_item]!</span>"
+		span_info("[pawn] starts trying to give [held_item] to [living_target]!"),
+		span_warning("[pawn] tries to give you [held_item]!")
 	)
 	if(!do_after(pawn, 1 SECONDS, living_target))
 		return

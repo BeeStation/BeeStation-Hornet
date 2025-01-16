@@ -288,7 +288,7 @@
 	dye_color = DYE_LAW
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
+	user.visible_message(span_suicide("[user] pretends to read \the [src] intently... then promptly dies of laughter!"))
 	return OXYLOSS
 
 /obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
@@ -322,18 +322,18 @@
 		var/datum/antagonist/rev/rev = user.mind.has_antag_datum(/datum/antagonist/rev)
 		user.say("Isn't it obvious, Nanotrasen, the governments; everyone around us has been tricking us, playing us like we are pawns...", forced = "space law")
 		if (rev.add_revolutionary(target.mind, FALSE))
-			target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, the truth washes over you!</span>")
+			target.visible_message(span_notice("[target] nods in approval, taking in the information!"), span_notice("That all makes perfect sense, the truth washes over you!"))
 		else
-			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			target.visible_message(span_userdanger("[target] spits on the floor, disrespecting [user]'s authority!"), span_notice("You finish listening to [user]'s waffling. What a knobhead, you think to yourself..."))
 	else
 		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged to not commit them.", forced = "space law")
 		if(target.mind?.has_antag_datum(/datum/antagonist/rev/head) || target.mind?.unconvertable)
-			target.visible_message("<span class='userdanger'>[target] spits on the floor, disrespecting [user]'s authority!</span>", "<span class='notice'>You finish listening to [user]'s waffling. What a knobhead, you think to yourself...</span>")
+			target.visible_message(span_userdanger("[target] spits on the floor, disrespecting [user]'s authority!"), span_notice("You finish listening to [user]'s waffling. What a knobhead, you think to yourself..."))
 			return
 		var/datum/antagonist/rev/rev = target.mind?.has_antag_datum(/datum/antagonist/rev)
 		if(rev)
 			rev.remove_revolutionary(FALSE, user)
-		target.visible_message("<span class='notice'>[target] nods in approval, taking in the information!</span>", "<span class='notice'>That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!</span>")
+		target.visible_message(span_notice("[target] nods in approval, taking in the information!"), span_notice("That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!"))
 
 /obj/item/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
@@ -443,7 +443,7 @@
 
 /obj/item/book/manual/wiki/toxins/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (!QDELETED(H))
 		H.emote("spin")

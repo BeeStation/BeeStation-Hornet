@@ -16,7 +16,7 @@
 	for(var/mob/living/target in loc)
 		do_teleport(target, teleport_target, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
-		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
+		to_chat(target, span_warning("The instability of the warp leaves you disoriented!"))
 		target.SetSleeping(60)
 		//If the target is wearing an abductor vest, increase the stimulant cooldown
 		if (ishuman(target))

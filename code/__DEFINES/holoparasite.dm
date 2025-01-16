@@ -1,4 +1,4 @@
-#define ASSERT_ABILITY_USABILITY		if(!owner.can_use_abilities) { to_chat(owner, "<span class='warning bold'>You can't do that right now!</span>"); return FALSE; }
+#define ASSERT_ABILITY_USABILITY		if(!owner.can_use_abilities) { to_chat(owner, span_warningbold("You can't do that right now!")); return FALSE; }
 #define ASSERT_ABILITY_USABILITY_SILENT	if(!owner.can_use_abilities) { return FALSE; }
 
 /// The multiplier to apply to the 'star factor' of scout holoparasite's sensory link if the summoner is "psychically attuned", like if they're a stargazer or something.

@@ -39,9 +39,9 @@
 		else if(B.get_part_rating() > lowest_rating)
 			things.Remove(B)
 	if(lowest_rating == INFINITY)
-		to_chat(M, "<span class='notice'>There's no parts to dump out from [parent].</span>")
+		to_chat(M, span_notice("There's no parts to dump out from [parent]."))
 		return
-	to_chat(M, "<span class='notice'>You start dumping out Tier/Cell rating [lowest_rating] parts from [parent].</span>")
+	to_chat(M, span_notice("You start dumping out Tier/Cell rating [lowest_rating] parts from [parent]."))
 	var/turf/T = get_turf(A)
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 10, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
@@ -89,9 +89,9 @@
 		else if(B.get_part_rating() > lowest_rating)
 			things.Remove(B)
 	if(lowest_rating == INFINITY)
-		to_chat(M, "<span class='notice'>There's no parts to dump out from [parent].</span>")
+		to_chat(M, span_notice("There's no parts to dump out from [parent]."))
 		return
-	to_chat(M, "<span class='notice'>You start dumping out Tier/Cell rating [lowest_rating] parts from [parent].</span>")
+	to_chat(M, span_notice("You start dumping out Tier/Cell rating [lowest_rating] parts from [parent]."))
 	var/turf/T = get_turf(A)
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 10, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))

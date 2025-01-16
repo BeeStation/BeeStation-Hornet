@@ -82,7 +82,7 @@
 			return FALSE
 		return TRUE
 	else
-		message_admins("<span class='notice'>DEBUG: GAME STARTING WITHOUT PLAYER NUMBER CHECKS, THIS WILL PROBABLY BREAK SHIT.</span>")
+		message_admins(span_notice("DEBUG: GAME STARTING WITHOUT PLAYER NUMBER CHECKS, THIS WILL PROBABLY BREAK SHIT."))
 		return TRUE
 
 /datum/game_mode/proc/setup_maps()
@@ -694,7 +694,7 @@
 //Reports player logouts//
 //////////////////////////
 /proc/display_roundstart_logout_report()
-	var/list/msg = list("<span class='boldnotice'>Roundstart logout report\n\n</span>")
+	var/list/msg = list(span_boldnotice("Roundstart logout report\n\n"))
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		var/mob/living/carbon/C = L
@@ -712,7 +712,7 @@
 				failed = TRUE //AFK client
 			if(!failed && L.stat)
 				if(L.suiciding)	//Suicider
-					msg += "<b>[L.name]</b> ([L.key]), the [L.job] (<span class='boldannounce'>Suicide</span>)\n"
+					msg += "<b>[L.name]</b> ([L.key]), the [L.job] ([span_boldannounce("Suicide")])\n"
 					failed = TRUE //Disconnected client
 				if(!failed && (L.stat == UNCONSCIOUS || L.stat == HARD_CRIT))
 					msg += "<b>[L.name]</b> ([L.key]), the [L.job] (Dying)\n"
@@ -735,7 +735,7 @@
 			if(D.mind && D.mind.current == L)
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<span class='boldannounce'>Suicide</span>)\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] ([span_boldannounce("Suicide")])\n"
 						continue //Disconnected client
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
@@ -744,7 +744,7 @@
 					if(D.can_reenter_corpse)
 						continue //Adminghost, or cult/wizard ghost
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<span class='boldannounce'>Ghosted</span>)\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] ([span_boldannounce("Ghosted")])\n"
 						continue //Ghosted while alive
 
 

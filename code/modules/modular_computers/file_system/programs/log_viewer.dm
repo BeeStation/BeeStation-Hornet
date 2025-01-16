@@ -18,18 +18,18 @@
 			if(!istype(computer))
 				return
 			if(!check_remote())
-				computer.visible_message("<span class='warning'>\The [computer] shows an \"Connection Error - Remote log server connection timeout\" warning.</span>")
+				computer.visible_message(span_warning("\The [computer] shows an \"Connection Error - Remote log server connection timeout\" warning."))
 				return
 			var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 			if(!hard_drive)
-				computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive connection error\" warning.</span>")
+				computer.visible_message(span_warning("\The [computer] shows an \"I/O Error - Hard drive connection error\" warning."))
 				return
 			var/datum/computer_file/data/log_file/log
 			switch(params["name"])
 				if("ore_silo")
 					var/obj/item/computer_hardware/hard_drive/role/job_disk = computer.all_components[MC_HDD_JOB]
 					if(!istype(job_disk) || !(job_disk.disk_flags & DISK_SILO_LOG) || !GLOB.ore_silo_default)
-						computer.visible_message("<span class='warning'>\The [computer] shows an \"Access Error - Remote log server refused connection\" warning.</span>")
+						computer.visible_message(span_warning("\The [computer] shows an \"Access Error - Remote log server refused connection\" warning."))
 						return
 					log = new()
 					log.set_stored_data(get_silo_log())
@@ -40,7 +40,7 @@
 				return
 			log.filename = filename
 			if(!hard_drive.store_file(log))
-				computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [log.size]GQ\" warning.</span>")
+				computer.visible_message(span_warning("\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [log.size]GQ\" warning."))
 				return
 			return TRUE
 

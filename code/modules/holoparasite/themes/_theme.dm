@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_themes, /datum/holoparasite_theme, init_holo
 	var/message = messages[key]
 	if(holoparasite)
 		message = replacetext(message, "%NAME%", holoparasite.color_name)
-	to_chat(user, "<span class='holoparasite'>[message]</span>", type = MESSAGE_TYPE_INFO)
+	to_chat(user, span_holoparasite("[message]"), type = MESSAGE_TYPE_INFO)
 
 /proc/init_holoparasite_themes()
 	. = list()

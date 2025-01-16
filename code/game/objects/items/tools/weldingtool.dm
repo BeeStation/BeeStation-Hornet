@@ -100,7 +100,7 @@
 
 
 /obj/item/weldingtool/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 
@@ -300,7 +300,7 @@
 
 /obj/item/weldingtool/ignition_effect(atom/A, mob/user)
 	if(use_tool(A, user, 0, amount=1))
-		return "<span class='notice'>[user] casually lights [A] with [src], what a badass.</span>"
+		return span_notice("[user] casually lights [A] with [src], what a badass.")
 	else
 		return ""
 

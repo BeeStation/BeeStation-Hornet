@@ -66,7 +66,7 @@
 /datum/component/toggle_icon/proc/on_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += "<span class='notice'>Alt-click on [source] to toggle the [toggle_noun].</span>"
+	examine_list += span_notice("Alt-click on [source] to toggle the [toggle_noun].")
 
 /*
  * Actually do the toggle of the icon.

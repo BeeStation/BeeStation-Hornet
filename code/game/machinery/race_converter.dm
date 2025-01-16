@@ -31,12 +31,12 @@
 
 /obj/machinery/species_converter/close_machine(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You need to close the maintenance hatch first!</span>")
+		to_chat(user, span_warning("You need to close the maintenance hatch first!"))
 		return
 	..()
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
-		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
+		to_chat(occupant, span_notice("You enter [src]"))
 		addtimer(CALLBACK(src, PROC_REF(begin_conversion)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
@@ -58,7 +58,7 @@
 	else if(!processing)
 		open_machine()
 	else
-		to_chat(user, "<span class='warning'>You can't open the [src] while it's active!</span>")
+		to_chat(user, span_warning("You can't open the [src] while it's active!"))
 
 /obj/machinery/species_converter/update_overlays()
 	. = ..()
@@ -97,7 +97,7 @@
 	if(DT_PROB(iterations * 10 + 10, delta_time)) // conversion has some random variation in it
 		C.set_species(desired_race)
 		if(brainwash)
-			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
+			to_chat(C, span_userdanger("A new compulsion fills your mind... you feel forced to obey it!"))
 			var/objective = "Convert as many people as possible into a [initial(desired_race.name)]. Racewar!"
 			brainwash(C, objective, "species converter")
 			log_game("[key_name(C)] has been brainwashed with the objective '[objective]' via the species converter.")
@@ -124,10 +124,10 @@
 	if(!user.canUseTopic(src, BE_CLOSE) || processing)
 		return
 	if(user == occupant)
-		to_chat(user, "<span class='warning'>You can't reach the controls from inside!</span>")
+		to_chat(user, span_warning("You can't reach the controls from inside!"))
 		return
 	if(brainwash && changed)
-		to_chat(user, "<span class='warning'>The species controller is locked!</span>")
+		to_chat(user, span_warning("The species controller is locked!"))
 		return
 	var/list/allowed = get_selectable_species()
 	if(!dangerous)
@@ -136,11 +136,11 @@
 	if(choice)
 		desired_race = GLOB.species_list[choice]
 		changed = TRUE
-		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
+		to_chat(user, span_notice("You change \the [src]'s desired race setting to [initial(desired_race.name)]."))
 
 /obj/machinery/species_converter/on_emag(mob/user)
 	..()
 	dangerous = TRUE
 	brainwash = prob(30)
 	changed = FALSE
-	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safety measures.</span>")
+	to_chat(user, span_warning("You quitely disable \the [src]'s safety measures."))

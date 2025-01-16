@@ -21,10 +21,10 @@
 			return
 		if("Up")
 			if(user.zMove(UP, TRUE))
-				to_chat(user, "<span class='notice'>You move upwards.</span>")
+				to_chat(user, span_notice("You move upwards."))
 		if("Down")
 			if(user.zMove(DOWN, TRUE))
-				to_chat(user, "<span class='notice'>You move down.</span>")
+				to_chat(user, span_notice("You move down."))
 
 /// Moves a mob, any buckled mobs, and pulled mobs between Zs
 /turf/proc/travel_z(mob/user, turf/target, dir)

@@ -41,12 +41,12 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	set name = "Mentorhelp"
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	//handle muting and automuting
 	if(prefs.muted & MUTE_MHELP)
-		to_chat(src, "<span class='danger'>Error: Mentor-PM: You cannot send mentorhelps (Muted).</span>")
+		to_chat(src, span_danger("Error: Mentor-PM: You cannot send mentorhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg, MUTE_MHELP))
 		return
@@ -64,7 +64,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 				current_mentorhelp_ticket.TimeoutVerb()
 				return
 			else
-				to_chat(usr, "<span class='warning'>Ticket not found, creating new one...</span>")
+				to_chat(usr, span_warning("Ticket not found, creating new one..."))
 		else
 			current_mentorhelp_ticket.AddInteraction("yellow", "[usr] opened a new ticket.")
 			current_mentorhelp_ticket.Close()
@@ -155,7 +155,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[sanitized_msg]</span></span>"
+	var/admin_msg = span_mentornotice("[span_mentorhelp("Mentor Ticket [TicketHref("#[id]", ref_src)]")]: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: [span_linkify("[sanitized_msg]")]")
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
@@ -170,7 +170,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	//show it to the person adminhelping too
 	if(add_to_ticket)
-		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[sanitized_msg]</span></span>", type = message_type)
+		to_chat(initiator, span_mentornotice("PM to-<b>Mentors</b>: [span_linkify("[sanitized_msg]")]"), type = message_type)
 
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
 	if(state > TICKET_ACTIVE)
@@ -212,8 +212,8 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	AddInteraction("red", "Transferred to adminhelp by [key_name].")
 	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_ADMINHELP)
-		message_ticket_managers(src, "<span class='danger'>Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this.</span>")
-		log_admin_private(src, "<span class='danger'>[initiator_ckey] blocked from mhelp escalation (performed by [key_name]) to ahelp due to mute. Possible abuse of mhelp system.</span>")
+		message_ticket_managers(src, span_danger("Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this."))
+		log_admin_private(src, span_danger("[initiator_ckey] blocked from mhelp escalation (performed by [key_name]) to ahelp due to mute. Possible abuse of mhelp system."))
 		return
 	message_ticket_managers(msg)
 	log_admin_private(msg)

@@ -296,7 +296,7 @@
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(25))
-			to_chat(H, "<span class='warning'>You cut yourself on the paper! Ahhhh! Ahhhhh!</span>")
+			to_chat(H, span_warning("You cut yourself on the paper! Ahhhh! Ahhhhh!"))
 			H.damageoverlaytemp = 9001
 			H.update_damage_hud()
 			return
@@ -307,18 +307,18 @@
 	update_static_data()
 
 /obj/item/paper/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
+	user.visible_message(span_suicide("[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku..."))
 	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src) && !isobserver(user))
-		. += "<span class='warning'>You're too far away to read it!</span>"
+		. += span_warning("You're too far away to read it!")
 		return
 	if(user.can_read(src))
 		ui_interact(user)
 		return
-	. += "<span class='warning'>You cannot read it!</span>"
+	. += span_warning("You cannot read it!")
 
 /obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
 		// Are we on fire?  Hard ot read if so
@@ -356,8 +356,8 @@
 		return
 	. = TRUE
 	if(!bypass_clumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10) && Adjacent(user))
-		user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-							"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
+		user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
+							span_userdanger("You miss [src] and accidentally light yourself on fire!"))
 		if(user.is_holding(I)) //checking if they're holding it in case TK is involved
 			user.dropItemToGround(I)
 		user.adjust_fire_stacks(1)
@@ -389,7 +389,7 @@
 
 	if(writing_stats["interaction_mode"] == MODE_WRITING)
 		if(get_total_length() >= MAX_PAPER_LENGTH)
-			to_chat(user, "<span class='warning'>This sheet of paper is full!</span>")
+			to_chat(user, span_warning("This sheet of paper is full!"))
 			return
 
 		ui_interact(user)
@@ -397,7 +397,7 @@
 
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
-		to_chat(user, "<span class='notice'>You ready your stamp over the paper! </span>")
+		to_chat(user, span_notice("You ready your stamp over the paper! "))
 		ui_interact(user)
 		return
 
@@ -505,7 +505,7 @@
 			var/obj/item/holding = user.get_active_held_item()
 			var/stamp_info = holding?.get_writing_implement_details()
 			if(!stamp_info || (stamp_info["interaction_mode"] != MODE_STAMPING))
-				to_chat(src, "<span class='warning'>You can't stamp with the [holding]!</span>")
+				to_chat(src, span_warning("You can't stamp with the [holding]!"))
 				return TRUE
 
 			var/stamp_class = stamp_info["stamp_class"];
@@ -530,7 +530,7 @@
 				return TRUE
 
 			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state)
-			user.visible_message("<span class='notice'>[user] stamps [src] with \the [holding.name]!</span>", "<span class='notice'>You stamp [src] with \the [holding.name]!</span>")
+			user.visible_message(span_notice("[user] stamps [src] with \the [holding.name]!"), span_notice("You stamp [src] with \the [holding.name]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()
 			update_static_data_for_all_viewers()

@@ -18,6 +18,6 @@
 		return
 	var/area/A = get_area(user)
 	if(!IS_DYNAMIC_LIGHTING(A))
-		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
+		to_chat(user, span_warning("You cannot place [src] in this area!"))
 		return
 	return TRUE

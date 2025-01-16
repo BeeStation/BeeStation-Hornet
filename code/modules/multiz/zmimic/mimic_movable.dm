@@ -181,11 +181,11 @@
 	return ..()
 
 /atom/movable/openspace/mimic/attackby(obj/item/W, mob/user)
-	to_chat(user, "<span class='notice'>\The [src] is too far away.</span>")
+	to_chat(user, span_notice("\The [src] is too far away."))
 	return TRUE
 
 /atom/movable/openspace/mimic/attack_hand(mob/user)
-	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")
+	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
 /atom/movable/openspace/mimic/examine(...)
@@ -246,7 +246,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/openspace/turf_mimic)
 	loc.attackby(W, user)
 
 /atom/movable/openspace/turf_mimic/attack_hand(mob/user as mob)
-	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")
+	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
 /atom/movable/openspace/turf_mimic/examine(mob/examiner)

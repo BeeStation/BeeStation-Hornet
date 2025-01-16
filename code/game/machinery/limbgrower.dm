@@ -63,7 +63,7 @@
 
 /obj/machinery/limbgrower/attackby(obj/item/O, mob/user, params)
 	if (busy)
-		to_chat(user, "<span class=\"alert\">The Limb Grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The Limb Grower is busy. Please wait for completion of previous operation."))
 		return
 
 	if(default_deconstruction_screwdriver(user, "limbgrower_panelopen", "limbgrower_idleoff", O))
@@ -112,7 +112,7 @@
 				addtimer(CALLBACK(src, PROC_REF(build_item)),32*prod_coeff)
 
 	else
-		to_chat(usr, "<span class=\"alert\">The limb grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(usr, span_alert("The limb grower is busy. Please wait for completion of previous operation."))
 
 	updateUsrDialog()
 	return
@@ -127,7 +127,7 @@
 			//Just build whatever it is
 			new buildpath(loc)
 	else
-		src.visible_message("<span class=\"error\"> Something went very wrong and there isn't enough synthflesh anymore!</span>")
+		src.visible_message(span_red("Something went very wrong and there isn't enough synthflesh anymore!"))
 	busy = FALSE
 	flick("limbgrower_unfill",src)
 	icon_state = "limbgrower_idleoff"
@@ -166,7 +166,7 @@
 /obj/machinery/limbgrower/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of synthflesh.<br>Synthflesh consumption at <b>[prod_coeff*100]%</b>.</span>"
+		. += span_notice("The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of synthflesh.<br>Synthflesh consumption at <b>[prod_coeff*100]%</b>.")
 
 /obj/machinery/limbgrower/proc/main_win(mob/user)
 	var/dat = "<div class='statusDisplay'><h3>Limb Grower Menu:</h3><br>"
@@ -192,7 +192,7 @@
 		if(!(selected_category in D.category))
 			continue
 		if(disabled || !can_build(D))
-			dat += "<span class='linkOff'>[D.name]</span>"
+			dat += span_linkoff("[D.name]")
 		else
 			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
 		dat += "[get_design_cost(D)]<br>"
@@ -232,7 +232,7 @@
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
 		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
 			stored_research.add_design(D)
-	to_chat(user, "<span class='warning'>A warning flashes onto the screen, stating that safety overrides have been deactivated!</span>")
+	to_chat(user, span_warning("A warning flashes onto the screen, stating that safety overrides have been deactivated!"))
 
 #undef LIMBGROWER_MAIN_MENU
 #undef LIMBGROWER_CATEGORY_MENU

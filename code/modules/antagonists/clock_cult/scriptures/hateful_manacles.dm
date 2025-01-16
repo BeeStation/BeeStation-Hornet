@@ -22,11 +22,11 @@
 	if(is_servant_of_ratvar(M))
 		return FALSE
 	if(M.handcuffed)
-		to_chat(invoker, "<span class='brass'>[M] is already restrained!</span>")
+		to_chat(invoker, span_brass("[M] is already restrained!"))
 		return FALSE
 	playsound(M, 'sound/weapons/handcuffs.ogg', 30, TRUE, -2)
-	M.visible_message("<span class='danger'>[invoker] forms a well of energy around [M], brass appearing at their wrists!</span>",\
-						"<span class='userdanger'>[invoker] is trying to restrain you!</span>")
+	M.visible_message(span_danger("[invoker] forms a well of energy around [M], brass appearing at their wrists!"),\
+						span_userdanger("[invoker] is trying to restrain you!"))
 	if(do_after(invoker, 30, target=M))
 		if(M.handcuffed)
 			return FALSE

@@ -4,9 +4,9 @@
 	if(..())
 		playsound(loc, "punch", 25, 1, -1)
 		log_combat(M, src, "attacked", M)
-		visible_message("<span class='danger'>[M] kicks [src]!</span>", \
-				"<span class='userdanger'>[M] kicks you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, "<span class='danger'>You kick [src]!</span>")
+		visible_message(span_danger("[M] kicks [src]!"), \
+				span_userdanger("[M] kicks you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, span_danger("You kick [src]!"))
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 		apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
 

@@ -38,9 +38,7 @@
 		deltimer(timer_id)
 
 /obj/item/organ/zombie_infection/on_find(mob/living/finder)
-	to_chat(finder, "<span class='warning'>Inside the head is a disgusting black \
-		web of pus and viscera, bound tightly around the brain like some \
-		biological harness.</span>")
+	to_chat(finder, span_warning("Inside the head is a disgusting black web of pus and viscera, bound tightly around the brain like some biological harness."))
 
 /obj/item/organ/zombie_infection/process(delta_time)
 	if(!owner)
@@ -58,9 +56,9 @@
 	if(!owner.getorgan(/obj/item/organ/brain))
 		return
 	if(!iszombie(owner))
-		to_chat(owner, "<span class='cultlarge'>You can feel your heart stopping, but something isn't right... \
+		to_chat(owner, span_cultlarge("You can feel your heart stopping, but something isn't right... \
 		life has not abandoned your broken form. You can only feel a deep and immutable hunger that \
-		not even death can stop, you will rise again!</span>")
+		not even death can stop, you will rise again!"))
 	var/revive_time = rand(revive_time_min, revive_time_max)
 	var/flags = TIMER_STOPPABLE
 	timer_id = addtimer(CALLBACK(src, PROC_REF(zombify), owner), revive_time, flags)
@@ -86,14 +84,14 @@
 	C.revive()
 	C.grab_ghost()
 
-	C.visible_message("<span class='danger'>[owner] suddenly convulses, as [owner.p_they()][stand_up ? " stagger to [owner.p_their()] feet and" : ""] gain a ravenous hunger in [owner.p_their()] eyes!</span>", "<span class='alien'>You HUNGER!</span>")
+	C.visible_message(span_danger("[owner] suddenly convulses, as [owner.p_they()][stand_up ? " stagger to [owner.p_their()] feet and" : ""] gain a ravenous hunger in [owner.p_their()] eyes!"), span_alien("You HUNGER!"))
 	playsound(C.loc, 'sound/hallucinations/far_noise.ogg', 50, 1)
 	if(C.handcuffed)
-		C.visible_message("<span class='danger'>[owner] continues convulsing breaking free of [owner.p_their()] restraints!</span>")
+		C.visible_message(span_danger("[owner] continues convulsing breaking free of [owner.p_their()] restraints!"))
 		C.uncuff()
 	C.do_jitter_animation(living_transformation_time)
 	C.Stun(living_transformation_time)
-	to_chat(C, "<span class='alertalien'>You are now a zombie! Do not seek to be cured, do not help any non-zombies in any way, do not harm your zombie brethren and spread the disease by killing others. You are a creature of hunger and violence.</span>")
+	to_chat(C, span_alertalien("You are now a zombie! Do not seek to be cured, do not help any non-zombies in any way, do not harm your zombie brethren and spread the disease by killing others. You are a creature of hunger and violence."))
 
 /obj/item/organ/zombie_infection/nodamage
 	causes_damage = FALSE

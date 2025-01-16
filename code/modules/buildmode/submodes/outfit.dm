@@ -7,11 +7,11 @@
 	return ..()
 
 /datum/buildmode_mode/outfit/show_help(client/c)
-	to_chat(c, "<span class='notice'>***********************************************************\n\
+	to_chat(c, span_notice("***********************************************************\n\
 		Right Mouse Button on buildmode button = Select outfit to equip.\n\
 		Left Mouse Button on mob/living/carbon/human = Equip the selected outfit.\n\
 		Right Mouse Button on mob/living/carbon/human = Strip and delete current outfit.\n\
-		***********************************************************</span>")
+		***********************************************************"))
 
 /datum/buildmode_mode/outfit/Reset()
 	. = ..()
@@ -29,7 +29,7 @@
 
 	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		if(isnull(dressuptime))
-			to_chat(c, ("<span class='warning'>Pick an outfit first.</span>"))
+			to_chat(c, (span_warning("Pick an outfit first.")))
 			return
 
 		for (var/item in dollie.get_equipped_items(TRUE))

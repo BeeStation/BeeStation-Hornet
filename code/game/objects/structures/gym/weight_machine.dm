@@ -64,9 +64,9 @@
 	return TRUE
 
 /obj/structure/weightmachine/screwdriver_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to take apart [src]...</span>")
+	to_chat(user, span_notice("You begin to take apart [src]..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+		to_chat(user, span_notice("You deconstruct [src]."))
 		qdel(src)
 	return TRUE
 

@@ -27,10 +27,10 @@
 	return ..()
 
 /datum/antagonist/fugitive/greet()
-	to_chat(owner, "<span class='big bold'>You are the Fugitive!</span>")
+	to_chat(owner, span_bigbold("You are the Fugitive!"))
 	to_chat(owner, backstory.greet_message)
-	to_chat(owner, "<span class='boldannounce'>You should not be killing anyone you please, but you can do anything to avoid being captured.</span>")
-	to_chat(owner, "<span class='bold'>Someone was hot on my tail when I managed to get to this space station! I probably have about 10 minutes before they show up...</span>")
+	to_chat(owner, span_boldannounce("You should not be killing anyone you please, but you can do anything to avoid being captured."))
+	to_chat(owner, span_bold("Someone was hot on my tail when I managed to get to this space station! I probably have about 10 minutes before they show up..."))
 	owner.announce_objectives()
 
 /datum/antagonist/fugitive/create_team(datum/team/fugitive/new_team)
@@ -83,7 +83,7 @@
 
 	var/list/result = list()
 	result += "<div class='panel redborder'>"
-	result += "<span class='header'>[name]:</span>"
+	result += span_header("[name]:")
 	result += "<b>[fugitives.len]</b> fugitive\s took refuge on [station_name()]!<br />"
 	var/list/parts = list()
 	parts += "<ul class='playerlist'>"
@@ -91,7 +91,7 @@
 		if(!antag.owner)
 			continue
 		parts += "<li>[printplayer(antag.owner)]\
-		<br />  - and they [antag.is_captured ? "<span class='redtext'>were captured by the hunters, [antag.living_on_capture ? "alive" : "dead"]</span>" : "<span class='greentext'>escaped the hunters</span>"]</li>"
+		<br />  - and they [antag.is_captured ? span_redtext("were captured by the hunters, [antag.living_on_capture ? "alive" : "dead"]") : span_greentext("escaped the hunters")]</li>"
 	parts += "</ul>"
 	result += parts.Join()
 	result += "</div>"

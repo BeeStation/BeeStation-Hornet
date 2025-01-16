@@ -59,9 +59,9 @@
 		return
 
 	if(tongue.liked_food & CLOTH)
-		to_chat(moffin_observer,"<span class='nicegreen'>Ooh! It's even got bits of clothes on it! Yummy!</span>")
+		to_chat(moffin_observer,span_nicegreen("Ooh! It's even got bits of clothes on it! Yummy!"))
 	else
-		to_chat(moffin_observer,"<span class='warning'>You're not too sure what's on top though...</span>")
+		to_chat(moffin_observer,span_warning("You're not too sure what's on top though..."))
 
 ////////////////////////////////////////////WAFFLES////////////////////////////////////////////
 

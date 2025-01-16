@@ -20,7 +20,7 @@
 
 /datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
 	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
-		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
+		to_chat(user, span_warning("A warning flashes across \the [computer]: Device Incompatible."))
 		return FALSE
 	. = ..()
 	if(.)
@@ -110,7 +110,7 @@
 		if("alertPower")
 			if(borgo.stat == CONSCIOUS)
 				if(!borgo.cell || !borgo.cell.charge)
-					borgo.visible_message("<span class='notice'>The power warning light on <span class='name'>[borgo]</span> flashes urgently.</span>", \
+					borgo.visible_message(span_notice("The power warning light on [span_name("[borgo]")] flashes urgently."), \
 						"You announce you are operating in low power mode.")
 					playsound(borgo, 'sound/machines/buzz-two.ogg', 50, FALSE)
 

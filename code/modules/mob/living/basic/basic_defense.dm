@@ -7,9 +7,9 @@
 		if(INTENT_HELP)
 			if(stat == DEAD)
 				return
-			visible_message("<span class='notice'>[user] [response_help_continuous] [src].</span>", \
-							"<span class='notice'>[user] [response_help_continuous] you.</span>", null, null, list(user))
-			to_chat(user, "<span class='notice'>You [response_help_simple] [src].</span>")
+			visible_message(span_notice("[user] [response_help_continuous] [src]."), \
+							span_notice("[user] [response_help_continuous] you."), null, null, list(user))
+			to_chat(user, span_notice("You [response_help_simple] [src]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return TRUE
 
@@ -22,26 +22,26 @@
 			var/shove_dir = get_dir(user, src)
 			if(!Move(get_step(src, shove_dir), shove_dir))
 				log_combat(user, src, "shoved (failing to move it)", user)
-				visible_message("<span class='danger'>[user] [response_disarm_continuous] [src]!</span>", \
-								"<span class='userdanger'>[user] [response_disarm_continuous] you!</span>", \
-								"<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(user))
-				to_chat(user, "<span class='danger'>You [response_disarm_simple] [src]!</span>")
+				visible_message(span_danger("[user] [response_disarm_continuous] [src]!"), \
+								span_userdanger("[user] [response_disarm_continuous] you!"), \
+								span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(user))
+				to_chat(user, span_danger("You [response_disarm_simple] [src]!"))
 			else
 				log_combat(user, src, "shoved", user)
-				visible_message("<span class='danger'>[user] [response_disarm_continuous] [src], pushing [p_them()]!</span>", \
-								"<span class='userdanger'>You're pushed by [user]!</span>", \
-								"<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(user))
-				to_chat(user, "<span class='danger'>You [response_disarm_simple] [src], pushing [p_them()]!</span>")
+				visible_message(span_danger("[user] [response_disarm_continuous] [src], pushing [p_them()]!"), \
+								span_userdanger("You're pushed by [user]!"), \
+								span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(user))
+				to_chat(user, span_danger("You [response_disarm_simple] [src], pushing [p_them()]!"))
 			return TRUE
 
 		if(INTENT_HARM)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM))
-				to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+				to_chat(user, span_warning("You don't want to hurt [src]!"))
 				return
 			user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[user] [response_harm_continuous] [src]!</span>",\
-							"<span class='userdanger'>[user] [response_harm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, list(user))
-			to_chat(user, "<span class='danger'>You [response_harm_simple] [src]!</span>")
+			visible_message(span_danger("[user] [response_harm_continuous] [src]!"),\
+							span_userdanger("[user] [response_harm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, list(user))
+			to_chat(user, span_danger("You [response_harm_simple] [src]!"))
 			playsound(loc, attacked_sound, 25, TRUE, -1)
 
 			attack_threshold_check(user.dna.species.punchdamage)
@@ -54,9 +54,9 @@
 	if(!.)
 		return
 	playsound(loc, "punch", 25, TRUE, -1)
-	visible_message("<span class='danger'>[user] punches [src]!</span>", \
-					"<span class='userdanger'>You're punched by [user]!</span>", null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, "<span class='danger'>You punch [src]!</span>")
+	visible_message(span_danger("[user] punches [src]!"), \
+					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You punch [src]!"))
 	adjustBruteLoss(15)
 
 /mob/living/basic/attack_paw(mob/living/carbon/human/user)
@@ -67,9 +67,9 @@
 			return 1
 	if (user.a_intent == INTENT_HELP)
 		if (health > 0)
-			visible_message("<span class='notice'>[user.name] [response_help_continuous] [src].</span>", \
-							"<span class='notice'>[user.name] [response_help_continuous] you.</span>", null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, "<span class='notice'>You [response_help_simple] [src].</span>")
+			visible_message(span_notice("[user.name] [response_help_continuous] [src]."), \
+							span_notice("[user.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, span_notice("You [response_help_simple] [src]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 
@@ -77,15 +77,15 @@
 	if(..()) //if harm or disarm intent.
 		if(user.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[user] [response_disarm_continuous] [name]!</span>", \
-							"<span class='userdanger'>[user] [response_disarm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, "<span class='danger'>You [response_disarm_simple] [name]!</span>")
+			visible_message(span_danger("[user] [response_disarm_continuous] [name]!"), \
+							span_userdanger("[user] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, span_danger("You [response_disarm_simple] [name]!"))
 			log_combat(user, src, "disarmed", user)
 		else
 			var/damage = rand(15, 30)
-			visible_message("<span class='danger'>[user] slashes at [src]!</span>", \
-							"<span class='userdanger'>You're slashed at by [user]!</span>", null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, "<span class='danger'>You slash at [src]!</span>")
+			visible_message(span_danger("[user] slashes at [src]!"), \
+							span_userdanger("You're slashed at by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, span_danger("You slash at [src]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			attack_threshold_check(damage)
 			log_combat(user, src, "attacked", user)
@@ -133,7 +133,7 @@
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message(span_warning("[src] looks unharmed."))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
