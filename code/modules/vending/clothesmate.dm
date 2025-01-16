@@ -27,6 +27,10 @@
 				/obj/item/clothing/head/beanie/stripedgreen = 3,
 				/obj/item/clothing/head/beanie/rasta = 3,
 				/obj/item/clothing/head/beret = 3,
+				/obj/item/clothing/head/driphats/beret_grey = 3,
+				/obj/item/clothing/head/driphats/beret_dark_blue = 3,
+				/obj/item/clothing/head/driphats/beret_green = 3,
+				/obj/item/clothing/head/driphats/beret_old = 1,
 				/obj/item/clothing/head/beret/black = 3,
 				/obj/item/clothing/mask/bandana = 3,
 				/obj/item/clothing/mask/bandana/striped = 3,
@@ -49,13 +53,25 @@
 				/obj/item/clothing/neck/tie/blue = 3,
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
+				/obj/item/clothing/neck/orangetie = 3,
+				/obj/item/clothing/neck/lightbluetie = 3,
+				/obj/item/clothing/neck/purpletie = 3,
+				/obj/item/clothing/neck/greentie = 3,
+				/obj/item/clothing/neck/browntie = 3,
 				/obj/item/clothing/neck/tie/horrible = 3,
 				/obj/item/clothing/head/chaplain/kippah = 3,
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
+				/obj/item/clothing/head/driphats/brown_tophat = 1,
+				/obj/item/clothing/head/driphats/grey_tophat = 1,
 				/obj/item/clothing/head/fedora = 1,
+				/obj/item/clothing/head/driphats/feathered_fedora = 1,
+				/obj/item/clothing/head/driphats/cowboy_hat = 1,
 				/obj/item/clothing/head/cowboy = 1,
 				/obj/item/clothing/head/costume/sombrero = 1,
+				/obj/item/clothing/head/driphats/flamebearer_hat = 1,
+				/obj/item/clothing/head/driphats/stylist_hat = 1,
+				/obj/item/clothing/head/driphats/ancient_hat = 1,
 
 			),
 		),
@@ -70,6 +86,7 @@
 				/obj/item/clothing/glasses/regular/circle = 1,
 				/obj/item/clothing/glasses/sunglasses = 2,
 				/obj/item/clothing/glasses/sunglasses/circle_sunglasses = 1,
+				/obj/item/clothing/glasses/ballistic_goggles = 3,
 				/obj/item/clothing/glasses/orange = 1,
 				/obj/item/clothing/glasses/red = 1,
 				/obj/item/clothing/gloves/fingerless = 2,
@@ -173,7 +190,8 @@
 				/obj/item/clothing/ears/headphones = 2,
 				/obj/item/clothing/glasses/monocle = 1,
 				/obj/item/clothing/suit/apron/purple_bartender = 2,
-				/obj/item/clothing/under/rank/civilian/bartender/purple = 2
+				/obj/item/clothing/under/rank/civilian/bartender/purple = 2,
+				/obj/item/clothing/head/driphats/purple_bowler = 2
 			),
 		),
 	)
@@ -189,7 +207,11 @@
 		/obj/item/clothing/suit/costume/vapeshirt = 1,
 		/obj/item/clothing/under/costume/geisha = 1,
 		/obj/item/clothing/under/rank/centcom/officer/replica = 1,
-		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1
+		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1,
+		/obj/item/clothing/head/driphats/syndi_general_hat = 1,
+		/obj/item/clothing/head/driphats/syndi_gold_cap = 1,
+		/obj/item/clothing/head/driphats/syndi_ship_commander_cap = 1,
+		/obj/item/clothing/neck/cloak/chap/superior_cloak = 1,
 	)
 	premium = list(
 		/obj/item/clothing/under/suit/checkered = 1,
@@ -197,7 +219,8 @@
 		/obj/item/clothing/suit/jacket/leather/overcoat = 1,
 		/obj/item/clothing/under/pants/mustangjeans = 1,
 		/obj/item/clothing/neck/necklace/dope = 3,
-		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1
+		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1,
+		/obj/item/clothing/neck/cloak/chap/duality_weibel = 1,
 	)
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_MEDIUM

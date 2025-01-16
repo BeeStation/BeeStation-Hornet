@@ -198,6 +198,41 @@
 	desc = "In nomine Patris, et Filii, et Spiritus Sancti."
 	icon_state = "cross"
 
+/obj/item/clothing/neck/orangetie
+	name = "Orange tie"
+	desc = "A tie, which is....orange."
+	icon_state = "orangetie"
+
+/obj/item/clothing/neck/lightbluetie
+	name = "Light blue tie"
+	desc = "You'd see someone who works in a cubicle wear this."
+	icon_state = "lightbluetie"
+
+/obj/item/clothing/neck/purpletie
+	name = "Purple tie"
+	desc = "A certain lawyer has iconically worn this."
+	icon_state = "purpletie"
+
+/obj/item/clothing/neck/greentie
+	name = "Green tie"
+	desc = "This kind of green is disgusting."
+	icon_state = "greentie"
+
+/obj/item/clothing/neck/browntie
+	name = "Brown tie"
+	desc = "A standard tie, rivaled by the black tie!"
+	icon_state = "browntie"
+
+/obj/item/clothing/neck/necklace_beads
+	name = "Beads"
+	desc = "You can wear them around your neck, sick!"
+	icon_state = "beads"
+
+/obj/item/clothing/neck/crystal_talisman
+	name = "Crystal pendant"
+	desc = "Its magical properties have faded away."
+	icon_state = "crystal_talisman"
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////
