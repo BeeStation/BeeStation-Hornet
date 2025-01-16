@@ -513,6 +513,14 @@
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
+"ds" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station"
+	},
+/turf/open/floor/iron/techmaint,
+/area/mine/eva)
 "dt" = (
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
@@ -1916,6 +1924,18 @@
 	},
 /turf/open/floor/iron,
 /area/mine/science)
+"mJ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA"
+	},
+/turf/open/floor/iron/techmaint,
+/area/mine/eva)
 "mK" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -2463,13 +2483,6 @@
 "rf" = (
 /turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
-"rh" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron/techmaint,
-/area/mine/eva)
 "rq" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/camera/directional/north{
@@ -3356,13 +3369,6 @@
 "xT" = (
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
-"xW" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA"
-	},
-/turf/open/floor/iron/techmaint,
-/area/mine/eva)
 "xX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -3930,14 +3936,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/mine/gateway)
-"CC" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/fans/tiny,
-/turf/open/floor/iron/techmaint,
-/area/mine/eva)
 "CD" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -4743,14 +4741,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/production)
-"IC" = (
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station"
-	},
-/turf/open/floor/iron/techmaint,
-/area/mine/eva)
 "ID" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/bot,
@@ -5219,6 +5209,13 @@
 	},
 /turf/open/floor/iron,
 /area/mine/science)
+"LD" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA"
+	},
+/turf/open/floor/iron/techmaint,
+/area/mine/eva)
 "LI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/reagent_dispensers/watertank,
@@ -5944,6 +5941,14 @@
 	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
+"Ri" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/fans/tiny,
+/turf/open/floor/iron/techmaint,
+/area/mine/eva)
 "Rj" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -6889,6 +6894,13 @@
 /obj/effect/spawner/structure/window/depleteduranium,
 /turf/open/floor/plating,
 /area/mine/production)
+"XN" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron/techmaint,
+/area/mine/eva)
 "XQ" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -6966,18 +6978,6 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark,
-/area/mine/eva)
-"Yo" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA"
-	},
-/turf/open/floor/iron/techmaint,
 /area/mine/eva)
 "Yq" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -39053,16 +39053,16 @@ Zd
 Zd
 Zd
 Zd
-IC
+ds
 gM
 wa
-xW
+LD
 Sf
 iu
 Sf
 Sf
 Sf
-xW
+LD
 CF
 gf
 Yq
@@ -39310,16 +39310,16 @@ Zd
 Zd
 Zd
 Zd
-CC
+Ri
 LP
 vL
-rh
+XN
 Sf
 CD
 YX
 je
 wA
-Yo
+mJ
 Ix
 jJ
 iY

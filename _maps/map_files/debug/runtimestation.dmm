@@ -220,6 +220,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/gravity_generator)
+"aL" = (
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "aN" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
@@ -1098,29 +1102,6 @@
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/construction)
-"dX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/camera/directional/west,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/construction)
-"dZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/camera/directional/south,
-/turf/open/floor/iron,
-/area/construction)
-"ea" = (
-/obj/structure/table,
-/obj/machinery/camera/directional/south,
-/obj/item/gun/magic/wand/resurrection/debug,
-/turf/open/floor/iron,
-/area/storage/primary)
 "eb" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -1558,13 +1539,6 @@
 	},
 /turf/open/space/basic,
 /area/space)
-"fq" = (
-/obj/machinery/camera/directional/west,
-/obj/machinery/computer/bounty{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "fr" = (
 /obj/machinery/light{
 	dir = 8
@@ -1895,23 +1869,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
-"gg" = (
-/obj/structure/sign/directions/supply{
-	dir = 4;
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/engineering{
-	dir = 1;
-	pixel_x = 32;
-	pixel_y = 7
-	},
-/obj/structure/sign/directions/evac{
-	pixel_x = 32;
-	pixel_y = -7
-	},
-/obj/machinery/camera/directional/east,
-/turf/open/floor/plating,
-/area/storage/primary)
 "gh" = (
 /obj/machinery/computer/shuttle_flight/mining,
 /turf/open/floor/iron,
@@ -2058,17 +2015,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"gD" = (
-/obj/machinery/camera/directional/south,
-/turf/open/floor/iron,
-/area/quartermaster/miningoffice)
 "gE" = (
 /obj/machinery/camera/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
-"gF" = (
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gG" = (
@@ -2121,6 +2070,12 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"hM" = (
+/obj/structure/table,
+/obj/machinery/camera/directional/south,
+/obj/item/gun/magic/wand/resurrection/debug,
+/turf/open/floor/iron,
+/area/storage/primary)
 "hP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2301,6 +2256,23 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"pV" = (
+/obj/structure/sign/directions/supply{
+	dir = 4;
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 1;
+	pixel_x = 32;
+	pixel_y = 7
+	},
+/obj/structure/sign/directions/evac{
+	pixel_x = 32;
+	pixel_y = -7
+	},
+/obj/machinery/camera/directional/east,
+/turf/open/floor/plating,
+/area/storage/primary)
 "qb" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
@@ -2314,6 +2286,16 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"rV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/construction)
 "sE" = (
 /obj/machinery/power/rtg/advanced,
 /obj/structure/cable,
@@ -2724,6 +2706,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"QI" = (
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron,
+/area/quartermaster/miningoffice)
 "QO" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -2757,6 +2743,13 @@
 	},
 /turf/open/floor/iron/white/corner,
 /area/medical/medbay)
+"Tl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron,
+/area/construction)
 "Tt" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /turf/open/floor/plating,
@@ -2774,6 +2767,13 @@
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
+"UK" = (
+/obj/machinery/camera/directional/west,
+/obj/machinery/computer/bounty{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "Vg" = (
 /obj/machinery/light,
 /turf/open/floor/iron,
@@ -4498,7 +4498,7 @@ aa
 em
 gh
 gl
-gD
+QI
 em
 ge
 ge
@@ -5064,7 +5064,7 @@ aa
 aa
 en
 eh
-gF
+aL
 fj
 aa
 aa
@@ -6258,7 +6258,7 @@ cW
 dm
 dy
 ii
-dX
+rV
 dy
 dy
 gG
@@ -6817,7 +6817,7 @@ dn
 dn
 dn
 dn
-dZ
+Tl
 cN
 Tt
 Rb
@@ -8013,7 +8013,7 @@ dJ
 dJ
 dJ
 dJ
-ea
+hM
 cS
 fS
 fO
@@ -8558,7 +8558,7 @@ dB
 dx
 dl
 dl
-gg
+pV
 ez
 tX
 dl
@@ -8745,7 +8745,7 @@ eP
 fY
 eZ
 fv
-fq
+UK
 fr
 eu
 eu
