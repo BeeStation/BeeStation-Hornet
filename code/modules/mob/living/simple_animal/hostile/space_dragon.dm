@@ -111,9 +111,9 @@
 		//dragon_name()
 		color_selection()
 
-/mob/living/simple_animal/hostile/space_dragon/Life(seconds, times_fired)
+/mob/living/simple_animal/hostile/space_dragon/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	tiredness = max(tiredness - 1, 0)
+	tiredness = max(tiredness - (0.5 * delta_time), 0)
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
