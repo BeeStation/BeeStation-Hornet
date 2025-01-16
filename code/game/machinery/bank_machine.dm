@@ -146,5 +146,4 @@
 		radio.talk_into(src, message, radio_channel)
 		next_warning = world.time + minimum_time_between_warnings
 
-#undef SIPHON_MONEY_COUNT
 #undef SIPHON_AMOUNT
