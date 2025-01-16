@@ -76205,6 +76205,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"xlb" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/detectiveboard/directional/west,
+/turf/open/floor/carpet/grimy,
+/area/security/detectives_office)
 "xle" = (
 /obj/machinery/button/door{
 	id = "kitchenwindow";
@@ -109943,7 +109950,7 @@ wzG
 uMh
 lPV
 ceF
-nZF
+xlb
 qML
 aHD
 aHD
