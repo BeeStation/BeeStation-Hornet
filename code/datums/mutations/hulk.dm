@@ -25,7 +25,8 @@
 		return
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	owner.update_body_parts()
+	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
+	ADD_VALUE_TRAIT(owner, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_HULK, "00aa00", SKIN_PRIORITY_HULK)
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)
 	if(proximity) //no telekinetic hulk attack
@@ -40,8 +41,9 @@
 	if(..())
 		return
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
-	owner.update_body_parts()
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
+	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
+	REMOVE_TRAIT(owner, TRAIT_OVERRIDE_SKIN_COLOUR, SOURCE_HULK)
 
 /datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
