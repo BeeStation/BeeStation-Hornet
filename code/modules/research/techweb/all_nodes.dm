@@ -1864,7 +1864,7 @@
 
 /datum/techweb_node/mod_advanced
 	id = "mod_advanced"
-	tech_tier = 5
+	tech_tier = 4
 	display_name = "Advanced Modular Suits"
 	description = "More advanced modules, to improve modular suits."
 	prereq_ids = list("robotics")
@@ -1897,7 +1897,7 @@
 
 /datum/techweb_node/mod_advanced_engineering
 	id = "mod_advanced_engineering"
-	tech_tier = 5
+	tech_tier = 4
 	display_name = "Advanced Engineering Modular Suits"
 	description = "Advanced Engineering suits, for advanced powered engineers."
 	prereq_ids = list("mod_engineering", "adv_engi")
