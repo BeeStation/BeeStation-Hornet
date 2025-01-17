@@ -5,7 +5,6 @@
 /datum/keybinding/human/can_use(client/user)
 	return ishuman(user.mob) && !user.mob.incapacitated()
 
-
 /datum/keybinding/human/quick_equip
 	keys = list("E")
 	name = "quick_equip"
@@ -20,7 +19,6 @@
 	var/mob/living/carbon/human/H = user.mob
 	H.quick_equip()
 	return TRUE
-
 
 /datum/keybinding/human/quick_equip_belt
 	keys = list("ShiftE")
