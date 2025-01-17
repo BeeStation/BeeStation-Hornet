@@ -14,6 +14,7 @@
 		"cell_charge_max" = get_max_charge(),
 		"active" = active,
 		"ai_name" = ai?.name,
+		"is_ai" = ai && ai == user,
 		// Wires
 		"open" = open,
 		"seconds_electrified" = seconds_electrified,
@@ -82,6 +83,12 @@
 		return
 	switch(action)
 		if("lock")
+			if(ai)
+				if(!isAI(usr))
+					balloon_alert(usr, "AI permissions required to unlock AI-assisted modsuit.")
+					return
+				else
+					to_chat(usr, "Permission granted, AI Controller.")
 			locked = !locked
 			balloon_alert(usr, "[locked ? "locked" : "unlocked"]!")
 		if("activate")

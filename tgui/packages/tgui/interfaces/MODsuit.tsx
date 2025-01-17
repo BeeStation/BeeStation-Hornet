@@ -35,6 +35,7 @@ type SuitStatus = {
   complexity: number;
   selected_module: string;
   ai_name: string;
+  is_ai: BooleanLike;
 };
 
 type UserStatus = {

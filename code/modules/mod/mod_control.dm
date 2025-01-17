@@ -258,6 +258,10 @@
 		balloon_alert(user, "deactivate suit first!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
+	if(ai && locked)
+		balloon_alert(user, "suit locked, consult onboard AI!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVAL, user) & MOD_CANCEL_REMOVAL)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
