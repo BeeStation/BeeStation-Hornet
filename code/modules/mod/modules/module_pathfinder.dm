@@ -17,6 +17,16 @@
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// The pathfinding implant.
 	var/obj/item/implant/mod/implant
+	/// Whether your modsuit will cheat on you instead of returning.
+	var/faithful_return = FALSE
+
+/obj/item/mod/module/pathfinder/plus
+	name = "MOD pathfinder+ module"
+	desc = "This modified pathfinder module, based on Nakamura Engineering's design, \
+		has been altered by DonkCo with an anti-personal shock field that guarantees \
+		would-be thieves a nasty surprise, and a swift return of the suit to the owner."
+
+	faithful_return = TRUE
 
 /obj/item/mod/module/pathfinder/Initialize(mapload)
 	. = ..()
@@ -128,8 +138,16 @@
 		balloon_alert(imp_in, "already in transit!")
 		return FALSE
 	if(ismob(get_atom_on_turf(module.mod)))
-		balloon_alert(imp_in, "already on someone!")
+		var/mob/living/carbon/carrying_mob = get_atom_on_turf(module.mod)
+		if(carrying_mob == imp_in)
+			balloon_alert(imp_in, "already on user!")
+			return FALSE
+		if(!module.faithful_return)
+			balloon_alert(imp_in, "already on someone!")
+			return FALSE //Someone is in the suit, but our suit doesn't love us
+		check_recall_mob() //The suit is stolen, and is faithful to us
 		return FALSE
+	//balloon_alert(imp_in, "check returned TRUE!")
 	if(module.z != z || get_dist(imp_in, module.mod) > MOD_AI_RANGE)
 		balloon_alert(imp_in, "too far away!")
 		return FALSE
@@ -147,6 +165,21 @@
 	balloon_alert(imp_in, "suit recalled")
 	return TRUE
 
+/obj/item/implant/mod/proc/check_recall_mob()
+	balloon_alert(imp_in, "deploying countermeasures in 3 seconds.")
+	var/mob/living/carbon/carrying_mob = get_atom_on_turf(module.mod)
+	balloon_alert(carrying_mob, "deploying countermeasures!")
+	playsound(carrying_mob, 'sound/creatures/guarddeath2.ogg', 50, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(recall_zap_thief), carrying_mob), 3 SECONDS)
+	//return FALSE //We zapped them, but its still not valid until the modsuit is actually dropped
+
+/obj/item/implant/mod/proc/recall_zap_thief(var/mob/living/carrying_mob)
+	if(!ismob(get_atom_on_turf(module.mod)))
+		return FALSE //They dropped it
+	carrying_mob.Paralyze(5 SECONDS)
+	carrying_mob?.dropItemToGround(module.mod)
+	recall()
+
 /obj/item/implant/mod/proc/end_recall(successful = TRUE)
 	if(!module?.mod)
 		return
@@ -159,6 +192,8 @@
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
 		balloon_alert(imp_in, "suit lost connection!")
+	else
+		balloon_alert(imp_in, "I missed you!")
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER

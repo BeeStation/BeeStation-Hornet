@@ -212,7 +212,7 @@
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/pathfinder,
+		/obj/item/mod/module/pathfinder/plus,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
 	)
