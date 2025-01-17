@@ -50,7 +50,7 @@
 		/obj/item/tank/internals,
 		/obj/item/tank/jetpack/oxygen/captain,
 		)
-	slowdown = 1
+	slowdown = 0.9
 	armor_type = /datum/armor/suit_space
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS

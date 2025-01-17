@@ -57,9 +57,9 @@
 	/// Power usage of the MOD.
 	var/charge_drain = DEFAULT_CHARGE_DRAIN
 	/// Slowdown of the MOD when not active.
-	var/slowdown_inactive = 1.25
+	var/slowdown_inactive = 1 //a bit higher than hardsuits
 	/// Slowdown of the MOD when active.
-	var/slowdown_active = 0.75
+	var/slowdown_active = 0.50 //same as syndicate hardsuits
 	/// How long this MOD takes each part to seal.
 	var/activation_step_time = MOD_ACTIVATION_STEP_TIME
 	/// Extended description of the theme.

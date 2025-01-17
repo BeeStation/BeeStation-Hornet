@@ -40,9 +40,9 @@
 	/// How much battery power the MOD uses by just being on
 	var/charge_drain = DEFAULT_CHARGE_DRAIN
 	/// Slowdown of the MOD when not active.
-	var/slowdown_inactive = 1.25
+	var/slowdown_inactive = 1 //a bit higher than hardsuits
 	/// Slowdown of the MOD when active.
-	var/slowdown_active = 0.75
+	var/slowdown_active = 0.50 //same as syndicate hardsuits
 	/// How long this MOD takes each part to seal.
 	var/activation_step_time = MOD_ACTIVATION_STEP_TIME
 	/// Theme used by the MOD TGUI.
@@ -225,8 +225,8 @@
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 1.5
-	slowdown_active = 1
+	slowdown_inactive = 1.25
+	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/construction/rcd,
 		/obj/item/pipe_dispenser,
@@ -292,8 +292,8 @@
 	armor_type = /datum/armor/mod_theme_atmospheric
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	slowdown_inactive = 1.5
-	slowdown_active = 1
+	slowdown_inactive = 1.25
+	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/t_scanner,
@@ -808,8 +808,8 @@
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
-	slowdown_inactive = 1.75
-	slowdown_active = 1.25
+	slowdown_inactive = 1.50
+	slowdown_active = 1
 	inbuilt_modules = list(/obj/item/mod/module/reagent_scanner/advanced)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
@@ -1087,8 +1087,8 @@
 	default_skin = "cosmohonk"
 	armor_type = /datum/armor/mod_theme_cosmohonk
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.25
-	slowdown_inactive = 1.75
-	slowdown_active = 1.25
+	slowdown_inactive = 1.50
+	slowdown_active = 1
 	allowed_suit_storage = list(
 		/obj/item/bikehorn,
 		/obj/item/food/grown/banana,
@@ -1411,8 +1411,8 @@
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_inactive = 1.5
-	slowdown_active = 1
+	slowdown_inactive = 1.25
+	slowdown_active = 0.75
 	ui_theme = "hackerman"
 	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis)
 	allowed_suit_storage = list(
