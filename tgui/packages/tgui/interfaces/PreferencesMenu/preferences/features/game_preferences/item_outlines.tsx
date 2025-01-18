@@ -6,6 +6,7 @@ export const itemoutline_pref: FeatureToggle = {
   subcategory: 'HUD',
   description: 'When enabled, hovering over items will outline them.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const outline_color: Feature<string> = {
@@ -14,4 +15,5 @@ export const outline_color: Feature<string> = {
   subcategory: 'HUD',
   description: 'The color of that hovered items will outline with.',
   component: FeatureColorInput,
+  important: true,
 };

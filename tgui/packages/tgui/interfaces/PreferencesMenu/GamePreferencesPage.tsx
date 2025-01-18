@@ -8,6 +8,7 @@ import features from './preferences/features';
 import { FeatureValueInput } from './preferences/features/base';
 import { createSearch } from 'common/string';
 import { TabbedMenu } from './TabbedMenu';
+import { ButtonCheckbox } from 'tgui/components/Button';
 
 const CATEGORY_SCALES = {};
 
@@ -43,11 +44,20 @@ const binaryInsertPreference = binaryInsertWith<PreferenceChild>((child) => chil
 export const GamePreferencesPage = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
   let [searchText, setSearchText] = useLocalState(context, 'game_prefs_searchText', '');
+  const [
+    advancedSettings,
+    setAdvancedSettings,
+  ] = useLocalState(context, 'game_prefs_advanced_settings', false);
 
   const gamePreferences: Record<string, Record<string, PreferenceChild[]>> = {};
 
   for (const [featureId, value] of Object.entries(data.character_preferences.game_preferences)) {
     const feature = features[featureId];
+
+    if (!advancedSettings && !feature?.important)
+    {
+      continue;
+    }
 
     let nameInner: InfernoNode = feature?.name || featureId;
 
@@ -85,7 +95,16 @@ export const GamePreferencesPage = (props, context) => {
         pb={1}
         style={{ 'flex-flow': 'row nowrap', 'align-items': 'center' }}>
         <Flex.Item grow={1} basis={0} textColor="#e8e8e8">
-          {name}
+          <Flex direction="row">
+            {!feature.important && (
+              <Flex.Item ml={1}>
+                <Icon name="gears" />
+              </Flex.Item>
+            )}
+            <Flex.Item grow={1}>
+              {name}
+            </Flex.Item>
+          </Flex>
         </Flex.Item>
         <Flex.Item grow={1} basis={0}>
           {(feature && <FeatureValueInput feature={feature} featureId={featureId} value={value} act={act} />) || (
@@ -209,6 +228,15 @@ export const GamePreferencesPage = (props, context) => {
         </Flex.Item>
         <Flex.Item grow>
           <Input autoFocus fluid placeholder="Search options" value={searchText} onInput={(_, value) => setSearchText(value)} />
+        </Flex.Item>
+        <Flex.Item>
+          <ButtonCheckbox
+            checked={advancedSettings}
+            onClick={() => {
+              setAdvancedSettings(!advancedSettings);
+            }} >
+            Show Advanced Settings
+          </ButtonCheckbox>
         </Flex.Item>
       </Flex>
     </TabbedMenu>

@@ -60,6 +60,7 @@ export const ui_style: FeatureChoiced = {
   category: 'UI',
   subcategory: 'HUD',
   component: UIStyleInput,
+  important: true,
 };
 
 export const intent_style: FeatureToggle = {
@@ -69,4 +70,5 @@ export const intent_style: FeatureToggle = {
   description:
     'Clicking on intents will directly select if this is on, otherwise clicking them will rotate the selection clockwise.',
   component: CheckboxInput,
+  important: true,
 };
