@@ -70,5 +70,4 @@ export const intent_style: FeatureToggle = {
   description:
     'Clicking on intents will directly select if this is on, otherwise clicking them will rotate the selection clockwise.',
   component: CheckboxInput,
-  important: true,
 };
