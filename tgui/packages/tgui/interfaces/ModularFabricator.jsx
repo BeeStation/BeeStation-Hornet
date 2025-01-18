@@ -524,7 +524,7 @@ export const SidePanel = (props, context) => {
   return (
     <Section fill>
       <Flex direction="column" height="100%">
-        <Flex.Item>
+        <Flex.Item minHeight="30%">
           <MaterialData />
         </Flex.Item>
         <Flex.Item>
