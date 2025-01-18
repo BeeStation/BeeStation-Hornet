@@ -9874,7 +9874,6 @@
 /area/engine/engine_room)
 "cAH" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/science/shuttle)
 "cAL" = (
@@ -51635,7 +51634,6 @@
 /area/science/xenobiology)
 "nfd" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /turf/open/floor/plating,
 /area/science/shuttle)

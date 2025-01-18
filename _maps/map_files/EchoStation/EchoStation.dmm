@@ -3137,6 +3137,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "bpn" = (
@@ -18208,7 +18209,7 @@
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
 "iYn" = (
-/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "iYQ" = (
@@ -18843,11 +18844,6 @@
 /obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
-"jrL" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
 "jsb" = (
 /obj/machinery/atmospherics/components/trinary/mixer/flipped{
 	dir = 8
@@ -30327,9 +30323,8 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "pdR" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/iron,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "pdU" = (
 /obj/structure/ladder,
@@ -188019,7 +188014,7 @@ xdL
 tOf
 xdL
 pdR
-jrL
+iYn
 voC
 voC
 voC
@@ -188271,11 +188266,11 @@ uYG
 ouX
 hif
 fmH
-btO
+tBy
 btO
 moh
 btO
-tBy
+pdR
 iYn
 bzO
 shD
