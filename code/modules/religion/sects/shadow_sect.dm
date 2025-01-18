@@ -13,7 +13,10 @@
 		/datum/religion_rites/shadow_obelisk,
 		/datum/religion_rites/expand_shadows,
 		/datum/religion_rites/nigth_vision_aura,
-		/datum/religion_rites/shadow_conversion
+		/datum/religion_rites/shadow_conversion,
+		/datum/religion_rites/grand_ritual_one,
+		/datum/religion_rites/grand_ritual_two,
+		/datum/religion_rites/grand_ritual_three
 	)
 
 
@@ -23,6 +26,7 @@
 	var/list/obelisks = list()
 	var/obelisk_number = 0
 	var/night_vision_active = FALSE
+	var/grand_ritual_level = 0
 
 
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
@@ -350,5 +354,23 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.night_vision_active = !sect.night_vision_active
 
+
+// Grand ritual section
+
+/obj/structure/destructible/religion/shadow_obelisk/var1
+	max_integrity = 400
+	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius."
+
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2
+	max_integrity = 500
+	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
+
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3
+	max_integrity = 600
+	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisc will turn into shadow people, while shadow people can use them to teleport"
+	can_buckle = TRUE
+
+// post_buckle_mob(mob/living/M)               unbuckle_all_mobs(force=TRUE)
+// post_unbuckle_mob(mob/living/M)            has_buckled_mobs()
 
 #undef DARKNESS_INVERSE_COLOR
