@@ -1055,11 +1055,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/grind(datum/reagents/target_holder, mob/user)
 	if(on_grind() == -1)
 		return FALSE
-	if(!reagents)
-		reagents = new()
-	target_holder.add_reagent_list(grind_results)
-	if(reagents && target_holder)
-		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	if(target_holder)
+		target_holder.add_reagent_list(grind_results)
+		if(reagents)
+			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
 
 ///Called BEFORE the object is ground up - use this to change grind results based on conditions. Return "-1" to prevent the grinding from occurring
@@ -1072,11 +1071,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/juice(datum/reagents/target_holder, mob/user)
 	if(on_juice() == -1)
 		return FALSE
-	if(!reagents)
-		reagents = new()
-	reagents.add_reagent_list(juice_results)
-	if(reagents && target_holder)
-		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	if(reagents)
+		reagents.add_reagent_list(juice_results)
+		if(target_holder)
+			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
 
 /obj/item/proc/set_force_string()

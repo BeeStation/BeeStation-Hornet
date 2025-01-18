@@ -1,4 +1,7 @@
-#define CHEMICAL_QUANTISATION_LEVEL 0.0001 //stops floating point errors causing issues with checking reagent amounts
+///the minimum volume of reagents than can be operated on.
+#define CHEMICAL_QUANTISATION_LEVEL 0.0001
+/// the default temperature at which chemicals are added to reagent holders at
+#define DEFAULT_REAGENT_TEMPERATURE 300
 
 /proc/build_chemical_reagent_list()
 	//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
@@ -636,9 +639,7 @@
 				R.reaction_obj(A, R.volume * volume_modifier, show_message)
 
 /datum/reagents/proc/holder_full()
-	if(total_volume >= maximum_volume)
-		return TRUE
-	return FALSE
+	return total_volume >= maximum_volume
 
 //Returns the average specific heat for all reagents currently in this holder.
 /datum/reagents/proc/specific_heat()
@@ -653,11 +654,12 @@
 	var/S = specific_heat()
 	chem_temp = clamp(chem_temp + (J / (S * total_volume)), 2.7, 1000)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = 0)
 	if(!isnum_safe(amount) || !amount)
 		return FALSE
 
-	if(amount <= 0)
+	// Prevents small amount problems, as well as zero and below zero amounts.
+	if(amount <= CHEMICAL_QUANTISATION_LEVEL)
 		return FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_REAGENTS_PRE_ADD_REAGENT, reagent, amount, reagtemp, data, no_react) & COMPONENT_CANCEL_REAGENT_ADD)
@@ -665,7 +667,7 @@
 
 	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(!D)
-		WARNING("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
+		stack_trace("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
 		return FALSE
 
 	update_total()
