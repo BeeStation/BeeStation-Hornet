@@ -245,7 +245,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA			"ageusia"
 #define TRAIT_HEAVY_SLEEPER		"heavy_sleeper"
-#define TRAIT_NIGHT_VISION		"night_vision"
+#define TRAIT_NIGHT_VISION_WEAK		"night_vision_trait"
 #define TRAIT_LIGHT_STEP		"light_step"
 #define TRAIT_SPIRITUAL			"spiritual"
 #define TRAIT_VORACIOUS			"voracious"
@@ -329,5 +329,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
-
+#define TRAIT_NIGHT_VISION "night_vision"
 // END TRAIT DEFINES
