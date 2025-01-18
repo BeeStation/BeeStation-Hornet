@@ -43,7 +43,8 @@
 		if(H.equip_to_slot_if_possible(thing, ITEM_SLOT_BELT))
 			H.update_inv_hands()
 		return TRUE
-	if(!SEND_SIGNAL(equipped_belt, COMSIG_CONTAINS_STORAGE)) // not a storage item
+	var/datum/component/storage/storage = equipped_belt.GetComponent(/datum/component/storage)
+	if(!storage)
 		if(!thing)
 			equipped_belt.attack_hand(H)
 		else
@@ -53,13 +54,13 @@
 		if(!SEND_SIGNAL(equipped_belt, COMSIG_TRY_STORAGE_INSERT, thing, user.mob))
 			to_chat(user, "<span class='notice'>You can't fit anything in.</span>")
 		return TRUE
-	if(!equipped_belt.contents.len) // nothing to take out
+	var/atom/real_location = storage.real_location()
+	if(!real_location.contents.len) // nothing to take out
 		to_chat(user, "<span class='notice'>There's nothing in your belt to take out.</span>")
 		return TRUE
-	var/datum/component/storage/STR = equipped_belt.GetComponent(/datum/component/storage)
-	if(!STR.can_be_opened)
+	if(!storage.can_be_opened)
 		return FALSE
-	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
+	var/obj/item/stored = real_location.contents[real_location.contents.len]
 	if(!stored || stored.on_found(H))
 		return TRUE
 	stored.attack_hand(H) // take out thing from belt
