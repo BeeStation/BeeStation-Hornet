@@ -63,6 +63,7 @@
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	sect.obelisk_number = sect.obelisk_number - 1
+	sect.obelisks -= src
 	STOP_PROCESSING(SSobj, src)
 	for(var/X in affected_mobs)
 		on_mob_leave(X)
@@ -72,6 +73,8 @@
 /obj/structure/destructible/religion/shadow_obelisk/process()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!src.anchored)
+		if (length(affected_mobs) != 0)
+			affected_mobs -= affected_mobs
 		return
 	var/list/current_mobs = view_or_range(sect.light_reach, src, "range")
 	for(var/mob/living/mob_in_range in current_mobs)
@@ -89,29 +92,19 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_enter(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(!src.anchored)
-		return
 	if(sect.night_vision_active)
 		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
-		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
-			ADD_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_effect(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(!src.anchored)
-		return
 	if(sect.night_vision_active)
-		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
-			ADD_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			return
 		else
 			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	else
-		if(HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
-			REMOVE_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
 		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			return
 		else
@@ -119,15 +112,18 @@
 
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
-	if(!src.anchored)
-		return
-	if(HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
-		REMOVE_TRAIT(affected_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
-		addtimer(CALLBACK(src, PROC_REF(process_nigth_vision_removal),affected_mob), 3 SECONDS)
-
-
-/obj/structure/destructible/religion/shadow_obelisk/proc/process_nigth_vision_removal(mob/living/affected_mob)
-	if(!HAS_TRAIT_FROM(affected_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	var/is_in_range_obelisc = FALSE
+	if(!sect.night_vision_active)
+		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
+			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
+			return
+	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
+		if (D.anchored)
+			if(get_dist(D, affected_mob) <= sect.light_reach)
+				is_in_range_obelisc = TRUE
+				break
+	if(!is_in_range_obelisc)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
@@ -135,9 +131,7 @@
 /obj/structure/destructible/religion/shadow_obelisk/proc/unanchored_NV()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/mob/each_mob in range(src,sect.light_reach))
-		if(HAS_TRAIT_FROM(each_mob,TRAIT_PROGRAMING_HELP,FROM_SHADOW_SECT))
-			REMOVE_TRAIT(each_mob,TRAIT_PROGRAMING_HELP, FROM_SHADOW_SECT)
-			addtimer(CALLBACK(src, PROC_REF(process_nigth_vision_removal),each_mob), 3 SECONDS)
+		on_mob_leave(each_mob)
 	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
 
 
@@ -319,7 +313,7 @@
 	if(sect.favor < cost)
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
 		return FALSE
-	if((sect.light_power <= -10) || (sect.light_reach >= 15))
+	if((sect.light_power <= -11) || (sect.light_reach >= 15))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
 		return FALSE
 	return ..()
