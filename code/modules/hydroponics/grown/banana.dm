@@ -23,7 +23,7 @@
 	trash_type = /obj/item/grown/bananapeel
 	bite_consumption_mod = 3
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/banana = 0)
+	juice_results = /datum/reagent/consumable/banana
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
 	dying_key = DYE_REGISTRY_BANANA
 
@@ -33,7 +33,7 @@
 	var/obj/item/grown/bananapeel/peel = .
 	if(istype(peel))
 		peel.grind_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
-		peel.juice_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
+		peel.juice_results = /datum/reagent/medicine/coagulant/banana_peel
 */
 
 /obj/item/food/grown/banana/suicide_act(mob/user)

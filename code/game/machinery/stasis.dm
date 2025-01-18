@@ -122,6 +122,9 @@
 		return
 	var/freq = rand(24750, 26550)
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 2, frequency = freq)
+	//we could check inherent_traits, but thats too many var defines. KISS principle.
+	if(HAS_TRAIT(target, TRAIT_NOSTASIS))
+		return
 	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	target.ExtinguishMob()
 	use_power = ACTIVE_POWER_USE
@@ -146,7 +149,7 @@
 	update_icon()
 
 /obj/machinery/stasis/process()
-	if( !( occupant && isliving(occupant) && check_nap_violations() ) )
+	if(!(occupant && isliving(occupant) && check_nap_violations()))
 		use_power = IDLE_POWER_USE
 		return
 	var/mob/living/L_occupant = occupant

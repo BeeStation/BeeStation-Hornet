@@ -121,7 +121,7 @@
 		return shelf.unload(src, user, drop_atom) // If we're being dropped onto a turf, and we're inside of a crate shelf, unload.
 	if(istype(drop_atom, /obj/structure/crate_shelf) && isturf(loc) && user.Adjacent(src))
 		var/obj/structure/crate_shelf/shelf = drop_atom
-		return shelf.load(src, user) // If we're being dropped onto a crate shelf, and we're in a turf, load.
+		return shelf.try_load(src, user) // If we're being dropped onto a crate shelf, and we're in a turf, load.
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()

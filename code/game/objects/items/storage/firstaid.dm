@@ -207,6 +207,21 @@
 		)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/firstaid/medical/physician
+	name = "brig physicians bag"
+	desc = "A specialized doctors bag, specifically meant for healing security when they get beaten to death by a unarmed prisoner."
+
+/obj/item/storage/firstaid/medical/physician/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 2,
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/reagent_containers/hypospray/medipen/ = 2,
+		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/healthanalyzer = 1,)
+	generate_items_inside(items_inside,src)
+
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
 	icon_state = "firstaid-old"

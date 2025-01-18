@@ -25,7 +25,7 @@
 	icon_state = "potato"
 	bite_consumption_mod = 100
 	foodtypes = VEGETABLES
-	juice_results = list(/datum/reagent/consumable/potato_juice = 0)
+	juice_results = /datum/reagent/consumable/potato_juice
 	distill_reagent = /datum/reagent/consumable/ethanol/vodka
 
 /obj/item/food/grown/potato/wedges
