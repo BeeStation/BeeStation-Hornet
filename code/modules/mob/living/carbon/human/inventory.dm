@@ -326,3 +326,36 @@
 		qdel(slot)
 	for(var/obj/item/I in held_items)
 		qdel(I)
+
+/mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "belt")
+	if(incapacitated())
+		return
+	var/obj/item/thing = get_active_held_item()
+	var/obj/item/equipped_item = get_item_by_slot(slot_type)
+	if(!equipped_item) // We also let you equip an item like this
+		if(!thing)
+			to_chat(src, "<span class='warning'>You have no [slot_item_name] to take something out of!</span>")
+			return
+		if(equip_to_slot_if_possible(thing, slot_type))
+			update_inv_hands()
+		return
+	var/datum/component/storage/storage = equipped_item.GetComponent(/datum/component/storage)
+	if(!storage)
+		if(!thing)
+			equipped_item.attack_hand(src)
+		else
+			to_chat(src, "<span class='warning'>You can't fit [thing] into your [equipped_item.name]!</span>")
+		return
+	if(thing) // put thing in storage item
+		if(!SEND_SIGNAL(equipped_item, COMSIG_TRY_STORAGE_INSERT, thing, src))
+			to_chat(src, "<span class='warning'>You can't fit [thing] into your [equipped_item.name]!</span>")
+		return
+	var/atom/real_location = storage.real_location()
+	if(!real_location.contents.len) // nothing to take out
+		to_chat(src, "<span class='warning'>There's nothing in your [equipped_item.name] to take out!</span>")
+		return
+	var/obj/item/stored = real_location.contents[real_location.contents.len]
+	if(!stored || stored.on_found(src))
+		return
+	stored.attack_hand(src) // take out thing from item in storage slot
+	return
