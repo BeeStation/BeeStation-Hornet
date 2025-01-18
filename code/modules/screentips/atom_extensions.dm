@@ -36,6 +36,8 @@
 
 /// Called when a client mouses over this atom
 /atom/proc/on_mouse_enter(client/client)
+	if (!client.show_screentips)
+		return
 	var/screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(format_text(name))))]</span>"
 	var/datum/screentip_cache/cache = GLOB.screentips_cache["[type]"]
 	var/obj/item/held_item = client.mob.get_active_held_item()

@@ -135,3 +135,6 @@
 
 	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
 	var/datum/weakref/eye_weakref
+
+	/// Whether or not we want to show screentips
+	var/show_screentips = TRUE

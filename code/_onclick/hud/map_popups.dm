@@ -1,11 +1,10 @@
-/client
-	/**
-	 * Assoc list with all the active maps - when a screen obj is added to
-	 * a map, it's put in here as well.
-	 *
-	 * Format: list(<mapname> = list(/atom/movable/screen))
-	 */
-	var/list/screen_maps = list()
+/**
+ * Assoc list with all the active maps - when a screen obj is added to
+ * a map, it's put in here as well.
+ *
+ * Format: list(<mapname> = list(/atom/movable/screen))
+ */
+/client/var/list/screen_maps = list()
 
 /**
  * A screen object, which acts as a container for turfs and other things
