@@ -40,11 +40,14 @@
 	QDEL_NULL(beaker)
 	update_appearance()
 
-/obj/machinery/reagentgrinder/Destroy()
-	if(beaker)
-		beaker.forceMove(drop_location())
-		beaker = null
+/obj/machinery/reagentgrinder/deconstruct()
 	drop_all_items()
+	beaker?.forceMove(drop_location())
+	beaker = null
+	return ..()
+
+/obj/machinery/reagentgrinder/Destroy()
+	QDEL_NULL(beaker)
 	return ..()
 
 /obj/machinery/reagentgrinder/contents_explosion(severity, target)
@@ -124,15 +127,17 @@
 	update_appearance()
 	return TRUE
 
+/obj/machinery/reagentgrinder/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 	//You can only screw open empty grinder
 	if(!beaker && !length(holdingitems) && default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		return
 
 	if(default_deconstruction_crowbar(I))
-		return
-
-	if(default_unfasten_wrench(user, I))
 		return
 
 	if(panel_open) //Can't insert objects when its screwed open
@@ -275,7 +280,7 @@
 			juice_item(juiced_item, user)
 
 /obj/machinery/reagentgrinder/proc/juice_item(obj/item/juiced_item, mob/user) //Juicing results can be found in respective object definitions
-	if(!juiced_item.juice(beaker, user))
+	if(!juiced_item.juice(beaker.reagents, user))
 		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [juiced_item], and transfers it back to storage.</span>")
 		return
 	remove_object(juiced_item)
@@ -297,7 +302,7 @@
 				grind_item(grinded_item, user)
 
 /obj/machinery/reagentgrinder/proc/grind_item(obj/item/grinded_item, mob/user) //Grind results can be found in respective object definitions
-	if(!grinded_item.grind(beaker, user))
+	if(!grinded_item.grind(beaker.reagents, user))
 		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage.</span>")
 		return
 	remove_object(grinded_item)
