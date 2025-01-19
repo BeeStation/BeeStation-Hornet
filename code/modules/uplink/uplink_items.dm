@@ -1949,6 +1949,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 3
 
+
+/datum/uplink_item/device_tools/guerrillagloves
+	name = "Guerrilla Gloves"
+	desc = "A pair of highly robust combat gripper gloves that excels at performing takedowns at close range, with an added lining of insulation. Careful not to hit a wall!"
+	item = /obj/item/clothing/gloves/tackler/combat/insulated
+	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	cost = 2
+
 // Implants
 /datum/uplink_item/implants
 	category = "Implants"
