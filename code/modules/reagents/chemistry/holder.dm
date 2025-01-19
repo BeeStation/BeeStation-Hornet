@@ -540,7 +540,17 @@
 			del_reagent(R.type)
 			update_total()
 
-/datum/reagents/proc/del_reagent(reagent)
+/**
+ * Removes an specific reagent from this holder
+ * Arguments
+ *
+ * * [reagent][datum/reagent] - type typepath of the reagent to remove
+ */
+/datum/reagents/proc/del_reagent(datum/reagent/reagent)
+	if(!ispath(reagent))
+		stack_trace("invalid reagent path passed to del reagent [reagent]")
+		return FALSE
+
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
@@ -576,6 +586,32 @@
 			total_volume += R.volume
 
 	return 0
+
+/**
+ * Turn one reagent into another, preserving volume, temp
+ * Arguments
+ *
+ * * [source_reagent_typepath][/datum/reagent] - the typepath of the reagent you are trying to convert
+ * * [target_reagent_typepath][/datum/reagent] - the final typepath the source_reagent_typepath will be converted into
+ * * multiplier - the multiplier applied on the source_reagent_typepath volume before converting
+ * * include_source_subtypes- if TRUE will convert all subtypes of source_reagent_typepath into target_reagent_typepath as well
+ */
+/datum/reagents/proc/convert_reagent(datum/reagent/source_reagent_typepath, datum/reagent/target_reagent_typepath, multiplier = 1, include_source_subtypes = FALSE)
+	if(!ispath(source_reagent_typepath))
+		stack_trace("invalid reagent path passed to convert reagent [source_reagent_typepath]")
+		return FALSE
+
+	var/reagent_amount
+	if(include_source_subtypes)
+		for(var/datum/reagent/reagent as anything in reagent_list)
+			if(reagent.type in typecacheof(source_reagent_typepath))
+				reagent_amount += reagent.volume
+				remove_reagent(reagent.type, reagent.volume)
+	else
+		var/datum/reagent/source_reagent = get_reagent(source_reagent_typepath)
+		reagent_amount = source_reagent.volume
+		remove_reagent(source_reagent_typepath, reagent_amount)
+	add_reagent(target_reagent_typepath, reagent_amount * multiplier, reagtemp = chem_temp)
 
 /datum/reagents/proc/clear_reagents()
 	var/list/cached_reagents = reagent_list
@@ -659,7 +695,12 @@
  * * reagtemp - Temperature of this reagent, will be equalized
  * * no_react - prevents reactions being triggered by this addition
  */
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = 0)
+/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = 0)
+
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to add reagent [reagent]")
+		return FALSE
+
 	if(!isnum_safe(amount) || !amount)
 		return FALSE
 
@@ -742,11 +783,15 @@
  * Removes a specific reagent. can supress reactions if needed
  * Arguments
  *
- * * [reagent_type][datum/reagent] - the type of reagent
+ * * [reagent][datum/reagent] - the type of reagent
  * * amount - the volume to remove
  * * safety - if FALSE will initiate reactions upon removing. used for trans_id_to
  */
-/datum/reagents/proc/remove_reagent(reagent, amount, safety)
+/datum/reagents/proc/remove_reagent(datum/reagent/reagent, amount, safety)
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to remove reagent [reagent]")
+		return FALSE
+
 	if(isnull(amount))
 		amount = 0
 		CRASH("null amount passed to reagent code")
@@ -822,6 +867,10 @@
 	return jointext(names, ",")
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = 0, safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
+	if(!ispath(reagent_type))
+		stack_trace("invalid reagent path passed to remove all type [reagent_type]")
+		return FALSE
+
 	if(!isnum_safe(amount))
 		return 1
 	var/list/cached_reagents = reagent_list

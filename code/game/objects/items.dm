@@ -1072,7 +1072,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(on_juice() == -1)
 		return FALSE
 	if(reagents)
-		reagents.add_reagent(juice_typepath)
+		reagents.convert_reagent(/datum/reagent/consumable, juice_typepath, include_source_subtypes = TRUE)
 		if(target_holder)
 			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
