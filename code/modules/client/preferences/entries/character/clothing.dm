@@ -90,8 +90,7 @@
 
 /datum/preference/choiced/socks/create_informed_default_value(datum/preferences/preferences)
 	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	var/datum/sprite_accessory/selected = pick_default_accessory(GLOB.socks_list, required_gender = gender)
-	return selected.name
+	return random_socks(gender)
 
 /// Undershirt preference
 /datum/preference/choiced/undershirt
@@ -133,8 +132,7 @@
 
 /datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
 	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	var/datum/sprite_accessory/selected = pick_default_accessory(GLOB.undershirt_list, required_gender = gender)
-	return selected.name
+	return random_undershirt(gender)
 
 /// Underwear preference
 /datum/preference/choiced/underwear
@@ -170,5 +168,4 @@
 
 /datum/preference/choiced/underwear/create_informed_default_value(datum/preferences/preferences)
 	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	var/datum/sprite_accessory/selected = pick_default_accessory(GLOB.underwear_list, required_gender = gender)
-	return selected.name
+	return random_underwear(gender)

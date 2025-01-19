@@ -1080,7 +1080,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
 
 
-			if(!S || S.icon_state == "none" || S?.icon_state)
+			if(!S || S.icon_state == "none" || !S?.icon_state)
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))

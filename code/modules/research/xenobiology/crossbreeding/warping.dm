@@ -568,7 +568,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
-		randomize_human(AM)
+		randomize_human(AM, TRUE)
 		activated_on_step = TRUE
 	. = ..()
 

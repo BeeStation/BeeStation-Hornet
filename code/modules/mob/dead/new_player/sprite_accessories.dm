@@ -1059,7 +1059,6 @@
 /datum/sprite_accessory/hair_gradient/fadedown
 	name = "Fade Down"
 	icon_state = "fadedown"
-	use_default = TRUE
 
 /datum/sprite_accessory/hair_gradient/vertical_split
 	name = "Vertical Split"
@@ -1077,7 +1076,6 @@
 /datum/sprite_accessory/hair_gradient/reflected_inverse
 	name = "Reflected Inverse"
 	icon_state = "reflected_inverse_high"
-	use_default = TRUE
 
 /datum/sprite_accessory/hair_gradient/wavy
 	name = "Wavy"
@@ -1091,7 +1089,6 @@
 /datum/sprite_accessory/hair_gradient/long_fade_down
 	name = "Long Fade Down"
 	icon_state = "long_fade_down"
-	use_default = TRUE
 
 /datum/sprite_accessory/hair_gradient/short_fade_up
 	name = "Short Fade Up"
