@@ -404,9 +404,9 @@
 				user.adjustStaminaLoss(40)
 				if(grinded.reagents) //food and pills
 					grinded.reagents.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
-				if(grinded.juice_results) //prioritize juicing
+				if(grinded.juice_typepath) //prioritize juicing
 					grinded.on_juice()
-					reagents.add_reagent_list(grinded.juice_results)
+					reagents.add_reagent_list(grinded.juice_typepath)
 					to_chat(user, "You juice [grinded] into a fine liquid.")
 					QDEL_NULL(grinded)
 					return
@@ -428,7 +428,7 @@
 			to_chat(user, "<span class='danger'>You can't grind this!</span>")
 			return
 
-	if(I.juice_results || I.grind_results)
+	if(I.juice_typepath || I.grind_results)
 		I.forceMove(src)
 		grinded = I
 		return

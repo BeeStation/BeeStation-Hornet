@@ -64,11 +64,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/grinder_chemical)
 
 	var/obj/item/I = AM
 	var/result
-	if(I.grind_results || I.juice_results)
+	if(I.grind_results || I.juice_typepath)
 		use_power(active_power_usage)
 		if(I.grind_results)
 			result = I.grind(reagents, usr)
-		else if (I.juice_results)
+		else if (I.juice_typepath)
 			result = I.juice(reagents, usr)
 		if(result)
 			qdel(I)

@@ -171,7 +171,7 @@
 				to_chat(user, "<span class='notice'>You fill [src] to the brim.</span>")
 		return TRUE
 
-	if(!weapon.grind_results && !weapon.juice_results && !weapon.is_grindable())
+	if(!weapon.grind_results && !weapon.juice_typepath && !weapon.is_grindable())
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
@@ -275,7 +275,7 @@
 	for(var/obj/item/juiced_item in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
-		if(juiced_item.juice_results)
+		if(juiced_item.juice_typepath)
 			juice_item(juiced_item, user)
 
 /obj/machinery/reagentgrinder/proc/juice_item(obj/item/juiced_item, mob/user) //Juicing results can be found in respective object definitions
