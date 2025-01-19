@@ -11,7 +11,6 @@
 	invocation = "MINUS POTENS NECREM IMORTIUM!"
 	invocation_type = INVOCATION_SHOUT
 	cooldown_time = 10 SECONDS
-	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "skeleton"
 
 /datum/action/spell/lesserlichdom/on_cast(mob/user, atom/target)
