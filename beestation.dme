@@ -4064,6 +4064,8 @@
 #include "code\modules\surgery\bodyparts\species_parts\psyphoza_bodyparts.dm"
 #include "code\modules\surgery\injuries\_injury.dm"
 #include "code\modules\surgery\injuries\broken_bone.dm"
+#include "code\modules\surgery\injuries\burns.dm"
+#include "code\modules\surgery\injuries\laceration.dm"
 #include "code\modules\surgery\organs\appendix.dm"
 #include "code\modules\surgery\organs\augments_arms.dm"
 #include "code\modules\surgery\organs\augments_chest.dm"
