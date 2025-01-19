@@ -4,6 +4,7 @@
 	id = SPECIES_FLY
 	bodyflag = FLAG_FLY
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
+	inherent_traits = list(TRAIT_TACKLING_FRAIL_ATTACKER)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
