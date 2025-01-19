@@ -183,7 +183,7 @@
 /datum/component/tackler/proc/do_grab(mob/living/carbon/tackler, mob/living/carbon/tackled, skip_to_state = GRAB_PASSIVE)
 	set waitfor = FALSE
 
-	if(!tackler.dna.species.grab(tackler, tackled, tackler.mind.martial_art) || tackler.pulling != tackled)
+	if(!tackled.grabbedby(tackler, TRUE) || tackler.pulling != tackled)
 		return
 	if(tackler.grab_state != skip_to_state)
 		tackler.setGrabState(skip_to_state)
