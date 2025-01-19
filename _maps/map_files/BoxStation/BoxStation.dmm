@@ -5402,15 +5402,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"bjm" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_y = 30
-	},
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "bjp" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -19693,17 +19684,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"eBh" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/security/brig)
 "eBl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -24006,10 +23986,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
-"gnn" = (
-/obj/machinery/suit_storage_unit/medical,
-/turf/open/floor/iron/dark,
-/area/medical/morgue)
 "gnK" = (
 /obj/structure/dresser,
 /obj/machinery/newscaster{
@@ -29268,6 +29244,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"ioL" = (
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/morgue)
 "ioN" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -39583,20 +39563,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"mAq" = (
-/obj/structure/table,
-/obj/item/clothing/head/soft/cargo,
-/obj/item/clothing/head/soft/cargo,
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
-/turf/open/floor/iron,
-/area/quartermaster/storage)
 "mAN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -48249,6 +48215,20 @@
 	dir = 9
 	},
 /area/science/research)
+"qcG" = (
+/obj/structure/table,
+/obj/item/clothing/head/soft/cargo,
+/obj/item/clothing/head/soft/cargo,
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "qcK" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 5;
@@ -61808,6 +61788,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"vrS" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/computer/crew{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/security/brig)
 "vrZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -65694,6 +65685,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"wVZ" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_y = 30
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron,
+/area/quartermaster/storage)
 "wWl" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -88272,7 +88272,7 @@ aPA
 aSg
 rGD
 aZE
-mAq
+qcG
 uxM
 hWE
 pSt
@@ -88529,7 +88529,7 @@ rqX
 xVS
 rYK
 aZE
-bjm
+wVZ
 bjr
 mJS
 bmh
@@ -99274,7 +99274,7 @@ aiX
 hxz
 gBM
 wgR
-eBh
+vrS
 aaQ
 yhC
 tWo
@@ -103444,7 +103444,7 @@ pmc
 sHA
 tyR
 cBD
-gnn
+ioL
 snx
 cAL
 cAL

@@ -14540,6 +14540,17 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
+"cRx" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/vending/wallmed/lite{
+	pixel_y = 26
+	},
+/obj/machinery/camera/directional/north,
+/obj/machinery/computer/crew,
+/turf/open/floor/iron/showroomfloor,
+/area/security/main)
 "cRD" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/rack,
@@ -16966,6 +16977,14 @@
 	burnt = 1
 	},
 /area/maintenance/starboard)
+"dEw" = (
+/obj/effect/landmark/start/brig_physician,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/machinery/iv_drip,
+/turf/open/floor/iron/showroomfloor,
+/area/security/main)
 "dEC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -22234,24 +22253,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
-"fjT" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer,
-/obj/item/storage/box/bodybags,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/obj/machinery/light_switch{
-	pixel_x = 27;
-	pixel_y = -4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
 "fjZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -31450,18 +31451,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"ijm" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "iju" = (
 /obj/machinery/mass_driver{
 	dir = 1;
@@ -39918,6 +39907,25 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
+"kVg" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer,
+/obj/item/storage/box/bodybags,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5;
+	pixel_y = -1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = -4
+	},
+/obj/item/rollerbed,
+/turf/open/floor/iron/showroomfloor,
+/area/security/main)
 "kVh" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -57036,13 +57044,6 @@
 /obj/item/reagent_containers/syringe,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
-"qty" = (
-/obj/effect/landmark/start/brig_physician,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
 "qtJ" = (
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
@@ -64533,6 +64534,18 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
+/area/quartermaster/storage)
+"sQb" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "sQA" = (
 /obj/structure/table/reinforced,
@@ -79018,19 +79031,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
-"xoa" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
-/obj/machinery/vending/wallmed/lite{
-	pixel_y = 26
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/showroomfloor,
-/area/security/main)
 "xoe" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
@@ -99137,7 +99137,7 @@ eWH
 olW
 mzE
 vxa
-qty
+dEw
 wDw
 exu
 uoK
@@ -99393,7 +99393,7 @@ bQy
 hEG
 ciO
 dgh
-xoa
+cRx
 qNA
 xEE
 agS
@@ -99650,7 +99650,7 @@ aav
 kAF
 xWN
 mzE
-fjT
+kVg
 wLG
 aYT
 aey
@@ -122754,7 +122754,7 @@ sHT
 tKM
 bhH
 bhH
-ijm
+sQb
 ios
 rOZ
 uOB

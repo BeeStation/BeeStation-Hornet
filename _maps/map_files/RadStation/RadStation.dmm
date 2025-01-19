@@ -14105,6 +14105,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
+"exy" = (
+/obj/machinery/defibrillator_mount{
+	pixel_x = -32
+	},
+/obj/machinery/camera/directional/west,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/security/brig/medbay)
 "exY" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -21777,6 +21787,15 @@
 	},
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"gQL" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/storage/eva)
 "gQP" = (
 /turf/closed/wall,
 /area/vacant_room/commissary/commissary1)
@@ -24024,6 +24043,11 @@
 /obj/item/bedsheet/double/rd,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"hAw" = (
+/obj/structure/lattice,
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space/nearstation)
 "hAA" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
@@ -24729,10 +24753,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
-"hLP" = (
-/obj/effect/landmark/loneops,
-/turf/open/space/basic,
-/area/space)
 "hMa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -25773,6 +25793,10 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/qm)
+"ifu" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "ifv" = (
 /obj/machinery/camera/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -29223,6 +29247,17 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"jpQ" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "jqq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -29413,15 +29448,6 @@
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
-"jss" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/open/floor/iron/tech,
-/area/ai_monitored/storage/eva)
 "jst" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -57061,13 +57087,6 @@
 	dir = 10
 	},
 /area/science/research)
-"scM" = (
-/obj/machinery/defibrillator_mount{
-	pixel_x = -32
-	},
-/obj/machinery/camera/directional/west,
-/turf/open/floor/iron/white,
-/area/security/brig/medbay)
 "scT" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -62122,17 +62141,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
-"tHJ" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = 32;
-	pixel_y = -3
-	},
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron/dark,
-/area/quartermaster/storage)
 "tHK" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Telecommunications";
@@ -64181,11 +64189,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/chapel/main)
-"upq" = (
-/obj/structure/lattice,
-/obj/effect/landmark/loneops,
-/turf/open/space/basic,
-/area/space/nearstation)
 "upJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -96788,7 +96791,7 @@ sLX
 ibS
 utc
 lfC
-upq
+hAw
 yeA
 yeA
 yeA
@@ -98786,7 +98789,7 @@ nFK
 eyo
 ctt
 ppA
-tHJ
+jpQ
 rCP
 bsk
 oBB
@@ -99268,7 +99271,7 @@ rhT
 wIb
 uJB
 aCn
-scM
+exy
 wSw
 dNb
 rzL
@@ -106781,7 +106784,7 @@ fcP
 mKM
 ewi
 itk
-jss
+gQL
 ykx
 rUt
 nvJ
@@ -118897,7 +118900,7 @@ jxz
 dJS
 qSl
 hGK
-hLP
+ifu
 yeA
 yeA
 gsA

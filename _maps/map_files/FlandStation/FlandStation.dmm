@@ -4353,6 +4353,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"aYr" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "aYs" = (
 /obj/machinery/computer/crew{
 	dir = 8
@@ -10526,23 +10531,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/surgery)
-"cLG" = (
-/obj/machinery/door/window/southright{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/sign/map/right{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
-/obj/machinery/suit_storage_unit/medical,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "cLH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -14900,18 +14888,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"dSV" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -27;
-	use_power = 0
-	},
-/turf/open/floor/iron/white,
-/area/security/main)
 "dTb" = (
 /obj/machinery/requests_console{
 	department = "Law Office";
@@ -17346,6 +17322,18 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
+"eDj" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -27;
+	use_power = 0
+	},
+/obj/machinery/computer/crew{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/security/main)
 "eDs" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666";
@@ -26256,6 +26244,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"gIB" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/nearstation)
 "gIC" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
@@ -28161,6 +28153,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"hhI" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "hhW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40109,10 +40105,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"kje" = (
-/obj/effect/landmark/loneops,
-/turf/open/floor/plating/asteroid/airless,
-/area/asteroid/nearstation)
 "kjg" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -50374,36 +50366,6 @@
 	dir = 6
 	},
 /area/ai_monitored/storage/eva)
-"mNq" = (
-/obj/structure/table,
-/obj/machinery/door/window/southleft{
-	name = "Miscellaneous Medical Supplies";
-	req_access_txt = "5"
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/structure/sign/map/left{
-	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
-/obj/item/book/manual/wiki/sopmedical,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/syringes,
-/turf/open/floor/iron/dark,
-/area/medical/storage)
 "mNx" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Central Primary Hallway - Central Port";
@@ -54156,6 +54118,36 @@
 	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
+"nNa" = (
+/obj/structure/table,
+/obj/machinery/door/window/southleft{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
+	},
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/syringes,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "nNh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/white/line,
@@ -65893,10 +65885,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"qQU" = (
-/obj/effect/landmark/loneops,
-/turf/open/floor/plating/asteroid/airless,
-/area/space/nearstation)
 "qRb" = (
 /obj/machinery/air_sensor/atmos/nitrous_tank,
 /turf/open/floor/engine/n2o/light,
@@ -68406,6 +68394,23 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/customs)
+"rzB" = (
+/obj/machinery/door/window/southright{
+	name = "Miscellaneous Medical Supplies";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
+	},
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron/dark,
+/area/medical/storage)
 "rzC" = (
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
@@ -84350,11 +84355,6 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/quartermaster/storage)
-"vue" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "vuf" = (
 /obj/structure/disposalpipe/segment{
@@ -125682,7 +125682,7 @@ nnx
 nnx
 csJ
 tsN
-kje
+gIB
 tsN
 xJu
 hSG
@@ -126311,7 +126311,7 @@ kuT
 vVR
 uaf
 wMZ
-vue
+aYr
 aJR
 quh
 qpR
@@ -128800,7 +128800,7 @@ lLM
 lLM
 boD
 ayc
-mNq
+nNa
 erx
 nZt
 grU
@@ -129057,7 +129057,7 @@ lLM
 vuQ
 vuQ
 ayc
-cLG
+rzB
 gfu
 vkY
 wwZ
@@ -132174,7 +132174,7 @@ wrM
 kpl
 soq
 jIM
-dSV
+eDj
 xIV
 qRp
 xHm
@@ -135858,7 +135858,7 @@ kHH
 kHH
 kHH
 abN
-qQU
+hhI
 abN
 abN
 abN
