@@ -29,7 +29,7 @@
 	name = "Traitor (Preview only)"
 
 	uniform = /obj/item/clothing/under/syndicate
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas
 	l_hand = /obj/item/melee/transforming/energy/sword
 	r_hand = /obj/item/gun/energy/recharge/ebow

@@ -172,6 +172,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BLOOD			"no_blood" // Bleeding heals itself and bleeding is impossible
 #define TRAIT_NO_BLEEDING		"no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
 #define TRAIT_BLOOD_COOLANT		"blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
+#define TRAIT_GIANT				"giant"
+#define TRAIT_DWARF				"dwarf"
+#define TRAIT_OFF_BALANCE_TACKLER "off_balance_tackler" // Applies tackling defense bonus to any mob that has it
+#define TRAIT_NO_STAGGER "no_stagger" // Prevents staggering.
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -281,6 +285,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
+
+/// Makes a character be better/worse at tackling depending on their wing's status
+#define TRAIT_TACKLING_WINGED_ATTACKER "tacking_winged_attacker"
+
+/// Makes a character be frail and more likely to roll bad results if they hit a wall
+#define TRAIT_TACKLING_FRAIL_ATTACKER "tackling_frail_attacker"
+
+/// Makes a character be better/worse at defending against tackling depending on their tail's status
+#define TRAIT_TACKLING_TAILED_DEFENDER "tackling_tailed_defender"
 
 /// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
 #define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
