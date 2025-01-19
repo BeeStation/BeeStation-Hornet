@@ -209,8 +209,8 @@
 /datum/crafting_recipe/gripperoffbrand
 	name = "Improvised Gripper Gloves"
 	reqs = list(
-            /obj/item/clothing/gloves/fingerless = 1,
-            /obj/item/stack/sticky_tape = 1)
+			/obj/item/clothing/gloves/fingerless = 1,
+			/obj/item/stack/sticky_tape = 1)
 	result = /obj/item/clothing/gloves/tackler/offbrand
 	category = CAT_TAILORING
 	subcategory = CAT_CLOTHING
