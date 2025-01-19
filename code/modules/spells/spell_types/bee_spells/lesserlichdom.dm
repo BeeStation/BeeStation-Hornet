@@ -7,7 +7,7 @@
 	that the new skeleton body will experience upon 'birth'. Note that \
 	becoming a lesser lich destroys all internal organs except the brain."
 	school = "necromancy"
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	spell_requirements = NONE
 	invocation = "MINUS POTENS NECREM IMORTIUM!"
 	invocation_type = INVOCATION_SHOUT
 	cooldown_time = 10 SECONDS
