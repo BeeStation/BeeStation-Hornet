@@ -17,12 +17,14 @@
 	H.underwear = random_underwear(H.gender)
 	H.underwear_color = random_short_color()
 	H.skin_tone = random_skin_tone()
+	H.eye_color = random_eye_color()
+	H.dna.blood_type = random_blood_type()
+
+	// Things that we should be more careful about to make realistic characters
 	H.hair_style = random_hair_style(H.gender)
 	H.facial_hair_style = random_facial_hair_style(H.gender)
 	H.hair_color = random_short_color()
 	H.facial_hair_color = H.hair_color
-	H.eye_color = random_eye_color()
-	H.dna.blood_type = random_blood_type()
 
 	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
 	H.dna.features["mcolor"] = random_short_color()
