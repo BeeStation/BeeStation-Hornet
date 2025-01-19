@@ -74,9 +74,6 @@
 	blacklisted_movetypes = FLOATING
 	variable = TRUE
 
-/datum/movespeed_modifier/shove
-	multiplicative_slowdown = SHOVE_SLOWDOWN_STRENGTH
-
 /datum/movespeed_modifier/staggered
 	multiplicative_slowdown = STAGGERED_SLOWDOWN_STRENGTH
 

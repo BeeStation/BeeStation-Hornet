@@ -728,7 +728,7 @@
 	if(impact_flags & COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH)
 		hitpush = FALSE
 	var/caught = hit_atom.hitby(src, throwingdatum=throwingdatum, hitpush=hitpush)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum, caught)
 	return caught
 
 ///Called before we attempt to call hitby and send the COMSIG_MOVABLE_IMPACT signal

@@ -595,7 +595,7 @@
 	products = list(
 		/obj/item/clothing/shoes/laceup = 3,
 		/obj/item/clothing/shoes/jackboots = 3,
-		guerrillaa/obj/item/clothing/gloves/combat = 3,
+		/obj/item/clothing/gloves/combat = 3,
 		/obj/item/clothing/glasses/sunglasses = 3,
 		/obj/item/clothing/under/rank/centcom/commander = 3,
 		/obj/item/clothing/under/rank/centcom/centcom_skirt = 3,

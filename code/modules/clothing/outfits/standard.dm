@@ -3,7 +3,7 @@
 	uniform = /obj/item/clothing/under/misc/patriotsuit
 	suit = /obj/item/clothing/suit/space/hardsuit/debug
 	mask = /obj/item/clothing/mask/gas/welding/up
-	gloves = guerrillaa/obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	id = /obj/item/card/id/syndicate/debug
@@ -240,7 +240,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/centcom_formal
 	shoes = /obj/item/clothing/shoes/combat/swat
-	gloves = guerrillaa/obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
@@ -279,7 +279,7 @@
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
 	shoes = /obj/item/clothing/shoes/combat/swat
-	gloves = guerrillaa/obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	ears = /obj/item/radio/headset/headset_cent/commander
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana

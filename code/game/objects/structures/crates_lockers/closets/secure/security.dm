@@ -163,6 +163,8 @@
 
 	new /obj/item/paper_reader(src)
 
+	new /obj/item/clothing/gloves/tackler/combat(src)
+
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/clothing/suit/armor/hos(src)
