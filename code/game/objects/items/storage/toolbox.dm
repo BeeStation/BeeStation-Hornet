@@ -175,7 +175,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool(src)
-	new /obj/item/clothing/gloves/tackler/combat/insulated(src)
+	new guerrillaa/obj/item/clothing/gloves/combat(src)
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
