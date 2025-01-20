@@ -8,11 +8,11 @@
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
+	help_verb = /mob/living/proc/sleeping_carp_help
 	smashes_tables = TRUE
 	var/old_grab_state = null
 
-/datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
 		streak = ""
 		wristWrench(A,D)
@@ -35,7 +35,7 @@
 		return TRUE
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/proc/wristWrench(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/wristWrench(mob/living/A, mob/living/D)
 	if(!D.stat && !D.IsStun() && !D.IsParalyzed())
 		log_combat(A, D, "wrist wrenched (Sleeping Carp)", name)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -51,7 +51,7 @@
 
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/proc/backKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/backKick(mob/living/A, mob/living/D)
 	if(!D.stat && !D.IsParalyzed())
 		if(A.dir != D.dir)
 			log_combat(A, D, "missed a back-kick (Sleeping Carp) on", name)
@@ -68,7 +68,7 @@
 		return TRUE
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/proc/kneeStomach(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/kneeStomach(mob/living/A, mob/living/D)
 	if(!D.stat && !D.IsParalyzed())
 		log_combat(A, D, "stomach kneed (Sleeping Carp)", name)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
@@ -82,7 +82,7 @@
 		return 1
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/proc/headKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/headKick(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!D.stat && !D.IsParalyzed())
 		log_combat(A, D, "head kicked (Sleeping Carp)", name)
@@ -90,14 +90,14 @@
 		D.visible_message("<span class='warning'>[A] kicks [D] in the head!</span>", \
 						"<span class='userdanger'>Your jaw is kicked by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 		to_chat(A, "<span class='danger'>You kick [D] in the jaw!</span>")
-		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = def_check)
+		D.apply_damage(20, A.get_attack_type(), BODY_ZONE_HEAD, blocked = def_check)
 		D.drop_all_held_items()
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		D.Stun(80)
 		return 1
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(D.body_position == LYING_DOWN)
 		log_combat(A, D, "elbow dropped (Sleeping Carp)", name)
@@ -107,12 +107,12 @@
 		to_chat(A, "<span class='danger'>You piledrive [D] with your elbow!</span>")
 		if(D.stat)
 			D.death() //FINISH HIM!
-		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST, blocked = def_check)
+		D.apply_damage(50, A.get_attack_type(), BODY_ZONE_CHEST, blocked = def_check)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		return 1
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/grab_act(mob/living/A, mob/living/D)
 	if(A.a_intent == INTENT_GRAB && A!=D) // A!=D prevents grabbing yourself
 		add_to_streak("G",D)
 		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
@@ -129,7 +129,7 @@
 		return TRUE
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
@@ -145,19 +145,20 @@
 	return TRUE
 
 
-/datum/martial_art/the_sleeping_carp/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/disarm_act(mob/living/A, mob/living/D)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
 		return TRUE
 	return ..()
 
-/datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/carbon/human/A, obj/projectile/P, def_zone)
+/datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
 	. = ..()
 	if(A.incapacitated(FALSE, TRUE)) //NO STUN
 		return BULLET_ACT_HIT
 	if(!(A.mobility_flags & MOBILITY_USE)) //NO UNABLE TO USE
 		return BULLET_ACT_HIT
-	if(A.dna && A.dna.check_mutation(HULK)) //NO HULK
+	var/datum/dna/dna = A.has_dna()
+	if(dna?.check_mutation(HULK)) //NO HULK
 		return BULLET_ACT_HIT
 	if(!P.martial_arts_no_deflect)
 		return BULLET_ACT_HIT
@@ -179,7 +180,7 @@
 	. = ..()
 	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
 
-/mob/living/carbon/human/proc/sleeping_carp_help()
+/mob/living/proc/sleeping_carp_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Sleeping Carp clan."
 	set category = "Sleeping Carp"
