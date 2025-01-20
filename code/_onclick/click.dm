@@ -361,6 +361,12 @@
 	A.CtrlClick(src)
 	return
 
+/atom/proc/CtrlClick(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
+	var/mob/living/ML = user
+	if(istype(ML))
+		ML.pulled(src)
+
 /*
 /mob/living/CtrlClick(mob/user)
 	if(!isliving(user) || !Adjacent(user) || user.incapacitated())
@@ -376,12 +382,6 @@
 
 	return ..()
 */
-
-/atom/proc/CtrlClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
-	var/mob/living/ML = user
-	if(istype(ML))
-		ML.pulled(src)
 
 /mob/living/carbon/human/CtrlClick(mob/user)
 

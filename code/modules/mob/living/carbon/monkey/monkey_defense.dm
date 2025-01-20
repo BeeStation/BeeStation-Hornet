@@ -30,12 +30,11 @@
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M, list/modifiers)
 	if(..())	//To allow surgery to return properly.
 		return
-
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(stat < UNCONSCIOUS)
+			M.disarm(src)
+			return
 	if(M.combat_mode)
-		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			if(stat < UNCONSCIOUS)
-				M.disarm(src)
-				return
 		M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		visible_message("<span class='danger'>[M] punches [name]!</span>", \
 				"<span class='userdanger'>[M] punches you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)

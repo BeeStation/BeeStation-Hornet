@@ -1622,6 +1622,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	//if(attacker_style?.help_act(user, target))
+	//	return TRUE
+
 	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
 		target.help_shake_act(user)
 		if(target != user)
@@ -1638,9 +1641,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 	if(attacker_style?.grab_act(user,target))
 		return TRUE
-	else
-		target.grabbedby(user)
-		return TRUE
+	target.grabbedby(user)
+	return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
