@@ -56,6 +56,10 @@ In all, this is a lot like the monkey code. /N
 	if(.) //to allow surgery to return properly.
 		return FALSE
 
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
 	if(user.combat_mode)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			if(HAS_TRAIT(user, TRAIT_PACIFISM))

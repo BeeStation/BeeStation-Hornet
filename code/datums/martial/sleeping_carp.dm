@@ -7,11 +7,10 @@
 /datum/martial_art/the_sleeping_carp
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
-	deflection_chance = 100
-	reroute_deflection = TRUE
 	allow_temp_override = FALSE
-	help_verb = /mob/living/proc/sleeping_carp_help
+	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
 	smashes_tables = TRUE
+	var/old_grab_state = null
 
 /datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
@@ -119,19 +118,20 @@
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		add_to_streak("G",D)
-		if(check_streak(A,D)) //doing combos is prioritized over upgrading grabs
-			return 1
+		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
+			return TRUE
+		old_grab_state = A.grab_state
 		D.grabbedby(A, 1)
-		if(A.grab_state == GRAB_PASSIVE)
+		if(old_grab_state == GRAB_PASSIVE)
 			D.drop_all_held_items()
 			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
 			log_combat(A, D, "grabbed", name, addition="aggressively")
 			D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
 							"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
 			to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+		return TRUE
 	else
-		D.grabbedby(A, 1)
-	return 1
+		return FALSE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
@@ -156,6 +156,23 @@
 	log_combat(A, D, "disarmed (Sleeping Carp)")
 	return ..()
 
+/datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
+	. = ..()
+	if(A.incapacitated(IGNORE_GRAB)) //NO STUN
+		return BULLET_ACT_HIT
+	if(!(A.mobility_flags & MOBILITY_USE)) //NO UNABLE TO USE
+		return BULLET_ACT_HIT
+	var/datum/dna/dna = A.has_dna()
+	if(dna?.check_mutation(/datum/mutation/hulk)) //NO HULK
+		return BULLET_ACT_HIT
+	if(!isturf(A.loc)) //NO MOTHERFLIPPIN MECHS!
+		return BULLET_ACT_HIT
+	A.visible_message("<span class='danger'>[A] deflects the projectile; [A.p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+	playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
+	P.firer = A
+	P.set_angle(rand(0, 360))//SHING
+	return BULLET_ACT_FORCE_PIERCE
+
 /datum/martial_art/the_sleeping_carp/teach(mob/living/H, make_temporary = FALSE)
 	. = ..()
 	if(!.)
@@ -166,7 +183,7 @@
 	. = ..()
 	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
 
-/mob/living/proc/sleeping_carp_help()
+/mob/living/carbon/human/proc/sleeping_carp_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Sleeping Carp clan."
 	set category = "Sleeping Carp"

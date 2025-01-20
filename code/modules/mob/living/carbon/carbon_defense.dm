@@ -190,9 +190,6 @@
 				if(S.next_step(user, modifiers))
 					return TRUE
 
-	if (user.apply_martial_art(src))
-		return TRUE
-
 	return FALSE
 
 

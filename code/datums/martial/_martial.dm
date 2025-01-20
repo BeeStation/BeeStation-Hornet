@@ -5,24 +5,22 @@
 	var/max_streak_length = 6
 	var/current_target
 	var/datum/martial_art/base // The permanent style. This will be null unless the martial art is temporary
-	var/deflection_chance = 0 //Chance to deflect projectiles
-	var/reroute_deflection = FALSE //Delete the bullet, or actually deflect it in some direction?
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
 	var/help_verb
 	var/allow_temp_override = TRUE //if this martial art can be overridden by temporary martial arts
 	var/smashes_tables = FALSE //If the martial art smashes tables when performing table slams and head smashes
 
 /datum/martial_art/proc/help_act(mob/living/A, mob/living/D)
-	return FALSE
+	return MARTIAL_ATTACK_INVALID
 
 /datum/martial_art/proc/disarm_act(mob/living/A, mob/living/D)
-	return FALSE
+	return MARTIAL_ATTACK_INVALID
 
 /datum/martial_art/proc/harm_act(mob/living/A, mob/living/D)
-	return FALSE
+	return MARTIAL_ATTACK_INVALID
 
 /datum/martial_art/proc/grab_act(mob/living/A, mob/living/D)
-	return FALSE
+	return MARTIAL_ATTACK_INVALID
 
 /datum/martial_art/proc/can_use(mob/living/L)
 	return TRUE
@@ -76,3 +74,7 @@
 	if(help_verb)
 		remove_verb(owner, help_verb)
 	return
+
+///Gets called when a projectile hits the owner. Returning anything other than BULLET_ACT_HIT will stop the projectile from hitting the mob.
+/datum/martial_art/proc/on_projectile_hit(mob/living/carbon/human/A, obj/projectile/P, def_zone)
+	return BULLET_ACT_HIT
