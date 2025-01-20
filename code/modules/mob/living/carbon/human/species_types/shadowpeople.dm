@@ -365,7 +365,7 @@
 
 /obj/item/organ/heart/shadow_ritual3
 	name = "pulsing darknes"
-	desc = "You cant see the object covered in darknes, no light can dispell it. You can only see how the darkness itself moves, pulsing time and time again"
+	desc = "You cant see the object covered in darknes, no light can dispell it. You can only see how the darkness itself moves, pulsing time and time again."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_3"
 	visual = TRUE
