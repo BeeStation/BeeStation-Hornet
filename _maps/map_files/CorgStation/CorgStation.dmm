@@ -1316,7 +1316,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/hallway/primary/aft)
 "aoU" = (
 /obj/machinery/holopad,
 /obj/structure/disposalpipe/segment{
@@ -6701,7 +6701,7 @@
 "bSY" = (
 /obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/plating,
-/area/space)
+/area/hallway/primary/aft)
 "bTc" = (
 /obj/structure/mirror{
 	pixel_y = 29
@@ -10210,7 +10210,7 @@
 "dgU" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/supply/visible,
 /turf/open/floor/plating,
-/area/space)
+/area/hallway/primary/aft)
 "dgZ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -15469,7 +15469,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/hallway/primary/aft)
 "faj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -26605,10 +26605,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"iBY" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/space/nearstation)
 "iCu" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/machinery/light{
@@ -49144,9 +49140,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"qet" = (
-/turf/closed/wall,
-/area/space)
 "qeI" = (
 /obj/machinery/airalarm/directional/north,
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -57234,7 +57227,7 @@
 	},
 /obj/machinery/atmospherics/pipe/color_adapter,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/hallway/primary/aft)
 "sQk" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -66929,7 +66922,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/hallway/primary/aft)
 "wct" = (
 /obj/machinery/vending/custom{
 	pixel_x = -3
@@ -98920,9 +98913,9 @@ iOB
 iOB
 iOB
 vhc
-qet
-iBY
-qet
+rdA
+rdA
+rdA
 rdA
 aeC
 cra
