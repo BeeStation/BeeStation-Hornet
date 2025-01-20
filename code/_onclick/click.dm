@@ -337,6 +337,13 @@
 	if(istype(ML))
 		ML.pulled(src)
 
+/mob/living/CtrlClick(mob/user)
+	if (isliving(user))
+		var/mob/living/user_living = user
+		if (user_living.apply_martial_art(src, null) == MARTIAL_ATTACK_SUCCESS)
+			return
+	..()
+
 /mob/living/carbon/human/CtrlClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
 		if(world.time < user.next_move)

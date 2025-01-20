@@ -295,6 +295,15 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 #define NICE_SHOT_RICOCHET_BONUS	10			//if the shooter has the NICE_SHOT trait and they fire a ricocheting projectile, add this to the ricochet chance and auto aim angle
 
+/// Martial arts attack requested but is not available, allow a check for a regular attack.
+#define MARTIAL_ATTACK_INVALID -1
+
+/// Martial arts attack happened but failed, do not allow a check for a regular attack.
+#define MARTIAL_ATTACK_FAIL FALSE
+
+/// Martial arts attack happened and succeeded, do not allow a check for a regular attack.
+#define MARTIAL_ATTACK_SUCCESS TRUE
+
 // Flags for energy shields
 /// Energy shields will block projectiles
 #define ENERGY_SHIELD_BLOCK_PROJECTILES (1 << 0)

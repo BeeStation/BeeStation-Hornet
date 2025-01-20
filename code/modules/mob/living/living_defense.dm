@@ -273,41 +273,43 @@
 	log_combat(M, src, "attacked")
 	return TRUE
 
-/mob/living/attack_hand(mob/living/carbon/human/user)
+/mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
-	if (user.apply_martial_art(src))
-		return TRUE
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
 
-/mob/living/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
 	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
+		to_chat(user, "No attacking people at spawn, you jackass.")
 		return FALSE
 
-	if (M.apply_martial_art(src))
-		return TRUE
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
 
-	switch (M.a_intent)
+	switch (user.a_intent)
 		if (INTENT_HARM)
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+			if(HAS_TRAIT(user, TRAIT_PACIFISM))
+				to_chat(user, "<span class='notice'>You don't want to hurt anyone!</span>")
 				return FALSE
 
-			if(M.is_muzzled() || M.is_mouth_covered(FALSE, TRUE))
-				to_chat(M, "<span class='warning'>You can't bite with your mouth covered!</span>")
+			if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
+				to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
 				return FALSE
-			M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-			log_combat(M, src, "attacked")
+			user.do_attack_animation(src, ATTACK_EFFECT_BITE)
+			log_combat(user, src, "attacked")
 			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-								"<span class='userdanger'>[M.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, M)
-			to_chat(M, "<span class='danger'>You bite [src]!</span>")
+			visible_message("<span class='danger'>[user.name] bites [src]!</span>", \
+								"<span class='userdanger'>[user.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='danger'>You bite [src]!</span>")
 			return TRUE
 		if (INTENT_GRAB)
-			grabbedby(M)
+			grabbedby(user)
 			return FALSE
 		if (INTENT_DISARM)
-			if (M != src)
-				M.disarm(src)
+			if (user != src)
+				user.disarm(src)
 				return TRUE
 	return FALSE
 

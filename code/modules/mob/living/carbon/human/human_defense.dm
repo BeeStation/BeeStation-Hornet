@@ -219,28 +219,33 @@
 		var/mob/living/carbon/human/H = user
 		H.dna.species.spec_attack_hand(H, src)
 
-/mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/M)
-	if(check_shields(M, 0, "the [M.name]", UNARMED_ATTACK))
-		visible_message("<span class='danger'>[M] attempts to touch [src]!</span>", \
-						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", null, M)
-		to_chat(M, "<span class='warning'>You attempt to touch [src]!</span>")
+/mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
+	if(check_shields(user, 0, "the [user.name]", UNARMED_ATTACK))
+		visible_message("<span class='danger'>[user] attempts to touch [src]!</span>", \
+						"<span class='danger'>[user] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", null, user)
+		to_chat(user, "<span class='warning'>You attempt to touch [src]!</span>")
 		return 0
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 	if(!affecting)
 		affecting = get_bodypart(BODY_ZONE_CHEST)
-	if(M.a_intent == INTENT_HELP)
+
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
+	if(user.a_intent == INTENT_HELP)
 		..() //shaking
 		return 0
 
-	if(M.a_intent == INTENT_DISARM) //the fact that this fucking works is hilarious to me
-		dna.species.disarm(M, src)
+	if(user.a_intent == INTENT_DISARM) //the fact that this fucking works is hilarious to me
+		dna.species.disarm(user, src)
 		return 1
 
-	if(M.limb_destroyer)
-		dismembering_strike(M, affecting.body_zone)
+	if(user.limb_destroyer)
+		dismembering_strike(user, affecting.body_zone)
 
-	if(can_inject(M, 1, affecting))//Thick suits can stop monkey bites.
+	if(can_inject(user, 1, affecting))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
 			var/damage = rand(1, 3)
 			if(stat != DEAD)

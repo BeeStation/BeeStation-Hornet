@@ -12,14 +12,18 @@
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
 In all, this is a lot like the monkey code. /N
 */
-/mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
+/mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/user, list/modifiers)
 	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
+		to_chat(user, "No attacking people at spawn, you jackass.")
 		return
 
-	switch(M.a_intent)
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
+	switch(user.a_intent)
 		if("help")
-			if(M == src && check_self_for_injuries())
+			if(user == src && check_self_for_injuries())
 				return
 			set_resting(FALSE)
 			AdjustStun(-60)
@@ -28,23 +32,23 @@ In all, this is a lot like the monkey code. /N
 			AdjustParalyzed(-60)
 			AdjustUnconscious(-60)
 			AdjustSleeping(-100)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake [p_them()] up!</span>")
+			visible_message("<span class='notice'>[user.name] nuzzles [src] trying to wake [p_them()] up!</span>")
 
 		if("grab")
-			grabbedby(M)
+			grabbedby(user)
 
 		else
 			if(health > 1)
-				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
+				user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] playfully bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] playfully bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-				to_chat(M, "<span class='danger'>You playfully bite [src]!</span>")
+				visible_message("<span class='danger'>[user.name] playfully bites [src]!</span>", \
+						"<span class='userdanger'>[user.name] playfully bites you!</span>", null, COMBAT_MESSAGE_RANGE)
+				to_chat(user, "<span class='danger'>You playfully bite [src]!</span>")
 				adjustBruteLoss(1)
-				log_combat(M, src, "attacked", M)
+				log_combat(user, src, "attacked", user)
 				updatehealth()
 			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+				to_chat(user, "<span class='warning'>[name] is too injured for that.</span>")
 
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
