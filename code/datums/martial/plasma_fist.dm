@@ -5,10 +5,10 @@
 /datum/martial_art/plasma_fist
 	name = "Plasma Fist"
 	id = MARTIALART_PLASMAFIST
-	help_verb = /mob/living/carbon/human/proc/plasma_fist_help
+	help_verb = /mob/living/proc/plasma_fist_help
 
 
-/datum/martial_art/plasma_fist/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,TORNADO_COMBO))
 		streak = ""
 		Tornado(A,D)
@@ -23,7 +23,7 @@
 		return 1
 	return 0
 
-/datum/martial_art/plasma_fist/proc/TornadoAnimate(mob/living/carbon/human/A)
+/datum/martial_art/plasma_fist/proc/TornadoAnimate(mob/living/A)
 	set waitfor = FALSE
 	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
 		if(!A)
@@ -32,7 +32,7 @@
 		playsound(A.loc, 'sound/weapons/punch1.ogg', 15, 1, -1)
 		sleep(1)
 
-/datum/martial_art/plasma_fist/proc/Tornado(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/Tornado(mob/living/A, mob/living/D)
 	A.say("TORNADO SWEEP!", forced="plasma fist")
 	TornadoAnimate(A)
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
@@ -40,7 +40,7 @@
 	log_combat(A, D, "tornado sweeped(Plasma Fist)", name)
 	return
 
-/datum/martial_art/plasma_fist/proc/Throwback(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/Throwback(mob/living/A, mob/living/D)
 	D.visible_message("<span class='danger'>[A] hits [D] with Plasma Punch!</span>", \
 					"<span class='userdanger'>You're hit with a Plasma Punch by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 	to_chat(A, "<span class='danger'>You hit [D] with Plasma Punch!</span>")
@@ -51,7 +51,7 @@
 	log_combat(A, D, "threw back (Plasma Fist)", name)
 	return
 
-/datum/martial_art/plasma_fist/proc/Plasma(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/Plasma(mob/living/A, mob/living/D)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	A.say("PLASMA FIST!", forced="plasma fist")
@@ -62,28 +62,25 @@
 	log_combat(A, D, "gibbed (Plasma Fist)", name)
 	return
 
-/datum/martial_art/plasma_fist/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/harm_act(mob/living/A, mob/living/D)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
-		return 1
-	basic_hit(A,D)
-	return 1
+		return TRUE
+	return FALSE
 
-/datum/martial_art/plasma_fist/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/disarm_act(mob/living/A, mob/living/D)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
-		return 1
-	basic_hit(A,D)
-	return 1
+		return TRUE
+	return FALSE
 
-/datum/martial_art/plasma_fist/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/grab_act(mob/living/A, mob/living/D)
 	add_to_streak("G",D)
 	if(check_streak(A,D))
-		return 1
-	basic_hit(A,D)
-	return 1
+		return TRUE
+	return FALSE
 
-/mob/living/carbon/human/proc/plasma_fist_help()
+/mob/living/proc/plasma_fist_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Plasma Fist."
 	set category = "Plasma Fist"

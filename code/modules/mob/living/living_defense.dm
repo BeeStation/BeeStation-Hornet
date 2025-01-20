@@ -288,11 +288,18 @@
 	log_combat(M, src, "attacked")
 	return TRUE
 
+/mob/living/attack_hand(mob/living/carbon/human/user)
+	. = ..()
+	if (user.apply_martial_art(src))
+		return TRUE
 
 /mob/living/attack_paw(mob/living/carbon/monkey/M)
 	if(isturf(loc) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return FALSE
+
+	if (M.apply_martial_art(src))
+		return TRUE
 
 	if (M.combat_mode)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
