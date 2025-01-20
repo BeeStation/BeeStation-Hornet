@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 /datum/air_alarm_mode/cycle/apply(area/applied)
 	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
 		vent.on = FALSE
-		vent.update_appearance(UPDATE_ICON)
+		vent.update_icon()
 
 	for (var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in applied.air_scrubbers)
 		scrubber.on = TRUE
