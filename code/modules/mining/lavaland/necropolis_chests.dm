@@ -1210,7 +1210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		to_chat(user, "<span class='warning'>[name] is too far from the source of its power!</span>")
 	else
 		power = 15
-	if(user.mind.martial_art.no_guns)
+	if(HAS_TRAIT_FROM(user, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT))
 		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
 		return
 	var/turf/T = get_turf(target)

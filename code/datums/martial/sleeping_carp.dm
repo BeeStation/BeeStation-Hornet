@@ -7,7 +7,6 @@
 /datum/martial_art/the_sleeping_carp
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
-	no_guns = TRUE
 	allow_temp_override = FALSE
 	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
 	smashes_tables = TRUE
@@ -50,26 +49,24 @@
 		D.Stun(60)
 		return 1
 
-	return basic_hit(A,D)
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/backKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.IsParalyzed())
-		if(A.dir == D.dir)
-			log_combat(A, D, "back-kicked (Sleeping Carp)", name)
-			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-			D.visible_message("<span class='warning'>[A] kicks [D] in the back!</span>", \
-						"<span class='danger'>You're kicked in the back by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-			to_chat(A, "<span class='danger'>You kick [D] in the back!</span>")
-			step_to(D,get_step(D,D.dir),1)
-			D.Paralyze(80)
-			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
-			return 1
-		else
+		if(A.dir != D.dir)
 			log_combat(A, D, "missed a back-kick (Sleeping Carp) on", name)
 			D.visible_message("<span class='warning'>[A] tries to kick [D] in the back, but misses!</span>", \
-							"<span class='danger'>You avoid a kick in the back by [A]!</span>", "<span class='hear'>You hear a swoosh!</span>", null, A)
-			to_chat(A, "<span class='warning'>Your kick to [D]'s back misses!</span>")
-	return basic_hit(A,D)
+						"<span class='userdanger'>[A] tries to kick you in the back, but misses!</span>")
+			return TRUE
+		log_combat(A, D, "back-kicked (Sleeping Carp)", name)
+		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+		D.visible_message("<span class='warning'>[A] kicks [D] in the back!</span>", \
+					"<span class='userdanger'>[A] kicks you in the back, making you stumble and fall!</span>")
+		step_to(D,get_step(D,D.dir),1)
+		D.Paralyze(80)
+		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		return TRUE
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/kneeStomach(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.IsParalyzed())
@@ -83,7 +80,7 @@
 		D.Stun(40)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/headKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
@@ -98,7 +95,7 @@
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		D.Stun(80)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
@@ -113,7 +110,7 @@
 		D.apply_damage(50, A.dna.species.attack_type, BODY_ZONE_CHEST, blocked = def_check)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(A.a_intent == INTENT_GRAB && A!=D) // A!=D prevents grabbing yourself
@@ -130,8 +127,7 @@
 							"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
 			to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
 		return TRUE
-	else
-		return FALSE
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
@@ -155,7 +151,7 @@
 		return TRUE
 	return ..()
 
-/datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/carbon/human/A, obj/item/projectile/P, def_zone)
+/datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/carbon/human/A, obj/projectile/P, def_zone)
 	. = ..()
 	if(A.incapacitated(FALSE, TRUE)) //NO STUN
 		return BULLET_ACT_HIT
@@ -172,6 +168,16 @@
 	P.firer = A
 	P.set_angle(rand(0, 360))//SHING
 	return BULLET_ACT_FORCE_PIERCE
+
+/datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary = FALSE)
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
+
+/datum/martial_art/the_sleeping_carp/on_remove(mob/living/carbon/human/H)
+	. = ..()
+	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
 
 /mob/living/carbon/human/proc/sleeping_carp_help()
 	set name = "Recall Teachings"

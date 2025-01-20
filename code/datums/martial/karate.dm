@@ -42,7 +42,7 @@
 		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
 		D.apply_damage(10, STAMINA, BODY_ZONE_HEAD, def_check)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 //Calf Kick - paralyse one leg with stamina damage
 /datum/martial_art/karate/proc/calfKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -57,7 +57,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(50, STAMINA, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 //Jumping Knee - brief knockdown and decent stamina damage
 /datum/martial_art/karate/proc/jumpingKnee(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -74,7 +74,7 @@
 		D.apply_damage(30, STAMINA, BODY_ZONE_CHEST, def_check)
 		D.Knockdown(10)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 // Karate Chop - short confusion and blurred eyes
 /datum/martial_art/karate/proc/karateChop(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -90,7 +90,7 @@
 		D.confused += 2
 		D.Jitter(20)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 /datum/martial_art/karate/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("H",D)

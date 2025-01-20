@@ -44,6 +44,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HUSK				"husk"
 #define TRAIT_BADDNA			"baddna"
 #define TRAIT_CLUMSY			"clumsy"
+//means that you can't use weapons with normal trigger guards.
+#define TRAIT_CHUNKYFINGERS "chunkyfingers"
 #define TRAIT_DUMB				"dumb"
 #define TRAIT_DISCOORDINATED	"discoordinated" //sets IsAdvancedToolUser to FALSE on humans and monkies
 #define TRAIT_PACIFISM			"pacifism"

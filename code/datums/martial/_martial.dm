@@ -6,77 +6,34 @@
 	var/current_target
 	var/datum/martial_art/base // The permanent style. This will be null unless the martial art is temporary
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
-	var/restraining = 0 //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/help_verb
-	var/no_guns = FALSE
 	var/allow_temp_override = TRUE //if this martial art can be overridden by temporary martial arts
 	var/smashes_tables = FALSE //If the martial art smashes tables when performing table slams and head smashes
 
 /datum/martial_art/proc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return 0
+	return FALSE
 
 /datum/martial_art/proc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return 0
+	return FALSE
 
 /datum/martial_art/proc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return 0
+	return FALSE
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return TRUE
 
 /datum/martial_art/proc/add_to_streak(element,mob/living/carbon/human/D)
 	if(D != current_target)
-		current_target = D
-		streak = ""
-		restraining = 0
+		reset_streak(D)
 	streak = streak+element
 	if(length(streak) > max_streak_length)
 		streak = copytext(streak, 1 + length(streak[1]))
-	return
 
-/datum/martial_art/proc/basic_hit(mob/living/carbon/human/A,mob/living/carbon/human/D)
+/datum/martial_art/proc/reset_streak(mob/living/carbon/human/new_target)
+	current_target = new_target
+	streak = ""
 
-	var/damage = A.dna.species.punchdamage
-
-	var/atk_verb = A.dna.species.attack_verb
-	if(D.body_position == LYING_DOWN)
-		atk_verb = "kick"
-
-	switch(atk_verb)
-		if("kick")
-			A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		if("slash")
-			A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-		if("smash")
-			A.do_attack_animation(D, ATTACK_EFFECT_SMASH)
-		else
-			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-
-	if(!damage)
-		playsound(D.loc, A.dna.species.miss_sound, 25, 1, -1)
-		D.visible_message("<span class='warning'>[A]'s [atk_verb] misses [D]!</span>", \
-						"<span class='danger'>You avoid [A]'s [atk_verb]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, "<span class='warning'>Your [atk_verb] misses [D]!</span>")
-		log_combat(A, D, "attempted to [atk_verb]", important = FALSE)
-		return 0
-
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-
-	playsound(D.loc, A.dna.species.attack_sound, 25, 1, -1)
-	D.visible_message("<span class='danger'>[A] [atk_verb]ed [D]!</span>", \
-					"<span class='userdanger'>You're [atk_verb]ed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, "<span class='danger'>You [atk_verb]ed [D]!</span>")
-
-	D.apply_damage(damage, A.dna.species.attack_type, affecting, armor_block)
-
-	log_combat(A, D, "punched", name)
-
-	if(D.body_position == LYING_DOWN)
-		D.force_say(A)
-	return 1
-
-/datum/martial_art/proc/teach(mob/living/carbon/human/H,make_temporary=0)
+/datum/martial_art/proc/teach(mob/living/carbon/human/H,make_temporary=FALSE)
 	if(!istype(H) || !H.mind)
 		return FALSE
 	if(H.mind.martial_art)
@@ -116,5 +73,5 @@
 	return
 
 ///Gets called when a projectile hits the owner. Returning anything other than BULLET_ACT_HIT will stop the projectile from hitting the mob.
-/datum/martial_art/proc/on_projectile_hit(mob/living/carbon/human/A, obj/item/projectile/P, def_zone)
+/datum/martial_art/proc/on_projectile_hit(mob/living/carbon/human/A, obj/projectile/P, def_zone)
 	return BULLET_ACT_HIT
