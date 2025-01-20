@@ -121,7 +121,7 @@
 
 	user.Knockdown(base_knockdown, ignore_canstun = TRUE)
 	user.adjustStaminaLoss(stamina_cost)
-	user.throw_at(clicked_atom, range, speed, user, FALSE)
+	user.throw_at(clicked_atom, range, speed, user, FALSE, force = MOVE_FORCE_WEAK)
 	addtimer(CALLBACK(src, PROC_REF(resetTackle)), base_knockdown, TIMER_STOPPABLE)
 	return(COMSIG_MOB_CANCEL_CLICKON)
 
@@ -159,6 +159,7 @@
 
 	var/roll = rollTackle(target)
 	tackling = FALSE
+	tackle.force = MOVE_FORCE_WEAK
 
 	if(target.check_shields(user, 0, user.name, attack_type = LEAP_ATTACK))
 		user.visible_message("<span class='danger'>[user]'s tackle is blocked by [target], softening the effect!</span>",
@@ -579,10 +580,12 @@
 	playsound(user, 'sound/effects/glasshit.ogg', 140, TRUE)
 
 	if(windscreen_casualty.type in list(/obj/structure/window, /obj/structure/window/fulltile, /obj/structure/window/unanchored, /obj/structure/window/fulltile/unanchored)) // boring unreinforced windows
-		for(var/i in 1 to speed)
+		for(var/i in 1 to 2)
 			var/obj/item/shard/shard = new /obj/item/shard(get_turf(user))
 			shard.tryEmbed(user)
-		windscreen_casualty.atom_destruction()
+		var/glass_breaking_sound = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')
+		playsound(user, glass_breaking_sound, 140, TRUE)
+		qdel(windscreen_casualty)
 		user.adjustStaminaLoss(10 * speed)
 		user.Paralyze(3 SECONDS)
 		user.visible_message("<span class='danger'>[user] smacks into [windscreen_casualty] and shatters it, shredding [user.p_them()]self with glass!</span>",
@@ -596,11 +599,6 @@
 		windscreen_casualty.take_damage(30 * speed)
 		user.adjustStaminaLoss(10 * speed, updating_health=FALSE)
 		user.adjustBruteLoss(5 * speed)
-
-/datum/component/tackler/proc/delayedSmash(obj/structure/window/windscreen_casualty)
-	if(windscreen_casualty)
-		windscreen_casualty.atom_destruction()
-		playsound(windscreen_casualty, "shatter", 70, TRUE)
 
 ///Check to see if we hit a table, and if so, make a big mess!
 /datum/component/tackler/proc/checkObstacle(mob/living/carbon/owner)
@@ -653,7 +651,7 @@
 		var/item_launch_speed = 2
 		if(prob(25 * (src.speed - 1))) // if our tackle speed is higher than 1, with chance (speed - 1 * 25%), throw the thing at our tackle speed + 1
 			item_launch_speed = speed + 1
-		item_in_mess.throw_at(get_ranged_target_turf(item_in_mess, pick(GLOB.alldirs), range = item_launch_distance), range = item_launch_distance, speed = item_launch_speed)
+		item_in_mess.throw_at(get_ranged_target_turf(item_in_mess, pick(GLOB.alldirs), range = item_launch_distance), range = item_launch_distance, speed = item_launch_speed, force = MOVE_FORCE_WEAK)
 		item_in_mess.visible_message("<span class='danger'>[item_in_mess] goes flying[item_launch_speed < EMBED_THROWSPEED_THRESHOLD ? "" : " dangerously fast" ]!</span>") // standard embed speed
 
 	var/datum/thrownthing/tackle = tackle_ref?.resolve()
