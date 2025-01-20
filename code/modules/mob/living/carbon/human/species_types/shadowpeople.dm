@@ -40,19 +40,22 @@
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	if (/datum/religion_sect/shadow_sect == GLOB.religious_sect)
-		var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-		if(!C.dna.species.id == "nightmare")
-			if(sect.grand_ritual_level == 1)
-				mutantheart = /obj/item/organ/heart/shadow_ritual1
-				mutantheart.Insert(C, TRUE, FALSE)
-			if(sect.grand_ritual_level == 2)
-				mutantheart = /obj/item/organ/heart/shadow_ritual2
-				mutantheart.Insert(C, TRUE, FALSE)
-			if(sect.grand_ritual_level == 3)
-				mutantheart = /obj/item/organ/heart/shadow_ritual3
-				mutantheart.Insert(C, TRUE, FALSE)
+	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
+		change_hearts_ritual(C)
 
+
+/datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is suposed to be caled only for shadow sect
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!C.dna.species.id == "nightmare")
+		if(sect.grand_ritual_level == 1)
+			mutantheart = /obj/item/organ/heart/shadow_ritual1
+			mutantheart.Insert(C, TRUE, FALSE)
+		if(sect.grand_ritual_level == 2)
+			mutantheart = /obj/item/organ/heart/shadow_ritual2
+			mutantheart.Insert(C, TRUE, FALSE)
+		if(sect.grand_ritual_level == 3)
+			mutantheart = /obj/item/organ/heart/shadow_ritual3
+			mutantheart.Insert(C, TRUE, FALSE)
 
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
