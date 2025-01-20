@@ -8,6 +8,7 @@
 	pipe_flags = PIPING_ALL_LAYER | PIPING_DEFAULT_LAYER_ONLY | PIPING_CARDINAL_AUTONORMALIZE | PIPING_BRIDGE
 	piping_layer = PIPING_LAYER_DEFAULT
 	device_type = 0
+	volume = 200
 	construction_type = /obj/item/pipe/binary
 	pipe_state = "manifoldlayer"
 	paintable = TRUE
@@ -23,7 +24,6 @@
 	)
 
 /obj/machinery/atmospherics/pipe/layer_manifold/Initialize(mapload)
-	volume = 350 // was previously 280 which was 8 ports but now this thing has 10
 	front_nodes = list()
 	back_nodes = list()
 	icon_state = "manifoldlayer_center"
