@@ -222,7 +222,7 @@
 
 ///Attacked by monkey. It doesn't need its own *_secondary proc as it just uses attack_hand_secondary instead.
 /atom/proc/attack_paw(mob/user, list/modifiers)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return FALSE
 

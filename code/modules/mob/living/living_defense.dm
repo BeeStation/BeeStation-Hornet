@@ -336,7 +336,7 @@
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, user, modifiers)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		return TRUE
