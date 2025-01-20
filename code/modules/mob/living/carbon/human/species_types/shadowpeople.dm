@@ -340,3 +340,65 @@
 
 #undef HEART_SPECIAL_SHADOWIFY
 #undef HEART_RESPAWN_THRESHOLD
+
+// Shadow sect organs
+
+
+
+/obj/item/organ/heart/ritual1
+	name = "shadowed heart"
+	desc = "Heart with seem to be covered in shadows, even under strong light."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "shadow_heart_1"
+	visual = TRUE
+	decay_factor = 0
+
+
+
+/*
+/obj/item/organ/heart/nightmare/update_icon()
+	return //always beating visually
+
+/obj/item/organ/heart/nightmare/Stop()
+	return 0
+
+/obj/item/organ/heart/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	if(special != HEART_SPECIAL_SHADOWIFY)
+		blade = new/obj/item/light_eater
+		M.put_in_hands(blade)
+
+/obj/item/organ/heart/nightmare/on_death()
+	if(!owner)
+		return
+	var/turf/T = get_turf(owner)
+	if(istype(T))
+		var/light_amount = T.get_lumcount()
+		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
+			respawn_progress++
+			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
+	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
+		owner.revive(full_heal = TRUE)
+		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
+			var/mob/living/carbon/old_owner = owner
+			Remove(owner, HEART_SPECIAL_SHADOWIFY)
+			old_owner.set_species(/datum/species/shadow)
+			Insert(old_owner, HEART_SPECIAL_SHADOWIFY)
+			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping into the center of your chest! You're alive!</span>")
+			SEND_SOUND(owner, sound('sound/effects/ghost.ogg'))
+		owner.visible_message("<span class='warning'>[owner] staggers to [owner.p_their()] feet!</span>")
+		playsound(owner, 'sound/hallucinations/far_noise.ogg', 50, 1)
+		respawn_progress = 0
+
+
+/obj/item/organ/heart/nightmare
+	name = "heart of darkness"
+	desc = "An alien organ that twists and writhes when exposed to light."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "demon_heart-on"
+	visual = TRUE
+	decay_factor = 0
+
+
+/obj/item/organ/heart/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+*/
