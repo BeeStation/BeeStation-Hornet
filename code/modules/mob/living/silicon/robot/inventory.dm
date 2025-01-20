@@ -213,3 +213,4 @@
 
 /mob/living/silicon/robot/swap_hand()
 	cycle_modules()
+	refresh_self_screentips()

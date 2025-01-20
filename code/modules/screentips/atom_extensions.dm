@@ -69,12 +69,19 @@
 	context.user = client.mob
 	context.held_item = held_item
 	context.access_context = ""
+	context.generic_context = ""
 	context.left_mouse_context = ""
-	context.tool_icon_context = ""
+	context.left_tool_icon_context = ""
 	context.shift_left_mouse_context = ""
 	context.ctrl_left_mouse_context = ""
 	context.alt_left_mouse_context = ""
 	context.ctrl_shift_left_mouse_context = ""
+	context.right_mouse_context = ""
+	context.right_tool_icon_context = ""
+	context.shift_right_mouse_context = ""
+	context.ctrl_right_mouse_context = ""
+	context.alt_right_mouse_context = ""
+	context.ctrl_shift_right_mouse_context = ""
 	context.cache_enabled = FALSE
 	SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, context, client.mob)
 	// Add direct interactions
@@ -82,8 +89,10 @@
 	// Add held item interactions
 	if (held_item)
 		held_item.add_context_interaction(context, client.mob, src)
+	if (!length(context.shift_right_mouse_context))
+		context.add_shift_right_click_action("Examine")
 	if (context.relevant)
-		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][context.access_context][context.left_mouse_context][context.ctrl_left_mouse_context][context.shift_left_mouse_context][context.alt_left_mouse_context][context.ctrl_shift_left_mouse_context][context.tool_icon_context]</span>"
+		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]</span>"
 	else
 		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 	// If we asked to be cached, generate the cache
@@ -100,7 +109,7 @@
 			cache = new_cache
 		// Set the cache message
 		cache.generated = TRUE
-		cache.message = "[context.access_context][context.left_mouse_context][context.ctrl_left_mouse_context][context.shift_left_mouse_context][context.alt_left_mouse_context][context.ctrl_shift_left_mouse_context][context.tool_icon_context]"
+		cache.message = "[screentip_message][context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]"
 		SSscreentips.caches_generated ++
 	// Cleanup references for the sake of managing hard-deletes
 	context.user = null
@@ -113,7 +122,11 @@
 	for (var/client/client in GLOB.clients)
 		if (client.hovered_atom != src)
 			continue
-		on_mouse_enter(client)
+		if (client.hover_queued)
+			return
+		client.hover_queued = TRUE
+		client.screentip_next = SSscreentips.head
+		SSscreentips.head = client
 
 /// Refresh the screentips for the mob holding this item
 /obj/item/proc/refresh_holder_screentips()
@@ -122,7 +135,29 @@
 	var/mob/living/holder = loc
 	if (!holder.client)
 		return
-	holder.client.hovered_atom?.on_mouse_enter(holder.client)
+	var/client/screentip_client = holder.client
+	if (!screentip_client)
+		return
+	if (!screentip_client.hovered_atom)
+		return
+	// If someone is connected to us in the queue, then we don't need to requeue
+	if (screentip_client.hover_queued)
+		return
+	screentip_client.hover_queued = TRUE
+	screentip_client.screentip_next = SSscreentips.head
+	SSscreentips.head = screentip_client
+
+/mob/proc/refresh_self_screentips()
+	if (!client)
+		return
+	if (!client.hovered_atom)
+		return
+	// If someone is connected to us in the queue, then we don't need to requeue
+	if (client.hover_queued)
+		return
+	client.hover_queued = TRUE
+	client.screentip_next = SSscreentips.head
+	SSscreentips.head = client
 
 /// Add context tips
 /atom/proc/add_context_self(datum/screentip_context/context, mob/user)

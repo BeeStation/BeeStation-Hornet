@@ -3,14 +3,28 @@
 	var/obj/item/held_item
 	var/relevant = FALSE
 	var/access_context
+	var/generic_context
+	// Left context
 	var/left_mouse_context
-	var/tool_icon_context
+	var/left_tool_icon_context
 	var/ctrl_left_mouse_context
 	var/shift_left_mouse_context
 	var/alt_left_mouse_context
 	var/ctrl_shift_left_mouse_context
+	// Right contexts
+	var/right_mouse_context
+	var/right_tool_icon_context
+	var/ctrl_right_mouse_context
+	var/shift_right_mouse_context
+	var/alt_right_mouse_context
+	var/ctrl_shift_right_mouse_context
+	// Other stuff
 	var/cache_enabled = FALSE
 	var/relevant_type = null
+
+// ================================
+// Caching
+// ================================
 
 /// Indicates that this screentip does not depend on any external state, and only state provided
 /// by this context object itself.
@@ -45,7 +59,9 @@
 		return TRUE
 	return FALSE
 
-/datum/screentip_context/proc/add_context(context_text)
+// ================================
+// Non-Input Contexts
+// ================================
 
 /datum/screentip_context/proc/add_access_context(context_text, has_access = FALSE)
 	if (has_access)
@@ -53,12 +69,9 @@
 	else
 		access_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_REJECTED]'>[CENTER(context_text)]")]</span>"
 
-/datum/screentip_context/proc/add_attack_hand_action(action_text, blocked_message = null, accessible = TRUE)
-	if (ishuman(user) && held_item == null)
-		if (accessible)
-			left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
-		else
-			left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+// ================================
+// Left Click Actions
+// ================================
 
 /datum/screentip_context/proc/add_left_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
@@ -71,60 +84,47 @@
 		left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_attack_self_action(action_text)
+	generic_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\[Z\] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
 	if (held_item?.tool_behaviour == tool)
 		switch (tool)
 			if (TOOL_WIRECUTTER)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_SCREWDRIVER)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_WRENCH)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_WELDER)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_CROWBAR)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_MULTITOOL)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_KNIFE)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.lmb_icon][action_text]")]</span>")]"
 			if (TOOL_ROLLINGPIN)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.lmb_icon][action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.lmb_icon][action_text]")]</span>")]"
 			else
 				left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon][action_text]")]</span>")]"
 	else
 		switch (tool)
 			if (TOOL_WIRECUTTER)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
 			if (TOOL_SCREWDRIVER)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
 			if (TOOL_WRENCH)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
 			if (TOOL_WELDER)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
 			if (TOOL_CROWBAR)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar] [action_text]")]</span>")]"
 			if (TOOL_MULTITOOL)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
 			if (TOOL_KNIFE)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [action_text]")]</span>")]"
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [action_text]")]</span>")]"
 			if (TOOL_ROLLINGPIN)
-				tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [action_text]")]</span>")]"
-
-/datum/screentip_context/proc/add_generic_deconstruction_actions(obj/machinery/machine)
-	if (!machine.panel_open)
-		add_left_click_tool_action("Open Panel", TOOL_SCREWDRIVER)
-	else
-		add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
-
-/datum/screentip_context/proc/add_generic_unfasten_actions(obj/machinery/machine, need_panel_open = FALSE)
-	if (machine.panel_open || !need_panel_open)
-		add_left_click_tool_action("Unfasten", TOOL_WRENCH)
-
-/datum/screentip_context/proc/add_right_click_action(action_text, blocked_message = null, accessible = TRUE)
-
-/datum/screentip_context/proc/add_right_click_item_action(action_text, item_required)
+				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_alt_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
@@ -169,3 +169,122 @@
 	if (istype(held_item, item_required))
 		// Reset the left mouse action to only show this (we aren't using our hands anymore)
 		ctrl_shift_left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+
+// ================================
+// Right Click Actions
+// ================================
+
+/datum/screentip_context/proc/add_right_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
+	else
+		right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_right_click_item_action(action_text, item_required)
+	if (istype(held_item, item_required))
+		right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_right_click_tool_action(action_text, tool)
+	if (held_item?.tool_behaviour == tool)
+		switch (tool)
+			if (TOOL_WIRECUTTER)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_SCREWDRIVER)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_WRENCH)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_WELDER)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_CROWBAR)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_MULTITOOL)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_KNIFE)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.rmb_icon][action_text]")]</span>")]"
+			if (TOOL_ROLLINGPIN)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.rmb_icon][action_text]")]</span>")]"
+			else
+				right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon][action_text]")]</span>")]"
+	else
+		switch (tool)
+			if (TOOL_WIRECUTTER)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
+			if (TOOL_SCREWDRIVER)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
+			if (TOOL_WRENCH)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
+			if (TOOL_WELDER)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
+			if (TOOL_CROWBAR)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar] [action_text]")]</span>")]"
+			if (TOOL_MULTITOOL)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
+			if (TOOL_KNIFE)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [action_text]")]</span>")]"
+			if (TOOL_ROLLINGPIN)
+				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_alt_right_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		alt_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.rmb_icon] [action_text]")]</span>")]"
+	else
+		alt_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("alt-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_alt_right_click_item_action(action_text, item_required)
+	if (istype(held_item, item_required))
+		// Reset the right mouse action to only show this (we aren't using our hands anymore)
+		alt_right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.rmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_ctrl_right_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		ctrl_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.rmb_icon] [action_text]")]</span>")]"
+	else
+		ctrl_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_ctrl_right_click_item_action(action_text, item_required)
+	if (istype(held_item, item_required))
+		// Reset the right mouse action to only show this (we aren't using our hands anymore)
+		ctrl_right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.rmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_shift_right_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		shift_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+	else
+		shift_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("shift-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_shift_right_click_item_action(action_text, item_required)
+	if (istype(held_item, item_required))
+		// Reset the right mouse action to only show this (we aren't using our hands anymore)
+		shift_right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+
+/datum/screentip_context/proc/add_ctrl_shift_right_click_action(action_text, blocked_message = null, accessible = TRUE)
+	if (accessible)
+		ctrl_shift_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+	else
+		ctrl_shift_right_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-shift-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_ctrl_shift_right_click_item_action(action_text, item_required)
+	if (istype(held_item, item_required))
+		// Reset the right mouse action to only show this (we aren't using our hands anymore)
+		ctrl_shift_right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+
+// ================================
+// Generic Actions
+// ================================
+
+/datum/screentip_context/proc/add_attack_hand_action(action_text, blocked_message = null, accessible = TRUE)
+	if (ishuman(user) && held_item == null)
+		if (accessible)
+			left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		else
+			left_mouse_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_generic_deconstruction_actions(obj/machinery/machine)
+	if (!machine.panel_open)
+		add_left_click_tool_action("Open Panel", TOOL_SCREWDRIVER)
+	else
+		add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+
+/datum/screentip_context/proc/add_generic_unfasten_actions(obj/machinery/machine, need_panel_open = FALSE)
+	if (machine.panel_open || !need_panel_open)
+		add_left_click_tool_action("Unfasten", TOOL_WRENCH)

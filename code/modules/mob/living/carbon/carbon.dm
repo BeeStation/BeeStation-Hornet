@@ -44,7 +44,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		H = hud_used.hand_slots["[held_index]"]
 		if(H)
 			H.update_icon()
-
+	refresh_self_screentips()
 
 /mob/living/carbon/activate_hand(selhand) //l/r OR 1-held_items.len
 	if(!selhand)
