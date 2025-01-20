@@ -45,10 +45,13 @@
 		if(!C.dna.species.id == "nightmare")
 			if(sect.grand_ritual_level == 1)
 				mutantheart = /obj/item/organ/heart/shadow_ritual1
+				mutantheart.Insert(C, TRUE, FALSE)
 			if(sect.grand_ritual_level == 2)
 				mutantheart = /obj/item/organ/heart/shadow_ritual2
+				mutantheart.Insert(C, TRUE, FALSE)
 			if(sect.grand_ritual_level == 3)
 				mutantheart = /obj/item/organ/heart/shadow_ritual3
+				mutantheart.Insert(C, TRUE, FALSE)
 
 
 /datum/species/shadow/get_species_description()
