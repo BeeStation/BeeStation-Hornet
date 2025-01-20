@@ -763,6 +763,37 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 	if(parent)
 		parent.component_click(src, params)
 
+/atom/movable/screen/combo
+	icon_state = ""
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = ui_combo
+	plane = ABOVE_HUD_PLANE
+	var/timerid
+
+/atom/movable/screen/combo/proc/clear_streak()
+	animate(src, alpha = 0, 2 SECONDS, SINE_EASING)
+	timerid = addtimer(CALLBACK(src, .proc/reset_icons), 2 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+
+/atom/movable/screen/combo/proc/reset_icons()
+	cut_overlays()
+	icon_state = ""
+
+/atom/movable/screen/combo/update_icon_state(streak = "", time = 2 SECONDS)
+	reset_icons()
+	if(timerid)
+		deltimer(timerid)
+	alpha = 255
+	if(!streak)
+		return ..()
+	timerid = addtimer(CALLBACK(src, .proc/clear_streak), time, TIMER_UNIQUE | TIMER_STOPPABLE)
+	icon_state = "combo"
+	for (var/i = 1; i <= length(streak); ++i)
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon,src,"combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		add_overlay(intent_icon)
+	return ..()
+
 /atom/movable/screen/stamina
 	name = "stamina"
 	icon_state = "stamina0"

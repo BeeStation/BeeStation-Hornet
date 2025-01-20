@@ -340,15 +340,14 @@
 	lingstingdisplay.hud = src
 	infodisplay += lingstingdisplay
 
-	devilsouldisplay = new /atom/movable/screen/devil/soul_counter
-	devilsouldisplay.hud = src
-	infodisplay += devilsouldisplay
-
 	zone_select =  new /atom/movable/screen/zone_sel()
 	zone_select.icon = ui_style
 	zone_select.update_icon()
 	zone_select.hud = src
 	static_inventory += zone_select
+
+	combo_display = new /atom/movable/screen/combo()
+	infodisplay += combo_display
 
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)

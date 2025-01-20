@@ -48,6 +48,7 @@
 
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
+#define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts
 
 #define ui_borg_lamp "CENTER-3:16, SOUTH:5"			//borgs
 #define ui_borg_tablet "CENTER-4:16, SOUTH:5"		//borgs
