@@ -302,11 +302,10 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "adz" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 5
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "adF" = (
 /obj/structure/cable/yellow{
@@ -11217,11 +11216,11 @@
 /area/hallway/primary/port)
 "cTE" = (
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 6
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
@@ -13742,11 +13741,8 @@
 /turf/open/floor/carpet/grimy,
 /area/chapel/main)
 "dGu" = (
-/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/ameridiner,
@@ -30392,14 +30388,15 @@
 /area/medical/cryo)
 "hMF" = (
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 1
-	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 4;
+	name = "Atmos to Gas"
 	},
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
@@ -34933,12 +34930,14 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/science/research)
 "iTF" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "iTY" = (
@@ -42108,8 +42107,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "kMH" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/ameridiner,
@@ -50252,7 +50253,7 @@
 	id = "techstorageshutters";
 	name = "Tech Storage Shutter Control";
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access_txt = "10;24"
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
@@ -60018,10 +60019,6 @@
 /turf/open/floor/iron,
 /area/maintenance/disposal)
 "pwI" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Atmos to Gas"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -60032,6 +60029,9 @@
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
 	},
 /turf/open/floor/iron/ameridiner,
@@ -61030,8 +61030,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/camera/directional/south,
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "pJl" = (
@@ -70825,6 +70825,18 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
+"sgP" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 1
+	},
+/turf/open/floor/iron/ameridiner,
+/area/engine/engine_room)
 "sha" = (
 /turf/closed/wall,
 /area/vacant_room/commissary/commissaryFood)
@@ -73945,11 +73957,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "sVM" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "sVP" = (
@@ -76757,7 +76767,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "tIE" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -76822,10 +76831,10 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "tIN" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "tIU" = (
@@ -90355,7 +90364,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
+	dir = 6
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
@@ -92537,14 +92546,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "xoU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
-	dir = 1
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "xoZ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -93081,8 +93089,8 @@
 /area/maintenance/port)
 "xuL" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
@@ -93156,9 +93164,6 @@
 /turf/closed/wall,
 /area/medical/cryo)
 "xvk" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 5
 	},
@@ -94778,6 +94783,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/lobby)
+"xKi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/ameridiner,
+/area/engine/engine_room)
 "xKk" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 8
@@ -145604,7 +145619,7 @@ wWM
 xQF
 hMF
 tIE
-iTF
+adz
 cTE
 qRj
 gLB
@@ -145612,7 +145627,7 @@ tIV
 sPx
 nKw
 dGu
-kMH
+xXd
 xvk
 qyQ
 kXP
@@ -145859,8 +145874,8 @@ kCh
 pSb
 wWM
 sEn
-lMA
-hYA
+sgP
+iTF
 tIN
 sVM
 yes
@@ -145870,7 +145885,7 @@ mYb
 yes
 xoU
 adz
-lMO
+kMH
 qyQ
 kXP
 vro
@@ -146127,7 +146142,7 @@ tMn
 yes
 wTv
 xuL
-lMO
+xKi
 qyQ
 kXP
 vro
