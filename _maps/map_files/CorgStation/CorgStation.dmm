@@ -19888,12 +19888,11 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "gva" = (
@@ -21633,8 +21632,11 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "gYR" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/obj/machinery/atmospherics/components/tank/air,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "gYU" = (
@@ -52781,10 +52783,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/machinery/atmospherics/components/tank/air{
-	dir = 8;
-	piping_layer = 2
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold/supply,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "rsV" = (
@@ -52964,10 +52963,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "rvY" = (
