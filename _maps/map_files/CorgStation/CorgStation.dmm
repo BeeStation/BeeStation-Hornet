@@ -8604,7 +8604,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/engine,
 /area/engine/engine_room)
 "cCs" = (
 /obj/structure/cable/yellow{
@@ -32999,7 +32999,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "kMh" = (
 /obj/structure/cable/yellow{
@@ -33104,7 +33104,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/engine_room)
 "kMU" = (
 /obj/structure/window/reinforced/spawner{
@@ -44157,7 +44157,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_dark,
+/turf/open/floor/engine,
 /area/engine/engine_room)
 "otA" = (
 /obj/effect/turf_decal/bot,
