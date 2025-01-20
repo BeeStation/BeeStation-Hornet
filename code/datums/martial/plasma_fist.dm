@@ -115,7 +115,7 @@
 
 	A.apply_damage(rand(50,70), BRUTE)
 
-	addtimer(CALLBACK(src,.proc/Apotheosis_end, A), 6 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(Apotheosis_end), A), 6 SECONDS)
 	playsound(boomspot, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 	explosion(boomspot,plasma_power,plasma_power*2,plasma_power*4,ignorecap = TRUE)
 	plasma_power = 1 //just in case there is any clever way to cause it to happen again
