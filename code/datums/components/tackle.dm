@@ -481,6 +481,13 @@
 		if(QDELETED(W))
 			return COMPONENT_MOVABLE_IMPACT_NEVERMIND
 		return
+	else if(istype(hit, /obj/machinery/disposal/bin))
+		var/obj/machinery/disposal/bin/bin = hit
+		user.forceMove(bin)
+		var/leap_word = iscatperson(user) ? "pounce" : "leap" //If cat, "pounce" instead of "leap".
+		user.visible_message("<span class='warning'>[user] [leap_word]s into \the [hit]!</span>",
+							"<span class='danger'>You [leap_word] into \the [hit]!</span>")
+		return COMPONENT_MOVABLE_IMPACT_NEVERMIND
 
 	var/oopsie_mod = 0
 	var/danger_zone = (speed - 1) * 13 // for every extra speed we have over 1, take away 13 of the safest chance
@@ -651,7 +658,7 @@
 		var/item_launch_speed = 2
 		if(prob(25 * (src.speed - 1))) // if our tackle speed is higher than 1, with chance (speed - 1 * 25%), throw the thing at our tackle speed + 1
 			item_launch_speed = speed + 1
-		item_in_mess.throw_at(get_ranged_target_turf(item_in_mess, pick(GLOB.alldirs), range = item_launch_distance), range = item_launch_distance, speed = item_launch_speed, force = MOVE_FORCE_WEAK)
+		item_in_mess.throw_at(get_ranged_target_turf(item_in_mess, pick(GLOB.alldirs), range = item_launch_distance), range = item_launch_distance, speed = item_launch_speed)
 		item_in_mess.visible_message("<span class='danger'>[item_in_mess] goes flying[item_launch_speed < EMBED_THROWSPEED_THRESHOLD ? "" : " dangerously fast" ]!</span>") // standard embed speed
 
 	var/datum/thrownthing/tackle = tackle_ref?.resolve()
