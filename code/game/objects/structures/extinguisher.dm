@@ -113,7 +113,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 	return attack_hand(user)
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	toggle_cabinet(user)
 

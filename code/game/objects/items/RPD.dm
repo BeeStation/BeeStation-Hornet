@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	return ..()
 
 /obj/item/pipe_dispenser/afterattack(atom/A, mob/user, proximity)
-	if(!user.IsAdvancedToolUser() || istype(A, /turf/open/space/transit))
+	if(!ISADVANCEDTOOLUSER(user) || istype(A, /turf/open/space/transit))
 		return ..()
 
 	// this shouldn't use early return because checking less condition is good

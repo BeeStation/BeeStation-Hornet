@@ -139,7 +139,7 @@
 		to_chat(user, "You switch to tube A.")
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	rack()
 
@@ -357,7 +357,7 @@
 	hook = new /obj/item/gun/magic/hook/bounty(src)
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/AltClick(mob/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	if(toggled)
 		to_chat(user,"<span class='notice'>You switch to the shotgun.</span>")

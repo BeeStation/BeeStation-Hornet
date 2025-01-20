@@ -9,7 +9,7 @@
 	var/activated = FALSE
 
 /obj/item/suspiciousphone/attack_self(mob/user)
-	if(!ishuman(user))
+	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, "<span class='warning'>This device is too advanced for you!</span>")
 		return
 	if(activated)

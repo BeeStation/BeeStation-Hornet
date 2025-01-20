@@ -62,6 +62,7 @@
 	. = ..()
 
 	AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, vary = TRUE)
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 
 	// Setup equipment
 	stored_pka = new(src)
@@ -487,10 +488,6 @@
 		return
 	for(var/obj/item/minebot_upgrade/upgrade as anything in installed_upgrades)
 		upgrade.unequip()
-
-/// Allows a minebot to use things like plasma cutters.
-/mob/living/simple_animal/hostile/mining_drone/IsAdvancedToolUser()
-	return TRUE // Allow
 
 /**********************Minebot Actions**********************/
 // Used when a player's in control of a minebot.

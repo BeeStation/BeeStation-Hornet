@@ -186,8 +186,8 @@
 	if(L)
 		. += "<span class='notice'>There seems to be a lighter inside. Ctrl-click to pull it out.</span>"
 
-/obj/item/storage/fancy/cigarettes/AltClick(mob/living/carbon/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+/obj/item/storage/fancy/cigarettes/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	var/obj/item/I = locate(/obj/item) in contents
 	if(I && contents.len > 0)

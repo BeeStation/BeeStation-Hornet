@@ -171,8 +171,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	user.forceMove(loc)
 	update_appearance()
 
-// monkeys and xenos can only pull the flush lever
+// clumsy monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
+	if(ISADVANCEDTOOLUSER(user))
+		return ..()
 	if(machine_stat & BROKEN)
 		return
 	flush = !flush

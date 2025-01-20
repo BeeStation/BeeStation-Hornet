@@ -36,7 +36,7 @@
 	var/mob/living/L = user
 
 	if(istype(L))
-		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 			return FALSE
 		else
 			return TRUE
@@ -395,9 +395,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || !usr.can_hold_items() || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
+		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
 		var/obj/item/C = new item_chair(loc)

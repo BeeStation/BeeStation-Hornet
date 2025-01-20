@@ -213,3 +213,6 @@
 
 /mob/living/silicon/robot/swap_hand()
 	cycle_modules()
+
+/mob/living/silicon/robot/can_hold_items(obj/item/I)
+	return (I && (I in module.modules)) //Only if it's part of our module.

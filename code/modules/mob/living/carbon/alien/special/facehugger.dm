@@ -67,9 +67,6 @@
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
 	return O.attack_atom(src, user, params)
 
-/obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
-	return attack_hand(user)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))

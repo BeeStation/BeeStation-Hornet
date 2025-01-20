@@ -68,6 +68,7 @@
 	diag_hud_set_health()
 	create_access_card(default_access_list)
 	default_access_list = null
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 
 /mob/living/silicon/Destroy()
 	QDEL_NULL(radio)
@@ -169,9 +170,6 @@
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
-
-/mob/living/silicon/IsAdvancedToolUser()
-	return TRUE
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))

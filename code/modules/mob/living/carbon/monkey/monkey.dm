@@ -192,11 +192,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
-/mob/living/carbon/monkey/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
-		return FALSE
-	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
-
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 

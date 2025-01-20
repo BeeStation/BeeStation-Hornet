@@ -610,6 +610,10 @@
 	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
 		return TRUE
 
+///Can this mob hold items
+/mob/proc/can_hold_items(obj/item/I)
+	return length(held_items)
+
 /**
  * Zone selection helpers.
  *
