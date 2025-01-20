@@ -2,6 +2,7 @@
 	name = "enhanced retrieval gloves"
 	desc = "Special gloves that manipulate the blood vessels in the wearer's hands, granting them the ability to launch headfirst into walls and tackle fleeing criminals in a single bound."
 	icon_state = "tackle"
+	worn_icon_state = "tackle"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	resistance_flags = NONE
