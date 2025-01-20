@@ -13,10 +13,10 @@
 		/datum/religion_rites/shadow_obelisk,
 		/datum/religion_rites/expand_shadows,
 		/datum/religion_rites/nigth_vision_aura,
-		/datum/religion_rites/shadow_conversion,
-		/datum/religion_rites/grand_ritual_one,
-		/datum/religion_rites/grand_ritual_two,
-		/datum/religion_rites/grand_ritual_three
+		/datum/religion_rites/shadow_conversion //,
+	//	/datum/religion_rites/grand_ritual_one,
+	//	/datum/religion_rites/grand_ritual_two,
+	//	/datum/religion_rites/grand_ritual_three
 	)
 
 

@@ -345,15 +345,31 @@
 
 
 
-/obj/item/organ/heart/ritual1
+/obj/item/organ/heart/shadow_ritual1
 	name = "shadowed heart"
-	desc = "Heart with seem to be covered in shadows, even under strong light."
+	desc = "This heart with seem to be covered in shadows, even under strong light."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_1"
 	visual = TRUE
 	decay_factor = 0
 
 
+/obj/item/organ/heart/shadow_ritual2
+	name = "faded heart"
+	desc = "Its hard to make out a heart under the cover of this ever shifting darknes."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "shadow_heart_2"
+	visual = TRUE
+	decay_factor = 0
+
+
+/obj/item/organ/heart/shadow_ritual3
+	name = "pulsing darknes"
+	desc = "You cant see the object covered in darknes, no light can dispell it. You can only see how the darkness itself moves, pulsing time and time again"
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "shadow_heart_3"
+	visual = TRUE
+	decay_factor = 0
 
 /*
 /obj/item/organ/heart/nightmare/update_icon()
