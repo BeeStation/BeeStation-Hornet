@@ -38,6 +38,17 @@
 		return TRUE
 	return ..()
 
+/datum/species/shadow/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	if (/datum/religion_sect/shadow_sect == GLOB.religious_sect)
+		var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+		if(sect.grand_ritual_level == 1)
+			mutantheart = /obj/item/organ/heart/shadow_ritual1
+		if(sect.grand_ritual_level == 2)
+			mutantheart = /obj/item/organ/heart/shadow_ritual2
+		if(sect.grand_ritual_level == 3)
+			mutantheart = /obj/item/organ/heart/shadow_ritual3
+
+
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
 		seethrough filament, their tangled insides in clear view. Their form \
