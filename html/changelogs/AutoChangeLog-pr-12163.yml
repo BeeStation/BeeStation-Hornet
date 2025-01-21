@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Improves the UI for autolathes and exosuit fabricators, including better
+      scale handling and descriptions.
