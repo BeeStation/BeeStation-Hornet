@@ -1,0 +1,6 @@
+author: rkz, LemonInTheDark, Gamer025, Capybara Holly
+delete-after: true
+changes:
+  - bugfix: fixes diagonal movement causing noticeable delay from orbiter's perspective
+  - bugfix: fixes pulling objects causing visible delay from puller's perspective
+  - bugfix: resolves some minor parallax issues
