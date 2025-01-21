@@ -69,6 +69,12 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 					return TRUE
 	return ..()
 
+/mob/living/carbon/CtrlShiftClick(mob/user)
+	..()
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		carbon_user.give(src)
+
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/hurt = TRUE
 	if(!throwingdatum || throwingdatum.force <= MOVE_FORCE_WEAK)
