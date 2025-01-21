@@ -34626,7 +34626,6 @@
 	name = "Telecomms Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/tcommsat/server)
@@ -71009,7 +71008,6 @@
 	name = "Telecomms Server Room";
 	req_access_txt = "61"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/tcommsat/server)
