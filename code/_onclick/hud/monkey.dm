@@ -128,6 +128,9 @@
 	zone_select.hud = src
 	static_inventory += zone_select
 
+	combo_display = new /atom/movable/screen/combo()
+	infodisplay += combo_display
+
 	mymob.client.screen = list()
 
 	using = new /atom/movable/screen/resist()
