@@ -9547,6 +9547,7 @@
 	name = "Atmospherics";
 	req_access_txt = "24"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bVT" = (
