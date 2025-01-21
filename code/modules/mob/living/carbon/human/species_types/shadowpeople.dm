@@ -48,13 +48,13 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(C.dna.species.id != "nightmare")
 		if(sect.grand_ritual_level == 1)
-			mutantheart = /obj/item/organ/heart/shadow_ritual1  // to fix
+			mutantheart = new/obj/item/organ/heart/shadow_ritual1  // to fix
 			mutantheart.Insert(C, TRUE, FALSE)
 		if(sect.grand_ritual_level == 2)
-			mutantheart = /obj/item/organ/heart/shadow_ritual2
+			mutantheart = new/obj/item/organ/heart/shadow_ritual2
 			mutantheart.Insert(C, TRUE, FALSE)
 		if(sect.grand_ritual_level == 3)
-			mutantheart = /obj/item/organ/heart/shadow_ritual3
+			mutantheart = new/obj/item/organ/heart/shadow_ritual3
 			mutantheart.Insert(C, TRUE, FALSE)
 
 /datum/species/shadow/get_species_description()
@@ -389,6 +389,16 @@
 	icon_state = "shadow_heart_3"
 	visual = TRUE
 	decay_factor = 0
+
+/obj/item/organ/heart/shadow_ritual1/Stop()
+	return 0
+
+/obj/item/organ/heart/shadow_ritual2/Stop()
+	return 0
+
+/obj/item/organ/heart/shadow_ritual3/Stop()
+	return 0
+
 
 /*
 /obj/item/organ/heart/nightmare/update_icon()
