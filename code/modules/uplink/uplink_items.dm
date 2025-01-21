@@ -606,6 +606,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 20
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/dangerous/syndicate_teleporter
+	name = "Experimental Syndicate Jaunter"
+	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
+		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
+		through solid matter nor is it capable of teleporting them across longer ranges."
+	item = /obj/item/teleporter
+	cost = 7
+
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
 	desc = "A flamethrower, fueled by a portion of highly flammable biotoxins stolen previously from Nanotrasen \
@@ -1764,14 +1773,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 1
 	illegal_tech = FALSE
 
-/datum/uplink_item/device_tools/syndicate_teleporter
-	name = "Experimental Syndicate Jaunter"
-	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
-		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
-		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
-		through solid matter nor is it capable of teleporting them across longer ranges."
-	item = /obj/item/teleporter
-	cost = 7
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Disk"
@@ -1947,7 +1948,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms \
 			and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
-	cost = 3
+	cost = 2
 
 // Implants
 /datum/uplink_item/implants
