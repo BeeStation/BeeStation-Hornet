@@ -33,6 +33,9 @@
 
 //Shadow sect doesn't heal
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
+	if(isshadow(blessed))
+		var/mob/living/carbon/human/S = blessed
+		S.dna.species.change_hearts_ritual(blessed)       // TO FIX!!
 	return TRUE
 
 
