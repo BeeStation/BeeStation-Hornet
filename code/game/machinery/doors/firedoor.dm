@@ -125,7 +125,8 @@
 		. += "<span class='notice'>It is <i>welded</i> shut. The floor bolts have been locked by <b>screws</b>.</span>"
 	else
 		. += "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>"
-
+	if(obj_flags & EMAGGED)
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/machinery/door/firedoor/update_name(updates)
 	. = ..()
@@ -401,9 +402,7 @@
 			place.alarm_manager.clear_alarm(ALARM_FIRE, place)
 
 /obj/machinery/door/firedoor/on_emag(mob/user)
-	. = ..()
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	obj_flags |= EMAGGED
 	playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 	do_sparks(5, TRUE, src)
@@ -747,8 +746,6 @@
 				. += "<span class='notice'>It could be reinforced with plasteel.</span>"
 		if(CONSTRUCTION_NO_CIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
-	if(obj_flags & EMAGGED)
-		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/structure/firelock_frame/update_icon()
 	..()
