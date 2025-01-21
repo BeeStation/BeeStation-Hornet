@@ -46,9 +46,9 @@
 
 /datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is suposed to be caled only for shadow sect
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(!C.dna.species.id == "nightmare")
+	if(C.dna.species.id != "nightmare")
 		if(sect.grand_ritual_level == 1)
-			mutantheart = /obj/item/organ/heart/shadow_ritual1
+			mutantheart = /obj/item/organ/heart/shadow_ritual1  // to fix
 			mutantheart.Insert(C, TRUE, FALSE)
 		if(sect.grand_ritual_level == 2)
 			mutantheart = /obj/item/organ/heart/shadow_ritual2

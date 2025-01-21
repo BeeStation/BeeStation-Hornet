@@ -35,7 +35,8 @@
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
 	if(isshadow(blessed))
 		var/mob/living/carbon/human/S = blessed
-		S.dna.species.change_hearts_ritual(blessed)       // TO FIX!!
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.change_hearts_ritual(blessed)       // not tested
 	return TRUE
 
 
