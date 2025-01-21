@@ -99,7 +99,7 @@ const VampireIntro = () => {
               <span className={'color-red'}> Frenzy</span>!<br />
               <br />
               <span>
-                Avoid using your Feed ability while near mortals, or else you will risk <i>breaking the Masquerade</i>!
+                Avoid using your Feed ability near mortals, or else you will risk <i>breaking the Masquerade</i>!
               </span>
             </Stack.Item>
           </Stack>
