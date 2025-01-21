@@ -531,7 +531,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 /obj/machinery/airalarm/update_appearance(updates)
 	. = ..()
 
-	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted)
+	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_BUILD_COMPLETE)
 		set_light(0)
 		return
 
@@ -562,7 +562,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 /obj/machinery/airalarm/update_overlays()
 	. = ..()
 
-	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted)
+	if(panel_open || (machine_stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_BUILD_COMPLETE)
 		return
 
 	var/state
@@ -580,7 +580,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 /// [/obj/machinery/airalarm/var/danger_level]
 /obj/machinery/airalarm/proc/check_danger(turf/location, datum/gas_mixture/environment, exposed_temperature)
 	SIGNAL_HANDLER
-	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_BUILD_COMPLETE)
 		return
 
 	if(!environment)
@@ -602,6 +602,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		for(var/datum/gas/gas_path as anything in cached_gas_info)
 			var/moles = environment.gases[gas_path] ? environment.gases[gas_path][MOLES] : 0
 			danger_level = max(danger_level, tlv_collection[gas_path].check_value(pressure * moles / total_moles))
+
+	selected_mode.replace(my_area, pressure, src)
 
 	if(danger_level)
 		alarm_manager.send_alarm(ALARM_ATMOS)
@@ -644,7 +646,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 	if(old_danger != danger_level || old_area_danger != area_danger)
 		update_appearance()
 
-	selected_mode.replace(my_area, pressure)
 
 /obj/machinery/airalarm/proc/select_mode(atom/source, datum/air_alarm_mode/mode_path, should_apply = TRUE)
 	var/datum/air_alarm_mode/new_mode = GLOB.air_alarm_modes[mode_path]

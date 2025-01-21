@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 /datum/air_alarm_mode/proc/apply(area/applied)
 	return
 
-/datum/air_alarm_mode/proc/replace(area/applied, pressure)
+/datum/air_alarm_mode/proc/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm)
 	return
 
 /// The default.
@@ -127,22 +127,11 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 
 /// Special case for cycles. Cycles need to refill the air again after it's scrubbed out so this proc is called.
 /// Same as [/datum/air_alarm_mode/filtering/apply]
-/datum/air_alarm_mode/cycle/replace(area/applied, pressure)
+/datum/air_alarm_mode/cycle/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm)
 	if(pressure >= ONE_ATMOSPHERE * 0.05)
 		return
 
-	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
-		vent.on = TRUE
-		vent.pressure_checks = ATMOS_EXTERNAL_BOUND
-		vent.external_pressure_bound = ONE_ATMOSPHERE
-		vent.pump_direction = ATMOS_DIRECTION_RELEASING
-		vent.update_appearance(UPDATE_ICON)
-
-	for (var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in applied.air_scrubbers)
-		scrubber.on = TRUE
-		scrubber.filter_types = list(/datum/gas/carbon_dioxide)
-		scrubber.set_scrubbing(ATMOS_DIRECTION_SCRUBBING)
-		scrubber.set_widenet(FALSE)
+	air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/filtering)
 
 /datum/air_alarm_mode/siphon
 	name = "Siphon"
