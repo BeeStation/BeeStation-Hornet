@@ -9,37 +9,34 @@
 	id = MARTIALART_CQC
 	help_verb = /mob/living/proc/CQC_help
 	block_chance = 75
-	var/old_grab_state = null
-	var/restraining = FALSE
 	smashes_tables = TRUE
 	display_combos = TRUE
+	var/old_grab_state = null
+	var/mob/restraining_mob
 
 /datum/martial_art/cqc/reset_streak(mob/living/new_target)
-	. = ..()
-	restraining = FALSE
+	if(new_target && new_target != restraining_mob)
+		restraining_mob = null
+	return ..()
 
 /datum/martial_art/cqc/proc/check_streak(mob/living/A, mob/living/D)
 	if(!can_use(A))
 		return FALSE
 	if(findtext(streak,SLAM_COMBO))
-		streak = ""
-		Slam(A,D)
-		return TRUE
+		reset_streak()
+		return Slam(A,D)
 	if(findtext(streak,KICK_COMBO))
-		streak = ""
-		Kick(A,D)
-		return TRUE
+		reset_streak()
+		return Kick(A,D)
 	if(findtext(streak,RESTRAIN_COMBO))
-		streak = ""
-		Restrain(A,D)
-		return TRUE
+		reset_streak()
+		return Restrain(A,D)
 	if(findtext(streak,PRESSURE_COMBO))
-		streak = ""
-		Pressure(A,D)
-		return TRUE
+		reset_streak()
+		return Pressure(A,D)
 	if(findtext(streak,CONSECUTIVE_COMBO))
-		streak = ""
-		Consecutive(A,D)
+		reset_streak()
+		return Consecutive(A,D)
 	return FALSE
 
 /datum/martial_art/cqc/proc/Slam(mob/living/A, mob/living/D)
@@ -52,9 +49,9 @@
 		to_chat(A, "<span class='danger'>You slam [D] into the ground!</span>")
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE, blocked = def_check)
-		D.Paralyze(120)
+		D.Paralyze(12 SECONDS)
 		log_combat(A, D, "slammed (CQC)", name)
-	return TRUE
+		return TRUE
 
 /datum/martial_art/cqc/proc/Kick(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
@@ -69,6 +66,7 @@
 		D.throw_at(throw_target, 1, 14, A)
 		D.apply_damage(10, A.get_attack_type(), blocked = def_check)
 		log_combat(A, D, "kicked (CQC)", name)
+		. = TRUE
 	if(D.IsParalyzed() && !D.stat)
 		log_combat(A, D, "knocked out (Head kick)(CQC)", name)
 		D.visible_message("<span class='danger'>[A] kicks [D]'s head, knocking [D.p_them()] out!</span>", \
@@ -77,7 +75,7 @@
 		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
 		D.SetSleeping(10 SECONDS)
 		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 150)
-	return TRUE
+		. = TRUE
 
 /datum/martial_art/cqc/proc/Pressure(mob/living/A, mob/living/D)
 	if(!can_use(A))
@@ -91,7 +89,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/proc/Restrain(mob/living/A, mob/living/D)
-	if(restraining)
+	if(restraining_mob)
 		return
 	if(!can_use(A))
 		return FALSE
@@ -101,10 +99,10 @@
 						"<span class='userdanger'>You're locked into a restraining position by [A]!</span>", "<span class='hear'>You hear shuffling and a muffled groan!</span>", null, A)
 		to_chat(A, "<span class='danger'>You lock [D] into a restraining position!</span>")
 		D.adjustStaminaLoss(20)
-		D.Stun(100)
-		restraining = TRUE
-		addtimer(VARSET_CALLBACK(src, restraining, FALSE), 50, TIMER_UNIQUE)
-	return TRUE
+		D.Stun(10 SECONDS)
+		restraining_mob = D
+		addtimer(VARSET_CALLBACK(src, restraining_mob, null), 50, TIMER_UNIQUE)
+		return TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
@@ -121,7 +119,7 @@
 			A.put_in_hands(I)
 		D.adjustStaminaLoss(50)
 		D.apply_damage(25, A.get_attack_type(), blocked = def_check)
-	return TRUE
+		return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)
 	if(A.a_intent == INTENT_GRAB && A!=D && can_use(A)) // A!=D prevents grabbing yourself
@@ -171,7 +169,7 @@
 		to_chat(A, "<span class='danger'>You leg sweep [D]!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE, blocked = def_check)
-		D.Paralyze(60)
+		D.Paralyze(6 SECONDS)
 		log_combat(A, D, "sweeped (CQC)", name)
 	return TRUE
 
@@ -183,8 +181,19 @@
 	var/obj/item/I = null
 	if(check_streak(A,D))
 		return TRUE
+	log_combat(A, D, "disarmed (CQC)", "[I ? " grabbing \the [I]" : ""]")
+	if(restraining_mob && A.pulling == restraining_mob)
+		log_combat(A, D, "knocked out (Chokehold)(CQC)", name)
+		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
+						"<span class='userdanger'>You're put into a chokehold by [A]!</span>", "<span class='danger'>You hear shuffling and a muffled groan!</span>", null, A)
+		to_chat(A, "<span class='danger'>You put [D] into a chokehold!</span>")
+		D.SetSleeping(40 SECONDS)
+		restraining_mob = null
+		if(A.grab_state < GRAB_NECK && !HAS_TRAIT(A, TRAIT_PACIFISM))
+			A.setGrabState(GRAB_NECK)
+		return TRUE
 	if(prob(65))
-		if(!D.stat || !D.IsParalyzed() || !restraining)
+		if(!D.stat || !D.IsParalyzed() || !restraining_mob)
 			I = D.get_active_held_item()
 			D.visible_message("<span class='danger'>[A] strikes [D]'s jaw with their hand!</span>", \
 							"<span class='userdanger'>Your jaw is struck by [A], you feel disoriented!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
@@ -198,21 +207,9 @@
 		D.visible_message("<span class='danger'>[A] fails to disarm [D]!</span>", \
 						"<span class='userdanger'>You're nearly disarmed by [A]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, "<span class='warning'>You fail to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	log_combat(A, D, "disarmed (CQC)[I ? " grabbing \the [I]" : ""]", name)
-	if(restraining && A.pulling == D)
-		log_combat(A, D, "knocked out (Chokehold)(CQC)", name)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-						"<span class='userdanger'>You're put into a chokehold by [A]!</span>", "<span class='hear'>You hear shuffling and a muffled groan!</span>", null, A)
-		to_chat(A, "<span class='danger'>You put [D] into a chokehold!</span>")
-		D.SetSleeping(15 SECONDS)
-		restraining = FALSE
-		if(A.grab_state < GRAB_NECK)
-			A.setGrabState(GRAB_NECK)
-	else
-		restraining = FALSE
-		return FALSE
-	return TRUE
+		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+	return FALSE
+
 
 /mob/living/proc/CQC_help()
 	set name = "Remember The Basics"
