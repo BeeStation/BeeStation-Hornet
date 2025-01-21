@@ -38,6 +38,9 @@
 #define TRINARY 3
 #define QUATERNARY 4
 
+// The volume per direction of atmos pipes.
+#define UNARY_PIPE_VOLUME 35
+
 //TANKS
 /// temperature in kelvins at which a tank will start to melt
 #define TANK_MELT_TEMPERATURE 1000000

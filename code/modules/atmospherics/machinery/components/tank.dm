@@ -178,9 +178,8 @@
 	icon_state = "grey"
 	name = "pressure tank (Air)"
 
-/obj/machinery/atmospherics/components/tank/air/New()
-	..()
-	var/datum/gas_mixture/air_contents = airs[1]
+/obj/machinery/atmospherics/components/tank/air/Initialize(mapload)
+	. = ..()
 	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
 	SET_MOLES(/datum/gas/nitrogen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 

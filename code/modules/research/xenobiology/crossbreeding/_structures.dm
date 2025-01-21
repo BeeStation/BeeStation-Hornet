@@ -189,6 +189,11 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/turf/open/T in view(2, src))
 		if(isspaceturf(T))
 			continue
+
+		var/datum/gas_mixture/air = T.return_air()
+		var/moles_to_remove = air.total_moles()
+		T.remove_air(moles_to_remove)
+
 		var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
 		T.assume_air(base_mix)
 		T.air_update_turf(FALSE, FALSE)
