@@ -180,7 +180,7 @@
 
 	return ..()
 
-/obj/structure/vampire/vassalrack/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
+/obj/structure/vampire/vassalrack/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	if(!..())
 		return FALSE
 	visible_message("<span class='danger'>[buckled_mob][buckled_mob.stat == DEAD ? "'s corpse" : ""] slides off of the rack.</span>")
@@ -194,7 +194,7 @@
 		return FALSE
 
 	var/datum/antagonist/vassal/vampiredatum = IS_VAMPIRE(user)
-	// Try Unbuckle
+
 	var/mob/living/carbon/buckled_person = pick(buckled_mobs)
 	if(user.a_intent == INTENT_HELP)
 		if(vampiredatum)

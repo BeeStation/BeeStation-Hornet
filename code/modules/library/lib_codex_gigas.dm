@@ -70,7 +70,7 @@
 
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(target)
 	// Are we a Vampire | Are we on Masquerade. If one is true, they will fail.
-	if(IS_VAMPIRE(target) && !HAS_TRAIT(target, TRAIT_MASQUERADE))
+	if(vampiredatum && !HAS_TRAIT(target, TRAIT_MASQUERADE))
 		if(vampiredatum.broke_masquerade)
 			to_chat(user, "<span class='warning'>[target], also known as '[vampiredatum.return_full_name()]', is indeed a Vampire, but you already knew this.</span>")
 			return

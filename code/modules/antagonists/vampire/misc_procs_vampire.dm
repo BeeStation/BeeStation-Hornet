@@ -99,13 +99,7 @@
 
 /// You can't go to sleep in a coffin with a stake in you.
 /datum/antagonist/vampire/proc/can_stake_kill()
-	if(owner.current.IsSleeping())
-		return TRUE
-	if(owner.current.stat >= UNCONSCIOUS)
-		return TRUE
-	if(HAS_TRAIT(owner.current, TRAIT_TORPOR))
-		return TRUE
-	return FALSE
+	return owner.current.IsSleeping() || owner.current.stat >= UNCONSCIOUS || HAS_TRAIT(owner.current, TRAIT_TORPOR)
 
 /**
  * CARBON INTEGRATION
