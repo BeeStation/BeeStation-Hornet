@@ -527,7 +527,7 @@
 
 /obj/machinery/door/firedoor/attack_silicon(mob/user)
 	add_fingerprint(user)
-	if(welded || operating || machine_stat & NOPOWER)
+	if(welded || operating || machine_stat & NOPOWER || (obj_flags & EMAGGED))
 		return TRUE
 	if(density)
 		open()
@@ -602,7 +602,7 @@
 		correct_state() //So we should re-evaluate our state
 
 /obj/machinery/door/firedoor/close()
-	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP) || (obj_flags & EMAGGED))
+	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP))
 		return
 	var/old_activity = active
 	. = ..()
