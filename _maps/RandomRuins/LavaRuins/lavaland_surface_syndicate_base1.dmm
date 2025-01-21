@@ -1353,6 +1353,12 @@
 /obj/structure/filingcabinet/security,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
+"mS" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 10
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mT" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -5953,7 +5959,7 @@ QA
 wb
 IO
 mn
-mn
+mS
 ab
 ab
 ab
