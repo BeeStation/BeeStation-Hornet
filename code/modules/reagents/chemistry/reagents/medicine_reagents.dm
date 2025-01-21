@@ -1087,7 +1087,7 @@
 	..()
 	. = TRUE
 
-/datum/reagent/medicine/stimulants/overdose_process(mob/living/M, delta_time, times_fired)
+/datum/reagent/medicine/amphetamine/overdose_process(mob/living/M, delta_time, times_fired)
 	if(DT_PROB(18, delta_time))
 		M.adjustStaminaLoss(2.5, 0)
 		M.adjustToxLoss(1, 0)
@@ -1242,7 +1242,7 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustFireLoss((-1 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustToxLoss((-1 * REM * delta_time)/METABOLITE_PENALTY(metabolite), 0)
 	..()
 	. = TRUE
 
