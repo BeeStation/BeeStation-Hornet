@@ -4539,6 +4539,7 @@
 /obj/structure/alien/weeds,
 /obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/toy/toy_xeno,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "bex" = (
@@ -19383,8 +19384,8 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/closet/secure_closet/medical1,
-/obj/effect/loot_jobscale/medical/burn_kit,
-/obj/effect/loot_jobscale/medical/first_aid_kit,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/fire,
 /turf/open/floor/iron/white/textured,
 /area/medical/surgery/aux)
 "eLl" = (
@@ -66960,6 +66961,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/arrows,
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "qhp" = (
@@ -80592,6 +80594,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
+"tyT" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/structure/closet/crate/bin,
+/obj/item/toy/sword{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/dorms)
 "tyW" = (
 /obj/structure/chair/fancy/bench,
 /obj/effect/turf_decal/edges/borderfloor{
@@ -88970,6 +88981,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "vuO" = (
@@ -89232,10 +89246,14 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/table/glass,
 /obj/item/glove_box{
-	pixel_y = 8;
-	pixel_x = -9
+	pixel_y = 2;
+	pixel_x = -14
 	},
 /obj/machinery/light/small/directional/south,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 3;
+	pixel_y = 5
+	},
 /turf/open/floor/iron/tiled,
 /area/medical/surgery/aux)
 "vyV" = (
@@ -95224,6 +95242,9 @@
 /obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
 	},
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "wQz" = (
@@ -97740,7 +97761,9 @@
 "xyB" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "xyP" = (
@@ -121224,7 +121247,7 @@ vPU
 jyl
 aGj
 xyB
-voo
+tyT
 voo
 wCr
 xbR
