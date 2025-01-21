@@ -1355,7 +1355,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mS" = (
 /obj/machinery/porta_turret/syndicate{
-	dir = 10
+	dir = 6
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
