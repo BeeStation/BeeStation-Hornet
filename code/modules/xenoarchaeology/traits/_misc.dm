@@ -14,12 +14,16 @@
 /datum/xenoartifact_trait/misc/objective
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/delicate)
 
-/datum/xenoartifact_trait/misc/objective/New(atom/_parent)
+/datum/xenoartifact_trait/misc/objective/register_parent(datum/source)
 	. = ..()
+	if(!component_parent?.parent)
+		return
 	var/atom/A = component_parent.parent
 	A.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
-/datum/xenoartifact_trait/misc/objective/Destroy(force, ...)
+/datum/xenoartifact_trait/misc/objective/remove_parent(datum/source, pensive)
+	if(!component_parent?.parent)
+		return ..()
 	var/atom/A = component_parent.parent
 	var/datum/component/gps/G = A.GetComponent(/datum/component/gps)
 	qdel(G)
