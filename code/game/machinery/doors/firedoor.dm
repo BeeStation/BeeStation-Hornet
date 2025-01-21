@@ -405,6 +405,8 @@
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
+	playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+	do_sparks(5, TRUE, src)
 	INVOKE_ASYNC(src, PROC_REF(open))
 
 /obj/machinery/door/firedoor/Bumped(atom/movable/AM)
@@ -601,7 +603,7 @@
 		correct_state() //So we should re-evaluate our state
 
 /obj/machinery/door/firedoor/close()
-	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP))
+	if(HAS_TRAIT(loc, TRAIT_FIREDOOR_STOP) || (obj_flags & EMAGGED))
 		return
 	var/old_activity = active
 	. = ..()
@@ -745,6 +747,8 @@
 				. += "<span class='notice'>It could be reinforced with plasteel.</span>"
 		if(CONSTRUCTION_NO_CIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
+	if(obj_flags & EMAGGED)
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/structure/firelock_frame/update_icon()
 	..()

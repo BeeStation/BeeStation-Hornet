@@ -163,6 +163,7 @@
 				/obj/item/clothing/shoes/laceup = 2,
 				/obj/item/clothing/shoes/winterboots = 3,
 				/obj/item/clothing/shoes/jackboots_replica = 3,
+				/obj/item/clothing/shoes/jackboots_replica/white = 3,
 			),
 		),
 
