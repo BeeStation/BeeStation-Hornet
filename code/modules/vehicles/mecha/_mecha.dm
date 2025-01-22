@@ -707,7 +707,7 @@
 		use_power(phasing_energy_drain)
 	if(strafe)
 		setDir(olddir)
-
+	after_move(direction)
 
 /obj/vehicle/sealed/mecha/Bump(atom/obstacle)
 	. = ..()

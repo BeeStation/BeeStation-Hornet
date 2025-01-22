@@ -156,6 +156,7 @@
 		return step(src, direction)
 
 /obj/vehicle/proc/after_move(direction)
+	SEND_SIGNAL(src, COMSIG_VEHICLE_MOVE, direction)
 	return
 
 /obj/vehicle/proc/add_control_flags(mob/controller, flags)
