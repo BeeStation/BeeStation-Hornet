@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - rscadd: Silicons have a new emote, slowclap
+  - tweak: MMIs can use silicon emotes
