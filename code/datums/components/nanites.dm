@@ -312,7 +312,7 @@
 
 /datum/component/nanites/proc/check_viable_biotype()
 	SIGNAL_HANDLER
-		if(!(host_mob.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE)))
+	if(!(host_mob.mob_biotypes && (MOB_ORGANIC|MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE)))
 		qdel(src) //bodytype no longer sustains nanites
 
 /datum/component/nanites/proc/check_access(datum/source, obj/O)
