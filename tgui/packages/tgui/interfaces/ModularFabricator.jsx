@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput, Tabs } from '../components';
+import { Box, Button, LabeledList, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
@@ -121,15 +121,22 @@ export const ModularFabricator = (props) => {
   return (
     <Window width={1000} height={714}>
       <Window.Content>
-        <div className="ModularFabricator__top">
-          <ModFabData />
-        </div>
-        <div className="ModularFabricator__bottom">
-          <div className="ModularFabricator__main">
-            <ModFabMain />
-          </div>
-          <div className="ModularFabricator__sidebar">
-            <SidePanel />
+        <div className="ModularFabricator">
+          <div className="vertical fill_height">
+            <ModFabSecurityMessage />
+            <div className="horizontal">
+              <div className="vertical grow fill_height">
+                <div className="data">
+                  <ModFabData />
+                </div>
+                <div className="browser">
+                  <ModFabMain />
+                </div>
+              </div>
+              <div className="side_panel">
+                <SidePanel />
+              </div>
+            </div>
           </div>
         </div>
       </Window.Content>
@@ -165,11 +172,11 @@ export const ModFabMain = (props) => {
     }
   }
   return (
-    <Section overflowY="scroll" height="100%" width="100%">
+    <>
       <ModFabCategoryList categories={items} />
       <Divider />
       {selected_category_items ? <ModFabCategoryItems items={selected_category_items} /> : ''}
-    </Section>
+    </>
   );
 };
 
@@ -179,9 +186,9 @@ export const ModFabCategoryList = (props) => {
   const [search, setSearch] = useLocalState('search', '');
   return (
     <Fragment>
-      <Box bold>
+      <Box>
         <Grid>
-          <Grid.Column>Categories</Grid.Column>
+          <Grid.Column bold>Categories</Grid.Column>
           <Grid.Column textAlign="right">
             {'Search: '}
             <Input
@@ -219,15 +226,9 @@ export const ModFabCategoryItems = (props) => {
   const [category, setCategory] = useLocalState('category', '');
   const [amount, setAmount] = useLocalState('amount', 1);
   const [search, setSearch] = useLocalState('search', '');
+
   return (
     <Fragment>
-      <Button
-        content="Return"
-        icon="backspace"
-        onClick={() => {
-          setCategory('');
-        }}
-      />
       {!!(allow_add_category && !search) && (
         <Button
           content="Add Category"
@@ -239,19 +240,26 @@ export const ModFabCategoryItems = (props) => {
           }
         />
       )}
-      <Table height="100%">
+      <Table className="item_table">
         {items.map((item) => (
-          <Table.Row height="100%" key={item.design_id}>
-            <Table.Cell>{item.name}</Table.Cell>
-            <Table.Cell>
-              {item.material_cost.map((mat) => (
-                <Box key={mat.name}>
-                  {mat.name} ({mat.amount})
-                </Box>
-              ))}
-              <Divider />
+          /* CSS can't handle height of divs inside table cells for some reason */
+          <Table.Row key={item.design_id} height="1px" className="item_row">
+            <Table.Cell height="inherit" pr={0}>
+              <div className="item_property_container">
+                <div className="item_name">{item.name}</div>
+                {!!item.desc && <div className="item_desc">{item.desc}</div>}
+              </div>
             </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle">
+            <Table.Cell pl={0} className="item_costs">
+              <div className="item_property_container">
+                {item.material_cost.map((mat) => (
+                  <Box key={mat.name}>
+                    {mat.name} ({mat.amount})
+                  </Box>
+                ))}
+              </div>
+            </Table.Cell>
+            <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
               <Button
                 icon="minus"
                 onClick={() => {
@@ -259,10 +267,10 @@ export const ModFabCategoryItems = (props) => {
                 }}
               />
             </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle">
+            <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
               <NumberInput value={amount} minValue={0} maxValue={50} onChange={(e, value) => setAmount(value)} />
             </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle">
+            <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
               <Button
                 icon="plus"
                 onClick={() => {
@@ -270,7 +278,7 @@ export const ModFabCategoryItems = (props) => {
                 }}
               />
             </Table.Cell>
-            <Table.Cell collapsing verticalAlign="middle">
+            <Table.Cell collapsing verticalAlign="middle" className="item_large_button">
               <Button
                 icon="plus-circle"
                 content="Queue"
@@ -290,53 +298,56 @@ export const ModFabCategoryItems = (props) => {
   );
 };
 
+export const ModFabSecurityMessage = (props) => {
+  const { act, data } = useBackend();
+  const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
+  return show_unlock_bar ? (
+    <NoticeBox className="ModularFabricator__security_header" color={sec_interface_unlock ? 'green' : 'red'}>
+      <Flex align="center">
+        <Flex.Item grow={1}>
+          Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid ID to unlock safety controls.
+        </Flex.Item>
+        <Flex.Item>
+          <Button
+            m={0}
+            color={sec_interface_unlock ? 'green' : 'red'}
+            icon={sec_interface_unlock ? 'unlock' : 'lock'}
+            content={hacked ? 'Reactivate' : 'Deactivate'}
+            onClick={() => act('toggle_safety')}
+          />
+        </Flex.Item>
+        <Flex.Item mx={1}>
+          <Button
+            m={0}
+            color={sec_interface_unlock ? 'green' : 'red'}
+            icon={sec_interface_unlock ? 'unlock' : 'lock'}
+            content={sec_interface_unlock ? 'Unlocked' : 'Locked'}
+            onClick={() => act('toggle_lock')}
+          />
+        </Flex.Item>
+      </Flex>
+    </NoticeBox>
+  ) : (
+    <NoticeBox textAlign="center" color="orange">
+      Nanotrasen Fabrication Unit V1.0.4
+    </NoticeBox>
+  );
+};
+
 export const ModFabData = (props) => {
   const { act, data } = useBackend();
   const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
   return (
-    <Fragment>
-      {show_unlock_bar ? (
-        <NoticeBox color={sec_interface_unlock ? 'green' : 'red'}>
-          <Flex align="center">
-            <Flex.Item grow={1}>
-              Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid ID to unlock safety controls.
-            </Flex.Item>
-            <Flex.Item>
-              <Button
-                m={0}
-                color={sec_interface_unlock ? 'green' : 'red'}
-                icon={sec_interface_unlock ? 'unlock' : 'lock'}
-                content={hacked ? 'Reactivate' : 'Deactivate'}
-                onClick={() => act('toggle_safety')}
-              />
-            </Flex.Item>
-            <Flex.Item mx={1}>
-              <Button
-                m={0}
-                color={sec_interface_unlock ? 'green' : 'red'}
-                icon={sec_interface_unlock ? 'unlock' : 'lock'}
-                content={sec_interface_unlock ? 'Unlocked' : 'Locked'}
-                onClick={() => act('toggle_lock')}
-              />
-            </Flex.Item>
-          </Flex>
-        </NoticeBox>
-      ) : (
-        <NoticeBox textAlign="center" color="orange">
-          Nanotrasen Fabrication Unit V1.0.4
-        </NoticeBox>
-      )}
-      <Section height="100px">
-        <ModFabDataDisk />
-        <Box width="150px" inline>
-          <Box bold align="center" height={1.5}>
-            Output Direction
-          </Box>
-          <OutputDir />
+    <Section height="100px">
+      <ModFabDataDisk />
+      <Box width="150px" inline>
+        <Box bold align="center" height={1.5}>
+          Output Direction
         </Box>
-        {!!can_sync && <SyncWithServers />}
-      </Section>
-    </Fragment>
+        <OutputDir />
+      </Box>
+      {!!can_sync && <SyncWithServers />}
+    </Section>
   );
 };
 
@@ -440,56 +451,70 @@ export const OutputDir = (props) => {
 export const MaterialData = (props) => {
   const { act, data } = useBackend();
   const { materials = [] } = data;
-  return (
-    <Table>
-      {materials.map((material) => (
-        <Fragment key={material.name}>
-          <Table.Row>
-            <Table.Cell>{capitalize(material.name)}</Table.Cell>
-            <Table.Cell>{material.amount} sheets</Table.Cell>
-            <Table.Cell>
-              <Button
-                color="green"
-                disabled={material.amount < 1}
-                content="x1"
-                onClick={() =>
-                  act('eject_material', {
-                    material_datum: material.datum,
-                    amount: 1,
-                  })
-                }
-              />
-            </Table.Cell>
-            <Table.Cell>
-              <Button
-                color="green"
-                disabled={material.amount < 10}
-                content="x10"
-                onClick={() =>
-                  act('eject_material', {
-                    material_datum: material.datum,
-                    amount: 10,
-                  })
-                }
-              />
-            </Table.Cell>
-            <Table.Cell>
-              <Button
-                color="green"
-                disabled={material.amount < 50}
-                content="x50"
-                onClick={() =>
-                  act('eject_material', {
-                    material_datum: material.datum,
-                    amount: 50,
-                  })
-                }
-              />
-            </Table.Cell>
-          </Table.Row>
-        </Fragment>
-      ))}
-    </Table>
+  return materials.filter((material) => material.amount > 0).length === 0 ? (
+    <div className="material_warning">No materials inserted</div>
+  ) : (
+    <>
+      <Box bold width="100%" textAlign="center" mb={1}>
+        Materials
+      </Box>
+      <Flex direction="column">
+        {materials
+          .filter((material) => material.amount > 0)
+          .map((material) => (
+            <Flex.Item key={material.datum}>
+              <Flex direction="row">
+                <Flex.Item>
+                  <Box>{capitalize(material.name)}</Box>
+                </Flex.Item>
+                <Flex.Item grow={1} />
+                <Flex.Item mr={1}>
+                  <Box>{material.amount} sheets</Box>
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    color="green"
+                    disabled={material.amount < 1}
+                    content="x1"
+                    onClick={() =>
+                      act('eject_material', {
+                        material_datum: material.datum,
+                        amount: 1,
+                      })
+                    }
+                  />
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    color="green"
+                    disabled={material.amount < 10}
+                    content="x10"
+                    onClick={() =>
+                      act('eject_material', {
+                        material_datum: material.datum,
+                        amount: 10,
+                      })
+                    }
+                  />
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    color="green"
+                    disabled={material.amount < 50}
+                    content="x50"
+                    onClick={() =>
+                      act('eject_material', {
+                        material_datum: material.datum,
+                        amount: 50,
+                      })
+                    }
+                  />
+                </Flex.Item>
+              </Flex>
+            </Flex.Item>
+          ))}
+      </Flex>
+    </>
   );
 };
 
@@ -497,34 +522,49 @@ export const SidePanel = (props) => {
   const { act } = useBackend();
   const [queueRepeat, setQueueRepeat] = useLocalState('queueRepeat', 0);
   return (
-    <Section width="100%" height="100%">
-      <MaterialData />
-      <Divider />
-      <Flex align="center">
-        <Flex.Item bold grow={1}>
-          Queue
+    <Section fill>
+      <Flex direction="column" height="100%">
+        <Flex.Item minHeight="30%">
+          <MaterialData />
         </Flex.Item>
         <Flex.Item>
-          <Button
-            m={0}
-            color={queueRepeat ? 'green' : 'red'}
-            icon="redo-alt"
-            content={queueRepeat ? 'Continuous' : 'Linear'}
-            onClick={() => {
-              act('queue_repeat', {
-                repeating: 1 - queueRepeat,
-              });
-              setQueueRepeat(1 - queueRepeat);
-            }}
-          />
+          <Divider />
         </Flex.Item>
-        <Flex.Item mx={1}>
-          <Button m={0} color="red" icon="times" content="Clear" onClick={() => act('clear_queue')} />
+        <Flex.Item>
+          <Flex align="center">
+            <Flex.Item bold grow={1}>
+              Queue
+            </Flex.Item>
+            <Flex.Item>
+              <Button
+                m={0}
+                color={queueRepeat ? 'green' : 'red'}
+                icon="redo-alt"
+                content={queueRepeat ? 'Continuous' : 'Linear'}
+                onClick={() => {
+                  act('queue_repeat', {
+                    repeating: 1 - queueRepeat,
+                  });
+                  setQueueRepeat(1 - queueRepeat);
+                }}
+              />
+            </Flex.Item>
+            <Flex.Item mx={1}>
+              <Button m={0} color="red" icon="times" content="Clear" onClick={() => act('clear_queue')} />
+            </Flex.Item>
+          </Flex>
+        </Flex.Item>
+        <Flex.Item>
+          <Divider />
+        </Flex.Item>
+        <Flex.Item>
+          <FabricationQueue />
+        </Flex.Item>
+        <Flex.Item grow={1} />
+        <Flex.Item>
+          <ProcessingBar />
         </Flex.Item>
       </Flex>
-      <Divider />
-      <FabricationQueue />
-      <ProcessingBar />
     </Section>
   );
 };
@@ -533,14 +573,14 @@ export const ProcessingBar = (props) => {
   const { act, data } = useBackend();
   const { being_build } = data;
   return (
-    <div className="ModularFabricator__sidebar_bottom">
+    <div className="processing_bar">
       <Button content="Process" color="green" icon="caret-right" onClick={() => act('begin_process')} />
       {being_build ? (
-        <ProgressBar value={being_build.progress} minValue={0} maxValue={100} color="green" width="75%">
+        <ProgressBar value={being_build.progress} minValue={0} maxValue={100} color="green" width="100%">
           {being_build.name} - {Math.min(round(being_build.progress), 100)}%
         </ProgressBar>
       ) : (
-        <NoticeBox bold width="75%" inline>
+        <NoticeBox bold width="100%" inline>
           Not Processing.
         </NoticeBox>
       )}
@@ -552,37 +592,40 @@ export const FabricationQueue = (props) => {
   const { act, data } = useBackend();
   const { queue = [] } = data;
   return (
-    <Table>
+    <Flex direction="column">
       {queue.map((item) => (
-        <Table.Row key={item}>
-          <Table.Cell bold>{item.name}</Table.Cell>
-          <Table.Cell>x{item.amount}</Table.Cell>
-          <Table.Cell collapsing>
-            <Button
-              icon="redo-alt"
-              color={item.repeat ? 'green' : 'red'}
-              onClick={() =>
-                act('item_repeat', {
-                  design_id: item.design_id,
-                  repeating: 1 - item.repeat,
-                })
-              }
-            />
-          </Table.Cell>
-          <Table.Cell collapsing>
-            <Button
-              icon="times"
-              color="red"
-              onClick={() =>
-                act('clear_item', {
-                  design_id: item.design_id,
-                })
-              }
-            />
-          </Table.Cell>
-        </Table.Row>
+        <Flex.Item key={item}>
+          <Flex direction="row" key={item}>
+            <Flex.Item bold>{item.name}</Flex.Item>
+            <Flex.Item grow={1} />
+            <Flex.Item mr={1}>x{item.amount}</Flex.Item>
+            <Flex.Item collapsing mr={1}>
+              <Button
+                icon="redo-alt"
+                color={item.repeat ? 'green' : 'red'}
+                onClick={() =>
+                  act('item_repeat', {
+                    design_id: item.design_id,
+                    repeating: 1 - item.repeat,
+                  })
+                }
+              />
+            </Flex.Item>
+            <Flex.Item collapsing mr={1}>
+              <Button
+                icon="times"
+                color="red"
+                onClick={() =>
+                  act('clear_item', {
+                    design_id: item.design_id,
+                  })
+                }
+              />
+            </Flex.Item>
+          </Flex>
+        </Flex.Item>
       ))}
-    </Table>
+    </Flex>
   );
 };
 
