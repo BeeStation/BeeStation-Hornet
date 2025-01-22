@@ -10,7 +10,7 @@
 	head_icon = 'icons/mob/pets_held.dmi'
 	butcher_results = list(/obj/item/food/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
 	density = TRUE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_SMALL
 	mobility_flags = MOBILITY_FLAGS_DEFAULT
 	health = 25
