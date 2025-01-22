@@ -48652,6 +48652,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "msg" = (
@@ -60904,6 +60905,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "pFL" = (
@@ -61203,7 +61205,6 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/south,
-/obj/machinery/firealarm/directional/south,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "pJl" = (
@@ -65798,6 +65799,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/crew_quarters/theatre/backstage)
 "qQM" = (
@@ -70768,6 +70770,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "sdg" = (
@@ -70795,6 +70798,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "sdA" = (
@@ -72726,6 +72730,8 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "sCS" = (
@@ -83449,6 +83455,7 @@
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "vlS" = (
