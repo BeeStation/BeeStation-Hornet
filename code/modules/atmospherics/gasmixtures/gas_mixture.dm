@@ -735,7 +735,6 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	VV_DROPDOWN_OPTION(VV_HK_EMPTY, "Empty")
 	VV_DROPDOWN_OPTION(VV_HK_SET_MOLES, "Set Moles")
 	VV_DROPDOWN_OPTION(VV_HK_SET_TEMPERATURE, "Set Temperature")
-	VV_DROPDOWN_OPTION(VV_HK_UPDATE_ACTIVE_TURF, "Update Turf Air")
 
 /datum/gas_mixture/vv_do_topic(list/href_list)
 	. = ..()
