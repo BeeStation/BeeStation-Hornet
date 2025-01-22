@@ -10980,21 +10980,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
-"cAW" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
-/turf/open/floor/carpet/black,
-/area/vacant_room/office)
 "cAX" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
@@ -41376,7 +41361,6 @@
 	},
 /obj/effect/turf_decal/alphabet/letter_u/cardinal,
 /obj/effect/turf_decal/alphabet/letter_t/quarter,
-/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
 "jYh" = (
@@ -52330,6 +52314,21 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/eva)
+"mGO" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/plaques/golden{
+	pixel_y = 30
+	},
+/turf/open/floor/carpet/black,
+/area/vacant_room/office)
 "mHc" = (
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
@@ -62395,8 +62394,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/structure/sign/plaques/golden{
-	pixel_y = 30
+/obj/structure/sign/poster/official/fruit_bowl{
+	pixel_y = 32
 	},
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
@@ -130790,7 +130789,7 @@ usW
 usW
 jgT
 yda
-oZr
+mGO
 vkY
 irH
 dPS
@@ -131304,7 +131303,7 @@ qYL
 cRO
 mgG
 iQT
-cAW
+oZr
 vkY
 jal
 dPS
