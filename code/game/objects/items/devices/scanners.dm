@@ -542,39 +542,48 @@ GENE SCANNER
 
 /proc/genescan(mob/living/carbon/C, mob/user, list/discovered)
 	. = TRUE
-
+	if(!iscarbon(C) || !C.has_dna())
+		return FALSE
+	if(HAS_TRAIT(C, TRAIT_RADIMMUNE) || HAS_TRAIT(C, TRAIT_BADDNA))
+		return FALSE
 	var/list/message = list()
 	var/list/active_inherent_muts = list()
 	var/list/active_injected_muts = list()
 	var/list/inherent_muts = list()
-	var/list/mut_index = C.dna.mutation_index
+	var/list/mut_index = C.dna.mutation_index.Copy()
 
-	for(var/datum/mutation/each_mutation in mut_index)
-		var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
-
+	for(var/datum/mutation/each in C.dna.mutations)
 		//get name and alias if discovered (or no discovered list was provided) or just alias if not
+		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each.type) //have to do this as instances of mutation do not have alias but global ones do....
 		var/each_mut_details = "ERROR"
-		if(HM)
-			if(!discovered || each_mutation.type in discovered)
-				each_mut_details = "<span class='info'>[HM.name] ([HM.alias])</span>"
-			else
-				each_mut_details = "<span class='info'>[HM.alias]</span>"
+		if(!discovered || (each_mutation.type in discovered))
+			each_mut_details = "<span class='info'>[each_mutation.name] ([each_mutation.alias])</span>"
 		else
-			each_mut_details = "ERROR"
+			each_mut_details = "<span class='info'>[each_mutation.alias]</span>"
 
-		//add mutation readout for all inherent mutations (activated or not)
-		inherent_muts += each_mut_details
 		if(each_mutation.type in mut_index)
 			//add mutation readout for all active inherent mutations
-			active_inherent_muts += each_mut_details
+			active_inherent_muts += "[each_mut_details]<span class='info bold'> : Active </span>"
+			mut_index -= each_mutation.type
 		else
 			//add mutation readout for all injected (not inherent) mutations
 			active_injected_muts += each_mut_details
 
+	for(var/each in mut_index)
+		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each)
+		var/each_mut_details = "ERROR"
+		if(each_mutation)
+			//repeating this code twice is nasty, but nested procs (if even possible??) or more global procs then needed is... less so
+			if(!discovered || (each_mutation.type in discovered))
+				each_mut_details = "<span class='info'>[each_mutation.name] ([each_mutation.alias])</span>"
+			else
+				each_mut_details = "<span class='info'>[each_mutation.alias]</span>"
+		inherent_muts += each_mut_details
+
 	message += "<span class='boldnotice'>[C] scan results</span>"
-	active_inherent_muts.len > 0 ? message += "<span class='info bold'>Active mutations:\n</span>[jointext(active_inherent_muts, "\n")]" : "<span class='info bold'>No active mutations:\n</span>"
-	active_injected_muts.len > 0 ? message += "<span class='info bold'>Injected mutations:\n</span>[jointext(active_injected_muts, "\n")]" : "<span class='info bold'>No injected mutations:\n</span>"
-	message += "<span class='info bold'>Inherent mutations:\n</span>[jointext(inherent_must, "\n")]"
+	active_inherent_muts.len > 0 ? (message += "[jointext(active_inherent_muts, "\n")]") : ""
+	inherent_muts.len > 0 ? (message += "[jointext(inherent_muts, "\n")]") : ""
+	active_injected_muts.len > 0 ? (message += "<span class='info bold'>Injected mutations:\n</span>[jointext(active_injected_muts, "\n")]") : ""
 
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
@@ -1010,24 +1019,7 @@ GENE SCANNER
 		return
 	buffer = C.dna.mutation_index
 	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
-
-	var/list/full_list_mutations = list()
-	for(var/each in buffer) // get inherent mutations first
-		full_list_mutations[each] = FALSE
-	for(var/datum/mutation/each_mutation in C.dna.mutations)
-		if(each_mutation.type in buffer) // active inherent mutation
-			full_list_mutations[each_mutation.type] = "Activated"
-		else // active artificial mutation
-			full_list_mutations[each_mutation.type] = "Injected"
-	for(var/datum/mutation/each_mutation in C.dna.temporary_mutations)
-		full_list_mutations[each_mutation.type] = "Temporary"
-
-	for(var/A in full_list_mutations)
-		to_chat(user, "\t<span class='notice'>[get_display_name(A)]</span>") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
-	to_chat(user, "\t<span class='info'>Genetic Stability: [C.dna.stability]%.</span>")
-	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
-		to_chat(user, "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>")
-
+	genescan(C, user, discovered)
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
 	if(!LAZYLEN(buffer) || !ready)

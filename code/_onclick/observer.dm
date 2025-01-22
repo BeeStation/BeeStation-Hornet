@@ -66,9 +66,8 @@
 		if(user.health_scan)
 			healthscan(user, src, 1, TRUE)
 			chemscan(user, src, 1, TRUE)
-		//if(user.genetics_scan)
-		//	gene_scan(src, user) //genetics makes me hate my life!!!!
-
+		if(user.genetics_scan)
+			genescan(src, user)
 	return ..()
 
 // ---------------------------------------
