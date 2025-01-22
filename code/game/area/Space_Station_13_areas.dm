@@ -709,6 +709,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
+/area/crew_quarters/barbershop
+	name = "Barbershop"
+	icon_state = "yellow"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
+
 /area/crew_quarters/fitness
 	name = "Fitness Room"
 	icon_state = "fitness"
@@ -1180,6 +1185,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/surgery/aux
 	name = "Auxillery Surgery"
 	icon_state = "surgery"
+
+/area/medical/booth
+	name = "Medical Booth"
 
 /area/medical/cryo
 	name = "Cryogenics"
