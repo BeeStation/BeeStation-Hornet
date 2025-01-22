@@ -304,28 +304,42 @@
  * This handles creating an alert and adding an overlay to it
  */
 
-/mob/living/carbon/proc/give()
-	var/obj/item/offered_item = get_active_held_item()
-	if(!offered_item)
-		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
+/mob/living/carbon/proc/give(mob/living/carbon/offered)
+	if(has_status_effect(/datum/status_effect/offering))
+		to_chat(src, "<span class='warning'>You're already offering up something!</span>")
 		return
 
 	if(IS_DEAD_OR_INCAP(src))
 		to_chat(src, "<span class='warning'>You're unable to offer anything in your current state!</span>")
 		return
-	if(has_status_effect(STATUS_EFFECT_OFFERING))
-		to_chat(src, "<span class='warning'>You're already offering up something!</span>")
+
+	var/obj/item/offered_item = get_active_held_item()
+	if(!offered_item)
+		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
 		return
+
+	if(offered)
+		if(IS_DEAD_OR_INCAP(offered))
+			to_chat(src, "<span class='warning'>They're unable to take anything in their current state!</span>")
+			return
+
+		if(!CanReach(offered))
+			to_chat(src, "<span class='warning'>You have to be adjacent to offer things!</span>")
+			return
+	else
+		if(!(locate(/mob/living/carbon) in orange(1, src)))
+			to_chat(src, "<span class='warning'>There's nobody adjacent to offer it to!</span>")
+			return
 
 	if(offered_item.on_offered(src)) // see if the item interrupts with its own behavior
 		return
 
-	visible_message("<span class='notice'>[src] is offering [offered_item].</span>", \
-					"<span class='notice'>You offer [offered_item].</span>", null, 2)
+	visible_message("<span class='notice'>[src] is offering [offered ? "[offered] " : ""][offered_item].</span>", \
+					"<span class='notice'>You offer [offered ? "[offered] " : ""][offered_item].</span>", null, 2)
 
 	INVOKE_ASYNC(src, PROC_REF(emote), "offer")
 
-	apply_status_effect(STATUS_EFFECT_OFFERING, offered_item)
+	apply_status_effect(/datum/status_effect/offering, offered_item, null, offered)
 
 /**
  * Proc called when the player clicks the give alert
@@ -339,6 +353,9 @@
 
 /mob/living/carbon/proc/take(mob/living/carbon/offerer, obj/item/I)
 	clear_alert("[offerer]")
+	if(IS_DEAD_OR_INCAP(src))
+		to_chat(src,  "<span class='warning'>You're unable to take anything in your current state!</span>")
+		return
 	if(get_dist(src, offerer) > 1)
 		to_chat(src, "<span class='warning'>[offerer] is out of range!</span>")
 		return
