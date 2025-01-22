@@ -22,16 +22,19 @@
 	species_l_leg = /obj/item/bodypart/l_leg/shadow
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
+	var/shadow_sect_dependency = 0 // only important if shadow sect is at play
+
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
+		var/sensitivity = 1 + shadow_sect_dependency * 1.5
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-			H.take_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+			H.take_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+			H.heal_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -49,13 +52,13 @@
 	if(C.dna.species.id != "nightmare")
 		if(sect.grand_ritual_level == 1)
 			mutantheart = new/obj/item/organ/heart/shadow_ritual1  // to fix
-			mutantheart.Insert(C, TRUE, FALSE)
+			mutantheart.Insert(C, 0, FALSE)
 		if(sect.grand_ritual_level == 2)
 			mutantheart = new/obj/item/organ/heart/shadow_ritual2
-			mutantheart.Insert(C, TRUE, FALSE)
+			mutantheart.Insert(C, 0, FALSE)
 		if(sect.grand_ritual_level == 3)
 			mutantheart = new/obj/item/organ/heart/shadow_ritual3
-			mutantheart.Insert(C, TRUE, FALSE)
+			mutantheart.Insert(C, 0, FALSE)
 
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
@@ -358,10 +361,9 @@
 	..()
 
 #undef HEART_SPECIAL_SHADOWIFY
-#undef HEART_RESPAWN_THRESHOLD
+
 
 // Shadow sect organs
-
 
 
 /obj/item/organ/heart/shadow_ritual1
@@ -372,7 +374,6 @@
 	visual = TRUE
 	decay_factor = 0
 
-
 /obj/item/organ/heart/shadow_ritual2
 	name = "faded heart"
 	desc = "Its hard to make out a heart under the cover of this ever shifting darknes."
@@ -381,7 +382,6 @@
 	visual = TRUE
 	decay_factor = 0
 
-
 /obj/item/organ/heart/shadow_ritual3
 	name = "pulsing darknes"
 	desc = "You cant see the object covered in darknes, no light can dispell it. You can only see how the darkness itself moves, pulsing time and time again."
@@ -389,6 +389,8 @@
 	icon_state = "shadow_heart_3"
 	visual = TRUE
 	decay_factor = 0
+	var/respawn_progress = 0
+
 
 /obj/item/organ/heart/shadow_ritual1/Stop()
 	return 0
@@ -400,20 +402,62 @@
 	return 0
 
 
-/*
-/obj/item/organ/heart/nightmare/update_icon()
-	return //always beating visually
+/obj/item/organ/heart/shadow_ritual1/update_icon()
+	return
 
-/obj/item/organ/heart/nightmare/Stop()
-	return 0
+/obj/item/organ/heart/shadow_ritual2/update_icon()
+	return
 
-/obj/item/organ/heart/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/shadow_ritual3/update_icon()
+	return
+
+
+/obj/item/organ/heart/shadow_ritual1/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
-	if(special != HEART_SPECIAL_SHADOWIFY)
-		blade = new/obj/item/light_eater
-		M.put_in_hands(blade)
+	if(isshadow(M))
+		var/mob/living/carbon/human/S = M
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.shadow_sect_dependency = 1
 
-/obj/item/organ/heart/nightmare/on_death()
+/obj/item/organ/heart/shadow_ritual2/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	if(isshadow(M))
+		var/mob/living/carbon/human/S = M
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.shadow_sect_dependency = 2
+
+/obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	if(isshadow(M))
+		var/mob/living/carbon/human/S = M
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.shadow_sect_dependency = 3
+
+
+/obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	if(isshadow(M))
+		var/mob/living/carbon/human/S = M
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.shadow_sect_dependency = 0
+
+/obj/item/organ/heart/shadow_ritual2/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	if(isshadow(M))
+		var/mob/living/carbon/human/S = M
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.shadow_sect_dependency = 0
+
+/obj/item/organ/heart/shadow_ritual3/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	respawn_progress = 0
+	if(isshadow(M))
+		var/mob/living/carbon/human/S = M
+		var/datum/species/shadow/spiec = S.dna.species
+		spiec.shadow_sect_dependency = 0
+
+
+/obj/item/organ/heart/shadow_ritual3/on_death()
 	if(!owner)
 		return
 	var/turf/T = get_turf(owner)
@@ -426,9 +470,7 @@
 		owner.revive(full_heal = TRUE)
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
-			Remove(owner, HEART_SPECIAL_SHADOWIFY)
 			old_owner.set_species(/datum/species/shadow)
-			Insert(old_owner, HEART_SPECIAL_SHADOWIFY)
 			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping into the center of your chest! You're alive!</span>")
 			SEND_SOUND(owner, sound('sound/effects/ghost.ogg'))
 		owner.visible_message("<span class='warning'>[owner] staggers to [owner.p_their()] feet!</span>")
@@ -436,14 +478,4 @@
 		respawn_progress = 0
 
 
-/obj/item/organ/heart/nightmare
-	name = "heart of darkness"
-	desc = "An alien organ that twists and writhes when exposed to light."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "demon_heart-on"
-	visual = TRUE
-	decay_factor = 0
-
-
-/obj/item/organ/heart/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-*/
+#undef HEART_RESPAWN_THRESHOLD

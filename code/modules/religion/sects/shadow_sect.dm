@@ -38,7 +38,7 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.change_hearts_ritual(blessed)
 		blessed.heal_overall_damage(5, 5, 20, BODYTYPE_ORGANIC)
-		to_chat(L, "<span class='notice'>You bless [blessed] with the power of [GLOB.deity], healing them and spreding blessings.</span>")
+		to_chat(user, "<span class='notice'>You bless [blessed] with the power of [GLOB.deity], healing them and spreding blessings.</span>")
 	return TRUE
 
 
