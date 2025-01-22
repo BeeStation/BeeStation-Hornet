@@ -142,8 +142,10 @@
 /mob/living/proc/airlock_opened(datum/source)
 	SIGNAL_HANDLER
 
-	// Make sure we unregister signal handlers and reset animation
-	stop_leaning()
+	if(HAS_TRAIT(src, NO_GRAVITY_TRAIT)) //If there's no gravity on the mob, don't fall lmao
+		return
+
+	stop_leaning() // Make sure we unregister signal handlers and reset animation
 	forceMove(get_turf(source))
 	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the airlock you were leaning on opens!</span>")
 	Knockdown(3 SECONDS) //boowomp
