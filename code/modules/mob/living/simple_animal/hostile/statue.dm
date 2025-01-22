@@ -228,4 +228,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 		target.update_sight()
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
-	faction -= "neutral"
+	faction -= FACTION_NEUTRAL

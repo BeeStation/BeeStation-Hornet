@@ -863,7 +863,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	desc = "A turret built with substandard parts and run down further with age. Still capable of delivering lethal lasers to the odd space carp, but not much else."
 	stun_projectile = /obj/projectile/beam/weak/penetrator
 	lethal_projectile = /obj/projectile/beam/weak/penetrator
-	faction = list("neutral","silicon","turret")
+	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 
 ////////////////////////
 //Turret Control Panel//

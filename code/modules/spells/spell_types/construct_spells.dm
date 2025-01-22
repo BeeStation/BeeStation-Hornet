@@ -338,7 +338,7 @@
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	check_holy = TRUE
-	ignored_factions = list("cult")
+	ignored_factions = FACTION_CULT
 	range = 15
 	speed = 7
 

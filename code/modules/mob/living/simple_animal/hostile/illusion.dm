@@ -36,7 +36,7 @@
 	health = hp
 	melee_damage = damage
 	multiply_chance = replicate
-	faction -= "neutral"
+	faction -= FACTION_NEUTRAL
 	transform = initial(transform)
 	pixel_y = base_pixel_y
 	pixel_x = base_pixel_x
