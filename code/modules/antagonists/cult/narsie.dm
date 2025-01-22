@@ -63,7 +63,7 @@
 /obj/eldritch/narsie/proc/greeting_message()
 	send_to_playing_players("<span class='narsie'>NAR'SIE HAS RISEN</span>")
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')
-	sound_to_playing_players('sound/soundtrack/tearofveil.ogg')
+	play_soundtrack_music(/datum/soundtrack_song/tearofveil)
 	var/area/area = get_area(src)
 	if(area)
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "ghostalertsie")

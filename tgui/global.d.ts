@@ -35,6 +35,16 @@ type ByondType = {
   windowId: string;
 
   /**
+   * The major version of byond.
+   */
+  BYOND_MAJOR: string;
+
+  /**
+   * The minor (build) version of byond.
+   */
+  BYOND_MINOR: string;
+
+  /**
    * True if javascript is running in BYOND.
    */
   IS_BYOND: boolean;
@@ -191,4 +201,6 @@ const Byond: ByondType;
 
 interface Window {
   Byond: ByondType;
+  __store__: Store<unknown, AnyAction>;
+  __augmentStack__: (store: Store) => StackAugmentor;
 }
