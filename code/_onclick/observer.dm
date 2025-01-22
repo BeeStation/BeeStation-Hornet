@@ -52,6 +52,9 @@
 	if(user.client)
 		if(user.gas_scan && atmosanalyzer_scan(user, src))
 			return TRUE
+		//additional arguments are here due to how extrapolators work
+		if(user.virus_scan && virusscan(user, src, 10, 10, list()))
+			return TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)
 		else if(user.client.prefs.read_player_preference(/datum/preference/toggle/inquisitive_ghost))
@@ -59,9 +62,13 @@
 	return FALSE
 
 /mob/living/attack_ghost(mob/dead/observer/user)
-	if(user.client && user.health_scan)
-		healthscan(user, src, 1, TRUE)
-		chemscan(user, src, 1, TRUE)
+	if(user.client)
+		if(user.health_scan)
+			healthscan(user, src, 1, TRUE)
+			chemscan(user, src, 1, TRUE)
+		//if(user.genetics_scan)
+		//	gene_scan(src, user) //genetics makes me hate my life!!!!
+
 	return ..()
 
 // ---------------------------------------

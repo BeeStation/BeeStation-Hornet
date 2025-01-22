@@ -503,6 +503,43 @@ GENE SCANNER
 	else
 		return(jointext(message, "\n"))
 
+/**
+ * Scans an atom, showing any (detectable) diseases they may have.
+ */
+/proc/virusscan(mob/user, atom/target, var/maximum_stealth, var/maximum, var/list/extracted_ids)
+	. = TRUE
+	var/list/result = target?.extrapolator_act(user, target)
+	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
+	if(!length(diseases))
+		return FALSE
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
+		return
+	var/list/message = list()
+	if(length(diseases))
+		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
+		message += "<span class='boldnotice'>[costly_icon2html(target, user)] [target] scan results</span>"
+		for(var/datum/disease/disease in diseases)
+			if(istype(disease, /datum/disease/advance))
+				var/datum/disease/advance/advance_disease = disease
+				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
+					continue
+				var/list/properties
+				if(!advance_disease.mutable)
+					LAZYADD(properties, "immutable")
+				if(advance_disease.faltered)
+					LAZYADD(properties, "faltered")
+				if(advance_disease.carrier)
+					LAZYADD(properties, "carrier")
+				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				if(extracted_ids[advance_disease.GetDiseaseID()])
+					message += "<span class='info italics'>This virus has been extracted previously.</span>"
+				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
+				for(var/datum/symptom/symptom in advance_disease.symptoms)
+					message += "[symptom.name]"
+			else
+				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
@@ -1132,7 +1169,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 			// extrapolator_act did some sort of special behavior, we don't need to do anything further
 			return
 		if(scan)
-			scan(user, target)
+			virusscan(user, target, maximum_stealth, maximum_level, extracted_ids)
 		else
 			extrapolate(user, target)
 	else
@@ -1148,43 +1185,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 		if(length(result[EXTRAPOLATOR_RESULT_DISEASES]))
 			. += target_to_try
 
-/**
- * Scans an atom, showing any (detectable) diseases they may have.
- */
-/obj/item/extrapolator/proc/scan(mob/living/user, atom/target)
-	. = TRUE
-	var/list/result = target?.extrapolator_act(user, target)
-	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
-	if(!length(diseases))
-		return FALSE
-	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
-		return
-	var/list/message = list()
-	if(length(diseases))
-		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
-		message += "<span class='boldnotice'>[costly_icon2html(target, user)] [target] scan results</span>"
-		message += "<span class='boldnotice'>[icon2html(src, user)] \The [src] detects the following diseases:</span>"
-		for(var/datum/disease/disease in diseases)
-			if(istype(disease, /datum/disease/advance))
-				var/datum/disease/advance/advance_disease = disease
-				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
-					continue
-				var/list/properties
-				if(!advance_disease.mutable)
-					LAZYADD(properties, "immutable")
-				if(advance_disease.faltered)
-					LAZYADD(properties, "faltered")
-				if(advance_disease.carrier)
-					LAZYADD(properties, "carrier")
-				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
-				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
-				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
-				for(var/datum/symptom/symptom in advance_disease.symptoms)
-					message += "[symptom.name]"
-			else
-				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
 
 /**
  * Attempts to either extract a disease from an atom, or isolate a symptom from an advance disease.
