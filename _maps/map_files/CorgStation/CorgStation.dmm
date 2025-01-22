@@ -10876,8 +10876,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/binary/pump/layer2{
-	name = "Distro to Xenobio Air Storage";
+/obj/machinery/atmospherics/components/binary/pump/on/layer2{
 	target_pressure = 4500
 	},
 /turf/open/floor/iron/white,
@@ -15464,10 +15463,10 @@
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer2{
 	hide = 1
 	},
-/obj/machinery/atmospherics/components/binary/valve/digital/on/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/hallway/primary/aft)
 "faj" = (
@@ -18478,6 +18477,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "fWA" = (
@@ -18623,6 +18628,9 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "fYD" = (
@@ -34533,8 +34541,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump/layer2{
-	name = "Xenobio Distro Pump";
+/obj/machinery/atmospherics/components/binary/pump/on/layer2{
 	dir = 8;
 	target_pressure = 500
 	},
@@ -47809,6 +47816,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "pIu" = (
@@ -53055,12 +53065,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/valve/digital/layer4{
-	dir = 4;
-	name = "Xenobiology Scrubbers Shutoff"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
@@ -53085,6 +53094,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "rxf" = (
@@ -65906,10 +65917,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/components/binary/valve/digital/layer2{
-	name = "Xenobiology Distro Shutoff"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer2,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "vHS" = (

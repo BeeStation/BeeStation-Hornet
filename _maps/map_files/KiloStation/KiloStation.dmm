@@ -13153,7 +13153,6 @@
 	},
 /area/maintenance/fore)
 "cGD" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "External Freight Airlock"
 	},
@@ -21397,7 +21396,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/port)
 "eYo" = (
-/obj/machinery/door/firedoor,
 /obj/structure/door_assembly/door_assembly_ext{
 	anchored = 1
 	},
@@ -30702,6 +30700,7 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "hXZ" = (
@@ -33006,7 +33005,6 @@
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "iKq" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external/glass{
 	name = "External Freight Airlock"
 	},
@@ -37357,6 +37355,16 @@
 /obj/machinery/fax/cargo,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"kgU" = (
+/obj/machinery/door/airlock/external{
+	name = "External Freight Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/warehouse)
 "khe" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "research Lab Maintenance";
@@ -132712,7 +132720,7 @@ aeu
 act
 cGD
 cvt
-wvx
+kgU
 iwn
 abq
 act
