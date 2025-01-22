@@ -4,10 +4,6 @@ on:
     branches:
     - master
     - 'project/**'
-  pull_request:
-    branches:
-    - master
-    - 'project/**'
   merge_group:
     branches:
     - master
