@@ -540,6 +540,45 @@ GENE SCANNER
 				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
+/proc/genescan(mob/living/carbon/C, mob/user, list/discovered)
+	. = TRUE
+
+	var/list/message = list()
+	var/list/active_inherent_muts = list()
+	var/list/active_injected_muts = list()
+	var/list/inherent_muts = list()
+	var/list/mut_index = C.dna.mutation_index
+
+	for(var/datum/mutation/each_mutation in mut_index)
+		var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
+
+		//get name and alias if discovered (or no discovered list was provided) or just alias if not
+		var/each_mut_details = "ERROR"
+		if(HM)
+			if(!discovered || each_mutation.type in discovered)
+				each_mut_details = "<span class='info'>[HM.name] ([HM.alias])</span>"
+			else
+				each_mut_details = "<span class='info'>[HM.alias]</span>"
+		else
+			each_mut_details = "ERROR"
+
+		//add mutation readout for all inherent mutations (activated or not)
+		inherent_muts += each_mut_details
+		if(each_mutation.type in mut_index)
+			//add mutation readout for all active inherent mutations
+			active_inherent_muts += each_mut_details
+		else
+			//add mutation readout for all injected (not inherent) mutations
+			active_injected_muts += each_mut_details
+
+	message += "<span class='boldnotice'>[C] scan results</span>"
+	active_inherent_muts.len > 0 ? message += "<span class='info bold'>Active mutations:\n</span>[jointext(active_inherent_muts, "\n")]" : "<span class='info bold'>No active mutations:\n</span>"
+	active_injected_muts.len > 0 ? message += "<span class='info bold'>Injected mutations:\n</span>[jointext(active_injected_muts, "\n")]" : "<span class='info bold'>No injected mutations:\n</span>"
+	message += "<span class='info bold'>Inherent mutations:\n</span>[jointext(inherent_must, "\n")]"
+
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
+
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
