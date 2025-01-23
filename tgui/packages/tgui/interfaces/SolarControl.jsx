@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Grid, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SolarControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SolarControl = (props) => {
+  const { act, data } = useBackend();
   const { generated, angle, tracking_state, tracking_rate, connected_panels, connected_tracker } = data;
   return (
     <Window width={380} height={230}>
