@@ -55,14 +55,14 @@
 
 /datum/martial_art/krav_maga/teach(mob/living/owner, make_temporary=FALSE)
 	if(..())
-		to_chat(H, span_userdanger("You know the arts of [name]!"))
-		to_chat(H, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
+		to_chat(owner, span_userdanger("You know the arts of [name]!"))
+		to_chat(owner, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
 		neckchop.Grant(owner)
 		legsweep.Grant(owner)
 		lungpunch.Grant(owner)
 
 /datum/martial_art/krav_maga/on_remove(mob/living/owner)
-	to_chat(H, span_userdanger("You suddenly forget the arts of [name]..."))
+	to_chat(owner, span_userdanger("You suddenly forget the arts of [name]..."))
 	neckchop.Remove(owner)
 	legsweep.Remove(owner)
 	lungpunch.Remove(owner)

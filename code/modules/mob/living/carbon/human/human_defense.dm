@@ -221,9 +221,9 @@
 
 /mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
 	if(check_shields(user, 0, "the [user.name]", UNARMED_ATTACK))
-		visible_message(span_danger("[M] attempts to touch [src]!"), \
-						span_danger("[M] attempts to touch you!"), span_hear("You hear a swoosh!"), null, M)
-		to_chat(M, span_warning("You attempt to touch [src]!"))
+		visible_message(span_danger("[user] attempts to touch [src]!"), \
+						span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
+		to_chat(user, span_warning("You attempt to touch [src]!"))
 		return 0
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))

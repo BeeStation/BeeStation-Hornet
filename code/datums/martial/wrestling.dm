@@ -98,8 +98,8 @@
 
 /datum/martial_art/wrestling/teach(mob/living/owner, make_temporary=FALSE)
 	if(..())
-		to_chat(H, span_userdanger("SNAP INTO A THIN TIM!"))
-		to_chat(H, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
+		to_chat(owner, span_userdanger("SNAP INTO A THIN TIM!"))
+		to_chat(owner, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
 		drop.Grant(owner)
 		kick.Grant(owner)
 		slam.Grant(owner)
@@ -107,7 +107,7 @@
 		strike.Grant(owner)
 
 /datum/martial_art/wrestling/on_remove(mob/living/owner)
-	to_chat(H, span_userdanger("You no longer feel that the tower of power is too sweet to be sour..."))
+	to_chat(owner, span_userdanger("You no longer feel that the tower of power is too sweet to be sour..."))
 	drop.Remove(owner)
 	kick.Remove(owner)
 	slam.Remove(owner)
