@@ -33,8 +33,14 @@
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
+			if(shadow_sect_dependency == 3)
+				//alpha
+				//speed
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 			H.heal_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
+			if(shadow_sect_dependency == 3)
+				//alpha
+				//speed
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -464,7 +470,7 @@
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
-			respawn_progress++
+			respawn_progress = respawn_progress + 0.5
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
