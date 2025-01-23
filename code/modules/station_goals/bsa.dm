@@ -49,7 +49,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/back)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/back)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You store linkage information in [buffer_parent]'s buffer."))
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
@@ -62,7 +62,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/front)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/front)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You store linkage information in [buffer_parent]'s buffer."))
 	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/bsa/middle
@@ -78,15 +78,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	if(buffer)
 		if(istype(buffer, /obj/machinery/bsa/back))
 			back_ref = WEAKREF(buffer)
-			to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+			to_chat(user, span_notice("You link [src] with [buffer]."))
 			FLUSH_BUFFER(buffer_parent)
-			to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+			to_chat(user, span_notice("You link [src] with [buffer]."))
 		else if(istype(buffer, /obj/machinery/bsa/front))
 			front_ref = WEAKREF(buffer)
-			to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+			to_chat(user, span_notice("You link [src] with [buffer]."))
 			FLUSH_BUFFER(buffer_parent)
 	else
-		to_chat(user, "<span class='warning'>[buffer_parent]'s data buffer is empty!</span>")
+		to_chat(user, span_warning("[buffer_parent]'s data buffer is empty!"))
 	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/bsa/middle/proc/check_completion()

@@ -154,11 +154,11 @@
 		return
 
 	if(focus.buckled_mobs)
-		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
+		to_chat(user, span_notice("This object is too heavy to move with something buckled to it!"))
 		return
 
 	if(locate(/mob/living) in target)
-		to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
+		to_chat(user, span_notice("This object is too heavy to move with something inside of it!"))
 		return
 
 	if(!isturf(target) && isitem(focus) && target.Adjacent(focus))
@@ -178,7 +178,7 @@
 /proc/tkMaxRangeCheck(mob/user, atom/target)
 	var/d = get_dist(user, target)
 	if(d > TK_MAXRANGE)
-		to_chat(user, "<span class ='warning'>Your mind won't reach that far.</span>")
+		to_chat(user, span_warning("Your mind won't reach that far."))
 		return
 	return TRUE
 
@@ -219,7 +219,7 @@
 		focus.plane = old_plane
 
 /obj/item/tk_grab/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is using [user.p_their()] telekinesis to choke [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is using [user.p_their()] telekinesis to choke [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 #undef TK_MAXRANGE
