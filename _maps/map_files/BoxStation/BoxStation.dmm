@@ -16803,8 +16803,7 @@
 	pixel_x = -22
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -22886,13 +22885,6 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
-"fOf" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8;
-	hide = 0
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "fOt" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Pete"
@@ -25248,8 +25240,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8;
-	hide = 0
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -25518,8 +25509,7 @@
 /area/engine/engineering)
 "gOp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -25576,8 +25566,7 @@
 /area/quartermaster/exploration_dock)
 "gQu" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -27878,9 +27867,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	hide = 0
-	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -27955,8 +27942,7 @@
 /area/ai_monitored/nuke_storage)
 "hPY" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8;
-	hide = 0
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -30970,8 +30956,7 @@
 /area/maintenance/starboard/fore)
 "jaC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8;
-	hide = 0
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -32513,8 +32498,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /obj/machinery/camera/directional/west,
 /turf/open/floor/engine,
@@ -44436,9 +44420,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	hide = 0
-	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "oBj" = (
@@ -48288,8 +48270,7 @@
 /area/crew_quarters/heads/cmo)
 "qiF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8;
-	hide = 0
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -49693,8 +49674,7 @@
 /area/quartermaster/miningdock)
 "qLU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -59745,13 +59725,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"uFg" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4;
-	hide = 0
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
 "uFk" = (
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 8
@@ -59896,7 +59869,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engine/engineering)
 "uHS" = (
@@ -94752,7 +94727,7 @@ isN
 tyH
 waL
 klN
-fOf
+onU
 aJq
 bCs
 bCs
@@ -109127,7 +109102,7 @@ dnm
 mkR
 aIp
 aYV
-uFg
+bnT
 aYV
 gdS
 xJf
