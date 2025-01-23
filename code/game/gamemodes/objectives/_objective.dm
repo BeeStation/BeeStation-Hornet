@@ -90,7 +90,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return completed
 
 /datum/objective/proc/get_completion_message()
-	return check_completion() ? "[explanation_text] <span class='greentext'>Success!</span>" : "[explanation_text] <span class='redtext'>Fail.</span>"
+	return check_completion() ? "[explanation_text] [span_greentext("Success!")]" : "[explanation_text] [span_redtext("Fail.")]"
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
@@ -261,7 +261,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			receiver.antag_stash = null
 		//Update the mind
 		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
-		to_chat(receiver?.current, "<span class='notice bold'>You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)</span>")
+		to_chat(receiver?.current, span_noticebold("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
 		new eq_path(secret_bag)
@@ -278,11 +278,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				A.objectives -= src
 			own.crew_objectives -= src
 
-			to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 			own.announce_objectives()
 		qdel(src)
 	else
 		update_explanation_text()
 		for(var/datum/mind/own as() in get_owners())
-			to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()

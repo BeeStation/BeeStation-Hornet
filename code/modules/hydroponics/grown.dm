@@ -111,7 +111,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 /obj/item/food/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>.\n"
+		var/msg = "[span_info("This is \a [span_name(src)]")].\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -119,7 +119,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 			for(var/reagent_id in seed.reagents_add)
 				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 				var/amt = reagents.get_reagent_amount(reagent_id)
-				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
+				reag_txt += "\n[span_info("- [R.name]: [amt]")]"
 
 		if(reag_txt)
 			msg += reag_txt
@@ -155,7 +155,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	else if(splat_type)
 		new splat_type(T)
 
-	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
+	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
@@ -181,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 /obj/item/food/grown/grind_requirements()
 	if(dry_grind && !HAS_TRAIT(src, TRAIT_DRIED))
-		to_chat(usr, "<span class='warning'>[src] needs to be dry before it can be ground up!</span>")
+		to_chat(usr, span_warning("[src] needs to be dry before it can be ground up!"))
 		return
 	return TRUE
 

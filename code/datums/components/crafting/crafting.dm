@@ -220,10 +220,10 @@
 						result.pixel_y = rand(-4, 4)
 		else
 			result.forceMove(user.drop_location())
-		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
+		to_chat(user, span_notice("[TR.name] constructed."))
 		TR.on_craft_completion(user, result)
 	else
-		to_chat(user, "<span class='warning'>Construction failed[result]</span>")
+		to_chat(user, span_warning("Construction failed[result]"))
 	busy = FALSE
 	SStgui.update_uis(src)
 

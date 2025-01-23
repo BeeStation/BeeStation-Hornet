@@ -53,13 +53,13 @@
 	prefix_regex = new("^([RADIO_KEY_COMMON]|(([prefixes.Join("|")])([keys.Join("|")])))", "i")
 
 /datum/holoparasite_ability/lesser/misaka/notify_user()
-	var/list/text = list("<span class='holoparasite bold'>You are able to [can_talk ? "both hear and talk over" : "hear"] most radio channels!</span>")
+	var/list/text = list(span_holoparasitebold("You are able to [can_talk ? "both hear and talk over" : "hear"] most radio channels!"))
 	var/list/channels = list("Use [RADIO_KEY_COMMON] for the common frequency")
 	if(binary)
 		channels += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
 	for(var/channel in radio.channels)
 		channels += "use [GLOB.channel_tokens[channel]] for [LOWER_TEXT(channel)]"
-	text += "<span class='holoparasite'>[english_list(channels)]</span>"
+	text += span_holoparasite("[english_list(channels)]")
 	return text.Join("\n")
 
 /obj/item/radio/holoparasite

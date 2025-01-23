@@ -286,13 +286,13 @@
 /datum/record/crew/proc/add_crime(mob/user, crime_name, fine_amount, details, crime_console)
 	var/input_name = trim(crime_name, MAX_CRIME_NAME_LEN)
 	if(!input_name)
-		to_chat(user, "<span class='warning'>You must enter a name for the crime.</span>")
+		to_chat(user, span_warning("You must enter a name for the crime."))
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
 	var/max = CONFIG_GET(number/maxfine)
 	if(fine_amount > max)
-		to_chat(user, "<span class='warning'>The maximum fine is [max] credits.</span>")
+		to_chat(user, span_warning("The maximum fine is [max] credits."))
 		playsound(src, 'sound/machines/terminal_error.ogg', 75, TRUE)
 		return FALSE
 
