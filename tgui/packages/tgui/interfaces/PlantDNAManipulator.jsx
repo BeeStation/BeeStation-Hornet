@@ -5,8 +5,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Section, Table, Modal, Stack, LabeledList, NoticeBox, Box, Tooltip } from '../components';
 import { Window } from '../layouts';
 
-export const PlantDNAManipulator = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PlantDNAManipulator = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <Window width={450} height={600}>
@@ -25,7 +25,7 @@ export const PlantDNAManipulator = (props, context) => {
   );
 };
 
-const Accent = (props, context) => {
+const Accent = (props) => {
   const { children, ...rest } = props;
   return (
     <Box as="span" inline color="lightblue" {...rest}>
@@ -34,8 +34,8 @@ const Accent = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorConfirmReplace = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorConfirmReplace = (props) => {
+  const { act, data } = useBackend();
   const { operation_target, disk_gene } = data;
 
   return (
@@ -45,8 +45,8 @@ const PlantDNAManipulatorConfirmReplace = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorConfirmRemove = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorConfirmRemove = (props) => {
+  const { act, data } = useBackend();
   const { operation_target, seed } = data;
 
   return (
@@ -56,8 +56,8 @@ const PlantDNAManipulatorConfirmRemove = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorConfirmExtract = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorConfirmExtract = (props) => {
+  const { act, data } = useBackend();
   const { operation_target, machine_stats, seed } = data;
 
   let statname, stat_limit_type, stat_limit, stat_result;
@@ -91,8 +91,8 @@ const PlantDNAManipulatorConfirmExtract = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorConfirmInsert = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorConfirmInsert = (props) => {
+  const { act, data } = useBackend();
   const { disk_gene, seed } = data;
 
   return (
@@ -102,8 +102,8 @@ const PlantDNAManipulatorConfirmInsert = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorConfirmationPrompt = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorConfirmationPrompt = (props) => {
+  const { act, data } = useBackend();
   const { operation } = data;
 
   if (!operation) {
@@ -136,8 +136,8 @@ const PlantDNAManipulatorConfirmationPrompt = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorHeader = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorHeader = (props) => {
+  const { act, data } = useBackend();
   const { seed, disk, skip_confirmation } = data;
 
   return (
@@ -162,8 +162,8 @@ const PlantDNAManipulatorHeader = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorContent = (props) => {
+  const { act, data } = useBackend();
   const { seed, core_genes, reagent_genes, trait_genes } = data;
 
   if (!seed) {
@@ -184,7 +184,7 @@ const PlantDNAManipulatorContent = (props, context) => {
   );
 };
 
-const ConditionalTooltip = (props, context) => {
+const ConditionalTooltip = (props) => {
   const { condition, children, ...rest } = props;
 
   if (!condition) {
@@ -194,8 +194,8 @@ const ConditionalTooltip = (props, context) => {
   return <Tooltip {...rest}>{children}</Tooltip>;
 };
 
-const PlantDNAManipulatorGene = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorGene = (props) => {
+  const { act, data } = useBackend();
   const { disk, disk_readonly, disk_gene, stat_tooltips, disk_canadd } = data;
   const { gene } = props;
 
@@ -234,8 +234,8 @@ const PlantDNAManipulatorGene = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorGenes = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlantDNAManipulatorGenes = (props) => {
+  const { act, data } = useBackend();
   const { disk_gene, disk_canadd } = data;
   const { label, type, list } = props;
 

@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Section, LabeledList, Button, Box } from '../components';
 import { Window } from '../layouts';
 
-export const BodyEntry = (props, context) => {
+export const BodyEntry = (props) => {
   const { body, swapFunc } = props;
 
   const statusMap = {
@@ -44,8 +44,8 @@ export const BodyEntry = (props, context) => {
   );
 };
 
-export const SlimeBodySwapper = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SlimeBodySwapper = (props) => {
+  const { act, data } = useBackend();
 
   const { bodies = [] } = data;
 

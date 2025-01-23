@@ -83,7 +83,7 @@
 	ASSERT_ABILITY_USABILITY
 	if(owner.a_intent == INTENT_HELP)
 		if(owner.has_matching_summoner(target, include_summoner = FALSE))
-			to_chat(owner, "<span class='danger bold'>You can't heal yourself!</span>")
+			to_chat(owner, span_dangerbold("You can't heal yourself!"))
 			owner.balloon_alert(owner, "cannot heal self", show_in_chat = FALSE)
 			return
 		if(heal(target))
