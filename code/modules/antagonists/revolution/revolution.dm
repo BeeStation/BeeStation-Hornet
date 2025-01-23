@@ -49,7 +49,7 @@
 	. = ..()
 
 /datum/antagonist/rev/greet()
-	to_chat(owner, "<span class='userdanger'>You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Establish a new command structure for the station that will bring fairness to all.</span>")
+	to_chat(owner, span_userdanger("You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Establish a new command structure for the station that will bring fairness to all."))
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Revolution",
 		"Establish a new command structure to live a better life. Viva la revolution!")
@@ -92,7 +92,7 @@
 	new_revhead.silent = TRUE
 	old_owner.add_antag_datum(new_revhead,old_team)
 	new_revhead.silent = FALSE
-	to_chat(old_owner, "<span class='userdanger'>You have proved your devotion to revolution! You are a head revolutionary now!</span>")
+	to_chat(old_owner, span_userdanger("You have proved your devotion to revolution! You are a head revolutionary now!"))
 
 /datum/antagonist/rev/get_admin_commands()
 	. = ..()
@@ -111,7 +111,7 @@
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has head-rev'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has head-rev'ed [key_name(new_owner)].")
-	to_chat(new_owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership now!</span>")
+	to_chat(new_owner.current, span_userdanger("You are a member of the revolutionaries' leadership now!"))
 
 /datum/antagonist/rev/head/get_admin_commands()
 	. = ..()
@@ -125,7 +125,7 @@
 	var/list/L = owner.current.get_contents()
 	var/obj/item/assembly/flash/flash = locate() in L
 	if (!flash)
-		to_chat(admin, "<span class='danger'>Deleting flash failed!</span>")
+		to_chat(admin, span_danger("Deleting flash failed!"))
 		return
 	qdel(flash)
 
@@ -146,7 +146,7 @@
 	var/list/L = owner.current.get_contents()
 	var/obj/item/assembly/flash/flash = locate() in L
 	if (!flash)
-		to_chat(admin, "<span class='danger'>Repairing flash failed!</span>")
+		to_chat(admin, span_danger("Repairing flash failed!"))
 	else
 		flash.burnt_out = FALSE
 		flash.update_icon()
@@ -210,22 +210,22 @@
 	new_rev.silent = TRUE
 	old_owner.add_antag_datum(new_rev,old_team)
 	new_rev.silent = FALSE
-	to_chat(old_owner, "<span class='userdanger'>Revolution has been disappointed of your leader traits! You are a regular revolutionary now!</span>")
+	to_chat(old_owner, span_userdanger("Revolution has been disappointed of your leader traits! You are a regular revolutionary now!"))
 
 /datum/antagonist/rev/farewell()
 	if(ishuman(owner.current))
-		to_chat(owner, "<span class='userdanger'>You are no longer a brainwashed revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</span>")
+		to_chat(owner, span_userdanger("You are no longer a brainwashed revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you..."))
 	else if(issilicon(owner.current))
-		to_chat(owner, "<span class='userdanger'>The frame's firmware detects and deletes your neural reprogramming! You remember nothing but the name of the one who flashed you.</span>")
+		to_chat(owner, span_userdanger("The frame's firmware detects and deletes your neural reprogramming! You remember nothing but the name of the one who flashed you."))
 
 /datum/antagonist/rev/head/farewell()
 	if((ishuman(owner.current)))
 		if(owner.current.stat != DEAD)
-			to_chat(owner, "<span class ='deconversion_message bold'>You have given up your cause of overthrowing the command staff. You are no longer a Head Revolutionary.</span>")
+			to_chat(owner, "[span_deconversionmessagebold("You have given up your cause of overthrowing the command staff. You are no longer a Head Revolutionary.")]")
 		else
-			to_chat(owner, "<span class ='deconversion_message bold'>The sweet release of death. You are no longer a Head Revolutionary.</span>")
+			to_chat(owner, "[span_deconversionmessagebold("The sweet release of death. You are no longer a Head Revolutionary.")]")
 	else if(issilicon(owner.current))
-		to_chat(owner, "<span class='userdanger'>The frame's firmware detects and suppresses your unwanted personality traits! You feel more content with the leadership around these parts.</span>")
+		to_chat(owner, span_userdanger("The frame's firmware detects and suppresses your unwanted personality traits! You feel more content with the leadership around these parts."))
 
 //blunt trauma deconversions call this through species.dm spec_attacked_by()
 /datum/antagonist/rev/proc/remove_revolutionary(borged, deconverter)
@@ -390,25 +390,25 @@
 
 	if(headrevs.len)
 		var/list/headrev_part = list()
-		headrev_part += "<span class='header'>The head revolutionaries were:</span>"
+		headrev_part += span_header("The head revolutionaries were:")
 		headrev_part += printplayerlist(headrevs, !check_rev_victory())
 		result += headrev_part.Join("<br>")
 
 	if(revs.len)
 		var/list/rev_part = list()
-		rev_part += "<span class='header'>The revolutionaries were:</span>"
+		rev_part += span_header("The revolutionaries were:")
 		rev_part += printplayerlist(revs, !check_rev_victory())
 		result += rev_part.Join("<br>")
 
 	var/list/heads = SSjob.get_all_heads()
 	if(heads.len)
-		var/head_text = "<span class='header'>The heads of staff were:</span>"
+		var/head_text = span_header("The heads of staff were:")
 		head_text += "<ul class='playerlist'>"
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			head_text += "<li>"
 			if(target)
-				head_text += "<span class='redtext'>Target</span>"
+				head_text += span_redtext("Target")
 			head_text += "[printplayer(head, 1)]</li>"
 		head_text += "</ul><br>"
 		result += head_text

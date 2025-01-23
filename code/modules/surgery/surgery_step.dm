@@ -43,7 +43,7 @@
 		if(get_location_accessible(target, surgery.location) || surgery.ignore_clothes)
 			return initiate(user, target, tool, surgery, try_to_fail)
 		else
-			to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(surgery.location)] to perform surgery on it!</span>")
+			to_chat(user, span_warning("You need to expose [target]'s [parse_zone(surgery.location)] to perform surgery on it!"))
 			return TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
@@ -129,9 +129,9 @@
 	return advance
 
 /datum/surgery_step/proc/preop(mob/user, mob/living/target, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to perform surgery on [target]...</span>",
-		"<span class='notice'>[user] begins to perform surgery on [target].</span>",
-		"<span class='notice'>[user] begins to perform surgery on [target].</span>")
+	display_results(user, target, span_notice("You begin to perform surgery on [target]..."),
+		span_notice("[user] begins to perform surgery on [target]."),
+		span_notice("[user] begins to perform surgery on [target]."))
 
 /datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(!preop_sound)
@@ -147,9 +147,9 @@
 	playsound(get_turf(target), sound_file_use, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
 
 /datum/surgery_step/proc/success(mob/user, mob/living/target, obj/item/tool, datum/surgery/surgery, default_display_results = TRUE)
-	display_results(user, target, "<span class='notice'>You succeed.</span>",
-		"<span class='notice'>[user] succeeds.</span>",
-		"<span class='notice'>[user] finishes.</span>")
+	display_results(user, target, span_notice("You succeed."),
+		span_notice("[user] succeeds."),
+		span_notice("[user] finishes."))
 	return TRUE
 
 /datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
@@ -167,9 +167,9 @@
 		if(75 to 99)
 			screwedmessage = " This is practically impossible in these conditions..."
 
-	display_results(user, target, "<span class='warning'>You screw up![screwedmessage]</span>",
-		"<span class='warning'>[user] screws up!</span>",
-		"<span class='notice'>[user] finishes.</span>", TRUE) //By default the patient will notice if the wrong thing has been cut
+	display_results(user, target, span_warning("You screw up![screwedmessage]"),
+		span_warning("[user] screws up!"),
+		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
 	return FALSE
 
 /datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
