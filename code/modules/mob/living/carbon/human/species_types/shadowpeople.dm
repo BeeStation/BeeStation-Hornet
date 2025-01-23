@@ -34,13 +34,14 @@
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
 			if(shadow_sect_dependency == 3)
-				//alpha
-				//speed
+				H.alpha = 255
+				if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+					H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 			H.heal_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
 			if(shadow_sect_dependency == 3)
-				//alpha
-				//speed
+				H.alpha = 85
+				H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -372,6 +373,10 @@
 // Shadow sect organs
 
 
+/datum/movespeed_modifier/shadow_sect
+	multiplicative_slowdown = -0.75
+
+
 /obj/item/organ/heart/shadow_ritual1
 	name = "shadowed heart"
 	desc = "This heart with seem to be covered in shadows, even under strong light."
@@ -461,6 +466,9 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
+		M.alpha = 255
+		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
 
 /obj/item/organ/heart/shadow_ritual3/on_death()
