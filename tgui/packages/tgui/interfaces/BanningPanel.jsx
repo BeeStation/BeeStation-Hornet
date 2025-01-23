@@ -5,8 +5,8 @@ import { Window } from '../layouts';
 
 const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
 
-export const BanningPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BanningPanel = (props) => {
+  const { act, data } = useBackend();
   const {
     key_enabled,
     key,

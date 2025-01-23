@@ -226,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 /obj/machinery/firealarm/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
-	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	to_chat(usr, span_brass("You begin manipulating [src]!"))
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
@@ -348,12 +348,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 				if(!W.tool_start_check(user, amount=0))
 					return
 
-				to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+				to_chat(user, span_notice("You begin repairing [src]..."))
 				if(W.use_tool(src, user, 40, volume=50))
 					atom_integrity = max_integrity
-					to_chat(user, "<span class='notice'>You repair [src].</span>")
+					to_chat(user, span_notice("You repair [src]."))
 			else
-				to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+				to_chat(user, span_warning("[src] is already in good condition!"))
 			return
 
 		switch(buildstage)
@@ -381,7 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/coil = W
 					if(coil.get_amount() < 5)
-						to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+						to_chat(user, span_warning("You need more cable for this!"))
 					else
 						coil.use(5)
 						buildstage = AIR_ALARM_BUILD_COMPLETE
@@ -391,21 +391,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 				else if(W.tool_behaviour == TOOL_CROWBAR)
 					user.visible_message("[user.name] removes the electronics from [src.name].", \
-										"<span class='notice'>You start prying out the circuit...</span>")
+										span_notice("You start prying out the circuit..."))
 					if(W.use_tool(src, user, 20, volume=50))
 						if(buildstage == 1)
 							if(machine_stat & BROKEN)
-								to_chat(user, "<span class='notice'>You remove the destroyed circuit.</span>")
+								to_chat(user, span_notice("You remove the destroyed circuit."))
 								set_machine_stat(machine_stat & ~BROKEN)
 							else
-								to_chat(user, "<span class='notice'>You pry out the circuit.</span>")
+								to_chat(user, span_notice("You pry out the circuit."))
 								new /obj/item/electronics/firealarm(user.loc)
 							buildstage = FIRE_ALARM_BUILD_NO_CIRCUIT
 							update_icon()
 					return
 			if(FIRE_ALARM_BUILD_NO_CIRCUIT)
 				if(istype(W, /obj/item/electronics/firealarm))
-					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
+					to_chat(user, span_notice("You insert the circuit."))
 					qdel(W)
 					buildstage = FIRE_ALARM_BUILD_NO_WIRES
 					update_icon()
@@ -423,7 +423,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 				else if(W.tool_behaviour == TOOL_WRENCH)
 					user.visible_message("[user] removes the fire alarm assembly from the wall.", \
-										"<span class='notice'>You remove the fire alarm assembly from the wall.</span>")
+										span_notice("You remove the fire alarm assembly from the wall."))
 					var/obj/item/wallframe/firealarm/frame = new /obj/item/wallframe/firealarm()
 					frame.forceMove(user.drop_location())
 					W.play_tool_sound(src)

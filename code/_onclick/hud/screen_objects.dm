@@ -85,7 +85,7 @@
 		return TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
-		to_chat(usr, "<span class='warning'>There is already a defined structure here.</span>")
+		to_chat(usr, span_warning("There is already a defined structure here."))
 		return TRUE
 	create_area(usr)
 

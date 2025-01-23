@@ -210,7 +210,7 @@ Buildable meters
 	for(var/obj/machinery/atmospherics/machine in loc)
 		// Only one dense/requires density object per tile, eg connectors/cryo/heater/coolers.
 		if(machine.pipe_flags & flags & PIPING_ONE_PER_TURF)
-			to_chat(user, "<span class='warning'>Something is hogging the tile!</span>")
+			to_chat(user, span_warning("Something is hogging the tile!"))
 			return TRUE
 		// skip checks if we don't overlap layers, either by being on the same layer or by something being on all layers
 		if(machine.piping_layer != piping_layer && !((machine.pipe_flags | flags) & PIPING_ALL_LAYER))
@@ -225,7 +225,7 @@ Buildable meters
 			// We have a conflict!
 			if(length(potentially_conflicting_machines) != 1 || !try_smart_reconfiguration(machine, our_init_dirs, user))
 				// No solutions found
-				to_chat(user, "<span class='warning'>There is already a pipe at that location!</span>")
+				to_chat(user, span_warning("There is already a pipe at that location!"))
 				return TRUE
 	// no conflicts found
 
@@ -237,8 +237,8 @@ Buildable meters
 	wrench.play_tool_sound(src)
 	user.visible_message( \
 		"[user] fastens \the [src].", \
-		"<span class='notice'>You fasten \the [src].</span>", \
-		"<span class='hear'>You hear ratcheting.</span>")
+		span_notice("You fasten \the [src]."), \
+		span_italics("You hear ratcheting."))
 
 	qdel(src)
 
@@ -332,8 +332,8 @@ Buildable meters
 	..()
 	T.flipped = flipped
 
-/obj/item/pipe/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] shoves [src] in [user.p_their()] mouth and turns it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+/obj/item/pipe/directional/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] shoves [src] in [user.p_their()] mouth and turns it on! It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		for(var/i in 1 to 20)
@@ -364,11 +364,11 @@ Buildable meters
 			pipe = P
 			break
 	if(!pipe)
-		to_chat(user, "<span class='warning'>You need to fasten it to a pipe!</span>")
+		to_chat(user, span_warning("You need to fasten it to a pipe!"))
 		return TRUE
 	new /obj/machinery/meter(loc, piping_layer)
 	W.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You fasten the meter to the pipe.</span>")
+	to_chat(user, span_notice("You fasten the meter to the pipe."))
 	qdel(src)
 
 /obj/item/pipe_meter/screwdriver_act(mob/living/user, obj/item/S)
@@ -377,12 +377,12 @@ Buildable meters
 		return TRUE
 
 	if(!isturf(loc))
-		to_chat(user, "<span class='warning'>You need to fasten it to the floor!</span>")
+		to_chat(user, span_warning("You need to fasten it to the floor!"))
 		return TRUE
 
 	new /obj/machinery/meter/turf(loc, piping_layer)
 	S.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You fasten the meter to the [loc.name].</span>")
+	to_chat(user, span_notice("You fasten the meter to the [loc.name]."))
 	qdel(src)
 
 /obj/item/pipe_meter/dropped()

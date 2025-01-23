@@ -192,7 +192,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return .
 	var/immune = HAS_TRAIT(user, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_MADNESS_IMMUNE)
 	if (!isliving(user) && !immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
-		. += "<span class='danger'>You get headaches just from looking at it.</span>"
+		. += span_danger("You get headaches just from looking at it.")
 
 // SupermatterMonitor UI for ghosts only. Inherited attack_ghost will call this.
 /obj/machinery/power/supermatter_crystal/ui_interact(mob/user, datum/tgui/ui)
@@ -396,7 +396,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(isclosedturf(T))
 		var/turf/did_it_melt = T.Melt()
 		if(!isclosedturf(did_it_melt)) //In case some joker finds way to place these on indestructible walls
-			visible_message("<span class='warning'>[src] melts through [T]!</span>")
+			visible_message(span_warning("[src] melts through [T]!"))
 		return
 
 	if(last_complete_process > SSair.last_complete_process)
@@ -643,11 +643,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/gain = 100
 	investigate_log("Supermatter shard consumed by singularity.", INVESTIGATE_ENGINES)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
-	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
+	visible_message(span_userdanger("[src] is consumed by the singularity!"))
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == get_virtual_z_level())
 			SEND_SOUND(M, 'sound/effects/supermatter.ogg') //everyone goan know bout this
-			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
+			to_chat(M, span_boldannounce("A horrible screeching fills your ears, and a wave of dread washes over you..."))
 	qdel(src)
 	return gain
 
@@ -657,19 +657,19 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	damage += blob.get_integrity() * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
 	if(blob.get_integrity() > 100)
-		blob.visible_message("<span class='danger'>\The [blob] strikes at \the [src] and flinches away!</span>",\
-		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		blob.visible_message(span_danger("\The [blob] strikes at \the [src] and flinches away!"),\
+		span_italics("You hear a loud crack as you are washed with a wave of heat."))
 		blob.take_damage(100, BURN)
 	else
-		blob.visible_message("<span class='danger'>\The [blob] strikes at \the [src] and rapidly flashes to ash.</span>",\
-		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		blob.visible_message(span_danger("\The [blob] strikes at \the [src] and rapidly flashes to ash."),\
+		span_italics("You hear a loud crack as you are washed with a wave of heat."))
 		Consume(blob)
 
 /obj/machinery/power/supermatter_crystal/attack_tk(mob/user)
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/jedi = user
-	to_chat(jedi, "<span class='userdanger'>That was a really dense idea.</span>")
+	to_chat(jedi, span_userdanger("That was a really dense idea."))
 	jedi.ghostize()
 	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
 	if(rip_u)
@@ -690,8 +690,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else
 		murder = S.attack_verb_continuous
 	dust_mob(S, \
-	"<span class='danger'>[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!</span>", \
-	"<span class='userdanger'>You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops.</span>", \
+	span_danger("[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!"), \
+	span_userdanger("You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops."), \
 	"simple animal attack")
 
 /obj/machinery/power/supermatter_crystal/attack_robot(mob/user)
@@ -711,12 +711,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(nom.incorporeal_move || nom.status_flags & GODMODE || is_type_in_typecache(nom, not_dustable))
 		return
 	if(!vis_msg)
-		vis_msg = "<span class='danger'>[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!</span>"
+		vis_msg = span_danger("[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
 	if(!mob_msg)
-		mob_msg = "<span class='userdanger'>You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>"
+		mob_msg = span_userdanger("You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"")
 	if(!cause)
 		cause = "contact"
-	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+	nom.visible_message(vis_msg, mob_msg, span_italics("You hear an unearthly noise as a wave of heat washes over you."))
 	investigate_log("has been attacked ([cause]) by [key_name(nom)]", INVESTIGATE_ENGINES)
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 	Consume(nom)
@@ -737,42 +737,42 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				which_hand = BODY_ZONE_R_ARM
 			var/obj/item/bodypart/dust_arm = user.get_bodypart(which_hand)
 			dust_arm.dismember()
-			user.visible_message("<span class='danger'>The [W] flashes out of existence on contact with \the [src], resonating with a horrible sound...</span>",\
-				"<span class='danger'>Oops! The [W] flashes out of existence on contact with \the [src], taking your arm with it! That was clumsy of you!</span>")
+			user.visible_message(span_danger("The [W] flashes out of existence on contact with \the [src], resonating with a horrible sound..."),\
+				span_danger("Oops! The [W] flashes out of existence on contact with \the [src], taking your arm with it! That was clumsy of you!"))
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(dust_arm)
 			Consume(W)
 			return
 		if(cig.lit || user.a_intent != INTENT_HELP)
-			user.visible_message("<span class='danger'>A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea...</span>")
+			user.visible_message(span_danger("A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea..."))
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(W)
 			radiation_pulse(src, 150, 4)
 			return ..()
 		else
 			cig.light()
-			user.visible_message("<span class='danger'>As [user] lights \their [W] on \the [src], silence fills the room...</span>",\
-				"<span class='danger'>Time seems to slow to a crawl as you touch \the [src] with \the [W].</span>\n<span class='notice'>\The [W] flashes alight with an eerie energy as you nonchalantly lift your hand away from \the [src]. Damn.</span>")
+			user.visible_message(span_danger("As [user] lights \their [W] on \the [src], silence fills the room..."),\
+				span_danger("Time seems to slow to a crawl as you touch \the [src] with \the [W].") + "\n" + span_notice("\The [W] flashes alight with an eerie energy as you nonchalantly lift your hand away from \the [src]. Damn."))
 			playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
 			radiation_pulse(src, 50, 3)
 			return
 	if(istype(W, /obj/item/scalpel/supermatter))
 		var/obj/item/scalpel/supermatter/scalpel = W
-		to_chat(user, "<span class='notice'>You carefully begin to scrape \the [src] with \the [W]...</span>")
+		to_chat(user, span_notice("You carefully begin to scrape \the [src] with \the [W]..."))
 		if(W.use_tool(src, user, 60, volume=100))
 			if (scalpel.usesLeft)
-				to_chat(user, "<span class='danger'>You extract a sliver from \the [src]. \The [src] begins to react violently!</span>")
+				to_chat(user, span_danger("You extract a sliver from \the [src]. \The [src] begins to react violently!"))
 				new /obj/item/nuke_core/supermatter_sliver(drop_location())
 				matter_power += 800
 				scalpel.usesLeft--
 				if (!scalpel.usesLeft)
-					to_chat(user, "<span class='notice'>A tiny piece of \the [W] falls off, rendering it useless!</span>")
+					to_chat(user, span_notice("A tiny piece of \the [W] falls off, rendering it useless!"))
 			else
-				to_chat(user, "<span class='notice'>You fail to extract a sliver from \The [src]. \the [W] isn't sharp enough anymore!</span>")
+				to_chat(user, span_notice("You fail to extract a sliver from \The [src]. \the [W] isn't sharp enough anymore!"))
 	else if(user.dropItemToGround(W))
-		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
-			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
-			"<span class='italics'>Everything suddenly goes silent.</span>")
+		user.visible_message(span_danger("As [user] touches \the [src] with \a [W], silence fills the room..."),\
+			span_userdanger("You touch \the [src] with \the [W], and everything suddenly goes silent.") + "\n" + span_notice("The [W] flashes into dust as you flinch away from \the [src]."),\
+			span_italics("Everything suddenly goes silent."))
 		investigate_log("has been attacked ([W]) by [key_name(user)]", INVESTIGATE_ENGINES)
 		Consume(W)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
@@ -788,12 +788,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(is_type_in_typecache(AM, not_dustable))
 		return ..() // remove calling parent if it causes weird behaviour
 	else if(isliving(AM))
-		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
-		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
-		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+		AM.visible_message(span_danger("\The [AM] slams into \the [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!"),\
+		span_userdanger("You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\""),\
+		span_italics("You hear an unearthly noise as a wave of heat washes over you."))
 	else if(isobj(AM) && !iseffect(AM))
-		AM.visible_message("<span class='danger'>\The [AM] smacks into \the [src] and rapidly flashes to ash.</span>", null,\
-		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		AM.visible_message(span_danger("\The [AM] smacks into \the [src] and rapidly flashes to ash."), null,\
+		span_italics("You hear a loud crack as you are washed with a wave of heat."))
 	else
 		return
 
@@ -842,10 +842,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_ENGINES)
 		if(L in viewers(get_turf(src)))
-			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
+			L.show_message(span_danger("As \the [src] slowly stops resonating, you find your skin covered in new radiation burns."), 1,\
+				span_danger("The unearthly ringing subsides and you notice you have new radiation burns."), MSG_AUDIBLE)
 		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
+			L.show_message(span_italics("You hear an unearthly ringing and notice your skin is covered in fresh radiation burns."), MSG_AUDIBLE)
 
 /obj/machinery/power/supermatter_crystal/proc/disengage_field()
 	if(QDELETED(src))
@@ -902,9 +902,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			var/mob/living/carbon/human/H = P
 			if(H.incapacitated() || H.body_position == LYING_DOWN || H.mob_negates_gravity())
 				return //You can't knock down someone who is already knocked down or has immunity to gravity
-			H.visible_message("<span class='danger'>[H] is suddenly knocked down, as if [H.p_their()] [(H.usable_legs == 1) ? "leg had" : "legs have"] been pulled out from underneath [H.p_them()]!</span>",\
-				"<span class='userdanger'>A sudden gravitational pulse knocks you down!</span>",\
-				"<span class='italics'>You hear a thud.</span>")
+			H.visible_message(span_danger("[H] is suddenly knocked down, as if [H.p_their()] [(H.usable_legs == 1) ? "leg had" : "legs have"] been pulled out from underneath [H.p_them()]!"),\
+				span_userdanger("A sudden gravitational pulse knocks you down!"),\
+				span_italics("You hear a thud."))
 			H.apply_effect(40, EFFECT_PARALYZE, 0)
 		else //you're not human so you get sucked in
 			step_towards(P,center)

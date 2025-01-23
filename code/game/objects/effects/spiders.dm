@@ -19,7 +19,7 @@
 	if(I.damtype != BURN)
 		if(prob(35))
 			user.transferItemToLoc(I, drop_location())
-			to_chat(user, "<span class='danger'>The [I] gets stuck in \the [src]!</span>")
+			to_chat(user, span_danger("The [I] gets stuck in \the [src]!"))
 	return ..()
 
 /obj/structure/spider/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -52,13 +52,13 @@
 	if(isliving(AM) && !istype(AM, /mob/living/simple_animal/hostile/poison/giant_spider))
 		var/mob/living/L = AM
 		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged by a spider
-			to_chat(L, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
+			to_chat(L, span_danger("You get stuck in \the [src] for a moment."))
 		L.Immobilize(1.5 SECONDS)
 	if(ismecha(AM))
 		var/obj/vehicle/sealed/mecha/mech = AM
 		mech.step_restricted += 1 SECONDS //unlike the above, this one stacks based on number of webs. Punch the webs to destroy them you dolt.
 		if(mech.occupants && !mech.step_restricted)
-			to_chat(mech.occupants, "<span class='danger'>\the [mech] gets stuck in \the [src]!</span>")
+			to_chat(mech.occupants, span_danger("\the [mech] gets stuck in \the [src]!"))
 
 /obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -129,7 +129,7 @@
 	if(ghost_ready)
 		make_spider(user)
 	else
-		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
+		to_chat(user, span_warning("[src] isn't ready yet!"))
 
 /obj/structure/spider/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return exposed_temperature > 300
@@ -178,7 +178,7 @@
 	//Multiple players can be presented the dialogue box to choose enriched spawns at the same time
 	//and we don't want them choosing a special spider after the spawn has already been consumed
 	else if(!(spider_list[chosen_spider] in potential_spawns))
-		to_chat(user, "<span class='warning'>Special spawn already used by another player!</span>")
+		to_chat(user, span_warning("Special spawn already used by another player!"))
 		return FALSE
 	spawns_remaining--
 	// Setup our spooder
@@ -272,7 +272,7 @@
 			var/obj/machinery/atmospherics/components/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
 				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-								"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
+								span_italics("You hear something scampering through the ventilation ducts."))
 
 			spawn(rand(20,60))
 				forceMove(exit_vent)
@@ -285,7 +285,7 @@
 						return
 
 					if(prob(50))
-						audible_message("<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
+						audible_message(span_italics("You hear something scampering through the ventilation ducts."))
 					sleep(travel_time)
 
 					if(!exit_vent || exit_vent.welded)
@@ -304,7 +304,7 @@
 		if(target_atom)
 			SSmove_manager.move_to(src, target_atom)
 			if(prob(40))
-				src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
+				src.visible_message(span_notice("\The [src] skitters[pick(" away"," around","")]."))
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(7,src))
@@ -340,7 +340,7 @@
 	var/breakout_time = 600
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	to_chat(user, "<span class='notice'>You struggle against the tight bonds... (This will take about [DisplayTimeText(breakout_time)].)</span>")
+	to_chat(user, span_notice("You struggle against the tight bonds... (This will take about [DisplayTimeText(breakout_time)].)"))
 	visible_message("You see something struggling and writhing in \the [src]!")
 	if(do_after(user,(breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src)
@@ -351,7 +351,7 @@
 
 /obj/structure/spider/cocoon/Destroy()
 	var/turf/T = get_turf(src)
-	src.visible_message("<span class='warning'>\The [src] splits open.</span>")
+	src.visible_message(span_warning("\The [src] splits open."))
 	for(var/atom/movable/A in contents)
 		A.forceMove(T)
 	return ..()

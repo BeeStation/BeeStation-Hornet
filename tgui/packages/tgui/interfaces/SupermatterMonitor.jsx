@@ -18,8 +18,8 @@ export const SupermatterMonitor = () => {
   );
 };
 
-export const SupermatterMonitorContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SupermatterMonitorContent = (props) => {
+  const { act, data } = useBackend();
   const {
     active,
     standalone_mode,
@@ -143,8 +143,8 @@ export const SupermatterMonitorContent = (props, context) => {
   );
 };
 
-const SupermatterList = (props, context) => {
-  const { act, data } = useBackend(context);
+const SupermatterList = (props) => {
+  const { act, data } = useBackend();
   const { supermatters = [] } = data;
   return (
     <Section

@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	ui_interact(user)
 
 /obj/item/pipe_dispenser/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide...</span>")
+	user.visible_message(span_suicide("[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide..."))
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, 1)
 	playsound(get_turf(user), 'sound/items/deconstruct.ogg', 50, 1)
 	return BRUTELOSS

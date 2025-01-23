@@ -32,10 +32,10 @@
 				return FALSE
 
 			user.visible_message("[user] is slicing apart the [name].", \
-								"<span class='notice'>You are slicing apart the [name]...</span>")
+								span_notice("You are slicing apart the [name]..."))
 			if(W.use_tool(src, user, 40, volume=50))
 				user.visible_message("[user] slices apart the [name].", \
-									"<span class='notice'>You slice apart the [name]!</span>")
+									span_notice("You slice apart the [name]!"))
 				deconstruct(TRUE)
 			return
 	return ..()

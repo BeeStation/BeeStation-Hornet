@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	if(creator)
 		if(creator.create_area_cooldown >= world.time)
-			to_chat(creator, "<span class='warning'>You're trying to create a new area a little too fast.</span>")
+			to_chat(creator, span_warning("You're trying to create a new area a little too fast."))
 			return
 		creator.create_area_cooldown = world.time + 10
 
@@ -58,16 +58,12 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	var/error = ""
 	var/list/turfs = detect_room(get_turf(creator), area_or_turf_fail_types)
-	var/turf_count = length(turfs)
-	if(!turf_count)
-		error = "The new area must be completely airtight and not a part of a shuttle."
-	else if(turf_count > BP_MAX_ROOM_SIZE)
-		error = "The room you're in is too big. It is [turf_count >= BP_MAX_ROOM_SIZE *2 ? "more than 100" : ((turf_count / BP_MAX_ROOM_SIZE)-1)*100]% larger than allowed."
-	if(error)
-		to_chat(creator, "<span class='warning>[error]</span>")
+	if(!turfs)
+		to_chat(creator, span_warning("The new area must be completely airtight and not a part of a shuttle."))
 		return
-
-	var/list/apc_map = list()
+	if(turfs.len > BP_MAX_ROOM_SIZE)
+		to_chat(creator, span_warning("The room you're in is too big. It is [((turfs.len / BP_MAX_ROOM_SIZE)-1)*100]% larger than allowed."))
+		return
 	var/list/areas = list("New Area" = /area)
 	for(var/i in 1 to turf_count)
 		var/turf/the_turf = turfs[i]
@@ -90,7 +86,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	area_choice = areas[area_choice]
 
 	if(!area_choice)
-		to_chat(creator, "<span class='warning'>No choice selected. The area remains undefined.</span>")
+		to_chat(creator, span_warning("No choice selected. The area remains undefined."))
 		return
 	var/area/newA
 	var/area/oldA = get_area(get_turf(creator))
@@ -99,10 +95,10 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		if(!str || !length(str)) //cancel
 			return
 		if(length(str) > 50)
-			to_chat(creator, "<span class='warning'>The given name is too long. The area remains undefined.</span>")
+			to_chat(creator, span_warning("The given name is too long. The area remains undefined."))
 			return
 		if(CHAT_FILTER_CHECK(str))
-			to_chat(creator, "<span class='warning'>The given name contains prohibited word(s). The area remains undefined.</span>")
+			to_chat(creator, span_warning("The given name contains prohibited word(s). The area remains undefined."))
 			return
 		newA = new area_choice
 		newA.setup(str)
@@ -151,7 +147,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		area_list += affected_areas[area_name]
 	SEND_GLOBAL_SIGNAL(COMSIG_AREA_CREATED, newA, area_list, creator)
 
-	to_chat(creator, "<span class='notice'>You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered.</span>")
+	to_chat(creator, span_notice("You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered."))
 	log_game("[key_name(creator)] created a new area: [AREACOORD(creator)] (previously \"[oldA.name]\")")
 
 	//purge old areas that had all their turfs merged into the new one i.e. old empty areas. also recompute fire doors
