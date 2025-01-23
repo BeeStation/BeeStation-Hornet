@@ -29,7 +29,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	foodtypes = FRUIT | PINEAPPLE
-	juice_results = list(/datum/reagent/consumable/pineapplejuice = 0)
+	juice_results = /datum/reagent/consumable/pineapplejuice
 	tastes = list("pineapple" = 1)
 	wine_power = 40
 

@@ -2,8 +2,8 @@ import { Window } from '../layouts';
 import { EmagConsoleText } from './NtosEmagConsole';
 import { useBackend } from '../backend';
 
-export const EmagConsole = (props, context) => {
-  const { data } = useBackend(context);
+export const EmagConsole = (props) => {
+  const { data } = useBackend();
   return (
     <Window title="Crypto-breaker 2400 Edition" width={400} height={500} theme="syndicate">
       <Window.Content>

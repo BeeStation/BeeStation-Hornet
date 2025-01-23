@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const PsychicPlane = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PsychicPlane = (props) => {
+  const { act, data } = useBackend();
   const { hives = [] } = data;
   return (
     <Window width={500} height={460}>

@@ -6,9 +6,9 @@ import { map } from 'common/collections';
 import { toFixed } from 'common/math';
 import { numberOfDecimalDigits } from '../../common/math';
 
-const FilterIntegerEntry = (props, context) => {
+const FilterIntegerEntry = (props) => {
   const { value, name, filterName } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <NumberInput
       value={value}
@@ -28,10 +28,10 @@ const FilterIntegerEntry = (props, context) => {
   );
 };
 
-const FilterFloatEntry = (props, context) => {
+const FilterFloatEntry = (props) => {
   const { value, name, filterName } = props;
-  const { act } = useBackend(context);
-  const [step, setStep] = useLocalState(context, `${filterName}-${name}`, 0.01);
+  const { act } = useBackend();
+  const [step, setStep] = useLocalState(`${filterName}-${name}`, 0.01);
   return (
     <Fragment>
       <NumberInput
@@ -65,9 +65,9 @@ const FilterFloatEntry = (props, context) => {
   );
 };
 
-const FilterTextEntry = (props, context) => {
+const FilterTextEntry = (props) => {
   const { value, name, filterName } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
 
   return (
     <Input
@@ -85,9 +85,9 @@ const FilterTextEntry = (props, context) => {
   );
 };
 
-const FilterColorEntry = (props, context) => {
+const FilterColorEntry = (props) => {
   const { value, filterName, name } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <Fragment>
       <Button
@@ -115,9 +115,9 @@ const FilterColorEntry = (props, context) => {
   );
 };
 
-const FilterIconEntry = (props, context) => {
+const FilterIconEntry = (props) => {
   const { value, filterName } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <Fragment>
       <Button
@@ -135,9 +135,9 @@ const FilterIconEntry = (props, context) => {
   );
 };
 
-const FilterFlagsEntry = (props, context) => {
+const FilterFlagsEntry = (props) => {
   const { name, value, filterName, filterType } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
 
   const filterInfo = data.filter_info;
   const flags = filterInfo[filterType]['flags'];
@@ -157,7 +157,7 @@ const FilterFlagsEntry = (props, context) => {
   ))(flags);
 };
 
-const FilterDataEntry = (props, context) => {
+const FilterDataEntry = (props) => {
   const { name, value, hasValue, filterName } = props;
 
   const filterEntryTypes = {
@@ -198,8 +198,8 @@ const FilterDataEntry = (props, context) => {
   );
 };
 
-const FilterEntry = (props, context) => {
-  const { act, data } = useBackend(context);
+const FilterEntry = (props) => {
+  const { act, data } = useBackend();
   const { name, filterDataEntry } = props;
   const { type, priority, ...restOfProps } = filterDataEntry;
 
@@ -260,14 +260,14 @@ const FilterEntry = (props, context) => {
   );
 };
 
-export const Filteriffic = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Filteriffic = (props) => {
+  const { act, data } = useBackend();
   const name = data.target_name || 'Unknown Object';
   const filters = data.target_filter_data || {};
   const hasFilters = filters !== {};
   const filterDefaults = data['filter_info'];
-  const [massApplyPath, setMassApplyPath] = useLocalState(context, 'massApplyPath', '');
-  const [hiddenSecret, setHiddenSecret] = useLocalState(context, 'hidden', false);
+  const [massApplyPath, setMassApplyPath] = useLocalState('massApplyPath', '');
+  const [hiddenSecret, setHiddenSecret] = useLocalState('hidden', false);
   return (
     <Window width={500} height={500} title="Filteriffic" resizable>
       <Window.Content scrollable>

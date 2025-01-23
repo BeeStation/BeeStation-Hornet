@@ -32,7 +32,7 @@
 
 /obj/machinery/computer/apc_control/attack_silicon(mob/user)
 	if(!IsAdminGhost(user))
-		to_chat(user,"<span class='warning'>[src] does not support AI control.</span>") //You already have APC access, cheater!
+		to_chat(user,span_warning("[src] does not support AI control.")) //You already have APC access, cheater!
 		return
 	..(user)
 
@@ -104,17 +104,17 @@
 		authenticated = FALSE
 		auth_id = "\[NULL\]"
 	if(href_list["restore_logging"])
-		to_chat(usr, "<span class='robot notice'>[icon2html(src, usr)] Logging functionality restored from backup data.</span>")
+		to_chat(usr, span_robotnotice("[icon2html(src, usr)] Logging functionality restored from backup data."))
 		obj_flags &= ~EMAGGED
 		LAZYADD(logs, "<b>-=- Logging restored to full functionality at this point -=-</b>")
 	if(href_list["access_apc"])
 		playsound(src, "terminal_type", 50, 0)
 		var/obj/machinery/power/apc/APC = locate(href_list["access_apc"]) in GLOB.apcs_list
 		if(!APC || APC.aidisabled || APC.panel_open || QDELETED(APC))
-			to_chat(usr, "<span class='robot danger'>[icon2html(src, usr)] APC does not return interface request. Remote access may be disabled.</span>")
+			to_chat(usr, span_robotdanger("[icon2html(src, usr)] APC does not return interface request. Remote access may be disabled."))
 			return
 		if(active_apc)
-			to_chat(usr, "<span class='robot danger'>[icon2html(src, usr)] Disconnected from [active_apc].</span>")
+			to_chat(usr, span_robotdanger("[icon2html(src, usr)] Disconnected from [active_apc]."))
 			active_apc.say("Remote access canceled. Interface locked.")
 			playsound(active_apc, 'sound/machines/boltsdown.ogg', 25, 0)
 			playsound(active_apc, 'sound/machines/terminal_alert.ogg', 50, 0)
@@ -122,7 +122,7 @@
 			active_apc.update_icon()
 			active_apc.remote_control = null
 			active_apc = null
-		to_chat(usr, "<span class='robot notice'>[icon2html(src, usr)] Connected to APC in [get_area_name(APC.area, TRUE)]. Interface request sent.</span>")
+		to_chat(usr, span_robotnotice("[icon2html(src, usr)] Connected to APC in [get_area_name(APC.area, TRUE)]. Interface request sent."))
 		log_activity("remotely accessed APC in [get_area_name(APC.area, TRUE)]")
 		APC.remote_control = src
 		APC.ui_interact(usr)
@@ -187,11 +187,11 @@
 
 /obj/machinery/computer/apc_control/on_emag(mob/user)
 	if(!authenticated)
-		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements using your emag.</span>")
+		to_chat(user, span_warning("You bypass [src]'s access requirements using your emag."))
 		authenticated = TRUE
 		log_activity("logged in")
 	else
-		user.visible_message("<span class='warning'>[user] emags \the [src], disabling precise logging!</span>", "<span class='warning'>You emag [src], disabling precise logging and allowing you to clear logs.</span>")
+		user.visible_message(span_warning("[user] emags \the [src], disabling precise logging!"), span_warning("You emag [src], disabling precise logging and allowing you to clear logs."))
 		log_game("[key_name(user)] emagged [src] at [AREACOORD(src)], disabling operator tracking.")
 		..()
 	playsound(src, "sparks", 50, 1)
