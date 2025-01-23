@@ -57,7 +57,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(C.dna.species.id != "nightmare")
 		if(sect.grand_ritual_level == 1)
-			mutantheart = new/obj/item/organ/heart/shadow_ritual1  // to fix
+			mutantheart = new/obj/item/organ/heart/shadow_ritual1
 			mutantheart.Insert(C, 0, FALSE)
 		if(sect.grand_ritual_level == 2)
 			mutantheart = new/obj/item/organ/heart/shadow_ritual2
