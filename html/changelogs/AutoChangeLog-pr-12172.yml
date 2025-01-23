@@ -1,5 +1,0 @@
-author: itsmeow, jlsnow301
-delete-after: true
-changes:
-  - code_imp: Removed 'context' parameter from TGUIs. This is an internal change that
-      should not affect anything.
