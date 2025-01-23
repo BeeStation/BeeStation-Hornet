@@ -27,10 +27,10 @@
 /obj/item/mecha_ammo/attack_self(mob/user)
 	..()
 	if(rounds)
-		to_chat(user, "<span class='warning'>You cannot flatten the ammo box until it's empty!</span>")
+		to_chat(user, span_warning("You cannot flatten the ammo box until it's empty!"))
 		return
 
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	to_chat(user, span_notice("You fold [src] flat."))
 	var/trash = new /obj/item/stack/sheet/iron(user.loc)
 	qdel(src)
 	user.put_in_hands(trash)
@@ -40,7 +40,7 @@
 	if(rounds)
 		. += "There [rounds > 1?"are":"is"] [rounds] [round_term][rounds > 1?"s":""] left."
 	else
-		. += "<span class='notice'>Use in-hand to fold it into a sheet of iron.</span>"
+		. += span_notice("Use in-hand to fold it into a sheet of iron.")
 
 /obj/item/mecha_ammo/incendiary
 	name = "incendiary ammo box"

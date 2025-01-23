@@ -249,7 +249,7 @@
 			..()
 			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
 		else
-			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
+			to_chat(user, span_warning("You strain, but can't seem to fart again just yet."))
 		return TRUE
 
 // Robotic Tongue emotes. Beep!
@@ -329,6 +329,16 @@
 /datum/emote/living/carbon/human/robot_tongue/dwoop/run_emote(mob/user, params)
 	if(..())
 		playsound(user.loc, 'sound/emotes/dwoop.ogg', 50)
+
+/datum/emote/living/carbon/human/robot_tongue/slowclap
+	key = "slowclap"
+	key_third_person = "activates their slow clap processor."
+	message = "activates their slow clap processor."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/robot_tongue/slowclap/run_emote(mob/user, params)
+	if(..())
+		playsound(user.loc, 'sound/machines/slowclap.ogg', 50)
 
 // Clown Robotic Tongue ONLY. Henk.
 

@@ -20,9 +20,9 @@
 	reroll_friendly = 1
 
 	announce_span = "danger"
-	announce_text = "There are Syndicate agents on the station!\n\
-	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Do not let the traitors succeed!"
+	announce_text = "There are Syndicate agents on the station!\n \
+	" + span_danger("Traitors") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Do not let the traitors succeed!"
 
 	title_icon = "traitor"
 

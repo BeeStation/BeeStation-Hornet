@@ -60,7 +60,7 @@
 		new_part.replace_limb(target, TRUE, is_creating = TRUE)
 		qdel(picked_user_part)
 		target.update_body(TRUE)
-		to_chat(target, "<span class='warning'>Something feels different...</span>")
+		to_chat(target, span_warning("Something feels different..."))
 		log_game("[key_name(owner)] has caused a bioscrambler pulse affecting [english_list(affected)].")
 		target.log_message("had their [picked_user_part.type] turned into [new_part.type] by a bioscrambling pulse from [owner].", LOG_ATTACK, color="red")
 
