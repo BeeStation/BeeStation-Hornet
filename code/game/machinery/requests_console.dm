@@ -221,11 +221,11 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				dat += departments_table(GLOB.req_console_information)
 
 			if(REQ_SCREEN_SENT)
-				dat += "<span class='good'>Message sent.</span><BR><BR>"
+				dat += "[span_good("Message sent.")]<BR><BR>"
 				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 			if(REQ_SCREEN_ERR)
-				dat += "<span class='bad'>An error occurred.</span><BR><BR>"
+				dat += "[span_bad("An error occurred.")]<BR><BR>"
 				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 			if(REQ_SCREEN_VIEW_MSGS)
@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				if ((announceAuth || IsAdminGhost(user)) && message)
 					dat += "<A href='?src=[REF(src)];sendAnnouncement=1'>Announce Message</A><BR>"
 				else
-					dat += "<span class='linkOff'>Announce Message</span><BR>"
+					dat += "[span_linkoff("Announce Message")]<BR>"
 				dat += "<BR><A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 		if(!dat)
@@ -318,7 +318,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(!announcementConsole)
 			return
 		if(CHAT_FILTER_CHECK(message))
-			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			to_chat(usr, span_warning("Your message contains forbidden words."))
 			return
 		if(isliving(usr))
 			var/mob/living/L = usr
@@ -436,14 +436,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				update_icon()
 
 		if(REQ_HIGH_MESSAGE_PRIORITY)
-			header = "<span class='bad'>High Priority</span><BR>[header]"
+			header = "[span_bad("High Priority")]<BR>[header]"
 			alert = "PRIORITY Alert from [source][authentic]"
 			if(newmessagepriority < REQ_HIGH_MESSAGE_PRIORITY)
 				newmessagepriority = REQ_HIGH_MESSAGE_PRIORITY
 				update_icon()
 
 		if(REQ_EXTREME_MESSAGE_PRIORITY)
-			header = "<span class='bad'>!!!Extreme Priority!!!</span><BR>[header]"
+			header = "[span_bad("!!!Extreme Priority!!!")]<BR>[header]"
 			alert = "EXTREME PRIORITY Alert from [source][authentic]"
 			silenced = FALSE
 			if(newmessagepriority < REQ_EXTREME_MESSAGE_PRIORITY)
@@ -463,10 +463,10 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 /obj/machinery/requests_console/attackby(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		if(open)
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			to_chat(user, span_notice("You close the maintenance panel."))
 			open = FALSE
 		else
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			to_chat(user, span_notice("You open the maintenance panel."))
 			open = TRUE
 		update_icon()
 		return
@@ -474,12 +474,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(open)
 			hackState = !hackState
 			if(hackState)
-				to_chat(user, "<span class='notice'>You modify the wiring.</span>")
+				to_chat(user, span_notice("You modify the wiring."))
 			else
-				to_chat(user, "<span class='notice'>You reset the wiring.</span>")
+				to_chat(user, span_notice("You reset the wiring."))
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You must open the maintenance panel first!</span>")
+			to_chat(user, span_warning("You must open the maintenance panel first!"))
 		return
 
 	var/obj/item/card/id/ID = O.GetID()
@@ -495,13 +495,13 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements!</span>")
+				to_chat(user, span_warning("You are not authorized to send announcements!"))
 			updateUsrDialog()
 		return
 	if (istype(O, /obj/item/stamp))
 		if(screen == REQ_SCREEN_AUTHENTICATE)
 			var/obj/item/stamp/T = O
-			msgStamped = "<span class='boldnotice'>Stamped with the [T.name]</span>"
+			msgStamped = span_boldnotice("Stamped with the [T.name]")
 			updateUsrDialog()
 		return
 	return ..()

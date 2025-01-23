@@ -49,7 +49,7 @@
 			C.reagents.metabolize(C, delta_time, times_fired, can_overdose=TRUE)
 
 			if(provide_pain_message && damage > 10 && DT_PROB(damage/6, delta_time)) //the higher the damage the higher the probability
-				to_chat(C, "<span class='warning'>You feel a dull pain in your abdomen.</span>")
+				to_chat(C, span_warning("You feel a dull pain in your abdomen."))
 
 		else //for when our liver's failing
 			C.liver_failure(delta_time, times_fired)
@@ -123,7 +123,7 @@
 	status = ORGAN_ROBOTIC
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc/emp_act(severity)
-	to_chat(owner, "<span class='warning'>Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance.</span>")
+	to_chat(owner, span_warning("Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance."))
 	switch(severity)
 		if(1)
 			owner.toxloss += 15

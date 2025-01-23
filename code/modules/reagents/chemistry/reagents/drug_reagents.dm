@@ -25,7 +25,7 @@
 	..()
 
 /datum/reagent/drug/space_drugs/overdose_start(mob/living/M)
-	to_chat(M, "<span class='userdanger'>You start tripping hard!</span>")
+	to_chat(M, span_userdanger("You start tripping hard!"))
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/M, delta_time, times_fired)
@@ -48,7 +48,7 @@
 /datum/reagent/drug/nicotine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(0.5, delta_time))
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
-		to_chat(M, "<span class='notice'>[smoke_message]</span>")
+		to_chat(M, span_notice("[smoke_message]"))
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "smoked", /datum/mood_event/smoked, name)
 	M.AdjustStun(-50  * REM * delta_time)
 	M.AdjustKnockdown(-50 * REM * delta_time)
@@ -84,11 +84,11 @@
 /datum/reagent/drug/crank/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(2.5, delta_time))
 		var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, span_notice("[high_message]"))
 	if(prob(8))
 		M.adjustBruteLoss(rand(1,4))
 		M.Stun(5, 0)
-		to_chat(M, "<span class='notice'>You stop to furiously scratch at your skin.</span>")
+		to_chat(M, span_notice("You stop to furiously scratch at your skin."))
 	M.AdjustStun(-20 * REM * delta_time)
 	M.AdjustKnockdown(-20 * REM * delta_time)
 	M.AdjustUnconscious(-20 * REM * delta_time)
@@ -140,7 +140,7 @@
 /datum/reagent/drug/krokodil/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(DT_PROB(2.5, delta_time))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, span_notice("[high_message]"))
 	..()
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/M, delta_time, times_fired)
@@ -157,12 +157,12 @@
 
 /datum/reagent/drug/krokodil/addiction_act_stage2(mob/living/M)
 	if(prob(25))
-		to_chat(M, "<span class='danger'>Your skin feels loose...</span>")
+		to_chat(M, span_danger("Your skin feels loose..."))
 	..()
 
 /datum/reagent/drug/krokodil/addiction_act_stage3(mob/living/M)
 	if(prob(25))
-		to_chat(M, "<span class='danger'>Your skin starts to peel away...</span>")
+		to_chat(M, span_danger("Your skin starts to peel away..."))
 	M.adjustBruteLoss(3*REM, 0)
 	..()
 	. = 1
@@ -171,13 +171,13 @@
 	CHECK_DNA_AND_SPECIES(M)
 	if(ishumanbasic(M))
 		if(!istype(M.dna.species, /datum/species/human/krokodil_addict))
-			to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
+			to_chat(M, span_userdanger("Your skin falls off easily!"))
 			M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
 			M.set_species(/datum/species/human/krokodil_addict)
 		else
 			M.adjustBruteLoss(5*REM, 0)
 	else
-		to_chat(M, "<span class='danger'>Your skin peels and tears!</span>")
+		to_chat(M, span_danger("Your skin peels and tears!"))
 		M.adjustBruteLoss(5*REM, 0) // repeats 5 times and then you get over it
 
 	..()
@@ -211,7 +211,7 @@
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(DT_PROB(2.5, delta_time))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, span_notice("[high_message]"))
 	M.AdjustStun(-40 * REM * delta_time)
 	M.AdjustKnockdown(-40 * REM * delta_time)
 	M.AdjustUnconscious(-40 * REM * delta_time)
@@ -233,7 +233,7 @@
 	if(DT_PROB(10, delta_time))
 		M.emote("laugh")
 	if(DT_PROB(18, delta_time))
-		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message(span_danger("[M]'s hands flip out and flail everywhere!"))
 		M.drop_all_held_items()
 	..()
 	M.adjustToxLoss(1 * REM * delta_time, 0)
@@ -313,7 +313,7 @@
 /datum/reagent/drug/bath_salts/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(DT_PROB(2.5, delta_time))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, span_notice("[high_message]"))
 	M.adjustStaminaLoss(-5 * REM * delta_time, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time)
 	M.hallucination += 5 * REM * delta_time
@@ -401,7 +401,7 @@
 /datum/reagent/drug/aranesp/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(DT_PROB(2.5, delta_time))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
+		to_chat(M, span_notice("[high_message]"))
 	M.adjustStaminaLoss(-18 * REM * delta_time, 0)
 	M.adjustToxLoss(0.5 * REM * delta_time, 0)
 	if(DT_PROB(30, delta_time))
@@ -510,7 +510,7 @@
 	//Friendly Reminder: Ketamine is a tranquilizer and will sleep you.
 	switch(current_cycle)
 		if(10)
-			to_chat(M, "<span class='warning'>You start to feel tired...</span>" )
+			to_chat(M, span_warning("You start to feel tired...") )
 		if(11 to 25)
 			M.drowsyness += 1 * REM * delta_time
 		if(26 to INFINITY)
@@ -536,11 +536,11 @@
 		if(HAS_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN))
 			REMOVE_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 		if(prob(33))
-			to_chat(M, "<span class='warning'>Your limbs begin to feel heavy...</span>")
+			to_chat(M, span_warning("Your limbs begin to feel heavy..."))
 		else if(prob(33))
-			to_chat(M, "<span class='warning'>It feels hard to move...</span>")
+			to_chat(M, span_warning("It feels hard to move..."))
 		else
-			to_chat(M, "<span class='warning'>You feel like you your limbs won't move...</span>")
+			to_chat(M, span_warning("You feel like you your limbs won't move..."))
 		M.drop_all_held_items()
 		M.Dizzy(5)
 	..()

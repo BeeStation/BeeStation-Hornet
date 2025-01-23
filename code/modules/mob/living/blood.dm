@@ -152,7 +152,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
-		to_chat(src, "<span class='user_danger'>Blood starts rushing out of the open wound!</span>")
+		to_chat(src, "[span_userdanger("Blood starts rushing out of the open wound!")]")
 	if(bleed_level >= BLEED_CUT)
 		add_splatter_floor(src.loc)
 	else
@@ -298,7 +298,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			switch(blood_volume)
 				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
 					if(prob(3))
-						to_chat(src, "<span class='warning'>Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")].</span>")
+						to_chat(src, span_warning("Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")]."))
 				if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 					desired_damage = getMaxHealth() * 2.0
 					// Rapidly die with no saving you
@@ -309,19 +309,19 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(DT_PROB(2.5, delta_time))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, span_warning("You feel [word]."))
 				//adjustOxyLoss(round(0.005 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 				if(DT_PROB(2.5, delta_time))
 					blur_eyes(6)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				//adjustOxyLoss(2.5 * delta_time)
 				if(DT_PROB(15, delta_time))
 					blur_eyes(6)
 					Unconscious(rand(3,6))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				desired_damage = getMaxHealth() * 2.0
 				// Rapidly die with no saving you

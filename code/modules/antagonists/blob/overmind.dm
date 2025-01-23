@@ -110,8 +110,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	if(!blob_core)
 		if(!placed)
 			if(manualplace_min_time && world.time >= manualplace_min_time)
-				to_chat(src, "<b><span class='big'><font color=\"#EE4000\">You may now place your blob core.</font></span></b>")
-				to_chat(src, "<span class='big'><font color=\"#EE4000\">You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)].</font></span>")
+				to_chat(src, "<b>[span_big("<font color=\"#EE4000\">You may now place your blob core.</font>")]</b>")
+				to_chat(src, span_big("<font color=\"#EE4000\">You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)].</font>"))
 				manualplace_min_time = 0
 			if(autoplace_max_time && world.time >= autoplace_max_time)
 				place_blob_core(1)
@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	to_chat(src, "<span class='notice'>You are the overmind!</span>")
+	to_chat(src, span_notice("You are the overmind!"))
 	blob_help()
 	update_health_hud()
 	add_points(0)
@@ -258,13 +258,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	if (!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = treat_message_min(message)
 	src.log_talk(message, LOG_SAY, tag="blob")
 
 	var/message_a = say_quote(message)
-	var/rendered = "<span class='big'><font color=\"#EE4000\"><b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a]</font></span>"
+	var/rendered = span_big("<font color=\"#EE4000\"><b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a]</font>")
 
 	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))

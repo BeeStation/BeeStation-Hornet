@@ -146,7 +146,7 @@
 			if(!(tool in available_selections[params["chosen_category"]]))
 				return
 			tool_behaviour = tool
-			to_chat(usr, "<span class='notice'>Tool behaviour of [src] is now [tool_behaviour]</span>")
+			to_chat(usr, span_notice("Tool behaviour of [src] is now [tool_behaviour]"))
 			return
 
 /obj/item/construction/rcd/arcd/debug
@@ -444,7 +444,7 @@
 		return
 
 	if(working)
-		to_chat(user, "<span class='notice'>We're creating a map yet.</span>")
+		to_chat(user, span_notice("We're creating a map yet."))
 		return
 
 	if(ispath(map_template))
@@ -454,15 +454,15 @@
 /obj/item/map_template_diver/proc/create_map(mob/user)
 	set waitfor = FALSE
 
-	to_chat(user, "<span class='notice'>Creates a map template...</span>")
+	to_chat(user, span_notice("Creates a map template..."))
 	working = TRUE
 	map_template = new map_template()
 	var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
 	turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
-	to_chat(user, "<span class='notice'>Creation is completed.</span>")
+	to_chat(user, span_notice("Creation is completed."))
 	working = FALSE
 	dive_into(user)
 
 /obj/item/map_template_diver/proc/dive_into(mob/user)
-	to_chat(user, "<span class='notice'>Teleports to the test area.</span>")
+	to_chat(user, span_notice("Teleports to the test area."))
 	user.forceMove(turf_to_dive)

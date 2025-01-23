@@ -426,7 +426,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	return spawned_mobs
 
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
-	message = "<span class='linkify'>[message]</span>"
+	message = span_linkify("[message]")
 	for(var/mob/M in GLOB.player_list)
 		var/death_rattle = TRUE
 		var/arrivals_rattle = TRUE
@@ -827,7 +827,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	//This name has already been taken and this is not the original user, return FALSE
 	else
-		to_chat(C.mob, "<span class='warning'>Cyborg name already used this round by another character, your name has been randomized</span>")
+		to_chat(C.mob, span_warning("Cyborg name already used this round by another character, your name has been randomized"))
 		return FALSE
 
 /proc/view_or_range(distance = world.view , center = usr , type)

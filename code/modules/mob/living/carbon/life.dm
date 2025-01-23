@@ -525,16 +525,16 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 81)
 			adjustToxLoss(0.5 * delta_time)
 			if(!stat && DT_PROB(2.5, delta_time))
-				to_chat(src, "<span class='warning'>Maybe you should lie down for a bit...</span>")
+				to_chat(src, span_warning("Maybe you should lie down for a bit."))
 
 		if(drunkenness >= 91)
 			adjustToxLoss(0.5 * delta_time)
 			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
 			if(DT_PROB(10, delta_time) && !stat)
 				if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(z)) //QoL mainly
-					to_chat(src, "<span class='warning'>You're so tired, but you can't miss that shuttle.</span>")
+					to_chat(src, span_warning("You're so tired, but you can't miss that shuttle."))
 				else
-					to_chat(src, "<span class='warning'>Just a quick nap.</span>")
+					to_chat(src, span_warning("Just a quick nap."))
 					Sleeping(900)
 
 		if(drunkenness >= 101)
@@ -695,7 +695,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 	adjustToxLoss(2 * delta_time, TRUE,  TRUE)
 	if(DT_PROB(15, delta_time))
-		to_chat(src, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
+		to_chat(src, span_warning("You feel a stabbing pain in your abdomen!"))
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

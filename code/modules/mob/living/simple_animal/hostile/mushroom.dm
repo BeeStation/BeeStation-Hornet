@@ -42,9 +42,9 @@
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += "<span class='info'>It looks healthy.</span>"
+		. += span_info("It looks healthy.")
 	else
-		. += "<span class='info'>It looks like it's been roughed up.</span>"
+		. += span_info("It looks like it's been roughed up.")
 
 /mob/living/simple_animal/hostile/mushroom/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
@@ -98,7 +98,7 @@
 			M.visible_message("[M] chews a bit on [src].")
 			faint_ticker++
 			return TRUE
-		M.visible_message("<span class='warning'>[M] devours [src]!</span>")
+		M.visible_message(span_warning("[M] devours [src]!"))
 		var/level_gain = (powerlevel - M.powerlevel)
 		if(level_gain >= -1 && !bruised && !M.ckey)//Player shrooms can't level up to become robust gods.
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
@@ -157,7 +157,7 @@
 			Recover()
 			qdel(I)
 		else
-			to_chat(user, "<span class='warning'>[src] won't eat it!</span>")
+			to_chat(user, span_warning("[src] won't eat it!"))
 		return
 	if(I.force)
 		Bruise()

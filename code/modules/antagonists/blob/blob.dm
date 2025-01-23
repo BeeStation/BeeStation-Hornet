@@ -21,7 +21,7 @@
 
 /datum/antagonist/blob/greet()
 	if(!isovermind(owner.current))
-		to_chat(owner,"<span class='userdanger'>You feel bloated.</span>")
+		to_chat(owner,span_userdanger("You feel bloated."))
 	else
 		owner.current.client?.tgui_panel?.give_antagonist_popup("Blob",
 			"Place your core by using the place core button.\n\

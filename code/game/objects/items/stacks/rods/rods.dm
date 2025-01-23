@@ -23,7 +23,7 @@
 	source = /datum/robot_energy_storage/metal
 
 /obj/item/stack/rods/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")//it looks like theyre ur mum
+	user.visible_message(span_suicide("[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!"))//it looks like theyre ur mum
 	return BRUTELOSS
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
@@ -54,14 +54,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
+			to_chat(user, span_warning("You need at least two rods to do this!"))
 			return
 
 		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
 			user.visible_message("[user.name] shaped [src] into iron with [W].", \
-						"<span class='notice'>You shape [src] into iron with [W].</span>", \
-						"<span class='italics'>You hear welding.</span>")
+						span_notice("You shape [src] into iron with [W]."), \
+						span_italics("You hear welding."))
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_held_item()==R)

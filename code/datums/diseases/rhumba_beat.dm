@@ -39,7 +39,7 @@
 					affected_mob.IgniteMob()
 				else
 					affected_mob.emote("gasp")
-					to_chat(affected_mob, "<span class='danger'>You feel a burning beat inside...</span>")
+					to_chat(affected_mob, span_danger("You feel a burning beat inside..."))
 		if(5)
 			to_chat(affected_mob, "<span class='danger'>Your body is unable to contain the Rhumba Beat...</span>")
 			if(DT_PROB(29, delta_time))
