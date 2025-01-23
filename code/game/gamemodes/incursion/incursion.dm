@@ -12,9 +12,9 @@
 	false_report_weight = 10
 
 	announce_span = "danger"
-	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n\
-	<span class='danger'>Incursionists</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Find and prevent the operatives from completing their goals!"
+	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n \
+	" + span_danger("Incursionists") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Find and prevent the operatives from completing their goals!"
 
 	required_enemies = 1
 

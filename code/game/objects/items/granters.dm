@@ -14,9 +14,9 @@
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
 	if(do_after(user,50, user))
 		if(remarks.len)
-			to_chat(user, "<span class='notice'>[pick(remarks)]</span>")
+			to_chat(user, span_notice("[pick(remarks)]"))
 		else
-			to_chat(user, "<span class='notice'>You keep reading...</span>")
+			to_chat(user, span_notice("You keep reading..."))
 		return TRUE
 	return FALSE
 
@@ -26,13 +26,13 @@
 	return FALSE
 
 /obj/item/book/granter/proc/on_reading_start(mob/user)
-	to_chat(user, "<span class='notice'>You start reading [name]...</span>")
+	to_chat(user, span_notice("You start reading [name]..."))
 
 /obj/item/book/granter/proc/on_reading_stopped(mob/user)
-	to_chat(user, "<span class='notice'>You stop reading...</span>")
+	to_chat(user, span_notice("You stop reading..."))
 
 /obj/item/book/granter/proc/on_reading_finished(mob/user)
-	to_chat(user, "<span class='notice'>You finish reading [name]!</span>")
+	to_chat(user, span_notice("You finish reading [name]!"))
 
 /obj/item/book/granter/proc/onlearned(mob/user)
 	used = TRUE
@@ -40,7 +40,7 @@
 
 /obj/item/book/granter/attack_self(mob/user)
 	if(reading)
-		to_chat(user, "<span class='warning'>You're already reading this!</span>")
+		to_chat(user, span_warning("You're already reading this!"))
 		return FALSE
 	if(!user.can_read(src))
 		return FALSE
@@ -73,15 +73,15 @@
 		return TRUE
 	for(var/datum/action/A in user.actions)
 		if(A.type == granted_action)
-			to_chat(user, "<span class='notice'>You already know all about [actionname].</span>")
+			to_chat(user, span_notice("You already know all about [actionname]."))
 			return TRUE
 	return FALSE
 
 /obj/item/book/granter/action/on_reading_start(mob/user)
-	to_chat(user, "<span class='notice'>You start reading about [actionname]...</span>")
+	to_chat(user, span_notice("You start reading about [actionname]..."))
 
 /obj/item/book/granter/action/on_reading_finished(mob/user)
-	to_chat(user, "<span class='notice'>You feel like you've got a good handle on [actionname]!</span>")
+	to_chat(user, span_notice("You feel like you've got a good handle on [actionname]!"))
 	var/datum/action/G = new granted_action
 	G.Grant(user)
 	onlearned(user)
@@ -102,13 +102,13 @@
 	check_flags = NONE
 
 /datum/action/innate/origami/Activate()
-	to_chat(owner, "<span class='notice'>You will now catch origami planes.</span>")
+	to_chat(owner, span_notice("You will now catch origami planes."))
 	button_icon_state = "origami_on"
 	active = TRUE
 	UpdateButtonIcon()
 
 /datum/action/innate/origami/Deactivate()
-	to_chat(owner, "<span class='notice'>You will no longer catch origami planes.</span>")
+	to_chat(owner, span_notice("You will no longer catch origami planes."))
 	button_icon_state = "origami_off"
 	active = FALSE
 	UpdateButtonIcon()
@@ -126,29 +126,29 @@
 		if(knownspell.type == spell)
 			if(user.mind)
 				if(iswizard(user))
-					to_chat(user,"<span class='notice'>You're already far more versed in this spell than this flimsy how-to book can provide.</span>")
+					to_chat(user,span_notice("You're already far more versed in this spell than this flimsy how-to book can provide."))
 				else
-					to_chat(user,"<span class='notice'>You've already read this one.</span>")
+					to_chat(user,span_notice("You've already read this one."))
 			return TRUE
 	return FALSE
 
 /obj/item/book/granter/spell/on_reading_start(mob/user)
-	to_chat(user, "<span class='notice'>You start reading about casting [spellname]...</span>")
+	to_chat(user, span_notice("You start reading about casting [spellname]..."))
 
 /obj/item/book/granter/spell/on_reading_finished(mob/user)
-	to_chat(user, "<span class='notice'>You feel like you've experienced enough to cast [spellname]!</span>")
+	to_chat(user, span_notice("You feel like you've experienced enough to cast [spellname]!"))
 	var/obj/effect/proc_holder/spell/S = new spell
 	user.mind.AddSpell(S)
 	user.log_message("learned the spell [spellname] ([S])", LOG_ATTACK, color="orange")
 	onlearned(user)
 
 /obj/item/book/granter/spell/recoil(mob/user)
-	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
+	user.visible_message(span_warning("[src] glows in a black light!"))
 
 /obj/item/book/granter/spell/onlearned(mob/user)
 	..()
 	if(oneuse)
-		user.visible_message("<span class='warning'>[src] glows dark for a second!</span>")
+		user.visible_message(span_warning("[src] glows dark for a second!"))
 
 /obj/item/book/granter/spell/fireball
 	spell = /obj/effect/proc_holder/spell/aimed/fireball
@@ -181,7 +181,7 @@
 
 /obj/item/book/granter/spell/smoke/recoil(mob/user)
 	..()
-	to_chat(user,"<span class='warning'>Your stomach rumbles...</span>")
+	to_chat(user,span_warning("Your stomach rumbles..."))
 	if(user.nutrition)
 		user.set_nutrition(200)
 		if(user.nutrition <= 0)
@@ -196,7 +196,7 @@
 
 /obj/item/book/granter/spell/blind/recoil(mob/user)
 	..()
-	to_chat(user,"<span class='warning'>You go blind!</span>")
+	to_chat(user,span_warning("You go blind!"))
 	user.adjust_blindness(10)
 
 /obj/item/book/granter/spell/mindswap
@@ -219,17 +219,17 @@
 		stored_swap = null
 	if(!stored_swap)
 		stored_swap = user
-		to_chat(user,"<span class='warning'>For a moment you feel like you don't even know who you are anymore.</span>")
+		to_chat(user,span_warning("For a moment you feel like you don't even know who you are anymore."))
 		return
 	if(stored_swap == user)
-		to_chat(user,"<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
+		to_chat(user,span_notice("You stare at the book some more, but there doesn't seem to be anything else to learn..."))
 		return
 	var/obj/effect/proc_holder/spell/targeted/mind_transfer/swapper = new
 	if(swapper.cast(list(stored_swap), user, TRUE, TRUE))
-		to_chat(user,"<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
-		to_chat(stored_swap,"<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
+		to_chat(user,span_warning("You're suddenly somewhere else... and someone else?!"))
+		to_chat(stored_swap,span_warning("Suddenly you're staring at [src] again... where are you, who are you?!"))
 	else
-		user.visible_message("<span class='warning'>[src] fizzles slightly as it stops glowing!</span>") //if the mind_transfer failed to transfer mobs, likely due to the target being catatonic.
+		user.visible_message(span_warning("[src] fizzles slightly as it stops glowing!")) //if the mind_transfer failed to transfer mobs, likely due to the target being catatonic.
 
 	stored_swap = null
 
@@ -242,7 +242,7 @@
 
 /obj/item/book/granter/spell/forcewall/recoil(mob/living/user)
 	..()
-	to_chat(user,"<span class='warning'>You suddenly feel very solid!</span>")
+	to_chat(user,span_warning("You suddenly feel very solid!"))
 	user.Stun(40, ignore_canstun = TRUE)
 	user.petrify(60)
 
@@ -255,7 +255,7 @@
 
 /obj/item/book/granter/spell/knock/recoil(mob/living/user)
 	..()
-	to_chat(user,"<span class='warning'>You're knocked down!</span>")
+	to_chat(user,span_warning("You're knocked down!"))
 	user.Paralyze(40)
 
 /obj/item/book/granter/spell/barnyard
@@ -274,7 +274,7 @@
 		user.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, TRUE, TRUE)
 		qdel(src)
 	else
-		to_chat(user,"<span class='notice'>I say thee neigh</span>") //It still lives here
+		to_chat(user,span_notice("I say thee neigh")) //It still lives here
 
 /obj/item/book/granter/spell/charge
 	spell = /obj/effect/proc_holder/spell/targeted/charge
@@ -285,7 +285,7 @@
 
 /obj/item/book/granter/spell/charge/recoil(mob/user)
 	..()
-	to_chat(user,"<span class='warning'>[src] suddenly feels very warm!</span>")
+	to_chat(user,span_warning("[src] suddenly feels very warm!"))
 	empulse(src, 1, 1, magic=TRUE)
 
 /obj/item/book/granter/spell/summonitem
@@ -297,7 +297,7 @@
 
 /obj/item/book/granter/spell/summonitem/recoil(mob/user)
 	..()
-	to_chat(user,"<span class='warning'>[src] suddenly vanishes!</span>")
+	to_chat(user,span_warning("[src] suddenly vanishes!"))
 	qdel(src)
 
 /obj/item/book/granter/spell/random
@@ -323,12 +323,12 @@
 		return TRUE
 	var/datum/martial_art/MA = martial
 	if(user.mind.has_martialart(initial(MA.id)))
-		to_chat(user,"<span class='warning'>You already know [martialname]!</span>")
+		to_chat(user,span_warning("You already know [martialname]!"))
 		return TRUE
 	return FALSE
 
 /obj/item/book/granter/martial/on_reading_start(mob/user)
-	to_chat(user, "<span class='notice'>You start reading about [martialname]...</span>")
+	to_chat(user, span_notice("You start reading about [martialname]..."))
 
 /obj/item/book/granter/martial/on_reading_finished(mob/user)
 	to_chat(user, "[greet]")
@@ -342,17 +342,17 @@
 	name = "old manual"
 	martialname = "close quarters combat"
 	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
-	greet = "<span class='boldannounce'>You've mastered the basics of CQC.</span>"
+	greet = span_boldannounce("You've mastered the basics of CQC.")
 	icon_state = "cqcmanual"
 	remarks = list("Kick... Slam...", "Lock... Kick...", "Strike their abdomen, neck and back for critical damage...", "Slam... Lock...", "I could probably combine this with some other martial arts!", "Words that kill...", "The last and final moment is yours...")
 
 /obj/item/book/granter/martial/cqc/onlearned(mob/living/carbon/user)
 	..()
 	if(oneuse == TRUE)
-		to_chat(user, "<span class='warning'>[src] beeps ominously...</span>")
+		to_chat(user, span_warning("[src] beeps ominously..."))
 
 /obj/item/book/granter/martial/cqc/recoil(mob/living/carbon/user)
-	to_chat(user, "<span class='warning'>[src] explodes!</span>")
+	to_chat(user, span_warning("[src] explodes!"))
 	playsound(src,'sound/effects/explosion1.ogg',40,1)
 	user.flash_act(1, 1)
 	user.adjustBruteLoss(6)
@@ -364,8 +364,8 @@
 	name = "mysterious scroll"
 	martialname = "sleeping carp"
 	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles \
-	directed toward you. However, you are also unable to use any ranged weaponry. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
+	greet = span_sciradio("You have learned the ancient martial art of the Sleeping Carp! Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles \
+	directed toward you. However, you are also unable to use any ranged weaponry. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of the sleeping carp...", "Stance means everything...", "Focus... And you'll be able to incapacitate any foe in seconds...", "I must pierce armor for maximum damage...", "I don't think this would combine with other martial arts...", "Grab them first so they don't retaliate...", "I must prove myself worthy of this power...")
@@ -382,8 +382,8 @@
 	name = "old scroll"
 	martialname = "tribal claw"
 	desc = "A scroll filled with ancient draconic markings."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of the Tribal Claw! You are now able to use your tail and claws in a fight much better than before. \
-	Check the combos you are now able to perform using the Recall Teachings verb in the Tribal Claw tab</span>"
+	greet = span_sciradio("You have learned the ancient martial art of the Tribal Claw! You are now able to use your tail and claws in a fight much better than before. \
+	Check the combos you are now able to perform using the Recall Teachings verb in the Tribal Claw tab")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of the Knoises clan...", "Use your tail to surprise any enemy...", "Your sharp claws can disorient them...", "I don't think this would combine with other martial arts...", "Ooga Booga...")
@@ -400,7 +400,7 @@
 	if(islizard(user))
 		return FALSE
 	else
-		to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
+		to_chat(user, span_warning("You try to read the scroll but can't comprehend any of it."))
 		return TRUE
 
 /obj/item/book/granter/martial/plasma_fist
@@ -408,8 +408,8 @@
 	name = "frayed scroll"
 	martialname = "plasma fist"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
-	greet = "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist. Your combos are extremely hard to pull off, but include some of the most deadly moves ever seen including \
-	the plasma fist, which when pulled off will make someone violently explode.</span>"
+	greet = span_boldannounce("You have learned the ancient martial art of Plasma Fist. Your combos are extremely hard to pull off, but include some of the most deadly moves ever seen including \
+	the plasma fist, which when pulled off will make someone violently explode.")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	remarks = list("Balance...", "Power...", "Control...", "Mastery...", "Vigilance...", "Skill...")
@@ -426,8 +426,8 @@
 	name = "dusty scroll"
 	martialname = "karate"
 	desc = "A dusty scroll filled with martial lessons. There seems to be drawings of some sort of martial art."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of Karate! Your hand-to-hand combat has become more effective but require skill to combo effectively.\
-	You can learn more about your newfound art by using the Recall Teachings verb in the Karate tab.</span>"
+	greet = span_sciradio("You have learned the ancient martial art of Karate! Your hand-to-hand combat has become more effective but require skill to combo effectively.\
+	You can learn more about your newfound art by using the Recall Teachings verb in the Karate tab.")
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of Karate...", "Disable their legs so they can't escape...", "Strike at pressure points to daze my foes...", "Stomp their head for maximum damage...", "I don't think this would combine with other martial arts...", "Wind them with a flying knee...", "I must practice to fully grasp these teachings...")
@@ -456,7 +456,7 @@
 	for(var/crafting_recipe_type in crafting_recipe_types)
 		var/datum/crafting_recipe/R = crafting_recipe_type
 		user.mind.teach_crafting_recipe(crafting_recipe_type)
-		to_chat(user,"<span class='notice'>You learned how to make [initial(R.name)].</span>")
+		to_chat(user,span_notice("You learned how to make [initial(R.name)]."))
 
 /obj/item/book/granter/crafting_recipe/cooking_sweets_101
 	name = "Cooking Desserts 101"

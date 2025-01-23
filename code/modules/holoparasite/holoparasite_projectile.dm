@@ -16,7 +16,7 @@
 			SSblackbox.record_feedback("amount", "holoparasite_fired_projectile_phase", 1)
 		if(last_holopara_pierce != target)
 			last_holopara_pierce = target
-			visible_message("<span class='holoparasite'>\The [src] appears to degrade as it phases through [target]!</span>")
+			visible_message(span_holoparasite("\The [src] appears to degrade as it phases through [target]!"))
 		// The projectile damage will degrade a bit when phasing through an ally, though.
 		if(isholopara(target))
 			var/mob/living/simple_animal/hostile/holoparasite/other_holopara = target
@@ -36,7 +36,7 @@
 			SSblackbox.record_feedback("tally", "holoparasite_summoner_projectile_phase", 1, "[projectile.type]")
 		if(projectile.last_holopara_pierce != src)
 			projectile.last_holopara_pierce = src
-			projectile.visible_message("<span class='holoparasite'>\The [projectile] appears to degrade as it phases through [color_name]!</span>")
+			projectile.visible_message(span_holoparasite("\The [projectile] appears to degrade as it phases through [color_name]!"))
 		degrade_projectile(projectile)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()

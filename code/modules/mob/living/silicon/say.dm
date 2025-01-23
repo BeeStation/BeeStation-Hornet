@@ -3,7 +3,7 @@
 	if(is_jammed(JAMMER_PROTECTION_SILICON_COMMS))
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	log_talk(message, LOG_SAY, tag="binary")
 	var/desig = "Default Cyborg" //ezmode for taters
@@ -22,17 +22,17 @@
 				var/loud = FALSE
 				if(M == src) //AI hears only itself on loud mode.
 					loud = TRUE
-				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> [loud ? "[large_message_a]" : "[message_a]"]</span>"
+				var/rendered = span_srtradiobinarysay("Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'>[span_name("[name] ([desig])")]</a> [loud ? large_message_a : message_a]")
 				to_chat(M, rendered)
 			else if(iscyborg(M))
 				var/mob/living/silicon/robot/borg = M
 				var/loud = FALSE
 				if((src == borg.connected_ai) || (true_ai_core == borg.connected_ai)) //Cyborg only hears master AI on loud mode.
 					loud = TRUE
-				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>"
+				var/rendered = span_srtradiobinarysay("Robotic Talk, [span_name(name)] [loud ? large_message_a : message_a]")
 				to_chat(M, rendered)
 			else
-				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [message_a]</span>"
+				var/rendered = span_srtradiobinarysay("Robotic Talk, [span_name(name)] [message_a]")
 				to_chat(M, rendered)
 		if(isobserver(M))
 			var/following = src
@@ -43,7 +43,7 @@
 				var/mob/living/silicon/ai/ai = src
 				following = ai.eyeobj
 			var/link = FOLLOW_LINK(M, following)
-			var/rendered = "<span class='srt_radio binarysay'>[link] Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>" //Observers hear all AI on loud mode.
+			var/rendered = span_srtradiobinarysay("[link] Robotic Talk, [span_name(name)] [loud ? large_message_a : message_a]") //Observers hear all AI on loud mode.
 			to_chat(M, rendered)
 
 /mob/living/silicon/binarycheck()

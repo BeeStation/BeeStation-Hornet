@@ -249,22 +249,22 @@
 	var/list/answers = ignore_category ? list("Yes", "No", "Never for this round") : list("Yes", "No")
 	switch(tgui_alert(candidate_mob, question, "A limited-time role has appeared!", answers, poll_time, autofocus = FALSE))
 		if("Yes")
-			to_chat(candidate_mob, "<span class='notice'>Choice registered: Yes.</span>")
+			to_chat(candidate_mob, span_notice("Choice registered: Yes."))
 			if(time_passed + poll_time <= world.time)
-				to_chat(candidate_mob, "<span class='danger'>Sorry, you answered too late to be considered!</span>")
+				to_chat(candidate_mob, span_danger("Sorry, you answered too late to be considered!"))
 				SEND_SOUND(candidate_mob, 'sound/machines/buzz-sigh.ogg')
 				candidates -= candidate_mob
 			else
 				candidates += candidate_mob
 		if("No")
-			to_chat(candidate_mob, "<span class='danger'>Choice registered: No.</span>")
+			to_chat(candidate_mob, span_danger("Choice registered: No."))
 			candidates -= candidate_mob
 		if("Never for this round")
 			var/list/ignore_list = GLOB.poll_ignore[ignore_category]
 			if(!ignore_list)
 				GLOB.poll_ignore[ignore_category] = list()
 			GLOB.poll_ignore[ignore_category] += candidate_mob.ckey
-			to_chat(candidate_mob, "<span class='danger'>Choice registered: Never for this round.</span>")
+			to_chat(candidate_mob, span_danger("Choice registered: Never for this round."))
 			candidates -= candidate_mob
 		else
 			candidates -= candidate_mob
@@ -398,9 +398,7 @@
 	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
 	var/area/A = get_area(character)
-	var/message = "<span class='game deadsay'><span class='name'>\
-		[character.real_name]</span> ([rank]) has arrived at the station at \
-		<span class='name'>[A.name]</span>.</span>"
+	var/message = span_gamedeadsay("[span_name(character.real_name)] ([rank]) has arrived at the station at [span_name(A.name)].")
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
