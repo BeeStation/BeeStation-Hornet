@@ -101,7 +101,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 
 /obj/item/stack/grind_requirements()
 	if(is_cyborg)
-		to_chat(usr, "<span class='warning'>[src] is electronically synthesized in your chassis and can't be ground up!</span>")
+		to_chat(usr, span_warning("[src] is electronically synthesized in your chassis and can't be ground up!"))
 		return
 	return TRUE
 
@@ -190,7 +190,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		. += "There are [get_amount()] in the stack."
 	else
 		. += "There is [get_amount()] in the stack."
-	. += "<span class='notice'>Alt-click to take a custom amount.</span>"
+	. += span_notice("Alt-click to take a custom amount.")
 
 /obj/item/stack/proc/get_amount()
 	if(is_cyborg)
@@ -292,7 +292,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 			if(!building_checks(R, multiplier))
 				return
 			if(R.time)
-				usr.visible_message("<span class='notice'>[usr] starts building \a [R.title].</span>", "<span class='notice'>You start building \a [R.title]...</span>")
+				usr.visible_message(span_notice("[usr] starts building \a [R.title]."), span_notice("You start building \a [R.title]..."))
 				if(!do_after(usr, R.time, target = usr))
 					return
 				if(!building_checks(R, multiplier))
@@ -334,9 +334,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/proc/building_checks(datum/stack_recipe/recipe, multiplier)
 	if(get_amount() < recipe.req_amount*multiplier)
 		if(recipe.req_amount*multiplier>1)
-			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [recipe.req_amount*multiplier] [recipe.title]\s!</span>")
+			to_chat(usr, span_warning("You haven't got enough [src] to build \the [recipe.req_amount*multiplier] [recipe.title]\s!"))
 		else
-			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [recipe.title]!</span>")
+			to_chat(usr, span_warning("You haven't got enough [src] to build \the [recipe.title]!"))
 		return FALSE
 
 	var/turf/dest_turf = get_turf(usr)
@@ -345,16 +345,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	if(ispath(recipe.result_type, /obj/structure/window))
 		var/obj/structure/window/result_path = recipe.result_type
 		if(!valid_window_location(dest_turf, usr.dir, is_fulltile = initial(result_path.fulltile)))
-			to_chat(usr, "<span class='warning'>The [recipe.title] won't fit here!</span>")
+			to_chat(usr, span_warning("The [recipe.title] won't fit here!"))
 			return FALSE
 
 	if(recipe.one_per_turf && (locate(recipe.result_type) in dest_turf))
-		to_chat(usr, "<span class='warning'>There is another [recipe.title] here!</span>")
+		to_chat(usr, span_warning("There is another [recipe.title] here!"))
 		return FALSE
 
 	if(recipe.on_floor)
 		if(!isanyfloor(dest_turf))
-			to_chat(usr, "<span class='warning'>\The [recipe.title] must be constructed on the floor!</span>")
+			to_chat(usr, span_warning("\The [recipe.title] must be constructed on the floor!"))
 			return FALSE
 
 		for(var/obj/object in dest_turf)
@@ -367,7 +367,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 				if(!window_structure.fulltile)
 					continue
 			if(object.density)
-				to_chat(usr, "<span class='warning'>There is \a [object.name] here. You cant make \a [recipe.title] here!</span>")
+				to_chat(usr, span_warning("There is \a [object.name] here. You cant make \a [recipe.title] here!"))
 				return FALSE
 	if(recipe.placement_checks)
 		switch(recipe.placement_checks)
@@ -376,11 +376,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 				for(var/direction in GLOB.cardinals)
 					step = get_step(dest_turf, direction)
 					if(locate(recipe.result_type) in step)
-						to_chat(usr, "<span class='warning'>\The [recipe.title] must not be built directly adjacent to another!</span>")
+						to_chat(usr, span_warning("\The [recipe.title] must not be built directly adjacent to another!"))
 						return FALSE
 			if(STACK_CHECK_ADJACENT)
 				if(locate(recipe.result_type) in range(1, dest_turf))
-					to_chat(usr, "<span class='warning'>\The [recipe.title] must be constructed at least one tile away from others of its type!</span>")
+					to_chat(usr, span_warning("\The [recipe.title] must be constructed at least one tile away from others of its type!"))
 					return FALSE
 	return TRUE
 
@@ -405,11 +405,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	if(get_amount() < amount)
 		if(singular_name)
 			if(amount > 1)
-				to_chat(user, "<span class='warning'>You need at least [amount] [singular_name]\s to do this!</span>")
+				to_chat(user, span_warning("You need at least [amount] [singular_name]\s to do this!"))
 			else
-				to_chat(user, "<span class='warning'>You need at least [amount] [singular_name] to do this!</span>")
+				to_chat(user, span_warning("You need at least [amount] [singular_name] to do this!"))
 		else
-			to_chat(user, "<span class='warning'>You need at least [amount] to do this!</span>")
+			to_chat(user, span_warning("You need at least [amount] to do this!"))
 		return FALSE
 	return TRUE
 
@@ -532,7 +532,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	if(!stackmaterial || QDELETED(user) || QDELETED(src) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK, !iscyborg(user)))
 		return
 	split_stack(user, stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
 
 /** Splits the stack into two stacks.
   *
@@ -559,7 +559,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	if(can_merge(W))
 		var/obj/item/stack/S = W
 		if(merge(S))
-			to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
+			to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
 	else
 		return ..()
 

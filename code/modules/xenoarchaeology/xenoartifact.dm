@@ -155,7 +155,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 
 	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
 		if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
-			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
+			to_chat(user, span_notice("You snuff out [name]"))
 			process_type = null
 			return FALSE
 		if(P?.safety && isliving(loc))
@@ -168,10 +168,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()
 	if(user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
-		. += "<span class='notice'>[special_desc]</span>"
+		. += span_notice("[special_desc]")
 	if(isobserver(user))
 		for(var/datum/xenoartifact_trait/t as() in traits)
-			. += (t?.desc ? "<span class='notice'>[t.desc]</span>" : "<span class='notice'>[t.label_name]</span>")
+			. += (t?.desc ? span_notice("[t.desc]") : span_notice("[t.label_name]"))
 	. += label_desc
 
 /obj/item/xenoartifact/attack_self(mob/user)
@@ -179,7 +179,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 		return
 
 	if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
-		to_chat(user, "<span class='notice'>You snuff out [name]</span>")
+		to_chat(user, span_notice("You snuff out [name]"))
 		process_type = null
 		return
 
@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	//abort if safety
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety)
-		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
+		to_chat(user, span_notice("You perform a safe operation on [src] with [I]."))
 		return
 	..()
 
@@ -220,7 +220,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	//abort if safety
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety)
-		to_chat(user, "<span class='notice'>You perform a safe operation on [src].</span>")
+		to_chat(user, span_notice("You perform a safe operation on [src]."))
 		return
 	..()
 
@@ -344,7 +344,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 		var/mob/living/carbon/human/H = target
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			if(H.anti_artifact_check())
-				to_chat(target, "<span class='warning'>The [name] was unable to target you!</span>")
+				to_chat(target, span_warning("The [name] was unable to target you!"))
 				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 25, TRUE)
 				return
 
@@ -406,13 +406,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 		if(PROCESS_TYPE_LIT) //Burning
 			true_target = get_target_in_proximity(min(max_range, 5))
 			if(true_target[1])
-				visible_message("<span class='danger' size='4'>The [name] flicks out.</span>")
+				visible_message(span_danger("The [name] flicks out."))
 				default_activate(25, null, null)
 				process_type = null
 				return PROCESS_KILL
 		if(PROCESS_TYPE_TICK) //Clock-ing
 			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE)
-			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
+			visible_message(span_danger("The [name] ticks."))
 			true_target = get_target_in_proximity(min(max_range, 5))
 			default_activate(25, null, null)
 			if(DT_PROB(XENOA_TICK_CANCEL_PROB, delta_time) && COOLDOWN_FINISHED(src, xenoa_cooldown))
