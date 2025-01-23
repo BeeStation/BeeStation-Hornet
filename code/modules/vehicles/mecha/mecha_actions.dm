@@ -89,7 +89,7 @@
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!(chassis.mecha_flags & HAS_LIGHTS))
-		to_chat(owner, "<span class='warning'>This mechs lights are destroyed!</span>")
+		to_chat(owner, span_warning("This mechs lights are destroyed!"))
 		return
 	chassis.mecha_flags ^= LIGHTS_ON
 	if(chassis.mecha_flags & LIGHTS_ON)
@@ -129,11 +129,11 @@
 
 /obj/vehicle/sealed/mecha/proc/toggle_strafe()
 	if(!(mecha_flags & CANSTRAFE))
-		to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>This mecha does not support strafing.</span>")
+		to_chat(occupants, "[icon2html(src, occupants)][span_notice("This mecha does not support strafing.")]")
 		return
 	strafe = !strafe
 
-	to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>Toggled strafing mode [strafe?"on":"off"].</span>")
+	to_chat(occupants, "[icon2html(src, occupants)][span_notice("Toggled strafing mode [strafe?"on":"off"].")]")
 	log_message("Toggled strafing mode [strafe?"on":"off"].", LOG_MECHA)
 
 	for(var/occupant in occupants)
@@ -216,13 +216,13 @@
 	switch(chassis.damtype)
 		if("tox")
 			new_damtype = "brute"
-			to_chat(owner, "[icon2html(chassis, owner)]<span class='notice'>Your exosuit's hands form into fists.</span>")
+			to_chat(owner, "[icon2html(chassis, owner)][span_notice("Your exosuit's hands form into fists.")]")
 		if("brute")
 			new_damtype = "fire"
-			to_chat(owner, "[icon2html(chassis, owner)]<span class='notice'>A torch tip extends from your exosuit's hand, glowing red.</span>")
+			to_chat(owner, "[icon2html(chassis, owner)][span_notice("A torch tip extends from your exosuit's hand, glowing red.")]")
 		if("fire")
 			new_damtype = "tox"
-			to_chat(owner, "[icon2html(chassis, owner)]<span class='notice'>A bone-chillingly thick plasteel needle protracts from the exosuit's palm.</span>")
+			to_chat(owner, "[icon2html(chassis, owner)][span_notice("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")]")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(chassis, 'sound/mecha/mechmove01.ogg', 50, TRUE)

@@ -90,7 +90,7 @@
 	if(!istype(user))
 		return
 	if(user.get_item_by_slot(user.getBackSlot()) != src)
-		to_chat(user, "<span class='warning'>The watertank must be worn properly to use!</span>")
+		to_chat(user, span_warning("The watertank must be worn properly to use!"))
 		return
 	if(user.incapacitated())
 		return
@@ -101,7 +101,7 @@
 	if(noz in src)
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the mister!</span>")
+			to_chat(user, span_warning("You need a free hand to hold the mister!"))
 			return
 		update_icon()
 	else
@@ -227,7 +227,7 @@
 
 /obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, span_notice("You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray."))
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -329,7 +329,7 @@
 	if(!istype(user))
 		return
 	if(user.get_item_by_slot(user.getBackSlot()) != src)
-		to_chat(user, "<span class='warning'>The watertank must be worn properly to use!</span>")
+		to_chat(user, span_warning("The watertank must be worn properly to use!"))
 		return
 	if(user.incapacitated())
 		return
@@ -341,7 +341,7 @@
 		var/obj/item/extinguisher/mini/nozzle/N = noz
 		N.update_nozzle_stats()
 		if(!user.put_in_hands(noz))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the mister!</span>")
+			to_chat(user, span_warning("You need a free hand to hold the mister!"))
 			return
 		update_icon()
 	else
@@ -351,9 +351,9 @@
 /obj/item/watertank/atmos/examine(mob/user)
 	. = ..()
 	if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		. += "<span class='notice'>Its maximum tank volume was increased.</span>"
+		. += span_notice("Its maximum tank volume was increased.")
 	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-		. += "<span class='notice'>It's capable of producing advanced ATMOS resin.</span>"
+		. += span_notice("It's capable of producing advanced ATMOS resin.")
 
 /obj/item/atmostank_upgrade
 	name = "Backpack Firefighter Tank upgrade disk"
@@ -415,11 +415,11 @@
 /obj/item/extinguisher/mini/nozzle/examine(mob/user)
 	. = ..()
 	if(nozzle_mode == RESIN_LAUNCHER)
-		. += "<span class='notice'>Uses [resin_cost] units of water per resin launch.</span>"
+		. += span_notice("Uses [resin_cost] units of water per resin launch.")
 	if(nozzle_mode == RESIN_FOAM || nozzle_mode == RESIN_LAUNCHER)
-		. += "<span class='notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
+		. += span_notice("Is dispensing [toggled ? "advanced" : ""] ATMOS resin.")
 		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-			. += "<span class='notice'>Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.</span>"
+			. += span_notice("Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.")
 
 /obj/item/extinguisher/mini/nozzle/update_icon(updates)
 	. = ..()
@@ -515,7 +515,7 @@
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
 		if(R.total_volume < resin_cost)
-			to_chat(user, "<span class='warning'>You need at least [resin_cost] units of water to use the resin launcher!</span>")
+			to_chat(user, span_warning("You need at least [resin_cost] units of water to use the resin launcher!"))
 			balloon_alert(user, "Not enough water")
 			return
 		if(!COOLDOWN_FINISHED(src, resin_cooldown))
@@ -662,7 +662,7 @@
 	if(!istype(user))
 		return
 	if (user.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(user, "<span class='warning'>The chemtank needs to be on your back before you can activate it!</span>")
+		to_chat(user, span_warning("The chemtank needs to be on your back before you can activate it!"))
 		return
 	if(on)
 		turn_off()
@@ -692,13 +692,13 @@
 	on = TRUE
 	START_PROCESSING(SSobj, src)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>[src] turns on.</span>")
+		to_chat(loc, span_notice("[src] turns on."))
 
 /obj/item/reagent_containers/chemtank/proc/turn_off()
 	on = FALSE
 	STOP_PROCESSING(SSobj, src)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>[src] turns off.</span>")
+		to_chat(loc, span_notice("[src] turns off."))
 
 /obj/item/reagent_containers/chemtank/process(delta_time)
 	if(!ishuman(loc))

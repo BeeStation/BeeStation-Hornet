@@ -35,10 +35,7 @@
 	//If proper servant
 	if(is_servant_of_ratvar(user) && allow_any)
 		return
-	//Dead brain and in a testing mob? we must be in a fake environment! Lets not fuck it up
-	if((!user.client) && ishumantesting(user))
-		return
-	to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+	to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 	user.dropItemToGround(src, TRUE)
 	var/mob/living/carbon/C = user
 	if(ishuman(C))
@@ -127,7 +124,7 @@
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+		to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
 		if(ishuman(C))
@@ -165,7 +162,7 @@
 		wearer = user
 		applied_eye_damage = 0
 		START_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to falter...</span>")
+		to_chat(user, span_nezbere("You suddenly see so much more, but your eyes begin to falter..."))
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/process(delta_time)
 	. = ..()
@@ -179,7 +176,7 @@
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
 	..()
 	if(wearer && is_servant_of_ratvar(wearer))
-		to_chat(user, "<span class='nezbere'>You feel your eyes slowly recovering.</span>")
+		to_chat(user, span_nezbere("You feel your eyes slowly recovering."))
 		addtimer(CALLBACK(wearer, TYPE_PROC_REF(/mob/living, adjustOrganLoss), ORGAN_SLOT_EYES, -applied_eye_damage), 600)
 		wearer = null
 		applied_eye_damage = 0

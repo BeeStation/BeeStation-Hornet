@@ -229,7 +229,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
-			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
+			to_chat(user, span_warning("You can't float up and down when there is gravity!"))
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE

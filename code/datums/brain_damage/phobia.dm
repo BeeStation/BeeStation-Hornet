@@ -9,8 +9,8 @@
 	name = "Phobia"
 	desc = "Patient is unreasonably afraid of something."
 	scan_desc = "phobia"
-	gain_text = "<span class='warning'>You start finding default values very unnerving...</span>"
-	lose_text = "<span class='notice'>You no longer feel afraid of default values.</span>"
+	gain_text = span_warning("You start finding default values very unnerving...")
+	lose_text = span_notice("You no longer feel afraid of default values.")
 	var/phobia_type
 	var/next_check = 0
 	var/fearscore = 0
@@ -37,8 +37,8 @@
 
 	faint_length=300
 	cooldown_length=faint_length*2  //Has to be at least faint_length, else it practically doesnt do anything
-	gain_text = "<span class='warning'>You start finding [phobia_type] very unnerving...</span>"
-	lose_text = "<span class='notice'>You no longer feel afraid of [phobia_type].</span>"
+	gain_text = span_warning("You start finding [phobia_type] very unnerving...")
+	lose_text = span_notice("You no longer feel afraid of [phobia_type].")
 	scan_desc += " of [phobia_type]"
 	trigger_words = SStraumas.phobia_words[phobia_type]
 	trigger_mobs = SStraumas.phobia_mobs[phobia_type]
@@ -109,12 +109,12 @@
 		if(-INFINITY to 2) //there is a bit of a grace period before you begin to get scared
 			if(fear_state > PHOBIA_STATE_CALM)
 				fear_state = PHOBIA_STATE_CALM
-				to_chat(owner, "<span class ='notice'>You calm down completely.</span>")
+				to_chat(owner, span_notice("You calm down completely."))
 		if(3 to 8)
 			if(fear_state >= PHOBIA_STATE_UNEASY)
 				fear_state = PHOBIA_STATE_EDGY
 				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia)
-				to_chat(owner, "<span class ='notice'>You manage to calm down a little.</span>")
+				to_chat(owner, span_notice("You manage to calm down a little."))
 			if(fear_state == PHOBIA_STATE_CALM)
 				fear_state = PHOBIA_STATE_EDGY
 				if(prob(stress * 5))
@@ -122,7 +122,7 @@
 		if(9 to 16)
 			if(fear_state >= PHOBIA_STATE_FIGHTORFLIGHT)
 				fear_state = PHOBIA_STATE_UNEASY
-				to_chat(owner, "<span class ='notice'>You're safe now... better be careful anyways.</span>")
+				to_chat(owner, span_notice("You're safe now... better be careful anyways."))
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia)
 			if(fear_state <= PHOBIA_STATE_EDGY)
 				fear_state = PHOBIA_STATE_UNEASY
@@ -133,11 +133,11 @@
 		if(17 to 28)
 			if(fear_state >= PHOBIA_STATE_TERROR) //we don't get an adrenaline rush when calming down
 				fear_state = PHOBIA_STATE_FIGHTORFLIGHT
-				to_chat(owner, "<span class ='notice'>It's gone for now... Better get out of here before it comes back.</span>")
+				to_chat(owner, span_notice("It's gone for now... Better get out of here before it comes back."))
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia/terrified)
 			if(fear_state <= PHOBIA_STATE_UNEASY) //ADRENALINE RUSH! You get psychotic brawling, a burst of speed, and some stun avoidance for awhile. If you fail to escape or destroy the threat during an adrenaline rush, you're fucked either way
 				fear_state = PHOBIA_STATE_FIGHTORFLIGHT
-				to_chat(owner, "<span class ='userdanger'>YOU HAVE TO GET OUT OF HERE! IT'S DANGEROUS!</span>")
+				to_chat(owner, span_userdanger("YOU HAVE TO GET OUT OF HERE! IT'S DANGEROUS!"))
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia/terrified)//while terrified, get a speed boost
 				owner.emote("scream")
 				if(prob(stress * 5))
@@ -148,7 +148,7 @@
 				owner.SetImmobilized(0)
 				owner.SetParalyzed(0)
 				if(owner.handcuffed)
-					owner.visible_message("<span class ='danger'>[owner] starts frantically wrestling with their restraints!</span>", "<span class ='danger'>I'm trapped! I gotta get out, NOW!.</span>")
+					owner.visible_message(span_danger("[owner] starts frantically wrestling with their restraints!"), span_danger("I'm trapped! I gotta get out, NOW!."))
 					stoplag(80)
 					owner.uncuff()
 				stress ++
@@ -158,7 +158,7 @@
 			if(fear_state <= PHOBIA_STATE_FIGHTORFLIGHT)
 				fear_state = PHOBIA_STATE_TERROR
 				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia, TRUE)
-				owner.visible_message("<span class ='danger'>[owner] collapses into a fetal position and cowers in fear!</span>", "<span class ='userdanger'>I'm done for...</span>")
+				owner.visible_message(span_danger("[owner] collapses into a fetal position and cowers in fear!"), span_userdanger("I'm done for..."))
 				owner.Paralyze(80)
 				owner.Jitter(8)
 				stress++
@@ -170,16 +170,16 @@
 				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia, TRUE) //in the case that we get so scared by enough bullshit nearby we skip the last stage
 				if(!timer || COOLDOWN_FINISHED(src, timer))
 					COOLDOWN_START(src, timer, cooldown_length)
-					owner.visible_message("<span class ='danger'>[owner] faints in fear!</span>", "<span class ='userdanger'>It's too much! You faint!</span>")
+					owner.visible_message(span_danger("[owner] faints in fear!"), span_userdanger("It's too much! You faint!"))
 					owner.Sleeping(faint_length)
 					fear_state = PHOBIA_STATE_EDGY
 					fearscore = 9
 					stress++
 					if(prob(stress))
 						owner.set_heartattack(TRUE)
-						to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")
+						to_chat(owner, span_userdanger("Your heart stops!"))
 				else
-					owner.visible_message("<span class ='danger'>[owner] looks ghostly pale, trembling uncontrollably!</span>", "<span class ='userdanger'>This is HELL! OUT!! NOW!!!</span>")
+					owner.visible_message(span_danger("[owner] looks ghostly pale, trembling uncontrollably!"), span_userdanger("This is HELL! OUT!! NOW!!!"))
 					owner.Jitter(10)
 					stress++
 
@@ -197,7 +197,7 @@
 		if(findtext(hearing_args[HEARING_RAW_MESSAGE], reg))
 			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
 				fearscore ++
-			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='phobia'>$1</span>")
+			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], span_phobia("$1"))
 			break
 
 /datum/brain_trauma/mild/phobia/handle_speech(datum/source, list/speech_args)
@@ -207,7 +207,7 @@
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
 		if(findtext(speech_args[SPEECH_MESSAGE], reg))
-			to_chat(owner, "<span class='warning'>Saying \"<span class='phobia'>[word]</span>\" puts you on edge!</span>")
+			to_chat(owner, span_warning("Saying \"[span_phobia("[word]")]\" puts you on edge!"))
 			if(fear_state <= (PHOBIA_STATE_CALM))
 				fearscore ++
 
@@ -241,11 +241,11 @@
 		if(PHOBIA_STATE_EDGY)
 			owner.Jitter(1)
 			if(reason)
-				to_chat(owner, "<span class ='warning'>[reason] sets you on edge...</span>")
+				to_chat(owner, span_warning("[reason] sets you on edge..."))
 		if(PHOBIA_STATE_UNEASY)
 			owner.Jitter(1)
 			if(reason)
-				to_chat(owner, "<span class ='warning'>[reason] makes you uneasy...</span>")
+				to_chat(owner, span_warning("[reason] makes you uneasy..."))
 		if(PHOBIA_STATE_FIGHTORFLIGHT)
 			owner.adjustStaminaLoss(-10 * (min(1, spooklevel)))
 			owner.SetUnconscious(0)
@@ -260,7 +260,7 @@
 			if(!owner.stat)
 				if(!timer || (timer && COOLDOWN_FINISHED(src, timer)))  //If fainting hasnt happened yet, the cooldown timer never havve been created, so we check for that too
 					COOLDOWN_START(src, timer, cooldown_length)
-					owner.visible_message("<span class ='danger'>[owner] faints in fear!</span>", "<span class ='userdanger'>It's too much! You faint!</span>")
+					owner.visible_message(span_danger("[owner] faints in fear!"), span_userdanger("It's too much! You faint!"))
 					owner.Sleeping(faint_length)
 					fear_state = PHOBIA_STATE_EDGY
 					fearscore = 9
