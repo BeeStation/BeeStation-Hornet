@@ -42,7 +42,7 @@
 /obj/machinery/computer/pod/ui_interact(mob/user)
 	. = ..()
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return
 
 	var/dat = ""

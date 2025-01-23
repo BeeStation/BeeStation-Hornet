@@ -19696,13 +19696,13 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "eBh" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/computer/crew{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/brig)
