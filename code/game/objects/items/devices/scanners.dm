@@ -517,7 +517,7 @@ GENE SCANNER
 	var/list/message = list()
 	if(length(diseases))
 		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
-		message += "<span class='boldnotice'>[costly_icon2html(target, user)] [target] scan results</span>"
+		message +=  span_boldnotice("[costly_icon2html(target, user)] [target] scan results]")
 		for(var/datum/disease/disease in diseases)
 			if(istype(disease, /datum/disease/advance))
 				var/datum/disease/advance/advance_disease = disease
@@ -530,14 +530,14 @@ GENE SCANNER
 					LAZYADD(properties, "faltered")
 				if(advance_disease.carrier)
 					LAZYADD(properties, "carrier")
-				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				message += span_info("<b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]")
 				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += "<span class='info italics'>This virus has been extracted previously.</span>"
-				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
+					message += span_infoitalics("This virus has been extracted previously.")
+				message += span_infobold("[advance_disease.name] has the following symptoms:")
 				for(var/datum/symptom/symptom in advance_disease.symptoms)
 					message += "[symptom.name]"
 			else
-				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
+				message += span_info("<b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].")
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /proc/genescan(mob/living/carbon/C, mob/user, list/discovered)
@@ -557,13 +557,13 @@ GENE SCANNER
 		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each.type) //have to do this as instances of mutation do not have alias but global ones do....
 		var/each_mut_details = "ERROR"
 		if(!discovered || (each_mutation.type in discovered))
-			each_mut_details = "<span class='info'>[each_mutation.name] ([each_mutation.alias])</span>"
+			each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
 		else
-			each_mut_details = "<span class='info'>[each_mutation.alias]</span>"
+			each_mut_details = span_info("[each_mutation.alias]")
 
 		if(each_mutation.type in mut_index)
 			//add mutation readout for all active inherent mutations
-			active_inherent_muts += "[each_mut_details]<span class='info bold'> : Active </span>"
+			active_inherent_muts += "[each_mut_details][span_infobold(" : Active ")]"
 			mut_index -= each_mutation.type
 		else
 			//add mutation readout for all injected (not inherent) mutations
@@ -575,15 +575,15 @@ GENE SCANNER
 		if(each_mutation)
 			//repeating this code twice is nasty, but nested procs (if even possible??) or more global procs then needed is... less so
 			if(!discovered || (each_mutation.type in discovered))
-				each_mut_details = "<span class='info'>[each_mutation.name] ([each_mutation.alias])</span>"
+				each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
 			else
-				each_mut_details = "<span class='info'>[each_mutation.alias]</span>"
+				each_mut_details = span_info("[each_mutation.alias]")
 		inherent_muts += each_mut_details
 
-	message += "<span class='boldnotice'>[C] scan results</span>"
+	message += span_noticebold("[C] scan results")
 	active_inherent_muts.len > 0 ? (message += "[jointext(active_inherent_muts, "\n")]") : ""
 	inherent_muts.len > 0 ? (message += "[jointext(inherent_muts, "\n")]") : ""
-	active_injected_muts.len > 0 ? (message += "<span class='info bold'>Injected mutations:\n</span>[jointext(active_injected_muts, "\n")]") : ""
+	active_injected_muts.len > 0 ? (message += "[span_infobold("Injected mutations:\n")][jointext(active_injected_muts, "\n")]") : ""
 
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 

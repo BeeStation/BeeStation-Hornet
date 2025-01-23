@@ -792,10 +792,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(virus_scan)
-		to_chat(src, "<span class='notice'>Virus scan disabled.</span>")
+		to_chat(src, span_notice("Virus scan disabled."))
 		virus_scan = FALSE
 	else
-		to_chat(src, "<span class='notice'>Virus scan enabled.</span>")
+		to_chat(src, span_notice("Virus scan enabled."))
 		virus_scan = TRUE
 
 /mob/dead/observer/verb/toggle_genetics_scan()
@@ -804,10 +804,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(genetics_scan)
-		to_chat(src, "<span class='notice'>Genetics scan disabled.</span>")
+		to_chat(src, span_notice("Genetics scan disabled."))
 		genetics_scan = FALSE
 	else
-		to_chat(src, "<span class='notice'>Genetics scan enabled.</span>")
+		to_chat(src, span_notice("Genetics scan enabled."))
 		genetics_scan = TRUE
 
 /mob/dead/observer/verb/restore_ghost_appearance()
