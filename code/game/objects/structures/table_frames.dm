@@ -22,7 +22,7 @@
 	var/framestackamount = 2
 
 /obj/structure/table_frame/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
+	to_chat(user, span_notice("You start disassembling [src]..."))
 	I.play_tool_sound(src)
 	if(!I.use_tool(src, user, 3 SECONDS))
 		return
@@ -35,23 +35,23 @@
 		var/obj/item/stack/material = I
 		if(material.tableVariant)
 			if(material.get_amount() < 1)
-				to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
+				to_chat(user, span_warning("You need one [material.name] sheet to do this!"))
 				return
 			if(locate(/obj/structure/table) in loc)
-				to_chat(user, "<span class='warning'>There's already a table built here!</span>")
+				to_chat(user, span_warning("There's already a table built here!"))
 				return
-			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
+			to_chat(user, span_notice("You start adding [material] to [src]..."))
 			if(!do_after(user, 2 SECONDS, target = src) || !material.use(1) || (locate(/obj/structure/table) in loc))
 				return
 			make_new_table(material.tableVariant)
 		else if(istype(material, /obj/item/stack/sheet))
 			if(material.get_amount() < 1)
-				to_chat(user, "<span class='warning'>You need one sheet to do this!</span>")
+				to_chat(user, span_warning("You need one sheet to do this!"))
 				return
 			if(locate(/obj/structure/table) in loc)
-				to_chat(user, "<span class='warning'>There's already a table built here!</span>")
+				to_chat(user, span_warning("There's already a table built here!"))
 				return
-			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
+			to_chat(user, span_notice("You start adding [material] to [src]..."))
 			if(!do_after(user, 2 SECONDS, target = src) || !material.use(1) || (locate(/obj/structure/table) in loc))
 				return
 			var/list/material_list = list()
@@ -104,12 +104,12 @@
 			carpet_type = I.type
 		if (toConstruct)
 			if(material.get_amount() < 1)
-				to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
+				to_chat(user, span_warning("You need one [material.name] sheet to do this!"))
 				return
 			if(locate(/obj/structure/table) in loc)
-				to_chat(user, "<span class='warning'>There's already a table built here!</span>")
+				to_chat(user, span_warning("There's already a table built here!"))
 				return
-			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
+			to_chat(user, span_notice("You start adding [material] to [src]..."))
 			if(do_after(user, 20, target = src) && material.use(1))
 				make_new_table(toConstruct, null, carpet_type)
 	else
@@ -127,12 +127,12 @@
 	if(istype(I, /obj/item/stack/sheet/brass))
 		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
+			to_chat(user, span_warning("You need one brass sheet to do this!"))
 			return
 		if(locate(/obj/structure/table) in loc)
-			to_chat(user, "<span class='warning'>There's already a table built here!</span>")
+			to_chat(user, span_warning("There's already a table built here!"))
 			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+		to_chat(user, span_notice("You start adding [W] to [src]..."))
 		if(do_after(user, 20, target = src) && W.use(1))
 			make_new_table(/obj/structure/table/brass)
 	else

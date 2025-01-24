@@ -7,8 +7,8 @@ import { Window } from '../layouts';
 
 const MAX_SEARCH_RESULTS = 25;
 
-export const Biogenerator = (props, context) => {
-  const { data } = useBackend(context);
+export const Biogenerator = (props) => {
+  const { data } = useBackend();
   const { beaker, processing } = data;
   return (
     <Window width={550} height={380}>
@@ -26,11 +26,11 @@ export const Biogenerator = (props, context) => {
   );
 };
 
-export const BiogeneratorContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BiogeneratorContent = (props) => {
+  const { act, data } = useBackend();
   const { biomass, can_process, categories = [] } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0]?.name);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0]?.name);
   const testSearch = createSearch(searchText, (item) => {
     return item.name;
   });
@@ -88,13 +88,13 @@ export const BiogeneratorContent = (props, context) => {
   );
 };
 
-const ItemList = (props, context) => {
-  const { act } = useBackend(context);
-  const [hoveredItem, setHoveredItem] = useLocalState(context, 'hoveredItem', {});
+const ItemList = (props) => {
+  const { act } = useBackend();
+  const [hoveredItem, setHoveredItem] = useLocalState('hoveredItem', {});
   const hoveredCost = (hoveredItem && hoveredItem.cost) || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {
-    const [amount, setAmount] = useLocalState(context, 'amount' + item.name, 1);
+    const [amount, setAmount] = useLocalState('amount' + item.name, 1);
     const notSameItem = hoveredItem && hoveredItem.name !== item.name;
     const notEnoughHovered = props.biomass - hoveredCost * hoveredItem.amount < item.cost * amount;
     const disabledDueToHovered = notSameItem && notEnoughHovered;
