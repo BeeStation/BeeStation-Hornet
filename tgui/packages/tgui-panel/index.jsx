@@ -55,9 +55,7 @@ const renderApp = createRenderer(() => {
   setGlobalStore(store);
 
   const { Panel } = require('./Panel');
-  return (
-    <Panel />
-  );
+  return <Panel />;
 });
 
 const setupApp = () => {
