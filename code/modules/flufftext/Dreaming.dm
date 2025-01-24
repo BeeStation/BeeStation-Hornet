@@ -57,7 +57,7 @@
 		var/datum/callback/something_happens = next_message
 		next_message = something_happens.InvokeAsync(src)
 
-	to_chat(src, "<span class='notice'><i>... [next_message] ...</i></span>")
+	to_chat(src, span_notice("<i>... [next_message] ...</i>"))
 
 	if(LAZYLEN(dream_fragments))
 		var/next_wait = rand(10, 30)
