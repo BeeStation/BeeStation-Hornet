@@ -24024,6 +24024,11 @@
 /obj/item/bedsheet/double/rd,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"hAw" = (
+/obj/structure/lattice,
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space/nearstation)
 "hAA" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
@@ -25769,6 +25774,10 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/qm)
+"ifu" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "ifv" = (
 /obj/machinery/camera/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -57073,6 +57082,9 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/directional/west,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "scT" = (
@@ -96779,7 +96791,7 @@ sLX
 ibS
 utc
 lfC
-gsA
+hAw
 yeA
 yeA
 yeA
@@ -118888,7 +118900,7 @@ jxz
 dJS
 qSl
 hGK
-yeA
+ifu
 yeA
 yeA
 gsA

@@ -38,15 +38,9 @@ export const MaterialIcon = (props: MaterialIconProps) => {
   return <Box {...rest} className={classes(['sheetmaterials32x32', MATERIAL_KEYS[material]])} />;
 };
 
-const EjectMaterial = (
-  props: {
-    material: Material;
-    onEject: (amount: number) => void;
-  },
-  context
-) => {
+const EjectMaterial = (props: { material: Material; onEject: (amount: number) => void }) => {
   const { name, removable, sheets } = props.material;
-  const [removeMaterials, setRemoveMaterials] = useSharedState(context, 'remove_mats_' + name, 1);
+  const [removeMaterials, setRemoveMaterials] = useSharedState('remove_mats_' + name, 1);
   if (removeMaterials > 1 && sheets < removeMaterials) {
     setRemoveMaterials(sheets || 1);
   }

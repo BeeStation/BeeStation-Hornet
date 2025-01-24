@@ -8,13 +8,13 @@ import { isRecordMatch } from './helpers';
 import { SecurityRecordsData, SecurityRecord } from './types';
 
 /** Tabs on left, with search bar */
-export const SecurityRecordTabs = (props, context) => {
-  const { act, data } = useBackend<SecurityRecordsData>(context);
+export const SecurityRecordTabs = (props) => {
+  const { act, data } = useBackend<SecurityRecordsData>();
   const { higher_access, records = [] } = data;
 
   const errorMessage = !records.length ? 'No records found.' : 'No match. Refine your search.';
 
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [search, setSearch] = useLocalState('search', '');
 
   const sorted: SecurityRecord[] = flow([
     filter((record: SecurityRecord) => isRecordMatch(record, search)),
@@ -63,10 +63,10 @@ export const SecurityRecordTabs = (props, context) => {
 };
 
 /** Individual record */
-const CrewTab = (props: { record: SecurityRecord }, context) => {
-  const [selectedRecord, setSelectedRecord] = useLocalState<SecurityRecord | undefined>(context, 'securityRecord', undefined);
+const CrewTab = (props: { record: SecurityRecord }) => {
+  const [selectedRecord, setSelectedRecord] = useLocalState<SecurityRecord | undefined>('securityRecord', undefined);
 
-  const { act, data } = useBackend<SecurityRecordsData>(context);
+  const { act, data } = useBackend<SecurityRecordsData>();
   const { character_preview_view } = data;
   const { record } = props;
   const { record_ref, name, rank, wanted_status } = record;
