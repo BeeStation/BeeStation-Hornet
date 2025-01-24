@@ -13,9 +13,9 @@
 	reroll_friendly = 1
 
 	announce_span = "danger"
-	announce_text = "Undead vampires have infested the station!\n\
-	<span class='danger'>Vampires</span>: Accomplish your objectives and vassalize the crew.\n\
-	<span class='notice'>Crew</span>: Do not let the vampires succeed!"
+	announce_text = "Undead vampires have infested the station!\n \
+	" + span_danger("Vampires") + ": Accomplish your objectives and vassalize the crew.\n \
+	" + span_notice("Crew") + ": Do not let the vampires succeed!"
 
 	title_icon = "vampire"
 

@@ -78,7 +78,7 @@
 	user.update_hair()
 	user.update_body_parts()
 
-	to_chat(owner, "<span class='warning'>You mystify the air around your person. Your identity is now altered.</span>")
+	to_chat(owner, span_warning("You mystify the air around your person. Your identity is now altered."))
 
 /datum/action/cooldown/vampire/veil/DeactivatePower()
 	. = ..()

@@ -42,8 +42,8 @@ SUBSYSTEM_DEF(sunlight)
 			SEND_SIGNAL(src, COMSIG_SOL_END)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ENDED,
-				vampire_warning_message = "<span class='announce'>The solar flare has ended, and the daylight danger has passed... for now.</span>",
-				vassal_warning_message = "<span class='announce'>The solar flare has ended, and the daylight danger has passed... for now.</span>",
+				vampire_warning_message = span_announce("The solar flare has ended, and the daylight danger has passed... for now."),
+				vassal_warning_message = span_announce("The solar flare has ended, and the daylight danger has passed... for now."),
 			)
 		return
 
@@ -52,19 +52,19 @@ SUBSYSTEM_DEF(sunlight)
 			SEND_SIGNAL(src, COMSIG_SOL_NEAR_START)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_FIRST_WARNING,
-				vampire_warning_message = "<span class='danger'>Solar Flares will bombard the station with dangerous UV radiation in [TIME_VAMPIRE_DAY_WARN / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b></span>"
+				vampire_warning_message = span_danger("Solar Flares will bombard the station with dangerous UV radiation in [TIME_VAMPIRE_DAY_WARN / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b>")
 			)
 		if(TIME_VAMPIRE_DAY_FINAL_WARN)
 			message_admins("VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_FINAL_WARN] seconds.")
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
-				vampire_warning_message = "<span class='danger'>Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_FINAL_WARN] seconds to find cover!</span>",
-				vassal_warning_message = "<span class='danger'>In [TIME_VAMPIRE_DAY_FINAL_WARN] seconds, your master will be at risk of a Solar Flare. Make sure they find cover!</span>",
+				vampire_warning_message = span_danger("Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_FINAL_WARN] seconds to find cover!"),
+				vassal_warning_message = span_danger("In [TIME_VAMPIRE_DAY_FINAL_WARN] seconds, your master will be at risk of a Solar Flare. Make sure they find cover!"),
 			)
 		if(TIME_VAMPIRE_BURN_INTERVAL)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_THIRD_WARNING,
-				vampire_warning_message = "<span class='danger'>Seek cover, for Sol rises!</span>",
+				vampire_warning_message = span_danger("Seek cover, for Sol rises!"),
 			)
 		if(NONE)
 			sunlight_active = TRUE
@@ -73,8 +73,8 @@ SUBSYSTEM_DEF(sunlight)
 			message_admins("VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)")
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
-				vampire_warning_message = "<span class='danger'>Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minutes or risk Final Death!</span>",
-				vassal_warning_message = "<span class='danger'>Solar flares bombard the station with UV light!</span>",
+				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minutes or risk Final Death!"),
+				vassal_warning_message = span_danger("Solar flares bombard the station with UV light!"),
 			)
 
 /datum/controller/subsystem/sunlight/proc/warn_daylight(danger_level, vampire_warning_message, vassal_warning_message)

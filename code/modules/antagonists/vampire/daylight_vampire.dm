@@ -47,9 +47,9 @@
 	if(!istype(owner.current.loc, /obj/structure))
 		if(COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
 			if(vampire_level > 0)
-				to_chat(owner, "<span class='userdanger'>The solar flare sets your skin ablaze!</span>")
+				to_chat(owner, span_userdanger("The solar flare sets your skin ablaze!"))
 			else
-				to_chat(owner, "<span class='userdanger'>The solar flare scalds your neophyte skin!</span>")
+				to_chat(owner, span_userdanger("The solar flare scalds your neophyte skin!"))
 			COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL) //This should happen twice per Sol
 
 		if(owner.current.fire_stacks <= 0)
@@ -64,7 +64,7 @@
 
 	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin)) // Coffins offer the BEST protection
 		if(check_staked() && COOLDOWN_FINISHED(src, vampire_spam_sol_burn))
-			to_chat(owner.current, "<span class='userdanger'>You are staked! Remove the offending weapon from your heart before sleeping.</span>")
+			to_chat(owner.current, span_userdanger("You are staked! Remove the offending weapon from your heart before sleeping."))
 			COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL) //This should happen twice per Sol
 		if(!is_in_torpor())
 			check_begin_torpor(TRUE)
@@ -72,7 +72,7 @@
 		return
 
 	if(COOLDOWN_FINISHED(src, vampire_spam_sol_burn)) // Closets offer SOME protection
-		to_chat(owner, "<span class='warning'>Your skin sizzles. [owner.current.loc] doesn't protect well against UV bombardment.</span>")
+		to_chat(owner, span_warning("Your skin sizzles. [owner.current.loc] doesn't protect well against UV bombardment."))
 		COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL) //This should happen twice per Sol
 	owner.current.adjustFireLoss(0.5 + (vampire_level / 4))
 	owner.current.updatehealth()
@@ -157,7 +157,7 @@
 
 	DisableAllPowers()
 
-	to_chat(current, "<span class='notice'>You enter the horrible slumber of deathless Torpor. You will heal until you are renewed.</span>")
+	to_chat(current, span_notice("You enter the horrible slumber of deathless Torpor. You will heal until you are renewed."))
 
 /datum/antagonist/vampire/proc/torpor_end()
 	var/mob/living/current = owner.current
@@ -173,5 +173,5 @@
 
 	heal_vampire_organs()
 
-	to_chat(current, "<span class='warning'>You have recovered from Torpor.</span>")
+	to_chat(current, span_warning("You have recovered from Torpor."))
 	SEND_SIGNAL(src, VAMPIRE_EXIT_TORPOR)

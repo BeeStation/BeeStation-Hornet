@@ -64,7 +64,7 @@
 		return FALSE
 	if(!vampiredatum_power.coffin)
 		user.balloon_alert(user, "coffin destroyed!")
-		to_chat(owner, "<span class='warning'>Your coffin has been destroyed! You no longer have a destination.</span>")
+		to_chat(owner, span_warning("Your coffin has been destroyed! You no longer have a destination."))
 		return FALSE
 	return TRUE
 

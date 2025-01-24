@@ -39,4 +39,4 @@
 	vassaldatum.owner.current.ventcrawler = VENTCRAWLER_NUDE
 	ADD_TRAIT(vampiredatum.owner.current, TRAIT_DISFIGURED, TRAIT_VAMPIRE)
 
-	to_chat(vassaldatum.owner.current, "<span class='notice'>Additionally, you can now ventcrawl while naked, and are permanently disfigured.</span>")
+	to_chat(vassaldatum.owner.current, span_notice("Additionally, you can now ventcrawl while naked, and are permanently disfigured."))

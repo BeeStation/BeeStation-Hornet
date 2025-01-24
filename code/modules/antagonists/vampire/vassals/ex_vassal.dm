@@ -56,9 +56,9 @@
 	SIGNAL_HANDLER
 
 	if(COOLDOWN_TIMELEFT(src, blood_timer) <= 5 MINUTES + 2 && COOLDOWN_TIMELEFT(src, blood_timer) >= 5 MINUTES - 2) //just about halfway
-		to_chat(owner.current, "<span class='cultbold'>You need new blood from your Master!</span>")
+		to_chat(owner.current, span_cultbold("You need new blood from your Master!"))
 	if(!COOLDOWN_FINISHED(src, blood_timer))
 		return
-	to_chat(owner.current, "<span class='cultbold'>You are out of blood!</span>")
-	to_chat(revenge_vassal.owner.current, "<span class='cultbold'>[owner.current] has ran out of blood and has permanently left the fold!</span>")
+	to_chat(owner.current, span_cultbold("You are out of blood!"))
+	to_chat(revenge_vassal.owner.current, span_cultbold("[owner.current] has ran out of blood and has permanently left the fold!"))
 	owner.remove_antag_datum(/datum/antagonist/ex_vassal)

@@ -21,7 +21,7 @@
 
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = initial(all_clans.join_icon), icon_state = initial(all_clans.join_icon_state))
-		option.info = "[initial(all_clans.name)] - ["<span class='boldnotice'>[initial(all_clans.join_description)]</span>"]"
+		option.info = "[initial(all_clans.name)] - [span_boldnotice("[initial(all_clans.join_description)]")]"
 		radial_display[initial(all_clans.name)] = option
 
 	var/chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display)
@@ -29,16 +29,16 @@
 	if(QDELETED(src) || QDELETED(owner.current))
 		return FALSE
 	if(!chosen_clan)
-		to_chat(person_selecting, "<span class='announce'>You choose to remain ignorant, for now.</span>")
+		to_chat(person_selecting, span_announce("You choose to remain ignorant, for now."))
 		return
 	my_clan = new chosen_clan(src)
 
 /datum/antagonist/vampire/proc/remove_clan(mob/admin)
 	if(owner.current.has_status_effect(/datum/status_effect/frenzy))
-		to_chat(admin, "<span class='announce'>Removing a Vampire from a Clan while they are in a Frenzy will break stuff, this action has been blocked.</span>")
+		to_chat(admin, span_announce("Removing a Vampire from a Clan while they are in a Frenzy will break stuff, this action has been blocked."))
 		return
 	QDEL_NULL(my_clan)
-	to_chat(owner.current, "<span class='announce'>You have been forced out of your clan! You can re-enter one by regular means.</span>")
+	to_chat(owner.current, span_announce("You have been forced out of your clan! You can re-enter one by regular means."))
 
 /datum/antagonist/vampire/proc/admin_set_clan(mob/admin)
 	assign_clan_and_bane(admin)

@@ -67,7 +67,7 @@
 			"Lady",
 			"Mistress",
 		)
-	to_chat(owner, "<span class='announce'>You have earned a title! You are now known as <i>[return_full_name()]</i>!</span>")
+	to_chat(owner, span_announce("You have earned a title! You are now known as <i>[return_full_name()]</i>!"))
 
 ///Returns a Reputation for the Vampire.
 /datum/antagonist/vampire/proc/SelectReputation(am_fledgling = FALSE, forced = FALSE)
@@ -132,4 +132,4 @@
 			"Corrupt","Hellspawn","Tyrant","Sanguineous",
 		)
 
-	to_chat(owner, "<span class='announce'>You have earned a reputation! You are now known as <i>[return_full_name()]</i>!</span>")
+	to_chat(owner, span_announce("You have earned a reputation! You are now known as <i>[return_full_name()]</i>!"))

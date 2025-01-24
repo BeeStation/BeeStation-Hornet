@@ -89,12 +89,12 @@
 		blood_shield = WEAKREF(new_shield)
 		if(!owner.put_in_inactive_hand(new_shield))
 			owner.balloon_alert(owner, "off hand is full!")
-			to_chat(owner, "<span class='notice'>Blood shield couldn't be activated as your off hand is full.</span>")
+			to_chat(owner, span_notice("Blood shield couldn't be activated as your off hand is full."))
 			return FALSE
 		owner.visible_message(
-			"<span class='warning'>[owner]\'s hands begins to bleed and forms into a blood shield!</span>",
-			"<span class='warning'>We activate our Blood shield!</span>",
-			"<span class='hear'>You hear liquids forming together.</span>",
+			span_warning("[owner] 's hands begins to bleed and forms into a blood shield!"),
+			span_warning("We activate our Blood shield!"),
+			span_hear("You hear liquids forming together."),
 		)
 
 /datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/DeactivatePower()
@@ -107,7 +107,7 @@
 
 	var/mob/living/user = owner
 	owner.balloon_alert(owner, "you fire a blood bolt!")
-	to_chat(user, "<span class='warning'>You fire a blood bolt!</span>")
+	to_chat(user, span_warning("You fire a blood bolt!"))
 	user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target_atom, user))
 	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(user.loc)

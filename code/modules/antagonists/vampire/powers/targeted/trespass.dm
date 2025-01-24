@@ -63,8 +63,8 @@
 	var/turf/my_turf = get_turf(owner)
 
 	user.visible_message(
-		"<span class='warning'>[user]'s form dissipates into a cloud of mist!</span>",
-		"<span class='notice'>You disspiate into formless mist.</span>",
+		span_warning("[user]'s form dissipates into a cloud of mist!"),
+		span_notice("You disspiate into formless mist."),
 	)
 	// Effect Origin
 	var/sound_strength = max(60, 70 - level_current * 10)

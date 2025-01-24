@@ -18,7 +18,7 @@
 	. = ..()
 	var/area/current_area = get_area(vampiredatum.owner.current)
 	if(istype(current_area, /area/chapel))
-		to_chat(vampiredatum.owner.current, "<span class='warning'>You don't belong in holy areas! The Faith burns you!</span>")
+		to_chat(vampiredatum.owner.current, span_warning("You don't belong in holy areas! The Faith burns you!"))
 		vampiredatum.owner.current.adjustFireLoss(20)
 		vampiredatum.owner.current.adjust_fire_stacks(2)
 		vampiredatum.owner.current.IgniteMob()

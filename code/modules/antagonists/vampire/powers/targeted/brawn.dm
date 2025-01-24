@@ -41,18 +41,18 @@
 		if(!istype(closet))
 			return FALSE
 		closet.visible_message(
-			"<span class='warning'>[closet] tears apart as [user] bashes it open from within!</span>",
-			"<span class='warning'>[closet] tears apart as you bash it open from within!</span>",
+			span_warning("[closet] tears apart as [user] bashes it open from within!"),
+			span_warning("[closet] tears apart as you bash it open from within!"),
 		)
-		to_chat(user, "<span class='warning'>We bash [closet] wide open!</span>")
+		to_chat(user, span_warning("We bash [closet] wide open!"))
 		addtimer(CALLBACK(src, PROC_REF(break_closet), user, closet), 1)
 		used = TRUE
 
 	if(!used)
 		user.uncuff()
 		user.visible_message(
-			"<span class='warning'>[user] discards their restraints like it's nothing!</span>",
-			"<span class='warning'>We break through our restraints!</span>",
+			span_warning("[user] discards their restraints like it's nothing!"),
+			span_warning("We break through our restraints!"),
 		)
 		used = TRUE
 
@@ -60,8 +60,8 @@
 	if(user.wear_suit?.breakouttime && !used)
 		var/obj/item/clothing/suit/straightjacket = user.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 		user.visible_message(
-			"<span class='warning'>[user] rips straight through the [user.p_their()] [straightjacket]!</span>",
-			"<span class='warning'>We tear through our [straightjacket]!</span>",
+			span_warning("[user] rips straight through the [user.p_their()] [straightjacket]!"),
+			span_warning("We tear through our [straightjacket]!"),
 		)
 		if(straightjacket && user.wear_suit == straightjacket)
 			qdel(straightjacket)
@@ -97,8 +97,8 @@
 	pulled_mob.throw_at(turf_thrown_at, pull_power, TRUE, owner, FALSE) // Throw distance based on grab state! Harder grabs punished more aggressively.
 	log_combat(owner, pulled_mob, "used Brawn power")
 	owner.visible_message(
-		"<span class='warning'>[owner] tears free of [pulled_mob]'s grasp!</span>",
-		"<span class='warning'>You shrug off [pulled_mob]'s grasp!</span>",
+		span_warning("[owner] tears free of [pulled_mob]'s grasp!"),
+		span_warning("You shrug off [pulled_mob]'s grasp!"),
 	)
 	owner.pulledby = null // It's already done, but JUST IN CASE.
 	return TRUE
@@ -116,8 +116,8 @@
 		var/powerlevel = min(5, 1 + level_current)
 		if(rand(5 + powerlevel) >= 5)
 			target.visible_message(
-				"<span class='danger'>[user] lands a vicious punch, sending [target] away!</span>", \
-				"<span class='userdanger'>[user] has landed a horrifying punch on you and sends you flying!</span>",
+				span_danger("[user] lands a vicious punch, sending [target] away!"), \
+				span_userdanger("[user] has landed a horrifying punch on you and sends you flying!"),
 			)
 			target.Knockdown(min(5, rand(10, 10 * powerlevel)))
 		// Attack!
@@ -141,7 +141,7 @@
 		if(!do_after(user, 2.5 SECONDS, target_closet))
 			user.balloon_alert(user, "interrupted!")
 			return FALSE
-		target_closet.visible_message("<span class='danger'>[target_closet] breaks open as [user] bashes it!</span>")
+		target_closet.visible_message(span_danger("[target_closet] breaks open as [user] bashes it!"))
 		addtimer(CALLBACK(src, PROC_REF(break_closet), user, target_closet), 1)
 		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
 	// Airlocks
@@ -153,7 +153,7 @@
 			user.balloon_alert(user, "interrupted!")
 			return FALSE
 		if(target_airlock.Adjacent(user))
-			target_airlock.visible_message("<span class='danger'>[target_airlock] breaks open as [user] bashes it!</span>")
+			target_airlock.visible_message(span_danger("[target_airlock] breaks open as [user] bashes it!"))
 			user.Stun(10)
 			user.do_attack_animation(target_airlock, ATTACK_EFFECT_SMASH)
 			playsound(get_turf(target_airlock), 'sound/effects/bang.ogg', 30, 1, -1)

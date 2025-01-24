@@ -54,16 +54,16 @@
 		return
 	if(!IS_CURATOR(user))
 		if(IS_VAMPIRE(user))
-			to_chat(user, "<span class='notice'>[src] seems to be too complicated for you. It would be best to leave this for someone else to take.</span>")
+			to_chat(user, span_notice("[src] seems to be too complicated for you. It would be best to leave this for someone else to take."))
 			return
-		to_chat(user, "<span class='warning'>[src] burns your hands as you try to use it!</span>")
+		to_chat(user, span_warning("[src] burns your hands as you try to use it!"))
 		user.apply_damage(3, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		return
 
 	in_use = TRUE
 	user.balloon_alert_to_viewers(user, "reading book...", "looks at [target] and [src]")
 	if(!do_after(user, 3 SECONDS, target, timed_action_flags = NONE, progress = TRUE))
-		to_chat(user, "<span class='notice'>You quickly close [src].</span>")
+		to_chat(user, span_notice("You quickly close [src]."))
 		in_use = FALSE
 		return
 	in_use = FALSE
@@ -72,19 +72,19 @@
 	// Are we a Vampire | Are we on Masquerade. If one is true, they will fail.
 	if(vampiredatum && !HAS_TRAIT(target, TRAIT_MASQUERADE))
 		if(vampiredatum.broke_masquerade)
-			to_chat(user, "<span class='warning'>[target], also known as '[vampiredatum.return_full_name()]', is indeed a Vampire, but you already knew this.</span>")
+			to_chat(user, span_warning("[target], also known as '[vampiredatum.return_full_name()]', is indeed a Vampire, but you already knew this."))
 			return
-		to_chat(user, "<span class='warning'>[target], also known as '[vampiredatum.return_full_name()]', [vampiredatum.my_clan ? "is part of the [vampiredatum.my_clan]!" : "is not part of a clan."] You quickly note this information down, memorizing it.</span>")
+		to_chat(user, span_warning("[target], also known as '[vampiredatum.return_full_name()]', [vampiredatum.my_clan ? "is part of the [vampiredatum.my_clan]!" : "is not part of a clan."] You quickly note this information down, memorizing it."))
 		vampiredatum.break_masquerade()
 	else
-		to_chat(user, "<span class='notice'>You fail to draw any conclusions to [target] being a Vampire.</span>")
+		to_chat(user, span_notice("You fail to draw any conclusions to [target] being a Vampire."))
 
 /obj/item/book/kindred/attack_self(mob/living/user)
 	if(!IS_CURATOR(user))
 		if(IS_VAMPIRE(user))
-			to_chat(user, "<span class='notice'>[src] seems to be too complicated for you. It would be best to leave this for someone else to take.</span>")
+			to_chat(user, span_notice("[src] seems to be too complicated for you. It would be best to leave this for someone else to take."))
 		else
-			to_chat(user, "<span class='warning'>You feel your eyes unable to read the boring texts...</span>")
+			to_chat(user, span_warning("You feel your eyes unable to read the boring texts..."))
 		return
 	ui_interact(user)
 

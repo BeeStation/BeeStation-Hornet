@@ -36,7 +36,7 @@
 		return FALSE
 	if(!user.getorganslot(ORGAN_SLOT_EYES))
 		// Cant use balloon alert, they've got no eyes!
-		to_chat(user, "<span class='warning'>You have no eyes with which to mesmerize.</span>")
+		to_chat(user, span_warning("You have no eyes with which to mesmerize."))
 		return FALSE
 	// Check: Eyes covered?
 	if(istype(user) && (user.is_eyes_covered() && level_current <= 2) || !isturf(user.loc))
@@ -109,7 +109,7 @@
 
 	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS
 	if(IS_CURATOR(mesmerized_target))
-		to_chat(mesmerized_target, "<span class='notice'>You feel your eyes burn for a while, but it passes.</span>")
+		to_chat(mesmerized_target, span_notice("You feel your eyes burn for a while, but it passes."))
 		return
 	if(HAS_TRAIT_FROM(mesmerized_target, TRAIT_MUTE, TRAIT_VAMPIRE))
 		owner.balloon_alert(owner, "[mesmerized_target] is already in a hypnotic gaze.")

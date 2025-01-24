@@ -25,7 +25,7 @@
 
 	// Now list their vassals
 	if(ex_vassals.len)
-		report += "<span class='header'>The Vassals brought back into the fold were...</span>"
+		report += span_header("The Vassals brought back into the fold were...")
 		for(var/datum/antagonist/ex_vassal/all_vassals as anything in ex_vassals)
 			if(!all_vassals.owner)
 				continue
@@ -85,5 +85,5 @@
 	INVOKE_ASYNC(src, PROC_REF(ui_interact), owner.current)
 
 	// Alert vassal that their master is dead
-	to_chat(owner.current, "<span class='cultlarge'>Your master has succumbed to final death! Avenge your Vampire's death by recruiting their ex-vassals and continuing their operations.</span>")
+	to_chat(owner.current, span_cultlarge("Your master has succumbed to final death! Avenge your Vampire's death by recruiting their ex-vassals and continuing their operations."))
 	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/tendril_destroyed.ogg', 30)

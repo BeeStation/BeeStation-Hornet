@@ -143,8 +143,8 @@
 	if(target.stat == DEAD)
 		playsound(get_turf(target), 'sound/effects/splat.ogg', 40, TRUE)
 		owner.visible_message(
-			"<span class='warning'>[owner] tears into [target]'s chest!</span>",
-			"<span class='warning'>You tear into [target]'s chest!</span>",
+			span_warning("[owner] tears into [target]'s chest!"),
+			span_warning("You tear into [target]'s chest!"),
 		)
 		var/obj/item/bodypart/chest/chest = target.get_bodypart(BODY_ZONE_CHEST)
 		chest.dismember()

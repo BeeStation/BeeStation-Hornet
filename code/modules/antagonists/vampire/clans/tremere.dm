@@ -26,7 +26,7 @@
 	. = ..()
 	var/area/current_area = get_area(vampiredatum.owner.current)
 	if(istype(current_area, /area/chapel))
-		to_chat(vampiredatum.owner.current, "<span class='warning'>You don't belong in holy areas! The Faith burns you!</span>")
+		to_chat(vampiredatum.owner.current, span_warning("You don't belong in holy areas! The Faith burns you!"))
 		vampiredatum.owner.current.adjustFireLoss(10)
 		vampiredatum.owner.current.adjust_fire_stacks(2)
 		vampiredatum.owner.current.IgniteMob()
@@ -42,7 +42,7 @@
 		options[initial(power.name)] = power
 
 	if(options.len < 1)
-		to_chat(vampiredatum.owner.current, "<span class='notice'>You grow more ancient by the night!</span>")
+		to_chat(vampiredatum.owner.current, span_notice("You grow more ancient by the night!"))
 	else
 		// Give them the UI to purchase a power.
 		var/choice = tgui_input_list(vampiredatum.owner.current, "You have the opportunity to grow more ancient. Select a power you wish to upgrade.", "Your Blood Thickens...", options)
@@ -51,11 +51,11 @@
 			return
 		// Did you choose a power?
 		if(!choice || !options[choice])
-			to_chat(vampiredatum.owner.current, "<span class='notice'>You prevent your blood from thickening just yet, but you may try again later.</span>")
+			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
 			return
 		// Prevent Vampires from purchasing a power while outside of their Coffin.
 		if(!istype(vampiredatum.owner.current.loc, /obj/structure/closet/crate/coffin))
-			to_chat(vampiredatum.owner.current, "<span class='warning'>You must be in your Coffin to purchase Powers.</span>")
+			to_chat(vampiredatum.owner.current, span_warning("You must be in your Coffin to purchase Powers."))
 			return
 
 		// Good to go - Buy Power!
@@ -63,12 +63,12 @@
 		var/datum/action/cooldown/vampire/targeted/tremere/tremere_power = purchased_power
 		if(isnull(tremere_power.upgraded_power))
 			vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "cannot upgrade [choice]!")
-			to_chat(vampiredatum.owner.current, "<span class='notice'>[choice] is already at max level!</span>")
+			to_chat(vampiredatum.owner.current, span_notice("[choice] is already at max level!"))
 			return
 		vampiredatum.BuyPower(new tremere_power.upgraded_power)
 		vampiredatum.RemovePower(tremere_power)
 		vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "upgraded [choice]!")
-		to_chat(vampiredatum.owner.current, "<span class='notice'>You have upgraded [choice]!</span>")
+		to_chat(vampiredatum.owner.current, span_notice("You have upgraded [choice]!"))
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
@@ -78,7 +78,7 @@
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	..()
-	to_chat(vampiredatum.owner.current, "<span class='danger'>You have now gained an additional Rank to spend!</span>")
+	to_chat(vampiredatum.owner.current, span_danger("You have now gained an additional Rank to spend!"))
 	vampiredatum.vampire_level_unspent++
 
 // Batform for special vassals

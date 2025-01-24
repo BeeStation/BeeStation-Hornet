@@ -258,15 +258,15 @@
 /datum/antagonist/vampire/greet()
 	. = ..()
 	var/fullname = return_full_name()
-	to_chat(owner, "<span class='userdanger'>You are [fullname], a strain of vampire known as a Vampire!</span>")
+	to_chat(owner, span_userdanger("You are [fullname], a strain of vampire known as a Vampire!"))
 	owner.announce_objectives()
 	if(vampire_level_unspent >= 1)
-		to_chat(owner, "<span class='announce'>As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.</span>")
+		to_chat(owner, span_announce("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank."))
 	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
-	to_chat(owner.current, "<span class='userdanger'><FONT size = 3>With a snap, your curse has ended. You are no longer a Vampire. You live once more!</FONT></span>")
+	to_chat(owner.current, span_userdanger("<FONT size = 3>With a snap, your curse has ended. You are no longer a Vampire. You live once more!</FONT>"))
 	// Refill with Blood so they don't instantly die.
 	if(!HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
 		owner.current.blood_volume = max(owner.current.blood_volume, BLOOD_VOLUME_NORMAL)
@@ -322,7 +322,7 @@
 	var/list/report = list()
 
 	// Vamp name
-	report += "<br><span class='header'><b>\"[return_full_name()]\"</b></span>"
+	report += "<br>[span_header("<b> [return_full_name()] </b>")]"
 	report += printplayer(owner)
 	if(my_clan)
 		report += "They were part of the <b>[my_clan.name]</b>!"
@@ -340,7 +340,7 @@
 
 	// Now list their vassals
 	if(vassals.len)
-		report += "<span class='header'>Their Vassals were...</span>"
+		report += span_header("Their Vassals were...")
 		for(var/datum/antagonist/vassal/all_vassals as anything in vassals)
 			if(!all_vassals.owner)
 				continue
@@ -356,9 +356,9 @@
 			report += vassal_report.Join()
 
 	if(objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += span_greentextbig("The [name] was successful!")
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
 
@@ -454,8 +454,8 @@
 		owner.teach_crafting_recipe(/datum/crafting_recipe/bloodthrone)
 		owner.teach_crafting_recipe(/datum/crafting_recipe/meatcoffin)
 		owner.current.balloon_alert(owner.current, "new recipes learned!")
-	to_chat(owner, "<span class='userdanger'>You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area].</span>")
-	to_chat(owner, "<span class='announce'>Vampire Tip: Find new lair recipes in the Structures tab of the <i>Crafting Menu</i>, including the <i>Persuasion Rack</i> for converting crew into Vassals.</span>")
+	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
+	to_chat(owner, span_announce("Vampire Tip: Find new lair recipes in the Structures tab of the <i>Crafting Menu</i>, including the <i>Persuasion Rack</i> for converting crew into Vassals."))
 	return TRUE
 
 /// Name shown on antag list

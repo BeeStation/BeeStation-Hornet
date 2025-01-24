@@ -36,9 +36,9 @@ Woods Sheets
 	if(!item.is_sharp())
 		return ..()
 	user.visible_message(
-		"<span class='notice'>[user] begins whittling [src] into a pointy object.</span>",
-		"<span class='notice'>You begin whittling [src] into a sharp point at one end.</span>",
-		"<span class='hear'>You hear wood carving.</span>",
+		span_notice("[user] begins whittling [src] into a pointy object."),
+		span_notice("You begin whittling [src] into a sharp point at one end."),
+		span_hear("You hear wood carving."),
 	)
 	// 5 Second Timer
 	if(!do_after(user, 5 SECONDS, src, NONE, TRUE))
@@ -46,8 +46,8 @@ Woods Sheets
 	// Make Stake
 	var/obj/item/stake/new_item = new(user.loc)
 	user.visible_message(
-		"<span class='notice'>[user] finishes carving a stake out of [src].</span>",
-		"<span class='notice'>You finish carving a stake out of [src].</span>",
+		span_notice("[user] finishes carving a stake out of [src]."),
+		span_notice("You finish carving a stake out of [src]."),
 	)
 	// Prepare to Put in Hands (if holding wood)
 	var/obj/item/stack/sheet/wood/wood_stack = src

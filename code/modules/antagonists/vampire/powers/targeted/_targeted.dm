@@ -29,7 +29,7 @@
 		return FALSE
 
 	if(prefire_message)
-		to_chat(owner, "<span class='announce'>[prefire_message]</span>")
+		to_chat(owner, span_announce("[prefire_message]"))
 
 	ActivatePower(trigger_flags)
 	if(target)

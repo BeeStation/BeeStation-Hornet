@@ -24,7 +24,7 @@
 	owner_datum.owner.current.update_sight()
 
 	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/ambience/antag/creepalert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-	to_chat(vampiredatum.owner.current, "<span class='hypnophrase'>Welcome to the Malkavian...</span>")
+	to_chat(vampiredatum.owner.current, span_hypnophrase("Welcome to the Malkavian..."))
 
 /datum/vampire_clan/malkavian/Destroy(force)
 	UnregisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE)
@@ -48,7 +48,7 @@
 	if(istype(carbonowner))
 		carbonowner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
 		carbonowner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
-	to_chat(vassaldatum.owner.current, "<span class='notice'>Additionally, you now suffer the same fate as your Master.</span>")
+	to_chat(vassaldatum.owner.current, span_notice("Additionally, you now suffer the same fate as your Master."))
 
 /datum/vampire_clan/malkavian/on_exit_torpor(datum/antagonist/vampire/source)
 	var/mob/living/carbon/carbonowner = vampiredatum.owner.current
@@ -68,7 +68,7 @@
 	if(masquerade_breaker == vampiredatum)
 		return
 
-	to_chat(vampiredatum.owner.current, "<span class='userdanger'>[masquerade_breaker.owner.current] has broken the Masquerade! Ensure [masquerade_breaker.owner.current.p_they()] [masquerade_breaker.owner.current.p_are()] eliminated at all costs!</span>")
+	to_chat(vampiredatum.owner.current, span_userdanger("[masquerade_breaker.owner.current] has broken the Masquerade! Ensure [masquerade_breaker.owner.current.p_they()] [masquerade_breaker.owner.current.p_are()] eliminated at all costs!"))
 	var/datum/objective/assassinate/masquerade_objective = new()
 	masquerade_objective.target = masquerade_breaker.owner.current
 	masquerade_objective.name = "Clan Objective"

@@ -149,7 +149,7 @@
 			options[initial(power.name)] = power
 
 	if(options.len < 1)
-		to_chat(vampiredatum.owner.current, "<span class='notice'>You grow more ancient by the night!</span>")
+		to_chat(vampiredatum.owner.current, span_notice("You grow more ancient by the night!"))
 	else
 		// Give them the UI to purchase a power.
 		var/choice = tgui_input_list(vampiredatum.owner.current, "You have the opportunity to grow more ancient. Select a power to advance your Rank.", "Your Blood Thickens...", options)
@@ -158,22 +158,22 @@
 			return
 		// Did you choose a power?
 		if(!choice || !options[choice])
-			to_chat(vampiredatum.owner.current, "<span class='notice'>You prevent your blood from thickening just yet, but you may try again later.</span>")
+			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
 			return
 		// Prevent Vampires from closing/reopning their coffin to spam Levels.
 		if(locate(options[choice]) in vampiredatum.powers)
-			to_chat(vampiredatum.owner.current, "<span class='notice'>You prevent your blood from thickening just yet, but you may try again later.</span>")
+			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
 			return
 		// Prevent Vampires from purchasing a power while outside of their Coffin.
 		if(!istype(vampiredatum.owner.current.loc, /obj/structure/closet/crate/coffin))
-			to_chat(vampiredatum.owner.current, "<span class='warning'>You must be in your Coffin to purchase Powers.</span>")
+			to_chat(vampiredatum.owner.current, span_warning("You must be in your Coffin to purchase Powers."))
 			return
 
 		// Good to go - Buy Power!
 		var/datum/action/cooldown/vampire/purchased_power = options[choice]
 		vampiredatum.BuyPower(new purchased_power)
 		vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "learned [choice]!")
-		to_chat(vampiredatum.owner.current, "<span class='notice'>You have learned how to use [choice]!</span>")
+		to_chat(vampiredatum.owner.current, span_notice("You have learned how to use [choice]!"))
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
@@ -215,10 +215,10 @@
 
 /datum/vampire_clan/proc/interact_with_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	if(vassaldatum.special_type)
-		to_chat(vampiredatum.owner.current, "<span class='notice'>This Vassal was already assigned a special position.</span>")
+		to_chat(vampiredatum.owner.current, span_notice("This Vassal was already assigned a special position."))
 		return FALSE
 	if(!(vassaldatum.owner.current.mob_biotypes & MOB_ORGANIC))
-		to_chat(vampiredatum.owner.current, "<span class='notice'>This Vassal is unable to gain a Special rank due to innate features.</span>")
+		to_chat(vampiredatum.owner.current, span_notice("This Vassal is unable to gain a Special rank due to innate features."))
 		return FALSE
 
 	var/list/options = list()
@@ -230,13 +230,13 @@
 
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassaldatums.vassal_hud_name))
-		option.info = "[initial(vassaldatums.name)] - ["<span class='boldnotice'>[initial(vassaldatums.vassal_description)]</span>"]"
+		option.info = "[initial(vassaldatums.name)] - [span_boldnotice("[initial(vassaldatums.vassal_description)]")]"
 		radial_display[initial(vassaldatums.name)] = option
 
 	if(!options.len)
 		return
 
-	to_chat(vampiredatum.owner.current, "<span class='notice'>You can change who this Vassal is, who are they to you?</span>")
+	to_chat(vampiredatum.owner.current, span_notice("You can change who this Vassal is, who are they to you?"))
 	var/vassal_response = show_radial_menu(vampiredatum.owner.current, vassaldatum.owner.current, radial_display)
 	if(!vassal_response)
 		return

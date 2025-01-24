@@ -20,7 +20,7 @@
 		return
 
 	owner.balloon_alert(owner, "fortitude turned on.")
-	to_chat(owner, "<span class='notice'>Your flesh has become as hard as steel!</span>")
+	to_chat(owner, span_notice("Your flesh has become as hard as steel!"))
 	// Traits & Effects
 	ADD_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_VAMPIRE)
 	ADD_TRAIT(owner, TRAIT_NODISMEMBER, TRAIT_VAMPIRE)

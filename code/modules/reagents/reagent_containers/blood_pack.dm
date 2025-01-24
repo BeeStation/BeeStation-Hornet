@@ -114,8 +114,8 @@
 		if(!do_after(victim, 5 SECONDS, attacker))
 			return
 		attacker.visible_message(
-			"<span class='notice'>[attacker] forces [victim] to drink from the [src].</span>",
-			"<span class='notice'>You put the [src] up to [victim]'s mouth.</span>",
+			span_notice("[attacker] forces [victim] to drink from the [src]."),
+			span_notice("You put the [src] up to [victim]'s mouth."),
 		)
 		reagents.trans_to(victim, 5, transfered_by = attacker, method = INGEST)
 		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
@@ -123,8 +123,8 @@
 
 	while(do_after(victim, 1 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
 		victim.visible_message(
-			"<span class='notice'>[victim] puts the [src] up to their mouth.</span>",
-			"<span class='notice'>You take a sip from the [src].</span>",
+			span_notice("[victim] puts the [src] up to their mouth."),
+			span_notice("You take a sip from the [src]."),
 		)
 		reagents.trans_to(victim, 5, transfered_by = attacker, method = INGEST)
 		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
@@ -134,6 +134,6 @@
 	if(!canconsume(victim, attacker))
 		return FALSE
 	if(!reagents || !reagents.total_volume)
-		to_chat(victim, "<span class='warning'>[src] is empty!</span>")
+		to_chat(victim, span_warning("[src] is empty!"))
 		return FALSE
 	return TRUE

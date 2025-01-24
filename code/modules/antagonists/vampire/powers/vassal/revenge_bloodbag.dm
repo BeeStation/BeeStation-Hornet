@@ -42,7 +42,7 @@
 /datum/reagent/blood/vampire/on_mob_metabolize(mob/living/living)
 	var/datum/antagonist/ex_vassal/former_vassal = IS_EX_VASSAL(living)
 	if(former_vassal)
-		to_chat(living, "<span class='cult'>You feel the blood restore you... You feel safe.</span>")
+		to_chat(living, span_cult("You feel the blood restore you... You feel safe."))
 		COOLDOWN_RESET(former_vassal, blood_timer)
 		COOLDOWN_START(former_vassal, blood_timer, 10 MINUTES)
 	return ..()
@@ -54,4 +54,4 @@
 /obj/item/reagent_containers/blood/OMinus/vampire/examine(mob/user)
 	. = ..()
 	if(IS_EX_VASSAL(user) || IS_REVENGE_VASSAL(user))
-		. += "<span class='notice'>Seems to be just about the same color as your old Master's...</span>"
+		. += span_notice("Seems to be just about the same color as your old Master's...")

@@ -22,8 +22,8 @@
 		return
 
 	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
-	to_chat(owner.current, "<span class='cultboldtalic'>You have broken the Masquerade!</span>")
-	to_chat(owner.current, "<span class='warning'>Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your Vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!</span>")
+	to_chat(owner.current, span_cultbigbold("You have broken the Masquerade!"))
+	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your Vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 	broke_masquerade = TRUE
 	set_antag_hud(owner.current, "masquerade_broken")
 	SEND_GLOBAL_SIGNAL(COMSIG_VAMPIRE_BROKE_MASQUERADE, src)
@@ -33,7 +33,7 @@
 	if(!broke_masquerade)
 		return
 	set_antag_hud(owner.current, "vampire")
-	to_chat(owner.current, "<span class='cultboldtalic'>You have re-entered the Masquerade.</span>")
+	to_chat(owner.current, span_cultbigbold("You have re-entered the Masquerade."))
 	broke_masquerade = FALSE
 
 /datum/antagonist/vampire/proc/give_masquerade_infraction()
@@ -43,18 +43,18 @@
 	if(masquerade_infractions >= 3)
 		break_masquerade()
 	else
-		to_chat(owner.current, "<span class='cultbold'>You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become a criminal to the Vampire's Cause!</span>")
+		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become a criminal to the Vampire's Cause!"))
 
 /datum/antagonist/vampire/proc/RankUp()
 	if(!owner || !owner.current || IS_FAVORITE_VASSAL(owner.current))
 		return
 	vampire_level_unspent++
 	if(!my_clan)
-		to_chat(owner.current, "<span class='notice'>You have gained a rank. Join a Clan to spend it.</span>")
+		to_chat(owner.current, span_notice("You have gained a rank. Join a Clan to spend it."))
 		return
 	// Spend Rank Immediately?
 	if(!istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		to_chat(owner, "<span class='notice'><EM>You have grown more ancient! Sleep in a coffin that you have claimed to thicken your blood and become more powerful[istype(my_clan, /datum/vampire_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up" : ""]</EM></span>")
+		to_chat(owner, span_notice("<EM>You have grown more ancient! Sleep in a coffin that you have claimed to thicken your blood and become more powerful[istype(my_clan, /datum/vampire_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up" : ""]</EM>"))
 		return
 	SpendRank()
 

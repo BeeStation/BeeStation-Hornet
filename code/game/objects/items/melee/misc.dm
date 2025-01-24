@@ -1035,20 +1035,20 @@
 	if(target == user)
 		return
 	if(!target.can_be_staked()) // Oops! Can't.
-		to_chat(user, "<span class='danger'>You can't stake [target] when they are moving about! They have to be laying down or grabbed by the neck!</span>")
+		to_chat(user, span_danger("You can't stake [target] when they are moving about! They have to be laying down or grabbed by the neck!"))
 		return
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
-		to_chat(user, "<span class='danger'>[target]'s chest resists the stake. It won't go in.</span>")
+		to_chat(user, span_danger("[target]'s chest resists the stake. It won't go in."))
 		return
 
-	to_chat(user, "<span class='notice'>You put all your weight into embedding the stake into [target]'s chest...</span>")
+	to_chat(user, span_notice("You put all your weight into embedding the stake into [target]'s chest..."))
 	playsound(user, 'sound/magic/Demon_consume.ogg', 50, 1)
 	if(!do_after(user, staketime, target, extra_checks = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, can_be_staked)))) // user / target / time / uninterruptable / show progress bar / extra checks
 		return
 	// Drop & Embed Stake
 	user.visible_message(
-		"<span class='danger'>[user.name] drives the [src] into [target]'s chest!</span>",
-		"<span class='danger'>You drive the [src] into [target]'s chest!</span>",
+		span_danger("[user.name] drives the [src] into [target]'s chest!"),
+		span_danger("You drive the [src] into [target]'s chest!"),
 	)
 	playsound(get_turf(target), 'sound/effects/splat.ogg', 40, 1)
 	if(tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
@@ -1062,7 +1062,7 @@
 		if(vampiredatum?.can_stake_kill())
 			vampiredatum.final_death()
 		else
-			to_chat(target, "<span class='userdanger'>You have been staked! Your powers are useless while it remains in place.</span>")
+			to_chat(target, span_userdanger("You have been staked! Your powers are useless while it remains in place."))
 			target.balloon_alert(target, "you have been staked!")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.

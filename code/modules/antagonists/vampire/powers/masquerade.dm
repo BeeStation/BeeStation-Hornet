@@ -31,8 +31,8 @@
 	. = ..()
 	var/mob/living/carbon/user = owner
 	owner.balloon_alert(owner, "masquerade turned on.")
-	to_chat(user, "<span class='notice'>Your heart beats falsely within your lifeless chest. You may yet pass for a mortal.</span>")
-	to_chat(user, "<span class='warning'>Your vampiric healing is halted while imitating life.</span>")
+	to_chat(user, span_notice("Your heart beats falsely within your lifeless chest. You may yet pass for a mortal."))
+	to_chat(user, span_warning("Your vampiric healing is halted while imitating life."))
 
 	// Give status effect
 	user.apply_status_effect(/datum/status_effect/masquerade)
@@ -66,7 +66,7 @@
 	vampheart?.Stop()
 	var/obj/item/organ/eyes/eyes = user.getorganslot(ORGAN_SLOT_EYES)
 	eyes?.flash_protect = max(initial(eyes.flash_protect) - 1, - 1)
-	to_chat(user, "<span class='notice'>Your heart beats one final time, while your skin dries out and your icy pallor returns.</span>")
+	to_chat(user, span_notice("Your heart beats one final time, while your skin dries out and your icy pallor returns."))
 
 /**
  * # Status effect

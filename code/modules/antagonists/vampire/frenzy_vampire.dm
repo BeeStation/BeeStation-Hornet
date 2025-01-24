@@ -39,7 +39,7 @@
 	var/datum/antagonist/vampire/vampiredatum
 
 /datum/status_effect/frenzy/get_examine_text()
-	return "<span class='notice'>They seem... inhumane, and feral!</span>"
+	return span_notice("They seem... inhumane, and feral!")
 
 /atom/movable/screen/alert/status_effect/masquerade/MouseEntered(location,control,params)
 	desc = initial(desc)
@@ -51,8 +51,8 @@
 
 	// Disable ALL Powers and notify their entry
 	vampiredatum.DisableAllPowers(forced = TRUE)
-	to_chat(owner, "<span class='userdanger'><FONT size = 10>BLOOD! YOU NEED BLOOD NOW!</span>")
-	to_chat(owner, "<span class='announce'>* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun resistance, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it).</span>")
+	to_chat(owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
+	to_chat(owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun resistance, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	owner.balloon_alert(owner, "you enter a frenzy!")
 	SEND_SIGNAL(vampiredatum, VAMPIRE_ENTERS_FRENZY)
 

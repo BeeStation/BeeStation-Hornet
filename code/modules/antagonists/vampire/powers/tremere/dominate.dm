@@ -127,7 +127,7 @@
 	power_activated_sucessfully()
 	var/power_time = 90 + level_current * 15
 	if(IS_CURATOR(target))
-		to_chat(target, "<span class='notice'>You feel you something crawling under your skin, but it passes.</span>")
+		to_chat(target, span_notice("You feel you something crawling under your skin, but it passes."))
 		return
 	if(HAS_TRAIT_FROM(target, TRAIT_MUTE, TRAIT_VAMPIRE))
 		owner.balloon_alert(owner, "[target] is already in some form of hypnotic gaze.")
@@ -162,7 +162,7 @@
 
 	if(IS_VASSAL(target))
 		power_activated_sucessfully()
-		to_chat(user, "<span class='warning'>We revive [target]!</span>")
+		to_chat(user, span_warning("We revive [target]!"))
 		target.mind.grab_ghost()
 		target.revive(full_heal = TRUE)
 		return
@@ -173,7 +173,7 @@
 		return
 	vampiredatum_power.make_vassal(target)
 	power_activated_sucessfully()
-	to_chat(user, "<span class='warning'>We revive [target]!</span>")
+	to_chat(user, span_warning("We revive [target]!"))
 	target.mind.grab_ghost()
 	target.revive(full_heal = TRUE)
 	var/datum/antagonist/vassal/vassaldatum = target.mind.has_antag_datum(/datum/antagonist/vassal)
@@ -191,5 +191,5 @@
 	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_VAMPIRE)
 	REMOVE_TRAIT(user, TRAIT_DEAF, TRAIT_VAMPIRE)
 	user.mind.remove_antag_datum(/datum/antagonist/vassal)
-	to_chat(user, "<span class='warning'>You feel the Blood of your Master run out!</span>")
+	to_chat(user, span_warning("You feel the Blood of your Master run out!"))
 	user.death()

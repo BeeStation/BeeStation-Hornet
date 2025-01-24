@@ -14,7 +14,7 @@
 		INVOKE_ASYNC(src, PROC_REF(AddBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
 	if(handle_healing())
 		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && vampire_blood_volume > 0)
-			to_chat(owner.current, "<span class='notice'>The power of your blood knits your wounds...</span>")
+			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 	// Standard Updates
 	SEND_SIGNAL(src, COMSIG_VAMPIRE_ON_LIFETICK)
@@ -83,7 +83,7 @@
 	if(in_torpor)
 		if(istype(user.loc, /obj/structure/closet/crate/coffin))
 			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
-				to_chat(user, "<span class='alert'>You do not heal while your Masquerade ability is active.</span>")
+				to_chat(user, span_alert("You do not heal while your Masquerade ability is active."))
 				COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_MASQUERADE)
 				return
 			fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen)
@@ -115,7 +115,7 @@
 		AddBloodVolume(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = user.get_bodypart(missing_limb) // 2) Limb returns Damaged
 		missing_bodypart.brute_dam = 60
-		to_chat(user, "<span class='notice'>Your flesh knits as it regrows your [missing_bodypart]!</span>")
+		to_chat(user, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
 		playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		return TRUE
 
@@ -213,7 +213,7 @@
 	// Temporary Death? Convert to Torpor.
 	if(is_in_torpor())
 		return
-	to_chat(owner.current, "<span class='userdanger'>Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor.</span>")
+	to_chat(owner.current, span_userdanger("Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor."))
 	check_begin_torpor(TRUE)
 
 /datum/antagonist/vampire/proc/HandleStarving() // I am thirsty for blood!
@@ -316,17 +316,17 @@
 	// Elders get dusted, Fledglings get gibbed.
 	if(vampire_level >= 4)
 		user.visible_message(
-			"<span class='warning'>[user]'s skin crackles and dries, their skin and bones withering to dust. A hollow cry whips from what is now a sandy pile of remains.</span>",
-			"<span class='userdanger'>Your soul escapes your withering body as the abyss welcomes you to your Final Death.</span>",
-			"<span class='hear'>You hear a dry, crackling sound.</span>",
+			span_warning("[user]'s skin crackles and dries, their skin and bones withering to dust. A hollow cry whips from what is now a sandy pile of remains."),
+			span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
+			span_hear("You hear a dry, crackling sound."),
 		)
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, dust)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 		return
 
 	user.visible_message(
-		"<span class='warning'>[user]'s skin bursts forth in a spray of gore and detritus. A horrible cry echoes from what is now a wet pile of decaying meat.</span>",
-		"<span class='userdanger'>Your soul escapes your withering body as the abyss welcomes you to your Final Death.</span>",
-		"<span class='hear'><span class='italics'>You hear a wet, bursting sound.</span>",
+		span_warning("[user]'s skin bursts forth in a spray of gore and detritus. A horrible cry echoes from what is now a wet pile of decaying meat."),
+		span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
+		span_hear("<span class='italics'>You hear a wet, bursting sound."),
 	)
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, gib), TRUE, FALSE, FALSE), 2 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 

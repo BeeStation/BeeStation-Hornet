@@ -51,7 +51,7 @@
 	if(target_ref)
 		var/mob/living/feed_target = target_ref.resolve()
 		log_combat(user, feed_target, "fed on blood", addition="(and took [blood_taken] blood)")
-		to_chat(user, "<span class='notice'>You slowly release [feed_target].</span>")
+		to_chat(user, span_notice("You slowly release [feed_target]."))
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
 	target_ref = null
@@ -65,7 +65,7 @@
 /datum/action/cooldown/vampire/feed/ActivatePower(trigger_flags)
 	var/mob/living/feed_target = target_ref.resolve()
 	if(istype(feed_target, /mob/living/simple_animal/mouse))
-		to_chat(owner, "<span class='notice'>You recoil at the taste of a lesser lifeform.</span>")
+		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))
 		if(vampiredatum_power.my_clan && vampiredatum_power.my_clan.blood_drink_type != VAMPIRE_DRINK_INHUMANELY)
 			var/mob/living/user = owner
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
@@ -88,15 +88,15 @@
 		if(!feed_target.density)
 			feed_target.Move(owner.loc)
 		owner.visible_message(
-			"<span class='warning'>[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!</span>",
-			"<span class='warning'>You sink your fangs into [feed_target]'s neck.</span>"
+			span_warning("[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!"),
+			span_warning("You sink your fangs into [feed_target]'s neck.")
 		)
 		silent_feed = FALSE //no more mr nice guy
 	else
 		// Only people who AREN'T the target will notice this action.
 		var/dead_message = feed_target.stat != DEAD ? " <i>[feed_target.p_they(TRUE)] looks dazed, and will not remember this.</i>" : ""
 		owner.visible_message(
-			"<span class='notice'>[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth.</span>", \
+			span_notice("[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth."), \
 			"<span class='notice'>You slip your fangs into [feed_target]'s wrist.[dead_message]", \
 			vision_distance = FEED_NOTICE_RANGE, ignored_mobs = feed_target)
 
@@ -128,8 +128,8 @@
 	if(!ContinueActive(user, feed_target))
 		if(!silent_feed)
 			user.visible_message(
-				"<span class='warning'>[user] is ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!</span>",
-				"<span class='warning'>Your teeth are ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!</span>",
+				span_warning("[user] is ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),
+				span_warning("Your teeth are ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),
 			)
 			// Deal Damage to Target (should have been more careful!)
 			if(iscarbon(feed_target))

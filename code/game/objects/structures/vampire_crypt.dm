@@ -14,28 +14,28 @@
 /obj/structure/vampire/examine(mob/user)
 	. = ..()
 	if(!user.mind && ghost_desc)
-		. += "<span class='cult'>[ghost_desc]</span>"
+		. += span_cult("[ghost_desc]")
 	if(IS_VAMPIRE(user) && vampire_desc)
 		if(!owner)
-			. += "<span class='cult'>It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential</span>"
+			. += span_cult("It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential")
 			return
-		. += "<span class='cult'>[vampire_desc]</span>"
+		. += span_cult("[vampire_desc]")
 	if(IS_VASSAL(user) && vassal_desc)
-		. += "<span class='cult'>[vassal_desc]</span>"
+		. += span_cult("[vassal_desc]")
 	if(IS_CURATOR(user) && curator_desc)
-		. += "<span class='cult'>[curator_desc]</span>"
+		. += span_cult("[curator_desc]")
 
 /// This handles bolting down the structure.
 /obj/structure/vampire/proc/bolt(mob/user)
-	to_chat(user, "<span class='danger'>You have secured [src] in place.</span>")
-	to_chat(user, "<span class='announce'>* Vampire Tip: Examine [src] to understand how it functions!</span>")
+	to_chat(user, span_danger("You have secured [src] in place."))
+	to_chat(user, span_announce("* Vampire Tip: Examine [src] to understand how it functions!"))
 	user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
 	set_anchored(TRUE)
 	owner = user
 
 /// This handles unbolting of the structure.
 /obj/structure/vampire/proc/unbolt(mob/user)
-	to_chat(user, "<span class='danger'>You have unsecured [src].</span>")
+	to_chat(user, span_danger("You have unsecured [src]."))
 	user.playsound_local(null, 'sound/items/ratchet.ogg', 70, FALSE, pressure_affected = FALSE)
 	set_anchored(FALSE)
 	owner = null
@@ -44,7 +44,7 @@
 	/// If a Vampire tries to wrench it in place, yell at them.
 	if(item.tool_behaviour == TOOL_WRENCH && !anchored && IS_VAMPIRE(user))
 		user.playsound_local(null, 'sound/machines/buzz-sigh.ogg', 40, FALSE, pressure_affected = FALSE)
-		to_chat(user, "<span class='announce'>* Vampire Tip: Examine Vampire structures to understand how they function!</span>")
+		to_chat(user, span_announce("* Vampire Tip: Examine Vampire structures to understand how they function!"))
 		return
 	return ..()
 
@@ -53,14 +53,14 @@
 	/// Claiming the Rack instead of using it?
 	if(vampiredatum && !owner)
 		if(!vampiredatum.vampire_lair_area)
-			to_chat(user, "<span class='danger'>You don't have a lair. Claim a coffin to make that location your lair.</span>")
+			to_chat(user, span_danger("You don't have a lair. Claim a coffin to make that location your lair."))
 			return FALSE
 		if(vampiredatum.vampire_lair_area != get_area(src))
-			to_chat(user, "<span class='danger'>You may only activate this structure in your lair: [vampiredatum.vampire_lair_area].</span>")
+			to_chat(user, span_danger("You may only activate this structure in your lair: [vampiredatum.vampire_lair_area]."))
 			return FALSE
 
 		/// Radial menu for securing your Persuasion rack in place.
-		to_chat(user, "<span class='notice'>Do you wish to secure [src] here?</span>")
+		to_chat(user, span_notice("Do you wish to secure [src] here?"))
 		var/static/list/secure_options = list(
 			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
 			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"))
@@ -122,15 +122,15 @@
 /obj/structure/vampire/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
-		to_chat(user, "<span class='danger'>Until this rack is secured in place, it cannot serve its purpose.</span>")
-		to_chat(user, "<span class='announce'>* Vampire Tip: Examine the Persuasion Rack to understand how it functions!</span>")
+		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))
+		to_chat(user, span_announce("* Vampire Tip: Examine the Persuasion Rack to understand how it functions!"))
 		return
 	// Default checks
 	if(!isliving(movable_atom) || !living_target.Adjacent(src) || living_target == user || !isliving(user) || has_buckled_mobs() || user.incapacitated() || living_target.buckled)
 		return
 	// Don't buckle Silicon to it please.
 	if(issilicon(living_target))
-		to_chat(user, "<span class='danger'>You realize that this machine cannot be vassalized, therefore it is useless to buckle them.</span>")
+		to_chat(user, span_danger("You realize that this machine cannot be vassalized, therefore it is useless to buckle them."))
 		return
 	if(do_after(user, 5 SECONDS, living_target))
 		density = FALSE // Temporarily set density to false so the target is actually on the rack
@@ -144,8 +144,8 @@
 	if(!buckle_mob(target))
 		return
 	user.visible_message(
-		"<span class='notice'>[user] straps [target] into the rack, immobilizing them.</span>",
-		"<span class='boldnotice'>You secure [target] tightly in place. They won't escape you now.</span>",
+		span_notice("[user] straps [target] into the rack, immobilizing them."),
+		span_boldnotice("You secure [target] tightly in place. They won't escape you now."),
 	)
 
 	playsound(loc, 'sound/effects/pop_expl.ogg', 25, 1)
@@ -163,17 +163,17 @@
 
 	if(buckled_mob == user)
 		buckled_mob.visible_message(
-			"<span class='danger'>[user] tries to release themself from the rack!</span>",
-			"<span class='danger'>You attempt to release yourself from the rack!</span>",
-			"<span class='hear'>You hear a squishy wet noise.</span>",
+			span_danger("[user] tries to release themself from the rack!"),
+			span_danger("You attempt to release yourself from the rack!"),
+			span_hear("You hear a squishy wet noise."),
 		)
 		if(!do_after(user, 20 SECONDS, buckled_mob))
 			return
 	else
 		buckled_mob.visible_message(
-			"<span class='danger'>[user] tries to pull [buckled_mob] from the rack!</span>",
-			"<span class='danger'>You attempt to release [buckled_mob] from the rack!</span>",
-			"<span class='hear'>You hear a squishy wet noise.</span>",
+			span_danger("[user] tries to pull [buckled_mob] from the rack!"),
+			span_danger("You attempt to release [buckled_mob] from the rack!"),
+			span_hear("You hear a squishy wet noise."),
 		)
 		if(!do_after(user, 10 SECONDS, buckled_mob))
 			return
@@ -183,7 +183,7 @@
 /obj/structure/vampire/vassalrack/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	if(!..())
 		return FALSE
-	visible_message("<span class='danger'>[buckled_mob][buckled_mob.stat == DEAD ? "'s corpse" : ""] slides off of the rack.</span>")
+	visible_message(span_danger("[buckled_mob][buckled_mob.stat == DEAD ? "'s corpse" : ""] slides off of the rack."))
 	buckled_mob.Paralyze(2 SECONDS)
 	update_appearance(UPDATE_ICON)
 	return TRUE
@@ -281,8 +281,8 @@
 
 		var/obj/item/bodypart/selected_bodypart = pick(target.bodyparts)
 		target.visible_message(
-			"<span class='danger'>[user] performs a ritual, spilling some of [target]'s blood from their [selected_bodypart.name]!</span>",
-			"<span class='userdanger'>[user] performs a ritual, spilling some blood from your [selected_bodypart.name]!</span>")
+			span_danger("[user] performs a ritual, spilling some of [target]'s blood from their [selected_bodypart.name]!"),
+			span_userdanger("[user] performs a ritual, spilling some blood from your [selected_bodypart.name]!"))
 
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "scream")
 		target.Jitter(5 SECONDS)
@@ -298,7 +298,7 @@
 		return FALSE
 	vassilization_offered = TRUE
 
-	to_chat(user, "<span class='notice'>[target] has been given the opportunity for servitude. You await their decision...</span>")
+	to_chat(user, span_notice("[target] has been given the opportunity for servitude. You await their decision..."))
 	var/alert_response = tgui_alert(
 		user = target, \
 		message = "You are being tortured! Do you want to give in and pledge your undying loyalty to [user]? \n\
@@ -435,21 +435,21 @@
 // Buckling
 /obj/structure/vampire/bloodthrone/buckle_mob(mob/living/user, force = FALSE, check_loc = TRUE)
 	if(!anchored)
-		to_chat(user, "<span class='announce'>[src] is not bolted to the ground!</span>")
+		to_chat(user, span_announce("[src] is not bolted to the ground!"))
 		return
 	density = FALSE
 	. = ..()
 	density = TRUE
 	user.visible_message(
-		"<span class='notice'>[user] sits down on [src].</span>",
-		"<span class='boldnotice'>You sit down onto [src].</span>",
+		span_notice("[user] sits down on [src]."),
+		span_boldnotice("You sit down onto [src]."),
 	)
 	if(IS_VAMPIRE(user))
 		RegisterSignal(user, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		unbuckle_mob(user)
 		user.Paralyze(10 SECONDS)
-		to_chat(user, "<span class='cult'>The power of the blood throne overwhelms you!</span>")
+		to_chat(user, span_cult("The power of the blood throne overwhelms you!"))
 
 /obj/structure/vampire/bloodthrone/post_buckle_mob(mob/living/target)
 	. = ..()
@@ -458,7 +458,7 @@
 
 // Unbuckling
 /obj/structure/vampire/bloodthrone/unbuckle_mob(mob/living/user, force = FALSE, can_fall = TRUE)
-	src.visible_message("<span class='danger'>[user] unbuckles themselves from [src].</span>")
+	src.visible_message(span_danger("[user] unbuckles themselves from [src]."))
 	if(IS_VAMPIRE(user))
 		UnregisterSignal(user, COMSIG_MOB_SAY)
 	. = ..()
@@ -472,7 +472,7 @@
 
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/mob/living/carbon/human/user = source
-	var/rendered = "<span class='cultlarge'><b>[user.real_name]:</b> [message]</span>"
+	var/rendered = span_cultlarge("<b>[user.real_name]:</b> [message]")
 	user.log_talk(message, LOG_SAY, tag = ROLE_VAMPIRE)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 	for(var/datum/antagonist/vassal/receiver as anything in vampiredatum.vassals)

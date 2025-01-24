@@ -33,7 +33,7 @@
 			options[initial(power.name)] = power
 
 	if(options.len < 1)
-		to_chat(vampiredatum.owner.current, "<span class='notice'>You grow more ancient by the night!</span>")
+		to_chat(vampiredatum.owner.current, span_notice("You grow more ancient by the night!"))
 	else
 		// Give them the UI to purchase a power.
 		var/choice = tgui_input_list(vampiredatum.owner.current, "You have the opportunity to level up your Favorite Vassal. Select a power you wish for them to receive.", "Your Blood Thickens...", options)
@@ -42,20 +42,20 @@
 			return
 		// Did you choose a power?
 		if(!choice || !options[choice])
-			to_chat(vampiredatum.owner.current, "<span class='notice'>You prevent your blood from thickening just yet, but you may try again later.</span>")
+			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
 			return
 		// Prevent Vampires from closing/reopning their coffin to spam Levels.
 		if((locate(options[choice]) in vassaldatum.powers))
-			to_chat(vampiredatum.owner.current, "<span class='notice'>You prevent your blood from thickening just yet, but you may try again later.</span>")
+			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
 			return
 
 		// Good to go - Buy Power!
 		var/datum/action/cooldown/vampire/purchased_power = options[choice]
 		vassaldatum.BuyPower(new purchased_power)
 		vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "taught [choice]!")
-		to_chat(vampiredatum.owner.current, "<span class='notice'>You taught [target] how to use [choice]!</span>")
+		to_chat(vampiredatum.owner.current, span_notice("You taught [target] how to use [choice]!"))
 		target.balloon_alert(target, "learned [choice]!")
-		to_chat(target, "<span class='notice'>Your master taught you how to use [choice]!</span>")
+		to_chat(target, span_notice("Your master taught you how to use [choice]!"))
 
 	vassaldatum.vassal_level++
 	switch(vassaldatum.vassal_level)
@@ -63,23 +63,23 @@
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_MUTE, TRAIT_VAMPIRE)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_NOBREATH, TRAIT_VAMPIRE)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_AGEUSIA, TRAIT_VAMPIRE)
-			to_chat(target, "<span class='notice'>Your blood begins to feel cold, and as a mote of ash lands upon your tongue, you stop breathing...</span>")
+			to_chat(target, span_notice("Your blood begins to feel cold, and as a mote of ash lands upon your tongue, you stop breathing..."))
 		if(3)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_NOCRITDAMAGE, TRAIT_VAMPIRE)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_NOSOFTCRIT, TRAIT_VAMPIRE)
-			to_chat(target, "<span class='notice'>You feel your Master's blood reinforce you, strengthening you up.</span>")
+			to_chat(target, span_notice("You feel your Master's blood reinforce you, strengthening you up."))
 		if(4)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_VIRUSIMMUNE, TRAIT_VAMPIRE)
-			to_chat(target, "<span class='notice'>You feel your Master's blood begin to protect you from bacteria.</span>")
+			to_chat(target, span_notice("You feel your Master's blood begin to protect you from bacteria."))
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
 				human_target.skin_tone = "albino"
 		if(5)
 			ADD_TRAIT(vampiredatum.owner.current, TRAIT_NOHARDCRIT, TRAIT_VAMPIRE)
-			to_chat(target, "<span class='notice'>You feel yourself able to take cuts and stabbings like it's nothing.</span>")
+			to_chat(target, span_notice("You feel yourself able to take cuts and stabbings like it's nothing."))
 		if(6 to INFINITY)
-			to_chat(target, "<span class='notice'>You feel your heart stop pumping for the last time as you begin to thirst for blood, you feel... dead.</span>")
+			to_chat(target, span_notice("You feel your heart stop pumping for the last time as you begin to thirst for blood, you feel... dead."))
 			message_admins("[vassaldatum.owner] has become a Vampire, and was created by [vampiredatum.owner].")
 			log_admin("[vampiredatum.owner] has become a Vampire, and was created by [vampiredatum.owner].")
 			target.mind.make_vampire()
@@ -100,7 +100,7 @@
 		return TRUE
 	if(vampiredatum.vampire_blood_volume >= VAMPIRE_BLOOD_RANKUP_COST)
 		// We don't have any ranks to spare? Let them upgrade... with enough Blood.
-		to_chat(vampiredatum.owner.current, "<span class='warning'>Do you wish to spend [VAMPIRE_BLOOD_RANKUP_COST] Blood to Rank [vassaldatum.owner.current] up?</span>")
+		to_chat(vampiredatum.owner.current, span_warning("Do you wish to spend [VAMPIRE_BLOOD_RANKUP_COST] Blood to Rank [vassaldatum.owner.current] up?"))
 		var/static/list/rank_options = list(
 			"Yes" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_yes"),
 			"No" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_no"),
@@ -109,11 +109,11 @@
 		if(rank_response == "Yes")
 			vampiredatum.SpendRank(vassaldatum.owner.current, cost_rank = FALSE, blood_cost = VAMPIRE_BLOOD_RANKUP_COST)
 		return TRUE
-	to_chat(vampiredatum.owner.current, "<span class='danger'>You don't have any levels or enough Blood to Rank [vassaldatum.owner.current] up with.</span>")
+	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels or enough Blood to Rank [vassaldatum.owner.current] up with."))
 	return TRUE
 
 /datum/vampire_clan/ventrue/on_favorite_vassal(datum/source, datum/antagonist/vassal/vassaldatum, mob/living/vampire)
-	to_chat(vampire, "<span class='announce'>* Vampire Tip: You can now upgrade your Favorite Vassal by buckling them onto a Candelabrum!</span>")
+	to_chat(vampire, span_announce("* Vampire Tip: You can now upgrade your Favorite Vassal by buckling them onto a Candelabrum!"))
 	vassaldatum.BuyPower(new /datum/action/cooldown/vampire/distress)
 
 #undef VAMPIRE_BLOOD_RANKUP_COST

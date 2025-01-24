@@ -409,15 +409,15 @@
 		return
 	for(var/obj/item/implant/tracking/imp in user.implants)
 		if(imp)
-			to_chat(user, "<span class='warning'>[imp] gives you the sense that you're being watched.</span>")
+			to_chat(user, span_warning("[imp] gives you the sense that you're being watched."))
 			return
 	// Is this, or linked, stream being watched?
 	if(check_location_seen(user, get_turf(user)))
-		to_chat(user, "<span class='warning'>Not while you're being watched.</span>")
+		to_chat(user, span_warning("Not while you're being watched."))
 		return
 	if(check_location_seen(user, get_turf(linked_to)))
-		to_chat(user, "<span class='warning'>Your destination is being watched.</span>")
+		to_chat(user, span_warning("Your destination is being watched."))
 		return
-	to_chat(user, "<span class='notice'>You slip unseen through [src].</span>")
+	to_chat(user, span_notice("You slip unseen through [src]."))
 	user.playsound_local(null, 'sound/magic/wand_teleport.ogg', 30, FALSE, pressure_affected = FALSE)
 	user.forceMove(get_turf(linked_to))
