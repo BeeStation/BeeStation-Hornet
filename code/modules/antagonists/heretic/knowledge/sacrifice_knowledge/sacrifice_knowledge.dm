@@ -100,7 +100,7 @@
 	var/list/datum/mind/valid_targets = heretic_datum.possible_sacrifice_targets()
 	if(!length(valid_targets))
 		if(!silent)
-			to_chat(user,"<span class='hierophant'>No sacrifice targets could be found!</span>")
+			to_chat(user,span_hierophant("No sacrifice targets could be found!"))
 		return FALSE
 
 	// Now, let's try to get four targets.
@@ -142,12 +142,12 @@
 		target_sanity++
 
 	if(!silent)
-		to_chat(user, "<span class='danger'>Your targets have been determined. Your Living Heart will allow you to track their position. Go forth, and sacrifice them!</span>")
+		to_chat(user, span_danger("Your targets have been determined. Your Living Heart will allow you to track their position. Go forth, and sacrifice them!"))
 
 	for(var/datum/mind/chosen_mind as anything in final_targets)
 		heretic_datum.add_sacrifice_target(chosen_mind.current)
 		if(!silent)
-			to_chat(user, "<span class='danger'>[chosen_mind.current.real_name], the [chosen_mind.assigned_role].</span>")
+			to_chat(user, span_danger("[chosen_mind.current.real_name], the [chosen_mind.assigned_role]."))
 
 	return TRUE
 
@@ -172,7 +172,7 @@
 	LAZYADD(heretic_datum.target_blacklist, sacrifice_mind)
 	heretic_datum.remove_sacrifice_target(sacrifice_mind)
 
-	to_chat(user, "<span class='hypnophrase'>Your patron accepts your offer.</span>")
+	to_chat(user, span_hypnophrase("Your patron accepts your offer."))
 
 	if(sacrifice_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 		heretic_datum.adjust_knowledge_points(1)
@@ -208,7 +208,7 @@
 
 	var/turf/destination = get_turf(destination_landmark)
 
-	sac_target.visible_message("<span class='danger'>[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!</span>")
+	sac_target.visible_message(span_danger("[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!"))
 	sac_target.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(sac_target)
 	sac_target.update_handcuffed()
 	sac_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 85, 150)
@@ -228,13 +228,13 @@
 	sac_target.grab_ghost()
 	// If our target is dead, try to revive them
 	// and if we fail to revive them, don't proceede the chain
-	if(!sac_target.heal_and_revive(50, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
+	if(!sac_target.heal_and_revive(50, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
 	if(sac_target.AdjustUnconscious(SACRIFICE_SLEEP_DURATION))
-		to_chat(sac_target, "<span class='hypnophrase'>Your mind feels torn apart as you fall into a shallow slumber...</span>")
+		to_chat(sac_target, span_hypnophrase("Your mind feels torn apart as you fall into a shallow slumber..."))
 	else
-		to_chat(sac_target, "<span class='hypnophrase'>Your mind begins to tear apart as you watch dark tendrils envelop you.</span>")
+		to_chat(sac_target, span_hypnophrase("Your mind begins to tear apart as you watch dark tendrils envelop you."))
 
 	sac_target.AdjustParalyzed(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
@@ -272,11 +272,11 @@
 	// If our target died during the (short) wait timer,
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
-	if(!sac_target.heal_and_revive(75, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
+	if(!sac_target.heal_and_revive(75, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		disembowel_target(sac_target)
 		return
 
-	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>Unnatural forces begin to claw at your very being from beyond the veil.</span></span>")
+	to_chat(sac_target, span_big("[span_hypnophrase("Unnatural forces begin to claw at your very being from beyond the veil.")]"))
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
 	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
@@ -312,8 +312,8 @@
 	sac_target.hallucination += 12
 	sac_target.emote("scream")
 
-	to_chat(sac_target, "<span class='reallybig'><span class='hypnophrase'>The grasping hands of the Mansus reveal themselves to you!</span></span>")
-	to_chat(sac_target, "<span class='hypnophrase'>You feel invigorated! Fight to survive!</span>")
+	to_chat(sac_target, span_reallybig("[span_hypnophrase("The grasping hands of the Mansus reveal themselves to you!")]"))
+	to_chat(sac_target, span_hypnophrase("You feel invigorated! Fight to survive!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
@@ -329,7 +329,7 @@
 	if(QDELETED(sac_target) || sac_target.stat == DEAD)
 		return
 
-	to_chat(sac_target, "<span class='hypnophrase'>The worst is behind you... Not much longer! Hold fast, or expire!</span>")
+	to_chat(sac_target, span_hypnophrase("The worst is behind you... Not much longer! Hold fast, or expire!"))
 
 /**
  * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm, or [COMSIG_MOB_DEATH] if they don't.
@@ -386,14 +386,14 @@
 
 	if(heretic_mind?.current)
 		var/composed_return_message = ""
-		composed_return_message += "<span class='notice'>Your victim, [sac_target], was returned to the station - </span>"
+		composed_return_message += span_notice("Your victim, [sac_target], was returned to the station - ")
 		if(sac_target.stat == DEAD)
-			composed_return_message += "<span class='red'>dead. </span>"
+			composed_return_message += span_red("dead. ")
 		else
-			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
+			composed_return_message += span_green("alive, but with a shattered mind. ")
 
-		composed_return_message += "<span class='notice'>You hear a whisper... </span>"
-		composed_return_message += "<span class='hypnophrase'>[get_area_name(safe_turf, TRUE)]</span>"
+		composed_return_message += span_notice("You hear a whisper... ")
+		composed_return_message += span_hypnophrase("[get_area_name(safe_turf, TRUE)]")
 		to_chat(heretic_mind.current, composed_return_message)
 
 /**
@@ -413,7 +413,7 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/on_target_escape(mob/living/carbon/human/sac_target, old_z, new_z)
 	SIGNAL_HANDLER
 
-	to_chat(sac_target, "<span class='boldwarning'>Your attempt to escape the Mansus is not taken kindly!</span>")
+	to_chat(sac_target, span_boldwarning("Your attempt to escape the Mansus is not taken kindly!"))
 	// Ends up calling return_target() via death signal to clean up.
 	disembowel_target(sac_target)
 
@@ -423,8 +423,8 @@
  * Gives the sacrifice target some after effects upon ariving back to reality.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, "<span class='hypnophrase'>The fight is over, but at great cost. You have been returned to the station in one piece.</span>")
-	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span></span>")
+	to_chat(sac_target, span_hypnophrase("The fight is over, but at great cost. You have been returned to the station in one piece."))
+	to_chat(sac_target, span_big("[span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")]"))
 
 	// Oh god where are we?
 	sac_target.flash_act()
@@ -448,8 +448,8 @@
  * it spawns a special red broken illusion on their spot, for style.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, "<span class='hypnophrase'>You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station.</span>")
-	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.</span></span>")
+	to_chat(sac_target, span_hypnophrase("You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station."))
+	to_chat(sac_target, span_big("[span_hypnophrase("The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.")]"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
 	illusion.name = "\improper weakened rift in reality"
@@ -468,8 +468,8 @@
 	if(sac_target.stat != DEAD)
 		sac_target.death()
 	sac_target.visible_message(
-		"<span class='danger'>[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!</span>",
-		"<span class='userdanger'>Your organs are violently pulled out of your chest by shadowy hands!</span>"
+		span_danger("[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!"),
+		span_userdanger("Your organs are violently pulled out of your chest by shadowy hands!")
 	)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))

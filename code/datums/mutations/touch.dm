@@ -36,15 +36,15 @@
 		if(ctarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)) //doesnt stun. never let this stun
 			ctarget.drop_all_held_items()
 			ctarget.confused += zap
-			ctarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+			ctarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 		else
-			user.visible_message("<span class='warning'>[user] fails to electrocute [target]!</span>")
+			user.visible_message(span_warning("[user] fails to electrocute [target]!"))
 	else if(isliving(target))
 		var/mob/living/ltarget = target
 		ltarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)
-		ltarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+		ltarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 	else
-		to_chat(user,"<span class='warning'>The electricity doesn't seem to affect [target]...</span>")
+		to_chat(user,span_warning("The electricity doesn't seem to affect [target]..."))
 	use_charge(user)
 	return ..()
 
@@ -95,12 +95,12 @@
 	var/acid_volume = base_acid_volume * GET_MUTATION_POWER(parent_mutation)
 	var/blood_cost = base_blood_cost * GET_MUTATION_SYNCHRONIZER(parent_mutation)
 	if(user.blood_volume < (blood_cost * 2))
-		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
+		to_chat(user, span_warning("You don't have enough blood to do that!"))
 		return FALSE
 	if(target.acid_act(50, acid_volume))
-		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
+		user.visible_message(span_warning("[user] rubs globs of vile stuff all over [target]."))
 		user.blood_volume = max(user.blood_volume - blood_cost, 0)
 		return ..()
 	else
-		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")
+		to_chat(user, span_notice("You cannot dissolve this object."))
 		return FALSE

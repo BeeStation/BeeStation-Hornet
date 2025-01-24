@@ -38,7 +38,7 @@
 	. = ..()
 
 	if(!machine)
-		to_chat(user, "<span class='notice'>[src] is not linked to a machine!</span>")
+		to_chat(user, span_notice("[src] is not linked to a machine!"))
 		return
 
 	var/obj/item/stack/sheet/s
@@ -62,9 +62,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 		var/obj/machinery/mineral/stacking_machine/stacking_machine = buffer
 		stacking_machine.console = src
 		machine = stacking_machine
-		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You link [src] to the console in [buffer_parent]'s buffer."))
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You store linkage information in [buffer_parent]'s buffer."))
 	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
@@ -125,7 +125,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 	if(istype(AM, /obj/item/stack/sheet) && AM.loc == get_step(src, input_dir))
 		var/obj/effect/portal/P = locate() in AM.loc
 		if(P)
-			visible_message("<span class='warning'>[src] attempts to stack the portal!</span>")
+			visible_message(span_warning("[src] attempts to stack the portal!"))
 			message_admins("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
 			log_game("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
 			explosion(src.loc, 0, 1, 2, 3)
@@ -140,9 +140,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
 	if(istype(buffer, /obj/machinery/mineral/stacking_unit_console))
 		console = buffer
 		console.machine = src
-		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You link [src] to the console in [buffer_parent]'s buffer."))
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You store linkage information in [buffer_parent]'s buffer."))
 	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
