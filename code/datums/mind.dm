@@ -380,7 +380,7 @@
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
+			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
 
 		if(uplink_owner)
 			uplink_owner.antag_memory += U.unlock_note + "<br>"
@@ -392,7 +392,7 @@
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)
 			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
-			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
+			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
 		return I
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
@@ -422,7 +422,7 @@
 		creator.current.faction |= current.faction
 	if(creator.special_role)
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator.current)], an antagonist.")
-		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
+		to_chat(current, span_userdanger("Despite your creator's current allegiances, your true master remains [creator.name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed."))
 
 /datum/mind/proc/show_memory(mob/recipient, window=1)
 	if(!recipient)
@@ -469,7 +469,7 @@
 	if(href_list["remove_antag"])
 		var/datum/antagonist/A = locate(href_list["remove_antag"]) in antag_datums
 		if(!istype(A))
-			to_chat(usr,"<span class='warning'>Invalid antagonist ref to be removed.</span>")
+			to_chat(usr,span_warning("Invalid antagonist ref to be removed."))
 			return
 		A.admin_remove(usr)
 
@@ -622,7 +622,7 @@
 							log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 			if("uplink")
 				if(!equip_traitor())
-					to_chat(usr, "<span class='danger'>Equipping a syndicate failed!</span>")
+					to_chat(usr, span_danger("Equipping a syndicate failed!"))
 					log_admin("[key_name(usr)] tried and failed to give [current] an uplink.")
 				else
 					log_admin("[key_name(usr)] gave [current] an uplink.")
@@ -660,12 +660,12 @@
 	var/obj_count = 1
 	var/list/antag_objectives = get_all_antag_objectives()
 	if(antag_objectives.len)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		to_chat(current, span_notice("Your current objectives:"))
 		for(var/datum/objective/O as() in antag_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
 	if(crew_objectives.len)
-		to_chat(current, "<span class='notice'>Your optional objectives:</span>")
+		to_chat(current, span_notice("Your optional objectives:"))
 		for(var/datum/objective/C as() in crew_objectives)
 			to_chat(current, "[C.explanation_text]")
 

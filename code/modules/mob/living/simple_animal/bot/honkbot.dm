@@ -117,9 +117,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			user << "<span class='danger'>You short out [src]'s sound control system. It gives out an evil laugh!!</span>"
+			user << span_danger("You short out [src]'s sound control system. It gives out an evil laugh!!")
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
+		audible_message(span_danger("[src] gives out an evil laugh!"))
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
 		update_icon()
 
@@ -201,8 +201,8 @@
 
 			log_combat(src,C,"honked", src)
 
-			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
-					"<span class='userdanger'>[src] has honked you!</span>")
+			C.visible_message(span_danger("[src] has honked [C]!"),\
+					span_userdanger("[src] has honked you!"))
 		else
 			C.stuttering = 20
 			C.Paralyze(80)
@@ -310,7 +310,7 @@
 				continue
 
 /mob/living/simple_animal/bot/honkbot/explode()
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	if(prob(50))
@@ -339,13 +339,7 @@
 			var/mob/living/carbon/C = AM
 			if(!istype(C) || !C || in_range(src, target))
 				return
-			C.visible_message("<span class='warning'>[pick( \
-								"[C] dives out of [src]'s way!", \
-								"[C] stumbles over [src]!", \
-								"[C] jumps out of [src]'s path!", \
-								"[C] trips over [src] and falls!", \
-								"[C] topples over [src]!", \
-								"[C] leaps out of [src]'s way!")]</span>")
+			C.visible_message(span_warning(pick("[C] dives out of [src]'s way!", "[C] stumbles over [src]!", "[C] jumps out of [src]'s path!", "[C] trips over [src] and falls!", "[C] topples over [src]!", "[C] leaps out of [src]'s way!")))
 			C.Paralyze(10)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)

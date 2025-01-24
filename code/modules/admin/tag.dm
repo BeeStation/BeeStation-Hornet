@@ -6,19 +6,19 @@
  */
 /datum/admins/proc/add_tagged_datum(datum/target_datum)
 	if(LAZYFIND(tagged_datums, target_datum))
-		to_chat(owner, "<span class='warning'>[target_datum] is already tagged!</span>")
+		to_chat(owner, span_warning("[target_datum] is already tagged!"))
 		return
 
 	LAZYADD(tagged_datums, target_datum)
 	RegisterSignal(target_datum, COMSIG_PARENT_QDELETING, PROC_REF(handle_tagged_del), override = TRUE)
-	to_chat(owner, "<span class='notice'>[target_datum] has been tagged.</span>")
+	to_chat(owner, span_notice("[target_datum] has been tagged."))
 
 /// Get ahead of the curve with deleting
 /datum/admins/proc/handle_tagged_del(datum/source)
 	SIGNAL_HANDLER
 
 	if(owner)
-		to_chat(owner, "<span class='notice bold'>Tagged datum [source] ([source.type]) has been deleted.</span>")
+		to_chat(owner, span_noticebold("Tagged datum [source] ([source.type]) has been deleted."))
 	remove_tagged_datum(source, silent = TRUE)
 
 /**
@@ -35,9 +35,9 @@
 	if(LAZYFIND(tagged_datums, target_datum))
 		LAZYREMOVE(tagged_datums, target_datum)
 		if(!silent)
-			to_chat(owner, "<span class='notice'>[target_datum] has been untagged.</span>")
+			to_chat(owner, span_notice("[target_datum] has been untagged."))
 	else if(!silent)
-		to_chat(owner, "<span class='warning'>[target_datum] was not already tagged.</span>")
+		to_chat(owner, span_warning("[target_datum] was not already tagged."))
 
 /// Quick define for readability
 #define TAG_DEL(X) "<b>(<A href='?src=[REF(src)];[HrefToken(TRUE)];del_tag=[REF(X)]'>UNTAG</a>)</b>"
@@ -58,7 +58,7 @@
 	if (!istype(src, /datum/admins))
 		src = usr.client.holder
 	if (!istype(src, /datum/admins))
-		to_chat(usr, "<span class='warning'>Error: you are not an admin!</span>")
+		to_chat(usr, span_warning("Error: you are not an admin!"))
 		return
 
 	var/index = 0
