@@ -74,7 +74,6 @@
 	playsound(get_turf(owner), 'sound/effects/singlebeat.ogg', beat_volume, 1)
 
 /datum/action/cooldown/vampire/gohome/proc/teleport_to_coffin(mob/living/carbon/user)
-	var/drop_item = FALSE
 	var/turf/current_turf = get_turf(owner)
 	// If we aren't in the dark, anyone watching us will cause us to drop out stuff
 	if(!QDELETED(current_turf?.lighting_object) && current_turf.get_lumcount() >= 0.2)
@@ -86,12 +85,10 @@
 			if(watcher.is_blind())
 				continue
 			if(!IS_VAMPIRE(watcher) && !IS_VASSAL(watcher))
-				drop_item = TRUE
+				for(var/obj/item/literally_everything in owner)
+					owner.dropItemToGround(literally_everything, TRUE)
 				break
 	user.uncuff()
-	if(drop_item)
-		for(var/obj/item/literally_everything in owner)
-			owner.dropItemToGround(literally_everything, TRUE)
 
 	playsound(current_turf, 'sound/magic/summon_karp.ogg', 60, 1)
 

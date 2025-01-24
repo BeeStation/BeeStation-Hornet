@@ -282,7 +282,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//          MIDROUND VAMPIRE            //
+//          MIDROUND VAMPIRE            	//
 //                                          //
 //////////////////////////////////////////////
 
@@ -291,7 +291,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/vampire
 	role_preference = /datum/role_preference/midround_living/vampire
-	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
+	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, "Positronic Brain")
 	required_candidates = 1
 	weight = 5

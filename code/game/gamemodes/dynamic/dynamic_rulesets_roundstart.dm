@@ -633,7 +633,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//        ROUNDSTART VAMPIRE            //
+//        ROUNDSTART VAMPIRE            	//
 //                                          //
 //////////////////////////////////////////////
 
@@ -641,7 +641,7 @@
 	name = "Vampires"
 	role_preference = /datum/role_preference/antagonist/vampire
 	antag_datum = /datum/antagonist/vampire
-	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
+	protected_roles = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_CURATOR)
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	required_candidates = 1
 	weight = 3
