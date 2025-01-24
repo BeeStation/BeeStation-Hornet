@@ -56,16 +56,16 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		/area/space,
 		))
 
-	var/error = ""
 	var/list/turfs = detect_room(get_turf(creator), area_or_turf_fail_types)
 	if(!turfs)
 		to_chat(creator, span_warning("The new area must be completely airtight and not a part of a shuttle."))
 		return
-	if(turfs.len > BP_MAX_ROOM_SIZE)
+	if(length(turfs) > BP_MAX_ROOM_SIZE)
 		to_chat(creator, span_warning("The room you're in is too big. It is [((turfs.len / BP_MAX_ROOM_SIZE)-1)*100]% larger than allowed."))
 		return
+	var/list/apc_map = list()
 	var/list/areas = list("New Area" = /area)
-	for(var/i in 1 to turf_count)
+	for(var/i in 1 to length(turfs))
 		var/turf/the_turf = turfs[i]
 		var/area/place = get_area(turfs[i])
 		if(blacklisted_areas[place.type])

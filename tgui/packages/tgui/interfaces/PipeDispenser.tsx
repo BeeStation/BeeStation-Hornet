@@ -50,8 +50,8 @@ type Recipe = {
   dir: number;
 };
 
-export const LayerSelect = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const LayerSelect = (props) => {
+  const { act, data } = useBackend<Data>();
   const { piping_layer } = data;
   return (
     <LabeledList.Item label="Layer">
@@ -71,10 +71,10 @@ export const LayerSelect = (props, context) => {
   );
 };
 
-const PipeTypeSection = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const PipeTypeSection = (props) => {
+  const { act, data } = useBackend<Data>();
   const { categories = [] } = data;
-  const [categoryName, setCategoryName] = useLocalState(context, 'category', categories[0].cat_name);
+  const [categoryName, setCategoryName] = useLocalState('category', categories[0].cat_name);
   const shownCategory = categories.find((category) => category.cat_name === categoryName) || categories[0];
 
   return (
@@ -110,8 +110,8 @@ const PipeTypeSection = (props, context) => {
   );
 };
 
-export const PipeDispenser = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const PipeDispenser = (props) => {
+  const { act, data } = useBackend<Data>();
   const { category: rootCategoryIndex } = data;
   return (
     <Window width={530} height={530}>

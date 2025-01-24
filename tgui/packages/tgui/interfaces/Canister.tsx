@@ -36,8 +36,8 @@ type Data = {
   reactionSuppressionEnabled: BooleanLike;
 };
 
-export const Canister = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const Canister = (props) => {
+  const { act, data } = useBackend<Data>();
   const {
     shielding,
     holdingTank,
