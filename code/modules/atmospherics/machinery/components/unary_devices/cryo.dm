@@ -391,7 +391,7 @@
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...")
 
 	if(internal_pressure > 2 * ONE_ATMOSPHERE)
-		to_chat(user, "<span class='warning'>As you begin deconstructing \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
+		to_chat(user, span_warning("As you begin deconstructing  the [src] a gush of air blows in your face... maybe you should reconsider?"))
 		unsafe_wrenching = TRUE
 
 	if(!do_after(user, 2 SECONDS, src))

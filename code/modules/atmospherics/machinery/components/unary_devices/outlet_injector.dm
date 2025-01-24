@@ -38,7 +38,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/outlet_inject
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can link it with an air sensor using a multitool.</span>"
+	. += span_notice("You can link it with an air sensor using a multitool.")
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/CtrlClick(mob/user)
 	if(is_operational)

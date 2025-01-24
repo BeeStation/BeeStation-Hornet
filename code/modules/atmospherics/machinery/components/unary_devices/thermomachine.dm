@@ -116,16 +116,16 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>With the panel open:</span>"
-	. += "<span class='notice'> -Use a wrench to rotate [src].</span>"
-	. += "<span class='notice'> -Use a multitool to change the piping color.</span>"
-	. += "<span class='notice'> -<b>AltClick</b> to cycle between temperaure ranges.</span>"
-	. += "<span class='notice'> -<b>CtrlClick</b> to toggle on/off.</span>"
-	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C-target_temperature)*-1]C).</span>"
+	. += span_notice("With the panel open:")
+	. += span_notice("-Use a wrench to rotate [src].")
+	. += span_notice("-Use a multitool to change the piping color.")
+	. += span_notice("-<b>AltClick</b> to cycle between temperaure ranges.")
+	. += span_notice("-<b>CtrlClick</b> to toggle on/off.")
+	. += span_notice("The thermostat is set to [target_temperature]K ([(T0C-target_temperature)*-1]C).")
 
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>Heat capacity at <b>[heat_capacity] Joules per Kelvin</b>.</span>"
-		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.</span>"
+		. += span_notice("Heat capacity at <b>[heat_capacity] Joules per Kelvin</b>.")
+		. += span_notice("Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/AltClick(mob/living/user)
 	if(!can_interact(user))
@@ -207,8 +207,8 @@
 		return TRUE
 	color_index = (color_index >= GLOB.pipe_paint_colors.len) ? (color_index = 1) : (color_index = 1 + color_index)
 	set_pipe_color(GLOB.pipe_paint_colors[GLOB.pipe_paint_colors[color_index]])
-	visible_message("<span class='notice'>[user] set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]].</span>", ignored_mobs = user)
-	to_chat(user, "<span class='notice'>You set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]].</span>")
+	visible_message(span_notice("[user] set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]]."), ignored_mobs = user)
+	to_chat(user, span_notice("You set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]]."))
 	if(anchored)
 		reconnect_nodes()
 	update_icon()

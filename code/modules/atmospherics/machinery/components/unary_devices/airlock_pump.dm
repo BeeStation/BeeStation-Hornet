@@ -169,10 +169,10 @@
 /obj/machinery/atmospherics/components/unary/airlock_pump/can_unwrench(mob/user)
 	. = ..()
 	if(!.)
-		to_chat(user, "<span class='warning'>You cannot unwrench [src], it is secured firmly in place!</span>")
+		to_chat(user, span_warning("You cannot unwrench [src], it is secured firmly in place!"))
 		return FALSE
 	if(. && on)
-		to_chat(user, "<span class='warning'>You cannot unwrench [src], wait for the cycle completion!</span>")
+		to_chat(user, span_warning("You cannot unwrench [src], wait for the cycle completion!"))
 		return FALSE
 
 

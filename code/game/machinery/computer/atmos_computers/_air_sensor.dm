@@ -51,9 +51,9 @@
 
 /obj/machinery/air_sensor/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use a multitool to link it to an injector, vent, or air alarm.</span>"
-	. += "<span class='notice'>You can use a screwdriver to reset its ports.</span>"
-	. += "<span class='notice'>Click with hand to turn it off.</span>"
+	. += span_notice("Use a multitool to link it to an injector, vent, or air alarm.")
+	. += span_notice("You can use a screwdriver to reset its ports.")
+	. += span_notice("Click with hand to turn it off.")
 
 /obj/machinery/air_sensor/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -106,7 +106,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 		FLUSH_BUFFER(buffer)
 		balloon_alert(user, "connected to output")
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_notice("You register [src] in [buffer_parent]'s buffer."))
 		balloon_alert(user, "added to multitool buffer")
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
@@ -136,11 +136,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 /obj/item/air_sensor/examine(mob/user)
 	. = ..()
 	if(anchored)
-		. += "<span class='notice'>It's <b>wrenched</b> in place</span>"
+		. += span_notice("It's <b>wrenched</b> in place")
 	else
-		. += "<span class='notice'>It should be <b>wrenched</b> in place to turn it on.</span>"
-	. +=  "<span class='notice'>It could be <b>welded</b> apart.</span>"
-	. +=  "<span class='notice'>Click with hand to turn it on.</span>"
+		. += span_notice("It should be <b>wrenched</b> in place to turn it on.")
+	. +=  span_notice("It could be <b>welded</b> apart.")
+	. +=  span_notice("Click with hand to turn it on.")
 
 /obj/item/air_sensor/attack_hand(mob/user, list/modifiers)
 	. = ..()

@@ -75,20 +75,20 @@
 /obj/machinery/portable_atmospherics/canister/examine(user)
 	. = ..()
 	if(atom_integrity < max_integrity)
-		. += "<span class='danger'>Integrity compromised, repair hull with a welding tool.</span>"
-	. += "<span class='notice'>A sticker on its side says <b>MAX SAFE PRESSURE: [siunit_pressure(initial(pressure_limit), 0)]; MAX SAFE TEMPERATURE: [siunit(temp_limit, "K", 0)]</b>.</span>"
-	. += "<span class='notice'>The hull is <b>welded</b> together and can be cut apart.</span>"
+		. += span_danger("Integrity compromised, repair hull with a welding tool.")
+	. += span_notice("A sticker on its side says <b>MAX SAFE PRESSURE: [siunit_pressure(initial(pressure_limit), 0)]; MAX SAFE TEMPERATURE: [siunit(temp_limit, "K", 0)]</b>.")
+	. += span_notice("The hull is <b>welded</b> together and can be cut apart.")
 	if(internal_cell)
-		. += "<span class='notice'>The internal cell has [internal_cell.percent()]% of its total charge.</span>"
+		. += span_notice("The internal cell has [internal_cell.percent()]% of its total charge.")
 	else
-		. += "<span class='notice'>Warning, no cell installed, use a screwdriver to open the hatch and insert one.</span>"
+		. += span_notice("Warning, no cell installed, use a screwdriver to open the hatch and insert one.")
 	if(panel_open)
-		. += "<span class='notice'>Hatch open, close it with a screwdriver.</span>"
+		. += span_notice("Hatch open, close it with a screwdriver.")
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	. = ..()
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")
+		to_chat(user, span_warning("Error - Unauthorized User"))
 		playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 		return
 
@@ -439,8 +439,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(!holding)
 		return FALSE
 	if(valve_open)
-		message_admins("[ADMIN_LOOKUPFLW(user)] removed [holding] from [src] with valve still open [wire_pulsed ? "via wire pulse" : ""] at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
-		user.investigate_log("removed the [holding] [wire_pulsed ? "via wire pulse" : ""], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", INVESTIGATE_ATMOS)
+		message_admins("[ADMIN_LOOKUPFLW(user)] removed [holding] from [src] with valve still open [wire_pulsed ? "via wire pulse" : ""] at [ADMIN_VERBOSEJMP(src)] releasing contents into the [span_boldannounce("air")].")
+		user.investigate_log("removed the [holding] [wire_pulsed ? "via wire pulse" : ""], leaving the valve open and transferring into the [span_boldannounce("air")].", INVESTIGATE_ATMOS)
 	replace_tank(user, FALSE)
 	return TRUE
 

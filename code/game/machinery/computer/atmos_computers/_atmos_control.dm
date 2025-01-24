@@ -41,7 +41,7 @@
 
 /obj/machinery/computer/atmos_control/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use a multitool to link a air sensor to this computer</span>"
+	. += span_notice("Use a multitool to link a air sensor to this computer")
 
 /// Reconnect only works for station based chambers.
 /obj/machinery/computer/atmos_control/proc/reconnect(mob/user)
@@ -89,7 +89,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/atmos_control)
 	if (istype(buffer,/obj/machinery/air_sensor))
 		var/obj/machinery/air_sensor/sensor = buffer
-		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
+		to_chat(user, span_notice("You link [src] with [buffer] in [buffer_parent] buffer."))
 		if(!was_multi_tooled)
 			connected_sensors = connected_sensors.Copy()
 			was_multi_tooled = TRUE

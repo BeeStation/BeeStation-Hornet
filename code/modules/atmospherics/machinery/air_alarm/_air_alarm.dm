@@ -208,7 +208,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/airalarm)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 	if(!istype(buffer, /obj/machinery/air_sensor))
-		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
+		to_chat(user, span_warning("You cannot link  the [buffer] to  the [src]."))
 		return NONE
 	var/obj/machinery/air_sensor/sensor = buffer
 	if(!allow_link_change)

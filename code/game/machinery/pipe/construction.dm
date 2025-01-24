@@ -346,7 +346,7 @@ Buildable meters
 
 /obj/item/pipe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The pipe layer is set to [piping_layer].</span>"
+	. += span_notice("The pipe layer is set to [piping_layer].")
 
 /obj/item/pipe_meter
 	name = "meter"

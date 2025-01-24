@@ -215,8 +215,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		return FALSE
 	obj_flags |= EMAGGED
 	update_icon()
-	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
-							"<span class='notice'>You override [src], disabling the speaker.</span>")
+	user?.visible_message(span_warning("Sparks fly out of [src]!"),
+							span_notice("You override [src], disabling the speaker."))
 	if(user)
 		balloon_alert(user, "speaker disabled")
 		user.log_message("emagged [src].", LOG_ATTACK)
@@ -338,7 +338,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		W.play_tool_sound(src)
 		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
+		to_chat(user, span_notice("The wires have been [panel_open ? "exposed" : "unexposed"]."))
 		update_icon()
 		return
 
@@ -366,7 +366,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					buildstage = AIR_ALARM_BUILD_NO_WIRES
 					W.play_tool_sound(src)
 					new /obj/item/stack/cable_coil(user.loc, 5)
-					to_chat(user, "<span class='notice'>You cut the wires from \the [src].</span>")
+					to_chat(user, span_notice("You cut the wires from  the [src]."))
 					update_icon()
 					return
 
@@ -385,7 +385,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					else
 						coil.use(5)
 						buildstage = AIR_ALARM_BUILD_COMPLETE
-						to_chat(user, "<span class='notice'>You wire \the [src].</span>")
+						to_chat(user, span_notice("You wire  the [src]."))
 						update_icon()
 					return
 
@@ -415,8 +415,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 					var/obj/item/electroadaptive_pseudocircuit/P = W
 					if(!P.adapt_circuit(user, 15))
 						return
-					user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
-					"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
+					user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
+					span_notice("You adapt a fire alarm circuit and slot it into the assembly."))
 					buildstage = AIR_ALARM_BUILD_NO_WIRES
 					update_icon()
 					return
@@ -440,8 +440,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 /obj/machinery/firealarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_UPGRADE_SIMPLE_CIRCUITS)
-			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
-			"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
+			user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
+			span_notice("You adapt a fire alarm circuit and slot it into the assembly."))
 			buildstage = FIRE_ALARM_BUILD_NO_WIRES
 			update_icon()
 			return TRUE

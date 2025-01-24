@@ -177,14 +177,14 @@
 		return FALSE
 	if(holding && new_tank)//for when we are actually switching tanks
 		investigate_log("had its internal [holding] swapped with [new_tank] by [key_name(user)].", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank].</span>")
+		to_chat(user, span_notice("In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank]."))
 		user.put_in_hands(holding)
 		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
 		holding = new_tank
 		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
 	else if(holding)//we remove a tank
 		investigate_log("had its internal [holding] removed by [key_name(user)].", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+		to_chat(user, span_notice("You remove [holding] from [src]."))
 		if(Adjacent(user))
 			user.put_in_hands(holding)
 		else
@@ -193,7 +193,7 @@
 		holding = null
 	else if(new_tank)//we insert the tank
 		investigate_log("had [new_tank] inserted into it by [key_name(user)].", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You insert [new_tank] into [src].</span>")
+		to_chat(user, span_notice("You insert [new_tank] into [src]."))
 		holding = new_tank
 		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
 
@@ -221,10 +221,10 @@
 		return TRUE
 	var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
 	if(!possible_port)
-		to_chat(user, "<span class='notice'>Nothing happens.</span>")
+		to_chat(user, span_notice("Nothing happens."))
 		return FALSE
 	if(!connect(possible_port))
-		to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
+		to_chat(user, span_notice("[name] failed to connect to the port."))
 		return FALSE
 	wrench.play_tool_sound(src)
 	user.visible_message( \
@@ -258,10 +258,10 @@
 		return FALSE //We're attacking the machine.
 
 	if(atom_integrity < max_integrity)
-		to_chat(user, "<span class='notice'>You begin welding [src] back together...</span>")
+		to_chat(user, span_notice("You begin welding [src] back together..."))
 		if(I.use_tool(src, user, 3 SECONDS, volume=50))
 			update_integrity(max_integrity)
-			to_chat(user, "<span class='notice'>You weld [src] back together.</span>")
+			to_chat(user, span_notice("You weld [src] back together."))
 			return TRUE
 
 #undef PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT

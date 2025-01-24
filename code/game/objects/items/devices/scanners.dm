@@ -660,16 +660,16 @@ GENE SCANNER
 		var/cached_scan_results = air_contents.analyzer_results
 
 		if(total_moles > 0)
-			message += "<span class='notice'>Moles: [round(total_moles, 0.01)] mol</span>"
-			message += "<span class='notice'>Volume: [volume] L</span>"
-			message += "<span class='notice'>Pressure: [round(pressure,0.01)] kPa</span>"
-			message += "<span class='notice'>Heat Capacity: [display_joules(heat_capacity)] / K</span>"
-			message += "<span class='notice'>Thermal Energy: [display_joules(thermal_energy)]</span>"
+			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
+			message += span_notice("Volume: [volume] L")
+			message += span_notice("Pressure: [round(pressure,0.01)] kPa")
+			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
+			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
 
 			for(var/id in air_contents.gases)
 				var/gas_concentration = GET_MOLES(id,air_contents)/total_moles
-				message += "<span class='notice'>[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(GET_MOLES(id, air_contents), 0.01)] mol)</span>"
-			message += "<span class='notice'>Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)</span>"
+				message += span_notice("[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(GET_MOLES(id, air_contents), 0.01)] mol)")
+			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 
 		else
 			if(airs.len > 1)

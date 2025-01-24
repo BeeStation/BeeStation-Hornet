@@ -402,7 +402,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			if (ISNOTSTUB(target_dir))
 				p_init_dir = target_dir
 			else
-				to_chat(usr, "<span class='warning'>\The [src]'s screen flashes a warning: Can't configure a pipe to only connect in one direction.</span>")
+				to_chat(usr, span_warning("The [src]'s screen flashes a warning: Can't configure a pipe to only connect in one direction."))
 				playeffect = FALSE
 		if("init_reset")
 			p_init_dir = ALL_CARDINALS
@@ -503,7 +503,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 				SSair.add_to_rebuild_queue(target_smart_pipe)
 			// Finally, update our internal state - update_pipe_icon also updates dir and connections
 			target_smart_pipe.update_pipe_icon()
-			user.visible_message("<span class='notice'>[user] reprograms \the [target_smart_pipe].</span>", "<span class='notice'>You reprogram \the [target_smart_pipe].</span>")
+			user.visible_message(span_notice("[user] reprograms  the [target_smart_pipe]."), span_notice("You reprogram  the [target_smart_pipe]."))
 			return
 		// If this is an unplaced smart pipe, try to reprogram it
 		var/obj/item/pipe/quaternary/target_unsecured_pipe = attack_target
