@@ -95,7 +95,7 @@
 		run_cooldown_integer(user)
 		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
-	var/msg = select_message_type(user, intentional)
+	var/msg = select_message_type(user, message, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
 
@@ -135,22 +135,22 @@
 					message_mods = list(CHATMESSAGE_EMOTE = TRUE),
 				)
 			else if(is_important)
-				to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
+				to_chat(viewer, span_emote("<b>[user]</b> [msg]"))
 			else if(is_audible && is_visual)
 				viewer.show_message(
-					"<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE,
-					"<span class='emote'>You see how <b>[user]</b> [msg]</span>", MSG_VISUAL,
+					span_emote("<b>[user]</b> [msg]"), MSG_AUDIBLE,
+					span_emote("You see how <b>[user]</b> [msg]"), MSG_VISUAL,
 				)
 			else if(is_audible)
-				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_AUDIBLE)
+				viewer.show_message(span_emote("<b>[user]</b> [msg]"), MSG_AUDIBLE)
 			else if(is_visual)
-				viewer.show_message("<span class='emote'><b>[user]</b> [msg]</span>", MSG_VISUAL)
+				viewer.show_message(span_emote("<b>[user]</b> [msg]"), MSG_VISUAL)
 		return // Early exit so no dchat message
 
 	// The emote has some important information, and should always be shown to the user
 	else if(is_important)
 		for(var/mob/viewer as anything in viewers(user))
-			to_chat(viewer, "<span class='emote'><b>[user]</b> [msg]</span>")
+			to_chat(viewer, span_emote("<b>[user]</b> [msg]"))
 			if(user.runechat_prefs_check(viewer, list(CHATMESSAGE_EMOTE = TRUE)))
 				create_chat_message(user, null, list(viewer), msg, null, list(CHATMESSAGE_EMOTE = TRUE))
 	// Emotes has both an audible and visible component
@@ -158,7 +158,7 @@
 	else if(is_visual && is_audible)
 		user.audible_message(
 			message = msg,
-			deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>",
+			deaf_message = span_emote("You see how <b>[user]</b> [msg]"),
 			self_message = msg,
 			audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, ALWAYS_SHOW_SELF_MESSAGE = TRUE),
 			separation = space
@@ -188,7 +188,7 @@
 				continue
 			if(!ghost?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight))
 				continue
-			to_chat(ghost, "<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
+			to_chat(ghost, span_emote("[FOLLOW_LINK(ghost, user)] [dchatmsg]"))
 	return
 
 /datum/emote/proc/run_cooldown_integer(mob/user)
@@ -201,7 +201,7 @@
 
 /datum/emote/proc/check_cooldown_integer(mob/user)
 	if(cooldown_integer >= cooldown_integer_ceiling)
-		to_chat(user, "<span class='warning'>[name] emote limit reached</span>")
+		to_chat(user, span_warning("[name] emote limit reached"))
 		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
 		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
 		//We used up all our usable emotes, now we set the integer back to zero and wait the long wait
@@ -248,8 +248,8 @@
 		message = replacetext(message, "%s", user.p_s())
 	return message
 
-/datum/emote/proc/select_message_type(mob/user, intentional)
-	. = message
+/datum/emote/proc/select_message_type(mob/user, msg, intentional)
+	. = msg
 	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
 		return "makes a [pick("strong ", "weak ", "")]noise."
 	if(user.mind?.miming && message_mime)
@@ -271,6 +271,8 @@
 	else if((isanimal(user) || isbasicmob(user)) && message_simple)
 		. = message_simple
 
+	return .
+
 /datum/emote/proc/select_param(mob/user, params)
 	return replacetext(message_param, "%t", params)
 
@@ -286,16 +288,16 @@
 				return FALSE
 			switch(user.stat)
 				if(SOFT_CRIT)
-					to_chat(user, "<span class='notice'>You cannot [key] while in a critical condition.</span>")
+					to_chat(user, span_notice("You cannot [key] while in a critical condition."))
 				if(UNCONSCIOUS, HARD_CRIT)
-					to_chat(user, "<span class='notice'>You cannot [key] while unconscious.</span>")
+					to_chat(user, span_notice("You cannot [key] while unconscious."))
 				if(DEAD)
-					to_chat(user, "<span class='notice'>You cannot [key] while dead.</span>")
+					to_chat(user, span_notice("You cannot [key] while dead."))
 			return FALSE
 		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			if(!intentional)
 				return FALSE
-			to_chat(user, "<span class='warning'>You cannot use your hands to [key] right now!</span>")
+			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))
 			return FALSE
 
 	if(isliving(user))
@@ -314,8 +316,6 @@
  */
 /datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
 	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
-		if(HAS_TRAIT(user, TRAIT_MUTE))
-			return FALSE
 		if(ishuman(user))
 			var/mob/living/carbon/human/loud_mouth = user
 			if(loud_mouth.mind?.miming) // vow of silence prevents outloud noises

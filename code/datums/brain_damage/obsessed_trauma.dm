@@ -5,7 +5,7 @@
 	desc = "Patient has a subtype of delusional disorder, becoming irrationally attached to someone."
 	scan_desc = "monophobia"
 	gain_text = "If you see this message, make a github issue report. The trauma initialized wrong."
-	lose_text = "<span class='warning'>The voices in your head fall silent.</span>"
+	lose_text = span_warning("The voices in your head fall silent.")
 	can_gain = TRUE
 	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
 	resilience = TRAUMA_RESILIENCE_LOBOTOMY
@@ -34,7 +34,7 @@
 			qdel(src)
 			return
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
-	gain_text = "<span class='warning'>You hear a sickening, raspy voice in your head. It wants one small task of you...</span>"
+	gain_text = span_warning("You hear a sickening, raspy voice in your head. It wants one small task of you...")
 	antagonist = owner.mind.add_antag_datum(new /datum/antagonist/obsessed(src))
 	..()
 	//antag stuff//
@@ -82,7 +82,7 @@
 /datum/brain_trauma/special/obsessed/proc/reveal()
 	revealed = TRUE
 	scan_desc = true_scan_desc
-	to_chat(owner, "<span class='hypnophrase'>The deep, overwhelming concern for <span class='name'>[obsession.name]</span> within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious...</span>")
+	to_chat(owner, span_hypnophrase("The deep, overwhelming concern for [span_name("[obsession.name]")] within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious..."))
 
 /datum/brain_trauma/special/obsessed/proc/on_obsession_cryoed()
 	SIGNAL_HANDLER
@@ -91,14 +91,14 @@
 	var/message = "You get the feeling [obsession] is no longer within reach."
 	obsession = find_obsession()
 	if(!obsession)//we didn't find one
-		lose_text = "<span class='warning'>[message] The voices in your head fall silent.</span>"
+		lose_text = span_warning("[message] The voices in your head fall silent.")
 		qdel(src)
 		return
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
-	to_chat(owner, "<span class='warning'>[message] The voices have a new task for you...</span>")
+	to_chat(owner, span_warning("[message] The voices have a new task for you..."))
 	antagonist.objectives = list()
 	antagonist.forge_objectives(obsession)
-	to_chat(owner, "<span class='bold'>You don't know their connection, but The Voices compel you to stalk [obsession.name], forcing them into a state of constant paranoia.</span>")
+	to_chat(owner, span_bold("You don't know their connection, but The Voices compel you to stalk [obsession.name], forcing them into a state of constant paranoia."))
 	owner.mind.announce_objectives()
 
 /datum/brain_trauma/special/obsessed/proc/find_obsession()

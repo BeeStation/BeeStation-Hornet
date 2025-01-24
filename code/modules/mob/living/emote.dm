@@ -290,10 +290,10 @@
 		var/mob/living/carbon/human/H = user
 		if(H.usable_hands == 0)
 			if(H.usable_legs != 0)
-				message_param = "tries to point at %t with a leg, <span class='userdanger'>falling down</span> in the process!"
+				message_param = "tries to point at %t with a leg, [span_userdanger("falling down")] in the process!"
 				H.Paralyze(20)
 			else
-				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
+				message_param = "[span_userdanger("bumps [user.p_their()] head on the ground")] trying to motion towards %t."
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 	..()
 
@@ -512,32 +512,17 @@
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 
-	if(!params)
-		var/custom_emote = stripped_input(user, "Choose an emote to display.")
-		if(custom_emote && !check_invalid(user, custom_emote))
-			var/list/emote_list = list("Audible", "Visible", "Both")
-			var/type = tgui_input_list(user, "Is this a visible or audible emote?", "Emote Type", emote_list)
-			switch(type)
-				if("Audible")
-					emote_type |= EMOTE_AUDIBLE
-				if("Visible")
-					emote_type |= EMOTE_VISIBLE
-				if("Both")
-					emote_type |= EMOTE_VISIBLE | EMOTE_AUDIBLE
-			message = user.say_emphasis(custom_emote)
-	else
-		message = params
-
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		to_chat(user, span_danger("Invalid emote."))
 		return TRUE
 	return FALSE
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	if(params && type_override)
 		emote_type = type_override
+	message = params
 	. = ..()
 	message = null
 	emote_type = null
@@ -594,27 +579,26 @@
 	if(intentional)
 		var/obj/item/circlegame/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+			to_chat(user, span_notice("You make a circle with your hand."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to make a circle with."))
 
 /datum/emote/living/slap
 	key = "slap"
 	key_third_person = "slaps"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	cooldown = 2 SECONDS
 
 /datum/emote/living/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return
 	if(intentional)
 		var/obj/item/slapper/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+			to_chat(user, span_notice("You ready your slapping hand."))
 		else
-			to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+			to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
 /datum/emote/living/raisehand
 	key = "highfive"
@@ -628,10 +612,10 @@
 	if(intentional)
 		var/obj/item/highfive/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+			to_chat(user, span_notice("You raise your hand for a high-five."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to high-five with."))
 
 /datum/emote/living/fingergun
 	key = "fingergun"
@@ -645,10 +629,10 @@
 	if(intentional)
 		var/obj/item/gun/ballistic/revolver/mime/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+			to_chat(user, span_notice("You form your fingers into a gun."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to make fingerguns with."))
 
 /datum/emote/living/click
 	key = "click"

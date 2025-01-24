@@ -15,8 +15,8 @@
 /datum/clockcult/scripture/integration_cog/invoke_success()
 	var/obj/item/clockwork/integration_cog/IC = new()
 	if(invoker.put_in_hands(IC, TRUE))
-		to_chat(invoker, "<span class='brass'>You summon an integration cog!</span>")
+		to_chat(invoker, span_brass("You summon an integration cog!"))
 		playsound(src, 'sound/machines/click.ogg', 50)
 	else
-		to_chat(invoker, "<span class='brass'>You need to have your inactive hand free to summon an integration cog!</span>")
+		to_chat(invoker, span_brass("You need to have your inactive hand free to summon an integration cog!"))
 		return FALSE

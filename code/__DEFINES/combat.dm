@@ -56,7 +56,7 @@
 #define ARMOR_LIST_DURABILITY list(ACID, FIRE)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD)
+#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD, STAMINA)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)

@@ -14908,13 +14908,13 @@
 /area/maintenance/port/central)
 "dSV" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -27;
 	use_power = 0
+	},
+/obj/machinery/computer/crew{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/main)
@@ -26262,6 +26262,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"gIB" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/nearstation)
 "gIC" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
@@ -28174,6 +28178,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
+"hhI" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "hhW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -125676,7 +125684,7 @@ nnx
 nnx
 csJ
 tsN
-tsN
+gIB
 tsN
 xJu
 hSG
@@ -135852,7 +135860,7 @@ kHH
 kHH
 kHH
 abN
-abN
+hhI
 abN
 abN
 abN
