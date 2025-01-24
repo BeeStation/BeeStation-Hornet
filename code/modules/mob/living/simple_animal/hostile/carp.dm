@@ -178,7 +178,7 @@
 /mob/living/simple_animal/hostile/carp/cayenne/examine(mob/user)
 	. = ..()
 	if(disky)
-		. += span_notice("Wait... is that [disky] in [p_their()] mouth?")
+		. += "<span class='notice'>Wait... is that [disky] in [p_their()] mouth?</span>"
 
 /mob/living/simple_animal/hostile/carp/cayenne/AttackingTarget()
 	if(istype(target, /obj/item/disk/nuclear))
@@ -187,14 +187,14 @@
 			return
 		potential_disky.forceMove(src)
 		disky = potential_disky
-		to_chat(src, span_nicegreen("YES!! You manage to pick up [disky]. (Click anywhere to place it back down.)"))
+		to_chat(src, "<span class='nicegreen'>YES!! You manage to pick up [disky]. (Click anywhere to place it back down.)</span>")
 		update_icon()
 		if(!disky.fake)
 			client.give_award(/datum/award/achievement/misc/cayenne_disk, src)
 		return
 	if(disky)
 		if(isopenturf(target))
-			to_chat(src, span_notice("You place [disky] on [target]"))
+			to_chat(src, "<span class='notice'>You place [disky] on [target]</span>")
 			disky.forceMove(target)
 			disky = null
 			update_icon()
@@ -251,6 +251,6 @@
 /mob/living/simple_animal/hostile/carp/advanced/examine(mob/user)
 	. = ..()
 	if(mind)
-		. += span_notice("This one seems to be self-aware.")
+		. += "<span class='notice'>This one seems to be self-aware.</span>"
 
 #undef REGENERATION_DELAY

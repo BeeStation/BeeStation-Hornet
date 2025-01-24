@@ -20,11 +20,11 @@
 	. = ..()
 	if(reagents)
 		if(volume == reagents.total_volume)
-			. += span_notice("It is fully filled.")
+			. += "<span class='notice'>It is fully filled.</span>"
 		else if(!reagents.total_volume)
-			. += span_notice("It's empty.")
+			. += "<span class='notice'>It's empty.</span>"
 		else
-			. += span_notice("It seems [round(reagents.total_volume/volume*100)]% filled.")
+			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
 /obj/item/reagent_containers/blood/on_reagent_change(changetype)
 	if(reagents)
@@ -90,7 +90,7 @@
 /obj/item/reagent_containers/blood/attackby(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on the label of [src]!"))
+			to_chat(user, "<span class='notice'>You scribble illegibly on the label of [src]!</span>")
 			return
 		var/t = stripped_input(user, "What would you like to label the blood pack?", name, null, 53)
 		if(!user.canUseTopic(src, BE_CLOSE))

@@ -12,7 +12,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.wear_mask)
-			to_chat(user, span_warning("You need help taking this off!"))
+			to_chat(user, "<span class='warning'>You need help taking this off!</span>")
 			return
 	..()
 
@@ -96,7 +96,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, span_notice("Your emotion mask has now morphed into [choice]!"))
+		to_chat(user, "<span class='notice'>Your emotion mask has now morphed into [choice]!</span>")
 		return 1
 
 
@@ -153,7 +153,7 @@
 /obj/item/clothing/mask/frog/cursed/equipped(mob/user, slot)
 	var/mob/living/carbon/C = user
 	if(C.wear_mask == src && HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_MASK_TRAIT))
-		to_chat(user, span_userdanger("[src] was cursed! Ree!!"))
+		to_chat(user, "<span class='userdanger'>[src] was cursed! Ree!!</span>")
 	return ..()
 
 /obj/item/clothing/mask/cowmask

@@ -67,7 +67,7 @@
 			return
 		semi_auto = !semi_auto
 		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
-		to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+		to_chat(user, "<span class='notice'>You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation.</span>")
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
 	. = ..()
@@ -114,7 +114,7 @@
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-click to pump it.")
+	. += "<span class='notice'>Alt-click to pump it.</span>"
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
@@ -258,9 +258,9 @@
 		else if (S.high_power)
 			barrel_stress += 5
 			if (barrel_stress == 10)
-				to_chat(user, span_warning("[src]'s barrel is left warped from the force of the shot!"))
+				to_chat(user, "<span class='warning'>[src]'s barrel is left warped from the force of the shot!</span>")
 			else if (barrel_stress == 25)
-				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
+				to_chat(user, "<span class='danger'>[src]'s barrel cracks from the repeated strain!</span>")
 
 		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
 			backfire(user)
@@ -269,7 +269,7 @@
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
 	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
-	to_chat(user, span_userdanger("[src] blows up in your face!"))
+	to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
 
 	user.take_bodypart_damage(0,15) //The explosion already does enough damage.
 	explosion(src, 0, 0, 1, 1)
@@ -284,16 +284,16 @@
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
-			to_chat(user, span_warning("There is already a sling on [src]!"))
+			to_chat(user, "<span class='warning'>There is already a sling on [src]!</span>")
 			return
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
+			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling!"))
+			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/update_icon()
 	..()
@@ -360,19 +360,19 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(toggled)
-		to_chat(user,span_notice("You switch to the shotgun."))
+		to_chat(user,"<span class='notice'>You switch to the shotgun.</span>")
 		fire_sound = initial(fire_sound)
 	else
-		to_chat(user,span_notice("You switch to the hook."))
+		to_chat(user,"<span class='notice'>You switch to the hook.</span>")
 		fire_sound = 'sound/weapons/batonextend.ogg'
 	toggled = !toggled
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/examine(mob/user)
 	. = ..()
 	if(toggled)
-		. += span_notice("Alt-click to switch to the shotgun.")
+		. += "<span class='notice'>Alt-click to switch to the shotgun.</span>"
 	else
-		. += span_notice("Alt-click to switch to the hook.")
+		. += "<span class='notice'>Alt-click to switch to the hook.</span>"
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/afterattack(atom/target, mob/living/user, flag, params)
 	if(toggled)
@@ -401,7 +401,7 @@
 
 /obj/item/gun/ballistic/shotgun/lever_action/examine(mob/user)
 	. = ..()
-	. += span_info("You will instantly reload it after a shot if you have another hand free.")
+	. += "<span class='info'>You will instantly reload it after a shot if you have another hand free.</span>"
 
 /obj/item/gun/ballistic/shotgun/lever_action/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
@@ -412,9 +412,9 @@
 
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
 	if (user)
-		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
+		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
 	process_chamber(!chambered, FALSE)
 	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 	update_icon()
 	if(user.get_inactive_held_item() && prob(50) && chambered)
-		user.visible_message(span_rose("With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell."))
+		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")

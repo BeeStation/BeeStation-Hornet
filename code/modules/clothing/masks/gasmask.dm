@@ -117,7 +117,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, span_notice("Your Clown Mask has now morphed into [choice], all praise the Honkmother!"))
+		to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into [choice], all praise the Honkmother!</span>")
 		return 1
 
 /obj/item/clothing/mask/gas/sexyclown
@@ -168,7 +168,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, span_notice("Your Mime Mask has now morphed into [choice]!"))
+		to_chat(user, "<span class='notice'>Your Mime Mask has now morphed into [choice]!</span>")
 		return 1
 
 /obj/item/clothing/mask/gas/monkeymask
@@ -272,13 +272,13 @@
 	return voice_change ? "Unknown" : default_name
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
-	. += span_notice("It was modified to make the user's voice sound robotic.")
+	. += "<span class='notice'>It was modified to make the user's voice sound robotic.</span>"
 	. += "The modulator is currently [voice_change ? "<b>ON</b>" : "<b>OFF</b>"]."
 
 /obj/item/clothing/mask/gas/old/modulator/attack_self(mob/user)
 	voice_change = !voice_change
-	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
+	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
 
 /obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
 	voice_change = !voice_change
-	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
+	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")

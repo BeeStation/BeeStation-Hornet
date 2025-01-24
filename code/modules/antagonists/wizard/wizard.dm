@@ -149,7 +149,7 @@
 	H.equipOutfit(outfit_type)
 
 /datum/antagonist/wizard/greet()
-	to_chat(owner, span_boldannounce("You are the Space Wizard!"))
+	to_chat(owner, "<span class='boldannounce'>You are the Space Wizard!</span>")
 	to_chat(owner, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 	owner.announce_objectives()
 	to_chat(owner, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
@@ -160,7 +160,7 @@
 		"Prepare your spells and cause havok upon the accursed station.")
 
 /datum/antagonist/wizard/farewell()
-	to_chat(owner, span_userdanger("You have been brainwashed! You are no longer a wizard!"))
+	to_chat(owner, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard!</span>")
 
 /datum/antagonist/wizard/proc/rename_wizard()
 	set waitfor = FALSE
@@ -325,16 +325,16 @@
 	var/wizardwin = 1
 	for(var/datum/objective/objective in objectives)
 		if(objective.check_completion())
-			parts += "<B>Objective #[count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
+			parts += "<B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
-			parts += "<B>Objective #[count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
+			parts += "<B>Objective #[count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 			wizardwin = 0
 		count++
 
 	if(wizardwin)
-		parts += span_greentext("The wizard was successful!")
+		parts += "<span class='greentext'>The wizard was successful!</span>"
 	else
-		parts += span_redtext("The wizard has failed!")
+		parts += "<span class='redtext'>The wizard has failed!</span>"
 
 	if(owner.spell_list.len>0)
 		parts += "<B>[owner.name] used the following spells: </B>"
@@ -349,10 +349,10 @@
 /datum/team/wizard/roundend_report()
 	var/list/parts = list()
 
-	parts += span_header("Wizards/witches of [master_wizard.owner.name] team were:")
+	parts += "<span class='header'>Wizards/witches of [master_wizard.owner.name] team were:</span>"
 	parts += master_wizard.roundend_report()
 	parts += " "
-	parts += span_header("[master_wizard.owner.name] apprentices were:")
+	parts += "<span class='header'>[master_wizard.owner.name] apprentices were:</span>"
 	parts += printplayerlist(members - master_wizard.owner)
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

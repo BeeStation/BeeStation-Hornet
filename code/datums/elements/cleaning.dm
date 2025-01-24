@@ -28,7 +28,7 @@
 			if(cleaned_human.body_position == LYING_DOWN)
 				cleaned_human.wash(CLEAN_WASH)
 				cleaned_human.regenerate_icons()
-				to_chat(cleaned_human, span_danger("[AM] cleans your face!"))
+				to_chat(cleaned_human, "<span class='danger'>[AM] cleans your face!</span>")
 
 /datum/action/cleaning_toggle
 	name = "Floor Cleaning Toggle"
@@ -65,5 +65,5 @@
 		toggle_target.AddElement(/datum/element/cleaning)
 		toggled = TRUE
 	owner.balloon_alert(owner, "Auto-cleaning is [toggled ? "ON" : "OFF"]")
-	to_chat(owner, span_notice("The auto-cleaning is now [toggled ? "ON" : "OFF"]."))
+	to_chat(owner, "<span class='notice'>The auto-cleaning is now [toggled ? "ON" : "OFF"].</span>")
 

@@ -79,23 +79,23 @@
 
 	if(istype(I, /obj/item/seeds))
 		if (operation)
-			to_chat(user, span_notice("Please complete current operation."))
+			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
 		eject_seed()
 		insert_seed(I)
-		to_chat(user, span_notice("You add [I] to the machine."))
+		to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		interact(user)
 	else if(istype(I, /obj/item/disk/plantgene))
 		if (operation)
-			to_chat(user, span_notice("Please complete current operation."))
+			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
 		eject_disk()
 		disk = I
-		to_chat(user, span_notice("You add [I] to the machine."))
+		to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		interact(user)
 	else
 		..()
@@ -248,7 +248,7 @@
 				return
 			eject_seed()
 			insert_seed(I)
-			to_chat(usr, span_notice("You add [I] to the machine."))
+			to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
 			. = TRUE
 		else
 			. = eject_seed()
@@ -260,7 +260,7 @@
 				return
 			eject_disk()
 			disk = I
-			to_chat(usr, span_notice("You add [I] to the machine."))
+			to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
 			. = TRUE
 		else
 			. = eject_disk()
@@ -458,10 +458,10 @@
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	read_only = !read_only
-	to_chat(user, span_notice("You flip the write-protect tab to [src.read_only ? "protected" : "unprotected"]."))
+	to_chat(user, "<span class='notice'>You flip the write-protect tab to [src.read_only ? "protected" : "unprotected"].</span>")
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
 	if(gene && (istype(gene, /datum/plant_gene/core/potency)))
-		. += span_notice("Percent is relative to potency, not maximum volume of the plant.")
+		. += "<span class='notice'>Percent is relative to potency, not maximum volume of the plant.</span>"
 	. += "The write-protect tab is set to [src.read_only ? "protected" : "unprotected"]."

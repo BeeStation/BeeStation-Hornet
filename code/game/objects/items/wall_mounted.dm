@@ -19,13 +19,13 @@
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(T)
 	if(!isfloorturf(T))
-		to_chat(user, span_warning("You cannot place [src] on this spot!"))
+		to_chat(user, "<span class='warning'>You cannot place [src] on this spot!</span>")
 		return
 	if(A.always_unpowered)
-		to_chat(user, span_warning("You cannot place [src] in this area!"))
+		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
 		return
 	if(check_wall_item(T, floor_to_wall, wall_external))
-		to_chat(user, span_warning("There's already an item on this wall!"))
+		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
 		return
 
 	return TRUE
@@ -34,8 +34,8 @@
 	if(result_path)
 		playsound(src.loc, 'sound/machines/click.ogg', 75, TRUE)
 		user.visible_message("[user.name] attaches [src] to the wall.",
-			span_notice("You attach [src] to the wall."),
-			span_italics("You hear clicking."))
+			"<span class='notice'>You attach [src] to the wall.</span>",
+			"<span class='italics'>You hear clicking.</span>")
 		var/floor_to_wall = get_dir(user, on_wall)
 
 		var/obj/O = new result_path(get_turf(user), floor_to_wall, TRUE)
@@ -71,7 +71,7 @@
 
 	if(!iron_amt && !glass_amt)
 		return FALSE
-	to_chat(user, span_notice("You dismantle [src]."))
+	to_chat(user, "<span class='notice'>You dismantle [src].</span>")
 	if(iron_amt)
 		new /obj/item/stack/sheet/iron(get_turf(src), iron_amt)
 	if(glass_amt)

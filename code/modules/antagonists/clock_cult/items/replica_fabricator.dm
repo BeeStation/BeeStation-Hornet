@@ -26,40 +26,40 @@
 		qdel(B)
 		GLOB.clockcult_power += B.amount * BRASS_POWER_COST
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		to_chat(user, span_nzcrentr("You convert [B.amount] brass into [B.amount * BRASS_POWER_COST] watts of power."))
+		to_chat(user, "<span class='nzcrentr'>You convert [B.amount] brass into [B.amount * BRASS_POWER_COST] watts of power.</span>")
 	else if(istype(target, /obj/item/stack/sheet))
 		var/obj/item/stack/S = target
 		var/obj/item/stack/sheet/brass/B = new(get_turf(S))
 		B.amount = FLOOR(S.amount * 0.5, 1)
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		to_chat(user, span_nzcrentr("You convert [S.amount] [S] into [S.amount] brass."))
+		to_chat(user, "<span class='nzcrentr'>You convert [S.amount] [S] into [S.amount] brass.</span>")
 		qdel(target)
 	else if(isopenturf(target))
 		fabricate_sheets(target, user)
 	else if(istype(target, /obj/structure/destructible/clockwork))
 		var/obj/structure/destructible/clockwork/C = target
 		if(!C.can_be_repaired)
-			to_chat(user, span_nzcrentr("You cannot repair [C]!"))
+			to_chat(user, "<span class='nzcrentr'>You cannot repair [C]!</span>")
 			return
 		if(GLOB.clockcult_power < 200)
-			to_chat(user, span_nzcrentr("You need [200 - GLOB.clockcult_power]W more to repair the [C]..."))
+			to_chat(user, "<span class='nzcrentr'>You need [200 - GLOB.clockcult_power]W more to repair the [C]...</span>")
 			return
 		if(C.max_integrity == C.get_integrity())
-			to_chat(user, span_nzcrentr("\The [C] is already repaired!"))
+			to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
 			return
-		to_chat(user, span_nzcrentr("You begin repairing [C]..."))
+		to_chat(user, "<span class='nzcrentr'>You begin repairing [C]...</span>")
 		if(do_after(user, 60, target=target))
 			if(C.max_integrity == C.get_integrity())
-				to_chat(user, span_nzcrentr("\The [C] is already repaired!"))
+				to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
 				return
 			if(GLOB.clockcult_power < 200)
-				to_chat(user, span_nzcrentr("You need [200 - GLOB.clockcult_power]W more to repair the [C]..."))
+				to_chat(user, "<span class='nzcrentr'>You need [200 - GLOB.clockcult_power]W more to repair the [C]...</span>")
 				return
 			GLOB.clockcult_power -= 200
-			to_chat(user, span_nzcrentr("You repair some of the damage on \the [C]."))
+			to_chat(user, "<span class='nzcrentr'>You repair some of the damage on \the [C].</span>")
 			C.repair_damage(clamp(C.get_integrity() + 15, 0, C.max_integrity))
 		else
-			to_chat(user, span_nzcrentr("You fail to repair the damage of \the [C]..."))
+			to_chat(user, "<span class='nzcrentr'>You fail to repair the damage of \the [C]...</span>")
 
 /obj/item/clockwork/replica_fabricator/proc/fabricate_sheets(turf/target, mob/user)
 	var/sheets = FLOOR(clamp(GLOB.clockcult_power / BRASS_POWER_COST, 0, 50), 1)
@@ -68,6 +68,6 @@
 	GLOB.clockcult_power -= sheets * BRASS_POWER_COST
 	new /obj/item/stack/sheet/brass(target, sheets)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, span_brass("You fabricate [sheets] brass."))
+	to_chat(user, "<span class='brass'>You fabricate [sheets] brass.</span>")
 
 #undef BRASS_POWER_COST

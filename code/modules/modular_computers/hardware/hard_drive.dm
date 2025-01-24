@@ -36,7 +36,7 @@
 
 /obj/item/computer_hardware/hard_drive/examine(user)
 	. = ..()
-	. += span_notice("It has [max_capacity] GQ of storage capacity.")
+	. += "<span class='notice'>It has [max_capacity] GQ of storage capacity.</span>"
 
 /// Return true if nothing happens, return false to cancel attack action
 /obj/item/computer_hardware/hard_drive/proc/process_pre_attack(atom/target, mob/living/user, params)

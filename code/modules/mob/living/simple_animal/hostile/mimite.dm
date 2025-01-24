@@ -83,7 +83,7 @@
 	if(morphed && replicate && venthunt)
 		. = form.examine(user)
 		if(get_dist(user,src)<=4)
-			. += span_warning("It doesn't look quite right...")
+			. += "<span class='warning'>It doesn't look quite right...</span>"
 	else
 		. = ..()
 
@@ -112,14 +112,14 @@
 		if(allowed(A))
 			assume(A)
 	else
-		to_chat(src, span_warning("Your chameleon skin is still repairing itself!"))
+		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
 
 /mob/living/simple_animal/hostile/mimite/proc/assume(atom/movable/target)
 	morphed = TRUE
 	form = target
 
-	visible_message(span_warning("[src] suddenly twists and changes shape, becoming a copy of [target]!"), \
-					span_notice("You twist your body and assume the form of [target]."))
+	visible_message("<span class='warning'>[src] suddenly twists and changes shape, becoming a copy of [target]!</span>", \
+					"<span class='notice'>You twist your body and assume the form of [target].</span>")
 	appearance = target.appearance
 	if(length(target.vis_contents))
 		add_overlay(target.vis_contents)
@@ -140,7 +140,7 @@
 /mob/living/simple_animal/hostile/mimite/proc/restore(var/intentional = FALSE)
 	if(!morphed)
 		if(intentional)
-			to_chat(src, span_warning("You're already in your normal form!"))
+			to_chat(src, "<span class='warning'>You're already in your normal form!</span>")
 		return
 	morphed = FALSE
 	form = null
@@ -150,8 +150,8 @@
 	maptext = null
 	density = initial(density)
 
-	visible_message(span_warning("[src] suddenly collapses in on itself, turning into a strange shifting black mass!"), \
-					span_notice("You reform to your normal body."))
+	visible_message("<span class='warning'>[src] suddenly collapses in on itself, turning into a strange shifting black mass!</span>", \
+					"<span class='notice'>You reform to your normal body.</span>")
 	name = initial(name)
 	icon = initial(icon)
 	icon_state = initial(icon_state)
@@ -201,9 +201,9 @@
 	if(morphed)
 		M.Knockdown(40)
 		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 5)
-		to_chat(M, span_userdanger("[src] bites you!"))
-		visible_message(span_danger("[src] violently bites [M]!"),\
-				span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
+		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
+		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
+				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
 		restore()
 	else
 		..()
@@ -271,7 +271,7 @@
 					return
 				else
 					visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-					span_italics("You hear something scampering through the ventilation ducts."))
+					"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
 					forceMove(exit_vent.loc)
 					entry_vent = null
 					attemptingventcrawl = FALSE
@@ -351,9 +351,9 @@
 	aggro_vision_range = 9
 	M.Knockdown(20)
 	M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 10)
-	to_chat(M, span_userdanger("[src] bites you!"))
-	visible_message(span_danger("[src] violently bites [M]!"),\
-			span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
+	to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
+	visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
+			"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
 	cut_overlays()
 	add_overlay("[icon_state]_open")
 	..()

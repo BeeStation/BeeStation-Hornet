@@ -57,7 +57,7 @@
   * Displays a message, spawns a human venus trap, then qdels itself.
   */
 /obj/structure/alien/resin/flower_bud/proc/bear_fruit()
-	visible_message(span_danger("the plant has borne fruit!"))
+	visible_message("<span class='danger'>the plant has borne fruit!</span>")
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
 
@@ -86,7 +86,7 @@
 		var/mob/living/L = AM
 		if(!isvineimmune(L))
 			L.adjustBruteLoss(5)
-			to_chat(L, span_alert("You cut yourself on the thorny vines."))
+			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
 /**
   * Venus Human Trap
@@ -148,12 +148,12 @@
 	pull_vines()
 	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines
 		if(withering)
-			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
+			to_chat(src, "<span class='notice'> The vines nourish you, healing your wounds.</span>")
 		adjustHealth(-maxHealth*0.05)
 		withering = FALSE
 		return
 	if(!withering)
-		to_chat(src, span_userdanger("You are not being nourished by the vines and are withering away! Stay in the vines!"))
+		to_chat(src, "<span class='userdanger'>You are not being nourished by the vines and are withering away! Stay in the vines!</span>")
 	withering = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
 	adjustHealth(maxHealth*0.05)
@@ -199,7 +199,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
 	. = ..()
-	to_chat(src, span_boldwarning("You are venus human trap!  Protect the kudzu at all costs, and feast on those who oppose you!"))
+	to_chat(src, "<span class='boldwarning'>You are venus human trap!  Protect the kudzu at all costs, and feast on those who oppose you!</span>")
 
 /mob/living/simple_animal/hostile/venus_human_trap/attack_ghost(mob/user)
 	. = ..()
@@ -222,7 +222,7 @@
 	if(plant_ask == "No" || QDELETED(src))
 		return
 	if(key)
-		to_chat(user, span_warning("Someone else already took this plant!"))
+		to_chat(user, "<span class='warning'>Someone else already took this plant!</span>")
 		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")

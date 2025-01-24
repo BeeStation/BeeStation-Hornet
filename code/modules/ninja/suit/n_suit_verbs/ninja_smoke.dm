@@ -10,5 +10,5 @@
 		smoke.start()
 		playsound(H.loc, 'sound/effects/bamf.ogg', 50, 2)
 		s_bombs--
-		to_chat(H, span_notice("There are <B>[s_bombs]</B> smoke bombs remaining."))
+		to_chat(H, "<span class='notice'>There are <B>[s_bombs]</B> smoke bombs remaining.</span>")
 		s_coold = 2

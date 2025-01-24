@@ -32,7 +32,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
 	use_charge(user, whisper = TRUE)
 
 /obj/item/melee/touch_attack/mansus_fist/ignition_effect(atom/to_light, mob/user)
-	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
+	. = "<span class='notice'>[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!</span>"
 	use_charge(user)
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -59,8 +59,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
 /obj/item/melee/touch_attack/mansus_fist/proc/antimagic_check(mob/living/carbon/human/target, mob/living/carbon/user)
 	if(target.anti_magic_check())
 		target.visible_message(
-			span_danger("The spell bounces off of [target]!"),
-			span_danger("The spell bounces off of you!"),
+			"<span class='danger'>The spell bounces off of [target]!</span>",
+			"<span class='danger'>The spell bounces off of you!</span>",
 		)
 		return TRUE
 	return FALSE
@@ -89,7 +89,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
 	return TRUE
 
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message("<span class='suicide'>[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	if(!IS_HERETIC(user))
 		return

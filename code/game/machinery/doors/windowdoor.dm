@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	if(QDELETED(src))
 		return
 	operating = FALSE
-	desc += "<BR>[span_warning("Its access panel is smoking slightly.")]"
+	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
@@ -287,17 +287,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	if(!(flags_1&NODECONSTRUCT_1))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			if(density || operating)
-				to_chat(user, span_warning("You need to open the door to access the maintenance panel!"))
+				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
 				return
 			I.play_tool_sound(src)
 			panel_open = !panel_open
-			to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [name]."))
+			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
 			return
 
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] removes the electronics from the [name].", \
-									span_notice("You start to remove electronics from the [name]..."))
+									"<span class='notice'>You start to remove electronics from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -319,11 +319,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 						WA.created_name = name
 
 						if(obj_flags & EMAGGED)
-							to_chat(user, span_warning("You discard the damaged electronics."))
+							to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
 							qdel(src)
 							return
 
-						to_chat(user, span_notice("You remove the airlock electronics."))
+						to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
 						var/obj/item/electronics/airlock/ae
 						if(!electronics)
@@ -352,14 +352,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/try_to_crowbar(obj/item/crowbar, mob/user)
 	if(density)
 		if(!HAS_TRAIT(crowbar, TRAIT_DOOR_PRYER) && hasPower())
-			to_chat(user, span_warning("The windoor's motors resist your efforts to force it!"))
+			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
 			return
 		else if(!hasPower())
-			to_chat(user, span_warning("You begin forcing open \the [src], the motors don't resist..."))
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
 			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		else
-			to_chat(user, span_warning("You begin forcing open \the [src]..."))
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
 			if(!crowbar.use_tool(src, user, 5 SECONDS))
 				return
 		open(2)
@@ -419,7 +419,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
-			to_chat(user, span_notice("You deconstruct the windoor."))
+			to_chat(user, "<span class='notice'>You deconstruct the windoor.</span>")
 			qdel(src)
 			return TRUE
 	return FALSE
@@ -511,13 +511,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			I.play_tool_sound(src)
 			panel_open = !panel_open
-			to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [name]."))
+			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
 			return
 
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] begins to deconstruct [name].", \
-									span_notice("You start to deconstruct from the [name]..."))
+									"<span class='notice'>You start to deconstruct from the [name]...</span>")
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						qdel(src)

@@ -9,7 +9,7 @@
 	rogue_types = list(/datum/nanite_program/brain_misfire, /datum/nanite_program/brain_decay)
 
 /datum/nanite_program/sleepy/on_trigger(comm_message)
-	to_chat(host_mob, span_warning("You start to feel very sleepy..."))
+	to_chat(host_mob, "<span class='warning'>You start to feel very sleepy...</span>")
 	host_mob.drowsyness += 20
 	addtimer(CALLBACK(host_mob, TYPE_PROC_REF(/mob/living, Sleeping), 200), rand(60,200))
 
@@ -24,11 +24,11 @@
 
 /datum/nanite_program/paralyzing/enable_passive_effect()
 	. = ..()
-	to_chat(host_mob, span_warning("Your muscles seize! You can't move!"))
+	to_chat(host_mob, "<span class='warning'>Your muscles seize! You can't move!</span>")
 
 /datum/nanite_program/paralyzing/disable_passive_effect()
 	. = ..()
-	to_chat(host_mob, span_notice("Your muscles relax, and you can move again."))
+	to_chat(host_mob, "<span class='notice'>Your muscles relax, and you can move again.</span>")
 
 /datum/nanite_program/shocking
 	name = "Electric Shock"
@@ -151,7 +151,7 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/sentence = extra_settings[NES_SENTENCE]
 		sent_message = sentence.get_value()
-	to_chat(host_mob, span_warning("You feel compelled to speak..."))
+	to_chat(host_mob, "<span class='warning'>You feel compelled to speak...</span>")
 	host_mob.say(sent_message, forced = "nanite speech")
 
 /datum/nanite_program/comm/voice
@@ -181,7 +181,7 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/message_setting = extra_settings[NES_MESSAGE]
 		sent_message = message_setting.get_value()
-	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
+	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"<span class='robot'>[html_encode(sent_message)]</span>\"")
 
 	// send message to ghosts
 	if(!COOLDOWN_FINISHED(src, ghost_notification_time))

@@ -134,11 +134,11 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(!battery)
-		to_chat(H, span_warning("You try to siphon energy from \the [target], but your power cell is gone!"))
+		to_chat(H, "<span class='warning'>You try to siphon energy from \the [target], but your power cell is gone!</span>")
 		return
 
 	if(istype(H) && H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-		to_chat(user, span_warning("You are already fully charged!"))
+		to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 		return
 
 	if(istype(target, /obj/machinery/power/apc))
@@ -147,7 +147,7 @@
 			powerdraw_loop(A, H, TRUE)
 			return
 		else
-			to_chat(user, span_warning("There is not enough charge to draw from that APC."))
+			to_chat(user, "<span class='warning'>There is not enough charge to draw from that APC.</span>")
 			return
 
 	if(isethereal(target))
@@ -157,10 +157,10 @@
 			powerdraw_loop(target_battery, H, FALSE)
 			return
 		else
-			to_chat(user, span_warning("There is not enough charge to draw from that being!"))
+			to_chat(user, "<span class='warning'>There is not enough charge to draw from that being!</span>")
 			return
 /obj/item/apc_powercord/proc/powerdraw_loop(atom/target, mob/living/carbon/human/H, apc_target)
-	H.visible_message(span_notice("[H] inserts a power connector into [target]."), span_notice("You begin to draw power from the [target]."))
+	H.visible_message("<span class='notice'>[H] inserts a power connector into [target].</span>", "<span class='notice'>You begin to draw power from the [target].</span>")
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(apc_target)
 		var/obj/machinery/power/apc/A = target
@@ -168,26 +168,26 @@
 			return
 		while(do_after(H, 10, target = A))
 			if(!battery)
-				to_chat(H, span_warning("You need a battery to recharge!"))
+				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
 				break
 			if(loc != H)
-				to_chat(H, span_warning("You must keep your connector out while charging!"))
+				to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 				break
 			if(A.cell.charge <= A.cell.maxcharge/4)
-				to_chat(H, span_warning("The [A] doesn't have enough charge to spare."))
+				to_chat(H, "<span class='warning'>The [A] doesn't have enough charge to spare.</span>")
 				break
 			A.charging = 1
 			if(A.cell.charge > A.cell.maxcharge/4 + 250)
 				battery.adjust_charge(250)
 				A.cell.charge -= 250
-				to_chat(H, span_notice("You siphon off some of the stored charge for your own use."))
+				to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 			else
 				battery.adjust_charge(A.cell.charge - A.cell.maxcharge/4)
 				A.cell.charge = A.cell.maxcharge/4
-				to_chat(H, span_notice("You siphon off as much as the [A] can spare."))
+				to_chat(H, "<span class='notice'>You siphon off as much as the [A] can spare.</span>")
 				break
 			if(battery.charge >= battery.max_charge)
-				to_chat(H, span_notice("You are now fully charged."))
+				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 				break
 	else
 		var/obj/item/organ/stomach/battery/A = target
@@ -196,22 +196,22 @@
 		var/charge_amt
 		while(do_after(H, 10, target = A.owner))
 			if(!battery)
-				to_chat(H, span_warning("You need a battery to recharge!"))
+				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
 				break
 			if(loc != H)
-				to_chat(H, span_warning("You must keep your connector out while charging!"))
+				to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 				break
 			if(A.charge == 0)
-				to_chat(H, span_warning("[A] is completely drained!"))
+				to_chat(H, "<span class='warning'>[A] is completely drained!</span>")
 				break
 			charge_amt = A.charge <= 50 ? A.charge : 50
 			A.adjust_charge(-1 * charge_amt)
 			battery.adjust_charge(charge_amt)
 			if(battery.charge >= battery.max_charge)
-				to_chat(H, span_notice("You are now fully charged."))
+				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 				break
 
-	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
+	H.visible_message("<span class='notice'>[H] unplugs from the [target].</span>", "<span class='notice'>You unplug from the [target].</span>")
 	return
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)

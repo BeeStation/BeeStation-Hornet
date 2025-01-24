@@ -43,17 +43,17 @@
 		if(!canmove)
 			return FALSE
 		if(!power_cell)
-			to_chat(user, span_warning("There seems to be no cell installed in [src]."))
+			to_chat(user, "<span class='warning'>There seems to be no cell installed in [src].</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
 		if(power_cell.charge < power_usage / max(power_efficiency, 1))
-			to_chat(user, span_warning("The display on [src] blinks 'Out of Power'."))
+			to_chat(user, "<span class='warning'>The display on [src] blinks 'Out of Power'.</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
 		if(user.usable_hands < arms_required)
-			to_chat(user, span_warning("You don't have enough arms to operate the motor controller!"))
+			to_chat(user, "<span class='warning'>You don't have enough arms to operate the motor controller!</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
@@ -83,7 +83,7 @@
 		power_cell.update_icon()
 		user.put_in_hands(power_cell)
 		power_cell = null
-		to_chat(user, span_notice("You remove the power cell from [src]."))
+		to_chat(user, "<span class='notice'>You remove the power cell from [src].</span>")
 		low_power_alerted = FALSE
 		return
 	return ..()
@@ -92,16 +92,16 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src)
 		panel_open = !panel_open
-		user.visible_message(span_notice("[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src]."), span_notice("You [panel_open ? "open" : "close"] the maintenance panel."))
+		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/stock_parts/cell))
 			if(power_cell)
-				to_chat(user, span_warning("There is a power cell already installed."))
+				to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
 			else
 				I.forceMove(src)
 				power_cell = I
-				to_chat(user, span_notice("You install the [I]."))
+				to_chat(user, "<span class='notice'>You install the [I].</span>")
 			refresh_parts()
 			return
 		if(istype(I, /obj/item/stock_parts))
@@ -116,16 +116,16 @@
 					if(B.get_part_rating() > A.get_part_rating())
 						B.forceMove(src)
 						user.put_in_hands(A)
-						user.visible_message(span_notice("[user] replaces [A] with [B] in [src]."), span_notice("You replace [A] with [B]."))
+						user.visible_message("<span class='notice'>[user] replaces [A] with [B] in [src].</span>", "<span class='notice'>You replace [A] with [B].</span>")
 						break
 			refresh_parts()
 			return
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, span_notice("You begin to detach the wheels..."))
+	to_chat(user, "<span class='notice'>You begin to detach the wheels...</span>")
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
+		to_chat(user, "<span class='notice'>You detach the wheels and deconstruct the chair.</span>")
 		new /obj/item/stack/rods(drop_location(), 8)
 		new /obj/item/stack/sheet/iron(drop_location(), 10)
 		var/turf/T = get_turf(src)
@@ -164,7 +164,7 @@
 			D.throw_at(throw_target, 2, 3)
 			D.Knockdown(80)
 			D.adjustStaminaLoss(35)
-			visible_message(span_danger("[src] crashes into [M], sending [H] and [D] flying!"))
+			visible_message("<span class='danger'>[src] crashes into [M], sending [H] and [D] flying!</span>")
 		else
-			visible_message(span_danger("[src] crashes into [M], sending [H] flying!"))
+			visible_message("<span class='danger'>[src] crashes into [M], sending [H] flying!</span>")
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)

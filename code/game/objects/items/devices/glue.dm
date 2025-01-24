@@ -9,7 +9,7 @@
 	var/drying_time = 30 SECONDS //Adminbus, woo! Set to 0 if you want the glue to work instantly
 
 /obj/item/syndie_glue/suicide_act(mob/living/M)
-	M.visible_message(span_suicide("[M] is drinking the whole bottle of glue! It looks like [M.p_theyre()] trying to commit suicide!"))
+	M.visible_message("<span class='suicide'>[M] is drinking the whole bottle of glue! It looks like [M.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS // read the warning n00b
 
 /obj/item/syndie_glue/afterattack(atom/target, mob/user, proximity)
@@ -18,12 +18,12 @@
 		return
 	else
 		if(uses <= 0) //Just in case it somehow goes below 0
-			to_chat(user, span_warning("\The [name] is empty!"))
+			to_chat(user, "<span class='warning'>\The [name] is empty!</span>")
 			return
 		if(istype(target, /obj/item))
 			var/obj/item/I = target
 			if(HAS_TRAIT_FROM(I, TRAIT_NODROP, GLUED_ITEM_TRAIT))
-				to_chat(user, span_warning("\The [I] is already sticky!"))
+				to_chat(user, "<span class='warning'>\The [I] is already sticky!</span>")
 				return
 			uses -= 1
 			if(uses <= 0)
@@ -32,10 +32,10 @@
 			if(drying_time > 0)
 				addtimer(CALLBACK(I, PROC_REF(get_glued)), drying_time)
 				I.register_glue_signals()
-				to_chat(user, span_notice("You smear \the [I] with glue, which will make it incredibly sticky once the glue dries!"))
+				to_chat(user, "<span class='notice'>You smear \the [I] with glue, which will make it incredibly sticky once the glue dries!</span>")
 			else
 				get_glued()
-				to_chat(user, span_notice("You smear \the [I] with glue, making it incredibly sticky!"))
+				to_chat(user, "<span class='notice'>You smear \the [I] with glue, making it incredibly sticky!</span>")
 			return
 
 /obj/item/proc/register_glue_signals()
@@ -47,5 +47,5 @@
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, GLUED_ITEM_TRAIT))
 		return
 	ADD_TRAIT(src, TRAIT_NODROP, GLUED_ITEM_TRAIT)
-	desc += span_notice(" It looks sticky.")
+	desc += "<span class='notice'> It looks sticky.</span>"
 	UnregisterSignal(src, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))

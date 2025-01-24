@@ -76,7 +76,7 @@
 			L.throw_at(throw_target, rand(1,2), 7, src)
 		else
 			L.Unconscious(20)
-			visible_message(span_danger("[src] knocks [L] out!"))
+			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)
@@ -102,7 +102,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/gorilla/can_use_guns(obj/item/G)
-	to_chat(src, span_warning("Your meaty finger is much too large for the trigger guard!"))
+	to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 	return FALSE
 
 

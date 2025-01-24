@@ -48,9 +48,9 @@
 		G.add_fingerprint(user)
 		G.forceMove(user.loc)
 		user.put_in_hands(G)
-		to_chat(user, span_notice("You take [G] out of \the [src]."))
+		to_chat(user, "<span class='notice'>You take [G] out of \the [src].</span>")
 	else
-		to_chat(user, span_warning("[src] is empty!"))
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 	update_icon()
 	add_fingerprint(user)
 	return ..()
@@ -70,9 +70,9 @@
 /obj/item/glove_box/attack_self(mob/user)
 	. = ..()
 	if(total_gloves > 0)
-		to_chat(user, span_warning("You can't fold this box with items still inside!"))
+		to_chat(user, "<span class='warning'>You can't fold this box with items still inside!</span>")
 		return
-	to_chat(user, span_notice("You fold [src] flat."))
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
 	qdel(src)
 	user.put_in_hands(new /obj/item/stack/sheet/cardboard())
 

@@ -19,7 +19,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	speaker = !speaker
-	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -60,7 +60,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	speaker = !speaker
-	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
 	. = ..()

@@ -115,7 +115,8 @@ GLOBAL_LIST(admin_antag_list)
 		if(tips)
 			show_tips(tips)
 		if(info_button)
-			to_chat(owner.current, span_boldnotice("For more info, read the panel. You can always come back to it using the button in the top left."))
+			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
+				You can always come back to it using the button in the top left.</span>")
 			info_button?.Trigger()
 		greet()
 	apply_innate_effects()
@@ -215,15 +216,15 @@ GLOBAL_LIST(admin_antag_list)
 				break
 
 	if(objectives.len == 0 || objectives_complete)
-		report += span_greentextbig("The [name] was successful!")
+		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
-		report += span_redtextbig("The [name] has failed!")
+		report += "<span class='redtext big'>The [name] has failed!</span>"
 
 	return report.Join("<br>")
 
 //Displayed at the start of roundend_category section, default to roundend_category header
 /datum/antagonist/proc/roundend_report_header()
-	return 	"[span_header("The [roundend_category] were:")]<br>"
+	return 	"<span class='header'>The [roundend_category] were:</span><br>"
 
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
@@ -388,7 +389,7 @@ GLOBAL_LIST(admin_antag_list)
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(CLOWNMUT)
 			if(!silent && message)
-				to_chat(C, span_boldnotice("[message]"))
+				to_chat(C, "<span class='boldnotice'>[message]</span>")
 		else
 			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
 

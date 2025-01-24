@@ -57,11 +57,11 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(I.item_flags & ABSTRACT)
 		return
 	if(!istype(I) || (I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION))
-		to_chat(user, span_warning("[M] won't accept [I]!"))
+		to_chat(user, "<span class='warning'>[M] won't accept [I]!</span>")
 		return
 	var/item_mats = I.get_material_composition(breakdown_flags) & materials.materials
 	if(!length(item_mats))
-		to_chat(user, span_warning("[I] does not contain sufficient materials to be accepted by [M]."))
+		to_chat(user, "<span class='warning'>[I] does not contain sufficient materials to be accepted by [M].</span>")
 		return
 	// assumes unlimited space...
 	var/amount = I.amount
@@ -104,11 +104,11 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 			if (sheets >= 1)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=1'>Eject</a>"
 			else
-				ui += span_linkoff("Eject")
+				ui += "<span class='linkOff'>Eject</span>"
 			if (sheets >= 20)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=20'>20x</a>"
 			else
-				ui += span_linkoff("20x")
+				ui += "<span class='linkOff'>20x</span>"
 			ui += "<b>[mat.name]</b>: [sheets] sheets<br>"
 			any = TRUE
 	if(!any)
@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(num_pages > 1)
 		for(var/i in 1 to num_pages)
 			if(i == page)
-				ui += span_linkoff("[i]")
+				ui += "<span class='linkOff'>[i]</span>"
 			else
 				ui += "<a href='?src=[REF(src)];page=[i]'>[i]</a>"
 
@@ -187,7 +187,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/ore_silo)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, span_notice("You log [src] in the [buffer_parent]'s buffer."))
+		to_chat(user, "<span class='notice'>You log [src] in the [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
@@ -207,7 +207,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
 
 /obj/machinery/ore_silo/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] can be linked to techfabs, circuit printers and protolathes with a multitool.")
+	. += "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>"
 
 /obj/machinery/ore_silo/on_object_saved(var/depth = 0)
 	if(depth >= 10)

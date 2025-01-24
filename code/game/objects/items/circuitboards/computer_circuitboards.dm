@@ -36,7 +36,7 @@
 /obj/item/circuitboard/computer/card/minor/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		target_dept = (target_dept == dept_list.len) ? 1 : (target_dept + 1)
-		to_chat(user, span_notice("You set the board to \"[dept_list[target_dept]]\"."))
+		to_chat(user, "<span class='notice'>You set the board to \"[dept_list[target_dept]]\".</span>")
 	else
 		return ..()
 
@@ -56,10 +56,10 @@
 		insecure = !insecure
 		if(insecure)
 			desc = "Tampering has removed some safety features from this circuit board. A screwdriver can undo this."
-			to_chat(user, span_notice("You disable the shuttle safety features of the board."))
+			to_chat(user, "<span class='notice'>You disable the shuttle safety features of the board.</span>")
 		else
 			desc = "Can be modified using a screwdriver."
-			to_chat(user, span_notice("You re-enable the shuttle safety features of the board."))
+			to_chat(user, "<span class='notice'>You re-enable the shuttle safety features of the board.</span>")
 	else
 		return ..()
 
@@ -245,11 +245,11 @@
 		if(build_path == /obj/machinery/computer/libraryconsole/bookmanagement)
 			name = "Library Visitor Console (Computer Board)"
 			build_path = /obj/machinery/computer/libraryconsole
-			to_chat(user, span_notice("Defaulting access protocols."))
+			to_chat(user, "<span class='notice'>Defaulting access protocols.</span>")
 		else
 			name = "Book Inventory Management Console (Computer Board)"
 			build_path = /obj/machinery/computer/libraryconsole/bookmanagement
-			to_chat(user, span_notice("Access protocols successfully updated."))
+			to_chat(user, "<span class='notice'>Access protocols successfully updated.</span>")
 	else
 		return ..()
 
@@ -380,11 +380,11 @@
 		if(build_path == /obj/machinery/computer/rdconsole/core)
 			name = "R&D Console - Robotics (Computer Board)"
 			build_path = /obj/machinery/computer/rdconsole/robotics
-			to_chat(user, span_notice("Access protocols successfully updated."))
+			to_chat(user, "<span class='notice'>Access protocols successfully updated.</span>")
 		else
 			name = "R&D Console (Computer Board)"
 			build_path = /obj/machinery/computer/rdconsole/core
-			to_chat(user, span_notice("Defaulting access protocols."))
+			to_chat(user, "<span class='notice'>Defaulting access protocols.</span>")
 	else
 		return ..()
 
@@ -460,14 +460,14 @@
 /obj/item/circuitboard/computer/cargo/multitool_act(mob/living/user)
 	if(!(obj_flags & EMAGGED))
 		contraband = !contraband
-		to_chat(user, span_notice("Receiver spectrum set to [contraband ? "Broad" : "Standard"]."))
+		to_chat(user, "<span class='notice'>Receiver spectrum set to [contraband ? "Broad" : "Standard"].</span>")
 	else
-		to_chat(user, span_notice("The spectrum chip is unresponsive."))
+		to_chat(user, "<span class='notice'>The spectrum chip is unresponsive.</span>")
 
 /obj/item/circuitboard/computer/cargo/on_emag(mob/user)
 	..()
 	contraband = TRUE
-	to_chat(user, span_notice("You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband."))
+	to_chat(user, "<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
 
 /obj/item/circuitboard/computer/cargo/configure_machine(obj/machinery/computer/cargo/machine)
 	if(!istype(machine))
@@ -486,7 +486,7 @@
 
 /obj/item/circuitboard/computer/cargo/express/on_emag(mob/user)
 	..()
-	to_chat(user, span_notice("You change the routing protocols, allowing the Drop Pod to land anywhere on the station."))
+	to_chat(user, "<span class='notice'>You change the routing protocols, allowing the Drop Pod to land anywhere on the station.</span>")
 
 /obj/item/circuitboard/computer/cargo/request
 	name = "supply request console (Computer Board)"
@@ -507,9 +507,9 @@
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		hacked = !hacked
 		if(hacked)
-			to_chat(user, span_notice("You disable the circuitboard's ID scanning protocols."))
+			to_chat(user, "<span class='notice'>You disable the circuitboard's ID scanning protocols.</span>")
 		else
-			to_chat(user, span_notice("You reset the circuitboard's ID scanning protocols."))
+			to_chat(user, "<span class='notice'>You reset the circuitboard's ID scanning protocols.</span>")
 		return
 	. = ..()
 

@@ -58,7 +58,7 @@
 
 /obj/machinery/recycler/examine(mob/user)
 	. = ..()
-	. += span_notice("Reclaiming <b>[amount_produced]%</b> of materials salvaged.")
+	. += "<span class='notice'>Reclaiming <b>[amount_produced]%</b> of materials salvaged.</span>"
 	. += "The power light is [(machine_stat & NOPOWER) ? "off" : "on"].\n"+\
 	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
 	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
@@ -84,7 +84,7 @@
 		safety_mode = FALSE
 		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
-	to_chat(user, span_notice("You use the cryptographic sequencer on [src]."))
+	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 	if(user)
 		emagged_by = key_name(user) // key_name is collected here instead of when it's logged so that it gets their current mob name, not whatever future mob they may have
 

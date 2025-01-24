@@ -33,8 +33,8 @@
 		egg.origin = mind
 	for(var/obj/item/organ/I in src)
 		I.forceMove(egg)
-	visible_message(span_warning("[src] plants something in [victim]'s flesh!"), \
-					span_danger("We inject our egg into [victim]'s body!"))
+	visible_message("<span class='warning'>[src] plants something in [victim]'s flesh!</span>", \
+					"<span class='danger'>We inject our egg into [victim]'s body!</span>")
 	egg_lain = 1
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
@@ -44,10 +44,10 @@
 		var/mob/living/carbon/C = target
 		if(C.stat >= UNCONSCIOUS)
 			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
-				to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another?"))
+				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 				return
 			Infect(target)
-			to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
+			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
 			addtimer(CALLBACK(src, PROC_REF(death)), 100)
 
 /obj/item/organ/body_egg/changeling_egg

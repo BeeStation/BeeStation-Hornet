@@ -67,7 +67,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	set_light(5)
 
 /obj/structure/light_prism/attack_hand(mob/user)
-	to_chat(user, span_notice("You dispel [src]."))
+	to_chat(user, "<span class='notice'>You dispel [src].</span>")
 	qdel(src)
 
 /datum/action/item_action/change_prism_colour
@@ -94,13 +94,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 		return
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	if(locate(/obj/structure/light_prism) in get_turf(owner))
-		to_chat(owner, span_warning("There isn't enough ambient energy to fabricate another light prism here."))
+		to_chat(owner, "<span class='warning'>There isn't enough ambient energy to fabricate another light prism here.</span>")
 		return
 	if(istype(glasses))
 		if(!glasses.glasses_color)
-			to_chat(owner, span_warning("The lens is oddly opaque..."))
+			to_chat(owner, "<span class='warning'>The lens is oddly opaque...</span>")
 			return
-		to_chat(owner, span_notice("You channel nearby light into a glowing, ethereal prism."))
+		to_chat(owner, "<span class='notice'>You channel nearby light into a glowing, ethereal prism.</span>")
 		new /obj/structure/light_prism(get_turf(owner), glasses.glasses_color)
 
 /obj/item/clothing/head/peaceflower
@@ -136,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)
-			to_chat(user, span_warning("You feel at peace. <b style='color:pink'>Why would you want anything else?</b>"))
+			to_chat(user, "<span class='warning'>You feel at peace. <b style='color:pink'>Why would you want anything else?</b></span>")
 			return
 	return ..()
 

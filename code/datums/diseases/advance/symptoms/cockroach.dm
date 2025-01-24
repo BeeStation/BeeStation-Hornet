@@ -34,29 +34,29 @@
 	switch(A.stage)
 		if(2)
 			if(prob(50))
-				to_chat(M, span_notice("You feel a tingle under your skin."))
+				to_chat(M, "<span class='notice'>You feel a tingle under your skin.</span>")
 		if(3)
 			if(prob(50))
-				to_chat(M, span_notice("Your pores feel drafty."))
+				to_chat(M, "<span class='notice'>Your pores feel drafty.</span>")
 			if(prob(5))
-				to_chat(M, span_notice("You feel attuned to the atmosphere."))
+				to_chat(M, "<span class='notice'>You feel attuned to the atmosphere.</span>")
 		if(4)
 			if(prob(50))
-				to_chat(M, span_notice("You feel in tune with the station."))
+				to_chat(M, "<span class='notice'>You feel in tune with the station.</span>")
 		if(5)
 			if(prob(30))
-				M.visible_message(span_danger("[M] squirms as a cockroach crawls from their pores!"), \
-									span_userdanger("A cockroach crawls out of your face!!"))
+				M.visible_message("<span class='danger'>[M] squirms as a cockroach crawls from their pores!</span>", \
+									"<span class='userdanger'>A cockroach crawls out of your face!!</span>")
 				new /mob/living/basic/cockroach(M.loc)
 			if(prob(50))
-				to_chat(M, span_notice("You feel something crawling in your pipes!"))
+				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")
 
 /datum/symptom/cockroach/OnDeath(datum/disease/advance/A)
 	if(!..())
 		return
 	if(death_roaches)
 		var/mob/living/M = A.affected_mob
-		to_chat(M, span_warning("Your pores explode into a colony of roaches!"))
+		to_chat(M, "<span class='warning'>Your pores explode into a colony of roaches!</span>")
 		for(var/i in 1 to rand(1,5))
 			new /mob/living/basic/cockroach(M.loc)
 

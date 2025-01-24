@@ -116,10 +116,10 @@
 /obj/machinery/satellite/proc/toggle(mob/user)
 	if(!active && !isinspace())
 		if(user)
-			to_chat(user, span_warning("You can only activate [src] in space."))
+			to_chat(user, "<span class='warning'>You can only activate [src] in space.</span>")
 		return FALSE
 	if(user)
-		to_chat(user, span_notice("You [active ? "deactivate": "activate"] [src]."))
+		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src].</span>")
 	set_anchored(!anchored)
 	return TRUE
 
@@ -127,7 +127,7 @@
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, span_notice("// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[(obj_flags & EMAGGED) ? "DEBUG_MODE //" : ""]"))
+	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[(obj_flags & EMAGGED) ? "DEBUG_MODE //" : ""]</span>")
 	return TRUE
 
 /obj/item/meteor_shield
@@ -190,6 +190,6 @@
 
 /obj/machinery/satellite/meteor_shield/on_emag(mob/user)
 	..()
-	to_chat(user, span_notice("You access the satellite's debug mode, increasing the chance of meteor strikes."))
+	to_chat(user, "<span class='notice'>You access the satellite's debug mode, increasing the chance of meteor strikes.</span>")
 	if(active)
 		change_meteor_chance(2)

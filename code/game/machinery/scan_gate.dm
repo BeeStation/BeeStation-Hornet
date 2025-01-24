@@ -50,9 +50,9 @@
 /obj/machinery/scanner_gate/examine(mob/user)
 	. = ..()
 	if(locked)
-		. += span_notice("The control panel is ID-locked. Swipe a valid ID to unlock it.")
+		. += "<span class='notice'>The control panel is ID-locked. Swipe a valid ID to unlock it.</span>"
 	else
-		. += span_notice("The control panel is unlocked. Swipe an ID to lock it.")
+		. += "<span class='notice'>The control panel is unlocked. Swipe an ID to lock it.</span>"
 
 /obj/machinery/scanner_gate/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -77,18 +77,18 @@
 			if(allowed(user))
 				locked = FALSE
 				req_access = list()
-				to_chat(user, span_notice("You unlock [src]."))
+				to_chat(user, "<span class='notice'>You unlock [src].</span>")
 				//Update to viewers
 				ui_update()
 		else if(!(obj_flags & EMAGGED))
-			to_chat(user, span_notice("You lock [src] with [W]."))
+			to_chat(user, "<span class='notice'>You lock [src] with [W].</span>")
 			var/list/access = W.GetAccess()
 			req_access = access
 			locked = TRUE
 			//Update to viewers
 			ui_update()
 		else
-			to_chat(user, span_warning("You try to lock [src] with [W], but nothing happens."))
+			to_chat(user, "<span class='warning'>You try to lock [src] with [W], but nothing happens.</span>")
 	else
 		return ..()
 
@@ -96,7 +96,7 @@
 	..()
 	locked = FALSE
 	req_access = list()
-	to_chat(user, span_notice("You fry the ID checking system."))
+	to_chat(user, "<span class='notice'>You fry the ID checking system.</span>")
 	//Update to viewers
 	ui_update()
 

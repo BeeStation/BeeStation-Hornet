@@ -39,9 +39,9 @@
 
 /datum/heretic_knowledge/curse/paralysis/curse(mob/living/carbon/human/chosen_mob)
 	if(chosen_mob.usable_legs <= 0) // What're you gonna do, curse someone who already can't walk?
-		to_chat(chosen_mob, span_notice("You feel a slight pain for a moment, but it passes shortly. Odd."))
+		to_chat(chosen_mob, "<span class='notice'>You feel a slight pain for a moment, but it passes shortly. Odd.</span>")
 	else
-		to_chat(chosen_mob, span_danger("You suddenly lose feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!"))
+		to_chat(chosen_mob, "<span class='danger'>You suddenly lose feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!</span>")
 
 	ADD_TRAIT(chosen_mob, TRAIT_PARALYSIS_L_LEG, type)
 	ADD_TRAIT(chosen_mob, TRAIT_PARALYSIS_R_LEG, type)
@@ -54,9 +54,9 @@
 	REMOVE_TRAIT(chosen_mob, TRAIT_PARALYSIS_R_LEG, type)
 
 	if(chosen_mob.usable_legs <= 0) // What're you gonna do, curse someone who already can't walk?
-		to_chat(chosen_mob, span_notice("The slight pain returns, but disperses shortly."))
+		to_chat(chosen_mob, "<span class='notice'>The slight pain returns, but disperses shortly.</span>")
 	else
-		to_chat(chosen_mob, span_notice("You regain feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!"))
+		to_chat(chosen_mob, "<span class='notice'>You regain feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!</span>")
 
 /datum/heretic_knowledge/summon/ashy
 	name = "Ashen Ritual"

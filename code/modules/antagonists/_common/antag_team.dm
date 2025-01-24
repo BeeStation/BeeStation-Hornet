@@ -38,12 +38,12 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	var/list/report = list()
 
-	report += span_header("[name]:")
+	report += "<span class='header'>[name]:</span>"
 	report += "The [member_name]s were:"
 	report += printplayerlist(members)
 
 	if(objectives.len)
-		report += span_header("Team had following objectives:")
+		report += "<span class='header'>Team had following objectives:</span>"
 		var/win = TRUE
 		var/objective_count = 1
 		for(var/datum/objective/objective in objectives)
@@ -52,9 +52,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			report += "<B>Objective #[objective_count]</B>: [objective.get_completion_message()]"
 			objective_count++
 		if(win)
-			report += span_greentext("The [name] was successful!")
+			report += "<span class='greentext'>The [name] was successful!</span>"
 		else
-			report += span_redtext("The [name] have failed!")
+			report += "<span class='redtext'>The [name] have failed!</span>"
 
 
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"

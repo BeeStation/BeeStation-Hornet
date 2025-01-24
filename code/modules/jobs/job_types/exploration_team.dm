@@ -46,16 +46,16 @@
 	switch(exploration_job_id)
 		//Scientist is most important due to scanner
 		if(1)
-			to_chat(H, span_noticebig("You are the exploration team's <span class'sciradio'>Scientist!"))
-			to_chat(H, span_notice("Scan undiscovered creates to gain discovery research points!"))
+			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'sciradio'>Scientist</span>!</span>")
+			to_chat(H, "<span class='notice'>Scan undiscovered creates to gain discovery research points!</span>")
 			outfit_override = /datum/outfit/job/exploration_crew/scientist
 		if(2)
-			to_chat(H, span_noticebig("You are the exploration team's <span class'medradio'>Medical Doctor!"))
-			to_chat(H, span_notice("Ensure your team's health by locating and healing injured team members."))
+			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'medradio'>Medical Doctor</span>!</span>")
+			to_chat(H, "<span class='notice'>Ensure your team's health by locating and healing injured team members.</span>")
 			outfit_override = /datum/outfit/job/exploration_crew/medic
 		if(3)
-			to_chat(H, span_noticebig("You are the exploration team's <span class'engradio'>Engineer!"))
-			to_chat(H, span_notice("Create entry points with your explosives and maintain the hull of your ship."))
+			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'engradio'>Engineer</span>!</span>")
+			to_chat(H, "<span class='notice'>Create entry points with your explosives and maintain the hull of your ship.</span>")
 			outfit_override = /datum/outfit/job/exploration_crew/engineer
 	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
 

@@ -21,7 +21,7 @@
 
 /obj/item/picket_sign/proc/retext(mob/user)
 	if(!user.is_literate())
-		to_chat(user, span_notice("You scribble illegibly on [src]!"))
+		to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
 		return
 	var/txt = stripped_input(user, "What would you like to write on the sign?", "Sign Label", null , 30)
 	if(txt && user.canUseTopic(src, BE_CLOSE))
@@ -39,8 +39,8 @@
 	if( last_wave + 20 < world.time )
 		last_wave = world.time
 		if(label)
-			user.visible_message(span_warning("[user] waves around \the \"[label]\" sign."))
+			user.visible_message("<span class='warning'>[user] waves around \the \"[label]\" sign.</span>")
 		else
-			user.visible_message(span_warning("[user] waves around blank sign."))
+			user.visible_message("<span class='warning'>[user] waves around blank sign.</span>")
 		user.changeNext_move(CLICK_CD_MELEE)
 

@@ -60,7 +60,7 @@
 		"Transparent" = "pda-clear",
 		"Syndicate" = "pda-syndi"
 	)
-	to_chat(user, span_warning("You short out the design locking circuitry, allowing contraband and special designs."))
+	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
@@ -116,7 +116,7 @@
 
 	else if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(storedpda)
-			to_chat(user, span_warning("There is already a PDA inside!"))
+			to_chat(user, "<span class='warning'>There is already a PDA inside!</span>")
 			return
 		else if(!user.transferItemToLoc(O, src))
 			return
@@ -129,7 +129,7 @@
 		if(!new_id.electric)
 			return
 		if(storedid)
-			to_chat(user, span_warning("There is already an ID card inside!"))
+			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
 			return
 		else if(!user.transferItemToLoc(O, src))
 			return
@@ -142,17 +142,17 @@
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
-							span_notice("You begin repairing [src]..."), \
-							span_italics("You hear welding."))
+							"<span class='notice'>You begin repairing [src]...</span>", \
+							"<span class='italics'>You hear welding.</span>")
 			if(O.use_tool(src, user, 40, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
-				to_chat(user, span_notice("You repair [src]."))
+				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
 				atom_integrity = max_integrity
 				update_icon()
 		else
-			to_chat(user, span_notice("[src] does not need repairs."))
+			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
 		return ..()
 
@@ -193,7 +193,7 @@
 				// There are the same code lines in `card.dm`
 				ejectid()
 		else
-			to_chat(user, span_notice("[src] is empty."))
+			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -201,9 +201,9 @@
 	if(storedpda || storedid)
 		ejectid()
 		ejectpda()
-		to_chat(usr, span_notice("You eject the contents."))
+		to_chat(usr, "<span class='notice'>You eject the contents.</span>")
 	else
-		to_chat(usr, span_notice("[src] is empty."))
+		to_chat(usr, "<span class='notice'>[src] is empty.")
 
 
 /obj/machinery/pdapainter/proc/ejectpda()
@@ -212,7 +212,7 @@
 		storedpda = null
 		update_icon()
 	else
-		to_chat(usr, span_notice("[src] is empty."))
+		to_chat(usr, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/proc/ejectid()
 	if(storedid)

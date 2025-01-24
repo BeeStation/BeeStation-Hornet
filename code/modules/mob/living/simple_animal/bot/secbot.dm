@@ -173,9 +173,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, span_danger("You short out [src]'s target assessment circuits."))
+			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
-		audible_message(span_danger("[src] buzzes oddly!"))
+		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = FALSE
 		update_icon()
 
@@ -212,8 +212,8 @@
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),\
-						span_userdanger("[src] is trying to put zipties on you!"))
+	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
+						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 	addtimer(CALLBACK(src, PROC_REF(attempt_handcuff), C), 60)
 
 /mob/living/simple_animal/bot/secbot/proc/attempt_handcuff(mob/living/carbon/C)
@@ -243,8 +243,8 @@
 	C.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
 	C.apply_effect(EFFECT_STUTTER, 50)
 	C.visible_message(
-		span_danger("[src] has stunned [C]!"),\
-		span_userdanger("[src] has stunned you!")
+		"<span class='danger'>[src] has stunned [C]!</span>",\
+		"<span class='userdanger'>[src] has stunned you!</span>"
 	)
 
 	log_combat(src, C, "stunned")
@@ -388,7 +388,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/secbot/explode()
-	visible_message(span_boldannounce("[src] blows apart!"))
+	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/atom/Tsec = drop_location()
 
 	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)

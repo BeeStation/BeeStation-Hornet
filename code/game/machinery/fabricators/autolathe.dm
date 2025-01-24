@@ -91,11 +91,11 @@
 
 	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
-		to_chat(user, span_warning("You [security_interface_locked?"lock":"unlock"] the security controls of [src]."))
+		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
 		return TRUE
 
 	if (busy)
-		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
+		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))

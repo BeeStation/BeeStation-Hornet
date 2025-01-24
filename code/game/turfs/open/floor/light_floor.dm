@@ -18,9 +18,9 @@
 
 /turf/open/floor/light/examine(mob/user)
 	. = ..()
-	. += span_notice("There's a <b>small crack</b> on the edge of it.")
+	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 	if(broken)
-		. += span_notice("It seems to be completely broken.")
+		. += "<span class='notice'>It seems to be completely broken.</span>"
 
 /turf/open/floor/light/Initialize(mapload)
 	. = ..()
@@ -86,9 +86,9 @@
 			qdel(C)
 			state = 0 //fixing it by bashing it with a light bulb, fun eh?
 			update_icon()
-			to_chat(user, span_notice("You replace the light bulb."))
+			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 		else
-			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
+			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
 
 
 //Cycles through all of the colours

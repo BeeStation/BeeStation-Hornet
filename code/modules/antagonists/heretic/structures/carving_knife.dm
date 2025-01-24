@@ -39,10 +39,10 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += span_notice("<b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.")
-	. += span_info("The following runes can be carved:")
+	. += "<span class='notice'><b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.</span>"
+	. += "<span class='info'>The following runes can be carved:</span>"
 	for(var/obj/structure/trap/eldritch/trap as anything in subtypesof(/obj/structure/trap/eldritch))
-		var/potion_string = span_info("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "")
+		var/potion_string = "<span class='info'>\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "</span>"
 		. += potion_string
 
 /obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
 	var/mob/living/real_owner = owner?.resolve()
 	if(real_owner)
-		to_chat(real_owner, span_userdanger("[victim.real_name] has stepped on the alert rune in [get_area(src)]!"))
+		to_chat(real_owner, "<span class='userdanger'>[victim.real_name] has stepped on the alert rune in [get_area(src)]!</span>")
 		real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle

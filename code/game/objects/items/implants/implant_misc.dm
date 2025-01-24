@@ -33,7 +33,7 @@
 /obj/item/implant/adrenalin/activate()
 	. = ..()
 	uses--
-	to_chat(imp_in, span_notice("You feel a sudden surge of energy!"))
+	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
 	imp_in.SetStun(0)
 	imp_in.SetKnockdown(0)
 	imp_in.SetUnconscious(0)
@@ -160,7 +160,7 @@
 
 /obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user)
 	if(!user.mind.has_antag_datum(/datum/antagonist/incursion))
-		user.visible_message(span_warning("[imp_in] starts beeping ominously!"), span_userdanger("You have a sudden feeling of dread. The implant is rigged to explode!"))
+		user.visible_message("<span class='warning'>[imp_in] starts beeping ominously!</span>", "<span class='userdanger'>You have a sudden feeling of dread. The implant is rigged to explode!</span>")
 		playsound(user, 'sound/items/timer.ogg', 30, 0)
 		explosion(src,0,0,2,2, flame_range = 2)
 		user.gib(1)

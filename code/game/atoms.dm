@@ -631,7 +631,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	if(z && user.z != z) // Z-mimic
 		var/diff = abs(user.z - z)
-		. += span_boldnotice("[p_theyre(TRUE)] [diff] level\s below you.")
+		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
 
 	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
 		for(var/i in custom_materials)
@@ -666,22 +666,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 						else
 							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
 					if(reagents.total_volume)
-						. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
-						. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
+						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])</span>"
+						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="", and_text="")].</span>"
 				//-------------------------------
 			else
 				. += "Nothing."
 		else if(reagents.flags & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += span_notice("It has [reagents.total_volume] unit\s left.")
+				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
-				. += span_danger("It's empty.")
+				. += "<span class='danger'>It's empty.</span>"
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
 		var/list/souls = return_souls()
 		if(!length(souls))
 			return
-		to_chat(user, span_notice("You sense a presence here..."))
+		to_chat(user, "<span class='notice'>You sense a presence here...")
 		//Count of souls
 		var/list/present_souls = list()
 		for(var/soul in souls)
@@ -690,7 +690,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		for(var/soul in present_souls)
 			if(!present_souls[soul] || !GLOB.soul_glimmer_colors[soul])
 				continue
-			to_chat(user, "\t[span_notice("<span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]")], [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+			to_chat(user, "\t<span class='notice'><span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -823,7 +823,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/relaymove(mob/living/user, direction)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
-		to_chat(user, span_warning("You can't move while buckled to [src]!"))
+		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
 	return
 
 /// Handle what happens when your contents are exploded by a bomb
@@ -1100,7 +1100,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
 	progress.end_progress()
-	to_chat(user, span_notice("You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can."))
+	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
 	STR.orient2hud(user)
 	src_object.orient2hud(user)
 	if(user.active_storage) //refresh the HUD to show the transfered contents
@@ -1329,7 +1329,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 						else
 							valid_id = TRUE
 						if(!valid_id)
-							to_chat(usr, span_warning("A reagent with that ID doesn't exist!"))
+							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
 
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
@@ -1343,7 +1343,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				if(amount)
 					reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
-					message_admins(span_notice("[key_name(usr)] has added [amount] units of [chosen_id] to [src]"))
+					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to [src]</span>")
 
 	if(href_list[VV_HK_TRIGGER_EXPLOSION] && check_rights(R_FUN))
 		usr.client.cmd_admin_explosion(src)
@@ -1377,8 +1377,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				for(var/armor_key in armor_all)
 					message += "[armor_key]=[get_armor_rating(armor_key)],"
 				message = copytext(message, 1, -1)
-				log_admin(span_notice("[message]"))
-				message_admins(span_notice("[message]"))
+				log_admin("<span class='notice'>[message]</span>")
+				message_admins("<span class='notice'>[message]</span>")
 
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
@@ -1532,7 +1532,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 /atom/proc/StartProcessingAtom(mob/living/user, obj/item/process_item, list/chosen_option)
 	var/processing_time = chosen_option[TOOL_PROCESSING_TIME]
-	to_chat(user, span_notice("You start working on [src]"))
+	to_chat(user, "<span class='notice'>You start working on [src]</span>")
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
 		var/list/atom/created_atoms = list()
@@ -1545,7 +1545,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				created_atom.pixel_x += rand(-8,8)
 				created_atom.pixel_y += rand(-8,8)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
-			to_chat(user, span_notice("You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src]."))
+			to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
 			created_atoms.Add(created_atom)
 		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
 		UsedforProcessing(user, process_item, chosen_option)
@@ -1982,7 +1982,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 			new /obj/effect/hotspot(T)
 		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
 		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
-		T.visible_message("<b>[span_userdanger("[src] ignites in a brilliant flash!")]</b>")
+		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
 		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
 			return TRUE
 		else if(isturf(src))

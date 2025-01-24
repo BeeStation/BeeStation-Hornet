@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(vote)
 		if(!active_admins)
 			SSticker.Reboot("Restart vote successful.", "restart vote")
 		else
-			to_chat(world, span_boldannounce("Notice:Restart vote will not restart the server automatically because there are active admins on."))
+			to_chat(world, "<span style='boldannounce'>Notice:Restart vote will not restart the server automatically because there are active admins on.</span>")
 			message_admins("A restart vote has passed, but there are active admins on with +server, so it has been canceled. If you wish, you may restart the server.")
 
 	return .
@@ -187,13 +187,13 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
 	//Server is still intializing.
 	if(!MC_RUNNING(init_stage))
-		to_chat(usr, span_warning("Cannot start vote, server is not done initializing."))
+		to_chat(usr, "<span class='warning>Cannot start vote, server is not done initializing.</span>")
 		return FALSE
 	if(!mode)
 		if(started_time)
 			var/next_allowed_time = (started_time + CONFIG_GET(number/vote_delay))
 			if(mode)
-				to_chat(usr, span_warning("There is already a vote in progress! please wait for it to finish."))
+				to_chat(usr, "<span class='warning'>There is already a vote in progress! please wait for it to finish.</span>")
 				return 0
 
 			var/lower_admin = FALSE
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(vote)
 				lower_admin = TRUE
 
 			if(next_allowed_time > world.time && !lower_admin)
-				to_chat(usr, span_warning("A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!"))
+				to_chat(usr, "<span class='warning'>A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!</span>")
 				return 0
 
 		reset()

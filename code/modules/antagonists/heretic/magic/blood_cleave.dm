@@ -28,8 +28,8 @@
 			continue
 		if(victim.anti_magic_check())
 			victim.visible_message(
-				span_danger("[victim]'s body flashes in a fiery glow, but repels the blaze!"),
-				span_danger("Your body begins to flash in a fiery glow, but you are protected!")
+				"<span class='danger'>[victim]'s body flashes in a fiery glow, but repels the blaze!</span>",
+				"<span class='danger'>Your body begins to flash in a fiery glow, but you are protected!</span>"
 			)
 			continue
 
@@ -37,8 +37,8 @@
 			continue
 
 		victim.visible_message(
-			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
-			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
+			"<span class='danger'>[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!</span>",
+			"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>"
 		)
 
 		victim.add_bleeding(BLEED_DEEP_WOUND)

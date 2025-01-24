@@ -17,11 +17,11 @@
 	. = ..()
 	if(reagents)
 		if(volume == reagents.total_volume)
-			. += span_notice("It is fully filled.")
+			. += "<span class='notice'>It is fully filled.</span>"
 		else if(!reagents.total_volume)
-			. += span_notice("It's empty.")
+			. += "<span class='notice'>It's empty.</span>"
 		else
-			. += span_notice("It seems [round(reagents.total_volume/volume*100)]% filled.")
+			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
 // this is specifically made as an example for a sleeper feature that uses a chem bag at roundstart.
 /obj/item/reagent_containers/chem_bag/oxy_mix

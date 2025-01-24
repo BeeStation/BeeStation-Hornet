@@ -22,12 +22,12 @@ Also, you never added distance checking after target is selected. I've went ahea
 /obj/effect/proc_holder/spell/targeted/mind_transfer/cast(list/targets, mob/living/user = usr, distanceoverride, silent = FALSE)
 	if(!targets.len)
 		if(!silent)
-			to_chat(user, span_warning("No mind found!"))
+			to_chat(user, "<span class='warning'>No mind found!</span>")
 		return
 
 	if(targets.len > 1)
 		if(!silent)
-			to_chat(user, span_warning("Too many minds! You're not a hive damnit!"))
+			to_chat(user, "<span class='warning'>Too many minds! You're not a hive damnit!</span>")
 		return
 
 	var/mob/living/target = targets[1]
@@ -37,38 +37,38 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	if(!(target in oview(range)) && !distanceoverride)//If they are not in overview after selection. Do note that !() is necessary for in to work because ! takes precedence over it.
 		if(!silent)
-			to_chat(user, span_warning("[t_He] [t_is] too far away!"))
+			to_chat(user, "<span class='warning'>[t_He] [t_is] too far away!</span>")
 		return
 
 	if(ismegafauna(target))
 		if(!silent)
-			to_chat(user, span_warning("This creature is too powerful to control!"))
+			to_chat(user, "<span class='warning'>This creature is too powerful to control!</span>")
 		return
 
 	if(target.stat == DEAD)
 		if(!silent)
-			to_chat(user, span_warning("You don't particularly want to be dead!"))
+			to_chat(user, "<span class='warning'>You don't particularly want to be dead!</span>")
 		return
 
 	if(!target.key || !target.mind)
 		if(!silent)
-			to_chat(user, span_warning("[t_He] appear[target.p_s()] to be catatonic! Not even magic can affect [target.p_their()] vacant mind."))
+			to_chat(user, "<span class='warning'>[t_He] appear[target.p_s()] to be catatonic! Not even magic can affect [target.p_their()] vacant mind.</span>")
 		return
 
 	if(user.suiciding)
 		if(!silent)
-			to_chat(user, span_warning("You're killing yourself! You can't concentrate enough to do this!"))
+			to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
 		return
 
 	var/datum/mind/TM = target.mind
 	if(target.anti_magic_check() || TM.has_antag_datum(/datum/antagonist/wizard) || TM.has_antag_datum(/datum/antagonist/cult) || TM.has_antag_datum(/datum/antagonist/changeling) || TM.has_antag_datum(/datum/antagonist/rev) || target.key[1] == "@")
 		if(!silent)
-			to_chat(user, span_warning("[target.p_their(TRUE)] mind is resisting your spell!"))
+			to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is resisting your spell!</span>")
 		return
 
 	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-		to_chat(target, span_warning("Your protective headgear successfully deflects mind controlling brainwaves!"))
-		to_chat(user, span_warning("[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!"))
+		to_chat(target, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
+		to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!</span>")
 		return
 
 	if(istype(target, /mob/living/simple_animal/hostile/holoparasite))
@@ -76,13 +76,13 @@ Also, you never added distance checking after target is selected. I've went ahea
 		if(stand.summoner)
 			if(stand.summoner == user)
 				if(!silent)
-					to_chat(user, span_warning("Swapping minds with your own guardian would just put you back into your own head!"))
+					to_chat(user, "<span class='warning'>Swapping minds with your own guardian would just put you back into your own head!</span>")
 				return
 			else
 				target = stand.summoner
 
 	if(istype(target, /mob/living/simple_animal/slaughter)) //No.
-		to_chat(user, span_warning("Your mind recoils from the infernal hellfire of [target]'s soul!"))
+		to_chat(user, "<span class='warning'>Your mind recoils from the infernal hellfire of [target]'s soul!</span>")
 		user.Unconscious(unconscious_amount_caster)
 		return
 

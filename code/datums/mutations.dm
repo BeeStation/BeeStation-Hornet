@@ -65,7 +65,7 @@
 	for(var/datum/mutation/M as() in C.dna.mutations)//check for conflicting powers
 		if(!(M.type in conflicts) && !(type in M.conflicts))
 			continue
-		to_chat(C, span_warning("You feel your genes resisting something."))
+		to_chat(C, "<span class='warning'>You feel your genes resisting something.</span>")
 		return TRUE
 	owner = C
 	dna = C.dna

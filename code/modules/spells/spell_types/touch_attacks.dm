@@ -11,7 +11,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/Destroy()
 	remove_hand()
-	to_chat(usr, span_notice("The power of the spell dissipates from your hand."))
+	to_chat(usr, "<span class='notice'>The power of the spell dissipates from your hand.</span>")
 	..()
 
 /obj/effect/proc_holder/spell/targeted/touch/proc/remove_hand()
@@ -30,7 +30,7 @@
 /obj/effect/proc_holder/spell/targeted/touch/cast(list/targets,mob/user = usr)
 	if(!QDELETED(attached_hand))
 		remove_hand()
-		to_chat(user, span_notice("[dropmessage]"))
+		to_chat(user, "<span class='notice'>[dropmessage]</span>")
 		return
 
 	for(var/mob/living/carbon/target in targets)
@@ -51,12 +51,12 @@
 	if(!user.put_in_hands(attached_hand))
 		remove_hand()
 		if (user.usable_hands == 0)
-			to_chat(user, span_warning("You dont have any usable hands!"))
+			to_chat(user, "<span class='warning'>You dont have any usable hands!</span>")
 		else
-			to_chat(user, span_warning("Your hands are full!"))
+			to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return FALSE
 	spell_used = FALSE
-	to_chat(user, span_notice("[drawmessage]"))
+	to_chat(user, "<span class='notice'>[drawmessage]</span>")
 	return TRUE
 
 

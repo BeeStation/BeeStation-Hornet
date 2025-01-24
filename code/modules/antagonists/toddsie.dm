@@ -15,7 +15,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/eldritch/narsie/toddsie/greeting_message()
-	send_to_playing_players(span_narsie("TODD'SIE HAS RISEN. BUY. SKYRIM."))
+	send_to_playing_players("<span class='narsie'>TODD'SIE HAS RISEN. BUY. SKYRIM.</span>")
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')
 	var/area/A = get_area(src)
 	if(A)
@@ -27,9 +27,9 @@
 	var/datum/component/singularity/singularity_component = singularity.resolve()
 	if(food == singularity_component?.target)
 		return
-	to_chat(singularity_component?.target, span_cultsmall("TODD'SIE HAS LOST INTEREST IN YOU."))
+	to_chat(singularity_component?.target, "<span class='cultsmall'>TODD'SIE HAS LOST INTEREST IN YOU.</span>")
 	singularity_component?.target = food
 	if(ishuman(singularity_component?.target))
-		to_chat(singularity_component?.target, span_cult("TODD'SIE HUNGERS FOR YOUR SOUL."))
+		to_chat(singularity_component?.target, "<span class ='cult'>TODD'SIE HUNGERS FOR YOUR SOUL.</span>")
 	else
-		to_chat(singularity_component?.target, span_cult("TODD'SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL."))
+		to_chat(singularity_component?.target, "<span class ='cult'>TODD'SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL.</span>")

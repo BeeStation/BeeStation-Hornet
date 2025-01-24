@@ -20,9 +20,9 @@
 		button_icon_state = "fake_death"
 		UpdateButtonIcon()
 		chemical_cost = 15
-		to_chat(user, span_notice("We have revived ourselves."))
+		to_chat(user, "<span class='notice'>We have revived ourselves.</span>")
 	else
-		to_chat(user, span_notice("We begin our stasis, preparing energy to arise once more."))
+		to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
 		user.fakedeath("changeling") //play dead
 		addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user.mind), LING_FAKEDEATH_TIME, TIMER_UNIQUE)
 	return TRUE
@@ -39,7 +39,7 @@
 		return
 	var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
 	if(C?.purchasedpowers)
-		to_chat(mind.current, span_notice("We are ready to revive."))
+		to_chat(mind.current, "<span class='notice'>We are ready to revive.</span>")
 		name = "Revive"
 		desc = "We arise once more."
 		button_icon_state = "revive"
@@ -49,10 +49,10 @@
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HUSK))
-		to_chat(user, span_warning("This body is too damaged to revive!."))
+		to_chat(user, "<span class='warning'>This body is too damaged to revive!.</span>")
 		return
 	if(HAS_TRAIT_FROM(user, TRAIT_DEATHCOMA, "changeling") && !revive_ready)
-		to_chat(user, span_warning("We are already reviving."))
+		to_chat(user, "<span class='warning'>We are already reviving.</span>")
 		return
 	if(!user.stat && !revive_ready) //Confirmation for living changelings if they want to fake their death
 		switch(alert("Are we sure we wish to fake our own death?",,"Yes", "No"))

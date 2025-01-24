@@ -60,7 +60,7 @@
 /datum/component/living_heart/proc/on_organ_removed(obj/item/organ/source, mob/living/carbon/old_owner)
 	SIGNAL_HANDLER
 
-	to_chat(old_owner, span_userdanger("As your living [source.name] leaves your body, you feel less connected to the Mansus!"))
+	to_chat(old_owner, "<span class='userdanger'>As your living [source.name] leaves your body, you feel less connected to the Mansus!</span>")
 	qdel(src)
 
 /*

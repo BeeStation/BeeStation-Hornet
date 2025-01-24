@@ -19,16 +19,16 @@
 /obj/item/banner/examine(mob/user)
 	. = ..()
 	if(inspiration_available)
-		. += span_notice("Activate it in your hand to inspire nearby allies of this banner's allegiance!")
+		. += "<span class='notice'>Activate it in your hand to inspire nearby allies of this banner's allegiance!</span>"
 
 /obj/item/banner/attack_self(mob/living/carbon/human/user)
 	if(!inspiration_available)
 		return
 	if(morale_time > world.time)
-		to_chat(user, span_warning("You aren't feeling inspired enough to flourish [src] again yet."))
+		to_chat(user, "<span class='warning'>You aren't feeling inspired enough to flourish [src] again yet.</span>")
 		return
-	user.visible_message(span_bignotice("[user] flourishes [src]!"), \
-	span_notice("You raise [src] skywards, inspiring your allies!"))
+	user.visible_message("<span class='big notice'>[user] flourishes [src]!</span>", \
+	"<span class='notice'>You raise [src] skywards, inspiring your allies!</span>")
 	playsound(src, "rustle", 100, FALSE)
 	if(warcry)
 		user.say("[warcry]", forced="banner")
@@ -55,7 +55,7 @@
 	for(var/V in inspired)
 		var/mob/living/carbon/human/H = V
 		if(H != user)
-			to_chat(H, span_notice("Your confidence surges as [user] flourishes [user.p_their()] [name]!"))
+			to_chat(H, "<span class='notice'>Your confidence surges as [user] flourishes [user.p_their()] [name]!</span>")
 		inspiration(H)
 		special_inspiration(H)
 

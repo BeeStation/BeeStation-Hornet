@@ -68,11 +68,11 @@
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
 			if(!H.incapacitated(IGNORE_RESTRAINTS))
-				H.visible_message(span_danger("[H] steps on [A]."), \
-						span_userdanger("You step on [A]!"))
+				H.visible_message("<span class='danger'>[H] steps on [A].</span>", \
+						"<span class='userdanger'>You step on [A]!</span>")
 			else
-				H.visible_message(span_danger("[H] slides on [A]!"), \
-						span_userdanger("You slide on [A]!"))
+				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
+						"<span class='userdanger'>You slide on [A]!</span>")
 
 		H.Paralyze(40)
 

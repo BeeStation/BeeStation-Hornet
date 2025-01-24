@@ -27,7 +27,7 @@
 					Space is an empty void, of which our kind is the apex predator, and there was little to rival our claim to this title.\n\
 					But now, we find intruders spread out amongst our claim, willing to fight our teeth with magics unimaginable, their dens like lights flicking in the depths of space.\n\
 					Today, we will snuff out one of those lights.</b>")
-	to_chat(owner, span_boldwarning("You have five minutes to find a safe location to place down the first rift. If you take longer than five minutes to place a rift, you will enter a depression and become slow and vulnerable."))
+	to_chat(owner, "<span class='boldwarning'>You have five minutes to find a safe location to place down the first rift. If you take longer than five minutes to place a rift, you will enter a depression and become slow and vulnerable.</span>")
 	owner.announce_objectives()
 	SEND_SOUND(owner.current, sound('sound/magic/demon_attack1.ogg'))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Dragon",
@@ -177,7 +177,7 @@
 		return
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
-			to_chat(S, span_bigbold("<font color=\"#44aaff\">The Space Dragon has died! All is lost, and the rifts have closed...</font>"))
+			to_chat(S, "<span class='big bold'><font color=\"#44aaff\">The Space Dragon has died! All is lost, and the rifts have closed...</font></span>")
 	rifts_charged = 0
 	playsound(owner.current, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
 	for(var/obj/structure/carp_rift/rift in rift_list)
@@ -193,7 +193,7 @@
 	var/list/parts = list()
 	var/datum/objective/summon_carp/S = locate() in objectives
 	if(S.check_completion())
-		parts += span_redtextbig("The [name] has succeeded! Station space has been reclaimed by the space carp!")
+		parts += "<span class='redtext big'>The [name] has succeeded! Station space has been reclaimed by the space carp!</span>"
 	parts += printplayer(owner)
 	var/objectives_complete = TRUE
 	if(length(objectives))
@@ -203,11 +203,11 @@
 				objectives_complete = FALSE
 				break
 	if(objectives_complete)
-		parts += span_greentextbig("The [name] was successful!")
+		parts += "<span class='greentext big'>The [name] was successful!</span>"
 	else
-		parts += span_redtextbig("The [name] has failed!")
+		parts += "<span class='redtext big'>The [name] has failed!</span>"
 	if(length(carp))
-		parts += span_header("The [name] was assisted by:")
+		parts += "<span class='header'>The [name] was assisted by:</span>"
 		parts += printplayerlist(carp)
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 

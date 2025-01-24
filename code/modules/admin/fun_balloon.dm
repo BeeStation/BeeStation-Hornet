@@ -83,7 +83,7 @@
 		var/turf/T = find_safe_turf()
 		new /obj/effect/temp_visual/gravpush(get_turf(M))
 		M.forceMove(T)
-		to_chat(M, span_notice("Pop!"))
+		to_chat(M, "<span class='notice'>Pop!</span>")
 
 /obj/effect/station_crash
 	name = "station crash"
@@ -126,7 +126,7 @@
 		var/turf/LA = get_turf(pick(warp_points))
 		L.forceMove(LA)
 		L.hallucination = 0
-		to_chat(L, span_reallybigredtext("The battle is won. Your bloodlust subsides."))
+		to_chat(L, "<span class='reallybig redtext'>The battle is won. Your bloodlust subsides.</span>")
 		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)
 	else
@@ -157,7 +157,7 @@
 	var/obj/effect/landmark/LA = pick(warp_points)
 	var/mob/living/M = AM
 	M.forceMove(get_turf(LA))
-	to_chat(M, span_reallybigredtext("You're trapped in a deadly arena! To escape, you'll need to drag a severed head to the escape portals."))
+	to_chat(M, "<span class='reallybig redtext'>You're trapped in a deadly arena! To escape, you'll need to drag a severed head to the escape portals.</span>")
 	spawn()
 		var/obj/effect/mine/pickup/bloodbath/B = new (M)
 		B.mineEffect(M)

@@ -24,7 +24,7 @@
 
 /obj/machinery/ai_slipper/examine(mob/user)
 	. = ..()
-	. += span_notice("It has <b>[uses]</b> uses of foam remaining.")
+	. += "<span class='notice'>It has <b>[uses]</b> uses of foam remaining.</span>"
 
 /obj/machinery/ai_slipper/update_icon()
 	if(machine_stat & BROKEN)
@@ -36,17 +36,17 @@
 
 /obj/machinery/ai_slipper/interact(mob/user)
 	if(!allowed(user))
-		to_chat(user, span_danger("Access denied."))
+		to_chat(user, "<span class='danger'>Access denied.</span>")
 		return
 	if(!uses)
-		to_chat(user, span_danger("[src] is out of foam and cannot be activated."))
+		to_chat(user, "<span class='danger'>[src] is out of foam and cannot be activated.</span>")
 		return
 	if(cooldown_time > world.time)
-		to_chat(user, span_danger("[src] cannot be activated for <b>[DisplayTimeText(world.time - cooldown_time)]</b>."))
+		to_chat(user, "<span class='danger'>[src] cannot be activated for <b>[DisplayTimeText(world.time - cooldown_time)]</b>.</span>")
 		return
 	new /obj/effect/particle_effect/foam(loc)
 	uses--
-	to_chat(user, span_notice("You activate [src]. It now has <b>[uses]</b> uses of foam remaining."))
+	to_chat(user, "<span class='notice'>You activate [src]. It now has <b>[uses]</b> uses of foam remaining.</span>")
 	cooldown = world.time + cooldown_time
 	power_change()
 	addtimer(CALLBACK(src, PROC_REF(power_change)), cooldown_time)

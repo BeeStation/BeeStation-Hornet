@@ -107,14 +107,14 @@
 		switch(stat)
 			if(CONSCIOUS)
 				if(stasis)
-					to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
+					to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
 					set_stat(UNCONSCIOUS)
 					powerlevel = 0
 					rabid = FALSE
 					regenerate_icons()
 			if(UNCONSCIOUS, HARD_CRIT)
 				if(!stasis)
-					to_chat(src, span_notice("You wake up from the stasis."))
+					to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
 					set_stat(CONSCIOUS)
 					regenerate_icons()
 
@@ -150,7 +150,7 @@
 			rabid = 1
 
 		if(transformeffects & SLIME_EFFECT_GREEN)
-			visible_message(span_warning("[src] slurps up [M]!"))
+			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
 			adjust_nutrition(10)
 			layer = initial(layer)
 			qdel(M)
@@ -161,7 +161,13 @@
 		return
 
 	if(prob(10) && M.client)
-		to_chat(M,span_userdanger(pick("You can feel your body becoming weak!", "You feel like you're about to die!", "You feel every part of your body screaming in agony!", "A low, rolling pain passes through your body!", "Your body feels as if it's falling apart!", "You feel extremely weak!", "A sharp, deep pain bathes every inch of your body!")))
+		to_chat(M, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
+		"You feel like you're about to die!", \
+		"You feel every part of your body screaming in agony!", \
+		"A low, rolling pain passes through your body!", \
+		"Your body feels as if it's falling apart!", \
+		"You feel extremely weak!", \
+		"A sharp, deep pain bathes every inch of your body!")]</span>")
 
 	var/bonus_damage = 1
 	if(transformeffects & SLIME_EFFECT_RED)

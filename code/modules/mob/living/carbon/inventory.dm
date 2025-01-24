@@ -225,9 +225,9 @@
 	if (!target_tank)
 		return
 	if(internal || (is_external && external))
-		to_chat(src, span_notice("You switch your internals to [target_tank]."))
+		to_chat(src, "<span class='notice'>You switch your internals to [target_tank].</span>")
 	else
-		to_chat(src, span_notice("You open [target_tank] valve."))
+		to_chat(src, "<span class='notice'>You open [target_tank] valve.</span>")
 	return open_internals(target_tank, is_external)
 
 /**
@@ -241,14 +241,14 @@
 /mob/living/carbon/proc/toggle_close_internals(is_external = FALSE)
 	if (!internal && !external)
 		return
-	to_chat(src, span_notice("You close [is_external ? external : internal] valve."))
+	to_chat(src, "<span class='notice'>You close [is_external ? external : internal] valve.</span>")
 	return close_internals(is_external)
 
 /// Prepares emergency disconnect from open air tanks and notifies in chat. Usually called after mob suddenly unequips breathing apparatus.
 /mob/living/carbon/proc/cutoff_internals()
 	if (!external && !internal)
 		return
-	to_chat(src, span_notice("Your internals disconnect from [external || internal] and the valve closes."))
+	to_chat(src, "<span class='notice'>Your internals disconnect from [external || internal] and the valve closes.</span>")
 	close_all_airtanks()
 
 /**
@@ -306,16 +306,16 @@
 
 /mob/living/carbon/proc/give(mob/living/carbon/offered)
 	if(has_status_effect(/datum/status_effect/offering))
-		to_chat(src, span_warning("You're already offering up something!"))
+		to_chat(src, "<span class='warning'>You're already offering up something!</span>")
 		return
 
 	if(IS_DEAD_OR_INCAP(src))
-		to_chat(src, span_warning("You're unable to offer anything in your current state!"))
+		to_chat(src, "<span class='warning'>You're unable to offer anything in your current state!</span>")
 		return
 
 	var/obj/item/offered_item = get_active_held_item()
 	if(!offered_item)
-		to_chat(src, span_warning("You're not holding anything to give!"))
+		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
 		return
 
 	if(offered)
@@ -334,8 +334,8 @@
 	if(offered_item.on_offered(src)) // see if the item interrupts with its own behavior
 		return
 
-	visible_message(span_notice("[src] is offering [offered ? "[offered] " : ""][offered_item]."), \
-					span_notice("You offer [offered ? "[offered] " : ""][offered_item]."), null, 2)
+	visible_message("<span class='notice'>[src] is offering [offered ? "[offered] " : ""][offered_item].</span>", \
+					"<span class='notice'>You offer [offered ? "[offered] " : ""][offered_item].</span>", null, 2)
 
 	INVOKE_ASYNC(src, PROC_REF(emote), "offer")
 
@@ -357,19 +357,19 @@
 		to_chat(src,  "<span class='warning'>You're unable to take anything in your current state!</span>")
 		return
 	if(get_dist(src, offerer) > 1)
-		to_chat(src, span_warning("[offerer] is out of range!"))
+		to_chat(src, "<span class='warning'>[offerer] is out of range!</span>")
 		return
 	if(!I || offerer.get_active_held_item() != I)
-		to_chat(src, span_warning("[offerer] is no longer holding the item they were offering! "))
+		to_chat(src, "<span class='warning'>[offerer] is no longer holding the item they were offering! </span>")
 		return
 	if(!get_empty_held_indexes())
-		to_chat(src, span_warning("You have no empty hands!"))
+		to_chat(src, "<span class='warning'>You have no empty hands!</span>")
 		return
 	if(I.on_offer_taken(offerer, src)) // see if the item has special behavior for being accepted
 		return
 	if(!offerer.temporarilyRemoveItemFromInventory(I))
-		visible_message(span_notice("[offerer] tries to hand over [I] but it's stuck to them...."))
+		visible_message("<span class='notice'>[offerer] tries to hand over [I] but it's stuck to them....</span>")
 		return
-	visible_message(span_notice("[src] takes [I] from [offerer]"), \
-					span_notice("You take [I] from [offerer]"))
+	visible_message("<span class='notice'>[src] takes [I] from [offerer]</span>", \
+					"<span class='notice'>You take [I] from [offerer]</span>")
 	put_in_hands(I)

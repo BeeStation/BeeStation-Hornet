@@ -60,7 +60,7 @@
 	var/new_sound = tgui_input_list(usr, "Pick a sound!", "Sound Synthesizer", sounds, default = selected_sound_name)
 	if(!new_sound || !sounds[new_sound])
 		return
-	to_chat(usr, span_notice("Sound playback set to: <b>[new_sound]</b>!"))
+	to_chat(usr, "<span class='notice'>Sound playback set to: <b>[new_sound]</b>!</span>")
 	selected_sound_name = new_sound
 	var/list/sound_info = sounds[new_sound]
 	selected_sound = sound_info["sound"]
@@ -83,10 +83,10 @@
 
 /obj/item/soundsynth/attack_self(mob/user)
 	if(!selected_sound || !selected_sound_name)
-		to_chat(user, span_warning("No sound has been selected!"))
+		to_chat(user, "<span class='warning'>No sound has been selected!</span>")
 		return
 	if(has_cooldown && !COOLDOWN_FINISHED(src, play_cooldown))
-		to_chat(user, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!"))
+		to_chat(user, "<span class='warning'>You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!</span>")
 		return
 	playsound(user, selected_sound, volume, shiftpitch)
 	SSblackbox.record_feedback("tally", "synth_sound_played", 1, selected_sound_name)
@@ -103,10 +103,10 @@
 		pick_sound()
 		return
 	if(!selected_sound || !selected_sound_name)
-		to_chat(user, span_warning("No sound has been selected!"))
+		to_chat(user, "<span class='warning'>No sound has been selected!</span>")
 		return
 	if(has_cooldown && !COOLDOWN_FINISHED(src, play_cooldown))
-		to_chat(user, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!"))
+		to_chat(user, "<span class='warning'>You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!</span>")
 		return
 	target.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
 	SSblackbox.record_feedback("tally", "synth_sound_played", 1, selected_sound_name)

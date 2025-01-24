@@ -271,18 +271,18 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()
 	var/percent = get_integrity_percent()
-	var/msg = span_warning("The reactor looks operational.")
+	var/msg = "<span class='warning'>The reactor looks operational.</span>"
 	switch(percent)
 		if(0 to 10)
-			msg = span_boldwarning("[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! ")
+			msg = "<span class='boldwarning'>[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! </span>"
 		if(10 to 40)
-			msg = span_boldwarning("[src]'s seals are heavily warped and cracked! ")
+			msg = "<span class='boldwarning'>[src]'s seals are heavily warped and cracked! </span>"
 		if(40 to 60)
-			msg = span_warning("[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.")
+			msg = "<span class='warning'>[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.</span>"
 		if(60 to 80)
-			msg = span_warning("[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.")
+			msg = "<span class='warning'>[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.</span>"
 		if(80 to 90)
-			msg = span_notice("[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.")
+			msg = "<span class='notice'>[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.</span>"
 		if(95 to 100)
-			msg = span_notice("[src]'s seals look factory new, and the reactor's in excellent shape.")
+			msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
 	. += msg

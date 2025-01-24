@@ -21,17 +21,17 @@
 			perform(target)
 			return
 	revert_cast()
-	to_chat(user, span_warning("There must be a nearby source of blood!"))
+	to_chat(user, "<span class='warning'>There must be a nearby source of blood!</span>")
 
 /obj/effect/proc_holder/spell/bloodcrawl/perform(obj/effect/decal/cleanable/target, recharge = 1, mob/living/user = usr)
 	if(!istype(user))
 		revert_cast()
-		to_chat(user, span_warning("You are unable to blood crawl!"))
+		to_chat(user, "<span class='warning'>You are unable to blood crawl!</span>")
 		return
 
 	if(phased)
 		if(!COOLDOWN_FINISHED(src, resurface_cooldown))
-			to_chat(user, span_warning("You need to wait until you can resurface!"))
+			to_chat(user, "<span class='warning'>You need to wait until you can resurface!</span>")
 			return
 		if(user.phasein(target))
 			phased = FALSE

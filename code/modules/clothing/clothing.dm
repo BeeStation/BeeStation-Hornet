@@ -160,9 +160,9 @@
 		if(CLOTHING_SHREDDED)
 			var/obj/item/stack/cloth_repair = W
 			if(cloth_repair.amount < 3)
-				to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
+				to_chat(user, "<span class='warning'>You require 3 [cloth_repair.name] to repair [src].</span>")
 				return TRUE
-			to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
+			to_chat(user, "<span class='notice'>You begin fixing the damage to [src] with [cloth_repair]...</span>")
 			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
 				return TRUE
 			repair(user, params)
@@ -180,7 +180,7 @@
 	damage_by_parts = null
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-		to_chat(user, span_notice("You fix the damage on [src]."))
+		to_chat(user, "<span class='notice'>You fix the damage on [src].</span>")
 	update_appearance()
 
 /**
@@ -230,7 +230,7 @@
 
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
-		C.visible_message(span_danger("The [zone_name] on [C]'s [src.name] is [break_verb] away!"), span_userdanger("The [zone_name] on your [src.name] is [break_verb] away!"), vision_distance = COMBAT_MESSAGE_RANGE)
+		C.visible_message("<span class='danger'>The [zone_name] on [C]'s [src.name] is [break_verb] away!</span>", "<span class='userdanger'>The [zone_name] on your [src.name] is [break_verb] away!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 		RegisterSignal(C, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
 
 	zones_disabled++
@@ -287,7 +287,7 @@
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	if(damaged_clothes == CLOTHING_SHREDDED)
-		. += span_warning("<b>[p_theyre(TRUE)] completely shredded and require[p_s()] mending before [p_they()] can be worn again!</b>")
+		. += "<span class='warning'><b>[p_theyre(TRUE)] completely shredded and require[p_s()] mending before [p_they()] can be worn again!</b></span>"
 		return
 
 	switch (max_heat_protection_temperature)
@@ -303,11 +303,11 @@
 		var/zone_name = parse_zone(zone)
 		switch(pct_damage_part)
 			if(100 to INFINITY)
-				. += span_warning("<b>The [zone_name] is useless and requires mending!</b>")
+				. += "<span class='warning'><b>The [zone_name] is useless and requires mending!</b></span>"
 			if(60 to 99)
-				. += span_warning("The [zone_name] is heavily shredded!")
+				. += "<span class='warning'>The [zone_name] is heavily shredded!</span>"
 			if(30 to 59)
-				. += span_warning("The [zone_name] is partially shredded.")
+				. += "<span class='warning'>The [zone_name] is partially shredded.</span>"
 
 	var/datum/component/storage/pockets = GetComponent(/datum/component/storage)
 	if(pockets)
@@ -328,7 +328,7 @@
 		. += how_cool_are_your_threads.Join()
 
 	if(get_armor().has_any_armor() || (flags_cover & HEADCOVERSMOUTH))
-		. += span_notice("It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.")
+		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
 
 /obj/item/clothing/Topic(href, href_list)
 	. = ..()
@@ -360,6 +360,9 @@
 		if(flags_cover & HEADCOVERSMOUTH)
 			readout += "<br /><b>COVERAGE</b>"
 			readout += "<br />It will block Facehuggers."
+			/* We dont have the tooltips for this
+			readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
+			*/
 
 		readout += "</span>"
 
@@ -380,9 +383,9 @@
 		. += "\Roman[round(abs(armor_value), 10) / 10]"
 	if (!isnull(compare_value))
 		if (armor_value > compare_value)
-			. = span_green("[.]")
+			. = "<span class='green'>[.]</span>"
 		else if (armor_value < compare_value)
-			. = span_red("[.]")
+			. = "<span class='red'>[.]</span>"
 
 /obj/item/clothing/atom_break(damage_flag)
 	. = ..()
@@ -391,9 +394,9 @@
 	if(isliving(loc)) //It's not important enough to warrant a message if it's not on someone
 		var/mob/living/M = loc
 		if(src in M.get_equipped_items(FALSE))
-			to_chat(M, span_warning("Your [name] start[p_s()] to fall apart!"))
+			to_chat(M, "<span class='warning'>Your [name] start[p_s()] to fall apart!</span>")
 		else
-			to_chat(M, span_warning("[src] start[p_s()] to fall apart!"))
+			to_chat(M, "<span class='warning'>[src] start[p_s()] to fall apart!</span>")
 
 
 //This mostly exists so subtypes can call appriopriate update icon calls on the wearer.
@@ -442,51 +445,51 @@ BLIND     // can't see anything
 	if(!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(user, span_warning("The controls are locked."))
+		to_chat(user, "<span class='warning'>The controls are locked.</span>")
 		return FALSE
 	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(user, span_warning("The sensors have shorted out!"))
+		to_chat(user, "<span class='warning'>The sensors have shorted out!</span>")
 		return FALSE
 	if(src.has_sensor <= NO_SENSORS)
-		to_chat(user, span_warning("This suit does not have any sensors."))
+		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
 		return FALSE
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
 	if(get_dist(user, src) > 1)
-		to_chat(user, span_warning("You have moved too far away!"))
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 	var/sensor_selection = modes.Find(switchMode) - 1
 
 	if (src.loc == user)
 		switch(sensor_selection)
 			if(SENSORS_OFF)
-				to_chat(user, span_notice("You disable your suit's remote sensing equipment."))
+				to_chat(user, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
 			if(SENSORS_BINARY)
-				to_chat(user, span_notice("Your suit will now only report whether you are alive or dead."))
+				to_chat(user, "<span class='notice'>Your suit will now only report whether you are alive or dead.</span>")
 			if(SENSORS_VITALS)
-				to_chat(user, span_notice("Your suit will now only report your exact vital lifesigns."))
+				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
 			if(SENSORS_TRACKING)
-				to_chat(user, span_notice("Your suit will now report your exact vital lifesigns as well as your coordinate position."))
+				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
 		update_sensors(sensor_selection)
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
-		wearer.visible_message(span_notice("[user] tries to set [wearer]'s sensors."), \
-						span_warning("[user] is trying to set your sensors."), null, COMBAT_MESSAGE_RANGE)
+		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
+						"<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
 		if(do_after(user, SENSOR_CHANGE_DELAY, wearer))
 			switch(sensor_selection)
 				if(SENSORS_OFF)
-					wearer.visible_message(span_warning("[user] disables [wearer]'s remote sensing equipment."), \
-						span_warning("[user] disables your remote sensing equipment."), null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
+						"<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_BINARY)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to binary."), \
-						span_notice("[user] turns your remote sensors to binary."), null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", \
+						"<span class='notice'>[user] turns your remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_VITALS)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to track vitals."), \
-						span_notice("[user] turns your remote sensors to track vitals."), null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", \
+						"<span class='notice'>[user] turns your remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_TRACKING)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to maximum."), \
-						span_notice("[user] turns your remote sensors to maximum."), null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
+						"<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
 			update_sensors(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc) || ismonkey(loc))
@@ -500,7 +503,7 @@ BLIND     // can't see anything
 
 	visor_toggling()
 
-	to_chat(user, span_notice("You adjust \the [src] [up ? "up" : "down"]."))
+	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -548,7 +551,7 @@ BLIND     // can't see anything
 		new /obj/effect/decal/cleanable/shreds(current_position, name)
 		if(isliving(loc))
 			var/mob/living/possessing_mob = loc
-			possessing_mob.visible_message(span_danger("[src] is consumed until naught but shreds remains!"), span_boldwarning("[src] falls apart into little bits!"))
+			possessing_mob.visible_message("<span class='danger'>[src] is consumed until naught but shreds remains!</span>", "<span class='boldwarning'>[src] falls apart into little bits!</span>")
 		deconstruct(FALSE)
 	else if(!(damage_flag in list(ACID, FIRE)))
 		body_parts_covered = NONE
@@ -557,10 +560,10 @@ BLIND     // can't see anything
 		if(isliving(loc))
 			var/mob/living/M = loc
 			if(src in M.get_equipped_items(FALSE)) //make sure they were wearing it and not attacking the item in their hands
-				M.visible_message(span_danger("[M]'s [src.name] fall[p_s()] off, [p_theyre()] completely shredded!"), span_warning("<b>Your [src.name] fall[p_s()] off, [p_theyre()] completely shredded!</b>"), vision_distance = COMBAT_MESSAGE_RANGE)
+				M.visible_message("<span class='danger'>[M]'s [src.name] fall[p_s()] off, [p_theyre()] completely shredded!</span>", "<span class='warning'><b>Your [src.name] fall[p_s()] off, [p_theyre()] completely shredded!</b></span>", vision_distance = COMBAT_MESSAGE_RANGE)
 				M.dropItemToGround(src)
 			else
-				M.visible_message(span_danger("[src] fall[p_s()] apart, completely shredded!"), vision_distance = COMBAT_MESSAGE_RANGE)
+				M.visible_message("<span class='danger'>[src] fall[p_s()] apart, completely shredded!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 		name = "shredded [initial(name)]" // change the name -after- the message, not before.
 		update_appearance()
 	else
@@ -573,7 +576,7 @@ BLIND     // can't see anything
 	if(!istype(L))
 		return
 	if(prob(0.2))
-		to_chat(L, span_warning("The damaged threads on your [src.name] chafe!"))
+		to_chat(L, "<span class='warning'>The damaged threads on your [src.name] chafe!</span>")
 
 /*
 /obj/item/clothing/get_armor_rating(d_type)

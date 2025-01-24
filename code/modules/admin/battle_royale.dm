@@ -117,13 +117,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	set name = "Battle Royale"
 	set category = "Adminbus"
 	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
-		to_chat(src, span_warning("You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)"))
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
 	if(GLOB.battle_royale)
-		to_chat(src, span_warning("A game is already in progress!"))
+		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
 		return
 	if(alert(src, "ARE YOU SURE YOU ARE SURE YOU WANT TO START BATTLE ROYALE?",,"Yes","No") != "Yes")
-		to_chat(src, span_notice("oh.. ok then.. I see how it is.. :("))
+		to_chat(src, "<span class='notice'>oh.. ok then.. I see how it is.. :(</span>")
 		return
 	log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
@@ -139,10 +139,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	set name = "Battle Royale - Change wall speed"
 	set category = "Event"
 	if(!check_rights(R_ADMIN))
-		to_chat(src, span_warning("You do not have permission to do that!"))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
-		to_chat(src, span_warning("No game is in progress."))
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
 		return
 	var/new_speed = input(src, "New wall delay (seconds)") as num
 	if(new_speed > 0)
@@ -154,10 +154,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	set name = "Battle Royale - Variable Edit"
 	set category = "Event"
 	if(!check_rights(R_FUN))
-		to_chat(src, span_warning("You do not have permission to do that!"))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
-		to_chat(src, span_warning("No game is in progress."))
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
 		return
 	debug_variables(GLOB.battle_royale)
 
@@ -165,10 +165,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	set name = "Battle Royale - Spawn Loot Drop (Minor)"
 	set category = "Event"
 	if(!check_rights(R_FUN))
-		to_chat(src, span_warning("You do not have permission to do that!"))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
-		to_chat(src, span_warning("No game is in progress."))
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
 		return
 	GLOB.battle_royale.generate_good_drop()
 	log_admin("[key_name(usr)] generated a battle royale drop.")
@@ -178,10 +178,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	set name = "Battle Royale - Spawn Loot Drop (Major)"
 	set category = "Event"
 	if(!check_rights(R_FUN))
-		to_chat(src, span_warning("You do not have permission to do that!"))
+		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
-		to_chat(src, span_warning("No game is in progress."))
+		to_chat(src, "<span class='warning'>No game is in progress.</span>")
 		return
 	GLOB.battle_royale.generate_endgame_drop()
 	log_admin("[key_name(usr)] generated a good battle royale drop.")
@@ -227,19 +227,19 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			continue
 		var/turf/T = get_turf(M)
 		if(T.x > 128 + radius || T.x < 128 - radius || T.y > 128 + radius || T.y < 128 - radius)
-			to_chat(M, span_warning("You have left the zone!"))
+			to_chat(M, "<span class='warning'>You have left the zone!</span>")
 			M.gib()
 		if(!SSmapping.level_trait(T.z, ZTRAIT_STATION) && !SSmapping.level_trait(T.z, ZTRAIT_RESERVED))
-			to_chat(M, span_warning("You have left the z-level!"))
+			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
 			M.gib()
 		living_victims++
 		winner = M
 		CHECK_TICK
 	if(living_victims <= 1 && !debug_mode)
-		to_chat(world, span_ratvar("<font size=18>VICTORY ROYALE!!</font>"))
+		to_chat(world, "<span class='ratvar'><font size=18>VICTORY ROYALE!!</font></span>")
 		if(winner)
 			winner.client?.process_greentext()
-			to_chat(world, span_ratvar("<font size=18>[key_name(winner)] is the winner!</font>"))
+			to_chat(world, "<span class='ratvar'><font size=18>[key_name(winner)] is the winner!</font></span>")
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
 		return
@@ -267,7 +267,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
-	to_chat(world, span_ratvar("<font size=24>Battle Royale will begin soon..."))
+	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
 	//Stop new player joining
 	GLOB.enter_allowed = FALSE
 
@@ -275,36 +275,36 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
 	if(SSticker.current_state < GAME_STATE_PREGAME)
-		to_chat(world, span_boldannounce("Battle Royale: Waiting for server to be ready..."))
+		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
 		SSticker.start_immediately = FALSE
 		UNTIL(SSticker.current_state >= GAME_STATE_PREGAME)
-		to_chat(world, span_boldannounce("Battle Royale: Done!"))
+		to_chat(world, "<span class=boldannounce>Battle Royale: Done!</span>")
 	//Delay pre-game if we are in it.
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		//Force people to be not ready and start the game
 		for(var/mob/dead/new_player/player in GLOB.player_list)
-			to_chat(player, span_greenannounce("You have been forced as an observer. When the prompt to join battle royale comes up, press yes. This is normal and you are still in queue to play."))
+			to_chat(player, "<span class=greenannounce>You have been forced as an observer. When the prompt to join battle royale comes up, press yes. This is normal and you are still in queue to play.</span>")
 			player.ready = FALSE
 			player.make_me_an_observer(TRUE)
-		to_chat(world, span_boldannounce("Battle Royale: Force-starting game."))
+		to_chat(world, "<span class='boldannounce'>Battle Royale: Force-starting game.</span>")
 		SSticker.start_immediately = TRUE
 	SEND_SOUND(world, sound('sound/misc/server-ready.ogg'))
 	sleep(50)
 	//Clear all living mobs
-	to_chat(world, span_boldannounce("Battle Royale: Clearing world mobs."))
+	to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
 	for(var/mob/living/M as() in GLOB.mob_living_list)
 		qdel(M)
 		CHECK_TICK
 	sleep(50)
-	to_chat(world, span_greenannounce("Battle Royale: STARTING IN 30 SECONDS."))
-	to_chat(world, span_greenannounce("<i>If you are on the main menu, observe immediately to sign up. (You will be prompted in 30 seconds.)</i>"))
+	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
+	to_chat(world, "<span class='greenannounce'><i>If you are on the main menu, observe immediately to sign up. (You will be prompted in 30 seconds.)</i></span>")
 	toggle_ooc(TRUE)
 	sleep(300)
 	toggle_ooc(FALSE)
-	to_chat(world, span_boldannounce("Battle Royale: STARTING IN 5 SECONDS."))
-	to_chat(world, span_greenannounce("Make sure to hit yes to the sign up message given to all observing players."))
+	to_chat(world, "<span class='boldannounce'>Battle Royale: STARTING IN 5 SECONDS.</span>")
+	to_chat(world, "<span class='greenannounce'>Make sure to hit yes to the sign up message given to all observing players.</span>")
 	sleep(50)
-	to_chat(world, span_boldannounce("Battle Royale: Starting game."))
+	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall()
 	death_wall = list()
 	for(var/z_level in SSmapping.levels_by_trait(ZTRAIT_STATION))
@@ -344,12 +344,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		var/obj/item/implant/weapons_auth/W = new
 		W.implant(H)
 		players += H
-		to_chat(M, span_notice("You have been given knock and pacifism for 30 seconds."))
+		to_chat(M, "<span class='notice'>You have been given knock and pacifism for 30 seconds.</span>")
 	new /obj/effect/pod_landingzone(spawn_turf, pod)
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
-	to_chat(world, span_boldannounce("A 30 second grace period has been established. Good luck."))
-	to_chat(world, span_boldannounce("WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!"))
-	to_chat(world, span_boldannounce("[players.len] people remain..."))
+	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
+	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
+	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 
 	//Start processing our world events
 	addtimer(CALLBACK(src, PROC_REF(end_grace)), 300)
@@ -360,7 +360,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		to_chat(M, span_greenannounce("You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing."))
+		to_chat(M, "<span class='greenannounce'>You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
 
 //==================================
 // EVENTS / DROPS
@@ -420,13 +420,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob/living/carbon, gib))
-		to_chat(M, span_warning("You left the zone!"))
+		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)
 	. = ..()
 	for(var/mob/living/M in get_turf(src))
 		M.gib()
-		to_chat(M, span_warning("You left the zone!"))
+		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/proc/set_center(turf/center)
 	center_turf = center

@@ -22,12 +22,12 @@
 	ADD_TRAIT(invoker, TRAIT_IGNOREDAMAGESLOWDOWN, VANGUARD_TRAIT)
 	ADD_TRAIT(invoker, TRAIT_NOSTAMCRIT, VANGUARD_TRAIT)
 	ADD_TRAIT(invoker, TRAIT_NOLIMBDISABLE, VANGUARD_TRAIT)
-	to_chat(invoker, span_sevtug("You feel like nothing can stop you!"))
+	to_chat(invoker, "<span class='sevtug'>You feel like nothing can stop you!</span>")
 
 /datum/clockcult/scripture/slab/vanguard/count_down()
 	. = ..()
 	if(time_left == 50)
-		to_chat(invoker, span_sevtug("You start to feel tired again."))
+		to_chat(invoker, "<span class='sevtug'>You start to feel tired again.</span>")
 
 /datum/clockcult/scripture/slab/vanguard/end_invoke()
 	REMOVE_TRAIT(invoker, TRAIT_STUNIMMUNE, VANGUARD_TRAIT)

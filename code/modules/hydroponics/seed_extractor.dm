@@ -76,7 +76,7 @@
 /obj/machinery/seed_extractor/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("The status display reads: Extracting <b>[seed_multiplier]</b> seed(s) per piece of produce.<br>Machine can store up to <b>[max_seeds]%</b> seeds.")
+		. += "<span class='notice'>The status display reads: Extracting <b>[seed_multiplier]</b> seed(s) per piece of produce.<br>Machine can store up to <b>[max_seeds]%</b> seeds.</span>"
 
 /obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
 
@@ -101,21 +101,21 @@
 			++loaded
 			add_seed(G)
 		if (loaded)
-			to_chat(user, span_notice("You put as many seeds from \the [O.name] into [src] as you can."))
+			to_chat(user, "<span class='notice'>You put as many seeds from \the [O.name] into [src] as you can.</span>")
 		else
-			to_chat(user, span_notice("There are no seeds in \the [O.name]."))
+			to_chat(user, "<span class='notice'>There are no seeds in \the [O.name].</span>")
 		return
 
 	else if(seedify(O,-1, src, user))
-		to_chat(user, span_notice("You extract some seeds."))
+		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
 	else if (istype(O, /obj/item/seeds))
 		if(add_seed(O))
-			to_chat(user, span_notice("You add [O] to [src.name]."))
+			to_chat(user, "<span class='notice'>You add [O] to [src.name].</span>")
 			updateUsrDialog()
 		return
 	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, span_warning("You can't extract any seeds from \the [O.name]!"))
+		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
 	else
 		return ..()
 
@@ -140,7 +140,7 @@
  **/
 /obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
 	if(contents.len >= 999)
-		to_chat(usr, span_notice("\The [src] is full."))
+		to_chat(usr, "<span class='notice'>\The [src] is full.</span>")
 		return FALSE
 
 	var/datum/component/storage/STR = O.loc.GetComponent(/datum/component/storage)

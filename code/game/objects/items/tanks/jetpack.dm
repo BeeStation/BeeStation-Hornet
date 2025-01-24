@@ -37,7 +37,7 @@
 	else if(istype(action, /datum/action/item_action/jetpack_stabilization))
 		if(on)
 			stabilizers = !stabilizers
-			to_chat(user, span_notice("You turn the jetpack stabilization [stabilizers ? "on" : "off"]."))
+			to_chat(user, "<span class='notice'>You turn the jetpack stabilization [stabilizers ? "on" : "off"].</span>")
 	else
 		toggle_internals(user)
 
@@ -48,10 +48,10 @@
 
 	if(!on)
 		turn_on(user)
-		to_chat(user, span_notice("You turn the jetpack on."))
+		to_chat(user, "<span class='notice'>You turn the jetpack on.</span>")
 	else
 		turn_off(user)
-		to_chat(user, span_notice("You turn the jetpack off."))
+		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
 	update_action_buttons()
 
 /obj/item/tank/jetpack/equipped(mob/user, slot)
@@ -136,7 +136,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	H.say(";WHAT THE FUCK IS CARBON DIOXIDE?", forced="jetpack suicide")
-	H.visible_message(span_suicide("[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!"))
+	H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
 	return OXYLOSS
 
 /obj/item/tank/jetpack/improvised
@@ -156,7 +156,7 @@
 		turn_off(user)
 		return
 	if(rand(0,250) == 0)
-		to_chat(user, span_notice("You feel your jetpack's engines cut out."))
+		to_chat(user, "<span class='notice'>You feel your jetpack's engines cut out.</span>")
 		turn_off(user)
 		return
 
@@ -415,12 +415,12 @@
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
 	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
-		to_chat(user, span_warning("\The [src] must be connected to a hardsuit!"))
+		to_chat(user, "<span class='warning'>\The [src] must be connected to a hardsuit!</span>")
 		return
 
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.s_store, /obj/item/tank/internals))
-		to_chat(user, span_warning("You need a tank in your suit storage!"))
+		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
 		return
 	..()
 

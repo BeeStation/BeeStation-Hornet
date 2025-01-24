@@ -550,7 +550,7 @@
 	qdel(src)
 
 /mob/living/silicon/robot/proc/replace_banned_cyborg()
-	to_chat(src, span_userdanger("You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!"))
+	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
 	ghostize(FALSE)
 
 	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
@@ -660,7 +660,7 @@
 	if(isnull(mobpath))
 		return
 	if(!mobpath)
-		to_chat(usr, span_danger("Sorry but this mob type is currently unavailable."))
+		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
 
 	if(pre_transform())
@@ -682,14 +682,14 @@
 	if(isnull(mobpath))
 		return
 	if(!mobpath)
-		to_chat(usr, span_danger("Sorry but this mob type is currently unavailable."))
+		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
 
 	var/mob/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
-	to_chat(new_mob, span_boldnotice("You feel more... animalistic!"))
+	to_chat(new_mob, "<span class='boldnotice'>You feel more... animalistic!</span>")
 
 	. = new_mob
 	qdel(src)

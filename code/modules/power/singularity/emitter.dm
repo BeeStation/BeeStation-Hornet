@@ -104,22 +104,22 @@
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
 	if(welded)
-		. += span_info("It's moored firmly to the floor. You can unsecure its moorings with a <b>welder</b>.")
+		. += "<span class='info'>It's moored firmly to the floor. You can unsecure its moorings with a <b>welder</b>.</span>"
 	else if(anchored)
-		. += span_info("It's currently anchored to the floor. You can secure its moorings with a <b>welder</b>, or remove it with a <b>wrench</b>.")
+		. += "<span class='info'>It's currently anchored to the floor. You can secure its moorings with a <b>welder</b>, or remove it with a <b>wrench</b>.</span>"
 	else
-		. += span_info("It's not anchored to the floor. You can secure it in place with a <b>wrench</b>.")
+		. += "<span class='info'>It's not anchored to the floor. You can secure it in place with a <b>wrench</b>.</span>"
 
 	if(!in_range(user, src) || !isobserver(user))
 		return
 
 	if(!active)
-		. += span_notice("Its status display is currently turned off.")
+		. += "<span class='notice'>Its status display is currently turned off.</span>"
 	else if(!powered)
-		. += span_notice("Its status display is glowing faintly.")
+		. += "<span class='notice'>Its status display is glowing faintly.</span>"
 	else
-		. += span_notice("Its status display reads: Emitting one beam every <b>[DisplayTimeText(fire_delay)]</b>.")
-		. += span_notice("Power consumption at <b>[display_power(active_power_usage)]</b>.")
+		. += "<span class='notice'>Its status display reads: Emitting one beam every <b>[DisplayTimeText(fire_delay)]</b>.</span>"
+		. += "<span class='notice'>Power consumption at <b>[display_power(active_power_usage)]</b>.</span>"
 
 /obj/machinery/power/emitter/ComponentInitialize()
 	. = ..()
@@ -128,7 +128,7 @@
 /obj/machinery/power/emitter/proc/can_be_rotated(mob/user, rotation_type)
 	if(!anchored)
 		return TRUE
-	to_chat(user, span_warning("It is fastened to the floor!"))
+	to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
 	return FALSE
 
 /obj/machinery/power/emitter/Destroy()
@@ -151,13 +151,13 @@
 /obj/machinery/power/emitter/interact(mob/user)
 	add_fingerprint(user)
 	if(!welded)
-		to_chat(user, span_warning("[src] needs to be firmly secured to the floor first!"))
+		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
 		return FALSE
 	if(!powernet)
-		to_chat(user, span_warning("\The [src] isn't connected to a wire!"))
+		to_chat(user, "<span class='warning'>\The [src] isn't connected to a wire!</span>")
 		return FALSE
 	if(locked || !allow_switch_interact)
-		to_chat(user, span_warning("The controls are locked!"))
+		to_chat(user, "<span class='warning'>The controls are locked!</span>")
 		return FALSE
 
 	if(active)
@@ -167,7 +167,7 @@
 		shot_number = 0
 		fire_delay = maximum_fire_delay
 
-	to_chat(user, span_notice("You turn [active ? "on" : "off"] [src]."))
+	to_chat(user, "<span class='notice'>You turn [active ? "on" : "off"] [src].</span>")
 	message_admins("Emitter turned [active ? "ON" : "OFF"] by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
 	log_game("Emitter turned [active ? "ON" : "OFF"] by [key_name(user)] in [AREACOORD(src)]")
 	investigate_log("turned [active ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name(user)] at [AREACOORD(src)]", INVESTIGATE_ENGINES)
@@ -176,7 +176,7 @@
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
 		set_anchored(FALSE)
-		M.visible_message(span_warning("[M] rips [src] free from its moorings!"))
+		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		. = ..()
 	if(. && !anchored)
@@ -250,12 +250,12 @@
 /obj/machinery/power/emitter/can_be_unfasten_wrench(mob/user, silent)
 	if(active)
 		if(!silent)
-			to_chat(user, span_warning("Turn \the [src] off first!"))
+			to_chat(user, "<span class='warning'>Turn \the [src] off first!</span>")
 		return FAILED_UNFASTEN
 
 	else if(welded)
 		if(!silent)
-			to_chat(user, span_warning("[src] is welded to the floor!"))
+			to_chat(user, "<span class='warning'>[src] is welded to the floor!</span>")
 		return FAILED_UNFASTEN
 
 	return ..()
@@ -268,35 +268,35 @@
 /obj/machinery/power/emitter/welder_act(mob/living/user, obj/item/item)
 	. = ..()
 	if(active)
-		to_chat(user, span_warning("Turn [src] off first!"))
+		to_chat(user, "<span class='warning'>Turn [src] off first!</span>")
 		return TRUE
 
 	if(welded)
 		if(!item.tool_start_check(user, amount=0))
 			return TRUE
-		user.visible_message(span_notice("[user.name] starts to cut the [name] free from the floor."), \
-			span_notice("You start to cut [src] free from the floor..."), \
-			span_hear("You hear welding."))
+		user.visible_message("<span class='notice'>[user.name] starts to cut the [name] free from the floor.</span>", \
+			"<span class='notice'>You start to cut [src] free from the floor...</span>", \
+			"<span class='hear'>You hear welding.</span>")
 		if(!item.use_tool(src, user, 20, amount=7, volume=50)  || !welded)
 			return
 		welded = FALSE
-		to_chat(user, span_notice("You cut [src] free from the floor."))
+		to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
 		disconnect_from_network()
 		//update_cable_icons_on_turf(get_turf(src))
 		return TRUE
 
 	if(!anchored)
-		to_chat(user, span_warning("[src] needs to be wrenched to the floor!"))
+		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
 		return TRUE
 	if(!item.tool_start_check(user, amount=0))
 		return TRUE
-	user.visible_message(span_notice("[user.name] starts to weld the [name] to the floor."), \
-		span_notice("You start to weld [src] to the floor..."), \
-		span_hear("You hear welding."))
+	user.visible_message("<span class='notice'>[user.name] starts to weld the [name] to the floor.</span>", \
+		"<span class='notice'>You start to weld [src] to the floor...</span>", \
+		"<span class='hear'>You hear welding.</span>")
 	if(!item.use_tool(src, user, 20, amount=7, volume=50) || !anchored)
 		return
 	welded = TRUE
-	to_chat(user, span_notice("You weld [src] to the floor."))
+	to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
 	connect_to_network()
 	//update_cable_icons_on_turf(get_turf(src))
 	return TRUE
@@ -316,13 +316,13 @@
 /obj/machinery/power/emitter/attackby(obj/item/item, mob/user, params)
 	if(item.GetID())
 		if(obj_flags & EMAGGED)
-			to_chat(user, span_danger("Access denied."))
+			to_chat(user, "<span class='danger'>Access denied.</span>")
 			return
 		if(!active)
-			to_chat(user, span_warning("The controls can only be locked when \the [src] is online!"))
+			to_chat(user, "<span class='warning'>The controls can only be locked when \the [src] is online!</span>")
 			return
 		locked = !locked
-		to_chat(user, span_notice("You [src.locked ? "lock" : "unlock"] the controls."))
+		to_chat(user, "<span class='notice'>You [src.locked ? "lock" : "unlock"] the controls.</span>")
 		return
 
 	if(is_wire_tool(item) && panel_open)
@@ -368,7 +368,7 @@
 /obj/machinery/power/emitter/on_emag(mob/user)
 	..()
 	locked = FALSE
-	user?.visible_message("[user.name] emags [src].",span_notice("You short out the lock."))
+	user?.visible_message("[user.name] emags [src].","<span class='notice'>You short out the lock.</span>")
 
 
 /obj/machinery/power/emitter/prototype

@@ -219,8 +219,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)
-		user.visible_message(span_notice("[user] struggles to pry up \the [src] with \the [I]."), \
-		span_notice("You struggle to pry up \the [src] with \the [I]."))
+		user.visible_message("<span class='notice'>[user] struggles to pry up \the [src] with \the [I].</span>", \
+		"<span class='notice'>You struggle to pry up \the [src] with \the [I].</span>")
 		if(I.use_tool(src, user, 40, volume=40))
 			set_operating(FALSE)
 			if(!(machine_stat & BROKEN))
@@ -230,7 +230,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 				if(C)
 					transfer_fingerprints_to(C)
 
-			to_chat(user, span_notice("You remove the conveyor belt."))
+			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
@@ -238,13 +238,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 			I.play_tool_sound(src)
 			setDir(turn(dir,-45))
 			update_move_direction()
-			to_chat(user, span_notice("You rotate [src]."))
+			to_chat(user, "<span class='notice'>You rotate [src].</span>")
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!(machine_stat & BROKEN))
 			verted = verted * -1
 			update_move_direction()
-			to_chat(user, span_notice("You reverse [src]'s direction."))
+			to_chat(user, "<span class='notice'>You reverse [src]'s direction.</span>")
 
 	else if(user.a_intent != INTENT_HARM)
 		user.transferItemToLoc(I, drop_location())
@@ -262,7 +262,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 	id = cswitch.id
 	LAZYADD(GLOB.conveyors_by_id[id], src)
-	to_chat(user, span_notice("You link [src] to [cswitch]."))
+	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
 	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
@@ -422,7 +422,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 	var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
 	C.id = id
 	transfer_fingerprints_to(C)
-	to_chat(user, span_notice("You detach the conveyor switch."))
+	to_chat(user, "<span class='notice'>You detach the conveyor switch.</span>")
 	qdel(src)
 	return TRUE
 
@@ -430,7 +430,7 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, span_notice("You store [src] in [buffer_parent]'s buffer."))
+		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
@@ -446,7 +446,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 		if(1)
 			oneway = -1
 			newdirtext = "reverse one-way"
-	to_chat(user, span_notice("You set the conveyor switch to [newdirtext] mode."))
+	to_chat(user, "<span class='notice'>You set the conveyor switch to [newdirtext] mode.</span>")
 	return TRUE
 
 /obj/machinery/conveyor_switch/oneway
@@ -474,7 +474,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 /obj/item/conveyor_switch_construct/attack_self(mob/user)
 	for(var/obj/item/stack/conveyor/C in view())
 		C.id = id
-	to_chat(user, span_notice("You have linked all nearby conveyor belt assemblies to this switch."))
+	to_chat(user, "<span class='notice'>You have linked all nearby conveyor belt assemblies to this switch.</span>")
 
 /obj/item/conveyor_switch_construct/afterattack(atom/A, mob/user, proximity)
 	. = ..()
@@ -486,7 +486,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 			found = 1
 			break
 	if(!found)
-		to_chat(user, "[icon2html(src, user)][span_notice("The conveyor switch did not detect any linked conveyor belts in range.")]")
+		to_chat(user, "[icon2html(src, user)]<span class=notice>The conveyor switch did not detect any linked conveyor belts in range.</span>")
 		return
 	var/obj/machinery/conveyor_switch/NC = new/obj/machinery/conveyor_switch(A, id)
 	transfer_fingerprints_to(NC)
@@ -517,7 +517,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 		return
 	var/cdir = get_dir(A, user)
 	if(A == user.loc)
-		to_chat(user, span_warning("You cannot place a conveyor belt under yourself!"))
+		to_chat(user, "<span class='warning'>You cannot place a conveyor belt under yourself!</span>")
 		return
 	var/obj/machinery/conveyor/C = new/obj/machinery/conveyor(A, cdir, id)
 	transfer_fingerprints_to(C)
@@ -526,7 +526,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 /obj/item/stack/conveyor/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/conveyor_switch_construct))
-		to_chat(user, span_notice("You link the switch to the conveyor belt assembly."))
+		to_chat(user, "<span class='notice'>You link the switch to the conveyor belt assembly.</span>")
 		var/obj/item/conveyor_switch_construct/C = I
 		id = C.id
 

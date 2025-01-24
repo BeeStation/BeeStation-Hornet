@@ -59,7 +59,7 @@
 /obj/effect/proc_holder/spell/targeted/worm_contract/cast(list/targets, mob/user)
 	. = ..()
 	if(!istype(user, /mob/living/simple_animal/hostile/heretic_summon/armsy))
-		to_chat(user, span_userdanger("You try to contract your muscles, but nothing happens..."))
+		to_chat(user, "<span class='userdanger'>You try to contract your muscles, but nothing happens...</span>")
 		return
 
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/lord_of_night = user

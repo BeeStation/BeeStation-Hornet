@@ -66,7 +66,7 @@
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
-	mood_message = span_warning("[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!")
+	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
 
 /area/tear_in_reality/get_virtual_z(turf/T)
 	return REALITY_TEAR_VIRTUAL_Z

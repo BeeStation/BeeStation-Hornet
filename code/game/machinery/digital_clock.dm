@@ -25,11 +25,11 @@
 	. = ..()
 	if(user.a_intent == INTENT_HARM)
 		return
-	to_chat(user, span_notice("You start unsecuring [name]..."))
+	to_chat(user, "<span class='notice'>You start unsecuring [name]...</span>")
 	tool.play_tool_sound(src)
 	if(tool.use_tool(src, user, 6 SECONDS))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
-		to_chat(user, span_notice("You unsecure [name]."))
+		to_chat(user, "<span class='notice'>You unsecure [name].</span>")
 		deconstruct()
 	return ..()
 
@@ -40,10 +40,10 @@
 	if(atom_integrity >= max_integrity)
 		balloon_alert(user, "it doesn't need repairs!")
 		return TRUE
-	to_chat(user, span_notice("You start to repair [name]..."))
+	to_chat(user, "<span class='notice'>You start to repair [name]...</span>")
 	if(!tool.use_tool(src, user, 4 SECONDS, amount = 0, volume=50))
 		return TRUE
-	to_chat(user, span_notice("You finish to repair [name]..."))
+	to_chat(user, "<span class='notice'>You finish to repair [name]...</span>")
 	atom_integrity = max_integrity
 	set_machine_stat(machine_stat & ~BROKEN)
 	update_appearance()
@@ -55,17 +55,17 @@
 		return
 	if(!(obj_flags & EMAGGED))
 		return
-	to_chat(user, span_notice("You start resetting [name]..."))
+	to_chat(user, "<span class='notice'>You start resetting [name]...</span>")
 	tool.play_tool_sound(src)
 	if(tool.use_tool(src, user, 6 SECONDS))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
-		to_chat(user, span_notice("You finish to reset [name]..."))
+		to_chat(user, "<span class='notice'>You finish to reset [name]...</span>")
 		obj_flags &= ~EMAGGED
 		return TRUE
 
 /obj/machinery/digital_clock/on_emag(mob/user)
 	..()
-	to_chat(user, span_notice("You short the clock's timer!"))
+	to_chat(user, "<span class='notice'>You short the clock's timer!</span>")
 	playsound(src, "sparks", 100, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	do_sparks(3, cardinal_only = FALSE, source = src)
 	obj_flags |= EMAGGED
@@ -117,9 +117,9 @@
 	var/live_time = station_time_timestamp(format = "hh:mm")
 
 	if(obj_flags & EMAGGED)
-		. += span_warning("The time doesn't seem quite right!")
+		. += "<span class='warning'>The time doesn't seem quite right!</span>"
 	else
-		. += span_notice("The current station time is [live_time].")
+		. += "<span class='notice'>The current station time is [live_time].</span>"
 
 /obj/machinery/digital_clock/proc/update_time()
 	if(obj_flags & EMAGGED)

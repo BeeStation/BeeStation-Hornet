@@ -67,9 +67,9 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
-	user.visible_message(span_danger("[user] hits the [src]'s primer with [user.p_their()] [I]!"))
+	user.visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their()] [I]!</span>")
 	if(!user.is_holding(src))
-		to_chat(user, span_warning("You need to pickup \the [src] first!"))
+		to_chat(user, "<span class='warning'>You need to pickup \the [src] first!</span>")
 		return
 	if(prob(75))
 		fire_casing(get_step(src, user.dir), user, spread = rand(-40, 40))
@@ -78,7 +78,7 @@
 			var/obj/item/bodypart/affecting = C.get_holding_bodypart_of_item(src)
 			C.apply_damage(rand(5, 10), BRUTE, affecting)
 	else
-		user.visible_message(span_danger("[user]'s [I] slips!"))
+		user.visible_message("<span class='danger'>[user]'s [I] slips!</span>")
 		fire_casing(user, user)
 
 /obj/item/ammo_casing/caseless/screwdriver_act(mob/living/user, /obj/item/I)

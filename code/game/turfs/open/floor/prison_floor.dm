@@ -23,7 +23,7 @@
 
 /turf/open/floor/prison/examine(mob/user)
 	. = ..()
-	. += span_notice("The reinforcement plates are <b>wrenched</b> firmly in place.")
+	. += "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>"
 
 /turf/open/floor/prison/break_tile()
 	return //unbreakable
@@ -36,11 +36,11 @@
 
 /turf/open/floor/prison/crowbar_act(mob/living/user, obj/item/I)
 	if(plates != 0)
-		to_chat(user, span_danger(" The reinforcement plates are still firmly in place!"))
+		to_chat(user, "<span class='danger'> The reinforcement plates are still firmly in place!</span>")
 		return TRUE
 	else
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-		to_chat(user, span_notice("You begin prying open the tile..."))
+		to_chat(user, "<span class='notice'>You begin prying open the tile...</span>")
 		if(do_after(user, 4 SECONDS))
 			return ..()
 
@@ -48,7 +48,7 @@
 	if(!wrenching && plates >0)
 		wrenching = TRUE
 		if(I.use_tool(src, user, 50, volume=80))
-			to_chat(user, span_notice("You begin removing some of the plates..."))
+			to_chat(user, "<span class='notice'>You begin removing some of the plates...</span>")
 			plates -= 1
 			update_icon_state()
 			wrenching = FALSE

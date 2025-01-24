@@ -36,7 +36,7 @@
 /obj/structure/bed/examine(mob/user)
 	. = ..()
 	if(bolts)
-		. += span_notice("It's held together by a couple of <b>bolts</b>.")
+		. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
 /obj/structure/bed/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -81,7 +81,7 @@
 			return 0
 		if(has_buckled_mobs())
 			return 0
-		usr.visible_message("[usr] collapses \the [src.name].", span_notice("You collapse \the [src.name]."))
+		usr.visible_message("[usr] collapses \the [src.name].", "<span class='notice'>You collapse \the [src.name].</span>")
 		var/obj/structure/bed/roller/B = new foldabletype(get_turf(src))
 		usr.put_in_hands(B)
 		qdel(src)
@@ -166,7 +166,7 @@
 /obj/structure/bed/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += span_abductor("Fairly sure we absolutely stole that technology.")
+		. += "<span class='abductor'>Fairly sure we absolutely stole that technology.</span>"
 
 //unfortunateley no sickness mechanics on them... yet
 /obj/structure/bed/maint
@@ -216,4 +216,4 @@
 /obj/structure/bed/double/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += span_abductor("Fairly sure we absolutely stole that technology... Why did we steal this again?")
+		. += "<span class='abductor'>Fairly sure we absolutely stole that technology... Why did we steal this again?</span>"

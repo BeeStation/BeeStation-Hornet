@@ -16,22 +16,22 @@
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
 	if(IS_ORGANIC_LIMB(aug))
-		to_chat(user, span_warning("That's not an augment, silly!"))
+		to_chat(user, "<span class='warning'>That's not an augment, silly!</span>")
 		return -1
 	if(aug.body_zone != surgery.location)
-		to_chat(user, span_warning("[tool] isn't the right type for [parse_zone(surgery.location)]."))
+		to_chat(user, "<span class='warning'>[tool] isn't the right type for [parse_zone(surgery.location)].</span>")
 		return -1
 	L = surgery.operated_bodypart
 
 	if(!L)
-		user.visible_message("[user] looks for [target]'s [parse_zone(surgery.location)].", span_notice("You look for [target]'s [parse_zone(surgery.location)]..."))
+		user.visible_message("[user] looks for [target]'s [parse_zone(surgery.location)].", "<span class ='notice'>You look for [target]'s [parse_zone(surgery.location)]...</span>")
 		return
 
 	if(L?.bodypart_disabled)
-		to_chat(user, span_warning("You can't augment a limb with paralysis!"))
+		to_chat(user, "<span class='warning'>You can't augment a limb with paralysis!</span>")
 		return -1
 	else
-		display_results(user, target, span_notice("You begin to augment [target]'s [parse_zone(surgery.location)]..."),
+		display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(surgery.location)]...</span>",
 			"[user] begins to augment [target]'s [parse_zone(surgery.location)] with [aug].",
 			"[user] begins to augment [target]'s [parse_zone(surgery.location)].")
 
@@ -60,10 +60,10 @@
 			tool = tool.contents[1]
 		if(istype(tool) && user.temporarilyRemoveItemFromInventory(tool))
 			tool.replace_limb(target, TRUE)
-		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(surgery.location)]."),
+		display_results(user, target, "<span class='notice'>You successfully augment [target]'s [parse_zone(surgery.location)].</span>",
 			"[user] successfully augments [target]'s [parse_zone(surgery.location)] with [tool]!",
 			"[user] successfully augments [target]'s [parse_zone(surgery.location)]!")
 		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(surgery.location)] INTENT: [uppertext(user.a_intent)]")
 	else
-		to_chat(user, span_warning("[target] has no organic [parse_zone(surgery.location)] there!"))
+		to_chat(user, "<span class='warning'>[target] has no organic [parse_zone(surgery.location)] there!</span>")
 	return TRUE

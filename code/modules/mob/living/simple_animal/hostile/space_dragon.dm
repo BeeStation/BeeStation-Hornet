@@ -99,7 +99,7 @@
 	var/mob/living/mob = source
 	if(mob in src)
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-		visible_message(span_danger("[src] vomits up [mob]!"))
+		visible_message("<span class='danger'>[src] vomits up [mob]!</span>")
 		mob.forceMove(loc)
 		mob.Paralyze(50)
 		UnregisterSignal(mob, COMSIG_LIVING_REVIVE)
@@ -119,13 +119,13 @@
 	if(using_special)
 		return
 	if(target == src)
-		to_chat(src, span_warning("You almost bite yourself, but then decide against it."))
+		to_chat(src, "<span class='warning'>You almost bite yourself, but then decide against it.</span>")
 		return
 	if(istype(target, /turf/closed/wall))
 		if(tearing_wall)
 			return
 		var/turf/closed/wall/thewall = target
-		to_chat(src, span_warning("You begin tearing through the wall..."))
+		to_chat(src, "<span class='warning'>You begin tearing through the wall...</span>")
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		var/timetotear = 4 SECONDS
 		if(istype(target, /turf/closed/wall/r_wall))
@@ -144,7 +144,7 @@
 		if(L.stat == DEAD)
 			if(is_swallowing)
 				return
-			to_chat(src, span_warning("You begin to swallow [L] whole..."))
+			to_chat(src, "<span class='warning'>You begin to swallow [L] whole...</span>")
 			is_swallowing = TRUE
 			if(do_after(src, 3 SECONDS, target = L))
 				RegisterSignal(L, COMSIG_LIVING_REVIVE, PROC_REF(living_revive))
@@ -206,10 +206,10 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_name()
 	var/chosen_name = sanitize_name(reject_bad_text(stripped_input(src, "What would you like your name to be?", "Choose Your Name", real_name, MAX_NAME_LEN)))
 	if(!chosen_name)
-		to_chat(src, span_warning("Not a valid name, please try again."))
+		to_chat(src, "<span class='warning'>Not a valid name, please try again.</span>")
 		dragon_name()
 		return
-	to_chat(src, span_notice("Your name is now [span_name("[chosen_name]")], the feared Space Dragon."))
+	to_chat(src, "<span class='notice'>Your name is now <span class='name'>[chosen_name]</span>, the feared Space Dragon.</span>")
 	fully_replace_character_name(null, chosen_name)
 
 /**
@@ -221,12 +221,12 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/color_selection()
 	chosen_color = tgui_color_picker(src,"What would you like your color to be?","Choose Your Color", COLOR_WHITE)
 	if(!chosen_color) //redo proc until we get a color
-		to_chat(src, span_warning("Not a valid color, please try again."))
+		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
 		color_selection()
 		return
 	var/temp_hsv = RGBtoHSV(chosen_color)
 	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
-		to_chat(src, span_danger("Invalid color. Your color is not bright enough."))
+		to_chat(src, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
 		color_selection()
 		return
 	add_atom_colour(chosen_color, FIXED_COLOUR_PRIORITY)
@@ -325,7 +325,7 @@
 			continue
 		hit_list += L
 		L.adjustFireLoss(30)
-		to_chat(L, span_userdanger("You're hit by [src]'s fire breath!"))
+		to_chat(L, "<span class='userdanger'>You're hit by [src]'s fire breath!</span>")
 	// deals damage to mechs
 	for(var/obj/vehicle/sealed/mecha/M in T.contents)
 		if(M in hit_list)
@@ -344,7 +344,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/eat(atom/movable/A)
 	if(A?.loc != src)
 		playsound(src, 'sound/magic/demon_attack1.ogg', 100, TRUE)
-		visible_message(span_warning("[src] swallows [A] whole!"))
+		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
 		A.forceMove(src)
 		return TRUE
 	return FALSE
@@ -429,8 +429,8 @@
 			candidates_flung |= mob
 
 	for(var/mob/living/candidate in candidates_flung)
-		visible_message(span_boldwarning("[candidate] is knocked back by the gust!"))
-		to_chat(candidate, span_userdanger("You're knocked back by the gust!"))
+		visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
+		to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
 		var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
 		var/throwtarget = get_edge_target_turf(candidate, dir_to_target)
 		candidate.safe_throw_at(throwtarget, 10, 1, src)
@@ -443,7 +443,7 @@
 	if(!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
@@ -451,7 +451,7 @@
 	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
 		valid_span_class += " big"
-	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak [span_name(shown_name)] [span_message(message_a)]</span>"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

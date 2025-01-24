@@ -12,7 +12,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isopenturf(user.loc))
-		user.visible_message(span_suicide("[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message("<span class='suicide'>[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		SEND_SIGNAL(src, COMSIG_DEPLOYABLE_FORCE_DEPLOY, user.loc)
 		var/obj/structure/closet/body_bag/R = locate() in user.loc
 		playsound(src, 'sound/items/zip.ogg', 15, 1, -3)
@@ -37,11 +37,11 @@
 	. = ..()
 	if(length(contents))
 		var/s = length(contents)== 1 ? "" : "s"
-		. += span_notice("You can make out the shape[s] of [contents.len] object[s] through the fabric.")
+		. += "<span class='notice'>You can make out the shape[s] of [contents.len] object[s] through the fabric.</span>"
 
 /obj/item/bodybag/bluespace/Destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, span_notice("You suddenly feel the space around you tear apart! You're free!"))
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()

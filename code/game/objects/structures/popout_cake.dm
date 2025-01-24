@@ -38,64 +38,66 @@
 		return
 
 	if(occupant)
-		to_chat(user, span_warning("There's already someone inside!"))
+		to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 		return
 
 	if(atom_integrity <= integrity_failure)
-		to_chat(user, span_warning("The [src] is too damaged to hold anyone inside!"))
+		to_chat(user, "<span class='warning'>The [src] is too damaged to hold anyone inside!</span>")
 		return
 
 	if(target == user)
-		user.visible_message(span_notice("[user] starts climbing into [src]."), span_notice("You start climbing into [src]."))
+		user.visible_message("<span class='notice'>[user] starts climbing into [src].</span>", "<span class='notice'>You start climbing into [src].</span>")
 	else
-		user.visible_message(span_warning("[user] starts stuffing [target] into [src]!"), span_warning("You start stuffing [target] into [src]!"))
+		user.visible_message("<span class='warning'>[user] starts stuffing [target] into [src]!</span>", "<span class= warning'>You start stuffing [target] into [src]!</span>")
 
 	if(do_after(user, 60, src))
 		if(occupant)
-			to_chat(user, span_warning("There's already someone inside!"))
+			to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 			return
 		if(target != user)
-			to_chat(user, span_notice("You stuff [target] into [src]!"))
+			to_chat(user, "<span class='notice'>You stuff [target] into [src]!</span>")
 		target.forceMove(src)
 		occupant = target
 		if(target != user)
 			log_combat(user, occupant, "stuffed ", null, "into [src]", important = FALSE)
 		string.Grant(occupant)
-		to_chat(occupant, span_notice("You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
-		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!"))
+		to_chat(occupant, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
+		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
 	add_fingerprint(target)
 
 /obj/structure/popout_cake/relaymove(mob/user, direction)
 	if(!istype(user))
 		return
 	else if(contents.Find(user))
-		to_chat(user, span_info("You begin climbing out of the [src]..."))
+		to_chat(user, "<span class='info'>You begin climbing out of the [src]...</span>")
 		if(do_after(user, 20))
 			user.forceMove(get_turf(src))
 			occupant = null
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
-		user.visible_message(span_notice("[user] sticks the [W] inside [src] and stars fiddling around!"), span_notice("You start to rewind the hidden mechanism inside [src] with [W]."))
+		user.visible_message("<span class='notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
+		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
 		W.play_tool_sound(src, 50)
 		if(do_after(user, 20, target=src, timed_action_flags = IGNORE_HELD_ITEM))
 			used_string = FALSE
-			user.visible_message(span_notice("After hearing a click from [src], [user] pulls the [W] outside."), span_notice("You successfully rewind the string inside [src]!"))
+			user.visible_message("<span class='notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
+		"<span class='notice>You successfully rewind the string inside [src]!</span>")
 			return FALSE
 	if(W.is_sharp())
-		user.visible_message(span_notice("[user] begins cutting into [src] with [W]!"), span_notice("You starts cutting [src] with [W]!"))
+		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
 		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
 			qdel(src)
 			return FALSE
 	if(istype(W, /obj/item/grenade/flashbang))
 		if(strong_surprise)
-			to_chat(user, span_notice("There's no space for [src] inside!"))
+			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
 		else
-			user.visible_message(span_notice("[user] begins inserting [W] into [src]!"), span_notice("You begin inserting [W] into [src]!"))
+			user.visible_message("<span class='notice'>[user] begins inserting [W] into [src]!</span>", "<span class='notice'>You begin inserting [W] into [src]!</span>")
 			if(do_after(user, 30, src, timed_action_flags = IGNORE_HELD_ITEM))
 				strong_surprise = TRUE
-				user.visible_message(span_notice("After some fiddling, [user] inserts [W] into [src]!"), span_notice("You attach [W] to the hidden mechanism inside!"))
+				user.visible_message("<span class='notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
 				return FALSE
 	else
@@ -104,7 +106,7 @@
 /obj/structure/popout_cake/proc/do_popout()
 	if(isnull(occupant))
 		return
-	visible_message(span_notice("Loud shuffling can be heard from inside [src]!"))
+	visible_message("<span class='notice'>Loud shuffling can be heard from inside [src]!</span>")
 	if(!used_string)
 		used_string = TRUE
 		playsound(src, 'sound/items/party_horn.ogg', 50, 1)
@@ -134,7 +136,7 @@
 	//When distance is 5, will be 0
 	//Can be less than 0 due to hearers being a circular radius.
 	var/distance_proportion = max(1 - (distance / 5), 0)
-	M.show_message(span_warning("BANG!"), MSG_AUDIBLE)
+	M.show_message("<span class='warning'>BANG!</span>", MSG_AUDIBLE)
 	if(M.flash_act(intensity = 1, affect_silicon = 1))
 		if(distance_proportion)
 			M.Paralyze(20 * distance_proportion)
@@ -176,7 +178,7 @@
 
 /datum/action/item_action/pull_string/Trigger()
 	if(cake.used_string)
-		to_chat(usr, span_notice("The string is loose, it's already been used!"))
+		to_chat(usr, "<span class='notice'>The string is loose, it's already been used!</span>")
 		return
 	cake.do_popout()
 

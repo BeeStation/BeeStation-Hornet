@@ -125,22 +125,22 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
-			to_chat(user, span_warning("There is already a catwalk here!"))
+			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
 			return
 		if(L)
 			if(R.use(1))
-				to_chat(user, span_notice("You construct a catwalk."))
+				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new/obj/structure/lattice/catwalk(src)
 			else
-				to_chat(user, span_warning("You need two rods to build a catwalk!"))
+				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
 			return
 		if(R.use(1))
-			to_chat(user, span_notice("You construct a lattice."))
+			to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		else
-			to_chat(user, span_warning("You need one rod to build a lattice."))
+			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
 	if(istype(C, /obj/item/stack/tile/iron))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
@@ -149,12 +149,12 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("You build a floor."))
+				to_chat(user, "<span class='notice'>You build a floor.</span>")
 				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
-				to_chat(user, span_warning("You need one floor tile to build a floor!"))
+				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
-			to_chat(user, span_warning("The plating is going to need some support! Place iron rods first."))
+			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
 
 /turf/open/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -228,7 +228,7 @@
 
 /turf/open/space/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_FLOORWALL)
-		to_chat(user, span_notice("You build a floor."))
+		to_chat(user, "<span class='notice'>You build a floor.</span>")
 		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE

@@ -43,13 +43,13 @@
 /obj/item/taperecorder/proc/readout()
 	if(mytape)
 		if(playing)
-			return span_notice("<b>PLAYING</b>")
+			return "<span class='notice'><b>PLAYING</b></span>"
 		else
 			var/time = mytape.used_capacity / 10 //deciseconds / 10 = seconds
 			var/mins = round(time / 60)
 			var/secs = time - mins * 60
-			return span_notice("<b>[mins]</b>m <b>[secs]</b>s")
-	return span_notice("<b>NO TAPE INSERTED</b>")
+			return "<span class='notice'><b>[mins]</b>m <b>[secs]</b>s</span>"
+	return "<span class='notice'><b>NO TAPE INSERTED</b></span>"
 
 /obj/item/taperecorder/proc/update_available_icons()
 	icons_available = list()
@@ -78,7 +78,7 @@
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) || isobserver(user))
-		. += span_notice("The wire panel is [open_panel ? "opened" : "closed"]. The display reads:")
+		. += "<span class='notice'>The wire panel is [open_panel ? "opened" : "closed"]. The display reads:</span>"
 		. += "[readout()]"
 
 /obj/item/taperecorder/attackby(obj/item/I, mob/user, params)

@@ -122,7 +122,7 @@
 		var/mob/living/simple_animal/hostile/retaliate/nymph/user = L
 		if(mind == null) // No RRing fellow nymphs
 			if(user.is_drone)
-				to_chat(user, span_danger("You can't grow up as a lone nymph drone!"))
+				to_chat(user, "<span class='danger'>You can't grow up as a lone nymph drone!")
 				return
 			if(user.assimilating)
 				return
@@ -147,10 +147,10 @@
 
 /mob/living/simple_animal/hostile/retaliate/nymph/attack_ghost(mob/dead/observer/user)
 	if(client || key || ckey)
-		to_chat(user, span_warning("\The [src] already has a player."))
+		to_chat(user, "<span class='warning'>\The [src] already has a player.")
 		return
 	if(!is_ghost_spawn || stat == DEAD || is_drone)
-		to_chat(user, span_warning("\The [src] is not possessable!"))
+		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
 		return
 	var/control_ask = tgui_alert(usr, "Do you wish to take control of \the [src]", "Chirp Time?", list("Yes", "No"))
 	if(control_ask != "Yes" || !src || QDELETED(src) || QDELETED(user))
@@ -160,7 +160,7 @@
 	var/mob/living/simple_animal/hostile/retaliate/nymph/newnymph = src
 	newnymph.key = user.key
 	newnymph.unique_name = TRUE
-	to_chat(newnymph, span_boldwarning("Remember that you have forgotten all of your past lives and are a new person!"))
+	to_chat(newnymph, "<span class='boldwarning'>Remember that you have forgotten all of your past lives and are a new person!</span>")
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/update_progression()
 	if(amount_grown < max_grown)
@@ -168,7 +168,7 @@
 	if(amount_grown > max_grown)
 		amount_grown = max_grown
 	if(!grown_message_sent && amount_grown == max_grown)
-		to_chat(src, span_userdanger("You feel like you're ready to grow up by yourself!"))
+		to_chat(src, "<span class='userdanger'>You feel like you're ready to grow up by yourself!</span>")
 		grown_message_sent = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -208,8 +208,9 @@
 		src.loc = L.loc
 		qdel(L)
 
-	src.visible_message(span_warning("[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of a new diona gestalt."),
-		span_warning("You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
+	src.visible_message(
+		("<span class='warning'>[src] begins to shift and quiver, and after engulfing another nymph, erupts in a shower of shed bark as it splits into a tangle of a new diona gestalt.</span>"),
+		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients and, along with a friend, surge with growth, splitting into a tangle of at least a dozen new vines. We have attained our gestalt form. Our friends should help with obtaining the rest of our limbs...")
 	)
 
 	var/mob/living/simple_animal/hostile/retaliate/nymph/helpers
@@ -270,10 +271,10 @@
 	if(!isnymph(user))
 		return
 	if(user.is_drone)
-		to_chat(user, span_danger("You can't grow up as a drone!"))
+		to_chat(user, "<span class='danger'>You can't grow up as a drone!")
 		return
 	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, span_danger("You cannot evolve while in a vent."))
+		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
 		return
 	if(user.stat != CONSCIOUS)
 		return
@@ -283,7 +284,7 @@
 		playsound(user, 'sound/creatures/venus_trap_death.ogg', 25, 1)
 		user.evolve()
 	else
-		to_chat(user, span_danger("You are not ready to grow up by yourself."))
+		to_chat(user, "<span class='danger'>You are not ready to grow up by yourself.</span>")
 		return FALSE
 
 /datum/action/nymph/SwitchFrom
@@ -302,11 +303,11 @@
 	if(!isnymph(user))
 		return
 	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, span_danger("You cannot switch while in a vent."))
+		to_chat(user, "<span class='danger'>You cannot switch while in a vent.</span>")
 		return
 	if(QDELETED(drone_diona)) // FUCK SOMETHING HAPPENED TO THE MAIN DIONA, ABORT ABORT ABORT
 		user.is_drone = FALSE //We're not a drone anymore!!!! Panic!
-		to_chat(user, span_danger("You feel like your gestalt is gone! Something must have gone wrong..."))
+		to_chat(user, "<span class='danger'>You feel like your gestalt is gone! Something must have gone wrong...</span>")
 		user.switch_ability.Remove(user)
 		return
 	SwitchFrom(user, drone_parent)
@@ -315,21 +316,25 @@
 	var/datum/mind/C = user.mind
 	M = user.drone_parent
 	if(user.stat == CONSCIOUS)
-		user.visible_message(span_notice("[user] stops moving and starts staring vacantly into space."), span_notice("You stop moving this form..."))
+		user.visible_message("<span class='notice'>[user] \
+			stops moving and starts staring vacantly into space.</span>",
+			"<span class='notice'>You stop moving this form...</span>")
 	else
-		to_chat(M, span_notice("You abandon this nymph..."))
+		to_chat(M, "<span class='notice'>You abandon this nymph...</span>")
 	C.transfer_to(M)
 	M.mind = C
-	M.visible_message(span_notice("[M] blinks and looks around."), span_notice("...and move this one instead."))
+	M.visible_message("<span class='notice'>[M] blinks and looks \
+		around.</span>",
+		"<span class='notice'>...and move this one instead.</span>")
 
 /mob/living/simple_animal/hostile/retaliate/nymph/mob_try_pickup(mob/living/user)
 	if(!ishuman(user))
 		return
 	if(user.get_active_held_item())
-		to_chat(user, span_warning("Your hands are full!"))
+		to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return FALSE
 	if(buckled)
-		to_chat(user, span_warning("[src] is buckled to something!"))
+		to_chat(user, "<span class='warning'>[src] is buckled to something!</span>")
 		return FALSE
 	mob_pickup(user)
 	return TRUE
@@ -342,7 +347,7 @@
 	var/obj/item/clothing/head/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	if(stat == DEAD && mind)
 		holder.tool_behaviour = TOOL_SEED
-	L.visible_message(span_warning("[L] scoops up [src]!"))
+	L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
 	L.put_in_hands(holder)
 
 /obj/item/clothing/head/mob_holder/nymph
@@ -363,8 +368,8 @@
 /obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	if(moving_cooldown <= world.time)
 		moving_cooldown = world.time + 50
-		user.visible_message(span_notice("[user] starts to squirm in [loc]'s hands!"),
-		span_notice("You start to squirm in [loc]'s hands..."))
+		user.visible_message("<span class='notice'>[user] starts to squirm in [loc]'s hands!",
+		"<span class='notice'>You start to squirm in [loc]'s hands...</span>")
 		if(on_head)
 			release()
 		if(do_after(held_mob, 8 SECONDS, user, NONE, TRUE))

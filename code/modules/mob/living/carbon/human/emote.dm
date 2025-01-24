@@ -249,7 +249,7 @@
 			..()
 			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
 		else
-			to_chat(user, span_warning("You strain, but can't seem to fart again just yet."))
+			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
 		return TRUE
 
 // Robotic Tongue emotes. Beep!

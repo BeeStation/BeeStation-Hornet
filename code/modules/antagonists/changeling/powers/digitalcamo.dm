@@ -9,10 +9,10 @@
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
 	..()
 	if(active)
-		to_chat(user, span_notice("We return to normal."))
+		to_chat(user, "<span class='notice'>We return to normal.</span>")
 		user.RemoveElement(/datum/element/digital_camo)
 	else
-		to_chat(user, span_notice(" We distort our form to hide from the AI."))
+		to_chat(user, "<span class='notice'> We distort our form to hide from the AI.</span>")
 		user.AddElement(/datum/element/digital_camo)
 	active = !active
 	return TRUE

@@ -70,7 +70,7 @@
 		P.add_fingerprint(user)
 		P.forceMove(user.loc)
 		user.put_in_hands(P)
-		to_chat(user, span_notice("You take [P] out of \the [src]."))
+		to_chat(user, "<span class='notice'>You take [P] out of \the [src].</span>")
 		bin_pen = null
 		update_icon()
 	else if(total_paper >= 1)
@@ -92,9 +92,9 @@
 		P.add_fingerprint(user)
 		P.forceMove(user.loc)
 		user.put_in_hands(P)
-		to_chat(user, span_notice("You take [P] out of \the [src]."))
+		to_chat(user, "<span class='notice'>You take [P] out of \the [src].</span>")
 	else
-		to_chat(user, span_warning("[src] is empty!"))
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 	add_fingerprint(user)
 	return ..()
 
@@ -103,7 +103,7 @@
 		var/obj/item/paper/P = I
 		if(!user.transferItemToLoc(P, src))
 			return
-		to_chat(user, span_notice("You put [P] in [src]."))
+		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		papers.Add(P)
 		total_paper++
 		update_icon()
@@ -111,7 +111,7 @@
 		var/obj/item/pen/P = I
 		if(!user.transferItemToLoc(P, src))
 			return
-		to_chat(user, span_notice("You put [P] in [src]."))
+		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		bin_pen = P
 		update_icon()
 	else
@@ -149,7 +149,7 @@
 
 /obj/item/paper_bin/bundlenatural/examine()
 	. = ..()
-	. += span_notice("You can cut the cord on this with a sharp implement, freeing all 30 sheets at once.")
+	. += "<span class='notice'>You can cut the cord on this with a sharp implement, freeing all 30 sheets at once.</span>"
 
 /obj/item/paper_bin/bundlenatural/attack_hand(mob/user)
 	..()
@@ -161,7 +161,7 @@
 
 /obj/item/paper_bin/bundlenatural/attackby(obj/item/W, mob/user)
 	if(W.is_sharp())
-		to_chat(user, span_notice("You snip \the [src], spilling paper everywhere."))
+		to_chat(user, "<span class='notice'>You snip \the [src], spilling paper everywhere.</span>")
 		var/turf/T = get_turf(src.loc)
 		while(total_paper > 0)
 			total_paper--

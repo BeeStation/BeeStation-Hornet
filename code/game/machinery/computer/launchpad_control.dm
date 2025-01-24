@@ -13,7 +13,7 @@
 	var/maximum_pads = 4
 
 /obj/machinery/computer/launchpad/attack_paw(mob/user)
-	to_chat(user, span_warning("You are too primitive to use this computer!"))
+	to_chat(user, "<span class='warning'>You are too primitive to use this computer!</span>")
 	return
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
@@ -25,9 +25,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 			RegisterSignal(buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
 			FLUSH_BUFFER(buffer_parent)
 			ui_update()
-			to_chat(user, span_notice("You upload the data from the [buffer_parent.name]'s buffer."))
+			to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
 		else
-			to_chat(user, span_warning("[src] cannot handle any more connections!"))
+			to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
@@ -74,10 +74,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 
 /obj/machinery/computer/launchpad/proc/teleport(mob/user, obj/machinery/launchpad/pad, sending)
 	if(QDELETED(pad))
-		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
+		to_chat(user, "<span class='warning'>ERROR: Launchpad not responding. Check launchpad integrity.</span>")
 		return
 	if(!pad.isAvailable())
-		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered."))
+		to_chat(user, "<span class='warning'>ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>")
 		return
 	pad.doteleport(user, sending)
 

@@ -72,7 +72,7 @@
 		if("release_items")
 			var/mob/living/carbon/human/H = locate(params["mobref"]) in stored_items
 			if(H != usr && !allowed(usr))
-				to_chat(usr, span_warning("Access denied."))
+				to_chat(usr, "<span class='warning'>Access denied.</span>")
 				return
 			drop_items(H)
 			. = TRUE

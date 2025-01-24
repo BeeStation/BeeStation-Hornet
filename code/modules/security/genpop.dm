@@ -50,13 +50,13 @@
 /obj/machinery/turnstile/examine(mob/user)
 	. = ..()
 	if(state == TURNSTILE_SECURED)
-		. += span_notice("The turnstile panel is tightly <b>screwed</b> to the frame.")
+		. += "<span class='notice'>The turnstile panel is tightly <b>screwed</b> to the frame.</span>"
 	if(state == TURNSTILE_CIRCUIT_EXPOSED)
-		. += span_notice("The turnstile circuitboard is exposed, you could <b>pry it</b> from the frame.")
+		. += "<span class='notice'>The turnstile circuitboard is exposed, you could <b>pry it</b> from the frame.</span>"
 	if(state == TURNSTILE_SHELL && anchored)
-		. += span_notice("The turnstile frame is empty but firmly <b>wrenched</b> to the floor.")
+		. += "<span class='notice'>The turnstile frame is empty but firmly <b>wrenched</b> to the floor.</span>"
 	if(state == TURNSTILE_SHELL && !anchored)
-		. += span_notice("The turnstile frame is empty and unsecured, ready to be sliced through <b>welding</b>.")
+		. += "<span class='notice'>The turnstile frame is empty and unsecured, ready to be sliced through <b>welding</b>.</span>"
 
 //Executive officer's line variant. For rule of cool.
 /*/obj/machinery/turnstile/xo
@@ -77,7 +77,7 @@
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/I = W
 		if(broken)
-			to_chat(user, span_danger("It appears to be broken."))
+			to_chat(user, "<span class='danger'>It appears to be broken.</span>")
 			return
 		if(!I || !I.registered_name)
 			return
@@ -107,7 +107,7 @@
 			if(istype(I, /obj/item/card/id/prisoner)) //Don't claim the locker for a sec officer mind you...
 				var/obj/item/card/id/prisoner/P = I
 				if(P.assigned_locker)
-					to_chat(user, span_notice("This ID card is already registered to a locker."))
+					to_chat(user, "<span class='notice'>This ID card is already registered to a locker.</span>")
 					return
 				P.assigned_locker = src
 				assigned_id = I
@@ -118,7 +118,7 @@
 				locked = TRUE
 				update_icon()
 			else
-				to_chat(user, span_danger("Invalid ID. Only prisoners and officers may use these lockers."))
+				to_chat(user, "<span class='danger'>Invalid ID. Only prisoners and officers may use these lockers.</span>")
 			return
 		//It's an ID, and is the correct registered name.
 		if(istype(I) && (registered_name == I.registered_name))
@@ -130,7 +130,7 @@
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 80) //find another sound
 				say("DANGER: PRISONER HAS NOT COMPLETED SENTENCE. AWAIT SENTENCE COMPLETION. COMPLIANCE IS IN YOUR BEST INTEREST.")
 				return
-			visible_message(span_warning("[user] slots [I] into [src]'s ID slot, freeing its contents!"))
+			visible_message("<span class='warning'>[user] slots [I] into [src]'s ID slot, freeing its contents!</span>")
 			registered_name = null
 			desc = initial(desc)
 			locked = FALSE
@@ -167,7 +167,7 @@
 /obj/machinery/turnstile/proc/can_be_rotated(mob/user, rotation_type)
 	if(!anchored && state == TURNSTILE_SHELL)
 		return TRUE
-	to_chat(user, span_warning("It is fastened to the floor!"))
+	to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
 	return FALSE
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -184,7 +184,7 @@
 	var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
 	if(ACCESS_PRISONER in id_card?.GetAccess())
 		id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once to exit the turnstile
-		to_chat(H, span_warning("Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!"))
+		to_chat(H, "<span class='warning'>Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!</span>")
 		addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
 
 /obj/machinery/turnstile/proc/exit_push(atom/movable/pushed) //Just "pushes" prisoners that are being released out of the turnstile so that they don't trap themselves.
@@ -218,7 +218,7 @@
 		state = TURNSTILE_CIRCUIT_EXPOSED
 		return
 	if(I.tool_behaviour == TOOL_CROWBAR && panel_open && circuit != null)
-		to_chat(user, span_notice("You start tearing out the circuitry..."))
+		to_chat(user, "<span class='notice'>You start tearing out the circuitry...</span>")
 		if(do_after(user, 3 SECONDS))
 			I.play_tool_sound(src, 50)
 			circuit.forceMove(loc)
@@ -226,20 +226,20 @@
 			state = TURNSTILE_SHELL
 		return
 	if(istype(I, /obj/item/circuitboard/machine/turnstile) && state == TURNSTILE_SHELL && anchored)
-		to_chat(user, span_notice("You add the circuitboard to the frame."))
+		to_chat(user, "<span class='notice'>You add the circuitboard to the frame.</span>")
 		circuit = new/obj/item/circuitboard/machine/turnstile(src)
 		qdel(I)
 		state = TURNSTILE_CIRCUIT_EXPOSED
 		return
 	if(I.tool_behaviour == TOOL_WRENCH && state == TURNSTILE_SHELL)
 		if(anchored)
-			to_chat(user, span_notice("You unanchor the turnstile frame..."))
+			to_chat(user, "<span class='notice'>You unanchor the turnstile frame...</span>")
 			if(do_after(user, 3 SECONDS))
 				I.play_tool_sound(src, 50)
 				anchored = FALSE
 			return
 		if(!anchored)
-			to_chat(user, span_notice("You start anchoring the turnstile frame..."))
+			to_chat(user, "<span class='notice'>You start anchoring the turnstile frame...</span>")
 			if(do_after(user, 3 SECONDS))
 				I.play_tool_sound(src, 50)
 				anchored = TRUE
@@ -266,22 +266,22 @@
 	if(circuit == null && user.a_intent == INTENT_HARM)
 		var/obj/item/weldingtool/W = I
 		if(W.use_tool(src, user, 40, volume=50))
-			to_chat(user, span_notice("You start slicing off the bars of the [src]"))
+			to_chat(user, "<span class='notice'>You start slicing off the bars of the [src]")
 			new /obj/item/stack/rods/ten(get_turf(src))
 			qdel(src)
 			return
 
 	if(atom_integrity >= max_integrity)
-		to_chat(user, span_notice("The turnstile doesn't need repairing."))
+		to_chat(user, "<span class='notice'>The turnstile doesn't need repairing.</span>")
 		return
 	user.visible_message("[user] is welding the turnstile.", \
-				span_notice("You begin repairing the turnstile..."), \
-				span_italics("You hear welding."))
+				"<span class='notice'>You begin repairing the turnstile...</span>", \
+				"<span class='italics'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume=50))
 		atom_integrity = max_integrity
 		set_machine_stat(machine_stat & ~BROKEN)
 		user.visible_message("[user.name] has repaired [src].", \
-							span_notice("You finish repairing the turnstile."))
+							"<span class='notice'>You finish repairing the turnstile.</span>")
 		update_icon()
 		return
 
@@ -402,7 +402,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	// Generate the crime list
 	try crime_list = json_decode(file2text(config_file))
 	catch(var/exception/e)
-		message_admins(span_boldannounce("[e] caught on [e.file]:[e.line]."))
+		message_admins("<span class='boldannounce'>[e] caught on [e.file]:[e.line].</span>")
 		load_default_crimelist()
 		return
 	//we need to get the names of each crime for the regex
@@ -422,7 +422,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 /obj/machinery/genpop_interface/proc/load_default_crimelist()
 	crime_list = list()
 	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	message_admins(span_boldannounce("Failed to read the space_law config file! Defaulting to hardcoded datums.")) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
+	message_admins("<span class='boldannounce'>Failed to read the space_law config file! Defaulting to hardcoded datums.</span>") //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
 		// Ignore this crime, it is abstract
 		if (isnull(initial(crime_path.name)))
@@ -466,26 +466,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 /obj/machinery/genpop_interface/examine()
 	. = ..()
 	if(!panel_open)
-		. += span_notice("The prisoner interface panel is <b>screwed</b> in safely.")
+		. += "<span class='notice'>The prisoner interface panel is <b>screwed</b> in safely.</span>"
 	if(panel_open && buildstage == 2)
-		. += span_notice("The prisoner interface panel is open, the <b>wires</b> are exposed.\nThe interface cannot function with its panel <b>screwed open</b>.")
+		. += "<span class='notice'>The prisoner interface panel is open, the <b>wires</b> are exposed.\nThe interface cannot function with its panel <b>screwed open</b>.</span>"
 	if(buildstage == 1)
-		. += span_notice("The circuits are visible and ready to be <b>pried</b> off.\nIt is lacking proper <b>wiring</b>")
+		. += "<span class='notice'>The circuits are visible and ready to be <b>pried</b> off.\nIt is lacking proper <b>wiring</b></span>"
 	if(buildstage == 0)
-		.+= span_notice("The empty frame is ready to be <b>wrenched</b> off the wall.\nIt is lacking a <b>circuitboard</b>.")
+		.+= "<span class='notice'>The empty frame is ready to be <b>wrenched</b> off the wall.\nIt is lacking a <b>circuitboard</b>.</span>"
 
 /obj/machinery/genpop_interface/attackby(obj/item/C, mob/user)
 	switch(buildstage)
 		if(0)
 			if(istype(C, /obj/item/electronics/genpop_interface))
 				if(user.temporarilyRemoveItemFromInventory(C))
-					to_chat(user, span_notice("You insert the processing unit in the frame."))
+					to_chat(user, "<span class='notice'>You insert the processing unit in the frame.</span>")
 					qdel(C)
 					buildstage = 1
 					return
 
 			if(C.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, span_notice("You wrench the frame off the wall."))
+				to_chat(user, "<span class='notice'>You wrench the frame off the wall.</span>")
 				C.play_tool_sound(src)
 				new /obj/item/wallframe/genpop_interface( user.loc )
 				qdel(src)
@@ -494,22 +494,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 			if(istype(C, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/cable = C
 				if(cable.get_amount() < 5)
-					to_chat(user, span_warning("You need five lengths of cable to wire the prisoner interface!"))
+					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the prisoner interface!</span>")
 					return
-				user.visible_message(span_notice("[user.name] wires the prisoner interface."), span_notice("You start wiring the prisoner interface."))
+				user.visible_message("[user.name] wires theprisoner interface.</span>", \
+									"<span class='notice'>You start wiring the prisoner interface.</span>")
 				if (do_after(user, 20, target = src))
 					if (cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)
-						to_chat(user, span_notice("You wire the prisoner interface."))
+						to_chat(user, "<span class='notice'>You wire the prisoner interface.</span>")
 						buildstage = 2
 						update_icon()
 				return
 
 			if(C.tool_behaviour == TOOL_CROWBAR)
-				to_chat(user, span_notice("You start prying out the electronics off the frame."))
+				to_chat(user, "<span class='notice'>You start prying out the electronics off the frame.</span>")
 				if (C.use_tool(src, user, 20))
 					if (buildstage == 1)
-						to_chat(user, span_notice("You remove the prisoner interface electronics."))
+						to_chat(user, "<span class='notice'>You remove the prisoner interface electronics.</span>")
 						new /obj/item/electronics/genpop_interface( src.loc )
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 						buildstage = 0
@@ -518,13 +519,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 		if(2)
 			if(C.tool_behaviour == TOOL_SCREWDRIVER)
 				if(panel_open)
-					to_chat(user, span_notice("You close the panel of the [src]."))
+					to_chat(user, "<span class='notice'>You close the panel of the [src].</span>")
 					C.play_tool_sound(src)
 					panel_open = FALSE
 					update_icon()
 					return
 				else
-					to_chat(user, span_notice("You open the panel of the [src]."))
+					to_chat(user, "<span class='notice'>You open the panel of the [src].</span>")
 					C.play_tool_sound(src)
 					panel_open = TRUE
 					update_icon()
@@ -532,7 +533,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 
 			if(C.tool_behaviour == TOOL_WIRECUTTER && panel_open)
 				C.play_tool_sound(src)
-				to_chat(user, span_notice("You cut the wires."))
+				to_chat(user, "<span class='notice'>You cut the wires.</span>")
 				new /obj/item/stack/cable_coil(loc, 5)
 				buildstage = 1
 				update_icon()
@@ -588,7 +589,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 /obj/machinery/genpop_interface/proc/print_id(mob/user, desired_crime, desired_sentence)
 
 	if(world.time < next_print)
-		to_chat(user, span_warning("[src]'s ID printer is on cooldown."))
+		to_chat(user, "<span class='warning'>[src]'s ID printer is on cooldown.</span>")
 		return FALSE
 	investigate_log("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", INVESTIGATE_RECORDS)
 	user.log_message("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", LOG_ATTACK)
@@ -625,7 +626,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, span_warning("Access denied."))
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
 	switch(action)
 		if("prisoner_name")
@@ -732,9 +733,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()
 	if(sentence)
-		. += span_notice("You have served [DisplayTimeText(served_time*10, 1)] out of [DisplayTimeText(sentence*10, 1)].")
+		. += "<span class='notice'>You have served [DisplayTimeText(served_time*10, 1)] out of [DisplayTimeText(sentence*10, 1)].</span>"
 	if(crime)
-		. += span_warning("It appears its holder was convicted of: <b>[crime]</b>")
+		. += "<span class='warning'>It appears its holder was convicted of: <b>[crime]</b></span>"
 
 /obj/item/card/id/prisoner/process(delta_time)
 	served_time += delta_time
@@ -749,5 +750,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 			R.wanted_status = WANTED_DISCHARGED
 
 		if(isliving(loc))
-			to_chat(loc, span_boldnotice("You have served your sentence! You may now exit prison through the turnstiles and collect your belongings."))
+			to_chat(loc, "<span class='boldnotice'>You have served your sentence! You may now exit prison through the turnstiles and collect your belongings.</span>")
 		return PROCESS_KILL

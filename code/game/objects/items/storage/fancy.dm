@@ -181,10 +181,10 @@
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-click to extract contents.")
+	. += "<span class='notice'>Alt-click to extract contents.</span>"
 	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
 	if(L)
-		. += span_notice("There seems to be a lighter inside. Ctrl-click to pull it out.")
+		. += "<span class='notice'>There seems to be a lighter inside. Ctrl-click to pull it out.</span>"
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -194,9 +194,9 @@
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
 		user.put_in_hands(I)
 		contents -= I
-		to_chat(user, span_notice("You take \a [I] out of the pack."))
+		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
 	else
-		to_chat(user, span_notice("There are no [contents_tag]s left in the pack."))
+		to_chat(user, "<span class='notice'>There are no [contents_tag]s left in the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -206,9 +206,9 @@
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
 		user.put_in_hands(I)
 		contents -= I
-		to_chat(user, span_notice("You take \a [I] out of the pack."))
+		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
 	else
-		to_chat(user, span_warning("There is no lighter in the pack."))
+		to_chat(user, "<span class='warning'>There is no lighter in the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	. = ..()
@@ -246,7 +246,7 @@
 
 	var/obj/item/clothing/mask/cigarette/cig = locate() in contents
 	if(!cig)
-		to_chat(user, span_notice("There are no [contents_tag]s left in the pack."))
+		to_chat(user, "<span class='notice'>There are no [contents_tag]s left in the pack.</span>")
 		return
 	if(target != user || !contents.len || user.wear_mask)
 		return ..()
@@ -254,7 +254,7 @@
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, cig, target)
 	target.equip_to_slot_if_possible(cig, ITEM_SLOT_MASK)
 	contents -= cig
-	to_chat(user, span_notice("You take \a [cig] out of the pack."))
+	to_chat(user, "<span class='notice'>You take \a [cig] out of the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"

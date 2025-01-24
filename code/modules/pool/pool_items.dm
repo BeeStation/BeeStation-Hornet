@@ -37,7 +37,7 @@
 			return
 		//Try shove it in their inventory
 		if(H.put_in_active_hand(src))
-			visible_message(span_notice("The [src] lands over [H]'s head!"))
+			visible_message("<span class='notice'>The [src] lands over [H]'s head!</span>")
 
 /obj/item/pool/pool_noodle
 	icon_state = "pool_noodle"
@@ -59,7 +59,7 @@
 	if(suiciding)
 		return SHAME
 	suiciding = TRUE
-	user.visible_message(span_notice("[user] begins kicking their legs to stay afloat!"))
+	user.visible_message("<span class='notice'>[user] begins kicking their legs to stay afloat!</span>")
 	var/mob/living/L = user
 	if(istype(L))
 		L.Immobilize(63)
@@ -67,14 +67,14 @@
 	sleep(20)
 	animate(user, time=10, pixel_y=12)
 	sleep(10)
-	user.visible_message(span_notice("[user] keeps swimming higher and higher!"))
+	user.visible_message("<span class='notice'>[user] keeps swimming higher and higher!</span>")
 	animate(user, time=10, pixel_y=22)
 	sleep(10)
 	animate(user, time=10, pixel_y=16)
 	sleep(10)
 	animate(user, time=15, pixel_y=32)
 	sleep(15)
-	user.visible_message(span_suicide("[user] suddenly realised they aren't in the water and cannot float."))
+	user.visible_message("<span class='suicide'>[user] suddenly realised they aren't in the water and cannot float.</span>")
 	animate(user, time=1, pixel_y=0)
 	sleep(1)
 	user.ghostize()

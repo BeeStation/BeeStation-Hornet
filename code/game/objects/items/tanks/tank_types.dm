@@ -15,7 +15,7 @@
 
 /obj/item/tank/internals/examine(mob/user)
 	. = ..()
-	. += span_notice("Alt-click the tank to toggle the valve.")
+	. += "<span class='notice'>Alt-click the tank to toggle the valve.</span>"
 
 /*
  * Oxygen

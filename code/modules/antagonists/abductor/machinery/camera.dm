@@ -72,7 +72,7 @@
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
-		to_chat(owner, span_warning("Due to significant interference, this area cannot be warped to!"))
+		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
 	var/specimin_nearby = FALSE
@@ -95,7 +95,7 @@
 		specimin_nearby = TRUE
 
 	if (specimin_nearby && !agent_nearby)
-		to_chat(owner, span_warning("You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!"))
+		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
@@ -127,7 +127,7 @@
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
-		to_chat(owner, span_warning("Due to significant interference, this area cannot be warped to!"))
+		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
 	var/specimin_nearby = FALSE
@@ -150,7 +150,7 @@
 		specimin_nearby = TRUE
 
 	if (specimin_nearby && !agent_nearby)
-		to_chat(owner, span_warning("You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!"))
+		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))

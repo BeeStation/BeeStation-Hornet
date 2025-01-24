@@ -45,12 +45,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 		if(src.reagents && W.reagents)
 			. = 1 //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)
-				to_chat(user, span_notice("[src] isn't thick enough to scoop up!"))
+				to_chat(user, "<span class='notice'>[src] isn't thick enough to scoop up!</span>")
 				return
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
-				to_chat(user, span_notice("[W] is full!"))
+				to_chat(user, "<span class='notice'>[W] is full!</span>")
 				return
-			to_chat(user, span_notice("You scoop up [src] into [W]!"))
+			to_chat(user, "<span class='notice'>You scoop up [src] into [W]!</span>")
 			reagents.trans_to(W, reagents.total_volume, transfered_by = user)
 			if(!reagents.total_volume) //scooped up all of it
 				qdel(src)
@@ -61,7 +61,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 		else
 			var/hotness = W.is_hot()
 			reagents.expose_temperature(hotness)
-			to_chat(user, span_notice("You heat [name] with [W]!"))
+			to_chat(user, "<span class='notice'>You heat [name] with [W]!</span>")
 	else
 		return ..()
 

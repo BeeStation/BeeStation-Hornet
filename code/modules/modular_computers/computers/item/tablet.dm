@@ -66,13 +66,13 @@
 		return FALSE
 	var/obj/item/paper/paper = target
 	if (!paper.default_raw_text)
-		to_chat(user, span_warning("Unable to scan! Paper is blank."))
+		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
 	else
 		// clean up after ourselves
 		if(stored_paper)
 			qdel(stored_paper)
 		stored_paper = paper.copy(src)
-		to_chat(user, span_notice("Paper scanned. Saved to PDA's notekeeper."))
+		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
 		ui_update()
 	return TRUE
 
@@ -83,11 +83,11 @@
 		if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
 			return
 		if(inserted_item)
-			to_chat(user, span_warning("There is already \a [inserted_item] in \the [src]!"))
+			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
 		else
 			if(!user.transferItemToLoc(attacking_item, src))
 				return
-			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
+			to_chat(user, "<span class='notice'>You insert \the [attacking_item] into \the [src].</span>")
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
@@ -158,13 +158,13 @@
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
 		return
 	if(inserted_item)
-		to_chat(user, span_notice("You remove [inserted_item] from [src]."))
+		to_chat(user, "<span class='notice'>You remove [inserted_item] from [src].</span>")
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 		update_icon()
 	else
-		to_chat(user, span_warning("This tablet does not have a pen in it!"))
+		to_chat(user, "<span class='warning'>This tablet does not have a pen in it!</span>")
 
 // Tablet 'splosion..
 
@@ -175,9 +175,9 @@
 
 	if (ismob(loc))
 		var/mob/victim = loc
-		victim.show_message(span_userdanger("Your [src] explodes!"), MSG_VISUAL, span_warning("You hear a loud *pop*!"), MSG_AUDIBLE)
+		victim.show_message("<span class='userdanger'>Your [src] explodes!</span>", MSG_VISUAL, "<span class='warning'>You hear a loud *pop*!</span>", MSG_AUDIBLE)
 	else
-		visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
+		visible_message("<span class='danger'>[src] explodes!</span>", "<span class='warning'>You hear a loud *pop*!</span>")
 
 	if(current_turf)
 		current_turf.hotspot_expose(700,125)
@@ -216,7 +216,7 @@
 
 /obj/item/modular_computer/tablet/nukeops/should_emag(mob/user)
 	if(..())
-		to_chat(user, span_notice("You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\"."))
+		to_chat(user, "<span class='notice'>You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\".</span>")
 	return FALSE
 
 /// Borg Built-in tablet interface
@@ -311,7 +311,7 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		sound = pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg')
 	borgo.playsound_local(src, sound, 50, TRUE)
-	to_chat(borgo, span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]"))
+	to_chat(borgo, "<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
 
 /obj/item/modular_computer/tablet/integrated/ui_state(mob/user)
 	return GLOB.reverse_contained_state
@@ -389,7 +389,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 
 /obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
-	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
+	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)

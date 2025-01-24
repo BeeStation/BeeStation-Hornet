@@ -18,7 +18,7 @@
 	if(!isliving(owner))
 		return
 	if(GLOB.gateway_opening)
-		to_chat(owner, "[span_sevtugsmall("You cannot warp while the gateway is opening!")]")
+		to_chat(owner, "<span class='sevtug_small'>You cannot warp while the gateway is opening!</span>")
 		return
 	if(warping)
 		button_icon_state = "warp_down"
@@ -30,10 +30,10 @@
 	var/target_loc = get_turf(cam)
 	var/area/AR = get_area(target_loc)
 	if(isclosedturf(target_loc))
-		to_chat(owner, "[span_sevtugsmall("You cannot warp into dense objects.")]")
+		to_chat(owner, "<span class='sevtug_small'>You cannot warp into dense objects.</span>")
 		return
 	if(!AR.clockwork_warp_allowed)
-		to_chat(owner, "[span_sevtugsmall("[AR.clockwork_warp_fail]")]")
+		to_chat(owner, "<span class='sevtug_small'>[AR.clockwork_warp_fail]</span>")
 		return
 	do_sparks(5, TRUE, get_turf(cam))
 	warping = TRUE

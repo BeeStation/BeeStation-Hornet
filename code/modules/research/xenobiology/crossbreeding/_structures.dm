@@ -219,10 +219,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
 		if(cell.charge == cell.maxcharge)
-			to_chat(span_danger(" You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea..."))
+			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...</span>")
 			cell.explode()
 			return
-		to_chat(user, span_notice("You charged the [I.name] on [name]!"))
+		to_chat(user, "<span class='notice'>You charged the [I.name] on [name]!</span>")
 		cell.give(cell.maxcharge)
 		return
 	return ..()

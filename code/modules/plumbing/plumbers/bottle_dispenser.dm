@@ -6,7 +6,7 @@
 
 /obj/machinery/plumbing/bottle_dispenser/examine(mob/user)
 	. = ..()
-	. += span_notice("Use an open container on it to fill it up!")
+	. += "<span class='notice'>Use an open container on it to fill it up!</span>"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/bottle_dispenser)
 

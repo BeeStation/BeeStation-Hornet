@@ -94,4 +94,4 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 			if(!ispath(A))
 				continue
 			nice_list += list("[req_components[A]] [initial(A.name)]")
-		. += span_notice("Required components: [english_list(nice_list)].")
+		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"

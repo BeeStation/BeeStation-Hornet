@@ -34,7 +34,7 @@
 	if(is_species(L, /datum/species/snail))
 		var/mob/living/snail
 		snail.adjustFireLoss(10, TRUE)
-		to_chat(L, span_danger("The salt! It burns!"))
+		to_chat(L, "<span class='danger'>The salt! It burns!</span>")
 
 /obj/effect/decal/cleanable/food/flour
 	name = "flour"

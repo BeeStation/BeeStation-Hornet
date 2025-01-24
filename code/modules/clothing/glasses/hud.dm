@@ -68,7 +68,7 @@
 
 /obj/item/clothing/glasses/hud/on_emag(mob/user)
 	..()
-	to_chat(user, span_warning("PZZTTPFFFT"))
+	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 	desc = "[desc] The display is flickering slightly."
 	//If we aren't already glitching out, start glitching
 	if(!(obj_flags & OBJ_EMPED))

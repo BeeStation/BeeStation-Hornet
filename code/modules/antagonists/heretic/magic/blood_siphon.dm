@@ -22,14 +22,14 @@
 	if(target.anti_magic_check())
 		user.balloon_alert(user, "Spell blocked")
 		target.visible_message(
-			span_danger("The spell bounces off of [target]!"),
-			span_danger("The spell bounces off of you!"),
+			"<span class='danger'>The spell bounces off of [target]!</span>",
+			"<span class='danger'>The spell bounces off of you!</span>",
 		)
 		return
 
 	target.visible_message(
-		span_danger("[target] turns pale as a red glow envelops [target.p_them()]!"),
-		span_danger("You turn pale as a red glow enevelops you!"),
+		"<span class='danger'>[target] turns pale as a red glow envelops [target.p_them()]!</span>",
+		"<span class='danger'>You turn pale as a red glow enevelops you!</span>",
 	)
 
 	target.take_overall_damage(brute = 20)

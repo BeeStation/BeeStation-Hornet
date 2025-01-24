@@ -55,10 +55,10 @@
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/S = I
 		if(atom_integrity == max_integrity)
-			to_chat(user, span_warning("\The [src] doesn't seem to require repairs."))
+			to_chat(user, "<span class='warning'>\The [src] doesn't seem to require repairs.</span>")
 			return 1
 		if(S.use(1))
-			to_chat(user, span_notice("You patch up \the [src] with a bit of \the [I]."))
+			to_chat(user, "<span class='notice'>You patch up \the [src] with a bit of \the [I].</span>")
 			atom_integrity = min(atom_integrity + 10, max_integrity)
 		return 1
 
@@ -94,11 +94,11 @@
 /obj/item/computer_hardware/examine(var/mob/user)
 	. = ..()
 	if(damage > damage_failure)
-		. += span_danger("It seems to be severely damaged!")
+		. += "<span class='danger'>It seems to be severely damaged!</span>"
 	else if(damage > damage_malfunction)
-		. += span_warning("It seems to be damaged!")
+		. += "<span class='warning'>It seems to be damaged!</span>"
 	else if(damage)
-		. += span_notice("It seems to be slightly damaged.")
+		. += "<span class='notice'>It seems to be slightly damaged.</span>"
 
 /// Component-side compatibility check.
 /obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/install_into, mob/living/user = null)

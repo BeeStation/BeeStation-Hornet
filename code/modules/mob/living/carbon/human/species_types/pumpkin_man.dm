@@ -76,7 +76,7 @@
 			if(prob(15))
 				H.rad_act(rand(30,80))
 				H.Paralyze(100)
-				H.visible_message(span_warning("[H] writhes in pain as [H.p_their()] vacuoles boil."), span_userdanger("You writhe in pain as your vacuoles boil!"), span_italics("You hear the crunching of leaves."))
+				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
 					H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 				else
@@ -85,7 +85,7 @@
 				H.domutcheck()
 			else
 				H.adjustFireLoss(rand(5,15))
-				H.show_message(span_userdanger("The radiation beam singes you!"))
+				H.show_message("<span class='userdanger'>The radiation beam singes you!</span>")
 		if(/obj/projectile/energy/florayield)
 			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
@@ -115,7 +115,7 @@
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
 	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.is_zone_selected(BODY_ZONE_HEAD))
-		to_chat(_user, span_notice("You begin to carve a face into [_source]..."))
+		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
 			//generate option list
@@ -127,13 +127,13 @@
 			M.cut_overlay(head.carved_overlay) //This is needed in addition to the head icon getter's - for some reason?
 			head.carved_overlay.icon_state = face_choosen
 			M.update_body_parts_head_only()
-			to_chat(_user, span_notice("You carve a face into [_source]."))
+			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue
 			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
 			if(istype(P))
 				P?.carved = TRUE
 		else
-			to_chat(_user, span_warning("You fail to carve a face into [_source]!"))
+			to_chat(_user, "<span class='warning'>You fail to carve a face into [_source]!</span>")
 
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
@@ -174,13 +174,13 @@
 			available_candy -= type
 			//if we're low on candy, warn player
 			if(available_candy.len <= 1)
-				to_chat(H, span_warning("You're running low on candy, it would be unwise to continue..."))
-			to_chat(H, span_notice("You pull out a piece of candy from your head."))
+				to_chat(H, "<span class='warning'>You're running low on candy, it would be unwise to continue...</span>")
+			to_chat(H, "<span class='notice'>You pull out a piece of candy from your head.</span>")
 			//Put candy into hand, if we can
 			H.equip_to_slot_if_possible(type, ITEM_SLOT_HANDS)
 		//Otherwise pull our brain out
 		else
-			to_chat(H, span_warning("You pull your brain out!"))
+			to_chat(H, "<span class='warning'>You pull your brain out!</span>")
 			var/obj/item/organ/B = H.getorganslot(ORGAN_SLOT_BRAIN)
 			B.Remove(H)
 			B.forceMove(get_turf(H))

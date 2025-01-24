@@ -12,7 +12,7 @@
 /obj/machinery/aug_manipulator/examine(mob/user)
 	. = ..()
 	if(storedpart)
-		. += span_notice("Alt-click to eject the limb.")
+		. += "<span class='notice'>Alt-click to eject the limb.</span>"
 
 /obj/machinery/aug_manipulator/Initialize(mapload)
 	initial_icon_state = initial(icon_state)
@@ -59,10 +59,10 @@
 	else if(istype(O, /obj/item/bodypart))
 		var/obj/item/bodypart/B = O
 		if(IS_ORGANIC_LIMB(B))
-			to_chat(user, span_warning("The machine only accepts cybernetics!"))
+			to_chat(user, "<span class='warning'>The machine only accepts cybernetics!</span>")
 			return
 		if(storedpart)
-			to_chat(user, span_warning("There is already something inside!"))
+			to_chat(user, "<span class='warning'>There is already something inside!</span>")
 			return
 		else
 			O = user.get_active_held_item()
@@ -78,18 +78,18 @@
 				return
 
 			user.visible_message("[user] begins repairing [src].", \
-				span_notice("You begin repairing [src]..."), \
-				span_italics("You hear welding."))
+				"<span class='notice'>You begin repairing [src]...</span>", \
+				"<span class='italics'>You hear welding.</span>")
 
 			if(O.use_tool(src, user, 40, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
-				to_chat(user, span_notice("You repair [src]."))
+				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
 				atom_integrity = max(atom_integrity, max_integrity)
 				update_icon()
 		else
-			to_chat(user, span_notice("[src] does not need repairs."))
+			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
 		return ..()
 
@@ -111,7 +111,7 @@
 		eject_part(user)
 
 	else
-		to_chat(user, span_notice("\The [src] is empty."))
+		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
 
 /obj/machinery/aug_manipulator/proc/eject_part(mob/living/user)
 	if(storedpart)
@@ -119,7 +119,7 @@
 		storedpart = null
 		update_icon()
 	else
-		to_chat(user, span_notice("[src] is empty."))
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/aug_manipulator/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, !issilicon(user)))

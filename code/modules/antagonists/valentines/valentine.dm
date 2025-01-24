@@ -40,7 +40,7 @@
 		L.faction -= "[REF(date.current)]"
 
 /datum/antagonist/valentine/greet()
-	to_chat(owner, span_bigboldclown("You're on a date with [date.name]! Protect [date.current.p_them()] at all costs. This takes priority over all other loyalties, you may do whatever you can to help and protect them."))
+	to_chat(owner, "<span class='big bold clown'>You're on a date with [date.name]! Protect [date.current.p_them()] at all costs. This takes priority over all other loyalties, you may do whatever you can to help and protect them.</span>")
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()
@@ -52,9 +52,9 @@
 				break
 
 	if(objectives_complete)
-		return span_greentextbig("[owner.name] protected their date, [date.name]!")
+		return "<span class='greentext big'>[owner.name] protected their date, [date.name]!</span>"
 	else
-		return span_redtextbig("[owner.name] failed to protect their date, [date.name]!")
+		return "<span class='redtext big'>[owner.name] failed to protect their date, [date.name]!</span>"
 
 /datum/antagonist/valentine/apply_innate_effects(mob/living/mob_override)
 	. = ..()

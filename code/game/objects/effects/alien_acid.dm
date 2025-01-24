@@ -73,7 +73,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/acid)
 			if(L.acid_act(10, acid_used, "feet"))
 				acid_level = max(0, acid_level - acid_used*10)
 				playsound(L, 'sound/weapons/sear.ogg', 50, 1)
-				to_chat(L, span_userdanger("[src] burns you!"))
+				to_chat(L, "<span class='userdanger'>[src] burns you!</span>")
 
 //xenomorph corrosive acid
 /obj/effect/acid/alien
@@ -87,17 +87,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/acid)
 			playsound(loc, 'sound/items/welder.ogg', 100, 1)
 		target_strength--
 		if(target_strength <= 0)
-			target.visible_message(span_warning("[target] collapses under its own weight into a puddle of goop and undigested debris!"))
+			target.visible_message("<span class='warning'>[target] collapses under its own weight into a puddle of goop and undigested debris!</span>")
 			target.acid_melt()
 			qdel(src)
 		else
 
 			switch(target_strength)
 				if(24)
-					visible_message(span_warning("[target] is holding up against the acid!"))
+					visible_message("<span class='warning'>[target] is holding up against the acid!</span>")
 				if(16)
-					visible_message(span_warning("[target] is being melted by the acid!"))
+					visible_message("<span class='warning'>[target] is being melted by the acid!</span>")
 				if(8)
-					visible_message(span_warning("[target] is struggling to withstand the acid!"))
+					visible_message("<span class='warning'>[target] is struggling to withstand the acid!</span>")
 				if(4)
-					visible_message(span_warning("[target] begins to crumble under the acid!"))
+					visible_message("<span class='warning'>[target] begins to crumble under the acid!</span>")

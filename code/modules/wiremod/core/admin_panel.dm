@@ -34,7 +34,7 @@
 
 	var/obj/item/integrated_circuit/circuit = locate(params["circuit"])
 	if (!istype(circuit))
-		to_chat(usr, span_warning("That circuit no longer exists."))
+		to_chat(usr, "<span class='warning'>That circuit no longer exists.</span>")
 		return FALSE
 
 	switch (action)
@@ -48,9 +48,9 @@
 			new_circuit.load_circuit_data(circuit.convert_to_json(), errors)
 
 			if (length(errors))
-				to_chat(usr, span_warning("Somehow, duplicating the circuit failed:"))
+				to_chat(usr, "<span class='warning'>Somehow, duplicating the circuit failed:</span>")
 				for (var/error in errors)
-					to_chat(usr, span_warning("[error]"))
+					to_chat(usr, "<span class='warning'>[error]</span>")
 		if ("follow_circuit")
 			var/datum/admins/D = GLOB.admin_datums[usr.client?.ckey]
 			D.admin_follow(circuit)

@@ -36,7 +36,7 @@
 		return
 	var/stun_amount = 200/severity
 	owner.Stun(stun_amount)
-	to_chat(owner, span_warning("Your body seizes up!"))
+	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 
 
 /obj/item/organ/cyberimp/brain/anti_drop
@@ -56,16 +56,16 @@
 
 		var/list/hold_list = owner.get_empty_held_indexes()
 		if(LAZYLEN(hold_list) == owner.held_items.len)
-			to_chat(owner, span_notice("You are not holding any items, your hands relax..."))
+			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
 			active = 0
 			stored_items = list()
 		else
 			for(var/obj/item/I in stored_items)
-				to_chat(owner, span_notice("Your [owner.get_held_index_name(owner.get_held_index_of_item(I))]'s grip tightens."))
+				to_chat(owner, "<span class='notice'>Your [owner.get_held_index_name(owner.get_held_index_of_item(I))]'s grip tightens.</span>")
 				ADD_TRAIT(I, TRAIT_NODROP, ANTI_DROP_IMPLANT_TRAIT)
 	else
 		release_items()
-		to_chat(owner, span_notice("Your hands relax..."))
+		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
 
 
 /obj/item/organ/cyberimp/brain/anti_drop/emp_act(severity)
@@ -79,7 +79,7 @@
 	for(var/obj/item/I in stored_items)
 		A = pick(oview(range))
 		I.throw_at(A, range, 2)
-		to_chat(owner, span_warning("Your [owner.get_held_index_name(owner.get_held_index_of_item(I))] spasms and throws the [I.name]!"))
+		to_chat(owner, "<span class='warning'>Your [owner.get_held_index_name(owner.get_held_index_of_item(I))] spasms and throws the [I.name]!</span>")
 	stored_items = list()
 
 
@@ -185,19 +185,19 @@
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/nuclear))
 			// funny joke message
-			to_chat(owner, span_warning("Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!"))
+			to_chat(owner, "<span class='warning'>Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!</span>")
 			continue
 		else
 			continue
 		var/hand_name = owner.get_held_index_name(owner.get_held_index_of_item(held_item))
 		if(!new_surgeries)
-			to_chat(owner, span_notice("No new surgical programs detected on \the [held_item] in your [hand_name]."))
+			to_chat(owner, "<span class='notice'>No new surgical programs detected on \the [held_item] in your [hand_name].</span>")
 			continue
-		to_chat(owner, span_notice("<b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded..."))
+		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded...</span>")
 		if(!do_after(owner, 5 SECONDS, held_item))
-			to_chat(owner, span_warning("Surgical program transfer interrupted!"))
+			to_chat(owner, "<span class='warning'>Surgical program transfer interrupted!</span>")
 			return
-		to_chat(owner, span_notice("<b>[new_surgeries]</b> new surgical program\s were transferred from \the [held_item] in your [hand_name] to \the [src]!"))
+		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s were transferred from \the [held_item] in your [hand_name] to \the [src]!</span>")
 		advanced_surgeries |= surgeries_to_add
 
 /datum/action/item_action/update_linkedsurgery
@@ -209,9 +209,9 @@
 		var/old_surgeries_amount = length(I.advanced_surgeries)
 		I.update_surgery()
 		if(length(I.advanced_surgeries) > old_surgeries_amount)
-			to_chat(usr, span_notice("Surgical Implant updated."))
+			to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
 		else
-			to_chat(usr, span_notice("None of new surgical programs detected."))
+			to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
 	return ..()
 
 //[[[[MOUTH]]]]
@@ -230,7 +230,7 @@
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
 	if(prob(60/severity))
-		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
+		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
 		owner.losebreath += 2
 
 //BOX O' IMPLANTS

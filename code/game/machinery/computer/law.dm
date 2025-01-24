@@ -24,22 +24,22 @@
 		if(machine_stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)
-			to_chat(user, span_warning("You haven't selected anything to transmit laws to!"))
+			to_chat(user, "<span class='warning'>You haven't selected anything to transmit laws to!</span>")
 			return
 		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
 		if(!GLOB.upload_code)
 			GLOB.upload_code = random_code(4)
 		if(input != GLOB.upload_code)
-			to_chat(user, span_warning("Upload failed! The code inputted was incorrect!"))
+			to_chat(user, "<span class='warning'>Upload failed! The code inputted was incorrect!</span>")
 			return
 		if(!can_upload_to(current))
-			to_chat(user, span_warning("Upload failed! Check to make sure [current.name] is functioning properly."))
+			to_chat(user, "<span class='warning'>Upload failed! Check to make sure [current.name] is functioning properly.</span>")
 			current = null
 			return
 		var/turf/currentloc = get_turf(current)
 		var/turf/user_turf = get_turf(user)
 		if(currentloc && user.get_virtual_z_level() != currentloc.get_virtual_z_level() && (!is_station_level(currentloc.z) || !is_station_level(user_turf.z)))
-			to_chat(user, span_warning("Upload failed! Unable to establish a connection to [current.name]. You're too far away!"))
+			to_chat(user, "<span class='warning'>Upload failed! Unable to establish a connection to [current.name]. You're too far away!</span>")
 			current = null
 			return
 		M.install(current.laws, user)
@@ -47,7 +47,7 @@
 			return
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")
 		GLOB.upload_code = random_code(4)
-		to_chat(user, span_notice("You scramble the upload code"))
+		to_chat(user, "<span class='notice'>You scramble the upload code</span>")
 	else
 		return ..()
 
@@ -65,7 +65,7 @@
 	current = select_active_ai(user)
 
 	if (!current)
-		to_chat(user, span_warning("No active AIs detected!"))
+		to_chat(user, "<span class='warning'>No active AIs detected!</span>")
 	else
 		to_chat(user, "[current.name] selected for law changes.")
 
@@ -86,7 +86,7 @@
 	current = select_active_free_borg(user)
 
 	if(!current)
-		to_chat(user, span_warning("No active unslaved cyborgs detected!"))
+		to_chat(user, "<span class='warning'>No active unslaved cyborgs detected!</span>")
 	else
 		to_chat(user, "[current.name] selected for law changes.")
 

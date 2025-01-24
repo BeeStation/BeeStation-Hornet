@@ -62,7 +62,7 @@
 	else
 		enable()
 	if (!silent && user)
-		to_chat(user, span_notice("You [!active ? "deactivate" : "activate"] [parent]."))
+		to_chat(user, "<span class='notice'>You [!active ? "deactivate" : "activate"] [parent].</span>")
 
 /datum/component/radio_jamming/proc/check_move_jams(...)
 	SIGNAL_HANDLER

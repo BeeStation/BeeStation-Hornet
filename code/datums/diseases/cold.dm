@@ -14,11 +14,11 @@
 	switch(stage)
 		if(2)
 			if(affected_mob.body_position == LYING_DOWN && prob(40)) //changed FROM prob(10) until sleeping is fixed
-				to_chat(affected_mob, span_notice("You feel better."))
+				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
 			if(prob(1) && prob(5))
-				to_chat(affected_mob, span_notice("You feel better."))
+				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
 			if(prob(1))
@@ -26,16 +26,16 @@
 			if(prob(1))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, span_danger("Your throat feels sore."))
+				to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
 			if(prob(1))
-				to_chat(affected_mob, span_danger("Mucus runs down the back of your throat."))
+				to_chat(affected_mob, "<span class='danger'>Mucus runs down the back of your throat.</span>")
 		if(3)
 			if(affected_mob.body_position == LYING_DOWN && prob(25)) //changed FROM prob(5) until sleeping is fixed
-				to_chat(affected_mob, span_notice("You feel better."))
+				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
 			if(prob(1) && prob(1))
-				to_chat(affected_mob, span_notice("You feel better."))
+				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
 			if(prob(1))
@@ -43,9 +43,9 @@
 			if(prob(1))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, span_danger("Your throat feels sore."))
+				to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
 			if(prob(1))
-				to_chat(affected_mob, span_danger("Mucus runs down the back of your throat."))
+				to_chat(affected_mob, "<span class='danger'>Mucus runs down the back of your throat.</span>")
 			if(prob(1) && prob(50))
 				if(!affected_mob.disease_resistances.Find(/datum/disease/flu))
 					var/datum/disease/Flu = new /datum/disease/flu()

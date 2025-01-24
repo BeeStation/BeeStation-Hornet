@@ -24,7 +24,7 @@
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if(W.GetID())
 		if(broken)
-			to_chat(user, span_danger("It appears to be broken."))
+			to_chat(user, "<span class='danger'>It appears to be broken.</span>")
 			return
 		if(allowed(user))
 			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, !locked)
@@ -32,21 +32,21 @@
 			if(locked)
 				icon_state = "[base_icon_state]+l"
 				item_state = "[base_icon_state]+l"
-				to_chat(user, span_danger("You lock the [src.name]!"))
+				to_chat(user, "<span class='danger'>You lock the [src.name]!</span>")
 				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 				return
 			else
 				icon_state = "[base_icon_state]"
 				item_state = "[base_icon_state]"
-				to_chat(user, span_danger("You unlock the [src.name]!"))
+				to_chat(user, "<span class='danger'>You unlock the [src.name]!</span>")
 				return
 		else
-			to_chat(user, span_danger("Access Denied."))
+			to_chat(user, "<span class='danger'>Access Denied.</span>")
 			return
 	if(!locked)
 		return ..()
 	else
-		to_chat(user, span_danger("It's locked!"))
+		to_chat(user, "<span class='danger'>It's locked!</span>")
 
 /obj/item/storage/lockbox/should_emag(mob/user)
 	return !broken && ..()
@@ -58,7 +58,7 @@
 	desc += "It appears to be broken."
 	icon_state = "[src.base_icon_state]+b"
 	item_state = "[src.base_icon_state]+b"
-	user?.visible_message(span_warning("[user] breaks \the [src] with an electromagnetic card!"))
+	user?.visible_message("<span class='warning'>[user] breaks \the [src] with an electromagnetic card!</span>")
 
 /obj/item/storage/lockbox/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -99,7 +99,7 @@
 /obj/item/storage/lockbox/medal/examine(mob/user)
 	. = ..()
 	if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
-		. += span_notice("Alt-click to [open ? "close":"open"] it.")
+		. += "<span class='notice'>Alt-click to [open ? "close":"open"] it.</span>"
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))

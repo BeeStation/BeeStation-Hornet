@@ -140,26 +140,26 @@
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(obj_flags & EMAGGED)
-		to_chat(user, span_warning("The interface is broken!"))
+		to_chat(user, "<span class='warning'>The interface is broken!</span>")
 	else if(opened)
-		to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
+		to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
 	else if(panel_open)
-		to_chat(user, span_warning("You must close the panel!"))
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
 	else if(machine_stat & (BROKEN|MAINT))
-		to_chat(user, span_warning("Nothing happens!"))
+		to_chat(user, "<span class='warning'>Nothing happens!</span>")
 	else
 		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
 			wires.ui_update()
-			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the APC interface."))
+			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_appearance()
 			updateUsrDialog()
 		else
-			to_chat(user, span_warning("Access denied."))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/power/apc/proc/toggle_nightshift_lights(mob/living/user)
 	if(last_nightshift_switch > world.time - 100) //~10 seconds between each toggle to prevent spamming
-		to_chat(usr, span_warning("[src]'s night lighting circuit breaker is still cycling!"))
+		to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
 		return
 	last_nightshift_switch = world.time
 	set_nightshift(!nightshift_lights)

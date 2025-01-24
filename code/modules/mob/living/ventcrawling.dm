@@ -13,10 +13,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		to_chat(src, "You must be conscious to do this!")
 		return
 	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
-		to_chat(src, span_warning("You can't move into the vent!"))
+		to_chat(src, "<span class='warning'>You can't move into the vent!</span>")
 		return
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		to_chat(src, span_warning("You need to be able to use your hands to ventcrawl!"))
+		to_chat(src, "<span class='warning'>You need to be able to use your hands to ventcrawl!</span>")
 		return
 	if(has_buckled_mobs())
 		to_chat(src, "You can't vent crawl with other creatures on you!")
@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(vent_found)
 		var/datum/pipeline/vent_found_parent = vent_found.parents[1]
 		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmosmch))
-			visible_message(span_notice("[src] begins climbing into the ventilation system.") ,span_notice("You begin climbing into the ventilation system."))
+			visible_message("<span class='notice'>[src] begins climbing into the ventilation system.</span>" ,"<span class='notice'>You begin climbing into the ventilation system.</span>")
 
 			if(!do_after(src, 25, target = vent_found))
 				return
@@ -66,13 +66,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 					failed = 1
 					break
 				if(failed)
-					to_chat(src, span_warning("You can't crawl around in the ventilation ducts with items!"))
+					to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 					return
 
-			visible_message(span_notice("[src] scrambles into the ventilation ducts!"),span_notice("You climb into the ventilation ducts."))
+			visible_message("<span class='notice'>[src] scrambles into the ventilation ducts!</span>","<span class='notice'>You climb into the ventilation ducts.</span>")
 			forceMove(vent_found)
 	else
-		to_chat(src, span_warning("This ventilation duct is not connected to anything!"))
+		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 
 /mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
 	if(buckled)

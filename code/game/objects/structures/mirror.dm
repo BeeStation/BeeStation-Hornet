@@ -84,9 +84,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
 
-	to_chat(user, span_notice("You begin repairing [src]..."))
+	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 	if(I.use_tool(src, user, 10, volume=50))
-		to_chat(user, span_notice("You repair [src]."))
+		to_chat(user, "<span class='notice'>You repair [src].</span>")
 		broken = 0
 		icon_state = initial(icon_state)
 		desc = initial(desc)
@@ -188,7 +188,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
 
 					else
-						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))
+						to_chat(H, "<span class='notice'>Invalid color. Your color is not bright enough.</span>")
 
 			H.update_body()
 			H.update_hair()
@@ -203,7 +203,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = "female"
-					to_chat(H, span_notice("Man, you feel like a woman!"))
+					to_chat(H, "<span class='notice'>Man, you feel like a woman!</span>")
 				else
 					return
 
@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = "male"
-					to_chat(H, span_notice("Whoa man, you feel like a man!"))
+					to_chat(H, "<span class='notice'>Whoa man, you feel like a man!</span>")
 				else
 					return
 			H.dna.update_ui_block(DNA_GENDER_BLOCK)

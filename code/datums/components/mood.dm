@@ -39,44 +39,44 @@
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
-	var/msg = "[span_info("<EM>Your current mood</EM>")]\n"
-	msg += span_notice("My mental status: ") //Long term
+	var/msg = "<span class='info'><EM>Your current mood</EM>\n"
+	msg += "<span class='notice'>My mental status: </span>" //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
-			msg += "[span_nicegreen("My mind feels like a temple!")]\n"
+			msg += "<span class='nicegreen'>My mind feels like a temple!</span>\n"
 		if(SANITY_NEUTRAL to SANITY_GREAT)
-			msg += "[span_nicegreen("I have been feeling great lately!")]\n"
+			msg += "<span class='nicegreen'>I have been feeling great lately!</span>\n"
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
-			msg += "[span_nicegreen("I have felt quite decent lately.")]\n"
+			msg += "<span class='nicegreen'>I have felt quite decent lately.</span>\n"
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
-			msg += "[span_warning("I'm feeling a little bit unhinged...")]\n"
+			msg += "<span class='warning'>I'm feeling a little bit unhinged...</span>\n"
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
-			msg += "[span_boldwarning("I'm freaking out!!!")]\n"
+			msg += "<span class='boldwarning'>I'm freaking out!!!</span>\n"
 		if(SANITY_INSANE to SANITY_CRAZY)
-			msg += "[span_boldwarning("AHAHAHAHAHAHAHAHAHAH!!!")]\n"
+			msg += "<span class='boldwarning'>AHAHAHAHAHAHAHAHAHAH!!!</span>\n"
 
-	msg += span_notice("My current mood: ") //Short term
+	msg += "<span class='notice'>My current mood: </span>" //Short term
 	switch(mood_level)
 		if(1)
-			msg += "[span_boldwarning("I wish I was dead!")]\n"
+			msg += "<span class='boldwarning'>I wish I was dead!</span>\n"
 		if(2)
-			msg += "[span_boldwarning("I feel terrible...")]\n"
+			msg += "<span class='boldwarning'>I feel terrible...</span>\n"
 		if(3)
-			msg += "[span_boldwarning("I feel very upset.")]\n"
+			msg += "<span class='boldwarning'>I feel very upset.</span>\n"
 		if(4)
-			msg += "[span_boldwarning("I'm a bit sad.")]\n"
+			msg += "<span class='boldwarning'>I'm a bit sad.</span>\n"
 		if(5)
-			msg += "[span_nicegreen("I'm alright.")]\n"
+			msg += "<span class='nicegreen'>I'm alright.</span>\n"
 		if(6)
-			msg += "[span_nicegreen("I feel pretty okay.")]\n"
+			msg += "<span class='nicegreen'>I feel pretty okay.</span>\n"
 		if(7)
-			msg += "[span_nicegreen("I feel pretty good.")]\n"
+			msg += "<span class='nicegreen'>I feel pretty good.</span>\n"
 		if(8)
-			msg += "[span_nicegreen("I feel amazing!")]\n"
+			msg += "<span class='nicegreen'>I feel amazing!</span>\n"
 		if(9)
-			msg += "[span_nicegreen("I love life!")]\n"
+			msg += "<span class='nicegreen'>I love life!</span>\n"
 
-	msg += span_notice("Moodlets:\n")//All moodlets
+	msg += "<span class='notice'>Moodlets:\n</span>"//All moodlets
 	var/mood_msg = ""
 	var/thought_msg = ""
 	for(var/i in mood_events)
@@ -86,10 +86,10 @@
 		else
 			thought_msg += "[event.description]\n"
 	if(!mood_msg)
-		msg += "[span_moodneutral("I don't have much of a reaction to anything right now.")]\n"
+		msg += "<span class='mood_neutral'>I don't have much of a reaction to anything right now.<span>\n"
 	msg += mood_msg
 	if(thought_msg)
-		msg += "[span_notice("Thoughts:")]\n"
+		msg += "<span class='notice'>Thoughts:</span>\n"
 		msg += thought_msg
 	to_chat(user || parent, EXAMINE_BLOCK(msg))
 

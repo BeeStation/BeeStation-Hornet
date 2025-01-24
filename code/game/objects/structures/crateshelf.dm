@@ -36,12 +36,12 @@
 
 /obj/structure/crate_shelf/examine(mob/user)
 	. = ..()
-	. += span_notice("There are some <b>bolts</b> holding [src] together.")
+	. += "<span class='notice'>There are some <b>bolts</b> holding [src] together.</span>"
 	if(shelf_contents.Find(null)) // If there's an empty space in the shelf, let the examiner know.
-		. += span_notice("You could <b>drag</b> a crate into [src].")
+		. += "<span class='notice'>You could <b>drag</b> a crate into [src]."
 	if(contents.len) // If there are any crates in the shelf, let the examiner know.
-		. += span_notice("You could <b>drag</b> a crate out of [src].")
-		. += span_notice("[src] contains:")
+		. += "<span class='notice'>You could <b>drag</b> a crate out of [src]."
+		. += "<span class='notice'>[src] contains:</span>"
 		for(var/obj/structure/closet/crate/crate in shelf_contents)
 			. += "	[icon2html(crate, user)] [crate]"
 
@@ -54,11 +54,13 @@
 	return ..()
 
 /obj/structure/crate_shelf/relay_container_resist(mob/living/user, obj/structure/closet/crate)
-	to_chat(user, span_notice("You begin attempting to knock [crate] out of [src]."))
+	to_chat(user, "<span class='notice'>You begin attempting to knock [crate] out of [src].</span>")
 	if(do_after(user, 30 SECONDS, target = crate))
 		if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
 			return // If the user is in a strange condition, return early.
-		visible_message(span_warning("[crate] falls off of [src]!"), span_notice("You manage to knock [crate] free of [src]."), span_notice("You hear a thud."))
+		visible_message("<span class='warning'>[crate] falls off of [src]!</span>",
+						"<span class='notice'>You manage to knock [crate] free of [src].</span>",
+						"<span class='notice>You hear a thud.</span>")
 		crate.forceMove(drop_location()) // Drop the crate onto the shelf,
 		step_rand(crate, 1) // Then try to push it somewhere.
 		crate.layer = initial(crate.layer) // Reset the crate back to having the default layer, otherwise we might get strange interactions.
@@ -128,12 +130,12 @@
 			if(1 to 4) // Believe it or not, this does nothing.
 			if(5 to 6) // Open the crate!
 				if(crate.open()) // Break some open, cause a little chaos.
-					crate.visible_message(span_warning("[crate]'s lid falls open!"))
+					crate.visible_message("<span class='warning'>[crate]'s lid falls open!</span>")
 				else // If we somehow fail to open the crate, just break it instead!
-					crate.visible_message(span_warning("[crate] falls apart!"))
+					crate.visible_message("<span class='warning'>[crate] falls apart!")
 					crate.deconstruct()
 			if(7) // Break that crate!
-				crate.visible_message(span_warning("[crate] falls apart!"))
+				crate.visible_message("<span class='warning'>[crate] falls apart!")
 				crate.deconstruct()
 		shelf_contents[shelf_contents.Find(crate)] = null
 	if(!(flags_1&NODECONSTRUCT_1))

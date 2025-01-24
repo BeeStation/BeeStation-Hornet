@@ -39,7 +39,7 @@
 	hud_type = /datum/hud/constructs
 	hardattacks = TRUE
 	var/list/construct_spells = list()
-	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"
+	var/playstyle_string = "<span class='big bold'>You are a generic construct!</span><b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
 	var/seeking = FALSE
 	var/can_repair_constructs = FALSE
@@ -93,9 +93,9 @@
 	. = list("<span class='cult'>This is [icon2html(src, user)] \a <b>[src]</b>!\n[desc]")
 	if(health < maxHealth)
 		if(health >= maxHealth/2)
-			. += span_warning("[t_He] look[t_s] slightly dented.")
+			. += "<span class='warning'>[t_He] look[t_s] slightly dented.</span>"
 		else
-			. += span_warning("<b>[t_He] look[t_s] severely dented!</b>")
+			. += "<span class='warning'><b>[t_He] look[t_s] severely dented!</b></span>"
 	. += "</span>"
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
@@ -109,16 +109,16 @@
 			adjustHealth(-5)
 			if(src != M)
 				Beam(M, icon_state="sendbeam", time = 4)
-				M.visible_message(span_danger("[M] repairs some of \the <b>[src]'s</b> dents."), \
-						   span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
+				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
+						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
 			else
-				M.visible_message(span_danger("[M] repairs some of [p_their()] own dents."), \
-						   span_cult("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
+				M.visible_message("<span class='danger'>[M] repairs some of [p_their()] own dents.</span>", \
+						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
 		else
 			if(src != M)
-				to_chat(M, span_cult("You cannot repair <b>[src]'s</b> dents, as [p_they()] [p_have()] none!"))
+				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as [p_they()] [p_have()] none!</span>")
 			else
-				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
+				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
 	else if(src != M)
 		return ..()
 
@@ -173,8 +173,8 @@
 		var/reflectchance = 40 - round(P.damage/3)
 		if(prob(reflectchance))
 			apply_damage(P.damage * 0.5, P.damage_type)
-			visible_message(span_danger("The [P.name] is reflected by [src]'s armored shell!"), \
-							span_userdanger("The [P.name] is reflected by your armored shell!"))
+			visible_message("<span class='danger'>The [P.name] is reflected by [src]'s armored shell!</span>", \
+							"<span class='userdanger'>The [P.name] is reflected by your armored shell!</span>")
 
 			// Find a turf near or on the original location to bounce to
 			if(P.starting)
@@ -426,8 +426,8 @@
 			if(undismembermerable_limbs) //they have limbs we can't remove, and no parts we can, attack!
 				return ..()
 			C.Paralyze(60)
-			visible_message(span_danger("[src] knocks [C] down!"))
-			to_chat(src, span_cultlarge("\"Bring [C.p_them()] to me.\""))
+			visible_message("<span class='danger'>[src] knocks [C] down!</span>")
+			to_chat(src, "<span class='cultlarge'>\"Bring [C.p_them()] to me.\"</span>")
 			return FALSE
 		do_attack_animation(C)
 		var/obj/item/bodypart/BP = pick(parts)
@@ -488,18 +488,18 @@
 		the_construct.master = C.cult_team.blood_target
 
 	if(!the_construct.master)
-		to_chat(the_construct, span_cultitalic("You have no master to seek!"))
+		to_chat(the_construct, "<span class='cult italic'>You have no master to seek!</span>")
 		the_construct.seeking = FALSE
 		return
 	if(tracking)
 		tracking = FALSE
 		the_construct.seeking = FALSE
-		to_chat(the_construct, span_cultitalic("You are no longer tracking your master."))
+		to_chat(the_construct, "<span class='cult italic'>You are no longer tracking your master.</span>")
 		return
 	else
 		tracking = TRUE
 		the_construct.seeking = TRUE
-		to_chat(the_construct, span_cultitalic("You are now tracking your master."))
+		to_chat(the_construct, "<span class='cult italic'>You are now tracking your master.</span>")
 
 
 /datum/action/innate/seek_prey
@@ -518,15 +518,15 @@
 		desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
 		button_icon_state = "cult_mark"
 		the_construct.seeking = FALSE
-		to_chat(the_construct, span_cultitalic("You are now tracking Nar'Sie, return to reap the harvest!"))
+		to_chat(the_construct, "<span class='cult italic'>You are now tracking Nar'Sie, return to reap the harvest!</span>")
 		return
 	else
 		if(LAZYLEN(GLOB.cult_narsie.souls_needed))
 			the_construct.master = pick(GLOB.cult_narsie.souls_needed)
 			var/mob/living/real_target = the_construct.master //We can typecast this way because Narsie only allows /mob/living into the souls list
-			to_chat(the_construct, span_cultitalic("You are now tracking your prey, [real_target.real_name] - harvest [real_target.p_them()]!"))
+			to_chat(the_construct, "<span class='cult italic'>You are now tracking your prey, [real_target.real_name] - harvest [real_target.p_them()]!</span>")
 		else
-			to_chat(the_construct, span_cultitalic("Nar'Sie has completed her harvest!"))
+			to_chat(the_construct, "<span class='cult italic'>Nar'Sie has completed her harvest!</span>")
 			return
 		desc = "Activate to track Nar'Sie!"
 		button_icon_state = "sintouch"

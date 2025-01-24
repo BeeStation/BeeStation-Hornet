@@ -41,7 +41,7 @@
 	SIGNAL_HANDLER
 	var/turf/T = get_turf(parent)
 	if(!T.is_holy())
-		to_chat(user, span_warning("The [source] can only function in a holy area!"))
+		to_chat(user, "<span class='warning'>The [source] can only function in a holy area!</span>")
 		return COMPONENT_NO_AFTERATTACK
 
 	if(istype(the_item, catalyst_type))
@@ -114,10 +114,10 @@
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has tried to spawn an item when selecting a sect.")
 		return
 	if(user.mind.holy_role != HOLY_ROLE_HIGHPRIEST)
-		to_chat(user, span_warning("You are not the high priest, and therefore cannot select a religious sect."))
+		to_chat(user, "<span class='warning'>You are not the high priest, and therefore cannot select a religious sect.</span>")
 		return
 	if(!user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
-		to_chat(user, span_warning("You cannot select a sect at this time."))
+		to_chat(user, "<span class='warning'>You cannot select a sect at this time.</span>")
 		return
 	if(GLOB.religious_sect)
 		return
@@ -140,15 +140,15 @@
 		return
 	if(user.mind.holy_role < HOLY_ROLE_PRIEST)
 		if(user.mind.holy_role == HOLY_ROLE_DEACON)
-			to_chat(user, span_warning("You are merely a deacon of [GLOB.deity], and therefore cannot perform rites."))
+			to_chat(user, "<span class='warning'>You are merely a deacon of [GLOB.deity], and therefore cannot perform rites.</span>")
 		else
-			to_chat(user, span_warning("You are not holy, and therefore cannot perform rites."))
+			to_chat(user, "<span class='warning'>You are not holy, and therefore cannot perform rites.</span>")
 		return
 	if(performing_rite)
-		to_chat(user, span_notice("There is a rite currently being performed here already."))
+		to_chat(user, "<span class='notice'>There is a rite currently being performed here already.</span>")
 		return
 	if(!user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
-		to_chat(user, span_warning("You are not close enough to perform the rite."))
+		to_chat(user, "<span class='warning'>You are not close enough to perform the rite.</span>")
 		return
 	performing_rite = new path(parent)
 	if(!performing_rite.perform_rite(user, parent))
@@ -228,15 +228,15 @@
 
 	if(!can_i_see)
 		return
-	examine_list += (span_notice("Use a bible to interact with this."))
+	examine_list += ("<span class='notice'>Use a bible to interact with this.</span>")
 	if(user.mind?.holy_role)
 		var/obj/structure/altar_of_gods/altar = parent
-		examine_list +=(span_notice("You can tap this with your holy weapon to [altar.anchored ? "un" : ""]anchor it."))
+		examine_list +=("<span class='notice'>You can tap this with your holy weapon to [altar.anchored ? "un" : ""]anchor it.</span>")
 	if(!easy_access_sect)
 		if(operation_flags & RELIGION_TOOL_SECTSELECT)
-			examine_list += (span_notice("This looks like it can be used to select a sect."))
+			examine_list += ("<span class='notice'>This looks like it can be used to select a sect.</span>")
 			return
 	if(operation_flags & RELIGION_TOOL_SACRIFICE)//this can be moved around if things change but usually no rites == no sacrifice
-		examine_list += (span_notice("Desired items can be used on this to increase favor."))
+		examine_list += ("<span class='notice'>Desired items can be used on this to increase favor.</span>")
 	if(easy_access_sect.rites_list && operation_flags & RELIGION_TOOL_INVOKE)
-		examine_list += (span_notice("You can invoke rites from this."))
+		examine_list += ("<span class='notice'>You can invoke rites from this.</span>")

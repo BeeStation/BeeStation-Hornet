@@ -157,5 +157,5 @@
 	playsound(get_turf(src), chosen_sound, 70, 0, 0)
 	playsound(get_turf(src), 'sound/effects/snap.ogg', 75, TRUE, 0)
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 90, TRUE, 0)
-	visible_message(span_boldwarning("The device activates!"))
+	visible_message("<span class='boldwarning'>The device activates!</span>")
 	..()
