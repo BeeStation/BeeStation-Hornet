@@ -298,7 +298,7 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  * @param initialState Initializes your global variable with this value.
  */
 export const useLocalState = <T>(key: string, initialState: T): StateWithSetter<T> => {
-  const state = globalStore?.getState()?.backend;
+  const state = selectBackend(globalStore?.getState());
   const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
@@ -341,4 +341,12 @@ export const useSharedState = <T>(key: string, initialState: T): StateWithSetter
       });
     },
   ];
+};
+
+export const useDispatch = () => {
+  return globalStore.dispatch;
+};
+
+export const useSelector = (selector: (state: any) => any) => {
+  return selector(globalStore?.getState());
 };
