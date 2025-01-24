@@ -181,6 +181,15 @@ again.
 	icon_state = "shtwindow_spawner"
 	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile)
 
+//tinted nightclub
+
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub
+	name = "tinted nightclub reinforced window spawner"
+	icon_state = "twindow_spawner"
+	color ="#9b1d70"
+	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile/nightclub)
+
+
 //shuttle window
 
 /obj/effect/spawner/structure/window/shuttle

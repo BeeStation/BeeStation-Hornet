@@ -19251,6 +19251,11 @@
 /area/science/xenobiology)
 "eHt" = (
 /obj/structure/fluff/hedge/opaque,
+/obj/structure/window/reinforced/tinted{
+	dir = 8;
+	color = "#9b1d70";
+	pixel_x = -7
+	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -22015,10 +22020,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/tinted/fulltile{
-	color = "#9b1d70"
-	},
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
 /area/construction)
 "frk" = (
@@ -27678,9 +27680,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "gFq" = (
-/obj/structure/window/reinforced/tinted{
-	color = "#9b1d70"
-	},
 /obj/structure/chair/fancy/sofa/corp/corner/concave{
 	dir = 8
 	},
@@ -28073,6 +28072,11 @@
 /area/maintenance/disposal/incinerator)
 "gKE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced/tinted{
+	color = "#9b1d70";
+	dir = 1;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/dark,
 /area/construction)
 "gKQ" = (
@@ -28937,6 +28941,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-10"
 	},
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/carpet/black,
 /area/construction)
 "gTD" = (
@@ -35731,12 +35736,15 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "iza" = (
-/obj/structure/window/reinforced/tinted/fulltile{
-	color = "#9b1d70"
+/obj/structure/cable/yellow{
+	icon_state = "5-8"
 	},
-/obj/structure/grille,
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/plating,
-/area/construction)
+/area/maintenance/department/engine/atmos)
 "izj" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
@@ -36173,10 +36181,6 @@
 "iDR" = (
 /obj/structure/chair/fancy/sofa/corp/right{
 	dir = 8
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	color = "#9b1d70"
 	},
 /turf/open/floor/carpet/black,
 /area/construction)
@@ -37084,10 +37088,7 @@
 /obj/structure/cable{
 	icon_state = "0-10"
 	},
-/obj/structure/window/reinforced/tinted/fulltile{
-	color = "#9b1d70"
-	},
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
 /area/construction)
 "iNE" = (
@@ -37996,11 +37997,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/engine_room)
-"iZe" = (
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/machinery/holopad,
-/turf/open/floor/carpet/purple,
-/area/chapel/main/monastery)
 "iZn" = (
 /obj/machinery/smartfridge,
 /turf/open/floor/noslip/dark,
@@ -39225,6 +39221,10 @@
 	dir = 1
 	},
 /area/engine/atmos)
+"jtr" = (
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
+/turf/open/floor/plating,
+/area/construction)
 "jtw" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -40649,6 +40649,11 @@
 /area/ai_monitored/storage/eva)
 "jMl" = (
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/window/reinforced/tinted{
+	color = "#9b1d70";
+	dir = 1;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/dark,
 /area/construction)
 "jMm" = (
@@ -40817,13 +40822,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/tinted/fulltile{
-	color = "#9b1d70"
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
 /area/construction)
 "jNF" = (
@@ -44956,10 +44958,6 @@
 /obj/structure/chair/fancy/sofa/corp/corner/concave{
 	dir = 8
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	color = "#9b1d70"
-	},
 /turf/open/floor/carpet/black,
 /area/construction)
 "kLX" = (
@@ -45261,9 +45259,6 @@
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "kOY" = (
-/obj/structure/window/reinforced/tinted{
-	color = "#9b1d70"
-	},
 /obj/structure/chair/fancy/sofa/corp{
 	dir = 1
 	},
@@ -53276,16 +53271,6 @@
 	dir = 4
 	},
 /area/hallway/primary/aft)
-"mLd" = (
-/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-9"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine/atmos)
 "mLf" = (
 /obj/machinery/door/window/eastright{
 	dir = 1;
@@ -58060,7 +58045,6 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Abandoned Club"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron/dark/textured_half,
 /area/construction)
 "nQd" = (
@@ -65457,7 +65441,6 @@
 /obj/structure/cable/pink{
 	icon_state = "6-8"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -67051,15 +67034,10 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "pYp" = (
-/obj/structure/cable/yellow{
-	icon_state = "5-8"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine/atmos)
+/obj/machinery/holopad,
+/turf/open/floor/carpet/purple,
+/area/chapel/main/monastery)
 "pYq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -69719,10 +69697,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/window/reinforced/tinted/fulltile{
-	color = "#9b1d70"
-	},
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
 /area/construction)
 "qGp" = (
@@ -80653,6 +80628,11 @@
 	icon_state = "2-9"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/window/reinforced/tinted{
+	color = "#9b1d70";
+	dir = 1;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/dark,
 /area/construction)
 "tpg" = (
@@ -82161,12 +82141,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
-"tGZ" = (
-/obj/machinery/holopad{
-	pixel_x = 16
-	},
-/turf/open/floor/prison/dark,
-/area/hydroponics)
 "tHc" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/chair/fancy/comfy{
@@ -85249,6 +85223,16 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/storage/primary)
+"upY" = (
+/obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-9"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/engine/atmos)
 "uqd" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/westleft{
@@ -89785,9 +89769,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "6-8"
 	},
-/obj/structure/window/reinforced/tinted{
-	color = "#9b1d70"
-	},
 /obj/structure/chair/fancy/sofa/corp/left{
 	dir = 1
 	},
@@ -90435,14 +90416,11 @@
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary2)
 "vBo" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
 /obj/machinery/holopad{
-	pixel_x = -16
+	pixel_x = 16
 	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
+/turf/open/floor/prison/dark,
+/area/hydroponics)
 "vBu" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -93193,10 +93171,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/tinted/fulltile{
-	color = "#9b1d70"
-	},
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/tinted/nightclub,
 /turf/open/floor/plating,
 /area/construction)
 "weF" = (
@@ -93482,6 +93457,11 @@
 	icon_state = "5-8"
 	},
 /obj/structure/fluff/hedge/opaque,
+/obj/structure/window/reinforced/tinted{
+	dir = 8;
+	color = "#9b1d70";
+	pixel_x = -7
+	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -94734,12 +94714,14 @@
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
 "wxC" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	color = "#9b1d70"
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
 	},
-/turf/open/floor/carpet/black,
-/area/construction)
+/obj/machinery/holopad{
+	pixel_x = -16
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "wxM" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -120256,7 +120238,7 @@ dwF
 cvL
 ego
 vfz
-vBo
+wxC
 sfk
 szG
 bBi
@@ -136161,7 +136143,7 @@ rBg
 rBg
 rBg
 jDD
-tGZ
+vBo
 nnE
 guI
 daw
@@ -140603,7 +140585,7 @@ woK
 uPx
 tvd
 kQN
-pYp
+iza
 sSF
 umg
 ihu
@@ -141573,7 +141555,7 @@ nuu
 kXn
 lZI
 lZI
-iZe
+pYp
 rZI
 gTh
 sBR
@@ -141888,7 +141870,7 @@ nzj
 tvd
 quw
 tvd
-mLd
+upY
 sSF
 umg
 umg
@@ -144131,9 +144113,9 @@ pBt
 dMf
 aTd
 cuD
-iza
-iza
-iza
+jtr
+jtr
+jtr
 bBv
 bBv
 bBv
@@ -144384,9 +144366,9 @@ aex
 aex
 juX
 juX
-iza
+jtr
 pCO
-iza
+jtr
 vFC
 tsG
 hHS
@@ -145159,7 +145141,7 @@ cuD
 bAW
 waf
 tmZ
-wxC
+ryN
 iDR
 kLN
 bBv
@@ -147721,7 +147703,7 @@ nzj
 nzj
 nzj
 hyT
-iza
+jtr
 fEM
 cWF
 vtw
@@ -147978,7 +147960,7 @@ nzj
 nzj
 nzj
 hyT
-iza
+jtr
 oIi
 kSx
 kOY
@@ -148235,7 +148217,7 @@ nzj
 nzj
 nzj
 hyT
-iza
+jtr
 kEc
 cod
 gFq
