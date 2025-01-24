@@ -6,7 +6,7 @@
 
 export type Reducer<State = any, ActionType extends Action = AnyAction> = (
   state: State | undefined,
-  action: ActionType
+  action: ActionType,
 ) => State;
 
 export type Store<State = any, ActionType extends Action = AnyAction> = {
@@ -21,7 +21,7 @@ type MiddlewareAPI<State = any, ActionType extends Action = AnyAction> = {
 };
 
 export type Middleware = <State = any, ActionType extends Action = AnyAction>(
-  storeApi: MiddlewareAPI<State, ActionType>
+  storeApi: MiddlewareAPI<State, ActionType>,
 ) => (next: Dispatch<ActionType>) => Dispatch<ActionType>;
 
 export type Action<TType = any> = {
@@ -32,7 +32,9 @@ export type AnyAction = Action & {
   [extraProps: string]: any;
 };
 
-export type Dispatch<ActionType extends Action = AnyAction> = (action: ActionType) => void;
+export type Dispatch<ActionType extends Action = AnyAction> = (
+  action: ActionType,
+) => void;
 
 type StoreEnhancer = (createStoreFunction: Function) => Function;
 
@@ -46,7 +48,7 @@ type PreparedAction = {
  */
 export const createStore = <State, ActionType extends Action = AnyAction>(
   reducer: Reducer<State, ActionType>,
-  enhancer?: StoreEnhancer
+  enhancer?: StoreEnhancer,
 ): Store<State, ActionType> => {
   // Apply a store enhancer (applyMiddleware is one of them).
   if (enhancer) {
@@ -84,13 +86,19 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
  * Creates a store enhancer which applies middleware to all dispatched
  * actions.
  */
-export const applyMiddleware = (...middlewares: Middleware[]): StoreEnhancer => {
-  return (createStoreFunction: (reducer: Reducer, enhancer?: StoreEnhancer) => Store) => {
+export const applyMiddleware = (
+  ...middlewares: Middleware[]
+): StoreEnhancer => {
+  return (
+    createStoreFunction: (reducer: Reducer, enhancer?: StoreEnhancer) => Store,
+  ) => {
     return (reducer, ...args): Store => {
       const store = createStoreFunction(reducer, ...args);
 
-      let dispatch: Dispatch = () => {
-        throw new Error('Dispatching while constructing your middleware is not allowed.');
+      let dispatch: Dispatch = (action, ...args) => {
+        throw new Error(
+          'Dispatching while constructing your middleware is not allowed.',
+        );
       };
 
       const storeApi: MiddlewareAPI = {
@@ -99,7 +107,10 @@ export const applyMiddleware = (...middlewares: Middleware[]): StoreEnhancer => 
       };
 
       const chain = middlewares.map((middleware) => middleware(storeApi));
-      dispatch = chain.reduceRight((next, middleware) => middleware(next), store.dispatch);
+      dispatch = chain.reduceRight(
+        (next, middleware) => middleware(next),
+        store.dispatch,
+      );
 
       return {
         ...store,
@@ -117,7 +128,9 @@ export const applyMiddleware = (...middlewares: Middleware[]): StoreEnhancer => 
  * in the state that are not present in the reducers object. This function
  * is also more flexible than the redux counterpart.
  */
-export const combineReducers = (reducersObj: Record<string, Reducer>): Reducer => {
+export const combineReducers = (
+  reducersObj: Record<string, Reducer>,
+): Reducer => {
   const keys = Object.keys(reducersObj);
 
   return (prevState = {}, action) => {
@@ -150,12 +163,15 @@ export const combineReducers = (reducersObj: Record<string, Reducer>): Reducer =
  * @param {string} type The action type to use for created actions.
  * @param {any} prepare (optional) a method that takes any number of arguments
  * and returns { payload } or { payload, meta }. If this is given, the
- * resulting action creator will pass it's arguments to this method to
+ * resulting action creator will pass its arguments to this method to
  * calculate payload & meta.
  *
  * @public
  */
-export const createAction = <TAction extends string>(type: TAction, prepare?: (...args: any[]) => PreparedAction) => {
+export const createAction = <TAction extends string>(
+  type: TAction,
+  prepare?: (...args: any[]) => PreparedAction,
+) => {
   const actionCreator = (...args: any[]) => {
     let action: Action<TAction> & PreparedAction = { type };
 
@@ -177,24 +193,4 @@ export const createAction = <TAction extends string>(type: TAction, prepare?: (.
   actionCreator.match = (action) => action.type === type;
 
   return actionCreator;
-};
-
-// Implementation specific
-// --------------------------------------------------------
-
-export const useDispatch = <TAction extends Action = AnyAction>(context: {
-  store: Store<unknown, TAction>;
-}): Dispatch<TAction> => {
-  return context?.store?.dispatch;
-};
-
-export const useSelector = <State, Selected>(
-  context: { store: Store<State, Action> },
-  selector: (state: State) => Selected
-): Selected => {
-  if (!context) {
-    return {} as Selected;
-  }
-
-  return selector(context?.store?.getState());
 };
