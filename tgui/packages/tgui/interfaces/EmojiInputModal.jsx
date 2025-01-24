@@ -5,11 +5,11 @@ import { Window } from '../layouts';
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-export const EmojiInputModal = (_) => {
-  const { data, act } = useBackend();
+export const EmojiInputModal = (_, context) => {
+  const { data, act } = useBackend(context);
   const { title, all_emojis = [] } = data;
-  const [emojis, setEmojis] = useLocalState('emoji_input_text', []);
-  const [cursor_pos, setCursorPos] = useLocalState('emoji_input_cursor', 0);
+  const [emojis, setEmojis] = useLocalState(context, 'emoji_input_text', []);
+  const [cursor_pos, setCursorPos] = useLocalState(context, 'emoji_input_cursor', 0);
 
   const insert = (arr, index, newItem) => [...arr.slice(0, index), newItem, ...arr.slice(index)];
   const remove = (arr, index) => [...arr.slice(0, index - 1), ...arr.slice(index)];

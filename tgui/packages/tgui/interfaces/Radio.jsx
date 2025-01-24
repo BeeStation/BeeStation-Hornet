@@ -5,8 +5,8 @@ import { Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
-export const Radio = (props) => {
-  const { act, data } = useBackend();
+export const Radio = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     freqlock,
     frequency,

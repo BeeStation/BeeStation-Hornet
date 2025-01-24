@@ -21,12 +21,6 @@ import { resumeRenderer, suspendRenderer } from './renderer';
 
 const logger = createLogger('backend');
 
-export let globalStore;
-
-export const setGlobalStore = (store) => {
-  globalStore = store;
-};
-
 export const backendUpdate = createAction('backend/update');
 export const backendSetSharedState = createAction('backend/setSharedState');
 export const backendSuspendStart = createAction('backend/suspendStart');
@@ -252,10 +246,6 @@ type BackendState<TData> = {
   shared: Record<string, any>;
   suspending: boolean;
   suspended: boolean;
-  debug?: {
-    debugLayout: boolean;
-    kitchenSink: boolean;
-  };
 };
 
 /**
@@ -271,9 +261,9 @@ export const selectBackend = <TData>(state: any): BackendState<TData> => state.b
  *
  * You can make
  */
-export const useBackend = <TData>() => {
-  const state: BackendState<TData> = globalStore?.getState()?.backend;
-
+export const useBackend = <TData>(context: any) => {
+  const { store } = context;
+  const state = selectBackend<TData>(store.getState());
   return {
     ...state,
     act: sendAct,
@@ -294,17 +284,19 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  *
  * It is a lot more performant than `setSharedState`.
  *
+ * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
-export const useLocalState = <T>(key: string, initialState: T): StateWithSetter<T> => {
-  const state = globalStore?.getState()?.backend;
-  const sharedStates = state?.shared ?? {};
+export const useLocalState = <T>(context: any, key: string, initialState: T): StateWithSetter<T> => {
+  const { store } = context;
+  const state = selectBackend(store.getState());
+  const sharedStates = state.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
     (nextState) => {
-      globalStore.dispatch(
+      store.dispatch(
         backendSetSharedState({
           key,
           nextState: typeof nextState === 'function' ? nextState(sharedState) : nextState,
@@ -324,12 +316,14 @@ export const useLocalState = <T>(key: string, initialState: T): StateWithSetter<
  *
  * This makes creation of observable s
  *
+ * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
-export const useSharedState = <T>(key: string, initialState: T): StateWithSetter<T> => {
-  const state = globalStore?.getState()?.backend;
-  const sharedStates = state?.shared ?? {};
+export const useSharedState = <T>(context: any, key: string, initialState: T): StateWithSetter<T> => {
+  const { store } = context;
+  const state = selectBackend(store.getState());
+  const sharedStates = state.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,

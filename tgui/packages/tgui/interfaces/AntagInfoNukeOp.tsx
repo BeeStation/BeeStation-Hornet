@@ -12,8 +12,8 @@ type Info = {
   lone: BooleanLike;
 };
 
-const MissionNormal = (_props) => {
-  const { data } = useBackend<Info>();
+const MissionNormal = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   return (
     <BlockQuote>
       <p>
@@ -36,7 +36,7 @@ const MissionNormal = (_props) => {
   );
 };
 
-const MissionLone = (_props) => {
+const MissionLone = (_props, _context) => {
   return (
     <BlockQuote>
       <p>
@@ -47,8 +47,8 @@ const MissionLone = (_props) => {
   );
 };
 
-const MissionSection = (_props) => {
-  const { data } = useBackend<Info>();
+const MissionSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   return (
     <Section>
       <Stack vertical>
@@ -127,8 +127,8 @@ const MissionSection = (_props) => {
   );
 };
 
-export const AntagInfoNukeOp = (_props) => {
-  const { data } = useBackend<Info>();
+export const AntagInfoNukeOp = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { antag_name } = data;
   return (
     <Window width={620} height={620} theme="syndicate">

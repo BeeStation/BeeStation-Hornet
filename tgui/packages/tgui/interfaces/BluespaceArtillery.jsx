@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const BluespaceArtillery = (props) => {
-  const { act, data } = useBackend();
+export const BluespaceArtillery = (props, context) => {
+  const { act, data } = useBackend(context);
   const { notice, connected, unlocked, target_ref, target_name, charge, max_charge, formatted_charge, targets } = data;
   return (
     <Window width={600} height={280}>

@@ -4,8 +4,8 @@ import { AnimatedNumber, Box, Button, Icon, Knob, LabeledControls, LabeledList, 
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 
-export const Canister = (props) => {
-  const { act, data } = useBackend();
+export const Canister = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     portConnected,
     tankPressure,

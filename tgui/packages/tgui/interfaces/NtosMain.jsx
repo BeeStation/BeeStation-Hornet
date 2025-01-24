@@ -3,8 +3,8 @@ import { Button, ColorBox, Section, Table } from '../components';
 import { ButtonCheckbox } from '../components/Button';
 import { NtosWindow } from '../layouts';
 
-export const NtosMain = (props) => {
-  const { act, data } = useBackend();
+export const NtosMain = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     show_imprint,
     programs = [],

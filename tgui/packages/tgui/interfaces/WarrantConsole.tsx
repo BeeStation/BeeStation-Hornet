@@ -28,8 +28,8 @@ export type Crime = {
   voider: string;
 };
 
-export const WarrantConsole = (props) => {
-  const [selectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
+export const WarrantConsole = (props, context) => {
+  const [selectedRecord] = useLocalState<WarrantRecord | undefined>(context, 'warrantRecord', undefined);
 
   return (
     <Window width={500} height={500}>
@@ -50,12 +50,12 @@ export const WarrantConsole = (props) => {
 };
 
 /** Displays all valid records with warrants. */
-const RecordList = (props) => {
-  const { act, data } = useBackend<Data>();
+const RecordList = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { records = [] } = data;
   const sorted = sortBy((record: WarrantRecord) => record.name)(records);
 
-  const [selectedRecord, setSelectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
+  const [selectedRecord, setSelectedRecord] = useLocalState<WarrantRecord | undefined>(context, 'warrantRecord', undefined);
 
   const selectHandler = (record: WarrantRecord) => {
     if (selectedRecord?.record_ref === record.record_ref) {
@@ -93,8 +93,8 @@ const RecordList = (props) => {
 };
 
 /** Views info on the current selection. */
-const ViewRecord = (props) => {
-  const foundRecord = getCurrentRecord(props);
+const ViewRecord = (props, context) => {
+  const foundRecord = getCurrentRecord(props, context);
   if (!foundRecord) return <> </>;
 
   const { citations = [], name } = foundRecord;
@@ -113,18 +113,18 @@ const ViewRecord = (props) => {
 };
 
 /** Handles paying fines */
-const CitationManager = (props) => {
-  const foundRecord = getCurrentRecord(props);
+const CitationManager = (props, context) => {
+  const foundRecord = getCurrentRecord(props, context);
   if (!foundRecord) return <> </>;
 
-  const { act } = useBackend<Data>();
+  const { act } = useBackend<Data>(context);
   const {
     citation: { author, details, fine, fine_ref, fine_name, paid, time },
   } = props;
 
   const { record_ref } = foundRecord;
 
-  const [paying, setPaying] = useLocalState('citationAmount', 5);
+  const [paying, setPaying] = useLocalState(context, 'citationAmount', 5);
 
   return (
     <Collapsible
@@ -164,10 +164,10 @@ const CitationManager = (props) => {
 };
 
 /** We need an active reference and this a pain to rewrite */
-export const getCurrentRecord = (props) => {
-  const [selectedRecord] = useLocalState<WarrantRecord | undefined>('warrantRecord', undefined);
+export const getCurrentRecord = (props, context) => {
+  const [selectedRecord] = useLocalState<WarrantRecord | undefined>(context, 'warrantRecord', undefined);
   if (!selectedRecord) return;
-  const { data } = useBackend<Data>();
+  const { data } = useBackend<Data>(context);
   const { records = [] } = data;
   const foundRecord = records.find((record) => record.record_ref === selectedRecord.record_ref);
   if (!foundRecord) return;

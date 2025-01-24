@@ -64,9 +64,9 @@ const PAGES = [
   },
 ];
 
-export const KitchenSink = (props) => {
-  const [theme] = useLocalState('kitchenSinkTheme');
-  const [pageIndex, setPageIndex] = useLocalState('pageIndex', 0);
+export const KitchenSink = (props, context) => {
+  const [theme] = useLocalState(context, 'kitchenSinkTheme');
+  const [pageIndex, setPageIndex] = useLocalState(context, 'pageIndex', 0);
   const PageComponent = PAGES[pageIndex].component();
   return (
     <Window theme={theme}>
@@ -140,8 +140,8 @@ const KitchenSinkBox = (props) => {
   );
 };
 
-const KitchenSinkProgressBar = (props) => {
-  const [progress, setProgress] = useLocalState('progress', 0.5);
+const KitchenSinkProgressBar = (props, context) => {
+  const [progress, setProgress] = useLocalState(context, 'progress', 0.5);
 
   return (
     <Box>
@@ -164,10 +164,10 @@ const KitchenSinkProgressBar = (props) => {
   );
 };
 
-const KitchenSinkTabs = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
-  const [vertical, setVertical] = useLocalState('tabVert');
-  const [altSelection, setAltSelection] = useLocalState('tabAlt');
+const KitchenSinkTabs = (props, context) => {
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [vertical, setVertical] = useLocalState(context, 'tabVert');
+  const [altSelection, setAltSelection] = useLocalState(context, 'tabAlt');
   const TAB_RANGE = [1, 2, 3, 4, 5];
   return (
     <Box>
@@ -207,10 +207,10 @@ const KitchenSinkTooltip = (props) => {
   );
 };
 
-const KitchenSinkInput = (props) => {
-  const [number, setNumber] = useLocalState('number', 0);
+const KitchenSinkInput = (props, context) => {
+  const [number, setNumber] = useLocalState(context, 'number', 0);
 
-  const [text, setText] = useLocalState('text', 'Sample text');
+  const [text, setText] = useLocalState(context, 'text', 'Sample text');
 
   return (
     <Box>
@@ -332,8 +332,8 @@ const KitchenSinkBlockQuote = (props) => {
   );
 };
 
-const KitchenSinkByondUi = (props) => {
-  const { config } = useBackend();
+const KitchenSinkByondUi = (props, context) => {
+  const { config } = useBackend(context);
   return (
     <Box>
       <Section title="Button" level={2}>
@@ -348,8 +348,8 @@ const KitchenSinkByondUi = (props) => {
   );
 };
 
-const KitchenSinkThemes = (props) => {
-  const [theme, setTheme] = useLocalState('kitchenSinkTheme');
+const KitchenSinkThemes = (props, context) => {
+  const [theme, setTheme] = useLocalState(context, 'kitchenSinkTheme');
   return (
     <Box>
       <LabeledList>

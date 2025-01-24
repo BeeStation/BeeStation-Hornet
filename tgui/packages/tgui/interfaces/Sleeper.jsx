@@ -3,8 +3,8 @@ import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber, Table }
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
-export const Sleeper = (props) => {
-  const { act, data } = useBackend();
+export const Sleeper = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const { open, occupant = {}, occupied, chems = [] } = data;
 

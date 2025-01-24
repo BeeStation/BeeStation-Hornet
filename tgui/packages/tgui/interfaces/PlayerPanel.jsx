@@ -124,8 +124,8 @@ const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#2ecc71', '#e67e22', '#ed5100', '#e74
 --------------------
 **/
 
-export const PlayerPanel = (_) => {
-  const { data, act } = useBackend();
+export const PlayerPanel = (_, context) => {
+  const { data, act } = useBackend(context);
   const { players = {}, selected_ckey, search_text, update_interval, metacurrency_name } = data;
   const selected_player = players[selected_ckey];
   return (
@@ -308,7 +308,7 @@ class PlayerDetailsSection extends Component {
   }
 
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const {
       ckey,
       mob_type,
@@ -400,7 +400,7 @@ class PlayerDetailsSection extends Component {
 
 class PlayerCKEYDetailsSection extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { ckey, first_seen, register_date, ip, cid, related_accounts_ip, related_accounts_cid } = this.props;
     return (
       <Section
@@ -530,7 +530,7 @@ class PlayerDetailsActionButtonContainer extends Component {
 
 class PlayerDetailsActionButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { ckey, name, action } = this.props;
     return (
       <Flex.Item mt={0.35} ml={0.5}>
@@ -655,7 +655,7 @@ class LogViewer extends Component {
 
 class LogEntryKey extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { key_data } = this.props;
     let results = KEY_REGEX.exec(key_data);
     if (results && results.length === 7) {
@@ -715,10 +715,10 @@ class LogEntryValue extends PureComponent {
 --------------------
 **/
 
-const PlayerTable = (_) => {
-  const { data } = useBackend();
+const PlayerTable = (_, context) => {
+  const { data } = useBackend(context);
   const { selected_ckey, players = {} } = data;
-  const [hourSort, setHourSort] = useLocalState('player_panel_hour_sort', 0);
+  const [hourSort, setHourSort] = useLocalState(context, 'player_panel_hour_sort', 0);
   return (
     <Table>
       <PlayerTableHeadings hourSort={hourSort} setHourSort={setHourSort} />
@@ -938,7 +938,7 @@ class PlayerTableEntry extends PureComponent {
 
 class PlayerSelectButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { ckey, is_selected } = this.props;
     return (
       <Button
@@ -953,7 +953,7 @@ class PlayerSelectButton extends PureComponent {
 
 class PlayerTelemetryButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { telemetry, ckey } = this.props;
     return (
       <Button
@@ -973,7 +973,7 @@ class PlayerTelemetryButton extends PureComponent {
 
 class PlayerCKEYButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { telemetry, connected, ckey } = this.props;
     return (
       <Button
@@ -995,7 +995,7 @@ class PlayerCKEYButton extends PureComponent {
 
 class PlayerHoursButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { living_playtime, ckey } = this.props;
     const has_playtime = living_playtime !== undefined && living_playtime !== null;
     return (
@@ -1013,7 +1013,7 @@ class PlayerHoursButton extends PureComponent {
 
 class PlayerTraitorPanelButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { antag_hud, has_mind, ckey } = this.props;
     return (
       <Button
@@ -1030,7 +1030,7 @@ class PlayerTraitorPanelButton extends PureComponent {
 
 class PlayerJobSelectButton extends Component {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { job, ijob, ckey, is_selected } = this.props;
     return (
       <Button
@@ -1051,7 +1051,7 @@ class PlayerJobSelectButton extends Component {
 
 class PlayerNameButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { real_name, name, ijob, ckey } = this.props;
     return (
       <Button
@@ -1072,7 +1072,7 @@ class PlayerNameButton extends PureComponent {
 
 class PlayerVitalsButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { ckey, oxydam, toxdam, burndam, brutedam, health, health_max } = this.props;
     return (
       <Button
@@ -1147,7 +1147,7 @@ class PlayerNonHumanVitals extends PureComponent {
 
 class PlayerLocationButton extends PureComponent {
   render() {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { position, ckey } = this.props;
     return (
       <Button

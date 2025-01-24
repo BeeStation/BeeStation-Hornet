@@ -5,8 +5,8 @@ import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { NtosWindow } from '../layouts';
 
-export const NtosNetDownloader = (props) => {
-  const { act, data } = useBackend();
+export const NtosNetDownloader = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     disk_size,
     disk_used,
@@ -21,7 +21,7 @@ export const NtosNetDownloader = (props) => {
   } = data;
   const all_categories = ['All'].concat(categories);
   const downloadpercentage = toFixed(scale(downloadcompletion, 0, downloadsize) * 100);
-  const [selectedCategory, setSelectedCategory] = useLocalState('category', all_categories[0]);
+  const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', all_categories[0]);
   const items = flow([
     // This filters the list to only contain programs with category
     selectedCategory !== all_categories[0] && filter((program) => program.category === selectedCategory),
@@ -87,9 +87,9 @@ export const NtosNetDownloader = (props) => {
   );
 };
 
-const Program = (props) => {
+const Program = (props, context) => {
   const { program } = props;
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
   const { disk_size, disk_used, downloading, downloadname, downloadcompletion, emagged, id_inserted } = data;
   const disk_free = disk_size - disk_used;
   return (

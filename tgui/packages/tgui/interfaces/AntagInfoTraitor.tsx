@@ -27,8 +27,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const UplinkSection = (_props) => {
-  const { data } = useBackend<Info>();
+const UplinkSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { has_uplink, uplink_unlock_info, code, failsafe_code } = data;
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
@@ -60,8 +60,8 @@ const UplinkSection = (_props) => {
   );
 };
 
-const CodewordsSection = (_props) => {
-  const { data } = useBackend<Info>();
+const CodewordsSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { has_codewords, phrases, responses } = data;
   return (
     <Section title="Codewords" mb={!has_codewords && -1}>
@@ -100,8 +100,8 @@ const CodewordsSection = (_props) => {
   );
 };
 
-export const AntagInfoTraitorContent = (_props) => {
-  const { data } = useBackend<Info>();
+export const AntagInfoTraitorContent = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { antag_name, objectives } = data;
   return (
     <Stack vertical fill>
@@ -121,7 +121,7 @@ export const AntagInfoTraitorContent = (_props) => {
   );
 };
 
-export const AntagInfoTraitor = (_props) => {
+export const AntagInfoTraitor = (_props, context) => {
   return (
     <Window width={620} height={620} theme="syndicate">
       <Window.Content>

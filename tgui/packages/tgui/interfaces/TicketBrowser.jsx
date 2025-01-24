@@ -4,8 +4,8 @@ import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 import { ButtonConfirm } from '../components/Button';
 
-export const TicketBrowser = (_) => {
-  const { data } = useBackend();
+export const TicketBrowser = (_, context) => {
+  const { data } = useBackend(context);
   const {
     unclaimed_tickets = [],
     open_tickets = [],
@@ -18,7 +18,7 @@ export const TicketBrowser = (_) => {
     admin_ckey,
     is_admin_panel,
   } = data;
-  const [tab, setTab] = useLocalState('tab', 'admin');
+  const [tab, setTab] = useLocalState(context, 'tab', 'admin');
   return (
     <Window theme="admin" width={720} height={540}>
       <Window.Content scrollable>
@@ -114,7 +114,7 @@ export const TicketMenus = ({ unclaimed_tickets, open_tickets, resolved_tickets,
   );
 };
 
-export const TicketMenu = (props) => {
+export const TicketMenu = (props, context) => {
   const {
     ticket_list,
     name,
@@ -125,7 +125,7 @@ export const TicketMenu = (props) => {
     collapsible,
     conversion,
   } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   return (
     <CollapsibleSection title={name} collapsible={collapsible}>
       <Table>
@@ -195,8 +195,8 @@ export const TicketMenu = (props) => {
   );
 };
 
-export const ActionButton = ({ action, confirm, ticket_id }) => {
-  const { act } = useBackend();
+export const ActionButton = ({ action, confirm, ticket_id }, context) => {
+  const { act } = useBackend(context);
   return (
     <Table.Cell collapsing>
       {confirm ? (

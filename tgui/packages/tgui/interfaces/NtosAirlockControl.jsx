@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Section, LabeledList, Button, Icon } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosAirlockControl = (_) => {
-  const { act, data } = useBackend();
+export const NtosAirlockControl = (_, context) => {
+  const { act, data } = useBackend(context);
   const { airlocks = [] } = data;
   return (
     <NtosWindow width={400} height={500}>

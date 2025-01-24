@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const TankDispenser = (props) => {
-  const { act, data } = useBackend();
+export const TankDispenser = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={275} height={103}>
       <Window.Content>

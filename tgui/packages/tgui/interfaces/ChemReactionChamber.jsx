@@ -4,10 +4,10 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Input, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ChemReactionChamber = (props) => {
-  const { act, data } = useBackend();
-  const [reagentName, setReagentName] = useLocalState('reagentName', '');
-  const [reagentQuantity, setReagentQuantity] = useLocalState('reagentQuantity', 1);
+export const ChemReactionChamber = (props, context) => {
+  const { act, data } = useBackend(context);
+  const [reagentName, setReagentName] = useLocalState(context, 'reagentName', '');
+  const [reagentQuantity, setReagentQuantity] = useLocalState(context, 'reagentQuantity', 1);
   const emptying = data.emptying;
   const reagents = data.reagents || [];
   return (

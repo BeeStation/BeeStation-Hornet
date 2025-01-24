@@ -4,8 +4,8 @@ import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section } from '
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
-export const ChemHeater = (props) => {
-  const { act, data } = useBackend();
+export const ChemHeater = (props, context) => {
+  const { act, data } = useBackend(context);
   const { targetTemp, isActive, isBeakerLoaded, currentTemp, beakerCurrentVolume, beakerMaxVolume, beakerContents = [] } = data;
   return (
     <Window width={275} height={320}>

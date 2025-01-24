@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, ProgressBar, Section, AnimatedNumber } from '../components';
 import { Window } from '../layouts';
 
-export const NtnetRelay = (props) => {
-  const { act, data } = useBackend();
+export const NtnetRelay = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const { enabled, dos_capacity, dos_overload, dos_crashed } = data;
 

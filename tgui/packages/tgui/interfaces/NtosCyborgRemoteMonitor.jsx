@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosCyborgRemoteMonitor = (props) => {
-  const { data } = useBackend();
+export const NtosCyborgRemoteMonitor = (props, context) => {
+  const { data } = useBackend(context);
   const { theme } = data;
   return (
     <NtosWindow theme={data.theme} width={600} height={800}>
@@ -14,8 +14,8 @@ export const NtosCyborgRemoteMonitor = (props) => {
   );
 };
 
-export const NtosCyborgRemoteMonitorContent = (props) => {
-  const { act, data } = useBackend();
+export const NtosCyborgRemoteMonitorContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const { card, cyborgs = [] } = data;
 
   if (!cyborgs.length) {

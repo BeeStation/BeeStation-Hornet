@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const DisposalUnit = (props) => {
-  const { act, data } = useBackend();
+export const DisposalUnit = (props, context) => {
+  const { act, data } = useBackend(context);
   let stateColor;
   let stateText;
   if (data.full_pressure) {

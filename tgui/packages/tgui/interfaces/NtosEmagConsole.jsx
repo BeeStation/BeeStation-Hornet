@@ -79,7 +79,7 @@ Cryptographic Sequence complete.
 const FPS = 120;
 const tickInterval = 1000 / FPS;
 
-export const NtosEmagConsole = (props) => {
+export const NtosEmagConsole = (props, context) => {
   return (
     <NtosWindow title="Crypto-breaker 2400 Edition" width={400} height={500}>
       <NtosWindow.Content>
@@ -106,7 +106,7 @@ export class EmagConsoleText extends Component {
     } else {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
-        const { act } = useBackend();
+        const { act } = useBackend(this.context);
         // All UI actions close the program
         act('PC_exit');
       }, this.props.end_pause || 500);

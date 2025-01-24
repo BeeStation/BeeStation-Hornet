@@ -6,8 +6,8 @@ import { Window } from '../layouts';
 
 const MAX_SEARCH_RESULTS = 25;
 
-export const Uplink = (props) => {
-  const { data } = useBackend();
+export const Uplink = (props, context) => {
+  const { data } = useBackend(context);
   const { telecrystals } = data;
   return (
     <Window theme="syndicate" width={900} height={600}>
@@ -18,12 +18,12 @@ export const Uplink = (props) => {
   );
 };
 
-export const GenericUplink = (props) => {
+export const GenericUplink = (props, context) => {
   const { currencyAmount = 0, currencySymbol = 'cr' } = props;
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
   const { compactMode, lockable, categories = [] } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0]?.name);
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0]?.name);
   const testSearch = createSearch(searchText, (item) => {
     return item.name + item.desc;
   });
@@ -88,10 +88,10 @@ export const GenericUplink = (props) => {
   );
 };
 
-const ItemList = (props) => {
+const ItemList = (props, context) => {
   const { compactMode, currencyAmount, currencySymbol } = props;
-  const { act } = useBackend();
-  const [hoveredItem, setHoveredItem] = useLocalState('hoveredItem', {});
+  const { act } = useBackend(context);
+  const [hoveredItem, setHoveredItem] = useLocalState(context, 'hoveredItem', {});
   const hoveredCost = (hoveredItem && hoveredItem.cost) || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {

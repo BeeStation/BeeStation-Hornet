@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Button, NoticeBox, Section, Table } from '../components';
 import { Window } from '../layouts';
 
-export const SmartVend = (props) => {
-  const { act, data } = useBackend();
+export const SmartVend = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={440} height={550} {...(data.ui_theme && { theme: data.ui_theme })}>
       <Window.Content scrollable>

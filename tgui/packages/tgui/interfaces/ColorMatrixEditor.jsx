@@ -3,8 +3,8 @@ import { toFixed } from 'common/math';
 import { Box, Stack, Section, ByondUi, NumberInput, Button } from '../components';
 import { Window } from '../layouts';
 
-export const ColorMatrixEditor = (props) => {
-  const { act, data } = useBackend();
+export const ColorMatrixEditor = (props, context) => {
+  const { act, data } = useBackend(context);
   const { mapRef, currentColor } = data;
   const [[rr, rg, rb, ra], [gr, gg, gb, ga], [br, bg, bb, ba], [ar, ag, ab, aa], [cr, cg, cb, ca]] = currentColor;
   const prefixes = ['r', 'g', 'b', 'a', 'c'];

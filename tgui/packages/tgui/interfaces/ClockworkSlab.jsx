@@ -18,11 +18,11 @@ export const convertPower = (power_in) => {
   return Math.round((value + Number.EPSILON) * 100) / 100 + units[power];
 };
 
-export const ClockworkSlab = (props) => {
-  const { data } = useBackend();
+export const ClockworkSlab = (props, context) => {
+  const { data } = useBackend(context);
   const { power } = data;
   const { recollection } = data;
-  const [selectedTab, setSelectedTab] = useLocalState('selectedTab', 'Servitude');
+  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', 'Servitude');
   return (
     <Window theme="clockwork" width={860} height={700}>
       <Window.Content>
@@ -58,7 +58,7 @@ export const ClockworkSlab = (props) => {
   );
 };
 
-export const ClockworkHelp = (props) => {
+export const ClockworkHelp = (props, context) => {
   return (
     <Fragment>
       <Collapsible title="Where To Start" color="average" open={1}>
@@ -201,8 +201,8 @@ export const ClockworkHelp = (props) => {
   );
 };
 
-export const ClockworkSpellList = (props) => {
-  const { act, data } = useBackend();
+export const ClockworkSpellList = (props, context) => {
+  const { act, data } = useBackend(context);
   const { selectedTab } = props;
   const { scriptures = [] } = data;
   return (
@@ -253,8 +253,8 @@ export const ClockworkSpellList = (props) => {
   );
 };
 
-export const ClockworkOverview = (props) => {
-  const { data } = useBackend();
+export const ClockworkOverview = (props, context) => {
+  const { data } = useBackend(context);
   const { power, cogs, vitality } = data;
   return (
     <Box>
@@ -275,7 +275,7 @@ export const ClockworkOverview = (props) => {
   );
 };
 
-export const ClockworkOverviewStat = (props) => {
+export const ClockworkOverviewStat = (props, context) => {
   const { title, iconName, amount, maxAmount, unit, overrideText } = props;
   return (
     <Box height="22px" fontSize="16px">
@@ -302,8 +302,8 @@ export const ClockworkOverviewStat = (props) => {
   );
 };
 
-export const ClockworkButtonSelection = (props) => {
-  const [selectedTab, setSelectedTab] = useLocalState('selectedTab', {});
+export const ClockworkButtonSelection = (props, context) => {
+  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', {});
   const tabs = ['Servitude', 'Preservation', 'Structures'];
   return (
     <Table>

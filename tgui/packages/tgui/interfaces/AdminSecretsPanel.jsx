@@ -20,10 +20,10 @@ const possTitles = [
 ];
 const Title = pick(possTitles);
 
-export const AdminSecretsPanel = (props) => {
-  const { act, data } = useBackend();
+export const AdminSecretsPanel = (props, context) => {
+  const { act, data } = useBackend(context);
   const { Categories = [] } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   const Search = createSearch(searchText, (item) => {
     return item;

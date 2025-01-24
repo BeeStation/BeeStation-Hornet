@@ -4,10 +4,10 @@ import { useBackend, useLocalState } from '../backend';
 import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-const RecipeOptions = (_props) => {
-  const { act, data } = useBackend();
-  const [deletingRecipes, setDeletingRecipes] = useLocalState('deletingRecipes', false);
-  const [_clearingRecipes, setClearingRecipes] = useLocalState('clearingRecipes', false);
+const RecipeOptions = (_props, context) => {
+  const { act, data } = useBackend(context);
+  const [deletingRecipes, setDeletingRecipes] = useLocalState(context, 'deletingRecipes', false);
+  const [_clearingRecipes, setClearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   const recording = !!data.recordingRecipe;
   return (
     <>
@@ -33,9 +33,9 @@ const RecipeOptions = (_props) => {
   );
 };
 
-const RecipeClearAllDimmer = (_props) => {
-  const { act } = useBackend();
-  const [_clearingRecipes, setClearingRecipes] = useLocalState('clearingRecipes', false);
+const RecipeClearAllDimmer = (_props, context) => {
+  const { act } = useBackend(context);
+  const [_clearingRecipes, setClearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   return (
     <Dimmer>
       <Stack align="baseline" vertical>
@@ -84,10 +84,10 @@ const RecipeClearAllDimmer = (_props) => {
   );
 };
 
-const RecipeButton = (props) => {
-  const { act } = useBackend();
+const RecipeButton = (props, context) => {
+  const { act } = useBackend(context);
   const { recipe } = props;
-  const [deletingRecipes] = useLocalState('deletingRecipes', false);
+  const [deletingRecipes] = useLocalState(context, 'deletingRecipes', false);
   return (
     <Button
       icon={deletingRecipes ? 'trash' : 'tint'}
@@ -104,10 +104,10 @@ const RecipeButton = (props) => {
   );
 };
 
-export const ChemDispenser = (_props) => {
-  const { act, data } = useBackend();
+export const ChemDispenser = (_props, context) => {
+  const { act, data } = useBackend(context);
   const recording = !!data.recordingRecipe;
-  const [clearingRecipes] = useLocalState('clearingRecipes', false);
+  const [clearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   // TODO: Change how this piece of shit is built on server side
   // It has to be a list, not a fucking OBJECT!
   const recipes = Object.keys(data.recipes).map((name) => ({

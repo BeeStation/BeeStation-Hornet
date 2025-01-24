@@ -20,10 +20,10 @@ const r = require.context('../stories', false, /\.stories\.jsx$/);
  */
 const getStories = () => r.keys().map((path) => r(path));
 
-export const KitchenSink = (props) => {
+export const KitchenSink = (props, context) => {
   const { panel } = props;
-  const [theme] = useLocalState('kitchenSinkTheme');
-  const [pageIndex, setPageIndex] = useLocalState('pageIndex', 0);
+  const [theme] = useLocalState(context, 'kitchenSinkTheme');
+  const [pageIndex, setPageIndex] = useLocalState(context, 'pageIndex', 0);
   const stories = getStories();
   const story = stories[pageIndex];
   const Layout = panel ? Pane : Window;

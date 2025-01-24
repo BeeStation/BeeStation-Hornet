@@ -6,8 +6,8 @@ import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divid
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
-export const OrbitalMap = (props) => {
-  const { act, data } = useBackend();
+export const OrbitalMap = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     map_objects = [],
     linkedToShuttle = false,
@@ -21,10 +21,10 @@ export const OrbitalMap = (props) => {
     designatorId = null,
     shuttleId = null,
   } = data;
-  const [zoomScale, setZoomScale] = useLocalState('zoomScale', 1);
-  const [xOffset, setXOffset] = useLocalState('xOffset', 0);
-  const [yOffset, setYOffset] = useLocalState('yOffset', 0);
-  const [trackedBody, setTrackedBody] = useLocalState('trackedBody', shuttleName);
+  const [zoomScale, setZoomScale] = useLocalState(context, 'zoomScale', 1);
+  const [xOffset, setXOffset] = useLocalState(context, 'xOffset', 0);
+  const [yOffset, setYOffset] = useLocalState(context, 'yOffset', 0);
+  const [trackedBody, setTrackedBody] = useLocalState(context, 'trackedBody', shuttleName);
 
   let dynamicXOffset = xOffset;
   let dynamicYOffset = yOffset;
@@ -154,7 +154,7 @@ export const OrbitalMap = (props) => {
   );
 };
 
-export const InterdictionDisplay = (props) => {
+export const InterdictionDisplay = (props, context) => {
   const boxTargetStyle = {
     'fill-opacity': 0,
     stroke: '#DDDDDD',
@@ -165,7 +165,7 @@ export const InterdictionDisplay = (props) => {
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 
-  const { data } = useBackend();
+  const { data } = useBackend(context);
 
   const { interdictionTime = 0, interdictedShuttles = [] } = data;
 
@@ -290,14 +290,14 @@ export const InterdictionDisplay = (props) => {
   );
 };
 
-export const OrbitalMapDisplay = (props) => {
+export const OrbitalMapDisplay = (props, context) => {
   const { zoomScale, setZoomScale, setTrackedBody, ourObject, isTracking = false, dynamicXOffset, dynamicYOffset } = props;
 
-  const [offset, setOffset] = useLocalState('offset', [0, 0]);
+  const [offset, setOffset] = useLocalState(context, 'offset', [0, 0]);
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
 
   const {
     map_objects = [],
@@ -411,8 +411,8 @@ export const OrbitalMapDisplay = (props) => {
   );
 };
 
-export const RecallControl = (props) => {
-  const { act, data } = useBackend();
+export const RecallControl = (props, context) => {
+  const { act, data } = useBackend(context);
   const { request_shuttle_message } = data;
   return (
     <>
@@ -430,8 +430,8 @@ export const RecallControl = (props) => {
   );
 };
 
-export const ShuttleControls = (props) => {
-  const { act, data } = useBackend();
+export const ShuttleControls = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     map_objects = [],
     shuttleTarget = null,
@@ -496,7 +496,7 @@ export const ShuttleControls = (props) => {
   );
 };
 
-export const ShuttleMap = (props) => {
+export const ShuttleMap = (props, context) => {
   const lineStyle = {
     stroke: '#BBBBBB',
     strokeWidth: '2',
@@ -505,7 +505,7 @@ export const ShuttleMap = (props) => {
     stroke: '#00FF00',
     strokeWidth: '2',
   };
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
   const { shuttleAngle = 0, shuttleThrust = 0, shuttleVelX = 0, shuttleVelY = 0 } = data;
   let x = (shuttleThrust + 30) * Math.cos(shuttleAngle * ((2 * Math.PI) / 360));
   let y = (shuttleThrust + 30) * Math.sin(shuttleAngle * ((2 * Math.PI) / 360));

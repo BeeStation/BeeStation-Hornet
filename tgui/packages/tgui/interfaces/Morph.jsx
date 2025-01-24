@@ -13,10 +13,10 @@ export const Morph = () => {
   );
 };
 
-const MorphContents = (_props) => {
-  const { data } = useBackend();
-  const [tab, setTab] = useLocalState('tab', 'living');
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+const MorphContents = (_props, context) => {
+  const { data } = useBackend(context);
+  const [tab, setTab] = useLocalState(context, 'tab', 'living');
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const favorites = Object.values(data.contents.living)
     .concat(Object.values(data.contents.items))
     .filter((A) => A.favorite);
@@ -86,8 +86,8 @@ const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }) =
   );
 };
 
-const MorphItemButtons = ({ id, living, favorite, digestable, throw_ref }) => {
-  const { act } = useBackend();
+const MorphItemButtons = ({ id, living, favorite, digestable, throw_ref }, context) => {
+  const { act } = useBackend(context);
   return (
     <>
       <Button

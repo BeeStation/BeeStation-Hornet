@@ -2,8 +2,8 @@ import { Box, Tooltip } from '../../components';
 import { PreferencesMenuData } from './data';
 import { useBackend } from '../../backend';
 
-export const SaveStatus = (props) => {
-  const { data } = useBackend<PreferencesMenuData>();
+export const SaveStatus = (props, context) => {
+  const { data } = useBackend<PreferencesMenuData>(context);
   const { save_in_progress = false, is_db = true, is_guest = false, save_sucess = true } = data;
   const innerBox = (
     <Box

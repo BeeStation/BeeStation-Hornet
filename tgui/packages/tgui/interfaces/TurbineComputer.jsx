@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const TurbineComputer = (props) => {
-  const { act, data } = useBackend();
+export const TurbineComputer = (props, context) => {
+  const { act, data } = useBackend(context);
   const operational = Boolean(data.compressor && !data.compressor_broke && data.turbine && !data.turbine_broke);
   return (
     <Window width={310} height={150}>

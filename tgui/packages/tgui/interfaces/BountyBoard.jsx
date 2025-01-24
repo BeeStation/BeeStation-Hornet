@@ -14,8 +14,8 @@ export const BountyBoard = () => {
   );
 };
 
-export const BountyBoardContent = (_) => {
-  const { act, data } = useBackend();
+export const BountyBoardContent = (_, context) => {
+  const { act, data } = useBackend(context);
   const { requests = [], applicants = [], user } = data;
   const color = '#2c4461';
   const backColor = 'black';
@@ -105,8 +105,8 @@ export const BountyBoardContent = (_) => {
   );
 };
 
-const NewBountyMenu = (_) => {
-  const { act, data } = useBackend();
+const NewBountyMenu = (_, context) => {
+  const { act, data } = useBackend(context);
   const { bountyValue, user } = data;
   return (
     <Section

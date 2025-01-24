@@ -3,7 +3,7 @@ import { Box, Button, Flex, Input, NoticeBox, Section, Tabs } from '../component
 import { NtosWindow } from '../layouts';
 import { AccessList } from './common/AccessList';
 
-export const NtosCard = (props) => {
+export const NtosCard = (props, context) => {
   return (
     <NtosWindow width={450} height={520}>
       <NtosWindow.Content scrollable>
@@ -13,9 +13,9 @@ export const NtosCard = (props) => {
   );
 };
 
-export const NtosCardContent = (props) => {
-  const { act, data } = useBackend();
-  const [tab, setTab] = useLocalState('tab', 1);
+export const NtosCardContent = (props, context) => {
+  const { act, data } = useBackend(context);
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   const {
     authenticated,
     regions = [],
@@ -28,7 +28,7 @@ export const NtosCardContent = (props) => {
     have_id_slot,
     id_name,
   } = data;
-  const [selectedDepartment, setSelectedDepartment] = useLocalState('department', Object.keys(jobs)[0]);
+  const [selectedDepartment, setSelectedDepartment] = useLocalState(context, 'department', Object.keys(jobs)[0]);
   if (!have_id_slot) {
     return <NoticeBox>This program requires an ID slot in order to function</NoticeBox>;
   }

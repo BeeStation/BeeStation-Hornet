@@ -185,16 +185,12 @@ export const createAction = <TAction extends string>(type: TAction, prepare?: (.
 export const useDispatch = <TAction extends Action = AnyAction>(context: {
   store: Store<unknown, TAction>;
 }): Dispatch<TAction> => {
-  return context?.store?.dispatch;
+  return context.store.dispatch;
 };
 
 export const useSelector = <State, Selected>(
   context: { store: Store<State, Action> },
   selector: (state: State) => Selected
 ): Selected => {
-  if (!context) {
-    return {} as Selected;
-  }
-
-  return selector(context?.store?.getState());
+  return selector(context.store.getState());
 };

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
-export const TransferValve = (props) => {
-  const { act, data } = useBackend();
+export const TransferValve = (props, context) => {
+  const { act, data } = useBackend(context);
   const { tank_one, tank_two, attached_device, valve } = data;
   return (
     <Window width={310} height={320}>

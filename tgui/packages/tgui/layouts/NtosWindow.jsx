@@ -9,9 +9,9 @@ import { useBackend } from '../backend';
 import { Box, Button } from '../components';
 import { Window } from './Window';
 
-export const NtosWindow = (props) => {
+export const NtosWindow = (props, context) => {
   const { title, width = 575, height = 700, theme = 'ntos', children } = props;
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
   const {
     PC_device_theme,
     PC_batteryicon,

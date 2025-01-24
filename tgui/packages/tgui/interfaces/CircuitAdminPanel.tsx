@@ -12,8 +12,8 @@ type CircuitAdminPanelData = {
   }[];
 };
 
-export const CircuitAdminPanel = (props) => {
-  const { act, data } = useBackend<CircuitAdminPanelData>();
+export const CircuitAdminPanel = (props, context) => {
+  const { act, data } = useBackend<CircuitAdminPanelData>(context);
 
   return (
     <Window title="Circuit Admin Panel" width={1200} height={500} resizable>

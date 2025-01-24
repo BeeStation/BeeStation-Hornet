@@ -3,8 +3,8 @@ import { Button, Collapsible, Flex, LabeledList, NoticeBox, Section, Slider, Box
 import { Window } from '../layouts';
 import { formatPower } from '../format';
 
-export const BluespaceTap = (props) => {
-  const { act, data } = useBackend();
+export const BluespaceTap = (props, context) => {
+  const { act, data } = useBackend(context);
   const product = data.product || [];
   const {
     desiredLevel,

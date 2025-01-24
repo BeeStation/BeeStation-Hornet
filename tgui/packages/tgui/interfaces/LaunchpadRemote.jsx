@@ -3,8 +3,8 @@ import { NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { LaunchpadControl } from './LaunchpadConsole';
 
-export const LaunchpadRemote = (props) => {
-  const { data } = useBackend();
+export const LaunchpadRemote = (props, context) => {
+  const { data } = useBackend(context);
   const { has_pad, pad_closed } = data;
   return (
     <Window theme="syndicate" width={300} height={240}>

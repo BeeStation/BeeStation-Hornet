@@ -19,8 +19,8 @@ const sortShuttles = sortBy(
   (shuttle) => shuttle.creditCost
 );
 
-const AlertButton = (props) => {
-  const { act, data } = useBackend();
+const AlertButton = (props, context) => {
+  const { act, data } = useBackend(context);
   const { alertLevelTick, canSetAlertLevel } = data;
   const { alertLevel, setShowAlertLevelConfirm } = props;
 
@@ -48,11 +48,11 @@ const AlertButton = (props) => {
   );
 };
 
-const MessageModal = (props) => {
-  const { data } = useBackend();
+const MessageModal = (props, context) => {
+  const { data } = useBackend(context);
   const { maxMessageLength } = data;
 
-  const [input, setInput] = useLocalState(props.label, '');
+  const [input, setInput] = useLocalState(context, props.label, '');
 
   const longEnough = props.minLength === undefined || input.length >= props.minLength;
 
@@ -129,8 +129,8 @@ const NoConnectionModal = () => {
   );
 };
 
-const PageBuyingShuttle = (props) => {
-  const { act, data } = useBackend();
+const PageBuyingShuttle = (props, context) => {
+  const { act, data } = useBackend(context);
   const { canBuyShuttles } = data;
 
   return (
@@ -207,8 +207,8 @@ const PageBuyingShuttle = (props) => {
   );
 };
 
-const PageChangingStatus = (props) => {
-  const { act } = useBackend();
+const PageChangingStatus = (props, context) => {
+  const { act } = useBackend(context);
 
   return (
     <Box>
@@ -217,8 +217,8 @@ const PageChangingStatus = (props) => {
   );
 };
 
-const PageMain = (props) => {
-  const { act, data } = useBackend();
+const PageMain = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     alertLevel,
     alertLevelTick,
@@ -242,15 +242,16 @@ const PageMain = (props) => {
     page,
   } = data;
 
-  const [callingShuttle, setCallingShuttle] = useLocalState('calling_shuttle', false);
-  const [messagingAssociates, setMessagingAssociates] = useLocalState('messaging_associates', false);
-  const [messagingSector, setMessagingSector] = useLocalState('messaing_sector', null);
-  const [requestingNukeCodes, setRequestingNukeCodes] = useLocalState('requesting_nuke_codes', false);
+  const [callingShuttle, setCallingShuttle] = useLocalState(context, 'calling_shuttle', false);
+  const [messagingAssociates, setMessagingAssociates] = useLocalState(context, 'messaging_associates', false);
+  const [messagingSector, setMessagingSector] = useLocalState(context, 'messaing_sector', null);
+  const [requestingNukeCodes, setRequestingNukeCodes] = useLocalState(context, 'requesting_nuke_codes', false);
 
-  const [[showAlertLevelConfirm, confirmingAlertLevelTick], setShowAlertLevelConfirm] = useLocalState('showConfirmPrompt', [
-    null,
-    null,
-  ]);
+  const [[showAlertLevelConfirm, confirmingAlertLevelTick], setShowAlertLevelConfirm] = useLocalState(
+    context,
+    'showConfirmPrompt',
+    [null, null]
+  );
 
   return (
     <Box>
@@ -485,8 +486,8 @@ const PageMain = (props) => {
   );
 };
 
-const PageMessages = (props) => {
-  const { act, data } = useBackend();
+const PageMessages = (props, context) => {
+  const { act, data } = useBackend(context);
   const messages = data.messages || [];
 
   return (
@@ -549,7 +550,7 @@ const PageMessages = (props) => {
   );
 };
 
-const ConditionalTooltip = (props) => {
+const ConditionalTooltip = (props, context) => {
   const { condition, children, ...rest } = props;
 
   if (!condition) {
@@ -559,8 +560,8 @@ const ConditionalTooltip = (props) => {
   return <Tooltip {...rest}>{children}</Tooltip>;
 };
 
-export const CommunicationsConsole = (props) => {
-  const { act, data } = useBackend();
+export const CommunicationsConsole = (props, context) => {
+  const { act, data } = useBackend(context);
   const { authenticated, authorizeName, canLogOut, emagged, hasConnection, page, canBuyShuttles } = data;
 
   return (

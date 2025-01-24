@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
 import { Newscaster } from './Newscaster';
 
-export const NtosNewscaster = (_) => {
-  const { data } = useBackend();
+export const NtosNewscaster = (_, context) => {
+  const { data } = useBackend(context);
   const { PC_device_theme, PC_classic_color } = data;
   return (
     <NtosWindow>

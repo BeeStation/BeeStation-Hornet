@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Box, NumberInput, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const RadioactiveMicrolaser = (props) => {
-  const { act, data } = useBackend();
+export const RadioactiveMicrolaser = (props, context) => {
+  const { act, data } = useBackend(context);
   const { irradiate, stealth, scanmode, intensity, wavelength, on_cooldown, cooldown } = data;
   return (
     <Window theme="syndicate" width={320} height={335}>

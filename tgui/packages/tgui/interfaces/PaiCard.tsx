@@ -26,8 +26,8 @@ type Pai = {
   receive: BooleanLike;
 };
 
-export const PaiCard = (_) => {
-  const { data } = useBackend<PaiCardData>();
+export const PaiCard = (_, context) => {
+  const { data } = useBackend<PaiCardData>(context);
   const { pai } = data;
 
   return (
@@ -38,10 +38,10 @@ export const PaiCard = (_) => {
 };
 
 /** Gives a list of candidates as cards */
-const PaiDownload = (_) => {
-  const { act, data } = useBackend<PaiCardData>();
+const PaiDownload = (_, context) => {
+  const { act, data } = useBackend<PaiCardData>(context);
   const { candidates = [] } = data;
-  const [tabInChar, setTabInChar] = useLocalState('tab', true);
+  const [tabInChar, setTabInChar] = useLocalState(context, 'tab', true);
   const onClick = () => {
     setTabInChar(!tabInChar);
   };
@@ -84,8 +84,8 @@ const PaiDownload = (_) => {
  * had to make the comments and descriptions a separate tab.
  * In longer entries, it is much more readable.
  */
-const CandidateDisplay = (props) => {
-  const { act } = useBackend<PaiCardData>();
+const CandidateDisplay = (props, context) => {
+  const { act } = useBackend<PaiCardData>(context);
   const { candidate, index, tabInChar } = props;
   const { comments, description, ckey, name } = candidate;
 
@@ -117,8 +117,8 @@ const CandidateDisplay = (props) => {
 };
 
 /** Once a pAI has been loaded, you can alter its settings here */
-const PaiOptions = (_) => {
-  const { act, data } = useBackend<PaiCardData>();
+const PaiOptions = (_, context) => {
+  const { act, data } = useBackend<PaiCardData>(context);
   const { pai } = data;
   const { can_holo, dna, emagged, laws, master, name, transmit, receive } = pai;
 

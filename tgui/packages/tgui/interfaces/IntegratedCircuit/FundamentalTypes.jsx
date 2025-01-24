@@ -2,7 +2,7 @@ import { BasicInput } from './BasicInput';
 import { NumberInput, Button, Stack, Input, Dropdown, Box } from '../../components';
 
 export const FUNDAMENTAL_DATA_TYPES = {
-  'string': (props) => {
+  'string': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue="">
@@ -10,7 +10,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
       </BasicInput>
     );
   },
-  'number': (props) => {
+  'number': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue={0}>
@@ -18,17 +18,17 @@ export const FUNDAMENTAL_DATA_TYPES = {
       </BasicInput>
     );
   },
-  'entity': (props) => {
+  'entity': (props, context) => {
     const { name, setValue } = props;
     return (
       <Button content={name} color="transparent" icon="upload" compact onClick={() => setValue(null, { marked_atom: true })} />
     );
   },
-  'signal': (props) => {
+  'signal': (props, context) => {
     const { name, setValue } = props;
     return <Button content={name} color="transparent" compact onClick={() => setValue()} />;
   },
-  'option': (props) => {
+  'option': (props, context) => {
     const { value, setValue, extraData } = props;
     return (
       <Dropdown
@@ -41,7 +41,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
       />
     );
   },
-  'any': (props) => {
+  'any': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue={''}>

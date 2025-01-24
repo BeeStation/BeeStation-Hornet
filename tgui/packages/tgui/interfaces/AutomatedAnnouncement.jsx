@@ -9,8 +9,8 @@ const TOOLTIP_TEXT = multiline`
   %STNAME fills in the station name.
 `;
 
-export const AutomatedAnnouncement = (props) => {
-  const { act, data } = useBackend();
+export const AutomatedAnnouncement = (props, context) => {
+  const { act, data } = useBackend(context);
   const { arrivalToggle, arrival, newheadToggle, newhead } = data;
   return (
     <Window width={500} height={225}>

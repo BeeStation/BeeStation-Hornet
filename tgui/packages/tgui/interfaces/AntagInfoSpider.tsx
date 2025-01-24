@@ -39,8 +39,8 @@ const colors = {
 };
 const image_style = { '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' };
 
-const BasicInfoSection = (_props) => {
-  const { data } = useBackend<Info>();
+const BasicInfoSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { color } = data;
   return (
     <Section>
@@ -55,8 +55,8 @@ const BasicInfoSection = (_props) => {
   );
 };
 
-const DirectiveSection = (_props) => {
-  const { data } = useBackend<Info>();
+const DirectiveSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { directive } = data;
   return (
     <Section title="Directive">
@@ -80,7 +80,7 @@ const DirectiveSection = (_props) => {
   );
 };
 
-const AbilitiesSection = (_props) => {
+const AbilitiesSection = (_props, _context) => {
   return (
     <Section title="Abilities">
       <p>
@@ -128,10 +128,10 @@ const AbilitiesSection = (_props) => {
   );
 };
 
-const SpiderTypesSection = (_props) => {
-  const { data } = useBackend<Info>();
+const SpiderTypesSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { type } = data;
-  const [tab, setTab] = useLocalState('tab', default_spider_tab[type] || 1);
+  const [tab, setTab] = useLocalState(context, 'tab', default_spider_tab[type] || 1);
   return (
     <Section title="Spider Types">
       <Tabs>
@@ -402,8 +402,8 @@ const SpiderTypesSection = (_props) => {
   );
 };
 
-export const AntagInfoSpider = (_props) => {
-  const { data } = useBackend<Info>();
+export const AntagInfoSpider = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { color, type } = data;
   return (
     <Window width={700} height={850} theme="neutral">

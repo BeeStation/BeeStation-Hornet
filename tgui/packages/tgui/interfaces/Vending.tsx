@@ -59,11 +59,15 @@ type CustomInput = {
   img: string;
 };
 
-export const Vending = (props) => {
-  const { data } = useBackend<VendingData>();
+export const Vending = (props, context) => {
+  const { data } = useBackend<VendingData>(context);
   const { onstation, product_records = [], coin_records = [], hidden_records = [], stock } = data;
 
-  const [selectedCategory, setSelectedCategory] = useLocalState<string>('selectedCategory', Object.keys(data.categories)[0]);
+  const [selectedCategory, setSelectedCategory] = useLocalState<string>(
+    context,
+    'selectedCategory',
+    Object.keys(data.categories)[0]
+  );
 
   let inventory: (ProductRecord | CustomInput)[];
   let custom = false;
@@ -122,8 +126,8 @@ export const Vending = (props) => {
 };
 
 /** Displays user details if an ID is present and the user is on the station */
-export const UserDetails = (props) => {
-  const { data } = useBackend<VendingData>();
+export const UserDetails = (props, context) => {
+  const { data } = useBackend<VendingData>(context);
   const { user } = data;
 
   if (!user) {
@@ -148,12 +152,15 @@ export const UserDetails = (props) => {
 };
 
 /** Displays  products in a section, with user balance at top */
-const ProductDisplay = (props: {
-  custom: boolean;
-  selectedCategory: string | null;
-  inventory: (ProductRecord | CustomInput)[];
-}) => {
-  const { data } = useBackend<VendingData>();
+const ProductDisplay = (
+  props: {
+    custom: boolean;
+    selectedCategory: string | null;
+    inventory: (ProductRecord | CustomInput)[];
+  },
+  context
+) => {
+  const { data } = useBackend<VendingData>(context);
   const { custom, inventory, selectedCategory } = props;
   const { stock, onstation, user } = data;
 
@@ -191,8 +198,8 @@ const ProductDisplay = (props: {
  * Uses a table layout. Labeledlist might be better,
  * but you cannot use item icons as labels currently.
  */
-const VendingRow = (props) => {
-  const { data } = useBackend<VendingData>();
+const VendingRow = (props, context) => {
+  const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
   const { access, department_bitflag, jobDiscount, onstation, user } = data;
   const free = !onstation || product.price === 0 || (!product.premium && department_bitflag === user?.department_bitflag);
@@ -252,8 +259,8 @@ const ProductImage = (props) => {
 /** In the case of customizable items, ie: shoes,
  * this displays a color wheel button that opens another window.
  */
-const ProductColorSelect = (props) => {
-  const { act } = useBackend<VendingData>();
+const ProductColorSelect = (props, context) => {
+  const { act } = useBackend<VendingData>(context);
   const { disabled, product } = props;
 
   return (
@@ -278,8 +285,8 @@ const ProductStock = (props) => {
 };
 
 /** The main button to purchase an item. */
-const ProductButton = (props) => {
-  const { act, data } = useBackend<VendingData>();
+const ProductButton = (props, context) => {
+  const { act, data } = useBackend<VendingData>(context);
   const { access } = data;
   const { custom, discount, disabled, free, product, redPrice } = props;
   const customPrice = access ? 'FREE' : product.price + ' cr';

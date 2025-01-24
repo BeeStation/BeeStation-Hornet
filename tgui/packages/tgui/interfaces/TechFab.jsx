@@ -7,7 +7,7 @@ import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 // Handles protolathes, circuit fabricators, and techfabs
 
-export const TechFab = (props) => {
+export const TechFab = (props, context) => {
   return (
     <Window width={590} height={700}>
       <Window.Content>
@@ -21,8 +21,8 @@ export const TechFab = (props) => {
   );
 };
 
-const TechFabTopBar = (props) => {
-  const { act, data } = useBackend();
+const TechFabTopBar = (props, context) => {
+  const { act, data } = useBackend(context);
   const { busy, efficiency, search } = data;
 
   return (
@@ -71,8 +71,8 @@ const formatBigNumber = (number, digits) => {
   }
 };
 
-const Material = (props) => {
-  const { act, data } = useBackend();
+const Material = (props, context) => {
+  const { act, data } = useBackend(context);
   const { material } = props;
 
   const material_dispense_amounts = [1, 10, 50];
@@ -112,8 +112,8 @@ const Material = (props) => {
   );
 };
 
-const Reagent = (props) => {
-  const { act, data } = useBackend();
+const Reagent = (props, context) => {
+  const { act, data } = useBackend(context);
   const { reagent } = props;
 
   return (
@@ -140,8 +140,8 @@ const Reagent = (props) => {
   );
 };
 
-const TechFabHeader = (props) => {
-  const { act, data } = useBackend();
+const TechFabHeader = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     materials = {},
     materials_label = '0/unlimited', // Placeholder
@@ -185,7 +185,7 @@ const TechFabHeader = (props) => {
   );
 };
 
-const ConditionalTooltip = (props) => {
+const ConditionalTooltip = (props, context) => {
   const { condition, children, ...rest } = props;
 
   if (!condition) {
@@ -195,8 +195,8 @@ const ConditionalTooltip = (props) => {
   return <Tooltip {...rest}>{children}</Tooltip>;
 };
 
-const Recipe = (props) => {
-  const { act, data } = useBackend();
+const Recipe = (props, context) => {
+  const { act, data } = useBackend(context);
   const { materials, reagents, efficiency, stack_to_mineral } = data;
   const { recipe } = props;
 
@@ -274,8 +274,8 @@ const Recipe = (props) => {
   );
 };
 
-const TechFabContent = (props) => {
-  const { act, data } = useBackend();
+const TechFabContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const { categories = [], recipes = [], search, category } = data;
 
   const testSearch = createSearch(search || '', (recipe) => {

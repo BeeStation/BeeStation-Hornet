@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Section, Button, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const PictureSelectModal = (_) => {
-  const { data, act } = useBackend();
+export const PictureSelectModal = (_, context) => {
+  const { data, act } = useBackend(context);
   const { title, pictures = [], button_text } = data;
   return (
     <Window title={title} width={400} height={500}>

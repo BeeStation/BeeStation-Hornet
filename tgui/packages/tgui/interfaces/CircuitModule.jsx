@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Stack, Section, Input, Button, Dropdown } from '../components';
 import { Window } from '../layouts';
 
-export const CircuitModule = (props) => {
-  const { act, data } = useBackend();
+export const CircuitModule = (props, context) => {
+  const { act, data } = useBackend(context);
   const { input_ports, output_ports, global_port_types } = data;
   return (
     <Window width={600} height={300}>
@@ -94,7 +94,7 @@ export const CircuitModule = (props) => {
   );
 };
 
-const PortEntry = (props) => {
+const PortEntry = (props, context) => {
   const { onRemove, onEnter, onSetType, name, datatype, datatypeOptions = [], ...rest } = props;
 
   return (

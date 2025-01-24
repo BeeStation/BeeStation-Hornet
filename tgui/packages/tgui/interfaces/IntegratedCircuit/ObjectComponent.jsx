@@ -34,7 +34,7 @@ export class ObjectComponent extends Component {
   }
 
   handleStopDrag(e) {
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { dragPos } = this.state;
     const { index } = this.props;
     if (dragPos) {
@@ -101,7 +101,7 @@ export class ObjectComponent extends Component {
       onPortMouseUp,
       ...rest
     } = this.props;
-    const { act } = useBackend();
+    const { act } = useBackend(this.context);
     const { startPos, dragPos } = this.state;
 
     let [x_pos, y_pos] = [x, y];

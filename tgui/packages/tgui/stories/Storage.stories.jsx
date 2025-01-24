@@ -13,7 +13,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props) => {
+const Story = (props, context) => {
   if (!window.localStorage) {
     return <NoticeBox>Local storage is not available.</NoticeBox>;
   }

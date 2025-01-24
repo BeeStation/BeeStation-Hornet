@@ -3,8 +3,8 @@ import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 import { getGasLabel } from '../constants';
 
-export const AtmosFilter = (props) => {
-  const { act, data } = useBackend();
+export const AtmosFilter = (props, context) => {
+  const { act, data } = useBackend(context);
   const filterTypes = data.filter_types || [];
   return (
     <Window width={390} height={187}>

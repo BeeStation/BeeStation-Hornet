@@ -3,8 +3,8 @@ import { Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 import { GenericUplink } from './Uplink';
 
-export const AbductorConsole = (props) => {
-  const [tab, setTab] = useLocalState('tab', 1);
+export const AbductorConsole = (props, context) => {
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
     <Window theme="abductor" width={600} height={532}>
       <Window.Content scrollable>
@@ -28,8 +28,8 @@ export const AbductorConsole = (props) => {
   );
 };
 
-const Abductsoft = (props) => {
-  const { act, data } = useBackend();
+const Abductsoft = (props, context) => {
+  const { act, data } = useBackend(context);
   const { experiment, points, credits } = data;
 
   if (!experiment) {
@@ -48,8 +48,8 @@ const Abductsoft = (props) => {
   );
 };
 
-const EmergencyTeleporter = (props) => {
-  const { act, data } = useBackend();
+const EmergencyTeleporter = (props, context) => {
+  const { act, data } = useBackend(context);
   const { pad, gizmo } = data;
 
   if (!pad) {
@@ -74,8 +74,8 @@ const EmergencyTeleporter = (props) => {
   );
 };
 
-const VestSettings = (props) => {
-  const { act, data } = useBackend();
+const VestSettings = (props, context) => {
+  const { act, data } = useBackend(context);
   const { vest, vest_mode, vest_lock } = data;
 
   if (!vest) {

@@ -12,8 +12,8 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props) => {
-  const [theme, setTheme] = useLocalState('kitchenSinkTheme');
+const Story = (props, context) => {
+  const [theme, setTheme] = useLocalState(context, 'kitchenSinkTheme');
   return (
     <Section>
       <LabeledList>

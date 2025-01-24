@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import { Box, Button, NoticeBox, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const RemoteRobotControl = (props) => {
+export const RemoteRobotControl = (props, context) => {
   return (
     <Window title="Remote Robot Control" width={500} height={500} resizable>
       <Window.Content scrollable>
@@ -13,8 +13,8 @@ export const RemoteRobotControl = (props) => {
   );
 };
 
-export const RemoteRobotControlContent = (props) => {
-  const { act, data } = useBackend();
+export const RemoteRobotControlContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const { robots = [] } = data;
   if (!robots.length) {
     return (

@@ -152,8 +152,8 @@ const GuideSection = () => {
   );
 };
 
-const InformationSection = (props) => {
-  const { data } = useBackend<Info>();
+const InformationSection = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { charges, total_sacrifices, ascended } = data;
   return (
     <Stack.Item>
@@ -185,8 +185,8 @@ const InformationSection = (props) => {
   );
 };
 
-const ObjectivePrintout = (props) => {
-  const { data } = useBackend<Info>();
+const ObjectivePrintout = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
     <Stack.Item>
@@ -205,8 +205,8 @@ const ObjectivePrintout = (props) => {
   );
 };
 
-const ResearchedKnowledge = (props) => {
-  const { data } = useBackend<KnowledgeInfo>();
+const ResearchedKnowledge = (props, context) => {
+  const { data } = useBackend<KnowledgeInfo>(context);
   const { learnedKnowledge } = data;
 
   return (
@@ -230,8 +230,8 @@ const ResearchedKnowledge = (props) => {
   );
 };
 
-const KnowledgeShop = (props) => {
-  const { data, act } = useBackend<KnowledgeInfo>();
+const KnowledgeShop = (props, context) => {
+  const { data, act } = useBackend<KnowledgeInfo>(context);
   const { learnableKnowledge } = data;
 
   return (
@@ -265,8 +265,8 @@ const KnowledgeShop = (props) => {
   );
 };
 
-const ResearchInfo = (props) => {
-  const { data } = useBackend<Info>();
+const ResearchInfo = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { charges } = data;
 
   return (
@@ -289,11 +289,11 @@ const ResearchInfo = (props) => {
   );
 };
 
-export const AntagInfoHeretic = (props) => {
-  const { data } = useBackend<Info>();
+export const AntagInfoHeretic = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { ascended } = data;
 
-  const [currentTab, setTab] = useLocalState('currentTab', 0);
+  const [currentTab, setTab] = useLocalState(context, 'currentTab', 0);
 
   return (
     <Window width={675} height={600}>

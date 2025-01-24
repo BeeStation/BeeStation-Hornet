@@ -3,8 +3,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Input, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const ChemFilterPane = (props) => {
-  const { act } = useBackend();
+export const ChemFilterPane = (props, context) => {
+  const { act } = useBackend(context);
   const { title, list, reagentName, onReagentInput } = props;
   const titleKey = title.toLowerCase();
   return (
@@ -45,11 +45,11 @@ export const ChemFilterPane = (props) => {
   );
 };
 
-export const ChemFilter = (props) => {
-  const { act, data } = useBackend();
+export const ChemFilter = (props, context) => {
+  const { act, data } = useBackend(context);
   const { left = [], right = [] } = data;
-  const [leftName, setLeftName] = useLocalState('leftName', '');
-  const [rightName, setRightName] = useLocalState('rightName', '');
+  const [leftName, setLeftName] = useLocalState(context, 'leftName', '');
+  const [rightName, setRightName] = useLocalState(context, 'rightName', '');
   return (
     <Window width={500} height={300}>
       <Window.Content scrollable>

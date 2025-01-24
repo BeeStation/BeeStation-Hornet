@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { AnimatedNumber, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ThermoMachine = (props) => {
-  const { act, data } = useBackend();
+export const ThermoMachine = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={300} height={250}>
       <Window.Content>

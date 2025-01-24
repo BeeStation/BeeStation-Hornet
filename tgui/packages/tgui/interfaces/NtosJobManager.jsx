@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Section, Table, NoticeBox, Dimmer, Box } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosJobManager = (props) => {
+export const NtosJobManager = (props, context) => {
   return (
     <NtosWindow width={400} height={620}>
       <NtosWindow.Content scrollable>
@@ -12,8 +12,8 @@ export const NtosJobManager = (props) => {
   );
 };
 
-export const NtosJobManagerContent = (props) => {
-  const { act, data } = useBackend();
+export const NtosJobManagerContent = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const { authed, cooldown, slots = [], prioritized = [] } = data;
 

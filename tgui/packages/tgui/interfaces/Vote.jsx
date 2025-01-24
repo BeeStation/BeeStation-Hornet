@@ -3,8 +3,8 @@ import { useBackend } from 'tgui/backend';
 import { Box, Icon, Flex, Button, Section, Collapsible } from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
-export const Vote = (props) => {
-  const { data } = useBackend();
+export const Vote = (props, context) => {
+  const { data } = useBackend(context);
   const { mode, question, lower_admin } = data;
 
   return (
@@ -21,8 +21,8 @@ export const Vote = (props) => {
 };
 
 // Collapsible panel for admin actions.
-const AdminPanel = (props) => {
-  const { act, data } = useBackend();
+const AdminPanel = (props, context) => {
+  const { act, data } = useBackend(context);
   const { avm, avr, avmap, voting, upper_admin } = data;
   return (
     <Flex.Item>
@@ -81,8 +81,8 @@ const AdminPanel = (props) => {
 };
 
 // Display choices as buttons
-const ChoicesPanel = (props) => {
-  const { data } = useBackend();
+const ChoicesPanel = (props, context) => {
+  const { data } = useBackend(context);
   const { mode, choices } = data;
 
   let content;
@@ -125,8 +125,8 @@ const ChoicesPanel = (props) => {
   );
 };
 
-const DisplayChoices = (props) => {
-  const { act, data } = useBackend();
+const DisplayChoices = (props, context) => {
+  const { act, data } = useBackend(context);
   const { selectedChoice } = data;
 
   return props.choices?.map((choice, i) => (
@@ -153,8 +153,8 @@ const DisplayChoices = (props) => {
 };
 
 // Countdown timer at the bottom. Includes a cancel vote option for admins
-const TimePanel = (props) => {
-  const { act, data } = useBackend();
+const TimePanel = (props, context) => {
+  const { act, data } = useBackend(context);
   const { upper_admin, time_remaining } = data;
 
   return (

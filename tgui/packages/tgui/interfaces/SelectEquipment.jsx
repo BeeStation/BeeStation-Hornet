@@ -9,12 +9,12 @@ import { Window } from '../layouts';
 // custom outfits give a ref keyword instead of path
 const getOutfitKey = (outfit) => outfit.path || outfit.ref;
 
-const useOutfitTabs = (categories) => {
-  return useLocalState('selected-tab', categories[0]);
+const useOutfitTabs = (context, categories) => {
+  return useLocalState(context, 'selected-tab', categories[0]);
 };
 
-export const SelectEquipment = (props) => {
-  const { act, data } = useBackend();
+export const SelectEquipment = (props, context) => {
+  const { act, data } = useBackend(context);
   const { name, icon64, current_outfit, favorites } = data;
 
   const isFavorited = (entry) => favorites?.includes(entry.path);
@@ -27,9 +27,9 @@ export const SelectEquipment = (props) => {
   // even if no custom outfits were sent, we still want to make sure there's
   // at least a 'Custom' tab so the button to create a new one pops up
   const categories = uniq([...outfits.map((entry) => entry.category), 'Custom']);
-  const [tab] = useOutfitTabs(categories);
+  const [tab] = useOutfitTabs(context, categories);
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const searchFilter = createSearch(searchText, (entry) => entry.name + entry.path);
 
   const visibleOutfits = flow([
@@ -91,9 +91,9 @@ export const SelectEquipment = (props) => {
   );
 };
 
-const DisplayTabs = (props) => {
+const DisplayTabs = (props, context) => {
   const { categories } = props;
-  const [tab, setTab] = useOutfitTabs(categories);
+  const [tab, setTab] = useOutfitTabs(context, categories);
   return (
     <Tabs textAlign="center">
       {categories.map((category) => (
@@ -105,8 +105,8 @@ const DisplayTabs = (props) => {
   );
 };
 
-const OutfitDisplay = (props) => {
-  const { act, data } = useBackend();
+const OutfitDisplay = (props, context) => {
+  const { act, data } = useBackend(context);
   const { current_outfit } = data;
   const { entries, currentTab } = props;
   return (
@@ -142,8 +142,8 @@ const OutfitDisplay = (props) => {
   );
 };
 
-const CurrentlySelectedDisplay = (props) => {
-  const { act, data } = useBackend();
+const CurrentlySelectedDisplay = (props, context) => {
+  const { act, data } = useBackend(context);
   const { current_outfit } = data;
   const { entry } = props;
   return (

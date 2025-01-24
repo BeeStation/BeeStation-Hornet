@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ParticleAccelerator = (props) => {
-  const { act, data } = useBackend();
+export const ParticleAccelerator = (props, context) => {
+  const { act, data } = useBackend(context);
   const { assembled, power, strength } = data;
   return (
     <Window width={350} height={185}>

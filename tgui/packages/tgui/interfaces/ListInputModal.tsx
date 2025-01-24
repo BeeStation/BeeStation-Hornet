@@ -15,12 +15,12 @@ type ListInputData = {
   title: string;
 };
 
-export const ListInputModal = (_) => {
-  const { act, data } = useBackend<ListInputData>();
+export const ListInputModal = (_, context) => {
+  const { act, data } = useBackend<ListInputData>(context);
   const { items = [], message = '', init_value, large_buttons, timeout, title } = data;
-  const [selected, setSelected] = useLocalState<number>('selected', items.indexOf(init_value));
-  const [searchBarVisible, setSearchBarVisible] = useLocalState<boolean>('searchBarVisible', items.length > 9);
-  const [searchQuery, setSearchQuery] = useLocalState<string>('searchQuery', '');
+  const [selected, setSelected] = useLocalState<number>(context, 'selected', items.indexOf(init_value));
+  const [searchBarVisible, setSearchBarVisible] = useLocalState<boolean>(context, 'searchBarVisible', items.length > 9);
+  const [searchQuery, setSearchQuery] = useLocalState<string>(context, 'searchQuery', '');
   // User presses up or down on keyboard
   // Simulates clicking an item
   const onArrowKey = (key: number) => {
@@ -157,8 +157,8 @@ export const ListInputModal = (_) => {
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props) => {
-  const { act } = useBackend<ListInputData>();
+const ListDisplay = (props, context) => {
+  const { act } = useBackend<ListInputData>(context);
   const { filteredItems, onClick, onFocusSearch, searchBarVisible, selected } = props;
 
   return (
@@ -199,8 +199,8 @@ const ListDisplay = (props) => {
  * Renders a search bar input.
  * Closing the bar defaults input to an empty string.
  */
-const SearchBar = (props) => {
-  const { act } = useBackend<ListInputData>();
+const SearchBar = (props, context) => {
+  const { act } = useBackend<ListInputData>(context);
   const { filteredItems, onSearch, searchQuery, selected } = props;
 
   return (

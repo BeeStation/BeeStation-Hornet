@@ -11,7 +11,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props) => {
+const Story = (props, context) => {
   return (
     <Section>
       <Blink>Blink</Blink>

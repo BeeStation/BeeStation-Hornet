@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Collapsible, Grid, Input, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
-export const PandemicBeakerDisplay = (props) => {
-  const { act, data } = useBackend();
+export const PandemicBeakerDisplay = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const { has_beaker, beaker_empty, has_blood, blood } = data;
 
@@ -45,8 +45,8 @@ export const PandemicBeakerDisplay = (props) => {
   );
 };
 
-export const PandemicDiseaseDisplay = (props) => {
-  const { act, data } = useBackend();
+export const PandemicDiseaseDisplay = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const { is_ready } = data;
 
@@ -130,7 +130,7 @@ export const PandemicDiseaseDisplay = (props) => {
   });
 };
 
-export const PandemicSymptomDisplay = (props) => {
+export const PandemicSymptomDisplay = (props, context) => {
   const { symptom } = props;
   const { name, desc, stealth, resistance, stage_speed, transmission, severity, level, neutered } = symptom;
 
@@ -175,8 +175,8 @@ export const PandemicSymptomDisplay = (props) => {
   );
 };
 
-export const PandemicAntibodyDisplay = (props) => {
-  const { act, data } = useBackend();
+export const PandemicAntibodyDisplay = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const resistances = data.resistances || [];
 
@@ -208,8 +208,8 @@ export const PandemicAntibodyDisplay = (props) => {
   );
 };
 
-export const Pandemic = (props) => {
-  const { data } = useBackend();
+export const Pandemic = (props, context) => {
+  const { data } = useBackend(context);
 
   return (
     <Window width={520} height={550}>

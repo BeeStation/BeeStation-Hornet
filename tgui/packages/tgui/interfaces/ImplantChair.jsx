@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ImplantChair = (props) => {
-  const { act, data } = useBackend();
+export const ImplantChair = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={375} height={280}>
       <Window.Content>

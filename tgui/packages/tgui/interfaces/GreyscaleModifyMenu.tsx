@@ -54,8 +54,8 @@ const DirectionAbbreviation: Record<Direction, string> = {
   [Direction.NorthWest]: 'NW',
 };
 
-const ConfigDisplay = (props) => {
-  const { act, data } = useBackend<GreyscaleMenuData>();
+const ConfigDisplay = (props, context) => {
+  const { act, data } = useBackend<GreyscaleMenuData>(context);
   return (
     <Section title="Designs">
       <LabeledList>
@@ -71,8 +71,8 @@ const ConfigDisplay = (props) => {
   );
 };
 
-const ColorDisplay = (props) => {
-  const { act, data } = useBackend<GreyscaleMenuData>();
+const ColorDisplay = (props, context) => {
+  const { act, data } = useBackend<GreyscaleMenuData>(context);
   const colors = data.colors || [];
   return (
     <Section title="Colors">
@@ -109,8 +109,8 @@ const ColorDisplay = (props) => {
   );
 };
 
-const PreviewCompassSelect = (props) => {
-  const { act, data } = useBackend<GreyscaleMenuData>();
+const PreviewCompassSelect = (props, context) => {
+  const { act, data } = useBackend<GreyscaleMenuData>(context);
   return (
     <Box>
       <Stack vertical>
@@ -138,9 +138,9 @@ const PreviewCompassSelect = (props) => {
   );
 };
 
-const SingleDirection = (props) => {
+const SingleDirection = (props, context) => {
   const { dir } = props;
-  const { data, act } = useBackend<GreyscaleMenuData>();
+  const { data, act } = useBackend<GreyscaleMenuData>(context);
   return (
     <Flex.Item grow={1} basis={0}>
       <Button
@@ -157,8 +157,8 @@ const SingleDirection = (props) => {
   );
 };
 
-const IconStatesDisplay = (props) => {
-  const { data, act } = useBackend<GreyscaleMenuData>();
+const IconStatesDisplay = (props, context) => {
+  const { data, act } = useBackend<GreyscaleMenuData>(context);
   return (
     <Section title="Icon States">
       <Flex>
@@ -177,8 +177,8 @@ const IconStatesDisplay = (props) => {
   );
 };
 
-const PreviewDisplay = (props) => {
-  const { data } = useBackend<GreyscaleMenuData>();
+const PreviewDisplay = (props, context) => {
+  const { data } = useBackend<GreyscaleMenuData>(context);
   return (
     <Section title={`Preview (${data.sprites_dir})`}>
       <Table>
@@ -255,8 +255,8 @@ const LoadingAnimation = () => {
   );
 };
 
-export const GreyscaleModifyMenu = (props) => {
-  const { act, data } = useBackend<GreyscaleMenuData>();
+export const GreyscaleModifyMenu = (props, context) => {
+  const { act, data } = useBackend<GreyscaleMenuData>(context);
   return (
     <Window title="Color Configuration" width={325} height={800}>
       <Window.Content scrollable>

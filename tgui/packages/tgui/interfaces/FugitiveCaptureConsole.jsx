@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 
-export const FugitiveCaptureConsole = (_) => {
-  const { act, data } = useBackend();
+export const FugitiveCaptureConsole = (_, context) => {
+  const { act, data } = useBackend(context);
   const { linked = false, locked = false, open = false, prisoner_valid = false, prisoner_ref = null, targets = [] } = data;
   return (
     <Window width={380} height={300} theme="neutral">

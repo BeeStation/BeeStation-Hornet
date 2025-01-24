@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Icon, Input, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const HypnoChair = (props) => {
-  const { act, data } = useBackend();
+export const HypnoChair = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={500} height={500}>
       <Window.Content>

@@ -13,8 +13,8 @@ const STATUS2TEXT = {
   2: 'Online',
 };
 
-const NoChannelDimmer = (props) => {
-  const { act, data } = useBackend();
+const NoChannelDimmer = (props, context) => {
+  const { act, data } = useBackend(context);
   const { owner } = data;
   return (
     <Dimmer>
@@ -39,8 +39,8 @@ const NoChannelDimmer = (props) => {
   );
 };
 
-export const NtosNetChat = (props) => {
-  const { act, data } = useBackend();
+export const NtosNetChat = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const {
     title,

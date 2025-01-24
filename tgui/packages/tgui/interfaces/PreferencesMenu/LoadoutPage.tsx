@@ -7,8 +7,8 @@ import { createSearch } from 'common/string';
 
 const isPurchased = (purchased_gear: string[], gear: LoadoutGear) => purchased_gear.includes(gear.id) && !gear.multi_purchase;
 
-export const LoadoutPage = (props) => {
-  const { act, data } = useBackend<PreferencesMenuData>();
+export const LoadoutPage = (props, context) => {
+  const { act, data } = useBackend<PreferencesMenuData>(context);
   const { purchased_gear = [], metacurrency_balance = 0, is_donator = false } = data;
 
   return (
@@ -18,8 +18,8 @@ export const LoadoutPage = (props) => {
           return <Box>Loading loadout data...</Box>;
         }
         const { categories = [], metacurrency_name } = serverData.loadout;
-        const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0].name);
-        let [searchText, setSearchText] = useLocalState('loadout_search', '');
+        const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0].name);
+        let [searchText, setSearchText] = useLocalState(context, 'loadout_search', '');
         let search = createSearch(searchText, (gear: LoadoutGear) => {
           return gear.display_name + ' ' + gear.skirt_display_name + ' ' + gear.allowed_roles?.join(' ');
         });
@@ -139,8 +139,11 @@ export const LoadoutPage = (props) => {
   );
 };
 
-const GearEntry = (props: { gear: LoadoutGear; metacurrency_name: string; selectedCategory: string; showRoles?: boolean }) => {
-  const { act, data } = useBackend<PreferencesMenuData>();
+const GearEntry = (
+  props: { gear: LoadoutGear; metacurrency_name: string; selectedCategory: string; showRoles?: boolean },
+  context
+) => {
+  const { act, data } = useBackend<PreferencesMenuData>(context);
   const { equipped_gear = [], purchased_gear = [], metacurrency_balance, character_preferences, is_donator = false } = data;
   const { gear, metacurrency_name, selectedCategory, showRoles = true } = props;
   const jumpsuit_style = character_preferences.clothing.jumpsuit_style;

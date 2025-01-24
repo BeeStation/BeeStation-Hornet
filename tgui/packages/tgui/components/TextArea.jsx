@@ -12,8 +12,8 @@ import { toInputValue } from './Input';
 import { KEY_ENTER, KEY_ESCAPE, KEY_TAB } from 'common/keycodes';
 
 export class TextArea extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.textareaRef = props.innerRef || createRef();
     this.fillerRef = createRef();
     this.state = {

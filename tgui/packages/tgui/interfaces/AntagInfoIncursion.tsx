@@ -25,8 +25,8 @@ type Info = {
   antag_name: string;
 };
 
-const UplinkSubsection = (_props) => {
-  const { data } = useBackend<Info>();
+const UplinkSubsection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { has_uplink, uplink_unlock_info, code, failsafe_code } = data;
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
@@ -58,8 +58,8 @@ const UplinkSubsection = (_props) => {
   );
 };
 
-const MembersSubsection = (_props) => {
-  const { data } = useBackend<Info>();
+const MembersSubsection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { members } = data;
   return (
     <Section title="Members">
@@ -72,7 +72,7 @@ const MembersSubsection = (_props) => {
   );
 };
 
-const BasicLoreSubsection = (_props) => {
+const BasicLoreSubsection = (_props, _context) => {
   return (
     <Section>
       <BlockQuote>
@@ -98,7 +98,7 @@ const BasicLoreSubsection = (_props) => {
   );
 };
 
-const InfoSection = (_props) => {
+const InfoSection = (_props, _context) => {
   return (
     <Section>
       <Stack vertical>
@@ -122,8 +122,8 @@ const InfoSection = (_props) => {
   );
 };
 
-export const AntagInfoIncursion = (_props) => {
-  const { data } = useBackend<Info>();
+export const AntagInfoIncursion = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { objectives, antag_name } = data;
   return (
     <Window width={620} height={620} theme="syndicate">

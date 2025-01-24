@@ -14,9 +14,9 @@ import { Box, Button, Collapsible, ColorBox, Flex, Input, LabeledList, NoticeBox
 import { Window } from '../layouts';
 import { logger } from '../logging';
 
-const ParticleIntegerEntry = (props) => {
+const ParticleIntegerEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   return (
     <Tooltip position="bottom" content={tooltip}>
       <NumberInput
@@ -37,9 +37,9 @@ const ParticleIntegerEntry = (props) => {
   );
 };
 
-const ParticleMatrixEntry = (props) => {
+const ParticleMatrixEntry = (props, context) => {
   let { value, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
 
   // Actual matrix, or matrix of 0
   value = value || [1, 0, 0, 1, 0, 0]; // this doesn't make sense, it should be [1, 0, 0, 0, 1, 0] but it's not
@@ -67,15 +67,15 @@ const ParticleMatrixEntry = (props) => {
   );
 };
 
-const ParticleFloatEntry = (props) => {
+const ParticleFloatEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   let entry = null;
   let isGen = typeof value === 'string';
   if (isGen) {
-    entry = ParticleGeneratorEntry(props);
+    entry = ParticleGeneratorEntry(props, context);
   } else {
-    entry = ParticleFloatNonGenEntry(props);
+    entry = ParticleFloatNonGenEntry(props, context);
   }
   return (
     <Flex>
@@ -106,10 +106,10 @@ const ParticleFloatEntry = (props) => {
   );
 };
 
-const ParticleFloatNonGenEntry = (props) => {
+const ParticleFloatNonGenEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
-  const [step, _] = useLocalState('particleFloatStep', 0.01);
+  const { act } = useBackend(context);
+  const [step, _] = useLocalState(context, 'particleFloatStep', 0.01);
   return (
     <Tooltip position="bottom" content={tooltip}>
       <NumberInput
@@ -132,15 +132,15 @@ const ParticleFloatNonGenEntry = (props) => {
   );
 };
 
-const ParticleVectorEntry = (props) => {
+const ParticleVectorEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   let entry = null;
   let isGen = typeof value === 'string';
   if (isGen) {
-    entry = ParticleGeneratorEntry(props);
+    entry = ParticleGeneratorEntry(props, context);
   } else {
-    entry = ParticleVectorNonGenEntry(props);
+    entry = ParticleVectorNonGenEntry(props, context);
   }
   return (
     <Flex>
@@ -172,9 +172,9 @@ const ParticleVectorEntry = (props) => {
 };
 
 const ParticleVectorNonGenEntryVarLen = (len) => {
-  return (props) => {
+  return (props, context) => {
     let { value, name } = props;
-    const { act } = useBackend();
+    const { act } = useBackend(context);
 
     value = value || Array(len).fill(0);
     if (!isNaN(value)) {
@@ -209,15 +209,15 @@ const ParticleVectorNonGenEntryVarLen = (len) => {
 
 const ParticleVectorNonGenEntry = ParticleVectorNonGenEntryVarLen(3);
 
-const ParticleVector2Entry = (props) => {
+const ParticleVector2Entry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   let entry = null;
   let isGen = typeof value === 'string';
   if (isGen) {
-    entry = ParticleGeneratorEntry(props);
+    entry = ParticleGeneratorEntry(props, context);
   } else {
-    entry = ParticleVectorNonGenEntryVarLen(2)(props);
+    entry = ParticleVectorNonGenEntryVarLen(2)(props, context);
   }
   return (
     <Flex>
@@ -248,9 +248,9 @@ const ParticleVector2Entry = (props) => {
   );
 };
 
-const ParticleGeneratorEntry = (props) => {
+const ParticleGeneratorEntry = (props, context) => {
   const { value, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const generatorTypes = ['num', 'vector', 'box', 'color', 'circle', 'sphere', 'square', 'cube'];
   const randTypes = ['UNIFORM_RAND', 'NORMAL_RAND', 'LINEAR_RAND', 'SQUARE_RAND'];
 
@@ -284,10 +284,10 @@ const ParticleGeneratorEntry = (props) => {
     }
   }
 
-  const [genType, setGenType] = useLocalState(name + 'genType', tempGenType);
-  const [a, setA] = useLocalState(name + 'a', tempA);
-  const [b, setB] = useLocalState(name + 'b', tempB);
-  const [rand, setRand] = useLocalState(name + 'rand', tempRand);
+  const [genType, setGenType] = useLocalState(context, name + 'genType', tempGenType);
+  const [a, setA] = useLocalState(context, name + 'a', tempA);
+  const [b, setB] = useLocalState(context, name + 'b', tempB);
+  const [rand, setRand] = useLocalState(context, name + 'rand', tempRand);
 
   const doAct = () => {
     logger.log(genType);
@@ -332,9 +332,9 @@ const ParticleGeneratorEntry = (props) => {
   );
 };
 
-const ParticleTextEntry = (props) => {
+const ParticleTextEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
 
   return (
     <Tooltip position="bottom" content={tooltip}>
@@ -355,9 +355,9 @@ const ParticleTextEntry = (props) => {
   );
 };
 
-const ParticleNumListEntry = (props) => {
+const ParticleNumListEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
 
   let valArr = value ? Object.keys(value).map((key) => value[key]) : [];
 
@@ -380,9 +380,9 @@ const ParticleNumListEntry = (props) => {
   );
 };
 
-const ParticleListEntry = (props) => {
+const ParticleListEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
 
   let valArr = value ? Object.keys(value).map((key) => value[key]) : [];
 
@@ -405,9 +405,9 @@ const ParticleListEntry = (props) => {
   );
 };
 
-const ParticleColorNonGenEntry = (props) => {
+const ParticleColorNonGenEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   return (
     <Tooltip position="bottom" content={tooltip}>
       <Button icon="pencil-alt" onClick={() => act('modify_color_value')} />
@@ -429,15 +429,15 @@ const ParticleColorNonGenEntry = (props) => {
   );
 };
 
-const ParticleColorEntry = (props) => {
+const ParticleColorEntry = (props, context) => {
   const { value, tooltip, name } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   let entry = null;
   let isGen = typeof value === 'string' && value.charAt(0) !== '#';
   if (isGen) {
-    entry = ParticleGeneratorEntry(props);
+    entry = ParticleGeneratorEntry(props, context);
   } else {
-    entry = ParticleColorNonGenEntry(props);
+    entry = ParticleColorNonGenEntry(props, context);
   }
   return (
     <Flex>
@@ -468,9 +468,9 @@ const ParticleColorEntry = (props) => {
   );
 };
 
-const ParticleIconEntry = (props) => {
+const ParticleIconEntry = (props, context) => {
   const { value } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   return (
     <>
       <Button icon="pencil-alt" onClick={() => act('modify_icon_value')} />
@@ -514,7 +514,7 @@ const particleEntryMap = {
   },
 };
 
-const ParticleDataEntry = (props) => {
+const ParticleDataEntry = (props, context) => {
   const { name, value } = props;
 
   const particleEntryTypes = {
@@ -540,8 +540,8 @@ const ParticleDataEntry = (props) => {
   );
 };
 
-const ParticleEntry = (props) => {
-  const { act, data } = useBackend();
+const ParticleEntry = (props, context) => {
+  const { act, data } = useBackend(context);
   const { particle } = props;
   return (
     <LabeledList>
@@ -622,13 +622,13 @@ const GeneratorHelp = () => {
   );
 };
 
-export const Particool = (props) => {
-  const { act, data } = useBackend();
+export const Particool = (props, context) => {
+  const { act, data } = useBackend(context);
   const particles = data.target_particle || {};
   const hasParticles = particles && Object.keys(particles).length > 0;
-  const [step, setStep] = useLocalState('particleFloatStep', 0.01);
+  const [step, setStep] = useLocalState(context, 'particleFloatStep', 0.01);
 
-  const [hiddenSecret, setHiddenSecret] = useLocalState('hidden', false);
+  const [hiddenSecret, setHiddenSecret] = useLocalState(context, 'hidden', false);
   return (
     <Window title="Particool" width={700} height={500}>
       <Window.Content scrollable>

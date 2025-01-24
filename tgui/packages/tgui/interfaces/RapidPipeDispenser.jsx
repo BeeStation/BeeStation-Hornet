@@ -50,11 +50,11 @@ const TOOLS = [
   },
 ];
 
-export const RapidPipeDispenser = (props) => {
-  const { act, data } = useBackend();
+export const RapidPipeDispenser = (props, context) => {
+  const { act, data } = useBackend(context);
   const { category: rootCategoryIndex, categories = [], selected_color, piping_layer, mode } = data;
   const previews = data.preview_rows.flatMap((row) => row.previews);
-  const [categoryName, setCategoryName] = useLocalState('categoryName');
+  const [categoryName, setCategoryName] = useLocalState(context, 'categoryName');
   const shownCategory = categories.find((category) => category.cat_name === categoryName) || categories[0];
   return (
     <Window width={425} height={515}>

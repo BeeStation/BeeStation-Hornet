@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Section, Box, Flex, Input, BlockQuote } from '../components';
 import { Window } from '../layouts';
 
-export const XenoartifactLabeler = (props) => {
+export const XenoartifactLabeler = (props, context) => {
   return (
     <Window width={350} height={500}>
       <Window.Content scrollable={0}>
@@ -21,8 +21,8 @@ export const XenoartifactLabeler = (props) => {
   );
 };
 
-const XenoartifactLabelerTraits = (props) => {
-  const { act, data } = useBackend();
+const XenoartifactLabelerTraits = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     selected_activator_traits,
     activator_traits,
@@ -98,8 +98,8 @@ const XenoartifactLabelerTraits = (props) => {
   );
 };
 
-const XenoartifactLabelerInfo = (props) => {
-  const { act, data } = useBackend();
+const XenoartifactLabelerInfo = (props, context) => {
+  const { act, data } = useBackend(context);
   const { info_list } = data;
   return (
     <Box px={1} overflowY="auto" height="425px">
@@ -110,8 +110,8 @@ const XenoartifactLabelerInfo = (props) => {
   );
 };
 
-const XenoartifactLabelerGenerateList = (props) => {
-  const { act } = useBackend();
+const XenoartifactLabelerGenerateList = (props, context) => {
+  const { act } = useBackend(context);
   const { specific_trait, check_against, trait_type } = props;
   return (
     <Box>
@@ -124,8 +124,8 @@ const XenoartifactLabelerGenerateList = (props) => {
   );
 };
 
-const XenoartifactLabelerGenerateInfo = (props) => {
-  const { act } = useBackend();
+const XenoartifactLabelerGenerateInfo = (props, context) => {
+  const { act } = useBackend(context);
   const { info } = props;
   return (
     <Section>
@@ -136,8 +136,8 @@ const XenoartifactLabelerGenerateInfo = (props) => {
   );
 };
 
-const XenoartifactLabelerSticker = (props) => {
-  const { act } = useBackend();
+const XenoartifactLabelerSticker = (props, context) => {
+  const { act } = useBackend(context);
   return (
     <Box>
       <Input placeholder="Label Name..." onChange={(e, input) => act('change_print_name', { name: input })} />

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, ProgressBar, Section, ColorBox, Dropdown } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosConfiguration = (props) => {
-  const { act, data } = useBackend();
+export const NtosConfiguration = (props, context) => {
+  const { act, data } = useBackend(context);
 
   const {
     power_usage,

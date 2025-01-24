@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Dropdown, Grid, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const NaniteCodes = (props) => {
-  const { act, data } = useBackend();
+export const NaniteCodes = (props, context) => {
+  const { act, data } = useBackend(context);
 
   return (
     <Section title="Codes" level={3} mr={1}>
@@ -71,8 +71,8 @@ export const NaniteCodes = (props) => {
   );
 };
 
-export const NaniteDelays = (props) => {
-  const { act, data } = useBackend();
+export const NaniteDelays = (props, context) => {
+  const { act, data } = useBackend(context);
 
   return (
     <Section title="Delays" level={3} ml={1}>
@@ -142,7 +142,7 @@ export const NaniteDelays = (props) => {
   );
 };
 
-export const NaniteExtraEntry = (props) => {
+export const NaniteExtraEntry = (props, context) => {
   const { extra_setting } = props;
   const { name, type } = extra_setting;
   const typeComponentMap = {
@@ -154,9 +154,9 @@ export const NaniteExtraEntry = (props) => {
   return <LabeledList.Item label={name}>{typeComponentMap[type]}</LabeledList.Item>;
 };
 
-export const NaniteExtraNumber = (props) => {
+export const NaniteExtraNumber = (props, context) => {
   const { extra_setting } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const { name, value, min, max, unit } = extra_setting;
   return (
     <NumberInput
@@ -175,9 +175,9 @@ export const NaniteExtraNumber = (props) => {
   );
 };
 
-export const NaniteExtraText = (props) => {
+export const NaniteExtraText = (props, context) => {
   const { extra_setting } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const { name, value } = extra_setting;
   return (
     <Input
@@ -193,9 +193,9 @@ export const NaniteExtraText = (props) => {
   );
 };
 
-export const NaniteExtraType = (props) => {
+export const NaniteExtraType = (props, context) => {
   const { extra_setting } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const { name, value, types } = extra_setting;
   return (
     <Dropdown
@@ -213,9 +213,9 @@ export const NaniteExtraType = (props) => {
   );
 };
 
-export const NaniteExtraBoolean = (props) => {
+export const NaniteExtraBoolean = (props, context) => {
   const { extra_setting } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const { name, value, true_text, false_text } = extra_setting;
   return (
     <Button.Checkbox
@@ -230,7 +230,7 @@ export const NaniteExtraBoolean = (props) => {
   );
 };
 
-export const NaniteProgrammer = (props) => {
+export const NaniteProgrammer = (props, context) => {
   return (
     <Window width={420} height={550}>
       <Window.Content scrollable>
@@ -240,8 +240,8 @@ export const NaniteProgrammer = (props) => {
   );
 };
 
-export const NaniteProgrammerContent = (props) => {
-  const { act, data } = useBackend();
+export const NaniteProgrammerContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     has_disk,
     has_program,

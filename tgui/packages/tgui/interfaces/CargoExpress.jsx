@@ -4,8 +4,8 @@ import { Window } from '../layouts';
 import { CargoCatalog } from './Cargo';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-export const CargoExpress = (props) => {
-  const { act, data } = useBackend();
+export const CargoExpress = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={600} height={700}>
       <Window.Content scrollable>
@@ -16,8 +16,8 @@ export const CargoExpress = (props) => {
   );
 };
 
-const CargoExpressContent = (props) => {
-  const { act, data } = useBackend();
+const CargoExpressContent = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <>
       <Section

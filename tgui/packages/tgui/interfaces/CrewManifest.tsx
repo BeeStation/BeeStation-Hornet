@@ -41,10 +41,10 @@ type CrewManifestData = {
   user_theme?: string;
 };
 
-export const CrewManifest = (_props) => {
+export const CrewManifest = (_props, context) => {
   const {
     data: { command, order, manifest, user_theme },
-  } = useBackend<CrewManifestData>();
+  } = useBackend<CrewManifestData>(context);
 
   return (
     <Window title="Crew Manifest" width={450} height={500} theme={user_theme}>

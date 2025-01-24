@@ -3,7 +3,7 @@ import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs } 
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-export const Cargo = (props) => {
+export const Cargo = (props, context) => {
   return (
     <Window width={780} height={750}>
       <Window.Content scrollable>
@@ -13,9 +13,9 @@ export const Cargo = (props) => {
   );
 };
 
-export const CargoContent = (props) => {
-  const { act, data } = useBackend();
-  const [tab, setTab] = useSharedState('tab', 'catalog');
+export const CargoContent = (props, context) => {
+  const { act, data } = useBackend(context);
+  const [tab, setTab] = useSharedState(context, 'tab', 'catalog');
   const { requestonly } = data;
   const cart = data.cart || [];
   const requests = data.requests || [];
@@ -52,8 +52,8 @@ export const CargoContent = (props) => {
   );
 };
 
-const CargoStatus = (props) => {
-  const { act, data } = useBackend();
+const CargoStatus = (props, context) => {
+  const { act, data } = useBackend(context);
   const { away, docked, loan, loan_dispatched, location, message, points, requestonly, can_send } = data;
   return (
     <Section
@@ -81,12 +81,12 @@ const CargoStatus = (props) => {
   );
 };
 
-export const CargoCatalog = (props) => {
+export const CargoCatalog = (props, context) => {
   const { express, canOrder = true } = props;
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
   const { self_paid, app_cost, points } = data;
   const supplies = Object.values(data.supplies);
-  const [activeSupplyName, setActiveSupplyName] = useSharedState('supply', supplies[0]?.name);
+  const [activeSupplyName, setActiveSupplyName] = useSharedState(context, 'supply', supplies[0]?.name);
   const activeSupply = supplies.find((supply) => {
     return supply.name === activeSupplyName;
   });
@@ -159,8 +159,8 @@ export const CargoCatalog = (props) => {
   );
 };
 
-const CargoRequests = (props) => {
-  const { act, data } = useBackend();
+const CargoRequests = (props, context) => {
+  const { act, data } = useBackend(context);
   const { requestonly, can_send, can_approve_requests } = data;
   const requests = data.requests || [];
   // Labeled list reimplementation to squeeze extra columns out of it
@@ -219,8 +219,8 @@ const CargoRequests = (props) => {
   );
 };
 
-const CargoCartButtons = (props) => {
-  const { act, data } = useBackend();
+const CargoCartButtons = (props, context) => {
+  const { act, data } = useBackend(context);
   const { requestonly, can_send, can_approve_requests } = data;
   const cart = data.cart || [];
   const total = cart.reduce((total, entry) => total + entry.cost, 0);
@@ -239,8 +239,8 @@ const CargoCartButtons = (props) => {
   );
 };
 
-const CargoCart = (props) => {
-  const { act, data } = useBackend();
+const CargoCart = (props, context) => {
+  const { act, data } = useBackend(context);
   const { requestonly, away, docked, location, can_send } = data;
   const cart = data.cart || [];
   return (

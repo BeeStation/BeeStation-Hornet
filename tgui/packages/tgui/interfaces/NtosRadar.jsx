@@ -5,8 +5,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Flex, Icon, NoticeBox, Section, Tooltip } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosRadar = (props) => {
-  const { act, data } = useBackend();
+export const NtosRadar = (props, context) => {
+  const { act, data } = useBackend(context);
   const { full_capability } = data;
   return (
     <NtosWindow width={full_capability ? 800 : 400} height={full_capability ? 600 : 500} theme="ntos">
@@ -16,8 +16,8 @@ export const NtosRadar = (props) => {
 };
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-export const NtosRadarContentSmall = (props) => {
-  const { act, data } = useBackend();
+export const NtosRadarContentSmall = (props, context) => {
+  const { act, data } = useBackend(context);
   const { selected, object = [], target = [], scanning, full_capability } = data;
   const { sig_err } = props;
   return (
@@ -88,8 +88,8 @@ export const NtosRadarContentSmall = (props) => {
   );
 };
 
-export const NtosRadarContent = (props) => {
-  const { act, data } = useBackend();
+export const NtosRadarContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const { selected, object = [], target = [], scanning, full_capability } = data;
   const { sig_err } = props;
   return (

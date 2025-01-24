@@ -128,10 +128,14 @@ const StatDisplay: Inferno.StatelessComponent<{}> = (props) => {
   );
 };
 
-export const QuirksPage = (props) => {
-  const { act, data } = useBackend<PreferencesMenuData>();
+export const QuirksPage = (props, context) => {
+  const { act, data } = useBackend<PreferencesMenuData>(context);
 
-  const [selectedQuirks, setSelectedQuirks] = useLocalState(`selectedQuirks_${data.active_slot}`, data.selected_quirks);
+  const [selectedQuirks, setSelectedQuirks] = useLocalState(
+    context,
+    `selectedQuirks_${data.active_slot}`,
+    data.selected_quirks
+  );
 
   return (
     <ServerPreferencesFetcher

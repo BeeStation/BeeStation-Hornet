@@ -47,8 +47,8 @@ const PlaytimeSection = (props) => {
   );
 };
 
-export const TrackedPlaytime = (props) => {
-  const { data } = useBackend();
+export const TrackedPlaytime = (props, context) => {
+  const { data } = useBackend(context);
   const { failReason, jobPlaytimes = {}, jobRemovedPlaytimes = {}, specialPlaytimes, livingTime, ghostTime } = data;
   return (
     <Window title="Tracked Playtime" width={550} height={650}>

@@ -3,8 +3,8 @@ import { Button, LabeledList, Input, Section } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 
-export const AirlockElectronics = (props) => {
-  const { act, data } = useBackend();
+export const AirlockElectronics = (props, context) => {
+  const { act, data } = useBackend(context);
   const { oneAccess, unres_direction, passedName, passedCycleId } = data;
   const regions = data.regions || [];
   const accesses = data.accesses || [];

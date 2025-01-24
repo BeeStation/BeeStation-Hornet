@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Holodeck = (props) => {
-  const { act, data } = useBackend();
+export const Holodeck = (props, context) => {
+  const { act, data } = useBackend(context);
   const { can_toggle_safety, default_programs = [], emag_programs = [], emagged, program } = data;
   return (
     <Window width={400} height={500}>

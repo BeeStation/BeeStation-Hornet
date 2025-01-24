@@ -2,9 +2,9 @@ import { useBackend, useSharedState } from '../backend';
 import { Box, Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const RoboticsControlConsole = (props) => {
-  const { act, data } = useBackend();
-  const [tab, setTab] = useSharedState('tab', 1);
+export const RoboticsControlConsole = (props, context) => {
+  const { act, data } = useBackend(context);
+  const [tab, setTab] = useSharedState(context, 'tab', 1);
   const { can_hack, is_silicon, extracting, cyborgs = [], drones = [], uploads = [] } = data;
   return (
     <Window width={500} height={460}>
@@ -33,9 +33,9 @@ export const RoboticsControlConsole = (props) => {
   );
 };
 
-const Cyborgs = (props) => {
+const Cyborgs = (props, context) => {
   const { cyborgs, can_hack } = props;
-  const { act, data } = useBackend();
+  const { act, data } = useBackend(context);
   if (!cyborgs.length) {
     return <NoticeBox>No cyborg units detected within access parameters</NoticeBox>;
   }
@@ -101,9 +101,9 @@ const Cyborgs = (props) => {
   });
 };
 
-const Drones = (props) => {
+const Drones = (props, context) => {
   const { drones } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
 
   if (!drones.length) {
     return <NoticeBox>No drone units detected within access parameters</NoticeBox>;
@@ -136,7 +136,7 @@ const Drones = (props) => {
   });
 };
 
-const Uploads = (props) => {
+const Uploads = (props, context) => {
   const { uploads, is_silicon } = props;
   if (!is_silicon) {
     if (!uploads.length) {
@@ -160,9 +160,9 @@ const Uploads = (props) => {
   }
 };
 
-const Extracting = (props) => {
+const Extracting = (props, context) => {
   const { is_silicon, extracting } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   if (!is_silicon) {
     return (
       <Button

@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Button, Collapsible, Grid, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const NaniteChamberControl = (props) => {
+export const NaniteChamberControl = (props, context) => {
   return (
     <Window width={380} height={570}>
       <Window.Content scrollable>
@@ -12,8 +12,8 @@ export const NaniteChamberControl = (props) => {
   );
 };
 
-export const NaniteChamberControlContent = (props) => {
-  const { act, data } = useBackend();
+export const NaniteChamberControlContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const { status_msg, locked, occupant_name, has_nanites, nanite_volume, regen_rate, safety_threshold, cloud_id, scan_level } =
     data;
 

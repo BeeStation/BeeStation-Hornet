@@ -3,8 +3,8 @@ import { Button, Dropdown, Grid, Input, LabeledList, ProgressBar, Section, Flex 
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-export const Mule = (props) => {
-  const { act, data } = useBackend();
+export const Mule = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     on,
     cell,

@@ -2,8 +2,8 @@ import { Button, Section, Dropdown, NoticeBox, ProgressBar } from '../components
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const ShuttleDesignator = (props) => {
-  const { act, data } = useBackend();
+export const ShuttleDesignator = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     shuttleId = null,
     inFlight = false,

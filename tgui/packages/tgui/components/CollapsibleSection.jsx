@@ -2,7 +2,7 @@ import { useLocalState } from '../backend';
 import { Section } from './Section';
 import { Button } from './Button';
 
-export const CollapsibleSection = (props) => {
+export const CollapsibleSection = (props, context) => {
   const {
     children,
     startOpen = true,
@@ -13,7 +13,7 @@ export const CollapsibleSection = (props) => {
     showButton = !forceOpen,
     ...rest
   } = props;
-  const [isOpen, setOpen] = useLocalState(`open_collapsible_${sectionKey}`, startOpen);
+  const [isOpen, setOpen] = useLocalState(context, `open_collapsible_${sectionKey}`, startOpen);
   return (
     <Section
       fitted={!forceOpen && !isOpen}

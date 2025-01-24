@@ -23,7 +23,6 @@ import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
 import { statMiddleware, statReducer } from './stat';
 import { telemetryMiddleware } from './telemetry';
-import { setGlobalStore } from 'tgui/backend';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
@@ -51,8 +50,6 @@ const store = configureStore({
 });
 
 const renderApp = createRenderer(() => {
-  setGlobalStore(store);
-
   const { Panel } = require('./Panel');
   return (
     <StoreProvider store={store}>

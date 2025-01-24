@@ -13,8 +13,8 @@ const directionToIcon = {
   'northwest': 315,
 };
 
-export const BluespaceLocator = (props) => {
-  const [tab, setTab] = useLocalState('tab', 'implant');
+export const BluespaceLocator = (props, context) => {
+  const [tab, setTab] = useLocalState(context, 'tab', 'implant');
   return (
     <Window width={300} height={300}>
       <Window.Content scrollable>
@@ -32,8 +32,8 @@ export const BluespaceLocator = (props) => {
   );
 };
 
-const TeleporterBeacons = (props) => {
-  const { data } = useBackend();
+const TeleporterBeacons = (props, context) => {
+  const { data } = useBackend(context);
 
   const { telebeacons } = data;
 
@@ -47,8 +47,8 @@ const TeleporterBeacons = (props) => {
   ));
 };
 
-const TrackingImplants = (props) => {
-  const { data } = useBackend();
+const TrackingImplants = (props, context) => {
+  const { data } = useBackend(context);
 
   const { trackimplants } = data;
 
@@ -62,8 +62,8 @@ const TrackingImplants = (props) => {
   ));
 };
 
-const SignalLocator = (props) => {
-  const { data } = useBackend();
+const SignalLocator = (props, context) => {
+  const { data } = useBackend(context);
 
   const { trackingrange } = data;
 

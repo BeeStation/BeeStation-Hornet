@@ -7,8 +7,14 @@ import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { AntagonistData } from './data';
 import { createSearch } from 'common/string';
 
-const AntagSelection = (props: { antagonists: AntagonistData[]; name: string }) => {
-  const { act, data } = useBackend<PreferencesMenuData>();
+const AntagSelection = (
+  props: {
+    antagonists: AntagonistData[];
+    name: string;
+  },
+  context
+) => {
+  const { act, data } = useBackend<PreferencesMenuData>(context);
   const className = 'PreferencesMenu__Antags__antagSelection';
 
   const enableAntagsGlobal = (antags: string[]) => {
@@ -214,8 +220,8 @@ const AntagSelection = (props: { antagonists: AntagonistData[]; name: string }) 
   );
 };
 
-export const AntagsPage = (_) => {
-  let [searchText, setSearchText] = useLocalState('antag_search', '');
+export const AntagsPage = (_, context) => {
+  let [searchText, setSearchText] = useLocalState(context, 'antag_search', '');
   let search = createSearch(searchText, (antagonist: AntagonistData) => {
     return antagonist.name;
   });
@@ -251,8 +257,8 @@ export const AntagsPage = (_) => {
   );
 };
 
-const SearchBar = ({ searchText, setSearchText, allAntags }) => {
-  const { act } = useBackend<PreferencesMenuData>();
+const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
+  const { act } = useBackend<PreferencesMenuData>(context);
   const enableAntags = (character: boolean) => {
     act('set_antags', {
       antags: allAntags,

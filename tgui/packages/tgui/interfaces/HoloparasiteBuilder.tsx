@@ -182,10 +182,10 @@ const chat_background_colors = {
  */
 const minimum_recommended_contrast = 0.14285;
 
-const InputValidity = (props: { field: string; validity: Validity }) => {
+const InputValidity = (props: { field: string; validity: Validity }, context) => {
   const {
     data: { themed_name },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   const is_are = props.field.endsWith('s') ? 'are' : 'is';
   switch (props.validity) {
     case Validity.Valid: {
@@ -265,11 +265,11 @@ const InputValidity = (props: { field: string; validity: Validity }) => {
   }
 };
 
-const BasicNameInput = (_props) => {
+const BasicNameInput = (_props, context) => {
   const {
     act,
     data: { custom_name, max_lengths, themed_name, validation },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   const set_name = (_, name: string) => {
     act('set:name', { 'name': name });
   };
@@ -295,11 +295,11 @@ const BasicNameInput = (_props) => {
   );
 };
 
-const BasicColorInput = (_props) => {
+const BasicColorInput = (_props, context) => {
   const {
     data: { accent_color, validation },
-  } = useBackend<Info>();
-  const [_color_select, set_color_select] = useLocalState<HsvaColor | null>('color_select', null);
+  } = useBackend<Info>(context);
+  const [_color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
   const accent_color_rgb = hexToRgba(accent_color);
   // these are reversed and I'm too lazy to figure out why
   const light_mode_contrast = contrast(chat_background_colors.light, accent_color_rgb);
@@ -333,12 +333,12 @@ const BasicColorInput = (_props) => {
   );
 };
 
-const BasicColorSelector = (_props) => {
+const BasicColorSelector = (_props, context) => {
   const {
     act,
     data: { accent_color },
-  } = useBackend<Info>();
-  const [color_select, set_color_select] = useLocalState<HsvaColor | null>('color_select', hexToHsva(accent_color));
+  } = useBackend<Info>(context);
+  const [color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', hexToHsva(accent_color));
   return (
     <Section fill title="Accent Color Selection">
       <Stack fill vertical>
@@ -388,10 +388,10 @@ const BasicColorSelector = (_props) => {
   );
 };
 
-const BasicPointsInfo = (_props) => {
+const BasicPointsInfo = (_props, context) => {
   const {
     data: { points, max_points, themed_name },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     <Stack
       style={{
@@ -439,12 +439,12 @@ const BasicPointsInfo = (_props) => {
   );
 };
 
-const BasicSection = (_props) => {
+const BasicSection = (_props, context) => {
   const {
     act,
     data: { themed_name, points, max_points, validation },
-  } = useBackend<Info>();
-  const [_unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
+  } = useBackend<Info>(context);
+  const [_unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
   const manifest_disabled = points < 0 || validation.name !== Validity.Valid || validation.notes !== Validity.Valid;
   return (
     <Section fill title="Basic Info">
@@ -488,11 +488,11 @@ const BasicSection = (_props) => {
   );
 };
 
-const NotesSection = (_props) => {
+const NotesSection = (_props, context) => {
   const {
     act,
     data: { themed_name, notes, max_lengths, validation },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     <Section fill title="Notes">
       <Stack fill vertical p={0.5}>
@@ -532,10 +532,10 @@ const NotesSection = (_props) => {
   );
 };
 
-const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }) => {
+const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }, context) => {
   const {
     data: { rated_skills, themed_name },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     <Collapsible title={props.title}>
       <Stack vertical>
@@ -586,14 +586,13 @@ const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[
   );
 };
 
-const Abilities = (props: {
-  abilities: Ability[];
-  on_click: (ability: Ability, selected: boolean) => void;
-  only_path?: string;
-}) => {
+const Abilities = (
+  props: { abilities: Ability[]; on_click: (ability: Ability, selected: boolean) => void; only_path?: string },
+  context
+) => {
   const {
     data: { selected_abilities, themed_name },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   const abilities = props.only_path
     ? (props.abilities || []).filter((ability: Ability) => ability.path === props.only_path)
     : (props.abilities || []).filter((ability: Ability) => !ability.hidden || selected_abilities.includes(ability.path));
@@ -650,14 +649,14 @@ const Abilities = (props: {
   );
 };
 
-const MajorAbilitiesTab = (_props) => {
+const MajorAbilitiesTab = (_props, context) => {
   const {
     act,
     data: {
       themed_name,
       abilities: { major },
     },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -684,13 +683,13 @@ const MajorAbilitiesTab = (_props) => {
   );
 };
 
-const LesserAbilitiesTab = (_props) => {
+const LesserAbilitiesTab = (_props, context) => {
   const {
     act,
     data: {
       abilities: { lesser },
     },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -713,7 +712,7 @@ const LesserAbilitiesTab = (_props) => {
   );
 };
 
-const WeaponsTab = (_props) => {
+const WeaponsTab = (_props, context) => {
   const {
     act,
     data: {
@@ -721,7 +720,7 @@ const WeaponsTab = (_props) => {
       forced_weapon,
       themed_name,
     },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -743,8 +742,8 @@ const WeaponsTab = (_props) => {
   );
 };
 
-const StatsSection = (_props) => {
-  const { act, data } = useBackend<Info>();
+const StatsSection = (_props, context) => {
+  const { act, data } = useBackend<Info>(context);
   return (
     <Section fill title="Stats">
       <Stack fill vertical>
@@ -797,8 +796,8 @@ const StatsSection = (_props) => {
   );
 };
 
-const AbilitiesTabs = (_props) => {
-  const [tab, set_tab] = useLocalState<AbilityTab>('tab', AbilityTab.Major);
+const AbilitiesTabs = (_props, context) => {
+  const [tab, set_tab] = useLocalState<AbilityTab>(context, 'tab', AbilityTab.Major);
   return (
     <Section fill pb={6}>
       <Tabs>
@@ -819,12 +818,12 @@ const AbilitiesTabs = (_props) => {
   );
 };
 
-const ResetButton = (_props) => {
+const ResetButton = (_props, context) => {
   const {
     data: { used, waiting, themed_name },
-  } = useBackend<Info>();
-  const [unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
-  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>('reset_dialog', false);
+  } = useBackend<Info>(context);
+  const [unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
+  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
   return (
     <Button
       icon="undo"
@@ -837,10 +836,10 @@ const ResetButton = (_props) => {
   );
 };
 
-const WaitingDialog = (_props) => {
+const WaitingDialog = (_props, context) => {
   const {
     data: { themed_name, waiting },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     !!waiting && (
       <Dimmer fontSize="32px">
@@ -855,10 +854,10 @@ const WaitingDialog = (_props) => {
   );
 };
 
-const UsedDialog = (_props) => {
+const UsedDialog = (_props, context) => {
   const {
     data: { used, themed_name },
-  } = useBackend<Info>();
+  } = useBackend<Info>(context);
   return (
     !!used && (
       <Dimmer fontSize="32px">
@@ -873,9 +872,9 @@ const UsedDialog = (_props) => {
   );
 };
 
-const ResetDialog = (_props) => {
-  const { act } = useBackend<Info>();
-  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>('reset_dialog', false);
+const ResetDialog = (_props, context) => {
+  const { act } = useBackend<Info>(context);
+  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
   return (
     !!reset_dialog && (
       <Dimmer>
@@ -919,12 +918,12 @@ const ResetDialog = (_props) => {
   );
 };
 
-const UnusedPointsDialog = (_props) => {
+const UnusedPointsDialog = (_props, context) => {
   const {
     act,
     data: { points, themed_name },
-  } = useBackend<Info>();
-  const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
+  } = useBackend<Info>(context);
+  const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
   return (
     !!unused_points_dialog && (
       <Dimmer>
@@ -975,8 +974,8 @@ const UnusedPointsDialog = (_props) => {
   );
 };
 
-export const HoloparasiteBuilder = (_props) => {
-  const [color_select] = useLocalState<HsvaColor | null>('color_select', null);
+export const HoloparasiteBuilder = (_props, context) => {
+  const [color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
   return (
     <Window theme="generic" width={1000} height={960} buttons={<ResetButton />}>
       <Window.Content>

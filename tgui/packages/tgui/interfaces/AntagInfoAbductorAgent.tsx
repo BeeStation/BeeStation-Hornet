@@ -10,8 +10,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props) => {
-  const { data } = useBackend<Info>();
+const IntroSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { mothership } = data;
   return (
     <Stack>
@@ -44,7 +44,7 @@ const IntroSection = (_props) => {
   );
 };
 
-const BasicLoreSection = (_props) => {
+const BasicLoreSection = (_props, _context) => {
   return (
     <Section>
       <BlockQuote>
@@ -66,7 +66,7 @@ const BasicLoreSection = (_props) => {
   );
 };
 
-const EquipmentSection = (_props) => {
+const EquipmentSection = (_props, _context) => {
   return (
     <Section title="Equipment">
       <Stack vertical>
@@ -176,8 +176,8 @@ const EquipmentSection = (_props) => {
   );
 };
 
-export const AntagInfoAbductorAgent = (_props) => {
-  const { data } = useBackend<Info>();
+export const AntagInfoAbductorAgent = (_props, context) => {
+  const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
     <Window width={620} height={650} theme="abductor">

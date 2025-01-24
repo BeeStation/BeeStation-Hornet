@@ -443,21 +443,24 @@ export const FeatureNumberInput = (props: FeatureValueProps<number, number, Feat
   );
 };
 
-export const FeatureValueInput = (props: {
-  feature: Feature<unknown>;
-  featureId: string;
-  shrink?: boolean;
-  value: unknown;
+export const FeatureValueInput = (
+  props: {
+    feature: Feature<unknown>;
+    featureId: string;
+    shrink?: boolean;
+    value: unknown;
 
-  act: typeof sendAct;
-}) => {
-  const { data } = useBackend<PreferencesMenuData>();
+    act: typeof sendAct;
+  },
+  context
+) => {
+  const { data } = useBackend<PreferencesMenuData>(context);
 
   const feature = props.feature;
 
   const [predictedValue, setPredictedValue] =
     feature.predictable === undefined || feature.predictable
-      ? useLocalState(`${props.featureId}_predictedValue_${data.active_slot}`, props.value)
+      ? useLocalState(context, `${props.featureId}_predictedValue_${data.active_slot}`, props.value)
       : [props.value, () => {}];
 
   const changeValue = (newValue: unknown) => {

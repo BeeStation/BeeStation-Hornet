@@ -7,16 +7,13 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Box } from '../components';
+import { useDebug } from '../debug';
 import { Layout } from './Layout';
 
-export const Pane = (props) => {
+export const Pane = (props, context) => {
   const { theme, children, className, ...rest } = props;
-  const { suspended, debug } = useBackend();
-  let debugLayout = false;
-  if (debug) {
-    debugLayout = debug.debugLayout;
-  }
-
+  const { suspended } = useBackend(context);
+  const { debugLayout } = useDebug(context);
   return (
     <Layout className={classes(['Window', className])} theme={theme} {...rest}>
       <Box fillPositionedParent className={debugLayout && 'debug-layout'}>

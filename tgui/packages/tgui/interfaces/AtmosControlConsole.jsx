@@ -4,8 +4,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosControlConsole = (props) => {
-  const { act, data } = useBackend();
+export const AtmosControlConsole = (props, context) => {
+  const { act, data } = useBackend(context);
   const sensors = data.sensors || [];
   return (
     <Window width={400} height={925}>

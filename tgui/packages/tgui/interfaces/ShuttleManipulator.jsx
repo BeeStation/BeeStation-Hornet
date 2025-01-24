@@ -3,8 +3,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, LabeledList, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const ShuttleManipulator = (props) => {
-  const [tab, setTab] = useLocalState('tab', 1);
+export const ShuttleManipulator = (props, context) => {
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
     <Window width={800} height={600}>
       <Window.Content scrollable>
@@ -27,8 +27,8 @@ export const ShuttleManipulator = (props) => {
   );
 };
 
-export const ShuttleManipulatorStatus = (props) => {
-  const { act, data } = useBackend();
+export const ShuttleManipulatorStatus = (props, context) => {
+  const { act, data } = useBackend(context);
   const shuttles = data.shuttles || [];
   return (
     <Section>
@@ -87,11 +87,11 @@ export const ShuttleManipulatorStatus = (props) => {
   );
 };
 
-export const ShuttleManipulatorTemplates = (props) => {
-  const { act, data } = useBackend();
+export const ShuttleManipulatorTemplates = (props, context) => {
+  const { act, data } = useBackend(context);
   const templateObject = data.templates || {};
   const selected = data.selected || {};
-  const [selectedTemplateId, setSelectedTemplateId] = useLocalState('templateId', Object.keys(templateObject)[0]);
+  const [selectedTemplateId, setSelectedTemplateId] = useLocalState(context, 'templateId', Object.keys(templateObject)[0]);
   const actualTemplates = templateObject[selectedTemplateId]?.templates;
   return (
     <Section>
@@ -147,8 +147,8 @@ export const ShuttleManipulatorTemplates = (props) => {
   );
 };
 
-export const ShuttleManipulatorModification = (props) => {
-  const { act, data } = useBackend();
+export const ShuttleManipulatorModification = (props, context) => {
+  const { act, data } = useBackend(context);
   const selected = data.selected || {};
   const existingShuttle = data.existing_shuttle || {};
   return (

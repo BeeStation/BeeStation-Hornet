@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SmokeMachine = (props) => {
-  const { act, data } = useBackend();
+export const SmokeMachine = (props, context) => {
+  const { act, data } = useBackend(context);
   const { TankContents, isTankLoaded, TankCurrentVolume, TankMaxVolume, active, setting, maxSetting = [] } = data;
   return (
     <Window width={350} height={350}>

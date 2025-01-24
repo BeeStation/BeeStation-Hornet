@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Grid, Section, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
 
-export const ComputerFabricator = (props) => {
-  const { act, data } = useBackend();
+export const ComputerFabricator = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Window width={500} height={400}>
       <Window.Content>
@@ -23,8 +23,8 @@ export const ComputerFabricator = (props) => {
 
 // This had a pretty gross backend so this was unfortunately one of the
 // best ways of doing it.
-const CfStep1 = (props) => {
-  const { act, data } = useBackend();
+const CfStep1 = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Section title="Step 1" minHeight="306px">
       <Box mt={5} bold textAlign="center" fontSize="40px">
@@ -68,8 +68,8 @@ const CfStep1 = (props) => {
   );
 };
 
-const CfStep2 = (props) => {
-  const { act, data } = useBackend();
+const CfStep2 = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Section
       title="Step 2: Customize your device"
@@ -381,8 +381,8 @@ const CfStep2 = (props) => {
   );
 };
 
-const CfStep3 = (props) => {
-  const { act, data } = useBackend();
+const CfStep3 = (props, context) => {
+  const { act, data } = useBackend(context);
   return (
     <Section title="Step 3: Payment" minHeight="282px">
       <Box italic textAlign="center" fontSize="20px">
@@ -415,7 +415,7 @@ const CfStep3 = (props) => {
   );
 };
 
-const CfStep4 = (props) => {
+const CfStep4 = (props, context) => {
   return (
     <Section minHeight="282px">
       <Box bold textAlign="center" fontSize="28px" mt={10}>
