@@ -54,8 +54,6 @@ const store = configureStore({
 const renderApp = createRenderer(() => {
   setGlobalStore(store);
 
-  logger.log(store.getState().settings);
-
   const { Panel } = require('./Panel');
   return (
     <Panel />

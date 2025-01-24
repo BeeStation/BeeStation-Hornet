@@ -54,8 +54,6 @@ export const Panel = (props) => {
       })
     );
   };
-  logger.log(number);
-  logger.log(settings.statSize);
   return (
     <Pane theme={settings.theme}>
       <Stack height={98 - number + '%'} vertical>
