@@ -29660,7 +29660,6 @@
 	pixel_y = 15
 	},
 /obj/item/stack/cable_coil/random,
-/obj/machinery/camera/directional/west,
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
 "hdu" = (
