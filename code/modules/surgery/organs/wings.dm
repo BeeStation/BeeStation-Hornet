@@ -2,6 +2,7 @@
 	name = "Pair of wings"
 	desc = "A pair of wings. They look skinny and useless"
 	icon_state = "angelwings"
+	visual = TRUE
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_WINGS
 	var/flight_level = WINGS_COSMETIC
@@ -90,7 +91,7 @@
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/S = H.dna.species
 		var/outofcontrol = ((rand(1, 10)) * severity)
-		to_chat(H, "<span_class = 'userdanger'>You lose control of your [src]!</span>")
+		to_chat(H, span_userdanger("You lose control of your [src]!"))
 		while(outofcontrol)
 			if(S.CanFly(H))
 				if(H.movement_type & FLYING)
@@ -140,7 +141,7 @@
 			if((H.movement_type & FLYING))//Closes wings if they're open and flying
 				var/datum/species/S = H.dna.species
 				S.toggle_flight(H)
-			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
+			to_chat(H, span_danger("Your precious wings burn to a crisp!"))
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
 			ADD_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 			H.dna.species.handle_mutant_bodyparts(H)
@@ -189,11 +190,11 @@
 	if(L.stat != CONSCIOUS || L.buckled) // Has to be conscious and unbuckled
 		return
 	if(recharging_time > world.time)
-		to_chat(L, "<span class='warning'>The wings aren't ready to dash yet!</span>")
+		to_chat(L, span_warning("The wings aren't ready to dash yet!"))
 		return
 	var/datum/gas_mixture/environment = L.loc.return_air()
 	if(environment && !(environment.return_pressure() > 30))
-		to_chat(L, "<span class='warning'>The atmosphere is too thin for you to dash!</span>")
+		to_chat(L, span_warning("The atmosphere is too thin for you to dash!"))
 		return
 
 	var/turf/target = get_edge_target_turf(L, L.dir) //represents the user's direction
@@ -218,18 +219,18 @@
 		crashcallback = CALLBACK(src, PROC_REF(crash_into_table), get_step(checkjump, L.dir))
 	if(L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
-		L.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		L.visible_message(span_warning("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(L, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(L, span_warning("Something prevents you from dashing forward!"))
 
 /datum/action/item_action/organ_action/use/bee_dash/proc/crash_into_table(turf/tableturf)
 	if(owner.loc == tableturf)
 		var/mob/living/carbon/L = owner
 		L.take_bodypart_damage(10,check_armor = TRUE)
 		L.Paralyze(40)
-		L.visible_message("<span class='danger'>[L] crashes into a table, falling over!</span>",\
-			"<span class='userdanger'>You violently crash into a table!</span>")
+		L.visible_message(span_danger("[L] crashes into a table, falling over!"),\
+			span_userdanger("You violently crash into a table!"))
 		playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 /datum/action/innate/flight
@@ -244,7 +245,7 @@
 	if(S.CanFly(H))
 		S.toggle_flight(H)
 		if(!(H.movement_type & FLYING))
-			to_chat(H, "<span class='notice'>You settle gently back onto the ground...</span>")
+			to_chat(H, span_notice("You settle gently back onto the ground..."))
 		else
-			to_chat(H, "<span class='notice'>You beat your wings and begin to hover gently above the ground...</span>")
+			to_chat(H, span_notice("You beat your wings and begin to hover gently above the ground..."))
 			H.set_resting(FALSE, TRUE)

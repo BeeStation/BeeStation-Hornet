@@ -19,7 +19,7 @@
 		qdel(pda_input)
 		return
 	if(istype(signal_source) && usr.default_can_use_topic(signal_source) != UI_INTERACTIVE)
-		to_chat(usr, "<span class='warning'>Out of range! Message not sent!</span>")
+		to_chat(usr, span_warning("Out of range! Message not sent!"))
 		qdel(pda_input)
 		return
 	// If we are impersonating someone, we should match their computer in the (Reply) href

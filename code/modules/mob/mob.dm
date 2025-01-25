@@ -135,11 +135,11 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t =	"<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t +=	"<span class='danger'>Temperature: [environment.return_temperature()] \n</span>"
+	var/t =	span_notice("Coordinates: [x],[y] \n")
+	t +=	span_danger("Temperature: [environment.return_temperature()] \n")
 	for(var/id in environment.get_gases())
 		if(environment.get_moles(id))
-			t+="<span class='notice'>[GLOB.gas_data.names[id]]: [environment.get_moles(id)] \n</span>"
+			t+=span_notice("[GLOB.gas_data.names[id]]: [environment.get_moles(id)] \n")
 
 	to_chat(usr, t)
 
@@ -155,32 +155,37 @@
 /mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)
-		return
+		return FALSE
 
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
+	// Return TRUE if we sent the original msg, otherwise return FALSE
+	. = TRUE
 	if(type)
 		if(type & MSG_VISUAL && (is_blind() && dist > BLIND_TEXT_DIST))//Vision related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 
 		if(type & MSG_AUDIBLE && !can_hear())//Hearing related
 			if(!alt_msg)
-				return
+				return FALSE
 			else
 				msg = alt_msg
 				type = alt_type
+				. = FALSE
 				if(type & MSG_VISUAL && is_blind())
-					return
+					return FALSE
 	// voice muffling
 	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
+	return .
 
 
 /atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
@@ -200,7 +205,7 @@
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
-		message = "<span class='emote'><b>[src]</b>[separation][message]</span>"
+		message = span_emote("<b>[src]</b>[separation][message]")
 		is_emote = TRUE
 
 	var/list/show_to = list()
@@ -233,8 +238,22 @@
 
 /mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
 	. = ..()
-	if(self_message)
-		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+	if(!self_message)
+		return
+	var/raw_self_message = self_message
+	var/self_runechat = FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
+
+	if(LAZYFIND(visible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
+		to_chat(src, self_message)
+		self_runechat = TRUE
+
+	else
+		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+
+	if(self_runechat && (LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, visible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = visible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this atom
@@ -256,7 +275,7 @@
 	var/is_emote = FALSE
 	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
 		is_emote = TRUE
-		message = "<span class='emote'><b>[src]</b>[separation][message]</span>"
+		message = span_emote("<b>[src]</b>[separation][message]")
 
 	var/list/show_to = list()
 	for(var/mob/M in hearers)
@@ -280,8 +299,21 @@
   */
 /mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
 	. = ..()
-	if(self_message)
-		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+	if(!self_message)
+		return
+
+	var/raw_self_message = self_message
+	var/self_runechat = FALSE
+	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+		self_message = span_emote("<b>[src]</b> [self_message]")
+	if(LAZYFIND(audible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
+		to_chat(src, self_message)
+		self_runechat = TRUE
+	else
+		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+
+	if(self_runechat && (LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, audible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = audible_message_flags)
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
@@ -289,19 +321,28 @@
 		return FALSE
 	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 ///Get the item on the mob in the storage slot identified by the id passed in
 /mob/proc/get_item_by_slot(slot_id)
+	return null
+
+/// Gets what slot the item on the mob is held in.
+/// Returns null if the item isn't in any slots on our mob.
+/// Does not check if the passed item is null, which may result in unexpected outcoms.
+/mob/proc/get_slot_by_item(obj/item/looking_for)
+	if(looking_for in held_items)
+		return ITEM_SLOT_HANDS
+
 	return null
 
 ///Is the mob incapacitated
@@ -352,7 +393,7 @@
 		if(qdel_on_fail)
 			qdel(W)
 		else if(!disable_warning)
-			to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
+			to_chat(src, span_warning("You are unable to equip that!"))
 		return FALSE
 	equip_to_slot(W, slot, initial, redraw_mob) //This proc should not ever fail.
 	return TRUE
@@ -512,27 +553,27 @@
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
 	if(!Adjacent(examined_thing) || incapacitated())
-		to_chat(src, "<span class='warning'>Something is there, but you can't see it!</span>")
+		to_chat(src, span_warning("Something is there, but you can't see it!"))
 		return FALSE
 
 	var/active_item = get_active_held_item()
 	if(active_item && active_item != examined_thing)
-		to_chat(src, "<span class='warning'>Your hands are too full to examine this!</span>")
+		to_chat(src, span_warning("Your hands are too full to examine this!"))
 		return FALSE
 
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
 	/// our active hand, to check if it's disabled/detatched
 	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
 	if(!active_hand || active_hand.bodypart_disabled || do_after_count() >= usable_hands)
-		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
+		to_chat(src, span_warning("You don't have a free hand to examine this!"))
 		return FALSE
 
 	//you can only queue up one examine on something at a time
 	if(DOING_INTERACTION_WITH_TARGET(src, examined_thing))
 		return FALSE
 
-	to_chat(src, "<span class='notice'>You start feeling around for something...</span>")
-	visible_message("<span class='notice'> [name] begins feeling around for \the [examined_thing.name]...</span>")
+	to_chat(src, span_notice("You start feeling around for something..."))
+	visible_message(span_notice(" [name] begins feeling around for \the [examined_thing.name]..."))
 
 	/// how long it takes for the blind person to find the thing they're examining
 	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
@@ -542,7 +583,7 @@
 		examine_delay_length *= 2
 
 	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
-		to_chat(src, "<span class='notice'>You can't get a good feel for what is there.</span>")
+		to_chat(src, span_notice("You can't get a good feel for what is there."))
 		return FALSE
 
 	//now we touch the thing we're examining
@@ -666,19 +707,19 @@
 
 	if (CONFIG_GET(flag/norespawn))
 		if(!check_rights_for(client, R_ADMIN))
-			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
+			to_chat(usr, span_boldnotice("Respawning is disabled."))
 			return
 		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
 		if(alert_yes != "Yes")
 			return
 
 	if ((stat != DEAD || !( SSticker )))
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
+		to_chat(usr, span_boldnotice("You must be dead to use this!"))
 		return
 
 	log_game("[key_name(usr)] used abandon mob.")
 
-	to_chat(usr, "<span class='boldnotice'>Please roleplay correctly!</span>")
+	to_chat(usr, span_boldnotice("Please roleplay correctly!"))
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
@@ -848,7 +889,7 @@
 /mob/proc/swap_hand()
 	var/obj/item/held_item = get_active_held_item()
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
-		to_chat(src, "<span class='warning'>Your other hand is too busy holding [held_item].</span>")
+		to_chat(src, span_warning("Your other hand is too busy holding [held_item]."))
 		return FALSE
 	return TRUE
 
@@ -1011,7 +1052,7 @@
 /**
   * Fully update the name of a mob
   *
-  * This will update a mob's name, real_name, mind.name, GLOB.data_core records, pda, id and traitor text
+  * This will update a mob's name, real_name, mind.name, GLOB.manifest records, pda, id and traitor text
   *
   * Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
   */
@@ -1030,7 +1071,7 @@
 			log_played_names(mind.key,newname) //Just in case the mind is unsynced at the moment.
 
 	if(oldname)
-		//update the datacore records! This is goig to be a bit costly.
+		//update the manifest records! This is goig to be a bit costly.
 		replace_records_name(oldname,newname)
 
 		//update our pda and id if we have them on our person
@@ -1043,7 +1084,7 @@
 					obj.update_explanation_text()
 	return 1
 
-///Updates GLOB.data_core records with new name , see mob/living/carbon/human
+///Updates GLOB.manifest records with new name , see mob/living/carbon/human
 /mob/proc/replace_records_name(oldname,newname)
 	return
 
@@ -1143,15 +1184,15 @@
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
 	if(is_blind())
-		to_chat(src, "<span class='warning'You are blind and can't read anything!</span>")
+		to_chat(src, span_warning("You are blind and can't read anything!"))
 		return FALSE
-		//to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
+		//to_chat(src, span_warning("As you are trying to read [O], you suddenly feel very stupid!"))
 	if(!is_literate())
-		to_chat(src, "<span class='warning'>You try to read [O], but can't comprehend any of it.</span>")
+		to_chat(src, span_warning("You try to read [O], but can't comprehend any of it."))
 		return FALSE
 
 	if(!has_light_nearby() && !has_nightvision())
-		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
+		to_chat(src, span_warning("It's too dark in here to read!"))
 		return FALSE
 
 	return TRUE
@@ -1238,12 +1279,11 @@
 	fully_replace_character_name(real_name, new_name)
 
 ///Show the language menu for this mob
-/mob/verb/open_language_menu()
+/mob/verb/open_language_menu_verb()
 	set name = "Open Language Menu"
 	set category = "IC"
 
-	var/datum/language_holder/H = get_language_holder()
-	H.open_language_menu(usr)
+	get_language_holder().open_language_menu(usr)
 
 ///Adjust the nutrition of a mob
 /mob/proc/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks

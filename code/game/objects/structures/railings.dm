@@ -7,11 +7,22 @@
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
+	/// armor more or less consistent with grille. max_integrity about one time and a half that of a grille.
+	armor_type = /datum/armor/structure_railing
 	max_integrity = 75
 
 	var/climbable = TRUE
 	///Initial direction of the railing.
 	var/ini_dir
+
+
+/datum/armor/structure_railing
+	melee = 50
+	bullet = 70
+	laser = 70
+	energy = 100
+	bomb = 10
+	rad = 100
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -41,12 +52,12 @@
 			if(!I.tool_start_check(user, amount=0))
 				return
 
-			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+			to_chat(user, span_notice("You begin repairing [src]..."))
 			if(I.use_tool(src, user, 40, volume=50))
 				atom_integrity = max_integrity
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
+				to_chat(user, span_notice("You repair [src]."))
 		else
-			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+			to_chat(user, span_warning("[src] is already in good condition!"))
 		return
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
@@ -54,7 +65,7 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>You begin to cut apart [src]...</span>")
+		to_chat(user, span_warning("You begin to cut apart [src]..."))
 		// Insta-disassemble is bad
 		if(I.use_tool(src, user, 2.5 SECONDS))
 			deconstruct()
@@ -75,16 +86,16 @@
 	. = ..()
 	if(flags_1&NODECONSTRUCT_1)
 		return
-	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
+	to_chat(user, span_notice("You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor..."))
 	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 		set_anchored(!anchored)
-		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor."))
 	return TRUE
 
 /obj/structure/railing/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(border_dir & dir)
-		return . || mover.throwing || mover.movement_type & (FLYING | FLOATING)
+		return . || mover.throwing || mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND
 	return TRUE
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
@@ -102,7 +113,7 @@
 	if (leaving.throwing)
 		return
 
-	if (leaving.movement_type & (PHASING | FLYING | FLOATING))
+	if (leaving.movement_type & (PHASING | MOVETYPES_NOT_TOUCHING_GROUND))
 		return
 
 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
@@ -115,13 +126,13 @@
 	if(!in_range(user, src))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
 	if(!valid_window_location(loc, target_dir, is_fulltile = FALSE)) //Expanded to include rails, as well!
-		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(user, span_warning("[src] cannot be rotated in that direction!"))
 		return FALSE
 	return TRUE
 

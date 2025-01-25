@@ -4,9 +4,18 @@
 	desc = "A brave security cyborg gave its life to help you look like a complete tool."
 	icon_state = "secway"
 	max_integrity = 100
-	armor = list(MELEE = 20,  BULLET = 15, LASER = 10, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/ridden_secway
 	key_type = /obj/item/key/security
 	integrity_failure = 0.5
+
+
+/datum/armor/ridden_secway
+	melee = 20
+	bullet = 15
+	laser = 10
+	bomb = 30
+	fire = 60
+	acid = 60
 
 /obj/vehicle/ridden/secway/Initialize(mapload)
 	. = ..()
@@ -32,10 +41,10 @@
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		if(atom_integrity < max_integrity)
 			if(W.use_tool(src, user, 0, volume = 50, amount = 1))
-				user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to \the [src].</span>")
+				user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to \the [src]."))
 				atom_integrity += min(10, max_integrity-atom_integrity)
 				if(atom_integrity == max_integrity)
-					to_chat(user, "<span class='notice'>It looks to be fully repaired now.</span>")
+					to_chat(user, span_notice("It looks to be fully repaired now."))
 		return TRUE
 	return ..()
 

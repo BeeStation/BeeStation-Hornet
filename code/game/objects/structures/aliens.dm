@@ -154,7 +154,8 @@
 		blacklisted_turfs = typecacheof(list(
 			/turf/open/space,
 			/turf/open/chasm,
-			/turf/open/lava))
+			/turf/open/lava,
+			/turf/open/openspace))
 
 
 	last_expand = world.time + rand(growth_cooldown_low, growth_cooldown_high)
@@ -248,6 +249,8 @@
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 	var/obj/item/clothing/mask/facehugger/child
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien/egg/Initialize(mapload)
 	. = ..()
@@ -283,34 +286,34 @@
 	if(user.getorgan(/obj/item/organ/alien/plasmavessel))
 		switch(status)
 			if(BURSTING)
-				to_chat(user, "<span class='notice'>The egg is in process of hatching.</span>")
+				to_chat(user, span_notice("The egg is in process of hatching."))
 				return
 			if(BURST)
-				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
+				to_chat(user, span_notice("You clear the hatched egg."))
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 				qdel(src)
 				return
 			if(GROWING)
-				to_chat(user, "<span class='notice'>The child is not developed yet.</span>")
+				to_chat(user, span_notice("The child is not developed yet."))
 				return
 			if(GROWN)
-				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
+				to_chat(user, span_notice("You retrieve the child."))
 				Burst(kill=FALSE)
 				return
 	else
-		to_chat(user, "<span class='notice'>It feels slimy.</span>")
+		to_chat(user, span_notice("It feels slimy."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
 
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon()
-	proximity_monitor.SetRange(1)
+	proximity_monitor.set_range(1)
 
 //drops and kills the hugger if any is remaining
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)
 	if(status == GROWN || status == GROWING)
-		proximity_monitor.SetRange(0)
+		proximity_monitor.set_range(0)
 		status = BURSTING
 		update_icon()
 		flick("egg_opening", src)

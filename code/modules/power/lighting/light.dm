@@ -319,7 +319,7 @@
 	// attempt to insert light
 	else if(istype(W, /obj/item/light))
 		if(status == LIGHT_OK)
-			to_chat(user, "<span class='warning'>There is a [fitting] already inserted!</span>")
+			to_chat(user, span_warning("There is a [fitting] already inserted!"))
 		else
 			add_fingerprint(user)
 			var/obj/item/light/L = W
@@ -330,9 +330,9 @@
 				add_fingerprint(user)
 				if(status != LIGHT_EMPTY)
 					drop_light_tube(user)
-					to_chat(user, "<span class='notice'>You replace [L].</span>")
+					to_chat(user, span_notice("You replace [L]."))
 				else
-					to_chat(user, "<span class='notice'>You insert [L].</span>")
+					to_chat(user, span_notice("You insert [L]."))
 				status = L.status
 				switchcount = L.switchcount
 				rigged = L.rigged
@@ -345,17 +345,17 @@
 				if(on && rigged)
 					plasma_ignition(4)
 			else
-				to_chat(user, "<span class='warning'>This type of light requires a [fitting]!</span>")
+				to_chat(user, span_warning("This type of light requires a [fitting]!"))
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
 		if(W.tool_behaviour == TOOL_SCREWDRIVER) //If it's a screwdriver open it.
 			W.play_tool_sound(src, 75)
 			user.visible_message("[user.name] opens [src]'s casing.", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='italics'>You hear a noise.</span>")
+				span_notice("You open [src]'s casing."), span_italics("You hear a noise."))
 			deconstruct()
 		else
-			to_chat(user, "<span class='userdanger'>You stick \the [W] into the light socket!</span>")
+			to_chat(user, span_userdanger("You stick \the [W] into the light socket!"))
 			if(has_power() && (W.flags_1 & CONDUCT_1))
 				do_sparks(3, TRUE, src)
 				if (prob(75))
@@ -452,7 +452,7 @@
 		return FALSE
 	var/obj/item/stock_parts/cell/real_cell = get_cell()
 	if(real_cell.charge > 300) // it's meant to handle 120 W, ya doofus
-		visible_message("<span class='warning'>[src] short-circuits from too powerful of a power cell!</span>")
+		visible_message(span_warning("[src] short-circuits from too powerful of a power cell!"))
 		burn_out()
 		return FALSE
 	real_cell.use(pwr)
@@ -480,7 +480,7 @@
 
 /obj/machinery/light/attack_silicon(mob/user)
 	no_emergency = !no_emergency
-	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
+	to_chat(user, span_notice("Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"]."))
 	update(FALSE)
 	return
 
@@ -511,27 +511,27 @@
 					return
 				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
-					to_chat(user, "<span class='warning'>You can't receive charge!</span>")
+					to_chat(user, span_warning("You can't receive charge!"))
 					return
 				if(user.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-					to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+					to_chat(user, span_warning("You are already fully charged!"))
 					return
 
-				to_chat(user, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
+				to_chat(user, span_notice("You start channeling some power through the [fitting] into your body."))
 				E.drain_time = world.time + 35
 				while(do_after(user, 30, target = src))
 					E.drain_time = world.time + 35
 					if(!istype(stomach))
-						to_chat(user, "<span class='warning'>You can't receive charge!</span>")
+						to_chat(user, span_warning("You can't receive charge!"))
 						return
-					to_chat(user, "<span class='notice'>You receive some charge from the [fitting].</span>")
+					to_chat(user, span_notice("You receive some charge from the [fitting]."))
 					stomach.adjust_charge(50)
 					use_power(50)
 					if(stomach.charge >= stomach.max_charge)
-						to_chat(user, "<span class='notice'>You are now fully charged.</span>")
+						to_chat(user, span_notice("You are now fully charged."))
 						E.drain_time = 0
 						return
-				to_chat(user, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				to_chat(user, span_warning("You fail to receive charge from the [fitting]!"))
 				E.drain_time = 0
 				return
 
@@ -543,18 +543,18 @@
 			prot = 1
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
-			to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
+			to_chat(user, span_notice("You remove the light [fitting]."))
 		else if(user.has_dna() && user.dna.check_mutation(TK))
-			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
+			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
-			to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
+			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
 
 			var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 				user.update_damage_overlays()
 			return				// if burned, don't remove the light
 	else
-		to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
+		to_chat(user, span_notice("You remove the light [fitting]."))
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
@@ -584,7 +584,7 @@
 		to_chat(user, "There is no [fitting] in this light.")
 		return
 
-	to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
+	to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 	// create a light tube/bulb item and put it in the user's hand
 	var/obj/item/light/light_tube = drop_light_tube()
 	return light_tube.attack_tk(user)
@@ -650,10 +650,19 @@
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
 
+GLOBAL_VAR_INIT(s_flickering_lights, FALSE)
+
+/// Flickers all lights the next time we sleep, or yield to byond.
+/// Concatenates all the flicking operations together.
 /proc/flicker_all_lights()
-	for(var/obj/machinery/light/L in GLOB.machines)
-		if(is_station_level(L.z))
-			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
+	if (GLOB.s_flickering_lights)
+		return
+	GLOB.s_flickering_lights = TRUE
+	spawn(0)
+		GLOB.s_flickering_lights = FALSE
+		for(var/obj/machinery/light/L in GLOB.machines)
+			if(is_station_level(L.z))
+				addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
 
 #undef LIGHT_ON_DELAY_UPPER
 #undef LIGHT_ON_DELAY_LOWER

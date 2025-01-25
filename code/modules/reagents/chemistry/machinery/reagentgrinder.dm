@@ -65,27 +65,27 @@
 /obj/machinery/reagentgrinder/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src) && !issilicon(user) && !isobserver(user))
-		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
+		. += span_warning("You're too far away to examine [src]'s contents and display!")
 		return
 
 	if(operating)
-		. += "<span class='warning'>\The [src] is operating.</span>"
+		. += span_warning("\The [src] is operating.")
 		return
 
 	if(beaker || length(holdingitems))
-		. += "<span class='notice'>\The [src] contains:</span>"
+		. += span_notice("\The [src] contains:")
 		if(beaker)
-			. += "<span class='notice'>- \A [beaker].</span>"
+			. += span_notice("- \A [beaker].")
 		for(var/i in holdingitems)
 			var/obj/item/O = i
-			. += "<span class='notice'>- \A [O.name].</span>"
+			. += span_notice("- \A [O.name].")
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
-		. += "<span class='notice'>The status display reads:</span>\n"+\
-		"<span class='notice'>- Grinding reagents at <b>[speed*100]%</b>.</span>"
+		. += "[span_notice("The status display reads:")]\n"+\
+		span_notice("- Grinding reagents at <b>[speed*100]%</b>.")
 		if(beaker)
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
-				. += "<span class='notice'>- [R.volume] units of [R.name].</span>"
+				. += span_notice("- [R.volume] units of [R.name].")
 
 /obj/machinery/reagentgrinder/AltClick(mob/user)
 	. = ..()
@@ -144,12 +144,12 @@
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
-		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
+		to_chat(user, span_notice("You add [B] to [src]."))
 		update_appearance()
 		return TRUE //no afterattack
 
 	if(holdingitems.len >= limit)
-		to_chat(user, "<span class='warning'>[src] is filled to capacity!</span>")
+		to_chat(user, span_warning("[src] is filled to capacity!"))
 		return TRUE
 
 	//Fill machine with a bag!
@@ -159,23 +159,23 @@
 			for(var/i in inserted)
 				holdingitems[i] = TRUE
 			if(!I.contents.len)
-				to_chat(user, "<span class='notice'>You empty [I] into [src].</span>")
+				to_chat(user, span_notice("You empty [I] into [src]."))
 			else
-				to_chat(user, "<span class='notice'>You fill [src] to the brim.</span>")
+				to_chat(user, span_notice("You fill [src] to the brim."))
 		return TRUE
 
 	if(!I.grind_results && !I.juice_results && !I.is_grindable())
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
-			to_chat(user, "<span class='warning'>You cannot grind [I] into reagents!</span>")
+			to_chat(user, span_warning("You cannot grind [I] into reagents!"))
 			return TRUE
 
 	if(!I.grind_requirements(src)) //Error messages should be in the objects' definitions
 		return
 
 	if(user.transferItemToLoc(I, src))
-		to_chat(user, "<span class='notice'>You add [I] to [src].</span>")
+		to_chat(user, span_notice("You add [I] to [src]."))
 		holdingitems[I] = TRUE
 		return FALSE
 
@@ -263,50 +263,44 @@
 /obj/machinery/reagentgrinder/proc/stop_operating()
 	operating = FALSE
 
-/obj/machinery/reagentgrinder/proc/juice()
+/obj/machinery/reagentgrinder/proc/juice(mob/user)
 	power_change()
 	if(!beaker || machine_stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
 	operate_for(50, juicing = TRUE)
-	for(var/obj/item/i in holdingitems)
+	for(var/obj/item/juiced_item in holdingitems)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
-		var/obj/item/I = i
-		if(I.juice_results)
-			juice_item(I)
+		if(juiced_item.juice_results)
+			juice_item(juiced_item, user)
 
-/obj/machinery/reagentgrinder/proc/juice_item(obj/item/I) //Juicing results can be found in respective object definitions
-	if(I.on_juice(src) == -1)
-		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to juice up [I], and transfers it back to storage.</span>")
+/obj/machinery/reagentgrinder/proc/juice_item(obj/item/juiced_item, mob/user) //Juicing results can be found in respective object definitions
+	if(!juiced_item.juice(beaker, user))
+		to_chat(usr, span_danger("[src] shorts out as it tries to juice up [juiced_item], and transfers it back to storage."))
 		return
-	beaker.reagents.add_reagent_list(I.juice_results)
-	remove_object(I)
+	remove_object(juiced_item)
 
 /obj/machinery/reagentgrinder/proc/grind(mob/user)
 	power_change()
 	if(!beaker || machine_stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
 	operate_for(60)
-	for(var/i in holdingitems)
+	for(var/obj/item/grinded_item in holdingitems)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
-		var/obj/item/I = i
-		if(I.grind_results || I.is_grindable())
-			if(istype(I, /obj/item/reagent_containers))
-				var/obj/item/reagent_containers/p = I
-				if(!p.prevent_grinding)
-					grind_item(p, user)
+		if(grinded_item.grind_results || grinded_item.is_grindable())
+			if(istype(grinded_item, /obj/item/reagent_containers))
+				var/obj/item/reagent_containers/beaker = grinded_item
+				if(!beaker.prevent_grinding)
+					grind_item(beaker, user)
 			else
-				grind_item(I, user)
+				grind_item(grinded_item, user)
 
-/obj/machinery/reagentgrinder/proc/grind_item(obj/item/I, mob/user) //Grind results can be found in respective object definitions
-	if(I.on_grind(src) == -1) //Call on_grind() to change amount as needed, and stop grinding the item if it returns -1
-		to_chat(usr, "<span class='danger'>[src] shorts out as it tries to grind up [I], and transfers it back to storage.</span>")
+/obj/machinery/reagentgrinder/proc/grind_item(obj/item/grinded_item, mob/user) //Grind results can be found in respective object definitions
+	if(!grinded_item.grind(beaker, user))
+		to_chat(usr, span_danger("[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage."))
 		return
-	beaker.reagents.add_reagent_list(I.grind_results)
-	if(I.reagents)
-		I.reagents.trans_to(beaker, I.reagents.total_volume, transfered_by = user)
-	remove_object(I)
+	remove_object(grinded_item)
 
 /obj/machinery/reagentgrinder/proc/mix(mob/user)
 	//For butter and other things that would change upon shaking or mixing

@@ -84,9 +84,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	to_chat(user, span_notice("You begin repairing [src]..."))
 	if(I.use_tool(src, user, 10, volume=50))
-		to_chat(user, "<span class='notice'>You repair [src].</span>")
+		to_chat(user, span_notice("You repair [src]."))
 		broken = 0
 		icon_state = initial(icon_state)
 		desc = initial(desc)
@@ -188,7 +188,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
 
 					else
-						to_chat(H, "<span class='notice'>Invalid color. Your color is not bright enough.</span>")
+						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))
 
 			H.update_body()
 			H.update_hair()
@@ -203,7 +203,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = "female"
-					to_chat(H, "<span class='notice'>Man, you feel like a woman!</span>")
+					to_chat(H, span_notice("Man, you feel like a woman!"))
 				else
 					return
 
@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = "male"
-					to_chat(H, "<span class='notice'>Whoa man, you feel like a man!</span>")
+					to_chat(H, span_notice("Whoa man, you feel like a man!"))
 				else
 					return
 			H.dna.update_ui_block(DNA_GENDER_BLOCK)
@@ -224,7 +224,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(hairchoice == "Style") //So you just want to use a mirror then?
-				..()
+				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", GLOB.hair_styles_list, H.hair_style)
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return
+				if(new_style)
+					H.hair_style = new_style
 			else
 				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color","#"+H.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
@@ -237,7 +241,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(new_face_color)
 						H.facial_hair_color = sanitize_hexcolor(new_face_color)
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
-				H.update_hair()
+			H.update_hair()
 
 		if(BODY_ZONE_PRECISE_EYES)
 			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color","#"+H.eye_color)

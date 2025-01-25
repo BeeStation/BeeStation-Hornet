@@ -43,7 +43,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(gain_text)
-		to_chat(user, "<span class='warning'>[gain_text]</span>")
+		to_chat(user, span_warning("[gain_text]"))
 	on_gain(user)
 
 /**
@@ -390,13 +390,13 @@
 
 	var/list/requirements_string = list()
 
-	to_chat(user, "<span class='hierophant'>The [name] requires the following:</span>")
+	to_chat(user, span_hierophant("The [name] requires the following:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, "<span class='hypnophrase'>[amount_needed] [initial(path.name)]\s...</span>")
+		to_chat(user, span_hypnophrase("[amount_needed] [initial(path.name)]\s..."))
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
-	to_chat(user, "<span class='hierophant'>Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded.</span>")
+	to_chat(user, span_hierophant("Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded."))
 
 	desc = "Allows you to transmute [english_list(requirements_string)] for [KNOWLEDGE_RITUAL_POINTS] bonus knowledge points. This can only be completed once."
 
@@ -412,8 +412,8 @@
 	was_completed = TRUE
 
 	var/drain_message = pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))
-	to_chat(user, "<span class='boldnotice'>[name] completed!</span>")
-	to_chat(user, "<span class='hypnophrase'><span class='big>[drain_message]</span></span>")
+	to_chat(user, span_boldnotice("[name] completed!"))
+	to_chat(user, span_hypnophrase(span_big(drain_message)))
 	desc += " (Completed!)"
 	return TRUE
 
@@ -426,6 +426,10 @@
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
+	/// The announcement text. %USER% is replaced with the user's real name.
+	var/announcement_text
+	/// The sound to use for the announcement.
+	var/announcement_sound
 
 /datum/heretic_knowledge/final/on_research(mob/user)
 	. = ..()
@@ -472,6 +476,12 @@
 		var/mob/living/carbon/human/human_user = user
 		human_user.physiology.brute_mod *= 0.5
 		human_user.physiology.burn_mod *= 0.5
+
+	priority_announce(
+		text = "[generate_heretic_text()] [replacetext_char(announcement_text, "%USER%", "[user.real_name]")] [generate_heretic_text()]",
+		title = "[generate_heretic_text()]",
+		sound = announcement_sound,
+	)
 
 	return TRUE
 

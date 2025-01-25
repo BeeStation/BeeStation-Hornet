@@ -386,8 +386,8 @@
 
 /obj/item/robot_module/security/do_transform_animation()
 	..()
-	to_chat(loc, "<span class='userdanger'>While you have picked the security module, you still have to follow your laws, NOT Space Law. \
-	For Asimov, this means you must follow criminals' orders unless there is a law 1 reason not to.</span>")
+	to_chat(loc, span_userdanger("While you have picked the security module, you still have to follow your laws, NOT Space Law. \
+	For Asimov, this means you must follow criminals' orders unless there is a law 1 reason not to."))
 
 /obj/item/robot_module/security/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
@@ -427,8 +427,8 @@
 
 /obj/item/robot_module/peacekeeper/do_transform_animation()
 	..()
-	to_chat(loc, "<span class='userdanger'>Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
-	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you.</span>")
+	to_chat(loc, span_userdanger("Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
+	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you."))
 
 /obj/item/robot_module/janitor
 	name = JOB_NAME_JANITOR
@@ -592,7 +592,7 @@
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/extinguisher/mini,
 		/obj/item/storage/bag/sheetsnatcher/borg,
-		/obj/item/gun/energy/kinetic_accelerator/cyborg,
+		/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/stack/marker_beacon)
 	emag_modules = list(/obj/item/borg/stun)
@@ -656,12 +656,12 @@
 /obj/item/robot_module/syndicate/rebuild_modules()
 	..()
 	var/mob/living/silicon/robot/Syndi = loc
-	Syndi.faction  -= "silicon" //ai turrets
+	Syndi.faction  -= FACTION_SILICON //ai turrets
 
 /obj/item/robot_module/syndicate/remove_module(obj/item/I, delete_after)
 	..()
 	var/mob/living/silicon/robot/Syndi = loc
-	Syndi.faction += "silicon" //ai is your bff now!
+	Syndi.faction += FACTION_SILICON //ai is your bff now!
 
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"

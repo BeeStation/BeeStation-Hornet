@@ -19,7 +19,7 @@
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_tank
 	integrity_failure = 0.5
 	/// The gases this tank contains.
 	var/datum/gas_mixture/air_contents = null
@@ -31,6 +31,12 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
+
+
+/datum/armor/item_tank
+	bomb = 10
+	fire = 80
+	acid = 30
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -93,10 +99,10 @@
 		icon = src.loc
 	if(!in_range(src, user) && !isobserver(user))
 		if(icon == src)
-			. += "<span class='notice'>If you want any more information you'll need to get closer.</span>"
+			. += span_notice("If you want any more information you'll need to get closer.")
 		return
 
-	. += "<span class='notice'>The gauge reads [round(air_contents.total_moles(), 0.01)] mol at [round(src.air_contents.return_pressure(),0.01)] kPa.</span>"	//yogs can read mols
+	. += span_notice("The gauge reads [round(air_contents.total_moles(), 0.01)] mol at [round(src.air_contents.return_pressure(),0.01)] kPa.")	//yogs can read mols
 
 	var/celsius_temperature = src.air_contents.return_temperature()-T0C
 	var/descriptive
@@ -114,7 +120,7 @@
 	else
 		descriptive = "furiously hot"
 
-	. += "<span class='notice'>It feels [descriptive].</span>"
+	. += span_notice("It feels [descriptive].")
 
 /obj/item/tank/deconstruct(disassembled = TRUE)
 	var/turf/location = get_turf(src)
@@ -126,7 +132,7 @@
 
 /obj/item/tank/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/human_user = user
-	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (!QDELETED(human_user) && air_contents && air_contents.return_pressure() >= 1000)
 		for(var/obj/item/W in human_user)
@@ -291,7 +297,7 @@
 	leaking = TRUE
 	if(atom_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
 		return
-	visible_message("<span class='warning'>[src] springs a leak!</span>")
+	visible_message(span_warning("[src] springs a leak!"))
 	playsound(src, 'sound/effects/spray.ogg', 10, TRUE, -3)
 
 /// Handles rupturing and fragmenting

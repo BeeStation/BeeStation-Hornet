@@ -6,6 +6,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	flags_1 = CAN_BE_DIRTY_1
+	uses_integrity = TRUE
+
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -36,8 +43,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
-	flags_1 = CAN_BE_DIRTY_1
-
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
 
@@ -67,6 +72,9 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	/// See __DEFINES/construction.dm for RCD_MEMORY_*.
 	var/rcd_memory
 
+	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
+	var/force_no_gravity = FALSE
+
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
@@ -75,6 +83,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
+
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	/// For the area_contents list unit test
+	/// Allows us to know our area without needing to preassign it
+	/// Sorry for the mess
+	var/area/in_contents_of
+#endif
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -152,11 +167,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
-		if (islist(armor))
-			armor = getArmor(arglist(armor))
-		else if (!armor)
-			armor = getArmor()
-
 	if(isopenturf(src))
 		var/turf/open/O = src
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
@@ -219,7 +229,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
-			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
+			to_chat(user, span_warning("You can't float up and down when there is gravity!"))
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
@@ -293,13 +303,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+
 	if(canPassSelf || (mover.movement_type & PHASING))
-		for(var/i in contents)
+		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
 				return FALSE		//We were deleted, do not attempt to proceed with movement.
-			if(i == mover || i == mover.loc) // Multi tile objects and moving out of other objects
+			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
 				continue
-			var/atom/movable/thing = i
 			if(!thing.Cross(mover))
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
@@ -571,7 +581,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
 		var/area/A = loc
-		if(TF in A?.get_turf_textures())
+		if(TF in A?.get_area_textures())
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
 	if(turf_texture)
 		vis_contents += load_turf_texture(turf_texture)

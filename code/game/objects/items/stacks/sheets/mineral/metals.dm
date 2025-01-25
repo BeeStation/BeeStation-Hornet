@@ -45,7 +45,7 @@ Metals Sheets
 	return GLOB.metal_recipes
 
 /obj/item/stack/sheet/iron/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /* Plasteel */
@@ -60,7 +60,7 @@ Metals Sheets
 	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/sheet_plasteel
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
@@ -68,6 +68,11 @@ Metals Sheets
 	tableVariant = /obj/structure/table/reinforced
 	matter_amount = 12
 	material_flags = NONE
+
+
+/datum/armor/sheet_plasteel
+	fire = 100
+	acid = 80
 
 /obj/item/stack/sheet/plasteel/get_recipes()
 	return GLOB.plasteel_recipes
@@ -91,12 +96,12 @@ Metals Sheets
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	var/turf/T = get_turf(user) //we may have moved. adjust as needed...
 	var/area/A = get_area(user)
 	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !(A.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))))
-		to_chat(user, "<span class='warning'>The veil is not weak enough here.</span>")
+		to_chat(user, span_warning("The veil is not weak enough here."))
 		return FALSE
 	return ..()
 
@@ -126,7 +131,7 @@ Metals Sheets
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='danger'>[src] seems far too brittle to build with.</span>") //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
+		to_chat(user, span_danger("[src] seems far too brittle to build with.")) //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
 	else
 		return ..()
 
@@ -160,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/bronze/attack_self(mob/living/user)
 	if(is_servant_of_ratvar(user))
-		to_chat(user, "<span class='danger'>Wha... what is this cheap imitation crap? This isn't brass at all!</span>")
+		to_chat(user, span_danger("Wha... what is this cheap imitation crap? This isn't brass at all!"))
 	else
 		return ..()
 

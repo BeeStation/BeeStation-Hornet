@@ -28,11 +28,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/template_noop)
-"j" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/template_noop)
 "k" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
@@ -135,11 +130,6 @@
 	},
 /turf/open/floor/plating{
 	broken = 1
-	},
-/area/template_noop)
-"D" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken2"
 	},
 /area/template_noop)
 "E" = (
@@ -275,7 +265,7 @@ i
 y
 R
 y
-j
+X
 f
 N
 p
@@ -323,7 +313,7 @@ p
 u
 w
 W
-D
+X
 Z
 p
 p

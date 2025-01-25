@@ -397,7 +397,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "uw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/med_data/syndie{
+/obj/machinery/computer/records/medical/syndie{
 	dir = 4;
 	req_one_access = null
 	},

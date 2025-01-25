@@ -45,9 +45,9 @@
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Smelting <b>[ore_multiplier]</b> sheet(s) per piece of ore.</span>"
+		. += span_notice("The status display reads: Smelting <b>[ore_multiplier]</b> sheet(s) per piece of ore.")
 	if(panel_open)
-		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
+		. += span_notice("Alt-click to rotate the input and output direction.")
 
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
@@ -189,7 +189,7 @@
 	var/obj/item/stack/ore/O = W
 	if(istype(O))
 		if(O.refined_type == null)
-			to_chat(user, "<span class='notice'>[O] has already been refined!</span>")
+			to_chat(user, span_notice("[O] has already been refined!"))
 			return
 
 	return ..()
@@ -200,7 +200,7 @@
 	if(panel_open)
 		input_dir = turn(input_dir, -90)
 		output_dir = turn(output_dir, -90)
-		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+		to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
 		unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
 		register_input_turf() // register the new one
 		return TRUE
@@ -265,16 +265,16 @@
 	switch(action)
 		if("Claim")
 			if(!stored_points)
-				to_chat(usr, "<span class='warning'>No points to claim.</span>")
+				to_chat(usr, span_warning("No points to claim."))
 				return
 
 			var/mob/living/user = usr
 			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
 			if(!user_id_card)
-				to_chat(usr, "<span class='warning'>No ID detected.</span>")
+				to_chat(usr, span_warning("No ID detected."))
 				return
 			if(!user_id_card.registered_account)
-				to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
+				to_chat(usr, span_warning("No bank account detected on the ID card."))
 				return
 
 			user_id_card.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, stored_points)
@@ -285,9 +285,9 @@
 				return
 
 			if(materials.on_hold())
-				to_chat(usr, "<span class='warning'>Mineral access is on hold, please contact the quartermaster.</span>")
+				to_chat(usr, span_warning("Mineral access is on hold, please contact the quartermaster."))
 			else if(!allowed(usr)) //Check the ID inside, otherwise check the user
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Required access not found."))
 			else
 				var/datum/material/mat = locate(params["id"])
 
@@ -322,7 +322,7 @@
 				inserted_disk = disk
 				. = TRUE
 			else
-				to_chat(usr, "<span class='warning'>Not a valid Design Disk!</span>")
+				to_chat(usr, span_warning("Not a valid Design Disk!"))
 		if("diskEject")
 			if(inserted_disk)
 				usr.put_in_hands(inserted_disk)
@@ -337,7 +337,7 @@
 			if(!mat_container)
 				return
 			if(materials.on_hold())
-				to_chat(usr, "<span class='warning'>Mineral access is on hold, please contact the quartermaster.</span>")
+				to_chat(usr, span_warning("Mineral access is on hold, please contact the quartermaster."))
 				return
 			var/alloy_id = params["id"]
 			var/datum/design/alloy = stored_research.isDesignResearchedID(alloy_id)
@@ -363,7 +363,7 @@
 				unload_mineral(output)
 				. = TRUE
 			else
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Required access not found."))
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
