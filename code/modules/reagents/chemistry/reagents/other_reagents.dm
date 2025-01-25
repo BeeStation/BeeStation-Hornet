@@ -128,7 +128,7 @@
 	. = ..()
 	var/obj/shapeshift_holder/H = locate() in L
 	if(H)
-		to_chat(L, "<span class='warning'>You're already corgified!</span>")
+		to_chat(L, span_warning("You're already corgified!"))
 		return
 	new_corgi = new(L.loc)
 	//hat check
@@ -230,7 +230,7 @@
 			touch_mod = M.getarmor(null, BIO) * 0.01
 		M.blood_volume = max(M.blood_volume - 30 * (1 - touch_mod), 0)
 		if(touch_mod < 0.9)
-			to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
+			to_chat(M, span_warning("The water causes you to melt away!"))
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
 		M.ExtinguishMob()
@@ -256,7 +256,7 @@
 			qdel(anti_magic)
 	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 		REMOVE_TRAIT(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
+		to_chat(L, span_notice("You cheer up, knowing that everything is going to be ok."))
 	..()
 
 /datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
@@ -266,7 +266,7 @@
 	M.jitteriness = min(M.jitteriness+4,10)
 	if(iscultist(M))
 		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
-			to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+			to_chat(M, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
 	if(data["misc"] >= 25)		// 10 units, 45 seconds @ metabolism 0.4 units & tick rate 1.8 sec
@@ -278,15 +278,15 @@
 			M.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
 				if(!HAS_TRAIT_FROM(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
-					to_chat(M, "<span class='large_brass'>You feel the light fading and the world collapsing around you...</span>")
+					to_chat(M, "[span_largebrass("You feel the light fading and the world collapsing around you...")]")
 					ADD_TRAIT(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
 		if(iscultist(M) && prob(20))
 			M.say(pick("Av'te Nar'Sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","R'ge Na'sie","Diabo us Vo'iscum","Eld' Mon Nobis"), forced = "holy water")
 			if(prob(10))
-				M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
+				M.visible_message(span_danger("[M] starts having a seizure!"), span_userdanger("You have a seizure!"))
 				M.Unconscious(120)
-				to_chat(M, "<span class='cultlarge'>[pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
-				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")].</span>")
+				to_chat(M, span_cultlarge(pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
+				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")))
 	if(data["misc"] >= 60)	// 30 units, 135 seconds
 		if(iscultist(M) || is_servant_of_ratvar(M))
 			if(iscultist(M))
@@ -459,7 +459,7 @@
 
 		if(method == INGEST)
 			if(show_message)
-				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+				to_chat(M, span_notice("That tasted horrible."))
 	..()
 
 /datum/reagent/spraytan/overdose_start(mob/living/M)
@@ -531,13 +531,13 @@
 		for(var/i in mutationtexts)
 			if(mutationtexts[i] == filter)
 				pick_ur_fav += i
-		to_chat(H, "<span class='warning'>[pick(pick_ur_fav)]</span>")
+		to_chat(H, span_warning("[pick(pick_ur_fav)]"))
 
 	if(current_cycle >= cycles_to_turn)
 		var/datum/species/species_type = pick(race) //this worked with the old code, somehow, and it works here...
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
-		to_chat(H, "<span class='warning'>You've become \a [LOWER_TEXT(initial(species_type.name))]!</span>")
+		to_chat(H, span_warning("You've become \a [LOWER_TEXT(initial(species_type.name))]!"))
 		return
 	..()
 
@@ -729,7 +729,7 @@
 	..()
 	if (!istype(H))
 		return
-	to_chat(H, "<span class='warning'><b>You grit your teeth in pain as your body rapidly mutates!</b></span>")
+	to_chat(H, span_warning("<b>You grit your teeth in pain as your body rapidly mutates!</b>"))
 	H.visible_message("<b>[H]</b> suddenly transforms!")
 	randomize_human(H)
 
@@ -850,6 +850,14 @@
 	color = "#484848" // rgb: 72, 72, 72A
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
 	taste_mult = 0 // apparently tasteless.
+
+/datum/reagent/mercury/lead_acetate
+	name = "Lead Acetate"
+	description = "A sweet neurotoxic chemical. The secret of Roman sweet wine."
+	color = "#AAAAAA"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // because brain damage is fun
+	taste_description = "sweetness"
+	taste_mult = 3
 
 /datum/reagent/mercury/on_mob_life(mob/living/carbon/M)
 	if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && !isspaceturf(M.loc))
@@ -1041,7 +1049,7 @@
 
 /datum/reagent/bluespace/on_mob_life(mob/living/carbon/M)
 	if(current_cycle > 10 && prob(15))
-		to_chat(M, "<span class='warning'>You feel unstable...</span>")
+		to_chat(M, span_warning("You feel unstable..."))
 		M.Jitter(2)
 		current_cycle = 1
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
@@ -1336,7 +1344,7 @@
 	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
-	L.visible_message("<span class='warning'>You feel like nothing can stop you!</span>")
+	L.visible_message(span_warning("You feel like nothing can stop you!"))
 
 /datum/reagent/stimulum/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
@@ -1344,7 +1352,7 @@
 	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
-	L.visible_message("<span class='warning'>You can feel your brief high wearing off</span>")
+	L.visible_message(span_warning("You can feel your brief high wearing off"))
 	..()
 
 /datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
@@ -1352,7 +1360,7 @@
 	if(M.losebreath <= 10)
 		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
-		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
+		M.visible_message(span_danger("You feel like you can't breathe!"))
 		warned = TRUE
 	..()
 
@@ -2191,12 +2199,12 @@
 
 /datum/reagent/consumable/ratlight/on_mob_metabolize(mob/living/L)
 	L.add_blocked_language(subtypesof(/datum/language/) - /datum/language/ratvar, LANGUAGE_REAGENT)
-	L.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.grant_language(/datum/language/ratvar, source = LANGUAGE_REAGENT)
 	..()
 
 /datum/reagent/consumable/ratlight/on_mob_end_metabolize(mob/living/L)
 	L.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_REAGENT)
-	L.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.remove_language(/datum/language/ratvar, source = LANGUAGE_REAGENT)
 	L.set_light(-1)
 
 	..()
@@ -2212,7 +2220,7 @@
 
 //Warns you about the impending hands
 /datum/reagent/helgrasp/on_mob_add(mob/living/L, amount)
-	to_chat(L, "<span class='hierophant'>You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!</span>")
+	to_chat(L, span_hierophant("You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!"))
 	playsound(L.loc, 'sound/misc/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
 	. = ..()
 

@@ -2094,7 +2094,9 @@
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "azP" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/bridge)
@@ -13197,6 +13199,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"edQ" = (
+/obj/structure/lattice,
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space/nearstation)
 "edS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -37972,8 +37979,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
+/obj/machinery/computer/crew{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "mhf" = (
@@ -46685,6 +46693,10 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"oXo" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "oXu" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -56395,7 +56407,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark,
 /area/bridge)
@@ -81239,7 +81253,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+oXo
 aMT
 aMT
 aMT
@@ -88606,7 +88620,7 @@ aMT
 aMT
 oTx
 anT
-anT
+edQ
 anT
 anT
 anT
@@ -97444,7 +97458,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+oXo
 aMT
 aMT
 aMT

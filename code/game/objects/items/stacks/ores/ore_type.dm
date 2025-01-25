@@ -58,12 +58,12 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 		return
 	var/mob/living/carbon/human/C = hit_atom
 	if(C.is_eyes_covered())
-		C.visible_message("<span class='danger'>[C]'s eye protection blocks the sand!</span>", "<span class='warning'>Your eye protection blocks the sand!</span>")
+		C.visible_message(span_danger("[C]'s eye protection blocks the sand!"), span_warning("Your eye protection blocks the sand!"))
 		return
 	C.adjust_blurriness(6)
 	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
 	C.confused += 5
-	to_chat(C, "<span class='userdanger'>\The [src] gets into your eyes! The pain, it burns!</span>")
+	to_chat(C, span_userdanger("\The [src] gets into your eyes! The pain, it burns!"))
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity, target)
@@ -106,7 +106,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 	merge_type = /obj/item/stack/ore/plasma
 
 /obj/item/stack/ore/plasma/welder_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
+	to_chat(user, span_warning("You can't hit a high enough temperature to smelt [src] properly!"))
 	return TRUE
 
 STACKSIZE_MACRO(/obj/item/stack/ore/plasma)
