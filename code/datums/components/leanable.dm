@@ -82,8 +82,8 @@
 	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
 	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	visible_message(
-		"<span class='notice'>[src] leans against [lean_target].</span>",
-		"<span class='notice'>You lean against [lean_target].</span>",
+		span_notice("[src] leans against [lean_target]."),
+		span_notice("You lean against [lean_target]."),
 	)
 	leaned_object = lean_target
 	RegisterSignals(src, list(
@@ -125,7 +125,7 @@
 	// Make sure we unregister signal handlers and reset animation
 	stop_leaning()
 	// -1000 aura
-	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the object you were leaning on vanishes from contact with you!</span>")
+	visible_message(span_notice("[src] falls flat on [p_their()] face from losing [p_their()] balance!"), span_warning("You fall suddenly as the object you were leaning on vanishes from contact with you!"))
 	Knockdown(3 SECONDS)
 
 /mob/living/proc/airlock_opened(datum/source)
@@ -142,5 +142,5 @@
 /mob/living/proc/fall(location)
 	stop_leaning() // Make sure we unregister signal handlers and reset animation
 	forceMove(location)
-	visible_message("<span class='notice'>[src] falls flat on [p_their()] face from losing [p_their()] balance!</span>", "<span class='warning'>You fall suddenly as the airlock you were leaning on opens!</span>")
+	visible_message(span_notice("[src] falls flat on [p_their()] face from losing [p_their()] balance!"), span_warning("You fall suddenly as the airlock you were leaning on opens!"))
 	Knockdown(3 SECONDS) //boowomp
