@@ -33,15 +33,15 @@
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
-			if(shadow_sect_dependency <= 2)
+			if(shadow_sect_dependency >= 2)
 				H.alpha = 255
 				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect) && shadow_sect_dependency == 3)
 					H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			if(shadow_sect_dependency <= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
+			if(shadow_sect_dependency >= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
 				H.nutrition += 2
 			H.heal_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
-			if(shadow_sect_dependency <= 2)
+			if(shadow_sect_dependency >= 2)
 				H.alpha = 125
 				if(shadow_sect_dependency == 3)
 					H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
@@ -74,7 +74,7 @@
 /datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		if(rand(0,2) == 0 && H.dna.species.id != "nightmare")
+		if(rand(0,2) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
 			var/light_amount = T.get_lumcount()
 			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
