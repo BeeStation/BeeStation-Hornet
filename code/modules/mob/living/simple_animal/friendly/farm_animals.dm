@@ -20,7 +20,7 @@
 	response_disarm_simple = "gently push aside"
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	attack_same = 1
 	attack_verb_continuous = "kicks"
@@ -51,7 +51,7 @@
 		if(enemies.len && prob(10))
 			clear_enemies()
 			LoseTarget()
-			src.visible_message("<span class='notice'>[src] calms down.</span>")
+			src.visible_message(span_notice("[src] calms down."))
 	if(stat != CONSCIOUS)
 		return
 
@@ -67,7 +67,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	src.visible_message("<span class='danger'>[src] gets an evil-looking gleam in [p_their()] eye.</span>")
+	src.visible_message(span_danger("[src] gets an evil-looking gleam in [p_their()] eye."))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	. = ..()
@@ -95,9 +95,13 @@
 		var/mob/living/carbon/human/H = target
 		if(isdiona(H))
 			var/obj/item/bodypart/NB = pick(H.bodyparts)
-			H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", \
-									"<span class='userdanger'>[src] takes a big chomp out of your [NB]!</span>")
+			H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), \
+									span_userdanger("[src] takes a big chomp out of your [NB]!"))
 			NB.dismember()
+/mob/living/simple_animal/hostile/retaliate/goat/rabid
+	name = "Rabid Maintenance Pete"
+	faction = list(FACTION_HOSTILE)
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -140,9 +144,9 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message("<span class='warning'>[M] tips over [src].</span>",
-			"<span class='notice'>You tip over [src].</span>")
-		to_chat(src, "<span class='userdanger'>You are tipped over by [M]!</span>")
+		M.visible_message(span_warning("[M] tips over [src]."),
+			span_notice("You tip over [src]."))
+		to_chat(src, span_userdanger("You are tipped over by [M]!"))
 		Paralyze(60, ignore_canstun = TRUE)
 		icon_state = icon_dead
 		addtimer(CALLBACK(src, PROC_REF(tip_back), M), rand(20,50))
@@ -164,8 +168,8 @@
 		if(4)
 			external = "[src] seems resigned to its fate."
 			internal = "You resign yourself to your fate."
-	visible_message("<span class='notice'>[external]</span>",
-		"<span class='revennotice'>[internal]</span>")
+	visible_message(span_notice("[external]"),
+		span_revennotice("[internal]"))
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"
@@ -314,7 +318,7 @@
 			qdel(O)
 			eggsleft += rand(1, 4)
 		else
-			to_chat(user, "<span class='warning'>[name] doesn't seem hungry!</span>")
+			to_chat(user, span_warning("[name] doesn't seem hungry!"))
 	else
 		..()
 

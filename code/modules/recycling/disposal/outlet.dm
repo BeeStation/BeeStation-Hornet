@@ -63,9 +63,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposaloutlet)
 
 	add_fingerprint(user)
 	playsound(src, 'sound/items/welder2.ogg', 100, 1)
-	to_chat(user, "<span class='notice'>You start slicing the floorweld off [src]...</span>")
+	to_chat(user, span_notice("You start slicing the floorweld off [src]..."))
 	if(I.use_tool(src, user, 20))
-		to_chat(user, "<span class='notice'>You slice the floorweld off [src].</span>")
+		to_chat(user, span_notice("You slice the floorweld off [src]."))
 		deconstruct()
 	return TRUE
 

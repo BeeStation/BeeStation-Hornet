@@ -52,11 +52,11 @@
 		applied_amount = exercise_amount
 	switch (exercise_amount)
 		if (0.3 to 0.5)
-			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seems exceptionally strong!</span>"
+			examine_text = span_warning("[owner.p_they(TRUE)] seems exceptionally strong!")
 		if (0.1 to 0.3)
-			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seems very strong!</span>"
+			examine_text = span_warning("[owner.p_they(TRUE)] seems very strong!")
 		else
-			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seems strong!</span>"
+			examine_text = span_warning("[owner.p_they(TRUE)] seems strong!")
 
 /datum/status_effect/exercised/update_icon()
 	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")

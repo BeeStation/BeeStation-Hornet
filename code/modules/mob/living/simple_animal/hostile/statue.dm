@@ -30,7 +30,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("statue")
+	faction = list(FACTION_STATUE)
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
@@ -79,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 /mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
 	if(can_be_seen(NewLoc))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
 	return ..()
 
@@ -97,7 +97,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 /mob/living/simple_animal/hostile/statue/AttackingTarget()
 	if(can_be_seen(get_turf(loc)))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot attack, there are eyes on you!"))
 		return FALSE
 	else
 		return ..()
@@ -186,7 +186,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = "<span class='notice'>You glare your eyes.</span>"
+	message = span_notice("You glare your eyes.")
 	charge_max = 600
 	clothes_req = 0
 	range = 10
@@ -206,7 +206,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	charge_max = 10
 	clothes_req = 0
 
-	message = "<span class='notice'>You toggle your night vision!</span>"
+	message = span_notice("You toggle your night vision!")
 	range = -1
 	include_user = 1
 
@@ -228,4 +228,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 		target.update_sight()
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
-	faction -= "neutral"
+	faction -= FACTION_NEUTRAL
