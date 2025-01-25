@@ -94,8 +94,8 @@ type ModuleConfig = {
   values: [];
 };
 
-export const MODsuit = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+export const MODsuit = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const { ui_theme } = data;
   const { interface_break } = data.suit_status;
   return (
@@ -107,8 +107,8 @@ export const MODsuit = (props, context) => {
   );
 };
 
-export const MODsuitContent = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+export const MODsuitContent = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const { interface_break } = data.suit_status;
   return (
     <Box>
@@ -138,9 +138,9 @@ export const MODsuitContent = (props, context) => {
   );
 };
 
-const ConfigureNumberEntry = (props, context) => {
+const ConfigureNumberEntry = (props) => {
   const { name, value, module_ref } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <NumberInput
       value={value}
@@ -159,9 +159,9 @@ const ConfigureNumberEntry = (props, context) => {
   );
 };
 
-const ConfigureBoolEntry = (props, context) => {
+const ConfigureBoolEntry = (props) => {
   const { name, value, module_ref } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <Button.Checkbox
       checked={value}
@@ -176,9 +176,9 @@ const ConfigureBoolEntry = (props, context) => {
   );
 };
 
-const ConfigureColorEntry = (props, context) => {
+const ConfigureColorEntry = (props) => {
   const { name, value, module_ref } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <>
       <Button
@@ -195,9 +195,9 @@ const ConfigureColorEntry = (props, context) => {
   );
 };
 
-const ConfigureListEntry = (props, context) => {
+const ConfigureListEntry = (props) => {
   const { name, value, values, module_ref } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <Dropdown
       displayText={value}
@@ -213,7 +213,7 @@ const ConfigureListEntry = (props, context) => {
   );
 };
 
-const ConfigureDataEntry = (props, context) => {
+const ConfigureDataEntry = (props) => {
   const { name, display_name, type, value, values, module_ref } = props;
   const configureEntryTypes = {
     number: <ConfigureNumberEntry {...props} />,
@@ -233,8 +233,8 @@ const LockedInterface = () => (
   </Section>
 );
 
-const LockedModule = (props, context) => {
-  const { act, data } = useBackend(context);
+const LockedModule = (props) => {
+  const { act, data } = useBackend();
   return (
     <Dimmer>
       <Stack>
@@ -246,7 +246,7 @@ const LockedModule = (props, context) => {
   );
 };
 
-const ConfigureScreen = (props, context) => {
+const ConfigureScreen = (props) => {
   const { configuration_data, module_ref, module_name } = props;
   const configuration_keys = Object.keys(configuration_data);
   return (
@@ -295,8 +295,8 @@ const radiationLevels = (param) => {
   }
 };
 
-const SuitStatusSection = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+const SuitStatusSection = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const {
     core_name,
     cell_charge_current,
@@ -375,8 +375,8 @@ const SuitStatusSection = (props, context) => {
   );
 };
 
-const HardwareSection = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+const HardwareSection = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const { control } = data;
   const { ai_name, core_name } = data.suit_status;
   return (
@@ -391,8 +391,8 @@ const HardwareSection = (props, context) => {
   );
 };
 
-const ModParts = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+const ModParts = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const { parts } = data;
   return (
     <>
@@ -407,8 +407,8 @@ const ModParts = (props, context) => {
   );
 };
 
-const UserStatusSection = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+const UserStatusSection = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const { active } = data.suit_status;
   const { user_name, user_assignment } = data.user_status;
   const {
@@ -560,11 +560,11 @@ const UserStatusSection = (props, context) => {
   );
 };
 
-const ModuleSection = (props, context) => {
-  const { act, data } = useBackend<MODsuitData>(context);
+const ModuleSection = (props) => {
+  const { act, data } = useBackend<MODsuitData>();
   const { complexity_max, module_info } = data;
   const { complexity } = data.suit_status;
-  const [configureState, setConfigureState] = useLocalState(context, 'module_configuration', '');
+  const [configureState, setConfigureState] = useLocalState('module_configuration', '');
   return (
     <Section title="Modules" fill buttons={`${complexity} of ${complexity_max} complexity used`}>
       {!module_info.length ? (
