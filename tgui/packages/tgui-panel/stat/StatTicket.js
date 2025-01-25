@@ -1,11 +1,11 @@
-import { useSelector } from 'common/redux';
+import { useSelector } from 'tgui/backend';
 import { decodeHtmlEntities } from 'common/string';
 import { Box, Section } from 'tgui/components';
 import { selectStatPanel } from './selectors';
 import { Table } from '../../tgui/components';
 
-export const StatTicket = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
+export const StatTicket = (props) => {
+  const stat = useSelector(selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
     return <Box color="red">Passed stat panel data was null, contact coderperson.</Box>;
@@ -19,8 +19,8 @@ export const StatTicket = (props, context) => {
   );
 };
 
-export const StatTicketChat = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
+export const StatTicketChat = (props) => {
+  const stat = useSelector(selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData.messages) {
     return <Box>No data.</Box>;
