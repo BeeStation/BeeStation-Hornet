@@ -1,8 +1,0 @@
-author: rkz, Haukeschuemann, optimumtact, cobby, spookydonut, TemporalOroboros
-delete-after: true
-changes:
-  - refactor: refactors chemical exposure code to support atoms
-  - bugfix: aheals reset addiction/sanity
-  - bugfix: fixes null in addiction list
-  - bugfix: fixes rounding in remove_any
-  - code_imp: autodocs holder.dm
