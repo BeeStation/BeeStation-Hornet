@@ -1,5 +1,0 @@
-author: XeonMations, Timberpoes
-delete-after: true
-changes:
-  - rscadd: Crew can now request the spare safe codes via a communications console,
-      provided there is no acting captain
