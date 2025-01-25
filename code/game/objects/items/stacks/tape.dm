@@ -29,7 +29,8 @@
 		use(1)
 		if(istype(I, /obj/item/clothing/gloves/fingerless))
 			var/obj/item/clothing/gloves/tackler/offbrand/O = new /obj/item/clothing/gloves/tackler/offbrand
-			to_chat(user, "<span class='notice'>You turn [I] into [O] with [src].</span>")
+			to_chat(user, span_notice("You turn [I] into [O] with [src]."))
+			use(1)
 			QDEL_NULL(I)
 			user.put_in_hands(O)
 			return
@@ -37,6 +38,7 @@
 		I.embedding = conferred_embed
 		I.updateEmbedding()
 		to_chat(user, span_notice("You finish wrapping [I] with [src]."))
+		use(1)
 		I.name = "[prefix] [I.name]"
 
 		if(istype(I, /obj/item/grenade))
