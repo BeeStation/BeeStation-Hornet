@@ -211,7 +211,7 @@
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
 			S.RemoveComponent()
-			visible_message("<span class='notice'>[dropping] climbs out of the pool.</span>")
+			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else
 		. = ..()
@@ -224,10 +224,10 @@
 		return FALSE
 	. = ..()
 	if(user != dropping)
-		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-			"<span class='notice'>You start to lower [dropping] down into [src].</span>")
+		dropping.visible_message(span_notice("[user] starts to lower [dropping] down into [src]."), \
+			span_notice("You start to lower [dropping] down into [src]."))
 	else
-		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
+		to_chat(user, span_notice("You start climbing down into [src]..."))
 	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
@@ -235,7 +235,7 @@
 /turf/open/floor/plating/beach/water/proc/splash(mob/user)
 	user.forceMove(src)
 	playsound(src, 'sound/effects/splosh.ogg', 100, 1) //Credit to hippiestation for this sound file!
-	user.visible_message("<span class='boldwarning'>SPLASH!</span>")
+	user.visible_message(span_boldwarning("SPLASH!"))
 	var/zap = 0
 	if(issilicon(user)) //Do not throw brick in a pool. Brick begs.
 		zap = 1 //Sorry borgs! Swimming will come at a cost.
@@ -256,7 +256,7 @@
 		user.emp_act(zap)
 		user.emote("scream") //Chad coders use M.say("*scream")
 		do_sparks(zap, TRUE, user)
-		to_chat(user, "<span class='userdanger'>WARNING: WATER DAMAGE DETECTED!</span>")
+		to_chat(user, span_userdanger("WARNING: WATER DAMAGE DETECTED!"))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "robotpool", /datum/mood_event/robotpool)
 	else
 		if(!check_clothes(user))
@@ -354,6 +354,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
+/turf/open/floor/plating/ice/smooth/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+
 /turf/open/floor/plating/ice/smooth/red
 	icon = 'icons/turf/floors/red_ice.dmi'
 	icon_state = "red_ice-0"
@@ -397,6 +400,9 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_SNOWED)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
+
+/turf/open/floor/plating/snowed/smoothed/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
 
 /turf/open/floor/plating/snowed/colder
 	initial_temperature = 140

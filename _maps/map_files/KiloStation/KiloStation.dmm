@@ -6506,7 +6506,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/crew_quarters/locker)
 "boZ" = (
@@ -16334,6 +16334,11 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"duw" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "duy" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -22245,6 +22250,7 @@
 	pixel_x = 27;
 	pixel_y = -4
 	},
+/obj/item/rollerbed,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "fjZ" = (
@@ -40571,6 +40577,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"lgU" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "lhi" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "1;4"
@@ -57031,6 +57041,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/machinery/iv_drip,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "qtJ" = (
@@ -66328,11 +66339,11 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "twq" = (
@@ -79012,13 +79023,11 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 26
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/computer/crew,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "xoe" = (
@@ -93731,7 +93740,7 @@ cnm
 cnm
 cnm
 ajd
-aeU
+lgU
 aeU
 aeU
 aeU
@@ -120373,7 +120382,7 @@ aaa
 aaa
 aaa
 aeU
-aUz
+duw
 aeu
 aeu
 alB

@@ -118,6 +118,7 @@
 	tab_data[REF(src)] = list(
 		text="[name]",
 		tag = STAT_PANEL_TAG(src),
+		image = FAST_REF(src),
 		type=STAT_ATOM
 	)
 	var/max_item_sanity = MAX_ITEMS_TO_READ
@@ -150,11 +151,13 @@
 			var/image/override_image = overrides[A]
 			atom_name = override_image.name
 			image_overrides[A] = override_image
-		var/list/item_group = atom_count["[atom_type][atom_name]"]
+		// use the max item sanity as an extention if the unique flag is set, since its unique
+		var/extension = (A.flags_1 & STAT_UNIQUE_1) && max_item_sanity
+		var/list/item_group = atom_count["[atom_type][atom_name][extension]"]
 		if (item_group)
 			item_group += A
 		else
-			atom_count["[A.type][A.name]"] = list(A)
+			atom_count["[A.type][A.name][extension]"] = list(A)
 			// To many icon types per tile
 			if (icon_count_sanity-- <= 0)
 				break
@@ -168,20 +171,26 @@
 			for (var/obj/item/stack/stack_item as() in atom_items)
 				item_count += stack_item.amount
 		var/atom_name = first_atom.name
+		var/image_icon
 		if (image_overrides[first_atom])
 			var/image/override_image = image_overrides[first_atom]
 			atom_name = override_image.name
+			image_icon = FAST_REF(override_image)
+		else
+			image_icon = FAST_REF(first_atom)
 		tab_data[REF(first_atom)] = list(
 			text = "[atom_name][item_count > 1 ? " (x[item_count])" : ""]",
 			tag = STAT_PANEL_TAG(first_atom),
+			image = image_icon,
 			type = STAT_ATOM
 		)
 	// Display self
 	tab_data[REF(client.mob)] = list(
-			text = client.mob.name,
-			tag = "You",
-			type = STAT_ATOM
-		)
+		text = client.mob.name,
+		tag = "You",
+		image = FAST_REF(client.mob),
+		type = STAT_ATOM
+	)
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
@@ -411,7 +420,7 @@
 				message_admins("[usr.client] attempted to interact with the MC without sufficient perms.")
 				return
 			if(!target)
-				to_chat(usr, "<span class='warning'>Could not locate target, report this!</span>")
+				to_chat(usr, span_warning("Could not locate target, report this!"))
 				log_runtime("[usr] attempted to interact with a statClickDebug, but was unsuccessful due to the target not existing.")
 				return
 			usr.client.debug_variables(target)
@@ -445,9 +454,9 @@
 					if(client.current_adminhelp_ticket)
 						client.current_adminhelp_ticket.MessageNoRecipient(message, sanitized = TRUE)
 					else
-						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
+						to_chat(src, span_warning("Your issue has already been resolved!"))
 				else
-					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
+					to_chat(src, span_warning("You are sending messages too fast!"))
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()

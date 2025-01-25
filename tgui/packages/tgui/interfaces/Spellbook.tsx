@@ -123,8 +123,8 @@ const BUYWORD2ICON = {
   Cast: 'meteor',
 };
 
-const EnscribedName = (props, context) => {
-  const { data } = useBackend<Data>(context);
+const EnscribedName = (props) => {
+  const { data } = useBackend<Data>();
   const { owner } = data;
   return (
     <>
@@ -138,8 +138,8 @@ const EnscribedName = (props, context) => {
 
 const lineHeightToc = '34.6px';
 
-const TableOfContents = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tab-index', 1);
+const TableOfContents = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
   return (
     <Box textAlign="center">
       <Button lineHeight={lineHeightToc} fluid icon="pen" disabled content="Name Enscription" />
@@ -178,8 +178,8 @@ const TableOfContents = (props, context) => {
   );
 };
 
-const LockedPage = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LockedPage = (props) => {
+  const { act, data } = useBackend<Data>();
   const { owner } = data;
   return (
     <Dimmer>
@@ -195,7 +195,7 @@ const LockedPage = (props, context) => {
   );
 };
 
-const PointLocked = (props, context) => {
+const PointLocked = (props) => {
   return (
     <Dimmer>
       <Stack vertical>
@@ -219,8 +219,8 @@ type WizardLoadout = {
   author: string;
 };
 
-const SingleLoadout = (props: WizardLoadout, context) => {
-  const { act } = useBackend<WizardLoadout>(context);
+const SingleLoadout = (props: WizardLoadout) => {
+  const { act } = useBackend<WizardLoadout>();
   const { author, name, blurb, icon, loadoutId, loadoutColor } = props;
   return (
     <Stack.Item grow>
@@ -249,8 +249,8 @@ const SingleLoadout = (props: WizardLoadout, context) => {
 
 const LoadoutWidth = 19.17;
 
-const Loadouts = (props, context) => {
-  const { data } = useBackend<Data>(context);
+const Loadouts = (props) => {
+  const { data } = useBackend<Data>();
   const { points } = data;
   // Future todo : Make these datums on the DM side
   return (
@@ -321,8 +321,8 @@ const Loadouts = (props, context) => {
 
 const lineHeightRandomize = 6;
 
-const Randomize = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const Randomize = (props) => {
+  const { act, data } = useBackend<Data>();
   const { points } = data;
   return (
     <Stack fill vertical>
@@ -359,9 +359,9 @@ const Randomize = (props, context) => {
   );
 };
 
-const SearchSpells = (props, context) => {
-  const { data } = useBackend<Data>(context);
-  const [spellSearch] = useLocalState(context, 'spell-search', '');
+const SearchSpells = (props) => {
+  const { data } = useBackend<Data>();
+  const [spellSearch] = useLocalState('spell-search', '');
   const { entries } = data;
 
   const filterEntryList = (entries: SpellEntry[]) => {
@@ -404,13 +404,8 @@ const SearchSpells = (props, context) => {
   return <SpellTabDisplay TabSpells={filteredEntries} />;
 };
 
-const SpellTabDisplay = (
-  props: {
-    TabSpells: SpellEntry[];
-  },
-  context
-) => {
-  const { act, data } = useBackend<Data>(context);
+const SpellTabDisplay = (props: { TabSpells: SpellEntry[] }) => {
+  const { act, data } = useBackend<Data>();
   const { points } = data;
   const { TabSpells } = props;
 
@@ -499,8 +494,8 @@ const SpellTabDisplay = (
   );
 };
 
-const CategoryDisplay = (props: { ActiveCat: TabType }, context) => {
-  const { data } = useBackend<Data>(context);
+const CategoryDisplay = (props: { ActiveCat: TabType }) => {
+  const { data } = useBackend<Data>();
   const { entries } = data;
   const { ActiveCat } = props;
 
@@ -526,11 +521,11 @@ const CategoryDisplay = (props: { ActiveCat: TabType }, context) => {
 const widthSection = '486px';
 const heightSection = '546px';
 
-export const Spellbook = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const Spellbook = (props) => {
+  const { data } = useBackend<Data>();
   const { points } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tab-index', 1);
-  const [spellSearch, setSpellSearch] = useLocalState(context, 'spell-search', '');
+  const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
+  const [spellSearch, setSpellSearch] = useLocalState('spell-search', '');
   const ActiveCat = TAB2NAME[tabIndex - 1];
   const ActiveNextCat = TAB2NAME[tabIndex];
 

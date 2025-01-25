@@ -10,10 +10,10 @@
 
 /obj/item/suspiciousphone/attack_self(mob/user)
 	if(!ishuman(user))
-		to_chat(user, "<span class='warning'>This device is too advanced for you!</span>")
+		to_chat(user, span_warning("This device is too advanced for you!"))
 		return
 	if(activated)
-		to_chat(user, "<span class='warning'>You already activated Protocol CRAB-17.</span>")
+		to_chat(user, span_warning("You already activated Protocol CRAB-17."))
 		return FALSE
 	if(alert(user, "Are you sure you want to crash this market with no survivors?", "Protocol CRAB-17", "Yes", "No") == "Yes")
 		if(activated || QDELETED(src)) //Prevents fuckers from cheesing alert
@@ -34,7 +34,7 @@
 	icon = 'icons/obj/money_machine.dmi'
 	icon_state = "bogdanoff"
 	layer = TABLE_LAYER //So that the crate inside doesn't appear underneath
-	armor = list(MELEE = 30,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_checkoutmachine
 	density = TRUE
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
@@ -53,6 +53,16 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
+
+/datum/armor/structure_checkoutmachine
+	melee = 30
+	bullet = 50
+	laser = 50
+	energy = 100
+	bomb = 100
+	fire = 100
+	acid = 80
+
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
 	bogdanoff = user
 	add_overlay("flaps")
@@ -69,21 +79,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
 /obj/structure/checkoutmachine/examine(mob/living/user)
 	. = ..()
-	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [atom_integrity]</b>.</span>"
+	. += span_info("It's integrated integrity meter reads: <b>HEALTH: [atom_integrity]</b>.")
 
 /obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/card = W
 		if(!card.registered_account)
-			to_chat(user, "<span class='warning'>This card does not have a registered account!</span>")
+			to_chat(user, span_warning("This card does not have a registered account!"))
 			return
 		if(protected_accounts["[card.registered_account.account_id]"])
-			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
+			to_chat(user, span_warning("It appears that your funds are safe from draining!"))
 			return
 		if(do_after(user, 40, target = src))
 			if(protected_accounts["[card.registered_account.account_id]"])
 				return
-			to_chat(user, "<span class='warning'>You quickly cash out your funds to a more secure banking location. Funds are safu.</span>") // This is a reference and not a typo
+			to_chat(user, span_warning("You quickly cash out your funds to a more secure banking location. Funds are safu.")) // This is a reference and not a typo
 			protected_accounts["[card.registered_account.account_id]"] = TRUE
 			card.registered_account.withdrawDelay = 0
 			next_health_to_teleport -= RUN_AWAY_DELAYED_HP // swipe your card, then it will likely less run away
@@ -214,7 +224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		crab_account.bank_card_talk("You have stolen [total_credits_stolen] credits, and the machine is located at [get_area(src)].")
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
-		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
+		to_chat(M, span_deadsay("[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]"))
 
 	if(atom_integrity>25)
 		next_health_to_teleport -= round(max_integrity/60)
@@ -238,8 +248,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		if(targetturf)
 			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
 			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))
-				message_turf.visible_message("<span class='danger'>[name] violently whirs before disappearing with a flash of light!</span>")
-				visible_message("<span class='danger'>[name] suddenly appears with a flash of light!</span>")
+				message_turf.visible_message(span_danger("[name] violently whirs before disappearing with a flash of light!"))
+				visible_message(span_danger("[name] suddenly appears with a flash of light!"))
 
 /obj/effect/dumpeetFall //Falling pod
 	name = ""
@@ -267,7 +277,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 	bogdanoff = user
 	addtimer(CALLBACK(src, PROC_REF(startLaunch)), 100)
 	sound_to_playing_players('sound/items/dump_it.ogg', 20)
-	deadchat_broadcast("<span class='deadsay'>Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!</span>", turf_target = get_turf(src))
+	deadchat_broadcast(span_deadsay("Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!"), turf_target = get_turf(src))
 
 /obj/effect/dumpeetTarget/proc/startLaunch()
 	DF = new /obj/effect/dumpeetFall(drop_location())

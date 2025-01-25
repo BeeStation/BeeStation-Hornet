@@ -32,10 +32,8 @@
 	var/custom_price
 	///Does the item have a custom premium price override
 	var/custom_premium_price
-	/**  GAGs recolorability
 	///Whether the product can be recolored by the GAGS system
-	var/colorable
-	**/
+	//var/colorable
 	///List of items that have been returned to the vending machine.
 	var/list/returned_products
 	/// The category the product was in, if any.
@@ -59,7 +57,7 @@
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 0.33
-	armor = list(MELEE = 20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_vending
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
@@ -179,6 +177,12 @@
 
 	///Name of lighting mask for the vending machine
 	var/light_mask
+
+
+/datum/armor/machinery_vending
+	melee = 20
+	fire = 50
+	acid = 70
 
 /obj/item/circuitboard
 	///determines if the circuit board originated from a vendor off station or not.
@@ -342,9 +346,7 @@
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		/* GAGS recolorability
 		//R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
-		*/
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -519,7 +521,7 @@
 		if(panel_open)
 			add_overlay("[initial(icon_state)]-panel")
 	else
-		to_chat(user, "<span class='warning'>You must first secure [src].</span>")
+		to_chat(user, span_warning("You must first secure [src]."))
 	return TRUE
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
@@ -529,21 +531,21 @@
 
 	if(refill_canister && istype(I, refill_canister))
 		if (!panel_open)
-			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
+			to_chat(user, span_notice("You should probably unscrew the service panel first."))
 		else if (machine_stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+			to_chat(user, span_notice("[src] does not respond."))
 		else
 			//if the panel is open we attempt to refill the machine
 			var/obj/item/vending_refill/canister = I
 			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='notice'>[canister] is empty!</span>")
+				to_chat(user, span_notice("[canister] is empty!"))
 			else
 				// instantiate canister if needed
 				var/transferred = restock(canister)
 				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+					to_chat(user, span_notice("You loaded [transferred] items in [src]."))
 				else
-					to_chat(user, "<span class='notice'>There's nothing to restock!</span>")
+					to_chat(user, span_notice("There's nothing to restock!"))
 			return
 	if(compartmentLoadAccessCheck(user) && user.a_intent != INTENT_HARM)
 		if(canLoadItem(I))
@@ -556,7 +558,7 @@
 			var/denied_items = 0
 			for(var/obj/item/the_item in T.contents)
 				if(contents.len >= MAX_VENDING_INPUT_AMOUNT) // no more than 30 item can fit inside, legacy from snack vending although not sure why it exists
-					to_chat(user, "<span class='warning'>[src]'s compartment is full.</span>")
+					to_chat(user, span_warning("[src]'s compartment is full."))
 					break
 				if(canLoadItem(the_item) && loadingAttempt(the_item,user))
 					SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, the_item, src, TRUE)
@@ -564,9 +566,9 @@
 				else
 					denied_items++
 			if(denied_items)
-				to_chat(user, "<span class='warning'>[src] refuses some items!</span>")
+				to_chat(user, span_warning("[src] refuses some items!"))
 			if(loaded)
-				to_chat(user, "<span class='notice'>You insert [loaded] dishes into [src]'s compartment.</span>")
+				to_chat(user, span_notice("You insert [loaded] dishes into [src]'s compartment."))
 				ui_update()
 	else
 		. = ..()
@@ -578,15 +580,15 @@
 					freebie(user, 2)
 				if(16 to 25)
 					freebie(user, 1)
-				if(76 to 90)
+				if(26 to 40)
 					tilt(user)
-				if(91 to 100)
+				if(41 to 50)
 					tilt(user, crit=TRUE)
-				else
-					SWITCH_EMPTY_STATEMENT
+				if(51 to 100)
+					pass()
 
 /obj/machinery/vending/proc/freebie(mob/fatty, freebies)
-	visible_message("<span class='notice'>[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!</span>")
+	visible_message(span_notice("[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!"))
 
 	for(var/i in 1 to freebies)
 		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
@@ -609,7 +611,7 @@
 /obj/machinery/vending/proc/tilt(mob/fatty, crit=FALSE)
 	if(QDELETED(src))
 		return
-	visible_message("<span class='danger'>[src] tips over!</span>")
+	visible_message(span_danger("[src] tips over!"))
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
 
@@ -628,8 +630,8 @@
 				var/crit_rebate = 0 // lessen the normal damage we deal for some of the crits
 
 				if(crit_case != 5) // the head asplode case has its own description
-					C.visible_message("<span class='danger'>[C] is crushed by [src]!</span>", \
-						"<span class='userdanger'>You are crushed by [src]!</span>")
+					C.visible_message(span_danger("[C] is crushed by [src]!"), \
+						span_userdanger("You are crushed by [src]!"))
 
 				switch(crit_case) // only carbons can have the fun crits
 					if(1) // shatter their legs and bleed 'em
@@ -642,13 +644,13 @@
 						if(r)
 							r.receive_damage(brute=200, updating_health=TRUE)
 						if(l || r)
-							C.visible_message("<span class='danger'>[C]'s legs shatter with a sickening crunch!</span>", \
-								"<span class='userdanger'>Your legs shatter with a sickening crunch!</span>")
+							C.visible_message(span_danger("[C]'s legs shatter with a sickening crunch!"), \
+								span_userdanger("Your legs shatter with a sickening crunch!"))
 					if(2) // pin them beneath the machine until someone untilts it
 						forceMove(get_turf(C))
 						buckle_mob(C, force=TRUE)
-						C.visible_message("<span class='danger'>[C] is pinned underneath [src]!</span>", \
-							"<span class='userdanger'>You are pinned down by [src]!</span>")
+						C.visible_message(span_danger("[C] is pinned underneath [src]!"), \
+							span_userdanger("You are pinned down by [src]!"))
 					if(3) // glass candy
 						crit_rebate = 50
 						for(var/i in 1 to num_shards)
@@ -660,13 +662,13 @@
 							shard.updateEmbedding()
 					if(4) // paralyze this binch
 						// the new paraplegic gets like 4 lines of losing their legs so skip them
-						visible_message("<span class='danger'>[C]'s spinal cord is obliterated with a sickening crunch!</span>")
+						visible_message(span_danger("[C]'s spinal cord is obliterated with a sickening crunch!"))
 						C.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 					if(5) // skull squish!
 						var/obj/item/bodypart/head/O = C.get_bodypart(BODY_ZONE_HEAD)
 						if(O)
-							C.visible_message("<span class='danger'>[O] explodes in a shower of gore beneath [src]!</span>", \
-								"<span class='userdanger'>Oh f-</span>")
+							C.visible_message(span_danger("[O] explodes in a shower of gore beneath [src]!"), \
+								span_userdanger("Oh f-"))
 							O.dismember()
 							O.drop_organs()
 							qdel(O)
@@ -675,8 +677,8 @@
 				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
 				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
-				L.visible_message("<span class='danger'>[L] is crushed by [src]!</span>", \
-				"<span class='userdanger'>You are crushed by [src]!</span>")
+				L.visible_message(span_danger("[L] is crushed by [src]!"), \
+				span_userdanger("You are crushed by [src]!"))
 				L.apply_damage(squish_damage, forced=TRUE)
 				if(crit_case)
 					L.apply_damage(squish_damage, forced=TRUE)
@@ -694,8 +696,8 @@
 		throw_at(get_turf(fatty), 1, 1, spin=FALSE)
 
 /obj/machinery/vending/proc/untilt(mob/user)
-	user.visible_message("<span class='notice'>[user] rights [src].</span>", \
-		"<span class='notice'>You right [src].</span>")
+	user.visible_message(span_notice("[user] rights [src]."), \
+		span_notice("You right [src]."))
 
 	unbuckle_all_mobs(TRUE)
 
@@ -710,7 +712,7 @@
 	. = TRUE
 	if(!user.transferItemToLoc(I, src))
 		return FALSE
-	to_chat(user, "<span class='notice'>You insert [I] into [src]'s input compartment.</span>")
+	to_chat(user, span_notice("You insert [I] into [src]'s input compartment."))
 
 	for(var/datum/vending_product/product_datum in product_records + coin_records + hidden_records)
 		if(ispath(I.type, product_datum.product_path))
@@ -752,7 +754,7 @@
 		if(do_you_have_access)
 			return TRUE
 		else
-			to_chat(user, "<span class='warning'>[src]'s input compartment blinks red: Access denied.</span>")
+			to_chat(user, span_warning("[src]'s input compartment blinks red: Access denied."))
 			return FALSE
 
 /obj/machinery/vending/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
@@ -773,7 +775,7 @@
 	else
 		display_parts(user)
 	if(moved)
-		to_chat(user, "<span class='notice'>[moved] items restocked.</span>")
+		to_chat(user, span_notice("[moved] items restocked."))
 		W.play_rped_sound()
 	return TRUE
 
@@ -783,7 +785,7 @@
 
 /obj/machinery/vending/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You short out the product lock on [src].</span>")
+	to_chat(user, span_notice("You short out the product lock on [src]."))
 
 /obj/machinery/vending/_try_interact(mob/user)
 	if(seconds_electrified && !(machine_stat & NOPOWER))
@@ -791,7 +793,7 @@
 			return
 
 	if(tilted && !user.buckled && !isAI(user))
-		to_chat(user, "<span class='notice'>You begin righting [src].</span>")
+		to_chat(user, span_notice("You begin righting [src]."))
 		if(do_after(user, 50, target=src))
 			untilt(user)
 		return
@@ -901,15 +903,15 @@
 	switch(action)
 		if("vend")
 			. = vend(params)
-		//if("select_colors")
-		//	. = select_colors(params)
+		if("select_colors")
+			. = select_colors(params)
 
 /obj/machinery/vending/proc/can_vend(user, silent=FALSE)
 	. = FALSE
 	if(!vend_ready)
 		return
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+		to_chat(user, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 		return
 	return TRUE
 
@@ -1039,9 +1041,9 @@
 		vended_item.set_greyscale(colors=greyscale_colors)
 	R.amount--
 	if(usr.CanReach(src) && usr.put_in_hands(vended_item))
-		to_chat(usr, "<span class='notice'>You take [R.name] out of the slot.</span>")
+		to_chat(usr, span_notice("You take [R.name] out of the slot."))
 	else
-		to_chat(usr, "<span class='warning'>[capitalize(R.name)] falls onto the floor!</span>")
+		to_chat(usr, span_warning("[capitalize(R.name)] falls onto the floor!"))
 	SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 	vend_ready = TRUE
 
@@ -1118,7 +1120,7 @@
 	pre_throw(throw_item)
 
 	throw_item.throw_at(target, 16, 3)
-	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
+	visible_message(span_danger("[src] launches [throw_item] at [target]!"))
 	ui_update()
 	return TRUE
 /**
@@ -1187,11 +1189,11 @@
 	. = ..()
 	if(private_a)
 		if(private_a.account_job)
-			. += "<span class='notice'>It's owned by [private_a.account_holder], a [private_a.account_job.title].</span>"
+			. += span_notice("It's owned by [private_a.account_holder], a [private_a.account_job.title].")
 		else
-			. += "<span class='notice'>It's owned by [private_a.account_holder]</span>"
+			. += span_notice("It's owned by [private_a.account_holder]")
 	else
-		. += "<span class='notice'>It's not owned by anyone!<span>"
+		. += span_notice("It's not owned by anyone!")
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE
@@ -1273,9 +1275,9 @@
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
 						if (usr.CanReach(src) && usr.put_in_hands(S))
-							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
+							to_chat(usr, span_notice("You take [S.name] out of the slot."))
 						else
-							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
+							to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
@@ -1311,9 +1313,9 @@
 	vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 	bought_item.forceMove(drop_location())
 	if (usr.CanReach(src) && usr.put_in_hands(bought_item))
-		to_chat(usr, "<span class='notice'>You take [bought_item.name] out of the slot.</span>")
+		to_chat(usr, span_notice("You take [bought_item.name] out of the slot."))
 	else
-		to_chat(usr, "<span class='warning'>[capitalize(bought_item.name)] falls onto the floor!</span>")
+		to_chat(usr, span_warning("[capitalize(bought_item.name)] falls onto the floor!"))
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 	loaded_items--
 	use_power(5)
@@ -1376,7 +1378,7 @@
 
 /obj/item/price_tagger/attack_self(mob/user)
 	price = max(1, round(input(user,"set price","price") as num|null, 1))
-	to_chat(user, "<span class='notice'> The [src] will now give things a [price] cr tag.</span>")
+	to_chat(user, span_notice(" The [src] will now give things a [price] cr tag."))
 
 /obj/item/price_tagger/afterattack(atom/target, mob/user, proximity)
 	. = ..()
@@ -1389,6 +1391,6 @@
 		if(has_component)
 			for(var/atom/A in I.contents)
 				A.custom_price = price
-			to_chat(user, "<span class='notice'>You set the price of [I] and everything inside of it to [price] cr.</span>")
+			to_chat(user, span_notice("You set the price of [I] and everything inside of it to [price] cr."))
 		else
-			to_chat(user, "<span class='notice'>You set the price of [I] to [price] cr.</span>")
+			to_chat(user, span_notice("You set the price of [I] to [price] cr."))

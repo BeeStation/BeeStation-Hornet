@@ -83,6 +83,8 @@
 	var/html = SStgui.basehtml
 	html = replacetextEx(html, "\[tgui:windowId]", id)
 	html = replacetextEx(html, "\[tgui:strictMode]", strict_mode)
+	html = replacetextEx(html, "\[tgui:byondMajor\]", client.byond_version)
+	html = replacetextEx(html, "\[tgui:byondMinor\]", client.byond_build)
 	// Inject assets
 	var/inline_assets_str = ""
 	for(var/datum/asset/asset in assets)

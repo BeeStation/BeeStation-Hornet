@@ -17382,6 +17382,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/brig)
 "dHD" = (
@@ -19693,13 +19696,13 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "eBh" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/computer/crew{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/brig)
@@ -46642,6 +46645,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"pxq" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "pxz" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -61264,6 +61271,11 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/iron/dark,
 /area/teleporter)
+"viR" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical,
+/turf/open/floor/iron/techmaint,
+/area/security/brig)
 "vjg" = (
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -100028,7 +100040,7 @@ anF
 aiX
 iiK
 iiK
-flQ
+viR
 ikG
 aiX
 ndP
@@ -104142,7 +104154,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+pxq
 ahn
 obt
 ahn
@@ -131715,7 +131727,7 @@ bNG
 bNG
 aaf
 aaf
-aaa
+pxq
 aaa
 aaa
 aaa
