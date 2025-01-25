@@ -35,7 +35,7 @@
 			H.take_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
 			if(shadow_sect_dependency == 3)
 				H.alpha = 255
-				if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 					H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
 			H.heal_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
