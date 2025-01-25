@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { NtosWindow } from '../layouts';
 import { Button, Section, Table, NoticeBox, Box, Flex, Tabs } from '../components';
 
-export const NtosPaycheckManager = (props, context) => {
+export const NtosPaycheckManager = (props) => {
   return (
     <NtosWindow width={400} height={620}>
       <NtosWindow.Content scrollable>
@@ -12,8 +12,8 @@ export const NtosPaycheckManager = (props, context) => {
   );
 };
 
-export const NtosPaycheckManagerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosPaycheckManagerContent = (props) => {
+  const { act, data } = useBackend();
 
   const { authenticated, have_id_slot, target_id, target_id_owner } = data;
 
@@ -39,12 +39,12 @@ export const NtosPaycheckManagerContent = (props, context) => {
   );
 };
 
-export const NtosPaycheckManagerPay = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosPaycheckManagerPay = (props) => {
+  const { act, data } = useBackend();
 
   const { departments, transaction_history } = data;
 
-  const [selectedBudgetCard, setSelectedBudgetCard] = useLocalState(context, 'budget_card', Object.keys(departments)[0]);
+  const [selectedBudgetCard, setSelectedBudgetCard] = useLocalState('budget_card', Object.keys(departments)[0]);
 
   const department = departments[selectedBudgetCard] || [];
   return (
