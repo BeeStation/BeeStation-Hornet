@@ -6975,14 +6975,6 @@
 	},
 /turf/open/floor/engine/cult,
 /area/wizard_station)
-"aBg" = (
-/mob/living/simple_animal/bot/medbot/mysterious{
-	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
-	faction = list("neutral","silicon","creature");
-	name = "Nobody's Perfect"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "aBh" = (
 /obj/machinery/light,
 /turf/open/floor/engine/cult,
@@ -16743,6 +16735,14 @@
 	},
 /turf/open/floor/carpet/red,
 /area/centcom/control)
+"vLr" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
+	faction = list("neutral","silicon","creature");
+	name = "Nobody's Perfect"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
 "vLF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -23261,7 +23261,7 @@ ayD
 aqZ
 aqZ
 aqZ
-aBg
+vLr
 aqE
 aqZ
 aqZ
