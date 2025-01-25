@@ -9024,9 +9024,11 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "ceJ" = (
-/obj/machinery/holopad,
-/turf/open/floor/iron/smooth,
-/area/engine/engineering)
+/obj/machinery/holopad{
+	pixel_x = 16
+	},
+/turf/open/floor/iron/dark,
+/area/science/explab)
 "ceK" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -10427,7 +10429,7 @@
 	},
 /obj/item/plant_analyzer{
 	pixel_x = 8;
-	pixel_y = 0
+	pixel_y = -1
 	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 20
@@ -16326,18 +16328,6 @@
 /obj/machinery/camera/directional/south,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
-"dQE" = (
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "This chicken resprite is temporary until i finish the actual Cardinal bird mob sprites - BarteG";
-	name = "Cardstation - Cardinal Chick"
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 8
-	},
-/area/bridge)
 "dRl" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -71596,6 +71586,10 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"rci" = (
+/obj/machinery/holopad,
+/turf/open/floor/iron/smooth,
+/area/engine/engineering)
 "rcm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -96343,6 +96337,18 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
+"wRY" = (
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This chicken resprite is temporary until i finish the actual Cardinal bird mob sprites - BarteG";
+	name = "Cardstation - Cardinal Chick"
+	},
+/turf/open/floor/iron/smooth_edge{
+	dir = 8
+	},
+/area/bridge)
 "wSm" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/delivery,
@@ -101449,12 +101455,6 @@
 	},
 /turf/open/floor/iron/textured,
 /area/hallway/secondary/exit/departure_lounge)
-"yfO" = (
-/obj/machinery/holopad{
-	pixel_x = 16
-	},
-/turf/open/floor/iron/dark,
-/area/science/explab)
 "ygh" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 6
@@ -116671,7 +116671,7 @@ veH
 tOO
 kjl
 jJG
-dQE
+wRY
 hJi
 jBM
 lEE
@@ -126728,7 +126728,7 @@ gtI
 xSz
 aoD
 qKA
-yfO
+ceJ
 cPG
 qbo
 vgn
@@ -134477,7 +134477,7 @@ dZq
 gsg
 eKw
 rbl
-ceJ
+rci
 dkZ
 tQS
 sbA
