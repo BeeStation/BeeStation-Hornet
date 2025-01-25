@@ -768,7 +768,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	faction_bonus_force = 45
-	nemesis_factions = list("mining", "boss")
+	nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
 	var/transform_cooldown
 	var/swiping = FALSE
 
