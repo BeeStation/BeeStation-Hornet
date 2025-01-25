@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Revenants whispering to people will no longer show an incorrect style
-      in the chat
