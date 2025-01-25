@@ -543,8 +543,20 @@
 
 /// Finds a target tile to spread to. If checks pass it will spread to it and also proc on_spread on target.
 /obj/structure/spacevine/proc/spread()
-	var/direction = pick(GLOB.cardinals)
-	var/turf/stepturf = get_step(src,direction)
+	var/turf/startturf = get_turf(src)
+	var/direction = pick(GLOB.cardinals_multiz)
+	var/turf/stepturf = get_step_multiz(src,direction)
+	if(direction == UP || direction == DOWN)
+		var/ladder = FALSE
+		for(var/obj/structure/ladder/L in startturf.contents)
+			if(!L.up && direction == UP)
+				continue
+			else if(!L.down && direction == DOWN)
+				continue
+			ladder = TRUE
+		if(!stepturf?.zPassIn(src, direction, startturf) && !ladder) //We can't go up, choose another direction
+			direction = pick(GLOB.cardinals)
+			stepturf = get_step(src,direction)
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it
 		for(var/obj/structure/S in stepturf)
 			if(S.density && !istype(S, /obj/structure/alien/resin/flower_bud) && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
@@ -559,7 +571,7 @@
 			if(master)
 				for(var/datum/spacevine_mutation/SM in mutations)
 					SM.on_spread(src, stepturf) //Only do the on_spread proc if it actually spreads.
-					stepturf = get_step(src,direction) //in case turf changes, to make sure no runtimes happen
+					stepturf = get_step_multiz(src,direction) //in case turf changes, to make sure no runtimes happen
 				master.spawn_spacevine_piece(stepturf, src)
 
 /obj/structure/spacevine/ex_act(severity, target)
