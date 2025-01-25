@@ -144,7 +144,7 @@
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
 								span_notice("You splash the contents of [src] onto [target]."))
-			reagents.reaction(target, TOUCH)
+			reagents.expose(target, TOUCH)
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
@@ -348,7 +348,7 @@
 	if (slot == ITEM_SLOT_HEAD)
 		if(reagents.total_volume)
 			to_chat(user, span_userdanger("[src]'s contents spill all over you!"))
-			reagents.reaction(user, TOUCH)
+			reagents.expose(user, TOUCH)
 			reagents.clear_reagents()
 		reagents.flags = NONE
 
