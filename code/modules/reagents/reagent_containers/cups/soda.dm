@@ -103,7 +103,7 @@
 		visible_message(span_danger("[src] spills over, fizzing its contents all over [target]!"))
 	spillable = TRUE
 	reagents.flags |= OPENCONTAINER
-	reagents.reaction(target, TOUCH)
+	reagents.expose(target, TOUCH)
 	reagents.clear_reagents()
 	throwforce = 0
 
