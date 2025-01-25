@@ -32,8 +32,8 @@ type Info = {
   objectives: Objective[];
 };
 
-export const AntagInfoChangeling = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoChangeling = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={720} height={500} theme="neutral">
@@ -71,8 +71,8 @@ TODO: changeling refactor from tg
 </Stack.Item>
 */
 
-const IntroductionSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const IntroductionSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { true_name } = data;
   return (
     <Section fill>
@@ -100,7 +100,7 @@ const IntroductionSection = (_props, context) => {
   );
 };
 
-const AbilitiesSection = (_props, _context) => {
+const AbilitiesSection = (_props) => {
   return (
     <Section title="Abilities">
       <Stack>
@@ -147,10 +147,10 @@ const AbilitiesSection = (_props, _context) => {
 
 /*
 TODO: changeling refactor from tg
-const MemoriesSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const MemoriesSection = (props) => {
+  const { data } = useBackend<Info>();
   const { memories } = data;
-  const [selectedMemory, setSelectedMemory] = useSharedState(context, 'memory', (!!memories && memories[0]) || null);
+  const [selectedMemory, setSelectedMemory] = useSharedState('memory', (!!memories && memories[0]) || null);
   const memoryMap = {};
   for (const index in memories) {
     const memory = memories[index];
@@ -192,8 +192,8 @@ const MemoriesSection = (props, context) => {
 };
 
 
-const VictimPatternsSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const VictimPatternsSection = (props) => {
+  const { data } = useBackend<Info>();
   const { stolen_antag_info } = data;
   return (
     <Section fill scrollable={!!stolen_antag_info} title="Additional Stolen Information">

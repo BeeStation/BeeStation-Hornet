@@ -29,9 +29,9 @@
 		return
 	if(owner.has_matching_summoner(target))
 		return
-	to_chat(owner, "<span class='danger bold'>Your punch has applied heavy gravity to [target]!</span>")
+	to_chat(owner, span_dangerbold("Your punch has applied heavy gravity to [target]!"))
 	add_gravity(target, 2)
-	to_chat(target, "<span class='userdanger'>Everything feels really heavy!</span>")
+	to_chat(target, span_userdanger("Everything feels really heavy!"))
 
 /**
  * Handles undoing gravity whenever the holoparasite is recalled.
@@ -54,9 +54,9 @@
 	if(!istype(target) || !owner.is_manifested() || !in_range(owner, target))
 		return
 	if(isspaceturf(target))
-		to_chat(owner, "<span class='warning'>You cannot add gravity to space!</span>")
+		to_chat(owner, span_warning("You cannot add gravity to space!"))
 		return
-	owner.visible_message("<span class='danger'>[owner.color_name] slams their fist into \the [target]!</span>", "<span class='notice'>You modify the gravity of \the [target].</span>")
+	owner.visible_message(span_danger("[owner.color_name] slams their fist into \the [target]!"), span_notice("You modify the gravity of \the [target]."))
 	owner.do_attack_animation(target)
 	add_gravity(target, 4)
 

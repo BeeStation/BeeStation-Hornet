@@ -2,10 +2,10 @@
 	key = "delete"
 
 /datum/buildmode_mode/delete/show_help(client/c)
-	to_chat(c, "<span class='notice'>***********************************************************\n\
+	to_chat(c, span_notice("***********************************************************\n\
 		Left Mouse Button on anything to delete it. If you break it, you buy it.\n\
 		Right Mouse Button on anything to delete everything of the type. Probably don\'t do this unless you know what you are doing.\n\
-		***********************************************************</span>")
+		***********************************************************"))
 
 /datum/buildmode_mode/delete/handle_click(client/c, params, object)
 	var/list/modifiers = params2list(params)
@@ -46,7 +46,7 @@
 					to_chat(usr, "No instances of this type exist")
 					return
 				log_admin("[key_name(usr)] deleted all instances of type [O_type] ([i] instances deleted) ")
-				message_admins("<span class='notice'>[key_name(usr)] deleted all instances of type [O_type] ([i] instances deleted)</span>")
+				message_admins(span_notice("[key_name(usr)] deleted all instances of type [O_type] ([i] instances deleted)"))
 			if("Type and subtypes")
 				var/i = 0
 				for(var/Obj in world)
@@ -58,4 +58,4 @@
 					to_chat(usr, "No instances of this type exist")
 					return
 				log_admin("[key_name(usr)] deleted all instances of type or subtype of [O_type] ([i] instances deleted) ")
-				message_admins("<span class='notice'>[key_name(usr)] deleted all instances of type or subtype of [O_type] ([i] instances deleted)</span> ")
+				message_admins("[span_notice("[key_name(usr)] deleted all instances of type or subtype of [O_type] ([i] instances deleted)")] ")

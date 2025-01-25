@@ -13,7 +13,7 @@ type Props = {
   objectives: Objective[];
 };
 
-export const ObjectivesSection = (props: Props, _context) => {
+export const ObjectivesSection = (props: Props) => {
   const { objectives } = props;
   return (
     <Section fill title="Objectives" scrollable>

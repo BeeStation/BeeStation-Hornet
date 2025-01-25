@@ -24,7 +24,7 @@
 	speak_emote = list("chitters")
 
 	basic_mob_flags = DEL_ON_DEATH
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE, FACTION_MAINT_CREATURES)
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
