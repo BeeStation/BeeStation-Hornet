@@ -380,7 +380,7 @@ Arguments:
 	var/turf/core_turf = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
 		var/damagevalue = (temperature - 900)/250
-		critical_threshold_proximity += damagevalue
+		critical_threshold_proximity += (damagevalue * delta_time)
 		warning_damage_flags |= RBMK_TEMPERATURE_DAMAGE
 		check_alert()
 		if(critical_threshold_proximity >= melting_point)
@@ -393,7 +393,7 @@ Arguments:
 		core_turf.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
 		// Warning: Pressure reaching critical thresholds!
 		var/damagevalue = (pressure-10100)/1500
-		critical_threshold_proximity += damagevalue
+		critical_threshold_proximity += (damagevalue * delta_time)
 		warning_damage_flags |= RBMK_PRESSURE_DAMAGE
 		check_alert()
 		if(critical_threshold_proximity >= melting_point)

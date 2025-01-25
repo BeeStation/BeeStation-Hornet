@@ -43,7 +43,7 @@
 			no_coolant_ticks++
 			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
-				critical_threshold_proximity += temperature / 200 //Think fast loser.
+				critical_threshold_proximity += ((temperature / 200) * delta_time) //Think fast loser.
 				check_alert()
 				playsound(src, 'sound/weapons/smash.ogg', 50, 1) //Just for the sound effect, to let you know you've fucked up.
 
