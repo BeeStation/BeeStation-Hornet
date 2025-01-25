@@ -49,7 +49,7 @@
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
-	faction = list("nanotrasen")
+	faction = list(FACTION_NANOTRASEN_PRIVATE)
 	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/marauder/loaded
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/nanotrasen
@@ -57,7 +57,7 @@
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
-	faction = list("nanotrasen")
+	faction = list(FACTION_NANOTRASEN_PRIVATE)
 
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Initialize(mapload)

@@ -165,7 +165,7 @@
 	ears = /obj/item/radio/headset/syndicate/alt/leader
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/H)
-	H.faction |= "pirate"
+	H.faction |= FACTION_PIRATE
 
 	var/obj/item/radio/R = H.ears
 	if(R)

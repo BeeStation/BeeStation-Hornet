@@ -4,8 +4,8 @@ import { Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { round, scale } from 'common/math';
 
-export const Smelter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Smelter = (props) => {
+  const { act, data } = useBackend();
   const { on, allowredeem, stored_points, materials, alloys, auto_shutdown, smelt_amount_limit } = data;
   return (
     <Window width={440} height={550}>
@@ -97,7 +97,7 @@ export const Smelter = (props, context) => {
   );
 };
 
-const MaterialRow = (props, context) => {
+const MaterialRow = (props) => {
   const { material, onRelease } = props;
 
   const amountAvailable = Math.floor(material.amount);
