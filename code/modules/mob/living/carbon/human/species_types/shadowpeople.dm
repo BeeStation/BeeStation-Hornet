@@ -33,15 +33,18 @@
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
-			if(shadow_sect_dependency == 3)
+			if(shadow_sect_dependency <= 2)
 				H.alpha = 255
-				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
+				if(H.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect) && shadow_sect_dependency == 3)
 					H.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
+			if(shadow_sect_dependency <= 1 && H.nutrition <= NUTRITION_LEVEL_WELL_FED)
+				H.nutrition += 2
 			H.heal_overall_damage(sensitivity, sensitivity, 0, BODYTYPE_ORGANIC)
-			if(shadow_sect_dependency == 3)
-				H.alpha = 120
-				H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+			if(shadow_sect_dependency <= 2)
+				H.alpha = 125
+				if(shadow_sect_dependency == 3)
+					H.add_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -66,6 +69,18 @@
 		if(sect.grand_ritual_level == 3)
 			mutantheart = new/obj/item/organ/heart/shadow_ritual3
 			mutantheart.Insert(C, 0, FALSE)
+
+
+/datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
+	var/turf/T = H.loc
+	if(istype(T))
+		if(rand(0,2) == 0 && H.dna.species.id != "nightmare")
+			var/light_amount = T.get_lumcount()
+			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
+				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
+				playsound(T, "bullet_miss", 75, 1)
+				return BULLET_ACT_FORCE_PIERCE
+	return ..()
 
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
@@ -458,6 +473,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
+		M.alpha = 255
 
 /obj/item/organ/heart/shadow_ritual3/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
