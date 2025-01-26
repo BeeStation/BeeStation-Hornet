@@ -4192,6 +4192,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "aZV" = (
@@ -6521,11 +6524,17 @@
 /area/science/server)
 "bCK" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
+/obj/item/clipboard{
+	pixel_y = 5
+	},
 /obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/paper,
-/obj/item/pen/red,
+/obj/item/paper{
+	pixel_y = 5
+	},
+/obj/item/pen/red{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 6
 	},
@@ -6820,7 +6829,7 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/disposalpipe/segment{
-	dir = 2
+	dir = 10
 	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
@@ -9024,11 +9033,16 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "ceJ" = (
-/obj/machinery/holopad{
-	pixel_x = 16
+/obj/effect/turf_decal/siding/blue{
+	dir = 1
 	},
-/turf/open/floor/iron/dark,
-/area/science/explab)
+/obj/effect/turf_decal/siding/blue,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/turf/open/floor/iron/techmaint,
+/area/storage/tech)
 "ceK" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -10959,6 +10973,12 @@
 /obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/extinguisher_cabinet/directional/east,
+/obj/machinery/computer/security/telescreen/entertainment{
+	network = list("theathre");
+	name = "scene monitor";
+	pixel_y = 32;
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre)
 "czN" = (
@@ -13381,13 +13401,6 @@
 	dir = 1
 	},
 /area/science/robotics/mechbay)
-"den" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre)
 "deo" = (
 /obj/structure/table/wood/fancy/blue,
 /obj/effect/turf_decal/siding/dark_blue,
@@ -16988,16 +17001,11 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/robotics/lab)
 "eaU" = (
-/obj/effect/turf_decal/siding/blue{
-	dir = 1
+/obj/machinery/holopad{
+	pixel_x = 16
 	},
-/obj/effect/turf_decal/siding/blue,
-/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
-	dir = 4
-	},
-/turf/open/floor/iron/techmaint,
-/area/storage/tech)
+/turf/open/floor/iron/dark,
+/area/science/explab)
 "eaW" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 8
@@ -19170,15 +19178,8 @@
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/starboard)
 "eFR" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/iron/stairs/left{
-	dir = 1
-	},
+/obj/item/clothing/head/bio_hood,
+/turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "eFW" = (
 /obj/effect/turf_decal/siding/yellow{
@@ -20416,19 +20417,18 @@
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
 "eVN" = (
-/obj/effect/turf_decal/trimline/brown/filled/warning{
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/white{
-	dir = 1
+/obj/structure/chair/fancy/comfy,
+/obj/machinery/computer/security/telescreen/entertainment{
+	network = list("theathre");
+	name = "scene monitor";
+	pixel_y = 32;
+	pixel_x = -32
 	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/turf/open/floor/iron/sepia,
+/turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "eVS" = (
 /obj/structure/railing{
@@ -20657,6 +20657,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "eZi" = (
@@ -20969,7 +20972,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
 /obj/structure/table,
 /obj/item/book/manual/wiki/toxins{
-	pixel_y = -1;
+	pixel_y = 8;
 	pixel_x = -3
 	},
 /turf/open/floor/iron/dark/textured_large,
@@ -22828,19 +22831,19 @@
 	},
 /obj/item/assembly/timer{
 	pixel_x = 8;
-	pixel_y = 3
+	pixel_y = 4
 	},
 /obj/item/assembly/timer{
 	pixel_x = 8;
-	pixel_y = -1
+	pixel_y = 1
+	},
+/obj/item/assembly/timer{
+	pixel_x = 8;
+	pixel_y = -2
 	},
 /obj/item/assembly/timer{
 	pixel_x = 8;
 	pixel_y = -5
-	},
-/obj/item/assembly/timer{
-	pixel_x = 8;
-	pixel_y = -9
 	},
 /obj/item/assembly/prox_sensor{
 	pixel_y = 8;
@@ -27592,7 +27595,9 @@
 	dir = 1
 	},
 /obj/machinery/computer/security/telescreen/vault{
-	pixel_y = 28
+	pixel_y = 28;
+	network = list("theathre");
+	name = "stage monitor"
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -29343,9 +29348,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "gZm" = (
@@ -31705,6 +31707,9 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "hCr" = (
@@ -33991,7 +33996,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
 /obj/structure/disposalpipe/segment{
-	dir = 5
+	dir = 2
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
@@ -37891,6 +37896,12 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/computer/security/telescreen/entertainment{
+	network = list("theathre");
+	name = "scene monitor";
+	pixel_y = 32;
+	pixel_x = -32
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre)
 "iXU" = (
@@ -40449,7 +40460,8 @@
 	},
 /mob/living/simple_animal/chick/dave{
 	icon_state = "cardinal_sit";
-	desc = "A Cardinal!."
+	desc = "A Cardinal!.";
+	dir = 4
 	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 8
@@ -43693,7 +43705,9 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/taperecorder,
+/obj/item/taperecorder{
+	pixel_y = 8
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/science/mixing)
 "kvE" = (
@@ -45299,6 +45313,9 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "kRl" = (
@@ -57603,6 +57620,12 @@
 	dir = 1
 	},
 /obj/structure/chair/fancy/comfy,
+/obj/machinery/computer/security/telescreen/entertainment{
+	network = list("theathre");
+	name = "scene monitor";
+	pixel_y = 32;
+	pixel_x = 32
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "nJs" = (
@@ -58834,9 +58857,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "oaa" = (
@@ -59792,6 +59812,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/machinery/camera/directional/south{
+	network = list("theathre")
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "omq" = (
@@ -63055,7 +63081,9 @@
 /turf/open/floor/iron/edge,
 /area/hallway/primary/port)
 "paL" = (
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	req_access_txt = "5"
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/curtain/directional{
 	dir = 8
@@ -74052,9 +74080,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
 "rKA" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -74322,6 +74347,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 6
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/white,
 /area/storage/art)
 "rOF" = (
@@ -77711,6 +77737,9 @@
 	},
 /obj/machinery/status_display/evac/directional/south,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "sDD" = (
@@ -82001,7 +82030,6 @@
 	pixel_y = 2;
 	pixel_x = -5
 	},
-/obj/machinery/requests_console/auto_name/directional/west,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -89983,7 +90011,7 @@
 /obj/structure/table,
 /obj/item/book/manual/wiki/atmospherics{
 	pixel_x = 6;
-	pixel_y = 2
+	pixel_y = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -93220,9 +93248,6 @@
 /area/quartermaster/miningoffice)
 "wfc" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "wfd" = (
@@ -96337,18 +96362,6 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"wRY" = (
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "This chicken resprite is temporary until i finish the actual Cardinal bird mob sprites - BarteG";
-	name = "Cardstation - Cardinal Chick"
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 8
-	},
-/area/bridge)
 "wSm" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/delivery,
@@ -100185,6 +100198,9 @@
 	pixel_x = 16
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "xPP" = (
@@ -101455,6 +101471,18 @@
 	},
 /turf/open/floor/iron/textured,
 /area/hallway/secondary/exit/departure_lounge)
+"yfO" = (
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This chicken resprite is temporary until i finish the actual Cardinal bird mob sprites - BarteG";
+	name = "Cardstation - Cardinal Chick"
+	},
+/turf/open/floor/iron/smooth_edge{
+	dir = 8
+	},
+/area/bridge)
 "ygh" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 6
@@ -101738,6 +101766,16 @@
 /obj/item/radio/intercom/directional/north,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/head/wig{
+	pixel_y = -9
+	},
+/obj/item/clothing/head/wig{
+	pixel_y = -9
+	},
+/obj/item/clothing/head/wig{
+	pixel_y = -9
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
@@ -116671,7 +116709,7 @@ veH
 tOO
 kjl
 jJG
-wRY
+yfO
 hJi
 jBM
 lEE
@@ -124388,7 +124426,7 @@ fXe
 xlC
 aXq
 thn
-eaU
+ceJ
 hKd
 jJQ
 was
@@ -124645,7 +124683,7 @@ fXe
 dWZ
 aXq
 cmA
-eaU
+ceJ
 xFE
 aPw
 usb
@@ -126728,7 +126766,7 @@ gtI
 xSz
 aoD
 qKA
-ceJ
+eaU
 cPG
 qbo
 vgn
@@ -140321,7 +140359,7 @@ ose
 fLm
 cbp
 bEn
-kxS
+eVN
 loS
 qqr
 ozc
@@ -141868,7 +141906,7 @@ rIj
 vYm
 okT
 xxb
-den
+qzH
 aFw
 adN
 sDe
@@ -142125,7 +142163,7 @@ rIj
 rRt
 okT
 pEy
-den
+qzH
 aFw
 uDv
 eZe
@@ -142384,7 +142422,7 @@ okT
 pEy
 nZU
 fOm
-uDv
+eFR
 aZQ
 upT
 bsP
@@ -142639,8 +142677,8 @@ rIj
 lNs
 aAu
 lvu
-eFR
-eVN
+mzS
+uja
 wfc
 bGV
 vyz
