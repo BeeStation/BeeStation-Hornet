@@ -85,7 +85,7 @@
 		var/rnd = rand(1,10000)
 		var/rname = "tmp[REF(icon_value)][rnd].png"
 		usr << browse_rsc(icon_value, rname)
-		return "([span_value(value)]) <img class=icon src=\"[rname]\">"
+		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
 		#else
 		return "/icon ([span_value(value)])"
 		#endif
