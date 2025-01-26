@@ -14,6 +14,7 @@
 	foodtypes = GRAIN | SUGAR | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/muffin/berry
 	name = "berry muffin"
@@ -21,6 +22,7 @@
 	desc = "A delicious and spongy little cake, with berries."
 	tastes = list("muffin" = 3, "berry" = 1)
 	foodtypes = GRAIN | FRUIT | SUGAR | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/muffin/booberry
 	name = "booberry muffin"
@@ -29,6 +31,7 @@
 	desc = "My stomach is a graveyard! No living being can quench my bloodthirst!"
 	tastes = list("muffin" = 3, "spookiness" = 1)
 	foodtypes = GRAIN | FRUIT | SUGAR | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 /obj/item/food/muffin/moffin
 	name = "moffin"
@@ -38,6 +41,7 @@
 	desc = "A delicious and spongy little cake."
 	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
 	foodtypes = CLOTH | GRAIN | SUGAR | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/muffin/moffin/Initialize(mapload)
 	. = ..()
@@ -55,9 +59,9 @@
 		return
 
 	if(tongue.liked_food & CLOTH)
-		to_chat(moffin_observer,"<span class='nicegreen'>Ooh! It's even got bits of clothes on it! Yummy!</span>")
+		to_chat(moffin_observer,span_nicegreen("Ooh! It's even got bits of clothes on it! Yummy!"))
 	else
-		to_chat(moffin_observer,"<span class='warning'>You're not too sure what's on top though...</span>")
+		to_chat(moffin_observer,span_warning("You're not too sure what's on top though..."))
 
 ////////////////////////////////////////////WAFFLES////////////////////////////////////////////
 
@@ -73,6 +77,7 @@
 	tastes = list("waffles" = 1)
 	foodtypes = GRAIN | SUGAR | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soylentgreen
 	name = "\improper Soylent Green"
@@ -88,6 +93,7 @@
 	// The wafers are supposed to be flavorful and nutritious in the movie. They shouldn't be gross in a dystopian future where the chef regularly feeds people from the morgue to you.
 	foodtypes = GRAIN | MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/soylenviridians
 	name = "\improper Soylent Virdians"
@@ -102,6 +108,7 @@
 	tastes = list("waffles" = 7, "the colour green" = 1)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/rofflewaffles
 	name = "roffle waffles"
@@ -117,6 +124,7 @@
 	tastes = list("waffles" = 1, "mushrooms" = 1)
 	foodtypes = GRAIN | VEGETABLES | SUGAR | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 ////////////////////////////////////////////OTHER////////////////////////////////////////////
 
@@ -130,6 +138,7 @@
 	foodtypes = GRAIN | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cookie/Initialize(mapload)
 	. = ..()
@@ -144,6 +153,7 @@
 	foodtypes = GRAIN | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cookie/sugar
 	name = "sugar cookie"
@@ -155,6 +165,7 @@
 	)
 	tastes = list("sweetness" = 1)
 	foodtypes = GRAIN | JUNKFOOD | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cookie/oatmeal
 	name = "oatmeal cookie"
@@ -166,6 +177,7 @@
 	)
 	tastes = list("cookie" = 2, "oat" = 1)
 	foodtypes = GRAIN | BREAKFAST //these & raisin cookies were always served at breakfast at my university. Its basically breakfast in cookie
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/cookie/raisin
 	name = "raisin cookie"
@@ -177,6 +189,7 @@
 	)
 	tastes = list("cookie" = 1, "raisins" = 1)
 	foodtypes = GRAIN | FRUIT | BREAKFAST //these & oatmeal cookies were always served at breakfast at my university. Its basically breakfast in cookie
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/chococornet
 	name = "chocolate cornet"
@@ -189,6 +202,7 @@
 	tastes = list("biscuit" = 3, "chocolate" = 1)
 	foodtypes = GRAIN | JUNKFOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/poppypretzel
 	name = "poppy pretzel"
@@ -215,6 +229,7 @@
 	foodtypes = GRAIN | VEGETABLES
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/plumphelmetbiscuit/Initialize(mapload)
 	var/fey = prob(10)
@@ -240,6 +255,7 @@
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/khachapuri
 	name = "khachapuri"
@@ -253,6 +269,7 @@
 	tastes = list("bread" = 1, "egg" = 1, "cheese" = 1)
 	foodtypes = GRAIN | MEAT | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/cherrycupcake
 	name = "cherry cupcake"
@@ -266,12 +283,28 @@
 	foodtypes = GRAIN | FRUIT | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/cherrycupcake/blue
 	name = "blue cherry cupcake"
 	desc = "Blue cherries inside a delicious cupcake."
 	icon_state = "bluecherrycupcake"
 	tastes = list("cake" = 3, "blue cherry" = 1)
+	crafting_complexity = FOOD_COMPLEXITY_3
+
+/obj/item/food/jupitercupcake
+	name = "jupiter-cup-cake"
+	desc = "A static dessert."
+	icon_state = "jupitercupcake"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/caramel = 3,
+		/datum/reagent/consumable/liquidelectricity = 3,
+	)
+	tastes = list("cake" = 3, "caramel" = 2, "zap" = 1)
+	crafting_complexity = FOOD_COMPLEXITY_3
+	crafted_food_buff = /datum/status_effect/food/trait/shockimmune
 
 /obj/item/food/honeybun
 	name = "honey bun"
@@ -284,6 +317,7 @@
 	tastes = list("pastry" = 1, "sweetness" = 1)
 	foodtypes = GRAIN | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/ravtart
 	name = "Rav'tart"
@@ -297,3 +331,4 @@
 	tastes = list("pastry" = 1, "sweetness" = 1)
 	foodtypes = GRAIN | FRUIT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3

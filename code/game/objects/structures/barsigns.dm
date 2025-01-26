@@ -6,11 +6,20 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 0.5
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/sign_barsign
 	buildable_sign = 0
 
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
+
+
+/datum/armor/sign_barsign
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 100
+	fire = 50
+	acid = 50
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -67,21 +76,21 @@
 	if(.)
 		return
 	if(!allowed(user))
-		to_chat(user, "<span class='info'>Access denied.</span>")
+		to_chat(user, span_info("Access denied."))
 		return
 	if(broken)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
+		to_chat(user, span_danger("The controls seem unresponsive."))
 		return
 	pick_sign(user)
 
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			to_chat(user, span_notice("You open the maintenance panel."))
 			set_sign(new /datum/barsign/hiddensigns/signoff)
 			panel_open = TRUE
 		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			to_chat(user, span_notice("You close the maintenance panel."))
 			if(!broken)
 				if(!chosen_sign)
 					set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -94,14 +103,14 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(!broken)
-			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
+			to_chat(user, span_warning("This sign is functioning properly!"))
 			return
 
 		if(C.use(2))
-			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
+			to_chat(user, span_notice("You replace the burnt wiring."))
 			broken = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+			to_chat(user, span_warning("You need at least two lengths of cable!"))
 	else
 		return ..()
 
@@ -118,7 +127,7 @@
 
 /obj/structure/sign/barsign/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You load an illegal barsign into the memory buffer...</span>")
+	to_chat(user, span_notice("You load an illegal barsign into the memory buffer..."))
 	addtimer(CALLBACK(src, PROC_REF(after_emag)), 10 SECONDS)
 
 /obj/structure/sign/barsign/proc/after_emag()

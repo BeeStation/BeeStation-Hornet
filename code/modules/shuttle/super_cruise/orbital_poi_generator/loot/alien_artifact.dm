@@ -58,7 +58,7 @@
 	clockwork_warp_allowed = FALSE
 	requires_power = FALSE
 	mood_bonus = -999
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -66,7 +66,7 @@
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
-	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
+	mood_message = span_warning("[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!")
 
 /area/tear_in_reality/get_virtual_z(turf/T)
 	return REALITY_TEAR_VIRTUAL_Z

@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 
 /obj/machinery/nuclearbomb/decomission/set_active()
 	if(safety)
-		to_chat(usr, "<span class='danger'>The safety is still on.</span>")
+		to_chat(usr, span_danger("The safety is still on."))
 		return
 	timing = !timing
 	if(timing)

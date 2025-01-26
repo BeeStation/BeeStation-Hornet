@@ -20,6 +20,7 @@
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	flags_1 = STAT_UNIQUE_1
 	var/can_unwrench = 0
 	var/initialize_directions = 0
 	var/pipe_color
@@ -34,21 +35,38 @@
 
 	var/image/pipe_vision_img = null
 
+	///The type of the device (UNARY, BINARY, TRINARY, QUATERNARY)
 	var/device_type = 0
+	///The lists of nodes that a pipe/device has, depends on the device_type var (from 1 to 4)
 	var/list/obj/machinery/atmospherics/nodes
 
+	///The path of the pipe/device that will spawn after unwrenching it (such as pipe fittings)
 	var/construction_type
-	var/pipe_state //icon_state as a pipe item
+	///icon_state as a pipe item
+	var/pipe_state
+	///Check if the device should be on or off (mostly used in processing for machines)
 	var/on = FALSE
 	/// whether it can be painted
 	var/paintable = FALSE
 
+	armor_type = /datum/armor/machinery_atmospherics
+
+/datum/armor/machinery_atmospherics
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	rad = 100
+	fire = 100
+	acid = 70
+
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
+	. += span_notice("[src] is on layer [piping_layer].")
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
 		var/mob/living/L = user
 		if(L.ventcrawler)
-			. += "<span class='notice'>Alt-click to crawl through it.</span>"
+			. += span_notice("Alt-click to crawl through it.")
 
 /obj/machinery/atmospherics/New(loc, process = TRUE, setdir)
 	if(!isnull(setdir))
@@ -56,8 +74,6 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
-	if (!armor)
-		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	..()
 	if(process)
 		SSair.start_processing_machine(src)
@@ -196,18 +212,18 @@
 	var/unsafe_wrenching = FALSE
 	var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
 
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+	to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 
 	if (internal_pressure > 2*ONE_ATMOSPHERE)
-		to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
+		to_chat(user, span_warning("As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?"))
 		unsafe_wrenching = TRUE //Oh dear oh dear
 
 	if(I.use_tool(src, user, 20, volume=50))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"<span class='notice'>You unfasten \the [src].</span>", \
-			"<span class='italics'>You hear ratchet.</span>")
-		investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", INVESTIGATE_ATMOS)
+			span_notice("You unfasten \the [src]."), \
+			span_italics("You hear ratchet."))
+		investigate_log("was [span_warning("REMOVED")] by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 		//You unwrenched a pipe full of pressure? Let's splat you into the wall, silly.
 		if(unsafe_wrenching)
@@ -234,7 +250,7 @@
 		var/datum/gas_mixture/env_air = loc.return_air()
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
-	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
+	user.visible_message(span_danger("[user] is sent flying by pressure!"),span_userdanger("The pressure sends you flying!"))
 
 	// if get_dir(src, user) is not 0, target is the edge_target_turf on that dir
 	// otherwise, edge_target_turf uses a random cardinal direction
@@ -306,7 +322,7 @@
 		if(target_move.can_crawl_through())
 			if(is_type_in_typecache(target_move, GLOB.ventcrawl_machinery))
 				user.forceMove(target_move.loc) //handle entering and so on.
-				user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
+				user.visible_message(span_notice("You hear something squeezing through the ducts..."), span_notice("You climb out the ventilation system."))
 			else
 				var/list/pipenetdiff = returnPipenets() ^ target_move.returnPipenets()
 				if(pipenetdiff.len)
@@ -317,10 +333,10 @@
 					user.last_played_vent = world.time
 					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 					if(prob(1))
-						audible_message("<span class='warning'>You hear something crawling through the ducts...</span>")
+						audible_message(span_warning("You hear something crawling through the ducts..."))
 	else if(is_type_in_typecache(src, GLOB.ventcrawl_machinery) && can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 		user.forceMove(loc)
-		user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
+		user.visible_message(span_notice("You hear something squeezing through the ducts..."), span_notice("You climb out the ventilation system."))
 
 	//PLACEHOLDER COMMENT FOR ME TO READD THE 1 (?) DS DELAY THAT WAS IMPLEMENTED WITH A... TIMER?
 

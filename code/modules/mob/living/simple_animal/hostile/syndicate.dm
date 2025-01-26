@@ -394,18 +394,18 @@
 	..()
 	if (cooldown < world.time)
 		cooldown = world.time + 300
-		playsound(get_turf(src), 'sound/creatures/heavysight1.ogg', 80, 0, 0)
+		playsound(get_turf(src), 'sound/creatures/heavysight1.ogg', 30, 0, 0)
 
 /mob/living/simple_animal/hostile/syndicate/heavy/OpenFire(atom/A)
-	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 80, 0, 0)
+	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 30, 0, 0)
 	move_to_delay = 6//slowdown when shoot
 	speed = 30
 	sleep(15)
-	playsound(get_turf(src), 'sound/weapons/heavyminigunshoot.ogg', 90, 0, 0)
+	playsound(get_turf(src), 'sound/weapons/heavyminigunshoot.ogg', 30, 0, 0)
 	if(CheckFriendlyFire(A))
 		return
 	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
-		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+		visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
 		for(var/i in 1 to rapid)
@@ -413,10 +413,10 @@
 	else
 		Shoot(A)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 80, 0, 0)
+	playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 30, 0, 0)
 	move_to_delay = initial(move_to_delay)//restore speed
 	speed = initial(speed)
 
 /mob/living/simple_animal/hostile/syndicate/heavy/death(gibbed)
-	playsound(get_turf(src), 'sound/creatures/heavydeath1.ogg', 80, TRUE, 0)
+	playsound(get_turf(src), 'sound/creatures/heavydeath1.ogg', 30, TRUE, 0)
 	..()

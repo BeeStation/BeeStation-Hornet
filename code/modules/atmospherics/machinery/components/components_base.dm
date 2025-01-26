@@ -21,10 +21,6 @@
 		var/datum/gas_mixture/A = new(200)
 		airs[i] = A
 
-/obj/machinery/atmospherics/components/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
-
 /obj/machinery/atmospherics/components/Initialize(mapload)
 	. = ..()
 
@@ -183,7 +179,7 @@
 /obj/machinery/atmospherics/components/ui_status(mob/user)
 	if(allowed(user))
 		return ..()
-	to_chat(user, "<span class='danger'>Access denied.</span>")
+	to_chat(user, span_danger("Access denied."))
 	return UI_CLOSE
 
 // Tool acts

@@ -32,6 +32,9 @@
 	GLOB.new_player_list -= src
 	return ..()
 
+/mob/dead/new_player/mob_negates_gravity()
+	return TRUE //no need to calculate if they have gravity.
+
 /mob/dead/new_player/prepare_huds()
 	return
 
@@ -141,7 +144,7 @@
 
 	if(href_list["late_join"])
 		if(!SSticker || !SSticker.IsRoundInProgress())
-			to_chat(usr, "<span class='danger'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
 			return
 
 		if(href_list["late_join"] == "override")
@@ -152,16 +155,16 @@
 			if(IS_PATRON(src.ckey) || is_admin(src.ckey))
 				LateChoices()
 				return
-			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")
+			to_chat(usr, span_danger("[CONFIG_GET(string/hard_popcap_message)]"))
 
 			var/queue_position = SSticker.queued_players.Find(usr)
 			if(queue_position == 1)
-				to_chat(usr, "<span class='notice'>You are next in line to join the game. You will be notified when a slot opens up.</span>")
+				to_chat(usr, span_notice("You are next in line to join the game. You will be notified when a slot opens up."))
 			else if(queue_position)
-				to_chat(usr, "<span class='notice'>There are [queue_position-1] players in front of you in the queue to join the game.</span>")
+				to_chat(usr, span_notice("There are [queue_position-1] players in front of you in the queue to join the game."))
 			else
 				SSticker.queued_players += usr
-				to_chat(usr, "<span class='notice'>You have been added to the queue to join the game. Your position in queue is [SSticker.queued_players.len].</span>")
+				to_chat(usr, span_notice("You have been added to the queue to join the game. Your position in queue is [SSticker.queued_players.len]."))
 			return
 		LateChoices()
 
@@ -170,16 +173,16 @@
 
 	if(href_list["SelectedJob"])
 		if(!SSticker || !SSticker.IsRoundInProgress())
-			to_chat(usr, "<span class='danger'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
 			return
 
 		if(!GLOB.enter_allowed)
-			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+			to_chat(usr, span_notice("There is an administrative lock on entering the game!"))
 			return
 
 		if(SSticker.queued_players.len && !is_admin(ckey(key)) && !IS_PATRON(ckey(key)))
 			if((living_player_count() >= relevant_cap) || (src != SSticker.queued_players[1]))
-				to_chat(usr, "<span class='warning'>Server is full.</span>")
+				to_chat(usr, span_warning("Server is full."))
 				return
 
 		AttemptLateSpawn(href_list["SelectedJob"])
@@ -226,11 +229,11 @@
 	observer.started_as_observer = TRUE
 	close_spawn_windows()
 	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
-	to_chat(src, "<span class='notice'>Now teleporting.</span>")
+	to_chat(src, span_notice("Now teleporting."))
 	if (O)
 		observer.forceMove(O.loc)
 	else
-		to_chat(src, "<span class='notice'>Teleporting failed. Ahelp an admin please</span>")
+		to_chat(src, span_notice("Teleporting failed. Ahelp an admin please"))
 		stack_trace("There's no freaking observer landmark available on this map or you're making observers before the map is initialised")
 	observer.key = key
 	observer.client = client
@@ -345,7 +348,7 @@
 			AnnounceArrival(humanc, rank)
 		AddEmploymentContract(humanc)
 		if(GLOB.highlander)
-			to_chat(humanc, "<span class='userdanger'><i>THERE CAN BE ONLY ONE!!!</i></span>")
+			to_chat(humanc, span_userdanger("<i>THERE CAN BE ONLY ONE!!!</i>"))
 			humanc.make_scottish()
 
 		if(GLOB.summon_guns_triggered)
@@ -417,11 +420,11 @@
 				if(each_dept.dept_id == DEPT_NAME_COMMAND || (job in each_dept.leaders))
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
-					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
+					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[span_priority("[job_datum.title] ([job_datum.current_positions])")]</a>"
 				else
 					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
 		if(!valid_jobs.len)
-			valid_jobs += "<span class='nopositions'>No positions open.</span>"
+			valid_jobs += span_nopositions("No positions open.")
 		dat += jointext(valid_jobs, "")
 		dat += "</fieldset><br>"
 		column_counter++
@@ -497,7 +500,7 @@
 	var/has_antags = (length(client.prefs.role_preferences_global) + length(client.prefs.role_preferences)) > 0
 	if(!length(client.prefs.job_preferences))
 		if(!ineligible_for_roles)
-			to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(src, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 		ineligible_for_roles = TRUE
 		ready = PLAYER_NOT_READY
 		if(has_antags)
@@ -535,10 +538,9 @@
 	UpdateMobStat(forced = TRUE)
 	set_stat_tab("Interview")
 
-	to_chat(src, "<span class='boldannounce'>Panic Bunker Active - Interview Required</span>" \
-					+ "\n<span class='danger'>To prevent abuse, players with no/low playtime are required to complete an interview to gain access." \
-					+ "\nThis is only required once and only for the duration that the panic bunker is active.</span>" \
-					+ "\n<span class='boldwarning'>If the interview interface is not open, use the Open Interview verb in the top right.</span>")
+	to_chat(src, span_boldannounce("Panic Bunker Active - Interview Required") \
+					+ "\n[span_danger("To prevent abuse, players with no/low playtime are required to complete an interview to gain access.\nThis is only required once and only for the duration that the panic bunker is active.")] \
+					\n[span_boldwarning("If the interview interface is not open, use the Open Interview verb in the top right.")]")
 
 /mob/dead/new_player/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	return

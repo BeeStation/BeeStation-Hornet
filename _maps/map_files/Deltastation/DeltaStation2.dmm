@@ -3288,7 +3288,7 @@
 	pixel_y = 8
 	},
 /turf/closed/wall,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "avQ" = (
 /turf/closed/wall,
 /area/quartermaster/warehouse)
@@ -4243,43 +4243,6 @@
 	},
 /turf/open/floor/iron,
 /area/janitor)
-"aAm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/vomit/old,
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/structure/toilet{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/crew_quarters/toilet/auxiliary)
-"aAn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/bot,
-/obj/structure/toilet{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/auxiliary)
-"aAo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/bot,
-/obj/structure/toilet{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/auxiliary)
 "aAp" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light/small,
@@ -5029,18 +4992,15 @@
 	dir = 8;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "aEt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/engine{
 	pixel_y = 23;
@@ -5051,6 +5011,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/engine/supermatter)
@@ -6219,6 +6182,18 @@
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
+"aMJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "aMK" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
@@ -8644,7 +8619,7 @@
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfa" = (
@@ -9354,6 +9329,25 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
+"bku" = (
+/obj/structure/table/wood,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/folder/blue,
+/obj/item/clothing/under/rank/centcom/commander{
+	desc = "A replica of a jumpsuit worn by the highest ranking commanders under Nanotrasen's central command.";
+	name = "Replica CentCom officer's jumpsuit"
+	},
+/obj/item/clothing/head/hats/centcom_cap{
+	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
+	name = "Replica CentCom hat"
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/open/floor/carpet/grimy,
+/area/bridge/showroom/corporate)
 "bkw" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 31
@@ -13296,7 +13290,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "bNB" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -14313,8 +14307,7 @@
 /area/medical/medbay/lobby)
 "bUz" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -16129,8 +16122,7 @@
 /area/tcommsat/server)
 "cgq" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
@@ -21454,31 +21446,6 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/restrooms)
-"cIb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/bot,
-/obj/structure/toilet{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/restrooms)
-"cIc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/bot,
-/obj/structure/toilet{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/restrooms)
 "cId" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
@@ -25042,8 +25009,7 @@
 	},
 /obj/machinery/light/small,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -25125,7 +25091,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "djs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
@@ -30269,7 +30235,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/crew_quarters/dorms)
 "eak" = (
@@ -31356,19 +31322,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"ekz" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/auxiliary)
 "ekA" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/iron,
@@ -31714,7 +31667,7 @@
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/southleft{
 	dir = 1;
-	req_access_txt = "48"
+	req_one_access_txt = "31;48"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
@@ -33374,7 +33327,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "eNy" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Engineering - Shared Storage";
@@ -33804,6 +33757,9 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/item/storage/firstaid/regular,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "eUW" = (
@@ -34906,6 +34862,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "fll" = (
@@ -35769,6 +35728,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
+"fDc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "fDi" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -38988,9 +38960,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "gyu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Supermatter Engine - Aft";
 	name = "atmospherics camera"
@@ -39064,7 +39033,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "gyX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -39955,8 +39924,7 @@
 "gOs" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
@@ -41687,8 +41655,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -42238,16 +42205,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"hye" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/crew_quarters/toilet/restrooms)
 "hyj" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -42583,8 +42540,7 @@
 /area/engine/engineering)
 "hEF" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -43663,6 +43619,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/textured,
 /area/maintenance/disposal/incinerator)
+"hTI" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/restrooms)
 "hTK" = (
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -44076,6 +44042,22 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"iac" = (
+/obj/structure/table/wood,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/folder/red,
+/obj/item/toy/gun,
+/obj/item/clothing/head/beret/sec{
+	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
+	name = "replica officer's beret"
+	},
+/obj/item/radio/intercom{
+	pixel_x = 26
+	},
+/turf/open/floor/carpet/grimy,
+/area/bridge/showroom/corporate)
 "iam" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/white/line{
@@ -47724,23 +47706,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/chapel/office)
-"joe" = (
-/obj/structure/table/wood,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/folder/red,
-/obj/item/toy/gun,
-/obj/item/clothing/head/beret/sec{
-	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"stamina"=0);
-	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
-	name = "replica officer's beret"
-	},
-/obj/item/radio/intercom{
-	pixel_x = 26
-	},
-/turf/open/floor/carpet/grimy,
-/area/bridge/showroom/corporate)
 "jor" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -53501,7 +53466,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "lkk" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Space Access Airlock";
@@ -55236,6 +55201,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "lMr" = (
@@ -55400,7 +55368,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "lOI" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -55785,7 +55753,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/southleft{
 	dir = 1;
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -55956,8 +55924,7 @@
 /area/aisat)
 "lXf" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -57907,6 +57874,18 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"mFz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/auxiliary)
 "mFB" = (
 /obj/machinery/status_display/evac{
 	pixel_x = 32
@@ -58440,7 +58419,7 @@
 	},
 /obj/machinery/door/window/westright{
 	name = "Cargo Office Delivery";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -58805,6 +58784,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/janitor/custodian)
+"mUj" = (
+/obj/effect/landmark/loneops,
+/turf/open/space/basic,
+/area/space)
 "mUm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60170,7 +60153,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/checker/other,
 /area/engine/break_room)
 "noE" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -62495,8 +62478,7 @@
 /area/bridge)
 "nYq" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -63064,6 +63046,18 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/security/brig)
+"oiJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/toilet/auxiliary)
 "oiK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63077,8 +63071,7 @@
 "oiU" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/white,
@@ -63181,7 +63174,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "okM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -64153,8 +64146,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
@@ -66705,8 +66697,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
@@ -67055,6 +67046,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"pAx" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron,
+/area/engine/atmospherics_engine)
 "pAK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67284,7 +67282,7 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_one_access_txt = "22;25;26;28;35;37;38;46"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -70094,8 +70092,7 @@
 /area/tcommsat/server)
 "qxz" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -70317,8 +70314,7 @@
 "qCL" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
@@ -71600,6 +71596,19 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
+"qWh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small,
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/bot,
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/auxiliary)
 "qWx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72808,6 +72817,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
+"rpy" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/toilet/auxiliary)
 "rpG" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -74201,7 +74223,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "rLQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -75700,7 +75722,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
-/area/quartermaster/warehouse)
+/area/maintenance/starboard/fore)
 "sjf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -80304,10 +80326,10 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
 "tDm" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags,
-/obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
 "tDJ" = (
@@ -82774,26 +82796,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"uuE" = (
-/obj/structure/table/wood,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/folder/blue,
-/obj/item/clothing/under/rank/centcom/commander{
-	desc = "A replica of a jumpsuit worn by the highest ranking commanders under Nanotrasen's central command.";
-	name = "Replica CentCom officer's jumpsuit"
-	},
-/obj/item/clothing/head/hats/centcom_cap{
-	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"stamina"=0);
-	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
-	name = "Replica CentCom hat"
-	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -32
-	},
-/turf/open/floor/carpet/grimy,
-/area/bridge/showroom/corporate)
 "uuH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -84127,9 +84129,7 @@
 	pixel_x = -27
 	},
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant";
-	desc = "A little bit of nature contained in a pot. This one is located here due to acting as a space filler for mappers and whatnot"
+	icon_state = "plant-22"
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
@@ -86721,7 +86721,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/crew_quarters/dorms)
 "vHI" = (
@@ -87380,7 +87380,7 @@
 /area/engine/atmos)
 "vTw" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "12;49"
+	req_access_txt = "49"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -89824,8 +89824,7 @@
 	pixel_y = 32
 	},
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
@@ -92486,8 +92485,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
@@ -92634,8 +92632,7 @@
 /area/maintenance/disposal)
 "xwD" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-22";
-	name = "legally obbligatory mapper potted plant"
+	icon_state = "plant-22"
 	},
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
@@ -94975,6 +94972,8 @@
 "yfc" = (
 /obj/structure/bodycontainer/morgue,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/tech,
 /area/security/brig/medbay)
 "yfd" = (
@@ -121670,7 +121669,7 @@ aAY
 aCl
 awg
 aEt
-sAw
+pAx
 kQN
 alT
 aKa
@@ -123066,7 +123065,7 @@ aaa
 aad
 aaa
 aaa
-aaa
+mUj
 aad
 aaa
 aaa
@@ -131945,7 +131944,7 @@ avG
 awI
 awI
 azg
-aAm
+oiJ
 auj
 rZH
 aDL
@@ -132459,7 +132458,7 @@ avI
 qZq
 xFo
 azg
-aAn
+mFz
 auj
 rZH
 aDL
@@ -132970,10 +132969,10 @@ alf
 atf
 auj
 auj
-ekz
+rpy
 iuA
 azg
-aAo
+qWh
 auj
 dJr
 aDL
@@ -133041,7 +133040,7 @@ czY
 wXk
 cCU
 deI
-uuE
+bku
 wlz
 fQi
 qHr
@@ -134769,13 +134768,13 @@ arQ
 jLZ
 aup
 avP
-avQ
+aig
 okL
-avQ
-avQ
-avQ
-avQ
-avQ
+aig
+aig
+aig
+aig
+aig
 aFe
 aGn
 aHG
@@ -135025,7 +135024,7 @@ abZ
 cmn
 jLZ
 aup
-avQ
+aig
 sjd
 rLP
 bNy
@@ -135611,7 +135610,7 @@ czY
 hgl
 qOK
 vfF
-joe
+iac
 wlz
 cIS
 qHr
@@ -141261,7 +141260,7 @@ cyL
 cxf
 csO
 cAm
-hye
+hTI
 kwW
 cFh
 cAm
@@ -142036,7 +142035,7 @@ cBP
 sEz
 cFm
 leQ
-cIb
+aMJ
 cAm
 fmt
 jBl
@@ -142550,7 +142549,7 @@ sqY
 bKI
 cFm
 cGK
-cIc
+fDc
 cAm
 eWS
 xyY
@@ -146446,7 +146445,7 @@ cIW
 cHU
 aaa
 aaa
-aaa
+mUj
 aaa
 aaa
 aaa

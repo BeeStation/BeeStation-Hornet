@@ -94,6 +94,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSLIPWATER		"noslip_water"
 /// Stops all slipping and sliding from ocurring
 #define TRAIT_NOSLIPALL "noslip_all"
+//Inherent trait preventing effects of stasis on a mob
+#define TRAIT_NOSTASIS "no_stasis"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
@@ -221,6 +223,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
 /// If this item's been fried
 #define TRAIT_FOOD_FRIED "food_fried"
+/// If this item's been made by a chef instead of spawned by the map or admins
+#define TRAIT_FOOD_CHEF_MADE "food_made_by_chef"
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
 #define TRAIT_DOOR_PRYER		"door-pryer"	//Item can be used on airlocks to pry them open (even when powered)
@@ -277,6 +281,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
+
+/// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
+#define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
+
 ///Turf trait for when a turf is transparent
 #define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
 
@@ -314,5 +322,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// The person with this trait always appears as 'unknown'.
 #define TRAIT_UNKNOWN "unknown"
+
+/// We are ignoring gravity
+#define TRAIT_IGNORING_GRAVITY "ignores_gravity"
+/// We have some form of forced gravity acting on us
+#define TRAIT_FORCED_GRAVITY "forced_gravity"
+#define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
+#define TRAIT_NEGATES_GRAVITY "negates_gravity"
 
 // END TRAIT DEFINES

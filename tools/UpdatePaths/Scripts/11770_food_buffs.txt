@@ -1,0 +1,1 @@
+/obj/structure/reagent_dispensers/cooking_oil : /obj/structure/reagent_dispensers/nutriment/fat/oil{@OLD}

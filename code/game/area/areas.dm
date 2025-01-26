@@ -43,7 +43,7 @@
 	var/areasize = 0 //Size of the area in open turfs, only calculated for indoors areas.
 
 	var/mood_bonus = 0 //Mood for being here
-	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
+	var/mood_message = span_nicegreen("This area is pretty nice!\n") //Mood message for being here, only shows up if mood_bonus != 0
 	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
 	var/list/mood_job_allowed = null
 	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
@@ -60,7 +60,8 @@
 	var/power_light = TRUE
 	var/power_environ = TRUE
 
-	var/has_gravity = FALSE
+	/// The default gravity for the area
+	var/default_gravity = ZERO_GRAVITY
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
 	var/teleport_restriction = TELEPORT_ALLOW_ALL
 
@@ -646,5 +647,5 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
 
-/area/proc/get_turf_textures()
+/area/proc/get_area_textures()
 	return list()

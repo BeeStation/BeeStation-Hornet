@@ -42,25 +42,25 @@
 		if (W.tool_behaviour == TOOL_SCREWDRIVER)
 			if (W.use_tool(src, user, 20))
 				open = !open
-				to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
+				to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
 			return
 		if (W.tool_behaviour == TOOL_WIRECUTTER)
-			to_chat(user, "<span class='danger'>[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>.</span>")
+			to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
 			return
 		if ((W.tool_behaviour == TOOL_MULTITOOL))
 			if(l_hacking)
-				to_chat(user, "<span class='danger'>This safe is already being hacked.</span>")
+				to_chat(user, span_danger("This safe is already being hacked."))
 				return
 			if(open)
-				to_chat(user, "<span class='danger'>Now attempting to reset internal memory, please hold.</span>")
+				to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
 				l_hacking = TRUE
 				if (W.use_tool(src, user, 400))
-					to_chat(user, "<span class='danger'>Internal memory reset - lock has been disengaged.</span>")
+					to_chat(user, span_danger("Internal memory reset - lock has been disengaged."))
 					l_set = FALSE
 
 				l_hacking = FALSE
 				return
-			to_chat(user, "<span class='notice'>You must <b>unscrew</b> the service panel before you can pulse the wiring.</span>")
+			to_chat(user, span_notice("You must <b>unscrew</b> the service panel before you can pulse the wiring."))
 			return
 
 	// -> storage/attackby() what with handle insertion, etc
@@ -222,11 +222,22 @@ It is made out of the same material as the station's Black Box and is designed t
 There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
 It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
 	can_hack_open = FALSE
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 100, RAD = 100, FIRE = 80, ACID = 70);
+	armor_type = /datum/armor/safe_caps_spare
 	max_integrity = 300
 	color = "#ffdd33"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
+
+
+/datum/armor/safe_caps_spare
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 70
+	rad = 100
+	fire = 80
+	acid = 70
 
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
