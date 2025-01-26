@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(chat_message_groups, 1)
-
 /// How long the chat message's spawn-in animation will occur for
 #define CHAT_MESSAGE_SPAWN_TIME		0.2 SECONDS
 /// How long the chat message will exist prior to any exponential decay
