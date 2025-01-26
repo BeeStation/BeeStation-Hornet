@@ -1,0 +1,10 @@
+author: rkz, lizardqueenlexi, SyncIt21
+delete-after: true
+changes:
+  - bugfix: fixes juicing not giving juice (I promise <3)
+  - bugfix: fixes food trash not appearing
+  - bugfix: grinding stacks now grinds as many pieces/sheets from the stack as possible
+      that can fit in a beaker/container without wasting the whole stack
+  - bugfix: All in 1 grinder now mixes faster with upgraded parts
+  - code_imp: reagent holder code will no longer accept non-typepaths in procs (it
+      expects reagent typepaths)
