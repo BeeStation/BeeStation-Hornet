@@ -23,7 +23,7 @@
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
 	food_reagents = list(
-		/datum/reagent/consumable/eggyolk = 5
+		/datum/reagent/consumable/eggyolk = 2, /datum/reagent/consumable/eggwhite = 4
 	)
 	microwaved_type = /obj/item/food/boiledegg
 	foodtypes = MEAT | RAW

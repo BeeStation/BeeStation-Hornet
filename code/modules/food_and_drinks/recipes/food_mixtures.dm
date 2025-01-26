@@ -16,6 +16,14 @@
 	for(var/i in 1 to created_volume)
 		new /obj/item/food/tofu(location)
 
+/datum/chemical_reaction/food/chocolatepudding
+	results = list(/datum/reagent/consumable/chocolatepudding = 20)
+	required_reagents = list(/datum/reagent/consumable/cream  = 5, /datum/reagent/consumable/cocoa = 5, /datum/reagent/consumable/eggyolk = 2)
+
+/datum/chemical_reaction/food/vanillapudding
+	results = list(/datum/reagent/consumable/vanillapudding = 20)
+	required_reagents = list(/datum/reagent/consumable/vanilla = 5, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/eggyolk = 2)
+
 /datum/chemical_reaction/food/chocolate_bar
 	name = "Chocolate Bar"
 	id = "chocolate_bar"
@@ -127,7 +135,7 @@
 /datum/chemical_reaction/food/cakebatter
 	name = "Cake Batter"
 	id = "cakebatter"
-	required_reagents = list(/datum/reagent/consumable/eggyolk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 6, /datum/reagent/consumable/eggwhite = 12, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 	mix_message = "The ingredients form a cake batter."
 
 /datum/chemical_reaction/food/cakebatter/on_reaction(datum/reagents/holder, created_volume)
@@ -141,7 +149,7 @@
 
 /datum/chemical_reaction/food/pancakebatter
 	results = list(/datum/reagent/consumable/pancakebatter = 15)
-	required_reagents = list(/datum/reagent/consumable/eggyolk = 10, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/flour = 5)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 6, /datum/reagent/consumable/eggwhite = 12, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/flour = 5)
 
 /datum/chemical_reaction/food/uncooked_rice
 	name = "Uncooked Rice"
