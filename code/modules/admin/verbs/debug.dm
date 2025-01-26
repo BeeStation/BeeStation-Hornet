@@ -709,8 +709,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(istype(landmark))
 		var/datum/map_template/ruin/template = landmark.ruin_template
 		usr.forceMove(get_turf(landmark))
-		to_chat(usr, span_name("[template.name]"))
-		to_chat(usr, span_italics("[template.description]"))
+		to_chat(usr, span_name(template.name))
+		to_chat(usr, span_italics(template.description))
 
 /client/proc/place_ruin()
 	set category = "Debug"
@@ -751,8 +751,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/obj/effect/landmark/ruin/landmark = GLOB.ruin_landmarks[GLOB.ruin_landmarks.len]
 		log_admin("[key_name(src)] randomly spawned ruin [ruinname] at [COORD(landmark)].")
 		usr.forceMove(get_turf(landmark))
-		to_chat(src, span_name("[template.name]"))
-		to_chat(src, span_italics("[template.description]"))
+		to_chat(src, span_name(template.name))
+		to_chat(src, span_italics(template.description))
 	else
 		to_chat(src, span_warning("Failed to place [template.name]."))
 

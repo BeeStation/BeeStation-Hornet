@@ -380,7 +380,7 @@
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+			to_chat(traitor_mob, span_boldnotice(U.unlock_text))
 
 		if(uplink_owner)
 			uplink_owner.antag_memory += U.unlock_note + "<br>"
@@ -392,7 +392,7 @@
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)
 			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+			to_chat(traitor_mob, span_boldnotice(U.unlock_text))
 		return I
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.

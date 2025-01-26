@@ -473,7 +473,7 @@ GENE SCANNER
 		if(length(cyberimp_detect))
 			message += span_notice("Detected cybernetic modifications:")
 			for(var/name in cyberimp_detect)
-				message += span_notice("[name]")
+				message += span_notice(name)
 
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 	if(to_chat)
@@ -495,7 +495,7 @@ GENE SCANNER
 		if(M.reagents.addiction_list.len)
 			message += span_boldannounce("Subject is addicted to the following reagents:")
 			for(var/datum/reagent/R in M.reagents.addiction_list)
-				message += span_alert("[R.name]")
+				message += span_alert(R.name)
 		else
 			message += span_notice("Subject is not addicted to any reagents.")
 	if(to_chat)
@@ -947,7 +947,7 @@ GENE SCANNER
 		full_list_mutations[each_mutation.type] = "Temporary"
 
 	for(var/A in full_list_mutations)
-		to_chat(user, "\t[span_notice("[get_display_name(A)]")]") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
+		to_chat(user, "\t[span_notice(get_display_name(A))]") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
 	to_chat(user, "\t[span_info("Genetic Stability: [C.dna.stability]%.")]")
 	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
 		to_chat(user, "\t[span_info("Subject's DNA appears to be in an unstable state.")]")
@@ -975,7 +975,7 @@ GENE SCANNER
 					display += "-"
 				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
 
-			to_chat(user, "[span_boldnotice("[display]")]<br>")
+			to_chat(user, "[span_boldnotice(display)]<br>")
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"

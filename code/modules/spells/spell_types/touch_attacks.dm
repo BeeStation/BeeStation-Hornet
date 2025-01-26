@@ -30,7 +30,7 @@
 /obj/effect/proc_holder/spell/targeted/touch/cast(list/targets,mob/user = usr)
 	if(!QDELETED(attached_hand))
 		remove_hand()
-		to_chat(user, span_notice("[dropmessage]"))
+		to_chat(user, span_notice(dropmessage))
 		return
 
 	for(var/mob/living/carbon/target in targets)
@@ -56,7 +56,7 @@
 			to_chat(user, span_warning("Your hands are full!"))
 		return FALSE
 	spell_used = FALSE
-	to_chat(user, span_notice("[drawmessage]"))
+	to_chat(user, span_notice(drawmessage))
 	return TRUE
 
 

@@ -30,7 +30,7 @@
 	if(!examine_description)
 		return
 	if(is_servant_of_ratvar(user) || !isliving(user))
-		examine_list += span_neovgre("[examine_description]")
+		examine_list += span_neovgre(examine_description)
 		examine_list += span_neovgre("It's blessing has a power of [level]!")
 	else
 		examine_list += "It is glowing slightly!"

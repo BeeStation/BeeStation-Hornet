@@ -4,7 +4,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(victim)] was hypnotized with the phrase '[hypnotic_phrase]'.")
 	victim.log_message("was hypnotized with the phrase '[hypnotic_phrase]'.", LOG_ATTACK, color="red")
 	log_game("[key_name(victim)] was hypnotized with the phrase '[hypnotic_phrase]'.")
-	to_chat(victim, span_reallybighypnophrase("[hypnotic_phrase]"))
+	to_chat(victim, span_reallybighypnophrase(hypnotic_phrase))
 	to_chat(victim, span_notice(pick("You feel your thoughts focusing on this phrase... you can't seem to get it out of your head.",\
 												"Your head hurts, but this is all you can think of. It must be vitally important.",\
 												"You feel a part of your mind repeating this over and over. You need to follow these words.",\

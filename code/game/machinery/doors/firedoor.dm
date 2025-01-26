@@ -150,7 +150,7 @@
 			return
 		to_chat(user, span_notice("\the [C] beeps, 'Dumping access log...'"))
 		for(var/entry in access_log)
-			to_chat(user, span_noticerobot("[entry]"))
+			to_chat(user, span_noticerobot(entry))
 
 	return ..()
 

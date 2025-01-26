@@ -168,10 +168,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()
 	if(user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
-		. += span_notice("[special_desc]")
+		. += span_notice(special_desc)
 	if(isobserver(user))
 		for(var/datum/xenoartifact_trait/t as() in traits)
-			. += (t?.desc ? span_notice("[t.desc]") : span_notice("[t.label_name]"))
+			. += (t?.desc ? span_notice(t.desc) : span_notice(t.label_name))
 	. += label_desc
 
 /obj/item/xenoartifact/attack_self(mob/user)

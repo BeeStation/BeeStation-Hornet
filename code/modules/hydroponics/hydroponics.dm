@@ -328,7 +328,7 @@
 /obj/machinery/hydroponics/examine(user)
 	. = ..()
 	if(myseed)
-		. += span_info("It has [span_name("[myseed.plantname]")] planted.")
+		. += span_info("It has [span_name(myseed.plantname)] planted.")
 		if (dead)
 			. += span_warning("It's dead!")
 		else if (harvest)
@@ -805,7 +805,7 @@
 		var/list/message = list()
 		if(myseed)
 			message += "*** <B>[myseed.plantname]</B> ***"
-			message += "- Plant Age: [span_notice("[age]")]"
+			message += "- Plant Age: [span_notice(age)]"
 			var/list/text_string = myseed.get_analyzer_text()
 			if(text_string)
 				message += text_string

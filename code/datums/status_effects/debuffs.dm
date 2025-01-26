@@ -630,7 +630,7 @@
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.add_client_colour(/datum/client_colour/monochrome)
 	owner.visible_message("[stun ? span_warning("[owner] stands still as [owner.p_their()] eyes seem to focus on a distant point.") : ""]", \
-	span_warning("[pick("You feel your thoughts slow down.", "You suddenly feel extremely dizzy.", "You feel like you're in the middle of a dream.","You feel incredibly relaxed.")]"))
+	span_warning(pick("You feel your thoughts slow down.", "You suddenly feel extremely dizzy.", "You feel like you're in the middle of a dream.","You feel incredibly relaxed.")))
 	return TRUE
 
 /datum/status_effect/trance/on_creation(mob/living/new_owner, _duration, _stun = TRUE)
@@ -838,17 +838,17 @@
 				span_warning(pick("Your throat hurts.", "You clear your throat.")))
 		if(301 to 600)
 			if(prob(2))
-				fake_msg = pick(span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"),
-				span_warning("[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]"),
+				fake_msg = pick(span_warning(pick("Your head hurts a lot.", "Your head pounds incessantly.")),
+				span_warning(pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")),
 				span_warning("You feel very [pick("dizzy","woozy","faint")]."),
-				span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"),
+				span_warning(pick("You hear a ringing in your ear.", "Your ears pop.")),
 				span_warning("You nod off for a moment."))
 		else
 			if(prob(3))
 				if(prob(50))// coin flip to throw a message or an emote
-					fake_msg = pick(span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"),
-					span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"),
-					span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"))
+					fake_msg = pick(span_userdanger(pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")),
+					span_userdanger(pick("Your lungs hurt!", "It hurts to breathe!")),
+					span_warning(pick("You feel nauseated.", "You feel like you're going to throw up!")))
 				else
 					fake_emote = pick("cough", "sniff", "sneeze")
 

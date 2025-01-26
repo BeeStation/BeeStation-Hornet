@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(num_pages > 1)
 		for(var/i in 1 to num_pages)
 			if(i == page)
-				ui += span_linkoff("[i]")
+				ui += span_linkoff(i)
 			else
 				ui += "<a href='?src=[REF(src)];page=[i]'>[i]</a>"
 

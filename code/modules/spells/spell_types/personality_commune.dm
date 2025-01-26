@@ -33,4 +33,4 @@
 	for(var/ded in GLOB.dead_mob_list)
 		if(!isobserver(ded))
 			continue
-		to_chat(ded, "[FOLLOW_LINK(ded, user)] [span_boldnotice("[user] [name]:")] [span_notice("\"[msg]\" to ")][span_name("[trauma]")]")
+		to_chat(ded, "[FOLLOW_LINK(ded, user)] [span_boldnotice("[user] [name]:")] [span_notice("\"[msg]\" to ")][span_name(trauma)]")

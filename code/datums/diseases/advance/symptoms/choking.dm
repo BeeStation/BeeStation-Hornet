@@ -61,7 +61,7 @@ Bonus
 			Asphyxiate_stage_3_4(M, A)
 			M.emote("gasp")
 		if(5)
-			to_chat(M, span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"))
+			to_chat(M, span_userdanger(pick("Your lungs hurt!", "It hurts to breathe!")))
 			Asphyxiate(M, A)
 			M.emote("gasp")
 			if(M.getOxyLoss() >= 120)

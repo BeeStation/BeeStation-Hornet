@@ -38,7 +38,7 @@
 				affected_mob.emote("gasp")
 			if(stage >= 5)
 				if(prob(2))
-					to_chat(affected_mob, span_userdanger("[pick("You feel your heart slowing.", "You relax and slow your heartbeat.")]"))
+					to_chat(affected_mob, span_userdanger(pick("You feel your heart slowing.", "You relax and slow your heartbeat.")))
 					affected_mob.adjustStaminaLoss(70)
 				if(prob(10))
 					affected_mob.adjustStaminaLoss(100)
@@ -54,7 +54,7 @@
 					affected_mob.overeatduration = max(affected_mob.overeatduration - 100, 0)
 					affected_mob.adjust_nutrition(-100)
 				if(prob(15))
-					to_chat(affected_mob, span_danger("[pick("You feel uncomfortably hot.", "You feel like unzipping your jumpsuit.", "You feel like taking off some clothes.")]"))
+					to_chat(affected_mob, span_danger(pick("You feel uncomfortably hot.", "You feel like unzipping your jumpsuit.", "You feel like taking off some clothes.")))
 					affected_mob.adjust_bodytemperature(40)
 	return
 

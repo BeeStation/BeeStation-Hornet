@@ -337,7 +337,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		Example: say ';laughs maniacally!|' >> \[Common] Joe Schmoe laughs maniacally!"
 
 
-	to_chat(usr, span_notice("[message]"))
+	to_chat(usr, span_notice(message))
 
 /client/verb/vote_to_leave()
 	set name = "Vote to leave"

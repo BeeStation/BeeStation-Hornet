@@ -43,7 +43,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(gain_text)
-		to_chat(user, span_warning("[gain_text]"))
+		to_chat(user, span_warning(gain_text))
 	on_gain(user)
 
 /**

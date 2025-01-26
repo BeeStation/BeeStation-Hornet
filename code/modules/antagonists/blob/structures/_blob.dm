@@ -247,16 +247,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	. = list()
 	if(overmind)
 		. += list("<b>Material: <font color=\"[overmind.blobstrain.color]\">[overmind.blobstrain.name]</font>[span_notice(".")]</b>",
-		"<b>Material Effects:</b> [span_notice("[overmind.blobstrain.analyzerdescdamage]")]",
-		"<b>Material Properties:</b> [span_notice("[overmind.blobstrain.analyzerdesceffect || "N/A"]")]")
+		"<b>Material Effects:</b> [span_notice(overmind.blobstrain.analyzerdescdamage)]",
+		"<b>Material Properties:</b> [span_notice(overmind.blobstrain.analyzerdesceffect || "N/A")]")
 	else
 		. += "<b>No Material Detected!</b>"
 
 /obj/structure/blob/proc/typereport(mob/user)
 	RETURN_TYPE(/list)
-	return list("<b>Blob Type:</b> [span_notice("[uppertext(initial(name))]")]",
+	return list("<b>Blob Type:</b> [span_notice(uppertext(initial(name)))]",
 		"<b>Health:</b> [span_notice("[atom_integrity]/[max_integrity]")]",
-		"<b>Effects:</b> [span_notice("[scannerreport()]")]")
+		"<b>Effects:</b> [span_notice(scannerreport())]")
 
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M)

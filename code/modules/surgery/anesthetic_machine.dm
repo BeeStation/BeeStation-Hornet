@@ -86,7 +86,7 @@
 				target.update_internals_hud_icon(1)
 				update_icon()
 		else
-			to_chat(usr, span_warning("[mask_out ? "The machine is already in use!" : "The machine has no attached tank!"]"))
+			to_chat(usr, span_warning(mask_out ? "The machine is already in use!" : "The machine has no attached tank!"))
 
 /obj/machinery/anesthetic_machine/process()
 	if(!mask_out) // If not on someone, stop processing

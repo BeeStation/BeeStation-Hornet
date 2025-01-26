@@ -230,9 +230,9 @@
 		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I]!"
 	if(user == src)
 		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I]"
-	visible_message(span_danger("[attack_message_spectator]"),\
-		span_userdanger("[attack_message_victim]"), null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, span_danger("[attack_message_attacker]"))
+	visible_message(span_danger(attack_message_spectator),\
+		span_userdanger(attack_message_victim), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger(attack_message_attacker))
 	return 1
 
 /mob/living/proc/send_item_poke_message(obj/item/I, mob/living/user)
@@ -245,8 +245,7 @@
 		poke_message_local = "[user] [message_verb] you with [I]!"
 	if(user == src)
 		poke_message_local = "You [message_verb] yourself with [I]!"
-	visible_message(span_notice("[poke_message]"),\
-	span_usernotice("[poke_message_local]"), null, COMBAT_MESSAGE_RANGE)
+	visible_message(span_notice(poke_message), span_usernotice(poke_message_local), null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/proc/record_accidental_poking()
 	if(time_of_last_poke != 0 && world.time - time_of_last_poke <= 50)

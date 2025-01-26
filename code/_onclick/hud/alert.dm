@@ -230,7 +230,7 @@ or something covering your eyes."
 	var/mob/living/L = usr
 	if(L != owner)
 		return
-	to_chat(L, "[span_mindcontrol("[command]")]")
+	to_chat(L, span_mindcontrol(command))
 
 /atom/movable/screen/alert/drunk
 	name = "Drunk"

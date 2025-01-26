@@ -65,7 +65,7 @@
 		if(self)
 			to_chat(summoner.current, span_holoparasitebold("Personality reset [span_danger("failed")]: unknown error!"))
 		return
-	to_chat(src, span_holoparasiteboldbig("[self ? "A ghost took control of you, at your request." : "Your summoner reset you! Better luck next time!"]"))
+	to_chat(src, span_holoparasiteboldbig(self ? "A ghost took control of you, at your request." : "Your summoner reset you! Better luck next time!"))
 	ghostize(can_reenter_corpse = FALSE)
 	key = new_player.key
 	to_chat(summoner.current, span_holoparasiteboldbig("Personality reset for [color_name] succeeded!"))

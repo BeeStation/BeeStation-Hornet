@@ -46,7 +46,7 @@
 			if(1)
 				to_chat(owner, "<i>...[LOWER_TEXT(hypnotic_phrase)]...</i>")
 			if(2)
-				new /datum/hallucination/chat(owner, TRUE, FALSE, span_hypnophrase("[hypnotic_phrase]"))
+				new /datum/hallucination/chat(owner, TRUE, FALSE, span_hypnophrase(hypnotic_phrase))
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
 	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], span_hypnophrase("$1"))

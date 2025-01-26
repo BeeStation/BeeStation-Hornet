@@ -221,7 +221,7 @@
 		running += query
 		var/msg = "Starting query #[query.id] - [query.get_query_text()]."
 		if(usr)
-			to_chat(usr, span_admin("[msg]"))
+			to_chat(usr, span_admin(msg))
 		log_admin(msg)
 		query.ARun()
 	else //Start all
@@ -229,7 +229,7 @@
 			running += query
 			var/msg = "Starting query #[query.id] - [query.get_query_text()]."
 			if(usr)
-				to_chat(usr, span_admin("[msg]"))
+				to_chat(usr, span_admin(msg))
 			log_admin(msg)
 			query.ARun()
 
@@ -267,7 +267,7 @@
 						running += next_query
 						var/msg = "Starting query #[next_query.id] - [next_query.get_query_text()]."
 						if(usr)
-							to_chat(usr, span_admin("[msg]"))
+							to_chat(usr, span_admin(msg))
 						log_admin(msg)
 						next_query.ARun()
 				else

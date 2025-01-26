@@ -69,7 +69,7 @@
 	to_chat(owner.current, span_notice("With the help of your teammate, kidnap and experiment on station crew members!"))
 	to_chat(owner.current, span_notice("There are two of you! One can monitor cameras while the other infiltrates the station."))
 	to_chat(owner.current, span_notice("Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight."))
-	to_chat(owner.current, span_notice("[greet_text]"))
+	to_chat(owner.current, span_notice(greet_text))
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
 		"Capture and experiment on members of the crew, without being spotted.")

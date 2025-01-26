@@ -18,7 +18,7 @@
 		remove_ranged_ability(msg)
 		return
 	if(active)
-		msg = span_notice("[deactive_msg]")
+		msg = span_notice(deactive_msg)
 		remove_ranged_ability(msg)
 		on_deactivation(user)
 	else

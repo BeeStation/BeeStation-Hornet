@@ -378,7 +378,7 @@
 		for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
 			var/sender = FOLLOW_LINK(ghost, user)
 			var/receiver = FOLLOW_LINK(ghost, L)
-			to_chat(ghost, span_deadsay("[sender] [span_name("[user]")] [span_abductor("Abductor Mental Telepathy")] -> [receiver] [span_name("[L]")]: [span_boldmessage("[message]")]"))
+			to_chat(ghost, span_deadsay("[sender] [span_name(user)] [span_abductor("Abductor Mental Telepathy")] -> [receiver] [span_name(L)]: [span_boldmessage(message)]"))
 		log_directed_talk(user, L, message, LOG_SAY, "abductor whisper")
 
 
@@ -604,7 +604,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		species = span_notice("[H.dna.species.name]")
+		species = span_notice(H.dna.species.name)
 		if(L.mind && L.mind.has_antag_datum(/datum/antagonist/changeling))
 			species = span_warning("Changeling lifeform")
 		var/obj/item/organ/heart/gland/temp = locate() in H.internal_organs

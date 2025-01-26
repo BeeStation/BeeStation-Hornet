@@ -35,7 +35,7 @@
 		for(var/obj/item in hand_items)
 			if(istype(item, /obj/item/spellbook))
 				to_chat(L, span_danger("Glowing red letters appear on the front cover..."))
-				to_chat(L, span_warning("[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE! VERY CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]"))
+				to_chat(L, span_warning(pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE! VERY CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")))
 				burnt_out = TRUE
 			else if(istype(item, /obj/item/book/granter/spell))
 				var/obj/item/book/granter/spell/I = item

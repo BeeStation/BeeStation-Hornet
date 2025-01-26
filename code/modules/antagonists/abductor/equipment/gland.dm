@@ -56,10 +56,10 @@
 		return
 	mind_control_uses--
 	to_chat(owner, span_userdanger("You suddenly feel an irresistible compulsion to follow an order..."))
-	to_chat(owner, "[span_mindcontrol("[command]")]")
+	to_chat(owner, span_mindcontrol(command))
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
-	deadchat_broadcast(span_deadsay("[span_name("[user]")] sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
+	deadchat_broadcast(span_deadsay("[span_name(user)] sent an abductor mind control message to [span_name(owner)]: [span_boldmessage(command)]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
 	update_gland_hud()
 	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command

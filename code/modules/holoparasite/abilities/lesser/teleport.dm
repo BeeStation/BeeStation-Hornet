@@ -350,12 +350,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/holopara_bluespace_tear)
 	if(!istype(destination) || QDELETED(destination))
 		to_chat(user, span_warning("There doesn't seem to be anything on the other side of \the [src]..."))
 		return
-	user.visible_message(span_notice("[span_name("[user]")] begins to effortlessly climb into \the [src], navigating through the tear with unnatural familarity!"), \
+	user.visible_message(span_notice("[span_name(user)] begins to effortlessly climb into \the [src], navigating through the tear with unnatural familarity!"), \
 		span_notice("You begin to crawl into \the [src], fully understanding the complex path through bluespace, despite it being incomprehensible to most..."))
 	if(!do_after(user, 1.5 SECONDS, src, extra_checks = CALLBACK(src, PROC_REF(_bluespace_tear_crawl_check), user)))
-		user.visible_message(span_warning("[span_name("[user]")] backs out of \the [src]!"), span_warning("You were interrupted while trying to navigate \the [src]!"))
+		user.visible_message(span_warning("[span_name(user)] backs out of \the [src]!"), span_warning("You were interrupted while trying to navigate \the [src]!"))
 		return
-	user.visible_message(span_warning("[span_name("[user]")] fully crawls into \the [src], disappearing from view!"), \
+	user.visible_message(span_warning("[span_name(user)] fully crawls into \the [src], disappearing from view!"), \
 		span_notice("You crawl into \the [src], effortlessly navigating through the bluespace tunnels, and come out on the other side..."))
 	playsound(user, 'sound/magic/wand_teleport.ogg', vol = 75, vary = TRUE)
 	do_teleport(user, destination, precision = 0, channel = TELEPORT_CHANNEL_QUANTUM)

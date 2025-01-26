@@ -100,7 +100,7 @@
 			msg = "Your Energy Katana lands at your feet!"
 
 	if(msg)
-		to_chat(user, span_notice("[msg]"))
+		to_chat(user, span_notice(msg))
 
 
 /obj/item/energy_katana/Destroy()

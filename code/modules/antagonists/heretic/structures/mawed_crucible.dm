@@ -218,7 +218,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
-	. += span_notice("[crucible_tip]")
+	. += span_notice(crucible_tip)
 
 /obj/item/eldritch_potion/attack_self(mob/user)
 	. = ..()

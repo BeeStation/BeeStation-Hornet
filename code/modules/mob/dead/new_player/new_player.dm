@@ -155,7 +155,7 @@
 			if(IS_PATRON(src.ckey) || is_admin(src.ckey))
 				LateChoices()
 				return
-			to_chat(usr, span_danger("[CONFIG_GET(string/hard_popcap_message)]"))
+			to_chat(usr, span_danger(CONFIG_GET(string/hard_popcap_message)))
 
 			var/queue_position = SSticker.queued_players.Find(usr)
 			if(queue_position == 1)

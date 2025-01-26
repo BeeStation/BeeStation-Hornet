@@ -144,7 +144,7 @@
 	msg += "You can find a basic guide at: https://wiki.beestation13.com/view/Heretics"
 	if(locate(/datum/objective/major_sacrifice) in objectives)
 		msg += span_bold("<i>Any</i> head of staff can be sacrificed to complete your objective!")
-	to_chat(owner.current, EXAMINE_BLOCK(span_cult("[msg.Join("\n")]")))
+	to_chat(owner.current, EXAMINE_BLOCK(span_cult(msg.Join("\n"))))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
 		"Collect influences or sacrifice targets to expand your forbidden knowledge.")
 
@@ -419,7 +419,7 @@
 		return
 	var/datum/mind/new_target = pick(candidates)
 	add_sacrifice_target(new_target)
-	to_chat(owner, span_danger("The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... [span_hypnophrase("[new_target.name]")]. Go forth and sacrifice [new_target.current.p_them()]!"))
+	to_chat(owner, span_danger("The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... [span_hypnophrase(new_target.name)]. Go forth and sacrifice [new_target.current.p_them()]!"))
 
 /**
  * Increments knowledge by one.
@@ -452,7 +452,7 @@
 			count++
 
 	if(ascended)
-		parts += span_greentext("[span_big("THE HERETIC ASCENDED!")]")
+		parts += span_greentext(span_big("THE HERETIC ASCENDED!"))
 
 	else
 		if(succeeded)
@@ -553,7 +553,7 @@
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		if(istype(knowledge, /datum/heretic_knowledge/final))
-			string_of_knowledge += span_bold("[knowledge.name]")
+			string_of_knowledge += span_bold(knowledge.name)
 		else
 			string_of_knowledge += knowledge.name
 

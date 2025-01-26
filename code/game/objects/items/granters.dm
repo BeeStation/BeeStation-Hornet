@@ -14,7 +14,7 @@
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
 	if(do_after(user,50, user))
 		if(remarks.len)
-			to_chat(user, span_notice("[pick(remarks)]"))
+			to_chat(user, span_notice(pick(remarks)))
 		else
 			to_chat(user, span_notice("You keep reading..."))
 		return TRUE

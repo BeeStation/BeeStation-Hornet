@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				msg += " Administrators have been informed."
 				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
 				message_admins("[ADMIN_LOOKUPFLW(src)] [ADMIN_KICK(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
-			to_chat(src, span_danger("[msg]"))
+			to_chat(src, span_danger(msg))
 			return
 
 	var/stl = CONFIG_GET(number/second_topic_limit)
@@ -363,7 +363,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			log_admin_private("MULTIKEYING: [key_name(src)] has a matching CID+IP with another player and is clearly multikeying. They have been warned to leave the server or risk getting banned.")
 		spawn(0.5 SECONDS) //needs to run during world init, do not convert to add timer
 			alert(mob, dupe_login_message) //players get banned if they don't see this message, do not convert to tgui_alert (or even tg_alert) please.
-			to_chat_immediate(mob, span_danger("[dupe_login_message]"))
+			to_chat_immediate(mob, span_danger(dupe_login_message))
 
 
 	connection_time = world.time
@@ -663,7 +663,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				var/reject_message = "Failed Login: [key] - [client_is_in_db ? "":"New "]Account attempting to connect during panic bunker, but\
 					[living_recs == -1 ? " was rejected due to no prior connections to game servers (no database entry)":" they do not have the required living time [minutes]/[living_recs]"]."
 				log_access(reject_message)
-				message_admins(span_adminnotice("[reject_message]"))
+				message_admins(span_adminnotice(reject_message))
 				var/message = CONFIG_GET(string/panic_bunker_message)
 				message = replacetext(message, "%minutes%", living_recs)
 				to_chat_immediate(src, message)
@@ -952,7 +952,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 					add_system_note("aimbot", "Is using the middle click aimbot exploit")
 				log_game("[key_name(src)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
 				message_admins("[ADMIN_LOOKUPFLW(src)] [ADMIN_KICK(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
-			to_chat(src, span_danger("[msg]"))
+			to_chat(src, span_danger(msg))
 			return
 
 	var/scl = CONFIG_GET(number/second_click_limit)

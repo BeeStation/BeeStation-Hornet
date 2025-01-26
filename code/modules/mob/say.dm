@@ -79,7 +79,7 @@
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	var/spanned = say_quote(say_emphasis(message))
-	var/rendered = span_gamedeadsay("[span_prefix("DEAD:")] [span_name("[name]")][alt_name] [span_message("[emoji_parse(spanned)]")]")
+	var/rendered = span_gamedeadsay("[span_prefix("DEAD:")] [span_name(name)][alt_name] [span_message(emoji_parse(spanned))]")
 	send_chat_to_discord(CHAT_TYPE_DEADCHAT, name, spanned)
 	log_talk(message, LOG_SAY, tag="DEAD")
 	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)

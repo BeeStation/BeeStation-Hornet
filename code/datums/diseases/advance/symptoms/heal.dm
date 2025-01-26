@@ -316,10 +316,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(bigemp)
 				empulse(M.loc, 0, 1)
 			if(M.stat != DEAD)
-				to_chat(M, span_userdanger("[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]"))
+				to_chat(M, span_userdanger(pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")))
 		else
 			if(M.stat != DEAD)
-				to_chat(M, span_notice("[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]"))
+				to_chat(M, span_notice(pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")))
 	return
 
 /datum/symptom/sweat
@@ -388,7 +388,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					to_chat(M, span_userdanger("You sweat out nearly everything in your body!"))
 		else
 			if(M.stat != DEAD)
-				to_chat(M, span_notice("[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]"))
+				to_chat(M, span_notice(pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")))
 	return
 
 /obj/effect/sweatsplash
@@ -472,7 +472,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				location_return = null
 		else
 			if(prob(7) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]"))
+				to_chat(M, span_notice(pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")))
 	return
 
 /datum/symptom/growth
@@ -575,7 +575,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					M.adjustCloneLoss(1)
 		else
 			if(prob(5) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]"))
+				to_chat(M, span_notice(pick("You feel bloated.", "The station seems small.", "You are the strongest.")))
 	return
 
 /datum/symptom/growth/End(datum/disease/advance/A)
@@ -649,7 +649,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(1 to 4)
 			if(prob(5) && M.stat != DEAD)
-				to_chat(M, span_warning("[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]"))
+				to_chat(M, span_warning(pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")))
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
@@ -682,7 +682,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					M.blood_volume = (M.blood_volume - 1)
 
 			if(!bloodpoints && prob(3) && M.stat != DEAD)
-				to_chat(M, span_warning("[pick("You feel a pang of thirst.", "No food can sate your hunger", "Blood...")]"))
+				to_chat(M, span_warning(pick("You feel a pang of thirst.", "No food can sate your hunger", "Blood...")))
 
 /datum/symptom/vampirism/End(datum/disease/advance/A)
 	. = ..()
@@ -879,7 +879,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(1, 2)
 			if(M.stat != DEAD)
-				to_chat(M, span_warning("[pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")]"))
+				to_chat(M, span_warning(pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")))
 		if(3 to 5)
 			var/slowdown = 0
 			for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)//check if grubs need to be born, then feed existing grubs, or get them closer to hatching
@@ -984,7 +984,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(power) && M.stat)
 				M.Jitter(2 * power)
 				M.emote("twitch")
-				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
+				to_chat(M, span_notice(pick("You feel energetic!", "You feel well-rested.", "You feel great!")))
 		if(4 to 5)
 			M.adjustStaminaLoss((-5 * power), 0)
 			M.drowsyness = max(0, M.drowsyness - 10 * power)
@@ -994,7 +994,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(M.stat)
 					M.emote("twitch")
 					M.Jitter(2 * power)
-				to_chat(M, span_notice("[pick("You feel nervous...", "You feel anxious.", "You feel like everything is moving in slow motion.")]"))
+				to_chat(M, span_notice(pick("You feel nervous...", "You feel anxious.", "You feel like everything is moving in slow motion.")))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/nervous)
 			if(M.satiety > NUTRITION_LEVEL_HUNGRY - (30 * power))
 				M.satiety = max(NUTRITION_LEVEL_HUNGRY - (30 * power), M.satiety - (2 * power))

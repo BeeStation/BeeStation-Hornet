@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		valid = TRUE
 
 	if (!valid)
-		to_chat(user, span_warning("[message]"))
+		to_chat(user, span_warning(message))
 		C.balloon_alert(user, message)
 		return
 

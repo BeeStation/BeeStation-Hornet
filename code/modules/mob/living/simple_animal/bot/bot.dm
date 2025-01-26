@@ -958,16 +958,16 @@ Pass a positive integer as an argument to override a bot's default speed.
 				emagged = 2
 				hacked = TRUE
 				locked = TRUE
-				to_chat(usr, span_warning("[text_hack]"))
+				to_chat(usr, span_warning(text_hack))
 				message_admins("Safety lock of [ADMIN_LOOKUPFLW(src)] was disabled by [ADMIN_LOOKUPFLW(usr)] in [ADMIN_VERBOSEJMP(src)]")
 				log_game("Safety lock of [src] was disabled by [key_name(usr)] in [AREACOORD(src)]")
 				bot_reset()
 			else if(!hacked)
-				to_chat(usr, span_boldannounce("[text_dehack_fail]"))
+				to_chat(usr, span_boldannounce(text_dehack_fail))
 			else
 				emagged = FALSE
 				hacked = FALSE
-				to_chat(usr, span_notice("[text_dehack]"))
+				to_chat(usr, span_notice(text_dehack))
 				log_game("Safety lock of [src] was re-enabled by [key_name(usr)] in [AREACOORD(src)]")
 				bot_reset()
 		if("eject_pai")
@@ -1024,16 +1024,16 @@ Pass a positive integer as an argument to override a bot's default speed.
 				emagged = 2
 				hacked = TRUE
 				locked = TRUE
-				to_chat(usr, span_warning("[text_hack]"))
+				to_chat(usr, span_warning(text_hack))
 				message_admins("Safety lock of [ADMIN_LOOKUPFLW(src)] was disabled by [ADMIN_LOOKUPFLW(usr)] in [ADMIN_VERBOSEJMP(src)]")
 				log_game("Safety lock of [src] was disabled by [key_name(usr)] in [AREACOORD(src)]")
 				bot_reset()
 			else if(!hacked)
-				to_chat(usr, span_boldannounce("[text_dehack_fail]"))
+				to_chat(usr, span_boldannounce(text_dehack_fail))
 			else
 				emagged = FALSE
 				hacked = FALSE
-				to_chat(usr, span_notice("[text_dehack]"))
+				to_chat(usr, span_notice(text_dehack))
 				log_game("Safety lock of [src] was re-enabled by [key_name(usr)] in [AREACOORD(src)]")
 				bot_reset()
 		if("ejectpai")

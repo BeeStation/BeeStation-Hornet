@@ -85,24 +85,24 @@
 		var/rnd = rand(1,10000)
 		var/rname = "tmp[REF(icon_value)][rnd].png"
 		usr << browse_rsc(icon_value, rname)
-		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
+		return "([span_value(value)]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon ([span_value("[value]")])"
+		return "/icon ([span_value(value)])"
 		#endif
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
+		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value(get_appearance_vv_summary_name(value))]) [REF(value)]</a>"
 
 	if(isimage(value))
 		var/image/image = value
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] ([span_value("[get_appearance_vv_summary_name(image)]")]) [REF(value)]</a>"
+		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] ([span_value(get_appearance_vv_summary_name(image))]) [REF(value)]</a>"
 
 	// fun fact: there are two types of /filters. `/filters(/filters(), /filters(), ...)`
 	// isfilter() doesn't know if it's a parent filter(that has [/filters]s inside of itself), or a child filter
 	var/isfilter = isfilter(value)
 	var/is_child_filter = isfilter && !isdatum(owner) && !isappearance(owner) // 'child_filter' means each /filters in /atom.filters
 	if(is_child_filter)
-		return "/filters\[child\] ([span_value("[value.type]")])"
+		return "/filters\[child\] ([span_value(value.type)])"
 
 	if(isfile(value))
 		return span_value("'[value]'")
@@ -164,7 +164,7 @@
 		else
 			return "NONE"
 	else
-		return span_value("[VV_HTML_ENCODE(value)]")
+		return span_value(VV_HTML_ENCODE(value))
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.

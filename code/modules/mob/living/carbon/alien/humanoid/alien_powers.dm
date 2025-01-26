@@ -104,7 +104,7 @@ Doesn't work on other aliens/AI.*/
 			continue
 		var/follow_link_user = FOLLOW_LINK(ded, user)
 		var/follow_link_whispee = FOLLOW_LINK(ded, M)
-		to_chat(ded, "[follow_link_user] [span_name("[user]")] [span_alertalien("Alien Whisper --> ")] [follow_link_whispee] [span_name("[M]")] [span_noticealien("[msg]")]")
+		to_chat(ded, "[follow_link_user] [span_name(user)] [span_alertalien("Alien Whisper --> ")] [follow_link_whispee] [span_name(M)] [span_noticealien(msg)]")
 	return TRUE
 
 /obj/effect/proc_holder/alien/transfer

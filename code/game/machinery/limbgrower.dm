@@ -192,7 +192,7 @@
 		if(!(selected_category in D.category))
 			continue
 		if(disabled || !can_build(D))
-			dat += span_linkoff("[D.name]")
+			dat += span_linkoff(D.name)
 		else
 			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
 		dat += "[get_design_cost(D)]<br>"

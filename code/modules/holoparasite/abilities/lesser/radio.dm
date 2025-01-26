@@ -59,7 +59,7 @@
 		channels += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
 	for(var/channel in radio.channels)
 		channels += "use [GLOB.channel_tokens[channel]] for [LOWER_TEXT(channel)]"
-	text += span_holoparasite("[english_list(channels)]")
+	text += span_holoparasite(english_list(channels))
 	return text.Join("\n")
 
 /obj/item/radio/holoparasite

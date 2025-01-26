@@ -300,7 +300,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	var/can_evac_or_fail_reason = SSshuttle.canEvac(src)
 	if(can_evac_or_fail_reason != TRUE)
-		to_chat(usr, span_alert("[can_evac_or_fail_reason]"))
+		to_chat(usr, span_alert(can_evac_or_fail_reason))
 		return
 
 	var/reason = input(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call") as null|text

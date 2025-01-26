@@ -289,7 +289,7 @@
 		if (completed_contracts > 1)
 			pluralCheck = "contracts"
 
-		result += "Completed [span_greentext("[completed_contracts]")] [pluralCheck] for a total of \
+		result += "Completed [span_greentext(completed_contracts)] [pluralCheck] for a total of \
 					[span_greentext("[tc_total] TC")]![contractor_support_unit]<br>"
 
 	return result
@@ -298,8 +298,8 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> [span_bluetext("[phrases]")]<br>\
-					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
+	var message = "<br><b>The code phrases were:</b> [span_bluetext(phrases)]<br>\
+					<b>The code responses were:</b> [span_redtext(responses)]<br>"
 
 	return message
 

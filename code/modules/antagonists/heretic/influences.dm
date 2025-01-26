@@ -287,7 +287,7 @@
  */
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
-		to_chat(user, span_hypnophrase("[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]"))
+		to_chat(user, span_hypnophrase(pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))))
 		to_chat(user, span_warning("[src] begins to fade into reality!"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())

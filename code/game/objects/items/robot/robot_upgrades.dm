@@ -417,12 +417,12 @@
 		if(cyborg.health < cyborg.maxHealth)
 			if(cyborg.health < cyborg.maxHealth / 2 && mode == STANDARD)
 				mode = CRITICAL
-				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice("[mode]")] mode."))
+				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice(mode)] mode."))
 				repair_amount = initial(repair_amount) * 2
 				powercost = initial(repair_amount) * 3
 			else if (cyborg.health >= cyborg.maxHealth / 2 && mode == CRITICAL)
 				mode = STANDARD
-				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice("[mode]")] mode."))
+				to_chat(cyborg, span_notice("[src] now operating in [span_boldnotice(mode)] mode."))
 				repair_amount = initial(repair_amount)
 				powercost = initial(powercost)
 			if(cyborg.getBruteLoss())

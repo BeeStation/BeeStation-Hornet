@@ -126,7 +126,7 @@
 					message_admins("[key_name(src)] played web sound: [web_sound_input]")
 			else
 				to_chat(src, span_boldwarning("Youtube-dl URL retrieval FAILED:"))
-				to_chat(src, span_warning("[stderr]"))
+				to_chat(src, span_warning(stderr))
 
 		else //pressed ok with blank
 			log_admin("[key_name(src)] stopped web sound")

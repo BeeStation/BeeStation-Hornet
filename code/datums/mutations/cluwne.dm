@@ -36,7 +36,7 @@
 
 /datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
 	owner.emote("scream")
-	owner.visible_message(span_warning("[span_name("[owner]")] faints as [owner.p_their()] cursed cluwne clothing melts away!"))
+	owner.visible_message(span_warning("[span_name(owner)] faints as [owner.p_their()] cursed cluwne clothing melts away!"))
 	owner.Unconscious(rand(45 SECONDS, 70 SECONDS))
 	owner.dna.remove_mutation(CLOWNMUT)
 	owner.dna.remove_mutation(EPILEPSY)
@@ -62,7 +62,7 @@
 	dna.add_mutation(cursed ? CURSEDCLUWNEMUT : CLUWNEMUT)
 	emote("scream")
 	regenerate_icons()
-	visible_message(span_danger("[span_name("[src]'s")] body glows green, the glow dissipating only to leave behind a cluwne formerly known as [span_name("[src]")]!"), \
+	visible_message(span_danger("[span_name("[src]'s")] body glows green, the glow dissipating only to leave behind a cluwne formerly known as [span_name(src)]!"), \
 					span_danger("Your brain feels like it's being torn apart, there is only the honkmother now."))
 	flash_act(override_blindness_check = TRUE)
 	client?.give_award(/datum/award/achievement/misc/cluwne, src)

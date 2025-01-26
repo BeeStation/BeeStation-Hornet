@@ -21,7 +21,7 @@
 		remove_ranged_ability(msg)
 		return
 	if(active)
-		msg = span_notice("[deactive_msg]")
+		msg = span_notice(deactive_msg)
 		if(charge_type == "recharge")
 			var/refund_percent = current_amount/projectile_amount
 			charge_counter = charge_max * refund_percent

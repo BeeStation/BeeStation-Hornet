@@ -1397,8 +1397,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				for(var/armor_key in armor_all)
 					message += "[armor_key]=[get_armor_rating(armor_key)],"
 				message = copytext(message, 1, -1)
-				log_admin(span_notice("[message]"))
-				message_admins(span_notice("[message]"))
+				log_admin(span_notice(message))
+				message_admins(span_notice(message))
 
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")

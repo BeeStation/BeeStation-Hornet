@@ -224,7 +224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 
 	var/message = hearing_args[HEARING_RAW_MESSAGE]
 	if(findtext(message, codeword))
-		hearing_args[HEARING_RAW_MESSAGE] = replacetext(message, codeword, span_warning("[codeword]"))
+		hearing_args[HEARING_RAW_MESSAGE] = replacetext(message, codeword, span_warning(codeword))
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/brain_trauma/severe/split_personality, switch_personalities)), 10)
 
 /datum/brain_trauma/severe/split_personality/brainwashing/handle_speech(datum/source, list/speech_args)

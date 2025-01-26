@@ -746,7 +746,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, T), 30)
 	if(!success)
-		to_chat(src, span_warning("[alert_msg]"))
+		to_chat(src, span_warning(alert_msg))
 	return success
 
 

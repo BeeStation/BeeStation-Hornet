@@ -111,7 +111,7 @@
 								"[src] is twisting [p_their()] own neck! It looks like [p_theyre()] trying to commit suicide.", \
 								"[src] is holding [p_their()] breath! It looks like [p_theyre()] trying to commit suicide.")
 
-		visible_message(span_danger("[suicide_message]"), span_userdanger("[suicide_message]"))
+		visible_message(span_danger(suicide_message), span_userdanger(suicide_message))
 
 		suicide_log()
 
