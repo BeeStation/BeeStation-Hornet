@@ -120,7 +120,7 @@
 
 /obj/item/mod/control/atom_destruction(damage_flag)
 	if(wearer)
-		wearer.visible_message("<span class='danger'>[src] fall[p_s()] apart, completely destroyed!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
+		wearer.visible_message(span_bolddanger("[src] fall[p_s()] apart, completely destroyed!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		clean_up()
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module)
@@ -136,27 +136,28 @@
 /obj/item/mod/control/examine(mob/user)
 	. = ..()
 	if(active)
-		. += "<span class='notice'>Charge: [core ? "[get_charge_percent()]%" : "No core"].</span>"
-		. += "<span class='notice'>Selected module: [selected_module || "None"].</span>"
+		. += span_notice("Charge: [core ? "[get_charge_percent()]%" : "No core"].")
+		. += span_notice("Selected module: [selected_module || "None"].")
 	if(!open && !active)
 		if(!wearer)
-			. += "<span class='notice'>You could equip it to turn it on.</span>"
-		. += "<span class='notice'>You could open the cover with a <b>screwdriver</b>.</span>"
+			. += span_notice("You could equip it to turn it on.")
+		. += span_notice("You could open the cover with a <b>screwdriver</b>.")
 	else if(open)
-		. += "<span class='notice'>You could close the cover with a <b>screwdriver</b>.</span>"
-		. += "<span class='notice'>You could use <b>modules</b> on it to install them.</span>"
-		. += "<span class='notice'>You could remove modules with a <b>crowbar</b>.</span>"
-		. += "<span class='notice'>You could update the access lock with an <b>ID</b>.</span>"
-		. += "<span class='notice'>You could access the wire panel with a <b>wire tool</b>.</span>"
+		. += span_notice("You could close the cover with a <b>screwdriver</b>.")
+		. += span_notice("You could use <b>modules</b> on it to install them.")
+		. += span_notice("You could remove modules with a <b>crowbar</b>.")
+		. += span_notice("You could update the access lock with an <b>ID</b>.")
+		. += span_notice("You could access the wire panel with a <b>wire tool</b>.")
 		if(core)
-			. += "<span class='notice'>You could remove [core] with a <b>wrench</b>.</span>"
+			. += span_notice("You could remove [core] with a <b>wrench</b>.")
 		else
-			. += "<span class='notice'>You could use a <b>MOD core</b> on it to install one.</span>"
-		if(ai)
-			. += "<span class='notice'>You could remove [ai] with an <b>intellicard</b></span>"
-		else
-			. += "<span class='notice'>You could install an AI with an <b>intellicard</b>.</span>"
-	. += "<span class='notice'><i>You could examine it more thoroughly...</i></span>"
+			. += span_notice("You could use a <b>MOD core</b> on it to install one.")
+		if(isnull(ai))
+			. += span_notice("You could install an AI using their <b>storage card</b>.")
+		else if(isAI(ai))
+			. += span_notice("You could remove [ai] with an <b>intellicard</b>.")
+	. += span_notice("You could copy/set link frequency with a <b>multitool</b>.")
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
 
 /obj/item/mod/control/examine_more(mob/user)
 	. = ..()
@@ -360,12 +361,12 @@
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(wearer, "<span class='notice'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!</span>")
+	to_chat(wearer, span_notice("[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!"))
 	if(. & EMP_PROTECT_CONTENTS)
 		return
 	selected_module?.deactivate(display_message = TRUE)
 	wearer.apply_damage(10 / severity, BURN)
-	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly.</span>")
+	to_chat(wearer, span_danger("You feel [src] heat up from the EMP, burning you slightly."))
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
 
@@ -703,12 +704,12 @@
 	SIGNAL_HANDLER
 
 	if(slowdown_inactive <= 0)
-		to_chat(user, "<span class='warning'>[src] has already been coated with red, that's as fast as it'll go!</span>")
+		to_chat(user, span_warning("[src] has already been coated with red, that's as fast as it'll go!"))
 		return SPEED_POTION_STOP
 	if(active)
-		to_chat(user, "<span class='warning'>It's too dangerous to smear [speed_potion] on [src] while it's on active!</span>")
+		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [src] while it's active!"))
 		return SPEED_POTION_STOP
-	to_chat(user, "<span class='notice'>You slather the red gunk over [src], making it faster.</span>")
+	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
 	set_mod_color("#FF0000")
 	slowdown_inactive = 0
 	slowdown_active = 0

@@ -78,9 +78,9 @@
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += (length(slot_list) == 1 ? "" : "one of ") + english_list(slot_list, and_text = " or ")
-		. += "<span class='notice'>Requires the MOD unit to have the following slots: [english_list(slot_strings)]</span>"
+		. += span_notice("Requires the MOD unit to have the following slots: [english_list(slot_strings)]")
 	if(HAS_TRAIT(user, TRAIT_DIAGNOSTIC_HUD))
-		. += "<span class='notice'>Complexity level: [complexity]</span>"
+		. += span_notice("Complexity level: [complexity]")
 
 /// Looks through the MODsuit's parts to see if it has the parts required to support this module
 /obj/item/mod/module/proc/has_required_parts(list/parts, need_active = FALSE)
@@ -117,7 +117,7 @@
 			for(var/slot in required_slots)
 				var/list/slot_list = parse_slot_flags(slot)
 				slot_strings += (length(slot_list) == 1 ? "" : "one of ") + english_list(slot_list, and_text = " or ")
-			to_chat(mod.wearer, "<span class='notice'>[src] requires these slots to be deployed: [english_list(slot_strings)]</span>")
+			to_chat(mod.wearer, span_warning("[src] requires these slots to be deployed: [english_list(slot_strings)]"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(module_type != MODULE_USABLE)
@@ -139,7 +139,7 @@
 		return FALSE
 	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
-		to_chat(mod.wearer, "<span class='warning'>You cannot activate this right now.</span>")
+		to_chat(mod.wearer, span_warning("You cannot activate this right now."))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
 		return FALSE
@@ -195,7 +195,7 @@
 		return FALSE
 	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
-		to_chat(mod.wearer, "<span class='warning'>You cannot activate this right now.</span>")
+		to_chat(mod.wearer, span_warning("You cannot activate this right now."))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
 		return FALSE
@@ -422,13 +422,13 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += "<span class='notice'>There is a [core.name] installed in it. You could remove it with a <b>screwdriver</b>...</span>"
+		. += span_notice("There is a [core.name] installed in it. You could remove it with a <b>screwdriver</b>...")
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
 			var/atom/core_path = path
 			core_list += initial(core_path.name)
-		. += "<span class='notice'>You need to insert \a [english_list(core_list, and_text = " or ")] for this module to function.</span>"
+		. += span_notice("You need to insert \a [english_list(core_list, and_text = " or ")] for this module to function.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)

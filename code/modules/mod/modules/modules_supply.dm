@@ -228,8 +228,8 @@
 	render_matrix.Scale(1.25, 1.25)
 	animate(game_renderer, launch_time, flags = SINE_EASING|EASE_IN, transform = render_matrix)
 	var/current_time = world.time
-	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts whirring!</span>", \
-		blind_message = "<span class='hear'>You hear a whirring sound.</span>")
+	mod.wearer.visible_message(span_warning("[mod.wearer] starts whirring!"), \
+		blind_message = span_hear("You hear a whirring sound."))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	lightning = mutable_appearance('icons/effects/effects.dmi', "electricity3", plane = -3)
 	mod.wearer.add_overlay(lightning)
@@ -591,8 +591,8 @@
 	add_overlay(explosion_image)
 	addtimer(CALLBACK(src, PROC_REF(boom)), explosion_time)
 
-/obj/structure/mining_bomb/proc/boom()
-	visible_message("<span class='danger'>[src] explodes!</span>")
+/obj/structure/mining_bomb/proc/boom(atom/movable/firer)
+	visible_message(span_danger("[src] explodes!"))
 	playsound(src, 'sound/magic/magic_missile.ogg', 200, vary = TRUE)
 	for(var/turf/closed/mineral/rock in circle_range_turfs(src, 2))
 		rock.gets_drilled()

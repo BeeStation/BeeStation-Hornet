@@ -56,9 +56,9 @@
 			continue
 		deploy = TRUE
 		break
-	wearer.visible_message("<span class='notice'>[wearer]'s [src] [deploy ? "deploys" : "retracts"] its parts with a mechanical hiss.</span>",
-		"<span class='notice'>[src] [deploy ? "deploys" : "retracts"] its parts with a mechanical hiss.</span>",
-		"<span class='hear'>You hear a mechanical hiss.</span>")
+	wearer.visible_message(span_notice("[wearer]'s [src] [deploy ? "deploys" : "retracts"] its parts with a mechanical hiss."),
+		span_notice("[src] [deploy ? "deploys" : "retracts"] its parts with a mechanical hiss."),
+		span_hear("You hear a mechanical hiss."))
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	for(var/obj/item/part as anything in get_parts())
 		if(deploy && part.loc == src)
@@ -95,9 +95,9 @@
 		wearer.update_clothing(slot_flags)
 		if(!user)
 			return TRUE
-		wearer.visible_message("<span class='notice'>[wearer]'s [part.name] deploy[part.p_s()] with a mechanical hiss.</span>",
-			"<span class='notice'>[part] deploy[part.p_s()] with a mechanical hiss.</span>",
-			"<span class='hear'>You hear a mechanical hiss.</span>")
+		wearer.visible_message(span_notice("[wearer]'s [part.name] deploy[part.p_s()] with a mechanical hiss."),
+			span_notice("[part] deploy[part.p_s()] with a mechanical hiss."),
+			span_hear("You hear a mechanical hiss."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		//SEND_SIGNAL(src, COMSIG_MOD_PART_DEPLOYED, user, part)
 		return TRUE
@@ -131,9 +131,9 @@
 	//SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTED, user, part)
 	if(!user)
 		return TRUE
-	wearer.visible_message("<span class='notice'>[wearer.name]'s [part] retract[part.p_s()] back into [src] with a mechanical hiss.",
-		"<span class='notice'>[part] retract[part.p_s()] back into [src] with a mechanical hiss.",
-		"<span class='hear'>You hear a mechanical hiss.</span>")
+	wearer.visible_message(span_notice("[wearer]'s [part.name] retract[part.p_s()] back into [src] with a mechanical hiss."),
+		span_notice("[part] retract[part.p_s()] back into [src] with a mechanical hiss."),
+		span_hear("You hear a mechanical hiss."))
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
@@ -171,12 +171,12 @@
 	activating = TRUE
 	//mod_link.end_call()
 	var/original_active_status = active
-	to_chat(wearer, "<span class='notice'>MODsuit [active ? "shutting down" : "starting up"].</span>")
+	to_chat(wearer, span_notice("MODsuit [active ? "shutting down" : "starting up"]."))
 	//deploy the control unit
 	if(original_active_status)
 		if(delayed_activation())
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
-			to_chat(wearer, "<span class='notice'>Control unit offline. Module capability removed.</span>")
+			to_chat(wearer, span_notice("Control unit offline. Module capability removed."))
 		else
 			activating = FALSE
 			return
@@ -192,7 +192,7 @@
 				seal_part(sealed_part, is_sealed = !get_part_datum(sealed_part).sealed)
 			if(original_active_status)
 				control_activation(is_on = TRUE)
-			to_chat(wearer, "<span class='notice'>Critical error in sealing systems. Reverting process.</span>")
+			to_chat(wearer, span_notice("Critical error in sealing systems. Reverting process."))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 		sealed_parts += part
@@ -206,13 +206,13 @@
 			activating = FALSE
 			for(var/obj/item/sealed_part as anything in sealed_parts)
 				seal_part(sealed_part, is_sealed = !get_part_datum(sealed_part).sealed)
-			to_chat(wearer, "<span class='notice'>Critical error in sealing systems. Reverting process.</span>")
+			to_chat(wearer, span_notice("Critical error in sealing systems. Reverting process."))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 
-	to_chat(wearer, "<span class='notice'>Systems [active ? "started up. Parts sealed. Welcome" : "shut down. Parts unsealed. Goodbye"], [wearer].</span>")
+	to_chat(wearer, span_notice("Systems [active ? "started up. Parts sealed. Welcome" : "shut down. Parts unsealed. Goodbye"], [wearer]."))
 	if(ai)
-		to_chat(ai, "<span class='notice'><b>SYSTEMS [active ? "ACTIVATED. WELCOME" : "DEACTIVATED. GOODBYE"]: \"[ai]\"</b></span>")
+		to_chat(ai, span_notice("<b>SYSTEMS [active ? "ACTIVATED. WELCOME" : "DEACTIVATED. GOODBYE"]: \"[ai]\"</b>"))
 	activating = FALSE
 	SEND_SIGNAL(src, COMSIG_MOD_TOGGLED, user)
 	return TRUE
@@ -222,7 +222,7 @@
 	var/datum/mod_part/part_datum = get_part_datum(part)
 	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer)), hidden = TRUE))
 		if(!silent)
-			to_chat(wearer, "<span class='notice'>[part] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message].</span>")
+			to_chat(wearer, span_notice("[part] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(part, is_sealed = !part_datum.sealed)
 		return TRUE

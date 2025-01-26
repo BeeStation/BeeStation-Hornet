@@ -37,7 +37,7 @@
 	SIGNAL_HANDLER
 
 	if(true_owner_ckey && user.ckey != true_owner_ckey)
-		to_chat(mod.wearer, "<span class='userdanger'>\"MODsuit compromised by timeline inhabitant! Eradicating...\"</span>")
+		to_chat(mod.wearer, span_userdanger("\"MODsuit compromised by timeline inhabitant! Eradicating...\""))
 		new /obj/structure/chrono_field(user.loc, user)
 		return MOD_CANCEL_ACTIVATE
 
@@ -46,7 +46,7 @@
 	SIGNAL_HANDLER
 
 	if(true_owner_ckey && user.ckey != true_owner_ckey)
-		to_chat(mod.wearer, "<span class='userdanger'>\"Timeline inhabitant tampering detected! Eradicating...\"</span>")
+		to_chat(mod.wearer, span_userdanger("\"Timeline inhabitant tampering detected! Eradicating...\""))
 		new /obj/structure/chrono_field(user.loc, user)
 		return MOD_CANCEL_REMOVAL
 
@@ -159,14 +159,14 @@
 /obj/item/mod/module/timeline_jumper/used()
 	var/area/noteleport_check = get_area(mod.wearer)
 	if(noteleport_check && (noteleport_check.teleport_restriction >= TELEPORT_ALLOW_NONE))
-		to_chat(mod.wearer, "<span class='danger'Some dull, universal force is between you and the [phased_mob ? "current timeline" : "stream between timelines"].</span>")
+		to_chat(mod.wearer, span_danger("Some dull, universal force is between you and the [phased_mob ? "current timeline" : "stream between timelines"]."))
 		return FALSE
 	return ..()
 
 /obj/item/mod/module/timeline_jumper/on_use()
 	if(!phased_mob)
 		//phasing out
-		mod.visible_message("<span class='warning'>[mod.wearer] leaps out of the timeline!</span>")
+		mod.visible_message(span_warning("[mod.wearer] leaps out of the timeline!"))
 		mod.wearer.SetAllImmobility(0)
 		mod.wearer.setStaminaLoss(0, 0)
 		phased_mob = new(get_turf(mod.wearer.loc))
@@ -176,7 +176,7 @@
 		//phasing in
 		QDEL_NULL(phased_mob)
 		UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
-		mod.visible_message("<span class='warning'>[mod.wearer] drops into the timeline!</span>")
+		mod.visible_message(span_warning("[mod.wearer] drops into the timeline!"))
 
 	//probably justifies its own sound but whatever
 	playsound(src, 'sound/items/modsuit/time_anchor_set.ogg', 50, TRUE)
@@ -185,7 +185,7 @@
 /obj/item/mod/module/timeline_jumper/proc/on_activate_block(datum/source, user)
 	SIGNAL_HANDLER
 	//has to be a to_chat because you're phased out.
-	to_chat(user, "<span class='warning'>Deactivating your suit while inbetween timelines would be a very bad idea.</span>")
+	to_chat(user, span_warning("Deactivating your suit while inbetween timelines would be a very bad idea."))
 	return MOD_CANCEL_ACTIVATE
 
 ///special subtype for phased mobs.
@@ -341,7 +341,7 @@
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_appearance()
 
-		desc = initial(desc) + "<br>["<span class='info'>It appears to contain [target.name].</span>"]"
+		desc = initial(desc) + "<br>[span_info("It appears to contain [target.name].")]"
 	START_PROCESSING(SSobj, src)
 	return ..()
 
@@ -370,7 +370,7 @@
 			freed_movable.forceMove(drop_location())
 		qdel(src)
 	else if(timetokill <= 0)
-		to_chat(captured, "<span class='notice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
+		to_chat(captured, span_notice("As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy..."))
 		var/mob/dead/observer/ghost = captured.ghostize(can_reenter_corpse = TRUE)
 		if(captured.mind)
 			if(ghost)

@@ -51,7 +51,7 @@
 /obj/item/mod/module/storage/proc/on_suit_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
 	if(QDELETED(source) || !mod.wearer || newloc == mod.wearer || !mod.wearer.s_store)
 		return
-	to_chat(mod.wearer, "<span class='notice'>[src] tries to store [mod.wearer.s_store] inside itself.</span>")
+	to_chat(mod.wearer, span_notice("[src] tries to store [mod.wearer.s_store] inside itself."))
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, mod.wearer.s_store, mod.wearer, TRUE)
 
 /obj/item/mod/module/storage/large_capacity
@@ -445,7 +445,10 @@
 		return
 	new /obj/effect/temp_visual/mook_dust(fell_on)
 	mod.wearer.Stun(levels * 1 SECONDS)
-	to_chat(mod.wearer, "<span class='notice'>[src] protects you from the damage!</span>")
+	mod.wearer.visible_message(
+		span_notice("[mod.wearer] lands on [fell_on] safely, and quite stylishly on [p_their()] feet"),
+		span_notice("[src] protects you from the damage!"),
+	)
 	return NO_Z_IMPACT_DAMAGE
 
 ///Thermal Regulator - Regulates the wearer's core temperature.

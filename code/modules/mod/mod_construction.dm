@@ -9,7 +9,7 @@
 
 /obj/item/mod/construction/helmet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could insert it into a <b>MOD shell</b>...</span>"
+	. += span_notice("You could insert it into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/chestplate
 	name = "MOD chestplate"
@@ -17,7 +17,7 @@
 
 /obj/item/mod/construction/chestplate/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could insert it into a <b>MOD shell</b>...</span>"
+	. += span_notice("You could insert it into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/gauntlets
 	name = "MOD gauntlets"
@@ -25,7 +25,7 @@
 
 /obj/item/mod/construction/gauntlets/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could insert these into a <b>MOD shell</b>...</span>"
+	. += span_notice("You could insert these into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/boots
 	name = "MOD boots"
@@ -33,7 +33,7 @@
 
 /obj/item/mod/construction/boots/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could insert these into a <b>MOD shell</b>...</span>"
+	. += span_notice("You could insert these into a <b>MOD shell</b>...")
 
 /obj/item/mod/construction/broken_core
 	name = "broken MOD core"
@@ -42,7 +42,7 @@
 
 /obj/item/mod/construction/broken_core/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could repair it with a <b>screwdriver</b>...</span>"
+	. += span_notice("You could repair it with a <b>screwdriver</b>...")
 
 /obj/item/mod/construction/broken_core/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -124,7 +124,7 @@
 			display_text = "The assembly seems <b>loose</b>..."
 		if(SCREWED_ASSEMBLY_STEP)
 			display_text = "All it's missing is <b>external plating</b>..."
-	. += "<span class='notice'>[display_text]</span>"
+	. += span_notice(display_text)
 
 /obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
 	. = ..()

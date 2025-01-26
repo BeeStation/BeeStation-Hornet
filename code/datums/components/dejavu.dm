@@ -73,7 +73,7 @@
 	return ..()
 
 /datum/component/dejavu/proc/rewind()
-	to_chat(parent, "<span class=notice>[rewind_message]</span>")
+	to_chat(parent, span_notice(rewind_message))
 
 	//comes after healing so new limbs comically drop to the floor
 	if(starting_turf)
@@ -84,7 +84,7 @@
 	if(rewinds_remaining)
 		addtimer(CALLBACK(src, rewind_type), rewind_interval)
 	else
-		to_chat(parent, "<span class=notice>[no_rewinds_message]</span>")
+		to_chat(parent, span_notice(no_rewinds_message))
 		qdel(src)
 
 /datum/component/dejavu/proc/rewind_living()

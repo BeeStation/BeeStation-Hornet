@@ -297,8 +297,8 @@
 	. = ..()
 	if(!.)
 		return
-	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts charging a kick!</span>", \
-		blind_message = "<span class='hear'>You hear a charging sound.</span>")
+	mod.wearer.visible_message(span_warning("[mod.wearer] starts charging a kick!"), \
+		blind_message = span_hear("You hear a charging sound."))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	balloon_alert(mod.wearer, "you start charging...")
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_OUT)

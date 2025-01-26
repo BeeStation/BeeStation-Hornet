@@ -212,10 +212,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 		if(clothes_req)
 			if(!(H.wear_suit?.clothing_flags & CASTING_CLOTHES))
-				to_chat(H, "<span class='notice'>You don't feel strong enough without your robe.</span>")
+				to_chat(H, span_warning("You don't feel strong enough without your robe!"))
 				return FALSE
 			if(!(H.head?.clothing_flags & CASTING_CLOTHES))
-				to_chat(H, "<span class='notice'>You don't feel strong enough without your hat.</span>")
+				to_chat(H, span_warning("You don't feel strong enough without your hat!"))
 				return FALSE
 	else
 		if(clothes_req || human_req)
