@@ -18,13 +18,12 @@
 
 /obj/item/mod/module/springlock/on_uninstall(deleting = FALSE)
 	mod.activation_step_time /= step_change
-/*
+
 /obj/item/mod/module/springlock/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS,  PROC_REF(on_wearer_exposed))
 
 /obj/item/mod/module/springlock/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)
-*/
 
 ///Signal fired when wearer is exposed to reagents
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
