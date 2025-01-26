@@ -1919,6 +1919,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/machinery/computer/security/telescreen/entertainment/theathre{
+	pixel_y = 32;
+	pixel_x = 64
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre)
 "aAx" = (
@@ -10973,10 +10977,6 @@
 /obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/machinery/computer/security/telescreen/entertainment/theathre{
-	pixel_y = 32;
-	pixel_x = 32
-	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre)
 "czN" = (
@@ -27588,7 +27588,6 @@
 	},
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 28;
-	network = list("theathre");
 	name = "stage monitor"
 	},
 /turf/open/floor/carpet/blue,
@@ -37888,10 +37887,6 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/machinery/computer/security/telescreen/entertainment/theathre{
-	pixel_y = 32;
-	pixel_x = -32
-	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre)
 "iXU" = (
@@ -60718,6 +60713,10 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
+	},
+/obj/machinery/computer/security/telescreen/entertainment/theathre{
+	pixel_y = 32;
+	pixel_x = -64
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre)
@@ -93451,16 +93450,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
-"whu" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/obj/machinery/computer/security/telescreen/entertainment{
-	network = list("theathre");
-	name = "scene monitor";
-	pixel_y = 32;
-	pixel_x = -32
-	},
-/turf/open/floor/plating,
-/area/maintenance/central/secondary)
 "whC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -138304,7 +138293,7 @@ rvT
 auI
 bsh
 rAY
-whu
+dqt
 bsh
 bsh
 bsh
