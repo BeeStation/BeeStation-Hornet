@@ -25,7 +25,7 @@
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
-	faction = list("neutral", "monkey")
+	faction = list(FACTION_NEUTRAL, FACTION_MONKEY)
 	/// Whether it can be made into a human with mutadone
 	var/natural = TRUE
 	///Item reference for jumpsuit
@@ -65,7 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		var/cap = CONFIG_GET(number/max_cube_monkeys)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
-				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
+				to_chat(spawner, span_warning("Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!"))
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
 
@@ -247,7 +247,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 			return
 		if (!creator.mind.has_antag_datum(/datum/antagonist/changeling))
 			return
-		to_chat(creator, "<span class='warning'>We gain the energy to birth another Teratoma...</span>")
+		to_chat(creator, span_warning("We gain the energy to birth another Teratoma..."))
 		return
 
 /datum/dna/tumor

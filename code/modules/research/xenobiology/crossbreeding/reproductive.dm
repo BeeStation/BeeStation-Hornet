@@ -25,15 +25,15 @@ Reproductive extracts:
 
 /obj/item/slimecross/reproductive/examine()
 	. = ..()
-	. += "<span class='danger'>It appears to have eaten [length(contents)] Monkey Cube[p_s()]</span>"
+	. += span_danger("It appears to have eaten [length(contents)] Monkey Cube[p_s()]")
 
 /obj/item/slimecross/reproductive/attackby(obj/item/O, mob/user)
 	if((last_produce + cooldown) > world.time)
-		to_chat(user, "<span class='warning'>[src] is still digesting!</span>")
+		to_chat(user, span_warning("[src] is still digesting!"))
 		return
 
 	if(length(contents) >= feed_amount) //if for some reason the contents are full, but it didnt digest, attempt to digest again
-		to_chat(user,"<span class='warning'>[src] appears to be full but is not digesting! Maybe poking it stimulated it to digest.</span>")
+		to_chat(user,span_warning("[src] appears to be full but is not digesting! Maybe poking it stimulated it to digest."))
 		slime_storage.process_cubes(src, user)
 		return
 
@@ -41,23 +41,23 @@ Reproductive extracts:
 		var/list/inserted = list()
 		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src, 1, null, null, user, inserted)
 		if(inserted.len)
-			to_chat(user, "<span class='warning'>You feed [length(inserted)] Monkey Cube[p_s()] to [src], and it pulses gently.</span>")
+			to_chat(user, span_warning("You feed [length(inserted)] Monkey Cube[p_s()] to [src], and it pulses gently."))
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
 			slime_storage.process_cubes(src, user)
 		else
-			to_chat(user, "<span class='notice'>There are no monkey cubes in the bio bag!</span>")
+			to_chat(user, span_notice("There are no monkey cubes in the bio bag!"))
 		return
 
 	else if(istype(O, /obj/item/food/monkeycube))
 		slime_storage.locked = FALSE //This weird unlock-then-lock nonsense brought to you courtesy of storage jank
 		if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, O, user, TRUE))
-			to_chat(user, "<span class='notice'>You feed a Monkey Cube to [src], and it pulses gently.</span>")
+			to_chat(user, span_notice("You feed a Monkey Cube to [src], and it pulses gently."))
 			slime_storage.process_cubes(src, user)
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
 			slime_storage.locked = TRUE //relock once its done inserting
 			return
 		slime_storage.locked = TRUE //it couldnt insert for some reason, relock it
-		to_chat(user, "<span class='notice'>The [src] rejects the Monkey Cube!</span>") //in case it fails to insert for whatever reason you get feedback
+		to_chat(user, span_notice("The [src] rejects the Monkey Cube!")) //in case it fails to insert for whatever reason you get feedback
 
 /obj/item/slimecross/reproductive/Destroy()
 	. = ..()

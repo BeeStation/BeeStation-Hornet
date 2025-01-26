@@ -10,7 +10,7 @@
 	inherent_biotypes = MOB_HUMANOID|MOB_BUG //Not organic, for raisins...
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
-	inherent_factions = list("plants", "vines", "diona")
+	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
 	burnmod = 1.25
@@ -64,7 +64,7 @@
 		split_ability.Trigger(TRUE)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
 		informed_nymph = TRUE
-		to_chat(H, "<span class='warning'>You feel sufficiently satiated to allow a nymph to split off from your gestalt!")
+		to_chat(H, span_warning("You feel sufficiently satiated to allow a nymph to split off from your gestalt!"))
 	if(partition_ability)
 		partition_ability.UpdateButtonIcon()
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
@@ -167,7 +167,7 @@
 	. = ..()
 	if(. && target != user && target.on_fire)
 		user.balloon_alert(user, "[user] you hug [target]")
-		target.visible_message("<span class='warning'>[user] catches fire from hugging [target]!</span>", "<span class='boldnotice'>[user] catches fire hugging you!</span>", "<span class='italics'>You hear a fire crackling.</span>")
+		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
 			user.IgniteMob()

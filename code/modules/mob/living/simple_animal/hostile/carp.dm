@@ -37,7 +37,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	faction = list("carp")
+	faction = list(FACTION_CARP)
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	pressure_resistance = 200
@@ -151,7 +151,7 @@
 	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
-	faction = list("carp", FACTION_SYNDICATE)
+	faction = list(FACTION_CARP, FACTION_SYNDICATE)
 	AIStatus = AI_OFF
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky
@@ -178,7 +178,7 @@
 /mob/living/simple_animal/hostile/carp/cayenne/examine(mob/user)
 	. = ..()
 	if(disky)
-		. += "<span class='notice'>Wait... is that [disky] in [p_their()] mouth?</span>"
+		. += span_notice("Wait... is that [disky] in [p_their()] mouth?")
 
 /mob/living/simple_animal/hostile/carp/cayenne/AttackingTarget()
 	if(istype(target, /obj/item/disk/nuclear))
@@ -187,14 +187,14 @@
 			return
 		potential_disky.forceMove(src)
 		disky = potential_disky
-		to_chat(src, "<span class='nicegreen'>YES!! You manage to pick up [disky]. (Click anywhere to place it back down.)</span>")
+		to_chat(src, span_nicegreen("YES!! You manage to pick up [disky]. (Click anywhere to place it back down.)"))
 		update_icon()
 		if(!disky.fake)
 			client.give_award(/datum/award/achievement/misc/cayenne_disk, src)
 		return
 	if(disky)
 		if(isopenturf(target))
-			to_chat(src, "<span class='notice'>You place [disky] on [target]</span>")
+			to_chat(src, span_notice("You place [disky] on [target]"))
 			disky.forceMove(target)
 			disky = null
 			update_icon()
@@ -230,7 +230,7 @@
 	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	health = 200
 	icon_dead = "magicarp_dead"
 	icon_gib = "magicarp_gib"
@@ -251,6 +251,6 @@
 /mob/living/simple_animal/hostile/carp/advanced/examine(mob/user)
 	. = ..()
 	if(mind)
-		. += "<span class='notice'>This one seems to be self-aware.</span>"
+		. += span_notice("This one seems to be self-aware.")
 
 #undef REGENERATION_DELAY

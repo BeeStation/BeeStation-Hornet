@@ -11,7 +11,7 @@
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
 	weather_immunities = list("lava","ash")
-	faction = list("mining", "ashwalker")
+	faction = list(FACTION_MINING, FACTION_ASHWALKER)
 	density = FALSE
 	speak_chance = 1
 	turns_per_move = 8
@@ -126,5 +126,5 @@
 	L.faction = faction
 	L.setDir(dir)
 	L.Stun(20, ignore_canstun = TRUE)
-	visible_message("<span class='notice'>[src] grows up into [L].</span>")
+	visible_message(span_notice("[src] grows up into [L]."))
 	Destroy()

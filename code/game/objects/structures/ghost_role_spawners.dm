@@ -161,7 +161,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 		if(QDELETED(src) || uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		user.visible_message(span_notice("A faint light leaves [user], moving to [src] and animating it!"),span_notice("You leave your old body behind, and transfer into [src]!"))
 		show_flavour = FALSE
 		create(ckey = user.ckey,name = user.real_name)
 		user.death()
@@ -407,10 +407,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 	random = TRUE
 	mob_species = /datum/species/human
 	short_desc = "You are a scientist working for Nanotrasen, stationed onboard a state of the art research station."
-	flavour_text = "<span class='big bold'> You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
+	flavour_text = span_bigbold("You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
 	The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
 	As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them."
+	Work as a team with your fellow survivors and do not abandon them.")
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci

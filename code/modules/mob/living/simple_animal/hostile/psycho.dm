@@ -19,7 +19,7 @@
 	health = 100
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 5
-	faction = list("psycho")
+	faction = list(FACTION_HOSTILE)
 	move_to_delay = 3
 	rapid_melee = 2
 	in_melee = TRUE
@@ -157,5 +157,5 @@
 	playsound(get_turf(src), chosen_sound, 70, 0, 0)
 	playsound(get_turf(src), 'sound/effects/snap.ogg', 75, TRUE, 0)
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 90, TRUE, 0)
-	visible_message("<span class='boldwarning'>The device activates!</span>")
+	visible_message(span_boldwarning("The device activates!"))
 	..()

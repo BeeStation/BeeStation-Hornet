@@ -34,7 +34,7 @@
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE)
 	move_to_delay = 0
 	obj_damage = 0
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -88,7 +88,7 @@
 	. = ..()
 
 	if(!beehome)
-		. += "<span class='warning'>This bee is homeless!</span>"
+		. += span_warning("This bee is homeless!")
 
 /mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.
 	if(!search_objects) //In case we want to have purely hostile bees
@@ -161,7 +161,7 @@
 		if(. && beegent && isliving(target))
 			var/mob/living/L = target
 			if(L.reagents)
-				beegent.reaction_mob(L, INJECT)
+				beegent.expose_mob(L, INJECT)
 				L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
@@ -246,7 +246,7 @@
 	. = ..()
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
-		beegent.reaction_mob(L, TOUCH)
+		beegent.expose_mob(L, TOUCH)
 		L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
@@ -283,18 +283,18 @@
 				if(queen && queen.beegent)
 					qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
 				user.put_in_active_hand(qb)
-				user.visible_message("<span class='notice'>[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>","<span class ='warning'>You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>")
+				user.visible_message(span_notice("[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),span_warning("You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"))
 			else
-				to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
+				to_chat(user, span_warning("You don't have enough royal bee jelly to split a bee in two!"))
 		else
 			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
 			if(R && S.reagents.has_reagent(R.type, 5))
 				S.reagents.remove_reagent(R.type,5)
 				queen.assign_reagent(R)
-				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating its DNA!</span>","<span class='warning'>You inject [src]'s genome with [R.name], mutating its DNA!</span>")
+				user.visible_message(span_warning("[user] injects [src]'s genome with [R.name], mutating its DNA!"),span_warning("You inject [src]'s genome with [R.name], mutating its DNA!"))
 				name = queen.name
 			else
-				to_chat(user, "<span class='warning'>You don't have enough units of that chemical to modify the bee's DNA!</span>")
+				to_chat(user, span_warning("You don't have enough units of that chemical to modify the bee's DNA!"))
 	..()
 
 

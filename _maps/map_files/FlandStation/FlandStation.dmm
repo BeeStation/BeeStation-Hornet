@@ -14908,13 +14908,13 @@
 /area/maintenance/port/central)
 "dSV" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -27;
 	use_power = 0
+	},
+/obj/machinery/computer/crew{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/security/main)

@@ -10,7 +10,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_EPIC
 	obj_damage = 400
 	light_range = 3
-	faction = list("mining", "boss")
+	faction = list(FACTION_MINING, FACTION_BOSS)
 	weather_immunities = list("lava","ash")
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE

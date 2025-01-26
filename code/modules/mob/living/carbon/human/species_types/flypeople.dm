@@ -37,8 +37,8 @@
 			H.vomit(10, FALSE, FALSE, 2, TRUE)
 			H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
-			H.visible_message("<span class='danger'>[H] vomits on the floor!</span>", \
-						"<span class='userdanger'>You throw up on the floor!</span>")
+			H.visible_message(span_danger("[H] vomits on the floor!"), \
+						span_userdanger("You throw up on the floor!"))
 		return TRUE
 	return ..()
 
