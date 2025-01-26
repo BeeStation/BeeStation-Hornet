@@ -437,8 +437,6 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 
 	var/can_make_pipe = check_can_make_pipe(attack_target)
 
-	. = TRUE
-
 	if((mode & DESTROY_MODE) && istype(attack_target, /obj/item/pipe) || istype(attack_target, /obj/structure/disposalconstruct) || istype(attack_target, /obj/structure/c_transit_tube) || istype(attack_target, /obj/structure/c_transit_tube_pod) || istype(attack_target, /obj/item/pipe_meter) || istype(attack_target, /obj/structure/disposalpipe/broken))
 		activate()
 		qdel(attack_target)
