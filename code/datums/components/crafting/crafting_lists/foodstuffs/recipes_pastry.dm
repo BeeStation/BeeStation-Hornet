@@ -277,32 +277,6 @@
 	)
 	subcategory = CAT_PASTRY
 
-/datum/crafting_recipe/food/pancakes
-	name = "Pancake"
-	result = /obj/item/food/pancakes
-	reqs = list(
-		/obj/item/food/pastrybase = 1
-	)
-	subcategory = CAT_PASTRY
-
-/datum/crafting_recipe/food/bbpancakes
-	name = "Blueberry pancake"
-	result = /obj/item/food/pancakes/blueberry
-	reqs = list(
-		/obj/item/food/pastrybase = 1,
-		/obj/item/food/grown/berries = 1
-	)
-	subcategory = CAT_PASTRY
-
-/datum/crafting_recipe/food/ccpancakes
-	name = "Chocolate chip pancake"
-	result = /obj/item/food/pancakes/chocolatechip
-	reqs = list(
-		/obj/item/food/pastrybase = 1,
-		/obj/item/food/chocolatebar = 1
-	)
-	subcategory = CAT_PASTRY
-
 /datum/crafting_recipe/food/donkpocket
 	name = "Donk-pocket"
 	result = /obj/item/food/donkpocket

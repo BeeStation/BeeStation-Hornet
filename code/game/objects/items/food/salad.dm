@@ -98,8 +98,8 @@
 	microwaved_type = /obj/item/food/boiledrice
 
 /*
-/obj/item/food/salad/ricebowl/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/salad/boiledrice)
+/obj/item/food/uncooked_rice/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/boiledrice)
 */
 
 /obj/item/food/boiledrice
