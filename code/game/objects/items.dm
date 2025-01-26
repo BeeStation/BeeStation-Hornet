@@ -217,7 +217,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when ground up in a grinder - this can be an empty list to allow for reagent transferring only
 	var/list/grind_results
 	///A reagent the nutriments are converted into when the item is juiced.
-	var/datum/reagent/consumable/juice_results
+	var/datum/reagent/consumable/juice_typepath
 
 	///Icon for monkey
 	var/icon/monkey_icon
@@ -1058,28 +1058,26 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/grind(datum/reagents/target_holder, mob/user)
 	if(on_grind() == -1)
 		return FALSE
-	if(!reagents)
-		reagents = new()
-	reagents.add_reagent_list(grind_results)
-	if(reagents && target_holder)
-		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	if(target_holder)
+		target_holder.add_reagent_list(grind_results)
+		if(reagents)
+			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
 
 ///Called BEFORE the object is ground up - use this to change grind results based on conditions. Return "-1" to prevent the grinding from occurring
 /obj/item/proc/on_juice()
-	if(!juice_results)
+	if(!juice_typepath)
 		return -1
 	return SEND_SIGNAL(src, COMSIG_ITEM_ON_JUICE)
 
-///Juice item, converting nutriments into juice_results and transfering to target_holder if specified
+///Juice item, converting nutriments into juice_typepath and transfering to target_holder if specified
 /obj/item/proc/juice(datum/reagents/target_holder, mob/user)
 	if(on_juice() == -1)
 		return FALSE
-	if(!reagents)
-		reagents = new()
-	reagents.add_reagent_list(juice_results)
-	if(reagents && target_holder)
-		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	if(reagents)
+		reagents.convert_reagent(/datum/reagent/consumable, juice_typepath, include_source_subtypes = TRUE)
+		if(target_holder)
+			reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
 	return TRUE
 
 /obj/item/proc/set_force_string()
