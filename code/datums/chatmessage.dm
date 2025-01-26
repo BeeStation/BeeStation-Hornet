@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(chat_message_groups, 1)
+
 /// How long the chat message's spawn-in animation will occur for
 #define CHAT_MESSAGE_SPAWN_TIME		0.2 SECONDS
 /// How long the chat message will exist prior to any exponential decay
@@ -23,9 +25,10 @@
 /// and where the hidden message used for spacing is rendered
 /// This just needs to be high enough such that it is off screen
 /// but can be placed on-screen for debugging purposes
-#define CHAT_MESSAGE_MARGIN 10000
+#define CHAT_MESSAGE_MARGIN 1000
 /// Height of the chat messages, should span the entire screen and then some
-#define CHAT_MESSAGE_HEIGHT	10000
+/// 256 is 8 tiles of height
+#define CHAT_MESSAGE_HEIGHT	256
 #define CHAT_MESSAGE_LINE_HEIGHT 0.6
 
 // Message types
