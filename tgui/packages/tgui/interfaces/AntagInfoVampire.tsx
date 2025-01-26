@@ -35,8 +35,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (props: any, context: any) => {
-  const { data } = useBackend<Info>(context);
+const ObjectivePrintout = (props: any) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Stack vertical>
@@ -53,8 +53,8 @@ const ObjectivePrintout = (props: any, context: any) => {
   );
 };
 
-export const AntagInfoVampire = (props: any, context: any) => {
-  const [tab, setTab] = useLocalState(context, 'tab', 1);
+export const AntagInfoVampire = (props: any) => {
+  const [tab, setTab] = useLocalState('tab', 1);
   return (
     <Window width={620} height={580} theme="narsie">
       <Window.Content>
@@ -129,8 +129,8 @@ const VampireIntro = () => {
   );
 };
 
-const VampireClan = (props: any, context: any) => {
-  const { act, data } = useBackend<VampireInformation>(context);
+const VampireClan = (props: any) => {
+  const { act, data } = useBackend<VampireInformation>();
   const { clan, in_clan } = data;
 
   if (!in_clan) {
@@ -190,14 +190,14 @@ const VampireClan = (props: any, context: any) => {
   );
 };
 
-const PowerSection = (props: any, context: any) => {
-  const { act, data } = useBackend<VampireInformation>(context);
+const PowerSection = (props: any) => {
+  const { act, data } = useBackend<VampireInformation>();
   const { power } = data;
   if (!power) {
     return <Section minHeight="220px" />;
   }
 
-  const [selectedPower, setSelectedPower] = useLocalState(context, 'power', power[0]);
+  const [selectedPower, setSelectedPower] = useLocalState('power', power[0]);
 
   return (
     <Section
