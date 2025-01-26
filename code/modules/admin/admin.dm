@@ -767,7 +767,7 @@
 		if(logout && CONFIG_GET(flag/announce_admin_logout))
 			string = pick(
 				"Admin logout: [key_name(src)]")
-		else if(!logout && CONFIG_GET(flag/announce_admin_login) && prefs?.read_player_preference(/datum/preference/toggle/announce_login))
+		else if(!logout && CONFIG_GET(flag/announce_admin_login))
 			string = pick(
 				"Admin login: [key_name(src)]")
 		if(string)
