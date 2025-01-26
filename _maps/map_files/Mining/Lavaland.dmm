@@ -2381,8 +2381,7 @@
 /area/lavaland/surface/outdoors)
 "rh" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
-	req_one_access_txt = "54;18"
+	name = "Mining Station EVA"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
@@ -3259,8 +3258,7 @@
 "xW" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
-	req_one_access_txt = "54;18"
+	name = "Mining Station EVA"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
@@ -3817,8 +3815,7 @@
 /area/mine/gateway)
 "CC" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station";
-	req_one_access_txt = "54;18"
+	name = "Mining Station"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/fans/tiny,
@@ -4605,8 +4602,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station";
-	req_one_access_txt = "54;18"
+	name = "Mining Station"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
@@ -6716,8 +6712,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
-	req_one_access_txt = "54;18"
+	name = "Mining Station EVA"
 	},
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)

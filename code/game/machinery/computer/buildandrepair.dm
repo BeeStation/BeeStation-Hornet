@@ -8,9 +8,9 @@
 	switch(state)
 		if(0)
 			if(P.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You start wrenching the frame into place...</span>")
+				to_chat(user, span_notice("You start wrenching the frame into place..."))
 				if(P.use_tool(src, user, 20, volume=50))
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
+					to_chat(user, span_notice("You wrench the frame into place."))
 					set_anchored(TRUE)
 					state = 1
 				return TRUE
@@ -18,17 +18,17 @@
 				if(!P.tool_start_check(user, amount=0))
 					return TRUE
 
-				to_chat(user, "<span class='notice'>You start deconstructing the frame...</span>")
+				to_chat(user, span_notice("You start deconstructing the frame..."))
 				if(P.use_tool(src, user, 20, volume=50))
-					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
+					to_chat(user, span_notice("You deconstruct the frame."))
 					new /obj/item/stack/sheet/iron(drop_location(), 5, TRUE, user)
 					qdel(src)
 				return TRUE
 		if(1)
 			if(P.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You start to unfasten the frame...</span>")
+				to_chat(user, span_notice("You start to unfasten the frame..."))
 				if(P.use_tool(src, user, 20, volume=50))
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
+					to_chat(user, span_notice("You unfasten the frame."))
 					set_anchored(FALSE)
 					state = 0
 				return TRUE
@@ -36,24 +36,24 @@
 				if(!user.transferItemToLoc(P, src))
 					return TRUE
 				playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You place [P] inside the frame.</span>")
+				to_chat(user, span_notice("You place [P] inside the frame."))
 				icon_state = "1"
 				circuit = P
 				circuit.add_fingerprint(user)
 				return TRUE
 
 			else if(istype(P, /obj/item/circuitboard) && !circuit)
-				to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
+				to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
 				return TRUE
 			if(P.tool_behaviour == TOOL_SCREWDRIVER && circuit)
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You screw [circuit] into place.</span>")
+				to_chat(user, span_notice("You screw [circuit] into place."))
 				state = 2
 				icon_state = "2"
 				return TRUE
 			if(P.tool_behaviour == TOOL_CROWBAR && circuit)
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You remove [circuit].</span>")
+				to_chat(user, span_notice("You remove [circuit]."))
 				state = 1
 				icon_state = "0"
 				circuit.forceMove(drop_location())
@@ -63,25 +63,25 @@
 		if(2)
 			if(P.tool_behaviour == TOOL_SCREWDRIVER && circuit)
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+				to_chat(user, span_notice("You unfasten the circuit board."))
 				state = 1
 				icon_state = "1"
 				return TRUE
 			if(istype(P, /obj/item/stack/cable_coil))
 				if(!P.tool_start_check(user, amount=5))
 					return TRUE
-				to_chat(user, "<span class='notice'>You start adding cables to the frame...</span>")
+				to_chat(user, span_notice("You start adding cables to the frame..."))
 				if(P.use_tool(src, user, 20, volume=50, amount=5))
 					if(state != 2)
 						return TRUE
-					to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+					to_chat(user, span_notice("You add cables to the frame."))
 					state = 3
 					icon_state = "3"
 				return TRUE
 		if(3)
 			if(P.tool_behaviour == TOOL_WIRECUTTER)
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
+				to_chat(user, span_notice("You remove the cables."))
 				state = 2
 				icon_state = "2"
 				new /obj/item/stack/cable_coil(drop_location(), 5)
@@ -90,25 +90,25 @@
 				if(!P.tool_start_check(user, amount=2))
 					return TRUE
 				playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
+				to_chat(user, span_notice("You start to put in the glass panel..."))
 				if(P.use_tool(src, user, 20, amount=2))
 					if(state != 3)
 						return TRUE
-					to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+					to_chat(user, span_notice("You put in the glass panel."))
 					state = 4
 					src.icon_state = "4"
 				return TRUE
 		if(4)
 			if(P.tool_behaviour == TOOL_CROWBAR)
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+				to_chat(user, span_notice("You remove the glass panel."))
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(drop_location(), 2, TRUE, user)
 				return TRUE
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
 				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+				to_chat(user, span_notice("You connect the monitor."))
 
 				var/obj/machinery/new_machine = new circuit.build_path(loc)
 				new_machine.setDir(dir)
@@ -168,7 +168,7 @@
 		return
 
 	if(anchored)
-		to_chat(usr, "<span class='warning'>You must unwrench [src] before rotating it!</span>")
+		to_chat(usr, span_warning("You must unwrench [src] before rotating it!"))
 		return
 
 	setDir(turn(dir, -90))

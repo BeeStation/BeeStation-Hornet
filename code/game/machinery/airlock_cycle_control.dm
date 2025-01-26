@@ -53,7 +53,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.2
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_advanced_airlock_controller
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
@@ -76,6 +76,14 @@
 	var/list/airlocks = list()
 	var/list/vents = list()
 	var/obj/vis_target = null
+
+
+/datum/armor/machinery_advanced_airlock_controller
+	energy = 100
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/machinery/advanced_airlock_controller/lavaland
 	exterior_pressure = WARNING_LOW_PRESSURE + 10
@@ -446,7 +454,7 @@
 		if(2)
 			if(W.tool_behaviour == TOOL_WIRECUTTER && panel_open && wires.is_all_cut())
 				W.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You cut the final wires.</span>")
+				to_chat(user, span_notice("You cut the final wires."))
 				new /obj/item/stack/cable_coil(loc, 5)
 				buildstage = 1
 				update_icon()
@@ -454,7 +462,7 @@
 			else if(W.tool_behaviour == TOOL_SCREWDRIVER)  // Opening that up.
 				W.play_tool_sound(src)
 				panel_open = !panel_open
-				to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
+				to_chat(user, span_notice("The wires have been [panel_open ? "exposed" : "unexposed"]."))
 				update_icon()
 				return TRUE
 			else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda))// trying to unlock the interface with an ID card
@@ -466,11 +474,11 @@
 		if(1)
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				user.visible_message("[user.name] removes the electronics from [src.name].",\
-									"<span class='notice'>You start prying out the circuit...</span>")
+									span_notice("You start prying out the circuit..."))
 				W.play_tool_sound(src)
 				if (W.use_tool(src, user, 20))
 					if (buildstage == 1)
-						to_chat(user, "<span class='notice'>You remove the airlock controller electronics.</span>")
+						to_chat(user, span_notice("You remove the airlock controller electronics."))
 						new /obj/item/electronics/advanced_airlock_controller( src.loc )
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 						buildstage = 0
@@ -480,14 +488,14 @@
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/cable = W
 				if(cable.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the airlock controller!</span>")
-					return TRUE
+					to_chat(user, span_warning("You need five lengths of cable to wire the airlock controller!"))
+					return
 				user.visible_message("[user.name] wires the airlock controller.", \
-									"<span class='notice'>You start wiring the airlock controller...</span>")
+									span_notice("You start wiring the airlock controller..."))
 				if (do_after(user, 20, target = src))
 					if (cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)
-						to_chat(user, "<span class='notice'>You wire the airlock controller.</span>")
+						to_chat(user, span_notice("You wire the airlock controller."))
 						wires.repair()
 						aidisabled = 0
 						locked = FALSE
@@ -500,7 +508,7 @@
 		if(0)
 			if(istype(W, /obj/item/electronics/advanced_airlock_controller))
 				if(user.temporarilyRemoveItemFromInventory(W))
-					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
+					to_chat(user, span_notice("You insert the circuit."))
 					buildstage = 1
 					update_icon()
 					qdel(W)
@@ -509,15 +517,15 @@
 			if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/P = W
 				if(!P.adapt_circuit(user, 25))
-					return FALSE
-				user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
-				"<span class='notice'>You adapt an airlock controller circuit and slot it into the assembly.</span>")
+					return
+				user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
+				span_notice("You adapt an airlock controller circuit and slot it into the assembly."))
 				buildstage = 1
 				update_icon()
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
+				to_chat(user, span_notice("You detach \the [src] from the wall."))
 				W.play_tool_sound(src)
 				new /obj/item/wallframe/advanced_airlock_controller( user.loc )
 				qdel(src)
@@ -687,7 +695,7 @@
 				if(!A.allowed(usr))
 					if(is_allowed)
 						is_allowed = FALSE
-						to_chat(usr, "<span class='danger'>Access denied.</span>")
+						to_chat(usr, span_danger("Access denied."))
 					if(A.density)
 						spawn()
 							A.do_animate("deny")
@@ -793,14 +801,14 @@
 
 /obj/machinery/advanced_airlock_controller/proc/togglelock(mob/living/user)
 	if(machine_stat & (NOPOWER|BROKEN))
-		to_chat(user, "<span class='warning'>It does nothing!</span>")
+		to_chat(user, span_warning("It does nothing!"))
 	else
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 			locked = !locked
 			update_icon()
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the airlock controller interface.</span>")
+			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the airlock controller interface."))
 		else
-			to_chat(user, "<span class='danger'>Access denied.</span>")
+			to_chat(user, span_danger("Access denied."))
 	return
 
 /obj/machinery/advanced_airlock_controller/power_change()
@@ -809,7 +817,7 @@
 
 /obj/machinery/advanced_airlock_controller/on_emag(mob/user)
 	..()
-	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
+	visible_message(span_warning("Sparks fly out of [src]!"), span_notice("You emag [src], disabling its safeties."))
 	playsound(src, "sparks", 50, 1)
 
 /obj/machinery/advanced_airlock_controller/atom_break(damage_flag)

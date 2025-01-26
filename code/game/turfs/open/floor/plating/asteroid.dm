@@ -34,7 +34,7 @@
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>Looks like someone has dug here already.</span>")
+		to_chat(user, span_notice("Looks like someone has dug here already."))
 
 /turf/open/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -61,12 +61,12 @@
 			if(!isturf(user.loc))
 				return
 
-			to_chat(user, "<span class='notice'>You start digging...</span>")
+			to_chat(user, span_notice("You start digging..."))
 
 			if(W.use_tool(src, user, 40, volume=50))
 				if(!can_dig(user))
 					return TRUE
-				to_chat(user, "<span class='notice'>You dig a hole.</span>")
+				to_chat(user, span_notice("You dig a hole."))
 				getDug()
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, W.type)
 				return TRUE
@@ -157,6 +157,17 @@
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	turf_type = /turf/open/floor/plating/asteroid/airless
 
+/turf/open/floor/plating/asteroid/frozengrass
+	name = "frozen grass"
+	desc = "Looks cold."
+	icon = 'icons/turf/floors.dmi'
+	variant_states = 0
+	variant_probability = 0
+	icon_state = "fairygrass"
+	icon_plating = "fairygrass"
+	environment_type = "snow_cavern"
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
 	name = "snow"
@@ -179,7 +190,7 @@
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message("<span class='danger'>[src] melts away!.</span>")
+		visible_message(span_danger("[src] melts away!."))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"
@@ -213,3 +224,6 @@
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
+
+/turf/open/floor/plating/asteroid/snow/planetary
+	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"

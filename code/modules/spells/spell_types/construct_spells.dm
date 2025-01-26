@@ -225,22 +225,22 @@
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/cast(list/targets, mob/user = usr)
 	if(!LAZYLEN(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		revert_cast()
 		return
 
 	var/mob/living/carbon/target = targets[1]
 
 	if(!(target in oview(range)))
-		to_chat(user, "<span class='notice'>[target] is too far away!</span>")
+		to_chat(user, span_notice("[target] is too far away!"))
 		revert_cast()
 		return
 
 	if(target.anti_magic_check(TRUE, TRUE))
-		to_chat(target, "<span class='warning'>You feel a freezing darkness closing in on you, but it rapidly dissipates.</span>")
+		to_chat(target, span_warning("You feel a freezing darkness closing in on you, but it rapidly dissipates."))
 		return
 
-	to_chat(target, "<span class='userdanger'>A freezing darkness surrounds you...</span>")
+	to_chat(target, span_userdanger("A freezing darkness surrounds you..."))
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	target.become_blind(MAGIC_BLIND)
@@ -273,41 +273,41 @@
 
 /obj/effect/proc_holder/spell/targeted/dominate/cast(list/targets, mob/user = usr)
 	if(!LAZYLEN(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		revert_cast()
 		return
 
 	var/mob/living/simple_animal/S = targets[1]
 
 	if(S.ckey)
-		to_chat(user, "<span class='warning'>[S] is too intelligent to dominate!</span>")
+		to_chat(user, span_warning("[S] is too intelligent to dominate!"))
 		revert_cast()
 		return
 
 	if(S.stat)
-		to_chat(user, "<span class='warning'>[S] is dead!</span>")
+		to_chat(user, span_warning("[S] is dead!"))
 		revert_cast()
 		return
 
 	if(!istype(S) || S.sentience_type != SENTIENCE_ORGANIC)
-		to_chat(user, "<span class='warning'>[S] cannot be dominated!</span>")
+		to_chat(user, span_warning("[S] cannot be dominated!"))
 		revert_cast()
 		return
 
 	if(!(S in oview(range)))
-		to_chat(user, "<span class='notice'>[S] is too far away!</span>")
+		to_chat(user, span_notice("[S] is too far away!"))
 		revert_cast()
 		return
 
 	S.add_atom_colour("#990000", FIXED_COLOUR_PRIORITY)
-	S.faction = list("cult")
+	S.faction = list(FACTION_CULT)
 	playsound(get_turf(S), 'sound/effects/ghost.ogg', 100, 1)
 	new /obj/effect/temp_visual/cult/sac(get_turf(S))
 
 /obj/effect/proc_holder/spell/targeted/dominate/can_target(mob/living/target)
 	if(!isanimal(target) || target.stat)
 		return FALSE
-	if("cult" in target.faction)
+	if(FACTION_CULT in target.faction)
 		return FALSE
 	return TRUE
 
@@ -338,7 +338,7 @@
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	check_holy = TRUE
-	ignored_factions = list("cult")
+	ignored_factions = FACTION_CULT
 	range = 15
 	speed = 7
 

@@ -43,20 +43,20 @@
 	. = ..()
 	if(user.can_see_reagents())
 		if(beakers.len)
-			. += "<span class='notice'>You scan the grenade and detect the following reagents:</span>"
+			. += span_notice("You scan the grenade and detect the following reagents:")
 			for(var/obj/item/reagent_containers/cup/G in beakers)
 				for(var/datum/reagent/R in G.reagents.reagent_list)
-					. += "<span class='notice'>[R.volume] units of [R.name] in the [G.name].</span>"
+					. += span_notice("[R.volume] units of [R.name] in the [G.name].")
 			if(beakers.len == 1)
-				. += "<span class='notice'>You detect no second beaker in the grenade.</span>"
+				. += span_notice("You detect no second beaker in the grenade.")
 		else
-			. += "<span class='notice'>You scan the grenade, but detect nothing.</span>"
+			. += span_notice("You scan the grenade, but detect nothing.")
 	else if(stage != GRENADE_READY && beakers.len)
 		if(beakers.len == 2 && beakers[1].name == beakers[2].name)
-			. += "<span class='notice'>You see two [beakers[1].name]s inside the grenade.</span>"
+			. += span_notice("You see two [beakers[1].name]s inside the grenade.")
 		else
 			for(var/obj/item/reagent_containers/cup/G in beakers)
-				. += "<span class='notice'>You see a [G.name] inside the grenade.</span>"
+				. += span_notice("You see a [G.name] inside the grenade.")
 
 /obj/item/grenade/chem_grenade/attack_self(mob/user)
 	if(stage == GRENADE_READY && !active)
@@ -70,45 +70,45 @@
 		return TRUE
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(dud_flags & GRENADE_USED)
-			to_chat(user, "<span class='notice'>You started to reset the trigger.</span>")
+			to_chat(user, span_notice("You started to reset the trigger."))
 			if (do_after(user, 2 SECONDS, src))
-				to_chat(user, "<span class='notice'>You reset the trigger.</span>")
+				to_chat(user, span_notice("You reset the trigger."))
 				dud_flags &= ~GRENADE_USED
 			return TRUE
 		if(stage == GRENADE_WIRED)
 			if(beakers.len)
 				stage_change(GRENADE_READY)
-				to_chat(user, "<span class='notice'>You lock the [initial(name)] assembly.</span>")
+				to_chat(user, span_notice("You lock the [initial(name)] assembly."))
 				I.play_tool_sound(src, 25)
 			else
-				to_chat(user, "<span class='warning'>You need to add at least one beaker before locking the [initial(name)] assembly!</span>")
+				to_chat(user, span_warning("You need to add at least one beaker before locking the [initial(name)] assembly!"))
 		else if(stage == GRENADE_READY)
 			det_time = det_time == 50 ? 30 : 50 //toggle between 30 and 50
 			if(landminemode)
 				landminemode.time = det_time * 0.1	//overwrites the proxy sensor activation timer
 
-			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [DisplayTimeText(det_time)].</span>")
+			to_chat(user, span_notice("You modify the time delay. It's set for [DisplayTimeText(det_time)]."))
 		else
-			to_chat(user, "<span class='warning'>You need to add a wire!</span>")
+			to_chat(user, span_warning("You need to add a wire!"))
 		return TRUE
 	else if(stage == GRENADE_WIRED && is_type_in_list(I, allowed_containers))
 		. = TRUE //no afterattack
 		if(is_type_in_list(I, banned_containers))
-			to_chat(user, "<span class='warning'>[src] is too small to fit [I]!</span>") // this one hits home huh anon?
+			to_chat(user, span_warning("[src] is too small to fit [I]!")) // this one hits home huh anon?
 			return TRUE
 		if(beakers.len == 2)
-			to_chat(user, "<span class='warning'>[src] can not hold more containers!</span>")
+			to_chat(user, span_warning("[src] can not hold more containers!"))
 			return TRUE
 		else
 			if(I.reagents.total_volume)
 				if(!user.transferItemToLoc(I, src))
 					return TRUE
-				to_chat(user, "<span class='notice'>You add [I] to the [initial(name)] assembly.</span>")
+				to_chat(user, span_notice("You add [I] to the [initial(name)] assembly."))
 				beakers += I
 				var/reagent_list = pretty_string_from_reagent_list(I.reagents)
 				user.log_message("inserted [I] ([reagent_list]) into [src]",LOG_GAME)
 			else
-				to_chat(user, "<span class='warning'>[I] is empty!</span>")
+				to_chat(user, span_warning("[I] is empty!"))
 		return TRUE
 
 	else if(stage == GRENADE_EMPTY && istype(I, /obj/item/stack/cable_coil))
@@ -116,14 +116,14 @@
 		if (C.use(1))
 			det_time = 50 // In case the cable_coil was removed and readded.
 			stage_change(GRENADE_WIRED)
-			to_chat(user, "<span class='notice'>You rig the [initial(name)] assembly.</span>")
+			to_chat(user, span_notice("You rig the [initial(name)] assembly."))
 		else
-			to_chat(user, "<span class='warning'>You need one length of coil to wire the assembly!</span>")
+			to_chat(user, span_warning("You need one length of coil to wire the assembly!"))
 		return TRUE
 
 	else if(stage == GRENADE_READY && I.tool_behaviour == TOOL_WIRECUTTER && !active)
 		stage_change(GRENADE_WIRED)
-		to_chat(user, "<span class='notice'>You unlock the [initial(name)] assembly.</span>")
+		to_chat(user, span_notice("You unlock the [initial(name)] assembly."))
 		return TRUE
 
 	else if(stage == GRENADE_WIRED && I.tool_behaviour == TOOL_WRENCH)
@@ -135,12 +135,12 @@
 				var/reagent_list = pretty_string_from_reagent_list(O.reagents)
 				user.log_message("removed [O] ([reagent_list]) from [src]", LOG_GAME)
 			beakers = list()
-			to_chat(user, "<span class='notice'>You open the [initial(name)] assembly and remove the payload.</span>")
+			to_chat(user, span_notice("You open the [initial(name)] assembly and remove the payload."))
 			wires.detach_assembly(wires.get_wire(1))
 			return TRUE
 		new /obj/item/stack/cable_coil(get_turf(src),1)
 		stage_change(GRENADE_EMPTY)
-		to_chat(user, "<span class='notice'>You remove the activation mechanism from the [initial(name)] assembly.</span>")
+		to_chat(user, span_notice("You remove the activation mechanism from the [initial(name)] assembly."))
 		return TRUE
 	else
 		return ..()
@@ -185,9 +185,9 @@
 		add_fingerprint(user)
 		if(msg)
 			if(landminemode)
-				to_chat(user, "<span class='warning'>You prime [src], activating its proximity sensor.</span>")
+				to_chat(user, span_warning("You prime [src], activating its proximity sensor."))
 			else
-				to_chat(user, "<span class='warning'>You prime [src]! [DisplayTimeText(det_time)]!</span>")
+				to_chat(user, span_warning("You prime [src]! [DisplayTimeText(det_time)]!"))
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
 	icon_state = initial(icon_state) + "_active"
 	if(landminemode)
@@ -273,7 +273,7 @@
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
 			return
-		to_chat(user, "<span class='notice'>You add [I] to the [initial(name)] assembly.</span>")
+		to_chat(user, span_notice("You add [I] to the [initial(name)] assembly."))
 		beakers += I
 	else
 		return ..()
@@ -309,7 +309,7 @@
 				unit_spread += 25
 			else
 				unit_spread = 5
-		to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+		to_chat(user, span_notice(" You set the time release to [unit_spread] units per detonation."))
 		return TRUE
 	..()
 

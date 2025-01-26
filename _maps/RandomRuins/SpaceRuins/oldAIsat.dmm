@@ -83,12 +83,7 @@
 /area/tcommsat/oldaisat)
 "ar" = (
 /turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/tcommsat/oldaisat)
-"as" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	broken = 1
 	},
 /area/tcommsat/oldaisat)
 "at" = (
@@ -2646,7 +2641,7 @@ ag
 cn
 az
 ar
-as
+ar
 ar
 az
 cD
@@ -2761,7 +2756,7 @@ kx
 dZ
 ac
 ag
-as
+ar
 cs
 ar
 ag
@@ -3216,7 +3211,7 @@ aa
 ab
 ah
 ac
-as
+ar
 ar
 az
 aY
@@ -3276,7 +3271,7 @@ aa
 ac
 ab
 ac
-as
+ar
 ar
 aZ
 bj
@@ -3335,7 +3330,7 @@ aa
 ab
 ab
 ac
-as
+ar
 ar
 ba
 bk

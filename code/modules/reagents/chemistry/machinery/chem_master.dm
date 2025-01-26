@@ -140,24 +140,24 @@
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		. = TRUE // no afterattack
 		if(panel_open)
-			to_chat(user, "<span class='warning'>You can't use the [src.name] while its panel is opened!</span>")
+			to_chat(user, span_warning("You can't use the [src.name] while its panel is opened!"))
 			return
 		var/obj/item/reagent_containers/B = I
 		. = TRUE // no afterattack
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
-		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
+		to_chat(user, span_notice("You add [B] to [src]."))
 		ui_update()
 		update_appearance()
 	else if(!condi && istype(I, /obj/item/storage/pill_bottle))
 		if(bottle)
-			to_chat(user, "<span class='warning'>A pill bottle is already loaded into [src]!</span>")
+			to_chat(user, span_warning("A pill bottle is already loaded into [src]!"))
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
 		bottle = I
-		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot.</span>")
+		to_chat(user, span_notice("You add [I] into the dispenser slot."))
 		ui_update()
 	else
 		return ..()
@@ -273,7 +273,7 @@
 			if(!name)
 				return
 			if(CHAT_FILTER_CHECK(name))
-				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				to_chat(usr, span_warning("ERROR: Packaging name contains prohibited word(s)."))
 				return
 			saved_name = name
 			. = TRUE
@@ -383,7 +383,7 @@
 			// Get item name
 			var/name = params["name"]
 			if(CHAT_FILTER_CHECK(name))
-				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				to_chat(usr, span_warning("ERROR: Packaging name contains prohibited word(s)."))
 				return
 			if(name) // if we were passed a name from UI, html_encode it before adding to the world.
 				name = trim(html_encode(name), MAX_NAME_LEN)

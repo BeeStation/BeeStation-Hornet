@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	flags_1 = STAT_UNIQUE_1
 	var/datum/powernet/powernet
 	/// Are we a single cable that wants to be a node?
 	var/has_power_node = FALSE
@@ -375,7 +376,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			return TRUE
 		if (target.shock(user, 50))
 			return TRUE
-		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+		user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
 		target.investigate_log("was cut by [key_name(usr)] in [AREACOORD(target)]", INVESTIGATE_WIRES)
 		target.deconstruct()
 		return TRUE
@@ -430,9 +431,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/proc/get_power_info()
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		return "<span class='danger'>Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]</span>"
+		return span_danger("Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]")
 	else
-		return "<span class='danger'>The cable is not powered.</span>"
+		return span_danger("The cable is not powered.")
 
 ////////////////////////////////////////////
 // Power related

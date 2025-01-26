@@ -120,16 +120,40 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
-/datum/crafting_recipe/noose
-	name = "Wall Mirror Frame"
-	result = /obj/structure/chair/noose
-	time = 4 SECONDS
+/datum/crafting_recipe/weightmachine
+	name = "Chest press machine"
+	result = /obj/structure/weightmachine
+	time = 6 SECONDS
 	reqs = list(
-		/obj/item/stack/cable_coil = 30,
+		/obj/item/stack/sheet/iron = 2,
+		/obj/item/stack/rods = 6,
+		/obj/item/barbell/stacklifting = 1,
 	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_STRUCTURE
-	dangerous_craft = TRUE
 	one_per_turf = TRUE
 
-/datum/crafting_recipe/noose/check_requirements(mob/user, list/collected_requirements)
-	return locate(/obj/structure/chair) in user.loc
+/datum/crafting_recipe/weightmachine/weightlifter
+	name = "Inline bench press"
+	result = /obj/structure/weightmachine/weightlifter
+	time = 6 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/iron = 2,
+		/obj/item/stack/rods = 6,
+		/obj/item/barbell = 1,
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/punching_bag
+	name = "Punching bag"
+	result = /obj/structure/punching_bag
+	time = 6 SECONDS
+	reqs = list(
+	/obj/item/stack/sheet/cotton/cloth = 10,
+	)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+

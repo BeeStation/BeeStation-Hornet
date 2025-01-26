@@ -9,10 +9,16 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 	max_integrity = 150
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_meter
 	var/frequency = 0
 	var/atom/target
 	var/target_layer = PIPING_LAYER_DEFAULT
+
+
+/datum/armor/machinery_meter
+	energy = 100
+	rad = 100
+	fire = 40
 
 /obj/machinery/meter/atmos
 	frequency = FREQ_ATMOS_STORAGE
@@ -113,12 +119,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 	. += status()
 
 /obj/machinery/meter/wrench_act(mob/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+	to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 	if (I.use_tool(src, user, 40, volume=50))
 		user.visible_message(
 			"[user] unfastens \the [src].",
-			"<span class='notice'>You unfasten \the [src].</span>",
-			"<span class='italics'>You hear ratchet.</span>")
+			span_notice("You unfasten \the [src]."),
+			span_italics("You hear ratchet."))
 		deconstruct()
 	return TRUE
 

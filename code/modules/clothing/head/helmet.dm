@@ -5,7 +5,7 @@
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "helmet"
 	item_state = "helmet"
-	armor = list(MELEE = 35,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 50)
+	armor_type = /datum/armor/head_helmet
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
 	heat_protection = HEAD
@@ -17,6 +17,18 @@
 	flags_inv = HIDEHAIR
 	bang_protect = 1
 	clothing_flags = THICKMATERIAL
+
+
+/datum/armor/head_helmet
+	melee = 35
+	bullet = 30
+	laser = 30
+	energy = 40
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 30
+	bleed = 50
 
 /obj/item/clothing/head/helmet/Initialize(mapload)
 	. = ..()
@@ -34,14 +46,14 @@
 		// There's a flashlight in us. Remove it first, or it'll be lost forever!
 		var/obj/item/flashlight/seclite/blocking_us = locate() in src
 		if(blocking_us)
-			to_chat(user, "<span class='warning'>[blocking_us] is in the way, remove it first!</span>")
+			to_chat(user, span_warning("[blocking_us] is in the way, remove it first!"))
 			return TRUE
 
 		if(!attached_signaler.secured)
-			to_chat(user, "<span class='warning'>Secure [attached_signaler] first!</span>")
+			to_chat(user, span_warning("Secure [attached_signaler] first!"))
 			return TRUE
 
-		to_chat(user, "<span class='notice'>You add [attached_signaler] to [src].</span>")
+		to_chat(user, span_notice("You add [attached_signaler] to [src]."))
 
 		qdel(attached_signaler)
 		var/obj/item/bot_assembly/secbot/secbot_frame = new(loc)
@@ -57,7 +69,19 @@
 	desc = "A bulletproof combat helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "helmetalt"
 	item_state = "helmetalt"
-	armor = list(MELEE = 15,  BULLET = 60, LASER = 10, ENERGY = 15, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30, BLEED = 50)
+	armor_type = /datum/armor/helmet_alt
+
+
+/datum/armor/helmet_alt
+	melee = 15
+	bullet = 60
+	laser = 10
+	energy = 15
+	bomb = 40
+	fire = 50
+	acid = 50
+	stamina = 30
+	bleed = 50
 
 /obj/item/clothing/head/helmet/alt/Initialize(mapload)
 	. = ..()
@@ -93,7 +117,7 @@
 	flags_inv ^= visor_flags_inv
 	flags_cover ^= visor_flags_cover
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
-	to_chat(user, "<span class='notice'>[up ? alt_toggle_message : toggle_message] \the [src].</span>")
+	to_chat(user, span_notice("[up ? alt_toggle_message : toggle_message] \the [src]."))
 
 	user.update_inv_head()
 	if(iscarbon(user))
@@ -105,7 +129,7 @@
 	//Fails if attached seclite, as it blocks the visor from opening
 	var/obj/item/flashlight/seclite/blocking_us = locate() in src
 	if(blocking_us)
-		to_chat(usr, "<span class='warning'>[blocking_us] is in the way, remove it first!</span>")
+		to_chat(usr, span_warning("[blocking_us] is in the way, remove it first!"))
 		return FALSE
 	return TRUE
 
@@ -116,13 +140,24 @@
 	item_state = "helmet"
 	toggle_message = "You pull the visor down on"
 	alt_toggle_message = "You push the visor up on"
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 50, BLEED = 70)
+	armor_type = /datum/armor/toggleable_riot
 	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT
 	strip_delay = 80
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+
+/datum/armor/toggleable_riot
+	melee = 50
+	bullet = 10
+	laser = 10
+	energy = 15
+	fire = 80
+	acid = 80
+	stamina = 50
+	bleed = 70
 
 /obj/item/clothing/head/helmet/toggleable/riot/Initialize(mapload)
 	. = ..()
@@ -172,13 +207,27 @@
 	desc = "An extremely robust, space-worthy helmet in a nefarious red and black stripe pattern."
 	icon_state = "swatsyndie"
 	item_state = "swatsyndie"
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 90, RAD = 20, FIRE = 50, ACID = 50, STAMINA = 50, BLEED = 70)
+	armor_type = /datum/armor/helmet_swat
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
+
+
+/datum/armor/helmet_swat
+	melee = 40
+	bullet = 30
+	laser = 30
+	energy = 40
+	bomb = 50
+	bio = 90
+	rad = 20
+	fire = 50
+	acid = 50
+	stamina = 50
+	bleed = 70
 
 /obj/item/clothing/head/helmet/police
 	name = "police officer's hat"
@@ -198,32 +247,64 @@
 	flags_inv = HIDEEARS|HIDEHAIR
 	icon_state = "thunderdome"
 	item_state = "thunderdome"
-	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/helmet_thunderdome
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 
+
+/datum/armor/helmet_thunderdome
+	melee = 80
+	bullet = 80
+	laser = 50
+	energy = 50
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 90
+
 /obj/item/clothing/head/helmet/thunderdome/holosuit
 	cold_protection = null
 	heat_protection = null
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/thunderdome_holosuit
+
+
+/datum/armor/thunderdome_holosuit
+	melee = 10
+	bullet = 10
 
 /obj/item/clothing/head/helmet/roman
 	name = "\improper Roman helmet"
 	desc = "An ancient helmet made of bronze and leather."
 	flags_inv = HIDEEARS|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 25,  BULLET = 0, LASER = 25, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 40, BLEED = 50)
+	armor_type = /datum/armor/helmet_roman
 	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
 
+
+/datum/armor/helmet_roman
+	melee = 25
+	laser = 25
+	energy = 30
+	bomb = 10
+	fire = 100
+	acid = 50
+	stamina = 40
+	bleed = 50
+
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 10)
+	armor_type = /datum/armor/roman_fake
+
+
+/datum/armor/roman_fake
+	bleed = 10
 
 /obj/item/clothing/head/helmet/roman/legionnaire
 	name = "\improper Roman legionnaire helmet"
@@ -233,7 +314,11 @@
 
 /obj/item/clothing/head/helmet/roman/legionnaire/fake
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0, BLEED = 10)
+	armor_type = /datum/armor/legionnaire_fake
+
+
+/datum/armor/legionnaire_fake
+	bleed = 10
 
 /obj/item/clothing/head/helmet/gladiator
 	name = "gladiator helmet"
@@ -249,7 +334,18 @@
 	icon_state = "redtaghelm"
 	flags_cover = HEADCOVERSEYES
 	item_state = "redtaghelm"
-	armor = list(MELEE = 15,  BULLET = 10, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/helmet_redtaghelm
+
+
+/datum/armor/helmet_redtaghelm
+	melee = 15
+	bullet = 10
+	laser = 20
+	energy = 30
+	bomb = 20
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
@@ -257,18 +353,40 @@
 	icon_state = "bluetaghelm"
 	flags_cover = HEADCOVERSEYES
 	item_state = "bluetaghelm"
-	armor = list(MELEE = 15,  BULLET = 10, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/helmet_bluetaghelm
+
+
+/datum/armor/helmet_bluetaghelm
+	melee = 15
+	bullet = 10
+	laser = 20
+	energy = 30
+	bomb = 20
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/head/helmet/knight
 	name = "medieval helmet"
 	desc = "A classic metal helmet."
 	icon_state = "knight_green"
 	item_state = "knight_green"
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 50, BLEED = 10)
+	armor_type = /datum/armor/helmet_knight
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	bang_protect = 1
+
+
+/datum/armor/helmet_knight
+	melee = 50
+	bullet = 10
+	laser = 10
+	energy = 10
+	fire = 80
+	acid = 80
+	stamina = 50
+	bleed = 10
 
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
@@ -287,10 +405,22 @@
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20, BLEED = 40)
+	armor_type = /datum/armor/helmet_skull
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
+
+
+/datum/armor/helmet_skull
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 40
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -298,16 +428,40 @@
 	icon_state = "durathread"
 	item_state = "durathread"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30, BLEED = 60)
+	armor_type = /datum/armor/helmet_durathread
 	strip_delay = 60
+
+
+/datum/armor/helmet_durathread
+	melee = 20
+	bullet = 40
+	laser = 30
+	energy = 5
+	bomb = 15
+	fire = 40
+	acid = 50
+	stamina = 30
+	bleed = 60
 
 /obj/item/clothing/head/helmet/rus_helmet
 	name = "russian helmet"
 	desc = "It can hold a bottle of vodka."
 	icon_state = "rus_helmet"
 	item_state = "rus_helmet"
-	armor = list(MELEE = 25,  BULLET = 30, LASER = 0, ENERGY = 15, BOMB = 10, BIO = 0, RAD = 20, FIRE = 20, ACID = 50, STAMINA = 20, BLEED = 15)
+	armor_type = /datum/armor/helmet_rus_helmet
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
+
+
+/datum/armor/helmet_rus_helmet
+	melee = 25
+	bullet = 30
+	energy = 15
+	bomb = 10
+	rad = 20
+	fire = 20
+	acid = 50
+	stamina = 20
+	bleed = 15
 
 /obj/item/clothing/head/helmet/rus_ushanka
 	name = "battle ushanka"
@@ -317,7 +471,21 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 20, BLEED = 15)
+	armor_type = /datum/armor/helmet_rus_ushanka
+
+
+/datum/armor/helmet_rus_ushanka
+	melee = 25
+	bullet = 20
+	laser = 20
+	energy = 10
+	bomb = 20
+	bio = 50
+	rad = 20
+	fire = -10
+	acid = 50
+	stamina = 20
+	bleed = 15
 
 /obj/item/clothing/head/helmet/outlaw
 	name = "outlaw's hat"
@@ -328,4 +496,17 @@
 	item_state = "cowboy"
 	worn_icon_state = "cowboy_outlaw"
 	body_parts_covered = HEAD
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 40, STAMINA = 25, BLEED = 15)
+	armor_type = /datum/armor/helmet_outlaw
+
+
+/datum/armor/helmet_outlaw
+	melee = 25
+	bullet = 25
+	laser = 20
+	energy = 10
+	bomb = 30
+	bio = 30
+	rad = 20
+	acid = 40
+	stamina = 25
+	bleed = 15

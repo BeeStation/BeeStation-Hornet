@@ -252,7 +252,7 @@
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	faction = list("neutral","syndicate")
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -1911,7 +1911,7 @@
 /area/ruin/unpowered/syndicate_lava_base/science)
 "tV" = (
 /mob/living/simple_animal/chicken/rabbit{
-	faction = list("Syndicate");
+	faction = list("syndicate");
 	desc = "Just a mildly evil rabbit."
 	},
 /turf/open/floor/wood,
@@ -3900,7 +3900,7 @@
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	faction = list("neutral","syndicate")
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

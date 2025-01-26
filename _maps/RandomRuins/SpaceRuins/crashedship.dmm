@@ -1521,7 +1521,7 @@
 "QG" = (
 /obj/effect/gibspawner/robot,
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
+	burnt = 1
 	},
 /area/awaymission/BMPship/Fore)
 "QO" = (
