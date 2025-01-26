@@ -10973,9 +10973,7 @@
 /obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/machinery/computer/security/telescreen/entertainment{
-	network = list("theathre");
-	name = "scene monitor";
+/obj/machinery/computer/security/telescreen/entertainment/theathre{
 	pixel_y = 32;
 	pixel_x = 32
 	},
@@ -19177,10 +19175,6 @@
 	},
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/starboard)
-"eFR" = (
-/obj/item/clothing/head/bio_hood,
-/turf/open/floor/iron/sepia,
-/area/crew_quarters/theatre)
 "eFW" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
@@ -20422,9 +20416,7 @@
 	dir = 1
 	},
 /obj/structure/chair/fancy/comfy,
-/obj/machinery/computer/security/telescreen/entertainment{
-	network = list("theathre");
-	name = "scene monitor";
+/obj/machinery/computer/security/telescreen/entertainment/theathre{
 	pixel_y = 32;
 	pixel_x = -32
 	},
@@ -37896,9 +37888,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/machinery/computer/security/telescreen/entertainment{
-	network = list("theathre");
-	name = "scene monitor";
+/obj/machinery/computer/security/telescreen/entertainment/theathre{
 	pixel_y = 32;
 	pixel_x = -32
 	},
@@ -41785,7 +41775,6 @@
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
-/obj/machinery/camera/directional/east,
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "jZE" = (
@@ -57620,9 +57609,7 @@
 	dir = 1
 	},
 /obj/structure/chair/fancy/comfy,
-/obj/machinery/computer/security/telescreen/entertainment{
-	network = list("theathre");
-	name = "scene monitor";
+/obj/machinery/computer/security/telescreen/entertainment/theathre{
 	pixel_y = 32;
 	pixel_x = 32
 	},
@@ -59812,9 +59799,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
-/obj/machinery/camera/directional/south{
-	network = list("theathre")
-	},
+/obj/machinery/camera/preset/theathre,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -93466,6 +93451,16 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
+"whu" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/machinery/computer/security/telescreen/entertainment{
+	network = list("theathre");
+	name = "scene monitor";
+	pixel_y = 32;
+	pixel_x = -32
+	},
+/turf/open/floor/plating,
+/area/maintenance/central/secondary)
 "whC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -101371,7 +101366,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/obj/machinery/camera/directional/south,
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "yev" = (
@@ -138310,7 +138304,7 @@ rvT
 auI
 bsh
 rAY
-dqt
+whu
 bsh
 bsh
 bsh
@@ -142422,7 +142416,7 @@ okT
 pEy
 nZU
 fOm
-eFR
+uDv
 aZQ
 upT
 bsP
