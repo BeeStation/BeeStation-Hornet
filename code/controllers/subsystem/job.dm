@@ -46,6 +46,15 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_DEPUTY,
 		JOB_NAME_GIMMICK)
 
+	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
+	var/assigned_captain = FALSE
+	/// Whether the emergency safe code has been requested via a comms console on shifts with no Captain or Acting Captain.
+	var/safe_code_requested = FALSE
+	/// Timer ID for the emergency safe code request.
+	var/safe_code_timer_id
+	/// The loc to which the emergency safe code has been requested for delivery.
+	var/turf/safe_code_request_loc
+
 /datum/controller/subsystem/job/Initialize()
 	if(!occupations.len)
 		SetupOccupations()
@@ -827,6 +836,10 @@ SUBSYSTEM_DEF(job)
 	default_raw_text = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
 	return ..()
 
+/obj/item/paper/fluff/spare_id_safe_code/emergency_spare_id_safe_code
+	name = "Emergency Spare ID Safe Code Requisition"
+	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
+
 /datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character
 	if(!new_captain)
@@ -854,3 +867,11 @@ SUBSYSTEM_DEF(job)
 		var/obj/item/card/id/id_card = H.wear_id
 		if(!(ACCESS_HEADS in id_card.access))
 			LAZYADD(id_card.access, ACCESS_HEADS)
+
+	assigned_captain = TRUE
+
+/// Send a drop pod containing a piece of paper with the spare ID safe code to loc
+/datum/controller/subsystem/job/proc/send_spare_id_safe_code(loc)
+	new /obj/effect/pod_landingzone(loc, /obj/structure/closet/supplypod/centcompod, new /obj/item/paper/fluff/spare_id_safe_code/emergency_spare_id_safe_code())
+	safe_code_timer_id = null
+	safe_code_request_loc = null
