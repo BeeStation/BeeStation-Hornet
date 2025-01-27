@@ -4,11 +4,11 @@
  * @license MIT
  */
 
-import { canRender, classes } from 'common/react';
-import { Component, createRef, RefObject } from 'inferno';
-import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { Component, createRef, RefObject } from 'inferno';
 import type { InfernoNode } from 'inferno';
+import { addScrollableNode, removeScrollableNode } from '../events';
+import { canRender, classes } from 'common/react';
 
 interface SectionProps extends BoxProps {
   className?: string;
@@ -18,9 +18,9 @@ interface SectionProps extends BoxProps {
   fitted?: boolean;
   scrollable?: boolean;
   /** @deprecated This property no longer works, please remove it. */
-  level?: boolean;
+  level?: never;
   /** @deprecated Please use `scrollable` property */
-  overflowY?: any;
+  overflowY?: never;
   /** @member Allows external control of scrolling. */
   scrollableRef?: RefObject<HTMLDivElement>;
   /** @member Callback function for the `scroll` event */
@@ -41,7 +41,7 @@ export class Section extends Component<SectionProps> {
 
   componentDidMount() {
     if (this.scrollable) {
-      addScrollableNode(this.scrollableRef.current);
+      addScrollableNode(this.scrollableRef.current as HTMLElement);
       if (this.onScroll && this.scrollableRef.current) {
         this.scrollableRef.current.onscroll = this.onScroll;
       }
@@ -50,7 +50,7 @@ export class Section extends Component<SectionProps> {
 
   componentWillUnmount() {
     if (this.scrollable) {
-      removeScrollableNode(this.scrollableRef.current);
+      removeScrollableNode(this.scrollableRef.current as HTMLElement);
     }
   }
 

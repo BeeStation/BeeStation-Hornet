@@ -3574,23 +3574,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/port/central)
-"aQg" = (
-/obj/structure/table/optable,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 7
-	},
-/turf/open/floor/iron/white,
-/area/security/main)
 "aQp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -10738,6 +10721,10 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/science/storage)
+"cOf" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "cOi" = (
 /obj/item/flashlight/lamp/green{
 	pixel_x = 1;
@@ -14844,6 +14831,18 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/quartermaster/qm)
+"dRf" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -27;
+	use_power = 0
+	},
+/obj/machinery/computer/crew{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/security/main)
 "dRk" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -14923,18 +14922,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"dSV" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -27;
-	use_power = 0
-	},
-/turf/open/floor/iron/white,
-/area/security/main)
 "dTb" = (
 /obj/machinery/requests_console{
 	department = "Law Office";
@@ -14975,6 +14962,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/techmaint,
 /area/bridge)
+"dTE" = (
+/obj/effect/landmark/loneops,
+/turf/open/floor/plating/asteroid/airless,
+/area/asteroid/nearstation)
 "dTQ" = (
 /obj/structure/rack,
 /obj/item/crowbar,
@@ -34492,6 +34483,14 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/grid/steel,
 /area/science/shuttle)
+"iNl" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "iNo" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -41244,31 +41243,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
-"kxq" = (
-/obj/structure/table,
-/obj/item/folder/red{
-	pixel_x = 3
-	},
-/obj/item/folder/white{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/syringe,
-/obj/effect/turf_decal/bot,
-/obj/machinery/camera/directional/east{
-	c_tag = "Security - Medbay"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/reagent_containers/blood/OPlus,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "kxA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -42237,6 +42211,23 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
+/area/security/main)
+"kKM" = (
+/obj/structure/table/optable,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 7
+	},
+/turf/open/floor/iron/white,
 /area/security/main)
 "kKQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -47512,6 +47503,31 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
+"lZe" = (
+/obj/structure/table,
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/reagent_containers/syringe,
+/obj/effect/turf_decal/bot,
+/obj/machinery/camera/directional/east{
+	c_tag = "Security - Medbay"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/reagent_containers/blood/OPlus,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/open/floor/iron/techmaint,
+/area/security/main)
 "lZt" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -62459,14 +62475,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissaryFood)
-"qaI" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/vending/medical{
-	pixel_x = -2
-	},
-/turf/open/floor/iron/techmaint,
-/area/security/main)
 "qaJ" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/bot,
@@ -87223,6 +87231,22 @@
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
+"waC" = (
+/obj/machinery/newscaster{
+	pixel_y = 31
+	},
+/obj/structure/table/wood/fancy/black,
+/obj/item/key/atv{
+	desc = "A small grey key, whatever you do, whatever you are thinking of, no, this is the wrong place (or universe if that matters) to look for a use for this key.";
+	name = "Iridium key"
+	},
+/obj/machinery/door/window/westright{
+	dir = 2;
+	name = "Museum Showcase Door";
+	req_access_txt = "37"
+	},
+/turf/open/floor/iron/dark,
+/area/library/lounge)
 "waG" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -91025,22 +91049,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"wXx" = (
-/obj/machinery/newscaster{
-	pixel_y = 31
-	},
-/obj/structure/table/wood/fancy/black,
-/obj/item/key/atv{
-	desc = "A small grey key, whatever you do, whatever you are thinking of, no, this is the wrong place (or universe if that matters) to look for a use for this key.";
-	name = "Iridium key"
-	},
-/obj/machinery/door/window/westright{
-	dir = 2;
-	name = "Museum Showcase Door";
-	req_access_txt = "37"
-	},
-/turf/open/floor/iron/dark,
-/area/library/lounge)
 "wXA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -119547,7 +119555,7 @@ qGE
 gGR
 qGE
 woq
-wXx
+waC
 iED
 cIU
 efu
@@ -125676,7 +125684,7 @@ nnx
 nnx
 csJ
 tsN
-tsN
+dTE
 tsN
 xJu
 hSG
@@ -131652,7 +131660,7 @@ wqJ
 sDy
 wrM
 vUR
-aQg
+kKM
 alr
 eNY
 fkN
@@ -132168,7 +132176,7 @@ wrM
 kpl
 soq
 jIM
-dSV
+dRf
 xIV
 qRp
 xHm
@@ -132680,8 +132688,8 @@ vBi
 mTT
 oEj
 vUR
-kxq
-qaI
+lZe
+iNl
 oYn
 xIV
 iZK
@@ -135852,7 +135860,7 @@ kHH
 kHH
 kHH
 abN
-abN
+cOf
 abN
 abN
 abN

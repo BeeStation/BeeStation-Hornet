@@ -79,7 +79,7 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src)
 		panel_open = !panel_open
-		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
+		user.visible_message(span_notice("[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src]."), span_notice("You [panel_open ? "open" : "close"] the maintenance panel."))
 		return
 	if(!panel_open)
 		return ..()
@@ -112,9 +112,9 @@
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to detach the wheels...</span>")
+	to_chat(user, span_notice("You begin to detach the wheels..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You detach the wheels and deconstruct the chair.</span>")
+		to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
 		new /obj/item/stack/rods(drop_location(), 8)
 		new /obj/item/stack/sheet/iron(drop_location(), 10)
 		var/turf/T = get_turf(src)
@@ -153,7 +153,7 @@
 			D.throw_at(throw_target, 2, 3)
 			D.Knockdown(80)
 			D.adjustStaminaLoss(35)
-			visible_message("<span class='danger'>[src] crashes into [M], sending [H] and [D] flying!</span>")
+			visible_message(span_danger("[src] crashes into [M], sending [H] and [D] flying!"))
 		else
-			visible_message("<span class='danger'>[src] crashes into [M], sending [H] flying!</span>")
+			visible_message(span_danger("[src] crashes into [M], sending [H] flying!"))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)

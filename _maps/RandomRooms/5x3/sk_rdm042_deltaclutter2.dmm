@@ -38,7 +38,7 @@
 "f" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (

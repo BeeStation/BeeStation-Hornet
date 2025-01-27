@@ -1,7 +1,7 @@
 /atom/movable
 	layer = OBJ_LAYER
 	glide_size = 8
-	appearance_flags = TILE_BOUND|PIXEL_SCALE
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 
 	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
@@ -247,8 +247,8 @@
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab", important = FALSE)
 		if(!supress_message)
-			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
-				"<span class='danger'>[src] grabs you passively.</span>")
+			M.visible_message(span_warning("[src] grabs [M] passively."), \
+				span_danger("[src] grabs you passively."))
 	SEND_SIGNAL(pulling, COMSIG_MOVABLE_PULLED)
 	return TRUE
 
@@ -354,7 +354,7 @@
 
 	var/list/old_locs
 	if(is_multi_tile_object && isturf(loc))
-		old_locs = locs.Copy()
+		old_locs = locs // locs is a special list, this is effectively the same as .Copy() but with less steps
 		for(var/atom/exiting_loc as anything in old_locs)
 			if(!exiting_loc.Exit(src, direction))
 				return
@@ -409,7 +409,7 @@
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
-	Moved(oldloc, direction)
+	Moved(oldloc, direction, FALSE, old_locs)
 
 ////////////////////////////////////////
 
@@ -512,17 +512,24 @@
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override)) //movement failed due to buckled mob(s)
 		return FALSE
 
-//Called after a successful Move(). By this point, we've alrefady moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/**
+ * Called after a successful Move(). By this point, we've already moved.
+ * Arguments:
+ * * old_loc is the location prior to the move. Can be null to indicate nullspace.
+ * * movement_dir is the direction the movement took place. Can be NONE if it was some sort of teleport.
+ * * The forced flag indicates whether this was a forced move, which skips many checks of regular movement.
+ * * The old_locs is an optional argument, in case the moved movable was present in multiple locations before the movement.
+ **/
+/atom/movable/proc/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(OldLoc)
-		var/turf/old_turf = get_turf(OldLoc)
+	if(old_loc)
+		var/turf/old_turf = get_turf(old_loc)
 		var/turf/new_turf = get_turf(src)
 		if(old_turf && new_turf && old_turf.z != new_turf.z)
 			onTransitZ(old_turf.z, new_turf.z)
 	if (!inertia_moving)
-		newtonian_move(Dir)
+		newtonian_move(movement_dir)
 
 	move_stacks--
 	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
@@ -531,7 +538,7 @@
 		stack_trace("move_stacks is negative in Moved()!")
 		move_stacks = 0 //setting it to 0 so that we dont get every movable with negative move_stacks runtiming on every movement
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs)
 
 	// Z-Mimic hook
 	if (bound_overlay)
@@ -543,7 +550,7 @@
 		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
 			qdel(bound_overlay)
 
-	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/old_turf = get_turf(old_loc)
 	var/turf/new_turf = get_turf(src)
 
 	if(HAS_SPATIAL_GRID_CONTENTS(src))
@@ -843,12 +850,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='warning'>[src] forcefully pushes against [AM]!</span>", "<span class='warning'>You forcefully push against [AM]!</span>")
+		visible_message(span_warning("[src] forcefully pushes against [AM]!"), span_warning("You forcefully push against [AM]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
+		visible_message(span_danger("[src] crushes past [AM]!"), span_danger("You crush [AM]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
