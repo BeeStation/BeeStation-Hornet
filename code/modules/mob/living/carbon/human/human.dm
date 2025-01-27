@@ -1040,16 +1040,16 @@
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
 	if(!can_piggyback(target))
-		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
+		to_chat(target, span_warning("You can't piggyback ride [src] right now!"))
 		return
 
-	visible_message("<span class='notice'>[target] starts to climb onto [src].</span>")
+	visible_message(span_notice("[target] starts to climb onto [src]..."))
 	if(!do_after(target, 1.5 SECONDS, target = src) || !can_piggyback(target))
-		visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
+		visible_message(span_warning("[target] fails to climb onto [src]!"))
 		return
 
 	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
-		target.visible_message("<span class='warning'>[target] can't hang onto [src]!</span>")
+		target.visible_message(span_warning("[target] can't hang onto [src]!"))
 		return
 
 	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
