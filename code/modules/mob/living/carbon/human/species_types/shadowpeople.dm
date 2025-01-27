@@ -510,46 +510,47 @@
 
 #undef HEART_RESPAWN_THRESHOLD
 
-/*
-/datum/action/innate/cult
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
-	background_icon_state = "bg_demon"
-	buttontooltipstyle = "cult"
+
+// Shadow coms
+
+/datum/action/innate/shadow_coms
+	icon_icon = 'icons\hud\actions\action_generic.dmi'
+	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/IsAvailable()
-	if(!iscultist(owner))
+/datum/action/innate/shadow_coms/IsAvailable()
+	if(!isshadow(owner))
+		return FALSE
+	var/mob/living/carbon/human/S = owner
+	var/datum/species/shadow/spiec = S.dna.species
+	if(spiec.shadow_sect_dependency == 0)
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/comm
-	name = "Communion"
-	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
-	button_icon_state = "cult_comms"
+/datum/action/innate/shadow_coms/comm
+	name = "Wisper"
+	desc = "Talk to other shadowpeople using shadows."
+	button_icon_state = "commune"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/comm/Activate()
-	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
+/datum/action/innate/shadow_coms/comm/Activate()
+	var/input = tgui_input_text(usr, "Please choose a message to tell to the shadows.", "Voice of Shadows", "")
 	if(!input || !IsAvailable())
 		return
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 		return
-	cultist_commune(usr, input)
+	shadow_commune(usr, input)
 
-/datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
+/datum/action/innate/shadow_coms/comm/proc/shadow_commune(mob/living/user, message)
 	var/my_message
 	if(!message)
 		return
-	user.whisper("O bidai nabora se[pick("'","`")]sma!", language = /datum/language/common)
-	user.whisper(html_decode(message))
-	var/title = "Acolyte"
-	var/span = "srt_radio cult italic"
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult/master))
-		span = "cultlarge"
-		title = "Master"
-	else if(!ishuman(user))
-		title = "Construct"
+	var/title = "Shadow"
+	var/span = "average"
+	if(user.mind && user.mind.holy_role > 1)
+		span = "big bold"
+		title = "Darkest shadow"
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
@@ -557,16 +558,15 @@
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
-		if(iscultist(M))
-			to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
+		if(isshadow(M))
+			var/mob/living/carbon/human/S = M
+			var/datum/species/shadow/spiec = S.dna.species
+			if(spiec.shadow_sect_dependency != 0)
+				to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
 			to_chat(M, "[link] [my_message]", type = MESSAGE_TYPE_RADIO)
 
-	user.log_talk(message, LOG_SAY, tag="blood cult")
+	user.log_talk(message, LOG_SAY, tag="shadow sect")
 
-/datum/action/innate/cult/master/IsAvailable()
-	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.cult_narsie)
-		return 0
-	return ..()
-*/
+
