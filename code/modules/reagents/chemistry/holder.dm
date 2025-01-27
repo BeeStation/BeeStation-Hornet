@@ -201,11 +201,11 @@
   * * no_react - passed through to [/datum/reagents/proc/add_reagent]
   * * mob/transfered_by - used for logging
   * * remove_blacklisted - skips transferring of reagents with can_synth = FALSE
-  * * method - passed through to [/datum/reagents/proc/expose_single] and [/datum/reagent/proc/on_transfer]
+  * * methods - passed through to [/datum/reagents/proc/expose_single] and [/datum/reagent/proc/on_transfer]
   * * show_message - passed through to [/datum/reagents/proc/expose_single]
   * * round_robin - if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
   */
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, methods = NONE, show_message = TRUE, round_robin = FALSE)
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -237,9 +237,9 @@
 				trans_data = copy_data(T)
 			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
 				continue
-			if(method)
-				R.expose_single(T, target_atom, method, part, show_message)
-				T.on_transfer(target_atom, method, transfer_amount * multiplier)
+			if(methods)
+				R.expose_single(T, target_atom, methods, part, show_message)
+				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
 	else
@@ -258,9 +258,9 @@
 			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
 				continue
 			to_transfer = max(to_transfer - transfer_amount , 0)
-			if(method)
-				R.expose_single(T, target_atom, method, transfer_amount, show_message)
-				T.on_transfer(target_atom, method, transfer_amount * multiplier)
+			if(methods)
+				R.expose_single(T, target_atom, methods, transfer_amount, show_message)
+				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
 
@@ -727,7 +727,7 @@
  * - Show_message: Whether to display anything to mobs when they are exposed.
  * -
  */
-/datum/reagents/proc/expose(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1, obj/item/bodypart/affecting)
+/datum/reagents/proc/expose(atom/A, methods = TOUCH, volume_modifier = 1, show_message = 1, obj/item/bodypart/affecting)
 	if(isnull(A))
 		return null
 
@@ -740,10 +740,10 @@
 		var/datum/reagent/R = reagent
 		reagents[R] = R.volume * volume_modifier
 
-	return A.expose_reagents(reagents, src, method, volume_modifier, show_message, affecting)
+	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message, affecting)
 
 /// Same as [/datum/reagents/proc/expose] but only for one reagent
-/datum/reagents/proc/expose_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
+/datum/reagents/proc/expose_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE)
 	if(isnull(A))
 		return null
 
@@ -753,7 +753,7 @@
 		return null
 
 	// Yes, we need the parentheses.
-	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, method, volume_modifier, show_message)
+	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, methods, volume_modifier, show_message)
 
 /// Is this holder full or not
 /datum/reagents/proc/holder_full()
@@ -1108,12 +1108,12 @@ Needs metabolizing takes into consideration if the chemical is metabolizing when
 /* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
 	 *--- arguments ---*
 		* flag_check
-			the method will return a random reagent id which has this flag.
+			the methods will return a random reagent id which has this flag.
 			if you want a single category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT)
 			if you want a multiple category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT|CHEMICAL_BASIC_DRINK|CHEMICAL_RNG_GENERAL)
 			(check defines at `code\__DEFINES\reagents.dm`)
 		* blacklist_flag
-			the method will remove random reagents from the possible list when they have this flag. default NONE(0)
+			the methods will remove random reagents from the possible list when they have this flag. default NONE(0)
 			same rule above
 			(uses chemical defines)
 		* union

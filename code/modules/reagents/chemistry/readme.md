@@ -64,7 +64,7 @@ The holder (reagents datum) is the datum that holds a list of all reagents curre
 		clear_reagents()
 			This proc removes ALL reagents from the holder.
 
-		reaction(var/atom/A, var/method=TOUCH, var/volume_modifier=0)
+		reaction(var/atom/A, var/methods=TOUCH, var/volume_modifier=0)
 			This proc calls the appropriate reaction procs of the reagents.
 			I.e. if A is an object, it will call the reagents expose_obj
 			proc. The method var is used for reaction on mobs. It simply tells
@@ -116,7 +116,7 @@ The holder (reagents datum) is the datum that holds a list of all reagents curre
 # About Reagents:
 Reagents are all the things you can mix and fille in bottles etc. This can be anything from rejuvs over water to ... iron. Each reagent also has a few procs - i'll explain those below.
 ```
-		expose_mob(var/mob/living/L, var/method=TOUCH)
+		expose_mob(var/mob/living/L, var/methods=TOUCH)
 			This is called by the holder's reation proc.
 			This version is only called when the reagent
 			reacts with a mob. The method var can be either

@@ -34,12 +34,12 @@
 	taste_description = "slime"
 	taste_mult = 0.9
 
-/datum/reagent/toxin/mutagen/expose_mob(mob/living/carbon/M, method=TOUCH, reac_volume)
+/datum/reagent/toxin/mutagen/expose_mob(mob/living/carbon/M, methods=TOUCH, reac_volume)
 	if(!..())
 		return
 	if(!M.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	if((method==VAPOR && prob(min(33, reac_volume))) || method==INGEST || method==PATCH || method==INJECT)
+	if(((methods & VAPOR) && prob(min(33, reac_volume))) || (methods & (INGEST|PATCH|INJECT)))
 		M.randmuti()
 		if(prob(98))
 			M.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
@@ -70,8 +70,8 @@
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/expose_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
-	if(method == TOUCH || method == VAPOR)
+/datum/reagent/toxin/plasma/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+	if(methods & (TOUCH|VAPOR))
 		M.adjust_fire_stacks(reac_volume / 5)
 		return
 	..()
@@ -219,13 +219,11 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-/datum/reagent/toxin/plantbgone/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == VAPOR)
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(!C.wear_mask) // If not wearing a mask
-				var/damage = min(round(0.4*reac_volume, 0.1),10)
-				C.adjustToxLoss(damage)
+/datum/reagent/toxin/plantbgone/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if((methods & VAPOR) && iscarbon(M))
+		var/mob/living/carbon/exposed_carbon = M
+		if(!exposed_carbon.wear_mask)
+			exposed_carbon.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10))
 
 /datum/reagent/toxin/plantbgone/weedkiller
 	name = "Weed Killer"
@@ -240,7 +238,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 
-/datum/reagent/toxin/pestkiller/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/toxin/pestkiller/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	..()
 	if(MOB_BUG in M.mob_biotypes)
 		var/damage = min(round(0.4*reac_volume, 0.1),10)
@@ -528,8 +526,8 @@
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/itching_powder/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
+/datum/reagent/toxin/itching_powder/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if(methods & (TOUCH|VAPOR))
 		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
 /datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M)
@@ -803,14 +801,14 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
+/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
 	if(!istype(C))
 		return
 	reac_volume = round(reac_volume,0.1)
-	if(method == INGEST)
+	if(methods & INGEST)
 		C.adjustBruteLoss(min(6*toxpwr, reac_volume * toxpwr))
 		return
-	if(method == INJECT)
+	if(methods & INJECT)
 		C.adjustBruteLoss(1.5 * min(6*toxpwr, reac_volume * toxpwr))
 		return
 	C.acid_act(acidpwr, reac_volume)

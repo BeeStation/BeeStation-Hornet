@@ -362,7 +362,7 @@
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /// Handles exposing a turf to reagents.
-/turf/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
+/turf/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
 	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 

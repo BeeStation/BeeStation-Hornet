@@ -23,8 +23,8 @@
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
-/datum/reagent/consumable/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == INGEST)
+/datum/reagent/consumable/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if(methods & INGEST)
 		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
 			switch(quality)
 				if (DRINK_BAD)
@@ -140,12 +140,12 @@
 	exposed_obj.AddElement(/datum/element/fried_item, volume)
 	exposed_obj.reagents.add_reagent(src.type, reac_volume)
 
-/datum/reagent/consumable/nutriment/fat/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
-	if(!(method == VAPOR || method == TOUCH) || isnull(holder) || (holder.chem_temp < fry_temperature))
+/datum/reagent/consumable/nutriment/fat/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	if(!(methods & (VAPOR|TOUCH)) || isnull(holder) || (holder.chem_temp < fry_temperature))
 		return
 
 	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
-	if(method & TOUCH)
+	if(methods & TOUCH)
 		burn_damage *= max(1 - touch_protection, 0)
 	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
@@ -321,12 +321,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "scorching agony"
 
-/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
 
 	var/mob/living/carbon/victim = M
-	if(method == TOUCH || method == VAPOR)
+	if(methods & (TOUCH|VAPOR))
 		//check for protection
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
@@ -585,12 +585,14 @@
 		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
-/datum/reagent/consumable/honey/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
-		var/mob/living/carbon/C = M
-		for(var/s in C.surgeries)
-			var/datum/surgery/S = s
-			S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
+/datum/reagent/consumable/honey/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	if(!iscarbon(exposed_mob) || !(methods & (TOUCH|VAPOR|PATCH)))
+		return
+
+	var/mob/living/carbon/C = exposed_mob
+	for(var/s in C.surgeries)
+		var/datum/surgery/S = s
+		S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 	..()
 
 /datum/reagent/consumable/honey/special
@@ -612,27 +614,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!istype(M))
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, methods = INGEST, reac_volume)
+	. = ..()
+	if(!ishuman(exposed_mob))
 		return
-	var/unprotected = FALSE
-	switch(method)
-		if(INGEST)
-			unprotected = TRUE
-		if(INJECT)
-			unprotected = FALSE
-		else	//Touch or vapor
-			if(!M.is_mouth_covered() && !M.is_eyes_covered())
-				unprotected = TRUE
-	if(unprotected)
-		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, span_notice("Your eye sockets feel wet."))
-		else
-			if(!M.eye_blurry)
-				to_chat(M, span_warning("Tears well up in your eyes!"))
-			M.adjust_blindness(2)
-			M.blur_eyes(5)
-	..()
+
+	var/mob/living/carbon/victim = exposed_mob
+	if(methods & (TOUCH | VAPOR))
+		var/tear_proof = victim.is_eyes_covered()
+		if (!tear_proof)
+			to_chat(exposed_mob, span_warning("Your eyes sting!"))
+			victim.emote("cry")
+			victim.blur_eyes(6 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/M)
 	..()
