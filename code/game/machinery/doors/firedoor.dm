@@ -665,6 +665,7 @@
 			light_xoffset = 2
 		if(WEST)
 			light_xoffset = -2
+	update_overlays()
 	update_icon()
 
 /obj/machinery/door/firedoor/border_only/Moved()
