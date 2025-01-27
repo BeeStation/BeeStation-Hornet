@@ -660,7 +660,7 @@
 		if(NORTH)
 			light_yoffset = 2
 		if(SOUTH)
-			light_yoffset = -2
+			light_yoffset = 0
 		if(EAST)
 			light_xoffset = 2
 		if(WEST)
