@@ -6,29 +6,28 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 
-	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
-	var/obscured = check_obscured_slots()
+	. = list(span_info("This is [icon2html(src, user)] \a <EM>[src]</EM>!"))
 
 	if(handcuffed)
 		. += span_warning("[t_He] [t_is] handcuffed with [handcuffed]!")
 	if(legcuffed)
 		. += span_warning("[t_He] [t_is] legcuffed with [legcuffed]!")
+
 	if(head)
-		. += "[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head. "
+		. += span_notice("[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head.")
+	var/obscured = check_obscured_slots()
 	if(wear_mask && !(obscured & ITEM_SLOT_MASK))
-		. += "[t_He] [t_is] wearing [wear_mask.get_examine_string(user)] on [t_his] face."
+		. += span_notice("[t_He] [t_is] wearing [wear_mask.get_examine_string(user)] on [t_his] face.")
 	if(wear_neck && !(obscured & ITEM_SLOT_NECK))
-		. += "[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck."
+		. += span_notice("[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck.")
 
 	for(var/obj/item/I in held_items)
 		if(!(I.item_flags & ABSTRACT))
-			. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
+			. += span_notice("[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))].")
 
 	if(back)
-		. += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back."
-	var/appears_dead = 0
+		. += span_notice("[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back.")
 	if(stat == DEAD)
-		appears_dead = 1
 		if(getorgan(/obj/item/organ/brain))
 			. += span_deadsay("[t_He] [t_is] limp and unresponsive, with no signs of life.")
 		else if(get_bodypart(BODY_ZONE_HEAD))
@@ -58,9 +57,9 @@
 
 	for(var/t in missing)
 		if(t==BODY_ZONE_HEAD)
-			msg += "[span_deadsay("<B>[t_His] [parse_zone(t)] is missing!</B>")]\n"
+			msg += span_deadsay("<B>[t_His] [parse_zone(t)] is missing!</B>\n")
 			continue
-		msg += "[span_warning("<B>[t_His] [parse_zone(t)] is missing!</B>")]\n"
+		msg += span_warning("<B>[t_His] [parse_zone(t)] is missing!</B>\n")
 
 
 	var/temp = getBruteLoss()
@@ -106,12 +105,11 @@
 
 	. += msg.Join("")
 
-	if(!appears_dead)
-		switch(stat)
-			if(SOFT_CRIT)
-				. += "[t_His] breathing is shallow and labored."
-			if(UNCONSCIOUS, HARD_CRIT)
-				. += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep."
+	switch(stat)
+		if(SOFT_CRIT)
+			. += "[t_His] breathing is shallow and labored."
+		if(UNCONSCIOUS, HARD_CRIT)
+			. += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep."
 
 	var/trait_exam = common_trait_examine()
 	if(!isnull(trait_exam))
