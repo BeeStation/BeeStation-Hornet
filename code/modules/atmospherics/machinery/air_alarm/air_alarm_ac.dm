@@ -86,7 +86,7 @@
 		ac_active = !ISINRANGE_EX(current_temp, cached_target_min, cached_target_max)
 		if(previous_active != ac_active)
 			visible_message(span_notice("[src] makes a quiet click as it [ac_active ? "starts trying to regulate" : "stops regulating"] the area's temperature."), blind_message = span_hear("You hear a silent click."), vision_distance = 3)
-			playsound(src, 'sound/machines/terminal_on.ogg', vol = 30, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, ignore_walls = FALSE)
+			playsound(src, 'sound/machines/terminal_on.ogg', vol = 10, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, ignore_walls = FALSE)
 			use_power = ac_active ? ACTIVE_POWER_USE : IDLE_POWER_USE
 		COOLDOWN_START(src, ac_switch_cooldown, AC_SWITCH_COOLDOWN)
 	if(ac_active)
