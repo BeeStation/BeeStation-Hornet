@@ -23,7 +23,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
 	var/shadow_sect_dependency = 0 // only important if shadow sect is at play
-	var/datum/action/innate/shadow_coms/comm/coms // same as above
+	var/datum/action/innate/shadow_coms/comm/coms = new// same as above
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
@@ -54,8 +54,6 @@
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	coms = new
-	coms.Grant(src) // doesnt work
 	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
 		change_hearts_ritual(C)
 
@@ -447,6 +445,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 1
+		coms.Grant(M)
 
 /obj/item/organ/heart/shadow_ritual2/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -454,6 +453,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 2
+		coms.Grant(M)
 
 /obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -461,6 +461,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 3
+		coms.Grant(M)
 
 
 /obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -469,6 +470,7 @@
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
+		coms.Remove(M)
 
 /obj/item/organ/heart/shadow_ritual2/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -477,6 +479,7 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
 		M.alpha = 255
+		coms.Remove(M)
 
 /obj/item/organ/heart/shadow_ritual3/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -486,6 +489,7 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
 		M.alpha = 255
+		coms.Remove(M)
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 
