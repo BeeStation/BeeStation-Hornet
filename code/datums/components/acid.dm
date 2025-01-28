@@ -1,9 +1,12 @@
-/** Component representing acid applied to an object.
-  *
-  * Must be attached to an atom.
-  * Processes, repeatedly damaging whatever it is attached to.
-  * If the parent atom is a turf it applies acid to the contents of the turf.
-  */
+GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/effects/acid.dmi', "default"))
+
+/**
+ * Component representing acid applied to an object.
+ * Must be attached to an atom.
+ * Processes, repeatedly damaging whatever it is attached to.
+ * If the parent atom is a turf it applies acid to the contents of the turf.
+ * If not being applied to a mob or turf, the atom must use the integrity system.
+ */
 /datum/component/acid
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// The strength of the acid on the parent [/atom].
@@ -12,6 +15,8 @@
 	var/acid_volume
 	/// The maximum volume of acid on the parent [/atom].
 	var/max_volume = INFINITY
+	/// Acid overlay appearance we apply
+	var/acid_overlay
 	/// The ambiant sound of acid eating away at the parent [/atom].
 	var/datum/looping_sound/acid/sizzle
 	/// Used exclusively for melting turfs. TODO: Move integrity to the atom level so that this can be dealt with there.
@@ -21,78 +26,86 @@
 	/// The proc used to handle the parent [/atom] when processing. TODO: Unify damage and resistance flags so that this doesn't need to exist!
 	var/datum/callback/process_effect
 
-/datum/component/acid/Initialize(_acid_power, _acid_volume, _max_volume=null)
-	if((_acid_power) <= 0 || (_acid_volume <= 0))
-		stack_trace("Acid component added with insufficient acid power ([_acid_power]) or acid volume ([_acid_power]).")
-		return COMPONENT_INCOMPATIBLE // Not enough acid or the acid's too weak, either one.
+/datum/component/acid/Initialize(acid_power = ACID_POWER_MELT_TURF, acid_volume = 50, acid_overlay = GLOB.acid_overlay)
 	if(!isatom(parent))
-		stack_trace("Acid component added to [parent] ([parent?.type]) which is not a /atom subtype.")
-		return COMPONENT_INCOMPATIBLE // Incompatible type. TODO: Rework take_damage to the atom level and move this there.
+		return COMPONENT_INCOMPATIBLE
+	//not incompatible, but pointless
+	var/atom/atom_parent = parent
+	if((acid_power) <= 0 || (acid_volume <= 0))
+		stack_trace("Acid component added to an atom ([atom_parent.type]) with insufficient acid power ([acid_power]) or acid volume ([acid_volume]).")
+		qdel(src)
+		return
 
-	if(isobj(parent))
-		var/obj/parent_object = parent
-		if(parent_object.resistance_flags & UNACIDABLE) // The parent object cannot have acid. Should never happen, will happen.
-			stack_trace("Acid component added to unacidable object [parent].")
-			return COMPONENT_INCOMPATIBLE
 
-		max_volume = OBJ_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, PROC_REF(process_obj), parent)
-	else if(isliving(parent))
+	if(isliving(parent))
 		max_volume = MOB_ACID_VOLUME_MAX
 		process_effect = CALLBACK(src, PROC_REF(process_mob), parent)
 	else if(isturf(parent))
 		max_volume = TURF_ACID_VOLUME_MAX
 		process_effect = CALLBACK(src, PROC_REF(process_turf), parent)
+	//if we failed all other checks, we must be an /atom/movable that uses integrity
+	else if(atom_parent.uses_integrity)
+		// The parent object cannot have acid. Not incompatible, but should not really happen.
+		if(atom_parent.resistance_flags & UNACIDABLE)
+			qdel(src)
+			return
 
-	acid_power = _acid_power
-	set_volume(_acid_volume)
+		max_volume = MOVABLE_ACID_VOLUME_MAX
+		process_effect = CALLBACK(src, PROC_REF(process_movable), parent)
+	//or not...
+	else
+		stack_trace("Tried to add /datum/component/acid to an atom ([atom_parent.type]) which does not use atom_integrity!")
+		return COMPONENT_INCOMPATIBLE
 
-	var/atom/parent_atom = parent
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
-	parent_atom.update_appearance()
+	src.acid_power = acid_power
+	set_volume(acid_volume)
+	src.acid_overlay = acid_overlay
+
 	sizzle = new(parent, TRUE)
 	START_PROCESSING(SSacid, src)
 
 /datum/component/acid/Destroy(force, silent)
 	STOP_PROCESSING(SSacid, src)
-	QDEL_NULL(sizzle)
+	if(sizzle)
+		QDEL_NULL(sizzle)
 	if(process_effect)
 		QDEL_NULL(process_effect)
-	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
-	if(parent && !QDELING(parent))
-		var/atom/parent_atom = parent
-		parent_atom.update_appearance()
 	return ..()
 
 /datum/component/acid/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 	RegisterSignal(parent, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
 	if(isturf(parent))
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
+	var/atom/atom_parent = parent
+	atom_parent.update_appearance()
 
 /datum/component/acid/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_UPDATE_OVERLAYS,
 		COMSIG_COMPONENT_CLEAN_ACT,
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_EXPOSE_REAGENT))
-
 	if(isturf(parent))
 		UnregisterSignal(parent, COMSIG_ATOM_ENTERED)
+	var/atom/atom_parent = parent
+	if(!QDELETED(atom_parent))
+		atom_parent.update_appearance()
 
 /// Averages corrosive power and sums volume.
-/datum/component/acid/InheritComponent(datum/component/C, i_am_original, _acid_power, _acid_volume)
-	acid_power = ((acid_power * acid_volume) + (_acid_power * _acid_volume)) / (acid_volume + _acid_volume)
-	set_volume(acid_volume + _acid_volume)
+/datum/component/acid/InheritComponent(datum/component/new_comp, i_am_original, acid_power, acid_volume)
+	acid_power = ((src.acid_power * src.acid_volume) + (acid_power * acid_volume)) / (src.acid_volume + acid_volume)
+	set_volume(src.acid_volume + acid_volume)
 
 /// Sets the acid volume to a new value. Limits the acid volume by the amount allowed to exist on the parent atom.
 /datum/component/acid/proc/set_volume(new_volume)
 	acid_volume = clamp(new_volume, 0, max_volume)
 	if(!acid_volume)
 		qdel(src)
-
 
 /// Handles the slow corrosion of the parent [/atom].
 /datum/component/acid/process(delta_time)
@@ -101,11 +114,11 @@
 		return
 	set_volume(acid_volume - (ACID_DECAY_BASE + (ACID_DECAY_SCALING*round(sqrt(acid_volume)))) * delta_time)
 
-/// Handles processing on a [/obj].
-/datum/component/acid/proc/process_obj(obj/target, delta_time)
+/// Handles processing on an [/atom/movable] (that uses atom_integrity).
+/datum/component/acid/proc/process_movable(atom/movable/target, delta_time)
 	if(target.resistance_flags & ACID_PROOF)
 		return
-	target.take_damage(min(1 + round(sqrt(acid_power * acid_volume)*0.3), OBJ_ACID_DAMAGE_MAX) * delta_time, BURN, ACID, 0)
+	target.take_damage(min(1 + round(sqrt(acid_power * acid_volume)*0.3), MOVABLE_ACID_DAMAGE_MAX) * delta_time, BURN, ACID, 0)
 
 /// Handles processing on a [/mob/living].
 /datum/component/acid/proc/process_mob(mob/living/target, delta_time)
@@ -115,15 +128,22 @@
 /datum/component/acid/proc/process_turf(turf/target_turf, delta_time)
 	var/acid_used = min(acid_volume * 0.05, 20) * delta_time
 	var/applied_targets = 0
-	for(var/am in target_turf)
-		var/atom/movable/target_movable = am
+	for(var/atom/movable/target_movable as anything in target_turf)
 		if(target_movable.acid_act(acid_power, acid_used))
 			applied_targets++
 
 	if(applied_targets)
 		set_volume(acid_volume - (acid_used * applied_targets))
 
-	// Snowflake code for handling acid melting walls. TODO: Move integrity handling to the atom level so this can be desnowflaked.
+	// Snowflake code for handling acid melting walls.
+	// We really should consider making turfs use atom_integrity, but for now this is just for acids.
+
+	//Strong walls will never get melted
+	//if(target_turf.get_explosive_block() >= 2)
+	//	return
+	//Reinforced floors never get melted
+	if(istype(target_turf, /turf/open/floor/engine))
+		return
 	if(acid_power < ACID_POWER_MELT_TURF)
 		return
 
@@ -149,13 +169,14 @@
 /datum/component/acid/proc/on_update_overlays(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
 
-	overlays += mutable_appearance('icons/effects/acid.dmi', parent_atom.custom_acid_overlay || ACID_OVERLAY_DEFAULT)
+	if(acid_overlay)
+		overlays += acid_overlay
 
 /// Alerts any examiners to the acid on the parent atom.
-/datum/component/acid/proc/on_examine(atom/A, mob/user, list/examine_list)
+/datum/component/acid/proc/on_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += span_danger("[A.p_theyre()] covered in corrosive liquid!")
+	examine_list += span_danger("[source.p_theyre(TRUE)] covered in a corrosive liquid!")
 
 /// Makes it possible to clean acid off of objects.
 /datum/component/acid/proc/on_clean(atom/source, clean_types)
@@ -176,7 +197,6 @@
 	acid_power /= (acid_volume / (acid_volume + reac_volume))
 	set_volume(acid_volume + reac_volume)
 	return NONE
-
 
 /// Handles searing the hand of anyone who tries to touch this without protection.
 /datum/component/acid/proc/on_attack_hand(atom/parent_atom, mob/living/carbon/user)

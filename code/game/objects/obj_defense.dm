@@ -110,15 +110,13 @@
 
 ///// ACID
 
-GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/effects/effects.dmi', "acid"))
-
 //the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
 	. = ..()
-	if((resistance_flags & (UNACIDABLE|INDESTRUCTIBLE)) || (acid_volume <= 0) || acidpwr <= 0)
+	if((resistance_flags & (UNACIDABLE)) || (acid_volume <= 0) || (acidpwr <= 0))
 		return FALSE
 
-	AddComponent(/datum/component/acid, acidpwr, acid_volume)
+	AddComponent(/datum/component/acid, acidpwr, acid_volume, custom_acid_overlay || GLOB.acid_overlay)
 	return TRUE
 
 //called when the obj is destroyed by acid.
@@ -129,8 +127,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 /obj/fire_act(exposed_temperature, exposed_volume)
 	if(isturf(loc))
-		var/turf/T = loc
-		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
+		var/turf/our_turf = loc
+		if(our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
 		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
