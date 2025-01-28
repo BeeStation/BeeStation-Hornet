@@ -13,7 +13,6 @@
 	//Variables for siphoning credits
 	var/siphoning_credits = 0
 	var/list/list_of_budgets = list()
-	var/siphoning = FALSE
 
 /obj/machinery/computer/bank_machine/Initialize(mapload)
 	. = ..()
@@ -77,7 +76,7 @@
 			total_balance += each.account_balance
 
 	data["current_balance"] = total_balance
-	data["siphoning"] = siphoning
+	data["siphoning"] = (datum_flags & DF_ISPROCESSING)
 	data["station_name"] = station_name()
 
 	return data
@@ -97,32 +96,27 @@
 			. = TRUE
 
 /obj/machinery/computer/bank_machine/proc/start_siphon()
-	siphoning = TRUE
+	START_PROCESSING(subsystem_type, src)
 
 /obj/machinery/computer/bank_machine/proc/end_siphon()
-	if(!siphoning || !siphoning_credits)
+	if(!siphoning_credits)
 		return
-	siphoning = FALSE
 	new /obj/item/holochip(drop_location(), siphoning_credits) //get the loot
 	siphoning_credits = 0
-
+	return PROCESS_KILL
 
 /obj/machinery/computer/bank_machine/process(delta_time)
 	..()
-	if(!siphoning)
-		return
 	if(machine_stat & (BROKEN|NOPOWER))
 		say("Insufficient power. Halting siphon.")
-		end_siphon()
-		return
+		return end_siphon()
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 		var/amount_to_siphon = SIPHON_AMOUNT * delta_time
 		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(!united_budget.has_money(amount_to_siphon))
 			say("All station budgets depleted. Halting siphon.")
-			end_siphon()
-			return
+			return end_siphon()
 		siphoning_credits += amount_to_siphon
 		united_budget.adjust_money(-amount_to_siphon)
 	else
@@ -134,8 +128,7 @@
 				continue
 			if(empty_budgets >= length(list_of_budgets))
 				say("All station budgets depleted. Halting siphon.")
-				end_siphon()
-				return
+				return end_siphon()
 			siphoning_credits += amount_to_siphon
 			target_budget.adjust_money(-amount_to_siphon)
 
