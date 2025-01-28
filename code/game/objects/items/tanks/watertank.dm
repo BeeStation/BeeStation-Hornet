@@ -41,10 +41,10 @@
 
 /obj/item/watertank/create_reagents(max_vol, flags)
 	. = ..()
-	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_change, TRUE)
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_localchange), TRUE)
 
 /// Handles reagents
-/obj/item/watertank/proc/on_reagent_change(datum/reagents/reagents)
+/obj/item/watertank/proc/on_reagent_localchange(datum/reagents/reagents)
 	SIGNAL_HANDLER
 	update_icon()
 	if(noz)
@@ -416,10 +416,10 @@
 
 /obj/item/extinguisher/mini/nozzle/create_reagents(max_vol, flags)
 	. = ..()
-	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_change, TRUE)
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_localchange), TRUE)
 
 /// Handles reagents
-/obj/item/extinguisher/mini/nozzle/proc/on_reagent_change(datum/reagents/reagents)
+/obj/item/extinguisher/mini/nozzle/proc/on_reagent_localchange(datum/reagents/reagents)
 	SIGNAL_HANDLER
 	update_icon()
 	if(tank)

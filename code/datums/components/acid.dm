@@ -36,33 +36,32 @@
 			return COMPONENT_INCOMPATIBLE
 
 		max_volume = OBJ_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, .proc/process_obj, parent)
+		process_effect = CALLBACK(src, PROC_REF(process_obj), parent)
 	else if(isliving(parent))
 		max_volume = MOB_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, .proc/process_mob, parent)
+		process_effect = CALLBACK(src, PROC_REF(process_mob), parent)
 	else if(isturf(parent))
 		max_volume = TURF_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, .proc/process_turf, parent)
+		process_effect = CALLBACK(src, PROC_REF(process_turf), parent)
 
 	acid_power = _acid_power
 	set_volume(_acid_volume)
 
 	var/atom/parent_atom = parent
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/on_update_overlays)
-	parent_atom.update_icon()
-	sizzle = new(list(parent), TRUE)
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
+	parent_atom.update_appearance()
+	sizzle = new(parent, TRUE)
 	START_PROCESSING(SSacid, src)
 
 /datum/component/acid/Destroy(force, silent)
 	STOP_PROCESSING(SSacid, src)
-	if(sizzle)
-		QDEL_NULL(sizzle)
+	QDEL_NULL(sizzle)
 	if(process_effect)
 		QDEL_NULL(process_effect)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
 	if(parent && !QDELING(parent))
 		var/atom/parent_atom = parent
-		parent_atom.update_icon()
+		parent_atom.update_appearance()
 	return ..()
 
 /datum/component/acid/RegisterWithParent()
@@ -130,19 +129,19 @@
 
 	parent_integrity -= delta_time
 	if(parent_integrity <= 0)
-		target_turf.visible_message("<span class='warning'>[target_turf] collapses under its own weight into a puddle of goop and undigested debris!</span>")
+		target_turf.visible_message(span_warning("[target_turf] collapses under its own weight into a puddle of goop and undigested debris!"))
 		target_turf.acid_melt()
 	else if(parent_integrity <= 4 && stage <= 3)
-		target_turf.visible_message("<span class='warning'>[target_turf] begins to crumble under the acid!</span>")
+		target_turf.visible_message(span_warning("[target_turf] begins to crumble under the acid!"))
 		stage = 4
 	else if(parent_integrity <= 8 && stage <= 2)
-		target_turf.visible_message("<span class='warning'>[target_turf] is struggling to withstand the acid!</span>")
+		target_turf.visible_message(span_warning("[target_turf] is struggling to withstand the acid!"))
 		stage = 3
 	else if(parent_integrity <= 16 && stage <= 1)
-		target_turf.visible_message("<span class='warning'>[target_turf] is being melted by the acid!</span>")
+		target_turf.visible_message(span_warning("[target_turf] is being melted by the acid!"))
 		stage = 2
 	else if(parent_integrity <= 24 && stage == 0)
-		target_turf.visible_message("<span class='warning'>[target_turf] is holding up against the acid!</span>")
+		target_turf.visible_message(span_warning("[target_turf] is holding up against the acid!"))
 		stage = 1
 
 
@@ -156,7 +155,7 @@
 /datum/component/acid/proc/on_examine(atom/A, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += "<span class='danger'>[A.p_theyre()] covered in corrosive liquid!</span>"
+	examine_list += span_danger("[A.p_theyre()] covered in corrosive liquid!")
 
 /// Makes it possible to clean acid off of objects.
 /datum/component/acid/proc/on_clean(atom/source, clean_types)

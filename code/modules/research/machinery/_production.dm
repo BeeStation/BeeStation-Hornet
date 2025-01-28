@@ -92,10 +92,10 @@
 
 /obj/machinery/rnd/production/create_reagents(max_vol, flags)
 	. = ..()
-	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_change, TRUE)
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_localchange), TRUE)
 
 /// Handles reagents getting added
-/obj/machinery/rnd/production/proc/on_reagent_change(datum/reagents/reagents)
+/obj/machinery/rnd/production/proc/on_reagent_localchange(datum/reagents/reagents)
 	SIGNAL_HANDLER
 	ui_update()
 
