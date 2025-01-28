@@ -31,7 +31,6 @@ GLOBAL_VAR(restart_counter)
  * SO HELP ME GOD IF I FIND ABSTRACTION LAYERS OVER THIS!
  */
 /world/proc/Genesis()
-	// auxtools has to go BEFORE tracy, otherwise tracy will clobber its hook addresses
 	#ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	init_byond_tracy()
