@@ -4,10 +4,11 @@
 	icon_state = "blob_shield"
 	desc = "A solid wall of slightly twitching tendrils."
 	var/damaged_desc = "A wall of twitching tendrils."
-	max_integrity = 150
-	brute_resist = 0.25
+	max_integrity = BLOB_STRONG_MAX_HP
+	health_regen = BLOB_STRONG_HP_REGEN
+	brute_resist = BLOB_BRUTE_RESIST * 0.5
 	explosion_block = 3
-	point_return = 4
+	point_return = BLOB_REFUND_STRONG_COST
 	atmosblock = TRUE
 	armor_type = /datum/armor/blob_shield
 
@@ -48,7 +49,8 @@
 	damaged_desc = "A wall of twitching tendrils with a reflective glow."
 	icon_state = "blob_glow"
 	flags_ricochet = RICOCHET_SHINY
-	point_return = 8
-	max_integrity = 100
-	brute_resist = 0.5
+	point_return = BLOB_REFUND_REFLECTOR_COST
+	max_integrity = BLOB_REFLECTOR_MAX_HP
+	health_regen = BLOB_REFLECTOR_HP_REGEN
+	brute_resist = BLOB_BRUTE_RESIST
 	explosion_block = 2
