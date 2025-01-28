@@ -324,8 +324,7 @@ Arguments:
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/get_integrity_percent()
 	var/integrity = critical_threshold_proximity / melting_point
-	integrity = round(100 - integrity * 100, 0.01)
-	integrity = integrity < 0 ? 0 : integrity
+	integrity = clamp(round(100 - integrity * 100, 0.01), 0, 100)
 	return integrity
 
 /**
