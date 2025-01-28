@@ -514,7 +514,7 @@
 // Shadow coms
 
 /datum/action/innate/shadow_coms
-	icon_icon = 'icons\hud\actions\action_generic.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
