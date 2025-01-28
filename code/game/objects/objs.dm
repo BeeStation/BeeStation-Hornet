@@ -394,6 +394,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_OBJ, src, reagents, methods, volume_modifier, show_message)
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_obj(src, reagents[R])

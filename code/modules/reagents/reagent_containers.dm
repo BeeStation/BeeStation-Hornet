@@ -47,6 +47,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 	add_initial_reagents()
 
+/obj/item/reagent_containers/create_reagents(max_vol, flags)
+	. = ..()
+	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_change)
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, .proc/on_reagents_del)
+
+/obj/item/reagent_containers/Destroy()
+	return ..()
+
+/obj/item/reagent_containers/proc/on_reagents_del(datum/reagents/reagents)
+	SIGNAL_HANDLER
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_PARENT_QDELETING))
+	return NONE
+
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
@@ -184,8 +197,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 /obj/item/reagent_containers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	reagents.expose_temperature(exposed_temperature)
 
-/obj/item/reagent_containers/on_reagent_change(changetype)
-	update_icon()
+/// Updates the icon of the container when the reagents change. Eats signal args
+/obj/item/reagent_containers/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
+	update_appearance()
+	return NONE
 
 /obj/item/reagent_containers/update_overlays()
 	. = ..()

@@ -629,5 +629,6 @@
 		taste(source)
 
 	var/touch_protection = (methods & VAPOR) ? getarmor(null, BIO) * 0.01 : 0
+	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_MOB, src, reagents, methods, volume_modifier, show_message, touch_protection, affecting)
 	for(var/datum/reagent/reagent as anything in reagents)
 		. |= reagent.expose_mob(src, methods, reagents[reagent], show_message, touch_protection, affecting)

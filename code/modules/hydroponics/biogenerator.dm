@@ -25,7 +25,6 @@
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
 	stored_research = new /datum/techweb/specialized/autounlocking/biogenerator
-	create_reagents(1000)
 
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(beaker)
@@ -66,9 +65,6 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Productivity at <b>[productivity*100]%</b>.<br>Matter consumption reduced by <b>[(efficiency*25)-25]</b>%.<br>Machine can hold up to <b>[max_items]</b> pieces of produce.")
-
-/obj/machinery/biogenerator/on_reagent_change(changetype)			//When the reagents change, change the icon as well.
-	update_icon()
 
 /obj/machinery/biogenerator/update_icon()
 	if(panel_open)
