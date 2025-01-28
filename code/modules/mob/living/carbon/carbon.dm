@@ -894,7 +894,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())
 		var/obj/item/I = X
-		I.acid_level = 0 //washes off the acid on our clothes
+		I.wash(CLEAN_TYPE_ACID) //washes off the acid on our clothes
 		I.extinguish() //extinguishes our clothes
 	..()
 

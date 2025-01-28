@@ -8,9 +8,10 @@
 	taste_description = "sweet tasting metal"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/thermite/expose_turf(turf/T, reac_volume)
+/datum/reagent/thermite/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
 	if(reac_volume >= 1)
-		T.AddComponent(/datum/component/thermite, reac_volume)
+		exposed_turf.AddComponent(/datum/component/thermite, reac_volume)
 
 /datum/reagent/thermite/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(1, 0)
@@ -41,6 +42,7 @@
 	metabolization_rate = 4
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
+	penetrates_skin = NONE
 
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(2)
@@ -49,33 +51,33 @@
 	..()
 	return TRUE
 
-/datum/reagent/clf3/expose_turf(turf/T, reac_volume)
-	if(isplatingturf(T))
-		var/turf/open/floor/plating/F = T
-		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			EX_ACT(F, EXPLODE_DEVASTATE)
-	if(isfloorturf(T))
-		var/turf/open/floor/F = T
+/datum/reagent/clf3/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(isplatingturf(exposed_turf))
+		var/turf/open/floor/plating/target_plating = exposed_turf
+		if(prob(10 + target_plating.burnt + 5*target_plating.broken)) //broken or burnt plating is more susceptible to being destroyed
+			EX_ACT(target_plating, EXPLODE_DEVASTATE)
+	if(isfloorturf(exposed_turf))
+		var/turf/open/floor/target_floor = exposed_turf
 		if(prob(reac_volume))
-			F.make_plating()
+			target_floor.make_plating()
 		else if(prob(reac_volume))
-			F.burn_tile()
-		if(isfloorturf(F))
-			for(var/turf/open/turf in RANGE_TURFS(1,F))
-				if(!locate(/obj/effect/hotspot) in turf)
-					new /obj/effect/hotspot(F)
-	if(iswallturf(T))
-		var/turf/closed/wall/W = T
+			target_floor.burn_tile()
+		if(isfloorturf(target_floor))
+			for(var/turf/open/nearby_turf in RANGE_TURFS(1, target_floor))
+				if(!locate(/obj/effect/hotspot) in nearby_turf)
+					new /obj/effect/hotspot(nearby_turf)
+	if(iswallturf(exposed_turf))
+		var/turf/closed/wall/target_wall = exposed_turf
 		if(prob(reac_volume))
-			EX_ACT(W, EXPLODE_DEVASTATE)
+			EX_ACT(target_wall, EXPLODE_DEVASTATE)
 
-/datum/reagent/clf3/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(istype(M))
-		if(methods & (TOUCH|VAPOR|PATCH))
-			M.adjust_fire_stacks(min(reac_volume/5, 10))
-			M.IgniteMob()
-			if(!locate(/obj/effect/hotspot) in M.loc)
-				new /obj/effect/hotspot(M.loc)
+/datum/reagent/clf3/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	exposed_mob.adjust_fire_stacks(min(reac_volume/5, 10))
+	exposed_mob.IgniteMob()
+	if(!locate(/obj/effect/hotspot) in exposed_mob.loc)
+		new /obj/effect/hotspot(exposed_mob.loc)
 
 /datum/reagent/sorium
 	name = "Sorium"
@@ -161,17 +163,17 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/phlogiston/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
-	M.IgniteMob()
-	..()
+/datum/reagent/phlogiston/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	exposed_mob.adjust_fire_stacks(1)
+	var/burndmg = max(0.3*exposed_mob.fire_stacks, 0.3)
+	exposed_mob.adjustFireLoss(burndmg, 0)
+	exposed_mob.IgniteMob()
 
-/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
+/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/exposed_mob)
+	exposed_mob.adjust_fire_stacks(1)
+	var/burndmg = max(0.3*exposed_mob.fire_stacks, 0.3)
+	exposed_mob.adjustFireLoss(burndmg, 0)
 	..()
 	return TRUE
 
@@ -184,15 +186,16 @@
 	taste_description = "burning"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	penetrates_skin = NONE
 
 /datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(1)
 	..()
 
-/datum/reagent/napalm/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(istype(M))
-		if(methods & (TOUCH|VAPOR|PATCH))
-			M.adjust_fire_stacks(min(reac_volume/4, 20))
+/datum/reagent/napalm/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(istype(exposed_mob) && (methods & (TOUCH|VAPOR|PATCH)))
+		exposed_mob.adjust_fire_stacks(min(reac_volume/4, 20))
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
@@ -214,10 +217,12 @@
 			humi.adjust_coretemperature(-15)
 	..()
 
-/datum/reagent/cryostylane/expose_turf(turf/T, reac_volume)
-	if(reac_volume >= 5)
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(15,30))
+/datum/reagent/cryostylane/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(reac_volume < 5)
+		return
+	for(var/mob/living/simple_animal/slime/exposed_slime in exposed_turf)
+		exposed_slime.adjustToxLoss(rand(15,30))
 
 /datum/reagent/pyrosium
 	name = "Pyrosium"
@@ -306,31 +311,32 @@
 	chem_flags = NONE
 	taste_description = "the inside of a fire extinguisher"
 
-/datum/reagent/firefighting_foam/expose_turf(turf/open/T, reac_volume)
-	if (!istype(T))
+/datum/reagent/firefighting_foam/expose_turf(turf/open/exposed_turf, reac_volume)
+	. = ..()
+	if (!istype(exposed_turf))
 		return
 
 	if(reac_volume >= 1)
-		var/obj/effect/particle_effect/foam/firefighting/F = (locate(/obj/effect/particle_effect/foam) in T)
-		if(!F)
-			F = new(T)
-		else if(istype(F))
-			F.lifetime = initial(F.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
+		var/obj/effect/particle_effect/foam/firefighting/foam = (locate(/obj/effect/particle_effect/foam) in exposed_turf)
+		if(!foam)
+			foam = new(exposed_turf)
+		else if(istype(foam))
+			foam.lifetime = initial(foam.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
 
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !isspaceturf(T))
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			if(G.return_temperature() > T20C)
-				G.set_temperature(max(G.return_temperature()/2,T20C))
-			G.react(src)
-			qdel(hotspot)
+	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in exposed_turf)
+	if(hotspot && !isspaceturf(exposed_turf) && exposed_turf.air)
+		var/datum/gas_mixture/air = exposed_turf.air
+		if(air.return_temperature() > T20C)
+			air.set_temperature(max(air.return_temperature()/2,T20C))
+		air.react(src)
+		qdel(hotspot)
 
-/datum/reagent/firefighting_foam/expose_obj(obj/O, reac_volume)
-	O.extinguish()
+/datum/reagent/firefighting_foam/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	exposed_obj.extinguish()
 
-/datum/reagent/firefighting_foam/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+/datum/reagent/firefighting_foam/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		M.adjust_fire_stacks(-reac_volume)
-		M.ExtinguishMob()
-	..()
+		exposed_mob.adjust_fire_stacks(-reac_volume)
+		exposed_mob.ExtinguishMob() //All stacks are removed

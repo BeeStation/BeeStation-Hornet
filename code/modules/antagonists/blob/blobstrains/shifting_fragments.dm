@@ -32,6 +32,6 @@
 	color = "#C8963C"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/shifting_fragments/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/shifting_fragments/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	reac_volume = ..()
-	M.apply_damage(0.7*reac_volume, BRUTE)
+	exposed_mob.apply_damage(0.7*reac_volume, BRUTE)

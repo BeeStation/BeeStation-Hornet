@@ -175,6 +175,7 @@
 	..()
 
 /datum/reagent/consumable/laughter/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	. = ..()
 	var/mob/living/carbon/human/reactor = M
 	if(istype(reactor))
 		var/datum/component/mood/mood = reactor.GetComponent(/datum/component/mood)

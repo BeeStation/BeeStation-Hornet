@@ -81,9 +81,10 @@
 /datum/element/decal/proc/clean_react(datum/source, clean_types)
 	SIGNAL_HANDLER
 
+	. = NONE
 	if(clean_types & cleanable)
 		Detach(source)
-		return TRUE
+		return COMPONENT_CLEANED
 	return NONE
 
 /datum/element/decal/proc/examine(datum/source, mob/user, list/examine_list)

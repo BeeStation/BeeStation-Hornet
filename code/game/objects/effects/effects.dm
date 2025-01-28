@@ -26,7 +26,7 @@
 	return
 
 /obj/effect/acid_act()
-	return
+	return FALSE
 
 /obj/effect/blob_act(obj/structure/blob/B)
 	return

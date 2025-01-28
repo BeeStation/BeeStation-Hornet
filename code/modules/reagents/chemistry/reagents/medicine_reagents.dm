@@ -236,13 +236,15 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/rezadone/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+/datum/reagent/medicine/rezadone/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
-	if(iscarbon(M))
-		var/mob/living/carbon/patient = M
-		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
-			patient.cure_husk("burn")
-			patient.visible_message(span_nicegreen("[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance."))
+	if(!iscarbon(exposed_mob))
+		return
+
+	var/mob/living/carbon/patient = exposed_mob
+	if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
+		patient.cure_husk("burn")
+		patient.visible_message(span_nicegreen("[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance."))
 
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
@@ -404,22 +406,24 @@
 	..()
 	return TRUE
 
-/datum/reagent/medicine/mine_salve/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(methods & (INGEST|VAPOR|INJECT))
-			M.adjust_nutrition(-5)
-			if(show_message)
-				to_chat(M, span_warning("Your stomach feels empty and cramps!"))
-		else
-			var/mob/living/carbon/C = M
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.speed_modifier = max(0.1, S.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+/datum/reagent/medicine/mine_salve/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(!iscarbon(exposed_mob) || (exposed_mob.stat == DEAD))
+		return
 
-			if(show_message)
-				to_chat(M, span_danger("You feel your wounds fade away to nothing!") )
-	..()
+	if(methods & (INGEST|VAPOR|INJECT))
+		exposed_mob.adjust_nutrition(-5)
+		if(show_message)
+			to_chat(exposed_mob, span_warning("Your stomach feels empty and cramps!"))
+
+	if(methods & (PATCH|TOUCH))
+		var/mob/living/carbon/exposed_carbon = exposed_mob
+		for(var/s in exposed_carbon.surgeries)
+			var/datum/surgery/surgery = s
+			surgery.speed_modifier = max(0.1, surgery.speed_modifier)
+
+		if(show_message)
+			to_chat(exposed_carbon, "<span class='danger'>You feel your injuries fade away to nothing!</span>" )
 
 /datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
 	if(iscarbon(M))
@@ -946,22 +950,24 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "magnets"
 
-/datum/reagent/medicine/strange_reagent/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(M.stat == DEAD)
-		if(M.suiciding || M.ishellbound()) //they are never coming back
-			M.visible_message(span_warning("[M]'s body does not react..."))
-			return
-		if(M.getBruteLoss() >= 100 || M.getFireLoss() >= 100 || HAS_TRAIT(M, TRAIT_HUSK)) //body is too damaged to be revived
-			M.visible_message(span_warning("[M]'s body convulses a bit, and then falls still once more."))
-			M.do_jitter_animation(10)
-			return
-		else
-			M.visible_message(span_warning("[M]'s body starts convulsing!"))
-			M.notify_ghost_cloning(source = M)
-			M.do_jitter_animation(10)
-			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 40) //jitter immediately, then again after 4 and 8 seconds
-			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 80)
-			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, revive), FALSE, FALSE), 100)
+/datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	if(exposed_mob.stat != DEAD)
+		return ..()
+
+	if(exposed_mob.suiciding || exposed_mob.ishellbound()) //they are never coming back
+		exposed_mob.visible_message(span_warning("[exposed_mob]'s body does not react..."))
+		return
+	if(exposed_mob.getBruteLoss() >= 100 || exposed_mob.getFireLoss() >= 100 || HAS_TRAIT(exposed_mob, TRAIT_HUSK)) //body is too damaged to be revived
+		exposed_mob.visible_message(span_warning("[exposed_mob]'s body convulses a bit, and then falls still once more."))
+		exposed_mob.do_jitter_animation(10)
+		return
+	else
+		exposed_mob.visible_message(span_warning("[exposed_mob]'s body starts convulsing!"))
+		exposed_mob.notify_ghost_cloning(source = exposed_mob)
+		exposed_mob.do_jitter_animation(10)
+		addtimer(CALLBACK(exposed_mob, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 40) //jitter immediately, then again after 4 and 8 seconds
+		addtimer(CALLBACK(exposed_mob, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 80)
+		addtimer(CALLBACK(exposed_mob, TYPE_PROC_REF(/mob/living, revive), FALSE, FALSE), 100)
 	..()
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/carbon/M)
@@ -1645,7 +1651,7 @@
 
 /datum/reagent/medicine/silibinin
 	name = "Silibinin"
-	description = "A thistle derrived hepatoprotective flavolignan mixture that help reverse damage to the liver."
+	description = "A thistle-derrived hepatoprotective flavolignan mixture that help reverse damage to the liver."
 	reagent_state = SOLID
 	color = "#FFFFD0"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
@@ -1653,8 +1659,7 @@
 
 /datum/reagent/medicine/silibinin/on_mob_life(mob/living/carbon/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, -2)//Add a chance to cure liver trauma once implemented.
-	..()
-	. = 1
+	return TRUE
 
 /datum/reagent/medicine/polypyr  //This is intended to be an ingredient in advanced chems.
 	name = "Polypyrylium Oligomers"
@@ -1667,21 +1672,21 @@
 	taste_description = "numbing bitterness"
 
 /datum/reagent/medicine/polypyr/on_mob_life(mob/living/carbon/M) //I wanted a collection of small positive effects, this is as hard to obtain as coniine after all.
+	. = ..()
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.25)
 	M.adjustBruteLoss(-0.35, 0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.cauterise_wounds(0.1)
-	..()
-	. = 1
+	return TRUE
 
-/datum/reagent/medicine/polypyr/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR))
-		if(M && ishuman(M) && reac_volume >= 0.5)
-			var/mob/living/carbon/human/H = M
-			H.hair_color = "92f"
-			H.facial_hair_color = "92f"
-			H.update_hair()
+/datum/reagent/medicine/polypyr/expose_mob(mob/living/carbon/human/exposed_human, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_human) || (reac_volume < 0.5))
+		return
+	exposed_human.hair_color = "92f"
+	exposed_human.facial_hair_color = "92f"
+	exposed_human.update_hair()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5)

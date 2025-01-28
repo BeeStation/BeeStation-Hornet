@@ -66,35 +66,45 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/reagent_weight = 1
 	///is it currently metabolizing
 	var/metabolizing = FALSE
+	///The set of exposure methods this penetrates skin with.
+	var/penetrates_skin = VAPOR
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
 	holder = null
 
 /// Applies this reagent to an [/atom]
-/datum/reagent/proc/expose_atom(atom/A, volume)
-	return
+/datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_ATOM, exposed_atom, reac_volume)
+	SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
+	return TRUE
 
 /// Applies this reagent to a [/mob/living]
-/datum/reagent/proc/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
-	if(!istype(M))
-		return FALSE
-	if(methods & VAPOR) //smoke, foam, spray
-		if(M.reagents)
-			var/modifier = clamp((1 - touch_protection), 0, 1)
-			var/amount = round(reac_volume*modifier, 0.1)
-			if(amount >= 0.5)
-				M.reagents.add_reagent(type, amount)
+/datum/reagent/proc/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection = 0, obj/item/bodypart/affecting)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_MOB, exposed_mob, methods, reac_volume, show_message, touch_protection)
+	if((methods & penetrates_skin) && exposed_mob.reagents) //smoke, foam, spray
+		var/amount = round(reac_volume*clamp((1 - touch_protection), 0, 1), 0.1)
+		if(amount >= 0.5)
+			exposed_mob.reagents.add_reagent(type, amount)
 	return TRUE
 
 /// Applies this reagent to an [/obj]
-/datum/reagent/proc/expose_obj(obj/O, volume)
-	return
+/datum/reagent/proc/expose_obj(obj/exposed_obj, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
 
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_OBJ, exposed_obj, reac_volume)
+	return TRUE
 
 /// Applies this reagent to a [/turf]
-/datum/reagent/proc/expose_turf(turf/T, volume)
-	return
+/datum/reagent/proc/expose_turf(turf/exposed_turf, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_TURF, exposed_turf, reac_volume)
+	return TRUE
 
 /// Called from [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
