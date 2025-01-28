@@ -23,7 +23,6 @@
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
 	var/shadow_sect_dependency = 0 // only important if shadow sect is at play
-	var/datum/action/innate/shadow_coms/comm/coms = new// same as above
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
@@ -400,6 +399,7 @@
 	icon_state = "shadow_heart_1"
 	visual = TRUE
 	decay_factor = 0
+	var/datum/action/innate/shadow_coms/comm/coms = new
 
 /obj/item/organ/heart/shadow_ritual2
 	name = "faded heart"
@@ -408,6 +408,7 @@
 	icon_state = "shadow_heart_2"
 	visual = TRUE
 	decay_factor = 0
+	var/datum/action/innate/shadow_coms/comm/coms = new
 
 /obj/item/organ/heart/shadow_ritual3
 	name = "pulsing darknes"
@@ -417,6 +418,7 @@
 	visual = TRUE
 	decay_factor = 0
 	var/respawn_progress = 0
+	var/datum/action/innate/shadow_coms/comm/coms = new
 
 
 /obj/item/organ/heart/shadow_ritual1/Stop()
