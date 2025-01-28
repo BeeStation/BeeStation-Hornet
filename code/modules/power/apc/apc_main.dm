@@ -323,6 +323,7 @@
 			coverlocked = FALSE
 			visible_message(span_warning("The APC cover is knocked down!"))
 			update_appearance()
+	qdel(src)
 
 /obj/machinery/power/apc/ui_state(mob/user)
 	if(isAI(user))
