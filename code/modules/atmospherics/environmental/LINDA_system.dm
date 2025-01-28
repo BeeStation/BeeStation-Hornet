@@ -100,7 +100,7 @@
 	var/canpass = CANATMOSPASS(src, src, FALSE)
 	for(var/direction in GLOB.cardinals_multiz)
 		var/turf/current_turf = get_step_multiz(src, direction)
-		if(!isopenturf(current_turf)) // not interested in you brother
+		if(!isopenturf(current_turf) || istransitturf(current_turf)) // not interested in you brother
 			continue
 
 		//Can you and me form a deeper relationship, or is this just a passing wind
