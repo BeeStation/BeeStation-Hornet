@@ -96,7 +96,7 @@
 			. = TRUE
 
 /obj/machinery/computer/bank_machine/proc/start_siphon()
-	START_PROCESSING(subsystem_type, src)
+	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/computer/bank_machine/proc/end_siphon()
 	if(!siphoning_credits)
