@@ -23,6 +23,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
 	var/shadow_sect_dependency = 0 // only important if shadow sect is at play
+	var/datum/action/innate/shadow_coms/comm/coms // same as above
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
@@ -53,6 +54,8 @@
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
+	coms = new
+	coms.Grant(src) // doesnt work
 	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
 		change_hearts_ritual(C)
 
