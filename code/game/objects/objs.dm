@@ -311,7 +311,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 						to_chat(usr, "No objects of this type exist")
 						return
 					log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
-					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) </span>")
+					message_admins(span_notice("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) "))
 				if("Type and subtypes")
 					var/i = 0
 					for(var/obj/Obj in world)
@@ -323,14 +323,14 @@ CREATION_TEST_IGNORE_SELF(/obj)
 						to_chat(usr, "No objects of this type exist")
 						return
 					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
-					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
+					message_admins(span_notice("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) "))
 
 /obj/examine(mob/user)
 	. = ..()
 	if(obj_flags & UNIQUE_RENAME)
-		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
+		. += span_notice("Use a pen on it to rename it or change its description.")
 	if(unique_reskin_icon && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += span_notice("Alt-click it to reskin it.")
 
 /obj/AltClick(mob/user)
 	. = ..()
@@ -408,6 +408,15 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	if(resistance_flags & ON_FIRE)
 		. += GLOB.fire_overlay
 
+/// Handles exposing an object to reagents.
+/obj/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
+	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_obj(src, reagents[R])
+
 ///attempt to freeze this obj if possible. returns TRUE if it succeeded, FALSE otherwise.
 /obj/proc/freeze()
 	if(HAS_TRAIT(src, TRAIT_FROZEN))
@@ -430,7 +439,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 				hacker.use_charge()
 				on_emag(user)
 			else
-				to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+				to_chat(user, span_warning("[hacker] is out of charges and needs some time to restore them!"))
 				user.balloon_alert(user, "out of charges!")
 		else
 			SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)

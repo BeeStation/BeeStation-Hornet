@@ -165,7 +165,7 @@
 			if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 				continue
 		if(lifetime % reagent_divisor)
-			reagents.reaction(O, VAPOR, fraction)
+			reagents.expose(O, VAPOR, fraction)
 	var/hit = 0
 	for(var/mob/living/L in get_turf(src))
 		hit += foam_mob(L)
@@ -173,7 +173,7 @@
 		lifetime++ //this is so the decrease from mobs hit and the natural decrease don't cumulate.
 	var/T = get_turf(src)
 	if(lifetime % reagent_divisor)
-		reagents.reaction(T, VAPOR, fraction)
+		reagents.expose(T, VAPOR, fraction)
 
 	if(--amount < 0)
 		return
@@ -186,7 +186,7 @@
 		return 0
 	var/fraction = 1/initial(reagent_divisor)
 	if(lifetime % reagent_divisor)
-		reagents.reaction(L, VAPOR, fraction)
+		reagents.expose(L, VAPOR, fraction)
 	lifetime--
 	return 1
 
@@ -310,7 +310,7 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	to_chat(user, "<span class='warning'>You hit [src] but bounce off it!</span>")
+	to_chat(user, span_warning("You hit [src] but bounce off it!"))
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/iron
@@ -346,7 +346,7 @@
 			if(!U.welded)
 				U.welded = TRUE
 				U.update_icon()
-				U.visible_message("<span class='danger'>[U] sealed shut!</span>")
+				U.visible_message(span_danger("[U] sealed shut!"))
 		for(var/mob/living/L in O)
 			L.ExtinguishMob()
 		for(var/obj/item/Item in O)
@@ -361,7 +361,7 @@
 
 /obj/structure/foamedmetal/resin/chainreact/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.</span>"
+	. += span_notice("It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.")
 
 /obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)

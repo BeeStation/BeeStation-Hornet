@@ -62,7 +62,7 @@
 		create_reagents(new_volume)
 	reagents.maximum_volume = new_volume
 	if(new_volume < reagents.total_volume)
-		reagents.reaction(loc, TOUCH) // if someone manages to downgrade it without deconstructing
+		reagents.expose(loc, TOUCH) // if someone manages to downgrade it without deconstructing
 		reagents.clear_reagents()
 	efficiency = 9
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -94,7 +94,7 @@
 		var/obj/item/reagent_containers/RC = I
 		var/units = RC.reagents.trans_to(src, RC.amount_per_transfer_from_this, transfered_by = user)
 		if(units)
-			to_chat(user, "<span class='notice'>You transfer [units] units of the solution to [src].</span>")
+			to_chat(user, span_notice("You transfer [units] units of the solution to [src]."))
 			return
 	if(default_unfasten_wrench(user, I, 40))
 		on = FALSE
@@ -106,7 +106,7 @@
 	return ..()
 
 /obj/machinery/smoke_machine/deconstruct()
-	reagents.reaction(loc, TOUCH)
+	reagents.expose(loc, TOUCH)
 	reagents.clear_reagents()
 	return ..()
 

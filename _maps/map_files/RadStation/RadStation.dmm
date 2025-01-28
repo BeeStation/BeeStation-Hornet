@@ -440,7 +440,10 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
 "agj" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -2231,7 +2234,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "aJb" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet/blue,
 /area/medical/exam_room)
@@ -2492,7 +2498,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/security)
 "aMw" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
@@ -3684,7 +3693,10 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "bgF" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4189,7 +4201,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/security/main)
@@ -4296,7 +4311,10 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "bqz" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -5894,7 +5912,10 @@
 /turf/open/floor/iron,
 /area/science/explab)
 "bRf" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -7048,7 +7069,10 @@
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
 "ckP" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -7084,7 +7108,10 @@
 /turf/open/floor/iron,
 /area/science/robotics)
 "clu" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -7917,7 +7944,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -8007,7 +8037,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
@@ -8413,7 +8446,10 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "cHl" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
@@ -9261,7 +9297,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/security/brig)
@@ -9748,7 +9787,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "dea" = (
@@ -10765,7 +10807,10 @@
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "dwo" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/light/small{
 	dir = 4
@@ -10795,7 +10840,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
 	dir = 8
 	},
@@ -11071,7 +11119,10 @@
 	color = "#DE3A3A"
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "dAL" = (
@@ -11700,7 +11751,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -12366,7 +12420,10 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "dVe" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/security/prison)
@@ -12595,7 +12652,10 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "dXS" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
@@ -13691,7 +13751,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
@@ -13968,7 +14031,8 @@
 	dir = 8
 	},
 /obj/machinery/holopad{
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -15121,7 +15185,10 @@
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "eNQ" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -17498,7 +17565,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/storage/primary)
@@ -17597,7 +17667,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/storage)
 "fzg" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
@@ -18174,7 +18247,10 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "fIv" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -19721,7 +19797,10 @@
 	},
 /area/science/research)
 "ghm" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
@@ -20959,7 +21038,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/wood,
 /area/security/detectives_office)
@@ -21950,7 +22032,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "gTA" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/science/mixing)
@@ -22194,7 +22279,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -27113,7 +27201,10 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
 "iFF" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -30326,7 +30417,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /turf/open/floor/iron/white,
 /area/science/explab)
 "jHs" = (
@@ -31203,7 +31297,10 @@
 /area/maintenance/department/medical/morgue)
 "jVx" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -32650,7 +32747,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -32987,7 +33087,10 @@
 /turf/open/floor/iron/techmaint,
 /area/gateway)
 "kAi" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -33925,6 +34028,25 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
+"kRd" = (
+/obj/effect/turf_decal/guideline/guideline_in/red{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_red/half{
+	color = "#DE3A3A"
+	},
+/obj/effect/turf_decal/tile/dark_red/half{
+	color = "#DE3A3A"
+	},
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
+/turf/open/floor/iron/large,
+/area/hallway/primary/central)
 "kRj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -35916,7 +36038,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "lwI" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -37226,7 +37351,8 @@
 	dir = 4
 	},
 /obj/machinery/holopad{
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=13-Engi";
@@ -37500,10 +37626,6 @@
 "maU" = (
 /obj/effect/landmark/start/randommaint/vip,
 /obj/effect/landmark/observer_start,
-/obj/machinery/holopad{
-	pixel_x = 16;
-	pixel_y = 16
-	},
 /obj/item/beacon{
 	pixel_x = 16;
 	pixel_y = 19
@@ -38374,7 +38496,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "mnU" = (
@@ -39154,7 +39279,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "mAB" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -39352,7 +39480,8 @@
 /area/security/brig)
 "mDq" = (
 /obj/machinery/holopad{
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
@@ -40008,7 +40137,10 @@
 /area/medical/sleeper)
 "mKX" = (
 /obj/effect/landmark/start/chaplain,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/glass/reinforced,
 /area/chapel/main)
@@ -40476,7 +40608,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/box,
@@ -42133,7 +42268,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -42276,7 +42414,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/iron,
@@ -42777,7 +42918,10 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/medical/genetics)
@@ -44279,7 +44423,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/engine/engine_room)
@@ -45487,7 +45634,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -46103,7 +46253,10 @@
 "oJg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/engine/storage)
@@ -47510,7 +47663,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "paD" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
@@ -48065,7 +48221,8 @@
 	dir = 8
 	},
 /obj/machinery/holopad{
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
@@ -48365,7 +48522,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
@@ -48753,7 +48913,8 @@
 /area/solar/starboard/aft)
 "pwb" = (
 /obj/machinery/holopad{
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/storage/eva)
@@ -50645,7 +50806,10 @@
 /area/medical/virology)
 "pZQ" = (
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/wood,
 /area/maintenance/central)
@@ -50898,7 +51062,10 @@
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "qde" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
@@ -51436,7 +51603,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
 "qol" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
@@ -51567,7 +51737,10 @@
 /area/quartermaster/exploration_prep)
 "qpA" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -53667,7 +53840,10 @@
 /area/engine/atmos)
 "qZa" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
@@ -54591,7 +54767,10 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "rnV" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -55020,7 +55199,10 @@
 /turf/open/floor/wood,
 /area/security/courtroom)
 "rur" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -55963,7 +56145,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet,
 /area/library)
@@ -56217,7 +56402,10 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
@@ -57082,6 +57270,9 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/directional/west,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "scT" = (
@@ -59780,12 +59971,18 @@
 "sYQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "sYS" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/medical/cryo)
@@ -60224,7 +60421,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/gravity_generator)
 "tfT" = (
@@ -60649,7 +60849,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/security/brig)
@@ -61694,7 +61897,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=9-Disp";
 	location = "8-WSci"
@@ -61776,7 +61982,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/holopad{
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 16
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -63662,7 +63869,10 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ugj" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
 	dir = 4
@@ -66915,7 +67125,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "vof" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/gateway)
@@ -67764,7 +67977,10 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -67897,7 +68113,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
@@ -68235,7 +68454,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/dark,
 /area/security/warden)
@@ -68623,7 +68845,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
@@ -69642,7 +69867,10 @@
 /area/maintenance/department/medical)
 "wlj" = (
 /obj/effect/landmark/start/cook,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -71369,7 +71597,10 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "wNH" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/wood,
 /area/security/prison)
@@ -71572,7 +71803,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet/royalblack,
 /area/lawoffice)
@@ -72274,7 +72508,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
@@ -72623,7 +72860,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	pixel_x = 16;
+	pixel_y = 16
+	},
 /obj/effect/turf_decal/box,
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -108291,7 +108531,7 @@ tnC
 vOn
 lrB
 uKo
-xdo
+kRd
 fCN
 xdo
 ghK

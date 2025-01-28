@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Grid, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const DnaVault = (props, context) => {
-  const { act, data } = useBackend(context);
+export const DnaVault = (props) => {
+  const { act, data } = useBackend();
   const { completed, used, choiceA, choiceB, dna, dna_max, plants, plants_max, animals, animals_max } = data;
   return (
     <Window width={350} height={400}>

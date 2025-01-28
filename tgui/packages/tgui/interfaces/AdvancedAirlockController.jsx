@@ -22,9 +22,9 @@ const ROLE_INT_DEPRESSURIZE = 2;
 const ROLE_EXT_PRESSURIZE = 4;
 const ROLE_EXT_DEPRESSURIZE = 8;
 
-export const AdvancedAirlockController = (props, context) => {
+export const AdvancedAirlockController = (props) => {
   const { state } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const locked = data.locked && !data.siliconUser;
   return (
     <Window width={440} height={650}>
@@ -39,8 +39,8 @@ export const AdvancedAirlockController = (props, context) => {
   );
 };
 
-export const AACStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AACStatus = (props) => {
+  const { act, data } = useBackend();
   const { cyclestate, pressure, maxpressure, emagged } = data;
   const stateMap = {
     [STATE_INOPEN]: {
@@ -162,8 +162,8 @@ export const AACStatus = (props, context) => {
   );
 };
 
-export const AACControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AACControl = (props) => {
+  const { act, data } = useBackend();
   const { state } = props;
   const {
     cyclestate,
@@ -262,8 +262,8 @@ export const AACControl = (props, context) => {
   );
 };
 
-export const Vent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Vent = (props) => {
+  const { act, data } = useBackend();
   const { vent_id, name, role } = props;
   return (
     <Section
@@ -332,8 +332,8 @@ export const Vent = (props, context) => {
   );
 };
 
-export const Airlock = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Airlock = (props) => {
+  const { act, data } = useBackend();
   const { airlock_id, name, role, access } = props;
   return (
     <Section

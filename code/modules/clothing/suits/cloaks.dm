@@ -15,7 +15,7 @@
 	create_storage(type = /datum/storage/pockets/exo/cloak)
 
 /obj/item/clothing/neck/cloak/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/clothing/neck/cloak/hos

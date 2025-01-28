@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosMixer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosMixer = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={370} height={165}>
       <Window.Content>

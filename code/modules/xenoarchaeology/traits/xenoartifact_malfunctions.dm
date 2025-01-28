@@ -140,12 +140,12 @@
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/geiger_counter))
-		to_chat(user, "<span class='notice'>The [X.name] has residual radioactive decay features.</span>")
+		to_chat(user, span_notice("The [X.name] has residual radioactive decay features."))
 		return TRUE
 	..()
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>You feel pins and needles after touching the [X.name].</span>")
+	to_chat(user, span_notice("You feel pins and needles after touching the [X.name]."))
 	return TRUE
 
 /datum/xenoartifact_trait/malfunction/radioactive/activate(obj/item/xenoartifact/X)
@@ -199,7 +199,7 @@
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list("evil_clone")
+	faction = list(FACTION_HOSTILE)
 	status_flags = CANPUSH
 	del_on_death = TRUE
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -215,7 +215,7 @@
 
 /datum/xenoartifact_trait/malfunction/explode/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	. = ..()
-	X.visible_message("<span class='warning'>The [X] begins to heat up, it's delaminating!</span>")
+	X.visible_message(span_warning("The [X] begins to heat up, it's delaminating!"))
 	apply_wibbly_filters(X, 3)
 	addtimer(CALLBACK(src, PROC_REF(explode), X), 10 SECONDS)
 

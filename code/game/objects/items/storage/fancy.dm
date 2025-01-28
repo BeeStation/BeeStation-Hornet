@@ -77,7 +77,7 @@
 	base_icon_state = "donutbox"
 	spawn_type = /obj/item/food/donut/premade
 	spawn_count = 6
-	appearance_flags = KEEP_TOGETHER
+	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
 
 /obj/item/storage/fancy/donut_box/Initialize(mapload)
@@ -180,10 +180,10 @@
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to extract contents.</span>"
+	. += span_notice("Alt-click to extract contents.")
 	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
 	if(L)
-		. += "<span class='notice'>There seems to be a lighter inside. Ctrl-click to pull it out.</span>"
+		. += span_notice("There seems to be a lighter inside. Ctrl-click to pull it out.")
 
 /obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -193,9 +193,9 @@
 		I.atom_storage.attempt_remove(src, I, user)
 		user.put_in_hands(I)
 		contents -= I
-		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
+		to_chat(user, span_notice("You take \a [I] out of the pack."))
 	else
-		to_chat(user, "<span class='warning'>There is no lighter in the pack.</span>")
+		to_chat(user, span_warning("There is no lighter in the pack."))
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	. = ..()
