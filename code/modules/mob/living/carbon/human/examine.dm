@@ -21,6 +21,9 @@
 			obscure_name = TRUE
 			obscure_examine = TRUE
 
+	/*
+	 * Inherent Examine
+	*/
 	var/list/inherent_examine = list()
 
 	// Potted Plants
@@ -58,9 +61,9 @@
 		inherent_examine += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back."
 
 	// Hands
-	for(var/obj/item/I in held_items)
-		if(!(I.item_flags & ABSTRACT) && !(I.item_flags & EXAMINE_SKIP))
-			inherent_examine += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
+	for(var/obj/item/item in held_items)
+		if(!(item.item_flags & ABSTRACT) && !(item.item_flags & EXAMINE_SKIP))
+			inherent_examine += "[t_He] [t_is] holding [item.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(item))]."
 
 	// Gloves
 	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
@@ -153,6 +156,9 @@
 	if(legcuffed)
 		inherent_examine += span_warning("[t_He] [t_is] legcuffed with [legcuffed]!")
 
+	/*
+	 * Damage Examine
+	*/
 	var/list/damage_examine = list()
 
 	// Embedded Objects
@@ -210,10 +216,10 @@
 	// Bleeding
 	var/bleed_msg = harm_descriptors ? harm_descriptors?["bleed"] : "bleeding"
 	if(is_bleeding())
-		switch (get_bleed_rate())
-			if (BLEED_DEEP_WOUND to INFINITY)
+		switch(get_bleed_rate())
+			if(BLEED_DEEP_WOUND to INFINITY)
 				damage_examine += span_warning("[src] is [bleed_msg] extremely quickly.")
-			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
+			if(BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
 				damage_examine += span_warning("[src] is [bleed_msg] at a significant rate.")
 			else
 				damage_examine += span_warning("[src] has some minor [bleed_msg] which look like it will stop soon.")
@@ -329,6 +335,9 @@
 			if(HAS_TRAIT(src, TRAIT_DEAF))
 				damage_examine += "[capitalize(t_He)] appear[p_s()] to not be responding to noises."
 
+	/*
+	 * Misc Examine
+	*/
 	var/list/misc_examine = list()
 
 	// Holy
@@ -359,40 +368,40 @@
 	if(!isnull(trait_exam))
 		misc_examine += trait_exam
 
+
+
+	/*
+	 * Hud Examine
+	*/
+	var/list/hud_examine = list()
+
 	var/perpname = get_face_name(get_id_name(""))
-
-	// Health hud
-	var/list/healthhud_examine = list()
-	if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD) || isobserver(user))
+	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
 		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(target_record)
-			healthhud_examine += "[span_deptradio("Rank:")] [target_record.rank]"
+			hud_examine += "Rank: [target_record.rank]"
 
-		var/list/detected_implants = list()
-		for(var/obj/item/organ/cyberimp/cybernetic_implant in internal_organs)
-			if(cybernetic_implant.status == ORGAN_ROBOTIC && !cybernetic_implant.syndicate_implant)
-				detected_implants += cybernetic_implant.name
-		if(length(detected_implants))
-			healthhud_examine += "Detected cybernetic modifications: [english_list(detected_implants)]"
+		// Health Hud
+		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
+			var/list/detected_implants = list()
+			for(var/obj/item/organ/cyberimp/cybernetic_implant in internal_organs)
+				if(cybernetic_implant.status == ORGAN_ROBOTIC && !cybernetic_implant.syndicate_implant)
+					detected_implants += cybernetic_implant.name
+			if(length(detected_implants))
+				hud_examine += "Detected cybernetic modifications: [english_list(detected_implants)]"
 
-		if(target_record)
-			healthhud_examine += "Physical status: <a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[target_record.physical_status]\]</a>"
-			healthhud_examine += "Mental status: <a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[target_record.mental_status]\]</a>"
+			if(target_record)
+				hud_examine += "Physical status: <a href='?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[target_record.physical_status]\]</a>"
+				hud_examine += "Mental status: <a href='?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[target_record.mental_status]\]</a>"
 
-		healthhud_examine += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
+			hud_examine += "<a href='?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 
-		var/traitstring = get_quirk_string()
-		if(traitstring)
-			healthhud_examine += span_info("Detected physiological traits:\n[traitstring]")
+			var/traitstring = get_quirk_string()
+			if(traitstring)
+				hud_examine += span_info("Detected physiological traits:\n[traitstring]")
 
-	// Sec hud
-	var/list/sechud_examine = list()
-	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD)) || isobserver(user))
-		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
-		if(target_record)
-			inherent_examine += "[span_deptradio("Rank:")] [target_record.rank]"
-
-		if((user.stat == CONSCIOUS || isobserver(user)) && user != src)
+		// Sec Hud
+		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD) && user.stat == CONSCIOUS && user != src)
 			var/wanted_status = WANTED_NONE
 			var/security_note = "None."
 
@@ -402,14 +411,14 @@
 					security_note = target_record.security_note
 
 			if(ishuman(user))
-				sechud_examine += "[span_deptradio("Criminal status:")] <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
+				hud_examine += "Criminal status: <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
 			else
-				sechud_examine += "[span_deptradio("Criminal status:")] [wanted_status]"
+				hud_examine += "Criminal status: [wanted_status]"
 
-			sechud_examine += "[span_deptradio("Important Notes:")] [security_note]"
-			sechud_examine += "[span_deptradio("Security record:")] <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
+			hud_examine += "Important Notes: [security_note]"
+			hud_examine += "Security record: <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
 			if(ishuman(user))
-				sechud_examine += jointext(list("<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
+				hud_examine += jointext(list("<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
 					"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
 					"<a href='?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
 
@@ -420,10 +429,8 @@
 		. += span_warning(damage_examine.Join("\n"))
 	if(length(misc_examine))
 		. += "\n" + span_notice(misc_examine.Join("\n"))
-	if(length(healthhud_examine))
-		. += "\n" + span_notice(healthhud_examine.Join("\n"))
-	if(length(sechud_examine))
-		. += "\n" + sechud_examine.Join("\n")
+	if(length(hud_examine))
+		. += "\n" + span_notice(hud_examine.Join("\n"))
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
