@@ -1,7 +1,7 @@
 //does brute, burn, and toxin damage, and cools targets down
 /datum/blobstrain/reagent/cryogenic_poison
 	name = "Cryogenic Poison"
-	description = "will inject targets with a freezing poison that does high damage over time."
+	description = "will inject targets with a freezing poison, applying little impact damage but dealing high damage over time."
 	analyzerdescdamage = "Injects targets with a freezing poison that will gradually solidify the target's internal organs."
 	color = "#8BA6E9"
 	complementary_color = "#7D6EB4"
@@ -12,12 +12,13 @@
 
 /datum/reagent/blob/cryogenic_poison
 	name = "Cryogenic Poison"
-	description = "will inject targets with a freezing poison that does high damage over time."
+	description = "will inject targets with a freezing poison, applying little impact damage but dealing high damage over time."
 	color = "#8BA6E9"
 	taste_description = "brain freeze"
 
 /datum/reagent/blob/cryogenic_poison/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
-	reac_volume = ..()
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	if(exposed_mob.reagents)
 		exposed_mob.reagents.add_reagent(/datum/reagent/consumable/frostoil, 0.3*reac_volume)
 		exposed_mob.reagents.add_reagent(/datum/reagent/consumable/ice, 0.3*reac_volume)

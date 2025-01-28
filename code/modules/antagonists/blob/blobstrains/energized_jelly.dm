@@ -1,9 +1,9 @@
 //does tons of oxygen damage and a little stamina, immune to tesla bolts, weak to EMP
 /datum/blobstrain/reagent/energized_jelly
 	name = "Energized Jelly"
-	description = "will cause low stamina and high oxygen damage, and cause targets to be unable to breathe."
+	description = "will cause high stamina and medium oxygen damage, and cause targets to be unable to breathe."
 	effectdesc = "will also conduct electricity, but takes damage from EMPs."
-	analyzerdescdamage = "Does low stamina damage, high oxygen damage, and prevents targets from breathing."
+	analyzerdescdamage = "Does high stamina damage, medium oxygen damage, and prevents targets from breathing."
 	analyzerdesceffect = "Is immune to electricity and will easily conduct it, but is weak to EMPs."
 	color = "#EFD65A"
 	complementary_color = "#00E5B1"
@@ -28,7 +28,8 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/energized_jelly/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
-	reac_volume = ..()
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	exposed_mob.losebreath += round(0.2*reac_volume)
 	exposed_mob.adjustStaminaLoss(reac_volume * 1.2)
 	if(exposed_mob)

@@ -621,7 +621,8 @@
   * If the method is VAPOR it incorporates permiability protection.
   */
 /mob/living/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE, obj/item/bodypart/affecting)
-	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+	. = ..()
+	if(. & COMPONENT_NO_EXPOSE_REAGENTS)
 		return
 
 	if(methods & INGEST)

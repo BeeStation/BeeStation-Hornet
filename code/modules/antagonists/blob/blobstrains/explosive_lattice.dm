@@ -18,6 +18,14 @@
 		return damage * 1.5
 	return ..()
 
+/datum/blobstrain/reagent/explosive_lattice/on_sporedeath(mob/living/spore)
+	var/obj/effect/temp_visual/explosion/fast/effect = new /obj/effect/temp_visual/explosion/fast(get_turf(spore))
+	effect.alpha = 150
+	for(var/mob/living/actor in orange(get_turf(spore), 1))
+		if(FACTION_BLOB in actor.faction) // No friendly fire
+			continue
+		actor.take_overall_damage(10, 10)
+
 /datum/reagent/blob/explosive_lattice
 	name = "Explosive Lattice"
 	taste_description = "the bomb"
@@ -48,7 +56,7 @@
 		exposed_mob.take_overall_damage(brute_loss, burn_loss)
 
 		for(var/mob/living/nearby_mob in ohearers(1, epicenter_turf))
-			if(ROLE_BLOB in nearby_mob.faction) // No friendly fire.
+			if(FACTION_BLOB in nearby_mob.faction) // No friendly fire.
 				continue
 			if(nearby_mob == exposed_mob) // We've already hit the epicenter mob
 				continue

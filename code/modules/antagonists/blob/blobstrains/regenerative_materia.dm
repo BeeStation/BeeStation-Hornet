@@ -1,8 +1,8 @@
 //does toxin damage, hallucination, targets think they're not hurt at all
 /datum/blobstrain/reagent/regenerative_materia
 	name = "Regenerative Materia"
-	description = "will do toxin damage and cause targets to believe they are fully healed."
-	analyzerdescdamage = "Does toxin damage and injects a toxin that causes the target to believe they are fully healed."
+	description = "will do medium initial toxin damage, injecting a poison which does more toxin damage and makes targets believe they are fully healed. The core regenerates much faster."
+	analyzerdescdamage = "Does medium initial toxin damage, injecting a poison which does more toxin damage and makes targets believe they are fully healed. Core regenerates much faster."
 	color = "#A88FB7"
 	complementary_color = "#AF7B8D"
 	message_living = ", and you feel <i>alive</i>"
@@ -15,7 +15,8 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/regenerative_materia/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
-	reac_volume = ..()
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	exposed_mob.adjust_drugginess(reac_volume)
 	if(exposed_mob.reagents)
 		exposed_mob.reagents.add_reagent(/datum/reagent/blob/regenerative_materia, 0.2*reac_volume)

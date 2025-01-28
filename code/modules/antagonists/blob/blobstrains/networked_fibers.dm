@@ -1,11 +1,11 @@
 //does massive brute and burn damage, but can only expand manually
 /datum/blobstrain/reagent/networked_fibers
 	name = "Networked Fibers"
-	description = "will do high brute and burn damage and will generate resources quicker, but can only expand manually."
-	shortdesc = "will do high brute and burn damage."
+	description = "will do a high mix of brute and burn damage, and will generate resources quicker, but can only expand manually using the core or nodes."
+	shortdesc = "will do a high mix of brute and burn damage."
 	effectdesc = "will move your core when manually expanding near it."
-	analyzerdescdamage = "Does high brute and burn damage."
-	analyzerdesceffect = "Is highly mobile and generates resources rapidly."
+	analyzerdescdamage = "Does a high mix of brute and burn damage."
+	analyzerdesceffect = "Is mobile and generates resources rapidly."
 	color = "#CDC0B0"
 	complementary_color = "#FFF68F"
 	reagent = /datum/reagent/blob/networked_fibers
@@ -33,7 +33,8 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/networked_fibers/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
-	reac_volume = ..()
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	exposed_mob.apply_damage(0.6*reac_volume, BRUTE)
 	if(!QDELETED(exposed_mob))
 		exposed_mob.apply_damage(0.6*reac_volume, BURN)

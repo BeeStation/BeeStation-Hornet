@@ -1,9 +1,9 @@
 //does low brute damage, oxygen damage, and stamina damage and wets tiles when damaged
 /datum/blobstrain/reagent/pressurized_slime
 	name = "Pressurized Slime"
-	description = "will do low brute, oxygen, and stamina damage, and wet tiles under targets."
-	effectdesc = "will also wet tiles near blobs that are attacked or killed."
-	analyzerdescdamage = "Does low brute damage, low oxygen damage, drains stamina, and wets tiles under targets, extinguishing them."
+	description = "will do low brute and oxygen damage, high stamina damage, and makes tiles under targets very slippery."
+	effectdesc = "will also make tiles slippery near attacked blobs."
+	analyzerdescdamage = "Does low brute and oxygen damage, high stamina damage, and makes tiles under targets very slippery, extinguishing them. Is resistant to brute attacks."
 	analyzerdesceffect = "When attacked or killed, lubricates nearby tiles, extinguishing anything on them."
 	color = "#AAAABB"
 	complementary_color = "#BBBBAA"
@@ -39,7 +39,8 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/pressurized_slime/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
-	reac_volume = ..()
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	var/turf/open/location_turf = get_turf(exposed_mob)
 	if(istype(location_turf) && prob(reac_volume))
 		location_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
