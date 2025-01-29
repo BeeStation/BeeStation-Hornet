@@ -59,7 +59,7 @@
 	icon_state = "shadow-obelisk"
 	anchored = FALSE
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
-	max_integrity = 300
+	max_integrity = 200
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/affected_mobs = list()
@@ -110,14 +110,10 @@
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_effect(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.night_vision_active)
-		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
-			return
-		else
+		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			ADD_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 	else
-		if(!HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
-			return
-		else
+		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
 
@@ -364,15 +360,17 @@
 // Grand ritual section
 
 /obj/structure/destructible/religion/shadow_obelisk/var1
-	max_integrity = 400
+	max_integrity = 300
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius."
 
+
+
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2
-	max_integrity = 500
+	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3
-	max_integrity = 600
+	max_integrity = 500
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisc will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = TRUE
 
