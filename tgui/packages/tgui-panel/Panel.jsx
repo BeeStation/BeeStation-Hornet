@@ -6,7 +6,6 @@
 
 import { Button, Stack, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
-import { useDispatch } from 'common/redux';
 import { NowPlayingWidget, useAudio } from './audio';
 import { StatTabs, HoboStatTabs } from './stat';
 import { ChatPanel, ChatTabs } from './chat';
@@ -15,28 +14,39 @@ import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { ReconnectButtons } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
-import { useLocalState } from 'tgui/backend';
+import { useLocalState, useDispatch } from 'tgui/backend';
 import { Box, Divider, DraggableControl } from 'tgui/components';
 import { updateSettings } from './settings/actions';
+import { logger } from 'tgui/logging';
 
-export const Panel = (props, context) => {
+export const Panel = (props) => {
   // IE8-10: Needs special treatment due to missing Flex support
   if (Byond.IS_LTE_IE10) {
     return <HoboPanel />;
   }
-  const audio = useAudio(context);
-  const settings = useSettings(context);
-  const game = useGame(context);
+  const audio = useAudio();
+  const settings = useSettings();
+  const game = useGame();
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
-    const debug = useDebug(context);
+    const debug = useDebug();
     if (debug.kitchenSink) {
       return <KitchenSink panel />;
     }
   }
 
-  const [number, setNumber] = useLocalState(context, 'number', settings.statSize);
-  const dispatch = useDispatch(context);
+  if (isNaN(settings.statSize)) {
+    logger.warn('Settings.statSize is not a number!');
+    dispatch(
+      updateSettings({
+        statSize: 40,
+      })
+    );
+    return;
+  }
+
+  const [number, setNumber] = useLocalState('number', settings.statSize);
+  const dispatch = useDispatch();
   const resizeFunction = (value) => {
     dispatch(
       updateSettings({
@@ -137,20 +147,30 @@ export const Panel = (props, context) => {
   );
 };
 
-const HoboPanel = (props, context) => {
-  const settings = useSettings(context);
-  const audio = useAudio(context);
-  const game = useGame(context);
+const HoboPanel = (props) => {
+  const settings = useSettings();
+  const audio = useAudio();
+  const game = useGame();
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
-    const debug = useDebug(context);
+    const debug = useDebug();
     if (debug.kitchenSink) {
       return <KitchenSink panel />;
     }
   }
 
-  const [number, setNumber] = useLocalState(context, 'number', settings.statSize);
-  const dispatch = useDispatch(context);
+  if (isNaN(settings.statSize)) {
+    logger.warn('Settings.statSize is not a number!');
+    dispatch(
+      updateSettings({
+        statSize: 40,
+      })
+    );
+    return;
+  }
+
+  const [number, setNumber] = useLocalState('number', settings.statSize);
+  const dispatch = useDispatch();
   const resizeFunction = (value) => {
     dispatch(
       updateSettings({

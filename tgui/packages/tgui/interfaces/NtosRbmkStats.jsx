@@ -9,8 +9,8 @@ import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Sec
 import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 
-export const NtosRbmkStats = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosRbmkStats = (props) => {
+  const { act, data } = useBackend();
   const powerData = data.powerData.map((value, i) => [i, value]);
   const kpaData = data.kpaData.map((value, i) => [i, value]);
   const tempInputData = data.tempInputData.map((value, i) => [i, value]);

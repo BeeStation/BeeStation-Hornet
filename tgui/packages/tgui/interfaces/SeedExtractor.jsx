@@ -40,8 +40,8 @@ const createSeeds = (seedStrings) => {
   return flow([sortBy((item) => item.name)])(objs);
 };
 
-export const SeedExtractor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SeedExtractor = (props) => {
+  const { act, data } = useBackend();
   const seeds = createSeeds(data.seeds);
   return (
     <Window width={900} height={400}>
