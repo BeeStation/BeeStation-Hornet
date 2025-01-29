@@ -11,7 +11,7 @@
 
 	icon_state = "apc0"
 	use_power = NO_POWER_USE
-	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 200
 	integrity_failure = 0.25
 	damage_deflection = 10
@@ -143,8 +143,6 @@
 	acid = 50
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
-	if (!req_access)
-		req_access = list(ACCESS_ENGINE_EQUIP)
 	..()
 	GLOB.apcs_list += src
 
