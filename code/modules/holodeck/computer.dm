@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 		atom_contents.forceMove(target_turf)
 
 	if(!silent)
-		visible_message("<span class='notice'>[holo_atom] fades away!</span>")
+		visible_message(span_notice("[holo_atom] fades away!"))
 
 	qdel(holo_atom)
 
@@ -395,7 +395,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 /obj/machinery/computer/holodeck/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 75, TRUE)
-	to_chat(user, "<span class='warning'>You vastly increase projector power and override the safety and security protocols.</span>")
+	to_chat(user, span_warning("You vastly increase projector power and override the safety and security protocols."))
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")
 	nerf(FALSE, FALSE)

@@ -19,7 +19,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/recurring)
 /obj/item/slimecross/recurring/Initialize(mapload)
 	. = ..()
 	extract = new extract_type(src.loc)
-	visible_message("<span class='notice'>[src] wraps a layer of goo around itself!</span>")
+	visible_message(span_notice("[src] wraps a layer of goo around itself!"))
 	extract.name = name
 	extract.desc = desc
 	extract.icon = icon
@@ -36,7 +36,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/recurring)
 		extract.Uses++
 		cooldown = max_cooldown
 	else if(extract.Uses <= 0)
-		extract.visible_message("<span class='warning'>The light inside [extract] flickers and dies out.</span>")
+		extract.visible_message(span_warning("The light inside [extract] flickers and dies out."))
 		extract.desc = "A tiny, inert core, bleeding dark, cerulean-colored goo."
 		extract.icon_state = "prismatic"
 		qdel(src)
