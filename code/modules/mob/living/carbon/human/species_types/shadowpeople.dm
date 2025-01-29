@@ -465,7 +465,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -476,7 +476,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 
 /obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -487,8 +487,8 @@
 		spiec.shadow_sect_dependency = 0
 		coms.Remove(M)
 	if(shadow_conversion != 0)
-		to_chat(owner, span_good("You feel cold feeling leaving your body. It feels great."))
 		shadow_conversion = 0
+		to_chat(M, span_good("You feel cold feeling leaving your body. It feels great."))
 
 
 /obj/item/organ/heart/shadow_ritual2/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
