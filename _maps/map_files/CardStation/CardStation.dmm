@@ -3351,8 +3351,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/eastright{
 	dir = 2;
-	name = "Genetics Desk";
-	req_access_txt = "5;9"
+	name = "Genetics Desk"
 	},
 /obj/machinery/door/window/eastright{
 	dir = 1;
@@ -4060,6 +4059,11 @@
 /obj/machinery/newscaster/directional/north,
 /obj/machinery/camera/directional/west,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/computer/security/telescreen/vault{
+	name = "stage monitor";
+	dir = 4;
+	pixel_x = -28
+	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "aYi" = (
@@ -28739,6 +28743,10 @@
 	dir = 8
 	},
 /obj/machinery/light/directional/east,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
 "gRi" = (
@@ -33848,6 +33856,10 @@
 	},
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
+/obj/machinery/computer/security/telescreen/engine{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/chief)
 "icq" = (
@@ -68468,10 +68480,6 @@
 /obj/machinery/computer/security{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -75411,8 +75419,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/eastleft{
 	dir = 2;
-	name = "Genetics Desk";
-	req_access_txt = "5;9"
+	name = "Genetics Desk"
 	},
 /obj/machinery/door/window/eastleft{
 	dir = 1;
@@ -96580,6 +96587,10 @@
 	pixel_y = 10;
 	pixel_x = -1
 	},
+/obj/machinery/computer/security/telescreen/engine{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
 "wVq" = (
@@ -100299,10 +100310,6 @@
 	},
 /turf/open/floor/vault/rock,
 /area/science/nanite)
-"xRg" = (
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/security/checkpoint/engineering)
 "xRj" = (
 /obj/effect/turf_decal/siding/white/corner,
 /obj/effect/mapping_helpers/simple_pipes/supply_scrubber/hidden,
@@ -136534,10 +136541,10 @@ sFX
 aUc
 gRX
 hyJ
-xRg
-xRg
-xRg
-xRg
+hyJ
+hyJ
+hyJ
+hyJ
 sSF
 fMO
 ifn
@@ -137562,11 +137569,11 @@ lfN
 lab
 fwp
 sSF
-umg
-umg
+sSF
+sSF
 uNE
-umg
-umg
+sSF
+sSF
 lJT
 llc
 xNu
@@ -138847,11 +138854,11 @@ eEt
 tqk
 vPf
 sSF
-umg
-umg
+sSF
+sSF
 knz
-umg
-umg
+sSF
+sSF
 eKO
 vCd
 bSe
