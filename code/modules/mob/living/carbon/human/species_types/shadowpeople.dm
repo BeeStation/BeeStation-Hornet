@@ -74,7 +74,7 @@
 /datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		if(rand(0,2) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
+		if(rand(0,1) == 0 && H.dna.species.id != "nightmare" && shadow_sect_dependency >= 2)
 			var/light_amount = T.get_lumcount()
 			if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 				H.visible_message(span_danger("[H] dances in the shadows, evading [P]!"))
@@ -386,6 +386,7 @@
 
 
 // Shadow sect organs
+#define SHADOW_CONVERSION_TRESHOLD 60 // Used for people changing into shadowpeople because of hearts
 
 
 /datum/movespeed_modifier/shadow_sect
@@ -399,6 +400,7 @@
 	icon_state = "shadow_heart_1"
 	visual = TRUE
 	decay_factor = 0
+	var/shadow_conversion = 0
 	var/datum/action/innate/shadow_coms/comm/coms = new
 
 /obj/item/organ/heart/shadow_ritual2
@@ -408,6 +410,7 @@
 	icon_state = "shadow_heart_2"
 	visual = TRUE
 	decay_factor = 0
+	var/shadow_conversion = 0
 	var/datum/action/innate/shadow_coms/comm/coms = new
 
 /obj/item/organ/heart/shadow_ritual3
@@ -418,6 +421,7 @@
 	visual = TRUE
 	decay_factor = 0
 	var/respawn_progress = 0
+	var/shadow_conversion = 0
 	var/datum/action/innate/shadow_coms/comm/coms = new
 
 
@@ -448,6 +452,9 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 1
 		coms.Grant(M)
+	else
+		shadow_conversion = 0
+		to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual2/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -456,6 +463,9 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 2
 		coms.Grant(M)
+		else
+			shadow_conversion = 0
+			to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -464,6 +474,9 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 3
 		coms.Grant(M)
+		else
+			shadow_conversion = 0
+			to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 
 /obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -473,6 +486,10 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 0
 		coms.Remove(M)
+	if(shadow_conversion != 0)
+		to_chat(owner, span_good("You feel cold feeling leaving your body. It feels great."))
+		shadow_conversion = 0
+
 
 /obj/item/organ/heart/shadow_ritual2/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -482,6 +499,10 @@
 		spiec.shadow_sect_dependency = 0
 		M.alpha = 255
 		coms.Remove(M)
+	if(shadow_conversion != 0)
+		to_chat(owner, span_good("You feel cold feeling leaving your body. It feels great."))
+		shadow_conversion = 0
+
 
 /obj/item/organ/heart/shadow_ritual3/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -494,6 +515,70 @@
 		coms.Remove(M)
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
+	if(shadow_conversion != 0)
+		to_chat(owner, span_good("You feel cold feeling leaving your body. It feels great."))
+		shadow_conversion = 0
+
+
+/obj/item/organ/heart/shadow_ritual1/on_life()
+	..()
+	if(!isshadow(owner))
+		shadow_conversion += 0.25
+		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
+			shadow_conversion = 0
+			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping from the center of your chest!</span>")
+			var/mob/living/carbon/old_owner = owner
+			old_owner.set_species(/datum/species/shadow)
+		else
+			var/random_mesage = rand(0,14)
+			if(random_mesage == 0)
+				to_chat(owner, "<span class='userdanger'>You see black spots on your skin.</span>")
+			if(random_mesage == 1)
+				to_chat(owner, "<span class='userdanger'>Those lights around you seem weirdly unplesant.</span>")
+			if(random_mesage == 2)
+				to_chat(owner, "<span class='userdanger'>That cold feeling isnt going away.</span>")
+			if(random_mesage == 4)
+				to_chat(owner, "<span class='userdanger'>That path of darknes over there seems like great spot to rest.</span>")
+
+/obj/item/organ/heart/shadow_ritual2/on_life()
+	..()
+	if(!isshadow(owner))
+		shadow_conversion += 0.5
+		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
+			shadow_conversion = 0
+			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping from the center of your chest!</span>")
+			var/mob/living/carbon/old_owner = owner
+			old_owner.set_species(/datum/species/shadow)
+		else
+			var/random_mesage = rand(0,14)
+			if(random_mesage == 0)
+				to_chat(owner, "<span class='userdanger'>You see black spots on your skin.</span>")
+			if(random_mesage == 1)
+				to_chat(owner, "<span class='userdanger'>Those lights around you seem weirdly unplesant.</span>")
+			if(random_mesage == 2)
+				to_chat(owner, "<span class='userdanger'>That cold feeling isnt going away.</span>")
+			if(random_mesage == 4)
+				to_chat(owner, "<span class='userdanger'>That path of darknes over there seems like great spot to rest.</span>")
+
+/obj/item/organ/heart/shadow_ritual3/on_life()
+	..()
+	if(!isshadow(owner))
+		shadow_conversion += 1
+		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
+			shadow_conversion = 0
+			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping from the center of your chest!</span>")
+			var/mob/living/carbon/old_owner = owner
+			old_owner.set_species(/datum/species/shadow)
+		else
+			var/random_mesage = rand(0,14)
+			if(random_mesage == 0)
+				to_chat(owner, "<span class='userdanger'>You see black spots on your skin.</span>")
+			if(random_mesage == 1)
+				to_chat(owner, "<span class='userdanger'>Those lights around you seem weirdly unplesant.</span>")
+			if(random_mesage == 2)
+				to_chat(owner, "<span class='userdanger'>That cold feeling isnt going away.</span>")
+			if(random_mesage == 4)
+				to_chat(owner, "<span class='userdanger'>That path of darknes over there seems like great spot to rest.</span>")
 
 
 /obj/item/organ/heart/shadow_ritual3/on_death()
@@ -503,7 +588,7 @@
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
-			respawn_progress = respawn_progress + 0.5
+			respawn_progress = respawn_progress + 0.75
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
@@ -520,7 +605,7 @@
 #undef HEART_RESPAWN_THRESHOLD
 
 
-// Shadow coms
+// Shadow coms, copied from cult
 
 /datum/action/innate/shadow_coms
 	icon_icon = 'icons/hud/actions/action_generic.dmi'
@@ -579,3 +664,4 @@
 	user.log_talk(message, LOG_SAY, tag="shadow sect")
 
 
+#undef SHADOW_CONVERSION_TRESHOLD
