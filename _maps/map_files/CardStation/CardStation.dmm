@@ -3373,6 +3373,7 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 5
 	},
+/obj/machinery/keycard_auth/directional/north,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "aRo" = (
@@ -77955,9 +77956,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "sGa" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
+/obj/machinery/gateway/station,
 /turf/open/floor/iron/tech/grid,
 /area/gateway)
 "sGt" = (
