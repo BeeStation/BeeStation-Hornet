@@ -8,7 +8,7 @@
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#bbe291"
-
+	exp_requirements = 180 //High grief percentage
 	outfit = /datum/outfit/job/botanist
 
 	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)

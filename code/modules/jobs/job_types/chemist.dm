@@ -8,7 +8,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
-	exp_requirements = 120
+	exp_requirements = 180 //High grief percentage
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chemist
 
