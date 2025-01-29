@@ -530,15 +530,15 @@
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
 		else
-			var/random_mesage = rand(0,14)
+			var/random_mesage = rand(0,60)
 			if(random_mesage == 0)
-				to_chat(owner, "<span class='userdanger'>You see black spots on your skin.</span>")
+				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='userdanger'>Those lights around you seem weirdly unplesant.</span>")
+				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unplesant.</span>")
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='userdanger'>That cold feeling isnt going away.</span>")
+				to_chat(owner, "<span class='warning'>This cold feeling isnt going away.</span>")
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='userdanger'>That path of darknes over there seems like great spot to rest.</span>")
+				to_chat(owner, "<span class='warning'>That path of darknes over there seems like great spot to rest.</span>")
 
 /obj/item/organ/heart/shadow_ritual2/on_life()
 	..()
@@ -550,15 +550,15 @@
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
 		else
-			var/random_mesage = rand(0,14)
+			var/random_mesage = rand(0,45)
 			if(random_mesage == 0)
-				to_chat(owner, "<span class='userdanger'>You see black spots on your skin.</span>")
+				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='userdanger'>Those lights around you seem weirdly unplesant.</span>")
+				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unplesant.</span>")
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='userdanger'>That cold feeling isnt going away.</span>")
+				to_chat(owner, "<span class='warning'>This cold feeling isnt going away.</span>")
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='userdanger'>That path of darknes over there seems like great spot to rest.</span>")
+				to_chat(owner, "<span class='warning'>That path of darknes over there seems like great spot to rest.</span>")
 
 /obj/item/organ/heart/shadow_ritual3/on_life()
 	..()
@@ -570,15 +570,15 @@
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
 		else
-			var/random_mesage = rand(0,14)
+			var/random_mesage = rand(0,30)
 			if(random_mesage == 0)
-				to_chat(owner, "<span class='userdanger'>You see black spots on your skin.</span>")
+				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='userdanger'>Those lights around you seem weirdly unplesant.</span>")
+				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unplesant.</span>")
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='userdanger'>That cold feeling isnt going away.</span>")
+				to_chat(owner, "<span class='warning'>This cold feeling isnt going away.</span>")
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='userdanger'>That path of darknes over there seems like great spot to rest.</span>")
+				to_chat(owner, "<span class='warning'>That path of darknes over there seems like great spot to rest.</span>")
 
 
 /obj/item/organ/heart/shadow_ritual3/on_death()
