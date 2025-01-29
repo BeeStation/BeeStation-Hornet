@@ -26,7 +26,7 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	healable = 0
-	faction = list("cult")
+	faction = list(FACTION_CULT)
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	pressure_resistance = 100

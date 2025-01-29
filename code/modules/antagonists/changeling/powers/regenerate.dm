@@ -100,7 +100,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	chat_color = "#26F55A"
 	mobchatspan = "chaplain"
-	faction = list("hostile","creature")
+	faction = list(FACTION_HOSTILE,FACTION_CREATURE)
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000

@@ -1028,7 +1028,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	speak_emote = list("squawks rustily", "says crassly", "yells brassly")
 	emote_hear = list("squawks rustily.", "bawks metallically!")
 	emote_see = list("flutters its metal wings.")
-	faction = list("ratvar")
+	faction = list(FACTION_RATVAR)
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	deathsound = 'sound/magic/clockwork/anima_fragment_death.ogg'

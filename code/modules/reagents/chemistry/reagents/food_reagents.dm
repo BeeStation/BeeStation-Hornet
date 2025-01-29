@@ -23,7 +23,7 @@
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
-/datum/reagent/consumable/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == INGEST)
 		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
 			switch(quality)
@@ -121,8 +121,7 @@
 	nutriment_factor = 18 // Twice as nutritious compared to protein and carbohydrates
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
 
-/datum/reagent/consumable/nutriment/fat/reaction_obj(obj/exposed_obj, reac_volume)
-	. = ..()
+/datum/reagent/consumable/nutriment/fat/expose_obj(obj/exposed_obj, reac_volume)
 	if(!holder || (holder.chem_temp <= fry_temperature))
 		return
 	if(!isitem(exposed_obj) || HAS_TRAIT(exposed_obj, TRAIT_FOOD_FRIED))
@@ -141,13 +140,12 @@
 	exposed_obj.AddElement(/datum/element/fried_item, volume)
 	exposed_obj.reagents.add_reagent(src.type, reac_volume)
 
-/datum/reagent/consumable/nutriment/fat/reaction_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
-	. = ..()
-	if(!(methods & (VAPOR|TOUCH)) || isnull(holder) || (holder.chem_temp < fry_temperature)) //Directly coats the mob, and doesn't go into their bloodstream
+/datum/reagent/consumable/nutriment/fat/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+	if(!(method == VAPOR || method == TOUCH) || isnull(holder) || (holder.chem_temp < fry_temperature))
 		return
 
 	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
-	if(methods & TOUCH)
+	if(method & TOUCH)
 		burn_damage *= max(1 - touch_protection, 0)
 	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
@@ -161,8 +159,7 @@
 	if(FryLoss)
 		exposed_mob.adjustFireLoss(FryLoss)
 
-/datum/reagent/consumable/nutriment/fat/reaction_turf(turf/open/exposed_turf, reac_volume)
-	. = ..()
+/datum/reagent/consumable/nutriment/fat/expose_turf(turf/open/exposed_turf, reac_volume)
 	if(!istype(exposed_turf) || isgroundlessturf(exposed_turf) || (reac_volume < 5))
 		return
 	exposed_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume * 1.5 SECONDS)
@@ -307,7 +304,7 @@
 	M.adjust_bodytemperature(cooling, 50)
 	..()
 
-/datum/reagent/consumable/frostoil/reaction_turf(turf/T, reac_volume)
+/datum/reagent/consumable/frostoil/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 5)
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -324,7 +321,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "scorching agony"
 
-/datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
 
@@ -357,7 +354,8 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
-/datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
+
+/datum/reagent/consumable/sodiumchloride/expose_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
 		return
 	if(reac_volume < 1)
@@ -502,7 +500,7 @@
 	chem_flags = NONE
 	taste_description = "chalky wheat"
 
-/datum/reagent/consumable/flour/reaction_turf(turf/T, reac_volume)
+/datum/reagent/consumable/flour/expose_turf(turf/T, reac_volume)
 	if(!isspaceturf(T))
 		var/obj/effect/decal/cleanable/food/flour/reagentdecal = new(T)
 		reagentdecal = locate() in T //Might have merged with flour already there.
@@ -587,7 +585,7 @@
 		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
-/datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/honey/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
 		var/mob/living/carbon/C = M
 		for(var/s in C.surgeries)
@@ -614,7 +612,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!istype(M))
 		return
 	var/unprotected = FALSE
@@ -721,7 +719,7 @@
 	//Lazy list of mobs affected by the luminosity of this reagent.
 	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
+/datum/reagent/consumable/tinlux/expose_mob(mob/living/M)
 	add_reagent_light(M)
 
 /datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
