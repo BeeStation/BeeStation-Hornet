@@ -11,12 +11,11 @@
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	faction = list("creature")
 	speak_emote = list("screams")
 	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	faction = list("nether")
+	faction = list(FACTION_NETHER)
 	hardattacks = TRUE
 	discovery_points = 3000
 
@@ -77,7 +76,7 @@
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls through"
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
-	faction = list("nether")
+	faction = list(FACTION_NETHER)
 
 /obj/structure/spawner/nether/Initialize(mapload)
 	.=..()

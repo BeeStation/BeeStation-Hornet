@@ -34,7 +34,7 @@
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE)
 	move_to_delay = 0
 	obj_damage = 0
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -161,7 +161,7 @@
 		if(. && beegent && isliving(target))
 			var/mob/living/L = target
 			if(L.reagents)
-				beegent.reaction_mob(L, INJECT)
+				beegent.expose_mob(L, INJECT)
 				L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
@@ -246,7 +246,7 @@
 	. = ..()
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
-		beegent.reaction_mob(L, TOUCH)
+		beegent.expose_mob(L, TOUCH)
 		L.reagents.add_reagent(beegent.type, rand(1,5))
 
 

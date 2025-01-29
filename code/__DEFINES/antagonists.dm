@@ -72,7 +72,6 @@
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
 /// Define for the heretic faction applied to heretics and heretic mobs.
-#define FACTION_HERETIC "heretics"
 
 #define FACTION_SYNDICATE "Syndicate"
 #define FACTION_BLOB "Blob"

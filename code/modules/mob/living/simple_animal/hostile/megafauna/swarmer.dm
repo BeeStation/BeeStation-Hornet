@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
 	score_achievement_type = /datum/award/score/swarmer_beacon_score
-	faction = list("mining", "boss", "swarmer")
+	faction = list(FACTION_MINING, FACTION_BOSS, FACTION_SWARMER)
 	weather_immunities = list("lava","ash")
 	stop_automated_movement = TRUE
 	wander = FALSE
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	health = 20
 	maxHealth = 20
 	wander = TRUE
-	faction = list("swarmer", "mining")
+	faction = list(FACTION_SWARMER, FACTION_MINING)
 	weather_immunities = list("ash") //wouldn't be fun otherwise
 	AIStatus = AI_ON
 

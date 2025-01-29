@@ -250,7 +250,7 @@
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
-	faction = list("mining")
+	faction = list(FACTION_MINING)
 	weather_immunities = list("lava","ash")
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES

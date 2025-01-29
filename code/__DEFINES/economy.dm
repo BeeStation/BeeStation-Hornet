@@ -1,10 +1,10 @@
 #define STARTING_PAYCHECKS 5
 
-#define PAYCHECK_ASSISTANT 10
-#define PAYCHECK_MINIMAL 10
-#define PAYCHECK_EASY 15
-#define PAYCHECK_MEDIUM 40
-#define PAYCHECK_HARD 70
+#define PAYCHECK_ASSISTANT 15
+#define PAYCHECK_MINIMAL 30
+#define PAYCHECK_EASY 35
+#define PAYCHECK_MEDIUM 60
+#define PAYCHECK_HARD 90
 // given from nanotrasen to heads
 #define PAYCHECK_COMMAND_NT 20
 // given from department budget
