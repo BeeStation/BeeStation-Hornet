@@ -463,9 +463,9 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 2
 		coms.Grant(M)
-		else
-			shadow_conversion = 0
-			to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+	else
+		shadow_conversion = 0
+		to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -474,9 +474,9 @@
 		var/datum/species/shadow/spiec = S.dna.species
 		spiec.shadow_sect_dependency = 3
 		coms.Grant(M)
-		else
-			shadow_conversion = 0
-			to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+	else
+		shadow_conversion = 0
+		to_chat(owner, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
 
 
 /obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
