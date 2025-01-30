@@ -474,7 +474,7 @@
 /obj/item/book/granter/art_of_thievery
 	name = "The Art of Thievery"
 	desc = "A book that seems to contain a picture by picture guide to pickpocketing people without being noticed."
-	icon_state = "cooking_learing_sweets"
+	icon_state = "art_of_thievery"
 	remarks = list("Oh, I'm NOT supposed to fiddle with their pockets...", "Practice with bells on a jumpsuit...", "Wait for the right moment to snag what's unrightfully mine...", "So THAT'S how I keep losing credits...", "Divert their attention with small talk...")
 
 /obj/item/book/granter/art_of_thievery/on_reading_finished(mob/user)
