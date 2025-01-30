@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - admin: removed admin preference to announce login. Admin arrivals will always
+      be announced in admin logs.
