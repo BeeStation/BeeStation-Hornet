@@ -795,13 +795,17 @@
 	STR.max_items = 5
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/storage/belt/fannypack/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
+/obj/item/storage/belt/fannypack/worn
 	name = "Worn belt"
-	desc = "A weathered belt that is used for storing various gadgets"
+	desc = "A weathered belt"
 	icon_state = "utilitybelt" //Placeholder for now.
 	item_state = "utility"
 	worn_icon_state = "utility"
 
+/obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
+	name = "Worn belt"
+	desc = "A weathered belt that is used for storing various gadgets"
+	
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
 	icon_state = "fannypack_black"
