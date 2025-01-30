@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Clients with persistent invisible chat windows should now properly have
-      their chat size reset to be visible again.
