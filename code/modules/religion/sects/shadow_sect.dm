@@ -362,17 +362,49 @@
 /obj/structure/destructible/religion/shadow_obelisk/var1
 	max_integrity = 300
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius."
+	var/spread_delay = 80
+	var/last_spread = 0
 
+/obj/structure/destructible/religion/shadow_obelisk/var1/process()
+	. = ..()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(last_spread <= world.time)
+		for(var/T in circleviewturfs(src, sect.light_reach))
+			if(istype(T))
+				T.Bless()
+	last_spread = world.time + spread_delay
 
-
-/obj/structure/destructible/religion/shadow_obelisk/var1/var2
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2 // some cursed incheritence, but its the easiest way to do it
 	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
+	var/heal_delay = 30
+	var/last_heal = 0
+
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/process()
+	. = ..()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(last_heal <= world.time)
+		last_heal = world.time + heal_delay
+		for(var/mob/living/L in range(sect.light_reach, src))
+			if(L.health == L.maxHealth)
+				continue
+			if(!isshadow(L) && !L.mind?.holy_role)
+				continue
+			new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
+			if(isshadow(L) || L.mind?.holy_role)
+				L.adjustBruteLoss(-1*delta_time, 0)
+				L.adjustToxLoss(-2*delta_time, 0)
+				L.adjustOxyLoss(-2*delta_time, 0)
+				L.adjustFireLoss(-1*delta_time, 0)
+				L.adjustCloneLoss(-2*delta_time, 0)
+				L.updatehealth()
+				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
+					L.blood_volume += 1.0
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3
 	max_integrity = 500
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisc will turn into shadow people, while shadow people can use them to teleport"
-	can_buckle = TRUE
+	can_buckle = FALSE // it will be posible once archoned
 
 // post_buckle_mob(mob/living/M)               unbuckle_all_mobs(force=TRUE)
 // post_unbuckle_mob(mob/living/M)            has_buckled_mobs()
