@@ -250,7 +250,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 	data["atmosAlarm"] = !!area_danger
 	data["fireAlarm"] = my_area.fire
 	data["faultStatus"] = my_area.fault_status
-	data["faultLocation"] = my_area.fault_location
+	data["faultLocation"] = (obj_flags & EMAGGED ? "You." : my_area.fault_location)
 	data["sensor"] = !!connected_sensor
 	data["allowLinkChange"] = allow_link_change
 
