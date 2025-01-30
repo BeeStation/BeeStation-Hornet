@@ -369,9 +369,10 @@
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(last_spread <= world.time)
-		for(var/T in circleviewturfs(src, sect.light_reach))
+		for(var/turf/T in circleviewturfs(src, sect.light_reach))
 			if(istype(T))
-				T.Bless()
+				if(T.luminosity <= 0)
+					T.Bless()
 	last_spread = world.time + spread_delay
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2 // some cursed incheritence, but its the easiest way to do it
