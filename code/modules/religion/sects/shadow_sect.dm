@@ -80,7 +80,7 @@
 	return ..()
 
 
-/obj/structure/destructible/religion/shadow_obelisk/process()
+/obj/structure/destructible/religion/shadow_obelisk/process(delta_time)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!src.anchored)
 		if (length(affected_mobs) != 0)
@@ -365,7 +365,7 @@
 	var/spread_delay = 80
 	var/last_spread = 0
 
-/obj/structure/destructible/religion/shadow_obelisk/var1/process()
+/obj/structure/destructible/religion/shadow_obelisk/var1/process(delta_time)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(last_spread <= world.time)
@@ -380,7 +380,7 @@
 	var/heal_delay = 30
 	var/last_heal = 0
 
-/obj/structure/destructible/religion/shadow_obelisk/var1/var2/process()
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/process(delta_time)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(last_heal <= world.time)
