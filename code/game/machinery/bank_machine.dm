@@ -6,6 +6,7 @@
 	icon_screen = "vault"
 	icon_keyboard = "ratvar_key1"
 	idle_power_usage = 100
+	processing_flags = START_PROCESSING_MANUALLY
 	var/next_warning = 0
 	var/obj/item/radio/radio
 	var/radio_channel = RADIO_CHANNEL_COMMON
@@ -16,7 +17,6 @@
 
 /obj/machinery/computer/bank_machine/Initialize(mapload)
 	. = ..()
-	STOP_PROCESSING(SSmachines, src)
 	radio = new(src)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
