@@ -406,6 +406,43 @@
 	max_integrity = 500
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisc will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = FALSE // it will be posible once archoned
+	var/converting = 0
+
+
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/on_set_anchored(atom/movable/source, anchorvalue)
+	. = ..()
+	if(archoned)
+		can_buckle = TRUE
+	else
+		source.unbuckle_all_mobs(TRUE)
+		can_buckle = FALSE
+
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/post_buckle_mob(mob/living/M)
+	. = ..()
+	if(isshadow(M))
+		unbuckle_mob(M, TRUE)
+		return
+
+	if(!ishuman(M))
+		unbuckle_mob(M, TRUE)
+		return
+
+	to_chat(M,span_userdanger("You feel obelisc chanel all its shadows though you. If you dont get off, you will be changed inrevocable way."))
+
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/process(delta_time)
+	if(LAZYLEN(buckled_mobs) != 0)
+		converting += 1
+		if (converting => 30)
+			converting = 0
+			for(var/buckled in buckled_mobs)
+				to_chat(M,span_userdanger("Shadows infuse your body changing you into one of them."))
+				buckled.set_species(/datum/species/shadow)
+				unbuckle_mob(buckled, TRUE)
+	else
+		converting = 0
+	. = ..()
+
+
 
 // post_buckle_mob(mob/living/M)               unbuckle_all_mobs(force=TRUE)
 // post_unbuckle_mob(mob/living/M)            has_buckled_mobs()
