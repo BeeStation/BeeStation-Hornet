@@ -16,6 +16,7 @@
 
 /obj/machinery/computer/bank_machine/Initialize(mapload)
 	. = ..()
+	STOP_PROCESSING(SSmachines, src)
 	radio = new(src)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
