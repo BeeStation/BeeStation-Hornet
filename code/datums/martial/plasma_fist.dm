@@ -166,7 +166,7 @@
 	name = "plasma energy"
 	desc = "Leftover energy brought out from The Plasma Fist."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "plasmasoul"
+	icon_state = "explosion"
 	duration = 3 SECONDS
 	var/atom/movable/beam_target
 
