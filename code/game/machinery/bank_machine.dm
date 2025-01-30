@@ -101,10 +101,11 @@
 
 /obj/machinery/computer/bank_machine/proc/end_siphon()
 	if(!siphoning_credits)
-		return
+		return FALSE
 	new /obj/item/holochip(drop_location(), siphoning_credits) //get the loot
 	siphoning_credits = 0
-	return PROCESS_KILL
+	STOP_PROCESSING(SSmachines, src)
+	return TRUE
 
 /obj/machinery/computer/bank_machine/process(delta_time)
 	..()
