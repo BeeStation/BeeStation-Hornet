@@ -1,5 +1,3 @@
-#define span_notice(str) ("<span class='notice'>" + str + "</span>")
-
 /**
  * Datumized Storage
  * Eliminates the need for custom signals specifically for the storage component, and attaches a storage variable (atom_storage) to every atom.
