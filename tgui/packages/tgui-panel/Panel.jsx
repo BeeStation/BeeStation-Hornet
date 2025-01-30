@@ -23,6 +23,7 @@ export const Panel = (props) => {
   const audio = useAudio();
   const settings = useSettings();
   const game = useGame();
+  const dispatch = useDispatch();
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug();
@@ -42,7 +43,6 @@ export const Panel = (props) => {
   }
 
   const [number, setNumber] = useLocalState('number', settings.statSize);
-  const dispatch = useDispatch();
   const resizeFunction = (value) => {
     dispatch(
       updateSettings({
