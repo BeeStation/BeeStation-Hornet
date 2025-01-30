@@ -264,8 +264,9 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
         )
       }>
       <Button
-        onClick={() => {
+        onClick={(event) => {
           setGenderMenuOpen(!genderMenuOpen);
+          event.stopPropagation();
         }}
         fontSize="22px"
         icon={GENDERS[props.gender].icon}
