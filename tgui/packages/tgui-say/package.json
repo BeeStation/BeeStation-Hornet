@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "dependencies": {
     "common": "workspace:*",
-    "dompurify": "^3.0.1",
-    "inferno": "^8.2.1",
+    "dompurify": "^2.5.7",
+    "inferno": "^8.2.3",
     "tgui": "workspace:*",
     "tgui-dev-server": "workspace:*",
     "tgui-polyfill": "workspace:*"

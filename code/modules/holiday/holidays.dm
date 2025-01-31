@@ -602,7 +602,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter/celebrate()
 	GLOB.maintenance_loot += list(
-		/obj/item/suprise_egg = 15,
+		/obj/item/surprise_egg = 15,
 		/obj/item/storage/basket/easter = 15)
 
 /datum/holiday/easter/greet()

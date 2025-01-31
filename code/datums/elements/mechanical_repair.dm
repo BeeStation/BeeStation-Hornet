@@ -38,7 +38,7 @@
 	var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(selected_zone))
 
 	if (!affecting || (IS_ORGANIC_LIMB(affecting)))
-		to_chat(user, "<span class='warning'>That limb is not robotic!.</span>")
+		to_chat(user, span_warning("That limb is not robotic!."))
 		return
 
 	// Handles welder repairs on human limbs
@@ -46,8 +46,8 @@
 		if(I.use_tool(target, user, 0, volume=50, amount=0))
 		//Just to check if the tool is even on. The strange order here requires strange solutions
 			do
-				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
-				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
+				user.visible_message(span_notice("[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)]."),
+				span_notice("You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)]."))
 				if(!do_after(user, 1.5 SECONDS, target))
 					return COMPONENT_NO_AFTERATTACK
 				if(!I.use_tool(target, user, 0, volume=50, amount=1)) //Using fuel
@@ -60,8 +60,8 @@
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = I
 		do
-			user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
-			"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
+			user.visible_message(span_notice("[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)]."),
+			span_notice("You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)]."))
 			if(!do_after(user, 1.5 SECONDS, target))
 				return COMPONENT_NO_AFTERATTACK
 			// Run checks to ensure that we can continue healing. We check coil twice, as we want to break out of the loop if we ran out of coil
