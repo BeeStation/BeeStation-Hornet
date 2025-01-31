@@ -69,6 +69,8 @@
 	id = "syndicate-shuttle"
 	description = "A covert Syndicate recon shuttle scouting the planet, it is closely guarded by an elite team of syndicate agents."
 	suffix = "lavaland_surface_syndicate_base2.dmm"
+	//Testmerge only
+	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
