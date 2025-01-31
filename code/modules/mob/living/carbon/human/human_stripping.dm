@@ -238,8 +238,6 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	if (carbon_source.internal == item)
 		carbon_source.close_internals()
-	// This isn't meant to be FALSE, it correlates to the icon's name.
-		carbon_source.update_internals_hud_icon(0)
 	else if(!QDELETED(item))
 		if(!carbon_source.try_open_internals(item))
 			return

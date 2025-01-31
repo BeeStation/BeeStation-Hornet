@@ -222,7 +222,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	if(linked_moderator)
 		QDEL_NULL(linked_moderator)
 	if(linked_interface)
-		QDEL_NULL(linked_interface)
+		linked_interface.reactor = null
+		linked_interface = null
 	grilled_item = null
 	QDEL_NULL(grill_loop)
 	QDEL_NULL(radio)
