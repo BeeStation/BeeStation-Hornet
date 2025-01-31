@@ -28,7 +28,7 @@
 	return FALSE
 
 /mob/camera/emote(act, m_type=1, message = null, intentional = FALSE)
-	return
+	return FALSE
 
 // Cameras can't fall
 /mob/camera/has_gravity(turf/T)

@@ -90,8 +90,8 @@
 			return
 		var/old_loc = loc
 		SEND_SIGNAL(src, COMSIG_HOLOPARA_PRE_SNAPBACK)
-		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <span class='name'>[summoner.name]</span>!</span>")
-		visible_message("<span class='danger'>[color_name] jumps back to its user.</span>")
+		to_chat(src, span_holoparasite("You moved out of range, and were pulled back! You can only move [range] meters from [span_name("[summoner.name]")]!"))
+		visible_message(span_danger("[color_name] jumps back to its user."))
 		new /obj/effect/temp_visual/holoparasite/phase/out(loc)
 		forceMove(summoner.current.loc)
 		new /obj/effect/temp_visual/holoparasite/phase(loc)

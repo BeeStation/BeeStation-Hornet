@@ -56,7 +56,7 @@
 #define ARMOR_LIST_DURABILITY list(ACID, FIRE)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD)
+#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD, STAMINA)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -243,9 +243,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
 
 // Object/Item sharpness
-#define IS_BLUNT			0
-#define IS_SHARP			1
-#define IS_SHARP_ACCURATE	2
+#define BLUNT					0	//Can only remove limbs if they're easy to remove
+#define SHARP					1	//Can only remove limbs if target is dead
+#define SHARP_DISMEMBER			2	//Can only remove limbs if the limb is already disabled
+#define SHARP_DISMEMBER_EASY	3	//Has a chance equal to weapon force to remove limb on every attack, in some cases taking them off in one swing
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.

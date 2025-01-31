@@ -7,8 +7,8 @@ import { Feature } from './base';
 
 export const body_is_always_random: Feature<RandomSetting> = {
   name: 'Random Body',
-  component: (props, context) => {
-    const [randomToggle, setRandomToggle] = useRandomToggleState(context);
+  component: (props) => {
+    const [randomToggle, setRandomToggle] = useRandomToggleState();
 
     return (
       <Stack>
@@ -47,15 +47,15 @@ export const body_is_always_random: Feature<RandomSetting> = {
 
 export const name_is_always_random: Feature<RandomSetting> = {
   name: 'Random Name',
-  component: (props, context) => {
+  component: (props) => {
     return <RandomizationButton setValue={(value) => props.handleSetValue(value)} value={props.value} />;
   },
 };
 
 export const random_species: Feature<RandomSetting> = {
   name: 'Random Species',
-  component: (props, context) => {
-    const { act, data } = useBackend<PreferencesMenuData>(context);
+  component: (props) => {
+    const { act, data } = useBackend<PreferencesMenuData>();
 
     const species = data.character_preferences.randomization['species'];
 
