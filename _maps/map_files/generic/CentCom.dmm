@@ -21523,7 +21523,8 @@
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "ffI" = (
-/turf/open/floor/grass/snow,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
 "fmE" = (
 /obj/structure/flora/tree/pine/xmas,
@@ -22336,6 +22337,10 @@
 	dir = 4
 	},
 /turf/open/floor/monotile/dark,
+/area/syndicate_mothership/control)
+"mMl" = (
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/dirt/jungle/dark,
 /area/syndicate_mothership/control)
 "ncu" = (
 /obj/structure/table/reinforced{
@@ -23248,6 +23253,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
 "xOz" = (
@@ -46314,7 +46320,7 @@ aaa
 aaa
 aRk
 vPs
-aQH
+mMl
 wOw
 aLQ
 xOz
