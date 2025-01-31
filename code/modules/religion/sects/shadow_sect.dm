@@ -119,7 +119,7 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/proc/on_mob_leave(mob/living/affected_mob)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	var/is_in_range_obelisc = FALSE
+	var/is_in_range_obelisk = FALSE
 	if(!sect.night_vision_active)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
@@ -127,9 +127,9 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		if (D.anchored)
 			if(get_dist(D, affected_mob) <= sect.light_reach)
-				is_in_range_obelisc = TRUE
+				is_in_range_obelisk = TRUE
 				break
-	if(!is_in_range_obelisc)
+	if(!is_in_range_obelisk)
 		if(HAS_TRAIT_FROM(affected_mob,TRAIT_NIGHT_VISION,FROM_SHADOW_SECT))
 			REMOVE_TRAIT(affected_mob,TRAIT_NIGHT_VISION, FROM_SHADOW_SECT)
 
@@ -140,6 +140,8 @@
 		on_mob_leave(each_mob)
 	src.set_light(0, 0, DARKNESS_INVERSE_COLOR)
 
+/obj/structure/destructible/religion/shadow_obelisk/proc/var3_bucle_togle() // this is ussles untill it is inherited by var3
+	return
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -155,7 +157,7 @@
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eachother!</span>")
+					to_chat(user,"<span class='warning'>You cant place obelisks so close to eachother!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -168,7 +170,7 @@
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
 				if(D.anchored)
-					to_chat(user,"<span class='warning'>You cant place obeliscs so close to eachother!</span>")
+					to_chat(user,"<span class='warning'>You cant place obelisks so close to eachother!</span>")
 					return
 			anchored = !anchored
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
@@ -176,7 +178,7 @@
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
 		else
-			to_chat(user,"<span class='warning'>You feel like only nullrod coudl move this obelisc.</span>")
+			to_chat(user,"<span class='warning'>You feel like only nullrod coudl move this obelisk.</span>")
 		return
 	return ..()
 
@@ -284,7 +286,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/cost = 100 * sect.obelisk_number + 100
 	if(sect.favor < cost)
-		to_chat(user, "<span class='warning'>Your obelisc are getting harder to summon, as more matterialise. You need [cost] favor.</span>")
+		to_chat(user, "<span class='warning'>Your obelisk are getting harder to summon, as more matterialise. You need [cost] favor.</span>")
 		return FALSE
 	return ..()
 
@@ -342,7 +344,7 @@
 
 /datum/religion_rites/nigth_vision_aura
 	name = "Provide nigth vision"
-	desc = "Grands obelisc aura of night vision, with lets people see in darknes. Any aditional casting will turn it on or off."
+	desc = "Grands obelisk aura of night vision, with lets people see in darknes. Any aditional casting will turn it on or off."
 	ritual_length = 30 SECONDS
 	ritual_invocations = list(
 		"Spread out...",
@@ -368,21 +370,25 @@
 /obj/structure/destructible/religion/shadow_obelisk/var1/process(delta_time)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!anchored)
+		return
 	if(last_spread <= world.time)
-		for(var/turf/T in circleviewturfs(src, sect.light_reach))
+		for(var/turf/T in circlerangeturfs(src, sect.light_reach))
 			if(istype(T))
-				if(T.luminosity <= 0)
+				if(T.get_lumcount() <= 0)
 					T.Bless()
 	last_spread = world.time + spread_delay
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2 // some cursed incheritence, but its the easiest way to do it
 	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
-	var/heal_delay = 30
+	var/heal_delay = 50
 	var/last_heal = 0
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/process(delta_time)
 	. = ..()
+	if(!anchored)
+		return
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
@@ -404,17 +410,18 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3
 	max_integrity = 500
-	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisc will turn into shadow people, while shadow people can use them to teleport"
+	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisk will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = FALSE // it will be posible once archoned
 	var/converting = 0
+	var/in_use = FALSE
 
 
-/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/on_set_anchored(atom/movable/source, anchorvalue)
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/var3_bucle_togle()
 	. = ..()
-	if(archoned)
+	if(anchored)
 		can_buckle = TRUE
 	else
-		source.unbuckle_all_mobs(TRUE)
+		unbuckle_all_mobs(TRUE)
 		can_buckle = FALSE
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/post_buckle_mob(mob/living/M)
@@ -427,24 +434,59 @@
 		unbuckle_mob(M, TRUE)
 		return
 
-	to_chat(M,span_userdanger("You feel obelisc chanel all its shadows though you. If you dont get off, you will be changed inrevocable way."))
+	to_chat(M,span_userdanger("You feel obelisk chanel all its shadows though you. If you dont get off, you will be changed inrevocable way."))
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/process(delta_time)
 	if(LAZYLEN(buckled_mobs) != 0)
 		converting += 1
-		if (converting => 30)
+		if (converting >= 30)
 			converting = 0
-			for(var/buckled in buckled_mobs)
-				to_chat(M,span_userdanger("Shadows infuse your body changing you into one of them."))
+			for(var/mob/living/carbon/human/buckled in buckled_mobs)
+				to_chat(buckled,span_userdanger("Shadows infuse your body changing you into one of them."))
 				buckled.set_species(/datum/species/shadow)
 				unbuckle_mob(buckled, TRUE)
 	else
 		converting = 0
 	. = ..()
 
+/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/attack_hand(mob/user)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(in_use)
+		return
 
+	var/list/local_obelisk_list = sect.obelisks.Copy()
+	local_obelisk_list -= src
+	if(!LAZYLEN(local_obelisk_list))
+		return ..()
 
-// post_buckle_mob(mob/living/M)               unbuckle_all_mobs(force=TRUE)
-// post_unbuckle_mob(mob/living/M)            has_buckled_mobs()
+	if(local_obelisk_list.len == 1)
+		do_teleport(user, local_obelisk_list[1])
+		return
+
+	in_use = TRUE
+
+	var/list/assoc_list = list()
+
+	for(var/OB in local_obelisk_list)
+		var/area/ob_area = get_area(OB)
+		var/name = "[ob_area.name] shadow obelisk"
+		var/counter = 0
+
+		do
+			counter++
+		while(assoc_list["[name]([counter])"])
+
+		name += "([counter])"
+
+		assoc_list[name] = OB
+
+	var/chosen_input = input(user,"What destination do you want to choose",null) as null|anything in assoc_list
+	in_use = FALSE
+
+	if(!chosen_input || !assoc_list[chosen_input])
+		return
+
+	do_teleport(user ,assoc_list[chosen_input])
+
 
 #undef DARKNESS_INVERSE_COLOR
