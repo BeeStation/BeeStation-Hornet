@@ -233,6 +233,9 @@
 	var/favor_gained = max(1 - light_amount, 0) * delta_time
 	sect.adjust_favor(favor_gained, creator)
 
+/datum/component/dark_favor/proc/return_creator()
+	return creator
+
 
 /**** Shadow rites ****/
 /datum/religion_rites/shadow_conversion
@@ -308,19 +311,13 @@
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.grand_ritual_level == 0)
-		var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
-	if(sect.grand_ritual_level == 1)
-		var/obj/structure/destructible/religion/shadow_obelisk/var1/obelisk = new(altar_turf)
-	if(sect.grand_ritual_level == 2)
-		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/obelisk = new(altar_turf)
-	if(sect.grand_ritual_level == 3)
-		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/obelisk = new(altar_turf)
+	var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
 	var/cost = 100 * sect.obelisk_number * -1
 	sect.adjust_favor(cost, user)
 	sect.obelisks += obelisk
 	sect.obelisk_number = sect.obelisk_number + 1
 	obelisk.AddComponent(/datum/component/dark_favor, user)
+	obelisk.transform_obelisc()
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
 
@@ -343,9 +340,9 @@
 	if(sect.favor < cost)
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
 		return FALSE
-	if((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level))
+	if((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
-		if(grand_ritual_level != 3)
+		if(sect.grand_ritual_level != 3)
 			to_chat(user, "<span class='warning'>Performing grand ritual woudl let more shadow move into this world.</span>")
 		return FALSE
 	return ..()
@@ -526,6 +523,42 @@
 	user.visible_message(span_notice("[user.name] walked out of obelisk."), span_notice("To emerge on the other side."))
 
 
+/obj/structure/destructible/religion/shadow_obelisk/proc/transform_obelisc()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	var/datum/component/dark_favor/component_prievius = GetComponent(/datum/component/dark_favor)
+	var/our_turf = get_turf(src)
+	var/user = component_prievius.return_creator()
+	if(sect.grand_ritual_level == 1)
+		var/obj/structure/destructible/religion/shadow_obelisk/var1/obelisk = new(our_turf)
+		sect.obelisks += obelisk
+		sect.obelisk_number = sect.obelisk_number + 1
+		obelisk.AddComponent(/datum/component/dark_favor, user)
+		obelisk.anchored = anchored
+		if(anchored)
+			sect.active_obelisks += obelisk
+			sect.active_obelisk_number = sect.obelisk_number + 1
+		Destroy()
+	if(sect.grand_ritual_level == 2)
+		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/obelisk = new(our_turf)
+		sect.obelisks += obelisk
+		sect.obelisk_number = sect.obelisk_number + 1
+		obelisk.AddComponent(/datum/component/dark_favor, user)
+		obelisk.anchored = anchored
+		if(anchored)
+			sect.active_obelisks += obelisk
+			sect.active_obelisk_number = sect.obelisk_number + 1
+		Destroy()
+	if(sect.grand_ritual_level == 3)
+		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/obelisk = new(our_turf)
+		sect.obelisks += obelisk
+		sect.obelisk_number = sect.obelisk_number + 1
+		obelisk.AddComponent(/datum/component/dark_favor, user)
+		obelisk.anchored = anchored
+		if(anchored)
+			sect.active_obelisks += obelisk
+			sect.active_obelisk_number = sect.obelisk_number + 1
+		Destroy()
+
 // Grand rituals themselves
 
 /datum/religion_rites/grand_ritual_one
@@ -545,7 +578,7 @@
 	if(!isshadow(user))
 		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
 		return FALSE
-	if(!((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level)))
+	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
 		return FALSE
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
@@ -584,12 +617,12 @@
 	favor_cost = 10000
 	auto_delete = TRUE
 
-/datum/religion_rites/shadow_obelisk/grand_ritual_two(mob/living/user, atom/religious_tool)
+/datum/religion_rites/grand_ritual_two/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!isshadow(user))
 		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
 		return FALSE
-	if(!((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level)))
+	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
 		return FALSE
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
@@ -598,7 +631,7 @@
 	return ..()
 
 
-/datum/religion_rites/shadow_conversion/grand_ritual_two(mob/living/user, atom/religious_tool)
+/datum/religion_rites/grand_ritual_two/invoke_effect(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
 	var/atom/movable/movable_reltool = religious_tool
@@ -634,7 +667,7 @@
 	if(!isshadow(user))
 		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
 		return FALSE
-	if(!((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level)))
+	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
 		return FALSE
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
