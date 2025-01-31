@@ -14,6 +14,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
+	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
@@ -127,6 +128,10 @@
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
 
+/obj/machinery/light/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
@@ -172,6 +177,28 @@
 		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
 		return
 	. += mutable_appearance(overlayicon, base_state)
+
+// Area sensitivity is traditionally tied directly to power use, as an optimization
+// But since we want it for fire reacting, we disregard that
+/obj/machinery/light/setup_area_power_relationship()
+	. = ..()
+	if(!.)
+		return
+	var/area/our_area = get_area(src)
+	RegisterSignal(our_area, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+
+/obj/machinery/light/on_enter_area(datum/source, area/area_to_register)
+	..()
+	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+	handle_fire(area_to_register, area_to_register.fire)
+
+/obj/machinery/light/on_exit_area(datum/source, area/area_to_unregister)
+	..()
+	UnregisterSignal(area_to_unregister, COMSIG_AREA_FIRE_CHANGED)
+
+/obj/machinery/light/proc/handle_fire(area/source, new_fire)
+	SIGNAL_HANDLER
+	update()
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE, quiet = FALSE, instant = FALSE)
@@ -632,7 +659,10 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 673
+
+/obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 
