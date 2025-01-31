@@ -69,7 +69,7 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
 		if(butchering?.butchering_enabled)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			to_chat(user, span_notice("You begin to butcher [src]..."))
 			playsound(loc, butchering.butcher_sound, 50, TRUE, -1)
 			if(do_after(user, butchering.speed, src) && Adjacent(I))
 				butchering.Butcher(user, src)
@@ -112,7 +112,7 @@
 		nonharmfulhit = TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		nonharmfulhit = TRUE
 
 	if(!force || nonharmfulhit)
@@ -160,8 +160,8 @@
 	var/damage = take_damage(attacking_item.force, attacking_item.damtype, MELEE, 1)
 
 	//only witnesses close by and the victim see a hit message.
-	user.visible_message("<span class='danger'>[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", \
-		"<span class='danger'>You hit [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", null, COMBAT_MESSAGE_RANGE)
+	user.visible_message(span_danger("[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), \
+		span_danger("You hit [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), null, COMBAT_MESSAGE_RANGE)
 	log_combat(user, src, "attacked", attacking_item)
 
 /area/attacked_by(obj/item/attacking_item, mob/living/user)
@@ -230,9 +230,9 @@
 		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I]!"
 	if(user == src)
 		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I]"
-	visible_message("<span class='danger'>[attack_message_spectator]</span>",\
-		"<span class='userdanger'>[attack_message_victim]</span>", null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, "<span class='danger'>[attack_message_attacker]</span>")
+	visible_message(span_danger("[attack_message_spectator]"),\
+		span_userdanger("[attack_message_victim]"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("[attack_message_attacker]"))
 	return 1
 
 /mob/living/proc/send_item_poke_message(obj/item/I, mob/living/user)
@@ -245,8 +245,8 @@
 		poke_message_local = "[user] [message_verb] you with [I]!"
 	if(user == src)
 		poke_message_local = "You [message_verb] yourself with [I]!"
-	visible_message("<span class='notice'>[poke_message]</span>",\
-	"<span class='usernotice'>[poke_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
+	visible_message(span_notice("[poke_message]"),\
+	span_usernotice("[poke_message_local]"), null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/proc/record_accidental_poking()
 	if(time_of_last_poke != 0 && world.time - time_of_last_poke <= 50)

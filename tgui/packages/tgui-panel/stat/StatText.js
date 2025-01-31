@@ -1,4 +1,4 @@
-import { useSelector } from 'common/redux';
+import { useSelector } from 'tgui/backend';
 import { Button, Flex, Box, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
@@ -6,8 +6,8 @@ import { Divider, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
 import { capitalize } from 'common/string';
 
-export const StatText = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
+export const StatText = (props) => {
+  const stat = useSelector(selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
     return <Box color="red">Passed stat panel data was null contant coderman (or coderwoman).</Box>;
@@ -107,7 +107,7 @@ const StatTagToClassName = (text) => {
  * FLEX COMPATIBLE
  */
 
-export const StatTextText = (props, context) => {
+export const StatTextText = (props) => {
   const { title, text } = props;
   return (
     <Flex.Item mt={1} width="100%">
@@ -117,7 +117,7 @@ export const StatTextText = (props, context) => {
   );
 };
 
-export const StatTextButton = (props, context) => {
+export const StatTextButton = (props) => {
   const { title, text, action_id, params = [], multirow = false, buttons = [] } = props;
   return (
     <Flex.Item mt={1} width="100%">
@@ -197,7 +197,7 @@ const storeAtomRef = (value) => {
 };
 const retrieveAtomRef = () => janky_storage;
 
-export const StatTextAtom = (props, context) => {
+export const StatTextAtom = (props) => {
   const { atom_name, atom_ref, atom_tag, atom_icon } = props;
 
   storeAtomRef(null);
@@ -274,7 +274,7 @@ export const StatTextAtom = (props, context) => {
   );
 };
 
-export const StatTextDivider = (props, context) => {
+export const StatTextDivider = (props) => {
   return (
     <Flex.Item width="100%">
       <Divider />
@@ -282,7 +282,7 @@ export const StatTextDivider = (props, context) => {
   );
 };
 
-export const StatTextVerb = (props, context) => {
+export const StatTextVerb = (props) => {
   const { title, action_id, params = [] } = props;
   return (
     <Box shrink={1} inline width="200px">
@@ -305,8 +305,8 @@ export const StatTextVerb = (props, context) => {
 // Non-Flex Support
 // =======================
 
-export const HoboStatText = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
+export const HoboStatText = (props) => {
+  const stat = useSelector(selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
     return <Box color="red">Passed stat panel data was null contant coderman (or coderwoman).</Box>;
@@ -349,7 +349,7 @@ export const HoboStatText = (props, context) => {
   );
 };
 
-export const HoboStatTextText = (props, context) => {
+export const HoboStatTextText = (props) => {
   const { title, text } = props;
   return (
     <Box>
@@ -359,7 +359,7 @@ export const HoboStatTextText = (props, context) => {
   );
 };
 
-export const HoboStatTextButton = (props, context) => {
+export const HoboStatTextButton = (props) => {
   const { title, text, action_id, params = [] } = props;
   return (
     <Box>
@@ -378,7 +378,7 @@ export const HoboStatTextButton = (props, context) => {
   );
 };
 
-export const HoboStatTextAtom = (props, context) => {
+export const HoboStatTextAtom = (props) => {
   const { atom_name, atom_icon, atom_ref } = props;
   return (
     <Box>

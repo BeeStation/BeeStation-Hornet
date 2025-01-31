@@ -41,8 +41,8 @@
 		qdel(reagents)
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
-	var/turf/curloc = get_turf(user)
-	if (!istype(targloc) || !istype(curloc) || !BB)
+	var/turf/current_location = get_turf(user)
+	if (!istype(targloc) || !istype(current_location) || !BB)
 		return FALSE
 
 	var/firing_dir
@@ -52,7 +52,7 @@
 		new firing_effect_type(get_turf(src), firing_dir)
 
 	var/direct_target
-	if(targloc == curloc)
+	if(targloc == current_location)
 		if(target) //if the target is right on our location we'll skip the travelling code in the proj's fire()
 			direct_target = target
 	if(!direct_target)
@@ -67,9 +67,9 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
-	user.visible_message("<span class='danger'>[user] hits the [src]'s primer with [user.p_their()] [I]!</span>")
+	user.visible_message(span_danger("[user] hits the [src]'s primer with [user.p_their()] [I]!"))
 	if(!user.is_holding(src))
-		to_chat(user, "<span class='warning'>You need to pickup \the [src] first!</span>")
+		to_chat(user, span_warning("You need to pickup \the [src] first!"))
 		return
 	if(prob(75))
 		fire_casing(get_step(src, user.dir), user, spread = rand(-40, 40))
@@ -78,7 +78,7 @@
 			var/obj/item/bodypart/affecting = C.get_holding_bodypart_of_item(src)
 			C.apply_damage(rand(5, 10), BRUTE, affecting)
 	else
-		user.visible_message("<span class='danger'>[user]'s [I] slips!</span>")
+		user.visible_message(span_danger("[user]'s [I] slips!"))
 		fire_casing(user, user)
 
 /obj/item/ammo_casing/caseless/screwdriver_act(mob/living/user, /obj/item/I)

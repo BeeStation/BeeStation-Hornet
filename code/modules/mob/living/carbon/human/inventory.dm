@@ -136,7 +136,7 @@
 			s_store = I
 			update_inv_s_store()
 		else
-			to_chat(src, "<span class='danger'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
+			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
@@ -265,13 +265,13 @@
 	// Notify user of missing valid breathing apparatus.
 	if(wear_mask)
 		// Invalid mask
-		to_chat(src, "<span class='warning'>[wear_mask] can't use [tank]!</span>")
+		to_chat(src, span_warning("[wear_mask] can't use [tank]!"))
 	else if(head)
 		// Invalid headgear
-		to_chat(src, "<span class='warning'>[head] isn't airtight! You need a mask!</span>")
+		to_chat(src, span_warning("[head] isn't airtight! You need a mask!"))
 	else
 		// Not wearing any breathing apparatus.
-		to_chat(src, "<span class='warning'>You need a mask!</span>")
+		to_chat(src, span_warning("You need a mask!"))
 
 /// Returns TRUE if the tank successfully toggles open/closed. Opens the tank only if a breathing apparatus is found.
 /mob/living/carbon/human/toggle_externals(obj/item/tank)
@@ -282,7 +282,6 @@
 		update_hair()
 	// Close internal air tank if mask was the only breathing apparatus.
 	if(invalid_internals())
-		update_internals_hud_icon(0)
 		cutoff_internals()
 	if(I.flags_inv & HIDEEYES)
 		update_inv_glasses()

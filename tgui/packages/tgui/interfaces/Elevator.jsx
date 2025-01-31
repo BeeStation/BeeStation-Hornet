@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Flex, Box } from '../components';
 import { Window } from '../layouts';
 
-export const Elevator = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Elevator = (props) => {
+  const { act, data } = useBackend();
   const { current_z, available_levels, in_transit = false } = data;
   return (
     <Window width={280} height={500} theme="elevator">
