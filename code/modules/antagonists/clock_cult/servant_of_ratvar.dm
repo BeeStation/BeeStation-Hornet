@@ -64,7 +64,7 @@
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
-	owner.current.faction |= "ratvar"
+	owner.current.faction |= FACTION_RATVAR
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	if(GLOB.gateway_opening && ishuman(owner.current))
@@ -77,7 +77,7 @@
 	LH.grant_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	owner.current.faction -= "ratvar"
+	owner.current.faction -= FACTION_RATVAR
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)

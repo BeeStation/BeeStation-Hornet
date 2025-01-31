@@ -206,10 +206,8 @@
 /mob/living/carbon/proc/close_all_airtanks()
 	if(external)
 		close_externals()
-		update_internals_hud_icon(0)
 	if(internal)
 		close_internals()
-		update_internals_hud_icon(0)
 
 
 /**

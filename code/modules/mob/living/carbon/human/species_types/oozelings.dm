@@ -15,7 +15,7 @@
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
-	inherent_factions = list("slime")
+	inherent_factions = list(FACTION_SLIME)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
@@ -88,11 +88,11 @@
 	if(!atmos_sealed)
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
-			if(environment.get_moles(GAS_H2O) >= 1)
+			if(GET_MOLES(/datum/gas/water_vapor, environment) >= 1)
 				H.blood_volume -= 15
 				if(prob(50))
 					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
-			if(H.blood_volume <= 672 && environment.get_moles(GAS_PLASMA) >= 1)
+			if(H.blood_volume <= 672 && GET_MOLES(/datum/gas/plasma, environment) >= 1)
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, span_danger("You feel drained!"))
