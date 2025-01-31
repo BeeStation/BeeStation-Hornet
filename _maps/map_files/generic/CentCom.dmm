@@ -21880,6 +21880,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
+"iUu" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "These tiles above keep showing up as roundstart active turfs, sorry for the hack"
+	},
+/turf/open/floor/plating/dirt/jungle,
+/area/syndicate_mothership/control)
 "jdo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -46578,7 +46585,7 @@ aaa
 aRk
 vPs
 ffI
-acl
+iUu
 bTK
 dtO
 ajQ
