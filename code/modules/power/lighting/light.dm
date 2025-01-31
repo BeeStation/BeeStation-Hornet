@@ -198,6 +198,8 @@
 
 /obj/machinery/light/proc/handle_fire(area/source, new_fire)
 	SIGNAL_HANDLER
+	//This var name is a bit of a misnomer for this usecase, but we want fire alarm lights to not be delayed or make light_on noises during fire
+	roundstart_smoothing = TRUE
 	update()
 
 // update the icon_state and luminosity of the light depending on its state
