@@ -1,7 +1,7 @@
 /**********************Lazarus Injector**********************/
 /obj/item/lazarus_injector
 	name = "lazarus injector"
-	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
+	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead. Testing has shown inconsistent results and the animals these devices are used on occasionally turn against the person using them."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
@@ -26,29 +26,38 @@
 				to_chat(user, span_info("[src] does not work on this sort of creature."))
 				return
 			if(M.stat == DEAD)
+				loaded = 0
 				if(M.mind)
-					loaded = 0
 					if(M.suiciding || M.ishellbound())
 						user.visible_message(span_notice("[user] injects [M] with [src], but nothing happened."))
 						return
 					M.revive(full_heal = 1, admin_revive = 1)
 					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
-					M.notify_ghost_cloning("Your body is revived by a lazarus injector!", source=M)
+					M.notify_ghost_cloning("Your body is revived by [user] with a lazarus injector!", source=M)
+					to_chat(M, span_userdanger("You are not brainwashed or enslaved in any way to [user], act according to whatever makes the most sense for what you are."))
 					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
+
 				else // only do this to mindless mobs
 					M.revive(full_heal = 1, admin_revive = 1)
 					if(ishostile(target))
 						var/mob/living/simple_animal/hostile/H = M
+						H.faction = list(FACTION_NEUTRAL, "[REF(user)]") //Neutral includes crew and entirely passive mobs
+						H.robust_searching = 1
+						H.friends += user
 						if(malfunctioning)
-							H.faction |= list(FACTION_NEUTRAL, "[REF(user)]")
-							H.robust_searching = 1
-							H.friends += user
-							H.attack_same = 1
+							H.attack_same = 1 //Will attack all other mobs and crew, but not the person who revived
 							log_game("[key_name(user)] has revived hostile mob [key_name(target)] with a malfunctioning lazarus injector")
 						else
-							H.attack_same = 0
-				loaded = 0
-				user.visible_message(span_notice("[user] injects [M] with [src], reviving it."))
+							H.attack_same = 0 //Will only attack non-passive mobs
+							if(prob(10)) //chance of sentience without loyalty
+								var/list/candidates = poll_candidates_for_mob("Do you want to play as [H] being revived by [src]?", ROLE_SENTIENCE, null, 15 SECONDS, H)
+								if(length(candidates))
+									var/mob/dead/observer/C = pick(candidates)
+									H.key = C.key
+									H.sentience_act()
+									to_chat(H, span_userdanger("In a striking moment of clarity you have gained greater intellect. You realize that you have been given new life by [user], but you can't seem to remember the circumstances of your death. What you do with your newfound intellect is for you to decide, but you have no sense of loyalty toward [user] or your own kind."))
+
+				user.visible_message(span_notice("[user] injects [M] with [src], reviving it. [M]"))
 				SSblackbox.record_feedback("tally", "lazarus_injector", 1, M.type)
 				playsound(src,'sound/effects/refill.ogg',50,1)
 				icon_state = "lazarus_empty"
