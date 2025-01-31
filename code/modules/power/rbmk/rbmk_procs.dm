@@ -324,8 +324,7 @@ Arguments:
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/get_integrity_percent()
 	var/integrity = critical_threshold_proximity / melting_point
-	integrity = round(100 - integrity * 100, 0.01)
-	integrity = integrity < 0 ? 0 : integrity
+	integrity = clamp(round(100 - integrity * 100, 0.01), 0, 100)
 	return integrity
 
 /**
@@ -380,7 +379,7 @@ Arguments:
 	var/turf/core_turf = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
 		var/damagevalue = (temperature - 900)/250
-		critical_threshold_proximity += damagevalue
+		critical_threshold_proximity += (damagevalue * delta_time)
 		warning_damage_flags |= RBMK_TEMPERATURE_DAMAGE
 		check_alert()
 		if(critical_threshold_proximity >= melting_point)
@@ -391,9 +390,10 @@ Arguments:
 	if (pressure >= RBMK_PRESSURE_CRITICAL)
 		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		core_turf.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
+		core_turf.air_update_turf(TRUE, FALSE)
 		// Warning: Pressure reaching critical thresholds!
 		var/damagevalue = (pressure-10100)/1500
-		critical_threshold_proximity += damagevalue
+		critical_threshold_proximity += (damagevalue * delta_time)
 		warning_damage_flags |= RBMK_PRESSURE_DAMAGE
 		check_alert()
 		if(critical_threshold_proximity >= melting_point)
@@ -510,9 +510,9 @@ Arguments:
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
-	coolant_input.set_temperature((temperature+273.15)*2)
-	moderator_input.set_temperature((temperature+273.15)*2)
-	coolant_output.set_temperature((temperature+273.15)*2)
+	coolant_input.temperature = ((temperature+273.15)*2)
+	moderator_input.temperature = ((temperature+273.15)*2)
+	coolant_output.temperature = ((temperature+273.15)*2)
 	reactor_turf.assume_air(coolant_input)
 	reactor_turf.assume_air(moderator_input)
 	reactor_turf.assume_air(coolant_output)

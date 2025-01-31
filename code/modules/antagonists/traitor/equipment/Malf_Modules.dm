@@ -14,7 +14,24 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		/obj/machinery/syndicatebomb/badmin/clown,
 		/obj/machinery/syndicatebomb/empty,
 		/obj/machinery/syndicatebomb/self_destruct,
-		/obj/machinery/syndicatebomb/training
+		/obj/machinery/syndicatebomb/training,
+		/obj/machinery/atmospherics/pipe/layer_manifold,
+		/obj/machinery/atmospherics/pipe/multiz,
+		/obj/machinery/atmospherics/pipe/smart,
+		/obj/machinery/atmospherics/pipe/smart/manifold, //mapped one
+		/obj/machinery/atmospherics/pipe/smart/manifold4w, //mapped one
+		/obj/machinery/atmospherics/pipe/color_adapter,
+		/obj/machinery/atmospherics/pipe/bridge_pipe,
+		/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+		/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
+		/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
+		/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
+		/obj/machinery/atmospherics/components/tank,
+		/obj/machinery/atmospherics/components/unary/portables_connector,
+		/obj/machinery/atmospherics/components/unary/passive_vent,
+		/obj/machinery/atmospherics/components/unary/heat_exchanger,
+		/obj/machinery/atmospherics/components/binary/valve,
+		/obj/machinery/portable_atmospherics/canister,
 	)))
 
 //The malf AI action subtype. All malf actions are subtypes of this.
@@ -521,7 +538,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	cost = 25
 	power_type = /datum/action/innate/ai/break_fire_alarms
 	unlock_text = span_notice("You replace the thermal sensing capabilities of all fire alarms with a manual override, allowing you to turn them off at will.")
-	unlock_sound = 'goon/sound/machinery/firealarm.ogg'
+	unlock_sound = 'sound/machines/FireAlarm1.ogg'
 
 /datum/action/innate/ai/break_fire_alarms
 	name = "Override Thermal Sensors"
@@ -530,22 +547,26 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/Activate()
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
-		if(!is_station_level(F.z))
+	for(var/obj/machinery/firealarm/bellman in GLOB.machines)
+		if(!is_station_level(bellman.z))
 			continue
-		F.obj_flags |= EMAGGED
-		F.update_icon()
+		bellman.obj_flags |= EMAGGED
+		bellman.update_icon()
+	for(var/obj/machinery/door/firedoor/firelock in GLOB.machines)
+		if(!is_station_level(firelock.z))
+			continue
+		firelock.on_emag(owner_AI)
 	owner.log_message("activated malf module [name]", LOG_GAME)
 	to_chat(owner, span_notice("All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 
-//Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
+//Air Alarm Safety Override: Unlocks the ability to enable dangerous modes on all air alarms.
 /datum/AI_Module/large/break_air_alarms
 	module_name = "Air Alarm Safety Override"
 	mod_pick_name = "allow_flooding"
-	description = "Gives you the ability to disable safeties on all air alarms. This will allow you to use the environmental mode Flood, which disables scrubbers as well as pressure checks on vents. \
-	Anyone can check the air alarm's interface and may be tipped off by their nonfunctionality."
+	description = "Gives you the ability to disable safeties on all air alarms. This will allow you to use extremely dangerous environmental modes. \
+					Anyone can check the air alarm's interface and may be tipped off by their nonfunctionality."
 	one_purchase = TRUE
 	cost = 50
 	power_type = /datum/action/innate/ai/break_air_alarms
@@ -554,7 +575,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 /datum/action/innate/ai/break_air_alarms
 	name = "Override Air Alarm Safeties"
-	desc = "Enables the Flood setting on all air alarms."
+	desc = "Enables extremely dangerous settings on all air alarms."
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
