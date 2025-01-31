@@ -71,6 +71,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = MEDBOT_SKIN_BEZERK
+	faction = list(FACTION_CREATURE, FACTION_NEUTRAL)
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
@@ -89,7 +90,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	radio_channel = RADIO_CHANNEL_SYNDICATE
 	heal_threshold = 30
 	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
-	faction = list(FACTION_SYNDICATE, "neutral", "silicon")
+	faction = list(FACTION_SYNDICATE, FACTION_NEUTRAL, FACTION_SILICON)
 
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
@@ -649,7 +650,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 					log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
-					reagent_glass.reagents.reaction(patient, INJECT, fraction)
+					reagent_glass.reagents.expose(patient, INJECT, fraction)
 					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker.
 					if(!reagent_glass.reagents.total_volume && !synth_epi) //when empty, alert medbay unless we're on synth mode
 						var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')

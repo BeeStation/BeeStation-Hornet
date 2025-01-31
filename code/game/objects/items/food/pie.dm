@@ -66,7 +66,7 @@
 	var/turf/hit_turf = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/food/pie_smudge(hit_turf)
 	if(reagents?.total_volume)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.expose(hit_atom, TOUCH)
 	var/is_creamable = TRUE
 	if(isliving(hit_atom))
 		var/mob/living/living_target_getting_hit = hit_atom

@@ -109,7 +109,7 @@
 		if(I.use_tool(src, user, 30))
 			balloon_alert(user, "Dumped [src]")
 			to_chat(usr, span_notice("You dump the contents of [src]'s bucket onto the floor."))
-			reagents.reaction(src.loc)
+			reagents.expose(src.loc)
 			src.reagents.clear_reagents()
 	else
 		return ..()
