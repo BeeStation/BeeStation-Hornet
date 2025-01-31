@@ -9,7 +9,7 @@
 
 /datum/xenoartifact_trait/minor/looped/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>")
+		to_chat(user, span_info("The [item.name] displays a resistance reading of [X.charge_req*0.1]."))
 		return TRUE
 	return ..()
 
@@ -30,7 +30,7 @@
 	charges = pick(0, 1, 2) //Extra charges, not total
 
 /datum/xenoartifact_trait/minor/capacitive/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>The hairs on your neck stand up after touching the [X.name].</span>")
+	to_chat(user, span_notice("The hairs on your neck stand up after touching the [X.name]."))
 	return TRUE
 
 /datum/xenoartifact_trait/minor/capacitive/activate(obj/item/xenoartifact/X)
@@ -47,7 +47,7 @@
 
 /datum/xenoartifact_trait/minor/capacitive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>")
+		to_chat(user, span_info("The [item.name] displays an overcharge reading of [charges/3]."))
 		return TRUE
 	return ..()
 
@@ -76,7 +76,7 @@
 	flags = PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/sharp/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>The [X.name] feels sharp.</span>")
+	to_chat(user, span_notice("The [X.name] feels sharp."))
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
@@ -97,7 +97,7 @@
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/cooler/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>The [X.name] feels cold.</span>")
+	to_chat(user, span_notice("The [X.name] feels cold."))
 	return TRUE
 
 /datum/xenoartifact_trait/minor/cooler/on_init(obj/item/xenoartifact/X)
@@ -120,7 +120,7 @@
 	var/obj/effect/mob_spawn/sentient_artifact/S
 
 /datum/xenoartifact_trait/minor/sentient/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='warning'>The [X.name] whispers to you...</span>")
+	to_chat(user, span_warning("The [X.name] whispers to you..."))
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
@@ -156,9 +156,9 @@
 	var/datum/action/xeno_senitent_action/P = new /datum/action/xeno_senitent_action(X)
 	P.Grant(man)
 	//show little guy his traits
-	to_chat(man, "<span class='notice'>Your traits are: \n</span>")
+	to_chat(man, span_notice("Your traits are: \n"))
 	for(var/datum/xenoartifact_trait/T in X.traits)
-		to_chat(man, "<span class='notice'>[(T.desc || T.label_name)]\n</span>")
+		to_chat(man, span_notice("[(T.desc || T.label_name)]\n"))
 	if(man.key)
 		playsound(get_turf(X), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	qdel(S)
@@ -228,9 +228,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
 	if(X.get_integrity() > 0)
 		X.update_integrity(-100)
-		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
+		X.visible_message(span_danger("The [X.name] cracks!"), span_danger("The [X.name] cracks!"))
 	else
-		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
+		X.visible_message(span_danger("The [X.name] shatters!"), span_danger("The [X.name] shatters!"))
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
 		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE)
@@ -333,7 +333,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 
 /datum/xenoartifact_trait/minor/signalsend/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='info'>The [item.name] displays an outputting signal code of [X.code], and frequency [X.frequency].</span>")
+		to_chat(user, span_info("The [item.name] displays an outputting signal code of [X.code], and frequency [X.frequency]."))
 		return TRUE
 	return ..()
 
@@ -360,13 +360,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X)
-	X.visible_message("<span class='danger'>The [X.name] buckles to the floor!</span>")
+	X.visible_message(span_danger("The [X.name] buckles to the floor!"))
 	X.set_anchored(TRUE)
 	X.density = TRUE
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
 	if(item.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, "<span class='info'>You [X.anchored ? "unanchor" : "anchor"] the [X.name] to the [get_turf(X)].</span>")
+		to_chat(user, span_info("You [X.anchored ? "unanchor" : "anchor"] the [X.name] to the [get_turf(X)]."))
 		if(isliving(X.loc))
 			var/mob/living/holder = X.loc
 			holder.dropItemToGround(X)
@@ -428,7 +428,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
-		to_chat(user, "<span class='warning'>The [X.name] rumbles on contact with the [item].</span>")
+		to_chat(user, span_warning("The [X.name] rumbles on contact with the [item]."))
 		return TRUE
 	return ..()
 
@@ -447,7 +447,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 	weight = 25
 
 /datum/xenoartifact_trait/minor/delay/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
-	X.visible_message("<span class='danger'>The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.</span>")
+	X.visible_message(span_danger("The [X] halts and begins to hum deeply."), span_danger("The [X] halts and begins to hum deeply."))
 	playsound(get_turf(X), 'sound/effects/seedling_chargeup.ogg', 50, TRUE)
 	sleep(3 SECONDS)
 
@@ -462,13 +462,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 	var/obj/effect/confiscate
 
 /datum/xenoartifact_trait/minor/blink/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
-	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
+	X.visible_message(span_warning("[X] slips between dimensions!"))
 	confiscate = new(get_turf(X))
 	X.forceMove(confiscate)
 	addtimer(CALLBACK(src, PROC_REF(comeback), X), X.charge*0.20 SECONDS)
 
 /datum/xenoartifact_trait/minor/blink/proc/comeback(obj/item/xenoartifact/X)
-	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
+	X.visible_message(span_warning("[X] slips between dimensions!"))
 	X.forceMove(get_turf(confiscate))
 	QDEL_NULL(confiscate)
 

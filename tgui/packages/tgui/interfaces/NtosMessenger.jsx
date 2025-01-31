@@ -3,8 +3,8 @@ import { createSearch } from 'common/string';
 import { Box, Button, Dimmer, Icon, Section, Stack, Input } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosMessenger = (_, context) => {
-  const { data } = useBackend(context);
+export const NtosMessenger = (_) => {
+  const { data } = useBackend();
   const { viewing_messages } = data;
   return (
     <NtosWindow width={400} height={600}>
@@ -13,8 +13,8 @@ export const NtosMessenger = (_, context) => {
   );
 };
 
-const NoIDDimmer = (_, context) => {
-  const { data } = useBackend(context);
+const NoIDDimmer = (_) => {
+  const { data } = useBackend();
   return (
     <Stack>
       <Stack.Item>
@@ -35,8 +35,8 @@ const NoIDDimmer = (_, context) => {
   );
 };
 
-const MessageListScreen = (props, context) => {
-  const { act, data } = useBackend(context);
+const MessageListScreen = (props) => {
+  const { act, data } = useBackend();
   const { messages = [], emoji_names = [] } = data;
   return (
     <Stack vertical>
@@ -82,8 +82,8 @@ const MessageListScreen = (props, context) => {
   );
 };
 
-const ContactsScreen = (props, context) => {
-  const { act, data } = useBackend(context);
+const ContactsScreen = (props) => {
+  const { act, data } = useBackend();
   const {
     owner,
     ringer_status,
@@ -96,7 +96,7 @@ const ContactsScreen = (props, context) => {
     virus_attach,
     sending_virus,
   } = data;
-  const [searchUser, setSearchUser] = useLocalState(context, 'searchUser', '');
+  const [searchUser, setSearchUser] = useLocalState('searchUser', '');
   const search = createSearch(searchUser, (messengers) => messengers.name + messengers.job);
   let users = searchUser.length > 0 ? data.messengers.filter(search) : messengers;
   return (

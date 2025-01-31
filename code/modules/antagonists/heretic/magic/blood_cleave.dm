@@ -31,15 +31,15 @@
 			continue
 		if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 			victim.visible_message(
-				("<span class='danger'>[victim]'s flashes in a firey glow, but repels the blaze!</span>"),
-				("<span class='danger'>Your body begins to flash a firey glow, but you are protected!!</span>")
+				span_danger("[victim]'s body flashes in a fiery glow, but repels the blaze!"),
+				span_danger("Your body begins to flash in a fiery glow, but you are protected!")
 			)
 			continue
 		if(!victim.blood_volume)
 			continue
 		victim.visible_message(
-			("<span class='danger'>[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!</span>"),
-			("<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>")
+			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
+			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
 		)
 		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
 		victim.apply_damage(20, BURN, bodypart)

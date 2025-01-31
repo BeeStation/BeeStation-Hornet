@@ -58,17 +58,17 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
 		return FALSE
 	if(req_human && !ishuman(user))
-		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
+		to_chat(user, span_warning("We cannot do that in this form!"))
 		return FALSE
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(c.chem_charges < chemical_cost)
-		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
 	if(c.absorbedcount < req_dna)
-		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
+		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, span_warning("We are incapacitated."))
 		return FALSE
 	return TRUE
 

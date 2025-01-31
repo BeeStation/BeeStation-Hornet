@@ -19,10 +19,10 @@
 	if(iscarbon(user))
 		hand_items = list(user.get_active_held_item(),user.get_inactive_held_item())
 	if(!length(hand_items))
-		to_chat(user, "<span class='warning'>You must hold an item you wish to make your phylactery...</span>")
+		to_chat(user, span_warning("You must hold an item you wish to make your phylactery..."))
 		return
 	if(!user.mind.hasSoul)
-		to_chat(user, "<span class='warning'>You do not possess a soul.</span>")
+		to_chat(user, span_warning("You do not possess a soul."))
 		return
 
 	var/obj/item/marked_item
@@ -33,17 +33,17 @@
 		if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP) || SEND_SIGNAL(item, COMSIG_ITEM_IMBUE_SOUL, user))
 			continue
 		marked_item = item
-		to_chat(user, "<span class='warning'>You begin to focus your very being into [item]...</span>")
+		to_chat(user, span_warning("You begin to focus your very being into [item]..."))
 		break
 
 	if(!marked_item)
-		to_chat(user, "<span class='warning'>None of the items you hold are suitable for emplacement of your fragile soul.</span>")
+		to_chat(user, span_warning("None of the items you hold are suitable for emplacement of your fragile soul."))
 		return
 
 	playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
 	if(!do_after(user, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
-		to_chat(user, "<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>")
+		to_chat(user, span_warning("Your soul snaps back to your body as you stop ensouling [marked_item]!"))
 		return
 
 	marked_item.name = "lesser ensouled [marked_item.name]"
@@ -52,7 +52,7 @@
 
 	new /obj/item/lesserphylactery(marked_item, user.mind)
 
-	to_chat(user, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!</span>")
+	to_chat(user, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!"))
 	user.mind.hasSoul = FALSE
 	// No revival other than lichdom revival
 	if(isliving(user))
@@ -121,7 +121,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 	mind.transfer_to(lich)
 	mind.grab_ghost(force=TRUE)
 	lich.hardset_dna(null,null,lich.real_name,null, new /datum/species/skeleton,null)
-	to_chat(lich, "<span class='warning'>Your bones clatter and shudder as you are pulled back into this world!</span>")
+	to_chat(lich, span_warning("Your bones clatter and shudder as you are pulled back into this world!"))
 	var/turf/body_turf = get_turf(old_body)
 	lich.Paralyze(400 + 200*resurrections) // paralyzed for longer due to lesser spell
 	resurrections++
@@ -136,10 +136,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 				I.forceMove(body_turf)
 		var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
 		if(wheres_wizdo)
-			old_body.visible_message("<span class='warning'>Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
+			old_body.visible_message(span_warning("Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!"))
 			body_turf.Beam(item_turf,icon_state="lichbeam", time = 20 + 20 * resurrections) // beam shows for longer on the lesser spell
 		old_body.dust()
 	if(resurrections >= 2)
-		to_chat(lich,"<span class='userdanger'>You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death.")
+		to_chat(lich, span_userdanger("You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death."))
 		qdel(src)
 	return "Respawn of [mind] successful."

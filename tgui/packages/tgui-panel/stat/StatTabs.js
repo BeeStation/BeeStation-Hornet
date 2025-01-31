@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import { Button, Flex, Tabs, Section, Input } from 'tgui/components';
 import { Box, ScrollableBox, Fragment, Divider } from '../../tgui/components';
 import { useSettings } from '../settings';
@@ -11,9 +11,9 @@ import { StatTicket } from './StatTicket';
 // Flex Supported
 // =======================
 
-export const StatTabs = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const settings = useSettings(context);
+export const StatTabs = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const settings = useSettings();
   let statSection = <StatText />;
   switch (stat.selectedTab) {
     case 'Status':
@@ -54,9 +54,9 @@ export const StatTabs = (props, context) => {
   );
 };
 
-export const StatTabScroll = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+export const StatTabScroll = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   // Map the input data into tabs, then filter out extra_data
   let statTabs = stat.statTabs;
   return (
@@ -84,9 +84,9 @@ export const StatTabScroll = (props, context) => {
   );
 };
 
-export const StatTabWrap = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+export const StatTabWrap = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   // Map the input data into tabs, then filter out extra_data
   let statTabs = stat.statTabs;
   return (
@@ -115,9 +115,9 @@ export const StatTabWrap = (props, context) => {
 // Non-Flex Support
 // =======================
 
-export const HoboStatTabs = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const settings = useSettings(context);
+export const HoboStatTabs = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const settings = useSettings();
   let statSection = <HoboStatText />;
   switch (stat.selectedTab) {
     case 'Status':

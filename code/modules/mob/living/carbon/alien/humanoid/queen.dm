@@ -111,7 +111,7 @@
 
 /datum/action/alien/make_structure/lay_egg/on_activate(mob/user, atom/target)
 	. = ..()
-	owner.visible_message(("<span class='alienalert'>[owner] lays an egg!</span>"))
+	owner.visible_message(span_alertalien("[owner] lays an egg!"))
 
 //Button to let queen choose her praetorian.
 /datum/action/alien/promote
@@ -152,10 +152,10 @@
 
 	var/obj/item/queen_promotion/new_promotion = new(owner.loc)
 	if(!owner.put_in_hands(new_promotion, del_on_fail = TRUE))
-		to_chat(owner, ("<span class='noticealien'>You fail to prepare a parasite.</span>"))
+		to_chat(owner, span_noticealien("You fail to prepare a parasite."))
 		return FALSE
 
-	to_chat(owner, ("<span class='noticealien'>Use [new_promotion] on one of your children to promote her to a Praetorian!</span>"))
+	to_chat(owner, span_noticealien("Use [new_promotion] on one of your children to promote her to a Praetorian!"))
 	return TRUE
 
 /obj/item/queen_promotion
@@ -175,11 +175,11 @@
 		CRASH("[type] was created and handled by a mob ([queen]) that didn't have a promotion action associated.")
 
 	if(!isalienadult(to_promote) || isalienroyal(to_promote))
-		to_chat(queen, ("<span class='noticealien'>You may only use this with your adult, non-royal children!</span>"))
+		to_chat(queen, span_noticealien("You may only use this with your adult, non-royal children!"))
 		return
 
 	if(!promotion.is_available())
-		to_chat(queen, ("<span class='noticealien'>You cannot promote a child right now!</span>"))
+		to_chat(queen, span_noticealien("You cannot promote a child right now!"))
 		return
 
 	if(to_promote.stat != CONSCIOUS || !to_promote.mind || !to_promote.key)
@@ -187,10 +187,10 @@
 
 	queen.adjustPlasma(-promotion.promotion_plasma_cost)
 
-	to_chat(queen, ("<span class='noticealien'>You have promoted [to_promote] to a Praetorian!</span>"))
+	to_chat(queen, span_noticealien("You have promoted [to_promote] to a Praetorian!"))
 	to_promote.visible_message(
-		("<span class='alienalert'>[to_promote] begins to expand, twist and contort!</span>"),
-		("<span class='noticealien'>The queen has granted you a promotion to Praetorian!</span>"),
+		span_alienalert("[to_promote] begins to expand, twist and contort!"),
+		span_noticealien("The queen has granted you a promotion to Praetorian!"),
 	)
 
 	var/mob/living/carbon/alien/humanoid/royal/praetorian/new_prae = new(to_promote.loc)

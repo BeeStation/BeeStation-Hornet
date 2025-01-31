@@ -394,9 +394,9 @@
 	var/mob/living/user_mob = owner
 	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
 	if(remote_eye.zMove(UP, FALSE))
-		to_chat(user_mob, "<span class='notice'>You move upwards.</span>")
+		to_chat(user_mob, span_notice("You move upwards."))
 	else
-		to_chat(user_mob, "<span class='notice'>You couldn't move upwards!</span>")
+		to_chat(user_mob, span_notice("You couldn't move upwards!"))
 
 /datum/action/innate/camera_multiz_down
 	name = "Move down a floor"
@@ -409,6 +409,6 @@
 	var/mob/living/user_mob = owner
 	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
 	if(remote_eye.zMove(DOWN, FALSE))
-		to_chat(user_mob, "<span class='notice'>You move downwards.</span>")
+		to_chat(user_mob, span_notice("You move downwards."))
 	else
-		to_chat(user_mob, "<span class='notice'>You couldn't move downwards!</span>")
+		to_chat(user_mob, span_notice("You couldn't move downwards!"))

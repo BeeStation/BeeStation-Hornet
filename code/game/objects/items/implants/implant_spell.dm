@@ -51,7 +51,7 @@
 	if(spell_to_give)
 		spell_to_give.Remove(source)
 		if(source.stat != DEAD && !silent)
-			to_chat(source, ("<span class='boldnotice'>The knowledge of how to cast [spell_to_give] slips out from your mind.</span>"))
+			to_chat(source, span_boldnotice("The knowledge of how to cast [spell_to_give] slips out from your mind."))
 	return TRUE
 
 /obj/item/implanter/spell

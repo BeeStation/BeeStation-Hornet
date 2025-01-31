@@ -14,7 +14,7 @@
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	shuttle_creator = internal_console.owner_rsd
 	if(shuttle_creator.update_origin())
-		to_chat(usr, "<span class='warning'>Warning, the shuttle has moved during designation. Please wait for the shuttle to dock and try again.</warning>")
+		to_chat(usr, span_warning("Warning, the shuttle has moved during designation. Please wait for the shuttle to dock and try again."))
 		shuttle_creator.reset_saved_area(FALSE)
 		internal_console.remove_eye_control(owner)
 		return TRUE
@@ -44,7 +44,7 @@
 			connectors_exist = TRUE
 			break
 		if(!connectors_exist)
-			to_chat(usr, "<span class='warning'>This turf requires support, build some catwalks or lattices.</span>")
+			to_chat(usr, span_warning("This turf requires support, build some catwalks or lattices."))
 			return
 	if(!shuttle_creator.check_area(list(T)))
 		return
@@ -83,21 +83,21 @@
 	var/turf/T = get_turf(remote_eye)
 	for(var/obj/machinery/door/airlock/A in T)
 		if(!(T in shuttle_creator.loggedTurfs))
-			to_chat(C, "<span class='warning'>Caution, airlock must be on the shuttle to function as a dock.</span>")
+			to_chat(C, span_warning("Caution, airlock must be on the shuttle to function as a dock."))
 			return
 		if(shuttle_creator.linkedShuttleId)
 			return
 		if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
-			to_chat(C, "<span class='warning'>Shuttle limit reached, sorry.</span>")
+			to_chat(C, span_warning("Shuttle limit reached, sorry."))
 			return
 		if(shuttle_creator.loggedTurfs.len > SHUTTLE_CREATOR_MAX_SIZE)
-			to_chat(C, "<span class='warning'>This shuttle is too large!</span>")
+			to_chat(C, span_warning("This shuttle is too large!"))
 			return
 		if(!shuttle_creator.getNonShuttleDirection(T))
-			to_chat(C, "<span class='warning'>Docking port must be on an external wall, with only 1 side exposed to space.</span>")
+			to_chat(C, span_warning("Docking port must be on an external wall, with only 1 side exposed to space."))
 			return
 		if(shuttle_creator.shuttle_create_docking_port(A, C))
-			to_chat(C, "<span class='notice'>Shuttle created!</span>")
+			to_chat(C, span_notice("Shuttle created!"))
 	//Remove eye control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	internal_console.remove_eye_control(owner)
@@ -110,10 +110,10 @@
 	if(..())
 		return
 	if(shuttle_creator.loggedTurfs.len > SHUTTLE_CREATOR_MAX_SIZE)
-		to_chat(C, "<span class='warning'>This shuttle is too large!</span>")
+		to_chat(C, span_warning("This shuttle is too large!"))
 		return
 	if(shuttle_creator.modify_shuttle_area(C))
-		to_chat(C, "<span class='notice'>Shuttle modifications have been finalized.</span>")
+		to_chat(C, span_notice("Shuttle modifications have been finalized."))
 		//Remove eye control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = master
 	internal_console.remove_eye_control(owner)

@@ -346,12 +346,12 @@ Doesn't work on other aliens/AI.*/
 		// It's safest to go to the initial alpha of the mob.
 		// Otherwise we get permanent invisbility exploits.
 		owner.alpha = initial(owner.alpha)
-		to_chat(owner, ("<span class='noticealien'>You reveal yourself!</span>"))
+		to_chat(owner, span_noticealien("You reveal yourself!"))
 		REMOVE_TRAIT(owner, TRAIT_ALIEN_SNEAK, name)
 
 	else
 		owner.alpha = sneak_alpha
-		to_chat(owner, ("<span class='noticealien'>You blend into the shadows...</span>"))
+		to_chat(owner, span_noticealien("You blend into the shadows..."))
 		ADD_TRAIT(owner, TRAIT_ALIEN_SNEAK, name)
 
 	return TRUE

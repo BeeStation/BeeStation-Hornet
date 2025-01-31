@@ -8,7 +8,6 @@
 	earliest_start = 0 MINUTES
 
 /datum/round_event/wizard/robelesscasting/start()
-
 	// Hey, if a corgi has magic missle, he should get the same benefit as anyone
 	for(var/mob/living/caster as anything in GLOB.mob_living_list)
 		if(!length(caster.actions))
@@ -21,7 +20,7 @@
 				spell_improved = TRUE
 
 		if(spell_improved)
-			to_chat(caster, ("<span class='notice'>You suddenly feel like you never needed those garish robes in the first place...</span>"))
+			to_chat(caster, span_notice("You suddenly feel like you never needed those garish robes in the first place..."))
 
 //--//
 
@@ -45,4 +44,4 @@
 			upgraded_a_spell = spell.level_spell(TRUE)
 
 		if(upgraded_a_spell)
-			to_chat(caster, ("<span class='notice'>You suddenly feel more competent with your casting!</span>"))
+			to_chat(caster, span_notice("You suddenly feel more competent with your casting!"))

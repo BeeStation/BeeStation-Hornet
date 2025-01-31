@@ -24,7 +24,7 @@
 	if(!input || !is_available())
 		return
 	if(CHAT_FILTER_CHECK(input))
-		to_chat(usr, "<span class='warning'>You cannot send a message that contains a word prohibited in IC chat!</span>")
+		to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 		return
 	cultist_commune(usr, input)
 
@@ -42,7 +42,7 @@
 	else if(!ishuman(user))
 		title = "Construct"
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = user.treat_message_min(message)
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
@@ -68,7 +68,7 @@
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='srt_radio cultboldtalic'>The [user.name]: [message]</span>"
+	my_message = "[span_srtradiocultboldtalic("The [user.name]: [message]")]"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		if(iscultist(M))
@@ -103,7 +103,7 @@
 			B.current.update_action_buttons_icon()
 			if(!B.current.incapacitated())
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, "<span class='cultlarge'>Acolyte [Nominee] has asserted that [Nominee.p_theyre()] worthy of leading the cult. A vote will be called shortly.</span>")
+				to_chat(B.current, span_cultlarge("Acolyte [Nominee] has asserted that [Nominee.p_theyre()] worthy of leading the cult. A vote will be called shortly."))
 	sleep(100)
 	var/list/asked_cultists = list()
 	for(var/datum/mind/B in team.members)
@@ -117,7 +117,7 @@
 			if(B.current)
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
-					to_chat(B.current,"<span class='cultlarge'>[Nominee] has died in the process of attempting to win the cult's support!</span>")
+					to_chat(B.current,span_cultlarge("[Nominee] has died in the process of attempting to win the cult's support!"))
 		return FALSE
 	if(!Nominee.mind)
 		team.cult_vote_called = FALSE
@@ -125,7 +125,7 @@
 			if(B.current)
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
-					to_chat(B.current,"<span class='cultlarge'>[Nominee] has gone catatonic in the process of attempting to win the cult's support!</span>")
+					to_chat(B.current,span_cultlarge("[Nominee] has gone catatonic in the process of attempting to win the cult's support!"))
 		return FALSE
 	if(LAZYLEN(yes_voters) <= LAZYLEN(asked_cultists) * 0.5)
 		team.cult_vote_called = FALSE
@@ -133,7 +133,7 @@
 			if(B.current)
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
-					to_chat(B.current, "<span class='cultlarge'>[Nominee] could not win the cult's support and shall continue to serve as an acolyte.</span>")
+					to_chat(B.current, span_cultlarge("[Nominee] could not win the cult's support and shall continue to serve as an acolyte."))
 		return FALSE
 	team.cult_master = Nominee
 	SSticker.mode.remove_cultist(Nominee.mind, TRUE)
@@ -143,7 +143,7 @@
 			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
 				qdel(vote)
 			if(!B.current.incapacitated())
-				to_chat(B.current,"<span class='cultlarge'>[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!</span>")
+				to_chat(B.current,span_cultlarge("[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!"))
 	return TRUE
 
 /datum/action/innate/cult/master/is_available()
@@ -168,7 +168,7 @@
 			if(!T.is_blocked_turf(TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))
-			to_chat(owner, "<span class='warning'>You need more space to summon your cult!</span>")
+			to_chat(owner, span_warning("You need more space to summon your cult!"))
 			return
 		if(do_after(owner, 30, target = owner))
 			for(var/datum/mind/B in antag.cult_team.members)
@@ -300,7 +300,7 @@
 		return FALSE
 
 	if(cult_team.set_blood_target(mark_target, owner, 60 SECONDS))
-		to_chat(owner, ("<span class='cultbold'>You have marked [mark_target] for the cult! It will last for [DisplayTimeText(cult_mark_duration)].</span>"))
+		to_chat(owner, span_cultbold(">You have marked [mark_target] for the cult! It will last for [DisplayTimeText(cult_mark_duration)]."))
 		COOLDOWN_START(src, cult_mark_cooldown, cult_mark_cooldown_duration)
 		update_button_status()
 		addtimer(CALLBACK(src, PROC_REF(reset_button)), cult_mark_cooldown_duration + 1)
@@ -363,14 +363,14 @@
 	var/atom/throwee = throwee_ref?.resolve()
 
 	if(QDELETED(throwee))
-		to_chat(user, "<span class='cult'>You lost your target!</span>")
+		to_chat(user, span_cult("You lost your target!"))
 		throwee = null
 		throwee_ref = null
 		return FALSE
 
 	if(throwee)
 		if(get_dist(throwee, target) >= 16)
-			to_chat(user, "<span class='cult'>You can't teleport [target.p_them()] that far!</span>")
+			to_chat(user, span_cult("You can't teleport [target.p_them()] that far!"))
 			return FALSE
 
 		var/turf/throwee_turf = get_turf(throwee)
@@ -378,27 +378,27 @@
 		playsound(throwee_turf, 'sound/magic/exit_blood.ogg')
 		new /obj/effect/temp_visual/cult/sparks(throwee_turf, user.dir)
 		throwee.visible_message(
-			"<span class='warning'>A pulse of magic whisks [throwee] away!</span>",
-			"<span class='cult'>A pulse of blood magic whisks you away...</span>",
+			span_warning("A pulse of magic whisks [throwee] away!"),
+			span_cult("A pulse of blood magic whisks you away..."),
 		)
 
 		if(!do_teleport(throwee, target, channel = TELEPORT_CHANNEL_CULT))
-			to_chat(user, "<span class='cult'>The teleport fails!</span>")
+			to_chat(user, span_cult("The teleport fails!"))
 			throwee.visible_message(
-				"<span class='warning'>...Except they don't go very far</span>",
-				"<span class='cult'>...Except you don't appear to have moved very far.</span>",
+				span_warning("...Except they don't go very far"),
+				span_warning("...Except you don't appear to have moved very far."),
 			)
 			return FALSE
 
 		throwee_turf.Beam(target, icon_state = "sendbeam", time = 0.4 SECONDS)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(target), user.dir)
 		throwee.visible_message(
-			"<span class='warning'>[throwee] appears suddenly in a pulse of magic!</span>",
-			"<span class='cult'>...And you appear elsewhere.</span>",
+			span_warning("[throwee] appears suddenly in a pulse of magic!"),
+			span_cult("...And you appear elsewhere."),
 		)
 
 		start_cooldown()
-		to_chat(user, "<span class='cult'>A pulse of blood magic surges through you as you shift [throwee] through time and space.</span>")
+		to_chat(user, span_cult("A pulse of blood magic surges through you as you shift [throwee] through time and space."))
 		user.click_intercept = null
 		throwee_ref = null
 		update_buttons()
@@ -410,12 +410,12 @@
 			if(!IS_CULTIST(living_clicked))
 				return FALSE
 			SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
-			to_chat(user, "<span class='cultbold'>You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b></span>")
+			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
 			throwee_ref = WEAKREF(target)
 			return TRUE
 
 		if(istype(target, /obj/structure/destructible/cult))
-			to_chat(user, "<span class='cultbold'>You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b></span>")
+			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b>"))
 			throwee_ref = WEAKREF(target)
 			return TRUE
 

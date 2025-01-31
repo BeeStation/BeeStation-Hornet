@@ -59,7 +59,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -88,7 +88,7 @@
 
 	var/mob/living/carbon/carbon_target = target
 	var/turf/open/target_turf = get_turf(carbon_target)
-	target_turf.TakeTemperature(-20)
+	target_turf.take_temperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
 	carbon_target.silent += 4
 
@@ -250,7 +250,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -289,7 +289,7 @@
 	var/turf/open/source_turf = get_turf(source)
 	if(!isopenturf(source_turf))
 		return
-	source_turf.TakeTemperature(-20)
+	source_turf.take_temperature(-20)
 
 	var/area/source_area = get_area(source)
 

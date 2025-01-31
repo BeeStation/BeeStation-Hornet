@@ -30,7 +30,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("statue")
+	faction = list(FACTION_STATUE)
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
@@ -82,7 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 /mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
 	if(can_be_seen(NewLoc))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
 	return ..()
 
@@ -100,7 +100,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 /mob/living/simple_animal/hostile/statue/AttackingTarget()
 	if(can_be_seen(get_turf(loc)))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot attack, there are eyes on you!"))
 		return FALSE
 	else
 		return ..()
@@ -204,7 +204,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	aoe_radius = 14
 
 /datum/action/spell/aoe/blindness/on_cast(mob/user, atom/target)
-	user.visible_message("<span class='danger'>[user] glares their eyes.</span>")
+	user.visible_message(span_danger("[user] glares their eyes."))
 	return ..()
 
 /datum/action/spell/aoe/blindness/get_things_to_cast_on(atom/center)

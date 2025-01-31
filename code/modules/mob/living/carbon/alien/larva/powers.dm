@@ -17,8 +17,8 @@
 	else
 		owner.layer = hide_layer
 		owner.visible_message(
-			("<span class='name'>[owner] scurries to the ground!</span>"),
-			("<span class='noticealien'>You are now hiding.</span>"),
+			span_name("[owner] scurries to the ground!"),
+			span_noticealien("You are now hiding."),
 		)
 
 	return TRUE
@@ -57,8 +57,8 @@
 		var/datum/radial_menu_choice/hunter = new()
 		hunter.name = "Hunter"
 		hunter.image  = image(icon = initial(hunter_path.icon), icon_state = initial(hunter_path.icon_state))
-		hunter.info = ("<span class='info'>Hunters are the most agile caste, tasked with hunting for hosts. \
-			They are faster than a human and can even pounce, but are not much tougher than a drone.</span>")
+		hunter.info = span_info("Hunters are the most agile caste, tasked with hunting for hosts. \
+			They are faster than a human and can even pounce, but are not much tougher than a drone.")
 
 		caste_options["Hunter"] = hunter
 
@@ -66,9 +66,9 @@
 		var/datum/radial_menu_choice/sentinel = new()
 		sentinel.name = "Sentinel"
 		sentinel.image  = image(icon = initial(sentinel_path.icon), icon_state = initial(sentinel_path.icon_state))
-		sentinel.info = ("<span class='info'>Sentinels are tasked with protecting the hive. \
+		sentinel.info = span_info("Sentinels are tasked with protecting the hive. \
 			With their ranged spit, invisibility, and high health, they make formidable guardians \
-			and acceptable secondhand hunters.</span>")
+			and acceptable secondhand hunters.")
 
 		caste_options["Sentinel"] = sentinel
 
@@ -76,9 +76,9 @@
 		var/datum/radial_menu_choice/drone = new()
 		drone.name = "Drone"
 		drone.image  = image(icon = initial(drone_path.icon), icon_state = initial(drone_path.icon_state))
-		drone.info = ("<span class='info'>Drones are the weakest and slowest of the castes, \
+		drone.info = span_info("Drones are the weakest and slowest of the castes, \
 			but can grow into a praetorian and then queen if no queen exists, \
-			and are vital to maintaining a hive with their resin secretion abilities.</span>")
+			and are vital to maintaining a hive with their resin secretion abilities.")
 
 		caste_options["Drone"] = drone
 

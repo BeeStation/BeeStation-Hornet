@@ -99,7 +99,7 @@
 		rewarded = caster
 
 /datum/status_effect/bounty/on_apply()
-	to_chat(owner, ("<span class='boldnotice'>You hear something behind you talking... \"You have been marked for death by [rewarded]. If you die, they will be rewarded.\"</span>"))
+	to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("You have been marked for death by [rewarded]. If you die, they will be rewarded.")]")
 	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
 	return ..()
 
@@ -110,9 +110,9 @@
 
 /datum/status_effect/bounty/proc/rewards()
 	if(rewarded && rewarded.mind && rewarded.stat != DEAD)
-		to_chat(owner, "<span class='boldnotice'>You hear something behind you talking...</span> <span class='notice'>Bounty claimed.</span>")
+		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
 		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
-		to_chat(rewarded, "<span class='greentext'>You feel a surge of mana flow into you!</span>")
+		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
 		for(var/datum/action/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
 		rewarded.adjustBruteLoss(-25)
@@ -175,7 +175,7 @@
 		for(var/mob/living/carbon/possible_taker in orange(1, owner))
 			if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
 				continue
-				
+
 			register_candidate(possible_taker)
 
 	if(!possible_takers) // no one around

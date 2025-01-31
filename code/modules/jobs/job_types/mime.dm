@@ -107,7 +107,7 @@
 		picked_spell_type = new picked_spell_type(user.mind || user)
 		picked_spell_type.Grant(user)
 
-		to_chat(user, ("<span class='warning'>The book disappears into thin air.</span>"))
+		to_chat(user, span_warning("The book disappears into thin air."))
 		qdel(src)
 
 	return TRUE

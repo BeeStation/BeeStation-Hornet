@@ -28,14 +28,14 @@
 	if(target.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 		owner.balloon_alert(owner, "spell blocked!")
 		target.visible_message(
-			("<span class='danger'>The spell bounces off of [target]!</span>"),
-			("<span class='danger'>The spell bounces off of you!</span>"),
+			span_danger("The spell bounces off of [target]!"),
+			span_danger("The spell bounces off of you!"),
 		)
 		return FALSE
 
 	target.visible_message(
-		("<span class='danger'>[target] turns pale as a red glow envelops [target.p_them()]!</span>"),
-		("<span class='danger'>You pale as a red glow enevelops you!</span>"),
+		span_danger("[target] turns pale as a red glow envelops [target.p_them()]!"),
+		span_danger("You turn pale as a red glow enevelops you!"),
 	)
 
 	var/mob/living/living_owner = owner

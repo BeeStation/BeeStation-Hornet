@@ -42,14 +42,14 @@
 		if(ctarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)) //doesnt stun. never let this stun
 			ctarget.drop_all_held_items()
 			ctarget.confused += zap
-			ctarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+			ctarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 		else
-			user.visible_message("<span class='warning'>[user] fails to electrocute [target]!</span>")
+			user.visible_message(span_warning("[user] fails to electrocute [target]!"))
 	else if(isliving(target))
 		var/mob/living/ltarget = target
 		ltarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)
-		ltarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+		ltarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 	else
-		to_chat(user,"<span class='warning'>The electricity doesn't seem to affect [target]...</span>")
+		to_chat(user, span_warning("The electricity doesn't seem to affect [target]..."))
 	remove_hand_with_no_refund(user)
 	return ..()

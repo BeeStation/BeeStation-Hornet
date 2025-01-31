@@ -33,9 +33,9 @@
 				var/mob/M = item_to_retrieve.loc
 
 				if(issilicon(M)) //Items in silicons warp the whole silicon
-					M.loc.visible_message("<span class='warning'>[user] suddenly disappears!</span>")
+					M.loc.visible_message(span_warning("[user] suddenly disappears!"))
 					M.forceMove(user.loc)
-					M.loc.visible_message("<span class='warning'>[user] suddenly appears!</span>")
+					M.loc.visible_message(span_warning("[user] suddenly appears!"))
 					item_to_retrieve = null
 					break
 				M.dropItemToGround(item_to_retrieve)
@@ -46,7 +46,7 @@
 						var/obj/item/bodypart/part = X
 						if(item_to_retrieve in part.embedded_objects)
 							part.embedded_objects -= item_to_retrieve
-							to_chat(C, "<span class='warning'>The [item_to_retrieve] that was embedded in your [user] has mysteriously vanished. How fortunate!</span>")
+							to_chat(C, span_warning("The [item_to_retrieve] that was embedded in your [user] has mysteriously vanished. How fortunate!"))
 							if(!C.has_embedded_objects())
 								C.clear_alert("embeddedobject")
 								SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "embedded")
@@ -66,11 +66,11 @@
 		return
 
 	if(item_to_retrieve.loc)
-		item_to_retrieve.loc.visible_message("<span class='warning'>The [item_to_retrieve.name] suddenly disappears!</span>")
+		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
 	if(!user.put_in_hands(item_to_retrieve))
 		item_to_retrieve.forceMove(user.drop_location())
-		item_to_retrieve.loc.visible_message("<span class='warning'>The [item_to_retrieve.name] suddenly appears!</span>")
+		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly appears!"))
 		playsound(get_turf(user), 'sound/magic/summonitems_generic.ogg', 50, 1)
 	else
-		item_to_retrieve.loc.visible_message("<span class='warning'>The [item_to_retrieve.name] suddenly appears in [user]'s hand!</span>")
+		item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly appears in [user]'s hand!"))
 		playsound(get_turf(user), 'sound/magic/summonitems_generic.ogg', 50, 1)

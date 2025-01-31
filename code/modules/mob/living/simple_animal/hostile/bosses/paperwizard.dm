@@ -4,7 +4,7 @@
 	desc = "A wizard with a taste for the arts."
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	boss_abilities = list(/datum/action/boss/wizard_summon_minions, /datum/action/boss/wizard_mimic)
-	faction = list("hostile","stickman")
+	faction = list(FACTION_HOSTILE,FACTION_STICKMAN)
 	del_on_death = TRUE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "paperwizard"
@@ -153,7 +153,7 @@
 
 /obj/effect/temp_visual/paperwiz_dying/Initialize(mapload)
 	. = ..()
-	visible_message("<span class='boldannounce'>The wizard cries out in pain as a gate appears behind him, sucking him in!</span>")
+	visible_message(span_boldannounce("The wizard cries out in pain as a gate appears behind him, sucking him in!"))
 	playsound(get_turf(src),'sound/magic/mandswap.ogg', 50, 1, 1)
 	playsound(get_turf(src),'sound/hallucinations/wail.ogg', 50, 1, 1)
 

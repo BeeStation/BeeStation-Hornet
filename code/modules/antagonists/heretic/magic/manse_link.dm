@@ -88,7 +88,7 @@
 		return
 
 	if(!originator?.linked_mobs[living_owner])
-		to_chat(living_owner, "<span class='warning'>The link seems to have been severed...</span>")
+		to_chat(living_owner, span_warning("The link seems to have been severed..."))
 		Remove(living_owner)
 		return
 

@@ -34,9 +34,10 @@ SUBSYSTEM_DEF(explosions)
 	var/list/med_mov_atom = list()
 	var/list/high_mov_atom = list()
 
-	var/list/explosions = list()
+	// Track how many explosions have happened.
+	var/explosion_index = 0
 
-	var/currentpart = SSAIR_REBUILD_PIPENETS
+	var/currentpart = SSEXPLOSIONS_TURFS
 
 	var/turf/last_exploded_turf = null
 	var/last_explosion_count = 0
@@ -234,7 +235,7 @@ SUBSYSTEM_DEF(explosions)
 		message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)]")
 		if(is_station_level(epicenter.z))
-			deadchat_broadcast("<span class='ghostalert'>Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!</span>", turf_target = epicenter)
+			deadchat_broadcast(span_ghostalert("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!"), turf_target = epicenter)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
@@ -449,7 +450,9 @@ SUBSYSTEM_DEF(explosions)
 	if(GLOB.Debug2)
 		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	explosion_index += 1
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB
@@ -639,7 +642,6 @@ SUBSYSTEM_DEF(explosions)
 
 	currentpart = SSEXPLOSIONS_TURFS
 
-#undef SSAIR_REBUILD_PIPENETS
 #undef EXPLOSION_THROW_SPEED
 #undef EXPLOSION_TURF_MAX
 #undef SSEX_TURF

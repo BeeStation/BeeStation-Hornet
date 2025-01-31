@@ -26,7 +26,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	faction = list("slaughter")
+	faction = list(FACTION_HELL)
 	attack_verb_continuous = "wildly tears into"
 	attack_verb_simple = "wildly tear into"
 	maxHealth = 200
@@ -39,11 +39,11 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	bloodcrawl = BLOODCRAWL_EAT
 	hardattacks = TRUE
-	var/playstyle_string = "<span class='big bold'>You are a slaughter demon,</span><B> a terrible creature from another realm. You have a single desire: To kill.  \
-							You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
-							Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
-							You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. \
-							<span class='warning'>You cannot re-enter the living world until you've rested for five seconds in the sea of blood.</span> \ </B>"
+	var/playstyle_string = span_bigbold("You are a slaughter demon,") + "<B> a terrible creature from another realm. You have a single desire: To kill.  \
+	You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
+	Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
+	You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish.</B> \
+	" + span_warning("You cannot re-enter the living world until you've rested for five seconds in the sea of blood.")
 
 	mobchatspan = "cultmobsay"
 
@@ -86,7 +86,7 @@
 		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
 			continue
 		stored_mob.grab_ghost(force = TRUE)
-		to_chat(stored_mob, "<span class='clowntext'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+		to_chat(stored_mob, span_clowntext("You leave [src]'s warm embrace, and feel ready to take on the world."))
 
 	consumed_mobs.Cut()
 	consumed_mobs = null
@@ -118,10 +118,8 @@
 /obj/item/organ/heart/demon/attack(mob/M, mob/living/carbon/user, obj/target)
 	if(M != user)
 		return ..()
-	user.visible_message((
-		"<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>"),
-		("<span class='danger'>An unnatural hunger consumes you. You raise [src] your mouth and devour it!</span>"),
-		)
+	user.visible_message(span_warning("[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"), \
+						span_danger("An unnatural hunger consumes you. You raise [src] your mouth and devour it!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
 
 	if(locate(/datum/action/spell/jaunt/bloodcrawl) in user.actions)
@@ -129,10 +127,8 @@
 		qdel(src)
 		return
 
-	user.visible_message(
-		("<span class='warning'>[user]'s eyes flare a deep crimson!</span>"),
-		("<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>"),
-	)
+	user.visible_message(span_warning("[user]'s eyes flare a deep crimson!"), \
+						span_userdanger("You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!"))
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
@@ -173,12 +169,12 @@
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 	crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny
 
-	playstyle_string = "<span class='big bold'>You are a laughter \
-	demon,</span><B> a wonderful creature from another realm. You have a single \
-	desire: <span class='clowntext'>To hug and tickle.</span><BR>\
+	playstyle_string = span_bigbold("You are a laughter demon") + "\
+	<B> a wonderful creature from another realm. You have a single \
+	desire: " + span_clowntext("To hug and tickle.") + "<BR>\
 	You may use the \"Blood Crawl\" ability near blood pools to travel \
 	through them, appearing and disappearing from the station at will. \
-	<span class='warning'>You cannot re-enter the living world until you've rested for five seconds in the sea of blood.</span> \
+	" + span_warning("You cannot re-enter the living world until you've rested for five seconds in the sea of blood.") + "\
 	Pulling a dead or unconscious mob while you enter a pool will pull \
 	them in with you, allowing you to hug them and regain your health.<BR> \
 	You move quickly upon leaving a pool of blood, but the material world \
