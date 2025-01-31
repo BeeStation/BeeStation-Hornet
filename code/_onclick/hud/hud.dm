@@ -64,11 +64,12 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/stamina
 	var/atom/movable/screen/healthdoll
-	var/atom/movable/screen/internals
 	var/atom/movable/screen/spacesuit
 
 	// subtypes can override this to force a specific UI style
 	var/ui_style
+	/// If this client is being shown atmos debug overlays or not
+	var/atmos_debug_overlays = FALSE
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -115,7 +116,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	healths = null
 	stamina = null
 	healthdoll = null
-	internals = null
 	lingchemdisplay = null
 	devilsouldisplay = null
 	lingstingdisplay = null
@@ -280,9 +280,9 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
+		to_chat(usr, span_info("Switched HUD mode. Press F12 to toggle."))
 	else
-		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+		to_chat(usr, span_warning("This mob type does not use a HUD."))
 
 
 //(re)builds the hand ui slots, throwing away old ones

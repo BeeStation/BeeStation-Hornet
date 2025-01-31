@@ -238,11 +238,11 @@
 	. = ..()
 	if(usr != owner)
 		return
-	to_chat(owner, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
+	to_chat(owner, span_notice("You attempt to remove the durathread strand from around your neck."))
 	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
 			var/mob/living/L = owner
-			to_chat(owner, "<span class='notice'>You successfuly remove the durathread strand.</span>")
+			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
 			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 
 /datum/status_effect/syringe
@@ -260,14 +260,14 @@
 /datum/status_effect/syringe/on_apply()
 	. = ..()
 	var/amount = syringe.initial_inject
-	syringe.reagents.reaction(owner, INJECT)
+	syringe.reagents.expose(owner, INJECT)
 	syringe.reagents.trans_to(owner, max(3.1, amount * injectmult))
 	owner.throw_alert("syringealert", /atom/movable/screen/alert/syringe)
 
 /datum/status_effect/syringe/tick()
 	. = ..()
 	var/amount = syringe.units_per_tick
-	syringe.reagents.reaction(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
+	syringe.reagents.expose(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
 	syringe.reagents.trans_to(owner, amount * injectmult)
 
 
@@ -293,16 +293,16 @@
 		var/datum/status_effect/syringe/syringestatus = pick_n_take(syringes)
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
-			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
+			to_chat(owner, span_notice("You begin carefully pulling the syringe out."))
 			if(do_after(C, 20, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
-				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
+				to_chat(C, span_notice("You succesfuly remove the syringe."))
 				syringe.forceMove(C.loc)
 				C.put_in_hands(syringe)
 				qdel(syringestatus)
 			else
-				to_chat(C, "<span class='userdanger'>You screw up, and inject yourself with more chemicals by mistake!</span>")
+				to_chat(C, span_userdanger("You screw up, and inject yourself with more chemicals by mistake!"))
 				var/amount = syringe.initial_inject
-				syringe.reagents.reaction(C, INJECT)
+				syringe.reagents.expose(C, INJECT)
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
@@ -594,7 +594,7 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
 	ADD_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
 	ADD_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
-	to_chat(owner, "<span class='notice'>You suddenly feel at peace and feel no need to make any sudden or rash actions.</span>")
+	to_chat(owner, span_notice("You suddenly feel at peace and feel no need to make any sudden or rash actions."))
 	return ..()
 
 /datum/status_effect/gonbolaPacify/on_remove()
@@ -607,7 +607,7 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 300
 	tick_interval = 10
-	examine_text = "<span class='warning'>SUBJECTPRONOUN seems slow and unfocused.</span>"
+	examine_text = span_warning("SUBJECTPRONOUN seems slow and unfocused.")
 	alert_type = /atom/movable/screen/alert/status_effect/trance
 	var/stun = TRUE
 	var/hypnosis_type = /datum/brain_trauma/hypnosis
@@ -629,8 +629,8 @@
 	ADD_TRAIT(owner, TRAIT_MUTE, "trance")
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.add_client_colour(/datum/client_colour/monochrome)
-	owner.visible_message("[stun ? "<span class='warning'>[owner] stands still as [owner.p_their()] eyes seem to focus on a distant point.</span>" : ""]", \
-	"<span class='warning'>[pick("You feel your thoughts slow down.", "You suddenly feel extremely dizzy.", "You feel like you're in the middle of a dream.","You feel incredibly relaxed.")]</span>")
+	owner.visible_message("[stun ? span_warning("[owner] stands still as [owner.p_their()] eyes seem to focus on a distant point.") : ""]", \
+	span_warning("[pick("You feel your thoughts slow down.", "You suddenly feel extremely dizzy.", "You feel like you're in the middle of a dream.","You feel incredibly relaxed.")]"))
 	return TRUE
 
 /datum/status_effect/trance/on_creation(mob/living/new_owner, _duration, _stun = TRUE)
@@ -644,7 +644,7 @@
 	owner.dizziness = 0
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/monochrome)
-	to_chat(owner, "<span class='warning'>You snap out of your trance!</span>")
+	to_chat(owner, span_warning("You snap out of your trance!"))
 
 /datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args, list/spans, list/message_mods = list())
 	SIGNAL_HANDLER
@@ -674,14 +674,14 @@
 		switch(rand(1,5))
 			if(1)
 				if((owner.mobility_flags & MOBILITY_MOVE) && isturf(owner.loc))
-					to_chat(owner, "<span class='warning'>Your leg spasms!</span>")
+					to_chat(owner, span_warning("Your leg spasms!"))
 					step(owner, pick(GLOB.cardinals))
 			if(2)
 				if(owner.incapacitated())
 					return
 				var/obj/item/I = owner.get_active_held_item()
 				if(I)
-					to_chat(owner, "<span class='warning'>Your fingers spasm!</span>")
+					to_chat(owner, span_warning("Your fingers spasm!"))
 					owner.log_message("used [I] due to a Muscle Spasm", LOG_ATTACK)
 					I.attack_self(owner)
 			if(3)
@@ -696,14 +696,14 @@
 				for(var/mob/living/M in oview(range, owner))
 					targets += M
 				if(LAZYLEN(targets))
-					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
+					to_chat(owner, span_warning("Your arm spasms!"))
 					owner.log_message(" attacked someone due to a Muscle Spasm", LOG_ATTACK) //the following attack will log itself
 					owner.ClickOn(pick(targets))
 				owner.a_intent = prev_intent
 			if(4)
 				var/prev_intent = owner.a_intent
 				owner.a_intent = INTENT_HARM
-				to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
+				to_chat(owner, span_warning("Your arm spasms!"))
 				owner.log_message("attacked [owner.p_them()]self to a Muscle Spasm", LOG_ATTACK)
 				owner.ClickOn(owner)
 				owner.a_intent = prev_intent
@@ -715,7 +715,7 @@
 				for(var/turf/T in oview(3, get_turf(owner)))
 					targets += T
 				if(LAZYLEN(targets) && I)
-					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
+					to_chat(owner, span_warning("Your arm spasms!"))
 					owner.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 					owner.throw_item(pick(targets))
 
@@ -727,14 +727,14 @@
 
 /datum/status_effect/convulsing/on_creation(mob/living/zappy_boy)
 	. = ..()
-	to_chat(zappy_boy, "<span class='boldwarning'>You feel a shock moving through your body! Your hands start shaking!</span>")
+	to_chat(zappy_boy, span_boldwarning("You feel a shock moving through your body! Your hands start shaking!"))
 
 /datum/status_effect/convulsing/tick()
 	var/mob/living/carbon/H = owner
 	if(prob(40))
 		var/obj/item/I = H.get_active_held_item()
 		if(I && H.dropItemToGround(I))
-			H.visible_message("<span class='notice'>[H]'s hand convulses, and they drop their [I.name]!</span>","<span class='userdanger'>Your hand convulses violently, and you drop what you were holding!</span>")
+			H.visible_message(span_notice("[H]'s hand convulses, and they drop their [I.name]!"),span_userdanger("Your hand convulses violently, and you drop what you were holding!"))
 			H.jitteriness += 5
 
 /atom/movable/screen/alert/status_effect/convulsing
@@ -751,7 +751,7 @@
 
 /datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
-	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
+	to_chat(new_owner, span_boldwarning("My body can't handle the mutations! I need to get my mutations removed fast!"))
 
 /datum/status_effect/dna_melt/on_remove()
 	if(!owner.has_dna())
@@ -803,7 +803,7 @@
 		if(owner.confused < 10)
 			owner.confused = 10
 		running_toggled = TRUE
-		to_chat(owner, "<span class='warning'>You know you shouldn't be running here.</span>")
+		to_chat(owner, span_warning("You know you shouldn't be running here."))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
 
 /datum/status_effect/interdiction/on_remove()
@@ -830,25 +830,25 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
-				fake_msg = pick("<span class='warning'>[pick("Your head hurts.", "Your head pounds.")]</span>",
-				"<span class='warning'>[pick("You're having difficulty breathing.", "Your breathing becomes heavy.")]</span>",
-				"<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>",
-				"<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>",
-				"<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>",
-				"<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
+				fake_msg = pick(span_warning(pick("Your head hurts.", "Your head pounds.")),
+				span_warning(pick("You're having difficulty breathing.", "Your breathing becomes heavy.")),
+				span_warning(pick("You feel dizzy.", "Your head spins.")),
+				span_warning(pick("You swallow excess mucus.", "You lightly cough.")),
+				span_warning(pick("Your head hurts.", "Your mind blanks for a moment.")),
+				span_warning(pick("Your throat hurts.", "You clear your throat.")))
 		if(301 to 600)
 			if(prob(2))
-				fake_msg = pick("<span class='warning'>[pick("Your head hurts a lot.", "Your head pounds incessantly.")]</span>",
-				"<span class='warning'>[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]</span>",
-				"<span class='warning'>You feel very [pick("dizzy","woozy","faint")].</span>",
-				"<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>",
-				"<span class='warning'>You nod off for a moment.</span>")
+				fake_msg = pick(span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"),
+				span_warning("[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]"),
+				span_warning("You feel very [pick("dizzy","woozy","faint")]."),
+				span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"),
+				span_warning("You nod off for a moment."))
 		else
 			if(prob(3))
 				if(prob(50))// coin flip to throw a message or an emote
-					fake_msg = pick("<span class='userdanger'>[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]</span>",
-					"<span class='userdanger'>[pick("Your lungs hurt!", "It hurts to breathe!")]</span>",
-					"<span class='warning'>[pick("You feel nauseated.", "You feel like you're going to throw up!")]</span>")
+					fake_msg = pick(span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"),
+					span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"),
+					span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"))
 				else
 					fake_emote = pick("cough", "sniff", "sneeze")
 
@@ -978,7 +978,7 @@
 
 /datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
 	. = ..()
-	to_chat(owner, "<span class='userdanger'>Your body starts to break apart!</span>")
+	to_chat(owner, span_userdanger("Your body starts to break apart!"))
 
 /datum/status_effect/corrosion_curse/tick()
 	. = ..()
@@ -991,32 +991,32 @@
 	var/message = "Coder did fucky wucky U w U"
 	switch(chance)
 		if(0 to 10)
-			message = "<span class='warning'>You feel a lump build up in your throat.</span>"
+			message = span_warning("You feel a lump build up in your throat.")
 			human_owner.vomit()
 		if(20 to 30)
-			message = "<span class='warning'>You feel feel very well.</span>"
+			message = span_warning("You feel feel very well.")
 			human_owner.Dizzy(50)
 			human_owner.Jitter(50)
 		if(30 to 40)
-			message = "<span class='warning'>You feel a sharp sting in your side.</span>"
+			message = span_warning("You feel a sharp sting in your side.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)
 		if(40 to 50)
-			message = "<span class='warning'>You feel pricking around your heart.</span>"
+			message = span_warning("You feel pricking around your heart.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_HEART, 5, 90)
 		if(50 to 60)
-			message = "<span class='warning'>You feel your stomach churning.</span>"
+			message = span_warning("You feel your stomach churning.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 5)
 		if(60 to 70)
-			message = "<span class='warning'>Your eyes feel like they're on fire.</span>"
+			message = span_warning("Your eyes feel like they're on fire.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 10)
 		if(70 to 80)
-			message = "<span class='warning'>You hear ringing in your hears.</span>"
+			message = span_warning("You hear ringing in your hears.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
 		if(80 to 90)
-			message = "<span class='warning'>Your ribcage feels tighter.</span>"
+			message = span_warning("Your ribcage feels tighter.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10)
 		if(90 to 100)
-			message = "<span class='warning'>You feel your skull pressing down on your brain.</span>"
+			message = span_warning("You feel your skull pressing down on your brain.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
 	if(prob(33)) //so the victim isn't spammed with messages every 3 seconds
 		to_chat(human_owner,message)
@@ -1025,7 +1025,7 @@
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
+	examine_text = span_warning("SUBJECTPRONOUN has a blank, catatonic like stare.")
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /datum/status_effect/ghoul/get_examine_text()
@@ -1046,19 +1046,19 @@
 
 /datum/status_effect/spanish/on_apply(mob/living/new_owner, ...)
 	. = ..()
-	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
+	to_chat(owner, span_warning("Alert: Vocal cords are malfunctioning."))
 	owner.add_blocked_language(subtypesof(/datum/language/) - /datum/language/uncommon, LANGUAGE_EMP)
-	owner.grant_language(/datum/language/uncommon, FALSE, TRUE, LANGUAGE_EMP)
+	owner.grant_language(/datum/language/uncommon, SPOKEN_LANGUAGE, source = LANGUAGE_EMP)
 
 /datum/status_effect/spanish/on_remove()
 	owner.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_EMP)
-	owner.remove_language(/datum/language/uncommon, TRUE, TRUE, LANGUAGE_EMP)
-	to_chat(owner, "<span class='warning'>Alert: Vocal cords restored to normal function.</span>")
+	owner.remove_language(/datum/language/uncommon, source = LANGUAGE_EMP)
+	to_chat(owner, span_warning("Alert: Vocal cords restored to normal function."))
 	return ..()
 
 /datum/status_effect/ipc/emp
 	id = "ipc_emp"
-	examine_text = "<span class='warning'>SUBJECTPRONOUN is buzzing and twitching!</span>"
+	examine_text = span_warning("SUBJECTPRONOUN is buzzing and twitching!")
 	duration = 120 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
 	status_type = STATUS_EFFECT_REFRESH
@@ -1106,7 +1106,7 @@
 					grub.grub_diseases |= diseases
 					grub.food += 15
 				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
-				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")
+				S.visible_message(span_warning("[S] is eaten from the inside by [spawns] red grubs, leaving no trace!"))
 				S.gib()
 	else
 		qdel(src)//no effect on nonslimes
@@ -1121,7 +1121,7 @@
 
 /datum/status_effect/heretic_mark/void/on_effect()
 	var/turf/open/turfie = get_turf(owner)
-	turfie.TakeTemperature(-40)
+	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
@@ -1137,7 +1137,7 @@
 
 /datum/status_effect/amok/on_apply(mob/living/afflicted)
 	. = ..()
-	to_chat(owner, "<span class='boldwarning'>You feel filled with a rage that is not your own!</span>")
+	to_chat(owner, span_boldwarning("You feel filled with a rage that is not your own!"))
 
 /datum/status_effect/amok/tick()
 	. = ..()
@@ -1258,14 +1258,14 @@
 	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
 	if(!already_applied)
 		apply_dna(target_dna)
-		to_chat(owner, "<span class='warning'>You don't feel like yourself anymore...</span>")
+		to_chat(owner, span_warning("You don't feel like yourself anymore..."))
 
 /datum/status_effect/ling_transformation/on_remove()
 	. = ..()
 	if(QDELETED(owner) || !original_dna)
 		return
 	apply_dna(original_dna)
-	to_chat(owner, "<span class='notice'>You feel like yourself again!</span>")
+	to_chat(owner, span_notice("You feel like yourself again!"))
 	UnregisterSignal(owner, COMSIG_CARBON_TRANSFORMED)
 
 /datum/status_effect/ling_transformation/tick()
@@ -1273,7 +1273,7 @@
 	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
 		charge_left--
 		if(prob(4))
-			to_chat(owner, "<span class='notice'>You begin to feel slightly more like yourself...</span>")
+			to_chat(owner, span_notice("You begin to feel slightly more like yourself..."))
 	if(charge_left <= 0)
 		qdel(src)
 
