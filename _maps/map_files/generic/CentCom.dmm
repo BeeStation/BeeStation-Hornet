@@ -420,7 +420,7 @@
 /turf/open/floor/iron/stairs,
 /area/ctf)
 "aaY" = (
-/turf/open/floor/grass/snow/safe{
+/turf/open/floor/grass/snow/safe/nocold{
 	icon_state = "snow_dug"
 	},
 /area/syndicate_mothership)
@@ -5462,7 +5462,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "anq" = (
-/turf/open/floor/grass/snow/safe,
+/turf/open/floor/grass/snow/safe/nocold,
 /area/syndicate_mothership/control)
 "anr" = (
 /turf/open/floor/iron/white/side{
