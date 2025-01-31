@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes a crash bug caused by alt-clicking on a monkey with a 515 client.
