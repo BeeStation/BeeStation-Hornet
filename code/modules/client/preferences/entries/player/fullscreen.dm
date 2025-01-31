@@ -1,4 +1,4 @@
-#if (MIN_COMPILER_VERSION > 515 || MIN_COMPILER_BUILD > 1630)
+#if (MIN_COMPILER_VERSION > 515 && MIN_COMPILER_BUILD > 1630)
 #warn ATTENTION!! ONCE 515.1631 IS REQUIRED REPLACE WITH winset(client, "mainwindow", "menu=;is-fullscreen=true"). This means no double maximise calls to make sure window fits, and supresses titlebar, can-resize and is-maximized here making those redundant both implementations are functionally "windowed borderless"
 #endif
 
