@@ -348,7 +348,7 @@
 		archive()
 		// We share 100% of our mix in this step. Let's jive
 		var/difference = our_air.share(enemy_mix, 1, 1)
-		if!(our_excited_group)
+		if(!our_excited_group)
 			continue
 		LAST_SHARE_CHECK
 		if(!difference)
