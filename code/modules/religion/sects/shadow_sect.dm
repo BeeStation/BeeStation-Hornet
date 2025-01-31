@@ -14,9 +14,9 @@
 		/datum/religion_rites/expand_shadows,
 		/datum/religion_rites/nigth_vision_aura,
 		/datum/religion_rites/shadow_conversion,
-		/datum/religion_rites/grand_ritual_one,
-		/datum/religion_rites/grand_ritual_two,
-		/datum/religion_rites/grand_ritual_three
+		/datum/religion_rites/grand_ritual_one
+		///datum/religion_rites/grand_ritual_two   // Grand rituals are added to this list by previus rituals
+		///datum/religion_rites/grand_ritual_three // So the are here in effect, just hiden for now
 	)
 
 
@@ -33,7 +33,7 @@
 
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
 
-//Shadow sect doesn't heal
+//Shadow sect doesn't heal non shadows
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
 	if(isshadow(blessed))
 		var/mob/living/carbon/human/S = blessed
@@ -307,8 +307,15 @@
 
 /datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
-	var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.grand_ritual_level == 0)
+		var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
+	if(sect.grand_ritual_level == 1)
+		var/obj/structure/destructible/religion/shadow_obelisk/var1/obelisk = new(altar_turf)
+	if(sect.grand_ritual_level == 2)
+		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/obelisk = new(altar_turf)
+	if(sect.grand_ritual_level == 3)
+		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/obelisk = new(altar_turf)
 	var/cost = 100 * sect.obelisk_number * -1
 	sect.adjust_favor(cost, user)
 	sect.obelisks += obelisk
@@ -520,6 +527,7 @@
 
 
 // Grand rituals themselves
+
 /datum/religion_rites/grand_ritual_one
 	name = "Grand ritual: Beconing shadows"
 	desc = "Convice shadows to take intrest in your cult. They will cary information betwen thier kind and their mere presence will make the darknes holier."
@@ -530,7 +538,38 @@
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 1000
-	auto_delete = TRUE
+	auto_delete = TRUE // grand rituals are one time use
+
+/datum/religion_rites/grand_ritual_one/perform_rite(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!isshadow(user))
+		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
+		return FALSE
+	if(!((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level)))
+		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
+		return FALSE
+	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
+		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
+		return FALSE
+	return ..()
+
+/datum/religion_rites/grand_ritual_one/invoke_effect(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	rite_target.set_species(/datum/species/shadow)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	return ..()
 
 
 /datum/religion_rites/grand_ritual_two
@@ -545,6 +584,38 @@
 	favor_cost = 10000
 	auto_delete = TRUE
 
+/datum/religion_rites/shadow_obelisk/grand_ritual_two(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!isshadow(user))
+		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
+		return FALSE
+	if(!((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level)))
+		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
+		return FALSE
+	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
+		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
+		return FALSE
+	return ..()
+
+
+/datum/religion_rites/shadow_conversion/grand_ritual_two(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	rite_target.set_species(/datum/species/shadow)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	return ..()
+
 
 /datum/religion_rites/grand_ritual_three
 	name = "Grand ritual: Welcoming shadows"
@@ -558,20 +629,36 @@
 	favor_cost = 100000
 	auto_delete = TRUE
 
+/datum/religion_rites/grand_ritual_three/perform_rite(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!isshadow(user))
+		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
+		return FALSE
+	if(!((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level)))
+		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
+		return FALSE
+	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
+		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 2)] active obelisks.</span>")
+		return FALSE
+	return ..()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/datum/religion_rites/grand_ritual_three/invoke_effect(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	rite_target.set_species(/datum/species/shadow)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	return ..()
 
 
 #undef DARKNESS_INVERSE_COLOR
