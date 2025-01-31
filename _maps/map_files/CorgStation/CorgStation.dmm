@@ -2704,12 +2704,6 @@
 /area/science/lab)
 "aMm" = (
 /obj/effect/decal/cleanable/xenoblood/xgibs/limb,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/structure/closet/secure_closet/exile,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -9212,18 +9206,11 @@
 /area/security/prison)
 "cUX" = (
 /obj/item/organ/eyes/diona,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
@@ -14823,6 +14810,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "ePo" = (
@@ -16032,27 +16020,11 @@
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "fhP" = (
-/obj/effect/mob_spawn/human/clown/corpse,
-/obj/item/hatchet,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light_switch{
 	pixel_x = -5;
 	pixel_y = -25
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/structure/rack,
-/obj/item/paper/pamphlet/gateway,
-/obj/item/paper/pamphlet/gateway{
-	pixel_x = -1;
-	pixel_y = -2
-	},
-/obj/item/paper/pamphlet/gateway{
-	pixel_x = 1;
-	pixel_y = -1
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
@@ -18392,20 +18364,10 @@
 "gak" = (
 /obj/item/seeds/dionapod,
 /obj/item/food/meat/slab/human/mutant/diona,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -30088,6 +30050,9 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "jTK" = (
@@ -37240,15 +37205,8 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -38997,20 +38955,9 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "mTu" = (
 /obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "mTK" = (
@@ -52580,10 +52527,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -55107,10 +55050,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -58611,6 +58550,15 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
+"tse" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "tsr" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
@@ -59665,6 +59613,21 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"tLE" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/power/apc/auto_name/directional/west{
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron,
+/area/maintenance/starboard/aft)
 "tLF" = (
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
@@ -69616,27 +69579,14 @@
 "wTE" = (
 /obj/item/food/meat/slab/human/mutant/diona,
 /obj/effect/decal/cleanable/xenoblood/xgibs/larva,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/item/radio/intercom{
 	pixel_x = 30;
 	pixel_y = 25
 	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -69973,24 +69923,7 @@
 /area/medical/medbay/aft)
 "wXX" = (
 /obj/effect/spawner/structure/window,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/airlock/command{
-	name = "Gateway Access";
-	req_access_txt = "62"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wYg" = (
@@ -113886,7 +113819,7 @@ aBi
 ueg
 ueg
 ete
-yaN
+tLE
 hwq
 mTu
 jgh
@@ -114400,7 +114333,7 @@ lyo
 oCy
 emW
 rDi
-rDi
+tse
 luJ
 luJ
 smO
