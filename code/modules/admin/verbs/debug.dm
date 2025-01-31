@@ -31,10 +31,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Air Status in Location"
 	if(!mob)
 		return
-	var/turf/T = get_turf(mob)
-	if(!isturf(T))
+	var/turf/user_turf = get_turf(mob)
+	if(!isturf(user_turf))
 		return
-	atmosanalyzer_scan(usr, T, TRUE)
+	atmos_scan(mob, user_turf, TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status In Location") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
@@ -271,42 +271,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins(span_adminnotice("[key_name_admin(usr)] gave away direct control of [M] to [newkey]."))
 	log_admin("[key_name(usr)] gave away direct control of [M] to [newkey].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/cmd_admin_test_atmos_controllers()
-	set category = "Mapping"
-	set name = "Test Atmos Monitoring Consoles"
-
-	var/list/dat = list()
-
-	if(SSticker.current_state == GAME_STATE_STARTUP)
-		to_chat(usr, "Game still loading, please hold!")
-		return
-
-	message_admins(span_adminnotice("[key_name_admin(usr)] used the Test Atmos Monitor debug command."))
-	log_admin("[key_name(usr)] used the Test Atmos Monitor debug command.")
-
-	var/bad_shit = 0
-	for(var/obj/machinery/computer/atmos_control/tank/console in GLOB.atmos_air_controllers)
-		dat += "<h1>[console] at [AREACOORD(console)]:</h1><br>"
-		if(console.input_tag == console.output_tag)
-			dat += "Error: input_tag is the same as the output_tag, \"[console.input_tag]\"!<br>"
-			bad_shit++
-		if(!LAZYLEN(console.input_info))
-			dat += "Failed to find a valid outlet injector as an input with the tag [console.input_tag].<br>"
-			bad_shit++
-		if(!LAZYLEN(console.output_info))
-			dat += "Failed to find a valid siphon pump as an outlet with the tag [console.output_tag].<br>"
-			bad_shit++
-		if(!bad_shit)
-			dat += "<B>STATUS:</B> NORMAL"
-		else
-			bad_shit = 0
-		dat += "<br>"
-		CHECK_TICK
-
-	var/datum/browser/popup = new(usr, "testatmoscontroller", "Test Atmos Monitoring Consoles", 500, 750)
-	popup.set_content(dat.Join())
-	popup.open()
 
 /client/proc/cmd_admin_areatest(on_station)
 	set category = "Mapping"
@@ -591,7 +555,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.set_moles(GAS_PLASMA, 70)
+				var/datum/gas_mixture/plasma_air = Plasma.return_air()
+				SET_MOLES(/datum/gas/plasma, plasma_air, 70)
+
 				Rad.drainratio = 0
 				Rad.loaded_tank = Plasma
 				Plasma.forceMove(Rad)
@@ -916,13 +882,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG) || !C)
 		return
 
-	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in GLOB.gas_data.ids
+	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in subtypesof(/datum/gas)
 	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
 	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
 
+	var/datum/gas_mixture/C_air = C.return_air()
 
-	C.air_contents.set_moles(gas_to_add, amount)
-	C.air_contents.set_temperature(temp)
+	SET_MOLES(gas_to_add, C_air, amount)
+
+	C_air.temperature = (temp)
 	C.update_icon()
 
 	message_admins(span_adminnotice("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp]."))
