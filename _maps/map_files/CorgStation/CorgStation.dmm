@@ -2707,7 +2707,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "aMn" = (
@@ -9206,14 +9205,8 @@
 /area/security/prison)
 "cUX" = (
 /obj/item/organ/eyes/diona,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
-	},
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -16020,14 +16013,7 @@
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "fhP" = (
-/obj/machinery/light_switch{
-	pixel_x = -5;
-	pixel_y = -25
-	},
 /obj/structure/rack,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -18364,12 +18350,6 @@
 "gak" = (
 /obj/item/seeds/dionapod,
 /obj/item/food/meat/slab/human/mutant/diona,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "gav" = (
@@ -69579,15 +69559,9 @@
 "wTE" = (
 /obj/item/food/meat/slab/human/mutant/diona,
 /obj/effect/decal/cleanable/xenoblood/xgibs/larva,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	pixel_x = 30;
 	pixel_y = 25
-	},
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
