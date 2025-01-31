@@ -41,7 +41,8 @@
 	SIGNAL_HANDLER
 
 	tool_behaviour = (active ? tool_act_off : tool_act_on)
-	balloon_alert(user, "attached [active ? "[action_off]" : "[action_on]"]")
+	if(user)
+		balloon_alert(user, "attached [active ? "[action_off]" : "[action_on]"]")
 	playsound(user ? user : src, 'sound/items/change_jaws.ogg', 50, TRUE)
 	hitsound = powertool_hitsound
 	return COMPONENT_NO_DEFAULT_MESSAGE

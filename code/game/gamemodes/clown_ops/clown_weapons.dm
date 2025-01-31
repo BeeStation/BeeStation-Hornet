@@ -118,20 +118,20 @@
  * Adds or removes a slippery component, depending on whether the sword is active or not.
  */
 /obj/item/melee/energy/sword/bananium/proc/adjust_slipperiness()
-	if(blade_active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
 /obj/item/melee/energy/sword/bananium/attack(mob/living/M, mob/living/user)
 	. = ..()
-	if(blade_active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 		slipper.Slip(src, M)
 
 /obj/item/melee/energy/sword/bananium/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
-	if(blade_active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 		slipper.Slip(src, hit_atom)
 
@@ -144,7 +144,7 @@
 	return ..()
 
 /obj/item/melee/energy/sword/bananium/suicide_act(mob/living/user)
-	if(!blade_active)
+	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		attack_self(user)
 	user.visible_message("<span class='suicide'>[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!</span>")
 	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
@@ -175,20 +175,20 @@
  * Adds or removes a slippery component, depending on whether the shield is active or not.
  */
 /obj/item/shield/energy/bananium/proc/adjust_slipperiness()
-	if(enabled)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
 /obj/item/shield/energy/bananium/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
-	if(enabled)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		if(iscarbon(thrower))
 			var/mob/living/carbon/C = thrower
 			C.throw_mode_on(THROW_MODE_TOGGLE) //so they can catch it on the return.
 	return ..()
 
 /obj/item/shield/energy/bananium/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(enabled)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		var/caught = hit_atom.hitby(src, FALSE, FALSE, throwingdatum=throwingdatum)
 		if(iscarbon(hit_atom) && !caught)//if they are a carbon and they didn't catch it
 			var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)

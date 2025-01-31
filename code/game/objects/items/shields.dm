@@ -267,8 +267,6 @@
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE
-	/// Whether the shield is currently extended and protecting the user.
-	var/enabled = FALSE
 	/// Force of the shield when active.
 	var/active_force = 10
 	/// Throwforce of the shield when active.
@@ -303,7 +301,7 @@
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(enabled)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
 			if(P.reflectable)
@@ -319,10 +317,9 @@
 /obj/item/shield/energy/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 
-	enabled = active
-
-	balloon_alert(user, "[name] [active ? "activated":"deactivated"]")
-	playsound(user ? user : src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, TRUE)
+	if(user)
+		balloon_alert(user, active ? "activated" : "deactivated")
+	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/shield/riot/tele
@@ -338,8 +335,6 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	/// Whether the shield is extended and protecting the user..
-	var/extended = FALSE
 
 /obj/item/shield/riot/tele/Initialize(mapload)
 	. = ..()
@@ -354,11 +349,11 @@
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(extended)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		return ..()
 	return FALSE
 
-/*
+/**
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
  *
  * Allows it to be placed on back slot when active.
@@ -366,8 +361,8 @@
 /obj/item/shield/riot/tele/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 
-	extended = active
 	slot_flags = active ? ITEM_SLOT_BACK : null
-	playsound(user ? user : src, 'sound/weapons/batonextend.ogg', 50, TRUE)
-	balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
+	if(user)
+		balloon_alert(user, active ? "extended" : "collapsed")
+	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE

@@ -237,14 +237,11 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/transform_weapon()
 	if(time_until_next_transform <= world.time)
 		miner_saw.attack_self(src)
-		if(!miner_saw.is_open)
-			rapid_melee = 5 // 4 deci cooldown before changes, npcpool subsystem wait is 20, 20/4 = 5
-		else
-			rapid_melee = 3 // same thing but halved (slightly rounded up)
+		var/saw_open = HAS_TRAIT(miner_saw, TRAIT_TRANSFORM_ACTIVE)
+		rapid_melee = saw_open ? 3 : 5
 		transform_stop_attack = TRUE
-		icon_state = "miner[miner_saw.is_open ? "_transformed":""]"
-		icon_living = "miner[miner_saw.is_open ? "_transformed":""]"
-		time_until_next_transform = world.time + rand(50, 100)
+		icon_state = "miner[saw_open ? "_transformed":""]"
+		icon_living = "miner[saw_open ? "_transformed":""]"
 
 /obj/effect/temp_visual/dir_setting/miner_death
 	icon_state = "miner_death"
