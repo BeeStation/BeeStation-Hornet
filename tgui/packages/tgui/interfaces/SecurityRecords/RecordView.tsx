@@ -9,12 +9,12 @@ import { getSecurityRecord } from './helpers';
 import { SecurityRecordsData } from './types';
 
 /** Views a selected record. */
-export const SecurityRecordView = (props, context) => {
-  const foundRecord = getSecurityRecord(context);
+export const SecurityRecordView = (props) => {
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <NoticeBox>Nothing selected.</NoticeBox>;
 
-  const { data } = useBackend<SecurityRecordsData>(context);
-  const [open] = useLocalState<boolean>(context, 'printOpen', false);
+  const { data } = useBackend<SecurityRecordsData>();
+  const [open] = useLocalState<boolean>('printOpen', false);
 
   return (
     <Stack fill vertical>
@@ -33,13 +33,13 @@ export const SecurityRecordView = (props, context) => {
   );
 };
 
-const RecordInfo = (props, context) => {
-  const foundRecord = getSecurityRecord(context);
+const RecordInfo = (props) => {
+  const foundRecord = getSecurityRecord();
   if (!foundRecord) return <NoticeBox>Nothing selected.</NoticeBox>;
 
-  const { act, data } = useBackend<SecurityRecordsData>(context);
+  const { act, data } = useBackend<SecurityRecordsData>();
   const { available_statuses } = data;
-  const [open, setOpen] = useLocalState<boolean>(context, 'printOpen', false);
+  const [open, setOpen] = useLocalState<boolean>('printOpen', false);
 
   const { age, record_ref, crimes, fingerprint, gender, name, security_note, rank, species, wanted_status } = foundRecord;
 

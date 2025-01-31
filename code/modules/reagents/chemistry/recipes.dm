@@ -26,7 +26,7 @@
 	return
 	//I recommend you set the result amount to the total volume of all components.
 
-/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE)
+/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = FACTION_CHEMICAL_SUMMON, random = TRUE)
 	if(holder && holder.my_atom)
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)

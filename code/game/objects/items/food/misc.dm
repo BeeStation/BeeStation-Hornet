@@ -11,7 +11,7 @@
 	tastes = list("watermelon" = 1)
 	foodtypes = FRUIT
 	food_flags = FOOD_FINGER_FOOD
-	juice_results = /datum/reagent/consumable/watermelonjuice
+	juice_typepath = /datum/reagent/consumable/watermelonjuice
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/hugemushroomslice
@@ -203,15 +203,15 @@
 
 /obj/item/food/butter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>If you had a rod you could make <b>butter on a stick</b>.</span>"
+	. += span_notice("If you had a rod you could make <b>butter on a stick</b>.")
 
 /obj/item/food/butter/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/stack/rods))
 		var/obj/item/stack/rods/rods = item
 		if(!rods.use(1))//borgs can still fail this if they have no metal
-			to_chat(user, "<span class='warning'>You do not have enough metal to put [src] on a stick!</span>")
+			to_chat(user, span_warning("You do not have enough metal to put [src] on a stick!"))
 			return ..()
-		to_chat(user, "<span class='notice'>You stick the rod into the stick of butter.</span>")
+		to_chat(user, span_notice("You stick the rod into the stick of butter."))
 		var/obj/item/food/butter/on_a_stick/new_item = new(usr.loc)
 		var/replace = (user.get_inactive_held_item() == rods)
 		if(!rods && replace)
@@ -242,7 +242,7 @@
 	name = "pineapple slice"
 	desc = "A sliced piece of juicy pineapple."
 	icon_state = "pineapple_slice"
-	juice_results = /datum/reagent/consumable/pineapplejuice
+	juice_typepath = /datum/reagent/consumable/pineapplejuice
 	tastes = list("pineapple" = 1)
 	foodtypes = FRUIT | PINEAPPLE
 	w_class = WEIGHT_CLASS_TINY

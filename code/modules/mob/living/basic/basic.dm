@@ -145,7 +145,7 @@
 	. = ..()
 	if(stat != DEAD)
 		return
-	. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be [HAS_TRAIT(user.mind, TRAIT_NAIVE) ? "asleep" : "dead"].</span>"
+	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_TRAIT(user.mind, TRAIT_NAIVE) ? "asleep" : "dead"].")
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)

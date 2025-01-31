@@ -119,8 +119,8 @@ class PaperSheetStamper extends Component<PaperSheetStamperProps> {
   state: PaperSheetStamperState = { x: 0, y: 0, rotation: 0, yOffset: 0 };
   scrollableRef: RefObject<HTMLDivElement>;
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.style = null;
     this.scrollableRef = props.scrollableRef;
@@ -158,7 +158,7 @@ class PaperSheetStamper extends Component<PaperSheetStamperProps> {
     if (e.pageY <= 30) {
       return;
     }
-    const { act } = useBackend<PaperContext>(this.context);
+    const { act } = useBackend<PaperContext>();
 
     act('add_stamp', {
       x: this.state.x,
@@ -221,7 +221,7 @@ class PaperSheetStamper extends Component<PaperSheetStamperProps> {
   }
 
   render() {
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { held_item_details } = data;
 
     if (!held_item_details?.stamp_class) {
@@ -242,7 +242,7 @@ class PaperSheetStamper extends Component<PaperSheetStamperProps> {
 }
 
 // Creates a full stamp div to render the given stamp to the preview.
-export const Stamp = (props, context) => {
+export const Stamp = (props) => {
   const { activeStamp, sprite, x, y, rotation, opacity, yOffset = 0 } = props;
   const stamp_transform = {
     'left': x + 'px',
@@ -270,8 +270,8 @@ export class PrimaryView extends Component {
   // holding the main preview. Updates lastDistanceFromBottom.
   onScrollHandler: (this: GlobalEventHandlers, ev: Event) => any;
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.scrollableRef = createRef();
     this.lastDistanceFromBottom = 0;
 
@@ -284,7 +284,7 @@ export class PrimaryView extends Component {
   }
 
   render() {
-    const { act, data } = useBackend<PaperContext>(this.context);
+    const { act, data } = useBackend<PaperContext>();
     const { raw_text_input, raw_field_input, default_pen_font, default_pen_color, paper_color, held_item_details, max_length } =
       data;
 
@@ -292,9 +292,9 @@ export class PrimaryView extends Component {
     const useColor = held_item_details?.color || default_pen_color;
     const useBold = held_item_details?.use_bold || false;
 
-    const [inputFieldData, setInputFieldData] = useLocalState(this.context, 'inputFieldData', {});
+    const [inputFieldData, setInputFieldData] = useLocalState('inputFieldData', {});
 
-    const [textAreaText, setTextAreaText] = useLocalState(this.context, 'textAreaText', '');
+    const [textAreaText, setTextAreaText] = useLocalState('textAreaText', '');
 
     const interactMode = held_item_details?.interaction_mode || InteractionType.reading;
 
@@ -404,8 +404,8 @@ export class PreviewView extends Component<PreviewViewProps> {
   parsedDMCache: string = '';
   parsedTextBoxCache: string = '';
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.configureMarked();
   }
 
@@ -498,9 +498,9 @@ export class PreviewView extends Component<PreviewViewProps> {
       return;
     }
 
-    const [inputFieldData, setInputFieldData] = useLocalState(this.context, 'inputFieldData', {});
+    const [inputFieldData, setInputFieldData] = useLocalState('inputFieldData', {});
 
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { default_pen_font, default_pen_color, held_item_details } = data;
 
     if (input.value.length) {
@@ -526,7 +526,7 @@ export class PreviewView extends Component<PreviewViewProps> {
   // Creates the partial inline HTML for previewing or reading the paper from
   // only static_ui_data from DM.
   createPreviewFromDM = (): { text: string; newFieldCount: number } => {
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { raw_field_input, raw_text_input, default_pen_font, default_pen_color, paper_color, held_item_details } = data;
 
     let output = '';
@@ -585,7 +585,7 @@ export class PreviewView extends Component<PreviewViewProps> {
   // Creates the partial inline HTML for previewing or reading the paper from
   // the text input area.
   createPreviewFromTextArea = (fieldCount: number = 0): string => {
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { default_pen_font, default_pen_color, paper_color, held_item_details } = data;
     const { textArea } = this.props;
 
@@ -687,7 +687,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     advanced_html: boolean = false
   ): FieldCreationReturn => {
     // First lets make sure it ends in a new line
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     rawText += rawText[rawText.length] === '\n' ? '\n' : '\n\n';
 
     // Second, parse the text using markup
@@ -734,7 +734,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     forceReadonlyFields: boolean,
     counter: number = 0
   ): FieldCreationReturn => {
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { raw_field_input } = data;
 
     const ret_text = rawText.replace(fieldRegex, (match, p1, offset, string) => {
@@ -781,7 +781,7 @@ export class PreviewView extends Component<PreviewViewProps> {
   ): string => {
     // This are fields that may potentially be fillable, so we'll use the
     // currently held item's stats for them if possible.
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { held_item_details, max_input_field_length } = data;
 
     const fontColor = held_item_details?.color || color;
@@ -838,7 +838,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     paperColor: string,
     id: string
   ): string => {
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { max_input_field_length } = data;
 
     const fieldData = field.field_data;
@@ -864,7 +864,7 @@ export class PreviewView extends Component<PreviewViewProps> {
   };
 
   render() {
-    const { data } = useBackend<PaperContext>(this.context);
+    const { data } = useBackend<PaperContext>();
     const { paper_color, held_item_details } = data;
     const interactMode = held_item_details?.interaction_mode || InteractionType.reading;
 
@@ -900,8 +900,8 @@ export class PreviewView extends Component<PreviewViewProps> {
 }
 
 // Renders all the stamp components for every valid stamp.
-export const StampView = (props, context) => {
-  const { data } = useBackend<PaperContext>(context);
+export const StampView = (props) => {
+  const { data } = useBackend<PaperContext>();
 
   const { raw_stamp_input = [] } = data;
 
@@ -918,14 +918,14 @@ export const StampView = (props, context) => {
   );
 };
 
-export const PaperSheet = (props, context) => {
-  const { data } = useBackend<PaperContext>(context);
+export const PaperSheet = (props) => {
+  const { data } = useBackend<PaperContext>();
   const { paper_color, paper_name, held_item_details } = data;
 
   const writeMode = canEdit(held_item_details);
 
   if (!writeMode) {
-    const [inputFieldData, setInputFieldData] = useLocalState(context, 'inputFieldData', {});
+    const [inputFieldData, setInputFieldData] = useLocalState('inputFieldData', {});
     if (Object.keys(inputFieldData).length) {
       setInputFieldData({});
     }

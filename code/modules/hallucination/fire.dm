@@ -19,7 +19,7 @@
 	fire_overlay = image('icons/mob/OnFire.dmi', target, "Standing", ABOVE_MOB_LAYER)
 	if(target.client)
 		target.client.images += fire_overlay
-	to_chat(target, "<span class='userdanger'>You're set on fire!</span>")
+	to_chat(target, span_userdanger("You're set on fire!"))
 	target.throw_alert("fire", /atom/movable/screen/alert/fire, override = TRUE)
 	times_to_lower_stamina = rand(5, 10)
 	addtimer(CALLBACK(src, PROC_REF(start_expanding)), 20)
