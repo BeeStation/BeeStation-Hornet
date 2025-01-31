@@ -70,6 +70,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		trunk.linked = null
 	return ..()
 
+/obj/machinery/disposal/return_air()
+	if(!flushing)
+		return loc?.return_air()
+	return air_contents
+
 /obj/machinery/disposal/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
@@ -406,16 +411,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	var/atom/L = loc //recharging from loc turf
 
 	var/datum/gas_mixture/env = L.return_air()
+	if(!env.temperature)
+		return
 	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
 
-	if(env.return_temperature() > 0)
-		var/transfer_moles = 0.05 * delta_time * pressure_delta * air_contents.return_volume() / (env.return_temperature() * R_IDEAL_GAS_EQUATION)
+	var/transfer_moles = 0.05 * delta_time * (pressure_delta*air_contents.volume)/(env.temperature * R_IDEAL_GAS_EQUATION)
 
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = env.remove(transfer_moles)
-		air_contents.merge(removed)
-		air_update_turf()
-
+	//Actually transfer the gas
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	air_contents.merge(removed)
+	air_update_turf(FALSE, FALSE)
 
 	//if full enough, switch to ready mode
 	if(air_contents.return_pressure() >= SEND_PRESSURE)

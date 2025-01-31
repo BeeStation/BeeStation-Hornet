@@ -106,7 +106,7 @@ Borg Hypospray
 		to_chat(M, span_warning("You feel a tiny prick!"))
 		to_chat(user, span_notice("You inject [M] with the injector."))
 		var/fraction = min(amount_per_transfer_from_this/R.total_volume, 1)
-		R.reaction(M, INJECT, fraction)
+		R.expose(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = R.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
 			to_chat(user, span_notice("[trans] unit\s injected.  [R.total_volume] unit\s remaining."))

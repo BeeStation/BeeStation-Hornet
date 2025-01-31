@@ -187,9 +187,9 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_init_log,
 	/client/proc/cmd_display_overlay_log,
 	/client/proc/reload_configuration,
+	/client/proc/atmos_control,
 	/client/proc/give_all_spells,
 	/datum/admins/proc/create_or_modify_area,
-	/datum/admins/proc/fixcorruption,
 	#ifdef TESTING
 	/client/proc/check_missing_sprites,
 	/client/proc/run_dynamic_simulations,
@@ -627,6 +627,13 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[key_name(usr)] has modified Dynamic Explosion Scale: [ex_scale]")
 	message_admins("[key_name_admin(usr)] has  modified Dynamic Explosion Scale: [ex_scale]")
 
+/client/proc/atmos_control()
+	set name = "Atmos Control Panel"
+	set category = "Debug"
+	if(!check_rights(R_DEBUG))
+		return
+	SSair.ui_interact(mob)
+
 /client/proc/give_spell(mob/T in GLOB.mob_list)
 	set category = "Fun"
 	set name = "Give Spell"
@@ -810,11 +817,14 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	message_admins("[key_name_admin(usr)] stabilized atmos at [AREACOORD(T)]")
 	log_game("[key_name_admin(usr)] stabilized atmos at [AREACOORD(T)]")
 
-	var/datum/gas_mixture/GM = new
-	for(var/turf/open/F in view())
-		GM.parse_gas_string(F.initial_gas_mix)
-		F.copy_air(GM)
-		F.update_visuals()
+	for(var/turf/open/valid_range_turf in view())
+		if(valid_range_turf.blocks_air)
+		//skip walls
+			continue
+		var/datum/gas_mixture/safe_gas_mixture = SSair.parse_gas_string(valid_range_turf.initial_gas_mix, /datum/gas_mixture/turf)
+		valid_range_turf.copy_air(safe_gas_mixture)
+		valid_range_turf.temperature = initial(valid_range_turf.temperature)
+		valid_range_turf.update_visuals()
 
 	for(var/obj/machinery/portable_atmospherics/canister/can in view())
 		can.valve_open = FALSE

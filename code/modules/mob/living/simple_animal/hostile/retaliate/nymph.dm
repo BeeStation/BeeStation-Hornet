@@ -7,7 +7,7 @@
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
-	faction = list("diona")
+	faction = list(FACTION_DIONA)
 	gender = NEUTER
 	gold_core_spawnable = FRIENDLY_SPAWN
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -352,7 +352,7 @@
 	tool_behaviour = null
 	fake_seed = null
 	grind_results = list(/datum/reagent/consumable/chlorophyll = 20)
-	juice_results = /datum/reagent/consumable/chlorophyll
+	juice_typepath = /datum/reagent/consumable/chlorophyll
 
 /obj/item/clothing/head/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
 	if(M.mind)

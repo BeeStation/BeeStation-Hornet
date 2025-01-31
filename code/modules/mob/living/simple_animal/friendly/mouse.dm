@@ -14,6 +14,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
+	faction = list(FACTION_RAT)
 	butcher_results = list(/obj/item/food/meat/slab/mouse = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"

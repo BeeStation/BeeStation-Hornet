@@ -21,7 +21,7 @@
 	attack_verb_simple = "bite"
 	butcher_results = list(/obj/item/food/meat/slab = 1)
 	pass_flags = PASSTABLE
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/weapons/bite.ogg'
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
@@ -51,7 +51,7 @@
 	desc = "A fierce companion of the Head of Security, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine."
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
-	faction = list("spiders")
+	faction = list(FACTION_SPIDER)
 	icon_dead = "guard_dead"
 	icon_gib = "guard_dead"
 	icon_living = "guard"
