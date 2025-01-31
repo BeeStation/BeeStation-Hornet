@@ -46,9 +46,9 @@
 	recommended_enemies = 4
 
 	announce_span = "cult"
-	announce_text = "Some crew members are trying to start a cult to Nar'Sie!\n\
-	<span class='cult'>Cultists</span>: Carry out Nar'Sie's will.\n\
-	<span class='notice'>Crew</span>: Prevent the cult from expanding and drive it out."
+	announce_text = "Some crew members are trying to start a cult to Nar'Sie!\n \
+	" + span_cult("Cultists") + ": Carry out Nar'Sie's will.\n \
+	" + span_notice("Crew") + ": Prevent the cult from expanding and drive it out!"
 
 	title_icon = "cult"
 
@@ -71,7 +71,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	//cult scaling goes here
 	recommended_enemies = 1 + round(num_players()/CULT_SCALING_COEFFICIENT)

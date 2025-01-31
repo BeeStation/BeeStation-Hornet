@@ -2,6 +2,7 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
+	bleed_force = BLEED_SURFACE
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 
@@ -28,13 +29,13 @@
 					syringe.embed(M)
 					return BULLET_ACT_HIT
 				else
-					reagents.reaction(M, INJECT)
+					reagents.expose(M, INJECT)
 					reagents.trans_to(M, reagents.total_volume)
 					return BULLET_ACT_HIT
 			else
 				blocked = 100
-				target.visible_message("<span class='danger'>\The [src] was deflected!</span>", \
-									   "<span class='userdanger'>You were protected against \the [src]!</span>")
+				target.visible_message(span_danger("\The [src] was deflected!"), \
+									   span_userdanger("You were protected against \the [src]!"))
 
 	..(target, blocked)
 	if(syringe)

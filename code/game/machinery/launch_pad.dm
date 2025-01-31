@@ -52,14 +52,14 @@
 /obj/machinery/launchpad/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Maximum range: <b>[range]</b> units.</span>"
+		. += span_notice("The status display reads: Maximum range: <b>[range]</b> units.")
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/launchpad)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	if (stationary && panel_open && TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		to_chat(user, span_notice("You save the data in the [buffer_parent.name]'s buffer."))
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
@@ -111,13 +111,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 
 /obj/machinery/launchpad/proc/doteleport(mob/user, sending, alternate_log_name = null)
 	if(teleporting)
-		to_chat(user, "<span class='warning'>ERROR: Launchpad busy.</span>")
+		to_chat(user, span_warning("ERROR: Launchpad busy."))
 		return
 
 	var/turf/dest = get_turf(src)
 
 	if(dest && is_centcom_level(dest.z))
-		to_chat(user, "<span class='warning'>ERROR: Launchpad not operative. Heavy area shielding makes teleporting impossible.</span>")
+		to_chat(user, span_warning("ERROR: Launchpad not operative. Heavy area shielding makes teleporting impossible."))
 		return
 
 	var/target_x = x + x_offset
@@ -230,12 +230,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/closed = TRUE
 	var/obj/item/storage/briefcase/launchpad/briefcase
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
+
 /obj/machinery/launchpad/briefcase/Initialize(mapload, briefcase)
-    . = ..()
-    if(!briefcase)
-        log_game("[src] has been spawned without a briefcase.")
-        return INITIALIZE_HINT_QDEL
-    src.briefcase = briefcase
+	. = ..()
+	if(!briefcase)
+		log_game("[src] has been spawned without a briefcase.")
+		return INITIALIZE_HINT_QDEL
+	src.briefcase = briefcase
 
 /obj/machinery/launchpad/briefcase/Destroy()
 	if(!QDELETED(briefcase))
@@ -254,7 +256,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 		return
 	if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
 		return
-	usr.visible_message("<span class='notice'>[usr] starts closing [src]...</span>", "<span class='notice'>You start closing [src]...</span>")
+	usr.visible_message(span_notice("[usr] starts closing [src]..."), span_notice("You start closing [src]..."))
 	if(do_after(usr, 30, target = usr))
 		usr.put_in_hands(briefcase)
 		moveToNullspace() //hides it from suitcase contents
@@ -268,7 +270,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
 			return
-		usr.visible_message("<span class='notice'>[usr] starts closing [src]...</span>", "<span class='notice'>You start closing [src]...</span>")
+		usr.visible_message(span_notice("[usr] starts closing [src]..."), span_notice("You start closing [src]..."))
 		if(do_after(usr, 30, target = usr))
 			usr.put_in_hands(briefcase)
 			moveToNullspace() //hides it from suitcase contents
@@ -281,7 +283,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 		if(L.pad == WEAKREF(src)) //do not attempt to link when already linked
 			return ..()
 		L.pad = WEAKREF(src)
-		to_chat(user, "<span class='notice'>You link [src] to [L].</span>")
+		to_chat(user, span_notice("You link [src] to [L]."))
 	else
 		return ..()
 
@@ -306,7 +308,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	if(!isturf(user.loc)) //no setting up in a locker
 		return
 	add_fingerprint(user)
-	user.visible_message("<span class='notice'>[user] starts setting down [src]...", "You start setting up [pad]...</span>")
+	user.visible_message(span_notice("[user] starts setting down [src]..."), span_notice("You start setting up [pad]..."))
 	if(do_after(user, 30, target = user))
 		pad.forceMove(get_turf(src))
 		pad.update_indicator()
@@ -320,7 +322,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 		if(L.pad == WEAKREF(src.pad)) //do not attempt to link when already linked
 			return ..()
 		L.pad = WEAKREF(src.pad)
-		to_chat(user, "<span class='notice'>You link [pad] to [L].</span>")
+		to_chat(user, span_notice("You link [pad] to [L]."))
 	else
 		return ..()
 
@@ -334,6 +336,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	//A weakref to our linked pad
 	var/datum/weakref/pad
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/launchpad_remote)
+
 /obj/item/launchpad_remote/Initialize(mapload, pad) //remote spawns linked to the briefcase pad
 	. = ..()
 	src.pad = WEAKREF(pad)
@@ -341,7 +345,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 /obj/item/launchpad_remote/attack_self(mob/user)
 	. = ..()
 	ui_interact(user)
-	to_chat(user, "<span class='notice'>[src] projects a display onto your retina.</span>")
+	to_chat(user, span_notice("[src] projects a display onto your retina."))
 
 
 /obj/item/launchpad_remote/ui_state(mob/user)
@@ -371,10 +375,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 
 /obj/item/launchpad_remote/proc/teleport(mob/user, obj/machinery/launchpad/pad)
 	if(QDELETED(pad))
-		to_chat(user, "<span class='warning'>ERROR: Launchpad not responding. Check launchpad integrity.</span>")
+		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
 		return
 	if(!pad.isAvailable())
-		to_chat(user, "<span class='warning'>ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>")
+		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered."))
 		return
 	pad.doteleport(user, sending)
 

@@ -15,6 +15,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/egg
 	name = "egg"
@@ -27,6 +28,7 @@
 	microwaved_type = /obj/item/food/boiledegg
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /*
 /obj/item/food/egg/make_microwaveable()
@@ -47,7 +49,7 @@
 	if(!..()) //was it caught by a mob?
 		var/turf/T = get_turf(hit_atom)
 		new/obj/effect/decal/cleanable/food/egg_smudge(T)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.expose(hit_atom, TOUCH)
 		qdel(src)
 
 /obj/item/food/egg/attackby(obj/item/W, mob/user, params)
@@ -56,10 +58,10 @@
 		var/clr = C.crayon_color
 
 		if(!(clr in list("blue", "green", "mime", "orange", "purple", "rainbow", "red", "yellow")))
-			to_chat(usr, "<span class='notice'>[src] refuses to take on this colour!</span>")
+			to_chat(usr, span_notice("[src] refuses to take on this colour!"))
 			return
 
-		to_chat(usr, "<span class='notice'>You colour [src] with [W].</span>")
+		to_chat(usr, span_notice("You colour [src] with [W]."))
 		icon_state = "egg-[clr]"
 	else
 		..()
@@ -100,6 +102,7 @@
 	bite_consumption = 1
 	tastes = list("egg" = 4, "salt" = 1, "pepper" = 1)
 	foodtypes = MEAT | FRIED | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/boiledegg
 	name = "boiled egg"
@@ -114,13 +117,13 @@
 	foodtypes = MEAT | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD // pretty sure I've seen people pop these in their mouths... right?
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/omelette //FUCK THIS
 	name = "omelette du fromage"
 	desc = "That's all you can say!"
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "omelette"
-	trash_type = /obj/item/trash/plate
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 3
@@ -129,16 +132,18 @@
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("egg" = 1, "cheese" = 1)
 	foodtypes = MEAT | BREAKFAST | DAIRY //yeah, I say this just about reaches the threshold of dairy foodgroup
+	crafting_complexity = FOOD_COMPLEXITY_2
+	crafted_food_buff = /datum/status_effect/food/speech/french
 
 /obj/item/food/omelette/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/fork))
 		var/obj/item/kitchen/fork/F = W
 		if(F.forkload)
-			to_chat(user, "<span class='warning'>You already have omelette on your fork!</span>")
+			to_chat(user, span_warning("You already have omelette on your fork!"))
 		else
 			F.icon_state = "forkloaded"
 			user.visible_message("[user] takes a piece of omelette with [user.p_their()] fork!", \
-				"<span class='notice'>You take a piece of omelette with your fork.</span>")
+				span_notice("You take a piece of omelette with your fork."))
 
 			var/datum/reagent/R = pick(reagents.reagent_list)
 			reagents.remove_reagent(R.type, 1)
@@ -158,10 +163,10 @@
 		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment = 3
 	)
-	trash_type = /obj/item/trash/plate
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 	foodtypes = MEAT | BREAKFAST | GRAIN
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/eggwrap
 	name = "egg wrap"
@@ -176,6 +181,7 @@
 	tastes = list("egg" = 1)
 	foodtypes = MEAT | VEGETABLES
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/chawanmushi
 	name = "chawanmushi"
@@ -189,3 +195,4 @@
 	)
 	tastes = list("custard" = 1)
 	foodtypes = MEAT | VEGETABLES
+	crafting_complexity = FOOD_COMPLEXITY_3

@@ -19,6 +19,10 @@
 		/turf/open/floor/dock,
 		/turf/open/floor/plating/snowed,
 		/turf/open/floor/plating/ice,
+		/turf/open/floor/plating/grass,
+		/turf/open/floor/plating/dirt/planetary,
+		/turf/open/floor/plating/beach,
+
 	)
 	var/designate_time = 50
 	var/turf/designating_target_loc
@@ -27,6 +31,8 @@
 	var/datum/action/innate/camera_multiz_up/move_up_action = new
 	///Camera action button to move down a Z level
 	var/datum/action/innate/camera_multiz_down/move_down_action = new
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -167,29 +173,29 @@
 		return
 
 	if(QDELETED(shuttleObject))
-		to_chat(usr, "<span class='warning'>Shuttle has already docked.</span>")
+		to_chat(usr, span_warning("Shuttle has already docked."))
 		return
 
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	var/landing_clear = checkLandingSpot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
-		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
+		to_chat(current_user, span_warning("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
 		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, progress = TRUE, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
 		if(!wait_completed)
-			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
+			to_chat(current_user, span_warning("Operation aborted."))
 			return
 		landing_clear = checkLandingSpot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
 			if(SHUTTLE_DOCKER_BLOCKED)
-				to_chat(current_user, "<span class='warning'>Invalid transit location.</span>")
+				to_chat(current_user, span_warning("Invalid transit location."))
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				to_chat(current_user, "<span class='warning'>Unknown object detected in landing zone. Please designate another location.</span>")
+				to_chat(current_user, span_warning("Unknown object detected in landing zone. Please designate another location."))
 		return
 
 	///Make one use port that deleted after fly off, to don't lose info that need on to properly fly off.
@@ -237,9 +243,9 @@
 			say("Waiting for hyperspace lane...")
 			INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), M, SSmapping.get_level(eyeobj.z))
 		if(1)
-			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			to_chat(usr, span_warning("Invalid shuttle requested."))
 		else
-			to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+			to_chat(usr, span_notice("Unable to comply."))
 
 	return TRUE
 
@@ -358,6 +364,8 @@
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
+
 /mob/camera/ai_eye/remote/shuttle_docker/Initialize(mapload, obj/machinery/computer/camera_advanced/origin)
 	src.origin = origin
 	return ..()
@@ -378,7 +386,7 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
@@ -391,7 +399,7 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()
@@ -437,7 +445,7 @@
 		if(T)
 			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 			remote_eye.setLoc(T)
-			to_chat(target, "<span class='notice'>Jumped to [selected].</span>")
+			to_chat(target, span_notice("Jumped to [selected]."))
 			C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
 			C.clear_fullscreen("flash", 3)
 	else

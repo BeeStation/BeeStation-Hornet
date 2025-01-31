@@ -7,7 +7,7 @@
 	icon_state = "omniomega"
 
 /* Note:
- 	This language is made to display runechat for telepathic chats. Everyone knows this language, but none of them will be possible to talk in this language.
+	This language is made to display runechat for telepathic chats. Everyone knows this language, but none of them will be possible to talk in this language.
 	This is also used to animal mobs like dog barking, cat meowing, rat squeaking, instead they say those in Galactic Common
 
 	This language is also a bit hardcoded because of its special usage.

@@ -47,10 +47,10 @@
 
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
 /atom/proc/attack_ghost(mob/dead/observer/user)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_NO_ATTACK_HAND)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(user.gas_scan && atmosanalyzer_scan(user, src))
+		if(user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
 			return TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)
@@ -68,19 +68,16 @@
 // And here are some good things for free:
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
 
-/obj/machinery/gateway/centerstation/attack_ghost(mob/user)
-	if(awaygate)
-		user.abstract_move(awaygate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-	return ..()
+/obj/machinery/gateway/attack_ghost(mob/user)
+	. = ..()
+	if(.)
+		return
 
-/obj/machinery/gateway/centeraway/attack_ghost(mob/user)
-	if(stationgate)
-		user.abstract_move(stationgate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-	return ..()
+	if(linked_gateway)
+		user.abstract_move(get_turf(linked_gateway))
+		return TRUE
+	to_chat(user, "[src] has no destination.")
+	return TRUE
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user)
 	if(!power_station?.engaged || !power_station.teleporter_console || !power_station.teleporter_console.target_ref)

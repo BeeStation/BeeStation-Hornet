@@ -15,7 +15,7 @@
 
 		var/datum/universal_icon/final_icon = lizard.copy()
 
-		if (sprite_accessory.icon_state != "none")
+		if (name != FEATURE_NONE)
 			var/datum/universal_icon/accessory_icon = uni_icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", dir = EAST)
 			final_icon.blend_icon(accessory_icon, ICON_OVERLAY)
 

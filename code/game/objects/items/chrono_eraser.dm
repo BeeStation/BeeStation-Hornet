@@ -10,6 +10,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	item_flags = DROPDEL
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
@@ -18,15 +19,6 @@
 
 /obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
-
-/obj/item/chrono_eraser/dropped()
-	..()
-	if(PA)
-		qdel(PA)
-
-/obj/item/chrono_eraser/Destroy()
-	dropped()
-	return ..()
 
 /obj/item/chrono_eraser/ui_action_click(mob/user)
 	if(iscarbon(user))
@@ -86,14 +78,14 @@
 	var/mob/living/user = loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
+			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
+			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
 
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
@@ -102,7 +94,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
+			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -111,7 +103,7 @@
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
 			var/mob/living/user = loc
-			if(currentpos == startpos && isliving(user) && (user.mobility_flags & MOBILITY_STAND) && (user.stat == CONSCIOUS) && (field in view(CHRONO_BEAM_RANGE, currentpos)))
+			if(currentpos == startpos && isliving(user) && user.body_position == STANDING_UP && !HAS_TRAIT(user, TRAIT_INCAPACITATED) && (field in view(CHRONO_BEAM_RANGE, currentpos)))
 				return TRUE
 		field_disconnect(F)
 		return FALSE
@@ -147,6 +139,7 @@
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
 	projectile_type = /obj/projectile/energy/chrono_beam
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "chronobolt"
 	e_cost = 0
 	var/obj/item/gun/energy/chrono_gun/gun
@@ -179,6 +172,8 @@
 	var/RPpos = null
 	var/attached = TRUE //if the gun arg isn't included initially, then the chronofield will work without one
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
+
 /obj/structure/chrono_field/Initialize(mapload, mob/living/target, obj/item/gun/energy/chrono_gun/G)
 	if(target && isliving(target))
 		if(!G)
@@ -197,7 +192,7 @@
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon()
 
-		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
+		desc = initial(desc) + "<br>[span_info("It appears to contain [target.name].")]"
 	START_PROCESSING(SSobj, src)
 	return ..()
 
@@ -222,7 +217,7 @@
 				AM.forceMove(drop_location())
 			qdel(src)
 		else if(timetokill <= 0)
-			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
+			to_chat(captured, span_boldnotice("As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy..."))
 			var/mob/dead/observer/ghost = captured.ghostize(TRUE,SENTIENCE_ERASE)
 			if(captured.mind)
 				if(ghost)
@@ -263,9 +258,9 @@
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
-	GM.set_moles(GAS_O2, MOLES_O2STANDARD)
-	GM.set_moles(GAS_N2, MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
+	SET_MOLES(/datum/gas/oxygen, GM, MOLES_O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, GM, MOLES_N2STANDARD)
+	GM.temperature = T20C
 	return GM
 
 /obj/structure/chrono_field/singularity_act()

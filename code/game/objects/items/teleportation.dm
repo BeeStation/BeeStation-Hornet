@@ -110,12 +110,18 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=10000)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/item_hand_tele
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
 	var/atmos_link_override
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+
+/datum/armor/item_hand_tele
+	bomb = 30
+	fire = 100
+	acid = 100
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
@@ -123,13 +129,13 @@
 
 /obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
 	if(try_dispel_portal(target, user))
-		return FALSE
+		return TRUE
 	return ..()
 
 /obj/item/hand_tele/proc/try_dispel_portal(obj/effect/portal/target, mob/user)
 	if(is_parent_of_portal(target))
 		target.dispel()
-		to_chat(user, "<span class='notice'>You dispel [target] with \the [src]!</span>")
+		to_chat(user, span_notice("You dispel [target] with \the [src]!"))
 		return TRUE
 	return FALSE
 
@@ -141,7 +147,7 @@
 	var/turf/current_location = get_turf(user)//What turf is the user on?
 	var/area/current_area = current_location.loc
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
+		to_chat(user, span_notice("\The [src] is malfunctioning."))
 		return
 	// Add on teleport targets
 	var/list/L = list()
@@ -182,7 +188,7 @@
 	if (!t1 || user.get_active_held_item() != src || user.incapacitated())
 		return
 	if(active_portal_pairs.len >= max_portal_pairs)
-		user.show_message("<span class='notice'>\The [src] is recharging!</span>")
+		user.show_message(span_notice("\The [src] is recharging!"))
 		return
 	var/teleport_target = L[t1]
 	// Non-turfs (Wakes) are handled differently
@@ -190,7 +196,7 @@
 		var/distance = get_dist(teleport_target, user)
 		var/obj/effect/temp_visual/teleportation_wake/wake = teleport_target
 		var/turf/target_turf = get_teleport_turf(wake.destination, 2 + distance)
-		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
+		to_chat(user, span_notice("You begin teleporting to the target."))
 		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf)
 		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user))
 		if (do_after(user, 10 SECONDS, user))
@@ -200,14 +206,11 @@
 			qdel(target_effect)
 			qdel(source_effect)
 		return
-	var/area/A = get_area(teleport_target)
-	if(A.teleport_restriction)
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
-		return
 	current_location = get_turf(user)	//Recheck.
 	current_area = current_location.loc
-	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
+	var/turf/dest_turf = get_teleport_turf(get_turf(teleport_target))
+	if(isnull(current_area) || !check_teleport(user, dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE) || is_away_level(current_location.z) || is_centcom_level(current_location.z))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+		to_chat(user, span_notice("\The [src] is malfunctioning."))
 		return
 	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(teleport_target)), src, 300, 1, null, atmos_link_override)
 	if(!(LAZYLEN(created) == 2))
@@ -253,16 +256,16 @@
 
 /obj/item/hand_tele/suicide_act(mob/living/user)
 	if(iscarbon(user))
-		user.visible_message("<span class='suicide'>[user] is creating a weak portal and sticking [user.p_their()] head through! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is creating a weak portal and sticking [user.p_their()] head through! It looks like [user.p_theyre()] trying to commit suicide!"))
 		var/mob/living/carbon/itemUser = user
 		var/obj/item/bodypart/head/head = itemUser.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
 			head.drop_limb()
 			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_DYNAMIC_LEVEL, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
 			head.forceMove(locate(rand(1, world.maxx), rand(1, world.maxy), pick(safeLevels)))
-			itemUser.visible_message("<span class='suicide'>The portal snaps closed taking [user]'s head with it!</span>")
+			itemUser.visible_message(span_suicide("The portal snaps closed taking [user]'s head with it!"))
 		else
-			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
+			itemUser.visible_message(span_suicide("[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!"))
 		return BRUTELOSS
 
 /*
@@ -301,12 +304,12 @@
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	. += span_notice("[src] has [charges] out of [max_charges] charges left.")
 	if(recharging)
-		. += "<span class='notice'><b>A small display on the back reads:</b></span>"
+		. += span_notice("<b>A small display on the back reads:</b>")
 		var/timeleft = timeleft(recharge_timer)
 		var/loadingbar = num2loadingbar(timeleft/recharge_time, reverse=TRUE)
-		. += "<span class='notice'><b>CHARGING: [loadingbar] ([timeleft*0.1]s)</b></span>"
+		. += span_notice("<b>CHARGING: [loadingbar] ([timeleft*0.1]s)</b>")
 
 /obj/item/teleporter/attack_self(mob/user)
 	..()
@@ -329,65 +332,41 @@
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='danger'>[src] buzzes and activates!</span>")
+			to_chat(user, span_danger("[src] buzzes and activates!"))
 			attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
 		else
-			visible_message("<span class='warning'>[src] activates and blinks out of existence!</span>")
+			visible_message(span_warning("[src] activates and blinks out of existence!"))
 			do_sparks(2, 1, src)
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)
-		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
+		to_chat(user, span_warning("[src] is still recharging."))
 		return
 
-	var/turf/current_location = get_turf(user)
-	var/area/current_area = current_location.loc
-	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
-		return
+	var/turf/original_location = get_turf(user)
 
-	var/mob/living/carbon/C = user
 	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
 	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
 	var/direction = (EMP_D || length(bagholding)) ? pick(GLOB.cardinals) : user.dir
+	var/turf/destination = get_ranged_target_turf(user, direction, teleport_distance)
 
-	for (var/i in 1 to teleport_distance)
-		// Step forward
-		var/turf/previous = current_location
-		current_location = get_step(current_location, direction)
+	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
+	if(isnull(new_location))
+		to_chat(user, span_notice("\The [src] is malfunctioning."))
+		return
 
-		// Check if we can move here
-		current_area = current_location.loc
-		if(!do_teleport(C, current_location, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, commit = FALSE))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-			current_location = previous
-			break
-		// If it contains objects, try to break it
-		for (var/obj/object in current_location.contents)
-			if (object.density)
-				object.take_damage(150)
-		if (current_location.is_blocked_turf(TRUE))
-			current_location = previous
-			break
-
-		// Telefrag this location
-		if (!telefrag(current_location, user))
-			current_location = previous
-			break
-
-	do_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK)
-
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(user))
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(original_location)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_location)
 	charges--
 	check_charges()
-	playsound(current_location, 'sound/effects/phasein.ogg', 25, 1)
-	playsound(current_location, "sparks", 50, 1)
+	playsound(new_location, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(new_location, "sparks", 50, 1)
 
-/obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
+/obj/item/teleporter/proc/telefrag(mob/user, turf/fragging_location)
 	for(var/mob/living/target in fragging_location)//Hit everything in the turf
 		// Skip any mobs that aren't standing, or aren't dense
-		if (!(target.mobility_flags & MOBILITY_STAND) || !target.density || user == target)
+		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
 		// Run armour checks and apply damage
 		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, MELEE)
@@ -395,13 +374,16 @@
 		target.Paralyze(10 * (100 - armor_block) / 100)
 		target.Knockdown(40 * (100 - armor_block) / 100)
 		// Check if we successfully knocked them down
-		if (!(target.mobility_flags & MOBILITY_STAND))
-			to_chat(target, "<span class='userdanger'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		if (target.body_position == LYING_DOWN)
+			to_chat(target, span_userdanger("[user] teleports into you, knocking you to the floor with the bluespace wave!"))
 		else
-			to_chat(user, "<span class='userdanger'>[target] resists the force of your jaunt's wake, bringing you to stop!</span>")
-			to_chat(target, "<span class='userdanger'>[user] slams into you, falling out of their bluespace jaunt tunnel!</span>")
+			to_chat(user, span_userdanger("[target] resists the force of your jaunt's wake, bringing you to stop!"))
+			to_chat(target, span_userdanger("[user] slams into you, falling out of their bluespace jaunt tunnel!"))
 			return FALSE
 	return TRUE
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
+
+#undef SOURCE_PORTAL
+#undef DESTINATION_PORTAL

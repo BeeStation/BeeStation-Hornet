@@ -1,14 +1,7 @@
-#define POWER_RESTORATION_OFF 0
-#define POWER_RESTORATION_START 1
-#define POWER_RESTORATION_SEARCH_APC 2
-#define POWER_RESTORATION_APC_FOUND 3
-
 /mob/living/silicon/ai/Life(delta_time)
 	if (stat == DEAD)
 		return
 		//Being dead doesn't mean your temperature never changes
-
-	update_gravity(has_gravity())
 
 	handle_status_effects(delta_time)
 
@@ -30,7 +23,7 @@
 	if(aiRestorePowerRoutine)
 		// Lost power
 		if (!battery)
-			to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
+			to_chat(src, span_warning("Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable."))
 			adjustOxyLoss(200)
 		else
 			battery --
@@ -58,7 +51,7 @@
 		if(NONE)
 			return FALSE
 		if(POWER_REQ_ALL)
-			return !T || !A || ((!A.power_equip || isspaceturf(T)) && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
+			return !T || !A || ((!A.power_equip || isspaceturf(T)) && !is_type_in_list(loc, list(/obj/item, /obj/vehicle/sealed/mecha)))
 
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
@@ -76,7 +69,7 @@
 		if(health <= HEALTH_THRESHOLD_DEAD)
 			death()
 			return
-		else if(stat == UNCONSCIOUS)
+		else if(stat >= UNCONSCIOUS)
 			set_stat(CONSCIOUS)
 	diag_hud_set_status()
 
@@ -112,7 +105,7 @@
 	T = get_turf(src)
 	if(isspaceturf(T))
 		to_chat(src, "Unable to verify! No power connection detected!")
-		aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
+		setAiRestorePowerRoutine(POWER_RESTORATION_SEARCH_APC)
 		return
 	to_chat(src, "Connection verified. Searching for APC in power network.")
 	sleep(5 SECONDS)
@@ -130,7 +123,7 @@
 					to_chat(src, "Unable to locate APC!")
 				else
 					to_chat(src, "Lost connection with the APC!")
-			aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
+			setAiRestorePowerRoutine(POWER_RESTORATION_SEARCH_APC)
 			return
 		if(AIarea.power_equip)
 			if(!isspaceturf(T))
@@ -148,33 +141,30 @@
 				sleep(50)
 				to_chat(src, "Receiving control information from APC.")
 				sleep(2)
+				to_chat(src, "<A HREF=?src=[REF(src)];emergencyAPC=[TRUE]>APC ready for connection.</A>")
 				apc_override = theAPC
 				theAPC.ui_interact(src)
-				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
+				setAiRestorePowerRoutine(POWER_RESTORATION_APC_FOUND)
 		sleep(5 SECONDS)
 		theAPC = null
 
 /mob/living/silicon/ai/proc/ai_restore_power()
 	if(aiRestorePowerRoutine)
 		if(aiRestorePowerRoutine == POWER_RESTORATION_APC_FOUND)
-			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored.</span>")
+			to_chat(src, span_notice("Alert cancelled. Power has been restored."))
 			if(apc_override)
-				to_chat(src, "<span class='notice'>APC Backdoor has been closed.</span>") //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
+				to_chat(src, span_notice("APC Backdoor has been closed.")) //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
 		else
-			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored without our assistance.</span>")
-		aiRestorePowerRoutine = POWER_RESTORATION_OFF
+			to_chat(src, span_notice("Alert cancelled. Power has been restored without our assistance."))
+		setAiRestorePowerRoutine(POWER_RESTORATION_OFF)
 		set_blindness(0)
+		apc_override = null
 		update_sight()
 
 /mob/living/silicon/ai/proc/ai_lose_power()
 	disconnect_shell()
-	aiRestorePowerRoutine = POWER_RESTORATION_START
+	setAiRestorePowerRoutine(POWER_RESTORATION_START)
 	adjust_blindness(1)
 	update_sight()
-	to_chat(src, "<span class='alert'>You've lost power!</span>")
+	to_chat(src, span_alert("You've lost power!"))
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)
-
-#undef POWER_RESTORATION_OFF
-#undef POWER_RESTORATION_START
-#undef POWER_RESTORATION_SEARCH_APC
-#undef POWER_RESTORATION_APC_FOUND

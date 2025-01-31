@@ -38,7 +38,7 @@
 				continue
 		else if(C && S.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 			continue
-		if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
+		if(S.lying_required && M.body_position != LYING_DOWN)
 			continue
 		if(!S.can_start(user, M, target_zone))
 			continue
@@ -68,7 +68,7 @@
 				return
 		else if(C && S.requires_bodypart)
 			return
-		if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
+		if(S.lying_required && M.body_position != LYING_DOWN)
 			return
 		if(!S.can_start(user, M, target_zone))
 			return
@@ -76,7 +76,7 @@
 		if(S.ignore_clothes || get_location_accessible(M, target_zone))
 			var/datum/surgery/procedure = new S.type(M, target_zone, affecting)
 			user.visible_message("[user] drapes [I] over [M]'s [parse_zone(target_zone)] to prepare for surgery.",
-			"<span class='notice'>You drape [I] over [M]'s [parse_zone(target_zone)] to prepare for \an [procedure.name].</span>")
+			span_notice("You drape [I] over [M]'s [parse_zone(target_zone)] to prepare for \an [procedure.name]."))
 			I.balloon_alert(user, "You drape over [parse_zone(target_zone)].")
 
 			log_combat(user, M, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [target_zone])")
@@ -87,7 +87,7 @@
 	if(S.status == 1)
 		M.surgeries -= S
 		user.visible_message("[user] removes [I] from [M]'s [parse_zone(S.location)].", \
-			"<span class='notice'>You remove [I] from [M]'s [parse_zone(S.location)].</span>")
+			span_notice("You remove [I] from [M]'s [parse_zone(S.location)]."))
 		I.balloon_alert(user, "You remove [I] from [parse_zone(S.location)].")
 		qdel(S)
 		return
@@ -103,14 +103,14 @@
 		if(iscyborg(user))
 			close_tool = locate(/obj/item/cautery) in user.held_items
 			if(!close_tool)
-				to_chat(user, "<span class='warning'>You need to equip a cautery in an inactive slot to stop [M]'s surgery!</span>")
+				to_chat(user, span_warning("You need to equip a cautery in an inactive slot to stop [M]'s surgery!"))
 				return
 		else if(close_tool?.tool_behaviour != required_tool_type)
-			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")
+			to_chat(user, span_warning("You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!"))
 			return
 		M.surgeries -= S
-		user.visible_message("<span class='notice'>[user] closes [M]'s [parse_zone(S.location)] with [close_tool] and removes [I].</span>", \
-			"<span class='notice'>You close [M]'s [parse_zone(S.location)] with [close_tool] and remove [I].</span>")
+		user.visible_message(span_notice("[user] closes [M]'s [parse_zone(S.location)] with [close_tool] and removes [I]."), \
+			span_notice("You close [M]'s [parse_zone(S.location)] with [close_tool] and remove [I]."))
 		qdel(S)
 
 /proc/get_location_accessible(mob/M, location)

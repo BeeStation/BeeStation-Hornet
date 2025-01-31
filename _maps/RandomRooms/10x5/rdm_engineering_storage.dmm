@@ -1,0 +1,258 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/reflector/box{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/machinery/power/emitter{
+	dir = 8;
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/item/clothing/head/welding,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/machinery/shieldgen{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
+	},
+/obj/machinery/light/small/broken,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/machinery/power/tesla_coil{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/structure/transit_tube/horizontal,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
+	},
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/structure/transit_tube/curved/flipped,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/structure/transit_tube/crossing/horizontal,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/obj/structure/transit_tube/crossing/horizontal,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/structure/transit_tube/curved{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/effect/spawner/lootdrop/techstorage/engineering,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/machinery/power/emitter{
+	dir = 4;
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"D" = (
+/obj/structure/transit_tube/station,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/structure/transit_tube/curved,
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
+/obj/item/storage/belt/utility,
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/obj/structure/transit_tube/station{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/item/stack/cable_coil/red,
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/item/rcl/pre_loaded,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/structure/transit_tube/station{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/box,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/structure/frame/machine{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/machinery/field/generator{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/structure/transit_tube/station{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/box,
+/obj/structure/transit_tube_pod{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+j
+E
+P
+W
+j
+"}
+(2,1,1) = {"
+n
+X
+j
+f
+I
+"}
+(3,1,1) = {"
+l
+S
+w
+X
+l
+"}
+(4,1,1) = {"
+l
+e
+x
+c
+l
+"}
+(5,1,1) = {"
+u
+L
+V
+M
+D
+"}
+(6,1,1) = {"
+H
+j
+j
+w
+q
+"}
+(7,1,1) = {"
+l
+d
+Y
+k
+l
+"}
+(8,1,1) = {"
+l
+w
+F
+C
+l
+"}
+(9,1,1) = {"
+a
+V
+j
+L
+g
+"}
+(10,1,1) = {"
+j
+p
+Z
+v
+j
+"}

@@ -9,7 +9,7 @@
 /area/ruin/unpowered)
 "e" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "f" = (
 /obj/structure/table,
@@ -51,7 +51,7 @@
 /turf/open/floor/carpet/blue,
 /area/ruin/unpowered)
 "s" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "u" = (
 /obj/structure/chair/stool{
@@ -64,21 +64,21 @@
 	id_tag = "Dorm4";
 	name = "Dorm 4"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "w" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm1";
 	name = "Dorm 1"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "z" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm3";
 	name = "Dorm 3"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "A" = (
 /obj/structure/table,
@@ -119,7 +119,7 @@
 	id_tag = "Dorm2";
 	name = "Dorm 2"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Q" = (
 /turf/closed/wall,
@@ -141,7 +141,7 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

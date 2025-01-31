@@ -1,8 +1,7 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
-	flag = EXPLORATION_CREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
-	department_for_prefs = DEPT_BITFLAG_SCI
+	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
@@ -15,10 +14,9 @@
 
 	outfit = /datum/outfit/job/exploration_crew
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX,ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
-	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
+	base_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
+	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
@@ -48,16 +46,16 @@
 	switch(exploration_job_id)
 		//Scientist is most important due to scanner
 		if(1)
-			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'sciradio'>Scientist</span>!</span>")
-			to_chat(H, "<span class='notice'>Scan undiscovered creates to gain discovery research points!</span>")
+			to_chat(H, span_noticebig("You are the exploration team's <span class'sciradio'>Scientist!"))
+			to_chat(H, span_notice("Scan undiscovered creates to gain discovery research points!"))
 			outfit_override = /datum/outfit/job/exploration_crew/scientist
 		if(2)
-			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'medradio'>Medical Doctor</span>!</span>")
-			to_chat(H, "<span class='notice'>Ensure your team's health by locating and healing injured team members.</span>")
+			to_chat(H, span_noticebig("You are the exploration team's <span class'medradio'>Medical Doctor!"))
+			to_chat(H, span_notice("Ensure your team's health by locating and healing injured team members."))
 			outfit_override = /datum/outfit/job/exploration_crew/medic
 		if(3)
-			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'engradio'>Engineer</span>!</span>")
-			to_chat(H, "<span class='notice'>Create entry points with your explosives and maintain the hull of your ship.</span>")
+			to_chat(H, span_noticebig("You are the exploration team's <span class'engradio'>Engineer!"))
+			to_chat(H, span_notice("Create entry points with your explosives and maintain the hull of your ship."))
 			outfit_override = /datum/outfit/job/exploration_crew/engineer
 	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
 

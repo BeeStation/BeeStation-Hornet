@@ -11,28 +11,41 @@
 	throw_speed = 2
 	throw_range = 7
 
-	var/obj/item/assembly/a_left = null
-	var/obj/item/assembly/a_right = null
+	var/list/obj/item/assembly/assemblies 	/// used to store the list of assemblies making up our assembly holder
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
+
+/obj/item/assembly_holder/Destroy()
+	QDEL_LAZYLIST(assemblies)
+	return ..()
 
 /obj/item/assembly_holder/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 	return
 
-/obj/item/assembly_holder/ComponentInitialize()
+/obj/item/assembly_holder/Exited(atom/movable/gone, direction)
 	. = ..()
-	var/static/rotation_flags = ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS
-	AddComponent(/datum/component/simple_rotation, rotation_flags)
+	LAZYREMOVE(assemblies, gone)
 
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
 
+/obj/item/assembly_holder/examine(mob/user)
+	. = ..()
+	for(var/assembly in assemblies)
+		if(istype(assembly, /obj/item/assembly/timer))
+			var/obj/item/assembly/timer/timer = assembly
+			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
+
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+	. = ..()
+	on_move(old_loc, movement_dir)
+
+/obj/item/assembly_holder/proc/on_move(atom/old_loc, movement_dir)
+	for(var/obj/item/assembly/infra/assembly in assemblies)
+		assembly.on_move(old_loc, movement_dir)
 
 /obj/item/assembly_holder/proc/assemble(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
 	attach(A,user)
@@ -40,6 +53,49 @@
 	name = "[A.name]-[A2.name] assembly"
 	update_icon()
 	SSblackbox.record_feedback("tally", "assembly_made", 1, "[initial(A.name)]-[initial(A2.name)]")
+
+// on_attach: Pass on_attach message to child assemblies
+/obj/item/assembly_holder/proc/on_attach(var/obj/structure/reagent_dispensers/rig)
+	var/obj/item/newloc = loc
+	if(!newloc.IsSpecialAssembly() && !newloc.IsAssemblyHolder())
+		return
+	for(var/obj/item/assembly/assembly in assemblies)
+		assembly.on_attach(rig)
+
+/obj/item/assembly_holder/proc/try_add_assembly(obj/item/assembly/attached_assembly, mob/user)
+	if(attached_assembly.secured)
+		balloon_alert(attached_assembly, "not attachable!")
+		return FALSE
+
+	if(LAZYLEN(assemblies) >= HOLDER_MAX_ASSEMBLIES)
+		balloon_alert(user, "too many assemblies!")
+		return FALSE
+
+	if(attached_assembly.assembly_flags & ASSEMBLY_NO_DUPLICATES)
+		if(locate(attached_assembly.type) in assemblies)
+			balloon_alert(user, "can't attach another of that!")
+			return FALSE
+
+	add_assembly(attached_assembly, user)
+	balloon_alert(user, "part attached")
+	return TRUE
+
+/**
+ * Adds an assembly to the assembly holder
+ *
+ * This proc is used to add an assembly to the assembly holder, update the appearance, and the name of it.
+ * Arguments:
+ * * attached_assembly - assembly we are adding to the assembly holder
+ * * user - user we pass into attach()
+ */
+/obj/item/assembly_holder/proc/add_assembly(obj/item/assembly/attached_assembly, mob/user)
+	attach(attached_assembly, user)
+	name = ""
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		name += "[assembly.name]-"
+	name = splicetext(name, length(name), length(name) + 1, "")
+	name += " assembly"
+	update_appearance()
 
 /obj/item/assembly_holder/proc/attach(obj/item/assembly/A, mob/user)
 	if(!A.remove_item_from_storage(src))
@@ -49,102 +105,97 @@
 			A.forceMove(src)
 	A.holder = src
 	A.toggle_secure()
-	if(!a_left)
-		a_left = A
-	else
-		a_right = A
+	LAZYADD(assemblies, A)
 	A.holder_movement()
 	A.on_attach()
 
-/obj/item/assembly_holder/update_icon()
-	cut_overlays()
-	if(a_left)
-		add_overlay("[a_left.icon_state]_left")
-		for(var/O in a_left.attached_overlays)
-			add_overlay("[O]_l")
+/obj/item/assembly_holder/update_icon(updates=ALL)
+	. = ..()
+	master?.update_appearance(updates)
 
-	if(a_right)
-		if(a_right.is_position_sensitive)
-			add_overlay("[a_right.icon_state]_right")
-			for(var/O in a_right.attached_overlays)
-				add_overlay("[O]_r")
-		else
-			var/mutable_appearance/right = mutable_appearance(icon, "[a_right.icon_state]_left")
+/obj/item/assembly_holder/update_overlays()
+	. = ..()
+	for(var/i in 1 to LAZYLEN(assemblies))
+		if(i % 2 == 1)
+			var/obj/item/assembly/assembly = assemblies[i]
+			. += "[assembly.icon_state]_left"
+			for(var/left_overlay in assembly.attached_overlays)
+				. += "[left_overlay]_l"
+		if(i % 2 == 0)
+			var/obj/item/assembly/assembly = assemblies[i]
+			var/mutable_appearance/right = mutable_appearance(icon, "[assembly.icon_state]_left")
 			right.transform = matrix(-1, 0, 0, 0, 1, 0)
-			for(var/O in a_right.attached_overlays)
-				right.add_overlay("[O]_l")
-			add_overlay(right)
-
-	if(master)
-		master.update_icon()
+			for(var/right_overlay in assembly.attached_overlays)
+				right.add_overlay("[right_overlay]_l")
+			. += right
 
 /obj/item/assembly_holder/on_found(mob/finder)
-	if(a_left)
-		a_left.on_found(finder)
-	if(a_right)
-		a_right.on_found(finder)
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		assembly.on_found(finder)
 
 /obj/item/assembly_holder/setDir()
 	. = ..()
-	if(a_left)
-		a_left.holder_movement()
-	if(a_right)
-		a_right.holder_movement()
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		assembly.holder_movement()
+
 
 /obj/item/assembly_holder/dropped(mob/user)
-	..()
-	if(a_left)
-		a_left.dropped(user)
-	if(a_right)
-		a_right.dropped(user)
+	. = ..()
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		assembly.dropped(user)
 
-/obj/item/assembly_holder/attack_hand()//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
+/obj/item/assembly_holder/attack_hand(mob/living/user, list/modifiers)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
 	. = ..()
 	if(.)
 		return
-	if(a_left)
-		a_left.attack_hand()
-	if(a_right)
-		a_right.attack_hand()
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		assembly.attack_hand(user, modifiers) // Note override in assembly.dm to prevent side effects here
+
+/obj/item/assembly_holder/attackby(obj/item/weapon, mob/user, params)
+	if(isassembly(weapon))
+		try_add_assembly(weapon, user)
+		return
+
+	return ..()
+
+/obj/item/assembly_holder/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool)
 	if(..())
 		return TRUE
-	to_chat(user, "<span class='notice'>You disassemble [src]!</span>")
-	if(a_left)
-		a_left.on_detach()
-		a_left = null
-	if(a_right)
-		a_right.on_detach()
-		a_right = null
+	balloon_alert(user, "disassembled")
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		assembly.on_detach()
+		LAZYREMOVE(assemblies, assembly)
 	qdel(src)
 	return TRUE
 
 /obj/item/assembly_holder/attack_self(mob/user)
-	add_fingerprint(user)
-	if(!a_left || !a_right)
-		to_chat(user, "<span class='danger'>Assembly part missing!</span>")
+	src.add_fingerprint(user)
+	if(LAZYLEN(assemblies) == 1)
+		balloon_alert(user, "part missing!")
 		return
-	if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
-		switch(alert("Which side would you like to use?",,"Left","Right"))
-			if("Left")
-				a_left.attack_self(user)
-			if("Right")
-				a_right.attack_self(user)
-		return
-	else
-		a_left.attack_self(user)
-		a_right.attack_self(user)
+
+	for(var/obj/item/assembly/assembly as anything in assemblies)
+		assembly.attack_self(user)
 
 
-/obj/item/assembly_holder/proc/process_activation(obj/D, normal = 1, special = 1)
+/**
+ * this proc is used to process the activation of the assembly holder
+ *
+ * This proc is usually called by signalers, timers, or anything that can trigger and
+ * send a pulse to the assembly holder, which then calls this proc that actually activates the assemblies
+ * Arguments:
+ * * /obj/D - the device we sent the pulse from which called this proc
+ */
+/obj/item/assembly_holder/proc/process_activation(obj/D)
 	if(!D)
 		return FALSE
-	if((normal) && (a_right) && (a_left))
-		if(a_right != D)
-			a_right.pulsed(FALSE)
-		if(a_left != D)
-			a_left.pulsed(FALSE)
+	if(LAZYLEN(assemblies) >= 2)
+		for(var/obj/item/assembly/assembly as anything in assemblies)
+			if(assembly != D)
+				assembly.pulsed()
 	if(master)
 		master.receive_signal()
 	return TRUE

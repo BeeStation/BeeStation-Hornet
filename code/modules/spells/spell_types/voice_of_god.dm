@@ -6,7 +6,7 @@
 	level_max = 1
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
-	action_icon = 'icons/mob/actions/actions_items.dmi'
+	action_icon = 'icons/hud/actions/actions_items.dmi'
 	action_icon_state = "voice_of_god"
 	var/command
 	var/cooldown_mod = 1
@@ -16,7 +16,7 @@
 
 /obj/effect/proc_holder/spell/voice_of_god/can_cast(mob/user = usr)
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You are unable to speak!</span>")
+		to_chat(user, span_warning("You are unable to speak!"))
 		return FALSE
 	return TRUE
 

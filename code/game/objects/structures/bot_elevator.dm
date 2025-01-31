@@ -8,6 +8,8 @@
 	var/obj/structure/bot_elevator/up
 	max_integrity = 100
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/bot_elevator)
+
 /obj/structure/bot_elevator/Initialize(mapload, obj/structure/bot_elevator/up, obj/structure/bot_elevator/down)
 	..()
 	GLOB.bot_elevator += src

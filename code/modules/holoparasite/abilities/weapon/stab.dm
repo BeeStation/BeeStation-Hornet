@@ -14,11 +14,9 @@
 		)
 	)
 	/**
-	 * The (maximum) amount of bleed damage with each hit.
-	 * This is premultiplied by 10, and then randomized between 50% and 100% of the value.
-	 * We need to pre-multiply by 10, as BYOND's rand() doesn't support decimal ranges, so we just multiply the final random value by 0.1.
+	 * Randomised between 50% and 100%
 	 */
-	var/premultiplied_bleed_rate = 40
+	var/bleed_level = BLEED_SURFACE
 
 /datum/holoparasite_ability/weapon/blade/apply()
 	. = ..()
@@ -27,9 +25,11 @@
 	owner.armour_penetration = max(master_stats.potential - 1, 0) * 15
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = 'sound/weapons/bladeslice.ogg'
-	owner.response_harm = "stabs"
-	owner.attacktext = "stabs"
-	premultiplied_bleed_rate = master_stats.damage * 8
+	owner.response_harm_continuous = "stabs"
+	owner.response_harm_simple = "stab"
+	owner.attack_verb_continuous = "stabs"
+	owner.attack_verb_simple = "stab"
+	bleed_level = (master_stats.damage / 5) * (BLEED_DEEP_WOUND - BLEED_SURFACE) + BLEED_SURFACE
 
 /datum/holoparasite_ability/weapon/blade/remove()
 	. = ..()
@@ -38,13 +38,13 @@
 	owner.armour_penetration = initial(owner.armour_penetration)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)
-	owner.response_harm = initial(owner.response_harm)
-	owner.attacktext = initial(owner.attacktext)
+	owner.response_harm_continuous = initial(owner.response_harm_continuous)
+	owner.response_harm_simple = initial(owner.response_harm_simple)
+	owner.attack_verb_continuous = initial(owner.attack_verb_continuous)
+	owner.attack_verb_simple = initial(owner.attack_verb_simple)
 
 /datum/holoparasite_ability/weapon/blade/attack_effect(atom/movable/target, successful)
 	. = ..()
 	if(successful && ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		if(human_target.bleed_rate < 15)
-			var/randomized_bleed_rate = rand(round(premultiplied_bleed_rate * 0.5), premultiplied_bleed_rate) * 0.1
-			human_target.bleed_rate = clamp(human_target.bleed_rate + randomized_bleed_rate, 0, 15)
+		human_target.add_bleeding((rand(500, 1000) / 1000) * bleed_level)

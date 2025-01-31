@@ -23,7 +23,7 @@
 	target.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	target.Stun(INFINITY, ignore_canstun = TRUE)
 	target.move_resist = INFINITY
-	target.anchored = TRUE
+	target.set_anchored(TRUE)
 	target.status_flags |= GODMODE
 	// ensure they're on a turf
 	target.forceMove(target_turf)
@@ -44,7 +44,7 @@
 		pod.close_machine(target)
 		pod.despawn_occupant()
 		return
-	message_admins("<span class='danger'>Failed to force-cryo [ADMIN_LOOKUPFLW(target)] (no valid cryopods)</span>")
+	message_admins(span_danger("Failed to force-cryo [ADMIN_LOOKUPFLW(target)] (no valid cryopods)"))
 	log_admin("Failed to force-cryo [key_name(target)] (no valid cryopods)")
 
 /obj/structure/closet/supplypod/force_cryo

@@ -26,6 +26,8 @@
 /obj/effect/forcefield/wizard
 	var/mob/wizard
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/forcefield/wizard)
+
 /obj/effect/forcefield/wizard/Initialize(mapload, ntimeleft, mob/summoner)
 	. = ..()
 	wizard = summoner

@@ -9,23 +9,10 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
-	microwaved_type = /obj/item/food/toastedsandwich
 	foodtypes = GRAIN | VEGETABLES
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/food/toastedsandwich
-	name = "toasted sandwich"
-	desc = "Now if you only had a pepper bar."
-	icon = 'icons/obj/food/burgerbread.dmi'
-	icon_state = "toastedsandwich"
-	trash_type = /obj/item/trash/plate
-	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 6,
-		/datum/reagent/carbon = 2
-	)
-	tastes = list("toast" = 1)
-	foodtypes = GRAIN
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/grilled_cheese_sandwich
 	name = "grilled cheese sandwich"
@@ -42,6 +29,26 @@
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
+
+/obj/item/food/cheese_sandwich
+	name = "cheese sandwich"
+	desc = "A light snack for a warm day. ...but what if you grilled it?"
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "sandwich"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 7,
+		/datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 1
+	)
+	tastes = list("bread" = 1, "cheese" = 1)
+	foodtypes = GRAIN | DAIRY
+	food_flags = FOOD_FINGER_FOOD
+	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
+
+/obj/item/food/cheese_sandwich/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/grilled_cheese_sandwich, rand(30 SECONDS, 60 SECONDS), TRUE)
 
 /obj/item/food/jellysandwich
 	name = "jelly sandwich"
@@ -53,6 +60,7 @@
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/jellysandwich/slime
 	food_reagents = list(
@@ -83,6 +91,7 @@
 	foodtypes = GRAIN | GROSS
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/butteredtoast
 	name = "buttered toast"
@@ -98,6 +107,7 @@
 	foodtypes = GRAIN | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/jelliedtoast
 	name = "jellied toast"
@@ -109,6 +119,7 @@
 	foodtypes = GRAIN | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/jelliedtoast/cherry
 	food_reagents = list(
@@ -139,10 +150,12 @@
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/hotdog
 	name = "hotdog"
 	desc = "Hot and steamy hotdog weenie."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "hotdog"
 	bite_consumption = 3
 	food_reagents = list(
@@ -154,3 +167,4 @@
 	tastes = list("bun" = 3, "meat" = 2)
 	foodtypes = GRAIN | MEAT //Ketchup is not a vegetable
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3

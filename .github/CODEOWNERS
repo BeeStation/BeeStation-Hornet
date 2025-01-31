@@ -4,6 +4,10 @@
 # In the event that multiple org members are to be informed of changes
 # to the same file or dir, add them to the end under Multiple Owners
 
+# Mapping
+
+/_maps @BeeStation/beestation-mapping
+
 # crossedfall
 
 .dockerignore @crossedfall
@@ -19,16 +23,13 @@ Dockerfile @crossedfall
 # crossedfall (explicitly disowned)
 
 /tools/UpdatePaths/Scripts/
+/tools/maplint/lints/
 
 # powerfulbacon
 
 /code/game/machinery/shuttle @powerfulbacon
 /code/modules/shuttle/super_cruise @powerfulbacon
 /code/modules/shuttle/shuttle_creation @powerfulbacon
-
-# pestoverde322
-
-/_maps @pestoverde322
 
 # itsmeow
 
@@ -46,5 +47,5 @@ Dockerfile @crossedfall
 
 /tgui/packages/tgui/interfaces/
 /tgui/packages/tgui/styles/interfaces/
-/tgui/packages/tgui-panel/styles/goon/chat-dark.scss
-/tgui/packages/tgui-panel/styles/goon/chat-light.scss
+/tgui/packages/tgui-panel/styles/tgchat/chat-dark.scss
+/tgui/packages/tgui-panel/styles/tgchat/chat-light.scss

@@ -38,7 +38,7 @@ type CreateSetPriority = (priority: JobPriority | null) => () => void;
 
 const createSetPriorityCache: Record<string, CreateSetPriority> = {};
 
-const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPriority => {
+const createCreateSetPriorityFromName = (jobName: string): CreateSetPriority => {
   if (createSetPriorityCache[jobName] !== undefined) {
     return createSetPriorityCache[jobName];
   }
@@ -52,7 +52,7 @@ const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPri
     }
 
     const setPriority = () => {
-      const { act } = useBackend<PreferencesMenuData>(context);
+      const { act } = useBackend<PreferencesMenuData>();
 
       act('set_job_preference', {
         job: jobName,
@@ -116,28 +116,30 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
   );
 };
 
-const JobRow = (
-  props: {
-    className?: string;
-    job: Job;
-    name: string;
-  },
-  context
-) => {
-  const { data } = useBackend<PreferencesMenuData>(context);
+const JobRow = (props: { className?: string; job: Job; name: string }) => {
+  const { data } = useBackend<PreferencesMenuData>();
   const { className, job, name } = props;
 
   const isOverflow = data.overflow_role === name;
   const priority = data.job_preferences[name];
 
-  const createSetPriority = createCreateSetPriorityFromName(context, name);
+  const createSetPriority = createCreateSetPriorityFromName(name);
 
   const experienceNeeded = data.job_required_experience && data.job_required_experience[name];
   const daysLeft = data.job_days_left ? data.job_days_left[name] : 0;
+  const lockReason = job.lock_reason;
 
   let rightSide: InfernoNode;
 
-  if (experienceNeeded) {
+  if (lockReason) {
+    rightSide = (
+      <Stack align="center" height="100%" pr={1}>
+        <Stack.Item grow textAlign="right">
+          {lockReason}
+        </Stack.Item>
+      </Stack>
+    );
+  } else if (experienceNeeded) {
     const { experience_type, required_playtime } = experienceNeeded;
     const hoursNeeded = Math.ceil(required_playtime / 60);
 
@@ -254,8 +256,8 @@ const Gap = (props: { amount: number }) => {
   return <Box height={`calc(${props.amount}px + 0.2em)`} />;
 };
 
-const JoblessRoleDropdown = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const JoblessRoleDropdown = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const selected = data.character_preferences.misc.joblessrole;
 
   const options = [
@@ -286,8 +288,8 @@ const JoblessRoleDropdown = (props, context) => {
   );
 };
 
-const ClearJobsButton = (_, context) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const ClearJobsButton = (_) => {
+  const { act } = useBackend<PreferencesMenuData>();
   return <Button content="Clear All" confirm onClick={() => act('clear_job_preferences')} />;
 };
 

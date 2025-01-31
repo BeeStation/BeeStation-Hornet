@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(server_maint)
 	flags = SS_POST_FIRE_TIMING
 	priority = FIRE_PRIORITY_SERVER_MAINT
 	init_order = INIT_ORDER_SERVER_MAINT
+	init_stage = INITSTAGE_EARLY
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/list/currentrun
 	///Associated list of list names to lists to clear of nulls
@@ -17,7 +18,7 @@ SUBSYSTEM_DEF(server_maint)
 /datum/controller/subsystem/server_maint/PreInit()
 	world.hub_password = "" //quickly! before the hubbies see us.
 
-/datum/controller/subsystem/server_maint/Initialize(timeofday)
+/datum/controller/subsystem/server_maint/Initialize()
 	if (CONFIG_GET(flag/hub))
 		world.update_hub_visibility(TRUE)
 	//Keep in mind, because of how delay works adding a list here makes each list take wait * delay more time to clear
@@ -29,7 +30,7 @@ SUBSYSTEM_DEF(server_maint)
 		"suicided_mob_list" = GLOB.suicided_mob_list,
 		"dead_mob_list" = GLOB.dead_mob_list,
 	)
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/server_maint/fire(resumed = FALSE)
 	if(!resumed)
@@ -64,7 +65,7 @@ SUBSYSTEM_DEF(server_maint)
 			var/cmob = C.mob
 			if (!isnewplayer(cmob) || !SSticker.queued_players.Find(cmob))
 				log_access("AFK: [key_name(C)]")
-				to_chat(C, "<span class='userdanger'>You have been inactive for more than [DisplayTimeText(afk_period)] and have been disconnected.</span><br><span class='danger'You may reconnect via the button in the file menu or by <b><u><a href='byond://winset?command=.reconnect'>clicking here to reconnect</a></b></u></span>")
+				to_chat(C, "[span_userdanger("You have been inactive for more than [DisplayTimeText(afk_period)] and have been disconnected.")] <br>[span_danger("You may reconnect via the button in the file menu or by <b><u><a href='byond://winset?command=.reconnect'>clicking here to reconnect</a></b></u>")]")
 				QDEL_IN(C, 1) //to ensure they get our message before getting disconnected
 				continue
 
@@ -75,7 +76,7 @@ SUBSYSTEM_DEF(server_maint)
 			return
 
 /datum/controller/subsystem/server_maint/Shutdown()
-	kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", TRUE) //second parameter ensures only afk clients are kicked
+	kick_clients_in_lobby(span_boldannounce("The round came to an end with you in the lobby."), TRUE) //second parameter ensures only afk clients are kicked
 	var/server = CONFIG_GET(string/server)
 	for(var/thing in GLOB.clients)
 		if(!thing)

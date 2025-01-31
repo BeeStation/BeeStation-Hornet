@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "cleave"
 	action_background_icon_state = "bg_ecult"
 	invocation = "CL'VE"
@@ -28,8 +28,8 @@
 			continue
 		if(victim.anti_magic_check())
 			victim.visible_message(
-				"<span class='danger'>[victim]'s body flashes in a fiery glow, but repels the blaze!</span>",
-				"<span class='danger'>Your body begins to flash in a fiery glow, but you are protected!</span>"
+				span_danger("[victim]'s body flashes in a fiery glow, but repels the blaze!"),
+				span_danger("Your body begins to flash in a fiery glow, but you are protected!")
 			)
 			continue
 
@@ -37,11 +37,11 @@
 			continue
 
 		victim.visible_message(
-			"<span class='danger'>[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!</span>",
-			"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>"
+			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
+			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
 		)
 
-		victim.bleed_rate += 5
+		victim.add_bleeding(BLEED_DEEP_WOUND)
 		victim.adjustFireLoss(20)
 		new /obj/effect/temp_visual/cleave(victim.drop_location())
 

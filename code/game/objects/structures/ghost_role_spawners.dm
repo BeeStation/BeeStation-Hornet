@@ -10,7 +10,7 @@
 	density = TRUE
 	roundstart = FALSE
 	death = FALSE
-	mob_species = /datum/species/pod
+	mob_species = /datum/species/diona
 	short_desc = "You are a sentient ecosystem, an example of the mastery over life that your creators possessed."
 	flavour_text = "Your masters, benevolent as they were, created uncounted seed vaults and spread them across \
 	the universe to every planet they could chart. You are in one such seed vault. \
@@ -21,13 +21,10 @@
 	banType = ROLE_LIFEBRINGER
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
-	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
-	"Venus", "Sprout","Cocoa", "Strawberry", "Citrus", "Oak", "Cactus", "Pepper", "Juniper")
-	new_spawn.fully_replace_character_name(null,plant_name)
-	if(ishuman(new_spawn))
-		var/mob/living/carbon/human/H = new_spawn
-		H.underwear = "Nude" //You're a plant, partner
-		H.update_body()
+	var/mob/living/carbon/human/species/diona/H = new_spawn
+	H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+	H.underwear = "Nude" //You're a plant, partner
+	H.update_body()
 
 /obj/effect/mob_spawn/human/seed_vault/Destroy()
 	new/obj/structure/fluff/empty_terrarium(get_turf(src))
@@ -68,6 +65,8 @@
 		H.update_body()
 		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
+
 /obj/effect/mob_spawn/human/ash_walker/Initialize(mapload, datum/team/ashwalkers/ashteam)
 	. = ..()
 	var/area/A = get_area(src)
@@ -101,6 +100,8 @@
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
 	banType = ROLE_FREE_GOLEM
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -160,7 +161,7 @@
 		if(QDELETED(src) || uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		user.visible_message(span_notice("A faint light leaves [user], moving to [src] and animating it!"),span_notice("You leave your old body behind, and transfer into [src]!"))
 		show_flavour = FALSE
 		create(ckey = user.ckey,name = user.real_name)
 		user.death()
@@ -338,63 +339,6 @@
 	new/obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
 	..()
 
-/obj/effect/mob_spawn/human/demonic_friend
-	name = "Essence of friendship"
-	desc = "Oh boy! Oh boy! A friend!"
-	mob_name = "Demonic friend"
-	icon = 'icons/obj/cardboard_cutout.dmi'
-	icon_state = "cutout_basic"
-	outfit = /datum/outfit/demonic_friend
-	death = FALSE
-	roundstart = FALSE
-	random = TRUE
-	id_job = "SuperFriend"
-	id_access = "assistant"
-	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
-	var/datum/mind/owner
-	assignedrole = "SuperFriend"
-	banType = ROLE_DEMONIC_FRIEND
-
-/obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
-	. = ..()
-	owner = owner_mind
-	if(!owner)
-		return INITIALIZE_HINT_QDEL
-	flavour_text = "You have been given a reprieve from your eternity of torment, to be [owner.name]'s friend for [owner.p_their()] short mortal coil."
-	important_info = "Be aware that if you do not live up to [owner.name]'s expectations, they can send you back to hell with a single thought. [owner.name]'s death will also return you to hell."
-	var/area/A = get_area(src)
-	if(!mapload && A)
-		notify_ghosts("\A friendship shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE)
-	objectives = "Be [owner.name]'s friend, and keep [owner.name] alive, so you don't get sent back to hell."
-	spell = summoning_spell
-
-
-/obj/effect/mob_spawn/human/demonic_friend/special(mob/living/L)
-	if(!QDELETED(owner.current) && owner.current.stat != DEAD)
-		L.fully_replace_character_name(null,"[owner.name]'s best friend")
-		soullink(/datum/soullink/oneway, owner.current, L)
-		spell.friend = L
-		spell.charge_counter = spell.charge_max
-		L.mind.hasSoul = FALSE
-		var/mob/living/carbon/human/H = L
-		var/obj/item/worn = H.wear_id
-		var/obj/item/card/id/id = worn.GetID()
-		id.registered_name = L.real_name
-		id.update_label()
-	else
-		to_chat(L, "<span class='userdanger'>Your owner is already dead!  You will soon perish.</span>")
-		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, dust), 150)) //Give em a few seconds as a mercy.
-
-/datum/outfit/demonic_friend
-	name = "Demonic Friend"
-	uniform = /obj/item/clothing/under/misc/assistantformal
-	shoes = /obj/item/clothing/shoes/laceup
-	r_pocket = /obj/item/radio/off
-	back = /obj/item/storage/backpack
-	implants = list(/obj/item/implant/mindshield) //No revolutionaries, he's MY friend.
-	id = /obj/item/card/id
-
-
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 /obj/effect/mob_spawn/human/oldsec
 	name = "old cryogenics pod"
@@ -463,10 +407,10 @@
 	random = TRUE
 	mob_species = /datum/species/human
 	short_desc = "You are a scientist working for Nanotrasen, stationed onboard a state of the art research station."
-	flavour_text = "<span class='big bold'> You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
+	flavour_text = span_bigbold("You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
 	The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
 	As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them."
+	Work as a team with your fellow survivors and do not abandon them.")
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci

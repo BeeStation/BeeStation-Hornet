@@ -38,7 +38,7 @@
 		if(no_den_usage)
 			var/area/A = get_area(user)
 			if(istype(A, /area/wizard_station))
-				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+				to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 				return
 			else
 				no_den_usage = 0
@@ -49,7 +49,7 @@
 
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
-	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
+	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
 	playsound(user, fire_sound, 50, 1)
 	user.log_message("zapped [user.p_them()]self with a <b>[src]</b>", LOG_ATTACK)
 
@@ -68,9 +68,8 @@
 
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
 	..()
-	to_chat(user, "<span class='warning'>You irradiate yourself with pure energy! \
-	[pick("Do not pass go. Do not collect 200 zorkmids.","You feel more confident in your spell casting skills.","You Die...","Do you want your possessions identified?")]\
-	</span>")
+	to_chat(user, span_warning("You irradiate yourself with pure energy! \
+	[pick("Do not pass go. Do not collect 200 zorkmids.","You feel more confident in your spell casting skills.","You Die...","Do you want your possessions identified?")]"))
 	user.adjustOxyLoss(500)
 	charges--
 
@@ -100,7 +99,7 @@
 		var/mob/living/carbon/C = user
 		C.regenerate_limbs()
 		C.regenerate_organs()
-	to_chat(user, "<span class='notice'>You feel great!</span>")
+	to_chat(user, span_notice("You feel great!"))
 	charges--
 	..()
 
@@ -110,6 +109,11 @@
 	variable_charges = FALSE
 	can_charge = TRUE
 	recharge_rate = 1
+
+/obj/item/gun/magic/wand/resurrection/inert
+	name = "weakened wand of healing"
+	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
+	max_charges = 5
 
 /////////////////////////////////////
 //WAND OF POLYMORPH
@@ -142,7 +146,7 @@
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
-	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC))
+	if(do_teleport(user, user, 10, channel = TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(3, user.loc)
 		smoke.start()
@@ -162,7 +166,7 @@
 	var/turf/origin = get_turf(user)
 	var/turf/destination = find_safe_turf()
 
-	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC))
+	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
 		for(var/t in list(origin, destination))
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(0, t)
@@ -191,7 +195,7 @@
 	no_den_usage = 1
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")
+	to_chat(user, span_notice("You feel vaguely more open with your feelings."))
 	charges--
 	..()
 
@@ -211,3 +215,9 @@
 	..()
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, magic = TRUE)
 	charges--
+
+/obj/item/gun/magic/wand/fireball/inert
+	name = "weakened wand of fireball"
+	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
+	max_charges = 4
+

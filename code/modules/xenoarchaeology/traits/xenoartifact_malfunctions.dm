@@ -140,12 +140,12 @@
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/geiger_counter))
-		to_chat(user, "<span class='notice'>The [X.name] has residual radioactive decay features.</span>")
+		to_chat(user, span_notice("The [X.name] has residual radioactive decay features."))
 		return TRUE
 	..()
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>You feel pins and needles after touching the [X.name].</span>")
+	to_chat(user, span_notice("You feel pins and needles after touching the [X.name]."))
 	return TRUE
 
 /datum/xenoartifact_trait/malfunction/radioactive/activate(obj/item/xenoartifact/X)
@@ -189,22 +189,20 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
 	maxHealth = 10
 	health = 10
 	melee_damage = 5
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list("evil_clone")
+	faction = list(FACTION_HOSTILE)
 	status_flags = CANPUSH
 	del_on_death = TRUE
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	mobchatspan = "syndmob"
 
 //============
@@ -217,7 +215,7 @@
 
 /datum/xenoartifact_trait/malfunction/explode/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	. = ..()
-	X.visible_message("<span class='warning'>The [X] begins to heat up, it's delaminating!</span>")
+	X.visible_message(span_warning("The [X] begins to heat up, it's delaminating!"))
 	apply_wibbly_filters(X, 3)
 	addtimer(CALLBACK(src, PROC_REF(explode), X), 10 SECONDS)
 
@@ -235,7 +233,7 @@
 	///What gasses we've S U C K E D
 	var/datum/gas_mixture/air_contents
 	///Gasses we can suck. Currently everything but, it's here if we need to blacklist in the future
-	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITROUS, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O, GAS_O2, GAS_N2, GAS_STIMULUM, GAS_PLUOXIUM)
+	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor, /datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/stimulum, /datum/gas/pluoxium)
 	///Adjust for balance - I'm sure this will have no ramifications
 	var/volume = 1000000
 	var/volume_rate = 200000
@@ -244,22 +242,22 @@
 
 /datum/xenoartifact_trait/malfunction/absorbant/on_init(obj/item/xenoartifact/X)
 	air_contents = new(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = (T20C)
 	parent = X
 
 /datum/xenoartifact_trait/malfunction/absorbant/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	X.visible_message("<space class='warning'>[X] begins to vacuum nearby gasses!</span>")
 	var/turf/T = get_turf(X)
 	var/datum/gas_mixture/mixture = T.return_air()
-	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
-	X.air_update_turf()
+	mixture.merge(air_contents)
+	X.air_update_turf(FALSE, FALSE)
 
 //Throw sucked gas into our tile when we die
 /datum/xenoartifact_trait/malfunction/absorbant/Destroy()
 	. = ..()
 	var/turf/T = get_turf(parent)
 	T.assume_air(air_contents)
-	parent.air_update_turf()
+	parent.air_update_turf(FALSE, FALSE)
 
 //============
 // Hallucination, shows a random hallucination to the target once

@@ -402,7 +402,7 @@
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)
-		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>", type = message_type)
+		to_chat(initiator, span_warning("Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket."), type = message_type)
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
 		ticket_counter--
 		qdel(src)
@@ -591,7 +591,7 @@
 //Reopen a closed ticket
 /datum/help_ticket/proc/Reopen()
 	if(state <= TICKET_ACTIVE)
-		to_chat(usr, "<span class='warning'>This ticket is already open.</span>")
+		to_chat(usr, span_warning("This ticket is already open."))
 		return
 
 	var/datum/help_tickets/data_glob = get_data_glob()
@@ -599,7 +599,7 @@
 		return
 
 	if(data_glob.CKey2ActiveTicket(initiator_ckey))
-		to_chat(usr, "<span class='warning'>This user already has an active ticket, cannot reopen this one.</span>")
+		to_chat(usr, span_warning("This user already has an active ticket, cannot reopen this one."))
 		return
 
 	data_glob.active_tickets += src
@@ -731,11 +731,11 @@
 	TicketPanel()	//we have to be here to do this
 
 /datum/help_ticket/proc/resolve_message(status = "Resolved", message = null, extratext = "")
-	var/output = "<span class='[span_class]_conclusion'><span class='big'><b>[verb_name] [status]</b></span><br />"
+	var/output = "<span class='[span_class]_conclusion'>[span_big("<b>[verb_name] [status]</b>")]<br />"
 	output += message || "\A [handling_name] has handled your ticket.[extratext]<br />\
 		Thank you for creating a ticket, the [verb_name] verb will be returned to you shortly."
 	if(claimee)
-		output += "<br />Your ticket was handled by: <span class='adminooc'>[claimee.ckey]</span></span>"
+		output += "<br />Your ticket was handled by: [span_adminooc(claimee.ckey)]</span>"
 	to_chat(initiator, output, type = message_type)
 
 //
@@ -882,10 +882,10 @@
 							if(found.mind?.special_role)
 								is_antag = 1
 							founds[++founds.len] = list("name" = found.name,
-								            "real_name" = found.real_name,
-								            "ckey" = found.ckey,
-								            "key" = found.key,
-								            "antag" = is_antag)
+											"real_name" = found.real_name,
+											"ckey" = found.ckey,
+											"key" = found.key,
+											"antag" = is_antag)
 							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "

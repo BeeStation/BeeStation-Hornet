@@ -5,9 +5,10 @@
 	icon_state = "crate"
 	icon_living = "crate"
 
-	response_help = "touches"
-	response_disarm = "pushes"
-	response_harm = "hits"
+	response_help_continuous = "touches"
+	response_help_simple = "touch"
+	response_disarm_continuous = "pushes"
+	response_disarm_simple = "push"
 	speed = 0
 	maxHealth = 250
 	health = 250
@@ -15,7 +16,6 @@
 	mob_biotypes = list(MOB_INORGANIC)
 
 	melee_damage = 10
-	attacktext = "attacks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	emote_taunt = list("growls")
 	speak_emote = list("creaks")
@@ -24,7 +24,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("mimic")
+	faction = list(FACTION_MIMIC)
 	move_to_delay = 9
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
@@ -36,7 +36,8 @@
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
 	wander = FALSE
@@ -55,7 +56,7 @@
 			ate_something += "[each_obj.name]"
 		each_obj.forceMove(src) // nom nom
 	if(!mapload && length(ate_something))
-		visible_message("<span class='warning'>[src] ate some stuff!</span>")
+		visible_message(span_warning("[src] ate some stuff!"))
 		log_game("Newly created mimic-crate ate item(s): [english_list(ate_something)] in [AREACOORD(src)]")
 		message_admins("Newly created mimic-crate ate item(s): [english_list(ate_something)] in [ADMIN_VERBOSEJMP(src)]")
 	add_overlay("[icon_state]_door")
@@ -123,7 +124,7 @@
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
 	if(istype(original_of_this, /obj/machinery/vending))
-		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
+		original_of_this.take_damage(original_of_this.max_integrity, BRUTE, 0, FALSE)
 		// currently do this to vending machines only.
 		// because the destruction of stuff (especially items) is annoying.
 
@@ -139,6 +140,8 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/idledamage = TRUE
 	gold_core_spawnable = NO_SPAWN
 	var/obj/original_of_this = null
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 
 /mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/original, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
 	. = ..()
@@ -206,12 +209,12 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Paralyze(40)
-		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-				"<span class='userdanger'>\The [src] knocks you down!</span>")
+		C.visible_message(span_danger("\The [src] knocks down \the [C]!"), \
+				span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/machine
 	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
-				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
+				"My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
 	speak_chance = 7
 
 /mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(atom/the_target)
@@ -280,7 +283,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				Pewgun.chambered.update_icon()
 				..()
 			else
-				visible_message("<span class='danger'>The <b>[src]</b> clears a jam!</span>")
+				visible_message(span_danger("The <b>[src]</b> clears a jam!"))
 			Pewgun.chambered.forceMove(loc) //rip revolver immersions, blame shotgun snowflake procs
 			Pewgun.chambered = null
 			if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len)
@@ -290,7 +293,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		else if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len) //only true for pumpguns i think
 			Pewgun.chambered = Pewgun.magazine.get_round(0)
 			Pewgun.chambered.forceMove(Pewgun)
-			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
+			visible_message(span_danger("The <b>[src]</b> cocks itself!"))
 	else
 		ranged = 0 //BANZAIIII
 		retreat_distance = 0

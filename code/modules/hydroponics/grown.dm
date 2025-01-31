@@ -3,9 +3,13 @@
 // Data from the seeds carry over to these grown foods
 // ***********************************************************
 
+CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
+
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "berrypile"
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	name = "fresh produce" //fix naming bug
 	max_volume = 100
 	w_class = WEIGHT_CLASS_SMALL
@@ -32,6 +36,8 @@
 	var/filling_color
 	//Amount of discovery points given for scanning
 	var/discovery_points = 0
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 /obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	if(!tastes)
@@ -105,7 +111,7 @@
 /obj/item/food/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>.\n"
+		var/msg = "[span_info("This is \a [span_name(src)]")].\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -113,7 +119,7 @@
 			for(var/reagent_id in seed.reagents_add)
 				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 				var/amt = reagents.get_reagent_amount(reagent_id)
-				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
+				reag_txt += "\n[span_info("- [R.name]: [amt]")]"
 
 		if(reag_txt)
 			msg += reag_txt
@@ -149,13 +155,13 @@
 	else if(splat_type)
 		new splat_type(T)
 
-	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
+	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-	reagents.reaction(T)
+	reagents.expose(T)
 	for(var/A in T)
-		reagents.reaction(A)
+		reagents.expose(A)
 	qdel(src)
 
 /obj/item/food/grown/proc/squashreact()
@@ -175,26 +181,25 @@
 
 /obj/item/food/grown/grind_requirements()
 	if(dry_grind && !HAS_TRAIT(src, TRAIT_DRIED))
-		to_chat(usr, "<span class='warning'>[src] needs to be dry before it can be ground up!</span>")
+		to_chat(usr, span_warning("[src] needs to be dry before it can be ground up!"))
 		return
 	return TRUE
 
-/obj/item/food/grown/on_grind()
-	. = ..()
-	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
-	if(grind_results&&grind_results.len)
-		for(var/i in 1 to grind_results.len)
-			grind_results[grind_results[i]] = nutriment
-		reagents.del_reagent(/datum/reagent/consumable/nutriment)
-		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
+/obj/item/food/grown/grind(datum/reagents/target_holder, mob/user)
+	if(on_grind() == -1)
+		return FALSE
 
-/obj/item/food/grown/on_juice()
-	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
-	if(juice_results?.len)
-		for(var/i in 1 to juice_results.len)
-			juice_results[juice_results[i]] = nutriment
-		reagents.del_reagent(/datum/reagent/consumable/nutriment)
-		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
+	var/grind_results_num = LAZYLEN(grind_results)
+	if(grind_results_num)
+		var/total_nutriment_amount = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment, include_subtypes = TRUE)
+		var/single_reagent_amount = grind_results_num > 1 ? round(total_nutriment_amount / grind_results_num, CHEMICAL_QUANTISATION_LEVEL) : total_nutriment_amount
+		reagents.remove_all_type(/datum/reagent/consumable/nutriment, total_nutriment_amount)
+		for(var/reagent in grind_results)
+			reagents.add_reagent(reagent, single_reagent_amount)
+
+	if(reagents && target_holder)
+		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	return TRUE
 
 /obj/item/food/grown/dropped(mob/user, silent)
 	. = ..()

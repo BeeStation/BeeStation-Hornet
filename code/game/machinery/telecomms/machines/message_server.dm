@@ -14,9 +14,17 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
+	armor_type = /datum/armor/machinery_blackbox_recorder
 	var/obj/item/stored
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+
+/datum/armor/machinery_blackbox_recorder
+	melee = 25
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 70
 
 /obj/machinery/blackbox_recorder/Initialize(mapload)
 	. = ..()
@@ -27,19 +35,19 @@
 	if(stored)
 		user.put_in_hands(stored)
 		stored = null
-		to_chat(user, "<span class='notice'>You remove the blackbox from [src]. The tapes stop spinning.</span>")
+		to_chat(user, span_notice("You remove the blackbox from [src]. The tapes stop spinning."))
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>It seems that the blackbox is missing...</span>")
+		to_chat(user, span_warning("It seems that the blackbox is missing..."))
 
 /obj/machinery/blackbox_recorder/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
 	if(istype(I, /obj/item/blackbox))
 		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
-		user.visible_message("<span class='notice'>[user] clicks [I] into [src]!</span>", \
-		"<span class='notice'>You press the device into [src], and it clicks into place. The tapes begin spinning again.</span>")
+		user.visible_message(span_notice("[user] clicks [I] into [src]!"), \
+		span_notice("You press the device into [src], and it clicks into place. The tapes begin spinning again."))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		stored = I
 		update_icon()
@@ -63,7 +71,7 @@
 	icon_state = "blackcube"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_LARGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 #define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
@@ -73,10 +81,11 @@
 	icon_state = "message_server"
 	name = "Messaging Server"
 	desc = "A machine that processes and routes PDA and request console messages."
+	telecomms_type = /obj/machinery/telecomms/message_server
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
-	active_power_usage = 100
+	active_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
 	var/list/datum/data_tablet_msg/modular_msgs = list()
@@ -99,7 +108,7 @@
 /obj/machinery/telecomms/message_server/examine(mob/user)
 	. = ..()
 	if(calibrating)
-		. += "<span class='warning'>It's still calibrating.</span>"
+		. += span_warning("It's still calibrating.")
 
 /obj/machinery/telecomms/message_server/proc/GenerateKey()
 	var/newKey

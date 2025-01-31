@@ -33,9 +33,12 @@
 		CRASH("Metacoin amount fetched before value initialized")
 	return metabalance_cached
 
+/client/proc/get_metabalance_async()
+	return metabalance_cached || get_metabalance_db()
+
 /// Gets the user's metabalance from the DB. Blocking.
 /client/proc/get_metabalance_db()
-	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_get_metacoins = SSdbcore.NewQuery(
 		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -57,7 +60,7 @@
 		CRASH("Metacoin amount adjusted before value initialized")
 	metabalance_cached = mc_count
 	if(ann)
-		to_chat(src, "<span class='rose bold'>Your new metacoin balance is [mc_count]!</span>")
+		to_chat(src, span_rosebold("Your new metacoin balance is [mc_count]!"))
 	INVOKE_ASYNC(src, PROC_REF(db_set_metabalance), mc_count)
 
 /// Increases metabalance in the local cache, then invokes a database update.
@@ -73,13 +76,13 @@
 	metabalance_cached += mc_count
 	if(ann)
 		if(reason)
-			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]</span>")
+			to_chat(src, span_rosebold("[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]"))
 		else
-			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!</span>")
+			to_chat(src, span_rosebold("[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!"))
 	INVOKE_ASYNC(src, PROC_REF(db_inc_metabalance), mc_count)
 
 /client/proc/db_inc_metabalance(mc_count)
-	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)
@@ -87,7 +90,7 @@
 	qdel(query_set_metacoins)
 
 /client/proc/db_set_metabalance(mc_count)
-	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
+	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)

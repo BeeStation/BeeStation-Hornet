@@ -35,12 +35,14 @@ All the important duct code:
 	///wheter we just unanchored or drop whatever is in the variable. either is safe
 	var/drop_on_wrench = /obj/item/stack/ducts
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
+
 /obj/machinery/duct/Initialize(mapload, no_anchor, color_of_duct = "#ffffff", layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()
 
 	if(no_anchor)
 		active = FALSE
-		anchored = FALSE
+		set_anchored(FALSE)
 	else if(!can_anchor())
 		qdel(src)
 		CRASH("Overlapping ducts detected")
@@ -150,8 +152,9 @@ All the important duct code:
 			return TRUE
 
 ///we disconnect ourself from our neighbours. we also destroy our ductnet and tell our neighbours to make a new one
-/obj/machinery/duct/proc/disconnect_duct()
-	anchored = FALSE
+/obj/machinery/duct/proc/disconnect_duct(skipanchor)
+	if(!skipanchor) //since set_anchored calls us too.
+		set_anchored(FALSE)
 	active = FALSE
 	if(duct)
 		duct.remove_duct(src)
@@ -270,24 +273,25 @@ All the important duct code:
 	pixel_x = offset
 	pixel_y = offset
 
+/obj/machinery/duct/set_anchored(anchorvalue)
+	. = ..()
+	if(isnull(.))
+		return
+	if(anchorvalue)
+		active = TRUE
+		attempt_connect()
+	else
+		disconnect_duct(TRUE)
 
 /obj/machinery/duct/wrench_act(mob/living/user, obj/item/I) //I can also be the RPD
 	add_fingerprint(user)
 	I.play_tool_sound(src)
-	if(anchored)
+	if(anchored || can_anchor())
+		set_anchored(!anchored)
 		user.visible_message( \
-		"[user] unfastens \the [src].", \
-		"<span class='notice'>You unfasten \the [src].</span>", \
-		"<span class='italics'>You hear ratcheting.</span>")
-		disconnect_duct()
-	else if(can_anchor())
-		anchored = TRUE
-		active = TRUE
-		user.visible_message( \
-		"[user] fastens \the [src].", \
-		"<span class='notice'>You fasten \the [src].</span>", \
-		"<span class='italics'>You hear ratcheting.</span>")
-		attempt_connect()
+		"[user] [anchored ? null : "un"]fastens \the [src].", \
+		span_notice("You [anchored ? null : "un"]fasten \the [src]."), \
+		span_hear("You hear ratcheting."))
 	return TRUE
 ///collection of all the sanity checks to prevent us from stacking ducts that shouldn't be stacked
 /obj/machinery/duct/proc/can_anchor(turf/T)
@@ -316,7 +320,7 @@ All the important duct code:
 	var/obj/machinery/duct/D = A
 	var/obj/item/I = user.get_active_held_item()
 	if(I?.tool_behaviour != TOOL_WRENCH)
-		to_chat(user, "<span class='warning'>You need to be holding a wrench in your active hand to do that!</span>")
+		to_chat(user, span_warning("You need to be holding a wrench in your active hand to do that!"))
 		return
 	if(get_dist(src, D) != 1)
 		return
@@ -350,6 +354,8 @@ All the important duct code:
 
 	active = FALSE
 	anchored = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct/multilayered)
 
 /obj/machinery/duct/multilayered/Initialize(mapload, no_anchor, color_of_duct, layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()
@@ -398,7 +404,7 @@ All the important duct code:
 
 /obj/item/stack/ducts/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's current color and layer are [duct_color] and [duct_layer]. Use in-hand to change.</span>"
+	. += span_notice("It's current color and layer are [duct_color] and [duct_layer]. Use in-hand to change.")
 
 /obj/item/stack/ducts/attack_self(mob/user)
 	var/new_layer = input("Select a layer", "Layer") as null|anything in layers

@@ -10,6 +10,8 @@
 	max_integrity = 100
 	z_flags = Z_BLOCK_OUT_DOWN
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
+
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
 	if (up)
@@ -72,7 +74,7 @@
 
 /obj/structure/ladder/singularity_pull()
 	if (!(resistance_flags & INDESTRUCTIBLE))
-		visible_message("<span class='danger'>[src] is torn to pieces by the gravitational pull!</span>")
+		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)
 
 /obj/structure/ladder/proc/travel(going_up, mob/user, is_ghost, obj/structure/ladder/ladder)
@@ -114,7 +116,7 @@
 	else if(down)
 		travel(FALSE, user, is_ghost, down)
 	else
-		to_chat(user, "<span class='warning'>[src] doesn't seem to lead anywhere!</span>")
+		to_chat(user, span_warning("[src] doesn't seem to lead anywhere!"))
 
 	if(!is_ghost)
 		add_fingerprint(user)
@@ -144,14 +146,14 @@
 
 /obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_DECONSTRUCT)
-		to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
+		to_chat(user, span_notice("You deconstruct the ladder."))
 		qdel(src)
 		return TRUE
 	return FALSE
 
 /obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	if(RCD_DECONSTRUCT == passed_mode)
-		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
@@ -162,10 +164,10 @@
 			if(!I.tool_start_check(user, amount=0))
 				return FALSE
 
-			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")
+			to_chat(user, span_notice("You begin cutting [src]..."))
 			if(I.use_tool(src, user, 50, volume=100))
-				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
-									 "<span class='notice'>You cut [src].</span>")
+				user.visible_message(span_notice("[user] cuts [src]."), \
+									span_notice("You cut [src]."))
 				I.play_tool_sound(src, 100)
 				var/drop_loc = drop_location()
 				var/obj/R = new /obj/item/stack/rods(drop_loc, 10)
@@ -176,7 +178,7 @@
 				qdel(src)
 				return TRUE
 	else
-		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE
 
 /obj/structure/ladder/attack_robot(mob/living/silicon/robot/R)
@@ -190,9 +192,9 @@
 
 /obj/structure/ladder/proc/show_fluff_message(going_up, mob/user)
 	if(going_up)
-		user.visible_message("[user] climbs up [src].","<span class='notice'>You climb up [src].</span>")
+		user.visible_message("[user] climbs up [src].",span_notice("You climb up [src]."))
 	else
-		user.visible_message("[user] climbs down [src].","<span class='notice'>You climb down [src].</span>")
+		user.visible_message("[user] climbs down [src].",span_notice("You climb down [src]."))
 
 
 // Indestructible away mission ladders which link based on a mapped ID and height value rather than X/Y/Z.

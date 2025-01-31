@@ -29,7 +29,7 @@
 	wine_power = 15
 
 /obj/item/food/grown/grass/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You prepare the astroturf.</span>")
+	to_chat(user, span_notice("You prepare the astroturf."))
 	var/grassAmt = 1 + round(seed.potency * tile_coefficient) // The grass we're holding
 	for(var/obj/item/food/grown/grass/G in user.loc) // The grass on the floor
 		if(G.type != type)
@@ -128,6 +128,7 @@
 	name = "shamrock"
 	desc = "Luck of the irish."
 	icon_state = "shamrock"
+	worn_icon_state = "geranium"
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 3
 	can_distill = FALSE
@@ -145,6 +146,8 @@
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 //clover
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/grass/shamrock)
+
 /obj/item/food/grown/grass/shamrock/Initialize(mapload, /obj/item/seeds/new_seed)
 	. = ..()
 	if(prob(0.001)) // 0.001% chance to be a clover

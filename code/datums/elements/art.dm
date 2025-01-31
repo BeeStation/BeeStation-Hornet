@@ -32,23 +32,23 @@
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artbad", /datum/mood_event/artbad)
 			msg = "Wow, [source.p_they()] sucks."
 
-	user.visible_message("<span class='notice'>[user] stops and looks intently at [source].</span>", \
-						 "<span class='notice'>You appraise [source]... [msg]</span>")
+	user.visible_message(span_notice("[user] stops and looks intently at [source]."), \
+						span_notice("You appraise [source]... [msg]"))
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 	if(!isliving(user))
 		return
-	if(!INTERACTING_WITH(user, source))
+	if(!DOING_INTERACTION_WITH_TARGET(user, source))
 		INVOKE_ASYNC(src, PROC_REF(appraise), source, user) //Do not sleep the proc.
 
 /datum/element/art/proc/appraise(atom/source, mob/user)
-	to_chat(user, "<span class='notice'>You start appraising [source]...</span>")
+	to_chat(user, span_notice("You start appraising [source]..."))
 	if(!do_after(user, 2 SECONDS, target = source))
 		return
 	var/mult = 1
 	if(isobj(source))
 		var/obj/art_piece = source
-		mult = art_piece.obj_integrity/art_piece.max_integrity
+		mult = art_piece.get_integrity() / art_piece.max_integrity
 
 	apply_moodlet(source, user, impressiveness * mult)

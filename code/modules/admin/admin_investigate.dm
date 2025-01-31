@@ -23,7 +23,6 @@
 		INVESTIGATE_DEATHS,
 		INVESTIGATE_ENGINES,
 		INVESTIGATE_EXONET,
-		INVESTIGATE_EXPERIMENTOR,
 		INVESTIGATE_GRAVITY,
 		INVESTIGATE_HALLUCINATIONS,
 		INVESTIGATE_ITEMS,
@@ -63,6 +62,6 @@
 
 	var/F = file("[GLOB.log_directory]/[selected].html")
 	if(!fexists(F))
-		to_chat(src, "<span class='danger'>No [selected] logfile was found.</span>")
+		to_chat(src, span_danger("No [selected] logfile was found."))
 		return
 	src << browse(F,"window=investigate[selected];size=800x300")

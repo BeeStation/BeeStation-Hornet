@@ -4,7 +4,7 @@
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	charge_max = 100
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "mansus_grasp"
 	action_background_icon_state = "bg_ecult"
 
@@ -15,6 +15,8 @@
 	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH!"
 	on_use_sound = 'sound/items/welder.ogg'
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack/mansus_fist)
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
@@ -30,7 +32,7 @@
 	use_charge(user, whisper = TRUE)
 
 /obj/item/melee/touch_attack/mansus_fist/ignition_effect(atom/to_light, mob/user)
-	. = "<span class='notice'>[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!</span>"
+	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
 	use_charge(user)
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -57,8 +59,8 @@
 /obj/item/melee/touch_attack/mansus_fist/proc/antimagic_check(mob/living/carbon/human/target, mob/living/carbon/user)
 	if(target.anti_magic_check())
 		target.visible_message(
-			"<span class='danger'>The spell bounces off of [target]!</span>",
-			"<span class='danger'>The spell bounces off of you!</span>",
+			span_danger("The spell bounces off of [target]!"),
+			span_danger("The spell bounces off of you!"),
 		)
 		return TRUE
 	return FALSE
@@ -87,7 +89,7 @@
 	return TRUE
 
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	if(!IS_HERETIC(user))
 		return

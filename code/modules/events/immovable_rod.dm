@@ -71,7 +71,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target)
 		var/turf/T = get_turf(special_target)
 		if(T.z == z_original)
-			special_target_valid = TRUE_THRESHOLD
+			special_target_valid = TRUE
 	if(special_target_valid)
 		SSmove_manager.home_onto(src, special_target)
 		previous_distance = get_dist(src, special_target)
@@ -90,7 +90,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			ghost.check_orbitable(src)
 
 /obj/effect/immovablerod/Moved()
-	if(!loc)
+	if(!loc || QDELETED(src))
 		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
@@ -107,9 +107,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = get_edge_target_turf(src, dir)
 	SSmove_manager.home_onto(src, destination)
 
-/obj/effect/immovablerod/ex_act(severity, target)
-	return 0
-
 /obj/effect/immovablerod/singularity_act()
 	return
 
@@ -119,7 +116,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		audible_message("<span class='danger'>You hear a CLANG!</span>")
+		audible_message(span_danger("You hear a CLANG!"))
 
 	if(clong && prob(25))
 		x = clong.x
@@ -128,16 +125,19 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target && clong == special_target)
 		complete_trajectory()
 
-	if(isturf(clong) || isobj(clong))
+	if(isturf(clong))
 		if(clong.density)
-			EX_ACT(clong, EXPLODE_HEAVY)
-
+			var/turf/hit_turf = clong
+			hit_turf.take_damage(hit_turf.integrity, armour_penetration = 100)
+	else if (isobj(clong))
+		if(clong.density)
+			var/obj/hit_obj = clong
+			hit_obj.take_damage(hit_obj.get_integrity(), armour_penetration = 100)
 	else if(isliving(clong))
 		penetrate(clong)
 	else if(istype(clong, type))
 		var/obj/effect/immovablerod/other = clong
-		visible_message("<span class='danger'>[src] collides with [other]!\
-			</span>")
+		visible_message(span_danger("[src] collides with [other]!"))
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(2, get_turf(src))
 		smoke.start()
@@ -148,7 +148,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return TRUE
 
 /obj/effect/immovablerod/proc/penetrate(mob/living/L)
-	L.visible_message("<span class='danger'>[L] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
+	L.visible_message(span_danger("[L] is penetrated by an immovable rod!") , span_userdanger("The rod penetrates you!") , span_danger("You hear a CLANG!"))
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.adjustBruteLoss(160)
@@ -164,14 +164,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				if(!M.stat)
 					shake_camera(M, 2, 3)
 			if(wizard)
-				U.visible_message("<span class='boldwarning'>[src] transforms into [wizard] as [U] suplexes them!</span>", "<span class='warning'>As you grab [src], it suddenly turns into [wizard] as you suplex them!</span>")
-				to_chat(wizard, "<span class='boldwarning'>You're suddenly jolted out of rod-form as [U] somehow manages to grab you, slamming you into the ground!</span>")
+				U.visible_message(span_boldwarning("[src] transforms into [wizard] as [U] suplexes them!"), span_warning("As you grab [src], it suddenly turns into [wizard] as you suplex them!"))
+				to_chat(wizard, span_boldwarning("You're suddenly jolted out of rod-form as [U] somehow manages to grab you, slamming you into the ground!"))
 				wizard.Stun(60)
 				wizard.apply_damage(25, BRUTE)
 				qdel(src)
 			else
 				U.client.give_award(/datum/award/achievement/misc/feat_of_strength, U) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
-				U.visible_message("<span class='boldwarning'>[U] suplexes [src] into the ground!</span>", "<span class='warning'>You suplex [src] into the ground!</span>")
+				U.visible_message(span_boldwarning("[U] suplexes [src] into the ground!"), span_warning("You suplex [src] into the ground!"))
 				new /obj/structure/festivus/anchored(drop_location())
 				new /obj/effect/anomaly/flux(drop_location())
 				qdel(src)

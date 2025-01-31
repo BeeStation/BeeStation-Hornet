@@ -135,22 +135,22 @@
 	return ..()
 
 /datum/antagonist/heretic/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/heretic/heretic_gain.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	var/list/msg = list()
-	msg += "<span class='big'>You are the <span class='bold umbra'>Heretic</span>!</span>"
+	msg += span_big("You are the [span_boldumbra("Heretic")]!")
 	msg += "The book whispers, the forbidden knowledge walks once again!"
 	msg += "The Forbidden Knowledge panel allows you to research abilities, read it very carefully! You cannot undo what has been done!"
 	msg += "You gain charges by either collecting influences or sacrificing people tracked by the living heart"
 	msg += "You can find a basic guide at: https://wiki.beestation13.com/view/Heretics"
 	if(locate(/datum/objective/major_sacrifice) in objectives)
-		msg += "<span class='bold'><i>Any</i> head of staff can be sacrificed to complete your objective!</span>"
-	to_chat(owner.current, EXAMINE_BLOCK("<span class='cult'>[msg.Join("\n")]</span>"))
+		msg += span_bold("<i>Any</i> head of staff can be sacrificed to complete your objective!")
+	to_chat(owner.current, EXAMINE_BLOCK(span_cult("[msg.Join("\n")]")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
 		"Collect influences or sacrifice targets to expand your forbidden knowledge.")
 
 /datum/antagonist/heretic/farewell()
 	if(!silent)
-		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherworldly knowledge escapes your grasp!</span>")
+		to_chat(owner.current, span_userdanger("Your mind begins to flare as the otherworldly knowledge escapes your grasp!"))
 	return ..()
 
 /datum/antagonist/heretic/on_gain()
@@ -300,7 +300,7 @@
 	drawing_rune = TRUE
 
 	target_turf.balloon_alert(user, "You start drawing a rune")
-	if(!do_after(user, drawing_time, target = target_turf, extra_checks = additional_checks))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
 		target_turf.balloon_alert(user, "Interrupted")
 		drawing_rune = FALSE
 		return
@@ -338,10 +338,11 @@
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
 	objectives += research_objective
+	log_objective(owner, research_objective.explanation_text)
 
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.client && (player.mind.assigned_role in GLOB.command_positions))
+		if(player.client && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 			num_heads++
 	// Give normal sacrifice objective
 	var/datum/objective/minor_sacrifice/sac_objective = new()
@@ -351,11 +352,13 @@
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
 	objectives += sac_objective
+	log_objective(owner, sac_objective.explanation_text)
 	// Give command sacrifice objective (if there's at least 2 command staff)
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		other_sac_objective.owner = owner
 		objectives += other_sac_objective
+		log_objective(owner, other_sac_objective.explanation_text)
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -401,7 +404,7 @@
 			continue
 		if(possible_target in target_blacklist)
 			continue
-		if(player.stat == DEAD || player.InFullCritical())
+		if(player.stat >= HARD_CRIT) //Hardcrit or worse (like being dead lmao)
 			continue
 		. += possible_target
 
@@ -412,11 +415,11 @@
 	remove_sacrifice_target(sac_mind)
 	var/list/candidates = possible_sacrifice_targets(include_current_targets = FALSE)
 	if(!length(candidates))
-		to_chat(owner, "<span class='warning'>You feel one of your sacrifice targets leave your reach... but the Mansus remains silent.</span>")
+		to_chat(owner, span_warning("You feel one of your sacrifice targets leave your reach... but the Mansus remains silent."))
 		return
 	var/datum/mind/new_target = pick(candidates)
 	add_sacrifice_target(new_target)
-	to_chat(owner, "<span class='danger'>The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... <span class='hypnophrase'>[new_target.name]</span>. Go forth and sacrifice [new_target.current.p_them()]!</span>")
+	to_chat(owner, span_danger("The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... [span_hypnophrase("[new_target.name]")]. Go forth and sacrifice [new_target.current.p_them()]!"))
 
 /**
  * Increments knowledge by one.
@@ -425,7 +428,7 @@
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	adjust_knowledge_points(1)
 	if(owner.current.stat <= SOFT_CRIT)
-		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class = 'hypnophrase'>[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]</span>")
+		to_chat(owner.current, span_hear("You hear a whisper... [span_hypnophrase(pick(strings(HERETIC_INFLUENCE_FILE, "drain_message")))]"))
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
 /datum/antagonist/heretic/proc/adjust_knowledge_points(amount)
@@ -449,13 +452,13 @@
 			count++
 
 	if(ascended)
-		parts += "<span class='greentext'><span class='big'>THE HERETIC ASCENDED!</span></span>"
+		parts += span_greentext("[span_big("THE HERETIC ASCENDED!")]")
 
 	else
 		if(succeeded)
-			parts += "<span class='greentext'>The heretic was successful, but did not ascend!</span>"
+			parts += span_greentext("The heretic was successful, but did not ascend!")
 		else
-			parts += "<span class='redtext'>The heretic has failed.</span>"
+			parts += span_redtext("The heretic has failed.")
 
 	parts += "<b>Knowledge Researched:</b> "
 
@@ -484,11 +487,11 @@
  */
 /datum/antagonist/heretic/proc/admin_give_living_heart(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, span_warning("You shouldn't be using this!"))
 		return
 	var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
 	if(!heart_knowledge)
-		to_chat(admin, "<span class='warning'>The heretic doesn't have a living heart knowledge for some reason. What?</span>")
+		to_chat(admin, span_warning("The heretic doesn't have a living heart knowledge for some reason. What?"))
 		return
 	heart_knowledge.on_research(owner.current)
 
@@ -497,15 +500,15 @@
  */
 /datum/antagonist/heretic/proc/admin_add_marked_target(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, span_warning("You shouldn't be using this!"))
 		return
 	var/mob/living/carbon/human/new_target = admin.client?.holder.marked_datum
 	if(!istype(new_target))
-		to_chat(admin, "<span class='warning'>You need to mark a human to do this!</span>")
+		to_chat(admin, span_warning("You need to mark a human to do this!"))
 		return
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
+		to_chat(owner.current, span_danger("The Mansus has modified your targets. Go find them!"))
+		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
 	add_sacrifice_target(new_target)
 
 /*
@@ -513,7 +516,7 @@
  */
 /datum/antagonist/heretic/proc/admin_remove_target(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, span_warning("You shouldn't be using this!"))
 		return
 	var/list/removable = list()
 	for(var/datum/weakref/ref as anything in sac_targets)
@@ -528,14 +531,14 @@
 		return
 	LAZYREMOVE(sac_targets, WEAKREF(chosen_target))
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets.</span>")
+		to_chat(owner.current, span_danger("The Mansus has modified your targets."))
 
 /*
  * Admin proc for easily adding / removing knowledge points.
  */
 /datum/antagonist/heretic/proc/admin_change_points(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
+		to_chat(admin, span_warning("You shouldn't be using this!"))
 		return
 
 	var/change_num = tgui_input_number(admin, "Add or remove knowledge points", "Points", 0)
@@ -550,7 +553,7 @@
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		if(istype(knowledge, /datum/heretic_knowledge/final))
-			string_of_knowledge += "<span class='bold'>[knowledge.name]</span>"
+			string_of_knowledge += span_bold("[knowledge.name]")
 		else
 			string_of_knowledge += knowledge.name
 
@@ -619,7 +622,7 @@
 		return TRUE
 	// You can ALWAYS sacrifice heads of staff if you need to do so.
 	var/datum/objective/major_sacrifice/major_sacc_objective = locate() in objectives
-	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in GLOB.command_positions))
+	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		return TRUE
 
 /*

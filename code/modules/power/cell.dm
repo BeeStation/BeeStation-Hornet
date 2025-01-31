@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	/// note %age conveted to actual charge in New
+	/// note %age converted to actual charge in New
 	var/charge = 0
 	var/maxcharge = 1000
 	custom_materials = list(/datum/material/iron=700, /datum/material/glass=50)
@@ -33,6 +33,8 @@
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
+
 /obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
 	. = ..()
 	START_PROCESSING(SSobj, src)
@@ -42,7 +44,7 @@
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a rating of [display_energy(maxcharge)], and you should not swallow it."
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -65,18 +67,18 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/stock_parts/cell/update_icon()
-	cut_overlays()
+/obj/item/stock_parts/cell/update_overlays()
+	. = ..()
 	if(grown_battery)
-		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
+		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
-		add_overlay("cell-o2")
+		. += "cell-o2"
 	else
-		add_overlay("cell-o1")
+		. += "cell-o1"
 
-/obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
+/obj/item/stock_parts/cell/proc/percent() // return % charge of cell
 	return maxcharge ? 100 * charge / maxcharge : 0 //Division by 0 protection
 
 // use power from a cell
@@ -105,12 +107,12 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
-		. += "<span class='danger'>This power cell seems to be faulty!</span>"
+		. += span_danger("This power cell seems to be faulty!")
 	else
 		. += "The charge meter reads [round(src.percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/on_reagent_change(changetype)
@@ -175,35 +177,35 @@
 			return
 		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 		if(!istype(stomach))
-			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+			to_chat(H, span_warning("You can't receive charge!"))
 			return
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+			to_chat(user, span_warning("You are already fully charged!"))
 			return
 
-		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
+		to_chat(H, span_notice("You clumsily channel power through the [src] and into your body, wasting some in the process."))
 		E.drain_time = world.time + 25
 		while(do_after(user, 20, target = src))
 			if(!istype(stomach))
-				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+				to_chat(H, span_warning("You can't receive charge!"))
 				return
 			E.drain_time = world.time + 25
 			if(charge > 300)
 				stomach.adjust_charge(75)
 				charge -= 300 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
-				to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
+				to_chat(H, span_notice("You receive some charge from the [src]."))
 			else
 				stomach.adjust_charge(charge/4)
 				charge = 0
-				to_chat(H, "<span class='notice'>You drain the [src].</span>")
+				to_chat(H, span_notice("You drain the [src]."))
 				E.drain_time = 0
 				return
 
 			if(stomach.charge >= stomach.max_charge)
-				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+				to_chat(H, span_notice("You are now fully charged."))
 				E.drain_time = 0
 				return
-		to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
+		to_chat(H, span_warning("You fail to receive charge from the [src]!"))
 		E.drain_time = 0
 	return
 
@@ -233,7 +235,7 @@
 /obj/item/stock_parts/cell/crap/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -255,7 +257,7 @@
 /obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
@@ -288,7 +290,7 @@
 /obj/item/stock_parts/cell/high/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -301,7 +303,7 @@
 /obj/item/stock_parts/cell/super/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -314,7 +316,7 @@
 /obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -328,7 +330,7 @@
 /obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
@@ -349,8 +351,9 @@
 	maxcharge = 50000
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/update_icon()
-	return
+/obj/item/stock_parts/cell/infinite/abductor/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_blocker)
 
 
 /obj/item/stock_parts/cell/potato
@@ -383,7 +386,7 @@
 /obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/emproof/empty/ComponentInitialize()
 	. = ..()

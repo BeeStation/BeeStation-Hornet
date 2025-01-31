@@ -13,20 +13,24 @@
 	healable = 0
 	speak_emote = list("hisses")
 	emote_hear = list("wails.","screeches.")
-	response_help  = "puts their hand through"
-	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_help_continuous = "puts their hand through"
+	response_help_simple = "put your hand through"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	speak_chance = 1
 	melee_damage = 5
-	attacktext = "metaphysically strikes"
+	attack_verb_continuous = "metaphysically strikes"
+	attack_verb_simple = "metaphysically strike"
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	stop_automated_movement = 1
 	status_flags = 0
-	faction = list("cult")
+	faction = list(FACTION_CULT)
 	status_flags = CANPUSH
-	movement_type = FLYING
+	is_flying_animal = TRUE
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
@@ -51,10 +55,10 @@
 		if(health < maxHealth)
 			adjustHealth(-25)
 			Beam(M, icon_state="sendbeam", time= 4)
-			M.visible_message("<span class='danger'>[M] heals \the <b>[src]</b>.</span>", \
-					   "<span class='cult'>You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+			M.visible_message(span_danger("[M] heals \the <b>[src]</b>."), \
+					   span_cult("You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
 		else
-			to_chat(M, "<span class='cult'>You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!</span>")
+			to_chat(M, span_cult("You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!"))
 	else if(src != M)
 		return ..()
 

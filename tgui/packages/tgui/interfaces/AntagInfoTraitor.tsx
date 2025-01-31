@@ -27,8 +27,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const UplinkSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const UplinkSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { has_uplink, uplink_unlock_info, code, failsafe_code } = data;
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
@@ -46,7 +46,7 @@ const UplinkSection = (_props, context) => {
             <Stack.Divider />
             {failsafe_code && (
               <>
-                <Stack.Item bold>{code && <span style={goalstyle}>Code: {code}</span>}</Stack.Item>
+                <Stack.Item bold>{failsafe_code && <span style={goalstyle}>Failsafe: {failsafe_code}</span>}</Stack.Item>
                 <Stack.Divider />
               </>
             )}
@@ -60,8 +60,8 @@ const UplinkSection = (_props, context) => {
   );
 };
 
-const CodewordsSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const CodewordsSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { has_codewords, phrases, responses } = data;
   return (
     <Section title="Codewords" mb={!has_codewords && -1}>
@@ -100,26 +100,32 @@ const CodewordsSection = (_props, context) => {
   );
 };
 
-export const AntagInfoTraitor = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoTraitorContent = (_props) => {
+  const { data } = useBackend<Info>();
   const { antag_name, objectives } = data;
+  return (
+    <Stack vertical fill>
+      <Stack.Item>
+        <AntagInfoHeader name={antag_name || 'Traitor'} asset="traitor.png" />
+      </Stack.Item>
+      <Stack.Item grow>
+        <ObjectivesSection objectives={objectives} />
+      </Stack.Item>
+      <Stack.Item>
+        <UplinkSection />
+      </Stack.Item>
+      <Stack.Item>
+        <CodewordsSection />
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+export const AntagInfoTraitor = (_props) => {
   return (
     <Window width={620} height={620} theme="syndicate">
       <Window.Content>
-        <Stack vertical fill>
-          <Stack.Item>
-            <AntagInfoHeader name={antag_name || 'Traitor'} asset="traitor.png" />
-          </Stack.Item>
-          <Stack.Item grow>
-            <ObjectivesSection objectives={objectives} />
-          </Stack.Item>
-          <Stack.Item>
-            <UplinkSection />
-          </Stack.Item>
-          <Stack.Item>
-            <CodewordsSection />
-          </Stack.Item>
-        </Stack>
+        <AntagInfoTraitorContent />
       </Window.Content>
     </Window>
   );

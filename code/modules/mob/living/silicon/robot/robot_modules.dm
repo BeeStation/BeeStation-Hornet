@@ -199,7 +199,7 @@
 	flick("[cyborg_base_icon]_transform", R)
 	R.notransform = TRUE
 	R.SetLockdown(TRUE)
-	R.anchored = TRUE
+	R.set_anchored(TRUE)
 	R.logevent("Chassis configuration has been set to [name].")
 	sleep(1)
 	for(var/i in 1 to 4)
@@ -208,7 +208,7 @@
 	if(!prev_lockcharge)
 		R.SetLockdown(FALSE)
 	R.setDir(SOUTH)
-	R.anchored = FALSE
+	R.set_anchored(FALSE)
 	R.notransform = FALSE
 	R.update_icons()
 	R.notify_ai(NEW_MODULE)
@@ -244,7 +244,7 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/sheet/iron,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/extinguisher,
 		/obj/item/pickaxe,
 		/obj/item/t_scanner/adv_mining_scanner,
@@ -271,7 +271,7 @@
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/borg/apparatus/beaker,
+		/obj/item/borg/apparatus/container,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/surgical_drapes,
@@ -324,7 +324,7 @@
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/stack/cable_coil,
 		/obj/item/holosign_creator/atmos)
 	emag_modules = list(/obj/item/borg/stun)
@@ -386,8 +386,8 @@
 
 /obj/item/robot_module/security/do_transform_animation()
 	..()
-	to_chat(loc, "<span class='userdanger'>While you have picked the security module, you still have to follow your laws, NOT Space Law. \
-	For Asimov, this means you must follow criminals' orders unless there is a law 1 reason not to.</span>")
+	to_chat(loc, span_userdanger("While you have picked the security module, you still have to follow your laws, NOT Space Law. \
+	For Asimov, this means you must follow criminals' orders unless there is a law 1 reason not to."))
 
 /obj/item/robot_module/security/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
@@ -427,8 +427,8 @@
 
 /obj/item/robot_module/peacekeeper/do_transform_animation()
 	..()
-	to_chat(loc, "<span class='userdanger'>Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
-	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you.</span>")
+	to_chat(loc, span_userdanger("Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
+	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you."))
 
 /obj/item/robot_module/janitor
 	name = JOB_NAME_JANITOR
@@ -436,7 +436,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/crowbar/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
@@ -444,7 +444,7 @@
 		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini,
 		/obj/item/mop/cyborg,
-		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/reagent_containers/cup/bucket,
 		/obj/item/paint/paint_remover,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janibarrier,
@@ -508,7 +508,6 @@
 	name = "Service"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/pen,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
@@ -521,7 +520,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/borg/apparatus/beaker/service,
+		/obj/item/borg/apparatus/container/service,
 		/obj/item/reagent_containers/borghypo/borgshaker)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	ratvar_modules = list(
@@ -538,7 +537,7 @@
 
 /obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
-	var/obj/item/reagent_containers/O = locate(/obj/item/reagent_containers/food/condiment/enzyme) in basic_modules
+	var/obj/item/reagent_containers/O = locate(/obj/item/reagent_containers/condiment/enzyme) in basic_modules
 	if(O)
 		O.reagents.add_reagent(/datum/reagent/consumable/enzyme, 2 * coeff)
 
@@ -593,7 +592,7 @@
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/extinguisher/mini,
 		/obj/item/storage/bag/sheetsnatcher/borg,
-		/obj/item/gun/energy/kinetic_accelerator/cyborg,
+		/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/stack/marker_beacon)
 	emag_modules = list(/obj/item/borg/stun)
@@ -657,12 +656,12 @@
 /obj/item/robot_module/syndicate/rebuild_modules()
 	..()
 	var/mob/living/silicon/robot/Syndi = loc
-	Syndi.faction  -= "silicon" //ai turrets
+	Syndi.faction  -= FACTION_SILICON //ai turrets
 
 /obj/item/robot_module/syndicate/remove_module(obj/item/I, delete_after)
 	..()
 	var/mob/living/silicon/robot/Syndi = loc
-	Syndi.faction += "silicon" //ai is your bff now!
+	Syndi.faction += FACTION_SILICON //ai is your bff now!
 
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"
@@ -713,7 +712,7 @@
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel,
+		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/dest_tagger/borg,
 		/obj/item/stack/cable_coil,
 		/obj/item/card/emag,

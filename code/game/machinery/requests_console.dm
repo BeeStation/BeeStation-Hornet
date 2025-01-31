@@ -28,11 +28,15 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	name = "requests console"
 	desc = "A console intended to send requests to different departments on the station."
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
+	base_icon_state = "req_comp"
 	layer = ABOVE_WINDOW_LAYER
-	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
-	var/list/messages = list() //List of all messages
-	var/departmentType = 0 //bitflag
+	var/area/area // Reference to our area
+	var/areastring = null // Mapper helper to tie an apc to another area
+	var/auto_name = FALSE // Autonaming by area on?
+	var/department = "" //Department name (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
+	var/list/messages = list() // List of all messages
+	var/departmentType = 0 // bitflag, DEPRECATED. If maps no longer contain this var, delete it. Use the flags. -fippe
 		// 0 = none (not listed, can only replied to)
 		// assistance 	= 1
 		// supplies 	= 2
@@ -66,60 +70,106 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/priority = REQ_NO_NEW_MESSAGE //Priority of the message being sent
 	var/obj/item/radio/Radio
 	var/emergency //If an emergency has been called by this device. Acts as both a cooldown and lets the responder know where it the emergency was triggered from
-	var/receive_ore_updates = FALSE //If ore redemption machines will send an update when it receives new ores.
+	var/receive_ore_updates = FALSE // If ore redemption machines will send an update when it receives new ores.
+	var/assistance_requestable = FALSE // Can others request assistance from this terminal?
+	var/supplies_requestable = FALSE // Can others request supplies from this terminal?
+	var/anon_tips_receiver = FALSE // Can you relay information to this console?
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor_type = /datum/armor/machinery_requests_console
 
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
 
-/obj/machinery/requests_console/update_icon()
+
+/datum/armor/machinery_requests_console
+	melee = 70
+	bullet = 30
+	laser = 30
+	energy = 30
+	fire = 90
+	acid = 90
+
+/obj/machinery/requests_console/update_appearance(updates=ALL)
+	. = ..()
 	if(machine_stat & NOPOWER)
 		set_light(0)
-	else
-		set_light(1)//green light
+		return
+	set_light(1.4,0.7,"#34D352")//green light
+
+/obj/machinery/requests_console/update_icon_state()
 	if(open)
-		if(!hackState)
-			icon_state="req_comp_open"
-		else
-			icon_state="req_comp_rewired"
-	else if(machine_stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
+		icon_state = "[base_icon_state]_[hackState ? "rewired" : "open"]"
+		return ..()
+	icon_state = "[base_icon_state]_off"
+	return ..()
+
+/obj/machinery/requests_console/update_overlays()
+	. = ..()
+
+	if(open || (machine_stat & NOPOWER))
+		return
+
+	var/screen_state
+
+	if(emergency || (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY))
+		screen_state = "[base_icon_state]3"
+	else if(newmessagepriority == REQ_HIGH_MESSAGE_PRIORITY)
+		screen_state = "[base_icon_state]2"
+	else if(newmessagepriority == REQ_NORMAL_MESSAGE_PRIORITY)
+		screen_state = "[base_icon_state]1"
 	else
-		if(emergency || (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY))
-			icon_state = "req_comp3"
-		else if(newmessagepriority == REQ_HIGH_MESSAGE_PRIORITY)
-			icon_state = "req_comp2"
-		else if(newmessagepriority == REQ_NORMAL_MESSAGE_PRIORITY)
-			icon_state = "req_comp1"
-		else
-			icon_state = "req_comp0"
+		screen_state = "[base_icon_state]0"
+
+	. += mutable_appearance(icon, screen_state)
+	. += emissive_appearance(icon, screen_state, layer, alpha = src.alpha)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/requests_console/Initialize(mapload)
 	. = ..()
-	if(department == "Unknown")
-		var/area/AR = get_area(src)
-		department = AR.name
-	name = "\improper [department] requests console"
+
+	// Init by checking our area, stolen from APC code
+	area = get_area(loc)
+
+	// Naming and department sets
+	if(auto_name) // If autonaming, just pick department and name from the area code.
+		department = "[get_area_name(area, TRUE)]"
+		name = "\improper [department] requests console"
+	else
+		if(!(department) && (name != "requests console")) // if we have a map-set name, let's default that for the department.
+			department = name
+		else if(!(department)) // if we have no department and no name, we'll have to be Unknown.
+			department = "Unknown"
+			name = "\improper [department] requests console"
+		else
+			name = "\improper [department] requests console" // and if we have a 'department', our name should reflect that.
+
 	GLOB.allConsoles += src
 
-	if(departmentType)
-
+	if(departmentType) // Do we have department type flags? Old, deletable once all req consoles are cleaned
 		if((departmentType & REQ_DEP_TYPE_ASSISTANCE) && !(department in GLOB.req_console_assistance))
-			GLOB.req_console_assistance += department
+			assistance_requestable = TRUE
 
 		if((departmentType & REQ_DEP_TYPE_SUPPLIES) && !(department in GLOB.req_console_supplies))
-			GLOB.req_console_supplies += department
+			supplies_requestable = TRUE
 
 		if((departmentType & REQ_DEP_TYPE_INFORMATION) && !(department in GLOB.req_console_information))
-			GLOB.req_console_information += department
+			anon_tips_receiver = TRUE
+	// once all request consoles on every map are cleaned, this section above can be deleted
 
-	GLOB.req_console_ckey_departments[ckey(department)] = department
+	if((assistance_requestable) && !(department in GLOB.req_console_assistance)) // adding to assistance list if not already present
+		GLOB.req_console_assistance += department
+
+	if((supplies_requestable) && !(department in GLOB.req_console_supplies)) // supplier list
+		GLOB.req_console_supplies += department
+
+	if((anon_tips_receiver) && !(department in GLOB.req_console_information)) // tips lists
+		GLOB.req_console_information += department
+
+	GLOB.req_console_ckey_departments[ckey(department)] = department // and then we set ourselves a listed name
 
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 
 /obj/machinery/requests_console/Destroy()
 	QDEL_NULL(Radio)
@@ -171,11 +221,11 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				dat += departments_table(GLOB.req_console_information)
 
 			if(REQ_SCREEN_SENT)
-				dat += "<span class='good'>Message sent.</span><BR><BR>"
+				dat += "[span_good("Message sent.")]<BR><BR>"
 				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 			if(REQ_SCREEN_ERR)
-				dat += "<span class='bad'>An error occurred.</span><BR><BR>"
+				dat += "[span_bad("An error occurred.")]<BR><BR>"
 				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 			if(REQ_SCREEN_VIEW_MSGS)
@@ -212,12 +262,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				if ((announceAuth || IsAdminGhost(user)) && message)
 					dat += "<A href='?src=[REF(src)];sendAnnouncement=1'>Announce Message</A><BR>"
 				else
-					dat += "<span class='linkOff'>Announce Message</span><BR>"
+					dat += "[span_linkoff("Announce Message")]<BR>"
 				dat += "<BR><A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 		if(!dat)
 			CRASH("No UI for src. Screen var is: [screen]")
-		var/datum/browser/popup = new(user, "req_console", "[department] Requests Console", 450, 440)
+		var/datum/browser/popup = new(user, "req_console", "[name]", 450, 440)
 		popup.set_content(dat)
 		popup.open()
 	return
@@ -268,12 +318,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(!announcementConsole)
 			return
 		if(CHAT_FILTER_CHECK(message))
-			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			to_chat(usr, span_warning("Your message contains forbidden words."))
 			return
 		if(isliving(usr))
 			var/mob/living/L = usr
 			message = L.treat_message(message)
-		minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
+		minor_announce(message, "[department] Announcement:", html_encode = FALSE, sound_override = 'sound/misc/announce_dig.ogg')
 		GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
@@ -386,14 +436,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				update_icon()
 
 		if(REQ_HIGH_MESSAGE_PRIORITY)
-			header = "<span class='bad'>High Priority</span><BR>[header]"
+			header = "[span_bad("High Priority")]<BR>[header]"
 			alert = "PRIORITY Alert from [source][authentic]"
 			if(newmessagepriority < REQ_HIGH_MESSAGE_PRIORITY)
 				newmessagepriority = REQ_HIGH_MESSAGE_PRIORITY
 				update_icon()
 
 		if(REQ_EXTREME_MESSAGE_PRIORITY)
-			header = "<span class='bad'>!!!Extreme Priority!!!</span><BR>[header]"
+			header = "[span_bad("!!!Extreme Priority!!!")]<BR>[header]"
 			alert = "EXTREME PRIORITY Alert from [source][authentic]"
 			silenced = FALSE
 			if(newmessagepriority < REQ_EXTREME_MESSAGE_PRIORITY)
@@ -413,10 +463,10 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 /obj/machinery/requests_console/attackby(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		if(open)
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			to_chat(user, span_notice("You close the maintenance panel."))
 			open = FALSE
 		else
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			to_chat(user, span_notice("You open the maintenance panel."))
 			open = TRUE
 		update_icon()
 		return
@@ -424,12 +474,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(open)
 			hackState = !hackState
 			if(hackState)
-				to_chat(user, "<span class='notice'>You modify the wiring.</span>")
+				to_chat(user, span_notice("You modify the wiring."))
 			else
-				to_chat(user, "<span class='notice'>You reset the wiring.</span>")
+				to_chat(user, span_notice("You reset the wiring."))
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You must open the maintenance panel first!</span>")
+			to_chat(user, span_warning("You must open the maintenance panel first!"))
 		return
 
 	var/obj/item/card/id/ID = O.GetID()
@@ -445,16 +495,22 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements!</span>")
+				to_chat(user, span_warning("You are not authorized to send announcements!"))
 			updateUsrDialog()
 		return
 	if (istype(O, /obj/item/stamp))
 		if(screen == REQ_SCREEN_AUTHENTICATE)
 			var/obj/item/stamp/T = O
-			msgStamped = "<span class='boldnotice'>Stamped with the [T.name]</span>"
+			msgStamped = span_boldnotice("Stamped with the [T.name]")
 			updateUsrDialog()
 		return
 	return ..()
+
+/obj/machinery/requests_console/auto_name // Register an autoname variant and then make the directional helpers before undefining all the magic bits
+	auto_name = TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/auto_name, 30)
 
 #undef REQ_EMERGENCY_SECURITY
 #undef REQ_EMERGENCY_ENGINEERING

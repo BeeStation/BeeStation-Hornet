@@ -1,6 +1,6 @@
 /obj/effect/spawner/bundle
 	name = "bundle spawner"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	color = "#00FF00"
 
@@ -16,8 +16,8 @@
 /obj/effect/spawner/bundle/costume/chicken
 	name = "chicken costume spawner"
 	items = list(
-		/obj/item/clothing/suit/chickensuit,
-		/obj/item/clothing/head/chicken,
+		/obj/item/clothing/suit/costume/chickensuit,
+		/obj/item/clothing/head/costume/chicken,
 		/obj/item/food/egg)
 
 /obj/effect/spawner/bundle/costume/gladiator
@@ -45,7 +45,7 @@
 	name = "nyangirl costume spawner"
 	items = list(
 		/obj/item/clothing/under/costume/schoolgirl,
-		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/costume/kitty,
 		/obj/item/clothing/glasses/blindfold)
 
 /obj/effect/spawner/bundle/costume/maid
@@ -61,7 +61,7 @@
 	items = list(
 		/obj/item/clothing/accessory/waistcoat,
 		/obj/item/clothing/under/suit/black,
-		/obj/item/clothing/head/that)
+		/obj/item/clothing/head/hats/tophat)
 
 /obj/effect/spawner/bundle/costume/highlander
 	name = "highlander costume spawner"
@@ -84,7 +84,7 @@
 	name = "plague doctor costume spawner"
 	items = list(
 		/obj/item/clothing/suit/bio_suit/plaguedoctorsuit,
-		/obj/item/clothing/head/plaguedoctorhat,
+		/obj/item/clothing/head/costume/plague,
 		/obj/item/clothing/mask/gas/plaguedoctor)
 
 /obj/effect/spawner/bundle/costume/nightowl
@@ -100,7 +100,7 @@
 		/obj/item/clothing/suit/toggle/owlwings/griffinwings,
 		/obj/item/clothing/shoes/griffin,
 		/obj/item/clothing/under/costume/griffin,
-		/obj/item/clothing/head/griffin)
+		/obj/item/clothing/head/costume/griffin)
 
 /obj/effect/spawner/bundle/costume/waiter
 	name = "waiter costume spawner"
@@ -113,7 +113,7 @@
 	name = "pirate costume spawner"
 	items = list(
 		/obj/item/clothing/under/costume/pirate,
-		/obj/item/clothing/suit/pirate,
+		/obj/item/clothing/suit/costume/pirate,
 		/obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
 		/obj/item/clothing/glasses/eyepatch)
 
@@ -121,12 +121,12 @@
 	name = "commie costume spawner"
 	items = list(
 		/obj/item/clothing/under/costume/soviet,
-		/obj/item/clothing/head/ushanka)
+		/obj/item/clothing/head/costume/ushanka)
 
 /obj/effect/spawner/bundle/costume/imperium_monk
 	name = "imperium monk costume spawner"
 	items = list(
-		/obj/item/clothing/suit/imperium_monk,
+		/obj/item/clothing/suit/costume/imperium_monk,
 		/obj/effect/spawner/lootdrop/minor/twentyfive_percent_cyborg_mask)
 
 /obj/effect/spawner/bundle/costume/holiday_priest
@@ -145,7 +145,7 @@
 	name = "cute witch costume spawner"
 	items = list(
 		/obj/item/clothing/under/dress/sundress,
-		/obj/item/clothing/head/witchwig,
+		/obj/item/clothing/head/costume/witchwig,
 		/obj/item/staff/broom)
 
 /obj/effect/spawner/bundle/costume/wizard

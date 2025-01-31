@@ -1,4 +1,4 @@
-/datum/admins/proc/open_borgopanel(borgo in GLOB.silicon_mobs)
+/datum/admins/proc/open_borgopanel(mob/living/silicon/robot/borgo as null|anything in GLOB.cyborg_list)
 	set category = "Admin"
 	set name = "Show Borg Panel"
 	set desc = "Show borg panel"
@@ -6,10 +6,19 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if (!istype(borgo, /mob/living/silicon/robot))
-		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in sort_names(GLOB.silicon_mobs)
-	if (!istype(borgo, /mob/living/silicon/robot))
-		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
+	if(!length(GLOB.cyborg_list))
+		to_chat(usr, span_warning("There are no borgs to show a panel for!"))
+		return
+
+	if(isnull(borgo))
+		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in sort_names(GLOB.cyborg_list)
+
+	if(!istype(borgo))
+		return
+
+	if(QDELING(borgo))
+		to_chat(usr, span_warning("Cannot open a panel for that borg, it's being/been deleted!"))
+		return
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)
 
@@ -78,7 +87,7 @@
 			"type" = "[module]"
 		))
 	.["ais"] = list(list("name" = "None", "ref" = "null", "connected" = isnull(borg.connected_ai)))
-	for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
+	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		.["ais"] += list(list("name" = ai.name, "ref" = REF(ai), "connected" = (borg.connected_ai == ai)))
 
 

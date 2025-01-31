@@ -22,8 +22,8 @@
 		else
 			summoner.current.add_splatter_floor()
 		recoil_scream()
-		to_chat(summoner.current, "<span class='danger bold'>You painfully cough up blood as [color_name] takes damage!</span>")
-		summoner.current.visible_message("<span class='warning'>[summoner.current] painfully coughs up blood[holoparasite_visible ? " as [color_name] takes damage" : ""]!</span>", vision_distance = HOLOPARA_SUMMONER_DAMAGE_VISION_RANGE)
+		to_chat(summoner.current, span_dangerbold("You painfully cough up blood as [color_name] takes damage!"))
+		summoner.current.visible_message(span_warning("[summoner.current] painfully coughs up blood[holoparasite_visible ? " as [color_name] takes damage" : ""]!"), vision_distance = HOLOPARA_SUMMONER_DAMAGE_VISION_RANGE)
 		COOLDOWN_START(src, recoil_cooldown, HOLOPARA_VISIBLE_RECOIL_COOLDOWN)
 	update_health_hud()
 
@@ -41,8 +41,8 @@
 	if(COOLDOWN_FINISHED(src, recoil_cooldown) && prob(70))
 		var/holoparasite_visible = isturf(summoner.current.loc) && isturf(loc) && (src in viewers(world.view, summoner.current))
 		recoil_scream()
-		to_chat(summoner.current, "<span class='danger bold'>Your body burns [color_name] takes damage!</span>")
-		summoner.current.visible_message("<span class='warning'>[summoner.current] cringes with pain, burns and blisters taking form on [summoner.current.p_their()] skin[holoparasite_visible ? " as [color_name] takes damage" : ""]!</span>", vision_distance = HOLOPARA_SUMMONER_DAMAGE_VISION_RANGE)
+		to_chat(summoner.current, span_dangerbold("Your body burns [color_name] takes damage!"))
+		summoner.current.visible_message(span_warning("[summoner.current] cringes with pain, burns and blisters taking form on [summoner.current.p_their()] skin[holoparasite_visible ? " as [color_name] takes damage" : ""]!"), vision_distance = HOLOPARA_SUMMONER_DAMAGE_VISION_RANGE)
 		COOLDOWN_START(src, recoil_cooldown, HOLOPARA_VISIBLE_RECOIL_COOLDOWN)
 	update_health_hud()
 
@@ -85,15 +85,15 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/extra_host_damage(amount)
 	// NOTE: checking unconscious and not sleeping here is intentional! ~Lucy
-	if(!summoner.current || !(summoner.current.IsUnconscious() || summoner.current.InCritical()))
+	if(!summoner.current || !(summoner.current.IsUnconscious() || HAS_TRAIT(summoner.current, TRAIT_CRITICAL_CONDITION)))
 		return
 	// No brain? Ah whatever, just deal clone damage.
 	var/obj/item/organ/brain/brain = summoner.current.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!brain || brain.decoy_override)
-		to_chat(summoner.current, "<span class='danger bold'>You feel your body strain as [color_name] takes damage!</span>")
+		to_chat(summoner.current, span_dangerbold("You feel your body strain as [color_name] takes damage!"))
 		summoner.current.adjustCloneLoss(amount)
 		return
-	to_chat(summoner.current, "<span class='danger bold'>You feel your mind strain as [color_name] takes damage!</span>")
+	to_chat(summoner.current, span_dangerbold("You feel your mind strain as [color_name] takes damage!"))
 	brain.applyOrganDamage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
 
 /**
@@ -160,8 +160,8 @@
 				else
 					summoner.current.add_splatter_floor()
 					summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.9, stamina = summoner.current.maxHealth * 1.5)
-				to_chat(summoner.current, "<span class='userdanger'>You violently cough up blood, barely surviving as an explosion nearly tears apart [color_name], causing you to collapse in incredible, agonizing pain!</span>")
-				summoner.current.visible_message("<span class='warning'>[summoner.current] violently coughs up blood, collapsing to the ground in incredible pain!</span>")
+				to_chat(summoner.current, span_userdanger("You violently cough up blood, barely surviving as an explosion nearly tears apart [color_name], causing you to collapse in incredible, agonizing pain!"))
+				summoner.current.visible_message(span_warning("[summoner.current] violently coughs up blood, collapsing to the ground in incredible pain!"))
 				summoner.current.AdjustParalyzed(45 SECONDS, ignore_canstun = TRUE)
 				summoner.current.jitteriness = min(summoner.current.jitteriness + 180, 180)
 				SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "devastate (survived)")
@@ -176,7 +176,7 @@
 					if(iscarbon(summoner.current))
 						var/mob/living/carbon/carbon_summoner = summoner.current
 						carbon_summoner.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE, distance = 5, message = FALSE)
-				summoner.current.visible_message("<span class='danger'>[summoner.current] violently coughs up an incredible amount of blood, collapsing to the ground, seemingly dead.</span>")
+				summoner.current.visible_message(span_danger("[summoner.current] violently coughs up an incredible amount of blood, collapsing to the ground, seemingly dead."))
 				SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "devastate (gibbed)")
 				gib()
 		if(EXPLODE_HEAVY)
@@ -190,5 +190,5 @@
 
 /mob/living/simple_animal/hostile/holoparasite/gib()
 	if(summoner.current)
-		to_chat(summoner.current, "<span class='userdanger'>Your [color_name] was blown up!</span>")
+		to_chat(summoner.current, span_userdanger("Your [color_name] was blown up!"))
 		parent_holder.death_of_the_author(summoner.current)

@@ -4,7 +4,6 @@
 	icon = 'icons/obj/robotics.dmi'
 	icon_state = "robocolorer"
 	density = TRUE
-	obj_integrity = 200
 	max_integrity = 200
 	var/obj/item/bodypart/storedpart
 	var/initial_icon_state
@@ -13,11 +12,11 @@
 /obj/machinery/aug_manipulator/examine(mob/user)
 	. = ..()
 	if(storedpart)
-		. += "<span class='notice'>Alt-click to eject the limb.</span>"
+		. += span_notice("Alt-click to eject the limb.")
 
 /obj/machinery/aug_manipulator/Initialize(mapload)
-    initial_icon_state = initial(icon_state)
-    return ..()
+	initial_icon_state = initial(icon_state)
+	return ..()
 
 /obj/machinery/aug_manipulator/update_icon()
 	cut_overlays()
@@ -60,10 +59,10 @@
 	else if(istype(O, /obj/item/bodypart))
 		var/obj/item/bodypart/B = O
 		if(IS_ORGANIC_LIMB(B))
-			to_chat(user, "<span class='warning'>The machine only accepts cybernetics!</span>")
+			to_chat(user, span_warning("The machine only accepts cybernetics!"))
 			return
 		if(storedpart)
-			to_chat(user, "<span class='warning'>There is already something inside!</span>")
+			to_chat(user, span_warning("There is already something inside!"))
 			return
 		else
 			O = user.get_active_held_item()
@@ -74,23 +73,23 @@
 			update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!O.tool_start_check(user, amount=0))
 				return
 
 			user.visible_message("[user] begins repairing [src].", \
-				"<span class='notice'>You begin repairing [src]...</span>", \
-				"<span class='italics'>You hear welding.</span>")
+				span_notice("You begin repairing [src]..."), \
+				span_italics("You hear welding."))
 
 			if(O.use_tool(src, user, 40, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
+				to_chat(user, span_notice("You repair [src]."))
 				set_machine_stat(machine_stat & ~BROKEN)
-				obj_integrity = max(obj_integrity, max_integrity)
+				atom_integrity = max(atom_integrity, max_integrity)
 				update_icon()
 		else
-			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+			to_chat(user, span_notice("[src] does not need repairs."))
 	else
 		return ..()
 
@@ -112,7 +111,7 @@
 		eject_part(user)
 
 	else
-		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
+		to_chat(user, span_notice("\The [src] is empty."))
 
 /obj/machinery/aug_manipulator/proc/eject_part(mob/living/user)
 	if(storedpart)
@@ -120,7 +119,7 @@
 		storedpart = null
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 
 /obj/machinery/aug_manipulator/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, !issilicon(user)))

@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		/datum/material/bluespace,
 		/datum/material/plastic,
 		)
-	AddComponent(/datum/component/material_container, materials_list, INFINITY, allowed_types=/obj/item/stack, _disable_attackby=TRUE)
+	AddComponent(/datum/component/material_container, materials_list, INFINITY, MATCONTAINER_NO_INSERT, /obj/item/stack)
 
 	if (!GLOB.ore_silo_default && mapload && is_station_level(z))
 		GLOB.ore_silo_default = src
@@ -49,24 +49,23 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 	return ..()
 
-/obj/machinery/ore_silo/proc/remote_attackby(obj/machinery/M, mob/user, obj/item/stack/I)
+/obj/machinery/ore_silo/proc/remote_attackby(obj/machinery/M, mob/user, obj/item/stack/I, breakdown_flags=NONE)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-
 	// stolen from /datum/component/material_container/proc/OnAttackBy
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(I.item_flags & ABSTRACT)
 		return
 	if(!istype(I) || (I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION))
-		to_chat(user, "<span class='warning'>[M] won't accept [I]!</span>")
+		to_chat(user, span_warning("[M] won't accept [I]!"))
 		return
-	var/item_mats = I.custom_materials & materials.materials
+	var/item_mats = I.get_material_composition(breakdown_flags) & materials.materials
 	if(!length(item_mats))
-		to_chat(user, "<span class='warning'>[I] does not contain sufficient materials to be accepted by [M].</span>")
+		to_chat(user, span_warning("[I] does not contain sufficient materials to be accepted by [M]."))
 		return
 	// assumes unlimited space...
 	var/amount = I.amount
-	materials.user_insert(I, user)
+	materials.user_insert(I, user, breakdown_flags)
 	silo_log(M, "deposited", amount, "sheets", item_mats)
 	return TRUE
 
@@ -105,11 +104,11 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 			if (sheets >= 1)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=1'>Eject</a>"
 			else
-				ui += "<span class='linkOff'>Eject</span>"
+				ui += span_linkoff("Eject")
 			if (sheets >= 20)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=20'>20x</a>"
 			else
-				ui += "<span class='linkOff'>20x</span>"
+				ui += span_linkoff("20x")
 			ui += "<b>[mat.name]</b>: [sheets] sheets<br>"
 			any = TRUE
 	if(!any)
@@ -134,7 +133,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(num_pages > 1)
 		for(var/i in 1 to num_pages)
 			if(i == page)
-				ui += "<span class='linkOff'>[i]</span>"
+				ui += span_linkoff("[i]")
 			else
 				ui += "<a href='?src=[REF(src)];page=[i]'>[i]</a>"
 
@@ -188,8 +187,8 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/ore_silo)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You log [src] in the [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		to_chat(user, span_notice("You log [src] in the [buffer_parent]'s buffer."))
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/ore_silo/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)
@@ -208,7 +207,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
 
 /obj/machinery/ore_silo/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>"
+	. += span_notice("[src] can be linked to techfabs, circuit printers and protolathes with a multitool.")
 
 /obj/machinery/ore_silo/on_object_saved(var/depth = 0)
 	if(depth >= 10)

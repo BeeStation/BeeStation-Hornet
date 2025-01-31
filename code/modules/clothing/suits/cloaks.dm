@@ -12,7 +12,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/cloak
 
 /obj/item/clothing/neck/cloak/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/clothing/neck/cloak/hos
@@ -50,31 +50,63 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/suit/hooded/cloak
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+
+/obj/item/clothing/head/hooded/cloakhood
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+
 /obj/item/clothing/suit/hooded/cloak/goliath
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/spear, /obj/item/spear/bonespear, /obj/item/organ/regenerative_core/legion, /obj/item/knife/combat/bone, /obj/item/knife/combat/survival)
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 30) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor_type = /datum/armor/cloak_goliath
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/goliath
 	body_parts_covered = CHEST|GROIN|ARMS
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/cloak_goliath
+	melee = 50
+	bullet = 10
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 60
+	acid = 60
+	stamina = 30
+	bleed = 20
 
 /obj/item/clothing/head/hooded/cloakhood/goliath
 	name = "goliath cloak hood"
 	icon_state = "golhood"
 	desc = "A protective & concealing hood."
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 30)
+	armor_type = /datum/armor/cloakhood_goliath
 	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	transparent_protection = HIDEMASK
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/cloakhood_goliath
+	melee = 50
+	bullet = 10
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 60
+	acid = 60
+	stamina = 30
+	bleed = 30
 
 /obj/item/clothing/suit/hooded/cloak/drake
 	name = "drake armour"
 	icon_state = "dragon"
 	desc = "A suit of armour fashioned from the remains of an ash drake."
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 30)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
+	armor_type = /datum/armor/cloak_drake
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/drake
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -83,21 +115,49 @@
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 	high_pressure_multiplier = 0.4
 
+
+/datum/armor/cloak_drake
+	melee = 70
+	bullet = 30
+	laser = 50
+	energy = 40
+	bomb = 70
+	bio = 60
+	rad = 50
+	fire = 100
+	acid = 100
+	stamina = 30
+	bleed = 50
+
 /obj/item/clothing/head/hooded/cloakhood/drake
 	name = "drake helm"
 	icon_state = "dragon"
 	desc = "The skull of a dragon."
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 30)
+	armor_type = /datum/armor/cloakhood_drake
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	high_pressure_multiplier = 0.4
 
+
+/datum/armor/cloakhood_drake
+	melee = 70
+	bullet = 30
+	laser = 50
+	energy = 40
+	bomb = 70
+	bio = 60
+	rad = 50
+	fire = 100
+	acid = 100
+	stamina = 30
+	bleed = 50
+
 /obj/item/clothing/suit/hooded/cloak/bone
 	name = "Heavy bone armor"
 	icon_state = "hbonearmor"
 	desc = "A tribal armor plate, crafted from animal bone. A heavier variation of standard bone armor."
-	armor = list(MELEE = 40,  BULLET = 25, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor_type = /datum/armor/cloak_bone
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/bone
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
@@ -105,16 +165,40 @@
 	resistance_flags = NONE
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 
+
+/datum/armor/cloak_bone
+	melee = 40
+	bullet = 25
+	laser = 30
+	energy = 30
+	bomb = 30
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 70
+
 /obj/item/clothing/head/hooded/cloakhood/bone
 	name = "bone helmet"
 	icon_state = "hskull"
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor_type = /datum/armor/cloakhood_bone
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+
+
+/datum/armor/cloakhood_bone
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 50
 
 /obj/item/clothing/neck/cloak/chap/bishop
 	name = "bishop's cloak"

@@ -25,7 +25,7 @@
 /obj/item/modular_computer/laptop/examine(mob/user)
 	. = ..()
 	if(screen_on)
-		. += "<span class='notice'>Alt-click to close it.</span>"
+		. += span_notice("Alt-click to close it.")
 
 /obj/item/modular_computer/laptop/Initialize(mapload)
 	. = ..()
@@ -57,14 +57,16 @@
 	. = ..()
 	if(over_object == usr || over_object == src)
 		try_toggle_open(usr)
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
+		return
+	if(istype(over_object, /atom/movable/screen/inventory/hand))
 		var/atom/movable/screen/inventory/hand/H = over_object
 		var/mob/M = usr
 
-		if(!M.restrained() && !M.stat)
-			if(!isturf(loc) || !Adjacent(M))
-				return
-			M.put_in_hand(src, H.held_index)
+		if(M.stat != CONSCIOUS || HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
+			return
+		if(!isturf(loc) || !Adjacent(M))
+			return
+		M.put_in_hand(src, H.held_index)
 
 /obj/item/modular_computer/laptop/attack_hand(mob/user)
 	. = ..()
@@ -92,11 +94,11 @@
 
 /obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
 	if(screen_on)
-		to_chat(user, "<span class='notice'>You close \the [src].</span>")
+		to_chat(user, span_notice("You close \the [src]."))
 		slowdown = initial(slowdown)
 		w_class = initial(w_class)
 	else
-		to_chat(user, "<span class='notice'>You open \the [src].</span>")
+		to_chat(user, span_notice("You open \the [src]."))
 		slowdown = slowdown_open
 		w_class = w_class_open
 

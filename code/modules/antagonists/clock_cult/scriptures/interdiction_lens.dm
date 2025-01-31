@@ -18,9 +18,8 @@
 	clockwork_desc = "A small device which will slow down nearby attackers at a small power cost."
 	default_icon_state = "interdiction_lens"
 	anchored = TRUE
-	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
+	break_message = span_warning("The interdiction lens breaks into multiple fragments, which gently float to the ground.")
 	max_integrity = 150
-	obj_integrity = 150
 	minimum_power = 5
 	var/enabled = FALSE			//Misnomer - Whether we want to be enabled or not, processing would be if we are enabled
 	var/processing = FALSE
@@ -41,16 +40,16 @@
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
 			return
 		enabled = !enabled
-		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [enabled?"on":"off"]!</span>")
+		to_chat(user, span_brass("You flick the switch on [src], turning it [enabled?"on":"off"]!"))
 		if(enabled)
 			if(update_power())
 				repowered()
 			else
 				enabled = FALSE
-				to_chat(user, "<span class='warning'>[src] does not have enough power!</span>")
+				to_chat(user, span_warning("[src] does not have enough power!"))
 		else
 			depowered()
 	else
@@ -67,7 +66,7 @@
 	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
 		if(!is_servant_of_ratvar(L) && use_power(5))
 			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
-	for(var/obj/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
+	for(var/obj/vehicle/sealed/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
 			M.emp_act(EMP_HEAVY)
 			M.take_damage(400 * delta_time)
@@ -82,7 +81,7 @@
 		flick("interdiction_lens_recharged", src)
 		if(istype(dampening_field))
 			QDEL_NULL(dampening_field)
-		dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = src, "projector" = internal_dampener))
+		dampening_field = new(src, INTERDICTION_LENS_RANGE, TRUE)
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/depowered()
 	if(processing)
@@ -102,10 +101,7 @@
 
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
-	name = "\improper Reality Distortion Field"
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/setup_edge_turf(turf/T)
-	edge_turfs[T] = new /obj/effect/abstract/proximity_checker/advanced/field_edge(T, src)
 
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
@@ -122,3 +118,5 @@
 
 /obj/item/borg/projectile_dampen/clockcult/process_recharge()
 	energy = maxenergy
+
+#undef INTERDICTION_LENS_RANGE

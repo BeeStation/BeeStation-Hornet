@@ -21,7 +21,7 @@
 			dexterity.internal_storage = null
 			update_inv_internal_storage()
 
-/mob/living/simple_animal/hostile/holoparasite/incapacitated(ignore_restraints, ignore_grab, ignore_stasis)
+/mob/living/simple_animal/hostile/holoparasite/incapacitated(flags)
 	return !can_use_abilities || ..()
 
 /mob/living/simple_animal/hostile/holoparasite/can_put_in_hand(item, hand_index)
@@ -51,7 +51,7 @@
 		return
 	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot))
 		if(item.w_class > dexterity.max_w_class)
-			to_chat(src, "<span class='danger'>[src] is too big to fit in your internal storage!</span>")
+			to_chat(src, span_danger("[src] is too big to fit in your internal storage!"))
 			return
 		// I have no idea why this is needed, but it is, and it works, so we're doing it this way.
 		var/hand_slot = get_held_index_of_item(item)
@@ -61,7 +61,7 @@
 		update_inv_hands()
 		update_inv_internal_storage()
 	else
-		to_chat(src, "<span class='danger'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
+		to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 /mob/living/simple_animal/hostile/holoparasite/get_item_by_slot(slot_id)
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon

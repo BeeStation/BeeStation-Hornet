@@ -55,7 +55,7 @@
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
 			return
 
-		if((H.movement_type & FLYING) || !(H.mobility_flags & MOBILITY_STAND)|| H.buckled)
+		if((H.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || (H.body_position == LYING_DOWN)|| H.buckled)
 			return
 
 		var/damage = rand(min_damage, max_damage)
@@ -63,15 +63,16 @@
 			damage *= 0.5
 
 		H.apply_damage(damage, BRUTE, picked_def_zone)
+		H.add_bleeding(BLEED_SCRATCH)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
-			if(!H.incapacitated(ignore_restraints = TRUE))
-				H.visible_message("<span class='danger'>[H] steps on [A].</span>", \
-						"<span class='userdanger'>You step on [A]!</span>")
+			if(!H.incapacitated(IGNORE_RESTRAINTS))
+				H.visible_message(span_danger("[H] steps on [A]."), \
+						span_userdanger("You step on [A]!"))
 			else
-				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
-						"<span class='userdanger'>You slide on [A]!</span>")
+				H.visible_message(span_danger("[H] slides on [A]!"), \
+						span_userdanger("You slide on [A]!"))
 
 		H.Paralyze(40)
 

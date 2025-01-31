@@ -36,33 +36,29 @@
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
 
 	var/current_color
-	var/EMPeffect = FALSE
-	var/emageffect = FALSE
+	//var/default_color
 	var/r1
 	var/g1
 	var/b1
 	var/static/r2 = 237
 	var/static/g2 = 164
 	var/static/b2 = 149
+	var/EMPeffect = FALSE
+	var/emageffect = FALSE
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
 	inert_mutation = OVERLOAD
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
-
 /datum/species/ethereal/Destroy(force)
-	if(ethereal_light)
-		QDEL_NULL(ethereal_light)
+	QDEL_NULL(ethereal_light)
 	return ..()
 
-/datum/species/ethereal/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	ethereal_light = C.mob_light()
-
+/datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
 	. = ..()
-
-	if(!ishuman(C))
+	if(!ishuman(new_ethereal))
 		return
-	var/mob/living/carbon/human/ethereal = C
+	var/mob/living/carbon/human/ethereal = new_ethereal
 	default_color = "#[ethereal.dna.features["ethcolor"]]"
 	r1 = GETREDPART(default_color)
 	g1 = GETGREENPART(default_color)
@@ -70,15 +66,14 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-
+	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	spec_updatehealth(ethereal)
 
-
 	//The following code is literally only to make admin-spawned ethereals not be black.
-	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
-	for(var/obj/item/bodypart/BP as() in C.bodyparts)
-		if(BP.limb_id == SPECIES_ETHEREAL)
-			BP.update_limb(is_creating = TRUE)
+	new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
+	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
+		if(limb.limb_id == SPECIES_ETHEREAL)
+			limb.update_limb(is_creating = TRUE)
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
@@ -86,7 +81,6 @@
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
 	QDEL_NULL(ethereal_light)
 	return ..()
-
 
 /datum/species/ethereal/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
@@ -97,11 +91,12 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-
-/datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/H)
+/datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
-	if(H.stat != DEAD && !EMPeffect)
-		var/healthpercent = max(H.health, 0) / 100
+	if(!ethereal_light)
+		return
+	if(ethereal.stat != DEAD && !EMPeffect)
+		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)
 			current_color = rgb(r2 + ((r1-r2)*healthpercent), g2 + ((g1-g2)*healthpercent), b2 + ((b1-b2)*healthpercent))
 		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
@@ -110,14 +105,14 @@
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = rgb(128,128,128)
-	H.update_body()
+	ethereal.update_body()
+	//ethereal.update_hair()
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER
-
 	EMPeffect = TRUE
 	spec_updatehealth(H)
-	to_chat(H, "<span class='notice'>You feel the light of your body leave you.</span>")
+	to_chat(H, span_notice("You feel the light of your body leave you."))
 	switch(severity)
 		if(EMP_LIGHT)
 			addtimer(CALLBACK(src, PROC_REF(stop_emp), H), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 10 seconds
@@ -133,7 +128,7 @@
 
 	if(hacker)
 		if(hacker.charges <= 0)
-			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			to_chat(user, span_warning("[hacker] is out of charges and needs some time to restore them!"))
 			user.balloon_alert(user, "out of charges!")
 			return
 		else
@@ -141,15 +136,15 @@
 
 	emageffect = TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>You tap [H] on the back with your card.</span>")
-	H.visible_message("<span class='danger'>[H] starts flickering in an array of colors!</span>")
+		to_chat(user, span_notice("You tap [H] on the back with your card."))
+	H.visible_message(span_danger("[H] starts flickering in an array of colors!"))
 	handle_emag(H)
 	addtimer(CALLBACK(src, PROC_REF(stop_emag), H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
 
 /datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
 	EMPeffect = FALSE
 	spec_updatehealth(H)
-	to_chat(H, "<span class='notice'>You feel more energized as your shine comes back.</span>")
+	to_chat(H, span_notice("You feel more energized as your shine comes back."))
 
 /datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
 	if(!emageffect)
@@ -161,7 +156,7 @@
 /datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
 	emageffect = FALSE
 	spec_updatehealth(H)
-	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
+	H.visible_message(span_danger("[H] stops flickering and goes back to their normal state!"))
 
 /datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
 	brutemod = 1.25
@@ -198,6 +193,9 @@
 
 /datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/ethereal/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
 
 /datum/species/ethereal/get_features()
 	var/list/features = ..()

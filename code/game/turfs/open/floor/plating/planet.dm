@@ -4,7 +4,6 @@
 	desc = "Upon closer examination, it's still dirt."
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "dirt"
-	baseturfs = /turf/open/chasm/jungle
 	initial_gas_mix = OPENTURF_LOW_PRESSURE
 	planetary_atmos = TRUE
 	attachment_holes = FALSE
@@ -13,6 +12,23 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	resistance_flags = INDESTRUCTIBLE
+	baseturfs = /turf/open/floor/plating/dirt
+
+/turf/open/floor/plating/dirt/planetary
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+
+/turf/open/floor/plating/dirt/grass
+	desc = "You're almost positive this is real grass."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "grass"
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	baseturfs = /turf/open/floor/plating/dirt
 
 /turf/open/floor/plating/dirt/dark
 	icon_state = "greenerdirt"
@@ -32,14 +48,9 @@
 	desc = "Looks a bit dry."
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "wasteland"
-	variants = list("wasteland", "wasteland0", "wasteland1", "wasteland2", "wasteland3", "wasteland4", "wasteland5", "wasteland6", "wasteland7", "wasteland8", "wasteland9", "wasteland10", "wasteland11", "wasteland12")
 	slowdown = 1
-	var/floor_variance = 15
-
-/turf/open/floor/plating/dirt/jungle/wasteland/Initialize(mapload)
-	.=..()
-	if(prob(floor_variance))
-		icon_state = "[initial(icon_state)][rand(0,12)]"
+	variant_probability = 15
+	variant_states = 13
 
 /turf/open/floor/grass/jungle
 	name = "jungle grass"

@@ -42,11 +42,28 @@
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
 
 /turf/closed/wall/vault
+	name = "strange wall"
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
+	base_icon_state = "rockvault"
 	smoothing_flags = NONE
-	base_icon_state = null
 	canSmoothWith = null
+	smoothing_groups = null
+	rcd_memory = null
+
+/turf/closed/wall/vault/rock
+	name = "rocky wall"
+	desc = "You feel a strange nostalgia from looking at this..."
+
+/turf/closed/wall/vault/alien
+	name = "alien wall"
+	icon_state = "alienvault"
+	base_icon_state = "alienvault"
+
+/turf/closed/wall/vault/sandstone
+	name = "sandstone wall"
+	icon_state = "sandstonevault"
+	base_icon_state = "sandstonevault"
 
 /turf/closed/wall/ice
 	icon = 'icons/turf/walls/icedmetal_wall.dmi'
@@ -55,6 +72,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
+	rcd_memory = null
 	hardness = 35
 	slicing_duration = 150 //welding through the ice+metal
 	bullet_sizzle = TRUE
@@ -110,27 +128,3 @@
 	girder_type = /obj/structure/girder/bronze
 
 
-/turf/closed/indestructible/cordon
-	name = "cordon"
-	desc = "The final word in problem solving."
-	icon_state = "cordon"
-
-//Will this look good? No. Will it work? Probably.
-
-/turf/closed/indestructible/cordon/Entered(atom/movable/AM)
-	. = ..()
-	if(isobserver(AM))
-		return
-	if(ismob(AM))
-		var/mob/interloper = AM
-		interloper.death()
-	if(ismecha(AM))
-		var/obj/mecha/fuckphazons = AM
-		var/mob/living/carbon/interloper = fuckphazons.occupant
-		interloper?.death()
-		qdel(interloper)
-
-	qdel(AM)
-
-/turf/closed/indestructible/cordon/is_holy()
-	return TRUE // The blessed cordon

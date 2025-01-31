@@ -43,29 +43,6 @@
 	upgradeEmpProof()
 	upgradeMotion()
 
-// AUTONAME
-
-/obj/machinery/camera/autoname
-	var/number = 0 //camera number in area
-
-//This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/camera/autoname/LateInitialize()
-	. = ..()
-
-	var/static/list/autonames_in_areas = list()
-
-	var/area/camera_area = get_area(src)
-
-	number = autonames_in_areas[camera_area] + 1
-	autonames_in_areas[camera_area] = number
-
-	c_tag = "[format_text(camera_area.name)] #[number]"
-
-
 // UPGRADE PROCS
 
 /obj/machinery/camera/proc/isEmpProof(ignore_malf_upgrades)

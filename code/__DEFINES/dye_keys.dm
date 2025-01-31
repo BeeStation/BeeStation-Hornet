@@ -2,6 +2,7 @@
 #define DYE_REGISTRY_JUMPSKIRT "jumpskirt"
 #define DYE_REGISTRY_SUITS "suit"
 #define DYE_REGISTRY_GLOVES "gloves"
+#define DYE_REGISTRY_BANDANA "bandana"
 #define DYE_REGISTRY_SNEAKERS "sneakers"
 #define DYE_REGISTRY_CAP "softcap"
 #define DYE_REGISTRY_BERET "beret"
@@ -34,3 +35,5 @@
 #define DYE_DENIED "denied"
 #define DYE_CLOWN "clown"
 #define DYE_SECURITY "security"
+#define DYE_CENTCOM "centcom"
+#define DYE_SYNDICATE "syndicate"

@@ -1,5 +1,5 @@
 /obj/item/paper_reader
-	name = "eletronic paper reader"
+	name = "electronic paper reader"
 	gender = NEUTER
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_reader"
@@ -39,6 +39,6 @@
 		in_use = FALSE
 		return
 	say(strip_html_tags(to_read[1]))
-	to_read.Remove(1)
+	to_read.Remove(to_read[1])
 	sleep(1 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(handle_todo))

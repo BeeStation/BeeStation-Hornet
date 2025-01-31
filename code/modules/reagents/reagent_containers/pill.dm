@@ -38,26 +38,26 @@
 		if(/datum/surgery/dental_implant in C.surgeries)
 			return
 	if(M == user)
-		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src].</span>")
+		M.visible_message(span_notice("[user] attempts to [apply_method] [src]."))
 		if(self_delay)
 			if(!do_after(user, self_delay, M))
 				return FALSE
-		to_chat(M, "<span class='notice'>You [apply_method] [src].</span>")
+		to_chat(M, span_notice("You [apply_method] [src]."))
 
 	else
-		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] attempts to force you to [apply_method] [src].</span>")
-		if(!do_after(user, target = M))
+		M.visible_message(span_danger("[user] attempts to force [M] to [apply_method] [src]."), \
+							span_userdanger("[user] attempts to force you to [apply_method] [src]."))
+		if(!do_after(user, 3 SECONDS, target = M))
 			return FALSE
-		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")
+		M.visible_message(span_danger("[user] forces [M] to [apply_method] [src]."), \
+							span_userdanger("[user] forces you to [apply_method] [src]."))
 
 	if(icon_state == "pill_shape_capsule_bloodred" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
 		var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), M, span_notice("[makes_me_think]")), 5 SECONDS)
 
 	if(reagents.total_volume)
-		reagents.reaction(M, apply_type, affecting = affecting)
+		reagents.expose(M, apply_type, affecting = affecting)
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user)
 	qdel(src)
 	return TRUE
@@ -76,7 +76,7 @@
 		balloon_alert(user, "[target] is full!")
 		return
 
-	user.visible_message("<span class='warning'>[user] slips something into [target]!</span>", "<span class='notice'>You dissolve [src] in [target].</span>", null, 2)
+	user.visible_message(span_warning("[user] slips something into [target]!"), span_notice("You dissolve [src] in [target]."), null, 2)
 	reagents.trans_to(target, reagents.total_volume, transfered_by = user)
 	qdel(src)
 

@@ -1,0 +1,532 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ag" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/window,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"ex" = (
+/obj/structure/window{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"fu" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"fA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"gd" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/obj/machinery/iv_drip,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"jq" = (
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 4
+	},
+/obj/machinery/chem_master,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"jN" = (
+/obj/machinery/computer/pandemic,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"ku" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/healthanalyzer,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"pl" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"qS" = (
+/obj/structure/window,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"rK" = (
+/obj/structure/window{
+	dir = 8
+	},
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"tI" = (
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"ug" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-08"
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"uI" = (
+/obj/structure/window{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/structure/table/optable,
+/obj/item/surgical_drapes,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"wr" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/structure/bed/roller,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"xO" = (
+/obj/structure/table,
+/obj/structure/window{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/item/clothing/neck/stethoscope{
+	pixel_x = 9;
+	pixel_y = 5
+	},
+/obj/item/flashlight/lamp,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"xY" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/closet/wardrobe/white,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"yh" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/masks,
+/obj/structure/window{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Ap" = (
+/obj/structure/window,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"AM" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/cautery,
+/obj/item/retractor,
+/obj/item/hemostat,
+/obj/item/scalpel{
+	pixel_y = 10
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Ch" = (
+/obj/structure/window,
+/obj/machinery/shower{
+	dir = 1;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"CY" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Dm" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"DM" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/obj/machinery/stasis{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Fi" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Fx" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"IE" = (
+/obj/structure/table,
+/obj/item/storage/box/syringes{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/machinery/reagentgrinder{
+	pixel_x = -6;
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Kr" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Ky" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 5;
+	pixel_y = 11
+	},
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 1
+	},
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/assembly/igniter,
+/obj/item/reagent_containers/dropper,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"LJ" = (
+/obj/structure/table,
+/obj/item/folder/white{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Na" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/structure/bodycontainer/morgue,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Qt" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"QN" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"RA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/clothing/mask/surgical,
+/obj/item/surgicaldrill,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"RV" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"SM" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"SY" = (
+/obj/structure/filingcabinet,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"UO" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Xt" = (
+/obj/structure/window,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Xz" = (
+/obj/machinery/door/window/westleft{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+"ZZ" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/closet/crate/freezer/blood,
+/obj/item/stack/medical/gauze,
+/obj/item/razor,
+/obj/item/circular_saw,
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+AM
+Na
+yh
+UO
+Ap
+DM
+Fi
+"}
+(2,1,1) = {"
+SM
+fA
+pl
+tI
+Xz
+Qt
+fu
+"}
+(3,1,1) = {"
+RA
+ZZ
+pl
+tI
+Ch
+xY
+gd
+"}
+(4,1,1) = {"
+ex
+uI
+wr
+tI
+qS
+rK
+xO
+"}
+(5,1,1) = {"
+Ky
+IE
+ku
+tI
+ag
+Dm
+LJ
+"}
+(6,1,1) = {"
+QN
+Kr
+pl
+tI
+RV
+Dm
+Dm
+"}
+(7,1,1) = {"
+jq
+jN
+ug
+CY
+Xt
+Fx
+SY
+"}

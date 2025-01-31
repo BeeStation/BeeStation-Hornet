@@ -10,7 +10,7 @@
 	time = 16
 
 /datum/surgery_step/insert_pill/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(surgery.location)]...</span>",
+	display_results(user, target, span_notice("You begin to wedge [tool] in [target]'s [parse_zone(surgery.location)]..."),
 			"[user] begins to wedge \the [tool] in [target]'s [parse_zone(surgery.location)].",
 			"[user] begins to wedge something in [target]'s [parse_zone(surgery.location)].")
 
@@ -18,6 +18,7 @@
 	if(!istype(tool))
 		return 0
 
+	target.cauterise_wounds()
 	user.transferItemToLoc(tool, target, TRUE)
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
@@ -25,7 +26,7 @@
 	P.target = tool
 	P.Grant(target)	//The pill never actually goes in an inventory slot, so the owner doesn't inherit actions from it
 
-	display_results(user, target, "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(surgery.location)].</span>",
+	display_results(user, target, span_notice("You wedge [tool] into [target]'s [parse_zone(surgery.location)]."),
 			"[user] wedges \the [tool] into [target]'s [parse_zone(surgery.location)]!",
 			"[user] wedges something into [target]'s [parse_zone(surgery.location)]!")
 	return 1
@@ -36,10 +37,10 @@
 /datum/action/item_action/hands_free/activate_pill/Trigger()
 	if(!..())
 		return FALSE
-	to_chat(owner, "<span class='warning'>You grit your teeth and burst the implanted [target.name]!</span>")
+	to_chat(owner, span_warning("You grit your teeth and burst the implanted [target.name]!"))
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	if(target.reagents.total_volume)
-		target.reagents.reaction(owner, INGEST)
+		target.reagents.expose(owner, INGEST)
 		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner)
 	qdel(target)
 	return TRUE

@@ -16,7 +16,7 @@
 /obj/machinery/computer/message_monitor/attackby(obj/item/O, mob/living/user, params)
 	if(O.tool_behaviour == TOOL_SCREWDRIVER && (obj_flags & EMAGGED))
 		//Stops people from just unscrewing the monitor and putting it back to get the console working again.
-		to_chat(user, "<span class='warning'>It is too hot to mess with!</span>")
+		to_chat(user, span_warning("It is too hot to mess with!"))
 	else
 		return ..()
 
@@ -24,7 +24,7 @@
 	if(!..())
 		return FALSE
 	if(!linked_server)
-		to_chat(user, "<span class='notice'>A 'no server detected' error appears on the screen.</span>")
+		to_chat(user, span_notice("A 'no server detected' error appears on the screen."))
 		return FALSE
 	return TRUE
 
@@ -48,9 +48,9 @@
 	hacking = FALSE
 	ui_update()
 	if(!linked_server)
-		to_chat(user, "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>")
+		to_chat(user, span_warning("Could not complete brute-force: Linked Server Disconnected!"))
 		return
-	to_chat(user, "<span class='warning'>Brute-force completed! The decryption key is '[linked_server.decryptkey]'.</span>")
+	to_chat(user, span_warning("Brute-force completed! The decryption key is '[linked_server.decryptkey]'."))
 
 /obj/machinery/computer/message_monitor/New()
 	..()
@@ -144,13 +144,13 @@
 			if(!usr || authenticated)
 				return TRUE
 			if(!linked_server)
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			var/dkey = capped_input(usr, "Please enter the decryption key.")
 			if(dkey && linked_server.decryptkey == dkey)
 				authenticated = TRUE
 			else
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ALERT: Incorrect decryption key!'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ALERT: Incorrect decryption key!'"))
 			return TRUE
 		if("logout")
 			authenticated = FALSE
@@ -160,12 +160,12 @@
 			if(!istype(S) || !S.hack_software)
 				return TRUE
 			if(!linked_server)
-				to_chat(S, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(S, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			hacking = TRUE
 			var/duration = 10 * length(linked_server.decryptkey) SECONDS
 			var/approx_duration = max(duration + rand(-20, 20), 1)
-			to_chat(S, "<span class='warning'>Brute-force decryption started. This will take approximately [DisplayTimeText(approx_duration, round_seconds_to = 10)].</span>")
+			to_chat(S, span_warning("Brute-force decryption started. This will take approximately [DisplayTimeText(approx_duration, round_seconds_to = 10)]."))
 			addtimer(CALLBACK(src, PROC_REF(finish_hack), S), duration)
 			return TRUE
 		if("link")
@@ -196,7 +196,7 @@
 			if(!authenticated)
 				return TRUE
 			if(!linked_server)
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			linked_server.toggled = !linked_server.toggled
 			// Trigger this immediately or hte UI will not update properly... wow this is a dumb proc
@@ -206,7 +206,7 @@
 			if(!usr || !authenticated)
 				return TRUE
 			if(!linked_server)
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			var/dkey = capped_input(usr, "Please enter the decryption key.")
 			if(!dkey)
@@ -214,26 +214,26 @@
 			if(linked_server.decryptkey == dkey)
 				var/newkey = capped_input(usr, "Please enter the new key (4-16 characters):")
 				if(length(newkey) < 4)
-					to_chat(usr, "<span class='warning'>The console flashes a message: 'NOTICE: Decryption key too short!'</span>")
+					to_chat(usr, span_warning("The console flashes a message: 'NOTICE: Decryption key too short!'"))
 				else if(length(newkey) > 16)
-					to_chat(usr, "<span class='warning'>The console flashes a message: 'NOTICE: Decryption key too long!'</span>")
+					to_chat(usr, span_warning("The console flashes a message: 'NOTICE: Decryption key too long!'"))
 				else if(newkey && newkey != "")
 					linked_server.decryptkey = newkey
-					to_chat(usr, "<span class='notice'>The console flashes a message: 'NOTICE: Decryption key set.'</span>")
+					to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Decryption key set.'"))
 			else
-				to_chat(usr,"<span class='warning'>The console flashes a message: 'ALERT: Incorrect decryption key!'</span>")
+				to_chat(usr,span_warning("The console flashes a message: 'ALERT: Incorrect decryption key!'"))
 		if("clear_logs")
 			var/type = params["type"]
 			if(!usr || !authenticated || (type != "pda" && type != "request"))
 				return TRUE
 			if(!linked_server)
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			if(type == "request")
 				linked_server.rc_msgs.Cut()
 			else
 				linked_server.modular_msgs.Cut()
-			to_chat(usr, "<span class='notice'>The console flashes a message: 'NOTICE: Logs cleared.'</span>")
+			to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Logs cleared.'"))
 			var/turf/the_turf = get_turf(src)
 			usr.log_message("cleared [type] logs using [src] at [AREACOORD(the_turf)]", LOG_GAME)
 			message_admins("[ADMIN_FLW(usr)] cleared [type] logs using [src] at [ADMIN_VERBOSEJMP(the_turf)]")
@@ -244,7 +244,7 @@
 			if(!usr || !authenticated || (type != "pda" && type != "request") || !ref)
 				return TRUE
 			if(!linked_server)
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			var/list/target = type == "request" ? linked_server.rc_msgs : linked_server.modular_msgs
 			var/datum/entry = locate(ref) in target
@@ -258,7 +258,7 @@
 			else if(istype(entry, /datum/data_rc_msg))
 				var/datum/data_rc_msg/rc_entry = entry
 				msg = "[rc_entry.send_dpt] to [rc_entry.rec_dpt] PRIORITY [rc_entry.priority] AUTH [rc_entry.id_auth] STAMP [rc_entry.stamp]: [rc_entry.message]"
-			to_chat(usr, "<span class='notice'>The console flashes a message: 'NOTICE: Log entry deleted.'</span>")
+			to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Log entry deleted.'"))
 			var/turf/the_turf = get_turf(src)
 			usr.log_message("cleared [type] log entry \"[msg]\" using [src] at [AREACOORD(the_turf)]", LOG_GAME)
 			if(isnull(locate(/datum/antagonist) in usr.mind?.antag_datums) && usr.mind?.assigned_role != "Lavaland Syndicate")
@@ -268,7 +268,7 @@
 			if(!usr || !authenticated)
 				return TRUE
 			if(!linked_server)
-				to_chat(usr, "<span class='warning'>The console flashes a message: 'ERROR: Server connection lost.'</span>")
+				to_chat(usr, span_warning("The console flashes a message: 'ERROR: Server connection lost.'"))
 				return TRUE
 			tgui_send_admin_pda(usr, src, linked_server)
 
@@ -281,6 +281,8 @@
 
 /obj/item/paper/monitorkey
 	name = "monitor decryption key"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/monitorkey)
 
 /obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
 	..()

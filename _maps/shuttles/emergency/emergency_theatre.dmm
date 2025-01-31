@@ -1,0 +1,959 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"at" = (
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"ct" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"eX" = (
+/obj/item/reagent_containers/cup/bottle/epinephrine{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cup/bottle/charcoal{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/cup/bottle/epinephrine{
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/bottle/charcoal{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/syringe/epinephrine{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/syringe/epinephrine{
+	pixel_x = 4;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/syringe/epinephrine{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/syringe/epinephrine{
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/structure/table/wood/fancy/cyan,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"fI" = (
+/turf/template_noop,
+/area/shuttle/escape)
+"ga" = (
+/obj/structure/chair/fancy/corp{
+	dir = 1
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"gh" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Security";
+	req_access_txt = "2"
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"gk" = (
+/obj/structure/closet/crate/internals,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"hG" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"jl" = (
+/obj/machinery/vending/autodrobe/all_access,
+/turf/open/floor/wood,
+/area/shuttle/escape)
+"kg" = (
+/obj/machinery/recharge_station,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"kz" = (
+/obj/machinery/vending/clothing,
+/turf/open/floor/wood,
+/area/shuttle/escape)
+"lt" = (
+/obj/machinery/door/airlock/gold,
+/obj/docking_port/mobile/emergency,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"ml" = (
+/obj/structure/table/wood/fancy/red,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 29
+	},
+/obj/item/storage/fancy/cigarettes/cigars/havana,
+/obj/item/storage/box/matches{
+	pixel_y = 9
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"mK" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/box/matches{
+	pixel_y = 7
+	},
+/obj/item/storage/box/matches{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"oH" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"oJ" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"pr" = (
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"qn" = (
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"rt" = (
+/obj/structure/chair/fancy/corp{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"ru" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"sV" = (
+/obj/structure/chair/fancy/corp{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"ux" = (
+/turf/open/floor/wood,
+/area/shuttle/escape)
+"vI" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"wn" = (
+/obj/machinery/vending/clothing,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"ww" = (
+/obj/machinery/stasis{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"xm" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"xR" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/table/optable,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"yx" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"yE" = (
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"yG" = (
+/obj/structure/statue/sandstone/venus{
+	dir = 1
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"zb" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"AU" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/o2{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"Bb" = (
+/obj/item/storage/fancy/cigarettes/cigars/havana,
+/obj/structure/table/wood/fancy/royalblue,
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"Ce" = (
+/obj/structure/curtain/bounty,
+/turf/open/floor/wood,
+/area/shuttle/escape)
+"CG" = (
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/recharger,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"CZ" = (
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/storage/lockbox/loyalty{
+	pixel_y = 6;
+	pixel_x = 14
+	},
+/obj/item/storage/box/zipties,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"DN" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"Eq" = (
+/obj/machinery/computer/records/medical,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"EG" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/box/matches,
+/obj/item/storage/box/matches{
+	pixel_y = 7
+	},
+/obj/item/storage/box/matches{
+	pixel_y = 11
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Hb" = (
+/obj/machinery/door/airlock/gold,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Hk" = (
+/obj/machinery/shieldgen,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"HN" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"HP" = (
+/obj/machinery/vending/boozeomat,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"IK" = (
+/obj/item/scalpel{
+	pixel_y = 12
+	},
+/obj/item/circular_saw,
+/obj/item/retractor{
+	pixel_x = 4
+	},
+/obj/item/hemostat{
+	pixel_x = -4
+	},
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/surgicaldrill,
+/obj/item/cautery,
+/obj/structure/table/wood/fancy/cyan,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"Jn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Js" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"JG" = (
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/wood,
+/area/shuttle/escape)
+"JO" = (
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_y = 9;
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_y = 9;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cup/glass/bottle/champagne{
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_y = 4;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_y = 4;
+	pixel_x = -6
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"LQ" = (
+/obj/structure/statue/sandstone/venus,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Nn" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/obj/item/clothing/glasses/monocle,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"NH" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"OI" = (
+/obj/item/storage/fancy/cigarettes/cigars/havana,
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/storage/box/matches{
+	pixel_x = -10;
+	pixel_y = 7
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"Pk" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"PH" = (
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"Rv" = (
+/obj/structure/shuttle/engine/propulsion,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"RK" = (
+/obj/structure/chair/fancy/corp{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Sk" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 29
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"SP" = (
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Tx" = (
+/obj/structure/chair/fancy/corp{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"VZ" = (
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"Xc" = (
+/obj/machinery/computer/communications{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"XP" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/defibrillator/loaded,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"Yv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"ZW" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+fI
+DN
+DN
+DN
+DN
+at
+DN
+lt
+xm
+xm
+xm
+xm
+xm
+Hb
+DN
+Hb
+DN
+fI
+fI
+"}
+(2,1,1) = {"
+DN
+DN
+Tx
+Tx
+Tx
+SP
+xm
+qn
+Js
+EG
+Nn
+mK
+Js
+qn
+Jn
+qn
+DN
+DN
+fI
+"}
+(3,1,1) = {"
+DN
+CZ
+SP
+SP
+SP
+SP
+gh
+qn
+VZ
+qn
+qn
+VZ
+qn
+qn
+qn
+qn
+Hk
+oH
+Rv
+"}
+(4,1,1) = {"
+DN
+ml
+SP
+SP
+SP
+SP
+xm
+qn
+RK
+RK
+RK
+qn
+qn
+qn
+qn
+qn
+gk
+oH
+Rv
+"}
+(5,1,1) = {"
+DN
+CG
+Tx
+Tx
+Tx
+Tx
+xm
+wn
+RK
+RK
+RK
+qn
+qn
+ru
+qn
+qn
+kg
+oH
+Rv
+"}
+(6,1,1) = {"
+DN
+xm
+xm
+xm
+xm
+xm
+DN
+LQ
+RK
+RK
+RK
+qn
+qn
+DN
+xm
+xm
+DN
+zb
+Yv
+"}
+(7,1,1) = {"
+DN
+Ce
+Ce
+Ce
+Ce
+Ce
+Ce
+VZ
+qn
+qn
+qn
+qn
+VZ
+xm
+eX
+ww
+AU
+oH
+Rv
+"}
+(8,1,1) = {"
+DN
+jl
+JG
+ux
+ux
+JG
+Ce
+qn
+ga
+ga
+ga
+ga
+qn
+xm
+PH
+PH
+HN
+oH
+Rv
+"}
+(9,1,1) = {"
+DN
+kz
+ux
+ux
+ux
+ux
+Ce
+qn
+ga
+ga
+ga
+ga
+qn
+Pk
+PH
+PH
+pr
+oH
+Rv
+"}
+(10,1,1) = {"
+DN
+ux
+ux
+ux
+ux
+ux
+Ce
+qn
+ga
+ga
+ga
+ga
+qn
+xm
+Eq
+PH
+pr
+zb
+Yv
+"}
+(11,1,1) = {"
+DN
+kz
+ux
+ux
+ux
+ux
+Ce
+qn
+ga
+ga
+ga
+ga
+qn
+Pk
+PH
+PH
+pr
+oH
+Rv
+"}
+(12,1,1) = {"
+DN
+jl
+JG
+ux
+ux
+JG
+Ce
+qn
+ga
+ga
+ga
+ga
+qn
+xm
+XP
+PH
+PH
+oH
+Rv
+"}
+(13,1,1) = {"
+DN
+Ce
+Ce
+Ce
+Ce
+Ce
+Ce
+VZ
+qn
+qn
+qn
+qn
+VZ
+xm
+IK
+xR
+vI
+oH
+Rv
+"}
+(14,1,1) = {"
+DN
+xm
+xm
+xm
+xm
+xm
+DN
+yG
+sV
+sV
+sV
+qn
+qn
+DN
+xm
+xm
+DN
+zb
+Yv
+"}
+(15,1,1) = {"
+DN
+rt
+rt
+rt
+rt
+rt
+xm
+wn
+sV
+sV
+sV
+qn
+qn
+ct
+qn
+qn
+kg
+oH
+Rv
+"}
+(16,1,1) = {"
+DN
+OI
+rt
+rt
+rt
+Bb
+xm
+qn
+sV
+sV
+sV
+qn
+qn
+qn
+qn
+qn
+gk
+oH
+Rv
+"}
+(17,1,1) = {"
+DN
+Sk
+yE
+yE
+yE
+yE
+ZW
+qn
+VZ
+qn
+qn
+VZ
+qn
+qn
+qn
+qn
+Hk
+oH
+Rv
+"}
+(18,1,1) = {"
+DN
+HP
+oJ
+Xc
+yx
+JO
+xm
+qn
+Js
+mK
+hG
+mK
+Js
+qn
+NH
+qn
+DN
+DN
+fI
+"}
+(19,1,1) = {"
+fI
+DN
+DN
+DN
+DN
+DN
+DN
+DN
+xm
+xm
+xm
+xm
+xm
+xm
+DN
+xm
+DN
+fI
+fI
+"}

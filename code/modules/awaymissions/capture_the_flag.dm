@@ -60,7 +60,7 @@
 		var/area/mob_area = get_area(M)
 		if(istype(mob_area, game_area))
 			if(!capture)
-				to_chat(M, "<span class='userdanger'>[src] has been returned to the base!</span>")
+				to_chat(M, span_userdanger("[src] has been returned to the base!"))
 	STOP_PROCESSING(SSobj, src)
 	return TRUE //so if called by a signal, it doesn't delete
 
@@ -68,10 +68,10 @@
 /obj/item/ctf/attack_hand(mob/living/user)
 	//pre normal check item stuff, this is for our special flag checks
 	if(!is_ctf_target(user) && !anyonecanpickup)
-		to_chat(user, "Non players shouldn't be moving the flag!")
+		to_chat(user, span_warning("Non players shouldn't be moving the flag!"))
 		return
 	if(team in user.faction)
-		to_chat(user, "You can't move your own flag!")
+		to_chat(user, span_warning("You can't move your own flag!"))
 		return
 	if(loc == user)
 		if(!user.dropItemToGround(src))
@@ -79,7 +79,7 @@
 	for(var/mob/M in GLOB.player_list)
 		var/area/mob_area = get_area(M)
 		if(istype(mob_area, game_area))
-			to_chat(M, "<span class='userdanger'>\The [initial(src.name)] has been taken!</span>")
+			to_chat(M, span_userdanger("\The [initial(src.name)] has been taken!"))
 	STOP_PROCESSING(SSobj, src)
 	anchored = FALSE //normal checks need this to be FALSE to pass
 	. = ..() //this is the actual normal item checks
@@ -87,19 +87,19 @@
 		anchored = TRUE
 		return
 	//passing means the user picked up the flag so we can now apply this
-	user.anchored = TRUE
+	user.set_anchored(TRUE)
 	user.status_flags &= ~CANPUSH
 
 /obj/item/ctf/dropped(mob/user)
 	..()
-	user.anchored = FALSE
+	user.set_anchored(FALSE)
 	user.status_flags |= CANPUSH
 	reset_cooldown = world.time + 20 SECONDS
 	START_PROCESSING(SSobj, src)
 	for(var/mob/M in GLOB.player_list)
 		var/area/mob_area = get_area(M)
 		if(istype(mob_area, game_area))
-			to_chat(M, "<span class='userdanger'>\The [initial(name)] has been dropped!</span>")
+			to_chat(M, span_userdanger("\The [initial(name)] has been dropped!"))
 	anchored = TRUE
 
 
@@ -122,7 +122,7 @@
 
 /obj/effect/ctf/flag_reset
 	name = "banner landmark"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
 	desc = "This is where a banner with Nanotrasen's logo on it would go."
 	layer = LOW_ITEM_LAYER
@@ -174,7 +174,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/game_id = "centcom"
 
-	var/victory_rejoin_text = "<span class='userdanger'>Teams have been cleared. Click on the machines to vote to begin another round.</span>"
+	var/victory_rejoin_text = span_userdanger("Teams have been cleared. Click on the machines to vote to begin another round.")
 	var/team = WHITE_TEAM
 	var/team_span = ""
 	//Capture the Flag scoring
@@ -216,18 +216,19 @@
 	AddElement(/datum/element/point_of_interest)
 
 /obj/machinery/capture_the_flag/process(delta_time)
-	for(var/mob/living/M as() in spawned_mobs)
-		if(QDELETED(M))
-			spawned_mobs -= M
+	for(var/mob/living/living_participant as anything in spawned_mobs)
+		if(QDELETED(living_participant))
+			spawned_mobs -= living_participant
 			continue
 		// Anyone in crit, automatically reap
-		if(M.InCritical() || M.stat == DEAD)
-			ctf_dust_old(M)
+
+		if(HAS_TRAIT(living_participant, TRAIT_CRITICAL_CONDITION) || living_participant.stat == DEAD)
+			ctf_dust_old(living_participant)
 		else
 			// The changes that you've been hit with no shield but not
 			// instantly critted are low, but have some healing.
-			M.adjustBruteLoss(-2.5 * delta_time)
-			M.adjustFireLoss(-2.5 * delta_time)
+			living_participant.adjustBruteLoss(-2.5 * delta_time)
+			living_participant.adjustFireLoss(-2.5 * delta_time)
 
 /obj/machinery/capture_the_flag/red
 	name = "Red CTF Controller"
@@ -256,11 +257,11 @@
 
 
 		if(!(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME))
-			to_chat(user, "<span class='warning'>CTF has been temporarily disabled by admins.</span>")
+			to_chat(user, span_warning("CTF has been temporarily disabled by admins."))
 			return
 		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 			if(CTF.game_id != game_id && CTF.ctf_enabled)
-				to_chat(user, "<span class='warning'>There is already an ongoing game in the [get_area(CTF)]!</span>")
+				to_chat(user, span_warning("There is already an ongoing game in the [get_area(CTF)]!"))
 				return
 		people_who_want_to_play |= user.ckey
 		var/num = people_who_want_to_play.len
@@ -269,7 +270,7 @@
 			people_who_want_to_play.Cut()
 			toggle_id_ctf(null, game_id)
 		else
-			to_chat(user, "<span class='notice'>CTF has been requested. [num]/[CTF_REQUIRED_PLAYERS] have readied up.</span>")
+			to_chat(user, span_notice("CTF has been requested. [num]/[CTF_REQUIRED_PLAYERS] have readied up."))
 
 		return
 
@@ -362,7 +363,7 @@
 			for(var/mob/ctf_player in GLOB.player_list)
 				var/area/mob_area = get_area(ctf_player)
 				if(istype(mob_area, game_area))
-					to_chat(ctf_player, "<span class='userdanger [team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!</span>")
+					to_chat(ctf_player, span_userdanger("[team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!"))
 			if(points >= points_to_win)
 				victory()
 
@@ -371,7 +372,7 @@
 		var/mob/living/competitor = _competitor
 		var/area/mob_area = get_area(competitor)
 		if(istype(mob_area, game_area))
-			to_chat(competitor, "<span class='narsie [team_span]'>[team] team wins!</span>")
+			to_chat(competitor, span_narsie("[team_span]'>[team] team wins!"))
 			to_chat(competitor, victory_rejoin_text)
 			for(var/obj/item/ctf/W in competitor)
 				competitor.dropItemToGround(W)
@@ -423,7 +424,7 @@
 			continue
 		if(isstructure(atm))
 			var/obj/structure/S = atm
-			S.obj_integrity = S.max_integrity
+			S.repair_damage(S.max_integrity - S.get_integrity())
 		else if(!is_type_in_typecache(atm, ctf_object_typecache))
 			qdel(atm)
 
@@ -567,7 +568,7 @@
 	name = "CTF"
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf
+	suit = /obj/item/clothing/suit/armor/vest/ctf
 	toggle_helmet = FALSE // see the whites of their eyes
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
@@ -600,7 +601,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots/fast
 
 /datum/outfit/ctf/red
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf/red
+	suit = /obj/item/clothing/suit/armor/vest/ctf/red
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf/red
 	l_pocket = /obj/item/ammo_box/magazine/recharge/ctf/red
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf/red
@@ -610,7 +611,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots/fast
 
 /datum/outfit/ctf/blue
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf/blue
+	suit = /obj/item/clothing/suit/armor/vest/ctf/blue
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf/blue
 	l_pocket = /obj/item/ammo_box/magazine/recharge/ctf/blue
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf/blue
@@ -640,7 +641,8 @@
 /obj/structure/trap/ctf
 	name = "Spawn protection"
 	desc = "Stay outta the enemy spawn!"
-	icon_state = "trap"
+	icon = 'icons/effects/landmarks_static.dmi'
+	icon_state = "redteamspawn"
 	resistance_flags = INDESTRUCTIBLE
 	var/team = WHITE_TEAM
 	time_between_triggers = 1
@@ -654,17 +656,17 @@
 	if(!is_ctf_target(L))
 		return
 	if(!(src.team in L.faction))
-		to_chat(L, "<span class='danger'><B>Stay out of the enemy spawn!</B></span>")
+		to_chat(L, span_danger("<B>Stay out of the enemy spawn!</B>"))
 		L.investigate_log("has died from entering the enemy spawn in CTF.", INVESTIGATE_DEATHS)
 		L.death()
 
 /obj/structure/trap/ctf/red
 	team = RED_TEAM
-	icon_state = "trap-fire"
+	icon_state = "redteamspawn"
 
 /obj/structure/trap/ctf/blue
 	team = BLUE_TEAM
-	icon_state = "trap-frost"
+	icon_state = "blueteamspawn"
 
 /obj/structure/barricade/security/ctf
 	name = "barrier"
@@ -719,7 +721,7 @@
 			for(var/obj/item/gun/G in M)
 				qdel(G)
 			O.equip(M)
-			to_chat(M, "<span class='notice'>Ammunition reloaded!</span>")
+			to_chat(M, span_notice("Ammunition reloaded!"))
 			playsound(get_turf(M), 'sound/weapons/shotgunpump.ogg', 50, 1, -1)
 			qdel(src)
 			break
@@ -787,7 +789,7 @@
 				for(var/mob/M in GLOB.player_list)
 					var/area/mob_area = get_area(M)
 					if(istype(mob_area, game_area))
-						to_chat(M, "<span class='userdanger'>[user.real_name] has captured \the [src], claiming it for [CTF.team]! Go take it back!</span>")
+						to_chat(M, span_userdanger("[user.real_name] has captured \the [src], claiming it for [CTF.team]! Go take it back!"))
 				break
 
 #undef WHITE_TEAM

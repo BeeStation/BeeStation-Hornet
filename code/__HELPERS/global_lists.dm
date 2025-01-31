@@ -45,6 +45,15 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_leaves, GLOB.diona_leaves_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_thorns, GLOB.diona_thorns_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_flowers, GLOB.diona_flowers_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_moss, GLOB.diona_moss_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_mushroom, GLOB.diona_mushroom_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_antennae, GLOB.diona_antennae_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_eyes, GLOB.diona_eyes_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_pbody, GLOB.diona_pbody_list)
+
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -64,13 +73,7 @@
 		GLOB.hair_gradients_list[H.name] = H
 
 	// Keybindings
-	for(var/KB in subtypesof(/datum/keybinding))
-		var/datum/keybinding/keybinding = KB
-		if(!initial(keybinding.keys) || !initial(keybinding.keybind_signal))
-			continue
-		var/datum/keybinding/instance = new keybinding
-		GLOB.keybindings_by_name[instance.name] = instance
-		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
+	init_keybindings()
 
 	init_crafting_recipes(GLOB.crafting_recipes)
 
@@ -138,9 +141,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/structure/noticeboard,
 	/obj/machinery/button,
 	/obj/machinery/computer/security/telescreen,
-	/obj/machinery/embedded_controller/radio/simple_vent_controller,
 	/obj/item/storage/secure/safe,
-	/obj/machinery/door_timer,
 	/obj/machinery/flasher,
 	/obj/machinery/keycard_auth,
 	/obj/structure/mirror,

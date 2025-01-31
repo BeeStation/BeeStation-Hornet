@@ -1,8 +1,7 @@
 /datum/job/security_officer
 	title = JOB_NAME_SECURITYOFFICER
-	flag = OFFICER
 	description = "Follow Space Law, patrol the station, arrest criminals and bring them to the Brig."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
@@ -16,13 +15,17 @@
 
 	outfit = /datum/outfit/job/security_officer
 
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS,
-					ACCESS_MECH_SECURITY, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS,
-					ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
+	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
 					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
+					// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
+	extra_access = list(ACCESS_MORGUE, ACCESS_FORENSICS_LOCKERS, ACCESS_MAINT_TUNNELS)
 
-	department_flag = ENGSEC
+	/// These accesses will be given in after_spawn()
+	var/list/dept_access_supply = list(ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_AUX_BASE)
+	var/list/dept_access_medical = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING)
+	var/list/dept_access_science = list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_AUX_BASE)
+	var/list/dept_access_engineering = list(ACCESS_ENGINE, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
+
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
@@ -39,9 +42,9 @@
 	minimal_lightup_areas = list(/area/construction/mining/aux_base)
 
 /datum/job/security_officer/get_access()
-	var/list/L = list()
-	L |= ..() | check_config_for_sec_maint()
-	return L
+	. = ..()
+	if(check_config_for_sec_maint())
+		. |= ACCESS_MAINT_TUNNELS
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
@@ -68,23 +71,15 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			ears = /obj/item/radio/headset/headset_sec/alt/department/supply
 			accessory = /obj/item/clothing/accessory/armband/cargo
 			if(!on_dummy)
+				dep_access = dept_access_supply
 				destination = /area/security/checkpoint/supply
-				dep_access = list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_CARGO, ACCESS_AUX_BASE)
 				spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.supply_lightup_areas
-		if(SEC_DEPT_ENGINEERING)
-			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
-			accessory = /obj/item/clothing/accessory/armband/engine
-			if(!on_dummy)
-				dep_access = list(ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
-				destination = /area/security/checkpoint/engineering
-				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
-				minimal_lightup_areas |= GLOB.engineering_lightup_areas
 		if(SEC_DEPT_MEDICAL)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/med
 			accessory =  /obj/item/clothing/accessory/armband/medblue
 			if(!on_dummy)
-				dep_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING)
+				dep_access = dept_access_medical
 				destination = /area/security/checkpoint/medical
 				spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.medical_lightup_areas
@@ -92,10 +87,18 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
 			accessory = /obj/item/clothing/accessory/armband/science
 			if(!on_dummy)
-				dep_access = list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_AUX_BASE)
+				dep_access = dept_access_science
 				destination = /area/security/checkpoint/science
 				spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.science_lightup_areas
+		if(SEC_DEPT_ENGINEERING)
+			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
+			accessory = /obj/item/clothing/accessory/armband/engine
+			if(!on_dummy)
+				dep_access = dept_access_engineering
+				destination = /area/security/checkpoint/engineering
+				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
+				minimal_lightup_areas |= GLOB.engineering_lightup_areas
 
 	if(accessory)
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -149,6 +152,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/security
+	r_pocket = /obj/item/clothing/accessory/badge/officer
 	suit_store = /obj/item/gun/energy/disabler
 
 	backpack = /obj/item/storage/backpack/security
@@ -170,7 +174,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 /obj/item/radio/headset/headset_sec/alt/department/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/radio(src)
-	secure_radio_connections = new
+	secure_radio_connections = list()
 	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec/alt/department/engi

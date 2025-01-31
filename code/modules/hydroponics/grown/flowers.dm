@@ -2,6 +2,8 @@
 /obj/item/seeds/flower
 	name = "pack of generic flower seeds"
 	desc = "You should not be seeing this."
+	icon_state = null
+	worn_icon_state = null
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -12,8 +14,11 @@
 /obj/item/food/grown/flower
 	name = "generic flower"
 	desc = "You should not be seeing this"
+	icon_state = null
+	worn_icon_state = null
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 2
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 
@@ -89,6 +94,8 @@
 	genes = list(/datum/plant_gene/reagent/polypyr)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 	rarity = 30
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 
 /obj/item/seeds/flower/trumpet/Initialize(mapload,nogenes)
 	. = ..()
@@ -187,7 +194,7 @@
 	icon_grow = "sunflower-grow"
 	icon_dead = "sunflower-dead"
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
-	reagents_add = list(/datum/reagent/consumable/cornoil = 0.08, /datum/reagent/consumable/nutriment = 0.04)
+	reagents_add = list(/datum/reagent/consumable/nutriment/fat/oil = 0.08, /datum/reagent/consumable/nutriment = 0.04)
 
 /obj/item/grown/sunflower // FLOWER POWER!
 	seed = /obj/item/seeds/sunflower
@@ -275,9 +282,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("roasted", "scorched", "burned")
+	attack_verb_continuous = list("roasts", "scorches", "burns")
+	attack_verb_simple = list("roast", "scorch", "burn")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 
 /obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()
@@ -287,7 +297,7 @@
 	if(!..())
 		return
 	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
+		to_chat(M, span_danger("You are lit on fire from the intense heat of the [name]!"))
 		M.adjust_fire_stacks(seed.potency / 20)
 		if(M.IgniteMob())
 			message_admins("[ADMIN_LOOKUPFLW(user)] set [ADMIN_LOOKUPFLW(M)] on fire with [src] at [AREACOORD(user)]")
@@ -300,13 +310,13 @@
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
-		to_chat(usr, "<span class='warning'>All the petals have fallen off the [name] from violent whacking!</span>")
+		to_chat(usr, span_warning("All the petals have fallen off the [name] from violent whacking!"))
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
 	..()
 	if(!user.gloves)
-		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
+		to_chat(user, span_danger("The [name] burns your bare hand!"))
 		user.adjustFireLoss(rand(1, 5))
 
 /obj/item/grown/novaflower/equipped(mob/user, slot)

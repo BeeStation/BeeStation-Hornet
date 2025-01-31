@@ -15,8 +15,8 @@ It acts as a melee creature, chasing down and attacking its target while also us
 Whenever possible, the drake will breathe fire directly at it's target, igniting and heavily damaging anything caught in the blast.
 It also often causes lava to pool from the ground around you - many nearby turfs will temporarily turn into lava, dealing damage to anything on the turfs.
 The drake also utilizes its wings to fly into the sky, flying after its target and attempting to slam down on them. Anything near when it slams down takes huge damage.
- - Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
- - Sometimes, it will encase its target in an arena of lava
+	- Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
+	- Sometimes, it will encase its target in an arena of lava
 
 When an ash drake dies, it leaves behind a chest that contains a bottle of dragon's blood with several effects, ranging from turning the imbiber into a lizard, skeleton or just making them lavaproof.
 
@@ -31,13 +31,15 @@ Difficulty: Medium
 	desc = "Guardians of the necropolis."
 	health = 1250
 	maxHealth = 1250
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "dragon"
 	icon_living = "dragon"
 	icon_dead = "dragon_dead"
-	friendly = "stares down"
+	friendly_verb_continuous = "stares down"
+	friendly_verb_simple = "stare down"
 	speak_emote = list("roars")
 	armour_penetration = 40
 	melee_damage = 40
@@ -57,7 +59,7 @@ Difficulty: Medium
 	score_achievement_type = /datum/award/score/drake_score
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	deathsound = 'sound/magic/demon_dies.ogg'
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							   /datum/action/innate/megafauna_attack/fire_cone_meteors,
 							   /datum/action/innate/megafauna_attack/mass_fire,
@@ -68,28 +70,28 @@ Difficulty: Medium
 	name = "Fire Cone"
 	icon_icon = 'icons/obj/wizard.dmi'
 	button_icon_state = "fireball"
-	chosen_message = "<span class='colossus'>You are now shooting fire at your target.</span>"
+	chosen_message = span_colossus("You are now shooting fire at your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now shooting fire at your target and raining fire around you.</span>"
+	chosen_message = span_colossus("You are now shooting fire at your target and raining fire around you.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
 	icon_icon = 'icons/effects/fire.dmi'
 	button_icon_state = "1"
-	chosen_message = "<span class='colossus'>You are now shooting mass fire at your target.</span>"
+	chosen_message = span_colossus("You are now shooting mass fire at your target.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Lava Swoop"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "lavastaff_warn"
-	chosen_message = "<span class='colossus'>You are now swooping and raining lava at your target.</span>"
+	chosen_message = span_colossus("You are now swooping and raining lava at your target.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
@@ -128,7 +130,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_rain()
 	if(!target)
 		return
-	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
+	target.visible_message(span_boldwarning("Fire rains from the sky!"))
 	for(var/turf/turf as() in RANGE_TURFS(9,target))
 		if(prob(11))
 			new /obj/effect/temp_visual/target(turf)
@@ -136,7 +138,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(var/amount, var/delay = 0.8)
 	if(!target)
 		return
-	target.visible_message("<span class='boldwarning'>Lava starts to pool up around you!</span>")
+	target.visible_message(span_boldwarning("Lava starts to pool up around you!"))
 	while(amount > 0)
 		if(QDELETED(target))
 			break
@@ -174,7 +176,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_arena()
 	if(!target)
 		return
-	target.visible_message("<span class='boldwarning'>[src] encases you in an arena of fire!</span>")
+	target.visible_message(span_boldwarning("[src] encases you in an arena of fire!"))
 	var/amount = 3
 	var/turf/center = get_turf(target)
 	var/list/walled = RANGE_TURFS(3, center) - RANGE_TURFS(2, center)
@@ -200,7 +202,7 @@ Difficulty: Medium
 				if(L.client)
 					empty += pick(((RANGE_TURFS(2, L) - RANGE_TURFS(1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
 					any_attack = 1
-			for(var/obj/mecha/M in T.contents)
+			for(var/obj/vehicle/sealed/mecha/M in T.contents)
 				empty += pick(((RANGE_TURFS(2, M) - RANGE_TURFS(1, M)) & turfs) - empty)
 				any_attack = 1
 		if(!any_attack)
@@ -219,7 +221,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/arena_escape_enrage() // you ran somehow / teleported away from my arena attack now i'm mad fucker
 	SLEEP_CHECK_DEATH(0)
 	SetRecoveryTime(80)
-	visible_message("<span class='boldwarning'>[src] starts to glow vibrantly as its wounds close up!</span>")
+	visible_message(span_boldwarning("[src] starts to glow vibrantly as its wounds close up!"))
 	adjustBruteLoss(-250) // yeah you're gonna pay for that, don't run nerd
 	add_atom_colour(rgb(255, 255, 0), TEMPORARY_COLOUR_PRIORITY)
 	move_to_delay = move_to_delay / 2
@@ -269,14 +271,14 @@ Difficulty: Medium
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
-			to_chat(L, "<span class='userdanger'>You're hit by [source]'s fire breath!</span>")
+			to_chat(L, span_userdanger("You're hit by [source]'s fire breath!"))
 
 		// deals damage to mechs
-		for(var/obj/mecha/M in T.contents)
+		for(var/obj/vehicle/sealed/mecha/M in T.contents)
 			if(M in hit_list)
 				continue
 			hit_list += M
@@ -294,7 +296,7 @@ Difficulty: Medium
 	swooping |= SWOOP_DAMAGEABLE
 	density = FALSE
 	icon_state = "shadow"
-	visible_message("<span class='boldwarning'>[src] swoops up high!</span>")
+	visible_message(span_boldwarning("[src] swoops up high!"))
 
 	var/negative
 	var/initial_x = x
@@ -360,8 +362,8 @@ Difficulty: Medium
 				throw_dir = pick(GLOB.alldirs)
 			var/throwtarget = get_edge_target_turf(src, throw_dir)
 			L.throw_at(throwtarget, 3)
-			visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
-	for(var/obj/mecha/M in orange(1, src))
+			visible_message(span_warning("[L] is thrown clear of [src]!"))
+	for(var/obj/vehicle/sealed/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, MELEE, 1)
 
 	for(var/mob/M in range(7, src))
@@ -411,8 +413,7 @@ Difficulty: Medium
 	light_range = 2
 	duration = 13
 
-/obj/effect/temp_visual/lava_warning/ex_act()
-	return
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 
 /obj/effect/temp_visual/lava_warning/Initialize(mapload, var/reset_time = 10)
 	. = ..()
@@ -430,10 +431,10 @@ Difficulty: Medium
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
 		L.adjustFireLoss(10)
-		to_chat(L, "<span class='userdanger'>You fall directly into the pool of lava!</span>")
+		to_chat(L, span_userdanger("You fall directly into the pool of lava!"))
 
 	// deals damage to mechs
-	for(var/obj/mecha/M in T.contents)
+	for(var/obj/vehicle/sealed/mecha/M in T.contents)
 		M.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
@@ -452,7 +453,7 @@ Difficulty: Medium
 	anchored = TRUE
 	opacity = FALSE
 	density = TRUE
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	duration = 82
 	color = COLOR_DARK_ORANGE
 
@@ -481,6 +482,8 @@ Difficulty: Medium
 	pixel_x = -16
 	duration = 10
 	randomdir = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dragon_flight)
 
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
 	. = ..()
@@ -525,14 +528,13 @@ Difficulty: Medium
 	animate(src, pixel_z = 0, time = duration)
 
 /obj/effect/temp_visual/target
-	icon = 'icons/mob/actions/actions_items.dmi'
+	icon = 'icons/hud/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
 	light_range = 2
 	duration = 9
 
-/obj/effect/temp_visual/target/ex_act()
-	return
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 
 /obj/effect/temp_visual/target/Initialize(mapload, list/flame_hit)
 	. = ..()
@@ -554,7 +556,7 @@ Difficulty: Medium
 			continue
 		if(islist(flame_hit) && !flame_hit[L])
 			L.adjustFireLoss(40)
-			to_chat(L, "<span class='userdanger'>You're hit by the drake's fire breath!</span>")
+			to_chat(L, span_userdanger("You're hit by the drake's fire breath!"))
 			flame_hit[L] = TRUE
 		else
 			L.adjustFireLoss(10) //if we've already hit them, do way less damage
@@ -563,7 +565,7 @@ Difficulty: Medium
 	name = "lesser ash drake"
 	maxHealth = 200
 	health = 200
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	obj_damage = 80
 	melee_damage = 30
 	mouse_opacity = MOUSE_OPACITY_ICON
@@ -576,7 +578,7 @@ Difficulty: Medium
 	if(!istype(A))
 		return
 	if(player_cooldown >= world.time)
-		to_chat(src, "<span class='warning'>You need to wait [(player_cooldown - world.time) / 10] seconds before swooping again!</span>")
+		to_chat(src, span_warning("You need to wait [(player_cooldown - world.time) / 10] seconds before swooping again!"))
 		return
 	swoop_attack(FALSE, A)
 	lava_pools(10, 2) // less pools but longer delay before spawns
@@ -584,3 +586,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
 	return
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE

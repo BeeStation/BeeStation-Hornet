@@ -4,6 +4,7 @@
 	icon_state = "blob_factory"
 	desc = "A thick spire of tendrils."
 	max_integrity = 200
+	max_hit_damage = 40
 	health_regen = 1
 	point_return = 25
 	resistance_flags = LAVA_PROOF
@@ -25,7 +26,7 @@
 			spore.factory = null
 	if(naut)
 		naut.factory = null
-		to_chat(naut, "<span class='userdanger'>Your factory was destroyed! You feel yourself dying!</span>")
+		to_chat(naut, span_userdanger("Your factory was destroyed! You feel yourself dying!"))
 		naut.throw_alert("nofactory", /atom/movable/screen/alert/nofactory)
 	spores = null
 	return ..()
@@ -47,6 +48,8 @@
 		overmind.blob_mobs.Add(BS)
 
 /obj/structure/blob/factory/lone //A blob factory that functions without a pulses
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/factory/lone)
 
 /obj/structure/blob/factory/lone/Initialize(mapload, owner_overmind)
 	. = ..()

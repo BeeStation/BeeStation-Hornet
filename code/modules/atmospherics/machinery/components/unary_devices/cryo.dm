@@ -1,20 +1,21 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
 #define CRYO_MULTIPLY_FACTOR 1.5 // Multiply factor is used with efficiency to multiply Tx quantity and how much extra is transfered to occupant magically.
 #define CRYO_TX_QTY 0.4 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
+#define CRYO_MIN_GAS_MOLES 5
+#define MAX_TEMPERATURE 4000
 
-/obj/machinery/atmospherics/components/unary/cryo_cell
+
+/obj/machinery/cryo_cell
 	name = "cryo cell"
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod-off"
 	density = TRUE
 	max_integrity = 350
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/unary_cryo_cell
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
-
-
-	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
+	flags_1 = PREVENT_CLICK_UNDER_1
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal)
 
 	var/autoeject = TRUE
@@ -23,10 +24,11 @@
 	var/efficiency = 1
 	var/sleep_factor = 0.00125
 	var/unconscious_factor = 0.001
+	/// Our approximation of a mob's heat capacity.
 	var/heat_capacity = 20000
 	var/conduction_coefficient = 0.3
 
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 
 	var/obj/item/radio/radio
 	var/radio_key = /obj/item/encryptionkey/headset_med
@@ -40,25 +42,35 @@
 	fair_market_price = 10
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
+	/// Reference to the datum connector we're using to interface with the pipe network
+	var/datum/gas_machine_connector/internal_connector
+	/// Check if the machine has been turned on
+	var/on = FALSE
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/Initialize(mapload)
+
+/datum/armor/unary_cryo_cell
+	energy = 100
+	rad = 100
+	fire = 30
+	acid = 30
+
+/obj/machinery/cryo_cell/Initialize(mapload)
 	. = ..()
-	initialize_directions = dir
-
 	radio = new(src)
 	radio.keyslot = new radio_key
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
+	internal_connector = new(loc, src, dir, CELL_VOLUME * 0.5)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/set_occupant(atom/movable/new_occupant)
+/obj/machinery/cryo_cell/set_occupant(atom/movable/new_occupant)
 	. = ..()
 	update_icon()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
+/obj/machinery/cryo_cell/on_construction()
 	..(dir, dir)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/RefreshParts()
+/obj/machinery/cryo_cell/RefreshParts()
 	var/C
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		C += M.rating
@@ -69,17 +81,18 @@
 	heat_capacity = initial(heat_capacity) / C
 	conduction_coefficient = initial(conduction_coefficient) * C
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/examine(mob/user) //this is leaving out everything but efficiency since they follow the same idea of "better beaker, better results"
+/obj/machinery/cryo_cell/examine(mob/user) //this is leaving out everything but efficiency since they follow the same idea of "better beaker, better results"
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency at <b>[efficiency*100]%</b>.</span>"
+		. += span_notice("The status display reads: Efficiency at <b>[efficiency*100]%</b>.")
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
+/obj/machinery/cryo_cell/Destroy()
 	QDEL_NULL(radio)
 	QDEL_NULL(beaker)
+	QDEL_NULL(internal_connector)
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/contents_explosion(severity, target)
+/obj/machinery/cryo_cell/contents_explosion(severity, target)
 	..()
 	if(beaker)
 		switch(severity)
@@ -90,18 +103,18 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.low_mov_atom += beaker
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/handle_atom_del(atom/A)
+/obj/machinery/cryo_cell/handle_atom_del(atom/A)
 	..()
 	if(A == beaker)
 		beaker = null
 		updateUsrDialog()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/on_deconstruction()
+/obj/machinery/cryo_cell/on_deconstruction()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/update_icon()
+/obj/machinery/cryo_cell/update_icon()
 
 	cut_overlays()
 
@@ -153,7 +166,7 @@
 		icon_state = "pod-off"
 		add_overlay("cover-off")
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/run_anim(anim_up, image/occupant_overlay)
+/obj/machinery/cryo_cell/proc/run_anim(anim_up, image/occupant_overlay)
 	if(!on || !occupant || !is_operational)
 		running_anim = FALSE
 		return
@@ -168,10 +181,18 @@
 	add_overlay("cover-on")
 	addtimer(CALLBACK(src, PROC_REF(run_anim), anim_up, occupant_overlay), 7, TIMER_UNIQUE)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/nap_violation(mob/violator)
+/obj/machinery/cryo_cell/nap_violation(mob/violator)
 	open_machine()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
+/obj/machinery/cryo_cell/proc/set_on(active)
+	if(on == active)
+		return
+	SEND_SIGNAL(src, COMSIG_CRYO_SET_ON, active)
+	. = on
+	on = active
+	update_appearance()
+
+/obj/machinery/cryo_cell/process(delta_time)
 	if(!on)
 		return
 
@@ -213,7 +234,7 @@
 		radio.talk_into(src, msg, radio_channel)
 		return
 
-	var/datum/gas_mixture/air1 = airs[1]
+	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
 
 	if(air1.total_moles())
 		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
@@ -223,17 +244,17 @@
 			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
 		use_power(1000 * efficiency)
 
-	return 1
+	return TRUE
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
+/obj/machinery/cryo_cell/process_atmos()
 	..()
 
 	if(!on)
 		return
 
-	var/datum/gas_mixture/air1 = airs[1]
+	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
 
-	if(!nodes[1] || !airs[1] || air1.get_moles(GAS_O2) < 5) // Turn off if the machine won't work due to not having enough moles to operate.
+	if(!internal_connector.gas_connector.nodes[1] || !internal_connector.gas_connector.airs[1] || !air1.gases.len || air1.total_moles() < CRYO_MIN_GAS_MOLES) // Turn off if the machine won't work due to not having enough moles to operate.
 		on = FALSE
 		update_icon()
 		var/msg = "Aborting. Not enough gas present to operate."
@@ -252,52 +273,49 @@
 		if(abs(temperature_delta) > 1)
 			var/air_heat_capacity = air1.heat_capacity()
 
-			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
+			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * CALCULATE_CONDUCTION_ENERGY(temperature_delta, heat_capacity, air_heat_capacity)
 
-			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
+			air1.temperature = clamp(air1.temperature - heat / air_heat_capacity, TCMB, MAX_TEMPERATURE)
 
-		air1.set_moles(GAS_O2, max(0,air1.get_moles(GAS_O2) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
+		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
-	update_parents()
+	internal_connector.gas_connector.update_parents()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/user)
+/obj/machinery/cryo_cell/relaymove(mob/living/user, direction)
 	if(message_cooldown <= world.time)
 		message_cooldown = world.time + 50
-		to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+		to_chat(user, span_warning("[src]'s door won't budge!"))
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/open_machine(drop = FALSE)
+/obj/machinery/cryo_cell/open_machine(drop = FALSE)
 	if(!state_open && !panel_open)
 		on = FALSE
 	for(var/mob/M in contents) //only drop mobs
 		M.forceMove(get_turf(src))
-		if(isliving(M))
-			var/mob/living/L = M
-			L.update_mobility()
 	set_occupant(null)
 	flick("pod-open-anim", src)
 	..()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/close_machine(mob/living/carbon/user)
+/obj/machinery/cryo_cell/close_machine(mob/living/carbon/user)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
 		flick("pod-close-anim", src)
 		..(user)
 		return occupant
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/container_resist(mob/living/user)
+/obj/machinery/cryo_cell/container_resist(mob/living/user)
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	user.visible_message("<span class='notice'>You see [user] kicking against the glass of [src]!</span>", \
-		"<span class='notice'>You struggle inside [src], kicking the release with your foot... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
-		"<span class='italics'>You hear a thump from [src].</span>")
-	if(do_after(user, breakout_time, target = src))
+	user.visible_message(span_notice("You see [user] kicking against the glass of [src]!"), \
+		span_notice("You struggle inside [src], kicking the release with your foot... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_italics("You hear a thump from [src]."))
+	if(do_after(user, breakout_time, target = src, hidden = TRUE))
 		if(!user || user.stat != CONSCIOUS || user.loc != src )
 			return
-		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
-			"<span class='notice'>You successfully break out of [src]!</span>")
+		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
+			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/examine(mob/user)
+/obj/machinery/cryo_cell/examine(mob/user)
 	. = ..()
 	if(occupant)
 		if(on)
@@ -307,7 +325,7 @@
 	else
 		. += "[src] seems empty."
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/MouseDrop_T(mob/target, mob/user)
+/obj/machinery/cryo_cell/MouseDrop_T(mob/target, mob/user)
 	if(user.incapacitated() || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
 		return
 	if(isliving(target))
@@ -315,48 +333,87 @@
 		if(L.incapacitated())
 			close_machine(target)
 	else
-		user.visible_message("<b>[user]</b> starts shoving [target] inside [src].", "<span class='notice'>You start shoving [target] inside [src].</span>")
+		user.visible_message("<b>[user]</b> starts shoving [target] inside [src].", span_notice("You start shoving [target] inside [src]."))
 		if (do_after(user, 25, target=target))
 			close_machine(target)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+/obj/machinery/cryo_cell/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/cup))
 		. = 1 //no afterattack
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into [src]!</span>")
+			to_chat(user, span_warning("A beaker is already loaded into [src]!"))
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
 		beaker = I
 		user.visible_message("[user] places [I] in [src].", \
-							"<span class='notice'>You place [I] in [src].</span>")
+							span_notice("You place [I] in [src]."))
 		var/reagentlist = pretty_string_from_reagent_list(I.reagents.reagent_list)
 		log_game("[key_name(user)] added an [I] to cryo containing [reagentlist]")
 		return
 	if(!on && !occupant && !state_open && (default_deconstruction_screwdriver(user, "pod-off", "pod-off", I)) \
 		|| default_change_direction_wrench(user, I) \
-		|| default_pry_open(I) \
-		|| default_deconstruction_crowbar(I))
+		|| default_pry_open(I))
 		update_icon()
 		return
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		to_chat(user, "<span class='notice'>You can't access the maintenance panel while the pod is " \
-		+ (on ? "active" : (occupant ? "full" : "open")) + ".</span>")
+		to_chat(user, span_notice("You can't access the maintenance panel while the pod is [on ? "active" : (occupant ? "full" : "open")]"))
 		return
 	return ..()
 
+/obj/machinery/cryo_cell/crowbar_act(mob/living/user, obj/item/tool)
+	if(on || state_open)
+		return FALSE
+	if(!panel_open)
+		balloon_alert(user, "open panel!")
+		return TRUE
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/ui_state(mob/user)
+	var/unsafe_wrenching = FALSE
+	var/filled_pipe = FALSE
+	var/datum/gas_mixture/environment_air = loc.return_air()
+	var/datum/gas_mixture/inside_air = internal_connector.gas_connector.airs[1]
+	var/obj/machinery/atmospherics/node = internal_connector.gas_connector.nodes[1]
+	var/internal_pressure = 0
+
+	if(istype(node, /obj/machinery/atmospherics/components/unary/portables_connector))
+		var/obj/machinery/atmospherics/components/unary/portables_connector/portable_devices_connector = node
+		internal_pressure = !portable_devices_connector.connected_device ? 1 : 0
+
+	if(inside_air.total_moles() > 0)
+		filled_pipe = TRUE
+		if(!node || internal_pressure > 0)
+			internal_pressure = inside_air.return_pressure() - environment_air.return_pressure()
+
+	if(!filled_pipe)
+		default_deconstruction_crowbar(tool)
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...")
+
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		to_chat(user, span_warning("As you begin deconstructing  the [src] a gush of air blows in your face... maybe you should reconsider?"))
+		unsafe_wrenching = TRUE
+
+	if(!do_after(user, 2 SECONDS, src))
+		return
+	if(unsafe_wrenching)
+		internal_connector.gas_connector.unsafe_pressure_release(user, internal_pressure)
+
+	tool.play_tool_sound(src, 50)
+	deconstruct(TRUE)
+	return TRUE
+
+/obj/machinery/cryo_cell/ui_state(mob/user)
 	return GLOB.notcontained_state
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/cryo_cell/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Cryo")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/ui_data()
+/obj/machinery/cryo_cell/ui_data()
 	var/list/data = list()
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? TRUE : FALSE
@@ -374,7 +431,7 @@
 			if(SOFT_CRIT)
 				data["occupant"]["stat"] = "Conscious"
 				data["occupant"]["statstate"] = "average"
-			if(UNCONSCIOUS)
+			if(UNCONSCIOUS, HARD_CRIT)
 				data["occupant"]["stat"] = "Unconscious"
 				data["occupant"]["statstate"] = "average"
 			if(DEAD)
@@ -395,7 +452,7 @@
 		else
 			data["occupant"]["temperaturestatus"] = "bad"
 
-	var/datum/gas_mixture/air1 = airs[1]
+	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
 	data["cellTemperature"] = round(air1.return_temperature(), 1)
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -406,7 +463,7 @@
 	data["beakerContents"] = beakerContents
 	return data
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/ui_act(action, params)
+/obj/machinery/cryo_cell/ui_act(action, params)
 	if(..())
 		return
 	switch(action)
@@ -434,13 +491,13 @@
 				beaker = null
 				. = TRUE
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
+/obj/machinery/cryo_cell/CtrlClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(user)) && !state_open && occupant != user)
-		on = !on
+		set_on(!on)
 		update_icon()
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)
+/obj/machinery/cryo_cell/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(user)) && occupant != user)
 		if(state_open)
 			close_machine()
@@ -448,41 +505,18 @@
 			open_machine()
 	return
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
-	return // we don't see the pipe network while inside cryo.
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
+/obj/machinery/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/can_crawl_through()
-	return FALSE // can't ventcrawl in or out of cryo.
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/can_see_pipes()
-	return 0 // you can't see the pipe network when inside a cryo cell.
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/return_temperature()
-	var/datum/gas_mixture/G = airs[1]
+/obj/machinery/cryo_cell/return_temperature()
+	var/datum/gas_mixture/G = internal_connector.gas_connector.airs[1]
 
 	if(G.total_moles() > 10)
 		return G.return_temperature()
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/default_change_direction_wrench(mob/user, obj/item/wrench/W)
-	. = ..()
-	if(.)
-		SetInitDirections()
-		var/obj/machinery/atmospherics/node = nodes[1]
-		if(node)
-			node.disconnect(src)
-			nodes[1] = null
-		nullifyPipenet(parents[1])
-		atmosinit()
-		node = nodes[1]
-		if(node)
-			node.atmosinit()
-			node.addMember(src)
-		SSair.add_to_rebuild_queue(src)
-
 #undef CRYOMOBS
 #undef CRYO_MULTIPLY_FACTOR
 #undef CRYO_TX_QTY
+#undef CRYO_MIN_GAS_MOLES
+#undef MAX_TEMPERATURE

@@ -11,4 +11,4 @@
 		return
 	var/mob/living/carbon/C = target
 	if(C.electrocute_act(level * 3, user, 1, FALSE, FALSE, FALSE, FALSE, FALSE))
-		C.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+		C.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))

@@ -52,7 +52,7 @@
 		return
 	mobloc = get_turf(target.loc)
 	jaunt_steam(mobloc)
-	target.mobility_flags &= ~MOBILITY_MOVE
+	ADD_TRAIT(target, TRAIT_IMMOBILIZED, type)
 	holder.reappearing = 1
 	play_sound("exit",target)
 	sleep(25 - jaunt_in_time)
@@ -67,7 +67,7 @@
 				if(T)
 					if(target.Move(T))
 						break
-		target.mobility_flags |= MOBILITY_MOVE
+		REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, type)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
@@ -99,7 +99,7 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/effect/dummy/phased_mob/spell_jaunt/relaymove(var/mob/user, direction)
+/obj/effect/dummy/phased_mob/spell_jaunt/relaymove(mob/living/user, direction)
 	if ((movedelay > world.time) || reappearing || !direction)
 		return
 	var/turf/newLoc = get_step(src,direction)
@@ -108,10 +108,10 @@
 	movedelay = world.time + movespeed
 
 	if(newLoc.flags_1 & NOJAUNT_1)
-		to_chat(user, "<span class='warning'>Some strange aura is blocking the way.</span>")
+		to_chat(user, span_warning("Some strange aura is blocking the way."))
 		return
 	if (newLoc.is_holy())
-		to_chat(user, "<span class='warning'>Holy energies block your path!</span>")
+		to_chat(user, span_warning("Holy energies block your path!"))
 		return
 
 	forceMove(newLoc)

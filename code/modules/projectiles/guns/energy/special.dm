@@ -2,15 +2,20 @@
 	name = "ion rifle"
 	desc = "A man-portable anti-armor weapon designed to disable mechanical threats at range."
 	icon_state = "ionrifle"
-	item_state = null	//so the human update icon uses the icon_state instead.
-	can_flashlight = TRUE
+	item_state = null //so the human update icon uses the icon_state instead.
+	worn_icon_state = null
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
-	flight_x_offset = 17
-	flight_y_offset = 9
+
+/obj/item/gun/energy/ionrifle/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 17, \
+		overlay_y = 9)
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -21,8 +26,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
 	ammo_x_offset = 2
-	flight_x_offset = 18
-	flight_y_offset = 11
+
+/obj/item/gun/energy/ionrifle/carbine/add_seclight_point()
+	. = ..()
+	// We use the same overlay as the parent, so we can just let the component inherit the correct offsets here
+	AddComponent(/datum/component/seclite_attachable, overlay_x = 18, overlay_y = 11)
 
 /obj/item/gun/energy/ionrifle/carbine/pin
 	pin = /obj/item/firing_pin
@@ -68,6 +76,7 @@
 	cell_type = "/obj/item/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	selfcharge = 1
+	automatic_charge_overlays = FALSE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -78,6 +87,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	automatic_charge_overlays = FALSE
 
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
@@ -87,48 +97,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
-/obj/item/gun/energy/kinetic_accelerator/crossbow
-	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
-	icon_state = "crossbow"
-	item_state = "crossbow"
-	w_class = WEIGHT_CLASS_SMALL
-	custom_materials = list(/datum/material/iron=2000)
-	suppressed = TRUE
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
-	weapon_weight = WEAPON_LIGHT
-	obj_flags = 0
-	overheat_time = 20
-	holds_charge = TRUE
-	unique_frequency = TRUE
-	can_flashlight = FALSE
-	max_mod_capacity = 0
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
-	name = "candy corn crossbow"
-	desc = "A weapon favored by Syndicate trick-or-treaters."
-	icon_state = "crossbow_halloween"
-	item_state = "crossbow"
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/halloween)
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large
-	name = "energy crossbow"
-	desc = "A reverse engineered weapon using syndicate technology."
-	icon_state = "crossbowlarge"
-	w_class = WEIGHT_CLASS_NORMAL
-	custom_materials = list(/datum/material/iron=4000)
-	suppressed = null
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
-	pin = null
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
-	name = "gamma bow"
-	desc = "A weapon favored by Madmen."
-	icon_state = "crossbow"
-	item_state = "crossbow"
-	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
-	overheat_time = 250
-
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff."
@@ -136,21 +104,22 @@
 	item_state = "plasmacutter"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	flags_1 = CONDUCT_1
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb_continuous = list("attacks", "slashes", "cuts", "slices")
+	attack_verb_simple = list("attack", "slash", "cut", "slice")
 	force = 12
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	can_charge = FALSE
 	dead_cell = TRUE
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
+	weapon_weight = WEAPON_LIGHT
+	fire_rate = 3
+	automatic = 1
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
 	var/heat_weld = 3800
-	weapon_weight = WEAPON_LIGHT
-	fire_rate = 3
-	automatic = 1
 
 /obj/item/gun/energy/plasmacutter/Initialize(mapload)
 	. = ..()
@@ -159,7 +128,7 @@
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
+		. += span_notice("[src] is [round(cell.percent())]% charged.")
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user)
 	var/charge_multiplier = 0 //2 = Refined stack, 1 = Ore
@@ -169,11 +138,11 @@
 		charge_multiplier = 1
 	if(charge_multiplier)
 		if(cell.charge == cell.maxcharge)
-			to_chat(user, "<span class='notice'>You try to insert [I] into [src], but it's fully charged.</span>") //my cell is round and full
+			to_chat(user, span_notice("You try to insert [I] into [src], but it's fully charged.")) //my cell is round and full
 			return
 		I.use(1)
 		cell.give(50*charge_multiplier)
-		to_chat(user, "<span class='notice'>You insert [I] in [src], recharging it.</span>")
+		to_chat(user, span_notice("You insert [I] in [src], recharging it."))
 	else
 		..()
 
@@ -188,13 +157,13 @@
 // Amount cannot be defaulted to 1: most of the code specifies 0 in the call.
 /obj/item/gun/energy/plasmacutter/tool_use_check(mob/living/user, amount)
 	if(QDELETED(cell))
-		to_chat(user, "<span class='warning'>[src] does not have a cell, and cannot be used!</span>")
+		to_chat(user, span_warning("[src] does not have a cell, and cannot be used!"))
 		return FALSE
 	// Amount cannot be used if drain is made continuous, e.g. amount = 5, charge_weld = 25
 	// Then it'll drain 125 at first and 25 periodically, but fail if charge dips below 125 even though it still can finish action
 	// Alternately it'll need to drain amount*charge_weld every period, which is either obscene or makes it free for other uses
 	if(amount ? cell.charge < charge_weld * amount : cell.charge < charge_weld)
-		to_chat(user, "<span class='warning'>You need more charge to complete this task!</span>")
+		to_chat(user, span_warning("You need more charge to complete this task!"))
 		return FALSE
 
 	return TRUE
@@ -253,6 +222,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
 	icon_state = "wormhole_projector"
+	automatic_charge_overlays = FALSE
 	var/obj/effect/portal/p_blue
 	var/obj/effect/portal/p_orange
 	var/atmos_link = FALSE
@@ -361,6 +331,9 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
+	charge_sections = 5
+	ammo_x_offset = 2
+	shaded_charge = FALSE
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
@@ -383,4 +356,5 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/gravity/repulse, /obj/item/ammo_casing/energy/gravity/attract, /obj/item/ammo_casing/energy/gravity/chaos)
 	item_state = "gravity_gun"
 	icon_state = "gravity_gun"
+	automatic_charge_overlays = FALSE
 	var/power = 4

@@ -48,7 +48,7 @@
 				msg = "It's started to get a little smaller than it used to be, but it'll definitely still last for a while."
 			else
 				msg = "It's seen some light use, but it's still pretty fresh."
-	. += "<span class='notice'>[msg]</span>"
+	. += span_notice("[msg]")
 
 /obj/item/soap/nanotrasen
 	desc = "A heavy duty bar of Nanotrasen brand soap. Smells of plasma."
@@ -74,14 +74,14 @@
 
 /obj/item/soap/suicide_act(mob/living/user)
 	user.say(";FFFFFFFFFFFFFFFFUUUUUUUDGE!!", forced="soap suicide")
-	user.visible_message("<span class='suicide'>[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!</span>")
+	user.visible_message(span_suicide("[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!"))
 	new /obj/effect/particle_effect/foam(loc)
 	return TOXLOSS
 
 /obj/item/soap/proc/decreaseUses(mob/user)
 	uses--
 	if(uses <= 0)
-		to_chat(user, "<span class='warning'>[src] crumbles into tiny bits!</span>")
+		to_chat(user, span_warning("[src] crumbles into tiny bits!"))
 		qdel(src)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
@@ -91,32 +91,32 @@
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && ((target in user.client.screen) && !user.is_holding(target)))
-		to_chat(user, "<span class='warning'>You need to take that [target.name] off before cleaning it!</span>")
+		to_chat(user, span_warning("You need to take that [target.name] off before cleaning it!"))
 	else if(istype(target, /obj/effect/decal/cleanable))
-		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", "<span class='warning'>You begin to scrub \the [target.name] out with [src]...</span>")
+		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", span_warning("You begin to scrub \the [target.name] out with [src]..."))
 		if(do_after(user, src.cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
+			to_chat(user, span_notice("You scrub \the [target.name] out."))
 			qdel(target)
 			decreaseUses(user)
 
 	else if(ishuman(target) && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		var/mob/living/carbon/human/H = user
-		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>", "<span class='notice'>You wash \the [target]'s mouth out with [src.name]!</span>") //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
+		user.visible_message(span_warning("\the [user] washes \the [target]'s mouth out with [src.name]!"), span_notice("You wash \the [target]'s mouth out with [src.name]!")) //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
 		H.lip_style = null //removes lipstick
 		H.update_body()
 		decreaseUses(user)
 		return
 	else if(istype(target, /obj/structure/window))
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
+		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
 		if(do_after(user, src.cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, span_notice("You clean \the [target.name]."))
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			target.set_opacity(initial(target.opacity))
 			decreaseUses(user)
 	else
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
+		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
 		if(do_after(user, src.cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, span_notice("You clean \the [target.name]."))
 			if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
 				var/obj/item/clothing/C = target
 				var/mob/living/carbon/human/H = user
@@ -140,6 +140,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bike_horn"
 	item_state = "bike_horn"
+	worn_icon_state = "horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
 	throwforce = 0
@@ -149,7 +150,8 @@
 	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
-	attack_verb = list("HONKED")
+	attack_verb_continuous = list("HONKS")
+	attack_verb_simple = list("HONK")
 	tool_behaviour = TOOL_BIKEHORN
 	toolspeed = 1
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
@@ -167,7 +169,7 @@
 	return ..()
 
 /obj/item/bikehorn/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] solemnly points [src] at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] solemnly points [src] at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
 	return BRUTELOSS
 
@@ -176,6 +178,7 @@
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
+	worn_icon_state = "horn_air"
 	sound_file = 'sound/items/airhorn2.ogg'
 
 //golden bikehorn
@@ -184,6 +187,7 @@
 	desc = "Golden? Clearly, it's made with bananium! Honk!"
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
+	worn_icon_state = "horn_gold"
 	var/flip_cooldown = 0
 
 /obj/item/bikehorn/golden/attack()
@@ -206,7 +210,7 @@
 	flip_cooldown = world.time + 7
 
 //canned laughter
-/obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter
+/obj/item/reagent_containers/cup/soda_cans/canned_laughter
 	name = "Canned Laughter"
 	desc = "Just looking at this makes you want to giggle."
 	icon_state = "laughter"

@@ -12,19 +12,19 @@
 	cooldown_min = 75
 	selection_type = "range"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
-	action_icon = 'icons/mob/actions.dmi'
+	action_icon = 'icons/hud/actions/action_generic.dmi'
 	action_icon_state = "cluwne"
 
 /obj/effect/proc_holder/spell/targeted/cluwnecurse/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		return
 	var/mob/living/carbon/target = targets[1]
 	if(!(target.type in compatible_mobs))
-		to_chat(user, "<span class='notice'>You are unable to curse [target]!</span>")
+		to_chat(user, span_notice("You are unable to curse [target]!"))
 		return
 	if(!(target in oview(range)))
-		to_chat(user, "<span class='notice'>They are too far away!</span>")
+		to_chat(user, span_notice("They are too far away!"))
 		return
 	var/mob/living/carbon/human/H = target
 	H.cluwneify()

@@ -100,7 +100,7 @@
 	for(var/datum/antagonist/summoner_antag in holder.owner.antag_datums)
 		if(istype(summoner_antag, /datum/antagonist/traitor))
 			var/datum/antagonist/traitor/summoner_traitor = summoner_antag
-			if(summoner_traitor.should_give_codewords)
+			if(summoner_traitor.has_codewords)
 				LAZYSET(extra_info, "Code Phrases", jointext(GLOB.syndicate_code_phrase, ", "))
 				extra_info["Code Responses"] = jointext(GLOB.syndicate_code_response, ", ")
 		var/datum/team/summoner_team = summoner_antag.get_team()
@@ -161,7 +161,7 @@
 	return // Holoparasite HUD has its own info button
 
 /datum/antagonist/holoparasite/admin_add(datum/mind/new_owner, mob/admin)
-	to_chat(admin, "<span class='danger bold'>No. You're going to break things horribly (or if you're needing to do this for some reason - things have probably <i>already</i> broken horribly!)</span>")
+	to_chat(admin, span_dangerbold("No. You're going to break things horribly (or if you're needing to do this for some reason - things have probably <i>already</i> broken horribly!)"))
 
 /**
  * Change our stored summoner and updates static data when the holoparasite's summoner is changed.

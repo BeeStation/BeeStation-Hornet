@@ -4,6 +4,7 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 	var/owner
 	var/list/purchase_log				//assoc path-of-item = /datum/uplink_purchase_entry
 	var/total_spent = 0
+	var/effective_amount = 0
 
 /datum/uplink_purchase_log/New(_owner, datum/component/uplink/_parent)
 	owner = _owner
@@ -45,7 +46,7 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 		var/datum/uplink_purchase_entry/UPE = purchase_log[hash]
 		. += "<span class='tooltip_container'>\[[UPE.icon_b64][show_key?"([owner])":""]<span class='tooltip_hover'><b>[UPE.name]</b><br>[UPE.spent_cost ? "[UPE.spent_cost] TC" : "[UPE.base_cost] TC<br>(Surplus)"]<br>[UPE.desc]</span>[(UPE.amount_purchased > 1) ? "x[UPE.amount_purchased]" : ""]\]</span>"
 
-/datum/uplink_purchase_log/proc/LogPurchase(atom/A, datum/uplink_item/uplink_item, spent_cost)
+/datum/uplink_purchase_log/proc/LogPurchase(atom/A, datum/uplink_item/uplink_item, spent_cost, is_bonus = FALSE)
 	var/datum/uplink_purchase_entry/UPE
 	var/hash = hash_purchase(uplink_item, spent_cost)
 	if(purchase_log[hash])
@@ -62,7 +63,9 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 		UPE.allow_refund = uplink_item.refundable
 
 	UPE.amount_purchased++
-	total_spent += spent_cost
+	if(!is_bonus)
+		total_spent += spent_cost
+	effective_amount += spent_cost
 
 /datum/uplink_purchase_log/proc/hash_purchase(datum/uplink_item/uplink_item, spent_cost)
 	return "[uplink_item.type]|[uplink_item.name]|[uplink_item.cost]|[spent_cost]"

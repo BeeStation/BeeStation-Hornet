@@ -5,12 +5,17 @@
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nboard00"
+	custom_materials = list(
+		/datum/material/wood = MINERAL_MATERIAL_AMOUNT,
+	)
 	layer = ABOVE_WINDOW_LAYER
 	density = FALSE
 	anchored = TRUE
 	max_integrity = 150
 	// Current number of a pinned notices
 	var/notices = 0
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/noticeboard, 32)
 
 /obj/structure/noticeboard/Initialize(mapload)
 	. = ..()
@@ -30,16 +35,16 @@
 /obj/structure/noticeboard/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo))
 		if(!allowed(user))
-			to_chat(user, "<span class='info'>You are not authorized to add notices</span>")
+			to_chat(user, span_info("You are not authorized to add notices"))
 			return
 		if(notices < MAX_NOTICES)
 			if(!user.transferItemToLoc(O, src))
 				return
 			notices++
 			icon_state = "nboard0[notices]"
-			to_chat(user, "<span class='notice'>You pin the [O] to the noticeboard.</span>")
+			to_chat(user, span_notice("You pin the [O] to the noticeboard."))
 		else
-			to_chat(user, "<span class='notice'>The notice board is full</span>")
+			to_chat(user, span_notice("The notice board is full"))
 	else
 		return ..()
 

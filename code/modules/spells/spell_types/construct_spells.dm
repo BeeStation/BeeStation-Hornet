@@ -2,7 +2,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser
 	charge_max = 3 MINUTES
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_demon"
 
@@ -20,7 +20,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	range = 2
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "areaconvert"
 	action_background_icon_state = "bg_cult"
 
@@ -41,7 +41,7 @@
 	invocation_type = INVOCATION_NONE
 	range = 0
 	summon_type = list(/turf/open/floor/engine/cult)
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "floorconstruct"
 	action_background_icon_state = "bg_cult"
 
@@ -56,7 +56,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	range = 0
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "lesserconstruct"
 	action_background_icon_state = "bg_cult"
 
@@ -73,7 +73,7 @@
 	invocation_type = INVOCATION_NONE
 	invocation_time = 50
 	range = 0
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "airlockconstruct"
 	action_background_icon_state = "bg_cult"
 
@@ -102,7 +102,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	range = 0
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_demon"
 
@@ -130,7 +130,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	wall_type = /obj/effect/forcefield/cult
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_demon"
 
@@ -144,7 +144,7 @@
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	jaunt_duration = 5 SECONDS
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "phaseshift"
 	action_background_icon_state = "bg_demon"
 	jaunt_in_time = 0.6 SECONDS
@@ -219,32 +219,35 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "abyssal_gaze"
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/cast(list/targets, mob/user = usr)
 	if(!LAZYLEN(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		revert_cast()
 		return
 
 	var/mob/living/carbon/target = targets[1]
 
 	if(!(target in oview(range)))
-		to_chat(user, "<span class='notice'>[target] is too far away!</span>")
+		to_chat(user, span_notice("[target] is too far away!"))
 		revert_cast()
 		return
 
 	if(target.anti_magic_check(TRUE, TRUE))
-		to_chat(target, "<span class='warning'>You feel a freezing darkness closing in on you, but it rapidly dissipates.</span>")
+		to_chat(target, span_warning("You feel a freezing darkness closing in on you, but it rapidly dissipates."))
 		return
 
-	to_chat(target, "<span class='userdanger'>A freezing darkness surrounds you...</span>")
+	to_chat(target, span_userdanger("A freezing darkness surrounds you..."))
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	target.become_blind(MAGIC_BLIND)
 	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), 40)
+	if(ishuman(targets[1]))
+		var/mob/living/carbon/human/humi = targets[1]
+		humi.adjust_coretemperature(-200)
 	target.adjust_bodytemperature(-200)
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
@@ -264,47 +267,47 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "dominate"
 
 /obj/effect/proc_holder/spell/targeted/dominate/cast(list/targets, mob/user = usr)
 	if(!LAZYLEN(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		revert_cast()
 		return
 
 	var/mob/living/simple_animal/S = targets[1]
 
 	if(S.ckey)
-		to_chat(user, "<span class='warning'>[S] is too intelligent to dominate!</span>")
+		to_chat(user, span_warning("[S] is too intelligent to dominate!"))
 		revert_cast()
 		return
 
 	if(S.stat)
-		to_chat(user, "<span class='warning'>[S] is dead!</span>")
+		to_chat(user, span_warning("[S] is dead!"))
 		revert_cast()
 		return
 
 	if(!istype(S) || S.sentience_type != SENTIENCE_ORGANIC)
-		to_chat(user, "<span class='warning'>[S] cannot be dominated!</span>")
+		to_chat(user, span_warning("[S] cannot be dominated!"))
 		revert_cast()
 		return
 
 	if(!(S in oview(range)))
-		to_chat(user, "<span class='notice'>[S] is too far away!</span>")
+		to_chat(user, span_notice("[S] is too far away!"))
 		revert_cast()
 		return
 
 	S.add_atom_colour("#990000", FIXED_COLOUR_PRIORITY)
-	S.faction = list("cult")
+	S.faction = list(FACTION_CULT)
 	playsound(get_turf(S), 'sound/effects/ghost.ogg', 100, 1)
 	new /obj/effect/temp_visual/cult/sac(get_turf(S))
 
 /obj/effect/proc_holder/spell/targeted/dominate/can_target(mob/living/target)
 	if(!isanimal(target) || target.stat)
 		return FALSE
-	if("cult" in target.faction)
+	if(FACTION_CULT in target.faction)
 		return FALSE
 	return TRUE
 
@@ -320,7 +323,7 @@
 	proj_type = /obj/projectile/magic/spell/juggernaut
 	charge_max = 35 SECONDS
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon = 'icons/hud/actions/actions_cult.dmi'
 	action_icon_state = "cultfist"
 	action_background_icon_state = "bg_demon"
 	sound = 'sound/weapons/resonator_blast.ogg'
@@ -335,7 +338,7 @@
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	check_holy = TRUE
-	ignored_factions = list("cult")
+	ignored_factions = FACTION_CULT
 	range = 15
 	speed = 7
 

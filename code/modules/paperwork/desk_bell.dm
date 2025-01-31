@@ -29,7 +29,7 @@
 	if(!COOLDOWN_FINISHED(src, ring_cooldown) && ring_cooldown_length)
 		return TRUE
 	if(!ring_bell(user))
-		to_chat(user,"<span class='notice'>[src] is silent. Some idiot broke it.</span>")
+		to_chat(user,span_notice("[src] is silent. Some idiot broke it."))
 	if(ring_cooldown_length)
 		COOLDOWN_START(src, ring_cooldown, ring_cooldown_length)
 	return TRUE
@@ -69,7 +69,7 @@
 /// Check if the clapper breaks, and if it does, break it
 /obj/structure/desk_bell/proc/check_clapper(mob/living/user)
 	if(((times_rang >= 10000) || prob(times_rang/100)) && ring_cooldown_length)
-		to_chat(user, "<span class='notice'>You hear [src]'s clapper fall off of its hinge. Nice job, you broke it.</span>")
+		to_chat(user, span_notice("You hear [src]'s clapper fall off of its hinge. Nice job, you broke it."))
 		broken_ringer = TRUE
 
 /// Ring the bell
@@ -79,7 +79,7 @@
 	check_clapper(user)
 	// The lack of varying is intentional. The only variance occurs on the strike the bell breaks.
 	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-	flick("desk_bell_ring", src)
+	flick("[initial(icon_state)]_ring", src)
 	times_rang++
 	return TRUE
 

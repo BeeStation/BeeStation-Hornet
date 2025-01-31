@@ -25,8 +25,8 @@ type Info = {
   antag_name: string;
 };
 
-const UplinkSubsection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const UplinkSubsection = (_props) => {
+  const { data } = useBackend<Info>();
   const { has_uplink, uplink_unlock_info, code, failsafe_code } = data;
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
@@ -44,7 +44,7 @@ const UplinkSubsection = (_props, context) => {
             <Stack.Divider />
             {failsafe_code && (
               <>
-                <Stack.Item bold>{code && <span style={goalstyle}>Code: {code}</span>}</Stack.Item>
+                <Stack.Item bold>{failsafe_code && <span style={goalstyle}>Failsafe: {failsafe_code}</span>}</Stack.Item>
                 <Stack.Divider />
               </>
             )}
@@ -58,8 +58,8 @@ const UplinkSubsection = (_props, context) => {
   );
 };
 
-const MembersSubsection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const MembersSubsection = (_props) => {
+  const { data } = useBackend<Info>();
   const { members } = data;
   return (
     <Section title="Members">
@@ -72,7 +72,7 @@ const MembersSubsection = (_props, context) => {
   );
 };
 
-const BasicLoreSubsection = (_props, _context) => {
+const BasicLoreSubsection = (_props) => {
   return (
     <Section>
       <BlockQuote>
@@ -98,7 +98,7 @@ const BasicLoreSubsection = (_props, _context) => {
   );
 };
 
-const InfoSection = (_props, _context) => {
+const InfoSection = (_props) => {
   return (
     <Section>
       <Stack vertical>
@@ -122,8 +122,8 @@ const InfoSection = (_props, _context) => {
   );
 };
 
-export const AntagInfoIncursion = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoIncursion = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives, antag_name } = data;
   return (
     <Window width={620} height={620} theme="syndicate">

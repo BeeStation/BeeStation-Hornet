@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/blood_siphon
 	name = "Blood Siphon"
 	desc = "A spell that heals your wounds while damaging the enemy."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
 	action_icon_state = "blood_siphon"
 	action_background_icon_state = "bg_ecult"
 	invocation = "FL'MS O'ET'RN'ITY"
@@ -22,14 +22,14 @@
 	if(target.anti_magic_check())
 		user.balloon_alert(user, "Spell blocked")
 		target.visible_message(
-			"<span class='danger'>The spell bounces off of [target]!</span>",
-			"<span class='danger'>The spell bounces off of you!</span>",
+			span_danger("The spell bounces off of [target]!"),
+			span_danger("The spell bounces off of you!"),
 		)
 		return
 
 	target.visible_message(
-		"<span class='danger'>[target] turns pale as a red glow envelops [target.p_them()]!</span>",
-		"<span class='danger'>You turn pale as a red glow enevelops you!</span>",
+		span_danger("[target] turns pale as a red glow envelops [target.p_them()]!"),
+		span_danger("You turn pale as a red glow enevelops you!"),
 	)
 
 	target.take_overall_damage(brute = 20)

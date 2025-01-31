@@ -6,6 +6,8 @@
 	///we remove 5 reagents per second
 	var/disposal_rate = 5
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/disposer)
+
 /obj/machinery/plumbing/disposer/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)

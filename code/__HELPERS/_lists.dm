@@ -13,6 +13,14 @@
  * Misc
  */
 
+// Generic listoflist safe add and removal macros:
+///If value is a list, wrap it in a list so it can be used with list add/remove operations
+#define LIST_VALUE_WRAP_LISTS(value) (islist(value) ? list(value) : value)
+///Add an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_ADD(list, item) (list += LIST_VALUE_WRAP_LISTS(item))
+///Remove an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_REMOVE(list, item) (list -= LIST_VALUE_WRAP_LISTS(item))
+
 ///Initialize the lazylist
 #define LAZYINITLIST(L) if (!L) { L = list(); }
 ///If the provided list is empty, set it to null
@@ -65,6 +73,18 @@
 	LAZYINITLIST(lazy_list[key]); \
 	lazy_list[key] |= value;
 
+///Ensures the length of a list is at least I, prefilling it with V if needed. if V is a proc call, it is repeated for each new index so that list() can just make a new list for each item.
+#define LISTASSERTLEN(L, I, V...) \
+	if (length(L) < I) { \
+		var/_OLD_LENGTH = length(L); \
+		L.len = I; \
+		/* Convert the optional argument to a if check */ \
+		for (var/_USELESS_VAR in list(V)) { \
+			for (var/_INDEX_TO_ASSIGN_TO in _OLD_LENGTH+1 to I) { \
+				L[_INDEX_TO_ASSIGN_TO] = V; \
+			} \
+		} \
+	}
 
 /// Passed into BINARY_INSERT to compare keys
 #define COMPARE_KEY __BIN_LIST[__BIN_MID]
@@ -271,9 +291,9 @@
 	return list_to_clear.len < start_len
 
 /**
- Returns list containing all the entries from first list that are not present in second.
- If skiprep = 1, repeated elements are treated as one.
- If either of arguments is not a list, returns null
+ * Returns list containing all the entries from first list that are not present in second.
+ * If skiprep = 1, repeated elements are treated as one.
+ * If either of arguments is not a list, returns null
 */
 /proc/difflist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
@@ -282,15 +302,15 @@
 	if(skiprep)
 		for(var/e in first)
 			if(!(e in result) && !(e in second))
-				result += e
+				UNTYPED_LIST_ADD(result, e)
 	else
 		result = first - second
 	return result
 
 /**
- Returns list containing entries that are in either list but not both.
- If skipref = 1, repeated elements are treated as one.
- If either of arguments is not a list, returns null
+ * Returns list containing entries that are in either list but not both.
+ * If skipref = 1, repeated elements are treated as one.
+ * If either of arguments is not a list, returns null
  */
 /proc/unique_merge_list(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
@@ -360,7 +380,7 @@
 		if(!value)
 			continue
 		for(var/i in 1 to value / gcf)
-			output += item
+			UNTYPED_LIST_ADD(output, item)
 	return output
 
 /// Takes a list of numbers as input, returns the highest value that is cleanly divides them all
@@ -446,7 +466,7 @@
 /proc/unique_list(list/inserted_list)
 	. = list()
 	for(var/i in inserted_list)
-		. |= i
+		. |= LIST_VALUE_WRAP_LISTS(i)
 
 // Return a list with no duplicate entries inplace
 /proc/unique_list_in_place(list/inserted_list)
@@ -459,12 +479,11 @@
 			inserted_list[key] = temp[key]
 
 /// for sorting clients or mobs by ckey
-/proc/sort_key(list/ckey_list, order=1)
+/proc/sort_key(list/ckey_list, order = 1)
 	return sortTim(ckey_list, order >= 0 ? GLOBAL_PROC_REF(cmp_ckey_asc) : GLOBAL_PROC_REF(cmp_ckey_dsc))
 
 /// Specifically for sorting record datums in a list.
-/proc/sort_record(list/record_list, field = "name", order = 1)
-	GLOB.cmp_field = field
+/proc/sort_record(list/record_list, order = 1)
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 /// sorting any value in a list with any comparator
@@ -524,13 +543,19 @@
 // Returns the key based on the index
 #define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)
 
-/// Returns datum/data/record
-/proc/find_record(field, value, list/inserted_list)
-	for(var/datum/data/record/record_to_check in inserted_list)
-		if(record_to_check.fields[field] == value)
-			return record_to_check
+/**
+ * Returns the first record in the list that matches the name
+ *
+ * Make sure to supply it with the proper record list.
+ * Either GLOB.manifest.general or GLOB.manifest.locked
+ *
+ * If no record is found, returns null
+ */
+/proc/find_record(value, list/inserted_list)
+	for(var/datum/record/target in inserted_list)
+		if(target.name == value)
+			return target
 	return null
-
 
 /**
  * Move a single element from position from_index within a list, to position to_index
@@ -628,12 +653,6 @@
 		if(checked_datum.vars[varname] == value)
 			return checked_datum
 
-/// remove all nulls from a list
-/proc/remove_nulls_from_list(list/inserted_list)
-	while(inserted_list.Remove(null))
-		continue
-	return inserted_list
-
 ///Copies a list, and all lists inside it recusively
 ///Does not copy any other reference type
 /proc/deep_copy_list(list/inserted_list)
@@ -670,9 +689,9 @@
 		copied_list[key_or_value] = new_value
 
 /**
- takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
-
- use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
+ * takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
+ *
+ * use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
 */
 /proc/avoid_assoc_duplicate_keys(input_key, list/used_key_list)
 	if(!input_key || !istype(used_key_list))
@@ -690,7 +709,7 @@
 		return null
 	. = list()
 	for(var/key in key_list)
-		. |= key_list[key]
+		. |= LIST_VALUE_WRAP_LISTS(key_list[key])
 
 /proc/make_associative(list/flat_list)
 	. = list()
@@ -698,9 +717,9 @@
 		.[thing] = TRUE
 
 /*!
- #### Definining a counter as a series of key -> numeric value entries
+#### Definining a counter as a series of key -> numeric value entries
 
- #### All these procs modify in place.
+#### All these procs modify in place.
 */
 
 /proc/counterlist_scale(list/L, scalar)
@@ -733,7 +752,7 @@
 /proc/assoc_to_keys(list/input)
 	var/list/keys = list()
 	for(var/key in input)
-		keys += key
+		UNTYPED_LIST_ADD(keys, key)
 	return keys
 
 /// Checks if a value is contained in an associative list's values
@@ -763,6 +782,16 @@
 
 	return TRUE
 
+#define LAZY_LISTS_OR(left_list, right_list)\
+	( length(left_list)\
+		? length(right_list)\
+			? (left_list | right_list)\
+			: left_list.Copy()\
+		: length(right_list)\
+			? right_list.Copy()\
+			: null\
+	)
+
 ///Returns a list with items filtered from a list that can call callback
 /proc/special_list_filter(list/L, datum/callback/condition)
 	if(!islist(L) || !length(L) || !istype(condition))
@@ -770,7 +799,7 @@
 	. = list()
 	for(var/i in L)
 		if(condition.Invoke(i))
-			. |= i
+			. |= LIST_VALUE_WRAP_LISTS(i)
 
 /// Runtimes if the passed in list is not sorted
 /proc/assert_sorted(list/list, name, cmp = /proc/cmp_numeric_asc)

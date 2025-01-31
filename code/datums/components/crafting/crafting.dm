@@ -3,6 +3,7 @@
 		RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(create_mob_button))
 
 /datum/component/personal_crafting/proc/create_mob_button(mob/user, client/CL)
+	SIGNAL_HANDLER
 	var/datum/hud/H = user.hud_used
 	var/atom/movable/screen/craft/C = new()
 	C.icon = H.ui_style
@@ -12,16 +13,15 @@
 
 /datum/component/personal_crafting
 	var/busy
-	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
-	var/viewing_subcategory = 1
 	var/list/categories = list(
 				CAT_WEAPONRY = list(
 					CAT_WEAPON,
 					CAT_AMMO,
 				),
-				CAT_ROBOT = CAT_NONE,
-				CAT_MISC = CAT_NONE,
-				CAT_PRIMAL = CAT_NONE,
+				CAT_TAILORING = list(
+					CAT_CLOTHING,
+					CAT_EYEWEAR,
+				),
 				CAT_FOOD = list(
 					CAT_BREAD,
 					CAT_BURGER,
@@ -35,18 +35,22 @@
 					CAT_PIZZA,
 					CAT_SALAD,
 					CAT_SANDWICH,
+					CAT_SEAFOOD,
 					CAT_SOUP,
 					CAT_SPAGHETTI,
+					CAT_MEXICAN,
 				),
+				CAT_ROBOT = CAT_NONE,
+				CAT_MISC = CAT_NONE,
+				CAT_PRIMAL = CAT_NONE,
+				CAT_STRUCTURE = CAT_NONE,
 				CAT_DRINK = CAT_NONE,
-				CAT_CLOTHING = CAT_NONE,
 			)
-
 	var/cur_category = CAT_NONE
 	var/cur_subcategory = CAT_NONE
-	var/datum/action/innate/crafting/button
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
+	var/datum/action/innate/crafting/button
 
 /*	This is what procs do:
 	get_environment - gets a list of things accessable for crafting by user
@@ -190,7 +194,11 @@
 			if(!check_tools(a, R, contents))
 				return "missing tool."
 			var/list/parts = del_reqs(R, a)
-			var/atom/movable/I = new R.result (get_turf(a.loc))
+			var/atom/movable/I
+			if(ispath(R.result, /obj/item/food))
+				I = new R.result (get_turf(a.loc))
+			else
+				I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)
 			if(send_feedback)
 				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
@@ -212,9 +220,10 @@
 						result.pixel_y = rand(-4, 4)
 		else
 			result.forceMove(user.drop_location())
-		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
+		to_chat(user, span_notice("[TR.name] constructed."))
+		TR.on_craft_completion(user, result)
 	else
-		to_chat(user, "<span class='warning'>Construction failed[result]</span>")
+		to_chat(user, span_warning("Construction failed[result]"))
 	busy = FALSE
 	SStgui.update_uis(src)
 
@@ -343,7 +352,7 @@
 		// If we consumed them in our crafting, we should dump their contents out before qdeling them.
 		if(istype(DL, /obj/item/reagent_containers))
 			var/obj/item/reagent_containers/container = DL
-			container.reagents.reaction(container.loc, TOUCH)
+			container.reagents.expose(container.loc, TOUCH)
 		else if(istype(DL, /obj/item/storage))
 			var/obj/item/storage/container = DL
 			container.emptyStorage()

@@ -29,23 +29,23 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 	contains_type = get_gift_type()
 
 /obj/item/a_gift/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] peeks inside [src] and cries [user.p_them()]self to death! It looks like [user.p_they()] [user.p_were()] on the naughty list...</span>")
+	user.visible_message(span_suicide("[user] peeks inside [src] and cries [user.p_them()]self to death! It looks like [user.p_they()] [user.p_were()] on the naughty list..."))
 	return BRUTELOSS
 
 /obj/item/a_gift/examine(mob/M)
 	. = ..()
 	if((M.mind && HAS_TRAIT(M.mind, TRAIT_PRESENT_VISION)) || isobserver(M))
-		. += "<span class='notice'>It contains \a [initial(contains_type.name)].</span>"
+		. += span_notice("It contains \a [initial(contains_type.name)].")
 
 /obj/item/a_gift/attack_self(mob/M)
 	if(M.mind && HAS_TRAIT(M.mind, TRAIT_CANNOT_OPEN_PRESENTS))
-		to_chat(M, "<span class='warning'>You're supposed to be spreading gifts, not opening them yourself!</span>")
+		to_chat(M, span_warning("You're supposed to be spreading gifts, not opening them yourself!"))
 		return
 
 	qdel(src)
 
 	var/obj/item/I = new contains_type(get_turf(M))
-	M.visible_message("<span class='notice'>[M] unwraps \the [src], finding \a [I] inside!</span>")
+	M.visible_message(span_notice("[M] unwraps \the [src], finding \a [I] inside!"))
 	M.investigate_log("has unwrapped a present containing [I.type].", INVESTIGATE_PRESENTS)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
@@ -81,11 +81,11 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 		/obj/item/clothing/neck/tie/horrible,
 		/obj/item/clothing/suit/jacket/leather,
 		/obj/item/clothing/suit/jacket/leather/overcoat,
-		/obj/item/clothing/suit/poncho,
-		/obj/item/clothing/suit/poncho/green,
-		/obj/item/clothing/suit/poncho/red,
-		/obj/item/clothing/suit/snowman,
-		/obj/item/clothing/head/snowman,
+		/obj/item/clothing/suit/costume/poncho,
+		/obj/item/clothing/suit/costume/poncho/green,
+		/obj/item/clothing/suit/costume/poncho/red,
+		/obj/item/clothing/suit/costume/snowman,
+		/obj/item/clothing/head/costume/snowman,
 		/obj/item/stack/sheet/mineral/coal)
 
 	gift_type_list += subtypesof(/obj/item/clothing/head/collectable)

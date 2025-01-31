@@ -43,7 +43,7 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(feedback_to, "<span class='warning'>There is nothing in that direction!</span>")
+			to_chat(feedback_to, span_warning("There is nothing in that direction!"))
 		return FALSE
 	if(istype(loc, /obj/effect/dummy/phased_mob)) // I despise this
 		var/obj/effect/dummy/phased_mob/L = loc
@@ -59,11 +59,12 @@
 	switch(move_type)
 		if(MOVETYPE_NONE)
 			if(feedback)
-				to_chat(feedback_to, "<span class='warning'>Something is blocking you!</span>")
+				to_chat(feedback_to, span_warning("Something is blocking you!"))
 			return FALSE
 		if(MOVETYPE_NONE_JUMP)
-			visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
+			visible_message(span_warning("[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly."), span_warning("You try jumping into the space above you. Gravity pulls you back down quickly."))
 			do_jump_animation()
+			adjustStaminaLoss(10, forced = TRUE)
 			return FALSE
 		if(MOVETYPE_JAUNT)
 			move_verb = "moving"
@@ -86,7 +87,7 @@
 
 /// Actually starts a zMove, doing movement animations
 /mob/living/proc/start_travel_z(mob/user, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS, allow_movement = TRUE)
-	user.visible_message("<span class='notice'>[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [move_verb] [upwards ? "upwards" : "downwards"].")
+	user.visible_message(span_notice("[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!"), span_notice("You begin [move_verb] [upwards ? "upwards" : "downwards"]."))
 	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
 	var/list/bucklemobs_c = user.buckled_mobs?.Copy()
 	for(var/mob/M in bucklemobs_c)
@@ -170,3 +171,5 @@
 #undef MOVETYPE_JETPACK
 #undef MOVETYPE_FLOAT
 #undef MOVETYPE_JAUNT
+
+#undef MOVETYPE_NONE_JUMP

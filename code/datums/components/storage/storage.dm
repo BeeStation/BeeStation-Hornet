@@ -1,7 +1,3 @@
-#define COLLECT_ONE 0
-#define COLLECT_EVERYTHING 1
-#define COLLECT_SAME 2
-
 // External storage-related logic:
 // /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
@@ -10,15 +6,17 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/datum/component/storage/concrete/master		//If not null, all actions act on master and this is just an access point.
 
-	var/list/can_hold								//if this is set, only things in this typecache will fit, unless
-	var/list/cant_hold								//if this is set, anything in this typecache will not be able to fit.
-	var/list/exception_hold							//if this is set, items in this typecache will ignore size limitations, only respecting max_items
+	var/list/can_hold //if this is set, only items, and their children, will fit
+	var/list/cant_hold //if this is set, items, and their children, won't fit
+	var/list/exception_hold //if set, these items will be the exception to the max size of object that can fit.
 	/// If set can only contain stuff with this single trait present.
 	var/list/can_hold_trait
 
-	var/list/mob/is_using							//lazy list of mobs looking at the contents of this storage.
+	var/can_hold_description
 
-	var/locked = FALSE								//when locked nothing can see inside or use it.
+	var/list/mob/is_using //lazy list of mobs looking at the contents of this storage.
+
+	var/locked = FALSE //when locked nothing can see inside or use it.
 
 	var/max_w_class = WEIGHT_CLASS_SMALL			//max size of objects that will fit.
 	var/max_combined_w_class = 14					//max combined sizes of objects that will fit.
@@ -84,6 +82,7 @@
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_FROM, PROC_REF(signal_hide_attempt))
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_ALL, PROC_REF(close_all))
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_RETURN_INVENTORY, PROC_REF(signal_return_inv))
+	RegisterSignal(parent, COMSIG_TOPIC, PROC_REF(topic_handle))
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(attackby))
 
@@ -117,6 +116,42 @@
 
 /datum/component/storage/PreTransfer()
 	update_actions()
+
+/// Almost 100% of the time the lists passed into set_holdable are reused for each instance of the component
+/// Just fucking cache it 4head
+/// Yes I could generalize this, but I don't want anyone else using it. in fact, DO NOT COPY THIS
+/// If you find yourself needing this pattern, you're likely better off using static typecaches
+/// I'm not because I do not trust implementers of the storage component to use them, BUT
+/// IF I FIND YOU USING THIS PATTERN IN YOUR CODE I WILL BREAK YOU ACROSS MY KNEES
+GLOBAL_LIST_EMPTY(cached_storage_typecaches)
+
+/datum/component/storage/proc/set_holdable(list/can_hold_list, list/cant_hold_list)
+	if(!islist(can_hold_list))
+		can_hold_list = list(can_hold_list)
+	if(!islist(cant_hold_list))
+		cant_hold_list = list(cant_hold_list)
+
+	can_hold_description = generate_hold_desc(can_hold_list)
+	if (can_hold_list)
+		var/unique_key = can_hold_list.Join("-")
+		if(!GLOB.cached_storage_typecaches[unique_key])
+			GLOB.cached_storage_typecaches[unique_key] = typecacheof(can_hold_list)
+		can_hold = GLOB.cached_storage_typecaches[unique_key]
+
+	if (cant_hold_list != null)
+		var/unique_key = cant_hold_list.Join("-")
+		if(!GLOB.cached_storage_typecaches[unique_key])
+			GLOB.cached_storage_typecaches[unique_key] = typecacheof(cant_hold_list)
+		cant_hold = GLOB.cached_storage_typecaches[unique_key]
+
+/datum/component/storage/proc/generate_hold_desc(can_hold_list)
+	var/list/desc = list()
+
+	for(var/valid_type in can_hold_list)
+		var/obj/item/valid_item = valid_type
+		desc += "\a [initial(valid_item.name)]"
+
+	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
 
 /datum/component/storage/proc/update_actions()
 	QDEL_NULL(modeswitch_action)
@@ -156,7 +191,7 @@
 	var/datum/component/storage/concrete/master = master()
 	if(!master)
 		return
-	. = COMPONENT_BLOCK_REACH
+	. = COMPONENT_ALLOW_REACH
 	next += master.parent
 	for(var/i in master.slaves)
 		var/datum/component/storage/slave = i
@@ -185,7 +220,7 @@
 
 	if(!isitem(O) || !click_gather || SEND_SIGNAL(O, COMSIG_CONTAINS_STORAGE))
 		return FALSE
-	. = COMPONENT_NO_ATTACK
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(locked)
 		var/atom/host = parent
 		host.balloon_alert(M, "[host] is locked.")
@@ -208,14 +243,14 @@
 				things -= A
 	var/len = length(things)
 	if(!len)
-		to_chat(pre_attack_mob, "<span class='warning'>You failed to pick up anything with [parent]!</span>")
+		to_chat(pre_attack_mob, span_warning("You failed to pick up anything with [parent]!"))
 		return
 	var/datum/progressbar/progress = new(pre_attack_mob, len, attack_item.loc)
 	var/list/rejections = list()
 	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), things, attack_item.loc, rejections, progress)))
 		stoplag(1)
-	qdel(progress)
-	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
+	progress.end_progress()
+	to_chat(pre_attack_mob, span_notice("You put everything you could [insert_preposition] [parent]."))
 	animate_parent()
 
 /datum/component/storage/proc/handle_mass_item_insertion(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
@@ -275,7 +310,7 @@
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 1 SECONDS, T, NONE, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 /datum/component/storage/proc/mass_remove_from_storage(atom/target, list/things, datum/progressbar/progress, trigger_on_found = TRUE)
 	var/atom/real_location = real_location()
@@ -284,6 +319,8 @@
 		if(I.loc != real_location)
 			continue
 		remove_from_storage(I, target)
+		I.pixel_x = rand(-10,10)
+		I.pixel_y = rand(-10,10)
 		if(trigger_on_found && I.on_found())
 			return FALSE
 		if(TICK_CHECK)
@@ -376,7 +413,7 @@
 
 /datum/component/storage/proc/show_to(mob/M)
 	if(!can_be_opened)
-		to_chat(M, "<span class='warning'>You shouldn't rummage through garbage!</span>")
+		to_chat(M, span_warning("You shouldn't rummage through garbage!"))
 		return FALSE
 	if(!M.client)
 		return FALSE
@@ -535,7 +572,7 @@
 			SEND_SIGNAL(A, COMSIG_TRY_STORAGE_RETURN_INVENTORY, ret, TRUE)
 	return ret
 
-/datum/component/storage/proc/contents()			//ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
+/datum/component/storage/proc/contents() //ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
 	var/atom/real_location = real_location()
 	return real_location.contents.Copy()
 
@@ -547,6 +584,15 @@
 		return FALSE
 	interface |= return_inv(recursive)
 	return TRUE
+
+/datum/component/storage/proc/topic_handle(datum/source, user, href_list)
+	SIGNAL_HANDLER
+
+	if(href_list["show_valid_pocket_items"])
+		handle_show_valid_items(source, user)
+
+/datum/component/storage/proc/handle_show_valid_items(datum/source, user)
+	to_chat(user, span_notice("[source] can hold: [can_hold_description]"))
 
 /datum/component/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/M)
 	SIGNAL_HANDLER
@@ -690,11 +736,11 @@
 		animate_parent()
 	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
-			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")
+			to_chat(usr, span_notice("You put [I] [insert_preposition]to [parent]."))
 		else if(in_range(M, viewing)) //If someone is standing close enough, they can tell what it is...
-			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
+			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
 		else if(I && I.w_class >= 3) //Otherwise they can only see large or normal items from a distance...
-			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
+			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
 
 /datum/component/storage/proc/update_icon()
 	if(isobj(parent))
@@ -777,7 +823,7 @@
 	if(user.active_storage == src && A.loc == user) //if you're already looking inside the storage item
 		user.active_storage.close(user)
 		close(user)
-		. = COMPONENT_NO_ATTACK_HAND
+		. = COMPONENT_CANCEL_ATTACK_CHAIN
 		return
 
 	if(rustle_sound)
@@ -786,18 +832,18 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == A && !H.get_active_held_item())	//Prevents opening if it's in a pocket.
-			. = COMPONENT_NO_ATTACK_HAND
+			. = COMPONENT_CANCEL_ATTACK_CHAIN
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, put_in_hands), A)
 			H.l_store = null
 			return
 		if(H.r_store == A && !H.get_active_held_item())
-			. = COMPONENT_NO_ATTACK_HAND
+			. = COMPONENT_CANCEL_ATTACK_CHAIN
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, put_in_hands), A)
 			H.r_store = null
 			return
 
 	if(A.loc == user)
-		. = COMPONENT_NO_ATTACK_HAND
+		. = COMPONENT_CANCEL_ATTACK_CHAIN
 		if(locked)
 			var/atom/host = parent
 			host.balloon_alert(user, "[host] is locked.")
@@ -866,9 +912,9 @@
 	parent_as_atom.add_fingerprint(user)
 	remove_from_storage(to_remove, get_turf(user))
 	if(!user.put_in_hands(to_remove))
-		to_chat(user, "<span class='notice'>You fumble for [to_remove] and it falls on the floor.</span>")
+		to_chat(user, span_notice("You fumble for [to_remove] and it falls on the floor."))
 		return
-	user.visible_message("<span class='warning'>[user] draws [to_remove] from [parent]!</span>", "<span class='notice'>You draw [to_remove] from [parent].</span>")
+	user.visible_message(span_warning("[user] draws [to_remove] from [parent]!"), span_notice("You draw [to_remove] from [parent]."))
 	return
 
 /datum/component/storage/proc/action_trigger(datum/signal_source, datum/action/source)

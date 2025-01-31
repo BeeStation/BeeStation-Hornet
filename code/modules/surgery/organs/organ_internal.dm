@@ -29,6 +29,10 @@
 	///When you take a bite you cant jam it in for surgery anymore.
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	juice_typepath = /datum/reagent/liquidgibs
+
+	///Do we effect the appearance of our mob. Used to save time in preference code
+	var/visual = TRUE
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -36,8 +40,9 @@
 // any nonhumans created in that time would experience the same effect.
 INITIALIZE_IMMEDIATE(/obj/item/organ)
 
-/obj/item/organ/Initialize()
+/obj/item/organ/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
 		initial_reagents = food_reagents,\
@@ -46,6 +51,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+	if(organ_flags & ORGAN_SYNTHETIC)
+		juice_typepath = null
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	if(!iscarbon(M) || owner == M)
@@ -117,17 +124,21 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	. = ..()
 	if(organ_flags & ORGAN_FAILING)
 		if(status == ORGAN_ROBOTIC)
-			. += "<span class='warning'>[src] seems to be broken!</span>"
+			. += span_warning("[src] seems to be broken!")
 			return
-		. += "<span class='warning'>[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!</span>"
+		. += span_warning("[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!")
 		return
 	if(damage > high_threshold)
-		. += "<span class='warning'>[src] is starting to look discolored.</span>"
-	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.</span>"
+		. += span_warning("[src] is starting to look discolored.")
+	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
 
-/obj/item/organ/Initialize(mapload)
-	. = ..()
+///Used as callbacks by object pooling
+/obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+
+//See above
+/obj/item/organ/proc/enter_wardrobe()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/Destroy()
 	if(owner)
@@ -217,22 +228,47 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 
 	else
-		if(!getorganslot(ORGAN_SLOT_LUNGS))
-			var/obj/item/organ/lungs/L = new()
+		var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
+		if(!L)
+			L = new()
 			L.Insert(src)
+		L.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_HEART))
-			var/obj/item/organ/heart/H = new()
+		var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+		if(!H)
+			H = new()
 			H.Insert(src)
+		H.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_TONGUE))
-			var/obj/item/organ/tongue/T = new()
+		var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+		if(!T)
+			T = new()
 			T.Insert(src)
+		T.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_EYES))
-			var/obj/item/organ/eyes/E = new()
-			E.Insert(src)
+		var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+		if(!eyes)
+			eyes = new()
+			eyes.Insert(src)
+		eyes.setOrganDamage(0)
 
-		if(!getorganslot(ORGAN_SLOT_EARS))
-			var/obj/item/organ/ears/ears = new()
+		var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+		if(!ears)
+			ears = new()
 			ears.Insert(src)
+		ears.setOrganDamage(0)
+
+/** get_availability
+  * returns whether the species should innately have this organ.
+  *
+  * regenerate organs works with generic organs, so we need to get whether it can accept certain organs just by what this returns.
+  * This is set to return true or false, depending on if a species has a specific organless trait. stomach for example checks if the species has NOSTOMACH and return based on that.
+  * Arguments:
+  * S - species, needed to return whether the species has an organ specific trait
+  */
+/obj/item/organ/proc/get_availability(datum/species/S)
+	return TRUE
+
+/// Called before organs are replaced in regenerate_organs with new ones
+/obj/item/organ/proc/before_organ_replacement(obj/item/organ/replacement)
+	return

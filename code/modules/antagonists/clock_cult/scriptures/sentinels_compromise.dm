@@ -14,7 +14,7 @@
 	if(!(invoker in viewers(7, get_turf(A))))
 		return
 	if(!ishuman(invoker))
-		to_chat(invoker, "<span class='warning'>Non humanoid servants can't use this power!</span>")
+		to_chat(invoker, span_warning("Non humanoid servants can't use this power!"))
 		return
 	var/mob/living/M = A
 	if(!istype(M))

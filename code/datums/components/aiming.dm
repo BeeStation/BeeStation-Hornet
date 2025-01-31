@@ -43,9 +43,9 @@
 	COOLDOWN_START(src, aiming_cooldown, 5 SECONDS)
 	src.user = user
 	src.target = target
-	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
-	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n<b>You can use *surrender to give yourself up</b>.</span>")
-	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
+	user.visible_message(span_warning("[user] points [parent] at [target]!"))
+	to_chat(target, span_userdanger("[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n<b>You can use *surrender to give yourself up</b>."))
+	to_chat(user, span_notice("You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound."))
 	user.balloon_alert_to_viewers("[user] points [parent] at [target]!", ignored_mobs = list(user, target))
 	user.balloon_alert(target, "[user] points [parent] at you!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
@@ -125,7 +125,7 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 // Called when the target mob gets paralyzed (happens if they surrender or are otherwise disabled)
 /datum/component/aiming/proc/on_paralyze()
 	SIGNAL_HANDLER
-	to_chat(user, "<span class='nicegreen'>[target] appears to be surrendering!</span>")
+	to_chat(user, span_nicegreen("[target] appears to be surrendering!"))
 	target.balloon_alert(user, "[target] surrenders!")
 
 // Cancels aiming if we can't see the target
@@ -146,9 +146,9 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 /datum/component/aiming/proc/stop_holding()
 	SIGNAL_HANDLER
 	var/obj/item/held = user.get_active_held_item()
-	user.visible_message("<span class='warning'>[user] stops holding \the [held] at [target]'s temple!</span>", \
-				"<span class='notice'>You stop holding \the [held] at [target]'s temple</span>", ignored_mobs = list(target))
-	to_chat(target, "<span class='warning'>[user] stops holding \the [held] at your temple!</span>")
+	user.visible_message(span_warning("[user] stops holding \the [held] at [target]'s temple!"), \
+				span_notice("You stop holding \the [held] at [target]'s temple"), ignored_mobs = list(target))
+	to_chat(target, span_warning("[user] stops holding \the [held] at your temple!"))
 	user.balloon_alert_to_viewers("Lets go of [target]", "Let go of [target]", ignored_mobs = list(target), show_in_chat = FALSE)
 	user.balloon_alert(target, "[user] Lets go of you", show_in_chat = FALSE)
 	remove_pointblank()
@@ -192,7 +192,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(holding_at_gunpoint)
 		possible_actions += LET_GO
 	for(var/option in possible_actions)
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+		options[option] = image(icon = 'icons/hud/radials/radial_aiming.dmi', icon_state = option)
 	if(choice_menu)
 		choice_menu.change_choices(options)
 		return
@@ -207,11 +207,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		return
 	if(choice != CANCEL && choice != SHOOT) // Handling voiceline cooldowns and mimes
 		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
-			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
+			to_chat(user, span_warning("You've already given a command recently!"))
 			show_ui(user, target, choice)
 			return
 		if(user.mind.assigned_role == JOB_NAME_MIME)
-			user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
+			user.visible_message(span_warning("[user] waves [parent] around menacingly!"))
 			show_ui(user, target, choice)
 			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 			return
@@ -233,30 +233,30 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			user.say(pick("On the ground! Now!", "Lie down and place your hands behind your head!", "Get down on the ground!"), forced = "Weapon aiming")
 		if(POINTBLANK)
 			if(get_dist(target, user) > 1)
-				to_chat(user, "<span class='warning'>You need to be closer to [target] to hold [target.p_them()] at gunpoint!</span>")
+				to_chat(user, span_warning("You need to be closer to [target] to hold [target.p_them()] at gunpoint!"))
 				return
 			if(isdead(target))
-				to_chat(user, "<span class='warning'>You can't hold dead things at gunpoint!</span>")
+				to_chat(user, span_warning("You can't hold dead things at gunpoint!"))
 				return
 			var/obj/item/held = user.get_active_held_item()
 			if(!held)
-				to_chat(user, "<span class='warning'>You can't hold someone at gunpoint with an empty hand!</span>")
+				to_chat(user, span_warning("You can't hold someone at gunpoint with an empty hand!"))
 				return
 			if(!user.pulling || user.pulling != target)
-				to_chat(user, "<span class='warning'>You start to grab \the [target].</span>")
-				to_chat(target, "<span class='warning'>[user] starts to grab you!</span>")
+				to_chat(user, span_warning("You start to grab \the [target]."))
+				to_chat(target, span_warning("[user] starts to grab you!"))
 				if(!do_after(user, 2 SECONDS, target))
-					to_chat(user, "<span class='warning>You fail to grab [target]!</span>")
+					to_chat(user, span_warning("You fail to grab [target]!"))
 					return
 				var/mob/living/carbon/human/H = user
 				user.a_intent = INTENT_GRAB
 				H.dna.species.spec_attack_hand(user, target)
 				return
 			if(user.grab_state < GRAB_AGGRESSIVE)
-				to_chat(user, "<span class='warning'>You start to strengthen your grip on [target].</span>")
-				to_chat(target, "<span class='warning'>[user] starts to strengthen their grip on you!</span>")
+				to_chat(user, span_warning("You start to strengthen your grip on [target]."))
+				to_chat(target, span_warning("[user] starts to strengthen their grip on you!"))
 				if(!do_after(user, 2 SECONDS, target))
-					to_chat(user, "<span class='warning>You fail to strengthen your grip on [target]!</span>")
+					to_chat(user, span_warning("You fail to strengthen your grip on [target]!"))
 					return
 				var/mob/living/carbon/human/H = user
 				user.a_intent = INTENT_GRAB
@@ -265,9 +265,9 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			if(user.pulling != target)
 				return
 			user.say(pick("Freeze!", "Don't move!", "Don't twitch a muscle!", "Don't you dare move!", "Hold still!"), forced = "Weapon aiming")
-			user.visible_message("<span class='warning'>[user] lines up \the [held] with [target]'s temple!</span>", \
-			"<span class='notice'>You line up \the [held] with [target]'s temple</span>", ignored_mobs = list(target))
-			to_chat(target, "<span class='warning'>[user] lines up \the [held] with your temple!</span>")
+			user.visible_message(span_warning("[user] lines up \the [held] with [target]'s temple!"), \
+			span_notice("You line up \the [held] with [target]'s temple"), ignored_mobs = list(target))
+			to_chat(target, span_warning("[user] lines up \the [held] with your temple!"))
 			user.balloon_alert_to_viewers("Holds [target] at gunpoint!", "Holding [target] at gunpoint!", ignored_mobs = list(target), show_in_chat = FALSE)
 			user.balloon_alert(target, "Holds you at gunpoint!", show_in_chat = FALSE)
 			setup_pointblank()
@@ -305,7 +305,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(isitem(parent)) // Otherwise, just wave it at them
 		var/obj/item/I = parent
 		I.afterattack(target, user)
-		user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
+		user.visible_message(span_warning("[user] waves [parent] around menacingly!"))
 		stop_aiming()
 
 /datum/component/aiming/proc/stop_aiming()
@@ -329,17 +329,17 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		return
 	var/list/options = list()
 	for(var/option in list(SURRENDER, IGNORE))
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+		options[option] = image(icon = 'icons/hud/radials/radial_aiming.dmi', icon_state = option)
 	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, PROC_REF(aim_react_act)))
 
 /datum/component/aiming/proc/aim_react_act(choice)
 	if(choice == SURRENDER)
-		target.emote(SURRENDER)
+		target.emote(SURRENDER,intentional = TRUE)
 	QDEL_NULL(choice_menu_target)
 
 // Shows a crosshair effect when aiming at a target
 /obj/effect/temp_visual/aiming
-	icon = 'icons/effects/aiming.dmi'
+	icon = 'icons/hud/radials/radial_aiming.dmi'
 	icon_state = "aiming"
 	duration = 3 SECONDS
 	layer = ABOVE_MOB_LAYER

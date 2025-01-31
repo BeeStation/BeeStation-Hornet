@@ -24,7 +24,7 @@
 	switch(screen)
 
 
-	  // --- Main Menu ---
+		// --- Main Menu ---
 
 		if(0)
 			dat += "<br>[temp]<br>"
@@ -40,7 +40,7 @@
 				dat += "<br>No servers detected. Scan for servers: <a href='?src=[REF(src)];operation=scan'>\[Scan\]</a>"
 
 
-	  // --- Viewing Server ---
+		// --- Viewing Server ---
 
 		if(1)
 			dat += "<br>[temp]<br>"
@@ -177,7 +177,7 @@
 	if(href_list["delete"])
 
 		if(!src.allowed(usr) && !(obj_flags & EMAGGED))
-			to_chat(usr, "<span class='danger'>ACCESS DENIED.</span>")
+			to_chat(usr, span_danger("ACCESS DENIED."))
 			return
 
 		if(SelectedServer)

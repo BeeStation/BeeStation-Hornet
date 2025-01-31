@@ -1,0 +1,192 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/template_noop)
+"c" = (
+/obj/structure/table/wood,
+/obj/machinery/light_switch{
+	pixel_x = -23
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = -6;
+	pixel_y = 14
+	},
+/obj/item/paper/guides{
+	default_raw_text = "<h1>Introduction</h1><br><center>Greetings captains new and old, thank you for purchasing the Art of Captaincy by me, Captain Johnson <small>(the money you used to purchase this book will be used for the finest of booze/weapons/court payments)</small>. This guide will go over all the basics, how you interact with your crew, and threat management, all supplemented with my knowledge that I learned the hard way. If you are a new captain, stay calm, you have a hard job but if you play your cards right you could get drunk while the crew runs smoothly. You’re the head honcho, the big man/woman/silicone, the supreme leader, you are the captain. Now that I got your confidence high, let’s begin with suiting up.</center><br><br><h2>Introduction</h2><br><br>So, the start of your shift usually starts in your office, which is pretty fucking swanky if I say so myself. You got a desk <small>(real wood, not that synthetic crap)</small>, a clean bed, a console which we will go over later, and your own source of alcohol. So you crack open your shiny locker, you throw on your coolest clothing to intimidate the crew and any antagonistic forces (parade jacket and crown works best IMO), and your officers sword. You will also see a PTSD (personal tiny self defense, not the mental disorder you may suffer from after a few shifts) gun, which has two modes, disable and kill. Suddenly something catches your eye, your antique laser gun, which due to some policy made by those jerkoffs at Central Command can only be opened at Blue Alert. Forgetting something, oh yeah, YOU FORGOT THE FUCKING DISC! Not to completely simplify our glorious job, but at the bare minimum we just have to hold the nuclear authentication disc. For some unknown reason we use technology that is half a millennium old to hold our nuclear data, don’t question it, they haven’t explained it properly to me either. Don’t throw it in your bag, hide it because our despised enemy, the Syndicate (GOI: 03), wants it like how felines want head pats. You can store the disc in several places (EOTC stop reading here), your cloak, your wallet, your carapace/parade jacket, or if you trust your CMO, implanted in your body. For the love of all that is holy, please do not give the disc to anyone ever. You would be surprised how many new captains I saw hand their disc to the Head of Security or Head of Personal, and in one instance the clown. Central Command will do horrible things to you if you do not have the disc at the end of the shift. Now that I instilled the fear of God into you, let’s move along. You will find your communications console, you can use this to call Central, ask for the nuke codes if you want to go out in a blaze of glory, call the shuttle, or make an announcement to the entire crew. I personally like to set things straight first thing with a rousing announcement that sets standards and raises my prestige. Announce to the crew your intentions for the shift, any threats that might affect them, or vaguely threaten any traitors onboard. Now, drip or drown: you have a large selection of clothing including a crown, sword, your carapace, and several parade jackets. Now that you are dressed to impress, have your disc secured, and have made a rousing announcement, check in with your heads of staff. Sound off over the command channel and if you don’t hear a department head pay closer attention to them before an actual head arrives.<br><br><h2>Working with your heads of staff </h2><small>(or how to work with mental patients)</small><br><br>So, this part seems to separate the good captains from the anti-social weirdos who somehow worked their way up to this rank. Communication is the name of the game, you have to keep track of your heads and manage the managers. If engineering wants to build a singularity engine, you need to work with your Chief Engineer and Head of Personal (Quartermaster if you want to get nitty gritty). Working with a mix of personalities can be challenging if not rage inducing, such as a rules stickler Head of Security or a stuttering Chief Medical Officer. You need to keep the peace and make sure these gaggle of wonderful people dont kill each other, or worse, damage the station. Now if you’re new to the rank, you might not know these people, but to the veteran Captain some of these heads could be familiar to you. A friend or someone you can trust personally is worth their weight in gold. Alternatively you could exploit this, say your Research Director frequents a different sector known for its <i>“colorful”</i> and <i>“furry”</i> population, you can use this information by appealing to their interest or use the information for blackmail. A well trained and experienced head is very valuable, just let them loose but check in once and a while with sitreps and inspections. A newer head needs to be guided, they might be qualified to run a department but they might not be qualified to work with people <small>(most people on this station lack people skills, get used to it)</small>. You also need to assert your dominance, let the heads know who’s boss. The Head of Security commands officers, the Chief Engineer controls a magic power rock, and the Chief Medical Officer controls life itself in some regards. These might make them arrogant, so occasionally you need to put them in their place to humble them. The balancing act of freedom is something you need to take the utmost care for: give them too much freedom and they become feral and disobedient, too little and you have to micromanage every department which might lead into a full fledged mutiny. You could win the respect of the crew or you could command them through rank and orders, experiment to see what works best with you.<br><br><h2>How to lead the crew </h2><small>(those guys who will most likely lynch you given the chance)</small><br><br>While you need to communicate with your heads, you equally need to work with your assorted underlings. Don’t sit on the bridge like a pussy and walk around (or with the segway if you REALLY want to impress them) and interact with them. A reason why people adore me is unlike half of you limp dick imposters is I actually talk to people and get to know the people who work under me. You can make friends who could one day become a head of staff (hence circling back to the previous section) or at least a competent crew mate you can trust. Now there is only so much you can shake hands and charm the crew, there might be a time where the crew grows mutinous. Maybe you piss off an assistant by telling them to stop breaking into EVA storage, maybe you told the curator their waifu isn’t real, or maybe the Syndicate implanted agitators to convert the crew to kill YOU and your heads. However Central Command has a cure for anarchism, MIND SHIELDS, just jab them for a second and bam, instant loyal crew. As soon as you get wind of a revolution you need to give them the jab ASAP, if their mind resists them I recommend reading up on Pinochet or come up with your own crime against humanity. Once security arms up, storm cargo and mind shield the technicians and Quartermaster (who is the most important person in this situation as they can turn the tide through order mind shields for you or guns for them) and then move onto medical and so on. Order your heads to go into brig, or if they can’t, have an officer escort them. Remember what I said about talking with the crew? Don’t do that right now, go radio silent and barely talk to them as it might be a trick. Keep them in the dark as announcing that there is a revolution tell the revolutionaries that they know that you know, leading them to go loud which means more upfront damage. If you catch it early and distribute enough mind shields you’re safe, but if it gets too big I recommend going FULL war criminal and gunning down groups of dissidents. If worse comes to even more worse, call Central Command for the nuke codes so you and these bastards will die in a big ol’ mushroom. <i>“Duty. Honor. Courage. Semper Fi.”</i><br><br><h2>Central Command and you</h2><small>(Those cunts in corporate)</small><br><br>This right here is the most terrifying part of the job, not the bloodthirsty revolutionaries, not the blood worshiping cults, and not the blood spilling traitors, but dealing with your boss. They’ll send messages from time to time which is to be expected, but if an intern/inspector comes you should hope and prepare for an inspection. Above all keep them alive at all costs, every single antagonistic force has wet dreams about an unarmed official showing up so you would like to escort them around personally or have an officer or detective delegated to that duty. Mostly these inspections end badly but their report gets “lost” soon after in the bureaucratic hell that is Central Command. If an Admiral or executive comes, may God/Carp’sie have mercy on your soul because depending on how you handle things they might be out for you. Do what they say when they say it to the letter. Alternatively if they promise to have you fired or worse (Central Command stop reading here) you could invite them into maintenance to have a chat with Mr. Fire Axe. However fret not, I have a list of information for you to use to persuade them or their boss:<br><br><list>* ███████ ███████ has a ██████ for cat paws and has █ terabytes of pictures of that nature saved to hard drive.<br>* Junior Executive █████ frequents the SR sector despite his claims to the contrary.<br>* ██████ Science Officer ███████ is behind the development of █████████ and “███ █████” and their spread on several stations.<br>* Executive █████ and an unidentified assistant had a long affair under everyone’s nose <small>(except me, tip your shuttle driver next time).</small><br>* CEO ████████ ██████████ was <small>(and possibly still is)</small> close friends with the CEO of ██████ tech, a subsidiary of the Syndicate.<br>* Admiral ████ “lost” a shipment of ███████ right before a well armed Syndicate incursion stormed KS-13.<br>* Executive ████████ is a feline, look her name up on any “saucy” networks and you’ll find enough blackmail to compensate for her entire department of Advanced ██████████ Testing <small>(She is an expert on receiving ██████████ ███████ if you know what I mean)</small>.<br><br><small>If you have any more blackmail please email me at G-Johnson@ColMarines.nt</small></list><br><br><h2>Might makes right </h2><small>(How to convince people you know best)</small><br><br>Say you’re in an argument with someone, how can you convince them you are right. Remember the four Gs, Gaslight, Girlboss, Gatekeep, Gary. Gaslight the person you are right by getting a yes man to agree with you or twisting the AI into it. Do they really know what they are talking about or has a certain regulation or code changed ever so slightly to make you right? Girlboss (this goes to the men and silicones as well I just like alliteration), YOUR in charge and YOUR the boss, who is this NERD to disagree with you? You worked hard to get here and make sure to let them know that you know you’re right. Gatekeep them, you did their job before they even stepped foot on the station, a newbie like them should stay in their place while you handle the rest because you’re right. Gary, if all else fails, resort to the most primal neanderthal solution. Bash their skull in or burn their flesh with your gun, can’t be right if you’re dead ey?<br><br><h2>Conclusion</h2><small>(Please tell others to buy my guide)</small><br><br>So Gary, you might ask this paper/dataslate/presentation “what else can I do to be a great captain and totally not a comdon like you?” Well this is the best part of the job, do what you want! As long as you keep your schemes under control and away from Central Command, you can do whatever you fancy. When time is plenty and all is well, shake it up and order something cool like a singularity engine or a rage cage championship. Just know that this is a dangerous job, and you need to be ready to handle everything that is almost impossible to predict. Just remember that you are worth way more than everyone else, save the disc and yourself. Look to famous captains for wisdom such as Picard, Blackbeard, and me. I can feel the drugs wearing off so I’ll end this the same way I end my announcements, stay safe, stay happy. Happy hunting captains!<br><br><bluelogo>";
+	name = "Art of Captaincy - By Captain Sergeant Baron Gary Ulysses Johnson";
+	pixel_y = 3
+	},
+/obj/item/pen,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"e" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 8;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"h" = (
+/obj/structure/toilet{
+	dir = 8;
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/structure/sink{
+	pixel_y = 25
+	},
+/obj/structure/mirror{
+	pixel_y = 35
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/template_noop)
+"p" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"u" = (
+/obj/structure/bed,
+/obj/item/bedsheet/captain,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/light_switch{
+	pixel_x = 23
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"w" = (
+/obj/machinery/suit_storage_unit/open,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"A" = (
+/obj/item/radio/intercom{
+	dir = 8;
+	freerange = 1;
+	name = "Station Intercom (Command)";
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"B" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"F" = (
+/obj/structure/closet/secure_closet{
+	icon_state = "cap";
+	req_access = list(20);
+	name = "captain's locker"
+	},
+/obj/item/clothing/head/collectable/captain,
+/obj/item/toy/figure/captain{
+	pixel_x = 4;
+	pixel_y = -7
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"G" = (
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"H" = (
+/obj/structure/table/wood,
+/obj/item/storage/photo_album{
+	pixel_x = 3;
+	pixel_y = -1
+	},
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_y = -1
+	},
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"M" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"S" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"V" = (
+/obj/structure/filingcabinet/medical{
+	pixel_x = -8
+	},
+/obj/structure/filingcabinet/security{
+	pixel_x = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"X" = (
+/obj/structure/bed/dogbed/renault{
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/structure/fireplace,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/blue,
+/area/template_noop)
+"Y" = (
+/obj/machinery/door/airlock/silver{
+	name = "Bathroom"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/iron/white,
+/area/template_noop)
+
+(1,1,1) = {"
+w
+G
+c
+H
+"}
+(2,1,1) = {"
+X
+p
+e
+V
+"}
+(3,1,1) = {"
+B
+S
+M
+p
+"}
+(4,1,1) = {"
+F
+A
+a
+Y
+"}
+(5,1,1) = {"
+u
+p
+a
+h
+"}

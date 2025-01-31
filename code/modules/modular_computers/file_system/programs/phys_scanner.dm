@@ -43,10 +43,10 @@
 		if(DISK_CHEM)
 			var/mob/living/carbon/carbon = target
 			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
+				user.visible_message(span_notice("[user] analyzes [carbon]'s vitals."), span_notice("You analyze [carbon]'s vitals."))
 				last_record = chemscan(user, carbon, to_chat = FALSE)
 				return FALSE
-			else if(!istype(target, /obj/item/reagent_containers/pill/floorpill) && !istype(target, /obj/item/reagent_containers/glass/chem_heirloom))
+			else if(!istype(target, /obj/item/reagent_containers/pill/floorpill) && !istype(target, /obj/item/reagent_containers/cup/chem_heirloom))
 				if(!isnull(target.reagents))
 					if(target.reagents.reagent_list.len > 0)
 						var/reagents_length = target.reagents.reagent_list.len
@@ -61,13 +61,13 @@
 		if(DISK_MED)
 			var/mob/living/carbon/carbon = target
 			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
+				user.visible_message(span_notice("[user] analyzes [carbon]'s vitals."), span_notice("You analyze [carbon]'s vitals."))
 				last_record = healthscan(user, carbon, 1, to_chat = FALSE)
 				return FALSE
 		if(DISK_POWER)
 			var/mob/living/carbon/carbon = target
 			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s radiation levels.</span>", "<span class='notice'>You analyze [carbon]'s radiation levels.</span>")
+				user.visible_message(span_notice("[user] analyzes [carbon]'s radiation levels."), span_notice("You analyze [carbon]'s radiation levels."))
 				last_record = "Analyzing Results for [carbon]:\n"
 				if(carbon.radiation)
 					last_record += "Radiation Level: [carbon.radiation]%"
@@ -76,12 +76,12 @@
 				return FALSE
 	return ..()
 
-/datum/computer_file/program/phys_scanner/attack_obj(obj/target, mob/living/user)
+/datum/computer_file/program/phys_scanner/attack_atom(obj/target, mob/living/user)
 	switch(current_mode)
 		if(DISK_ATMOS)
-			var/scan_result = atmosanalyzer_scan(user, target, silent = TRUE, to_chat = FALSE)
+			var/scan_result = atmos_scan(user, target, FALSE)
 			if(scan_result)
-				user.visible_message("[user] analyzes [icon2html(target, viewers(user))] [target]'s gas contents.", "<span class='notice'>You analyze [icon2html(target, user)] [target]'s gas contents.</span>")
+				user.visible_message("[user] analyzes [icon2html(target, viewers(user))] [target]'s gas contents.", span_notice("You analyze [icon2html(target, user)] [target]'s gas contents."))
 				last_record = scan_result
 				return FALSE
 	return ..()

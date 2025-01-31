@@ -14,20 +14,22 @@
 	level_max = 0
 	cooldown_min = 10
 
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon = 'icons/hud/actions/actions_spells.dmi'
 	action_icon_state = "soultap"
 
 /obj/effect/proc_holder/spell/self/tap/cast(mob/living/user = usr)
 	if(!user.mind.hasSoul)
-		to_chat(user, "<span class='warning'>You do not possess a soul to tap into!</span>")
+		to_chat(user, span_warning("You do not possess a soul to tap into!"))
 		return
-	to_chat(user, "<span class='danger'>Your body feels drained and there is a burning pain in your chest.</span>")
+	to_chat(user, span_danger("Your body feels drained and there is a burning pain in your chest."))
 	user.maxHealth -= HEALTH_LOST_PER_SOUL_TAP
 	user.health = min(user.health, user.maxHealth)
 	if(user.maxHealth <= 0)
-		to_chat(user, "<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>")
+		to_chat(user, span_userdanger("Your weakened soul is completely consumed by the tap!"))
 		user.mind.hasSoul = FALSE
 	for(var/obj/effect/proc_holder/spell/spell in user.mind.spell_list)
 		spell.charge_counter = spell.charge_max
 		spell.recharging = FALSE
 		spell.update_icon()
+
+#undef HEALTH_LOST_PER_SOUL_TAP

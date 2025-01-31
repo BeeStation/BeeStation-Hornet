@@ -27,20 +27,20 @@
 /datum/job/bartender
 	mail_goodies = list(
 		/obj/item/storage/box/rubbershot = 30,
-		/obj/item/reagent_containers/glass/bottle/clownstears = 10,
+		/obj/item/reagent_containers/cup/bottle/clownstears = 10,
 		/obj/item/stack/sheet/mineral/plasma = 5,
 		/obj/item/stack/sheet/mineral/uranium = 5,
-		/obj/item/reagent_containers/food/drinks/bottle/fernet = 3,
-		/obj/item/reagent_containers/food/drinks/bottle/champagne = 3,
-		/obj/item/reagent_containers/food/drinks/bottle/trappist = 3,
+		/obj/item/reagent_containers/cup/glass/bottle/fernet = 3,
+		/obj/item/reagent_containers/cup/glass/bottle/champagne = 3,
+		/obj/item/reagent_containers/cup/glass/bottle/trappist = 3,
 	)
 
 //BOTANIST
 /datum/job/botanist
 	mail_goodies = list(
-		/obj/item/reagent_containers/glass/bottle/saltpetre = 15,
-		/obj/item/reagent_containers/glass/bottle/diethylamine = 15,
-		/obj/item/reagent_containers/glass/bottle/toxin/mutagen = 12,
+		/obj/item/reagent_containers/cup/bottle/saltpetre = 15,
+		/obj/item/reagent_containers/cup/bottle/diethylamine = 15,
+		/obj/item/reagent_containers/cup/bottle/toxin/mutagen = 12,
 		/obj/item/grenade/chem_grenade/antiweed = 10,
 		/obj/item/gun/energy/floragun = 5,
 		// These are strong, rare seeds, so use sparingly.
@@ -66,7 +66,7 @@
 		/obj/item/pen/fountain/captain = 10,
 		/obj/item/coin/plasma = 7,
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 5,
-		/obj/item/reagent_containers/food/drinks/bottle/champagne = 5,
+		/obj/item/reagent_containers/cup/glass/bottle/champagne = 5,
 		/obj/item/ammo_box/n762 = 2,
 		/obj/item/gun/ballistic/revolver/nagant = 1,
 	)
@@ -84,7 +84,7 @@
 //CHAPLAIN
 /datum/job/chaplain
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 15,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater = 15,
 		/obj/item/storage/book/bible = 10,
 		/obj/item/grenade/chem_grenade/holy = 5,
 		/obj/item/toy/plush/awakenedplushie = 3,
@@ -95,11 +95,11 @@
 //CHEMIST
 /datum/job/chemist
 	mail_goodies = list(
-		/obj/item/reagent_containers/glass/bottle/flash_powder = 15,
+		/obj/item/reagent_containers/cup/bottle/flash_powder = 15,
 		/obj/item/reagent_containers/dropper = 10,
-		/obj/item/reagent_containers/glass/beaker/large = 10,
-		/obj/item/reagent_containers/glass/beaker/plastic = 10,
-		/obj/item/reagent_containers/glass/bottle/ketamine = 5,
+		/obj/item/reagent_containers/cup/beaker/large = 10,
+		/obj/item/reagent_containers/cup/beaker/plastic = 10,
+		/obj/item/reagent_containers/cup/bottle/ketamine = 5,
 	)
 
 //CHIEF ENGINEER
@@ -107,7 +107,7 @@
 	mail_goodies = list(
 		//you know. for poly
 		/obj/item/food/cracker = 15,
-		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
+		/obj/item/reagent_containers/cup/soda_cans/thirteenloko = 15,
 		/obj/item/rcd_ammo = 10,
 		/obj/item/wrench/caravan = 3,
 		/obj/item/wirecutters/caravan = 3,
@@ -146,12 +146,12 @@
 //COOK
 /datum/job/cook
 	mail_goodies = list(
-		/obj/item/reagent_containers/glass/bottle/caramel = 20,
-		/obj/item/reagent_containers/food/condiment/flour = 20,
-		/obj/item/reagent_containers/food/condiment/rice = 20,
-		/obj/item/reagent_containers/food/condiment/enzyme = 15,
-		/obj/item/reagent_containers/food/condiment/soymilk = 15,
-		/obj/item/reagent_containers/food/condiment/milk = 15,
+		/obj/item/reagent_containers/cup/bottle/caramel = 20,
+		/obj/item/reagent_containers/condiment/flour = 20,
+		/obj/item/reagent_containers/condiment/rice = 20,
+		/obj/item/reagent_containers/condiment/enzyme = 15,
+		/obj/item/reagent_containers/condiment/soymilk = 15,
+		/obj/item/reagent_containers/condiment/milk = 15,
 		//UR SO FAT!
 		/obj/item/food/mint = 12,
 		/obj/item/storage/box/ingredients/wildcard = 10,
@@ -176,6 +176,8 @@
 		/obj/item/toy/plush/flushed = 5,
 		//rare, but not that much...
 		/obj/item/paicard = 2,
+		//definetly better than the lame PAi
+		/obj/item/toy/plush/flushed/rainbow = 2,
 	)
 
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
@@ -184,6 +186,7 @@
 		/obj/effect/spawner/mail/donut = 20,
 		/obj/effect/spawner/mail/rdonut = 15,
 		/obj/item/melee/baton = 1,
+		/obj/item/melee/tonfa,
 	)
 
 //DETECTIVE
@@ -191,7 +194,7 @@
 	mail_goodies = list(
 		/obj/item/storage/fancy/cigarettes = 15,
 		/obj/item/ammo_box/c38 = 10,
-		/obj/item/reagent_containers/food/drinks/bottle/rum = 10,
+		/obj/item/reagent_containers/cup/glass/bottle/rum = 10,
 		/obj/item/ammo_box/c38/dumdum = 5,
 		/obj/item/ammo_box/c38/hotshot = 5,
 		/obj/item/ammo_box/c38/iceblox = 5,
@@ -255,7 +258,7 @@
 		/obj/item/firing_pin = 10,
 		/obj/item/implantcase/mindshield = 7,
 		//Vile, vile person...
-		/obj/item/clothing/head/kitty = 5,
+		/obj/item/clothing/head/costume/kitty = 5,
 		//hey, always come in handy!
 		/obj/item/storage/lockbox/loyalty = 2,
 	)
@@ -295,7 +298,7 @@
 		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
-		/obj/item/clothing/head/bowler = 5,
+		/obj/item/clothing/head/hats/bowler = 5,
 	)
 
 //MEDICAL DOCTOR
@@ -303,7 +306,7 @@
 	mail_goodies = list(
 		/obj/item/healthanalyzer/advanced = 10,
 		/obj/item/storage/pill_bottle/epinephrine = 8,
-		/obj/item/reagent_containers/glass/bottle/formaldehyde = 6,
+		/obj/item/reagent_containers/cup/bottle/formaldehyde = 6,
 		/obj/effect/spawner/mail/advmedtool = 4,
 		/obj/effect/spawner/mail/organminor = 5,
 		/obj/effect/spawner/mail/organmajor = 1,
@@ -313,8 +316,8 @@
 /datum/job/mime
 	mail_goodies = list(
 		/obj/item/food/baguette/mime = 15,
-		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
+		/obj/item/food/cheese/wheel = 10,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
 		//when you thought it could get worse...
 		/obj/item/book/granter/spell/mimery_blockade = 1,
@@ -348,6 +351,7 @@
 		// it's hard to not look cool
 		/obj/item/clothing/glasses/science/sciencesun = 10,
 		/obj/item/taperecorder = 7,
+		/obj/item/toy/plush/slimeplushie/random = 7,
 		/obj/item/disk/tech_disk/research/random  = 4,
 		/obj/item/borg/upgrade/ai = 2,
 	)
@@ -370,6 +374,7 @@
 	mail_goodies = list(
 		/obj/item/anomaly_neutralizer = 10,
 		/obj/item/disk/tech_disk = 7,
+		/obj/item/toy/plush/slimeplushie/random = 7,
 		//STUFF
 		/obj/effect/spawner/mail/science = 4,
 	)
@@ -401,7 +406,7 @@
 /datum/job/station_engineer
 	mail_goodies = list(
 		/obj/item/storage/box/lights/mixed = 15,
-		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
+		/obj/item/reagent_containers/cup/soda_cans/thirteenloko = 15,
 		/obj/item/lightreplacer = 10,
 		/obj/item/holosign_creator/engineering = 8,
 		//An assistant can only dream of those...
@@ -415,9 +420,9 @@
 		//keep your workplace clean, please.
 		/obj/item/reagent_containers/spray/cleaner = 15,
 		/obj/item/food/monkeycube = 10,
-		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
-		/obj/item/reagent_containers/glass/bottle/random_virus/minor = 10,
-		/obj/item/reagent_containers/glass/bottle/random_virus = 5,
+		/obj/item/reagent_containers/cup/bottle/formaldehyde = 10,
+		/obj/item/reagent_containers/cup/bottle/random_virus/minor = 10,
+		/obj/item/reagent_containers/cup/bottle/random_virus = 5,
 		/obj/item/stock_parts/scanning_module/phasic = 5,
 		//hampter.
 		/obj/item/choice_beacon/pet/hamster = 5,
@@ -431,7 +436,7 @@
 		/obj/item/clothing/ears/headphones = 10,
 		//Only on the iScream 12
 		/obj/item/clothing/under/syndicate/tacticool = 10,
-		/obj/item/reagent_containers/food/drinks/flask/gold = 10,
+		/obj/item/reagent_containers/cup/glass/flask/gold = 10,
 		/obj/item/choice_beacon/pet = 5,
 		/obj/item/storage/bag/money = 5,
 		/obj/item/coin/gold = 5,

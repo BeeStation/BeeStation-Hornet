@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(profiler)
 		StartProfiling()
 	else
 		StopProfiling() //Stop the early start from world/New
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/profiler/fire()
 	if(CONFIG_GET(flag/auto_profile))
@@ -83,3 +83,6 @@ SUBSYSTEM_DEF(profiler)
 #endif
 	write_cost = MC_AVERAGE(write_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 #endif
+
+#undef PROFILER_FILENAME
+#undef SENDMAPS_FILENAME

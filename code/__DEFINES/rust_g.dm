@@ -241,6 +241,20 @@
 #define rustg_iconforge_cache_valid(input_hash, dmi_hashes, sprites) RUSTG_CALL(RUST_G, "iconforge_cache_valid")(input_hash, dmi_hashes, sprites)
 /// Returns a job_id for use with rustg_iconforge_check()
 #define rustg_iconforge_cache_valid_async(input_hash, dmi_hashes, sprites) RUSTG_CALL(RUST_G, "iconforge_cache_valid_async")(input_hash, dmi_hashes, sprites)
+/// Provided a /datum/greyscale_config typepath, JSON string containing the greyscale config, and path to a DMI file containing the base icons,
+/// Loads that config into memory for later use by rustg_iconforge_gags(). The config_path is the unique identifier used later.
+/// JSON Config schema: https://hackmd.io/@tgstation/GAGS-Layer-Types
+/// Unsupported features: color_matrix layer type, 'or' blend_mode. May not have BYOND parity with animated icons or varying dirs between layers.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustg_iconforge_load_gags_config(config_path, config_json, config_icon_path) RUSTG_CALL(RUST_G, "iconforge_load_gags_config")("[config_path]", config_json, config_icon_path)
+/// Given a config_path (previously loaded by rustg_iconforge_load_gags_config), and a string of hex colors formatted as "#ff00ff#ffaa00"
+/// Outputs a DMI containing all of the states within the config JSON to output_dmi_path, creating any directories leading up to it if necessary.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustg_iconforge_gags(config_path, colors, output_dmi_path) RUSTG_CALL(RUST_G, "iconforge_gags")("[config_path]", colors, output_dmi_path)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_load_gags_config_async(config_path, config_json, config_icon_path) RUSTG_CALL(RUST_G, "iconforge_load_gags_config_async")("[config_path]", config_json, config_icon_path)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_gags_async(config_path, colors, output_dmi_path) RUSTG_CALL(RUST_G, "iconforge_gags_async")("[config_path]", colors, output_dmi_path)
 
 #define RUSTG_ICONFORGE_BLEND_COLOR "BlendColor"
 #define RUSTG_ICONFORGE_BLEND_ICON "BlendIcon"

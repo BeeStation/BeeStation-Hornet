@@ -129,13 +129,15 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 #ifdef UNIT_TESTS
 	if(GLOB.current_test)
 		//good day, sir
-		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]")
+		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]", file = E.file, line = E.line)
 #endif
 
 	if (Debugger?.enabled)
-		to_chat(world, "<span class='alertwarning'>[main_line]</span>", MESSAGE_TYPE_DEBUG)
+		to_chat(world, span_alertwarning("[main_line]"), MESSAGE_TYPE_DEBUG)
 
 
 	// This writes the regular format (unwrapping newlines and inserting timestamps as needed).
 	log_runtime("runtime error: [E.name]\n[E.desc]")
 #endif
+
+#undef ERROR_USEFUL_LEN

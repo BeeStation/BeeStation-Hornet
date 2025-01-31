@@ -48,10 +48,10 @@
 	if(computer)
 		printer = computer.all_components[MC_PRINT]
 	if(!printer)
-		to_chat(usr, "<span class='notice'>Hardware error: A printer is required to print a canvas.</span>")
+		to_chat(usr, span_notice("Hardware error: A printer is required to print a canvas."))
 		return
 	if(printer.stored_paper < CANVAS_PAPER_COST)
-		to_chat(usr, "<span class='notice'>Printing error: Your printer needs at least [CANVAS_PAPER_COST] paper to print a canvas.</span>")
+		to_chat(usr, span_notice("Printing error: Your printer needs at least [CANVAS_PAPER_COST] paper to print a canvas."))
 		return
 
 	//canvas printing!
@@ -90,5 +90,7 @@
 	printed_canvas.no_save = TRUE
 	printed_canvas.update_icon()
 	printer.stored_paper -= CANVAS_PAPER_COST
-	to_chat(usr, "<span class='notice'>You have printed [title] onto a new canvas.</span>")
+	to_chat(usr, span_notice("You have printed [title] onto a new canvas."))
 	playsound(computer.physical, 'sound/items/poster_being_created.ogg', 100, TRUE)
+
+#undef CANVAS_PAPER_COST

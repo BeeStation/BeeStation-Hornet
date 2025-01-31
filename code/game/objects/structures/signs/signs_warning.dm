@@ -47,11 +47,13 @@
 	icon_state = "fire"
 	resistance_flags = FIRE_PROOF
 
+/* Kitz-Katz's sin
 /obj/structure/sign/warning/cold
 	name = "\improper DANGER: Extreme cold"
 	desc = "A warning sign which reads 'DANGER: Extreme cold'."
 	icon_state = "cold"
 	resistance_flags = FIRE_PROOF
+*/
 
 /obj/structure/sign/warning/nosmoking
 	name = "\improper NO SMOKING"

@@ -43,7 +43,7 @@ Alright, so we've already made the [script](#tried-and-true---part-one). So, let
 	dir = 4;
 	name = "RD Airlock"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/science/rd),
 ```
 
@@ -55,7 +55,7 @@ Now, after you drag and drop your script onto the `Update Paths.bat` file, it wi
 	dir = 4;
 	name = "RD Airlock"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/science/rd),
 ```
 
@@ -80,7 +80,7 @@ On this example map key:
 	dir = 4;
 	name = "RD Airlock"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/science/rd),
 ```
 You will then result the following:
@@ -89,7 +89,7 @@ You will then result the following:
 ```dm
 "a" = (
 /obj/structure/door/airlock/science/closed/rd,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/science/rd),
 ```
 
@@ -132,16 +132,16 @@ Presto, like it never existed. Note how both the "a" and "b" files were able to 
 
 ### Multiple Path Output
 
-UpdatePaths has the powerful ability to output multiple paths from a single input path. Let's say that you have a snowflake turf (`/turf/open/floor/plasteel/i_like_spawning_mobs`) with some behavior that you atomize out into some spawner `/obj/mob_spawner` that can work on every single turf. So, let's script that out.
+UpdatePaths has the powerful ability to output multiple paths from a single input path. Let's say that you have a snowflake turf (`/turf/open/floor/iron/i_like_spawning_mobs`) with some behavior that you atomize out into some spawner `/obj/mob_spawner` that can work on every single turf. So, let's script that out.
 
 ```txt
-/turf/open/floor/plasteel/i_like_spawning_mobs : /obj/mob_spawner, /turf/open/floor/plasteel
+/turf/open/floor/iron/i_like_spawning_mobs : /obj/mob_spawner, /turf/open/floor/iron
 ```
 So, now when you have the following example map keys:
 
 ```dm
 "a" = (
-/turf/open/floor/plasteel/i_like_spawning_mobs,
+/turf/open/floor/iron/i_like_spawning_mobs,
 /area/station/kitchen),
 ```
 
@@ -150,7 +150,7 @@ Running the script will mutate this into:
 ```dm
 "a" = (
 /obj/mob_spawner,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/station/kitchen),
 ```
 Remember that this is a kind of silly example, but this is one of the things that UpdatePaths was built to do- help coders fix shitty code without having to bug out over how maps don't compile.
@@ -172,7 +172,7 @@ This is one of UpdatePaths' more recent features. It allows you to specify a gen
 /obj/item/weapon/big_chungus/really_large{
 	name = "really large big chungus"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/station/maintainence/fore/greater),
 ```
 
@@ -187,7 +187,7 @@ Running the script will update this into:
 /obj/item/big_chungus/really_large{
 	name = "really large big chungus"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/station/maintainence/fore/greater),
 ```
 
@@ -226,7 +226,7 @@ So, let's assume we have the following map file:
 	name = "Tina";
 	pixel_x = 12
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/station/prison),
 ```
 
@@ -241,7 +241,7 @@ You would then get the following output:
 	name = "Tina";
 	pixel_x = 12
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/station/prison),
 ```
 
@@ -311,7 +311,7 @@ Perfect, so now let's assume the following map:
 /mob/living/basic/mouse{
 	maxHealth = 15
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/github),
 "b" = (
 /mob/living/github_user{
@@ -319,7 +319,7 @@ Perfect, so now let's assume the following map:
 	desc= "Has more good boy points than a megafauna has health.";
 	maxHealth = 2083
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/github),
 ```
 
@@ -330,7 +330,7 @@ You would then get the following output:
 /mob/living/basic/mouse{
 	maxHealth = 15
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/github),
 "b" = (
 /mob/living/github_user{
@@ -338,7 +338,7 @@ You would then get the following output:
 	desc= "Has more good boy points than a megafauna has health.";
 	good_boy_points = 2083
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/github),
 ```
 

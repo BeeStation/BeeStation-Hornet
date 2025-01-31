@@ -42,25 +42,25 @@
 		if (W.tool_behaviour == TOOL_SCREWDRIVER)
 			if (W.use_tool(src, user, 20))
 				open = !open
-				to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
+				to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
 			return
 		if (W.tool_behaviour == TOOL_WIRECUTTER)
-			to_chat(user, "<span class='danger'>[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>.</span>")
+			to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
 			return
 		if ((W.tool_behaviour == TOOL_MULTITOOL))
 			if(l_hacking)
-				to_chat(user, "<span class='danger'>This safe is already being hacked.</span>")
+				to_chat(user, span_danger("This safe is already being hacked."))
 				return
 			if(open)
-				to_chat(user, "<span class='danger'>Now attempting to reset internal memory, please hold.</span>")
+				to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
 				l_hacking = TRUE
 				if (W.use_tool(src, user, 400))
-					to_chat(user, "<span class='danger'>Internal memory reset - lock has been disengaged.</span>")
+					to_chat(user, span_danger("Internal memory reset - lock has been disengaged."))
 					l_set = FALSE
 
 				l_hacking = FALSE
 				return
-			to_chat(user, "<span class='notice'>You must <b>unscrew</b> the service panel before you can pulse the wiring.</span>")
+			to_chat(user, span_notice("You must <b>unscrew</b> the service panel before you can pulse the wiring."))
 			return
 
 	// -> storage/attackby() what with handle insertion, etc
@@ -86,7 +86,7 @@
 
 /obj/item/storage/secure/Topic(href, href_list)
 	..()
-	if ((usr.stat || usr.restrained()) || (get_dist(src, usr) > 1))
+	if (usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || (get_dist(src, usr) > 1))
 		return
 	if (href_list["type"])
 		if (href_list["type"] == "E")
@@ -133,7 +133,8 @@
 	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 
 /obj/item/storage/secure/briefcase/PopulateContents()
 	new /obj/item/paper(src)
@@ -156,6 +157,15 @@
 	for(var/i in 1 to STR.max_items - 2)
 		new /obj/item/stack/spacecash/c1000(src)
 
+/obj/item/storage/secure/briefcase/hitman/PopulateContents()
+	..()
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/gun/ballistic/automatic/pistol(src)
+	new /obj/item/suppressor(src)
+	new /obj/item/melee/classic_baton/police/telescopic(src)
+	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/soap/nanotrasen(src)
 
 // -----------------------------
 //        Secure Safe
@@ -174,6 +184,8 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	anchored = TRUE
 	density = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
 
 /obj/item/storage/secure/safe/ComponentInitialize()
 	. = ..()
@@ -210,15 +222,28 @@ It is made out of the same material as the station's Black Box and is designed t
 There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
 It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
 	can_hack_open = FALSE
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 100, RAD = 100, FIRE = 80, ACID = 70);
+	armor_type = /datum/armor/safe_caps_spare
 	max_integrity = 300
 	color = "#ffdd33"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
+
+
+/datum/armor/safe_caps_spare
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 70
+	rad = 100
+	fire = 80
+	acid = 70
 
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/card/id/))
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE

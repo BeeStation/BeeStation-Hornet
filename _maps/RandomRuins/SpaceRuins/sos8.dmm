@@ -6,7 +6,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "c" = (
 /turf/closed/mineral/random/high_chance,
@@ -23,38 +23,38 @@
 /area/ruin/unpowered)
 "g" = (
 /obj/item/pickaxe/drill,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "h" = (
 /obj/machinery/computer,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "i" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "j" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/decal/remains/human,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/girder,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "l" = (
 /obj/item/gps{
 	gpstag = "SOS"
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "m" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/chair/fancy/shuttle{
@@ -63,10 +63,10 @@
 /obj/item/storage/pod{
 	pixel_x = -32
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "o" = (
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -79,7 +79,7 @@
 /obj/item/storage/pod{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/grille,
@@ -87,7 +87,7 @@
 /area/ruin/unpowered)
 "s" = (
 /obj/machinery/door/airlock/shuttle,
-/turf/open/floor/plasteel/airless,
+/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "t" = (
 /turf/open/floor/plating/asteroid/airless,

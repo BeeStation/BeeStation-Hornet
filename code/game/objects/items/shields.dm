@@ -39,13 +39,13 @@
 				attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
 			if(block_flags & BLOCKING_NASTY)
 				L.attackby(src, owner)
-				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 		if(attackforce)
 			owner.changeNext_move(CLICK_CD_MELEE)
-		if (obj_integrity <= attackforce)
+		if (atom_integrity <= attackforce)
 			var/turf/T = get_turf(owner)
-			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
-			obj_integrity = 1
+			T.visible_message(span_warning("[hitby] destroys [src]!"))
+			atom_integrity = 1
 			shatter(owner)
 			return FALSE
 		take_damage(attackforce * ((100-(block_power))/100))
@@ -55,29 +55,29 @@
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
 	if(istype(W))
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is welding the [src].", \
-									"<span class='notice'>You begin repairing the [src]]...</span>")
+									span_notice("You begin repairing the [src]]..."))
 			if(W.use_tool(src, user, 40, volume=50))
-				obj_integrity += 10
+				atom_integrity += 10
 				user.visible_message("[user.name] has repaired some dents on [src].", \
-									"<span class='notice'>You finish repairing some of the dents on [src].</span>")
+									span_notice("You finish repairing some of the dents on [src]."))
 			else
-				to_chat(user, "<span class='notice'>The [src] doesn't need repairing.</span>")
+				to_chat(user, span_notice("The [src] doesn't need repairing."))
 	return ..()
 
 /obj/item/shield/examine(mob/user)
 	. = ..()
-	var/healthpercent = round((obj_integrity/max_integrity) * 100, 1)
+	var/healthpercent = round((atom_integrity/max_integrity) * 100, 1)
 	switch(healthpercent)
 		if(50 to 99)
-			. += "<span class='info'>It looks slightly damaged.</span>"
+			. += span_info("It looks slightly damaged.")
 		if(25 to 50)
-			. += "<span class='info'>It appears heavily damaged.</span>"
+			. += span_info("It appears heavily damaged.")
 		if(0 to 25)
-			. += "<span class='warning'>It's falling apart!</span>"
+			. += span_warning("It's falling apart!")
 
 /obj/item/shield/proc/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
@@ -98,24 +98,25 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/glass=7500, /datum/material/iron=1000)
-	attack_verb = list("shoved", "bashed")
+	attack_verb_continuous = list("shoves", "bashes")
+	attack_verb_simple = list("shove", "bash")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee/baton))
+	if(istype(W, /obj/item/melee) && W.sharpness == BLUNT)
 		if(cooldown < world.time - 25)
-			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
+			user.visible_message(span_warning("[user] bashes [src] with [W]!"))
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
-		if (obj_integrity >= max_integrity)
-			to_chat(user, "<span class='notice'>[src] is already in perfect condition.</span>")
+		if (atom_integrity >= max_integrity)
+			to_chat(user, span_notice("[src] is already in perfect condition."))
 		else
 			var/obj/item/stack/sheet/mineral/titanium/T = W
 			T.use(1)
-			obj_integrity = max_integrity
-			to_chat(user, "<span class='notice'>You repair [src] with [T].</span>")
+			atom_integrity = max_integrity
+			to_chat(user, span_notice("You repair [src] with [T]."))
 	else
 		return ..()
 
@@ -150,7 +151,7 @@
 	block_upgrade_walk = 1
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
-	custom_materials = null
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 10)
 	resistance_flags = FLAMMABLE
 	transparent = FALSE
 	max_integrity = 55
@@ -248,7 +249,7 @@
 /obj/item/shield/riot/flash/examine(mob/user)
 	. = ..()
 	if (embedded_flash?.burnt_out)
-		. += "<span class='info'>The mounted bulb has burnt out. You can try replacing it with a new one.</span>"
+		. += span_info("The mounted bulb has burnt out. You can try replacing it with a new one.")
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -256,7 +257,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("shoved", "bashed")
+	attack_verb_continuous = list("shoves", "bashes")
+	attack_verb_simple = list("shove", "bash")
 	throw_range = 5
 	force = 3
 	throwforce = 3
@@ -276,13 +278,13 @@
 /obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 200, 1)
 	src.attack_self(owner)
-	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
+	to_chat(owner, span_warning("The [src] overheats!."))
 	cooldown_timer = world.time + cooldown_duration
 	addtimer(CALLBACK(src, PROC_REF(recharged), owner), cooldown_duration)
 
 /obj/item/shield/energy/proc/recharged(mob/living/carbon/human/owner)//ree. i hate addtimer. ree.
 	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
-	to_chat(owner, "<span class='warning'>The [src] is ready to use!.</span>")
+	to_chat(owner, span_warning("The [src] is ready to use!."))
 
 /obj/item/shield/energy/Initialize(mapload)
 	. = ..()
@@ -294,7 +296,7 @@
 			var/obj/projectile/P = hitby
 			if(P.reflectable)
 				P.firer = src
-				P.setAngle(get_dir(owner, hitby))
+				P.set_angle(get_dir(owner, hitby))
 				return 1
 		return ..()
 	return 0
@@ -303,7 +305,7 @@
 	if(cooldown_timer >= world.time)
 		return
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
+		to_chat(user, span_warning("You beat yourself in the head with [src]."))
 		user.take_bodypart_damage(5)
 	active = !active
 	icon_state = "[base_icon_state][active]"
@@ -313,16 +315,16 @@
 		throw_speed = on_throw_speed
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] is now active and back at full power.</span>")
-		if(obj_integrity <= 1)
-			obj_integrity = max_integrity
+		to_chat(user, span_notice("[src] is now active and back at full power."))
+		if(atom_integrity <= 1)
+			atom_integrity = max_integrity
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
 		throw_speed = initial(throw_speed)
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	add_fingerprint(user)
 
 /obj/item/shield/riot/tele
@@ -355,12 +357,12 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+		to_chat(user, span_notice("You extend \the [src]."))
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	add_fingerprint(user)

@@ -10,6 +10,10 @@
 
 /obj/structure/sign/map/right
 	icon_state = "map-right"
+	
+/obj/structure/sign/map/echo
+	desc = "A framed picture of a floor on Echo Station."
+	icon_state = "map-echo"
 
 /obj/structure/sign/directions/science
 	name = "science department"
@@ -45,3 +49,7 @@
 	name = "command department"
 	desc = "A direction sign, pointing out which way the Command department is."
 	icon_state = "direction_bridge"
+	
+	
+	
+	

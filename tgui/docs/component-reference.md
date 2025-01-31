@@ -659,6 +659,7 @@ to perform some sort of action), there is a way to do that:
   - `bottom`
 - `buttons: any` - Buttons to render aside the content.
 - `children: any` - Content of this labeled item.
+- `tooltip: string` - Hovering this labeled item will show a tooltip.
 
 ### `LabeledList.Divider`
 
@@ -772,7 +773,11 @@ percentage and how filled the bar is.
 - `maxValue: number` - Highest possible value.
 - `ranges: { color: [from, to] }` - Applies a `color` to the progress bar
 based on whether the value lands in the range between `from` and `to`.
-- `color: string` - Color of the progress bar.
+- `color: string` - Color of the progress bar. Can take any of the following formats:
+  - `#ffffff` - Hex format
+  - `rgb(r,g,b) / rgba(r,g,b,a)` - RGB format
+  - `<name>` - the name of a `color-<name>` CSS class. See `CSS_COLORS` in `constants.js`.
+  - `<name>` - the name of a base CSS color, if not overridden by the definitions above.
 - `children: any` - Content to render inside the progress bar.
 
 ### `Section`

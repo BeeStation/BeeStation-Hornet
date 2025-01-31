@@ -2,13 +2,13 @@
 "a" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/structure/closet/crate,
-/obj/item/clothing/head/hardhat/red,
-/obj/item/clothing/head/hardhat/red,
-/obj/item/clothing/head/hardhat/red,
+/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/head/utility/hardhat/red,
+/obj/item/clothing/head/utility/hardhat/red,
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
@@ -20,11 +20,11 @@
 /obj/item/extinguisher,
 /obj/effect/turf_decal/bot_red,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "d" = (
 /obj/structure/closet/firecloset/full,
@@ -33,22 +33,22 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "e" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/turf_decal/bot_red/left,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "f" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "g" = (
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_y = 6
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "h" = (
 /obj/structure/table,
@@ -57,7 +57,7 @@
 	pixel_x = -3
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "i" = (
 /obj/structure/bed,
@@ -65,7 +65,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 25
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "j" = (
 /obj/structure/sink{
@@ -75,16 +75,16 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "k" = (
 /obj/machinery/light,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "l" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "m" = (
 /obj/structure/festivus{
@@ -92,16 +92,16 @@
 	name = "fireman pole";
 	pixel_x = -16
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "n" = (
 /obj/effect/trap/nexus/darkness,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

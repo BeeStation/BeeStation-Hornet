@@ -5,15 +5,15 @@
 /datum/action/changeling
 	name = "Prototype Sting - Debug button, ahelp this"
 	background_icon_state = "bg_changeling"
-	icon_icon = 'icons/mob/actions/actions_changeling.dmi'
+	icon_icon = 'icons/hud/actions/actions_changeling.dmi'
 	var/needs_button = TRUE//for passive abilities like hivemind that dont need a button
 	var/helptext = "" // Details
 	var/chemical_cost = 0 // negative chemical cost is for passive abilities (chemical glands)
 	var/dna_cost = -1 //cost of the sting in dna points. 0 = auto-purchase (see changeling.dm), -1 = cannot be purchased
 	var/req_dna = 0  //amount of dna needed to use this ability. Changelings always have atleast 1
 	var/req_human = 0 //if you need to be human to use this ability
-	var/req_absorbs = 0 //similar to req_dna, but only gained from absorbing, not DNA sting
-	var/req_stat = CONSCIOUS // CONSCIOUS, UNCONSCIOUS or DEAD
+	///Maximum stat before the ability is blocked. For example, `UNCONSCIOUS` prevents it from being used when in hard crit or dead, while `DEAD` allows the ability to be used on any stat values.
+	var/req_stat = CONSCIOUS
 	var/ignores_fakedeath = FALSE // usable with the FAKEDEATH flag
 	var/active = FALSE//used by a few powers that toggle
 
@@ -56,23 +56,20 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && !ishuman(user))
-		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
+		to_chat(user, span_warning("We cannot do that in this form!"))
 		return 0
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(c.chem_charges < chemical_cost)
-		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return 0
 	if(c.absorbedcount < req_dna)
-		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
-		return 0
-	if(c.trueabsorbs < req_absorbs)
-		to_chat(user, "<span class='warning'>We require at least [req_absorbs] sample\s of DNA gained through our Absorb ability.</span>")
+		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
 		return 0
 	if(req_stat < user.stat)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, span_warning("We are incapacitated."))
 		return 0
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, span_warning("We are incapacitated."))
 		return 0
 	return 1
 

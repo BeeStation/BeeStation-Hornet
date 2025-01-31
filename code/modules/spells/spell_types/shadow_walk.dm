@@ -10,7 +10,7 @@
 	include_user = TRUE
 	cooldown_min = 0
 	overlay = null
-	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	action_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	action_icon_state = "ninja_cloak"
 	action_background_icon_state = "bg_alien"
 
@@ -25,14 +25,14 @@
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			playsound(get_turf(user), 'sound/magic/ethereal_enter.ogg', 50, 1, -1)
-			visible_message("<span class='boldwarning'>[user] melts into the shadows!</span>")
+			visible_message(span_boldwarning("[user] melts into the shadows!"))
 			user.SetAllImmobility(0)
 			user.setStaminaLoss(0, 0)
 			var/obj/effect/dummy/phased_mob/shadow/S2 = new(get_turf(user.loc))
 			user.forceMove(S2)
 			S2.jaunter = user
 		else
-			to_chat(user, "<span class='warning'>It isn't dark enough here!</span>")
+			to_chat(user, span_warning("It isn't dark enough here!"))
 
 /obj/effect/dummy/phased_mob/shadow
 	name = "darkness"
@@ -45,13 +45,13 @@
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/effect/dummy/phased_mob/shadow/relaymove(mob/user, direction)
+/obj/effect/dummy/phased_mob/shadow/relaymove(mob/living/user, direction)
 	var/turf/newLoc = get_step(src,direction)
 	if(isspaceturf(newLoc))
-		to_chat(user, "<span class='warning'>It really would not be wise to go into space.</span>")
+		to_chat(user, span_warning("It really would not be wise to go into space."))
 		return
 	if(newLoc.get_lumcount() > SHADOW_SPECIES_LIGHT_THRESHOLD && newLoc.is_blocked_turf())
-		to_chat(user, "<span class='warning'>It wouldn't be wise to move here while incorporeal, I may become trapped.</span>")
+		to_chat(user, span_warning("It wouldn't be wise to move here while incorporeal, I may become trapped."))
 		return
 	forceMove(newLoc)
 	check_light_level()
@@ -67,9 +67,9 @@
 /obj/effect/dummy/phased_mob/shadow/proc/end_jaunt(forced = FALSE)
 	if(jaunter)
 		if(forced)
-			visible_message("<span class='boldwarning'>[jaunter] is revealed by the light!</span>")
+			visible_message(span_boldwarning("[jaunter] is revealed by the light!"))
 		else
-			visible_message("<span class='boldwarning'>[jaunter] emerges from the darkness!</span>")
+			visible_message(span_boldwarning("[jaunter] emerges from the darkness!"))
 		jaunter.forceMove(get_turf(src))
 		playsound(get_turf(jaunter), 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
 		jaunter = null

@@ -27,6 +27,15 @@
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 40
 
+/datum/looping_sound/oven
+	start_sound = 'sound/machines/oven/oven_loop_start.ogg' //my immersions
+	start_length = 12
+	mid_sounds = list('sound/machines/oven/oven_loop_mid.ogg' = 1)
+	mid_length = 13
+	end_sound = 'sound/machines/oven/oven_loop_end.ogg'
+	volume = 100
+	falloff_exponent = 4
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -41,6 +50,13 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/grill
+	mid_sounds = list('sound/machines/grill/grillsizzle.ogg' = 1)
+	mid_length = 18
+	volume = 50
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/deep_fryer
 	mid_length = 2
 	mid_sounds = list('sound/machines/fryer/deep_fryer_1.ogg' = 1, 'sound/machines/fryer/deep_fryer_2.ogg' = 1)
 	volume = 30
@@ -73,3 +89,28 @@
 	falloff_exponent = 5
 	falloff_distance = 3
 	volume = 150
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/rbmk
+	mid_sounds = list('sound/effects/rbmk/alarm.ogg' = 1)
+	volume = 100
+	extra_range = 10
+	mid_length = 58
+	ignore_walls = TRUE
+
+/datum/looping_sound/rbmk_ambience
+	mid_sounds = list('sound/effects/rbmk/ambience.ogg' = 1)
+	mid_length = 19
+	volume = 20
+	extra_range = 10
+	falloff_exponent = 10
+	falloff_distance = 5
+	vary = FALSE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/firealarm
+	mid_sounds = list('sound/machines/FireAlarm1.ogg' = 1,'sound/machines/FireAlarm2.ogg' = 1,'sound/machines/FireAlarm3.ogg' = 1,'sound/machines/FireAlarm4.ogg' = 1)
+	mid_length = 2.4 SECONDS
+	volume = 40

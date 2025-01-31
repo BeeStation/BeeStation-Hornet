@@ -60,7 +60,7 @@
 
 /datum/action/innate/teleport_in
 	name = "Send To"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/Activate()
@@ -72,7 +72,7 @@
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
-		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
+		to_chat(owner, span_warning("Due to significant interference, this area cannot be warped to!"))
 		return
 
 	var/specimin_nearby = FALSE
@@ -95,7 +95,7 @@
 		specimin_nearby = TRUE
 
 	if (specimin_nearby && !agent_nearby)
-		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
+		to_chat(owner, span_warning("You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!"))
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
@@ -103,7 +103,7 @@
 
 /datum/action/innate/teleport_out
 	name = "Retrieve"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_up"
 
 /datum/action/innate/teleport_out/Activate()
@@ -115,7 +115,7 @@
 
 /datum/action/innate/teleport_self
 	name = "Send Self"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_self/Activate()
@@ -127,7 +127,7 @@
 	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
-		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
+		to_chat(owner, span_warning("Due to significant interference, this area cannot be warped to!"))
 		return
 
 	var/specimin_nearby = FALSE
@@ -150,7 +150,7 @@
 		specimin_nearby = TRUE
 
 	if (specimin_nearby && !agent_nearby)
-		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
+		to_chat(owner, span_warning("You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!"))
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
@@ -158,7 +158,7 @@
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_mode"
 
 /datum/action/innate/vest_mode_swap/Activate()
@@ -170,7 +170,7 @@
 
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_disguise"
 
 /datum/action/innate/vest_disguise_swap/Activate()
@@ -181,7 +181,7 @@
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "set_drop"
 
 /datum/action/innate/set_droppoint/Activate()

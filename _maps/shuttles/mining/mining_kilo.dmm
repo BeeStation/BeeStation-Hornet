@@ -12,11 +12,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "d" = (
-/obj/effect/turf_decal/bot,
 /obj/machinery/computer/shuttle_flight/mining,
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "e" = (
@@ -28,11 +29,14 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/dark,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "g" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -40,12 +44,6 @@
 "j" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Mining Shuttle Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -57,6 +55,9 @@
 	width = 7
 	},
 /obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "k" = (
@@ -82,21 +83,20 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
 /obj/structure/closet/crate/internals,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
 /obj/machinery/light/small,
-/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "l" = (
@@ -107,7 +107,7 @@
 "m" = (
 /obj/structure/ore_box,
 /obj/machinery/light/small,
-/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "n" = (
@@ -119,18 +119,7 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
-"r" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/mining)
 "w" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
@@ -141,28 +130,10 @@
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/mining)
-"J" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/mining)
-"L" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
 "R" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
@@ -179,7 +150,7 @@ a
 (2,1,1) = {"
 a
 c
-J
+R
 F
 g
 k
@@ -197,8 +168,8 @@ o
 (4,1,1) = {"
 a
 e
-L
-r
+R
+R
 g
 m
 n

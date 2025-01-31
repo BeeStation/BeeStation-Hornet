@@ -16,7 +16,8 @@
 		TRAIT_CONFUSEIMMUNE,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NOSTAMCRIT,
-		TRAIT_NOLIMBDISABLE
+		TRAIT_NOLIMBDISABLE,
+		TRAIT_FAST_CUFF_REMOVAL
 	)
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
@@ -33,7 +34,7 @@
 /datum/mutation/hulk/on_life()
 	if(owner.health < 0)
 		on_losing(owner)
-		to_chat(owner, "<span class='danger'>You suddenly feel very weak.</span>")
+		to_chat(owner, span_danger("You suddenly feel very weak."))
 
 /datum/mutation/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())

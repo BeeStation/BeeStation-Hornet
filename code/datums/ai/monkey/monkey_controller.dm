@@ -151,10 +151,10 @@ have ways of interacting with a specific mob and control it.
 	return top_force_item
 
 /datum/ai_controller/monkey/proc/IsEdible(obj/item/thing)
-	if(istype(thing, /obj/item/reagent_containers/food))
+	if(IS_EDIBLE(thing))
 		return TRUE
-	if(istype(thing, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		var/obj/item/reagent_containers/food/drinks/drinkingglass/glass = thing
+	if(istype(thing, /obj/item/reagent_containers/cup/glass/drinkingglass))
+		var/obj/item/reagent_containers/cup/glass/drinkingglass/glass = thing
 		if(glass.reagents.total_volume) // The glass has something in it, time to drink the mystery liquid!
 			return TRUE
 	return FALSE

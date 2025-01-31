@@ -28,7 +28,7 @@
 	turn_connects = _turn_connects
 
 	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
-	RegisterSignals(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
+	RegisterSignal(parent, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, PROC_REF(toggle_active))
 	RegisterSignal(parent, COMSIG_OBJ_HIDE, PROC_REF(hide))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
 
@@ -234,8 +234,10 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
+/datum/component/plumbing/proc/hide(atom/movable/AM, underfloor_accessibility)
 	SIGNAL_HANDLER
+
+	var/should_hide = !underfloor_accessibility
 
 	tile_covered = should_hide
 	AM.update_appearance()

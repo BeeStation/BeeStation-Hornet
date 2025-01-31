@@ -62,7 +62,7 @@
 	clockwork_desc = "A small pedestal, glowing with a divine energy. Used to provide special powers and abilities to items."
 	default_icon_state = "stargazer"
 	anchored = TRUE
-	break_message = "<span class='warning'>The stargazer collapses.</span>"
+	break_message = span_warning("The stargazer collapses.")
 	var/cooldowntime = 0
 	var/mobs_in_range = FALSE
 	var/fading = FALSE
@@ -99,27 +99,27 @@
 		. = ..()
 		return
 	if(!anchored)
-		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
+		to_chat(user, span_brass("You need to anchor [src] to the floor first."))
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
+		to_chat(user, span_brass("[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)]."))
 		return
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
-		to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
+		to_chat(user, span_brass("[I] has already been enhanced!"))
 		return
-	to_chat(user, "<span class='brass'>You begin placing [I] onto [src].</span>")
+	to_chat(user, span_brass("You begin placing [I] onto [src]."))
 	if(do_after(user, 60, target=I))
 		if(cooldowntime > world.time)
-			to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
+			to_chat(user, span_brass("[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)]."))
 			return
 		if(HAS_TRAIT(I, TRAIT_STARGAZED))
-			to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
+			to_chat(user, span_brass("[I] has already been enhanced!"))
 			return
 		if(istype(I, /obj/item) && !istype(I, /obj/item/clothing) && I.force)
 			upgrade_weapon(I, user)
 			cooldowntime = world.time + STARGAZER_COOLDOWN
 			return
-		to_chat(user, "<span class='brass'>You cannot upgrade [I].</span>")
+		to_chat(user, span_brass("You cannot upgrade [I]."))
 
 /obj/structure/destructible/clockwork/gear_base/stargazer/proc/upgrade_weapon(obj/item/I, mob/living/user)
 	//Prevent re-enchanting
@@ -129,4 +129,6 @@
 	//Pick a random effect
 	var/static/list/possible_components = subtypesof(/datum/component/enchantment)
 	I.AddComponent(pick(possible_components))
-	to_chat(user, "<span class='notice'>[I] glows with a brilliant light!</span>")
+	to_chat(user, span_notice("[I] glows with a brilliant light!"))
+
+#undef STARGAZER_COOLDOWN

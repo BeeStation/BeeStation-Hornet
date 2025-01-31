@@ -1,8 +1,11 @@
 /datum/outfit/spacepol
+	name = "Spacepol Nobody (Preview)"
+
 	id = /obj/item/card/id/silver/spacepol
+	uniform = /obj/item/clothing/under/syndicate/combat
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 	var/assignment
 
 /datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -16,7 +19,6 @@
 /datum/outfit/spacepol/sergeant
 	name = "Spacepol Sergeant"
 	assignment = "Spacepol Sergeant"
-	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/armor/vest/warden/sergeant
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/sergeant
@@ -29,7 +31,6 @@
 /datum/outfit/spacepol/officer
 	name = "Spacepol Officer"
 	assignment = "Spacepol Officer"
-	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/armor/vest/blueshirt
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/spacepol
@@ -44,24 +45,25 @@
 	if(prob(40))
 		head = /obj/item/clothing/head/helmet/alt
 	else if(prob(20))
-		head = /obj/item/clothing/head/helmet/riot
+		head = /obj/item/clothing/head/helmet/toggleable/riot
 	if(prob(50))
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
 /datum/outfit/bounty
+	name = "Bounty Hunter"
+
 	uniform = /obj/item/clothing/under/rank/prisoner
 	id = /obj/item/card/id/silver/bounty
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Bounty Hunter"
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -99,21 +101,23 @@
 	eyes.Insert(H, drop_if_replaced = FALSE)
 
 /datum/outfit/russian_hunter
+	name = "Russian Hunter"
+
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/russian
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/costume/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/old
 	ears = /obj/item/radio/headset
 	id = /obj/item/card/id/space_russian
 	back = /obj/item/storage/backpack/satchel/leather
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 	if(prob(50))
-		head = /obj/item/clothing/head/ushanka
+		head = /obj/item/clothing/head/costume/ushanka
 	else if(prob(20))
 		head = /obj/item/clothing/head/helmet/rus_ushanka
 	else if(prob(10))
@@ -128,8 +132,10 @@
 		uniform = /obj/item/clothing/under/syndicate/rus_army
 
 /datum/outfit/russian_hunter/leader
+	name = "Russian Hunter - Leader"
+
 	uniform = /obj/item/clothing/under/costume/russian_officer
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 	head = /obj/item/clothing/head/helmet/rus_ushanka
 
 /datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -139,3 +145,25 @@
 		gloves = /obj/item/clothing/gloves/combat
 	else if(prob(30))
 		gloves = /obj/item/clothing/gloves/fingerless
+
+
+//ids and ert code
+
+/obj/item/card/id/advanced/bountyhunter
+	assignment = "Bounty Hunter"
+	//icon_state = "card_flames" //oh SHIT
+	//trim = /datum/id_trim/bounty_hunter
+
+/datum/outfit/bounty/armor/ert
+	id = /obj/item/card/id/silver/bounty/ert
+
+/datum/outfit/bounty/hook/ert
+	id = /obj/item/card/id/silver/bounty/ert
+
+/datum/outfit/bounty/synth/ert
+	id = /obj/item/card/id/silver/bounty/ert
+
+/*
+/obj/item/card/id/advanced/bountyhunter/ert
+	trim = /datum/id_trim/centcom/bounty_hunter
+*/

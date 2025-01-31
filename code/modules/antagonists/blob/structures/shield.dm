@@ -9,7 +9,12 @@
 	explosion_block = 3
 	point_return = 4
 	atmosblock = TRUE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor_type = /datum/armor/blob_shield
+
+
+/datum/armor/blob_shield
+	fire = 90
+	acid = 90
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)
@@ -21,20 +26,20 @@
 
 /obj/structure/blob/shield/update_name(updates)
 	. = ..()
-	name = "[(obj_integrity < (max_integrity * 0.5)) ? "weakened " : null][initial(name)]"
+	name = "[(atom_integrity < (max_integrity * 0.5)) ? "weakened " : null][initial(name)]"
 
 /obj/structure/blob/shield/update_desc(updates)
 	. = ..()
-	desc = (obj_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
+	desc = (atom_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
 
-/obj/structure/blob/shield/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+/obj/structure/blob/shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && obj_integrity > 0)
-		atmosblock = obj_integrity < (max_integrity * 0.5)
-		air_update_turf(TRUE)
+	if(. && atom_integrity > 0)
+		atmosblock = atom_integrity < (max_integrity * 0.5)
+		air_update_turf(TRUE, atmosblock)
 
 /obj/structure/blob/shield/update_icon_state()
-	icon_state = "[initial(icon_state)][(obj_integrity < (max_integrity * 0.5)) ? "_damaged" : null]"
+	icon_state = "[initial(icon_state)][(atom_integrity < (max_integrity * 0.5)) ? "_damaged" : null]"
 	return ..()
 
 /obj/structure/blob/shield/reflective

@@ -16,10 +16,14 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount, 28)
+
 /obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
 	update_icon()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
@@ -27,10 +31,10 @@
 		end_processing()
 	. = ..()
 
-/obj/machinery/defibrillator_mount/obj_destruction()
+/obj/machinery/defibrillator_mount/atom_destruction()
 	if(defib)
 		defib.forceMove(get_turf(src))
-		defib.visible_message("<span class='notice'>[defib] falls to the ground from the destroyed wall mount.</span>")
+		defib.visible_message(span_notice("[defib] falls to the ground from the destroyed wall mount."))
 		defib = null
 		end_processing()
 	return ..()
@@ -39,13 +43,13 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.</span>"
-		if(GLOB.security_level >= SEC_LEVEL_RED)
-			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
+		. += span_notice("There is a defib unit hooked up. Alt-click to remove it.")
+		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+			. += span_notice("Due to a security situation, its locking clamps can be toggled by swiping any ID.")
 		else
-			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
+			. += span_notice("Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.")
 	else
-		. += "<span class='notice'>It's <i>empty</i> and can be <b>pried</b> off the wall.</span>"
+		. += span_notice("It's <i>empty</i> and can be <b>pried</b> off the wall.")
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
@@ -72,23 +76,23 @@
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
 	if(!defib)
-		to_chat(user, "<span class='warning'>There's no defibrillator unit loaded!</span>")
+		to_chat(user, span_warning("There's no defibrillator unit loaded!"))
 		return
 	if(defib.paddles.loc != defib)
-		to_chat(user, "<span class='warning'>[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!</span>")
+		to_chat(user, span_warning("[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!"))
 		return
 	user.put_in_hands(defib.paddles)
 
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/defibrillator))
 		if(defib)
-			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
+			to_chat(user, span_warning("There's already a defibrillator in [src]!"))
 			return
 		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
-		user.visible_message("<span class='notice'>[user] hooks up [I] to [src]!</span>", \
-		"<span class='notice'>You press [I] into the mount, and it clicks into place.</span>")
+		user.visible_message(span_notice("[user] hooks up [I] to [src]!"), \
+		span_notice("You press [I] into the mount, and it clicks into place."))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
 		begin_processing()
@@ -99,32 +103,32 @@
 		return
 	var/obj/item/card/id = I.GetID()
 	if(id)
-		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
+		if(check_access(id) || SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
-				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
+				to_chat(user, span_warning("You can't engage the clamps on a defibrillator that isn't there."))
 				return
 			clamps_locked = !clamps_locked
-			to_chat(user, "<span class='notice'>Clamps [clamps_locked ? "" : "dis"]engaged.</span>")
+			to_chat(user, span_notice("Clamps [clamps_locked ? "" : "dis"]engaged."))
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>Insufficient access.</span>")
+			to_chat(user, span_warning("Insufficient access."))
 		return
 	..()
 
 /obj/machinery/defibrillator_mount/multitool_act(mob/living/user, obj/item/multitool)
 	if(!defib)
-		to_chat(user, "<span class='warning'>There isn't any defibrillator to clamp in!</span>")
+		to_chat(user, span_warning("There isn't any defibrillator to clamp in!"))
 		return TRUE
 	if(!clamps_locked)
-		to_chat(user, "<span class='warning'>[src]'s clamps are disengaged!</span>")
+		to_chat(user, span_warning("[src]'s clamps are disengaged!"))
 		return TRUE
-	user.visible_message("<span class='notice'>[user] presses [multitool] into [src]'s ID slot...</span>", \
-	"<span class='notice'>You begin overriding the clamps on [src]...</span>")
+	user.visible_message(span_notice("[user] presses [multitool] into [src]'s ID slot..."), \
+	span_notice("You begin overriding the clamps on [src]..."))
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	if(!do_after(user, 100, target = src) || !clamps_locked)
 		return
-	user.visible_message("<span class='notice'>[user] pulses [multitool], and [src]'s clamps slide up.</span>", \
-	"<span class='notice'>You override the locking clamps on [src]!</span>")
+	user.visible_message(span_notice("[user] pulses [multitool], and [src]'s clamps slide up."), \
+	span_notice("You override the locking clamps on [src]!"))
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, TRUE)
 	clamps_locked = FALSE
 	update_icon()
@@ -134,16 +138,16 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	if(!defib)
-		to_chat(user, "<span class='warning'>It'd be hard to remove a defib unit from a mount that has none.</span>")
+		to_chat(user, span_warning("It'd be hard to remove a defib unit from a mount that has none."))
 		return
 	if(clamps_locked)
-		to_chat(user, "<span class='warning'>You try to tug out [defib], but the mount's clamps are locked tight!</span>")
+		to_chat(user, span_warning("You try to tug out [defib], but the mount's clamps are locked tight!"))
 		return
 	if(!user.put_in_hands(defib))
-		to_chat(user, "<span class='warning'>You need a free hand!</span>")
+		to_chat(user, span_warning("You need a free hand!"))
 		return
-	user.visible_message("<span class='notice'>[user] unhooks [defib] from [src].</span>", \
-	"<span class='notice'>You slide out [defib] from [src] and unhook the charging cables.</span>")
+	user.visible_message(span_notice("[user] unhooks [defib] from [src]."), \
+	span_notice("You slide out [defib] from [src] and unhook the charging cables."))
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	// Make sure processing ends before the defib is nulled
 	end_processing()
@@ -153,13 +157,13 @@
 /obj/machinery/defibrillator_mount/crowbar_act(mob/living/user, obj/item/W)
 	if(!defib)
 		W.play_tool_sound(src, 75)
-		user.visible_message("<span class='notice'>[user.name] starts prying the [src] off the wall.</span>", \
-							"<span class='notice'>You start prying the defibrillator mount off the wall.</span>")
+		user.visible_message(span_notice("[user.name] starts prying the [src] off the wall."), \
+							span_notice("You start prying the defibrillator mount off the wall."))
 		if(W.use_tool(src, user, 30, volume=50, amount = 0))
 			new /obj/item/wallframe/defib_mount(loc)
 			user.visible_message(\
-				"<span class='notice'>[user.name] pries the [src] off the wall with [W].</span>",\
-				"<span class='notice'>You pry the defibrillator mount off the wall.</span>")
+				span_notice("[user.name] pries the [src] off the wall with [W]."),\
+				span_notice("You pry the defibrillator mount off the wall."))
 			qdel(src)
 			return TRUE
 
@@ -172,4 +176,4 @@
 	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 100)
 	w_class = WEIGHT_CLASS_BULKY
 	result_path = /obj/machinery/defibrillator_mount
-	pixel_shift = -28
+	pixel_shift = 28

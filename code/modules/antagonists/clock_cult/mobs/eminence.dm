@@ -14,7 +14,7 @@
 	sight = SEE_SELF
 	throwforce = 0
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	unsuitable_atmos_damage = 0
 	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -24,7 +24,8 @@
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -57,7 +58,7 @@
 		var/difference = GLOB.installed_integration_cogs - calculated_cogs
 		calculated_cogs += difference
 		cogs += difference
-		to_chat(src, "<span class='brass'>You have gained [difference] cogs!</span>")
+		to_chat(src, span_brass("You have gained [difference] cogs!"))
 
 //Cannot gib the eminence.
 /mob/living/simple_animal/eminence/gib()
@@ -101,17 +102,19 @@
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(src, silent=TRUE)
 	S.prefix = CLOCKCULT_PREFIX_EMINENCE
-	to_chat(src, "<span class='large_brass'>You are the Eminence!</span>")
-	to_chat(src, "<span class='brass'>Click on objects to perform actions, different objects have different actions, try them out!</span>")
-	to_chat(src, "<span class='brass'>Many of your spells require a target first. Click on a servant to select them!</span>")
+	to_chat(src, "[span_largebrass("You are the Eminence!")]")
+	to_chat(src, span_brass("Click on objects to perform actions, different objects have different actions, try them out!"))
+	to_chat(src, span_brass("Many of your spells require a target first. Click on a servant to select them!"))
 
 /mob/living/simple_animal/eminence/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 	if(message)
 		hierophant_message(message, src, span="<span class='large_brass'>", say=FALSE)
@@ -121,7 +124,7 @@
 
 /mob/living/simple_animal/eminence/Move(atom/newloc, direct)
 	if(istype(get_area(newloc), /area/chapel))
-		to_chat(usr, "<span class='warning'>You cannot move on to holy grounds!</span>")
+		to_chat(usr, span_warning("You cannot move on to holy grounds!"))
 		return
 	. = ..()
 
@@ -138,6 +141,12 @@
 	tab_data["Cogs Available"] = GENERATE_STAT_TEXT("[cogs] Cogs")
 	return tab_data
 
+/mob/living/simple_animal/eminence/med_hud_set_health()
+	return
+
+/mob/living/simple_animal/eminence/med_hud_set_status()
+	return
+
 /mob/living/simple_animal/eminence/update_health_hud()
 	return
 
@@ -149,7 +158,7 @@
 /obj/effect/proc_holder/spell/targeted/eminence
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	action_icon = 'icons/mob/actions/actions_clockcult.dmi'
+	action_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	action_icon_state = "ratvarian_spear"
 	action_background_icon_state = "bg_clock"
 	clothes_req = FALSE
@@ -183,7 +192,7 @@
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
-		to_chat(user, "<span class='warning'>There is no Ark!</span>")
+		to_chat(user, span_warning("There is no Ark!"))
 
 //=====Warp to station=====
 /obj/effect/proc_holder/spell/targeted/eminence/station
@@ -197,7 +206,7 @@
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
-		to_chat(user, "<span class='warning'>You're already on the station!</span>")
+		to_chat(user, span_warning("You're already on the station!"))
 
 //=====Teleport to servant=====
 /obj/effect/proc_holder/spell/targeted/eminence/servant_warp
@@ -213,14 +222,14 @@
 		return
 	M = choice.current
 	if(!isliving(M))
-		to_chat(user, "<span class='warning'>You cannot jump to them!</span>")
+		to_chat(user, span_warning("You cannot jump to them!"))
 		return
 	if(!is_servant_of_ratvar(M))
-		to_chat(user, "<span class='warning'>They are no longer a servant of Rat'var!</span>")
+		to_chat(user, span_warning("They are no longer a servant of Rat'var!"))
 		return
 	var/turf/T = get_turf(M)
 	if(SSmapping.level_trait(T.z, ZTRAIT_CENTCOM))
-		to_chat(user, "<span class='warning'>They are out of your reach!</span>")
+		to_chat(user, span_warning("They are out of your reach!"))
 		return
 	user.forceMove(get_turf(T))
 	SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
@@ -260,30 +269,30 @@
 /obj/effect/proc_holder/spell/targeted/eminence/linked_abscond/cast(list/targets, mob/living/user)
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
-		to_chat(E, "<span class='brass'>You are not the Eminence! (This is a bug)</span>")
+		to_chat(E, span_brass("You are not the Eminence! (This is a bug)"))
 		revert_cast(user)
 		return FALSE
 	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
 		E.selected_mob = null
-		to_chat(user, "<span class='neovgre'>You need to select a valid target by clicking on them.</span>")
+		to_chat(user, span_neovgre("You need to select a valid target by clicking on them."))
 		revert_cast(user)
 		return FALSE
 	var/mob/living/L = E.selected_mob
 	if(!istype(L))
-		to_chat(E, "<span class='brass'>You cannot do that on this mob!</span>")
+		to_chat(E, span_brass("You cannot do that on this mob!"))
 		revert_cast(user)
 		return FALSE
-	to_chat(E, "<span class='brass'>You begin recalling [L]...</span>")
-	to_chat(L, "<span class='brass'>The Eminence is summoning you...</span>")
-	L.visible_message("<span class='warning'>[L] flares briefly.</span>")
+	to_chat(E, span_brass("You begin recalling [L]..."))
+	to_chat(L, span_brass("The Eminence is summoning you..."))
+	L.visible_message(span_warning("[L] flares briefly."))
 	if(do_after(E, 70, target=L))
-		L.visible_message("<span class='warning'>[L] phases out of existence!</span>")
+		L.visible_message(span_warning("[L] phases out of existence!"))
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(L, T, FALSE)
 		consume_cogs(E)
 		return TRUE
 	else
-		to_chat(E, "<span class='brass'>You fail to recall [L].</span>")
+		to_chat(E, span_brass("You fail to recall [L]."))
 		revert_cast(user)
 		return FALSE
 
@@ -330,4 +339,8 @@
 	canhear_range = 0
 	radio_silent = TRUE
 	prison_radio = TRUE
-	broadcasting = TRUE
+
+
+/obj/item/radio/borg/eminence/Initialize(mapload)
+	. = ..()
+	set_broadcasting(TRUE)
