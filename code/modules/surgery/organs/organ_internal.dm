@@ -29,6 +29,7 @@
 	///When you take a bite you cant jam it in for surgery anymore.
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	juice_typepath = /datum/reagent/liquidgibs
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
@@ -50,6 +51,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+	if(organ_flags & ORGAN_SYNTHETIC)
+		juice_typepath = null
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	if(!iscarbon(M) || owner == M)
@@ -121,13 +124,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	. = ..()
 	if(organ_flags & ORGAN_FAILING)
 		if(status == ORGAN_ROBOTIC)
-			. += "<span class='warning'>[src] seems to be broken!</span>"
+			. += span_warning("[src] seems to be broken!")
 			return
-		. += "<span class='warning'>[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!</span>"
+		. += span_warning("[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!")
 		return
 	if(damage > high_threshold)
-		. += "<span class='warning'>[src] is starting to look discolored.</span>"
-	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.</span>"
+		. += span_warning("[src] is starting to look discolored.")
+	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
 
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()

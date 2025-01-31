@@ -71,9 +71,9 @@
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
-		user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!"))
 	else
-		user.visible_message("<span class='suicide'>[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 //Jaws of life
@@ -102,10 +102,10 @@
 
 /obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_CROWBAR)
-		user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src], it looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is putting [user.p_their()] head in [src], it looks like [user.p_theyre()] trying to commit suicide!"))
 		playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
 	else
-		user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+		user.visible_message(span_suicide("[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"))
 		playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
@@ -117,7 +117,7 @@
 
 /obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
-		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
+		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
 		log_combat(user, C, "cut handcuffs from", important = FALSE)
 		qdel(C.handcuffed)
 		return

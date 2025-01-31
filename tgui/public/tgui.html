@@ -515,8 +515,10 @@ window.replaceHtml = function (inline_html) {
   );
 };
 
-// Signal tgui that we're ready to receive updates
-Byond.sendMessage('ready');
+document.addEventListener('DOMContentLoaded', function (event) {
+  // Signal tgui that we're ready to receive updates
+  Byond.sendMessage('ready');
+});
 </script>
 
 <style>
@@ -639,7 +641,7 @@ Thank you for your cooperation.
 </marquee>
 <div id="FatalError__stack" class="FatalError__stack"></div>
 <div class="FatalError__footer">
-Nanotrasen (c) 2525-2559
+<!-- tgui:nt-copyright -->
 </div>
 </div>
 

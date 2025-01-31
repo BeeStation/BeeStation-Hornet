@@ -22,7 +22,7 @@
 	splat_type = /obj/effect/decal/cleanable/food/tomato_smudge
 	foodtypes = FRUIT
 	grind_results = list(/datum/reagent/consumable/ketchup = 0)
-	juice_results = list(/datum/reagent/consumable/tomatojuice = 0)
+	juice_typepath = /datum/reagent/consumable/tomatojuice
 	distill_reagent = /datum/reagent/consumable/enzyme
 
 // Blood Tomato
@@ -132,15 +132,15 @@
 
 /obj/item/food/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
 	if(awakening)
-		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
+		to_chat(user, span_warning("The tomato is twitching and shaking, preventing you from eating it."))
 		return
 	..()
 
 /obj/item/food/grown/tomato/killer/attack_self(mob/user)
 	if(awakening || isspaceturf(user.loc))
 		return
-	user.visible_message("<span class='notice'>[user] beings to awaken the [src].</span>", \
-	"<span class='notice'>You begin to awaken the [src]...</span>")
+	user.visible_message(span_notice("[user] beings to awaken the [src]."), \
+	span_notice("You begin to awaken the [src]..."))
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
 	addtimer(CALLBACK(src, PROC_REF(make_killer_tomato)), 30)
@@ -153,5 +153,5 @@
 		K.move_to_delay -= round(seed.production / 50)
 		K.frenzythreshold -= round(seed.potency / 25)// max potency tomatoes will enter a frenzy more easily
 		K.health = K.maxHealth
-		K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
+		K.visible_message(span_notice("The Killer Tomato growls as it suddenly awakens."))
 		qdel(src)

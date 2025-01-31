@@ -56,10 +56,10 @@
 	export_types = list(/obj/structure/reagent_dispensers/beerkeg)
 
 
-/datum/export/large/pipedispenser
+/datum/export/large/pipe_dispenser
 	cost = 500
 	unit_name = "pipe dispenser"
-	export_types = list(/obj/machinery/pipedispenser)
+	export_types = list(/obj/machinery/pipe_dispenser)
 
 /datum/export/large/emitter
 	cost = 550
@@ -122,17 +122,47 @@
 	unit_name = "security barrier"
 	export_types = list(/obj/item/security_barricade, /obj/structure/barricade/security)
 
+
+/**
+ * Gas canister exports.
+ * I'm going to put a quick aside here as this has been a pain to balance for several years now, and I'd like to at least break how to keep gas exports tame.
+ * So: Gasses are sold in canisters below, which have a variable amount of maximum pressure before they start to break. The largest of which is 9.2e13 kPa.
+ * This means we can determine a theoretical maximum value for gas sale prices using the ideal gas laws, as we know we have a minimum gas temperature of 2.7 kelvin.
+ *
+ * Additional note on base value. Gasses are soft capped to limit how much they're worth at large quantities, and time and time again players will find new ways to break your gasses.
+ * so please, *PLEASE* try not to go too much further past 10.
+
+ * * AUTHORS NOTE: This means the theoretical, insane madman number of moles of a single gas in a can sits at a horrifying 4,098,150,709.4 moles.
+ * * Use this as you will, and when someone makes a quinquadrillion credits using gas exports, use these metrics as a way to balance the bejesus out of them.
+ * * For more information, see code\modules\atmospherics\machinery\portable\canister.dm.
+ */
 /datum/export/large/gas_canister
 	cost = 10 //Base cost of canister. You get more for nice gases inside.
 	unit_name = "Gas Canister"
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
+	k_elasticity = 0.00033
+
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
-	var/worth = 10
+	var/worth = cost
+	var/datum/gas_mixture/canister_mix = C.return_air()
+	var/canister_gas = canister_mix.gases
+	var/list/gases_to_check = list(
+								/datum/gas/bz,
+								/datum/gas/nitryl,
+								/datum/gas/hypernoblium,
+								/datum/gas/tritium,
+								/datum/gas/pluoxium,
+								)
 
-	worth += C.air_contents.get_moles(GAS_BZ)*4
-	worth += C.air_contents.get_moles(GAS_STIMULUM)*100
-	worth += C.air_contents.get_moles(GAS_HYPERNOB)*1000
-	worth += C.air_contents.get_moles(GAS_TRITIUM)*5
-	worth += C.air_contents.get_moles(GAS_PLUOXIUM)*5
+	for(var/gasID in gases_to_check)
+		canister_mix.assert_gas(gasID)
+		if(canister_gas[gasID][MOLES] > 0)
+			worth += get_gas_value(gasID, canister_gas[gasID][MOLES])
+
+	canister_mix.garbage_collect()
 	return worth
+
+/datum/export/large/gas_canister/proc/get_gas_value(datum/gas/gasType, moles)
+	var/baseValue = initial(gasType.base_value)
+	return round((baseValue/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * moles)))

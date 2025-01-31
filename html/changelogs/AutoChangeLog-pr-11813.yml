@@ -1,0 +1,16 @@
+author: JixS4v, XeonMations, HowToLu, Aramix, 00-Steven, 13spacemen, Aerden, afonamos2,
+  AlinaStarkova, Arkatos1, Ben10Omintrix, BurgerLUA, Comxy, Deadgebert, EliteCreature,
+  EnterTheJake, FlufflesTheDog, Ghilker, GoblinBackwards, GoldenAlpharex, GuillaumePrata,
+  Higgin, JohnFulpWillard, Kylerace, LemonInTheDark, MTandi, MacBlaze1, Mothblocks,
+  OrionTheFox, Pickle-Coding, Putnam3145, RandomGamer123, Sadboysuss, Sealed101, ShizCalev,
+  SuperNovaa41, SyncIt21, Tastyfish, TemporalOroboros, TheBoondock, thegrb93, Timberpoes,
+  TiviPlus, Tlaltecuhtli, TwistedCicrularConvexLens, ZephyrTFA, blessedmulligan, chestlet,
+  esainane, haukeschuemann, jlsnow301, kriskog, lessthnthree, mc-oofert, mogeoko,
+  nicbn, nikothedude, ninjanomnom, norill, skylord-a52, timothymtorres, tralezab,
+  vincentiusvin, zxaber, Absolucy, SergeiKoralev
+delete-after: true
+changes:
+  - rscadd: 'Added a new atmospheric system to the game: LINDA.'
+  - refactor: The majority of atmospherics related systems have been changed. Please
+      report any bugs to the github!
+  - rscadd: Added new functionality to atmospheric pipes.
