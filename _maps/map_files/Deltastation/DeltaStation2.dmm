@@ -47961,6 +47961,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/light/small,
+/obj/machinery/suit_storage_unit/medical,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -76407,6 +76408,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/suit_storage_unit/industrial/loader,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "stS" = (

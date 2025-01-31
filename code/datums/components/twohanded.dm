@@ -188,7 +188,7 @@
 
 	wielder = user
 	wielded = TRUE
-
+	ADD_TRAIT(parent, TRAIT_WIELDED, REF(src))
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(unreference_wielder))
 
 	if(!auto_wield)
@@ -247,6 +247,7 @@
 	if(!auto_wield)
 		UnregisterSignal(wielder, COMSIG_MOB_SWAP_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, wielder)
+	REMOVE_TRAIT(parent, TRAIT_WIELDED, REF(src))
 
 	// update item stats
 	var/obj/item/parent_item = parent
@@ -396,3 +397,6 @@
 	. = ..()
 	if(wielded && !user.is_holding(src))
 		qdel(src)
+
+/obj/item/offhand/attack(mob/living/target, mob/living/user)
+	return

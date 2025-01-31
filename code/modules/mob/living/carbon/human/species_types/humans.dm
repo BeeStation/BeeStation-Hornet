@@ -1,7 +1,6 @@
 /datum/species/human
 	name = "\improper Human"
 	id = SPECIES_HUMAN
-	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	mutant_bodyparts = list("body_size" = "Normal")
 	use_skintones = 1

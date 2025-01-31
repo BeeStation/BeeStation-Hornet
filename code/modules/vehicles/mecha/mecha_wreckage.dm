@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mecha_wreckage)
 	AI.death() //The damage is not enough to kill the AI, but to be 'corrupted files' in need of repair.
 	AI.forceMove(src) //Put the dead AI inside the wreckage for recovery
 	add_overlay(mutable_appearance('icons/obj/projectiles.dmi', "green_laser")) //Overlay for the recovery beacon
-	AI.controlled_mech = null
+	AI.controlled_equipment = null
 	AI.remote_control = null
 
 /obj/structure/mecha_wreckage/examine(mob/user)

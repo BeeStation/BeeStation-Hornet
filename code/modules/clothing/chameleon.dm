@@ -5,7 +5,7 @@
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
 
-/datum/action/item_action/chameleon/drone/randomise/Trigger()
+/datum/action/item_action/chameleon/drone/randomise/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 
@@ -32,7 +32,7 @@
 	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
 		button_icon_state = "drone_camogear_mask"
 
-/datum/action/item_action/chameleon/drone/togglehatmask/Trigger()
+/datum/action/item_action/chameleon/drone/togglehatmask/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 
@@ -88,7 +88,7 @@
 		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger()
+/datum/action/chameleon_outfit/Trigger(trigger_flags)
 	return select_outfit(owner)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
@@ -322,7 +322,7 @@
 	var/mob/living/carbon/human/card_holding_human = card_holder
 	card_holding_human.sec_hud_set_ID()
 
-/datum/action/item_action/chameleon/change/Trigger()
+/datum/action/item_action/chameleon/change/Trigger(trigger_flags)
 	if(!IsAvailable())
 		return
 
@@ -710,7 +710,7 @@
 	desc = "A tough envirohelm woven from alloy threads. It can take on the appearance of other headgear."
 	//icon_state = "engineer_envirohelm"
 	item_state = "engineer_envirohelm"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/head/chameleon/drone
 	// The camohat, I mean, holographic hat projection, is part of the
@@ -748,7 +748,7 @@
 		temporary_list[tongue_name] = found_item
 	tongue_list = sort_list(temporary_list)
 
-/datum/action/item_action/chameleon/tongue_change/Trigger()
+/datum/action/item_action/chameleon/tongue_change/Trigger(trigger_flags)
 	if(!IsAvailable() || !isitem(target))
 		return FALSE
 	var/obj/item/clothing/mask/target_mask = target

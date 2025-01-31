@@ -14,6 +14,16 @@
 			return legcuffed
 	return null
 
+/mob/living/carbon/proc/get_all_worn_items()
+	return list(
+		back,
+		wear_mask,
+		wear_neck,
+		head,
+		handcuffed,
+		legcuffed,
+	)
+
 /mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = TRUE)
 	for(var/slot in slots)
 		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = FALSE, disable_warning = TRUE))
@@ -91,6 +101,7 @@
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
 
+	var/not_handled = FALSE //if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
 	if(I == head)
 		head = null
 		if(!QDELETED(src))
@@ -117,10 +128,20 @@
 		legcuffed = null
 		if(!QDELETED(src))
 			update_inv_legcuffed()
+	else
+		not_handled = TRUE
+
+
 	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
 		cutoff_internals()
 		if(!QDELETED(src))
 			update_action_buttons_icon(status_only = TRUE)
+
+	if(not_handled)
+		return
+
+	update_equipment_speed_mods()
+	update_obscured_slots(I.flags_inv)
 
 /// Returns TRUE if an air tank compatible helmet is equipped.
 /mob/living/carbon/proc/can_breathe_helmet()
