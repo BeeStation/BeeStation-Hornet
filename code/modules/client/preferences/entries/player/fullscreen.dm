@@ -1,3 +1,7 @@
+#if (MIN_COMPILER_VERSION > 515 || MIN_COMPILER_BUILD > 1630)
+#warn ATTENTION!! ONCE 515.1631 IS REQUIRED REPLACE WITH winset(client, "mainwindow", "menu=;is-fullscreen=true"). This means no double maximise calls to make sure window fits, and supresses titlebar, can-resize and is-maximized here making those redundant both implementations are functionally "windowed borderless"
+#endif
+
 /datum/preference/toggle/fullscreen
 	db_key = "fullscreen"
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
@@ -6,9 +10,6 @@
 
 /datum/preference/toggle/fullscreen/apply_to_client(client/client, value)
 	if (value)
-		#if (MIN_COMPILER_VERSION > 515 || MIN_COMPILER_BUILD > 1630)
-		#warn ATTENTION!! ONCE 515.1631 IS REQUIRED REPLACE WITH winset(client, "mainwindow", "menu=;is-fullscreen=true"). This means no double maximise calls to make sure window fits, and supresses titlebar, can-resize and is-maximized here making those redundant both implementations are functionally "windowed borderless"
-		#endif
 		// Delete the menu
 		winset(client, "mainwindow", "menu=\"\"")
 		// Switch to the cool status bar
