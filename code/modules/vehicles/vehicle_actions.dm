@@ -130,14 +130,14 @@
 	cooldown_time = 2 SECONDS
 
 /datum/action/vehicle/sealed/horn/on_activate(mob/user, atom/target)
-		vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] loudly honks!"))
-		to_chat(owner, span_notice("You press the vehicle's horn."))
+	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] loudly honks!"))
+	to_chat(owner, span_notice("You press the vehicle's horn."))
 	playsound(vehicle_entered_target, hornsound, 75)
 	start_cooldown()
 
 /datum/action/vehicle/sealed/horn/clowncar/on_activate(mob/user, atom/target)
-		vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] loudly honks!"))
-		to_chat(owner, span_notice("You press the vehicle's horn."))
+	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] loudly honks!"))
+	to_chat(owner, span_notice("You press the vehicle's horn."))
 	start_cooldown()
 	if(vehicle_target.inserted_key)
 		vehicle_target.inserted_key.attack_self(owner) //The key plays a sound
