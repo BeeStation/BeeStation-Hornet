@@ -2483,8 +2483,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
-/obj/machinery/camera/directional/west,
-/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/noslip/standard,
@@ -11931,9 +11929,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -26325,6 +26320,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "iDz" = (
@@ -35481,9 +35477,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
@@ -38923,13 +38916,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"mTu" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mTK" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall28";
@@ -50595,9 +50581,6 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "qJs" = (
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -52491,12 +52474,6 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
 "rty" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -55021,9 +54998,6 @@
 	},
 /obj/effect/turf_decal/tile/green,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tile/green,
@@ -55297,9 +55271,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -113761,7 +113732,7 @@ ueg
 ete
 yaN
 hwq
-mTu
+qov
 jgh
 ePj
 tZv
