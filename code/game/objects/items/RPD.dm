@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	return TRUE
 
 /obj/item/pipe_dispenser/pre_attack(atom/atom_to_attack, mob/user, params)
-	if(!ISADVANCEDTOOLUSER(user) || istype(A, /turf/open/space/transit))
+	if(!ISADVANCEDTOOLUSER(user) || istype(atom_to_attack, /turf/open/space/transit))
 		return ..()
 
 	if(istype(atom_to_attack, /obj/item/rpd_upgrade))
