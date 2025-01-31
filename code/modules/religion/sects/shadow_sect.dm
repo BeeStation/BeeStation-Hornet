@@ -152,6 +152,7 @@
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
+			var3_bucle_togle()
 			return
 		else
 			var/list/current_objects = view_or_range(5, src, "range")
@@ -164,7 +165,9 @@
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
+			var3_bucle_togle()
 			return
+
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if (!anchored)
 			var/list/current_objects = view_or_range(5, src, "range")
@@ -177,6 +180,7 @@
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
+			var3_bucle_togle()
 		else
 			to_chat(user,"<span class='warning'>You feel like only nullrod coudl move this obelisk.</span>")
 		return
@@ -428,13 +432,15 @@
 	. = ..()
 	if(isshadow(M))
 		unbuckle_mob(M, TRUE)
+		visible_message(span_warning("[M.name] seems to fall through obelisk."))
 		return
 
 	if(!ishuman(M))
 		unbuckle_mob(M, TRUE)
+		visible_message(span_warning("Obelisk cant hold [M.name] in place."))
 		return
 
-	to_chat(M,span_userdanger("You feel obelisk chanel all its shadows though you. If you dont get off, you will be changed inrevocable way."))
+	to_chat(M,span_userdanger("You feel obelisk chanel all its shadows though you. If you dont get off, you will be changed irrevocable way."))
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/process(delta_time)
 	if(LAZYLEN(buckled_mobs) != 0)
@@ -443,6 +449,7 @@
 			converting = 0
 			for(var/mob/living/carbon/human/buckled in buckled_mobs)
 				to_chat(buckled,span_userdanger("Shadows infuse your body changing you into one of them."))
+				visible_message(span_notice("[buckled.name] merged with shadows and droped from obelisk."))
 				buckled.set_species(/datum/species/shadow)
 				unbuckle_mob(buckled, TRUE)
 	else
@@ -451,6 +458,12 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/attack_hand(mob/user)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!isshadow(user) && !user.mind?.holy_role)
+		return
+
+	if(!anchored)
+		return
+
 	if(in_use)
 		return
 
@@ -460,7 +473,9 @@
 		return ..()
 
 	if(local_obelisk_list.len == 1)
-		do_teleport(user, local_obelisk_list[1])
+		user.visible_message(span_notice("[user.name] walked into obelisk."), span_notice("You walk into obelisk."))
+		do_teleport(user, local_obelisk_list[1], no_effects = TRUE)
+		user.visible_message(span_notice("[user.name] walked out of obelisk."), span_notice("To emerge on the other side."))
 		return
 
 	in_use = TRUE
@@ -486,7 +501,9 @@
 	if(!chosen_input || !assoc_list[chosen_input])
 		return
 
-	do_teleport(user ,assoc_list[chosen_input])
+	user.visible_message(span_notice("[user.name] walked into obelisk."), span_notice("You walk into obelisk."))
+	do_teleport(user ,assoc_list[chosen_input], no_effects = TRUE)
+	user.visible_message(span_notice("[user.name] walked out of obelisk."), span_notice("To emerge on the other side."))
 
 
 #undef DARKNESS_INVERSE_COLOR
