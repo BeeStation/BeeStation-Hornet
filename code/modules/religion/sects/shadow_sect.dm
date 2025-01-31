@@ -13,10 +13,10 @@
 		/datum/religion_rites/shadow_obelisk,
 		/datum/religion_rites/expand_shadows,
 		/datum/religion_rites/nigth_vision_aura,
-		/datum/religion_rites/shadow_conversion //,
-	//	/datum/religion_rites/grand_ritual_one,
-	//	/datum/religion_rites/grand_ritual_two,
-	//	/datum/religion_rites/grand_ritual_three
+		/datum/religion_rites/shadow_conversion,
+		/datum/religion_rites/grand_ritual_one,
+		/datum/religion_rites/grand_ritual_two,
+		/datum/religion_rites/grand_ritual_three
 	)
 
 
@@ -25,6 +25,8 @@
 	var/light_power = 0
 	var/list/obelisks = list()
 	var/obelisk_number = 0
+	var/list/active_obelisks = list()
+	var/active_obelisk_number = 0
 	var/night_vision_active = FALSE
 	var/grand_ritual_level = 0
 
@@ -75,6 +77,9 @@
 	sect.obelisk_number = sect.obelisk_number - 1
 	sect.obelisks -= src
 	STOP_PROCESSING(SSobj, src)
+	if(anchored)
+		sect.active_obelisks -= src
+		sect.active_obelisk_number -= 1
 	for(var/X in affected_mobs)
 		on_mob_leave(X)
 	return ..()
@@ -149,6 +154,8 @@
 		if(anchored)
 			src.unanchored_NV()
 			anchored = !anchored
+			sect.active_obelisk_number -= 1
+			sect.active_obelisks -= src
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			user.do_attack_animation(src)
@@ -161,6 +168,8 @@
 					to_chat(user,"<span class='warning'>You cant place obelisks so close to eachother!</span>")
 					return
 			anchored = !anchored
+			sect.active_obelisks += src
+			sect.active_obelisk_number += 1
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -176,6 +185,8 @@
 					to_chat(user,"<span class='warning'>You cant place obelisks so close to eachother!</span>")
 					return
 			anchored = !anchored
+			sect.active_obelisks += src
+			sect.active_obelisk_number += 1
 			src.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 			user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -325,8 +336,10 @@
 	if(sect.favor < cost)
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
 		return FALSE
-	if((sect.light_power <= -11) || (sect.light_reach >= 15))
+	if((sect.light_power <= -6 - 5 * grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * grand_ritual_level))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
+		if(grand_ritual_level != 3)
+			to_chat(user, "<span class='warning'>Performing grand ritual woudl let more shadow move into this world.</span>")
 		return FALSE
 	return ..()
 
@@ -467,7 +480,7 @@
 	if(in_use)
 		return
 
-	var/list/local_obelisk_list = sect.obelisks.Copy()
+	var/list/local_obelisk_list = sect.active_obelisks.Copy()
 	local_obelisk_list -= src
 	if(!LAZYLEN(local_obelisk_list))
 		return ..()
@@ -504,6 +517,61 @@
 	user.visible_message(span_notice("[user.name] walked into obelisk."), span_notice("You walk into obelisk."))
 	do_teleport(user ,assoc_list[chosen_input], no_effects = TRUE)
 	user.visible_message(span_notice("[user.name] walked out of obelisk."), span_notice("To emerge on the other side."))
+
+
+// Grand rituals themselves
+/datum/religion_rites/grand_ritual_one
+	name = "Grand ritual: Beconing shadows"
+	desc = "Convice shadows to take intrest in your cult. They will cary information betwen thier kind and their mere presence will make the darknes holier."
+	ritual_length = 35 SECONDS
+	ritual_invocations = list(
+		"Let the shadows combine...",
+		"... Solidify and grow ...",
+		"... Make an idol to eminate shadows ...")
+	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+	favor_cost = 1000
+	auto_delete = TRUE
+
+
+/datum/religion_rites/grand_ritual_two
+	name = "Grand ritual: Infusing shadows"
+	desc = "Start giving shadows a form in physical world. This will let them heal the vounds of their kin and protect them from sight or harm."
+	ritual_length = 70 SECONDS
+	ritual_invocations = list(
+		"Let the shadows combine...",
+		"... Solidify and grow ...",
+		"... Make an idol to eminate shadows ...")
+	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+	favor_cost = 10000
+	auto_delete = TRUE
+
+
+/datum/religion_rites/grand_ritual_three
+	name = "Grand ritual: Welcoming shadows"
+	desc = "Final grand ritual. Let shadows come into this world fully, leting their tender care resurect any kin, help them move and let others join thier glorius family. BE WARNED gathering all shadows for this rite will let the light spread much further than normal."
+	ritual_length = 105 SECONDS
+	ritual_invocations = list(
+		"Let the shadows combine...",
+		"... Solidify and grow ...",
+		"... Make an idol to eminate shadows ...")
+	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+	favor_cost = 100000
+	auto_delete = TRUE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #undef DARKNESS_INVERSE_COLOR
