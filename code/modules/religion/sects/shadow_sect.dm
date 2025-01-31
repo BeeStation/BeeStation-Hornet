@@ -465,8 +465,7 @@
 		if (converting >= 30)
 			converting = 0
 			for(var/mob/living/carbon/human/buckled in buckled_mobs)
-				to_chat(buckled,span_userdanger("Shadows infuse your body changing you into one of them."))
-				visible_message(span_notice("[buckled.name] merged with shadows and droped from obelisk."))
+				buckled.visible_message(span_notice("[buckled.name] merged with shadows and droped from obelisk."), span_userdanger("Shadows infuse your body changing you into one of them."))
 				buckled.set_species(/datum/species/shadow)
 				unbuckle_mob(buckled, TRUE)
 	else
@@ -536,7 +535,8 @@
 		obelisk.anchored = anchored
 		if(anchored)
 			sect.active_obelisks += obelisk
-			sect.active_obelisk_number = sect.obelisk_number + 1
+			sect.active_obelisk_number += 1
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		Destroy()
 	if(sect.grand_ritual_level == 2)
 		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/obelisk = new(our_turf)
@@ -546,7 +546,8 @@
 		obelisk.anchored = anchored
 		if(anchored)
 			sect.active_obelisks += obelisk
-			sect.active_obelisk_number = sect.obelisk_number + 1
+			sect.active_obelisk_number += 1
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		Destroy()
 	if(sect.grand_ritual_level == 3)
 		var/obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3/obelisk = new(our_turf)
@@ -556,7 +557,8 @@
 		obelisk.anchored = anchored
 		if(anchored)
 			sect.active_obelisks += obelisk
-			sect.active_obelisk_number = sect.obelisk_number + 1
+			sect.active_obelisk_number += 1
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 		Destroy()
 
 // Grand rituals themselves
@@ -571,7 +573,6 @@
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 1000
-	auto_delete = TRUE // grand rituals are one time use
 
 /datum/religion_rites/grand_ritual_one/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -584,24 +585,27 @@
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
 		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
 		return FALSE
-	return ..()
+	. = ..()
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
 
 /datum/religion_rites/grand_ritual_one/invoke_effect(mob/living/user, atom/religious_tool)
-	if(!ismovable(religious_tool))
-		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
-	var/atom/movable/movable_reltool = religious_tool
-	var/mob/living/carbon/human/rite_target
-	if(!movable_reltool?.buckled_mobs?.len)
-		rite_target = user
-	else
-		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
-				rite_target = buckled
-				break
-	if(!rite_target)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
+		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
+		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
-	rite_target.set_species(/datum/species/shadow)
-	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+
+	sect.grand_ritual_level = 1
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		obelisk.transform_obelisc()
+	for(var/mob/living/carbon/human/M in GLOB.mob_list)
+		if(isshadow(M))
+			M.heal_overall_damage(100, 100, 200)
+			var/datum/species/shadow/spiec = M.dna.species
+			spiec.change_hearts_ritual(M)
+	sect.rites_list -= /datum/religion_rites/grand_ritual_one
+	sect.rites_list += /datum/religion_rites/grand_ritual_two
 	return ..()
 
 
@@ -615,7 +619,6 @@
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 10000
-	auto_delete = TRUE
 
 /datum/religion_rites/grand_ritual_two/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -628,25 +631,28 @@
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
 		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
 		return FALSE
-	return ..()
+	. = ..()
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
 
 
 /datum/religion_rites/grand_ritual_two/invoke_effect(mob/living/user, atom/religious_tool)
-	if(!ismovable(religious_tool))
-		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
-	var/atom/movable/movable_reltool = religious_tool
-	var/mob/living/carbon/human/rite_target
-	if(!movable_reltool?.buckled_mobs?.len)
-		rite_target = user
-	else
-		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
-				rite_target = buckled
-				break
-	if(!rite_target)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
+		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
+		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
-	rite_target.set_species(/datum/species/shadow)
-	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+
+	sect.grand_ritual_level = 2
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		obelisk.transform_obelisc()
+	for(var/mob/living/carbon/human/M in GLOB.mob_list)
+		if(isshadow(M))
+			M.fully_heal()
+			var/datum/species/shadow/spiec = M.dna.species
+			spiec.change_hearts_ritual(M)
+	sect.rites_list -= /datum/religion_rites/grand_ritual_two
+	sect.rites_list += /datum/religion_rites/grand_ritual_three
 	return ..()
 
 
@@ -660,7 +666,6 @@
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 100000
-	auto_delete = TRUE
 
 /datum/religion_rites/grand_ritual_three/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -673,24 +678,26 @@
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
 		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 2)] active obelisks.</span>")
 		return FALSE
-	return ..()
+	. = ..()
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
 
 /datum/religion_rites/grand_ritual_three/invoke_effect(mob/living/user, atom/religious_tool)
-	if(!ismovable(religious_tool))
-		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
-	var/atom/movable/movable_reltool = religious_tool
-	var/mob/living/carbon/human/rite_target
-	if(!movable_reltool?.buckled_mobs?.len)
-		rite_target = user
-	else
-		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
-				rite_target = buckled
-				break
-	if(!rite_target)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
+		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
+		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
-	rite_target.set_species(/datum/species/shadow)
-	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+
+	sect.grand_ritual_level = 3
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		obelisk.transform_obelisc()
+	for(var/mob/living/carbon/human/M in GLOB.mob_list)
+		if(isshadow(M))
+			M.revive(full_heal = TRUE)
+			var/datum/species/shadow/spiec = M.dna.species
+			spiec.change_hearts_ritual(M)
+	sect.rites_list -= /datum/religion_rites/grand_ritual_three
 	return ..()
 
 
