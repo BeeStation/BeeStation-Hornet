@@ -3,6 +3,7 @@
 	desc = "Stores and controls nanite cloud backups."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "nanite_cloud_controller"
+	icon_keyboard = null
 	circuit = /obj/item/circuitboard/computer/nanite_cloud_controller
 
 	//these muthafuckas arent supposed to smooth

@@ -98,3 +98,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
 	maxcharge = 300
+
+/obj/item/stock_parts/cell/computer/update_icon()
+	return

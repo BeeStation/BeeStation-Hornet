@@ -119,7 +119,7 @@
 	title = "Door Controls"
 	icon_state = "oldcomp"
 	icon_screen = "library"
-	icon_keyboard = "no_keyboard"
+	icon_keyboard = null
 
 	base_icon_state = null
 	smoothing_flags = NONE
