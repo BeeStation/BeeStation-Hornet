@@ -1,4 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - rscadd: reverts undocumented LINDA change. Adds firelocks to Fland hallways.
