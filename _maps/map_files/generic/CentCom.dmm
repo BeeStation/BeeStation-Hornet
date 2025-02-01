@@ -420,9 +420,8 @@
 /turf/open/floor/iron/stairs,
 /area/ctf)
 "aaY" = (
-/turf/open/floor/grass/snow/safe/nocold{
-	icon_state = "snow_dug"
-	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "aaZ" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -21256,6 +21255,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
+"bGL" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/snowed,
+/area/syndicate_mothership)
 "bHL" = (
 /obj/structure/curtain,
 /obj/machinery/shower{
@@ -21526,6 +21532,11 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/dirt/jungle,
 /area/syndicate_mothership/control)
+"fhN" = (
+/obj/structure/flora/stump,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "fmE" = (
 /obj/structure/flora/tree/pine/xmas,
 /turf/open/floor/grass/snow,
@@ -22550,6 +22561,11 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
+"oRN" = (
+/turf/open/floor/grass/snow{
+	icon_state = "snow_dug"
+	},
+/area/syndicate_mothership)
 "oTX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -22643,6 +22659,12 @@
 	},
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
+"qhH" = (
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "These tiles above keep showing up as roundstart active turfs, sorry for the hack"
+	},
+/turf/open/floor/grass/snow,
+/area/syndicate_mothership)
 "qnw" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shuttledock,
@@ -35557,7 +35579,7 @@ aTY
 aUX
 aku
 aee
-aZA
+fhN
 aee
 afs
 aaE
@@ -35813,9 +35835,9 @@ ahN
 axZ
 aST
 aop
-aBD
+bGL
 aaY
-aKY
+qhH
 afs
 aaE
 aaE
@@ -36071,7 +36093,7 @@ abc
 abc
 amL
 anH
-aKY
+oRN
 apo
 afs
 aaE
