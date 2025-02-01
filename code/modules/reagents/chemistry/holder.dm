@@ -573,7 +573,7 @@
 			for(var/P in selected_reaction.results)
 				multiplier = max(multiplier, 1) //this shouldn't happen ...
 				SSblackbox.record_feedback("tally", "chemical_reaction", cached_results[P]*multiplier, P)
-				add_reagent(P, cached_results[P]*multiplier, null, chem_temp)
+				add_reagent(P, cached_results[P]*multiplier, null, chem_temp, no_react = TRUE)
 
 			var/list/seen = viewers(4, get_turf(my_atom))
 			var/iconhtml = icon2html(cached_my_atom, seen)
