@@ -1,4 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - bugfix: fixed fire alarm light transitions to be smoother
