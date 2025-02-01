@@ -536,13 +536,6 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-<<<<<<< HEAD
-"qO" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-=======
->>>>>>> 8bc591d233b179003ea7d25ebccc69b0ee7c235c
 "sV" = (
 /obj/structure/toilet{
 	dir = 1
