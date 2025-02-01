@@ -97,7 +97,7 @@
 	hitsound = null
 	attack_verb_on = list("slips")
 	clumsy_check = FALSE
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	sword_color = "yellow"
 	heat = 0
 	light_color = "#ffff00"
@@ -146,7 +146,7 @@
 /obj/item/melee/transforming/energy/sword/bananium/suicide_act(mob/living/user)
 	if(!active)
 		transform_weapon(user, TRUE)
-	user.visible_message("<span class='suicide'>[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!</span>")
+	user.visible_message(span_suicide("[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!"))
 	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 	slipper.Slip(src, user)
 	return SHAME
@@ -242,7 +242,7 @@
 	QDEL_NULL(bomb)
 
 /obj/item/grown/bananapeel/bombanana/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide."))
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	bomb.preprime(user, 0, FALSE)
 	return BRUTELOSS

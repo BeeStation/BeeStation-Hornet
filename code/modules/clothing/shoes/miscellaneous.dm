@@ -140,10 +140,10 @@
 		to_chat(user, "You must hold the [src] in your hand to do this.")
 		return
 	if (!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/jester
@@ -154,8 +154,8 @@
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
-	icon_state = "jackboots"
-	item_state = "jackboots"
+	icon_state = "sec_jackboots"
+	item_state = "sec_jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	strip_delay = 30
@@ -164,21 +164,29 @@
 	armor_type = /datum/armor/shoes_jackboots
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-
 /datum/armor/shoes_jackboots
 	bio = 90
 
-/obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
-	name = "replica jackboots"
-	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal. This pair is better fit for everyday wear rather than combat."
-	icon_state = "jackboots"
-	item_state = "jackboots"
-	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
 	slowdown = -1
+
+/obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
+	name = "replica jackboots"
+	desc = "An unarmored replica of Nanotrasen's Security combat boots. Unlike the real deal, this pair is better fit for everyday wear rather than combat."
+	icon_state = "jackboots"
+	item_state = "jackboots"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+
+/obj/item/clothing/shoes/jackboots_replica/white
+	name = "white replica jackboots"
+	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal, this pair is better fit for everyday wear rather than combat."
+	icon_state = "white_jackboots"
+	item_state = "white_jackboots"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -191,7 +199,6 @@
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
-
 
 /datum/armor/shoes_winterboots
 	bio = 80
@@ -302,17 +309,17 @@
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
 	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(span_warning("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, span_warning("Something prevents you from dashing forward!"))
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"

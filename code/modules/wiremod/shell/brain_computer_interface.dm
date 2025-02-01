@@ -132,12 +132,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 /obj/item/circuit_component/bci_action/proc/update_action()
 	bci_action.name = button_name.value
 	bci_action.button_icon_state = "[replacetextEx(LOWER_TEXT(icon_options.value), " ", "_")]"
+	bci_action.update_buttons()
 
 /datum/action/innate/bci_action
 	name = "Action"
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "bci_power"
+	button_icon_state = "power_green"
 
 	var/obj/item/circuit_component/bci_action/circuit_component
 
@@ -152,7 +153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 
 	return ..()
 
-/datum/action/innate/bci_action/Activate()
+/datum/action/innate/bci_action/on_activate()
 	circuit_component.signal.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/bci_core
@@ -213,7 +214,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	if (resolved_owner.stat == DEAD)
 		return
 
-	to_chat(resolved_owner, "<i>You hear a strange, robotic voice in your head...</i> \"["<span class='robot'>[html_encode(sent_message)]</span>"]\"")
+	to_chat(resolved_owner, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 /obj/item/circuit_component/bci_core/proc/on_organ_implanted(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
@@ -252,13 +253,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	if (flags & SHOCK_ILLUSION)
 		return
 	parent.cell.give(shock_damage * 2)
-	to_chat(source, "<span class='notice'>You absorb some of the shock into your [parent.name]!</span>")
+	to_chat(source, span_notice("You absorb some of the shock into your [parent.name]!"))
 
 /obj/item/circuit_component/bci_core/proc/on_examine(datum/source, mob/mob, list/examine_text)
 	SIGNAL_HANDLER
 
 	if (isobserver(mob))
-		examine_text += "<span class='notice'>[source.p_they(capitalized = TRUE)] [source.p_have()] <a href='?src=[REF(src)];open_bci=1'>\a [parent] implanted in [source.p_them()]</a>.</span>"
+		examine_text += span_notice("[source.p_they(capitalized = TRUE)] [source.p_have()] <a href='?src=[REF(src)];open_bci=1'>\a [parent] implanted in [source.p_them()]</a>.")
 
 /obj/item/circuit_component/bci_core/Topic(href, list/href_list)
 	..()
@@ -282,11 +283,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 
 	src.circuit_component = circuit_component
 
-	button.maptext_x = 2
-	button.maptext_y = 0
-	update_maptext()
+	update_buttons()
 
 	START_PROCESSING(SSobj, src)
+
+/datum/action/innate/bci_charge_action/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	button.maptext_x = 2
+	button.maptext_y = 0
+	return button
 
 /datum/action/innate/bci_charge_action/Destroy()
 	circuit_component.charge_action = null
@@ -296,19 +301,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger()
+/datum/action/innate/bci_charge_action/on_activate(mob/user, atom/target)
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if (isnull(cell))
-		to_chat(owner, "<span class='boldwarning'>[circuit_component.parent] has no power cell.</span>")
+		to_chat(owner, span_boldwarning("[circuit_component.parent] has no power cell."))
 	else
-		to_chat(owner, "<span class='info'>[circuit_component.parent]'s [cell.name] has <b>[cell.percent()]%</b> charge left.</span>")
-		to_chat(owner, "<span class='info'>You can recharge it by using a cyborg recharging station.</span>")
+		to_chat(owner, span_info("[circuit_component.parent]'s [cell.name] has <b>[cell.percent()]%</b> charge left."))
+		to_chat(owner, span_info("You can recharge it by using a cyborg recharging station."))
 
 /datum/action/innate/bci_charge_action/process(delta_time)
-	update_maptext()
+	update_buttons()
 
-/datum/action/innate/bci_charge_action/proc/update_maptext()
+/datum/action/innate/bci_charge_action/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(status_only)
+		return
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 	button.maptext = cell ? MAPTEXT("[cell.percent()]%") : ""
 
@@ -348,9 +358,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 	. = ..()
 
 	if (isnull(bci_to_implant))
-		. += "<span class='notice'>There is no BCI inserted.</span>"
+		. += span_notice("There is no BCI inserted.")
 	else
-		. += "<span class='notice'>Alt-click to remove [bci_to_implant].</span>"
+		. += span_notice("Alt-click to remove [bci_to_implant].")
 
 /obj/machinery/bci_implanter/proc/set_busy(status, working_icon)
 	busy = status

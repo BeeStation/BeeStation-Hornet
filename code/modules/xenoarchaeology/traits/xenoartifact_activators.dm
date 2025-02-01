@@ -32,7 +32,7 @@
 /datum/xenoartifact_trait/activator/burn/pass_input(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
 	if(X.process_type != PROCESS_TYPE_LIT && thing.ignition_effect(X, user))
-		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
+		X.visible_message(span_danger("The [X.name] sparks on."))
 		X.process_type = PROCESS_TYPE_LIT
 		sleep(1.8 SECONDS) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
@@ -56,7 +56,7 @@
 
 /datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
-		to_chat(user, "<span class='info'>The [X.name] ticks deep from within.\n</span>")
+		to_chat(user, span_info("The [X.name] ticks deep from within.\n"))
 		return TRUE
 	return ..()
 
@@ -85,7 +85,7 @@
 
 /datum/xenoartifact_trait/activator/signal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='info'>The [item.name] displays a signal-input code of [X.code], and frequency [X.frequency].</span>")
+		to_chat(user, span_info("The [item.name] displays a signal-input code of [X.code], and frequency [X.frequency]."))
 		return TRUE
 	return ..()
 
@@ -106,7 +106,7 @@
 
 /datum/xenoartifact_trait/activator/batteryneed/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays a draw of [X.charge_req].</span>")
+		to_chat(user, span_info("The [item.name] displays a draw of [X.charge_req]."))
 		return TRUE
 	return ..()
 

@@ -46,9 +46,9 @@
 /obj/machinery/power/tesla_coil/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.</span>"
+		. += span_notice("The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.")
 
-/obj/machinery/power/tesla_coil/on_construction()
+/obj/machinery/power/tesla_coil/on_construction(mob/user)
 	if(anchored)
 		connect_to_network()
 
@@ -152,7 +152,7 @@
 		return
 	return ..()
 
-/obj/machinery/power/tesla_coil/research/on_construction()
+/obj/machinery/power/tesla_coil/research/on_construction(mob/user)
 	if(anchored)
 		connect_to_network()
 

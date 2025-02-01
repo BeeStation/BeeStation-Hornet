@@ -136,3 +136,4 @@
 
 // Packet types
 #define PACKET_TYPE_PING "ping"
+#define PACKET_TYPE_THERMALDATA "thermaldata"
