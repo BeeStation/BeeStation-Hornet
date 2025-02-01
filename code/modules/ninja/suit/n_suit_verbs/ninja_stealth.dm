@@ -6,6 +6,26 @@ Contents:
 
 */
 
+/datum/action/item_action/ninja_stealth
+	name = "Activate Cloaking (500W)"
+	desc = "Activate the stealth mode, producing a cloud of smoke and making you invisible."
+	button_icon_state = "ninja_cloak"
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	cooldown_time = 60 SECONDS
+
+/datum/action/item_action/ninja_stealth/is_available()
+	if (!..())
+		return FALSE
+	var/obj/item/clothing/suit/space/space_ninja/ninja = master
+	return ninja.cell.charge >= 500
+
+/datum/action/item_action/ninja_stealth/on_activate(mob/user, atom/target)
+	var/obj/item/clothing/suit/space/space_ninja/ninja = master
+	if(!ninja.ninjacost(500))
+		ninja.stealth()
+		start_cooldown()
+	return ..()
+
 /obj/item/clothing/suit/space/space_ninja/proc/stealth()
 	affecting.say(pick(\
 		"Watch your back...",\
@@ -29,18 +49,3 @@ Contents:
 	animate(affecting, time = 1 SECONDS, alpha = 0)
 	affecting.apply_status_effect(/datum/status_effect/cloaked)
 
-/datum/action/item_action/ninja_stealth
-	name = "Toggle Stealth"
-	desc = "Toggles stealth mode on and off."
-	button_icon_state = "ninja_cloak"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
-	cooldown_time = 60 SECONDS
-
-/datum/action/item_action/ninja_stealth/on_activate(mob/user, atom/target)
-	var/obj/item/clothing/suit/space/space_ninja/ninja = master
-	if(!ninja.ninjacost(250))
-		var/mob/living/carbon/human/H = user
-		playsound(H.loc, 'sound/effects/empulse.ogg', 60, 2)
-		empulse(H, 4, 6) //Procs sure are nice. Slightly weaker than wizard's disable tch.
-		start_cooldown()
-	return ..()

@@ -112,11 +112,12 @@ Contents:
 	if(!user || !ishuman(user) || !(user.wear_suit == src))
 		return
 	user.adjust_bodytemperature(BODYTEMP_NORMAL - user.bodytemperature)
-	// Slowly heals bleeding wounds over time
-	user.cauterise_wounds(0.1)
+	update_action_buttons()
 	if (!s_initialized)
 		return
 	user.nutrition = NUTRITION_LEVEL_WELL_FED
+	// Slowly heals bleeding wounds over time
+	user.cauterise_wounds(0.1)
 
 /obj/item/clothing/suit/space/space_ninja/Destroy()
 	QDEL_NULL(spark_system)

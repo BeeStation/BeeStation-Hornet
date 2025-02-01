@@ -686,12 +686,9 @@
 	owner.alpha = max(owner.alpha - 10, 0)
 	if (owner.alpha <= 100 && !can_see_self)
 		// Make it so the user can always see themselves while cloaked
-		var/mutable_appearance/self_appearance = mutable_appearance()
-		self_appearance.appearance = owner.appearance
+		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
 		self_appearance.alpha = 100
-		self_appearance.override = TRUE
-		self_appearance.loc = owner
-		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), self_appearance, owner)
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), owner)
 		can_see_self = TRUE
 	if (owner.alpha > 100 && can_see_self)
 		owner.remove_alt_appearance(REF(src))
@@ -721,4 +718,4 @@
 /atom/movable/screen/alert/status_effect/cloaked
 	name = "Cloaked"
 	desc = "We are inside of an active cloaking field, which will be disrupted when we attack."
-	icon_state = "cloaked"
+	icon_state = "cloak"

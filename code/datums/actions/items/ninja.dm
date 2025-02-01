@@ -9,16 +9,16 @@
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 
 /datum/action/item_action/ninjastar
-	name = "Create Throwing Stars (1E)"
+	name = "Create Throwing Stars (10W)"
 	desc = "Creates some throwing stars"
 	button_icon_state = "throwingstar"
 	icon_icon = 'icons/obj/items_and_weapons.dmi'
 
-/datum/action/item_action/ninjanet
-	name = "Energy Net (20E)"
-	desc = "Captures a fallen opponent in a net of energy. Will teleport them to a holding facility after 30 seconds."
-	button_icon_state = "energynet"
-	icon_icon = 'icons/effects/effects.dmi'
+/datum/action/item_action/ninjastar/is_available()
+	if (!..())
+		return FALSE
+	var/obj/item/clothing/suit/space/space_ninja/ninja = master
+	return ninja.cell.charge >= 100
 
 /datum/action/item_action/ninja_sword_recall
 	name = "Recall Energy Katana (Variable Cost)"

@@ -87,7 +87,7 @@
 		tab_data["divider_spideros"] = GENERATE_STAT_DIVIDER
 		if(SN.s_initialized)
 			//Suit gear
-			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[round(SN.cell.charge/100)]%")
+			tab_data["Energy Charge"] = GENERATE_STAT_TEXT("[display_power(SN.cell.charge)]")
 			//Ninja status
 			tab_data["Fingerprints"] = GENERATE_STAT_TEXT("[rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
 			tab_data["Unique Identity"] = GENERATE_STAT_TEXT("[dna.unique_enzymes]")
