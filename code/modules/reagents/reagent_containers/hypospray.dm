@@ -228,14 +228,6 @@
 	amount_per_transfer_from_this = 57
 	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/regen_jelly = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine = 5)
 
-/obj/item/reagent_containers/hypospray/medipen/species_mutator
-	name = "species mutator medipen"
-	desc = "Embark on a whirlwind tour of racial insensitivity by \
-		literally appropriating other races."
-	volume = 1
-	amount_per_transfer_from_this = 1
-	list_reagents = list("unstablemutationtoxin" = 1)
-
 /obj/item/reagent_containers/hypospray/medipen/atropine
 	name = "atropine autoinjector"
 	desc = "A rapid way to save a person from a critical injury state!"

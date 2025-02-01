@@ -45,7 +45,6 @@
 
 	footstep_type = FOOTSTEP_MOB_SLIME
 
-	hud_type = /datum/hud/slime
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
 	discovery_points = 1000
@@ -178,36 +177,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		if(health <= 0)
 			mod += 2
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod, multiplicative_slowdown = mod)
-
-/mob/living/simple_animal/slime/update_health_hud()
-	if(hud_used)
-		var/severity = 0
-		var/healthpercent = (health/maxHealth) * 100
-		switch(healthpercent)
-			if(100 to INFINITY)
-				hud_used.healths.icon_state = "slime_health0"
-			if(80 to 100)
-				hud_used.healths.icon_state = "slime_health1"
-				severity = 1
-			if(60 to 80)
-				hud_used.healths.icon_state = "slime_health2"
-				severity = 2
-			if(40 to 60)
-				hud_used.healths.icon_state = "slime_health3"
-				severity = 3
-			if(20 to 40)
-				hud_used.healths.icon_state = "slime_health4"
-				severity = 4
-			if(1 to 20)
-				hud_used.healths.icon_state = "slime_health5"
-				severity = 5
-			else
-				hud_used.healths.icon_state = "slime_health7"
-				severity = 6
-		if(severity > 0)
-			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-		else
-			clear_fullscreen("brute")
 
 /mob/living/simple_animal/slime/adjust_bodytemperature()
 	. = ..()

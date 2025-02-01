@@ -200,7 +200,7 @@
 	if(item_flags & NOBLUDGEON)
 		nonharmfulhit = TRUE
 
-	if(force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
+	if(damtype != STAMINA && force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		nonharmfulhit = TRUE
 

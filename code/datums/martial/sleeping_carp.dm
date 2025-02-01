@@ -8,32 +8,33 @@
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
+	help_verb = /mob/living/proc/sleeping_carp_help
 	smashes_tables = TRUE
+	display_combos = TRUE
 	var/old_grab_state = null
 
 /datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
-		streak = ""
+		reset_streak()
 		wristWrench(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,BACK_KICK_COMBO))
-		streak = ""
+		reset_streak()
 		backKick(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,STOMACH_KNEE_COMBO))
-		streak = ""
+		reset_streak()
 		kneeStomach(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,HEAD_KICK_COMBO))
-		streak = ""
+		reset_streak()
 		headKick(A,D)
-		return 1
+		return TRUE
 	if(findtext(streak,ELBOW_DROP_COMBO))
-		streak = ""
+		reset_streak()
 		elbowDrop(A,D)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/wristWrench(mob/living/A, mob/living/D)
 	if(!D.stat && !D.IsStun() && !D.IsParalyzed())
@@ -58,7 +59,7 @@
 			D.visible_message("<span class='warning'>[A] tries to kick [D] in the back, but misses!</span>", \
 						"<span class='userdanger'>[A] tries to kick you in the back, but misses!</span>")
 			return TRUE
-		log_combat(A, D, "back-kicked (Sleeping Carp)")
+		log_combat(A, D, "back-kicked (Sleeping Carp)", name)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message("<span class='warning'>[A] kicks [D] in the back!</span>", \
 					"<span class='userdanger'>[A] kicks you in the back, making you stumble and fall!</span>")
@@ -107,7 +108,7 @@
 		to_chat(A, span_danger("You piledrive [D] with your elbow!"))
 		if(D.stat)
 			D.death() //FINISH HIM!
-		D.apply_damage(5, A.get_attack_type(), BODY_ZONE_CHEST, blocked = def_check)
+		D.apply_damage(50, A.get_attack_type(), BODY_ZONE_CHEST, blocked = def_check)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		return 1
 	return FALSE
@@ -130,8 +131,7 @@
 							"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
 			to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
 		return TRUE
-	else
-		return FALSE
+	return FALSE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
@@ -183,7 +183,7 @@
 	. = ..()
 	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
 
-/mob/living/carbon/human/proc/sleeping_carp_help()
+/mob/living/proc/sleeping_carp_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Sleeping Carp clan."
 	set category = "Sleeping Carp"

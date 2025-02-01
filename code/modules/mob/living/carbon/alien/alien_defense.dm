@@ -17,6 +17,10 @@ In all, this is a lot like the monkey code. /N
 		to_chat(user, "No attacking people at spawn, you jackass.")
 		return
 
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
 	if(!user.combat_mode)
 		if(user == src && check_self_for_injuries())
 			return

@@ -98,8 +98,8 @@
 
 /datum/martial_art/wrestling/teach(mob/living/owner, make_temporary=FALSE)
 	if(..())
-		to_chat(owner, "<span class='userdanger'>SNAP INTO A THIN TIM!</span>")
-		to_chat(owner, "<span class='danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
+		to_chat(owner, span_userdanger("SNAP INTO A THIN TIM!"))
+		to_chat(owner, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
 		drop.Grant(owner)
 		kick.Grant(owner)
 		slam.Grant(owner)

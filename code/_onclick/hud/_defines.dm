@@ -17,21 +17,6 @@
 	Therefore, the top right corner (except during admin shenanigans) is at "17,15"
 */
 
-//Lower left, persistent menu
-#define ui_inventory "WEST:6,SOUTH:5"
-
-//Middle left indicators
-#define ui_lingchemdisplay "WEST,CENTER-1:15"
-#define ui_lingstingdisplay "WEST:6,CENTER-3:11"
-
-#define ui_devilsouldisplay "WEST:6,CENTER-1:15"
-
-//Lower center, persistent menu
-#define ui_sstore1 "CENTER-5:10,SOUTH:5"
-#define ui_id "CENTER-4:12,SOUTH:5"
-#define ui_belt "CENTER-3:14,SOUTH:5"
-#define ui_back "CENTER-2:14,SOUTH:5"
-
 /proc/ui_hand_position(i) //values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
 	var/x_off = -(!(i % 2))
 	var/y_off = round((i-1) / 2)
@@ -46,8 +31,22 @@
 	var/y_off = round((M.held_items.len-1) / 2)
 	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
 
+//Lower left, persistent menu
+#define ui_inventory "WEST:6,SOUTH:5"
+
+//Middle left indicators
+#define ui_lingchemdisplay "WEST,CENTER-1:15"
+#define ui_lingstingdisplay "WEST:6,CENTER-3:11"
+#define ui_devilsouldisplay "WEST:6,CENTER-1:15"
+
+//Lower center, persistent menu
+#define ui_sstore1 "CENTER-5:10,SOUTH:5"
+#define ui_id "CENTER-4:12,SOUTH:5"
+#define ui_belt "CENTER-3:14,SOUTH:5"
+#define ui_back "CENTER-2:14,SOUTH:5"
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
+#define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts
 
 #define ui_borg_lamp "CENTER-3:16, SOUTH:5"			//borgs
 #define ui_borg_tablet "CENTER-4:16, SOUTH:5"		//borgs
@@ -60,6 +59,10 @@
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"		//borgs
 #define ui_borg_crew_manifest "CENTER+5:21,SOUTH:5"	//borgs
 #define ui_borg_language_menu "CENTER+4:21,SOUTH+1:5"	//borgs
+
+//Generic living
+#define ui_living_pull "EAST-1:28,CENTER-3:15"
+#define ui_living_healthdoll "EAST-1:28,CENTER-1:15"
 
 #define ui_monkey_body "CENTER-6:12,SOUTH:5"	//monkey
 #define ui_monkey_head "CENTER-5:14,SOUTH:5"	//monkey
@@ -118,12 +121,9 @@
 #define ui_alienplasmadisplay "EAST,CENTER-2:15"
 #define ui_alien_queen_finder "EAST,CENTER-3:15"
 
-//constructs
+//Constructs
 #define ui_construct_pull "EAST,CENTER-2:15"
-#define ui_construct_health "EAST,CENTER:15"  //same as borgs and humans
-
-//slimes
-#define ui_slime_health "EAST,CENTER:15"  //same as borgs, constructs and humans
+#define ui_construct_health "EAST,CENTER:15"
 
 // AI
 

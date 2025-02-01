@@ -257,7 +257,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	name = "Teratoma"
 	id = "teratoma"
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_RADIMMUNE,
+		TRAIT_BADDNA,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_NONECRODISEASE
+	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN

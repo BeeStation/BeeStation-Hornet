@@ -219,33 +219,33 @@
 		var/mob/living/carbon/human/H = user
 		H.dna.species.spec_attack_hand(H, src, null, modifiers)
 
-/mob/living/carbon/human/attack_paw(mob/living/carbon/human/M, modifiers)
-	if(check_shields(M, 0, "the [M.name]", UNARMED_ATTACK))
-		visible_message(span_danger("[M] attempts to touch [src]!"), \
-						span_danger("[M] attempts to touch you!"), span_hear("You hear a swoosh!"), null, M)
-		to_chat(M, span_warning("You attempt to touch [src]!"))
+/mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/user, list/modifiers)
+	if(check_shields(user, 0, "the [user.name]", UNARMED_ATTACK))
+		visible_message(span_danger("[user] attempts to touch [src]!"), \
+						span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
+		to_chat(user, span_warning("You attempt to touch [src]!"))
 		return 0
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 	if(!affecting)
 		affecting = get_bodypart(BODY_ZONE_CHEST)
 
-	var/martial_result = M.apply_martial_art(src, modifiers)
+	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand, if no item, get stunned instead.
-		dna.species.disarm(M, src)
+		dna.species.disarm(user, src)
 		return TRUE
 
-	if(!M.combat_mode)
+	if(!user.combat_mode)
 		..() //shaking
 		return FALSE
 
-	if(M.limb_destroyer)
-		dismembering_strike(M, affecting.body_zone)
+	if(user.limb_destroyer)
+		dismembering_strike(user, affecting.body_zone)
 
-	if(try_inject(M, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
+	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
 		if(..()) //successful monkey bite, this handles disease contraction.
 			var/damage = rand(1, 3)
 			if(stat != DEAD)
@@ -332,7 +332,7 @@
 		apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
-	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
 		return
 	..()
 	if (!severity || QDELETED(src))

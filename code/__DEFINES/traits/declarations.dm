@@ -44,6 +44,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HUSK				"husk"
 #define TRAIT_BADDNA			"baddna"
 #define TRAIT_CLUMSY			"clumsy"
+//means that you can't use weapons with normal trigger guards.
+#define TRAIT_CHUNKYFINGERS "chunkyfingers"
 #define TRAIT_DUMB				"dumb"
 #define TRAIT_DISCOORDINATED	"discoordinated" //sets IsAdvancedToolUser to FALSE on humans and monkies
 #define TRAIT_PACIFISM			"pacifism"
@@ -68,6 +70,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTCOLD		"resist_cold"
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
+#define TRAIT_BOMBIMMUNE "bomb_immunity"
 #define TRAIT_RADIMMUNE			"rad_immunity"
 #define TRAIT_NORADDAMAGE		"no_rad_damage"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
@@ -97,7 +100,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //Inherent trait preventing effects of stasis on a mob
 #define TRAIT_NOSTASIS "no_stasis"
 #define TRAIT_MARTIAL_ARTS_IMMUNE "martial_arts_immune" // nobody can use martial arts on this mob
-#define SLEEPING_CARP_TRAIT "sleeping_carp"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"

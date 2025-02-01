@@ -577,7 +577,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/healths/minebot
 	icon = 'icons/hud/screen_cyborg.dmi'
-	screen_loc = ui_health
+	screen_loc = ui_borg_health
 
 /atom/movable/screen/healths/blob
 	name = "blob health"
@@ -592,8 +592,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/healths/blob/naut/core
 	name = "overmind health"
-	screen_loc = ui_health
 	icon_state = "corehealth"
+	screen_loc = ui_health
 
 /atom/movable/screen/healths/clock
 	icon = 'icons/hud/actions/action_generic.dmi'
@@ -610,25 +610,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	name = "essence"
 	icon = 'icons/hud/actions/action_generic.dmi'
 	icon_state = "bg_revenant"
-	screen_loc = ui_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/construct
-	icon = 'icons/hud/screen_construct.dmi'
-	icon_state = "artificer_health0"
-	screen_loc = ui_construct_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/slime
-	icon = 'icons/hud/screen_slime.dmi'
-	icon_state = "slime_health0"
-	screen_loc = ui_slime_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/lavaland_elite
-	icon = 'icons/hud/screen_elite.dmi'
-	icon_state = "elite_health0"
-	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healthdoll
@@ -639,6 +620,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if (iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.check_self_for_injuries()
+
+/atom/movable/screen/healthdoll/living
+	icon_state = "fullhealth0"
+	screen_loc = ui_living_healthdoll
+	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
 
 /atom/movable/screen/mood
 	name = "mood"
@@ -711,6 +697,37 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/combo
+	icon_state = ""
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = ui_combo
+	plane = ABOVE_HUD_PLANE
+	var/timerid
+
+/atom/movable/screen/combo/proc/clear_streak()
+	animate(src, alpha = 0, 2 SECONDS, SINE_EASING)
+	timerid = addtimer(CALLBACK(src, PROC_REF(reset_icons)), 2 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+
+/atom/movable/screen/combo/proc/reset_icons()
+	cut_overlays()
+	icon_state = ""
+
+/atom/movable/screen/combo/update_icon_state(streak = "", time = 2 SECONDS)
+	reset_icons()
+	if(timerid)
+		deltimer(timerid)
+	alpha = 255
+	if(!streak)
+		return ..()
+	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), time, TIMER_UNIQUE | TIMER_STOPPABLE)
+	icon_state = "combo"
+	for (var/i = 1; i <= length(streak); ++i)
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon,src,"combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		add_overlay(intent_icon)
+	return ..()
 
 /atom/movable/screen/stamina
 	name = "stamina"

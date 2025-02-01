@@ -11,19 +11,19 @@
 
 /datum/martial_art/karate/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,JUMPING_KNEE_COMBO))
-		streak = ""
+		reset_streak()
 		jumpingKnee(A,D)
 		return 1
 	if(findtext(streak,KARATE_CHOP_COMBO))
-		streak = ""
+		reset_streak()
 		karateChop(A,D)
 		return 1
 	if(findtext(streak,FLOOR_KICK_COMBO))
-		streak = ""
+		reset_streak()
 		floorKick(A,D)
 		return 1
 	if(findtext(streak,CALF_KICK_COMBO))
-		streak = ""
+		reset_streak()
 		calfKick(A,D)
 		return 1
 	return 0
