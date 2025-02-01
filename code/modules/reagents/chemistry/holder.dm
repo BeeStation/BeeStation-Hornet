@@ -567,11 +567,12 @@
 			for(var/B in cached_required_reagents)
 				multiplier = min(multiplier, round(get_reagent_amount(B) / cached_required_reagents[B]))
 
+			multiplier = max(multiplier, 1) //this shouldn't happen ...
+
 			for(var/B in cached_required_reagents)
 				remove_reagent(B, (multiplier * cached_required_reagents[B]), safety = 1)
 
 			for(var/P in selected_reaction.results)
-				multiplier = max(multiplier, 1) //this shouldn't happen ...
 				SSblackbox.record_feedback("tally", "chemical_reaction", cached_results[P]*multiplier, P)
 				add_reagent(P, cached_results[P]*multiplier, null, chem_temp, no_react = TRUE)
 
