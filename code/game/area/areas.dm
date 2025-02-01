@@ -109,7 +109,6 @@
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
-	var/list/firedoors
 	var/list/cameras
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas

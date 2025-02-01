@@ -271,59 +271,6 @@ Class Procs:
 	QDEL_NULL(circuit)
 	return ..()
 
-/**
- * proc to call when the machine starts to require power after a duration of not requiring power
- * sets up power related connections to its area if it exists and becomes area sensitive
- * does not affect power usage itself
- *
- * Returns TRUE if it triggered a full registration, FALSE otherwise
- * We do this so machinery that want to sidestep the area sensitiveity optimization can
- */
-/obj/machinery/proc/setup_area_power_relationship()
-	var/area/our_area = get_area(src)
-	if(our_area)
-		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
-
-	if(HAS_TRAIT_FROM(src, TRAIT_AREA_SENSITIVE, INNATE_TRAIT)) // If we for some reason have not lost our area sensitivity, there's no reason to set it back up
-		return FALSE
-
-	become_area_sensitive(INNATE_TRAIT)
-	RegisterSignal(src, COMSIG_ENTER_AREA, PROC_REF(on_enter_area))
-	RegisterSignal(src, COMSIG_EXIT_AREA, PROC_REF(on_exit_area))
-	return TRUE
-
-/**
- * proc to call when the machine stops requiring power after a duration of requiring power
- * saves memory by removing the power relationship with its area if it exists and loses area sensitivity
- * does not affect power usage itself
- */
-/obj/machinery/proc/remove_area_power_relationship()
-	var/area/our_area = get_area(src)
-	if(our_area)
-		UnregisterSignal(our_area, COMSIG_AREA_POWER_CHANGE)
-
-	if(always_area_sensitive)
-		return
-
-	lose_area_sensitivity(INNATE_TRAIT)
-	UnregisterSignal(src, COMSIG_ENTER_AREA)
-	UnregisterSignal(src, COMSIG_EXIT_AREA)
-
-/obj/machinery/proc/on_enter_area(datum/source, area/area_to_register)
-	SIGNAL_HANDLER
-	// If we're always area sensitive, and this is called while we have no power usage, do nothing and return
-	if(always_area_sensitive && use_power == NO_POWER_USE)
-		return
-	power_change()
-	RegisterSignal(area_to_register, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
-
-/obj/machinery/proc/on_exit_area(datum/source, area/area_to_unregister)
-	SIGNAL_HANDLER
-	// If we're always area sensitive, and this is called while we have no power usage, do nothing and return
-	if(always_area_sensitive && use_power == NO_POWER_USE)
-		return
-	UnregisterSignal(area_to_unregister, COMSIG_AREA_POWER_CHANGE)
-
 /obj/machinery/proc/locate_machinery()
 	return
 
