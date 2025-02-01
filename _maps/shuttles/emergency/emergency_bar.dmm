@@ -798,10 +798,13 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
+<<<<<<< HEAD
 "Zp" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+=======
+>>>>>>> 8bc591d233b179003ea7d25ebccc69b0ee7c235c
 "Zq" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/holopad,
@@ -829,9 +832,9 @@ LQ
 ab
 Py
 ab
-Zp
-Zp
-Zp
+ac
+ac
+ac
 ab
 kK
 ab
@@ -890,7 +893,7 @@ bC
 bE
 "}
 (4,1,1) = {"
-Zp
+ac
 af
 am
 ar
@@ -914,7 +917,7 @@ bC
 bE
 "}
 (5,1,1) = {"
-Zp
+ac
 ag
 an
 as
@@ -938,7 +941,7 @@ bC
 bE
 "}
 (6,1,1) = {"
-Zp
+ac
 ah
 an
 at
@@ -962,7 +965,7 @@ bC
 bE
 "}
 (7,1,1) = {"
-Zp
+ac
 ag
 mB
 Gr
@@ -986,7 +989,7 @@ bC
 bE
 "}
 (8,1,1) = {"
-Zp
+ac
 ai
 ao
 NU
@@ -1050,7 +1053,7 @@ hS
 Zw
 xh
 kj
-Zp
+ac
 br
 cb
 bU
@@ -1063,21 +1066,21 @@ aa
 aa
 aa
 ab
-Zp
+ac
 ab
-Zp
-ab
-ab
-ab
-Zp
-Zp
-Zp
+ac
 ab
 ab
 ab
-Zp
+ac
+ac
+ac
 ab
-Zp
+ab
+ab
+ac
+ab
+ac
 ab
 aa
 "}

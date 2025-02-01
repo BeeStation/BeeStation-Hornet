@@ -108,15 +108,8 @@
 	req_one_access_txt = "2;19"
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
-/area/shuttle/escape)
-"kF" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
-/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "lm" = (
 /obj/effect/turf_decal/bot,
@@ -652,6 +645,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Up" = (
@@ -849,7 +843,7 @@ Up
 Up
 nL
 nL
-kF
+dI
 NC
 nL
 nL

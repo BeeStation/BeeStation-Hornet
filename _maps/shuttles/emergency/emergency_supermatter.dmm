@@ -6,10 +6,6 @@
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ad" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ae" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -398,7 +394,7 @@ ag
 ai
 ai
 ai
-ad
+lT
 aa
 aa
 aM
@@ -447,7 +443,7 @@ bg
 as
 as
 bk
-ad
+lT
 aM
 aO
 aa
@@ -495,7 +491,7 @@ bh
 au
 au
 bl
-ad
+lT
 aM
 aP
 aa
@@ -542,7 +538,7 @@ ag
 ai
 ai
 ai
-ad
+lT
 aa
 aa
 aM

@@ -48,6 +48,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Cargo Bay Airlock"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "dV" = (
@@ -388,6 +389,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_one_access_txt = "19;5;2"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "rF" = (
@@ -532,6 +534,7 @@
 	req_access_txt = "19"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "vP" = (
@@ -774,9 +777,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Cj" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
+/obj/machinery/door/firedoor,
+/turf/template_noop,
+/area/template_noop)
 "Cu" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
@@ -930,6 +933,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Cargo Bay Airlock"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "IP" = (
@@ -1103,6 +1107,7 @@
 	name = "Holding Area";
 	req_access_txt = "2"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "NK" = (
@@ -1150,6 +1155,7 @@
 	req_one_access_txt = "19;5;2"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "Rl" = (
@@ -1192,6 +1198,7 @@
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "UY" = (
@@ -1357,8 +1364,8 @@ ut
 rF
 ut
 Lc
-Cj
-Cj
+uQ
+uQ
 Lc
 Lc
 ut
@@ -1372,20 +1379,20 @@ Qo
 (2,1,1) = {"
 Qo
 Qo
-Qo
-Qo
-Qo
-Qo
-Qo
-Qo
-Qo
-Qo
-Qo
-Qo
-Qo
 Cj
+Qo
+Qo
+Qo
+Qo
+Qo
+Qo
+Qo
+Qo
+Qo
+Qo
+uQ
 aU
-Cj
+uQ
 hp
 Zt
 zw
@@ -1405,11 +1412,11 @@ Lc
 js
 oo
 Lc
-Cj
+uQ
 Lc
 rF
-Cj
-Cj
+uQ
+uQ
 Lc
 Lc
 Lc
@@ -1432,7 +1439,7 @@ XS
 vt
 "}
 (4,1,1) = {"
-Cj
+uQ
 GP
 nA
 KS
@@ -1567,7 +1574,7 @@ Fm
 xX
 Fm
 Lc
-Cj
+uQ
 Lc
 PU
 Lc
@@ -1579,7 +1586,7 @@ Km
 vq
 Lc
 Lc
-Cj
+uQ
 Lc
 Ix
 vt
@@ -1587,7 +1594,7 @@ lc
 vt
 "}
 (9,1,1) = {"
-Cj
+uQ
 ye
 Au
 mY
@@ -1618,7 +1625,7 @@ YC
 vt
 "}
 (10,1,1) = {"
-Cj
+uQ
 Xf
 Jx
 mY
@@ -1639,7 +1646,7 @@ zM
 vT
 cM
 Jx
-Cj
+uQ
 OJ
 OJ
 OJ
@@ -1649,7 +1656,7 @@ Yj
 lc
 "}
 (11,1,1) = {"
-Cj
+uQ
 tr
 Au
 mY
@@ -1691,7 +1698,7 @@ Lc
 NF
 Lc
 Lc
-Cj
+uQ
 Lc
 PU
 Lc
@@ -1703,7 +1710,7 @@ tm
 Cy
 Lc
 Lc
-Cj
+uQ
 Lc
 dR
 vt
@@ -1720,13 +1727,13 @@ gf
 rF
 Zk
 CY
-Cj
+uQ
 pe
 Ap
 Ap
 oi
 gH
-Cj
+uQ
 hu
 Km
 Km
@@ -1745,8 +1752,8 @@ bS
 Qo
 Lc
 oo
-Cj
-Cj
+uQ
+uQ
 Lc
 Lc
 CY
@@ -1810,16 +1817,16 @@ Qo
 Qo
 Qo
 Qo
-Cj
+uQ
 Ce
 so
-Cj
+uQ
 wh
 kL
 kL
 kL
 tu
-Cj
+uQ
 UQ
 Zt
 zw
@@ -1842,12 +1849,12 @@ Qo
 Qo
 Qo
 Lc
-Cj
-Cj
+uQ
+uQ
 Lc
 Lc
-Cj
-Cj
+uQ
+uQ
 rF
 cF
 rF
@@ -1879,9 +1886,9 @@ Qo
 Qo
 Qo
 Qo
-Cj
+uQ
 EC
-Cj
+uQ
 hp
 Yp
 Rl
@@ -1915,8 +1922,8 @@ Gl
 rF
 tL
 Lc
-Cj
-Cj
+uQ
+uQ
 Lc
 Lc
 Hc
