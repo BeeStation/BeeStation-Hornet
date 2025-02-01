@@ -921,7 +921,7 @@ Needs metabolizing takes into consideration if the chemical is metabolizing when
 					return
 				return R
 			else
-				if(round(R.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
+				if(R.volume >= amount)
 					if(needs_metabolizing && !R.metabolizing)
 						return
 					return R
