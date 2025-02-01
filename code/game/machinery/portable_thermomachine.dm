@@ -126,8 +126,8 @@
 	if(mode == HEATER_MODE_COOL)
 		delta_temperature *= -1
 	if(delta_temperature)
-		environment.set_temperature(environment.return_temperature() + delta_temperature)
-		air_update_turf()
+		environment.temperature = environment.return_temperature() + delta_temperature
+		air_update_turf(FALSE, FALSE)
 	cell.use(required_energy / efficiency)
 
 /obj/machinery/portable_thermomachine/RefreshParts()
@@ -189,19 +189,6 @@
 		SStgui.update_uis(src)
 		return TRUE
 	return ..()
-
-/obj/machinery/portable_thermomachine/AltClick(mob/user)
-	if(!can_interact(user))
-		return
-	if(mode == HEATER_MODE_COOL)
-		target_temperature = (settable_temperature_median - settable_temperature_range) - T0C
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	else if(mode == HEATER_MODE_HEAT)
-		target_temperature = (settable_temperature_median + settable_temperature_range) - T0C
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	else
-		return
-	balloon_alert(user, "You set the target temperature to [target_temperature] C.")
 
 /obj/machinery/portable_thermomachine/proc/toggle_power()
 	on = !on

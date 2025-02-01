@@ -11,7 +11,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/palebush,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "bm" = (
@@ -54,15 +53,6 @@
 	pixel_x = 2
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"dI" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "ec" = (
 /obj/machinery/light{
@@ -252,7 +242,6 @@
 /area/shuttle/escape)
 "sT" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "tn" = (
@@ -291,7 +280,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "xB" = (
@@ -329,7 +317,6 @@
 /area/shuttle/escape)
 "xD" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /obj/structure/curtain/directional{
 	dir = 4
 	},
@@ -559,7 +546,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Nx" = (
@@ -635,7 +621,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Sm" = (
@@ -718,7 +703,7 @@ yG
 yG
 Nt
 aj
-dI
+kF
 vi
 Vn
 xX
