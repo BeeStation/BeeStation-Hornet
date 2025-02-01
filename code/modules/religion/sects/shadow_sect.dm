@@ -28,6 +28,7 @@
 	var/list/active_obelisks = list()
 	var/active_obelisk_number = 0
 	var/night_vision_active = FALSE
+	var/grand_ritual_in_progres = FALSE
 	var/grand_ritual_level = 0
 
 
@@ -151,6 +152,8 @@
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
+		if(sect.grand_ritual_in_progres)
+			return
 		if(anchored)
 			src.unanchored_NV()
 			anchored = !anchored
@@ -178,6 +181,8 @@
 			return
 
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
+		if(sect.grand_ritual_in_progres)
+			return
 		if (!anchored)
 			var/list/current_objects = view_or_range(5, src, "range")
 			for(var/obj/structure/destructible/religion/shadow_obelisk/D in current_objects)
@@ -585,9 +590,18 @@
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
 		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
 		return FALSE
-	. = ..()
-	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
-		obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
+	if(!can_afford(user))
+		return FALSE
+	var/turf/T = get_turf(religious_tool)
+	if(!T.is_holy())
+		to_chat(user, span_warning("The altar can only function in a holy area!"))
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
+		return FALSE
+	spawn()
+		handle_obeliscs()
+	return ..()
 
 /datum/religion_rites/grand_ritual_one/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -607,6 +621,23 @@
 	sect.rites_list -= /datum/religion_rites/grand_ritual_one
 	sect.rites_list += /datum/religion_rites/grand_ritual_two
 	return ..()
+
+/datum/religion_rites/grand_ritual_one/proc/handle_obeliscs()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_notice("You see shadows flicer in corner of your eye."))
+		if(isshadow(M))
+			to_chat(M, span_userdanger("You feel pull towards the obeliscs, you feel like it woudl be safer near them."))
+	sleep(50)
+	sect.grand_ritual_in_progres = TRUE
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
+	sleep(300)
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	sect.grand_ritual_in_progres = FALSE
 
 
 /datum/religion_rites/grand_ritual_two
@@ -631,10 +662,18 @@
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
 		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
 		return FALSE
-	. = ..()
-	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
-		obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
-
+	if(!can_afford(user))
+		return FALSE
+	var/turf/T = get_turf(religious_tool)
+	if(!T.is_holy())
+		to_chat(user, span_warning("The altar can only function in a holy area!"))
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
+		return FALSE
+	spawn()
+		handle_obeliscs()
+	return ..()
 
 /datum/religion_rites/grand_ritual_two/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -655,6 +694,25 @@
 	sect.rites_list += /datum/religion_rites/grand_ritual_three
 	return ..()
 
+/datum/religion_rites/grand_ritual_two/proc/handle_obeliscs()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_notice("Shadows seem to flicer in corner of your eye."))
+		if(isshadow(M))
+			to_chat(M, span_userdanger("You feel pull towards the obeliscs, you feel like it woudl be safer near them."))
+	sleep(50)
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_notice("You are sure now that shadows are moving"))
+	sleep(50)
+	sect.grand_ritual_in_progres = TRUE
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(4, -15, DARKNESS_INVERSE_COLOR)
+	sleep(600)
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	sect.grand_ritual_in_progres = FALSE
 
 /datum/religion_rites/grand_ritual_three
 	name = "Grand ritual: Welcoming shadows"
@@ -678,9 +736,19 @@
 	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
 		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 2)] active obelisks.</span>")
 		return FALSE
-	. = ..()
-	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
-		obelisk.set_light(4, -10, DARKNESS_INVERSE_COLOR)
+	if(!can_afford(user))
+		return FALSE
+	var/turf/T = get_turf(religious_tool)
+	if(!T.is_holy())
+		to_chat(user, span_warning("The altar can only function in a holy area!"))
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
+		return FALSE
+	spawn()
+		handle_obeliscs()
+	return ..()
+
 
 /datum/religion_rites/grand_ritual_three/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -700,5 +768,38 @@
 	sect.rites_list -= /datum/religion_rites/grand_ritual_three
 	return ..()
 
+/datum/religion_rites/grand_ritual_three/proc/handle_obeliscs()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_notice("Shadows seem to flicer in corner of your eye."))
+		if(isshadow(M))
+			to_chat(M, span_userdanger("YOU KNOW THAT YOU NEED TO RUN TO CLOSEST OBELISK IF YOU WANT TO LIVE."))
+	sleep(50)
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_notice("You are sure now that shadows are moving"))
+	sleep(50)
+	for(var/mob/living/M in GLOB.mob_list)
+		to_chat(M, span_notice("Shadows are all flowing towards some point, leaving only light bechind!"))
+	sleep(50)
+	sect.grand_ritual_in_progres = TRUE
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(4, -30, DARKNESS_INVERSE_COLOR)
+	var/list/turf/changed_turfs
+	for(var/turf/T in GLOB.station_turfs)
+		if(T.light_power == 0)
+			changed_turfs += T
+			T.light_power = 3
+			T.light_range = 3
+	sleep(900)
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
+		if(obelisk.anchored)
+			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	for(var/turf/T in changed_turfs)
+		if(istype(T))
+			changed_turfs += T
+			T.light_power = 0
+			T.light_range = 1
+	sect.grand_ritual_in_progres = FALSE
 
 #undef DARKNESS_INVERSE_COLOR
