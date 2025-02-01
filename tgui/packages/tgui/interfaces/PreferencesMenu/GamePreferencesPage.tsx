@@ -40,9 +40,9 @@ type PreferenceChild = {
 
 const binaryInsertPreference = binaryInsertWith<PreferenceChild>((child) => child.name);
 
-export const GamePreferencesPage = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
-  let [searchText, setSearchText] = useLocalState(context, 'game_prefs_searchText', '');
+export const GamePreferencesPage = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  let [searchText, setSearchText] = useLocalState('game_prefs_searchText', '');
 
   const gamePreferences: Record<string, Record<string, PreferenceChild[]>> = {};
 

@@ -1,11 +1,11 @@
 import { useLocalState } from '../../backend';
 import { Box, Stack, Icon, Section, Button, Input, Dropdown } from '../../components';
 
-export const VariableMenu = (props, context) => {
+export const VariableMenu = (props) => {
   const { variables, onAddVariable, onRemoveVariable, handleAddSetter, handleAddGetter, types, ...rest } = props;
 
-  const [name, setName] = useLocalState(context, 'variable_name', null);
-  const [type, setType] = useLocalState(context, 'variable_type', types[1]);
+  const [name, setName] = useLocalState('variable_name', null);
+  const [type, setType] = useLocalState('variable_type', types[1]);
 
   return (
     <Section title="Variable Options" {...rest} fill height="100%">

@@ -3,8 +3,8 @@ import { AnimatedNumber, Box, Button, Flex, Fragment, Section, Slider, ProgressB
 import { NtosWindow } from '../layouts';
 import { sanitizeText } from '../sanitize';
 
-export const NtosCyborgSelfMonitor = (_, context) => {
-  const { data } = useBackend(context);
+export const NtosCyborgSelfMonitor = (_) => {
+  const { data } = useBackend();
   const { PC_device_theme } = data;
   return (
     <NtosWindow width={800} height={600} theme={PC_device_theme}>
@@ -15,10 +15,10 @@ export const NtosCyborgSelfMonitor = (_, context) => {
   );
 };
 
-export const NtosCyborgSelfMonitorContent = (_, context) => {
-  const { act, data } = useBackend(context);
-  const [tab_main, setTab_main] = useLocalState(context, 'tab_main', 1);
-  const [tab_sub, setTab_sub] = useLocalState(context, 'tab_sub', 1);
+export const NtosCyborgSelfMonitorContent = (_) => {
+  const { act, data } = useBackend();
+  const [tab_main, setTab_main] = useLocalState('tab_main', 1);
+  const [tab_sub, setTab_sub] = useLocalState('tab_sub', 1);
   const {
     charge,
     maxcharge,

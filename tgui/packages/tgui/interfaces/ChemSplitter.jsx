@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ChemSplitter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemSplitter = (props) => {
+  const { act, data } = useBackend();
   const { straight, side, max_transfer } = data;
   return (
     <Window width={220} height={105}>

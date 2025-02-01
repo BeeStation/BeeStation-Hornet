@@ -14,9 +14,9 @@
 	recommended_enemies = 1
 	round_ends_with_antag_death = 1
 	announce_span = "danger"
-	announce_text = "There is a space wizard attacking the station!\n\
-	<span class='danger'>Wizard</span>: Accomplish your objectives and cause mayhem on the station.\n\
-	<span class='notice'>Crew</span>: Eliminate the wizard before they can succeed!"
+	announce_text = "There is a space wizard attacking the station!\n \
+	" + span_danger("Wizard") + ": Accomplish your objectives and cause mayhem on the station.\n \
+	" + span_notice("Crew") + ": Eliminate the wizard before they can succeed!"
 	var/finished = 0
 
 	title_icon = "wizard"
@@ -50,8 +50,8 @@
 		if(isliving(wizard.current) && wizard.current.stat!=DEAD)
 			return FALSE
 
-	for(var/obj/item/phylactery/P in GLOB.poi_list) //TODO : IsProperlyDead()
-		if(P.mind && P.mind.has_antag_datum(/datum/antagonist/wizard))
+	for(var/datum/component/phylactery/P in GLOB.poi_list) //TODO : IsProperlyDead()
+		if(P.lich_mind && P.lich_mind.has_antag_datum(/datum/antagonist/wizard))
 			return FALSE
 
 	if(SSevents.wizardmode) //If summon events was active, turn it off
@@ -68,7 +68,7 @@
 
 /datum/game_mode/wizard/special_report()
 	if(finished)
-		return "<div class='panel redborder'><span class='redtext big'>The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</span></div>"
+		return "<div class='panel redborder'>[span_redtextbig("The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!")]</div>"
 
 //returns whether the mob is a wizard (or apprentice)
 /proc/iswizard(mob/living/M)

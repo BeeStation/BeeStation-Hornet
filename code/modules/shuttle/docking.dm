@@ -199,7 +199,7 @@
 /obj/docking_port/mobile/proc/cleanup_runway(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/areas_to_move, list/moved_atoms, rotation, movement_direction, list/area/underlying_old_area, list/all_towed_shuttles)
 	for(var/area/A in underlying_old_area)
 		CHECK_TICK
-		A.afterShuttleMove()
+		A.afterShuttleMove(0)
 
 	// Parallax handling
 	// This needs to be done before the atom after move
@@ -259,4 +259,4 @@
 	for(var/i in 1 to length(turfs))
 		var/turf/open/T = turfs[i]
 		if(istype(T))
-			T.air.copy_from_turf(T)
+			T.air.copy_from(T.air.copy())

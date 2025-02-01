@@ -26,7 +26,7 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props, _context) => {
+const IntroSection = (_props) => {
   return (
     <Section>
       <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
@@ -40,8 +40,8 @@ const IntroSection = (_props, _context) => {
   );
 };
 
-const CodewordsSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const CodewordsSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { has_codewords, phrases, responses } = data;
   return (
     <Section title="Codewords" mb={!has_codewords && -1}>
@@ -82,8 +82,8 @@ const CodewordsSection = (_props, context) => {
   );
 };
 
-export const AntagInfoMalf = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoMalf = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={660} height={530} theme="hackerman">

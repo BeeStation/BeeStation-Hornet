@@ -15,14 +15,6 @@ export const brief_outfit: Feature<string> = {
   component: FeatureDropdownInput,
 };
 
-export const announce_login: FeatureToggle = {
-  name: 'Announce Login',
-  category: 'ADMIN',
-  subcategory: 'Misc',
-  description: 'Whether you will announce whenever you login to fellow admins or not.',
-  component: CheckboxInput,
-};
-
 export const combohud_lighting: FeatureToggle = {
   name: 'Combo HUD Lighting',
   category: 'ADMIN',

@@ -135,10 +135,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 		return TRUE
 
 	add_fingerprint(user)
-	to_chat(user, "<span class='notice'>You start slicing [src]...</span>")
+	to_chat(user, span_notice("You start slicing [src]..."))
 	if(I.use_tool(src, user, 30, volume=50))
 		deconstruct()
-		to_chat(user, "<span class='notice'>You slice [src].</span>")
+		to_chat(user, span_notice("You slice [src]."))
 	return TRUE
 
 //checks if something is blocking the deconstruction (e.g. trunk with a bin still linked to it)
@@ -163,6 +163,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
+
+/obj/structure/disposalpipe/rotator
+	icon_state = "pipe-r1"
+	initialize_dirs = DISP_DIR_LEFT | DISP_DIR_RIGHT | DISP_DIR_FLIP
+	flip_type = /obj/structure/disposalpipe/rotator/flip
+	/// In what direction the atom travels.
+	var/direction_angle = -90
+
+/obj/structure/disposalpipe/rotator/nextdir(obj/structure/disposalholder/holder)
+	return turn(holder.dir, direction_angle)
+
+/obj/structure/disposalpipe/rotator/flip
+	icon_state = "pipe-r2"
+	flip_type = /obj/structure/disposalpipe/rotator
+	direction_angle = 90
 
 // Straight/bent pipe segment
 /obj/structure/disposalpipe/segment
@@ -256,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 
 /obj/structure/disposalpipe/trunk/can_be_deconstructed(mob/user)
 	if(linked)
-		to_chat(user, "<span class='warning'>You need to deconstruct disposal machinery above this pipe!</span>")
+		to_chat(user, span_warning("You need to deconstruct disposal machinery above this pipe!"))
 		return FALSE
 	return TRUE
 

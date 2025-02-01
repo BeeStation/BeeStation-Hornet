@@ -78,14 +78,14 @@
 	var/mob/living/user = loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
+			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
+			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
 
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
@@ -94,7 +94,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
+			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -192,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon()
 
-		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
+		desc = initial(desc) + "<br>[span_info("It appears to contain [target.name].")]"
 	START_PROCESSING(SSobj, src)
 	return ..()
 
@@ -217,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
 				AM.forceMove(drop_location())
 			qdel(src)
 		else if(timetokill <= 0)
-			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
+			to_chat(captured, span_boldnotice("As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy..."))
 			var/mob/dead/observer/ghost = captured.ghostize(TRUE,SENTIENCE_ERASE)
 			if(captured.mind)
 				if(ghost)
@@ -258,9 +258,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
-	GM.set_moles(GAS_O2, MOLES_O2STANDARD)
-	GM.set_moles(GAS_N2, MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
+	SET_MOLES(/datum/gas/oxygen, GM, MOLES_O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, GM, MOLES_N2STANDARD)
+	GM.temperature = T20C
 	return GM
 
 /obj/structure/chrono_field/singularity_act()

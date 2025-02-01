@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import { Button, Flex, Box, Section } from 'tgui/components';
 import { selectStatPanel } from './selectors';
 import { StatText } from './StatText';
 
-export const StatStatus = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+export const StatStatus = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   let statPanelData = [];
   if (stat.infomationUpdate) {
     for (const [key, value] of Object.entries(stat.infomationUpdate)) {
@@ -139,9 +139,9 @@ export const StatStatus = (props, context) => {
 // Non-Flex Support
 // =======================
 
-export const HoboStatStatus = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+export const HoboStatStatus = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   let statPanelData = [];
   if (stat.infomationUpdate) {
     for (const [key, value] of Object.entries(stat.infomationUpdate)) {

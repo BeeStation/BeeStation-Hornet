@@ -56,10 +56,10 @@
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You're nya't feeling so good.","You feel like your insides are melting.","You feel illsies.")
-			to_chat(M, "<span class='notice'>[sick_message]</span>")
+			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
@@ -74,11 +74,11 @@
 		return ..()
 	if(levels == 1)
 		//Nailed it!
-		H.visible_message("<span class='notice'>[H] lands elegantly on [H.p_their()] feet!</span>",
-			"<span class='warning'>You fall [levels] level\s into [T], perfecting the landing!</span>")
+		H.visible_message(span_notice("[H] lands elegantly on [H.p_their()] feet!"),
+			span_warning("You fall [levels] level\s into [T], perfecting the landing!"))
 		H.Stun(levels * 35)
 	else
-		H.visible_message("<span class='danger'>[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!</span>")
+		H.visible_message(span_danger("[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!"))
 		var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.5
 		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
 		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)

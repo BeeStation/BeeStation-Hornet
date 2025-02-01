@@ -7,13 +7,13 @@ import { isRecordMatch } from '../SecurityRecords/helpers';
 import { MedicalRecord, MedicalRecordData } from './types';
 
 /** Displays all found records. */
-export const MedicalRecordTabs = (props, context) => {
-  const { act, data } = useBackend<MedicalRecordData>(context);
+export const MedicalRecordTabs = (props) => {
+  const { act, data } = useBackend<MedicalRecordData>();
   const { records = [] } = data;
 
   const errorMessage = !records.length ? 'No records found.' : 'No match. Refine your search.';
 
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [search, setSearch] = useLocalState('search', '');
 
   const sorted: MedicalRecord[] = flow([
     filter((record: MedicalRecord) => isRecordMatch(record, search)),
@@ -41,10 +41,10 @@ export const MedicalRecordTabs = (props, context) => {
 };
 
 /** Individual crew tab */
-const CrewTab = (props: { record: MedicalRecord }, context) => {
-  const [selectedRecord, setSelectedRecord] = useLocalState<MedicalRecord | undefined>(context, 'medicalRecord', undefined);
+const CrewTab = (props: { record: MedicalRecord }) => {
+  const [selectedRecord, setSelectedRecord] = useLocalState<MedicalRecord | undefined>('medicalRecord', undefined);
 
-  const { act, data } = useBackend<MedicalRecordData>(context);
+  const { act, data } = useBackend<MedicalRecordData>();
   const { character_preview_view } = data;
   const { record } = props;
   const { record_ref, name, rank } = record;

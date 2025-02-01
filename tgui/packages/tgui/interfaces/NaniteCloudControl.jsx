@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Collapsible, Dropdown, Grid, LabeledList, NoticeBox, NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const NaniteDiskBox = (props, context) => {
-  const { data } = useBackend(context);
+export const NaniteDiskBox = (props) => {
+  const { data } = useBackend();
   const { has_disk, has_program, disk } = data;
 
   if (!has_disk) {
@@ -17,7 +17,7 @@ export const NaniteDiskBox = (props, context) => {
   return <NaniteInfoBox program={disk} />;
 };
 
-export const NaniteInfoBox = (props, context) => {
+export const NaniteInfoBox = (props) => {
   const { program } = props;
 
   const {
@@ -115,8 +115,8 @@ export const NaniteInfoBox = (props, context) => {
   );
 };
 
-export const NaniteCloudBackupList = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteCloudBackupList = (props) => {
+  const { act, data } = useBackend();
   const cloud_backups = data.cloud_backups || [];
   return cloud_backups.map((backup) => (
     <Button
@@ -133,12 +133,12 @@ export const NaniteCloudBackupList = (props, context) => {
   ));
 };
 
-export const NaniteCloudBackupDetails = (_props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteCloudBackupDetails = (_props) => {
+  const { act, data } = useBackend();
   const { current_view, disk, has_program, cloud_backup } = data;
-  const [combineSelection, setCombineSelection] = useLocalState(context, 'combineSelection', false);
-  const [toCombine, setToCombine] = useLocalState(context, 'toCombine', []);
-  const [combineOp, setCombineOp] = useLocalState(context, 'combineOp', 'AND');
+  const [combineSelection, setCombineSelection] = useLocalState('combineSelection', false);
+  const [toCombine, setToCombine] = useLocalState('toCombine', []);
+  const [combineOp, setCombineOp] = useLocalState('combineOp', 'AND');
 
   const can_rule = (disk && disk.can_rule) || false;
 
@@ -271,8 +271,8 @@ export const NaniteCloudBackupDetails = (_props, context) => {
   );
 };
 
-export const NaniteCloudControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteCloudControl = (props) => {
+  const { act, data } = useBackend();
   const { has_disk, current_view, new_backup_id } = data;
 
   return (

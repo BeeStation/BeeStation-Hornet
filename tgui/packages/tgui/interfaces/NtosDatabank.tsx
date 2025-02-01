@@ -6,8 +6,8 @@ type Data = {
   src?: string;
 };
 
-export const NtosDatabank = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const NtosDatabank = (props) => {
+  const { data } = useBackend<Data>();
   const { src } = data;
 
   return (

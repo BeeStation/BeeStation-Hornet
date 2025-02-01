@@ -3,8 +3,8 @@ import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumb
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-export const XenoartifactConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const XenoartifactConsole = (props) => {
+  const { act, data } = useBackend();
   const { tab_index, current_tab, tab_info, points, stability } = data;
   const sellers = Object.values(data.seller);
   return (
@@ -54,8 +54,8 @@ export const XenoartifactConsole = (props, context) => {
   );
 };
 
-const XenoartifactConsoleTabs = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleTabs = (props) => {
+  const { act, data } = useBackend();
   const { tab_index, current_tab } = data;
   const { tab_name } = props;
   return (
@@ -67,8 +67,8 @@ const XenoartifactConsoleTabs = (props, context) => {
   );
 };
 
-export const XenoartifactListingBuy = (props, context) => {
-  const { act, data } = useBackend(context);
+export const XenoartifactListingBuy = (props) => {
+  const { act, data } = useBackend();
   const { name, dialogue, price, id } = props;
   return (
     <Box p={0.5}>
@@ -83,8 +83,8 @@ export const XenoartifactListingBuy = (props, context) => {
   );
 };
 
-export const XenoartifactListingSell = (props, context) => {
-  const { act, data } = useBackend(context);
+export const XenoartifactListingSell = (props) => {
+  const { act, data } = useBackend();
   const { name, dialogue } = props;
   return (
     <Box p={0.5}>
@@ -96,8 +96,8 @@ export const XenoartifactListingSell = (props, context) => {
   );
 };
 
-export const XenoartifactLinking = (props, context) => {
-  const { act, data } = useBackend(context);
+export const XenoartifactLinking = (props) => {
+  const { act, data } = useBackend();
   const { linked_machines } = data;
   return (
     <Box p={0.5}>
@@ -113,8 +113,8 @@ export const XenoartifactLinking = (props, context) => {
   );
 };
 
-export const XenoartifactSell = (props, context) => {
-  const { act, data } = useBackend(context);
+export const XenoartifactSell = (props) => {
+  const { act, data } = useBackend();
   const entries = Object.values(data.sold_artifacts);
   const buyers = Object.values(data.buyer);
   return (

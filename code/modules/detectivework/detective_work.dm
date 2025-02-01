@@ -51,11 +51,11 @@
 		if(G.transfer_blood > 1 && G.blood_DNA_length() > old_blood) //bloodied gloves transfer blood to touched objects
 			if(add_blood_DNA(G.return_blood_DNA()))
 				G.transfer_blood--
-				H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] gloves all over \the [src]!</span>","<span class='danger'>You smear blood from your gloves all over \the [src]!")
+				H.visible_message(span_danger("[H] smears blood from [H.p_their()] gloves all over \the [src]!"), span_danger("You smear blood from your gloves all over \the [src]!"))
 	else if(H.blood_in_hands > 1)
 		if(add_blood_DNA(H.return_blood_DNA()) && H.blood_DNA_length() > old_blood) //if the onject you're touching is already drenched in blood, the blood from your hands won't get used up again
 			H.blood_in_hands-- //we don't update icon after so you still have to wash your hands off, I don't think you'd be able to completely wipe your hands off just on the floor
-			H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] hands all over \the [src]!</span>","<span class='danger'>You smear blood from your hands all over \the [src]!")
+			H.visible_message(span_danger("[H] smears blood from [H.p_their()] hands all over \the [src]!"), span_danger("You smear blood from your hands all over \the [src]!"))
 
 /atom/proc/add_fiber_list(list/fibertext)				//ASSOC LIST FIBERTEXT = FIBERTEXT
 	if(length(fibertext))

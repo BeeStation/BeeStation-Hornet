@@ -439,11 +439,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
-"Uc" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -457,9 +452,9 @@ gl
 ab
 jr
 ab
-Uc
-Uc
-Uc
+ac
+ac
+ac
 ab
 mN
 ab
@@ -618,7 +613,7 @@ ac
 ah
 al
 aa
-Uc
+ac
 ac
 aB
 bo
@@ -666,8 +661,8 @@ aa
 aa
 aa
 aa
-Uc
-Uc
+ac
+ac
 aB
 aH
 aw

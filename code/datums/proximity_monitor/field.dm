@@ -137,7 +137,7 @@
 
 /obj/item/multitool/field_debug/attack_self(mob/user)
 	operating = !operating
-	to_chat(user, "<span class='notice'>You turn [src] [operating? "on":"off"].</span>")
+	to_chat(user, span_notice("You turn [src] [operating? "on":"off"]."))
 	if(!istype(current) && operating)
 		setup_debug_field()
 	else if(!operating)

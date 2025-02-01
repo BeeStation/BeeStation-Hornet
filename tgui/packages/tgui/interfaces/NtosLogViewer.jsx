@@ -3,9 +3,9 @@ import { useBackend, useLocalState } from '../backend';
 import { Section, Table, Button } from '../components';
 import { Component, createRef } from 'inferno';
 
-export const NtosLogViewer = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [openFile, setOpenFile] = useLocalState(context, 'log_viewer_open', null);
+export const NtosLogViewer = (props) => {
+  const { act, data } = useBackend();
+  const [openFile, setOpenFile] = useLocalState('log_viewer_open', null);
   const { files = [] } = data;
   const openFileResult = files.find((file) => file.name === openFile && (!file.remote || file.online));
   return (

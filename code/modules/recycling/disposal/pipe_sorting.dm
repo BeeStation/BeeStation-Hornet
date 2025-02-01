@@ -59,11 +59,11 @@
 /obj/structure/disposalpipe/sorting/mail/examine(mob/user)
 	. = ..()
 	if(sortTypes.len)
-		. += "<span class='notice'>It is tagged with the following tags:</span>"
+		. += span_notice("It is tagged with the following tags:")
 		for(var/t in sortTypes)
-			. += "<span class='notice'>\t[GLOB.TAGGERLOCATIONS[t]]</span>."
+			. += "[span_notice("\t[GLOB.TAGGERLOCATIONS[t]]")]."
 	else
-		. += "<span class='notice'>It has no sorting tags set. You can use a destination tagger on it to set its sorting tags.</span>"
+		. += span_notice("It has no sorting tags set. You can use a destination tagger on it to set its sorting tags.")
 
 /obj/structure/disposalpipe/sorting/mail/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dest_tagger))
@@ -72,10 +72,10 @@
 		if(O.currTag)// Tagger has a tag set
 			if(O.currTag in sortTypes)
 				sortTypes -= O.currTag
-				to_chat(user, "<span class='notice'>Removed \"[GLOB.TAGGERLOCATIONS[O.currTag]]\" filter.</span>")
+				to_chat(user, span_notice("Removed \"[GLOB.TAGGERLOCATIONS[O.currTag]]\" filter."))
 			else
 				sortTypes |= O.currTag
-				to_chat(user, "<span class='notice'>Added \"[GLOB.TAGGERLOCATIONS[O.currTag]]\" filter.</span>")
+				to_chat(user, span_notice("Added \"[GLOB.TAGGERLOCATIONS[O.currTag]]\" filter."))
 			playsound(src, 'sound/machines/twobeep_high.ogg', 100, 1)
 	else
 		return ..()

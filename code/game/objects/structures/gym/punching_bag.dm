@@ -25,9 +25,9 @@
 	user.apply_status_effect(STATUS_EFFECT_EXERCISED, 1)
 
 /obj/structure/punching_bag/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to cut [src] apart...</span>")
+	to_chat(user, span_notice("You begin to cut [src] apart..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You cut [src] apart.</span>")
+		to_chat(user, span_notice("You cut [src] apart."))
 		new /obj/item/stack/sheet/cotton/cloth(loc, 10)
 		qdel(src)
 	return TRUE

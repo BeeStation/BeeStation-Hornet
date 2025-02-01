@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const CargoHoldTerminal = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CargoHoldTerminal = (props) => {
+  const { act, data } = useBackend();
   const { points, pad, sending, status_report } = data;
   return (
     <Window width={600} height={230}>

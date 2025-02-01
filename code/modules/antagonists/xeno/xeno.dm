@@ -5,7 +5,7 @@
 /datum/team/xeno/roundend_report()
 	var/list/parts = list()
 	var/success = SSshuttle.emergency.is_hijacked_by_xenos()
-	parts += "<span class='header'>The [name] [success ? "have <span class='greentext'>succeeded!</span>" : "have <span class='redtext'>failed!</span>"]</span>\n"
+	parts += span_header("The [name] [success ? "have [span_greentext("succeeded!")]" : "have [span_redtext("failed!")]"]\n")
 	parts += "<b>[success ? "The Queen has left the station alive and the colony will continue to spread!" : "The remnants of the colony will wither in isolation"]</b>"
 	parts += "The [name] were:"
 	parts += printplayerlist(members)

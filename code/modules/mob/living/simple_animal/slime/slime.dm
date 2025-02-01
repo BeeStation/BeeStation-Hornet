@@ -8,7 +8,7 @@
 	gender = NEUTER
 	var/is_adult = 0
 	var/docile = 0
-	faction = list("slime","neutral")
+	faction = list(FACTION_SLIME,FACTION_NEUTRAL)
 
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
@@ -304,8 +304,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 			return
 		if(buckled)
 			Feedstop(silent = TRUE)
-			visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
-				"<span class='danger'>You pull [src] off!</span>")
+			visible_message(span_danger("[M] pulls [src] off!"), \
+				span_danger("You pull [src] off!"))
 			return
 		attacked += 5
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
@@ -338,14 +338,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(buckled)
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(bucklestrength >= 0)
-			M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
-				"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
+			M.visible_message(span_warning("[M] attempts to wrestle \the [name] off!"), \
+				span_danger("You attempt to wrestle \the [name] off!"))
 			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 			bucklestrength --
 
 		else
-			M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
-				"<span class='notice'>You manage to wrestle \the [name] off!</span>")
+			M.visible_message(span_warning("[M] manages to wrestle \the [name] off!"), \
+				span_notice("You manage to wrestle \the [name] off!"))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 			discipline_slime(M)
@@ -372,7 +372,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 					return 1
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		add_friendship(user, 1)
-		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
+		to_chat(user, span_notice("You feed the slime the plasma. It chirps happily."))
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
@@ -381,7 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		if(prob(25))
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
-			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
+			to_chat(user, span_danger("[W] passes right through [src]!"))
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0
@@ -394,7 +394,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(istype(W, /obj/item/storage/bag/bio))
 		var/obj/item/storage/P = W
 		if(!effectmod)
-			to_chat(user, "<span class='warning'>The slime is not currently being mutated.</span>")
+			to_chat(user, span_warning("The slime is not currently being mutated."))
 			return
 		var/hasOutput = FALSE //Have we outputted text?
 		var/hasFound = FALSE //Have we found an extract to be added?
@@ -405,23 +405,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 				applied++
 				hasFound = TRUE
 			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-				to_chat(user, "<span class='notice'>You feed the slime as many of the extracts from the bag as you can, and it mutates!</span>")
+				to_chat(user, span_notice("You feed the slime as many of the extracts from the bag as you can, and it mutates!"))
 				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
 				spawn_corecross(user)
 				hasOutput = TRUE
 				break
 		if(!hasOutput)
 			if(!hasFound)
-				to_chat(user, "<span class='warning'>There are no extracts in the bag that this slime will accept!</span>")
+				to_chat(user, span_warning("There are no extracts in the bag that this slime will accept!"))
 			else
-				to_chat(user, "<span class='notice'>You feed the slime some extracts from the bag.</span>")
+				to_chat(user, span_notice("You feed the slime some extracts from the bag."))
 				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
 		return
 	..()
 
 /mob/living/simple_animal/slime/proc/spawn_corecross(mob/living/user)
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
-	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
+	visible_message(span_danger("[src] shudders, its mutated core consuming the rest of its body!"))
 	playsound(src, 'sound/magic/smoke.ogg', 50, 1)
 	var/crosspath
 	var/crosspath_dangerous = FALSE
@@ -440,7 +440,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 			message_admins("A [crosspath_name] was created at [ADMIN_VERBOSEJMP(src)] by [ADMIN_LOOKUPFLW(user)]")
 		new crosspath(loc)
 	else
-		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
+		visible_message(span_warning("The mutated core shudders, and collapses into a puddle, unable to maintain its form."))
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
@@ -455,12 +455,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	return
 
 /mob/living/simple_animal/slime/examine(mob/user)
-	. = list("<span class='info'>This is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list(span_info("This is [icon2html(src, user)] \a <EM>[src]</EM>!"))
 	if (stat == DEAD)
-		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
+		. += span_deadsay("It is limp and unresponsive.")
 	else
 		if (stat == UNCONSCIOUS || stat == HARD_CRIT) // Slime stasis
-			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
+			. += span_deadsay("It appears to be alive but unresponsive.")
 		if (getBruteLoss())
 			. += "<span class='warning'>"
 			if (getBruteLoss() < 40)
@@ -477,10 +477,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 				. += "It is glowing gently with moderate levels of electrical activity."
 
 			if(6 to 9)
-				. += "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>"
+				. += span_warning("It is glowing brightly with high levels of electrical activity.")
 
 			if(10)
-				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
+				. += span_warning("<B>It is radiating with massive levels of electrical activity!</B>")
 
 	. += "</span>"
 

@@ -3,8 +3,8 @@ import { Box, Button, Flex } from '../../components';
 import { FUNDAMENTAL_DATA_TYPES, DATATYPE_DISPLAY_HANDLERS } from './FundamentalTypes';
 import { NULL_REF } from './constants';
 
-export const DisplayName = (props, context) => {
-  const { act } = useBackend(context);
+export const DisplayName = (props) => {
+  const { act } = useBackend();
   const { port, isOutput, componentId, portIndex, ...rest } = props;
 
   const InputComponent = FUNDAMENTAL_DATA_TYPES[port.type || 'unknown'];

@@ -7,7 +7,7 @@ type Props = {
   color?: string;
 };
 
-export const AntagInfoHeader = (props: Props, _context) => {
+export const AntagInfoHeader = (props: Props) => {
   const { name, asset, color } = props;
   return (
     <Section>

@@ -41,6 +41,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isopenturf(A) (istype(A, /turf/open))
 
+#define istransitturf(A) (istype(A, /turf/open/space/transit))
+
 #define isindestructiblefloor(A) (istype(A, /turf/open/indestructible))
 
 #define isspaceturf(A) (istype(A, /turf/open/space))
@@ -182,6 +184,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isfaithless(A) (istype(A, /mob/living/simple_animal/hostile/faithless))
 
 #define ismimite(A) (istype(A, /mob/living/simple_animal/hostile/mimite))
+
+#define isspider(A) (istype(A, /mob/living/simple_animal/hostile/poison/giant_spider))
 
 //Misc mobs
 #define isobserver(A) (istype(A, /mob/dead/observer))

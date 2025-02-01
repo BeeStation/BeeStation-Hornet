@@ -27,12 +27,12 @@
 
 /obj/item/reagent_containers/cup/soda_cans/suicide_act(mob/living/carbon/human/H)
 	if(!reagents.total_volume)
-		H.visible_message("<span class='warning'>[H] is trying to take a big sip from [src]... The can is empty!</span>")
+		H.visible_message(span_warning("[H] is trying to take a big sip from [src]... The can is empty!"))
 		return SHAME
 	if(!is_drainable())
 		open_soda()
 		sleep(10)
-	H.visible_message("<span class='suicide'>[H] takes a big sip from [src]! It looks like [H.p_theyre()] trying to commit suicide!</span>")
+	H.visible_message(span_suicide("[H] takes a big sip from [src]! It looks like [H.p_theyre()] trying to commit suicide!"))
 	playsound(H,'sound/items/drink.ogg', 80, TRUE)
 	reagents.trans_to(H, src.reagents.total_volume, transfered_by = H) //a big sip
 	sleep(5)
@@ -49,9 +49,9 @@
 /obj/item/reagent_containers/cup/soda_cans/attack(mob/M, mob/user)
 	if(iscarbon(M) && !reagents.total_volume && user.a_intent == INTENT_HARM && user.is_zone_selected(BODY_ZONE_HEAD))
 		if(M == user)
-			user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
+			user.visible_message(span_warning("[user] crushes the can of [src] on [user.p_their()] forehead!"), span_notice("You crush the can of [src] on your forehead."))
 		else
-			user.visible_message("<span class='warning'>[user] crushes the can of [src] on [M]'s forehead!</span>", "<span class='notice'>You crush the can of [src] on [M]'s forehead.</span>")
+			user.visible_message(span_warning("[user] crushes the can of [src] on [M]'s forehead!"), span_notice("You crush the can of [src] on [M]'s forehead."))
 		playsound(M,'sound/weapons/pierce.ogg', rand(10,50), TRUE)
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(M.loc)
 		crushed_can.icon_state = icon_state
@@ -71,7 +71,7 @@
 
 /obj/item/reagent_containers/cup/soda_cans/proc/open_soda(mob/user)
 	if(prob(fizziness))
-		user.visible_message("<span class='danger'>[user] opens [src], and is suddenly sprayed by the fizzing contents!</span>", "<span class='danger'>You pull back the tab of [src], and are suddenly sprayed with a torrent of liquid! Ahhh!!</span>")
+		user.visible_message(span_danger("[user] opens [src], and is suddenly sprayed by the fizzing contents!"), span_danger("You pull back the tab of [src], and are suddenly sprayed with a torrent of liquid! Ahhh!!"))
 		burst_soda(user)
 		return
 	to_chat(user, "You pull back the tab of \the [src] with a satisfying pop.") //Ahhhhhhhh
@@ -100,10 +100,10 @@
 
 	playsound(src, 'sound/effects/can_pop.ogg', 80, TRUE)
 	if(!hide_message)
-		visible_message("<span class='danger'>[src] spills over, fizzing its contents all over [target]!</span>")
+		visible_message(span_danger("[src] spills over, fizzing its contents all over [target]!"))
 	spillable = TRUE
 	reagents.flags |= OPENCONTAINER
-	reagents.reaction(target, TOUCH)
+	reagents.expose(target, TOUCH)
 	reagents.clear_reagents()
 	throwforce = 0
 
@@ -117,7 +117,7 @@
 		return
 
 	burst_soda(hit_atom, hide_message = TRUE)
-	visible_message("<span class='danger'>[src]'s impact with [hit_atom] causes it to rupture, spilling everywhere!</span>")
+	visible_message(span_danger("[src]'s impact with [hit_atom] causes it to rupture, spilling everywhere!"))
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(src.loc)
 	crushed_can.icon_state = icon_state
 	moveToNullspace()
@@ -134,8 +134,8 @@
 	if(!in_range(user, src))
 		return
 	if(fizziness > 30 && prob(fizziness * 2))
-		. += "<span class='notice'><i>You examine [src] closer, and note the following...</i></span>"
-		. += "\t["<span class='warning'>You get a menacing aura of fizziness from it...</span>"]"
+		. += span_notice("<i>You examine [src] closer, and note the following...</i>")
+		. += "\t[span_warning("You get a menacing aura of fizziness from it...")]"
 
 #undef SODA_FIZZINESS_THROWN
 #undef SODA_FIZZINESS_SHAKE

@@ -28,7 +28,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	stop_automated_movement = 1
 	status_flags = 0
-	faction = list("cult")
+	faction = list(FACTION_CULT)
 	status_flags = CANPUSH
 	is_flying_animal = TRUE
 	loot = list(/obj/item/ectoplasm)
@@ -55,10 +55,10 @@
 		if(health < maxHealth)
 			adjustHealth(-25)
 			Beam(M, icon_state="sendbeam", time= 4)
-			M.visible_message("<span class='danger'>[M] heals \the <b>[src]</b>.</span>", \
-					   "<span class='cult'>You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+			M.visible_message(span_danger("[M] heals \the <b>[src]</b>."), \
+					   span_cult("You heal <b>[src]</b>, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
 		else
-			to_chat(M, "<span class='cult'>You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!</span>")
+			to_chat(M, span_cult("You cannot heal <b>[src]</b>, as [p_theyre()] unharmed!"))
 	else if(src != M)
 		return ..()
 

@@ -153,7 +153,7 @@
 
 /obj/item/surprise_egg/attack_self(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
+	to_chat(user, span_notice("You unwrap [src] and find a prize inside!"))
 	dispensePrize(get_turf(user))
 	qdel(src)
 

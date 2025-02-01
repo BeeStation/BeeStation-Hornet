@@ -4,8 +4,8 @@ import { Box, Button, Collapsible, NoticeBox, ProgressBar, Section } from '../co
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 
-export const CloningConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CloningConsole = (props) => {
+  const { act, data } = useBackend();
   const { useRecords, hasAutoprocess, autoprocess, temp, scanTemp, scannerLocked, hasOccupant, recordsLength, experimental } =
     data;
   const lacksMachine = data.lacksMachine || [];

@@ -14,11 +14,11 @@ transformative extracts:
 		return FALSE
 	var/mob/living/simple_animal/slime/S = target
 	if(S.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
+		to_chat(user, span_warning("The slime is dead!"))
 	if(S.transformeffects & effect_applied)
-		to_chat(user,"<span class='warning'>This slime already has the [colour] transformative effect applied!</span>")
+		to_chat(user,span_warning("This slime already has the [colour] transformative effect applied!"))
 		return FALSE
-	to_chat(user,"<span class='notice'>You apply [src] to [target].</span>")
+	to_chat(user,span_notice("You apply [src] to [target]."))
 	do_effect(S, user)
 	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
 	qdel(src)

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, NoticeBox, Section, Table } from '../components';
 import { Window } from '../layouts';
 
-export const GulagItemReclaimer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GulagItemReclaimer = (props) => {
+  const { act, data } = useBackend();
   const { mobs = [] } = data;
   return (
     <Window width={325} height={400}>

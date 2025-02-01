@@ -22,12 +22,12 @@
 
 /mob/living/simple_animal/hostile/holoparasite/UnarmedAttack(atom/target)
 	if(!is_manifested() && a_intent != INTENT_HELP)
-		to_chat(src, "<span class='danger bold'>You must be manifested to interact with or attack things!</span>")
+		to_chat(src, span_dangerbold("You must be manifested to interact with or attack things!"))
 		return
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
 		return
 	if(target == src)
-		to_chat(src, "<span class='danger bold'>You can't attack yourself!</span>")
+		to_chat(src, span_dangerbold("You can't attack yourself!"))
 		return
 	if(dextrous && isitem(target))
 		. = target.attack_hand(src)
@@ -50,7 +50,7 @@
 
 /mob/living/simple_animal/hostile/holoparasite/proc/harm_attack(atom/target)
 	if(melee_damage && has_matching_summoner(target))
-		to_chat(src, "<span class='danger bold'>That would harm your summoner!</span>")
+		to_chat(src, span_dangerbold("That would harm your summoner!"))
 		return FALSE
 	. = target.attack_animal(src)
 	if(. && isliving(target))

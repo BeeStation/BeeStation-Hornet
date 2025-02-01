@@ -32,7 +32,7 @@
 	looking_direction = direction
 	var/look_str = direction == LOOKING_DIRECTION_UP ? "up" : "down"
 	if(update_looking_move(automatic))
-		visible_message("<span class='notice'>[src] looks [look_str].</span>", "<span class='notice'>You look [look_str].</span>")
+		visible_message(span_notice("[src] looks [look_str]."), span_notice("You look [look_str]."))
 
 /// Called by /mob/living/Moved(), checks if we can continue looking
 /mob/living/proc/update_looking_move(automatic = FALSE)
@@ -49,7 +49,7 @@
 	var/turf/base = find_visible_hole_in_direction(looking_direction)
 	if(!isturf(base))
 		if(!automatic)
-			to_chat(src, "<span class='warning'>You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you.</span>")
+			to_chat(src, span_warning("You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you."))
 		set_look_direction(LOOKING_DIRECTION_NONE)
 		return FALSE
 	reset_perspective(base)

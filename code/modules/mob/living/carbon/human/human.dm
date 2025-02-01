@@ -115,8 +115,9 @@
 	var/list/tab_data = ..()
 	var/obj/item/tank/target_tank = internal || external
 	if(target_tank)
+		var/datum/gas_mixture/target_tank_air = target_tank.return_air()
 		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
-		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank.air_contents.return_pressure()]")
+		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank_air.return_pressure()]")
 		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
 		var/obj/item/clothing/suit/space/S = wear_suit
@@ -159,7 +160,7 @@
 	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
 		var/slot = text2num(href_list["item"])
 		if(check_obscured_slots(TRUE) & slot)
-			to_chat(usr, "<span class='warning'>You can't reach that! Something is covering it.</span>")
+			to_chat(usr, span_warning("You can't reach that! Something is covering it."))
 			return
 
 ///////HUDs///////
@@ -172,7 +173,7 @@
 		if(!HAS_TRAIT(human_or_ghost_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_or_ghost_user, TRAIT_MEDICAL_HUD))
 			return
 		if((text2num(href_list["examine_time"]) + 1 MINUTES) < world.time)
-			to_chat(human_or_ghost_user, "<span class='notice'>It's too late to use this now!</span>")
+			to_chat(human_or_ghost_user, span_notice("It's too late to use this now!"))
 			return
 		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(href_list["photo_front"] || href_list["photo_side"])
@@ -193,7 +194,7 @@
 				return
 			if(href_list["evaluation"])
 				if(!getBruteLoss() && !getFireLoss() && !getOxyLoss() && getToxLoss() < 20)
-					to_chat(human_user, "<span class='notice'>No external injuries detected.</span><br>")
+					to_chat(human_user, "[span_notice("No external injuries detected.")]<br>")
 					return
 				var/span = "notice"
 				var/status = ""
@@ -228,9 +229,9 @@
 						if(burndamage)
 							to_chat(human_user, "<span class='[span]'>[BP] appears to have [status]</span>")
 				if(getOxyLoss())
-					to_chat(human_user, "<span class='danger'>Patient has signs of suffocation, emergency treatment may be required!</span>")
+					to_chat(human_user, span_danger("Patient has signs of suffocation, emergency treatment may be required!"))
 				if(getToxLoss() > 20)
-					to_chat(human_user, "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>")
+					to_chat(human_user, span_danger("Gathered data is inconsistent with the analysis, possible cause: poisoning."))
 			if(href_list["physical_status"])
 				var/physical_status = tgui_input_list(human_user, "Specify a new physical status for this person.", "Medical HUD", PHYSICAL_STATUSES(), target_record.physical_status)
 				if(!physical_status || !target_record || !human_user.canUseHUD() || !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
@@ -266,14 +267,14 @@
 							allowed_access = human_user.get_authentification_name()
 
 				if(!allowed_access)
-					to_chat(human_user, "<span class='warning'>ERROR: Invalid access.</span>")
+					to_chat(human_user, span_warning("ERROR: Invalid access."))
 					return
 			if(!perpname)
-				to_chat(human_user, "<span class='warning'>ERROR: Can not identify target.</span>")
+				to_chat(human_user, span_warning("ERROR: Can not identify target."))
 				return
 			target_record = find_record(perpname, GLOB.manifest.general)
 			if(!target_record)
-				to_chat(human_user, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
+				to_chat(human_user, span_warning("ERROR: Unable to locate data core entry for target."))
 				return
 			if(ishuman(human_or_ghost_user) && href_list["status"])
 				var/new_status = tgui_input_list(human_user, "Specify a new criminal status for this person.", "Security HUD", WANTED_STATUSES(), target_record.wanted_status)
@@ -305,7 +306,7 @@
 				if(length(target_record.crimes))
 					for(var/datum/crime_record/crime in target_record.crimes)
 						if(!crime.valid)
-							sec_record_message += "<span class='notice'>\n-- REDACTED --</span>"
+							sec_record_message += span_notice("\n-- REDACTED --")
 							continue
 
 						sec_record_message += "\n<b>Crime:</b> [crime.name]"
@@ -338,7 +339,7 @@
 
 					target_record.crimes += new_crime
 					investigate_log("New Crime: <strong>[crime_name]</strong> | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
-					to_chat(human_user, "<span class='notice'>Successfully added a crime.</span>")
+					to_chat(human_user, span_notice("Successfully added a crime."))
 
 					return
 
@@ -495,7 +496,7 @@
 		for(var/obj/item/hand in held_items)
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
 				step_towards(hand, src)
-				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
+				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
 	rad_act(current_size * 3)
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
@@ -514,50 +515,50 @@
 			return FALSE
 
 		if (target.stat == DEAD || HAS_TRAIT(target, TRAIT_FAKEDEATH))
-			to_chat(src, "<span class='warning'>[target.name] is dead!</span>")
+			to_chat(src, span_warning("[target.name] is dead!"))
 			return FALSE
 
 		if (is_mouth_covered())
-			to_chat(src, "<span class='warning'>Remove your mask first!</span>")
+			to_chat(src, span_warning("Remove your mask first!"))
 			return FALSE
 
 		if (target.is_mouth_covered())
-			to_chat(src, "<span class='warning'>Remove [p_their()] mask first!</span>")
+			to_chat(src, span_warning("Remove [p_their()] mask first!"))
 			return FALSE
 
 		if (!getorganslot(ORGAN_SLOT_LUNGS))
-			to_chat(src, "<span class='warning'>You have no lungs to breathe with, so you cannot perform CPR!</span>")
+			to_chat(src, span_warning("You have no lungs to breathe with, so you cannot perform CPR!"))
 			return FALSE
 
 		if (HAS_TRAIT(src, TRAIT_NOBREATH))
-			to_chat(src, "<span class='warning'>You do not breathe, so you cannot perform CPR!</span>")
+			to_chat(src, span_warning("You do not breathe, so you cannot perform CPR!"))
 			return FALSE
 
-		visible_message("<span class='notice'>[src] is trying to perform CPR on [target.name]!</span>", \
-						"<span class='notice'>You try to perform CPR on [target.name]... Hold still!</span>")
+		visible_message(span_notice("[src] is trying to perform CPR on [target.name]!"), \
+						span_notice("You try to perform CPR on [target.name]... Hold still!"))
 
 		if (!do_after(src, delay = panicking ? CPR_PANIC_SPEED : (3 SECONDS), target = target))
-			to_chat(src, "<span class='warning'>You fail to perform CPR on [target]!</span>")
+			to_chat(src, span_warning("You fail to perform CPR on [target]!"))
 			return FALSE
 
 		if (target.health > target.crit_threshold)
 			return FALSE
 
-		visible_message("<span class='notice'>[src] performs CPR on [target.name]!</span>", "<span class='notice'>You perform CPR on [target.name].</span>")
+		visible_message(span_notice("[src] performs CPR on [target.name]!"), span_notice("You perform CPR on [target.name]."))
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "perform_cpr", /datum/mood_event/perform_cpr)
 		log_combat(src, target, "CPRed")
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))
-			to_chat(target, "<span class='unconscious'>You feel a breath of fresh air... which is a sensation you don't recognise...</span>")
+			to_chat(target, span_unconscious("You feel a breath of fresh air... which is a sensation you don't recognise..."))
 		else if (!target.getorganslot(ORGAN_SLOT_LUNGS))
-			to_chat(target, "<span class='unconscious'>You feel a breath of fresh air... but you don't feel any better...</span>")
+			to_chat(target, span_unconscious("You feel a breath of fresh air... but you don't feel any better..."))
 		else
 			target.adjustOxyLoss(-min(target.getOxyLoss(), 7))
-			to_chat(target, "<span class='unconscious'>You feel a breath of fresh air enter your lungs... It feels good...</span>")
+			to_chat(target, span_unconscious("You feel a breath of fresh air enter your lungs... It feels good..."))
 
 		if (target.health <= target.crit_threshold)
 			if (!panicking)
-				to_chat(src, "<span class='warning'>[target] still isn't up! You try harder!</span>")
+				to_chat(src, span_warning("[target] still isn't up! You try harder!"))
 			panicking = TRUE
 		else
 			panicking = FALSE
@@ -677,12 +678,12 @@
 
 /mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE
 	if(!Adjacent(M) && (M.loc != src))
 		if((be_close == FALSE) || (!no_tk && (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
 			return TRUE
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
+		to_chat(src, span_warning("You are too far away!"))
 		return FALSE
 	return TRUE
 
@@ -701,8 +702,8 @@
 	if(!I.loc || buckled)
 		return FALSE
 	if(I == wear_suit)
-		visible_message("<span class='danger'>[src] manages to [cuff_break ? "break" : "remove"] [I]!</span>")
-		to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
+		visible_message(span_danger("[src] manages to [cuff_break ? "break" : "remove"] [I]!"))
+		to_chat(src, span_notice("You successfully [cuff_break ? "break" : "remove"] [I]."))
 		return TRUE
 
 /mob/living/carbon/human/replace_records_name(oldname, newname) // Only humans have records right now, move this up if changed.
@@ -769,7 +770,7 @@
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
-/mob/living/carbon/human/fully_heal(admin_revive = 0)
+/mob/living/carbon/human/fully_heal(admin_revive = FALSE)
 	dna?.species.spec_fully_heal(src)
 	if(admin_revive)
 		regenerate_limbs()
@@ -795,8 +796,8 @@
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
 	if(blood && (NOBLOOD in dna.species.species_traits))
 		if(message)
-			visible_message("<span class='warning'>[src] dry heaves!</span>", \
-							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
+			visible_message(span_warning("[src] dry heaves!"), \
+							span_userdanger("You try to throw up, but there's nothing in your stomach!"))
 		if(stun)
 			Paralyze(200)
 		return 1
@@ -886,14 +887,14 @@
 		if(success)
 			to_chat(usr, "Put [src] on purrbation.")
 			log_admin("[key_name(usr)] has put [key_name(src)] on purrbation.")
-			var/msg = "<span class='notice'>[key_name_admin(usr)] has put [key_name(src)] on purrbation.</span>"
+			var/msg = span_notice("[key_name_admin(usr)] has put [key_name(src)] on purrbation.")
 			message_admins(msg)
 			admin_ticket_log(src, msg)
 
 		else
 			to_chat(usr, "Removed [src] from purrbation.")
 			log_admin("[key_name(usr)] has removed [key_name(src)] from purrbation.")
-			var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(src)] from purrbation.</span>"
+			var/msg = span_notice("[key_name_admin(usr)] has removed [key_name(src)] from purrbation.")
 			message_admins(msg)
 			admin_ticket_log(src, msg)
 	if(href_list[VV_HK_RANDOM_NAME])
@@ -904,7 +905,7 @@
 		var/old_name = real_name
 		fully_replace_character_name(real_name, dna.species.random_name(gender))
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].</span>")
+		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
@@ -952,7 +953,7 @@
 				if(BP)
 					BP.receive_damage(36) //so 3 toolbox hits
 
-				T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
+				T.visible_message(span_warning("[src] curbstomps [T]!"), span_warning("[src] curbstomps you!"))
 
 				log_combat(src, T, "curbstomped", "curbstomp")
 
@@ -980,7 +981,7 @@
 					else
 						BP.receive_damage(15)
 
-				T.visible_message("<span class='warning'>[src] kicks [T] in the groin!</span>", "<span class='warning'>[src] kicks you in the groin!</span")
+				T.visible_message(span_warning("[src] kicks [T] in the groin!"), "<span class='warning'>[src] kicks you in the groin!</span")
 
 				log_combat(src, T, "groinkicked", "groinkick")
 
@@ -1010,7 +1011,7 @@
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
-		to_chat(src, "<span class='notice'>You can't fireman carry [target] while they're standing!</span>")
+		to_chat(src, span_notice("You can't fireman carry [target] while they're standing!"))
 		return
 
 	var/carrydelay = 5 SECONDS //if you have latex you are faster at grabbing
@@ -1022,41 +1023,41 @@
 		carrydelay = 4 SECONDS
 		skills_space = " quickly"
 
-	visible_message("<span class='notice'>[src] starts[skills_space] lifting [target] onto their back..</span>",
+	visible_message(span_notice("[src] starts[skills_space] lifting [target] onto their back.."),
 	//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
-	"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
+	span_notice("[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]"))
 	//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
 	if(!do_after(src, carrydelay, target))
-		visible_message("<span class='warning'>[src] fails to fireman carry [target]!</span>")
+		visible_message(span_warning("[src] fails to fireman carry [target]!"))
 		return
 
 	//Second check to make sure they're still valid to be carried
 	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
-		target.visible_message("<span class='warning'>[target] can't hang on to [src]!</span>")
+		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
 	buckle_mob(target, TRUE, TRUE, 90, 1, 0)
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
 	if(can_piggyback(target))
-		visible_message("<span class='notice'>[target] starts to climb onto [src].</span>")
+		visible_message(span_notice("[target] starts to climb onto [src]."))
 		if(do_after(target, 15, target = src))
 			if(can_piggyback(target))
 				if(target.incapacitated(FALSE, TRUE) || incapacitated(FALSE, TRUE))
-					target.visible_message("<span class='warning'>[target] can't hang onto [src]!</span>")
+					target.visible_message(span_warning("[target] can't hang onto [src]!"))
 					return
 				buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
 		else
-			visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
+			visible_message(span_warning("[target] fails to climb onto [src]!"))
 	else
-		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
+		to_chat(target, span_warning("You can't piggyback ride [src] right now!"))
 
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
 	if(!is_type_in_typecache(target, can_ride_typecache))
-		target.visible_message("<span class='warning'>[target] really can't seem to mount [src].</span>")
+		target.visible_message(span_warning("[target] really can't seem to mount [src]."))
 		return
 	buckle_lying = lying_buckle
 	var/datum/component/riding/human/riding_datum = LoadComponent(/datum/component/riding/human)
@@ -1073,12 +1074,12 @@
 
 	if(hands_needed || target_hands_needed)
 		if(hands_needed && !equipped_hands_self)
-			src.visible_message("<span class='warning'>[src] can't get a grip on [target] because their hands are full!</span>",
-				"<span class='warning'>You can't get a grip on [target] because your hands are full!</span>")
+			src.visible_message(span_warning("[src] can't get a grip on [target] because their hands are full!"),
+				span_warning("You can't get a grip on [target] because your hands are full!"))
 			return
 		else if(target_hands_needed && !equipped_hands_target)
-			target.visible_message("<span class='warning'>[target] can't get a grip on [src] because their hands are full!</span>",
-				"<span class='warning'>You can't get a grip on [src] because your hands are full!</span>")
+			target.visible_message(span_warning("[target] can't get a grip on [src] because their hands are full!"),
+				span_warning("You can't get a grip on [src] because your hands are full!"))
 			return
 
 	stop_pulling()
@@ -1090,7 +1091,7 @@
 		riding_datum.unequip_buckle_inhands(src)
 		riding_datum.unequip_buckle_inhands(target)
 		riding_datum.restore_position(target)
-		to_chat(src, "<span class='warning'>You seem to be unable to carry [target]!</span>")
+		to_chat(src, span_warning("You seem to be unable to carry [target]!"))
 
 /mob/living/carbon/human/updatehealth()
 	. = ..()

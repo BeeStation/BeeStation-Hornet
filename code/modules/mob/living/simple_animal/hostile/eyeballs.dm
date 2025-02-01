@@ -25,6 +25,6 @@
 	attack_sound = 'sound/weapons/pierce.ogg'
 	is_flying_animal = TRUE
 
-	faction = list("spooky")
+	faction = list(FACTION_SPOOKY)
 	del_on_death = TRUE
 	random_color = FALSE

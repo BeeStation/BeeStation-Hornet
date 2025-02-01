@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ChemSynthesizer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemSynthesizer = (props) => {
+  const { act, data } = useBackend();
   const { amount, current_reagent, chemicals = [], possible_amounts = [] } = data;
   return (
     <Window width={300} height={375}>

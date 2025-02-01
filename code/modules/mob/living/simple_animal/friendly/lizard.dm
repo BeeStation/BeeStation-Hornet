@@ -7,7 +7,7 @@
 	speak_emote = list("hisses")
 	health = 5
 	maxHealth = 5
-	faction = list("Lizard")
+	faction = list(FACTION_NEUTRAL)
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	melee_damage = 1
@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/hostile/lizard/AttackingTarget()
 	if(is_type_in_typecache(target,edibles)) //Makes sure player lizards only consume edibles.
-		visible_message("[name] consumes [target] in a single gulp.", "<span class='notice'>You consume [target] in a single gulp.</span>")
+		visible_message("[name] consumes [target] in a single gulp.", span_notice("You consume [target] in a single gulp."))
 		QDEL_NULL(target) //Nom
 		adjustBruteLoss(-2)
 		return TRUE

@@ -34,9 +34,9 @@
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)
 	s.start()
-	target.visible_message("<span class='danger'>[target.name] was shocked by [src]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack!</span>")
+	target.visible_message(span_danger("[target.name] was shocked by [src]!"), \
+		span_userdanger("You feel a powerful shock course through your body sending you flying!"), \
+		span_italics("You hear a heavy electrical crack!"))
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 	return
@@ -48,7 +48,7 @@
 		shock(M)
 
 /obj/item/mjolnir/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, quickstart)
-	thrower.visible_message("<span class='warning'>[thrower] throws [src] with impossible strength!</span>", "<span class='notice'>You lightly throw [src] and it accelerates out of your hand!</span>")
+	thrower.visible_message(span_warning("[thrower] throws [src] with impossible strength!"), span_notice("You lightly throw [src] and it accelerates out of your hand!"))
 	//Create the mjolnir projectile
 	var/obj/projectile/created = new /obj/projectile/mjolnir(get_turf(src), src)
 	created.preparePixelProjectile(target, thrower)
@@ -66,7 +66,7 @@
 
 /obj/item/mjolnir/dropped(mob/user)
 	. = ..()
-	user.visible_message("<span class='warning'>[user] releases [src] and it instantly slams to the ground with a heavy thud.</span>")
+	user.visible_message(span_warning("[user] releases [src] and it instantly slams to the ground with a heavy thud."))
 	//Create the mjolnir hammer
 	new /obj/structure/anchored_mjolnir(get_turf(src), src)
 
@@ -110,11 +110,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 			continue
 		mob_on_tile.emote("scream")
 		mob_on_tile.take_bodypart_damage(40, 0, 0, check_armor = TRUE)
-		to_chat(mob_on_tile, "<span class='userdanger'>You are crushed by [god_hammer]!</span>")
+		to_chat(mob_on_tile, span_userdanger("You are crushed by [god_hammer]!"))
 
 //How did this even happen?
 /obj/structure/anchored_mjolnir/Destroy()
-	if (contained)
+	if(contained)
 		QDEL_NULL(contained)
 	return ..()
 
@@ -123,9 +123,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 	if (iswizard(user))
 		var/hammer = contained
 		if (user.put_in_active_hand(contained))
-			user.visible_message("<span class='danger'>[user] effortlessly lifts [hammer].</span>")
+			user.visible_message(span_danger("[user] effortlessly lifts [hammer]."))
 	else
-		user.visible_message("<span class='notice'>[user] attempts to lift [contained], but its too heavy!</span>", "<span class='userdanger'>[contained] is too heavy!</span>")
+		user.visible_message(span_notice("[user] attempts to lift [contained], but its too heavy!"), span_userdanger("[contained] is too heavy!"))
 
 
 /obj/projectile/mjolnir

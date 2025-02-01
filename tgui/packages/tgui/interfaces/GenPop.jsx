@@ -6,28 +6,27 @@ import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Button, Section, ProgressBar, Input } from '../components';
 import { Window } from '../layouts';
 
-export const GenPop = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GenPop = (props) => {
+  const { act, data } = useBackend();
 
   const { desired_name = '', desired_details = '', crime_list = {} } = data;
 
   // Local state for the time of the prisoner.
-  const [time, setTime] = useSharedState(context, 'time', 0);
+  const [time, setTime] = useSharedState('time', 0);
 
   // Local state to determine which modifiers we have active
-  const [resistedMod, setResistedMod] = useSharedState(context, 'resisted', false);
-  const [attemptedMod, setAttemptedMod] = useSharedState(context, 'attempted', false);
-  const [elevatedMod, setElevatedMod] = useSharedState(context, 'repeat_offender', false);
+  const [resistedMod, setResistedMod] = useSharedState('resisted', false);
+  const [attemptedMod, setAttemptedMod] = useSharedState('attempted', false);
+  const [elevatedMod, setElevatedMod] = useSharedState('repeat_offender', false);
 
   // Local state for the name of the crime being issued
-  const [crimeName, setCrimeName] = useSharedState(context, 'crimeName', 'No crime');
+  const [crimeName, setCrimeName] = useSharedState('crimeName', 'No crime');
 
   // Local state for the name of the crime details
-  const [crimeDetails, setCrimeDetails] = useSharedState(context, 'crimeDetails', 'No details provided');
+  const [crimeDetails, setCrimeDetails] = useSharedState('crimeDetails', 'No details provided');
 
   // Local state for the current category that we are browsing
   const [crimeCategory, setCrimeCategory] = useSharedState(
-    context,
     'crimeCategory',
     crime_list && crime_list.length > 0 ? Object.keys(crime_list)[0] : null
   );

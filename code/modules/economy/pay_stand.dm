@@ -15,7 +15,7 @@
 	if(istype(W, /obj/item/card/id))
 		if(W == my_card)
 			locked = !locked
-			to_chat(user, "<span class='notice'>You [src.locked ? "lock" : "unlock"] the bolts on the paystand.</span>")
+			to_chat(user, span_notice("You [src.locked ? "lock" : "unlock"] the bolts on the paystand."))
 			return
 		if(!my_card)
 			var/obj/item/card/id/assistant_mains_need_to_die = W
@@ -32,17 +32,17 @@
 		if(vbucks.registered_account)
 			var/momsdebitcard = input(user, "How much would you like to deposit?", "Money Deposit") as null|num
 			if(momsdebitcard < 1)
-				to_chat(user, "<span class='warning'>ERROR: Invalid amount designated.</span>")
+				to_chat(user, span_warning("ERROR: Invalid amount designated."))
 				return
 			if(vbucks.registered_account.adjust_money(-momsdebitcard))
 				purchase(vbucks.registered_account.account_holder, momsdebitcard)
 				to_chat(user, "Thanks for purchasing! The vendor has been informed.")
 				return
 			else
-				to_chat(user, "<span class='warning'>ERROR: Account has insufficient funds to make transaction.</span>")
+				to_chat(user, span_warning("ERROR: Account has insufficient funds to make transaction."))
 				return
 		else
-			to_chat(user, "<span class='warning'>ERROR: No bank account assigned to identification card.</span>")
+			to_chat(user, span_warning("ERROR: No bank account assigned to identification card."))
 			return
 	if(istype(W, /obj/item/holochip))
 		var/obj/item/holochip/H = W
@@ -52,7 +52,7 @@
 			to_chat(user, "Thanks for purchasing! The vendor has been informed.")
 			return
 		else
-			to_chat(user, "<span class='warning'>ERROR: Insufficient funds to make transaction.</span>")
+			to_chat(user, span_warning("ERROR: Insufficient funds to make transaction."))
 			return
 	if(istype(W, /obj/item/stack/spacecash))
 		to_chat(user, "What is this, the 2000s? We only take card here.")
@@ -63,15 +63,15 @@
 	if(istype(W, /obj/item/assembly/signaler))
 		var/obj/item/assembly/signaler/S = W
 		if(S.secured)
-			to_chat(user, "<span class='warning'>The signaler needs to be in attachable mode to add it to the paystand!</span>")
+			to_chat(user, span_warning("The signaler needs to be in attachable mode to add it to the paystand!"))
 			return
 		if(!my_card)
-			to_chat(user, "<span class='warning'>ERROR: No identification card has been assigned to this paystand yet!</span>")
+			to_chat(user, span_warning("ERROR: No identification card has been assigned to this paystand yet!"))
 			return
 		if(!signaler)
 			var/cash_limit = input(user, "Enter the minimum amount of cash needed to deposit before the signaler is activated.", "Signaler Activation Threshold") as null|num
 			if(cash_limit < 1)
-				to_chat(user, "<span class='warning'>ERROR: Invalid amount designated.</span>")
+				to_chat(user, span_warning("ERROR: Invalid amount designated."))
 				return
 			if(cash_limit)
 				S.forceMove(src)
@@ -80,7 +80,7 @@
 				to_chat(user, "You attach the signaler to the paystand.")
 				desc += " A signaler appears to be attached to the scanner."
 		else
-			to_chat(user, "<span class='warning'>A signaler is already attached to this unit!</span>")
+			to_chat(user, span_warning("A signaler is already attached to this unit!"))
 
 	if(default_deconstruction_screwdriver(user, "card_scanner", "card_scanner", W))
 		return
@@ -106,6 +106,6 @@
 
 /obj/machinery/paystand/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	if(locked)
-		to_chat(user, "<span class='warning'>The anchored bolts on this paystand are currently locked!</span>")
+		to_chat(user, span_warning("The anchored bolts on this paystand are currently locked!"))
 		return
 	. = ..()

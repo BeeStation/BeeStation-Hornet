@@ -11,8 +11,8 @@ const NAMES = ['hal', 've', 'odr', 'neit', 'ci', 'quon', 'mya', 'folth', 'wren',
 const SUFFIXES = ['the Red', 'the Soulless', 'the Master', 'the Lord of all things', 'Jr.'];
 
 // TODO: refactor the backend of this it's a trainwreck
-export const CodexGigas = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CodexGigas = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window theme="generic" width={450} height={450}>
       <Window.Content>

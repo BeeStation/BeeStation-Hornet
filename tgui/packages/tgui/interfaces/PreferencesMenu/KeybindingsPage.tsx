@@ -176,13 +176,8 @@ KeybindingName.defaultHooks = {
   },
 };
 
-const ResetToDefaultButton = (
-  props: {
-    keybindingId: string;
-  },
-  context
-) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const ResetToDefaultButton = (props: { keybindingId: string }) => {
+  const { act } = useBackend<PreferencesMenuData>();
 
   return (
     <Button
@@ -223,7 +218,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   componentDidUpdate() {
-    const { data } = useBackend<PreferencesMenuData>(this.context);
+    const { data } = useBackend<PreferencesMenuData>();
 
     // keybindings is static data, so it'll pass `===` checks.
     // This'll change when resetting to defaults.
@@ -233,7 +228,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   setRebindingHotkey(value?: string) {
-    const { act } = useBackend<PreferencesMenuData>(this.context);
+    const { act } = useBackend<PreferencesMenuData>();
 
     this.setState((state) => {
       let selectedKeybindings = state.selectedKeybindings;
@@ -378,7 +373,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   populateSelectedKeybindings() {
-    const { data } = useBackend<PreferencesMenuData>(this.context);
+    const { data } = useBackend<PreferencesMenuData>();
 
     this.lastKeybinds = data.keybindings;
 
@@ -417,8 +412,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
         </Dimmer>
       );
     }
-    const { act } = useBackend(this.context);
-    const { data } = useBackend<PreferencesMenuData>(this.context);
+    const { act } = useBackend();
+    const { data } = useBackend<PreferencesMenuData>();
     const keybindings = this.state?.keybindings;
 
     if (!keybindings) {

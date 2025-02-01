@@ -13,7 +13,7 @@ const noticestyle = {
   color: 'lightblue',
 };
 
-export const AntagInfoMorph = (_props, _context) => {
+export const AntagInfoMorph = (_props) => {
   return (
     <Window width={620} height={170} theme="abductor">
       <Window.Content>

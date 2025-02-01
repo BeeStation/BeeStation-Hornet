@@ -3,8 +3,8 @@ import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-export const TurretControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TurretControl = (props) => {
+  const { act, data } = useBackend();
   const locked = data.locked && !data.siliconUser;
   const { enabled, lethal, shootCyborgs } = data;
   return (

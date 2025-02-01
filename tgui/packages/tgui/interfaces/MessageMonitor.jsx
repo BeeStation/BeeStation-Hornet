@@ -12,8 +12,8 @@ const processedText = (value) => {
   };
 };
 
-export const MessageMonitor = (_, context) => {
-  const { data } = useBackend(context);
+export const MessageMonitor = (_) => {
+  const { data } = useBackend();
   const { authenticated } = data;
   return (
     <Window height={600} width={480}>
@@ -24,8 +24,8 @@ export const MessageMonitor = (_, context) => {
   );
 };
 
-export const MessageMonitorContent = (_, context) => {
-  const { act, data } = useBackend(context);
+export const MessageMonitorContent = (_) => {
+  const { act, data } = useBackend();
   const {
     server_on,
     authenticated,
@@ -36,7 +36,7 @@ export const MessageMonitorContent = (_, context) => {
     request_messages = [],
     emoji_names = [],
   } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selected_tab', 'pda');
+  const [selectedTab, setSelectedTab] = useLocalState('selected_tab', 'pda');
   if (hacking) {
     return (
       <Flex direction="column" height="100%">

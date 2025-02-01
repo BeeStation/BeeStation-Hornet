@@ -14,7 +14,7 @@
 	if (!.)
 		return
 	if(!computer?.get_modular_computer_part(MC_SENSORS)) //Giving a clue to users why the program is spitting out zeros.
-		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\sensorpackage\\startup.bin -- file not found\".</span>")
+		to_chat(user, span_warning("\The [computer] flashes an error: \"hardware\\sensorpackage\\startup.bin -- file not found\"."))
 
 
 /datum/computer_file/program/atmosscan/ui_data(mob/user)
@@ -30,10 +30,10 @@
 		data["AirTempC"] = round(environment.return_temperature() - T0C)
 		data["AirTempK"] = round(environment.return_temperature())
 		if (total_moles)
-			for(var/id in environment.get_gases())
-				var/gas_level = environment.get_moles(id)/total_moles
+			for(var/id in environment.gases)
+				var/gas_level = GET_MOLES(id, environment)/total_moles
 				if(gas_level > 0)
-					airlist += list(list("name" = "[GLOB.gas_data.names[id]]", "percentage" = round(gas_level*100, 0.01)))
+					airlist += list(list("name" = "[GLOB.meta_gas_info[id][META_GAS_NAME]]", "percentage" = round(gas_level*100, 0.01)))
 		data["AirData"] = airlist
 	else
 		data["AirPressure"] = 0

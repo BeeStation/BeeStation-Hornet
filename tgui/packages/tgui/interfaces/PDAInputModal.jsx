@@ -2,8 +2,8 @@ import { Window } from '../layouts';
 import { Flex, Box, Button, TextArea, Input } from '../components';
 import { useBackend } from '../backend';
 
-export const PDAInputModal = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PDAInputModal = (props) => {
+  const { act, data } = useBackend();
   const { name, job, text, image, target = 'Select PDA', everyone, theme } = data;
   return (
     <Window title="Send PDA Message" theme={theme} width={600} height={290}>

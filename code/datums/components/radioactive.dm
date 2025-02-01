@@ -85,7 +85,7 @@
 	if(!LAZYLEN(out))
 		return
 	out += "."
-	to_chat(user, "<span class ='warning'>[out.Join()]</span>")
+	to_chat(user, span_warning("[out.Join()]"))
 
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER

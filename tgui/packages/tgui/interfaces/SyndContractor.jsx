@@ -59,7 +59,7 @@ export class FakeTerminal extends Component {
   }
 }
 
-export const SyndContractor = (props, context) => {
+export const SyndContractor = (props) => {
   return (
     <NtosWindow theme="syndicate" width={500} height={600}>
       <NtosWindow.Content scrollable>
@@ -69,8 +69,8 @@ export const SyndContractor = (props, context) => {
   );
 };
 
-export const SyndContractorContent = (props, context) => {
-  const { data, act } = useBackend(context);
+export const SyndContractorContent = (props) => {
+  const { data, act } = useBackend();
 
   const terminalMessages = [
     'Recording biometric data...',
@@ -183,8 +183,8 @@ export const SyndContractorContent = (props, context) => {
   );
 };
 
-export const StatusPane = (props, context) => {
-  const { act, data } = useBackend(context);
+export const StatusPane = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <Section
@@ -221,8 +221,8 @@ export const StatusPane = (props, context) => {
   );
 };
 
-export const SyndPane = (props, context) => {
-  const [tab, setTab] = useLocalState(context, 'tab', 1);
+export const SyndPane = (props) => {
+  const [tab, setTab] = useLocalState('tab', 1);
   return (
     <>
       <StatusPane state={props.state} />
@@ -240,8 +240,8 @@ export const SyndPane = (props, context) => {
   );
 };
 
-const ContractsTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const ContractsTab = (props) => {
+  const { act, data } = useBackend();
   const contracts = data.contracts || [];
   return (
     <>
@@ -304,8 +304,8 @@ const ContractsTab = (props, context) => {
   );
 };
 
-const HubTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const HubTab = (props) => {
+  const { act, data } = useBackend();
   const contractor_hub_items = data.contractor_hub_items || [];
   return (
     <Section>

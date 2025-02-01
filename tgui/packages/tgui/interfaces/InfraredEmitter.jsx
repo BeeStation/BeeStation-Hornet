@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const InfraredEmitter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const InfraredEmitter = (props) => {
+  const { act, data } = useBackend();
   const { on, visible } = data;
   return (
     <Window width={225} height={110}>

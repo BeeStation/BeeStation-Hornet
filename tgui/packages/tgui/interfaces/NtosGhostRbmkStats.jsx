@@ -9,8 +9,8 @@ import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Sec
 import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 
-export const NtosGhostRbmkStats = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosGhostRbmkStats = (props) => {
+  const { act, data } = useBackend();
   return (
     <NtosWindow resizable width={440} height={650}>
       <NtosWindow.Content>

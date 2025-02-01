@@ -95,26 +95,26 @@
 				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
 
 	if(stat != DEAD)
-		var/bz_percentage = environment.total_moles() ? (environment.get_moles(GAS_BZ) / environment.total_moles()) : 0
+		var/bz_percentage = environment.total_moles() ? (GET_MOLES(/datum/gas/bz, environment) / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			var/amt = is_adult ? 30 : 15
-			var/plas_amt = min(amt,environment.get_moles(GAS_PLASMA))
-			environment.adjust_moles(GAS_PLASMA, -plas_amt)
-			environment.adjust_moles(GAS_O2, plas_amt)
+			var/plas_amt = min(amt,GET_MOLES(/datum/gas/plasma, environment))
+			REMOVE_MOLES(/datum/gas/plasma, environment, plas_amt)
+			ADD_MOLES(/datum/gas/oxygen, environment, plas_amt)
 			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		switch(stat)
 			if(CONSCIOUS)
 				if(stasis)
-					to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
+					to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
 					set_stat(UNCONSCIOUS)
 					powerlevel = 0
 					rabid = FALSE
 					regenerate_icons()
 			if(UNCONSCIOUS, HARD_CRIT)
 				if(!stasis)
-					to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
+					to_chat(src, span_notice("You wake up from the stasis."))
 					set_stat(CONSCIOUS)
 					regenerate_icons()
 
@@ -140,7 +140,7 @@
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)
 		var/datum/reagent/fuel/fuel = new
-		fuel.reaction_mob(buckled,TOUCH,20)
+		fuel.expose_mob(buckled,TOUCH,20)
 		qdel(fuel)
 	if(M.stat == DEAD)
 		if(client)
@@ -150,7 +150,7 @@
 			rabid = 1
 
 		if(transformeffects & SLIME_EFFECT_GREEN)
-			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
+			visible_message(span_warning("[src] slurps up [M]!"))
 			adjust_nutrition(10)
 			layer = initial(layer)
 			qdel(M)
@@ -161,13 +161,7 @@
 		return
 
 	if(prob(10) && M.client)
-		to_chat(M, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
-		"You feel like you're about to die!", \
-		"You feel every part of your body screaming in agony!", \
-		"A low, rolling pain passes through your body!", \
-		"Your body feels as if it's falling apart!", \
-		"You feel extremely weak!", \
-		"A sharp, deep pain bathes every inch of your body!")]</span>")
+		to_chat(M,span_userdanger(pick("You can feel your body becoming weak!", "You feel like you're about to die!", "You feel every part of your body screaming in agony!", "A low, rolling pain passes through your body!", "Your body feels as if it's falling apart!", "You feel extremely weak!", "A sharp, deep pain bathes every inch of your body!")))
 
 	var/bonus_damage = 1
 	if(transformeffects & SLIME_EFFECT_RED)

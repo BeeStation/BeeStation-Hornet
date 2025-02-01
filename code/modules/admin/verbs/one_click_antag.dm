@@ -367,7 +367,7 @@
 				admin_officer.equipOutfit(chosen_outfit)
 				admin_officer.key = usr.key
 			else
-				to_chat(usr, "<span class='warning'>Could not spawn you in as briefing officer as you are not a ghost!</span>")
+				to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
 
 		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you wish to be considered for [ertemplate.polldesc] ?", ROLE_ERT, req_hours = 50)
 		var/teamSpawned = FALSE

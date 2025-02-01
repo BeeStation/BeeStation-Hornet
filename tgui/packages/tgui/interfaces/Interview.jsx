@@ -2,8 +2,8 @@ import { Button, TextArea, Section, BlockQuote, NoticeBox } from '../components'
 import { Window } from '../layouts';
 import { useBackend } from '../backend';
 
-export const Interview = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Interview = (props) => {
+  const { act, data } = useBackend();
   const { welcome_message, questions, read_only, queue_pos, is_admin, status, connected } = data;
 
   const rendered_status = (status) => {

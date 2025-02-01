@@ -18,7 +18,7 @@
 		if(!input || imp_in.stat == DEAD)
 			return
 		if(CHAT_FILTER_CHECK(input))
-			to_chat(imp_in, "<span class='warning'>The message contains prohibited words!</span>")
+			to_chat(imp_in, span_warning("The message contains prohibited words!"))
 			return
 		input = imp_in.treat_message_min(input)
 
@@ -37,7 +37,7 @@
 
 		imp_in.log_talk(input, LOG_SAY, tag="Blood Brother Implant")
 	else
-		to_chat(imp_in, "<span class='bold'>There are no linked implants!</span>")
+		to_chat(imp_in, span_bold("There are no linked implants!"))
 
 /obj/item/implant/bloodbrother/Destroy()
 	. = ..()

@@ -31,8 +31,8 @@ const compareNumberedText = (a, b) => {
   return compareString(aName, bName);
 };
 
-const OrbitSection = (props, context) => {
-  const { act } = useBackend(context);
+const OrbitSection = (props) => {
+  const { act } = useBackend();
   const { searchText, source, title, color, basic } = props;
   const things = source.filter(searchFor(searchText));
   things.sort(compareNumberedText);
@@ -64,8 +64,8 @@ const OrbitSection = (props, context) => {
   );
 };
 
-const OrbitedButton = (props, context) => {
-  const { act } = useBackend(context);
+const OrbitedButton = (props) => {
+  const { act } = useBackend();
   const { color, thing, job, antag } = props;
 
   return (
@@ -107,11 +107,11 @@ const OrbitedButton = (props, context) => {
   );
 };
 
-export const Orbit = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Orbit = (props) => {
+  const { act, data } = useBackend();
   const { alive, antagonists, dead, ghosts, misc, npcs } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const collatedAntagonists = {};
   for (const antagonist of antagonists) {

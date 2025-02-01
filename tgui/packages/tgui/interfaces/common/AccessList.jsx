@@ -17,9 +17,9 @@ const diffMap = {
   },
 };
 
-export const AccessList = (props, context) => {
+export const AccessList = (props) => {
   const { accesses = [], selectedList = [], accessMod, grantAll, denyAll, grantDep, denyDep } = props;
-  const [selectedAccessName, setSelectedAccessName] = useLocalState(context, 'accessName', accesses[0]?.name);
+  const [selectedAccessName, setSelectedAccessName] = useLocalState('accessName', accesses[0]?.name);
   const selectedAccess = accesses.find((access) => access.name === selectedAccessName);
   const selectedAccessEntries = sortBy((entry) => entry.desc)(selectedAccess?.accesses || []);
 

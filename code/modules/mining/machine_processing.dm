@@ -124,16 +124,16 @@
 	switch(action)
 		if("Redeem")
 			if(!machine.stored_points)
-				to_chat(usr, "<span class='warning'>No points to claim.</span>")
+				to_chat(usr, span_warning("No points to claim."))
 				return
 
 			var/mob/M = usr
 			var/obj/item/card/id/I = M.get_idcard(TRUE)
 			if(!I)
-				to_chat(usr, "<span class='warning'>No ID detected.</span>")
+				to_chat(usr, span_warning("No ID detected."))
 				return
 			if(!I.registered_account)
-				to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
+				to_chat(usr, span_warning("No bank account detected on the ID card."))
 				return
 			I.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, machine.stored_points)
 			machine.stored_points = 0
@@ -260,7 +260,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 	if(panel_open)
 		input_dir = turn(input_dir, -90)
 		output_dir = turn(output_dir, -90)
-		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+		to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
 		unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
 		register_input_turf() // register the new one
 		return TRUE

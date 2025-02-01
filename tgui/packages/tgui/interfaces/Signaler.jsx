@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import { toFixed } from 'common/math';
 import { Window } from '../layouts';
 
-export const Signaler = (props, context) => {
+export const Signaler = (props) => {
   return (
     <Window width={280} height={132}>
       <Window.Content>
@@ -13,8 +13,8 @@ export const Signaler = (props, context) => {
   );
 };
 
-export const SignalerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SignalerContent = (props) => {
+  const { act, data } = useBackend();
   const { code, frequency, cooldown, minFrequency, maxFrequency } = data;
   return (
     <Section>

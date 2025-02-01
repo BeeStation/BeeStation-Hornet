@@ -51,9 +51,9 @@ const CharacterProfiles = (props: {
   );
 };
 
-export const CharacterPreferenceWindow = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
-  const [currentPage, setCurrentPage] = useLocalState(context, 'currentPage_character', Page.Main);
+export const CharacterPreferenceWindow = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  const [currentPage, setCurrentPage] = useLocalState('currentPage_character', Page.Main);
 
   let pageContents;
 

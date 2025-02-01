@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Divider, Box, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Objective = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Objective = (props) => {
+  const { act, data } = useBackend();
   const { possible_objectives = [], selected_objective = null } = data;
   return (
     <Window width={400} height={500} resizable>
@@ -30,7 +30,7 @@ export const Objective = (props, context) => {
   );
 };
 
-export const SelectedObjective = (props, context) => {
+export const SelectedObjective = (props) => {
   const { objective = [] } = props;
   return (
     <>

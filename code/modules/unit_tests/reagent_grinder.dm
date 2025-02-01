@@ -1,7 +1,7 @@
 /**
  * Unit test to check for if reagent grinders process correctly.
  *
- * Accepts each item that has grind_results not null OR has an assigned juice_results variable
+ * Accepts each item that has grind_results not null OR has an assigned juice_typepath variable
  * Grinds/Juices it
  * Checks if the output is what we expect from grinding/juicing that item
  *
@@ -21,7 +21,7 @@
 		message_admins("GRINDING: [item_list]")
 	for(var/obj/item/item as anything in item_list)
 		item = new()
-		if(!item.grind_results && !item.juice_results && !item.is_grindable())
+		if(!item.grind_results && !item.juice_typepath && !item.is_grindable())
 			QDEL_NULL(item)
 			return
 		message_admins("Now grinding: [item]")
@@ -41,7 +41,7 @@
 		message_admins("JUICING: [item_list]")
 	for(var/obj/item/item as anything in item_list)
 		item = new()
-		if(!item.grind_results && !item.juice_results && !item.is_grindable())
+		if(!item.grind_results && !item.juice_typepath && !item.is_grindable())
 			QDEL_NULL(item)
 			return
 
@@ -52,6 +52,6 @@
 		item.forceMove(grinder)
 		grinder.holdingitems[item] = TRUE
 		grinder.juice()
-		message_admins("[item] juiced with the following ingredients in beaker: [grinder.beaker.reagents], expecting [item.juice_results]")
-		TEST_ASSERT((grinder.beaker.reagents != item.juice_results), "No reagents in beaker after attempted juicing in [item], supposed to have [item.juice_results]!")
+		message_admins("[item] juiced with the following ingredients in beaker: [grinder.beaker.reagents], expecting [item.juice_typepath]")
+		TEST_ASSERT((grinder.beaker.reagents != item.juice_typepath), "No reagents in beaker after attempted juicing in [item], supposed to have [item.juice_typepath]!")
 		QDEL_NULL(item)

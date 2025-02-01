@@ -32,7 +32,7 @@ GENE SCANNER
 	custom_materials = list(/datum/material/iron=150)
 
 /obj/item/t_scanner/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to emit terahertz-rays into [user.p_their()] brain with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to emit terahertz-rays into [user.p_their()] brain with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /obj/item/t_scanner/proc/toggle_on()
@@ -46,11 +46,11 @@ GENE SCANNER
 /obj/item/t_scanner/proc/toggle_mode(mob/user)
 	if(mode == MODE_TRAY)
 		mode = MODE_BLUEPRINT
-		to_chat(user, "<span class='notice'>You switch the [src] to work in the 'blueprint' mode.</span>")
+		to_chat(user, span_notice("You switch the [src] to work in the 'blueprint' mode."))
 		if(on)
 			set_viewer(user)
 	else
-		to_chat(user, "<span class='notice'>You switch the [src] to work in the 'scanner' mode.</span>")
+		to_chat(user, span_notice("You switch the [src] to work in the 'scanner' mode."))
 		mode = MODE_TRAY
 		clear_viewer(user)
 	update_appearance()
@@ -154,15 +154,15 @@ GENE SCANNER
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
+	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
 	return BRUTELOSS
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scanmode)
-		to_chat(user, "<span class='notice'>You switch the health analyzer to scan chemical contents.</span>")
+		to_chat(user, span_notice("You switch the health analyzer to scan chemical contents."))
 		scanmode = 1
 	else
-		to_chat(user, "<span class='notice'>You switch the health analyzer to check physical health.</span>")
+		to_chat(user, span_notice("You switch the health analyzer to check physical health."))
 		scanmode = 0
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
@@ -171,16 +171,16 @@ GENE SCANNER
 
 	// Clumsiness/brain damage check
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
-		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", \
-							"<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
-		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
-		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>")
-		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font>-<font color='green'>0</font>-<font color='#FF8000'>0</font>-<font color='red'>0</font></span>")
-		to_chat(user, "<span class='info'>Body temperature: ???</span>")
+		user.visible_message(span_warning("[user] analyzes the floor's vitals!"), \
+							span_notice("You stupidly try to analyze the floor's vitals!"))
+		to_chat(user, span_info("Analyzing results for The floor:\n\tOverall status: <b>Healthy</b>"))
+		to_chat(user, span_info("Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font>"))
+		to_chat(user, span_info("\tDamage specifics: <font color='blue'>0</font>-<font color='green'>0</font>-<font color='#FF8000'>0</font>-<font color='red'>0</font>"))
+		to_chat(user, span_info("Body temperature: ???"))
 		return
 
-	user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>", \
-						"<span class='notice'>You analyze [M]'s vitals.</span>")
+	user.visible_message(span_notice("[user] analyzes [M]'s vitals."), \
+						span_notice("You analyze [M]'s vitals."))
 
 	if(scanmode == 0)
 		healthscan(user, M, advanced=advanced)
@@ -203,38 +203,38 @@ GENE SCANNER
 	var/tox_loss = M.getToxLoss()
 	var/fire_loss = M.getFireLoss()
 	var/brute_loss = M.getBruteLoss()
-	var/mob_status = (M.stat == DEAD ? "<span class='alert'><b>Deceased</b></span>" : "<b>[round(M.health/M.maxHealth,0.01)*100] % healthy</b>")
+	var/mob_status = (M.stat == DEAD ? span_alert("<b>Deceased</b>") : "<b>[round(M.health/M.maxHealth,0.01)*100] % healthy</b>")
 
 	if(HAS_TRAIT(M, TRAIT_FAKEDEATH) && !advanced)
-		mob_status = "<span class='alert'><b>Deceased</b></span>"
+		mob_status = span_alert("<b>Deceased</b>")
 		oxy_loss = max(rand(1, 40), oxy_loss, (300 - (tox_loss + fire_loss + brute_loss))) // Random oxygen loss
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
-			message += "<span class='alert'>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</span>"
+			message += span_alert("Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!")
 
-	message += "<span class='info'>Analyzing results for [M]:\n\tOverall status: [mob_status]</span>"
+	message += span_info("Analyzing results for [M]:\n\tOverall status: [mob_status]")
 
 	// Damage descriptions
 	if(brute_loss > 10)
-		message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"
+		message += "\t[span_alert("[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.")]"
 	if(fire_loss > 10)
-		message += "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>"
+		message += "\t[span_alert("[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.")]"
 	if(oxy_loss > 10)
-		message += "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>"
+		message += "\t[span_info("<span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.")]"
 	if(tox_loss > 10)
-		message += "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>"
+		message += "\t[span_alert("[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.")]"
 	if(M.getStaminaLoss())
-		message += "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>"
+		message += "\t[span_alert("Subject appears to be suffering from fatigue.")]"
 		if(advanced)
-			message += "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>"
+			message += "\t[span_info("Fatigue Level: [M.getStaminaLoss()]%.")]"
 	if(M.getCloneLoss())
-		message += "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>"
+		message += "\t[span_alert("Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.")]"
 		if(advanced)
-			message += "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>"
+			message += "\t[span_info("Cellular Damage Level: [M.getCloneLoss()].")]"
 	if(!M.getorgan(/obj/item/organ/brain))
-		message += "\t<span class='alert'>Subject lacks a brain.</span>"
+		message += "\t[span_alert("Subject lacks a brain.")]"
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(LAZYLEN(C.get_traumas()))
@@ -250,64 +250,64 @@ GENE SCANNER
 						trauma_desc += "permanent "
 				trauma_desc += B.scan_desc
 				trauma_text += trauma_desc
-			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
+			message += "\t[span_alert("Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].")]"
 		if(length(C.last_mind?.quirks))
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_quirk_string()].</span>"
+			message += "\t[span_info("Subject has the following physiological traits: [C.get_quirk_string()].")]"
 	if(advanced)
-		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
+		message += "\t[span_info("Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.")]"
 
 	if(M.radiation)
-		message += "\t<span class='alert'>Subject is irradiated.</span>"
+		message += "\t[span_alert("Subject is irradiated.")]"
 		if(advanced)
-			message += "\t<span class='info'>Radiation Level: [M.radiation]%.</span>"
+			message += "\t[span_info("Radiation Level: [M.radiation]%.")]"
 
 	if(advanced && M.hallucinating())
-		message += "\t<span class='info'>Subject is hallucinating.</span>"
+		message += "\t[span_info("Subject is hallucinating.")]"
 
 	//Eyes and ears
 	if(advanced)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-			message += "\t<span class='info'><b>==EAR STATUS==</b></span>"
+			message += "\t[span_info("<b>==EAR STATUS==</b>")]"
 			if(istype(ears))
 				var/healthy = TRUE
 				if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
 					healthy = FALSE
-					message += "\t<span class='alert'>Subject is genetically deaf.</span>"
+					message += "\t[span_alert("Subject is genetically deaf.")]"
 				else if(HAS_TRAIT(C, TRAIT_DEAF))
 					healthy = FALSE
-					message += "\t<span class='alert'>Subject is deaf.</span>"
+					message += "\t[span_alert("Subject is deaf.")]"
 				else
 					if(ears.damage)
-						message += "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>"
+						message += "\t[span_alert("Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.")]"
 						healthy = FALSE
 					if(ears.deaf)
-						message += "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>"
+						message += "\t[span_alert("Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.")]"
 						healthy = FALSE
 				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>"
+					message += "\t[span_info("Healthy.")]"
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
+			message += "\t[span_info("<b>==EYE STATUS==</b>")]"
 			if(istype(eyes))
 				var/healthy = TRUE
 				if(C.is_blind())
-					message += "\t<span class='alert'>Subject is blind.</span>"
+					message += "\t[span_alert("Subject is blind.")]"
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
-					message += "\t<span class='alert'>Subject is nearsighted.</span>"
+					message += "\t[span_alert("Subject is nearsighted.")]"
 					healthy = FALSE
 				if(eyes.damage > 30)
-					message += "\t<span class='alert'>Subject has severe eye damage.</span>"
+					message += "\t[span_alert("Subject has severe eye damage.")]"
 					healthy = FALSE
 				else if(eyes.damage > 20)
-					message += "\t<span class='alert'>Subject has significant eye damage.</span>"
+					message += "\t[span_alert("Subject has significant eye damage.")]"
 					healthy = FALSE
 				else if(eyes.damage)
-					message += "\t<span class='alert'>Subject has minor eye damage.</span>"
+					message += "\t[span_alert("Subject has minor eye damage.")]"
 					healthy = FALSE
 				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>"
+					message += "\t[span_info("Healthy.")]"
 
 	// Body part damage report
 	if(iscarbon(M))
@@ -379,32 +379,32 @@ GENE SCANNER
 				report_organs = TRUE
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!max_damage)
-				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
+				max_damage = "\t[span_alert("Non-Functional Organs: ")]"
 			else
 				max_damage += "</span>"
 			if(!major_damage)
-				major_damage = "\t<span class='info'>Severely Damaged Organs: </span>"
+				major_damage = "\t[span_info("Severely Damaged Organs: ")]"
 			else
 				major_damage += "</span>"
 			if(!minor_damage)
-				minor_damage = "\t<span class='info'>Mildly Damaged Organs: </span>"
+				minor_damage = "\t[span_info("Mildly Damaged Organs: ")]"
 			else
 				minor_damage += "</span>"
 			message += minor_damage
 			message += major_damage
 			message += max_damage
 			if(length(missing_organ_list)) //If we have missing organs, display them in a fancy list.
-				message += "\t<span class='alert'>Missing Organs: [english_list(missing_organ_list)]</span>"
+				message += "\t[span_alert("Missing Organs: [english_list(missing_organ_list)]")]"
 		//Genetic damage
 		if(advanced && H.has_dna())
-			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
+			message += "\t[span_info("Genetic Stability: [H.dna.stability]%.")]"
 			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
-				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
+				message += "\t[span_info("Subject's DNA appears to be in an unstable state.")]"
 
 		// Embedded Items
 		for(var/obj/item/bodypart/limb as anything in H.bodyparts)
 			for(var/obj/item/embed as anything in limb.embedded_objects)
-				message += "\t<span class='alert'>Foreign object embedded in subject's [limb.name].</span>"
+				message += "\t[span_alert("Foreign object embedded in subject's [limb.name].")]"
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -423,21 +423,21 @@ GENE SCANNER
 			|| S.mutantappendix != initial(S.mutantappendix) \
 			|| S.mutantwings != initial(S.mutantwings)
 
-		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
-		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
-	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
+		message += span_info("Species: [S.name][mutant ? "-derived mutant" : ""]")
+		message += span_info("Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)")
+	message += span_info("Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)")
 
 	// Time of death
 	if(M.tod && (M.stat == DEAD || ((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !advanced)))
-		message += "<span class='info'>Time of Death: [M.tod]</span>"
+		message += span_info("Time of Death: [M.tod]")
 		var/tdelta = round(world.time - M.timeofdeath)
 		if(tdelta < (DEFIB_TIME_LIMIT * 10))
-			message += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>"
+			message += span_alert("<b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b>")
 
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			message += "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
+			message += span_alert("<b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]")
 
 	// Blood Level
 	if(M.has_dna())
@@ -447,9 +447,9 @@ GENE SCANNER
 			if(ishuman(C))
 				var/mob/living/carbon/human/H = C
 				if(H.is_bleeding())
-					message += "<span class='alert'><b>Subject is bleeding at a rate of [round(H.get_bleed_rate(), 0.1)]/s!</b></span>"
+					message += span_alert("<b>Subject is bleeding at a rate of [round(H.get_bleed_rate(), 0.1)]/s!</b>")
 				else if (H.is_bandaged())
-					message += "<span class='alert'><b>Subject is bleeding (Bandaged)!</b></span>"
+					message += span_alert("<b>Subject is bleeding (Bandaged)!</b>")
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = C.dna.blood_type
 			if(blood_id != /datum/reagent/blood)//special blood substance
@@ -460,20 +460,20 @@ GENE SCANNER
 					blood_type = blood_id
 			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
+				message += span_alert("Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]")
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
+				message += span_alert("Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]")
 			else
-				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_info]</span>"
+				message += span_info("Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_info]")
 
 		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
 			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
 				cyberimp_detect += CI.name
 		if(length(cyberimp_detect))
-			message += "<span class='notice'>Detected cybernetic modifications:</span>"
+			message += span_notice("Detected cybernetic modifications:")
 			for(var/name in cyberimp_detect)
-				message += "<span class='notice'>[name]</span>"
+				message += span_notice("[name]")
 
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 	if(to_chat)
@@ -487,17 +487,17 @@ GENE SCANNER
 	var/message = list()
 	if(M.reagents)
 		if(M.reagents.reagent_list.len)
-			message += "<span class='notice'>Subject contains the following reagents:</span>"
+			message += span_notice("Subject contains the following reagents:")
 			for(var/datum/reagent/R in M.reagents.reagent_list)
-				message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
+				message += "[span_notice("[round(R.volume, 0.001)] units of [R.name]")] [R.overdosed == 1 ? " - [span_boldannounce("OVERDOSING")]" : ""]"
 		else
-			message += "<span class='notice'>Subject contains no reagents.</span>"
+			message += span_notice("Subject contains no reagents.")
 		if(M.reagents.addiction_list.len)
-			message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>"
+			message += span_boldannounce("Subject is addicted to the following reagents:")
 			for(var/datum/reagent/R in M.reagents.addiction_list)
-				message += "<span class='alert'>[R.name]</span>"
+				message += span_alert("[R.name]")
 		else
-			message += "<span class='notice'>Subject is not addicted to any reagents.</span>"
+			message += span_notice("Subject is not addicted to any reagents.")
 	if(to_chat)
 		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 	else
@@ -533,18 +533,19 @@ GENE SCANNER
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
+	var/ranged_scan_distance = 1
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click [src] to activate the barometer function.</span>"
+	. += span_notice("Alt-click [src] to activate the barometer function.")
 
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
+	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
 	return BRUTELOSS
 
 /obj/item/analyzer/attackby(obj/O, mob/living/user)
 	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
-		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		qdel(src)
 		user.put_in_hands(new /obj/item/bot_assembly/atmosbot)
@@ -563,14 +564,14 @@ GENE SCANNER
 	if(!istype(location))
 		return
 
-	scan_turf(user, location)
+	atmos_scan(user=user, target=get_turf(src), silent=FALSE)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 
 	if(user.canUseTopic(src, BE_CLOSE))
 
 		if(cooldown)
-			to_chat(user, "<span class='warning'>[src]'s barometer function is preparing itself.</span>")
+			to_chat(user, span_warning("[src]'s barometer function is preparing itself."))
 			return
 
 		var/turf/T = get_turf(user)
@@ -582,7 +583,7 @@ GENE SCANNER
 		var/datum/weather/ongoing_weather = null
 
 		if(!user_area.outdoors)
-			to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
+			to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
 			return
 
 		for(var/V in SSweather.processing)
@@ -593,26 +594,26 @@ GENE SCANNER
 
 		if(ongoing_weather)
 			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
+				to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
 				return
 
-			to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
+			to_chat(user, span_notice("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 			if(ongoing_weather.aesthetic)
-				to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+				to_chat(user, span_warning("[src]'s barometer function says that the next storm will breeze on by."))
 		else
 			var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
 			var/fixed = next_hit ? next_hit - world.time : -1
 			if(fixed < 0)
-				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
+				to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
 			else
-				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
+				to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
 		cooldown = TRUE
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
 		var/mob/living/L = loc
-		to_chat(L, "<span class='notice'>[src]'s barometer function is ready!</span>")
+		to_chat(L, span_notice("[src]'s barometer function is ready!"))
 	playsound(src, 'sound/machines/click.ogg', 100)
 	cooldown = FALSE
 
@@ -627,7 +628,13 @@ GENE SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1,amount))
 
-/proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE, to_chat = TRUE)
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!can_see(user, target, ranged_scan_distance))
+		return
+	atmos_scan(user, (target.return_analyzable_air() ? target : get_turf(target)))
+
+/proc/atmos_scan(mob/user, atom/target, silent=FALSE)
 	var/mixture = target.return_analyzable_air()
 	if(!mixture)
 		return FALSE
@@ -635,94 +642,50 @@ GENE SCANNER
 	var/list/message = list()
 	var/icon = target
 	if(!silent && isliving(user))
-		user.visible_message("[user] has used the analyzer on [icon2html(icon, viewers(user))] [target].", "<span class='notice'>You use the analyzer on [icon2html(icon, user)] [target].</span>")
-	message += "<span class='boldnotice'>Results of analysis of [icon2html(icon, user)] [target].</span>"
+		user.visible_message("[user] has used the analyzer on [icon2html(icon, viewers(user))] [target].", span_notice("You use the analyzer on [icon2html(icon, user)] [target]."))
+	message += span_boldnotice("Results of analysis of [icon2html(icon, user)] [target].")
 
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	for(var/g in airs)
 		if(airs.len > 1) //not a unary gas mixture
-			message += "<span class='boldnotice'>Node [airs.Find(g)]</span>"
+			message += span_boldnotice("Node [airs.Find(g)]")
 		var/datum/gas_mixture/air_contents = g
 
 		var/total_moles = air_contents.total_moles()
 		var/pressure = air_contents.return_pressure()
 		var/volume = air_contents.return_volume() //could just do mixture.volume... but safety, I guess?
 		var/temperature = air_contents.return_temperature()
+		var/heat_capacity = air_contents.heat_capacity()
+		var/thermal_energy = air_contents.thermal_energy()
 		var/cached_scan_results = air_contents.analyzer_results
 
 		if(total_moles > 0)
-			message += "<span class='notice'>Moles: [round(total_moles, 0.01)] mol</span>"
-			message += "<span class='notice'>Volume: [volume] L</span>"
-			message += "<span class='notice'>Pressure: [round(pressure,0.01)] kPa</span>"
+			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
+			message += span_notice("Volume: [volume] L")
+			message += span_notice("Pressure: [round(pressure,0.01)] kPa")
+			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
+			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
 
-			for(var/id in air_contents.get_gases())
-				var/gas_concentration = air_contents.get_moles(id)/total_moles
-				message += "<span class='notice'>[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.get_moles(id), 0.01)] mol)</span>"
-			message += "<span class='notice'>Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)</span>"
+			for(var/id in air_contents.gases)
+				var/gas_concentration = GET_MOLES(id,air_contents)/total_moles
+				message += span_notice("[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(GET_MOLES(id, air_contents), 0.01)] mol)")
+			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 
 		else
 			if(airs.len > 1)
-				message += "<span class='notice'>This node is empty!</span>"
+				message += span_notice("This node is empty!")
 			else
-				message += "<span class='notice'>[target] is empty!</span>"
-			message += "<span class='notice'>Volume: [volume] L</span>"
+				message += span_notice("[target] is empty!")
+			message += span_notice("Volume: [volume] L")
 
 		if(cached_scan_results && cached_scan_results["fusion"]) //notify the user if a fusion reaction was detected
 			var/instability = round(cached_scan_results["fusion"], 0.01)
-			message += "<span class='boldnotice'>Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.</span>"
-			message += "<span class='notice'>Instability of the last fusion reaction: [instability].</span>"
+			message += span_boldnotice("Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.")
+			message += span_notice("Instability of the last fusion reaction: [instability].")
 
-	if(to_chat)
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
-		return TRUE
-	else
-		return(jointext(message, "\n"))
-
-/obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
-	var/list/message = list()
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	message += "<span class='info'><B>Results:</B></span>"
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		message += "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>"
-	else
-		message += "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>"
-	if(total_moles)
-		var/o2_concentration = environment.get_moles(GAS_O2)/total_moles
-		var/n2_concentration = environment.get_moles(GAS_N2)/total_moles
-		var/co2_concentration = environment.get_moles(GAS_CO2)/total_moles
-		var/plasma_concentration = environment.get_moles(GAS_PLASMA)/total_moles
-
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>"
-		else
-			message += "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>"
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			message += "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)</span>"
-		else
-			message += "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)</span>"
-
-		if(co2_concentration > 0.01)
-			message += "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>"
-		else
-			message += "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>"
-
-		if(plasma_concentration > 0.005)
-			message += "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>"
-		else
-			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>"
-
-		for(var/id in environment.get_gases())
-			if(id in GLOB.hardcoded_gases)
-				continue
-			var/gas_concentration = environment.get_moles(id)/total_moles
-			message += "<span class='alert'>[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>"
-		message += "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>"
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+	// we let the join apply newlines so we do need handholding
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	return TRUE
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
@@ -730,14 +693,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ranged_analyzer"
 	worn_icon_state = "analyzer"
-
-/obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(target.tool_act(user, src, tool_behaviour))
-		return
-	// Tool act didn't scan it, so let's get it's turf.
-	var/turf/location = get_turf(target)
-	scan_turf(user, location)
+	ranged_scan_distance = 15
 
 //slime scanner
 
@@ -760,7 +716,7 @@ GENE SCANNER
 	if(user.stat)
 		return
 	if(!isslime(M))
-		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
+		to_chat(user, span_warning("This device can only scan slimes!"))
 		return
 	var/mob/living/simple_animal/slime/T = M
 	slime_scan(T, user)
@@ -769,12 +725,12 @@ GENE SCANNER
 	var/list/message = list()
 
 	message += "<b>Slime scan results:</b>"
-	message += "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>"
+	message += span_notice("[T.colour] [T.is_adult ? "adult" : "baby"] slime")
 	message += "Nutrition: [T.nutrition]/[T.get_max_nutrition()]"
 	if(T.nutrition < T.get_starve_nutrition())
-		message += "<span class='warning'>Warning: slime is starving!</span>"
+		message += span_warning("Warning: slime is starving!")
 	else if(T.nutrition < T.get_hunger_nutrition())
-		message += "<span class='warning'>Warning: slime is hungry</span>"
+		message += span_warning("Warning: slime is hungry")
 	message += "Electric change strength: [T.powerlevel]"
 	message += "Health: [round(T.health/T.maxHealth,0.01)*100]%"
 	if(T.slime_mutation[4] == T.colour)
@@ -797,8 +753,8 @@ GENE SCANNER
 		message += "<b>Redgrub infestation detected. Quarantine immediately.</b>"
 		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat"
 	if(T.effectmod)
-		message += "<span class='notice'>Core mutation in progress: [T.effectmod]</span>"
-		message += "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>"
+		message += span_notice("Core mutation in progress: [T.effectmod]")
+		message += span_notice("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]")
 	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
 		var/slimeeffect = "\nTransformative extract effect detected: "
 		if(T.transformeffects & SLIME_EFFECT_GREY)
@@ -845,7 +801,7 @@ GENE SCANNER
 			slimeeffect += "adamantine"
 		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
-		message += "<span class='notice'>[slimeeffect].</span>"
+		message += span_notice("[slimeeffect].")
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 
@@ -868,14 +824,14 @@ GENE SCANNER
 	custom_materials = list(/datum/material/iron=200)
 
 /obj/item/nanite_scanner/attack(mob/living/M, mob/living/carbon/human/user)
-	user.visible_message("<span class='notice'>[user] analyzes [M]'s nanites.</span>", \
-						"<span class='notice'>You analyze [M]'s nanites.</span>")
+	user.visible_message(span_notice("[user] analyzes [M]'s nanites."), \
+						span_notice("You analyze [M]'s nanites."))
 
 	add_fingerprint(user)
 
 	var/response = SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, TRUE)
 	if(!response)
-		to_chat(user, "<span class='info'>No nanites detected in the subject.</span>")
+		to_chat(user, span_info("No nanites detected in the subject."))
 
 /obj/item/sequence_scanner
 	name = "genetic sequence scanner"
@@ -902,13 +858,13 @@ GENE SCANNER
 /obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
 	add_fingerprint(user)
 	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
-		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
-							"<span class='notice'>You analyze [M]'s genetic sequence.</span>")
+		user.visible_message(span_notice("[user] analyzes [M]'s genetic sequence."), \
+							span_notice("You analyze [M]'s genetic sequence."))
 		gene_scan(M, user)
 		playsound(src, 'sound/effects/fastbeep.ogg', 20)
 
 	else
-		user.visible_message("<span class='notice'>[user] failed to analyse [M]'s genetic sequence.</span>", "<span class='warning'>[M] has no readable genetic sequence!</span>")
+		user.visible_message(span_notice("[user] failed to analyse [M]'s genetic sequence."), span_warning("[M] has no readable genetic sequence!"))
 
 /obj/item/sequence_scanner/attack_self(mob/user)
 	display_sequence(user)
@@ -924,16 +880,16 @@ GENE SCANNER
 	if(istype(O, /obj/machinery/computer/scan_consolenew))
 		var/obj/machinery/computer/scan_consolenew/C = O
 		if(C.stored_research)
-			to_chat(user, "<span class='notice'>[name] database updated.</span>")
+			to_chat(user, span_notice("[name] database updated."))
 			discovered = C.stored_research.discovered_mutations
 		else
-			to_chat(user,"<span class='warning'>No database to update from.</span>")
+			to_chat(user,span_warning("No database to update from."))
 
 /obj/item/sequence_scanner/proc/gene_scan(mob/living/carbon/C, mob/living/user)
 	if(!iscarbon(C) || !C.has_dna())
 		return
 	buffer = C.dna.mutation_index
-	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
+	to_chat(user, span_notice("Subject [C.name]'s DNA sequence has been saved to buffer."))
 
 	var/list/full_list_mutations = list()
 	for(var/each in buffer) // get inherent mutations first
@@ -947,10 +903,10 @@ GENE SCANNER
 		full_list_mutations[each_mutation.type] = "Temporary"
 
 	for(var/A in full_list_mutations)
-		to_chat(user, "\t<span class='notice'>[get_display_name(A)]</span>") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
-	to_chat(user, "\t<span class='info'>Genetic Stability: [C.dna.stability]%.</span>")
+		to_chat(user, "\t[span_notice("[get_display_name(A)]")]") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
+	to_chat(user, "\t[span_info("Genetic Stability: [C.dna.stability]%.")]")
 	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
-		to_chat(user, "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>")
+		to_chat(user, "\t[span_info("Subject's DNA appears to be in an unstable state.")]")
 
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
@@ -975,7 +931,7 @@ GENE SCANNER
 					display += "-"
 				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
 
-			to_chat(user, "<span class='boldnotice'>[display]</span><br>")
+			to_chat(user, "[span_boldnotice("[display]")]<br>")
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"
@@ -990,9 +946,9 @@ GENE SCANNER
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])
-		return !active_detail ? "[HM.name] ([HM.alias])" : "<span class='green'>[HM.name] ([HM.alias]) - [active_detail]</span>"
+		return !active_detail ? "[HM.name] ([HM.alias])" : span_green("[HM.name] ([HM.alias]) - [active_detail]")
 	else
-		return !active_detail ? HM.alias : "<span class='green'>[HM.alias] - [active_detail]</span>"
+		return !active_detail ? HM.alias : span_green("[HM.alias] - [active_detail]")
 
 /obj/item/extrapolator
 	name = "virus extrapolator"
@@ -1042,10 +998,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 			if(!user.transferItemToLoc(item, src))
 				return
 			scanner = item
-			to_chat(user, "<span class='notice'>You install \the [scanner] in [src].</span>")
+			to_chat(user, span_notice("You install \the [scanner] in [src]."))
 			refresh_parts()
 		else
-			to_chat(user, "<span class='notice'>[src] already has \the [scanner] installed.</span>")
+			to_chat(user, span_notice("[src] already has \the [scanner] installed."))
 		return
 	return ..()
 
@@ -1054,9 +1010,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	if(..())
 		return
 	if(!scanner)
-		to_chat(user, "<span class='warning'>\The [src] has no scanner to remove!</span>")
+		to_chat(user, span_warning("\The [src] has no scanner to remove!"))
 		return FALSE
-	to_chat(user, "<span class='notice'>You remove \the [scanner] from \the [src].</span>")
+	to_chat(user, span_notice("You remove \the [scanner] from \the [src]."))
 	scanner.forceMove(drop_location())
 	scanner = null
 	item.play_tool_sound(src)
@@ -1067,22 +1023,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	if(scan)
 		icon_state = "extrapolator_sample"
 		scan = FALSE
-		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT.</span>")
+		to_chat(user, span_notice("You remove the probe from the device and set it to EXTRACT."))
 	else
 		icon_state = "extrapolator_scan"
 		scan = TRUE
-		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN.</span>")
+		to_chat(user, span_notice("You put the probe back in the device and set it to SCAN."))
 
 /obj/item/extrapolator/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		if(!scanner)
-			. += "<span class='notice'>The scanner is missing.</span>"
+			. += span_notice("The scanner is missing.")
 		else
-			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
-			. += "<span class='notice'>Can detect diseases <b>below stealth [maximum_stealth]</b>.</span>"
-			. += "<span class='notice'>Can extract diseases in <b>[DisplayTimeText(extract_time)]</b>.</span>"
-			. += "<span class='notice'>Can isolate symptoms <b>[maximum_level >= 9 ? "of any level" : "below level [maximum_level]"]</b>, in <b>[DisplayTimeText(isolate_time)]</b>.</span>"
+			. += span_notice("A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.")
+			. += span_notice("Can detect diseases <b>below stealth [maximum_stealth]</b>.")
+			. += span_notice("Can extract diseases in <b>[DisplayTimeText(extract_time)]</b>.")
+			. += span_notice("Can isolate symptoms <b>[maximum_level >= 9 ? "of any level" : "below level [maximum_level]"]</b>, in <b>[DisplayTimeText(isolate_time)]</b>.")
 
 /**
  * Updates the extraction and isolation times based on the scanner's rating.
@@ -1104,10 +1060,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	if(!proximity_flag && !scan)
 		return
 	if(using)
-		to_chat(user, "<span class='warning'>[icon2html(src, user)] The extrapolator is already in use.</span>")
+		to_chat(user, span_warning("[icon2html(src, user)] The extrapolator is already in use."))
 		return
 	if(!COOLDOWN_FINISHED(src, usage_cooldown))
-		to_chat(user, "<span class='warning'>[icon2html(src, user)] The extrapolator is still recharging!</span>")
+		to_chat(user, span_warning("[icon2html(src, user)] The extrapolator is still recharging!"))
 		return
 	if(scanner)
 		var/list/result = target?.extrapolator_act(user, src, dry_run = TRUE)
@@ -1124,9 +1080,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 			return
 		if(!length(diseases))
 			if(scan)
-				to_chat(user, "<span class='notice'>[icon2html(src, user)] \The [src] fails to return any data.</span>")
+				to_chat(user, span_notice("[icon2html(src, user)] \The [src] fails to return any data."))
 			else
-				to_chat(user, "<span class='notice'>[icon2html(src, user)] \The [src]'s probe detects no diseases.</span>")
+				to_chat(user, span_notice("[icon2html(src, user)] \The [src]'s probe detects no diseases."))
 			return
 		if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
 			// extrapolator_act did some sort of special behavior, we don't need to do anything further
@@ -1136,7 +1092,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 		else
 			extrapolate(user, target)
 	else
-		to_chat(user, "<span class='warning'>The extrapolator has no scanner installed!</span>")
+		to_chat(user, span_warning("The extrapolator has no scanner installed!"))
 
 /obj/item/extrapolator/proc/find_valid_targets(mob/living/user, atom/target)
 	. = list()
@@ -1162,8 +1118,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	var/list/message = list()
 	if(length(diseases))
 		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
-		message += "<span class='boldnotice'>[costly_icon2html(target, user)] [target] scan results</span>"
-		message += "<span class='boldnotice'>[icon2html(src, user)] \The [src] detects the following diseases:</span>"
+		message += span_boldnotice("[costly_icon2html(target, user)] [target] scan results")
+		message += span_boldnotice("[icon2html(src, user)] \The [src] detects the following diseases:")
 		for(var/datum/disease/disease in diseases)
 			if(istype(disease, /datum/disease/advance))
 				var/datum/disease/advance/advance_disease = disease
@@ -1176,14 +1132,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 					LAZYADD(properties, "faltered")
 				if(advance_disease.carrier)
 					LAZYADD(properties, "carrier")
-				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				message += span_info("<b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]")
 				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
-				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
+					message += span_infoitalics("This virus has been extracted by \the [src] previously.")
+				message += span_infobold("[advance_disease.name] has the following symptoms:")
 				for(var/datum/symptom/symptom in advance_disease.symptoms)
 					message += "[symptom.name]"
 			else
-				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
+				message += span_info("<b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].")
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /**
@@ -1203,7 +1159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	for(var/datum/disease/advance/candidate in diseases)
 		advance_diseases += candidate
 	if(!length(advance_diseases))
-		to_chat(user, "<span class='warning'>[icon2html(src, user)] There are no valid diseases to make a culture from.</span>")
+		to_chat(user, span_warning("[icon2html(src, user)] There are no valid diseases to make a culture from."))
 		return
 	var/datum/disease/advance/target_disease = length(advance_diseases) > 1 ? tgui_input_list(user, "Select disease to extract", "Viral Extraction", advance_diseases, default = advance_diseases[1]) : advance_diseases[1]
 	if(!target_disease)
@@ -1228,13 +1184,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 			symptoms += symptom
 			continue
 	if(!length(symptoms))
-		to_chat(user, "<span class='warning'>[icon2html(src, user)] There are no symptoms that could be isolated..</span>")
+		to_chat(user, span_warning("[icon2html(src, user)] There are no symptoms that could be isolated.."))
 		return
 	var/datum/symptom/chosen = length(symptoms) > 1 ? tgui_input_list(user, "Select symptom to isolate", "Symptom Extraction", symptoms, default = symptoms[1]) : symptoms[1]
 	if(!chosen)
 		return
-	user.visible_message("<span class='notice'>[user] slots [target] into [src], which begins to whir and beep!</span>", \
-		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[chosen.name]</b> from [target]...</span>", \
+	user.visible_message(span_notice("[user] slots [target] into [src], which begins to whir and beep!"), \
+		span_notice("[icon2html(src, user)] You begin isolating <b>[chosen.name]</b> from [target]..."), \
 		vision_distance = COMBAT_MESSAGE_RANGE)
 	var/datum/disease/advance/symptom_holder = new
 	symptom_holder.name = chosen.name
@@ -1250,8 +1206,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
  */
 /obj/item/extrapolator/proc/isolate_disease(mob/living/user, atom/target, datum/disease/advance/target_disease, timer = 10 SECONDS)
 	. = FALSE
-	user.visible_message("<span class='notice'>[user] begins to thoroughly scan [target] with [src]...</span>", \
-		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[target_disease.name]</b> from [target]...</span>")
+	user.visible_message(span_notice("[user] begins to thoroughly scan [target] with [src]..."), \
+		span_notice("[icon2html(src, user)] You begin isolating <b>[target_disease.name]</b> from [target]..."))
 	if(do_after(user, isolate_time, target = target))
 		create_culture(user, target_disease, target)
 		return TRUE
@@ -1265,7 +1221,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 	disease.dormant = FALSE
 	var/list/data = list("viruses" = list(disease))
 	if(user.get_active_held_item() != src)
-		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
+		to_chat(user, span_warning("The extrapolator must be held in your active hand to work!"))
 		return
 	var/obj/item/reagent_containers/cup/bottle/culture_bottle = new(user.drop_location())
 	culture_bottle.name = "[disease.name] culture bottle"

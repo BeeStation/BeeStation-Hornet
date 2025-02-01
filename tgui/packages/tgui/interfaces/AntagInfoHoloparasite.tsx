@@ -143,8 +143,8 @@ type Info = {
   abilities: GivenAbilities;
 };
 
-const BasicInfo = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const BasicInfo = (_props) => {
+  const { data } = useBackend<Info>();
   return (
     <Section fill title="Basic Info">
       <LabeledList>
@@ -163,8 +163,8 @@ const BasicInfo = (_props, context) => {
   );
 };
 
-const ObjectiveInfo = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const ObjectiveInfo = (_props) => {
+  const { data } = useBackend<Info>();
   const objectives = data.summoner.antag_info?.objectives;
   if (!objectives) {
     return;
@@ -194,8 +194,8 @@ const ObjectiveInfo = (_props, context) => {
   );
 };
 
-const ExtraInfo = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const ExtraInfo = (_props) => {
+  const { data } = useBackend<Info>();
   const extra_info = data.summoner.antag_info?.extra_info;
   if (!extra_info) {
     return;
@@ -216,10 +216,10 @@ const ExtraInfo = (_props, context) => {
   );
 };
 
-const Notes = (_props, context) => {
+const Notes = (_props) => {
   const {
     data: { notes },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   if (!notes || notes.length === 0) {
     return (
       <Section>
@@ -247,11 +247,11 @@ const Notes = (_props, context) => {
   );
 };
 
-const AntagInfo = (props: { antag_info: SummonerAntag }, context) => {
+const AntagInfo = (props: { antag_info: SummonerAntag }) => {
   const {
     antag_info: { objectives, allies, extra_info },
   } = props;
-  const [tab, set_tab] = useLocalState<SummonerTab>(context, 'summoner_tab', SummonerTab.Notes);
+  const [tab, set_tab] = useLocalState<SummonerTab>('summoner_tab', SummonerTab.Notes);
   return (
     <>
       {!!objectives && (
@@ -276,11 +276,11 @@ const AntagInfo = (props: { antag_info: SummonerAntag }, context) => {
   );
 };
 
-const SummonerInfo = (_props, context) => {
+const SummonerInfo = (_props) => {
   const {
     data: { summoner },
-  } = useBackend<Info>(context);
-  const [tab, set_tab] = useLocalState<SummonerTab>(context, 'summoner_tab', SummonerTab.Notes);
+  } = useBackend<Info>();
+  const [tab, set_tab] = useLocalState<SummonerTab>('summoner_tab', SummonerTab.Notes);
   return (
     <Section fill title="Summoner Info">
       <Tabs m={-1}>
@@ -296,8 +296,8 @@ const SummonerInfo = (_props, context) => {
   );
 };
 
-const StatBox = (props: { name: string; description: string; value: number }, context) => {
-  const { data } = useBackend<Info>(context);
+const StatBox = (props: { name: string; description: string; value: number }) => {
+  const { data } = useBackend<Info>();
   const { name, description, value } = props;
   return (
     <Flex inline width="300px" mx={0.25} px={1}>
@@ -324,8 +324,8 @@ const StatBox = (props: { name: string; description: string; value: number }, co
   );
 };
 
-const StatsSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const StatsSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { stats } = data;
   return (
     <Section>
@@ -354,8 +354,8 @@ const StatsSection = (_props, context) => {
   );
 };
 
-const StatsChartSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const StatsChartSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { accent_color, stats } = data;
   return (
     <RadarChart
@@ -369,8 +369,8 @@ const StatsChartSection = (_props, context) => {
   );
 };
 
-const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }, context) => {
-  const { data } = useBackend<Info>(context);
+const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }) => {
+  const { data } = useBackend<Info>();
   return (
     <Collapsible title={props.title}>
       <Stack vertical>
@@ -390,8 +390,8 @@ const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[
   );
 };
 
-const AbilityDisplay = (props: { ability: Ability; title?: string }, context) => {
-  const { data } = useBackend<Info>(context);
+const AbilityDisplay = (props: { ability: Ability; title?: string }) => {
+  const { data } = useBackend<Info>();
   const { ability, title } = props;
   const [stat_thresholds, stat_info] = ability.thresholds.reduce(
     ([p, f], e) => (is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]]),
@@ -429,8 +429,8 @@ const AbilityDisplay = (props: { ability: Ability; title?: string }, context) =>
   );
 };
 
-const MajorAbilitySection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const MajorAbilitySection = (_props) => {
+  const { data } = useBackend<Info>();
   const { abilities } = data;
   if (!abilities.major) {
     return (
@@ -445,15 +445,15 @@ const MajorAbilitySection = (_props, context) => {
   return <AbilityDisplay title={`Ability: ${ability.name}`} ability={ability} />;
 };
 
-const WeaponSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const WeaponSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { abilities } = data;
   const weapon = abilities.weapon!;
   return <AbilityDisplay title={`Weapon: ${weapon.name}`} ability={weapon} />;
 };
 
-const LesserAbilitiesSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const LesserAbilitiesSection = (_props) => {
+  const { data } = useBackend<Info>();
   if (!data.abilities.lesser?.length) {
     return (
       <Section fill title="Lesser Abilities">

@@ -1,8 +1,3 @@
-#define BAD_INIT_QDEL_BEFORE 1
-#define BAD_INIT_DIDNT_INIT 2
-#define BAD_INIT_SLEPT 4
-#define BAD_INIT_NO_HINT 8
-
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
@@ -33,26 +28,18 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/Initialize()
 	//Wait until map loading is completed
 	if (length(SSasync_map_generator.executing_generators) > 0)
-		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSasync_map_generator.executing_generators)] map generators...</bold>")
+		to_chat(world, span_boldannounce("Waiting for [length(SSasync_map_generator.executing_generators)] map generators..."))
 		do
 			SSasync_map_generator.fire()
 			sleep(0.5)
 		while (length(SSasync_map_generator.executing_generators) > 0)
-		to_chat(world, "<span class='boldannounce'>Map generators completed, initializing atoms.</bold>")
+		to_chat(world, span_boldannounce("Map generators completed, initializing atoms.</bold>"))
 
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
 	return SS_INIT_SUCCESS
-
-#ifdef PROFILE_MAPLOAD_INIT_ATOM
-#define PROFILE_INIT_ATOM_BEGIN(...) var/__profile_stat_time = TICK_USAGE
-#define PROFILE_INIT_ATOM_END(atom) mapload_init_times += list(list(##atom.type, TICK_USAGE_TO_MS(__profile_stat_time)))
-#else
-#define PROFILE_INIT_ATOM_BEGIN(...)
-#define PROFILE_INIT_ATOM_END(...)
-#endif
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, list/atoms_to_return)
 	if(initialized == INITIALIZATION_INSSATOMS)
@@ -272,9 +259,3 @@ SUBSYSTEM_DEF(atoms)
 
 #undef SUBSYSTEM_INIT_SOURCE
 
-#undef BAD_INIT_QDEL_BEFORE
-#undef BAD_INIT_DIDNT_INIT
-#undef BAD_INIT_SLEPT
-#undef BAD_INIT_NO_HINT
-#undef PROFILE_INIT_ATOM_BEGIN
-#undef PROFILE_INIT_ATOM_END

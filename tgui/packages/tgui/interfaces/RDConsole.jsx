@@ -3,8 +3,8 @@ import { AnimatedNumber, Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
-const RDServerStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+const RDServerStatus = (props) => {
+  const { act, data } = useBackend();
   const { value, ...rest } = props;
   const { name, server_id, temperature, temperature_warning, temperature_max, enabled, overheated } = value;
   const tempState =
@@ -42,8 +42,8 @@ const RDServerStatus = (props, context) => {
   );
 };
 
-const RDServerLogItem = (props, context) => {
-  const { act, data } = useBackend(context);
+const RDServerLogItem = (props) => {
+  const { act, data } = useBackend();
   const { value, ...rest } = props;
   const { entry = '', research_name = '', cost = '', researcher_name = '', location = '' } = value;
   return (
@@ -57,8 +57,8 @@ const RDServerLogItem = (props, context) => {
   );
 };
 
-export const RDConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RDConsole = (props) => {
+  const { act, data } = useBackend();
   const { logs = [], servers = [] } = data;
   return (
     <Window width={900} height={750}>

@@ -14,8 +14,8 @@ type Tdata = {
     overheated: boolean; // true/false
   }[];
 };
-export const Telemonitor = (props, context) => {
-  const { act, data } = useBackend<Tdata>(context);
+export const Telemonitor = (props) => {
+  const { act, data } = useBackend<Tdata>();
   const isOnline = function (server) {
     return Math.floor((data.current_time - server.last_update) / 10) < 10;
   };

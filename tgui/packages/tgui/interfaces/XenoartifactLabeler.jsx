@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Section, Box, Flex, Input, BlockQuote } from '../components';
 import { Window } from '../layouts';
 
-export const XenoartifactLabeler = (props, context) => {
+export const XenoartifactLabeler = (props) => {
   return (
     <Window width={350} height={500}>
       <Window.Content scrollable={0}>
@@ -21,8 +21,8 @@ export const XenoartifactLabeler = (props, context) => {
   );
 };
 
-const XenoartifactLabelerTraits = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactLabelerTraits = (props) => {
+  const { act, data } = useBackend();
   const {
     selected_activator_traits,
     activator_traits,
@@ -98,8 +98,8 @@ const XenoartifactLabelerTraits = (props, context) => {
   );
 };
 
-const XenoartifactLabelerInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactLabelerInfo = (props) => {
+  const { act, data } = useBackend();
   const { info_list } = data;
   return (
     <Box px={1} overflowY="auto" height="425px">
@@ -110,8 +110,8 @@ const XenoartifactLabelerInfo = (props, context) => {
   );
 };
 
-const XenoartifactLabelerGenerateList = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactLabelerGenerateList = (props) => {
+  const { act } = useBackend();
   const { specific_trait, check_against, trait_type } = props;
   return (
     <Box>
@@ -124,8 +124,8 @@ const XenoartifactLabelerGenerateList = (props, context) => {
   );
 };
 
-const XenoartifactLabelerGenerateInfo = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactLabelerGenerateInfo = (props) => {
+  const { act } = useBackend();
   const { info } = props;
   return (
     <Section>
@@ -136,8 +136,8 @@ const XenoartifactLabelerGenerateInfo = (props, context) => {
   );
 };
 
-const XenoartifactLabelerSticker = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactLabelerSticker = (props) => {
+  const { act } = useBackend();
   return (
     <Box>
       <Input placeholder="Label Name..." onChange={(e, input) => act('change_print_name', { name: input })} />

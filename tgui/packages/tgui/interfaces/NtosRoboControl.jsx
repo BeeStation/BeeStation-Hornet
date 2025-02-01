@@ -6,8 +6,8 @@ const getMuleByRef = (mules, ref) => {
   return mules?.find((mule) => mule.mule_ref === ref);
 };
 
-export const NtosRoboControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosRoboControl = (props) => {
+  const { act, data } = useBackend();
   const { bots, id_owner, has_id } = data;
   return (
     <NtosWindow width={550} height={550}>
@@ -27,9 +27,9 @@ export const NtosRoboControl = (props, context) => {
   );
 };
 
-const RobotInfo = (props, context) => {
+const RobotInfo = (props) => {
   const { robot } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const mules = data.mules || [];
   // Get a mule object
   const mule = !!robot.mule_check && getMuleByRef(mules, robot.bot_ref);

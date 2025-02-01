@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Timer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Timer = (props) => {
+  const { act, data } = useBackend();
   const { minutes, seconds, timing, loop } = data;
   return (
     <Window width={275} height={115}>

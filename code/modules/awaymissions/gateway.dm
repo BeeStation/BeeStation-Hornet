@@ -59,11 +59,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 /obj/machinery/gateway/examine(mob/user)
 	. = ..()
 
-	. += "<span class='info'>It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, but not linked") : "off"].</span>"
+	. += span_info("It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, but not linked") : "off"].")
 
 	if(active)
 		. += ""
-		. += "<span class='info'>Use a <b>multi-tool</b> to turn it off.</span>"
+		. += span_info("Use a <b>multi-tool</b> to turn it off.")
 
 /obj/machinery/gateway/MouseDrop_T(atom/movable/AM, mob/user)
 	. = ..()
@@ -107,10 +107,10 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 			return // Don't enter if we're already trying to enter
 
 		if(!self)//Let the assailant know
-			to_chat(assailant, "<span class='warning'>You try to push [target_mob] into [src]...</span>")
+			to_chat(assailant, span_warning("You try to push [target_mob] into [src]..."))
 		target_mob.visible_message( \
-			self ? "<span class='notice'>[target_mob] tries to climb into [src]...</span>" : "<span class='warning'>[assailant] tries to shove [target_mob] into [src]...</span>", \
-			self ? "<span class='notice'>You begin climbing into [src]...</span>" : "<span class='userdanger'>You're being shoved into [src] by [assailant]!</span>")
+			self ? span_notice("[target_mob] tries to climb into [src]...") : span_warning("[assailant] tries to shove [target_mob] into [src]..."), \
+			self ? span_notice("You begin climbing into [src]...") : span_userdanger("You're being shoved into [src] by [assailant]!"))
 
 		// Try the actual teleport
 		if(!do_after(self ? target_movable : assailant, 5 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
@@ -123,13 +123,13 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 /obj/machinery/gateway/proc/actually_teleport(atom/movable/AM, turf/dest_turf, rough_landing = FALSE)
 	if(!do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY, ignore_check_teleport = TRUE)) // We've already done the check_teleport() hopefully
 		return
-	AM.visible_message("<span class='notice'>[AM] passes through [linked_gateway]!</span>", "<span class='notice'>You pass through [src].</span>")
+	AM.visible_message(span_notice("[AM] passes through [linked_gateway]!"), span_notice("You pass through [src]."))
 	AM.setDir(SOUTH)
 
 	if(rough_landing && isliving(AM))
 		var/mob/living/victim = AM
 		victim.Knockdown(3 SECONDS)
-		to_chat(victim, "<span class='userdanger'>You fall onto \the [get_turf(AM)]!</span>")
+		to_chat(victim, span_userdanger("You fall onto \the [get_turf(AM)]!"))
 
 /obj/machinery/gateway/update_icon_state()
 	icon_state = active ? "on" : "off"
@@ -138,37 +138,37 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 // Try to turn it on
 /obj/machinery/gateway/attack_hand(mob/living/user)
 	if(!active && toggleon(user))
-		user.visible_message("<span class='notice'>[user] switches [src] on.</span>", "<span class='notice'>You switch [src] on.</span>")
+		user.visible_message(span_notice("[user] switches [src] on."), span_notice("You switch [src] on."))
 		return TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>You need a multitool to turn it off!</span>")
+		to_chat(user, span_warning("You need a multitool to turn it off!"))
 		return TRUE
 	return ..()
 
 // Silicons can turn it on and off however they please
 /obj/machinery/gateway/attack_silicon(mob/user)
 	if(active ? toggleoff(telegraph = TRUE) : toggleon(user))
-		to_chat(user, "<span class='notice'>You turn send a [active ? "startup" : "shutdown"] signal to [src].</span>")
-		visible_message("<span class='notice'>[src] turns on.</span>", ignored_mobs = list(user))
+		to_chat(user, span_notice("You turn send a [active ? "startup" : "shutdown"] signal to [src]."))
+		visible_message(span_notice("[src] turns on."), ignored_mobs = list(user))
 		return TRUE
 	return ..()
 
 // Otherwise, you need a multitool to turn it off
 /obj/machinery/gateway/multitool_act(mob/living/user, obj/item/I)
 	if(active && toggleoff(telegraph = TRUE))
-		user.visible_message("<span class='notice'>[user] switches [src] off.</span>", "<span class='notice'>You switch [src] off.</span>")
+		user.visible_message(span_notice("[user] switches [src] off."), span_notice("You switch [src] off."))
 		return TRUE
 	else if(!active)
-		to_chat(user, "<span class='warning'>Its already off!</span>")
+		to_chat(user, span_warning("Its already off!"))
 		return TRUE
 	return ..()
 
 /obj/machinery/gateway/proc/toggleon(mob/user)
 	if(!powered())
-		to_chat(user, "<span class='warning'>It has no power!</span>")
+		to_chat(user, span_warning("It has no power!"))
 		return FALSE
 	if(!linked_gateway)
-		to_chat(user, "<span class='warning'>No destination found!</span>")
+		to_chat(user, span_warning("No destination found!"))
 		return FALSE
 
 	active = TRUE

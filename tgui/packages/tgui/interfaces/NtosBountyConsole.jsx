@@ -3,8 +3,8 @@ import { AnimatedNumber, Box, Button, Section, Table } from '../components';
 import { formatMoney } from '../format';
 import { NtosWindow } from '../layouts';
 
-export const NtosBountyConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosBountyConsole = (props) => {
+  const { act, data } = useBackend();
   const { bountydata = [], has_printer } = data;
   return (
     <NtosWindow width={750} height={600}>
@@ -77,8 +77,8 @@ export const NtosBountyConsole = (props, context) => {
   );
 };
 
-const BountyHeader = (props, context) => {
-  const { act, data } = useBackend(context);
+const BountyHeader = (props) => {
+  const { act, data } = useBackend();
   const { stored_cash } = data;
   return (
     <Box inline bold>

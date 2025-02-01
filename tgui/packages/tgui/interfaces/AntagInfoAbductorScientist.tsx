@@ -10,8 +10,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const IntroSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { mothership } = data;
   return (
     <Stack>
@@ -44,7 +44,7 @@ const IntroSection = (_props, context) => {
   );
 };
 
-const BasicLoreSection = (_props, _context) => {
+const BasicLoreSection = (_props) => {
   return (
     <Section>
       <BlockQuote>
@@ -66,7 +66,7 @@ const BasicLoreSection = (_props, _context) => {
   );
 };
 
-const SurgerySubsection = (_props, _context) => {
+const SurgerySubsection = (_props) => {
   return (
     <Section name="Experimentation">
       Whenever you have successfully abducted a target to your mothership, you experiment on them with an{' '}
@@ -131,7 +131,7 @@ const SurgerySubsection = (_props, _context) => {
   );
 };
 
-const EquipmentSection = (_props, _context) => {
+const EquipmentSection = (_props) => {
   return (
     <Section title="Equipment">
       <Stack vertical>
@@ -200,8 +200,8 @@ const EquipmentSection = (_props, _context) => {
   );
 };
 
-export const AntagInfoAbductorScientist = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoAbductorScientist = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={620} height={620} theme="abductor">

@@ -106,8 +106,7 @@ recommend getting yourself introduced to
 
 A React component is not a regular HTML template. A component is a
 javascript function, which accepts a `props` object (that contains
-properties passed to a component) and a `context` object (which is
-necessary to access UI data) as arguments, and outputs an HTML-like
+properties passed to a component) as an argument, and outputs an HTML-like
 structure.
 
 So let's create our first React Component. Create a file with a name
@@ -119,8 +118,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SampleInterface = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SampleInterface = (props) => {
+  const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const {
     health,
@@ -150,7 +149,7 @@ export const SampleInterface = (props, context) => {
 };
 ```
 
-Here are the key variables you get from a `useBackend(context)` function:
+Here are the key variables you get from a `useBackend()` function:
 
 - `config` is part of core tgui. It contains meta-information about the
 interface and who uses it, BYOND refs to various objects, and so forth.
@@ -251,7 +250,7 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SampleInterface = (props, context) => {
+export const SampleInterface = (props) => {
   return (
     <Window>
       <Window.Content scrollable>
@@ -261,8 +260,8 @@ export const SampleInterface = (props, context) => {
   );
 };
 
-const HealthStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+const HealthStatus = (props) => {
+  const { act, data } = useBackend();
   const {
     user,
   } = props;
@@ -322,8 +321,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SampleInterface = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SampleInterface = (props) => {
+  const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const {
     health,

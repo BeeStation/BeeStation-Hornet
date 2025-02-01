@@ -3,10 +3,10 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, NoticeBox, Section, Stack, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosPortraitPrinter = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [listIndex, setListIndex] = useLocalState(context, 'listIndex', 0);
+export const NtosPortraitPrinter = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [listIndex, setListIndex] = useLocalState('listIndex', 0);
   const { library, library_secure, library_private } = data;
   const TABS = [
     {

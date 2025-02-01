@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ChemAcclimator = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemAcclimator = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={320} height={271}>
       <Window.Content>

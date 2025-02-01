@@ -17,13 +17,13 @@
 		I = O
 		break
 	if(I)
-		display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [surgery.location]...</span>",
+		display_results(user, target, span_notice("You begin to extract [I] from [target]'s [surgery.location]..."),
 			"[user] begins to extract [I] from [target]'s [surgery.location].",
 			"[user] begins to extract something from [target]'s [surgery.location].")
 		//Incase they are interupted mid-extraction, log it
 		log_combat(user, target, "tried to extract [I.name] from")
 	else
-		display_results(user, target, "<span class='notice'>You look for an implant in [target]'s [surgery.location]...</span>",
+		display_results(user, target, span_notice("You look for an implant in [target]'s [surgery.location]..."),
 			"[user] looks for an implant in [target]'s [surgery.location].",
 			"[user] looks for something in [target]'s [surgery.location].")
 		//Doesn't matter if they finish or not, defaults to this if there are no implants
@@ -31,7 +31,7 @@
 
 /datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(I)
-		display_results(user, target, "<span class='notice'>You successfully remove [I] from [target]'s [surgery.location].</span>",
+		display_results(user, target, span_notice("You successfully remove [I] from [target]'s [surgery.location]."),
 			"[user] successfully removes [I] from [target]'s [surgery.location]!",
 			"[user] successfully removes something from [target]'s [surgery.location]!")
 		I.removed(target)
@@ -49,14 +49,14 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_icon()
-			display_results(user, target, "<span class='notice'>You place [I] into [case].</span>",
+			display_results(user, target, span_notice("You place [I] into [case]."),
 				"[user] places [I] into [case]!",
 				"[user] places it into [case]!")
 		else
 			qdel(I)
 
 	else
-		to_chat(user, "<span class='warning'>You can't find anything in [target]'s [surgery.location]!</span>")
+		to_chat(user, span_warning("You can't find anything in [target]'s [surgery.location]!"))
 	return 1
 
 /datum/surgery/implant_removal/mechanic

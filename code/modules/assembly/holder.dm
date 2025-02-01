@@ -37,7 +37,7 @@
 	for(var/assembly in assemblies)
 		if(istype(assembly, /obj/item/assembly/timer))
 			var/obj/item/assembly/timer/timer = assembly
-			. += "<span class='notice'>The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].</span>"
+			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
 /obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
 	. = ..()

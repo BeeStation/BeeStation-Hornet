@@ -92,7 +92,7 @@
 					reactor_core.linked_interface = src
 					reactor_core.ui_update()
 					reactor = reactor_core
-					to_chat(user, "<span class='notice'>You upload the link to the [src].</span>")
+					to_chat(user, span_notice("You upload the link to the [src]."))
 
 
 /obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)
@@ -240,18 +240,18 @@
 		if(box.box_type == "coolant_input")
 			var/obj/machinery/atmospherics/components/unary/rbmk/coolant_input/coolant_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/coolant_input(box.loc, TRUE)
 			coolant_input_machine.dir = box.dir
-			coolant_input_machine.SetInitDirections()
-			coolant_input_machine.build_network()
+			coolant_input_machine.set_init_directions()
+			coolant_input_machine.rebuild_pipes()
 		else if(box.box_type == "moderator_input")
 			var/obj/machinery/atmospherics/components/unary/rbmk/moderator_input/moderator_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/moderator_input(box.loc, TRUE)
 			moderator_input_machine.dir = box.dir
-			moderator_input_machine.SetInitDirections()
-			moderator_input_machine.build_network()
+			moderator_input_machine.set_init_directions()
+			moderator_input_machine.rebuild_pipes()
 		else if(box.box_type == "waste_output")
 			var/obj/machinery/atmospherics/components/unary/rbmk/waste_output/waste_output_machine = new/obj/machinery/atmospherics/components/unary/rbmk/waste_output(box.loc, TRUE)
 			waste_output_machine.dir = box.dir
-			waste_output_machine.SetInitDirections()
-			waste_output_machine.build_network()
+			waste_output_machine.set_init_directions()
+			waste_output_machine.rebuild_pipes()
 	new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE)
 	for(var/obj/item/RBMK_box/box in parts)
 		qdel(box)

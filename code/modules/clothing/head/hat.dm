@@ -173,9 +173,9 @@
 		icon_state = "ushankaup"
 		item_state = "ushankaup"
 		earflaps_down = FALSE
-		to_chat(user, "<span class='notice'>You raise the ear flaps on the ushanka.</span>")
+		to_chat(user, span_notice("You raise the ear flaps on the ushanka."))
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 		earflaps_down = TRUE
-		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
+		to_chat(user, span_notice("You lower the ear flaps on the ushanka."))

@@ -5,8 +5,8 @@ import { map } from 'common/collections';
 import { Button, Section, Box, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const ForbiddenLore = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ForbiddenLore = (props) => {
+  const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const { charges, to_know = {} } = data;
   const SortByPath = flow([

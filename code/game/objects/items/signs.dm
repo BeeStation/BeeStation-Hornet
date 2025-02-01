@@ -21,7 +21,7 @@
 
 /obj/item/picket_sign/proc/retext(mob/user)
 	if(!user.is_literate())
-		to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
+		to_chat(user, span_notice("You scribble illegibly on [src]!"))
 		return
 	var/txt = stripped_input(user, "What would you like to write on the sign?", "Sign Label", null , 30)
 	if(txt && user.canUseTopic(src, BE_CLOSE))
@@ -39,8 +39,24 @@
 	if( last_wave + 20 < world.time )
 		last_wave = world.time
 		if(label)
-			user.visible_message("<span class='warning'>[user] waves around \the \"[label]\" sign.</span>")
+			user.visible_message(span_warning("[user] waves around \the \"[label]\" sign."))
 		else
-			user.visible_message("<span class='warning'>[user] waves around blank sign.</span>")
+			user.visible_message(span_warning("[user] waves around blank sign."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
+/datum/crafting_recipe/picket_sign
+	name = "Picket Sign"
+	result = /obj/item/picket_sign
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/stack/sheet/cardboard = 2)
+	time = 80
+	category = CAT_MISC
+
+/datum/action/item_action/nano_picket_sign
+	name = "Retext Nano Picket Sign"
+
+/datum/action/item_action/nano_picket_sign/on_activate(mob/user, atom/target)
+	if(!istype(target, /obj/item/picket_sign))
+		return
+	var/obj/item/picket_sign/sign = target
+	sign.retext(owner)
