@@ -2,7 +2,7 @@
 /datum/unit_test/reagent_container_defaults
 
 /datum/unit_test/reagent_container_defaults/Run()
-	for(var/container_type in subtypesof(/obj/item/reagent_containers))
+	for(var/container_type in subtypesof(/obj/item/reagent_containers) - /obj/item/reagent_containers/spray/cyborg) //cyborg sprayers dont work like regular sprayers
 		var/obj/item/reagent_containers/container = allocate(container_type)
 		if(!container.has_variable_transfer_amount)
 			continue
