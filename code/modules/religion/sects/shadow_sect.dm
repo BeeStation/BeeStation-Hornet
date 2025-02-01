@@ -342,13 +342,13 @@
 /datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	var/cost = 200 * sect.light_power * -1 + 200
-	if(sect.favor < cost)
-		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
-		return FALSE
 	if((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level))
 		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
 		if(sect.grand_ritual_level != 3)
 			to_chat(user, "<span class='warning'>Performing grand ritual woudl let more shadow move into this world.</span>")
+		return FALSE
+	if(sect.favor < cost)
+		to_chat(user, "<span class='warning'>The shadows emanating from your idols need more favor to expand. You need [cost].</span>")
 		return FALSE
 	return ..()
 
@@ -416,6 +416,8 @@
 	if(!anchored)
 		return
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.grand_ritual_in_progres)
+		return
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(sect.light_reach, src))
@@ -622,7 +624,6 @@
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_one
 	sect.rites_list += /datum/religion_rites/grand_ritual_two
-	ui_update()
 	return ..()
 
 /datum/religion_rites/grand_ritual_one/proc/handle_obeliscs()
@@ -665,8 +666,8 @@
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
 		return FALSE
-	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
-		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
+	if(sect.active_obelisk_number < 7 * (sect.grand_ritual_level + 1))
+		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [7 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
 		return FALSE
 	if(!can_afford(user))
 		return FALSE
@@ -683,7 +684,7 @@
 
 /datum/religion_rites/grand_ritual_two/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 1))
+	if(sect.active_obelisk_number < 7 * (sect.grand_ritual_level + 1))
 		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
@@ -697,7 +698,6 @@
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_two
 	sect.rites_list += /datum/religion_rites/grand_ritual_three
-	ui_update()
 	return ..()
 
 /datum/religion_rites/grand_ritual_two/proc/handle_obeliscs()
@@ -729,7 +729,7 @@
 		"... Solidify and grow ...",
 		"... Make an idol to eminate shadows ...")
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
-	favor_cost = 100000
+	favor_cost = 50000
 
 /datum/religion_rites/grand_ritual_three/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
@@ -742,8 +742,8 @@
 	if(!((sect.light_power <= -6 - 5 * sect.grand_ritual_level) || (sect.light_reach >= 8 + 7.5 * sect.grand_ritual_level)))
 		to_chat(user, "<span class='warning'>You need to strengthen the shadows before you can begin the ritual. Expand shadows to their limits.</span>")
 		return FALSE
-	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
-		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [5 * (sect.grand_ritual_level + 2)] active obelisks.</span>")
+	if(sect.active_obelisk_number < 10 * (sect.grand_ritual_level + 1))
+		to_chat(user, "<span class='warning'>You need to archon the shadows to this reality. You need [10 * (sect.grand_ritual_level + 1)] active obelisks.</span>")
 		return FALSE
 	if(!can_afford(user))
 		return FALSE
@@ -761,7 +761,7 @@
 
 /datum/religion_rites/grand_ritual_three/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.active_obelisk_number < 5 * (sect.grand_ritual_level + 2))
+	if(sect.active_obelisk_number < 10 * (sect.grand_ritual_level + 1))
 		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
@@ -774,7 +774,6 @@
 			var/datum/species/shadow/spiec = M.dna.species
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_three
-	ui_update()
 	return ..()
 
 /datum/religion_rites/grand_ritual_three/proc/handle_obeliscs()
