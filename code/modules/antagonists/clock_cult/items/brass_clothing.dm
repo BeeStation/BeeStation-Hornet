@@ -35,7 +35,7 @@
 	if(istype(user, /mob/living/carbon/human/consistent) || istype(user, /mob/living/carbon/human/dummy))
 		//Fake people need not apply (it fucks up my unit tests)
 		return
-	if(is_servant_of_ratvar(user) && allow_any)
+	if(is_servant_of_ratvar(user) || allow_any)
 		return
 	to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 	user.dropItemToGround(src, TRUE)

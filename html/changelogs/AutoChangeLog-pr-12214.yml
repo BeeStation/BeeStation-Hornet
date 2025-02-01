@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - config: Adds a 514 warning for clients joining the game.

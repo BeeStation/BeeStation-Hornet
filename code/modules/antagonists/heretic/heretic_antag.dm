@@ -186,7 +186,7 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	our_mob.faction |= FACTION_HERETIC
-	RegisterSignal(our_mob, COMSIG_MOB_PRE_CAST_SPELL, PROC_REF(on_spell_cast))
+	RegisterSignals(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
 	update_heretic_icons_added()
@@ -195,7 +195,7 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	handle_clown_mutation(our_mob, removing = FALSE)
 	our_mob.faction -= FACTION_HERETIC
-	UnregisterSignal(our_mob, list(COMSIG_MOB_PRE_CAST_SPELL, COMSIG_MOB_ITEM_AFTERATTACK, COMSIG_MOB_LOGIN))
+	UnregisterSignal(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED, COMSIG_MOB_ITEM_AFTERATTACK, COMSIG_MOB_LOGIN))
 	update_heretic_icons_removed()
 
 /datum/antagonist/heretic/proc/update_heretic_icons_added()
@@ -216,19 +216,18 @@
 		knowledge.on_gain(new_body)
 
 /*
- * Signal proc for [COMSIG_MOB_PRE_CAST_SPELL].
+ * Signal proc for [COMSIG_MOB_PRE_SPELL_CAST] and [COMSIG_MOB_SPELL_ACTIVATED].
  *
- * Checks if our heretic has TRAIT_ALLOW_HERETIC_CASTING.
+ * Checks if our heretic has [TRAIT_ALLOW_HERETIC_CASTING] or is ascended.
  * If so, allow them to cast like normal.
- * If not, cancel the cast.
+ * If not, cancel the cast, and returns [SPELL_CANCEL_CAST].
  */
-/datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, obj/effect/proc_holder/spell/spell)
+/datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, datum/action/spell/spell)
 	SIGNAL_HANDLER
 
-	// Non-Heretic spells, we don't care
-	if(!spell.requires_heretic_focus)
+	// Heretic spells are of the forbidden school, otherwise we don't care
+	if(spell.school != SCHOOL_FORBIDDEN)
 		return
-
 	// If we've got the trait, we don't care
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
@@ -237,8 +236,8 @@
 		return
 
 	// We shouldn't be able to cast this! Cancel it.
-	source.balloon_alert(source, "You need a focus")
-	return COMPONENT_CANCEL_SPELL
+	source.balloon_alert(source, "you need a focus!")
+	return SPELL_CANCEL_CAST
 
 /*
  * Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK].

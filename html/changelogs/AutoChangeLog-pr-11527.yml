@@ -1,0 +1,11 @@
+author: Szyszkrzyneczka
+delete-after: true
+changes:
+  - code_imp: Removes proc_holders in favour of using /datum/action and expanding
+      on it some more
+  - refactor: refactors how spell code works making it badass and stuff
+  - tweak: Many spells changed to conform with the new code order, included is telepathy
+      that now works by providing the user with a list of targets instead of clicking
+      on one
+  - tweak: Spell cooldowns are very likely to be slightly different (Actually readable)
+      Old cooldown code is an unreadable mess

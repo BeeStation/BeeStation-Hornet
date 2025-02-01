@@ -46,7 +46,7 @@
 	var/attack_hand_interact = TRUE					//interact on attack hand.
 	var/quickdraw = FALSE							//altclick interact
 
-	var/datum/action/item_action/storage_gather_mode/modeswitch_action
+	var/datum/weakref/modeswitch_action_ref
 
 	/// whether or not we should have those cute little animations
 	var/animated = TRUE
@@ -154,17 +154,17 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
 
 /datum/component/storage/proc/update_actions()
-	QDEL_NULL(modeswitch_action)
 	if(!isitem(parent) || !allow_quick_gather)
+		QDEL_NULL(modeswitch_action_ref)
 		return
-	var/obj/item/I = parent
-	modeswitch_action = new(I)
+	var/datum/action/existing = modeswitch_action_ref?.resolve()
+	if(!QDELETED(existing))
+		return
+
+	var/obj/item/item_parent = parent
+	var/datum/action/modeswitch_action = item_parent.add_item_action(/datum/action/item_action/storage_gather_mode)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
-	if(I.item_flags & PICKED_UP)
-		var/mob/M = I.loc
-		if(!istype(M))
-			return
-		modeswitch_action.Grant(M)
+	modeswitch_action_ref = WEAKREF(modeswitch_action)
 
 /datum/component/storage/proc/change_master(datum/component/storage/concrete/new_master)
 	if(new_master == src || (!isnull(new_master) && !istype(new_master)))
