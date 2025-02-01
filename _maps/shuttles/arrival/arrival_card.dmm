@@ -5,10 +5,10 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "bd" = (
-/obj/machinery/atmospherics/components/unary/tank/plasma{
+/obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/machinery/atmospherics/components/tank/plasma{
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
@@ -48,17 +48,17 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "gt" = (
-/obj/machinery/atmospherics/components/unary/tank/plasma{
-	dir = 4
-	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod,
+/obj/machinery/atmospherics/components/tank/plasma{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/arrival)
 "gM" = (
@@ -97,13 +97,13 @@
 /turf/open/floor/iron/ridged,
 /area/shuttle/arrival)
 "jm" = (
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "ns" = (
@@ -118,11 +118,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "pW" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "qz" = (
@@ -160,7 +160,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "ry" = (
-/obj/machinery/atmospherics/pipe/manifold/orange/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "rV" = (
@@ -235,15 +235,15 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "zZ" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -284,15 +284,15 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "BM" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 10
-	},
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/machinery/light/small/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 10
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Cd" = (
@@ -321,11 +321,11 @@
 /area/shuttle/arrival)
 "CH" = (
 /obj/machinery/door/airlock/hatch,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/shuttle/arrival)
@@ -364,12 +364,12 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Fn" = (
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Ft" = (
@@ -520,7 +520,9 @@
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "Ud" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -541,15 +543,15 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival)
 "Vf" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/loading_area{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
@@ -563,7 +565,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "Wa" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -581,11 +585,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Wz" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 5
-	},
 /obj/machinery/light/small/directional/west,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 5
+	},
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "Xd" = (
@@ -621,10 +625,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "ZR" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
+/obj/machinery/light/small/directional/east,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 9
 	},
-/obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 

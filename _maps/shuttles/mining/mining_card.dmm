@@ -53,7 +53,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 5
 	},
 /turf/open/floor/pod/light,
@@ -114,7 +114,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
@@ -141,9 +141,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
 /turf/open/floor/catwalk_floor,
 /area/shuttle/mining)
 "I" = (
@@ -174,7 +172,7 @@
 /obj/item/toy/figure/miner{
 	pixel_x = -3
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 6
 	},
 /turf/open/floor/pod/light,
@@ -186,9 +184,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
 /turf/open/floor/catwalk_floor,
 /area/shuttle/mining)
 "N" = (

@@ -90,13 +90,13 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "u" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light/small/directional/south,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 9
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "v" = (
@@ -134,9 +134,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "A" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 2
-	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
 	},
@@ -152,6 +149,9 @@
 "B" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
@@ -283,9 +283,6 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "Q" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 9
-	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
 	},
@@ -308,19 +305,17 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "T" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 10
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "U" = (
@@ -335,18 +330,6 @@
 /area/shuttle/labor)
 "V" = (
 /turf/open/floor/pod/dark,
-/area/shuttle/labor)
-"X" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/turf/open/floor/pod/light,
 /area/shuttle/labor)
 "Y" = (
 /obj/structure/chair/fancy/shuttle{
@@ -379,7 +362,7 @@ E
 "}
 (4,1,1) = {"
 q
-X
+Q
 A
 Q
 x

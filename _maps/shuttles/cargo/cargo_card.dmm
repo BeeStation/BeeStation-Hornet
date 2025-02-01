@@ -1,10 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bt" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 6
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
@@ -13,11 +13,11 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/east,
-/obj/machinery/atmospherics/components/unary/tank/plasma{
-	dir = 8
-	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/components/tank/plasma{
+	dir = 8
 	},
 /turf/open/floor/iron/smooth_half,
 /area/shuttle/supply)
@@ -64,15 +64,15 @@
 /turf/open/floor/iron/sepia,
 /area/shuttle/supply)
 "fj" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 6
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/shuttle/supply)
 "fO" = (
 /obj/structure/sign/warning/fire,
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "fS" = (
@@ -94,12 +94,10 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "gl" = (
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
-	dir = 1
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "gy" = (
@@ -218,9 +216,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "rk" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 6
-	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/shuttle/supply)
@@ -343,11 +338,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "DI" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 10
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
@@ -362,8 +357,8 @@
 /area/shuttle/supply)
 "Fy" = (
 /obj/structure/shuttle/engine/heater,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/structure/window/reinforced/survival_pod,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "GF" = (
@@ -456,8 +451,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "Xr" = (
-/obj/machinery/atmospherics/pipe/manifold4w/orange/hidden,
 /obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -468,15 +465,6 @@
 "Zs" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/supply)
-"ZU" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/orange/hidden{
-	dir = 1
-	},
-/turf/open/floor/plating,
 /area/shuttle/supply)
 
 (1,1,1) = {"
@@ -550,7 +538,7 @@ fS
 uP
 fS
 dn
-ZU
+Xr
 Fy
 oe
 "}

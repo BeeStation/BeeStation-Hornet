@@ -53,11 +53,11 @@
 	},
 /area/shuttle/escape)
 "aZ" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 10
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "be" = (
@@ -66,10 +66,10 @@
 	},
 /area/shuttle/escape)
 "cI" = (
-/obj/machinery/atmospherics/pipe/manifold/orange/visible,
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "cJ" = (
@@ -91,7 +91,9 @@
 /obj/effect/turf_decal/siding/red{
 	dir = 8
 	},
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
 /obj/item/storage/box/handcuffs{
 	pixel_x = -8;
 	pixel_y = 2
@@ -140,6 +142,9 @@
 	},
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ee" = (
@@ -239,17 +244,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "gG" = (
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
-	dir = 6
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "gK" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ha" = (
@@ -275,11 +279,11 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 "ib" = (
-/obj/machinery/atmospherics/pipe/manifold/orange/visible{
-	dir = 1
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/visible{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -326,7 +330,12 @@
 "jX" = (
 /obj/effect/turf_decal/siding/red,
 /obj/item/radio/intercom/directional/south,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -433,9 +442,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "po" = (
@@ -449,10 +456,8 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "pL" = (
@@ -471,13 +476,13 @@
 	},
 /area/shuttle/escape)
 "qv" = (
-/obj/machinery/atmospherics/components/unary/tank/plasma{
-	dir = 1
-	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/tank/plasma{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
@@ -633,15 +638,15 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/escape)
 "st" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/light/small/directional/west,
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "sM" = (
@@ -673,9 +678,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 6
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "un" = (
@@ -688,7 +691,12 @@
 	req_access_txt = "1";
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
 /turf/open/floor/iron/smooth_edge,
 /area/shuttle/escape)
 "us" = (
@@ -716,10 +724,10 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "vB" = (
-/obj/machinery/atmospherics/components/unary/tank/plasma{
+/obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/machinery/atmospherics/components/tank/plasma{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
@@ -926,9 +934,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 1
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Bk" = (
@@ -1018,10 +1023,8 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/machinery/light/small/directional/south,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "EG" = (
@@ -1171,13 +1174,13 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/escape)
 "Hz" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 1
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/edges/techfloor{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 6
 	},
 /turf/open/floor/monofloor{
@@ -1219,22 +1222,28 @@
 /obj/effect/turf_decal/siding/red{
 	dir = 6
 	},
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
 /obj/machinery/recharger,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron/smooth,
 /area/shuttle/escape)
 "JA" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /turf/open/floor/catwalk_floor/iron_smooth,
+/area/shuttle/escape)
+"JB" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "JH" = (
 /obj/structure/cable{
@@ -1331,9 +1340,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "NN" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 6
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
@@ -1374,12 +1380,12 @@
 	},
 /area/shuttle/escape)
 "On" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 6
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -1387,7 +1393,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/orange/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 5
 	},
 /turf/open/floor/plating,
@@ -1463,6 +1469,14 @@
 /obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
+"SJ" = (
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "SL" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line{
@@ -1497,9 +1511,6 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "UP" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden{
-	dir = 1
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
@@ -1670,7 +1681,7 @@ LK
 uK
 "}
 (6,1,1) = {"
-uK
+JB
 uK
 uK
 uK
@@ -1680,7 +1691,7 @@ uK
 pL
 uK
 uK
-uK
+JB
 "}
 (7,1,1) = {"
 gK
@@ -1852,7 +1863,7 @@ jT
 nx
 "}
 (20,1,1) = {"
-uK
+JB
 uK
 nr
 uK
@@ -1862,7 +1873,7 @@ gK
 gK
 GI
 uK
-uK
+JB
 "}
 (21,1,1) = {"
 uK
@@ -1925,7 +1936,7 @@ NN
 UP
 Hz
 st
-aZ
+SJ
 vB
 hD
 "}
