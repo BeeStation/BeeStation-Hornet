@@ -83,7 +83,6 @@
 				target.external = attached_tank
 				mask_out = TRUE
 				START_PROCESSING(SSmachines, src)
-				target.update_internals_hud_icon(1)
 				update_icon()
 		else
 			to_chat(usr, span_warning("[mask_out ? "The machine is already in use!" : "The machine has no attached tank!"]"))

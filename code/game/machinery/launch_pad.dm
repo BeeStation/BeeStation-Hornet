@@ -82,7 +82,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/turf/target = locate(target_x, target_y, z)
 	ghost.forceMove(target)
 
-/obj/machinery/launchpad/proc/isAvailable()
+/obj/machinery/launchpad/proc/is_available()
 	if(machine_stat & NOPOWER)
 		return FALSE
 	if(panel_open)
@@ -92,7 +92,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 /obj/machinery/launchpad/proc/update_indicator()
 	var/image/holder = hud_list[DIAG_LAUNCHPAD_HUD]
 	var/turf/target_turf
-	if(isAvailable())
+	if(is_available())
 		target_turf = locate(x + x_offset, y + y_offset, z)
 	if(target_turf)
 		holder.icon_state = indicator_icon
@@ -145,7 +145,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	indicator_icon = "launchpad_target"
 	update_indicator()
 
-	if(QDELETED(src) || !isAvailable())
+	if(QDELETED(src) || !is_available())
 		return
 
 	teleporting = FALSE
@@ -245,7 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 	briefcase = null
 	return ..()
 
-/obj/machinery/launchpad/briefcase/isAvailable()
+/obj/machinery/launchpad/briefcase/is_available()
 	if(closed)
 		return FALSE
 	return ..()
@@ -377,8 +377,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/launchpad_remote)
 	if(QDELETED(pad))
 		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
 		return
-	if(!pad.isAvailable())
-		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered."))
+	if(!pad.is_available())
+		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>"))
 		return
 	pad.doteleport(user, sending)
 
