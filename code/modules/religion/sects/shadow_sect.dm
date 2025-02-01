@@ -609,7 +609,6 @@
 		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
-
 	sect.grand_ritual_level = 1
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		obelisk.transform_obelisc()
@@ -620,6 +619,7 @@
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_one
 	sect.rites_list += /datum/religion_rites/grand_ritual_two
+	ui_update()
 	return ..()
 
 /datum/religion_rites/grand_ritual_one/proc/handle_obeliscs()
@@ -681,7 +681,6 @@
 		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
-
 	sect.grand_ritual_level = 2
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		obelisk.transform_obelisc()
@@ -692,6 +691,7 @@
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_two
 	sect.rites_list += /datum/religion_rites/grand_ritual_three
+	ui_update()
 	return ..()
 
 /datum/religion_rites/grand_ritual_two/proc/handle_obeliscs()
@@ -756,7 +756,6 @@
 		to_chat(user, "<span class='warning'>Your obelisc have been destroed, destabilising the ritual!. You need to gather your strangth and try again.</span>")
 		sect.adjust_favor(-1 * favor_cost)
 		return FALSE
-
 	sect.grand_ritual_level = 3
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		obelisk.transform_obelisc()
@@ -766,6 +765,7 @@
 			var/datum/species/shadow/spiec = M.dna.species
 			spiec.change_hearts_ritual(M)
 	sect.rites_list -= /datum/religion_rites/grand_ritual_three
+	ui_update()
 	return ..()
 
 /datum/religion_rites/grand_ritual_three/proc/handle_obeliscs()
@@ -785,8 +785,8 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
 			obelisk.set_light(4, -30, DARKNESS_INVERSE_COLOR)
-	var/list/turf/changed_turfs
-	for(var/turf/T in GLOB.station_turfs)
+	var/list/changed_turfs
+	for(var/T in GLOB.station_turfs)
 		if(T.light_power == 0)
 			changed_turfs += T
 			T.light_power = 3
@@ -795,7 +795,7 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-	for(var/turf/T in changed_turfs)
+	for(var/T in changed_turfs)
 		if(istype(T))
 			T.light_power = 0
 			T.light_range = 1
