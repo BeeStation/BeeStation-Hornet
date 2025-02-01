@@ -21,6 +21,7 @@
 	// Action Behaviour
 	// =====================================
 	/// Flags that will determine of the owner / user of the action can... use the action
+	/// AB_ defines
 	var/check_flags = NONE
 	/// Setting for intercepting clicks before activating the ability
 	var/requires_target = FALSE

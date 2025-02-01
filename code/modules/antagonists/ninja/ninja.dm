@@ -58,7 +58,8 @@
 				log_objective(owner, O.explanation_text)
 
 			if(3)	//kill
-				if(!possible_targets.len)	continue
+				if(!possible_targets.len)
+					continue
 				var/index = rand(1,possible_targets.len)
 				var/datum/mind/M = possible_targets[index]
 				possible_targets.Cut(index,index+1)

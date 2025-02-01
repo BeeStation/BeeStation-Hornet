@@ -375,8 +375,6 @@
 	tick_interval = 5
 
 /datum/status_effect/changeling/camouflage/tick()
-	if(!..())
-		return
 	if(owner.on_fire)
 		large_increase()
 		return
@@ -679,14 +677,24 @@
 	tick_interval = 2
 	duration = 30 SECONDS
 	show_duration = TRUE
+	var/can_see_self = FALSE
 
 /datum/status_effect/cloaked/tick()
-	if(!..())
-		return
 	if(owner.on_fire)
 		terminate_effect()
 		return
 	owner.alpha = max(owner.alpha - 10, 0)
+	if (owner.alpha <= 100 && !can_see_self)
+		// Make it so the user can always see themselves while cloaked
+		var/mutable_appearance/self_appearance = mutable_appearance()
+		self_appearance.appearance = owner.appearance
+		self_appearance.alpha = 100
+		self_appearance.override = TRUE
+		self_appearance.loc = owner
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), self_appearance, owner)
+		can_see_self = TRUE
+	if (owner.alpha > 100 && can_see_self)
+		owner.remove_alt_appearance(REF(src))
 
 /datum/status_effect/cloaked/on_apply()
 	if(!..())
@@ -695,9 +703,12 @@
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
+	RegisterSignal(owner, COMSIG_MOB_THROW, PROC_REF(terminate_effect))
+
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()
+	owner.remove_alt_appearance(REF(src))
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 

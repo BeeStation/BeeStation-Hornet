@@ -6,6 +6,8 @@
 	var/current_charges = 1
 	/// If set to 0, doesn't require charges
 	var/max_charges = 0
+	/// How much damage is dealt to objects in the path
+	var/obj_damage = 200
 	var/charge_rate = 250
 	var/obj/item/dashing_item
 	var/dash_sound = 'sound/magic/blink.ogg'
@@ -36,7 +38,7 @@
 		return
 	var/turf/T = get_turf(target)
 	var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-	var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
+	var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=obj_damage, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
 	if(new_location)
 		playsound(T, dash_sound, 25, 1)
 		var/obj/spot2 = new phasein(new_location, user.dir)

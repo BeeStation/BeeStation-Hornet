@@ -19,7 +19,7 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 1
 	resistance_flags = LAVA_PROOF | ACID_PROOF
-	armor_type = /datum/armor/space_space_ninja
+	armor_type = /datum/armor/space_ninja
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	cell = null
@@ -29,7 +29,6 @@ Contents:
 		/datum/action/item_action/ninjaboost,
 		/datum/action/item_action/ninjapulse,
 		/datum/action/item_action/ninjastar,
-		/datum/action/item_action/ninjanet,
 		/datum/action/item_action/ninja_sword_recall,
 		/datum/action/item_action/ninja_stealth,
 		/datum/action/item_action/toggle_glove
@@ -65,7 +64,7 @@ Contents:
 	var/a_boost = 3//Number of adrenaline boosters.
 
 
-/datum/armor/space_space_ninja
+/datum/armor/space_ninja
 	melee = 20
 	bullet = 40
 	laser = 40
@@ -76,7 +75,7 @@ Contents:
 	fire = 100
 	acid = 100
 	stamina = 70
-	bleed = 90
+	bleed = 40
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
 	. = ..()
@@ -113,6 +112,8 @@ Contents:
 	if(!user || !ishuman(user) || !(user.wear_suit == src))
 		return
 	user.adjust_bodytemperature(BODYTEMP_NORMAL - user.bodytemperature)
+	// Slowly heals bleeding wounds over time
+	user.cauterise_wounds(0.1)
 	if (!s_initialized)
 		return
 	user.nutrition = NUTRITION_LEVEL_WELL_FED
@@ -221,20 +222,11 @@ Contents:
 	if(istype(action, /datum/action/item_action/ninjaboost))
 		ninjaboost()
 		return TRUE
-	if(istype(action, /datum/action/item_action/ninjapulse))
-		ninjapulse()
-		return TRUE
 	if(istype(action, /datum/action/item_action/ninjastar))
 		ninjastar()
 		return TRUE
-	if(istype(action, /datum/action/item_action/ninjanet))
-		ninjanet()
-		return TRUE
 	if(istype(action, /datum/action/item_action/ninja_sword_recall))
 		ninja_sword_recall()
-		return TRUE
-	if(istype(action, /datum/action/item_action/ninja_stealth))
-		stealth()
 		return TRUE
 	if(istype(action, /datum/action/item_action/toggle_glove))
 		n_gloves.toggledrain()

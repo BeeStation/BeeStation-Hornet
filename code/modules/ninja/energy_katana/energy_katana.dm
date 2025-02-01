@@ -6,18 +6,24 @@
 	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 30
+	item_flags = ISWEAPON
+	force = 25
 	throwforce = 40
-	armour_penetration = 50
+	armour_penetration = 60
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	sharpness = SHARP_DISMEMBER_EASY
+	// Dismembering is actually based on the unique action abillities that the katana has
+	// rather than just simply hitting the target
+	sharpness = SHARP
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	actions_types = list(
+		/datum/action/item_action/delimbing_strike
+	)
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
 	var/dash_toggled = TRUE
@@ -118,3 +124,4 @@
 
 /datum/action/innate/dash/ninja
 	max_charges = 0
+	obj_damage = 350

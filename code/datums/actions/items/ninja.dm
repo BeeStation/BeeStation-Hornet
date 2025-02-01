@@ -8,12 +8,6 @@
 	button_icon_state = "repulse"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 
-/datum/action/item_action/ninjapulse
-	name = "EM Burst (25E)"
-	desc = "Disable any nearby technology with an electro-magnetic pulse."
-	button_icon_state = "emp"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
-
 /datum/action/item_action/ninjastar
 	name = "Create Throwing Stars (1E)"
 	desc = "Creates some throwing stars"
@@ -31,12 +25,6 @@
 	desc = "Teleports the Energy Katana linked to this suit to its wearer, cost based on distance."
 	button_icon_state = "energy_katana"
 	icon_icon = 'icons/obj/items_and_weapons.dmi'
-
-/datum/action/item_action/ninja_stealth
-	name = "Toggle Stealth"
-	desc = "Toggles stealth mode on and off."
-	button_icon_state = "ninja_cloak"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 
 /datum/action/item_action/toggle_glove
 	name = "Toggle interaction"
