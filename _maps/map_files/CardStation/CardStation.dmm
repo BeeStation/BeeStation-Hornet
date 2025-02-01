@@ -1017,17 +1017,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/storage/eva)
-"akA" = (
-/mob/living/simple_animal/hostile/syndicate/ranged,
-/obj/effect/turf_decal/siding/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/dark/corner,
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/syndicate_sat)
 "akG" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -16285,6 +16274,23 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
+"dyw" = (
+/obj/structure/server{
+	icon_state = "setup_stationary-open"
+	},
+/obj/structure/sign/poster/contraband/energy_swords{
+	pixel_x = 32
+	},
+/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/siding/dark/end,
+/obj/item/storage/pod{
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-1"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/syndicate_sat)
 "dyy" = (
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
@@ -19672,8 +19678,21 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "epR" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/syndicate_sat)
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/chapel)
 "eql" = (
 /obj/machinery/status_display/supply,
 /turf/closed/wall/mineral,
@@ -20507,21 +20526,37 @@
 /turf/open/floor/iron/smooth_half,
 /area/hallway/primary/port)
 "eAD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 8
+/obj/machinery/computer/security/wooden_tv{
+	icon_screen = "library";
+	icon_state = "oldcomp";
+	pixel_y = 8;
+	desc = "An old Computer hooked into the station's camera network. It does not appear to be an NT model.";
+	name = "camera monitoring console"
+	},
+/obj/structure/table/reinforced{
+	color = "#c2bfa3"
+	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_x = -27;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 1
+	},
+/obj/machinery/power/apc/highcap/fifteen_k{
+	dir = 4;
+	pixel_x = 28
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Syndicate Radio Intercom";
+	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/chapel)
+/turf/open/floor/mineral/plastitanium/red,
+/area/syndicate_sat)
 "eAH" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -22886,12 +22921,6 @@
 /obj/structure/railing,
 /turf/open/floor/vault/rock,
 /area/science/mixing)
-"fcX" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
-	dir = 4
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/syndicate_sat)
 "fda" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -23315,11 +23344,17 @@
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "fhM" = (
-/obj/effect/turf_decal/stripes/closeup{
+/obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/engine/airless/light,
-/area/science/mixing)
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/chapel)
 "fhN" = (
 /obj/structure/table,
 /obj/item/reagent_containers/dropper{
@@ -29335,6 +29370,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"gvL" = (
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/obj/effect/turf_decal/siding/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark/corner,
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/syndicate_sat)
 "gvQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -47930,18 +47979,8 @@
 /turf/open/floor/carpet/orange,
 /area/bridge)
 "kyU" = (
-/obj/structure/lattice,
-/obj/structure/sign/warning/electricshock{
-	pixel_x = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer4{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/closed/wall/r_wall/syndicate,
+/area/syndicate_sat)
 "kyZ" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 8
@@ -53331,20 +53370,6 @@
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron/smooth_half,
 /area/security/main)
-"lJr" = (
-/obj/structure/server{
-	icon_state = "setup_stationary-open"
-	},
-/obj/structure/sign/poster/contraband/energy_swords{
-	pixel_x = 32
-	},
-/obj/machinery/light/small/directional/west,
-/obj/effect/turf_decal/siding/dark/end,
-/obj/item/storage/pod{
-	pixel_x = -24
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/syndicate_sat)
 "lJy" = (
 /obj/structure/lattice,
 /obj/structure/fence/corner{
@@ -71344,6 +71369,9 @@
 	},
 /turf/open/floor/carpet/black,
 /area/construction)
+"pBy" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/syndicate_sat)
 "pBK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -82733,20 +82761,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/science/xenobiology)
-"sfE" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150";
-	security_level = 6
-	},
-/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/iron/tech/grid,
-/area/syndicate_sat)
 "sfN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -88367,13 +88381,12 @@
 /area/security/prison)
 "tty" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/book/granter/spell/smoke/lesser{
-	pixel_y = 6;
-	pixel_x = 3
-	},
 /obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/siding/red{
 	dir = 1
+	},
+/obj/item/book/granter/action/spell/smoke/lesser{
+	pixel_y = 9
 	},
 /turf/open/floor/carpet/red,
 /area/chapel/office)
@@ -88433,6 +88446,10 @@
 /turf/open/floor/iron/white/smooth_half,
 /area/medical/sleeper)
 "tuO" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
+	dir = 4
+	},
+/obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall/syndicate,
 /area/syndicate_sat)
 "tuR" = (
@@ -104312,17 +104329,11 @@
 	},
 /area/science/mixing/chamber)
 "wKA" = (
-/obj/structure/disposalpipe/segment{
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/chapel)
+/turf/open/floor/engine/airless/light,
+/area/science/mixing)
 "wKP" = (
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 6
@@ -105142,33 +105153,18 @@
 /turf/open/floor/iron/dark/textured_half,
 /area/chapel/main/monastery)
 "wUH" = (
-/obj/machinery/computer/security/wooden_tv{
-	icon_screen = "library";
-	icon_state = "oldcomp";
-	pixel_y = 8;
-	desc = "An old Computer hooked into the station's camera network. It does not appear to be an NT model.";
-	name = "camera monitoring console"
+/obj/machinery/door/airlock/external{
+	req_access_txt = "150";
+	security_level = 6
 	},
-/obj/structure/table/reinforced{
-	color = "#c2bfa3"
+/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
+	dir = 4
 	},
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_x = -27;
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/siding/dark/end{
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/power/apc/highcap/fifteen_k{
-	dir = 4;
-	pixel_x = 28
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Syndicate Radio Intercom";
-	pixel_y = 28
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/structure/fans/tiny,
+/turf/open/floor/iron/tech/grid,
 /area/syndicate_sat)
 "wUQ" = (
 /obj/machinery/power/apc/auto_name/directional/west,
@@ -131244,7 +131240,7 @@ fnH
 umf
 tKk
 lxj
-fhM
+wKA
 uLJ
 uLJ
 nzj
@@ -148128,7 +148124,7 @@ dqC
 vVv
 nUJ
 pHC
-wKA
+fhM
 jPO
 pqC
 rpD
@@ -150696,7 +150692,7 @@ eRt
 akK
 kzk
 dkf
-eAD
+epR
 aHR
 kVo
 vUF
@@ -151467,7 +151463,7 @@ vyQ
 vyQ
 vyQ
 nAP
-eAD
+epR
 aHR
 mgW
 qoW
@@ -151724,7 +151720,7 @@ vyQ
 vyQ
 vyQ
 uHl
-eAD
+epR
 aHR
 aHR
 iDf
@@ -169081,7 +169077,7 @@ nzj
 nzj
 nzj
 nzj
-kyU
+fcr
 nzj
 nzj
 nzj
@@ -169336,11 +169332,11 @@ nzj
 nzj
 nzj
 nzj
+kyU
+kyU
 tuO
-tuO
-fcX
-tuO
-tuO
+kyU
+kyU
 nzj
 nzj
 nzj
@@ -169593,11 +169589,11 @@ nzj
 nzj
 nzj
 agK
-tuO
-wUH
-akA
-lJr
-tuO
+kyU
+eAD
+gvL
+dyw
+kyU
 agK
 nzj
 nzj
@@ -169850,11 +169846,11 @@ nzj
 nzj
 nzj
 nzj
-tuO
-tuO
-sfE
-epR
-tuO
+kyU
+kyU
+wUH
+pBy
+kyU
 nzj
 nzj
 nzj
