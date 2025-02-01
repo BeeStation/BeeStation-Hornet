@@ -7,8 +7,8 @@ type ToolSelectionData = {
   selections: any[];
 };
 
-export const ToolSelection = (props, context) => {
-  const { act, data } = useBackend<ToolSelectionData>(context);
+export const ToolSelection = (props) => {
+  const { act, data } = useBackend<ToolSelectionData>();
 
   return (
     <Window width={350} height={530}>
@@ -19,10 +19,10 @@ export const ToolSelection = (props, context) => {
   );
 };
 
-const DisplayToolSelections = (props, context) => {
-  const { act, data } = useBackend<ToolSelectionData>(context);
+const DisplayToolSelections = (props) => {
+  const { act, data } = useBackend<ToolSelectionData>();
   const { selections } = data;
-  const [current_selection, setSelection] = useSharedState(context, 'tab', selections[Object.keys(selections)[0]][0]);
+  const [current_selection, setSelection] = useSharedState('tab', selections[Object.keys(selections)[0]][0]);
 
   return Object.entries(selections).map(([category, options]) => {
     return (
