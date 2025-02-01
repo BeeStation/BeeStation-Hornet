@@ -628,18 +628,18 @@
 	name = "Show roundend report"
 	button_icon_state = "round_end"
 
-/datum/action/report/Trigger()
+/datum/action/report/on_activate()
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
 		SSticker.show_roundend_report(owner.client, FALSE)
 
-/datum/action/report/IsAvailable()
+/datum/action/report/is_available()
 	return 1
 
 /datum/action/report/Topic(href,href_list)
 	if(usr != owner)
 		return
 	if(href_list["report"])
-		Trigger()
+		trigger()
 		return
 
 ///Returns a custom title for the roundend credit/report

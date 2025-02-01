@@ -661,6 +661,8 @@
 		crew_monitor.Grant(R)
 		icon_state = "scanner"
 
+/datum/action/item_action/crew_monitor
+	name = "Interface With Crew Monitor"
 
 /obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()

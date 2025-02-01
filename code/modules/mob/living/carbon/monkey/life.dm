@@ -1,5 +1,3 @@
-/mob/living/carbon/monkey
-
 /mob/living/carbon/monkey/handle_mutations_and_radiation()
 	if(radiation)
 		if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
