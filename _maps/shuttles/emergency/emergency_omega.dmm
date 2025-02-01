@@ -547,12 +547,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"Dr" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Eg" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
@@ -745,9 +739,9 @@ Ls
 ac
 Mg
 aa
-Dr
-Dr
-Dr
+ab
+ab
+ab
 aa
 wN
 ac
@@ -780,7 +774,7 @@ br
 bv
 "}
 (3,1,1) = {"
-Dr
+ab
 ae
 al
 al
@@ -796,12 +790,12 @@ Ui
 aW
 be
 bk
-Dr
+ab
 bs
 bv
 "}
 (4,1,1) = {"
-Dr
+ab
 ae
 al
 al
@@ -817,7 +811,7 @@ Ui
 aX
 bf
 bl
-Dr
+ab
 bt
 bv
 "}
@@ -885,7 +879,7 @@ bt
 bv
 "}
 (8,1,1) = {"
-Dr
+ab
 BS
 LT
 Bj
@@ -901,12 +895,12 @@ Eg
 Lt
 Lt
 YJ
-Dr
+ab
 bt
 bv
 "}
 (9,1,1) = {"
-Dr
+ab
 Sa
 Bj
 Pn
@@ -922,12 +916,12 @@ Eg
 Lt
 Lt
 Tw
-Dr
+ab
 bt
 bv
 "}
 (10,1,1) = {"
-Dr
+ab
 NX
 cC
 Pw
@@ -949,16 +943,16 @@ bv
 "}
 (11,1,1) = {"
 aa
-Dr
-Dr
+ab
+ab
 aa
 ac
 aa
-Dr
-Dr
-Dr
-Dr
-Dr
+ab
+ab
+ab
+ab
+ab
 aa
 ac
 aa

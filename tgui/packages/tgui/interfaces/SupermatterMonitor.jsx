@@ -130,7 +130,7 @@ export const SupermatterMonitorContent = (props) => {
           buttons={!standalone_mode ? <Button icon="arrow-left" content="Back" onClick={() => act('PRG_clear')} /> : null}>
           <LabeledList>
             {gases.map((gas) => (
-              <LabeledList.Item key={gas.name} label={getGasLabel(gas.name)}>
+              <LabeledList.Item key={gas.name} label={gas.name}>
                 <ProgressBar color={getGasColor(gas.name)} value={gas.amount} minValue={0} maxValue={gasMaxAmount}>
                   {toFixed(gas.amount, 2) + '%'}
                 </ProgressBar>

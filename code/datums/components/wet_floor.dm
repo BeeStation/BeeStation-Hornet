@@ -115,7 +115,7 @@
 	var/turf/open/T = parent
 	var/diff = world.time - last_process
 	var/decrease = 0
-	var/t = T.GetTemperature()
+	var/t = T.get_temperature()
 	switch(t)
 		if(-INFINITY to T0C)
 			add_wet(TURF_WET_ICE, max_time_left())			//Water freezes into ice!

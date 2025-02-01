@@ -45,7 +45,7 @@
 			for(var/turf/T as() in turflist)
 				if(accessible[T])
 					continue
-				for(var/thing in T.GetAtmosAdjacentTurfs(alldir = TRUE))
+				for(var/thing in T.get_atmos_adjacent_turfs(alldir = TRUE))
 					var/turf/NT = thing
 					if(!(NT in accessible))
 						continue
