@@ -84064,7 +84064,7 @@
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/item/book/granter/spell/smoke/lesser,
+/obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/cult,
 /area/chapel/office)
 "vsi" = (
