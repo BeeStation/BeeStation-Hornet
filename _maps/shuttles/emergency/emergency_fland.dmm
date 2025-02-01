@@ -776,10 +776,6 @@
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
-"Cj" = (
-/obj/machinery/door/firedoor,
-/turf/template_noop,
-/area/template_noop)
 "Cu" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
@@ -1379,7 +1375,7 @@ Qo
 (2,1,1) = {"
 Qo
 Qo
-Cj
+Qo
 Qo
 Qo
 Qo
