@@ -3,6 +3,8 @@
 // All signals send the source datum of the signal as the first argument
 
 ///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+#define COMSIG_CLIENT_CLICK "atom_client_click"
+///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
 #define COMSIG_CLICK "atom_click"
 ///from base of atom/RightClick(): (/mob)
 #define COMSIG_CLICK_RIGHT "right_click"

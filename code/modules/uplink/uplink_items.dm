@@ -796,6 +796,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	surplus = 0
 
+/datum/uplink_item/stealthy_weapons/art_of_thievery
+	name = "The Art of Thievery"
+	desc = "A manual that teaches a single user how to pickpocket people without them noticing. Not guaranteed to work on all targets."
+	item = /obj/item/book/granter/art_of_thievery
+	cost = 5
+	surplus = 40
+
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol"
 	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any \

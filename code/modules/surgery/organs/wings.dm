@@ -178,26 +178,23 @@
 	return ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
+	cooldown_time = 10 SECONDS
 	var/jumpspeed = 1
-	var/recharging_rate = 100
-	var/recharging_time = 0
 
-/datum/action/item_action/organ_action/use/bee_dash/Trigger()
+/datum/action/item_action/organ_action/use/bee_dash/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/L = owner
 	var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
 	var/jumpdistance = wings.jumpdist
 
-	if(L.stat != CONSCIOUS || L.buckled) // Has to be conscious and unbuckled
-		return
-	if(recharging_time > world.time)
-		to_chat(L, span_warning("The wings aren't ready to dash yet!"))
+	if(L.buckled) // Has to be conscious and unbuckled
 		return
 	var/datum/gas_mixture/environment = L.loc.return_air()
 	if(environment && !(environment.return_pressure() > 30))
 		to_chat(L, span_warning("The atmosphere is too thin for you to dash!"))
 		return
 
-	var/turf/target = get_edge_target_turf(L, L.dir) //represents the user's direction
+	var/turf/dash_target = get_edge_target_turf(L, L.dir) //represents the user's direction
 	var/hoppingtable = FALSE // Triggers the trip
 	var/jumpdistancemoved = jumpdistance // temp jumpdistance
 	var/turf/checkjump = get_turf(L)
@@ -217,10 +214,10 @@
 	var/datum/callback/crashcallback
 	if(hoppingtable)
 		crashcallback = CALLBACK(src, PROC_REF(crash_into_table), get_step(checkjump, L.dir))
-	if(L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
+	if(L.throw_at(dash_target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message(span_warning("[usr] dashes forward into the air!"))
-		recharging_time = world.time + recharging_rate
+		start_cooldown()
 	else
 		to_chat(L, span_warning("Something prevents you from dashing forward!"))
 
@@ -239,7 +236,7 @@
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
-/datum/action/innate/flight/Activate()
+/datum/action/innate/flight/on_activate()
 	var/mob/living/carbon/human/H = owner
 	var/datum/species/S = H.dna.species
 	if(S.CanFly(H))

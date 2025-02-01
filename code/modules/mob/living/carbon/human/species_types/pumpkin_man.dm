@@ -161,8 +161,7 @@
 		return
 	generate_candy()
 
-/datum/action/item_action/organ_action/pumpkin_head_candy/Trigger()
-	. = ..()
+/datum/action/item_action/organ_action/pumpkin_head_candy/on_activate(mob/user, atom/target)
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/H = owner
