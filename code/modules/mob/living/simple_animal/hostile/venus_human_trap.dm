@@ -57,7 +57,7 @@
   * Displays a message, spawns a human venus trap, then qdels itself.
   */
 /obj/structure/alien/resin/flower_bud/proc/bear_fruit()
-	visible_message("<span class='danger'>the plant has borne fruit!</span>")
+	visible_message(span_danger("the plant has borne fruit!"))
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
 
@@ -86,7 +86,7 @@
 		var/mob/living/L = AM
 		if(!isvineimmune(L))
 			L.adjustBruteLoss(5)
-			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+			to_chat(L, span_alert("You cut yourself on the thorny vines."))
 
 /**
   * Venus Human Trap
@@ -125,7 +125,7 @@
 	/// copied over from the code from eyeballs (the mob) to make it easier for venus human traps to see in kudzu that doesn't have the transparency mutation
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	faction = list("hostile","vines","plants")
+	faction = list(FACTION_HOSTILE,FACTION_VINES,FACTION_PLANTS)
 	initial_language_holder = /datum/language_holder/venus
 	unique_name = TRUE
 	/// A list of all the plant's vines
@@ -148,12 +148,12 @@
 	pull_vines()
 	if(locate(/obj/structure/spacevine) in get_turf(src))//Heal if we are on vines
 		if(withering)
-			to_chat(src, "<span class='notice'> The vines nourish you, healing your wounds.</span>")
+			to_chat(src, span_notice(" The vines nourish you, healing your wounds."))
 		adjustHealth(-maxHealth*0.05)
 		withering = FALSE
 		return
 	if(!withering)
-		to_chat(src, "<span class='userdanger'>You are not being nourished by the vines and are withering away! Stay in the vines!</span>")
+		to_chat(src, span_userdanger("You are not being nourished by the vines and are withering away! Stay in the vines!"))
 	withering = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
 	adjustHealth(maxHealth*0.05)
@@ -199,7 +199,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
 	. = ..()
-	to_chat(src, "<span class='boldwarning'>You are venus human trap!  Protect the kudzu at all costs, and feast on those who oppose you!</span>")
+	to_chat(src, span_boldwarning("You are venus human trap!  Protect the kudzu at all costs, and feast on those who oppose you!"))
 
 /mob/living/simple_animal/hostile/venus_human_trap/attack_ghost(mob/user)
 	. = ..()
@@ -222,7 +222,7 @@
 	if(plant_ask == "No" || QDELETED(src))
 		return
 	if(key)
-		to_chat(user, "<span class='warning'>Someone else already took this plant!</span>")
+		to_chat(user, span_warning("Someone else already took this plant!"))
 		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")

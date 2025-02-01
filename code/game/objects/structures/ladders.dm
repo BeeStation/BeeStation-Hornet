@@ -83,7 +83,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 
 /obj/structure/ladder/singularity_pull()
 	if (!(resistance_flags & INDESTRUCTIBLE))
-		visible_message("<span class='danger'>[src] is torn to pieces by the gravitational pull!</span>")
+		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)
 
 /obj/structure/ladder/proc/use(mob/user, going_up = TRUE)
@@ -207,14 +207,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 
 /obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_DECONSTRUCT)
-		to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
+		to_chat(user, span_notice("You deconstruct the ladder."))
 		qdel(src)
 		return TRUE
 	return FALSE
 
 /obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
 	if(RCD_DECONSTRUCT == passed_mode)
-		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
@@ -225,10 +225,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 			if(!I.tool_start_check(user, amount=0))
 				return FALSE
 
-			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")
+			to_chat(user, span_notice("You begin cutting [src]..."))
 			if(I.use_tool(src, user, 50, volume=100))
-				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
-									"<span class='notice'>You cut [src].</span>")
+				user.visible_message(span_notice("[user] cuts [src]."), \
+									span_notice("You cut [src]."))
 				I.play_tool_sound(src, 100)
 				var/drop_loc = drop_location()
 				var/obj/R = new /obj/item/stack/rods(drop_loc, 10)
@@ -239,7 +239,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 				qdel(src)
 				return TRUE
 	else
-		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE
 
 /obj/structure/ladder/attack_alien(mob/user, list/modifiers)

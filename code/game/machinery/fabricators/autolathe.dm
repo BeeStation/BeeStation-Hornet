@@ -78,18 +78,25 @@
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
 				return
-			security_interface_locked = TRUE
+			if (!security_interface_locked)
+				security_interface_locked = TRUE
+			else
+				var/obj/item/id_slot = usr.get_idcard(TRUE)
+				if((ACCESS_SECURITY in id_slot.GetAccess()) && !(obj_flags & EMAGGED))
+					security_interface_locked = FALSE
+					to_chat(usr, "<span class='warning'>You unlock the security controls of [src].</span>")
 			. = TRUE
 
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/living/user, params)
 
 	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
-		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
+		to_chat(user, span_warning("You [security_interface_locked?"lock":"unlock"] the security controls of [src]."))
 		return TRUE
 
 	if(busy)
 		balloon_alert(user, "it's busy!")
+		return TRUE
 
 	if(default_deconstruction_crowbar(O))
 		return TRUE

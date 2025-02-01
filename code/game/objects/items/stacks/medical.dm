@@ -44,11 +44,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		return
 
 	if(M.stat == DEAD && !stop_bleeding)
-		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [M.p_them()]!</span>")
+		to_chat(user, span_danger("\The [M] is dead, you cannot help [M.p_them()]!"))
 		return
 
 	if(!iscarbon(M) && !isanimal(M))
-		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
+		to_chat(user, span_danger("You don't know how to apply \the [src] to [M]!"))
 		return
 
 	if(M in user.do_afters) //One at a time, please.
@@ -57,16 +57,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
 		if(!(critter.healable))
-			to_chat(user, "<span class='notice'>You cannot use [src] on [M]!</span>")
+			to_chat(user, span_notice("You cannot use [src] on [M]!"))
 			return
 		if(critter.health == critter.maxHealth)
-			to_chat(user, "<span class='notice'>[M] is at full health.</span>")
+			to_chat(user, span_notice("[M] is at full health."))
 			return
 		if(!heal_creatures) //simplemobs can only take brute damage, and can only benefit from items intended to heal it
-			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
+			to_chat(user, span_notice("[src] won't help [M] at all."))
 			return
 		M.heal_bodypart_damage(REAGENT_AMOUNT_PER_ITEM)
-		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
+		user.visible_message(span_green("[user] applies [src] on [M]."), span_green("You apply [src] on [M]."))
 		use(1)
 		return
 
@@ -77,19 +77,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	if (!zone_selected)
 		return
 	if (!user.can_interact_with(M, TRUE))
-		to_chat(user, "<span class='danger'>You cannot reach [M]!</span>")
+		to_chat(user, span_danger("You cannot reach [M]!"))
 		M.balloon_alert(user, "You cannot reach that.")
 		return
 	if (!user.can_interact_with(src, TRUE))
-		to_chat(user, "<span class='danger'>You cannot reach [src]!</span>")
+		to_chat(user, span_danger("You cannot reach [src]!"))
 		M.balloon_alert(user, "You cannot reach that.")
 		return
 	if(M.stat == DEAD && !stop_bleeding)
-		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [M.p_them()]!</span>")
+		to_chat(user, span_danger("\The [M] is dead, you cannot help [M.p_them()]!"))
 		M.balloon_alert(user, "[M] is dead.")
 		return
 	if(!iscarbon(M))
-		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
+		to_chat(user, span_danger("You don't know how to apply \the [src] to [M]!"))
 		M.balloon_alert(user, "You cannot use that.")
 		return
 	var/obj/item/bodypart/affecting
@@ -100,7 +100,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		return
 
 	if(!affecting) //Missing limb?
-		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(zone_selected)]!</span>")
+		to_chat(user, span_warning("[C] doesn't have \a [parse_zone(zone_selected)]!"))
 		C.balloon_alert(user, "[C] has no [parse_zone(zone_selected)]!")
 		return
 
@@ -116,7 +116,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 			message = "[C] isn't bleeding!"
 
 	if(!IS_ORGANIC_LIMB(affecting))
-		to_chat(user, "<span class='warning'>Medicine won't work on a robotic limb!</span>")
+		to_chat(user, span_warning("Medicine won't work on a robotic limb!"))
 		C.balloon_alert(user, "Cannot use on robotic limb!")
 		return
 
@@ -128,12 +128,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 		valid = TRUE
 
 	if (!valid)
-		to_chat(user, "<span class='warning'>[message]</span>")
+		to_chat(user, span_warning("[message]"))
 		C.balloon_alert(user, message)
 		return
 
 	if(C == user)
-		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
+		user.visible_message(span_notice("[user] starts to apply [src] on [user.p_them()]self..."), span_notice("You begin applying [src] on yourself..."))
 		if(!do_after(user, self_delay, M))
 			return
 		if (self_tend_debuff)
@@ -148,9 +148,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	else
 		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : M].")
 
-	user.visible_message("<span class='green'>[user] applies [src] to [M].</span>", "<span class='green'>You apply [src] to [M].</span>")
+	user.visible_message(span_green("[user] applies [src] to [M]."), span_green("You apply [src] to [M]."))
 	if(reagent)
-		reagents.reaction(M, PATCH, affecting = affecting)
+		reagents.expose(M, PATCH, affecting = affecting)
 		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
 		C.update_damage_overlays()
 	use(1)
@@ -176,7 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	amount = 1
 
 /obj/item/stack/medical/bruise_pack/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/stack/medical/ointment
@@ -194,7 +194,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	amount = 1
 
 /obj/item/stack/medical/ointment/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! Don't [user.p_they()] know that stuff is toxic?</span>")
+	user.visible_message(span_suicide("[user] is squeezing \the [src] into [user.p_their()] mouth! Don't [user.p_they()] know that stuff is toxic?"))
 	return TOXLOSS
 
 /obj/item/stack/medical/gauze
@@ -210,18 +210,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
 		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
-					"<span class='italics'>You hear cutting.</span>")
+					span_notice("You cut [src] into pieces of cloth with [I]."), \
+					span_italics("You hear cutting."))
 		use(2)
 	else
 		return ..()
 
 /obj/item/stack/medical/gauze/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins tightening \the [src] around [user.p_their()] neck! It looks like [user.p_they()] forgot how to use medical supplies!</span>")
+	user.visible_message(span_suicide("[user] begins tightening \the [src] around [user.p_their()] neck! It looks like [user.p_they()] forgot how to use medical supplies!"))
 	return OXYLOSS
 
 /obj/item/stack/medical/gauze/improvised
@@ -257,7 +257,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 /datum/status_effect/self_tend/on_apply()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/self_tend)
 	owner.Paralyze(3 SECONDS)
-	to_chat(owner, "<span class='danger'>An intense wave of pain washes over you as you try to mend your wounds.</span>")
+	to_chat(owner, span_danger("An intense wave of pain washes over you as you try to mend your wounds."))
 	owner.emote("scream")
 	owner.adjustStaminaLoss(clamp(50 - owner.staminaloss, 0, 50))
 	return TRUE

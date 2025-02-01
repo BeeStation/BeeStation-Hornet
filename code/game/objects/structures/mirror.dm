@@ -84,9 +84,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	to_chat(user, span_notice("You begin repairing [src]..."))
 	if(I.use_tool(src, user, 10, volume=50))
-		to_chat(user, "<span class='notice'>You repair [src].</span>")
+		to_chat(user, span_notice("You repair [src]."))
 		broken = 0
 		icon_state = initial(icon_state)
 		desc = initial(desc)
@@ -188,7 +188,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
 
 					else
-						to_chat(H, "<span class='notice'>Invalid color. Your color is not bright enough.</span>")
+						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))
 
 			H.update_body()
 			H.update_hair()
@@ -203,7 +203,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = "female"
-					to_chat(H, "<span class='notice'>Man, you feel like a woman!</span>")
+					to_chat(H, span_notice("Man, you feel like a woman!"))
 				else
 					return
 
@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = "male"
-					to_chat(H, "<span class='notice'>Whoa man, you feel like a man!</span>")
+					to_chat(H, span_notice("Whoa man, you feel like a man!"))
 				else
 					return
 			H.dna.update_ui_block(DNA_GENDER_BLOCK)
@@ -264,14 +264,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 		if(P.starting)
 			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
 			var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-			var/turf/curloc = get_turf(src)
+			var/turf/current_location = get_turf(src)
 
 			// redirect the projectile
 			P.original = locate(new_x, new_y, P.z)
-			P.starting = curloc
+			P.starting = current_location
 			P.firer = src
-			P.yo = new_y - curloc.y
-			P.xo = new_x - curloc.x
+			P.yo = new_y - current_location.y
+			P.xo = new_x - current_location.x
 			var/new_angle_s = P.Angle + 180
 			while(new_angle_s > 180)	// Translate to regular projectile degrees
 				new_angle_s -= 360

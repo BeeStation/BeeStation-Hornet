@@ -57,34 +57,34 @@
 	icon_state = "stethoscope"
 
 /obj/item/clothing/neck/stethoscope/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] puts \the [src] to [user.p_their()] chest! It looks like [user.p_they()] wont hear much!</span>")
+	user.visible_message(span_suicide("[user] puts \the [src] to [user.p_their()] chest! It looks like [user.p_they()] wont hear much!"))
 	return OXYLOSS
 
 /obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
 		if(!user.combat_mode)
-			var/heart_strength = "<span class='danger'>no</span>"
-			var/lung_strength = "<span class='danger'>no</span>"
+			var/heart_strength = span_danger("no")
+			var/lung_strength = span_danger("no")
 
 			var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
 			var/obj/item/organ/lungs/lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
 
 			if(!(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH))))
 				if(heart && istype(heart))
-					heart_strength = "<span class='danger'>an unstable</span>"
+					heart_strength = span_danger("an unstable")
 					if(heart.beating)
 						heart_strength = "a healthy"
 				if(lungs && istype(lungs))
-					lung_strength = "<span class='danger'>strained</span>"
+					lung_strength = span_danger("strained")
 					if(!(M.failed_last_breath || M.losebreath))
 						lung_strength = "healthy"
 
 			if(M.stat == DEAD && heart && world.time - M.timeofdeath < DEFIB_TIME_LIMIT * 10)
-				heart_strength = "<span class='boldannounce'>a faint, fluttery</span>"
+				heart_strength = span_boldannounce("a faint, fluttery")
 
 			var/diagnosis = (user.is_zone_selected(BODY_ZONE_CHEST) ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
 			var/bodypart = parse_zone(user.is_zone_selected(BODY_ZONE_CHEST) ? BODY_ZONE_CHEST : user.get_combat_bodyzone(M))
-			user.visible_message("[user] places [src] against [M]'s [bodypart] and listens attentively.", "<span class='notice'>You place [src] against [M]'s [bodypart]. [diagnosis]</span>")
+			user.visible_message("[user] places [src] against [M]'s [bodypart] and listens attentively.", span_notice("You place [src] against [M]'s [bodypart]. [diagnosis]"))
 			return
 	return ..(M,user)
 

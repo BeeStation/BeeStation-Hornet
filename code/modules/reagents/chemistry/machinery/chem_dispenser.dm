@@ -101,7 +101,7 @@
 /obj/machinery/chem_dispenser/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>[src]'s maintenance hatch is open!</span>"
+		. += span_notice("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads:\n"+\
 		"Recharging <b>[recharge_amount]</b> power units per interval.\n"+\
@@ -144,7 +144,7 @@
 
 /obj/machinery/chem_dispenser/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You short out [src]'s safeties.</span>")
+	to_chat(user, span_notice("You short out [src]'s safeties."))
 	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
@@ -321,8 +321,8 @@
 				for(var/reagent in recording_recipe)
 					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent)]
 					if(!dispensable_reagents.Find(reagent_id))
-						visible_message("<span class='warning'>[src] buzzes.</span>", "<span class='italics'>You hear a faint buzz.</span>")
-						to_chat(usr, "<span class ='danger'>[src] cannot find <b>[reagent]</b>!</span>")
+						visible_message(span_warning("[src] buzzes."), span_italics("You hear a faint buzz."))
+						to_chat(usr, span_danger("[src] cannot find <b>[reagent]</b>!"))
 						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
 						return
 				saved_recipes[name] = recording_recipe
@@ -346,10 +346,10 @@
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
-		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
+		to_chat(user, span_notice("You add [B] to [src]."))
 		updateUsrDialog()
 	else if(!user.combat_mode && !istype(I, /obj/item/card/emag) && !istype(I, /obj/item/stock_parts/cell))
-		to_chat(user, "<span class='warning'>You can't load [I] into [src]!</span>")
+		to_chat(user, span_warning("You can't load [I] into [src]!"))
 		return ..()
 	else
 		return ..()
@@ -375,7 +375,7 @@
 	cell.use(total/powerefficiency)
 	cell.emp_act(severity)
 	work_animation()
-	visible_message("<span class='danger'>[src] malfunctions, spraying chemicals everywhere!</span>")
+	visible_message(span_danger("[src] malfunctions, spraying chemicals everywhere!"))
 
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)

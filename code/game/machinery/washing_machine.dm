@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(!busy)
 		. += "<span class='notice'><b>Right-click</b> with an empty hand to start a wash cycle.</span>"
 	if(bloody_mess)
-		. += "<span class='notice'>[src] is dirty!</span>"
+		. += span_notice("[src] is dirty!")
 
 /obj/machinery/washing_machine/process(delta_time)
 	if(!busy)
@@ -393,7 +393,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else if(!user.combat_mode)
 
 		if (!state_open)
-			to_chat(user, "<span class='warning'>Open the door first!</span>")
+			to_chat(user, span_warning("Open the door first!"))
 			return TRUE
 		else if(bloody_mess)
 			if(istype(W, /obj/item/reagent_containers/spray))
@@ -401,11 +401,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 				if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
 					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
 					playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0
 					update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
+					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
 			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
@@ -413,23 +413,23 @@ GLOBAL_LIST_INIT(dye_registry, list(
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W
 					cleanspeed = used_soap.cleanspeed
-				user.visible_message("[user] starts to clean \the [src].", "<span class='notice'>You start to clean \the [src]...</span>")
+				user.visible_message("[user] starts to clean \the [src].", span_notice("You start to clean \the [src]..."))
 				if(do_after(user, cleanspeed, target = src))
-					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0
 					update_icon()
 				return TRUE
 
 		if(bloody_mess)
-			to_chat(user, "<span class='warning'>[src] must be cleaned up first.</span>")
+			to_chat(user, span_warning("[src] must be cleaned up first."))
 			return TRUE
 
 		if(contents.len >= max_wash_capacity)
-			to_chat(user, "<span class='warning'>The washing machine is full!</span>")
+			to_chat(user, span_warning("The washing machine is full!"))
 			return TRUE
 
 		if(!user.transferItemToLoc(W, src))
-			to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
+			to_chat(user, span_warning("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
 			return TRUE
 
 		if(W.dye_color)
@@ -444,7 +444,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(.)
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy.</span>")
+		to_chat(user, span_warning("[src] is busy."))
 		return
 
 	if(user.pulling && isliving(user.pulling))

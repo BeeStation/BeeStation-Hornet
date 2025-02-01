@@ -37,9 +37,9 @@
 					D.stop_pulling()
 					if(grab_attack)
 						log_combat(A, D, "grabbed", name, addition="aggressively")
-						D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
-										"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear sounds of aggressive fondling!</span>", null, A)
-						to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+						D.visible_message(span_warning("[A] violently grabs [D]!"), \
+										span_userdanger("You're violently grabbed by [A]!"), span_hear("You hear sounds of aggressive fondling!"), null, A)
+						to_chat(A, span_danger("You violently grab [D]!"))
 						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
 						log_combat(A, D, "grabbed", name, addition="passively")
@@ -47,9 +47,9 @@
 		if(4)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = "headbutt"
-			D.visible_message("<span class='danger'>[A] [atk_verb]s [D]!</span>", \
-							"<span class='userdanger'>You're [atk_verb]ed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-			to_chat(A, "<span class='danger'>You [atk_verb] [D]!</span>")
+			D.visible_message(span_danger("[A] [atk_verb]s [D]!"), \
+							span_userdanger("You're [atk_verb]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
+			to_chat(A, span_danger("You [atk_verb] [D]!"))
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
 			D.apply_damage(rand(5,10), A.get_attack_type(), BODY_ZONE_HEAD)
 			A.apply_damage(rand(5,10), A.get_attack_type(), BODY_ZONE_HEAD)

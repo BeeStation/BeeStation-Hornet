@@ -11,9 +11,9 @@
 		if (prob(90))
 			log_combat(M, src, "attacked", M)
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
-							"<span class='userdanger'>[M] slashes at you!</span>", null, null, M)
-			to_chat(M, "<span class='danger'>You slash at [src]!</span>")
+			visible_message(span_danger("[M] slashes at [src]!"), \
+							span_userdanger("[M] slashes at you!"), null, null, M)
+			to_chat(M, span_danger("You slash at [src]!"))
 			if(prob(8))
 				flash_act(affect_silicon = 1)
 			log_combat(M, src, "attacked", M)
@@ -21,9 +21,9 @@
 			updatehealth()
 		else
 			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M]'s swipe misses [src]!</span>", \
-							"<span class='danger'>You avoid [M]'s swipe!</span>", null, null, M)
-			to_chat(M, "<span class='warning'>Your swipe misses [src]!</span>")
+			visible_message(span_danger("[M]'s swipe misses [src]!"), \
+							span_danger("You avoid [M]'s swipe!"), null, null, M)
+			to_chat(M, span_warning("Your swipe misses [src]!"))
 
 /mob/living/silicon/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -33,9 +33,9 @@
 			for(var/mob/living/N in buckled_mobs)
 				N.Paralyze(20)
 				unbuckle_mob(N)
-				N.visible_message("<span class='danger'>[N] is knocked off of [src] by [M]!</span>", \
-								"<span class='userdanger'>You're knocked off of [src] by [M]!</span>", null, null, M)
-				to_chat(M, "<span class='danger'>You knock [N] off of [src]!</span>")
+				N.visible_message(span_danger("[N] is knocked off of [src] by [M]!"), \
+								span_userdanger("You're knocked off of [src] by [M]!"), null, null, M)
+				to_chat(M, span_danger("You knock [N] off of [src]!"))
 		switch(M.melee_damage_type)
 			if(BRUTE)
 				adjustBruteLoss(damage)
@@ -62,9 +62,9 @@
 		..(user, 1)
 		adjustBruteLoss(rand(10, 15))
 		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] punches [src]!</span>", \
-				"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, "<span class='danger'>You punch [src]!</span>")
+		visible_message(span_danger("[user] punches [src]!"), \
+				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, span_danger("You punch [src]!"))
 		return 1
 	return 0
 
@@ -118,7 +118,7 @@
 
 /mob/living/silicon/emp_act(severity)
 	. = ..()
-	to_chat(src, "<span class='danger'>Warning: Electromagnetic pulse detected.</span>")
+	to_chat(src, span_danger("Warning: Electromagnetic pulse detected."))
 	if(. & EMP_PROTECT_SELF)
 		return
 	switch(severity)
@@ -126,12 +126,12 @@
 			src.take_bodypart_damage(burn = 20)
 		if(2)
 			src.take_bodypart_damage(burn = 10)
-	to_chat(src, "<span class='userdanger'>*BZZZT*</span>")
+	to_chat(src, span_userdanger("*BZZZT*"))
 	for(var/mob/living/M in buckled_mobs)
 		if(prob(100/severity))
 			unbuckle_mob(M)
 			M.Paralyze(40)
-			M.visible_message("<span class='boldwarning'>[M] is thrown off of [src]!</span>")
+			M.visible_message(span_boldwarning("[M] is thrown off of [src]!"))
 	flash_act(affect_silicon = 1)
 
 /mob/living/silicon/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
@@ -146,13 +146,13 @@
 		adjustBruteLoss(Proj.damage)
 		if(prob(Proj.damage*1.5))
 			for(var/mob/living/M in buckled_mobs)
-				M.visible_message("<span class='boldwarning'>[M] is knocked off of [src]!</span>")
+				M.visible_message(span_boldwarning("[M] is knocked off of [src]!"))
 				unbuckle_mob(M)
 				M.Paralyze(40)
 	if(Proj.stun || Proj.knockdown || Proj.paralyze)
 		for(var/mob/living/M in buckled_mobs)
 			unbuckle_mob(M)
-			M.visible_message("<span class='boldwarning'>[M] is knocked off of [src] by the [Proj]!</span>")
+			M.visible_message(span_boldwarning("[M] is knocked off of [src] by the [Proj]!"))
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 

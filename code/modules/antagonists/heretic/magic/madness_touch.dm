@@ -25,8 +25,8 @@
 		if(ishuman(targets))
 			var/mob/living/carbon/human/tar = target
 			if(tar.anti_magic_check())
-				tar.visible_message("<span class='danger'>The spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
+				tar.visible_message(span_danger("The spell bounces off of [target]!"),span_danger("The spell bounces off of you!"))
 				return
 		if(target.mind && !IS_HERETIC(target))
-			to_chat(user, "<span class='warning'>[target.name] has been cursed!</span>")
+			to_chat(user, span_warning("[target.name] has been cursed!"))
 			SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)

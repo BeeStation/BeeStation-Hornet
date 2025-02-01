@@ -222,7 +222,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	if(linked_moderator)
 		QDEL_NULL(linked_moderator)
 	if(linked_interface)
-		QDEL_NULL(linked_interface)
+		linked_interface.reactor = null
+		linked_interface = null
 	grilled_item = null
 	QDEL_NULL(grill_loop)
 	QDEL_NULL(radio)
@@ -271,18 +272,18 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()
 	var/percent = get_integrity_percent()
-	var/msg = "<span class='warning'>The reactor looks operational.</span>"
+	var/msg = span_warning("The reactor looks operational.")
 	switch(percent)
 		if(0 to 10)
-			msg = "<span class='boldwarning'>[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! </span>"
+			msg = span_boldwarning("[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! ")
 		if(10 to 40)
-			msg = "<span class='boldwarning'>[src]'s seals are heavily warped and cracked! </span>"
+			msg = span_boldwarning("[src]'s seals are heavily warped and cracked! ")
 		if(40 to 60)
-			msg = "<span class='warning'>[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.</span>"
+			msg = span_warning("[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.")
 		if(60 to 80)
-			msg = "<span class='warning'>[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.</span>"
+			msg = span_warning("[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.")
 		if(80 to 90)
-			msg = "<span class='notice'>[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.</span>"
+			msg = span_notice("[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.")
 		if(95 to 100)
-			msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
+			msg = span_notice("[src]'s seals look factory new, and the reactor's in excellent shape.")
 	. += msg

@@ -66,28 +66,28 @@ Difficulty: Very Hard
 	name = "Spiral Shots"
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
+	chosen_message = span_colossus("You are now firing in a spiral.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
-	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
+	chosen_message = span_colossus("You are now firing in all directions.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
 	icon_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "shotgun"
-	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
+	chosen_message = span_colossus("You are now firing shotgun shots where you aim.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
 	icon_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "pistol"
-	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
+	chosen_message = span_colossus("You are now firing in alternating cardinal directions.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
@@ -102,32 +102,32 @@ Difficulty: Very Hard
 				else
 					telegraph()
 					say("Judgment")
-					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+					visible_message(span_colossus("\"<b>Judgment</b>\""))
 					select_spiral_attack()
 					ranged_cooldown = world.time + 30
 			if(2)
 				telegraph()
 				say("Wrath")
-				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				visible_message(span_colossus("\"<b>Wrath</b>\""))
 				random_shots()
 				ranged_cooldown = world.time + 30
 			if(3)
 				telegraph()
 				say("Retribution")
-				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				visible_message(span_colossus("\"<b>Retribution</b>\""))
 				blast()
 				ranged_cooldown = world.time + 30
 			if(4)
 				telegraph()
 				say("Lament")
-				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				visible_message(span_colossus("\"<b>Lament</b>\""))
 				alternating_dir_shots()
 				ranged_cooldown = world.time + 30
 		return
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
-			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
+			visible_message(span_colossus("\"<b>You can't dodge.</b>\""))
 		telegraph()
 		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
@@ -149,25 +149,25 @@ Difficulty: Very Hard
 
 	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
 		say("Die..")
-		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		visible_message(span_colossus("\"<b>Die..</b>\""))
 		random_attack_num = 5
 	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
 		say("Judgment")
-		visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+		visible_message(span_colossus("\"<b>Judgment</b>\""))
 		random_attack_num = 1
 	else
 		switch(rand(1, 3))
 			if(1)
 				say("Wrath")
-				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				visible_message(span_colossus("\"<b>Wrath</b>\""))
 				random_attack_num = 2
 			if(2)
 				say("Retribution")
-				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				visible_message(span_colossus("\"<b>Retribution</b>\""))
 				random_attack_num = 3
 			if(3)
 				say("Lament")
-				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				visible_message(span_colossus("\"<b>Lament</b>\""))
 				random_attack_num = 4
 	telegraph()
 	ranged_cooldown = world.time + 30
@@ -206,7 +206,7 @@ Difficulty: Very Hard
 		if(finale_counter > 4)
 			telegraph()
 			say("Die!!")
-			visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+			visible_message(span_colossus("\"<b>Die!</b>\""))
 			blast()
 		if(finale_counter > 1)
 			finale_counter--
@@ -217,14 +217,14 @@ Difficulty: Very Hard
 	for(var/ii in 1 to 3)
 		telegraph()
 		say("Die")
-		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		visible_message(span_colossus("\"<b>Die..</b>\""))
 		random_shots()
 		finale_counter += 6
 		sleep(finale_counter)
 	for(var/iii in 1 to 4)
 		telegraph()
 		say("Die..")
-		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		visible_message(span_colossus("\"<b>Die..</b>\""))
 		invulnerable_finale = FALSE
 		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
 
@@ -362,7 +362,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(!istype(O))
 		return FALSE
 	if(blacklist[O])
-		visible_message("<span class='boldwarning'>[src] ripples as it rejects [O]. The device will not accept items that have been removed from it.</span>")
+		visible_message(span_boldwarning("[src] ripples as it rejects [O]. The device will not accept items that have been removed from it."))
 		return FALSE
 	return TRUE
 
@@ -728,7 +728,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	initial_language_holder = /datum/language_holder/lightbringer
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	light_range = 4
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
 	minbodytemp = 0

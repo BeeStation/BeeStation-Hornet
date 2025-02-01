@@ -29,7 +29,7 @@
 		. += "<span class='info'>You can use a <b>crowbar</b> to remove all modules or <b>right-click</b> with an empty hand to remove a specific one.</span>"
 		for(var/A in modkits)
 			var/obj/item/borg/upgrade/modkit/M = A
-			. += "<span class='notice'>[icon2html(M, user)] There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
+			. += span_notice("[icon2html(M, user)] There is \a [M] installed, using <b>[M.cost]%</b> capacity.")
 
 /obj/item/gun/energy/recharge/kinetic_accelerator/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -40,7 +40,7 @@
 			var/obj/item/borg/upgrade/modkit/M = a
 			M.forceMove(drop_location()) //uninstallation handled in Exited(), or /mob/living/silicon/robot/remove_from_upgrades() for borgs
 	else
-		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
+		to_chat(user, span_notice("There are no modifications currently installed."))
 
 /obj/item/gun/energy/recharge/kinetic_accelerator/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -214,7 +214,7 @@
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+	. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/recharge/kinetic_accelerator) && !issilicon(user))
@@ -243,7 +243,7 @@
 		if(.)
 			if(transfer_to_loc && !user.transferItemToLoc(src, KA))
 				return
-			to_chat(user, "<span class='notice'>You install the modkit.</span>")
+			to_chat(user, span_notice("You install the modkit."))
 			playsound(loc, 'sound/items/screwdriver.ogg', 100, 1)
 			KA.modkits += src
 		else
@@ -349,7 +349,7 @@
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.armor_flag, "", "", K.armour_penetration)
 			L.apply_damage(K.damage*modifier, K.damage_type, K.def_zone, armor)
-			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
+			to_chat(L, span_userdanger("You're struck by a [K.name]!"))
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"

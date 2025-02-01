@@ -24,7 +24,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/item/melee/transforming/energy/sword/pirate)
 	del_on_death = TRUE
-	faction = list("pirate")
+	faction = list(FACTION_PIRATE)
 	mobchatspan = "syndmob"
 
 

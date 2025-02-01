@@ -142,7 +142,7 @@
 	SIGNAL_HANDLER
 	if(!user.combat_mode)
 		if(prob(25))
-			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+			user.visible_message("[source] nuzzles [user]!", span_notice("[source] nuzzles you!"))
 		return
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		anger++

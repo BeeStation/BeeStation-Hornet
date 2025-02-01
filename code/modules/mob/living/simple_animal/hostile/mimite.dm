@@ -36,7 +36,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("mimite")
+	faction = list(FACTION_MIMIC)
 	move_to_delay = 3
 	gold_core_spawnable = NO_SPAWN
 	hardattacks = TRUE
@@ -83,7 +83,7 @@
 	if(morphed && replicate && venthunt)
 		. = form.examine(user)
 		if(get_dist(user,src)<=4)
-			. += "<span class='warning'>It doesn't look quite right...</span>"
+			. += span_warning("It doesn't look quite right...")
 	else
 		. = ..()
 
@@ -112,14 +112,14 @@
 		if(allowed(A))
 			assume(A)
 	else
-		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
+		to_chat(src, span_warning("Your chameleon skin is still repairing itself!"))
 
 /mob/living/simple_animal/hostile/mimite/proc/assume(atom/movable/target)
 	morphed = TRUE
 	form = target
 
-	visible_message("<span class='warning'>[src] suddenly twists and changes shape, becoming a copy of [target]!</span>", \
-					"<span class='notice'>You twist your body and assume the form of [target].</span>")
+	visible_message(span_warning("[src] suddenly twists and changes shape, becoming a copy of [target]!"), \
+					span_notice("You twist your body and assume the form of [target]."))
 	appearance = target.appearance
 	if(length(target.vis_contents))
 		add_overlay(target.vis_contents)
@@ -140,7 +140,7 @@
 /mob/living/simple_animal/hostile/mimite/proc/restore(var/intentional = FALSE)
 	if(!morphed)
 		if(intentional)
-			to_chat(src, "<span class='warning'>You're already in your normal form!</span>")
+			to_chat(src, span_warning("You're already in your normal form!"))
 		return
 	morphed = FALSE
 	form = null
@@ -150,8 +150,8 @@
 	maptext = null
 	density = initial(density)
 
-	visible_message("<span class='warning'>[src] suddenly collapses in on itself, turning into a strange shifting black mass!</span>", \
-					"<span class='notice'>You reform to your normal body.</span>")
+	visible_message(span_warning("[src] suddenly collapses in on itself, turning into a strange shifting black mass!"), \
+					span_notice("You reform to your normal body."))
 	name = initial(name)
 	icon = initial(icon)
 	icon_state = initial(icon_state)
@@ -201,9 +201,9 @@
 	if(morphed)
 		M.Knockdown(40)
 		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 5)
-		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
-		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
-				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
+		to_chat(M, span_userdanger("[src] bites you!"))
+		visible_message(span_danger("[src] violently bites [M]!"),\
+				span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
 		restore()
 	else
 		..()
@@ -252,8 +252,8 @@
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 3)
 			var/list/vents = list()
-			var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
-			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
+			var/datum/pipenet/entry_vent_parent = entry_vent.parents[1]
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmos_machines)
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null
@@ -271,7 +271,7 @@
 					return
 				else
 					visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-					"<span class='italics'>You hear something scampering through the ventilation ducts.</span>")
+					span_italics("You hear something scampering through the ventilation ducts."))
 					forceMove(exit_vent.loc)
 					entry_vent = null
 					attemptingventcrawl = FALSE
@@ -351,9 +351,9 @@
 	aggro_vision_range = 9
 	M.Knockdown(20)
 	M.reagents.add_reagent(/datum/reagent/toxin/morphvenom/mimite, 10)
-	to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
-	visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
-			"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
+	to_chat(M, span_userdanger("[src] bites you!"))
+	visible_message(span_danger("[src] violently bites [M]!"),\
+			span_userdanger("You ambush [M]!"), null, COMBAT_MESSAGE_RANGE)
 	cut_overlays()
 	add_overlay("[icon_state]_open")
 	..()

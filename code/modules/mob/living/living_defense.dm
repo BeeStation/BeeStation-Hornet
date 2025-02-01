@@ -17,19 +17,19 @@
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armour_penetration)
 		if(penetrated_text)
-			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
+			to_chat(src, span_userdanger("[penetrated_text]"))
 		else
-			to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
+			to_chat(src, span_userdanger("Your armor was penetrated!"))
 	else if(armor >= 100)
 		if(absorb_text)
-			to_chat(src, "<span class='notice'>[absorb_text]</span>")
+			to_chat(src, span_notice("[absorb_text]"))
 		else
-			to_chat(src, "<span class='notice'>Your armor absorbs the blow!</span>")
+			to_chat(src, span_notice("Your armor absorbs the blow!"))
 	else
 		if(soften_text)
-			to_chat(src, "<span class='warning'>[soften_text]</span>")
+			to_chat(src, span_warning("[soften_text]"))
 		else
-			to_chat(src, "<span class='warning'>Your armor softens the blow!</span>")
+			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
 /// Get the armour value for a specific damage type, targetting a particular zone.
@@ -126,8 +126,8 @@
 		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
 			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
 		if(!blocked)
-			visible_message("<span class='danger'>[src] is hit by [I]!</span>", \
-							"<span class='userdanger'>You're hit by [I]!</span>")
+			visible_message(span_danger("[src] is hit by [I]!"), \
+							span_userdanger("You're hit by [I]!"))
 			var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor)
 
@@ -158,11 +158,11 @@
 		return
 
 	if(!(status_flags & CANPUSH) || HAS_TRAIT(src, TRAIT_PUSHIMMUNE))
-		to_chat(user, "<span class='warning'>[src] can't be grabbed more aggressively!</span>")
+		to_chat(user, span_warning("[src] can't be grabbed more aggressively!"))
 		return FALSE
 
 	if(user.grab_state >= GRAB_AGGRESSIVE && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='notice'>You don't want to risk hurting [src]!</span>")
+		to_chat(user, span_notice("You don't want to risk hurting [src]!"))
 		return FALSE
 	grippedby(user)
 
@@ -237,54 +237,54 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+		to_chat(M, span_notice("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(stat != DEAD)
 		log_combat(M, src, "attacked")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
-						"<span class='userdanger'>\The [M.name] glomps you!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, "<span class='danger'>You glomp [src]!</span>")
+		visible_message(span_danger("\The [M.name] glomps [src]!"), \
+						span_userdanger("\The [M.name] glomps you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, span_danger("You glomp [src]!"))
 		return TRUE
 
 /mob/living/attack_basic_mob(mob/living/basic/user)
 	if(user.melee_damage == 0)
 		if(user != src)
-			visible_message("<span class='notice'>\The [user] [user.friendly_verb_continuous] [src]!</span>", \
-							"<span class='notice'>\The [user] [user.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, "<span class='notice'>You [user.friendly_verb_simple] [src]!</span>")
+			visible_message(span_notice("\The [user] [user.friendly_verb_continuous] [src]!"), \
+							span_notice("\The [user] [user.friendly_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, span_notice("You [user.friendly_verb_simple] [src]!"))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(user, span_warning("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(user.attack_sound)
 		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
 	user.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [user] [user.attack_verb_continuous] [src]!", \
-					"<span class='userdanger'>\The [user] [user.attack_verb_continuous] you!", null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, "<span class='danger'>You [user.attack_verb_simple] [src]!")
+	visible_message(span_danger("\The [user] [user.attack_verb_continuous] [src]!"), \
+					span_userdanger("\The [user] [user.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
 	log_combat(user, src, "attacked")
 	return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if(M.melee_damage == 0)
-		visible_message("<span class='notice'>\The [M] [M.friendly_verb_continuous] [src]!</span>", \
-						"<span class='notice'>\The [M] [M.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, "<span class='notice'>You [M.friendly_verb_simple] [src]!</span>")
+		visible_message(span_notice("\The [M] [M.friendly_verb_continuous] [src]!"), \
+						span_notice("\The [M] [M.friendly_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, span_notice("You [M.friendly_verb_simple] [src]!"))
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+		to_chat(M, span_notice("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, 1, 1)
 	M.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [M] [M.attack_verb_continuous] [src]!</span>", \
-					"<span class='userdanger'>\The [M] [M.attack_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, M)
-	to_chat(M, "<span class='danger'>You [M.attack_verb_simple] [src]!</span>")
+	visible_message(span_danger("\The [M] [M.attack_verb_continuous] [src]!"), \
+					span_userdanger("\The [M] [M.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, M)
+	to_chat(M, span_danger("You [M.attack_verb_simple] [src]!"))
 	log_combat(M, src, "attacked")
 	return TRUE
 
@@ -389,9 +389,9 @@
 	else
 		adjustStaminaLoss(shock_damage)
 	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+		span_danger("[src] was shocked by \the [source]!"), \
+		span_userdanger("You feel a powerful shock coursing through your body!"), \
+		span_hear("You hear a heavy electrical crack.") \
 	)
 	return shock_damage
 
@@ -571,13 +571,13 @@
 		var/target_held_item = get_active_held_item()
 		if(target_held_item)
 			if (!silent)
-				visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [src]'s hand!</span>",
-								"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message(span_danger("[user.name] kicks \the [target_held_item] out of [src]'s hand!"),
+								span_danger("[user.name] kicks \the [target_held_item] out of your hand!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "disarms [target_held_item]", "disarm")
 		else
 			if (!silent)
-				visible_message("<span class='danger'>[user.name] kicks [name] onto [p_their()] side!</span>",
-								"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message(span_danger("[user.name] kicks [name] onto [p_their()] side!"),
+								span_danger("[user.name] kicks you onto your side!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "kicks", "disarm", "onto their side (paralyzing)")
 		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
 	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
@@ -597,39 +597,56 @@
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			Immobilize(SHOVE_IMMOBILIZE_SOLID)
 			if (!silent)
-				user.visible_message("<span class='danger'>[user.name] shoves [name], knocking [p_them()] down!</span>",
-					"<span class='danger'>You shove [name], knocking [p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
+				user.visible_message(span_danger("[user.name] shoves [name], knocking [p_them()] down!"),
+					span_danger("You shove [name], knocking [p_them()] down!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "shoved", "disarm", "knocking them down")
 		else if(target_table)
 			Paralyze(SHOVE_KNOCKDOWN_TABLE)
 			if (!silent)
-				user.visible_message("<span class='danger'>[user.name] shoves [name] onto \the [target_table]!</span>",
-					"<span class='danger'>You shove [name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
+				user.visible_message(span_danger("[user.name] shoves [name] onto \the [target_table]!"),
+					span_danger("You shove [name] onto \the [target_table]!"), null, COMBAT_MESSAGE_RANGE)
 			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
 			log_combat(user, src, "shoved", "disarm", "onto [target_table] (table)")
 		else if(target_collateral_human)
 			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
 			if (!silent)
-				user.visible_message("<span class='danger'>[user.name] shoves [name] into [target_collateral_human.name]!</span>",
-					"<span class='danger'>You shove [name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+				user.visible_message(span_danger("[user.name] shoves [name] into [target_collateral_human.name]!"),
+					span_danger("You shove [name] into [target_collateral_human.name]!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "shoved", "disarm", "into [target_collateral_human.name]")
 		else if(target_disposal_bin)
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			forceMove(target_disposal_bin)
 			if (!silent)
-				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_disposal_bin]!</span>",
-					"<span class='danger'>You shove [name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
+				user.visible_message(span_danger("[user.name] shoves [name] into \the [target_disposal_bin]!"),
+					span_danger("You shove [name] into \the [target_disposal_bin]!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
 		else if(target_pool)
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			forceMove(target_pool)
 			if (!silent)
-				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_pool]!</span>",
-					"<span class='danger'>You shove [name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
+				user.visible_message(span_danger("[user.name] shoves [name] into \the [target_pool]!"),
+					span_danger("You shove [name] into \the [target_pool]!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
 	else
 		if (!silent)
-			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",
-				"<span class='danger'>You shove [name]!</span>", null, COMBAT_MESSAGE_RANGE)
+			user.visible_message(span_danger("[user.name] shoves [name]!"),
+				span_danger("You shove [name]!"), null, COMBAT_MESSAGE_RANGE)
 		log_combat(user, src, "shoved", "disarm")
+
+/** Handles exposing a mob to reagents.
+  *
+  * If the method is INGEST the mob tastes the reagents.
+  * If the method is VAPOR it incorporates permiability protection.
+  */
+/mob/living/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE, obj/item/bodypart/affecting)
+	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	if(method == INGEST)
+		taste(source)
+
+	var/touch_protection = (method == VAPOR) ? getarmor(null, BIO) * 0.01 : 0
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)
