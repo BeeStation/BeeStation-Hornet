@@ -183,11 +183,7 @@ SUBSYSTEM_DEF(garbage)
 		var/datum/D = L[GC_QUEUE_ITEM_REF]
 
 		// If that's all we've got, send er off
-#if DM_VERSION >= 515
 		if (refcount(D) == REFS_WE_EXPECT)
-#else
-		if (!D || D.gc_destroyed != queued_at_time)
-#endif
 			++gcedlasttick
 			++totalgcs
 			pass_counts[level]++
