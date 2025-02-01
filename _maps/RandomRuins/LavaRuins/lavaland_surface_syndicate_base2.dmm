@@ -356,10 +356,18 @@
 /area/ruin/unpowered/syndicate_lava_base/starboard)
 "dk" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/paper_bin{
+	pixel_x = 3
+	},
+/obj/item/pen{
+	pixel_x = 3
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = -8;
+	pixel_y = 10
 	},
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
@@ -500,11 +508,13 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "es" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/small/directional/east,
+/obj/structure/closet/secure_closet/freezer/fridge{
+	req_access = null
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "eA" = (
@@ -675,7 +685,9 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "gL" = (
-/obj/structure/closet/secure_closet/medical2,
+/obj/structure/closet/secure_closet/medical2{
+	req_access = null
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -2901,7 +2913,8 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "CS" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
-	chamber_id = "syndie_lavaland_inc_in"
+	chamber_id = "syndie_lavaland_inc_in";
+	dir = 1
 	},
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
@@ -2948,7 +2961,9 @@
 "DG" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/airalarm/directional/south,
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	req_access = null
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "DO" = (
@@ -4418,10 +4433,6 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "Rd" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
-/obj/machinery/airlock_controller/incinerator_syndicatelava{
-	pixel_x = -8;
-	pixel_y = -26
-	},
 /obj/machinery/button/ignition/incinerator/syndicatelava{
 	pixel_x = 6;
 	pixel_y = -24
@@ -4431,6 +4442,10 @@
 	id = "syndie_lavaland_incineratorturbine"
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/airlock_controller/incinerator_syndicatelava{
+	pixel_x = -8;
+	pixel_y = -26
+	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Rf" = (
