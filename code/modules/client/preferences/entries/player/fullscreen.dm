@@ -5,7 +5,7 @@
 	default_value = FALSE
 
 /datum/preference/toggle/fullscreen/apply_to_client(client/client, value)
-#if (MIN_COMPILER_VERSION > 515 || MIN_COMPILER_BUILD > 1630)
+#if (MIN_COMPILER_VERSION <= 515 || MIN_COMPILER_BUILD <= 1630)
 	if (value)
 		// Delete the menu
 		winset(client, "mainwindow", "menu=\"\"")
