@@ -13,7 +13,8 @@
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	// Managed by the limb overlay system
+	blocks_emissive = FALSE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
