@@ -168,3 +168,4 @@
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
 		button_icon_state = (pinchy.safety ? "template_active" : "template")
+		update_buttons()

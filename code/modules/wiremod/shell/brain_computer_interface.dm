@@ -132,6 +132,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/bci_action)
 /obj/item/circuit_component/bci_action/proc/update_action()
 	bci_action.name = button_name.value
 	bci_action.button_icon_state = "[replacetextEx(LOWER_TEXT(icon_options.value), " ", "_")]"
+	bci_action.update_buttons()
 
 /datum/action/innate/bci_action
 	name = "Action"
