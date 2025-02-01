@@ -650,7 +650,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 					log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
-					reagent_glass.reagents.reaction(patient, INJECT, fraction)
+					reagent_glass.reagents.expose(patient, INJECT, fraction)
 					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker.
 					if(!reagent_glass.reagents.total_volume && !synth_epi) //when empty, alert medbay unless we're on synth mode
 						var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')

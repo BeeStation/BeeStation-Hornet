@@ -391,7 +391,6 @@
 	description = "A refresher course on modern engineering technology."
 	prereq_ids = list("base")
 	design_ids = list(
-		"aac_electronics",
 		"adv_capacitor",
 		"adv_matter_bin",
 		"adv_scanning",

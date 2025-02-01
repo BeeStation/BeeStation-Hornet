@@ -136,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
-													took,orig_dev_range,orig_heavy_range,orig_light_range)
+													took,orig_dev_range,orig_heavy_range,orig_light_range,explosion_index)
 	SIGNAL_HANDLER
 
 	if(machine_stat & NOPOWER)

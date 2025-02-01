@@ -357,13 +357,13 @@ SUBSYSTEM_DEF(vote)
 	name = "Vote!"
 	button_icon_state = "vote"
 
-/datum/action/vote/Trigger()
+/datum/action/vote/on_activate()
 	if(owner)
 		owner.vote()
 		remove_from_client()
 		Remove(owner)
 
-/datum/action/vote/IsAvailable()
+/datum/action/vote/is_available()
 	return 1
 
 /datum/action/vote/proc/remove_from_client()

@@ -601,7 +601,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
-				T.atmos_spawn_air("o2=11;n2=41;TEMP=293.15")
+				T.atmos_spawn_air("[GAS_O2]=11;[GAS_N2]=41;[TURF_TEMPERATURE(T20C)]")
 				to_chat(user, span_warning("You activate [src], and fresh air bursts out of your skin!"))
 				return 60 SECONDS
 
