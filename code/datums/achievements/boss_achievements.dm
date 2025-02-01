@@ -41,11 +41,6 @@
 	desc = "We were many..now we are none."
 	database_id = BOSS_MEDAL_LEGION
 
-/datum/award/achievement/boss/swarmer_beacon_kill
-	name = "Swarm Beacon Killer"
-	desc = "GET THEM OFF OF ME!"
-	database_id = BOSS_MEDAL_SWARMERS
-
 /datum/award/achievement/boss/blood_miner_crusher
 	name = "Blood-drunk Miner Crusher"
 	desc = "I guess he couldn't handle his drink that well."
@@ -75,8 +70,3 @@
 	name = "Legion Crusher"
 	desc = "We were many... now we are none."
 	database_id = BOSS_MEDAL_LEGION_CRUSHER
-
-/datum/award/achievement/boss/swarmer_beacon_crusher
-	name = "Swarm Beacon Crusher"
-	desc = "GET THEM OFF OF ME!"
-	database_id = BOSS_MEDAL_SWARMERS_CRUSHER

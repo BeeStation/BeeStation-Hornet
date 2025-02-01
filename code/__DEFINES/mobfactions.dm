@@ -90,5 +90,3 @@
 #define FACTION_PIRATE "pirate"
 /// Clockwork cultists and their scarabs/marauders.
 #define FACTION_RATVAR "ratvar"
-/// Swarmers & the swarmer beacon.
-#define FACTION_SWARMER "swarmer"

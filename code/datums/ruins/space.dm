@@ -460,13 +460,6 @@
 	description = "A hydroponics experiment gone horribly, horribly wrong!"
 	cost = 1
 
-/datum/map_template/ruin/space/swarmerstation
-	id = "swarmerstation13"
-	suffix = "swarmerstation13.dmm"
-	name = "Swarmer Station"
-	description = "Shat is left of a syndicate radio station, after swarmers infiltrated it."
-	cost = 2
-
 /datum/map_template/ruin/space/refference
 	id = "refference"
 	suffix = "refference.dmm"

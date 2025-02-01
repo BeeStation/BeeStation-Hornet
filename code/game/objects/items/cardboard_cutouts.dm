@@ -148,10 +148,6 @@
 			name = "lusty xenomorph maid ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph maid."
 			icon_state = "cutout_lusty"
-		if("Swarmer")
-			name = "Swarmer ([rand(1, 999)])"
-			desc = "A cardboard cutout of a swarmer."
-			icon_state = "cutout_swarmer"
 		if("Ash Walker")
 			name = random_lizard_name(pick(MALE, FEMALE))
 			desc = "A cardboard cutout of an ash walker."

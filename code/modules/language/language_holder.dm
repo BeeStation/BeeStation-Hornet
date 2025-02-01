@@ -366,11 +366,6 @@ GLOBAL_LIST_INIT(prototype_language_holders, init_language_holder_prototypes())
 	)
 	spoken_languages = list(/datum/language/slime = list(LANGUAGE_ATOM))
 
-/datum/language_holder/swarmer
-	understood_languages = list(/datum/language/swarmer = list(LANGUAGE_ATOM))
-	spoken_languages = list(/datum/language/swarmer = list(LANGUAGE_ATOM))
-	blocked_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
-
 /datum/language_holder/venus
 	understood_languages = list(/datum/language/sylvan = list(LANGUAGE_ATOM))
 	spoken_languages = list(/datum/language/sylvan = list(LANGUAGE_ATOM))

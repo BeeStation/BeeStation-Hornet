@@ -349,15 +349,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	visible_message(span_warning("The portal bends inward, but [src] can't seem to pass through it!"), span_warning("You can't seem to pass through the portal!"))
 	return COMPONENT_BLOCK_TELEPORT
 
-/mob/living/simple_animal/hostile/swarmer/intercept_teleport(channel, turf/origin, turf/destination)
-	. = ..()
-
-	if(. == COMPONENT_BLOCK_TELEPORT || channel != TELEPORT_CHANNEL_GATEWAY)
-		return
-
-	visible_message(span_warning("[src] stops just before entering the portal."), span_warning("Going back the way you came would not be productive. Aborting."))
-	return COMPONENT_BLOCK_TELEPORT
-
 /**
  * attempts to take AM through all turfs in a straight line between ``current_turf`` and ``target_turf``,
  * applying ``on_turf_cross`` for each turf and ``obj_damage`` to each structure encountered

@@ -20,25 +20,20 @@
 
 /datum/award/score/colussus_score
 	name = "Colossus Killed"
-	desc = "You've killed HOW many?"	
+	desc = "You've killed HOW many?"
 	database_id = COLOSSUS_SCORE
 
 /datum/award/score/drake_score
 	name = "Drakes Killed"
-	desc = "You've killed HOW many?"	
+	desc = "You've killed HOW many?"
 	database_id = DRAKE_SCORE
 
 /datum/award/score/hierophant_score
 	name = "Hierophants Killed"
-	desc = "You've killed HOW many?"	
+	desc = "You've killed HOW many?"
 	database_id = LEGION_SCORE
 
 /datum/award/score/legion_score
 	name = "Legions Killed"
-	desc = "You've killed HOW many?"	
-	database_id = LEGION_SCORE
-
-/datum/award/score/swarmer_beacon_score
-	name = "Swarmer Beacons Killed"
 	desc = "You've killed HOW many?"
-	database_id = SWARMER_BEACON_SCORE
+	database_id = LEGION_SCORE

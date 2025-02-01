@@ -156,20 +156,6 @@
 /datum/role_preference/midround_ghost/spider/get_preview_icon()
 	return finish_preview_icon(icon('icons/mob/animal.dmi', "broodmother"))
 
-/datum/role_preference/midround_ghost/swarmer
-	name = "Swarmer"
-	description = "A swarmer is a small robot that replicates itself autonomously with \
-	nearby given materials and prepare structures that they come \
-	across for the following invasion force. \n\
-	Consume machines, structures, walls, anything to get materials. Replicate \
-	as many swarmers as you can to repeat the process."
-	antag_datum = /datum/antagonist/swarmer
-
-/datum/role_preference/midround_ghost/swarmer/get_preview_icon()
-	var/icon/swarmer_icon = icon('icons/mob/swarmer.dmi', "swarmer")
-	swarmer_icon.Shift(NORTH, 8)
-	return finish_preview_icon(swarmer_icon)
-
 /datum/role_preference/midround_ghost/morph
 	name = "Morph"
 	description = "Eat everything in your sights, confuse the crew with your shapeshifting abilities and hallucination toxin, \

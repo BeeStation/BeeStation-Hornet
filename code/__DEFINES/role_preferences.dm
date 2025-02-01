@@ -42,7 +42,6 @@
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
 #define ROLE_SPIDER				"Spider"
-#define ROLE_SWARMER			"Swarmer"
 #define ROLE_MORPH				"Morph"
 #define ROLE_NIGHTMARE			"Nightmare"
 #define ROLE_SPACE_PIRATE		"Space Pirate"
@@ -84,7 +83,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_HOLOPARASITE,
 	ROLE_TERATOMA,
 	ROLE_SPIDER,
-	ROLE_SWARMER,
 	ROLE_MORPH,
 	ROLE_NIGHTMARE,
 	ROLE_SPACE_PIRATE,
