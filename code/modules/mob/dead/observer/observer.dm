@@ -715,12 +715,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 /mob/dead/observer/proc/show_ai_hud()
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_AI_DETECT]
-	H.add_hud_to(src)
+	var/datum/atom_hud/ai_hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	ai_hud.show_to(src)
 
 /mob/dead/observer/proc/remove_ai_hud()
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_AI_DETECT]
-	H.remove_hud_from(src)
+	var/datum/atom_hud/ai_hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	ai_hud.hide_from(src)
 
 /mob/dead/observer/verb/toggle_ai_hud()
 	set name = "Toggle AI HUD"
@@ -737,14 +737,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		ai_hud_on = TRUE
 
 /mob/dead/observer/proc/show_data_huds()
-	for(var/hudtype in datahuds)
-		var/datum/atom_hud/H = GLOB.huds[hudtype]
-		H.add_hud_to(src)
+	for(var/each_hud_type in datahuds)
+		var/datum/atom_hud/hud = GLOB.huds[each_hud_type]
+		hud.show_to(src)
 
 /mob/dead/observer/proc/remove_data_huds()
-	for(var/hudtype in datahuds)
-		var/datum/atom_hud/H = GLOB.huds[hudtype]
-		H.remove_hud_from(src)
+	for(var/each_hud_type in datahuds)
+		var/datum/atom_hud/hud = GLOB.huds[each_hud_type]
+		hud.hide_from(src)
 
 /mob/dead/observer/verb/toggle_data_huds()
 	set name = "Toggle Sec/Med/Diag HUD"

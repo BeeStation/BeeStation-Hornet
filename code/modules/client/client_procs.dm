@@ -984,6 +984,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(new_eye == old_eye)
 		return
 
+	if(old_eye == CLIENT_OLD_EYE_NULL)
+		old_eye = null
+
 	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
 		LAZYREMOVE(old_eye.eye_users, src)
 
@@ -995,6 +998,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
 
+	if(new_eye.z != old_eye?.z) // necessary for atom hud system
+		SEND_SIGNAL(src, COMSIG_CLIENT_EYE_Z_CHANGED, old_eye?.z, new_eye.z)
 
 /client/proc/add_verbs_from_config()
 	if (interviewee)
