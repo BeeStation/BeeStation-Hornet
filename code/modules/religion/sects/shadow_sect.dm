@@ -235,7 +235,7 @@
 	if(!istype(T))
 		return
 	var/light_amount = T.get_lumcount()
-	var/favor_gained = max(1 - light_amount, 0) * delta_time
+	var/favor_gained = max((1 - light_amount) * (sect.grand_ritual_level + 1), 0) * delta_time
 	sect.adjust_favor(favor_gained, creator)
 
 /datum/component/dark_favor/proc/return_creator()
