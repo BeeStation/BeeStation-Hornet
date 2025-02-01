@@ -189,7 +189,7 @@
 
 	to_chat(queen, span_noticealien("You have promoted [to_promote] to a Praetorian!"))
 	to_promote.visible_message(
-		span_alienalert("[to_promote] begins to expand, twist and contort!"),
+		span_alertalien("[to_promote] begins to expand, twist and contort!"),
 		span_noticealien("The queen has granted you a promotion to Praetorian!"),
 	)
 

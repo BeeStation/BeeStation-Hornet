@@ -89,18 +89,18 @@
 /// they are brutally ejected from the vents. In the form of gibs.
 /datum/action/spell/shapeshift/proc/eject_from_vents(mob/living/cast_on)
 	var/obj/machinery/atmospherics/pipe_you_die_in = cast_on.loc
-	var/datum/pipeline/our_pipeline
-	var/pipenets = pipe_you_die_in.returnPipenets()
+	var/datum/pipenet/our_pipenet
+	var/pipenets = pipe_you_die_in.return_pipenets()
 	if(islist(pipenets))
-		our_pipeline = pipenets[1]
+		our_pipenet = pipenets[1]
 	else
-		our_pipeline = pipenets
+		our_pipenet = pipenets
 
 	to_chat(cast_on, ("<span class='userdanger'>Casting [src] inside of [pipe_you_die_in] quickly turns you into a bloody mush!</span>"))
 	var/obj/effect/gib_type = isalien(cast_on) ? /obj/effect/gibspawner/xeno : /obj/effect/gibspawner/generic
 
 	for(var/obj/machinery/atmospherics/components/unary/possible_vent in range(10, get_turf(cast_on)))
-		if(length(possible_vent.parents) && possible_vent.parents[1] == our_pipeline)
+		if(length(possible_vent.parents) && possible_vent.parents[1] == our_pipenet)
 			new gib_type(get_turf(possible_vent))
 			playsound(possible_vent, 'sound/effects/reee.ogg', 75, TRUE)
 

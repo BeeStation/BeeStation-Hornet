@@ -225,7 +225,7 @@
 	// thermal protection value and should just return out early.
 	if(!thermal_on && (!cell || cell.charge < THERMAL_REGULATOR_COST))
 		if(toggler)
-		to_chat(user, span_warning("The thermal regulator on \the [src] has no charge."))
+			to_chat(toggler, span_warning("The thermal regulator on [src] has no charge."))
 		return
 
 	thermal_on = !thermal_on

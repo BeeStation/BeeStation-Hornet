@@ -512,6 +512,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/on_activate(mob/user, atom/target)
+	. = ..()
 	for(var/obj/machinery/firealarm/bellman in GLOB.machines)
 		if(!is_station_level(bellman.z))
 			continue

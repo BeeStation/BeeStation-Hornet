@@ -38,7 +38,7 @@
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	var/obj/item/item_target = target
 	if(item_target.reagents.total_volume)
-		item_target.reagents.reaction(owner, INGEST)
+		item_target.reagents.expose(owner, INGEST)
 		item_target.reagents.trans_to(owner, item_target.reagents.total_volume, transfered_by = owner)
 	qdel(target)
 	return TRUE
