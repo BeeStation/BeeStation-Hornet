@@ -5015,6 +5015,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 1
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron/smooth_edge{
 	dir = 8
 	},
@@ -6801,6 +6802,21 @@
 	},
 /turf/open/floor/prison/dark,
 /area/storage/tech)
+"byf" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-9"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/science/xenobiology)
 "byi" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
@@ -51519,18 +51535,18 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "lnU" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
+	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-10"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/xenobiology)
@@ -54907,20 +54923,19 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "mbo" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/girder,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/obj/structure/cable/yellow{
+	icon_state = "5-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/plating/rust,
 /area/maintenance/department/science/xenobiology)
 "mbv" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -64149,6 +64164,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"nZC" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/science/xenobiology)
 "nZE" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -77179,20 +77206,17 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
 "qRO" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/girder,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
+	dir = 5
 	},
-/turf/open/floor/plating,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
 "qRQ" = (
 /obj/structure/disposalpipe/segment{
@@ -79630,11 +79654,11 @@
 /obj/item/book/manual/wiki/engineering_guide,
 /obj/item/book/manual/wiki/engineering_hacking{
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3
 	},
 /obj/item/book/manual/wiki/engineering_construction{
 	pixel_x = 3;
-	pixel_y = -3
+	pixel_y = -7
 	},
 /turf/open/floor/iron,
 /area/engine/storage_shared)
@@ -87587,6 +87611,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/meter,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine/atmos)
 "tlk" = (
@@ -89174,17 +89199,17 @@
 /area/maintenance/disposal/incinerator)
 "tDv" = (
 /obj/machinery/light/small/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
+	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "6-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
@@ -138448,7 +138473,7 @@ oKH
 rYD
 spD
 tDv
-wVc
+qRO
 vKv
 hyT
 gns
@@ -138704,8 +138729,8 @@ lMZ
 nRI
 sBX
 spD
-mbo
-tvM
+fKX
+byf
 vKv
 nzj
 ecs
@@ -138961,8 +138986,8 @@ kFu
 kRv
 ufP
 spD
-qRO
-vcB
+fKX
+mbo
 aGH
 hyT
 hhb
@@ -139219,7 +139244,7 @@ spD
 spD
 spD
 lnU
-tvM
+nZC
 vKv
 nzj
 gns
