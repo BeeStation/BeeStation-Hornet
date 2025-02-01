@@ -805,7 +805,7 @@
 		if(obelisk.anchored)
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/turf/T in GLOB.station_turfs)
-		if(T.light_range == 3 && T.light_power == 1)
+		if(T.light_range == 3 && T.light_power == 1 && T.light_color == "#f4f942")
 			T.light_power = 1
 			T.light_range = 0
 			T.set_light_color(null)
