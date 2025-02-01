@@ -27,6 +27,7 @@ export const Panel = (props) => {
   const audio = useAudio();
   const settings = useSettings();
   const game = useGame();
+  const dispatch = useDispatch();
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug();
@@ -46,7 +47,7 @@ export const Panel = (props) => {
   }
 
   const [number, setNumber] = useLocalState('number', settings.statSize);
-  const dispatch = useDispatch();
+
   const resizeFunction = (value) => {
     dispatch(
       updateSettings({
@@ -149,8 +150,7 @@ export const Panel = (props) => {
 
 const HoboPanel = (props) => {
   const settings = useSettings();
-  const audio = useAudio();
-  const game = useGame();
+  const dispatch = useDispatch();
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug();
@@ -170,7 +170,7 @@ const HoboPanel = (props) => {
   }
 
   const [number, setNumber] = useLocalState('number', settings.statSize);
-  const dispatch = useDispatch();
+
   const resizeFunction = (value) => {
     dispatch(
       updateSettings({
