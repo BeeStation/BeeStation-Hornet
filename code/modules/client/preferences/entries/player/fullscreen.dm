@@ -37,8 +37,15 @@
 			// Fix the mapsize, turning off statusbar doesn't update scaling
 			INVOKE_ASYNC(src, PROC_REF(fix_mapsize), client)
 	else
-		winset(client, "mainwindow", "menu=;is-fullscreen=[value ? "true" : "false"]")
-		winset(client, "status_bar_wide", "is-visible=[value ? "false" : "true"]")
+		if(value)
+			winset(client, "mainwindow", "menu=;is-fullscreen=true")
+			winset(client, "status_bar_wide", "is-visible=false")
+			winset(client, "mainwindow", "on-status=\".winset \\\"\[\[*]]=\\\"\\\" ? status_bar.text=\[\[*]] status_bar.is-visible=true : status_bar.is-visible=false\\\"\"")
+		else
+			winset(client, "mainwindow", "menu=;is-fullscreen=false")
+			winset(client, "status_bar_wide", "is-visible=true")
+			winset(client, "mainwindow", "on-status=\".winset \\\"status_bar_wide.text = \[\[*]]\\\"\"")
+			winset(client, "status_bar", "is-visible=false")
 		INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
