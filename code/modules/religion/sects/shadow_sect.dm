@@ -702,7 +702,7 @@
 			to_chat(M, span_userdanger("You feel pull towards the obeliscs, you feel like it woudl be safer near them."))
 	sleep(50)
 	for(var/mob/living/M in GLOB.mob_list)
-		to_chat(M, span_notice("You are sure now that shadows are moving"))
+		to_chat(M, span_warning("You are sure now that shadows are moving"))
 	sleep(50)
 	sect.grand_ritual_in_progres = TRUE
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
@@ -776,10 +776,10 @@
 			to_chat(M, span_userdanger("YOU KNOW THAT YOU NEED TO RUN TO CLOSEST OBELISK IF YOU WANT TO LIVE."))
 	sleep(50)
 	for(var/mob/living/M in GLOB.mob_list)
-		to_chat(M, span_notice("You are sure now that shadows are moving"))
+		to_chat(M, span_warning("You are sure now that shadows are moving"))
 	sleep(50)
 	for(var/mob/living/M in GLOB.mob_list)
-		to_chat(M, span_notice("Shadows are all flowing towards some point, leaving only light bechind!"))
+		to_chat(M, span_warningbold("Shadows are all flowing towards some point, leaving only light bechind!"))
 	sleep(50)
 	sect.grand_ritual_in_progres = TRUE
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
@@ -797,7 +797,6 @@
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/turf/T in changed_turfs)
 		if(istype(T))
-			changed_turfs += T
 			T.light_power = 0
 			T.light_range = 1
 	sect.grand_ritual_in_progres = FALSE
