@@ -38,6 +38,7 @@
 			INVOKE_ASYNC(src, PROC_REF(fix_mapsize), client)
 	else
 		winset(client, "mainwindow", "menu=;is-fullscreen=[value ? "true" : "false"]")
+		winset(client, "status_bar_wide", "is-visible=[value ? "false" : "true"]")
 		INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
