@@ -577,10 +577,10 @@
 	desc = "Convice shadows to take intrest in your cult. They will cary information betwen thier kind and their mere presence will make the darknes holier."
 	ritual_length = 35 SECONDS
 	ritual_invocations = list(
-		"Let the shadows combine...",
-		"... Solidify and grow ...",
-		"... Make an idol to eminate shadows ...")
-	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+		"Shadows hear me...",
+		"... Come to your kin ...",
+		"... Help us spread darknes ...")
+	invoke_msg = "I summon you to our beacons!"
 	favor_cost = 1000
 
 /datum/religion_rites/grand_ritual_one/perform_rite(mob/living/user, atom/religious_tool)
@@ -651,10 +651,13 @@
 	desc = "Start giving shadows a form in physical world. This will let them heal the vounds of their kin and protect them from sight or harm."
 	ritual_length = 70 SECONDS
 	ritual_invocations = list(
-		"Let the shadows combine...",
-		"... Solidify and grow ...",
-		"... Make an idol to eminate shadows ...")
-	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+		"Shadows hear me...",
+		"... Come to your kin ...",
+		"... Help us spread darknes ...",
+		"... Enter our obelisks ...",
+		"... Share your blesings ...",
+		"... Heal our wounds ...")
+	invoke_msg = "I give you a body to help us!"
 	favor_cost = 10000
 
 /datum/religion_rites/grand_ritual_two/perform_rite(mob/living/user, atom/religious_tool)
@@ -727,10 +730,16 @@
 	desc = "Final grand ritual. Let shadows come into this world fully, leting their tender care resurect any kin, help them move and let others join thier glorius family. BE WARNED gathering all shadows for this rite will let the light spread much further than normal."
 	ritual_length = 105 SECONDS
 	ritual_invocations = list(
-		"Let the shadows combine...",
-		"... Solidify and grow ...",
-		"... Make an idol to eminate shadows ...")
-	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+		"Shadows hear me...",
+		"... Come to your kin ...",
+		"... Help us spread darknes ...",
+		"... Enter our obelisks ...",
+		"... Share your blesings ...",
+		"... Heal our wounds ...",
+		"... Gather here ...",
+		"... Enter our reality ...",
+		"... Strengthen us all ...")
+	invoke_msg = "IM THE GATEWAY FOR YOU TO USE!"
 	favor_cost = 50000
 
 /datum/religion_rites/grand_ritual_three/perform_rite(mob/living/user, atom/religious_tool)
