@@ -611,7 +611,7 @@
 	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 
-/datum/action/innate/shadow_coms/IsAvailable()
+/datum/action/innate/shadow_coms/is_available()
 	if(!isshadow(owner))
 		return FALSE
 	var/mob/living/carbon/human/S = owner
@@ -626,9 +626,9 @@
 	button_icon_state = "commune"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/shadow_coms/comm/Activate()
+/datum/action/innate/shadow_coms/comm/on_activate()
 	var/input = tgui_input_text(usr, "Please choose a message to tell to the shadows.", "Voice of Shadows", "")
-	if(!input || !IsAvailable())
+	if(!input || !is_available())
 		return
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
