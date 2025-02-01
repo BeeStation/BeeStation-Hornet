@@ -581,6 +581,9 @@
 
 /datum/religion_rites/grand_ritual_one/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.grand_ritual_level > 0)
+		to_chat(user, "<span class='warning'>You alredy performed this ritual!.</span>")
+		return FALSE
 	if(!isshadow(user))
 		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
 		return FALSE
@@ -653,6 +656,9 @@
 
 /datum/religion_rites/grand_ritual_two/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.grand_ritual_level > 1)
+		to_chat(user, "<span class='warning'>You alredy performed this ritual!.</span>")
+		return FALSE
 	if(!isshadow(user))
 		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
 		return FALSE
@@ -727,6 +733,9 @@
 
 /datum/religion_rites/grand_ritual_three/perform_rite(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.grand_ritual_level > 2)
+		to_chat(user, "<span class='warning'>You alredy performed this ritual!.</span>")
+		return FALSE
 	if(!isshadow(user))
 		to_chat(user, "<span class='warning'>How dare somone not of shadow kind, try to comunicate with shadows!.</span>")
 		return FALSE
@@ -785,20 +794,22 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
 			obelisk.set_light(4, -30, DARKNESS_INVERSE_COLOR)
-	var/list/changed_turfs
-	for(var/T in GLOB.station_turfs)
-		if(T.light_power == 0)
-			changed_turfs += T
-			T.light_power = 3
+	for(var/turf/T in GLOB.station_turfs)
+		if(T.light_range == 0)
+			T.light_power = 1
 			T.light_range = 3
+			T.set_light_color("#f4f942")
+			T.update_light()
 	sleep(900)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-	for(var/T in changed_turfs)
-		if(istype(T))
-			T.light_power = 0
-			T.light_range = 1
+	for(var/turf/T in GLOB.station_turfs)
+		if(T.light_range == 3 && T.light_power == 1)
+			T.light_power = 1
+			T.light_range = 0
+			T.set_light_color(null)
+			T.update_light()
 	sect.grand_ritual_in_progres = FALSE
 
 #undef DARKNESS_INVERSE_COLOR
