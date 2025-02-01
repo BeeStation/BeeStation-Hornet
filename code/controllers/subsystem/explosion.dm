@@ -315,7 +315,7 @@ SUBSYSTEM_DEF(explosions)
 	//flash mobs
 	if(flash_range)
 		for(var/mob/living/L in viewers(flash_range, epicenter))
-			if(L.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0), 0))
+			if(L.anti_magic_check(magic, holy))
 				continue
 			L.flash_act()
 
@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(explosions)
 				//Ignore magic protected things.
 				if(ismob(A))
 					var/mob/M = A
-					if(M.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0)))
+					if(M.anti_magic_check(magic, holy, TRUE, TRUE))
 						continue
 				if (length(A.contents) && !(A.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)) //The atom/contents_explosion() proc returns null if the contents ex_acting has been handled by the atom, and TRUE if it hasn't.
 					items += A.GetAllContents(ignore_flag_1 = PREVENT_CONTENTS_EXPLOSION_1)
@@ -384,7 +384,7 @@ SUBSYSTEM_DEF(explosions)
 		if(magic || holy)
 			var/divine_protection = FALSE
 			for(var/mob/living/L in T.contents)
-				if(L.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0)))
+				if(L.anti_magic_check(magic, holy, TRUE))
 					divine_protection = TRUE
 					break
 			if(divine_protection)

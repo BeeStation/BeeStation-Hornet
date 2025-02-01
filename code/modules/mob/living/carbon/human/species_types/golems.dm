@@ -95,7 +95,7 @@
 
 /datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = TRUE, _holy = FALSE)
 
 /datum/species/golem/adamantine/on_species_loss(mob/living/carbon/C)
 	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
@@ -153,9 +153,8 @@
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "sacredflame"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 
-/datum/action/innate/ignite/on_activate()
+/datum/action/innate/ignite/Activate()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
@@ -199,7 +198,7 @@
 
 /datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 
 /datum/species/golem/silver/on_species_loss(mob/living/carbon/C)
 	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
@@ -515,13 +514,13 @@
 	var/cooldown = 150
 	var/last_teleport = 0
 
-/datum/action/innate/unstable_teleport/is_available()
+/datum/action/innate/unstable_teleport/IsAvailable()
 	if(..())
 		if(world.time > last_teleport + cooldown)
 			return 1
 		return 0
 
-/datum/action/innate/unstable_teleport/on_activate()
+/datum/action/innate/unstable_teleport/Activate()
 	var/mob/living/carbon/human/H = owner
 	H.visible_message(span_warning("[H] starts vibrating!"), span_danger("You start charging your bluespace core..."))
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
@@ -535,9 +534,9 @@
 	spark_system.start()
 	do_teleport(H, get_turf(H), 12, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	last_teleport = world.time
-	update_buttons() //action icon looks unavailable
+	UpdateButtonIcon() //action icon looks unavailable
 	//action icon looks available again
-	addtimer(CALLBACK(src, PROC_REF(update_buttons)), cooldown + 5)
+	addtimer(CALLBACK(src, PROC_REF(UpdateButtonIcon)), cooldown + 5)
 
 
 //honk
@@ -640,12 +639,9 @@
 	random_eligible = FALSE //Zesko claims runic golems break the game
 	inherent_factions = list(FACTION_CULT)
 	species_language_holder = /datum/language_holder/golem/runic
-	/// A ref to our jaunt spell that we get on species gain.
-	var/datum/action/spell/jaunt/ethereal_jaunt/shift/golem/jaunt
-	/// A ref to our gaze spell that we get on species gain.
-	var/datum/action/spell/pointed/abyssal_gaze/abyssal_gaze
-	/// A ref to our dominate spell that we get on species gain.
-	var/datum/action/spell/pointed/dominate/dominate
+	var/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem/phase_shift
+	var/obj/effect/proc_holder/spell/targeted/abyssal_gaze/abyssal_gaze
+	var/obj/effect/proc_holder/spell/targeted/dominate/dominate
 
 	species_chest = /obj/item/bodypart/chest/golem/cult
 	species_head = /obj/item/bodypart/head/golem/cult
@@ -660,30 +656,29 @@
 	var/golem_name = "[edgy_first_name] [edgy_last_name]"
 	return golem_name
 
-/datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/golem/runic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	// Create our species specific spells here.
-	// Note we link them to the mob, not the mind,
-	// so they're not moved around on mindswaps
-	jaunt = new(grant_to)
-	jaunt.start_cooldown()
-	jaunt.Grant(grant_to)
-
-	abyssal_gaze = new(grant_to)
-	abyssal_gaze.start_cooldown()
-	abyssal_gaze.Grant(grant_to)
-
-	dominate = new(grant_to)
-	dominate.start_cooldown()
-	dominate.Grant(grant_to)
+	phase_shift = new
+	phase_shift.charge_counter = 0
+	phase_shift.start_recharge()
+	C.AddSpell(phase_shift)
+	abyssal_gaze = new
+	abyssal_gaze.charge_counter = 0
+	abyssal_gaze.start_recharge()
+	C.AddSpell(abyssal_gaze)
+	dominate = new
+	dominate.charge_counter = 0
+	dominate.start_recharge()
+	C.AddSpell(dominate)
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
-	// Aaand cleanup our species specific spells.
-	// No free rides.
-	QDEL_NULL(jaunt)
-	QDEL_NULL(abyssal_gaze)
-	QDEL_NULL(dominate)
-	return ..()
+	. = ..()
+	if(phase_shift)
+		C.RemoveSpell(phase_shift)
+	if(abyssal_gaze)
+		C.RemoveSpell(abyssal_gaze)
+	if(dominate)
+		C.RemoveSpell(dominate)
 
 /datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem, /datum/reagent/water/holywater))
@@ -781,7 +776,7 @@
 
 /datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 
 /datum/species/golem/cloth/on_species_loss(mob/living/carbon/C)
 	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
@@ -1158,7 +1153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	var/last_use
 	var/snas_chance = 3
 
-/datum/action/innate/bonechill/on_activate()
+/datum/action/innate/bonechill/Activate()
 	if(world.time < last_use + cooldown)
 		to_chat(owner, span_notice("You aren't ready yet to rattle your bones again."))
 		return
@@ -1195,10 +1190,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING) //no mutcolors, no eye sprites
 	inherent_traits = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
 
-	/// A ref to our "throw snowball" spell we get on species gain.
-	var/datum/action/spell/conjure_item/snowball/snowball
-	/// A ref to our cryobeam spell we get on species gain.
-	var/datum/action/spell/pointed/projectile/cryo/cryo
+	var/obj/effect/proc_holder/spell/targeted/conjure_item/snowball/ball
+	var/obj/effect/proc_holder/spell/aimed/cryo/cryo
 
 	species_chest = /obj/item/bodypart/chest/golem/snow
 	species_head = /obj/item/bodypart/head/golem/snow
@@ -1216,23 +1209,33 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	new /obj/item/food/grown/carrot(get_turf(H))
 	qdel(H)
 
-/datum/species/golem/snow/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/golem/snow/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	ADD_TRAIT(grant_to, TRAIT_SNOWSTORM_IMMUNE, SPECIES_TRAIT)
+	C.weather_immunities |= "snow"
+	ball = new
+	ball.charge_counter = 0
+	ball.start_recharge()
+	C.AddSpell(ball)
+	cryo = new
+	cryo.charge_counter = 0
+	cryo.start_recharge()
+	C.AddSpell(cryo)
 
-	snowball = new(grant_to)
-	snowball.start_cooldown()
-	snowball.Grant(grant_to)
+/datum/species/golem/snow/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	C.weather_immunities -= "snow"
+	if(ball)
+		C.RemoveSpell(ball)
+	if(cryo)
+		C.RemoveSpell(cryo)
 
-	cryo = new(grant_to)
-	cryo.start_cooldown()
-	cryo.Grant(grant_to)
-
-/datum/species/golem/snow/on_species_loss(mob/living/carbon/remove_from)
-	REMOVE_TRAIT(remove_from, TRAIT_SNOWSTORM_IMMUNE, SPECIES_TRAIT)
-	QDEL_NULL(snowball)
-	QDEL_NULL(cryo)
-	return ..()
+/obj/effect/proc_holder/spell/targeted/conjure_item/snowball
+	name = "Snowball"
+	desc = "Concentrates cryokinetic forces to create snowballs, useful for throwing at people."
+	item_type = /obj/item/toy/snowball
+	charge_max = 15
+	action_icon = 'icons/obj/toy.dmi'
+	action_icon_state = "snowball"
 
 /datum/species/golem/capitalist
 	name = "Capitalist Golem"
@@ -1256,15 +1259,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/capitialism.ogg'))
-	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
-	K.Grant(C)
+	C.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock ())
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/capitalist/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_SAY)
-	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
-	K.Remove(C)
+	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
+		C.RemoveSpell(spell)
 
 /datum/species/golem/capitalist/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	..()
@@ -1300,14 +1302,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/Russian_Anthem_chorus.ogg'))
-	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
-	K.Grant(C)
+	C.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock ())
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/soviet/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	var/datum/action/spell/aoe/knock/K = new /datum/action/spell/aoe/knock
-	K.Remove(C)
+	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
+		C.RemoveSpell(spell)
 	UnregisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/golem/soviet/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)

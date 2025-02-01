@@ -1116,9 +1116,6 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	desc = "It contains the design for chairs, stools, tables, and glass tables."
 	upgrade = RCD_UPGRADE_FURNISHING
 
-/datum/action/item_action/pick_color
-	name = "Choose A Color"
-
 /datum/action/item_action/rcd_scan
 	name = "Destruction Scan"
 	desc = "Scans the surrounding area for destruction. Scanned structures will rebuild significantly faster."

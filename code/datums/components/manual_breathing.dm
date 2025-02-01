@@ -15,10 +15,11 @@
 	name = "Inhale"
 	icon_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "add"									//Feel free to replace
-	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/emote/next_emote = "inhale"
 
-/datum/action/breathe/on_activate(mob/user, atom/target)
+/datum/action/breathe/Trigger()
+	if(owner.stat != CONSCIOUS)
+		return FALSE
 	owner.emote(next_emote)
 
 /datum/action/breathe/proc/update_status(emote)
@@ -29,7 +30,7 @@
 	else
 		name = "Exhale"
 		button_icon_state = "remove"
-	update_buttons()
+	UpdateButtonIcon()
 
 /datum/component/manual_breathing/Initialize()
 	if(!iscarbon(parent))

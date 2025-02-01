@@ -70,7 +70,7 @@
 	var/visor_state = "enviro_visor"
 	var/lamp_functional = TRUE
 	var/obj/item/clothing/head/attached_hat
-	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen)
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
@@ -106,13 +106,6 @@
 		. += span_notice("There's \a [attached_hat.name] on the helmet which can be removed through the context menu.")
 	else
 		. += span_notice("A hat can be placed on the helmet.")
-
-/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action)
-	if(istype(action, /datum/action/item_action/toggle_welding_screen))
-		toggle_welding_screen(user)
-		return
-
-	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(!weldingvisortoggle(user))
@@ -181,7 +174,7 @@
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
-		A.update_buttons()
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()

@@ -40,6 +40,7 @@
 	maxHealth = 400
 	health = 400
 	icon_state = "alienq"
+	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
 	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(set_countdown))
@@ -57,12 +58,9 @@
 
 	real_name = src.name
 
-	var/datum/action/spell/aoe/repulse/xeno/tail_whip = new(src)
-	tail_whip.Grant(src)
-	var/datum/action/small_sprite/queen/smallsprite = new(src)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse/xeno(src))
+	AddAbility(new/obj/effect/proc_holder/alien/royal/queen/promote())
 	smallsprite.Grant(src)
-	var/datum/action/alien/promote/promotion = new(src)
-	promotion.Grant(src)
 	return ..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/create_internal_organs()
@@ -71,7 +69,7 @@
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
 	internal_organs += new /obj/item/organ/alien/eggsac
-	return ..()
+	..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/set_countdown()
 	SIGNAL_HANDLER
@@ -102,109 +100,87 @@
 	..()
 
 //Queen verbs
-/datum/action/alien/make_structure/lay_egg
+/obj/effect/proc_holder/alien/lay_egg
 	name = "Lay Egg"
-	desc = "Lay an egg to produce huggers to impregnate prey with."
-	button_icon_state = "alien_egg"
+	desc = "Lay an egg to produce huggers to impregnate prey with. Costs 75 Plasma."
 	plasma_cost = 75
-	made_structure_type = /obj/structure/alien/egg
+	check_turf = TRUE
+	action_icon_state = "alien_egg"
 
-/datum/action/alien/make_structure/lay_egg/on_activate(mob/user, atom/target)
-	. = ..()
-	owner.visible_message(span_alertalien("[owner] lays an egg!"))
+/obj/effect/proc_holder/alien/lay_egg/fire(mob/living/carbon/user)
+	if(locate(/obj/structure/alien/egg) in get_turf(user))
+		to_chat(user, span_alertalien("There's already an egg here."))
+		return FALSE
+
+	if(!check_vent_block(user))
+		return FALSE
+
+	user.visible_message(span_alertalien("[user] has laid an egg!"))
+	new /obj/structure/alien/egg(user.loc)
+	return TRUE
 
 //Button to let queen choose her praetorian.
-/datum/action/alien/promote
+/obj/effect/proc_holder/alien/royal/queen/promote
 	name = "Create Royal Parasite"
-	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian."
-	button_icon_state = "alien_queen_promote"
-	/// The promotion only takes plasma when completed, not on activation.
-	var/promotion_plasma_cost = 500
+	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian. Costs 500 Plasma."
+	plasma_cost = 500 //Plasma cost used on promotion, not spawning the parasite.
 
-/datum/action/alien/promote/update_stat_status(list/stat)
-	stat[STAT_STATUS] = GENERATE_STAT_TEXT("PLASMA - [promotion_plasma_cost]")
+	action_icon_state = "alien_queen_promote"
 
-/datum/action/alien/promote/is_available()
-	. = ..()
-	if(!.)
-		return FALSE
+/obj/effect/proc_holder/alien/royal/queen/promote/fire(mob/living/carbon/alien/user)
+	var/obj/item/queenpromote/prom
+	if(get_alien_type_in_hive(/mob/living/carbon/alien/humanoid/royal/praetorian/))
+		to_chat(user, span_noticealien("You already have a Praetorian!"))
+		return 0
+	else
+		for(prom in user)
+			to_chat(user, span_noticealien("You discard [prom]."))
+			qdel(prom)
+			return 0
 
-	var/mob/living/carbon/carbon_owner = owner
-	if(carbon_owner.getPlasma() < promotion_plasma_cost)
-		return FALSE
+		prom = new (user.loc)
+		if(!user.put_in_active_hand(prom, 1))
+			to_chat(user, span_warning("You must empty your hands before preparing the parasite."))
+			return 0
+		else //Just in case telling the player only once is not enough!
+			to_chat(user, span_noticealien("Use the royal parasite on one of your children to promote her to Praetorian!"))
+	return 0
 
-	if(get_alien_type(/mob/living/carbon/alien/humanoid/royal/praetorian))
-		return FALSE
-
-	return TRUE
-
-/datum/action/alien/promote/on_activate(mob/user, atom/target)
-	var/obj/item/queen_promotion/existing_promotion = locate() in owner.held_items
-	if(existing_promotion)
-		to_chat(owner, ("<span class='noticealien'>You discard [existing_promotion].</span>"))
-		owner.temporarilyRemoveItemFromInventory(existing_promotion)
-		qdel(existing_promotion)
-		return TRUE
-
-	if(!owner.get_empty_held_indexes())
-		to_chat(owner, ("<span class='warning'>You must have an empty hand before preparing the parasite.</span>"))
-		return FALSE
-
-	var/obj/item/queen_promotion/new_promotion = new(owner.loc)
-	if(!owner.put_in_hands(new_promotion, del_on_fail = TRUE))
-		to_chat(owner, span_noticealien("You fail to prepare a parasite."))
-		return FALSE
-
-	to_chat(owner, span_noticealien("Use [new_promotion] on one of your children to promote her to a Praetorian!"))
-	return TRUE
-
-/obj/item/queen_promotion
+/obj/item/queenpromote
 	name = "\improper royal parasite"
 	desc = "Inject this into one of your grown children to promote her to a Praetorian!"
 	icon_state = "alien_medal"
-	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL
 	icon = 'icons/mob/alien.dmi'
 
-/obj/item/queen_promotion/attack(mob/living/to_promote, mob/living/carbon/alien/humanoid/queen)
+/obj/item/queenpromote/Initialize(mapload)
 	. = ..()
-	if(.)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
+/obj/item/queenpromote/attack(mob/living/M, mob/living/carbon/alien/humanoid/user)
+	if(!isalienadult(M) || isalienroyal(M))
+		to_chat(user, span_noticealien("You may only use this with your adult, non-royal children!"))
+		return
+	if(get_alien_type_in_hive(/mob/living/carbon/alien/humanoid/royal/praetorian/))
+		to_chat(user, span_noticealien("You already have a Praetorian!"))
 		return
 
-	var/datum/action/alien/promote/promotion = locate() in queen.actions
-	if(!promotion)
-		CRASH("[type] was created and handled by a mob ([queen]) that didn't have a promotion action associated.")
+	var/mob/living/carbon/alien/humanoid/A = M
+	if(A.stat == CONSCIOUS && A.mind && A.key)
+		if(!user.usePlasma(500))
+			to_chat(user, span_noticealien("You must have 500 plasma stored to use this!"))
+			return
 
-	if(!isalienadult(to_promote) || isalienroyal(to_promote))
-		to_chat(queen, span_noticealien("You may only use this with your adult, non-royal children!"))
+		to_chat(A, span_noticealien("The queen has granted you a promotion to Praetorian!"))
+		user.visible_message(span_alertalien("[A] begins to expand, twist and contort!"))
+		var/mob/living/carbon/alien/humanoid/royal/praetorian/new_prae = new (A.loc)
+		A.mind.transfer_to(new_prae)
+		qdel(A)
+		qdel(src)
 		return
+	else
+		to_chat(user, span_warning("This child must be alert and responsive to become a Praetorian!"))
 
-	if(!promotion.is_available())
-		to_chat(queen, span_noticealien("You cannot promote a child right now!"))
-		return
-
-	if(to_promote.stat != CONSCIOUS || !to_promote.mind || !to_promote.key)
-		return
-
-	queen.adjustPlasma(-promotion.promotion_plasma_cost)
-
-	to_chat(queen, span_noticealien("You have promoted [to_promote] to a Praetorian!"))
-	to_promote.visible_message(
-		span_alertalien("[to_promote] begins to expand, twist and contort!"),
-		span_noticealien("The queen has granted you a promotion to Praetorian!"),
-	)
-
-	var/mob/living/carbon/alien/humanoid/royal/praetorian/new_prae = new(to_promote.loc)
-	to_promote.mind.transfer_to(new_prae)
-
-	qdel(to_promote)
+/obj/item/queenpromote/attack_self(mob/user)
+	to_chat(user, span_noticealien("You discard [src]."))
 	qdel(src)
-	return TRUE
-
-/obj/item/queen_promotion/attack_self(mob/user)
-	to_chat(user, ("<span class='noticealien'>You discard [src].</span>"))
-	qdel(src)
-
-/obj/item/queen_promotion/dropped(mob/user, silent)
-	if(!silent)
-		to_chat(user, ("<span class='noticealien'>You discard [src].</span>"))
-	return ..()

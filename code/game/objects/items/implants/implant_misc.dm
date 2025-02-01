@@ -2,7 +2,7 @@
 	name = "firearms authentication implant"
 	desc = "Lets you shoot your guns."
 	icon_state = "auth"
-	actions_types = null
+	activated = 0
 
 /obj/item/implant/weapons_auth/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -75,7 +75,7 @@
 
 /obj/item/implant/health
 	name = "health implant"
-	actions_types = null
+	activated = 0
 	var/healthstring = ""
 	var/list/raw_data = list()
 
@@ -102,7 +102,7 @@
 
 /obj/item/implant/radio
 	name = "internal radio implant"
-	actions_types = null
+	activated = TRUE
 	var/obj/item/radio/radio
 	var/radio_key
 	var/subspace_transmission = FALSE

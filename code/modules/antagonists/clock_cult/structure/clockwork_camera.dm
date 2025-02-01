@@ -9,12 +9,12 @@
 	button_icon_state = "warp_down"
 	var/warping = FALSE
 
-/datum/action/innate/clockcult/warp/is_available()
+/datum/action/innate/clockcult/warp/IsAvailable()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/warp/on_activate()
+/datum/action/innate/clockcult/warp/Activate()
 	if(!isliving(owner))
 		return
 	if(GLOB.gateway_opening)
@@ -72,7 +72,7 @@
 /obj/machinery/computer/camera_advanced/ratvar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	warp_action = new(src)
+	warp_action = new
 
 /obj/machinery/computer/camera_advanced/ratvar/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -92,6 +92,7 @@
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()
 	if(warp_action)
+		warp_action.target = src
 		warp_action.Grant(user)
 		actions += warp_action
 

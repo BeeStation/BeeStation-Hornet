@@ -185,8 +185,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismimite(A) (istype(A, /mob/living/simple_animal/hostile/mimite))
 
-#define isspider(A) (istype(A, /mob/living/simple_animal/hostile/poison/giant_spider))
-
 //Misc mobs
 #define isobserver(A) (istype(A, /mob/dead/observer))
 

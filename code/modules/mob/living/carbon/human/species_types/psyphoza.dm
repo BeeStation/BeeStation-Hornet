@@ -64,7 +64,7 @@
 
 /datum/species/psyphoza/primary_species_action()
 	. = ..()
-	PH?.trigger()
+	PH?.Trigger()
 
 /datum/species/psyphoza/get_species_description()
 	return "Psyphoza are a species of extra-sensory lesser-sensory \
@@ -193,8 +193,14 @@
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
-/datum/action/item_action/organ_action/psychic_highlight/on_activate(mob/user, atom/target)
-	if(!owner || !check_head())
+/datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
+	if(has_cooldown_timer)
+		return FALSE
+	return ..()
+
+/datum/action/item_action/organ_action/psychic_highlight/Trigger()
+	. = ..()
+	if(has_cooldown_timer || !owner || !check_head())
 		return
 	//Reveal larger area of sense
 	dim_overlay()
@@ -203,8 +209,14 @@
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
-	update_buttons()
-	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
+	has_cooldown_timer = TRUE
+	UpdateButtonIcon()
+	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
+
+/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
+	. = ..()
+	if(!IsAvailable())
+		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")
@@ -221,11 +233,12 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		trigger()
+		Trigger()
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
-	update_buttons()
+	has_cooldown_timer = FALSE
+	UpdateButtonIcon()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -419,7 +432,8 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_visual/Trigger()
+	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
@@ -447,11 +461,12 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_auto/Trigger()
+	. = ..()
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
-	update_buttons()
+	UpdateButtonIcon()
 
-/datum/action/change_psychic_auto/is_available()
+/datum/action/change_psychic_auto/IsAvailable()
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
@@ -482,7 +497,8 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/on_activate(mob/user, atom/target)
+/datum/action/change_psychic_texture/Trigger()
+	. = ..()
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()
 	blind_overlay = blind_overlay || owner?.screens["blind"]

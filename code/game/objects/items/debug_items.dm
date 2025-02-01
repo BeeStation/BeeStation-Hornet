@@ -184,6 +184,12 @@
 	transit_build_speed = 0.1
 	upgrade_flags = RPD_UPGRADE_UNWRENCH
 
+/obj/item/spellbook/debug
+	name = "\improper Robehator's spell book"
+	uses = 200
+	everything_robeless = TRUE
+	bypass_lock = TRUE
+
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug
 	name = "\improper Central Command black hardsuit helmet"
@@ -293,6 +299,7 @@
 		/obj/item/disk/data/debug=1,
 		/obj/item/uplink/debug=1,
 		/obj/item/uplink/nuclear/debug=1,
+		/obj/item/spellbook/debug=1,
 		/obj/item/storage/box/beakers/bluespace=1,
 		/obj/item/storage/box/beakers/variety=1,
 		/obj/item/storage/box/material=1

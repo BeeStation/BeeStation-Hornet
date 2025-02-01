@@ -90,6 +90,9 @@
 		#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"          //from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 
+// /datum/action signals
+#define COMSIG_ACTION_TRIGGER "action_trigger"						//! from base of datum/action/proc/Trigger(): (datum/action)
+	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
 
 // /datum/mind signals
 #define COMSIG_MIND_TRANSFER_TO		"mind_transfer_to"		// (mob/old, mob/new)

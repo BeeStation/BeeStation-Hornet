@@ -33,13 +33,11 @@
 	default = string
 	apply()
 
-/datum/view_data/proc/afterViewChange()
+/datum/view_data/proc/safeApplyFormat()
 	if(isZooming())
 		assertFormat()
-	else
-		resetFormat()
-	var/datum/hud/our_hud = chief?.mob?.hud_used
-	our_hud.view_audit_buttons() // Make sure our hud's buttons are in our new size
+		return
+	resetFormat()
 
 /datum/view_data/proc/assertFormat()//T-Pose
 	winset(chief, "mapwindow.map", "zoom=0")
@@ -103,7 +101,7 @@
 
 /datum/view_data/proc/apply()
 	chief?.change_view(getView())
-	afterViewChange()
+	safeApplyFormat()
 
 /datum/view_data/proc/supress()
 	is_suppressed = TRUE

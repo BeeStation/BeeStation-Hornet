@@ -219,15 +219,15 @@
 	button_icon_state = "wavespeak"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/wavespeak/is_available()
+/datum/action/innate/wavespeak/IsAvailable()
 	if(!("carp" in owner.faction))
 		return FALSE
 	return ..()
 
-/datum/action/innate/wavespeak/on_activate()
+/datum/action/innate/wavespeak/Activate()
 	// This is filtered, treated, and logged in carp_talk
 	var/input = stripped_input(usr, "Enter wavespeak message.", "Carp Wavespeak", "")
-	if(!input || !is_available() || !isliving(owner))
+	if(!input || !IsAvailable() || !isliving(owner))
 		return
 	var/mob/living/L = owner
 	L.carp_talk(input)

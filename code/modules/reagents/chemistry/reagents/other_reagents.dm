@@ -248,7 +248,7 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
-	L.AddComponent(/datum/component/anti_magic, type, MAGIC_RESISTANCE_HOLY)
+	L.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
 	for (var/datum/component/anti_magic/anti_magic in L.GetComponents(/datum/component/anti_magic))

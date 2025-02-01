@@ -6,7 +6,7 @@
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = 1
-	check_flags = AB_CHECK_DEAD
+	req_stat = UNCONSCIOUS
 
 //Recover from stuns.
 /datum/action/changeling/adrenaline/sting_action(mob/living/user)

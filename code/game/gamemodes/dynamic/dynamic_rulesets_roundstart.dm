@@ -470,6 +470,7 @@
 			V.special_role = "Clown Operative"
 			GLOB.pre_setup_antags += V
 
+
 //////////////////////////////////////////////
 //                                          //
 //               METEOR                     //

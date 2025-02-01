@@ -79,29 +79,28 @@
 	earliest_start = 0 MINUTES
 
 /datum/round_event/wizard/shuffleminds/start()
-	var/list/mobs_to_swap = list()
+	var/list/mobs	 = list()
 
-	for(var/mob/living/carbon/human/alive_human in GLOB.alive_mob_list)
-		if(alive_human.stat != CONSCIOUS || !alive_human.mind || IS_WIZARD(alive_human))
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+		if(H.stat || !H.mind || iswizard(H))
 			continue //the wizard(s) are spared on this one
-		mobs_to_swap += alive_human
+		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat) || H.anti_magic_check())
+			continue
+		mobs += H
 
-	if(!length(mobs_to_swap))
+	if(!mobs)
 		return
 
-	mobs_to_swap = shuffle(mobs_to_swap)
+	shuffle_inplace(mobs)
 
-	var/datum/action/spell/pointed/mind_transfer/swapper = new()
+	var/obj/effect/proc_holder/spell/targeted/mind_transfer/swapper = new /obj/effect/proc_holder/spell/targeted/mind_transfer
+	while(mobs.len > 1)
+		var/mob/living/carbon/human/H = pick(mobs)
+		mobs -= H
+		swapper.cast(list(H), mobs[mobs.len], 1)
+		mobs -= mobs[mobs.len]
 
-	while(mobs_to_swap.len > 1)
-		var/mob/living/swap_to = pick_n_take(mobs_to_swap)
-		var/mob/living/swap_from = pick_n_take(mobs_to_swap)
-
-		swapper.swap_minds(swap_to, swap_from)
-
-	qdel(swapper)
-
-	for(var/mob/living/carbon/human/alive_human in GLOB.alive_mob_list)
-		var/datum/effect_system/smoke_spread/smoke = new()
-		smoke.set_up(0, alive_human.loc)
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(0, H.loc)
 		smoke.start()

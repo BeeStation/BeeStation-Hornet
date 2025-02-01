@@ -1197,7 +1197,9 @@
 	icon_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_core"
 
-/datum/action/innate/undeployment/on_activate(mob/user, atom/target)
+/datum/action/innate/undeployment/Trigger()
+	if(!..())
+		return FALSE
 	var/mob/living/silicon/robot/R = owner
 
 	R.undeploy()

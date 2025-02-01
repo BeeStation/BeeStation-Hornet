@@ -42,8 +42,6 @@
 	var/ignore_source_check = FALSE
 	/// We are flagged PHASING temporarily to not stop moving when we Bump something but want to keep going anyways.
 	var/temporary_unstoppable_movement = FALSE
-	/// We ignore mobs with these factions.
-	var/list/ignored_factions
 
 	/** PROJECTILE PIERCING
 	  * WARNING:
@@ -482,10 +480,6 @@
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
-			return FALSE
-	if(ignored_factions?.len && ismob(target) && !direct_target)
-		var/mob/target_mob = target
-		if(faction_check(target_mob.faction, ignored_factions))
 			return FALSE
 	if(target.density || cross_failed)		//This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
 		return TRUE

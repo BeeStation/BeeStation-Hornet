@@ -7,9 +7,7 @@
 	icon_state = "generic" //Shows up as the action button icon
 	item_flags = ABSTRACT | DROPDEL
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	// This gives the user an action button that allows them to activate the implant.
-	// If the implant needs no action button, then null this out.
-	// Or, if you want to add a unique action button, then replace this.
+	var/activated = TRUE //1 for implant types that can be activated, 0 for ones that are "always on" like mindshield implants
 	var/mob/living/imp_in = null
 	var/implant_color = "b"
 	var/allow_multiple = FALSE
@@ -27,11 +25,6 @@
 
 /obj/item/implant/ui_action_click()
 	activate("action_button")
-
-/obj/item/implant/item_action_slot_check(slot, mob/user)
-	return user == imp_in
-
-
 
 /obj/item/implant/proc/can_be_implanted_in(mob/living/target) // for human-only and other special requirements
 	return TRUE
@@ -85,8 +78,10 @@
 	forceMove(target)
 	imp_in = target
 	target.implants += src
-	for(var/datum/action/implant_action as anything in actions)
-		implant_action.Grant(target)
+	if(activated)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.Grant(target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_implants()
@@ -109,8 +104,10 @@
 	user.implants -= src
 	imp_in = target
 	target.implants += src
-	for(var/datum/action/implant_action as anything in actions)
-		implant_action.Grant(target)
+	if(activated)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.Grant(target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_implants()
@@ -122,8 +119,9 @@
 	moveToNullspace()
 	imp_in = null
 	source.implants -= src
-	for(var/datum/action/implant_action as anything in actions)
-		implant_action.Remove(source)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.Grant(source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()

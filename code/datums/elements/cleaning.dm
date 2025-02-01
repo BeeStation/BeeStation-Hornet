@@ -53,7 +53,8 @@
 	if(isnull(toggle_target))
 		toggle_target = M
 
-/datum/action/cleaning_toggle/on_activate(mob/user, atom/target)
+/datum/action/cleaning_toggle/Trigger()
+	. = ..()
 	if(!toggle_target)
 		log_runtime("Floor Cleaning Toggle action triggered without a target.")
 		return

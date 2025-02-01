@@ -2,6 +2,29 @@
 	icon_state = "acid"
 	visual = FALSE
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
+	var/list/alien_powers = list()
+
+/obj/item/organ/alien/Initialize(mapload)
+	. = ..()
+	for(var/A in alien_powers)
+		if(ispath(A))
+			alien_powers -= A
+			alien_powers += new A(src)
+
+/obj/item/organ/alien/Destroy()
+	QDEL_LIST(alien_powers)
+	return ..()
+
+/obj/item/organ/alien/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	. = ..()
+	for(var/obj/effect/proc_holder/alien/P in alien_powers)
+		M.AddAbility(P)
+
+/obj/item/organ/alien/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	for(var/obj/effect/proc_holder/alien/P in alien_powers)
+		M.RemoveAbility(P)
+	return ..()
+
 
 /obj/item/organ/alien/plasmavessel
 	name = "plasma vessel"
@@ -9,14 +32,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	zone = BODY_ZONE_CHEST
 	slot = "plasmavessel"
-	actions_types = list(
-		/datum/action/alien/make_structure/plant_weeds,
-		/datum/action/alien/transfer,
-	)
+	alien_powers = list(/obj/effect/proc_holder/alien/plant, /obj/effect/proc_holder/alien/transfer)
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/plasma = 10)
 
-	/// The current amount of stored plasma.
-	var/stored_plasma = 100
+	var/storedPlasma = 100
 	var/max_plasma = 250
 	var/heal_rate = 5
 	var/plasma_rate = 10
@@ -25,7 +44,7 @@
 	name = "large plasma vessel"
 	icon_state = "plasma_large"
 	w_class = WEIGHT_CLASS_BULKY
-	stored_plasma = 200
+	storedPlasma = 200
 	max_plasma = 500
 	plasma_rate = 15
 
@@ -36,7 +55,7 @@
 	name = "small plasma vessel"
 	icon_state = "plasma_small"
 	w_class = WEIGHT_CLASS_SMALL
-	stored_plasma = 100
+	storedPlasma = 100
 	max_plasma = 150
 	plasma_rate = 5
 
@@ -45,7 +64,7 @@
 	icon_state = "plasma_tiny"
 	w_class = WEIGHT_CLASS_TINY
 	max_plasma = 100
-	actions_types = list(/datum/action/alien/transfer)
+	alien_powers = list(/obj/effect/proc_holder/alien/transfer)
 
 /obj/item/organ/alien/plasmavessel/on_life()
 	//If there are alien weeds on the ground then heal if needed or give some plasma
@@ -86,7 +105,7 @@
 	zone = BODY_ZONE_HEAD
 	slot = "hivenode"
 	w_class = WEIGHT_CLASS_TINY
-	actions_types = list(/datum/action/alien/whisper)
+	alien_powers = list(/obj/effect/proc_holder/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
 /obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -139,7 +158,7 @@
 	icon_state = "stomach-x"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = "resinspinner"
-	actions_types = list(/datum/action/alien/make_structure/resin)
+	alien_powers = list(/obj/effect/proc_holder/alien/resin)
 
 
 /obj/item/organ/alien/acid
@@ -147,7 +166,7 @@
 	icon_state = "acid"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = "acidgland"
-	actions_types = list(/datum/action/alien/acid/corrosion)
+	alien_powers = list(/obj/effect/proc_holder/alien/acid)
 
 
 /obj/item/organ/alien/neurotoxin
@@ -155,7 +174,7 @@
 	icon_state = "neurotox"
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = "neurotoxingland"
-	actions_types = list(/datum/action/alien/acid/neurotoxin)
+	alien_powers = list(/obj/effect/proc_holder/alien/neurotoxin)
 
 
 /obj/item/organ/alien/eggsac
@@ -164,4 +183,4 @@
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
-	actions_types = list(/datum/action/alien/make_structure/lay_egg)
+	alien_powers = list(/obj/effect/proc_holder/alien/lay_egg)

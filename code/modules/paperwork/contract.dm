@@ -47,5 +47,3 @@
 		M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
 			span_userdanger("[user] beats [M] over the head with [src]!"))
 	return ..()
-
-

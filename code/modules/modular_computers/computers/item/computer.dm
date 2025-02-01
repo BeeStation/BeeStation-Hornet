@@ -93,6 +93,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/init_ringtone = "beep"
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
+	/// The action for enabling/disabling the flashlight
+	var/datum/action/item_action/toggle_computer_light/light_action
 	/// Stored pAI card
 	var/obj/item/paicard/stored_pai_card
 	/// If the device is capable of storing a pAI
@@ -116,7 +118,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	idle_threads = list()
 	update_id_display()
 	if(has_light)
-		add_item_action(/datum/action/item_action/toggle_computer_light)
+		light_action = new(src)
 	update_icon()
 	add_messenger()
 
@@ -151,16 +153,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
 		remove_pai()
+	if(istype(light_action))
+		QDEL_NULL(light_action)
 	physical = null
 	remove_messenger()
 	return ..()
 
 /obj/item/modular_computer/ui_action_click(mob/user, actiontype)
-	if(istype(actiontype, /datum/action/item_action/toggle_computer_light))
+	if(istype(actiontype, light_action))
 		toggle_flashlight()
-		return
-
-	return ..()
+	else
+		..()
 
 /// From [/datum/newscaster/feed_network/proc/save_photo]
 /obj/item/modular_computer/proc/save_photo(icon/photo)
@@ -572,7 +575,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	set_light_on(!light_on)
 	update_icon()
 	// Show the light_on overlay on top of the action button icon
-	update_action_buttons(force = TRUE) //force it because we added an overlay, not changed its icon
+	if(light_action?.owner)
+		light_action.UpdateButtonIcon(force = TRUE)
 	return TRUE
 
 /**

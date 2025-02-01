@@ -71,4 +71,3 @@
  * Use instead of `A.loc.loc`.
  */
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
-

@@ -214,7 +214,3 @@
 		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
 		cooldown = world.time
 		cooldown_special = world.time
-
-/datum/action/item_action/halt
-	name = "HALT!"
-

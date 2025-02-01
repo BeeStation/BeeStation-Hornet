@@ -373,6 +373,7 @@
 						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/sheet/telecrystal/twenty,
 						/obj/item/nuke_core,
+						/obj/item/phylactery,
 						/obj/item/banhammer)
 
 /obj/item/fakeartefact/Initialize(mapload)

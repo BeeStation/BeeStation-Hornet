@@ -53,10 +53,7 @@
 	lose_text = span_notice("You realize that magic might be real.")
 
 /datum/brain_trauma/magic/antimagic/on_gain()
-	owner.AddComponent(/datum/component/anti_magic, \
-	_source = TRAUMA_TRAIT, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND), \
-	)
+	owner.AddComponent(/datum/component/anti_magic, TRAUMA_TRAIT, _magic = TRUE, _holy = FALSE)
 	..()
 
 /datum/brain_trauma/magic/antimagic/on_lose()

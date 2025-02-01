@@ -6,7 +6,7 @@
 	chemical_cost = 20
 	dna_cost = 0
 	req_human = 1
-	check_flags = NONE
+	req_stat = DEAD
 	ignores_fakedeath = TRUE
 
 /datum/action/changeling/headcrab/sting_action(mob/user)

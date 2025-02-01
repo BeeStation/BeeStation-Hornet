@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/gun/energy/disabler,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/book/granter/action/spell/knock,
+		/obj/item/book/granter/spell/knock,
 		/obj/item/clothing/glasses/sunglasses/advanced,
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
@@ -195,7 +195,6 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/death_wall
 	var/field_delay = 15
 	var/debug_mode = FALSE
-	var/datum/action/spell/aoe/knock/knock = new /datum/action/spell/aoe/knock
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
@@ -339,7 +338,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
 		//Give them a spell
-		knock.Grant(H)
+		H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
 		H.key = key
 		//Give weapons key
 		var/obj/item/implant/weapons_auth/W = new
@@ -358,7 +357,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
-		knock.Remove(M)
+		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		to_chat(M, span_greenannounce("You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing."))

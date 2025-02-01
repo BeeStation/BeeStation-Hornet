@@ -1,38 +1,30 @@
-/datum/action/spell/jaunt/ethereal_jaunt/ash
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
 	name = "Ashen Passage"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
-	button_icon_state = "ash_shift"
-	sound = null
-
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
-
+	action_icon = 'icons/hud/actions/actions_heretic.dmi'
+	action_icon_state = "ash_shift"
+	action_background_icon_state = "bg_ecult"
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
-
-	exit_jaunt_sound = null
-	jaunt_duration = 1.1 SECONDS
-	jaunt_in_time = 1.3 SECONDS
-	jaunt_out_time = 0.6 SECONDS
+	requires_heretic_focus = TRUE
+	charge_max = 150
+	range = -1
+	jaunt_in_time = 13
+	jaunt_duration = 10
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
-/datum/action/spell/jaunt/ethereal_jaunt/ash/do_steam_effects()
-	return
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long
+	jaunt_duration = 50
 
-/datum/action/spell/jaunt/ethereal_jaunt/ash/long
-	name = "Ashen Walk"
-	desc = "A long range spell that allows you pass unimpeded through multiple walls."
-	jaunt_duration = 5 SECONDS
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/play_sound()
+	return
 
 /obj/effect/temp_visual/dir_setting/ash_shift
 	name = "ash_shift"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ash_shift2"
-	duration = 1.3 SECONDS
+	duration = 13
 
 /obj/effect/temp_visual/dir_setting/ash_shift/out
 	icon_state = "ash_shift"

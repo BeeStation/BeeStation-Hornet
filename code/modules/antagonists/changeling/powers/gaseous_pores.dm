@@ -5,7 +5,7 @@
 	button_icon_state = "smoke"
 	chemical_cost = 25
 	dna_cost = 1
-	check_flags = AB_CHECK_DEAD
+	req_stat = UNCONSCIOUS
 	var/range = 4
 
 /obj/effect/particle_effect/smoke/confusing/changeling

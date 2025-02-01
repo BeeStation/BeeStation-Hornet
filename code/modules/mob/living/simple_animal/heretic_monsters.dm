@@ -31,13 +31,20 @@
 	faction = list(FACTION_HERETIC)
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	/// Innate spells that are added when a beast is created.
-	var/list/actions_to_add
+	var/list/spells_to_add
 
 /mob/living/simple_animal/hostile/heretic_summon/Initialize(mapload)
 	. = ..()
-	for(var/spell in actions_to_add)
-		var/datum/action/spell/new_spell = new spell(src)
-		new_spell.Grant(src)
+	add_spells()
+
+/**
+ * Add_spells
+ *
+ * Goes through spells_to_add and adds each spell to the mind.
+ */
+/mob/living/simple_animal/hostile/heretic_summon/proc/add_spells()
+	for(var/spell in spells_to_add)
+		AddSpell(new spell())
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	name = "Raw Prophet"
@@ -50,10 +57,11 @@
 	maxHealth = 50
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
-	actions_to_add = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/ash/long,
-		/datum/action/spell/telepathy/eldritch,
-		/datum/action/spell/pointed/blind/eldritch,
+	spells_to_add = list(
+		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long,
+		/obj/effect/proc_holder/spell/pointed/manse_link,
+		/obj/effect/proc_holder/spell/targeted/telepathy/eldritch,
+		/obj/effect/proc_holder/spell/targeted/blind/eldritch,
 	)
 
 	/// A assoc list of [mob/living ref] to [datum/action ref] - all the mobs linked to our mansus network.
@@ -64,6 +72,7 @@
 	linked_mobs = list()
 	var/datum/action/innate/hereticmob/change_sight_range/C = new()
 	C.Grant(src)
+	link_mob(src)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Login()
 	. = ..()
@@ -76,7 +85,7 @@
 	button_icon_state = "binoculars"
 	background_icon_state = "bg_ecult"
 
-/datum/action/innate/hereticmob/change_sight_range/on_activate()
+/datum/action/innate/hereticmob/change_sight_range/Activate()
 	var/list/views = list()
 	for(var/i in 1 to 10)
 		views |= i
@@ -86,6 +95,57 @@
 	else
 		usr.client.view_size.setTo(10)
 
+/**
+ * Link [linked_mob] to our mansus link, if possible.
+ * Creates a mansus speech action and grants it to the linked mob,
+ * storing it in our linked_mobs list.
+ */
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/link_mob(mob/living/mob_linked)
+	if(QDELETED(mob_linked) || mob_linked.stat == DEAD)
+		return FALSE
+	if(HAS_TRAIT(mob_linked, TRAIT_MINDSHIELD)) //mindshield implant, no dice
+		return FALSE
+	if(mob_linked.anti_magic_check(FALSE, FALSE, TRUE, 0))
+		return FALSE
+	if(linked_mobs[mob_linked])
+		return FALSE
+
+	to_chat(mob_linked, span_notice("You feel something new enter your sphere of mind... \
+		You hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link."))
+
+	var/datum/action/innate/mansus_speech/action = new(src)
+	linked_mobs[mob_linked] = action
+	action.Grant(mob_linked)
+
+	RegisterSignals(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_MINDSHIELD)), PROC_REF(unlink_mob))
+
+	return TRUE
+
+/**
+ * Signal proc that handles removing mobs from our mansus link.
+ *
+ * Remove the [mob_linked] from our list of linked mobs, and delete the associated action.
+ */
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/proc/unlink_mob(mob/living/mob_linked)
+	SIGNAL_HANDLER
+
+	if(QDELETED(linked_mobs[mob_linked]))
+		return
+	UnregisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_MINDSHIELD)))
+	var/datum/action/innate/mansus_speech/action = linked_mobs[mob_linked]
+	action.Remove(mob_linked)
+	qdel(action)
+
+	to_chat(mob_linked, span_notice("Your mind shatters as [src]'s Mansus Link leaves your mind."))
+	INVOKE_ASYNC(mob_linked, TYPE_PROC_REF(/mob, emote), "scream")
+	mob_linked.AdjustParalyzed(0.5 SECONDS) //micro stun
+
+	linked_mobs -= mob_linked
+
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Destroy()
+	for(var/linked_mob in linked_mobs)
+		unlink_mob(linked_mob)
+	return ..()
 
 // What if we took a linked list... But made it a mob?
 /// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles
@@ -110,7 +170,7 @@
 	ranged_cooldown_time = 5
 	ranged = TRUE
 	rapid = 1
-	actions_to_add = list(/datum/action/spell/worm_contract)
+	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
 	///Previous segment in the chain
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/back
 	///Next segment in the chain
@@ -327,9 +387,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	health = 75
 	melee_damage = 20
 	sight = SEE_TURFS
-	actions_to_add = list(
-		/datum/action/spell/aoe/rust_conversion/small,
-		/datum/action/spell/basic_projectile/rust_wave/short,
+	spells_to_add = list(
+		/obj/effect/proc_holder/spell/aoe_turf/rust_conversion/small,
+		/obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/setDir(newdir)
@@ -365,10 +425,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	health = 75
 	melee_damage = 20
 	sight = SEE_TURFS
-	actions_to_add = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/ash,
-		/datum/action/spell/pointed/cleave,
-		/datum/action/spell/fire_sworn,
+	spells_to_add = list(
+		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,
+		/obj/effect/proc_holder/spell/pointed/cleave,
+		/obj/effect/proc_holder/spell/targeted/fire_sworn,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/stalker
@@ -382,8 +442,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	health = 150
 	melee_damage = 20
 	sight = SEE_MOBS
-	actions_to_add = list(
-		/datum/action/spell/jaunt/ethereal_jaunt/ash,
-		/datum/action/spell/shapeshift/eldritch,
-		/datum/action/spell/emp/eldritch,
+	spells_to_add = list(
+		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,
+		/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,
+		/obj/effect/proc_holder/spell/targeted/emplosion/eldritch,
 	)

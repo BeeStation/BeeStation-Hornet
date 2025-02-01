@@ -50,7 +50,7 @@
 	if(!wumbo)
 		inflate_cooldown = max((inflate_cooldown - 1), 0)
 	if(target && AIStatus == AI_ON)
-		E.trigger()
+		E.Activate()
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -60,10 +60,9 @@
 
 /mob/living/simple_animal/hostile/asteroid/fugu/Aggro()
 	..()
-	E.trigger()
+	E.Activate()
 
 /datum/action/innate/fugu
-	button_icon_state = null
 	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
@@ -71,7 +70,7 @@
 	desc = "Temporarily increases your size, and makes you significantly more dangerous and tough! Do not bully the fugu!"
 	button_icon_state = "expand"
 
-/datum/action/innate/fugu/expand/on_activate()
+/datum/action/innate/fugu/expand/Activate()
 	var/mob/living/simple_animal/hostile/asteroid/fugu/F = owner
 	if(F.wumbo)
 		to_chat(F, span_notice("YOU'RE ALREADY WUMBO!"))

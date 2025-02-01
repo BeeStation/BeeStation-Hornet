@@ -152,7 +152,7 @@
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.update_buttons()
+			A.UpdateButtonIcon()
 	item_state = "crusher[wielded]"
 
 //destablizing force

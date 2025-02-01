@@ -267,7 +267,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
-/datum/action/innate/imaginary_join/on_activate()
+/datum/action/innate/imaginary_join/Activate()
 	var/mob/camera/imaginary_friend/I = owner
 	I.recall()
 
@@ -288,9 +288,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		name = "Hide"
 		desc = "Hide yourself from your owner's sight."
 		button_icon_state = "hide"
-	update_buttons()
+	UpdateButtonIcon()
 
-/datum/action/innate/imaginary_hide/on_activate()
+/datum/action/innate/imaginary_hide/Activate()
 	var/mob/camera/imaginary_friend/I = owner
 	I.hidden = !I.hidden
 	I.Show()

@@ -65,7 +65,7 @@
 	var/obj/item/food/clothing/moth_snack
 
 /obj/item/clothing/Initialize(mapload)
-	if(clothing_flags & VOICEBOX_TOGGLABLE)
+	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
 	if(ispath(pocket_storage_component_path))

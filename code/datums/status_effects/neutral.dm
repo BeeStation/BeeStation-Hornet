@@ -113,8 +113,10 @@
 		to_chat(owner, "[span_boldnotice("You hear something behind you talking...")] [span_notice("Bounty claimed.")]")
 		playsound(owner, 'sound/weapons/shotgunshot.ogg', 75, 0)
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
-		for(var/datum/action/spell/spell in rewarded.actions)
-			spell.reset_spell_cooldown()
+		for(var/obj/effect/proc_holder/spell/spell in rewarded.mind.spell_list)
+			spell.charge_counter = spell.charge_max
+			spell.recharging = FALSE
+			spell.update_icon()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)
 		rewarded.adjustToxLoss(-25, FALSE, TRUE)
@@ -175,7 +177,7 @@
 		for(var/mob/living/carbon/possible_taker in orange(1, owner))
 			if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
 				continue
-
+				
 			register_candidate(possible_taker)
 
 	if(!possible_takers) // no one around

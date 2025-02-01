@@ -23,22 +23,17 @@
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
-	var/datum/action/spell/summon_spear/SS
-
-/obj/item/clockwork/weapon/Destroy()
-	if(SS)
-		SS.Remove(SS.owner)
-	. = ..()
-
+	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
 	if(!user.mind)
 		return
-	if(is_servant_of_ratvar(user) && !SS)
+	user.mind.RemoveSpell(SS)
+	if(is_servant_of_ratvar(user))
 		SS = new
 		SS.marked_item = src
-		SS.Grant(user)
+		user.mind.AddSpell(SS)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()
@@ -68,7 +63,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(magic=FALSE,holy=TRUE,major=FALSE))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -78,7 +73,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
-			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !is_servant_of_ratvar(target))
+			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
 				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
