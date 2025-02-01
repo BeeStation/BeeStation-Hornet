@@ -697,8 +697,6 @@
 					"<span class = 'notice'>You begin bolting [src]...</span>")
 				if(!attacking_object.use_tool(src, user, DEFAULT_STEP_TIME))
 					return
-
-				conflicting = locate(/obj/machinery/door/firedoor) in get_turf(src)
 				user.visible_message("<span class = 'notice'>[user] finishes the firelock.</span>", \
 					"<span class = 'notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, TRUE)
