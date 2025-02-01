@@ -1,7 +1,3 @@
-#if (MIN_COMPILER_VERSION > 515 && MIN_COMPILER_BUILD > 1630)
-#warn ATTENTION!! ONCE 515.1631 IS REQUIRED REPLACE WITH winset(client, "mainwindow", "menu=;is-fullscreen=true"). This means no double maximise calls to make sure window fits, and supresses titlebar, can-resize and is-maximized here making those redundant both implementations are functionally "windowed borderless"
-#endif
-
 /datum/preference/toggle/fullscreen
 	db_key = "fullscreen"
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
@@ -9,6 +5,7 @@
 	default_value = FALSE
 
 /datum/preference/toggle/fullscreen/apply_to_client(client/client, value)
+#if (MIN_COMPILER_VERSION > 515 || MIN_COMPILER_BUILD > 1630)
 	if (value)
 		// Delete the menu
 		winset(client, "mainwindow", "menu=\"\"")
@@ -39,6 +36,10 @@
 		winset(client, "mainwindow","is-maximized=true")
 		// Fix the mapsize, turning off statusbar doesn't update scaling
 		INVOKE_ASYNC(src, PROC_REF(fix_mapsize), client)
+#else
+	winset(client, "mainwindow", "menu=;is-fullscreen=[value ? "true" : "false"]")
+	INVOKE_ASYNC(client, TYPE_VERB_REF(/client, fit_viewport))
+#endif
 
 /datum/preference/toggle/fullscreen/proc/fix_mapsize(client/client)
 	var/windowsize = winget(client, "split", "size")
