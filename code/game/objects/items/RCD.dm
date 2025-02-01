@@ -818,6 +818,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	icon_state = "arcd"
 	item_state = "oldrcd"
 	has_ammobar = FALSE
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
 /obj/item/construction/rcd/arcd/afterattack(atom/A, mob/user)
 	. = ..()
@@ -928,7 +929,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 						for(var/direction in GLOB.cardinals)
 							var/turf/C = get_step(W, direction)
 							var/list/dupes = checkdupes(C)
-							if(start.CanAtmosPass(C) && !dupes.len)
+							if(TURF_SHARES(C) && !dupes.len)
 								candidates += C
 						if(!candidates.len)
 							to_chat(user, span_warning("Valid target not found..."))
@@ -1114,6 +1115,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/rcd_upgrade/furnishing
 	desc = "It contains the design for chairs, stools, tables, and glass tables."
 	upgrade = RCD_UPGRADE_FURNISHING
+
+/datum/action/item_action/pick_color
+	name = "Choose A Color"
 
 /datum/action/item_action/rcd_scan
 	name = "Destruction Scan"

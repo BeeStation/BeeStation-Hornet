@@ -97,3 +97,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 		return bloodiness
 	else
 		return FALSE
+
+/**
+ * Gets the color associated with the any blood present on this decal. If there is no blood, returns null.
+ */
+/obj/effect/decal/cleanable/proc/get_blood_color()
+	switch(blood_state)
+		if(BLOOD_STATE_HUMAN)
+			return rgb(149, 10, 10)
+		if(BLOOD_STATE_XENO)
+			return rgb(43, 186, 0)
+		if(BLOOD_STATE_OIL)
+			return rgb(22, 22, 22)
+
+	return null

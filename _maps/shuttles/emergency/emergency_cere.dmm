@@ -282,17 +282,17 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "cq" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "cr" = (
-/obj/machinery/atmospherics/pipe/manifold/general/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "cs" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
 /turf/open/floor/iron/white,
@@ -768,7 +768,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "xv" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell,
+/obj/machinery/cryo_cell,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},

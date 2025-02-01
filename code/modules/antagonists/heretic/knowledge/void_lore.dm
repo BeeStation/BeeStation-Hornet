@@ -59,7 +59,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -88,7 +88,7 @@
 
 	var/mob/living/carbon/carbon_target = target
 	var/turf/open/target_turf = get_turf(carbon_target)
-	target_turf.TakeTemperature(-20)
+	target_turf.take_temperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
 	carbon_target.silent += 4
 
@@ -173,7 +173,7 @@
 		/datum/heretic_knowledge/rune_carver,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
+	spell_to_add = /datum/action/spell/pointed/void_phase
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -222,7 +222,7 @@
 		/datum/heretic_knowledge/spell/blood_siphon,
 		/datum/heretic_knowledge/summon/rusty
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/void_pull
+	spell_to_add = /datum/action/spell/aoe/void_pull
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -250,7 +250,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -289,7 +289,7 @@
 	var/turf/open/source_turf = get_turf(source)
 	if(!isopenturf(source_turf))
 		return
-	source_turf.TakeTemperature(-20)
+	source_turf.take_temperature(-20)
 
 	var/area/source_area = get_area(source)
 
