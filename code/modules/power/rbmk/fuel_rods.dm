@@ -159,6 +159,8 @@
 		return
 
 	if(depleted_final)
+		if(!grown_amount)
+			return
 		new material_type(user.loc, grown_amount)
 		if(grown_amount == 1)
 			to_chat(user, span_notice("You harvest [grown_amount] [material_name_singular] from \the [src].")) // Unlikely

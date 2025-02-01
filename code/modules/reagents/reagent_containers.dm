@@ -101,7 +101,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
 		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
 
-	reagents.reaction(target, TOUCH)
+	reagents.expose(target, TOUCH)
 	log_combat(user, target, "splashed", reagent_text)
 	reagents.clear_reagents()
 
@@ -159,7 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 		if(thrownby)
 			log_combat(thrown_by, M, "splashed", R)
-		reagents.reaction(target, TOUCH)
+		reagents.expose(target, TOUCH)
 
 	else if(bartender_check(target) && thrown)
 		visible_message(span_notice("[src] lands onto the [target.name] without spilling a single drop."))
@@ -171,7 +171,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 			log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
 			message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
 		visible_message(span_notice("[src] spills its contents all over [target]."))
-		reagents.reaction(target, TOUCH)
+		reagents.expose(target, TOUCH)
 		if(QDELETED(src))
 			return
 
@@ -181,23 +181,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	reagents.expose_temperature(1000)
 	return ..()
 
-/obj/item/reagent_containers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	reagents.expose_temperature(exposed_temperature)
+/obj/item/reagent_containers/fire_act(temperature, volume)
+	reagents.expose_temperature(temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
 	update_icon()
 
-/obj/item/reagent_containers/update_icon(dont_fill = FALSE)
-	if(!fill_icon_thresholds || dont_fill)
-		return ..()
-
-	cut_overlays()
+/obj/item/reagent_containers/update_overlays()
+	. = ..()
+	if(!fill_icon_thresholds)
+		return
 
 	if(!reagents.total_volume)
 		if(label_icon && (name != initial(name) || desc != initial(desc)))
 			var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
-			add_overlay(label)
-		return ..()
+			. += label
+		return
 	var/fill_name = fill_icon_state ? fill_icon_state : icon_state
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
 
@@ -209,11 +208,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 			filling.icon_state = "[fill_name][fill_icon_thresholds[i]]"
 
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
-	add_overlay(filling)
+	. += filling
 	if(label_icon && (name != initial(name) || desc != initial(desc)))
 		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
-		add_overlay(label)
-	return ..()
+		. += label
 
 /obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	// Always attempt to isolate diseases from reagent containers, if possible.
