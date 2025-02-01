@@ -38,6 +38,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/mechanical_repair)
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_human_dna()
@@ -657,17 +658,6 @@
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
 	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, A))
 
-/mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(!(mobility_flags & MOBILITY_UI))
-		to_chat(src, span_warning("You can't do that right now!"))
-		return FALSE
-	if(!Adjacent(M) && (M.loc != src))
-		if((be_close == FALSE) || (!no_tk && (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
-			return TRUE
-		to_chat(src, span_warning("You are too far away!"))
-		return FALSE
-	return TRUE
-
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
 		changeNext_move(CLICK_CD_BREAKOUT)
@@ -769,9 +759,6 @@
 	..()
 
 /mob/living/carbon/human/is_literate()
-	return TRUE
-
-/mob/living/carbon/human/can_hold_items()
 	return TRUE
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)

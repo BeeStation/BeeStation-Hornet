@@ -32,9 +32,6 @@
 	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, span_warning("You don't have the dexterity to do this!"))
-		return TRUE
 	interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)

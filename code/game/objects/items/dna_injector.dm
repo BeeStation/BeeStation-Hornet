@@ -49,7 +49,7 @@
 	return FALSE
 
 /obj/item/dnainjector/attack(mob/living/target, mob/living/user)
-	if(!user.IsAdvancedToolUser())
+	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(used)

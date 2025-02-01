@@ -237,7 +237,7 @@
 /datum/component/embedded/proc/tryPullOutOther(mob/living/carbon/victim, mob/user)
 	SIGNAL_HANDLER
 
-	if(!user.IsAdvancedToolUser())
+	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 

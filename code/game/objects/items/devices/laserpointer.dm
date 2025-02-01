@@ -75,7 +75,7 @@
 	if (!diode)
 		to_chat(user, span_notice("You point [src] at [target], but nothing happens!"))
 		return
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))

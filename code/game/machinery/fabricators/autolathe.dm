@@ -84,7 +84,7 @@
 				var/obj/item/id_slot = usr.get_idcard(TRUE)
 				if((ACCESS_SECURITY in id_slot.GetAccess()) && !(obj_flags & EMAGGED))
 					security_interface_locked = FALSE
-					to_chat(usr, "<span class='warning'>You unlock the security controls of [src].</span>")
+					to_chat(usr, span_warning("You unlock the security controls of [src]."))
 			. = TRUE
 
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/living/user, params)
