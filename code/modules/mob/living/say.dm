@@ -216,6 +216,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(pressure < ONE_ATMOSPHERE*0.4) //Thin air, let's italicise the message
 		spans |= SPAN_ITALICS
 
+	play_chatter_sound(message, spans, message_mods)
+
 	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)//roughly 58% of living/say()'s total cost
 
 	if(succumbed)
@@ -447,3 +449,23 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
  */
 /mob/living/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof)
 	say("#[message]", bubble_type, spans, sanitize, language, ignore_spam, forced)
+
+/mob/living/proc/play_chatter_sound(message, list/spans = list(), list/message_mods = list())
+	var/chatter_race = null //Everything other than carbon mobs have the default race, and thus, the default sound.
+	if(iscarbon(src))
+		var/mob/living/carbon/speaker = src
+		chatter_race = speaker.dna.species.id //What race is the person speaking?
+
+	var/ending = copytext_char(message, -1)
+	var/chatter_sentence_end
+	switch(ending)
+		if("?")
+			chatter_sentence_end = "question"
+		if("!")
+			chatter_sentence_end = "exclamation"
+		if(".")
+			chatter_sentence_end = "period"
+
+	if(chatter_race && chatter_sentence_end) //If everything is set, we can set the correct sound.
+		chatter = "sound/voice/chatter/[chatter_race]/[chatter_sentence_end]/[chatter_sentence_end][pick(1,2,3,4)].ogg"
+	playsound(src, chatter, 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE-2)
