@@ -153,6 +153,7 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
 		if(sect.grand_ritual_in_progres)
+			to_chat(user,"<span class='warning'>You cant move obelisc during ritual!</span>")
 			return
 		if(anchored)
 			src.unanchored_NV()
@@ -182,6 +183,7 @@
 
 	if(I.tool_behaviour == TOOL_WRENCH && isshadow(user))
 		if(sect.grand_ritual_in_progres)
+			to_chat(user,"<span class='warning'>You cant move obelisc during ritual!</span>")
 			return
 		if (!anchored)
 			var/list/current_objects = view_or_range(5, src, "range")
@@ -629,9 +631,9 @@
 /datum/religion_rites/grand_ritual_one/proc/handle_obeliscs()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/mob/living/M in GLOB.mob_list)
-		to_chat(M, span_notice("You see shadows flicer in corner of your eye."))
 		if(isshadow(M))
 			to_chat(M, span_userdanger("You feel pull towards the obeliscs, you feel like it woudl be safer near them."))
+		to_chat(M, span_notice("You see shadows flicer in corner of your eye."))
 	sleep(50)
 	sect.grand_ritual_in_progres = TRUE
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
@@ -703,9 +705,9 @@
 /datum/religion_rites/grand_ritual_two/proc/handle_obeliscs()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/mob/living/M in GLOB.mob_list)
-		to_chat(M, span_notice("Shadows seem to flicer in corner of your eye."))
 		if(isshadow(M))
 			to_chat(M, span_userdanger("You feel pull towards the obeliscs, you feel like it woudl be safer near them."))
+		to_chat(M, span_notice("Shadows seem to flicer in corner of your eye."))
 	sleep(50)
 	for(var/mob/living/M in GLOB.mob_list)
 		to_chat(M, span_warning("You are sure now that shadows are moving"))
@@ -779,9 +781,9 @@
 /datum/religion_rites/grand_ritual_three/proc/handle_obeliscs()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/mob/living/M in GLOB.mob_list)
-		to_chat(M, span_notice("Shadows seem to flicer in corner of your eye."))
 		if(isshadow(M))
 			to_chat(M, span_userdanger("YOU KNOW THAT YOU NEED TO RUN TO CLOSEST OBELISK IF YOU WANT TO LIVE."))
+		to_chat(M, span_notice("Shadows seem to flicer in corner of your eye."))
 	sleep(50)
 	for(var/mob/living/M in GLOB.mob_list)
 		to_chat(M, span_warning("You are sure now that shadows are moving"))
