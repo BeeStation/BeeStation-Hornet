@@ -16,9 +16,9 @@
 	level_current = 1
 	desc = "Mesmerize any foe who stands still long enough."
 	button_icon_state = "power_dominate"
-	power_explanation = "\
-		Click any person to mesmerize them after 4 seconds. \
-		This will completely immobilize them for the next 10 seconds."
+	power_explanation = list(
+		"Click any person to mesmerize them after 4 seconds.",
+		"This will completely immobilize them for the next 10 seconds.")
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 15
 	constant_bloodcost = 2
@@ -31,9 +31,9 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/three
 	level_current = 2
 	desc = "Mesmerize and mute any foe who stands still long enough."
-	power_explanation = "\
-		Click any person to mesmerize them after 4 seconds. \
-		This will completely immobilize and mute them for the next 12 seconds."
+	power_explanation = list(
+		"Click any person to mesmerize them after 4 seconds.",
+		"This will completely immobilize and mute them for the next 12 seconds.")
 	bloodcost = 20
 	cooldown_time = 40 SECONDS
 
@@ -42,9 +42,9 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/advanced
 	level_current = 3
 	desc = "Mesmerize, mute and blind any foe who stands still long enough."
-	power_explanation = "\
-		Click any person to mesmerize them after 4 seconds. \
-		This will completely immobilize, mute, and blind them for the next 14 seconds."
+	power_explanation = list(
+		"Click any person to mesmerize them after 4 seconds.",
+		"This will completely immobilize, mute, and blind them for the next 14 seconds.")
 	bloodcost = 30
 	cooldown_time = 35 SECONDS
 
@@ -69,12 +69,12 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/dominate/advanced/two
 	level_current = 4
 	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
-	power_explanation = "\
-		Click any person to mesmerize them after 4 seconds.\
-		This will completely immobilize, mute, and blind them for the next 14 seconds. \
-		However, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute Vassal. \
-		After 5 minutes, they will die. \
-		If you use this on a dead Vassal, you will revive them."
+	power_explanation = list(
+		"Click any person to mesmerize them after 4 seconds.",
+		"This will completely immobilize, mute, and blind them for the next 14 seconds.",
+		"However, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute Vassal.",
+		"After 5 minutes, they will die.",
+		"If you use this on a dead Vassal, you will revive them.")
 	background_icon_state = "tremere_power_gold_off"
 	background_icon_state_on = "tremere_power_gold_on"
 	background_icon_state_off = "tremere_power_gold_off"
@@ -86,12 +86,12 @@
 	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
 	level_current = 5
 	upgraded_power = null
-	power_explanation = "\
-		Click any person to mesmerize them after 4 seconds.\
-		This will completely immobilize, mute, and blind them for the next 14 seconds. \
-		However, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute Vassal. \
-		After 8 minutes, they will die. \
-		If you use this on a dead Vassal, you will revive them."
+	power_explanation = list(
+		"Click any person to mesmerize them after 4 seconds.",
+		"This will completely immobilize, mute, and blind them for the next 14 seconds.",
+		"However, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute Vassal.",
+		"After 8 minutes, they will die.",
+		"If you use this on a dead Vassal, you will revive them.")
 	bloodcost = 100
 	cooldown_time = 2 MINUTES
 

@@ -2,10 +2,10 @@
 	name = "Fortitude"
 	desc = "Withstand egregious physical wounds and walk away from attacks that would stun, pierce, and dismember lesser beings."
 	button_icon_state = "power_fortitude"
-	power_explanation = "\
-		Activating Fortitude will provide pierce, dismember, and push immunity. \
-		You will additionally gain Brute and Stamina resistance, scaling with your rank. \
-		At level 4, you gain complete stun immunity."
+	power_explanation = list(
+		"Activating Fortitude will provide pierce, dismember, and push immunity.",
+		"You will additionally gain Brute and Stamina resistance, scaling with your rank.",
+		"At level 4, you gain complete stun immunity.")
 	power_flags = BP_AM_TOGGLE|BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY

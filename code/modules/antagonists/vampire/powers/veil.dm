@@ -2,9 +2,9 @@
 	name = "Veil of Many Faces"
 	desc = "Disguise yourself in the illusion of another identity."
 	button_icon_state = "power_veil"
-	power_explanation = "\
-		Activating Veil of Many Faces will shroud you in smoke and forge you a new identity.\
-		Your name and appearance will be completely randomized, deactivating the ability off again will restore you to your former self."
+	power_explanation = list(
+		"Activating Veil of Many Faces will shroud you in smoke and forge you a new identity.",
+		"Your name and appearance will be completely randomized, deactivating the ability off again will restore you to your former self.")
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_FRENZY
 	purchase_flags = VAMPIRE_DEFAULT_POWER|VASSAL_CAN_BUY

@@ -5,12 +5,12 @@
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
-	power_explanation = "\
-		Activate Feed while next to someone and you will begin to feed blood off of them. \
-		The time needed before you start feeding decreases the higher level you are. \
-		Feeding off of someone while you have them aggressively grabbed will put them to sleep. \
-		You are given a Masquerade Infraction if you feed too close to a mortal. \
-		Mice can be fed off of if you are in desperate need of blood."
+	power_explanation = list(
+		"Activate Feed while next to someone and you will begin to feed blood off of them.",
+		"The time needed before you start feeding decreases the higher level you are.",
+		"Feeding off of someone while you have them aggressively grabbed will put them to sleep.",
+		"You are given a Masquerade Infraction if you feed too close to a mortal.",
+		"Mice can be fed off of if you are in desperate need of blood.")
 	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER
@@ -97,7 +97,7 @@
 		var/dead_message = feed_target.stat != DEAD ? " <i>[feed_target.p_they(TRUE)] looks dazed, and will not remember this.</i>" : ""
 		owner.visible_message(
 			span_notice("[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth."), \
-			"<span class='notice'>You slip your fangs into [feed_target]'s wrist.[dead_message]", \
+			span_notice("You slip your fangs into [feed_target]'s wrist.[dead_message]"), \
 			vision_distance = FEED_NOTICE_RANGE, ignored_mobs = feed_target)
 
 	//check if we were seen

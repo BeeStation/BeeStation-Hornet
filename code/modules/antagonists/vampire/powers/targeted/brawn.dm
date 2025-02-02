@@ -2,12 +2,12 @@
 	name = "Brawn"
 	desc = "Snap restraints, break lockers and doors, or deal terrible damage with your bare hands."
 	button_icon_state = "power_strength"
-	power_explanation = "\
-		Click any person to bash into them, break restraints, or knock your grabber down. Only one of these can be done per use. \
-		Punching a Cyborg will EMP it and deal high damage. \
-		At level 3, you can break closets open, and additionally you can break restraints. \
-		At level 4, you can bash airlocks open. \
-		Higher ranks will increase the damage when punching someone."
+	power_explanation = list(
+		"Click any person to bash into them, break restraints, or knock your grabber down. Only one of these can be done per use.",
+		"Punching a Cyborg will EMP it and deal high damage.",
+		"At level 3, you can break closets open and break restraints.",
+		"At level 4, you can bash airlocks open.",
+		"Higher ranks will increase the damage when punching someone.")
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY

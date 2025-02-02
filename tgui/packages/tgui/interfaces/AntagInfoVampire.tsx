@@ -27,7 +27,7 @@ type ClanInfo = {
 
 type PowerInfo = {
   power_name: string;
-  power_explanation: string;
+  power_explanation: string[];
   power_icon: string;
 };
 
@@ -212,18 +212,6 @@ const PowerSection = (props: any) => {
         />
       }>
       <Stack>
-        <Box
-          as="img"
-          height="15rem"
-          src={resolveAsset(`vampire.${selectedPower.power_icon}.png`)}
-          style={{
-            '-ms-interpolation-mode': 'nearest-neighbor',
-            'position': 'absolute',
-            'top': '57%',
-            'left': '17%',
-            'transform': 'translate(-50%, -50%)',
-          }}
-        />
         <Stack.Item minWidth="15rem">
           <Dropdown
             displayText={selectedPower.power_name}
@@ -232,11 +220,27 @@ const PowerSection = (props: any) => {
             options={power.map((powers) => powers.power_name)}
             onSelected={(powerName: string) => setSelectedPower(power.find((p) => p.power_name === powerName) || power[0])}
           />
+          <Box
+            as="img"
+            height="15rem"
+            src={resolveAsset(`vampire.${selectedPower.power_icon}.png`)}
+            style={{
+              '-ms-interpolation-mode': 'nearest-neighbor',
+              'position': 'absolute',
+              'top': '57%',
+              'left': '17%',
+              'transform': 'translate(-50%, -50%)',
+            }}
+          />
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item scrollable grow={1} fontSize="16px">
-          {selectedPower && selectedPower.power_explanation}
-        </Stack.Item>
+        <Stack vertical>
+          {selectedPower.power_explanation.map((text) => (
+            <Stack.Item key={text} fontSize="16px" grow>
+              {text}
+            </Stack.Item>
+          ))}
+        </Stack>
       </Stack>
     </Section>
   );

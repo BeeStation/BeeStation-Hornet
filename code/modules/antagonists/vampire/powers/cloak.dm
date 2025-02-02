@@ -2,9 +2,9 @@
 	name = "Cloak of Darkness"
 	desc = "Blend into the shadows and become invisible to the untrained and Artificial eye."
 	button_icon_state = "power_cloak"
-	power_explanation = "\
-		Activate this Power in the shadows and you will turn nearly invisible, scaling with your rank. \
-		Additionally, while Cloak is active, you are completely invisible to the AI."
+	power_explanation = list(
+		"Activate this Power in the shadows and you will turn nearly invisible, scaling with your rank.",
+		"Additionally, while Cloak is active, you are completely invisible to the AI.")
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY
