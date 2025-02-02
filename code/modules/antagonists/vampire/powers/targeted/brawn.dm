@@ -3,7 +3,7 @@
 	desc = "Snap restraints, break lockers and doors, or deal terrible damage with your bare hands."
 	button_icon_state = "power_strength"
 	power_explanation = list(
-		"Click any person to bash into them, break restraints, or knock your grabber down. Only one of these can be done per use.",
+		"Use this power to deal a horrific blow, break restraints, or knock anyone grabbing you down.",
 		"Punching a Cyborg will EMP it and deal high damage.",
 		"At level 3, you can break closets open and break restraints.",
 		"At level 4, you can bash airlocks open.",
@@ -32,42 +32,40 @@
 // Look at 'biodegrade.dm' for reference
 /datum/action/cooldown/vampire/targeted/brawn/proc/break_restraints()
 	var/mob/living/carbon/human/user = owner
-	///Only one form of shackles removed per use
+	if(!user) // how
+		return FALSE
 	var/used = FALSE
 
-	// Breaks out of lockers
+	// Lockers
 	if(istype(user.loc, /obj/structure/closet))
 		var/obj/structure/closet/closet = user.loc
 		if(!istype(closet))
 			return FALSE
+		addtimer(CALLBACK(src, PROC_REF(break_closet), user, closet), 1)
 		closet.visible_message(
 			span_warning("[closet] tears apart as [user] bashes it open from within!"),
-			span_warning("[closet] tears apart as you bash it open from within!"),
-		)
+			span_warning("[closet] tears apart as you bash it open from within!"))
 		to_chat(user, span_warning("We bash [closet] wide open!"))
-		addtimer(CALLBACK(src, PROC_REF(break_closet), user, closet), 1)
 		used = TRUE
 
-	if(!used)
+	// Cuffs
+	if(user.handcuffed || user.legcuffed)
 		user.uncuff()
 		user.visible_message(
 			span_warning("[user] discards their restraints like it's nothing!"),
-			span_warning("We break through our restraints!"),
-		)
+			span_warning("We break through our restraints!"))
 		used = TRUE
 
-	// Remove Straightjackets
-	if(user.wear_suit?.breakouttime && !used)
+	// Straightjackets
+	if(user.wear_suit?.breakouttime)
 		var/obj/item/clothing/suit/straightjacket = user.get_item_by_slot(ITEM_SLOT_OCLOTHING)
-		user.visible_message(
-			span_warning("[user] rips straight through the [user.p_their()] [straightjacket]!"),
-			span_warning("We tear through our [straightjacket]!"),
-		)
 		if(straightjacket && user.wear_suit == straightjacket)
 			qdel(straightjacket)
+		user.visible_message(
+			span_warning("[user] rips straight through the [user.p_their()] [straightjacket]!"),
+			span_warning("We tear through our [straightjacket]!"))
 		used = TRUE
 
-	// Did we end up using our ability? If so, play the sound effect and return TRUE
 	if(used)
 		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, 1, -1)
 	return used
@@ -81,8 +79,9 @@
 		closet.open()
 
 /datum/action/cooldown/vampire/targeted/brawn/proc/escape_puller()
-	if(!owner.pulledby) // || owner.pulledby.grab_state <= GRAB_PASSIVE)
+	if(!owner.pulledby)
 		return FALSE
+
 	var/mob/pulled_mob = owner.pulledby
 	var/pull_power = pulled_mob.grab_state
 	playsound(get_turf(pulled_mob), 'sound/effects/woodhit.ogg', 75, 1, -1)
@@ -98,8 +97,7 @@
 	log_combat(owner, pulled_mob, "used Brawn power")
 	owner.visible_message(
 		span_warning("[owner] tears free of [pulled_mob]'s grasp!"),
-		span_warning("You shrug off [pulled_mob]'s grasp!"),
-	)
+		span_warning("You shrug off [pulled_mob]'s grasp!"))
 	owner.pulledby = null // It's already done, but JUST IN CASE.
 	return TRUE
 

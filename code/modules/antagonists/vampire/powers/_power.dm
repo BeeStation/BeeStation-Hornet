@@ -27,7 +27,7 @@
 	var/purchase_flags = NONE // VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER|TREMERE_CAN_BUY|VASSAL_CAN_BUY
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
-	var/active = FALSE
+	active = FALSE
 	///Can increase to yield new abilities - Each Power ranks up each Rank
 	var/level_current = 0
 	///The cost to ACTIVATE this Power
@@ -49,7 +49,7 @@
 	vampiredatum_power = null
 	return ..()
 
-/datum/action/cooldown/vampire/IsAvailable(feedback = FALSE)
+/datum/action/cooldown/vampire/is_available(feedback = FALSE)
 	return next_use_time <= world.time
 
 /datum/action/cooldown/vampire/Grant(mob/user)
@@ -59,7 +59,7 @@
 		vampiredatum_power = vampiredatum
 
 //This is when we CLICK on the ability Icon, not USING.
-/datum/action/cooldown/vampire/Trigger(trigger_flags, atom/target)
+/datum/action/cooldown/vampire/trigger(trigger_flags, atom/target)
 	if(active)
 		DeactivatePower()
 		return FALSE
@@ -68,7 +68,7 @@
 	pay_cost()
 	ActivatePower(trigger_flags)
 	if(!(power_flags & BP_AM_TOGGLE) || !active)
-		StartCooldown()
+		start_cooldown()
 	return TRUE
 
 ///Called when the Power is upgraded.
@@ -134,7 +134,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/UpdateButtonIcon(force = FALSE)
+/datum/action/cooldown/vampire/update_buttons(force = FALSE)
 	background_icon_state = active ? background_icon_state_on : background_icon_state_off
 	. = ..()
 
@@ -156,7 +156,7 @@
 		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
 
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
-	UpdateButtonIcon()
+	update_buttons()
 
 /datum/action/cooldown/vampire/proc/DeactivatePower()
 	if(!active) //Already inactive? Return
@@ -167,10 +167,10 @@
 		remove_after_use()
 		return
 	active = FALSE
-	StartCooldown()
-	UpdateButtonIcon()
+	start_cooldown()
+	update_buttons()
 
-///Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
+/// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
 /datum/action/cooldown/vampire/proc/UsePower(mob/living/user)
 	if(!ContinueActive(user)) // We can't afford the Power? Deactivate it.
 		DeactivatePower()

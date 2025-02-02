@@ -73,8 +73,8 @@
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
 /datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/bat/batform = new
-	vassaldatum.owner.current.AddSpell(batform)
+	var/datum/action/spell/shapeshift/bat/batform = new
+	batform.Grant(vassaldatum.owner)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	..()
@@ -82,11 +82,10 @@
 	vampiredatum.vampire_level_unspent++
 
 // Batform for special vassals
-/obj/effect/proc_holder/spell/targeted/shapeshift/bat
+/datum/action/spell/shapeshift/bat
 	name = "Bat Form"
 	desc = "Take on the shape a space bat."
 	invocation = "SQUEAAAAK!"
-	charge_max = 50
-	cooldown_min = 50
+	cooldown_time = 5 SECONDS
 	convert_damage = FALSE
-	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat/vampire
+	possible_shapes = /mob/living/simple_animal/hostile/retaliate/bat/vampire

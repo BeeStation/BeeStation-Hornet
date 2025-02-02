@@ -196,9 +196,9 @@
 	if(vampiredatum.vampire_level == 4)
 		vampiredatum.SelectReputation(am_fledgling = FALSE, forced = TRUE)
 
-	to_chat(vampiredatum.owner.current, "<span class='notice'>You are now a rank [vampiredatum.vampire_level] Vampire. \
+	to_chat(vampiredatum.owner.current, span_notice("You are now a rank [vampiredatum.vampire_level] Vampire. \
 		Your strength, health, feed rate, regen rate, and maximum blood capacity have all increased! \n\
-		* Your existing powers have all ranked up as well!</span>")
+		* Your existing powers have all ranked up as well!"))
 	vampiredatum.owner.current.playsound_local(null, 'sound/effects/pope_entry.ogg', 25, TRUE, pressure_affected = FALSE)
 	vampiredatum.update_hud()
 

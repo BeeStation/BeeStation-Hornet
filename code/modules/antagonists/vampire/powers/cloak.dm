@@ -1,10 +1,10 @@
 /datum/action/cooldown/vampire/cloak
 	name = "Cloak of Darkness"
-	desc = "Blend into the shadows and become invisible to the untrained and Artificial eye."
+	desc = "Blend into the shadows and become invisible to the artificial eye."
 	button_icon_state = "power_cloak"
 	power_explanation = list(
 		"Activate this Power in the shadows and you will turn nearly invisible, scaling with your rank.",
-		"Additionally, while Cloak is active, you are completely invisible to the AI.")
+		"Additionally, while Cloak is active, you are completely invisible to silicons.")
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY

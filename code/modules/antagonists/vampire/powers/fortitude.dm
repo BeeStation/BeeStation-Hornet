@@ -16,9 +16,6 @@
 
 /datum/action/cooldown/vampire/fortitude/ActivatePower(trigger_flags)
 	. = ..()
-	if(!.)
-		return
-
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, span_notice("Your flesh has become as hard as steel!"))
 	// Traits & Effects
@@ -37,17 +34,18 @@
 
 /datum/action/cooldown/vampire/fortitude/UsePower(seconds_per_tick)
 	. = ..()
-	if(!. || !active)
+	if(!.)
 		return
 
 	/// We don't want people using fortitude being able to use vehicles
 	var/mob/living/carbon/user = owner
 	if(user.buckled && istype(user.buckled, /obj/vehicle))
-		user.buckled.unbuckle_mob(src, force=TRUE)
+		user.buckled.unbuckle_mob(src, force = TRUE)
 
 /datum/action/cooldown/vampire/fortitude/DeactivatePower()
 	if(!ishuman(owner))
 		return
+
 	var/mob/living/carbon/human/vampire_user = owner
 	if(IS_VAMPIRE(owner) || IS_VASSAL(owner))
 		vampire_user.physiology.brute_mod /= fortitude_resist

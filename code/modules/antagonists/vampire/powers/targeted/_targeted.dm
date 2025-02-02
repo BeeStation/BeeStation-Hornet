@@ -21,7 +21,7 @@
 	if(remove_from.click_intercept == src)
 		unset_click_ability(remove_from)
 
-/datum/action/cooldown/vampire/targeted/Trigger(trigger_flags, atom/target)
+/datum/action/cooldown/vampire/targeted/trigger(trigger_flags, atom/target)
 	if(active)
 		DeactivatePower()
 		return FALSE
@@ -32,7 +32,7 @@
 		to_chat(owner, span_announce("[prefire_message]"))
 
 	ActivatePower(trigger_flags)
-	if(target)
+	if(!QDELETED(target))
 		return InterceptClickOn(owner, null, target)
 
 	return set_click_ability(owner)
@@ -41,7 +41,7 @@
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 	active = FALSE
-	UpdateButtonIcon()
+	update_buttons()
 	unset_click_ability(owner)
 
 /// Check if target is VALID (wall, turf, or character?)
@@ -50,29 +50,14 @@
 
 /// Check if valid target meets conditions
 /datum/action/cooldown/vampire/targeted/proc/CheckCanTarget(atom/target_atom)
-	if(target_range)
-		// Out of Range
-		if(!(target_atom in view(target_range, owner)))
-			if(target_range > 1) // Only warn for range if it's greater than 1. Brawn doesn't need to announce itself.
-				owner.balloon_alert(owner, "out of range.")
-			return FALSE
+	if(target_range && !(target_atom in view(target_range, owner)))
+		if(target_range > 1) // Only warn for range if it's greater than 1. Brawn doesn't need to announce itself.
+			owner.balloon_alert(owner, "out of range.")
+		return FALSE
 	return istype(target_atom)
 
-/datum/action/cooldown/vampire/targeted/proc/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
-	owner.client.mouse_pointer_icon = null
-	SHOULD_CALL_PARENT(TRUE)
-
-	on_who.click_intercept = null
-	UpdateButtonIcon()
-	return TRUE
-
-/datum/action/cooldown/vampire/targeted/proc/set_click_ability(mob/on_who)
-	owner.client.mouse_pointer_icon = 'icons/effects/cult_target.dmi'
-	SHOULD_CALL_PARENT(TRUE)
-
-	on_who.click_intercept = src
-	UpdateButtonIcon()
-	return TRUE
+/datum/action/cooldown/vampire/targeted/InterceptClickOn(mob/living/caller, params, atom/target)
+	click_with_power(target)
 
 /// Click Target
 /datum/action/cooldown/vampire/targeted/proc/click_with_power(atom/target_atom)
@@ -97,8 +82,5 @@
 /datum/action/cooldown/vampire/targeted/proc/power_activated_sucessfully()
 	unset_click_ability(owner)
 	pay_cost()
-	StartCooldown()
+	start_cooldown()
 	DeactivatePower()
-
-/datum/action/cooldown/vampire/targeted/proc/InterceptClickOn(mob/living/caller, params, atom/target)
-	click_with_power(target)
