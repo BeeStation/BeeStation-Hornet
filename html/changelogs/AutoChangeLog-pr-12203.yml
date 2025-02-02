@@ -1,9 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - tweak: chaplains now have a exp_requirement of 120 minutes, up from 0
-  - tweak: botanists now have a exp_requirement of 120 minutes, up from 0
-  - tweak: curators now have a exp_requirement of 60 minutes, up from 0
-  - tweak: cyborgs now have a exp_requirement of 180 minutes, up from 120
-  - tweak: chemists need explicitly medical experience, and atmosians need explicitly
-      engineering experience.
