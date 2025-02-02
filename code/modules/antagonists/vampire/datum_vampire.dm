@@ -258,7 +258,7 @@
 /datum/antagonist/vampire/greet()
 	. = ..()
 	var/fullname = return_full_name()
-	to_chat(owner, span_userdanger("You are [fullname], a strain of vampire known as a Vampire!"))
+	to_chat(owner, span_userdanger("You are [fullname], a Vampire!"))
 	owner.announce_objectives()
 	if(vampire_level_unspent >= 1)
 		to_chat(owner, span_announce("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank."))
