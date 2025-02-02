@@ -143,3 +143,6 @@
 /obj/item/chainsaw/energy/doom/attack(mob/living/target)
 	..()
 	target.Knockdown(4)
+
+/datum/action/item_action/startchainsaw
+	name = "Pull The Starting Cord"

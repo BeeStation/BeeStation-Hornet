@@ -896,14 +896,131 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins(span_adminnotice("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp]."))
 	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
 
-/client/proc/give_all_spells()
+
+/client/proc/give_all_spells_touch()
 	set category = "Debug"
-	set name = "Give all spells"
+	set name = "Give all touch spells"
 	if(!check_rights(R_DEBUG))
 		return
-	for(var/type in GLOB.spells)
-		var/obj/effect/proc_holder/spell/spell = new type
-		mob.AddSpell(spell)
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/touch))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_aoe()
+	set category = "Debug"
+	set name = "Give all aoe spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/aoe))
+		if(ispath(power, /datum/action/spell/aoe/revenant))
+			continue
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spell_aoe_rev()
+	set category = "Debug"
+	set name = "Give all revenant aoe spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/aoe/revenant))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_cone()
+	set category = "Debug"
+	set name = "Give all cone spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/cone))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_conjure()
+	set category = "Debug"
+	set name = "Give all conjure spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/conjure))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_conjure_item()
+	set category = "Debug"
+	set name = "Give all conjure item spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/conjure_item))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_jaunt()
+	set category = "Debug"
+	set name = "Give all jaunt spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/jaunt))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_pointed()
+	set category = "Debug"
+	set name = "Give all pointed spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/pointed))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_projectile()
+	set category = "Debug"
+	set name = "Give all projectile spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/basic_projectile))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_shapeshift()
+	set category = "Debug"
+	set name = "Give all shapeshift spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/shapeshift))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/give_all_spells_teleport()
+	set category = "Debug"
+	set name = "Give all teleport spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in subtypesof(/datum/action/spell/teleport))
+		GRANT_ACTION_MOB(power, mob)
+
+/client/proc/remove_all_spells()
+	set category = "Debug"
+	set name = "Remove all spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for (var/datum/action/spell/power as anything in mob.actions)
+		if(istype(power, /datum/action/spell))
+			power.Remove(mob)
+
+/client/proc/give_all_action_mutations()
+	set category = "Debug"
+	set name = "Give all action mutations"
+	if(!check_rights(R_DEBUG))
+		return
+	var/mob/living/carbon/human/human = mob
+	if (!istype(human))
+		return
+	for (var/datum/mutation/mutation as anything in subtypesof(/datum/mutation))
+		if (!initial(mutation.power_path))
+			continue
+		human.dna.add_mutation(mutation)
+
+/client/proc/give_all_mutations()
+	set category = "Debug"
+	set name = "Give all mutations"
+	if(!check_rights(R_DEBUG))
+		return
+	var/mob/living/carbon/human/human = mob
+	if (!istype(human))
+		return
+	for (var/datum/mutation/test as anything in subtypesof(/datum/mutation))
+		if(tgui_alert(mob, "Do you want to [test] yourself?", "", list("Yes", "No")) == "Yes")
+			human.dna.add_mutation(test)
+
 
 /// A debug verb to check the sources of currently running timers
 /client/proc/check_timer_sources()

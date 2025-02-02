@@ -680,10 +680,10 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/on_activate(mob/user, atom/target)
 	gun.zoom(owner, owner.dir)
 
-/datum/action/toggle_scope_zoom/IsAvailable()
+/datum/action/toggle_scope_zoom/is_available()
 	. = ..()
 	if(!. && gun)
 		gun.zoom(owner, owner.dir, FALSE)
