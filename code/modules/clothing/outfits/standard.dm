@@ -327,14 +327,6 @@
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
 
-/datum/outfit/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-
-	var/obj/item/spellbook/S = locate() in H.held_items
-	if(S)
-		S.owner = H.mind
-
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"
 	r_hand = null

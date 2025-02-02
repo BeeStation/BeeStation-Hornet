@@ -298,68 +298,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
 
-/atom/movable/screen/internals
-	name = "toggle internals"
-	icon_state = "internal0"
-	screen_loc = ui_internal
-
-/atom/movable/screen/internals/Click()
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/C = usr
-	if(C.incapacitated())
-		return
-
-	if(C.internal)
-		C.internal = null
-		to_chat(C, span_notice("You are no longer running on internals."))
-		icon_state = "internal0"
-		C.update_action_buttons_icon()
-		return
-	if(!C.getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-		var/obj/item/clothing/head/Helm = C.head
-		if(!istype(C.wear_mask, /obj/item/clothing/mask) && !(Helm?.clothing_flags & HEADINTERNALS))
-			to_chat(C, span_warning("You are not wearing an internals compatible mask or helmet!"))
-			return 1
-		else
-			var/obj/item/clothing/mask/M = C.wear_mask
-			if(M?.mask_adjusted) // if mask on face but pushed down
-				M.adjustmask(C) // adjust it back
-			if( !(M?.clothing_flags & MASKINTERNALS) && !(Helm?.clothing_flags & HEADINTERNALS))
-				to_chat(C, span_warning("You are not wearing an internals compatible mask or helmet!"))
-				return
-
-	var/obj/item/I = C.is_holding_item_of_type(/obj/item/tank)
-	if(I)
-		to_chat(C, span_notice("You are now running on internals from [I] in your [C.get_held_index_name(C.get_held_index_of_item(I))]."))
-		C.toggle_internals(I)
-	else if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(istype(H.s_store, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.s_store] on your [H.wear_suit.name]."))
-			C.toggle_internals(H.s_store)
-		else if(istype(H.belt, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.belt] on your belt."))
-			C.toggle_internals(H.belt)
-		else if(istype(H.l_store, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.l_store] in your left pocket."))
-			C.toggle_internals(H.l_store)
-		else if(istype(H.r_store, /obj/item/tank))
-			to_chat(H, span_notice("You are now running on internals from [H.r_store] in your right pocket."))
-			C.toggle_internals(H.r_store)
-
-	//Separate so CO2 jetpacks are a little less cumbersome.
-	if(!C.internal && istype(C.back, /obj/item/tank))
-		to_chat(C, span_notice("You are now running on internals from [C.back] on your back."))
-		C.toggle_internals(C.back)
-
-	if(C.internal)
-		icon_state = "internal1"
-	else
-		to_chat(C, span_warning("You don't have an oxygen tank!"))
-		return
-	C.update_action_buttons_icon()
-
 /atom/movable/screen/spacesuit
 	name = "Space suit cell status"
 	icon_state = "spacesuit_0"

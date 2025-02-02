@@ -106,9 +106,11 @@ Chilling extracts:
 	for(var/turf/open/T in A)
 		var/datum/gas_mixture/G = T.air
 		if(istype(G))
-			G.set_moles(GAS_PLASMA, 0)
+			G.assert_gas(/datum/gas/plasma)
+			G.gases[/datum/gas/plasma][MOLES] = 0
 			filtered = TRUE
-			T.air_update_turf()
+			G.garbage_collect()
+			T.air_update_turf(FALSE, FALSE)
 	if(filtered)
 		user.visible_message(span_notice("Cracks spread throughout [src], and some air is sucked in!"))
 	else
