@@ -81,7 +81,7 @@
 	var/screen_start_x = 4
 	var/screen_start_y = 2
 
-	var/datum/action/item_action/storage_gather_mode/modeswitch_action_ref
+	var/datum/weakref/modeswitch_action_ref
 
 /datum/storage/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	boxes = new(null, src)
@@ -228,7 +228,7 @@
 		handle_show_valid_items(source, user)
 
 /datum/storage/proc/handle_show_valid_items(datum/source, user)
-	to_chat(user, "<span class='notice'>[source] can hold: [can_hold_description]</span>")
+	to_chat(user, span_notice("[source] can hold: [can_hold_description]"))
 
 /// Almost 100% of the time the lists passed into set_holdable are reused for each instance of the component
 /// Just fucking cache it 4head
@@ -281,14 +281,13 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		QDEL_NULL(modeswitch_action_ref)
 		return
 
-	var/datum/action/modeswitch_action = new(resolve_parent)
+	var/datum/action/existing = modeswitch_action_ref?.resolve()
+	if(!QDELETED(existing))
+		return
+
+	var/datum/action/modeswitch_action = resolve_parent.add_item_action(/datum/action/item_action/storage_gather_mode)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
-	//modeswitch_action_ref = WEAKREF(modeswitch_action)
-	if(resolve_parent.item_flags & PICKED_UP)
-		var/mob/M = resolve_parent.loc
-		if(!istype(M))
-			return
-		modeswitch_action.Grant(M)
+	modeswitch_action_ref = WEAKREF(modeswitch_action)
 
 /// Refreshes and item to be put back into the real world, out of storage.
 /datum/storage/proc/reset_item(obj/item/thing)
@@ -322,6 +321,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return FALSE
 
 	if(locked && !force)
+		if(user && messages)
+			user.balloon_alert(user, "closed!")
 		return FALSE
 
 	if((to_insert == resolve_parent) || (to_insert == real_location))
@@ -329,12 +330,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(to_insert.w_class > max_specific_storage && !is_type_in_typecache(to_insert, exception_hold))
 		if(messages && user)
-			to_chat(user, "<span class='warning'>\The [to_insert] is too big for \the [resolve_parent]!</span>")
+			user.balloon_alert(user, "too big!")
 		return FALSE
 
 	if(resolve_location.contents.len >= max_slots)
 		if(messages && user && !silent_for_user)
-			to_chat(user, "<span class='warning'>\The [to_insert] can't fit into \the [resolve_parent]! Make some space!</span>")
+			user.balloon_alert(user, "no room!")
 		return FALSE
 
 	var/total_weight = to_insert.w_class
@@ -344,37 +345,37 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(total_weight > max_total_storage)
 		if(messages && user && !silent_for_user)
-			to_chat(user, "<span class='warning'>\The [to_insert] can't fit into \the [resolve_parent]! Make some space!</span>")
+			user.balloon_alert(user, "no room!")
 		return FALSE
 
 	if(length(can_hold))
 		if(!is_type_in_typecache(to_insert, can_hold))
 			if(messages && user)
-				to_chat(user, "<span class='warning'>\The [resolve_parent] cannot hold \the [to_insert]!</span>")
+				user.balloon_alert(user, "can't hold!")
 			return FALSE
 
 	if(is_type_in_typecache(to_insert, cant_hold) || HAS_TRAIT(to_insert, TRAIT_NO_STORAGE_INSERT) || (can_hold_trait && !HAS_TRAIT(to_insert, can_hold_trait)))
 		if(messages && user)
-			to_chat(user, "<span class='warning'>\The [resolve_parent] cannot hold \the [to_insert]!</span>")
+			user.balloon_alert(user, "can't hold!")
 		return FALSE
 
 	if(HAS_TRAIT(to_insert, TRAIT_NODROP))
 		if(messages)
-			to_chat(user, "<span class='warning'>\The [to_insert] is stuck on your hand!</span>")
+			user.balloon_alert(user, "stuck on your hand!")
 		return FALSE
 
 	var/datum/storage/biggerfish = resolve_parent.loc.atom_storage // this is valid if the container our resolve_parent is being held in is a storage item
 
 	if(biggerfish && biggerfish.max_specific_storage < max_specific_storage)
 		if(messages && user)
-			to_chat(user, "<span class='warning'>[to_insert] can't fit in [resolve_parent] while [resolve_parent.loc] is in the way!</span>")
+			user.balloon_alert(user, "[LOWER_TEXT(resolve_parent.loc.name)] is in the way!")
 		return FALSE
 
 	if(istype(resolve_parent))
 		var/datum/storage/item_storage = to_insert.atom_storage
 		if((to_insert.w_class >= resolve_parent.w_class) && item_storage && !allow_big_nesting)
 			if(messages && user)
-				to_chat(user, "<span class='warning'>[resolve_parent] cannot hold [to_insert] as it's a storage item of the same size!</span>")
+				user.balloon_alert(user, "too big!")
 			return FALSE
 
 	return TRUE
@@ -461,14 +462,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		playsound(resolve_parent, "rustle", 50, TRUE, -5)
 
 	if(!silent_for_user)
-		to_chat(user, "<span class='notice'>You put [thing] [insert_preposition]to [resolve_parent].</span>")
+		to_chat(user, span_notice("You put [thing] [insert_preposition]to [resolve_parent]."))
 
 	for(var/mob/viewing in oviewers(user, null))
 		if(in_range(user, viewing))
-			viewing.show_message("<span class='notice'>[user] puts [thing] [insert_preposition]to [resolve_parent].</span>", MSG_VISUAL)
+			viewing.show_message(span_notice("[user] puts [thing] [insert_preposition]to [resolve_parent]."), MSG_VISUAL)
 			return
 		if(thing && thing.w_class >= 3)
-			viewing.show_message("<span class='notice'>[user] puts [thing] [insert_preposition]to [resolve_parent].</span>", MSG_VISUAL)
+			viewing.show_message(span_notice("[user] puts [thing] [insert_preposition]to [resolve_parent]."), MSG_VISUAL)
 			return
 
 /**
@@ -733,7 +734,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			if(to_dump.loc != resolve_location)
 				continue
 			dest_object.atom_storage.attempt_insert(to_dump, user)
-
+		resolve_parent.update_appearance()
 		return
 
 	var/atom/dump_loc = dest_object.get_dumping_location()
@@ -962,10 +963,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	attempt_remove(to_remove)
 
 	INVOKE_ASYNC(src, PROC_REF(put_in_hands_async), to_show, to_remove)
-
 	if(!silent)
-		to_show.visible_message("<span class='warning'>[to_show] draws [to_remove] from [resolve_parent]!", "<span class='notice'>You draw [to_remove] from [resolve_parent].</span>")
-
+		to_show.visible_message(
+			span_warning("[to_show] draws [to_remove] from [resolve_parent]!"),
+			span_notice("You draw [to_remove] from [resolve_parent]."),
+		)
 	return TRUE
 
 /// Async version of putting something into a mobs hand.
