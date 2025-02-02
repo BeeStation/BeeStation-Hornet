@@ -26,11 +26,11 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue// no parent vent
 
-			if(length(temp_vent_parent.other_atmosmch) > 20)
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
 				vents += temp_vent // Makes sure the vent network's big enough
 
 	if(!length(vents))
@@ -54,7 +54,7 @@
 		spider_antag.set_spider_team(spider_team)
 		if(fed)
 			spooder.fed += 3 // Give our spiders some friends to help them get started
-			spooder.lay_eggs.UpdateButtonIcon()
+			spooder.lay_eggs.update_buttons()
 			fed--
 		spawncount--
 		message_admins("[ADMIN_LOOKUPFLW(spooder)] has been made into a spider by an event.")

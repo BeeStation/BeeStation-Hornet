@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider, Dropdown, Collapsible } from '../components';
 import { Window } from '../layouts';
 
-export const XenoartifactLabeler = (props, context) => {
+export const XenoartifactLabeler = (props) => {
   return (
     <Window width={500} height={600}>
       <Window.Content scrollable={0}>
