@@ -68,7 +68,7 @@ export class ServerPreferencesFetcher extends Component<
         <br />
         Reconnecting will also likely fix this issue.
         <br />
-        <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
+        <Box textAlign="left" fontSize="12px" textColor="white" style={{ whiteSpace: 'pre-wrap' }}>
           Error Details:{'\n'}
           {typeof lastError === 'object' && Object.keys(lastError).includes('stack') ? lastError.stack : lastError.toString()}
           {'\n'}

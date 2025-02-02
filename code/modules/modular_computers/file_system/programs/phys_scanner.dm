@@ -79,7 +79,7 @@
 /datum/computer_file/program/phys_scanner/attack_atom(obj/target, mob/living/user)
 	switch(current_mode)
 		if(DISK_ATMOS)
-			var/scan_result = atmosanalyzer_scan(user, target, silent = TRUE, to_chat = FALSE)
+			var/scan_result = atmos_scan(user, target, FALSE)
 			if(scan_result)
 				user.visible_message("[user] analyzes [icon2html(target, viewers(user))] [target]'s gas contents.", span_notice("You analyze [icon2html(target, user)] [target]'s gas contents."))
 				last_record = scan_result
