@@ -8,6 +8,9 @@
 	on_who.visible_message(span_warning("[on_who] prepares to attack!"))
 	return ..()
 
+/datum/action/item_action/delimbing_strike/is_available()
+	return ..() && istype(owner.get_active_held_item(), /obj/item/energy_katana)
+
 /datum/action/item_action/delimbing_strike/on_activate(mob/living/user, atom/target)
 	if (target == null)
 		return FALSE

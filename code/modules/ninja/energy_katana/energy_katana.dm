@@ -68,13 +68,17 @@
 		jaunt.Grant(user, src)
 	if(user.client)
 		playsound(src, 'sound/items/unsheath.ogg', 25, 1)
-	user.update_icons()
+	user.update_action_buttons()
+
+/obj/item/energy_katana/equipped(mob/user, slot, initial)
+	. = ..()
+	user.update_action_buttons()
 
 /obj/item/energy_katana/dropped(mob/user)
 	..()
 	if(jaunt)
 		jaunt.Remove(user)
-	user.update_icons()
+	user.update_action_buttons()
 
 //If we hit the Ninja who owns this Katana, they catch it.
 //Works for if the Ninja throws it or it throws itself or someone tries

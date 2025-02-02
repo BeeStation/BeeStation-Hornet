@@ -688,6 +688,7 @@
 		// Make it so the user can always see themselves while cloaked
 		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
 		self_appearance.alpha = 100
+		self_appearance.override = TRUE
 		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), owner)
 		can_see_self = TRUE
 	if (owner.alpha > 100 && can_see_self)
