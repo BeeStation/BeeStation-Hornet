@@ -121,7 +121,7 @@
 	return ..()
 
 /datum/action/cooldown/vampire/feed/UsePower(seconds_per_tick)
-	if(!active) //If we aren't active (running on SSfastprocess)
+	if(!currently_active) //If we aren't active (running on SSfastprocess)
 		return ..() //Manage our cooldown timers
 	var/mob/living/user = owner
 	var/mob/living/feed_target = target_ref.resolve()

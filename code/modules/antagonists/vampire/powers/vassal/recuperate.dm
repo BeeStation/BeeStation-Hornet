@@ -29,11 +29,9 @@
 
 /datum/action/cooldown/vampire/recuperate/UsePower(seconds_per_tick)
 	. = ..()
-	if(!.)
+	if(!. || !currently_active)
 		return
 
-	if(!active)
-		return
 	var/mob/living/carbon/user = owner
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(user)
 	vassaldatum.master.AddBloodVolume(-1)

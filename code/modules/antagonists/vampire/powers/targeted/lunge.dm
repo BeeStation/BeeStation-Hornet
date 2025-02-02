@@ -96,7 +96,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /datum/action/cooldown/vampire/targeted/lunge/process()
-	if(!active) //If running SSfasprocess (on cooldown)
+	if(!currently_active) //If running SSfasprocess (on cooldown)
 		return ..() //Manage our cooldown timers
 	if(prob(75))
 		owner.spin(8, 1)

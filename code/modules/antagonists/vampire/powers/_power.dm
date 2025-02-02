@@ -27,7 +27,7 @@
 	var/purchase_flags = NONE // VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER|TREMERE_CAN_BUY|VASSAL_CAN_BUY
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
-	active = FALSE
+	var/currently_active = FALSE
 	///Can increase to yield new abilities - Each Power ranks up each Rank
 	var/level_current = 0
 	///The cost to ACTIVATE this Power
@@ -60,14 +60,14 @@
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/cooldown/vampire/trigger(trigger_flags, atom/target)
-	if(active)
+	if(currently_active)
 		DeactivatePower()
 		return FALSE
 	if(!can_pay_cost() || !can_use())
 		return FALSE
 	pay_cost()
 	ActivatePower(trigger_flags)
-	if(!(power_flags & BP_AM_TOGGLE) || !active)
+	if(!(power_flags & BP_AM_TOGGLE) || !currently_active)
 		start_cooldown()
 	return TRUE
 
@@ -135,7 +135,7 @@
 	return TRUE
 
 /datum/action/cooldown/vampire/update_buttons(force = FALSE)
-	background_icon_state = active ? background_icon_state_on : background_icon_state_off
+	background_icon_state = currently_active ? background_icon_state_on : background_icon_state_off
 	. = ..()
 
 /datum/action/cooldown/vampire/proc/pay_cost()
@@ -151,7 +151,7 @@
 		vampiredatum_power.update_hud()
 
 /datum/action/cooldown/vampire/proc/ActivatePower(trigger_flags)
-	active = TRUE
+	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
 		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
 
@@ -159,14 +159,14 @@
 	update_buttons()
 
 /datum/action/cooldown/vampire/proc/DeactivatePower()
-	if(!active) //Already inactive? Return
+	if(!currently_active) //Already inactive? Return
 		return
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 	if(power_flags & BP_AM_SINGLEUSE)
 		remove_after_use()
 		return
-	active = FALSE
+	currently_active = FALSE
 	start_cooldown()
 	update_buttons()
 

@@ -22,7 +22,7 @@
 		unset_click_ability(remove_from)
 
 /datum/action/cooldown/vampire/targeted/trigger(trigger_flags, atom/target)
-	if(active)
+	if(currently_active)
 		DeactivatePower()
 		return FALSE
 	if(!can_pay_cost(owner) || !can_use(owner, trigger_flags))
@@ -40,7 +40,7 @@
 /datum/action/cooldown/vampire/targeted/DeactivatePower()
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
-	active = FALSE
+	currently_active = FALSE
 	update_buttons()
 	unset_click_ability(owner)
 
