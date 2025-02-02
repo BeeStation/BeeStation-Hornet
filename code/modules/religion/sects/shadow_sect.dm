@@ -422,13 +422,17 @@
 		return
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
+		new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
 		for(var/mob/living/L in range(sect.light_reach, src))
 			if(L.health == L.maxHealth)
 				continue
 			if(!isshadow(L) && !L.mind?.holy_role)
 				continue
-			new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
-			if(isshadow(L) || L.mind?.holy_role)
+			var/turf/T = L.loc
+			if(istype(T))
+				var/light_amount = T.get_lumcount()
+				if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
+					continue
 				L.adjustBruteLoss(-1*delta_time, 0)
 				L.adjustToxLoss(-2*delta_time, 0)
 				L.adjustOxyLoss(-2*delta_time, 0)
