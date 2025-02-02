@@ -166,7 +166,7 @@
 /obj/machinery/door/proc/bumpopen(mob/user)
 	activate_door_base(user, FALSE)
 
-/obj/machinery/door/attack_hand(mob/user)
+/obj/machinery/door/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -233,7 +233,7 @@
 		return ..()
 	else if(!user.combat_mode && istype(I, /obj/item/stack/sheet/wood))
 		return ..() // we need this so our can_barricade element can be called using COMSIG_PARENT_ATTACKBY
-	else if(try_to_activate_door(user))
+	else if(try_to_activate_door(I, user))
 		return TRUE
 	return ..()
 
