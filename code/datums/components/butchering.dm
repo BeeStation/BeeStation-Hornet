@@ -40,10 +40,15 @@
 
 	if(ishuman(M) && source.force && source.is_sharp())
 		var/mob/living/carbon/human/H = M
-		if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message(span_danger("[H]'s neck has already been already cut, you can't make the bleeding any worse!"), 1, span_danger("Their neck has already been already cut, you can't make the bleeding any worse!"))
-			return COMPONENT_CANCEL_ATTACK_CHAIN
-		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping())) // Only sleeping, neck grabbed, or crit, can be sliced.
+		if((H.health <= H.crit_threshold || ((user.pulling == H && user.grab_state >= GRAB_NECK) && user.is_zone_selected(BODY_ZONE_HEAD)) || H.IsSleeping())) // Only sleeping, neck grabbed, or crit, can be sliced.
+			if(HAS_TRAIT(user, TRAIT_PACIFISM))
+				to_chat(user, span_warning("You don't want to harm other living beings!"))
+				return COMPONENT_CANCEL_ATTACK_CHAIN
+
+			if(H.has_status_effect(/datum/status_effect/neck_slice))
+				user.show_message(span_danger("[H]'s neck has already been already cut, you can't make the bleeding any worse!"), 1, span_danger("Their neck has already been already cut, you can't make the bleeding any worse!"))
+				return
+
 			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -57,11 +62,13 @@
 	if(DOING_INTERACTION_WITH_TARGET(user, H))
 		to_chat(user, span_warning("You're already interacting with [H]!"))
 		return
+
 	user.visible_message(span_danger("[user] is slitting [H]'s throat!"), \
 					span_danger("You start slicing [H]'s throat!"), \
 					span_hear("You hear a cutting noise!"))
 	H.show_message(span_userdanger("Your throat is being slit by [user]!"), 1, \
 					span_userdanger("Something is cutting into your neck!"), NONE)
+	log_combat(user, H, "attempted throat slitting", source)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
 	var/item_force = source.force
