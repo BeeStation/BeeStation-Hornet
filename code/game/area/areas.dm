@@ -103,12 +103,6 @@
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	///Used for Atmos air vents/Scrubbers
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
-
 	var/list/cameras
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas
