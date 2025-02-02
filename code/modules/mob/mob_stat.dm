@@ -20,6 +20,8 @@
 						? "Turf" \
 						: "Other"
 
+#define STAT_TAB_ACTIONS "Actions"
+
 /client
 	var/stat_update_mode = STAT_FAST_UPDATE
 	var/stat_update_time = 0
@@ -93,15 +95,20 @@
 						"message" = message.message
 					)
 					tab_data["messages"] += list(msg)
+		if (STAT_TAB_ACTIONS)
+			for(var/datum/action/action in actions)
+				tab_data["[action.name]"] = list(
+					text = action.get_stat_label(),
+					type = STAT_BUTTON,
+					action = "do_action",
+					params = list("ref" = REF(action))
+				)
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
 			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				// Check if we can actually see the turf
 				listed_turf.render_stat_information(client, tab_data)
-			if(mind)
-				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
-			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
 	if(requires_holder && !client.holder)
 		message_admins("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
@@ -320,13 +327,9 @@
 			listed_turf = null
 		else
 			tabs |= sanitize(listed_turf.name)
-	//Add spells
-	var/list/spells = mob_spell_list
-	if(mind)
-		spells = mind.spell_list
-	for(var/obj/effect/proc_holder/spell/S in spells)
-		if(S.can_be_cast_by(src))
-			tabs |= S.panel
+	//Spells we have
+	if (length(actions))
+		tabs += STAT_TAB_ACTIONS
 	//Holder stat tabs
 	if(client.holder)
 		tabs |= "MC"
@@ -462,6 +465,11 @@
 				client.battle_royale()
 		if ("votetoleave")
 			client.vote_to_leave()
+		if ("do_action")
+			var/datum/action/action = locate(params["ref"]) in actions
+			if (!action)
+				return
+			action.trigger()
 
 /*
  * Sets the current stat tab selected.
@@ -514,3 +522,4 @@
 #undef MAX_ICONS_PER_TILE
 
 #undef STAT_PANEL_TAG
+#undef STAT_TAB_ACTIONS

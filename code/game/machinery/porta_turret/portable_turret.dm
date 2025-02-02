@@ -641,7 +641,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/turret_toggle/Trigger()
+/datum/action/turret_toggle/on_activate(mob/user, atom/target)
 	var/obj/machinery/porta_turret/P = target
 	if(!istype(P))
 		return
@@ -652,7 +652,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
-/datum/action/turret_quit/Trigger()
+/datum/action/turret_quit/on_activate(mob/user, atom/target)
 	var/obj/machinery/porta_turret/P = target
 	if(!istype(P))
 		return

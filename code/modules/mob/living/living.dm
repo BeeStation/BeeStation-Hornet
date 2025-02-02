@@ -46,8 +46,6 @@
 				qdel(S)
 			else
 				S.be_replaced()
-	if(ranged_ability)
-		ranged_ability.remove_ranged_ability(src)
 	if(buckled)
 		buckled.unbuckle_mob(src,force=1)
 
@@ -657,10 +655,6 @@
 		clear_alert("not_enough_oxy")
 		reload_fullscreen()
 		. = 1
-		if(mind)
-			for(var/S in mind.spell_list)
-				var/obj/effect/proc_holder/spell/spell = S
-				spell.updateButtonIcon()
 
 /*
  * Heals up the [target] to up to [heal_to] of the main damage types.
@@ -1186,7 +1180,7 @@
 
 	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 
-/mob/living/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)
+/mob/living/can_block_magic(casted_magic_flags)
 	. = ..()
 	if(.)
 		return
@@ -1266,22 +1260,6 @@
 /// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
 /mob/living/proc/on_fall()
 	return
-
-/mob/living/proc/AddAbility(obj/effect/proc_holder/A)
-	abilities.Add(A)
-	A.on_gain(src)
-	if(A.has_action)
-		A.action.Grant(src)
-
-/mob/living/proc/RemoveAbility(obj/effect/proc_holder/A)
-	abilities.Remove(A)
-	A.on_lose(src)
-	if(A.action)
-		A.action.Remove(src)
-
-/mob/living/proc/add_abilities_to_panel()
-	for(var/obj/effect/proc_holder/A in abilities)
-		statpanel("[A.panel]",A.get_panel_text(),A)
 
 /mob/living/lingcheck()
 	if(mind)
@@ -1487,11 +1465,6 @@
 		client_eye.get_remote_view_fullscreens(src)
 	else
 		clear_fullscreen("remote_view", 0)
-
-/mob/living/update_mouse_pointer()
-	..()
-	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
-		client.mouse_pointer_icon = ranged_ability.ranged_mousepointer
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
