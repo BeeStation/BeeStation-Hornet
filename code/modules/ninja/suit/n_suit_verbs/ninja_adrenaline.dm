@@ -1,9 +1,8 @@
 //Wakes the user so they are able to do their thing. Also injects a decent dose of radium.
 //Movement impairing would indicate drugs and the like.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost()
-
-	if(!ninjacost(0,N_ADRENALINE))
-		var/mob/living/carbon/human/H = affecting
+	var/mob/living/carbon/human/H = affecting
+	if(a_boost)
 		H.SetUnconscious(0)
 		H.SetStun(0)
 		H.SetKnockdown(0)
@@ -12,11 +11,17 @@
 		H.adjustStaminaLoss(-75)
 		H.stuttering = 0
 		H.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
-		H.say(pick("A CORNERED FOX IS MORE DANGEROUS THAN A JACKAL!","HURT ME MOOORRREEE!","IMPRESSIVE!"), forced = "ninjaboost")
+		H.say(pick(
+			"A cornered fox is more dangerous than a jackal!",
+			"It'll take more than just that.",
+			"Not impressive enough...",
+			"This isn't over.",
+			"You shouldn't reveal your cards..."), forced = "ninjaboost")
 		a_boost--
 		to_chat(H, span_notice("There are <B>[a_boost]</B> adrenaline boosts remaining."))
-		s_coold = 6
 		addtimer(CALLBACK(src, PROC_REF(ninjaboost_after)), 70)
+	else
+		to_chat(H, span_danger("You do not have any more adrenaline boosters."))
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()
 	var/mob/living/carbon/human/H = affecting

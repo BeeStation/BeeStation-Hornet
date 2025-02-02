@@ -15,7 +15,6 @@
 	belt = /obj/item/energy_katana
 	implants = list(/obj/item/implant/explosive)
 
-
 /datum/outfit/ninja/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return FALSE
@@ -23,5 +22,4 @@
 		var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit
 		if(istype(H.belt, belt))
 			S.energyKatana = H.belt
-		S.randomize_param()
 

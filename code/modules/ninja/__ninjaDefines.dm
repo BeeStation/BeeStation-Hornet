@@ -6,10 +6,6 @@ Contents:
 
 */
 
-
-//ninjacost() specificCheck defines
-#define N_ADRENALINE		1
-
 //ninjaDrainAct() defines for non numerical returns
 //While not strictly needed, it's nicer than them just returning "twat"
 //Which was my original intention.

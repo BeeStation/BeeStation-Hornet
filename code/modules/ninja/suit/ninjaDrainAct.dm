@@ -153,43 +153,6 @@ They *could* go in their appropriate files, but this is supposed to be modular
 			stored_research.copy_research_to(S.stored_research)
 	to_chat(H, span_notice("Data analyzed. Process finished."))
 
-
-//WIRE//
-/obj/structure/cable/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
-
-	var/maxcapacity = 0 //Safety check
-	var/drain = 0 //Drain amount
-
-	. = 0
-
-	var/datum/powernet/PN = powernet
-	while(G.candrain && !maxcapacity && src)
-		drain = (round((rand(G.mindrain, G.maxdrain))/2))
-		var/drained = 0
-		if(PN && do_after(H, 1 SECONDS, target = src, hidden = TRUE))
-			drained = min(drain, delayed_surplus())
-			add_delayedload(drained)
-			if(drained < drain)//if no power on net, drain apcs
-				for(var/obj/machinery/power/terminal/T in PN.nodes)
-					if(istype(T.master, /obj/machinery/power/apc))
-						var/obj/machinery/power/apc/AP = T.master
-						if(AP.operating && AP.cell && AP.cell.charge > 0)
-							AP.cell.charge = max(0, AP.cell.charge - 5)
-							drained += 5
-		else
-			break
-
-		S.cell.give(drain)
-		if(S.cell.charge > S.cell.maxcharge)
-			. += (drained-(S.cell.charge - S.cell.maxcharge))
-			S.cell.charge = S.cell.maxcharge
-			maxcapacity = 1
-		else
-			. += drained
-		S.spark_system.start()
-
 //MECH//
 /obj/vehicle/sealed/mecha/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
 	if(!S || !H || !G)

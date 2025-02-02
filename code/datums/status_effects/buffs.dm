@@ -701,7 +701,6 @@
 	RegisterSignal(owner, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
 	RegisterSignal(owner, COMSIG_MOB_THROW, PROC_REF(terminate_effect))
-
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()

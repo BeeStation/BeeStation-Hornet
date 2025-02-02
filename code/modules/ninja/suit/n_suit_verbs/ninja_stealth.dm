@@ -17,11 +17,11 @@ Contents:
 	if (!..())
 		return FALSE
 	var/obj/item/clothing/suit/space/space_ninja/ninja = master
-	return ninja.cell.charge >= 500
+	return ninja.cell.charge >= 500 && ninja.s_initialized
 
 /datum/action/item_action/ninja_stealth/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/suit/space/space_ninja/ninja = master
-	if(!ninja.ninjacost(500))
+	if(ninja.consume_power(500))
 		ninja.stealth()
 		start_cooldown()
 	return ..()
@@ -45,7 +45,6 @@ Contents:
 	smoke.set_up(3, affecting.loc)
 	smoke.start()
 	playsound(affecting.loc, 'sound/effects/bamf.ogg', 50, 2)
-	s_coold = 2
 	animate(affecting, time = 1 SECONDS, alpha = 0)
 	affecting.apply_status_effect(/datum/status_effect/cloaked)
 

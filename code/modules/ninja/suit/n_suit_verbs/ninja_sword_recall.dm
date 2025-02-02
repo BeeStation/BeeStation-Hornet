@@ -18,7 +18,7 @@
 		cost = distance //Actual cost is cost x 10, so 5 turfs is 50 cost.
 		inview = 0
 
-	if(!ninjacost(cost))
+	if(consume_power(cost))
 		if(iscarbon(energyKatana.loc))
 			var/mob/living/carbon/C = energyKatana.loc
 			C.transferItemToLoc(energyKatana, get_turf(energyKatana), TRUE)

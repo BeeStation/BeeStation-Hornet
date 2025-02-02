@@ -11,6 +11,13 @@
 /datum/action/item_action/delimbing_strike/on_activate(mob/living/user, atom/target)
 	if (target == null)
 		return FALSE
+	var/mob/living/carbon/human/owner_mob = owner
+	// We only delimb if we are the ninja
+	var/delimbs = FALSE
+	if (istype(owner_mob))
+		var/obj/item/clothing/suit/space/space_ninja/ninja_suit = owner_mob.wear_suit
+		if (istype(ninja_suit))
+			delimbs = ninja_suit.s_initialized
 	// Get the direction to the clicked target
 	var/direction = get_cardinal_dir(user, target)
 	var/obj/effect/temp_visual/slash/slash = new /obj/effect/temp_visual/slash(get_step(user, SOUTHWEST))
@@ -18,24 +25,25 @@
 	playsound(user, 'sound/weapons/fwoosh.ogg', 100, TRUE)
 	// Stop them for the duration of the slash effect
 	user.Immobilize(4)
-	addtimer(CALLBACK(src, PROC_REF(deal_strike), get_step(user, direction | turn_cardinal(direction, -90)), user), 1)
-	addtimer(CALLBACK(src, PROC_REF(deal_strike), get_step(user, direction), user), 2)
-	addtimer(CALLBACK(src, PROC_REF(deal_strike), get_step(user, direction | turn_cardinal(direction, 90)), user), 3)
+	addtimer(CALLBACK(src, PROC_REF(deal_strike), get_step(user, direction | turn_cardinal(direction, -90)), user, delimbs), 1)
+	addtimer(CALLBACK(src, PROC_REF(deal_strike), get_step(user, direction), user, delimbs), 2)
+	addtimer(CALLBACK(src, PROC_REF(deal_strike), get_step(user, direction | turn_cardinal(direction, 90)), user, delimbs), 3)
 	user.client?.give_cooldown_cursor(2 SECONDS)
 	user.changeNext_move(2 SECONDS)
 	// Clear cloak when attacking
 	user.remove_status_effect(/datum/status_effect/cloaked)
 	return TRUE
 
-/datum/action/item_action/delimbing_strike/proc/deal_strike(turf/hit_turf, mob/living/user)
+/datum/action/item_action/delimbing_strike/proc/deal_strike(turf/hit_turf, mob/living/user, delimbs)
 	var/obj/item/attacking_item = master
 	for (var/mob/living/living_target in hit_turf)
 		// Somehow pushed onto it
 		if (living_target == user)
 			continue
-		var/obj/item/bodypart/part = living_target.get_active_hand()
-		if (part)
-			part.dismember(attacking_item.damtype)
+		if (delimbs)
+			var/obj/item/bodypart/part = living_target.get_active_hand()
+			if (part)
+				part.dismember(attacking_item.damtype)
 		living_target.attackby(attacking_item, user)
 
 /obj/effect/temp_visual/slash

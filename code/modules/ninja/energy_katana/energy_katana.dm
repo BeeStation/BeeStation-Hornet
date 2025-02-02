@@ -125,3 +125,12 @@
 /datum/action/innate/dash/ninja
 	max_charges = 0
 	obj_damage = 350
+
+/datum/action/innate/dash/ninja/is_available()
+	var/mob/living/carbon/human/owner_mob = owner
+	if (!istype(owner_mob))
+		return FALSE
+	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = owner_mob.wear_suit
+	if (!istype(ninja_suit))
+		return FALSE
+	return ninja_suit.s_initialized
