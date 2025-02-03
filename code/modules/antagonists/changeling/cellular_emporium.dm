@@ -81,11 +81,10 @@
 
 /datum/action/innate/cellular_emporium/New(our_target)
 	. = ..()
-	button.name = name
 	if(istype(our_target, /datum/cellular_emporium))
 		cellular_emporium = our_target
 	else
 		CRASH("cellular_emporium action created with non emporium")
 
-/datum/action/innate/cellular_emporium/Activate()
+/datum/action/innate/cellular_emporium/on_activate()
 	cellular_emporium.ui_interact(owner)

@@ -36,7 +36,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("mimite")
+	faction = list(FACTION_MIMIC)
 	move_to_delay = 3
 	gold_core_spawnable = NO_SPAWN
 	hardattacks = TRUE
@@ -252,8 +252,8 @@
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 3)
 			var/list/vents = list()
-			var/datum/pipeline/entry_vent_parent = entry_vent.parents[1]
-			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
+			var/datum/pipenet/entry_vent_parent = entry_vent.parents[1]
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in entry_vent_parent.other_atmos_machines)
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null

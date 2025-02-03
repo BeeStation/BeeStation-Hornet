@@ -85,7 +85,7 @@
 	rift_ability.Grant(owner.current)
 	wavespeak_ability = new
 	wavespeak_ability.Grant(owner.current)
-	owner.current.faction |= "carp"
+	owner.current.faction |= FACTION_CARP
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(destroy_rifts))
 	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, PROC_REF(destroy_rifts))
@@ -96,7 +96,7 @@
 /datum/antagonist/space_dragon/on_removal()
 	. = ..()
 	rift_ability.Remove(owner.current)
-	owner.current.faction -= "carp"
+	owner.current.faction -= FACTION_CARP
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)
 	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
 	rift_list = null
@@ -219,15 +219,15 @@
 	button_icon_state = "wavespeak"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/wavespeak/IsAvailable()
+/datum/action/innate/wavespeak/is_available()
 	if(!("carp" in owner.faction))
 		return FALSE
 	return ..()
 
-/datum/action/innate/wavespeak/Activate()
+/datum/action/innate/wavespeak/on_activate()
 	// This is filtered, treated, and logged in carp_talk
 	var/input = stripped_input(usr, "Enter wavespeak message.", "Carp Wavespeak", "")
-	if(!input || !IsAvailable() || !isliving(owner))
+	if(!input || !is_available() || !isliving(owner))
 		return
 	var/mob/living/L = owner
 	L.carp_talk(input)

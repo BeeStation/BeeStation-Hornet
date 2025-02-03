@@ -10,26 +10,26 @@
 	dna_cost = 1
 	req_human = 1
 	var/stacks = 0 //Increments every 5 seconds; damage increases over time
-	active = FALSE //Whether or not you are a hedgehog
+	toggleable = TRUE
 
 /datum/action/changeling/strained_muscles/sting_action(mob/living/carbon/user)
 	..()
-	active = !active
-	if(active)
-		to_chat(user, span_notice("Our muscles tense and strengthen."))
-	else
-		user.remove_movespeed_modifier(/datum/movespeed_modifier/strained_muscles)
-		to_chat(user, span_notice("Our muscles relax."))
-		if(stacks >= 10)
-			to_chat(user, span_danger("We collapse in exhaustion."))
-			user.Paralyze(60)
-			user.emote("gasp")
-
+	to_chat(user, span_notice("Our muscles tense and strengthen."))
 	INVOKE_ASYNC(src, PROC_REF(muscle_loop), user)
-
 	return TRUE
 
+/datum/action/changeling/strained_muscles/on_deactivate(mob/living/carbon/user, atom/target)
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/strained_muscles)
+	to_chat(user, "<span class='notice'>Our muscles relax.</span>")
+	if(stacks >= 10)
+		to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
+		user.Paralyze(60)
+		user.emote("gasp")
+
 /datum/action/changeling/strained_muscles/proc/muscle_loop(mob/living/carbon/user)
+	// Skip until the next sleep so that we have the active var set
+	sleep(1)
+
 	while(active)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/strained_muscles)
 		if(user.stat != CONSCIOUS || user.staminaloss >= 90)

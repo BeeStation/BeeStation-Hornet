@@ -186,7 +186,7 @@
 				if(CONFIG_GET(flag/biohazards_allowed))
 					transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-			reagents.reaction(L, INJECT, fraction)
+			reagents.expose(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 			balloon_alert(user, "You inject [amount_per_transfer_from_this]u.")
 			to_chat(user, span_notice("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))

@@ -21,7 +21,7 @@
 	initial_language_holder = /datum/language_holder/synthetic
 	bubble_icon = "machine"
 	speech_span = SPAN_ROBOT
-	faction = list("neutral", "silicon" , "turret")
+	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
 	hardattacks = TRUE
 	light_system = MOVABLE_LIGHT
 	light_range = 3
@@ -466,7 +466,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	var/list/adjacent = T.GetAtmosAdjacentTurfs(1)
+	var/list/adjacent = T.get_atmos_adjacent_turfs(1)
 	var/atom/final_result
 	var/static/list/turf_typecache = typecacheof(/turf)
 	if(shuffle)	//If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
@@ -1192,7 +1192,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		ejectpai(0)
 
 /mob/living/simple_animal/bot/sentience_act()
-	faction -= "silicon"
+	faction -= FACTION_SILICON
 
 /mob/living/simple_animal/bot/proc/set_path(list/newpath)
 	path = newpath ? newpath : list()

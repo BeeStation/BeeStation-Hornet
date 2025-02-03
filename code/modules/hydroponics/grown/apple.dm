@@ -23,7 +23,7 @@
 	icon_state = "apple"
 	bite_consumption_mod = 100 // Always eat apples in one bite
 	foodtypes = FRUIT
-	juice_results = /datum/reagent/consumable/applejuice
+	juice_typepath = /datum/reagent/consumable/applejuice
 	tastes = list("apple" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/hcider
 

@@ -116,7 +116,7 @@
 			user.visible_message(span_warning("[user] starts shaking!"),span_notice("Your [name] starts pulsing gently..."))
 			if(do_after(user, 4 SECONDS, target = user))
 				var/mob/living/spawned_mob = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
-				spawned_mob.faction |= "neutral"
+				spawned_mob.faction |= FACTION_NEUTRAL
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message(span_warning("[user] spits out [spawned_mob]!"), span_notice("You spit out [spawned_mob]!"))
 				return 30 SECONDS
@@ -126,9 +126,9 @@
 			if(do_after(user, 5 SECONDS, target = user))
 				var/mob/living/spawned_mob = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
 				if(user.a_intent != INTENT_HARM)
-					spawned_mob.faction |= "neutral"
+					spawned_mob.faction |= FACTION_NEUTRAL
 				else
-					spawned_mob.faction |= "slime"
+					spawned_mob.faction |= FACTION_SLIME
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message(span_warning("[user] spits out [spawned_mob]!"), span_warning("You spit out [spawned_mob]!"))
 				return 60 SECONDS
@@ -601,7 +601,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
-				T.atmos_spawn_air("o2=11;n2=41;TEMP=293.15")
+				T.atmos_spawn_air("[GAS_O2]=11;[GAS_N2]=41;[TURF_TEMPERATURE(T20C)]")
 				to_chat(user, span_warning("You activate [src], and fresh air bursts out of your skin!"))
 				return 60 SECONDS
 

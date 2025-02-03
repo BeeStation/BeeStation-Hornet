@@ -6,7 +6,7 @@
 	meat = /obj/item/food/pieslice/pumpkin
 	species_traits = list(NOEYESPRITES,MUTCOLORS,EYECOLOR)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
-	inherent_factions = list("plants", "vines")
+	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 	burnmod = 1.25
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
@@ -161,8 +161,7 @@
 		return
 	generate_candy()
 
-/datum/action/item_action/organ_action/pumpkin_head_candy/Trigger()
-	. = ..()
+/datum/action/item_action/organ_action/pumpkin_head_candy/on_activate(mob/user, atom/target)
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/H = owner

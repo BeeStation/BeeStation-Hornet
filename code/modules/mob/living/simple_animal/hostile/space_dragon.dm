@@ -55,7 +55,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	faction = list("carp")
+	faction = list(FACTION_CARP)
 	pressure_resistance = 200
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
@@ -74,7 +74,7 @@
 	/// Whether space dragon is swallowing a body currently
 	var/is_swallowing = FALSE
 	/// The cooldown ability to use wing gust
-	var/datum/action/cooldown/gust_attack/gust
+	var/datum/action/gust_attack/gust
 	/// The ability to make your sprite smaller
 	var/datum/action/small_sprite/space_dragon/small_sprite
 	/// The color of the space dragon.
@@ -459,7 +459,7 @@
 			var/link = FOLLOW_LINK(S, src)
 			to_chat(S, "[link] [rendered]")
 
-/datum/action/cooldown/gust_attack
+/datum/action/gust_attack
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
@@ -467,9 +467,10 @@
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 
-/datum/action/cooldown/gust_attack/Trigger()
-	if(!..() || !istype(owner, /mob/living/simple_animal/hostile/space_dragon))
-		return FALSE
+/datum/action/gust_attack/is_available()
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/space_dragon)
+
+/datum/action/gust_attack/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner
 	if(S.using_special)
 		return FALSE
@@ -477,7 +478,7 @@
 	S.icon_state = "spacedragon_gust"
 	S.update_dragon_overlay()
 	S.useGust(TRUE)
-	StartCooldown()
+	start_cooldown()
 	return TRUE
 
 #undef DARKNESS_THRESHOLD
