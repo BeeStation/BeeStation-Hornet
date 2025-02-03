@@ -88,4 +88,4 @@
 	invocation = "SQUEAAAAK!"
 	cooldown_time = 5 SECONDS
 	convert_damage = FALSE
-	possible_shapes = /mob/living/simple_animal/hostile/retaliate/bat/vampire
+	possible_shapes = list(/mob/living/simple_animal/hostile/retaliate/bat/vampire)
