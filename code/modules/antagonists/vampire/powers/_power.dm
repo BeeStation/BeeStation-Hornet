@@ -59,7 +59,7 @@
 		vampiredatum_power = vampiredatum
 
 //This is when we CLICK on the ability Icon, not USING.
-/datum/action/cooldown/vampire/trigger()
+/datum/action/cooldown/vampire/on_activate(mob/user, atom/target)
 	if(currently_active)
 		DeactivatePower()
 		return FALSE

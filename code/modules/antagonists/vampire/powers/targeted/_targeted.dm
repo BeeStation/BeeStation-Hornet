@@ -16,12 +16,7 @@
 	desc += "<br>\[<i>Targeted Power</i>\]"
 	return ..()
 
-/datum/action/cooldown/vampire/targeted/Remove(mob/living/remove_from)
-	. = ..()
-	if(remove_from.click_intercept == src)
-		unset_click_ability(remove_from)
-
-/datum/action/cooldown/vampire/targeted/trigger()
+/datum/action/cooldown/vampire/targeted/on_activate(mob/user, atom/target)
 	if(currently_active)
 		DeactivatePower()
 		return FALSE
