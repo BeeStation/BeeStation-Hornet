@@ -7,11 +7,11 @@
 	name = "Immortal Haste"
 	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away, stunned, or left empty-handed."
 	button_icon_state = "power_speed"
-	power_explanation = list(
-		"Click anywhere to immediately dash towards that location.",
-		"The Power will not work if you are lying down, in no gravity, or are aggressively grabbed.",
-		"Anyone in your way during your Haste will be knocked down.",
-		"Higher levels will increase the knockdown dealt to enemies.")
+	power_explanation = "\
+		Click anywhere to immediately dash towards that location.\n\
+		The Power will not work if you are lying down, in no gravity, or are aggressively grabbed.\n\
+		Anyone in your way during your Haste will be knocked down.\n\
+		Higher levels will increase the knockdown dealt to enemies."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY

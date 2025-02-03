@@ -16,9 +16,9 @@
 	level_current = 1
 	desc = "Hide yourself within a Cloak of Darkness, click on an area to teleport up to 2 tiles away."
 	button_icon_state = "power_auspex"
-	power_explanation = list(
-		"When Activated, you will be hidden in a Cloak of Darkness.",
-		"Click any area up to 2 tiles away to teleport there and reveal yourself.")
+	power_explanation = "\
+		When Activated, you will be hidden in a Cloak of Darkness.\n\
+		Click any area up to 2 tiles away to teleport there and reveal yourself."
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 5
 	constant_bloodcost = 2
@@ -31,9 +31,9 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/auspex/three
 	level_current = 2
 	desc = "Hide yourself within a Cloak of Darkness, click on an area to teleport up to 3 tiles away."
-	power_explanation = list(
-		"When Activated, you will be hidden in a Cloak of Darkness.",
-		"Click any area up to 3 tiles away to teleport there and reveal yourself.")
+	power_explanation = "\
+		When Activated, you will be hidden in a Cloak of Darkness.\n\
+		Click any area up to 3 tiles away to teleport there and reveal yourself."
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 	target_range = 3
@@ -43,9 +43,9 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/auspex/advanced
 	level_current = 3
 	desc = "Hide yourself within a Cloak of Darkness, click on an area to teleport."
-	power_explanation = list(
-		"When Activated, you will be hidden in a Cloak of Darkness.",
-		"Click any area to teleport there and reveal yourself.")
+	power_explanation = "\
+		When Activated, you will be hidden in a Cloak of Darkness.\n\
+		Click any area to teleport there and reveal yourself."
 	bloodcost = 15
 	cooldown_time = 8 SECONDS
 	target_range = null
@@ -55,10 +55,10 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/auspex/advanced/two
 	level_current = 4
 	desc = "Hide yourself within a Cloak of Darkness, click on an area to teleport, leaving nearby people bleeding."
-	power_explanation = list(
-		"When Activated, you will be hidden in a Cloak of Darkness.",
-		"Click any area to teleport there and reveal yourself.",
-		"Additionally, people at your current location will be left bleeding.")
+	power_explanation = "\
+		When Activated, you will be hidden in a Cloak of Darkness.\n\
+		Click any area to teleport there and reveal yourself.\n\
+		Additionally, people at your current location will be left bleeding."
 	background_icon_state_on = "tremere_power_gold_on"
 	background_icon_state_off = "tremere_power_gold_off"
 	bloodcost = 20
@@ -70,10 +70,10 @@
 	upgraded_power = null
 	level_current = 5
 	desc = "Hide yourself within a Cloak of Darkness, click on an area to teleport, leaving nearby people bleeding and asleep."
-	power_explanation = list(
-		"When Activated, you will be hidden in a Cloak of Darkness.",
-		"Click any area to teleport there and reveal yourself.",
-		"Additionally, people at your targeted location will fall over in pain.")
+	power_explanation = "\
+		When Activated, you will be hidden in a Cloak of Darkness.\n\
+		Click any area to teleport there and reveal yourself.\n\
+		Additionally, people at your targeted location will fall over in pain."
 	bloodcost = 25
 	cooldown_time = 8 SECONDS
 

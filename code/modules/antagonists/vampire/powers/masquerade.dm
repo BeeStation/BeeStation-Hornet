@@ -14,12 +14,12 @@
 	name = "Masquerade"
 	desc = "Feign the vital signs of a mortal, and escape both casual and medical notice as the monster you truly are."
 	button_icon_state = "power_human"
-	power_explanation = list(
-		"Masquerade will forge your identity to be practically identical to that of a human;",
-		"You lose nearly all Vampire benefits, including your passive healing.",
-		"You gain a Genetic sequence, and appear to have 100% blood when scanned by a Health Analyzer.",
-		"You will not appear as Pale when examined. Anything further than Pale, however, will not be hidden.",
-		"After deactivating Masquerade, you will re-gain your Vampiric abilities, as well as lose any Diseases or mutations you might have.")
+	power_explanation = "\
+		Masquerade will forge your identity to be practically identical to that of a human.\n\
+		You lose nearly all Vampire benefits, including your passive healing.\n\
+		You gain a Genetic sequence, and appear to have 100% blood when scanned by a Health Analyzer.\n\
+		You won't appear as Pale when examined. Anything further than pale, however, will not be hidden.\n\
+		After deactivating Masquerade, you will re-gain your Vampiric abilities, as well as lose any Diseases or mutations you might have."
 	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN|BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_FRENZY
 	purchase_flags = VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER

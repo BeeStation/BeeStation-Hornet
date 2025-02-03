@@ -27,7 +27,7 @@ type ClanInfo = {
 
 type PowerInfo = {
   power_name: string;
-  power_explanation: string[];
+  power_explanation: string;
   power_icon: string;
 };
 
@@ -234,13 +234,9 @@ const PowerSection = (props: any) => {
           />
         </Stack.Item>
         <Stack.Divider />
-        <Stack vertical>
-          {selectedPower.power_explanation.map((text) => (
-            <Stack.Item key={text} fontSize="16px" grow>
-              {text}
-            </Stack.Item>
-          ))}
-        </Stack>
+        <Stack.Item scrollable grow={1} fontSsize="16px" style={{ 'white-space': 'pre-wrap' }}>
+          {selectedPower && selectedPower.power_explanation}
+        </Stack.Item>
       </Stack>
     </Section>
   );

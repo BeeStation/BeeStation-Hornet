@@ -15,7 +15,7 @@
 	var/background_icon_state_off = "vamp_power_off"
 
 	/// A sort of tutorial text found in the Antagonist tab.
-	var/list/power_explanation = list()
+	var/power_explanation = "Use this power to do... something"
 	///The owner's stored Vampire datum
 	var/datum/antagonist/vampire/vampiredatum_power
 

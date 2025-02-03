@@ -2,13 +2,13 @@
 	name = "Predatory Lunge"
 	desc = "Spring at your target to grapple them without warning, or tear the dead's heart out. Attacks from concealment or the rear may even knock them down if strong enough."
 	button_icon_state = "power_lunge"
-	power_explanation = list(
-		"Click any player to start spinning wildly and, after a short delay, lunge at them.",
-		"When lunging at someone, you will aggressively grab them, unless they are a curator.",
-		"You cannot use Lunge if you are already grabbing someone, or are being grabbed.",
-		"If you grab from behind or darkness, you will knock the target down, scaling with your rank.",
-		"If used on a dead body, you will tear their organs out.",
-		"At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away.")
+	power_explanation = "\
+		Click any player to start spinning wildly and, after a short delay, lunge at them.\n\
+		When lunging at someone, you will aggressively grab them, unless they are a curator.\n\
+		You cannot use Lunge if you are already grabbing someone, or are being grabbed.\n\
+		If you grab from behind or darkness, you will knock the target down, scaling with your rank.\n\
+		If used on a dead body, you will tear their organs out.\n\
+		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY
