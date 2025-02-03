@@ -73,7 +73,7 @@
 
 	remove_collar(drop_location(), update_visuals = FALSE)
 
-/mob/living/basic/pet/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE, admin_revive = FALSE)
+/mob/living/basic/pet/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE, admin_revive = FALSE, full_heal = FALSE)
 	. = ..()
 	if(!.)
 		return
