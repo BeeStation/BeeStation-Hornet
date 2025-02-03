@@ -11,7 +11,7 @@
 
 ///Called when a Vampire loses a power: (power)
 /datum/antagonist/vampire/proc/RemovePower(datum/action/cooldown/vampire/power)
-	if(power.active)
+	if(power.currently_active)
 		power.DeactivatePower()
 	powers -= power
 	power.Remove(owner.current)
@@ -79,7 +79,7 @@
 /datum/antagonist/vampire/proc/DisableAllPowers(forced = FALSE)
 	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		if(forced || ((power.check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(owner.current, TRAIT_NODEATH)))
-			if(power.active)
+			if(power.currently_active)
 				power.DeactivatePower()
 
 /datum/antagonist/vampire/proc/SpendRank(mob/living/carbon/human/target, cost_rank = TRUE, blood_cost)
