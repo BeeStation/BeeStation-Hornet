@@ -75,6 +75,10 @@
 	if (mapload && !opened)
 		. = INITIALIZE_HINT_LATELOAD
 	populate_contents_immediate()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_MAGICALLY_UNLOCKED = PROC_REF(on_magic_unlock),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	update_icon()
 
 /obj/structure/closet/LateInitialize()
@@ -653,3 +657,9 @@
 		var/custom_data = item.on_object_saved(depth++)
 		dat += "[custom_data ? ",\n[custom_data]" : ""]"
 	return dat
+
+/obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/spell/aoe/knock/spell, mob/living/caster)
+	SIGNAL_HANDLER
+
+	locked = FALSE
+	INVOKE_ASYNC(src, PROC_REF(open))

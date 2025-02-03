@@ -5,7 +5,7 @@
 	name = "Vitality Matrix"
 	desc = "Summons a vitality matrix, which drains the life force of non servants, and can be used to heal or revive servants. Requires 2 invokers."
 	tip = "Heal and revive dead servants, while draining the health from non servants."
-	button_icon_state = "Sigil of Vitality"
+	button_icon_state = "Vitality Matrix"
 	power_cost = 300
 	invokation_time = 50
 	invokation_text = list("My life in your hands.")
@@ -32,7 +32,7 @@
 		return TRUE
 	if(M.stat == DEAD)
 		return FALSE
-	var/amc = M.anti_magic_check(magic=FALSE,holy=TRUE)
+	var/amc = M.can_block_magic(MAGIC_RESISTANCE_HOLY)
 	if(amc)
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_NODEATH))
@@ -73,7 +73,7 @@
 		else
 			visible_message(span_neovgre("\The [src] fails to heal [M]!"), span_neovgre("There is insufficient vitality to heal your wounds!"))
 	else
-		if(M.anti_magic_check(magic=FALSE,holy=TRUE))
+		if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			return
 		if(is_convertable_to_clockcult(M) && !GLOB.gateway_opening)
 			visible_message(span_neovgre("\The [src] refuses to siphon [M]'s vitality, their mind has great potential!"))
