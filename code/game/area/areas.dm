@@ -27,12 +27,25 @@
 	var/list/turf/turfs_to_uncontain = list()
 
 	///Do we have an active fire alarm?
-	var/fire = null
-
+	var/fire = FALSE
+	///A var for whether the area allows for detecting fires/etc. Disabled or enabled at a fire alarm, checked by fire locks.
+	var/fire_detect = TRUE
+	///A list of all fire locks in this area. Used by fire alarm panels when resetting fire locks or activating all in an area
+	var/list/firedoors
+	///A list of firelocks currently active. Used by fire alarms when setting their icons.
+	var/list/active_firelocks
+	///A list of all fire alarms in this area. Used by firelocks and burglar alarms to change icon state.
+	var/list/firealarms = list()
 	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
 	var/list/active_alarms = list()
-	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing
+	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing. Fire alarms and fire locks will set and clear alarms.
 	var/datum/alarm_handler/alarm_manager
+	/// The current alarm fault status
+	var/fault_status = AREA_FAULT_NONE
+	/// The source machinery for the area's fault status
+	var/fault_location
+	///List of all lights in our area
+	var/list/lights = list()
 
 	var/lightswitch = TRUE
 	var/vacuum = null
@@ -90,12 +103,15 @@
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	var/list/firedoors
 	var/list/cameras
-	var/list/firealarms
-	var/firedoors_last_closed_on = 0
 	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
 	var/list/canSmoothWithAreas
+
+	/// List of all air vents in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_pump/air_vents = list()
+
+	/// List of all air scrubbers in the area
+	var/list/obj/machinery/atmospherics/components/unary/vent_scrubber/air_scrubbers = list()
 
 	var/list/power_usage
 
@@ -342,82 +358,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	GLOB.sortedAreas -= src
-	GLOB.areas -= src
-	if(fire)
-		STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(alarm_manager)
-	return ..()
-
-/**
-  * Try to close all the firedoors in the area
-  */
-/area/proc/ModifyFiredoors(opening)
-	if(firedoors)
-		firedoors_last_closed_on = world.time
-		for(var/FD in firedoors)
-			var/obj/machinery/door/firedoor/D = FD
-			var/cont = !D.welded
-			if(cont && opening)	//don't open if adjacent area is on fire
-				for(var/I in D.affecting_areas)
-					var/area/A = I
-					if(A.fire)
-						cont = FALSE
-						break
-			if(cont && D.is_operational)
-				if(D.operating)
-					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
-				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/, close)))
-
-/**
-  * Generate an firealarm alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  *
-  * Also starts the area processing on SSobj
-  */
-/area/proc/firealert(obj/source)
-	if(always_unpowered == 1) //no fire alarms in space/asteroid
-		return
-
-	if(!fire)
-		set_fire_alarm_effect()
-		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_appearance()
-	alarm_manager.send_alarm(ALARM_FIRE, source)
-	START_PROCESSING(SSobj, src)
-
-
-
-/**
-  * Reset the firealarm alert for this area
-  *
-  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
-  * in the world
-  *
-  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
-  */
-/area/proc/firereset(obj/source)
-	if(fire)
-		unset_fire_alarm_effects()
-		ModifyFiredoors(TRUE)
-		STOP_PROCESSING(SSobj, src)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_appearance()
-	alarm_manager.clear_alarm(ALARM_FIRE, source)
+	//this is not initialized until get_sorted_areas() is called so we have to do a null check
+	if(!isnull(GLOB.sortedAreas))
+		GLOB.sortedAreas -= src
+	//just for sanity sake cause why not
+	if(!isnull(GLOB.areas))
+		GLOB.areas -= src
+	//machinery cleanup
 	STOP_PROCESSING(SSobj, src)
-
-
-/**
-  * If 100 ticks has elapsed, toggle all the firedoors closed again
-  */
-/area/process()
-	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
-		ModifyFiredoors(FALSE)
+	QDEL_NULL(alarm_manager)
+	firedoors = null
+	//atmos cleanup
+	firealarms = null
+	air_vents = null
+	air_scrubbers = null
+	//turf cleanup
+	contained_turfs = null
+	turfs_to_uncontain = null
+	//parent cleanup
+	return ..()
 
 /**
   * Close and lock a door passed into this proc
@@ -441,37 +400,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
 	//Trigger alarm effect
-	set_fire_alarm_effect()
+	set_fire_effect(TRUE)
 	for(var/obj/machinery/door/door in src)
 		close_and_lock_door(door)
 
 /**
-  * Trigger the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
-/area/proc/set_fire_alarm_effect()
-	fire = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
-	for(var/obj/machinery/light/L in src)
-		L.update(TRUE, TRUE, TRUE)
-
-/**
-  * unset the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
-/area/proc/unset_fire_alarm_effects()
-	fire = FALSE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
-	for(var/obj/machinery/light/L in src)
-		L.update(TRUE, TRUE, TRUE)
+ * Set the fire alarm visual affects in an area
+ *
+ * Allows interested parties (lights and fire alarms) to react
+ */
+/area/proc/set_fire_effect(new_fire, fault_type, fault_source)
+	if(new_fire == fire)
+		return
+	fire = new_fire
+	fault_status = fault_type
+	if(fire)
+		fault_location = fault_source
+	else
+		fault_location = null
+	SEND_SIGNAL(src, COMSIG_AREA_FIRE_CHANGED, fire)
 
 /area/proc/set_pressure_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE

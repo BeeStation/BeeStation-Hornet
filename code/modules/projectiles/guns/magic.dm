@@ -9,7 +9,7 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	flags_1 =  CONDUCT_1
 	w_class = WEIGHT_CLASS_HUGE
-	var/checks_antimagic = TRUE
+	var/antimagic_flags = MAGIC_RESISTANCE
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 8
@@ -43,7 +43,7 @@
 			return
 		else
 			no_den_usage = 0
-	if(checks_antimagic && user.anti_magic_check(TRUE, FALSE, major = FALSE, self = TRUE))
+	if(!user.can_cast_magic(antimagic_flags))
 		add_fingerprint(user)
 		to_chat(user, span_warning("Something is interfering with [src]."))
 		return

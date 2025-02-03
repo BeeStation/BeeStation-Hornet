@@ -104,7 +104,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, span_notice("You empty \the [src]'s release valve onto the floor."))
-	reagents.reaction(user.loc)
+	reagents.expose(user.loc)
 	src.reagents.clear_reagents()
 
 /obj/machinery/clonepod/attack_silicon(mob/user)
@@ -170,7 +170,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	// We want to simulate the clone not being in contact with
 	// the atmosphere, so we'll put them in a constant pressure
 	// nitrogen. They don't need to breathe while cloning anyway.
-	var/static/datum/gas_mixture/immutable/cloner/GM //global so that there's only one instance made for all cloning pods
+	var/static/datum/gas_mixture/immutable/planetary/cloner/GM //global so that there's only one instance made for all cloning pods
 	if(!GM)
 		GM = new
 	return GM

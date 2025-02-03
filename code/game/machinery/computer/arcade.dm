@@ -167,6 +167,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/gameover = FALSE
 	var/blocked = FALSE //Player cannot attack/heal while set
 	var/turtle = 0
+	///unique to the emag mode, acts as a time limit where the player dies when it reaches 0.
+	var/bomb_cooldown = 19
 
 /obj/machinery/computer/arcade/battle/Reset()
 	var/name_action
@@ -277,7 +279,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 
 			if(obj_flags & EMAGGED)
-				new /obj/effect/spawner/newbomb/timer(loc)
+				bomb_cooldown = initial(bomb_cooldown)
+				new /obj/effect/spawner/newbomb/plasma(loc, /obj/item/assembly/timer)
 				new /obj/item/clothing/head/collectable/petehat(loc)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
@@ -1183,7 +1186,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/orion
 	name = "spaceport security"
 	desc = "Premier corporate security forces for all spaceports found along the Orion Trail."
-	faction = list("orion")
+	faction = list(FACTION_ORION)
 	loot = list()
 	del_on_death = TRUE
 

@@ -150,7 +150,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 
 	user.visible_message(span_green("[user] applies [src] to [M]."), span_green("You apply [src] to [M]."))
 	if(reagent)
-		reagents.reaction(M, PATCH, affecting = affecting)
+		reagents.expose(M, PATCH, affecting = affecting)
 		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
 		C.update_damage_overlays()
 	use(1)

@@ -114,8 +114,7 @@
 #define VV_HK_SET_MOLES "set_moles"
 #define VV_HK_EMPTY "empty"
 #define VV_HK_SET_TEMPERATURE "set_temp"
-#define VV_HK_PARSE_GASSTRING "parse_gasstring"
-#define VV_HK_SET_VOLUME "set_volume"
+#define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj
 #define VV_HK_OSAY "osay"

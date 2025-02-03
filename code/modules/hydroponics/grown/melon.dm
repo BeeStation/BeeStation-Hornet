@@ -29,7 +29,7 @@
 	bite_consumption_mod = 2
 	w_class = WEIGHT_CLASS_NORMAL
 	foodtypes = FRUIT
-	juice_results = /datum/reagent/consumable/watermelonjuice
+	juice_typepath = /datum/reagent/consumable/watermelonjuice
 	wine_power = 40
 
 /obj/item/food/grown/watermelon/make_processable()
@@ -97,7 +97,12 @@
 	var/uses = 1
 	if(seed)
 		uses = round(seed.potency / 20)
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, uses, TRUE, CALLBACK(src, PROC_REF(block_magic)), CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
+	AddComponent(/datum/component/anti_magic, \
+	_source = src, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY),\
+	charges = uses, \
+	drain_antimagic = CALLBACK(src, PROC_REF(block_magic)),\
+	expiration = CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
 
 /obj/item/food/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)
