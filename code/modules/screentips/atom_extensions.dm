@@ -1,3 +1,17 @@
+#define COMPILE_SCREENTIP_TEXT(context) ("\
+[context.access_context]\
+[context.generic_context]\
+[SCREEN_TIP_LINE(context.left_mouse_context, context.right_mouse_context)]\
+[SCREEN_TIP_LINE(context.ctrl_left_mouse_context, context.ctrl_right_mouse_context)]\
+[SCREEN_TIP_LINE(context.shift_left_mouse_context, context.shift_right_mouse_context)]\
+[SCREEN_TIP_LINE(context.alt_left_mouse_context, context.alt_right_mouse_context)]\
+[SCREEN_TIP_LINE(context.ctrl_shift_left_mouse_context, context.ctrl_shift_right_mouse_context)]\
+[context.left_tool_icon_context]\
+[context.right_tool_icon_context]\
+")
+
+#define SCREEN_TIP_LINE(left, right) (left && right ? "[left] | [right]" : left || right ? "\n[left][right]" : null)
+
 /**
  * This proc sucks, simply defining it means that a lot of information is going
  * to be communicated between the client and the server.
@@ -88,7 +102,11 @@
 		held_item.add_context_interaction(context, client.mob, src)
 	if (!length(context.shift_right_mouse_context))
 		context.add_shift_right_click_action("Examine")
-	client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]</span>"
+	// Screentips only show if you are a silicon, carbon, or you explicitly request the mob type to show
+	if (issilicon(client.mob) || iscarbon(client.mob) || context.relevant_type)
+		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][COMPILE_SCREENTIP_TEXT(context)]</span>"
+	else
+		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 	// If we asked to be cached, generate the cache
 	if (context.cache_enabled)
 		// Try to find the parent cache item
@@ -103,7 +121,7 @@
 			cache = new_cache
 		// Set the cache message
 		cache.generated = TRUE
-		cache.message = "[context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]"
+		cache.message = COMPILE_SCREENTIP_TEXT(context)
 		SSscreentips.caches_generated ++
 	// Cleanup references for the sake of managing hard-deletes
 	context.user = null
