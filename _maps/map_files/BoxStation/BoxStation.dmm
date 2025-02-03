@@ -20675,7 +20675,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -28114,7 +28114,7 @@
 /area/crew_quarters/kitchen/coldroom)
 "hTX" = (
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
@@ -59811,7 +59811,7 @@
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "uFB" = (
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/Ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/bed/dogbed/ian,
 /obj/structure/cable/yellow{

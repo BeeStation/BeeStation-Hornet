@@ -6018,7 +6018,7 @@
 	pixel_x = 40;
 	pixel_y = -1
 	},
-/mob/living/simple_animal/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/Ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4
@@ -56730,7 +56730,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/walter{
 	density = 0
 	},
 /obj/machinery/status_display/evac{
@@ -69233,7 +69233,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},

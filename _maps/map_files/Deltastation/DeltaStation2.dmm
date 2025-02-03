@@ -50996,7 +50996,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "ksy" = (
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -67547,7 +67547,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "pNW" = (
@@ -72776,7 +72776,7 @@
 "rte" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/airalarm/directional/east,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/Ian,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "rtH" = (
