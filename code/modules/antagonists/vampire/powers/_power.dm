@@ -32,7 +32,7 @@
 	var/level_current = 0
 	///The cost to ACTIVATE this Power
 	var/bloodcost = 0
-	///The cost to MAINTAIN this Power - Only used for Constant Cost Powers
+	///The cost to MAINTAIN this Power Only used for constant powers
 	var/constant_bloodcost = 0
 
 // Modify description to add cost.
