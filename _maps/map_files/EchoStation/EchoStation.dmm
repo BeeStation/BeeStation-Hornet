@@ -3333,6 +3333,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/aisat_interior)
+"bqX" = (
+/obj/structure/flora/rock/jungle,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/asteroid/paradise)
 "bra" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -8499,6 +8503,11 @@
 	},
 /turf/open/openspace,
 /area/hallway/primary/fore)
+"dTZ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/shard,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "dUi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -17887,6 +17896,7 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/pump,
+/obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron/dark/textured_corner,
 /area/engine/atmos)
 "iDR" = (
@@ -22027,7 +22037,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen/fourcolor,
-/obj/item/circuitboard/machine/circulator,
+/obj/item/circuitboard/machine/generator,
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 4
 	},
@@ -22369,6 +22379,11 @@
 "kLU" = (
 /turf/open/floor/iron,
 /area/engine/atmos)
+"kMq" = (
+/obj/structure/flora/junglebush/c,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "kMG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -26977,6 +26992,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
+"nbD" = (
+/obj/structure/flora/junglebush,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "nbG" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -30544,6 +30563,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
 "oQQ" = (
@@ -31464,6 +31484,10 @@
 /obj/structure/sign/warning/securearea{
 	pixel_x = 31;
 	pixel_y = 1
+	},
+/obj/machinery/door/airlock/atmos/glass{
+	req_access_txt = "11";
+	name = "Thermoelectric Generator"
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -32499,6 +32523,10 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/asteroid/paradise/surface)
+"pPS" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/asteroid/paradise)
 "pQk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
@@ -33472,6 +33500,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/loot_jobscale/medical/first_aid_kit,
+/obj/item/pickaxe,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
@@ -34017,6 +34046,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/science/central)
+"qIq" = (
+/obj/structure/flora/junglebush,
+/obj/item/shard,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "qIB" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /obj/structure/table_frame,
@@ -35636,6 +35670,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/teleporter)
+"rsG" = (
+/obj/structure/flora/rock/jungle,
+/turf/closed/indestructible/rock/bedrock,
+/area/asteroid/paradise)
 "rsH" = (
 /obj/effect/turf_decal/numbers{
 	dir = 1
@@ -37201,9 +37239,8 @@
 "sfN" = (
 /obj/effect/turf_decal/tile/neutral/half,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = -23
+/obj/structure/sign/warning/fire{
+	pixel_x = -32
 	},
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
@@ -41404,6 +41441,11 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
+"ujA" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "ujJ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/carbon_output,
 /turf/open/floor/engine/co2,
@@ -41941,6 +41983,10 @@
 	},
 /turf/open/floor/carpet/green,
 /area/library/abandoned)
+"uyx" = (
+/obj/structure/flora/rock/jungle,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "uyF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -44394,6 +44440,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/science/mixing)
+"vFU" = (
+/obj/structure/sign/warning/fire{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "vGc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -46929,6 +46981,11 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/asteroid/paradise/surface)
+"wWE" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/flora/rock/jungle,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "wWF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -47478,6 +47535,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xkN" = (
@@ -52558,7 +52616,7 @@ mdK
 pmx
 sLz
 jsp
-jsp
+rsG
 jsp
 jsp
 jsp
@@ -58491,10 +58549,10 @@ toh
 rdW
 mIA
 tHO
-blO
 wGy
+qIq
 blO
-wGy
+uyx
 wGy
 vqI
 tMc
@@ -58748,11 +58806,11 @@ nlB
 bLe
 tHm
 tHO
-wGy
+mVg
 uzk
 blO
-wGy
-wGy
+blO
+qnY
 wGy
 tMc
 vqI
@@ -59005,13 +59063,13 @@ riV
 ltv
 rSG
 pme
-wGy
-blO
+ujA
+lpZ
 wXm
+lpZ
+lpZ
 blO
-wGy
-blO
-fPc
+kMq
 wGy
 jsp
 jsp
@@ -59263,13 +59321,13 @@ qMR
 tHO
 uli
 blO
-blO
+wWE
 oQO
 pnv
 blO
-blO
-blO
-wGy
+lpZ
+lpZ
+nbD
 jsp
 jsp
 jsp
@@ -59519,14 +59577,14 @@ dbG
 asU
 kCp
 tHO
-blO
+vFU
 blO
 sLz
-sLz
+pPS
 sLz
 cNa
-pev
-blO
+sLz
+dTZ
 vqI
 jsp
 jsp
@@ -59777,12 +59835,12 @@ qXs
 gLH
 tHO
 ccl
-ccl
+sLz
 sLz
 bXA
 bXA
 sLz
-pev
+bqX
 blO
 vqI
 jsp
@@ -60039,7 +60097,7 @@ bXA
 bXA
 bXA
 bXA
-xqU
+sLz
 pev
 vqI
 jsp
@@ -60550,9 +60608,9 @@ uli
 fPc
 sLz
 sLz
-xqU
 sLz
 sLz
+pPS
 sLz
 blO
 vqI
