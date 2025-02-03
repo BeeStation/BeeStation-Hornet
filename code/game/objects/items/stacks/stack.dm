@@ -522,6 +522,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	else
 		. = ..()
 
+//If we attack ourselves with the same hand
+/obj/item/stack/attack_self_secondary(mob/user, modifiers)
+	. = ..()
+	src.attack_hand_secondary(user, modifiers)
+
+//If we attack ourselves with a different hand
 /obj/item/stack/attack_hand_secondary(mob/user, modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)

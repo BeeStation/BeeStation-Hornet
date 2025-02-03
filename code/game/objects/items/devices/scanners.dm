@@ -164,6 +164,7 @@ GENE SCANNER
 	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
 	return BRUTELOSS
 
+/*
 /obj/item/healthanalyzer/attack_self(mob/user)
 	scanmode = (scanmode + 1) % SCANMODE_COUNT
 	switch(scanmode)
@@ -171,6 +172,7 @@ GENE SCANNER
 			to_chat(user, "<span class='notice'>You switch the health analyzer to check physical health.</span>")
 		//if(SCANMODE_WOUND)
 		//	to_chat(user, "<span class='notice'>You switch the health analyzer to report extra info on wounds.</span>")
+*/
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 
