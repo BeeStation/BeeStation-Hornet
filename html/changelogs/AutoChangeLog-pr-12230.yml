@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: RPDs no longer hit pipes on the ground when placing down pipes.
