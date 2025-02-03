@@ -56,9 +56,6 @@
 		// Make sure that the item we are holding is also cachable
 		// The assoc value might be null if we haven't generated the cache for this yet
 		if (cache?.generated && (!held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
-#ifdef DEBUG
-			screentip_message = "<span class='big' style='line-height: 0.5;color: orange'>[MAPTEXT(CENTER(capitalize(format_text(name))))]</span>"
-#endif
 			if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
 				client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.attack_hand][cache.message]</span>"
 			else
