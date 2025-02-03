@@ -32,8 +32,6 @@
 		to_chat(owner, span_announce(prefire_message))
 
 	ActivatePower()
-	if(!QDELETED(target))
-		return InterceptClickOn(owner, null, target)
 
 	return set_click_ability(owner)
 
