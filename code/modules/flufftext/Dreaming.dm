@@ -1,5 +1,3 @@
-#define DREAMING_SOURCE "dreaming_source"
-
 /**
  * Begins the dreaming process on a sleeping carbon.
  *
@@ -225,5 +223,3 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 	else
 		. += "The images fade in the ripples"
 	. += "You feel exhausted"
-
-#undef DREAMING_SOURCE
