@@ -64,9 +64,9 @@ const RecipeList = (props) => {
     ? sortBy((recipe) => recipe.title.toLowerCase())(recipes.filter((recipe) => recipe.title !== undefined))
     : recipes;
 
-  return display_recipes.map((recipe) => {
+  return display_recipes.map((recipe, index) => {
     if (recipe.spacer) {
-      return <hr key="spacer" />;
+      return <hr key={`stack-spacer-${display_recipes.length}-${index}`} />;
     } else if (recipe.sub_recipes) {
       return (
         <Collapsible color="label" title={recipe.title} key={recipe.title} open={expand}>
