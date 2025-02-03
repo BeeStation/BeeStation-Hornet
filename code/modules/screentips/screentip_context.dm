@@ -1,7 +1,6 @@
 /datum/screentip_context
 	var/mob/user
 	var/obj/item/held_item
-	var/relevant = FALSE
 	var/access_context
 	var/generic_context
 	// Left context
@@ -36,7 +35,6 @@
 /// Uses this proc to inform the cache and mark that the screentip for this mob is successfully handled.
 /datum/screentip_context/proc/accept_mob_type(mob_type)
 	if (istype(user, mob_type))
-		relevant = TRUE
 		relevant_type = mob_type
 		return TRUE
 	return FALSE
@@ -45,7 +43,6 @@
 /// Uses this proc to inform the cache and mark that the screentip for this mob is successfully handled.
 /datum/screentip_context/proc/accept_silicons()
 	if (issilicon(user))
-		relevant = TRUE
 		relevant_type = /mob/living/silicon
 		return TRUE
 	return FALSE
@@ -54,7 +51,6 @@
 /// Uses this proc to inform the cache and mark that the screentip for this mob is successfully handled.
 /datum/screentip_context/proc/accept_animals()
 	if (isanimal(user))
-		relevant = TRUE
 		relevant_type = /mob/living/simple_animal
 		return TRUE
 	return FALSE
