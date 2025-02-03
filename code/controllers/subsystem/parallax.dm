@@ -86,9 +86,8 @@ SUBSYSTEM_DEF(parallax)
 	update_client_parallax(moving_mob.client)
 
 //We need a client var for optimisation purposes
-/client
-	var/parallax_update_queued = FALSE
-	var/last_parallax_update_tick
+/client/var/parallax_update_queued = FALSE
+/client/var/last_parallax_update_tick
 
 /datum/controller/subsystem/parallax/proc/update_client_parallax(client/updater, force = FALSE)
 	//Already queued for update

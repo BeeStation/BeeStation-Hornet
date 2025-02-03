@@ -42,6 +42,8 @@
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
 
 		usr.ClickOn(src, params)
+		// Refresh the screentips
+		refresh_screentips()
 
 /atom/DblClick(location,control,params)
 	if(flags_1 & INITIALIZED_1)

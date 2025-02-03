@@ -22,10 +22,9 @@
 /atom/proc/MouseDrop_T(atom/dropping, mob/user, params)
 	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user, params)
 
-/client
-	var/obj/item/active_mousedown_item = null
-	var/middragtime = 0
-	var/atom/middragatom
+/client/var/obj/item/active_mousedown_item = null
+/client/var/middragtime = 0
+/client/var/atom/middragatom
 
 /client/MouseDown(object, location, control, params)
 	if (mouse_down_icon)

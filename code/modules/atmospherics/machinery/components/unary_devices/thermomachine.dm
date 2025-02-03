@@ -43,7 +43,11 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()
 	RefreshParts()
-	update_icon()
+	update_appearance()
+
+/obj/machinery/atmospherics/components/unary/thermomachine/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Cycle temperature")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/is_connectable()
 	if(!anchored)
@@ -143,7 +147,7 @@
 
 	investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	balloon_alert(user, "temperature reset to [target_temperature] K")
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /// Performs heat calculation for the freezer.
@@ -156,7 +160,7 @@
 
 	if(!is_operational || !local_turf)
 		on = FALSE
-		update_icon()
+		update_appearance()
 		return
 
 	// The gas we want to cool/heat
@@ -191,7 +195,7 @@
 		balloon_alert(user, "anchor!")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "thermo-open", "thermo-0", tool))
-		update_icon()
+		update_appearance()
 		return TRUE
 
 /obj/machinery/atmospherics/components/unary/thermomachine/wrench_act(mob/living/user, obj/item/tool)
@@ -211,7 +215,7 @@
 	to_chat(user, span_notice("You set [src]'s pipe color to [GLOB.pipe_color_name[pipe_color]]."))
 	if(anchored)
 		reconnect_nodes()
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/check_pipe_on_turf()
@@ -277,7 +281,7 @@
 			if(.)
 				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/user)
 	if(!can_interact(user))
@@ -293,7 +297,7 @@
 	on = !on
 	balloon_alert(user, "turned [on ? "on" : "off"]")
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/thermomachine/update_layer()

@@ -167,11 +167,10 @@ GENE SCANNER
 /*
 /obj/item/healthanalyzer/attack_self(mob/user)
 	scanmode = (scanmode + 1) % SCANMODE_COUNT
-	switch(scanmode)
-		if(SCANMODE_HEALTH)
 			to_chat(user, "<span class='notice'>You switch the health analyzer to check physical health.</span>")
 		//if(SCANMODE_WOUND)
 		//	to_chat(user, "<span class='notice'>You switch the health analyzer to report extra info on wounds.</span>")
+	refresh_holder_screentips()
 */
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
@@ -202,6 +201,13 @@ GENE SCANNER
 
 	add_fingerprint(user)
 
+/obj/item/healthanalyzer/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+	if (isliving(target))
+		if(scanmode == 0)
+			context.add_left_click_action("Scan Health")
+		else if(scanmode == 1)
+			context.add_left_click_action("Scan Chemicals")
+	context.add_attack_self_action("Switch Mode")
 /obj/item/healthanalyzer/attack_secondary(mob/living/victim, mob/living/user, params)
 	chemscan(user, victim)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
