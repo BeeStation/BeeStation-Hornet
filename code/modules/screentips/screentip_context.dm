@@ -83,44 +83,25 @@
 	generic_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\[Z\] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
-	if (held_item?.tool_behaviour == tool)
-		switch (tool)
-			if (TOOL_WIRECUTTER)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_SCREWDRIVER)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_WRENCH)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_WELDER)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_CROWBAR)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_MULTITOOL)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_KNIFE)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.lmb_icon][action_text]")]</span>")]"
-			if (TOOL_ROLLINGPIN)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.lmb_icon][action_text]")]</span>")]"
-			else
-				left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon][action_text]")]</span>")]"
-	else
-		switch (tool)
-			if (TOOL_WIRECUTTER)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
-			if (TOOL_SCREWDRIVER)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
-			if (TOOL_WRENCH)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
-			if (TOOL_WELDER)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
-			if (TOOL_CROWBAR)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar] [action_text]")]</span>")]"
-			if (TOOL_MULTITOOL)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
-			if (TOOL_KNIFE)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [action_text]")]</span>")]"
-			if (TOOL_ROLLINGPIN)
-				left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [action_text]")]</span>")]"
+	switch (tool)
+		if (TOOL_WIRECUTTER)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_SCREWDRIVER)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_WRENCH)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_WELDER)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_CROWBAR)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_MULTITOOL)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_KNIFE)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.lmb_icon][action_text]")]</span>")]"
+		if (TOOL_ROLLINGPIN)
+			left_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.lmb_icon][action_text]")]</span>")]"
+		else
+			left_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon][action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_alt_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
@@ -181,44 +162,25 @@
 		right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_right_click_tool_action(action_text, tool)
-	if (held_item?.tool_behaviour == tool)
-		switch (tool)
-			if (TOOL_WIRECUTTER)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_SCREWDRIVER)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_WRENCH)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_WELDER)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_CROWBAR)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_MULTITOOL)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_KNIFE)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.rmb_icon][action_text]")]</span>")]"
-			if (TOOL_ROLLINGPIN)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.rmb_icon][action_text]")]</span>")]"
-			else
-				right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon][action_text]")]</span>")]"
-	else
-		switch (tool)
-			if (TOOL_WIRECUTTER)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [action_text]")]</span>")]"
-			if (TOOL_SCREWDRIVER)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [action_text]")]</span>")]"
-			if (TOOL_WRENCH)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [action_text]")]</span>")]"
-			if (TOOL_WELDER)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [action_text]")]</span>")]"
-			if (TOOL_CROWBAR)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar] [action_text]")]</span>")]"
-			if (TOOL_MULTITOOL)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [action_text]")]</span>")]"
-			if (TOOL_KNIFE)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [action_text]")]</span>")]"
-			if (TOOL_ROLLINGPIN)
-				right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [action_text]")]</span>")]"
+	switch (tool)
+		if (TOOL_WIRECUTTER)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_SCREWDRIVER)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_WRENCH)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_WELDER)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_CROWBAR)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_MULTITOOL)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_KNIFE)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife][GLOB.rmb_icon][action_text]")]</span>")]"
+		if (TOOL_ROLLINGPIN)
+			right_tool_icon_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin][GLOB.rmb_icon][action_text]")]</span>")]"
+		else
+			right_mouse_context = "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon][action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_alt_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
