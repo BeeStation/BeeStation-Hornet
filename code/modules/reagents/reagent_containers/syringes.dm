@@ -24,6 +24,14 @@
 	fill_icon_state = "syringe"
 	fill_icon_thresholds = list(1, 5, 10, 15)
 
+/obj/item/reagent_containers/syringe/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/reagent_containers/syringe/add_context_self(datum/screentip_context/context, mob/living/user)
+	context.add_left_click_action("[user.combat_mode ? "Inject" : "Stab Inject"]")
+	context.add_right_click_action("Draw")
+
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 

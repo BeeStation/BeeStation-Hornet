@@ -32,18 +32,26 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+/obj/item/energy_katana/add_context_self(datum/screentip_context/context, mob/user)
+
+	//This is a misuse of screentips, but theres not much we can do unless you wanna add a context to /turf/ lmao
+	context.add_right_click_action("Jaunt")
+
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
-	var/list/modifiers = params2list(click_parameters)
-
-	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
-		jaunt.Teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 		target.use_emag(user)
+
+/obj/item/energy_katana/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!target.density)
+		jaunt?.Teleport(user, target)
 
 /obj/item/energy_katana/pickup(mob/living/user)
 	..()

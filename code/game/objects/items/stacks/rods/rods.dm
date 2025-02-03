@@ -36,6 +36,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
 
+/obj/item/stack/add_context_self(datum/screentip_context/context, mob/user)
+
+	..()
+	context.add_left_click_tool_action("Weld into sheet", TOOL_WELDER)
+
 /obj/item/stack/rods/get_recipes()
 	return GLOB.rod_recipes
 
