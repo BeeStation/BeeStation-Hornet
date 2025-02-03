@@ -17,7 +17,7 @@
 			speak("unstun", TRUE)
 		else if(prob(60) && owner.health <= owner.crit_threshold)
 			speak("heal", TRUE)
-		else if(prob(30) && owner.a_intent == INTENT_HARM)
+		else if(prob(30) && owner.combat_mode)
 			speak("aggressive")
 		else
 			speak("neutral", prob(25))
@@ -70,7 +70,7 @@
 /datum/brain_trauma/special/ghost_control/on_lose()
 	var/datum/component/deadchat_control/D = owner.GetComponent(/datum/component/deadchat_control)
 	if(D)
-		D.RemoveComponent()
+		D.ClearFromParent()
 	..()
 
 

@@ -182,7 +182,7 @@
 /// If you want to implement an action, override:
 /// - on_activate to do the effect
 /// - is_available for things that need checks (only if you handle button icon updates, otherwise put the check in pre_activation)
-/datum/action/proc/trigger()
+/datum/action/proc/trigger(trigger_flags)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!is_available())
 		return FALSE
@@ -217,10 +217,10 @@
 	// If our cooldown action is not a requires_target action:
 	// We can just continue on and use the action
 	// the target is the user of the action (often, the owner)
-	return pre_activate(user, master)
+	return pre_activate(user, master, trigger_flags)
 
 /// Adds the ability for signals to intercept the ability
-/datum/action/proc/pre_activate(mob/user, atom/target)
+/datum/action/proc/pre_activate(mob/user, atom/target, trigger_flags)
 	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
 		return
 	// If we successfully activated and are a toggle action, become active
@@ -229,7 +229,7 @@
 		if (target)
 			selected_target = target
 			RegisterSignal(selected_target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
-	. = on_activate(user, target)
+	. = on_activate(user, target, trigger_flags)
 	// There is a possibility our action (or owner) is qdeleted in on_activate().
 	if(!QDELETED(src) && !QDELETED(owner))
 		SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
@@ -237,7 +237,7 @@
 /// Override to implement behaviour
 /// If this action is not a targetted spell, target will be the master
 /// If this action is a toggleable action, must return true to signify successful activation
-/datum/action/proc/on_activate(mob/user, atom/target)
+/datum/action/proc/on_activate(mob/user, atom/target, trigger_flags)
 	return
 
 /// Deactivates the action. Can be called internally if an action

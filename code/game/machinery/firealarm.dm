@@ -330,7 +330,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 /obj/machinery/firealarm/attack_silicon(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/firealarm/attackby(obj/item/W, mob/user, params)
+/obj/machinery/firealarm/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda)) // trying to unlock the cover with an ID card
@@ -343,7 +343,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		return
 
 	if(panel_open)
-		if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
+		if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 			if(atom_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
 					return

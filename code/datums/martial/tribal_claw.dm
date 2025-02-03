@@ -66,7 +66,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 		A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
 	else
-		return basic_hit(A,D)
+		return FALSE
 
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)

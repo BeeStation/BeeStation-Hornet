@@ -529,6 +529,11 @@
 		else
 			name = "sawn-off [src.name]"
 		desc = sawn_desc
+			//The file might not have a "gun" icon, let's prepare for this
+		lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+		righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+		inhand_x_dimension = 32
+		inhand_y_dimension = 32
 		w_class = WEIGHT_CLASS_LARGE
 		if (sawn_item_state)
 			item_state = sawn_item_state

@@ -229,7 +229,7 @@
 	. = ..()
 	if (flag)
 		return
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	add_fingerprint(user)

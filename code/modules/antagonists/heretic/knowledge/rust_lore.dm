@@ -81,7 +81,7 @@
 		/obj/vehicle/sealed/mecha
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
-	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
+	if(source.combat_mode && !is_type_in_typecache(target, always_hit_typecache))
 		return
 	return target.rust_heretic_act()
 

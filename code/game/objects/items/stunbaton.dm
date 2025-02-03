@@ -156,7 +156,7 @@
 		if(check_martial_counter(L, user))
 			return
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		if(turned_on)
 			if(baton_stun(M, user))
 				user.do_attack_animation(M)
@@ -169,7 +169,7 @@
 			baton_stun(M, user)
 		return ..()
 
-/obj/item/melee/baton/proc/baton_stun(mob/living/target, mob/living/user)
+/obj/item/melee/baton/proc/baton_stun(mob/living/target, mob/living/user, params)
 	if(obj_flags & OBJ_EMPED)
 		return FALSE
 	if(ishuman(target))
@@ -194,7 +194,8 @@
 	target.stuttering = 20
 
 	// Shoving
-	if(user.a_intent == INTENT_DISARM)
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		var/shove_dir = get_dir(user.loc, target.loc)
 		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
 		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents

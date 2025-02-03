@@ -491,11 +491,12 @@
 /datum/action/innate/spider/block/on_activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return
-	if(owner.a_intent == INTENT_HELP)
-		owner.a_intent = INTENT_HARM
+	var/mob/living/living_owner = owner
+	if(!living_owner.combat_mode)
+		living_owner.combat_mode = TRUE
 		owner.visible_message(span_notice("[owner] widens its stance and blocks passage around it."),span_notice("You are now blocking others from passing around you."))
 	else
-		owner.a_intent = INTENT_HELP
+		living_owner.combat_mode = FALSE
 		owner.visible_message(span_notice("[owner] loosens up and allows others to pass again."),span_notice("You are no longer blocking others from passing around you."))
 
 /datum/action/innate/spider/lay_web/is_available()
