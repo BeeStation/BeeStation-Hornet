@@ -722,7 +722,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 		return ..()
 	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), time, TIMER_UNIQUE | TIMER_STOPPABLE)
 	icon_state = "combo"
-	for (var/i = 1; i <= length(streak); ++i)
+	for(var/i = 1; i <= length(streak); ++i)
 		var/intent_text = copytext(streak, i, i + 1)
 		var/image/intent_icon = image(icon,src,"combo_[intent_text]")
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)

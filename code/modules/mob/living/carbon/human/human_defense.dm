@@ -138,12 +138,6 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(IGNORE_GRAB))
-			return TRUE
-	return FALSE
-
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(dna && dna.species)
 		var/spec_return = dna.species.spec_hitby(AM, src)

@@ -381,18 +381,25 @@
 
 	return ..()
 
-/mob/living/carbon/human/CtrlClick(mob/user)
+/mob/living/carbon/CtrlClick(mob/user)
 
-	if(!ishuman(user) || !user.CanReach(src) || user.incapacitated())
+	if(!iscarbon(user) || !user.CanReach(src) || user.incapacitated())
 		return ..()
 
 	if(world.time < user.next_move)
 		return FALSE
 
-	var/mob/living/carbon/human/human_user = user
-	if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-		human_user.changeNext_move(CLICK_CD_MELEE)
-		return TRUE
+	if(ishuman(src) && ishuman(user))
+		var/mob/living/carbon/human_user = user
+		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
+			human_user.changeNext_move(CLICK_CD_MELEE)
+			return TRUE
+
+	else
+		var/mob/living/carbon/carbon_user = user
+		if(carbon_user.grab(carbon_user, src, carbon_user.mind.martial_art))
+			carbon_user.changeNext_move(CLICK_CD_MELEE)
+			return TRUE
 
 	return ..()
 
