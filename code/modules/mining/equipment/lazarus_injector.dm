@@ -1,7 +1,7 @@
 /**********************Lazarus Injector**********************/
 /obj/item/lazarus_injector
 	name = "lazarus injector"
-	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead. Testing has shown inconsistent results and the animals these devices are used on occasionally turn against the person using them."
+	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead. Testing has shown inconsistent results and the animals with especially strong wills occasionally turn against the person using them."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
@@ -33,8 +33,11 @@
 						return
 					M.revive(full_heal = 1, admin_revive = 1)
 					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
-					M.notify_ghost_cloning("Your body is revived by [user] with a lazarus injector!", source=M)
-					to_chat(M, span_userdanger("You are not brainwashed or enslaved in any way to [user], act according to whatever makes the most sense for what you are."))
+
+					//Try to notify the ghost that they are being revived, but also that they are not loyal to the reviver
+					var/mob/ghostmob = M.notify_ghost_cloning("Your body is revived by [user] with a lazarus injector!", source=M)
+					if(ghostmob)
+						to_chat(ghostmob, span_userdanger("You are not brainwashed or enslaved in any way to [user], act according to whatever makes the most sense for what you are."))
 					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
 
 				else // only do this to mindless mobs
@@ -55,9 +58,9 @@
 									var/mob/dead/observer/C = pick(candidates)
 									H.key = C.key
 									H.sentience_act()
-									to_chat(H, span_userdanger("In a striking moment of clarity you have gained greater intellect. You realize that you have been given new life by [user], but you can't seem to remember the circumstances of your death. What you do with your newfound intellect is for you to decide, but you have no sense of loyalty toward [user] or your own kind."))
+									to_chat(H, span_userdanger("In a striking moment of clarity you have gained greater intellect. You feel no strong sense of loyalty to anyone or anything, you simply feel... free"))
 
-				user.visible_message(span_notice("[user] injects [M] with [src], reviving it. [M]"))
+				user.visible_message(span_notice("[user] injects [M] with [src], reviving it."))
 				SSblackbox.record_feedback("tally", "lazarus_injector", 1, M.type)
 				playsound(src,'sound/effects/refill.ogg',50,1)
 				icon_state = "lazarus_empty"
