@@ -30,6 +30,17 @@
 	speech.emote_hear = string_list(list("barks!", "woofs!", "yaps.","pants."))
 	speech.emote_see = string_list(list("shakes [p_their()] head.", "chases [p_their()] tail.","shivers."))
 
+/mob/living/basic/pet/dog/corgi/Ian/Life()
+	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
+		Write_Memory(FALSE)
+		memory_saved = TRUE
+	..()
+
+/mob/living/basic/pet/dog/corgi/Ian/death()
+	if(!memory_saved)
+		Write_Memory(TRUE)
+	..()
+
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/basic/pet/dog/corgi
@@ -415,17 +426,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		held_state = "old_corgi"
 
-/mob/living/basic/pet/dog/corgi/Ian/Life()
-	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE)
-		memory_saved = TRUE
-	..()
-
-/mob/living/basic/pet/dog/corgi/Ian/death()
-	if(!memory_saved)
-		Write_Memory(TRUE)
-	..()
-
 /mob/living/basic/pet/dog/corgi/Ian/proc/Read_Memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
@@ -711,24 +711,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
 					sleep(1)
-
-/mob/living/basic/pet/dog/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
-/mob/living/basic/pet/dog/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "yaps happily!")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-			emote("me", 1, "growls!")
 
 /mob/living/basic/pet/dog/corgi/cardigan
 	name = "\improper cardigan corgi"
