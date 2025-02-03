@@ -13,6 +13,7 @@ SUBSYSTEM_DEF(screentips)
 /datum/controller/subsystem/screentips/fire(resumed)
 	while (head != null && !MC_TICK_CHECK)
 		if (QDELETED(head.hovered_atom))
+			head.hover_queued = FALSE
 			head = head.screentip_next
 			continue
 		head.hovered_atom.on_mouse_enter(head)

@@ -335,7 +335,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		for (var/client/client in GLOB.clients)
 			if (client.hovered_atom == src)
 				client.hovered_atom = null
-	hovered_user_count = 0
+		hovered_user_count = 0
 
 	return ..()
 

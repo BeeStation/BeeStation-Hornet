@@ -57,7 +57,7 @@
 		// The assoc value might be null if we haven't generated the cache for this yet
 		if (cache?.generated && (!held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
 #ifdef DEBUG
-			screentip_message = "<span class='big' style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(format_text(name)) + " (Using Cache)"))]</span>"
+			screentip_message = "<span class='big' style='line-height: 0.5;color: orange'>[MAPTEXT(CENTER(capitalize(format_text(name))))]</span>"
 #endif
 			if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
 				client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.attack_hand][cache.message]</span>"
@@ -65,7 +65,7 @@
 				client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.message]</span>"
 			return
 	var/datum/screentip_context/context = client.screentip_context
-	context.relevant = FALSE
+	context.relevant_type = null
 	context.user = client.mob
 	context.held_item = held_item
 	context.access_context = ""
@@ -91,10 +91,7 @@
 		held_item.add_context_interaction(context, client.mob, src)
 	if (!length(context.shift_right_mouse_context))
 		context.add_shift_right_click_action("Examine")
-	if (context.relevant)
-		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]</span>"
-	else
-		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
+	client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]</span>"
 	// If we asked to be cached, generate the cache
 	if (context.cache_enabled)
 		// Try to find the parent cache item
@@ -109,7 +106,7 @@
 			cache = new_cache
 		// Set the cache message
 		cache.generated = TRUE
-		cache.message = "[screentip_message][context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]"
+		cache.message = "[context.access_context][context.generic_context][context.left_mouse_context][context.right_mouse_context][context.ctrl_left_mouse_context][context.ctrl_right_mouse_context][context.shift_left_mouse_context][context.shift_right_mouse_context][context.alt_left_mouse_context][context.alt_right_mouse_context][context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context][context.left_tool_icon_context][context.right_tool_icon_context]"
 		SSscreentips.caches_generated ++
 	// Cleanup references for the sake of managing hard-deletes
 	context.user = null
