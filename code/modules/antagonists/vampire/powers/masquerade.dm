@@ -27,7 +27,7 @@
 	cooldown_time = 5 SECONDS
 	constant_bloodcost = 0.1
 
-/datum/action/cooldown/vampire/masquerade/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/masquerade/ActivatePower()
 	. = ..()
 	var/mob/living/carbon/user = owner
 	owner.balloon_alert(owner, "masquerade turned on.")

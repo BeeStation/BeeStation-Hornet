@@ -9,7 +9,7 @@
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/distress/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/distress/ActivatePower()
 	. = ..()
 	var/turf/open/floor/target_area = get_area(owner)
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(owner)

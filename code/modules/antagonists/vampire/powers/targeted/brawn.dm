@@ -17,7 +17,7 @@
 	power_activates_immediately = TRUE
 	prefire_message = "Select a target."
 
-/datum/action/cooldown/vampire/targeted/brawn/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/targeted/brawn/ActivatePower()
 	// Did we break out of our handcuffs?
 	if(break_restraints())
 		power_activated_sucessfully()

@@ -59,14 +59,14 @@
 		vampiredatum_power = vampiredatum
 
 //This is when we CLICK on the ability Icon, not USING.
-/datum/action/cooldown/vampire/trigger(trigger_flags, atom/target)
+/datum/action/cooldown/vampire/trigger()
 	if(currently_active)
 		DeactivatePower()
 		return FALSE
 	if(!can_pay_cost() || !can_use())
 		return FALSE
 	pay_cost()
-	ActivatePower(trigger_flags)
+	ActivatePower()
 	if(!(power_flags & BP_AM_TOGGLE) || !currently_active)
 		start_cooldown()
 	return TRUE
@@ -150,7 +150,7 @@
 		vampiredatum_power.vampire_blood_volume -= bloodcost
 		vampiredatum_power.update_hud()
 
-/datum/action/cooldown/vampire/proc/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/proc/ActivatePower()
 	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
 		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))

@@ -9,7 +9,7 @@
 	bloodcost = 150
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/vassal_blood/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/vassal_blood/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -23,7 +23,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/vassal_blood/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/vassal_blood/ActivatePower()
 	var/blood_bag = locate(/obj/item/reagent_containers/blood) in owner.held_items
 	if(blood_bag)
 		QDEL_NULL(blood_bag)

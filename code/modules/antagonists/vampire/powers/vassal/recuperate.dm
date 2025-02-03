@@ -13,7 +13,7 @@
 	bloodcost = 1.5
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/recuperate/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/recuperate/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return
@@ -22,7 +22,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/recuperate/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/recuperate/ActivatePower()
 	. = ..()
 	to_chat(owner, span_notice("Your muscles clench as your master's immortal blood mixes with your own, knitting your wounds."))
 	owner.balloon_alert(owner, "recuperate turned on.")

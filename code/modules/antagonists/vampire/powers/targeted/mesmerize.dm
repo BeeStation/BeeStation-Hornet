@@ -30,7 +30,7 @@
 	///Our mesmerized target - Prevents several mesmerizes.
 	var/datum/weakref/target_ref
 
-/datum/action/cooldown/vampire/targeted/mesmerize/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/targeted/mesmerize/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.) // Default checks
 		return FALSE

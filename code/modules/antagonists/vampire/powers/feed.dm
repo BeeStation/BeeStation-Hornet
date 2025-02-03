@@ -25,7 +25,7 @@
 	///Are we feeding with passive grab or not?
 	var/silent_feed = TRUE
 
-/datum/action/cooldown/vampire/feed/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/feed/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -62,7 +62,7 @@
 	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_FEED)
 	return ..()
 
-/datum/action/cooldown/vampire/feed/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/feed/ActivatePower()
 	var/mob/living/feed_target = target_ref.resolve()
 	if(istype(feed_target, /mob/living/simple_animal/mouse))
 		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))

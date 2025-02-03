@@ -22,7 +22,7 @@
 	///List of all people hit by our power, so we don't hit them again.
 	var/list/hit = list()
 
-/datum/action/cooldown/vampire/targeted/haste/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/targeted/haste/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE

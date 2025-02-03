@@ -27,7 +27,7 @@
 	var/prev_eye_color
 	var/list/prev_features // For lizards and such
 
-/datum/action/cooldown/vampire/veil/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/veil/ActivatePower()
 	. = ..()
 	cast_effect() // POOF
 	veil_user()

@@ -13,7 +13,7 @@
 	cooldown_time = 5 SECONDS
 
 /// Must have nobody around to see the cloak
-/datum/action/cooldown/vampire/cloak/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/cloak/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -22,7 +22,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/cloak/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/cloak/ActivatePower()
 	. = ..()
 	var/mob/living/user = owner
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)

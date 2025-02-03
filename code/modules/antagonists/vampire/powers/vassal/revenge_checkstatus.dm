@@ -9,7 +9,7 @@
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/vassal_checkstatus/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/vassal_checkstatus/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -20,7 +20,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/vassal_checkstatus/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/vassal_checkstatus/ActivatePower()
 	var/datum/antagonist/vassal/revenge/revenge_vassal = IS_REVENGE_VASSAL(owner)
 	for(var/datum/antagonist/ex_vassal/former_vassals as anything in revenge_vassal.ex_vassals)
 		var/turf/open/floor/target_area = get_area(owner)

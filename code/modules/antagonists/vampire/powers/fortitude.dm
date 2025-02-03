@@ -14,7 +14,7 @@
 	constant_bloodcost = 0.2
 	var/fortitude_resist // So we can raise and lower your brute resist based on what your level_current WAS.
 
-/datum/action/cooldown/vampire/fortitude/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/fortitude/ActivatePower()
 	. = ..()
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, span_notice("Your flesh has become as hard as steel!"))

@@ -30,7 +30,7 @@
 		/mob/living/simple_animal/hostile/retaliate/bat = 1,
 	)
 
-/datum/action/cooldown/vampire/gohome/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/gohome/can_use(mob/living/carbon/user)
 	if(!..())
 		return FALSE
 	/// Have No Lair (NOTE: You only got this power if you had a lair, so this means it's destroyed)
@@ -39,7 +39,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/gohome/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/gohome/ActivatePower()
 	..()
 	owner.balloon_alert(owner, "preparing to teleport...")
 	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))

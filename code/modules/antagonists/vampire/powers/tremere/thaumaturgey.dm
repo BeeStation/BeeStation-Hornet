@@ -81,7 +81,7 @@
 	bloodcost = 80
 	cooldown_time = 8 SECONDS
 
-/datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/ActivatePower()
 	. = ..()
 	owner.balloon_alert(owner, "you start thaumaturgy")
 	if(level_current >= 2) // Only if we're at least level 2.

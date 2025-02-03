@@ -9,7 +9,7 @@
 	bloodcost = 50
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/vassal_fold/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/vassal_fold/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -26,7 +26,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/vassal_fold/ActivatePower(trigger_flags)
+/datum/action/cooldown/vampire/vassal_fold/ActivatePower()
 	var/mob/living/target = owner.pulling
 	if(!target)
 		return FALSE

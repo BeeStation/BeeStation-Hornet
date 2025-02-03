@@ -15,7 +15,7 @@
 	//target_range = 2
 	var/turf/target_turf // We need to decide where we're going based on where we clicked. It's not actually the tile we clicked.
 
-/datum/action/cooldown/vampire/targeted/trespass/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/targeted/trespass/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE

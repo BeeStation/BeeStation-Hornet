@@ -22,7 +22,7 @@
 	if(level_current > 3)
 		target_range = 6
 
-/datum/action/cooldown/vampire/targeted/lunge/can_use(mob/living/carbon/user, trigger_flags)
+/datum/action/cooldown/vampire/targeted/lunge/can_use(mob/living/carbon/user)
 	. = ..()
 	if(!.)
 		return FALSE

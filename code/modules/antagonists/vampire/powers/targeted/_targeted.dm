@@ -21,17 +21,17 @@
 	if(remove_from.click_intercept == src)
 		unset_click_ability(remove_from)
 
-/datum/action/cooldown/vampire/targeted/trigger(trigger_flags, atom/target)
+/datum/action/cooldown/vampire/targeted/trigger()
 	if(currently_active)
 		DeactivatePower()
 		return FALSE
-	if(!can_pay_cost(owner) || !can_use(owner, trigger_flags))
+	if(!can_pay_cost(owner) || !can_use(owner))
 		return FALSE
 
 	if(prefire_message)
-		to_chat(owner, span_announce("[prefire_message]"))
+		to_chat(owner, span_announce(prefire_message))
 
-	ActivatePower(trigger_flags)
+	ActivatePower()
 	if(!QDELETED(target))
 		return InterceptClickOn(owner, null, target)
 
@@ -68,7 +68,7 @@
 	if(!can_pay_cost() || !can_use(owner) || !CheckCanTarget(target_atom))
 		return TRUE
 	power_in_use = TRUE // Lock us into this ability until it successfully fires off. Otherwise, we pay the blood even if we fail.
-	FireTargetedPower(target_atom) // We use this instead of ActivatePower(trigger_flags), which has no input
+	FireTargetedPower(target_atom)
 	// Skip this part so we can return TRUE right away.
 	if(power_activates_immediately)
 		power_activated_sucessfully() // Mesmerize pays only after success.
