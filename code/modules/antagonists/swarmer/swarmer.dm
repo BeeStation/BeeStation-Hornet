@@ -620,7 +620,7 @@
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
-	Fabricate(/obj/structure/swarmer/trap, 5)
+	Fabricate(/obj/structure/swarmer/trap, 2)
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
@@ -634,7 +634,7 @@
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 1 SECONDS))
-		Fabricate(/obj/structure/swarmer/blockade, 5)
+		Fabricate(/obj/structure/swarmer/blockade, 2)
 
 
 /obj/structure/swarmer/blockade
@@ -663,7 +663,7 @@
 		return
 	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
-		if(createtype && Fabricate(createtype, 50))
+		if(createtype && Fabricate(createtype, 20))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
 
 
