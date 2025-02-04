@@ -8,7 +8,7 @@
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
 	allow_temp_override = FALSE
-	help_verb = /mob/living/proc/sleeping_carp_help
+	//help_verb = /mob/living/proc/sleeping_carp_help
 	smashes_tables = TRUE
 	display_combos = TRUE
 	var/old_grab_state = null

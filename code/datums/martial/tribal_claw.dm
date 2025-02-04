@@ -7,7 +7,7 @@
 	name = "Tribal Claw"
 	id = MARTIALART_TRIBALCLAW
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/tribal_claw_help
+	//help_verb = /mob/living/carbon/human/proc/tribal_claw_help
 
 /datum/martial_art/tribal_claw/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,TAIL_SWEEP_COMBO))

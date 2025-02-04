@@ -7,7 +7,7 @@
 	name = "Karate"
 	id = MARTIALART_KARATE
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/karate_help
+	//help_verb = /mob/living/carbon/human/proc/karate_help
 
 /datum/martial_art/karate/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,JUMPING_KNEE_COMBO))

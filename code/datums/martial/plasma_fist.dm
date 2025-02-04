@@ -5,7 +5,7 @@
 /datum/martial_art/plasma_fist
 	name = "Plasma Fist"
 	id = MARTIALART_PLASMAFIST
-	help_verb = /mob/living/proc/plasma_fist_help
+	//help_verb = /mob/living/proc/plasma_fist_help
 	var/nobomb = FALSE
 	var/plasma_power = 1 //starts at a 1, 2, 4 explosion.
 	var/plasma_increment = 1 //how much explosion power gets added per kill (1 = 1, 2, 4. 2 = 2, 4, 8 and so on)
