@@ -73,9 +73,10 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/carbon/human/human_vampire = vampiredatum.owner.current
-	human_vampire?.set_dizziness(3 SECONDS)
-	human_vampire?.Paralyze(2 SECONDS)
-	human_vampire?.physiology.stamina_mod /= 0.4
+	if(human_vampire)
+		human_vampire.set_dizziness(3 SECONDS)
+		human_vampire.Paralyze(2 SECONDS)
+		human_vampire.physiology.stamina_mod /= 0.4
 
 /datum/vampire_clan/proc/give_clan_objective()
 	if(isnull(clan_objective))
