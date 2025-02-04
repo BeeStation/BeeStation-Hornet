@@ -69,7 +69,7 @@
 				playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 				return TRUE
 			if(R.stat == DEAD) //Dead borgs will listen to you no longer
-				to_chat(usr, span_warn("Error -- Could not open a connection to unit:[R]"))
+				to_chat(usr, span_warning("Error -- Could not open a connection to unit:[R]"))
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
