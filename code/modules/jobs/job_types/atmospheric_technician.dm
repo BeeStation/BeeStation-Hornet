@@ -8,8 +8,9 @@
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#fff5cc"
-	exp_requirements = 120
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120 //High grief percentage
+	exp_type = EXP_TYPE_ENGINEERING
+	exp_type_department = EXP_TYPE_ENGINEERING
 
 	outfit = /datum/outfit/job/atmospheric_technician
 

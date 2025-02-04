@@ -154,8 +154,8 @@
 	return ..()
 
 /datum/antagonist/heretic/on_gain()
+	var/mob/living/carbon/C = owner.current //only carbons have dna now, so we have to typecast
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
-		var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecast
 		C.set_species(/datum/species/human)
 		var/prefs_name = C.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
 		if(prefs_name)
@@ -170,6 +170,7 @@
 
 	GLOB.reality_smash_track.add_tracked_mind(owner)
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, finish_manus_dream_cooldown)), 1 MINUTES)
 	return ..()
 
 /datum/antagonist/heretic/on_removal()

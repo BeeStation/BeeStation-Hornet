@@ -173,7 +173,7 @@
 
 /datum/action/xeno_senitent_action/New(master)
 	. = ..()
-	if (istype(master, /obj/item/xenoartifact))
+	if (!istype(master, /obj/item/xenoartifact))
 		CRASH("Xeno artifact action assigned to a non-xeno artifact")
 
 /datum/action/xeno_senitent_action/on_activate(mob/user, atom/target)
@@ -201,7 +201,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 
-/obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
+/obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, obj/item/xenoartifact/Z)
 	if(!Z)
 		qdel(src)
 		return FALSE
