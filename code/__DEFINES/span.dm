@@ -95,7 +95,6 @@
 #define span_holoparasiteitalicsrobot(str) ("<span class='holoparasite italics robot'>" + (str) + "</span>")
 #define span_holoparasitemessage(str) ("<span class='holoparasite message'>" + (str) + "</span>")
 #define span_hypnophrase(str) ("<span class='hypnophrase'>" + (str) + "</span>")
-#define span_hypnotext(str) ("<span class='hypnotext'>" + (str) + "</span>")
 #define span_inathneq(str) ("<span class='inathneq'>" + (str) + "</span>")
 #define span_inathneqlarge(str) ("<span class='inathneq_large'>" + (str) + "</span>")
 #define span_inathneqsmall(str) ("<span class='inathneq_small'>" + (str) + "</span>")
