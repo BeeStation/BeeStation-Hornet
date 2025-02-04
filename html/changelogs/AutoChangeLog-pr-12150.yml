@@ -1,0 +1,6 @@
+author: mrmanlikesbt, MTandi, ninjanomnom
+delete-after: true
+changes:
+  - balance: heretics can sleep to find unused influences. this has a 5-minute delay
+      between each dream
+  - refactor: slightly refactor dream code
