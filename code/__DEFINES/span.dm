@@ -131,8 +131,6 @@
 #define span_moodneutral(str) ("<span class='mood_neutral'>" + (str) + "</span>")
 #define span_name(str) ("<span class='name'>" + (str) + "</span>")
 #define span_nameitalics(str) ("<span class='name italics'>" + (str) + "</span>")
-#define span_nameunassigned(str) ("<span class='name unassigned'>" + (str) + "</span>")
-#define span_nameunknown(str) ("<span class='name unknown'>" + (str) + "</span>")
 #define span_narsie(str) ("<span class='narsie'>" + (str) + "</span>")
 #define span_narsiesmall(str) ("<span class='narsiesmall'>" + (str) + "</span>")
 #define span_neovgre(str) ("<span class='neovgre'>" + (str) + "</span>")
