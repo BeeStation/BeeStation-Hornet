@@ -18,13 +18,18 @@
  */
 
 /mob/living/carbon/
-	COOLDOWN_DECLARE(manus_dream_cooldown)
+	var/manus_dream_allowed = TRUE
+
+/mob/living/carbon/proc/finish_manus_dream_cooldown()
+	to_chat(src, span_hypnophrase("You feel ready to walk the forest of the manus again.."))
+	balloon_alert(src, "You are ready to dream again")
+	manus_dream_allowed = TRUE
 
 /mob/living/carbon/proc/dream()
 	set waitfor = FALSE
 	var/datum/dream/chosen_dream
 
-	if (IS_HERETIC(src) && COOLDOWN_FINISHED(src, manus_dream_cooldown) && GLOB.reality_smash_track.smashes.len)
+	if (IS_HERETIC(src) && manus_dream_allowed && GLOB.reality_smash_track.smashes.len)
 		chosen_dream = new /datum/dream/heretic(pick(GLOB.reality_smash_track.smashes))
 	else
 		chosen_dream = pick_weight(GLOB.dreams)
@@ -195,9 +200,11 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 
 /datum/dream/heretic/GenerateDream(mob/living/carbon/dreamer)
 	// how
-	if (!IS_HERETIC(dreamer) || !COOLDOWN_FINISHED(dreamer, manus_dream_cooldown) || !GLOB.reality_smash_track.smashes.len)
+	if (!IS_HERETIC(dreamer) || !dreamer.manus_dream_allowed || !GLOB.reality_smash_track.smashes.len)
 		return CALLBACK(pick_weight(GLOB.dreams), PROC_REF(GenerateDream), dreamer)
-	COOLDOWN_START(dreamer, manus_dream_cooldown, 5 MINUTES)
+
+	dreamer.manus_dream_allowed = FALSE;
+	addtimer(CALLBACK(dreamer, TYPE_PROC_REF(/mob/living/carbon, finish_manus_dream_cooldown)), 5 MINUTES)
 
 	. = list()
 	. += "You wander through the forest of Mansus"
