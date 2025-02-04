@@ -30,6 +30,9 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
+/obj/item/reagent_containers/syringe/add_context_self(datum/screentip_context/context, mob/living/user)
+	context.add_left_click_action("[mode ? "Inject" : "Draw"]")
+
 /obj/item/reagent_containers/syringe/on_reagent_change(changetype)
 	update_icon()
 

@@ -186,10 +186,26 @@
 		. += span_notice("The parts are <b>welded</b> together.")
 	else if(secure && !opened)
 		. += span_notice("Alt-click to [locked ? "unlock" : "lock"].")
-	if(isliving(user))
-		var/mob/living/L = user
-		if(divable && HAS_TRAIT(L, TRAIT_SKITTISH))
-			. += span_notice("Ctrl-Shift-click [src] to jump inside.")
+	if(HAS_TRAIT(user, TRAIT_SKITTISH) && divable)
+		. += span_notice("Ctrl-Shift-click [src] to jump inside.")
+
+/obj/structure/closet/add_context_self(datum/screentip_context/context, mob/user)
+
+	if(secure && !broken)
+		context.add_alt_click_action("[opened ? "Lock" : "Unlock"]")
+	if(!welded)
+		context.add_left_click_action("[opened ? "Close" : "Open"]")
+
+	if(opened)
+		context.add_left_click_tool_action("Deconstruct", TOOL_WELDER)
+	else
+		if(!welded && can_weld_shut)
+			context.add_left_click_tool_action("Weld", TOOL_WELDER)
+		else if(welded)
+			context.add_left_click_tool_action("Unweld", TOOL_WELDER)
+
+	if(anchorable)
+		context.add_left_click_tool_action("[anchored ? "Unanchor" : "Anchor"]", TOOL_WELDER)
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -211,6 +227,8 @@
 	var/turf/T = get_turf(src)
 	for(var/obj/structure/closet/closet in T)
 		if(closet != src && !closet.wall_mounted)
+			if(user)
+				balloon_alert(user, "[closet.name] is in the way!")
 			return FALSE
 	for(var/mob/living/L in T)
 		if(L.anchored || horizontal && L.mob_size > MOB_SIZE_TINY && L.density)
