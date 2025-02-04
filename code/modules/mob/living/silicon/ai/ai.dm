@@ -815,7 +815,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mods)
-	var/start = "Relayed Speech: "
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -840,9 +839,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(istype(D) && D.display_icon(src))
 		language_icon = D.get_icon()
 
-	var/rendered = "<i>[span_gamesay("[start][language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
+	var/rendered = "<i>[span_gamesay("[language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
 
 	show_message(rendered, 2)
+	speaker.create_private_chat_message(
+		message = raw_message,
+		message_language = message_language,
+		hearers = list(src),
+		includes_ghosts = FALSE)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
@@ -901,12 +905,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			Slave.show_laws()
 
 /mob/living/silicon/ai/proc/add_malf_picker()
-	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
-	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	add_verb(/mob/living/silicon/ai/proc/choose_modules)
 	malf_picker = new /datum/module_picker
-
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
