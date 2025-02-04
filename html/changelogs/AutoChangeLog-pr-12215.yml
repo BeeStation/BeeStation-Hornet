@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - code_imp: Changed some more fullscreen code, should work better on 515 clients
-      now.
