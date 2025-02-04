@@ -8,10 +8,16 @@
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
 	allow_temp_override = FALSE
-	//help_verb = /mob/living/proc/sleeping_carp_help
 	smashes_tables = TRUE
 	display_combos = TRUE
 	var/old_grab_state = null
+
+	Move1 = "Wrist Wrench: Disarm Disarm. Forces opponent to drop item in hand."
+	Move2 = "Back Kick: Harm Grab. Opponent must be facing away. Knocks down."
+	Move3 = "Stomach Knee: Grab Harm. Knocks the wind out of opponent and stuns."
+	Move4 = "Head Kick: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand."
+	Move5 = "Elbow Drop: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition."
+
 
 /datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
@@ -182,19 +188,6 @@
 /datum/martial_art/the_sleeping_carp/on_remove(mob/living/H)
 	. = ..()
 	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
-
-/mob/living/proc/sleeping_carp_help()
-	set name = "Recall Teachings"
-	set desc = "Remember the martial techniques of the Sleeping Carp clan."
-	set category = "Sleeping Carp"
-
-	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Sleeping Carp...</i></b>")
-
-	to_chat(usr, "[span_notice("Wrist Wrench")]: Disarm Disarm. Forces opponent to drop item in hand.")
-	to_chat(usr, "[span_notice("Back Kick")]: Harm Grab. Opponent must be facing away. Knocks down.")
-	to_chat(usr, "[span_notice("Stomach Knee")]: Grab Harm. Knocks the wind out of opponent and stuns.")
-	to_chat(usr, "[span_notice("Head Kick")]: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand.")
-	to_chat(usr, "[span_notice("Elbow Drop")]: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.")
 
 /obj/item/staff/bostaff
 	name = "bo staff"

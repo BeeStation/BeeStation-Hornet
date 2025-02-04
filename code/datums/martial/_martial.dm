@@ -19,12 +19,12 @@
 	var/datum/weakref/info_button_ref
 
 	//Moves that are specific to each martial art, and passed into the martial art action button
-	var/Move1 = "Move1"
-	var/Move2 = "Move2"
-	var/Move3 = "Move3"
-	var/Move4 = "Move4"
-	var/Move5 = "Move5"
-	var/AdditionText = "Additionally:"
+	var/Move1 = null
+	var/Move2 = null
+	var/Move3 = null
+	var/Move4 = null
+	var/Move5 = null
+	var/AdditionText = null
 
 /datum/martial_art/proc/help_act(mob/living/A, mob/living/D)
 	return MARTIAL_ATTACK_INVALID
@@ -84,7 +84,8 @@
 
 /datum/martial_art/proc/make_info_button()
 	var/datum/action/martial_info/info_button = new(src)
-	info_button.Grant(holder)
+	var/mob/living/carbon/holder_living = holder.resolve()
+	info_button.Grant(holder_living)
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
@@ -109,7 +110,6 @@
 /datum/martial_art/proc/on_remove(mob/living/holder_living)
 	if(info_button_ref)
 		QDEL_NULL(info_button_ref)
-	return
 
 ///Gets called when a projectile hits the owner. Returning anything other than BULLET_ACT_HIT will stop the projectile from hitting the mob.
 /datum/martial_art/proc/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
@@ -120,12 +120,15 @@
 	name = "Open Martial Art Guide:"
 	button_icon_state = "round_end"
 
+/*
 /datum/action/martial_info/New(master)
 	. = ..()
-	name = "Open [name] Guide:"
+	var/datum/martial_art/martial_art = owner.mind.martial_art
+	name = "Open [martial_art.name] Guide:"
+*/
 
 /datum/action/martial_info/on_activate(mob/user, atom/target)
-	target.ui_interact(owner)
+	ui_interact(owner)
 
 /datum/action/martial_info/is_available(feedback = FALSE)
 	if(!owner.mind.martial_art.id)
@@ -134,9 +137,12 @@
 	. = ..()
 	if(!.)
 		return
-	if(!owner.mind || !(owner.mind.martial_art))
-		return FALSE
+	//if(!owner.mind || !(owner.mind.martial_art))
+	//	return FALSE
 	return TRUE
+
+/datum/action/martial_info/ui_state()
+	return GLOB.always_state
 
 /datum/action/martial_info/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

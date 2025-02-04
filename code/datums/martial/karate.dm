@@ -7,7 +7,12 @@
 	name = "Karate"
 	id = MARTIALART_KARATE
 	allow_temp_override = FALSE
-	//help_verb = /mob/living/carbon/human/proc/karate_help
+
+	Move1 = "Calf Kick: Harm Grab Disarm. Paralyses one of your opponent's legs."
+	Move2 = "Jumping Knee: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly."
+	Move3 = "<b>Karate Chop: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision."
+	Move4 = "<b>Floor Stomp: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up."
+
 
 /datum/martial_art/karate/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,JUMPING_KNEE_COMBO))
@@ -109,18 +114,6 @@
 	if(check_streak(A,D))
 		return 1
 	return ..()
-
-/mob/living/carbon/human/proc/karate_help()
-	set name = "Recall Teachings"
-	set desc = "Remember the martial techniques of Karate."
-	set category = "Karate"
-
-	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate...</i></b>")
-
-	to_chat(usr, "[span_notice("Calf Kick")]: Harm Grab Disarm. Paralyses one of your opponent's legs.")
-	to_chat(usr, "[span_notice("Jumping Knee")]: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
-	to_chat(usr, "[span_notice("Karate Chop")]: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
-	to_chat(usr, "[span_notice("Floor Stomp")]: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
 
 #undef CALF_KICK_COMBO
 #undef FLOOR_KICK_COMBO

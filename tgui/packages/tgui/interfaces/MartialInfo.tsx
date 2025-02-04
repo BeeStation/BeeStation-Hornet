@@ -1,5 +1,6 @@
 import { BlockQuote, Stack } from '../components';
 import { Window } from '../layouts';
+import { useBackend } from '../backend';
 
 const goodstyle = {
   color: 'lightgreen',
@@ -10,34 +11,42 @@ const badstyle = {
 };
 
 const noticestyle = {
-  color: 'red',
+  color: 'lightred',
 };
 
-const Move1 = '';
-const Move2 = '';
-const Move3 = '';
-const Move4 = '';
-const Move5 = '';
-const AdditionText = '';
+const tipstyle = {
+  color: 'white',
+};
+
+type Info = {
+  Move1: string;
+  Move2: string;
+  Move3: string;
+  Move4: string;
+  Move5: string;
+  AdditionText: string;
+};
+
 
 export const MartialInfo = (_props) => {
+  const { data } = useBackend<Info>();
+  const { Move1, Move2, Move3, Move4, Move5, AdditionText } = data;
   return (
-    <Window width={620} height={170} theme="abductor">
+    <Window width={620} height={350} theme="abductor">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item fontSize="25px">Guide to the Martial Arts...</Stack.Item>
           <Stack.Item>
             <BlockQuote>
-              You are a martial artist, whether by circumstance, training, or brain injury;
-              You are a most fearsome foe of any who would oppose you.
-              Bring fear to the heart of men through your unique combat moves:
-              {Move1 && <span style={noticestyle}>{Move1}</span>}
-              {Move2 && <span style={noticestyle}>{Move2}</span>}
-              {Move3 && <span style={noticestyle}>{Move3}</span>}
-              {Move4 && <span style={noticestyle}>{Move4}</span>}
-              {Move5 && <span style={noticestyle}>{Move5}</span>}
-              {Move5 && <span style={noticestyle}>{Move5}</span>}
-              {AdditionText && <span style={noticestyle}>{AdditionText}</span>}
+              You are a martial artist, whether by circumstance, training, or brain injury;<br />
+              You are a most fearsome foe of any who would oppose you.<br />
+              Bring fear to the heart of men through your unique combat moves:<br />
+              {Move1 && <span style={goodstyle}>{Move1}</span>}<br />
+              {Move2 && <span style={badstyle}>{Move2}</span>}<br />
+              {Move3 && <span style={goodstyle}>{Move3}</span>}<br />
+              {Move4 && <span style={badstyle}>{Move4}</span>}<br />
+              {Move5 && <span style={goodstyle}>{Move5}</span>}<br />
+              {AdditionText && <span style={tipstyle}>{AdditionText}</span>}
             </BlockQuote>
           </Stack.Item>
         </Stack>
