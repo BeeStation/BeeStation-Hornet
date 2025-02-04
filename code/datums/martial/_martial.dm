@@ -131,14 +131,11 @@
 	ui_interact(owner)
 
 /datum/action/martial_info/is_available(feedback = FALSE)
-	if(!owner.mind.martial_art.id)
-		stack_trace("[type] was used without a target id")
-		return FALSE
 	. = ..()
 	if(!.)
 		return
-	//if(!owner.mind || !(owner.mind.martial_art))
-	//	return FALSE
+	if(!owner.mind)
+		return FALSE
 	return TRUE
 
 /datum/action/martial_info/ui_state()

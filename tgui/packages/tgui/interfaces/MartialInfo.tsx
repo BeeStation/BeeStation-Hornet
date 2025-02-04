@@ -27,7 +27,6 @@ type Info = {
   AdditionText: string;
 };
 
-
 export const MartialInfo = (_props) => {
   const { data } = useBackend<Info>();
   const { Move1, Move2, Move3, Move4, Move5, AdditionText } = data;
@@ -38,14 +37,22 @@ export const MartialInfo = (_props) => {
           <Stack.Item fontSize="25px">Guide to the Martial Arts...</Stack.Item>
           <Stack.Item>
             <BlockQuote>
-              You are a martial artist, whether by circumstance, training, or brain injury;<br />
-              You are a most fearsome foe of any who would oppose you.<br />
-              Bring fear to the heart of men through your unique combat moves:<br />
-              {Move1 && <span style={goodstyle}>{Move1}</span>}<br />
-              {Move2 && <span style={badstyle}>{Move2}</span>}<br />
-              {Move3 && <span style={goodstyle}>{Move3}</span>}<br />
-              {Move4 && <span style={badstyle}>{Move4}</span>}<br />
-              {Move5 && <span style={goodstyle}>{Move5}</span>}<br />
+              You are a martial artist, whether by circumstance, training, or brain injury;
+              <br />
+              You are a most fearsome foe of any who would oppose you.
+              <br />
+              Bring fear to the heart of men through your unique combat moves:
+              <br />
+              {Move1 && <span style={goodstyle}>{Move1}</span>}
+              <br />
+              {Move2 && <span style={badstyle}>{Move2}</span>}
+              <br />
+              {Move3 && <span style={goodstyle}>{Move3}</span>}
+              <br />
+              {Move4 && <span style={badstyle}>{Move4}</span>}
+              <br />
+              {Move5 && <span style={goodstyle}>{Move5}</span>}
+              <br />
               {AdditionText && <span style={tipstyle}>{AdditionText}</span>}
             </BlockQuote>
           </Stack.Item>
