@@ -102,7 +102,7 @@
 			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		var/mob/living/pushed_mob = user.pulling
-		visible_message(span_warner("[user] stuffs [pushed_mob] into [src]!"))
+		visible_message(span_warning("[user] stuffs [pushed_mob] into [src]!"))
 		pushed_mob.forceMove(src)
 		user.stop_pulling()
 		return
