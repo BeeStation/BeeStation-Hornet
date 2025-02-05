@@ -49,6 +49,9 @@
 /datum/dog_fashion/back
 	icon_file = 'icons/mob/corgi_back.dmi'
 
+/datum/dog_fashion/back/armorvest
+	obj_icon_state = "armor"
+
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"
 	desc = "The ever-loyal, the ever-vigilant."
