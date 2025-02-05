@@ -47542,6 +47542,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xkN" = (
