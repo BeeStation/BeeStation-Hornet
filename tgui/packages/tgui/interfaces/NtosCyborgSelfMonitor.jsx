@@ -225,9 +225,8 @@ export const NtosCyborgSelfMonitorContent = (_) => {
                   key={law}
                   dangerouslySetInnerHTML={{
                     __html: sanitizeText(law),
-                  }}>
-                  {law}
-                </Box>
+                  }}
+                />
               ))}
             </Section>
           </Flex.Item>
