@@ -8120,9 +8120,6 @@
 	dir = 2
 	},
 /obj/item/rcl/pre_loaded,
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -57
-	},
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
@@ -40450,10 +40447,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
-"tMc" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/closed/mineral/random/air,
-/area/asteroid/paradise)
 "tMd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -58555,7 +58548,7 @@ blO
 uyx
 wGy
 vqI
-tMc
+vqI
 vqI
 jsp
 jsp
@@ -58812,7 +58805,7 @@ blO
 blO
 qnY
 wGy
-tMc
+vqI
 vqI
 jsp
 jsp
