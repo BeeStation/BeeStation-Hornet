@@ -11545,6 +11545,7 @@
 "fto" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/structure/window/plasma/reinforced/spawner,
+/obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "ftp" = (
@@ -17398,11 +17399,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4{
 	dir = 1
 	},
+/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer5{
 	dir = 5
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
-/obj/machinery/atmospherics/pipe/color_adapter/layer2,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "inR" = (
@@ -19591,13 +19592,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer5{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer5{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "jwW" = (
@@ -36602,8 +36603,7 @@
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "rRp" = (
-/obj/machinery/air_sensor/air_tank,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/orange/visible,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "rRt" = (
@@ -44374,7 +44374,11 @@
 /area/crew_quarters/heads/hos)
 "vDC" = (
 /obj/structure/window/plasma/reinforced/spawner,
-/obj/machinery/atmospherics/pipe/layer_manifold/orange/visible,
+/obj/machinery/atmospherics/pipe/color_adapter/layer2,
+/obj/machinery/atmospherics/pipe/color_adapter/layer5,
+/obj/machinery/atmospherics/pipe/color_adapter/layer1,
+/obj/machinery/atmospherics/pipe/color_adapter/layer4,
+/obj/machinery/atmospherics/pipe/color_adapter,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "vDJ" = (
