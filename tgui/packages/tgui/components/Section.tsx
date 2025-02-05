@@ -95,7 +95,7 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
         'Section',
         fill && 'Section--fill',
         fitted && 'Section--fitted',
-        independent && 'Sectioned--independent',
+        independent && 'Section--independent',
         scrollable && 'Section--scrollable',
         scrollableHorizontal && 'Section--scrollableHorizontal',
         className,
