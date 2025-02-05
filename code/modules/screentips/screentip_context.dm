@@ -89,8 +89,6 @@
 		left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
-	if (!held_item || !held_item.tool_behaviour)
-		return
 	switch (tool)
 		if (TOOL_WIRECUTTER)
 			wirecutter = "[GLOB.lmb_icon] [action_text] [wirecutter]"
@@ -170,8 +168,6 @@
 		right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
 
 /datum/screentip_context/proc/add_right_click_tool_action(action_text, tool)
-	if (!held_item || !held_item.tool_behaviour)
-		return
 	switch (tool)
 		if (TOOL_WIRECUTTER)
 			wirecutter = "[wirecutter] [GLOB.rmb_icon] [action_text]"
