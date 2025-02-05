@@ -205,7 +205,7 @@
 			context.add_left_click_tool_action("Unweld", TOOL_WELDER)
 
 	if(anchorable)
-		context.add_left_click_tool_action("[anchored ? "Unanchor" : "Anchor"]", TOOL_WELDER)
+		context.add_left_click_tool_action("[anchored ? "Unanchor" : "Anchor"]", TOOL_WRENCH)
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
