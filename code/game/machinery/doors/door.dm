@@ -214,6 +214,10 @@
 /obj/machinery/door/proc/try_to_crowbar_secondary(obj/item/acting_object, mob/user)
 	return
 
+/obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
+	try_to_weld(tool, user)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode)
 		return
