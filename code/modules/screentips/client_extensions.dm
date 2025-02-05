@@ -5,8 +5,6 @@
 /client/var/hover_queued = FALSE
 /// The next in the queue for screentip processing
 /client/var/client/screentip_next = null
-/// We will get duplicates in the chain that we need to skip
-/client/var/datum/screentip_context/screentip_context = new()
 
 /client/Destroy()
 	SSscreentips.on_client_disconnected(src)
