@@ -109,6 +109,8 @@
 
 /datum/martial_art/proc/on_remove(mob/living/holder_living)
 	if(info_button_ref)
+		var/datum/action/martial_info/info_button = info_button_ref.resolve()
+		info_button.Remove(holder_living)
 		QDEL_NULL(info_button_ref)
 
 ///Gets called when a projectile hits the owner. Returning anything other than BULLET_ACT_HIT will stop the projectile from hitting the mob.
@@ -134,7 +136,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(!owner.mind)
+	if(!owner.mind || !owner.mind.martial_art)
 		return FALSE
 	return TRUE
 
@@ -151,6 +153,7 @@
 /datum/action/martial_info/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/martial_art/martial_art = owner.mind.martial_art
+	data["name"] = martial_art.name
 	data["Move1"] = martial_art.Move1
 	data["Move2"] = martial_art.Move2
 	data["Move3"] = martial_art.Move3

@@ -5,12 +5,21 @@
 /datum/martial_art/plasma_fist
 	name = "Plasma Fist"
 	id = MARTIALART_PLASMAFIST
-	//help_verb = /mob/living/proc/plasma_fist_help
 	var/nobomb = FALSE
 	var/plasma_power = 1 //starts at a 1, 2, 4 explosion.
 	var/plasma_increment = 1 //how much explosion power gets added per kill (1 = 1, 2, 4. 2 = 2, 4, 8 and so on)
 	var/plasma_cap = 12 //max size explosion level
 	display_combos = TRUE
+
+	Move1 = "Tail Sweep: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down."
+	Move2 = "Tornado Sweep: Harm Harm Disarm. Repulses target and everyone back."
+	Move3 = "Throwback: Disarm Harm Disarm. Throws the target and an item at them."
+	Move4 = "The Plasma Fist: Harm Disarm Disarm Disarm Harm. Knocks the brain out of the opponent and gibs their body."
+
+/datum/martial_art/plasma_fist/teach(mob/living/holder_living, make_temporary = FALSE)
+	if(!nobomb)
+		Move5 = "Apotheosis: Use <span class='notice'>The Plasma Fist</span> on yourself. Sends you away in a glorious explosion."
+	. = ..()
 
 /datum/martial_art/plasma_fist/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,TORNADO_COMBO))
@@ -148,20 +157,6 @@
 	if(check_streak(A,D))
 		return TRUE
 	return FALSE
-
-/mob/living/proc/plasma_fist_help()
-	set name = "Recall Teachings"
-	set desc = "Remember the martial techniques of the Plasma Fist."
-	set category = "Plasma Fist"
-
-	var/datum/martial_art/plasma_fist/martial = usr.mind.martial_art
-	to_chat(usr, "<b><i>You clench your fists and have a flashback of knowledge...</i></b>")
-	to_chat(usr, "[span_notice("Tornado Sweep")]: Harm Harm Disarm. Repulses target and everyone back.")
-	to_chat(usr, "[span_notice("Throwback")]: Disarm Harm Disarm. Throws the target and an item at them.")
-	to_chat(usr, "[span_notice("The Plasma Fist")]: Harm Disarm Disarm Disarm Harm. Knocks the brain out of the opponent and gibs their body.")
-	if(!martial.nobomb)
-		to_chat(usr, "<span class='notice'>Apotheosis</span>: Use <span class='notice'>The Plasma Fist</span> on yourself. Sends you away in a glorious explosion.")
-
 
 /obj/effect/temp_visual/plasma_soul
 	name = "plasma energy"

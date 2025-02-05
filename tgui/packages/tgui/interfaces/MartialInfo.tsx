@@ -19,6 +19,7 @@ const tipstyle = {
 };
 
 type Info = {
+  name: string;
   Move1: string;
   Move2: string;
   Move3: string;
@@ -29,15 +30,15 @@ type Info = {
 
 export const MartialInfo = (_props) => {
   const { data } = useBackend<Info>();
-  const { Move1, Move2, Move3, Move4, Move5, AdditionText } = data;
+  const { name, Move1, Move2, Move3, Move4, Move5, AdditionText } = data;
   return (
     <Window width={620} height={350} theme="abductor">
       <Window.Content>
         <Stack vertical fill>
-          <Stack.Item fontSize="25px">Guide to the Martial Arts...</Stack.Item>
+          <Stack.Item fontSize="25px">Guide to the {name} Martial Arts...</Stack.Item>
           <Stack.Item>
             <BlockQuote>
-              You are a martial artist, whether by circumstance, training, or brain injury;
+              You are a {name} martial artist, whether by circumstance, training, or brain injury;
               <br />
               You are a most fearsome foe of any who would oppose you.
               <br />
