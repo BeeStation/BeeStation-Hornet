@@ -1110,7 +1110,7 @@
 				set_machine_stat(machine_stat & ~BROKEN)
 				user.visible_message("<span class='notice'>[user] finishes welding [src].</span>", \
 									"<span class='notice'>You finish repairing the airlock.</span>")
-				update_appearance()
+				update_icon()
 		else
 			to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
 
@@ -1126,7 +1126,7 @@
 	user.visible_message("<span class='notice'>[user] [welded? "welds shut":"unwelds"] [src].</span>", \
 		"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 	log_combat(user, tool, "[key_name(user)] [welded ? "welded":"unwelded"] airlock [src] with [tool] at [AREACOORD(src)]", important = FALSE)
-	update_appearance()
+	update_icon()
 
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/weldingtool/W, mob/user)
 	return !operating && density
@@ -1418,7 +1418,7 @@
 		flags_1 |= NODECONSTRUCT_1  //If an explosive took us out, don't drop the assembly
 	. = ..()
 	if(atom_integrity < (0.75 * max_integrity))
-		update_appearance()
+		update_icon()
 
 /obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
 	if(!(flags_1 & NODECONSTRUCT_1))
