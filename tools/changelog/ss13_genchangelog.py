@@ -66,13 +66,13 @@ def dictToTuples(inp):
     return [(k, v) for k, v in inp.items()]
 
 
-old_changelog_cache = os.path.join(args.ymlDir, '.all_changelog.yml')
+old_changelog_cache = os.path.join(args.ymlDir, ".all_changelog.yml")
 
 if os.path.isfile(old_changelog_cache):
     try:
-        print('Reading old changelog cache...')
+        print("Reading old changelog cache...")
         data = {}
-        with open(old_changelog_cache,encoding='utf-8') as f:
+        with open(old_changelog_cache, encoding="utf-8") as f:
             (_, all_changelog_entries) = yaml.load_all(f, Loader=yaml.SafeLoader)
 
             # Categorize changes by year and month
@@ -87,13 +87,13 @@ if os.path.isfile(old_changelog_cache):
                 print("Writing " + month + ".yml...")
                 if not os.path.exists(archiveDir):
                     os.makedirs(archiveDir)
-                currentFile = os.path.join(archiveDir, month + '.yml')
-                with open(currentFile, 'w', encoding='utf-8') as f:
+                currentFile = os.path.join(archiveDir, month + ".yml")
+                with open(currentFile, "w", encoding="utf-8") as f:
                     yaml.dump(data[month], f, default_flow_style=False)
         # Remove the old changelog cache, as we won't use it anymore
         print("Removing old changelog cache...")
         os.remove(old_changelog_cache)
-        old_changelog_html = os.path.join(args.ymlDir, '..', 'changelog.html')
+        old_changelog_html = os.path.join(args.ymlDir, "..", "changelog.html")
         if os.path.isfile(old_changelog_html):
             print("Removing old changelog html...")
             os.remove(old_changelog_html)
