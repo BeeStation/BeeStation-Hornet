@@ -1,5 +1,145 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"b" = (
+"a" = (
+/obj/structure/lattice/catwalk/over,
+/obj/machinery/shower{
+	dir = 8;
+	name = "emergency shower";
+	pixel_y = 6
+	},
+/obj/structure/sign/directions/engineering{
+	desc = "A handy sign praising the engineering department.";
+	icon_state = "safety";
+	name = "engineering plaque";
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/sign/departments/minsky/engineering/atmospherics{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/effect/mob_spawn/human/engineer{
+	name = "Insane Atmospherics Technician"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/lattice/catwalk/over,
+/obj/item/pipe_dispenser,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/obj/structure/sign/departments/minsky/engineering/atmospherics{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/machinery/airalarm/directional/east,
+/obj/structure/closet/crate,
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/item/storage/box/survival/engineer,
+/obj/item/holosign_creator/atmos,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/item/book/manual/wiki/atmospherics,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
+/turf/open/floor/plating,
+/area/template_noop)
+"J" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/holosign/barrier/atmos,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/machinery/portable_thermomachine,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/structure/sign/poster/official/moth7{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
 /obj/item/wrench,
 /obj/machinery/light{
 	dir = 8
@@ -19,130 +159,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/machinery/portable_thermomachine,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/structure/sign/poster/official/moth7{
-	pixel_y = -32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
-/turf/open/floor/plating,
-/area/template_noop)
-"d" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/item/book/manual/wiki/atmospherics,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
-/turf/open/floor/plating,
-/area/template_noop)
-"g" = (
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal/deliveryChute,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/sign/departments/minsky/engineering/atmospherics{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
-/turf/open/floor/plating,
-/area/template_noop)
-"j" = (
-/obj/structure/lattice/catwalk/over,
-/obj/item/pipe_dispenser,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
-/turf/open/floor/plating,
-/area/template_noop)
-"o" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
-/turf/open/floor/plating,
-/area/template_noop)
-"p" = (
-/obj/structure/lattice/catwalk/over,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
-/turf/open/floor/plating,
-/area/template_noop)
-"t" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/holosign/barrier/atmos,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
-/turf/open/floor/plating,
-/area/template_noop)
-"v" = (
-/obj/machinery/airalarm/directional/east,
-/obj/structure/closet/crate,
-/obj/structure/railing{
-	dir = 9
-	},
-/obj/item/storage/box/survival/engineer,
-/obj/item/holosign_creator/atmos,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
-/turf/open/floor/plating,
-/area/template_noop)
-"z" = (
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/pipe/simple/supply/visible/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/visible/layer2,
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/effect/mob_spawn/corpse/human/engineer{
-	name = "Insane Atmospherics Technician"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice/catwalk/over,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/effect/mob_spawn/human/engineer{
-	name = "Insane Atmospherics Technician"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/turf/open/floor/plating,
-/area/template_noop)
-"A" = (
+"U" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -161,7 +178,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
 /turf/open/floor/plating,
 /area/template_noop)
-"D" = (
+"V" = (
 /obj/structure/lattice/catwalk/over,
 /obj/item/clothing/mask/gas{
 	pixel_x = 8;
@@ -184,71 +201,31 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
 /turf/open/floor/plating,
 /area/template_noop)
-"K" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
-/obj/structure/sign/departments/minsky/engineering/atmospherics{
-	pixel_y = -32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/turf/open/floor/plating,
-/area/template_noop)
-"Q" = (
+"Y" = (
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/shower{
-	dir = 8;
-	name = "emergency shower";
-	pixel_y = 6
-	},
-/obj/structure/sign/directions/engineering{
-	desc = "A handy sign praising the engineering department.";
-	icon_state = "safety";
-	name = "engineering plaque";
-	pixel_y = 32
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
-/turf/open/floor/plating,
-/area/template_noop)
-"T" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible/layer1,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/visible/layer5,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer2,
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-g
-A
-d
-b
-c
+e
+U
+H
+O
+L
 "}
 (2,1,1) = {"
-p
-D
-z
-o
-t
+Y
+V
+f
+x
+J
 "}
 (3,1,1) = {"
-Q
-v
-j
-T
-K
+a
+y
+n
+m
+w
 "}
