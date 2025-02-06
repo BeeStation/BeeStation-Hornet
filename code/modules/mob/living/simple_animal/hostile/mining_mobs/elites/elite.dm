@@ -118,7 +118,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	fire = 100
 	acid = 100
 
-/obj/structure/elite_tumor/attack_hand(mob/user)
+/obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(ishuman(user))
 		switch(activity)

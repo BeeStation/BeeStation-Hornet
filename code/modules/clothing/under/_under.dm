@@ -239,7 +239,7 @@
 	set src in usr
 	set_sensors(usr)
 
-/obj/item/clothing/under/attack_hand(mob/user)
+/obj/item/clothing/under/attack_hand(mob/user, list/modifiers)
 	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
 		attached_accessory.attack_hand(user)
 		return

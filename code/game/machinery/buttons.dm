@@ -136,7 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		A.id = id
 	initialized_button = 1
 
-/obj/machinery/button/attack_hand(mob/user)
+/obj/machinery/button/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

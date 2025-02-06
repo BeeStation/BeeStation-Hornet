@@ -63,7 +63,7 @@
 /obj/structure/mineral_door/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/structure/mineral_door/attack_hand(mob/user)
+/obj/structure/mineral_door/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

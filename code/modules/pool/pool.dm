@@ -197,7 +197,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	new /obj/item/stack/rods/ten(get_turf(src))
 	..()
 
-/obj/structure/pool_ladder/attack_hand(mob/user)
+/obj/structure/pool_ladder/attack_hand(mob/user, list/modifiers)
 	var/datum/component/swimming/S = user.GetComponent(/datum/component/swimming)
 	if(S)
 		to_chat(user, span_notice("You start to climb out of the pool..."))

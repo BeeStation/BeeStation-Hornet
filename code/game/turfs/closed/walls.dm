@@ -109,7 +109,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	return attack_hand(user)
 
-/turf/closed/wall/attack_hand(mob/user)
+/turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

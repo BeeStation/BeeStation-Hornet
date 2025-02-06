@@ -266,7 +266,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 	return COMPONENT_BUFFER_RECEIVED
 
 // attack with hand, move pulled object onto conveyor
-/obj/machinery/conveyor/attack_hand(mob/user)
+/obj/machinery/conveyor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

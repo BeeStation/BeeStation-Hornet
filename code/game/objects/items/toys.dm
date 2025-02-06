@@ -552,7 +552,7 @@
 	else
 		. = ..()
 
-/obj/item/toy/mecha/attack_hand(mob/user)
+/obj/item/toy/mecha/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -866,7 +866,7 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 //ATTACK HAND NOT CALLING PARENT
-/obj/item/toy/cards/deck/attack_hand(mob/user)
+/obj/item/toy/cards/deck/attack_hand(mob/user, list/modifiers)
 	draw_card(user)
 
 /obj/item/toy/cards/deck/proc/draw_card(mob/user)

@@ -432,7 +432,7 @@
 	if(is_playing_alarm)
 		soundloop.start()
 
-/obj/machinery/door/firedoor/attack_hand(mob/user)
+/obj/machinery/door/firedoor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

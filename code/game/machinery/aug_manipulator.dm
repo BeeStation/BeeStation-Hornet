@@ -93,7 +93,7 @@
 	else
 		return ..()
 
-/obj/machinery/aug_manipulator/attack_hand(mob/user)
+/obj/machinery/aug_manipulator/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

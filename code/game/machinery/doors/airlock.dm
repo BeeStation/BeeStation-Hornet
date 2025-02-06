@@ -826,7 +826,7 @@
 	INVOKE_ASYNC(src, /atom/proc/attack_hand, user, modifiers)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/machinery/door/airlock/attack_hand(mob/user)
+/obj/machinery/door/airlock/attack_hand(mob/user, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
 		. = TRUE
 	else

@@ -182,7 +182,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 	use(user)
 	return TRUE
 
-/obj/structure/ladder/attack_hand(mob/user)
+/obj/structure/ladder/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

@@ -169,7 +169,7 @@
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	atom_break()
 
-/obj/machinery/pdapainter/attack_hand(mob/user)
+/obj/machinery/pdapainter/attack_hand(mob/user, list/modifiers)
 	if(!..())
 		add_fingerprint(user)
 		if(stored_pda || stored_id_card)

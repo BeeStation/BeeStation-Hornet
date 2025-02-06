@@ -21,7 +21,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	if(icon_state == "mirror_broke" && !broken)
 		atom_break(null, mapload)
 
-/obj/structure/mirror/attack_hand(mob/user)
+/obj/structure/mirror/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			choosable_races += initial(S.id)
 	return ..()
 
-/obj/structure/mirror/magic/attack_hand(mob/user)
+/obj/structure/mirror/magic/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
