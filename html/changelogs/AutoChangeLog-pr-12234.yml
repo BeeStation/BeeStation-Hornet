@@ -1,0 +1,7 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - tweak: the AI track and jump to camera buttons are now tgui
+  - tweak: the Enhanced Surveillance malfunction module displays messages above peoples'
+      heads now
+  - bugfix: combat upgraded AIs can hack their borgs again
