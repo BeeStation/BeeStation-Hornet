@@ -7,10 +7,18 @@
 /datum/martial_art/cqc
 	name = "CQC"
 	id = MARTIALART_CQC
-	help_verb = /mob/living/proc/CQC_help
 	block_chance = 75
 	smashes_tables = TRUE
 	display_combos = TRUE
+
+	Move1 = "Slam: Grab Punch. Slam opponent into the ground, knocking them down."
+	Move2 = "CQC Kick: Punch Punch. Knocks opponent away. Knocks out stunned or knocked down opponents."
+	Move3 = "Restrain: Grab Grab. Locks opponents into a restraining position, disarm to knock them out with a chokehold."
+	Move4 = "Pressure: Shove Grab. Decent stamina damage."
+	Move5 = "Consecutive CQC: Shove Shove Punch. Mainly offensive move, huge damage and decent stamina damage."
+
+	AdditionText = "In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you."
+
 	var/old_grab_state = null
 	var/mob/restraining_mob
 
@@ -214,14 +222,6 @@
 	set desc = "You try to remember some of the basics of CQC."
 	set category = "CQC"
 	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-	to_chat(usr, "<span class='notice'>Slam</span>: Grab Punch. Slam opponent into the ground, knocking them down.")
-	to_chat(usr, "<span class='notice'>CQC Kick</span>: Punch Punch. Knocks opponent away. Knocks out stunned or knocked down opponents.")
-	to_chat(usr, "<span class='notice'>Restrain</span>: Grab Grab. Locks opponents into a restraining position, disarm to knock them out with a chokehold.")
-	to_chat(usr, "<span class='notice'>Pressure</span>: Shove Grab. Decent stamina damage.")
-	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Shove Shove Punch. Mainly offensive move, huge damage and decent stamina damage.")
-
-	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
 
 ///Subtype of CQC. Only used for the chef.
 /datum/martial_art/cqc/under_siege

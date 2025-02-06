@@ -6,7 +6,6 @@
 	var/current_target
 	var/datum/martial_art/base // The permanent style. This will be null unless the martial art is temporary
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
-	var/help_verb
 	var/allow_temp_override = TRUE //if this martial art can be overridden by temporary martial arts
 	var/smashes_tables = FALSE //If the martial art smashes tables when performing table slams and head smashes
 	var/datum/weakref/holder //owner of the martial art
@@ -15,6 +14,17 @@
 	var/timerid
 	/// If set to true this style allows you to punch people despite being a pacifist (for instance Boxing, which does no damage)
 	var/pacifist_style = FALSE
+
+	/// Weakref to button to access martial guide
+	var/datum/weakref/info_button_ref
+
+	//Moves that are specific to each martial art, and passed into the martial art action button
+	var/Move1 = null
+	var/Move2 = null
+	var/Move3 = null
+	var/Move4 = null
+	var/Move5 = null
+	var/AdditionText = null
 
 /datum/martial_art/proc/help_act(mob/living/A, mob/living/D)
 	return MARTIAL_ATTACK_INVALID
@@ -63,11 +73,21 @@
 			holder_living.mind.martial_art.on_remove(holder_living)
 	else if(make_temporary)
 		base = holder_living.mind.default_martial_art
-	if(help_verb)
-		holder_living.add_verb(help_verb)
 	holder_living.mind.martial_art = src
 	holder = WEAKREF(holder_living)
+	var/datum/action/martial_info/info_button = make_info_button()
+	if(info_button)
+		to_chat(holder, span_boldnotice("For more info, read the martial panel. \
+			You can always come back to it using the button in the top left."))
+		info_button?.trigger()
 	return TRUE
+
+/datum/martial_art/proc/make_info_button()
+	var/datum/action/martial_info/info_button = new(src)
+	var/mob/living/carbon/holder_living = holder.resolve()
+	info_button.Grant(holder_living)
+	info_button_ref = WEAKREF(info_button)
+	return info_button
 
 /datum/martial_art/proc/store(datum/martial_art/old, mob/living/holder_living)
 	old.on_remove(holder_living)
@@ -88,10 +108,56 @@
 	holder = null
 
 /datum/martial_art/proc/on_remove(mob/living/holder_living)
-	if(help_verb)
-		holder_living.remove_verb(help_verb)
-	return
+	if(info_button_ref)
+		var/datum/action/martial_info/info_button = info_button_ref.resolve()
+		info_button.Remove(holder_living)
+		QDEL_NULL(info_button_ref)
 
 ///Gets called when a projectile hits the owner. Returning anything other than BULLET_ACT_HIT will stop the projectile from hitting the mob.
 /datum/martial_art/proc/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
 	return BULLET_ACT_HIT
+
+//button to review martial arts
+/datum/action/martial_info
+	name = "Open Martial Art Guide:"
+	button_icon_state = "round_end"
+
+/*
+/datum/action/martial_info/New(master)
+	. = ..()
+	var/datum/martial_art/martial_art = owner.mind.martial_art
+	name = "Open [martial_art.name] Guide:"
+*/
+
+/datum/action/martial_info/on_activate(mob/user, atom/target)
+	ui_interact(owner)
+
+/datum/action/martial_info/is_available(feedback = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(!owner.mind || !owner.mind.martial_art)
+		return FALSE
+	return TRUE
+
+/datum/action/martial_info/ui_state()
+	return GLOB.always_state
+
+/datum/action/martial_info/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MartialInfo", name)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/datum/action/martial_info/ui_data(mob/user)
+	var/list/data = list()
+	var/datum/martial_art/martial_art = owner.mind.martial_art
+	data["name"] = martial_art.name
+	data["Move1"] = martial_art.Move1
+	data["Move2"] = martial_art.Move2
+	data["Move3"] = martial_art.Move3
+	data["Move4"] = martial_art.Move4
+	data["Move5"] = martial_art.Move5
+	data["AdditionText"] = martial_art.AdditionText
+	return data

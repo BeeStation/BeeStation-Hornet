@@ -50,7 +50,7 @@
 	var/list/restricted_roles = list()
 	var/linglink
 	/// Martial art on this mind
-	var/datum/martial_art/martial_art
+	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
 	var/hellbound = FALSE

@@ -623,7 +623,6 @@
 #include "code\datums\actions\items\summon_stickmen.dm"
 #include "code\datums\actions\items\toggles.dm"
 #include "code\datums\actions\items\vortex_recall.dm"
-#include "code\datums\actions\mobs\language_menu.dm"
 #include "code\datums\actions\mobs\small_sprite.dm"
 #include "code\datums\ai\_ai_behavior.dm"
 #include "code\datums\ai\_ai_controller.dm"
