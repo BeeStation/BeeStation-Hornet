@@ -147,10 +147,11 @@
 			new /obj/structure/girder/displaced(loc)
 	..()
 
-/turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	if(exposed_temperature > 300)
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
+/turf/closed/wall/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+/turf/closed/wall/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(plasma_ignition(6))
+		new /obj/structure/girder/displaced(loc)
 
 /turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)

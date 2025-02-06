@@ -26,18 +26,18 @@
 
 /obj/structure/c_transit_tube/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,PROC_REF(after_rot)))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,PROC_REF(post_rotation)))
 
-/obj/structure/c_transit_tube/proc/after_rot(mob/user,rotation_type)
-	if(flipped_build_type && rotation_type == ROTATION_FLIP)
-		setDir(turn(dir,-180)) //Turn back we don't actually flip
+/obj/structure/c_transit_tube/proc/post_rotation(mob/user, degrees)
+	if(flipped_build_type && degrees == ROTATION_FLIP)
+		setDir(turn(dir, degrees)) //Turn back we don't actually flip
 		flipped = !flipped
 		var/cur_flip = initial(flipped) ? !flipped : flipped
 		if(cur_flip)
 			build_type = flipped_build_type
 		else
 			build_type = initial(build_type)
-		icon_state = "[base_icon][flipped]"
+		icon_state = "[base_icon_state][flipped]"
 
 /obj/structure/c_transit_tube/wrench_act(mob/living/user, obj/item/I)
 	if(!can_wrench_in_loc(user))

@@ -496,6 +496,7 @@
 // Used when a player's in control of a minebot.
 
 /datum/action/innate/minedrone
+	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
@@ -506,7 +507,7 @@
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "trayson-"
 
-/datum/action/innate/minedrone/toggle_meson_vision/Activate()
+/datum/action/innate/minedrone/toggle_meson_vision/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	if(user.sight & SEE_TURFS)
 		user.sight &= ~SEE_TURFS
@@ -520,37 +521,37 @@
 		button_icon_state = "trayson-meson"
 	user.sync_lighting_plane_alpha()
 	to_chat(user, span_notice("You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"]."))
-	UpdateButtonIcon()
+	update_buttons()
 
 /// Toggles a minebot's inbuilt light.
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
 	button_icon_state = "mech_lights_off"
 
-/datum/action/innate/minedrone/toggle_light/Activate()
+/datum/action/innate/minedrone/toggle_light/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.set_light_on(!user.light_on)
 	to_chat(user, span_notice("You toggle your light [user.light_on ? "on" : "off"]."))
 	button_icon_state = "mech_lights_[user.light_on ? "on" : "off"]"
-	UpdateButtonIcon()
+	update_buttons()
 
 /// Toggles the minebot's mode from combat to mining mode, effectively switching between the minebot's plasma cutter and PKA.
 /datum/action/innate/minedrone/toggle_mode
 	name = "Toggle Mode"
 	button_icon_state = "mech_zoom_off"
 
-/datum/action/innate/minedrone/toggle_mode/Activate()
+/datum/action/innate/minedrone/toggle_mode/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.toggle_mode()
 	button_icon_state = "mech_zoom_[user.mode == MODE_COMBAT ? "on" : "off"]"
-	UpdateButtonIcon()
+	update_buttons()
 
 /// Allows a minebot to manually dump its own ore.
 /datum/action/innate/minedrone/dump_ore
 	name = "Dump Ore"
 	button_icon_state = "mech_eject"
 
-/datum/action/innate/minedrone/dump_ore/Activate()
+/datum/action/innate/minedrone/dump_ore/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.drop_ore()
 
@@ -559,12 +560,12 @@
 	name = "Toggle Mining Scanner"
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/innate/minedrone/toggle_scanner/Activate()
+/datum/action/innate/minedrone/toggle_scanner/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.stored_scanner.toggle_on()
 	to_chat(user, span_notice("You toggle your mining scanner [user.stored_scanner.on ? "on" : "off"]."))
 	button_icon_state = "mech_cycle_equip_[user.stored_scanner.on ? "on" : "off"]"
-	UpdateButtonIcon()
+	update_buttons()
 
 /**********************Minebot Upgrades**********************/
 // Similar to PKA upgrades, except for minebots. Each upgrade can only be installed once and is stored in the minebot when installed.

@@ -380,7 +380,7 @@
 /obj/item/circuitboard/machine/thermomachine
 	name = "thermomachine (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/thermomachine/freezer
+	build_path = /obj/machinery/atmospherics/components/unary/thermomachine
 	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -782,7 +782,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/cryo_tube
 	name = "cryotube (Machine Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/atmospherics/components/unary/cryo_cell
+	build_path = /obj/machinery/cryo_cell
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stack/cable_coil = 1,
