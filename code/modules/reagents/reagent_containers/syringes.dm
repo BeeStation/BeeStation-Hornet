@@ -32,6 +32,9 @@
 	context.add_left_click_action("[user.combat_mode ? "Inject" : "Stab Inject"]")
 	context.add_right_click_action("Draw")
 
+/obj/item/reagent_containers/syringe/on_reagent_change(changetype)
+	update_icon()
+
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
