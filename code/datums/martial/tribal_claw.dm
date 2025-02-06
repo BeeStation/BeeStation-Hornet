@@ -7,6 +7,7 @@
 	name = "Tribal Claw"
 	id = MARTIALART_TRIBALCLAW
 	allow_temp_override = FALSE
+	display_combos = TRUE
 
 	Move1 = "Tail Sweep: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down."
 	Move2 = "Face Scratch: Harm Disarm. Damages your target's head and confuses them for a short time."
