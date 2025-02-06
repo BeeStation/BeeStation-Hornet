@@ -269,7 +269,7 @@ PROTECT_HEADS_FROM_ANTAGONIST
 ALLOW_LATEJOIN_ANTAGONISTS
 
 ## The minimum amount of players for malfunctioning AI to be occur.
-MALF_AI_MINIMUM_POP 30
+MALF_AI_MINIMUM_POP 20
 
 ## Incursion Rules
 ## The more incursion-traitors spawn, the most pop is required to spawn the next
