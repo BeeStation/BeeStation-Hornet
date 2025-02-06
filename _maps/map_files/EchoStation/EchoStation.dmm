@@ -35671,10 +35671,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/teleporter)
-"rsG" = (
-/obj/structure/flora/rock/jungle,
-/turf/closed/indestructible/rock/bedrock,
-/area/asteroid/paradise)
 "rsH" = (
 /obj/effect/turf_decal/numbers{
 	dir = 1
@@ -52623,7 +52619,7 @@ mdK
 pmx
 sLz
 jsp
-rsG
+jsp
 jsp
 jsp
 jsp
