@@ -75,6 +75,9 @@
 		base = holder_living.mind.default_martial_art
 	holder_living.mind.martial_art = src
 	holder = WEAKREF(holder_living)
+	//Skip info button stuff if we dont have moves
+	if(!display_combos)
+		return TRUE
 	var/datum/action/martial_info/info_button = make_info_button()
 	if(info_button)
 		to_chat(holder, span_boldnotice("For more info, read the martial panel. \
