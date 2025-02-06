@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Workshop = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Workshop = (props) => {
+  const { act, data } = useBackend();
   const { default_programs = [], program } = data;
   return (
     <Window width={400} height={500}>

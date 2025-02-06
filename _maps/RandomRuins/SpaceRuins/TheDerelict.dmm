@@ -29,14 +29,6 @@
 	broken = 1
 	},
 /area/solar/derelict_starboard)
-"ag" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/solar/derelict_starboard)
 "ah" = (
 /obj/machinery/power/solar{
 	id = "derelictsolar";
@@ -440,26 +432,10 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/solar_control)
-"bs" = (
-/turf/open/floor/iron{
-	icon_state = "damaged1"
-	},
-/area/ruin/space/derelict/solar_control)
 "bt" = (
 /obj/machinery/door/window,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/ai_upload)
-"bu" = (
-/turf/open/floor/iron{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/solar_control)
-"bv" = (
-/obj/item/stock_parts/matter_bin,
-/turf/open/floor/iron{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/solar_control)
 "bw" = (
 /obj/structure/rack,
 /obj/item/circuitboard/machine/smes,
@@ -485,33 +461,10 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/solar_control)
-"bB" = (
-/turf/open/floor/iron{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/solar_control)
-"bC" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/solar_control)
 "bD" = (
 /obj/structure/rack,
 /obj/item/circuitboard/machine/cryo_tube,
 /turf/open/floor/iron,
-/area/ruin/space/derelict/bridge/ai_upload)
-"bE" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/bridge/ai_upload)
-"bF" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
 /area/ruin/space/derelict/bridge/ai_upload)
 "bG" = (
 /obj/machinery/light{
@@ -541,11 +494,6 @@
 	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/ai_upload)
-"bK" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/bridge/ai_upload)
 "bL" = (
 /turf/template_noop,
 /area/ruin/space/derelict/bridge/ai_upload)
@@ -559,12 +507,6 @@
 "bP" = (
 /obj/machinery/porta_turret_cover,
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/bridge/ai_upload)
-"bQ" = (
-/obj/item/aicard,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
 /area/ruin/space/derelict/bridge/ai_upload)
 "bR" = (
 /obj/structure/lattice,
@@ -629,12 +571,6 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/solar_control)
-"cb" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/space/nearstation)
 "cc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -694,25 +630,6 @@
 /obj/item/stack/ore/iron,
 /turf/template_noop,
 /area/template_noop)
-"co" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/gravity_generator)
-"cp" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/gravity_generator)
-"cq" = (
-/obj/item/stock_parts/manipulator,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/gravity_generator)
 "cr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -729,22 +646,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
-"cu" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/gravity_generator)
-"cv" = (
-/obj/item/stack/ore/slag,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/gravity_generator)
-"cw" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/gravity_generator)
 "cx" = (
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
@@ -793,12 +694,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
-"cG" = (
-/obj/item/screwdriver,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/gravity_generator)
 "cH" = (
 /obj/machinery/gravity_generator/main/station{
 	on = 0
@@ -838,14 +733,6 @@
 /area/ruin/space/derelict/bridge/access)
 "cO" = (
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/gravity_generator)
-"cP" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
 /area/ruin/space/derelict/gravity_generator)
 "cQ" = (
 /obj/machinery/power/apc{
@@ -1173,22 +1060,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
-"dO" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"dP" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"dQ" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "dR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1229,11 +1100,6 @@
 "dW" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"dX" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "dY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1262,38 +1128,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
-"ee" = (
-/obj/structure/window/reinforced,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"ef" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"eg" = (
-/obj/structure/window/reinforced,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"eh" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"ei" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "ej" = (
 /turf/open/floor/iron,
 /area/ruin/space/derelict/gravity_generator)
@@ -1307,14 +1141,6 @@
 "el" = (
 /turf/closed/wall,
 /area/ruin/space/derelict/gravity_generator)
-"em" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "en" = (
 /obj/machinery/power/emitter{
 	dir = 1
@@ -1336,6 +1162,12 @@
 /obj/structure/window/reinforced/fulltile,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
+"es" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
 "et" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1370,11 +1202,6 @@
 /obj/structure/noticeboard,
 /turf/closed/wall/r_wall,
 /area/ruin/space/derelict/singularity_engine)
-"ez" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "eB" = (
 /obj/machinery/door/window/eastleft{
 	name = "Heads of Staff";
@@ -1399,18 +1226,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
-"eF" = (
-/obj/item/storage/toolbox/syndicate,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"eG" = (
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "eH" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1451,12 +1266,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
-"eN" = (
-/obj/item/paper/fluff/ruins/thederelict/nukie_objectives,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "eO" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1505,17 +1314,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"eX" = (
-/obj/item/shard,
-/obj/structure/grille/broken,
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Syndicate agent remains"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "eY" = (
 /obj/item/clothing/suit/space/syndicate/black/engie,
 /turf/open/floor/plating/airless,
@@ -1523,12 +1321,6 @@
 "eZ" = (
 /obj/item/stack/rods,
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/singularity_engine)
-"fa" = (
-/obj/item/shard,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
 /area/ruin/space/derelict/singularity_engine)
 "fb" = (
 /obj/structure/grille,
@@ -1578,14 +1370,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
-"fj" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fk" = (
 /obj/item/clothing/head/helmet/space/syndicate/black/engie,
 /turf/open/floor/plating/airless,
@@ -1629,17 +1413,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"fr" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fs" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1655,18 +1428,8 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"fu" = (
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fv" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron/airless,
-/area/ruin/space/derelict/bridge/access)
-"fw" = (
-/obj/effect/mob_spawn/ghost_role/drone/derelict,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
 "fx" = (
@@ -1722,28 +1485,6 @@
 	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
-"fG" = (
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"fI" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 10
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"fJ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fK" = (
 /obj/machinery/door/window,
 /obj/structure/cable/yellow{
@@ -1751,40 +1492,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge/access)
-"fL" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fN" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/singularity_engine)
-"fO" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"fP" = (
-/obj/structure/grille,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"fQ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
 /area/ruin/space/derelict/singularity_engine)
 "fR" = (
 /obj/machinery/door/airlock/maintenance{
@@ -1803,23 +1515,9 @@
 	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
-"fU" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fV" = (
 /obj/item/screwdriver,
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/singularity_engine)
-"fW" = (
-/obj/item/stack/rods,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
 /area/ruin/space/derelict/singularity_engine)
 "fX" = (
 /obj/item/shard{
@@ -1828,34 +1526,8 @@
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"fY" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "fZ" = (
 /turf/closed/wall,
-/area/ruin/space/derelict/hallway/primary)
-"ga" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/hallway/primary)
-"gb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
 /area/ruin/space/derelict/hallway/primary)
 "gc" = (
 /obj/structure/cable/yellow{
@@ -1913,16 +1585,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
-"gm" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/hallway/primary)
-"gn" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "go" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/hallway/primary)
@@ -1936,14 +1598,6 @@
 "gr" = (
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered/no_grav)
-"gs" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "gt" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
 	dir = 9
@@ -1971,11 +1625,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
-"gz" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "gA" = (
 /obj/machinery/light/small,
 /turf/open/floor/iron/airless,
@@ -1988,16 +1637,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
-"gC" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/unpowered/no_grav)
-"gD" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/unpowered/no_grav)
 "gE" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -2012,30 +1651,9 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
-"gH" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
-	},
-/area/ruin/unpowered/no_grav)
-"gI" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
 "gJ" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/singularity_engine)
-"gK" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
 /area/ruin/space/derelict/singularity_engine)
 "gL" = (
 /turf/open/floor/plating/airless,
@@ -2052,11 +1670,6 @@
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
-"gP" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/unpowered/no_grav)
 "gQ" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/airless,
@@ -2107,12 +1720,6 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/hallway/primary)
-"hb" = (
-/obj/machinery/light/small,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
 /area/ruin/space/derelict/hallway/primary)
 "hc" = (
 /obj/structure/lattice,
@@ -2170,24 +1777,8 @@
 /obj/structure/grille,
 /turf/template_noop,
 /area/ruin/space/derelict/singularity_engine)
-"ho" = (
-/obj/item/shard,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/singularity_engine)
-"hp" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/space/derelict/arrival)
 "hq" = (
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/arrival)
-"hr" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
 /area/ruin/space/derelict/arrival)
 "hs" = (
 /obj/structure/table,
@@ -2238,11 +1829,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"hD" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "hE" = (
 /obj/machinery/door/window{
 	dir = 8
@@ -2276,22 +1862,6 @@
 /obj/item/bot_assembly/medbot,
 /turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
-"hK" = (
-/obj/structure/closet,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/medical)
-"hL" = (
-/obj/structure/frame/computer,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/medical)
 "hM" = (
 /obj/machinery/light{
 	dir = 1
@@ -2301,12 +1871,14 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/medical)
-"hN" = (
-/obj/machinery/light/small,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
+"hO" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/area/ruin/space/derelict/singularity_engine)
+/turf/open/floor/iron/airless{
+	burnt = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
 "hP" = (
 /turf/open/floor/plating,
 /area/ruin/space/derelict/arrival)
@@ -2355,27 +1927,12 @@
 /obj/item/stack/medical/bruise_pack,
 /turf/open/floor/iron/white/airless,
 /area/ruin/space/derelict/medical)
-"hX" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/medical)
-"hY" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/medical)
 "hZ" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/medical)
-"ia" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/space/nearstation)
 "ib" = (
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/plating/airless,
@@ -2424,12 +1981,6 @@
 "ij" = (
 /turf/open/floor/iron/chapel,
 /area/ruin/space/derelict/medical/chapel)
-"ik" = (
-/obj/structure/chair,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/medical)
 "il" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -2439,27 +1990,10 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"in" = (
-/obj/effect/mob_spawn/ghost_role/drone/derelict,
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/singularity_engine)
 "io" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
-"ip" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/hallway/primary)
-"iq" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/space/nearstation)
 "ir" = (
 /obj/structure/chair{
 	dir = 1
@@ -2535,14 +2069,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/iron/white/airless,
 /area/ruin/unpowered/no_grav)
-"iF" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "iG" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2579,18 +2105,6 @@
 	icon_state = "small"
 	},
 /turf/open/floor/iron/white/airless,
-/area/ruin/space/derelict/medical)
-"iM" = (
-/obj/item/stack/medical/bruise_pack,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/medical)
-"iN" = (
-/obj/item/stack/medical/ointment,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
 /area/ruin/space/derelict/medical)
 "iO" = (
 /obj/machinery/light{
@@ -2698,6 +2212,13 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/arrival)
+"je" = (
+/obj/structure/window/reinforced,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
 "jf" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -2724,20 +2245,6 @@
 	amount = 2
 	},
 /turf/open/floor/iron/white/airless,
-/area/ruin/space/derelict/medical)
-"jj" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/medical)
-"jk" = (
-/obj/item/reagent_containers/cup/beaker,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
 /area/ruin/space/derelict/medical)
 "jl" = (
 /obj/structure/closet/wardrobe/genetics_white,
@@ -2769,12 +2276,6 @@
 "jp" = (
 /turf/open/floor/iron/white/airless,
 /area/ruin/unpowered/no_grav)
-"jr" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "js" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2839,14 +2340,6 @@
 "jC" = (
 /obj/structure/bed,
 /turf/open/floor/iron/white/airless,
-/area/ruin/space/derelict/medical)
-"jD" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
 /area/ruin/space/derelict/medical)
 "jE" = (
 /obj/machinery/door/airlock/medical{
@@ -2952,14 +2445,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/derelict/arrival)
-"jV" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/unpowered/no_grav)
 "jW" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -2967,19 +2452,6 @@
 	name = "2maintenance loot spawner"
 	},
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/hallway/primary)
-"jX" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
-	},
-/area/ruin/space/derelict/hallway/primary)
-"jY" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
-	},
 /area/ruin/space/derelict/hallway/primary)
 "jZ" = (
 /obj/machinery/light/small{
@@ -3063,14 +2535,6 @@
 	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/medical/chapel)
-"km" = (
-/obj/item/stack/cable_coil/cut/yellow{
-	amount = 2
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "ko" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/iron/airless,
@@ -3100,14 +2564,6 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/arrival)
-"ku" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "kw" = (
 /obj/machinery/door/window{
 	base_state = "right";
@@ -3391,18 +2847,10 @@
 "lt" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
-"lu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
 "lv" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
-"lw" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
 "lx" = (
@@ -3443,11 +2891,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/hallway/primary)
-"lG" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "lH" = (
 /obj/item/ammo_casing/a357,
 /turf/open/floor/iron/airless,
@@ -3463,35 +2906,9 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
-"lK" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
 "lL" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
-"lM" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 6
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
-"lN" = (
-/obj/machinery/atmospherics/pipe/manifold/cyan/hidden,
-/obj/machinery/meter,
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
-"lO" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 9
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
@@ -3521,18 +2938,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/atmospherics)
-"lU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/space/derelict/atmospherics)
-"lV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
-	},
-/turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
 "lW" = (
 /obj/structure/window/reinforced{
@@ -3619,11 +3024,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
-"mk" = (
-/turf/open/floor/iron/airless{
-	icon_state = "floorscorched1"
-	},
-/area/ruin/space/derelict/atmospherics)
 "ml" = (
 /obj/structure/window/fulltile,
 /turf/open/floor/plating/airless,
@@ -3643,27 +3043,6 @@
 "mo" = (
 /obj/structure/window/reinforced,
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/atmospherics)
-"mp" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
-/area/ruin/space/derelict/atmospherics)
-"mq" = (
-/turf/open/floor/iron{
-	icon_state = "damaged2";
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/ruin/space/derelict/atmospherics)
-"mr" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged3"
-	},
-/area/ruin/space/derelict/atmospherics)
-"ms" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
 /area/ruin/space/derelict/atmospherics)
 "mt" = (
 /obj/structure/window/fulltile,
@@ -3689,12 +3068,6 @@
 "mx" = (
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/atmospherics)
-"my" = (
-/obj/machinery/light/small,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged5"
-	},
 /area/ruin/space/derelict/atmospherics)
 "mz" = (
 /obj/structure/lattice,
@@ -3731,17 +3104,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/atmospherics)
-"mG" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/atmospherics)
-"mH" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/space/derelict/hallway/primary/port)
 "mI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3761,11 +3123,6 @@
 	icon_state = "medium"
 	},
 /turf/open/floor/iron/airless,
-/area/ruin/space/derelict/atmospherics)
-"mN" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged1"
-	},
 /area/ruin/space/derelict/atmospherics)
 "mO" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -4094,11 +3451,6 @@
 	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/se_solar)
-"nQ" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged4"
-	},
-/area/ruin/space/derelict/se_solar)
 "nR" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/se_solar)
@@ -4118,16 +3470,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"nU" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/mob_spawn/ghost_role/drone/derelict,
-/turf/open/floor/iron/airless,
-/area/ruin/space/derelict/se_solar)
 "nV" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/se_solar)
@@ -4159,12 +3501,6 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/ruin/space/derelict/se_solar)
-"oa" = (
-/obj/item/paper/fluff/ruins/thederelict/syndie_mission,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
 /area/ruin/space/derelict/se_solar)
 "ob" = (
 /obj/machinery/light/small{
@@ -4373,12 +3709,85 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/derelict/bridge)
+"qo" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
+"rf" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/space/nearstation)
+"ro" = (
+/obj/item/stack/cable_coil/cut/yellow{
+	amount = 2
+	},
+/turf/open/floor/iron/airless{
+	burnt = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
 "rK" = (
 /turf/template_noop,
 /area/ruin/space/derelict/medical)
+"rP" = (
+/obj/structure/frame/computer,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
+"rY" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"se" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"sf" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 5
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
+"ta" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
+"tr" = (
+/obj/item/storage/toolbox/syndicate,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"tJ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
 "tS" = (
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
+"um" = (
+/obj/item/shard,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"uG" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
 "vf" = (
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
@@ -4389,26 +3798,110 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"wK" = (
+"vL" = (
+/obj/item/paper/fluff/ruins/thederelict/nukie_objectives,
 /turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	broken = 1
 	},
-/area/ruin/space/derelict/se_solar)
+/area/ruin/space/derelict/singularity_engine)
+"wh" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
+"wC" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
 "xi" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
+"xm" = (
+/obj/structure/window/reinforced,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"xF" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/bridge/ai_upload)
+"xX" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
+"ya" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/airless{
+	burnt = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
+"yL" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/gravity_generator)
+"zq" = (
+/obj/item/stack/ore/slag,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/gravity_generator)
+"zH" = (
+/obj/machinery/light/small,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"Ab" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"Al" = (
+/obj/item/aicard,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/bridge/ai_upload)
 "Av" = (
 /obj/item/stack/rods,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary/port)
-"Bx" = (
+"CI" = (
 /turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	burnt = 1
 	},
-/area/space/nearstation)
+/area/ruin/unpowered/no_grav)
+"Da" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden,
+/obj/machinery/meter,
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
+"Dl" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/arrival)
+"Dm" = (
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
 "DE" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Airlock"
@@ -4418,29 +3911,136 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/derelict/arrival)
-"Ev" = (
+"DI" = (
+/obj/structure/window/reinforced,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/iron/airless{
-	icon_state = "damaged2"
+	broken = 1
 	},
-/area/space/nearstation)
+/area/ruin/space/derelict/singularity_engine)
+"Ee" = (
+/obj/structure/chair,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
+"Ey" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"Fq" = (
+/obj/item/shard,
+/obj/structure/grille/broken,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "Syndicate agent remains"
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"Fz" = (
+/obj/effect/mob_spawn/ghost_role/drone/derelict,
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/singularity_engine)
+"Gt" = (
+/obj/item/stack/medical/bruise_pack,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
 "Gu" = (
 /obj/structure/grille,
 /turf/template_noop,
 /area/space/nearstation)
+"GI" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
 "GM" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
-"Ih" = (
+"GZ" = (
+/obj/item/stack/cable_coil/red,
 /turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	broken = 1
 	},
-/area/ruin/space/derelict/hallway/primary/port)
-"IA" = (
+/area/ruin/space/derelict/singularity_engine)
+"He" = (
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/iron/airless{
-	icon_state = "floorscorched2"
+	broken = 1
 	},
-/area/space/nearstation)
+/area/ruin/space/derelict/medical)
+"Ho" = (
+/turf/open/floor/iron{
+	broken = 1
+	},
+/area/ruin/space/derelict/solar_control)
+"HN" = (
+/obj/item/stock_parts/manipulator,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/gravity_generator)
+"ID" = (
+/obj/item/stack/cable_coil/cut/yellow{
+	amount = 2
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
+"IS" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"JQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
+"JS" = (
+/obj/item/screwdriver,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/gravity_generator)
+"Kc" = (
+/obj/machinery/light/small,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/atmospherics)
+"Kw" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
 "KN" = (
 /turf/closed/wall,
 /area/ruin/space/derelict/hallway/primary/port)
@@ -4450,6 +4050,14 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary/port)
+"KW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
 "Le" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrivals Docking Bay 1"
@@ -4459,6 +4067,10 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/derelict/arrival)
+"Lf" = (
+/obj/effect/mob_spawn/ghost_role/drone/derelict,
+/turf/open/floor/iron/airless,
+/area/ruin/space/derelict/bridge/access)
 "Lv" = (
 /turf/closed/wall,
 /area/space/nearstation)
@@ -4475,9 +4087,48 @@
 	},
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/se_solar)
+"NC" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 6
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
+"NL" = (
+/turf/open/floor/iron/airless{
+	burnt = 1
+	},
+/area/ruin/space/derelict/atmospherics)
+"NP" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 10
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"Ob" = (
+/obj/item/paper/fluff/ruins/thederelict/syndie_mission,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/se_solar)
 "Oj" = (
 /turf/closed/wall/r_wall,
 /area/ruin/space/derelict/bridge/access)
+"Oo" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/se_solar)
+"OJ" = (
+/obj/item/stock_parts/matter_bin,
+/turf/open/floor/iron{
+	broken = 1
+	},
+/area/ruin/space/derelict/solar_control)
 "ON" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -4494,12 +4145,73 @@
 "OT" = (
 /turf/closed/wall/r_wall,
 /area/ruin/space/derelict/hallway/primary/port)
-"Rd" = (
-/obj/item/stack/cable_coil/red,
+"PI" = (
 /turf/open/floor/iron/airless{
-	icon_state = "damaged4"
+	burnt = 1
+	},
+/area/space/nearstation)
+"PN" = (
+/turf/open/floor/iron/airless{
+	burnt = 1
+	},
+/area/ruin/space/derelict/arrival)
+"Qe" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/atmospherics)
+"Qm" = (
+/obj/structure/grille,
+/turf/open/floor/iron/airless{
+	broken = 1
 	},
 /area/ruin/space/derelict/singularity_engine)
+"Qq" = (
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"Qx" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/mob_spawn/ghost_role/drone/derelict,
+/turf/open/floor/iron/airless,
+/area/ruin/space/derelict/se_solar)
+"Qz" = (
+/turf/open/floor/iron{
+	broken = 1;
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/ruin/space/derelict/atmospherics)
+"QX" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
+"QY" = (
+/obj/item/stack/cable_coil/cut/yellow{
+	amount = 2
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
+"Rx" = (
+/obj/item/stack/cable_coil/cut/yellow{
+	amount = 2
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/gravity_generator)
 "RF" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Access";
@@ -4508,28 +4220,112 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/iron,
 /area/ruin/space/derelict/gravity_generator)
+"Sb" = (
+/obj/item/stack/rods,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/singularity_engine)
 "Sv" = (
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
+"Ta" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/gravity_generator)
+"Tf" = (
+/obj/item/stack/cable_coil/cut/yellow{
+	amount = 2
+	},
+/turf/open/floor/iron{
+	broken = 1
+	},
+/area/ruin/space/derelict/solar_control)
 "Tm" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary/port)
+"Tq" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/space/nearstation)
+"TL" = (
+/obj/item/stack/medical/ointment,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
+"Up" = (
+/obj/structure/closet,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/medical)
 "Uz" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"UH" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary/port)
 "Vz" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/hallway/primary/port)
-"Xq" = (
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
+"VY" = (
+/obj/machinery/light/small{
+	dir = 4
 	},
-/area/ruin/space/derelict/singularity_engine)
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/unpowered/no_grav)
+"Wg" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/unpowered/no_grav)
+"Xp" = (
+/obj/machinery/light/small,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
+"Yq" = (
+/turf/open/floor/iron/airless{
+	burnt = 1
+	},
+/area/ruin/space/derelict/hallway/primary)
+"Zc" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/ruin/space/derelict/hallway/primary/port)
+"Zs" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/solar/derelict_starboard)
 "ZB" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"ZM" = (
+/obj/machinery/atmospherics/components/tank/air,
+/turf/open/floor/plating/airless,
+/area/ruin/space/derelict/atmospherics)
 
 (1,1,1) = {"
 aa
@@ -4937,8 +4733,8 @@ iV
 ij
 hS
 jL
-gP
-gH
+Wg
+CI
 ay
 aa
 aa
@@ -5954,8 +5750,8 @@ hk
 gX
 jw
 jL
-jV
-gP
+VY
+Wg
 ay
 aY
 aa
@@ -6296,7 +6092,7 @@ gX
 jW
 gL
 gU
-gn
+wh
 gL
 ZB
 ZB
@@ -6406,12 +6202,12 @@ hk
 gX
 jy
 jM
-jX
+ya
 gL
-gn
+wh
 gL
-gm
-gn
+wh
+wh
 ZB
 ZB
 ZB
@@ -6519,8 +6315,8 @@ gX
 gX
 gX
 gX
-jY
-km
+Yq
+ro
 gy
 fZ
 fZ
@@ -6634,7 +6430,7 @@ iA
 fZ
 go
 go
-ku
+hO
 fZ
 kN
 kW
@@ -6979,7 +6775,7 @@ fZ
 fZ
 fZ
 ka
-jY
+Yq
 gL
 aa
 ZB
@@ -7091,7 +6887,7 @@ fZ
 kN
 kW
 fZ
-jY
+Yq
 lF
 gL
 gL
@@ -7188,7 +6984,7 @@ aa
 aa
 aa
 hx
-hK
+Up
 hW
 hI
 iB
@@ -7206,7 +7002,7 @@ go
 fZ
 lo
 go
-jY
+Yq
 gL
 ZB
 ZB
@@ -7291,9 +7087,9 @@ ZB
 ZB
 dr
 dr
-fL
-em
-ez
+se
+tJ
+rY
 dr
 dr
 ZB
@@ -7301,9 +7097,9 @@ ZB
 aa
 aa
 hy
-hL
-hX
-hX
+rP
+uG
+uG
 iC
 hI
 hI
@@ -7317,8 +7113,8 @@ kD
 go
 kW
 fZ
-jY
-lG
+Yq
+wh
 go
 gL
 gL
@@ -7403,11 +7199,11 @@ ZB
 ZB
 dr
 dr
-ez
-dO
-dX
-ez
-ez
+rY
+rY
+rY
+rY
+rY
 dr
 dr
 ZB
@@ -7415,10 +7211,10 @@ aa
 hm
 hz
 hz
-hY
-ik
-hX
-iM
+uG
+Ee
+uG
+Gt
 iZ
 ji
 jC
@@ -7516,11 +7312,11 @@ dr
 dr
 dr
 dr
-fG
+Qq
 fE
-fU
-fU
-gs
+QX
+QX
+QX
 dr
 dr
 dr
@@ -7530,8 +7326,8 @@ hA
 hz
 hz
 il
-hY
-hX
+uG
+uG
 hI
 jh
 hI
@@ -7629,7 +7425,7 @@ dr
 dr
 dr
 dr
-Xq
+Qq
 fd
 ft
 ft
@@ -7644,8 +7440,8 @@ hM
 hZ
 hz
 hz
-iN
-hX
+TL
+uG
 ji
 hv
 fZ
@@ -7719,7 +7515,7 @@ vf
 vf
 Uz
 Uz
-cb
+rf
 aa
 aa
 ZB
@@ -7734,22 +7530,22 @@ ZB
 ZB
 dr
 dr
-ee
+DI
 ev
 dW
-ez
-dO
-ez
-ez
-ez
-ez
-ez
-dP
-ez
-dO
-ez
-dO
-dX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
 dW
 dW
 hB
@@ -7757,10 +7553,10 @@ eL
 hz
 hz
 hz
-hY
-hX
-hX
-jD
+uG
+uG
+uG
+QY
 jN
 jc
 jc
@@ -7775,8 +7571,8 @@ lr
 lg
 go
 fZ
-hD
-gm
+wh
+wh
 gL
 gL
 gL
@@ -7847,22 +7643,22 @@ Sv
 ZB
 dr
 dr
-ef
+xm
 ev
-ez
-dP
-dX
-dO
-ez
-ez
-ez
-dP
-dP
-dX
-dP
-ez
-gI
-dP
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+Ab
+rY
 gY
 hn
 eL
@@ -7871,8 +7667,8 @@ hz
 hz
 hz
 hz
-hY
-hY
+uG
+uG
 jE
 jO
 go
@@ -7888,12 +7684,12 @@ lr
 lg
 go
 fZ
-gn
+wh
 gL
-gn
+wh
 go
 fZ
-gn
+wh
 gL
 gL
 md
@@ -7959,18 +7755,18 @@ Sv
 de
 dr
 dr
-dO
-eg
+rY
+je
 ev
-ez
-dX
-dO
+rY
+rY
+rY
 eW
 fq
 fq
-fI
-ez
-dP
+NP
+rY
+rY
 eZ
 gt
 fq
@@ -7985,7 +7781,7 @@ rK
 rK
 hz
 hz
-jj
+QY
 hv
 fZ
 go
@@ -8006,9 +7802,9 @@ go
 gL
 go
 fZ
-gm
+wh
 mR
-gm
+wh
 md
 mU
 mU
@@ -8072,18 +7868,18 @@ aa
 ZB
 dr
 dr
-dP
-eh
+rY
+xm
 ev
-ez
-dO
+rY
+rY
 eW
-fj
-fr
-fj
-fJ
+GI
+IS
+GI
+GI
 dW
-dX
+rY
 gh
 gj
 dW
@@ -8098,7 +7894,7 @@ eL
 rK
 iO
 hz
-jk
+He
 hv
 fZ
 go
@@ -8114,13 +7910,13 @@ go
 go
 go
 fZ
-lG
+wh
 go
 go
-gm
+wh
 fZ
 go
-gn
+wh
 go
 mW
 mU
@@ -8185,26 +7981,26 @@ aa
 ZB
 dr
 dA
-dQ
-eh
+es
+xm
 ew
-eF
-eN
-eX
+tr
+vL
+Fq
 fk
-dP
-dP
+rY
+rY
 dW
 dW
 dW
 dW
 dW
 dW
-dO
+rY
 dW
 gJ
 dW
-ez
+rY
 dr
 dr
 eL
@@ -8299,10 +8095,10 @@ cl
 dr
 dr
 dR
-dO
+rY
 dW
-dP
-dO
+rY
+rY
 eY
 fl
 dW
@@ -8312,12 +8108,12 @@ dW
 dW
 dW
 dW
-dO
-dX
-dO
+rY
+rY
+rY
 fb
-ho
-ez
+um
+rY
 dr
 dr
 dr
@@ -8403,19 +8199,19 @@ aa
 aa
 aa
 cn
-cu
-cu
-cw
+yL
+yL
+yL
 cO
 cY
 df
 ds
 dB
 dS
-ei
+xm
 ex
-dO
-dX
+rY
+rY
 eZ
 dW
 dW
@@ -8429,9 +8225,9 @@ dW
 dW
 gS
 ft
-ez
-dO
-ez
+rY
+rY
+rY
 dr
 dr
 dr
@@ -8448,8 +8244,8 @@ go
 go
 fZ
 lt
-lK
-lU
+qo
+xX
 ls
 lt
 lt
@@ -8515,9 +8311,9 @@ aa
 ZB
 aa
 ZB
-co
-cv
-cG
+yL
+zq
+JS
 cO
 cO
 cZ
@@ -8527,8 +8323,8 @@ cl
 dT
 da
 dr
-eG
-dO
+Qq
+rY
 dW
 dW
 dW
@@ -8540,17 +8336,17 @@ aa
 aa
 dW
 dW
-dO
-ez
-dO
-dP
-hN
+rY
+rY
+rY
+rY
+zH
 dr
 im
 dr
 hv
 iD
-gP
+Wg
 jp
 fZ
 go
@@ -8560,9 +8356,9 @@ kG
 jc
 la
 fZ
-lu
+ta
 lt
-lV
+sf
 lt
 lt
 lt
@@ -8628,8 +8424,8 @@ Uz
 ZB
 aa
 cl
-cp
-cw
+Ta
+yL
 cH
 cO
 cO
@@ -8640,9 +8436,9 @@ dC
 dU
 ej
 dr
-ez
+rY
 dW
-fa
+um
 dW
 dW
 dW
@@ -8653,13 +8449,13 @@ aa
 aa
 dW
 dW
-dP
-ez
-dO
-dP
-dX
+rY
+rY
+rY
+rY
+rY
 dW
-in
+Fz
 dr
 iP
 ay
@@ -8685,7 +8481,7 @@ lt
 lt
 lt
 lt
-mG
+Qe
 mT
 md
 ne
@@ -8741,10 +8537,10 @@ vf
 Lv
 aa
 cl
-co
-cu
-cu
-cP
+yL
+yL
+yL
+Rx
 cO
 db
 dg
@@ -8765,19 +8561,19 @@ aa
 aa
 aa
 dW
-dP
-dX
-ez
-fW
-dP
-dO
+rY
+rY
+rY
+Sb
+rY
+rY
 dr
 io
 dr
 iQ
 ay
 ay
-gP
+Wg
 fZ
 go
 go
@@ -8787,7 +8583,7 @@ go
 go
 fZ
 lv
-lM
+NC
 lW
 ma
 ls
@@ -8795,11 +8591,11 @@ lt
 lt
 lt
 ls
-mN
-mG
+Qe
+Qe
 lt
 lt
-mG
+Qe
 md
 nf
 np
@@ -8854,11 +8650,11 @@ vf
 Lv
 aa
 cl
-cq
-cu
+HN
+yL
 cI
-co
-cu
+yL
+yL
 dc
 di
 du
@@ -8866,8 +8662,8 @@ dD
 cl
 el
 dr
-ez
-ez
+rY
+rY
 dW
 dW
 dW
@@ -8878,19 +8674,19 @@ aa
 aa
 aa
 dW
-dO
-eh
+rY
+xm
 gZ
-ez
-dO
-ez
+rY
+rY
+rY
 dr
 dr
 dr
 GM
 ay
 ay
-gD
+Wg
 fZ
 fZ
 fZ
@@ -8899,20 +8695,20 @@ gc
 go
 go
 fZ
-lw
-lN
+ZM
+Da
 lt
 ls
 lt
-mp
+Qe
 ls
 ls
 lt
 ls
-mN
+Qe
 lt
 ls
-mG
+Qe
 md
 ng
 nq
@@ -8977,10 +8773,10 @@ cl
 dr
 dr
 dW
-em
+tJ
 dW
-ez
-dO
+rY
+rY
 fb
 fm
 dW
@@ -8992,10 +8788,10 @@ dW
 dW
 dW
 dW
-ei
+xm
 ev
-ez
-ez
+rY
+rY
 dr
 dr
 dr
@@ -9012,13 +8808,13 @@ gc
 go
 go
 fZ
-lw
-lO
+ZM
+Dm
 ls
 ls
-mk
-mq
-my
+NL
+Qz
+Kc
 lt
 lt
 lt
@@ -9089,11 +8885,11 @@ ZB
 ZB
 dr
 dr
-dO
-dO
-ez
-dO
-dO
+rY
+rY
+rY
+rY
+rY
 fc
 fm
 dW
@@ -9105,10 +8901,10 @@ dW
 dW
 dW
 dW
-eh
+xm
 ev
-dO
-ez
+rY
+rY
 dr
 dr
 GM
@@ -9117,7 +8913,7 @@ GM
 GM
 jn
 ay
-gD
+Wg
 fZ
 fZ
 jZ
@@ -9130,12 +8926,12 @@ lx
 lx
 lx
 lx
-mr
+Qe
 lt
 lt
 lt
 lt
-ms
+Qe
 lt
 lt
 lt
@@ -9202,11 +8998,11 @@ aa
 ZB
 dr
 dr
-dX
-dO
-dX
-dP
-dO
+rY
+rY
+rY
+rY
+rY
 fd
 fn
 fs
@@ -9217,11 +9013,11 @@ fV
 dW
 dW
 dW
-gK
+Kw
 gS
 ew
-dP
-dO
+rY
+rY
 dr
 dr
 GM
@@ -9229,7 +9025,7 @@ tS
 tS
 GM
 ay
-gD
+Wg
 jp
 fZ
 fZ
@@ -9243,13 +9039,13 @@ lP
 ls
 lP
 lP
-mr
+Qe
 lt
-mr
-mr
-mG
-mN
-mp
+Qe
+Qe
+Qe
+Qe
+Qe
 lx
 lx
 md
@@ -9315,12 +9111,12 @@ Sv
 dj
 dr
 dr
-dO
-dO
-Xq
-Rd
-dO
-ez
+rY
+rY
+Qq
+GZ
+rY
+rY
 fd
 ft
 ft
@@ -9332,9 +9128,9 @@ gw
 gE
 gE
 gT
-dO
-dX
-dP
+rY
+rY
+rY
 dr
 dr
 GM
@@ -9356,12 +9152,12 @@ lx
 lx
 lx
 lx
-ms
+Qe
 mt
-mG
-mG
-mp
-mp
+Qe
+Qe
+Qe
+Qe
 mt
 lx
 aa
@@ -9430,23 +9226,23 @@ ZB
 dr
 dr
 en
-ez
-ez
-dX
-dP
-dO
-ez
+rY
+rY
+rY
+rY
+rY
+rY
 dW
 dW
-ez
-ez
+rY
+rY
 dW
-ez
-dP
-dX
-dP
-dO
-ez
+rY
+rY
+rY
+rY
+rY
+rY
 dr
 dr
 GM
@@ -9544,22 +9340,22 @@ dr
 dr
 eo
 dW
-ez
-dO
-dX
-dP
-fu
-ez
-ez
-fO
-fW
-ez
-ez
-dP
-ez
-dP
-ez
-ez
+rY
+rY
+rY
+rY
+Qq
+rY
+rY
+Ab
+Sb
+rY
+rY
+rY
+rY
+rY
+rY
+rY
 dr
 dr
 tS
@@ -9568,8 +9364,8 @@ iD
 tS
 tS
 jo
-gP
-gD
+Wg
+Wg
 fZ
 go
 gc
@@ -9586,8 +9382,8 @@ lz
 lA
 lA
 lz
-Ih
-Ih
+UH
+UH
 lz
 lA
 lz
@@ -9663,10 +9459,10 @@ dr
 dr
 dr
 dr
-dO
-fP
+rY
+Qm
 fX
-dO
+rY
 fb
 dr
 dr
@@ -9776,11 +9572,11 @@ dr
 dr
 dr
 dr
-ez
-fQ
-fQ
+rY
+GI
+GI
 gj
-fJ
+GI
 dr
 dr
 dr
@@ -9809,7 +9605,7 @@ lz
 lA
 OT
 lz
-Ih
+UH
 lA
 lA
 lA
@@ -9890,10 +9686,10 @@ ZB
 dr
 dr
 dW
-dO
-dO
-dX
-ez
+rY
+rY
+rY
+rY
 dr
 dr
 tS
@@ -9902,8 +9698,8 @@ tS
 tS
 gL
 gU
-gm
-gn
+wh
+wh
 fZ
 go
 go
@@ -9923,7 +9719,7 @@ lA
 OT
 lA
 OT
-mH
+Zc
 lA
 OT
 Tm
@@ -10003,9 +9799,9 @@ ZB
 ZB
 dr
 dr
-ez
-fY
-ez
+rY
+Ey
+rY
 dr
 dr
 GM
@@ -10014,10 +9810,10 @@ gL
 gL
 gl
 gl
-gm
-gm
-iF
-ip
+wh
+wh
+KW
+ID
 jc
 jc
 jc
@@ -10125,12 +9921,12 @@ GM
 gx
 ha
 gL
-gm
-gm
-gn
-ip
-gn
-gn
+wh
+wh
+wh
+ID
+wh
+wh
 go
 go
 go
@@ -10236,12 +10032,12 @@ gx
 gl
 gl
 gU
-gm
-gm
-gn
-gn
-gn
-gn
+wh
+wh
+wh
+wh
+wh
+wh
 go
 fZ
 go
@@ -10279,7 +10075,7 @@ nV
 ZB
 nV
 nV
-wK
+Oo
 nR
 aa
 aa
@@ -10391,7 +10187,7 @@ aa
 nV
 nV
 nV
-wK
+Oo
 og
 nR
 nB
@@ -10456,12 +10252,12 @@ fv
 fF
 fx
 cs
-ga
+ID
 gl
-ga
+ID
 fZ
-gn
-gn
+wh
+wh
 go
 fZ
 go
@@ -10565,29 +10361,29 @@ aa
 aa
 dk
 cs
-fw
+Lf
 fx
 fx
 fR
-gb
-gm
-gz
+JQ
+wh
+Yq
 fZ
 gL
 gL
 go
 fZ
-gz
-gn
-gn
+Yq
+wh
+wh
 fZ
-gz
+Yq
 go
 go
-jr
+wC
 go
 gc
-gn
+wh
 ko
 go
 gk
@@ -10616,7 +10412,7 @@ ac
 aa
 nJ
 nO
-nU
+Qx
 nY
 of
 nP
@@ -10654,7 +10450,7 @@ bj
 bj
 ax
 bz
-bK
+xF
 bO
 bX
 cc
@@ -10682,26 +10478,26 @@ fx
 fx
 fx
 cs
-gb
-gn
-gn
+JQ
+wh
+wh
 gF
 gL
-gn
+wh
 go
 go
-gn
+wh
 gL
-gn
+wh
 fZ
-gn
+wh
 gL
 go
 go
 go
-gb
+JQ
 go
-gn
+wh
 go
 kJ
 fZ
@@ -10767,8 +10563,8 @@ bj
 bj
 ax
 bz
-bE
-bK
+xF
+xF
 bY
 cd
 cf
@@ -10800,23 +10596,23 @@ go
 go
 fZ
 fZ
-gn
-gn
+wh
+wh
 fZ
-gz
-gz
+Yq
+Yq
 gL
-gz
-gz
-gz
+Yq
+Yq
+Yq
 go
 js
 gL
 gc
 go
-gn
+wh
 go
-gn
+wh
 fZ
 KN
 lk
@@ -10879,10 +10675,10 @@ bj
 bj
 bj
 ax
-bE
-bE
-bQ
-bK
+xF
+xF
+Al
+xF
 bO
 cf
 aa
@@ -10914,10 +10710,10 @@ gA
 fZ
 go
 go
-hb
+Xp
 fZ
 fZ
-gz
+Yq
 gk
 gk
 gk
@@ -10954,7 +10750,7 @@ mZ
 nB
 nB
 nB
-nQ
+Oo
 nR
 nR
 oh
@@ -10995,8 +10791,8 @@ ax
 bz
 bL
 bR
-bF
-bE
+xF
+xF
 cf
 aa
 aa
@@ -11029,13 +10825,13 @@ gM
 go
 go
 fZ
-gz
-hD
+Yq
+wh
 gk
-Bx
-IA
-IA
-iq
+Tq
+PI
+PI
+Tq
 gk
 go
 gc
@@ -11044,7 +10840,7 @@ kq
 go
 kK
 aa
-gD
+Wg
 ay
 ZB
 ZB
@@ -11069,7 +10865,7 @@ nG
 nM
 nR
 nX
-oa
+Ob
 oi
 nV
 nB
@@ -11108,7 +10904,7 @@ ax
 bz
 bM
 bL
-bE
+xF
 bO
 cf
 aa
@@ -11142,13 +10938,13 @@ gN
 go
 fZ
 fZ
-gz
-gz
+Yq
+Yq
 gk
-IA
-iq
-ia
-IA
+PI
+Tq
+Tq
+PI
 gk
 gk
 jQ
@@ -11218,9 +11014,9 @@ bj
 bj
 bj
 ax
-bF
-bK
-bK
+xF
+xF
+xF
 bZ
 bz
 cg
@@ -11255,11 +11051,11 @@ fZ
 fZ
 fZ
 fZ
-hD
+wh
 gL
 gk
-Bx
-IA
+Tq
+PI
 aa
 aa
 Uz
@@ -11368,11 +11164,11 @@ gO
 fZ
 fZ
 fZ
-gz
+Yq
 gL
 gk
-iq
-IA
+Tq
+PI
 aa
 aa
 ZB
@@ -11593,8 +11389,8 @@ cs
 cs
 ZB
 hc
-gC
-gC
+CI
+CI
 ch
 ZB
 ZB
@@ -11653,7 +11449,7 @@ aa
 (64,1,1) = {"
 vf
 aa
-ag
+Zs
 ai
 ap
 aa
@@ -11707,7 +11503,7 @@ cs
 ZB
 ch
 ay
-gC
+CI
 hc
 ZB
 aa
@@ -11820,7 +11616,7 @@ aa
 ay
 ch
 ay
-gC
+CI
 hc
 aa
 aa
@@ -11932,7 +11728,7 @@ cs
 ZB
 aa
 ch
-gC
+CI
 ay
 hc
 aa
@@ -12045,8 +11841,8 @@ aa
 ZB
 aa
 hc
-gC
-gC
+CI
+CI
 hc
 aa
 aa
@@ -12158,10 +11954,10 @@ aa
 ay
 ay
 gW
-hp
+PN
 hq
 gV
-ia
+Tq
 aa
 aa
 aa
@@ -12271,10 +12067,10 @@ ay
 ay
 gr
 gW
-hp
-hp
+PN
+PN
 gV
-Ev
+Tq
 aa
 aa
 aa
@@ -12381,14 +12177,14 @@ aa
 aa
 aa
 ay
-gC
+CI
 gr
 gW
 hq
-hr
+Dl
 gV
-ia
-ia
+Tq
+Tq
 aa
 aa
 aa
@@ -12498,11 +12294,11 @@ ch
 ch
 gW
 hq
-hr
+Dl
 gV
 Uz
 ZB
-iq
+Tq
 aa
 aa
 ZB
@@ -12572,8 +12368,8 @@ bh
 aN
 bm
 br
-bu
-bB
+Ho
+Ho
 br
 aN
 aN
@@ -12610,13 +12406,13 @@ ay
 ay
 ay
 gW
-hr
+Dl
 hq
 gV
 ib
-iq
+Tq
 ZB
-Bx
+Tq
 gV
 Uz
 aa
@@ -12684,10 +12480,10 @@ az
 as
 az
 as
-bs
-bv
-bC
-bs
+Ho
+OJ
+Tf
+Ho
 az
 bS
 az
@@ -12832,7 +12628,7 @@ aa
 aa
 ay
 ay
-gD
+Wg
 gr
 gV
 hd
@@ -12946,7 +12742,7 @@ aa
 ay
 ay
 gG
-gC
+CI
 gV
 he
 hd
@@ -13058,8 +12854,8 @@ ay
 ay
 ay
 ay
-gH
-gD
+CI
+Wg
 gV
 hf
 hs
@@ -13170,9 +12966,9 @@ aa
 ay
 ay
 gr
-gC
+CI
 gr
-gP
+Wg
 gV
 hg
 hf
@@ -13509,7 +13305,7 @@ aa
 ay
 ay
 ay
-gD
+Wg
 gr
 gQ
 gW

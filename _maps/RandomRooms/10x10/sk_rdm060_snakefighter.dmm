@@ -15,14 +15,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/template_noop)
 "d" = (
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 /turf/open/floor/wood,
@@ -302,7 +294,7 @@ H
 f
 "}
 (3,1,1) = {"
-c
+Z
 l
 e
 v

@@ -75,19 +75,12 @@
 /// Checks if the given mob is either a heretic or a heretic monster.
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
-/// Hostile creature
-#define FACTION_HOSTILE "hostile"
-/// Neutral creatures
-#define FACTION_NEUTRAL "neutral"
-
 /// Define for the heretic faction applied to heretics and heretic mobs.
-#define FACTION_HERETIC "heretics"
 
 #define FACTION_SYNDICATE "Syndicate"
 #define FACTION_BLOB "Blob"
 #define FACTION_ALIEN "Xenomorph"
 #define FACTION_WIZARD "Wizard"
-#define FACTION_PIRATE "pirate"
 
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"
@@ -113,6 +106,12 @@
 #define CONSTRUCT_JUGGERNAUT "Juggernaut"
 #define CONSTRUCT_WRAITH "Wraith"
 #define CONSTRUCT_ARTIFICER "Artificer"
+
+/// Used in logging spells for roundend results
+#define LOG_SPELL_TYPE "type"
+#define LOG_SPELL_AMOUNT "amount"
+
+
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40
@@ -145,6 +144,8 @@
 	WIZARD_LOADOUT_SOULTAP, \
 )
 
+/// Checks if the given mob is a wizard
+#define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
 ///Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel

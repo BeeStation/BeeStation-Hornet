@@ -5,17 +5,16 @@
  */
 
 import { classes } from 'common/react';
-import { useDispatch } from 'common/redux';
 import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { Component } from 'inferno';
 import { backendSuspendStart, useBackend } from '../backend';
 import { Icon } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
-import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
 import { dragStartHandler, recallWindowGeometry, resizeStartHandler, setWindowKey } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
+import { globalStore } from '../backend';
 
 const logger = createLogger('Window');
 
@@ -23,7 +22,7 @@ const DEFAULT_SIZE = [400, 600];
 
 export class Window extends Component {
   componentDidMount() {
-    const { suspended } = useBackend(this.context);
+    const { suspended } = useBackend();
     const { canClose = true } = this.props;
     if (suspended) {
       return;
@@ -43,7 +42,7 @@ export class Window extends Component {
   }
 
   updateGeometry() {
-    const { config } = useBackend(this.context);
+    const { config } = useBackend();
     const options = {
       size: DEFAULT_SIZE,
       ...config.window,
@@ -59,9 +58,14 @@ export class Window extends Component {
 
   render() {
     const { canClose = true, theme, title, children, buttons, override_bg } = this.props;
-    const { config, suspended } = useBackend(this.context);
-    const { debugLayout } = useDebug(this.context);
-    const dispatch = useDispatch(this.context);
+    const { config, suspended, debug } = useBackend();
+
+    let debugLayout = false;
+    if (debug) {
+      debugLayout = debug.debugLayout;
+    }
+
+    const dispatch = globalStore.dispatch;
     const fancy = config.window?.fancy;
     // Determine when to show dimmer
     const showDimmer = config.user && (config.user.observer ? config.status < UI_DISABLED : config.status < UI_INTERACTIVE);
@@ -119,9 +123,16 @@ const statusToColor = (status) => {
   }
 };
 
-const TitleBar = (props, context) => {
+const TitleBar = (props) => {
   const { className, title, status, canClose, fancy, onDragStart, onClose, children } = props;
-  const dispatch = useDispatch(context);
+  const dispatch = globalStore.dispatch;
+  // prettier-ignore
+  const finalTitle = (
+    typeof title === 'string'
+    && title === title.toLowerCase()
+    && toTitleCase(title)
+    || title
+  );
   return (
     <div className={classes(['TitleBar', className])}>
       {(status === undefined && <Icon className="TitleBar__statusIcon" name="tools" opacity={0.5} />) || (
@@ -129,7 +140,7 @@ const TitleBar = (props, context) => {
       )}
       <div className="TitleBar__dragZone" onMousedown={(e) => fancy && onDragStart(e)} />
       <div className="TitleBar__title">
-        {(typeof title === 'string' && title === title.toLowerCase() && toTitleCase(title)) || title}
+        {finalTitle}
         {!!children && <div className="TitleBar__buttons">{children}</div>}
       </div>
       {process.env.NODE_ENV !== 'production' && (

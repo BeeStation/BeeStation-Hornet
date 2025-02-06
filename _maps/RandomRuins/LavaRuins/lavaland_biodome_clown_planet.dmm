@@ -301,16 +301,6 @@
 /obj/structure/statue/bananium/clown,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
-"bQ" = (
-/obj/structure/table/glass,
-/obj/item/grown/bananapeel/bluespace,
-/turf/open/floor/carpet,
-/area/ruin/powered/clownplanet)
-"bR" = (
-/obj/structure/table/glass,
-/obj/item/clothing/shoes/clown_shoes/banana_shoes,
-/turf/open/floor/carpet,
-/area/ruin/powered/clownplanet)
 "bS" = (
 /obj/item/coin/bananium,
 /obj/item/coin/bananium,
@@ -321,32 +311,12 @@
 	},
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
-"bT" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/waterflower/superlube,
-/turf/open/floor/carpet,
-/area/ruin/powered/clownplanet)
 "bU" = (
 /obj/item/bikehorn/airhorn,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
-"bV" = (
-/obj/structure/table/glass,
-/obj/item/gun/magic/staff/honk,
-/turf/open/floor/carpet,
-/area/ruin/powered/clownplanet)
 "bW" = (
 /obj/item/bikehorn,
-/turf/open/indestructible/sound{
-	icon_state = "bananium";
-	name = "bananium floor";
-	sound = 'sound/effects/clownstep1.ogg';
-	wet = 16
-	},
-/area/ruin/powered/clownplanet)
-"bY" = (
-/obj/effect/mob_spawn/corpse/human/damaged,
-/obj/effect/decal/cleanable/blood/old,
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
 	name = "bananium floor";
@@ -549,6 +519,12 @@
 	wet = 8
 	},
 /area/ruin/powered/clownplanet)
+"lJ" = (
+/obj/structure/table/glass,
+/obj/item/gun/magic/staff/honk,
+/obj/item/clothing/shoes/clown_shoes/banana_shoes,
+/turf/open/floor/carpet,
+/area/ruin/powered/clownplanet)
 "lP" = (
 /obj/item/bikehorn,
 /obj/structure/disposalpipe/segment{
@@ -578,6 +554,12 @@
 	wet = 8
 	},
 /area/ruin/powered/clownplanet)
+"nD" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/waterflower/superlube,
+/obj/item/grown/bananapeel/bluespace,
+/turf/open/floor/carpet,
+/area/ruin/powered/clownplanet)
 "nM" = (
 /obj/machinery/light{
 	dir = 1
@@ -606,13 +588,7 @@
 	wet = 8
 	},
 /area/ruin/powered/clownplanet)
-"pv" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/clownplanet)
-"pK" = (
+"pk" = (
 /obj/effect/mob_spawn/corpse/human/damaged,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -620,6 +596,12 @@
 	icon_state = "darkfull";
 	wet = 8
 	},
+/area/ruin/powered/clownplanet)
+"pv" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
 "qn" = (
 /obj/structure/disposalpipe/segment{
@@ -712,18 +694,6 @@
 	wet = 8
 	},
 /area/ruin/powered/clownplanet)
-"Bl" = (
-/obj/effect/mob_spawn/corpse/human/damaged,
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/disposalpipe/segment{
-	invisibility = 101
-	},
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/indestructible{
-	icon_state = "darkfull";
-	wet = 8
-	},
-/area/ruin/powered/clownplanet)
 "BV" = (
 /obj/effect/decal/cleanable/food/pie_smudge,
 /obj/structure/disposalpipe/segment{
@@ -810,6 +780,16 @@
 	wet = 8
 	},
 /area/ruin/powered/clownplanet)
+"JL" = (
+/obj/effect/mob_spawn/corpse/human/damaged,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/indestructible/sound{
+	icon_state = "bananium";
+	name = "bananium floor";
+	sound = 'sound/effects/clownstep1.ogg';
+	wet = 16
+	},
+/area/ruin/powered/clownplanet)
 "KX" = (
 /obj/item/grown/bananapeel{
 	color = "#2F3000";
@@ -886,6 +866,18 @@
 	wet = 8
 	},
 /area/ruin/powered/clownplanet)
+"Tp" = (
+/obj/effect/mob_spawn/corpse/human/damaged,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/indestructible{
+	icon_state = "darkfull";
+	wet = 8
+	},
+/area/ruin/powered/clownplanet)
 "TD" = (
 /obj/structure/disposalpipe/trunk,
 /obj/structure/disposaloutlet{
@@ -906,6 +898,11 @@
 	icon_state = "darkfull";
 	wet = 8
 	},
+/area/ruin/powered/clownplanet)
+"Wb" = (
+/obj/structure/table/glass,
+/obj/item/fuel_rod/material/bananium,
+/turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "Xm" = (
 /obj/item/clothing/head/cone,
@@ -1152,7 +1149,7 @@ bB
 cc
 bB
 bH
-bY
+JL
 bB
 aU
 ye
@@ -1271,7 +1268,7 @@ Mv
 cc
 ye
 an
-Bl
+Tp
 YR
 Ll
 aL
@@ -1456,8 +1453,8 @@ rR
 Ll
 cc
 dK
-bQ
-bT
+Wb
+nD
 bM
 cc
 cc
@@ -1524,8 +1521,8 @@ xf
 XS
 cc
 bM
-bR
-bV
+Wb
+lJ
 bM
 cc
 bB
@@ -1555,7 +1552,7 @@ rR
 Ll
 wb
 aL
-pK
+pk
 cc
 bL
 bM
@@ -1628,7 +1625,7 @@ bB
 bB
 cc
 cc
-bY
+JL
 bB
 bB
 bH

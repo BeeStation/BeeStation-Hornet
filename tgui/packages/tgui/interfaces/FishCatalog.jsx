@@ -6,11 +6,11 @@ import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 
-export const FishCatalog = (props, context) => {
-  const { act, data } = useBackend(context);
+export const FishCatalog = (props) => {
+  const { act, data } = useBackend();
   const { fish_info, sponsored_by } = data;
   const fish_by_name = flow([sortBy((fish) => fish.name)])(data.fish_info || []);
-  const [currentFish, setCurrentFish] = useLocalState(context, 'currentFish', null);
+  const [currentFish, setCurrentFish] = useLocalState('currentFish', null);
   return (
     <Window theme="generic" width={500} height={300} resizable>
       <Window.Content>

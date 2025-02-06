@@ -26,7 +26,7 @@
 		announce_swarmer()
 
 /proc/announce_swarmer()
-	var/swarmer_report = "<span class='big bold'>[command_name()] High-Priority Update</span>"
+	var/swarmer_report = span_bigbold("[command_name()] High-Priority Update")
 	swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come through."
 	print_command_report(swarmer_report, announce=TRUE)
 

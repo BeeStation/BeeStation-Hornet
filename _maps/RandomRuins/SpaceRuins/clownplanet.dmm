@@ -158,10 +158,6 @@
 /obj/item/shovel,
 /turf/open/floor/plating/asteroid,
 /area/ruin/powered/clownplanet)
-"aG" = (
-/obj/effect/mob_spawn/corpse/human/clown,
-/turf/open/floor/plating/asteroid,
-/area/ruin/powered/clownplanet)
 "aH" = (
 /turf/closed/mineral/bananium{
 	color = "#de1d1d"
@@ -353,26 +349,30 @@
 "bi" = (
 /turf/closed/wall/mineral/wood/nonmetal,
 /area/ruin/powered/clownplanet)
-"bj" = (
-/obj/structure/mineral_door/wood,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/ruin/powered/clownplanet)
 "bk" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/stripes/white/box,
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)
-"bl" = (
+"bm" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plating/asteroid,
+/area/ruin/powered/clownplanet)
+"kd" = (
+/obj/structure/mineral_door/wood,
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/ruin/powered/clownplanet)
+"pE" = (
 /obj/item/bedsheet/clown,
 /obj/structure/bed,
 /obj/effect/mob_spawn/corpse/human/clown,
 /turf/open/floor/wood,
 /area/ruin/powered/clownplanet)
-"bm" = (
-/obj/structure/barricade/wooden,
-/obj/structure/barricade/wooden/crude,
+"qb" = (
+/obj/effect/mob_spawn/corpse/human/clown,
 /turf/open/floor/plating/asteroid,
 /area/ruin/powered/clownplanet)
 
@@ -523,8 +523,8 @@ at
 at
 aL
 aj
-bj
-bl
+kd
+pE
 ab
 aI
 aH
@@ -552,7 +552,7 @@ aK
 bi
 ab
 ab
-aG
+qb
 aH
 ae
 ae
@@ -736,7 +736,7 @@ aj
 bm
 aD
 aD
-aG
+qb
 ab
 ae
 "}
@@ -863,7 +863,7 @@ aL
 aK
 aj
 ab
-aG
+qb
 ab
 ab
 ae

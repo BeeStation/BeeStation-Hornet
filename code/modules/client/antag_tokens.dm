@@ -30,7 +30,7 @@
 /client/proc/set_antag_token_count(token_count)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(antag_token_count_cached == null)
-		to_chat(usr, "<span class='warning'>Error adjusting antag tokens!</span>")
+		to_chat(usr, span_warning("Error adjusting antag tokens!"))
 		CRASH("Antag token amount adjusted before value initialized")
 	antag_token_count_cached = token_count
 	INVOKE_ASYNC(src, PROC_REF(db_set_antag_token_count), token_count)
@@ -40,7 +40,7 @@
 /client/proc/inc_antag_token_count(token_count)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(antag_token_count_cached == null)
-		to_chat(usr, "<span class='warning'>Error adjusting antag tokens!</span>")
+		to_chat(usr, span_warning("Error adjusting antag tokens!"))
 		CRASH("Antag token amount adjusted before value initialized")
 	antag_token_count_cached += token_count
 	INVOKE_ASYNC(src, PROC_REF(db_inc_antag_token_count), token_count)

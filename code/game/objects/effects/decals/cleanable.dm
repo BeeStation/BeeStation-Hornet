@@ -45,12 +45,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 		if(src.reagents && W.reagents)
 			. = 1 //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)
-				to_chat(user, "<span class='notice'>[src] isn't thick enough to scoop up!</span>")
+				to_chat(user, span_notice("[src] isn't thick enough to scoop up!"))
 				return
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[W] is full!</span>")
+				to_chat(user, span_notice("[W] is full!"))
 				return
-			to_chat(user, "<span class='notice'>You scoop up [src] into [W]!</span>")
+			to_chat(user, span_notice("You scoop up [src] into [W]!"))
 			reagents.trans_to(W, reagents.total_volume, transfered_by = user)
 			if(!reagents.total_volume) //scooped up all of it
 				qdel(src)
@@ -61,7 +61,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 		else
 			var/hotness = W.is_hot()
 			reagents.expose_temperature(hotness)
-			to_chat(user, "<span class='notice'>You heat [name] with [W]!</span>")
+			to_chat(user, span_notice("You heat [name] with [W]!"))
 	else
 		return ..()
 
@@ -97,3 +97,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable)
 		return bloodiness
 	else
 		return FALSE
+
+/**
+ * Gets the color associated with the any blood present on this decal. If there is no blood, returns null.
+ */
+/obj/effect/decal/cleanable/proc/get_blood_color()
+	switch(blood_state)
+		if(BLOOD_STATE_HUMAN)
+			return rgb(149, 10, 10)
+		if(BLOOD_STATE_XENO)
+			return rgb(43, 186, 0)
+		if(BLOOD_STATE_OIL)
+			return rgb(22, 22, 22)
+
+	return null

@@ -18,14 +18,25 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
-"bq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/piratepad,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
+"aV" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/obj/item/caution{
+	pixel_x = -10;
+	pixel_y = 18
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/punching_bag,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "bx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -43,15 +54,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/pod,
 /area/shuttle/pirate)
-"cm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-23"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/shuttle/pirate)
 "cO" = (
 /obj/structure/fluff/hedge,
 /obj/effect/turf_decal/weather/dirt{
@@ -61,6 +63,20 @@
 	pixel_x = -32
 	},
 /turf/open/floor/wood/big,
+/area/shuttle/pirate)
+"cR" = (
+/obj/effect/mob_spawn/ghost_role/human/pirate/skeleton/captain{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "dt" = (
 /obj/structure/cable{
@@ -94,21 +110,21 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
-"eO" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
+"eo" = (
+/obj/effect/mapping_helpers/tile_breaker,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
-/turf/open/floor/pod/dark,
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "fb" = (
 /obj/structure/table/reinforced{
@@ -145,25 +161,22 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"ft" = (
+"fA" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/item/caution{
-	pixel_x = -10;
-	pixel_y = 18
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
-/obj/structure/punching_bag,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
 	},
-/turf/open/floor/iron/techmaint,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "fD" = (
 /obj/structure/sign/warning/vacuum/external{
@@ -184,23 +197,31 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
-"he" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+"gE" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "1-8"
 	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-29"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	burnt = 1
+/turf/open/floor/iron/dark,
+/area/shuttle/pirate)
+"hH" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
 	},
+/obj/machinery/shuttle_scrambler,
+/obj/machinery/airalarm/directional/south,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "hO" = (
 /obj/structure/railing{
@@ -218,6 +239,17 @@
 	pixel_x = 2
 	},
 /turf/open/floor/monotile/dark,
+/area/shuttle/pirate)
+"ie" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/obj/machinery/door/poddoor{
+	id = "pirate_engines_shutters"
+	},
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "ij" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -254,22 +286,11 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
-"js" = (
-/obj/structure/chair/wood{
-	dir = 1;
-	pixel_x = -7;
-	pixel_y = 7
+"jk" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/sign/poster/contraband/have_a_puff{
-	pixel_y = -32
-	},
-/obj/machinery/light,
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
-/turf/open/floor/wood/broken,
+/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "jT" = (
 /obj/structure/railing{
@@ -280,6 +301,27 @@
 	},
 /obj/structure/girder,
 /turf/open/floor/monotile/dark,
+/area/shuttle/pirate)
+"kd" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/door/airlock/hatch{
+	id_tag = "piratebridgebolt";
+	name = "Bridge";
+	req_access_txt = "180"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "ki" = (
 /obj/structure/cable/yellow{
@@ -335,46 +377,61 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
-"lT" = (
+"lB" = (
 /obj/effect/mapping_helpers/tile_breaker,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"lW" = (
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
+"lE" = (
+/obj/structure/tubes,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/yellow,
+/obj/effect/decal/cleanable/blood/gibs/body{
+	pixel_y = -13
 	},
-/obj/item/flashlight/lamp{
-	pixel_x = -8;
-	pixel_y = 13
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
-/obj/item/phone{
-	pixel_x = -6;
-	pixel_y = 3
+/obj/item/trash/can,
+/turf/open/floor/iron/grid/steel,
+/area/shuttle/pirate)
+"lK" = (
+/obj/structure/fluff/paper/stack{
+	dir = 8;
+	pixel_y = 11;
+	pixel_x = -18
 	},
-/obj/item/paper_bin{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-223"
+	},
+/obj/item/stack/rods/five{
 	pixel_x = 6;
-	pixel_y = 3
+	pixel_y = -11
 	},
-/obj/item/pen{
-	pixel_x = -6;
-	pixel_y = -2
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
+/turf/open/floor/plating{
+	icon_state = "foam_plating"
 	},
-/turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "mF" = (
 /obj/structure/table/reinforced,
@@ -385,6 +442,20 @@
 	dir = 4
 	},
 /turf/open/floor/wood/big,
+/area/shuttle/pirate)
+"mQ" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/pod,
 /area/shuttle/pirate)
 "mR" = (
 /mob/living/simple_animal/cow{
@@ -414,12 +485,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/shuttle/pirate)
-"mV" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/pirate)
 "mX" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 6;
@@ -444,6 +509,24 @@
 	pixel_y = 11
 	},
 /turf/open/floor/wood/broken,
+/area/shuttle/pirate)
+"nR" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "#";
+	pixel_x = 9;
+	pixel_y = -11
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "oa" = (
 /obj/effect/turf_decal/weather/dirt/corner,
@@ -470,19 +553,25 @@
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
-"oM" = (
-/obj/effect/mob_spawn/ghost_role/human/pirate/skeleton/captain{
-	dir = 1
+"oJ" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
 	},
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
+/obj/effect/decal/cleanable/blood/old{
+	pixel_x = -2;
+	pixel_y = 5;
+	icon_state = "gib2-old"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
+/obj/effect/decal/cleanable/ash/large{
+	pixel_y = -9;
+	pixel_x = 3
 	},
-/turf/open/floor/iron/tech,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-223"
+	},
+/turf/open/floor/plating,
 /area/shuttle/pirate)
 "oQ" = (
 /obj/structure/grille,
@@ -492,6 +581,17 @@
 /turf/open/floor/plating{
 	broken = 1
 	},
+/area/shuttle/pirate)
+"oV" = (
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "oW" = (
 /obj/effect/turf_decal/numbers,
@@ -513,31 +613,6 @@
 	pixel_y = -24
 	},
 /turf/open/floor/plating/rust,
-/area/shuttle/pirate)
-"pt" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22";
-	pixel_x = -10;
-	pixel_y = 21
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "Sleeping Carp";
-	pixel_x = 10;
-	pixel_y = 18
-	},
-/obj/effect/decal/cleanable/generic{
-	pixel_x = 16;
-	pixel_y = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "pH" = (
 /obj/item/food/grown/wheat{
@@ -572,6 +647,39 @@
 	dir = 1
 	},
 /turf/open/floor/grass/no_border,
+/area/shuttle/pirate)
+"pZ" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/turf/open/floor/iron/dark,
+/area/shuttle/pirate)
+"qc" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-22";
+	pixel_x = -10;
+	pixel_y = 21
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "Sleeping Carp";
+	pixel_x = 10;
+	pixel_y = 18
+	},
+/obj/effect/decal/cleanable/generic{
+	pixel_x = 16;
+	pixel_y = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "qF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -615,59 +723,35 @@
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
-"rC" = (
-/obj/item/weldingtool{
-	pixel_x = 7;
-	pixel_y = 11
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "floor6-old";
-	pixel_x = 9;
-	pixel_y = -16
-	},
-/obj/effect/decal/cleanable/oil{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/pod/light,
-/area/shuttle/pirate)
-"rI" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/tile_breaker,
-/obj/machinery/door/airlock/hatch{
-	name = "Engineering";
-	req_access_txt = "180"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/techmaint,
-/area/shuttle/pirate)
 "sj" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/open/floor/wood/big,
+/area/shuttle/pirate)
+"sB" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/pod/light,
+/area/shuttle/pirate)
+"sJ" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "sK" = (
 /obj/effect/decal/cleanable/glass{
@@ -737,6 +821,34 @@
 /obj/item/storage/belt/bandolier,
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
+"sT" = (
+/obj/effect/mob_spawn/ghost_role/human/pirate/skeleton{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/pirate)
+"ti" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/iron/dark,
+/area/shuttle/pirate)
+"tm" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/hatch{
+	name = "Cargo";
+	req_access_txt = "180"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
+/turf/open/floor/pod,
+/area/shuttle/pirate)
 "to" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 10;
@@ -744,21 +856,14 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
-"tJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+"tv" = (
+/obj/effect/decal/cleanable/glass{
+	pixel_y = -10
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
+/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "tL" = (
 /obj/effect/mapping_helpers/tile_breaker,
@@ -794,7 +899,49 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"us" = (
+"um" = (
+/obj/item/weldingtool{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor6-old";
+	pixel_x = 9;
+	pixel_y = -16
+	},
+/obj/effect/decal/cleanable/oil{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/pod/light,
+/area/shuttle/pirate)
+"vl" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/iron/dark,
+/area/shuttle/pirate)
+"vm" = (
+/obj/item/stack/cable_coil/cut/yellow,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
+"wa" = (
 /obj/item/clothing/head/cone{
 	pixel_x = -24;
 	pixel_y = 17
@@ -809,52 +956,29 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"uA" = (
-/obj/structure/tubes,
+"wE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/cable_coil/cut/yellow,
-/obj/effect/decal/cleanable/blood/gibs/body{
-	pixel_y = -13
+/obj/item/wirecutters{
+	pixel_y = -13;
+	pixel_x = 5
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/item/trash/can,
-/turf/open/floor/iron/grid/steel,
-/area/shuttle/pirate)
-"uG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/effect/turf_decal/weather/dirt/corner,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-46"
-	},
-/obj/machinery/door/airlock/hatch{
-	name = "Armoury";
-	req_access_txt = "180"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating/rust,
-/area/shuttle/pirate)
-"vm" = (
-/obj/item/stack/cable_coil/cut/yellow,
-/obj/effect/decal/cleanable/greenglow,
-/turf/open/floor/plating,
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "wN" = (
 /obj/structure/table/reinforced,
@@ -876,6 +1000,15 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
+"wU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-23"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plating,
+/area/shuttle/pirate)
 "xr" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -894,6 +1027,64 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/pirate)
+"xx" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/pirate)
+"xz" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-46"
+	},
+/obj/machinery/door/airlock/hatch{
+	name = "Armoury";
+	req_access_txt = "180"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating/rust,
+/area/shuttle/pirate)
+"ye" = (
+/obj/structure/chair/wood{
+	dir = 1;
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/sign/poster/contraband/have_a_puff{
+	pixel_y = -32
+	},
+/obj/machinery/light,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/turf/open/floor/wood/broken,
+/area/shuttle/pirate)
+"yf" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/hatch{
+	name = "Cargo";
+	req_access_txt = "180"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/pirate)
 "yM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
@@ -905,12 +1096,24 @@
 "yV" = (
 /turf/template_noop,
 /area/template_noop)
-"yX" = (
+"yW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/pod/light,
+/area/shuttle/pirate)
+"za" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "zL" = (
@@ -963,35 +1166,6 @@
 	icon_state = "0-9"
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/pirate)
-"AE" = (
-/obj/structure/fluff/paper/stack{
-	dir = 8;
-	pixel_y = 11;
-	pixel_x = -18
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-223"
-	},
-/obj/item/stack/rods/five{
-	pixel_x = 6;
-	pixel_y = -11
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/plating{
-	icon_state = "foam_plating"
-	},
 /area/shuttle/pirate)
 "AW" = (
 /obj/structure/table/wood,
@@ -1055,42 +1229,18 @@
 	icon_state = "foam_plating"
 	},
 /area/shuttle/pirate)
-"CT" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 10
+"Cr" = (
+/obj/structure/chair/wood{
+	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "#";
-	pixel_x = 9;
-	pixel_y = -11
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
-/turf/open/floor/pod/dark,
-/area/shuttle/pirate)
-"Dq" = (
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 4
-	},
-/obj/structure/sink/kitchen{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-4"
 	},
-/obj/effect/mapping_helpers/tile_breaker,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/techmaint,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/wood,
 /area/shuttle/pirate)
 "Ds" = (
 /obj/effect/turf_decal/siding/wood{
@@ -1117,6 +1267,23 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
+"En" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/pirate)
 "Ep" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -1131,24 +1298,6 @@
 	pixel_x = -24
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/pirate)
-"Ew" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-46"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "foam_plating"
-	},
 /area/shuttle/pirate)
 "EE" = (
 /obj/structure/table/reinforced,
@@ -1206,6 +1355,32 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
+"Fy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/food/plant_smudge{
+	pixel_y = -3;
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/weather/dirt/corner,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = -32
+	},
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-74"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/shuttle/pirate)
 "FD" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -1255,44 +1430,8 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"Gh" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/wood,
-/area/shuttle/pirate)
-"Gp" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/pod/light,
-/area/shuttle/pirate)
 "Gw" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/pirate)
-"Gz" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/weather/dirt{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "GC" = (
 /obj/structure/table/reinforced,
@@ -1340,20 +1479,16 @@
 	},
 /turf/open/floor/pod,
 /area/shuttle/pirate)
-"Ir" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+"HI" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/obj/machinery/door/poddoor{
-	id = "pirate_engines_shutters"
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/plating,
-/area/shuttle/pirate)
-"II" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "IM" = (
@@ -1379,31 +1514,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
-"Jc" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-3"
-	},
-/obj/machinery/door/airlock/hatch{
-	name = "Dormitories";
-	req_access_txt = "180"
-	},
-/obj/effect/decal/cleanable/greenglow,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating/rust,
-/area/shuttle/pirate)
-"Jt" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/iron/dark,
-/area/shuttle/pirate)
 "Jy" = (
 /obj/machinery/computer/camera_advanced/syndie{
 	dir = 4
@@ -1419,24 +1529,29 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
-"JR" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+"JK" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/pod/light,
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-3"
+	},
+/obj/machinery/door/airlock/hatch{
+	name = "Dormitories";
+	req_access_txt = "180"
+	},
+/obj/effect/decal/cleanable/greenglow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating/rust,
 /area/shuttle/pirate)
-"Kv" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
+"JY" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/obj/machinery/shuttle_scrambler,
-/obj/machinery/airalarm/all_access{
-	pixel_y = -24
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "KR" = (
@@ -1497,6 +1612,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/shuttle/pirate)
+"Mb" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
+"MK" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod/light,
+/area/shuttle/pirate)
 "MW" = (
 /obj/structure/chair{
 	dir = 4
@@ -1520,25 +1647,23 @@
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
-"NG" = (
-/obj/effect/mob_spawn/ghost_role/human/pirate/skeleton{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/pirate)
-"NI" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
+"NJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/fakelattice{
+	icon_state = "lattice-46"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/iron/dark,
+/turf/open/floor/plating{
+	icon_state = "foam_plating"
+	},
 /area/shuttle/pirate)
 "Od" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -1546,25 +1671,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/iron/dark,
-/area/shuttle/pirate)
-"Og" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/wirecutters{
-	pixel_y = -13;
-	pixel_x = 5
-	},
-/obj/effect/turf_decal/weather/dirt/corner,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "Oj" = (
 /obj/effect/mapping_helpers/tile_breaker,
@@ -1605,20 +1711,6 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/structure/railing,
 /turf/open/floor/iron/dark,
-/area/shuttle/pirate)
-"Pn" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/pod,
 /area/shuttle/pirate)
 "Pq" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -1717,6 +1809,13 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
+"QS" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/shuttle/pirate)
 "QU" = (
 /turf/open/floor/iron/stairs,
 /area/shuttle/pirate)
@@ -1749,13 +1848,25 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"RH" = (
-/obj/effect/decal/cleanable/glass{
-	pixel_y = -10
+"Ry" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/tile_breaker,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/hatch{
+	name = "Engineering";
+	req_access_txt = "180"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "RZ" = (
@@ -1768,64 +1879,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/iron/tech,
-/area/shuttle/pirate)
-"Ss" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/blood/old{
-	pixel_x = -2;
-	pixel_y = 5;
-	icon_state = "gib2-old"
-	},
-/obj/effect/decal/cleanable/ash/large{
-	pixel_y = -9;
-	pixel_x = 3
-	},
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/fakelattice{
-	icon_state = "lattice-223"
-	},
-/turf/open/floor/plating,
-/area/shuttle/pirate)
-"Sx" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/airlock/hatch{
-	name = "Cargo";
-	req_access_txt = "180"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
-/turf/open/floor/pod,
-/area/shuttle/pirate)
-"SJ" = (
-/obj/item/melee/transforming/energy/sword/pirate{
-	pixel_x = -2;
-	pixel_y = 13
-	},
-/obj/item/melee/transforming/energy/sword/pirate{
-	pixel_x = -2;
-	pixel_y = 10
-	},
-/obj/item/melee/transforming/energy/sword/pirate{
-	pixel_x = -2;
-	pixel_y = 7
-	},
-/obj/machinery/recharger{
-	pixel_x = 7
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "SS" = (
@@ -1863,35 +1916,14 @@
 "Tb" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
-"Tl" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 4
+"Tt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/piratepad,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 6
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/airalarm/all_access{
-	dir = 8;
-	pixel_x = -24
-	},
-/turf/open/floor/pod/dark,
-/area/shuttle/pirate)
-"Tu" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/turf/open/floor/pod/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "TO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1904,27 +1936,6 @@
 	id = "pirate_cargo_shutters"
 	},
 /turf/open/floor/plating,
-/area/shuttle/pirate)
-"Us" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/door/airlock/hatch{
-	id_tag = "piratebridgebolt";
-	name = "Bridge";
-	req_access_txt = "180"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "UD" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -1939,14 +1950,6 @@
 	dir = 5
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/pirate)
-"UL" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "UQ" = (
 /obj/structure/table/wood,
@@ -1970,34 +1973,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/wood/broken,
-/area/shuttle/pirate)
-"UR" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/wood,
-/area/shuttle/pirate)
-"Ve" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Vw" = (
 /obj/structure/closet/body_bag,
@@ -2031,16 +2006,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
-"VV" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/airlock/hatch{
-	name = "Cargo";
-	req_access_txt = "180"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/techmaint,
-/area/shuttle/pirate)
 "VZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt{
@@ -2065,19 +2030,6 @@
 /turf/open/floor/plating{
 	burnt = 1
 	},
-/area/shuttle/pirate)
-"Wb" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "Wm" = (
 /obj/structure/table/wood/poker,
@@ -2156,43 +2108,42 @@
 	},
 /turf/open/floor/pod,
 /area/shuttle/pirate)
-"WJ" = (
-/obj/effect/mapping_helpers/tile_breaker,
+"WO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/pod/light,
-/area/shuttle/pirate)
-"WX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/food/plant_smudge{
-	pixel_y = -3;
-	pixel_x = -2
-	},
-/obj/effect/turf_decal/weather/dirt/corner,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 6
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/sign/painting/library{
-	pixel_y = -32
+	icon_state = "2-4"
 	},
 /obj/effect/decal/fakelattice{
-	icon_state = "lattice-74"
+	icon_state = "lattice-29"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
+/area/shuttle/pirate)
+"Xc" = (
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 4
+	},
+/obj/structure/sink/kitchen{
+	pixel_y = 32
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/tile_breaker,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "Xp" = (
 /obj/machinery/power/rtg/advanced{
@@ -2223,6 +2174,31 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/monotile/dark,
 /area/shuttle/pirate)
+"Yk" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/flashlight/lamp{
+	pixel_x = -8;
+	pixel_y = 13
+	},
+/obj/item/phone{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/paper_bin{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/pirate)
 "Yz" = (
 /obj/structure/girder/reinforced,
 /obj/structure/barricade/wooden,
@@ -2235,6 +2211,22 @@
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
 /turf/open/floor/plating,
+/area/shuttle/pirate)
+"YJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "Zc" = (
 /obj/effect/turf_decal/bot,
@@ -2252,12 +2244,29 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"Zi" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+"Zq" = (
+/obj/item/melee/transforming/energy/sword/pirate{
+	pixel_x = -2;
+	pixel_y = 13
+	},
+/obj/item/melee/transforming/energy/sword/pirate{
+	pixel_x = -2;
+	pixel_y = 10
+	},
+/obj/item/melee/transforming/energy/sword/pirate{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/machinery/recharger{
+	pixel_x = 7
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/obj/structure/table/reinforced,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "ZK" = (
 /obj/structure/fans/tiny,
@@ -2265,26 +2274,6 @@
 	id = "pirate_cargo_shutters"
 	},
 /turf/open/floor/plating,
-/area/shuttle/pirate)
-"ZX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/pod/light,
-/area/shuttle/pirate)
-"ZY" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 
 (1,1,1) = {"
@@ -2308,7 +2297,7 @@ yV
 yV
 yV
 yV
-mV
+jk
 Gw
 KR
 KR
@@ -2325,11 +2314,11 @@ yV
 yV
 yV
 OB
-Ir
+ie
 Gw
 Ht
 ch
-Tl
+oV
 dP
 Xp
 Gw
@@ -2342,12 +2331,12 @@ yV
 yV
 yV
 Gw
-lW
-pt
-rC
-ZX
-eO
-CT
+Yk
+qc
+um
+yW
+sJ
+nR
 dt
 LZ
 oa
@@ -2363,8 +2352,8 @@ re
 fr
 Oj
 FZ
-Gz
-tJ
+En
+YJ
 WC
 Gw
 fD
@@ -2381,7 +2370,7 @@ fb
 Az
 Gw
 Gw
-rI
+Ry
 Gw
 Gw
 Gw
@@ -2398,46 +2387,46 @@ Gw
 Gw
 Gw
 QG
-Gp
+HI
 pa
 Gw
 Wm
-js
+ye
 Gw
 Gw
 "}
 (8,1,1) = {"
 sR
 Vw
-Ss
+oJ
 Pq
 SX
 Gw
 Cp
 SS
-lT
-JR
-Jc
-UR
-Gh
-NG
+eo
+sB
+JK
+Cr
+QS
+sT
 Gw
 "}
 (9,1,1) = {"
 lA
 bx
 qF
-cm
-RH
-Sx
-us
-he
-WX
+wU
+tv
+tm
+wa
+WO
+Fy
 Gw
 Gw
 Fq
-Zi
-NG
+Mb
+sT
 Gw
 "}
 (10,1,1) = {"
@@ -2445,16 +2434,16 @@ ZK
 TO
 vm
 yM
-II
-VV
-Wb
-WJ
+MK
+yf
+xx
+lB
 FY
 Gw
 AW
 nx
 Bn
-oM
+cR
 Gw
 "}
 (11,1,1) = {"
@@ -2464,8 +2453,8 @@ Wx
 Zc
 Rw
 Gw
-uA
-Og
+lE
+wE
 BN
 Gw
 UQ
@@ -2482,7 +2471,7 @@ Gw
 Gw
 Gw
 Gw
-uG
+xz
 Gw
 Gw
 Gw
@@ -2497,9 +2486,9 @@ yV
 Gw
 RZ
 LA
-SJ
+Zq
 Gw
-Dq
+Xc
 oQ
 Am
 cO
@@ -2514,9 +2503,9 @@ yV
 Gw
 Jb
 Od
-yX
-Jt
-Pn
+pZ
+JY
+mQ
 iK
 mF
 Nz
@@ -2531,9 +2520,9 @@ yV
 Gw
 oc
 sK
-bq
-UL
-Tu
+Tt
+ti
+fA
 VZ
 rw
 MW
@@ -2550,8 +2539,8 @@ le
 Du
 Ab
 Pc
-ft
-AE
+aV
+lK
 ok
 GC
 oW
@@ -2568,7 +2557,7 @@ Py
 QI
 Gw
 Ha
-Ew
+NJ
 Ds
 sj
 fS
@@ -2585,7 +2574,7 @@ Gw
 Yz
 Gw
 Gw
-Us
+kd
 Gw
 Gw
 Gw
@@ -2602,7 +2591,7 @@ Jy
 wN
 VL
 ki
-Ve
+gE
 Ep
 mR
 Gw
@@ -2619,7 +2608,7 @@ lm
 an
 tL
 QU
-NI
+vl
 UD
 pH
 Gw
@@ -2636,8 +2625,8 @@ dC
 EE
 hO
 XC
-ZY
-Kv
+za
+hH
 Gw
 Tb
 yV

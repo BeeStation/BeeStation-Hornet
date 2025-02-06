@@ -34,6 +34,7 @@
 	maxbodytemp = 370
 	unsuitable_atmos_damage = 10
 	footstep_type = FOOTSTEP_MOB_SHOE
+	faction = list(FACTION_CLOWN)
 	hardattacks = TRUE
 	var/banana_time = 0 // If there's no time set it won't spawn.
 	var/banana_type = /obj/item/grown/bananapeel
@@ -57,7 +58,7 @@
 	. = ..()
 	if(banana_time && banana_time < world.time)
 		var/turf/T = get_turf(src)
-		var/list/adjacent =  T.GetAtmosAdjacentTurfs(1)
+		var/list/adjacent =  T.get_atmos_adjacent_turfs(1)
 		new banana_type(pick(adjacent))
 		banana_time = world.time + rand(30,60)
 

@@ -36,7 +36,7 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props, _context) => {
+const IntroSection = (_props) => {
   return (
     <Stack>
       <Stack.Item>
@@ -61,7 +61,7 @@ const IntroSection = (_props, _context) => {
   );
 };
 
-const SpellbookSection = (_props, _context) => {
+const SpellbookSection = (_props) => {
   return (
     <Section fill title="Spellbook">
       <Stack vertical fill>
@@ -94,7 +94,7 @@ const SpellbookSection = (_props, _context) => {
   );
 };
 
-const MiscGearSection = (_props, _context) => {
+const MiscGearSection = (_props) => {
   return (
     <Section title="Misc Gear">
       <Stack>
@@ -110,8 +110,8 @@ const MiscGearSection = (_props, _context) => {
   );
 };
 
-export const AntagInfoWizard = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoWizard = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={620} height={620} theme="wizard">
