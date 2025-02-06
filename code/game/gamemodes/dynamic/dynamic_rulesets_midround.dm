@@ -202,7 +202,6 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
@@ -298,7 +297,7 @@
 	weight = 1
 	cost = 15
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
-	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if(!length(GLOB.wizardstart))
@@ -367,7 +366,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 22
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -391,7 +390,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 22
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/vents
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/acceptable(population=0, threat=0)
@@ -407,12 +406,12 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
 			// Stops Aliens getting stuck in small networks.
 			// See: Security, Virology
-			if(length(temp_vent_parent.other_atmosmch) > 20)
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
 				vents += temp_vent
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
@@ -492,7 +491,7 @@
 	cost = 11
 	minimum_players = 22
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/spawn_locs
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced = FALSE)
@@ -626,7 +625,6 @@
 	cost = 8
 	minimum_players = 25
 	repeatable = FALSE
-	flags = LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/pirates/acceptable(population=0, threat=0)
 	if (!SSmapping.empty_space)
@@ -692,7 +690,7 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	minimum_players = 25
 	var/fed = 1
 	var/list/vents
@@ -706,11 +704,11 @@
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			var/datum/pipenet/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
-			if(length(temp_vent_parent.other_atmosmch) > 20)
-				vents += temp_vent // Makes sure the pipeline is large enough
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
+				vents += temp_vent // Makes sure the pipenet is large enough
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
 		return FALSE
@@ -722,7 +720,7 @@
 	spider.key = applicant.key
 	if(fed)
 		spider.fed += 3
-		spider.lay_eggs.UpdateButtonIcon()
+		spider.lay_eggs.update_buttons()
 		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
@@ -760,8 +758,11 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
-	if(!GLOB.the_gateway)
+	if(isnull(GLOB.the_gateway))
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
+		return FALSE
+	if(!GLOB.the_gateway.active)
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no ACTIVE gateway on map).")
 		return FALSE
 	return TRUE
 
@@ -934,7 +935,6 @@
 	minimum_players = 20
 	repeatable = TRUE
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
-	flags = LATEGAME_RULESET
 	var/spawn_loc
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)

@@ -174,7 +174,7 @@
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
 	..()
 
-/datum/reagent/consumable/laughter/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/laughter/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	var/mob/living/carbon/human/reactor = M
 	if(istype(reactor))
 		var/datum/component/mood/mood = reactor.GetComponent(/datum/component/mood)
@@ -193,7 +193,7 @@
 
 /datum/reagent/consumable/superlaughter/on_mob_life(mob/living/carbon/M)
 	if(prob(30))
-		M.visible_message("<span class='danger'>[M] bursts out into a fit of uncontrollable laughter!</span>", "<span class='userdanger'>You burst out in a fit of uncontrollable laughter!</span>")
+		M.visible_message(span_danger("[M] bursts out into a fit of uncontrollable laughter!"), span_userdanger("You burst out in a fit of uncontrollable laughter!"))
 		M.Stun(5)
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_superlaughter)
 	..()
@@ -375,7 +375,7 @@
 
 /datum/reagent/consumable/tea/arnold_palmer/on_mob_life(mob/living/carbon/M)
 	if(prob(5))
-		to_chat(M, "<span class = 'notice'>[pick("You remember to square your shoulders.","You remember to keep your head down.","You can't decide between squaring your shoulders and keeping your head down.","You remember to relax.","You think about how someday you'll get two strokes off your golf game.")]</span>")
+		to_chat(M, span_notice("[pick("You remember to square your shoulders.","You remember to keep your head down.","You can't decide between squaring your shoulders and keeping your head down.","You remember to relax.","You think about how someday you'll get two strokes off your golf game.")]"))
 	..()
 	. = 1
 
@@ -901,6 +901,26 @@
 	glass_name = "glass of chocolate milk"
 	glass_desc = "Brown and delicious goodness!"
 
+/datum/reagent/consumable/hot_cocoa
+	name = "Hot Coco"
+	description = "Made with love! And coco beans."
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	color = "#403010" // rgb: 64, 48, 16
+	taste_description = "creamy chocolate"
+	glass_icon_state = "chocolateglass"
+	glass_name = "glass of hot coco"
+	glass_desc = "A favorite winter drink to warm you up."
+	chem_flags = CHEMICAL_RNG_BOTANY
+
+/datum/reagent/consumable/hot_cocoa/on_mob_life(mob/living/carbon/M)
+	M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
+	if(M.getBruteLoss() && prob(20))
+		M.heal_bodypart_damage(1,0, 0)
+		. = 1
+	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
+		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
+	..()
+
 /datum/reagent/consumable/menthol
 	name = "Menthol"
 	description = "Alleviates coughing symptoms one might have."
@@ -964,6 +984,21 @@
 	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, M.get_body_temp_normal())
 	..()
 
+/datum/reagent/consumable/sol_dry
+	name = "Sol Dry"
+	description = "A soothing, mellow drink made from ginger."
+	color = "#f7d26a"
+	quality = DRINK_NICE
+	taste_description = "sweet ginger spice"
+	glass_icon_state = "soldry"
+	glass_name = "Sol Dry"
+	glass_desc = "A soothing, mellow drink made from ginger."
+	chem_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+
+/datum/reagent/consumable/sol_dry/on_mob_life(mob/living/carbon/M)
+	M.adjust_disgust(-5)
+	..()
+
 /datum/reagent/consumable/red_queen
 	name = "Red Queen"
 	description = "DRINK ME."
@@ -1015,9 +1050,14 @@
 	glass_desc = "A glass of what appears to be refreshing Space Cola."
 
 /datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
-	M.adjust_disgust(30)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	if(T.liked_food & MEAT)
+		to_chat(M, span_notice("That drink was PERFECTLY beefy! It's great!."))
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
+	else
+		to_chat(M, span_warning("That drink was way too beefy! You feel sick."))
+		M.adjust_disgust(30)
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
 
 /datum/reagent/consumable/bubble_tea
@@ -1030,3 +1070,31 @@
 	glass_icon_state = "bubble_tea"
 	glass_name = "Bubble Tea"
 	glass_desc = "A cup of refreshing bubble tea."
+
+/datum/reagent/consumable/beeffizz
+	name = "Beef Fizz"
+	description = "This is beef fizz, BEEF FIZZ, THERE IS NO GOD"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	quality = 0
+	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
+	glass_icon_state = "beef_fizz"
+	glass_name = "Beef Fizz"
+	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
+
+/datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
+	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	if(T.liked_food & MEAT)
+		to_chat(M, span_notice("That drink was like a liquid steak! It's amazing!."))
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+	else
+		to_chat(M, span_warning("That drink was like drinking a steak! I think i'm gonna puke..."))
+		M.adjust_disgust(35)
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	. = ..()
+
+/datum/reagent/consumable/beeffizz/on_mob_life(mob/living/carbon/M)
+	if(is_species(M, /datum/species/lizard))
+		M.adjustBruteLoss(-1.5, 0)
+		M.adjustFireLoss(-1.5, 0)
+		M.adjustToxLoss(-1, 0)
+	. = ..()

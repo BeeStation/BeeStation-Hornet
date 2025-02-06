@@ -17,11 +17,11 @@
 	. = ..()
 	if(reagents)
 		if(volume == reagents.total_volume)
-			. += "<span class='notice'>It is fully filled.</span>"
+			. += span_notice("It is fully filled.")
 		else if(!reagents.total_volume)
-			. += "<span class='notice'>It's empty.</span>"
+			. += span_notice("It's empty.")
 		else
-			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
+			. += span_notice("It seems [round(reagents.total_volume/volume*100)]% filled.")
 
 // this is specifically made as an example for a sleeper feature that uses a chem bag at roundstart.
 /obj/item/reagent_containers/chem_bag/oxy_mix
@@ -43,6 +43,14 @@
 	name = "bicaridine reserve bag"
 	list_reagents=  list(/datum/reagent/medicine/bicaridine = 100)
 
+/obj/item/reagent_containers/chem_bag/triamed
+	name = "triamed reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/bicaridine = 40, /datum/reagent/medicine/kelotane = 40, /datum/reagent/medicine/epinephrine = 20)
+
+/obj/item/reagent_containers/chem_bag/tricordrazine
+	name = "tricordrazine reserve bag"
+	list_reagents=  list(/datum/reagent/medicine/tricordrazine = 100)
+
 /obj/item/reagent_containers/chem_bag/kelotane
 	name = "kelotane reserve bag"
 	list_reagents=  list(/datum/reagent/medicine/kelotane = 100)
@@ -50,3 +58,7 @@
 /obj/item/reagent_containers/chem_bag/antitoxin
 	name = "anti-toxin reserve bag"
 	list_reagents=  list(/datum/reagent/medicine/antitoxin = 100)
+
+/obj/item/reagent_containers/chem_bag/syndicate
+	name = "suspicious reserve bag"
+	list_reagents = list(/datum/reagent/medicine/leporazine = 30, /datum/reagent/medicine/syndicate_nanites = 40, /datum/reagent/medicine/stabilizing_nanites = 30)

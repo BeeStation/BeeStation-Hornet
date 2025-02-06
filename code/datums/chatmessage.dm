@@ -184,10 +184,10 @@
 
 	// Append radio icon if from a virtual speaker
 	if (extra_classes.Find("virtual-speaker"))
-		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = "radio")
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "radio")
 		LAZYADD(prefixes, "\icon[r_icon]")
 	else if (extra_classes.Find("emote"))
-		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = "emote")
+		var/image/r_icon = image('icons/ui_icons/chat/chat_icons.dmi', icon_state = "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_EMOTE
 
@@ -464,10 +464,10 @@
 		if(BALLOON_ALERT_WITH_CHAT)
 			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 			if(show_in_chat)
-				to_chat(viewer, "<span class='notice'>[text].</span>")
+				to_chat(viewer, span_notice("[text]."))
 		if(BALLOON_ALERT_NEVER)
 			if(show_in_chat)
-				to_chat(viewer, "<span class='notice'>[text].</span>")
+				to_chat(viewer, span_notice("[text]."))
 
 /atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, show_in_chat = TRUE)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)

@@ -37,13 +37,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /datum/status_effect/bleeding/merge(bleed_level)
 	src.bleed_rate = src.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(src.bleed_rate, 1), bleed_level - src.bleed_rate)
-	update_icon()
 
 /datum/status_effect/bleeding/on_creation(mob/living/new_owner, bleed_rate)
-	. = ..()
-	if (.)
-		src.bleed_rate = bleed_rate
-		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
+	src.bleed_rate = bleed_rate
+	return ..()
 
 /datum/status_effect/bleeding/tick()
 	if (HAS_TRAIT(owner, TRAIT_NO_BLOOD))
@@ -60,8 +57,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
 	if (!ishuman(owner))
 		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4 * bleed_heal_multiplier
-	// Make sure to update our icon
-	update_icon()
 	// Set the rate at which we process, so we bleed more on the ground when heavy bleeding
 	tick_interval = bleed_rate <= BLEED_RATE_MINOR ? 1 SECONDS : 0.2 SECONDS
 	// Reduce the actual rate of bleeding
@@ -84,7 +79,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	// Actually do the bleeding
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 
-/datum/status_effect/bleeding/proc/update_icon()
+/datum/status_effect/bleeding/update_icon()
 	// The actual rate of bleeding, can be reduced by holding wounds
 	// Calculate the message to show to the user
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
@@ -157,7 +152,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
-		to_chat(src, "<span class='user_danger'>Blood starts rushing out of the open wound!</span>")
+		to_chat(src, "[span_userdanger("Blood starts rushing out of the open wound!")]")
 	if(bleed_level >= BLEED_CUT)
 		add_splatter_floor(src.loc)
 	else
@@ -303,7 +298,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			switch(blood_volume)
 				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
 					if(prob(3))
-						to_chat(src, "<span class='warning'>Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")].</span>")
+						to_chat(src, span_warning("Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")]."))
 				if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 					desired_damage = getMaxHealth() * 2.0
 					// Rapidly die with no saving you
@@ -314,16 +309,16 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, span_warning("You feel [word]."))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				if(prob(5))
 					blur_eyes(6)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				if(prob(30))
 					blur_eyes(6)
 					Unconscious(rand(3,6))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				desired_damage = getMaxHealth() * 2.0
 				// Rapidly die with no saving you

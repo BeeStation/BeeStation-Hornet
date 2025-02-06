@@ -27,7 +27,7 @@
 
 /datum/religion_rites/proc/can_afford(mob/living/user)
 	if(GLOB.religious_sect?.favor < favor_cost)
-		to_chat(user, "<span class='warning'>This rite requires more favor!</span>")
+		to_chat(user, span_warning("This rite requires more favor!"))
 		return FALSE
 	return TRUE
 
@@ -37,20 +37,20 @@
 		return FALSE
 	var/turf/T = get_turf(religious_tool)
 	if(!T.is_holy())
-		to_chat(user, "<span class='warning'>The altar can only function in a holy area!</span>")
+		to_chat(user, span_warning("The altar can only function in a holy area!"))
 		return FALSE
 	if(!GLOB.religious_sect.altar_anchored)
-		to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+		to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
 		return FALSE
-	to_chat(user, "<span class='notice'>You begin to perform the rite of [name]...</span>")
+	to_chat(user, span_notice("You begin to perform the rite of [name]..."))
 	if(!ritual_invocations)
-		if(do_after(user, target = user, delay = ritual_length))
+		if(do_after(user, delay = ritual_length, target = user))
 			return TRUE
 		return FALSE
 	var/first_invoke = TRUE
 	for(var/i in ritual_invocations)
 		if(!GLOB.religious_sect.altar_anchored)
-			to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+			to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
 			return FALSE
 		if(first_invoke) //instant invoke
 			user.say(i)
@@ -58,13 +58,13 @@
 			continue
 		if(!length(ritual_invocations)) //we divide so we gotta protect
 			return FALSE
-		if(!do_after(user, target = user, delay = ritual_length/length(ritual_invocations)))
+		if(!do_after(user, delay = ritual_length/length(ritual_invocations), target = user))
 			return FALSE
 		user.say(i)
-	if(!do_after(user, target = user, delay = ritual_length/length(ritual_invocations))) //because we start at 0 and not the first fraction in invocations, we still have another fraction of ritual_length to complete
+	if(!do_after(user, delay = ritual_length/length(ritual_invocations), target = user)) //because we start at 0 and not the first fraction in invocations, we still have another fraction of ritual_length to complete
 		return FALSE
 	if(!GLOB.religious_sect.altar_anchored)
-		to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+		to_chat(user, span_warning("The altar must be secured to the floor if you wish to perform the rite!"))
 		return FALSE
 	if(invoke_msg)
 		user.say(invoke_msg)

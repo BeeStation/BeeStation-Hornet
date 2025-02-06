@@ -51,7 +51,7 @@
 /obj/machinery/mech_bay_recharge_port/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Recharge power <b>[siunit(recharge_power, "W", 1)]</b>.</span>"
+		. += span_notice("The status display reads: Recharge power <b>[siunit(recharge_power, "W", 1)]</b>.")
 
 /obj/machinery/mech_bay_recharge_port/process(delta_time)
 	if(machine_stat & NOPOWER || !recharge_console)
@@ -59,19 +59,20 @@
 	if(!recharging_mech)
 		recharging_mech = locate(/obj/vehicle/sealed/mecha) in recharging_turf
 		if(recharging_mech)
-			recharge_console.update_icon()
+			recharge_console.update_appearance()
 			recharge_console.ui_update()
-	if(recharging_mech && recharging_mech.cell)
-		if(recharging_mech.cell.charge < recharging_mech.cell.maxcharge)
-			var/delta = min(recharge_power * delta_time, recharging_mech.cell.maxcharge - recharging_mech.cell.charge)
-			recharging_mech.give_power(delta)
-			use_power(delta*150)
-		else
-			recharge_console.update_icon()
-		if(recharging_mech.loc != recharging_turf)
-			recharging_mech = null
-			recharge_console.update_icon()
-			recharge_console.ui_update()
+	if(!recharging_mech?.cell)
+		return
+	if(recharging_mech.cell.charge < recharging_mech.cell.maxcharge)
+		var/delta = min(recharge_power * delta_time, recharging_mech.cell.maxcharge - recharging_mech.cell.charge)
+		recharging_mech.give_power(delta)
+		use_power(delta*150)
+	else
+		recharge_console.update_appearance()
+	if(recharging_mech.loc != recharging_turf)
+		recharging_mech = null
+		recharge_console.update_appearance()
+		recharge_console.ui_update()
 
 
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)

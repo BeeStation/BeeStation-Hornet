@@ -420,7 +420,11 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
-#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
+
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+#define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
+#define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
+#define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
@@ -451,6 +455,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SQUASHED_SHOULD_BE_DOWN (1<<0)
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
 
 /*
  * Defines for "AI emotions", allowing the AI to expression emotions
@@ -603,3 +608,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+// Species related bitflags go here.
+#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.

@@ -6,7 +6,7 @@
 /area/template_noop)
 "c" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (

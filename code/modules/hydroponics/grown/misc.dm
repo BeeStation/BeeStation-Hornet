@@ -82,7 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	growthstages = 1
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/replicapod)
+	mutatelist = list(/obj/item/seeds/dionapod)
 	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/food/grown/cabbage
@@ -124,7 +124,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 // Gatfruit
 /obj/item/seeds/gatfruit
 	name = "pack of gatfruit seeds"
-	desc = "These seeds grow into .357 revolvers."
+	desc = "These seeds grow into .38 revolvers."
 	icon_state = "seed-gatfruit"
 	species = "gatfruit"
 	plantname = "Gatfruit Tree"
@@ -146,7 +146,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	name = "gatfruit"
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
-	trash_type = /obj/item/gun/ballistic/revolver
+	trash_type = /obj/item/gun/ballistic/revolver/detective/random
 	bite_consumption_mod = 2
 	foodtypes = FRUIT
 	tastes = list("gunpowder" = 1)
@@ -177,7 +177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	discovery_points = 300
 
 /obj/item/food/grown/cherry_bomb/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] plucks the stem from [src]!</span>", "<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>")
+	user.visible_message(span_warning("[user] plucks the stem from [src]!"), span_userdanger("You pluck the stem from [src], which begins to hiss loudly!"))
 	log_bomber(user, "primed a", src, "for detonation")
 	prime()
 

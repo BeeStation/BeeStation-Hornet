@@ -65,6 +65,9 @@
 /area/ruin/unpowered/syndicate_lava_base/virology
 	name = "Syndicate Lavaland Virology"
 
+/area/ruin/unpowered/syndicate_lava_base/science
+	name = "Syndicate Lavaland Science"
+
 /area/ruin/unpowered/syndicate_lava_base/testlab
 	name = "Syndicate Lavaland Experimentation Lab"
 

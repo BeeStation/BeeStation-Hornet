@@ -87,7 +87,7 @@
 	if(isliving(user))
 		var/mob/living/L = user
 		if(L.incorporeal_move) // Mobs that can walk through walls cannot grasp items to strip
-			to_chat(user, "<span class='warning'>You can't interact with the physical plane while you are incorporeal!</span>")
+			to_chat(user, span_warning("You can't interact with the physical plane while you are incorporeal!"))
 			return FALSE
 		return TRUE
 	else
@@ -106,7 +106,7 @@
 	if(!equipping)
 		return
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
-		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
+		to_chat(user, span_warning("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
 	//This is important due to the fact otherwise it will be equipped without a proper existing icon, because it's forced on through the strip menu
 	if(ismonkey(source))
@@ -116,14 +116,14 @@
 /// Start the equipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
-	if(isclothing(source))
+	if(isclothing(source) && !HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
 		source.visible_message(
-			"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
-			"<span class='notice'>[user] tries to put [equipping] on you.</span>",
+			span_notice("[user] tries to put [equipping] on [source]."),
+			span_notice("[user] tries to put [equipping] on you."),
 			ignored_mobs = user
 		)
 
-	to_chat(user, "<span class='notice'>You try to put [equipping] on [source]...</span>")
+	to_chat(user, span_notice("You try to put [equipping] on [source]..."))
 
 	var/log = "[key_name(source)] is having [equipping] put on them by [key_name(user)]"
 	source.log_message(log, LOG_ATTACK, color="red")
@@ -166,13 +166,14 @@
 	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
 		return FALSE
 
-	source.visible_message(
-		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
-		ignored_mobs = user,
-	)
+	if(!HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET))
+		source.visible_message(
+			span_warning("[user] tries to remove [source]'s [item.name]."),
+			span_userdanger("[user] tries to remove your [item.name]."),
+			ignored_mobs = user,
+		)
 
-	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
+	to_chat(user, span_danger("You try to remove [source]'s [item.name]..."))
 	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
 	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
@@ -232,7 +233,7 @@
 		disable_warning = TRUE,
 		bypass_equip_delay_self = TRUE,
 	))
-		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
+		to_chat(user, span_warning("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
 	return TRUE
@@ -283,7 +284,7 @@
 	if(!.)
 		return
 
-	return start_unequip_mob(get_item(source), source, user)
+	return start_unequip_mob(get_item(source), source, user, hidden = (HAS_TRAIT(user, TRAIT_STEALTH_PICKPOCKET)))
 
 /datum/strippable_item/mob_item_slot/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
@@ -309,8 +310,8 @@
 		return TRUE
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
-/proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
-	if(!do_after(user, strip_delay || item.strip_delay, source))
+/proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay, hidden = FALSE)
+	if(!do_after(user, strip_delay || item.strip_delay, source, interaction_key = REF(item), hidden = hidden))
 		return FALSE
 
 	return TRUE
@@ -394,6 +395,10 @@
 		*/
 		result["name"] = item.name
 		result["alternate"] = item_data.get_alternate_action(owner, user)
+
+		var/datum/strip_context/context = new()
+		result["extra_actions"] = context.extra_actions
+		item.add_strip_actions(context)
 
 		items[strippable_key] = result
 
@@ -530,6 +535,24 @@
 			strippable_item.alternate_action(owner, user)
 
 			LAZYREMOVEASSOC(interactions, user, key)
+		if ("extra_act")
+			var/slot_id = params["key"]
+			var/datum/strippable_item/strippable_item = strippable.items[slot_id]
+
+			if(isnull(strippable_item))
+				return
+
+			if(!strippable_item.should_show(owner, user))
+				return
+
+			if(strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
+				return
+
+			var/obj/item/item = strippable_item.get_item(owner)
+			if(isnull(item))
+				return
+
+			item.perform_strip_actions(params["action"], user)
 
 /datum/strip_menu/ui_host(mob/user)
 	return owner
@@ -556,3 +579,30 @@
 		strippable_items[strippable_item.key] = strippable_item
 
 	return strippable_items
+
+/datum/strip_context
+	var/mob/living/actor
+	var/mob/living/wearer
+	var/list/extra_actions = list()
+
+/datum/strip_context/proc/add_item_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+	))
+
+/datum/strip_context/proc/add_power_off_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+		"action_icon" = "power-off",
+		"action_color" = "green"
+	))
+
+/datum/strip_context/proc/add_power_on_action(action_name, action_key)
+	extra_actions += list(list(
+		"action_name" = action_name,
+		"action_key" = action_key,
+		"action_icon" = "power-off",
+		"action_color" = "red"
+	))

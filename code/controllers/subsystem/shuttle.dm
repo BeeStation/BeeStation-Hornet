@@ -61,8 +61,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/shuttles_loaded = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
-	// 30 seconds max to load, don't hold up everything if SSshuttles throws an exception and fails to load
-	AWAIT(initial_load(), 30 SECONDS)
+	initial_load()
 
 	if(!arrivals)
 		WARNING("No /obj/docking_port/mobile/arrivals placed on the map!")
@@ -75,13 +74,11 @@ SUBSYSTEM_DEF(shuttle)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
-	RETURN_TYPE(/datum/task)
 	shuttles_loaded = TRUE
-	var/datum/task/parent_task = new()
 	for(var/s in stationary)
 		var/obj/docking_port/stationary/S = s
-		parent_task.add_subtask(S.load_roundstart())
-	return parent_task
+		S.load_roundstart()
+	SSasync_map_generator.run_to_completion()
 
 /datum/controller/subsystem/shuttle/fire()
 	for(var/thing in mobile)
@@ -205,13 +202,13 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/can_evac_or_fail_reason = SSshuttle.canEvac(user)
 	if(can_evac_or_fail_reason != TRUE)
-		to_chat(user, "<span class='alert'>[can_evac_or_fail_reason]</span>")
+		to_chat(user, span_alert("[can_evac_or_fail_reason]"))
 		return
 
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH && SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_GREEN)
-		to_chat(user, "<span class='alert'>You must provide a reason.</span>")
+		to_chat(user, span_alert("You must provide a reason."))
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -234,7 +231,7 @@ SUBSYSTEM_DEF(shuttle)
 	log_game("[user ? key_name(user) : "An automated system"] has called the shuttle.")
 	if(user)
 		var/area/A = get_area(user)
-		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has called the shuttle at <span class='name'>[A.name]</span>.</span>", user)
+		deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] has called the shuttle at [span_name("[A.name]")]."), user)
 	if(call_reason)
 		SSblackbox.record_feedback("text", "shuttle_reason", 1, "[call_reason]")
 		log_game("Shuttle call reason: [call_reason]")
@@ -272,7 +269,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.cancel(get_area(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle.")
-		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has recalled the shuttle from <span class='name'>[get_area_name(user, TRUE)]</span>.</span>", user)
+		deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] has recalled the shuttle from [span_name("[get_area_name(user, TRUE)]")]."), user)
 		return 1
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
@@ -363,19 +360,21 @@ SUBSYSTEM_DEF(shuttle)
 			hostileEnvironments -= d
 	emergencyNoEscape = hostileEnvironments.len
 
+	if(!emergency)
+		message_admins("[src] has no emergency dock? What fuckery is this?")
 	if(emergencyNoEscape && (emergency.mode == SHUTTLE_IGNITING))
 		emergency.mode = SHUTTLE_STRANDED
 		emergency.timer = null
 		emergency.sound_played = FALSE
 		priority_announce("Hostile environment detected. \
 			Departure has been postponed indefinitely pending \
-			conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
+			conflict resolution.", null, 'sound/misc/notice1.ogg', ANNOUNCEMENT_TYPE_PRIORITY)
 	if(!emergencyNoEscape && (emergency.mode == SHUTTLE_STRANDED))
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.setTimer(emergencyDockTime)
 		priority_announce("Hostile environment resolved. \
 			You have 3 minutes to board the Emergency Shuttle.",
-			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
+			null, ANNOUNCER_SHUTTLEDOCK, ANNOUNCEMENT_TYPE_PRIORITY)
 
 /datum/controller/subsystem/shuttle/proc/checkInfestedEnvironment()
 	for(var/mob/d in infestedEnvironments)
@@ -899,7 +898,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(mdp)
 		user.forceMove(get_turf(mdp))
 		message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
-		log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
+		log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.")
 		SSblackbox.record_feedback("text", "shuttle_manipulator", 1, "[mdp.name]")
 
 /datum/controller/subsystem/shuttle/proc/jump_to_preview(mob/user, datum/variable_ref/loaded_shuttle_reference)

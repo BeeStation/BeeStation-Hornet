@@ -305,10 +305,6 @@
 	rest_icon.hud = src
 	static_inventory += rest_icon
 
-	internals = new /atom/movable/screen/internals()
-	internals.hud = src
-	infodisplay += internals
-
 	spacesuit = new /atom/movable/screen/spacesuit
 	spacesuit.hud = src
 	infodisplay += spacesuit
@@ -320,6 +316,10 @@
 	healthdoll = new /atom/movable/screen/healthdoll()
 	healthdoll.hud = src
 	infodisplay += healthdoll
+
+	stamina = new /atom/movable/screen/stamina()
+	stamina.hud = src
+	infodisplay += stamina
 
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = ui_style

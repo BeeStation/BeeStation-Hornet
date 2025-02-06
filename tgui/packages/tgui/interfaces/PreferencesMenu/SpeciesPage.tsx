@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
 import { useBackend } from '../../backend';
 import { BlockQuote, Box, Button, Divider, Icon, Section, Stack, Tooltip } from '../../components';
-import { CharacterPreview } from './CharacterPreview';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { createSetPreference, Food, Perk, PreferencesMenuData, ServerData, Species } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -184,14 +184,8 @@ const SpeciesPerks = (props: { perks: Species['perks'] }) => {
   );
 };
 
-const SpeciesPageInner = (
-  props: {
-    handleClose: () => void;
-    species: ServerData['species'];
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const SpeciesPageInner = (props: { handleClose: () => void; species: ServerData['species'] }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const setSpecies = createSetPreference(act, 'species');
 
   let species: [string, Species][] = Object.entries(props.species).map(([species, data]) => {

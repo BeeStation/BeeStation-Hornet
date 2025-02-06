@@ -60,7 +60,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated())
+	if(usr.incapacitated(IGNORE_STASIS))
 		return 1
 
 	if(ismob(usr))
@@ -85,7 +85,7 @@
 		return TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
-		to_chat(usr, "<span class='warning'>There is already a defined structure here.</span>")
+		to_chat(usr, span_warning("There is already a defined structure here."))
 		return TRUE
 	create_area(usr)
 
@@ -96,15 +96,16 @@
 	screen_loc = ui_language_menu
 
 /atom/movable/screen/language_menu/Click()
-	var/mob/M = usr
-	var/datum/language_holder/H = M.get_language_holder()
-	H.open_language_menu(usr)
+	usr.get_language_holder().open_language_menu(usr)
 
 /atom/movable/screen/inventory
-	var/slot_id	// The indentifier for the slot. It has nothing to do with ID cards.
-	var/icon_empty // Icon when empty. For now used only by humans.
-	var/icon_full  // Icon when contains an item. For now used only by humans.
-	var/list/object_overlays = list()
+	var/slot_id
+	/// Icon when empty. For now used only by humans.
+	var/icon_empty
+	/// Icon when contains an item. For now used only by humans.
+	var/icon_full
+	/// The overlay when hovering over with an item in your hand
+	var/image/object_overlay
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
@@ -127,8 +128,8 @@
 
 /atom/movable/screen/inventory/MouseExited()
 	..()
-	cut_overlay(object_overlays)
-	object_overlays.Cut()
+	cut_overlay(object_overlay)
+	QDEL_NULL(object_overlay)
 	remove_stored_outline()
 
 /atom/movable/screen/inventory/proc/add_stored_outline()
@@ -173,8 +174,9 @@
 	else
 		item_overlay.color = "#00ff00"
 
-	object_overlays += item_overlay
-	add_overlay(object_overlays)
+	cut_overlay(object_overlay)
+	object_overlay = item_overlay
+	add_overlay(object_overlay)
 
 /atom/movable/screen/inventory/hand
 	var/mutable_appearance/handcuff_overlay
@@ -295,68 +297,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 /atom/movable/screen/act_intent/robot
 	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
-
-/atom/movable/screen/internals
-	name = "toggle internals"
-	icon_state = "internal0"
-	screen_loc = ui_internal
-
-/atom/movable/screen/internals/Click()
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/C = usr
-	if(C.incapacitated())
-		return
-
-	if(C.internal)
-		C.internal = null
-		to_chat(C, "<span class='notice'>You are no longer running on internals.</span>")
-		icon_state = "internal0"
-		C.update_action_buttons_icon()
-		return
-	if(!C.getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-		var/obj/item/clothing/head/Helm = C.head
-		if(!istype(C.wear_mask, /obj/item/clothing/mask) && !(Helm?.clothing_flags & HEADINTERNALS))
-			to_chat(C, "<span class='warning'>You are not wearing an internals compatible mask or helmet!</span>")
-			return 1
-		else
-			var/obj/item/clothing/mask/M = C.wear_mask
-			if(M?.mask_adjusted) // if mask on face but pushed down
-				M.adjustmask(C) // adjust it back
-			if( !(M?.clothing_flags & MASKINTERNALS) && !(Helm?.clothing_flags & HEADINTERNALS))
-				to_chat(C, "<span class='warning'>You are not wearing an internals compatible mask or helmet!</span>")
-				return
-
-	var/obj/item/I = C.is_holding_item_of_type(/obj/item/tank)
-	if(I)
-		to_chat(C, "<span class='notice'>You are now running on internals from [I] in your [C.get_held_index_name(C.get_held_index_of_item(I))].</span>")
-		C.toggle_internals(I)
-	else if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(istype(H.s_store, /obj/item/tank))
-			to_chat(H, "<span class='notice'>You are now running on internals from [H.s_store] on your [H.wear_suit.name].</span>")
-			C.toggle_internals(H.s_store)
-		else if(istype(H.belt, /obj/item/tank))
-			to_chat(H, "<span class='notice'>You are now running on internals from [H.belt] on your belt.</span>")
-			C.toggle_internals(H.belt)
-		else if(istype(H.l_store, /obj/item/tank))
-			to_chat(H, "<span class='notice'>You are now running on internals from [H.l_store] in your left pocket.</span>")
-			C.toggle_internals(H.l_store)
-		else if(istype(H.r_store, /obj/item/tank))
-			to_chat(H, "<span class='notice'>You are now running on internals from [H.r_store] in your right pocket.</span>")
-			C.toggle_internals(H.r_store)
-
-	//Separate so CO2 jetpacks are a little less cumbersome.
-	if(!C.internal && istype(C.back, /obj/item/tank))
-		to_chat(C, "<span class='notice'>You are now running on internals from [C.back] on your back.</span>")
-		C.toggle_internals(C.back)
-
-	if(C.internal)
-		icon_state = "internal1"
-	else
-		to_chat(C, "<span class='warning'>You don't have an oxygen tank!</span>")
-		return
-	C.update_action_buttons_icon()
 
 /atom/movable/screen/spacesuit
 	name = "Space suit cell status"
@@ -700,7 +640,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	screen_loc = ui_mood
 
 /atom/movable/screen/splash
-	icon = 'icons/blank_title.png'
+	icon = 'icons/blanks/blank_title.png'
 	icon_state = ""
 	screen_loc = "1,1"
 	plane = SPLASHSCREEN_PLANE
@@ -760,3 +700,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/stamina
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina

@@ -35,15 +35,15 @@ SUBSYSTEM_DEF(department)
 
 	// I don't like this here, but this globallist can't take proper values on its declaration.
 	GLOB.exp_jobsmap = list(
-		EXP_TYPE_CREW = 	list("titles" = get_all_jobs()),
-		EXP_TYPE_COMMAND = 	list("titles" = SSdepartment.department_assoc[DEPT_NAME_COMMAND]),
-		EXP_TYPE_ENGINEERING = list("titles" = SSdepartment.department_assoc[DEPT_NAME_ENGINEERING]),
-		EXP_TYPE_MEDICAL = 	list("titles" = SSdepartment.department_assoc[DEPT_NAME_MEDICAL]),
-		EXP_TYPE_SCIENCE = 	list("titles" = SSdepartment.department_assoc[DEPT_NAME_SCIENCE]),
-		EXP_TYPE_SUPPLY = 	list("titles" = SSdepartment.department_assoc[DEPT_NAME_CARGO]),
-		EXP_TYPE_SECURITY = list("titles" = SSdepartment.department_assoc[DEPT_NAME_SECURITY]),
-		EXP_TYPE_SILICON = 	list("titles" = SSdepartment.department_assoc[DEPT_NAME_SILICON]),
-		EXP_TYPE_SERVICE = 	list("titles" = SSdepartment.department_assoc[DEPT_NAME_CIVILIAN])
+		EXP_TYPE_CREW = 	get_all_jobs(),
+		EXP_TYPE_COMMAND = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
+		EXP_TYPE_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
+		EXP_TYPE_MEDICAL = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
+		EXP_TYPE_SCIENCE = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
+		EXP_TYPE_SUPPLY = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
+		EXP_TYPE_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
+		EXP_TYPE_SILICON = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON),
+		EXP_TYPE_SERVICE = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)
 	)
 
 	return SS_INIT_SUCCESS
@@ -321,7 +321,6 @@ SUBSYSTEM_DEF(department)
 	jobs = list(JOB_NAME_CHIEFMEDICALOFFICER,
 				JOB_NAME_MEDICALDOCTOR,
 				JOB_NAME_PARAMEDIC,
-				JOB_NAME_BRIGPHYSICIAN,
 				JOB_NAME_CHEMIST,
 				JOB_NAME_GENETICIST,
 				JOB_NAME_VIROLOGIST,
@@ -349,6 +348,7 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_WARDEN,
 				JOB_NAME_DETECTIVE,
 				JOB_NAME_SECURITYOFFICER,
+				JOB_NAME_BRIGPHYSICIAN,
 				JOB_NAME_DEPUTY)
 
 	pref_category_name = DEPT_NAME_SECURITY

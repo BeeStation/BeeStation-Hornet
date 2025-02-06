@@ -193,9 +193,9 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/pixel_y_offset = checked_atom.pixel_y + atom_matrix.get_y_shift()
 
 	//Irregular objects
-	var/icon/checked_atom_icon = icon(checked_atom.icon, checked_atom.icon_state)
-	var/checked_atom_icon_height = checked_atom_icon.Height()
-	var/checked_atom_icon_width = checked_atom_icon.Width()
+	var/list/icon_dimensions = get_icon_dimensions(checked_atom.icon)
+	var/checked_atom_icon_height = icon_dimensions["width"]
+	var/checked_atom_icon_width = icon_dimensions["height"]
 	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
 		pixel_x_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 		pixel_y_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
@@ -400,13 +400,13 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(QDELETED(air))
 		return FALSE
 	// Can most things breathe?
-	for(var/id in air.get_gases())
+	for(var/id in air.gases)
 		if(id in GLOB.hardcoded_gases)
 			continue
 		return FALSE
-	if(air.get_moles(GAS_O2) < 16 || air.get_moles(GAS_PLASMA) || air.get_moles(GAS_CO2) >= 10)
+	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
 		return FALSE
-	var/temperature = air.return_temperature()
+	var/temperature = air.temperature
 	if(temperature <= 270 || temperature >= 360)
 		return FALSE
 	var/pressure = air.return_pressure()

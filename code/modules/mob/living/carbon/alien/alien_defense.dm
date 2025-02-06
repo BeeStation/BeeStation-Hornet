@@ -28,7 +28,7 @@ In all, this is a lot like the monkey code. /N
 			AdjustParalyzed(-60)
 			AdjustUnconscious(-60)
 			AdjustSleeping(-100)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake [p_them()] up!</span>")
+			visible_message(span_notice("[M.name] nuzzles [src] trying to wake [p_them()] up!"))
 
 		if("grab")
 			grabbedby(M)
@@ -37,14 +37,14 @@ In all, this is a lot like the monkey code. /N
 			if(health > 1)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] playfully bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] playfully bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-				to_chat(M, "<span class='danger'>You playfully bite [src]!</span>")
+				visible_message(span_danger("[M.name] playfully bites [src]!"), \
+						span_userdanger("[M.name] playfully bites you!"), null, COMBAT_MESSAGE_RANGE)
+				to_chat(M, span_danger("You playfully bite [src]!"))
 				adjustBruteLoss(1)
 				log_combat(M, src, "attacked", M)
 				updatehealth()
 			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+				to_chat(M, span_warning("[name] is too injured for that."))
 
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
@@ -64,19 +64,19 @@ In all, this is a lot like the monkey code. /N
 	switch(M.a_intent)
 		if("harm", "disarm") //harm and disarm will do the same, I doubt trying to shove a xeno would go well for you
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
+				to_chat(M, span_notice("You don't want to hurt [src]!"))
 				return
 			playsound(loc, "punch", 25, 1, -1)
-			visible_message("<span class='danger'>[M] punches [src]!</span>", \
-					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
+			visible_message(span_danger("[M] punches [src]!"), \
+					span_userdanger("[M] punches you!"), null, COMBAT_MESSAGE_RANGE)
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 			apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
 			log_combat(M, src, "attacked", M)
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 
 		if("help")
-			M.visible_message("<span class='notice'>[M] hugs [src] to make [src.p_them()] feel better!</span>", \
-								"<span class='notice'>You hug [src] to make [src.p_them()] feel better!</span>")
+			M.visible_message(span_notice("[M] hugs [src] to make [src.p_them()] feel better!"), \
+								span_notice("You hug [src] to make [src.p_them()] feel better!"))
 			playsound(M.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if("grab")

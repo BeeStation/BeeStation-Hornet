@@ -48,19 +48,19 @@
   * Called on an object being hit by an item
   *
   * Arguments:
-  * * obj/item/W - The item hitting this atom
+  * * obj/item/attacking_item - The item hitting this atom
   * * mob/user - The wielder of this item
   * * params - click params such as alt/shift etc
   *
   * See: [/obj/item/proc/melee_attack_chain]
   */
-/atom/proc/attackby(obj/item/W, mob/user, params)
-	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
+/atom/proc/attackby(obj/item/attacking_item, mob/user, params)
+	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, attacking_item, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_obj(src, user))
+	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_atom(src, user, params))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	if(..())
@@ -69,7 +69,7 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
 		if(butchering?.butchering_enabled)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			to_chat(user, span_notice("You begin to butcher [src]..."))
 			playsound(loc, butchering.butcher_sound, 50, TRUE, -1)
 			if(do_after(user, butchering.speed, src) && Adjacent(I))
 				butchering.Butcher(user, src)
@@ -88,21 +88,21 @@
  * * mob/living/user - The mob hitting with this item
  * * params - Click params of this attack
  */
-/obj/item/proc/attack(mob/living/M, mob/living/user, params)
-	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user, params)
+/obj/item/proc/attack(mob/living/target_mob, mob/living/user, params)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target_mob, user, params)
 	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return
 
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user, params)
-	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target_mob, user, params)
+	SEND_SIGNAL(target_mob, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
 
 	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
 		nonharmfulhit = TRUE
-	for(var/datum/surgery/S in M.surgeries)
+	for(var/datum/surgery/S in target_mob.surgeries)
 		if(S.failed_step)
 			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
 			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step
@@ -112,7 +112,7 @@
 		nonharmfulhit = TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		nonharmfulhit = TRUE
 
 	if(!force || nonharmfulhit)
@@ -120,49 +120,52 @@
 	else if(hitsound)
 		playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
-	M.lastattacker = user.real_name
-	M.lastattackerckey = user.ckey
+	target_mob.lastattacker = user.real_name
+	target_mob.lastattackerckey = user.ckey
 
-	user.do_attack_animation(M)
+	user.do_attack_animation(target_mob)
 	var/time = world.time
 	if(nonharmfulhit)
-		M.send_item_poke_message(src, user)
+		target_mob.send_item_poke_message(src, user)
 		user.time_of_last_poke = time
 	else
 		user.record_accidental_poking()
-		M.attacked_by(src, user)
-		M.time_of_last_attack_received = time
+		target_mob.attacked_by(src, user)
+		target_mob.time_of_last_attack_received = time
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
 
-	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
+	log_combat(user, target_mob, "[nonharmfulhit ? "poked" : "attacked"]", src, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
 	add_fingerprint(user)
 
 
-/// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.
-/obj/item/proc/attack_obj(obj/O, mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+/// The equivalent of the standard version of [/obj/item/proc/attack] but for non mob targets.
+/obj/item/proc/attack_atom(atom/attacked_atom, mob/living/user, params)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, attacked_atom, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 	if(item_flags & NOBLUDGEON)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(O)
-	O.attacked_by(src, user)
+	user.do_attack_animation(attacked_atom)
+	attacked_atom.attacked_by(src, user)
 
-/// Called from [/obj/item/proc/attack_obj] and [/obj/item/proc/attack] if the attack succeeds
-/atom/proc/attacked_by()
-	return
+/// Called from [/obj/item/proc/attack_atom] and [/obj/item/proc/attack] if the attack succeeds
+/atom/proc/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(!uses_integrity)
+		CRASH("attacked_by() was called on an object that doesnt use integrity!")
 
-/obj/attacked_by(obj/item/attacking_item, mob/living/user)
 	if(!attacking_item.force)
 		return
 
 	var/damage = take_damage(attacking_item.force, attacking_item.damtype, MELEE, 1)
 
 	//only witnesses close by and the victim see a hit message.
-	user.visible_message("<span class='danger'>[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", \
-		"<span class='danger'>You hit [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", null, COMBAT_MESSAGE_RANGE)
+	user.visible_message(span_danger("[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), \
+		span_danger("You hit [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), null, COMBAT_MESSAGE_RANGE)
 	log_combat(user, src, "attacked", attacking_item)
+
+/area/attacked_by(obj/item/attacking_item, mob/living/user)
+	CRASH("areas are NOT supposed to have attacked_by() called on them!")
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	send_item_attack_message(I, user)
@@ -227,9 +230,9 @@
 		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I]!"
 	if(user == src)
 		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I]"
-	visible_message("<span class='danger'>[attack_message_spectator]</span>",\
-		"<span class='userdanger'>[attack_message_victim]</span>", null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, "<span class='danger'>[attack_message_attacker]</span>")
+	visible_message(span_danger("[attack_message_spectator]"),\
+		span_userdanger("[attack_message_victim]"), null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("[attack_message_attacker]"))
 	return 1
 
 /mob/living/proc/send_item_poke_message(obj/item/I, mob/living/user)
@@ -242,8 +245,8 @@
 		poke_message_local = "[user] [message_verb] you with [I]!"
 	if(user == src)
 		poke_message_local = "You [message_verb] yourself with [I]!"
-	visible_message("<span class='notice'>[poke_message]</span>",\
-	"<span class='usernotice'>[poke_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
+	visible_message(span_notice("[poke_message]"),\
+	span_usernotice("[poke_message_local]"), null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/proc/record_accidental_poking()
 	if(time_of_last_poke != 0 && world.time - time_of_last_poke <= 50)

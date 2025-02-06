@@ -54,7 +54,7 @@
 "T" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/closet/secure_closet/personal,
-/obj/item/trash/can/food/peaches/maint,
+/obj/item/trash/canned/peaches/maint,
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (

@@ -48,9 +48,9 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new /datum/stack_recipe_list("closets",	 list( \
 		new/datum/stack_recipe("closet",								/obj/structure/closet, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("emergency closet",						/obj/structure/closet/emcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-		new/datum/stack_recipe("fire closet",						/obj/structure/closet/radiation/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-		new/datum/stack_recipe("radiation closet",						/obj/structure/closet/firecloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-		new/datum/stack_recipe("tool closet",						/obj/structure/closet/toolcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("fire closet",							/obj/structure/closet/firecloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("radiation closet",						/obj/structure/closet/radiation/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+		new/datum/stack_recipe("tool closet",							/obj/structure/closet/toolcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("wardrobe closet",						/obj/structure/closet/wardrobe/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		new/datum/stack_recipe("bomb closet",							/obj/structure/closet/bombcloset/empty, 2, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 		)),
@@ -99,7 +99,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("apc frame",									/obj/item/wallframe/apc, 2), \
 	new/datum/stack_recipe("air alarm frame",							/obj/item/wallframe/airalarm, 2), \
-	new/datum/stack_recipe("airlock controller frame",					/obj/item/wallframe/advanced_airlock_controller, 2), \
 	new/datum/stack_recipe("fire alarm frame",							/obj/item/wallframe/firealarm, 2), \
 	new/datum/stack_recipe("extinguisher cabinet frame",				/obj/item/wallframe/extinguisher_cabinet, 2), \
 	new/datum/stack_recipe("light switch frame",						/obj/item/wallframe/light_switch, 1), \

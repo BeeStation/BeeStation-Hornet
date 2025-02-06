@@ -39,10 +39,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/bluespace_anchor)
 		icon_state = "anchor_active"
 
 /obj/machinery/bluespace_anchor/attack_hand(mob/living/user)
-	user.visible_message("<span class='notice'>[user] starts deactivating [src].</span>", "<span class='notice'>You begin deactivating [src]...</span>")
+	user.visible_message(span_notice("[user] starts deactivating [src]."), span_notice("You begin deactivating [src]..."))
 	//Failing to deactivate it
 	if(!do_after(user, 8 SECONDS, target = src))
-		user.visible_message("<span class='warning'>[user] fails to deactivate [src]!</span>", "<span class='warning'>You fail to deactivate [src]!</span>")
+		user.visible_message(span_warning("[user] fails to deactivate [src]!"), span_warning("You fail to deactivate [src]!"))
 		if(!power_cell?.use(power_usage_per_teleport))
 			return
 		user.electrocute_act(40)
@@ -66,6 +66,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/bluespace_anchor)
 		src.Beam(L, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)
 		var/shock_damage = min(round(power_usage_per_teleport/600), 90) + rand(-5, 5)
 		L.electrocute_act(shock_damage, src)
+	// Give feedback
+	do_sparks(5, FALSE, teleatom)
+	playsound(src, 'sound/magic/repulse.ogg', 80, TRUE)
+	if(ismob(teleatom))
+		to_chat(teleatom, span_warning("You feel like you are being held in place."))
 	return TRUE
 
 /obj/machinery/bluespace_anchor/proc/set_cell(cell)

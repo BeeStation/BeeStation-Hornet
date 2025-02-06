@@ -60,7 +60,7 @@
 	return 0
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
-	return 'sound/emotes/mothlaugh.ogg'
+	return 'sound/emotes/moth/mothlaugh.ogg'
 
 /datum/species/moth/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/moth/scream_moth.ogg'
@@ -77,7 +77,7 @@
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
 	if(cocoon_action)
-		cocoon_action.UpdateButtonIcon()
+		cocoon_action.update_buttons()
 
 /datum/action/innate/cocoon
 	name = "Cocoon"
@@ -86,32 +86,32 @@
 	button_icon_state = "wrap_0"
 	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
-/datum/action/innate/cocoon/Activate()
+/datum/action/innate/cocoon/on_activate()
 	var/mob/living/carbon/H = owner
 	var/obj/item/organ/wingcheck = H.getorgan(/obj/item/organ/wings/moth)
 	if(!wingcheck) //This is to stop easy organ farms
-		to_chat(H, "<span class='warning'>You don't have any wings to regenerate!</span>")
+		to_chat(H, span_warning("You don't have any wings to regenerate!"))
 		return
 	if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-		to_chat(H, "<span class='warning'>Your wings are fine as they are!</span>")
+		to_chat(H, span_warning("Your wings are fine as they are!"))
 		return
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>You are too hungry to weave a cocoon!</span>")
+		to_chat(H, span_warning("You are too hungry to weave a cocoon!"))
 		return
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", \
-	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)</span>")
+	H.visible_message(span_notice("[H] begins to hold still and concentrate on weaving a cocoon..."), \
+	span_notice("You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)"))
 	H.adjustStaminaLoss(20, FALSE) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, H, timed_action_flags = IGNORE_HELD_ITEM))
 		if(!ismoth(H))
-			to_chat(H, "<span class='warning'>You have lost your mandibles and cannot weave anymore!.</span>")
+			to_chat(H, span_warning("You have lost your mandibles and cannot weave anymore!."))
 			return
 		if(H.incapacitated())
-			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
+			to_chat(H, span_warning("You cannot weave a cocoon in your current state."))
 			return
 		if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-			to_chat(H, "<span class='warning'>Your wings are fine as they are!</span>")
+			to_chat(H, span_warning("Your wings are fine as they are!"))
 			return
-		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
+		H.visible_message(span_notice("[H] finishes weaving a cocoon!"), span_notice("You finish weaving your cocoon."))
 		var/obj/structure/moth_cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		H.Sleeping(20, FALSE)
@@ -120,9 +120,9 @@
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+		to_chat(H, span_warning("You need to hold still in order to weave a cocoon!"))
 
-/datum/action/innate/cocoon/IsAvailable()
+/datum/action/innate/cocoon/is_available()
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
@@ -166,9 +166,9 @@
 
 /obj/structure/moth_cocoon/Destroy()
 	if(done_regenerating)
-		visible_message("<span class='danger'>[src] splits open from within!</span>")
+		visible_message(span_danger("[src] splits open from within!"))
 	else
-		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
+		visible_message(span_danger("[src] is torn open, harming the Mothperson within!"))
 	for(var/mob/living/carbon/human/H in contents)
 		if(H.has_status_effect(STATUS_EFFECT_COCOONED) && !done_regenerating)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
@@ -179,8 +179,8 @@
 		H.forceMove(loc)
 		H.log_message("[key_name(H)] [done_regenerating ? "has emerged" : "was forcefully ejected"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
 		if(done_regenerating)
-			visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>")
-			to_chat(H, "<span class='notice'>Your wings unfold with new vigor!</span>")
+			visible_message(span_notice("[H]'s wings unfold, looking good as new!"))
+			to_chat(H, span_notice("Your wings unfold with new vigor!"))
 	return ..()
 
 /datum/status_effect/cocooned

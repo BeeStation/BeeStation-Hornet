@@ -29,7 +29,7 @@
 			log_msg += "(mutation removal: [english_list(remove_mutations)])"
 		for(var/HM in add_mutations)
 			if(HM == RACEMUT)
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the [name] <span class='danger'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the [name] [span_danger("(MONKEY)")]")
 				log_msg += " (MONKEY)"
 			if(M.dna.mutation_in_sequence(HM))
 				M.dna.activate_mutation(HM)
@@ -50,30 +50,29 @@
 
 /obj/item/dnainjector/attack(mob/living/target, mob/living/user)
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(used)
-		to_chat(user, "<span class='warning'>This injector is used up!</span>")
+		to_chat(user, span_warning("This injector is used up!"))
 		return
 	if(!target.can_inject(user, TRUE))
 		return
 	log_combat(user, target, "attempted to inject", src)
 
 	if(target != user)
-		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", \
-			"<span class='userdanger'>[user] is trying to inject you with [src]!</span>")
-		if(!do_after(user, target = target) || used)
+		target.visible_message(span_danger("[user] is trying to inject [target] with [src]!"), \
+			span_userdanger("[user] is trying to inject you with [src]!"))
+		if(!do_after(user, 3 SECONDS, target) || used)
 			return
-		target.visible_message("<span class='danger'>[user] injects [target] with the syringe with [src]!", \
-						"<span class='userdanger'>[user] injects you with the syringe with [src]!</span>")
+		target.visible_message(span_danger("[user] injects [target] with the syringe with [src]!"), span_userdanger("[user] injects you with the syringe with [src]!"))
 
 	else
-		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
+		to_chat(user, span_notice("You inject yourself with [src]."))
 
 	log_combat(user, target, "injected", src)
 
 	if(!inject(target, user))	//Now we actually do the heavy lifting.
-		to_chat(user, "<span class='notice'>It appears that [target] does not have compatible DNA.</span>")
+		to_chat(user, span_notice("It appears that [target] does not have compatible DNA."))
 
 	used = TRUE
 	icon_state = "[base_icon_state]0"
@@ -154,12 +153,22 @@
 /obj/item/dnainjector/cluwnemut
 	name = "\improper DNA injector (Cluwneify)"
 	desc = "This is your last chance to turn back."
-	add_mutations = list(CLOWNMUT)
+	add_mutations = list(CLUWNEMUT)
 
 /obj/item/dnainjector/anticluwne
 	name = "\improper DNA injector (Anti-Cluwne)"
+	desc = "This is going to hurt."
+	remove_mutations = list(CLUWNEMUT)
+
+/obj/item/dnainjector/cursedcluwnemut
+	name = "\improper DNA injector (Cluwneify)"
+	desc = "This is your last chance to turn back."
+	add_mutations = list(CURSEDCLUWNEMUT)
+
+/obj/item/dnainjector/anticursedcluwne
+	name = "\improper DNA injector (Anti-Cluwne)"
 	desc = "This isn't going to work."
-	remove_mutations = list(CLOWNMUT)
+	remove_mutations = list(CURSEDCLUWNEMUT)
 
 /obj/item/dnainjector/antitour
 	name = "\improper DNA injector (Anti-Tour.)"
@@ -338,6 +347,7 @@
 /obj/item/dnainjector/antiradioactive
 	name = "\improper DNA injector (Anti-Radioactive)"
 	remove_mutations = list(RADIOACTIVE)
+
 /obj/item/dnainjector/olfaction
 	name = "\improper DNA injector (Olfaction)"
 	add_mutations = list(OLFACTION)
@@ -496,7 +506,7 @@
 
 /obj/item/dnainjector/timed/inject(mob/living/carbon/M, mob/user)
 	if(M.stat == DEAD)	//prevents dead people from having their DNA changed
-		to_chat(user, "<span class='notice'>You can't modify [M]'s DNA while [M.p_theyre()] dead.</span>")
+		to_chat(user, span_notice("You can't modify [M]'s DNA while [M.p_theyre()] dead."))
 		return FALSE
 
 	if(M.has_dna() && !(HAS_TRAIT(M, TRAIT_BADDNA)))
@@ -514,7 +524,7 @@
 			if(M.dna.get_mutation(mutation))
 				continue //Skip permanent mutations we already have.
 			if(mutation == RACEMUT && ishuman(M))
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the [name] <span class='danger'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the [name] [span_danger("(MONKEY)")]")
 				log_msg += " (MONKEY)"
 				M = M.dna.add_mutation(mutation, MUT_OTHER, endtime)
 			else

@@ -42,9 +42,23 @@ SUBSYSTEM_DEF(security_level)
 	if(SSnightshift.can_fire && (selected_level.number_level >= SEC_LEVEL_RED || current_security_level.number_level >= SEC_LEVEL_RED))
 		SSnightshift.next_fire = world.time + 7 SECONDS // Fire nightshift after the security level announcement is complete
 
-	announce_security_level(selected_level) // We want to announce BEFORE updating to the new level
+	level_announce(selected_level, current_security_level.number_level) // We want to announce BEFORE updating to the new level
 
 	SSsecurity_level.current_security_level = selected_level
+
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
+	var/datum/signal/status_signal = new(list("command" = "alert"))
+
+	switch(SSsecurity_level.get_current_level_as_number())
+		if(SEC_LEVEL_DELTA)
+			status_signal.data["picture_state"] = "deltaalert"
+		if(SEC_LEVEL_RED)
+			status_signal.data["picture_state"] = "redalert"
+		if(SEC_LEVEL_BLUE)
+			status_signal.data["picture_state"] = "bluealert"
+		if(SEC_LEVEL_GREEN)
+			status_signal.data["picture_state"] = "greenalert"
+	frequency.post_signal(src, status_signal)
 
 	if(selected_level.looping_sound)
 		wait = selected_level.looping_sound_interval
@@ -57,18 +71,6 @@ SUBSYSTEM_DEF(security_level)
 
 	SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGED, selected_level.number_level)
 	SSblackbox.record_feedback("tally", "security_level_changes", 1, selected_level.name)
-
-/**
- * Handles announcements of the newly set security level
- *
- * Arguments:
- * * selected_level - The new security level that has been set
- */
-/datum/controller/subsystem/security_level/proc/announce_security_level(datum/security_level/selected_level)
-	if(selected_level.number_level > current_security_level.number_level) // We are elevating to this level.
-		minor_announce(selected_level.elevating_to_announcemnt, "Attention! Security level elevated to [selected_level.name]:", sound_override = selected_level.sound)
-	else // Going down
-		minor_announce(selected_level.lowering_to_announcement, "Attention! Security level lowered to [selected_level.name]:", sound_override = selected_level.sound)
 
 /**
  * Returns the current security level as a number
