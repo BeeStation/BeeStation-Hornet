@@ -13,7 +13,7 @@
 	if(!isAI(A))
 		return ..()
 	var/mob/living/silicon/ai/AI = A
-  	AI.hack_software = TRUE
+	AI.hack_software = TRUE
 	// Malfunctioning AIs consume the upgrade for a bit extra processing time
 	if(AI.malf_picker)
 		AI.malf_picker.processing_time += 50
