@@ -33069,7 +33069,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood/fancy/purple,
-/obj/item/book/granter/spell/smoke/lesser,
+/obj/item/book/granter/action/spell/smoke/lesser,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/organ/heart,

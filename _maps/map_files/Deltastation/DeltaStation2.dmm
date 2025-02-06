@@ -43592,7 +43592,7 @@
 /obj/item/organ/heart,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
-/obj/item/book/granter/spell/smoke/lesser,
+/obj/item/book/granter/action/spell/smoke/lesser,
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "hVw" = (

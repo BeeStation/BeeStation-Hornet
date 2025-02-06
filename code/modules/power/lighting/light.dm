@@ -55,7 +55,8 @@
 
 	///More stress stuff.
 	var/turning_on = FALSE
-	var/roundstart_smoothing = FALSE
+	///If TRUE, the light does not have an update delay, and makes no noise when it switches states
+	var/smooth_transition = FALSE
 
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
@@ -90,7 +91,7 @@
 			brightness = A.lighting_brightness_tube
 
 	if(mapload || !SSticker.HasRoundStarted())
-		roundstart_smoothing = TRUE
+		smooth_transition = TRUE
 
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
@@ -198,6 +199,8 @@
 
 /obj/machinery/light/proc/handle_fire(area/source, new_fire)
 	SIGNAL_HANDLER
+	//we want fire alarm lights to not be delayed or make light_on noises during fire
+	smooth_transition = TRUE
 	update()
 
 // update the icon_state and luminosity of the light depending on its state
@@ -205,8 +208,8 @@
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
-	if(roundstart_smoothing)
-		roundstart_smoothing = FALSE
+	if(smooth_transition)
+		smooth_transition = FALSE
 		quiet = TRUE
 		instant = TRUE
 	emergency_mode = FALSE
