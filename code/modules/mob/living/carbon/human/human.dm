@@ -1004,29 +1004,32 @@
 		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
-	buckle_mob(target, TRUE, TRUE, 90, 1, 0)
+	return buckle_mob(target, TRUE, TRUE, 90, 1, 0)
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
-	if(can_piggyback(target))
-		visible_message(span_notice("[target] starts to climb onto [src]."))
-		if(do_after(target, 15, target = src))
-			if(can_piggyback(target))
-				if(target.incapacitated(FALSE, TRUE) || incapacitated(FALSE, TRUE))
-					target.visible_message(span_warning("[target] can't hang onto [src]!"))
-					return
-				buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
-		else
-			visible_message(span_warning("[target] fails to climb onto [src]!"))
-	else
+	if(!can_piggyback(target))
 		to_chat(target, span_warning("You can't piggyback ride [src] right now!"))
+		return
 
+	visible_message(span_notice("[target] starts to climb onto [src]."))
+	if(!do_after(target, 1.5 SECONDS, target = src) || !can_piggyback(target))
+		visible_message(span_warning("[target] fails to climb onto [src]!"))
+		return
+
+	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+		target.visible_message(span_warning("[target] can't hang onto [src]!"))
+		return
+
+	return buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
-	if(!force)//humans are only meant to be ridden through piggybacking and special cases
-		return
 	if(!is_type_in_typecache(target, can_ride_typecache))
 		target.visible_message(span_warning("[target] really can't seem to mount [src]."))
 		return
+
+	if(!force)//humans are only meant to be ridden through piggybacking and special cases
+		return
+
 	buckle_lying = lying_buckle
 	var/datum/component/riding/human/riding_datum = LoadComponent(/datum/component/riding/human)
 	if(target_hands_needed)
