@@ -931,6 +931,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 	switch(action)
 		if("power")
+			update_appearance()
 			changing_voice = !changing_voice
 			if(changing_voice)
 				prev_verbs["say"] = owner.verb_say
@@ -976,7 +977,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 				owner.verb_yell = say_verb
 		if("name")
 			say_name = strip_html(params["name"], MAX_NAME_LEN)
-	update_appearance()
+	ui_update()
 
 /datum/ai_module/malf/utility/emag
 	name = "Targeted Safeties Override"

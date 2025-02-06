@@ -20,17 +20,11 @@ export const AiVoiceChanger = (props) => {
     <Window title="Voice changer settings" width={400} height={200}>
       <Section fill>
         <LabeledList>
-          <LabeledList.Item
-            label="Power"
-            buttons={
-              <Button
-                icon={on ? 'power-off' : 'times'}
-                content={on ? 'On' : 'Off'}
-                disabled={on}
-                onClick={() => act('power')}
-              />
-            }
-          />
+          <LabeledList.Item label="Power">
+            <Button icon={on ? 'power-off' : 'times'} onClick={() => act('power')}>
+              {on ? 'On' : 'Off'}
+            </Button>
+          </LabeledList.Item>
           <LabeledList.Item label="Accent">
             <Dropdown
               options={voices}
