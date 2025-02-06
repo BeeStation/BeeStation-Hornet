@@ -2006,6 +2006,7 @@
 	dir = 8
 	},
 /obj/structure/window/plasma/reinforced/spawner/east,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "aOw" = (
@@ -8134,6 +8135,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer5{
 	dir = 4
 	},
+/obj/effect/turf_decal/caution/stand_clear{
+	pixel_y = -8
+	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "dMS" = (
@@ -9973,7 +9977,13 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced/spawner,
+/obj/machinery/door/window/northleft{
+	name = "Secure Access Area";
+	dir = 2;
+	req_one_access_txt = "32;19"
+	},
+/obj/effect/turf_decal/caution,
+/obj/effect/turf_decal/siding/yellow,
 /turf/open/floor/iron/dark/textured_half,
 /area/engine/atmos)
 "eKt" = (
@@ -17174,6 +17184,9 @@
 	name = "Mixed Air Tank Out";
 	target_layer = 5;
 	pixel_y = 9
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	pixel_y = -8
 	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
@@ -42778,7 +42791,7 @@
 	req_one_access_txt = "32;19"
 	},
 /obj/effect/turf_decal/caution,
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/siding/yellow,
 /turf/open/floor/iron/dark/textured_half,
 /area/engine/atmos)
 "uRn" = (
@@ -47538,7 +47551,6 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xkN" = (
