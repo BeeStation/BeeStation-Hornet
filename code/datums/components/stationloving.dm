@@ -37,7 +37,7 @@
 
 	var/atom/movable/AM = parent
 	AM.forceMove(targetturf)
-	to_chat(get(parent, /mob), "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
+	to_chat(get(parent, /mob), span_danger("You can't help but feel that you just lost something back there..."))
 	// move the disc, so ghosts remain orbiting it even if it's "destroyed"
 	return targetturf
 
@@ -55,12 +55,12 @@
 		if(inform_admins)
 			message_admins("[parent] has been moved out of bounds in [ADMIN_VERBOSEJMP(currentturf)]. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
 
-/datum/component/stationloving/proc/check_soul_imbue()
+/datum/component/stationloving/proc/check_soul_imbue(datum/source)
 	SIGNAL_HANDLER
 
 	return disallow_soul_imbue
 
-/datum/component/stationloving/proc/check_mark_retrieval()
+/datum/component/stationloving/proc/check_mark_retrieval(datum/source)
 	SIGNAL_HANDLER
 
 	return COMPONENT_BLOCK_MARK_RETRIEVAL

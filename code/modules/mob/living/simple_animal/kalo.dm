@@ -28,7 +28,7 @@
 	speak_language = /datum/language/metalanguage
 	emote_hear = list("hisses", "squeaks")
 	emote_see = list("pounces")
-	faction = list("Lizard")
+	faction = list(FACTION_LIZARD)
 	health = 15
 	maxHealth = 15
 	minbodytemp = 50

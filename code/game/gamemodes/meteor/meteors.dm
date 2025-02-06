@@ -202,7 +202,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 /obj/effect/meteor/proc/ram_turf(turf/T)
 	//first yell at mobs about them dying horribly
 	for(var/mob/living/living_thing in T)
-		living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
+		living_thing.visible_message(span_warning("[src] slams into [living_thing]."), span_userdanger("[src] slams into you!."))
 
 	//then, ram the turf
 	switch(hitpwr)
