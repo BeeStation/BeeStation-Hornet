@@ -1166,6 +1166,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	disable_text = span_notice("You stop focusing on tipping vendors.")
 
 /datum/action/innate/ai/ranged/remote_vendor_tilt/on_activate(mob/user, atom/target)
+	. = ..()
 	var/mob/living/silicon/ai/ai_clicker = user
 	if(!user || !isAI(user))
 		return FALSE
