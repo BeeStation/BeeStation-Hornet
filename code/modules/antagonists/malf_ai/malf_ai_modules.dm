@@ -954,6 +954,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 				owner.verb_exclaim	= prev_verbs["exclaim"]
 				owner.verb_yell	= prev_verbs["yell"]
 				owner.speech_span = prev_span
+			return TRUE
 		if("look")
 			var/selection = params["look"]
 			if(isnull(selection))
@@ -972,6 +973,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			if(changing_voice)
 				owner.speech_span = say_span
 			to_chat(usr, span_notice("Voice set to [selection]."))
+			return TRUE
 		if("verb")
 			say_verb = strip_html(params["verb"], MAX_NAME_LEN)
 			if(changing_voice)
@@ -979,9 +981,10 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 				owner.verb_ask = say_verb
 				owner.verb_exclaim = say_verb
 				owner.verb_yell = say_verb
+			return TRUE
 		if("name")
 			say_name = strip_html(params["name"], MAX_NAME_LEN)
-	ui_update()
+			return TRUE
 
 /datum/ai_module/malf/utility/emag
 	name = "Targeted Safeties Override"
