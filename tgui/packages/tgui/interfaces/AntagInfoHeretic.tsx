@@ -112,7 +112,8 @@ const GuideSection = () => {
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
           <b>left click</b> on them to harvest them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
+          <span style={hereticBlue}>knowledge points</span>. Tapping them visible to all after a short time.
+          <span style={hereticPurple}> You can dream to discover influences with a 5 minute delay</span>
         </Stack.Item>
         <Stack.Item>
           - Use your&nbsp;
