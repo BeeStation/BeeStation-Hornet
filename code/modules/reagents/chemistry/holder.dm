@@ -925,7 +925,7 @@
 					return
 				return holder_reagent
 			else
-				if(R.volume >= amount)
+				if(holder_reagent.volume >= amount)
 					if(needs_metabolizing && !holder_reagent.metabolizing)
 						return
 					return holder_reagent
