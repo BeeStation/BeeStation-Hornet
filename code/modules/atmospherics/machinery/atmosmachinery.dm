@@ -73,6 +73,9 @@
 	fire = 100
 	acid = 70
 
+//Blank to not inherit parent
+/obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
+
 /obj/machinery/atmospherics/LateInitialize()
 	. = ..()
 	update_name()
