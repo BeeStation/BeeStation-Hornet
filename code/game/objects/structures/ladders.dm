@@ -29,14 +29,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 
 	return INITIALIZE_HINT_LATELOAD
 
-/*
-/obj/structure/ladder/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+/obj/structure/ladder/add_context_self(datum/screentip_context/context, mob/user)
 	if(up)
-		context[SCREENTIP_CONTEXT_LMB] = "Climb up"
+		context.add_left_click_action("Climb up")
 	if(down)
-		context[SCREENTIP_CONTEXT_RMB] = "Climb down"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+		context.add_right_click_action("Climb down")
 
 /obj/structure/ladder/examine(mob/user)
 	. = ..()

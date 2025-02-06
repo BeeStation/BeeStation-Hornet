@@ -189,9 +189,9 @@
 
 /obj/machinery/iv_drip/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	if (attached)
-		context.add_attack_hand_action("Detach [capitalize(attached.name)]")
+		context.add_right_click_action("Detach [capitalize(attached.name)]")
 	else if (beaker)
-		context.add_attack_hand_action("Eject Beaker")
+		context.add_right_click_action("Eject Beaker")
 	else
 		context.add_attack_hand_action("Toggle Mode")
 

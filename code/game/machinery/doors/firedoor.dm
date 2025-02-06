@@ -483,13 +483,13 @@
 			context.add_left_click_tool_action("Repair Bolts", TOOL_SCREWDRIVER)
 		else
 			context.add_left_click_tool_action("Deconstruct", TOOL_SCREWDRIVER)
-		context.add_left_click_tool_action("Unweld", TOOL_WELDER)
+		context.add_right_click_tool_action("Unweld", TOOL_WELDER)
 	else
 		if (density)
 			context.add_left_click_tool_action("Pry Open", TOOL_CROWBAR)
 		else
 			context.add_left_click_tool_action("Close", TOOL_CROWBAR)
-		context.add_left_click_tool_action("Weld", TOOL_WELDER)
+		context.add_right_click_tool_action("Weld", TOOL_WELDER)
 
 /obj/machinery/door/firedoor/try_to_activate_door(obj/item/attacked_item, mob/user)
 	if(!density || welded || !attacked_item)
