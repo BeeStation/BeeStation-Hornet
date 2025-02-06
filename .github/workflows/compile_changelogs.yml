@@ -7,6 +7,7 @@ on:
 
 jobs:
   CompileCL:
+    name: "Compile changelogs"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,6 +29,7 @@ jobs:
           git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
           git config --local user.name "ss13-beebot"
           git pull origin master
+          git add html/changelogs
           git commit -m "Automatic changelog compile [ci skip]" -a || true
       - name: Push
         uses: CasperWA/push-protected@v2

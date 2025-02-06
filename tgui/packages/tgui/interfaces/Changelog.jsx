@@ -58,7 +58,7 @@ export class Changelog extends Component {
   }
 
   getData = (date, attemptNumber = 1) => {
-    const { act } = useBackend(this.context);
+    const { act } = useBackend();
     const self = this;
     const maxAttempts = 6;
 
@@ -88,7 +88,7 @@ export class Changelog extends Component {
   componentDidMount() {
     const {
       data: { dates = [] },
-    } = useBackend(this.context);
+    } = useBackend();
 
     if (dates) {
       dates.forEach((date) => this.dateChoices.push(dateformat(date, 'mmmm yyyy', true)));
@@ -101,7 +101,7 @@ export class Changelog extends Component {
     const { data, selectedDate, selectedIndex } = this.state;
     const {
       data: { dates },
-    } = useBackend(this.context);
+    } = useBackend();
     const { dateChoices } = this;
 
     const dateDropdown = dateChoices.length > 0 && (
@@ -160,7 +160,7 @@ export class Changelog extends Component {
 
     const header = (
       <Section>
-        <h1>Traditional Games Space Station 13</h1>
+        <h1>BeeStation 13 Changelog</h1>
         <p>
           <b>Thanks to: </b>
           Baystation 12, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original Space
@@ -169,13 +169,21 @@ export class Changelog extends Component {
         </p>
         <p>
           {'Current organization members can be found '}
-          <a href="https://github.com/orgs/tgstation/people">here</a>
+          <a href="https://github.com/orgs/BeeStation/people">here</a>
           {', recent GitHub contributors can be found '}
-          <a href="https://github.com/tgstation/tgstation/pulse/monthly">here</a>.
+          <a href="https://github.com/BeeStation/BeeStation-Hornet/graphs/contributors">here</a>.
         </p>
         <p>
-          {'You can also join our discord '}
-          <a href="https://tgstation13.org/phpBB/viewforum.php?f=60">here</a>.
+          {'You can also join our community outside of the game: '}
+          <a href="https://beestation13.com/">Site</a>
+          <br />
+          <a href="https://beestation13.com/forum">Forums</a>
+          <br />
+          <a href="https://wiki.beestation13.com/">Wiki</a>
+          <br />
+          <a href="https://github.com/BeeStation/BeeStation-Hornet">Source</a>
+          <br />
+          Join our Discord <a href="https://github.com/BeeStation/BeeStation-Hornet">Here!</a>
         </p>
         {dateDropdown}
       </Section>
@@ -195,8 +203,7 @@ export class Changelog extends Component {
           Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange, I Said No
         </p>
         <p>
-          Traditional Games Space Station 13 is thankful to the GoonStation 13 Development Team for its work on the game up to
-          the
+          Beestation is thankful to the GoonStation 13 Development Team for its work on the game up to the
           {' r4407 release. The changelog for changes up to r4407 can be seen '}
           <a href="https://wiki.ss13.co/Pre-2016_Changelog#April_2010">here</a>.
         </p>
@@ -209,7 +216,7 @@ export class Changelog extends Component {
           <a href="http://forums.somethingawful.com/">SomethingAwful Goons</a>
           {' only.'}
         </p>
-        <h3>Traditional Games Space Station 13 License</h3>
+        <h3>Beestation/Traditional Games Space Station 13 License</h3>
         <p>
           {'All code after '}
           <a href={'https://github.com/tgstation/tgstation/commit/' + '333c566b88108de218d882840e61928a9b759d8f'}>
