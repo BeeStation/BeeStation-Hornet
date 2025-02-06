@@ -13,7 +13,8 @@
 	if(!isAI(A))
 		return ..()
 	var/mob/living/silicon/ai/AI = A
-	// Malfunction AIs consume the upgrade for a bit extra processing time
+  AI.hack_software = TRUE
+	// Malfunctioning AIs consume the upgrade for a bit extra processing time
 	if(AI.malf_picker)
 		AI.malf_picker.processing_time += 50
 		to_chat(AI, span_userdanger("[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead."))

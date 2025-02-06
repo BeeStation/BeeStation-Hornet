@@ -820,7 +820,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mods)
-	var/start = "Relayed Speech: "
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -845,9 +844,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(istype(D) && D.display_icon(src))
 		language_icon = D.get_icon()
 
-	var/rendered = "<i>[span_gamesay("[start][language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
+	var/rendered = "<i>[span_gamesay("[language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
 
 	show_message(rendered, 2)
+	speaker.create_private_chat_message(
+		message = raw_message,
+		message_language = message_language,
+		hearers = list(src),
+		includes_ghosts = FALSE)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
