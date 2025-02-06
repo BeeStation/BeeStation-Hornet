@@ -10,7 +10,7 @@
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_CYBORG)
+	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI)
 	required_candidates = 1
 	weight = 5
 	cost = 8	// Avoid raising traitor threat above this, as it is the default low cost ruleset.
@@ -21,8 +21,6 @@
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
-	if (population < CONFIG_GET(number/malf_ai_minimum_pop))
-		restricted_roles |= JOB_NAME_AI
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)
@@ -87,6 +85,41 @@
 
 //////////////////////////////////////////////
 //                                          //
+//         MALFUNCTIONING AI                //
+//                              		    //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/malf
+	name = "Malfunctioning AI"
+	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
+	antag_datum = /datum/antagonist/malf_ai
+	required_candidates = 1
+	weight = 3
+	cost = 18
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
+
+/datum/dynamic_ruleset/roundstart/malf/acceptable(population = 0, threat_level = 0)
+	minimum_players = CONFIG_GET(number/malf_ai_minimum_pop)
+	. = ..()
+
+/datum/dynamic_ruleset/roundstart/malf/pre_execute(population)
+	. = ..()
+	for(var/mob/living/player in candidates)
+		if(!isAI(player))
+			candidates -= player
+			continue
+
+	if(!length(candidates))
+		return FALSE
+	var/mob/mob = antag_pick_n_take(candidates)
+	assigned += mob.mind
+	mob.mind.restricted_roles = restricted_roles
+	mob.mind.special_role = ROLE_MALF
+	GLOB.pre_setup_antags += mob.mind
+	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
 //               CHANGELINGS                //
 //                                          //
 //////////////////////////////////////////////
@@ -139,9 +172,9 @@
 
 /datum/dynamic_ruleset/roundstart/heretics/pre_execute(population)
 	. = ..()
-	var/num_ecult = get_antag_cap(population) * (scaled_times + 1)
+	var/num_heretics = get_antag_cap(population) * (scaled_times + 1)
 
-	for (var/i = 1 to num_ecult)
+	for (var/i = 1 to num_heretics)
 		if(candidates.len <= 0)
 			break
 		var/mob/picked_candidate = antag_pick_n_take(candidates)
