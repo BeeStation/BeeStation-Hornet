@@ -81,17 +81,25 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 /************************************Machine rotate procs************************************/
 
 /obj/machinery/atmospherics/shuttleRotate(rotation, params)
-	var/list/real_node_connect = getNodeConnects()
+	var/list/real_node_connect = get_node_connects()
 	for(var/i in 1 to device_type)
-		real_node_connect[i] = angle2dir(rotation+dir2angle(real_node_connect[i]))
+		var/node_dir = real_node_connect[i]
+		if(isnull(node_dir))
+			continue
+
+		real_node_connect[i] = turn(node_dir, -rotation)
 
 	. = ..()
-	SetInitDirections()
-	var/list/supposed_node_connect = getNodeConnects()
+	set_init_directions()
+	var/list/supposed_node_connect = get_node_connects()
 	var/list/nodes_copy = nodes.Copy()
 
 	for(var/i in 1 to device_type)
-		var/new_pos = supposed_node_connect.Find(real_node_connect[i])
+		var/node_dir = real_node_connect[i]
+		if(isnull(node_dir))
+			continue
+
+		var/new_pos = supposed_node_connect.Find(node_dir)
 		nodes[new_pos] = nodes_copy[i]
 
 //prevents shuttles attempting to rotate this since it messes up sprites

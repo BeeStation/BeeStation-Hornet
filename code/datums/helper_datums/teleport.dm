@@ -37,9 +37,11 @@
 	// Checks antimagic
 	if(ismob(teleatom))
 		var/mob/tele_mob = teleatom
-		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.anti_magic_check(magic = FALSE, holy = TRUE, self = TRUE))
+		if(channel == TELEPORT_CHANNEL_CULT && tele_mob.can_block_magic())
 			return FALSE
-		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.anti_magic_check(magic = TRUE, holy = FALSE, self = TRUE))
+		if(channel == TELEPORT_CHANNEL_MAGIC && tele_mob.can_block_magic())
+			return FALSE
+		if (channel == TELEPORT_CHANNEL_MAGIC_SELF && !tele_mob.can_cast_magic())
 			return FALSE
 
 	// Check for NO_TELEPORT restrictions
@@ -134,7 +136,7 @@
 
 	// If we leave behind a wake, then create that here.
 	// Only leave a wake if we are going to a location that we can actually teleport to.
-	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC))
+	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC || channel == TELEPORT_CHANNEL_MAGIC_SELF))
 		var/area/cur_area = curturf.loc
 		var/area/dest_area = destturf.loc
 		if(cur_area.teleport_restriction == TELEPORT_ALLOW_ALL && dest_area.teleport_restriction == TELEPORT_ALLOW_ALL && teleport_mode == TELEPORT_ALLOW_ALL)
@@ -255,7 +257,7 @@
 	if(!L)
 		return
 
-	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC_SELF, no_effects = TRUE))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
 
 /obj/effect/temp_visual/teleportation_wake

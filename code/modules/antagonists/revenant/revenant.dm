@@ -74,13 +74,20 @@
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
 	// more rev abilities are in 'revenant_abilities.dm'
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
-	AddSpell(new /obj/effect/proc_holder/spell/self/revenant_phase_shift(null))
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/telepathy/revenant(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	// Starting spells
+	var/datum/action/spell/night_vision/revenant/vision = new(src)
+	vision.Grant(src)
+	var/datum/action/spell/telepathy/revenant/telepathy = new(src)
+	telepathy.Grant(src)
+	// Starting spells that start locked
+	var/datum/action/spell/aoe/revenant/overload/lights_go_zap = new(src)
+	lights_go_zap.Grant(src)
+	var/datum/action/spell/aoe/revenant/defile/windows_go_smash = new(src)
+	windows_go_smash.Grant(src)
+	var/datum/action/spell/aoe/revenant/blight/botany_go_mad = new(src)
+	botany_go_mad.Grant(src)
+	var/datum/action/spell/aoe/revenant/malfunction/shuttle_go_emag = new(src)
+	shuttle_go_emag.Grant(src)
 	check_rev_teleport() // they're spawned in non-station for some reason...
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
@@ -94,11 +101,12 @@
 	check_rev_teleport()
 
 /mob/living/simple_animal/revenant/proc/check_rev_teleport()
-	var/obj/effect/proc_holder/spell/self/rev_teleport/revtele = locate() in mob_spell_list
+	var/datum/action/spell/teleport/area_teleport/wizard/revtele = locate() in actions
 	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
-		AddSpell(new /obj/effect/proc_holder/spell/self/rev_teleport(null))
+		revtele = new /datum/action/spell/teleport/area_teleport/wizard
+		revtele.Grant()
 	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
-		RemoveSpell(revtele)
+		revtele.Remove()
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()

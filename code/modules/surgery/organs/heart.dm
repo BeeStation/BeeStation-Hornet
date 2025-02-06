@@ -155,16 +155,16 @@
 	name = "Pump your blood"
 
 //You are now brea- pumping blood manually
-/datum/action/item_action/organ_action/cursed_heart/Trigger()
-	. = ..()
+/datum/action/item_action/organ_action/cursed_heart/on_activate(mob/user, atom/target)
 	if(. && istype(target, /obj/item/organ/heart/cursed))
 		var/obj/item/organ/heart/cursed/cursed_heart = target
 
-		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay-10))) //no spam
+		if(world.time < cursed_heart.last_pump + (cursed_heart.pump_delay-10)) //no spam
 			to_chat(owner, span_userdanger("Too soon!"))
 			return
 
 		cursed_heart.last_pump = world.time
+		start_cooldown(cursed_heart.pump_delay-10)
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 		to_chat(owner, span_notice("Your heart beats."))
 

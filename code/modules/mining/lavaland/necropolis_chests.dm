@@ -49,7 +49,7 @@
 		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
-		/obj/item/staff/storm												= 5
+		/obj/item/staff/storm												= 5,
 	)
 
 	if(..())
@@ -183,7 +183,7 @@
 	name = "Memento Mori"
 	desc = "Bind your life to the pendant."
 
-/datum/action/item_action/hands_free/memento_mori/Trigger()
+/datum/action/item_action/hands_free/memento_mori/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/neck/necklace/memento_mori/MM = target
 	if(!MM.active_owner)
 		if(ishuman(owner))
@@ -359,7 +359,7 @@
 		user.forceMove(get_turf(link_holder))
 		qdel(link_holder)
 		return
-	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC_SELF)
 	sleep(2.5)
 	if(QDELETED(user))
 		qdel(link_holder)
@@ -469,7 +469,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -642,7 +642,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				C.emote("scream")
 		if(holycheck)
 			to_chat(C, span_notice("You feel blessed!"))
-			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
+			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 	..()
 
 
@@ -847,6 +847,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		new /obj/item/dragons_blood(src)
 		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
 		new /obj/item/crusher_trophy/tail_spike(src)
+	//new /obj/item/book/granter/action/spell/sacredflame(src) It's supposed to drop from the dragon but idk if you guys want it like that tell me in the review code
 
 
 // Ghost Sword - left in for other references and admin shenanigans
@@ -1268,7 +1269,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
+		var/datum/action/toggle = action
 		friendly_fire_check = !friendly_fire_check
+		toggle.update_buttons()
 		to_chat(user, span_warning("You toggle friendly fire [friendly_fire_check ? "off":"on"]!"))
 		return
 	if(timer > world.time)
@@ -1384,7 +1387,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	sleep(2)
 	if(!M)
 		return
-	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC_SELF)
 	sleep(1)
 	if(!M)
 		return

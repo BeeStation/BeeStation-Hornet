@@ -3,7 +3,7 @@
 */
 
 GLOBAL_LIST_INIT(default_turf_damage, list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5", "damaged6", "damaged7"))
-GLOBAL_LIST_INIT(default_turf_burn, list("damaged1", "damaged2", "damaged3", "damaged4"))
+GLOBAL_LIST_INIT(default_burn_turf, list("damaged1", "damaged2", "damaged3", "damaged4"))
 GLOBAL_LIST_INIT(wood_turf_damage, list("damaged_wood1", "damaged_wood2"))
 GLOBAL_LIST_INIT(wood_big_turf_damage, list("damaged_woodbig1", "damaged_woodbig2"))
 

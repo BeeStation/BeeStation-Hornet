@@ -233,7 +233,7 @@
 	///What gasses we've S U C K E D
 	var/datum/gas_mixture/air_contents
 	///Gasses we can suck. Currently everything but, it's here if we need to blacklist in the future
-	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITROUS, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O, GAS_O2, GAS_N2, GAS_STIMULUM, GAS_PLUOXIUM)
+	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor, /datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/stimulum, /datum/gas/pluoxium)
 	///Adjust for balance - I'm sure this will have no ramifications
 	var/volume = 1000000
 	var/volume_rate = 200000
@@ -242,22 +242,22 @@
 
 /datum/xenoartifact_trait/malfunction/absorbant/on_init(obj/item/xenoartifact/X)
 	air_contents = new(volume)
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = (T20C)
 	parent = X
 
 /datum/xenoartifact_trait/malfunction/absorbant/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	X.visible_message("<space class='warning'>[X] begins to vacuum nearby gasses!</span>")
 	var/turf/T = get_turf(X)
 	var/datum/gas_mixture/mixture = T.return_air()
-	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
-	X.air_update_turf()
+	mixture.merge(air_contents)
+	X.air_update_turf(FALSE, FALSE)
 
 //Throw sucked gas into our tile when we die
 /datum/xenoartifact_trait/malfunction/absorbant/Destroy()
 	. = ..()
 	var/turf/T = get_turf(parent)
 	T.assume_air(air_contents)
-	parent.air_update_turf()
+	parent.air_update_turf(FALSE, FALSE)
 
 //============
 // Hallucination, shows a random hallucination to the target once

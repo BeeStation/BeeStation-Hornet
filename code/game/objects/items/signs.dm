@@ -44,3 +44,19 @@
 			user.visible_message(span_warning("[user] waves around blank sign."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
+/datum/crafting_recipe/picket_sign
+	name = "Picket Sign"
+	result = /obj/item/picket_sign
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/stack/sheet/cardboard = 2)
+	time = 80
+	category = CAT_MISC
+
+/datum/action/item_action/nano_picket_sign
+	name = "Retext Nano Picket Sign"
+
+/datum/action/item_action/nano_picket_sign/on_activate(mob/user, atom/target)
+	if(!istype(target, /obj/item/picket_sign))
+		return
+	var/obj/item/picket_sign/sign = target
+	sign.retext(owner)
