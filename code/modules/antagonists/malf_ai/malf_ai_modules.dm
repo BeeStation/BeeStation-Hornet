@@ -426,6 +426,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	disable_text = span_notice("You release your hold on the powernet.")
 
 /datum/action/innate/ai/ranged/override_machine/on_activate(mob/user, atom/target)
+	. = ..()
 	if(user.incapacitated())
 		return FALSE
 	if(!ismachinery(target))
@@ -513,6 +514,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		qdel(to_explode)
 
 /datum/action/innate/ai/ranged/overload_machine/on_activate(mob/user, atom/target)
+	. = ..()
 	if(user.incapacitated())
 		return FALSE
 	if(!ismachinery(target))
@@ -752,6 +754,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	cooldown_time = 3 SECONDS
 
 /datum/action/innate/ai/reactivate_cameras/on_activate(mob/user, atom/target)
+	. = ..()
 	var/fixed_cameras = 0
 	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		if(!uses)
@@ -866,6 +869,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	var/obj/machinery/ai_voicechanger/voice_changer_machine
 
 /datum/action/innate/ai/voice_changer/on_activate(mob/user, atom/target)
+	. = ..()
 	if(!voice_changer_machine)
 		voice_changer_machine = new(owner_AI)
 	voice_changer_machine.ui_interact(usr)
@@ -992,12 +996,12 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	desc = "Allows you to effectively emag anything you click on."
 	button_icon_state = "emag"
 	uses = 7
-	auto_use_uses = FALSE
 	enable_text = span_notice("You load your syndicate software package to your most recent memory slot.")
 	disable_text = span_notice("You unload your syndicate software package.")
 	ranged_mousepointer = 'icons/effects/mouse_pointers/supplypod_target.dmi'
 
 /datum/action/innate/ai/ranged/emag/on_activate(mob/user, atom/target)
+	. = ..()
 	// Only things with of or subtyped of any of these types may be remotely emagged
 	var/static/list/compatable_typepaths = list(
 		/obj/machinery,
@@ -1071,7 +1075,6 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	name = "Roll over"
 	button_icon_state = "roll_over"
 	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
-	auto_use_uses = FALSE
 	ranged_mousepointer = 'icons/effects/mouse_pointers/supplypod_target.dmi'
 	uses = 20
 	COOLDOWN_DECLARE(time_til_next_tilt)
@@ -1084,6 +1087,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	var/roll_over_cooldown = MALF_AI_ROLL_COOLDOWN
 
 /datum/action/innate/ai/ranged/core_tilt/on_activate(mob/user, atom/target)
+	. = ..()
 	if(!COOLDOWN_FINISHED(src, time_til_next_tilt))
 		user.balloon_alert(user, "on cooldown!")
 		return FALSE
