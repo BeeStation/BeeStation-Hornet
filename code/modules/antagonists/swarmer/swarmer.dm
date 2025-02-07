@@ -589,7 +589,7 @@
 
 /obj/structure/swarmer/trap
 	name = "swarmer trap"
-	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Will not retain its form if damaged enough."
+	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Shocks everything nearby when triggered."
 	icon_state = "trap"
 	max_integrity = 10
 	density = FALSE
@@ -601,26 +601,48 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/structure/swarmer/trap/Destroy()
+	shock_area()
+	..()
+
 /obj/structure/swarmer/trap/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
-			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
-			if(iscyborg(L))
-				L.Paralyze(100)
+			shock_area()
 			qdel(src)
+
+/obj/structure/swarmer/trap/proc/shock_area()
+	new /obj/effect/temp_visual/shock_trap_activate(get_turf(src))
+	playsound(loc,'sound/magic/lightningshock.ogg',50, 1, -1)
+
+	var/list/mob/targets = viewers(1, loc) //All adjacent mobs
+	for(var/mob/living/L in targets)
+		L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
+		if(iscyborg(L))
+			L.flash_act()
+			L.adjustFireLoss(65) //This is the only way swarmers can deal with cyborgs in any capacity so it is especially harsh
+			L.Paralyze(100)
+
+/obj/effect/temp_visual/shock_trap_activate
+	randomdir = FALSE
+	duration = 6
+	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon_state = "energy_ball"
+	pixel_x = -32
+	pixel_y = -32
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Create trap"
 	set category = "Swarmer"
-	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources"
+	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 2 resources"
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
-	Fabricate(/obj/structure/swarmer/trap, 2)
+	if(do_after(src, 2 SECONDS))
+		Fabricate(/obj/structure/swarmer/trap, 2)
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
