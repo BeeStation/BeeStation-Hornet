@@ -1143,7 +1143,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						BODY_ZONE_R_LEG,
 					)
 					for(var/robot_bodypart in robot_bodyparts)
-						var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+						var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER))
 						inner_accessory_overlay.icon_state = "m_[robot_bodypart]inner_[S.icon_state]_[layertext]"
 						if(S.hasinnercolor == MUTCOLORS)
 							if(fixed_mut_color)
@@ -1153,7 +1153,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						standing += inner_accessory_overlay
 
 				else
-					var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+					var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER))
 					if(S.gender_specific)
 						inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
 					else
