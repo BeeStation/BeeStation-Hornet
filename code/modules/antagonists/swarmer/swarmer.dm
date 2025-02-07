@@ -12,7 +12,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
 	short_desc = "You are a swarmer!"
-	flavour_text = "Consume resources and replicate until there are no more resources left. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. Biological resources will be harvested at a later date; do not harm them."
+	flavour_text = "Consume resources and replicate until there are no more resources left. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. Biological resources will be harvested at a later date; dispatch those that get in your way without harming them."
 	density = FALSE
 	anchored = FALSE
 
@@ -835,7 +835,7 @@
 	completed = TRUE
 
 /datum/objective/do_not_harm_organisms
-	explanation_text = "Biological resources will be harvested at a later date; do not harm them."
+	explanation_text = "Biological resources will be harvested at a later date; dispatch those that get in your way without harming them."
 	completed = TRUE
 
 /datum/team/swarmer/roundend_report()
