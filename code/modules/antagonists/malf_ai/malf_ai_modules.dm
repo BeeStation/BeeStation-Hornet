@@ -864,7 +864,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 /datum/action/innate/ai/voice_changer
 	name = "Voice Changer"
 	button_icon_state = "voice_changer"
-	desc = "Allows you to synthesize your own voices"
+	desc = "Allows you to synthesize your own voices."
 	auto_use_uses = FALSE
 	var/obj/machinery/ai_voicechanger/voice_changer_machine
 
@@ -1151,7 +1151,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 			return 0
 
 /datum/ai_module/malf/utility/remote_vendor_tilt
-	name = "Remote vendor tilting"
+	name = "Remote Vendor Tilting"
 	description = "Lets you remotely tip vendors over in any direction."
 	cost = 15
 	power_type = /datum/action/innate/ai/ranged/remote_vendor_tilt
@@ -1159,7 +1159,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	unlock_text = span_notice("You gain the ability to remotely tip any vendor onto any adjacent tiles.")
 
 /datum/action/innate/ai/ranged/remote_vendor_tilt
-	name = "Remotely tilt vendor"
+	name = "Remote Vendor Tilting"
 	desc = "Use to remotely tilt a vendor in any direction you desire."
 	button_icon_state = "vendor_tilt"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/supplypod_target.dmi'
