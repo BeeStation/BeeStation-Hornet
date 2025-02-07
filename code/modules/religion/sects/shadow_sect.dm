@@ -818,12 +818,23 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obelisk in sect.obelisks)
 		if(obelisk.anchored)
 			obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	if(sect.grand_ritual_level == 3)
+		for(var/mob/living/M in GLOB.mob_list)
+			if(isshadow(M))
+				to_chat(M, span_noticebold("Ritual was finished. Rejoice for shadows walk among us."))
+			else
+				to_chat(M, span_noticebold("Shadows seem to go back to normal, but their darknes is so much deeper then before."))
+	else
+		for(var/mob/living/M in GLOB.mob_list)
+			if(isshadow(M))
+				to_chat(M, span_dangerbold("Ritual failed, shadows are barred from entering this realm still."))
+			else
+				to_chat(M, span_noticebold("Shadows returned looking a litle deafeted."))
 	for(var/turf/T in GLOB.station_turfs)
 		if(T.light_range == 3 && T.light_power == 1 && T.light_color == "#f4f942")
 			T.light_power = 1
 			T.light_range = 0
 			T.set_light_color(null)
 			T.update_light()
-	sect.grand_ritual_in_progres = FALSE
 
 #undef DARKNESS_INVERSE_COLOR
