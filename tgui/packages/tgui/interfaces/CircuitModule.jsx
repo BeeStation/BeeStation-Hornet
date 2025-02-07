@@ -104,7 +104,7 @@ const PortEntry = (props) => {
           <Input placeholder="Name" value={name} onChange={onEnter} fluid />
         </Stack.Item>
         <Stack.Item>
-          <Dropdown displayText={datatype} options={datatypeOptions} onSelected={onSetType} />
+          <Dropdown displayText={datatype} displayTextFirst options={datatypeOptions} onSelected={onSetType} />
         </Stack.Item>
         <Stack.Item>
           <Button icon="times" color="red" onClick={onRemove} />

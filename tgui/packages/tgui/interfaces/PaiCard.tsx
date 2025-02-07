@@ -92,10 +92,10 @@ const CandidateDisplay = (props) => {
   return (
     <Box
       style={{
-        'background': '#111111',
-        'border': '1px solid #4972a1',
-        'border-radius': '5px',
-        'padding': '1rem',
+        background: '#111111',
+        border: '1px solid #4972a1',
+        borderRadius: '5px',
+        padding: '1rem',
       }}>
       <Section
         buttons={

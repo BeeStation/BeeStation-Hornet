@@ -1,4 +1,4 @@
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 import { Box, Button, Flex, LabeledList, Modal, NumberInput, Section, Table } from '../components';
 import { BooleanLike } from 'common/react';
 
@@ -340,7 +340,7 @@ const EditingModal = (props: EditingModalProps) => {
         ) : (
           <>
             <NumberInput
-              onChange={(e, value) =>
+              onChange={(value) =>
                 act('set_threshold', {
                   threshold: id,
                   threshold_type: type,
@@ -528,9 +528,9 @@ const AirAlarmAirConditioningControls = (_props) => {
               value={target}
               minValue={min}
               maxValue={max}
-              onChange={(_e, target: number) => act('set_ac_target', { target })}
+              step={1}
+              onChange={(value: number) => act('set_ac_target', { value })}
               unit="K"
-              tooltip="Change the target temperature of the heater"
               disabled={!enabled}
             />
             <Button

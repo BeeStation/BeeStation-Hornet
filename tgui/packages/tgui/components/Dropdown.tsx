@@ -1,41 +1,47 @@
+/* eslint-disable react/no-deprecated */
+// TODO: Rewrite as an FC, remove this lint disable
 import { createPopper, VirtualElement } from '@popperjs/core';
 import { classes } from 'common/react';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
+import { Component, ReactNode } from 'react';
+import { findDOMNode, render } from 'react-dom';
 import { Box, BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
 
-export interface DropdownEntry {
-  displayText: string | number | InfernoNode;
+type DropdownEntry = {
+  displayText: string | number | ReactNode;
   value: string | number | Enumerator;
-}
-
-export type DropdownRequiredProps = {
-  options: string[] | DropdownEntry[];
 };
 
-export type DropdownOptionalProps = {
-  icon?: string;
-  iconRotation?: number;
-  clipSelectedText?: boolean;
-  width?: string;
-  menuWidth?: string;
-  over?: boolean;
-  color?: string;
-  nochevron?: boolean;
-  displayText?: string | number | InfernoNode;
-  onClick?: (event) => void;
-  // you freaks really are just doing anything with this shit
-  selected?: any;
-  onSelected?: (selected: any) => void;
-  buttons?: boolean;
+export type DropdownPartialProps = Partial<{
+  buttons: boolean;
+  clipSelectedText: boolean;
+  color: string;
+  disabled: boolean;
   displayHeight?: string;
+  displayText: string | number | ReactNode;
+  displayTextFirst: boolean;
+  dropdownStyle: any;
+  icon: string;
+  iconRotation: number;
+  iconSpin: boolean;
+  menuWidth: string;
+  nochevron: boolean;
+  onClick: (event) => void;
+  onSelected: (selected: any) => void;
+  over: boolean;
+  // you freaks really are just doing anything with this shit
+  selected: any;
+  width: string;
+}>;
+
+type Props = { options: string[] | DropdownEntry[] } & DropdownPartialProps & BoxProps;
+
+type State = {
+  selected?: string;
+  open: boolean;
 };
-
-export type DropdownUniqueProps = DropdownRequiredProps & DropdownOptionalProps;
-
-export type DropdownProps = BoxProps & DropdownUniqueProps;
 
 const DEFAULT_OPTIONS = {
   placement: 'left-start',
@@ -46,6 +52,7 @@ const DEFAULT_OPTIONS = {
     },
   ],
 };
+
 const NULL_RECT: DOMRect = {
   width: 0,
   height: 0,
@@ -58,15 +65,10 @@ const NULL_RECT: DOMRect = {
   toJSON: () => null,
 } as const;
 
-type DropdownState = {
-  selected?: string;
-  open: boolean;
-};
-
 const DROPDOWN_DEFAULT_CLASSNAMES = 'Layout Dropdown__menu';
 const DROPDOWN_SCROLL_CLASSNAMES = 'Layout Dropdown__menu-scroll';
 
-export class Dropdown extends Component<DropdownProps, DropdownState> {
+export class Dropdown extends Component<Props, State> {
   static renderedMenu: HTMLDivElement | undefined;
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
@@ -74,7 +76,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
-  state: DropdownState = {
+  state: State = {
     open: false,
     selected: this.props.selected,
   };
@@ -86,7 +88,8 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   };
 
   getDOMNode() {
-    return findDOMFromVNode(this.$LI, true);
+    // eslint-disable-next-line react/no-find-dom-node
+    return findDOMNode(this) as Element;
   }
 
   componentDidMount() {
@@ -297,6 +300,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       selected,
       disabled,
       displayText,
+      displayTextFirst,
       displayHeight,
       buttons,
       ...boxProps
@@ -333,10 +337,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
               style={{
                 overflow: clipSelectedText ? 'hidden' : 'visible',
               }}>
-              {displayText || this.state.selected}
+              {displayTextFirst ? displayText || this.state.selected : this.state.selected || displayText}
             </span>
             {nochevron || (
-              <span className="Dropdown__arrow-button" style={{ 'line-height': displayHeight }}>
+              <span className="Dropdown__arrow-button" style={displayHeight ? { lineHeight: displayHeight } : undefined}>
                 <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
               </span>
             )}
@@ -350,7 +354,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
+                    style={{ display: 'inline-block', lineHeight: displayHeight || 'unset' }}
                     name="chevron-left"
                   />
                 }
@@ -371,7 +375,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
+                    style={{ display: 'inline-block', lineHeight: displayHeight || 'unset' }}
                     name="chevron-right"
                   />
                 }
