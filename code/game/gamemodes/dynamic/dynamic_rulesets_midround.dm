@@ -267,6 +267,8 @@
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/execute(forced = FALSE)
+	if(!length(candidates))
+		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 	var/mob/living/silicon/ai/AI = antag_pick_n_take(candidates)
 	assigned += AI.mind
 	var/datum/antagonist/malf_ai/malf_datum = new

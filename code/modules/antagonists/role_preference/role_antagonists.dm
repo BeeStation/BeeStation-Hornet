@@ -337,7 +337,7 @@
 	antag_datum = /datum/antagonist/malf_ai
 
 /datum/role_preference/midround_living/malfunctioning_ai
-	name = "Value Driven AI"
+	name = "Value Drifted AI"
 	description = "With a law zero to complete your objectives at all costs, combine your \
 	omnipotence and malfunction modules to wreak havoc across the station. \
 	Go delta to destroy the station and all those who opposed you."
