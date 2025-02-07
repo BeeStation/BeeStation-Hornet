@@ -24,11 +24,11 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/number_7/cardinal{
-	dir = 4
-	},
 /obj/effect/turf_decal/guideline/guideline_in/brown{
 	dir = 1
+	},
+/obj/effect/turf_decal/alphabet/letter_s/cardinal{
+	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/labor)
@@ -187,11 +187,14 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/alphabet/number_9/cardinal{
-	dir = 8
-	},
 /obj/effect/turf_decal/guideline/guideline_in/brown{
 	dir = 1
+	},
+/obj/effect/turf_decal/alphabet/letter_e/cardinal{
+	dir = 8
+	},
+/obj/effect/turf_decal/alphabet/letter_c/cardinal{
+	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/labor)
