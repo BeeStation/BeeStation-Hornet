@@ -7,6 +7,7 @@
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
 	ui_name = "AntagInfoMalf"
+	required_living_playtime = 8
 	///the name of the antag flavor this traitor has.
 	var/employer
 	///assoc list of strings set up after employer is given
