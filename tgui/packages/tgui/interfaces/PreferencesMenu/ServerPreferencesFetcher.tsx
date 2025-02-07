@@ -1,5 +1,4 @@
-import { Component } from 'inferno';
-import type { InfernoNode } from 'inferno';
+import { Component, ReactNode } from 'react';
 import { loadedMappings, resolveAsset } from '../../assets';
 import { fetchRetry } from '../../http';
 import { ServerData } from './data';
@@ -11,15 +10,15 @@ let lastError: any = null;
 
 export class ServerPreferencesFetcher extends Component<
   {
-    render: (serverData: ServerData | undefined) => InfernoNode;
+    render: (serverData: ServerData | undefined) => ReactNode;
   },
   {
     serverData?: ServerData;
     errored: boolean;
   }
 > {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       serverData: undefined,
       errored: false,
@@ -51,15 +50,15 @@ export class ServerPreferencesFetcher extends Component<
 
   render() {
     return this.state !== null && this.state.serverData !== null && this.state.errored === false && lastError === null ? (
-      this.props.render(this.state.serverData)
+      this.props?.render?.(this.state.serverData)
     ) : lastError !== null ? (
       <Dimmer
         textColor="red"
         fontSize="30px"
         textAlign="center"
         style={{
-          'background-color': 'rgba(0, 0, 0, 0.75)',
-          'font-weight': 'bold',
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          fontWeight: 'bold',
         }}>
         Error: Unable to fetch preferences clientside data.
         <br />
@@ -69,7 +68,7 @@ export class ServerPreferencesFetcher extends Component<
         <br />
         Reconnecting will also likely fix this issue.
         <br />
-        <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
+        <Box textAlign="left" fontSize="12px" textColor="white" style={{ whiteSpace: 'pre-wrap' }}>
           Error Details:{'\n'}
           {typeof lastError === 'object' && Object.keys(lastError).includes('stack') ? lastError.stack : lastError.toString()}
           {'\n'}

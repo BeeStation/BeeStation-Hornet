@@ -5,7 +5,7 @@ import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { ButtonCheckbox } from '../components/Button';
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 /**
 --------------------
@@ -15,10 +15,10 @@ import { Component } from 'inferno';
 
 const ELLIPSIS_STYLE = {
   // enforces overflow ellipsis
-  'max-width': '1px',
-  'white-space': 'nowrap',
-  'text-overflow': 'ellipsis',
-  'overflow': 'hidden',
+  maxWidth: '1px',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
 };
 
 const TELEMETRY_COLOR_MAP = {
@@ -149,9 +149,10 @@ export const PlayerPanel = (_) => {
               unit="s"
               width="50px"
               value={update_interval}
-              onChange={(_, value) => act('set_update_interval', { value: value })}
+              onChange={(value) => act('set_update_interval', { value: value })}
               minValue={0}
               maxValue={120}
+              step={1}
             />
           </Tooltip>
           <Button icon="sync-alt" tooltip="Reload player data" onClick={() => act('update')} />
@@ -177,7 +178,7 @@ export const PlayerPanel = (_) => {
             </Section>
           </Flex.Item>
           {selected_player && (
-            <Flex.Item style={{ 'resize': 'vertical' }} mt={1} height={`${PANEL_HEIGHT}px`}>
+            <Flex.Item style={{ resize: 'vertical' }} mt={1} height={`${PANEL_HEIGHT}px`}>
               <Box height="100%">
                 <PlayerDetails
                   metacurrency_name={metacurrency_name}
@@ -330,27 +331,27 @@ class PlayerDetailsSection extends Component {
             color="green"
             icon="circle"
             tooltip="Deselect"
-            style={{ 'font-weight': 'normal', 'font-size': '12px' }}
+            style={{ fontWeight: 'normal', fontSize: '12px' }}
             onClick={() => act('select_player', { who: null })}
           />
         }
         title={
           <Box
             style={{
-              'white-space': 'nowrap',
-              'text-overflow': 'ellipsis',
-              'overflow': 'hidden',
-              'color': '#ffbf00',
-              'width': 'calc(100% - 25px)',
-              'display': 'inline-block',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              color: '#ffbf00',
+              width: 'calc(100% - 25px)',
+              display: 'inline-block',
             }}>
             <TooltipWrap text={ckey.charAt(0).toUpperCase() + ckey.slice(1)} />
           </Box>
         }>
-        <Box style={{ 'white-space': 'pre-wrap', 'padding': '5px', 'overflow-wrap': 'anywhere' }}>
+        <Box style={{ whiteSpace: 'pre-wrap', padding: '5px', overflowWrap: 'anywhere' }}>
           <strong>Mob Type:</strong>
           <br />
-          <Box color="#d8d8d8" style={{ 'display': 'inline-block', 'word-break': 'break-all', 'width': '100%' }}>
+          <Box color="#d8d8d8" style={{ display: 'inline-block', wordBreak: 'break-all', width: '100%' }}>
             {mob_type}
           </Box>
           <br />
@@ -383,7 +384,7 @@ class PlayerDetailsSection extends Component {
             {metacurrency_balance}
           </Box>
           <br />
-          <hr style={{ 'border': '1px solid #ffbf00', 'height': 0, 'opacity': 0.8 }} />
+          <hr style={{ border: '1px solid #ffbf00', height: 0, opacity: 0.8 }} />
           <Box textAlign="center" bold>
             Names
           </Box>
@@ -409,17 +410,17 @@ class PlayerCKEYDetailsSection extends PureComponent {
         title={
           <Box
             style={{
-              'height': '20px',
-              'min-width': '115px',
-              'width': 'calc(100% - 25px)',
-              'display': 'inline-block',
+              height: '20px',
+              minWidth: '115px',
+              width: 'calc(100% - 25px)',
+              display: 'inline-block',
             }}>
             CKEY Data
           </Box>
         }
         buttons={
           <Button
-            style={{ 'font-weight': 'normal', 'font-size': '12px' }}
+            style={{ fontWeight: 'normal', fontSize: '12px' }}
             mt={0}
             mb={0}
             color="yellow"
@@ -428,7 +429,7 @@ class PlayerCKEYDetailsSection extends PureComponent {
             onClick={() => act('open_centcom_bans_database', { who: ckey })}
           />
         }
-        style={{ 'white-space': 'pre-wrap' }}>
+        style={{ whiteSpace: 'pre-wrap' }}>
         <strong>First Join:</strong>
         <br />
         <font color="#d8d8d8">{first_seen}</font>
@@ -623,13 +624,13 @@ class LogViewer extends Component {
             <Box inline>Logs</Box>
             <ButtonCheckbox
               ml={1}
-              style={{ 'font-weight': 'normal', 'font-size': '12px' }}
+              style={{ fontWeight: 'normal', fontSize: '12px' }}
               content="Key"
               checked={!hideLogKey}
               onClick={() => this.setHideLogKey(!hideLogKey)}
             />
             <Button
-              style={{ 'font-weight': 'normal', 'font-size': '12px' }}
+              style={{ fontWeight: 'normal', fontSize: '12px' }}
               tooltip="Current Log Source"
               content={clientLog ? 'Client' : 'Mob'}
               onClick={() => this.setClientLog(!clientLog)}
@@ -678,10 +679,10 @@ class LogEntryKey extends PureComponent {
             collapsing
             textAlign="center"
             style={{
-              'max-width': '100px',
-              'white-space': 'nowrap',
-              'text-overflow': 'ellipsis',
-              'overflow': 'hidden',
+              maxWidth: '100px',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
             }}>
             <Button
               fluid
@@ -702,7 +703,7 @@ class LogEntryValue extends PureComponent {
   render() {
     const { value_data } = this.props;
     return (
-      <Table.Row style={{ 'color': '#d8d8d8' }}>
+      <Table.Row style={{ color: '#d8d8d8' }}>
         <Table.Cell colspan="4">{sanitizeText(value_data, [])}</Table.Cell>
       </Table.Row>
     );
@@ -776,7 +777,7 @@ class PlayerTableHeadings extends PureComponent {
           collapsing
           textAlign="right"
           style={{
-            'min-width': '14em',
+            minWidth: '14em',
           }}>
           (PP) CKEY
         </Table.Cell>
@@ -785,7 +786,7 @@ class PlayerTableHeadings extends PureComponent {
           collapsing
           textAlign="center"
           style={{
-            'min-width': '5em',
+            minWidth: '5em',
           }}>
           <HourSortButton hourSort={hourSort} setHourSort={setHourSort} />
         </Table.Cell>
@@ -797,7 +798,7 @@ class PlayerTableHeadings extends PureComponent {
           collapsing
           textAlign="center"
           style={{
-            'min-width': '9em',
+            minWidth: '9em',
           }}>
           Job/Role
         </Table.Cell>
@@ -807,7 +808,7 @@ class PlayerTableHeadings extends PureComponent {
           collapsing
           textAlign="center"
           style={{
-            'min-width': '12.5em',
+            minWidth: '12.5em',
           }}>
           Vitals (VV)
         </Table.Cell>
@@ -815,7 +816,7 @@ class PlayerTableHeadings extends PureComponent {
           bold
           collapsing
           style={{
-            'min-width': '12em',
+            minWidth: '12em',
           }}>
           Position (PM)
         </Table.Cell>
@@ -959,7 +960,7 @@ class PlayerTelemetryButton extends PureComponent {
       <Button
         fluid
         style={{
-          'color': color_from_telemetry(telemetry),
+          color: color_from_telemetry(telemetry),
         }}
         color="transparent"
         bold={bold_from_telemetry(telemetry)}
@@ -982,8 +983,8 @@ class PlayerCKEYButton extends PureComponent {
         className="button-ellipsis"
         bold={bold_from_telemetry(telemetry)}
         style={{
-          'color': color_from_telemetry(telemetry),
-          'font-style': !connected ? 'italic' : null,
+          color: color_from_telemetry(telemetry),
+          fontStyle: !connected ? 'italic' : null,
         }}
         content={ckey}
         tooltip={'Open Player Panel - ' + ckey}
@@ -1018,9 +1019,9 @@ class PlayerTraitorPanelButton extends PureComponent {
     return (
       <Button
         style={{
-          'padding': '0px 2px',
+          padding: '0px 2px',
         }}
-        content={<Box style={{ 'transform': 'translateY(2.5px)' }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
+        content={<Box style={{ transform: 'translateY(2.5px)' }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
         tooltip={has_mind ? 'Open Traitor Panel' : 'Initialize Mind'}
         onClick={() => act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey })}
       />
@@ -1040,7 +1041,7 @@ class PlayerJobSelectButton extends Component {
         content={job}
         tooltip={'Select Player - ' + job}
         style={{
-          'color': jobToColor(ijob),
+          color: jobToColor(ijob),
         }}
         bold={jobIsHead(ijob)}
         onClick={() => act('select_player', { who: is_selected ? null : ckey })}
@@ -1061,7 +1062,7 @@ class PlayerNameButton extends PureComponent {
         content={`${real_name || name}${real_name === name || !real_name ? '' : ` (as ${name})`}`}
         tooltip={`Follow player - ${real_name || name}${real_name === name || !real_name ? '' : ` (as ${name})`}`}
         style={{
-          'color': jobToColor(ijob),
+          color: jobToColor(ijob),
         }}
         bold={jobIsHead(ijob)}
         onClick={() => act('follow', { who: ckey })}
@@ -1081,7 +1082,7 @@ class PlayerVitalsButton extends PureComponent {
         tooltip="View Variables"
         onClick={() => act('open_view_variables', { who: ckey })}
         content={
-          <Box inline style={{ 'width': '100%' }}>
+          <Box inline style={{ width: '100%' }}>
             {oxydam !== undefined ? (
               <PlayerHumanVitals oxydam={oxydam} toxdam={toxdam} burndam={burndam} brutedam={brutedam} />
             ) : health !== undefined ? (
@@ -1100,10 +1101,10 @@ class PlayerHumanVitals extends PureComponent {
   render() {
     const { oxydam, toxdam, burndam, brutedam } = this.props;
     return (
-      <Box inline style={{ 'display': 'inline-flex', 'align-items': 'center', 'width': '100%' }}>
+      <Box inline style={{ display: 'inline-flex', alignItems: 'center', width: '100%' }}>
         <ColorBox color={healthToColor(oxydam, toxdam, burndam, brutedam)} />
-        <Box inline style={{ 'flex': '1' }} />
-        <Box inline style={{ 'overflow': 'hidden' }}>
+        <Box inline style={{ flex: '1' }} />
+        <Box inline style={{ overflow: 'hidden' }}>
           <HealthStatPure type="oxy" value={oxydam} />
           {'/'}
           <HealthStatPure type="toxin" value={toxdam} />
@@ -1132,12 +1133,12 @@ class PlayerNonHumanVitals extends PureComponent {
   render() {
     const { health, health_max } = this.props;
     return (
-      <Box inline style={{ 'display': 'inline-flex', 'align-items': 'center', 'width': '100%' }}>
+      <Box inline style={{ display: 'inline-flex', alignItems: 'center', width: '100%' }}>
         <ColorBox
           color={HEALTH_COLOR_BY_LEVEL[Math.min(Math.max(Math.ceil((health_max - health) / (health_max / 5)), 0), 5)]}
         />
-        <Box inline style={{ 'flex': '1' }} />
-        <Box inline style={{ 'overflow': 'hidden' }}>
+        <Box inline style={{ flex: '1' }} />
+        <Box inline style={{ overflow: 'hidden' }}>
           {`${health} of ${health_max} (${Math.round((health / health_max) * 100)}%)`}
         </Box>
       </Box>
