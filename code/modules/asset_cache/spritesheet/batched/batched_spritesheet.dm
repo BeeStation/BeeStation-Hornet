@@ -257,7 +257,7 @@
 		var/size_split = splittext(size_id, "x")
 		var/width = text2num(size_split[1])
 		var/height = text2num(size_split[2])
-		out += ".[name][size_id]{display:inline-block;width:[width]px;height:[height]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repat: no-repeat;}"
+		out += ".[name][size_id]{display:inline-block;width:[width]px;height:[height]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat: no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
