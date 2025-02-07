@@ -67,7 +67,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
 	icon_icon = 'icons/hud/actions/actions_elites.dmi'
-	button_icon_state = ""
+	button_icon_state = null
 	background_icon_state = "bg_default"
 	var/chosen_message
 	var/chosen_attack_num = 0
@@ -77,7 +77,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return ..()
 	return FALSE
 
-/datum/action/innate/elite_attack/Activate()
+/datum/action/innate/elite_attack/on_activate()
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)

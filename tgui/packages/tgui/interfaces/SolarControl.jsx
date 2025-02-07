@@ -69,7 +69,7 @@ export const SolarControl = (props) => {
                   maxValue={+720}
                   value={angle}
                   format={(angle) => Math.round(360 + angle) % 360}
-                  onDrag={(e, value) => act('angle', { value })}
+                  onDrag={(value) => act('angle', { value })}
                 />
               )}
               {tracking_state === 1 && (
@@ -85,7 +85,7 @@ export const SolarControl = (props) => {
                     const sign = Math.sign(rate) > 0 ? '+' : '-';
                     return sign + toFixed(Math.abs(rate));
                   }}
-                  onDrag={(e, value) => act('rate', { value })}
+                  onDrag={(value) => act('rate', { value })}
                 />
               )}
               {tracking_state === 2 && (

@@ -58,7 +58,7 @@ export const BountyBoardContent = (_) => {
                 />
               </>
             }>
-            <BlockQuote style={{ 'white-space': 'pre-wrap', overflow: 'auto' }}>
+            <BlockQuote style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>
               <i>{request.description}</i>
             </BlockQuote>
             {!!applicants.length && (
@@ -114,13 +114,14 @@ const NewBountyMenu = (_) => {
       buttons={
         <>
           <NumberInput
-            animate
+            animated
             unit="cr"
             minValue={1}
             maxValue={1000}
             value={bountyValue}
             width="80px"
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('bountyVal', {
                 bountyval: value,
               })

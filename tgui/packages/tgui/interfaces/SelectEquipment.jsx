@@ -72,15 +72,7 @@ export const SelectEquipment = (props) => {
               </Stack.Item>
               <Stack.Item grow={1}>
                 <Section fill title={name} textAlign="center">
-                  <Box
-                    as="img"
-                    m={0}
-                    src={`data:image/jpeg;base64,${icon64}`}
-                    height="100%"
-                    style={{
-                      '-ms-interpolation-mode': 'nearest-neighbor',
-                    }}
-                  />
+                  <Box as="img" m={0} src={`data:image/jpeg;base64,${icon64}`} height="100%" />
                 </Section>
               </Stack.Item>
             </Stack>
@@ -126,7 +118,7 @@ const OutfitDisplay = (props) => {
               path: getOutfitKey(entry),
             })
           }
-          onDblClick={() =>
+          onDoubleClick={() =>
             act('applyoutfit', {
               path: getOutfitKey(entry),
             })
@@ -168,9 +160,9 @@ const CurrentlySelectedDisplay = (props) => {
         <Box
           title={entry?.path}
           style={{
-            'overflow': 'hidden',
-            'white-space': 'nowrap',
-            'text-overflow': 'ellipsis',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
           }}>
           {entry?.name}
         </Box>

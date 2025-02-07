@@ -9,11 +9,9 @@
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "neckchop"
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/neck_chop/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
-		return
+/datum/action/neck_chop/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/H = owner
 	if (H.mind.martial_art.streak == "neck_chop")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
@@ -26,11 +24,9 @@
 	name = "Leg Sweep - Trips the victim, knocking them down for a brief moment."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "legsweep"
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/leg_sweep/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
-		return
+/datum/action/leg_sweep/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/H = owner
 	if (H.mind.martial_art.streak == "leg_sweep")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
@@ -43,11 +39,9 @@
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "lungpunch"
+	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/lung_punch/Trigger()
-	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
-		return
+/datum/action/lung_punch/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/H = owner
 	if (H.mind.martial_art.streak == "quick_choke")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
