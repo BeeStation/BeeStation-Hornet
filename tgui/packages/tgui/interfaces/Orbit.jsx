@@ -71,7 +71,7 @@ const OrbitedButton = (props) => {
   return (
     <Button
       color={color}
-      style={{ 'line-height': '24px' }}
+      style={{ lineHeight: '24px' }}
       onClick={() =>
         act('orbit', {
           ref: thing.ref,
@@ -82,7 +82,7 @@ const OrbitedButton = (props) => {
           inline
           mr={0.5}
           ml={-0.5}
-          style={{ 'transform': 'translateY(18.75%)' }}
+          style={{ transform: 'translateY(18.75%)' }}
           className={`job-icon16x16 job-icon-${job}`}
         />
       )}
@@ -91,7 +91,7 @@ const OrbitedButton = (props) => {
           inline
           mr={0.5}
           ml={job ? -0.25 : -0.5}
-          style={{ 'transform': 'translateY(18.75%)' }}
+          style={{ transform: 'translateY(18.75%)' }}
           className={`antag-hud16x16 antag-hud-${antag}`}
         />
       )}

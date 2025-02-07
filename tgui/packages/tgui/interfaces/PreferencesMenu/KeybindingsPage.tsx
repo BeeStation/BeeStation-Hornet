@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { Box, Button, KeyListener, Stack, Tooltip, TrackOutsideClicks, Dimmer } from '../../components';
 import { resolveAsset } from '../../assets';
 import { PreferencesMenuData } from './data';
@@ -7,6 +7,7 @@ import { range, sortBy } from 'common/collections';
 import { KeyEvent } from '../../events';
 import { TabbedMenu } from './TabbedMenu';
 import { fetchRetry } from '../../http';
+import { isEscape, KEY } from 'common/keys';
 
 const CATEGORY_SCALES = {
   'AI': '100%',
@@ -38,7 +39,7 @@ type KeybindingsPageState = {
 };
 
 const isStandardKey = (event: KeyboardEvent): boolean => {
-  return event.key !== 'Alt' && event.key !== 'Control' && event.key !== 'Shift' && event.key !== 'Esc';
+  return event.key !== KEY.Alt && event.key !== KEY.Control && event.key !== KEY.Shift && !isEscape(event.key);
 };
 
 /**
@@ -133,7 +134,10 @@ class KeybindingButton extends Component<{
         fluid
         textAlign="center"
         captureKeys={typingHotkey === undefined}
-        onClick={onClick}
+        onClick={(event) => {
+          event.stopPropagation();
+          onClick?.();
+        }}
         selected={typingHotkey !== undefined}>
         {typingHotkey || currentHotkey || 'Unbound'}
       </Button>
@@ -160,7 +164,7 @@ const KeybindingName = (props: { keybinding: Keybinding }) => {
       <Box
         as="span"
         style={{
-          'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
+          borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
         }}>
         {keybinding.name}
       </Box>
@@ -168,12 +172,6 @@ const KeybindingName = (props: { keybinding: Keybinding }) => {
   ) : (
     <span>{keybinding.name}</span>
   );
-};
-
-KeybindingName.defaultHooks = {
-  onComponentShouldUpdate: (lastProps, nextProps) => {
-    return lastProps.keybinding !== nextProps.keybinding;
-  },
 };
 
 const ResetToDefaultButton = (props: { keybindingId: string }) => {
@@ -205,8 +203,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     error: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -285,7 +283,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     if (isStandardKey(event)) {
       this.setRebindingHotkey(formatKeyboardEvent(event));
       return;
-    } else if (event.key === 'Esc') {
+    } else if (isEscape(event.key)) {
       this.setRebindingHotkey(undefined);
       return;
     }
@@ -394,8 +392,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
           fontSize="30px"
           textAlign="center"
           style={{
-            'background-color': 'rgba(0, 0, 0, 0.75)',
-            'font-weight': 'bold',
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            fontWeight: 'bold',
           }}>
           Error: Unable to fetch keybinding data.
           <br />
@@ -403,7 +401,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
           <br />
           Reconnecting will also likely fix this issue.
           <br />
-          <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
+          <Box textAlign="left" fontSize="12px" textColor="white" style={{ whiteSpace: 'pre-wrap' }}>
             Error Details:{'\n'}
             {typeof this.state.error === 'object' && Object.keys(this.state.error).includes('stack')
               ? this.state.error.stack
