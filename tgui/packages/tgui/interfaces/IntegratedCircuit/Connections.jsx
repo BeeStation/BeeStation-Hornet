@@ -2,7 +2,7 @@ import { CSS_COLORS } from '../../constants';
 import { SVG_CURVE_INTENSITY } from './constants';
 import { classes } from 'common/react';
 
-export const Connections = (props, context) => {
+export const Connections = (props) => {
   const { connections } = props;
 
   const isColorClass = (str) => {
@@ -16,9 +16,9 @@ export const Connections = (props, context) => {
       width="100%"
       height="100%"
       style={{
-        'position': 'absolute',
-        'pointer-events': 'none',
-        'z-index': -1,
+        position: 'absolute',
+        pointerEvents: 'none',
+        zIndex: -1,
       }}>
       {connections.map((val, index) => {
         const from = val.from;

@@ -12,9 +12,9 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props, context) => {
-  const [number, setNumber] = useLocalState(context, 'number', 0);
-  const [text, setText] = useLocalState(context, 'text', 'Sample text');
+const Story = (props) => {
+  const [number, setNumber] = useLocalState('number', 0);
+  const [text, setText] = useLocalState('text', 'Sample text');
   return (
     <Section>
       <LabeledList>
@@ -33,7 +33,7 @@ const Story = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onChange={(e, value) => setNumber(value)}
+            onChange={(value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="NumberInput (onDrag)">
@@ -45,7 +45,7 @@ const Story = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            onDrag={(value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Slider (onDrag)">

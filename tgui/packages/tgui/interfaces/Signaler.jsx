@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import { toFixed } from 'common/math';
 import { Window } from '../layouts';
 
-export const Signaler = (props, context) => {
+export const Signaler = (props) => {
   return (
     <Window width={280} height={132}>
       <Window.Content>
@@ -13,8 +13,8 @@ export const Signaler = (props, context) => {
   );
 };
 
-export const SignalerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SignalerContent = (props) => {
+  const { act, data } = useBackend();
   const { code, frequency, cooldown, minFrequency, maxFrequency } = data;
   return (
     <Section>
@@ -24,7 +24,7 @@ export const SignalerContent = (props, context) => {
         </Grid.Column>
         <Grid.Column>
           <NumberInput
-            animate
+            animated
             unit="kHz"
             step={0.2}
             stepPixelSize={6}
@@ -33,7 +33,7 @@ export const SignalerContent = (props, context) => {
             value={frequency / 10}
             format={(value) => toFixed(value, 1)}
             width="80px"
-            onDrag={(e, value) =>
+            onDrag={(value) =>
               act('freq', {
                 freq: value,
               })
@@ -59,14 +59,14 @@ export const SignalerContent = (props, context) => {
         </Grid.Column>
         <Grid.Column>
           <NumberInput
-            animate
+            animated
             step={1}
             stepPixelSize={6}
             minValue={1}
             maxValue={100}
             value={code}
             width="80px"
-            onDrag={(e, value) =>
+            onDrag={(value) =>
               act('code', {
                 code: value,
               })

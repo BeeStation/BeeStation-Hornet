@@ -31,8 +31,8 @@ const compareNumberedText = (a, b) => {
   return compareString(aName, bName);
 };
 
-const OrbitSection = (props, context) => {
-  const { act } = useBackend(context);
+const OrbitSection = (props) => {
+  const { act } = useBackend();
   const { searchText, source, title, color, basic } = props;
   const things = source.filter(searchFor(searchText));
   things.sort(compareNumberedText);
@@ -64,14 +64,14 @@ const OrbitSection = (props, context) => {
   );
 };
 
-const OrbitedButton = (props, context) => {
-  const { act } = useBackend(context);
+const OrbitedButton = (props) => {
+  const { act } = useBackend();
   const { color, thing, job, antag } = props;
 
   return (
     <Button
       color={color}
-      style={{ 'line-height': '24px' }}
+      style={{ lineHeight: '24px' }}
       onClick={() =>
         act('orbit', {
           ref: thing.ref,
@@ -82,7 +82,7 @@ const OrbitedButton = (props, context) => {
           inline
           mr={0.5}
           ml={-0.5}
-          style={{ 'transform': 'translateY(18.75%)' }}
+          style={{ transform: 'translateY(18.75%)' }}
           className={`job-icon16x16 job-icon-${job}`}
         />
       )}
@@ -91,7 +91,7 @@ const OrbitedButton = (props, context) => {
           inline
           mr={0.5}
           ml={job ? -0.25 : -0.5}
-          style={{ 'transform': 'translateY(18.75%)' }}
+          style={{ transform: 'translateY(18.75%)' }}
           className={`antag-hud16x16 antag-hud-${antag}`}
         />
       )}
@@ -107,11 +107,11 @@ const OrbitedButton = (props, context) => {
   );
 };
 
-export const Orbit = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Orbit = (props) => {
+  const { act, data } = useBackend();
   const { alive, antagonists, dead, ghosts, misc, npcs } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const collatedAntagonists = {};
   for (const antagonist of antagonists) {

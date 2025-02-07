@@ -5,8 +5,8 @@ import { Window } from '../layouts';
 
 const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
 
-export const BanningPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BanningPanel = (props) => {
+  const { act, data } = useBackend();
   const {
     key_enabled,
     key,
@@ -120,7 +120,9 @@ export const BanningPanel = (props, context) => {
                           value={ban_duration}
                           animated
                           minValue={1}
-                          onChange={(e, value) => act('update_duration', { duration: value })}
+                          maxValue={+Infinity}
+                          step={1}
+                          onChange={(value) => act('update_duration', { duration: value })}
                         />
                         <Dropdown
                           selected={time_units}

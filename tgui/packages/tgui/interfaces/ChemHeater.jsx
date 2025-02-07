@@ -4,8 +4,8 @@ import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section } from '
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
-export const ChemHeater = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemHeater = (props) => {
+  const { act, data } = useBackend();
   const { targetTemp, isActive, isBeakerLoaded, currentTemp, beakerCurrentVolume, beakerMaxVolume, beakerContents = [] } = data;
   return (
     <Window width={275} height={320}>
@@ -30,7 +30,7 @@ export const ChemHeater = (props, context) => {
                 value={round(targetTemp)}
                 minValue={0}
                 maxValue={1000}
-                onDrag={(e, value) =>
+                onDrag={(value) =>
                   act('temperature', {
                     target: value,
                   })

@@ -4,9 +4,9 @@ import { Box, Button, Input, Section, Table, Divider } from '../components';
 import { Window } from '../layouts';
 import { round } from 'common/math';
 import { ButtonConfirm } from '../components/Button';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 
-export const TicketMessenger = (props, context) => {
+export const TicketMessenger = (props) => {
   return (
     <Window theme="admin" width={620} height={500}>
       <Window.Content>
@@ -21,8 +21,8 @@ export const TicketMessenger = (props, context) => {
   );
 };
 
-export const TicketActionBar = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TicketActionBar = (props) => {
+  const { act, data } = useBackend();
   const { disconnected, time_opened, world_time, claimee_key, antag_status, id, sender, is_admin_type, open } = data;
   return (
     <Box>
@@ -65,8 +65,8 @@ export const TicketActionBar = (props, context) => {
   );
 };
 
-export const TicketFullMonty = (_, context) => {
-  const { act } = useBackend(context);
+export const TicketFullMonty = (_) => {
+  const { act } = useBackend();
   return (
     <Box inline>
       <Button color="purple" content="?" onClick={() => act('moreinfo')} />
@@ -81,8 +81,8 @@ export const TicketFullMonty = (_, context) => {
   );
 };
 
-export const TicketClosureStates = ({ admin }, context) => {
-  const { act } = useBackend(context);
+export const TicketClosureStates = ({ admin }) => {
+  const { act } = useBackend();
   return (
     <Box inline>
       <ButtonConfirm content="REJT" onClick={() => act('reject')} />
@@ -98,8 +98,8 @@ export const TicketClosureStates = ({ admin }, context) => {
   );
 };
 
-export const TicketChatWindow = (_, context) => {
-  const { act, data } = useBackend(context);
+export const TicketChatWindow = (_) => {
+  const { act, data } = useBackend();
   const { messages = [] } = data;
   return (
     <Box>

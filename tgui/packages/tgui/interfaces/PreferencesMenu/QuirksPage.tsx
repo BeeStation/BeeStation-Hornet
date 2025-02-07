@@ -1,4 +1,3 @@
-import type { Inferno } from 'inferno';
 import { Box, Icon, Stack, Tooltip } from '../../components';
 import { PreferencesMenuData, Quirk } from './data';
 import { useBackend, useLocalState } from '../../backend';
@@ -46,40 +45,39 @@ const QuirkList = (props: {
               <Stack.Item
                 align="center"
                 style={{
-                  'min-width': '15%',
-                  'max-width': '15%',
-                  'text-align': 'center',
+                  minWidth: '15%',
+                  maxWidth: '15%',
+                  textAlign: 'center',
                 }}>
                 {quirk.icon && <Icon color="#333" fontSize={3} name={quirk.icon} />}
               </Stack.Item>
 
               <Stack.Item
                 align="stretch"
+                ml={0}
                 style={{
-                  'border-right': '1px solid black',
-                  'margin-left': 0,
+                  borderRight: '1px solid black',
                 }}
               />
 
               <Stack.Item
                 grow
+                ml={0}
                 style={{
-                  'margin-left': 0,
-
                   // Fixes an IE bug for text overflowing in Flex boxes
-                  'min-width': '0%',
+                  minWidth: '0%',
                 }}>
                 <Stack vertical fill>
                   <Stack.Item
                     className={`${className}--${getValueClass(quirk.value)}`}
                     style={{
-                      'border-bottom': '1px solid black',
-                      'padding': '2px',
+                      borderBottom: '1px solid black',
+                      padding: '2px',
                     }}>
                     <Stack
                       fill
                       style={{
-                        'font-size': '1.2em',
+                        fontSize: '1.2em',
                       }}>
                       <Stack.Item grow basis="content">
                         <b>{quirk.name}</b>
@@ -94,9 +92,9 @@ const QuirkList = (props: {
                   <Stack.Item
                     grow
                     basis="content"
+                    mt={0}
                     style={{
-                      'margin-top': 0,
-                      'padding': '3px',
+                      padding: '3px',
                     }}>
                     {quirk.description}
                   </Stack.Item>
@@ -120,7 +118,7 @@ const QuirkList = (props: {
   );
 };
 
-const StatDisplay: Inferno.StatelessComponent<{}> = (props) => {
+const StatDisplay = (props) => {
   return (
     <Box backgroundColor="#eee" bold color="black" fontSize="1.2em" px={3} py={0.5}>
       {props.children}
@@ -128,14 +126,10 @@ const StatDisplay: Inferno.StatelessComponent<{}> = (props) => {
   );
 };
 
-export const QuirksPage = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+export const QuirksPage = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
 
-  const [selectedQuirks, setSelectedQuirks] = useLocalState(
-    context,
-    `selectedQuirks_${data.active_slot}`,
-    data.selected_quirks
-  );
+  const [selectedQuirks, setSelectedQuirks] = useLocalState(`selectedQuirks_${data.active_slot}`, data.selected_quirks);
 
   return (
     <ServerPreferencesFetcher

@@ -1,16 +1,11 @@
 // NSV13
 
-import { map, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { toFixed } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component, Fragment } from 'inferno';
-import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Section, Table } from '../components';
+import { Button, ProgressBar, Section } from '../components';
 import { NtosWindow } from '../layouts';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 
-export const NtosGhostRbmkStats = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosGhostRbmkStats = (props) => {
+  const { act, data } = useBackend();
   return (
     <NtosWindow resizable width={440} height={650}>
       <NtosWindow.Content>

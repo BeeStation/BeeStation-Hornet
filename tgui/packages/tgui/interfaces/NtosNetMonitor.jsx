@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosNetMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosNetMonitor = (props) => {
+  const { act, data } = useBackend();
   const {
     ntnetrelays,
     ntnetstatus,
@@ -120,7 +120,8 @@ export const NtosNetMonitor = (props, context) => {
                   minValue={minlogs}
                   maxValue={maxlogs}
                   width="39px"
-                  onChange={(e, value) =>
+                  step={1}
+                  onChange={(value) =>
                     act('updatemaxlogs', {
                       new_number: value,
                     })

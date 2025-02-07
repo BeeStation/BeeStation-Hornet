@@ -14,6 +14,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
+	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
@@ -54,7 +55,8 @@
 
 	///More stress stuff.
 	var/turning_on = FALSE
-	var/roundstart_smoothing = FALSE
+	///If TRUE, the light does not have an update delay, and makes no noise when it switches states
+	var/smooth_transition = FALSE
 
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
@@ -89,7 +91,7 @@
 			brightness = A.lighting_brightness_tube
 
 	if(mapload || !SSticker.HasRoundStarted())
-		roundstart_smoothing = TRUE
+		smooth_transition = TRUE
 
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
@@ -126,6 +128,10 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
+
+/obj/machinery/light/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -173,13 +179,37 @@
 		return
 	. += mutable_appearance(overlayicon, base_state)
 
+// Area sensitivity is traditionally tied directly to power use, as an optimization
+// But since we want it for fire reacting, we disregard that
+/obj/machinery/light/setup_area_power_relationship()
+	. = ..()
+	if(!.)
+		return
+	var/area/our_area = get_area(src)
+	RegisterSignal(our_area, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+
+/obj/machinery/light/on_enter_area(datum/source, area/area_to_register)
+	..()
+	RegisterSignal(area_to_register, COMSIG_AREA_FIRE_CHANGED, PROC_REF(handle_fire))
+	handle_fire(area_to_register, area_to_register.fire)
+
+/obj/machinery/light/on_exit_area(datum/source, area/area_to_unregister)
+	..()
+	UnregisterSignal(area_to_unregister, COMSIG_AREA_FIRE_CHANGED)
+
+/obj/machinery/light/proc/handle_fire(area/source, new_fire)
+	SIGNAL_HANDLER
+	//we want fire alarm lights to not be delayed or make light_on noises during fire
+	smooth_transition = TRUE
+	update()
+
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE, quiet = FALSE, instant = FALSE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
-	if(roundstart_smoothing)
-		roundstart_smoothing = FALSE
+	if(smooth_transition)
+		smooth_transition = FALSE
 		quiet = TRUE
 		instant = TRUE
 	emergency_mode = FALSE
@@ -319,7 +349,7 @@
 	// attempt to insert light
 	else if(istype(W, /obj/item/light))
 		if(status == LIGHT_OK)
-			to_chat(user, "<span class='warning'>There is a [fitting] already inserted!</span>")
+			to_chat(user, span_warning("There is a [fitting] already inserted!"))
 		else
 			add_fingerprint(user)
 			var/obj/item/light/L = W
@@ -330,9 +360,9 @@
 				add_fingerprint(user)
 				if(status != LIGHT_EMPTY)
 					drop_light_tube(user)
-					to_chat(user, "<span class='notice'>You replace [L].</span>")
+					to_chat(user, span_notice("You replace [L]."))
 				else
-					to_chat(user, "<span class='notice'>You insert [L].</span>")
+					to_chat(user, span_notice("You insert [L]."))
 				status = L.status
 				switchcount = L.switchcount
 				rigged = L.rigged
@@ -345,17 +375,17 @@
 				if(on && rigged)
 					plasma_ignition(4)
 			else
-				to_chat(user, "<span class='warning'>This type of light requires a [fitting]!</span>")
+				to_chat(user, span_warning("This type of light requires a [fitting]!"))
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
 		if(W.tool_behaviour == TOOL_SCREWDRIVER) //If it's a screwdriver open it.
 			W.play_tool_sound(src, 75)
 			user.visible_message("[user.name] opens [src]'s casing.", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='italics'>You hear a noise.</span>")
+				span_notice("You open [src]'s casing."), span_italics("You hear a noise."))
 			deconstruct()
 		else
-			to_chat(user, "<span class='userdanger'>You stick \the [W] into the light socket!</span>")
+			to_chat(user, span_userdanger("You stick \the [W] into the light socket!"))
 			if(has_power() && (W.flags_1 & CONDUCT_1))
 				do_sparks(3, TRUE, src)
 				if (prob(75))
@@ -452,7 +482,7 @@
 		return FALSE
 	var/obj/item/stock_parts/cell/real_cell = get_cell()
 	if(real_cell.charge > 300) // it's meant to handle 120 W, ya doofus
-		visible_message("<span class='warning'>[src] short-circuits from too powerful of a power cell!</span>")
+		visible_message(span_warning("[src] short-circuits from too powerful of a power cell!"))
 		burn_out()
 		return FALSE
 	real_cell.use(pwr)
@@ -480,7 +510,7 @@
 
 /obj/machinery/light/attack_silicon(mob/user)
 	no_emergency = !no_emergency
-	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
+	to_chat(user, span_notice("Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"]."))
 	update(FALSE)
 	return
 
@@ -511,27 +541,27 @@
 					return
 				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
-					to_chat(user, "<span class='warning'>You can't receive charge!</span>")
+					to_chat(user, span_warning("You can't receive charge!"))
 					return
 				if(user.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-					to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+					to_chat(user, span_warning("You are already fully charged!"))
 					return
 
-				to_chat(user, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
+				to_chat(user, span_notice("You start channeling some power through the [fitting] into your body."))
 				E.drain_time = world.time + 35
 				while(do_after(user, 30, target = src))
 					E.drain_time = world.time + 35
 					if(!istype(stomach))
-						to_chat(user, "<span class='warning'>You can't receive charge!</span>")
+						to_chat(user, span_warning("You can't receive charge!"))
 						return
-					to_chat(user, "<span class='notice'>You receive some charge from the [fitting].</span>")
+					to_chat(user, span_notice("You receive some charge from the [fitting]."))
 					stomach.adjust_charge(50)
 					use_power(50)
 					if(stomach.charge >= stomach.max_charge)
-						to_chat(user, "<span class='notice'>You are now fully charged.</span>")
+						to_chat(user, span_notice("You are now fully charged."))
 						E.drain_time = 0
 						return
-				to_chat(user, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				to_chat(user, span_warning("You fail to receive charge from the [fitting]!"))
 				E.drain_time = 0
 				return
 
@@ -543,18 +573,18 @@
 			prot = 1
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
-			to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
+			to_chat(user, span_notice("You remove the light [fitting]."))
 		else if(user.has_dna() && user.dna.check_mutation(TK))
-			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
+			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
-			to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
+			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
 
 			var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 				user.update_damage_overlays()
 			return				// if burned, don't remove the light
 	else
-		to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
+		to_chat(user, span_notice("You remove the light [fitting]."))
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
@@ -584,7 +614,7 @@
 		to_chat(user, "There is no [fitting] in this light.")
 		return
 
-	to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
+	to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 	// create a light tube/bulb item and put it in the user's hand
 	var/obj/item/light/light_tube = drop_light_tube()
 	return light_tube.attack_tk(user)
@@ -632,7 +662,10 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 673
+
+/obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 

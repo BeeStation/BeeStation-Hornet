@@ -1,4 +1,4 @@
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { useBackend, useLocalState } from '../backend';
 import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
 import { ButtonConfirm } from '../components/Button';
@@ -12,8 +12,8 @@ const processedText = (value) => {
   };
 };
 
-export const MessageMonitor = (_, context) => {
-  const { data } = useBackend(context);
+export const MessageMonitor = (_) => {
+  const { data } = useBackend();
   const { authenticated } = data;
   return (
     <Window height={600} width={480}>
@@ -24,8 +24,8 @@ export const MessageMonitor = (_, context) => {
   );
 };
 
-export const MessageMonitorContent = (_, context) => {
-  const { act, data } = useBackend(context);
+export const MessageMonitorContent = (_) => {
+  const { act, data } = useBackend();
   const {
     server_on,
     authenticated,
@@ -36,7 +36,7 @@ export const MessageMonitorContent = (_, context) => {
     request_messages = [],
     emoji_names = [],
   } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selected_tab', 'pda');
+  const [selectedTab, setSelectedTab] = useLocalState('selected_tab', 'pda');
   if (hacking) {
     return (
       <Flex direction="column" height="100%">
@@ -45,8 +45,8 @@ export const MessageMonitorContent = (_, context) => {
             fontFamily="monospace"
             backgroundColor="black"
             style={{
-              'color': 'red',
-              'white-space': 'pre-wrap',
+              color: 'red',
+              whiteSpace: 'pre-wrap',
             }}>
             {`-------------------
 Crypto-Breaker 5000
@@ -102,7 +102,7 @@ Please Wait...`}
           {!authenticated ? (
             <Dimmer
               style={{
-                'background-color': 'transparent',
+                backgroundColor: 'transparent',
               }}>
               <Flex direction="column" align="center" fontSize="15px">
                 <Flex.Item fontSize="20px">Awaiting Decryption Key...</Flex.Item>
@@ -232,7 +232,7 @@ Please Wait...`}
                 color="label"
                 fontSize={2}
                 style={{
-                  'background-color': 'transparent',
+                  backgroundColor: 'transparent',
                 }}>
                 No Data
               </Dimmer>
@@ -345,10 +345,10 @@ class PasswordScroller extends Component {
         backgroundColor="black"
         fontFamily="monospace"
         style={{
-          'color': 'red',
-          'white-space': 'pre-wrap',
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
+          color: 'red',
+          whiteSpace: 'pre-wrap',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
         }}>
         {this.state.text}
         <div ref={this.endRef} />

@@ -35,15 +35,16 @@
 /datum/martial_art/plasma_fist/proc/Tornado(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	A.say("TORNADO SWEEP!", forced="plasma fist")
 	TornadoAnimate(A)
-	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
-	R.cast(RANGE_TURFS(1,A))
+	var/datum/action/spell/aoe/repulse/tornado_spell = new(src)
+	tornado_spell.on_cast(A, null)
+	qdel(tornado_spell)
 	log_combat(A, D, "tornado sweeped(Plasma Fist)", name)
 	return
 
 /datum/martial_art/plasma_fist/proc/Throwback(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	D.visible_message("<span class='danger'>[A] hits [D] with Plasma Punch!</span>", \
-					"<span class='userdanger'>You're hit with a Plasma Punch by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-	to_chat(A, "<span class='danger'>You hit [D] with Plasma Punch!</span>")
+	D.visible_message(span_danger("[A] hits [D] with Plasma Punch!"), \
+					span_userdanger("You're hit with a Plasma Punch by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
+	to_chat(A, span_danger("You hit [D] with Plasma Punch!"))
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	D.throw_at(throw_target, 200, 4,A)
@@ -55,9 +56,9 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	A.say("PLASMA FIST!", forced="plasma fist")
-	D.visible_message("<span class='danger'>[A] hits [D] with THE PLASMA FIST TECHNIQUE!</span>", \
-					"<span class='userdanger'>You're suddenly hit with THE PLASMA FIST TECHNIQUE by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-	to_chat(A, "<span class='danger'>You hit [D] with THE PLASMA FIST TECHNIQUE!</span>")
+	D.visible_message(span_danger("[A] hits [D] with THE PLASMA FIST TECHNIQUE!"), \
+					span_userdanger("You're suddenly hit with THE PLASMA FIST TECHNIQUE by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
+	to_chat(A, span_danger("You hit [D] with THE PLASMA FIST TECHNIQUE!"))
 	D.gib()
 	log_combat(A, D, "gibbed (Plasma Fist)", name)
 	return
@@ -89,9 +90,9 @@
 	set category = "Plasma Fist"
 
 	to_chat(usr, "<b><i>You clench your fists and have a flashback of knowledge...</i></b>")
-	to_chat(usr, "<span class='notice'>Tornado Sweep</span>: Harm Harm Disarm. Repulses target and everyone back.")
-	to_chat(usr, "<span class='notice'>Throwback</span>: Disarm Harm Disarm. Throws the target and an item at them.")
-	to_chat(usr, "<span class='notice'>The Plasma Fist</span>: Harm Disarm Disarm Disarm Harm. Knocks the brain out of the opponent and gibs their body.")
+	to_chat(usr, "[span_notice("Tornado Sweep")]: Harm Harm Disarm. Repulses target and everyone back.")
+	to_chat(usr, "[span_notice("Throwback")]: Disarm Harm Disarm. Throws the target and an item at them.")
+	to_chat(usr, "[span_notice("The Plasma Fist")]: Harm Disarm Disarm Disarm Harm. Knocks the brain out of the opponent and gibs their body.")
 
 #undef TORNADO_COMBO
 #undef THROWBACK_COMBO

@@ -1,11 +1,8 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 import { useBackend, useLocalState } from '../backend';
-import { Icon, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Divider, Grid, ProgressBar, Collapsible } from '../components';
-import { formatMoney } from '../format';
+import { Icon, Box, Button, Section, Table, Divider, Grid, ProgressBar, Collapsible } from '../components';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
-import { GridColumn } from '../components/Grid';
 
 export const convertPower = (power_in) => {
   const units = ['W', 'kW', 'MW', 'GW'];
@@ -18,11 +15,11 @@ export const convertPower = (power_in) => {
   return Math.round((value + Number.EPSILON) * 100) / 100 + units[power];
 };
 
-export const ClockworkSlab = (props, context) => {
-  const { data } = useBackend(context);
+export const ClockworkSlab = (props) => {
+  const { data } = useBackend();
   const { power } = data;
   const { recollection } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', 'Servitude');
+  const [selectedTab, setSelectedTab] = useLocalState('selectedTab', 'Servitude');
   return (
     <Window theme="clockwork" width={860} height={700}>
       <Window.Content>
@@ -58,9 +55,9 @@ export const ClockworkSlab = (props, context) => {
   );
 };
 
-export const ClockworkHelp = (props, context) => {
+export const ClockworkHelp = (props) => {
   return (
-    <Fragment>
+    <>
       <Collapsible title="Where To Start" color="average" open={1}>
         <Section>
           After a long and destructive war, Rat&#39;Var has been imprisoned inside a dimension of suffering.
@@ -197,12 +194,12 @@ export const ClockworkHelp = (props, context) => {
           <br />
         </Section>
       </Collapsible>
-    </Fragment>
+    </>
   );
 };
 
-export const ClockworkSpellList = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ClockworkSpellList = (props) => {
+  const { act, data } = useBackend();
   const { selectedTab } = props;
   const { scriptures = [] } = data;
   return (
@@ -253,8 +250,8 @@ export const ClockworkSpellList = (props, context) => {
   );
 };
 
-export const ClockworkOverview = (props, context) => {
-  const { data } = useBackend(context);
+export const ClockworkOverview = (props) => {
+  const { data } = useBackend();
   const { power, cogs, vitality } = data;
   return (
     <Box>
@@ -275,7 +272,7 @@ export const ClockworkOverview = (props, context) => {
   );
 };
 
-export const ClockworkOverviewStat = (props, context) => {
+export const ClockworkOverviewStat = (props) => {
   const { title, iconName, amount, maxAmount, unit, overrideText } = props;
   return (
     <Box height="22px" fontSize="16px">
@@ -302,8 +299,8 @@ export const ClockworkOverviewStat = (props, context) => {
   );
 };
 
-export const ClockworkButtonSelection = (props, context) => {
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', {});
+export const ClockworkButtonSelection = (props) => {
+  const [selectedTab, setSelectedTab] = useLocalState('selectedTab', {});
   const tabs = ['Servitude', 'Preservation', 'Structures'];
   return (
     <Table>

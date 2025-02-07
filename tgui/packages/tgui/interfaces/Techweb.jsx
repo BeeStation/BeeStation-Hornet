@@ -46,8 +46,8 @@ const selectRemappedStaticData = (data) => {
 
 let remappedStaticData;
 
-const useRemappedBackend = (context) => {
-  const { data, ...rest } = useBackend(context);
+const useRemappedBackend = () => {
+  const { data, ...rest } = useBackend();
   // Only remap the static data once, cache for future use
   if (!remappedStaticData) {
     const id_cache = data.static_data.id_cache;
@@ -76,8 +76,8 @@ const abbreviateName = (name) => abbreviations[name] ?? name;
 
 // Actual Components
 
-export const Techweb = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+export const Techweb = (props) => {
+  const { act, data } = useRemappedBackend();
   const { locked } = data;
   return (
     <Window width={947} height={735}>
@@ -98,8 +98,8 @@ export const Techweb = (props, context) => {
   );
 };
 
-export const AppTechweb = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+export const AppTechweb = (props) => {
+  const { act, data } = useRemappedBackend();
   const { locked } = data;
   return (
     <NtosWindow width={640} height={735}>
@@ -120,11 +120,11 @@ export const AppTechweb = (props, context) => {
   );
 };
 
-export const TechwebContent = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+export const TechwebContent = (props) => {
+  const { act, data } = useRemappedBackend();
   const { points, points_last_tick, web_org, sec_protocols, t_disk, d_disk, locked, linkedanalyzer, compact, tech_tier } = data;
-  const [techwebRoute, setTechwebRoute] = useLocalState(context, 'techwebRoute', null);
-  const [lastPoints, setLastPoints] = useLocalState(context, 'lastPoints', {});
+  const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
+  const [lastPoints, setLastPoints] = useLocalState('lastPoints', {});
 
   return (
     <Flex direction="column" className="Techweb__Viewport" height="100%">
@@ -199,8 +199,8 @@ export const TechwebContent = (props, context) => {
   );
 };
 
-const TechwebRouter = (props, context) => {
-  const [techwebRoute] = useLocalState(context, 'techwebRoute', null);
+const TechwebRouter = (props) => {
+  const [techwebRoute] = useLocalState('techwebRoute', null);
 
   const route = techwebRoute?.route;
   const RoutedComponent =
@@ -212,11 +212,11 @@ const TechwebRouter = (props, context) => {
   return <RoutedComponent {...techwebRoute} />;
 };
 
-const TechwebOverview = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebOverview = (props) => {
+  const { act, data } = useRemappedBackend();
   const { nodes, node_cache, design_cache } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'overviewTabIndex', 1);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText');
+  const [tabIndex, setTabIndex] = useLocalState('overviewTabIndex', 1);
+  const [searchText, setSearchText] = useLocalState('searchText');
 
   const filterSearchNodes = (target_nodes) => {
     const filtered_search_nodes = target_nodes.filter((x) => {
@@ -309,8 +309,8 @@ const TechwebOverview = (props, context) => {
   );
 };
 
-const TechwebNodeDetail = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebNodeDetail = (props) => {
+  const { act, data } = useRemappedBackend();
   const { nodes } = data;
   const { selectedNode } = props;
 
@@ -318,11 +318,11 @@ const TechwebNodeDetail = (props, context) => {
   return <TechNodeDetail node={selectedNodeData} />;
 };
 
-const TechwebDiskMenu = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebDiskMenu = (props) => {
+  const { act, data } = useRemappedBackend();
   const { diskType } = props;
   const { t_disk, d_disk } = data;
-  const [techwebRoute, setTechwebRoute] = useLocalState(context, 'techwebRoute', null);
+  const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
 
   // Check for the disk actually being inserted
   if ((diskType === 'design' && !d_disk) || (diskType === 'tech' && !t_disk)) {
@@ -375,10 +375,10 @@ const TechwebDiskMenu = (props, context) => {
   );
 };
 
-const Techwebanalyzer = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const Techwebanalyzer = (props) => {
+  const { act, data } = useRemappedBackend();
   const { linkedanalyzer, analyzertechs, analyzeritem } = data;
-  const [techwebRoute, setTechwebRoute] = useLocalState(context, 'techwebRoute', null);
+  const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
 
   return (
     <Flex direction="column" height="100%">
@@ -413,8 +413,8 @@ const Techwebanalyzer = (props, context) => {
   );
 };
 
-const TechwebItemmaterials = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebItemmaterials = (props) => {
+  const { act, data } = useRemappedBackend();
   const { itemmats, itempoints } = data;
 
   return (
@@ -443,8 +443,8 @@ const TechwebItemmaterials = (props, context) => {
   );
 };
 
-const TechwebItemtechs = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebItemtechs = (props) => {
+  const { act, data } = useRemappedBackend();
   const { analyzertechs } = data;
 
   return Object.keys(analyzertechs)
@@ -452,12 +452,12 @@ const TechwebItemtechs = (props, context) => {
     .map((n) => <TechNode key={n.id} nodetails destructive node={n} />);
 };
 
-const TechwebDesignDisk = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebDesignDisk = (props) => {
+  const { act, data } = useRemappedBackend();
   const { design_cache, researched_designs, d_disk } = data;
   const { blueprints } = d_disk;
-  const [selectedDesign, setSelectedDesign] = useLocalState(context, 'designDiskSelect', null);
-  const [showModal, setShowModal] = useLocalState(context, 'showDesignModal', -1);
+  const [selectedDesign, setSelectedDesign] = useLocalState('designDiskSelect', null);
+  const [showModal, setShowModal] = useLocalState('showDesignModal', -1);
 
   const designIdByIdx = Object.keys(researched_designs);
   const designOptions = flow([
@@ -539,8 +539,8 @@ const TechwebDesignDisk = (props, context) => {
   );
 };
 
-const TechwebTechDisk = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechwebTechDisk = (props) => {
+  const { act, data } = useRemappedBackend();
   const { t_disk } = data;
   const { stored_research } = t_disk;
 
@@ -549,14 +549,14 @@ const TechwebTechDisk = (props, context) => {
     .map((n) => <TechNode key={n.id} nocontrols node={n} />);
 };
 
-const TechNodeDetail = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechNodeDetail = (props) => {
+  const { act, data } = useRemappedBackend();
   const { nodes, node_cache } = data;
   const { node } = props;
   const { id } = node;
   const { prereq_ids, unlock_ids } = node_cache[id];
-  const [tabIndex, setTabIndex] = useLocalState(context, 'nodeDetailTabIndex', 0);
-  const [techwebRoute, setTechwebRoute] = useLocalState(context, 'techwebRoute', null);
+  const [tabIndex, setTabIndex] = useLocalState('nodeDetailTabIndex', 0);
+  const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
 
   const prereqNodes = nodes.filter((x) => prereq_ids.includes(x.id));
   const unlockedNodes = nodes.filter((x) => unlock_ids.includes(x.id));
@@ -596,7 +596,7 @@ const TechNodeDetail = (props, context) => {
   );
 };
 
-const DesignTooltip = (props, _context) => {
+const DesignTooltip = (props) => {
   const { design } = props;
   return (
     <Flex direction="column">
@@ -612,14 +612,14 @@ const DesignTooltip = (props, _context) => {
   );
 };
 
-const TechNode = (props, context) => {
-  const { act, data } = useRemappedBackend(context);
+const TechNode = (props) => {
+  const { act, data } = useRemappedBackend();
   const { node_cache, design_cache, points, compact, researchable, tech_tier } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
   const { name, description, design_ids, prereq_ids, node_tier } = node_cache[id];
-  const [techwebRoute, setTechwebRoute] = useLocalState(context, 'techwebRoute', null);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'nodeDetailTabIndex', 0);
+  const [techwebRoute, setTechwebRoute] = useLocalState('techwebRoute', null);
+  const [tabIndex, setTabIndex] = useLocalState('nodeDetailTabIndex', 0);
 
   return (
     <Section className="Techweb__NodeContainer" title={name} width={25}>
@@ -660,7 +660,7 @@ const TechNode = (props, context) => {
                 (tech_tier + 1) +
                 ' technology nodes first.'
               }>
-              <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+              <Icon style={{ marginLeft: '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
             </Tooltip>
           )}
           {destructive && (

@@ -3,8 +3,8 @@ import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 
-export const OreRedemptionMachine = (props, context) => {
-  const { act, data } = useBackend(context);
+export const OreRedemptionMachine = (props) => {
+  const { act, data } = useBackend();
   const { unclaimedPoints, materials, alloys, diskDesigns, hasDisk } = data;
   return (
     <Window width={440} height={550}>
@@ -89,10 +89,10 @@ export const OreRedemptionMachine = (props, context) => {
   );
 };
 
-const MaterialRow = (props, context) => {
+const MaterialRow = (props) => {
   const { material, onRelease } = props;
 
-  const [amount, setAmount] = useLocalState(context, 'amount' + material.name, 1);
+  const [amount, setAmount] = useLocalState('amount' + material.name, 1);
 
   const amountAvailable = Math.floor(material.amount);
   return (
@@ -116,7 +116,7 @@ const MaterialRow = (props, context) => {
           minValue={1}
           maxValue={50}
           value={amount}
-          onChange={(e, value) => setAmount(value)}
+          onChange={(value) => setAmount(value)}
         />
         <Button disabled={amountAvailable < 1} content="Release" onClick={() => onRelease(amount)} />
       </Table.Cell>
