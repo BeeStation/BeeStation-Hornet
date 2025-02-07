@@ -157,6 +157,8 @@
 
 	///If combat mode is on or not
 	var/combat_mode = FALSE
+	/// Is combat indicator enabled for this mob?
+	var/combat_indicator = FALSE
 
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE

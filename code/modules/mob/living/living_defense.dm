@@ -90,8 +90,18 @@
 		return
 	. = combat_mode
 	combat_mode = new_mode
+	//SEND_SIGNAL(src, COMSIG_LIVING_COMBAT_MODE_TOGGLE, new_mode)
 	if(hud_used?.action_intent)
 		hud_used.action_intent.update_appearance()
+
+	//Combat Indicator
+	if(ishuman(src) && ckey)
+		if(combat_mode)
+			set_combat_indicator(TRUE)
+		else
+			set_combat_indicator(FALSE)
+
+	//Combat mode sound pref
 	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
 		return
 	if(combat_mode)

@@ -46,9 +46,8 @@
 		new firing_effect_type(get_turf(src), firing_dir)
 
 	var/direct_target
-	if(targloc == current_location)
-		if(target) //if the target is right on our location we'll skip the travelling code in the proj's fire()
-			direct_target = target
+	if(target && current_location.Adjacent(targloc, target=targloc, mover=src)) //if the target is right on our location or adjacent (including diagonally if reachable) we'll skip the travelling code in the proj's fire()
+		direct_target = target
 	if(!direct_target)
 		var/modifiers = params2list(params)
 		BB.preparePixelProjectile(target, user, modifiers, spread)
