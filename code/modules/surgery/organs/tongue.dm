@@ -152,20 +152,20 @@
 		return
 
 	if(T.mothership == mothership)
-		to_chat(H, "<span class='notice'>[src] is already attuned to the same channel as your own.</span>")
+		to_chat(H, span_notice("[src] is already attuned to the same channel as your own."))
 
-	H.visible_message("<span class='notice'>[H] holds [src] in their hands, and concentrates for a moment.</span>", "<span class='notice'>You attempt to modify the attenuation of [src].</span>")
+	H.visible_message(span_notice("[H] holds [src] in their hands, and concentrates for a moment."), span_notice("You attempt to modify the attenuation of [src]."))
 	if(do_after(H, delay=15, target=src))
-		to_chat(H, "<span class='notice'>You attune [src] to your own channel.</span>")
+		to_chat(H, span_notice("You attune [src] to your own channel."))
 		mothership = T.mothership
 
 /obj/item/organ/tongue/abductor/examine(mob/M)
 	. = ..()
 	if(HAS_TRAIT(M, TRAIT_ABDUCTOR_TRAINING) || HAS_TRAIT(M.mind, TRAIT_ABDUCTOR_TRAINING) || isobserver(M))
 		if(!mothership)
-			. += "<span class='notice'>It is not attuned to a specific mothership.</span>"
+			. += span_notice("It is not attuned to a specific mothership.")
 		else
-			. += "<span class='notice'>It is attuned to [mothership].</span>"
+			. += span_notice("It is attuned to [mothership].")
 
 /obj/item/organ/tongue/abductor/handle_speech(datum/source, list/speech_args)
 	//Hacks
@@ -174,7 +174,7 @@
 	if(!ishuman(usr))
 		return
 	var/mob/living/carbon/human/user = usr
-	var/rendered = "<span class='abductor'><b>[user.real_name]:</b> [message]</span>"
+	var/rendered = span_abductor("<b>[user.real_name]:</b> [message]")
 	user.log_talk(message, LOG_SAY, tag="abductor")
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		var/obj/item/organ/tongue/abductor/T = H.getorganslot(ORGAN_SLOT_TONGUE)
@@ -410,8 +410,8 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if((message[1] != "*" || message[1] != "#") && !carved)
 		message = "..."
-		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
-		to_chat(owner, "<span class='notice'>Try carving your head.</span>")
+		to_chat(owner, span_warning("Something is covering your mouth!"))
+		to_chat(owner, span_notice("Try carving your head."))
 	speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/organ/tongue/psyphoza

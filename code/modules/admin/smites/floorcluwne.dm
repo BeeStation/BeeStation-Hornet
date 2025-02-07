@@ -5,7 +5,7 @@
 /datum/smite/floorcluwne/effect(client/user, mob/living/target)
 	. = ..()
 	if(!ishuman(target))
-		to_chat(usr,"<span class='warning'>You may only floorcluwne humans!</span>")
+		to_chat(usr,span_warning("You may only floorcluwne humans!"))
 		return
 
 	var/turf/T = get_turf(target)

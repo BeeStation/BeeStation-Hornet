@@ -14,7 +14,7 @@
 	explosion_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	heat_capacity = 62500 //a little over 5 cm thick , 62500 for 1 m by 2.5 m by 0.25 m iron wall. also indicates the temperature at wich the wall will melt (currently only able to melt with H/E pipes)
 
 	baseturfs = /turf/open/floor/plating
 
@@ -47,6 +47,7 @@
 		underlays += underlay_appearance
 
 /turf/closed/wall/atom_destruction(damage_flag)
+	. = ..()
 	dismantle_wall(TRUE, FALSE)
 
 /turf/closed/wall/Destroy()
@@ -59,7 +60,7 @@
 	. += deconstruction_hints(user)
 
 /turf/closed/wall/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The outer plating is <b>welded</b> firmly in place.</span>"
+	return span_notice("The outer plating is <b>welded</b> firmly in place.")
 
 /turf/closed/wall/attack_tk()
 	return
@@ -113,7 +114,7 @@
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
+	to_chat(user, span_notice("You push the wall but nothing happens!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 
@@ -170,9 +171,9 @@
 		if(user.loc == T)
 			I.play_tool_sound(src)
 			dismantle_wall()
-			user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
-								"<span class='warning'>You smash through [src] with [I]!</span>", \
-								"<span class='italics'>You hear the grinding of metal.</span>")
+			user.visible_message(span_warning("[user] smashes through [src] with [I]!"), \
+								span_warning("You smash through [src] with [I]!"), \
+								span_italics("You hear the grinding of metal."))
 			return TRUE
 	return FALSE
 
@@ -214,7 +215,7 @@
 
 /turf/closed/wall/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_DECONSTRUCT)
-		to_chat(user, "<span class='notice'>You deconstruct the wall.</span>")
+		to_chat(user, span_notice("You deconstruct the wall."))
 		log_attack("[key_name(user)] has deconstructed [get_turf(src)] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		ScrapeAway()
 		return TRUE

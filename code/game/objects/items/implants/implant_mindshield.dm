@@ -1,7 +1,7 @@
 /obj/item/implant/mindshield
 	name = "mindshield implant"
 	desc = "Protects against brainwashing."
-	activated = 0
+	actions_types = null
 
 /obj/item/implant/mindshield/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -28,20 +28,19 @@
 
 		if(target.mind.has_antag_datum(/datum/antagonist/rev/head) || target.mind.unconvertable)
 			if(!silent)
-				target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
+				target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
 			removed(target, 1)
 			qdel(src)
 			return FALSE
-
 
 		var/datum/antagonist/rev/rev = target.mind.has_antag_datum(/datum/antagonist/rev)
 		if(rev)
 			rev.remove_revolutionary(FALSE, user)
 		if(!silent)
 			if(target.mind in SSticker.mode.cult)
-				to_chat(target, "<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
+				to_chat(target, span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
 			else
-				to_chat(target, "<span class='notice'>You feel a sense of peace and security. You are now protected from brainwashing.</span>")
+				to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
 		target.sec_hud_set_implants()
 		return TRUE
@@ -54,7 +53,7 @@
 			REMOVE_TRAIT(L, TRAIT_MINDSHIELD, "implant")
 			L.sec_hud_set_implants()
 		if(target.stat != DEAD && !silent)
-			to_chat(target, "<span class='boldnotice'>Your mind suddenly feels terribly vulnerable. You are no longer safe from brainwashing.</span>")
+			to_chat(target, span_boldnotice("Your mind suddenly feels terribly vulnerable. You are no longer safe from brainwashing."))
 		return 1
 	return 0
 

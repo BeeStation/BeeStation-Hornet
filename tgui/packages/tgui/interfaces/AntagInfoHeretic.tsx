@@ -112,7 +112,8 @@ const GuideSection = () => {
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
           <b>left click</b> on them to harvest them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
+          <span style={hereticBlue}>knowledge points</span>. Tapping them visible to all after a short time.
+          <span style={hereticPurple}> You can dream to discover influences with a 5 minute delay</span>
         </Stack.Item>
         <Stack.Item>
           - Use your&nbsp;
@@ -152,8 +153,8 @@ const GuideSection = () => {
   );
 };
 
-const InformationSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const InformationSection = (props) => {
+  const { data } = useBackend<Info>();
   const { charges, total_sacrifices, ascended } = data;
   return (
     <Stack.Item>
@@ -185,8 +186,8 @@ const InformationSection = (props, context) => {
   );
 };
 
-const ObjectivePrintout = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const ObjectivePrintout = (props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Stack.Item>
@@ -205,8 +206,8 @@ const ObjectivePrintout = (props, context) => {
   );
 };
 
-const ResearchedKnowledge = (props, context) => {
-  const { data } = useBackend<KnowledgeInfo>(context);
+const ResearchedKnowledge = (props) => {
+  const { data } = useBackend<KnowledgeInfo>();
   const { learnedKnowledge } = data;
 
   return (
@@ -230,8 +231,8 @@ const ResearchedKnowledge = (props, context) => {
   );
 };
 
-const KnowledgeShop = (props, context) => {
-  const { data, act } = useBackend<KnowledgeInfo>(context);
+const KnowledgeShop = (props) => {
+  const { data, act } = useBackend<KnowledgeInfo>();
   const { learnableKnowledge } = data;
 
   return (
@@ -265,8 +266,8 @@ const KnowledgeShop = (props, context) => {
   );
 };
 
-const ResearchInfo = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const ResearchInfo = (props) => {
+  const { data } = useBackend<Info>();
   const { charges } = data;
 
   return (
@@ -289,20 +290,18 @@ const ResearchInfo = (props, context) => {
   );
 };
 
-export const AntagInfoHeretic = (props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoHeretic = (props) => {
+  const { data } = useBackend<Info>();
   const { ascended } = data;
 
-  const [currentTab, setTab] = useLocalState(context, 'currentTab', 0);
+  const [currentTab, setTab] = useLocalState('currentTab', 0);
 
   return (
     <Window width={675} height={600}>
       <Window.Content
         style={{
-          // 'font-family': 'Times New Roman',
-          // 'fontSize': '20px',
-          'background-image': 'none',
-          'background': ascended
+          backgroundImage: 'none',
+          background: ascended
             ? 'radial-gradient(circle, rgba(24,9,9,1) 54%, rgba(31,10,10,1) 60%, rgba(46,11,11,1) 80%, rgba(47,14,14,1) 100%);'
             : 'radial-gradient(circle, rgba(9,9,24,1) 54%, rgba(10,10,31,1) 60%, rgba(21,11,46,1) 80%, rgba(24,14,47,1) 100%);',
         }}>

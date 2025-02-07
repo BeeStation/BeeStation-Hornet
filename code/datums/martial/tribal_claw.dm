@@ -33,17 +33,17 @@
 	if(A == current_target)
 		return
 	log_combat(A, D, "tail sweeped(Tribal Claw)", name)
-	D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
-						"<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
-	var/static/obj/effect/proc_holder/spell/aoe_turf/repulse/xeno/R = new
-	R.cast(RANGE_TURFS(1,A))
+	D.visible_message(span_warning("[A] sweeps [D]'s legs with their tail!"), \
+					span_userdanger("[A] sweeps your legs with their tail!"))
+	var/datum/action/spell/aoe/repulse/xeno/R = new
+	R.on_cast(A, null)
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	log_combat(A, D, "face scratched (Tribal Claw)", name)
-	D.visible_message("<span class='warning'>[A] scratches [D]'s face with their claws!</span>", \
-						"<span class='userdanger'>[A] scratches your face with their claws!</span>")
+	D.visible_message(span_warning("[A] scratches [D]'s face with their claws!"), \
+						span_userdanger("[A] scratches your face with their claws!"))
 	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
 	D.confused += 5
 	D.blur_eyes(5)
@@ -58,8 +58,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
-		D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
-							"<span class='userdanger'>[A] cuts your jugular vein!</span>")
+		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
+							span_userdanger("[A] cuts your jugular vein!"))
 		D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
 		D.add_bleeding(BLEED_SURFACE)
 		D.apply_status_effect(/datum/status_effect/neck_slice)
@@ -71,8 +71,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	log_combat(A, D, "tail grabbed (Tribal Claw)", name)
-	D.visible_message("<span class='warning'>[A] grabs [D] with their tail!</span>", \
-						"<span class='userdanger'>[A] grabs you with their tail!</span>")
+	D.visible_message(span_warning("[A] grabs [D] with their tail!"), \
+						span_userdanger("[A] grabs you with their tail!"))
 	D.grabbedby(A, 1)
 	D.Knockdown(5) //Without knockdown target still stands up while T3 grabbed.
 	A.setGrabState(GRAB_NECK)
@@ -104,10 +104,10 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 
 	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Tribal Claw...</i></b>")
 
-	to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
-	to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's head and confuses them for a short time.")
-	to_chat(usr, "<span class='notice'>Jugular Cut</span>: Harm Harm Grab. Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.")
-	to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
+	to_chat(usr, "[span_notice("Tail Sweep")]: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
+	to_chat(usr, "[span_notice("Face Scratch")]: Harm Disarm. Damages your target's head and confuses them for a short time.")
+	to_chat(usr, "[span_notice("Jugular Cut")]: Harm Harm Grab. Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.")
+	to_chat(usr, "[span_notice("Tail Grab")]: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
 
 #undef TAIL_SWEEP_COMBO
 #undef FACE_SCRATCH_COMBO
