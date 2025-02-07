@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	///Used as a base name while generating the icon states when stacked
 	var/stack_name = "pancakes"
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/pancakes/blueberry
 	name = "blueberry pancake"
@@ -23,6 +24,7 @@
 	)
 	tastes = list("pancakes" = 1, "blueberries" = 1)
 	stack_name = "bbpancakes"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/pancakes/chocolatechip
 	name = "chocolate chip pancake"
@@ -34,6 +36,7 @@
 	)
 	tastes = list("pancakes" = 1, "chocolate" = 1)
 	stack_name = "ccpancakes"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/pancakes/Initialize(mapload)
 	. = ..()
@@ -79,7 +82,7 @@
 		var/obj/item/food/pancakes/pancake = item
 		if(!user.transferItemToLoc(pancake, src))
 			return
-		to_chat(user, "<span class='notice'>You add the [pancake] to the [src].</span>")
+		to_chat(user, span_notice("You add the [pancake] to the [src]."))
 		pancake.name = initial(pancake.name)
 		contents += pancake
 		update_snack_overlays(pancake)

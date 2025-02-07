@@ -19,30 +19,13 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
-"aw" = (
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
-	},
-/obj/structure/reagent_dispensers/watertank,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/obj/item/mop,
-/obj/item/reagent_containers/cup/bucket,
-/obj/machinery/airalarm/directional/east{
-	req_access = null;
-	req_access_txt = "181"
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/hunter)
 "az" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "aN" = (
@@ -54,7 +37,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
 	dir = 1
 	},
 /turf/open/floor/iron/tech,
@@ -85,7 +68,7 @@
 	},
 /obj/item/gun/energy/e_gun/mini,
 /obj/item/gun/energy/e_gun/mini,
-/obj/item/gun/energy/kinetic_accelerator/crossbow/large{
+/obj/item/gun/energy/recharge/ebow/large{
 	pixel_y = -8;
 	pin = /obj/item/firing_pin
 	},
@@ -141,7 +124,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -248,7 +231,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/manifold/purple/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -296,7 +279,7 @@
 	dir = 5
 	},
 /obj/item/trash/candy,
-/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,
@@ -368,7 +351,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -381,7 +364,7 @@
 /obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,
@@ -403,7 +386,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "qj" = (
@@ -420,7 +403,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -462,7 +445,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/manifold4w/purple/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "rb" = (
@@ -559,7 +542,7 @@
 	dir = 8
 	},
 /obj/structure/grille/broken,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,
@@ -570,7 +553,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating{
@@ -624,13 +607,30 @@
 /obj/effect/turf_decal/delivery/white,
 /turf/open/floor/iron/ridged/steel,
 /area/shuttle/hunter)
+"CZ" = (
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/obj/item/mop,
+/obj/item/reagent_containers/cup/bucket,
+/obj/machinery/airalarm/directional/east{
+	req_access = null;
+	req_access_txt = "181"
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/hunter)
 "De" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
@@ -640,7 +640,7 @@
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -651,7 +651,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -691,7 +691,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "GG" = (
@@ -726,7 +726,7 @@
 "IB" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -935,7 +935,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron/tech,
@@ -951,7 +951,7 @@
 "TB" = (
 /obj/structure/lattice/catwalk/over,
 /obj/item/trash/semki,
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
@@ -1009,7 +1009,7 @@
 /obj/item/clothing/mask/gas{
 	pixel_x = -4
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/iron/tech,
@@ -1217,7 +1217,7 @@ nn
 (9,1,1) = {"
 Lo
 nn
-aw
+CZ
 sS
 nn
 jl

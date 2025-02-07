@@ -35,6 +35,16 @@ type ByondType = {
   windowId: string;
 
   /**
+   * The major version of byond.
+   */
+  BYOND_MAJOR: string;
+
+  /**
+   * The minor (build) version of byond.
+   */
+  BYOND_MINOR: string;
+
+  /**
    * True if javascript is running in BYOND.
    */
   IS_BYOND: boolean;
@@ -43,26 +53,6 @@ type ByondType = {
    * Version of Trident engine of Internet Explorer. Null if N/A.
    */
   TRIDENT: number | null;
-
-  /**
-   * True if browser is IE8 or lower.
-   */
-  IS_LTE_IE8: boolean;
-
-  /**
-   * True if browser is IE9 or lower.
-   */
-  IS_LTE_IE9: boolean;
-
-  /**
-   * True if browser is IE10 or lower.
-   */
-  IS_LTE_IE10: boolean;
-
-  /**
-   * True if browser is IE11 or lower.
-   */
-  IS_LTE_IE11: boolean;
 
   /**
    * If `true`, unhandled errors and common mistakes result in a blue screen
@@ -191,4 +181,6 @@ const Byond: ByondType;
 
 interface Window {
   Byond: ByondType;
+  __store__: Store<unknown, AnyAction>;
+  __augmentStack__: (store: Store) => StackAugmentor;
 }

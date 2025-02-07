@@ -29,7 +29,7 @@
 	name = "lime"
 	desc = "It's so sour, your face will twist."
 	icon_state = "lime"
-	juice_results = list(/datum/reagent/consumable/limejuice = 0)
+	juice_typepath = /datum/reagent/consumable/limejuice
 
 // Orange
 /obj/item/seeds/orange
@@ -55,7 +55,7 @@
 	name = "orange"
 	desc = "It's a tangy fruit."
 	icon_state = "orange"
-	juice_results = list(/datum/reagent/consumable/orangejuice = 0)
+	juice_typepath = /datum/reagent/consumable/orangejuice
 	distill_reagent = /datum/reagent/consumable/ethanol/triple_sec
 
 // Lemon
@@ -81,7 +81,7 @@
 	name = "lemon"
 	desc = "When life gives you lemons, make lemonade."
 	icon_state = "lemon"
-	juice_results = list(/datum/reagent/consumable/lemonjuice = 0)
+	juice_typepath = /datum/reagent/consumable/lemonjuice
 
 // Combustible lemon
 /obj/item/seeds/firelemon //combustible lemon is too long so firelemon
@@ -110,7 +110,7 @@
 	discovery_points = 300
 
 /obj/item/food/grown/firelemon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
+	user.visible_message(span_warning("[user] primes [src]!"), span_userdanger("You prime [src]!"))
 	log_bomber(user, "primed a", src, "for detonation")
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -175,7 +175,7 @@
 	desc = "You can hardly wrap your head around this thing."
 	icon_state = "orang"
 	bite_consumption_mod = 2
-	juice_results = list(/datum/reagent/consumable/orangejuice = 0)
+	juice_typepath = /datum/reagent/consumable/orangejuice
 	distill_reagent = /datum/reagent/consumable/ethanol/triple_sec
 	tastes = list("polygons" = 1, "oranges" = 1)
 	discovery_points = 300

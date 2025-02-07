@@ -18,14 +18,18 @@
 
 	. = damage_amount
 
+	var/previous_atom_integrity = atom_integrity
+
 	update_integrity(atom_integrity - damage_amount)
 
+	var/integrity_failure_amount = integrity_failure * max_integrity
+
 	//BREAKING FIRST
-	if(integrity_failure && atom_integrity <= integrity_failure * max_integrity)
+	if(integrity_failure && previous_atom_integrity > integrity_failure_amount && atom_integrity <= integrity_failure_amount)
 		atom_break(damage_flag)
 
 	//DESTROYING SECOND
-	if(atom_integrity <= 0)
+	if(atom_integrity <= 0 && previous_atom_integrity > 0)
 		atom_destruction(damage_flag)
 
 /// Proc for recovering atom_integrity. Returns the amount repaired by
@@ -63,17 +67,16 @@
 		CRASH("/atom/proc/run_atom_armor was called on [src] without being implemented as a type that uses integrity!")
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
-		armor_protection = armor?.getRating(damage_flag)
+		//if(islist(damage_flag))
+		//	CRASH("/atom/proc/run_atom_armor returned a damage flag as a list. [damage_flag] returning list [length(damage_flag)]")
+		armor_protection = get_armor_rating(damage_flag)
 	if(armor_protection) //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
+	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 ///the sound played when the atom is damaged.
 /atom/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -109,7 +112,8 @@
 
 ///what happens when the atom's integrity reaches zero.
 /atom/proc/atom_destruction(damage_flag)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ATOM_DESTRUCTION, damage_flag)
 
 ///changes max_integrity while retaining current health percentage, returns TRUE if the atom got broken.
 /atom/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE)

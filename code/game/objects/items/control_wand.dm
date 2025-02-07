@@ -26,16 +26,16 @@
 	if(QDELETED(data.user))
 		return // can't send a message to a missing user
 	if(error_code == NETWORK_ERROR_UNAUTHORIZED)
-		to_chat(data.user, "<span class='notice'>This remote is not authorized to modify this door.</span>")
+		to_chat(data.user, span_notice("This remote is not authorized to modify this door."))
 	else
-		to_chat(data.user, "<span class='notice'>Error: [error_code]</span>")
+		to_chat(data.user, span_notice("Error: [error_code]"))
 
 
 /obj/item/door_remote/proc/good_signal(datum/source, datum/netdata/data, error_code)
 	if(QDELETED(data.user))
 		return
 	var/toggled = data.data["data"]
-	to_chat(data.user, "<span class='notice'>Door [toggled] toggled</span>")
+	to_chat(data.user, span_notice("Door [toggled] toggled"))
 
 /obj/item/door_remote/attack_self(mob/user)
 	var/static/list/desc = list(WAND_OPEN = "Open Door", WAND_BOLT = "Toggle Bolts", WAND_EMERGENCY = "Toggle Emergency Access")
@@ -56,7 +56,7 @@
 	if(!target_interface)
 		return
 	if(!SSnetworks.station_network.check_function(NTNET_SYSTEMCONTROL, get_virtual_z_level()))
-		to_chat(user, "<span class='warning'>red light flashes on the remote! Looks like NTNET is down!</span>")
+		to_chat(user, span_warning("red light flashes on the remote! Looks like NTNET is down!"))
 		return
 	user.set_machine(src)
 	// Generate a control packet.

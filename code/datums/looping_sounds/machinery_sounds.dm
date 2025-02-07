@@ -89,3 +89,28 @@
 	falloff_exponent = 5
 	falloff_distance = 3
 	volume = 150
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/rbmk
+	mid_sounds = list('sound/effects/rbmk/alarm.ogg' = 1)
+	volume = 100
+	extra_range = 10
+	mid_length = 58
+	ignore_walls = TRUE
+
+/datum/looping_sound/rbmk_ambience
+	mid_sounds = list('sound/effects/rbmk/ambience.ogg' = 1)
+	mid_length = 19
+	volume = 20
+	extra_range = 10
+	falloff_exponent = 10
+	falloff_distance = 5
+	vary = FALSE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/firealarm
+	mid_sounds = list('sound/machines/FireAlarm1.ogg' = 1,'sound/machines/FireAlarm2.ogg' = 1,'sound/machines/FireAlarm3.ogg' = 1,'sound/machines/FireAlarm4.ogg' = 1)
+	mid_length = 2.4 SECONDS
+	volume = 40

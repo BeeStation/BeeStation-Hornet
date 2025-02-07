@@ -29,11 +29,16 @@
 	attack_verb_continuous = list("attacks", "stabs", "pokes")
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/kitchen_fork
 	var/datum/reagent/forkload //used to eat omelette
 
+
+/datum/armor/kitchen_fork
+	fire = 50
+	acid = 30
+
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] stabs \the [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to take a bite out of [user.p_them()]self!</span>")
+	user.visible_message(span_suicide("[user] stabs \the [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to take a bite out of [user.p_them()]self!"))
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1)
 	return BRUTELOSS
 
@@ -43,10 +48,10 @@
 
 	if(forkload)
 		if(M == user)
-			M.visible_message("<span class='notice'>[user] eats a delicious forkful of omelette!</span>")
+			M.visible_message(span_notice("[user] eats a delicious forkful of omelette!"))
 			M.reagents.add_reagent(forkload.type, 1)
 		else
-			M.visible_message("<span class='notice'>[user] feeds [M] a delicious forkful of omelette!</span>")
+			M.visible_message(span_notice("[user] feeds [M] a delicious forkful of omelette!"))
 			M.reagents.add_reagent(forkload.type, 1)
 		icon_state = "fork"
 		forkload = null
@@ -68,7 +73,7 @@
 	if(!M.can_inject(user, 1))
 		amount_inject = 1
 	var/amount = min(amount_inject/reagents.total_volume,1)
-	reagents.reaction(M,INJECT,amount)
+	reagents.expose(M,INJECT,amount)
 	reagents.trans_to(M,amount_inject)
 
 /obj/item/knife/kitchen
@@ -91,5 +96,5 @@
 	tool_behaviour = TOOL_ROLLINGPIN
 
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS

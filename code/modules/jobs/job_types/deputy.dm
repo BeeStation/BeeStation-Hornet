@@ -42,7 +42,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"

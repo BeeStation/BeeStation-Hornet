@@ -8,9 +8,20 @@
 	desc = "It's good to be emperor."
 	item_state = "that"
 	flags_inv = NONE
-	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	armor_type = /datum/armor/hats_centhat
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
+
+
+/datum/armor/hats_centhat
+	melee = 30
+	bullet = 15
+	laser = 30
+	energy = 10
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 30
 
 /obj/item/clothing/head/hats/centcom_cap
 	name = "\improper CentCom commander cap"
@@ -18,8 +29,19 @@
 	desc = "Worn by the finest of CentCom commanders. Inside the lining of the cap, lies two faint initials."
 	item_state = "that"
 	flags_inv = 0
-	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	armor_type = /datum/armor/hats_centcom_cap
 	strip_delay = (8 SECONDS)
+
+
+/datum/armor/hats_centcom_cap
+	melee = 30
+	bullet = 15
+	laser = 30
+	energy = 10
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 30
 
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
@@ -43,9 +65,12 @@
 	item_state = "that"
 	icon_state = "plaguedoctor"
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
-	permeability_coefficient = 0.01
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/costume_plague
 	flags_inv = HIDEHAIR
+
+
+/datum/armor/costume_plague
+	bio = 100
 
 /obj/item/clothing/head/costume/nursehat
 	name = "nurse's hat"
@@ -148,9 +173,9 @@
 		icon_state = "ushankaup"
 		item_state = "ushankaup"
 		earflaps_down = FALSE
-		to_chat(user, "<span class='notice'>You raise the ear flaps on the ushanka.</span>")
+		to_chat(user, span_notice("You raise the ear flaps on the ushanka."))
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 		earflaps_down = TRUE
-		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
+		to_chat(user, span_notice("You lower the ear flaps on the ushanka."))

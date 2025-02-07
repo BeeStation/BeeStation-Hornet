@@ -1,9 +1,0 @@
-author: ninjanomnom, Ghommie, Metekillot, MrMelbert, necromanceranner, Sealed101,
-  XeonMations
-delete-after: true
-changes:
-  - tweak: Potted plants now hide your name when equipped.
-  - rscadd: Added TRAIT_UNKNOWN, when you have this trait, people will not be able
-      to make out anything about you.
-  - refactor: Potted plants are no longer snowflake code, instead uses the tactical
-      component.

@@ -112,7 +112,7 @@
 	SIGNAL_HANDLER
 	EMPeffect = TRUE
 	spec_updatehealth(H)
-	to_chat(H, "<span class='notice'>You feel the light of your body leave you.</span>")
+	to_chat(H, span_notice("You feel the light of your body leave you."))
 	switch(severity)
 		if(EMP_LIGHT)
 			addtimer(CALLBACK(src, PROC_REF(stop_emp), H), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 10 seconds
@@ -128,7 +128,7 @@
 
 	if(hacker)
 		if(hacker.charges <= 0)
-			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			to_chat(user, span_warning("[hacker] is out of charges and needs some time to restore them!"))
 			user.balloon_alert(user, "out of charges!")
 			return
 		else
@@ -136,15 +136,15 @@
 
 	emageffect = TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>You tap [H] on the back with your card.</span>")
-	H.visible_message("<span class='danger'>[H] starts flickering in an array of colors!</span>")
+		to_chat(user, span_notice("You tap [H] on the back with your card."))
+	H.visible_message(span_danger("[H] starts flickering in an array of colors!"))
 	handle_emag(H)
 	addtimer(CALLBACK(src, PROC_REF(stop_emag), H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
 
 /datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
 	EMPeffect = FALSE
 	spec_updatehealth(H)
-	to_chat(H, "<span class='notice'>You feel more energized as your shine comes back.</span>")
+	to_chat(H, span_notice("You feel more energized as your shine comes back."))
 
 /datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
 	if(!emageffect)
@@ -156,7 +156,7 @@
 /datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
 	emageffect = FALSE
 	spec_updatehealth(H)
-	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
+	H.visible_message(span_danger("[H] stops flickering and goes back to their normal state!"))
 
 /datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
 	brutemod = 1.25
@@ -193,6 +193,9 @@
 
 /datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/ethereal/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
 
 /datum/species/ethereal/get_features()
 	var/list/features = ..()

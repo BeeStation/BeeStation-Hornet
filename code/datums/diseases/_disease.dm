@@ -25,7 +25,7 @@
 	var/cure_chance = 8
 	var/carrier = FALSE //If our host is only a carrier
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
-	var/permeability_mod = 1
+	var/spreading_modifier = 1
 	var/danger = DISEASE_NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
@@ -134,7 +134,7 @@
 		if(end == start)
 			return TRUE
 		var/turf/Temp = get_step_towards(end, start)
-		if(!CANATMOSPASS(end, Temp))
+		if(!TURFS_CAN_SHARE(end, Temp)) //Don't go through a wall
 			return FALSE
 		end = Temp
 
@@ -153,10 +153,31 @@
 
 /datum/disease/proc/Copy()
 	//note that stage is not copied over - the copy starts over at stage 1
-	var/static/list/copy_vars = list("name", "visibility_flags", "disease_flags", "spread_flags", "form", "desc", "agent", "spread_text",
-									"cure_text", "max_stages", "stage_prob", "viable_mobtypes", "cures", "infectivity", "cure_chance",
-									"bypasses_immunity", "permeability_mod", "danger", "required_organs", "needs_all_cures", "strain_data",
-									"infectable_biotypes", "process_dead")
+	var/static/list/copy_vars = list(
+		"name",
+		"visibility_flags",
+		"disease_flags",
+		"spread_flags",
+		"form",
+		"desc",
+		"agent",
+		"spread_text",
+		"cure_text",
+		"max_stages",
+		"stage_prob",
+		"viable_mobtypes",
+		"cures",
+		"infectivity",
+		"cure_chance",
+		"bypasses_immunity",
+		"spreading_modifier",
+		"danger",
+		"required_organs",
+		"needs_all_cures",
+		"strain_data",
+		"infectable_biotypes",
+		"process_dead"
+	)
 
 	var/datum/disease/D = copy_type ? new copy_type() : new type()
 	for(var/V in copy_vars)

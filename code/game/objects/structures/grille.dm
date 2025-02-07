@@ -14,7 +14,7 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
-	armor = list(MELEE = 50,  BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_grille
 	max_integrity = 50
 	integrity_failure = 0.4
 	var/rods_type = /obj/item/stack/rods
@@ -25,7 +25,20 @@
 		pipe_astar_cost = 1\
 	)
 
-/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/grille/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
+
+/datum/armor/structure_grille
+	melee = 50
+	bullet = 70
+	laser = 70
+	energy = 100
+	bomb = 10
+	rad = 100
+
+/obj/structure/grille/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	. = ..()
 	update_appearance()
 
@@ -44,9 +57,9 @@
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+		. += span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")
 	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
+		. += span_notice("The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.")
 
 /obj/structure/grille/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
@@ -69,7 +82,7 @@
 /obj/structure/grille/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the grille.</span>")
+			to_chat(user, span_notice("You deconstruct the grille."))
 			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
@@ -79,7 +92,7 @@
 			var/turf/local_turf = loc
 
 			if(repair_grille())
-				to_chat(user, "<span class='notice'>You rebuild the broken grille.</span>")
+				to_chat(user, span_notice("You rebuild the broken grille."))
 
 			if(!clear_tile(user))
 				return FALSE
@@ -88,9 +101,9 @@
 				CRASH("Invalid window path type in RCD: [the_rcd.window_type]")
 			var/obj/structure/window/window_path = the_rcd.window_type
 			if(!valid_window_location(local_turf, user.dir, is_fulltile = initial(window_path.fulltile)))
-				to_chat(user, "<span class='notice'>Already a window in this direction!.</span>")
+				to_chat(user, span_notice("Already a window in this direction!."))
 				return FALSE
-			to_chat(user, "<span class='notice'>You construct the window.</span>")
+			to_chat(user, span_notice("You construct the window."))
 			log_attack("[key_name(user)] has constructed a window at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/window/WD = new the_rcd.window_type(local_turf, user.dir)
 			WD.set_anchored(TRUE)
@@ -119,10 +132,10 @@
 	if(!unanchored_items_on_tile)
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You move [unanchored_items_on_tile == 1 ? "[last_item_moved]" : "some things"] out of the way.</span>")
+	to_chat(user, span_notice("You move [unanchored_items_on_tile == 1 ? "[last_item_moved]" : "some things"] out of the way."))
 
 	if(unanchored_items_on_tile - CLEAR_TILE_MOVE_LIMIT > 0)
-		to_chat(user, "<span class ='warning'>There's still too much stuff in the way!</span>")
+		to_chat(user, span_warning("There's still too much stuff in the way!"))
 		return FALSE
 
 	return TRUE
@@ -160,7 +173,7 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] hits [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
+	user.visible_message(span_warning("[user] hits [src]."), null, null, COMBAT_MESSAGE_RANGE)
 	log_combat(user, src, "hit", important = FALSE)
 	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, MELEE, 1)
@@ -168,7 +181,7 @@
 /obj/structure/grille/attack_alien(mob/living/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("<span class='warning'>[user] mangles [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
+	user.visible_message(span_warning("[user] mangles [src]."), null, null, COMBAT_MESSAGE_RANGE)
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
@@ -193,14 +206,14 @@
 		if(!shock(user, 90 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			set_anchored(!anchored)
-			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-								"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+			user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
+								span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor."))
 			return
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90 * W.siemens_coefficient))
-			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
-								"<span class='notice'>You rebuild the broken grille.</span>")
+			user.visible_message(span_notice("[user] rebuilds the broken grille."), \
+								span_notice("You rebuild the broken grille."))
 			repair_grille()
 			R.use(1)
 			return
@@ -210,18 +223,18 @@
 		if (!broken)
 			var/obj/item/stack/ST = W
 			if (ST.get_amount() < 2)
-				to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
+				to_chat(user, span_warning("You need at least two sheets of glass for that!"))
 				return
 			var/dir_to_set = SOUTHWEST
 			if(!anchored)
-				to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
+				to_chat(user, span_warning("[src] needs to be fastened to the floor first!"))
 				return
 			for(var/obj/structure/window/WINDOW in loc)
-				to_chat(user, "<span class='warning'>There is already a window there!</span>")
+				to_chat(user, span_warning("There is already a window there!"))
 				return
 			if(!clear_tile(user))
 				return
-			to_chat(user, "<span class='notice'>You start placing the window...</span>")
+			to_chat(user, span_notice("You start placing the window..."))
 			if(do_after(user,20, target = src))
 				if(!src.loc || !anchored) //Grille broken or unanchored while waiting
 					return
@@ -246,7 +259,7 @@
 				WD.set_anchored(FALSE)
 				WD.state = 0
 				ST.use(2)
-				to_chat(user, "<span class='notice'>You place [WD] on [src].</span>")
+				to_chat(user, span_notice("You place [WD] on [src]."))
 			return
 //window placing end
 
@@ -326,11 +339,11 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(!broken)
-		if(exposed_temperature > T0C + 1500)
-			take_damage(1, BURN, 0, 0)
-	..()
+/obj/structure/grille/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > T0C + 1500 && !broken
+
+/obj/structure/grille/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(1, BURN, 0, 0)
 
 /obj/structure/grille/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isobj(AM))

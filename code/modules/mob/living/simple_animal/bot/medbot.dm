@@ -71,6 +71,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = MEDBOT_SKIN_BEZERK
+	faction = list(FACTION_CREATURE, FACTION_NEUTRAL)
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
@@ -89,7 +90,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	radio_channel = RADIO_CHANNEL_SYNDICATE
 	heal_threshold = 30
 	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
-	faction = list(FACTION_SYNDICATE, "neutral", "silicon")
+	faction = list(FACTION_SYNDICATE, FACTION_NEUTRAL, FACTION_SILICON)
 
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
@@ -240,17 +241,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	if(istype(W, /obj/item/reagent_containers))
 		. = 1 //no afterattack
 		if(locked)
-			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
+			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
 			return
 		if(!isnull(reagent_glass))
-			to_chat(user, "<span class='warning'>There is already a beaker loaded!</span>")
+			to_chat(user, span_warning("There is already a beaker loaded!"))
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
 
 		reagent_glass = W
 		mode = BOT_IDLE
-		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		to_chat(user, span_notice("You insert [W]."))
 		var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 		log_combat(user, src, "inserted a [W] with [reagentlist]" )
 		add_fingerprint(user)
@@ -294,8 +295,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	if(emagged == 2)
 		declare_crit = 0
 		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
+		audible_message(span_danger("[src] buzzes oddly!"))
 		flick("medibot_spark", src)
 		playsound(src, "sparks", 75, TRUE)
 		if(user)
@@ -323,7 +324,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 /mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
-	user.visible_message("<span class='danger'>[user] tips over [src]!</span>", "<span class='danger'>You tip [src] over!</span>")
+	user.visible_message(span_danger("[user] tips over [src]!"), span_danger("You tip [src] over!"))
 	tipped = TRUE
 	var/matrix/mat = transform
 	transform = mat.Turn(180)
@@ -334,13 +335,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	var/list/messagevoice
 
 	if(user)
-		user.visible_message("<span class='notice'>[user] sets [src] right-side up!</span>", "<span class='green'>You set [src] right-side up!</span>")
+		user.visible_message(span_notice("[user] sets [src] right-side up!"), span_green("You set [src] right-side up!"))
 		if(user.name == tipper_name)
 			messagevoice = list("I forgive you." = 'sound/voice/medbot/forgive.ogg')
 		else
 			messagevoice = list("Thank you!" = 'sound/voice/medbot/thank_you.ogg', "You are a good person." = 'sound/voice/medbot/youre_good.ogg')
 	else
-		visible_message("<span class='notice'>[src] manages to writhe wiggle enough to right itself.</span>")
+		visible_message(span_notice("[src] manages to writhe wiggle enough to right itself."))
 		messagevoice = list("Fuck you." = 'sound/voice/medbot/fuck_you.ogg', "Your behavior has been reported, have a nice day." = 'sound/voice/medbot/reported.ogg')
 
 	tipper_name = null
@@ -386,7 +387,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 /mob/living/simple_animal/bot/medbot/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Use a spraycan to change its colour, or a pen to change its name if unlocked.</span>"
+		. += span_notice("Use a spraycan to change its colour, or a pen to change its name if unlocked.")
 	if(tipped_status == MEDBOT_PANIC_NONE)
 		return
 
@@ -398,9 +399,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if(MEDBOT_PANIC_MED to MEDBOT_PANIC_HIGH)
 			. += "They are tipped over and appear visibly distressed." // now we humanize the medbot as a they, not an it
 		if(MEDBOT_PANIC_HIGH to MEDBOT_PANIC_AAAA)
-			. += "<span class='warning'>They are tipped over and visibly panicking!</span>"
+			. += span_warning("They are tipped over and visibly panicking!")
 		if(MEDBOT_PANIC_AAAA to INFINITY)
-			. += "<span class='warning'><b>They are freaking out from being tipped over!</b></span>"
+			. += span_warning("<b>They are freaking out from being tipped over!</b>")
 
 
 /mob/living/simple_animal/bot/medbot/handle_automated_action()
@@ -539,10 +540,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(DOING_INTERACTION_WITH_TARGET(H, src))
-		to_chat(H, "<span class='warning'>You're already interacting with [src].</span>")
+		to_chat(H, span_warning("You're already interacting with [src]."))
 		return
 	if(H.a_intent == INTENT_DISARM && !tipped)
-		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
+		H.visible_message(span_danger("[H] begins tipping over [src]."), span_warning("You begin tipping over [src]..."))
 
 		if(world.time > last_tipping_action_voice + 15 SECONDS)
 			last_tipping_action_voice = world.time // message for tipping happens when we start interacting, message for righting comes after finishing
@@ -555,7 +556,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 			tip_over(H)
 
 	else if(H.a_intent == INTENT_HELP && tipped)
-		H.visible_message("<span class='notice'>[H] begins righting [src].</span>", "<span class='notice'>You begin righting [src]...</span>")
+		H.visible_message(span_notice("[H] begins righting [src]."), span_notice("You begin righting [src]..."))
 		if(do_after(H, 3 SECONDS, target=src))
 			set_right(H)
 	else
@@ -622,7 +623,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
-				to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)</span>")
+				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)"))
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)
 			speak(message, radio_channel)
@@ -633,7 +634,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		var/tool_action = "inject"
 		if(treat_behaviour == MEDBOT_TREAT_BANDAGE)
 			tool_action = "bandage"
-		C.visible_message("<span class='danger'>[src] is trying to [tool_action] [patient]!</span>", "<span class='userdanger'>[src] is trying to [tool_action] you!</span>")
+		C.visible_message(span_danger("[src] is trying to [tool_action] [patient]!"), span_userdanger("[src] is trying to [tool_action] you!"))
 		if(get_dist(src, patient) > 1 || \
 				!do_after(src, 2 SECONDS, patient) ||\
 				!assess_patient(patient) || \
@@ -649,7 +650,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 					log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
-					reagent_glass.reagents.reaction(patient, INJECT, fraction)
+					reagent_glass.reagents.expose(patient, INJECT, fraction)
 					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker.
 					if(!reagent_glass.reagents.total_volume && !synth_epi) //when empty, alert medbay unless we're on synth mode
 						var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
@@ -657,27 +658,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 						speak(message,radio_channel)
 						playsound(src, messagevoice[message], 50)
 						COOLDOWN_START(src, declare_cooldown, 10 SECONDS)
-					C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-					"<span class='userdanger'>[src] injects you with its syringe!</span>")
+					C.visible_message(span_danger("[src] injects [patient] with its syringe!"), \
+					span_userdanger("[src] injects you with its syringe!"))
 			if(MEDBOT_TREAT_BANDAGE)
 				var/mob/living/carbon/human/H = C
 				if(!H.is_bleeding())
-					to_chat(src, "<span class='warning'>[H] isn't bleeding!</span>")
+					to_chat(src, span_warning("[H] isn't bleeding!"))
 					update_icon()
 					soft_reset()
 					return
 				H.suppress_bloodloss(BLEED_SURFACE) // as good as a improvized medical gauze
-				C.visible_message("<span class='danger'>[src] bandages [patient] with its gauze!</span>", \
-				"<span class='userdanger'>[src] bandages you with its gauze!</span>")
+				C.visible_message(span_danger("[src] bandages [patient] with its gauze!"), \
+				span_userdanger("[src] bandages you with its gauze!"))
 			if(MEDBOT_TREAT_SUCK)
 				if(patient.transfer_blood_to(reagent_glass, injection_amount))
-					patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-						"<span class='userdanger'>[src] is trying to inject you!</span>")
+					patient.visible_message(span_danger("[src] is trying to inject [patient]!"), \
+						span_userdanger("[src] is trying to inject you!"))
 					log_combat(src, patient, "drained of blood")
 				else
-					to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-				"<span class='userdanger'>[src] injects you with its syringe!</span>")
+					to_chat(src, span_warning("You are unable to draw any blood from [patient]!"))
+				C.visible_message(span_danger("[src] injects [patient] with its syringe!"), \
+				span_userdanger("[src] injects you with its syringe!"))
 		update_icon()
 		soft_reset()
 		return
@@ -685,7 +686,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	drop_part(firstaid, Tsec)

@@ -25,7 +25,7 @@
 		return FALSE
 	spawned_loot = TRUE
 	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
+	to_chat(user, span_notice("You disable the magic lock with the [item]."))
 	return TRUE
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -49,7 +49,7 @@
 		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
-		/obj/item/staff/storm												= 5
+		/obj/item/staff/storm												= 5,
 	)
 
 	if(..())
@@ -64,7 +64,7 @@
 /obj/structure/closet/crate/necropolis/examine(mob/user)
 	. = ..()
 	if(!spawned_loot)
-		. += "<span class='notice'>You need a skeleton key to open it.</span>"
+		. += span_notice("You need a skeleton key to open it.")
 
 //Rod of Asclepius
 /obj/item/rod_of_asclepius
@@ -91,15 +91,15 @@
 	if(activated)
 		return
 	if(!iscarbon(user))
-		to_chat(user, "<span class='warning'>The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath.</span>")
+		to_chat(user, span_warning("The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath."))
 		return
 	var/mob/living/carbon/itemUser = user
 	usedHand = itemUser.get_held_index_of_item(src)
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
-		to_chat(user, "<span class='warning'>You can't possibly handle the responsibility of more than one rod!</span>")
+		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
-	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
-	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
+	var/failText = span_warning("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
+	to_chat(itemUser, span_notice("The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong..."))
 	if(do_after(itemUser, 40, target = itemUser))
 		itemUser.say("I swear to fulfill, to the best of my ability and judgment, this covenant:", forced = "hippocratic oath")
 	else
@@ -120,7 +120,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, "<span class='notice'>The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory...</span>")
+	to_chat(itemUser, span_notice("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
@@ -160,9 +160,9 @@
 	return ..()
 
 /obj/item/clothing/neck/necklace/memento_mori/proc/memento(mob/living/carbon/human/user)
-	to_chat(user, "<span class='warning'>You feel your life being drained by the pendant...</span>")
+	to_chat(user, span_warning("You feel your life being drained by the pendant..."))
 	if(do_after(user, 40, target = user))
-		to_chat(user, "<span class='notice'>Your lifeforce is now linked to the pendant! You feel like removing it would kill you, and yet you instinctively know that until then, you won't die.</span>")
+		to_chat(user, span_notice("Your lifeforce is now linked to the pendant! You feel like removing it would kill you, and yet you instinctively know that until then, you won't die."))
 		ADD_TRAIT(user, TRAIT_NODEATH, "memento_mori")
 		ADD_TRAIT(user, TRAIT_NOHARDCRIT, "memento_mori")
 		ADD_TRAIT(user, TRAIT_NOCRITDAMAGE, "memento_mori")
@@ -175,7 +175,7 @@
 		return
 	var/mob/living/carbon/human/H = active_owner //to avoid infinite looping when dust unequips the pendant
 	active_owner = null
-	to_chat(H, "<span class='userdanger'>You feel your life rapidly slipping away from you!</span>")
+	to_chat(H, span_userdanger("You feel your life rapidly slipping away from you!"))
 	H.dust(TRUE, TRUE)
 
 /datum/action/item_action/hands_free/memento_mori
@@ -183,13 +183,13 @@
 	name = "Memento Mori"
 	desc = "Bind your life to the pendant."
 
-/datum/action/item_action/hands_free/memento_mori/Trigger()
+/datum/action/item_action/hands_free/memento_mori/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/neck/necklace/memento_mori/MM = target
 	if(!MM.active_owner)
 		if(ishuman(owner))
 			MM.memento(owner)
 	else
-		to_chat(owner, "<span class='warning'>You try to free your lifeforce from the pendant...</span>")
+		to_chat(owner, span_warning("You try to free your lifeforce from the pendant..."))
 		if(do_after(owner, 40, target = owner))
 			MM.mori()
 
@@ -206,22 +206,22 @@
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
-		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
+		to_chat(user, span_warning("The wisp has gone missing!"))
 		icon_state = "lantern"
 		return
 
 	if(wisp.loc == src)
 		if(COOLDOWN_FINISHED(wisp,wisp_tired))
-			to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+			to_chat(user, span_notice("You release the wisp. It begins to bob around your head."))
 			icon_state = "lantern"
 			wisp.orbit(user, 20)
 			wisp.set_light_on(TRUE)
 			SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed")
 		else
-			to_chat(user,"<span class='warning'>The wisp is tired, let it rest for bit longer.</span>")
+			to_chat(user,span_warning("The wisp is tired, let it rest for bit longer."))
 
 	else
-		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
+		to_chat(user, span_notice("You return the wisp to the lantern."))
 		icon_state = "lantern-blue"
 		wisp.forceMove(src)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned")
@@ -240,7 +240,7 @@
 		if(wisp.loc == src)
 			QDEL_NULL(wisp)
 		else
-			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
+			wisp.visible_message(span_notice("[wisp] has a sad feeling for a moment, then it passes."))
 	return ..()
 
 /obj/effect/wisp
@@ -270,14 +270,14 @@
 		RegisterSignal(thing, COMSIG_ATOM_LIGHTEATER_ACT, PROC_REF(on_lighteater_act))
 		var/mob/being = thing
 		being.update_sight()
-		to_chat(thing, "<span class='notice'>The wisp enhances your vision.</span>")
+		to_chat(thing, span_notice("The wisp enhances your vision."))
 
 /obj/effect/wisp/stop_orbit(datum/component/orbiter/orbits)
 	. = ..()
 	if(ismob(orbits.parent))
 		UnregisterSignal(orbits.parent, COMSIG_MOB_UPDATE_SIGHT)
 		UnregisterSignal(orbits.parent, COMSIG_ATOM_LIGHTEATER_ACT)
-		to_chat(orbits.parent, "<span class='notice'>Your vision returns to normal.</span>")
+		to_chat(orbits.parent, span_notice("Your vision returns to normal."))
 
 /obj/effect/wisp/proc/update_user_sight(mob/user)
 	SIGNAL_HANDLER
@@ -359,7 +359,7 @@
 		user.forceMove(get_turf(link_holder))
 		qdel(link_holder)
 		return
-	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC_SELF)
 	sleep(2.5)
 	if(QDELETED(user))
 		qdel(link_holder)
@@ -433,7 +433,7 @@
 		var/atom/movable/A = target
 		if(A.anchored)
 			return
-		A.visible_message("<span class='danger'>[A] is snagged by [firer]'s hook!</span>")
+		A.visible_message(span_danger("[A] is snagged by [firer]'s hook!"))
 		new /datum/forced_movement(A, get_turf(firer), 5, TRUE)
 		//TODO: keep the chain beamed to A
 		//TODO: needs a callback to delete the chain
@@ -448,7 +448,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/hook/bounty
 
 /obj/item/gun/magic/hook/bounty/shoot_with_empty_chamber(mob/living/user)
-	to_chat(user, "<span class='warning'>The [src] isn't ready to fire yet!</span>")
+	to_chat(user, span_warning("The [src] isn't ready to fire yet!"))
 
 /obj/item/ammo_casing/magic/hook/bounty
 	projectile_type = /obj/projectile/hook/bounty
@@ -469,7 +469,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -480,7 +480,7 @@
 		cooldown = world.time + 600
 		new /obj/effect/immortality_talisman(get_turf(user), user)
 	else
-		to_chat(user, "<span class='warning'>[src] is not ready yet!</span>")
+		to_chat(user, span_warning("[src] is not ready yet!"))
 
 /obj/effect/immortality_talisman
 	name = "hole in reality"
@@ -498,7 +498,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 		vanish(new_user)
 
 /obj/effect/immortality_talisman/proc/vanish(mob/user)
-	user.visible_message("<span class='danger'>[user] [vanish_description], leaving a hole in [user.p_their()] place!</span>")
+	user.visible_message(span_danger("[user] [vanish_description], leaving a hole in [user.p_their()] place!"))
 
 	desc = "It's shaped an awful lot like [user.name]."
 	setDir(user.dir)
@@ -516,7 +516,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 	user.notransform = FALSE
 	user.forceMove(get_turf(src))
 
-	user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
+	user.visible_message(span_danger("[user] pops back into reality!"))
 	can_destroy = TRUE
 	qdel(src)
 
@@ -582,7 +582,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	if(!user.can_read(src))
 		return FALSE
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
-	user.grant_all_languages()
+	user.grant_all_languages(source = LANGUAGE_BABEL)
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
@@ -611,13 +611,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	color = "#FFEBEB"
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+/datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
 		var/mob/living/carbon/C = M
 		var/holycheck = ishumanbasic(C)
 		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
 			if(method == INGEST && show_message)
-				to_chat(C, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
+				to_chat(C, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
 			return ..()
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
@@ -636,13 +636,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				else
 					var/obj/item/organ/wings/dragon/newwings = new()
 					newwings.Insert(H)
-				to_chat(C, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
+				to_chat(C, span_userdanger("A terrible pain travels down your back as wings burst out!"))
 				playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
 				C.adjustBruteLoss(20)
 				C.emote("scream")
 		if(holycheck)
-			to_chat(C, "<span class='notice'>You feel blessed!</span>")
-			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
+			to_chat(C, span_notice("You feel blessed!"))
+			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 	..()
 
 
@@ -656,7 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	var/turf/T = get_turf(src)
 	var/ladder_x = T.x
 	var/ladder_y = T.y
-	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
+	to_chat(user, span_notice("You unfold the ladder. It extends much farther than you were expecting."))
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
 		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i) || is_debug_level(i))
@@ -684,7 +684,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = LAVA_PROOF | FIRE_PROOF //they are from lavaland after all
-	armor = list(MELEE = 15,  BULLET = 35, LASER = 35, ENERGY = 20, BOMB = 35, BIO = 35, RAD = 35, FIRE = 0, ACID = 0, STAMINA = 20, BLEED = 20) //Equivalent to bone bracers. Not bad.
+	armor_type = /datum/armor/gloves_concussive_gauntlets
+
+
+/datum/armor/gloves_concussive_gauntlets
+	melee = 15
+	bullet = 35
+	laser = 35
+	energy = 20
+	bomb = 35
+	bio = 35
+	rad = 35
+	stamina = 20
+	bleed = 20
 
 /obj/item/clothing/gloves/concussive_gauntlets/equipped(mob/user, slot)
 	. = ..()
@@ -753,21 +765,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	faction_bonus_force = 45
-	nemesis_factions = list("mining", "boss")
+	nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
 	var/transform_cooldown
 	var/swiping = FALSE
 
 /obj/item/melee/transforming/cleaving_saw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].\n"+\
+	. += span_notice("It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].\n"+\
 	"Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.\n"+\
-	"Transforming it immediately after an attack causes the next attack to come out faster.</span>"
+	"Transforming it immediately after an attack causes the next attack to come out faster.")
 
 /obj/item/melee/transforming/cleaving_saw/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
@@ -783,14 +795,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/item/melee/transforming/cleaving_saw/transform_messages(mob/living/user, supress_message_text)
 	if(!supress_message_text)
 		if(active)
-			to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
+			to_chat(user, span_notice("You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna."))
 		else
-			to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
+			to_chat(user, span_notice("You close [src]. It will now attack rapidly and cause fauna to bleed."))
 	playsound(user, 'sound/magic/clockwork/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 
 /obj/item/melee/transforming/cleaving_saw/clumsy_transform_effect(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_bodypart_damage(10)
 
 /obj/item/melee/transforming/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
@@ -835,6 +847,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		new /obj/item/dragons_blood(src)
 		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
 		new /obj/item/crusher_trophy/tail_spike(src)
+	//new /obj/item/book/granter/action/spell/sacredflame(src) It's supposed to drop from the dragon but idk if you guys want it like that tell me in the review code
 
 
 // Ghost Sword - left in for other references and admin shenanigans
@@ -847,7 +860,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
@@ -926,13 +939,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	var/ghost_counter = ghost_check()
 
 	force = clamp((ghost_counter * 4), 0, 75)
-	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
+	user.visible_message(span_danger("[user] strikes with the force of [ghost_counter] vengeful spirits!"))
 	..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
+	owner.visible_message(span_danger("[owner] is protected by a ring of [ghost_counter] ghosts!"))
 	return ..()
 
 //Blood
@@ -952,15 +965,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 	switch(random)
 		if(1)
-			to_chat(user, "<span class='danger'>Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities.</span>")
+			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
 			H.dna.features = list("body_size" = "Normal", "mcolor" = "A02720", "tail_lizard" = "Dark Tiger", "tail_human" = "None", "snout" = "Sharp", "horns" = "Curled", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "Long", "body_markings" = "Dark Tiger Body", "legs" = "Digitigrade Legs")
 			H.eye_color = "fee5a3"
 			H.set_species(/datum/species/lizard)
 		if(2)
-			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
+			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))
 			H.set_species(/datum/species/skeleton)
 		if(3)
-			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
+			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
 			H.weather_immunities |= "lava"
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
@@ -977,9 +990,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	visibility_flags = 0
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaly.")
-	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")
-	stage4	= list("<span class='danger'>Your blood burns.</span>")
-	stage5	= list("<span class='danger'>You're a fucking dragon. However, any previous allegiances you held still apply. It'd be incredibly rude to eat your still human friends for no reason.</span>")
+	stage3	= list(span_danger("You have an overwhelming urge to terrorize some peasants."), span_danger("Your teeth feel sharper."))
+	stage4	= list(span_danger("Your blood burns."))
+	stage5	= list(span_danger("You're a fucking dragon. However, any previous allegiances you held still apply. It'd be incredibly rude to eat your still human friends for no reason."))
 	new_form = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
 
@@ -1014,14 +1027,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!is_mining_level(user.z))
-		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
+		to_chat(user, span_warning("The staff's power is too dim to function this far from the necropolis"))
 		return
 	if(timer > world.time)
-		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
+		to_chat(user, span_warning("The staff is still recharging!"))
 		return
 	var/area/target_area = get_area(target)
 	if(is_type_in_typecache(target, banned_turfs) || !(target_area.type in allowed_areas))
-		to_chat(user, "<span class='warning'>You can only use this out in an open area</span>")
+		to_chat(user, span_warning("You can only use this out in an open area"))
 		return
 	if(user in viewers(user.client.view, get_turf(target)))
 		var/turf/open/T = get_turf(target)
@@ -1031,12 +1044,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
 			L.alpha = 0
 			animate(L, alpha = 255, time = create_delay)
-			user.visible_message("<span class='danger'>[user] points [src] at [T]!</span>")
+			user.visible_message(span_danger("[user] points [src] at [T]!"))
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, target = T))
 				var/old_name = T.name
 				if(T.TerraformTurf(turf_type, flags = CHANGETURF_INHERIT_AIR))
-					user.visible_message("<span class='danger'>[user] turns \the [old_name] into [transform_string]!</span>")
+					user.visible_message(span_danger("[user] turns \the [old_name] into [transform_string]!"))
 					message_admins("[ADMIN_LOOKUPFLW(user)] fired the lava staff at [ADMIN_VERBOSEJMP(T)]")
 					log_game("[key_name(user)] fired the lava staff at [AREACOORD(T)].")
 					timer = world.time + create_cooldown
@@ -1047,7 +1060,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		else
 			var/old_name = T.name
 			if(T.TerraformTurf(reset_turf_type, flags = CHANGETURF_INHERIT_AIR))
-				user.visible_message("<span class='danger'>[user] turns \the [old_name] into [reset_string]!</span>")
+				user.visible_message(span_danger("[user] turns \the [old_name] into [reset_string]!"))
 				timer = world.time + reset_cooldown
 				playsound(T,'sound/magic/fireball.ogg', 200, 1)
 
@@ -1075,9 +1088,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	for(var/mob/living/carbon/human/H in range(7,user))
 		var/obj/effect/mine/pickup/bloodbath/B = new(H)
 		INVOKE_ASYNC(B, TYPE_PROC_REF(/obj/effect/mine/pickup/bloodbath, mineEffect), H)
-	to_chat(user, "<span class='notice'>You shatter the bottle!</span>")
+	to_chat(user, span_notice("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
-	message_admins("<span class='adminnotice'>[ADMIN_LOOKUPFLW(user)] has activated a bottle of mayhem!</span>")
+	message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(user)] has activated a bottle of mayhem!"))
 	log_combat(user, null, "activated a bottle of mayhem", src)
 	qdel(src)
 
@@ -1117,7 +1130,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 	var/mob/living/L = choice
 
-	message_admins("<span class='adminnotice'>[ADMIN_LOOKUPFLW(L)] has been marked for death by [ADMIN_LOOKUPFLW(user)]!</span>")
+	message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(L)] has been marked for death by [ADMIN_LOOKUPFLW(user)]!"))
 
 	var/datum/antagonist/blood_contract/A = new
 	L.mind.add_antag_datum(A)
@@ -1174,14 +1187,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
-	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
+	. += "[span_hierophantwarning("The[beacon ? " beacon is not currently":"re is a beacon"] attached.")]"
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	say("Xverwpsgexmrk...", forced = "hierophant club suicide")
-	user.visible_message("<span class='suicide'>[user] holds [src] into the air! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] holds [src] into the air! It looks like [user.p_theyre()] trying to commit suicide!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlockopen.ogg', 75, TRUE)
-	user.visible_message("<span class='hierophant_warning'>[user] fades out, leaving [user.p_their()] belongings behind!</span>")
+	user.visible_message("[span_hierophantwarning("[user] fades out, leaving [user.p_their()] belongings behind!")]")
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.dropItemToGround(I)
@@ -1195,11 +1208,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	. = ..()
 	if(!is_mining_level(user.z))
 		power = 5
-		to_chat(user, "<span class='warning'>[name] is too far from the source of its power!</span>")
+		to_chat(user, span_warning("[name] is too far from the source of its power!"))
 	else
 		power = 15
 	if(user.mind.martial_art.no_guns)
-		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
+		to_chat(user, span_warning("To use this weapon would bring dishonor to the clan."))
 		return
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
@@ -1224,7 +1237,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user)
 			log_combat(user, target, "fired cardinal blast at", src)
 		else
-			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
+			to_chat(user, span_warning("That target is out of range!") )
 			timer = world.time
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 
@@ -1256,18 +1269,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
+		var/datum/action/toggle = action
 		friendly_fire_check = !friendly_fire_check
-		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
+		toggle.update_buttons()
+		to_chat(user, span_warning("You toggle friendly fire [friendly_fire_check ? "off":"on"]!"))
 		return
 	if(timer > world.time)
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport
-		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")
+		to_chat(user, span_warning("You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!"))
 		return
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
-			user.visible_message("<span class='hierophant_warning'>[user] starts fiddling with [src]'s pommel...</span>", \
-			"<span class='notice'>You start detaching the hierophant beacon...</span>")
+			user.visible_message("[span_hierophantwarning("[user] starts fiddling with [src]'s pommel...")]", \
+			span_notice("You start detaching the hierophant beacon..."))
 			timer = world.time + 51
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 			if(do_after(user, 50, target = user) && !beacon)
@@ -1276,28 +1291,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				beacon = new/obj/effect/hierophant(T)
 				user.update_action_buttons_icon()
-				user.visible_message("<span class='hierophant_warning'>[user] places a strange machine beneath [user.p_their()] feet!</span>", \
-				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any allies to it at any time!</span>\n\
-				<span class='notice'>You can remove the beacon to place it again by striking it with the club.</span>")
+				user.visible_message("[span_hierophantwarning("[user] places a strange machine beneath [user.p_their()] feet!")]", \
+				"[span_hierophant("You detach the hierophant beacon, allowing you to teleport yourself and any allies to it at any time!")]\n\
+				[span_notice("You can remove the beacon to place it again by striking it with the club.")]")
 			else
 				timer = world.time
 				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 		else
-			to_chat(user, "<span class='warning'>You need to be on solid ground to detach the beacon!</span>")
+			to_chat(user, span_warning("You need to be on solid ground to detach the beacon!"))
 		return
 	if(get_dist(user, beacon) <= 2) //beacon too close abort
-		to_chat(user, "<span class='warning'>You are too close to the beacon to teleport to it!</span>")
+		to_chat(user, span_warning("You are too close to the beacon to teleport to it!"))
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf?.is_blocked_turf(TRUE))
-		to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
+		to_chat(user, span_warning("The beacon is blocked by something, preventing teleportation!"))
 		return
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You don't have enough space to teleport from here!</span>")
+		to_chat(user, span_warning("You don't have enough space to teleport from here!"))
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message("<span class='hierophant_warning'>[user] starts to glow faintly...</span>")
+	user.visible_message("[span_hierophantwarning("[user] starts to glow faintly...")]")
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	beacon.icon_state = "hierophant_tele_on"
@@ -1308,7 +1323,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		var/turf/source = get_turf(user)
 		if(T.is_blocked_turf(TRUE))
 			teleporting = FALSE
-			to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
+			to_chat(user, span_warning("The beacon is blocked by something, preventing teleportation!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -1329,7 +1344,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			return
 		if(T.is_blocked_turf(TRUE))
 			teleporting = FALSE
-			to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
+			to_chat(user, span_warning("The beacon is blocked by something, preventing teleportation!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -1368,11 +1383,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	sleep(1)
 	if(!M)
 		return
-	M.visible_message("<span class='hierophant_warning'>[M] fades out!</span>")
+	M.visible_message("[span_hierophantwarning("[M] fades out!")]")
 	sleep(2)
 	if(!M)
 		return
-	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC_SELF)
 	sleep(1)
 	if(!M)
 		return
@@ -1380,7 +1395,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	sleep(1)
 	if(!M)
 		return
-	M.visible_message("<span class='hierophant_warning'>[M] fades in!</span>")
+	M.visible_message("[span_hierophantwarning("[M] fades in!")]")
 	if(user != M)
 		log_combat(user, M, "teleported", null, "from [AREACOORD(source)]")
 

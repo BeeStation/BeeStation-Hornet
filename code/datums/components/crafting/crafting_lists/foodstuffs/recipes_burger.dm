@@ -355,7 +355,7 @@
 	reqs = list(
 		/obj/item/food/patty/plain = 1, // we have no horse meat sadly
 		/obj/item/food/grown/chili = 2,
-		/datum/reagent/consumable/cooking_oil = 20,
+		/datum/reagent/consumable/nutriment/fat/oil = 20,
 		/obj/item/food/grown/nettle/death = 2, // closest thing to "grass of death"
 		/obj/item/food/cheese/wedge = 4,
 		/obj/item/food/bun = 1

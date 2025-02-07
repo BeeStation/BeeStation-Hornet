@@ -79,7 +79,7 @@
 /area/template_noop)
 "A" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "B" = (

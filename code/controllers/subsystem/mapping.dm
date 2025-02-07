@@ -55,6 +55,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/space_level/empty_space
 	var/num_of_res_levels = 1
 
+	///shows the default gravity value for each z level. recalculated when gravity generators change.
+	///List in the form: list(z level num = max generator gravity in that z level OR the gravity level trait)
+	var/list/gravity_by_z_level = list()
+
 /datum/controller/subsystem/mapping/PreInit()
 	..()
 #ifdef FORCE_MAP
@@ -77,7 +81,7 @@ SUBSYSTEM_DEF(mapping)
 		var/old_config = config
 		config = global.config.defaultmap
 		if(!config || config.defaulted)
-			to_chat(world, "<span class='boldannounce'>Unable to load next or default map config, defaulting to Box Station</span>")
+			to_chat(world, span_boldannounce("Unable to load next or default map config, defaulting to Box Station"))
 			config = old_config
 
 	if(map_adjustment)
@@ -105,9 +109,9 @@ SUBSYSTEM_DEF(mapping)
 
 	// Load the virtual reality hub
 	if(CONFIG_GET(flag/virtual_reality))
-		to_chat(world, "<span class='boldannounce'>Loading virtual reality...</span>")
+		to_chat(world, span_boldannounce("Loading virtual reality..."))
 		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub")
-		to_chat(world, "<span class='boldannounce'>Virtual reality loaded.</span>")
+		to_chat(world, span_boldannounce("Virtual reality loaded."))
 
 	// Generate mining ruins
 	loading_ruins = TRUE
@@ -126,6 +130,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_station_area_list()
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
+	calculate_default_z_level_gravities()
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mapping/fire(resumed)
@@ -149,6 +154,8 @@ SUBSYSTEM_DEF(mapping)
 			var/area/old_area = T.loc
 			old_area.turfs_to_uncontain += T
 			T.flags_1 |= UNUSED_RESERVATION_TURF_1
+			// reservation turfs are not allowed to interact with atmos at all
+			T.blocks_air = TRUE
 			world_contents += T
 			world_turf_contents += T
 			packet.len--
@@ -236,7 +243,7 @@ SUBSYSTEM_DEF(mapping)
 
 	z_list = SSmapping.z_list
 
-#define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
+#define INIT_ANNOUNCE(X) to_chat(world, span_boldannounce("[X]")); log_world(X)
 /datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orbital_body_type)
 	. = list()
 	var/start_time = REALTIMEOFDAY
@@ -435,7 +442,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	message_admins("Randomly rotating map to [VM.map_name]")
 	. = changemap(VM)
 	if (. && VM.map_name != config.map_name)
-		to_chat(world, "<span class='boldannounce'>Map rotation has chosen [VM.map_name] for next round!</span>")
+		to_chat(world, span_boldannounce("Map rotation has chosen [VM.map_name] for next round!"))
 
 /datum/controller/subsystem/mapping/proc/changemap(datum/map_config/VM)
 	if(!VM.MakeNextMap())
@@ -569,6 +576,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		// already /turf/open/space/basic.
 		var/turf/T = t
 		T.flags_1 |= UNUSED_RESERVATION_TURF_1
+		T.blocks_air = TRUE
 	unused_turfs["[z]"] = block
 	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE
@@ -617,6 +625,9 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 /// - Adds to z_list, and builds its area turfs
 /datum/controller/subsystem/mapping/proc/manage_z_level(datum/space_level/new_z, filled_with_space, contain_turfs = TRUE)
 	z_list += new_z
+
+	gravity_by_z_level.len += 1
+
 	if(contain_turfs)
 		build_area_turfs(new_z.z_value, filled_with_space)
 
@@ -631,6 +642,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/turf/to_contain as anything in Z_TURFS(z_level))
 		var/area/our_area = to_contain.loc
 		our_area.contained_turfs += to_contain
+
+/datum/controller/subsystem/mapping/proc/calculate_default_z_level_gravities()
+	for(var/z_level in 1 to length(z_list))
+		calculate_z_level_gravity(z_level)
 
 /datum/controller/subsystem/mapping/proc/generate_z_level_linkages()
 	for(var/z_level in 1 to length(z_list))
@@ -650,3 +665,16 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	multiz_levels[z_level] = new /list(LARGEST_Z_LEVEL_INDEX)
 	multiz_levels[z_level][Z_LEVEL_UP] = !!z_above
 	multiz_levels[z_level][Z_LEVEL_DOWN] = !!z_below
+
+/datum/controller/subsystem/mapping/proc/calculate_z_level_gravity(z_level_number)
+	if(!isnum(z_level_number) || z_level_number < 1)
+		return FALSE
+
+	var/max_gravity = 0
+
+	for(var/obj/machinery/gravity_generator/main/grav_gen as anything in GLOB.gravity_generators["[z_level_number]"])
+		max_gravity = max(grav_gen.setting, max_gravity)
+
+	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0 //just to make sure no nulls
+	gravity_by_z_level[z_level_number] = max_gravity
+	return max_gravity

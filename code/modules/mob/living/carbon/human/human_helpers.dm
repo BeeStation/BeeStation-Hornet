@@ -238,14 +238,14 @@
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(src.dna.check_mutation(HULK))
-			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+			to_chat(src, span_warning("Your meaty finger is much too large for the trigger guard!"))
 			return FALSE
 		if(HAS_TRAIT(src, TRAIT_NOGUNS))
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
 			return FALSE
 	if(mind)
 		if(mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-			to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+			to_chat(src, span_warning("Use of ranged weaponry would bring dishonor to the clan."))
 			return FALSE
 
 	return .
@@ -260,6 +260,15 @@
 		return account
 
 	return FALSE
+
+/mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
+	var/obj/item/card/id/I = wear_id.GetID()
+	if(!I)
+		return
+	var/I_hud = I.hud_state
+	if(I_hud)
+		return I_hud
+	return "unknown"
 
 /mob/living/carbon/human/can_see_reagents()
 	. = ..()

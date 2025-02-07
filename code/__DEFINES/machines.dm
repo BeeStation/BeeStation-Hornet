@@ -113,6 +113,11 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 25%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious.
 
+#define NUCLEAR_REACTOR_ERROR -1
+#define NUCLEAR_REACTOR_INACTIVE 0
+#define NUCLEAR_REACTOR_ACTIVE 1
+#define NUCLEAR_EXPLODING 2
+
 //Nuclear bomb stuff
 #define NUKESTATE_INTACT		5
 #define NUKESTATE_UNSCREWED		4
@@ -219,12 +224,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 // ---------------------------------------------------
 
 #define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
-
-// Circulator defines
-// ---------------------------------------------------
-
-#define CIRCULATOR_HOT 0
-#define CIRCULATOR_COLD 1
 
 // Particle Accelerator defines
 // ---------------------------------------------------

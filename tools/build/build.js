@@ -134,7 +134,6 @@ export const DmTestTarget = new Juke.Target({
   },
 });
 
-/*
 export const AutowikiTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
@@ -171,7 +170,6 @@ export const AutowikiTarget = new Juke.Target({
     }
   },
 })
-*/
 
 export const YarnTarget = new Juke.Target({
   parameters: [CiParameter],
@@ -198,12 +196,7 @@ export const TgFontTarget = new Juke.Target({
     'tgui/packages/tgfont/dist/tgfont.eot',
     'tgui/packages/tgfont/dist/tgfont.woff2',
   ],
-  executes: async () => {
-    await yarn('tgfont:build');
-    fs.copyFileSync('tgui/packages/tgfont/dist/tgfont.css', 'tgui/packages/tgfont/static/tgfont.css');
-    fs.copyFileSync('tgui/packages/tgfont/dist/tgfont.eot', 'tgui/packages/tgfont/static/tgfont.eot');
-    fs.copyFileSync('tgui/packages/tgfont/dist/tgfont.woff2', 'tgui/packages/tgfont/static/tgfont.woff2');
-  }
+  executes: async () => yarn('tgfont:build'),
 });
 
 export const TguiTarget = new Juke.Target({
@@ -285,7 +278,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTarget, TguiTarget],
+  dependsOn: [DmTarget, TgFontTarget, TguiTarget],
 });
 
 export const ServerTarget = new Juke.Target({
@@ -352,7 +345,7 @@ const prependDefines = (...defines) => {
 };
 
 export const TgsTarget = new Juke.Target({
-  dependsOn: [TguiTarget],
+  dependsOn: [TguiTarget, TgFontTarget],
   executes: async () => {
     Juke.logger.info('Prepending TGS define');
     prependDefines('TGS');

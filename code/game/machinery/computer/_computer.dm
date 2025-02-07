@@ -12,7 +12,7 @@
 	active_power_usage = 300
 	max_integrity = 200
 	integrity_failure = 0.5
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_computer
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
 	light_range = 1
@@ -27,6 +27,10 @@
 
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE
+
+/datum/armor/machinery_computer
+	fire = 40
+	acid = 20
 
 /obj/machinery/computer/Initialize(mapload)
 	. = ..()
@@ -104,7 +108,7 @@
 	if(..())
 		return TRUE
 	if(circuit && !(flags_1&NODECONSTRUCT_1))
-		to_chat(user, "<span class='notice'>You start to disconnect the monitor...</span>")
+		to_chat(user, span_notice("You start to disconnect the monitor..."))
 		if(I.use_tool(src, user, time_to_screwdrive, volume=50))
 			deconstruct(TRUE, user)
 	return TRUE
@@ -150,7 +154,7 @@
 			A.set_anchored(TRUE)
 			if(machine_stat & BROKEN)
 				if(user)
-					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+					to_chat(user, span_notice("The broken glass falls out."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 				new /obj/item/shard(drop_location())
@@ -159,7 +163,7 @@
 				A.icon_state = "3"
 			else
 				if(user)
-					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+					to_chat(user, span_notice("You disconnect the monitor."))
 				A.state = 4
 				A.icon_state = "4"
 		for(var/obj/C in src)

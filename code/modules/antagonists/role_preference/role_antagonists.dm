@@ -32,7 +32,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas
 	l_hand = /obj/item/melee/transforming/energy/sword
-	r_hand = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	r_hand = /obj/item/gun/energy/recharge/ebow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/melee/transforming/energy/sword/sword = locate() in H.held_items

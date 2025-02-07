@@ -360,20 +360,6 @@
 "ic" = (
 /turf/open/floor/wood,
 /area/security/detectives_office)
-"ir" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 11;
-	pixel_y = -5
-	},
-/obj/item/mop{
-	pixel_x = -6;
-	pixel_y = 3
-	},
-/obj/item/key/janitor,
-/obj/vehicle/ridden/janicart,
-/turf/open/floor/iron,
-/area/janitor)
 "iw" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -1144,7 +1130,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -32
 	},
-/obj/machinery/advanced_airlock_controller/directional/west,
 /obj/machinery/vending/wallmed{
 	pixel_y = 32
 	},
@@ -1695,6 +1680,20 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
+"Rt" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 11;
+	pixel_y = -5
+	},
+/obj/item/mop{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/key/janitor,
+/obj/vehicle/ridden/janicart,
+/turf/open/floor/iron,
+/area/janitor)
 "RA" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/iron/freezer,
@@ -2651,7 +2650,7 @@ Zj
 Bo
 "}
 (29,1,1) = {"
-ir
+Rt
 SY
 PP
 ZU
