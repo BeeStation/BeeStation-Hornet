@@ -98,7 +98,6 @@
 		slot = ORGAN_SLOT_LEFT_ARM_AUG
 	else
 		slot = ORGAN_SLOT_RIGHT_ARM_AUG
-	SetSlotFromZone()
 	to_chat(user, span_notice("You modify [src] to be installed on the [slot == ORGAN_SLOT_RIGHT_ARM_AUG ? "right" : "left"] arm."))
 	update_icon()
 

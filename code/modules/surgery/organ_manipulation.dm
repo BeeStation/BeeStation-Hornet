@@ -102,10 +102,9 @@
 			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(check_zone(surgery.location))]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
-			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
-			if(!affected)
+			if(!target_bodypart)
 				return -1
-			if(IS_ORGANIC_LIMB(affected))
+			if(IS_ORGANIC_LIMB(target_bodypart))
 				to_chat(user, span_notice("You can't put [I] into a meat enclosure!"))
 				return -1
 			if(!isipc(target))
