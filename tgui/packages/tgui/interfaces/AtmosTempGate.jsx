@@ -26,7 +26,7 @@ export const AtmosTempGate = (props) => {
                 minValue={data.min_temperature}
                 maxValue={data.max_temperature}
                 step={1}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('temperature', {
                     temperature: value,
                   })

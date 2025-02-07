@@ -167,7 +167,7 @@ const ObjectiveInfo = (_props) => {
   const { data } = useBackend<Info>();
   const objectives = data.summoner.antag_info?.objectives;
   if (!objectives) {
-    return;
+    return null;
   }
   return (
     <Section scrollable>
@@ -198,7 +198,7 @@ const ExtraInfo = (_props) => {
   const { data } = useBackend<Info>();
   const extra_info = data.summoner.antag_info?.extra_info;
   if (!extra_info) {
-    return;
+    return null;
   }
   return (
     <Section scrollable>
@@ -238,7 +238,7 @@ const Notes = (_props) => {
           </Box>
         </Stack.Item>
         <Stack.Item>
-          <BlockQuote style={{ 'text-overflow': 'wrap' }} width="100%">
+          <BlockQuote style={{ textOverflow: 'wrap' }} width="100%">
             {notes}
           </BlockQuote>
         </Stack.Item>
@@ -436,7 +436,7 @@ const MajorAbilitySection = (_props) => {
     return (
       <Section fill title="Ability">
         <Box>
-          <span class="label italics">You do not have a major ability!</span>
+          <span className="label italics">You do not have a major ability!</span>
         </Box>
       </Section>
     );
@@ -458,7 +458,7 @@ const LesserAbilitiesSection = (_props) => {
     return (
       <Section fill title="Lesser Abilities">
         <Box>
-          <span class="label italics">You do not have any lesser abilities!</span>
+          <span className="label italics">You do not have any lesser abilities!</span>
         </Box>
       </Section>
     );
