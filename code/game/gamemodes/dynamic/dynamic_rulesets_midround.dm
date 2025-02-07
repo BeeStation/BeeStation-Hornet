@@ -768,6 +768,7 @@
 	player_mind.active = TRUE
 
 	var/mob/living/simple_animal/hostile/swarmer/S = new (pick(GLOB.xeno_spawn))
+	player_mind.transfer_to(S)
 
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(S)] was spawned as a Swarmer by the midround ruleset.")
