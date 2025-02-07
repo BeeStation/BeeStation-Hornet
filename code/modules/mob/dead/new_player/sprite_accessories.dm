@@ -2534,7 +2534,6 @@
 	name = "Morpheus Cyberkinetics (Custom)"
 	icon_state = "mcipc"
 	limbs_id = "mcipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2542,7 +2541,6 @@
 	name = "Bishop Cyberkinetics (Custom)"
 	icon_state = "bshipc"
 	limbs_id = "bshipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2550,7 +2548,6 @@
 	name = "Bishop Cyberkinetics 2.0 (Custom)"
 	icon_state = "bs2ipc"
 	limbs_id = "bs2ipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2558,7 +2555,6 @@
 	name = "Hephaestus Industries (Custom)"
 	icon_state = "hsiipc"
 	limbs_id = "hsiipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2566,7 +2562,6 @@
 	name = "Hephaestus Industries 2.0 (Custom)"
 	icon_state = "hi2ipc"
 	limbs_id = "hi2ipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2574,7 +2569,6 @@
 	name = "Shellguard Munitions Standard Series (Custom)"
 	icon_state = "sgmipc"
 	limbs_id = "sgmipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2582,7 +2576,6 @@
 	name = "Ward-Takahashi Manufacturing (Custom)"
 	icon_state = "wtmipc"
 	limbs_id = "wtmipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2590,7 +2583,6 @@
 	name = "Xion Manufacturing Group (Custom)"
 	icon_state = "xmgipc"
 	limbs_id = "xmgipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2598,7 +2590,6 @@
 	name = "Xion Manufacturing Group 2.0 (Custom)"
 	icon_state = "xm2ipc"
 	limbs_id = "xm2ipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
@@ -2606,7 +2597,6 @@
 	name = "Zeng-Hu Pharmaceuticals (Custom)"
 	icon_state = "zhpipc"
 	limbs_id = "zhpipc"
-	color_src = MUTCOLORS
 	hasinnercolor = MUTCOLORS
 	hasinner = TRUE
 
