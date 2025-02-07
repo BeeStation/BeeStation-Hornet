@@ -19,6 +19,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/newscaster/directional/east,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "cl" = (
@@ -27,8 +28,8 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "cS" = (
-/obj/machinery/door/airlock/grunge,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/grunge,
 /turf/open/floor/iron/ridged/steel,
 /area/shuttle/arrival)
 "fD" = (
@@ -118,11 +119,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "pW" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "qz" = (
@@ -293,6 +294,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 10
 	},
+/obj/machinery/newscaster/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Cd" = (
@@ -309,6 +311,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
+/obj/machinery/newscaster/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Ck" = (
@@ -345,6 +348,15 @@
 "Ev" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/alphabet/number_1/quarter{
+	color = "#801000";
+	dir = 1
+	},
+/obj/effect/turf_decal/alphabet/number_3/cardinal{
+	color = "#801000";
+	dir = 1
+	},
+/obj/effect/turf_decal/alphabet/symbol_dash/quarter{
+	dir = 4;
 	color = "#801000"
 	},
 /turf/open/floor/mineral/titanium/white,
@@ -361,15 +373,18 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Fn" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Ft" = (
@@ -395,6 +410,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Jz" = (
@@ -403,6 +419,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "Ky" = (
@@ -420,8 +437,16 @@
 /area/shuttle/arrival)
 "LF" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/alphabet/number_5/quarter{
-	dir = 8;
+/obj/effect/turf_decal/alphabet/letter_s/quarter{
+	color = "#801000";
+	dir = 4
+	},
+/obj/effect/turf_decal/alphabet/letter_s/cardinal{
+	color = "#801000";
+	dir = 1
+	},
+/obj/effect/turf_decal/alphabet/symbol_dash/quarter{
+	dir = 1;
 	color = "#801000"
 	},
 /turf/open/floor/mineral/titanium/white,
@@ -506,6 +531,9 @@
 /obj/machinery/computer/crew{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Tp" = (
@@ -553,6 +581,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Vm" = (
@@ -573,6 +604,7 @@
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/item/storage/toolbox/emergency,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Wd" = (
@@ -600,6 +632,9 @@
 /obj/item/storage/firstaid/o2,
 /obj/item/clothing/mask/breath,
 /obj/item/tank/internals/emergency_oxygen,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Xp" = (
@@ -612,6 +647,7 @@
 	},
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/light/small/directional/south,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "Zu" = (
@@ -658,7 +694,7 @@ Pd
 Wd
 TQ
 Wd
-Wd
+Qv
 Wd
 Ve
 Wd
@@ -762,8 +798,8 @@ QZ
 ns
 Ky
 Tp
-Ev
 VE
+LF
 iW
 wL
 wL
@@ -779,8 +815,8 @@ ZG
 Bi
 Ky
 LX
-LF
 VE
+Ev
 KH
 wL
 wL
@@ -811,7 +847,7 @@ Pd
 Wd
 TQ
 Wd
-Wd
+Qv
 Ve
 Wd
 Wd

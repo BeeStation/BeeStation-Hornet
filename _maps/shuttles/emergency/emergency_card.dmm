@@ -65,6 +65,19 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"cE" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "cI" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -934,6 +947,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 13;
+	pixel_y = -19
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Bk" = (
@@ -1252,7 +1269,9 @@
 /obj/machinery/power/terminal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/storage/toolbox/mechanical,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "KG" = (
@@ -1854,7 +1873,7 @@ gK
 QU
 kP
 dN
-qN
+cE
 LG
 qN
 go

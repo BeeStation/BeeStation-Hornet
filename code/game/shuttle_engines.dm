@@ -158,6 +158,7 @@
 /obj/structure/shuttle/engine/large/chopped
 	icon = 'icons/obj/engine_chopped.dmi'
 	icon_state = "top_left_smaller"
+	opacity = FALSE
 	bound_width = 32
 	bound_height = 32
 
@@ -186,6 +187,7 @@
 /obj/structure/shuttle/engine/huge/chopped
 	icon = 'icons/obj/engine_chopped.dmi'
 	icon_state = "top_left"
+	opacity = FALSE
 	bound_width = 32
 	bound_height = 32
 
