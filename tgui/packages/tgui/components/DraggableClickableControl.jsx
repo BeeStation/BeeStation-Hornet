@@ -1,8 +1,4 @@
 import { DraggableControl } from '.';
-import { clamp } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
-import { AnimatedNumber } from './AnimatedNumber';
 
 export class DraggableClickableControl extends DraggableControl {
   constructor(props) {
