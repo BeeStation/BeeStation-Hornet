@@ -9,7 +9,7 @@
 	check_flags = NONE
 	ignores_fakedeath = TRUE
 
-/datum/action/changeling/headcrab/sting_action(mob/user)
+/datum/action/changeling/headcrab/sting_action(mob/living/user)
 	set waitfor = FALSE
 	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") != "Yes")
 		return

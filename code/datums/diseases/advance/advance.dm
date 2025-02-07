@@ -70,7 +70,7 @@
 /datum/disease/advance/Destroy()
 	if(affected_mob)
 		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
-		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
+		UnregisterSignal(affected_mob, COMSIG_LIVING_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
@@ -107,7 +107,7 @@
 
 /datum/disease/advance/after_add()
 	if(affected_mob)
-		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
+		RegisterSignal(affected_mob, COMSIG_LIVING_DEATH, PROC_REF(on_mob_death))
 
 /datum/disease/advance/proc/on_mob_death()
 	SIGNAL_HANDLER

@@ -26,14 +26,14 @@
 	icon_state = "pulse1_bl"
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/death/on_hit(target)
+/obj/projectile/magic/death/on_hit(mob/living/target)
 	. = ..()
-	if(ismob(target))
-		var/mob/M = target
-		if(M.can_block_magic(antimagic_flags))
-			M.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		M.death(0)
+	if(!istype(target))
+		return
+	if(target.can_block_magic(antimagic_flags))
+		target.visible_message(span_warning("[src] vanishes on contact with [target]!"))
+		return BULLET_ACT_BLOCK
+	target.death()
 
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"

@@ -29,7 +29,7 @@
 
 
 
-/datum/action/changeling/absorbDNA/sting_action(mob/user)
+/datum/action/changeling/absorbDNA/sting_action(mob/living/user)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	var/mob/living/carbon/human/target = user.pulling
 	changeling.isabsorbing = 1

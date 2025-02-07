@@ -150,7 +150,7 @@
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
-	RegisterSignal(new_corgi, COMSIG_MOB_DEATH, PROC_REF(transform_back))
+	RegisterSignal(new_corgi, COMSIG_LIVING_DEATH, PROC_REF(transform_back))
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/simple_animal/pet/dog/corgi/new_corgi)
@@ -162,7 +162,7 @@
 	if(!H)
 		return
 	var/mob/living/target = H.stored
-	UnregisterSignal(new_corgi, COMSIG_MOB_DEATH)
+	UnregisterSignal(new_corgi, COMSIG_LIVING_DEATH)
 	REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
 	victims -= new_corgi
 	var/turf/T = get_turf(new_corgi)
