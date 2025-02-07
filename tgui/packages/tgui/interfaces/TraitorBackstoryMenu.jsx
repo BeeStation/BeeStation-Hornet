@@ -175,7 +175,7 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
           left: '50%',
           top: '8px',
           transform: 'translateX(-50%)',
-          'border-bottom': '1px solid #aa2a2a',
+          borderBottom: '1px solid #aa2a2a',
         }}>
         <strong>Faction Select</strong>
       </Box>

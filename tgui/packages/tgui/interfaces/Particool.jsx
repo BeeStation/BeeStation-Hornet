@@ -21,9 +21,12 @@ const ParticleIntegerEntry = (props) => {
     <Tooltip position="bottom" content={tooltip}>
       <NumberInput
         value={value}
+        minValue={-Infinity}
+        maxValue={Infinity}
         stepPixelSize={5}
         width="39px"
-        onDrag={(e, value) =>
+        step={1}
+        onDrag={(value) =>
           act('modify_particle_value', {
             new_data: {
               name: name,
@@ -49,8 +52,11 @@ const ParticleMatrixEntry = (props) => {
         {value.map((val, i) => (
           <NumberInput
             value={val}
+            minValue={-Infinity}
+            maxValue={Infinity}
             key={i}
-            onDrag={(e, v) => {
+            step={1}
+            onDrag={(v) => {
               value[i] = v;
               act('modify_particle_value', {
                 new_data: {
@@ -114,11 +120,13 @@ const ParticleFloatNonGenEntry = (props) => {
     <Tooltip position="bottom" content={tooltip}>
       <NumberInput
         value={value}
+        minValue={-Infinity}
+        maxValue={Infinity}
         stepPixelSize={4}
         step={step}
         format={(value) => toFixed(value, numberOfDecimalDigits(step))}
         width="80px"
-        onDrag={(e, value) =>
+        onDrag={(value) =>
           act('modify_particle_value', {
             new_data: {
               name: name,
@@ -187,9 +195,12 @@ const ParticleVectorNonGenEntryVarLen = (len) => {
           {value.map((val, i) => (
             <NumberInput
               value={val}
+              minValue={-Infinity}
+              maxValue={Infinity}
               key={i}
               width="40px"
-              onDrag={(e, v) => {
+              step={1}
+              onDrag={(v) => {
                 value[i] = v;
                 act('modify_particle_value', {
                   new_data: {
@@ -642,7 +653,7 @@ export const Particool = (props) => {
         )}
         <Section
           title={
-            <Box inline onDblClick={() => setHiddenSecret(true)}>
+            <Box inline onDoubleClick={() => setHiddenSecret(true)}>
               Particle
             </Box>
           }
@@ -659,10 +670,12 @@ export const Particool = (props) => {
           </Box>
           <NumberInput
             value={step}
+            minValue={-Infinity}
+            maxValue={Infinity}
             step={0.001}
             format={(value) => toFixed(value, numberOfDecimalDigits(step))}
             width="70px"
-            onChange={(e, value) => setStep(value)}
+            onChange={(value) => setStep(value)}
           />
           {!hasParticles ? <Box>No particle</Box> : <ParticleEntry particle={particles} />}
         </Section>
