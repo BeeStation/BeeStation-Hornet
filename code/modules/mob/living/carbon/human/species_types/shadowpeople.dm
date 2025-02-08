@@ -57,7 +57,7 @@
 		change_hearts_ritual(C)
 
 
-/datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is suposed to be caled only for shadow sect
+/datum/species/shadow/proc/change_hearts_ritual(mob/living/carbon/C) // This is supposed to be called only for shadow sect
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(C.dna.species.id != "nightmare")
 		if(sect.grand_ritual_level == 1)
@@ -84,14 +84,14 @@
 
 /datum/species/shadow/get_species_description()
 	return "Victims of a long extinct space alien. Their flesh is a sickly \
-		seethrough filament, their tangled insides in clear view. Their form \
+		see-through filament, their tangled insides in clear view. Their form \
 		is a mockery of life, leaving them mostly unable to work with others under \
 		normal circumstances."
 
 /datum/species/shadow/get_species_lore()
 	return list(
 		"Long ago, the Spinward Sector used to be inhabited by terrifying aliens aptly named \"Shadowlings\" \
-		after their control over darkness, and tendancy to kidnap victims into the dark maintenance shafts. \
+		after their control over darkness, and tendency to kidnap victims into the dark maintenance shafts. \
 		Around 2558, the long campaign Nanotrasen waged against the space terrors ended with the full extinction of the Shadowlings.",
 
 		"Victims of their kidnappings would become brainless thralls, and via surgery they could be freed from the Shadowling's control. \
@@ -100,7 +100,7 @@
 
 		"With Shadowlings long gone, their will is their own again. But their bodies have not reverted, burning in exposure to light. \
 		Nanotrasen has assured the victims that they are searching for a cure. No further information has been given, even years later. \
-		Most shadowpeople now assume Nanotrasen has long since shelfed the project.",
+		Most shadowpeople now assume Nanotrasen has long since shelved the project.",
 	)
 
 /datum/species/shadow/create_pref_unique_perks()
@@ -377,7 +377,7 @@
 	if(!isOn())
 		return
 	if(light_eater)
-		loc.visible_message(span_danger("The the integrated welding tool is snuffed out by [light_eater]!"))
+		loc.visible_message(span_danger("The integrated welding tool is snuffed out by [light_eater]!"))
 		disable()
 	..()
 
@@ -413,7 +413,7 @@
 	var/datum/action/innate/shadow_coms/comm/coms = new
 
 /obj/item/organ/heart/shadow_ritual3
-	name = "pulsing darknes"
+	name = "pulsing darkness"
 	desc = "You can't see the object covered in darkness, no light can dispel it. You can only see how the darkness itself moves, pulsing, time and time again."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_3"
@@ -453,7 +453,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel cold feeling spreading from your chest. This might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel a cold feeling spreading from your chest. This might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual2/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -464,7 +464,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel cold feeling spreading from your chest. This might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel a cold feeling spreading from your chest. This might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -475,7 +475,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel cold feeling spreading from your chest. This might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel a cold feeling spreading from your chest. This might not have been a great idea."))
 
 
 /obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -515,7 +515,7 @@
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 	if(shadow_conversion != 0)
-		to_chat(M, span_bigboldinfo("You feel cold feeling leaving your body. It feels great."))
+		to_chat(M, span_bigboldinfo("You feel cold emptiness escaping your body. It feels great."))
 		shadow_conversion = 0
 
 
@@ -533,11 +533,11 @@
 			if(random_mesage == 0)
 				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unplesant.</span>")
+				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unpleasant.</span>")
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='warning'>This cold feeling isnt going away.</span>")
+				to_chat(owner, "<span class='warning'>This cold feeling isn't going away.</span>")
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='warning'>That path of darknes over there seems like great spot to rest.</span>")
+				to_chat(owner, "<span class='warning'>That path of darkness over there seems like a great spot to rest.</span>")
 
 /obj/item/organ/heart/shadow_ritual2/on_life()
 	..()
@@ -553,11 +553,11 @@
 			if(random_mesage == 0)
 				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unplesant.</span>")
+				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unpleasant.</span>")
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='warning'>This cold feeling isnt going away.</span>")
+				to_chat(owner, "<span class='warning'>This cold feeling isn't going away.</span>")
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='warning'>That path of darknes over there seems like great spot to rest.</span>")
+				to_chat(owner, "<span class='warning'>That path of darkness over there seems like a great spot to rest.</span>")
 
 /obj/item/organ/heart/shadow_ritual3/on_life()
 	..()
@@ -573,11 +573,11 @@
 			if(random_mesage == 0)
 				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unplesant.</span>")
+				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unpleasant.</span>")
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='warning'>This cold feeling isnt going away.</span>")
+				to_chat(owner, "<span class='warning'>This cold feeling isn't going away.</span>")
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='warning'>That path of darknes over there seems like great spot to rest.</span>")
+				to_chat(owner, "<span class='warning'>That path of darkness over there seems like a great spot to rest.</span>")
 
 
 /obj/item/organ/heart/shadow_ritual3/on_death()
@@ -621,7 +621,7 @@
 	return ..()
 
 /datum/action/innate/shadow_coms/comm
-	name = "Wisper"
+	name = "Whisper"
 	desc = "Talk to other shadowpeople using shadows."
 	button_icon_state = "commune"
 	check_flags = AB_CHECK_CONSCIOUS
