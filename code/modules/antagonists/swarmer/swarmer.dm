@@ -613,6 +613,9 @@
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
 			shock_area()
 			qdel(src)
+	else if(ismecha(AM))
+		shock_area()
+		qdel(src)
 
 /obj/structure/swarmer/trap/proc/shock_area()
 	new /obj/effect/temp_visual/shock_trap_activate(get_turf(src))
@@ -625,6 +628,11 @@
 			L.flash_act()
 			L.adjustFireLoss(65) //This is the only way swarmers can deal with cyborgs in any capacity so it is especially harsh
 			L.Paralyze(100)
+	var/list/obj/object_targets = oview(1, src)
+	for(var/obj/vehicle/sealed/mecha/mechs in object_targets)
+		mechs.emp_act(1)
+		mechs.take_damage(35, BURN, ENERGY, 1) //Makes them take the same amount of damage as cyborgs when combined with the EMP
+		COOLDOWN_START(mechs, cooldown_vehicle_move, 3 SECONDS) //"Stuns" the mech for the duration of equipment disable, overriding their normal step cooldown
 
 /obj/effect/temp_visual/shock_trap_activate
 	randomdir = FALSE
