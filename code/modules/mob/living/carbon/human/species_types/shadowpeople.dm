@@ -394,7 +394,7 @@
 
 /obj/item/organ/heart/shadow_ritual1
 	name = "shadowed heart"
-	desc = "This heart with seem to be covered in shadows, even under strong light."
+	desc = "This heart seems to be covered in shadows, even under the strong light."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_1"
 	visual = TRUE
@@ -404,7 +404,7 @@
 
 /obj/item/organ/heart/shadow_ritual2
 	name = "faded heart"
-	desc = "Its hard to make out a heart under the cover of this ever shifting darknes."
+	desc = "It's hard to make out a heart under the cover of this ever-shifting darkness."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_2"
 	visual = TRUE
@@ -414,7 +414,7 @@
 
 /obj/item/organ/heart/shadow_ritual3
 	name = "pulsing darknes"
-	desc = "You cant see the object covered in darknes, no light can dispell it. You can only see how the darkness itself moves, pulsing time and time again."
+	desc = "You can't see the object covered in darkness, no light can dispel it. You can only see how the darkness itself moves, pulsing, time and time again."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_3"
 	visual = TRUE
@@ -453,7 +453,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel cold feeling spreading from your chest. This might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual2/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -464,7 +464,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel cold feeling spreading from your chest. This might not have been a great idea."))
 
 /obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -475,7 +475,7 @@
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel cold feeling spreding from your chest. It might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel cold feeling spreading from your chest. This might not have been a great idea."))
 
 
 /obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -487,7 +487,7 @@
 		coms.Remove(M)
 	if(shadow_conversion != 0)
 		shadow_conversion = 0
-		to_chat(M, span_bigboldinfo("You feel cold feeling leaving your body. It feels great."))
+		to_chat(M, span_bigboldinfo("You feel cold emptiness escaping your body. It feels great."))
 
 
 /obj/item/organ/heart/shadow_ritual2/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -499,7 +499,7 @@
 		M.alpha = 255
 		coms.Remove(M)
 	if(shadow_conversion != 0)
-		to_chat(M, span_bigboldinfo("You feel cold feeling leaving your body. It feels great."))
+		to_chat(M, span_bigboldinfo("You feel cold emptiness escaping your body. It feels great."))
 		shadow_conversion = 0
 
 
