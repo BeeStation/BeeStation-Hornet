@@ -12,7 +12,7 @@ export const SaveStatus = (props) => {
       textAlign="center"
       ml={1}
       style={{
-        'border-radius': '2px',
+        borderRadius: '2px',
         display: 'inline',
         padding: '2px 5px',
       }}>
@@ -21,9 +21,9 @@ export const SaveStatus = (props) => {
         save_in_progress ? (
           <span>
             Saving
-            <span class="loading-one">.</span>
-            <span class="loading-two">.</span>
-            <span class="loading-three">.</span>
+            <span className="loading-one">.</span>
+            <span className="loading-two">.</span>
+            <span className="loading-three">.</span>
           </span>
         ) : (
           <strong>{save_sucess ? 'Saved' : 'Error'}</strong>
