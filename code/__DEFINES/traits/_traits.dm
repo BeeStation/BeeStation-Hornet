@@ -29,10 +29,6 @@
 
 /datum/trait/multiply
 
-// TODO: Figure out a way of merging ADD_TRAIT and ADD_VALUE_TRAIT with variadic macros
-// without making the opendream/dreamchecker unhappy through the use of compile-time
-// constant if statements.
-
 /// Add a trait to a target
 /// Parameters:
 /// 1: The target to receive the trait
@@ -295,13 +291,13 @@
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
 /// Checks if the mob has the specified trait from a specific source.
 /// Slightly slower than HAS_TRAIT and should be avoided when proc-overhead matters (roughly >1000 calls per second)
-#define HAS_TRAIT_FROM(target, trait, source) has_trait_from(target, trait, source)
+#define HAS_TRAIT_FROM(target, trait, source) (target.status_traits && ____has_trait_from(target, trait, source))
 /// Checks if the mob has the specified trait from a specific source and only that source.
 /// Slightly slower than HAS_TRAIT and should be avoided when proc-overhead matters (roughly >1000 calls per second)
-#define HAS_TRAIT_FROM_ONLY(target, trait, source) has_trait_from_only(target, trait, source)
+#define HAS_TRAIT_FROM_ONLY(target, trait, source) (target.status_traits && ____has_trait_from_only(target, trait, source))
 /// Checks if the mob has the specified trait from any source except from the ones specified
 /// Slightly slower than HAS_TRAIT and should be avoided when proc-overhead matters (roughly >1000 calls per second)
-#define HAS_TRAIT_NOT_FROM(target, trait, source) has_trait_not_from(target, trait, source)
+#define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits && ____has_trait_not_from(target, trait, source))
 
 GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 
@@ -309,31 +305,31 @@ GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 /// Get the value of the specified trait
 #define GET_TRAIT_VALUE(target, trait) (target.status_traits ? (length(target.status_traits[trait]) ? ((GLOB._trait_located = target.status_traits[trait][1]) && GLOB._trait_located.value) : null) : null)
 
-/proc/has_trait_not_from(datum/target, trait, source)
+/proc/____has_trait_not_from(datum/target, trait, source)
 	var/list/heap
 	if ((heap = target.status_traits[trait]) == null)
 		return FALSE
 	for (var/contained_trait in heap)
-		if (!(contained_trait ~= source))
+		if (!(contained_trait = source))
 			return TRUE
 	return FALSE
 
-/proc/has_trait_from(datum/target, trait, source)
+/proc/____has_trait_from(datum/target, trait, source)
 	var/list/heap
 	if ((heap = target.status_traits[trait]) == null)
 		return FALSE
 	for (var/contained_trait in heap)
-		if (contained_trait ~= source)
+		if (contained_trait = source)
 			return TRUE
 	return FALSE
 
-/proc/has_trait_from_only(datum/target, trait, source)
+/proc/____has_trait_from_only(datum/target, trait, source)
 	var/list/heap
 	if ((heap = target.status_traits[trait]) == null)
 		return FALSE
 	. = FALSE
 	for (var/contained_trait in heap)
-		if (!(contained_trait ~= source))
+		if (!(contained_trait = source))
 			return FALSE
 		. = TRUE
 	return
