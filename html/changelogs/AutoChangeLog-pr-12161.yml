@@ -1,0 +1,14 @@
+author: wikimody
+delete-after: true
+changes:
+  - rscadd: Brought back shadow sect
+  - rscadd: Summon obelisk - makes a obelisk with generates favour
+  - rscadd: Expand shadows - increases radius and power of darkness coming from obelisks
+  - rscadd: Shadow person conversion - self explainable
+  - rscadd: Night vision aura - people inside darkness radius of obelisks are given
+      night vision.
+  - rscdel: Removed 2 antagonist focused rituals
+  - rscdel: Removed need for being shadow person to chose this sect
+  - code_imp: changed TRAIT_NIGHT_VISION to TRAIT_NIGHT_VISION_WEAK since the trait
+      didn't actually add night vision
+  - code_imp: Added TRAIT_NIGHT_VISION with grant night vision to any mob
