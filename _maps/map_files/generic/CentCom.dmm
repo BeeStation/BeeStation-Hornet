@@ -252,7 +252,7 @@
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/machinery/door/airlock/centcom{
@@ -2242,7 +2242,7 @@
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "aiZ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/structure/cable/white{
@@ -2340,7 +2340,7 @@
 /area/centcom/supplypod)
 "ajP" = (
 /obj/structure/chair/fancy/comfy,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "ajQ" = (
@@ -2947,7 +2947,7 @@
 /turf/open/floor/holofloor/hyperspace,
 /area/centcom/supplypod/supplypod_temp_holding)
 "alU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/turf_decal/trimline/green/line,
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/iron/edge{
@@ -3546,7 +3546,7 @@
 /area/centcom/evac)
 "aog" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/door/airlock/centcom{
 	name = "Administrative Office";
 	req_access_txt = "109"
@@ -3692,7 +3692,7 @@
 /turf/open/floor/iron/tech,
 /area/centcom/ferry)
 "aoF" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "aoH" = (
@@ -3874,7 +3874,7 @@
 	},
 /area/centcom/supplypod/loading/four)
 "ape" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "apf" = (
@@ -3896,7 +3896,7 @@
 	},
 /area/tdome/tdomeadmin)
 "apj" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/railing{
 	dir = 8
 	},
@@ -4040,19 +4040,19 @@
 /turf/open/floor/iron/large,
 /area/centcom/evac)
 "apI" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "apJ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "apK" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "apL" = (
@@ -5042,7 +5042,7 @@
 /area/centcom/supplypod)
 "atH" = (
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/structure/cable/white{
@@ -5789,7 +5789,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "awI" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
 /obj/machinery/firealarm{
@@ -6615,7 +6615,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
@@ -7707,7 +7707,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/evac)
 "aDX" = (
-/obj/machinery/atmospherics/pipe/simple/supply/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
 	dir = 10
 	},
 /obj/machinery/meter,
@@ -8189,7 +8189,7 @@
 /turf/open/floor/iron/white,
 /area/ctf)
 "aGg" = (
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating,
 /area/ctf)
 "aGi" = (
 /obj/structure/girder,
@@ -8645,7 +8645,7 @@
 /turf/open/floor/plating,
 /area/centcom/evac)
 "aHI" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/structure/cable/white{
@@ -9440,7 +9440,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "aKf" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible{
 	dir = 1
 	},
 /obj/machinery/meter,
@@ -10445,9 +10445,7 @@
 /turf/open/floor/iron/techmaint,
 /area/centcom/ferry)
 "aNT" = (
-/obj/structure/window/paperframe{
-	CanAtmosPass = 0
-	},
+/obj/structure/window/paperframe,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "aNV" = (
@@ -12973,7 +12971,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/visible{
 	dir = 1
 	},
 /obj/structure/cable/white{
@@ -13684,7 +13682,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "bvf" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/silver{
 	name = "Bathroom"
@@ -14019,12 +14017,12 @@
 "dpS" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/carpet/green,
 /area/centcom/ferry)
 "dqh" = (
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "dsv" = (
@@ -14121,7 +14119,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -14920,6 +14918,7 @@
 	id = 8;
 	dir = 4
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/centcom/supply)
 "iVh" = (
@@ -14958,7 +14957,7 @@
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 4.5
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
 /obj/effect/turf_decal/siding/wood,
@@ -15262,6 +15261,7 @@
 /area/ctf)
 "lKb" = (
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/centcom/supply)
 "lKt" = (
@@ -15344,7 +15344,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -15706,7 +15706,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/machinery/door/airlock/centcom{
@@ -16106,6 +16106,7 @@
 	id = 8;
 	dir = 8
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/iron/techmaint,
 /area/centcom/supply)
 "rGZ" = (
@@ -16308,7 +16309,7 @@
 	},
 /area/centcom/control)
 "sJe" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -16437,7 +16438,7 @@
 	},
 /area/centcom/supply)
 "tRy" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -16699,7 +16700,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/carpet/green,
