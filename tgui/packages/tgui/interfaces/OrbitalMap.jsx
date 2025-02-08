@@ -2,9 +2,10 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
+import { useRef } from 'react';
 
 export const OrbitalMap = (props) => {
   const { act, data } = useBackend();
@@ -25,6 +26,8 @@ export const OrbitalMap = (props) => {
   const [xOffset, setXOffset] = useLocalState('xOffset', 0);
   const [yOffset, setYOffset] = useLocalState('yOffset', 0);
   const [trackedBody, setTrackedBody] = useLocalState('trackedBody', shuttleName);
+
+  const radarRef = useRef(null);
 
   let dynamicXOffset = xOffset;
   let dynamicYOffset = yOffset;
@@ -53,7 +56,7 @@ export const OrbitalMap = (props) => {
     <Window width={1136} height={770}>
       <Window.Content fitted>
         <Flex height="100%">
-          <Flex.Item class="OrbitalMap__radar" grow id="radar">
+          <Flex.Item class="OrbitalMap__radar" grow id="radar" innerRef={radarRef}>
             {interdictionTime ? (
               <InterdictionDisplay
                 xOffset={dynamicXOffset}
@@ -72,6 +75,7 @@ export const OrbitalMap = (props) => {
                 setZoomScale={setZoomScale}
                 setTrackedBody={setTrackedBody}
                 ourObject={ourObject}
+                radarRef={radarRef}
               />
             )}
           </Flex.Item>
@@ -156,7 +160,7 @@ export const OrbitalMap = (props) => {
 
 export const InterdictionDisplay = (props) => {
   const boxTargetStyle = {
-    'fill-opacity': 0,
+    fillOpacity: 0,
     stroke: '#DDDDDD',
     strokeWidth: '1',
   };
@@ -291,7 +295,16 @@ export const InterdictionDisplay = (props) => {
 };
 
 export const OrbitalMapDisplay = (props) => {
-  const { zoomScale, setZoomScale, setTrackedBody, ourObject, isTracking = false, dynamicXOffset, dynamicYOffset } = props;
+  const {
+    zoomScale,
+    setZoomScale,
+    setTrackedBody,
+    ourObject,
+    isTracking = false,
+    dynamicXOffset,
+    dynamicYOffset,
+    radarRef,
+  } = props;
 
   const [offset, setOffset] = useLocalState('offset', [0, 0]);
 
@@ -376,12 +389,13 @@ export const OrbitalMapDisplay = (props) => {
         dynamicYOffset={dynamicYOffset}
         currentUpdateIndex={update_index}
         onClick={(e, xOffset, yOffset) => {
-          let clickedOnDiv = document.getElementById('radar'); // This is kind
-          // of funky but A) I don't know react / javascript and B) Nobody in
-          // the history of the universe knows react / javascript so nobody
-          // will probably ever read this so I'm good.
-          let proportionalX = (e.offsetX / clickedOnDiv.offsetWidth) * 500;
-          let proportionalY = ((e.offsetY - 30) / clickedOnDiv.offsetHeight) * 500;
+          const radar = radarRef?.current;
+          if (!radar) {
+            return;
+          }
+          const rect = radar.getBoundingClientRect();
+          let proportionalX = ((e.clientX - rect.left) / radar.offsetWidth) * 500;
+          let proportionalY = ((e.clientY - rect.top) / radar.offsetHeight) * 500;
           act('setTargetCoords', {
             x: (proportionalX - 250) / zoomScale + (isTracking ? dynamicXOffset : xOffset),
             y: (proportionalY - 250) / zoomScale + (isTracking ? dynamicYOffset : yOffset),
