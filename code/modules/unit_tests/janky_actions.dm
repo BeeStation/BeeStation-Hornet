@@ -1,5 +1,5 @@
 /datum/unit_test/test_janky_actions/Run()
-	var/list/failures = list()
+	//var/list/failures = list()
 	TEST_FAIL("[jointext(uncreatables, ", ")]")
 	/*
 	for (var/obj/item/item_path as anything in subtypesof(/obj/item))
