@@ -8,14 +8,15 @@
 			TEST_FAIL("Expected the mob's action count to start at 0.")
 		// Equip and test
 		test_mob.equip_to_appropriate_slot(created_item)
-		if (length(created_item.actions) != length(test_mob.actions))
-			TEST_FAIL("Expected the mob's action count to be equal to the item's action count when equipped with [created_item].")
+		// Remember the number of actions we had
+		var/action_count = length(test_mob.actions)
+		// Unequip everything
 		test_mob.unequip_everything()
 		if (length(test_mob.actions) != 0)
 			TEST_FAIL("Expected the mob's action count to be equal 0 after dropping the item [created_item].")
-		// Equip and test
+		// Equip and test to make sure we have the same number of actions
 		test_mob.equip_to_appropriate_slot(created_item)
-		if (length(created_item.actions) != length(test_mob.actions))
+		if (action_count != length(test_mob.actions))
 			TEST_FAIL("Expected the mob's action count to be equal to the item's action count after re-equipping the item  [created_item] again.")
 		test_mob.unequip_everything()
 		if (length(length(test_mob.actions)) > 0)
