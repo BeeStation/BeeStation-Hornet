@@ -91,7 +91,7 @@ const Header = (props: { dropdown: any }, _context) => {
         <br />
         Check out our <a href="https://github.com/BeeStation/BeeStation-Hornet">Source</a>
         <br />
-        Join our Discord <a href="https://github.com/BeeStation/BeeStation-Hornet">Here!</a>.
+        Join our Discord <a href="https://discord.gg/ss13">Here!</a>.
       </p>
       {props.dropdown}
     </Section>
