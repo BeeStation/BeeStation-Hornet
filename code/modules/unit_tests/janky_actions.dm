@@ -4,14 +4,15 @@
 			continue
 		var/mob/living/carbon/human/test_mob = allocate(/mob/living/carbon/human/consistent)
 		var/obj/item/created_item = allocate(item_path)
+		TEST_ASSERT_EQUAL(length(test_mob.actions), 0, "Expected the mob's action count to start at 0.")
 		// Equip and test
 		test_mob.equip_to_appropriate_slot(created_item)
-		TEST_ASSERT_EQUAL(length(created_item.actions), length(test_mob.actions), "Expected the mob's action count to be equal to the item's action count.")
+		TEST_ASSERT_EQUAL(length(created_item.actions), length(test_mob.actions), "Expected the mob's action count to be equal to the item's action count when equipped with [created_item].")
 		test_mob.unequip_everything()
-		TEST_ASSERT_EQUAL(0, length(test_mob.actions), "Expected the mob's action count to be equal 0 after dropping the item.")
+		TEST_ASSERT_EQUAL(0, length(test_mob.actions), "Expected the mob's action count to be equal 0 after dropping the item [created_item].")
 		// Equip and test
 		test_mob.equip_to_appropriate_slot(created_item)
-		TEST_ASSERT_EQUAL(length(created_item.actions), length(test_mob.actions), "Expected the mob's action count to be equal to the item's action count after re-equipping the item again.")
+		TEST_ASSERT_EQUAL(length(created_item.actions), length(test_mob.actions), "Expected the mob's action count to be equal to the item's action count after re-equipping the item  [created_item] again.")
 		test_mob.unequip_everything()
-		TEST_ASSERT_EQUAL(0, length(test_mob.actions), "Expected the mob's action count to be equal 0 after dropping the item for a second time.")
+		TEST_ASSERT_EQUAL(0, length(test_mob.actions), "Expected the mob's action count to be equal 0 after dropping the item  [created_item] for a second time.")
 		qdel(test_mob)
