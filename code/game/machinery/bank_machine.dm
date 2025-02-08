@@ -50,7 +50,8 @@
 			var/money_amount_modulo = (value % length(list_of_budgets))
 			var/rounded_money_amount = ((value - money_amount_modulo) / length(list_of_budgets))
 			if(money_amount_modulo)
-				list_of_budgets[1].adjust_money(money_amount_modulo) //If we have an indivisible amount of money, dump it in the first budget.
+				var/datum/bank_account/first_budget_card = list_of_budgets[1]
+				first_budget_card.adjust_money(money_amount_modulo) //If we have an indivisible amount of money, dump it in the first budget.
 			for(var/datum/bank_account/budget_department_id as anything in list_of_budgets)
 				budget_department_id.adjust_money(rounded_money_amount)
 			to_chat(user, span_notice("You deposit [value] into all station budgets."))
