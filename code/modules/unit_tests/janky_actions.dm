@@ -9,7 +9,7 @@
 		var/held_actions = length(test_mob.actions)
 		test_mob.dropItemToGround(created_item, TRUE)
 		TEST_ASSERT_EQUAL(length(test_mob.actions), mob_actions, "When dropping [item_path], the mob had more actions assigned than they started with.")
-		test_mob.dropItemToGround(created_item, TRUE)
+		test_mob.put_in_active_hand(created_item, TRUE)
 		TEST_ASSERT_EQUAL(length(test_mob.actions), held_actions, "When picking [item_path] back up, the mob had a different amount of actions than they had when they first picked it up.")
 		test_mob.drop_all_held_items()
 		if (!isclothing(created_item))
