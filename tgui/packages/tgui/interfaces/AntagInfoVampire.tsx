@@ -234,7 +234,7 @@ const PowerSection = (props: any) => {
           />
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item scrollable grow={1} fontSsize="16px" style={{ 'white-space': 'pre-wrap' }}>
+        <Stack.Item scrollable grow={1} fontSsize="16px" style={{ whiteSpace: 'pre-wrap' }}>
           {selectedPower && selectedPower.power_explanation}
         </Stack.Item>
       </Stack>
