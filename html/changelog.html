@@ -56,6 +56,51 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">08 February 2025</h2>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">swarmers may no longer ventcrawl, and will also spawn in a random location instead of at the gateway. Without ventcrawling, the event as a whole should be more of a stand-off and defense than a bunch of constantly scurrying roaches.</li>
+				<li class="tweak">swarmers now have 65 HP</li>
+				<li class="tweak">swarmer ranged attack is now half the speed of security's disablers</li>
+				<li class="tweak">swarmer melee attacks now do 35 stamina damage</li>
+				<li class="tweak">swarmer replication now costs 20 resources</li>
+				<li class="tweak">swarmer traps and walls now cost 2 resources to place</li>
+				<li class="tweak">swarmer traps now trigger in an AoE when destroyed and their visuals and sound effects have been updated. The AoE has a greater effect on cyborgs than previously as well, due to their immunity to stamina damage.</li>
+				<li class="tweak">swarmer objective text has been slightly modified to clarify they can attack crew as long as they don't harm them</li>
+			</ul>
+			<h3 class="author">wikimody updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Brought back shadow sect</li>
+				<li class="rscadd">Summon obelisk - makes a obelisk with generates favour</li>
+				<li class="rscadd">Expand shadows - increases radius and power of darkness coming from obelisks</li>
+				<li class="rscadd">Shadow person conversion - self explainable</li>
+				<li class="rscadd">Night vision aura - people inside darkness radius of obelisks are given night vision.</li>
+				<li class="rscdel">Removed 2 antagonist focused rituals</li>
+				<li class="rscdel">Removed need for being shadow person to chose this sect</li>
+				<li class="code_imp">changed TRAIT_NIGHT_VISION to TRAIT_NIGHT_VISION_WEAK since the trait didn't actually add night vision</li>
+				<li class="code_imp">Added TRAIT_NIGHT_VISION with grant night vision to any mob</li>
+			</ul>
+
+			<h2 class="date">07 February 2025</h2>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added 4 new jackets: Underground Serpents jacket, Teen Biker Jacket, Liutenant Jacket and Driver jacket. Find them in the AutoDrobe</li>
+			</ul>
+			<h3 class="author">Therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes radstation holopad</li>
+			</ul>
+			<h3 class="author">itsmeow, jlsnow301, vvvv-vvvv, Mothblocks, vinylspiders, 00-Steven, san7890, harryob, intercepti0n, thegrb93, SyncIt21, LemonInTheDark updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Converted TGUI backend from Inferno to React. Minimal user-facing changes.</li>
+				<li class="code_imp">Added backend TGUI support for 516 (Webview2/Chromium support). This means that our TGUI is now potentially compatible with OpenDream as well.</li>
+				<li class="code_imp">Ended support for IE8 (commonly used by Linux machines), since it never worked anyway. RIP.</li>
+				<li class="code_imp">Various dropdowns will now prioritize their display text over the "selected" field. Added displayTextFirst flag to Dropdowns.</li>
+				<li class="code_imp">The Orbital Map no longer uses document APIs to find the current object ref.</li>
+				<li class="code_imp">Removed many, many instances of keyCode and replaced them with key</li>
+				<li class="code_imp">Refactored NumberInput component to Typescript, removing various extraneous properties</li>
+			</ul>
+
 			<h2 class="date">06 February 2025</h2>
 			<h3 class="author">Dejaku51 updated:</h3>
 			<ul class="changes bgimages16">
@@ -660,55 +705,6 @@
 				<li class="balance">Teratoma and changeling armour no longer require absorbs to use.</li>
 				<li class="balance">Adds a limit of 2 living teratomas to changelings.</li>
 				<li class="balance">Teratomas will now share DNA with the person that made them, which opens the way for detective work and changeling confusion counter-play.</li>
-			</ul>
-
-			<h2 class="date">07 December 2024</h2>
-			<h3 class="author">Geatish, dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Changling last resort now works properly</li>
-			</ul>
-			<h3 class="author">Ghommie, LemonInTheDark, Kylerace, vinylspiders, MrMelbert, Fikou, AnturK, ShizCalev, OrionTheFox, XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Gravity generator now shows repair instructions on examine</li>
-				<li class="rscadd">Proper functionality for upside down gravity, and high gravity situations</li>
-				<li class="refactor">Gravity is now event based, meaning you should have less downtime from moving into a weightless area and your gravity status changing.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Derringer now uses the highly lethal .357 rounds.</li>
-				<li class="rscdel">Removes the now pointless .38 ammo from the uplink, and removes the now-unused EMP .38 ammo.</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Through Bluespace Magic, NT Engineering has removed the Shield Satellite's Deploy time.</li>
-			</ul>
-			<h3 class="author">Therealdoooc213 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">ERT engi's have experimental tools now</li>
-			</ul>
-			<h3 class="author">XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed reagent grinders being unable to juice things.</li>
-			</ul>
-			<h3 class="author">rkz, ZephyrTFA, Fikou updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">refactored armor into subtypes.</li>
-				<li class="refactor">rolls permeability var into armor</li>
-				<li class="code_imp">unit tests against armor application</li>
-			</ul>
-
-			<h2 class="date">06 December 2024</h2>
-			<h3 class="author">Marshmellow105 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Ashwalker camp overhaul</li>
-			</ul>
-			<h3 class="author">Therealdoooc213 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">trashbags no longer display baguettes on worn icon</li>
-			</ul>
-			<h3 class="author">XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Dionae now take 5 seconds to assimilate nymphs on the ground.</li>
 			</ul>
 		</div>
 
