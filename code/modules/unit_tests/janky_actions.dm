@@ -19,7 +19,7 @@
 		test_mob.equip_to_appropriate_slot(created_item)
 		var/worn_actions = length(test_mob.actions)
 		test_mob.dropItemToGround(created_item)
-		TEST_ASSERT_EQUAL(length(test_mob.actions), mob_actions, "When taking off [item_path], the mob had more actions assigned than they started with.")
+		TEST_ASSERT_EQUAL(length(test_mob.actions), worn_actions, "When taking off [item_path], the mob had more actions assigned than they started with.")
 		test_mob.equip_to_appropriate_slot(created_item)
 		TEST_ASSERT_EQUAL(length(test_mob.actions), held_actions, "When wearing [item_path], the mob had a different amount of actions than they had when they first wore it.")
 		qdel(test_mob)
