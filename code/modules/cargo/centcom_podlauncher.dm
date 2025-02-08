@@ -566,6 +566,7 @@
 		var/mob/owner_client_mob = owner_client.mob
 		owner_client.mouse_up_icon = null
 		owner_client.mouse_down_icon = null
+		owner_client.mouse_override_icon = null
 		owner_client.click_intercept = null
 		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_mouse_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
