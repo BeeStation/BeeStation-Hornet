@@ -1,0 +1,16 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: swarmers may no longer ventcrawl, and will also spawn in a random location
+      instead of at the gateway. Without ventcrawling, the event as a whole should
+      be more of a stand-off and defense than a bunch of constantly scurrying roaches.
+  - tweak: swarmers now have 65 HP
+  - tweak: swarmer ranged attack is now half the speed of security's disablers
+  - tweak: swarmer melee attacks now do 35 stamina damage
+  - tweak: swarmer replication now costs 20 resources
+  - tweak: swarmer traps and walls now cost 2 resources to place
+  - tweak: swarmer traps now trigger in an AoE when destroyed and their visuals and
+      sound effects have been updated. The AoE has a greater effect on cyborgs than
+      previously as well, due to their immunity to stamina damage.
+  - tweak: swarmer objective text has been slightly modified to clarify they can attack
+      crew as long as they don't harm them
