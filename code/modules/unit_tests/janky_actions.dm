@@ -1,4 +1,4 @@
-/datum/unity_test/test_janky_actions/Run()
+/datum/unit_test/test_janky_actions/Run()
 	for (var/obj/item/item_path as anything in subtypesof(/obj/item))
 		if (!item_path::icon || !item_path::icon_state || !item_path::name)
 			continue
