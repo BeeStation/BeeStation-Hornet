@@ -52,6 +52,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	// Move to nullspace first to prevent qdel loops
+	moveToNullspace()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
