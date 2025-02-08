@@ -91,7 +91,7 @@
 	attack_verb_continuous = list("hits", "taps", "pokes")
 	attack_verb_simple = list("hit", "tap", "poke")
 	force = 0
-	bleed_force = NONE
+	bleed_force = 0
 	throwforce = 0
 	hitsound = null
 	embedding = null
@@ -157,6 +157,7 @@
 	name = "bananium energy shield"
 	desc = "A shield that stops most melee attacks, protects user from almost all energy projectiles, and can be thrown to slip opponents."
 	icon_state = "bananaeshield"
+	item_state = "bananaeshield"
 	throw_speed = 1
 	force = 0
 	throwforce = 0

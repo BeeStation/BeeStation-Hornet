@@ -11,7 +11,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	var/damtype = BRUTE
 	var/force = 0
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
-	var/bleed_force = NONE
+	var/bleed_force = 0
 
 	/*
 	VAR_PRIVATE/atom_integrity //defaults to max_integrity

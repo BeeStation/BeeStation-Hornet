@@ -113,12 +113,6 @@
 	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
 	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
-// /datum/action signals
-
-//! from base of datum/action/proc/Trigger(): (datum/action)
-#define COMSIG_ACTION_TRIGGER "action_trigger"
-	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
-
 // /datum/mind signals
 // (mob/old, mob/new)
 #define COMSIG_MIND_TRANSFER_TO "mind_transfer_to"

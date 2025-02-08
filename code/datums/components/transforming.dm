@@ -39,7 +39,7 @@
 	/// If we get sharpened with a whetstone, save the bonus here for later use if we un/redeploy
 	var/sharpened_bonus = 0
 	/// Dictate whether we change inhands or not
-	var/inhand_icon_change
+	var/inhand_icon_change = TRUE
 	/// Cooldown in between transforms
 	COOLDOWN_DECLARE(transform_cooldown)
 
@@ -191,9 +191,9 @@
 
 	source.hitsound = hitsound_on
 	source.w_class = w_class_on
+	source.icon_state = "[source.icon_state]_on"
 	if(inhand_icon_change && source.item_state)
 		source.item_state = "[source.item_state]_on"
-	source.item_state = "[source.item_state]_on"
 	if(ismob(source.loc))
 		var/mob/loc_mob = source.loc
 		loc_mob.update_inv_hands()

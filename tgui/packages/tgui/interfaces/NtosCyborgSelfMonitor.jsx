@@ -58,7 +58,7 @@ export const NtosCyborgSelfMonitorContent = (_) => {
         </Tabs>
       </Flex.Item>
       {tab_main === 1 && (
-        <Fragment>
+        <>
           <Flex direction={'row'}>
             <Flex.Item width="30%">
               <Section title="Configuration" fill>
@@ -214,10 +214,10 @@ export const NtosCyborgSelfMonitorContent = (_) => {
               fill
               scrollable
               buttons={
-                <Fragment>
+                <>
                   <Button content="State Laws" onClick={() => act('lawstate')} />
                   <Button icon="volume-off" onClick={() => act('lawchannel')} />
-                </Fragment>
+                </>
               }>
               {laws.map((law) => (
                 <Box
@@ -225,13 +225,12 @@ export const NtosCyborgSelfMonitorContent = (_) => {
                   key={law}
                   dangerouslySetInnerHTML={{
                     __html: sanitizeText(law),
-                  }}>
-                  {law}
-                </Box>
+                  }}
+                />
               ))}
             </Section>
           </Flex.Item>
-        </Fragment>
+        </>
       )}
       {tab_main === 2 && (
         <Flex.Item height={40}>
