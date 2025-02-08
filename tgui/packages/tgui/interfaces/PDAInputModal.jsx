@@ -55,9 +55,9 @@ export const PDAInputModal = (props) => {
           height="45px"
           fontSize={1.75}
           style={{
-            'justify-content': 'center',
-            'align-content': 'center',
-            'align-items': 'center',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
           }}>
           <Flex.Item mr={1} grow={1} basis={0} height="80%">
             <Button align="center" height="100%" fluid content="Send" color="good" onClick={() => act('submit')} />

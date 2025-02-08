@@ -30,7 +30,7 @@ export const ChemHeater = (props) => {
                 value={round(targetTemp)}
                 minValue={0}
                 maxValue={1000}
-                onDrag={(e, value) =>
+                onDrag={(value) =>
                   act('temperature', {
                     target: value,
                   })
