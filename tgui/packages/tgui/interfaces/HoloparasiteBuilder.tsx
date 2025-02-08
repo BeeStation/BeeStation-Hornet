@@ -260,7 +260,7 @@ const InputValidity = (props: { field: string; validity: Validity }) => {
       );
     }
     default: {
-      break;
+      return null;
     }
   }
 };
@@ -276,7 +276,7 @@ const BasicNameInput = (_props) => {
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
       }}>
       <Stack.Item grow>
         <Input
@@ -307,7 +307,7 @@ const BasicColorInput = (_props) => {
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
       }}>
       <Stack.Item grow>
         <ColorBox color={accent_color} onClick={() => set_color_select(hexToHsva(accent_color))} />
@@ -395,7 +395,7 @@ const BasicPointsInfo = (_props) => {
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
       }}>
       <Stack.Item grow>
         <ProgressBar
@@ -499,7 +499,7 @@ const NotesSection = (_props) => {
         <Stack.Item>
           <Stack
             style={{
-              'vertical-align': 'middle',
+              verticalAlign: 'middle',
             }}>
             <Stack.Item>
               <InputValidity field="notes" validity={validation.notes} />
@@ -841,82 +841,76 @@ const WaitingDialog = (_props) => {
   const {
     data: { themed_name, waiting },
   } = useBackend<Info>();
-  return (
-    !!waiting && (
-      <Dimmer fontSize="32px">
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon name="cog" spin />
-          </Stack.Item>
-          <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  return waiting ? (
+    <Dimmer fontSize="32px">
+      <Stack align="center" fill justify="center" vertical>
+        <Stack.Item>
+          <Icon name="cog" spin />
+        </Stack.Item>
+        <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
 const UsedDialog = (_props) => {
   const {
     data: { used, themed_name },
   } = useBackend<Info>();
-  return (
-    !!used && (
-      <Dimmer fontSize="32px">
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon name="exclamation-triangle" color="orange" />
-          </Stack.Item>
-          <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  return used ? (
+    <Dimmer fontSize="32px">
+      <Stack align="center" fill justify="center" vertical>
+        <Stack.Item>
+          <Icon name="exclamation-triangle" color="orange" />
+        </Stack.Item>
+        <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
 const ResetDialog = (_props) => {
   const { act } = useBackend<Info>();
   const [reset_dialog, set_reset_dialog] = useLocalState<boolean>('reset_dialog', false);
-  return (
-    !!reset_dialog && (
-      <Dimmer>
-        <Stack align="baseline" vertical>
-          <Stack.Item>
-            <Stack ml={-2}>
-              <Stack.Item>
-                <Icon color="red" name="trash" size={10} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item fontSize="18px" textAlign="center">
-            Are you sure you want to reset <b>all of your chosen stats and abilities</b>?
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Button
-                  color="good"
-                  content="Keep"
-                  onClick={() => {
-                    set_reset_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="bad"
-                  content="Reset"
-                  onClick={() => {
-                    act('reset');
-                    set_reset_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  return reset_dialog ? (
+    <Dimmer>
+      <Stack align="baseline" vertical>
+        <Stack.Item>
+          <Stack ml={-2}>
+            <Stack.Item>
+              <Icon color="red" name="trash" size={10} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item fontSize="18px" textAlign="center">
+          Are you sure you want to reset <b>all of your chosen stats and abilities</b>?
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button
+                color="good"
+                content="Keep"
+                onClick={() => {
+                  set_reset_dialog(false);
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="bad"
+                content="Reset"
+                onClick={() => {
+                  act('reset');
+                  set_reset_dialog(false);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
 const UnusedPointsDialog = (_props) => {
@@ -925,54 +919,52 @@ const UnusedPointsDialog = (_props) => {
     data: { points, themed_name },
   } = useBackend<Info>();
   const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
-  return (
-    !!unused_points_dialog && (
-      <Dimmer>
-        <Stack align="baseline" vertical>
-          <Stack.Item>
-            <Stack ml={-2}>
-              <Stack.Item>
-                <Icon color="yellow" name="exclamation-triangle" size={10} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item fontSize="18px">
-            <Stack vertical textAlign="center">
-              <Stack.Item>
-                You have <b>{points.toLocaleString()} unused points</b>!
-              </Stack.Item>
-              <Stack.Item>
-                Are you <i>sure</i> you would like to summon your {themed_name} without having allocated all of your points?
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Button
-                  color="good"
-                  content="Go Back"
-                  onClick={() => {
-                    set_unused_points_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="bad"
-                  content="Continue Anyways"
-                  onClick={() => {
-                    act('spawn');
-                    set_unused_points_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  return unused_points_dialog ? (
+    <Dimmer>
+      <Stack align="baseline" vertical>
+        <Stack.Item>
+          <Stack ml={-2}>
+            <Stack.Item>
+              <Icon color="yellow" name="exclamation-triangle" size={10} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item fontSize="18px">
+          <Stack vertical textAlign="center">
+            <Stack.Item>
+              You have <b>{points.toLocaleString()} unused points</b>!
+            </Stack.Item>
+            <Stack.Item>
+              Are you <i>sure</i> you would like to summon your {themed_name} without having allocated all of your points?
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button
+                color="good"
+                content="Go Back"
+                onClick={() => {
+                  set_unused_points_dialog(false);
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="bad"
+                content="Continue Anyways"
+                onClick={() => {
+                  act('spawn');
+                  set_unused_points_dialog(false);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
 export const HoloparasiteBuilder = (_props) => {
