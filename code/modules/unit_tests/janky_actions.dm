@@ -1,6 +1,6 @@
 /datum/unit_test/test_janky_actions/Run()
 	for (var/obj/item/item_path as anything in subtypesof(/obj/item))
-		if (!item_path::icon || !item_path::icon_state || !item_path::name || (item_path in uncreatables))
+		if (!item_path::icon || !item_path::icon_state || !item_path::name || (item_path in uncreatables) || (item_path.item_flags & ABSTRACT))
 			continue
 		var/mob/living/carbon/human/test_mob = allocate(/mob/living/carbon/human/consistent)
 		var/obj/item/created_item = allocate(item_path)
