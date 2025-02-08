@@ -91,6 +91,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "This might be the only player that ever uses the chameleon stamp unironically (unless they immediately fax CC calling them stupid)"
+	},
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "aV" = (
@@ -1879,6 +1882,15 @@
 /obj/machinery/computer/monitor/secret,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
+"ry" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "These tinyfans are a cope because holofields dont spawn until after roundstart which meant this bay always started depressurised. If that ever gets fixed remind me to remove these."
+	},
+/turf/open/floor/catwalk_floor,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "rB" = (
 /mob/living/carbon/monkey{
 	faction = list("neutral","Syndicate")
@@ -2986,6 +2998,9 @@
 "DQ" = (
 /obj/structure/toilet{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "Skibidi."
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered/syndicate_lava_base/port)
@@ -4248,6 +4263,9 @@
 "Pb" = (
 /obj/machinery/syndicatebomb/self_destruct{
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/Mapper_Comment{
+	desc = "Initially I wanted to put a rocket launcher in here because thats badass but the compelling point was made that the bases walls are made of explosives and our players are fucking stupid."
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered/syndicate_lava_base/starboard)
@@ -8492,7 +8510,7 @@ Pi
 Zo
 Go
 OO
-OO
+ry
 OO
 IF
 Zo
