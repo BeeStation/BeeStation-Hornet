@@ -14488,6 +14488,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 6
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/open/floor/wood/big,
 /area/library/lounge)
 "ddk" = (
@@ -16761,7 +16762,12 @@
 	pixel_y = -26;
 	id = "librc";
 	name = "Counter shutters";
-	req_access_txt = "37"
+	req_access_txt = "37";
+	pixel_x = -6
+	},
+/obj/machinery/light_switch{
+	pixel_y = -25;
+	pixel_x = 6
 	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
@@ -32418,6 +32424,7 @@
 	dir = 8;
 	name = "ancient throne"
 	},
+/obj/machinery/newscaster/directional/east,
 /turf/open/floor/engine/cult,
 /area/library/lounge)
 "gZX" = (
@@ -48979,7 +48986,10 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "kFN" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom/directional/north{
+	pixel_x = -4;
+	pixel_y = 28
+	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
@@ -60061,9 +60071,6 @@
 /turf/open/floor/vault/rock,
 /area/science/nanite)
 "ncp" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
@@ -67660,6 +67667,9 @@
 	dir = 9
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/chem_master/condimaster{
+	name = "HoochMaster 2000"
+	},
 /turf/open/floor/iron/checker/other,
 /area/crew_quarters/bar)
 "oKo" = (
@@ -80227,6 +80237,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/light_switch/directional/west{
+	pixel_x = -23
+	},
 /turf/open/floor/wood,
 /area/library/lounge)
 "rvh" = (
@@ -91340,16 +91353,13 @@
 /turf/open/floor/iron/stairs/medium,
 /area/hallway/primary/starboard)
 "tUi" = (
-/obj/machinery/light_switch{
-	pixel_y = -32
-	},
 /obj/structure/window/reinforced/spawner/east,
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "0-1"
 	},
 /obj/effect/turf_decal/box,
 /obj/structure/disposalpipe/trunk{
@@ -91361,6 +91371,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "tUw" = (
@@ -99574,10 +99585,7 @@
 /area/science/xenobiology)
 "vEQ" = (
 /obj/machinery/photocopier,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/newscaster/directional/south,
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "vFb" = (
@@ -103612,9 +103620,9 @@
 /area/maintenance/disposal/incinerator)
 "wvK" = (
 /obj/machinery/vending/games,
-/obj/machinery/light_switch/directional/west,
 /obj/effect/turf_decal/siding/brown,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/wood,
 /area/library/lounge)
 "wvP" = (
