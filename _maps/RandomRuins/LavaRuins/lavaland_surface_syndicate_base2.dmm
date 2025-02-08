@@ -84,6 +84,7 @@
 	id = "syndiship";
 	dir = 1
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "aT" = (
@@ -213,6 +214,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "bY" = (
@@ -598,6 +600,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "fs" = (
@@ -781,6 +784,7 @@
 /obj/machinery/power/shieldwallgen/atmos/roundstart{
 	id = "syndiship"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hB" = (
