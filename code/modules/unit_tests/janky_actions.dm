@@ -1,5 +1,4 @@
 /datum/unit_test/test_janky_actions/Run()
-	var/list/failures = list()
 	for (var/obj/item/item_path as anything in subtypesof(/obj/item))
 		if (!item_path::icon || !item_path::icon_state || !item_path::name || (item_path in uncreatables))
 			continue
