@@ -6,21 +6,19 @@
 		var/mob/living/carbon/human/test_mob = allocate(/mob/living/carbon/human/consistent)
 		var/obj/item/created_item = allocate(item_path)
 		if (length(test_mob.actions) != 0)
-			failures += "Expected the mob's action count to start at 0."
+			TEST_FAIL("Expected the mob's action count to start at 0.")
 		// Equip and test
 		test_mob.equip_to_appropriate_slot(created_item)
 		if (length(created_item.actions) != length(test_mob.actions))
-			failures += "Expected the mob's action count to be equal to the item's action count when equipped with [created_item]."
+			TEST_FAIL("Expected the mob's action count to be equal to the item's action count when equipped with [created_item].")
 		test_mob.unequip_everything()
 		if (length(test_mob.actions) != 0)
-			failures += "Expected the mob's action count to be equal 0 after dropping the item [created_item]."
+			TEST_FAIL("Expected the mob's action count to be equal 0 after dropping the item [created_item].")
 		// Equip and test
 		test_mob.equip_to_appropriate_slot(created_item)
 		if (length(created_item.actions) != length(test_mob.actions))
-			failures += "Expected the mob's action count to be equal to the item's action count after re-equipping the item  [created_item] again."
+			TEST_FAIL("Expected the mob's action count to be equal to the item's action count after re-equipping the item  [created_item] again.")
 		test_mob.unequip_everything()
 		if (length(length(test_mob.actions)) > 0)
-			failures += "Expected the mob's action count to be equal 0 after dropping the item  [created_item] for a second time."
+			TEST_FAIL("Expected the mob's action count to be equal 0 after dropping the item  [created_item] for a second time.")
 		qdel(test_mob)
-	if (length(failures))
-		TEST_FAIL(jointext(failures, "\n"))
