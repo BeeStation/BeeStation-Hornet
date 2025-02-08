@@ -310,7 +310,7 @@ GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 	if ((heap = target.status_traits[trait]) == null)
 		return FALSE
 	for (var/contained_trait in heap)
-		if (!(contained_trait = source))
+		if (!(contained_trait == source))
 			return TRUE
 	return FALSE
 
@@ -319,7 +319,7 @@ GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 	if ((heap = target.status_traits[trait]) == null)
 		return FALSE
 	for (var/contained_trait in heap)
-		if (contained_trait = source)
+		if (contained_trait == source)
 			return TRUE
 	return FALSE
 
@@ -329,7 +329,7 @@ GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 		return FALSE
 	. = FALSE
 	for (var/contained_trait in heap)
-		if (!(contained_trait = source))
+		if (!(contained_trait == source))
 			return FALSE
 		. = TRUE
 	return
