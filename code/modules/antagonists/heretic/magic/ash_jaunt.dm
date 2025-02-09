@@ -7,7 +7,7 @@
 	sound = null
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	cooldown_time = 35 SECONDS
 
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
@@ -19,7 +19,7 @@
 
 /// Used by heretic mobs that can ash jaunt
 /datum/action/spell/jaunt/ethereal_jaunt/ash
-	name = "Ashen Passage"
+	name = "Ashen Jaunt"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
 	background_icon_state = "bg_ecult"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'

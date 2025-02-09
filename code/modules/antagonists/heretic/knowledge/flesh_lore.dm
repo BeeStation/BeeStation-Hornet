@@ -86,10 +86,10 @@
 	SIGNAL_HANDLER
 
 	if (!istype(target))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	if(target.stat == DEAD)
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	// Find our current mark and clear it
 	var/datum/weakref/current_target = GET_TRAIT_VALUE(source, TRAIT_VALUE_FLESH_MARK)
@@ -208,7 +208,10 @@
 /datum/heretic_knowledge/flesh_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	target.apply_status_effect(/datum/status_effect/heretic_mark/flesh)
+	if (istype(target))
+		target.apply_status_effect(/datum/status_effect/heretic_mark/flesh)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/flesh_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER

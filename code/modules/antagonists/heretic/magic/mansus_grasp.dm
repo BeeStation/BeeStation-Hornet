@@ -20,27 +20,27 @@
 	return ..() && !!IS_HERETIC(owner)
 
 /datum/action/spell/touch/mansus_grasp/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	if(!isliving(victim))
-		return FALSE
-
-	var/mob/living/living_hit = victim
-	if(living_hit.can_block_magic(antimagic_flags))
-		victim.visible_message(
-			("<span class='danger'>The spell bounces off of [victim]!</span>"),
-			("<span class='danger'>The spell bounces off of you!</span>"),
-		)
-		return FALSE
+	if(isliving(victim))
+		var/mob/living/living_hit = victim
+		if(living_hit.can_block_magic(antimagic_flags))
+			victim.visible_message(
+				("<span class='danger'>The spell bounces off of [victim]!</span>"),
+				("<span class='danger'>The spell bounces off of you!</span>"),
+			)
+			return FALSE
 
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
 		return FALSE
 
-	living_hit.apply_damage(10, BRUTE)
-	if(iscarbon(victim))
-		var/mob/living/carbon/carbon_hit = victim
-		carbon_hit.silent = 3 SECONDS
-		carbon_hit.slurring = 7 SECONDS
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
+	if(isliving(victim))
+		var/mob/living/living_hit = victim
+		living_hit.apply_damage(10, BRUTE)
+		if(iscarbon(victim))
+			var/mob/living/carbon/carbon_hit = victim
+			carbon_hit.silent = 3 SECONDS
+			carbon_hit.slurring = 7 SECONDS
+			carbon_hit.AdjustKnockdown(5 SECONDS)
+			carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
 

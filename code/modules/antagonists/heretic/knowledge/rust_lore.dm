@@ -82,13 +82,12 @@
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 	// Cannot stack on the same target
 	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
 		if (current_rite.target == target)
-			return
+			return COMPONENT_BLOCK_HAND_USE
 	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
-	return
 
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"
@@ -170,6 +169,8 @@
 	SIGNAL_HANDLER
 	if(isliving(target))
 		target.apply_status_effect(/datum/status_effect/heretic_mark/rust)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/rust_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER

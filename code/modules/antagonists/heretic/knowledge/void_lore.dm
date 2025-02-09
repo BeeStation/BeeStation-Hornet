@@ -92,7 +92,7 @@
 	SIGNAL_HANDLER
 
 	if(!iscarbon(target))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	var/mob/living/carbon/carbon_target = target
 	var/turf/open/target_turf = get_turf(carbon_target)
@@ -155,6 +155,8 @@
 
 	if(istype(target, /mob/living))
 		target.apply_status_effect(/datum/status_effect/heretic_mark/void)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/void_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER

@@ -93,7 +93,7 @@
 /turf/closed/wall/rust/rust_heretic_act(intensity, initial, is_source = TRUE)
 	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
-	take_damage(90 * intensity)
+	take_damage(90 * intensity, sound_effect = FALSE)
 	return TRUE
 
 /turf/closed/wall/r_wall/rust
@@ -112,7 +112,7 @@
 /turf/closed/wall/r_wall/rust/rust_heretic_act(intensity, initial, is_source = TRUE)
 	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)
-	take_damage(90 * intensity)
+	take_damage(90 * intensity, sound_effect = FALSE)
 	return TRUE
 
 /turf/closed/wall/mineral/bronze

@@ -299,6 +299,7 @@
 	VAR_PRIVATE/strength = 1
 	// Significant distance to force targets to flee
 	var/max_range = 18
+	var/tick = 0
 
 /datum/status_effect/rust_rite/Destroy()
 	. = ..()
@@ -326,6 +327,9 @@
 		qdel(src)
 		return
 	target.rust_heretic_act(strength, FALSE)
+	if (tick >= 5)
+		playsound(target, get_sfx("hull_creaking"), 60, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+		tick = 0
 
 /datum/status_effect/rust_rite/on_remove()
 	if (isliving(target))
@@ -388,10 +392,10 @@
 	var/turf/new_loc = source.loc
 	if (!istype(old_loc) || !istype(new_loc))
 		return
-	if ((locate(/obj/machinery/door) in new_loc) && !(locate(/obj/machinery/door) in old_loc))
+	if ((locate(/obj/machinery/door) in new_loc) && owner.invisibility != INVISIBILITY_MAXIMUM)
 		new /obj/effect/temp_visual/dir_setting/ash_shift/out(old_loc)
-		owner.invisibility = INVISIBILITY_OBSERVER
-	if (!(locate(/obj/machinery/door) in new_loc) && (locate(/obj/machinery/door) in old_loc))
+		owner.invisibility = INVISIBILITY_MAXIMUM
+	if (!(locate(/obj/machinery/door) in new_loc) && owner.invisibility == INVISIBILITY_MAXIMUM)
 		new /obj/effect/temp_visual/dir_setting/ash_shift(new_loc)
 		owner.invisibility = initial(owner.invisibility)
 

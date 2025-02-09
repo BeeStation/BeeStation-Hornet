@@ -237,7 +237,7 @@
 
 /turf/closed/wall/r_wall/rust_heretic_act(intensity, initial, is_source = TRUE)
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		take_damage(90 * intensity)
+		take_damage(90 * intensity, sound_effect = FALSE)
 		return TRUE
 	if(prob(70) && initial)
 		new /obj/effect/temp_visual/glowing_rune(src)

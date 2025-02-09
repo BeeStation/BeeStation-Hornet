@@ -74,13 +74,13 @@
 	SIGNAL_HANDLER
 
 	if (!istype(target))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	if(HAS_TRAIT(target, TRAIT_BLIND))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	if(!target.getorganslot(ORGAN_SLOT_EYES))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
@@ -133,7 +133,10 @@
 /datum/heretic_knowledge/ash_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	target.apply_status_effect(/datum/status_effect/heretic_mark/ash)
+	if (istype(target))
+		target.apply_status_effect(/datum/status_effect/heretic_mark/ash)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/ash_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER

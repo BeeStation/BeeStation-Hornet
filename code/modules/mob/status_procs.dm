@@ -49,7 +49,7 @@
 /mob/proc/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color = TRUE, can_see = TRUE)
 	switch(stat)
 		if(CONSCIOUS, SOFT_CRIT)
-			if(HAS_TRAIT(src, TRAIT_BLIND) || eye_blind && istype(overlay, /atom/movable/screen/alert))
+			if(HAS_TRAIT(src, TRAIT_BLIND) || eye_blind)
 				throw_alert("blind", /atom/movable/screen/alert/blind)
 				do_set_blindness(FALSE, overlay, add_color)
 			else
