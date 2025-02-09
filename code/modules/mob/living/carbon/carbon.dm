@@ -10,6 +10,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
+	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_OVERRIDE_SKIN_COLOUR), PROC_REF(_signal_body_part_update))
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
@@ -1261,3 +1262,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if (species)
 		return species.attack_type
 	return ..()
+
+/mob/living/carbon/proc/_signal_body_part_update(datum/source)
+	SIGNAL_HANDLER
+	update_body_parts()
