@@ -52,7 +52,7 @@
 			to_chat(usr, "Success: [target_value] points have been added. [bound_bank_account.account_holder] now holds [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
 
 /obj/machinery/vendor/exploration/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Engineering Kit", "Medical Kit", "Scientist Kit", "Gunslinger Kit")
+	var/items = list("Engineering Kit", "Medical Kit", "Scientist Kit", "Gunslinger Kit", "Laser Repeater Kit")
 	if(CONFIG_GET(flag/jobs_have_minimal_access) == FALSE)	//If we are in a skeleton crew, it is likely we only have a single explorer
 		items += "Ghost Shift Kit"
 
@@ -91,6 +91,12 @@
 			new /obj/item/storage/belt/bandolier/western(drop_location)
 			new /obj/item/tank/internals/emergency_oxygen/double(drop_location)
 			new /obj/item/clothing/head/cowboy(drop_location)
+		if("Laser Repeater Kit")
+			new /obj/item/discovery_scanner(drop_location)
+			new /obj/item/gun/energy/laser/repeater/explorer(drop_location)
+			new /obj/item/tank/internals/emergency_oxygen/double(drop_location)
+			new /obj/item/clothing/head/costume/sombrero(drop_location)
+			new /obj/item/mob_lasso(drop_location)	//see you space cowboy
 
 	SSblackbox.record_feedback("tally", "mining_voucher_redeemed", 1, selection)
 	qdel(voucher)
