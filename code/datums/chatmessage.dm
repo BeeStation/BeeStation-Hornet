@@ -592,7 +592,9 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	//handle color
+	src.hearers_to_groups = list()
+	src.groups = list()
+	//handle colort
 	if(color)
 		tgt_color = color
 	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner)
@@ -643,6 +645,11 @@
 
 	// View the message
 	owned_by.images += group.message
+	// Keep track of this for image deletion
+	hearers_to_groups[owned_by] = group
+	group.clients += owned_by
+	groups += group
+	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
 
 	var/duration_mult = 1
 	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
