@@ -83,7 +83,7 @@
 			new /obj/item/storage/belt/utility/full(drop_location)
 			new /obj/item/sbeacondrop/exploration(drop_location)
 			new /mob/living/simple_animal/bot/medbot/filled(drop_location)	//This will save you if you are not stupid.
-			new /obj/item/reagent_containers/hypospray/medipen/atropine		//Aaaand this will kill you if you are stupid. Atropine makes you drop your gun.
+			new /obj/item/reagent_containers/hypospray/medipen/atropine(drop_location)		//Aaaand this will kill you if you are stupid. Atropine makes you drop your gun.
 		if("Gunslinger Kit")
 			new /obj/item/gun/ballistic/rifle/leveraction/exploration(drop_location)
 			new /obj/item/ammo_box/c38/exploration(drop_location)
