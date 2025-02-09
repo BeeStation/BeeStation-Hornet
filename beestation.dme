@@ -2765,6 +2765,7 @@
 #include "code\modules\exploration_crew\research_locator.dm"
 #include "code\modules\exploration_crew\discovery_research\discoverable_component.dm"
 #include "code\modules\exploration_crew\discovery_research\discovery_scanner.dm"
+#include "code\modules\exploration_crew\exploration_ballistic_gun.dm"
 #include "code\modules\flufftext\Dreaming.dm"
 #include "code\modules\food_and_drinks\pizzabox.dm"
 #include "code\modules\food_and_drinks\plate.dm"
