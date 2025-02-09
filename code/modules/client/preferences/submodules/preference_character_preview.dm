@@ -85,8 +85,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_vi
 	else
 		body.wipe_state()
 	body.appearance = preferences.render_new_preview_appearance(body)
-	// Force map view to update as well
-	name = "character_preview"
 
 /atom/movable/screen/map_view/character_preview_view/proc/create_body()
 	vis_contents.Cut()
