@@ -490,6 +490,6 @@
 
 	for(var/law in supplied)
 		if (length(law) > 0)
-			data += "[show_numbers ? "[number]:" : ""] <font color='#990099'>[law]</font>"
+			data += "[show_numbers ? "[number]:" : ""] <font color='#547DFE'>[law]</font>"
 			number++
 	return data
