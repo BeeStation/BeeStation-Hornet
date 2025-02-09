@@ -852,6 +852,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.remove_overlay(BODY_BEHIND_LAYER)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
+	H.remove_overlay(HANDS_PART_LAYER)
 
 	REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
@@ -1128,16 +1129,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(S.hasinner)	// Im so fucking sorry. I can't do this any other way without refactoring all of IPC limb code.
 							// This is due to the fact that IPC chassis are considered a bodypart. Not their actual bodypart limbs.
 				if(bodypart == "ipc_chassis")
-					var/list/robot_bodyparts = list( //Have to do custom body_parts list because bodypart.body_zone doesnt get the hands
-						BODY_ZONE_HEAD,
-						BODY_ZONE_CHEST,
-						BODY_ZONE_L_ARM,
-						BODY_ZONE_R_ARM,
-						BODY_ZONE_PRECISE_L_HAND,
-						BODY_ZONE_PRECISE_R_HAND,
-						BODY_ZONE_L_LEG,
-						BODY_ZONE_R_LEG,
-					)
+					var/list/robot_bodyparts = list()
+					for(var/obj/item/bodypart/robot_bodypart as anything in H.bodyparts)
+						robot_bodyparts += robot_bodypart.body_zone
+						if(robot_bodypart.body_zone == BODY_ZONE_L_ARM)
+							robot_bodyparts += BODY_ZONE_PRECISE_L_HAND
+						if(robot_bodypart.body_zone == BODY_ZONE_R_ARM)
+							robot_bodyparts += BODY_ZONE_PRECISE_R_HAND
+
 					var/list/robot_handparts = list(
 						BODY_ZONE_PRECISE_L_HAND,
 						BODY_ZONE_PRECISE_R_HAND,
@@ -1173,6 +1172,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.apply_overlay(BODY_BEHIND_LAYER)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
+	H.apply_overlay(HANDS_PART_LAYER)
 
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
