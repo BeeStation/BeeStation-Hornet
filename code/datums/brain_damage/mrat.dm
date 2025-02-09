@@ -186,7 +186,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 /datum/action/innate/mrat_kick/on_activate()
 	if(!istype(friend))
 		qdel(src)
-	if(!istype(friend) || alert(friend, "Are you sure you want to remove your mentor?", "Remove:", "Yes", "No") != "Yes")
+	if(!istype(friend) || alert(friend.owner, "Are you sure you want to remove your mentor?", "Remove:", "Yes", "No") != "Yes")
 		return
 	to_chat(friend, span_warning("You have been removed from [friend.owner]."))
 	to_chat(friend.owner, span_warning("Your mentor has been removed."))
