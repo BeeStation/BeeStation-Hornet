@@ -71,59 +71,6 @@
 	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
 	remove_hand_with_no_refund(user)
 
-/obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!proximity_flag || !IS_HERETIC(user) || target == user)
-		return
-	if(ishuman(target) && antimagic_check(target, user))
-		return ..()
-
-	if(isliving(target))
-		if(on_mob_hit(target, user))
-			return
-	else
-		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
-			use_charge(user)
-		return
-
-	return ..()
-
-/**
- * Checks if the [target] has some form of anti-magic.
- *
- * Returns TRUE If the attack was blocked. FALSE otherwise.
- */
-/obj/item/melee/touch_attack/mansus_fist/proc/antimagic_check(mob/living/carbon/human/target, mob/living/carbon/user)
-	if(target.anti_magic_check())
-		target.visible_message(
-			"<span class='danger'>The spell bounces off of [target]!</span>",
-			"<span class='danger'>The spell bounces off of you!</span>",
-		)
-		return TRUE
-	return FALSE
-
-/**
- * Called with [hit] is successfully hit by a mansus grasp by [heretic].
- *
- * Sends signal COMSIG_HERETIC_MANSUS_GRASP_ATTACK.
- * If it returns COMPONENT_BLOCK_CHARGE_USE, the proc returns FALSE.
- * Otherwise, returns TRUE.
- */
-/obj/item/melee/touch_attack/mansus_fist/proc/on_mob_hit(mob/living/hit, mob/living/heretic)
-	if(SEND_SIGNAL(heretic, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, hit) & COMPONENT_BLOCK_CHARGE_USE)
-		return FALSE
-
-	hit.adjustBruteLoss(10)
-	if(iscarbon(hit))
-		var/mob/living/carbon/carbon_hit = hit
-		carbon_hit.AdjustKnockdown(5 SECONDS)
-		carbon_hit.adjustStaminaLoss(80)
-		carbon_hit.adjustBruteLoss(10)
-		carbon_hit.silent = max(carbon_hit.silent, 4)
-
-	use_charge(heretic)
-
-	return TRUE
-
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent

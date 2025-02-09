@@ -1,21 +1,21 @@
 /datum/action/spell/ashen_passage
 	name = "Ashen Passage"
 	desc = "A spell which turns the user into ash, granting them invulnerability and the ability to pass through any door unimpeded."
-	action_icon = 'icons/hud/actions/actions_heretic.dmi'
-	action_icon_state = "ash_shift"
-	action_background_icon_state = "bg_ecult"
+	background_icon_state = "bg_ecult"
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon_state = "ash_shift"
+	sound = null
+
+	school = SCHOOL_FORBIDDEN
+	cooldown_time = 15 SECONDS
+
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
-	requires_heretic_focus = TRUE
-	clothes_req = FALSE
-	charge_max = 90 SECONDS
-	range = -1
-	include_user = TRUE
-	nonabstract_req = TRUE
+	spell_requirements = NONE
 
-/datum/action/spell/ashen_passage/cast(list/targets, mob/user)
-	for(var/mob/living/target in targets)
-		target.apply_status_effect(/datum/status_effect/ashen_passage)
+/datum/action/spell/ashen_passage/on_cast(mob/living/user, atom/target)
+	. = ..()
+	user.apply_status_effect(/datum/status_effect/ashen_passage)
 
 /// Used by heretic mobs that can ash jaunt
 /datum/action/spell/jaunt/ethereal_jaunt/ash

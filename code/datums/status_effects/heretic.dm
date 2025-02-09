@@ -114,7 +114,7 @@
 
 /datum/status_effect/heretic_mark/void/on_effect()
 	var/turf/open/turfie = get_turf(owner)
-	turfie.TakeTemperature(-40)
+	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
@@ -170,7 +170,7 @@
 
 /datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
 	. = ..()
-	to_chat(owner, "<span class='userdanger'>Your body starts to break apart!</span>")
+	to_chat(owner, span_userdanger("Your body starts to break apart!"))
 
 /datum/status_effect/corrosion_curse/tick()
 	. = ..()
@@ -183,32 +183,32 @@
 	var/message = "Coder did fucky wucky U w U"
 	switch(chance)
 		if(0 to 10)
-			message = "<span class='warning'>You feel a lump build up in your throat.</span>"
+			message = span_warning("You feel a lump build up in your throat.")
 			human_owner.vomit()
 		if(20 to 30)
-			message = "<span class='warning'>You feel feel very well.</span>"
+			message = span_warning("You feel feel very well.")
 			human_owner.Dizzy(50)
 			human_owner.Jitter(50)
 		if(30 to 40)
-			message = "<span class='warning'>You feel a sharp sting in your side.</span>"
+			message = span_warning("You feel a sharp sting in your side.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)
 		if(40 to 50)
-			message = "<span class='warning'>You feel pricking around your heart.</span>"
+			message = span_warning("You feel pricking around your heart.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_HEART, 5, 90)
 		if(50 to 60)
-			message = "<span class='warning'>You feel your stomach churning.</span>"
+			message = span_warning("You feel your stomach churning.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 5)
 		if(60 to 70)
-			message = "<span class='warning'>Your eyes feel like they're on fire.</span>"
+			message = span_warning("Your eyes feel like they're on fire.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 10)
 		if(70 to 80)
-			message = "<span class='warning'>You hear ringing in your hears.</span>"
+			message = span_warning("You hear ringing in your hears.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
 		if(80 to 90)
-			message = "<span class='warning'>Your ribcage feels tighter.</span>"
+			message = span_warning("Your ribcage feels tighter.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10)
 		if(90 to 100)
-			message = "<span class='warning'>You feel your skull pressing down on your brain.</span>"
+			message = span_warning("You feel your skull pressing down on your brain.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
 	if(prob(33)) //so the victim isn't spammed with messages every 3 seconds
 		to_chat(human_owner,message)
@@ -217,7 +217,7 @@
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
+	examine_text = span_warning("SUBJECTPRONOUN has a blank, catatonic like stare.")
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /datum/status_effect/ghoul/get_examine_text()
@@ -240,7 +240,7 @@
 
 /datum/status_effect/amok/on_apply(mob/living/afflicted)
 	. = ..()
-	to_chat(owner, "<span class='boldwarning'>You feel filled with a rage that is not your own!</span>")
+	to_chat(owner, span_boldwarning("You feel filled with a rage that is not your own!"))
 
 /datum/status_effect/amok/tick()
 	. = ..()
