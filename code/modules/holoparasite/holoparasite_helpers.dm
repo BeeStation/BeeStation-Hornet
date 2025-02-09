@@ -16,7 +16,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	. = TRUE
 	if(QDELETED(summoner.current))
 		return FALSE
-	var/summoner_loc = summoner.current.loc
+	var/atom/summoner_loc = summoner.current.loc
 	if(isnull(loc) || isnull(summoner_loc)) // no manifesting from nullspace!!
 		return FALSE
 	if(is_type_in_typecache(summoner_loc, no_manifest_locs))

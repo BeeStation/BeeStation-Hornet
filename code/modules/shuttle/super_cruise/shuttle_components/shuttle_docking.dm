@@ -316,7 +316,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 	if(length(whitelist_turfs))
 		var/turf_type = hidden_turf_info ? hidden_turf_info[2] : T.type
-		if(!is_type_in_typecache(turf_type, whitelist_turfs))
+		if(!is_path_in_typecache(turf_type, whitelist_turfs))
 			return SHUTTLE_DOCKER_BLOCKED
 
 	for(var/obj/machinery/M in T.contents) //An inprecise check to prevent theft of important machines such the SM or the communication console.

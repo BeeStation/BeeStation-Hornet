@@ -76,7 +76,7 @@
 	if(last_spread <= world.time)
 		var/list/validturfs = list()
 		var/list/natureturfs = list()
-		for(var/T in circleviewturfs(src, 5))
+		for(var/turf/T as anything in circleviewturfs(src, 5))
 			if(istype(T, /turf/open/floor/grass))
 				natureturfs |= T
 				continue

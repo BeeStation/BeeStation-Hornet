@@ -36,7 +36,7 @@
 	for(var/knowledge_type in typesof(/datum/heretic_knowledge))
 
 		// Skip blacklisted types
-		if(is_type_in_typecache(knowledge_type, blacklist_typecache))
+		if(is_path_in_typecache(knowledge_type, blacklist_typecache))
 			continue
 
 		var/datum/heretic_knowledge/instantiated_knowledge = new knowledge_type()

@@ -419,7 +419,7 @@
 				/obj/effect/ctf,
 				/obj/item/ctf
 			))
-	for(var/atm in A)
+	for(var/atom/atm as anything in A)
 		if (isturf(A) || ismob(A) || isarea(A))
 			continue
 		if(isstructure(atm))

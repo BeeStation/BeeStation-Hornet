@@ -29,9 +29,9 @@
 	//These have to be after the parent new to ensure that the monkey
 	//bodyparts are actually created before we try to equip things to
 	//those slots
-	if(relic_hat && !is_type_in_typecache(relic_hat, relic_hat_blacklist))
+	if(relic_hat && !is_path_in_typecache(relic_hat, relic_hat_blacklist))
 		equip_to_slot_or_del(new relic_hat, ITEM_SLOT_HEAD)
-	if(relic_mask && !is_type_in_typecache(relic_mask, relic_mask_blacklist))
+	if(relic_mask && !is_path_in_typecache(relic_mask, relic_mask_blacklist))
 		equip_to_slot_or_del(new relic_mask, ITEM_SLOT_MASK)
 
 /mob/living/carbon/monkey/punpun/Life()

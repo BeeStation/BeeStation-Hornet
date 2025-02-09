@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/New()
 	. = ..()
 	// this is important because wrong items can be said to tell it can be used for illegal
-	if(!ispath(item, /obj/item) || is_type_in_typecache(item, GLOB.illegal_tech_blacklist))
+	if(!ispath(item, /obj/item) || is_path_in_typecache(item, GLOB.illegal_tech_blacklist))
 		illegal_tech = FALSE
 
 /datum/uplink_item/proc/get_discount()

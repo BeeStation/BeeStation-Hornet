@@ -68,7 +68,7 @@
 		return FALSE
 	if(!isnull(limit) && times >= limit)
 		return FALSE
-	for(var/spell in user.actions)
+	for(var/datum/action/spell as anything in user.actions)
 		if(is_type_in_typecache(spell, no_coexistance_typecache))
 			return FALSE
 	return TRUE
