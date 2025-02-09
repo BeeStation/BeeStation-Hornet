@@ -89,8 +89,21 @@
 		eyeobj.transfer_observers_to(current_user)
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
-	for(var/datum/action/to_grant as anything in actions)
-		to_grant.Grant(user)
+	if(off_action)
+		off_action.Grant(user)
+		actions += off_action
+
+	if(jump_action)
+		jump_action.Grant(user)
+		actions += jump_action
+
+	if(move_up_action)
+		move_up_action.Grant(user)
+		actions += move_up_action
+
+	if(move_down_action)
+		move_down_action.Grant(user)
+		actions += move_down_action
 
 /obj/machinery/proc/remove_eye_control(mob/living/user)
 	SIGNAL_HANDLER
@@ -102,6 +115,7 @@
 	for(var/V in actions)
 		var/datum/action/A = V
 		A.Remove(user)
+	actions.Cut()
 	for(var/V in eyeobj.visibleCameraChunks)
 		var/datum/camerachunk/C = V
 		C.remove(eyeobj)
