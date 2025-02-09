@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						standing += inner_accessory_overlay
 
 				else
-					var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER))
+					var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
 					if(S.gender_specific)
 						inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
 					else
