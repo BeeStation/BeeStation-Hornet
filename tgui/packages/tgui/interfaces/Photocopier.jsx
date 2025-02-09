@@ -78,7 +78,7 @@ const Options = (props) => {
         </Flex.Item>
         <Flex.Item>
           <NumberInput
-            animate
+            animated
             width={2.6}
             height={1.65}
             step={1}
@@ -86,7 +86,7 @@ const Options = (props) => {
             minValue={1}
             maxValue={10}
             value={num_copies}
-            onDrag={(e, value) =>
+            onDrag={(value) =>
               act('set_copies', {
                 num_copies: value,
               })

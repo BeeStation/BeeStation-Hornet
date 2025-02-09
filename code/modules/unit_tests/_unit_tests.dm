@@ -11,6 +11,7 @@
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "antag_datums.dm"
+#include "antimagic_test.dm"
 #include "area_contents.dm"
 #include "armor_verification.dm"
 #include "armour_checks.dm"
@@ -48,6 +49,7 @@
 #include "language_transfer.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
+#include "mindbound_actions.dm"
 #include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
 #include "orphaned_genturf.dm"
@@ -67,6 +69,10 @@
 #include "siunit.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
+#include "spell_invocations.dm"
+#include "spell_mindswap.dm"
+#include "spell_names.dm"
+#include "spell_shapeshift.dm"
 #include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
@@ -75,9 +81,10 @@
 #include "teleporters.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
+#include "trait_tests.dm"
 #include "unit_test.dm"
 #include "walls_have_sheets.dm"
-#include "wizard.dm"
+#include "wizard_loadout.dm"
 #include "worn_icons.dm"
 
 /*
@@ -97,5 +104,7 @@
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
 #undef TEST_ASSERT_NOTEQUAL
+#undef TEST_ASSERT_TRUE
+#undef TEST_ASSERT_FALSE
 //#undef TEST_FOCUS - This define is used by vscode unit test extension to pick specific unit tests to run and appended later so needs to be used out of scope here
 #endif
