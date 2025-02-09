@@ -8,7 +8,6 @@
 
 /obj/item/ammo_box/magazine/internal/leveraction/exploration
 	name = "lever action rifle internal magazine"
-	desc = "Why the fuck can you see this, this is meant to be IN the gun!"
 	ammo_type = /obj/item/ammo_casing/c38
 	caliber = "38"
 	max_ammo = 8
@@ -16,7 +15,7 @@
 
 /obj/projectile/bullet/c38/exploration
 	name = ".38 Prospector bullet"
-	damage = 15
+	damage = 20
 	ricochets_max = 2
 	ricochet_chance = 80
 	ricochet_auto_aim_angle = 40
@@ -35,9 +34,14 @@
 
 /obj/item/ammo_box/c38/exploration
 	name = "Ammo Box (.38 Prospector)"
-	desc = "These rounds were designed for the purpose of eradicating threats from outer space at the cost of stopping power against regular targets."
+	desc = "These rounds were designed for the purpose of eradicating threats from outer space."
 	ammo_type = /obj/item/ammo_casing/c38/exploration
 	icon_state = "38pbox"
 	max_ammo = 24
 	multiple_sprites = 0
 	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_box/c38/box/exploration
+	name = "ammo box (.38Prospector)"
+	desc = "A small pack of .38 Prospector cartridges"
+	ammo_type = /obj/item/ammo_casing/c38/exploration
