@@ -126,14 +126,22 @@ export const FaxMainPanel = (props) => {
                   width="45px"
                   minValue={0}
                   maxValue={300}
+                  step={1}
                   value={stampCoordX}
-                  onChange={(_, v) => setStampCoordX(v)}
+                  onChange={(v) => setStampCoordX(v)}
                 />
               </h4>
 
               <h4>
                 Y Coordinate:{' '}
-                <NumberInput width="45px" minValue={0} value={stampCoordY} onChange={(_, v) => setStampCoordY(v)} />
+                <NumberInput
+                  width="45px"
+                  minValue={0}
+                  maxValue={+Infinity}
+                  value={stampCoordY}
+                  step={1}
+                  onChange={(v) => setStampCoordY(v)}
+                />
               </h4>
 
               <Box textAlign="center">

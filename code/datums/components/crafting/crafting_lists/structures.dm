@@ -120,6 +120,18 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
+/datum/crafting_recipe/air_sensor
+	name = "Monitored Air Sensor"
+	result = /obj/item/air_sensor
+	time = 1 SECONDS
+	reqs = list(
+		/obj/item/analyzer = 1,
+		/obj/item/stack/sheet/iron = 1,
+		)
+	blacklist = list(/obj/item/analyzer/ranged)
+	tools = list(TOOL_SCREWDRIVER)
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
 /datum/crafting_recipe/weightmachine
 	name = "Chest press machine"
 	result = /obj/structure/weightmachine

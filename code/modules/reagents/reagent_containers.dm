@@ -181,8 +181,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	reagents.expose_temperature(1000)
 	return ..()
 
-/obj/item/reagent_containers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	reagents.expose_temperature(exposed_temperature)
+/obj/item/reagent_containers/fire_act(temperature, volume)
+	reagents.expose_temperature(temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
 	update_icon()

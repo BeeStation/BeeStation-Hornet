@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { TextArea } from './TextArea';
 
 const DEFAULT_UPDATE_INTERVAL = 4000;
