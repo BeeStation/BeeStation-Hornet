@@ -322,7 +322,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		return
 
 /mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TIPPED_OVER)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	user.visible_message(span_danger("[user] tips over [src]!"), span_danger("You tip [src] over!"))
 	tipped = TRUE
@@ -331,7 +331,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	tipper_name = user.name
 
 /mob/living/simple_animal/bot/medbot/proc/set_right(mob/user)
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TIPPED_OVER)
 	var/list/messagevoice
 
 	if(user)
