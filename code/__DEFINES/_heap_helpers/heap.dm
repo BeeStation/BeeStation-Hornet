@@ -28,7 +28,7 @@
 		};\
 	} while (0)
 
-#if defined(SPACEMAN_DMM) || TRUE
+#if defined(SPACEMAN_DMM)
 
 #define GREATER_CHILD_HEAP(_heap_list, _index, _compare_value, tmp) (_index * 2 > length(_heap_list))\
 	? (0)\
