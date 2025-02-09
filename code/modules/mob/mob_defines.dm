@@ -231,3 +231,5 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/active_typing_indicator
 	///the icon currently used for the thinking indicator's bubble
 	var/active_thinking_indicator
+	/// Should shift be used to open the context menu?
+	var/shift_to_open_context_menu = TRUE
