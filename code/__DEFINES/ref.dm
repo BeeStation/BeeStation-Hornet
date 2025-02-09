@@ -8,6 +8,7 @@
 /// : because of the embedded typecheck
 #define FAST_REF(datum) (isdatum(datum) ? CACHED_REF(datum) : "\ref[datum]")
 
+/// Gets a ref without going through the caching process
 #define UNCACHED_REF(target) ("\ref[target]")
 
 /// FAST_REF but with 512 tag support
