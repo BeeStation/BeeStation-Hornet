@@ -120,7 +120,9 @@ export const BanningPanel = (props) => {
                           value={ban_duration}
                           animated
                           minValue={1}
-                          onChange={(e, value) => act('update_duration', { duration: value })}
+                          maxValue={+Infinity}
+                          step={1}
+                          onChange={(value) => act('update_duration', { duration: value })}
                         />
                         <Dropdown
                           selected={time_units}

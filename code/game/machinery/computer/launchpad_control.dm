@@ -53,7 +53,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 /obj/machinery/computer/launchpad/proc/teleport_checks(obj/machinery/launchpad/pad)
 	if(QDELETED(pad))
 		return "ERROR: Launchpad not responding. Check launchpad integrity."
-	if(!pad.isAvailable())
+	if(!pad.is_available())
 		return "ERROR: Launchpad not operative. Make sure the launchpad is ready and powered."
 	if(pad.teleporting)
 		return "ERROR: Launchpad busy."
@@ -76,8 +76,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 	if(QDELETED(pad))
 		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
 		return
-	if(!pad.isAvailable())
-		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered."))
+	if(!pad.is_available())
+		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>"))
 		return
 	pad.doteleport(user, sending)
 

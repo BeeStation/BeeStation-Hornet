@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import DOMPurify from 'dompurify';
+import { sanitize } from 'dompurify';
 import { storage } from 'common/storage';
 import { loadSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
@@ -35,7 +35,7 @@ const loadChatFromStorage = async (store) => {
   if (messages) {
     for (let message of messages) {
       if (message.html) {
-        message.html = DOMPurify.sanitize(message.html, {
+        message.html = sanitize(message.html, {
           FORBID_TAGS,
         });
       }

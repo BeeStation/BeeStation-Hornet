@@ -8,10 +8,16 @@
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
 	allow_temp_override = FALSE
-	help_verb = /mob/living/proc/sleeping_carp_help
 	smashes_tables = TRUE
 	display_combos = TRUE
 	var/old_grab_state = null
+
+	Move1 = "Wrist Wrench: Disarm Disarm. Forces opponent to drop item in hand."
+	Move2 = "Back Kick: Harm Grab. Opponent must be facing away. Knocks down."
+	Move3 = "Stomach Knee: Grab Harm. Knocks the wind out of opponent and stuns."
+	Move4 = "Head Kick: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand."
+	Move5 = "Elbow Drop: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition."
+
 
 /datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
@@ -150,18 +156,17 @@
 	add_to_streak("D",D)
 	if(check_streak(A,D))
 		return TRUE
+	log_combat(A, D, "disarmed (Sleeping Carp)")
 	return ..()
 
 /datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
 	. = ..()
-	if(A.incapacitated(FALSE, TRUE)) //NO STUN
+	if(A.incapacitated(IGNORE_GRAB)) //NO STUN
 		return BULLET_ACT_HIT
 	if(!(A.mobility_flags & MOBILITY_USE)) //NO UNABLE TO USE
 		return BULLET_ACT_HIT
 	var/datum/dna/dna = A.has_dna()
-	if(dna?.check_mutation(HULK)) //NO HULK
-		return BULLET_ACT_HIT
-	if(!P.martial_arts_no_deflect)
+	if(dna?.check_mutation(/datum/mutation/hulk)) //NO HULK
 		return BULLET_ACT_HIT
 	if(!isturf(A.loc)) //NO MOTHERFLIPPIN MECHS!
 		return BULLET_ACT_HIT
@@ -171,28 +176,15 @@
 	P.set_angle(rand(0, 360))//SHING
 	return BULLET_ACT_FORCE_PIERCE
 
-/datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary = FALSE)
+/datum/martial_art/the_sleeping_carp/teach(mob/living/H, make_temporary = FALSE)
 	. = ..()
 	if(!.)
 		return
 	ADD_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
 
-/datum/martial_art/the_sleeping_carp/on_remove(mob/living/carbon/human/H)
+/datum/martial_art/the_sleeping_carp/on_remove(mob/living/H)
 	. = ..()
 	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
-
-/mob/living/proc/sleeping_carp_help()
-	set name = "Recall Teachings"
-	set desc = "Remember the martial techniques of the Sleeping Carp clan."
-	set category = "Sleeping Carp"
-
-	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Sleeping Carp...</i></b>")
-
-	to_chat(usr, "[span_notice("Wrist Wrench")]: Disarm Disarm. Forces opponent to drop item in hand.")
-	to_chat(usr, "[span_notice("Back Kick")]: Harm Grab. Opponent must be facing away. Knocks down.")
-	to_chat(usr, "[span_notice("Stomach Knee")]: Grab Harm. Knocks the wind out of opponent and stuns.")
-	to_chat(usr, "[span_notice("Head Kick")]: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand.")
-	to_chat(usr, "[span_notice("Elbow Drop")]: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.")
 
 /obj/item/staff/bostaff
 	name = "bo staff"
@@ -220,13 +212,13 @@
 	icon_state = "bostaff0"
 	..()
 
-/obj/item/staff/bostaff/attack(mob/target, mob/living/user)
+/obj/item/staff/bostaff/attack(mob/target, mob/living/user, params)
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, span_warning("You club yourself over the head with [src]."))
 		user.Paralyze(60)
 		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
+			var/mob/living/H = user
 			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
 		else
 			user.take_bodypart_damage(2*force)
@@ -244,7 +236,7 @@
 			return ..()
 		if(!ishuman(target))
 			return ..()
-		var/mob/living/carbon/human/H = target
+		var/mob/living/H = target
 		var/list/fluffmessages = list("club", "smack", "broadside", "beat", "slam")
 		H.visible_message(span_warning("[user] [pick(fluffmessages)]s [H] with [src]!"), \
 						span_userdanger("[user] [pick(fluffmessages)]s you with [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
@@ -266,7 +258,7 @@
 	else
 		return ..()
 
-/obj/item/staff/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/staff/bostaff/hit_reaction(mob/living/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!ISWIELDED(src))
 		return ..()
 	return 0

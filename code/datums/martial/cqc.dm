@@ -7,10 +7,18 @@
 /datum/martial_art/cqc
 	name = "CQC"
 	id = MARTIALART_CQC
-	help_verb = /mob/living/proc/CQC_help
 	block_chance = 75
 	smashes_tables = TRUE
 	display_combos = TRUE
+
+	Move1 = "Slam: Grab Punch. Slam opponent into the ground, knocking them down."
+	Move2 = "CQC Kick: Punch Punch. Knocks opponent away. Knocks out stunned or knocked down opponents."
+	Move3 = "Restrain: Grab Grab. Locks opponents into a restraining position, disarm to knock them out with a chokehold."
+	Move4 = "Pressure: Shove Grab. Decent stamina damage."
+	Move5 = "Consecutive CQC: Shove Shove Punch. Mainly offensive move, huge damage and decent stamina damage."
+
+	AdditionText = "In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you."
+
 	var/old_grab_state = null
 	var/mob/restraining_mob
 
@@ -122,7 +130,7 @@
 		return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)
-	if(A.a_intent == INTENT_GRAB && A!=D && can_use(A)) // A!=D prevents grabbing yourself
+	if(A != D && can_use(A)) // A != D prevents grabbing yourself
 		add_to_streak("G",D)
 		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
 			return TRUE
@@ -208,21 +216,6 @@
 		to_chat(A, "<span class='warning'>You fail to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return FALSE
-
-
-/mob/living/proc/CQC_help()
-	set name = "Remember The Basics"
-	set desc = "You try to remember some of the basics of CQC."
-	set category = "CQC"
-	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-	to_chat(usr, "[span_notice("Slam")]: Grab Harm. Slam opponent into the ground, knocking them down.")
-	to_chat(usr, "[span_notice("CQC Kick")]: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
-	to_chat(usr, "[span_notice("Restrain")]: Grab Grab. Locks opponents into a restraining position, disarm to knock them out with a chokehold.")
-	to_chat(usr, "[span_notice("Pressure")]: Disarm Grab. Decent stamina damage.")
-	to_chat(usr, "[span_notice("Consecutive CQC")]: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
-
-	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
 
 ///Subtype of CQC. Only used for the chef.
 /datum/martial_art/cqc/under_siege
