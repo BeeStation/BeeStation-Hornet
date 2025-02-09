@@ -89,21 +89,8 @@
 		eyeobj.transfer_observers_to(current_user)
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
-	if(off_action)
-		off_action.Grant(user)
-		actions += off_action
-
-	if(jump_action)
-		jump_action.Grant(user)
-		actions += jump_action
-
-	if(move_up_action)
-		move_up_action.Grant(user)
-		actions += move_up_action
-
-	if(move_down_action)
-		move_down_action.Grant(user)
-		actions += move_down_action
+	for(var/datum/action/to_grant as anything in actions)
+		to_grant.Grant(user)
 
 /obj/machinery/proc/remove_eye_control(mob/living/user)
 	SIGNAL_HANDLER
@@ -115,7 +102,6 @@
 	for(var/V in actions)
 		var/datum/action/A = V
 		A.Remove(user)
-	actions.Cut()
 	for(var/V in eyeobj.visibleCameraChunks)
 		var/datum/camerachunk/C = V
 		C.remove(eyeobj)
@@ -338,8 +324,7 @@
 /datum/action/innate/camera_off/on_activate()
 	if(!owner || !isliving(owner))
 		return
-	var/mob/living/C = owner
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
 	console.remove_eye_control(owner)
 
@@ -351,8 +336,7 @@
 /datum/action/innate/camera_jump/on_activate()
 	if(!owner || !isliving(owner))
 		return
-	var/mob/living/C = owner
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
 	var/list/L = list()
@@ -368,18 +352,24 @@
 
 	for (var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network & origin.networks
-		if (tempnetwork.len)
+		if (length(tempnetwork))
+			if(!netcam.c_tag)
+				continue
 			T["[netcam.c_tag][netcam.can_use() ? null : " (Deactivated)"]"] = netcam
 
-	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/camera = input("Choose which camera you want to view", "Cameras") as null|anything in T
+	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
+	var/camera = tgui_input_list(usr, "Camera to view", "Cameras", T)
+	if(isnull(camera))
+		return
+	if(isnull(T[camera]))
+		return
 	var/obj/machinery/camera/final = T[camera]
 	playsound(src, "terminal_type", 25, 0)
 	if(final)
-		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
 		remote_eye.setLoc(get_turf(final))
-		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
-		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
+		owner.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+		owner.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
 		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
 
@@ -391,12 +381,12 @@
 /datum/action/innate/camera_multiz_up/on_activate()
 	if(!owner || !isliving(owner))
 		return
-	var/mob/living/user_mob = owner
-	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
+
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
 	if(remote_eye.zMove(UP, FALSE))
-		to_chat(user_mob, span_notice("You move upwards."))
+		to_chat(owner, span_notice("You move upwards."))
 	else
-		to_chat(user_mob, span_notice("You couldn't move upwards!"))
+		to_chat(owner, span_notice("You couldn't move upwards!"))
 
 /datum/action/innate/camera_multiz_down
 	name = "Move down a floor"
@@ -406,9 +396,8 @@
 /datum/action/innate/camera_multiz_down/on_activate()
 	if(!owner || !isliving(owner))
 		return
-	var/mob/living/user_mob = owner
-	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
-	if(remote_eye.zMove(DOWN, FALSE))
-		to_chat(user_mob, span_notice("You move downwards."))
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
+	if(remote_eye.zMove(DOWN))
+		to_chat(owner, span_notice("You move downwards."))
 	else
-		to_chat(user_mob, span_notice("You couldn't move downwards!"))
+		to_chat(owner, span_notice("You couldn't move downwards!"))

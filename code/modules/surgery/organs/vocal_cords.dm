@@ -38,7 +38,7 @@
 	icon_state = "adamantine_cords"
 
 /datum/action/item_action/organ_action/use/adamantine_vocal_cords/on_activate(mob/user, atom/target)
-	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
+	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".x[message]")
@@ -90,7 +90,7 @@
 	return TRUE
 
 /datum/action/item_action/organ_action/colossus/on_activate(mob/user, atom/target)
-	var/command = input(owner, "Speak with the Voice of God", "Command")
+	var/command = tgui_input_text(owner, "Speak with the Voice of God", "Command")
 	if(QDELETED(src) || QDELETED(owner))
 		return
 	if(!command)
