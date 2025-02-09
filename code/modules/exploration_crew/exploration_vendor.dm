@@ -79,6 +79,7 @@
 			new /obj/item/research_disk_pinpointer(drop_location)
 			new /obj/item/discovery_scanner(drop_location)
 		if("Ghost Shift Kit")	//A little bit of everything. We don't want the only explorer to die from a single mistake.
+			new /obj/item/discovery_scanner(drop_location)
 			new /obj/item/storage/firstaid/compact(drop_location)
 			new /obj/item/storage/belt/utility/full(drop_location)
 			new /obj/item/sbeacondrop/exploration(drop_location)
