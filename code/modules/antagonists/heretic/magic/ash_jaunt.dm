@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/ashen_passage
+/datum/action/spell/ashen_passage
 	name = "Ashen Passage"
 	desc = "A spell which turns the user into ash, granting them invulnerability and the ability to pass through any door unimpeded."
 	action_icon = 'icons/hud/actions/actions_heretic.dmi'
@@ -13,31 +13,43 @@
 	include_user = TRUE
 	nonabstract_req = TRUE
 
-/obj/effect/proc_holder/spell/targeted/ashen_passage/cast(list/targets, mob/user)
+/datum/action/spell/ashen_passage/cast(list/targets, mob/user)
 	for(var/mob/living/target in targets)
 		target.apply_status_effect(/datum/status_effect/ashen_passage)
 
 /// Used by heretic mobs that can ash jaunt
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
+/datum/action/spell/jaunt/ethereal_jaunt/ash
 	name = "Ashen Passage"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
-	action_icon = 'icons/hud/actions/actions_heretic.dmi'
-	action_icon_state = "ash_shift"
-	action_background_icon_state = "bg_ecult"
+	background_icon_state = "bg_ecult"
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon_state = "ash_shift"
+	sound = null
+
+	school = SCHOOL_FORBIDDEN
+	cooldown_time = 15 SECONDS
+
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
-	requires_heretic_focus = TRUE
-	charge_max = 150
-	range = -1
-	jaunt_in_time = 13
-	jaunt_duration = 10
+	spell_requirements = NONE
+
+	exit_jaunt_sound = null
+	jaunt_duration = 1.1 SECONDS
+	jaunt_in_time = 1.3 SECONDS
+	jaunt_out_time = 0.6 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long
-	jaunt_duration = 50
-
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/play_sound()
+/datum/action/spell/jaunt/ethereal_jaunt/ash/do_steam_effects()
 	return
 
+/datum/action/spell/jaunt/ethereal_jaunt/ash/long
+	name = "Ashen Walk"
+	desc = "A long range spell that allows you pass unimpeded through multiple walls."
+	jaunt_duration = 5 SECONDS
 
+/obj/effect/temp_visual/dir_setting/ash_shift
+	name = "ash_shift"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "ash_shift2"
+	duration = 1.3 SECONDS

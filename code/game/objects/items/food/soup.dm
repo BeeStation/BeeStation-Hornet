@@ -269,6 +269,7 @@
 	)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtypes = VEGETABLES
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soup/amanitajelly
 	name = "amanita jelly"
@@ -283,6 +284,7 @@
 	)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtypes = VEGETABLES | TOXIC
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soup/stew
 	name = "stew"
@@ -367,6 +369,7 @@
 		/datum/reagent/consumable/nutriment = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/soup/oatmeal
 	name = "oatmeal"

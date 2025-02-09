@@ -82,7 +82,7 @@
 	if(!target.getorganslot(ORGAN_SLOT_EYES))
 		return
 
-	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
+	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
 	target.blur_eyes(10)
 	target.set_blindness(5)
@@ -102,7 +102,7 @@
 		/datum/heretic_knowledge/essence,
 		/datum/heretic_knowledge/medallion,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/ashen_passage
+	spell_to_add = /datum/action/spell/ashen_passage
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -145,8 +145,10 @@
 	mark.on_effect()
 
 	// Also refunds 75% of charge!
-	for(var/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/grasp in user.mind.spell_list)
-		grasp.charge_counter = min(round(grasp.charge_counter + grasp.charge_max * 0.75), grasp.charge_max)
+	var/datum/action/spell/touch/mansus_grasp/grasp = locate() in user.actions
+	if(grasp)
+		grasp.reduce_cooldown(grasp.cooldown_time * 0.75)
+		grasp.update_buttons()
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 	next_knowledge = list(/datum/heretic_knowledge/mad_mask)
@@ -222,7 +224,7 @@
 		/datum/heretic_knowledge/summon/ashy,
 		/datum/heretic_knowledge/spell/cleave,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
+	spell_to_add = /datum/action/spell/aoe/fiery_rebirth
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -238,6 +240,8 @@
 		for the Nightwatcher brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
 	route = HERETIC_PATH_ASH
+	announcement_text = "Fear the blaze, for the Ashlord, %USER% has ascended! The flames shall consume all!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
 		TRAIT_RESISTHEAT,
@@ -262,7 +266,9 @@
 /datum/heretic_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	priority_announce("[generate_heretic_text()] Fear the blaze, for the Ashlord, [user.real_name] has ascended! The flames shall consume all! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/fire_sworn)
+	var/datum/action/spell/fire_sworn/circle_spell = new(user.mind)
+	circle_spell.Grant(user)
+	var/datum/action/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
+	screen_wide_fire_spell.Grant(user)
 	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)

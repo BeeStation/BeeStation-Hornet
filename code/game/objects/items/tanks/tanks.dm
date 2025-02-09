@@ -19,7 +19,7 @@
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/item_tank
 	integrity_failure = 0.5
 	/// The gases this tank contains.
 	var/datum/gas_mixture/air_contents = null
@@ -29,8 +29,16 @@
 	var/leaking = FALSE
 	/// The pressure of the gases this tank supplies to internals.
 	var/distribute_pressure = ONE_ATMOSPHERE
+	//Used by process() to track if there's a reason to process each tick
+	var/excited = TRUE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
+
+
+/datum/armor/item_tank
+	bomb = 10
+	fire = 80
+	acid = 30
 
 /obj/item/tank/dropped(mob/living/user, silent)
 	. = ..()
@@ -52,12 +60,10 @@
 /// Called by carbons after they connect the tank to their breathing apparatus.
 /obj/item/tank/proc/after_internals_opened(mob/living/carbon/carbon_target)
 	breathing_mob = carbon_target
-	carbon_target.update_internals_hud_icon(1)
 
 /// Called by carbons after they disconnect the tank from their breathing apparatus.
 /obj/item/tank/proc/after_internals_closed(mob/living/carbon/carbon_target)
 	breathing_mob = null
-	carbon_target.update_internals_hud_icon(0)
 
 /// Attempts to toggle the mob's internals on or off using this tank. Returns TRUE if successful.
 /obj/item/tank/proc/toggle_internals(mob/living/carbon/mob_target)
@@ -70,7 +76,7 @@
 	. = ..()
 
 	air_contents = new(volume) //liters
-	air_contents.set_temperature(T20C)
+	air_contents.temperature = T20C
 
 	populate_gas()
 
@@ -80,9 +86,8 @@
 	return
 
 /obj/item/tank/Destroy()
-	if(air_contents)
-		QDEL_NULL(air_contents)
-
+	UnregisterSignal(air_contents, COMSIG_GASMIX_MERGED)
+	air_contents = null
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -93,12 +98,12 @@
 		icon = src.loc
 	if(!in_range(src, user) && !isobserver(user))
 		if(icon == src)
-			. += "<span class='notice'>If you want any more information you'll need to get closer.</span>"
+			. += span_notice("If you want any more information you'll need to get closer.")
 		return
 
-	. += "<span class='notice'>The gauge reads [round(air_contents.total_moles(), 0.01)] mol at [round(src.air_contents.return_pressure(),0.01)] kPa.</span>"	//yogs can read mols
+	. += span_notice("The gauge reads [round(air_contents.total_moles(), 0.01)] mol at [round(src.air_contents.return_pressure(),0.01)] kPa.")	//yogs can read mols
 
-	var/celsius_temperature = src.air_contents.return_temperature()-T0C
+	var/celsius_temperature = air_contents.return_temperature()-T0C
 	var/descriptive
 
 	if (celsius_temperature < 20)
@@ -114,19 +119,19 @@
 	else
 		descriptive = "furiously hot"
 
-	. += "<span class='notice'>It feels [descriptive].</span>"
+	. += span_notice("It feels [descriptive].")
 
 /obj/item/tank/deconstruct(disassembled = TRUE)
-	var/turf/location = get_turf(src)
-	if(location)
-		location.assume_air(air_contents)
-		location.air_update_turf(FALSE, FALSE)
+	if(!disassembled)
+		var/turf/location = get_turf(src)
+		if(location)
+			location.assume_air(air_contents)
 		playsound(location, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	return ..()
 
 /obj/item/tank/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/human_user = user
-	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (!QDELETED(human_user) && air_contents && air_contents.return_pressure() >= 1000)
 		for(var/obj/item/W in human_user)
@@ -203,43 +208,43 @@
 				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 
 /obj/item/tank/remove_air(amount)
+	START_PROCESSING(SSobj, src)
 	return air_contents.remove(amount)
 
-/obj/item/tank/remove_air_ratio(ratio)
-	return air_contents.remove_ratio(ratio)
-
 /obj/item/tank/return_air()
+	START_PROCESSING(SSobj, src)
 	return air_contents
 
 /obj/item/tank/return_analyzable_air()
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)
+	START_PROCESSING(SSobj, src)
 	air_contents.merge(giver)
 	handle_tolerances(ASSUME_AIR_DT_FACTOR)
 	return TRUE
 
-/obj/item/tank/assume_air_moles(datum/gas_mixture/giver, moles)
-	giver.transfer_to(air_contents, moles)
-
-	handle_tolerances(ASSUME_AIR_DT_FACTOR)
-	return TRUE
-
-/obj/item/tank/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	giver.transfer_ratio_to(air_contents, ratio)
-
-	handle_tolerances(ASSUME_AIR_DT_FACTOR)
-	return TRUE
-
+/**
+ * Removes some volume of the tanks gases as the tanks distribution pressure.
+ *
+ * Arguments:
+ * - volume_to_return: The amount of volume to remove from the tank.
+ */
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
 		return null
 
 	var/tank_pressure = air_contents.return_pressure()
-	if(tank_pressure < distribute_pressure)
-		distribute_pressure = tank_pressure
+	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.return_temperature())
+	// Lets do some algebra to understand why this works, yeah?
+	// R_IDEAL_GAS_EQUATION is (kPa * L) / (K * mol) by the by, so the units in this equation look something like this
+	// kpa * L / (R_IDEAL_GAS_EQUATION * K)
+	// Or restated (kpa * L / K) * 1/R_IDEAL_GAS_EQUATION
+	// (kpa * L * K * mol) / (kpa * L * K)
+	// If we cancel it all out, we get moles, which is the expected unit
+	// This sort of thing comes up often in atmos, keep the tool in mind for other bits of code
+	var/moles_needed = actual_distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	return remove_air(moles_needed)
 
@@ -248,20 +253,26 @@
 		return
 
 	//Allow for reactions
-	air_contents.react(src)
-	handle_tolerances(delta_time)
-	if(QDELETED(src) || !leaking || !air_contents)
+	excited = (excited | air_contents.react(src))
+	excited = (excited | handle_tolerances(delta_time))
+	excited = (excited | leaking)
+
+	if(!excited)
+		STOP_PROCESSING(SSobj, src)
+	excited = FALSE
+
+	if(QDELETED(src) || !air_contents || !leaking)
 		return
-	var/turf/location = get_turf(src)
+	var/atom/location = loc
 	if(!location)
 		return
 	var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
 	location.assume_air(leaked_gas)
-	location.air_update_turf(FALSE, FALSE)
 
 /**
  * Handles the minimum and maximum pressure tolerances of the tank.
  *
+ * Returns true if it did anything of significance, false otherwise
  * Arguments:
  * - delta_time: How long has passed between ticks.
  */
@@ -280,7 +291,8 @@
 	if(pressure >= TANK_LEAK_PRESSURE)
 		var/pressure_damage_ratio = (pressure - TANK_LEAK_PRESSURE) / (TANK_RUPTURE_PRESSURE - TANK_LEAK_PRESSURE)
 		take_damage(max_integrity * pressure_damage_ratio * delta_time, BRUTE, BOMB, FALSE, NONE)
-	return TRUE
+		return TRUE
+	return FALSE
 
 /// Handles the tank springing a leak.
 /obj/item/tank/atom_break(damage_flag)
@@ -289,9 +301,12 @@
 		return
 
 	leaking = TRUE
+
+	START_PROCESSING(SSobj, src)
+
 	if(atom_integrity < 0) // So we don't play the alerts while we are exploding or rupturing.
 		return
-	visible_message("<span class='warning'>[src] springs a leak!</span>")
+	visible_message(span_warning("[src] springs a leak!"))
 	playsound(src, 'sound/effects/spray.ogg', 10, TRUE, -3)
 
 /// Handles rupturing and fragmenting

@@ -73,7 +73,7 @@
 		if(screen)
 			id_insert(user)
 		else
-			to_chat(user, "<span class='danger'>Unauthorized access.</span>")
+			to_chat(user, span_danger("Unauthorized access."))
 	else
 		return ..()
 
@@ -122,20 +122,20 @@
 				screen = !screen
 				playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 			else
-				to_chat(usr, "<span class='danger'>Unauthorized access.</span>")
+				to_chat(usr, span_danger("Unauthorized access."))
 
 		else if(href_list["warn"])
 			var/warning = stripped_input(usr, "Message:", "Enter your message here!", "", MAX_MESSAGE_LEN)
 			if(!warning)
 				return
 			if(CHAT_FILTER_CHECK(warning))
-				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				to_chat(usr, span_warning("Your message contains forbidden words."))
 				return
 			warning = usr.treat_message_min(warning)
 			var/obj/item/implant/I = locate(href_list["warn"]) in GLOB.tracked_implants
 			if(I && istype(I) && I.imp_in)
 				var/mob/living/R = I.imp_in
-				to_chat(R, "<span class='hear'>You hear a voice in your head saying: '[warning]'</span>")
+				to_chat(R, span_hear("You hear a voice in your head saying: '[warning]'"))
 				log_directed_talk(usr, R, warning, LOG_SAY, "implant message")
 
 		src.add_fingerprint(usr)

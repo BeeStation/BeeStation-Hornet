@@ -264,6 +264,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 30
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/bundles_TC/machoman
+	name = "The Macho Wrestler Bundle"
+	desc = "For the STRONGEST operatives! Master your wrasslin' abilities with this bundle. \
+			Contains: A wrestling belt, only for the strongest machos, an adrenaline implanter, a luchador mask to strike fear into your enemies, and a combat hypospray!"
+	item = /obj/item/storage/backpack/duffelbag/syndie/macho
+	cost = 18
+	purchasable_from = UPLINK_NUKE_OPS
+
 /datum/uplink_item/bundles_TC/contract_kit
 	name = "Contract Kit"
 	desc = "The Syndicate have offered you the chance to become a contractor, take on kidnapping contracts for TC and cash payouts. Upon purchase, \
@@ -350,8 +358,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/index = rand(1, 20)
 	starting_crate_value = index * 5
 	if(index == 1)
-		to_chat(user, "<span class='warning'><b>Incoming transmission from the syndicate.</b></span>")
-		to_chat(user, "<span class='warning'>You feel an overwhelming sense of pride and accomplishment.</span>")
+		to_chat(user, span_warning("<b>Incoming transmission from the syndicate.</b>"))
+		to_chat(user, span_warning("You feel an overwhelming sense of pride and accomplishment."))
 		var/obj/item/clothing/mask/joy/funny_mask = new(get_turf(user))
 		ADD_TRAIT(funny_mask, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 		var/obj/item/I = user.get_item_by_slot(ITEM_SLOT_MASK)
@@ -598,6 +606,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 20
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/dangerous/syndicate_teleporter
+	name = "Experimental Syndicate Jaunter"
+	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
+		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
+		through solid matter nor is it capable of teleporting them across longer ranges."
+	item = /obj/item/teleporter
+	cost = 7
+
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
 	desc = "A flamethrower, fueled by a portion of highly flammable biotoxins stolen previously from Nanotrasen \
@@ -689,8 +706,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/dangerous/derringer
 	name = "'Infiltrator' Coat Pistol"
-	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered in .38-special. Compatible with \
-			standard production NT speed loaders. Loaded with .38 Match ammunition and includes a spare speedloader."
+	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered with highly powerful .357 rounds. \
+		It's small ammo capacity and difficult to obtain ammo make it poor at prolonged engagements, but it's saved the lives of \
+		many agents that find themselves in sticky situations."
 	item = /obj/item/storage/box/syndie_kit/derringer
 	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
@@ -778,6 +796,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	surplus = 0
 
+/datum/uplink_item/stealthy_weapons/art_of_thievery
+	name = "The Art of Thievery"
+	desc = "A manual that teaches a single user how to pickpocket people without them noticing. Not guaranteed to work on all targets."
+	item = /obj/item/book/granter/art_of_thievery
+	cost = 5
+	surplus = 40
+
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol"
 	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any \
@@ -824,7 +849,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	and fire bolts tipped with dangerous toxins that will disorient and \
 	irradiate targets. It can produce an infinite number of bolts \
 	which automatically recharge roughly 25 seconds after each shot."
-	item = /obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	item = /obj/item/gun/energy/recharge/ebow/radbow
 	cost = 8
 	surplus = 50
 
@@ -836,7 +861,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
-	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	item = /obj/item/gun/energy/recharge/ebow
 	cost = 12
 	surplus = 50
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -1018,60 +1043,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/ammo_box/a357
 	player_minimum = 25
 	cost = 2
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38
-	name = ".38-special Speed Loader"
-	desc = "A standard issue .38-special speed loader, for use with the Detective's revolver or 'Infiltrator' coat pistol."
-	item = /obj/item/ammo_box/c38
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38blister
-	name = ".38-special 'Blister' Speed Loader"
-	desc = "For when you can't deside between a coat pistol and a dart pistol! These 6 cartridges can \
-			be injected with up to 10 units of your favorite poison for remote application via sidearm."
-	item = /obj/item/ammo_box/c38/dart
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38dumdum
-	name = ".38-special DumDum Speed Loader"
-	desc = "6 specialized fragmenting .38-special catridges, excellent for dispatching unarmored targets. \
-			Shrapnel can embed within the victim and provide a debilitating effect. Not advised for use \
-			against armored targets."
-	item = /obj/item/ammo_box/c38/dumdum
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-
-/datum/uplink_item/ammo/c38iceblox
-	name = ".38-special Iceblox Speed Loader"
-	desc = "6 .38-special Iceblox cartridges, 'guaranteed' to free your target to the core."
-	item = /obj/item/ammo_box/c38/iceblox
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-
-/datum/uplink_item/ammo/c38hotshot
-	name = ".38-special Hot Shot Speed Loader"
-	desc = "6 .38-special Hot Shot cartridges. Set your target ablaze with this specialized thermal payload."
-	item = /obj/item/ammo_box/c38/hotshot
-	cost = 1
-	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
-	contents_are_illegal_tech = FALSE
-
-/datum/uplink_item/ammo/c38emp
-	name = ".38-special 'BLK_OUT' Speed Loader"
-	desc = "6 specialized 'anti-silicon' .38-special cartridges that release a minor EMP on impact with a hard surface. \
-			From Silicons, to IPCs, to any machinery or energy-based weapons in use by security, leave them in the dark."
-	item = /obj/item/ammo_box/c38/emp
-	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
@@ -1809,14 +1780,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 1
 	illegal_tech = FALSE
 
-/datum/uplink_item/device_tools/syndicate_teleporter
-	name = "Experimental Syndicate Jaunter"
-	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
-		Anyone caught in the wake of the jaunter will be knocked off their feet and receive minor damage. \
-		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
-		through solid matter nor is it capable of teleporting them across longer ranges."
-	item = /obj/item/teleporter
-	cost = 7
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Disk"
@@ -1839,13 +1802,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/device_tools/failsafe/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	if(!U || !U.unlock_code)
-		to_chat(user, "<span class='warning'>A failsafe code could not be assigned to this uplink.")
+		to_chat(user, span_warning("A failsafe code could not be assigned to this uplink."))
 		return
 	do
 		U.failsafe_code = U.generate_code()
 	while(islist(U.failsafe_code) ? compare_list(U.failsafe_code, U.unlock_code) : U.failsafe_code == U.unlock_code)
 	var/code = "[islist(U.failsafe_code) ? english_list(U.failsafe_code) : U.failsafe_code]"
-	to_chat(user, "<span class='warning'>The new failsafe code for this uplink is now : [code].</span>")
+	to_chat(user, span_warning("The new failsafe code for this uplink is now : [code]."))
 	if(user.mind)
 		user.mind.store_memory("Failsafe code for [U.parent] : [code]")
 	return U.parent //For log icon
@@ -1992,7 +1955,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms \
 			and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
-	cost = 3
+	cost = 2
 
 // Implants
 /datum/uplink_item/implants
@@ -2369,13 +2332,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 20
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
-/datum/uplink_item/role_restricted/shadowmutationtoxin
-	name = "Shadow Person Mutation Toxin"
-	desc = "Become one with the night, Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
-	item = /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
-	cost = 5
-	restricted_roles = list(JOB_NAME_CHAPLAIN)
-
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
@@ -2524,6 +2480,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
+/datum/uplink_item/role_restricted/tc_rod
+	name = "Telecrystal Fuel Rod"
+	desc = "This special fuel rod has eight material slots that can be inserted with telecrystals, \
+			once the rod has been fully depleted, you will be able to harvest the extra telecrystals. \
+			Please note: This Rod fissiles much faster than it's nanotrasen counterpart, it doesn't take \
+			much to overload the reactor with these..."
+	item = /obj/item/fuel_rod/material/telecrystal
+	cost = 7
+	restricted_roles = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 
 // Pointless
 /datum/uplink_item/badass
@@ -2638,3 +2603,4 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 3
 	surplus = 0
 	disabled = TRUE	// #11346 Currently in a broken state, lasso'd mobs will never unregister a target once they have locked onto one, making them unusable.
+

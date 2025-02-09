@@ -102,12 +102,12 @@
 		switch(rand(1, 20))
 			if(1)
 				newletter += "'"
-			if(10)
+			if(2)
 				newletter += "[newletter]"
-			if(20)
+			if(3)
 				newletter += "[newletter][newletter]"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(4 to 20)
+				pass()
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -151,8 +151,8 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(6 to 15)
+				pass()
 		. += newletter
 	return sanitize(.)
 
@@ -195,8 +195,8 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(6 to 15)
+				pass()
 		. += newletter
 	return sanitize(.)
 
@@ -421,7 +421,7 @@
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)
 				orbit_link = " <a href='?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""][orbit_link]</span>")
+			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""][orbit_link]"))
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
 			if(flashwindow)
@@ -461,14 +461,14 @@
 				user.visible_message("[user] has fixed some of the dents on [H]'s [parse_zone(affecting.body_zone)], reducing [H.p_their()] leaking to [H.get_bleed_rate_string()].")
 			else
 				user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
-					"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
+					span_notice("You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)]."))
 			if((affecting.brute_dam <= 0 && brute_heal) && ((!H.is_bleeding()) && H.has_mechanical_bleeding()))
 				return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
 			if(affecting.burn_dam <=0 && burn_heal)
 				return FALSE //same as above, but checking for burn damage instead
 			return TRUE //successful heal
 		else
-			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
+			to_chat(user, span_warning("[affecting] is already in good condition!"))
 			return FALSE
 
 ///Is the passed in mob an admin ghost
@@ -589,7 +589,7 @@
   */
 /mob/proc/common_trait_examine()
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
-		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
+		. += "[span_notice("This body has been dissected and analyzed. It is no longer worth experimenting on.")]<br>"
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
@@ -628,7 +628,7 @@
 			if (BODYZONE_STYLE_MEDICAL)
 				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
 				if (!accurate_health && isliving(target))
-					to_chat(src, "<span class='warning'>You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!</span>")
+					to_chat(src, span_warning("You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!"))
 				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health), override_zones))
 	// Return the value instantly
 	if (precise)

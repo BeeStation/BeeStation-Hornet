@@ -194,7 +194,11 @@
 			if(!check_tools(a, R, contents))
 				return "missing tool."
 			var/list/parts = del_reqs(R, a)
-			var/atom/movable/I = new R.result (get_turf(a.loc))
+			var/atom/movable/I
+			if(ispath(R.result, /obj/item/food))
+				I = new R.result (get_turf(a.loc))
+			else
+				I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)
 			if(send_feedback)
 				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
@@ -216,9 +220,10 @@
 						result.pixel_y = rand(-4, 4)
 		else
 			result.forceMove(user.drop_location())
-		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
+		to_chat(user, span_notice("[TR.name] constructed."))
+		TR.on_craft_completion(user, result)
 	else
-		to_chat(user, "<span class='warning'>Construction failed[result]</span>")
+		to_chat(user, span_warning("Construction failed[result]"))
 	busy = FALSE
 	SStgui.update_uis(src)
 
@@ -347,7 +352,7 @@
 		// If we consumed them in our crafting, we should dump their contents out before qdeling them.
 		if(istype(DL, /obj/item/reagent_containers))
 			var/obj/item/reagent_containers/container = DL
-			container.reagents.reaction(container.loc, TOUCH)
+			container.reagents.expose(container.loc, TOUCH)
 		else if(istype(DL, /obj/item/storage))
 			var/obj/item/storage/container = DL
 			container.emptyStorage()

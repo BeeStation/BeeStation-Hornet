@@ -7,12 +7,23 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/combat_durand
 	max_temperature = 30000
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
 	var/obj/durand_shield/shield
 
+
+
+/datum/armor/combat_durand
+	melee = 40
+	bullet = 35
+	laser = 15
+	energy = 10
+	bomb = 20
+	rad = 50
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/combat/durand/Initialize(mapload)
 	. = ..()
@@ -38,7 +49,7 @@
 			var/mob/living/occupant = O
 			var/datum/action/action = LAZYACCESSASSOC(occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 			if(action)
-				action.Trigger()
+				action.trigger()
 				break
 
 /obj/vehicle/sealed/mecha/combat/durand/Move(direction)
@@ -55,7 +66,7 @@
 	if(defense_mode)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, M, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 		if(action)
-			INVOKE_ASYNC(action, TYPE_PROC_REF(/datum/action, Trigger), FALSE)
+			INVOKE_ASYNC(action, TYPE_PROC_REF(/datum/action, trigger), FALSE)
 	return ..()
 
 ///Relays the signal from the action button to the shield, and creates a new shield if the old one is MIA.
@@ -198,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 	for(var/occupant in chassis.occupants)
 		var/datum/action/button = chassis.occupant_actions[occupant][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
 		button.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]"
-		button.UpdateButtonIcon()
+		button.update_buttons()
 
 	set_light_on(chassis.defense_mode)
 
@@ -234,7 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/durand_shield)
 		for(var/O in chassis.occupants)
 			var/mob/living/occupant = O
 			var/datum/action/action = LAZYACCESSASSOC(chassis.occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
-			action.Trigger(FALSE)
+			action.trigger()
 	atom_integrity = 10000
 
 /obj/durand_shield/play_attack_sound()

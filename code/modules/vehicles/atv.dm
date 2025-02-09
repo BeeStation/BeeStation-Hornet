@@ -4,10 +4,19 @@
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-Earth technologies that are still relevant on most planet-bound outposts."
 	icon_state = "atv"
 	max_integrity = 150
-	armor = list(MELEE = 50,  BULLET = 25, LASER = 20, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/ridden_atv
 	key_type = /obj/item/key
 	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
+
+
+/datum/armor/ridden_atv
+	melee = 50
+	bullet = 25
+	laser = 20
+	bomb = 50
+	fire = 60
+	acid = 60
 
 /obj/vehicle/ridden/atv/Initialize(mapload)
 	. = ..()
@@ -69,10 +78,10 @@
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		if(atom_integrity < max_integrity)
 			if(W.use_tool(src, user, 0, volume=50, amount=1))
-				user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to \the [src].</span>")
+				user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to \the [src]."))
 				atom_integrity += min(10, max_integrity-atom_integrity)
 				if(atom_integrity == max_integrity)
-					to_chat(user, "<span class='notice'>It looks to be fully repaired now.</span>")
+					to_chat(user, span_notice("It looks to be fully repaired now."))
 		return TRUE
 	return ..()
 
