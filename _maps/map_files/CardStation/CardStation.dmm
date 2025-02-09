@@ -458,6 +458,9 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -15
+	},
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
 "aeQ" = (
@@ -1269,7 +1272,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -9;
+	pixel_x = -8
+	},
 /obj/machinery/door/window/eastright,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
@@ -2341,7 +2347,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "aDz" = (
@@ -2835,8 +2843,14 @@
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm_bedroom)
 "aJa" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 9;
+	pixel_x = -3
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 9;
+	pixel_x = -4
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
@@ -3681,9 +3695,12 @@
 	},
 /area/hallway/primary/aft)
 "aQJ" = (
-/obj/structure/flora/ausbushes/stalkybush,
+/obj/structure/flora/ausbushes/stalkybush{
+	pixel_y = 5;
+	pixel_x = 9
+	},
 /obj/structure/flora/tree/jungle/small{
-	pixel_y = -1;
+	pixel_y = 3;
 	pixel_x = -56
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
@@ -4058,8 +4075,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 11;
+	pixel_x = -5
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 3;
+	pixel_x = -9
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "aUc" = (
@@ -4760,7 +4783,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = -5;
+	pixel_x = -3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "bcb" = (
@@ -5132,7 +5158,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 6;
+	pixel_y = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "bfB" = (
@@ -5803,6 +5832,16 @@
 	},
 /turf/open/floor/iron/white/textured_half,
 /area/science/lab)
+"bmd" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 1
+	},
+/obj/structure/flora/ausbushes/pointybush,
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "bml" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 4
@@ -7711,10 +7750,8 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "bIO" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/sparsegrass{
-	pixel_x = 9;
-	pixel_y = -10
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = -5
 	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -8070,8 +8107,12 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = -4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "bMO" = (
@@ -8224,9 +8265,19 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
 "bPo" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 4;
+	pixel_x = -1
+	},
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_y = 11;
+	pixel_x = 9
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 5;
+	pixel_x = -10
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
 "bPv" = (
@@ -9003,6 +9054,13 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/maintenance/solars/starboard/fore)
+"bWE" = (
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/port)
 "bWP" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/fire{
@@ -9074,6 +9132,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -9673,10 +9734,13 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
 "ccV" = (
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 5;
+	pixel_x = -15
+	},
 /obj/structure/flora/ausbushes/ywflowers{
-	pixel_x = 14;
-	pixel_y = 7
+	pixel_x = 23;
+	pixel_y = 4
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
@@ -10068,9 +10132,8 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "cgU" = (
-/obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/tree/jungle/small{
-	pixel_y = -5;
+	pixel_y = 1;
 	pixel_x = -31
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
@@ -10519,6 +10582,10 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Shutters"
+	},
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_x = 1;
+	pixel_y = -13
 	},
 /turf/open/floor/grass/no_border,
 /area/medical/medbay/lobby)
@@ -11962,8 +12029,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/genericbush,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/structure/flora/ausbushes/genericbush{
+	pixel_y = 12;
+	pixel_x = -5
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "cAw" = (
@@ -13152,9 +13225,15 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "cOn" = (
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/engineering/hallway)
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "cOB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -13333,8 +13412,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 11;
+	pixel_x = -4
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = -5
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "cPQ" = (
@@ -13424,6 +13508,20 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/security/prison)
+"cQM" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = 3;
+	pixel_x = -5
+	},
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "cQO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
@@ -13947,7 +14045,7 @@
 /area/engine/engine_smes)
 "cWx" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/no_border,
@@ -17574,7 +17672,10 @@
 /turf/open/floor/carpet/black,
 /area/construction)
 "dMh" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_y = 8;
+	pixel_x = 5
+	},
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "dMi" = (
@@ -18551,6 +18652,24 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"dYZ" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 1;
+	pixel_y = 3
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 5;
+	pixel_y = -5
+	},
+/obj/structure/flora/tree/jungle/small{
+	pixel_y = 10;
+	pixel_x = -23
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "dZd" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -19861,7 +19980,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = 3;
+	pixel_x = 3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "eqW" = (
@@ -20270,6 +20392,10 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced/spawner/east,
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_x = -1;
+	pixel_y = -10
+	},
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "evf" = (
@@ -20724,6 +20850,18 @@
 	dir = 4
 	},
 /area/crew_quarters/cryopods)
+"eBv" = (
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 3;
+	pixel_x = 5
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = 4;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/starboard)
 "eBQ" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 5
@@ -20787,7 +20925,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = -4
+	},
 /obj/structure/flora/tree/jungle/small{
 	pixel_x = -48
 	},
@@ -21195,6 +21335,14 @@
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
 /area/science/xenobiology)
+"eHp" = (
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_y = 5;
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/port)
 "eHt" = (
 /obj/structure/fluff/hedge/opaque,
 /obj/structure/window/reinforced/tinted{
@@ -22138,7 +22286,10 @@
 /area/ai_monitored/security/armory)
 "eQV" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_x = 1;
+	pixel_y = -13
+	},
 /obj/machinery/light/small/directional/north,
 /obj/structure/window/reinforced/tinted{
 	dir = 8
@@ -22220,8 +22371,14 @@
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "eRV" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 5;
+	pixel_x = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = 5;
+	pixel_x = 9
+	},
 /obj/structure/flora/tree/jungle/small{
 	pixel_x = -59;
 	pixel_y = 13
@@ -23939,6 +24096,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"fnj" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 3
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "fns" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -24453,7 +24623,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -24624,7 +24796,10 @@
 	},
 /area/hallway/primary/starboard)
 "fvD" = (
-/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 4;
+	pixel_x = -7
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -25538,6 +25713,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
+/obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/grass/no_border,
 /area/bridge/showroom/corporate)
 "fGe" = (
@@ -28746,9 +28922,12 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 5
+	},
 /obj/structure/flora/junglebush/large{
-	pixel_y = 17
+	pixel_y = 17;
+	pixel_x = -11
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
@@ -28912,6 +29091,20 @@
 	},
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
+"got" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = -4;
+	pixel_y = -5
+	},
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_y = 4;
+	pixel_x = -5
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "gox" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -29048,9 +29241,6 @@
 "gpD" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -29260,8 +29450,12 @@
 	},
 /area/hallway/primary/central)
 "gss" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = -2
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = -17
+	},
 /obj/structure/flora/ausbushes/reedbush,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -31982,7 +32176,9 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "gUB" = (
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = -3
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
@@ -32258,7 +32454,10 @@
 /turf/open/floor/grass/no_border,
 /area/medical/genetics)
 "gYk" = (
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 2;
+	pixel_y = -1
+	},
 /obj/structure/flora/ausbushes/fullgrass{
 	pixel_x = 9;
 	pixel_y = -15
@@ -33149,6 +33348,9 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/wood,
 /area/hydroponics/garden)
+"hhZ" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/engineering/hallway)
 "hie" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
@@ -34002,7 +34204,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "hsv" = (
@@ -35223,11 +35427,23 @@
 /area/medical/sleeper)
 "hFg" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
+"hFl" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 5
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 12
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "hFo" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/r_wall,
@@ -35643,7 +35859,7 @@
 /area/security/brig)
 "hJa" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
@@ -36287,6 +36503,9 @@
 	},
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
+"hRw" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/engineering/hallway)
 "hRx" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/chair/foldable{
@@ -36833,8 +37052,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = 14;
+	pixel_y = -5
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "hXQ" = (
@@ -36943,7 +37167,9 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/genericbush,
+/obj/structure/flora/ausbushes/genericbush{
+	pixel_y = -9
+	},
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -37381,7 +37607,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = -3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "icO" = (
@@ -38302,7 +38530,9 @@
 /turf/open/floor/plating,
 /area/engineering/hallway)
 "imW" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = 5
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
@@ -39228,7 +39458,6 @@
 /area/vacant_room/office)
 "ixU" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/tree/jungle/small{
 	pixel_y = 10;
 	pixel_x = -23
@@ -39349,7 +39578,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = -8;
+	pixel_x = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "izm" = (
@@ -39884,9 +40116,11 @@
 /area/bridge)
 "iEm" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_x = -12
+	},
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
 "iEn" = (
@@ -40124,9 +40358,6 @@
 "iHn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -40801,7 +41032,9 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -41841,8 +42074,12 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/pointybush,
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -10
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -41884,7 +42121,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "jaz" = (
@@ -42375,7 +42615,7 @@
 /area/maintenance/central)
 "jia" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
@@ -43783,8 +44023,13 @@
 /turf/closed/wall/r_wall,
 /area/medical/genetics)
 "jAr" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 3
+	},
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = 9;
+	pixel_x = 12
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -43880,7 +44125,9 @@
 	},
 /area/tcommsat/server)
 "jAQ" = (
-/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 4
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/structure/flora/tree/jungle{
 	pixel_y = -1;
@@ -46221,7 +46468,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = -2;
+	pixel_y = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "kbV" = (
@@ -47113,7 +47363,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -5
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "kkJ" = (
@@ -47577,7 +47829,10 @@
 /turf/open/space/basic,
 /area/space)
 "koR" = (
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = 4;
+	pixel_x = 5
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -48341,8 +48596,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 5;
+	pixel_x = 5
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = 5;
+	pixel_y = 6
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "kyM" = (
@@ -50107,6 +50368,9 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -15
+	},
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "kTJ" = (
@@ -50258,8 +50522,14 @@
 /turf/open/floor/carpet/purple,
 /area/science/breakroom)
 "kVV" = (
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = 4
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_y = 6;
+	pixel_x = 11
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
 "kVY" = (
@@ -51043,8 +51313,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 7
+	},
 /obj/structure/flora/tree/jungle{
 	pixel_y = -14;
 	pixel_x = -44
@@ -51616,7 +51891,10 @@
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
 "lkw" = (
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
@@ -52284,6 +52562,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 15
+	},
 /turf/open/floor/grass/no_border,
 /area/bridge)
 "lsm" = (
@@ -52324,6 +52605,15 @@
 	},
 /turf/open/floor/iron/corner,
 /area/hallway/primary/central)
+"lsB" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "lsK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -52356,7 +52646,7 @@
 /area/maintenance/department/medical)
 "lta" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -52400,10 +52690,13 @@
 /area/maintenance/starboard/central)
 "lto" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_x = -13;
+	pixel_y = 1
+	},
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
 "ltw" = (
@@ -52458,7 +52751,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_x = -2
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "luG" = (
@@ -52812,7 +53107,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4
+	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
@@ -53562,7 +53859,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small/directional/south,
-/obj/item/kirbyplants/random,
+/obj/structure/flora/bigplant,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -53766,8 +54063,10 @@
 /turf/open/floor/engine,
 /area/engine/atmos)
 "lJn" = (
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/jungle/small{
+	pixel_y = 3;
+	pixel_x = -28
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -53851,8 +54150,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 3;
+	pixel_x = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 9
+	},
 /obj/structure/flora/tree/jungle/small{
 	pixel_y = 10;
 	pixel_x = -23
@@ -54858,7 +55162,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_x = -2
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "lXg" = (
@@ -55040,7 +55346,9 @@
 /obj/structure/window/reinforced/spawner,
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = 6
+	},
 /obj/machinery/camera/directional/west,
 /turf/open/floor/grass/no_border,
 /area/bridge)
@@ -55614,7 +55922,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "mfh" = (
@@ -56532,6 +56842,15 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/construction/mining/aux_base)
+"mof" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 5
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "mol" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner,
@@ -56821,8 +57140,14 @@
 /turf/open/floor/iron/tech/grid,
 /area/science/xenobiology)
 "mrI" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = -8;
+	pixel_x = 9
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
@@ -57441,7 +57766,9 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "mzQ" = (
@@ -57558,7 +57885,7 @@
 /turf/open/floor/iron/checker/other,
 /area/crew_quarters/bar)
 "mBj" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/west,
@@ -57581,7 +57908,9 @@
 /area/crew_quarters/heads/hor)
 "mBr" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 14
+	},
 /obj/structure/window/spawner,
 /obj/structure/window/spawner{
 	dir = 1
@@ -58038,8 +58367,10 @@
 /turf/open/floor/iron/tech/grid,
 /area/medical/morgue)
 "mHo" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 5;
+	pixel_x = 6
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -59044,6 +59375,9 @@
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_y = -11
+	},
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -15
 	},
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
@@ -60987,7 +61321,10 @@
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
 "nmp" = (
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 4;
+	pixel_x = -7
+	},
 /obj/structure/flora/ausbushes/ywflowers{
 	pixel_x = 11;
 	pixel_y = 13
@@ -61176,7 +61513,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = -4;
+	pixel_y = 1
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "nox" = (
@@ -62369,7 +62709,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = -5;
+	pixel_y = -2
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "nBj" = (
@@ -62384,7 +62727,9 @@
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 15
+	},
 /obj/structure/railing/corner{
 	dir = 4
 	},
@@ -62668,7 +63013,6 @@
 /turf/open/floor/iron/chapel,
 /area/chapel/main/monastery)
 "nDF" = (
-/obj/structure/flora/ausbushes/brflowers,
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
@@ -62864,6 +63208,10 @@
 	},
 /obj/effect/turf_decal/trimline/dark_green/filled/mid_joiner{
 	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/edge{
 	dir = 1
@@ -64280,8 +64628,14 @@
 /turf/open/floor/iron/checker,
 /area/vacant_room/commissary/commissaryFood)
 "nVN" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 3;
+	pixel_x = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = 5;
+	pixel_x = -6
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -64371,6 +64725,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"nWZ" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = -1
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "nXj" = (
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 1
@@ -64396,7 +64759,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = -4
+	},
 /obj/structure/flora/junglebush/large{
 	pixel_x = -28;
 	pixel_y = -18
@@ -64711,6 +65076,13 @@
 	},
 /turf/open/floor/iron/textured_half,
 /area/crew_quarters/theatre)
+"oar" = (
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/starboard)
 "oau" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -65670,8 +66042,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 2
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = -4;
+	pixel_x = 5
+	},
 /obj/structure/flora/tree/jungle/small{
 	pixel_y = 10;
 	pixel_x = -23
@@ -66085,6 +66462,19 @@
 	},
 /turf/open/floor/iron/textured_half,
 /area/engine/gravity_generator)
+"oqk" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = 3
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "oqm" = (
 /obj/effect/spawner/room/tenxfive,
 /turf/open/floor/plating,
@@ -66230,7 +66620,9 @@
 	},
 /area/maintenance/department/medical)
 "ose" = (
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 5
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -69224,7 +69616,10 @@
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "paD" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 4;
+	pixel_x = 4
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
@@ -69838,7 +70233,10 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/service)
 "pfv" = (
-/obj/structure/flora/ausbushes/genericbush,
+/obj/structure/flora/ausbushes/genericbush{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -73363,7 +73761,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 5
+	},
 /obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
@@ -74140,7 +74540,9 @@
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "qeS" = (
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 3
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -74714,7 +75116,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_y = 15;
+	pixel_x = 1
+	},
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -75368,9 +75773,11 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 5
+	},
 /obj/structure/flora/junglebush/large{
-	pixel_x = -10
+	pixel_x = -5
 	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
@@ -76079,7 +76486,7 @@
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "qBb" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/west,
@@ -77659,8 +78066,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = -4
+	},
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_y = -4;
+	pixel_x = -3
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "qRJ" = (
@@ -77782,7 +78194,9 @@
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
 "qSX" = (
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 4
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -78572,6 +78986,18 @@
 	dir = 1
 	},
 /area/hallway/primary/port)
+"rbQ" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 5
+	},
+/obj/structure/flora/junglebush/large{
+	pixel_x = -10
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "rbV" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -80285,7 +80711,9 @@
 /area/maintenance/department/medical/central)
 "rvp" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = -9
+	},
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/flora/ausbushes/brflowers,
@@ -80497,8 +80925,14 @@
 /turf/open/floor/iron/tech/grid,
 /area/maintenance/department/engine/atmos)
 "rxO" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4;
+	pixel_y = -2
+	},
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -10;
+	pixel_x = -14
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
@@ -80542,9 +80976,11 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "ryJ" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 4
+	},
 /obj/structure/flora/tree/jungle{
-	pixel_y = -17;
+	pixel_y = -16;
 	pixel_x = -78
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
@@ -80571,7 +81007,7 @@
 /turf/open/floor/iron/smooth,
 /area/construction/mining/aux_base)
 "rze" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/west,
@@ -81257,6 +81693,10 @@
 	id = "corporate_privacy";
 	name = "Showroom Shutters"
 	},
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_x = -1;
+	pixel_y = -10
+	},
 /turf/open/floor/grass/no_border,
 /area/bridge/showroom/corporate)
 "rKc" = (
@@ -81382,6 +81822,16 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/aft)
+"rMB" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = -4;
+	pixel_x = -4
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "rMD" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 10
@@ -81981,8 +82431,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 5;
+	pixel_x = 4
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = 5;
+	pixel_x = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "rSv" = (
@@ -82656,7 +83112,9 @@
 /area/chapel/main/monastery)
 "rZK" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 4
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
@@ -83855,8 +84313,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_y = -4;
+	pixel_x = 2
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "snq" = (
@@ -84020,8 +84484,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = -4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "spq" = (
@@ -84056,14 +84525,10 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /obj/effect/turf_decal/trimline/dark_green/filled/line{
 	dir = 4
 	},
+/obj/structure/flora/bigplant,
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
@@ -84426,6 +84891,15 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/smooth_half,
 /area/crew_quarters/cryopods)
+"stN" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "stU" = (
 /obj/effect/turf_decal/stripes/full,
 /mob/living/simple_animal/pet/dog/pug{
@@ -87268,7 +87742,9 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/cargo)
 "taO" = (
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 4
+	},
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
@@ -87324,7 +87800,7 @@
 /turf/open/floor/iron/stairs/left,
 /area/hallway/primary/central)
 "tcl" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/west,
@@ -87878,8 +88354,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/flora/ausbushes/ywflowers{
+	pixel_x = 12;
+	pixel_y = -1
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "thf" = (
@@ -89870,7 +90352,10 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
 "tEY" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = 1;
+	pixel_y = 5
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/starboard)
@@ -92031,6 +92516,16 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
+"ucp" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 4
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "ucq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -92297,8 +92792,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ufp" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 3
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 4;
+	pixel_x = -6
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -93302,7 +93802,7 @@
 /area/crew_quarters/dorms)
 "upc" = (
 /obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
@@ -94147,7 +94647,10 @@
 	},
 /area/engine/atmos)
 "uwX" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_x = 9;
+	pixel_y = 3
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
@@ -94185,7 +94688,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "uxD" = (
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 9
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
@@ -94259,8 +94764,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 5;
+	pixel_x = -3
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 4;
+	pixel_x = -6
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "uyW" = (
@@ -94639,8 +95150,14 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = -1;
+	pixel_x = -4
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = -4;
+	pixel_x = -4
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "uDi" = (
@@ -94814,9 +95331,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = -6
+	},
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
 "uFj" = (
@@ -95407,6 +95928,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"uMa" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -4;
+	pixel_x = -2
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/aft)
 "uMe" = (
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/siding/white/corner,
@@ -95735,6 +96270,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
+"uPz" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/leafybush{
+	pixel_x = -1
+	},
+/turf/open/floor/grass/no_border,
+/area/hallway/primary/fore)
 "uPR" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/grid/steel,
@@ -95969,8 +96513,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = -3
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_x = -5;
+	pixel_y = -6
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "uTe" = (
@@ -98350,8 +98899,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = 6
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = 5;
+	pixel_x = -16
+	},
 /obj/machinery/door/window/eastleft,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
@@ -99080,7 +99634,10 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -4;
+	pixel_y = -3
+	},
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
@@ -99547,8 +100104,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = 7
+	},
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = 4;
+	pixel_x = -16
+	},
 /obj/structure/window/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
@@ -100887,6 +101449,9 @@
 	},
 /obj/effect/turf_decal/trimline/dark_green/filled/mid_joiner{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/edge{
 	dir = 1
@@ -102852,8 +103417,13 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_x = 7
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "wnf" = (
@@ -103388,7 +103958,9 @@
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/starboard)
 "wsD" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_y = 6
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
@@ -104023,7 +104595,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/pointybush{
+	pixel_y = -15
+	},
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -104487,7 +105061,9 @@
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
 "wFG" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 4
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/port)
@@ -104711,8 +105287,10 @@
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/aft)
 "wIt" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = 4;
+	pixel_x = -9
+	},
 /obj/structure/flora/ausbushes/fullgrass{
 	pixel_x = -13;
 	pixel_y = 12
@@ -105575,7 +106153,10 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "wSC" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	pixel_x = -10;
+	pixel_y = -7
+	},
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
@@ -106139,7 +106720,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = 2
+	},
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "xae" = (
@@ -136450,7 +137033,7 @@ wyh
 haT
 eQo
 wfX
-wFG
+bWE
 ivd
 niU
 uCD
@@ -137478,7 +138061,7 @@ vFb
 kjN
 jwk
 sAt
-bPo
+eHp
 ivd
 xlC
 hSx
@@ -143610,19 +144193,19 @@ vdp
 xzj
 qvh
 hXI
-mzK
+fnj
 mzK
 aDv
-omb
+dYZ
 aKc
-smS
+hFl
 rSp
 joL
 xzj
 xbM
 bKv
-mzK
-aDv
+ucp
+mof
 omb
 aeD
 sfW
@@ -143668,11 +144251,11 @@ izj
 hYn
 bjv
 lKv
-qtz
+rbQ
 wnd
 mfe
 wZX
-mBD
+bmd
 kyl
 wPE
 rJl
@@ -143681,7 +144264,7 @@ gwU
 nKk
 the
 qtz
-wRO
+oqk
 xvO
 gnh
 wRO
@@ -143871,16 +144454,16 @@ uTc
 noe
 hsj
 luC
-hsj
-hsj
+cOn
+lsB
 uyU
 joL
 mPm
 ygl
 nBf
-noe
-hsj
-luC
+nWZ
+rMB
+uPz
 lPa
 soY
 jss
@@ -143925,7 +144508,7 @@ uCW
 bMB
 vAr
 lXc
-kkk
+stN
 cPO
 lxE
 eCp
@@ -143938,13 +144521,13 @@ gwU
 nKk
 bbX
 kkk
-qPu
+got
 qRF
-vAr
+uMa
 qPu
 fbA
 icK
-qRF
+cQM
 cAt
 qHU
 rJl
@@ -146280,11 +146863,11 @@ jhz
 hEZ
 ifn
 fMO
-umg
-umg
-umg
-umg
-umg
+sSF
+sSF
+sSF
+sSF
+sSF
 sSF
 xKq
 ewY
@@ -147308,11 +147891,11 @@ oNK
 gPY
 dNL
 cKG
-umg
-umg
+sSF
+sSF
 uNE
-umg
-umg
+sSF
+sSF
 sSF
 dGx
 cmo
@@ -149632,10 +150215,10 @@ dGx
 lDa
 dGx
 dGx
-dGx
-dGx
-dGx
-dGx
+hRw
+hRw
+hRw
+hhZ
 tKv
 nzj
 nzj
@@ -149889,10 +150472,10 @@ bVr
 uoC
 oWf
 eYH
-dGx
+hRw
 ieL
 cgo
-dGx
+hRw
 uLJ
 hyT
 hyT
@@ -150403,10 +150986,10 @@ vKl
 avh
 wUD
 xIh
-dGx
+hRw
 vTB
 foc
-dGx
+hRw
 luB
 hyT
 hyT
@@ -150655,15 +151238,15 @@ knM
 smd
 lis
 fUl
-cOn
-cOn
-cOn
-cOn
 dGx
 dGx
 dGx
 dGx
 dGx
+hRw
+hRw
+hRw
+hhZ
 hyT
 nzj
 nzj
@@ -151356,7 +151939,7 @@ wUF
 bKG
 ufc
 uxD
-nVN
+eBv
 fLm
 ukH
 rnx
@@ -151613,7 +152196,7 @@ wUF
 bKG
 ufc
 atw
-fvD
+oar
 eCA
 qlL
 upT
@@ -151680,10 +152263,10 @@ luG
 kjk
 sVr
 fcI
-mIx
-mIx
-mIx
-mIx
+oHs
+oHs
+oHs
+oHs
 mIx
 umg
 umg
@@ -152708,10 +153291,10 @@ uAg
 fIZ
 oHs
 oHs
-mIx
-mIx
-mIx
-mIx
+oHs
+oHs
+oHs
+oHs
 mIx
 vrO
 nzj
@@ -152969,7 +153552,7 @@ mCF
 lqI
 oHs
 oHs
-oHs
+mIx
 uLJ
 hyT
 nzj
@@ -153483,7 +154066,7 @@ mCF
 aJY
 oHs
 oHs
-oHs
+mIx
 uLJ
 hyT
 nzj
