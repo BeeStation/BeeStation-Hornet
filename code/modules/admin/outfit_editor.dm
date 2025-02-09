@@ -10,7 +10,7 @@
 
 	var/datum/outfit/drip
 
-/datum/outfit_editor/New(user, datum/outfit/target)
+/datum/outfit_editor/New(datum/user, datum/outfit/target)
 	owner = CLIENT_FROM_VAR(user)
 
 	if(ispath(target))

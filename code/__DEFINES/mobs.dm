@@ -584,7 +584,20 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define RESIZE_DEFAULT_SIZE 1
 
 /// Get the client from the var
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+#define CLIENT_FROM_VAR(I) get_client(I)
+
+/proc/get_client(variable)
+	if (!variable)
+		return null
+	if (ismob(variable))
+		var/mob/mob = variable
+		return mob.client
+	if (istype(variable, /client))
+		return variable
+	if (istype(variable, /datum/mind))
+		var/datum/mind/mind = variable
+		return mind.current?.client
+	return null
 
 /// The mob will vomit a green color
 #define VOMIT_TOXIC 1

@@ -1,6 +1,6 @@
 // simple is_type and similar inline helpers
 
-#define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
+#define in_range(source, user) (get_dist(source, user) <= 1 && get_step(source, 0).z == get_step(user, 0).z)
 
 /// Within given range, but not counting z-levels
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))

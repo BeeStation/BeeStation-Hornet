@@ -60,7 +60,7 @@
 			_heap_list.Swap(_sink_index,g_child);\
 			_sink_index = g_child;\
 			g_child = GREATER_CHILD_HEAP(_heap_list, _sink_index, _compare_value, tmp);\
-			if (g_child <= 0) \{
+			if (g_child <= 0) {\
 				break;\
 			}\
 			left = _heap_list[_sink_index];\
@@ -77,7 +77,7 @@
 			_heap_list.Swap(_swim_index,parent);\
 			_swim_index = parent;\
 			parent = round(_swim_index * 0.5);\
-			if (parent <= 0) \{
+			if (parent <= 0) {\
 				break;\
 			}\
 			left = _heap_list[_swim_index];\
@@ -122,7 +122,7 @@
 			elements.Swap(index,parent);\
 			index = parent;\
 			parent = round(index * 0.5);\
-			if (parent <= 0) \{
+			if (parent <= 0) {\
 				break;\
 			}\
 			left = elements[index];\
@@ -137,7 +137,7 @@
 			elements.Swap(index,g_child);\
 			index = g_child;\
 			g_child = get_greater_child(index);\
-			if (g_child <= 0) \{
+			if (g_child <= 0) {\
 				break;\
 			}\
 			left = elements[index];\

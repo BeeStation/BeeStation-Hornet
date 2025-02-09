@@ -11,7 +11,7 @@
 /datum/outfit_manager
 	var/client/owner
 
-/datum/outfit_manager/New(user)
+/datum/outfit_manager/New(datum/user)
 	owner = CLIENT_FROM_VAR(user)
 
 /datum/outfit_manager/ui_state(mob/user)

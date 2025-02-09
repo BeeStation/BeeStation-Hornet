@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(chat)
 
 /datum/controller/subsystem/chat/proc/queue(queue_target, list/message_data)
 	var/list/targets = islist(queue_target) ? queue_target : list(queue_target)
-	for(var/target in targets)
+	for(var/datum/target as anything in targets)
 		var/client/client = CLIENT_FROM_VAR(target)
 		if(isnull(client))
 			continue
@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(chat)
 
 /datum/controller/subsystem/chat/proc/send_immediate(send_target, list/message_data)
 	var/list/targets = islist(send_target) ? send_target : list(send_target)
-	for(var/target in targets)
+	for(var/datum/target as anything in targets)
 		var/client/client = CLIENT_FROM_VAR(target)
 		if(isnull(client))
 			continue

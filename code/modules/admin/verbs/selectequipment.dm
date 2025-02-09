@@ -34,7 +34,7 @@
 	//serializable string for the UI to keep track of which outfit is selected
 	var/selected_identifier = "/datum/outfit"
 
-/datum/select_equipment/New(_user, mob/target)
+/datum/select_equipment/New(datum/_user, mob/target)
 	user = CLIENT_FROM_VAR(_user)
 
 	if(!ishuman(target) && !isobserver(target))

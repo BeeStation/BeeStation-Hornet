@@ -53,7 +53,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/color_matrix_proxy_view)
 	var/list/current_color
 	var/closed
 
-/datum/color_matrix_editor/New(user, atom/_target = null)
+/datum/color_matrix_editor/New(datum/user, atom/_target = null)
 	owner = CLIENT_FROM_VAR(user)
 	if(islist(_target?.color))
 		current_color = _target.color
