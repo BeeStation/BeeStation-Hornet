@@ -56,5 +56,6 @@
 #pragma AssignmentInConditional error
 #pragma PickWeightedSyntax disabled
 #pragma AmbiguousInOrder error
-// We ban the use of the runtime search operator due to its heavy compile time costs
+// We ban the use of the runtime search operator due to its potential to invoke heavy compile time
+// costs without being noticed.
 #pragma RuntimeSearchOperator error
