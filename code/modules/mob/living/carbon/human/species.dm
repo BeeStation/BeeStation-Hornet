@@ -1138,8 +1138,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						BODY_ZONE_L_LEG,
 						BODY_ZONE_R_LEG,
 					)
+					var/list/robot_handparts = list(
+						BODY_ZONE_PRECISE_L_HAND,
+						BODY_ZONE_PRECISE_R_HAND,
+					)
 					for(var/robot_bodypart in robot_bodyparts)
-						var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER))
+						var/auxlayer = BODYPARTS_LAYER
+						if(robot_bodypart in robot_handparts)
+							auxlayer = HANDS_PART_LAYER
+						var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(auxlayer))
 						inner_accessory_overlay.icon_state = "m_[robot_bodypart]inner_[S.icon_state]_[layertext]"
 						if(S.hasinnercolor == MUTCOLORS)
 							if(fixed_mut_color)
