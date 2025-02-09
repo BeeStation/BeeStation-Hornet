@@ -134,7 +134,7 @@
 		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
 		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)), \
 		roleplay_friendly = TRUE, \
-		roleplay_emotes = list(/datum/emote/silicon/buzz, /datum/emote/silicon/buzz2, /datum/emote/silicon/beep), \
+		roleplay_emotes = list(/datum/emote/silicon/buzz, /datum/emote/silicon/buzz2, /datum/emote/silicon/boop), \
 		roleplay_callback = CALLBACK(src, PROC_REF(untip_roleplay)))
 
 	wires = new /datum/wires/robot(src)
@@ -595,6 +595,10 @@
 			logevent("[emagged ? "ChÃ¥vÃis" : "Chassis"] cover lock has been [locked ? "engaged" : "released"]") //ChÃ¥vÃis: see above line
 		else
 			to_chat(user, span_danger("Access denied."))
+
+///For any special cases for robots after being righted.
+/mob/living/silicon/robot/proc/after_righted(mob/user)
+	return
 
 /mob/living/silicon/robot/proc/after_tip_over(mob/user)
 	if(hat)
