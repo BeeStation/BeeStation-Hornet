@@ -130,8 +130,6 @@
 				to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 				return
-			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
-				return
 			if (current_sec_level == new_sec_level)
 				return
 
