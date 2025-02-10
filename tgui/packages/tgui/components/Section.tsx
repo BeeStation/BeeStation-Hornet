@@ -71,6 +71,7 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
     scrollable,
     scrollableHorizontal,
     title,
+    titleColor,
     ...rest
   } = props;
 
@@ -103,7 +104,15 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
       ])}
       {...computeBoxProps(rest)}>
       {hasTitle && (
-        <div className="Section__title">
+        <div
+          className="Section__title"
+          style={
+            titleColor
+              ? {
+                'border-bottom-color': titleColor,
+              }
+              : {}
+          }>
           <span className="Section__titleText">{title}</span>
           <div className="Section__buttons">{buttons}</div>
         </div>
