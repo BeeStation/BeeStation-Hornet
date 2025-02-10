@@ -1,0 +1,12 @@
+author: PigeonVerde322, Rkz, Kylerace, ArcaneMusic, zxaber
+delete-after: true
+changes:
+  - refactor: refactors machine and power code to cut down on processing costs
+  - bugfix: fixes non-processing machines failing to consume power
+  - bugfix: fixes rechargers and inducers allowing for effectively infinite power.
+      Now, what is used to charge these cells is exactly what can be expended from
+      them.
+  - tweak: rechargers now suck power directly from surplus energy on the powergrid,
+      as opposed to the Equipment part of an APC. This is to prevent the former fix
+      from making every single recharger on the station a mini-energy siphon.
+  - rscadd: examining any machinery will now tell if it's powered or not.
