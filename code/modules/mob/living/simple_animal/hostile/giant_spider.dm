@@ -727,7 +727,7 @@
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
-	var/datum/action/spell/basic_projectile/throw_web/spidernet
+	var/datum/action/spell/pointed/projectile/throw_web/spidernet
 
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
 	. = ..()
@@ -738,7 +738,7 @@
 	. = ..()
 	spidernet.Remove()
 
-/datum/action/spell/basic_projectile/throw_web
+/datum/action/spell/pointed/projectile/throw_web
 	name = "Throw web"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
 	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
@@ -746,31 +746,39 @@
 	button_icon_state = "throw_web_0"
 	background_icon_state = "bg_alien"
 	cooldown_time = 2 SECONDS
-	projectile_range = 20 // Proc holder had no range :shrug:
 	projectile_type = /obj/projectile/bullet/spidernet
+	deactive_msg = span_notice("You discard the webbing.")
 
-/datum/action/spell/basic_projectile/throw_web/can_cast_spell(feedback)
-	. = ..()
-	var/mob/living/user = owner
-	var/message
-	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return FALSE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/spider = user
+/datum/action/spell/pointed/projectile/throw_web/can_cast_spell(feedback)
+    . = ..()
+    var/mob/living/user = owner
+    if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+        return FALSE
+    var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+    if(spider.busy != SPINNING_WEB)
+        return TRUE
+    else
+        return FALSE
 
-	if(spider.busy != SPINNING_WEB)
-		spider.busy = SPINNING_WEB
-		spider.visible_message(span_notice("[spider] begins to secrete a sticky substance."),span_notice("You begin to prepare a net from webbing."))
-		spider.stop_automated_movement = TRUE
-		if(do_after(spider, 40 * spider.web_speed, spider))
-			message = (span_notice("You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B>"))
-			to_chat(spider, message)
-			return TRUE
-		spider.busy = SPIDER_IDLE
-		spider.stop_automated_movement = FALSE
-	else
-		to_chat(spider, span_warning ("You're already spinning a web!"))
-		return FALSE
-
+/datum/action/spell/pointed/projectile/throw_web/set_click_ability(mob/on_who)
+    var/mob/living/user = owner
+    if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+        return FALSE
+    var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+    if(spider.busy != SPINNING_WEB)
+        spider.busy = SPINNING_WEB
+        spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+        spider.stop_automated_movement = TRUE
+        . = FALSE
+        if(do_after(spider, 30 * spider.web_speed, spider))
+            var/message = "<span class='notice'>You ready the completed net with your forelimbs."
+            to_chat(spider, message)
+            . = ..()
+        spider.busy = SPIDER_IDLE
+        spider.stop_automated_movement = FALSE
+    else
+        to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+        return FALSE
 
 // Directive command, for giving children orders
 // The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob
