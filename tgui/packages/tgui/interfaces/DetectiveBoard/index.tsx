@@ -22,19 +22,14 @@ const PIN_Y_OFFSET = 15;
 const PIN_CONNECTING_Y_OFFSET = -60;
 
 export const DetectiveBoard = function (props, context) {
-  const { act, data } = useBackend<Data>(context);
+  const { act, data } = useBackend<Data>();
 
   const { cases, current_case } = data;
 
-  const [connectingEvidence, setConnectingEvidence] = useLocalState<DataEvidence | null>(context, 'connectingRope', null);
-  const [movingEvidenceConnections, setMovingEvidenceConnections] = useLocalState<TypedConnection[] | null>(
-    context,
-    'movingRope',
-    null
-  );
-  const [connection, setConnection] = useLocalState<Connection | null>(context, 'setRope', null);
+  const [connectingEvidence, setConnectingEvidence] = useLocalState<DataEvidence | null>('connectingRope', null);
+  const [movingEvidenceConnections, setMovingEvidenceConnections] = useLocalState<TypedConnection[] | null>('movingRope', null);
+  const [connection, setConnection] = useLocalState<Connection | null>('setRope', null);
   const [connections, setConnections] = useLocalState<Connection[]>(
-    context,
     'setRopes',
     current_case - 1 < cases.length && cases[current_case - 1] ? cases[current_case - 1].connections : []
   );

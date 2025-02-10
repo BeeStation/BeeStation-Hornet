@@ -23,8 +23,8 @@ const BoardTab = (props) => {
   );
 };
 
-export const BoardTabs = (props, context) => {
-  const { act, data } = useBackend<BoardTabsData>(context);
+export const BoardTabs = (props) => {
+  const { act, data } = useBackend<BoardTabsData>();
   const { cases, current_case } = data;
   return (
     <Box className="BoardTabs">

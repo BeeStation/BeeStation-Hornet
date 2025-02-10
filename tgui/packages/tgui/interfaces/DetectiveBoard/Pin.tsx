@@ -12,7 +12,7 @@ type PinProps = {
 
 export const Pin = function (props, context: PinProps) {
   const { evidence, onStartConnecting, onConnected, onMouseUp } = props;
-  const [creatingRope, setCreatingRope] = useLocalState(context, 'creatingRope', false);
+  const [creatingRope, setCreatingRope] = useLocalState('creatingRope', false);
 
   const handleMouseDown = function (args) {
     setCreatingRope(true);

@@ -23,19 +23,19 @@ type Position = {
   y: number;
 };
 
-export const Evidence = (props: EvidenceProps, context) => {
+export const Evidence = (props: EvidenceProps) => {
   const { evidence, case_ref, act } = props;
 
-  const [dragging, setDragging] = useLocalState(context, 'startDraging', false);
+  const [dragging, setDragging] = useLocalState('startDraging', false);
 
-  const [canDrag, setCanDrag] = useLocalState(context, 'canDrag', true);
+  const [canDrag, setCanDrag] = useLocalState('canDrag', true);
 
-  const [dragPosition, setDragPosition] = useLocalState<Position>(context, 'dragPosition', {
+  const [dragPosition, setDragPosition] = useLocalState<Position>('dragPosition', {
     x: evidence.x,
     y: evidence.y,
   });
 
-  const [lastMousePosition, setLastMousePosition] = useLocalState<Position | null>(context, 'lastPosition', null);
+  const [lastMousePosition, setLastMousePosition] = useLocalState<Position | null>('lastPosition', null);
 
   const handleMouseDown = (args: MouseEvent) => {
     if (canDrag) {
