@@ -249,10 +249,10 @@
 	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
 
 /datum/config_entry/string/alert_gamma
-	config_entry_value = "Central Command has issued an elevated security alert. There is an elevated threat designated by Central Command on board the station. All security forces are to stay armed and on high alert, remaining staff are advised to seek shelter in their departments."
+	config_entry_value = "Central Command has issued an elevated security alert. There is an elevated threat designated by Central Command on board the station. All security forces are to stay armed and on high alert, random searches are allowed and advised. Remaining staff are advised to seek shelter in their departments."
 
 /datum/config_entry/string/alert_black
-	config_entry_value = "Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security or heads of staff can be punished by death. This is not a drill. Evacuate the station immediately."
+	config_entry_value = "Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security personnel or heads of staff are punishable by death. This is not a drill, evacuate the station immediately."
 
 /datum/config_entry/string/alert_lambda
 	config_entry_value = "Central Command has detected a large spike of dimensional energy, consistent with the summoning of \[REDACTED\] entities. You are advised to make what little time you have left worthwhile; as no additional assets will be dispatched to the station at this time."
@@ -261,7 +261,7 @@
 	config_entry_value = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
 
 /datum/config_entry/string/alert_epsilon
-	config_entry_value = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
+	config_entry_value = "Central Command has ordered the Epsilon security level on the station. This station is now under direct central command control. Central command personnel are to be listened to in favor of heads of staff."
 
 
 /datum/config_entry/flag/diona_ghost_spawn

@@ -116,6 +116,7 @@
 	announcement_color = "darkred"
 	sound = 'sound/misc/gamma.ogg'
 	number_level = SEC_LEVEL_EPSILON
+	lowering_to_configuration_key = /datum/config_entry/string/alert_gamma
 	elevating_to_configuration_key = /datum/config_entry/string/alert_gamma
 	shuttle_call_time_mod = ALERT_COEFF_RED
 
@@ -129,6 +130,7 @@
 	announcement_color = "black"
 	sound = 'sound/misc/black.ogg'
 	number_level = SEC_LEVEL_BLACK
+	lowering_to_configuration_key = /datum/config_entry/string/alert_black
 	elevating_to_configuration_key = /datum/config_entry/string/alert_black
 	shuttle_call_time_mod = ALERT_COEFF_RED
 
@@ -142,6 +144,7 @@
 	announcement_color = "purple"
 	sound = 'sound/misc/lambda.ogg'
 	number_level = SEC_LEVEL_LAMBDA
+	lowering_to_configuration_key = /datum/config_entry/string/alert_lambda
 	elevating_to_configuration_key = /datum/config_entry/string/alert_lambda
 	shuttle_call_time_mod = ALERT_COEFF_DELTA
 
@@ -155,6 +158,7 @@
 	announcement_color = "purple"
 	sound = 'sound/misc/airraid.ogg' // Air alarm to signify importance
 	number_level = SEC_LEVEL_DELTA
+	lowering_to_configuration_key = /datum/config_entry/string/alert_delta
 	elevating_to_configuration_key = /datum/config_entry/string/alert_delta
 	shuttle_call_time_mod = ALERT_COEFF_DELTA
 
