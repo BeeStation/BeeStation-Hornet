@@ -68,7 +68,6 @@
 	var/passkey = null // sends auth data used to check if we can connect or send data to a device
 	var/list/data = list()
 	// Used for packet queuing
-	var/datum/netdata/next = null
 	var/mob/user = null // used for sending error messages
 
 /datum/netdata/New(list/data = null)
@@ -79,7 +78,6 @@
 /datum/netdata/Destroy()
 	data = null
 	passkey = null
-	next = null
 	user = null
 	return ..()
 
@@ -90,7 +88,6 @@
 	C.network_id = network_id
 	C.passkey = passkey
 	C.user = user
-	C.next = null
 	if(deep_copy)
 		C.data = deep_copy_list(data)
 	else
