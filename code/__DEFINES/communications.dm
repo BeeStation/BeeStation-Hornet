@@ -17,9 +17,9 @@
 #define SEC_LEVEL_GAMMA 5
 // Security level is black. (under attack)
 #define SEC_LEVEL_BLACK 6
-// Security level is lambda. (heretic ascension, cult win, magic shit won)
-#define SEC_LEVEL_LAMBDA 7
-/// Security level is delta. (station destruction imminent)
-#define SEC_LEVEL_DELTA 8
 // Security level is epsilon. (you fucked up, centcom is angry)
-#define SEC_LEVEL_EPSILON 9
+#define SEC_LEVEL_EPSILON 7
+// Security level is lambda. (heretic ascension, cult win, magic shit won)
+#define SEC_LEVEL_LAMBDA 8
+/// Security level is delta. (station destruction imminent)
+#define SEC_LEVEL_DELTA 9

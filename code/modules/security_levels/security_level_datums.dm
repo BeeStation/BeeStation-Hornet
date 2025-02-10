@@ -135,6 +135,19 @@
 	shuttle_call_time_mod = ALERT_COEFF_RED
 
 /**
+ * EPSILON
+ *
+ * You done fucked up, now centcom's angry. Deathsquad incoming.
+ */
+/datum/security_level/epsilon
+	name = "epsilon"
+	announcement_color = "purple"
+	sound = 'sound/misc/epsilon.ogg'
+	number_level = SEC_LEVEL_EPSILON
+	elevating_to_configuration_key = /datum/config_entry/string/alert_epsilon
+	shuttle_call_time_mod = ALERT_COEFF_RED
+
+/**
  * LAMBDA
  *
  * heretic ascension, cult win, magic shit won
@@ -161,16 +174,3 @@
 	lowering_to_configuration_key = /datum/config_entry/string/alert_delta
 	elevating_to_configuration_key = /datum/config_entry/string/alert_delta
 	shuttle_call_time_mod = ALERT_COEFF_DELTA
-
-/**
- * EPSILON
- *
- * You done fucked up, now centcom's angry. Deathsquad incoming.
- */
-/datum/security_level/epsilon
-	name = "epsilon"
-	announcement_color = "purple"
-	sound = 'sound/misc/epsilon.ogg'
-	number_level = SEC_LEVEL_EPSILON
-	elevating_to_configuration_key = /datum/config_entry/string/alert_epsilon
-	shuttle_call_time_mod = ALERT_COEFF_RED
