@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Chart, Input, Section, Stack, ProgressBar, Button, Flex } from '../components';
+import { Chart, Input, Section, Stack, ProgressBar, Button, Flex, Divider } from '../components';
 import { Window } from '../layouts';
 type Tdata = {
   network_id: string;
@@ -15,11 +15,9 @@ type server = {
   last_update: number; // world.time of last update
   overheated: boolean; // true/false
 };
+
 export const Telemonitor = (props) => {
   const { act, data } = useBackend<Tdata>();
-  const isOnline = function (server) {
-    return Math.floor((data.current_time - server.last_update) / 10) < 10;
-  };
   return (
     <Window width={1000} height={850}>
       <Window.Content scrollable>
@@ -47,47 +45,63 @@ export const Telemonitor = (props) => {
             </Flex.Item>
           </Flex>
         ) : (
-          <Stack fill wrap="wrap" justify="space-evenly">
-            {Object.values(data.servers).map((server) => {
-              const temperatureData = server.temperatures.map((value, i) => [i, value]);
-              return (
-                <Stack.Item m={1} width="32%" key={server.name}>
-                  <Section
-                    title={`${server.name} (${server.sender_id})`}
-                    buttons={
-                      <Button
-                        color={isOnline(server) && !server.overheated ? 'good' : 'bad'}
-                        tooltip={`${Math.floor((data.current_time - server.last_update) / 10)}s since last update`}>
-                        {isOnline(server) ? (server.overheated ? 'OVERHEATED' : 'ONLINE') : 'OFFLINE'}
-                      </Button>
-                    }>
-                    Efficiency:{' '}
-                    <ProgressBar
-                      ranges={{
-                        good: [0.6, Infinity],
-                        average: [0.4, 0.6],
-                        bad: [-Infinity, 0.4],
-                      }}
-                      value={isOnline(server) ? server.efficiency : 0}
-                    />
-                    Temperature: {Math.round(server.temperatures[server.temperatures.length - 1])}K
-                    <Section height="200px">
-                      <Chart.Line
-                        height="200px"
-                        data={temperatureData}
-                        rangeX={[0, temperatureData.length]}
-                        rangeY={[0, server.overheat_temperature]}
-                        strokeColor="rgb(255, 255, 255)"
-                        fillColor="rgba(10, 1, 1, 1)"
-                      />
-                    </Section>
-                  </Section>
-                </Stack.Item>
-              );
-            })}
-          </Stack>
+          <Flex>
+            <Flex.Item>
+              <ServerList />
+            </Flex.Item>
+            <Flex.Item grow={1}>
+              <ServerDetails />
+            </Flex.Item>
+          </Flex>
         )}
       </Window.Content>
     </Window>
+  );
+};
+
+const ServerList = (props) => {
+  const { act, data } = useBackend<Tdata>();
+  const isOnline = function (server) {
+    return Math.floor((data.current_time - server.last_update) / 10) < 10;
+  };
+  return (
+    <Section title="Servers">
+      {Object.values(data.servers).map((server) => {
+        const efficiencyColor = `#${Math.round((1 - server.efficiency) * 200 + 55)
+          .toString(16)
+          .padStart(2, '0')}${Math.round(server.efficiency * 200 + 55)
+          .toString(16)
+          .padStart(2, '0')}55`;
+        return (
+          <Section
+            m={1}
+            key={server.sender_id}
+            title={server.name}
+            titleColor={efficiencyColor}
+            buttons={<Button>select</Button>}>
+            {server.temperatures[server.temperatures.length - 1]}
+          </Section>
+        );
+      })}
+    </Section>
+  );
+};
+
+const ServerDetails = (props) => {
+  const { act, data } = useBackend<Tdata>();
+  const server: server = Object.values(data.servers)[0];
+  const temperatureData = server.temperatures.map((value, i) => [i, value]);
+
+  return (
+    <Section height="200px">
+      <Chart.Line
+        height="200px"
+        data={temperatureData}
+        rangeX={[0, temperatureData.length]}
+        rangeY={[0, server.overheat_temperature]}
+        strokeColor="rgb(255, 255, 255)"
+        fillColor="rgba(10, 1, 1, 1)"
+      />
+    </Section>
   );
 };
