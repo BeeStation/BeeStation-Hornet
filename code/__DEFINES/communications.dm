@@ -1,5 +1,5 @@
 
-//Security levels
+//Security levels, ordered by how fucked the station is.
 /// Security level is green. (no threats)
 #define SEC_LEVEL_GREEN 0
 /// Security level is blue. (caution advised)
