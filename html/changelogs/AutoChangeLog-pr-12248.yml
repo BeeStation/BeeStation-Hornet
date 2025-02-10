@@ -1,4 +1,0 @@
-author: rkz, mso,  itseasytosee
-delete-after: true
-changes:
-  - bugfix: fixes admin transforms sending the wrong mind

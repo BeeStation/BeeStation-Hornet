@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes the stat panel crashing when you have a plasma vessel in your mob.
