@@ -732,7 +732,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
 	. = ..()
 	spidernet = new
-	spidernet.Grant()
+	spidernet.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
 	. = ..()
@@ -755,19 +755,20 @@
 	var/message
 	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return FALSE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	var/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/spider = user
+
 	if(spider.busy != SPINNING_WEB)
 		spider.busy = SPINNING_WEB
-		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+		spider.visible_message(span_notice("[spider] begins to secrete a sticky substance."),span_notice("You begin to prepare a net from webbing."))
 		spider.stop_automated_movement = TRUE
 		if(do_after(spider, 40 * spider.web_speed, spider))
-			message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
+			message = (span_notice("You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B>"))
 			to_chat(spider, message)
 			return TRUE
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 	else
-		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+		to_chat(spider, span_warning ("You're already spinning a web!"))
 		return FALSE
 
 
