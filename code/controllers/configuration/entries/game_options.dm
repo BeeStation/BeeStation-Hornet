@@ -248,12 +248,6 @@
 /datum/config_entry/string/alert_red_downto
 	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
 
-/datum/config_entry/string/alert_red_upto
-	config_entry_value = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
-
-/datum/config_entry/string/alert_red_downto
-	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
-
 /datum/config_entry/string/alert_gamma
 	config_entry_value = "Central Command has issued an elevated security alert. There is an elevated threat designated by Central Command on board the station. All security forces are to stay armed and on high alert, remaining staff are advised to seek shelter in their departments."
 
