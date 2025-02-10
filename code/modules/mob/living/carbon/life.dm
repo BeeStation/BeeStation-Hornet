@@ -94,8 +94,6 @@
 	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
-	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
-		return
 
 	var/datum/gas_mixture/environment
 	if(loc)
@@ -129,23 +127,22 @@
 				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
 
 			else if(isturf(loc)) //Breathe from loc as turf
-				var/breath_ratio = 0
+				var/breath_moles = 0
 				if(environment)
-					breath_ratio = BREATH_VOLUME/environment.return_volume()
+					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
-				breath = loc.remove_air_ratio(breath_ratio)
+				breath = loc.remove_air(breath_moles)
 		else //Breathe from loc as obj again
-			if(istype(loc, /obj/))
+			if(isobj(loc))
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
 
 	if(breath)
-		breath.set_volume(BREATH_VOLUME)
+		breath.volume = BREATH_VOLUME
 	check_breath(breath)
 
 	if(breath)
 		loc.assume_air(breath)
-		air_update_turf()
 
 /mob/living/carbon/proc/has_smoke_protection()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
@@ -182,9 +179,9 @@
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
 	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
-	var/O2_partialpressure = ((breath.get_moles(GAS_O2)/moles)*breath_pressure) + (((breath.get_moles(GAS_PLUOXIUM)*8)/moles)*breath_pressure)
-	var/Toxins_partialpressure = (breath.get_moles(GAS_PLASMA)/moles)*breath_pressure
-	var/CO2_partialpressure = (breath.get_moles(GAS_CO2)/moles)*breath_pressure
+	var/O2_partialpressure = ((GET_MOLES(/datum/gas/oxygen, breath)/moles)*breath_pressure) + (((GET_MOLES(/datum/gas/pluoxium, breath)*8)/moles)*breath_pressure)
+	var/Toxins_partialpressure = (GET_MOLES(/datum/gas/plasma, breath)/moles)*breath_pressure
+	var/CO2_partialpressure = (GET_MOLES(/datum/gas/carbon_dioxide, breath)/moles)*breath_pressure
 
 
 	//OXYGEN
@@ -195,7 +192,7 @@
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
 			failed_last_breath = 1
-			oxygen_used = breath.get_moles(GAS_O2)*ratio
+			oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)*ratio
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
@@ -205,11 +202,11 @@
 		failed_last_breath = 0
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
-		oxygen_used = breath.get_moles(GAS_O2)
+		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
 		clear_alert("not_enough_oxy")
 
-	breath.adjust_moles(GAS_O2, -oxygen_used)
-	breath.adjust_moles(GAS_CO2, oxygen_used)
+	ADD_MOLES(/datum/gas/carbon_dioxide, breath, oxygen_used)
+	REMOVE_MOLES(/datum/gas/oxygen, breath, oxygen_used)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -228,15 +225,15 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.get_moles(GAS_PLASMA)/safe_tox_max) * 10
+		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
 	//NITROUS OXIDE
-	if(breath.get_moles(GAS_NITROUS))
-		var/SA_partialpressure = (breath.get_moles(GAS_NITROUS)/breath.total_moles())*breath_pressure
+	if(GET_MOLES(/datum/gas/nitrous_oxide, breath))
+		var/SA_partialpressure = (GET_MOLES(/datum/gas/nitrous_oxide, breath)/breath.total_moles())*breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			Unconscious(60)
 			if(SA_partialpressure > SA_sleep_min)
@@ -249,32 +246,34 @@
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
 	//BZ (Facepunch port of their Agent B)
-	if(breath.get_moles(GAS_BZ))
-		var/bz_partialpressure = (breath.get_moles(GAS_BZ)/breath.total_moles())*breath_pressure
+	if(GET_MOLES(/datum/gas/bz, breath))
+		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
 		if(bz_partialpressure > 1)
 			hallucination += 10
 		else if(bz_partialpressure > 0.01)
 			hallucination += 5
 
 	//TRITIUM
-	if(breath.get_moles(GAS_TRITIUM))
-		var/tritium_partialpressure = (breath.get_moles(GAS_TRITIUM)/breath.total_moles())*breath_pressure
+	if(GET_MOLES(/datum/gas/tritium, breath))
+		var/tritium_partialpressure = (GET_MOLES(/datum/gas/tritium, breath)/breath.total_moles())*breath_pressure
 		radiation += tritium_partialpressure/10
 
 	//NITRYL
-	if(breath.get_moles(GAS_NITRYL))
-		var/nitryl_partialpressure = (breath.get_moles(GAS_NITRYL)/breath.total_moles())*breath_pressure
+	if(GET_MOLES(/datum/gas/nitryl, breath))
+		var/nitryl_partialpressure = (GET_MOLES(/datum/gas/nitryl, breath)/breath.total_moles())*breath_pressure
 		adjustFireLoss(nitryl_partialpressure/4)
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
-	return 1
+	breath.garbage_collect()
+
+	return TRUE
 
 //Fourth and final link in a breath chain
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	// The air you breathe out should match your body temperature
-	breath.set_temperature(bodytemperature)
+	breath.temperature = bodytemperature
 
 /// Attempts to take a breath from the external or internal air tank.
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
@@ -284,10 +283,8 @@
 		return
 	if(external)
 		. = external.remove_air_volume(volume_needed)
-		update_internals_hud_icon(1)
 	else if(internal)
 		. = internal.remove_air_volume(volume_needed)
-		update_internals_hud_icon(1)
 	else
 		// Return without taking a breath if there is no air tank.
 		return
@@ -537,16 +534,16 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 81)
 			adjustToxLoss(delta_time)
 			if(DT_PROB(5, delta_time) && !stat)
-				to_chat(src, "<span class='warning'>Maybe you should lie down for a bit.</span>")
+				to_chat(src, span_warning("Maybe you should lie down for a bit."))
 
 		if(drunkenness >= 91)
 			adjustToxLoss(delta_time)
 			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.4 * delta_time)
 			if(DT_PROB(20, delta_time) && !stat)
 				if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(z)) //QoL mainly
-					to_chat(src, "<span class='warning'>You're so tired, but you can't miss that shuttle.</span>")
+					to_chat(src, span_warning("You're so tired, but you can't miss that shuttle."))
 				else
-					to_chat(src, "<span class='warning'>Just a quick nap.</span>")
+					to_chat(src, span_warning("Just a quick nap."))
 					Sleeping(900)
 
 		if(drunkenness >= 101)
@@ -705,7 +702,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 	adjustToxLoss(4, TRUE,  TRUE)
 	if(prob(30))
-		to_chat(src, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
+		to_chat(src, span_warning("You feel a stabbing pain in your abdomen!"))
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

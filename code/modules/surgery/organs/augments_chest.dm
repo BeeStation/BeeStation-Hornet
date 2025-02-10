@@ -21,7 +21,7 @@
 
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		to_chat(owner, span_notice("You feel less hungry..."))
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
@@ -33,7 +33,7 @@
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
 	owner.reagents.add_reagent(/datum/reagent/toxin/bad_food, poison_amount / severity)
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	to_chat(owner, span_warning("You feel like your insides are burning."))
 
 
 /obj/item/organ/cyberimp/chest/nutriment/plus
@@ -62,7 +62,7 @@
 			else
 				COOLDOWN_START(src, reviver_cooldown, revive_cost)
 				reviving = FALSE
-				to_chat(owner, "<span class='notice'>Your reviver implant shuts down and starts recharging. It will be ready again in [DisplayTimeText(revive_cost)].</span>")
+				to_chat(owner, span_notice("Your reviver implant shuts down and starts recharging. It will be ready again in [DisplayTimeText(revive_cost)]."))
 		return
 
 	if(!COOLDOWN_FINISHED(src, reviver_cooldown) || owner.suiciding)
@@ -72,7 +72,7 @@
 		if(UNCONSCIOUS, HARD_CRIT)
 			revive_cost = 0
 			reviving = TRUE
-			to_chat(owner, "<span class='notice'>You feel a faint buzzing as your reviver implant starts patching your wounds...</span>")
+			to_chat(owner, span_notice("You feel a faint buzzing as your reviver implant starts patching your wounds..."))
 
 /obj/item/organ/cyberimp/chest/reviver/proc/heal()
 	if(owner.getOxyLoss())
@@ -102,7 +102,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity) && H.can_heartattack())
 			H.set_heartattack(TRUE)
-			to_chat(H, "<span class='userdanger'>You feel a horrible agony in your chest!</span>")
+			to_chat(H, span_userdanger("You feel a horrible agony in your chest!"))
 			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
 /obj/item/organ/cyberimp/chest/reviver/proc/undo_heart_attack()
@@ -111,7 +111,7 @@
 		return
 	H.set_heartattack(FALSE)
 	if(H.stat == CONSCIOUS)
-		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
+		to_chat(H, span_notice("You feel your heart beating again!"))
 
 /obj/item/organ/cyberimp/chest/reviver/syndicate
 	syndicate_implant = TRUE
@@ -148,7 +148,7 @@
 	if(!on)
 		if((organ_flags & ORGAN_FAILING))
 			if(!silent)
-				to_chat(owner, "<span class='warning'>Your thrusters set seems to be broken!</span>")
+				to_chat(owner, span_warning("Your thrusters set seems to be broken!"))
 			return 0
 		on = TRUE
 		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
@@ -156,13 +156,13 @@
 			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
 			if(!silent)
-				to_chat(owner, "<span class='notice'>You turn your thrusters set on.</span>")
+				to_chat(owner, span_notice("You turn your thrusters set on."))
 	else
 		ion_trail.stop()
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/cybernetic)
 		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 		if(!silent)
-			to_chat(owner, "<span class='notice'>You turn your thrusters set off.</span>")
+			to_chat(owner, span_notice("You turn your thrusters set off."))
 		on = FALSE
 	update_icon()
 
@@ -197,9 +197,12 @@
 		return 1
 
 	// Priority 3: use internals tank.
-	var/obj/item/tank/I = owner.internal
-	if(I && I.air_contents && I.air_contents.total_moles() >= num && use_fuel)
-		T.assume_air_moles(I.air_contents, num)
+	var/datum/gas_mixture/internal_mix = owner.internal.return_air()
+	if(internal_mix && internal_mix.total_moles() > num)
+		var/datum/gas_mixture/removed = internal_mix.remove(num)
+		if(removed.total_moles() > 0.005)
+			T.assume_air(removed)
+			ion_trail.generate_effect()
 
 	toggle(silent = TRUE)
 	return 0

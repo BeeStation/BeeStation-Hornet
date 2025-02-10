@@ -14,8 +14,8 @@ export const BountyBoard = () => {
   );
 };
 
-export const BountyBoardContent = (_, context) => {
-  const { act, data } = useBackend(context);
+export const BountyBoardContent = (_) => {
+  const { act, data } = useBackend();
   const { requests = [], applicants = [], user } = data;
   const color = '#2c4461';
   const backColor = 'black';
@@ -58,7 +58,7 @@ export const BountyBoardContent = (_, context) => {
                 />
               </>
             }>
-            <BlockQuote style={{ 'white-space': 'pre-wrap', overflow: 'auto' }}>
+            <BlockQuote style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>
               <i>{request.description}</i>
             </BlockQuote>
             {!!applicants.length && (
@@ -105,8 +105,8 @@ export const BountyBoardContent = (_, context) => {
   );
 };
 
-const NewBountyMenu = (_, context) => {
-  const { act, data } = useBackend(context);
+const NewBountyMenu = (_) => {
+  const { act, data } = useBackend();
   const { bountyValue, user } = data;
   return (
     <Section
@@ -114,13 +114,14 @@ const NewBountyMenu = (_, context) => {
       buttons={
         <>
           <NumberInput
-            animate
+            animated
             unit="cr"
             minValue={1}
             maxValue={1000}
             value={bountyValue}
             width="80px"
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('bountyVal', {
                 bountyval: value,
               })

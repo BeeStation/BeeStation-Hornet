@@ -37,16 +37,14 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger()
-	if(!IsAvailable())
-		return
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/on_activate(mob/user, atom/target)
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".x[message]")
 
 /obj/item/organ/vocal_cords/adamantine/handle_speech(message)
-	var/msg = "<span class='resonate'><span class='name'>[owner.real_name]</span> <span class='message'>resonates, \"[message]\"</span></span>"
+	var/msg = span_resonate("[span_name("[owner.real_name]")] [span_message("resonates, \"[message]\"")]")
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -73,9 +71,11 @@
 
 /datum/action/item_action/organ_action/colossus/New()
 	..()
-	cords = target
+	if (!istype(master, /obj/item/organ/vocal_cords/colossus))
+		CRASH("/obj/item/organ/vocal_cords/colossus assigned to colossus")
+	cords = master
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/is_available()
 	if(world.time < cords.next_command)
 		return FALSE
 	if(!owner)
@@ -89,12 +89,7 @@
 			return FALSE
 	return TRUE
 
-/datum/action/item_action/organ_action/colossus/Trigger()
-	. = ..()
-	if(!IsAvailable())
-		if(world.time < cords.next_command)
-			to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(cords.next_command - world.time)] before Speaking again.</span>")
-		return
+/datum/action/item_action/organ_action/colossus/on_activate(mob/user, atom/target)
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(QDELETED(src) || QDELETED(owner))
 		return
@@ -104,12 +99,12 @@
 
 /obj/item/organ/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(next_command - world.time)] before Speaking again.</span>")
+		to_chat(owner, span_notice("You must wait [DisplayTimeText(next_command - world.time)] before Speaking again."))
 		return FALSE
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak_vocal())
-		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
+		to_chat(owner, span_warning("You are unable to speak!"))
 		return FALSE
 	return TRUE
 
@@ -120,6 +115,8 @@
 /obj/item/organ/vocal_cords/colossus/speak_with(message)
 	var/cooldown = voice_of_god(uppertext(message), owner, spans, base_multiplier)
 	next_command = world.time + (cooldown * cooldown_mod)
+	for (var/datum/action/item_action/organ_action/colossus/action in actions)
+		action.start_cooldown(cooldown * cooldown_mod)
 
 //////////////////////////////////////
 ///////////VOICE OF GOD///////////////
@@ -143,7 +140,7 @@
 	message = LOWER_TEXT(message)
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in hearers(8, get_turf(user)))
-		if(L.can_hear() && !L.anti_magic_check(FALSE, TRUE) && L.stat != DEAD)
+		if(L.can_hear() && !L.can_block_magic(MAGIC_RESISTANCE_HOLY) && L.stat != DEAD)
 
 			if(L == user && !include_speaker)
 				continue

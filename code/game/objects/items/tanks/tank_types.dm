@@ -15,7 +15,7 @@
 
 /obj/item/tank/internals/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click the tank to toggle the valve.</span>"
+	. += span_notice("Alt-click the tank to toggle the valve.")
 
 /*
  * Oxygen
@@ -30,7 +30,7 @@
 
 
 /obj/item/tank/internals/oxygen/populate_gas()
-	air_contents.set_moles(GAS_O2, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/oxygen, air_contents, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
@@ -56,8 +56,13 @@
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
-	air_contents.set_moles(GAS_O2, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	air_contents.set_moles(GAS_NITROUS, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	SET_MOLES(/datum/gas/oxygen, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/nitrous_oxide, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+
+/obj/item/tank/internals/anesthetic/examine(mob/user)
+	. = ..()
+	. += span_notice("A warning is etched into [src]...")
+	. += span_warning("There is no process in the body that uses N2O, so patients will exhale the N2O... exposing you to it. Make sure to work in a well-ventilated space to avoid sleepy mishaps.")
 
 /*
  * Air
@@ -71,8 +76,8 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/air/populate_gas()
-	air_contents.set_moles(GAS_O2, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	air_contents.set_moles(GAS_N2, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	SET_MOLES(/datum/gas/oxygen, air_contents, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, air_contents, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /*
  * Plasma
@@ -87,7 +92,7 @@
 
 
 /obj/item/tank/internals/plasma/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasma/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/flamethrower))
@@ -103,7 +108,7 @@
 		return ..()
 
 /obj/item/tank/internals/plasma/full/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasma/empty/populate_gas()
 	return
@@ -122,10 +127,10 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/plasmaman/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/full/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/empty/populate_gas()
 	return
@@ -143,7 +148,7 @@
 	w_class = WEIGHT_CLASS_SMALL //thanks i forgot this
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/plasma, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
@@ -166,11 +171,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-	volume = 1 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
+	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
-	air_contents.set_moles(GAS_O2, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/oxygen, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/emergency_oxygen/empty/populate_gas()
 	return
@@ -180,7 +185,7 @@
 	icon_state = "emergency_engi"
 	worn_icon_state = "emergency_engi"
 	worn_icon = null
-	volume = 2 // should last a bit over 30 minutes if full
+	volume = 6 // should last a bit over 30 minutes if full
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
 	return
@@ -189,7 +194,7 @@
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
 	worn_icon_state = "emergency_engi"
-	volume = 8
+	volume = 12
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
@@ -214,5 +219,5 @@
 	volume = 1
 
 /obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
-	air_contents.set_moles(GAS_O2, (9.99*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
-	air_contents.set_moles(GAS_NITROUS, (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	SET_MOLES(/datum/gas/oxygen, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)* 0.95)
+	SET_MOLES(/datum/gas/nitrous_oxide, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * 0.05)

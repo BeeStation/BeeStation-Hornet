@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/datum/heretic_knowledge/limited_amount/base_flesh,
 		/datum/heretic_knowledge/limited_amount/base_void,
 		)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
+	spell_to_add = /datum/action/spell/touch/mansus_grasp
 	cost = 0
 	route = HERETIC_PATH_START
 
@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		var/obj/item/organ/heart/our_replacement_heart = locate() in selected_atoms
 		if(our_replacement_heart)
 			// Throw our current heart out of our chest, violently
-			user.visible_message("<span class='boldwarning'>[user]'s [our_heart.name] bursts suddenly out of [user.p_their()] chest!</span>")
+			user.visible_message(span_boldwarning("[user]'s [our_heart.name] bursts suddenly out of [user.p_their()] chest!"))
 			INVOKE_ASYNC(user, /mob/proc/emote, "scream")
 			user.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
 			// And put our organic heart in its place
@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(our_heart in selected_atoms)
 		selected_atoms -= our_heart
 	our_heart.AddComponent(/datum/component/living_heart)
-	to_chat(user, "<span class='warning'>You feel your [our_heart.name] begin to pulse faster and faster as it awakens!</span>")
+	to_chat(user, span_warning("You feel your [our_heart.name] begin to pulse faster and faster as it awakens!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	return TRUE
 

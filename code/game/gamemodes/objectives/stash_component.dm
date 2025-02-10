@@ -52,7 +52,7 @@
 /datum/component/stash/proc/on_examine(datum/source, mob/viewer, list/examine_text)
 	SIGNAL_HANDLER
 	if (viewer?.mind == stash_owner)
-		examine_text += "<span class='notice'>You have a stash hidden here! Use <b>Alt-Click</b> to access it.</span>"
+		examine_text += span_notice("You have a stash hidden here! Use <b>Alt-Click</b> to access it.")
 
 /datum/component/stash/proc/access_stash(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -63,10 +63,10 @@
 	//Not the owner of this stash
 	if (user.mind != stash_owner)
 		return
-	to_chat(user, "<span class='warning'>You begin removing your stash from [parent]...</span>")
+	to_chat(user, span_warning("You begin removing your stash from [parent]..."))
 	if(!do_after(user, 5 SECONDS, parent))
 		return
-	to_chat(user, "<span class='notice'>You remove your stash from [parent].</span>")
+	to_chat(user, span_notice("You remove your stash from [parent]."))
 	//Put in hand
 	stash_item.forceMove(get_turf(user))
 	user.put_in_hands(stash_item)

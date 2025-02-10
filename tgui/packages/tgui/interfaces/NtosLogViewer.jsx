@@ -1,11 +1,11 @@
 import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 import { Section, Table, Button } from '../components';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 
-export const NtosLogViewer = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [openFile, setOpenFile] = useLocalState(context, 'log_viewer_open', null);
+export const NtosLogViewer = (props) => {
+  const { act, data } = useBackend();
+  const [openFile, setOpenFile] = useLocalState('log_viewer_open', null);
   const { files = [] } = data;
   const openFileResult = files.find((file) => file.name === openFile && (!file.remote || file.online));
   return (
@@ -22,7 +22,7 @@ export const NtosLogViewer = (props, context) => {
                 <Table.Row key={file.name} className="candystripe">
                   <Table.Cell>{file.name}.log</Table.Cell>
                   <Table.Cell>{!file.remote ? `${file.size}GQ` : 'Remote'}</Table.Cell>
-                  <Table.Cell collapsing style={{ 'text-align': 'right' }}>
+                  <Table.Cell collapsing style={{ textAlign: 'right' }}>
                     {!!file.remote && (
                       <Button
                         disabled={!file.online}

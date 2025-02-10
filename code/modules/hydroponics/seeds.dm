@@ -365,7 +365,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 	if(get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 		text += "- Plant type: Mushroom. Can grow in dry soil.\n"
 	if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
-		text += "- Plant type: <span class='warning'>UNKNOWN</span> \n"
+		text += "- Plant type: [span_warning("UNKNOWN")] \n"
 	if(potency != -1)
 		text += "- Potency: [potency]\n"
 	if(yield != -1)
@@ -395,10 +395,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
+		to_chat(user, span_info("*---------*\n This is \a [span_name("[src]")]."))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, EXAMINE_BLOCK("<span class='notice'>[text]</span>"))
+			to_chat(user, EXAMINE_BLOCK(span_notice("[text]")))
 
 		return
 

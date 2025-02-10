@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Button, Collapsible, Grid, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const NaniteChamberControl = (props, context) => {
+export const NaniteChamberControl = (props) => {
   return (
     <Window width={380} height={570}>
       <Window.Content scrollable>
@@ -12,8 +12,8 @@ export const NaniteChamberControl = (props, context) => {
   );
 };
 
-export const NaniteChamberControlContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteChamberControlContent = (props) => {
+  const { act, data } = useBackend();
   const { status_msg, locked, occupant_name, has_nanites, nanite_volume, regen_rate, safety_threshold, cloud_id, scan_level } =
     data;
 
@@ -74,7 +74,8 @@ export const NaniteChamberControlContent = (props, context) => {
                       minValue={0}
                       maxValue={500}
                       width="39px"
-                      onChange={(e, value) =>
+                      step={1}
+                      onChange={(value) =>
                         act('set_safety', {
                           value: value,
                         })
@@ -89,7 +90,7 @@ export const NaniteChamberControlContent = (props, context) => {
                       step={1}
                       stepPixelSize={3}
                       width="39px"
-                      onChange={(e, value) =>
+                      onChange={(value) =>
                         act('set_cloud', {
                           value: value,
                         })

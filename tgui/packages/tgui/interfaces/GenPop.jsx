@@ -1,33 +1,31 @@
 // Adapted From NSV13
 
 import { clamp, toFixed } from 'common/math';
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, Section, ProgressBar, Input } from '../components';
+import { useBackend, useSharedState } from '../backend';
+import { Button, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
-export const GenPop = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GenPop = (props) => {
+  const { act, data } = useBackend();
 
   const { desired_name = '', desired_details = '', crime_list = {} } = data;
 
   // Local state for the time of the prisoner.
-  const [time, setTime] = useSharedState(context, 'time', 0);
+  const [time, setTime] = useSharedState('time', 0);
 
   // Local state to determine which modifiers we have active
-  const [resistedMod, setResistedMod] = useSharedState(context, 'resisted', false);
-  const [attemptedMod, setAttemptedMod] = useSharedState(context, 'attempted', false);
-  const [elevatedMod, setElevatedMod] = useSharedState(context, 'repeat_offender', false);
+  const [resistedMod, setResistedMod] = useSharedState('resisted', false);
+  const [attemptedMod, setAttemptedMod] = useSharedState('attempted', false);
+  const [elevatedMod, setElevatedMod] = useSharedState('repeat_offender', false);
 
   // Local state for the name of the crime being issued
-  const [crimeName, setCrimeName] = useSharedState(context, 'crimeName', 'No crime');
+  const [crimeName, setCrimeName] = useSharedState('crimeName', 'No crime');
 
   // Local state for the name of the crime details
-  const [crimeDetails, setCrimeDetails] = useSharedState(context, 'crimeDetails', 'No details provided');
+  const [crimeDetails, setCrimeDetails] = useSharedState('crimeDetails', 'No details provided');
 
   // Local state for the current category that we are browsing
   const [crimeCategory, setCrimeCategory] = useSharedState(
-    context,
     'crimeCategory',
     crime_list && crime_list.length > 0 ? Object.keys(crime_list)[0] : null
   );
@@ -60,7 +58,7 @@ export const GenPop = (props, context) => {
         <Section
           title="Prisoner ID Printer:"
           buttons={
-            <Fragment>
+            <>
               <Button
                 icon="id-card-alt"
                 content={data.desired_name ? data.desired_name : 'Enter Prisoner Name'}
@@ -89,7 +87,7 @@ export const GenPop = (props, context) => {
                   resetLocalState();
                 }}
               />
-            </Fragment>
+            </>
           }>
           <Button icon="fast-backward" onClick={() => setTime(clamp(time - 1200, 0, 36000))} />
           <Button icon="backward" onClick={() => setTime(clamp(time - 600, 0, 36000))} />
@@ -184,12 +182,12 @@ export const GenPop = (props, context) => {
                 key={value}
                 title={value.name}
                 buttons={
-                  <Fragment>
+                  <>
                     <Button icon="backward" onClick={() => act('adjust_time', { adjust: -60, id: value.id })} />
                     <Button icon="forward" onClick={() => act('adjust_time', { adjust: 60, id: value.id })} />
                     <Button icon="check" content="Release" color="good" onClick={() => act('release', { id: value.id })} />
                     <Button icon="running" content="Escaped" color="bad" onClick={() => act('escaped', { id: value.id })} />
-                  </Fragment>
+                  </>
                 }>
                 Incarcerated for: {value.crime} <br />
                 <ProgressBar

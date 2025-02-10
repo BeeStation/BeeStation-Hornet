@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../../backend';
 import { BlockQuote, Box, Button, ByondUi, Collapsible, Flex, Icon, Input, Knob, LabeledList, NumberInput, ProgressBar, Section, Slider, Tabs, Tooltip } from '../../components';
 import { DraggableControl } from '../../components/DraggableControl';
@@ -64,9 +63,9 @@ const PAGES = [
   },
 ];
 
-export const KitchenSink = (props, context) => {
-  const [theme] = useLocalState(context, 'kitchenSinkTheme');
-  const [pageIndex, setPageIndex] = useLocalState(context, 'pageIndex', 0);
+export const KitchenSink = (props) => {
+  const [theme] = useLocalState('kitchenSinkTheme');
+  const [pageIndex, setPageIndex] = useLocalState('pageIndex', 0);
   const PageComponent = PAGES[pageIndex].component();
   return (
     <Window theme={theme}>
@@ -140,8 +139,8 @@ const KitchenSinkBox = (props) => {
   );
 };
 
-const KitchenSinkProgressBar = (props, context) => {
-  const [progress, setProgress] = useLocalState(context, 'progress', 0.5);
+const KitchenSinkProgressBar = (props) => {
+  const [progress, setProgress] = useLocalState('progress', 0.5);
 
   return (
     <Box>
@@ -164,10 +163,10 @@ const KitchenSinkProgressBar = (props, context) => {
   );
 };
 
-const KitchenSinkTabs = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [vertical, setVertical] = useLocalState(context, 'tabVert');
-  const [altSelection, setAltSelection] = useLocalState(context, 'tabAlt');
+const KitchenSinkTabs = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [vertical, setVertical] = useLocalState('tabVert');
+  const [altSelection, setAltSelection] = useLocalState('tabAlt');
   const TAB_RANGE = [1, 2, 3, 4, 5];
   return (
     <Box>
@@ -189,7 +188,7 @@ const KitchenSinkTabs = (props, context) => {
 const KitchenSinkTooltip = (props) => {
   const positions = ['top', 'left', 'right', 'bottom', 'bottom-left', 'bottom-right'];
   return (
-    <Fragment>
+    <>
       <Box>
         <Tooltip content="Tooltip text.">
           <Box inline position="relative" mr={1}>
@@ -203,14 +202,14 @@ const KitchenSinkTooltip = (props) => {
           <Button key={position} color="transparent" tooltip="Tooltip text." tooltipPosition={position} content={position} />
         ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
-const KitchenSinkInput = (props, context) => {
-  const [number, setNumber] = useLocalState(context, 'number', 0);
+const KitchenSinkInput = (props) => {
+  const [number, setNumber] = useLocalState('number', 0);
 
-  const [text, setText] = useLocalState(context, 'text', 'Sample text');
+  const [text, setText] = useLocalState('text', 'Sample text');
 
   return (
     <Box>
@@ -230,7 +229,7 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onChange={(e, value) => setNumber(value)}
+            onChange={(value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="NumberInput (onDrag)">
@@ -242,7 +241,7 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            onDrag={(value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Slider (onDrag)">
@@ -332,8 +331,8 @@ const KitchenSinkBlockQuote = (props) => {
   );
 };
 
-const KitchenSinkByondUi = (props, context) => {
-  const { config } = useBackend(context);
+const KitchenSinkByondUi = (props) => {
+  const { config } = useBackend();
   return (
     <Box>
       <Section title="Button" level={2}>
@@ -348,8 +347,8 @@ const KitchenSinkByondUi = (props, context) => {
   );
 };
 
-const KitchenSinkThemes = (props, context) => {
-  const [theme, setTheme] = useLocalState(context, 'kitchenSinkTheme');
+const KitchenSinkThemes = (props) => {
+  const [theme, setTheme] = useLocalState('kitchenSinkTheme');
   return (
     <Box>
       <LabeledList>

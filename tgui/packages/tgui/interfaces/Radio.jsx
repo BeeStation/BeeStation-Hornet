@@ -5,8 +5,8 @@ import { Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
-export const Radio = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Radio = (props) => {
+  const { act, data } = useBackend();
   const {
     freqlock,
     frequency,
@@ -37,7 +37,7 @@ export const Radio = (props, context) => {
                 </Box>
               )) || (
                 <NumberInput
-                  animate
+                  animated
                   unit="kHz"
                   step={0.2}
                   stepPixelSize={10}
@@ -45,7 +45,7 @@ export const Radio = (props, context) => {
                   maxValue={maxFrequency / 10}
                   value={frequency / 10}
                   format={(value) => toFixed(value, 1)}
-                  onDrag={(e, value) =>
+                  onDrag={(value) =>
                     act('frequency', {
                       adjust: value - frequency / 10,
                     })

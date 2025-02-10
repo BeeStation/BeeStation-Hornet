@@ -15,8 +15,8 @@ type server = {
   last_update: number; // world.time of last update
   overheated: boolean; // true/false
 };
-export const Telemonitor = (props, context) => {
-  const { act, data } = useBackend<Tdata>(context);
+export const Telemonitor = (props) => {
+  const { act, data } = useBackend<Tdata>();
   const isOnline = function (server) {
     return Math.floor((data.current_time - server.last_update) / 10) < 10;
   };
@@ -41,9 +41,9 @@ export const Telemonitor = (props, context) => {
           <Flex direction="column" align="center" fontSize="15px">
             <Flex.Item fontSize="20px">
               Searching for servers
-              <span class="loading-one">.</span>
-              <span class="loading-two">.</span>
-              <span class="loading-three">.</span>
+              <span className="loading-one">.</span>
+              <span className="loading-two">.</span>
+              <span className="loading-three">.</span>
             </Flex.Item>
           </Flex>
         ) : (

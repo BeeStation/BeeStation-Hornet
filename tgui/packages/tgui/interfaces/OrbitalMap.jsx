@@ -2,12 +2,13 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
+import { useRef } from 'react';
 
-export const OrbitalMap = (props, context) => {
-  const { act, data } = useBackend(context);
+export const OrbitalMap = (props) => {
+  const { act, data } = useBackend();
   const {
     map_objects = [],
     linkedToShuttle = false,
@@ -21,10 +22,12 @@ export const OrbitalMap = (props, context) => {
     designatorId = null,
     shuttleId = null,
   } = data;
-  const [zoomScale, setZoomScale] = useLocalState(context, 'zoomScale', 1);
-  const [xOffset, setXOffset] = useLocalState(context, 'xOffset', 0);
-  const [yOffset, setYOffset] = useLocalState(context, 'yOffset', 0);
-  const [trackedBody, setTrackedBody] = useLocalState(context, 'trackedBody', shuttleName);
+  const [zoomScale, setZoomScale] = useLocalState('zoomScale', 1);
+  const [xOffset, setXOffset] = useLocalState('xOffset', 0);
+  const [yOffset, setYOffset] = useLocalState('yOffset', 0);
+  const [trackedBody, setTrackedBody] = useLocalState('trackedBody', shuttleName);
+
+  const radarRef = useRef(null);
 
   let dynamicXOffset = xOffset;
   let dynamicYOffset = yOffset;
@@ -53,7 +56,7 @@ export const OrbitalMap = (props, context) => {
     <Window width={1136} height={770}>
       <Window.Content fitted>
         <Flex height="100%">
-          <Flex.Item class="OrbitalMap__radar" grow id="radar">
+          <Flex.Item class="OrbitalMap__radar" grow id="radar" innerRef={radarRef}>
             {interdictionTime ? (
               <InterdictionDisplay
                 xOffset={dynamicXOffset}
@@ -72,6 +75,7 @@ export const OrbitalMap = (props, context) => {
                 setZoomScale={setZoomScale}
                 setTrackedBody={setTrackedBody}
                 ourObject={ourObject}
+                radarRef={radarRef}
               />
             )}
           </Flex.Item>
@@ -154,9 +158,9 @@ export const OrbitalMap = (props, context) => {
   );
 };
 
-export const InterdictionDisplay = (props, context) => {
+export const InterdictionDisplay = (props) => {
   const boxTargetStyle = {
-    'fill-opacity': 0,
+    fillOpacity: 0,
     stroke: '#DDDDDD',
     strokeWidth: '1',
   };
@@ -165,7 +169,7 @@ export const InterdictionDisplay = (props, context) => {
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 
-  const { data } = useBackend(context);
+  const { data } = useBackend();
 
   const { interdictionTime = 0, interdictedShuttles = [] } = data;
 
@@ -290,14 +294,23 @@ export const InterdictionDisplay = (props, context) => {
   );
 };
 
-export const OrbitalMapDisplay = (props, context) => {
-  const { zoomScale, setZoomScale, setTrackedBody, ourObject, isTracking = false, dynamicXOffset, dynamicYOffset } = props;
+export const OrbitalMapDisplay = (props) => {
+  const {
+    zoomScale,
+    setZoomScale,
+    setTrackedBody,
+    ourObject,
+    isTracking = false,
+    dynamicXOffset,
+    dynamicYOffset,
+    radarRef,
+  } = props;
 
-  const [offset, setOffset] = useLocalState(context, 'offset', [0, 0]);
+  const [offset, setOffset] = useLocalState('offset', [0, 0]);
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
 
   const {
     map_objects = [],
@@ -376,12 +389,13 @@ export const OrbitalMapDisplay = (props, context) => {
         dynamicYOffset={dynamicYOffset}
         currentUpdateIndex={update_index}
         onClick={(e, xOffset, yOffset) => {
-          let clickedOnDiv = document.getElementById('radar'); // This is kind
-          // of funky but A) I don't know react / javascript and B) Nobody in
-          // the history of the universe knows react / javascript so nobody
-          // will probably ever read this so I'm good.
-          let proportionalX = (e.offsetX / clickedOnDiv.offsetWidth) * 500;
-          let proportionalY = ((e.offsetY - 30) / clickedOnDiv.offsetHeight) * 500;
+          const radar = radarRef?.current;
+          if (!radar) {
+            return;
+          }
+          const rect = radar.getBoundingClientRect();
+          let proportionalX = ((e.clientX - rect.left) / radar.offsetWidth) * 500;
+          let proportionalY = ((e.clientY - rect.top) / radar.offsetHeight) * 500;
           act('setTargetCoords', {
             x: (proportionalX - 250) / zoomScale + (isTracking ? dynamicXOffset : xOffset),
             y: (proportionalY - 250) / zoomScale + (isTracking ? dynamicYOffset : yOffset),
@@ -411,8 +425,8 @@ export const OrbitalMapDisplay = (props, context) => {
   );
 };
 
-export const RecallControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RecallControl = (props) => {
+  const { act, data } = useBackend();
   const { request_shuttle_message } = data;
   return (
     <>
@@ -430,8 +444,8 @@ export const RecallControl = (props, context) => {
   );
 };
 
-export const ShuttleControls = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ShuttleControls = (props) => {
+  const { act, data } = useBackend();
   const {
     map_objects = [],
     shuttleTarget = null,
@@ -496,7 +510,7 @@ export const ShuttleControls = (props, context) => {
   );
 };
 
-export const ShuttleMap = (props, context) => {
+export const ShuttleMap = (props) => {
   const lineStyle = {
     stroke: '#BBBBBB',
     strokeWidth: '2',
@@ -505,7 +519,7 @@ export const ShuttleMap = (props, context) => {
     stroke: '#00FF00',
     strokeWidth: '2',
   };
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const { shuttleAngle = 0, shuttleThrust = 0, shuttleVelX = 0, shuttleVelY = 0 } = data;
   let x = (shuttleThrust + 30) * Math.cos(shuttleAngle * ((2 * Math.PI) / 360));
   let y = (shuttleThrust + 30) * Math.sin(shuttleAngle * ((2 * Math.PI) / 360));

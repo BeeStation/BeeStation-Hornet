@@ -2,7 +2,7 @@ import { BasicInput } from './BasicInput';
 import { NumberInput, Button, Stack, Input, Dropdown, Box } from '../../components';
 
 export const FUNDAMENTAL_DATA_TYPES = {
-  'string': (props, context) => {
+  'string': (props) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue="">
@@ -10,25 +10,33 @@ export const FUNDAMENTAL_DATA_TYPES = {
       </BasicInput>
     );
   },
-  'number': (props, context) => {
+  'number': (props) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue={0}>
-        <NumberInput value={value} color={color} onChange={(e, val) => setValue(val)} unit={name} />
+        <NumberInput
+          value={value}
+          color={color}
+          minValue={-Infinity}
+          maxValue={Infinity}
+          step={1}
+          onChange={(val) => setValue(val)}
+          unit={name}
+        />
       </BasicInput>
     );
   },
-  'entity': (props, context) => {
+  'entity': (props) => {
     const { name, setValue } = props;
     return (
       <Button content={name} color="transparent" icon="upload" compact onClick={() => setValue(null, { marked_atom: true })} />
     );
   },
-  'signal': (props, context) => {
+  'signal': (props) => {
     const { name, setValue } = props;
     return <Button content={name} color="transparent" compact onClick={() => setValue()} />;
   },
-  'option': (props, context) => {
+  'option': (props) => {
     const { value, setValue, extraData } = props;
     return (
       <Dropdown
@@ -37,11 +45,12 @@ export const FUNDAMENTAL_DATA_TYPES = {
         options={Array.isArray(extraData) ? extraData : Object.keys(extraData)}
         onSelected={setValue}
         displayText={value}
+        displayTextFirst
         noscroll
       />
     );
   },
-  'any': (props, context) => {
+  'any': (props) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue={''}>
