@@ -2,7 +2,7 @@
 	name = "Epistemania"
 	desc = "Patient suffers from a manic pursuit of knowlewdge."
 	scan_desc = "epistemania"
-	gain_text = "<span class='notice'>Requesting mentor...</span>"
+	gain_text = span_notice("Requesting mentor...")
 	lose_text = ""
 	resilience = TRAUMA_RESILIENCE_ABSOLUTE
 	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
@@ -25,9 +25,9 @@
 		I.add_kick_action()
 
 		friend_initialized = TRUE
-		to_chat(owner, "<span class='notice'>You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done.</span>")
+		to_chat(owner, span_notice("You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done."))
 	else
-		to_chat(owner, "<span class='warning'>No mentor responded to your request. Try again later.</span>")
+		to_chat(owner, span_warning("No mentor responded to your request. Try again later."))
 		qdel(src)
 
 /datum/mrat_type
@@ -109,10 +109,10 @@
 	SEND_SOUND(src, sound(current_costume.sound, volume=(current_costume.volume / 2)))
 
 /mob/camera/imaginary_friend/mrat/greet()
-	to_chat(src, "<span class='notice'><b>You are the mentor rat of [owner]!</b></span>")
-	to_chat(src, "<span class='notice'>Do not give [owner] any OOC information from your time as a ghost.</span>")
-	to_chat(src, "<span class='notice'>Your job is to answer [owner]'s question(s) and you are given this form to assist in that.</span>")
-	to_chat(src, "<span class='notice'>Don't be stupid with this or you will face the consequences.</span>")
+	to_chat(src, span_notice("<b>You are the mentor rat of [owner]!</b>"))
+	to_chat(src, span_notice("Do not give [owner] any OOC information from your time as a ghost."))
+	to_chat(src, span_notice("Your job is to answer [owner]'s question(s) and you are given this form to assist in that."))
+	to_chat(src, span_notice("Don't be stupid with this or you will face the consequences."))
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 
@@ -123,7 +123,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	leave = new
 	leave.Grant(src)
 
-	grant_all_languages(spoken=FALSE) // they understand all language, but doesn't have to speak that
+	grant_all_languages(UNDERSTOOD_LANGUAGE) // they understand all language, but doesn't have to speak that
 	// mentor rats default language is set to metalanguage from imaginary friend init
 	// everything mrat says will be understandable to all people
 
@@ -148,7 +148,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "ninja_phase"
 
-/datum/action/innate/mrat_costume/Activate()
+/datum/action/innate/mrat_costume/on_activate()
 	var/mob/camera/imaginary_friend/mrat/I = owner
 	if(!istype(I))
 		qdel(src)
@@ -161,14 +161,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	background_icon_state = "bg_revenant"
 	button_icon_state = "beam_up"
 
-/datum/action/innate/mrat_leave/Activate()
+/datum/action/innate/mrat_leave/on_activate()
 	var/mob/camera/imaginary_friend/friend = owner
 	if(!istype(friend))
 		qdel(src)
 	if(alert(friend, "Are you sure you want to leave?", "Leave:", "Yes", "No") != "Yes")
 		return
-	to_chat(friend, "<span class='warning'>You have ejected yourself from [friend.owner].</span>")
-	to_chat(friend.owner, "<span class='warning'>Your mentor has left.</span>")
+	to_chat(friend, span_warning("You have ejected yourself from [friend.owner]."))
+	to_chat(friend.owner, span_warning("Your mentor has left."))
 	qdel(friend.trauma)
 
 /datum/action/innate/mrat_kick
@@ -183,11 +183,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	. = ..()
 	friend = null
 
-/datum/action/innate/mrat_kick/Activate()
+/datum/action/innate/mrat_kick/on_activate()
 	if(!istype(friend))
 		qdel(src)
 	if(!istype(friend) || alert(friend, "Are you sure you want to remove your mentor?", "Remove:", "Yes", "No") != "Yes")
 		return
-	to_chat(friend, "<span class='warning'>You have been removed from [friend.owner].</span>")
-	to_chat(friend.owner, "<span class='warning'>Your mentor has been removed.</span>")
+	to_chat(friend, span_warning("You have been removed from [friend.owner]."))
+	to_chat(friend.owner, span_warning("Your mentor has been removed."))
 	qdel(friend.trauma)

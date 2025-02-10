@@ -28,6 +28,9 @@
 				/obj/item/clothing/head/beanie/rasta = 3,
 				/obj/item/clothing/head/beret = 3,
 				/obj/item/clothing/head/beret/black = 3,
+				/obj/item/clothing/mask/bandana = 3,
+				/obj/item/clothing/mask/bandana/striped = 3,
+				/obj/item/clothing/mask/bandana/skull = 3,
 				/obj/item/clothing/neck/scarf/pink = 3,
 				/obj/item/clothing/neck/scarf/red = 3,
 				/obj/item/clothing/neck/scarf/green = 3,
@@ -160,6 +163,7 @@
 				/obj/item/clothing/shoes/laceup = 2,
 				/obj/item/clothing/shoes/winterboots = 3,
 				/obj/item/clothing/shoes/jackboots_replica = 3,
+				/obj/item/clothing/shoes/jackboots_replica/white = 3,
 			),
 		),
 

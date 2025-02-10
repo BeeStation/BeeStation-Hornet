@@ -38,7 +38,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 6
 	},
 /turf/open/floor/iron/dark,
@@ -47,7 +47,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -79,7 +79,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "an" = (
@@ -105,7 +105,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "ar" = (
@@ -161,7 +161,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -232,7 +232,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/trickyspawner/zombie,
 /turf/open/floor/iron/dark,
@@ -249,7 +249,7 @@
 /area/template_noop)
 "aU" = (
 /obj/machinery/light,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -275,7 +275,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "aX" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -288,7 +288,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "aZ" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,

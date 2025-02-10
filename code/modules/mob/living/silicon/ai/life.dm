@@ -3,8 +3,6 @@
 		return
 		//Being dead doesn't mean your temperature never changes
 
-	update_gravity(has_gravity())
-
 	handle_status_effects(delta_time)
 
 	handle_traits(delta_time)
@@ -25,7 +23,7 @@
 	if(aiRestorePowerRoutine)
 		// Lost power
 		if (!battery)
-			to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
+			to_chat(src, span_warning("Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable."))
 			adjustOxyLoss(200)
 		else
 			battery --
@@ -153,11 +151,11 @@
 /mob/living/silicon/ai/proc/ai_restore_power()
 	if(aiRestorePowerRoutine)
 		if(aiRestorePowerRoutine == POWER_RESTORATION_APC_FOUND)
-			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored.</span>")
+			to_chat(src, span_notice("Alert cancelled. Power has been restored."))
 			if(apc_override)
-				to_chat(src, "<span class='notice'>APC Backdoor has been closed.</span>") //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
+				to_chat(src, span_notice("APC Backdoor has been closed.")) //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
 		else
-			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored without our assistance.</span>")
+			to_chat(src, span_notice("Alert cancelled. Power has been restored without our assistance."))
 		setAiRestorePowerRoutine(POWER_RESTORATION_OFF)
 		set_blindness(0)
 		apc_override = null
@@ -168,5 +166,5 @@
 	setAiRestorePowerRoutine(POWER_RESTORATION_START)
 	adjust_blindness(1)
 	update_sight()
-	to_chat(src, "<span class='alert'>You've lost power!</span>")
+	to_chat(src, span_alert("You've lost power!"))
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)

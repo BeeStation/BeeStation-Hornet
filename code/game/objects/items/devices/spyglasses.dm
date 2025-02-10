@@ -8,7 +8,7 @@
 	if(!user?.client)
 		return
 	if(!linked_bug)
-		user.audible_message("<span class='warning'>[src] lets off a shrill beep!</span>")
+		user.audible_message(span_warning("[src] lets off a shrill beep!"))
 	if(user.client.screen_maps["spypopup_map"]) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
 		return
 	user.client.setup_popup("spypopup", 3, 3, 2)
@@ -36,6 +36,9 @@
 		linked_bug.linked_glasses = null
 	return ..()
 
+/datum/action/item_action/activate_remote_view
+	name = "Activate Remote View"
+	desc = "Activates the Remote View of your spy sunglasses."
 
 /obj/item/clothing/accessory/spy_bug
 	name = "pocket protector"

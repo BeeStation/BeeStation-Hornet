@@ -42,3 +42,9 @@
 	if(GARBAGEDAY in SSevents.holidays)
 		l_pocket = /obj/item/gun/ballistic/revolver
 		r_pocket = /obj/item/ammo_box/a357
+
+/datum/outfit/job/janitor/get_types_to_preload()
+	. = ..()
+	if(GARBAGEDAY in SSevents.holidays)
+		. += /obj/item/gun/ballistic/revolver
+		. += /obj/item/ammo_box/a357

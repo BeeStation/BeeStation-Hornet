@@ -72,8 +72,8 @@
 		if (GUILLOTINE_BLADE_RAISED)
 			if (LAZYLEN(buckled_mobs))
 				if (user.a_intent == INTENT_HARM)
-					user.visible_message("<span class='warning'>[user] begins to pull the lever!</span>",
-						                 "<span class='warning'>You begin to the pull the lever.</span>")
+					user.visible_message(span_warning("[user] begins to pull the lever!"),
+						                 span_warning("You begin to the pull the lever."))
 					current_action = GUILLOTINE_ACTION_INUSE
 
 					if (do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
@@ -158,8 +158,8 @@
 				blade_status = GUILLOTINE_BLADE_SHARPENING
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
-					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
-						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
+					user.visible_message(span_notice("[user] sharpens the large blade of the guillotine."),
+						                 span_notice("You sharpen the large blade of the guillotine."))
 					blade_sharpness += 1
 					playsound(src, 'sound/items/unsheath.ogg', 100, 1)
 					return
@@ -167,25 +167,25 @@
 					blade_status = GUILLOTINE_BLADE_RAISED
 					return
 			else
-				to_chat(user, "<span class='warning'>The blade is sharp enough!</span>")
+				to_chat(user, span_warning("The blade is sharp enough!"))
 				return
 		else
-			to_chat(user, "<span class='warning'>You need to raise the blade in order to sharpen it!</span>")
+			to_chat(user, span_warning("You need to raise the blade in order to sharpen it!"))
 			return
 	else
 		return ..()
 
 /obj/structure/guillotine/buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if (!anchored)
-		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
+		to_chat(usr, span_warning("The [src] needs to be wrenched to the floor!"))
 		return FALSE
 
 	if (!istype(M, /mob/living/carbon/human))
-		to_chat(usr, "<span class='warning'>It doesn't look like [M.p_they()] can fit into this properly!</span>")
+		to_chat(usr, span_warning("It doesn't look like [M.p_they()] can fit into this properly!"))
 		return FALSE // Can't decapitate non-humans
 
 	if (blade_status != GUILLOTINE_BLADE_RAISED)
-		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
+		to_chat(usr, span_warning("You need to raise the blade before buckling someone in!"))
 		return FALSE
 
 	return ..(M, user, FALSE)
@@ -203,7 +203,7 @@
 			if (istype(S))
 				H.cut_overlays()
 				H.update_body_parts_head_only()
-				H.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
+				H.pixel_y -= GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
 				H.layer += GUILLOTINE_LAYER_DIFF
 			else
 				unbuckle_all_mobs()
@@ -212,18 +212,16 @@
 	else
 		unbuckle_all_mobs()
 
-	..()
-
 /obj/structure/guillotine/post_unbuckle_mob(mob/living/M)
 	M.regenerate_icons()
-	M.pixel_y -= -GUILLOTINE_HEAD_OFFSET // Move their body back
-	M.layer -= GUILLOTINE_LAYER_DIFF
+	M.pixel_y = M.base_pixel_y // Move their body back
+	M.layer = MOB_LAYER
 	..()
 
 /obj/structure/guillotine/can_be_unfasten_wrench(mob/user, silent)
 	if (LAZYLEN(buckled_mobs))
 		if (!silent)
-			to_chat(user, "<span class='warning'>Can't unfasten, someone's strapped in!</span>")
+			to_chat(user, span_warning("Can't unfasten, someone's strapped in!"))
 		return FAILED_UNFASTEN
 
 	if (current_action)

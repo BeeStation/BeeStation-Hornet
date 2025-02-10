@@ -139,14 +139,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 
 			log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs]."))
 
 			var/area/thunderdome = GLOB.areas_by_type[/area/tdome/arena]
 			if(delete_mobs == "Yes")
 				for(var/mob/living/mob in thunderdome)
 					qdel(mob) //Clear mobs
 			for(var/obj/obj in thunderdome)
-				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/abstract/proximity_checker) && !istype(obj, /obj/effect/landmark/arena))
+				if(!istype(obj, /obj/machinery/camera) && !istype(obj, /obj/effect/landmark/arena))
 					qdel(obj) //Clear objects
 
 			var/area/template = GLOB.areas_by_type[/area/tdome/arena_source]
@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			set_station_name(new_name)
 			log_admin("[key_name(usr)] renamed the station to \"[new_name]\".")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] renamed the station to: [new_name].</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] renamed the station to: [new_name]."))
 			priority_announce("[command_name()] has renamed the station to \"[new_name]\".", sound = SSstation.announcer.get_rand_alert_sound())
 		if("night_shift_set")
 			if(!check_rights(R_ADMIN))
@@ -221,7 +221,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/new_name = new_station_name()
 			set_station_name(new_name)
 			log_admin("[key_name(usr)] reset the station name.")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the station name.</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] reset the station name."))
 			priority_announce("[command_name()] has renamed the station to \"[new_name]\".", sound = SSstation.announcer.get_rand_alert_sound())
 
 		if("list_bombers")
@@ -283,7 +283,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				message_admins("[key_name_admin(usr)] [new_perma ? "stopped" : "started"] the arrivals shuttle")
 				log_admin("[key_name(usr)] [new_perma ? "stopped" : "started"] the arrivals shuttle")
 			else
-				to_chat(usr, "<span class='admin'>There is no arrivals shuttle</span>")
+				to_chat(usr, span_admin("There is no arrivals shuttle"))
 		if("showailaws")
 			if(!check_rights(R_ADMIN))
 				return
@@ -301,8 +301,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			var/dat = "<B>Showing Crew Manifest.</B><HR>"
 			dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-			for(var/datum/data/record/t in GLOB.data_core.general)
-				dat += "<tr><td>[t.fields["name"]]</td><td>[t.fields["rank"]]</td></tr>"
+			for(var/datum/record/crew/t in GLOB.manifest.general)
+				dat += "<tr><td>[t.name]</td><td>[t.rank]</td></tr>"
 			dat += "</table>"
 			usr << browse(dat, "window=manifest;size=440x410")
 		if("DNA")
@@ -358,7 +358,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Power All APCs"))
 			log_admin("[key_name(usr)] made all areas powered", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] made all areas powered</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] made all areas powered"))
 			power_restore()
 
 		if("unpower")
@@ -366,7 +366,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Depower All APCs"))
 			log_admin("[key_name(usr)] made all areas unpowered", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] made all areas unpowered</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] made all areas unpowered"))
 			power_failure()
 
 		if("quickpower")
@@ -374,7 +374,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Power All SMESs"))
 			log_admin("[key_name(usr)] made all SMESs powered", 1)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] made all SMESs powered</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] made all SMESs powered"))
 			power_restore_quick()
 
 		if("traitor_all")
@@ -438,12 +438,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				A.objectives += new_objective
 				log_objective(A, new_objective.explanation_text, usr)
 				var/obj_count = 1
-				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives.</span>")
+				to_chat(T.owner, span_alertsyndie("Your contractors have updated your objectives."))
 				for(var/objective in A.objectives)
 					var/datum/objective/O = objective
 					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 					obj_count++
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used mass antag secret. Objective is: [objective_explanation]</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] used mass antag secret. Objective is: [objective_explanation]"))
 			log_admin("[key_name(usr)] used mass antag secret. Objective is: [objective_explanation]")
 
 		if("changebombcap")
@@ -455,7 +455,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if (!CONFIG_SET(number/bombcap, newBombCap))
 				return
 
-			message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]</span>")
+			message_admins(span_boldannounce("[key_name_admin(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]"))
 			log_admin("[key_name(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]")
 
 		if("blackout")
@@ -537,7 +537,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
-				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
+				to_chat(H, span_boldannounce("You suddenly feel stupid."))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
 			message_admins("[key_name_admin(usr)] gave everybody intellectual disability")
 
@@ -547,7 +547,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Australian"))
 			var/s = sound('sound/misc/downunder.ogg')
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
-				to_chat(H, "<span class='boldannounce'>You suddenly feel crikey.</span>")
+				to_chat(H, span_boldannounce("You suddenly feel crikey."))
 				var/matrix/M = H.transform
 				H.transform = M.Scale(1,-1) //flip em upside down
 				SEND_SOUND(H, s)

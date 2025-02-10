@@ -1,16 +1,15 @@
 import { sortBy, sortStrings } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
-import { createComponentVNode } from 'inferno';
-import type { InfernoNode, ComponentType } from 'inferno';
-import { VNodeFlags } from 'inferno-vnode-flags';
+import { ComponentType, createElement, ReactNode } from 'react';
+
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
 import { Box, Button, Dropdown, Input, NumberInput, Stack, Flex, Tooltip } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
-import { DropdownOptionalProps } from 'tgui/components/Dropdown';
+import { DropdownPartialProps } from 'tgui/components/Dropdown';
 
-export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
+export const sortChoices = sortBy<[string, ReactNode]>(([name]) => name);
 
 export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = {
   name: string;
@@ -56,12 +55,12 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
             style={{
               background: props.value?.startsWith('#') ? props.value : `#${props.value}`,
               border: '2px solid white',
-              'box-sizing': 'content-box',
+              boxSizing: 'content-box',
               height: '11px',
               width: '11px',
               ...(props.shrink
                 ? {
-                  'margin': '1px',
+                  margin: '1px',
                 }
                 : {}),
             }}
@@ -104,14 +103,15 @@ export const CheckboxInputInverse = (props: FeatureValueProps<BooleanLike, boole
 
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
-  choices: Record<T, InfernoNode>,
-  dropdownProps?: DropdownOptionalProps
+  choices: Record<T, ReactNode>,
+  dropdownProps?: DropdownPartialProps
 ): FeatureValue<T> => {
   return (props: FeatureValueProps<T>) => {
     return (
       <Dropdown
         selected={props.value}
         displayText={choices[props.value]}
+        displayTextFirst
         onSelected={props.handleSetValue}
         width="100%"
         options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
@@ -144,7 +144,7 @@ const capitalizeFirstLetter = (text: string) =>
 export const StandardizedDropdown = (props: {
   choices: string[];
   disabled?: boolean;
-  displayNames: Record<string, InfernoNode>;
+  displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
   buttons?: boolean;
@@ -162,6 +162,7 @@ export const StandardizedDropdown = (props: {
       displayHeight={displayHeight}
       width="100%"
       displayText={value ? displayNames[value] : ''}
+      displayTextFirst
       options={choices.map((choice) => {
         return {
           displayText: displayNames[choice],
@@ -231,7 +232,7 @@ export const FeatureIconnedDropdownInput = (
 
   const displayNames = Object.fromEntries(
     Object.entries(textNames).map(([choice, textName]) => {
-      let element: InfernoNode = textName;
+      let element: ReactNode = textName;
 
       if (icons && icons[choice]) {
         const icon = icons[choice];
@@ -241,12 +242,12 @@ export const FeatureIconnedDropdownInput = (
               <Box
                 className={classes([`${serverData.icon_sheet}32x32`, icon])}
                 style={{
-                  'transform': 'scale(0.8)',
+                  transform: 'scale(0.8)',
                 }}
               />
             </Stack.Item>
 
-            <Stack.Item grow style={{ 'line-height': '32px' }}>
+            <Stack.Item grow style={{ lineHeight: '32px' }}>
               {element}
             </Stack.Item>
           </Stack>
@@ -272,7 +273,7 @@ export const FeatureIconnedDropdownInput = (
 export const StandardizedChoiceButtons = (props: {
   choices: string[];
   disabled?: boolean;
-  displayNames: Record<string, InfernoNode>;
+  displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
 }) => {
@@ -301,7 +302,7 @@ export const StandardizedPalette = (props: {
   choices: string[];
   choices_to_hex?: Record<string, string>;
   disabled?: boolean;
-  displayNames: Record<string, InfernoNode>;
+  displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
   hex_values?: boolean;
@@ -337,14 +338,14 @@ export const StandardizedPalette = (props: {
   };
   const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
   return (
-    <Flex className="Preferences__standard-palette" style={{ 'align-items': 'baseline', 'max-width': maxWidth }}>
+    <Flex className="Preferences__standard-palette" style={{ alignItems: 'baseline', maxWidth: maxWidth }}>
       <Flex.Item
         shrink
-        style={{ 'border-radius': '0.16em', 'max-width': maxWidth, 'padding-bottom': '-5px' }}
+        style={{ borderRadius: '0.16em', maxWidth: maxWidth, paddingBottom: '-5px' }}
         className="section-background"
         backgroundColor={backgroundColor}
         p={0.5}>
-        <Flex style={{ 'flex-wrap': 'wrap', 'max-width': maxWidth }}>
+        <Flex style={{ flexWrap: 'wrap', maxWidth: maxWidth }}>
           {choices.map((choice) => (
             <Flex.Item key={choice} ml={0}>
               <Tooltip content={`${displayNames[choice]}${includeHex ? ` (${safeHex(choice)})` : ''}`} position="bottom">
@@ -360,7 +361,7 @@ export const StandardizedPalette = (props: {
                   <Box
                     className="ColorSelectBox--inner"
                     style={{
-                      'background-color': hex_values ? choice : choices_to_hex[choice],
+                      backgroundColor: hex_values ? choice : choices_to_hex[choice],
                     }}
                   />
                 </Box>
@@ -382,7 +383,7 @@ export const StandardizedPalette = (props: {
                       <Box
                         className="ColorSelectBox--inner"
                         style={{
-                          'background-color': `${safeValue}`,
+                          backgroundColor: `${safeValue}`,
                         }}
                       />
                     </Box>
@@ -396,7 +397,7 @@ export const StandardizedPalette = (props: {
                   tooltipPosition="bottom"
                   height={height + 4 + 'px'}
                   fontSize={height - 4 + 'px'}
-                  style={{ 'border-radius': '0' }}
+                  style={{ borderRadius: '0' }}
                   textAlign="center"
                   icon="plus"
                   color="good"
@@ -432,35 +433,32 @@ export const FeatureNumberInput = (props: FeatureValueProps<number, number, Feat
 
   return (
     <NumberInput
-      onChange={(e, value) => {
+      onChange={(value) => {
         props.handleSetValue(value);
       }}
       minValue={props.serverData.minimum}
       maxValue={props.serverData.maximum}
       step={props.serverData.step}
-      value={props.value}
+      value={props.value || props.serverData.minimum}
     />
   );
 };
 
-export const FeatureValueInput = (
-  props: {
-    feature: Feature<unknown>;
-    featureId: string;
-    shrink?: boolean;
-    value: unknown;
+export const FeatureValueInput = (props: {
+  feature: Feature<unknown>;
+  featureId: string;
+  shrink?: boolean;
+  value: unknown;
 
-    act: typeof sendAct;
-  },
-  context
-) => {
-  const { data } = useBackend<PreferencesMenuData>(context);
+  act: typeof sendAct;
+}) => {
+  const { data } = useBackend<PreferencesMenuData>();
 
   const feature = props.feature;
 
   const [predictedValue, setPredictedValue] =
     feature.predictable === undefined || feature.predictable
-      ? useLocalState(context, `${props.featureId}_predictedValue_${data.active_slot}`, props.value)
+      ? useLocalState(`${props.featureId}_predictedValue_${data.active_slot}`, props.value)
       : [props.value, () => {}];
 
   const changeValue = (newValue: unknown) => {
@@ -471,10 +469,10 @@ export const FeatureValueInput = (
   return (
     <ServerPreferencesFetcher
       render={(serverData) => {
-        return createComponentVNode(VNodeFlags.ComponentUnknown, feature.component, {
+        return createElement(feature.component, {
           act: props.act,
           featureId: props.featureId,
-          serverData: serverData && serverData[props.featureId],
+          serverData: serverData?.[props.featureId] as any,
           shrink: props.shrink,
 
           handleSetValue: changeValue,

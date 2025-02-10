@@ -1,5 +1,5 @@
 /obj/item/melee/transforming
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = 0
 	var/active = FALSE
 	var/force_on = 30 //force when active
@@ -99,5 +99,5 @@
 
 /obj/item/melee/transforming/proc/clumsy_transform_effect(mob/living/user)
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_bodypart_damage(5,5)

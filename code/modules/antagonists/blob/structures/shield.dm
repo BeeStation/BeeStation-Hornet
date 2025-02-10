@@ -9,7 +9,12 @@
 	explosion_block = 3
 	point_return = 4
 	atmosblock = TRUE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/blob_shield
+
+
+/datum/armor/blob_shield
+	fire = 90
+	acid = 90
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)
@@ -31,7 +36,7 @@
 	. = ..()
 	if(. && atom_integrity > 0)
 		atmosblock = atom_integrity < (max_integrity * 0.5)
-		air_update_turf(TRUE)
+		air_update_turf(TRUE, atmosblock)
 
 /obj/structure/blob/shield/update_icon_state()
 	icon_state = "[initial(icon_state)][(atom_integrity < (max_integrity * 0.5)) ? "_damaged" : null]"

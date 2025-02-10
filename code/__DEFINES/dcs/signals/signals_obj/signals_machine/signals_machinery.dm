@@ -18,8 +18,16 @@
 #define COMSIG_MACHINERY_SET_OCCUPANT "machinery_set_occupant"
 ///from /obj/machinery/proc/use_power(): (power_used)
 #define COMSIG_MACHINERY_POWER_USED "machinery_power_used"
+///from /obj/machinery/default_change_direction_wrench: (mob/user, obj/item/wrench)
+#define COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH "machinery_default_rotate_wrench"
 
-// /obj/machinery/atmospherics/components/unary/cryo_cell signals
 
-/// from /obj/machinery/atmospherics/components/unary/cryo_cell/set_on(bool): (on)
+// /obj/machinery/cryo_cell signals
+
+/// from /obj/machinery/cryo_cell/set_on(bool): (on)
 #define COMSIG_CRYO_SET_ON "cryo_set_on"
+
+///from /datum/controller/subsystem/air/proc/start_processing_machine: ()
+#define COMSIG_MACHINERY_START_PROCESSING_AIR "start_processing_air"
+///from /datum/controller/subsystem/air/proc/stop_processing_machine: ()
+#define COMSIG_MACHINERY_STOP_PROCESSING_AIR "stop_processing_air"

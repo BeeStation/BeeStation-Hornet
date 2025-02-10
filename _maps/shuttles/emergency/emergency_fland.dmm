@@ -505,11 +505,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"uQ" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "uY" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -627,7 +622,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "yT" = (
-/obj/machinery/computer/med_data{
+/obj/machinery/computer/records/medical{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -1498,7 +1493,7 @@ BI
 rF
 rF
 Lc
-uQ
+Cj
 UY
 PU
 rF

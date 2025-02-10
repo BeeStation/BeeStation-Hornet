@@ -277,3 +277,10 @@
 	. = ..()
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
+
+/obj/screen/plane_master/excited_turfs
+	name = "atmos excited turfs"
+	plane = ATMOS_GROUP_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+	alpha = 0

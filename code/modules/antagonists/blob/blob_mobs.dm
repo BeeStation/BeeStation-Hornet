@@ -73,7 +73,7 @@
 	if(!overmind)
 		return ..()
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY, tag="blob")
@@ -131,8 +131,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 /mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
 	if(!dry_run && !EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL) && extrapolator.create_culture(user, spore_diseases))
-		user.visible_message("<span class='danger'>[user] stabs [src] with [extrapolator], sucking it up!</span>", \
-				"<span class='danger'>You stab [src] with [extrapolator]'s probe, destroying it!</span>")
+		user.visible_message(span_danger("[user] stabs [src] with [extrapolator], sucking it up!"), \
+				span_danger("You stab [src] with [extrapolator]'s probe, destroying it!"))
 		dust()
 		EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)
 
@@ -149,8 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
-		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		maxHealth += A.armor.melee //That zombie's got armor, I want armor!
+		maxHealth += H.get_armor_rating(MELEE)
 	maxHealth += 40
 	health = maxHealth
 	name = "blob zombie"
@@ -166,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	H.forceMove(src)
 	oldguy = H
 	update_icons()
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message(span_warning("The corpse of [H.name] suddenly rises!"))
 	if(!key)
 		set_playable(ROLE_BLOB)
 

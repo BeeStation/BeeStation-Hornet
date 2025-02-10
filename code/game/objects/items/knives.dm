@@ -18,13 +18,18 @@
 	custom_materials = list(/datum/material/iron=12000)
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor_type = /datum/armor/item_knife
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
+
+
+/datum/armor/item_knife
+	fire = 50
+	acid = 50
 
 /obj/item/knife/Initialize(mapload)
 	. = ..()
@@ -44,9 +49,9 @@
 	AddComponent(/datum/component/butchering, 8 SECONDS - force, 100, force - 10) //bonus chance increases depending on force
 
 /obj/item/knife/suicide_act(mob/living/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [src.name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
+	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
+						span_suicide("[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
+						span_suicide("[user] is slitting [user.p_their()] stomach open with the [src.name]! It looks like [user.p_theyre()] trying to commit seppuku.")))
 	return BRUTELOSS
 
 /obj/item/knife/ritual
@@ -71,6 +76,7 @@
 	attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
+	sharpness = SHARP_DISMEMBER //This is a big boy knife
 
 /obj/item/knife/hunting
 	name = "hunting knife"
@@ -109,7 +115,7 @@
 				else
 					amount_per_transfer_from_this = possible_transfer_amounts[1]
 				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u.")
-				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
+				to_chat(user, span_notice("[src]'s transfer amount is now [amount_per_transfer_from_this] units."))
 				return
 
 /obj/item/knife/combat
@@ -171,7 +177,7 @@
 	custom_materials = list(/datum/material/glass=400)
 
 /obj/item/knife/shiv/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS
 
 /obj/item/knife/shiv/carrot
@@ -186,4 +192,4 @@
 	custom_materials = list()
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/none

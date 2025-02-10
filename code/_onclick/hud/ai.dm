@@ -33,7 +33,7 @@
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
-	var/target_name = input(AI, "Choose who you want to track", "Tracking") as null|anything in AI.trackable_mobs()
+	var/target_name = tgui_input_list(AI, "Choose who you want to track", "Tracking", AI.trackable_mobs())
 	AI.ai_camera_track(target_name)
 
 /atom/movable/screen/ai/camera_light
@@ -193,7 +193,7 @@
 		AI.camera_visibility(AI.eyeobj)
 		AI.clear_fullscreen("flash", 5)
 	else
-		to_chat(AI, "<span class='warning'>There is nothing in that direction!</span>")
+		to_chat(AI, span_warning("There is nothing in that direction!"))
 
 /atom/movable/screen/ai/move_z/down
 	name = "View Below"
