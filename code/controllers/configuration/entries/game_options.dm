@@ -236,14 +236,39 @@
 /datum/config_entry/string/alert_blue_downto
 	config_entry_value = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
 
+/datum/config_entry/string/alert_yellow
+	config_entry_value = "The security alert level has been changed to yellow. There is currently a critical engineering issue on the station. Crewmembers are advised to avoid damaged areas, and report them as needed."
+
+/datum/config_entry/string/alert_cyan
+	config_entry_value = "The security alert level has been changed to cyan. There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems until the alert is lifted. Report any symptoms to medical personnel immediately."
+
 /datum/config_entry/string/alert_red_upto
 	config_entry_value = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
 
 /datum/config_entry/string/alert_red_downto
 	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
 
+/datum/config_entry/string/alert_red_upto
+	config_entry_value = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
+
+/datum/config_entry/string/alert_red_downto
+	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
+
+/datum/config_entry/string/alert_gamma
+	config_entry_value = "Central Command has issued an elevated security alert. There is an elevated threat designated by Central Command on board the station. All security forces are to stay armed and on high alert, remaining staff are advised to seek shelter in their departments."
+
+/datum/config_entry/string/alert_black
+	config_entry_value = "Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security or heads of staff can be punished by death. This is not a drill. Evacuate the station immediately."
+
+/datum/config_entry/string/alert_lambda
+	config_entry_value = "Central Command has detected a large spike of dimensional energy, consistent with the summoning of \[REDACTED\] entities. You are advised to make what little time you have left worthwhile; as no additional assets will be dispatched to the station at this time."
+
 /datum/config_entry/string/alert_delta
 	config_entry_value = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
+
+/datum/config_entry/string/alert_epsilon
+	config_entry_value = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
+
 
 /datum/config_entry/flag/diona_ghost_spawn
 
