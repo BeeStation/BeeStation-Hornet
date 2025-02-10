@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: inverted clockcult armor checks. Cultists can wear armor again, normals
+      cannot
