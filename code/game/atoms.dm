@@ -324,8 +324,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 
 	return ..()
 
