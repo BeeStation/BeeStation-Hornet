@@ -71,7 +71,7 @@
 	static_inventory += using
 
 	using = new /atom/movable/screen/navigate
-	using.screen_loc = ui_navigate_menu
+	using.screen_loc = ui_alien_navigate_menu
 	using.hud = src
 	static_inventory += using
 
@@ -114,11 +114,6 @@
 		alien_queen_finder = new /atom/movable/screen/alien/alien_queen_finder
 		alien_queen_finder.hud = src
 		infodisplay += alien_queen_finder
-
-	using = new /atom/movable/screen/navigate
-	using.screen_loc = ui_navigate_menu
-	using.hud = src
-	static_inventory += using
 
 	zone_select = new /atom/movable/screen/zone_sel/alien()
 	zone_select.hud = src
