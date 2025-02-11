@@ -3,7 +3,7 @@
 	desc = "A bluespace pad able to thrust matter through bluespace, teleporting it to or from nearby locations."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "lpad-idle"
-	use_power = TRUE
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 2500
 	hud_possible = list(DIAG_LAUNCHPAD_HUD)
@@ -214,14 +214,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	investigate_log(log_msg.Join(), INVESTIGATE_TELESCI)
 	updateDialog()
 
-//Starts in the briefcase. Don't spawn this directly, or it will runtime when closing.
+//Starts in the briefcase. Don't spawn this directly, or it will runtime when closing. Why this doorhickey even exists? When was the last time somoene *actually* used it?
 /obj/machinery/launchpad/briefcase
 	name = "briefcase launchpad"
 	desc = "A portable bluespace pad able to thrust matter through bluespace, teleporting it to or from nearby locations. Controlled via remote."
 	icon_state = "blpad-idle"
 	icon_teleport = "blpad-beam"
 	anchored = FALSE
-	use_power = FALSE
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 	teleport_speed = 20
