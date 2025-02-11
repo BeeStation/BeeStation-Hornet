@@ -64,8 +64,8 @@
 	var/atom/movable/movable = component_parent.parent
 	movable.buckle_mob(movable, TRUE)
 	//Action
-	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(component_parent?.parent, component_parent)
-	sentience.AddSpell(P)
+	var/datum/action/spell/pointed/artifact_senitent_action/P = new /datum/action/spell/pointed/artifact_senitent_action(component_parent?.parent, component_parent)
+	P.Grant(sentience)
 	//Display traits to sentience
 	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
 	var/trait_dialogue = ""
@@ -114,33 +114,30 @@
 	trait?.setup_sentience(ckey)
 
 //Action for sentience
-/obj/effect/proc_holder/spell/targeted/artifact_senitent_action
+/datum/action/spell/pointed/artifact_senitent_action
 	name = "Trigger Artifact"
 	desc = "Select a target to activate your artifact on."
-	range = 1
-	charge_max = 0 SECONDS
-	clothes_req = 0
-	include_user = 0
-	action_icon = 'icons/hud/actions/actions_revenant.dmi'
-	action_icon_state = "r_transmit"
-	action_background_icon_state = "bg_spell"
+	cast_range = 1
+	cooldown_time = 0 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_transmit"
+	background_icon_state = "bg_ecult"
 	///Ref to the artifact we're handling
 	var/datum/component/xenoartifact/sentient_artifact
 
-/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/Initialize(mapload, datum/component/xenoartifact/artifact)
+/datum/action/spell/pointed/artifact_senitent_action/New(Target, datum/component/xenoartifact/artifact)
 	. = ..()
 	sentient_artifact = artifact
-	range = sentient_artifact?.target_range
+	cast_range = sentient_artifact?.target_range
 
-/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/cast(list/targets, mob/user = usr)
+/datum/action/spell/pointed/artifact_senitent_action/on_cast(mob/user, atom/target)
+	. = ..()
 	if(!sentient_artifact || sentient_artifact.use_cooldown_timer)
 		if(sentient_artifact?.use_cooldown_timer)
 			to_chat(user, "<span class='warning'>The artifact is still cooling down, wait [timeleft(sentient_artifact.use_cooldown_timer)/10] seconds!</span>")
 		return
-	for(var/atom/M in targets)
-		//We have to check the range ourselves
-		if(get_dist(get_turf(sentient_artifact.parent), get_turf(M)) <= range)
-			sentient_artifact.register_target(M)
+	sentient_artifact.register_target(target)
 	sentient_artifact.trigger()
 
 /mob/living/simple_animal/shade/sentience

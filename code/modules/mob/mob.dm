@@ -916,33 +916,6 @@
 	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
 		return FALSE
 
-///Remove a spell from the mobs spell list
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell, delete_spell = TRUE)
-	if(!spell)
-		return
-	for(var/X in mob_spell_list)
-		var/obj/effect/proc_holder/spell/spell_holder = X
-		if(istype(spell_holder, spell))
-			mob_spell_list -= spell_holder
-			if(delete_spell)
-				qdel(spell_holder)
-			else
-				spell_holder.action.Remove(src)
-	// A list of all things which are providing anti-magic to us
-	var/list/antimagic_sources = list()
-	var/is_magic_blocked = FALSE
-	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
-		is_magic_blocked = TRUE
-	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
-		is_magic_blocked = TRUE
-	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
-		is_magic_blocked = TRUE
-
-	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
-		on_block_magic_effects(casted_magic_flags, antimagic_sources)
-
-	return is_magic_blocked
-
 /// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
 /mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
 	return
