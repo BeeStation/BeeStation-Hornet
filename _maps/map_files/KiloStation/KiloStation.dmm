@@ -79412,20 +79412,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"xzG" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering{
-	name = "Telecommunications";
-	req_access_txt = "61"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/plasteel/dark,
-/area/tcommsat/computer)
 "xzH" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -96844,7 +96830,7 @@ bJv
 bJv
 bJv
 bJv
-xMD
+bJv
 bJv
 bJv
 bJv
@@ -114829,7 +114815,6 @@ nbl
 fvg
 nbl
 aIN
-aox
 eIt
 oMg
 apA
