@@ -1,0 +1,5 @@
+author: RDS88
+delete-after: true
+changes:
+  - tweak: Custom AI laws are now more readable on the end-of-round report. You don't
+      need to squint to figure out why it was trying to door-crush you anymore
