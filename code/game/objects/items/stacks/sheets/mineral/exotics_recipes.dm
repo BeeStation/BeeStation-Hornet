@@ -27,3 +27,10 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/abductor)
+
+/* Meat */
+GLOBAL_LIST_INIT(meat_recipes, list (
+	//new/datum/stack_recipe("meat recipe example", /obj/structure/bed/meat, 2, one_per_turf = TRUE, on_floor = TRUE),
+	))
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/meat)

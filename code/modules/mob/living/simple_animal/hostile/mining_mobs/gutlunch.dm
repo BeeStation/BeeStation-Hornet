@@ -11,21 +11,25 @@
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
 	weather_immunities = list("lava","ash")
-	faction = list("mining", "ashwalker")
+	faction = list(FACTION_MINING, FACTION_ASHWALKER)
 	density = FALSE
 	speak_chance = 1
 	turns_per_move = 8
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	move_to_delay = 15
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "squishes"
-	friendly = "pinches"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "squishes"
+	response_harm_simple = "squish"
+	friendly_verb_continuous = "pinches"
+	friendly_verb_simple = "pinch"
 	a_intent = INTENT_HELP
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	gender = NEUTER
 	stop_automated_movement = FALSE
 	stop_automated_movement_when_pulled = TRUE
@@ -122,5 +126,5 @@
 	L.faction = faction
 	L.setDir(dir)
 	L.Stun(20, ignore_canstun = TRUE)
-	visible_message("<span class='notice'>[src] grows up into [L].</span>")
+	visible_message(span_notice("[src] grows up into [L]."))
 	Destroy()

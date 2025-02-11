@@ -89,7 +89,7 @@
 				if(Adjacent(target) && isturf(target.loc))	// if right next to perp
 					target_lastloc = target.loc //stun_attack() can clear the target if they're dead, so this needs to be set first
 					stun_attack(target)
-					anchored = TRUE
+					set_anchored(TRUE)
 					return
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
@@ -142,7 +142,7 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/explode()
 
-	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message(span_boldannounce("[src] lets out a huge cough as it blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)

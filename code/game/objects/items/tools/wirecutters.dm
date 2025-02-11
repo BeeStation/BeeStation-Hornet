@@ -4,6 +4,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters_map"
 	item_state = "cutters"
+	worn_icon_state = "cutters"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -13,14 +14,15 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=80)
-	attack_verb = list("pinched", "nipped")
+	attack_verb_continuous = list("pinches", "nips")
+	attack_verb_simple = list("pinch", "nip")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	tool_behaviour = TOOL_WIRECUTTER
 	toolspeed = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/item_wirecutters
 	var/random_color = TRUE
 	var/static/list/wirecutter_colors = list(
 		"blue" = "#1861d5",
@@ -32,6 +34,11 @@
 		"yellow" = "#d58c18"
 	)
 
+
+
+/datum/armor/item_wirecutters
+	fire = 50
+	acid = 30
 
 /obj/item/wirecutters/Initialize(mapload)
 	. = ..()
@@ -51,19 +58,19 @@
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
+		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
 		qdel(C.handcuffed)
 		return
 	else if(istype(C) && C.has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
-		to_chat(C, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
+		to_chat(C, span_notice("You attempt to remove the durathread strand from around your neck."))
 		if(do_after(user, 15, C))
-			to_chat(C, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
+			to_chat(C, span_notice("You succesfuly remove the durathread strand."))
 			C.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 	else
 		..()
 
 /obj/item/wirecutters/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
 

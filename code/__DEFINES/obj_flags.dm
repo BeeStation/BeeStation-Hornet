@@ -33,6 +33,7 @@
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
 #define ISCARVABLE			    (1<<17) //! Examine will not read out this item
+#define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -50,7 +51,15 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
-#define HEADINTERNALS 			(1<<15) //! Headgear/helmet allows internals
+/// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
+#define CASTING_CLOTHES (1<<15)
+/// Headgear/helmet allows internals
+#define HEADINTERNALS (1<<18)
+
+/// Integrity defines for clothing (not flags but close enough)
+#define CLOTHING_PRISTINE 0 // We have no damage on the clothing
+#define CLOTHING_DAMAGED 1 // There's some damage on the clothing but it still has at least one functioning bodypart and can be equipped
+#define CLOTHING_SHREDDED 2 // The clothing is useless and cannot be equipped unless repaired first
 
 /// Flags for the organ_flags var on /obj/item/organ
 

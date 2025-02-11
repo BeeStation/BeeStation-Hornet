@@ -101,14 +101,6 @@
 				<li>Install the external reinforced armor plating (not included due to Nanotrasen regulations. Can be made using 5 reinforced iron sheets).</li>
 				<li>Secure the external reinforced armor plating with a wrench.</li>
 				<li>Weld the external reinforced armor plating to the chassis.</li>
-				<li></li>
-				<li>Additional Information:</li>
-				<li>The firefighting variation is made in a similar fashion.</li>
-				<li>A firesuit must be connected to the Firefighter chassis for heat shielding.</li>
-				<li>Internal armor is plasteel for additional strength.</li>
-				<li>External armor must be installed in 2 parts, totaling 10 sheets.</li>
-				<li>Completed mech is more resiliant against fire, and is a bit more durable overall.</li>
-				<li>Nanotrasen is determined to the safety of its <s>investments</s> employees.</li>
 				</ol>
 				</body>
 				</html>
@@ -251,9 +243,11 @@
 /obj/item/book/manual/wiki/attack_self(mob/user)
 	var/wikiurl = CONFIG_GET(string/wikiurl)
 	if(!wikiurl)
+		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(alert(user, "This will open the wiki page in your browser. Are you sure?", null, "Yes", "No") != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", "Open the wiki", list("Yes", "No")) != "Yes")
 		return
+
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
 
 /obj/item/book/manual/wiki/chemistry
@@ -294,8 +288,52 @@
 	dye_color = DYE_LAW
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
+	user.visible_message(span_suicide("[user] pretends to read \the [src] intently... then promptly dies of laughter!"))
 	return OXYLOSS
+
+/obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+	. = ..()
+	if (target != user && isliving(target) && (user.mind.assigned_role == JOB_NAME_LAWYER || user.mind.assigned_role == JOB_NAME_HEADOFPERSONNEL))
+		INVOKE_ASYNC(src, PROC_REF(deconvert_target), user, target)
+
+/obj/item/book/manual/wiki/security_space_law/proc/deconvert_target(mob/living/user, mob/living/target)
+	if (user.do_afters)
+		return
+	for (var/i in 1 to 4)
+		if (user.do_afters)
+			return
+		if (!do_after(user, 2 SECONDS, target))
+			return
+		if (user.mind?.has_antag_datum(/datum/antagonist/rev))
+			switch (i)
+				if (1)
+					user.say("Number One: In 1945, corporations paid 50% of federal taxes; now they pay about 5%.", forced="space law")
+				if (2)
+					user.say("Number Two: In 1900, 90% of people were self employed; now it's about 2%... It's called consolidation; strengthen governments and corporations, weaken individuals. With taxes, this can be done imperceptibly over time.", forced="space law")
+				if (3)
+					user.say("Number Three: In the 2030s, there were strict regulations to prevent monopolies; now those regulations have been dismantled, allowing a few companies to control entire industries. This concentration of power stifles competition and innovation.")
+				if (4)
+					user.say("Number Four: In the past, media outlets were independent; now a handful of conglomerates control the majority of information. Control the narrative, control the minds of the masses.")
+	if (user.do_afters)
+		return
+	if (!do_after(user, 2 SECONDS, target))
+		return
+	if (user.mind?.has_antag_datum(/datum/antagonist/rev))
+		var/datum/antagonist/rev/rev = user.mind.has_antag_datum(/datum/antagonist/rev)
+		user.say("Isn't it obvious, Nanotrasen, the governments; everyone around us has been tricking us, playing us like we are pawns...", forced = "space law")
+		if (rev.add_revolutionary(target.mind, FALSE))
+			target.visible_message(span_notice("[target] nods in approval, taking in the information!"), span_notice("That all makes perfect sense, the truth washes over you!"))
+		else
+			target.visible_message(span_userdanger("[target] spits on the floor, disrespecting [user]'s authority!"), span_notice("You finish listening to [user]'s waffling. What a knobhead, you think to yourself..."))
+	else
+		user.say("These shall all be considered acts which are in violation of your contract of employment, and you are contractually obliged to not commit them.", forced = "space law")
+		if(target.mind?.has_antag_datum(/datum/antagonist/rev/head) || target.mind?.unconvertable)
+			target.visible_message(span_userdanger("[target] spits on the floor, disrespecting [user]'s authority!"), span_notice("You finish listening to [user]'s waffling. What a knobhead, you think to yourself..."))
+			return
+		var/datum/antagonist/rev/rev = target.mind?.has_antag_datum(/datum/antagonist/rev)
+		if(rev)
+			rev.remove_revolutionary(FALSE, user)
+		target.visible_message(span_notice("[target] nods in approval, taking in the information!"), span_notice("That all makes perfect sense, you feel a sense of pride to be working for Nanotrasen!"))
 
 /obj/item/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"
@@ -330,7 +368,7 @@
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes: Mixing Drinks and Changing Lives"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Drinks"
 
 /obj/item/book/manual/wiki/robotics_cyborgs
 	name = "Robotics for Dummies"
@@ -346,13 +384,6 @@
 	title = "Research and Development 101"
 	page_link = "Guide_to_Research_and_Development"
 
-/obj/item/book/manual/wiki/experimentor
-	name = "Mentoring your Experiments"
-	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
-	page_link = "Experimentor"
-
 /obj/item/book/manual/wiki/medical_cloning
 	name = "Cloning techniques of the 26th century"
 	icon_state ="bookCloning"
@@ -366,7 +397,7 @@
 	icon_state ="cooked_book"
 	author = "the Kanamitan Empire"
 	title = "To Serve Man"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Food"
 
 /obj/item/book/manual/wiki/tcomms
 	name = "Subspace Telecommunications And You"
@@ -412,7 +443,7 @@
 
 /obj/item/book/manual/wiki/toxins/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	if (!QDELETED(H))
 		H.emote("spin")
@@ -422,7 +453,7 @@
 			if(prob(50))
 				step(W, pick(GLOB.alldirs))
 		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		H.bleed_rate = 5
+		H.add_bleeding(BLEED_CRITICAL)
 		H.gib_animation()
 		sleep(3)
 		H.adjustBruteLoss(1000) //to make the body super-bloody

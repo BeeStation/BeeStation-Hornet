@@ -6,6 +6,7 @@
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
+
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
 	if(notransform)
@@ -26,11 +27,13 @@
 				handle_mood()
 				handle_speech()
 
-// Unlike most of the simple animals, slimes support UNCONSCIOUS
+// Unlike most of the simple animals, slimes support UNCONSCIOUS. This is an ugly hack.
 /mob/living/simple_animal/slime/update_stat()
-	if(stat == UNCONSCIOUS && health > 0)
-		return
-	..()
+	switch(stat)
+		if(UNCONSCIOUS, HARD_CRIT)
+			if(health > 0)
+				return
+	return ..()
 
 /mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
@@ -92,27 +95,28 @@
 				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
 
 	if(stat != DEAD)
-		var/bz_percentage = environment.total_moles() ? (environment.get_moles(GAS_BZ) / environment.total_moles()) : 0
+		var/bz_percentage = environment.total_moles() ? (GET_MOLES(/datum/gas/bz, environment) / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			var/amt = is_adult ? 30 : 15
-			var/plas_amt = min(amt,environment.get_moles(GAS_PLASMA))
-			environment.adjust_moles(GAS_PLASMA, -plas_amt)
-			environment.adjust_moles(GAS_O2, plas_amt)
+			var/plas_amt = min(amt,GET_MOLES(/datum/gas/plasma, environment))
+			REMOVE_MOLES(/datum/gas/plasma, environment, plas_amt)
+			ADD_MOLES(/datum/gas/oxygen, environment, plas_amt)
 			adjustBruteLoss(plas_amt ? -2 : 0)
 
-		if(stat == CONSCIOUS && stasis)
-			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
-			set_stat(UNCONSCIOUS)
-			powerlevel = 0
-			rabid = 0
-			update_mobility()
-			regenerate_icons()
-		else if(stat == UNCONSCIOUS && !stasis)
-			to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
-			set_stat(CONSCIOUS)
-			update_mobility()
-			regenerate_icons()
+		switch(stat)
+			if(CONSCIOUS)
+				if(stasis)
+					to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
+					set_stat(UNCONSCIOUS)
+					powerlevel = 0
+					rabid = FALSE
+					regenerate_icons()
+			if(UNCONSCIOUS, HARD_CRIT)
+				if(!stasis)
+					to_chat(src, span_notice("You wake up from the stasis."))
+					set_stat(CONSCIOUS)
+					regenerate_icons()
 
 	updatehealth()
 
@@ -136,21 +140,17 @@
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)
 		var/datum/reagent/fuel/fuel = new
-		fuel.reaction_mob(buckled,TOUCH,20)
+		fuel.expose_mob(buckled,TOUCH,20)
 		qdel(fuel)
 	if(M.stat == DEAD)
 		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
-		else if(!rabid && !attacked)
-			var/mob/last_to_hurt = M.LAssailant?.resolve()
-			if(last_to_hurt && last_to_hurt != M && prob(50))
-				add_friendship(last_to_hurt, 1)
 		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
 			rabid = 1
 
 		if(transformeffects & SLIME_EFFECT_GREEN)
-			visible_message("<span class='warning'>[src] slurps up [M]!</span>")
+			visible_message(span_warning("[src] slurps up [M]!"))
 			adjust_nutrition(10)
 			layer = initial(layer)
 			qdel(M)
@@ -161,13 +161,7 @@
 		return
 
 	if(prob(10) && M.client)
-		to_chat(M, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
-		"You feel like you're about to die!", \
-		"You feel every part of your body screaming in agony!", \
-		"A low, rolling pain passes through your body!", \
-		"Your body feels as if it's falling apart!", \
-		"You feel extremely weak!", \
-		"A sharp, deep pain bathes every inch of your body!")]</span>")
+		to_chat(M,span_userdanger(pick("You can feel your body becoming weak!", "You feel like you're about to die!", "You feel every part of your body screaming in agony!", "A low, rolling pain passes through your body!", "Your body feels as if it's falling apart!", "You feel extremely weak!", "A sharp, deep pain bathes every inch of your body!")))
 
 	var/bonus_damage = 1
 	if(transformeffects & SLIME_EFFECT_RED)
@@ -215,8 +209,6 @@
 				powerlevel += gainpower
 
 /mob/living/simple_animal/slime/proc/handle_targets()
-	update_mobility()
-
 	if(attacked > 50)
 		attacked = 50
 
@@ -279,19 +271,19 @@
 		if (Leader)
 			if(holding_still)
 				holding_still = max(holding_still - 1, 0)
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc))
 				step_to(src, Leader)
 		else if(hungry)
 			if (holding_still)
 				holding_still = max(holding_still - hungry, 0)
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(50))
 				step(src, pick(GLOB.cardinals))
 		else
 			if(holding_still)
 				holding_still = max(holding_still - 1, 0)
 			else if (docile && pulledby)
 				holding_still = 10
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(33))
 				step(src, pick(GLOB.cardinals))
 	else if(!special_process)
 		special_process = TRUE
@@ -400,7 +392,7 @@
 					to_say = "ATTACK!?!?"
 				else if (Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 					for (var/mob/living/L in view(7,src)-list(src,who))
-						if (findtext(phrase, lowertext(L.name)))
+						if (findtext(phrase, LOWER_TEXT(L.name)))
 							if (isslime(L))
 								to_say = "NO... [L] slime friend"
 								add_friendship(who, -1) //Don't ask a slime to attack its friend

@@ -15,7 +15,7 @@
 	reagents_add = list(/datum/reagent/water = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.2)
 
 /obj/item/seeds/watermelon/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is swallowing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is swallowing [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.gib()
 	new product(drop_location())
 	qdel(src)
@@ -29,7 +29,7 @@
 	bite_consumption_mod = 2
 	w_class = WEIGHT_CLASS_NORMAL
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/watermelonjuice = 0)
+	juice_typepath = /datum/reagent/consumable/watermelonjuice
 	wine_power = 40
 
 /obj/item/food/grown/watermelon/make_processable()
@@ -82,13 +82,13 @@
  * Checks whether or not the person eating the holymelon
  * is a holy_role (chaplain), as chaplains love holymelons.
  */
-/obj/item/food/grown/holymelon/proc/check_holyness(fraction, mob/mob_eating)
+/obj/item/food/grown/holymelon/proc/check_holyness(mob/mob_eating)
 	if(!ishuman(mob_eating))
 		return
 	var/mob/living/carbon/human/holy_person = mob_eating
 	if(!holy_person.mind?.holy_role || HAS_TRAIT(holy_person, TRAIT_AGEUSIA))
 		return
-	to_chat(holy_person, "<span class='notice'>Truly, a piece of heaven!</span>")
+	to_chat(holy_person, span_notice("Truly, a piece of heaven!"))
 	SEND_SIGNAL(holy_person, COMSIG_ADD_MOOD_EVENT, "Divine_chew", /datum/mood_event/holy_consumption)
 	return FOOD_LIKED
 
@@ -97,14 +97,19 @@
 	var/uses = 1
 	if(seed)
 		uses = round(seed.potency / 20)
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, uses, TRUE, CALLBACK(src, PROC_REF(block_magic)), CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
+	AddComponent(/datum/component/anti_magic, \
+	_source = src, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY),\
+	charges = uses, \
+	drain_antimagic = CALLBACK(src, PROC_REF(block_magic)),\
+	expiration = CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
 
 /obj/item/food/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)
-		to_chat(user, "<span class='warning'>[src] hums slightly, and seems to decay a bit.</span>")
+		to_chat(user, span_warning("[src] hums slightly, and seems to decay a bit."))
 
 /obj/item/food/grown/holymelon/proc/expire(mob/user)
-	to_chat(user, "<span class='warning'>[src] rapidly turns into ash!</span>")
+	to_chat(user, span_warning("[src] rapidly turns into ash!"))
 	qdel(src)
 	new /obj/effect/decal/cleanable/ash(drop_location())
 

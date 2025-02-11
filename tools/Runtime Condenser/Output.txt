@@ -27,7 +27,7 @@ proc name: return air (/obj/machinery/atmospherics/pipe/return_air)
   source file: pipes.dm,58
   usr: null
   src: the air supply pipe (/obj/machinery/atmospherics/pipe/manifold4w/supply/visible)
-  src.loc: the floor (169,130,1) (/turf/open/floor/plasteel)
+  src.loc: the floor (169,130,1) (/turf/open/floor/iron)
 
 
 The following runtime has occurred 48 time(s).
@@ -96,7 +96,7 @@ runtime error: Cannot execute null.HasProximity().
 proc name: Entered (/turf/Entered)
   source file: turf.dm,95
   usr: 0
-  src: the floor (99,147,1) (/turf/open/floor/plasteel)
+  src: the floor (99,147,1) (/turf/open/floor/iron)
 
 
 The following runtime has occurred 5 time(s).
@@ -124,7 +124,7 @@ runtime error: Cannot read null.gases
 proc name: tile graphic (/turf/open/proc/tile_graphic)
   source file: LINDA_turf_tile.dm,110
   usr: null
-  src: the floor (81,52,5) (/turf/open/floor/plasteel/freezer)
+  src: the floor (81,52,5) (/turf/open/floor/iron/freezer)
 
 
 The following runtime has occurred 3 time(s).
@@ -153,7 +153,7 @@ proc name: update pressure (/obj/mecha/working/ripley/proc/update_pressure)
   source file: ripley.dm,150
   usr: 0
   src: the APLU \"Ripley\" (/obj/mecha/working/ripley)
-  src.loc: the floor (88,45,5) (/turf/open/floor/plasteel/freezer)
+  src.loc: the floor (88,45,5) (/turf/open/floor/iron/freezer)
 
 
 The following runtime has occurred 1 time(s).

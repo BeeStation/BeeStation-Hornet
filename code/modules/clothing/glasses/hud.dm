@@ -68,7 +68,7 @@
 
 /obj/item/clothing/glasses/hud/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+	to_chat(user, span_warning("PZZTTPFFFT"))
 	desc = "[desc] The display is flickering slightly."
 	//If we aren't already glitching out, start glitching
 	if(!(obj_flags & OBJ_EMPED))
@@ -164,6 +164,7 @@
 	icon_state = "diagnostichud"
 	emissive_state = "hud_emissive"
 	hud_type = DATA_HUD_DIAGNOSTIC_BASIC
+	hud_trait = TRAIT_DIAGNOSTIC_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
 
 /obj/item/clothing/glasses/hud/diagnostic/night
@@ -236,6 +237,7 @@
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_action)
 
 /obj/item/clothing/glasses/hud/security/chameleon/emp_act(severity)
 	. = ..()
@@ -289,9 +291,11 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_SURFACE
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars
 	name = "giga HUD gar glasses"
@@ -336,6 +340,9 @@
 	if (hud_type)
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.add_hud_to(user)
+
+/datum/action/item_action/switch_hud
+	name = "Switch HUD"
 
 /obj/item/clothing/glasses/hud/toggle/thermal
 	name = "thermal HUD scanner"

@@ -4,7 +4,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/white,
-/obj/item/clothing/head/rabbitears,
+/obj/item/clothing/head/costume/rabbitears,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -19,7 +19,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "d" = (
 /turf/open/floor/plating,
@@ -35,17 +35,17 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/melee/skateboard,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "j" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "m" = (
 /obj/structure/table/wood,
@@ -55,7 +55,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "n" = (
 /obj/structure/table/wood,
@@ -71,7 +71,7 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "s" = (
 /obj/structure/mirror{
@@ -85,7 +85,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "I" = (
 /obj/machinery/light/small,
@@ -95,7 +95,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "M" = (
 /obj/structure/table_frame/wood,
@@ -104,14 +104,14 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "T" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

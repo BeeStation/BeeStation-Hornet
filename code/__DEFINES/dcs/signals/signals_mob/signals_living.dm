@@ -13,6 +13,8 @@
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
+///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
+#define COMSIG_LIVING_REGENERATE_LIMBS "living_regen_limbs"
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
@@ -25,6 +27,8 @@
 #define COMSIG_LIVING_DEATH "living_death"
 /// from base of mob/living/updatehealth(): ()
 #define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
+/// Called when a living mob has its resting updated: (resting_state)
+#define COMSIG_LIVING_RESTING_UPDATED "resting_updated"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
@@ -37,13 +41,20 @@
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-#define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"		//! from base of mob/living/Knockdown() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"			//! from base of mob/living/Paralyze() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"		//! from base of mob/living/Immobilize() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"	//! from base of mob/living/Unconscious() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"			//! from base of mob/living/Sleeping() (amount, update, ignore)
-	#define COMPONENT_NO_STUN 1			//For all of them
+
+///from base of mob/living/Stun() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_STUN "living_stun"
+///from base of mob/living/Knockdown() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
+///from base of mob/living/Paralyze() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
+///from base of mob/living/Immobilize() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
+///from base of mob/living/Unconscious() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
+///from base of mob/living/Sleeping() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
+	#define COMPONENT_NO_STUN (1<<0)		//For all of them
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
 #define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
@@ -58,3 +69,25 @@
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
+
+/// from /datum/status_effect/incapacitating/stamcrit/on_apply()
+#define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
+///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
+#define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
+///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)
+#define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
+	/// Block the electrocute_act() proc from proceeding
+	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
+///sent by stuff like stunbatons and tasers: ()
+///from base of mob/living/set_body_position()
+#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
+/// Sent to a mob being injected with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
+/// Sent to a mob being withdrawn from with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
+///from base of mob/living/set_usable_legs()
+#define COMSIG_LIVING_LIMBLESS_SLOWDOWN  "living_limbless_slowdown"
+/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
+#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+///From living/set_resting(): (new_resting, silent, instant)
+#define COMSIG_LIVING_RESTING "living_resting"

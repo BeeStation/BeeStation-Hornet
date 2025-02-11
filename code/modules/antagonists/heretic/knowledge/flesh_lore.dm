@@ -64,7 +64,7 @@
 	summon_objective.owner = our_heretic.owner
 	our_heretic.objectives += summon_objective
 
-	to_chat(user, "<span class='hierophant'>Undertaking the Path of Flesh, you are given another objective.</span>")
+	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
 	our_heretic.owner.announce_objectives()
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
@@ -92,19 +92,19 @@
 	// Skeletons can't become husks, and monkeys are monkeys.
 	if(!ishuman(target) || isskeleton(target) || ismonkey(target))
 		target.balloon_alert(source, "Invalid body")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 
 	var/mob/living/carbon/human/human_target = target
 	human_target.grab_ghost()
 	if(!human_target.mind || !human_target.client)
 		target.balloon_alert(source, "No soul")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 	if(HAS_TRAIT(human_target, TRAIT_HUSK))
 		target.balloon_alert(source, "Husked")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 	if(LAZYLEN(created_items) >= limit)
 		target.balloon_alert(source, "At ghoul limit")
-		return COMPONENT_BLOCK_CHARGE_USE
+		return COMPONENT_BLOCK_HAND_USE
 
 	LAZYADD(created_items, WEAKREF(human_target))
 	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
@@ -306,7 +306,7 @@
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	human_target.bleed_rate += 5
+	human_target.add_bleeding(BLEED_DEEP_WOUND)
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
@@ -345,11 +345,14 @@
 		Reality will bend to THE LORD OF THE NIGHT or be unraveled! WITNESS MY ASCENSION!"
 	required_atoms = list(/mob/living/carbon/human = 4)
 	route = HERETIC_PATH_FLESH
+	announcement_text = "Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %USER% has ascended! Fear the ever-twisting hand!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_flesh.ogg'
 
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	priority_announce("[generate_heretic_text()] Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever-twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
+	var/datum/action/spell/shed_human_form/worm_spell = new(user.mind)
+	worm_spell.Grant(user)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/heretic_knowledge/limited_amount/flesh_grasp/grasp_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_grasp)

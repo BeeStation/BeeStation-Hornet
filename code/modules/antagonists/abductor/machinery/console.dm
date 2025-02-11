@@ -51,7 +51,7 @@
 	if(.)
 		return
 	if(!HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) && !HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
-		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
+		to_chat(user, span_warning("You start mashing alien buttons at random!"))
 		if(do_after(user,100, target = src))
 			TeleporterSend()
 
@@ -175,12 +175,12 @@
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/open/location,user)
 	if(!istype(location))
-		to_chat(user, "<span class='warning'>That place is not safe for the specimen.</span>")
+		to_chat(user, span_warning("That place is not safe for the specimen."))
 		return
 
 	if(pad)
 		pad.teleport_target = location
-		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
+		to_chat(user, span_notice("Location marked as test subject release point."))
 
 /obj/machinery/abductor/console/Initialize(mapload)
 	..()
@@ -206,7 +206,7 @@
 			c.console = src
 
 /obj/machinery/abductor/console/proc/AddSnapshot(mob/living/carbon/human/target)
-	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		say("Subject wearing specialized protective headgear, unable to get a proper scan!")
 		return
 	var/datum/icon_snapshot/entry = new
@@ -245,9 +245,9 @@
 
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
-		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
+		to_chat(user, span_notice("You link the tool to the console."))
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
-		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
+		to_chat(user, span_notice("You link the vest to the console."))
 	else
 		return ..()
 

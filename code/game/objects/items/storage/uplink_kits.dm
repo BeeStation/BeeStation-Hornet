@@ -32,7 +32,7 @@
 			new /obj/item/chameleon(src) // 7 tc
 
 		if("stealth")
-			new /obj/item/gun/energy/kinetic_accelerator/crossbow(src)
+			new /obj/item/gun/energy/recharge/ebow(src)
 			new /obj/item/pen/sleepy(src)
 			new /obj/item/healthanalyzer/rad_laser(src)
 			new /obj/item/chameleon(src)
@@ -137,7 +137,7 @@
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
 			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
-			new /obj/item/reagent_containers/glass/rag(src)
+			new /obj/item/reagent_containers/cup/rag(src)
 			new /obj/item/encryptionkey/syndicate(src)
 
 		if("ninja")
@@ -155,12 +155,12 @@
 			new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 			new /obj/item/card/id/syndicate(src)
 			new /obj/item/clothing/shoes/chameleon/noslip(src) //because slipping while being a dark lord sucks
-			new /obj/item/book/granter/spell/summonitem(src)
+			new /obj/item/book/granter/action/spell/summonitem(src)
 
 		if("white_whale_holy_grail") //Unique items that don't appear anywhere else
 			new /obj/item/pneumatic_cannon/speargun(src)
 			new /obj/item/storage/backpack/magspear_quiver(src)
-			new /obj/item/clothing/suit/space/hardsuit/carp(src)
+			new /obj/item/clothing/suit/hooded/carp_costume/spaceproof(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
 			new /obj/item/toy/plush/carpplushie/dehy_carp(src)
@@ -188,7 +188,7 @@
 			new /obj/item/clothing/mask/rat/bee(src) // 0 tc
 			new /obj/item/storage/belt/fannypack/yellow(src) // 0 tc
 			new /obj/item/storage/box/syndie_kit/bee_grenades(src) // 15 tc
-			new /obj/item/reagent_containers/glass/bottle/beesease(src) // 10 tc?
+			new /obj/item/reagent_containers/cup/bottle/beesease(src) // 10 tc?
 			new /obj/item/gun/chem/bee(src) //priceless
 
 		if("mr_freeze")
@@ -379,7 +379,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
+	STR.set_holdable(list(/obj/item/clothing/suit/space/syndicate, /obj/item/clothing/head/helmet/space/syndicate))
 
 /obj/item/storage/box/syndie_kit/space/PopulateContents()
 	if(prob(50))
@@ -407,19 +407,19 @@
 	STR.max_items = 14
 
 /obj/item/storage/box/syndie_kit/chemical/PopulateContents()
-	new /obj/item/reagent_containers/glass/bottle/polonium(src)
-	new /obj/item/reagent_containers/glass/bottle/venom(src)
-	new /obj/item/reagent_containers/glass/bottle/fentanyl(src)
-	new /obj/item/reagent_containers/glass/bottle/formaldehyde(src)
-	new /obj/item/reagent_containers/glass/bottle/spewium(src)
-	new /obj/item/reagent_containers/glass/bottle/cyanide(src)
-	new /obj/item/reagent_containers/glass/bottle/histamine(src)
-	new /obj/item/reagent_containers/glass/bottle/initropidril(src)
-	new /obj/item/reagent_containers/glass/bottle/pancuronium(src)
-	new /obj/item/reagent_containers/glass/bottle/sodium_thiopental(src)
-	new /obj/item/reagent_containers/glass/bottle/coniine(src)
-	new /obj/item/reagent_containers/glass/bottle/curare(src)
-	new /obj/item/reagent_containers/glass/bottle/amanitin(src)
+	new /obj/item/reagent_containers/cup/bottle/polonium(src)
+	new /obj/item/reagent_containers/cup/bottle/venom(src)
+	new /obj/item/reagent_containers/cup/bottle/fentanyl(src)
+	new /obj/item/reagent_containers/cup/bottle/formaldehyde(src)
+	new /obj/item/reagent_containers/cup/bottle/spewium(src)
+	new /obj/item/reagent_containers/cup/bottle/cyanide(src)
+	new /obj/item/reagent_containers/cup/bottle/histamine(src)
+	new /obj/item/reagent_containers/cup/bottle/initropidril(src)
+	new /obj/item/reagent_containers/cup/bottle/pancuronium(src)
+	new /obj/item/reagent_containers/cup/bottle/sodium_thiopental(src)
+	new /obj/item/reagent_containers/cup/bottle/coniine(src)
+	new /obj/item/reagent_containers/cup/bottle/curare(src)
+	new /obj/item/reagent_containers/cup/bottle/amanitin(src)
 	new /obj/item/reagent_containers/syringe(src)
 
 /obj/item/storage/box/syndie_kit/nuke
@@ -447,7 +447,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure(src)
 	new /obj/item/reagent_containers/syringe(src)
-	new /obj/item/reagent_containers/glass/bottle/tuberculosiscure(src)
+	new /obj/item/reagent_containers/cup/bottle/tuberculosiscure(src)
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
@@ -502,7 +502,7 @@
 	new/obj/item/toy/crayon/rainbow(src)
 
 /obj/item/storage/box/syndie_kit/romerol/PopulateContents()
-	new /obj/item/reagent_containers/glass/bottle/romerol(src)
+	new /obj/item/reagent_containers/cup/bottle/romerol(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/dropper(src)
 
@@ -514,11 +514,11 @@
 	new /obj/item/gun/ballistic/revolver/reverse(src)
 
 /obj/item/storage/box/syndie_kit/mimery/PopulateContents()
-	new /obj/item/book/granter/spell/mimery_blockade(src)
-	new /obj/item/book/granter/spell/mimery_guns(src)
+	new /obj/item/book/granter/action/spell/mime/mimery_blockade(src)
+	new /obj/item/book/granter/action/spell/mime/mimery_guns(src)
 
 /obj/item/storage/box/syndie_kit/centcom_costume/PopulateContents()
-	new /obj/item/clothing/under/rank/centcom/officer(src)
+	new /obj/item/clothing/under/rank/centcom/official(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/radio/headset/headset_cent/empty(src)
@@ -616,8 +616,9 @@
 
 /obj/item/storage/box/syndie_kit/derringer
 	name = "'Infiltrator' pistol bundle"
-	desc = "Contains a Syndicate issued coat pistol, and one Match grade .38-special speed loader."
+	desc = "Contains a Syndicate issued coat pistol, and one Match grade .357 speed loader."
 
 /obj/item/storage/box/syndie_kit/derringer/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/pistol/der38(src)
-	new /obj/item/ammo_box/c38/match(src)
+	for (var/i in 1 to 6)
+		new /obj/item/ammo_casing/a357(src)

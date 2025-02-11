@@ -1,0 +1,1 @@
+/obj/@SUBTYPES{obj_integrity=@ANY} : /obj/@SUBTYPES{atom_integrity=@OLD:obj_integrity}

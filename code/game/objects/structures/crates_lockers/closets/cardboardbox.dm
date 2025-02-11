@@ -23,13 +23,15 @@
 	var/egged = 0
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
+	if(opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
 		return
 	move_delay = TRUE
-	if(step(src, direction))
+	var/oldloc = loc
+	step(src, direction)
+	if(oldloc != loc)
 		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier)
 	else
-		ResetMoveDelay()
+		move_delay = FALSE
 
 /obj/structure/closet/cardboard/proc/ResetMoveDelay()
 	move_delay = FALSE
@@ -50,7 +52,7 @@
 		egged = world.time + SNAKE_SPAM_TICKS
 		for(var/mob/living/L in alerted)
 			if(!L.stat)
-				if(!L.incapacitated(ignore_restraints = 1))
+				if(!L.incapacitated(IGNORE_RESTRAINTS))
 					L.face_atom(src)
 				L.do_alert_animation(L)
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
@@ -77,14 +79,3 @@
 	close_sound_volume = 50
 	material_drop = /obj/item/stack/sheet/plasteel
 #undef SNAKE_SPAM_TICKS
-
-/obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
-		return
-	move_delay = TRUE
-	var/oldloc = loc
-	step(src, direction)
-	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier)
-	else
-		move_delay = FALSE

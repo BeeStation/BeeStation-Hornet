@@ -1,8 +1,7 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
-	flag = MIME
 	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -12,10 +11,9 @@
 
 	outfit = /datum/outfit/job/mime
 
-	access = list(ACCESS_THEATRE)
-	minimal_access = list(ACCESS_THEATRE)
+	base_access = list(ACCESS_THEATRE)
+	extra_access = list()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
@@ -50,7 +48,11 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	head = /obj/item/clothing/head/frenchberet
 	suit = /obj/item/clothing/suit/suspenders
-	backpack_contents = list(/obj/item/book/mimery=1, /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing=1)
+	backpack_contents = list(
+		/obj/item/book/mimery=1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing=1,
+		/obj/item/stamp/mime=1
+	)
 
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/mime
@@ -62,8 +64,10 @@
 	if(visualsOnly)
 		return
 
+	// Start our mime out with a vow of silence and the ability to break (or make) it
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+		var/datum/action/spell/vow_of_silence/vow = new(H.mind)
+		vow.Grant(H)
 		H.mind.miming = 1
 
 /obj/item/book/mimery
@@ -71,31 +75,56 @@
 	desc = "A primer on basic pantomime."
 	icon_state ="bookmime"
 
-/obj/item/book/mimery/attack_self(mob/user,)
-	user.set_machine(src)
-	var/dat = "<B>Guide to Dank Mimery</B><BR>"
-	dat += "Teaches one of three classic pantomime routines, allowing a practiced mime to conjure invisible objects into corporeal existence.<BR>"
-	dat += "Once you have mastered your routine, this book will have no more to say to you.<BR>"
-	dat += "<HR>"
-	dat += "<A href='byond://?src=[REF(src)];invisible_wall=1'>Invisible Wall</A><BR>"
-	dat += "<A href='byond://?src=[REF(src)];invisible_chair=1'>Invisible Chair</A><BR>"
-	dat += "<A href='byond://?src=[REF(src)];invisible_box=1'>Invisible Box</A><BR>"
-	user << browse(dat, "window=book")
+/obj/item/book/mimery/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return
 
-/obj/item/book/mimery/Topic(href, href_list)
-	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
-		return
-	if (!ishuman(usr))
-		return
-	var/mob/living/carbon/human/H = usr
-	if(H.is_holding(src) && H.mind)
-		H.set_machine(src)
-		if (href_list["invisible_wall"])
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
-		if (href_list["invisible_chair"])
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_chair(null))
-		if (href_list["invisible_box"])
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_box(null))
-	to_chat(usr, "<span class='notice'>The book disappears into thin air.</span>")
-	qdel(src)
+	var/list/spell_icons = list(
+		"Invisible Wall" = image(icon = 'icons/hud/actions/actions_mime.dmi', icon_state = "invisible_wall"),
+		"Invisible Chair" = image(icon = 'icons/hud/actions/actions_mime.dmi', icon_state = "invisible_chair"),
+		"Invisible Box" = image(icon = 'icons/hud/actions/actions_mime.dmi', icon_state = "invisible_box")
+		)
+	var/picked_spell = show_radial_menu(user, src, spell_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
+	var/datum/action/spell/picked_spell_type
+	switch(picked_spell)
+		if("Invisible Wall")
+			picked_spell_type = /datum/action/spell/conjure/invisible_wall
+
+		if("Invisible Chair")
+			picked_spell_type = /datum/action/spell/conjure/invisible_chair
+
+		if("Invisible Box")
+			picked_spell_type = /datum/action/spell/conjure_item/invisible_box
+
+	if(ispath(picked_spell_type))
+		// Gives the user a vow ability too, if they don't already have one
+		var/datum/action/spell/vow_of_silence/vow = locate() in user.actions
+		if(!vow && user.mind)
+			vow = new(user.mind)
+			vow.Grant(user)
+
+		picked_spell_type = new picked_spell_type(user.mind || user)
+		picked_spell_type.Grant(user)
+
+		to_chat(user, span_warning("The book disappears into thin air."))
+		qdel(src)
+
+	return TRUE
+
+/**
+ * Checks if we are allowed to interact with a radial menu
+ *
+ * Arguments:
+ * * user The human mob interacting with the menu
+ */
+/obj/item/book/mimery/proc/check_menu(mob/living/carbon/human/user)
+	if(!istype(user))
+		return FALSE
+	if(!user.is_holding(src))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	if(!user.mind)
+		return FALSE
+	return TRUE

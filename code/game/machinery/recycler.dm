@@ -21,7 +21,21 @@
 	var/item_recycle_sound = 'sound/items/welder.ogg'
 
 /obj/machinery/recycler/Initialize(mapload)
-	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
+	var/list/allowed_materials = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/plasma,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plastic,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace
+	)
+	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, MATCONTAINER_NO_INSERT|BREAKDOWN_FLAGS_RECYCLER)
 	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
 	. = ..()
 	update_icon()
@@ -44,7 +58,7 @@
 
 /obj/machinery/recycler/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Reclaiming <b>[amount_produced]%</b> of materials salvaged.</span>"
+	. += span_notice("Reclaiming <b>[amount_produced]%</b> of materials salvaged.")
 	. += "The power light is [(machine_stat & NOPOWER) ? "off" : "on"].\n"+\
 	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
 	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
@@ -70,7 +84,7 @@
 		safety_mode = FALSE
 		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
-	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+	to_chat(user, span_notice("You use the cryptographic sequencer on [src]."))
 	if(user)
 		emagged_by = key_name(user) // key_name is collected here instead of when it's logged so that it gets their current mob name, not whatever future mob they may have
 
@@ -107,7 +121,7 @@
 		var/atom/movable/AM = i
 		var/obj/item/bodypart/head/as_head = AM
 		var/obj/item/mmi/as_mmi = AM
-		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || istype(AM, /mob/living/brain)
+		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || isbrain(AM) || istype(AM, /obj/item/dullahan_relay)
 		if(brain_holder)
 			emergency_stop(AM)
 		else if(isliving(AM))
@@ -127,7 +141,7 @@
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	if(I.resistance_flags & INDESTRUCTIBLE) //indestructible item check
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		I.forceMove(loc)
 		return
 	I.forceMove(loc)
@@ -138,14 +152,12 @@
 			seed_modifier = round(L.seed.potency / 25)
 		new L.plank_type(src.loc, 1 + seed_modifier)
 		qdel(L)
-		return
 	else
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-		var/material_amount = materials.get_item_material_amount(I)
+		var/material_amount = materials.get_item_material_amount(I, BREAKDOWN_FLAGS_RECYCLER)
 		if(!material_amount)
-			qdel(I)
 			return
-		materials.insert_item(I, multiplier = (amount_produced / 100))
+		materials.insert_item(I, material_amount, multiplier = (amount_produced / 100), breakdown_flags=BREAKDOWN_FLAGS_RECYCLER)
 		qdel(I)
 		materials.retrieve_all()
 

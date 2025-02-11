@@ -9,6 +9,7 @@
 	icon_state = "forensicnew"
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -23,7 +24,7 @@
 /datum/action/item_action/displayDetectiveScanResults
 	name = "Display Forensic Scanner Results"
 
-/datum/action/item_action/displayDetectiveScanResults/Trigger()
+/datum/action/item_action/displayDetectiveScanResults/on_activate(mob/user, atom/target)
 	var/obj/item/detective_scanner/scanner = target
 	if(istype(scanner))
 		scanner.displayDetectiveScanResults(usr)
@@ -31,10 +32,10 @@
 /obj/item/detective_scanner/attack_self(mob/user)
 	if(log.len && !scanning)
 		scanning = 1
-		to_chat(user, "<span class='notice'>Printing report, please wait...</span>")
+		to_chat(user, span_notice("Printing report, please wait..."))
 		addtimer(CALLBACK(src, PROC_REF(PrintReport)), 100)
 	else
-		to_chat(user, "<span class='notice'>The scanner has no logs or is in use.</span>")
+		to_chat(user, span_notice("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/attack(mob/living/M, mob/user)
 	return
@@ -53,7 +54,7 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(report_paper)
-		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
+		to_chat(M, span_notice("Report printed. Log cleared."))
 
 	// Clear the logs
 	log = list()
@@ -71,12 +72,12 @@
 		if((get_dist(A, user) > range) || (loc != user))
 			return
 		if(!can_see(A, user, range))
-			to_chat(user, "<span class='notice'>You can't scan \the [A] through solid material.</span>")
+			to_chat(user, span_notice("You can't scan \the [A] through solid material."))
 			return
 		scanning = 1
 
 		user.visible_message("\The [user] points the [src.name] at \the [A] and performs a forensic scan.")
-		to_chat(user, "<span class='notice'>You scan \the [A]. The scanner is now analysing the results...</span>")
+		to_chat(user, span_notice("You scan \the [A]. The scanner is now analysing the results..."))
 
 
 		// GATHER INFORMATION
@@ -105,7 +106,7 @@
 				for(var/i in 1 to 2)
 					LAZYADD(fingerprints,pick("#$^@&#*$H3LP&$(@US^$&#^@#","&$(T@&#C@ME5@##$^@&","^@(#&$ET@US&FR^E#^$&#","#$^@&M*N$US^$(@&#^$&#^@#","&$(@&#^$&#^@##$^@&","^@R(#E$(D@(R&$U&#M^&#","$TH@Y#*$KN@W(@&#^$&#^@#","#$M^DN*S$^@(#&$(@&#^$&#^@##","#","#$^@&#*$^@(#&$(@","#","#$^@&#&#^@","#","@(#&$(@&#^$&#^@"))
 				blood = list("#$^@&LO0K&#@#" = "&$(@AW@Y#$^&")
-				to_chat(user, "<span class='warning'>Your [src] glitched out!</span>")
+				to_chat(user, span_warning("Your [src] glitched out!"))
 
 			else
 				fingerprints = A.return_fingerprints()
@@ -133,7 +134,7 @@
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log("<span class='info'><B>Prints:</B></span>")
+			add_log(span_info("<B>Prints:</B>"))
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = 1
@@ -141,7 +142,7 @@
 		// Blood
 		if (length(blood))
 			sleep(30)
-			add_log("<span class='info'><B>Blood:</B></span>")
+			add_log(span_info("<B>Blood:</B>"))
 			found_something = 1
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
@@ -149,7 +150,7 @@
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log("<span class='info'><B>Fibers:</B></span>")
+			add_log(span_info("<B>Fibers:</B>"))
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = 1
@@ -157,7 +158,7 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log("<span class='info'><B>Reagents:</B></span>")
+			add_log(span_info("<B>Reagents:</B>"))
 			for(var/R in reagents)
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = 1
@@ -170,10 +171,10 @@
 		if(!found_something)
 			add_log("<I># No forensic traces found #</I>", 0) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, "<span class='warning'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
+				to_chat(holder, span_warning("Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!"))
 		else
 			if(holder)
-				to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
+				to_chat(holder, span_notice("You finish scanning \the [target_name]."))
 
 		add_log("---------------------------------------------------------", 0)
 		scanning = 0
@@ -196,27 +197,27 @@
 	if(!user.canUseTopic(src, be_close=TRUE))
 		return
 	if(!LAZYLEN(log))
-		to_chat(user, "<span class='notice'>Cannot clear logs, the scanner has no logs.</span>")
+		to_chat(user, span_notice("Cannot clear logs, the scanner has no logs."))
 		return
 	if(scanning)
-		to_chat(user, "<span class='notice'>Cannot clear logs, the scanner is in use.</span>")
+		to_chat(user, span_notice("Cannot clear logs, the scanner is in use."))
 		return
-	to_chat(user, "<span class='notice'>The scanner logs are cleared.</span>")
+	to_chat(user, span_notice("The scanner logs are cleared."))
 	log = list()
 
 /obj/item/detective_scanner/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(log) && !scanning)
-		. += "<span class='notice'>Alt-click to clear scanner logs.</span>"
+		. += span_notice("Alt-click to clear scanner logs.")
 
 /obj/item/detective_scanner/proc/displayDetectiveScanResults(mob/living/user)
 	// No need for can-use checks since the action button should do proper checks
 	if(!LAZYLEN(log))
-		to_chat(user, "<span class='notice'>Cannot display logs, the scanner has no logs.</span>")
+		to_chat(user, span_notice("Cannot display logs, the scanner has no logs."))
 		return
 	if(scanning)
-		to_chat(user, "<span class='notice'>Cannot display logs, the scanner is in use.</span>")
+		to_chat(user, span_notice("Cannot display logs, the scanner is in use."))
 		return
-	to_chat(user, "<span class='notice'><B>Scanner Report</B></span>")
+	to_chat(user, span_notice("<B>Scanner Report</B>"))
 	for(var/iterLog in log)
 		to_chat(user, iterLog)

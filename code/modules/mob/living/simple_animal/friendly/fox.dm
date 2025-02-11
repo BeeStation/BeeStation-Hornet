@@ -15,15 +15,18 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat/slab = 3)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFAE64"
 	mobchatspan = "fox"
 	can_be_held = TRUE
 	held_state = "fox"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	worn_slot_flags = ITEM_SLOT_HEAD
 
 //Captain fox

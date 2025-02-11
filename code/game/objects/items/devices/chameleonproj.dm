@@ -6,6 +6,7 @@
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throwforce = 5
@@ -34,7 +35,7 @@
 	if (isturf(user.loc) || istype(user.loc, /obj/structure) || active_dummy)
 		toggle(user)
 	else
-		to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
+		to_chat(user, span_warning("You can't use [src] while inside something!"))
 
 /obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -54,7 +55,7 @@
 		if(!(istype(target, /obj/effect/decal))) //be a footprint
 			return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
-	to_chat(user, "<span class='notice'>Scanned [target].</span>")
+	to_chat(user, span_notice("Scanned [target]."))
 	var/obj/temp = new/obj()
 	temp.appearance = target.appearance
 	temp.layer = initial(target.layer) // scanning things in your inventory
@@ -82,7 +83,7 @@
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		qdel(active_dummy)
 		active_dummy = null
-		to_chat(user, "<span class='notice'>You deactivate \the [src].</span>")
+		to_chat(user, span_notice("You deactivate \the [src]."))
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
@@ -91,14 +92,14 @@
 			var/list/overlay_data = vis_overlay_data[overlay_index]
 			SSvis_overlays.add_vis_overlay(C, overlay_data["icon"], overlay_data["icon_state"], overlay_data["layer"], overlay_data["plane"], C.dir, alpha = overlay_data["alpha"], add_appearance_flags = overlay_data["appearance_flags"])
 		C.activate(user, saved_appearance, src)
-		to_chat(user, "<span class='notice'>You activate \the [src].</span>")
+		to_chat(user, span_notice("You activate \the [src]."))
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	user.cancel_camera()
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
 		for(var/mob/M in active_dummy)
-			to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+			to_chat(M, span_danger("Your chameleon-projector deactivates."))
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
@@ -160,7 +161,7 @@
 	. = ..()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/relaymove(mob/user, direction)
+/obj/effect/dummy/chameleon/relaymove(mob/living/user, direction)
 	if(isspaceturf(loc) || !direction)
 		return //No magical space movement!
 

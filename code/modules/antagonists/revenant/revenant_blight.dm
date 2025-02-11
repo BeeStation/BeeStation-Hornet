@@ -10,7 +10,7 @@
 	agent = "Unholy Forces"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	disease_flags = CURABLE
-	permeability_mod = 1
+	spreading_modifier = 1
 	danger = DISEASE_HARMFUL
 	var/finalstage = 0 //Ensures the final stage effects that should only happen once do not happen repeatedly.
 	var/startresting
@@ -23,13 +23,13 @@
 			affected_mob.dna.species.handle_mutant_bodyparts(affected_mob)
 			affected_mob.dna.species.handle_hair(affected_mob)
 		new /obj/effect/temp_visual/revenant/blightcure(affected_mob.loc)
-		to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+		to_chat(affected_mob, span_notice("You feel better."))
 	..()
 
 /datum/disease/revblight/stage_act()
 	..()
 	affected_mob.adjustStaminaLoss(1) //Provides gradual exhaustion, but mostly to prevent regeneration and set an upper limit on disease duration to about five minutes
-	if(!(affected_mob.mobility_flags & MOBILITY_STAND))
+	if(affected_mob.body_position == LYING_DOWN)
 		if(HAS_TRAIT_FROM(affected_mob, TRAIT_INCAPACITATED, STAMINA) && !finalstage)
 			stage = 5
 		if(!startresting || restingat != get_turf(affected_mob))
@@ -40,7 +40,7 @@
 	else
 		startresting = null
 	if(prob(stage*3) && !finalstage && affected_mob.staminaloss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
-		to_chat(affected_mob, "<span class='revennotice'>You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]...</span>")
+		to_chat(affected_mob, span_revennotice("You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))
 		affected_mob.confused += 8
 		affected_mob.adjustStaminaLoss(15) //Where the real exhaustion builds up.
 		new /obj/effect/temp_visual/revenant(affected_mob.loc)
@@ -57,12 +57,12 @@
 				affected_mob.adjustStaminaLoss(15) //No longer realistically possible to counteract with stimulants
 			if(!finalstage)
 				finalstage = TRUE
-				to_chat(affected_mob, "<span class='revenbignotice'>You feel like [pick("you just can't go on", "you should just give up", "there's nothing you can do", "everything is hopeless")].</span>")
+				to_chat(affected_mob, span_revenbignotice("You feel like [pick("you just can't go on", "you should just give up", "there's nothing you can do", "everything is hopeless")]."))
 				new /obj/effect/temp_visual/revenant(affected_mob.loc)
 				if(affected_mob.dna?.species)
 					affected_mob.dna.species.handle_mutant_bodyparts(affected_mob,"#1d2953")
 					affected_mob.dna.species.handle_hair(affected_mob,"#1d2953")
-				affected_mob.visible_message("<span class='warning'>[affected_mob] looks terrifyingly gaunt...</span>", "<span class='revennotice'>You suddenly feel like your skin is <i>wrong</i>...</span>")
+				affected_mob.visible_message(span_warning("[affected_mob] looks terrifyingly gaunt..."), span_revennotice("You suddenly feel like your skin is <i>wrong</i>..."))
 				affected_mob.add_atom_colour("#1d2953", TEMPORARY_COLOUR_PRIORITY)
 		else
 			return

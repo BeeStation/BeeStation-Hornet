@@ -3,6 +3,7 @@
 	desc = "A stun baton which uses localised electrical shocks to cause muscular fatigue."
 	icon_state = "stunbaton"
 	item_state = "baton"
+	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -10,21 +11,28 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
-	attack_verb = list("enforced the law upon")
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
+	attack_verb_continuous = list("enforces the law upon")
+	attack_verb_simple = list("enforce the law upon")
+	armor_type = /datum/armor/melee_baton
 
-	var/stunforce = 75
+	var/stunforce = 40
 	var/turned_on = FALSE
 	var/obj/item/stock_parts/cell/cell
 	var/hitcost = 1000
 	var/throw_hit_chance = 35
 	var/preload_cell_type //if not empty the baton starts with this type of cell
 
+
+/datum/armor/melee_baton
+	bomb = 50
+	fire = 80
+	acid = 80
+
 /obj/item/melee/baton/get_cell()
 	return cell
 
 /obj/item/melee/baton/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/melee/baton/Initialize(mapload)
@@ -54,7 +62,7 @@
 	..()
 	//Only mob/living types have stun handling
 	if(turned_on && prob(throw_hit_chance) && iscarbon(hit_atom))
-		baton_stun(hit_atom)
+		baton_stun(hit_atom, throwingdatum.thrower)
 
 /obj/item/melee/baton/loaded //this one starts with a cell pre-installed.
 	preload_cell_type = /obj/item/stock_parts/cell/high
@@ -85,9 +93,9 @@
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>\The [src] is [round(cell.percent())]% charged.</span>"
+		. += span_notice("\The [src] is [round(cell.percent())]% charged.")
 	else
-		. += "<span class='warning'>\The [src] does not have a power source installed.</span>"
+		. += span_warning("\The [src] does not have a power source installed.")
 
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -118,7 +126,7 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost && !(obj_flags & OBJ_EMPED))
 		turned_on = !turned_on
-		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
+		balloon_alert(user, "You turn [src] [turned_on ? "on" : "off"].")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE
@@ -131,8 +139,8 @@
 
 /obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED))
-		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!</span>", \
-							"<span class='userdanger'>You accidentally hit yourself with [src], electrocuting yourself badly!</span>")
+		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!"), \
+							span_userdanger("You accidentally hit yourself with [src], electrocuting yourself badly!"))
 		user.adjustStaminaLoss(stunforce*3)
 		user.stuttering = 20
 		user.do_jitter_animation(20)
@@ -154,8 +162,8 @@
 				user.do_attack_animation(M)
 				return
 		else
-			M.visible_message("<span class='warning'>[user] has prodded [M] with [src]. Luckily it was off.</span>", \
-							"<span class='warning'>[user] has prodded you with [src]. Luckily it was off</span>")
+			M.visible_message(span_warning("[user] has prodded [M] with [src]. Luckily it was off."), \
+							span_warning("[user] has prodded you with [src]. Luckily it was off"))
 	else
 		if(turned_on)
 			baton_stun(M, user)
@@ -184,13 +192,28 @@
 	target.apply_effect(EFFECT_STUTTER, stunforce)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 	target.stuttering = 20
-	target.do_jitter_animation(20)
+
+	// Shoving
+	if(user.a_intent == INTENT_DISARM)
+		var/shove_dir = get_dir(user.loc, target.loc)
+		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+		if (target_collateral_human && target_shove_turf != get_turf(user))
+			target.Knockdown(0.5 SECONDS)
+			target_collateral_human.Knockdown(0.5 SECONDS)
+		target.Move(target_shove_turf, shove_dir)
+
+	target.do_stun_animation()
+
+	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
+		target.emote("scream")
+
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
-		target.visible_message("<span class='danger'>[user] has electrocuted [target] with [src]!</span>", \
-								"<span class='userdanger'>[user] has electrocuted you with [src]!</span>")
-		log_combat(user, target, "stunned")
+		target.visible_message(span_danger("[user] has electrocuted [target] with [src]!"), \
+								span_userdanger("[user] has electrocuted you with [src]!"))
+		log_combat(user, target, "stunned", src)
 
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
@@ -220,12 +243,13 @@
 	desc = "An improvised stun baton."
 	icon_state = "stunprod"
 	item_state = "prod"
+	worn_icon_state = null
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
-	stunforce = 70
+	stunforce = 40
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = ITEM_SLOT_BACK

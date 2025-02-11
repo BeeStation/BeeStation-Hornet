@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(gold_recipes, list ( \
 	new/datum/stack_recipe("HoP Statue", /obj/structure/statue/gold/hop, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("CE Statue", /obj/structure/statue/gold/ce, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("RD Statue", /obj/structure/statue/gold/rd, 5, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5), \
+	new/datum/stack_recipe("Simple Crown", /obj/item/clothing/head/costume/crown, 5), \
 	new/datum/stack_recipe("CMO Statue", /obj/structure/statue/gold/cmo, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	))
 

@@ -24,12 +24,12 @@ RLD
 	w_class = WEIGHT_CLASS_LARGE
 	custom_materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/item_construction
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
 	var/max_matter = 100
-	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
+	var/no_ammo_message = span_warning("The \'Low Ammo\' light on the device blinks yellow.")
 	var/has_ammobar = FALSE	//controls whether or not does update_icon apply ammo indicator overlays
 	var/ammo_sections = 10	//amount of divisions in the ammo indicator overlay/number of ammo indicator states
 	/// Bitflags for upgrades
@@ -38,6 +38,11 @@ RLD
 	var/banned_upgrades = NONE
 	var/datum/component/remote_materials/silo_mats //remote connection to the silo
 	var/silo_link = FALSE //switch to use internal or remote storage
+
+
+/datum/armor/item_construction
+	fire = 100
+	acid = 50
 
 /obj/item/construction/Initialize(mapload)
 	. = ..()
@@ -49,11 +54,11 @@ RLD
 
 /obj/item/construction/examine(mob/user)
 	. = ..()
-	. += "\A [src]. It currently holds [matter]/[max_matter] matter-units."
+	. += "It currently holds [matter]/[max_matter] matter-units."
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
-		. += "\A [src]. Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
-		if(silo_link && !silo_mats.on_hold() && silo_mats.mat_container)
-			. += "\A [src]. Remote connection have iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] rcd units." // 1 matter for 1 floortile, as 4 tiles are produced from 1 iron
+		. += "Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
+		if(silo_link && silo_mats.mat_container && !silo_mats.on_hold())
+			. += "Remote connection has iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] RCD unit\s." //1 matter for 1 floor tile, as 4 tiles are produced from 1 metal
 
 /obj/item/construction/Destroy()
 	QDEL_NULL(spark_system)
@@ -71,10 +76,10 @@ RLD
 /// Installs an upgrade into the RCD checking if it is already installed, or if it is a banned upgrade
 /obj/item/construction/proc/install_upgrade(obj/item/rcd_upgrade/rcd_up, mob/user)
 	if(rcd_up.upgrade & upgrade)
-		to_chat(user, "<span class='warning'>[src] has already installed this upgrade!</span>")
+		to_chat(user, span_warning("[src] has already installed this upgrade!"))
 		return
 	if(rcd_up.upgrade & banned_upgrades)
-		to_chat(user, "<span class='warning'>[src] can't install this upgrade!</span>")
+		to_chat(user, span_warning("[src] can't install this upgrade!"))
 		return
 	upgrade |= rcd_up.upgrade
 	if((rcd_up.upgrade & RCD_UPGRADE_SILO_LINK) && !silo_mats)
@@ -91,7 +96,7 @@ RLD
 		var/obj/item/rcd_ammo/R = O
 		var/load = min(R.ammoamt, max_matter - matter)
 		if(load <= 0)
-			to_chat(user, "<span class='warning'>[src] can't hold any more matter-units!</span>")
+			to_chat(user, span_warning("[src] can't hold any more matter-units!"))
 			return FALSE
 		R.ammoamt -= load
 		if(R.ammoamt <= 0)
@@ -102,14 +107,14 @@ RLD
 	else if(istype(O, /obj/item/stack))
 		loaded = loadwithsheets(O, user)
 	if(loaded)
-		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
+		to_chat(user, span_notice("[src] now holds [matter]/[max_matter] matter-units."))
 		update_appearance() //ensures that ammo counters (if present) get updated
 	return loaded
 
 /obj/item/construction/proc/loadwithsheets(obj/item/stack/loaded_stack, mob/user)
 	var/value = loaded_stack.matter_amount
 	if(value <= 0)
-		to_chat(user, "<span class='notice'>You can't insert [loaded_stack.name] into [src]!</span>")
+		to_chat(user, span_notice("You can't insert [loaded_stack.name] into [src]!"))
 		return FALSE
 	var/maxsheets = round((max_matter-matter)/value)    //calculate the max number of sheets that will fit in RCD
 	if(maxsheets > 0)
@@ -117,9 +122,9 @@ RLD
 		loaded_stack.use(amount_to_use)
 		matter += value*amount_to_use
 		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
-		to_chat(user, "<span class='notice'>You insert [amount_to_use] [loaded_stack.name] sheets into [src]. </span>")
+		to_chat(user, span_notice("You insert [amount_to_use] [loaded_stack.name] sheets into [src]. "))
 		return TRUE
-	to_chat(user, "<span class='warning'>You can't insert any more [loaded_stack.name] sheets into [src]!</span>")
+	to_chat(user, span_warning("You can't insert any more [loaded_stack.name] sheets into [src]!"))
 	return FALSE
 
 /obj/item/construction/proc/activate()
@@ -137,13 +142,16 @@ RLD
 				to_chat(user, no_ammo_message)
 			return FALSE
 		matter -= amount
-		update_icon()
+		update_appearance()
 		return TRUE
 	else
 		var/list/matlist = list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500)
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
+			return FALSE
+		if(!silo_mats.mat_container)
+			to_chat(user, span_alert("No silo link detected. Connect to silo via multitool."))
 			return FALSE
 		if(!silo_mats.mat_container?.has_materials(matlist, amount))
 			if(user)
@@ -155,7 +163,7 @@ RLD
 		return TRUE
 
 /obj/item/construction/proc/checkResource(amount, mob/user)
-	if(!silo_mats || !silo_link)
+	if(!silo_link || !silo_mats || !silo_mats.mat_container)
 		. = matter >= amount
 	else
 		if(silo_mats.on_hold())
@@ -173,7 +181,7 @@ RLD
 	if(A.z != user.z)
 		return
 	if(!(user in viewers(7, get_turf(A))) && !(max_matter == INFINITY)) // debug tool has no max range
-		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
+		to_chat(user, span_warning("The \'Out of Range\' light on [src] blinks red."))
 		return FALSE
 	else
 		return TRUE
@@ -191,10 +199,15 @@ RLD
 		return FALSE
 	return TRUE
 
+#define RCD_DESTRUCTIVE_SCAN_RANGE 10
+#define RCD_HOLOGRAM_FADE_TIME (15 SECONDS)
+#define RCD_DESTRUCTIVE_SCAN_COOLDOWN (RCD_HOLOGRAM_FADE_TIME + 1 SECONDS)
+
 /obj/item/construction/rcd
 	name = "rapid-construction-device (RCD)"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
+	worn_icon_state = "RCD"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_price = 150
@@ -202,6 +215,7 @@ RLD
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
+	actions_types = list(/datum/action/item_action/rcd_scan)
 	var/mode = RCD_FLOORWALL
 	var/ranged = FALSE
 	var/computer_dir = 1
@@ -219,8 +233,86 @@ RLD
 	/// Integrated airlock electronics for setting access to a newly built airlocks
 	var/obj/item/electronics/airlock/airlock_electronics
 
+	COOLDOWN_DECLARE(destructive_scan_cooldown)
+
+GLOBAL_VAR_INIT(icon_holographic_wall, init_holographic_wall())
+GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
+
+// `initial` does not work here. Neither does instantiating a wall/whatever
+// and referencing that. I don't know why.
+/proc/init_holographic_wall()
+	return getHologramIcon(
+		icon('icons/turf/walls/wall.dmi', "wall-0"),
+		opacity = 1,
+	)
+
+/proc/init_holographic_window()
+	var/icon/grille_icon = icon('icons/obj/structures.dmi', "grille")
+	var/icon/window_icon = icon('icons/obj/smooth_structures/windows/window.dmi', "window-0")
+
+	grille_icon.Blend(window_icon, ICON_OVERLAY)
+
+	return getHologramIcon(grille_icon)
+
+/obj/item/construction/rcd/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
+
+/obj/item/construction/rcd/ui_action_click(mob/user, actiontype)
+	if (!COOLDOWN_FINISHED(src, destructive_scan_cooldown))
+		to_chat(user, span_warning("[src] lets out a low buzz."))
+		return
+
+	COOLDOWN_START(src, destructive_scan_cooldown, RCD_DESTRUCTIVE_SCAN_COOLDOWN)
+
+	playsound(src, 'sound/items/rcdscan.ogg', 50, vary = TRUE, pressure_affected = FALSE)
+
+	var/turf/source_turf = get_turf(src)
+	for (var/turf/open/surrounding_turf in RANGE_TURFS(RCD_DESTRUCTIVE_SCAN_RANGE, source_turf))
+		var/rcd_memory = surrounding_turf.rcd_memory
+		if (!rcd_memory)
+			continue
+
+		var/skip_to_next_turf = FALSE
+
+		for (var/atom/content_of_turf as anything in surrounding_turf.contents)
+			if (content_of_turf.density)
+				skip_to_next_turf = TRUE
+				break
+
+		if (skip_to_next_turf)
+			continue
+
+		var/hologram_icon
+		switch (rcd_memory)
+			if (RCD_MEMORY_WALL)
+				hologram_icon = GLOB.icon_holographic_wall
+			if (RCD_MEMORY_WINDOWGRILLE)
+				hologram_icon = GLOB.icon_holographic_window
+
+		var/obj/effect/rcd_hologram/hologram = new (surrounding_turf)
+		hologram.icon = hologram_icon
+		animate(hologram, alpha = 0, time = RCD_HOLOGRAM_FADE_TIME, easing = CIRCULAR_EASING | EASE_IN)
+
+/obj/effect/rcd_hologram
+	name = "hologram"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/rcd_hologram/Initialize(mapload)
+	. = ..()
+	QDEL_IN(src, RCD_HOLOGRAM_FADE_TIME)
+
+#undef RCD_DESTRUCTIVE_SCAN_COOLDOWN
+#undef RCD_DESTRUCTIVE_SCAN_RANGE
+#undef RCD_HOLOGRAM_FADE_TIME
+
 /obj/item/construction/rcd/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] sets the RCD to 'Wall' and points it down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide..</span>")
+	user.visible_message(span_suicide("[user] sets the RCD to 'Wall' and points it down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide.."))
 	return BRUTELOSS
 
 /obj/item/construction/rcd/verb/toggle_window_glass_verb()
@@ -272,14 +364,17 @@ RLD
 		else
 			window_type = /obj/structure/window/fulltile
 
-	to_chat(user, "<span class='notice'>You change \the [src]'s window mode to [window_size] [window_glass] window.</span>")
+	to_chat(user, span_notice("You change \the [src]'s window mode to [window_size] [window_glass] window."))
 
 /obj/item/construction/rcd/proc/toggle_silo_link(mob/user)
 	if(silo_mats)
+		if(!silo_mats.mat_container)
+			to_chat(user, span_alert("No silo link detected. Connect to silo via multitool."))
+			return FALSE
 		silo_link = !silo_link
-		to_chat(user, "<span class='notice'>You change \the [src]'s storage link state: [silo_link ? "ON" : "OFF"].</span>")
+		to_chat(user, span_notice("You change \the [src]'s storage link state: [silo_link ? "ON" : "OFF"]."))
 	else
-		to_chat(user, "<span class='warning'>\the [src] doesn't have remote storage connection.</span>")
+		to_chat(user, span_warning("\the [src] doesn't have remote storage connection."))
 
 /obj/item/construction/rcd/proc/get_airlock_image(airlock_type)
 	var/obj/machinery/door/airlock/proto = airlock_type
@@ -294,10 +389,10 @@ RLD
 	if(!user)
 		return
 	var/list/computer_dirs = list(
-		"NORTH" = image(icon = 'icons/mob/radial.dmi', icon_state = "cnorth"),
-		"EAST" = image(icon = 'icons/mob/radial.dmi', icon_state = "ceast"),
-		"SOUTH" = image(icon = 'icons/mob/radial.dmi', icon_state = "csouth"),
-		"WEST" = image(icon = 'icons/mob/radial.dmi', icon_state = "cwest")
+		"NORTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cnorth"),
+		"EAST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "ceast"),
+		"SOUTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "csouth"),
+		"WEST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cwest")
 		)
 	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
@@ -319,8 +414,8 @@ RLD
 	var/list/solid_or_glass_choices = list(
 		"Solid" = get_airlock_image(/obj/machinery/door/airlock),
 		"Glass" = get_airlock_image(/obj/machinery/door/airlock/glass),
-		"Windoor" = image(icon = 'icons/mob/radial.dmi', icon_state = "windoor"),
-		"Secure Windoor" = image(icon = 'icons/mob/radial.dmi', icon_state = "secure_windoor")
+		"Windoor" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "windoor"),
+		"Secure Windoor" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "secure_windoor")
 	)
 
 	var/list/solid_choices = list(
@@ -462,10 +557,10 @@ RLD
 	if(!user)
 		return
 	var/static/list/choices = list(
-		"Chair" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair"),
-		"Stool" = image(icon = 'icons/mob/radial.dmi', icon_state = "stool"),
-		"Table" = image(icon = 'icons/mob/radial.dmi', icon_state = "table"),
-		"Glass Table" = image(icon = 'icons/mob/radial.dmi', icon_state = "glass_table")
+		"Chair" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "chair"),
+		"Stool" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "stool"),
+		"Table" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "table"),
+		"Glass Table" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "glass_table")
 		)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
@@ -489,21 +584,36 @@ RLD
 			furnish_delay = 20
 
 /obj/item/construction/rcd/proc/rcd_create(atom/A, mob/user)
+	//does this atom allow for rcd actions?
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
 		return FALSE
+	//start animation & check resource for the action
 	var/delay = rcd_results["delay"] * delay_mod
 	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
-	if(checkResource(rcd_results["cost"], user))
-		if(do_after(user, delay, target = A))
-			if(checkResource(rcd_results["cost"], user))
-				if(A.rcd_act(user, src, rcd_results["mode"]))
-					rcd_effect.end_animation()
-					useResource(rcd_results["cost"], user)
-					activate()
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					return TRUE
-	qdel(rcd_effect)
+	if(!checkResource(rcd_results["cost"], user))
+		qdel(rcd_effect)
+		return FALSE
+	if(rcd_results["mode"] == RCD_MACHINE || rcd_results["mode"] == RCD_COMPUTER || rcd_results["mode"] == RCD_FURNISHING)
+		var/turf/target_turf = get_turf(A)
+		if(target_turf.is_blocked_turf(exclude_mobs = TRUE))
+			playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+			qdel(rcd_effect)
+			return FALSE
+	if(!do_after(user, delay, target = A))
+		qdel(rcd_effect)
+		return FALSE
+	if(!checkResource(rcd_results["cost"], user))
+		qdel(rcd_effect)
+		return FALSE
+	if(!A.rcd_act(user, src, rcd_results["mode"]))
+		qdel(rcd_effect)
+		return FALSE
+	rcd_effect.end_animation()
+	useResource(rcd_results["cost"], user)
+	activate()
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	return TRUE
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
@@ -511,31 +621,25 @@ RLD
 	airlock_electronics.name = "Access Control"
 	airlock_electronics.holder = src
 	GLOB.rcd_list += src
-	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/construction/rcd/Destroy()
 	QDEL_NULL(airlock_electronics)
 	GLOB.rcd_list -= src
 	. = ..()
 
-/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag)
-		mode = RCD_FLOORWALL
-		rcd_create(target, user)
-
 /obj/item/construction/rcd/attack_self(mob/user)
 	..()
 	var/list/choices = list(
-		"Airlock" = image(icon = 'icons/mob/radial.dmi', icon_state = "airlock"),
-		"Deconstruct" = image(icon= 'icons/mob/radial.dmi', icon_state = "delete"),
-		"Grilles & Windows" = image(icon = 'icons/mob/radial.dmi', icon_state = "grillewindow"),
-		"Floors & Walls" = image(icon = 'icons/mob/radial.dmi', icon_state = "wallfloor")
+		"Airlock" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "airlock"),
+		"Deconstruct" = image(icon= 'icons/hud/radials/radial_generic.dmi', icon_state = "delete"),
+		"Grilles & Windows" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "grillewindow"),
+		"Floors & Walls" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "wallfloor")
 	)
 	if(upgrade & RCD_UPGRADE_FRAMES)
 		choices += list(
-		"Machine Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "machine"),
-		"Computer Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "computer_dir"),
-		"Ladders" = image(icon = 'icons/mob/radial.dmi', icon_state = "ladder")
+		"Machine Frames" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "machine"),
+		"Computer Frames" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "computer_dir"),
+		"Ladders" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "ladder")
 		)
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
 		choices += list(
@@ -543,21 +647,21 @@ RLD
 		)
 	if(upgrade & RCD_UPGRADE_FURNISHING)
 		choices += list(
-		"Furnishing" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair")
+		"Furnishing" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "chair")
 		)
 	if(mode == RCD_AIRLOCK)
 		choices += list(
-		"Change Access" = image(icon = 'icons/mob/radial.dmi', icon_state = "access"),
-		"Change Airlock Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "airlocktype")
+		"Change Access" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "access"),
+		"Change Airlock Type" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "airlocktype")
 		)
 	else if(mode == RCD_WINDOWGRILLE)
 		choices += list(
-		"Change Window Glass" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowtype"),
-		"Change Window Size" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowsize")
+		"Change Window Glass" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "windowtype"),
+		"Change Window Size" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "windowsize")
 		)
 	else if(mode == RCD_FURNISHING)
 		choices += list(
-		"Change Furnishing Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair")
+		"Change Furnishing Type" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "chair")
 		)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
@@ -602,7 +706,7 @@ RLD
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
-	to_chat(user, "<span class='notice'>You change RCD's mode to '[choice]'.</span>")
+	to_chat(user, span_notice("You change RCD's mode to '[choice]'."))
 
 /obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
 	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder || istype(A, /obj/structure/ladder)))
@@ -617,9 +721,7 @@ RLD
 	rcd_create(A, user)
 
 /obj/item/construction/rcd/proc/detonate_pulse()
-	audible_message("<span class='danger'><b>[src] begins to vibrate and \
-		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
-		vibrating violently!</b></span>")
+	audible_message(span_danger("<b>[src] begins to vibrate and buzz loudly!</b>"), span_danger("<b>[src] begins vibrating violently!</b>"))
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
@@ -635,10 +737,10 @@ RLD
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/construction/rcd/borg
-	no_ammo_message = "<span class='warning'>Insufficient charge.</span>"
+	no_ammo_message = span_warning("Insufficient charge.")
 	desc = "A device used to rapidly build walls and floors."
 	canRturf = TRUE
 	banned_upgrades = RCD_UPGRADE_SILO_LINK
@@ -716,6 +818,7 @@ RLD
 	icon_state = "arcd"
 	item_state = "oldrcd"
 	has_ammobar = FALSE
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
 /obj/item/construction/rcd/arcd/afterattack(atom/A, mob/user)
 	. = ..()
@@ -736,6 +839,7 @@ RLD
 	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rld-5"
+	worn_icon_state = "RPD"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	matter = 200
@@ -772,13 +876,13 @@ RLD
 	switch(mode)
 		if(REMOVE_MODE)
 			mode = LIGHT_MODE
-			to_chat(user, "<span class='notice'>You change RLD's mode to 'Permanent Light Construction'.</span>")
+			to_chat(user, span_notice("You change RLD's mode to 'Permanent Light Construction'."))
 		if(LIGHT_MODE)
 			mode = GLOW_MODE
-			to_chat(user, "<span class='notice'>You change RLD's mode to 'Light Launcher'.</span>")
+			to_chat(user, span_notice("You change RLD's mode to 'Light Launcher'."))
 		if(GLOW_MODE)
 			mode = REMOVE_MODE
-			to_chat(user, "<span class='notice'>You change RLD's mode to 'Deconstruct'.</span>")
+			to_chat(user, span_notice("You change RLD's mode to 'Deconstruct'."))
 
 
 /obj/item/construction/rld/proc/checkdupes(var/target)
@@ -798,9 +902,9 @@ RLD
 		if(REMOVE_MODE)
 			if(istype(A, /obj/machinery/light/))
 				if(checkResource(deconcost, user))
-					to_chat(user, "<span class='notice'>You start deconstructing [A]...</span>")
+					to_chat(user, span_notice("You start deconstructing [A]..."))
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 					if(do_after(user, decondelay, target = A))
 						if(!useResource(deconcost, user))
 							return 0
@@ -812,10 +916,10 @@ RLD
 			if(iswallturf(A))
 				var/turf/closed/wall/W = A
 				if(checkResource(floorcost, user))
-					to_chat(user, "<span class='notice'>You start building a wall light...</span>")
+					to_chat(user, span_notice("You start building a wall light..."))
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 0)
+					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, FALSE)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(W))
 							return FALSE
@@ -825,11 +929,11 @@ RLD
 						for(var/direction in GLOB.cardinals)
 							var/turf/C = get_step(W, direction)
 							var/list/dupes = checkdupes(C)
-							if(start.CanAtmosPass(C) && !dupes.len)
+							if(TURF_SHARES(C) && !dupes.len)
 								candidates += C
 						if(!candidates.len)
-							to_chat(user, "<span class='warning'>Valid target not found...</span>")
-							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, 1)
+							to_chat(user, span_warning("Valid target not found..."))
+							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, TRUE)
 							return FALSE
 						for(var/turf/open/O in candidates)
 							if(istype(O))
@@ -858,10 +962,10 @@ RLD
 			if(isfloorturf(A))
 				var/turf/open/floor/F = A
 				if(checkResource(floorcost, user))
-					to_chat(user, "<span class='notice'>You start building a floor light...</span>")
+					to_chat(user, span_notice("You start building a floor light..."))
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+					playsound(loc, 'sound/effects/light_flicker.ogg', 50, TRUE)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(F))
 							return 0
@@ -878,7 +982,7 @@ RLD
 		if(GLOW_MODE)
 			if(useResource(launchcost, user))
 				activate()
-				to_chat(user, "<span class='notice'>You fire a glowstick!</span>")
+				to_chat(user, span_notice("You fire a glowstick!"))
 				var/obj/item/flashlight/glowstick/G  = new /obj/item/flashlight/glowstick(start)
 				G.color = color_choice
 				G.light_color = G.color
@@ -892,6 +996,7 @@ RLD
 	name = "Plumbing Constructor"
 	desc = "An expertly modified RCD outfitted to construct plumbing machinery."
 	icon_state = "plumberer2"
+	worn_icon_state = "plumbing"
 	icon = 'icons/obj/tools.dmi'
 	slot_flags = ITEM_SLOT_BELT
 
@@ -915,7 +1020,6 @@ RLD
 	. = ..()
 	set_plumbing_designs()
 
-
 ///Set the list of designs this plumbing rcd can make
 /obj/item/construction/plumbing/proc/set_plumbing_designs()
 	plumbing_design_types = list(
@@ -929,7 +1033,8 @@ RLD
 	/obj/machinery/plumbing/disposer = 10,
 	/obj/machinery/plumbing/filter = 5,
 	/obj/machinery/plumbing/grinder_chemical = 30,
-	/obj/machinery/plumbing/splitter = 5
+	/obj/machinery/plumbing/splitter = 5,
+	/obj/machinery/plumbing/bottle_dispenser = 20,
 )
 
 /obj/item/construction/plumbing/attack_self(mob/user)
@@ -949,7 +1054,7 @@ RLD
 
 	blueprint = name_to_type[choice]
 	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
-	to_chat(user, "<span class='notice'>You change [name]s blueprint to '[choice]'.</span>")
+	to_chat(user, span_notice("You change [name]s blueprint to '[choice]'."))
 
 ///pretty much rcd_create, but named differently to make myself feel less bad for copypasting from a sibling-type
 /obj/item/construction/plumbing/proc/create_machine(atom/A, mob/user)
@@ -980,7 +1085,7 @@ RLD
 	if(istype(A, /obj/machinery/plumbing))
 		var/obj/machinery/plumbing/P = A
 		if(P.anchored)
-			to_chat(user, "<span class='warning'>The [P.name] needs to be unanchored!</span>")
+			to_chat(user, span_warning("The [P.name] needs to be unanchored!"))
 			return
 		if(do_after(user, 20, target = P))
 			P.deconstruct() //Let's not substract matter
@@ -1010,6 +1115,13 @@ RLD
 /obj/item/rcd_upgrade/furnishing
 	desc = "It contains the design for chairs, stools, tables, and glass tables."
 	upgrade = RCD_UPGRADE_FURNISHING
+
+/datum/action/item_action/pick_color
+	name = "Choose A Color"
+
+/datum/action/item_action/rcd_scan
+	name = "Destruction Scan"
+	desc = "Scans the surrounding area for destruction. Scanned structures will rebuild significantly faster."
 
 #undef GLOW_MODE
 #undef LIGHT_MODE

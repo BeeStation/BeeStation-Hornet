@@ -1,9 +1,12 @@
 /obj/item/clothing/under/suit
+	icon = 'icons/obj/clothing/under/suits.dmi'
+	worn_icon = 'icons/mob/clothing/under/suits.dmi'
 	name = "white suit"
 	desc = "A white suit."
 	icon_state = "scratch"
 	item_state = "scratch"
 	can_adjust = FALSE
+	female_sprite_flags = FEMALE_UNIFORM_NO_BREASTS
 	dying_key = DYE_REGISTRY_SUITS
 
 /obj/item/clothing/under/suit/white_on_white
@@ -11,6 +14,7 @@
 	desc = "A white suit, suitable for an excellent host."
 	icon_state = "scratch"
 	item_state = "scratch"
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY|FEMALE_UNIFORM_NO_BREASTS
 
 /obj/item/clothing/under/suit/sl
 	desc = "It's a very amish looking suit."
@@ -30,6 +34,13 @@
 	item_state = "blackslacks"
 	can_adjust = TRUE
 
+/obj/item/clothing/under/suit/relaxed
+	name = "relaxed slacks"
+	desc = "A somewhat less professional set of black slacks and a white dress shirt."
+	icon_state = "relaxed"
+	item_state = "relaxed"
+	can_adjust = TRUE
+
 /obj/item/clothing/under/suit/black/skirt
 	name = "black suitskirt"
 	desc = "A professional black suit. Nanotrasen Investigation Bureau approved!"
@@ -37,7 +48,7 @@
 	item_state = "bar_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY|FEMALE_UNIFORM_NO_BREASTS
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/suit/black_really
@@ -52,7 +63,7 @@
 	icon_state = "reallyblack_suit_skirt"
 	item_state = "bl_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY|FEMALE_UNIFORM_NO_BREASTS
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/suit/black/female
@@ -61,15 +72,17 @@
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	body_parts_covered = CHEST|GROIN|ARMS
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY|FEMALE_UNIFORM_NO_BREASTS
 	//There is no alt sprite
 	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/green
 	name = "green suit"
 	desc = "A green suit and yellow necktie. Baller."
+	icon = 'icons/obj/clothing/under/captain.dmi'
 	icon_state = "green_suit"
 	item_state = "dg_suit"
+	worn_icon = 'icons/mob/clothing/under/captain.dmi'
 
 /obj/item/clothing/under/suit/red
 	name = "red suit"
@@ -87,7 +100,7 @@
 	name = "navy suit"
 	desc = "A navy suit and red tie, intended for the station's finest."
 	icon_state = "navy_suit"
-	item_state = "navy_suit"
+	item_state = null
 
 /obj/item/clothing/under/suit/burgundy
 	name = "burgundy suit"

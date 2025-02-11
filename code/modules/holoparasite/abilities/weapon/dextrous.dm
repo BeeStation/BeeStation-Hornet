@@ -107,8 +107,10 @@
 	owner.ranged = FALSE
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = "punch"
-	owner.response_harm = "weakly punches"
-	owner.attacktext = "weakly punches"
+	owner.response_harm_continuous = "weakly punches"
+	owner.response_harm_simple = "weakly punch"
+	owner.attack_verb_continuous = "weakly punches"
+	owner.attack_verb_simple = "weakly punch"
 	owner.environment_smash = NONE
 	. = ..()
 
@@ -125,8 +127,10 @@
 	owner.ranged = initial(owner.ranged)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)
-	owner.response_harm = initial(owner.response_harm)
-	owner.attacktext = initial(owner.attacktext)
+	owner.response_harm_continuous = initial(owner.response_harm_continuous)
+	owner.response_harm_simple = initial(owner.response_harm_simple)
+	owner.attack_verb_continuous = initial(owner.attack_verb_continuous)
+	owner.attack_verb_simple = initial(owner.attack_verb_simple)
 	owner.environment_smash = initial(owner.environment_smash)
 	. = ..()
 
@@ -196,7 +200,7 @@
 /datum/holoparasite_ability/weapon/dextrous/proc/on_wield(datum/_source, mob/living/user)
 	SIGNAL_HANDLER
 	if(!can_wield)
-		to_chat(user, "<span class='warning'>You are not strong enough to wield two-handed weapons!</span>")
+		to_chat(user, span_warning("You are not strong enough to wield two-handed weapons!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
 /datum/holoparasite_ability/weapon/dextrous/proc/can_fire_gun(datum/_source, obj/item/gun/gun)
@@ -217,11 +221,11 @@
 	for(var/obj/item/item in owner.held_items)
 		if(CHECK_BITFIELD(item.item_flags, ABSTRACT | EXAMINE_SKIP))
 			continue
-		text += "<span class='notice'>[t_they] [t_is] holding <b>[item.get_examine_string(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].</span>"
+		text += span_notice("[t_they] [t_is] holding <b>[item.get_examine_string(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].")
 	if(internal_storage)
 		if(CHECK_BITFIELD(internal_storage.item_flags, ABSTRACT | EXAMINE_SKIP))
 			return
 		if((!owner.has_matching_summoner(user) && !isobserver(user)) && get_dist(owner, user) > HOLOPARA_DEXTROUS_EXAMINE_DISTANCE)
-			text += "<span class='notice'>[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.</span>"
+			text += span_notice("[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.")
 			return
-		text += "<span class='notice'>[t_they] [t_is] holding <b>[internal_storage.get_examine_string(user)]</b> in [t_their] internal storage.</span>"
+		text += span_notice("[t_they] [t_is] holding <b>[internal_storage.get_examine_string(user)]</b> in [t_their] internal storage.")

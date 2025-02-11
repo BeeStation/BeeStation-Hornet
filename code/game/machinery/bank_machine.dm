@@ -16,6 +16,7 @@
 	radio = new(src)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
+	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 
 /obj/machinery/computer/bank_machine/Destroy()
@@ -34,7 +35,7 @@
 		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(D)
 			D.adjust_money(value)
-			to_chat(user, "<span class='notice'>You deposit [I]. The Cargo Budget is now $[D.account_balance].</span>")
+			to_chat(user, span_notice("You deposit [I]. The Cargo Budget is now $[D.account_balance]."))
 		qdel(I)
 		return
 	return ..()

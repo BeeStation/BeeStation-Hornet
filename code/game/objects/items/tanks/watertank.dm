@@ -12,7 +12,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/item_watertank
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -20,6 +20,11 @@
 
 	var/list/fill_icon_thresholds = list(1, 20, 30, 40, 50, 60, 70, 80, 90)
 	var/list/worn_fill_icon_thresholds = list(1, 20, 40, 65, 75, 90)
+
+
+/datum/armor/item_watertank
+	fire = 100
+	acid = 30
 
 /obj/item/watertank/Initialize(mapload)
 	. = ..()
@@ -84,7 +89,7 @@
 	if(!istype(user))
 		return
 	if(user.get_item_by_slot(user.getBackSlot()) != src)
-		to_chat(user, "<span class='warning'>The watertank must be worn properly to use!</span>")
+		to_chat(user, span_warning("The watertank must be worn properly to use!"))
 		return
 	if(user.incapacitated())
 		return
@@ -94,7 +99,7 @@
 	if(noz in src)
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the mister!</span>")
+			to_chat(user, span_warning("You need a free hand to hold the mister!"))
 			return
 		update_icon()
 	else
@@ -186,7 +191,7 @@
 /obj/item/reagent_containers/spray/mister/doMove(atom/destination)
 	if(destination && (destination != tank?.loc || !ismob(destination)))
 		if (loc != tank)
-			to_chat(tank.loc, "<span class='notice'>The mister snaps back onto the watertank.</span>")
+			to_chat(tank.loc, span_notice("The mister snaps back onto the watertank."))
 		destination = tank
 		tank.update_icon()
 	..()
@@ -225,7 +230,7 @@
 
 /obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, span_notice("You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray."))
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -327,7 +332,7 @@
 	if(!istype(user))
 		return
 	if(user.get_item_by_slot(user.getBackSlot()) != src)
-		to_chat(user, "<span class='warning'>The watertank must be worn properly to use!</span>")
+		to_chat(user, span_warning("The watertank must be worn properly to use!"))
 		return
 	if(user.incapacitated())
 		return
@@ -339,7 +344,7 @@
 		var/obj/item/extinguisher/mini/nozzle/N = noz
 		N.update_nozzle_stats()
 		if(!user.put_in_hands(noz))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the mister!</span>")
+			to_chat(user, span_warning("You need a free hand to hold the mister!"))
 			return
 		update_icon()
 	else
@@ -349,9 +354,9 @@
 /obj/item/watertank/atmos/examine(mob/user)
 	. = ..()
 	if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		. += "<span class='notice'>Its maximum tank volume was increased.</span>"
+		. += span_notice("Its maximum tank volume was increased.")
 	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-		. += "<span class='notice'>It's capable of producing advanced ATMOS resin.</span>"
+		. += span_notice("It's capable of producing advanced ATMOS resin.")
 
 /obj/item/atmostank_upgrade
 	name = "Backpack Firefighter Tank upgrade disk"
@@ -413,11 +418,11 @@
 /obj/item/extinguisher/mini/nozzle/examine(mob/user)
 	. = ..()
 	if(nozzle_mode == RESIN_LAUNCHER)
-		. += "<span class='notice'>Uses [resin_cost] units of water per resin launch.</span>"
+		. += span_notice("Uses [resin_cost] units of water per resin launch.")
 	if(nozzle_mode == RESIN_FOAM || nozzle_mode == RESIN_LAUNCHER)
-		. += "<span class='notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
+		. += span_notice("Is dispensing [toggled ? "advanced" : ""] ATMOS resin.")
 		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-			. += "<span class='notice'>Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.</span>"
+			. += span_notice("Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.")
 
 /obj/item/extinguisher/mini/nozzle/update_icon(updates)
 	. = ..()
@@ -481,7 +486,7 @@
 /obj/item/extinguisher/mini/nozzle/doMove(atom/destination)
 	if(destination && (destination != tank.loc || !ismob(destination)))
 		if(loc != tank)
-			to_chat(tank.loc, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+			to_chat(tank.loc, span_notice("The nozzle snaps back onto the tank!"))
 		destination = tank
 	..()
 
@@ -519,7 +524,7 @@
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
 		if(R.total_volume < resin_cost)
-			to_chat(user, "<span class='warning'>You need at least [resin_cost] units of water to use the resin launcher!</span>")
+			to_chat(user, span_warning("You need at least [resin_cost] units of water to use the resin launcher!"))
 			balloon_alert(user, "Not enough water")
 			return
 		if(!COOLDOWN_FINISHED(src, resin_cooldown))
@@ -553,7 +558,7 @@
 			return
 		for(var/S in target)
 			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-				to_chat(user, "<span class='warning'>There's already resin here!</span>")
+				to_chat(user, span_warning("There's already resin here!"))
 				return
 		if(resin_synthesis_cooldown < max_foam)
 			if(toggled)
@@ -665,7 +670,7 @@
 	if(!istype(user))
 		return
 	if (user.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(user, "<span class='warning'>The chemtank needs to be on your back before you can activate it!</span>")
+		to_chat(user, span_warning("The chemtank needs to be on your back before you can activate it!"))
 		return
 	if(on)
 		turn_off()
@@ -695,13 +700,13 @@
 	on = TRUE
 	START_PROCESSING(SSobj, src)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>[src] turns on.</span>")
+		to_chat(loc, span_notice("[src] turns on."))
 
 /obj/item/reagent_containers/chemtank/proc/turn_off()
 	on = FALSE
 	STOP_PROCESSING(SSobj, src)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>[src] turns off.</span>")
+		to_chat(loc, span_notice("[src] turns off."))
 
 /obj/item/reagent_containers/chemtank/process(delta_time)
 	if(!ishuman(loc))
@@ -716,41 +721,10 @@
 		return
 
 	var/used_amount = (injection_amount * delta_time) /usage_ratio
-	reagents.reaction(user, INJECT,injection_amount,0)
+	reagents.expose(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
 	user.update_inv_back() //for overlays update
 
-//Operator backpack spray
-/obj/item/watertank/op
-	name = "backpack water tank"
-	desc = "A New Russian backpack spray for systematic cleansing of carbon lifeforms."
-	icon_state = "waterbackpackop"
-	item_state = "waterbackpackop"
-	w_class = WEIGHT_CLASS_NORMAL
-	volume = 2000
-	slowdown = 0
-
-/obj/item/watertank/op/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/mutagen,350)
-	reagents.add_reagent(/datum/reagent/napalm,125)
-	reagents.add_reagent(/datum/reagent/fuel,125)
-	reagents.add_reagent(/datum/reagent/clf3,300)
-	reagents.add_reagent(/datum/reagent/cryptobiolin,350)
-	reagents.add_reagent(/datum/reagent/toxin/plasma,250)
-	reagents.add_reagent(/datum/reagent/consumable/condensedcapsaicin,500)
-
-/obj/item/reagent_containers/spray/mister/op
-	desc = "A mister nozzle attached to several extended water tanks. It suspiciously has a compressor in the system and is labelled entirely in New Cyrillic."
-	icon = 'icons/obj/hydroponics/equipment.dmi'
-	icon_state = "misterop"
-	item_state = "misterop"
-	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
-	amount_per_transfer_from_this = 100
-	possible_transfer_amounts = list(75,100,150)
-
-/obj/item/watertank/op/make_noz()
-	return new /obj/item/reagent_containers/spray/mister/op(src)
+/datum/action/item_action/activate_injector
+	name = "Activate Injector"

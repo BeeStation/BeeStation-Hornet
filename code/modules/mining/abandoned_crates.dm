@@ -23,7 +23,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
+		to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
 		var/input = capped_input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock")
 		if(user.canUseTopic(src, BE_CLOSE))
 			var/list/sanitised = list()
@@ -38,18 +38,18 @@
 					if(sanitised[i] == sanitised[j])
 						sanitycheck = FALSE //if a digit is repeated, reject the input
 			if(input == code)
-				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
+				to_chat(user, span_notice("The crate unlocks!"))
 				locked = FALSE
 				cut_overlays()
-				add_overlay("securecrateg")
+				add_overlay("unlocked_secure")
 				add_overlay("[icon_door || icon_state]_door") //needs to put the door overlayer back cause of this snowflake code
 				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 				if(!spawned_loot)
 					spawn_loot()
 			else if(!input || !sanitycheck || length(sanitised) != codelen)
-				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
+				to_chat(user, span_notice("You leave the crate alone."))
 			else
-				to_chat(user, "<span class='warning'>A red light flashes.</span>")
+				to_chat(user, span_warning("A red light flashes."))
 				lastattempt = input
 				attempts--
 				if(attempts == 0)
@@ -65,11 +65,11 @@
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
 	if(locked)
 		if(W.tool_behaviour == TOOL_MULTITOOL)
-			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
+			to_chat(user, span_notice("DECA-CODE LOCK REPORT:"))
 			if(attempts == 1)
-				to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")
+				to_chat(user, span_warning("* Anti-Tamper Bomb will activate on next failed access attempt."))
 			else
-				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [attempts] failed access attempts.</span>")
+				to_chat(user, span_notice("* Anti-Tamper Bomb will activate after [attempts] failed access attempts."))
 			if(lastattempt != null)
 				var/bulls = 0 //right position, right number
 				var/cows = 0 //wrong position but in the puzzle
@@ -93,14 +93,14 @@
 					lastattempt_it += length(lastattempt_char)
 					code_it += length(code_char)
 
-				to_chat(user, "<span class='notice'>Last code attempt, [lastattempt], had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
+				to_chat(user, span_notice("Last code attempt, [lastattempt], had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions."))
 			return
 	return ..()
 
 /obj/structure/closet/secure/loot/dive_into(mob/living/user)
 	if(!locked)
 		return ..()
-	to_chat(user, "<span class='notice'>That seems like a stupid idea.</span>")
+	to_chat(user, span_notice("That seems like a stupid idea."))
 	return FALSE
 
 /obj/structure/closet/crate/secure/loot/should_emag(mob/user)
@@ -123,9 +123,9 @@
 	var/loot = rand(1,100) //100 different crates with varying chances of spawning
 	switch(loot)
 		if(1 to 5) //5% chance
-			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
+			new /obj/item/reagent_containers/cup/glass/bottle/rum(src)
 			new /obj/item/food/grown/ambrosia/deus(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
+			new /obj/item/reagent_containers/cup/glass/bottle/whiskey(src)
 			new /obj/item/lighter(src)
 		if(6 to 10)
 			new /obj/item/bedsheet(src)
@@ -136,7 +136,7 @@
 			new /obj/item/hatchet(src)
 			new /obj/item/crowbar(src)
 		if(11 to 15)
-			new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+			new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 		if(16 to 20)
 			new /obj/item/stack/ore/diamond(src, 10)
 		if(21 to 25)
@@ -144,7 +144,7 @@
 				new /obj/item/poster/random_contraband(src)
 		if(26 to 30)
 			for(var/i in 1 to 3)
-				new /obj/item/reagent_containers/glass/beaker/noreact(src)
+				new /obj/item/reagent_containers/cup/beaker/noreact(src)
 		if(31 to 35)
 			new /obj/item/seeds/firelemon(src)
 		if(36 to 40)
@@ -161,7 +161,7 @@
 		if(53 to 54)
 			new /obj/item/toy/balloon(src)
 		if(55 to 56)
-			var/newitem = pick(subtypesof(/obj/item/toy/prize))
+			var/newitem = pick(subtypesof(/obj/item/toy/mecha))
 			new newitem(src)
 		if(57 to 58)
 			new /obj/item/toy/syndicateballoon(src)
@@ -171,14 +171,14 @@
 			new /obj/item/clothing/head/helmet/space(src)
 		if(61 to 62)
 			for(var/i in 1 to 5)
-				new /obj/item/clothing/head/kitty(src)
+				new /obj/item/clothing/head/costume/kitty(src)
 				new /obj/item/clothing/neck/petcollar(src)
 		if(63 to 64)
 			for(var/i in 1 to rand(4, 7))
 				var/newcoin = pick(/obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/gold, /obj/item/coin/diamond, /obj/item/coin/plasma, /obj/item/coin/uranium)
 				new newcoin(src)
 		if(65 to 66)
-			new /obj/item/clothing/suit/ianshirt(src)
+			new /obj/item/clothing/suit/costume/ianshirt(src)
 			new /obj/item/clothing/suit/hooded/ian_costume(src)
 		if(67 to 68)
 			for(var/i in 1 to rand(4, 7))
@@ -235,7 +235,7 @@
 			new /obj/item/clothing/head/beret(src)
 			new /obj/item/clothing/suit/suspenders(src)
 			new /obj/item/toy/crayon/mime(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
+			new /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing(src)
 		if(96)
 			new /obj/item/hand_tele(src)
 		if(97)
@@ -248,7 +248,7 @@
 			new /obj/item/storage/belt/champion(src)
 			new /obj/item/clothing/mask/luchador(src)
 		if(100)
-			new /obj/item/clothing/head/bearpelt(src)
+			new /obj/item/clothing/head/costume/bearpelt(src)
 	spawned_loot = TRUE
 
 /obj/structure/closet/crate/secure/loot/emp_act(severity)

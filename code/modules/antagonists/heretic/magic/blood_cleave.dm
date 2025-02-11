@@ -1,61 +1,58 @@
-/obj/effect/proc_holder/spell/pointed/cleave
+/datum/action/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "cleave"
-	action_background_icon_state = "bg_ecult"
+	background_icon_state = "bg_ecult"
+	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon_state = "cleave"
+	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
+
+	school = SCHOOL_FORBIDDEN
+	cooldown_time = 35 SECONDS
+
 	invocation = "CL'VE"
 	invocation_type = INVOCATION_WHISPER
-	requires_heretic_focus = TRUE
-	charge_max = 350
-	clothes_req = FALSE
-	range = 9
+	spell_requirements = NONE
 
-/obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
-	if(!length(targets))
-		revert_cast()
-		user.balloon_alert(user, "No targets")
-		return FALSE
-	if(!can_target(targets[1], user))
-		revert_cast()
-		return FALSE
+	cast_range = 9
+	/// The radius of the cleave effect
+	var/cleave_radius = 1
 
-	for(var/mob/living/carbon/human/nearby_human in range(1, targets[1]))
-		targets |= nearby_human
+/datum/action/spell/pointed/cleave/is_valid_spell(mob/user, atom/target)
+	return ..() && ishuman(target)
 
-	for(var/mob/living/carbon/human/victim as anything in targets)
-		if(victim == user)
+/datum/action/spell/pointed/cleave/on_cast(mob/user, atom/target)
+	. = ..()
+	var/list/mob/living/carbon/human/nearby = list(target)
+	for(var/mob/living/carbon/human/nearby_human in range(cleave_radius, target))
+		nearby += nearby_human
+
+	for(var/mob/living/carbon/human/victim as anything in nearby)
+		if(victim == owner)
 			continue
-		if(victim.anti_magic_check())
+		if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 			victim.visible_message(
-				"<span class='danger'>[victim]'s body flashes in a fiery glow, but repels the blaze!</span>",
-				"<span class='danger'>Your body begins to flash in a fiery glow, but you are protected!</span>"
+				span_danger("[victim]'s body flashes in a fiery glow, but repels the blaze!"),
+				span_danger("Your body begins to flash in a fiery glow, but you are protected!")
 			)
 			continue
-
 		if(!victim.blood_volume)
 			continue
-
 		victim.visible_message(
-			"<span class='danger'>[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!</span>",
-			"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>"
+			span_danger("[victim]'s veins are shredded from within as an unholy blaze erupts from [victim.p_their()] blood!"),
+			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
 		)
+		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
+		victim.apply_damage(20, BURN, bodypart)
 
-		victim.bleed_rate += 5
-		victim.adjustFireLoss(20)
 		new /obj/effect/temp_visual/cleave(victim.drop_location())
 
-/obj/effect/proc_holder/spell/pointed/cleave/can_target(atom/target, mob/user, silent)
-	if(!ishuman(target))
-		if(!silent)
-			target.balloon_alert(user, "Invalid target")
-		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/pointed/cleave/long
-	charge_max = 650
+/datum/action/spell/pointed/cleave/long
+	name = "Lesser Cleave"
+	cooldown_time = 65 SECONDS
 
 /obj/effect/temp_visual/cleave
-	icon = 'icons/effects/heretic.dmi'
+	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "cleave"
 	duration = 6

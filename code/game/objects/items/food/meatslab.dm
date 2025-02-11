@@ -1,5 +1,5 @@
 /obj/item/food/meat
-	//custom_materials = list(/datum/material/meat = MINERAL_MATERIAL_AMOUNT * 4)
+	custom_materials = list(/datum/material/meat = MINERAL_MATERIAL_AMOUNT * 4)
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/meat.dmi'
 	var/subjectname = ""
@@ -10,40 +10,45 @@
 	desc = "A slab of meat."
 	icon_state = "meat"
 	//dried_type = /obj/item/food//sosjerky/healthy
-	microwaved_type = /obj/item/food/meat/steak/plain
 	bite_consumption = 3
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment/protein = 6,
-		/datum/reagent/consumable/cooking_oil = 2
+		/datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/fat = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 1
 	) //Meat has fats that a food processor can process into cooking oil
 	tastes = list("meat" = 1)
 	foodtypes = MEAT | RAW
 	///Legacy code, handles the coloring of the overlay of the cutlets made from this.
 	var/slab_color = "#FF0000"
 
-/*
-/obj/item/food/meat/slab/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/plain)
-*/
+/obj/item/food/meat/slab/Initialize(mapload)
+	. = ..()
+	make_dryable()
+
+/obj/item/food/meat/slab/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe?
 
 /obj/item/food/meat/slab/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/plain, 3, 30)
+
+/obj/item/food/meat/slab/proc/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy)
 
 ///////////////////////////////////// HUMAN MEATS //////////////////////////////////////////////////////
 
 /obj/item/food/meat/slab/human
 	name = "meat"
-	microwaved_type = /obj/item/food/meat/steak/plain/human
 	tastes = list("tender meat" = 1)
 	foodtypes = MEAT | RAW | GORE
 
-/*
-/obj/item/food/meat/slab/human/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/plain/human)
-*/
+/obj/item/food/meat/slab/human/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe?
 
 /obj/item/food/meat/slab/human/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/plain/human, 3, 30)
+
+/obj/item/food/meat/slab/human/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lean)
 
 /obj/item/food/meat/slab/human/mutant/slime
 	icon_state = "slimemeat"
@@ -55,6 +60,9 @@
 	tastes = list("slime" = 1, "jelly" = 1)
 	foodtypes = MEAT | RAW | TOXIC
 
+/obj/item/food/meat/slab/human/mutant/slime/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/jelly)
+
 /obj/item/food/meat/slab/human/mutant/golem
 	icon_state = "golemmeat"
 	desc = "Edible rocks, welcome to the future."
@@ -65,6 +73,9 @@
 	tastes = list("rock" = 1)
 	foodtypes = MEAT | RAW | GROSS
 
+/obj/item/food/meat/slab/human/mutant/golem/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/rock_candy)
+
 /obj/item/food/meat/slab/human/mutant/golem/adamantine
 	icon_state = "agolemmeat"
 	desc = "From the slime pen to the rune to the kitchen, science."
@@ -73,20 +84,27 @@
 /obj/item/food/meat/slab/human/mutant/lizard
 	icon_state = "lizardmeat"
 	desc = "Delicious dino damage."
-	microwaved_type = /obj/item/food/meat/steak/plain/human/lizard
 	tastes = list("meat" = 4, "scales" = 1)
 	foodtypes = MEAT | RAW | GORE
 
-/*
-/obj/item/food/meat/slab/human/mutant/lizard/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/plain/human/lizard)
-*/
+/obj/item/food/meat/slab/human/mutant/lizard/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/lizard, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
 
-/obj/item/food/meat/slab/human/mutant/plant
+/obj/item/food/meat/slab/human/mutant/lizard/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lizard)
+
+/obj/item/food/meat/slab/human/mutant/diona
+	name = "diona meat"
 	icon_state = "plantmeat"
 	desc = "All the joys of healthy eating with all the fun of cannibalism."
-	tastes = list("salad" = 1, "wood" = 1)
+	tastes = list("salad" = 1, "wood" = 1, "bitterness" = 1)
 	foodtypes = VEGETABLES
+
+/obj/item/food/meat/slab/human/mutant/diona/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/diona, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
+
+/obj/item/food/meat/slab/human/mutant/diona/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/diona)
 
 /obj/item/food/meat/slab/human/mutant/shadow
 	icon_state = "shadowmeat"
@@ -104,11 +122,17 @@
 	tastes = list("maggots" = 1, "the inside of a reactor" = 1)
 	foodtypes = MEAT | RAW | GROSS | GORE
 
+/obj/item/food/meat/slab/human/mutant/fly/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
+
 /obj/item/food/meat/slab/human/mutant/moth
 	icon_state = "mothmeat"
 	desc = "Unpleasantly powdery and dry. Kind of pretty, though."
 	tastes = list("dust" = 1, "powder" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/slab/human/mutant/moth/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
 
 /obj/item/food/meat/slab/human/mutant/skeleton
 	name = "bone"
@@ -119,6 +143,9 @@
 
 /obj/item/food/meat/slab/human/mutant/skeleton/make_processable()
 	return //skeletons dont have cutlets. Its a bone, Genius.
+
+/obj/item/food/meat/slab/human/mutant/skeleton/make_dryable()
+	return	//I agree. It's a bone, Genius.
 
 /obj/item/food/meat/slab/human/mutant/zombie
 	name = " meat (rotten)"
@@ -134,11 +161,17 @@
 	tastes = list("pure electricity" = 2, "meat" = 1)
 	foodtypes = RAW | MEAT | TOXIC | GORE
 
+/obj/item/food/meat/slab/human/mutant/ethereal/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/ethereal)
+
 /obj/item/food/meat/slab/human/mutant/apid
 	icon_state = "apidmeat"
 	desc = "Smells like flowers, hopefully doesn't taste like one."
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/slab/human/mutant/apid/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bees)
 
 /obj/item/food/meat/slab/human/mutant/psyphoza
 	icon_state = "psyphoza_meat"
@@ -148,6 +181,12 @@
 	foodtypes = VEGETABLES | RAW | GORE
 	microwaved_type = /obj/item/food/meat/steak/plain/human/psyphoza
 
+/obj/item/food/meat/slab/human/mutant/psyphoza/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/human/psyphoza, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
+
+/obj/item/food/meat/slab/human/mutant/psyphoza/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/mushroom)
+
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
 
@@ -156,27 +195,36 @@
 	desc = "A synthetic slab of... ethical* meat?"
 	foodtypes = RAW | MEAT // If it looks like a duck, quacks like a duck, its probably...
 
+/obj/item/food/meat/slab/synthmeat/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/plain/synth, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE)
+
+/obj/item/food/meat/slab/synthmeat/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/synthmeat)
+
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	//icon_state = "meatproduct"
-	microwaved_type = /obj/item/food/meat/steak/meatproduct
 	desc = "A slab of station reclaimed and chemically processed meat product."
 	tastes = list("meat flavoring" = 2, "modified starches" = 2, "natural & artificial dyes" = 1, "butyric acid" = 1) // its supposed to be various processed chemicals seen in very processed food. Butyric acid is a reference to how a certain North American Candymaker puts a chemical commonly seen in vomit into chocolate
 	foodtypes = RAW | MEAT
 
-/*
-/obj/item/food/meat/slab/meatproduct/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/meatproduct)
-*/
+/obj/item/food/meat/slab/meatproduct/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/pemmican)
 
 /obj/item/food/meat/slab/monkey
 	name = "monkey meat"
 	foodtypes = RAW | MEAT
 
+/obj/item/food/meat/slab/monkey/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/monkey)
+
 /obj/item/food/meat/slab/mouse
 	name = "mouse meat"
 	desc = "A slab of mouse meat. Best not eat it raw."
 	foodtypes = RAW | MEAT | GORE
+
+/obj/item/food/meat/slab/mouse/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/mouse)
 
 /obj/item/food/meat/slab/corgi
 	name = "corgi meat"
@@ -199,15 +247,12 @@
 	name = "killer tomato meat"
 	desc = "A slice from a huge tomato."
 	icon_state = "tomatomeat"
-	microwaved_type = /obj/item/food/meat/steak/killertomato
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("tomato" = 1)
 	foodtypes = FRUIT // Yeah, tomatoes are FRUIT. Bite me.
 
-/*
-/obj/item/food/meat/slab/killertomato/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/killertomato)
-*/
+/obj/item/food/meat/slab/killertomato/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/killertomato, rand(70 SECONDS, 85 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/slab/killertomato/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/killertomato, 3, 30)
@@ -216,20 +261,17 @@
 	name = "bear meat"
 	desc = "A very manly slab of meat."
 	icon_state = "bearmeat"
-	microwaved_type = /obj/item/food/meat/steak/bear
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 16,
 		/datum/reagent/medicine/morphine = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 2,
-		/datum/reagent/consumable/cooking_oil = 6
+		/datum/reagent/consumable/nutriment/fat = 6
 	)
 	tastes = list("meat" = 1, "salmon" = 1)
 	foodtypes = RAW | MEAT
 
-/*
-/obj/item/food/meat/slab/bear/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/bear)
-*/
+/obj/item/food/meat/slab/bear/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/bear, rand(40 SECONDS, 70 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/slab/bear/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/bear, 3, 30)
@@ -238,7 +280,6 @@
 	name = "xeno meat"
 	desc = "A slab of meat."
 	icon_state = "xenomeat"
-	microwaved_type = /obj/item/food/meat/steak/xeno
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 3
@@ -247,19 +288,16 @@
 	tastes = list("meat" = 1, "acid" = 1)
 	foodtypes = RAW | MEAT
 
-/*
-/obj/item/food/meat/slab/xeno/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/xeno)
-*/
-
 /obj/item/food/meat/slab/xeno/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/xeno, 3, 30)
+
+/obj/item/food/meat/slab/xeno/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/xeno, rand(40 SECONDS, 70 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/slab/spider
 	name = "spider meat"
 	desc = "A slab of spider meat. That is so Kafkaesque."
 	icon_state = "spidermeat"
-	microwaved_type = /obj/item/food/meat/steak/spider
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/toxin = 3,
@@ -268,13 +306,14 @@
 	tastes = list("cobwebs" = 1)
 	foodtypes = RAW | MEAT | TOXIC
 
-/*
-/obj/item/food/meat/slab/spider/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/spider)
-*/
-
 /obj/item/food/meat/slab/spider/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/spider, 3, 30)
+
+/obj/item/food/meat/slab/spider/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/spider, rand(40 SECONDS, 70 SECONDS), TRUE, TRUE)
+
+/obj/item/food/meat/slab/spider/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
 
 /obj/item/food/meat/slab/goliath
 	name = "goliath meat"
@@ -282,14 +321,14 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/toxin = 5,
-		/datum/reagent/consumable/cooking_oil = 3
+		/datum/reagent/consumable/nutriment/fat = 3
 	)
 	icon_state = "goliathmeat"
 	tastes = list("meat" = 1)
 	foodtypes = RAW | MEAT | TOXIC
 
 /obj/item/food/meat/slab/goliath/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(span_notice("[src] finishes cooking!"))
 	new /obj/item/food/meat/steak/goliath(loc)
 	qdel(src)
 
@@ -300,7 +339,7 @@
 		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 2,
 		/datum/reagent/blood = 5,
-		/datum/reagent/consumable/cooking_oil = 1
+		/datum/reagent/consumable/nutriment/fat = 1
 	)
 	icon_state = "meatwheat_clump"
 	bite_consumption = 4
@@ -313,26 +352,27 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
-		/datum/reagent/consumable/cooking_oil = 5 //Plenty of fat!
+		/datum/reagent/consumable/nutriment/fat = 5 //Plenty of fat!
 	)
+
+/obj/item/food/meat/slab/gorilla/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/monkey)
 
 /obj/item/food/meat/rawbacon
 	name = "raw piece of bacon"
 	desc = "A raw piece of bacon."
 	icon_state = "bacon"
-	microwaved_type = /obj/item/food/meat/bacon
 	bite_consumption = 2
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/consumable/cooking_oil = 3
+		/datum/reagent/consumable/nutriment/fat = 3
 	)
 	tastes = list("bacon" = 1)
 	foodtypes = RAW | MEAT | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_1
 
-/*
-/obj/item/food/meat/rawbacon/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/bacon)
-*/
+/obj/item/food/meat/rawbacon/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/bacon, rand(25 SECONDS, 45 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/bacon
 	name = "piece of bacon"
@@ -341,46 +381,41 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
-		/datum/reagent/consumable/cooking_oil = 2
+		/datum/reagent/consumable/nutriment/fat = 2
 	)
 	tastes = list("bacon" = 1)
 	foodtypes = MEAT | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/meat/slab/gondola
 	name = "gondola meat"
 	desc = "According to legends of old, consuming raw gondola flesh grants one inner peace."
-	microwaved_type = /obj/item/food/meat/steak/gondola
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/tranquility = 5,
-		/datum/reagent/consumable/cooking_oil = 3
+		/datum/reagent/consumable/nutriment/fat = 3
 	)
 	tastes = list("meat" = 4, "tranquility" = 1)
 	foodtypes = RAW | MEAT
 
-/*
-/obj/item/food/meat/slab/gondola/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/gondola)
-*/
+/obj/item/food/meat/slab/gondola/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/gondola, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe?
 
 /obj/item/food/meat/slab/gondola/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/gondola, 3, 30)
 
 /obj/item/food/meat/slab/penguin
 	name = "penguin meat"
-	//icon_state = "birdmeat"
-	microwaved_type = /obj/item/food/meat/steak/penguin
+	icon_state = "birdmeat"
 	desc = "A slab of penguin meat."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 4,
-		/datum/reagent/consumable/cooking_oil = 3
+		/datum/reagent/consumable/nutriment/fat = 3
 	)
 	tastes = list("beef" = 1, "cod fish" = 1)
 
-/*
-/obj/item/food/meat/slab/penguin/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/penguin)
-*/
+/obj/item/food/meat/slab/penguin/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/penguin, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe?
 
 /obj/item/food/meat/slab/penguin/make_processable()
 	. = ..()
@@ -394,15 +429,13 @@
 	bite_consumption = 3
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 3,
-		/datum/reagent/consumable/cooking_oil = 3
+		/datum/reagent/consumable/nutriment/fat = 3
 	)
 	tastes = list("raw crab" = 1)
 	foodtypes = RAW | MEAT
 
-/*
-/obj/item/food/meat/rawcrab/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/crab)
-*/
+/obj/item/food/meat/slab/rawcrab/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/crab, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe?
 
 /obj/item/food/meat/crab
 	name = "crab meat"
@@ -411,24 +444,26 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 2,
-		/datum/reagent/consumable/cooking_oil = 2
+		/datum/reagent/consumable/nutriment/fat = 2
 	)
 	tastes = list("crab" = 1)
 	foodtypes = MEAT
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/meat/slab/chicken
 	name = "chicken meat"
-	//icon_state = "birdmeat"
-	microwaved_type = /obj/item/food/meat/steak/chicken
+	icon_state = "birdmeat"
 	desc = "A slab of raw chicken. Remember to wash your hands!"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 6
 	) //low fat
 	tastes = list("chicken" = 1)
-/*
-/obj/item/food/meat/slab/chicken/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/chicken)
-*/
+
+/obj/item/food/meat/slab/chicken/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lean)
+
+/obj/item/food/meat/slab/chicken/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/steak/chicken, rand(30 SECONDS, 90 SECONDS), TRUE, TRUE) //Add medium rare later maybe? (no this is chicken)
 
 /obj/item/food/meat/slab/chicken/make_processable()
 	. = ..()
@@ -439,6 +474,9 @@
 	desc = "a light slab of mothroach meat"
 	tastes = list("gross" = 1)
 	foodtypes = RAW | MEAT | GORE
+
+/obj/item/food/meat/slab/mothroach/make_dryable()
+	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/bugs)
 
 /obj/item/food/meat/slab/dolphinmeat
 	name = "uncooked dolphin fillet"
@@ -461,11 +499,13 @@
 	desc = "A piece of hot spicy meat."
 	icon_state = "meatsteak"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/fat = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 	)
 	foodtypes = MEAT
 	tastes = list("meat" = 1)
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/meat/steak/Initialize(mapload)
 	. = ..()
@@ -529,17 +569,17 @@
 
 /obj/item/food/meat/steak/penguin
 	name = "penguin steak"
-	//icon_state = "birdsteak"
+	icon_state = "birdsteak"
 	tastes = list("beef" = 1, "cod fish" = 1)
 
 /obj/item/food/meat/steak/chicken
 	name = "chicken steak" //Can you have chicken steaks? Maybe this should be renamed once it gets new sprites. //I concur
-	//icon_state = "birdsteak"
+	icon_state = "birdsteak"
 	tastes = list("chicken" = 1)
 
 /obj/item/food/meat/steak/plain/human/lizard
 	name = "lizard steak"
-	//icon_state = "birdsteak"
+	icon_state = "birdsteak" //cause they're birds. Get it?
 	tastes = list("juicy chicken" = 3, "scales" = 1)
 	foodtypes = MEAT
 
@@ -549,12 +589,17 @@
 	tastes = list("dirt" = 3, "wood" = 1)
 	foodtypes = VEGETABLES
 
+/obj/item/food/meat/steak/plain/human/diona
+	name = "diona steak"
+	tastes = list("salad" = 3, "plant fibre" = 1)
+	foodtypes = VEGETABLES
+
 /obj/item/food/meat/steak/meatproduct
 	name = "thermally processed meat product"
 	//icon_state = "meatproductsteak"
 	tastes = list("enhanced char" = 2, "suspicious tenderness" = 2, "natural & artificial dyes" = 2, "emulsifying agents" = 1)
 
-/obj/item/food/meat/steak/synth
+/obj/item/food/meat/steak/plain/synth
 	name = "synthsteak"
 	desc = "A synthetic meat steak. It doesn't look quite right, now does it?"
 	icon_state = "meatsteak"
@@ -592,19 +637,16 @@
 	name = "raw cutlet"
 	desc = "A raw meat cutlet."
 	icon_state = "rawcutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/plain
 	bite_consumption = 2
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment/protein = 1
+		/datum/reagent/consumable/nutriment/protein = 2
 	)
 	tastes = list("meat" = 1)
 	foodtypes = MEAT | RAW
 	var/meat_type = "meat"
 
-/*
-/obj/item/food/meat/rawcutlet/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/plain)
-*/
+/obj/item/food/meat/rawcutlet/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/plain, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/OnCreatedFromProcessing(mob/living/user, obj/item/work_tool, list/chosen_option, atom/original_atom)
 	. = ..()
@@ -620,14 +662,11 @@
 	foodtypes = MEAT
 
 /obj/item/food/meat/rawcutlet/plain/human
-	microwaved_type = /obj/item/food/meat/cutlet/plain/human
 	tastes = list("tender meat" = 1)
 	foodtypes = MEAT | RAW | GORE
 
-/*
-/obj/item/food/meat/rawcutlet/plain/human/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/plain/human)
-*/
+/obj/item/food/meat/rawcutlet/plain/human/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/plain/human, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/plain/human/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
 	. = ..()
@@ -644,72 +683,51 @@
 	name = "raw killer tomato cutlet"
 	tastes = list("tomato" = 1)
 	foodtypes = FRUIT
-	microwaved_type = /obj/item/food/meat/cutlet/killertomato
 
-/*
-/obj/item/food/meat/rawcutlet/killertomato/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/killertomato)
-*/
+/obj/item/food/meat/rawcutlet/killertomato/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/killertomato, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/bear
 	name = "raw bear cutlet"
 	tastes = list("meat" = 1, "salmon" = 1)
-	microwaved_type = /obj/item/food/meat/cutlet/bear
 
-/*
-/obj/item/food/meat/rawcutlet/bear/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/bear)
-*/
+/obj/item/food/meat/rawcutlet/bear/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/bear, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/xeno
 	name = "raw xeno cutlet"
 	tastes = list("meat" = 1, "acid" = 1)
-	microwaved_type = /obj/item/food/meat/cutlet/xeno
 
-/*
-/obj/item/food/meat/rawcutlet/xeno/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/xeno)
-*/
+/obj/item/food/meat/rawcutlet/xeno/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/xeno, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/spider
 	name = "raw spider cutlet"
 	tastes = list("cobwebs" = 1)
-	microwaved_type = /obj/item/food/meat/cutlet/spider
 
-/*
-/obj/item/food/meat/rawcutlet/spider/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/spider)
-*/
+/obj/item/food/meat/rawcutlet/spider/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/spider, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/gondola
 	name = "raw gondola cutlet"
 	tastes = list("meat" = 1, "tranquility" = 1)
-	microwaved_type = /obj/item/food/meat/cutlet/gondola
 
-/*
-/obj/item/food/meat/rawcutlet/gondola/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/gondola)
-*/
+/obj/item/food/meat/rawcutlet/gondola/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/gondola, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/penguin
 	name = "raw penguin cutlet"
 	tastes = list("beef" = 1, "cod fish" = 1)
-	microwaved_type = /obj/item/food/meat/cutlet/penguin
 
-/*
-/obj/item/food/meat/rawcutlet/penguin/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/penguin)
-*/
+/obj/item/food/meat/rawcutlet/penguin/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/penguin, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/chicken
 	name = "raw chicken cutlet"
 	tastes = list("chicken" = 1)
-	microwaved_type = /obj/item/food/meat/cutlet/chicken
 
-/*
-/obj/item/food/meat/rawcutlet/chicken/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/chicken)
-*/
+/obj/item/food/meat/rawcutlet/chicken/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/chicken, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 /obj/item/food/meat/rawcutlet/grub //grub meat is small, so its in cutlets
 	name = "redgrub cutlet"
@@ -725,10 +743,8 @@
 	foodtypes = RAW | MEAT | TOXIC
 	microwaved_type = /obj/item/food/meat/cutlet/grub
 
-/*
-/obj/item/food/meat/rawcutlet/grub/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/grub)
-*/
+/obj/item/food/meat/rawcutlet/grub/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/grub, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE)
 
 //Cooked cutlets
 
@@ -744,6 +760,7 @@
 	)
 	tastes = list("meat" = 1)
 	foodtypes = MEAT
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/meat/cutlet/Initialize(mapload)
 	. = ..()

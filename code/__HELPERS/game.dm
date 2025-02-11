@@ -9,90 +9,6 @@
 		return null
 	return format_text ? format_text(A.name) : A.name
 
-/proc/get_areas_in_range(dist=0, atom/center=usr)
-	if(!dist)
-		var/turf/T = get_turf(center)
-		return T ? list(T.loc) : list()
-	if(!center)
-		return list()
-
-	var/list/areas = list()
-	for(var/turf/T as() in RANGE_TURFS(dist, center))
-		areas |= T.loc
-	return areas
-
-/proc/get_adjacent_areas(atom/center)
-	. = list(get_area(get_ranged_target_turf(center, NORTH, 1)),
-			get_area(get_ranged_target_turf(center, SOUTH, 1)),
-			get_area(get_ranged_target_turf(center, EAST, 1)),
-			get_area(get_ranged_target_turf(center, WEST, 1)))
-	list_clear_nulls(.)
-
-/proc/get_open_turf_in_dir(atom/center, dir)
-	var/turf/open/T = get_step(center, dir)
-	if(istype(T))
-		return T
-
-/proc/get_adjacent_open_turfs(atom/center)
-	var/list/hand_back = list()
-	// Inlined get_open_turf_in_dir, just to be fast
-	var/turf/open/new_turf = get_step(center, NORTH)
-	if(istype(new_turf))
-		hand_back += new_turf
-	new_turf = get_step(center, SOUTH)
-	if(istype(new_turf))
-		hand_back += new_turf
-	new_turf = get_step(center, EAST)
-	if(istype(new_turf))
-		hand_back += new_turf
-	new_turf = get_step(center, WEST)
-	if(istype(new_turf))
-		hand_back += new_turf
-	return hand_back
-
-/proc/get_adjacent_open_areas(atom/center)
-	. = list()
-	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
-	for(var/I in adjacent_turfs)
-		. |= get_area(I)
-
-/**
- * Get a bounding box of a list of atoms.
- *
- * Arguments:
- * - atoms - List of atoms. Can accept output of view() and range() procs.
- *
- * Returns: list(x1, y1, x2, y2)
- */
-/proc/get_bbox_of_atoms(list/atoms)
-	var/list/list_x = list()
-	var/list/list_y = list()
-	for(var/_a in atoms)
-		var/atom/a = _a
-		list_x += a.x
-		list_y += a.y
-	return list(
-		min(list_x),
-		min(list_y),
-		max(list_x),
-		max(list_y))
-
-// Like view but bypasses luminosity check
-
-/proc/get_hear(range, atom/source)
-	return dview(range, source)
-
-/proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
-	var/area/our_area = get_area(the_area)
-	for(var/C in GLOB.alive_mob_list)
-		if(!istype(C, check_type))
-			continue
-		if(C == must_be_alone)
-			continue
-		if(our_area == get_area(C))
-			return 0
-	return 1
-
 //We used to use linear regression to approximate the answer, but Mloc realized this was actually faster.
 //And lo and behold, it is, and it's more accurate to boot.
 /proc/cheap_hypotenuse(Ax,Ay,Bx,By)
@@ -127,14 +43,6 @@
 
 	//turfs += centerturf
 	return atoms
-
-/proc/get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
-	var/dx = Loc1.x - Loc2.x
-	var/dy = Loc1.y - Loc2.y
-
-	var/dist = sqrt(dx**2 + dy**2)
-
-	return dist
 
 /proc/circlerangeturfs(center=usr,radius=3)
 
@@ -219,13 +127,13 @@
 			if(client_check && !A_tmp.client)
 				passed=0
 
-			if(sight_check && !isInSight(A_tmp, O))
+			if(sight_check && !is_in_sight(A_tmp, O))
 				passed=0
 
 		else if(include_radio && istype(A, /obj/item/radio))
 			passed=1
 
-			if(sight_check && !isInSight(A, O))
+			if(sight_check && !is_in_sight(A, O))
 				passed=0
 
 		if(passed)
@@ -239,98 +147,6 @@
 		processed_list[A] = A
 
 	return found_mobs
-
-/**
- * Returns a list of hearers in view(view_radius) from source (ignoring luminosity). uses important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]
- * vars:
- * * view_radius is distance we look for potential hearers
- * * source is obviously the source attom from where we start looking
- * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_SPIRIT would also include ghosts.
- */
-/proc/get_hearers_in_view(view_radius, atom/source, invis_flags = 0)
-	var/turf/center_turf = get_turf(source)
-	. = list()
-	if(!center_turf)
-		return
-	for(var/atom/movable/movable in dview(view_radius, center_turf, invis_flags))
-		var/list/recursive_contents = LAZYACCESS(movable.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
-		if(recursive_contents)
-			. += recursive_contents
-
-/proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
-	. = list()
-	// Returns a list of mobs who can hear any of the radios given in @radios
-	for(var/obj/item/radio/radio in radios)
-		if(radio.canhear_range != -1)
-			. |= get_hearers_in_view(radio.canhear_range, radio)
-		else
-			var/list/specific_hearers = radio.get_specific_hearers()
-			if(specific_hearers)
-				. |= specific_hearers
-
-#define SIGNV(X) ((X<0)?-1:1)
-
-/proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
-	var/turf/T
-	if(X1==X2)
-		if(Y1==Y2)
-			return 1 //Light cannot be blocked on same tile
-		else
-			var/s = SIGN(Y2-Y1)
-			Y1+=s
-			while(Y1!=Y2)
-				T=locate(X1,Y1,Z)
-				if(IS_OPAQUE_TURF(T))
-					return 0
-				Y1+=s
-	else
-		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
-		var/b=(Y1+PY1/32-0.015625)-m*(X1+PX1/32-0.015625) //In tiles
-		var/signX = SIGN(X2-X1)
-		var/signY = SIGN(Y2-Y1)
-		if(X1<X2)
-			b+=m
-		while(X1!=X2 || Y1!=Y2)
-			if(round(m*X1+b-Y1))
-				Y1+=signY //Line exits tile vertically
-			else
-				X1+=signX //Line exits tile horizontally
-			T=locate(X1,Y1,Z)
-			if(IS_OPAQUE_TURF(T))
-				return 0
-	return 1
-#undef SIGNV
-
-
-/proc/isInSight(atom/A, atom/B)
-	var/turf/Aturf = get_turf(A)
-	var/turf/Bturf = get_turf(B)
-
-	if(!Aturf || !Bturf)
-		return 0
-
-	if(inLineOfSight(Aturf.x,Aturf.y, Bturf.x,Bturf.y,Aturf.z))
-		return 1
-
-	else
-		return 0
-
-
-/proc/get_cardinal_step_away(atom/start, atom/finish) //returns the position of a step from start away from finish, in one of the cardinal directions
-	//returns only NORTH, SOUTH, EAST, or WEST
-	var/dx = finish.x - start.x
-	var/dy = finish.y - start.y
-	if(abs(dy) > abs (dx)) //slope is above 1:1 (move horizontally in a tie)
-		if(dy > 0)
-			return get_step(start, SOUTH)
-		else
-			return get_step(start, NORTH)
-	else
-		if(dx > 0)
-			return get_step(start, WEST)
-		else
-			return get_step(start, EAST)
-
 
 /proc/try_move_adjacent(atom/movable/AM)
 	var/turf/T = get_turf(AM)
@@ -433,22 +249,22 @@
 	var/list/answers = ignore_category ? list("Yes", "No", "Never for this round") : list("Yes", "No")
 	switch(tgui_alert(candidate_mob, question, "A limited-time role has appeared!", answers, poll_time, autofocus = FALSE))
 		if("Yes")
-			to_chat(candidate_mob, "<span class='notice'>Choice registered: Yes.</span>")
+			to_chat(candidate_mob, span_notice("Choice registered: Yes."))
 			if(time_passed + poll_time <= world.time)
-				to_chat(candidate_mob, "<span class='danger'>Sorry, you answered too late to be considered!</span>")
+				to_chat(candidate_mob, span_danger("Sorry, you answered too late to be considered!"))
 				SEND_SOUND(candidate_mob, 'sound/machines/buzz-sigh.ogg')
 				candidates -= candidate_mob
 			else
 				candidates += candidate_mob
 		if("No")
-			to_chat(candidate_mob, "<span class='danger'>Choice registered: No.</span>")
+			to_chat(candidate_mob, span_danger("Choice registered: No."))
 			candidates -= candidate_mob
 		if("Never for this round")
 			var/list/ignore_list = GLOB.poll_ignore[ignore_category]
 			if(!ignore_list)
 				GLOB.poll_ignore[ignore_category] = list()
 			GLOB.poll_ignore[ignore_category] += candidate_mob.ckey
-			to_chat(candidate_mob, "<span class='danger'>Choice registered: Never for this round.</span>")
+			to_chat(candidate_mob, span_danger("Choice registered: Never for this round."))
 			candidates -= candidate_mob
 		else
 			candidates -= candidate_mob
@@ -582,9 +398,7 @@
 	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
 	var/area/A = get_area(character)
-	var/message = "<span class='game deadsay'><span class='name'>\
-		[character.real_name]</span> ([rank]) has arrived at the station at \
-		<span class='name'>[A.name]</span>.</span>"
+	var/message = span_gamedeadsay("[span_name(character.real_name)] ([rank]) has arrived at the station at [span_name(A.name)].")
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return

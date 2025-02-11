@@ -17,27 +17,49 @@
 	desc = "advanced clown shoes that protect the wearer and render them nearly immune to slipping on their own peels. They also squeak at 100% capacity."
 	clothing_flags = NOSLIP
 	slowdown = SHOES_SLOWDOWN
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 25)
+	armor_type = /datum/armor/clown_shoes_combat
 	strip_delay = 70
 	resistance_flags = NONE
-	permeability_coefficient = 0.05
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /// Recharging rate in PPS (peels per second)
 #define BANANA_SHOES_RECHARGE_RATE 17
 #define BANANA_SHOES_MAX_CHARGE 3000
 
+/datum/armor/clown_shoes_combat
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 25
+	bomb = 50
+	bio = 90
+	fire = 70
+	acid = 50
+	stamina = 25
+	bleed = 40
+
 //The super annoying version
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat
 	name = "mk-honk combat shoes"
 	desc = "The culmination of years of clown combat research, these shoes leave a trail of chaos in their wake. They will slowly recharge themselves over time, or can be manually charged with bananium."
 	slowdown = SHOES_SLOWDOWN
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 25)
+	armor_type = /datum/armor/banana_shoes_combat
 	strip_delay = 70
 	resistance_flags = NONE
-	permeability_coefficient = 0.05
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	always_noslip = TRUE
+
+/datum/armor/banana_shoes_combat
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 25
+	bomb = 50
+	bio = 50
+	fire = 90
+	acid = 50
+	stamina = 25
+	bleed = 40
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
 	. = ..()
@@ -67,13 +89,15 @@
 	name = "bananium sword"
 	desc = "An elegant weapon, for a more civilized age."
 	force = 0
+	bleed_force = 0
+	bleed_force_on = 0
 	throwforce = 0
 	force_on = 0
 	throwforce_on = 0
 	hitsound = null
-	attack_verb_on = list("slipped")
+	attack_verb_on = list("slips")
 	clumsy_check = FALSE
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	sword_color = "yellow"
 	heat = 0
 	light_color = "#ffff00"
@@ -122,7 +146,7 @@
 /obj/item/melee/transforming/energy/sword/bananium/suicide_act(mob/living/user)
 	if(!active)
 		transform_weapon(user, TRUE)
-	user.visible_message("<span class='suicide'>[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!</span>")
+	user.visible_message(span_suicide("[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!"))
 	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 	slipper.Slip(src, user)
 	return SHAME
@@ -218,7 +242,7 @@
 	QDEL_NULL(bomb)
 
 /obj/item/grown/bananapeel/bombanana/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide."))
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	bomb.preprime(user, 0, FALSE)
 	return BRUTELOSS
@@ -250,73 +274,3 @@
 
 /obj/item/clothing/mask/fakemoustache/sticky/proc/unstick()
 	REMOVE_TRAIT(src, TRAIT_NODROP, STICKY_MOUSTACHE_TRAIT)
-
-//DARK H.O.N.K. AND CLOWN MECH WEAPONS
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana
-	name = "bombanana mortar"
-	desc = "Equipment for clown exosuits. Launches exploding banana peels."
-	icon_state = "mecha_bananamrtr"
-	projectile = /obj/item/grown/bananapeel/bombanana
-	projectiles = 8
-	projectile_energy_cost = 1000
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana/can_attach(obj/mecha/combat/honker/M)
-	if(..())
-		if(istype(M))
-			return TRUE
-	return FALSE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache
-	name = "\improper HONKeR-6 grenade launcher"
-	desc = "A weapon for combat exosuits. Launches primed tear-stache grenades."
-	icon_state = "mecha_grenadelnchr"
-	projectile = /obj/item/grenade/chem_grenade/teargas/moustache
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	projectiles = 6
-	missile_speed = 1.5
-	projectile_energy_cost = 800
-	equip_cooldown = 60
-	det_time = 20
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache/can_attach(obj/mecha/combat/honker/M)
-	if(..())
-		if(istype(M))
-			return TRUE
-	return FALSE
-
-/obj/mecha/combat/honker/dark
-	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"
-	name = "\improper Dark H.O.N.K"
-	icon_state = "darkhonker"
-	base_icon_state = "darkhonker"
-	max_integrity = 300
-	deflect_chance = 15
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
-	max_temperature = 35000
-	operation_req_access = list(ACCESS_SYNDICATE)
-	internals_req_access = list(ACCESS_SYNDICATE)
-	wreckage = /obj/structure/mecha_wreckage/honker/dark
-	max_equip = 4
-
-/obj/mecha/combat/honker/dark/add_cell(obj/item/stock_parts/cell/C)
-	if(C)
-		C.forceMove(src)
-		cell = C
-		return
-	cell = new /obj/item/stock_parts/cell/hyper(src)
-
-/obj/mecha/combat/honker/dark/loaded/Initialize(mapload)
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker()
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar/bombanana()//Needed more offensive weapons.
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/tearstache()//The mousetrap mortar was not up-to-snuff.
-	ME.attach(src)
-
-/obj/structure/mecha_wreckage/honker/dark
-	name = "\improper Dark H.O.N.K wreckage"
-	icon_state = "darkhonker-broken"

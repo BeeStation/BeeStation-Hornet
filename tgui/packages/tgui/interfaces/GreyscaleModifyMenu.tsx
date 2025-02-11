@@ -54,8 +54,8 @@ const DirectionAbbreviation: Record<Direction, string> = {
   [Direction.NorthWest]: 'NW',
 };
 
-const ConfigDisplay = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+const ConfigDisplay = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   return (
     <Section title="Designs">
       <LabeledList>
@@ -71,8 +71,8 @@ const ConfigDisplay = (props, context) => {
   );
 };
 
-const ColorDisplay = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+const ColorDisplay = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   const colors = data.colors || [];
   return (
     <Section title="Colors">
@@ -109,8 +109,8 @@ const ColorDisplay = (props, context) => {
   );
 };
 
-const PreviewCompassSelect = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+const PreviewCompassSelect = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   return (
     <Box>
       <Stack vertical>
@@ -138,9 +138,9 @@ const PreviewCompassSelect = (props, context) => {
   );
 };
 
-const SingleDirection = (props, context) => {
+const SingleDirection = (props) => {
   const { dir } = props;
-  const { data, act } = useBackend<GreyscaleMenuData>(context);
+  const { data, act } = useBackend<GreyscaleMenuData>();
   return (
     <Flex.Item grow={1} basis={0}>
       <Button
@@ -157,8 +157,8 @@ const SingleDirection = (props, context) => {
   );
 };
 
-const IconStatesDisplay = (props, context) => {
-  const { data, act } = useBackend<GreyscaleMenuData>(context);
+const IconStatesDisplay = (props) => {
+  const { data, act } = useBackend<GreyscaleMenuData>();
   return (
     <Section title="Icon States">
       <Flex>
@@ -177,8 +177,8 @@ const IconStatesDisplay = (props, context) => {
   );
 };
 
-const PreviewDisplay = (props, context) => {
-  const { data } = useBackend<GreyscaleMenuData>(context);
+const PreviewDisplay = (props) => {
+  const { data } = useBackend<GreyscaleMenuData>();
   return (
     <Section title={`Preview (${data.sprites_dir})`}>
       <Table>
@@ -188,19 +188,12 @@ const PreviewDisplay = (props, context) => {
           </Table.Cell>
           {data.sprites?.finished ? (
             <Table.Cell>
-              <Box
-                as="img"
-                src={data.sprites.finished}
-                m={0}
-                width="75%"
-                mx="10%"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
-              />
+              <Box as="img" m={0} mx="10%" src={data.sprites.finished} width="75%" />
             </Table.Cell>
           ) : (
             <Table.Cell>
-              <Box grow>
-                <Icon name="image" ml="25%" size={5} style={{ '-ms-interpolation-mode': 'nearest-neighbor' }} />
+              <Box>
+                <Icon name="image" ml="25%" size={5} />
               </Box>
             </Table.Cell>
           )}
@@ -244,7 +237,9 @@ const PreviewDisplay = (props, context) => {
 
 const SingleSprite = (props) => {
   const { source } = props;
-  return <Box as="img" src={source} width="100%" style={{ '-ms-interpolation-mode': 'nearest-neighbor' }} />;
+  return (
+    <Box as="img" src={source} width="100%" style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }} />
+  );
 };
 
 const LoadingAnimation = () => {
@@ -255,53 +250,22 @@ const LoadingAnimation = () => {
   );
 };
 
-export const GreyscaleModifyMenu = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+export const GreyscaleModifyMenu = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   return (
     <Window title="Color Configuration" width={325} height={800}>
       <Window.Content scrollable>
         <ConfigDisplay />
         <ColorDisplay />
         <IconStatesDisplay />
-        <Flex direction="column">
-          {!!data.unlocked && (
-            <Flex.Item justify="flex-start">
-              <Button
-                content={<Icon name="file-image-o" spin={data.monitoring_files} />}
-                tooltip="Continuously checks files for changes and reloads when necessary. WARNING: Very expensive"
-                selected={data.monitoring_files}
-                onClick={() => act('toggle_mass_refresh')}
-                width={1.9}
-                mr={-0.2}
-              />
-              <Button
-                content="Refresh Icon File"
-                tooltip="Loads the json configuration and icon file fresh from disk. This is useful to avoid restarting the server to see changes. WARNING: Expensive"
-                onClick={() => act('refresh_file')}
-              />
-              <Button
-                content="Save Icon File"
-                tooltip="Saves the icon to a temp file in tmp/. This is useful if you want to use a generated icon elsewhere or just view a more accurate representation"
-                onClick={() => act('save_dmi')}
-              />
-            </Flex.Item>
-          )}
-          <Flex.Item>
-            <Button
-              content="Apply"
-              tooltip="Applies changes made to the object this menu was created from."
-              color="red"
-              onClick={() => act('apply')}
-            />
-            <Button.Checkbox
-              content="Full Preview"
-              tooltip="Generates and displays the full sprite generation process instead of just the final output."
-              disabled={!data.generate_full_preview && !data.unlocked}
-              checked={data.generate_full_preview}
-              onClick={() => act('toggle_full_preview')}
-            />
-          </Flex.Item>
-        </Flex>
+        {!!data.unlocked && <Button content="Refresh Icon File" onClick={() => act('refresh_file')} />}
+        <Button content="Apply" onClick={() => act('apply')} mx={1} />
+        <Button.Checkbox
+          content="Full Preview"
+          disabled={!data.generate_full_preview && !data.unlocked}
+          checked={data.generate_full_preview}
+          onClick={() => act('toggle_full_preview')}
+        />
         <PreviewDisplay />
         {!!data.refreshing && <LoadingAnimation />}
       </Window.Content>

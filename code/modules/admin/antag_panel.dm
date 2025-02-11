@@ -79,14 +79,14 @@ GLOBAL_VAR(antag_prototypes)
 /datum/mind/proc/get_special_statuses()
 	var/list/result = LAZYCOPY(special_statuses)
 	if(!current)
-		result += "<span class='bad'>No body!</span>"
+		result += span_bad("No body!")
 	if(current && HAS_TRAIT(current, TRAIT_MINDSHIELD))
-		result += "<span class='good'>Mindshielded</span>"
+		result += span_good("Mindshielded")
 	//Move these to mob
 	if(iscyborg(current))
 		var/mob/living/silicon/robot/robot = current
 		if (robot.emagged)
-			result += "<span class='bad'>Emagged</span>"
+			result += span_bad("Emagged")
 	return result.Join(" | ")
 
 /datum/mind/proc/traitor_panel()
@@ -97,7 +97,7 @@ GLOBAL_VAR(antag_prototypes)
 		alert("This mind doesn't have a mob, or is deleted! For some reason!", "Edit Memory")
 		return
 
-	var/out = "<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
+	var/out = "[TOOLTIP_CSS_SETUP]<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
 	out += "Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
@@ -146,14 +146,14 @@ GLOBAL_VAR(antag_prototypes)
 
 		if(!current_antag) //Show antagging options
 			if(possible_admin_antags.len)
-				antag_header_parts += "<span class='highlight'>None</span>"
+				antag_header_parts += span_highlight("None")
 				antag_header_parts += possible_admin_antags
 			else
 				//If there's no antags to show in this category skip the section completely
 				continue
 		else //Show removal and current one
 			priority_sections |= antag_category
-			antag_header_parts += "<span class='bad'>[current_antag.name]</span>"
+			antag_header_parts += span_bad("[current_antag.name]")
 			antag_header_parts += "<a href='?src=[REF(src)];remove_antag=[REF(current_antag)]'>Remove</a>"
 
 
@@ -167,7 +167,7 @@ GLOBAL_VAR(antag_prototypes)
 				break
 		if(pref_source.banning_key)
 			if(is_banned_from(src.key, pref_source.banning_key))
-				antag_header_parts += "<span class='bad'><b>\[BANNED\]</b></span>"
+				antag_header_parts += span_bad("<b>\[BANNED\]</b>")
 			else if(current?.client)
 				var/list/related_preferences = list()
 				for(var/datum/role_preference/role_pref_type as anything in GLOB.role_preference_entries)

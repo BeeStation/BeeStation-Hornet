@@ -12,11 +12,11 @@
 
 
 /obj/vehicle/ridden/scooter/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to remove the handlebars...</span>")
+	to_chat(user, span_notice("You begin to remove the handlebars..."))
 	if(I.use_tool(src, user, 40, volume=50))
 		var/obj/vehicle/ridden/scooter/skateboard/S = new(drop_location())
 		new /obj/item/stack/rods(drop_location(), 2)
-		to_chat(user, "<span class='notice'>You remove the handlebars from [src].</span>")
+		to_chat(user, span_notice("You remove the handlebars from [src]."))
 		if(has_buckled_mobs())
 			var/mob/living/carbon/H = buckled_mobs[1]
 			unbuckle_mob(H)
@@ -28,7 +28,7 @@
 	. = ..()
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
-		if(buckled_mob.get_num_legs(FALSE) > 0)
+		if(buckled_mob.num_legs > 0)
 			buckled_mob.pixel_y = 5
 		else
 			buckled_mob.pixel_y = -4
@@ -36,8 +36,8 @@
 /obj/vehicle/ridden/scooter/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!istype(M))
 		return FALSE
-	if(M.get_num_legs() < legs_required && M.get_num_arms() < arms_required)
-		to_chat(M, "<span class='warning'>You don't think it'd be a good idea trying to ride \the [src]...</span>")
+	if(M.usable_legs < legs_required && M.usable_hands < arms_required)
+		to_chat(M, span_warning("You don't think it'd be a good idea trying to ride \the [src]..."))
 		return FALSE
 	return ..()
 
@@ -77,7 +77,7 @@
 		QDEL_NULL(sparks)
 	. = ..()
 
-/obj/vehicle/ridden/scooter/skateboard/relaymove()
+/obj/vehicle/ridden/scooter/skateboard/relaymove(mob/living/user, direction)
 	if (grinding || world.time < next_crash)
 		return FALSE
 	return ..()
@@ -110,11 +110,11 @@
 			unbuckle_mob(H)
 			H.throw_at(throw_target, 3, 2)
 			var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
 				if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
 					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 					H.updatehealth()
-			visible_message("<span class='danger'>[src] crashes into [A], sending [H] flying!</span>")
+			visible_message(span_danger("[src] crashes into [A], sending [H] flying!"))
 			H.Paralyze(80 * multiplier)
 		else
 			var/backdir = turn(dir, 180)
@@ -136,7 +136,7 @@
 			unbuckle_mob(L)
 			var/atom/throw_target = get_edge_target_turf(src, pick(GLOB.cardinals))
 			L.throw_at(throw_target, 2, 2)
-			visible_message("<span class='danger'>[L] loses [L.p_their()] footing and slams on the ground!</span>")
+			visible_message(span_danger("[L] loses [L.p_their()] footing and slams on the ground!"))
 			L.Paralyze(multiplier * 40)
 			grinding = FALSE
 			icon_state = board_icon
@@ -167,7 +167,7 @@
 	if (skater.incapacitated() || !Adjacent(skater))
 		return
 	if(has_buckled_mobs())
-		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
+		to_chat(skater, span_warning("You can't lift this up when somebody's on it."))
 		return
 	skater.put_in_hands(new board_item_type(get_turf(skater)))
 	qdel(src)
@@ -216,16 +216,16 @@
 	if(istype(I, /obj/item/stack/sheet/iron))
 		if(!I.tool_start_check(user, amount=5))
 			return
-		to_chat(user, "<span class='notice'>You begin to add wheels to [src].</span>")
+		to_chat(user, span_notice("You begin to add wheels to [src]."))
 		if(I.use_tool(src, user, 80, volume=50, amount=5))
-			to_chat(user, "<span class='notice'>You finish making wheels for [src].</span>")
+			to_chat(user, span_notice("You finish making wheels for [src]."))
 			new /obj/vehicle/ridden/scooter/skateboard(user.loc)
 			qdel(src)
 	else
 		return ..()
 
 /obj/item/scooter_frame/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+	to_chat(user, span_notice("You deconstruct [src]."))
 	new /obj/item/stack/rods(drop_location(), 10)
 	I.play_tool_sound(src)
 	qdel(src)
@@ -235,9 +235,9 @@
 	if(istype(I, /obj/item/stack/rods))
 		if(!I.tool_start_check(user, amount=2))
 			return
-		to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
+		to_chat(user, span_notice("You begin making handlebars for [src]."))
 		if(I.use_tool(src, user, 25, volume=50, amount=2))
-			to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
+			to_chat(user, span_notice("You add the rods to [src], creating handlebars."))
 			var/obj/vehicle/ridden/scooter/S = new(loc)
 			if(has_buckled_mobs())
 				var/mob/living/carbon/H = buckled_mobs[1]
@@ -250,9 +250,9 @@
 /obj/vehicle/ridden/scooter/skateboard/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	to_chat(user, "<span class='notice'>You begin to deconstruct and remove the wheels on [src]...</span>")
+	to_chat(user, span_notice("You begin to deconstruct and remove the wheels on [src]..."))
 	if(I.use_tool(src, user, 20, volume=50))
-		to_chat(user, "<span class='notice'>You deconstruct the wheels on [src].</span>")
+		to_chat(user, span_notice("You deconstruct the wheels on [src]."))
 		new /obj/item/stack/sheet/iron(drop_location(), 5)
 		new /obj/item/scooter_frame(drop_location())
 		if(has_buckled_mobs())
@@ -282,12 +282,12 @@
 
 /obj/vehicle/ridden/scooter/wheelys/post_unbuckle_mob(mob/living/M)
 	if(!has_buckled_mobs())
-		to_chat(M, "<span class='notice'>You pop the Wheely-Heel's wheels back into place.</span>")
+		to_chat(M, span_notice("You pop the Wheely-Heel's wheels back into place."))
 		moveToNullspace()
 	return ..()
 
 /obj/vehicle/ridden/scooter/wheelys/post_buckle_mob(mob/living/M)
-	to_chat(M, "<span class='notice'>You pop out the Wheely-Heel's wheels.</span>")
+	to_chat(M, span_notice("You pop out the Wheely-Heel's wheels."))
 	return ..()
 
 /obj/vehicle/ridden/scooter/wheelys/Bump(atom/A)
@@ -303,9 +303,9 @@
 		H.Paralyze(multiplier * 30)
 		H.adjustStaminaLoss(multiplier * 10)
 		var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
 			if(prob(multiplier * 100)) //Pro skaters have a 70% chance to not get the brain damage
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 				H.updatehealth()
-		visible_message("<span class='danger'>[src] crashes into [A], sending [H] flying!</span>")
+		visible_message(span_danger("[src] crashes into [A], sending [H] flying!"))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)

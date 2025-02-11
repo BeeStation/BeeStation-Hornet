@@ -16,12 +16,19 @@
 	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
-	sharpness = IS_SHARP
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	max_integrity = 200
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/item_spear
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
+
+
+/datum/armor/item_spear
+	fire = 50
+	acid = 30
 
 /obj/item/spear/ComponentInitialize()
 	. = ..()
@@ -34,7 +41,7 @@
 	..()
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/spear/CheckParts(list/parts_list)
@@ -63,12 +70,14 @@
 	icon_state = "spearbomb0"
 	var/obj/item/grenade/explosive = null
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
+
 /obj/item/spear/explosive/Initialize(mapload, obj/item/grenade/G)
 	. = ..()
 	set_explosive(G)
 
 /obj/item/spear/explosive/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.say("[war_cry]", forced="spear warcry")
 	explosive.forceMove(user)
 	explosive.prime()
@@ -102,7 +111,7 @@
 	..()
 
 /obj/item/spear/explosive/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.say("[war_cry]", forced="spear warcry")
 	explosive.forceMove(user)
 	explosive.prime()
@@ -112,7 +121,7 @@
 
 /obj/item/spear/explosive/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to set your war cry.</span>"
+	. += span_notice("Alt-click to set your war cry.")
 
 /obj/item/spear/explosive/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
@@ -135,7 +144,8 @@
 /obj/item/spear/grey_tide
 	name = "\improper Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
-	attack_verb = list("gored")
+	attack_verb_continuous = list("gores")
+	attack_verb_simple = list("gore")
 	force=15
 
 /obj/item/spear/grey_tide/ComponentInitialize()
@@ -189,8 +199,10 @@
 	embedding = list("armour_block" = 30, "max_damage_mult" = 0.5)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
-	sharpness = IS_SHARP
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()

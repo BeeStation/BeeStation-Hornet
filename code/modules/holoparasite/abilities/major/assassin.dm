@@ -65,7 +65,7 @@
 	. = TRUE
 	ASSERT_ABILITY_USABILITY
 	if(!COOLDOWN_FINISHED(src, stealth_cooldown))
-		to_chat(owner, "<span class='danger bold'>You cannot yet enter stealth, wait another [COOLDOWN_TIMELEFT_TEXT(src, stealth_cooldown)]!</span>")
+		to_chat(owner, span_dangerbold("You cannot yet enter stealth, wait another [COOLDOWN_TIMELEFT_TEXT(src, stealth_cooldown)]!"))
 		return FALSE
 	owner.melee_damage = 50
 	owner.armour_penetration = 100
@@ -88,7 +88,7 @@
 	owner.alpha = initial(owner.alpha)
 	master_stats.apply(owner)
 	if(!forced)
-		owner.visible_message("<span class='danger'>[owner.color_name] suddenly appears!</span>")
+		owner.visible_message(span_danger("[owner.color_name] suddenly appears!"))
 		COOLDOWN_START(src, stealth_cooldown, stealth_cooldown_time)
 		COOLDOWN_START(owner, manifest_cooldown, 4 SECONDS)
 		toggle_hud.begin_timer(stealth_cooldown_time)
@@ -128,7 +128,9 @@
 	icon_state = "backstab"
 	var/datum/holoparasite_ability/major/assassin/ability
 
-/atom/movable/screen/holoparasite/toggle_assassin/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/assassin/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/toggle_assassin)
+
+/atom/movable/screen/holoparasite/toggle_assassin/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/assassin/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make assassin holoparasite HUD without proper reference to assassin ability")

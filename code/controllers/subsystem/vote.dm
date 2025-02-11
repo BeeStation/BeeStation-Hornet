@@ -153,13 +153,6 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
 				SSmapping.map_voted = TRUE
-			if("transfer")
-				if(. == "Initiate Crew Transfer")
-					SSshuttle.requestEvac(null, "Crew Transfer Requested.")
-					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
-					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
-					if(C)
-						C.post_status("shuttle")
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins+GLOB.deadmins)
@@ -169,7 +162,7 @@ SUBSYSTEM_DEF(vote)
 		if(!active_admins)
 			SSticker.Reboot("Restart vote successful.", "restart vote")
 		else
-			to_chat(world, "<span style='boldannounce'>Notice:Restart vote will not restart the server automatically because there are active admins on.</span>")
+			to_chat(world, span_boldannounce("Notice:Restart vote will not restart the server automatically because there are active admins on."))
 			message_admins("A restart vote has passed, but there are active admins on with +server, so it has been canceled. If you wish, you may restart the server.")
 
 	return .
@@ -192,11 +185,15 @@ SUBSYSTEM_DEF(vote)
 	return vote
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
+	//Server is still intializing.
+	if(!MC_RUNNING(init_stage))
+		to_chat(usr, span_warning("Cannot start vote, server is not done initializing."))
+		return FALSE
 	if(!mode)
 		if(started_time)
 			var/next_allowed_time = (started_time + CONFIG_GET(number/vote_delay))
 			if(mode)
-				to_chat(usr, "<span class='warning'>There is already a vote in progress! please wait for it to finish.</span>")
+				to_chat(usr, span_warning("There is already a vote in progress! please wait for it to finish."))
 				return 0
 
 			var/lower_admin = FALSE
@@ -205,7 +202,7 @@ SUBSYSTEM_DEF(vote)
 				lower_admin = TRUE
 
 			if(next_allowed_time > world.time && !lower_admin)
-				to_chat(usr, "<span class='warning'>A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!</span>")
+				to_chat(usr, span_warning("A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!"))
 				return 0
 
 		reset()
@@ -225,8 +222,6 @@ SUBSYSTEM_DEF(vote)
 					shuffle_inplace(maps)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
-			if("transfer")
-				choices.Add("Initiate Crew Transfer", "Continue Playing")
 			if("custom")
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
@@ -341,16 +336,16 @@ SUBSYSTEM_DEF(vote)
 				CONFIG_SET(flag/allow_vote_map, !CONFIG_GET(flag/allow_vote_map))
 		if("restart")
 			if(CONFIG_GET(flag/allow_vote_restart) || usr.client.holder)
-				initiate_vote("restart",usr.key)
+				initiate_vote("restart", usr.key, forced=TRUE, popup=TRUE)
 		if("gamemode")
 			if(CONFIG_GET(flag/allow_vote_mode) || usr.client.holder)
-				initiate_vote("gamemode",usr.key)
+				initiate_vote("gamemode", usr.key, forced=TRUE, popup=TRUE)
 		if("map")
 			if(CONFIG_GET(flag/allow_vote_map) || usr.client.holder)
-				initiate_vote("map",usr.key)
+				initiate_vote("map", usr.key, forced=TRUE, popup=TRUE)
 		if("custom")
 			if(usr.client.holder)
-				initiate_vote("custom",usr.key)
+				initiate_vote("custom", usr.key, forced=TRUE, popup=TRUE)
 		if("vote")
 			submit_vote(round(text2num(params["index"])))
 	return TRUE
@@ -362,13 +357,13 @@ SUBSYSTEM_DEF(vote)
 	name = "Vote!"
 	button_icon_state = "vote"
 
-/datum/action/vote/Trigger()
+/datum/action/vote/on_activate()
 	if(owner)
 		owner.vote()
 		remove_from_client()
 		Remove(owner)
 
-/datum/action/vote/IsAvailable()
+/datum/action/vote/is_available()
 	return 1
 
 /datum/action/vote/proc/remove_from_client()

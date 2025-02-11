@@ -26,12 +26,20 @@
 	///When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
 
+	/// Generic bitflags for boolean conditions at the [/mob/living] level. Keep this for inherent traits of living types, instead of runtime-changeable ones.
+	var/living_flags = NONE
+
+	/// Flags that determine the potential of a mob to perform certain actions. Do not change this directly.
 	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
 
 	var/resting = FALSE
 
-	VAR_PROTECTED/lying_angle = 0 ///number of degrees. DO NOT USE THIS IN CHECKS. CHECK FOR MOBILITY FLAGS INSTEAD!!
-	var/lying_prev = 0		//last value of lying on update_mobility
+	/// Variable to track the body position of a mob, regardless of the actual angle of rotation (usually matching it, but not necessarily).
+	var/body_position = STANDING_UP
+	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
+	VAR_PROTECTED/lying_angle = 0
+	/// Value of lying lying_angle before last change. TODO: Remove the need for this.
+	var/lying_prev = 0
 
 	var/confused = 0	//Makes the mob move in random directions.
 
@@ -42,7 +50,7 @@
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = FALSE //FALSE is off, INCORPOREAL_MOVE_BASIC is normal, INCORPOREAL_MOVE_SHADOW is for ninjas
-								 //and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
+								//and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
@@ -62,6 +70,20 @@
 	var/list/mob_biotypes = list(MOB_ORGANIC)
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/has_limbs = 0 //does the mob have distinct limbs?(arms,legs, chest,head)
+
+	///How many legs does this mob have by default. This shouldn't change at runtime.
+	var/default_num_legs = 2
+	///How many legs does this mob currently have. Should only be changed through set_num_legs()
+	var/num_legs = 2
+	///How many usable legs this mob currently has. Should only be changed through set_usable_legs()
+	var/usable_legs = 2
+
+	///How many hands does this mob have by default. This shouldn't change at runtime.
+	var/default_num_hands = 2
+	///How many hands hands does this mob currently have. Should only be changed through set_num_hands()
+	var/num_hands = 2
+	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
+	var/usable_hands = 2
 
 	var/list/pipes_shown = list()
 	var/last_played_vent
@@ -85,7 +107,6 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
 	var/blood_volume = 0 //how much blood the mob has
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
 	var/see_override = 0 //0 for no override, sets see_invisible = see_override in silicon & carbon life process via update_sight()
 
@@ -106,8 +127,6 @@
 	var/datum/language/selected_default_language
 
 	var/last_words	//used for database logging
-
-	var/list/obj/effect/proc_holder/abilities = list()
 
 	var/can_be_held = FALSE	//whether this can be picked up and held.
 	var/worn_slot_flags = NONE //if it can be held, can it be equipped to any slots? (think pAI's on head)
@@ -135,6 +154,9 @@
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
 
+	/// Is this mob allowed to be buckled/unbuckled to/from things?
+	var/can_buckle_to = TRUE
+
 	//is mob player controllable
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
@@ -143,4 +165,7 @@
 	var/body_position_pixel_x_offset = 0
 	///The x amount a mob's sprite should be offset due to the current position they're in
 	var/body_position_pixel_y_offset = 0
+
+	/// What our current gravity state is. Used to avoid duplicate animates and such
+	var/gravity_state = null
 

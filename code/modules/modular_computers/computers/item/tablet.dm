@@ -2,6 +2,7 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
+	worn_icon_state = "pda"
 	icon_state_unpowered = "tablet"
 	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
@@ -21,7 +22,9 @@
 	var/finish_color = null
 
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
+	//This is the typepath to load "into" the pda
 	var/obj/item/insert_type = /obj/item/pen
+	//This is the currently inserted item
 	var/obj/item/inserted_item
 
 	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
@@ -63,13 +66,13 @@
 		return FALSE
 	var/obj/item/paper/paper = target
 	if (!paper.default_raw_text)
-		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
+		to_chat(user, span_warning("Unable to scan! Paper is blank."))
 	else
 		// clean up after ourselves
 		if(stored_paper)
 			qdel(stored_paper)
 		stored_paper = paper.copy(src)
-		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
+		to_chat(user, span_notice("Paper scanned. Saved to PDA's notekeeper."))
 		ui_update()
 	return TRUE
 
@@ -80,11 +83,11 @@
 		if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
 			return
 		if(inserted_item)
-			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
+			to_chat(user, span_warning("There is already \a [inserted_item] in \the [src]!"))
 		else
 			if(!user.transferItemToLoc(attacking_item, src))
 				return
-			to_chat(user, "<span class='notice'>You insert \the [attacking_item] into \the [src].</span>")
+			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
@@ -107,11 +110,11 @@
 			return
 	..()
 
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
+/obj/item/modular_computer/tablet/attack_atom(obj/target, mob/living/user)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the gas scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
+		if(thread.use_attack_obj && !thread.attack_atom(target, user))
 			return
 	..()
 
@@ -155,13 +158,13 @@
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
 		return
 	if(inserted_item)
-		to_chat(user, "<span class='notice'>You remove [inserted_item] from [src].</span>")
+		to_chat(user, span_notice("You remove [inserted_item] from [src]."))
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>This tablet does not have a pen in it!</span>")
+		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 
 // Tablet 'splosion..
 
@@ -172,9 +175,9 @@
 
 	if (ismob(loc))
 		var/mob/victim = loc
-		victim.show_message("<span class='userdanger'>Your [src] explodes!</span>", MSG_VISUAL, "<span class='warning'>You hear a loud *pop*!</span>", MSG_AUDIBLE)
+		victim.show_message(span_userdanger("Your [src] explodes!"), MSG_VISUAL, span_warning("You hear a loud *pop*!"), MSG_AUDIBLE)
 	else
-		visible_message("<span class='danger'>[src] explodes!</span>", "<span class='warning'>You hear a loud *pop*!</span>")
+		visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
 
 	if(current_turf)
 		current_turf.hotspot_expose(700,125)
@@ -213,7 +216,7 @@
 
 /obj/item/modular_computer/tablet/nukeops/should_emag(mob/user)
 	if(..())
-		to_chat(user, "<span class='notice'>You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\".</span>")
+		to_chat(user, span_notice("You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\"."))
 	return FALSE
 
 /// Borg Built-in tablet interface
@@ -273,7 +276,7 @@
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)
 				self_monitoring = null
-				CRASH("Cyborg [borgo]'s tablet hard drive rejected recieving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
+				CRASH("Cyborg [borgo]'s tablet hard drive rejected receiving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
 	return self_monitoring
 
 //Makes the light settings reflect the borg's headlamp settings
@@ -308,7 +311,7 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		sound = pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg')
 	borgo.playsound_local(src, sound, 50, TRUE)
-	to_chat(borgo, "<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+	to_chat(borgo, span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]"))
 
 /obj/item/modular_computer/tablet/integrated/ui_state(mob/user)
 	return GLOB.reverse_contained_state
@@ -322,11 +325,13 @@
 	theme_locked = TRUE
 
 
-/obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
+/obj/item/modular_computer/tablet/integrated/syndicate/Initialize(mapload)
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
+
+GLOBAL_LIST_EMPTY(PDAs)
 
 // Round start tablets
 
@@ -383,8 +388,8 @@
 		add_overlay(mutable_appearance(init_icon, "light_overlay"))
 
 
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
-	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
+/obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
+	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
 	return // we don't want ais or cyborgs using a private role tablet
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)
@@ -405,3 +410,20 @@
 		inserted_item = new insert_type(src)
 		// show the inserted item
 		update_icon()
+
+/// Return a list of types you want to pregenerate and use later
+/// Do not pass in things that care about their init location, or expect extra input
+/// Also as a courtesy to me, don't pass in any bombs
+/obj/item/modular_computer/tablet/pda/proc/get_types_to_preload()
+	var/list/preload = list()
+	//preload += default_cartridge
+	preload += insert_type
+	return preload
+
+/// Callbacks for preloading pdas
+/obj/item/modular_computer/tablet/pda/proc/display_pda()
+	GLOB.PDAs += src
+
+/// See above, we don't want jerry from accounting to try and message nullspace his new bike
+/obj/item/modular_computer/tablet/pda/proc/cloak_pda()
+	GLOB.PDAs -= src

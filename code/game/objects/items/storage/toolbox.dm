@@ -13,7 +13,8 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
-	attack_verb = list("robusted")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
@@ -38,7 +39,7 @@
 
 
 /obj/item/storage/toolbox/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] robusts [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] robusts [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/storage/toolbox/emergency
@@ -98,7 +99,8 @@
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("robusted")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
 
 /obj/item/storage/toolbox/mechanical/old/clean
@@ -196,10 +198,12 @@
 	desc = "A huge brass box with several indentations in its surface."
 	icon_state = "brassbox"
 	item_state = null
+	worn_icon_state = null
 	has_latches = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("robusted", "crushed", "smashed")
+	attack_verb_continuous = list("robusts")
+	attack_verb_simple = list("robust")
 	material_flags = NONE
 
 /obj/item/storage/toolbox/brass/ComponentInitialize()
@@ -217,6 +221,7 @@
 	new /obj/item/weldingtool/experimental/brass(src)
 
 /obj/item/storage/toolbox/brass/prefilled/servant
+	worn_icon_state = "baguette"
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/toolbox/artistic
@@ -281,20 +286,22 @@
 	new /obj/item/ammo_box/c38/box(src)
 
 //floorbot assembly
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
-	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
-							/obj/item/storage/toolbox/electrical,
-							/obj/item/storage/toolbox/mechanical,
-							/obj/item/storage/toolbox/artistic,
-							/obj/item/storage/toolbox/syndicate)
+/obj/item/storage/toolbox/attackby(obj/item/stack/tile/iron/T, mob/user, params)
+	var/list/allowed_toolbox = list(
+		/obj/item/storage/toolbox/emergency, //which toolboxes can be made into floorbots
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/artistic,
+		/obj/item/storage/toolbox/syndicate,
+	)
 
-	if(!istype(T, /obj/item/stack/tile/plasteel))
+	if(!istype(T, /obj/item/stack/tile/iron))
 		..()
 		return
 	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))
 		return
 	if(contents.len >= 1)
-		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside!</span>")
+		to_chat(user, span_warning("They won't fit in, as there is already stuff inside!"))
 		return
 	if(T.use(10))
 		var/obj/item/bot_assembly/floorbot/B = new
@@ -312,8 +319,8 @@
 				B.toolbox_color = "s"
 		user.put_in_hands(B)
 		B.update_icon()
-		to_chat(user, "<span class='notice'>You add the tiles into the empty [name]. They protrude from the top.</span>")
+		to_chat(user, span_notice("You add the tiles into the empty [name]. They protrude from the top."))
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot!</span>")
+		to_chat(user, span_warning("You need 10 floor tiles to start building a floorbot!"))
 		return

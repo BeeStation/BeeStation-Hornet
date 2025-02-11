@@ -6,8 +6,8 @@
 
 
 ///Monkey checks
-#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
-#define IS_DEAD_OR_INCAP(source) (source.incapacitated() || source.stat)
+#define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
+#define IS_DEAD_OR_INCAP(source) (HAS_TRAIT(source, TRAIT_INCAPACITATED) || HAS_TRAIT(source, TRAIT_HANDS_BLOCKED) || IS_IN_STASIS(source) || source.stat)
 
 ///For JPS pathing, the maximum length of a path we'll try to generate. Should be modularized depending on what we're doing later on
 #define AI_MAX_PATH_LENGTH 30 // 30 is possibly overkill since by default we lose interest after 14 tiles of distance, but this gives wiggle room for weaving around obstacles
@@ -185,3 +185,11 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+
+// AI laws
+#define LAW_VALENTINES "valentines"
+#define LAW_ZEROTH "zeroth"
+#define LAW_INHERENT "inherent"
+#define LAW_SUPPLIED "supplied"
+#define LAW_ION "ion"
+#define LAW_HACKED "hacked"

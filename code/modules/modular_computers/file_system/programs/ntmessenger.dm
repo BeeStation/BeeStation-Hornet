@@ -137,7 +137,7 @@
 			return TRUE
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
-				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
+				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
 				return
 			var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
 			if(!disk?.spam_delay)
@@ -153,27 +153,27 @@
 
 			if(targets.len > 0)
 				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
-					to_chat(usr, "<span class='warning'>Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds.")
+					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds."))
 					return
 				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
 
 			return TRUE
 		if("PDA_sendMessage")
 			if(!sending_and_receiving)
-				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
+				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
 				return
 			var/obj/item/modular_computer/target = locate(params["ref"])
 			if(!istype(target))
 				return // we don't want tommy sending his messages to nullspace
 			if(!(target.saved_identification == params["name"] && target.saved_job == params["job"]))
-				to_chat(usr, "<span class='notice'>ERROR: User no longer exists.</span>")
+				to_chat(usr, span_notice("ERROR: User no longer exists."))
 				return
 
 			var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 
 			for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 				if(!app.sending_and_receiving && !sending_virus)
-					to_chat(usr, "<span class='notice'>ERROR: Device has receiving disabled.</span>")
+					to_chat(usr, span_notice("ERROR: Device has receiving disabled."))
 					return
 				if(sending_virus)
 					var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
@@ -186,6 +186,14 @@
 			computer.saved_image = null
 			photo_path = null
 			return TRUE
+		if("PDA_viewPhotos")
+			if(!issilicon(usr))
+				return
+			var/mob/living/silicon/user = usr
+			var/obj/item/camera/siliconcam/aicamera = user.aicamera
+			if(isnull(aicamera))
+				return
+			aicamera.viewpictures(user)
 		if("PDA_selectPhoto")
 			if(!issilicon(usr))
 				return
@@ -193,7 +201,7 @@
 			if(!user.aicamera)
 				return
 			if(!length(user.aicamera.stored))
-				to_chat(user, "<span class='notice'>ERROR: No stored photos located.</span>")
+				to_chat(user, span_notice("ERROR: No stored photos located."))
 				if(ringer_status)
 					playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
 				return
@@ -279,8 +287,8 @@
 		message += "\nSent from my PDA"
 
 	// Filter
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(user, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
+	if(OOC_FILTER_CHECK(message))
+		to_chat(user, span_warning("ERROR: Prohibited word(s) detected in message."))
 		return
 
 	// Check for jammers
@@ -314,7 +322,7 @@
 
 	// If it didn't reach, note that fact
 	if (!signal.data["done"])
-		to_chat(user, "<span class='notice'>ERROR: Server isn't responding.</span>")
+		to_chat(user, span_notice("ERROR: Server isn't responding."))
 		if(ringer_status)
 			playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return FALSE
@@ -338,14 +346,14 @@
 		signal.data["message"] = emoji_parse(signal.data["message"])
 
 	// Show it to ghosts
-	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message(include_photo = TRUE)]</span>"
+	var/ghost_message = "[span_name(message_data["name"])] [span_gamesay("PDA Message")] --> [span_name(target_text)]: [span_message(signal.format_message(include_photo = TRUE))]"
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && M.client?.prefs.read_player_preference(/datum/preference/toggle/chat_ghostpda))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
 
 	// Log in the talk log
 	user.log_talk(message, LOG_PDA, tag="PDA: [initial(message_data["name"])] to [target_text]")
-	to_chat(user, "<span class='info'>PDA message sent to [target_text]: [signal.format_message()]</span>")
+	to_chat(user, span_info("PDA message sent to [target_text]: [signal.format_message()]"))
 
 	if (ringer_status)
 		computer.send_sound()
@@ -394,7 +402,7 @@
 		if(signal.data["emojis"] == TRUE)//so will not parse emojis as such from pdas that don't send emojis
 			inbound_message = emoji_parse(inbound_message)
 
-		to_chat(L, "<span class='infoplain'>[icon2html(src)] <b>PDA message from [hrefstart][signal.data["name"]] ([signal.data["job"]])[hrefend], </b>[inbound_message] [reply]</span>")
+		to_chat(L, span_infoplain("[icon2html(src)] <b>PDA message from [hrefstart][signal.data["name"]] ([signal.data["job"]])[hrefend], </b>[inbound_message] [reply]"))
 
 
 	if (ringer_status)

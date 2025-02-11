@@ -34,7 +34,7 @@
 	taste_description = "slime"
 	taste_mult = 0.9
 
-/datum/reagent/toxin/mutagen/reaction_mob(mob/living/carbon/M, method=TOUCH, reac_volume)
+/datum/reagent/toxin/mutagen/expose_mob(mob/living/carbon/M, method=TOUCH, reac_volume)
 	if(!..())
 		return
 	if(!M.has_dna())
@@ -70,7 +70,7 @@
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+/datum/reagent/toxin/plasma/expose_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	if(method == TOUCH || method == VAPOR)
 		M.adjust_fire_stacks(reac_volume / 5)
 		return
@@ -108,7 +108,7 @@
 
 /datum/reagent/toxin/slimejelly/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
-		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		to_chat(M, span_danger("Your insides are burning!"))
 		M.adjustToxLoss(rand(1,10)*REM, 0)
 		. = 1
 	else if(prob(40))
@@ -209,7 +209,7 @@
 	toxpwr = 1
 	taste_mult = 1
 
-/datum/reagent/toxin/plantbgone/reaction_obj(obj/O, reac_volume)
+/datum/reagent/toxin/plantbgone/expose_obj(obj/O, reac_volume)
 	if(istype(O, /obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.take_damage(rand(15,35), BRUTE, 0) // Kills alien weeds pretty fast
@@ -219,7 +219,7 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-/datum/reagent/toxin/plantbgone/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/toxin/plantbgone/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == VAPOR)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
@@ -240,7 +240,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 
-/datum/reagent/toxin/pestkiller/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/toxin/pestkiller/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	..()
 	if(MOB_BUG in M.mob_biotypes)
 		var/damage = min(round(0.4*reac_volume, 0.1),10)
@@ -288,10 +288,10 @@
 			M.confused += 2
 			M.drowsyness += 2
 		if(10 to 50)
-			M.Sleeping(40, 0)
+			M.Sleeping(40)
 			. = 1
 		if(51 to INFINITY)
-			M.Sleeping(40, 0)
+			M.Sleeping(40)
 			M.adjustToxLoss((current_cycle - 50)*REM, 0)
 			. = 1
 	..()
@@ -310,9 +310,9 @@
 /datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/M)
 	switch(current_cycle)
 		if(1 to 50)
-			M.Sleeping(40, 0)
+			M.Sleeping(40)
 		if(51 to INFINITY)
-			M.Sleeping(40, 0)
+			M.Sleeping(40)
 			M.adjustToxLoss((current_cycle - 50)*REM, 0)
 	return ..()
 
@@ -390,7 +390,7 @@
 	if(prob(50))
 		switch(pick(1, 2, 3, 4))
 			if(1)
-				to_chat(M, "<span class='danger'>You can barely see!</span>")
+				to_chat(M, span_danger("You can barely see!"))
 				M.blur_eyes(3)
 			if(2)
 				M.emote("cough")
@@ -486,7 +486,7 @@
 	if(M.toxloss <= 60)
 		M.adjustToxLoss(1*REM, 0)
 	if(current_cycle >= 18)
-		M.Sleeping(40, 0)
+		M.Sleeping(40)
 	..()
 	return TRUE
 
@@ -504,7 +504,7 @@
 		M.losebreath += 1
 	if(prob(8))
 		to_chat(M, "You feel horrendously weak!")
-		M.Stun(40, 0)
+		M.Stun(40)
 		M.adjustToxLoss(2*REM, 0)
 	return ..()
 
@@ -528,7 +528,7 @@
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/itching_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/toxin/itching_powder/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
 		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
@@ -566,7 +566,7 @@
 		var/picked_option = rand(1,3)
 		switch(picked_option)
 			if(1)
-				C.Paralyze(60, 0)
+				C.Paralyze(60)
 				. = TRUE
 			if(2)
 				C.losebreath += 10
@@ -576,7 +576,7 @@
 				if(!C.undergoing_cardiac_arrest() && C.can_heartattack())
 					C.set_heartattack(TRUE)
 					if(C.stat == CONSCIOUS)
-						C.visible_message("<span class='userdanger'>[C] clutches at [C.p_their()] chest as if [C.p_their()] heart stopped!</span>")
+						C.visible_message(span_userdanger("[C] clutches at [C.p_their()] chest as if [C.p_their()] heart stopped!"))
 				else
 					C.losebreath += 10
 					C.adjustOxyLoss(rand(5,25), 0)
@@ -596,7 +596,7 @@
 
 /datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 10)
-		M.Stun(40, 0)
+		M.Stun(40)
 		. = TRUE
 	if(prob(20))
 		M.losebreath += 4
@@ -614,7 +614,7 @@
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 10)
-		M.Sleeping(40, 0)
+		M.Sleeping(40)
 	M.adjustStaminaLoss(10*REM, 0)
 	..()
 	return TRUE
@@ -631,7 +631,7 @@
 
 /datum/reagent/toxin/sulfonal/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 22)
-		M.Sleeping(40, 0)
+		M.Sleeping(40)
 	return ..()
 
 /datum/reagent/toxin/amanitin
@@ -705,7 +705,7 @@
 	if(current_cycle >=33 && prob(15))
 		C.spew_organ()
 		C.vomit(0, TRUE, TRUE, 4)
-		to_chat(C, "<span class='userdanger'>You feel something lumpy come up as you vomit.</span>")
+		to_chat(C, span_userdanger("You feel something lumpy come up as you vomit."))
 
 /datum/reagent/toxin/curare
 	name = "Curare"
@@ -718,7 +718,7 @@
 
 /datum/reagent/toxin/curare/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 11)
-		M.Paralyze(60, 0)
+		M.Paralyze(60)
 	M.adjustOxyLoss(1*REM, 0)
 	. = 1
 	..()
@@ -736,7 +736,8 @@
 /datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.bleed_rate = min(H.bleed_rate + 2, 8)
+		if (!H.is_bleeding())
+			H.add_bleeding(BLEED_SURFACE)
 		H.adjustBruteLoss(1, 0) //Brute damage increases with the amount they're bleeding
 		. = 1
 	return ..() || .
@@ -802,7 +803,7 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/acid/reaction_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
+/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
 	if(!istype(C))
 		return
 	reac_volume = round(reac_volume,0.1)
@@ -814,13 +815,13 @@
 		return
 	C.acid_act(acidpwr, reac_volume)
 
-/datum/reagent/toxin/acid/reaction_obj(obj/O, reac_volume)
+/datum/reagent/toxin/acid/expose_obj(obj/O, reac_volume)
 	if(ismob(O.loc)) //handled in human acid_act()
 		return
 	reac_volume = round(reac_volume,0.1)
 	O.acid_act(acidpwr, reac_volume)
 
-/datum/reagent/toxin/acid/reaction_turf(turf/T, reac_volume)
+/datum/reagent/toxin/acid/expose_turf(turf/T, reac_volume)
 	if (!istype(T))
 		return
 	reac_volume = round(reac_volume,0.1)
@@ -855,7 +856,7 @@
 		holder.remove_reagent(type, actual_metaboliztion_rate * M.metabolism_efficiency)
 		M.adjustToxLoss(actual_toxpwr*REM, 0)
 		if(prob(10))
-			M.Paralyze(20, 0)
+			M.Paralyze(20)
 		. = 1
 	..()
 
@@ -898,7 +899,7 @@
 				var/list/possible_mes = list("oofs softly.", "looks like their bones hurt.", "grimaces, as though their bones hurt.")
 				M.say("*custom " + pick(possible_mes), forced = /datum/reagent/toxin/bonehurtingjuice)
 			if(3)
-				to_chat(M, "<span class='warning'>Your bones hurt!</span>")
+				to_chat(M, span_warning("Your bones hurt!"))
 	return ..()
 
 /datum/reagent/toxin/bonehurtingjuice/overdose_process(mob/living/carbon/M)
@@ -918,19 +919,19 @@
 			if(bp)
 				bp.receive_damage(0, 0, 200)
 				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
-				M.visible_message("<span class='warning'>[M]'s bones hurt too much!!</span>", "<span class='danger'>Your bones hurt too much!!</span>")
+				M.visible_message(span_warning("[M]'s bones hurt too much!!"), span_danger("Your bones hurt too much!!"))
 				M.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
 			else //SUCH A LUST FOR REVENGE!!!
-				to_chat(M, "<span class='warning'>A phantom limb hurts!</span>")
+				to_chat(M, span_warning("A phantom limb hurts!"))
 				M.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
 		else //you just want to socialize
 			if(bp)
 				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
-				M.visible_message("<span class='warning'>[M] rattles loudly and flails around!!</span>", "<span class='danger'>Your bones hurt so much that your missing muscles spasm!!</span>")
+				M.visible_message(span_warning("[M] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
 				M.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
 				bp.receive_damage(200, 0, 0) //But I don't think we should
 			else
-				to_chat(M, "<span class='warning'>Your missing arm aches from wherever you left it.</span>")
+				to_chat(M, span_warning("Your missing arm aches from wherever you left it."))
 				M.emote("sigh")
 	return ..()
 
@@ -949,7 +950,7 @@
 	M.confused = M.dizziness //add a tertiary effect here if this is isn't an effective poison.
 	if(current_cycle >= 12 && prob(8))
 		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
-		to_chat(M, "<span class='notice'>[tox_message]</span>")
+		to_chat(M, span_notice("[tox_message]"))
 	. = 1
 	..()
 
@@ -969,3 +970,8 @@
 	M.silent = max(M.silent, 3)
 	M.confused = max(M.confused, 3)
 	..()
+
+/datum/reagent/toxin/morphvenom/mimite
+	name = "Mimite venom"
+	description = "Deadly venom of a shapeshifting creature."
+	color = "#330063"

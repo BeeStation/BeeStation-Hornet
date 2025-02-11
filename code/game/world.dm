@@ -31,8 +31,6 @@ GLOBAL_VAR(restart_counter)
  * SO HELP ME GOD IF I FIND ABSTRACTION LAYERS OVER THIS!
  */
 /world/proc/Genesis()
-	// auxtools has to go BEFORE tracy, otherwise tracy will clobber its hook addresses
-	AUXTOOLS_CHECK(AUXMOS)
 	#ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	init_byond_tracy()
@@ -48,7 +46,7 @@ GLOBAL_VAR(restart_counter)
 
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
-	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
+	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = GLOB.world_econ_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
@@ -100,6 +98,10 @@ GLOBAL_VAR(restart_counter)
 	HandleTestRun()
 	#endif
 
+	#ifdef AUTOWIKI
+	setup_autowiki()
+	#endif
+
 /world/proc/InitTgs()
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
 	GLOB.revdata.load_tgs_info()
@@ -144,6 +146,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
+	GLOB.world_econ_log = "[GLOB.log_directory]/econ.log"
 	GLOB.world_id_log = "[GLOB.log_directory]/id.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
@@ -162,7 +165,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.prefs_log = "[GLOB.log_directory]/preferences.log"
 
-#ifdef UNIT_TESTS
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
 	start_log(GLOB.test_log)
 #endif
@@ -172,6 +175,7 @@ GLOBAL_VAR(restart_counter)
 #endif
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_attack_log)
+	start_log(GLOB.world_econ_log)
 	start_log(GLOB.world_pda_log)
 	start_log(GLOB.world_telecomms_log)
 	start_log(GLOB.world_manifest_log)
@@ -278,7 +282,7 @@ GLOBAL_VAR(restart_counter)
 		if(PRcounts[id] > PR_ANNOUNCEMENTS_PER_ROUND)
 			return
 
-	var/final_composed = "<span class='announce'>PR: [announcement]</span>"
+	var/final_composed = span_announce("PR: [announcement]")
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 
@@ -309,9 +313,9 @@ GLOBAL_VAR(restart_counter)
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
-		to_chat(world, "<span class='boldannounce'>Rebooting World immediately due to host request.</span>")
+		to_chat(world, span_boldannounce("Rebooting World immediately due to host request."))
 	else
-		to_chat(world, "<span class='boldannounce'>Rebooting world...</span>")
+		to_chat(world, span_boldannounce("Rebooting world..."))
 		Master.Shutdown()	//run SS shutdowns
 
 	TgsReboot()
@@ -319,7 +323,7 @@ GLOBAL_VAR(restart_counter)
 	#ifdef UNIT_TESTS
 	FinishTestRun()
 	return
-	#endif
+	#else
 
 	if(TgsAvailable())
 		var/do_hard_reboot
@@ -344,55 +348,85 @@ GLOBAL_VAR(restart_counter)
 
 	log_world("World rebooted at [time_stamp()]")
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
-	AUXTOOLS_SHUTDOWN(AUXMOS)
 	..()
+	#endif
 
 /world/Del()
 	shutdown_logging() // makes sure the thread is closed before end, else we terminate
-	AUXTOOLS_SHUTDOWN(AUXMOS)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		LIBCALL(debug_server, "auxtools_shutdown")()
 	..()
 
 /world/proc/update_status()
-
-	var/list/features = list()
-
-	if (!GLOB.enter_allowed)
-		features += "closed"
-
 	var/s = ""
-	var/hostedby
-	if(config)
-		var/server_name = CONFIG_GET(string/servername)
-		if (server_name)
-			s += "<b>[server_name]</b> &#8212; "
 
-		hostedby = CONFIG_GET(string/hostedby)
-
-	s += "<b>[station_name()]</b>";
-	var/discordurl = CONFIG_GET(string/discordurl)
-	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
-
+	// Remove the https: since // is good enough
+	var/discordurl = replacetext(CONFIG_GET(string/discordurl), "https:", "")
+	var/server_name = CONFIG_GET(string/servername)
+	var/server_tag = CONFIG_GET(string/servertag)
+	var/station_name = station_name()
 	var/players = GLOB.clients.len
-
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
 	if (popcap)
 		popcaptext = "/[popcap]"
 
-	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
+	// Determine our character usage
+	var/character_usage = 92	// Base character usage
+	// Discord URL is needed
+	if (discordurl)
+		character_usage += length(discordurl)
+	// Server name is needed
+	if (server_name)
+		character_usage += length(server_name)
+	// We also need this stuff
+	character_usage += length("[players][popcaptext][SSmapping.config?.map_name || "Loading..."][server_tag]")
+	var/station_name_limit = 255 - character_usage
 
-	if (!host && hostedby)
-		features += "hosted by <b>[hostedby]</b>"
+	if (station_name_limit <= 10)
+		// Too few characters to display the station name
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b></b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b><br>"
+			else
+				s += "<b>Space Station 13</b><br>"
+	if (station_name_limit < length(station_name))
+		// Station name is going to be truncated with ...
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b> - <b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b> - <b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+			else
+				s += "<b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+	else
+		// Station name can be displayed in full
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b> - <b>[station_name]</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b>[station_name]</b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b> - <b>[station_name]</b><br>"
+			else
+				s += "<b>[station_name]</b><br>"
 
-	if(length(features))
-		s += ": [jointext(features, ", ")]"
+	if (server_tag)
+		s += "[server_tag]<p>"
 
-	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
-	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
-	s += "<br>Players: <b>[players][popcaptext]</b>"
+	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
+	s += "Players: <b>[players][popcaptext]</b><br>"
+	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]"
 
 	status = s
 
@@ -450,3 +484,5 @@ GLOBAL_VAR(restart_counter)
 	var/init_result = LIBCALL(library, "init")("block")
 	if (init_result != "0")
 		CRASH("Error initializing byond-tracy: [init_result]")
+
+#undef RESTART_COUNTER_PATH

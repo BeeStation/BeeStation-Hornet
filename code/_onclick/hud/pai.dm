@@ -1,7 +1,7 @@
-#define PAI_MISSING_SOFTWARE_MESSAGE "<span class='warning'>You must download the required software to use this.</span>"
+#define PAI_MISSING_SOFTWARE_MESSAGE span_warning("You must download the required software to use this.")
 
 /atom/movable/screen/pai
-	icon = 'icons/mob/screen_pai.dmi'
+	icon = 'icons/hud/screen_pai.dmi'
 	var/required_software
 
 /atom/movable/screen/pai/Click()
@@ -54,7 +54,7 @@
 	if(!..())
 		return
 	var/mob/living/silicon/pai/pAI = usr
-	pAI.lay_down()
+	pAI.toggle_resting()
 
 /atom/movable/screen/pai/light
 	name = "Toggle Integrated Lights"
@@ -90,7 +90,7 @@
 	if(holder)
 		pAI.hostscan.attack(holder, pAI)
 	else
-		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
+		to_chat(usr, span_warning("You are not being carried by anyone!"))
 		return 0
 
 /atom/movable/screen/pai/crew_manifest
@@ -168,7 +168,7 @@
 
 /atom/movable/screen/pai/radio
 	name = "radio"
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 	icon_state = "radio"
 
 /atom/movable/screen/pai/radio/Click()

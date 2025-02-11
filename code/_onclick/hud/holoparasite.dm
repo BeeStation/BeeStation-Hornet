@@ -117,7 +117,9 @@
 	var/static/list/mutable_appearance/timer_fraction_overlays
 	COOLDOWN_DECLARE(timer)
 
-/atom/movable/screen/holoparasite/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
+
+/atom/movable/screen/holoparasite/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
 	. = ..()
 	if(!istype(_owner))
 		CRASH("Tried to create a holoparasite HUD element without a parent holoparasite!")
@@ -136,7 +138,7 @@
 		LAZYADD(accent_overlays, overlay)
 	RegisterSignal(owner, COMSIG_HOLOPARA_SET_ACCENT_COLOR, PROC_REF(on_set_accent_color))
 	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(on_login))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_POST_MANIFEST, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED), PROC_REF(_update_appearance))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_POST_MANIFEST, COMSIG_HOLOPARA_RECALL, COMSIG_MOVABLE_MOVED), PROC_REF(_update_appearance))
 
 /atom/movable/screen/holoparasite/Destroy()
 	stop_timer()

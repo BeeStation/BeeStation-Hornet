@@ -17,9 +17,11 @@
 	throw_speed = 2
 	throw_range = 4
 	custom_materials = list(/datum/material/iron=13000)
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = "swing_hit"
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_DEEP_WOUND
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 	tool_behaviour = TOOL_SAW
@@ -36,13 +38,13 @@
 
 /obj/item/chainsaw/suicide_act(mob/living/carbon/user)
 	if(on)
-		user.visible_message("<span class='suicide'>[user] begins to tear [user.p_their()] head off with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] begins to tear [user.p_their()] head off with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		playsound(src, 'sound/weapons/chainsawhit.ogg', 100, TRUE)
 		var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)
 		if(myhead)
 			myhead.dismember()
 	else
-		user.visible_message("<span class='suicide'>[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!"))
 		playsound(src, 'sound/weapons/genhit1.ogg', 100, TRUE)
 	return BRUTELOSS
 
@@ -67,13 +69,13 @@
 // DOOMGUY CHAINSAW
 /obj/item/chainsaw/doomslayer
 	name = "THE GREAT COMMUNICATOR"
-	desc = "<span class='warning'>VRRRRRRR!!!</span>"
+	desc = span_warning("VRRRRRRR!!!")
 	armour_penetration = 100
 	force_on = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 		return 1
 	return 0
@@ -88,7 +90,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	force_on = 40
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("sawed", "shred", "rended", "gutted", "eviscerated")
+	attack_verb_continuous = list("saws", "shreds", "rends", "guts", "eviscerates")
+	attack_verb_simple = list("saw", "shred", "rend", "gut", "eviscerate")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
 	armour_penetration = 50
@@ -140,3 +143,6 @@
 /obj/item/chainsaw/energy/doom/attack(mob/living/target)
 	..()
 	target.Knockdown(4)
+
+/datum/action/item_action/startchainsaw
+	name = "Pull The Starting Cord"

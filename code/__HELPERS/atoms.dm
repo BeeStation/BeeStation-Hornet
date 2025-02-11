@@ -132,7 +132,7 @@
 		return FALSE
 	if(isliving(source))
 		var/mob/living/source_mob = source
-		if(source_mob.mobility_flags & MOBILITY_STAND)
+		if(source_mob.body_position == LYING_DOWN)
 			return FALSE
 	var/goal_dir = get_dir(source, target)
 	var/clockwise_source_dir = turn(source.dir, -45)
@@ -141,25 +141,6 @@
 	if(source.dir == goal_dir || clockwise_source_dir == goal_dir || anticlockwise_source_dir == goal_dir)
 		return TRUE
 	return FALSE
-
-/*
-rough example of the "cone" made by the 3 dirs checked
- B
-  \
-   \
-    >
-      <
-       \
-        \
-B --><-- A
-        /
-       /
-      <
-     >
-    /
-   /
- B
-*/
 
 ///ultra range (no limitations on distance, faster than range for distances > 8); including areas drastically decreases performance
 /proc/urange(dist = 0, atom/center = usr, orange = FALSE, areas = FALSE)
@@ -350,3 +331,15 @@ B --><-- A
 		return get_step(ref, base_dir)
 
 */
+
+/// Returns an x and y value require to reverse the transformations made to center an oversized icon
+/atom/proc/get_oversized_icon_offsets()
+	if (pixel_x == 0 && pixel_y == 0)
+		return list("x" = 0, "y" = 0)
+	var/list/icon_dimensions = get_icon_dimensions(icon)
+	var/icon_width = icon_dimensions["width"]
+	var/icon_height = icon_dimensions["height"]
+	return list(
+		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
+		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
+	)

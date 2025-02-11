@@ -10,12 +10,13 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_EPIC)
 	obj_damage = 400
 	light_range = 3
-	faction = list("mining", "boss")
+	faction = list(FACTION_MINING, FACTION_BOSS)
 	weather_immunities = list("lava","ash")
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
@@ -148,7 +149,7 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = ""
 	var/chosen_message
 	var/chosen_attack_num = 0
@@ -158,7 +159,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/megafauna_attack/Activate()
+/datum/action/innate/megafauna_attack/on_activate()
 	var/mob/living/simple_animal/hostile/megafauna/fauna = owner
 	fauna.chosen_attack = chosen_attack_num
 	to_chat(fauna, chosen_message)

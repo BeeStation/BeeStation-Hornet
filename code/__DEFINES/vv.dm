@@ -2,6 +2,8 @@
 #define VV_TEXT "Text"
 #define VV_MESSAGE "Mutiline Text"
 #define VV_ICON "Icon"
+#define VV_COLOR "Color"
+#define VV_COLOR_MATRIX "Color Matrix"
 #define VV_ATOM_REFERENCE "Atom Reference"
 #define VV_DATUM_REFERENCE "Datum Reference"
 #define VV_MOB_REFERENCE "Mob Reference"
@@ -16,18 +18,21 @@
 #define VV_NEW_TYPE "New Custom Typepath"
 #define VV_NEW_LIST "New List"
 #define VV_NULL "NULL"
+#define VV_INFINITY "Infinity"
 #define VV_RESTORE_DEFAULT "Restore to Default"
 #define VV_MARKED_DATUM "Marked Datum"
+#define VV_TAGGED_DATUM "Tagged Datum"
 #define VV_BITFIELD "Bitfield"
 #define VV_TEXT_LOCATE "Custom Reference Locate"
 #define VV_PROCCALL_RETVAL "Return Value of Proccall"
+#define VV_WEAKREF "Weak Reference Datum"
 
 #define VV_MSG_MARKED "<br><font size='1' color='red'><b>Marked Object</b></font>"
+#define VV_MSG_TAGGED(num) "<br><font size='1' color='red'><b>Tagged Datum #[num]</b></font>"
 #define VV_MSG_EDITED "<br><font size='1' color='red'><b>Var Edited</b></font>"
 #define VV_MSG_DELETED "<br><font size='1' color='red'><b>Deleted</b></font>"
 
-#define VV_NORMAL_LIST_NO_EXPAND_THRESHOLD 50
-#define VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD 150
+#define VV_BIG_SIZED_LIST_THRESHOLD 50
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
 #define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
@@ -39,6 +44,9 @@
 #define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
 #define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
 #define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
+//! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
+#define VV_HREF_SPECIAL(dmlist_origin_ref, href_action, text, list_index, dmlist_varname) "<a href='?_src_=vars;[HrefToken()];[href_action]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
+#define VV_HREF_SPECIAL_MENU(dmlist_origin_ref, href_action, dmlist_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname]"
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
@@ -48,6 +56,8 @@
 
 //Helpers for vv_get_dropdown()
 #define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
+//Same with VV_DROPDOWN_OPTION, but global proc doesn't have src
+#define VV_DROPDOWN_OPTION_APPEARANCE(thing, href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(thing)]'>[name]</option>"
 
 // VV HREF KEYS
 #define VV_HK_TARGET "target"
@@ -63,6 +73,9 @@
 #define VV_HK_LIST_SHUFFLE "listshuffle"
 #define VV_HK_LIST_SET_LENGTH "listlen"
 
+// I exist alone here just for special list edit. God, why.
+#define VV_HK_DO_LIST_EDIT "do_vv_list_edit"
+
 // vv_do_basic() keys
 #define VV_HK_BASIC_EDIT "datumedit"
 #define VV_HK_BASIC_CHANGE "datumchange"
@@ -73,11 +86,13 @@
 #define VV_HK_EXPOSE "expose"
 #define VV_HK_CALLPROC "proc_call"
 #define VV_HK_MARK "mark"
+#define VV_HK_TAG "tag"
 #define VV_HK_ADDCOMPONENT "addcomponent"
 #define VV_HK_MODIFY_TRAITS "modtraits"
 
 // /datum/weakref
-#define VV_HK_TRACK_REF "track_ref"
+#define VV_HK_WEAKREF_RESOLVE "weakref_resolve"
+
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
@@ -88,7 +103,9 @@
 #define VV_HK_AUTO_RENAME "auto_rename"
 #define VV_HK_RADIATE "radiate"
 #define VV_HK_EDIT_FILTERS "edit_filters"
+#define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
+#define VV_HK_ARMOR_MOD "mod_obj_armor"
 #define VV_HK_ADD_EMITTER "add_emitter"
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
@@ -97,13 +114,11 @@
 #define VV_HK_SET_MOLES "set_moles"
 #define VV_HK_EMPTY "empty"
 #define VV_HK_SET_TEMPERATURE "set_temp"
-#define VV_HK_PARSE_GASSTRING "parse_gasstring"
-#define VV_HK_SET_VOLUME "set_volume"
+#define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj
 #define VV_HK_OSAY "osay"
 #define VV_HK_MASS_DEL_TYPE "mass_delete_type"
-#define VV_HK_ARMOR_MOD "mod_obj_armor"
 
 // /obj/item/card/id
 #define VV_ID_PAYDAY "id_payday"
@@ -163,3 +178,50 @@
 
 // paintings
 #define VV_HK_REMOVE_PAINTING "remove_painting"
+
+//outfits
+#define VV_HK_TO_OUTFIT_EDITOR "outfit_editor"
+
+// Flags for debug_variable() that do little things to what we end up rendering
+
+/// ALWAYS render a reduced list, useful for fuckoff big datums that need to be condensed for the sake of client load
+#define VV_ALWAYS_CONTRACT_LIST (1<<0)
+#define VV_READ_ONLY (1<<1)
+
+
+#define VV_LIST_PROTECTED (1) /// Can not vv the list. Doing vv this list is not safe.
+#define VV_LIST_READ_ONLY (2) /// Can vv the list, but can not edit.
+#define VV_LIST_EDITABLE (3) /// Can vv the list, and edit.
+
+// Becomes read only at live, editable at debug, dynamically
+#ifdef DEBUG
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (3)
+#else
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (2)
+#endif
+
+/// A list of all the special byond lists that need to be handled different by vv.
+/// manually adding var name is recommanded.
+GLOBAL_LIST_INIT(vv_special_lists, list(
+	// /datum
+	"vars" = VV_LIST_READ_ONLY,
+	// /atom
+	"overlays" = VV_LIST_EDITABLE,
+	"underlays" = VV_LIST_EDITABLE,
+	"vis_contents" = VV_LIST_EDITABLE,
+	"vis_locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
+	"contents" = VV_LIST_EDITABLE,
+	"locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
+	"verbs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE, // verb is not safe to edit in live server
+	"filters" = VV_LIST_PROTECTED, // This is not good to change in vv, yet.
+	// /client
+	"bounds" = VV_LIST_PROTECTED, // DM document says it's read-only. Better not to edit this.
+	"images" = VV_LIST_EDITABLE,
+	"screen" = VV_LIST_EDITABLE,
+))
+// NOTE: this is highly attached to how /datum/vv_ghost works.
+
+
+#ifndef DEBUG
+GLOBAL_PROTECT(vv_special_lists) // changing this in live server is a bad idea
+#endif

@@ -2,8 +2,6 @@
 //
 // The datum containing all the chunks.
 
-#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
-
 GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 /datum/cameranet
@@ -174,7 +172,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	icon = null
 	icon_state = null
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
-	appearance_flags = RESET_TRANSFORM | TILE_BOUND
+	appearance_flags = RESET_TRANSFORM | TILE_BOUND | LONG_GLIDE
 	// this combination makes the static block clicks to everything below it,
 	// without appearing in the right-click menu for non-AI clients
 	mouse_opacity = MOUSE_OPACITY_ICON

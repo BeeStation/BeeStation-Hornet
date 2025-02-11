@@ -47,6 +47,8 @@
 	var/range = 5
 	var/power = 3
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/discogrenade/subgrenade)
+
 /obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
 	. = ..()
 	active = TRUE
@@ -57,6 +59,14 @@
 		step_away(src, loc)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 	randomiseLightColor()
+
+/proc/rand_hex_color()
+	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+	var/color=""
+	for (var/i=0;i<6;i++)
+		color = color+pick(colors)
+	return color
+
 
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	if(dud_flags)
@@ -106,27 +116,27 @@
 		M.say(pick(message_social_anxiety))
 		if(rand(3) && M.get_ear_protection() == 0)
 			M.drop_all_held_items()
-			M.show_message("<span class='warning'>You cover your ears, the music is just too loud for you.</span>", 2)
+			M.show_message(span_warning("You cover your ears, the music is just too loud for you."), 2)
 		return
 
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
-		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
+		M.show_message(span_warning("You resist your inner urges to break out your best moves."), 2)
 		M.set_drugginess(5)
 		return
-	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		to_chat(M, span_userdanger("THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!"))
 		M.emote("scream")
 		return
 
 	M.set_drugginess(10)
-	M.show_message("<span class='warning'>You feel a strong rythme and your muscles spasm uncontrollably, you begin dancing and cannot move!</span>", 2)
+	M.show_message(span_warning("You feel a strong rythme and your muscles spasm uncontrollably, you begin dancing and cannot move!"), 2)
 	M.Immobilize(30)
 
 	//Special actions
 	switch(rand(0, 6))
 		if(0)
 			M.Knockdown(4)
-			M.show_message("<span class='warning'>You [pick("mess", "screw")] up your moves and trip!</span>", 2)
+			M.show_message(span_warning("You [pick("mess", "screw")] up your moves and trip!"), 2)
 		if(1 to 3)
 			M.emote("spin")
 		if(3 to 4)

@@ -20,7 +20,7 @@
 				else
 					entry += " - Playing as [C.mob.real_name]"
 					switch(C.mob.stat)
-						if(UNCONSCIOUS)
+						if(UNCONSCIOUS, HARD_CRIT)
 							entry += " - <font color='darkgray'><b>Unconscious</b></font>"
 						if(DEAD)
 							if(isobserver(C.mob))
@@ -124,7 +124,7 @@
 			msg += each
 		if(length(non_admin_list)) // notifying the absence of non-admins has no point
 			msg += "<b>Current Maintainers:</b>\n"
-			msg += "\t<span class='info'>Non-admin staff are unable to handle adminhelp tickets.</span>\n"
+			msg += "\t[span_info("Non-admin staff are unable to handle adminhelp tickets.")]\n"
 			for(var/each in non_admin_list)
 				msg += each
 		msg += "<b>Current Mentors:</b>\n"
@@ -133,7 +133,7 @@
 				continue //Don't show afk admins to adminwho
 			msg += "\t[C] is a Mentor\n"
 
-		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
+		msg += span_info("Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.")
 		if(world.time - src.staff_check_rate > 1 MINUTES)
 			message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
 			log_admin("[key_name(src)] has checked online staff[via ? " (via [via])" : ""].")

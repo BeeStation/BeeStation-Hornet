@@ -9,11 +9,12 @@
 	mob_biotypes = list()
 	melee_damage = 5
 	a_intent = INTENT_HARM
-	attacktext = "gores"
+	attack_verb_continuous = "gores"
+	attack_verb_simple = "gore"
 	maxHealth = 100
 	health = 100
 	speed = 0
-	faction = list("illusion")
+	faction = list(FACTION_ILLUSION)
 	var/life_span = INFINITY //how long until they despawn
 	var/mob/living/parent_mob
 	var/multiply_chance = 0 //if we multiply on hit
@@ -35,7 +36,7 @@
 	health = hp
 	melee_damage = damage
 	multiply_chance = replicate
-	faction -= "neutral"
+	faction -= FACTION_NEUTRAL
 	transform = initial(transform)
 	pixel_y = base_pixel_y
 	pixel_x = base_pixel_x

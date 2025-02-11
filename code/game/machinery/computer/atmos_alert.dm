@@ -4,21 +4,10 @@
 	circuit = /obj/item/circuitboard/computer/atmos_alert
 	icon_screen = "alert:0"
 	icon_keyboard = "atmos_key"
-	var/list/priority_alarms = list()
-	var/list/minor_alarms = list()
-	var/receive_frequency = FREQ_ATMOS_ALARMS
-	var/datum/radio_frequency/radio_connection
-
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/atmos_alert/Initialize(mapload)
-	. = ..()
-	set_frequency(receive_frequency)
-
-/obj/machinery/computer/atmos_alert/Destroy()
-	SSradio.remove_object(src, receive_frequency)
-	return ..()
-
+	var/list/priority_alarms = list()
+	var/list/minor_alarms = list()
 
 /obj/machinery/computer/atmos_alert/ui_state(mob/user)
 	return GLOB.default_state
@@ -27,6 +16,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosAlertConsole")
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/computer/atmos_alert/ui_data(mob/user)
@@ -48,40 +38,39 @@
 		if("clear")
 			var/zone = params["zone"]
 			if(zone in priority_alarms)
-				to_chat(usr, "<span class='notice'>Priority alarm for [zone] cleared.</span>")
+				to_chat(usr, span_notice("Priority alarm for [zone] cleared."))
 				priority_alarms -= zone
 				. = TRUE
 			if(zone in minor_alarms)
-				to_chat(usr, "<span class='notice'>Minor alarm for [zone] cleared.</span>")
+				to_chat(usr, span_notice("Minor alarm for [zone] cleared."))
 				minor_alarms -= zone
 				. = TRUE
 	if(.)
 		update_icon()
 
-/obj/machinery/computer/atmos_alert/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, receive_frequency)
-	receive_frequency = new_frequency
-	radio_connection = SSradio.add_object(src, receive_frequency, RADIO_ATMOSIA)
+/obj/machinery/computer/atmos_alert/process()
+	. = ..()
+	if (!.)
+		return FALSE
+	var/alarm_count = priority_alarms.len + minor_alarms.len
+	priority_alarms.Cut()
+	minor_alarms.Cut()
+	for (var/obj/machinery/airalarm/air_alarm as anything in GLOB.air_alarms)
+		if (air_alarm.z != z || (air_alarm.machine_stat & (NOPOWER|BROKEN)))
+			continue
+		switch (air_alarm.danger_level)
+			if (AIR_ALARM_ALERT_NONE)
+				continue
+			if (AIR_ALARM_ALERT_WARNING)
+				minor_alarms += get_area_name(air_alarm, format_text = TRUE)
+			if (AIR_ALARM_ALERT_HAZARD)
+				priority_alarms += get_area_name(air_alarm, format_text = TRUE)
 
-/obj/machinery/computer/atmos_alert/receive_signal(datum/signal/signal)
-	if(!signal)
-		return
+	// Either we got new alarms, or we have no alarms anymore
+	if ((alarm_count == 0) != (minor_alarms.len + priority_alarms.len == 0))
+		update_icon()
 
-	var/zone = signal.data["zone"]
-	var/severity = signal.data["alert"]
-
-	if(!zone || !severity)
-		return
-
-	minor_alarms -= zone
-	priority_alarms -= zone
-	if(severity == "severe")
-		priority_alarms += zone
-	else if (severity == "minor")
-		minor_alarms += zone
-	update_icon()
-	ui_update()
-	return
+	return TRUE
 
 /obj/machinery/computer/atmos_alert/update_icon()
 	..()

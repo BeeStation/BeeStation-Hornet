@@ -5,7 +5,7 @@
 	deep_rock_type = /turf/closed/mineral/random/jungle
 	shallow_rock_type = /turf/closed/mineral/random/jungle
 
-	river_type = /turf/open/water/jungle
+	river_type = /turf/open/water/air
 	beach_type = /turf/open/floor/plating/dirt/jungle/wasteland
 
 	plains_type = /turf/open/floor/plating/dirt/jungle/dark

@@ -19,13 +19,13 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/Initialize()
 	triggertime = world.time
 	if(CONFIG_GET(flag/limited_feedback))
-		return ..()
+		return SS_INIT_NO_NEED
 	record_feedback("amount", "random_seed", Master.random_seed)
 	record_feedback("amount", "dm_version", DM_VERSION)
 	record_feedback("amount", "dm_build", DM_BUILD)
 	record_feedback("amount", "byond_version", world.byond_version)
 	record_feedback("amount", "byond_build", world.byond_build)
-	. = ..()
+	return SS_INIT_SUCCESS
 
 //poll population
 /datum/controller/subsystem/blackbox/fire()
@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(blackbox)
 	var/admincount = GLOB.admins.len
 
 
-	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery({"
+	var/datum/db_query/query_record_playercount = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id)
 		VALUES (:playercount, :admincount, :time, :server_name, INET_ATON(:server_ip), :server_port, :round_id)
 	"}, list(
@@ -194,7 +194,7 @@ feedback data can be recorded in 5 formats:
 "tally"
 	used to track the number of occurrences of multiple related values i.e. how many times each type of gun is fired
 	further calls to the same key will:
-	 	add or subtract from the saved value of the data key if it already exists
+		add or subtract from the saved value of the data key if it already exists
 		append the key and it's value if it doesn't exist
 	calls:	SSblackbox.record_feedback("tally", "example", 1, "sample data")
 			SSblackbox.record_feedback("tally", "example", 4, "sample data")
@@ -206,7 +206,7 @@ feedback data can be recorded in 5 formats:
 	the final element in the data list is used as the tracking key, all prior elements are used for nesting
 	all data list elements must be strings
 	further calls to the same key will:
-	 	add or subtract from the saved value of the data key if it already exists in the same multi-dimensional position
+		add or subtract from the saved value of the data key if it already exists in the same multi-dimensional position
 		append the key and it's value if it doesn't exist
 	calls: 	SSblackbox.record_feedback("nested tally", "example", 1, list("fruit", "orange", "apricot"))
 			SSblackbox.record_feedback("nested tally", "example", 2, list("fruit", "orange", "orange"))
@@ -301,7 +301,7 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/DBQuery/query_log_ahelp = SSdbcore.NewQuery({"
+	var/datum/db_query/query_log_ahelp = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("ticket")] (ticket, action, message, recipient, sender, server_ip, server_port, round_id, timestamp)
 		VALUES (:ticket, :action, :message, :recipient, :sender, INET_ATON(:server_ip), :server_port, :round_id, :time)
 	"}, list("ticket" = ticket, "action" = action, "message" = message, "recipient" = recipient, "sender" = sender, "server_ip" = world.internet_address || "0", "server_port" = world.port, "round_id" = GLOB.round_id, "time" = SQLtime()))
@@ -327,7 +327,7 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/DBQuery/query_report_death = SSdbcore.NewQuery({"
+	var/datum/db_query/query_report_death = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_name, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide)
 		VALUES (:pod, :x_coord, :y_coord, :z_coord, :map, :server_name, INET_ATON(:internet_address), :port, :round_id, :time, :job, :special, :name, :key, :laname, :lakey, :brute, :fire, :brain, :oxy, :tox, :clone, :stamina, :last_words, :suicide)
 	"}, list(

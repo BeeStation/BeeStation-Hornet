@@ -5,9 +5,12 @@
 /obj/item/grown // Grown weapons
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/discovery_points = 0 //Amount of discovery points given for scanning
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown)
 
 /obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -38,7 +41,7 @@
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
+		var/msg = "[span_info("This is \a [span_name(src)]")]\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"

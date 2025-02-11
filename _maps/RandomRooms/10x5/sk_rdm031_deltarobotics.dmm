@@ -4,13 +4,13 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/item/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
 /obj/machinery/light/small{
@@ -39,10 +39,10 @@
 /obj/structure/rack,
 /obj/item/book/manual/wiki/robotics_cyborgs,
 /obj/item/storage/belt/utility,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "h" = (
 /obj/machinery/light/small{
@@ -52,7 +52,7 @@
 /obj/machinery/modular_fabricator/exosuit_fab/maint{
 	name = "forgotten exosuit fabricator"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "i" = (
 /obj/structure/table/reinforced,
@@ -60,7 +60,7 @@
 /obj/item/stock_parts/micro_laser,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "j" = (
 /obj/structure/table/reinforced,
@@ -68,7 +68,7 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/assembly/flash/handheld,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "k" = (
 /obj/structure/table,
@@ -76,19 +76,19 @@
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot,
 /obj/item/stack/sheet/mineral/copper,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "l" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "m" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/dirt,
@@ -96,14 +96,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "o" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
@@ -111,20 +111,20 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "q" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "r" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/dirt,
@@ -132,7 +132,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "t" = (
 /obj/machinery/computer/mech_bay_power_console{
@@ -143,18 +143,18 @@
 "v" = (
 /obj/item/robot_suit,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "x" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "y" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "z" = (
 /obj/effect/decal/cleanable/dirt,
@@ -172,12 +172,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "C" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/dirt,
@@ -185,17 +185,17 @@
 /area/template_noop)
 "E" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "F" = (
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "G" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -221,7 +221,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "K" = (
 /obj/machinery/mech_bay_recharge_port{
@@ -239,7 +239,7 @@
 /obj/item/folder/white,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "M" = (
 /obj/structure/frame/computer{
@@ -265,11 +265,11 @@
 "X" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Y" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"

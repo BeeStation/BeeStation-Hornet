@@ -51,7 +51,7 @@
 
 		if(!loaded)
 			if(!user.transferItemToLoc(W, src))
-				to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+				to_chat(user, span_warning("[src] is stuck to your hand!"))
 				return
 			else
 				loaded = W //W.loc is src at this point.
@@ -66,12 +66,12 @@
 		else
 			return
 		update_icon()
-		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
+		to_chat(user, span_notice("You add the cables to [src]. It now contains [loaded.amount]."))
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!loaded)
 			return
 		if(ghetto && prob(10)) //Is it a ghetto RCL? If so, give it a 10% chance to fall apart
-			to_chat(user, "<span class='warning'>You attempt to loosen the securing screws on the side, but it falls apart!</span>")
+			to_chat(user, span_warning("You attempt to loosen the securing screws on the side, but it falls apart!"))
 			while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
 				var/diff = loaded.amount % 30
 				if(diff)
@@ -83,7 +83,7 @@
 			qdel(src)
 			return
 
-		to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
+		to_chat(user, span_notice("You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires."))
 		while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
 			var/diff = loaded.amount % 30
 			if(diff)
@@ -104,7 +104,7 @@
 /obj/item/rcl/examine(mob/user)
 	. = ..()
 	if(loaded)
-		. += "<span class='info'>It contains [loaded.amount]/[max_amount] cables.</span>"
+		. += span_info("It contains [loaded.amount]/[max_amount] cables.")
 
 /obj/item/rcl/Destroy()
 	QDEL_NULL(loaded)
@@ -137,7 +137,7 @@
 	update_icon()
 	if(!loaded || !loaded.amount)
 		if(loud)
-			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
+			to_chat(user, span_notice("The last of the cables unreel from [src]."))
 		if(loaded)
 			QDEL_NULL(loaded)
 			loaded = null
@@ -189,11 +189,11 @@
 	if(!isturf(user.loc))
 		return
 	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+		to_chat(user, span_warning("\The [src] is empty!"))
 		return
 
 	if(prob(2) && ghetto) //Give ghetto RCLs a 2% chance to jam, requiring it to be reactivated manually.
-		to_chat(user, "<span class='warning'>[src]'s wires jam!</span>")
+		to_chat(user, span_warning("[src]'s wires jam!"))
 		active = FALSE
 		return
 	else
@@ -248,7 +248,7 @@
 		var/cablesuffix = "[min(fromdir,dirnum)]-[max(fromdir,dirnum)]"
 		if(fromdir == dirnum) //cables can't loop back on themselves
 			cablesuffix = "invalid"
-		var/image/img = image(icon = 'icons/mob/radial.dmi', icon_state = "cable_[cablesuffix]")
+		var/image/img = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cable_[cablesuffix]")
 		img.color = GLOB.cable_colors[colors[current_color_index]]
 		wiredirs[icondir] = img
 	return wiredirs
@@ -278,7 +278,7 @@
 	if(!isturf(user.loc))
 		return
 	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+		to_chat(user, span_warning("\The [src] is empty!"))
 		return
 
 	var/turf/T = get_turf(user)
@@ -346,3 +346,13 @@
 			icon_state = "rclg-1"
 			item_state = "rclg-1"
 	return ..()
+
+/datum/action/item_action/rcl_col
+	name = "Change Cable Color"
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "rcl_rainbow"
+
+/datum/action/item_action/rcl_gui
+	name = "Toggle Fast Wiring Gui"
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "rcl_gui"

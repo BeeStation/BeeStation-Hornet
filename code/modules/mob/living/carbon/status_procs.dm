@@ -11,12 +11,12 @@
 		return
 	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
-	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+	to_chat(src, span_notice("You're too exhausted to keep going..."))
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
 	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	update_mobility()
+
 
 /mob/living/carbon/adjust_drugginess(amount)
 	druggy = max(druggy+amount, 0)

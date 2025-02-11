@@ -9,7 +9,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	density = FALSE
 	anchored = TRUE
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/structure_lattice
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
@@ -17,12 +17,18 @@
 	//	flags = CONDUCT_1
 	z_flags = Z_BLOCK_OUT_DOWN
 
+
+/datum/armor/structure_lattice
+	melee = 50
+	fire = 80
+	acid = 50
+
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
+	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -40,7 +46,7 @@
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	if(C.tool_behaviour == TOOL_WIRECUTTER)
-		to_chat(user, "<span class='notice'>Slicing [name] joints ...</span>")
+		to_chat(user, span_notice("Slicing [name] joints ..."))
 		deconstruct()
 	else
 		var/turf/T = get_turf(src)
@@ -58,7 +64,7 @@
 
 /obj/structure/lattice/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_FLOORWALL && isspaceturf(src.loc)) // Don't want it trying to place a tile over in-station catwalks.
-		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		var/turf/T = src.loc
 		T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)

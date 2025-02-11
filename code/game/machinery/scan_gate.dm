@@ -14,7 +14,7 @@
 #define SCANGATE_PLASMAMAN		"plasma"
 #define SCANGATE_MOTH			"moth"
 #define SCANGATE_OOZE			"oozeling"
-#define SCANGATE_POD			"pod"
+#define SCANGATE_DIONA			"diona"
 #define SCANGATE_GOLEM			"golem"
 #define SCANGATE_ZOMBIE			"zombie"
 
@@ -50,9 +50,9 @@
 /obj/machinery/scanner_gate/examine(mob/user)
 	. = ..()
 	if(locked)
-		. += "<span class='notice'>The control panel is ID-locked. Swipe a valid ID to unlock it.</span>"
+		. += span_notice("The control panel is ID-locked. Swipe a valid ID to unlock it.")
 	else
-		. += "<span class='notice'>The control panel is unlocked. Swipe an ID to lock it.</span>"
+		. += span_notice("The control panel is unlocked. Swipe an ID to lock it.")
 
 /obj/machinery/scanner_gate/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -77,18 +77,18 @@
 			if(allowed(user))
 				locked = FALSE
 				req_access = list()
-				to_chat(user, "<span class='notice'>You unlock [src].</span>")
+				to_chat(user, span_notice("You unlock [src]."))
 				//Update to viewers
 				ui_update()
 		else if(!(obj_flags & EMAGGED))
-			to_chat(user, "<span class='notice'>You lock [src] with [W].</span>")
+			to_chat(user, span_notice("You lock [src] with [W]."))
 			var/list/access = W.GetAccess()
 			req_access = access
 			locked = TRUE
 			//Update to viewers
 			ui_update()
 		else
-			to_chat(user, "<span class='warning'>You try to lock [src] with [W], but nothing happens.</span>")
+			to_chat(user, span_warning("You try to lock [src] with [W], but nothing happens."))
 	else
 		return ..()
 
@@ -96,7 +96,7 @@
 	..()
 	locked = FALSE
 	req_access = list()
-	to_chat(user, "<span class='notice'>You fry the ID checking system.</span>")
+	to_chat(user, span_notice("You fry the ID checking system."))
 	//Update to viewers
 	ui_update()
 
@@ -109,8 +109,8 @@
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				var/perpname = H.get_face_name(H.get_id_name())
-				var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-				if(!R || (R.fields["criminal"] == "*Arrest*"))
+				var/datum/record/crew/target = find_record(perpname, GLOB.manifest.general)
+				if(!target || (target.wanted_status == WANTED_ARREST))
 					beep = TRUE
 		if(SCANGATE_MINDSHIELD)
 			if(M.has_mindshield_hud_icon())
@@ -145,8 +145,8 @@
 						scan_species = /datum/species/moth
 					if(SCANGATE_OOZE)
 						scan_species = /datum/species/oozeling
-					if(SCANGATE_POD)
-						scan_species = /datum/species/pod
+					if(SCANGATE_DIONA)
+						scan_species = /datum/species/diona
 					if(SCANGATE_GOLEM)
 						scan_species = /datum/species/golem
 					if(SCANGATE_ZOMBIE)
@@ -242,7 +242,7 @@
 			var/new_nutrition = params["new_nutrition"]
 			var/nutrition_list = list(
 				"Starving",
-  				"Obese"
+					"Obese"
 			)
 			if(new_nutrition && (new_nutrition in nutrition_list))
 				switch(new_nutrition)
@@ -268,6 +268,6 @@
 #undef SCANGATE_PLASMAMAN
 #undef SCANGATE_MOTH
 #undef SCANGATE_OOZE
-#undef SCANGATE_POD
+#undef SCANGATE_DIONA
 #undef SCANGATE_GOLEM
 #undef SCANGATE_ZOMBIE

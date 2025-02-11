@@ -71,7 +71,7 @@
 		if(!target)
 			return
 
-		to_chat(target, "<span class='bold'>You hear a message in your ear: </span>[msg_str]")
+		to_chat(target, "[span_bold("You hear a message in your ear: ")][msg_str]")
 
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)
@@ -163,9 +163,9 @@
 	. = ..()
 	if(HAS_TRAIT(add_to, TRAIT_COMPONENT_MMI))
 		return FALSE
-	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, src)
+	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, type)
 
 /obj/item/circuit_component/mmi/removed_from(obj/item/integrated_circuit/removed_from)
-	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, src)
+	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, type)
 	remove_current_brain()
 	return ..()

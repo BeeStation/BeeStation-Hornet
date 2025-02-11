@@ -5,6 +5,7 @@
 	icon = 'icons/obj/bluespace_anchor.dmi'
 	icon_state = "anchor_undeployed"
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
@@ -12,6 +13,8 @@
 	slot_flags = ITEM_SLOT_BELT
 
 	var/obj/item/stock_parts/cell/power_cell
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/bluespace_anchor)
 
 /obj/item/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
@@ -33,13 +36,13 @@
 
 /obj/item/bluespace_anchor/screwdriver_act(mob/living/user, obj/item/I)
 	if(!power_cell)
-		to_chat(user, "<span class='notice'>There is no cell inside [src].</span>")
+		to_chat(user, span_notice("There is no cell inside [src]."))
 		return
-	to_chat(user, "<span class='notice'>You remove the cell inside [src].</span>")
+	to_chat(user, span_notice("You remove the cell inside [src]."))
 	set_cell(null)
 
 /obj/item/bluespace_anchor/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] begins deploying [src].</span>", "<span class='notice'>You begin deploying [src]...</span>")
+	user.visible_message(span_notice("[user] begins deploying [src]."), span_notice("You begin deploying [src]..."))
 	if(!do_after(user, 4 SECONDS, target = src))
 		return
 	var/stored_cell = power_cell
@@ -52,7 +55,7 @@
 	if(!istype(cell))
 		return ..()
 	if(power_cell)
-		to_chat(user, "<span class='notice'>Remove the power cell inside [src] first!</span>")
+		to_chat(user, span_notice("Remove the power cell inside [src] first!"))
 		return
 	set_cell(cell)
-	to_chat(user, "<span class='notice'>You insert [cell] into [src].</span>")
+	to_chat(user, span_notice("You insert [cell] into [src]."))

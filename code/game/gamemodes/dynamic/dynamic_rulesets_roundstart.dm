@@ -358,7 +358,6 @@
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
 	/// How much threat should be injected when the revolution wins?
@@ -395,7 +394,6 @@
 	if(revolution.members.len)
 		revolution.update_objectives()
 		revolution.update_heads()
-		SSshuttle.registerHostileEnvironment(revolution)
 		return DYNAMIC_EXECUTE_SUCCESS
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
 	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
@@ -471,61 +469,6 @@
 			V.assigned_role = "Clown Operative"
 			V.special_role = "Clown Operative"
 			GLOB.pre_setup_antags += V
-
-//////////////////////////////////////////////
-//                                          //
-//               DEVIL                      //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/devil
-	name = "Devil"
-	role_preference = /datum/role_preference/antagonist/devil
-	antag_datum = /datum/antagonist/devil
-	restricted_roles = list(JOB_NAME_LAWYER, JOB_NAME_CURATOR, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
-	required_candidates = 1
-	weight = 3
-	cost = 0
-	flags = LONE_RULESET
-	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	antag_cap = list("denominator" = 30)
-
-/datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
-	. = ..()
-	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
-
-	for(var/j = 0, j < num_devils, j++)
-		if (candidates.len <= 0)
-			break
-		var/mob/devil = antag_pick_n_take(candidates)
-		assigned += devil.mind
-		devil.mind.special_role = ROLE_DEVIL
-		devil.mind.restricted_roles = restricted_roles
-		GLOB.pre_setup_antags += devil.mind
-
-		log_game("[key_name(devil)] has been selected as a devil")
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/devil/execute(forced = FALSE)
-	for(var/datum/mind/devil in assigned)
-		add_devil(devil.current, ascendable = TRUE)
-		GLOB.pre_setup_antags -= devil
-		add_devil_objectives(devil,2)
-	return DYNAMIC_EXECUTE_SUCCESS
-
-/datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
-	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
-	var/datum/antagonist/devil/D = devil_mind.has_antag_datum(/datum/antagonist/devil)
-	for(var/i = 1 to quantity)
-		var/type = pick(validtypes)
-		var/datum/objective/devil/objective = new type(null)
-		objective.owner = devil_mind
-		D.objectives += objective
-		if(!istype(objective, /datum/objective/devil/buy_target))
-			validtypes -= type
-		else
-			objective.find_target()
-		log_objective(D, objective.explanation_text)
 
 //////////////////////////////////////////////
 //                                          //
@@ -686,32 +629,3 @@
 		SSticker.mode_result = "win - incursion win"
 	else
 		SSticker.mode_result = "loss - staff stopped the incursion"
-
-//////////////////////////////////////////////
-//                                          //
-//             ASSIMILATION                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/hivemind
-	name = "Assimilation"
-	role_preference = /datum/role_preference/antagonist/hivemind_host
-	antag_datum = /datum/antagonist/hivemind
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	required_candidates = 3
-	weight = 3
-	cost = 30
-	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-
-/datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
-	. = ..()
-	var/num_hosts = max( 3 , rand(0,1) + min(8, round(population / 8) ) )
-	for (var/i = 1 to num_hosts)
-		var/mob/M = antag_pick_n_take(candidates)
-		assigned += M.mind
-		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = ROLE_HIVE
-		GLOB.pre_setup_antags += M.mind
-	return TRUE

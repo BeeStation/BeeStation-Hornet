@@ -1,10 +1,3 @@
-/// State when an interview has been approved
-#define INTERVIEW_APPROVED	"interview_approved"
-/// State when an interview as been denied
-#define INTERVIEW_DENIED 	"interview_denied"
-/// State when an interview has had no action on it yet
-#define INTERVIEW_PENDING	"interview_pending"
-
 /**
   * Represents a new-player interview form
   *
@@ -60,11 +53,11 @@
 	GLOB.interviews.approved_ckeys |= owner_ckey
 	GLOB.interviews.close_interview(src)
 	log_admin_private("[key_name(approved_by)] has approved interview #[id] for [owner_ckey][!owner ? "(DC)": ""].")
-	message_admins("<span class='adminnotice'>[key_name(approved_by)] has approved interview #[id] for [owner_ckey][!owner ? "(DC)": ""].</span>")
+	message_admins(span_adminnotice("[key_name(approved_by)] has approved interview #[id] for [owner_ckey][!owner ? "(DC)": ""]."))
 	if (owner)
 		SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
 		to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
-			+ "\n<span class='adminsay'>Your interview was approved, you will now be reconnected in 5 seconds.</span>")
+			+ "\n[span_adminsay("Your interview was approved, you will now be reconnected in 5 seconds.")]")
 		addtimer(CALLBACK(src, PROC_REF(reconnect_owner)), 5 SECONDS)
 
 /**
@@ -80,21 +73,17 @@
 	GLOB.interviews.denied_ckeys |= owner_ckey
 	var/can_retry = CONFIG_GET(flag/panic_bunker_interview_retries)
 	log_admin_private("[key_name(denied_by)] has denied interview #[id] for [owner_ckey][!owner ? "(DC)": ""]. Retries [can_retry ? "enabled" : "disabled"].")
-	message_admins("<span class='adminnotice'>[key_name(denied_by)] has denied interview #[id] for [owner_ckey][!owner ? "(DC)": ""]. Retries [can_retry ? "enabled" : "disabled"].</span>")
+	message_admins(span_adminnotice("[key_name(denied_by)] has denied interview #[id] for [owner_ckey][!owner ? "(DC)": ""]. Retries [can_retry ? "enabled" : "disabled"]."))
 	if(can_retry)
 		addtimer(CALLBACK(GLOB.interviews, TYPE_PROC_REF(/datum/interview_manager, release_from_cooldown), owner_ckey), 180 SECONDS)
 		if (owner)
 			SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
-			to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
-				+ "\n<span class='adminsay'>Unfortunately your interview was denied. Please try submitting another questionnaire." \
-				+ " You may do this in three minutes.</span>")
+			to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>\n[span_adminsay("Unfortunately your interview was denied. Please try submitting another questionnaire.")] You may do this in three minutes.")
 	else
 		addtimer(CALLBACK(GLOB.interviews, TYPE_PROC_REF(/datum/interview_manager, give_the_boot), owner_ckey), 30 SECONDS)
 		if (owner)
 			SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
-			to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
-				+ "\n<span class='adminsay'>Unfortunately your interview was denied. You will be removed for the round's duration." \
-				+ " You will be kicked in 30 seconds.</span>")
+			to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>\n[span_adminsay("Unfortunately your interview was denied. You will be removed for the round's duration.")] You will be kicked in 30 seconds.")
 
 /**
   * Forces client to reconnect, used in the callback from approval
@@ -116,7 +105,7 @@
 		if (I) // we can be returned nothing if the user is on cooldown
 			I.ui_interact(M)
 		else
-			to_chat(usr, "<span class='adminsay'>You are on cooldown for interviews. Please wait at least 3 minutes before starting a new questionnaire.</span>")
+			to_chat(usr, span_adminsay("You are on cooldown for interviews. Please wait at least 3 minutes before starting a new questionnaire."))
 
 /datum/interview/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -1,0 +1,518 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"an" = (
+/obj/machinery/door/window{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"bb" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = 1;
+	pixel_y = 11
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = -2
+	},
+/obj/effect/decal/cleanable/blood/footprints,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"bq" = (
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
+	pixel_x = 5
+	},
+/turf/open/floor/eighties,
+/area/template_noop)
+"dZ" = (
+/obj/item/reagent_containers/cup/bottle/morphine{
+	list_reagents = list(/datum/reagent/medicine/morphine = 5);
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/syringe{
+	desc = "Contains morphine.";
+	name = "syringe (morphine)"
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = -7;
+	pixel_y = -4;
+	name = "syringe (morphine)";
+	desc = "Contains morphine."
+	},
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"fM" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"gS" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"jF" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"lB" = (
+/obj/structure/sign/poster/contraband/free_key{
+	pixel_x = 32
+	},
+/turf/open/floor/eighties,
+/area/template_noop)
+"lT" = (
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"ma" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"nR" = (
+/obj/machinery/computer/records/medical/laptop{
+	pixel_y = 8;
+	req_one_access = null;
+	req_one_access_txt = "5"
+	},
+/obj/structure/table/wood,
+/obj/item/healthanalyzer{
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"nU" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"oD" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/template_noop)
+"oO" = (
+/obj/machinery/door/airlock/maintenance/glass,
+/turf/open/floor/iron,
+/area/template_noop)
+"pq" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/restraints/handcuffs/cable/zipties,
+/obj/item/restraints/handcuffs/cable/zipties{
+	pixel_x = 5;
+	pixel_y = -6
+	},
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"pD" = (
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
+/obj/structure/closet/crate/freezer,
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/machinery/button/door{
+	pixel_y = -25;
+	name = "Backroom button";
+	id = "organ_harvesting_backroom"
+	},
+/obj/item/restraints/handcuffs/cable/zipties/used,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"qK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"qS" = (
+/obj/structure/table/wood,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"rV" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"sC" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/template_noop)
+"tc" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"uU" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"vs" = (
+/obj/structure/table/optable,
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
+/obj/effect/decal/cleanable/blood/bubblegum,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/very_dim/directional/north,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"xL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = -2
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"yg" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron,
+/area/template_noop)
+"yq" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"zc" = (
+/obj/item/storage/secure/safe{
+	pixel_x = -25
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/plating,
+/area/template_noop)
+"Aa" = (
+/obj/structure/bed/maint,
+/obj/item/reagent_containers/cup/glass/bottle/hcider{
+	pixel_x = 12;
+	pixel_y = -5
+	},
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
+/obj/structure/sign/poster/contraband/red_rum{
+	pixel_y = 32
+	},
+/obj/machinery/light/very_dim/directional/north,
+/turf/open/floor/eighties,
+/area/template_noop)
+"AQ" = (
+/obj/structure/closet/crate/freezer,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"Bx" = (
+/obj/item/clothing/neck/tie/red,
+/turf/open/floor/eighties,
+/area/template_noop)
+"By" = (
+/turf/open/floor/eighties,
+/area/template_noop)
+"Dp" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"Fh" = (
+/turf/closed/wall,
+/area/template_noop)
+"FS" = (
+/obj/machinery/light,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"Hp" = (
+/obj/machinery/door/airlock/maintenance{
+	id_tag = "organ_harvesting_backroom"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/iron,
+/area/template_noop)
+"Ik" = (
+/obj/item/reagent_containers/cup/glass/bottle/molotov{
+	pixel_x = 10;
+	pixel_y = -6
+	},
+/obj/item/reagent_containers/cup/glass/bottle/trappist{
+	pixel_y = 2
+	},
+/turf/open/floor/eighties,
+/area/template_noop)
+"Le" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"Lp" = (
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"Mx" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/item/reagent_containers/cup/glass/bottle/moonshine,
+/obj/item/reagent_containers/cup/glass/bottle/hooch,
+/obj/item/reagent_containers/cup/glass/bottle/ale,
+/obj/item/paper/monitorkey,
+/turf/open/floor/eighties,
+/area/template_noop)
+"Nh" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4;
+	name = "doormat"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"NT" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"Pd" = (
+/obj/structure/table/glass,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gun/syringe{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/cup/rag{
+	pixel_x = -7;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine{
+	list_reagents = list(/datum/reagent/medicine/morphine = 20);
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/syringe{
+	list_reagents = list(/datum/reagent/medicine/morphine = 15);
+	name = "syringe (morphine)";
+	desc = "Contains morphine."
+	},
+/obj/item/reagent_containers/syringe{
+	list_reagents = list(/datum/reagent/medicine/morphine = 15);
+	name = "syringe (morphine)";
+	desc = "Contains morphine.";
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/syringe{
+	list_reagents = list(/datum/reagent/medicine/morphine = 15);
+	name = "syringe (morphine)";
+	desc = "Contains morphine.";
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"Qm" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/plating,
+/area/template_noop)
+"QB" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"Rx" = (
+/obj/machinery/computer/security{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"RR" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/eighties,
+/area/template_noop)
+"SW" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"UO" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"Vo" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/iron,
+/area/template_noop)
+"VO" = (
+/obj/structure/table/glass,
+/obj/item/hatchet{
+	pixel_x = 7;
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/wirecutters{
+	pixel_x = 7;
+	pixel_y = -5
+	},
+/obj/item/knife{
+	pixel_y = 2;
+	pixel_x = -4
+	},
+/obj/item/stack/package_wrap{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/lighter{
+	pixel_x = 7
+	},
+/obj/item/crowbar,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
+"XC" = (
+/obj/machinery/computer/crew{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"YQ" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/royalblue,
+/area/template_noop)
+"YS" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+
+(1,1,1) = {"
+Pd
+pq
+pD
+Fh
+YS
+YS
+YS
+XC
+Fh
+zc
+"}
+(2,1,1) = {"
+vs
+gS
+QB
+Hp
+bb
+YS
+Lp
+Rx
+Fh
+qK
+"}
+(3,1,1) = {"
+VO
+dZ
+AQ
+Fh
+nR
+jF
+Lp
+uU
+Fh
+qK
+"}
+(4,1,1) = {"
+Fh
+Fh
+Fh
+Fh
+qS
+qS
+an
+Fh
+Fh
+Fh
+"}
+(5,1,1) = {"
+oD
+yg
+Fh
+UO
+yq
+yq
+FS
+Fh
+qK
+qK
+"}
+(6,1,1) = {"
+oD
+oD
+Fh
+SW
+Lp
+Lp
+Lp
+Fh
+xL
+qK
+"}
+(7,1,1) = {"
+Fh
+Vo
+Fh
+Fh
+sC
+oO
+Fh
+Fh
+fM
+Fh
+"}
+(8,1,1) = {"
+bq
+By
+Bx
+Fh
+YQ
+lT
+lT
+Fh
+qK
+NT
+"}
+(9,1,1) = {"
+Aa
+By
+Mx
+Fh
+ma
+Le
+lT
+tc
+qK
+nU
+"}
+(10,1,1) = {"
+Ik
+lB
+RR
+Fh
+Nh
+Nh
+Dp
+Fh
+Qm
+rV
+"}

@@ -2,10 +2,11 @@
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients. It is also fitted with a nozzle which lets you change the dosage."
 	icon = 'icons/obj/syringe.dmi'
-	item_state = "hypo"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	icon_state = "hypo"
+	worn_icon_state = "hypo"
+	item_state = "hypo"
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,5,15)
@@ -14,7 +15,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = 0
 	var/infinite = FALSE
-
 
 /obj/item/reagent_containers/hypospray/attack_paw(mob/user)
 	return attack_hand(user)
@@ -25,7 +25,7 @@
 ///Handles all injection checks, injection and logging.
 /obj/item/reagent_containers/hypospray/proc/inject(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return FALSE
 	if(!iscarbon(M))
 		return FALSE
@@ -38,12 +38,12 @@
 	log_combat(user, M, "attempted to inject", src, "([contained])")
 
 	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
-		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
-		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+		to_chat(M, span_warning("You feel a tiny prick!"))
+		to_chat(user, span_notice("You inject [M] with [src]."))
 		playsound(loc, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-		reagents.reaction(M, INJECT, fraction)
+		reagents.expose(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = 0
 			if(!infinite)
@@ -51,7 +51,7 @@
 			else
 				trans = reagents.copy_to(M, amount_per_transfer_from_this)
 
-			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
+			to_chat(user, span_notice("[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src]."))
 			log_combat(user, M, "injected", src, "([contained])")
 		return TRUE
 	return FALSE
@@ -65,8 +65,8 @@
 	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
 	if(isturf(usr.loc) && src.loc == usr)
-		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
+		to_chat(usr, span_notice("You empty \the [src] onto the floor."))
+		reagents.expose(usr.loc)
 		src.reagents.clear_reagents()
 
 /obj/item/reagent_containers/hypospray/CMO
@@ -129,7 +129,7 @@
 	custom_price = 40
 
 /obj/item/reagent_containers/hypospray/medipen/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to choke on \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to choke on \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS//ironic. he could save others from oxyloss, but not himself.
 
 /obj/item/reagent_containers/hypospray/medipen/inject(mob/living/M, mob/user)
@@ -152,9 +152,9 @@
 /obj/item/reagent_containers/hypospray/medipen/examine()
 	. = ..()
 	if(reagents && reagents.reagent_list.len)
-		. += "<span class='notice'>It is currently loaded.</span>"
+		. += span_notice("It is currently loaded.")
 	else
-		. += "<span class='notice'>It is spent.</span>"
+		. += span_notice("It is spent.")
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack //goliath kiting
 	name = "stimpack medipen"

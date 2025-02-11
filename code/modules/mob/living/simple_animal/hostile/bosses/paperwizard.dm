@@ -4,7 +4,7 @@
 	desc = "A wizard with a taste for the arts."
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	boss_abilities = list(/datum/action/boss/wizard_summon_minions, /datum/action/boss/wizard_mimic)
-	faction = list("hostile","stickman")
+	faction = list(FACTION_HOSTILE,FACTION_STICKMAN)
 	del_on_death = TRUE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "paperwizard"
@@ -22,14 +22,14 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	var/list/copies = list()
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 
 //Summon Ability
 //Lets the wizard summon his art to fight for him
 /datum/action/boss/wizard_summon_minions
 	name = "Summon Minions"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "art_summon"
 	usage_probability = 40
 	boss_cost = 30
@@ -38,8 +38,8 @@
 	say_when_triggered = "Rise, my creations! Jump off your pages and into this realm!"
 	var/static/summoned_minions = 0
 
-/datum/action/boss/wizard_summon_minions/Trigger()
-	if(summoned_minions <= 6 && ..())
+/datum/action/boss/wizard_summon_minions/on_activate(mob/user, atom/target)
+	if(summoned_minions <= 6)
 		var/list/minions = list(
 		/mob/living/simple_animal/hostile/stickman,
 		/mob/living/simple_animal/hostile/stickman,
@@ -57,36 +57,35 @@
 //Hitting the wizard himself destroys all decoys
 /datum/action/boss/wizard_mimic
 	name = "Craft Mimicry"
-	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "mimic_summon"
 	usage_probability = 30
 	boss_cost = 40
 	boss_type = /mob/living/simple_animal/hostile/boss/paper_wizard
 	say_when_triggered = ""
 
-/datum/action/boss/wizard_mimic/Trigger()
-	if(..())
-		var/mob/living/target
-		if(!boss.client) //AI's target
-			target = boss.target
-		else //random mob
-			var/list/threats = boss.PossibleThreats()
-			if(threats.len)
-				target = pick(threats)
-		if(target)
-			var/mob/living/simple_animal/hostile/boss/paper_wizard/wiz = boss
-			var/directions = GLOB.cardinals.Copy()
-			for(var/i in 1 to 3)
-				var/mob/living/simple_animal/hostile/boss/paper_wizard/copy/C = new (get_step(target,pick_n_take(directions)))
-				wiz.copies += C
-				C.original = wiz
-				C.say("My craft defines me, you could even say it IS me!")
-			wiz.say("My craft defines me, you could even say it IS me!")
-			wiz.forceMove(get_step(target,pick_n_take(directions)))
-			wiz.minimum_distance = 1 //so he doesn't run away and ruin everything
-			wiz.retreat_distance = 0
-		else
-			boss.atb.refund(boss_cost)
+/datum/action/boss/wizard_mimic/on_activate(mob/user, atom/target)
+	var/mob/living/mimic_target
+	if(!boss.client) //AI's target
+		mimic_target = boss.target
+	else //random mob
+		var/list/threats = boss.PossibleThreats()
+		if(threats.len)
+			mimic_target = pick(threats)
+	if(mimic_target)
+		var/mob/living/simple_animal/hostile/boss/paper_wizard/wiz = boss
+		var/directions = GLOB.cardinals.Copy()
+		for(var/i in 1 to 3)
+			var/mob/living/simple_animal/hostile/boss/paper_wizard/copy/C = new (get_step(mimic_target,pick_n_take(directions)))
+			wiz.copies += C
+			C.original = wiz
+			C.say("My craft defines me, you could even say it IS me!")
+		wiz.say("My craft defines me, you could even say it IS me!")
+		wiz.forceMove(get_step(mimic_target,pick_n_take(directions)))
+		wiz.minimum_distance = 1 //so he doesn't run away and ruin everything
+		wiz.retreat_distance = 0
+	else
+		boss.atb.refund(boss_cost)
 
 /mob/living/simple_animal/hostile/boss/paper_wizard/copy
 	desc = "'Tis a ruse!"
@@ -154,7 +153,7 @@
 
 /obj/effect/temp_visual/paperwiz_dying/Initialize(mapload)
 	. = ..()
-	visible_message("<span class='boldannounce'>The wizard cries out in pain as a gate appears behind him, sucking him in!</span>")
+	visible_message(span_boldannounce("The wizard cries out in pain as a gate appears behind him, sucking him in!"))
 	playsound(get_turf(src),'sound/magic/mandswap.ogg', 50, 1, 1)
 	playsound(get_turf(src),'sound/hallucinations/wail.ogg', 50, 1, 1)
 

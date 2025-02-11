@@ -46,9 +46,6 @@
 
 
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/item/shrapnel, magnitude=5)
-	if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent))
-		return COMPONENT_INCOMPATIBLE
-
 	if(magnitude < 1)
 		stack_trace("Invalid magnitude [magnitude] < 1 on pellet_cloud, parent: [parent]")
 		magnitude = 1
@@ -59,6 +56,9 @@
 		num_pellets = magnitude
 	else if(isgrenade(parent) || islandmine(parent))
 		radius = magnitude
+	else
+		radius = magnitude
+		create_blast_pellets(null, null)
 
 /datum/component/pellet_cloud/Destroy(force, silent)
 	pellets = null
@@ -149,7 +149,7 @@
 	var/self_harm_radius_mult = 3
 
 	if(lanced_by && prob(60))
-		to_chat(lanced_by, "<span class='userdanger'>Your plan to whack someone with a grenade on a stick backfires on you, literally!</span>")
+		to_chat(lanced_by, span_userdanger("Your plan to whack someone with a grenade on a stick backfires on you, literally!"))
 		self_harm_radius_mult = 1 // we'll still give the guy who got hit some extra shredding, but not 3*radius
 		pellet_delta += radius
 		for(var/i in 1 to radius)
@@ -166,13 +166,13 @@
 	for(var/M in martyrs)
 		var/mob/living/martyr = M
 		if(radius > 4)
-			martyr.visible_message("<b><span class='danger'>[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing a load of the shrapnel!</span></b>", "<span class='userdanger'>You heroically cover \the [parent] with your body, absorbing a load of the shrapnel!</span>")
+			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing a load of the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, absorbing a load of the shrapnel!"))
 			magnitude_absorbed += round(radius * 0.5)
 		else if(radius >= 2)
-			martyr.visible_message("<b><span class='danger'>[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing some of the shrapnel!</span></b>", "<span class='userdanger'>You heroically cover \the [parent] with your body, absorbing some of the shrapnel!</span>")
+			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing some of the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, absorbing some of the shrapnel!"))
 			magnitude_absorbed += 2
 		else
-			martyr.visible_message("<b><span class='danger'>[martyr] heroically covers \the [parent] with [martyr.p_their()] body, snuffing out the shrapnel!</span></b>", "<span class='userdanger'>You heroically cover \the [parent] with your body, snuffing out the shrapnel!</span>")
+			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, snuffing out the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, snuffing out the shrapnel!"))
 			magnitude_absorbed = radius
 
 		var/pellets_absorbed = (radius ** 2) - ((radius - magnitude_absorbed - 1) ** 2)
@@ -273,11 +273,11 @@
 			limb_hit_text = " in the [hit_part.plaintext_zone]"
 
 		if(num_hits > 1)
-			target.visible_message("<span class='danger'>[target] is hit by [num_hits] [proj_name][plural_s(proj_name)][limb_hit_text][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s[limb_hit_text]!</span>")
+			target.visible_message(span_danger("[target] is hit by [num_hits] [proj_name][plural_s(proj_name)][limb_hit_text][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE, target)
+			to_chat(target, span_userdanger("You're hit by [num_hits] [proj_name]s[limb_hit_text]!"))
 		else
-			target.visible_message("<span class='danger'>[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by a [proj_name][limb_hit_text]!</span>")
+			target.visible_message(span_danger("[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE, target)
+			to_chat(target, span_userdanger("You're hit by a [proj_name][limb_hit_text]!"))
 
 	UnregisterSignal(parent, COMSIG_PARENT_PREQDELETED)
 	if(queued_delete)

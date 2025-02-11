@@ -11,7 +11,8 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 5
-	friendly = "floats near"
+	friendly_verb_continuous = "floats near"
+	friendly_verb_simple = "float near"
 	speak_emote = list("puffs")
 	vision_range = 5
 	speed = 0
@@ -21,7 +22,8 @@
 	base_pixel_x = -16
 	obj_damage = 0
 	melee_damage = 0
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "is avoided by the"
 	vision_range = 5
@@ -48,7 +50,7 @@
 	if(!wumbo)
 		inflate_cooldown = max((inflate_cooldown - 1), 0)
 	if(target && AIStatus == AI_ON)
-		E.Activate()
+		E.trigger()
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -58,26 +60,27 @@
 
 /mob/living/simple_animal/hostile/asteroid/fugu/Aggro()
 	..()
-	E.Activate()
+	E.trigger()
 
 /datum/action/innate/fugu
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = null
+	icon_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"
 	desc = "Temporarily increases your size, and makes you significantly more dangerous and tough! Do not bully the fugu!"
 	button_icon_state = "expand"
 
-/datum/action/innate/fugu/expand/Activate()
+/datum/action/innate/fugu/expand/on_activate()
 	var/mob/living/simple_animal/hostile/asteroid/fugu/F = owner
 	if(F.wumbo)
-		to_chat(F, "<span class='notice'>YOU'RE ALREADY WUMBO!</span>")
+		to_chat(F, span_notice("YOU'RE ALREADY WUMBO!"))
 		return
 	if(F.inflate_cooldown)
-		to_chat(F, "<span class='notice'>You need time to gather your strength.</span>")
+		to_chat(F, span_notice("You need time to gather your strength."))
 		return
 	if(F.buffed)
-		to_chat(F, "<span class='notice'>Something is interfering with your growth.</span>")
+		to_chat(F, span_notice("Something is interfering with your growth."))
 		return
 	F.wumbo = 1
 	F.icon_state = "Fugu1"
@@ -123,7 +126,7 @@
 	var/list/datum/disease/fugu_diseases = list()
 	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/holoparasite)
 
-/obj/item/fugu_gland/Initialize()
+/obj/item/fugu_gland/Initialize(mapload)
 	. = ..()
 	fugu_diseases += new /datum/disease/advance/random(rand(1, 6), 4 + (rand(1, 5)), guaranteed_symptoms = list(/datum/symptom/growth))
 
@@ -132,7 +135,7 @@
 	if(proximity_flag && isanimal(target))
 		var/mob/living/simple_animal/A = target
 		if(A.buffed || (A.type in banned_mobs) || A.stat)
-			to_chat(user, "<span class='warning'>Something's interfering with [src]'s effects. It's no use.</span>")
+			to_chat(user, span_warning("Something's interfering with [src]'s effects. It's no use."))
 			return
 		A.buffed++
 		A.maxHealth *= 1.5
@@ -140,7 +143,7 @@
 		A.melee_damage = max((A.melee_damage * 2), 10)
 		A.transform *= 2
 		A.environment_smash |= ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_RWALLS
-		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
+		to_chat(user, span_info("You increase the size of [A], giving it a surge of strength!"))
 		qdel(src)
 
 /obj/item/fugu_gland/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)

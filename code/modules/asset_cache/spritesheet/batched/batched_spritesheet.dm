@@ -4,6 +4,8 @@
 #define CACHE_INVALID TRUE
 #define CACHE_VALID FALSE
 
+#define WHATTHEFUCKAMIDOING_FILE "data/WHATTHEFUCKFILE.json"
+
 /datum/asset/spritesheet_batched
 	_abstract = /datum/asset/spritesheet_batched
 	var/name
@@ -181,6 +183,7 @@
 			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache)
 		UNTIL((data_out = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
 	else
+		//rustg_file_write(entries_json, "fuckoff.json")
 		data_out = rustg_iconforge_generate("data/spritesheets/", name, entries_json, do_cache)
 	if (data_out == RUSTG_JOB_ERROR)
 		CRASH("Spritesheet [name] JOB PANIC")
@@ -340,3 +343,5 @@
 #undef CACHE_WAIT
 #undef CACHE_INVALID
 #undef CACHE_VALID
+
+#undef WHATTHEFUCKAMIDOING_FILE

@@ -9,9 +9,8 @@ Everything else should be handled for you. Good luck soldier.
 
 #define COMSIG_AUTOFIRE_END "stop_autofiring"
 
-/obj/item/gun
-	var/full_auto = FALSE //Set this if your gun uses full auto. ONLY guns that go brr should use this. Not pistols!
-	var/datum/component/full_auto/autofire_component = null //Repeated calls to getComponent aren't really ideal. So we'll take the memory hit instead.
+/obj/item/gun/var/full_auto = FALSE //Set this if your gun uses full auto. ONLY guns that go brr should use this. Not pistols!
+/obj/item/gun/var/datum/component/full_auto/autofire_component = null //Repeated calls to getComponent aren't really ideal. So we'll take the memory hit instead.
 
 /obj/item/gun/vv_edit_var(var_name, var_value)
 	. = ..()
@@ -96,7 +95,7 @@ Everything else should be handled for you. Good luck soldier.
 	if(L.Adjacent(autofire_target)) //Melee attack? Or ranged attack?
 		if(isobj(autofire_target))
 			next_process = world.time + CLICK_CD_MELEE
-			G.attack_obj(autofire_target, L)
+			G.attack_atom(autofire_target, L)
 			return
 		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)
@@ -124,3 +123,5 @@ Everything else should be handled for you. Good luck soldier.
 	. = ..()
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(over_object)
+
+#undef COMSIG_AUTOFIRE_END

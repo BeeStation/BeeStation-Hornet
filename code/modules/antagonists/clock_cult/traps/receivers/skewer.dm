@@ -12,7 +12,6 @@
 	unwrench_path = /obj/item/clockwork/trap_placer/skewer
 	buckle_lying = FALSE
 	max_integrity = 40
-	obj_integrity = 40
 	var/cooldown = 0
 	var/extended = FALSE
 	var/mutable_appearance/stab_overlay
@@ -28,17 +27,18 @@
 	var/target_stabbed = FALSE
 	density = TRUE
 	for(var/mob/living/M in get_turf(src))
-		if(M.incorporeal_move || M.is_flying())
+		if(M.incorporeal_move || M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 			continue
 		if(buckle_mob(M, TRUE))
 			target_stabbed = TRUE
-			to_chat(M, "<span class='userdanger'>You are impaled by [src]!</span>")
+			to_chat(M, span_userdanger("You are impaled by [src]!"))
 			M.emote("scream")
 			M.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				if(!H.bleed_rate)
-					H.bleed(30)
+				var/armour_block = H.run_armor_check(BODY_ZONE_CHEST, BLEED)
+				var/hit_amount = (100 - armour_block) / 100
+				H.add_bleeding(BLEED_CRITICAL * hit_amount)
 	if(target_stabbed)
 		if(!stab_overlay)
 			stab_overlay = mutable_appearance('icons/obj/clockwork_objects.dmi', "brass_skewer_pokeybit", layer=ABOVE_MOB_LAYER)
@@ -49,11 +49,11 @@
 		return ..()
 	if(!buckled_mob.break_do_after_checks())
 		return
-	to_chat(buckled_mob, "<span class='warning'>You begin climbing out of [src].</span>")
+	to_chat(buckled_mob, span_warning("You begin climbing out of [src]."))
 	if(do_after(buckled_mob, 50, target=src))
 		. = ..()
 	else
-		to_chat(buckled_mob, "<span class='userdanger'>You fail to detach yourself from [src].</span>")
+		to_chat(buckled_mob, span_userdanger("You fail to detach yourself from [src]."))
 
 /obj/structure/destructible/clockwork/trap/skewer/post_unbuckle_mob(mob/living/M)
 	if(!has_buckled_mobs())

@@ -2,6 +2,7 @@
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
 	icon_state = "shotgun"
+	worn_icon_state = null
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
 	item_state = "shotgun"
@@ -66,7 +67,7 @@
 			return
 		semi_auto = !semi_auto
 		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
-		to_chat(user, "<span class='notice'>You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation.</span>")
+		to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
 	. = ..()
@@ -94,6 +95,7 @@
 	name = "tactical breaching shotgun"
 	desc = "A compact semi-auto shotgun designed to fire breaching slugs and create rapid entry points."
 	icon_state = "breachingshotgun"
+	worn_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
 	w_class = WEIGHT_CLASS_LARGE
 
@@ -103,6 +105,7 @@
 	name = "cycler shotgun"
 	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
+	worn_icon_state = "cshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
@@ -111,7 +114,7 @@
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to pump it.</span>"
+	. += span_notice("Alt-click to pump it.")
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
@@ -147,6 +150,7 @@
 	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors with a built in recoil dampening system, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
+	worn_icon_state = "cshotgun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	inhand_x_dimension = 32
@@ -254,9 +258,9 @@
 		else if (S.high_power)
 			barrel_stress += 5
 			if (barrel_stress == 10)
-				to_chat(user, "<span class='warning'>[src]'s barrel is left warped from the force of the shot!</span>")
+				to_chat(user, span_warning("[src]'s barrel is left warped from the force of the shot!"))
 			else if (barrel_stress == 25)
-				to_chat(user, "<span class='danger'>[src]'s barrel cracks from the repeated strain!</span>")
+				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
 
 		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
 			backfire(user)
@@ -265,7 +269,7 @@
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
 	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
-	to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
+	to_chat(user, span_userdanger("[src] blows up in your face!"))
 
 	user.take_bodypart_damage(0,15) //The explosion already does enough damage.
 	explosion(src, 0, 0, 1, 1)
@@ -280,16 +284,16 @@
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
-			to_chat(user, "<span class='warning'>There is already a sling on [src]!</span>")
+			to_chat(user, span_warning("There is already a sling on [src]!"))
 			return
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
+			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
 			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling!"))
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/update_icon()
 	..()
@@ -324,6 +328,7 @@
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
 	item_state = "shotgun_improv_shorty"
+	worn_icon_state = "gun"
 	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT
@@ -334,12 +339,14 @@
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
+	worn_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	can_sawoff = FALSE
 	force = 10 //it has a hook on it
-	attack_verb = list("slashed", "hooked", "stabbed")
+	attack_verb_continuous = list("slashes", "hooks", "stabs")
+	attack_verb_simple = list("slash", "hook", "stab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	//our hook gun!
 	var/obj/item/gun/magic/hook/bounty/hook
@@ -353,19 +360,19 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(toggled)
-		to_chat(user,"<span class='notice'>You switch to the shotgun.</span>")
+		to_chat(user,span_notice("You switch to the shotgun."))
 		fire_sound = initial(fire_sound)
 	else
-		to_chat(user,"<span class='notice'>You switch to the hook.</span>")
+		to_chat(user,span_notice("You switch to the hook."))
 		fire_sound = 'sound/weapons/batonextend.ogg'
 	toggled = !toggled
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/examine(mob/user)
 	. = ..()
 	if(toggled)
-		. += "<span class='notice'>Alt-click to switch to the shotgun.</span>"
+		. += span_notice("Alt-click to switch to the shotgun.")
 	else
-		. += "<span class='notice'>Alt-click to switch to the hook.</span>"
+		. += span_notice("Alt-click to switch to the hook.")
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/afterattack(atom/target, mob/living/user, flag, params)
 	if(toggled)
@@ -373,3 +380,41 @@
 	else
 		return ..()
 
+///Lever action shotgun, formerly on thefactory.dm
+
+/obj/item/gun/ballistic/shotgun/lever_action
+	name = "lever action shotgun"
+	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
+	w_class = WEIGHT_CLASS_LARGE
+	dual_wield_spread = 0
+	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
+	item_state = "leveraction"
+	icon_state = "leveraction"
+	worn_icon_state = "shotgun"
+	rack_sound = "sound/weapons/leveractionrack.ogg"
+	fire_sound = "sound/weapons/leveractionshot.ogg"
+	vary_fire_sound = FALSE
+	rack_sound_vary = FALSE
+	recoil = 1
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/lever
+	pb_knockback = 5
+
+/obj/item/gun/ballistic/shotgun/lever_action/examine(mob/user)
+	. = ..()
+	. += span_info("You will instantly reload it after a shot if you have another hand free.")
+
+/obj/item/gun/ballistic/shotgun/lever_action/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+	..()
+	if(user.get_inactive_held_item())
+		return
+	else
+		rack()
+
+/obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
+	if (user)
+		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
+	process_chamber(!chambered, FALSE)
+	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+	update_icon()
+	if(user.get_inactive_held_item() && prob(50) && chambered)
+		user.visible_message(span_rose("With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell."))

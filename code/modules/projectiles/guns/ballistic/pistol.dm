@@ -16,7 +16,6 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
-	equip_time = 1 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -32,7 +31,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/der38
 	name = "palm pistol"
-	desc = "An 'Infiltrator' double-barreled derringer, chambered in .38-special. Not the best for head-on engagements."
+	desc = "An 'Infiltrator' double-barreled derringer, chambered in the powerful .357. Useful in a pinch but inadequate for longer engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = null //Too small to show in hand, unless examined
@@ -48,9 +47,8 @@
 	fire_sound_volume = 60
 	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
 	weapon_weight = WEAPON_LIGHT * 0.5 //Equivelant weight to 0.5 (Stechkin has weight 1)
-	wild_spread = TRUE
-	wild_factor = 0.70 //Minimum spread is 70% of spread value
 	equip_time = 0
+	has_weapon_slowdown = FALSE
 
 /obj/item/gun/ballistic/automatic/pistol/der38/twelveshooter //For debugging only, or meme shit
 	name = "palm pistol devastator"
@@ -77,7 +75,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
-	equip_time = 2 SECONDS
+	rack_sound = "sound/weapons/deaglerack.ogg"
+	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
+	lock_back_sound = "sound/weapons/deaglelock.ogg"
+	fire_sound = "sound/weapons/deagleshot.ogg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -107,12 +108,57 @@
 
 /obj/item/gun/ballistic/automatic/pistol/stickman/equipped(mob/user, slot)
 	..()
-	to_chat(user, "<span class='notice'>As you try to manipulate [src], it slips out of your possession..</span>")
+	to_chat(user, span_notice("As you try to manipulate [src], it slips out of your possession.."))
 	if(prob(50))
-		to_chat(user, "<span class='notice'>..and vanishes from your vision! Where the hell did it go?</span>")
+		to_chat(user, span_notice("..and vanishes from your vision! Where the hell did it go?"))
 		qdel(src)
 		user.update_icons()
 	else
-		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
+		to_chat(user, span_notice("..and falls into view. Whew, that was a close one."))
 		user.dropItemToGround(src)
 
+
+// ==================================
+// Officer's Pistol
+// ==================================
+
+/obj/item/gun/ballistic/automatic/pistol/service
+	name = "service pistol"
+	desc = "A commemorative pistol given to Nanotrasen officers designed to use higher densities of energy to emulate the ballistic service pistols that they replaced. \
+	It primarilly serves as a symbol of power, but has proven to be an effective tool at enforcing the power that is portrays. \
+	It fires less-lethal rounds which stun the area of the body that they burn."
+	icon_state = "officer"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/recharge/service
+	can_suppress = FALSE
+	fire_sound = 'sound/weapons/laser.ogg'
+	casing_ejector = FALSE
+	fire_rate = 4
+	can_suppress = FALSE
+	worn_icon_state = "officer_pistol"
+	var/stripe_state = "officer_com"
+
+/obj/item/gun/ballistic/automatic/pistol/service/update_icon()
+	. = ..()
+	var/mutable_appearance/stripe = mutable_appearance(icon, stripe_state)
+	if (bolt_locked)
+		stripe.pixel_x = -5
+	add_overlay(stripe)
+
+/obj/item/gun/ballistic/automatic/pistol/service/captain
+	stripe_state = "officer_com"
+
+/obj/item/gun/ballistic/automatic/pistol/service/hop
+	stripe_state = "officer_srv"
+
+/obj/item/gun/ballistic/automatic/pistol/service/hos
+	stripe_state = "officer_sec"
+
+/obj/item/gun/ballistic/automatic/pistol/service/ce
+	stripe_state = "officer_eng"
+
+/obj/item/gun/ballistic/automatic/pistol/service/rd
+	stripe_state = "officer_sci"
+
+/obj/item/gun/ballistic/automatic/pistol/service/cmo
+	stripe_state = "officer_med"

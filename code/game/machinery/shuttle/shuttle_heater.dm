@@ -23,20 +23,28 @@
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 400
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/shuttle_heater
 	layer = OBJ_LAYER
 	showpipe = TRUE
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 
-	var/gas_type = GAS_PLASMA
+	var/gas_type = /datum/gas/plasma
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
+
+
+/datum/armor/shuttle_heater
+	energy = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 30
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/New()
 	. = ..()
 	GLOB.custom_shuttle_machines += src
-	SetInitDirections()
+	set_init_directions()
 	update_adjacent_engines()
 	updateGasStats()
 
@@ -45,29 +53,28 @@
 	update_adjacent_engines()
 	GLOB.custom_shuttle_machines -= src
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
+/obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction(mob/user)
 	..(dir, dir)
-	SetInitDirections()
+	set_init_directions()
 	update_adjacent_engines()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
 		return FALSE
-	SetInitDirections()
+	set_init_directions()
 	var/obj/machinery/atmospherics/node = nodes[1]
 	if(node)
 		node.disconnect(src)
 		nodes[1] = null
 	if(!parents[1])
 		return
-	nullifyPipenet(parents[1])
+	nullify_pipenet(parents[1])
 
-	atmosinit()
+	atmos_init()
 	node = nodes[1]
 	if(node)
-		node.atmosinit()
-		node.addMember(src)
-	build_network()
+		node.atmos_init()
+		node.add_member(src)
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/RefreshParts()
@@ -84,14 +91,14 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/examine(mob/user)
 	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	. += "The engine heater's gas dial reads [air_contents.get_moles(gas_type)] moles of gas.<br>"
+	. += "The engine heater's gas dial reads [air_contents.total_moles()] moles of gas.<br>"
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/updateGasStats()
 	var/datum/gas_mixture/air_contents = airs[1]
 	if(!air_contents)
 		return
-	air_contents.set_volume(gas_capacity)
-	air_contents.set_temperature(T20C)
+	air_contents.volume = gas_capacity
+	air_contents.temperature = T20C
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/hasFuel(var/required)
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -106,15 +113,15 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
 	update_adjacent_engines()
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
-		return
+		return TRUE
 	if(default_pry_open(I))
-		return
+		return TRUE
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
-			return
+			return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
-	return ..()
+		return TRUE
+	return TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/update_adjacent_engines()
 	var/engine_turf

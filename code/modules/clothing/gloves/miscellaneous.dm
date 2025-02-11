@@ -19,13 +19,18 @@
 	icon_state = "leather"
 	item_state = "ggloves"
 	worn_icon_state = "ggloves"
-	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30, STAMINA = 0)
+	armor_type = /datum/armor/gloves_botanic_leather
+
+
+/datum/armor/gloves_botanic_leather
+	bio = 50
+	fire = 70
+	acid = 30
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -34,14 +39,21 @@
 	item_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
 	strip_delay = 80
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 20)
+	armor_type = /datum/armor/gloves_combat
+
+
+/datum/armor/gloves_combat
+	bio = 90
+	fire = 80
+	acid = 50
+	stamina = 20
+	bleed = 10
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
@@ -57,7 +69,19 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 15,  BULLET = 35, LASER = 35, ENERGY = 20, BOMB = 35, BIO = 35, RAD = 35, FIRE = 0, ACID = 0, STAMINA = 20)
+	armor_type = /datum/armor/gloves_bracer
+
+
+/datum/armor/gloves_bracer
+	melee = 15
+	bullet = 35
+	laser = 35
+	energy = 20
+	bomb = 35
+	bio = 35
+	rad = 35
+	stamina = 20
+	bleed = 20
 
 /obj/item/clothing/gloves/rapid
 	name = "Gloves of the North Star"
@@ -89,9 +113,9 @@
 /obj/item/clothing/gloves/rapid/attack_self(mob/user)
 	var/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
 	if(input == "*me") //If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
-		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry cannot contain *me.</span>")
+		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry cannot contain *me."))
 	else if(CHAT_FILTER_CHECK(input))
-		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry contains prohibited word(s).</span>")
+		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry contains prohibited word(s)."))
 	else if(input)
 		warcry = input
 
@@ -109,7 +133,7 @@
 		if(!wand.used && range == initial(range))
 			wand.used = TRUE
 			range = 6
-			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
@@ -117,7 +141,7 @@
 	if(get_dist(A, user) <= 1 )
 		return FALSE
 	if(user in viewers(range, A))
-		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
+		user.visible_message(span_danger("[user] waves their hands at [A]"), span_notice("You begin manipulating [A]."))
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(do_after(user, 0.8 SECONDS, A))
@@ -139,8 +163,9 @@
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
 
-/datum/action/item_action/artifact_pincher_mode/Trigger()
+/datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
-		button.icon_state = (pinchy.safety ? "template_active" : "template")
+		button_icon_state = (pinchy.safety ? "template_active" : "template")
+		update_buttons()

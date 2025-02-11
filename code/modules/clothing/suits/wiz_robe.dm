@@ -1,15 +1,31 @@
 /obj/item/clothing/head/wizard
 	name = "wizard hat"
 	desc = "Strange-looking hat-wear that most certainly belongs to a real magic user."
-	clothing_flags = SNUG_FIT | THICKMATERIAL
+	icon = 'icons/obj/clothing/head/wizard.dmi'
+	worn_icon = 'icons/mob/clothing/head/wizard.dmi'
 	icon_state = "wizard"
+	item_state = "wizhat"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
-	permeability_coefficient = 0.01
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50)
+	armor_type = /datum/armor/head_wizard
 	strip_delay = 50
 	equip_delay_other = 50
+	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+
+
+/datum/armor/head_wizard
+	melee = 30
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+	bio = 100
+	rad = 20
+	fire = 100
+	acid = 100
+	stamina = 50
+	bleed = 60
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -34,8 +50,7 @@
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 	clothing_flags = NONE
@@ -50,31 +65,47 @@
 	name = "\improper Magus helm"
 	desc = "A mysterious helmet that hums with an unearthly power."
 	icon_state = "magus"
-	item_state = "magus"
+	item_state = null
 	dog_fashion = null
 
 /obj/item/clothing/head/wizard/santa
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
+	item_state = "santahat"
 	flags_inv = HIDEHAIR|HIDEFACIALHAIR
 	dog_fashion = null
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"
 	desc = "A magnificent, gem-lined robe that seems to radiate power."
+	icon = 'icons/obj/clothing/suits/wizard.dmi'
 	icon_state = "wizard"
+	worn_icon = 'icons/mob/clothing/suits/wizard.dmi'
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50)
+	armor_type = /datum/armor/suit_wizrobe
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
+
+
+/datum/armor/suit_wizrobe
+	melee = 30
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+	bio = 100
+	rad = 20
+	fire = 100
+	acid = 100
+	stamina = 50
+	bleed = 60
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()
 	. = ..()
@@ -109,7 +140,7 @@
 	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
-	item_state = "marisarobe"
+	item_state = null
 
 /obj/item/clothing/suit/wizrobe/magusblue
 	name = "\improper Magus robe"
@@ -136,8 +167,7 @@
 	icon_state = "wizard-fake"
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
 
@@ -146,8 +176,7 @@
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
 
@@ -157,8 +186,7 @@
 	icon_state = "marisa"
 	item_state = "marisarobe"
 	gas_transfer_coefficient = 1
-	permeability_coefficient = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
 	clothing_flags = NONE
 
@@ -183,7 +211,7 @@
 	if(!isliving(usr))
 		return
 	if(!robe_charge)
-		to_chat(usr, "<span class='warning'>The robe's internal magic supply is still recharging!</span>")
+		to_chat(usr, span_warning("The robe's internal magic supply is still recharging!"))
 		return
 
 	usr.say("Rise, my creation! Off your page into this realm!", forced = "stickman summoning")
@@ -194,7 +222,7 @@
 	src.robe_charge = FALSE
 	sleep(30)
 	src.robe_charge = TRUE
-	to_chat(usr, "<span class='notice'>The robe hums, its internal magic supply restored.</span>")
+	to_chat(usr, span_notice("The robe hums, its internal magic supply restored."))
 
 
 //Shielded Armour
@@ -205,14 +233,44 @@
 	icon_state = "battlemage"
 	item_state = "battlemage"
 	recharge_delay = 0 // no auto-recharge
-	max_charges = 15
+	shield_integrity = 300
 	shield_icon = "shield-red"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 70)
+	armor_type = /datum/armor/shielded_wizard
 	slowdown = 0
+	clothing_flags = CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/equipped(mob/user, slot)
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/dropped(mob/user, slot)
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
+	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
+
+/datum/armor/shielded_wizard
+	melee = 30
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+	bio = 20
+	rad = 20
+	fire = 100
+	acid = 100
+	stamina = 70
+	bleed = 70
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	name = "battlemage helmet"
@@ -221,9 +279,24 @@
 	item_state = "battlemage"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 70)
+	clothing_flags = CASTING_CLOTHES
+	armor_type = /datum/armor/shielded_wizard
 	actions_types = null //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+
+/datum/armor/shielded_wizard
+	melee = 30
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+	bio = 20
+	rad = 20
+	fire = 100
+	acid = 100
+	stamina = 70
+	bleed = 70
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
 	return
@@ -235,4 +308,4 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 	/// How many charges get restored
-	var/restored_charges = 8
+	var/added_shield = 400

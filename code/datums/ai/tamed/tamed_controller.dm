@@ -127,7 +127,7 @@
 				pawn.visible_message("[pawn] can't see [blackboard[BB_ATTACK_TARGET]]!")
 				return
 			if(commander && ismob(blackboard[BB_ATTACK_TARGET]))
-				log_combat(commander, blackboard[BB_ATTACK_TARGET], "ordered [pawn] to attack")
+				log_combat(commander, blackboard[BB_ATTACK_TARGET], "ordered [pawn] to attack", important = FALSE)
 			current_movement_target = blackboard[BB_ATTACK_TARGET]
 			queue_behavior(/datum/ai_behavior/tamed_follow/attack)
 
@@ -142,7 +142,7 @@
 	SIGNAL_HANDLER
 	if(user.a_intent == INTENT_HELP)
 		if(prob(25))
-			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+			user.visible_message("[source] nuzzles [user]!", span_notice("[source] nuzzles you!"))
 		return
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		anger++
@@ -229,3 +229,10 @@
 		return
 	set_command_mode(speaker, command)
 
+
+#undef TAMED_COMMAND_FOLLOW
+#undef TAMED_COMMAND_STOP
+#undef TAMED_COMMAND_WANDER
+#undef TAMED_COMMAND_ATTACK
+#undef ANGER_THRESHOLD_ATTACK
+#undef ANGER_RESET_TIME

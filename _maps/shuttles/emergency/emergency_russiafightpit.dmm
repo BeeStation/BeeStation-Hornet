@@ -58,7 +58,7 @@
 "am" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigars/cohiba,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 5;
 	pixel_y = 18
 	},
@@ -270,7 +270,7 @@
 "aZ" = (
 /obj/effect/decal/cleanable/shreds,
 /obj/machinery/door/window{
-	name = "fight pit"
+	name = "fight Pit"
 	},
 /turf/open/floor/engine,
 /area/shuttle/escape)
@@ -303,7 +303,7 @@
 /area/shuttle/escape)
 "be" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bf" = (
@@ -396,7 +396,7 @@
 	pixel_x = 27
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bv" = (
@@ -419,11 +419,11 @@
 "bA" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bB" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bC" = (
 /obj/structure/extinguisher_cabinet{
@@ -435,12 +435,12 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/stasis,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bF" = (
 /obj/structure/table,
@@ -451,7 +451,7 @@
 	},
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bG" = (
 /obj/structure/closet,
@@ -459,12 +459,12 @@
 /area/shuttle/escape)
 "bH" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bI" = (
@@ -474,7 +474,7 @@
 "bJ" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "bK" = (
 /obj/structure/window/reinforced{
@@ -539,17 +539,12 @@
 /obj/structure/table,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/item/clothing/gloves/fingerless,
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"sP" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "wq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/optable,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "Dd" = (
 /obj/machinery/door/airlock/security/glass{
@@ -616,9 +611,9 @@ hP
 ab
 Vh
 ad
-sP
-sP
-sP
+ac
+ac
+ac
 ad
 Ge
 ad
@@ -725,7 +720,7 @@ bK
 bL
 "}
 (6,1,1) = {"
-sP
+ac
 ae
 aj
 ao
@@ -749,7 +744,7 @@ bK
 bL
 "}
 (7,1,1) = {"
-sP
+ac
 af
 ak
 ak
@@ -773,7 +768,7 @@ bK
 bL
 "}
 (8,1,1) = {"
-sP
+ac
 ag
 ak
 ap
@@ -797,7 +792,7 @@ bK
 bL
 "}
 (9,1,1) = {"
-sP
+ac
 af
 al
 aq
@@ -821,7 +816,7 @@ bK
 bL
 "}
 (10,1,1) = {"
-sP
+ac
 ah
 ak
 aq
@@ -952,13 +947,13 @@ aE
 aE
 aE
 ad
-sP
-sP
-sP
+ac
+ac
+ac
 ad
 ad
 ad
-sP
+ac
 ad
 aa
 aa

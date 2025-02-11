@@ -156,6 +156,10 @@
 	display_name = "circular glasses"
 	path = /obj/item/clothing/glasses/regular/circle
 
+/datum/gear/accessory/glasses/circle_sunglasses
+	display_name = "circular sunglasses"
+	path = /obj/item/clothing/glasses/sunglasses/circle_sunglasses
+
 /datum/gear/accessory/glasses/sunglasses
 	display_name = "sunglasses"
 	path = /obj/item/clothing/glasses/sunglasses
@@ -205,7 +209,7 @@
 
 /datum/gear/accessory/bandana/skull
 	display_name = "skull bandana"
-	path = /obj/item/clothing/mask/bandana/skull
+	path = /obj/item/clothing/mask/bandana/skull/black
 	cost = 2000
 
 //LIPSTICK

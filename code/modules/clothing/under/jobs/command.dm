@@ -3,9 +3,20 @@
 	name = "captain's jumpsuit"
 	icon_state = "captain"
 	item_state = "b_suit"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10)
+	armor_type = /datum/armor/rank_captain
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	icon = 'icons/obj/clothing/under/captain.dmi'
+	worn_icon = 'icons/mob/clothing/under/captain.dmi'
+
+
+/datum/armor/rank_captain
+	melee = 10
+	bio = 10
+	fire = 30
+	acid = 30
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/rank/captain/skirt
 	name = "captain's jumpskirt"
@@ -14,7 +25,7 @@
 	item_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 

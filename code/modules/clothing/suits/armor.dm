@@ -1,4 +1,6 @@
 /obj/item/clothing/suit/armor
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	allowed = null
 	body_parts_covered = CHEST
 	cold_protection = CHEST|GROIN
@@ -9,9 +11,21 @@
 	equip_delay_other = 40
 	max_integrity = 250
 	resistance_flags = NONE
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
+	armor_type = /datum/armor/suit_armor
 	clothing_flags = THICKMATERIAL
 	slowdown = 0.08
+
+
+/datum/armor/suit_armor
+	melee = 30
+	bullet = 30
+	laser = 30
+	energy = 40
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 30
+	bleed = 50
 
 /obj/item/clothing/suit/armor/Initialize(mapload)
 	. = ..()
@@ -22,7 +36,7 @@
 	name = "armor vest"
 	desc = "A slim Type I-A armored vest that provides decent protection against most types of damage."
 	icon_state = "armoralt"
-	item_state = "armoralt"
+	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 
@@ -40,10 +54,23 @@
 
 /obj/item/clothing/suit/armor/vest/blueshirt
 	name = "large armor vest"
-	desc = "A large, yet comfortable piece of armor, protecting you from some threats. Type H-L"
+	desc = "A type H-L armored vest which provides greater protection than its I-A counterpart, at the cost of being bulkier."
 	icon_state = "blueshift"
-	item_state = "blueshift"
+	item_state = null
 	custom_premium_price = 600
+	armor_type = /datum/armor/vest_blueshirt
+	slowdown = 0.14
+
+
+/datum/armor/vest_blueshirt
+	melee = 40
+	bullet = 40
+	laser = 40
+	energy = 45
+	bomb = 30
+	fire = 50
+	acid = 50
+	stamina = 40
 
 /obj/item/clothing/suit/armor/vest/corporate
 	name = "corporate Jacket"
@@ -51,7 +78,20 @@
 	icon_state = "secjacket"
 	item_state = "secjacket"
 	body_parts_covered = CHEST|ARMS
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 45, ACID = 45, STAMINA = 30)
+	armor_type = /datum/armor/vest_corporate
+	slowdown = 0.02
+
+
+/datum/armor/vest_corporate
+	melee = 25
+	bullet = 25
+	laser = 25
+	energy = 35
+	bomb = 20
+	fire = 45
+	acid = 45
+	stamina = 30
+	bleed = 20
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"
@@ -59,11 +99,23 @@
 	icon_state = "hos"
 	item_state = "greatcoat"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 70, ACID = 90, STAMINA = 40)
+	armor_type = /datum/armor/armor_hos
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+
+
+/datum/armor/armor_hos
+	melee = 30
+	bullet = 30
+	laser = 30
+	energy = 40
+	bomb = 25
+	fire = 70
+	acid = 90
+	stamina = 40
+	bleed = 40
 
 /obj/item/clothing/suit/armor/hos/trenchcoat
 	name = "armored trenchcoat"
@@ -110,28 +162,53 @@
 	icon_state = "capcarapace"
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
-	armor = list(MELEE = 50,  BULLET = 40, LASER = 50, ENERGY = 60, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, STAMINA = 40)
+	armor_type = /datum/armor/vest_capcarapace
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/vest_capcarapace
+	melee = 50
+	bullet = 40
+	laser = 50
+	energy = 60
+	bomb = 25
+	fire = 100
+	acid = 90
+	stamina = 40
+	bleed = 60
 
 /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	name = "syndicate captain's vest"
 	desc = "A sinister looking vest of advanced armor worn over a black and red fireproof jacket. The gold collar and shoulders denote that this belongs to a high ranking syndicate officer."
 	icon_state = "syndievest"
 
-/obj/item/clothing/suit/armor/vest/capcarapace/alt
-	name = "captain's parade jacket"
+/obj/item/clothing/suit/armor/vest/capcarapace/captains_formal
+	name = "captain's parade coat"
 	desc = "For when an armoured vest isn't fashionable enough."
 	icon_state = "capformal"
-	item_state = "capspacesuit"
+	item_state = null
+	body_parts_covered = CHEST|GROIN|ARMS
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
 	desc = "An armored Jacket in the Captains colors"
 	icon_state = "capjacket"
-	item_state = "capspacesuit"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 50, BOMB = 55, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 40)
+	armor_type = /datum/armor/capcarapace_jacket
+
+
+/datum/armor/capcarapace_jacket
+	melee = 40
+	bullet = 30
+	laser = 40
+	energy = 50
+	bomb = 55
+	fire = 90
+	acid = 80
+	stamina = 40
+	bleed = 30
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
@@ -141,12 +218,23 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 50)
+	armor_type = /datum/armor/armor_riot
 	blocks_shove_knockdown = TRUE
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.15
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+
+
+/datum/armor/armor_riot
+	melee = 50
+	bullet = 10
+	laser = 10
+	energy = 15
+	fire = 80
+	acid = 80
+	stamina = 50
+	bleed = 70
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -154,9 +242,21 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor_type = /datum/armor/armor_bone
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	slowdown = 0.1
+
+
+/datum/armor/armor_bone
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 50
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
@@ -164,9 +264,21 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 15,  BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 40)
+	armor_type = /datum/armor/armor_bulletproof
 	strip_delay = 70
 	equip_delay_other = 50
+
+
+/datum/armor/armor_bulletproof
+	melee = 15
+	bullet = 60
+	laser = 10
+	energy = 10
+	bomb = 40
+	fire = 50
+	acid = 50
+	stamina = 40
+	bleed = 60
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "reflector vest"
@@ -174,9 +286,20 @@
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 60, ENERGY = 80, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 40)
+	armor_type = /datum/armor/armor_laserproof
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
+
+
+/datum/armor/armor_laserproof
+	melee = 10
+	bullet = 10
+	laser = 60
+	energy = 80
+	fire = 100
+	acid = 100
+	stamina = 40
+	bleed = 10
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
@@ -196,23 +319,6 @@
 	allowed = GLOB.detective_vest_allowed
 
 //All of the armor below is mostly unused
-
-/obj/item/clothing/suit/armor/centcom
-	name = "\improper CentCom armor"
-	desc = "A suit that protects against some damage."
-	icon_state = "centcom"
-	item_state = "centcom"
-	w_class = WEIGHT_CLASS_BULKY
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 70)
-	slowdown = 0.1
-
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
 	desc = "A heavily armored suit that protects against moderate damage."
@@ -223,17 +329,43 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 60)
+	armor_type = /datum/armor/armor_heavy
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 	slowdown = 0.3
+
+
+/datum/armor/armor_heavy
+	melee = 80
+	bullet = 80
+	laser = 50
+	energy = 60
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 90
+	stamina = 60
+	bleed = 70
 
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 0)
+	armor_type = /datum/armor/armor_tdome
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+
+
+/datum/armor/armor_tdome
+	melee = 80
+	bullet = 80
+	laser = 50
+	energy = 60
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 90
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "thunderdome suit"
@@ -249,9 +381,14 @@
 
 /obj/item/clothing/suit/armor/tdome/holosuit
 	name = "thunderdome suit"
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/tdome_holosuit
 	cold_protection = null
 	heat_protection = null
+
+
+/datum/armor/tdome_holosuit
+	melee = 10
+	bullet = 10
 
 /obj/item/clothing/suit/armor/tdome/holosuit/red
 	desc = "Reddish armor."
@@ -292,22 +429,87 @@
 	equip_delay_other = 40
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 40, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
+	armor_type = /datum/armor/vest_durathread
+
+
+/datum/armor/vest_durathread
+	melee = 20
+	bullet = 40
+	laser = 30
+	energy = 40
+	bomb = 15
+	fire = 40
+	acid = 50
+	stamina = 30
+	bleed = 60
 
 /obj/item/clothing/suit/armor/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
 	icon_state = "rus_armor"
 	item_state = "rus_armor"
-	armor = list(MELEE = 25,  BULLET = 30, LASER = 0, ENERGY = 15, BOMB = 10, BIO = 0, RAD = 20, FIRE = 20, ACID = 50, STAMINA = 25)
+	armor_type = /datum/armor/vest_russian
 	slowdown = 0.05
+
+
+/datum/armor/vest_russian
+	melee = 25
+	bullet = 30
+	energy = 15
+	bomb = 10
+	rad = 20
+	fire = 20
+	acid = 50
+	stamina = 25
+	bleed = 20
 
 /obj/item/clothing/suit/armor/vest/russian_coat
 	name = "russian battle coat"
 	desc = "Used in extremly cold fronts, made out of real bears."
 	icon_state = "rus_coat"
-	item_state = "rus_coat"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 30)
+	armor_type = /datum/armor/vest_russian_coat
+
+
+/datum/armor/vest_russian_coat
+	melee = 25
+	bullet = 20
+	laser = 20
+	energy = 30
+	bomb = 20
+	bio = 50
+	rad = 20
+	fire = -10
+	acid = 50
+	stamina = 30
+	bleed = 20
+
+/obj/item/clothing/suit/armor/centcom_formal
+	name = "\improper CentCom formal coat"
+	desc = "A stylish coat given to CentCom Commanders. Perfect for sending ERTs to suicide missions with style!"
+	icon_state = "centcom_formal"
+	item_state = "centcom"
+	body_parts_covered = CHEST|GROIN|ARMS
+	armor_type = /datum/armor/armor_centcom_formal
+
+
+/datum/armor/armor_centcom_formal
+	melee = 35
+	bullet = 40
+	laser = 40
+	energy = 50
+	bomb = 35
+	bio = 10
+	rad = 10
+	fire = 10
+	acid = 60
+	stamina = 40
+	bleed = 20
+
+/obj/item/clothing/suit/armor/centcom_formal/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/toggle_icon)
+	allowed = GLOB.security_wintercoat_allowed

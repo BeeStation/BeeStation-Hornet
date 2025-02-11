@@ -28,20 +28,17 @@
 	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
 
 /obj/item/instrument/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return TRUE
 	interact(user)
 
-/obj/item/instrument/interact(mob/user)
-	ui_interact(user)
-
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
+	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
 		return
 
 	user.set_machine(src)
@@ -78,7 +75,8 @@
 	desc = "A 'Mura' brand banjo. It's pretty much just a drum with a neck and strings."
 	icon_state = "banjo"
 	item_state = "banjo"
-	attack_verb = list("scruggs-styled", "hum-diggitied", "shin-digged", "clawhammered")
+	attack_verb_continuous = list("scruggs-styles", "hum-diggitys", "shin-digs", "clawhammers")
+	attack_verb_simple = list("scruggs-style", "hum-diggity", "shin-dig", "clawhammer")
 	hitsound = 'sound/weapons/banjoslap.ogg'
 	allowed_instrument_ids = "banjo"
 
@@ -87,7 +85,8 @@
 	desc = "It's made of wood and has bronze strings."
 	icon_state = "guitar"
 	item_state = "guitar"
-	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
+	attack_verb_continuous = list("plays metal on", "serenades", "crashes", "smashes")
+	attack_verb_simple = list("play metal on", "serenade", "crash", "smash")
 	hitsound = 'sound/weapons/stringsmash.ogg'
 	allowed_instrument_ids = list("guitar","csteelgt","cnylongt", "ccleangt", "cmutedgt")
 
@@ -97,7 +96,8 @@
 	icon_state = "eguitar"
 	item_state = "eguitar"
 	force = 12
-	attack_verb = list("played metal on", "shredded", "crashed", "smashed")
+	attack_verb_continuous = list("plays metal on", "shreds", "crashes", "smashes")
+	attack_verb_simple = list("play metal on", "shred", "crash", "smash")
 	hitsound = 'sound/weapons/stringsmash.ogg'
 	allowed_instrument_ids = "eguitar"
 
@@ -128,7 +128,8 @@
 	icon_state = "trumpet"
 	item_state = "trombone"
 	force = 0
-	attack_verb = list("played","jazzed","trumpeted","mourned","dooted","spooked")
+	attack_verb_continuous = list("plays", "jazzes", "trumpets", "mourns", "doots", "spooks")
+	attack_verb_simple = list("play", "jazz", "trumpet", "mourn", "doot", "spook")
 
 /obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
@@ -152,7 +153,8 @@
 	item_state = "saxophone"
 	allowed_instrument_ids = "saxophone"
 	force = 0
-	attack_verb = list("played","jazzed","saxxed","mourned","dooted","spooked")
+	attack_verb_continuous = list("plays", "jazzes", "saxxes", "mourns", "doots", "spooks")
+	attack_verb_simple = list("play", "jazz", "sax", "mourn", "doot", "spook")
 
 /obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
@@ -175,7 +177,8 @@
 	icon_state = "trombone"
 	item_state = "trombone"
 	force = 0
-	attack_verb = list("played","jazzed","tromboned","mourned","dooted","spooked")
+	attack_verb_continuous = list("plays", "jazzes", "trombones", "mourns", "doots", "spooks")
+	attack_verb_simple = list("play", "jazz", "trombone", "mourn", "doot", "spook")
 
 /obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
@@ -208,7 +211,7 @@
 	SIGNAL_HANDLER
 
 	if(song.playing && ismob(loc))
-		to_chat(loc, "<span class='warning'>You stop playing the harmonica to talk...</span>")
+		to_chat(loc, span_warning("You stop playing the harmonica to talk..."))
 		song.playing = FALSE
 
 /obj/item/instrument/harmonica/equipped(mob/M, slot)
@@ -219,6 +222,17 @@
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
+/datum/action/item_action/instrument
+	name = "Use Instrument"
+	desc = "Use the instrument specified"
+
+/datum/action/item_action/instrument/on_activate(mob/user, atom/target)
+	if(istype(target, /obj/item/instrument))
+		var/obj/item/instrument/I = target
+		I.interact(usr)
+		return
+	return ..()
+
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"
 	desc = "An exquisitely decorated bike horn, capable of honking in a variety of notes."
@@ -226,7 +240,8 @@
 	item_state = "bike_horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
-	attack_verb = list("beautifully honks")
+	attack_verb_continuous = list("beautifully honks")
+	attack_verb_simple = list("beautifully honk")
 	allowed_instrument_ids = list("bikehorn", "honk")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
@@ -273,7 +288,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/music/generate_item_list()
@@ -293,7 +308,8 @@
 	desc = "Despite its popularity, this controversial musical toy was eventually banned due to its unethically sampled sounds of moths screaming in agony."
 	icon_state = "mothsician"
 	allowed_instrument_ids = "mothscream"
-	attack_verb = list("flutter", "flap")
+	attack_verb_continuous = list("flutters", "flaps")
+	attack_verb_simple = list("flutter", "flap")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	hitsound = 'sound/voice/moth/scream_moth.ogg'

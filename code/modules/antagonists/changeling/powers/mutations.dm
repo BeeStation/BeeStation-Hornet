@@ -32,14 +32,14 @@
 		user.temporarilyRemoveItemFromInventory(hand_item, TRUE) //DROPDEL will delete the item
 		if(!silent)
 			playsound(user, 'sound/effects/blobattack.ogg', 30, 1)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
+			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_italics("You hear organic matter ripping and tearing!"))
 		user.update_inv_hands()
 		return 1
 
 /datum/action/changeling/weapon/sting_action(mob/living/user)
 	var/obj/item/held = user.get_active_held_item()
 	if(held && !user.dropItemToGround(held))
-		to_chat(user, "<span class='warning'>[held] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!</span>")
+		to_chat(user, span_warning("[held] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!"))
 		return
 	..()
 	var/limb_regen = 0
@@ -48,7 +48,7 @@
 	else
 		limb_regen = user.regenerate_limb(BODY_ZONE_L_ARM, 1)
 	if(limb_regen)
-		user.visible_message("<span class='warning'>[user]'s missing arm reforms, making a loud, grotesque sound!</span>", "<span class='userdanger'>Your arm regrows, making a loud, crunchy sound and giving you great pain!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		user.visible_message(span_warning("[user]'s missing arm reforms, making a loud, grotesque sound!"), span_userdanger("Your arm regrows, making a loud, crunchy sound and giving you great pain!"), span_italics("You hear organic matter ripping and tearing!"))
 		user.emote("scream")
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
@@ -90,7 +90,7 @@
 		return 1
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
-		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple].</span>", "<span class='italics'>You hear the organic matter ripping and tearing!</span>")
+		H.visible_message(span_warning("[H] casts off [H.p_their()] [suit_name_simple]!"), span_warning("We cast off our [suit_name_simple]."), span_italics("You hear the organic matter ripping and tearing!"))
 		H.temporarilyRemoveItemFromInventory(H.head, TRUE) //The qdel on dropped() takes care of it
 		H.temporarilyRemoveItemFromInventory(H.wear_suit, TRUE)
 		H.update_inv_wear_suit()
@@ -152,25 +152,30 @@
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	force = 20 //this is an undroppable melee weapon. should not be better than the fireaxe
+	force = 30
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
-	sharpness = IS_SHARP
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	sharpness = SHARP_DISMEMBER_EASY
+	bleed_force = BLEED_DEEP_WOUND
 	var/can_drop = FALSE
 	var/fake = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/arm_blade)
 
 /obj/item/melee/arm_blade/Initialize(mapload,silent,synthetic)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	if(ismob(loc) && !silent)
-		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("A grotesque blade forms around [loc.name]\'s arm!"), span_warning("Our arm twists and mutates, transforming it into a deadly blade."), span_italics("You hear organic matter ripping and tearing!"))
 	if(synthetic)
 		can_drop = TRUE
+		sharpness = SHARP_DISMEMBER
 	AddComponent(/datum/component/butchering, 60, 80)
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
@@ -231,18 +236,20 @@
 	requires_wielding = FALSE
 	equip_time = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
+
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		if(!silent)
-			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			loc.visible_message(span_warning("[loc.name]\'s arm starts stretching inhumanly!"), span_warning("Our arm twists and mutates, transforming it into a tentacle."), span_italics("You hear organic matter ripping and tearing!"))
 		else
-			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
+			to_chat(loc, span_notice("You prepare to extend a tentacle."))
 
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] is not ready yet.</span>")
+	to_chat(user, span_warning("The [name] is not ready yet."))
 
 /obj/item/gun/magic/tentacle/process_chamber()
 	. = ..()
@@ -250,7 +257,7 @@
 		qdel(src)
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle
@@ -258,7 +265,6 @@
 	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
-	icon_state = "tentacle_end"
 	firing_effect_type = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
@@ -307,7 +313,7 @@
 	if(H.Adjacent(C))
 		for(var/obj/item/I in H.held_items)
 			if(I.is_sharp())
-				C.visible_message("<span class='danger'>[H] impales [C] with [H.p_their()] [I.name]!</span>", "<span class='userdanger'>[H] impales you with [H.p_their()] [I.name]!</span>")
+				C.visible_message(span_danger("[H] impales [C] with [H.p_their()] [I.name]!"), span_userdanger("[H] impales you with [H.p_their()] [I.name]!"))
 				C.apply_damage(I.force, BRUTE, BODY_ZONE_CHEST)
 				H.do_item_attack_animation(C, used_item = I)
 				H.add_mob_blood(C)
@@ -321,7 +327,7 @@
 	if(isitem(target))
 		var/obj/item/I = target
 		if(!I.anchored)
-			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
+			to_chat(firer, span_notice("You pull [I] towards yourself."))
 			H.throw_mode_on(THROW_MODE_TOGGLE)
 			I.throw_at(H, 10, 2)
 			. = BULLET_ACT_HIT
@@ -337,7 +343,7 @@
 					firer_intent = M.a_intent
 				switch(firer_intent)
 					if(INTENT_HELP)
-						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						C.visible_message(span_danger("[L] is pulled by [H]'s tentacle!"),span_userdanger("A tentacle grabs you and pulls you towards [H]!"))
 						C.throw_at(get_step_towards(H,C), 8, 2)
 						return BULLET_ACT_HIT
 
@@ -345,27 +351,27 @@
 						var/obj/item/I = C.get_active_held_item()
 						if(I)
 							if(C.dropItemToGround(I))
-								C.visible_message("<span class='danger'>[I] is yanked off [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
+								C.visible_message(span_danger("[I] is yanked off [C]'s hand by [src]!"),span_userdanger("A tentacle pulls [I] away from you!"))
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
 								return BULLET_ACT_HIT
 							else
-								to_chat(firer, "<span class='danger'>You can't seem to pry [I] off [C]'s hands!</span>")
+								to_chat(firer, span_danger("You can't seem to pry [I] off [C]'s hands!"))
 								return BULLET_ACT_BLOCK
 						else
-							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!</span>")
+							to_chat(firer, span_danger("[C] has nothing in hand to disarm!"))
 							return BULLET_ACT_HIT
 
 					if(INTENT_GRAB)
-						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						C.visible_message(span_danger("[L] is grabbed by [H]'s tentacle!"),span_userdanger("A tentacle grabs you and pulls you towards [H]!"))
 						C.throw_at(get_step_towards(H,C), 8, 2, H, TRUE, TRUE, callback=CALLBACK(src, PROC_REF(tentacle_grab), H, C))
 						return BULLET_ACT_HIT
 
 					if(INTENT_HARM)
-						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
+						C.visible_message(span_danger("[L] is thrown towards [H] by a tentacle!"),span_userdanger("A tentacle grabs you and throws you towards [H]!"))
 						C.throw_at(get_step_towards(H,C), 8, 2, H, TRUE, TRUE, callback=CALLBACK(src, PROC_REF(tentacle_stab), H, C))
 						return BULLET_ACT_HIT
 			else
-				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+				L.visible_message(span_danger("[L] is pulled by [H]'s tentacle!"),span_userdanger("A tentacle grabs you and pulls you towards [H]!"))
 				L.throw_at(get_step_towards(H,L), 8, 2)
 				. = BULLET_ACT_HIT
 
@@ -396,34 +402,75 @@
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	desc = "A huge, bulky mass of armored pressure and temperature-resistant organic tissue, evolved to facilitate space travel and protect from close range threats."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10)//Bit less armoured than the Syndicate space suit
-	slowdown = 0.2
+	armor_type = /datum/armor/space_changeling
+	slowdown = 0.1
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
+	actions_types = list()
+	cell = null
+	show_hud = FALSE
+
+
+/datum/armor/space_changeling
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 20
+	fire = 90
+	acid = 90
+	stamina = 10
+	bleed = 80
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!"), span_warning("We inflate our flesh, creating a spaceproof suit!"), span_italics("You hear organic matter ripping and tearing!"))
 	START_PROCESSING(SSobj, src)
+
+// seal the cell door
+/obj/item/clothing/suit/space/changeling/toggle_spacesuit_cell(mob/user)
+	return
 
 /obj/item/clothing/suit/space/changeling/process(delta_time)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.reagents.add_reagent(salbutamol, initial(salbutamol.metabolization_rate) * (delta_time / SSMOBS_DT))
+		H.adjust_bodytemperature(temperature_setting - H.bodytemperature) // force changelings to normal temp step mode played badly
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "lingspacehelmet"
+	item_state = null
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 30, BIO = 20, RAD = 20, FIRE = 90, ACID = 90, STAMINA = 10)
+	armor_type = /datum/armor/space_changeling
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+
+/datum/armor/space_changeling
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 20
+	fire = 90
+	acid = 90
+	stamina = 10
+	bleed = 80
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
@@ -435,11 +482,10 @@
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
-	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
+	helptext = "Upkeep of the armor slows our rate of chemical production. The armor provides decent protection against projectiles and some protection against melee attacks. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20
 	dna_cost = 2
-	req_absorbs = 3
 	req_human = 1
 	recharge_slowdown = 0.25
 
@@ -452,28 +498,56 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
+	item_state = null
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30)
+	armor_type = /datum/armor/armor_changeling
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
-	slowdown = 0.2
+	slowdown = 0
+
+
+/datum/armor/armor_changeling
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 50
+	bomb = 25
+	bio = 10
+	fire = 25
+	acid = 25
+	stamina = 30
+	bleed = 90
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!"), span_warning("We harden our flesh, creating a suit of armor!"), span_italics("You hear organic matter ripping and tearing!"))
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
+	item_state = null
 	item_flags = DROPDEL
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30)
+	armor_type = /datum/armor/helmet_changeling
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
+
+
+/datum/armor/helmet_changeling
+	melee = 40
+	bullet = 40
+	laser = 50
+	energy = 50
+	bomb = 25
+	bio = 10
+	fire = 25
+	acid = 25
+	stamina = 30
+	bleed = 90
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()

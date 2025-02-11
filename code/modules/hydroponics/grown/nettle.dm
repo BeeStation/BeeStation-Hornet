@@ -44,10 +44,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("stung")
+	attack_verb_continuous = list("stings")
+	attack_verb_simple = list("sting")
 
 /obj/item/food/grown/nettle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (BRUTELOSS|TOXLOSS)
 
 /obj/item/food/grown/nettle/pickup(mob/living/user)
@@ -64,7 +65,7 @@
 	if(affecting)
 		if(affecting.receive_damage(0, force))
 			C.update_damage_overlays()
-	to_chat(C, "<span class='userdanger'>The nettle burns your bare hand!</span>")
+	to_chat(C, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 
 /obj/item/food/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
@@ -80,6 +81,8 @@
 /obj/item/food/grown/nettle/basic
 	seed = /obj/item/seeds/nettle
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
+
 /obj/item/food/grown/nettle/basic/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	force = round((5 + seed.potency / 5), 1)
@@ -87,12 +90,14 @@
 /obj/item/food/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
+	desc = "The " + span_danger("glowing") + " nettle incites " + span_boldannounce("rage") + " in you just from looking at it!"
 	icon_state = "deathnettle"
 	bite_consumption_mod = 4 // I guess if you really wanted to
 	force = 25
 	throwforce = 12
 	discovery_points = 300
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 
 /obj/item/food/grown/nettle/death/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -103,11 +108,11 @@
 	if(..())
 		if(prob(50))
 			user.Paralyze(100)
-			to_chat(user, "<span class='userdanger'>You are stunned by [src] as you try picking it up!</span>")
+			to_chat(user, span_userdanger("You are stunned by [src] as you try picking it up!"))
 
 /obj/item/food/grown/nettle/death/attack(mob/living/M, mob/user)
 	if(!M.can_inject(user) && user.a_intent == INTENT_HARM)
-		to_chat(user, "<span class='warning'>The [src] harmlessly bounces off of [M]! They're protected from its needles!</span>")
+		to_chat(user, span_warning("The [src] harmlessly bounces off of [M]! They're protected from its needles!"))
 		return FALSE
 	else
 		return ..()

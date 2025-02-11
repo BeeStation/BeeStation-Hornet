@@ -1,6 +1,8 @@
 /obj/item/clothing/head/soft
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
+	icon = 'icons/obj/clothing/head/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "mimesoft"
 	dying_key = DYE_REGISTRY_CAP
 
@@ -22,10 +24,10 @@
 		flipped = !flipped
 		if(flipped)
 			icon_state = "[soft_color]soft_flipped"
-			to_chat(user, "<span class='notice'>You flip the hat backwards.</span>")
+			to_chat(user, span_notice("You flip the hat backwards."))
 		else
 			icon_state = "[soft_color]soft"
-			to_chat(user, "<span class='notice'>You flip the hat back in normal position.</span>")
+			to_chat(user, span_notice("You flip the hat back in normal position."))
 		user.update_inv_head()	//so our mob-overlays update
 
 /obj/item/clothing/head/soft/equipped(mob/user, slot)
@@ -37,7 +39,7 @@
 
 /obj/item/clothing/head/soft/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click the cap to flip it [flipped ? "forwards" : "backwards"].</span>"
+	. += span_notice("Alt-click the cap to flip it [flipped ? "forwards" : "backwards"].")
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"
@@ -98,8 +100,20 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
+	armor_type = /datum/armor/soft_sec
 	strip_delay = 60
+
+
+/datum/armor/soft_sec
+	melee = 30
+	bullet = 25
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 20
+	acid = 50
+	stamina = 30
+	bleed = 10
 
 /obj/item/clothing/head/soft/sec/brig_physician
 	name = "security medic cap"
@@ -107,10 +121,11 @@
 	soft_color = "secmed"
 
 /obj/item/clothing/head/soft/paramedic
-	name = "EMT cap"
+	name = "paramedic cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."
-	icon_state = "emtsoft"
-	soft_color = "emt"
+	icon_state = "paramedicsoft"
+	soft_color = "paramedic"
+	dog_fashion = null
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"

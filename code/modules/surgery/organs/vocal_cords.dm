@@ -7,6 +7,7 @@
 /obj/item/organ/vocal_cords //organs that are activated through speech with the :x/MODE_KEY_VOCALCORDS channel
 	name = "vocal cords"
 	icon_state = "appendix"
+	visual = FALSE
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_VOICE
 	gender = PLURAL
@@ -36,16 +37,14 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger()
-	if(!IsAvailable())
-		return
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/on_activate(mob/user, atom/target)
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".x[message]")
 
 /obj/item/organ/vocal_cords/adamantine/handle_speech(message)
-	var/msg = "<span class='resonate'><span class='name'>[owner.real_name]</span> <span class='message'>resonates, \"[message]\"</span></span>"
+	var/msg = span_resonate("[span_name("[owner.real_name]")] [span_message("resonates, \"[message]\"")]")
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -72,9 +71,11 @@
 
 /datum/action/item_action/organ_action/colossus/New()
 	..()
-	cords = target
+	if (!istype(master, /obj/item/organ/vocal_cords/colossus))
+		CRASH("/obj/item/organ/vocal_cords/colossus assigned to colossus")
+	cords = master
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/is_available()
 	if(world.time < cords.next_command)
 		return FALSE
 	if(!owner)
@@ -88,12 +89,7 @@
 			return FALSE
 	return TRUE
 
-/datum/action/item_action/organ_action/colossus/Trigger()
-	. = ..()
-	if(!IsAvailable())
-		if(world.time < cords.next_command)
-			to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(cords.next_command - world.time)] before Speaking again.</span>")
-		return
+/datum/action/item_action/organ_action/colossus/on_activate(mob/user, atom/target)
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(QDELETED(src) || QDELETED(owner))
 		return
@@ -103,12 +99,12 @@
 
 /obj/item/organ/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(next_command - world.time)] before Speaking again.</span>")
+		to_chat(owner, span_notice("You must wait [DisplayTimeText(next_command - world.time)] before Speaking again."))
 		return FALSE
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak_vocal())
-		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
+		to_chat(owner, span_warning("You are unable to speak!"))
 		return FALSE
 	return TRUE
 
@@ -119,6 +115,8 @@
 /obj/item/organ/vocal_cords/colossus/speak_with(message)
 	var/cooldown = voice_of_god(uppertext(message), owner, spans, base_multiplier)
 	next_command = world.time + (cooldown * cooldown_mod)
+	for (var/datum/action/item_action/organ_action/colossus/action in actions)
+		action.start_cooldown(cooldown * cooldown_mod)
 
 //////////////////////////////////////
 ///////////VOICE OF GOD///////////////
@@ -139,10 +137,10 @@
 
 	user.say(message, spans = span_list, sanitize = FALSE)
 
-	message = lowertext(message)
+	message = LOWER_TEXT(message)
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in hearers(8, get_turf(user)))
-		if(L.can_hear() && !L.anti_magic_check(FALSE, TRUE) && L.stat != DEAD)
+		if(L.can_hear() && !L.can_block_magic(MAGIC_RESISTANCE_HOLY) && L.stat != DEAD)
 
 			if(L == user && !include_speaker)
 				continue
@@ -150,7 +148,7 @@
 				var/mob/living/carbon/human/H = L
 				if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 					continue
-				if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+				if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 					continue
 			listeners += L
 
@@ -184,15 +182,7 @@
 
 	for(var/V in listeners)
 		var/mob/living/L = V
-		var/datum/antagonist/devil/devilinfo = is_devil(L)
-		if(devilinfo && findtext(message, devilinfo.truename))
-			var/start = findtext(message, devilinfo.truename)
-			listeners = list(L) //Devil names are unique.
-			power_multiplier *= 5 //if you're a devil and god himself addressed you, you fucked up
-			//Cut out the name so it doesn't trigger commands
-			message = copytext(message, 1, start) + copytext(message, start + length(devilinfo.truename))
-			break
-		else if(findtext(message, L.real_name, 1, length(L.real_name) + 1))
+		if(findtext(message, L.real_name, 1, length(L.real_name) + 1))
 			specific_listeners += L //focus on those with the specified name
 			//Cut out the name so it doesn't trigger commands
 			found_string = L.real_name
@@ -321,7 +311,7 @@
 	else if((findtext(message, bleed_words)))
 		cooldown = COOLDOWN_DAMAGE
 		for(var/mob/living/carbon/human/H in listeners)
-			H.bleed_rate += (5 * power_multiplier)
+			H.add_bleeding(BLEED_SURFACE)
 
 	//FIRE
 	else if((findtext(message, burn_words)))
@@ -365,12 +355,7 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			var/text = ""
-			if(is_devil(L))
-				var/datum/antagonist/devil/devilinfo = is_devil(L)
-				text = devilinfo.truename
-			else
-				text = L.real_name
+			var/text = L.real_name
 			addtimer(CALLBACK(L, TYPE_PROC_REF(/atom/movable, say), text), 5 * i)
 			i++
 

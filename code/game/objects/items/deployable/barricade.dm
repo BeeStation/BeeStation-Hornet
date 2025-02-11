@@ -54,20 +54,20 @@
 
 /obj/structure/barricade/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM && bar_material == METAL)
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
 				return
 
-			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+			to_chat(user, span_notice("You begin repairing [src]..."))
 			if(I.use_tool(src, user, 40, volume=40))
-				obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
+				atom_integrity = clamp(atom_integrity + 20, 0, max_integrity)
 
 	else if(I.GetID() && initial(locked_down))
 		if(allowed(user))
 			locked_down = !locked_down
-			to_chat(user, "<span class='notice'>You [locked_down ? "lock" : "unlock"] the release mechanism.</span>")
+			to_chat(user, span_notice("You [locked_down ? "lock" : "unlock"] the release mechanism."))
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 		return
 
 	else
@@ -92,26 +92,26 @@
 	if(over_object == usr && Adjacent(usr))
 		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
 			return
-		if(!pickup_damaged && obj_integrity < max_integrity)
-			to_chat(usr, "<span class='warning'>[src] is damaged! You'll have to repair it before you can relocate it.</span>")
+		if(!pickup_damaged && atom_integrity < max_integrity)
+			to_chat(usr, span_warning("[src] is damaged! You'll have to repair it before you can relocate it."))
 			return
 		if(locked_down)
-			to_chat(usr, "<span class='warning'>[src] is still locked down! Swipe your ID to unlock it.</span>")
+			to_chat(usr, span_warning("[src] is still locked down! Swipe your ID to unlock it."))
 			return
 
-		usr.visible_message("<span class='notice'>[usr] begins breaking down [src]</span>", "<span class='notice'>You begin breaking down [src].</span>")
+		usr.visible_message(span_notice("[usr] begins breaking down [src]"), span_notice("You begin breaking down [src]."))
 		if(do_after(usr, pickup_delay, src))
 
 			//If the barricade is made of parts, some of them are damaged when the barricade is damaged so we set how many are being returned here
 			if(initial(drop_amount) > 1)
-				drop_amount = round(drop_amount * (obj_integrity/max_integrity))
+				drop_amount = round(drop_amount * (atom_integrity/max_integrity))
 			//If we are only picking up one item at most, it has a chance to fall apart based on damage the barricade accrued. Will always succeed if pickup_damaged is false.
-			else if(!prob(round((obj_integrity/max_integrity), 0.01) * 100))
-				usr.visible_message("<span class='notice'>[usr] tries to pick up [src] but it falls apart!</span>", "<span class='notice'>[src] is too damaged and falls apart!</span>")
+			else if(!prob(round((atom_integrity/max_integrity), 0.01) * 100))
+				usr.visible_message(span_notice("[usr] tries to pick up [src] but it falls apart!"), span_notice("[src] is too damaged and falls apart!"))
 				qdel(src)
 				return
 
-			usr.visible_message("<span class='notice'>[usr] picks up [src].</span>", "<span class='notice'>You pick up [src].</span>")
+			usr.visible_message(span_notice("[usr] picks up [src]."), span_notice("You pick up [src]."))
 			qdel(src)
 			pick_up_barricade()
 
@@ -131,10 +131,10 @@
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.amount < 5)
-			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
+			to_chat(user, span_warning("You need at least five wooden planks to make a wall!"))
 			return
 		else
-			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
+			to_chat(user, span_notice("You start adding [I] to [src]..."))
 			if(do_after(user, 50, target=src))
 				W.use(5)
 				var/turf/T = get_turf(src)
@@ -157,13 +157,19 @@
 	proj_pass_rate = 65
 	pickup_delay = 8 SECONDS
 
+/obj/structure/barricade/wooden/make_debris()
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
+
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
 	max_integrity = 75
 
-/obj/structure/barricade/wooden/make_debris()
-	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
+/obj/structure/barricade/wooden/snowed
+	name = "crude plank barricade"
+	desc = "This space is blocked off by a wooden barricade. It seems to be covered in a layer of snow."
+	icon_state = "woodenbarricade-snow"
+	max_integrity = 125
 
 /obj/structure/barricade/sandbags
 	name = "sandbag barricade"
@@ -194,10 +200,20 @@
 	icon_state = "barrier1"
 	max_integrity = 180
 	proj_pass_rate = 20
-	armor = list(MELEE = 10,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/barricade_security
 	req_access = list(ACCESS_SECURITY)
 	pickup_damaged = FALSE
 	locked_down = TRUE
+
+
+/datum/armor/barricade_security
+	melee = 10
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 10
 
 /obj/structure/barricade/security/pick_up_barricade()
 	var/obj/item/security_barricade/carryable = new(loc)

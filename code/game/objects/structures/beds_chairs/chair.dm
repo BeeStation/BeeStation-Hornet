@@ -21,9 +21,9 @@
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	. += span_notice("It's held together by a couple of <b>bolts</b>.")
 	if(!has_buckled_mobs())
-		. += "<span class='notice'>Drag your sprite to sit in it.</span>"
+		. += span_notice("Drag your sprite to sit in it.")
 
 /obj/structure/chair/ComponentInitialize()
 	. = ..()
@@ -74,7 +74,7 @@
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1))
-		to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
+		to_chat(user, span_notice("You start deconstructing [src]..."))
 		if(W.use_tool(src, user, 30, volume=50))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			deconstruct(TRUE, 1)
@@ -94,9 +94,9 @@
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
-		..()
-	else
-		setDir(turn(dir,-90))
+		return ..()
+	setDir(turn(dir,-90))
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
@@ -271,9 +271,9 @@
 
 /obj/structure/chair/fancy/plastic/proc/snap_check(mob/living/M)
 	if (M.nutrition >= NUTRITION_LEVEL_FAT) //you are so fat
-		to_chat(M, "<span class='warning'>The chair begins to pop and crack, you're too heavy!</span>")
+		to_chat(M, span_warning("The chair begins to pop and crack, you're too heavy!"))
 		if(do_after(M, 6 SECONDS, progress = FALSE))
-			M.visible_message("<span class='notice'>The plastic chair snaps under [M]'s weight!</span>")
+			M.visible_message(span_notice("The plastic chair snaps under [M]'s weight!"))
 			qdel(src)
 
 /obj/structure/chair/fancy/brass
@@ -314,12 +314,12 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(!(datum_flags & DF_ISPROCESSING))
-		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
-		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
+		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
+		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
 		START_PROCESSING(SSfastprocess, src)
 	else
-		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
-		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
+		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
+		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
 
 /obj/structure/chair/fancy/brass/bronze
@@ -387,6 +387,8 @@
 	buildstackamount = 1
 	item_chair = /obj/item/chair/stool
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
+
 /obj/structure/chair/stool/narsie_act()
 	return
 
@@ -397,7 +399,7 @@
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
 			return
-		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
+		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
 		var/obj/item/C = new item_chair(loc)
 		C.set_custom_materials(custom_materials)
 		TransferComponents(C)
@@ -409,6 +411,8 @@
 	desc = "The apex of the bar experience."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool/bar, 0)
 
 /obj/structure/chair/stool/bamboo
 	name = "bamboo stool"

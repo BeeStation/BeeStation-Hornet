@@ -6,11 +6,12 @@
 	icon_living = "zombie"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 0
-	stat_attack = UNCONSCIOUS //braains
+	stat_attack = HARD_CRIT //braains
 	maxHealth = 100
 	health = 100
 	melee_damage = 21
-	attacktext = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

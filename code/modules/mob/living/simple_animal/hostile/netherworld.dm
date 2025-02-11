@@ -8,14 +8,14 @@
 	maxHealth = 80
 	obj_damage = 100
 	melee_damage = 35
-	attacktext = "slashes"
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	faction = list("creature")
 	speak_emote = list("screams")
 	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	faction = list("nether")
+	faction = list(FACTION_NETHER)
 	hardattacks = TRUE
 	discovery_points = 3000
 
@@ -26,7 +26,8 @@
 	icon_state = "mi-go"
 	icon_living = "mi-go"
 	icon_dead = "mi-go-dead"
-	attacktext = "lacerates"
+	attack_verb_continuous = "lacerates"
+	attack_verb_simple = "lacerate"
 	speed = -0.5
 	var/static/list/migo_sounds
 	deathmessage = "wails as its form turns into a pulpy mush."
@@ -61,7 +62,8 @@
 	health = 100
 	maxHealth = 100
 	melee_damage = 10
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	deathmessage = "falls apart into a fine dust."
 
 /obj/structure/spawner/nether
@@ -74,7 +76,7 @@
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls through"
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
-	faction = list("nether")
+	faction = list(FACTION_NETHER)
 
 /obj/structure/spawner/nether/Initialize(mapload)
 	.=..()
@@ -83,17 +85,17 @@
 /obj/structure/spawner/nether/examine(mob/user)
 	. = ..()
 	if(isskeleton(user) || iszombie(user))
-		. += "A direct link to another dimension full of creatures very happy to see you. <span class='nicegreen'>You can see your house from here!</span>"
+		. += "A direct link to another dimension full of creatures very happy to see you. [span_nicegreen("You can see your house from here!")]"
 	else
-		. += "A direct link to another dimension full of creatures not very happy to see you. <span class='warning'>Entering the link would be a very bad idea.</span>"
+		. += "A direct link to another dimension full of creatures not very happy to see you. [span_warning("Entering the link would be a very bad idea.")]"
 
 /obj/structure/spawner/nether/attack_hand(mob/user)
 	. = ..()
 	if(isskeleton(user) || iszombie(user))
-		to_chat(user, "<span class='notice'>You don't feel like going home yet...</span>")
+		to_chat(user, span_notice("You don't feel like going home yet..."))
 	else
-		user.visible_message("<span class='warning'>[user] is violently pulled into the link!</span>", \
-							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
+		user.visible_message(span_warning("[user] is violently pulled into the link!"), \
+							span_userdanger("Touching the portal, you are quickly pulled through into a world of unimaginable horror!"))
 		contents.Add(user)
 
 /obj/structure/spawner/nether/process(delta_time)
@@ -107,5 +109,5 @@
 				blank = new(loc)
 				blank.name = "[M]"
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
-				src.visible_message("<span class='warning'>[M] reemerges from the link!</span>")
+				src.visible_message(span_warning("[M] reemerges from the link!"))
 				qdel(M)

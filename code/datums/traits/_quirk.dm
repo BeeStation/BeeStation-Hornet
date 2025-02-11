@@ -12,12 +12,13 @@
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
 	var/gain_text
 	var/lose_text
-	var/medical_record_text //This text will appear on medical records for the quirk. Not yet implemented
+	var/medical_record_text //This text will appear on medical records for the quirk.
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
 	var/mob_trait //if applicable, apply and remove this mob quirk
 	var/process = FALSE // Does this quirk use on_process()?
 	var/datum/mind/quirk_holder // The mind that contains this quirk
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
+	var/abstract_parent_type = /datum/quirk
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
 	..()
@@ -119,20 +120,34 @@
 			return
 		return TRUE
 
-/datum/mind/proc/get_quirk_string(medical) //helper string. gets a string of all the quirks the mind has
+/**
+ * get_quirk_string() is used to get a printable string of all the quirk traits someone has for certain criteria
+ *
+ * Arguments:
+ * * Medical- If we want the long, fancy descriptions that show up in medical records, or if not, just the name
+ * * Category- Which types of quirks we want to print out. Defaults to everything
+ * * from_scan- If the source of this call is like a health analyzer or HUD, in which case QUIRK_HIDE_FROM_MEDICAL hides the quirk.
+ */
+/mob/living/proc/get_quirk_string(medical = FALSE, category = CAT_QUIRK_ALL, from_scan = FALSE)
+	if(!mind)
+		return
 	var/list/dat = list()
-	if(!medical)
-		for(var/datum/quirk/T in quirks)
-			dat += T.name
-		if(!length(dat))
-			return "None"
-		return dat.Join(", ")
-	else
-		for(var/datum/quirk/T in quirks)
-			dat += T.medical_record_text
-		if(!length(dat))
-			return "None"
-		return dat.Join("<br>")
+	for(var/datum/quirk/candidate as anything in mind.quirks)
+		switch(category)
+			if(CAT_QUIRK_MAJOR_DISABILITY)
+				if(candidate.value >= -4)
+					continue
+			if(CAT_QUIRK_MINOR_DISABILITY)
+				if(!ISINRANGE(candidate.value, -4, -1))
+					continue
+			if(CAT_QUIRK_NOTES)
+				if(candidate.value < 0)
+					continue
+		dat += medical ? candidate.medical_record_text : candidate.name
+
+	if(!dat.len)
+		return medical ? "No issues have been declared." : "None"
+	return medical ?  dat.Join("<br>") : dat.Join(", ")
 
 /datum/quirk/proc/read_choice_preference(path)
 	var/client/qclient = GLOB.directory[ckey(quirk_holder.key)]
@@ -160,8 +175,8 @@ Use this as a guideline
 	///You'll need to use "HAS_TRAIT_FROM(src, X, sources)" checks around the code to check this; for instance, the Ageusia quirk is checked in taste code
 	///If you need help finding where to put it, the declaration finder on GitHub is the best way to locate it
 
-	gain_text = "<span class='danger'>Things far away from you start looking blurry.</span>"
-	lose_text = "<span class='notice'>You start seeing faraway things normally again.</span>"
+	gain_text = span_danger("Things far away from you start looking blurry.")
+	lose_text = span_notice("You start seeing faraway things normally again.")
 	medical_record_text = "Subject has permanent nearsightedness."
 	///These three are self-explanatory
 

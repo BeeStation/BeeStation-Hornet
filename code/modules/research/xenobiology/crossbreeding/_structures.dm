@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(master_crystal)
 		invisibility = INVISIBILITY_MAXIMUM
 		max_integrity = 1000
-		obj_integrity = 1000
+		atom_integrity = 1000
 
 /obj/structure/slime_crystal/Initialize(mapload)
 	. = ..()
@@ -149,8 +149,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!istype(T))
 		return
 	var/datum/gas_mixture/gas = T.return_air()
-	gas.set_temperature(T0C + 200)
-	T.air_update_turf()
+	gas.temperature = (T0C + 200)
+	T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/purple
 	colour = "purple"
@@ -189,9 +189,14 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/turf/open/T in view(2, src))
 		if(isspaceturf(T))
 			continue
-		var/datum/gas_mixture/gas = T.return_air()
-		gas.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
-		T.air_update_turf()
+
+		var/datum/gas_mixture/air = T.return_air()
+		var/moles_to_remove = air.total_moles()
+		T.remove_air(moles_to_remove)
+
+		var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+		T.assume_air(base_mix)
+		T.air_update_turf(FALSE, FALSE)
 
 /obj/structure/slime_crystal/metal
 	colour = "metal"
@@ -206,7 +211,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/yellow
 	colour = "yellow"
-	light_color = LIGHT_COLOR_YELLOW //a good, sickly atmosphere
+	light_color = LIGHT_COLOR_DIM_YELLOW //a good, sickly atmosphere
 	light_power = 0.75
 	uses_process = FALSE
 
@@ -219,10 +224,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
 		if(cell.charge == cell.maxcharge)
-			to_chat("<span class = 'danger'> You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea...")
+			to_chat(span_danger(" You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea..."))
 			cell.explode()
 			return
-		to_chat("<span class = 'notice'> You charged the [I.name] on [name]!")
+		to_chat(user, span_notice("You charged the [I.name] on [name]!"))
 		cell.give(cell.maxcharge)
 		return
 	return ..()
@@ -236,8 +241,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/turf/open/open_turf = T
 	var/datum/gas_mixture/air = open_turf.return_air()
 
-	if(air.get_moles(GAS_PLASMA) > 15)
-		air.adjust_moles(GAS_PLASMA, -15)
+	if(GET_MOLES(/datum/gas/plasma, air) > 15)
+		REMOVE_MOLES(/datum/gas/plasma, air, 15)
 		new /obj/item/stack/sheet/mineral/plasma(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()
@@ -352,6 +357,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/max_stage = 5
 	var/datum/weakref/pylon
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
+
 /obj/structure/cerulean_slime_crystal/Initialize(mapload, obj/structure/slime_crystal/cerulean/master_pylon)
 	. = ..()
 	if(istype(master_pylon))
@@ -398,7 +405,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
-	while(crystals < 3)
+	for (var/i in 1 to 10) // doesn't guarantee 3 but it's a good effort
 		spawn_crystal()
 
 /obj/structure/slime_crystal/cerulean/proc/spawn_crystal()
@@ -474,10 +481,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(blood_amt < 10)
 		return ..()
 
-	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
+	if(!istype(I, /obj/item/reagent_containers/cup/beaker))
 		return ..()
 
-	var/obj/item/reagent_containers/glass/beaker/item_beaker = I
+	var/obj/item/reagent_containers/cup/beaker/item_beaker = I
 
 	if(!item_beaker.is_refillable() || (item_beaker.reagents.total_volume + 10 > item_beaker.reagents.maximum_volume))
 		return ..()

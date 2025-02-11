@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NOBLUDGEON
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=250, /datum/material/glass=500)
@@ -23,37 +24,37 @@
 	if(istype(target, /obj/structure/projected_forcefield))
 		var/obj/structure/projected_forcefield/F = target
 		if(F.generator == src)
-			to_chat(user, "<span class='notice'>You deactivate [F].</span>")
+			to_chat(user, span_notice("You deactivate [F]."))
 			qdel(F)
 			return
 	var/turf/T = get_turf(target)
 	var/obj/structure/projected_forcefield/found_field = locate() in T
 	if(found_field)
-		to_chat(user, "<span class='warning'>There is already a forcefield in that location!</span>")
+		to_chat(user, span_warning("There is already a forcefield in that location!"))
 		return
 	if(T.density)
 		return
 	if(get_dist(T,src) > field_distance_limit)
 		return
 	if(LAZYLEN(current_fields) >= max_fields)
-		to_chat(user, "<span class='notice'>[src] cannot sustain any more forcefields!</span>")
+		to_chat(user, span_notice("[src] cannot sustain any more forcefields!"))
 		return
 
 	playsound(src,'sound/weapons/resonator_fire.ogg',50,1)
-	user.visible_message("<span class='warning'>[user] projects a forcefield!</span>","<span class='notice'>You project a forcefield.</span>")
+	user.visible_message(span_warning("[user] projects a forcefield!"),span_notice("You project a forcefield."))
 	var/obj/structure/projected_forcefield/F = new(T, src)
 	current_fields += F
 	user.changeNext_move(CLICK_CD_MELEE)
 
 /obj/item/forcefield_projector/attack_self(mob/user)
 	if(LAZYLEN(current_fields))
-		to_chat(user, "<span class='notice'>You deactivate [src], disabling all active forcefields.</span>")
+		to_chat(user, span_notice("You deactivate [src], disabling all active forcefields."))
 		for(var/obj/structure/projected_forcefield/F in current_fields)
 			qdel(F)
 
 /obj/item/forcefield_projector/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently sustaining [LAZYLEN(current_fields)]/[max_fields] fields, and it's [round((shield_integrity/max_shield_integrity)*100)]% charged.</span>"
+	. += span_notice("It is currently sustaining [LAZYLEN(current_fields)]/[max_fields] fields, and it's [round((shield_integrity/max_shield_integrity)*100)]% charged.")
 
 /obj/item/forcefield_projector/Initialize(mapload)
 	. = ..()
@@ -85,16 +86,28 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = INDESTRUCTIBLE
-	CanAtmosPass = ATMOS_PASS_DENSITY
-	armor = list(MELEE = 0,  BULLET = 25, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	can_atmos_pass = ATMOS_PASS_DENSITY
+	armor_type = /datum/armor/structure_projected_forcefield
 	var/obj/item/forcefield_projector/generator
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/projected_forcefield)
+
+
+/datum/armor/structure_projected_forcefield
+	bullet = 25
+	laser = 50
+	energy = 50
+	bomb = 25
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/structure/projected_forcefield/Initialize(mapload, obj/item/forcefield_projector/origin)
 	. = ..()
 	generator = origin
 
 /obj/structure/projected_forcefield/Destroy()
-	visible_message("<span class='warning'>[src] flickers and disappears!</span>")
+	visible_message(span_warning("[src] flickers and disappears!"))
 	playsound(src,'sound/weapons/resonator_blast.ogg',25,1)
 	generator?.current_fields -= src
 	generator = null
@@ -103,7 +116,7 @@
 /obj/structure/projected_forcefield/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(loc, 'sound/weapons/egloves.ogg', 80, 1)
 
-/obj/structure/projected_forcefield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/projected_forcefield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	generator.shield_integrity = max(generator.shield_integrity - damage_amount, 0)

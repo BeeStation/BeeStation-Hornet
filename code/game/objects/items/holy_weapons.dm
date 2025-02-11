@@ -1,33 +1,12 @@
 // CHAPLAIN CUSTOM ARMORS //
 
-/obj/item/clothing/suit/armor/riot/chaplain/Initialize(mapload)
+/obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
-
-/obj/item/clothing/head/helmet/chaplain
-	name = "crusader helmet"
-	desc = "Deus Vult."
-	icon_state = "knight_templar"
-	item_state = "knight_templar"
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 40)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	strip_delay = 80
-	dog_fashion = null
-
-/obj/item/clothing/suit/armor/riot/chaplain
-	name = "crusader armour"
-	desc = "God wills it!"
-	icon_state = "knight_templar"
-	item_state = "knight_templar"
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	slowdown = 0
-	blocks_shove_knockdown = FALSE
-	move_sound = null
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
@@ -56,7 +35,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/holy/generate_item_list()
@@ -84,155 +63,74 @@
 	name = "Templar Kit"
 	var/icon/item_icon_file = 'icons/misc/premade_loadouts.dmi'
 	var/item_icon_state = "templar"
-	var/info_text = "Templar Kit, for waging a holy war against the unfaithful. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
+	var/info_text = "Templar Kit, for waging a holy war against the unfaithful. \n" + span_notice("The armor can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/PopulateContents()
 	new /obj/item/clothing/head/helmet/chaplain(src)
-	new /obj/item/clothing/suit/armor/riot/chaplain(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar(src)
 
 /obj/item/storage/box/holy/student
 	name = "Profane Scholar Kit"
 	item_icon_state = "mikolash"
-	info_text = "Profane Scholar Kit, for granting the common masses the sight to the beyond. \n<span class='notice'>The robe can hold a variety of religious items.</span>"
+	info_text = "Profane Scholar Kit, for granting the common masses the sight to the beyond. \n" + span_notice("The robe can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/student/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/studentuni(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar/studentuni(src)
 	new /obj/item/clothing/head/helmet/chaplain/cage(src)
 
-/obj/item/clothing/suit/armor/riot/chaplain/studentuni
+/obj/item/clothing/suit/chaplainsuit/armor/templar/studentuni
 	name = "student robe"
 	desc = "The uniform of a bygone institute of learning."
 	icon_state = "studentuni"
 	item_state = "studentuni"
 	body_parts_covered = ARMS|CHEST
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-
-/obj/item/clothing/head/helmet/chaplain/cage
-	name = "cage"
-	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
-	icon_state = "cage"
-	item_state = "cage"
-	worn_x_dimension = 64
-	worn_y_dimension = 64
-	dynamic_hair_suffix = ""
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 /obj/item/storage/box/holy/sentinel
 	name = "Stone Sentinel Kit"
 	item_icon_state = "giantdad"
-	info_text = "Stone Sentinel Kit, for making a stalwart stance against herecy. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
+	info_text = "Stone Sentinel Kit, for making a stalwart stance against herecy. \n" + span_notice("The armor can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/sentinel/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/ancient(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/ancient(src)
 	new /obj/item/clothing/head/helmet/chaplain/ancient(src)
-
-/obj/item/clothing/head/helmet/chaplain/ancient
-	name = "ancient helmet"
-	desc = "None may pass!"
-	icon_state = "knight_ancient"
-	item_state = "knight_ancient"
-
-/obj/item/clothing/suit/armor/riot/chaplain/ancient
-	name = "ancient armour"
-	desc = "Defend the treasure..."
-	icon_state = "knight_ancient"
-	item_state = "knight_ancient"
 
 /obj/item/storage/box/holy/witchhunter
 	name = "Witchhunter Kit"
 	item_icon_state = "witchhunter"
-	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n<span class='notice'>The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.</span>"
+	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n" + span_notice("The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.")
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/witchhunter(src)
 	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
 	new /obj/item/clothing/neck/crucifix(src)
 
-/obj/item/clothing/suit/armor/riot/chaplain/witchhunter
-	name = "witchunter garb"
-	desc = "This worn outfit saw much use back in the day."
-	icon_state = "witchhunter"
-	item_state = "witchhunter"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
-/obj/item/clothing/head/helmet/chaplain/witchunter_hat
-	name = "witchunter hat"
-	desc = "This hat saw much use back in the day."
-	icon_state = "witchhunterhat"
-	item_state = "witchhunterhat"
-	flags_cover = HEADCOVERSEYES
 
 /obj/item/storage/box/holy/graverobber
 	name = "Grave Robber Kit"
 	item_icon_state = "graverobber"
-	info_text = "Grave Robber Kit, for finding the treasures of those who parted this world. \n<span class='notice'>The coat can hold a variety of religious items. \nPickaxe not included.</span>"
+	info_text = "Grave Robber Kit, for finding the treasures of those who parted this world. \n" + span_notice("The coat can hold a variety of religious items. \nPickaxe not included.")
 
 /obj/item/storage/box/holy/graverobber/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar/graverobber_coat(src)
 	new /obj/item/clothing/under/rank/civilian/graverobber_under(src)
 	new /obj/item/clothing/head/chaplain/graverobber_hat(src)
 	new /obj/item/clothing/gloves/graverobber_gloves(src)
 
-/obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat
-	name = "grave robber coat"
-	desc = "To those with a keen eye, gold gleams like a dagger's point."
-	icon_state = "graverobber_coat"
-	item_state = "graverobber_coat"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-
-/obj/item/clothing/head/chaplain/graverobber_hat
-	name = "grave robber hat"
-	desc = "A tattered leather hat. It reeks of death."
-	icon_state = "graverobber_hat"
-	item_state = "graverobber_hat"
-	flags_cover = HEADCOVERSEYES
-
-/obj/item/clothing/gloves/graverobber_gloves
-	name = "grave robber gloves"
-	desc = "A pair of leather gloves in poor condition."
-	icon_state = "graverobber-gloves"
-	item_state = "graverobber-gloves"
-	permeability_coefficient = 0.9
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 20, STAMINA = 0)
-
-/obj/item/clothing/under/rank/civilian/graverobber_under
-	name = "grave robber uniform"
-	desc = "A shirt and some leather pants in poor condition."
-	icon_state = "graverobber_under"
-	item_state = "graverobber_under"
-	can_adjust = FALSE
-
 /obj/item/storage/box/holy/adept
 	name = "Divine Adept Kit"
 	item_icon_state = "crusader"
-	info_text = "Divine Adept Kit, for standing stalward with unvavering faith. \n<span class='notice'>The robes can hold a variety of religious items.</span>"
+	info_text = "Divine Adept Kit, for standing stalward with unvavering faith. \n" + span_notice("The robes can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/adept/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/adept(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar/adept(src)
 	new /obj/item/clothing/head/helmet/chaplain/adept(src)
-
-/obj/item/clothing/head/helmet/chaplain/adept
-	name = "adept hood"
-	desc = "Its only heretical when others do it."
-	icon_state = "crusader"
-	item_state = "crusader"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
-
-/obj/item/clothing/suit/armor/riot/chaplain/adept
-	name = "adept robes"
-	desc = "The ideal outfit for burning the unfaithful."
-	icon_state = "crusader"
-	item_state = "crusader"
 
 /obj/item/storage/box/holy/follower
 	name = "Followers of the Chaplain Kit"
 	item_icon_state = "leader"
-	info_text = "Divine Adept Kit, for starting a non-heretical cult of your own. \n<span class='notice'>The hoodie can hold a variety of religious items. \nComes with four follower hoodies.</span>"
+	info_text = "Divine Adept Kit, for starting a non-heretical cult of your own. \n" + span_notice("The hoodie can hold a variety of religious items. \nComes with four follower hoodies.")
 
 /obj/item/storage/box/holy/follower/PopulateContents()
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie/leader(src)
@@ -240,34 +138,6 @@
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
-
-/obj/item/clothing/suit/hooded/chaplain_hoodie
-	name = "follower hoodie"
-	desc = "Hoodie made for acolytes of the chaplain."
-	icon_state = "chaplain_hoodie"
-	item_state = "chaplain_hoodie"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
-
-/obj/item/clothing/head/hooded/chaplain_hood
-	name = "follower hood"
-	desc = "Hood made for acolytes of the chaplain."
-	icon_state = "chaplain_hood"
-	body_parts_covered = HEAD
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
-
-/obj/item/clothing/suit/hooded/chaplain_hoodie/leader
-	name = "leader hoodie"
-	desc = "Now you're ready for some 50 dollar bling water."
-	icon_state = "chaplain_hoodie_leader"
-	item_state = "chaplain_hoodie_leader"
-	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/leader
-
-/obj/item/clothing/head/hooded/chaplain_hood/leader
-	name = "leader hood"
-	desc = "I mean, you don't /have/ to seek bling water. I just think you should."
-	icon_state = "chaplain_hood_leader"
 
 
 // CHAPLAIN NULLROD AND CUSTOM WEAPONS //
@@ -289,9 +159,12 @@
 	obj_flags = UNIQUE_RENAME
 	var/chaplain_spawnable = TRUE
 
-/obj/item/nullrod/Initialize(mapload)
+
+/obj/item/nullrod/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, \
+	_source = INNATE_TRAIT, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 	AddComponent(/datum/component/effect_remover, \
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
@@ -299,7 +172,7 @@
 	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
 
 /obj/item/nullrod/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
+	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
@@ -342,8 +215,10 @@
 			"Unholy Pitchfork" = /obj/item/nullrod/pitchfork,
 			"Egyptian Staff" = /obj/item/nullrod/egyptian,
 			"Hypertool" = /obj/item/nullrod/hypertool,
-			"Ancient Spear" = /obj/item/nullrod/spear
+			"Ancient Spear" = /obj/item/nullrod/spear,
+			"Rainbow Knife" = /obj/item/nullrod/rainbow_knife
 		)
+
 	if(isnull(unique_reskin_icon))
 		unique_reskin_icon = list(
 			"Null Rod" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "nullrod"),
@@ -370,7 +245,7 @@
 			"Clown Dagger" = image(icon = 'icons/obj/wizard.dmi', icon_state = "clownrender"),
 			"Pride-struck Hammer" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pride"),
 			"Holy Whip" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "chain"),
-			"Atheist's Fedora" = image(icon = 'icons/obj/clothing/hats.dmi', icon_state = "fedora"),
+			"Atheist's Fedora" = image(icon = 'icons/obj/clothing/head/hats.dmi', icon_state = "fedora"),
 			"Dark Blessing" = image(icon = 'icons/obj/changeling_items.dmi', icon_state = "arm_blade"),
 			"Unholy Blessing" = image(icon = 'icons/obj/changeling_items.dmi', icon_state = "tentacle"),
 			"Carp-Sie Plushie" = image(icon = 'icons/obj/plushes.dmi', icon_state = "carpplush"),
@@ -379,8 +254,10 @@
 			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
 			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
 			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
-			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear")
-	)
+			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear"),
+			"Rainbow Knife" = image(icon = 'icons/obj/slimecrossing.dmi', icon_state = "rainbowknife")
+		)
+
 	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
@@ -412,7 +289,8 @@
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	attack_verb = list("punched", "cross countered", "pummeled")
+	attack_verb_continuous = list("punches", "cross counters", "pummels")
+	attack_verb_simple = list("punch", "cross counter", "pummel")
 	block_upgrade_walk = 0
 
 /obj/item/nullrod/godhand/Initialize(mapload)
@@ -446,49 +324,56 @@
 	shield_icon = "shield-old"
 
 /obj/item/nullrod/claymore
-	icon_state = "claymore"
-	item_state = "claymore"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "holy claymore"
 	desc = "A weapon fit for a crusade!"
+	icon_state = "claymore"
+	item_state = "claymore"
+	worn_icon_state = "claymore"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1
 	block_power = 30
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 
 /obj/item/nullrod/claymore/darkblade
+	name = "dark blade"
+	desc = "Spread the glory of the dark gods!"
 	icon_state = "cultblade"
 	item_state = "cultblade"
+	worn_icon_state = "cultblade"
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	name = "dark blade"
-	desc = "Spread the glory of the dark gods!"
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
 /obj/item/nullrod/claymore/chainsaw_sword
-	icon_state = "chainswordon"
-	item_state = "chainswordon"
 	name = "sacred chainsaw sword"
 	desc = "Suffer not a heretic to live."
+	icon_state = "chainswordon"
+	item_state = "chainswordon"
+	worn_icon_state = "chainswordon"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1.5 //slower than a real saw
 
 /obj/item/nullrod/claymore/glowing
-	icon_state = "swordon"
-	item_state = "swordon"
 	name = "force weapon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
+	icon_state = "swordon"
+	item_state = "swordon"
+	worn_icon_state = "swordon"
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/katana
@@ -506,7 +391,8 @@
 	desc = "Once the harbinger of an interdimensional war, its sharpness fluctuates wildly."
 	icon_state = "multiverse"
 	item_state = "multiverse"
-	slot_flags = ITEM_SLOT_BELT
+	worn_icon_state = "multiverse"
+	slot_flags = ITEM_SLOT_BACK
 
 /obj/item/nullrod/claymore/multiverse/attack(mob/living/carbon/M, mob/living/carbon/user)
 	force = rand(1, 30)
@@ -514,23 +400,26 @@
 
 /obj/item/nullrod/claymore/saber
 	name = "light energy sword"
-	hitsound = 'sound/weapons/blade1.ogg'
+	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
 	icon = 'icons/obj/transforming_energy.dmi'
 	icon_state = "swordblue"
 	item_state = "swordblue"
-	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
+	worn_icon_state = "swordblue"
 	slot_flags = ITEM_SLOT_BELT
+	hitsound = 'sound/weapons/blade1.ogg'
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy sword"
+	desc = "Woefully ineffective when used on steep terrain." //Anakin used his BLUE lightsaber in episode IV, FOOL
 	icon_state = "swordred"
 	item_state = "swordred"
-	desc = "Woefully ineffective when used on steep terrain."
+	worn_icon_state = "swordred"
 
 /obj/item/nullrod/claymore/saber/pirate
 	name = "nautical energy sword"
 	icon_state = "cutlass1"
 	item_state = "cutlass1"
+	worn_icon_state = "swordred"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
 
 /obj/item/nullrod/sord
@@ -538,13 +427,15 @@
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
+	worn_icon_state = "sord"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 1
 
 /obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -552,68 +443,75 @@
 		var/obj/item/I = hitby
 		owner.attackby(src)
 		owner.attackby(src, owner)
-		owner.visible_message("<span class='danger'>[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!</span>")
+		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
 	return ..()
 
 /obj/item/nullrod/scythe
+	name = "reaper scythe"
+	desc = "Ask not for whom the bell tolls..."
 	icon_state = "scythe1"
 	item_state = "scythe1"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
-	name = "reaper scythe"
-	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
 	block_level = 1
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_SHARP
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
+	attack_verb_simple = list("chop", "slice", "cut", "reap")
 
 /obj/item/nullrod/scythe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 70, 110) //the harvest gives a high bonus chance
 
 /obj/item/nullrod/scythe/vibro
-	icon_state = "hfrequency0"
-	item_state = "hfrequency1"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "high frequency blade"
 	desc = "Bad references are the DNA of the soul."
-	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
+	icon_state = "hfrequency0"
+	item_state = "hfrequency1"
+	worn_icon_state = "hfrequency0"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	attack_verb_continuous = list("chops", "slices", "cuts", "zandatsu's")
+	attack_verb_simple = list("chop", "slice", "cut", "zandatsu")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/spellblade
+	name = "dormant spellblade"
+	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	worn_icon_state = "spellblade"
 	icon = 'icons/obj/guns/magic.dmi'
-	name = "dormant spellblade"
-	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/talking
+	name = "possessed blade"
+	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	name = "possessed blade"
-	desc = "When the station falls into chaos, it's nice to have a friend by your side."
-	attack_verb = list("chopped", "sliced", "cut")
+	worn_icon_state = "talking_sword"
+	attack_verb_continuous = list("chops", "slices", "cuts")
+	attack_verb_simple= list("chop", "slice", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/relaymove(mob/user)
+/obj/item/nullrod/scythe/talking/relaymove(mob/living/user, direction)
 	return //stops buckled message spam for the ghost.
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
 	if(possessed)
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
-		to_chat(user, "<span class='notice'>Anomalous otherworldly energies block you from awakening the blade!</span>")
+		to_chat(user, span_notice("Anomalous otherworldly energies block you from awakening the blade!"))
 		return
 
 	to_chat(user, "You attempt to wake the spirit of the blade...")
@@ -629,8 +527,7 @@
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
-		S.update_atom_languages()
-		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
+		S.get_language_holder().omnitongue = TRUE //Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
@@ -647,28 +544,32 @@
 	return ..()
 
 /obj/item/nullrod/scythe/talking/chainsword
-	icon_state = "chainswordon"
-	item_state = "chainswordon"
 	name = "possessed chainsaw sword"
 	desc = "Suffer not a heretic to live."
+	icon_state = "chainswordon"
+	item_state = "chainswordon"
+	worn_icon_state = "chainswordon"
 	chaplain_spawnable = FALSE
 	force = 30
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5 //faster than normal saw
 
 /obj/item/nullrod/hammmer
-	icon_state = "hammeron"
-	item_state = "hammeron"
-	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	name = "relic war hammer"
 	desc = "This war hammer cost the chaplain forty thousand space dollars."
+	icon_state = "hammeron"
+	item_state = "hammeron"
+	worn_icon_state = "hammeron"
+	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("smashed", "bashed", "hammered", "crunched")
+	attack_verb_continuous = list("smashes", "bashes", "hammers", "crunches")
+	attack_verb_simple = list("smash", "bash", "hammer", "crunch")
 	attack_weight = 2
 
 /obj/item/nullrod/chainsaw
@@ -680,8 +581,10 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON
-	sharpness = IS_SHARP
-	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
+	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
@@ -695,24 +598,31 @@
 	AddComponent(/datum/component/butchering, 30, 100, 0, hitsound)
 
 /obj/item/nullrod/clown
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "clownrender"
-	item_state = "render"
 	name = "clown dagger"
 	desc = "Used for absolutely hilarious sacrifices."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "clownrender"
+	item_state = "cultdagger"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	worn_icon_state = "render"
 	hitsound = 'sound/items/bikehorn.ogg'
-	sharpness = IS_SHARP
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 
 /obj/item/nullrod/pride_hammer
-	icon_state = "pride"
 	name = "Pride-struck Hammer"
 	desc = "It resonates an aura of Pride."
+	icon_state = "pride"
+	worn_icon_state = "pride"
 	force = 16
 	throwforce = 15
 	w_class = 4
 	slot_flags = ITEM_SLOT_BACK
-	attack_verb = list("attacked", "smashed", "crushed", "splattered", "cracked")
+	attack_verb_continuous = list("attacks", "smashes", "crushes", "splatters", "cracks")
+	attack_verb_simple = list("attack", "smash", "crush", "splatter", "crack")
 	hitsound = 'sound/weapons/blade1.ogg'
 	attack_weight = 2
 
@@ -723,18 +633,20 @@
 	if(prob(30) && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		user.reagents.trans_to(H, user.reagents.total_volume, 1, 1, 0, transfered_by = user)
-		to_chat(user, "<span class='notice'>Your pride reflects on [H].</span>")
-		to_chat(H, "<span class='userdanger'>You feel insecure, taking on [user]'s burden.</span>")
+		to_chat(user, span_notice("Your pride reflects on [H]."))
+		to_chat(H, span_userdanger("You feel insecure, taking on [user]'s burden."))
 
 /obj/item/nullrod/whip
 	name = "holy whip"
 	desc = "What a terrible night to be on Space Station 13."
 	icon_state = "chain"
 	item_state = "chain"
+	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed")
+	attack_verb_continuous = list("whips", "lashes")
+	attack_verb_simple = list("whip", "lash")
 	hitsound = 'sound/weapons/chainhit.ogg'
 
 /obj/item/nullrod/fedora
@@ -743,13 +655,16 @@
 	icon_state = "fedora"
 	item_state = "fedora"
 	slot_flags = ITEM_SLOT_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
+	icon = 'icons/obj/clothing/head/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	force = 0
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 30
-	sharpness = IS_SHARP
-	attack_verb = list("enlightened", "redpilled")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
+	attack_verb_continuous = list("enlightens", "redpills")
+	attack_verb_simple = list("enlighten", "redpill")
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
@@ -759,9 +674,11 @@
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
+	slot_flags = null
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
@@ -780,10 +697,12 @@
 	icon = 'icons/obj/plushes.dmi'
 	icon_state = "carpplush"
 	item_state = "carp_plushie"
+	worn_icon_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 15
-	attack_verb = list("bitten", "eaten", "fin slapped")
+	attack_verb_continuous = list("bites", "eats", "fin slaps")
+	attack_verb_simple = list("bite", "eat", "fin slap")
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
 
@@ -791,7 +710,7 @@
 	if(used_blessing)
 	else if(user.mind && (user.mind.holy_role))
 		to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
-		user.faction |= "carp"
+		user.faction |= FACTION_CARP
 		used_blessing = TRUE
 
 /obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
@@ -801,27 +720,31 @@
 	force = 14
 	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	hitsound = "swing_hit"
-	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
+	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
+	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
+	worn_icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 
 /obj/item/nullrod/tribal_knife
+	name = "arrhythmic knife"
+	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	icon_state = "crysknife"
 	item_state = "crysknife"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	name = "arrhythmic knife"
 	w_class = WEIGHT_CLASS_HUGE
-	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	item_flags = SLOWS_WHILE_IN_HAND
 
 /obj/item/nullrod/tribal_knife/Initialize(mapload)
@@ -841,15 +764,19 @@
 			wielder.update_equipment_speed_mods()
 
 /obj/item/nullrod/pitchfork
+	name = "unholy pitchfork"
+	desc = "Holding this makes you look absolutely devilish."
 	icon_state = "pitchfork0"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
-	name = "unholy pitchfork"
+	worn_icon_state = "pitchfork0"
 	w_class = WEIGHT_CLASS_LARGE
-	desc = "Holding this makes you look absolutely devilish."
-	attack_verb = list("poked", "impaled", "pierced", "jabbed")
+	slot_flags = ITEM_SLOT_BACK
+	attack_verb_continuous = list("pokes", "impales", "pierces", "jabs")
+	attack_verb_simple = list("poke", "impale", "pierce", "jab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/egyptian
 	name = "egyptian staff"
@@ -859,21 +786,26 @@
 	item_state = "pharoah_sceptre"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	worn_icon_state = "pharoah_sceptre"
 	w_class = WEIGHT_CLASS_LARGE
-	attack_verb = list("bashes", "smacks", "whacks")
+	slot_flags = ITEM_SLOT_BACK
+	attack_verb_continuous = list("bashes", "smacks", "whacks")
+	attack_verb_simple = list("bash", "smack", "whack")
 
 /obj/item/nullrod/hypertool
+	name = "hypertool"
+	desc = "A tool so powerful even you cannot perfectly use it."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hypertool"
 	item_state = "hypertool"
+	worn_icon_state = "hypertool"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	name = "hypertool"
-	desc = "A tool so powerful even you cannot perfectly use it."
 	armour_penetration = 35
 	damtype = BRAIN
-	attack_verb = list("pulsed", "mended", "cut")
+	attack_verb_continuous = list("pulses", "mends", "cuts")
+	attack_verb_simple = list("pulse", "mend", "cut")
 	hitsound = 'sound/effects/sparks4.ogg'
 
 /obj/item/nullrod/spear
@@ -886,7 +818,52 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	armour_penetration = 10
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("stabbed", "poked", "slashed", "clocked")
+	attack_verb_continuous = list("stabs", "pokes", "slashes", "clocks")
+	attack_verb_simple = list("stab", "poke", "slash", "clock")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/nullrod/rainbow_knife
+	name = "rainbow knife"
+	desc = "A strange, transparent knife which constantly shifts color. This one glitters with a holy aura."
+	icon = 'icons/obj/knives.dmi'
+	icon_state = "rainbowknife"
+	item_state = "rainbowknife"
+	force = 15
+	throwforce = 15
+	damtype = BRUTE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	throw_speed = 3
+	throw_range = 6
+	tool_behaviour = TOOL_KNIFE
+	sharpness = SHARP
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/nullrod/rainbow_knife/afterattack(atom/O, mob/user, proximity)
+	if(proximity && istype(O, /mob/living))
+		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
+	switch(damtype)
+		if(BRUTE)
+			hitsound = 'sound/weapons/bladeslice.ogg'
+			attack_verb_continuous = list("slashes", "slices", "cuts")
+			attack_verb_simple = list("slash", "slice", "cut")
+		if(BURN)
+			hitsound = 'sound/weapons/sear.ogg'
+			attack_verb_continuous = list("burns", "sings", "heats")
+			attack_verb_simple = list("burn", "sing", "heat")
+		if(TOX)
+			hitsound = 'sound/weapons/pierce.ogg'
+			attack_verb_continuous = list("poisons", "doses", "toxifies")
+			attack_verb_simple = list("poison", "dose", "toxify")
+		if(OXY)
+			hitsound = 'sound/effects/space_wind.ogg'
+			attack_verb_continuous = list("suffocates", "winds", "vacuums")
+			attack_verb_simple = list("suffocate", "wind", "vacuum")
+		if(CLONE)
+			hitsound = 'sound/items/geiger/ext1.ogg'
+			attack_verb_continuous = list("irradiates", "mutates", "maligns")
+			attack_verb_simple = list("irradiate", "mutate", "malign")
+	return ..()
+

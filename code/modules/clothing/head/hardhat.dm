@@ -1,97 +1,95 @@
-/*
+/obj/item/clothing/head/utility
+	icon = 'icons/obj/clothing/head/utility.dmi'
+	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 
-	Contents:
-
-		Hard hat
-		Orange hard hat
-		Firefighter helmet
-		White hard hat (CE's hard hat)
-		Blue hard hat
-		Atmos tech's firefighter helmet
-		Welding hard hat
-		Welding organe hard hat
-		Welding white hard hat
-
-*/
-
-/obj/item/clothing/head/hardhat
+/obj/item/clothing/head/utility/hardhat
 	name = "hard hat"
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
-	item_state = "hardhat0_yellow"
-	armor = list(MELEE = 15,  BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50, STAMINA = 20)
+	item_state = null
+	armor_type = /datum/armor/utility_hardhat
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT
-	light_system = MOVABLE_LIGHT
+
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 0.8
 	light_on = FALSE
 	dog_fashion = /datum/dog_fashion/head
 
-	///Whether the headlamp is on or off.
-	var/on = FALSE
 	///Determines used sprites: hardhat[on]_[hat_type] and hardhat[on]_[hat_type]2 (lying down sprite). This is basically a knockoff item_color, great.
 	var/hat_type = "yellow"
+	///Whether the headlamp is on or off.
+	var/on = FALSE
 
-/obj/item/clothing/head/hardhat/attack_self(mob/living/user)
+
+/datum/armor/utility_hardhat
+	melee = 15
+	bullet = 5
+	laser = 20
+	energy = 10
+	bomb = 20
+	bio = 50
+	rad = 20
+	fire = 100
+	acid = 50
+	stamina = 20
+	bleed = 60
+
+/obj/item/clothing/head/utility/hardhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/clothing/head/utility/hardhat/attack_self(mob/living/user)
 	toggle_helmet_light(user)
 
-/obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
+/obj/item/clothing/head/utility/hardhat/proc/toggle_helmet_light(mob/living/user)
 	on = !on
 	if(on)
 		turn_on(user)
 	else
 		turn_off(user)
-	update_icon()
+	update_appearance()
 
-/obj/item/clothing/head/hardhat/update_icon()
-	icon_state = "hardhat[on]_[hat_type]"
-	item_state = "hardhat[on]_[hat_type]"
-
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon(force = TRUE)
+/obj/item/clothing/head/utility/hardhat/update_icon_state()
+	icon_state = item_state = "hardhat[on]_[hat_type]"
 	return ..()
 
-/obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
+/obj/item/clothing/head/utility/hardhat/proc/turn_on(mob/user)
 	set_light_on(TRUE)
 
-/obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
+/obj/item/clothing/head/utility/hardhat/proc/turn_off(mob/user)
 	set_light_on(FALSE)
 
-/obj/item/clothing/head/hardhat/orange
+/obj/item/clothing/head/utility/hardhat/orange
 	icon_state = "hardhat0_orange"
-	item_state = "hardhat0_orange"
+	item_state = null
 	hat_type = "orange"
 	dog_fashion = null
 
-/obj/item/clothing/head/hardhat/red
+/obj/item/clothing/head/utility/hardhat/red
 	name = "firefighter helmet"
 	desc = "A helmet designed to be used in very hot, high pressure areas."
 	icon_state = "hardhat0_red"
-	item_state = "hardhat0_red"
+	item_state = null
 	hat_type = "red"
+	dog_fashion = null
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	heat_protection = HEAD
-	dog_fashion = null
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT|HIDEMASK
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 
-/obj/item/clothing/head/hardhat/white
+/obj/item/clothing/head/utility/hardhat/white
 	name = "white hard hat"
 	desc = "It's a hard hat, but painted white. Probably belongs to the Chief Engineer. Looks a little more solid."
 	icon_state = "hardhat0_white"
-	item_state = "hardhat0_white"
+	item_state = null
 	hat_type = "white"
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
@@ -100,13 +98,13 @@
 	heat_protection = HEAD
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/head/hardhat/dblue
+/obj/item/clothing/head/utility/hardhat/dblue
 	icon_state = "hardhat0_dblue"
-	item_state = "hardhat0_dblue"
+	item_state = null
 	hat_type = "dblue"
 	dog_fashion = null
 
-/obj/item/clothing/head/hardhat/atmos
+/obj/item/clothing/head/utility/hardhat/atmos
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
 	icon_state = "hardhat0_atmos"
@@ -120,7 +118,7 @@
 	heat_protection = HEAD
 	dog_fashion = null
 
-/obj/item/clothing/head/hardhat/weldhat
+/obj/item/clothing/head/utility/hardhat/welding
 	name = "welding hard hat"
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight AND welding shield! The bulb seems a little smaller though."
 	light_range = 3 //Needs a little bit of tradeoff
@@ -133,39 +131,48 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	visor_flags_inv = HIDEEYES | HIDEFACE | HIDESNOUT
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	///Icon state of the welding visor.
+	var/visor_state = "weldvisor"
 
-/obj/item/clothing/head/hardhat/weldhat/Initialize(mapload)
+/obj/item/clothing/head/utility/hardhat/welding/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/obj/item/clothing/head/hardhat/weldhat/AltClick(mob/user)
+/obj/item/clothing/head/utility/hardhat/welding/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
 
-/obj/item/clothing/head/hardhat/weldhat/proc/toggle_welding_screen(mob/living/user)
-	if(weldingvisortoggle(user))
-		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	update_icon()
+/obj/item/clothing/head/utility/hardhat/welding/ui_action_click(mob/user, actiontype)
+	if(istype(actiontype, /datum/action/item_action/toggle_welding_screen))
+		toggle_welding_screen(user)
+		return
 
-/obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = ..()
-	if(!isinhands)
-		. += mutable_appearance('icons/mob/clothing/head.dmi', "weldhelmet", item_layer)
-		if(!up)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', "weldvisor", item_layer)
-
-/obj/item/clothing/head/hardhat/weldhat/update_icon()
-	cut_overlays()
-	if(!up)
-		add_overlay("weldvisor")
 	return ..()
 
-/obj/item/clothing/head/hardhat/weldhat/orange
+/obj/item/clothing/head/utility/hardhat/welding/proc/toggle_welding_screen(mob/living/user)
+	if(weldingvisortoggle(user))
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
+	update_appearance()
+
+/obj/item/clothing/head/utility/hardhat/welding/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+	. = ..()
+	if(isinhands)
+		return
+
+	if(!up)
+		. += mutable_appearance('icons/mob/clothing/head/utility.dmi', visor_state)
+
+/obj/item/clothing/head/utility/hardhat/welding/update_overlays()
+	. = ..()
+	if(!up)
+		. += visor_state
+
+/obj/item/clothing/head/utility/hardhat/welding/orange
 	icon_state = "hardhat0_orange"
-	item_state = "hardhat0_orange"
+	item_state = null
 	hat_type = "orange"
 
-/obj/item/clothing/head/hardhat/weldhat/white
+/obj/item/clothing/head/utility/hardhat/welding/white
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight AND welding shield!" //This bulb is not smaller
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"
@@ -176,3 +183,37 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+
+/obj/item/clothing/head/utility/hardhat/pumpkinhead
+	name = "carved pumpkin"
+	desc = "A jack o' lantern! Believed to ward off evil spirits."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	icon_state = "hardhat0_pumpkin"
+	item_state = null
+	hat_type = "pumpkin"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	clothing_flags = SNUG_FIT
+	armor_type = /datum/armor/hardhat_pumpkinhead
+	light_range = 2 //luminosity when on
+	flags_cover = HEADCOVERSEYES
+
+
+/datum/armor/hardhat_pumpkinhead
+	stamina = 10
+
+/obj/item/clothing/head/utility/hardhat/reindeer
+	name = "novelty reindeer hat"
+	desc = "Some fake antlers and a very fake red nose."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	clothing_flags = SNUG_FIT
+	icon_state = "hardhat0_reindeer"
+	item_state = null
+	hat_type = "reindeer"
+	flags_inv = 0
+	armor_type = /datum/armor/none
+	light_range = 1 //luminosity when on
+	dynamic_hair_suffix = ""
+
+	dog_fashion = /datum/dog_fashion/head/reindeer

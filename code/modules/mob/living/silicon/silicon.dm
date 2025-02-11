@@ -6,7 +6,7 @@
 	verb_exclaim = "declares"
 	verb_yell = "alarms"
 	initial_language_holder = /datum/language_holder/synthetic
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	bubble_icon = "machine"
 	weather_immunities = list("ash")
 	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
@@ -59,7 +59,7 @@
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
 	GLOB.silicon_mobs += src
-	faction += "silicon"
+	faction += FACTION_SILICON
 	if(ispath(radio))
 		radio = new radio(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -167,7 +167,7 @@
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, span_alert("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -235,12 +235,6 @@
 	var/number = 1
 
 	var/list/laws_to_state = list()
-
-	if (length(laws.devillaws))
-		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (force || devillawcheck[index] == "Yes")
-				laws_to_state += "666. [laws.devillaws[index]]"
-				total_laws_count++
 
 	if (laws.zeroth)
 		if (force || lawcheck[1] == "Yes")
@@ -321,12 +315,6 @@
 
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"
 
-	if (laws.devillaws && laws.devillaws.len)
-		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (!devillawcheck[index])
-				devillawcheck[index] = "No"
-			list += {"<A href='byond://?src=[REF(src)];lawdevil=[index]'>[devillawcheck[index]] 666:</A> <font color='#cc5500'>[laws.devillaws[index]]</font><BR>"}
-
 	if (laws.zeroth)
 		if (!lawcheck[1])
 			lawcheck[1] = "No" //Given Law 0's usual nature, it defaults to NOT getting reported. --NeoFite
@@ -391,7 +379,7 @@
 		return
 	if(Autochan == "Default") //Autospeak on whatever frequency to which the radio is set, usually Common.
 		radiomod = ";"
-		Autochan += " ([radio.frequency])"
+		Autochan += " ([radio.get_frequency()])"
 	else if(Autochan == "None") //Prevents use of the radio for automatic annoucements.
 		radiomod = ""
 	else	//For department channels, if any, given by the internal radio.
@@ -400,7 +388,7 @@
 				radiomod = ":" + key
 				break
 
-	to_chat(src, "<span class='notice'>Automatic announcements [Autochan == "None" ? "will not use the radio." : "set to [Autochan]."]</span>")
+	to_chat(src, span_notice("Automatic announcements [Autochan == "None" ? "will not use the radio." : "set to [Autochan]."]"))
 
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return 0
@@ -468,6 +456,18 @@
 
 /mob/living/silicon/hears_radio()
 	return FALSE
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
 
 /**
  * Records an IC event log entry in the cyborg's internal tablet.

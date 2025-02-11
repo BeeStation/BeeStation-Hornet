@@ -23,13 +23,13 @@
 	icon_state = "pumpkin"
 	bite_consumption_mod = 2
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/pumpkinjuice = 0)
+	juice_typepath = /datum/reagent/consumable/pumpkinjuice
 	wine_power = 20
 
 /obj/item/food/grown/pumpkin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_sharp())
-		user.show_message("<span class='notice'>You carve a face into [src]!</span>", MSG_VISUAL)
-		new /obj/item/clothing/head/hardhat/pumpkinhead(user.loc)
+		user.show_message(span_notice("You carve a face into [src]!"), MSG_VISUAL)
+		new /obj/item/clothing/head/utility/hardhat/pumpkinhead(user.loc)
 		qdel(src)
 		return
 	else
@@ -54,6 +54,6 @@
 	icon_state = "blumpkin"
 	bite_consumption_mod = 3
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/blumpkinjuice = 0)
+	juice_typepath = /datum/reagent/consumable/blumpkinjuice
 	wine_power = 50
 	discovery_points = 300

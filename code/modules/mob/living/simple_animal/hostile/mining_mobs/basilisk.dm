@@ -22,7 +22,8 @@
 	health = 100
 	obj_damage = 60
 	melee_damage = 12
-	attacktext = "bites into"
+	attack_verb_continuous = "bites into"
+	attack_verb_simple = "bite into"
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -41,7 +42,7 @@
 	damage_type = BURN
 	nodamage = TRUE
 	armor_flag = ENERGY
-	temperature = 50
+	temperature = -50 // Cools you down! per hit!
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
@@ -72,12 +73,13 @@
 	base_pixel_x = -10
 	throw_message = "bounces harmlessly off of"
 	melee_damage = 15
-	attacktext = "impales"
+	attack_verb_continuous = "impales"
+	attack_verb_simple = "impale"
 	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	stat_attack = UNCONSCIOUS
-	movement_type = FLYING
+	stat_attack = HARD_CRIT
+	is_flying_animal = TRUE
 	robust_searching = 1
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
@@ -129,7 +131,7 @@
 	damage = 5
 	damage_type = BURN
 	nodamage = FALSE
-	temperature = 500 //Heats you up!
+	temperature = 200 // Heats you up! per hit!
 
 /obj/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
 	. = ..()

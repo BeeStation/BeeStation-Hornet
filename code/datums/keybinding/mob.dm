@@ -122,7 +122,7 @@
 			return
 		var/turf/new_turf = get_step_multiz(original, UP)
 		if(!istype(new_turf))
-			to_chat(user.mob, "<span class='warning'>There is nothing above you!</span>")
+			to_chat(user.mob, span_warning("There is nothing above you!"))
 			return
 		user.mob.Move(new_turf, UP)
 	return TRUE
@@ -147,7 +147,7 @@
 			return
 		var/turf/new_turf = get_step_multiz(original, DOWN)
 		if(!istype(new_turf))
-			to_chat(user.mob, "<span class='warning'>There is nothing below you!</span>")
+			to_chat(user.mob, span_warning("There is nothing below you!"))
 			return
 		user.mob.Move(new_turf, DOWN)
 	return TRUE
@@ -166,7 +166,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	if (!M.pulling)
-		to_chat(user, "<span class='notice'>You are not pulling anything.</span>")
+		to_chat(user, span_notice("You are not pulling anything."))
 	else
 		M.stop_pulling()
 	return TRUE
@@ -249,7 +249,7 @@
 	var/mob/M = user.mob
 	var/obj/item/I = M.get_active_held_item()
 	if(!I)
-		to_chat(user, "<span class='warning'>You have nothing to drop in your hand!</span>")
+		to_chat(user, span_warning("You have nothing to drop in your hand!"))
 	else
 		user.mob.dropItemToGround(I)
 	return TRUE

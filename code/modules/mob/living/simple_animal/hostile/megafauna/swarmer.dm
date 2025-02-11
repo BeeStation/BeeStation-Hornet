@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
 	score_achievement_type = /datum/award/score/swarmer_beacon_score
-	faction = list("mining", "boss", "swarmer")
+	faction = list(FACTION_MINING, FACTION_BOSS, FACTION_SWARMER)
 	weather_immunities = list("lava","ash")
 	stop_automated_movement = TRUE
 	wander = FALSE
@@ -98,9 +98,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	health = 20
 	maxHealth = 20
 	wander = TRUE
-	faction = list("swarmer", "mining")
+	faction = list(FACTION_SWARMER, FACTION_MINING)
 	weather_immunities = list("ash") //wouldn't be fun otherwise
 	AIStatus = AI_ON
+	ranged_cooldown_time = 20
+	melee_damage = 15
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
 	. = ..()
@@ -287,5 +289,5 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	name = "swarmer catwalk"
 	desc = "A catwalk-like mesh, produced by swarmers to allow them to navigate hostile terrain."
 	icon = 'icons/obj/smooth_structures/catwalks/swarmer_catwalk.dmi'
-	icon_state = "swarmer_catwalk"
+	icon_state = "swarmer_catwalk-0"
 	base_icon_state = "swarmer_catwalk"

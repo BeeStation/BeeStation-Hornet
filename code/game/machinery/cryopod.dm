@@ -43,8 +43,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	GLOB.cryopod_computers -= src
 	..()
 
-/obj/machinery/computer/cryopod/attack_ai()
-	attack_hand()
+/obj/machinery/computer/cryopod/attack_silicon()
+	return attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -95,12 +95,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	else if(href_list["item"])
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
+			to_chat(user, span_notice("There is nothing to recover from storage."))
 			return
 
 		var/obj/item/I = input(user, "Please choose which object to retrieve.","Object recovery",null) as null|anything in frozen_items
@@ -108,25 +108,25 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			return
 
 		if(!(I in frozen_items))
-			to_chat(user, "<span class='notice'>\The [I] is no longer in storage.</span>")
+			to_chat(user, span_notice("\The [I] is no longer in storage."))
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
+		visible_message(span_notice("The console beeps happily as it disgorges \the [I]."))
 
 		I.forceMove(get_turf(src))
 		frozen_items -= I
 
 	else if(href_list["allitems"])
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
+			to_chat(user, span_notice("There is nothing to recover from storage."))
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
+		visible_message(span_notice("The console beeps happily as it disgorges the desired objects."))
 
 		for(var/obj/item/I in frozen_items)
 			I.forceMove(get_turf(src))
@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	updateUsrDialog()
 	return
 /* Should more cryos be buildable?
-    /obj/item/circuitboard/cryopodcontrol
+	/obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		..(user)
 		var/mob/living/mob_occupant = occupant
 		if(mob_occupant && mob_occupant.stat != DEAD)
-			to_chat(occupant, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+			to_chat(occupant, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
 		if(mob_occupant.client)//if they're logged in
 			despawn_world_time = world.time + (time_till_despawn * 0.1) // This gives them 30 seconds
 		else
@@ -233,8 +233,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	name = initial(name)
 
 /obj/machinery/cryopod/container_resist(mob/living/user)
-	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
-		"<span class='notice'>You climb out of [src]!</span>")
+	visible_message(span_notice("[occupant] emerges from [src]!"),
+		span_notice("You climb out of [src]!"))
 	open_machine()
 
 /obj/machinery/cryopod/relaymove(mob/user)
@@ -268,23 +268,18 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
 
-	// Delete them from datacore.
+	// Delete them from manifest.
 
 	var/announce_rank = null
-	for(var/datum/data/record/R as() in GLOB.data_core.medical)
-		if((R.fields["name"] == mob_occupant.real_name))
+	for(var/datum/record/crew/R as() in GLOB.manifest.general)
+		if((R.name == mob_occupant.real_name))
+			announce_rank = R.rank
 			qdel(R)
-	for(var/datum/data/record/T as() in GLOB.data_core.security)
-		if((T.fields["name"] == mob_occupant.real_name))
-			qdel(T)
-	for(var/datum/data/record/G as() in GLOB.data_core.general)
-		if((G.fields["name"] == mob_occupant.real_name))
-			announce_rank = G.fields["rank"]
-			qdel(G)
+
 
 	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/data/record/R as() in cloner.records)
-			if(R.fields["name"] == mob_occupant.real_name)
+		for(var/datum/record/R as() in cloner.records)
+			if(R.name == mob_occupant.real_name)
 				cloner.records.Remove(R)
 
 	//Make an announcement and log the person entering storage.
@@ -300,7 +295,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
 		else
 			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
-		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage.</span>")
+		visible_message(span_notice("\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage."))
 
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
@@ -354,19 +349,22 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
+	if(!target.mind)
+		to_chat(user, span_notice("[target] is not a player controlled mob."))
+		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
+		to_chat(user, span_boldnotice("The cryo pod is already occupied!"))
 		return
 
 	if(target.stat == DEAD)
-		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		to_chat(user, span_notice("Dead people can not be put into cryo."))
 		return
 
 	if(target.client && user != target)
 		if(iscyborg(target))
-			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're online.</span>")
+			to_chat(user, span_danger("You can't put [target] into [src]. They're online."))
 		else
-			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're conscious.</span>")
+			to_chat(user, span_danger("You can't put [target] into [src]. They're conscious."))
 		return
 	else if(target.client)
 		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
@@ -377,7 +375,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
 		var/caught = FALSE
 		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
-		if(target.mind.assigned_role in GLOB.command_positions)
+		if(target.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
 		if(A)
@@ -397,17 +395,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		visible_message("[user] starts putting [target] into the cryo pod.")
 
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
+		to_chat(user, span_boldnotice("\The [src] is in use."))
 		return
 	close_machine(target)
 
-	to_chat(target, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	to_chat(target, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
-		message_admins("<span class='danger'>[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
+		message_admins("[span_danger("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>")])")
 	else
 		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	log_admin("<span class='notice'>[key_name(target)], the [target.job] entered a stasis pod.</span>")
+	log_admin(span_notice("[key_name(target)], the [target.job] entered a stasis pod."))
 	add_fingerprint(target)
 
 //Attacks/effects.

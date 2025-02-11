@@ -4,10 +4,10 @@
 	spread_text = "On contact"
 	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
 	cure_text = "Chick Chicky Boom!"
-	cures = list("plasma")
+	cures = list(GAS_PLASMA)
 	agent = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 1
+	spreading_modifier = 1
 	danger = DISEASE_BIOHAZARD
 
 /datum/disease/rhumba_beat/stage_act()
@@ -21,14 +21,14 @@
 				affected_mob.adjustFireLoss(5)
 				affected_mob.updatehealth()
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>You feel strange...</span>")
+				to_chat(affected_mob, span_danger("You feel strange..."))
 		if(3)
 			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You feel the urge to dance...</span>")
+				to_chat(affected_mob, span_danger("You feel the urge to dance..."))
 			else if(prob(5))
 				affected_mob.emote("gasp")
 			else if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel the need to chick chicky boom...</span>")
+				to_chat(affected_mob, span_danger("You feel the need to chick chicky boom..."))
 		if(4)
 			if(prob(20))
 				if (prob(50))
@@ -36,9 +36,9 @@
 					affected_mob.IgniteMob()
 				else
 					affected_mob.emote("gasp")
-					to_chat(affected_mob, "<span class='danger'>You feel a burning beat inside...</span>")
+					to_chat(affected_mob, span_danger("You feel a burning beat inside..."))
 		if(5)
-			to_chat(affected_mob, "<span class='danger'>Your body is unable to contain the Rhumba Beat...</span>")
+			to_chat(affected_mob, span_danger("Your body is unable to contain the Rhumba Beat..."))
 			if(prob(50))
 				explosion(get_turf(affected_mob), -1, 0, 2, 3, 0, 2, magic=TRUE) // This is equivalent to a lvl 1 fireball
 		else

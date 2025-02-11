@@ -9,7 +9,7 @@
 	//Emag the pin too
 	if(pin)
 		pin.use_emag(user)
-	to_chat(user, "<span class='warning'>You override the safety of the energy gun, it will now fire higher powered projectiles at a greater cost.</span>")
+	to_chat(user, span_warning("You override the safety of the energy gun, it will now fire higher powered projectiles at a greater cost."))
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/exploration_kill, /obj/item/ammo_casing/energy/laser/exploration_destroy)
 	update_ammo_types()
 
@@ -27,9 +27,9 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
-    if(!iscarbon(target) && !issilicon(target))
-        damage = 30
-    return ..()
+	if(!iscarbon(target) && !issilicon(target))
+		damage = 30
+	return ..()
 
 //Cutting projectile - Damage against objects
 
@@ -73,7 +73,7 @@
 		damage = 50
 	//If you somehow hit yourself you get fried.
 	if(target == firer)
-		to_chat(firer, "<span class='userdanger'>The laser accelerates violently towards your gun's magnetic field, tearing its way through your body!</span>")
+		to_chat(firer, span_userdanger("The laser accelerates violently towards your gun's magnetic field, tearing its way through your body!"))
 		damage = 200
 	. = ..()
 

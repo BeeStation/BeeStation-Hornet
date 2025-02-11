@@ -14,20 +14,20 @@
 	var/max_amount
 	var/sheet_type
 	var/list/materials //Map of key = material ref | Value = amount
-	var/show_on_examine
 	var/disable_attackby
 	var/list/allowed_typecache
 	var/last_inserted_id
 	var/precise_insertion = FALSE
 	var/datum/callback/precondition
 	var/datum/callback/after_insert
+	///The material container flags. See __DEFINES/materials.dm.
+	var/mat_container_flags
 
 /// Sets up the proper signals and fills the list of materials with the appropriate references.
-/datum/component/material_container/Initialize(list/mat_list, max_amt = 0, _show_on_examine = FALSE, list/allowed_types, datum/callback/_precondition, datum/callback/_after_insert, _disable_attackby)
+/datum/component/material_container/Initialize(list/mat_list, max_amt = 0, _mat_container_flags=NONE, list/allowed_types, datum/callback/_precondition, datum/callback/_after_insert)
 	materials = list()
 	max_amount = max(0, max_amt)
-	show_on_examine = _show_on_examine
-	disable_attackby = _disable_attackby
+	mat_container_flags = _mat_container_flags
 
 	if(allowed_types)
 		if(ispath(allowed_types) && allowed_types == /obj/item/stack)
@@ -38,69 +38,84 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
+	if(!(mat_container_flags & MATCONTAINER_NO_INSERT))
+		RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	if(mat_container_flags & MATCONTAINER_EXAMINE)
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 	for(var/mat in mat_list) //Make the assoc list ref | amount
 		var/datum/material/M = SSmaterials.GetMaterialRef(mat)
 		materials[M] = 0
 
-/datum/component/material_container/proc/OnExamine(datum/source, mob/user)
+/datum/component/material_container/vv_edit_var(var_name, var_value)
+	var/old_flags = mat_container_flags
+	. = ..()
+	if(var_name == NAMEOF(src, mat_container_flags) && parent)
+		if(!(old_flags & MATCONTAINER_EXAMINE) && mat_container_flags & MATCONTAINER_EXAMINE)
+			RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+		else if(old_flags & MATCONTAINER_EXAMINE && !(mat_container_flags & MATCONTAINER_EXAMINE))
+			UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
+
+		if(old_flags & MATCONTAINER_NO_INSERT && !(mat_container_flags & MATCONTAINER_NO_INSERT))
+			RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+		else if(!(old_flags & MATCONTAINER_NO_INSERT) && mat_container_flags & MATCONTAINER_NO_INSERT)
+			UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
+
+
+/datum/component/material_container/proc/on_examine(datum/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 
-	if(show_on_examine)
-		for(var/I in materials)
-			var/datum/material/M = I
-			var/amt = materials[I]
-			if(amt)
-				to_chat(user, "<span class='notice'>It has [amt] units of [lowertext(M.name)] stored.</span>")
+	for(var/I in materials)
+		var/datum/material/M = I
+		var/amt = materials[I]
+		if(amt)
+			examine_texts += span_notice("It has [amt] units of [LOWER_TEXT(M.name)] stored.")
 
 /// Proc that allows players to fill the parent with mats
-/datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
+/datum/component/material_container/proc/on_attackby(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
 
 	var/list/tc = allowed_typecache
-	if(disable_attackby)
-		return
-	if(user.a_intent != INTENT_HELP)
+	if(!(mat_container_flags & MATCONTAINER_ANY_INTENT) && user.a_intent != INTENT_HELP)
 		return
 	if(I.item_flags & ABSTRACT)
 		return
 	if((I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION) || (tc && !is_type_in_typecache(I, tc)))
-		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
+		if(!(mat_container_flags & MATCONTAINER_SILENT))
+			to_chat(user, span_warning("[parent] won't accept [I]!"))
 		return
 	. = COMPONENT_NO_AFTERATTACK
 	var/datum/callback/pc = precondition
 	if(pc && !pc.Invoke(user))
 		return
-	var/material_amount = get_item_material_amount(I)
+	var/material_amount = get_item_material_amount(I, mat_container_flags)
 	if(!material_amount)
-		to_chat(user, "<span class='warning'>[I] does not contain sufficient materials to be accepted by [parent].</span>")
+		to_chat(user, span_warning("[I] does not contain sufficient materials to be accepted by [parent]."))
 		return
 	if(!has_space(material_amount))
-		to_chat(user, "<span class='warning'>[parent] is full. Please remove materials from [parent] in order to insert more.</span>")
+		to_chat(user, span_warning("[parent] is full. Please remove materials from [parent] in order to insert more."))
 		return
-	user_insert(I, user)
+	user_insert(I, user, mat_container_flags)
 
 /// Proc used for when player inserts materials
-/datum/component/material_container/proc/user_insert(obj/item/I, mob/living/user)
+/datum/component/material_container/proc/user_insert(obj/item/I, mob/living/user, breakdown_flags = mat_container_flags)
 	set waitfor = FALSE
 	var/requested_amount
 	var/active_held = user.get_active_held_item()  // differs from I when using TK
-	if(istype(I, /obj/item/stack) && precise_insertion)
+	if(isstack(I) && precise_insertion)
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
-		requested_amount = input(user, "How much do you want to insert?", "Inserting [S.singular_name]s") as num|null
-		if(isnull(requested_amount) || (requested_amount <= 0))
+		requested_amount = tgui_input_number(user, "How much do you want to insert?", "Inserting [S.singular_name]s", S.amount, S.amount)
+		if(!requested_amount || QDELETED(I) || QDELETED(user) || QDELETED(src))
 			return
-		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.physical_can_use_topic(current_parent) < UI_INTERACTIVE || user.get_active_held_item() != active_held)
+		if(parent != current_parent || user.get_active_held_item() != active_held)
 			return
 	if(!user.temporarilyRemoveItemFromInventory(I))
-		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
+		to_chat(user, span_warning("[I] is stuck to you and cannot be placed into [parent]."))
 		return
-	var/inserted = insert_item(I, stack_amt = requested_amount)
+	var/inserted = insert_item(I, stack_amt = requested_amount, breakdown_flags= mat_container_flags)
 	if(inserted)
-		to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
+		to_chat(user, span_notice("You insert a material total of [inserted] into [parent]."))
 		qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I, last_inserted_id, inserted)
@@ -108,26 +123,28 @@
 		user.put_in_active_hand(I)
 
 /// Proc specifically for inserting items, returns the amount of materials entered.
-/datum/component/material_container/proc/insert_item(obj/item/I, var/multiplier = 1, stack_amt)
+/datum/component/material_container/proc/insert_item(obj/item/I, multiplier = 1, stack_amt, breakdown_flags = mat_container_flags)
 	if(QDELETED(I))
 		return FALSE
 
 	multiplier = CEILING(multiplier, 0.01)
 
-	var/material_amount = get_item_material_amount(I)
+	var/material_amount = get_item_material_amount(I, breakdown_flags)
 	if(!material_amount || !has_space(material_amount))
 		return FALSE
 
-	last_inserted_id = insert_item_materials(I, multiplier)
+	last_inserted_id = insert_item_materials(I, multiplier, breakdown_flags)
 	return material_amount
 
-/datum/component/material_container/proc/insert_item_materials(obj/item/I, multiplier = 1)
+/datum/component/material_container/proc/insert_item_materials(obj/item/I, multiplier = 1, breakdown_flags = mat_container_flags)
 	var/primary_mat
 	var/max_mat_value = 0
+	var/list/item_materials = I.get_material_composition(breakdown_flags)
 	for(var/MAT in materials)
-		materials[MAT] += I.custom_materials[MAT] * multiplier
-		total_amount += I.custom_materials[MAT] * multiplier
-		if(I.custom_materials[MAT] > max_mat_value)
+		materials[MAT] += item_materials[MAT] * multiplier
+		total_amount += item_materials[MAT] * multiplier
+		if(item_materials[MAT] > max_mat_value)
+			max_mat_value = item_materials[MAT]
 			primary_mat = MAT
 	if(primary_mat)
 		SEND_SIGNAL(parent, COMSIG_MATERIAL_CONTAINER_CHANGED)
@@ -230,12 +247,14 @@
 		sheet_amt = round(materials[M] / MINERAL_MATERIAL_AMOUNT)
 	var/count = 0
 	while(sheet_amt > MAX_STACK_SIZE)
-		new M.sheet_type(target, MAX_STACK_SIZE)
+		var/obj/item/stack/sheets = new M.sheet_type(null, MAX_STACK_SIZE)
+		sheets.forceMove(target)
 		count += MAX_STACK_SIZE
 		use_amount_mat(sheet_amt * MINERAL_MATERIAL_AMOUNT, M)
 		sheet_amt -= MAX_STACK_SIZE
 	if(sheet_amt >= 1)
-		new M.sheet_type(target, sheet_amt)
+		var/obj/item/stack/sheets = new M.sheet_type(null, sheet_amt)
+		sheets.forceMove(target)
 		count += sheet_amt
 		use_amount_mat(sheet_amt * MINERAL_MATERIAL_AMOUNT, M)
 	return count
@@ -316,12 +335,13 @@
 
 
 ///returns the amount of material relevant to this container; if this container does not support glass, any glass in 'I' will not be taken into account
-/datum/component/material_container/proc/get_item_material_amount(obj/item/I)
+/datum/component/material_container/proc/get_item_material_amount(obj/item/I, breakdown_flags = mat_container_flags)
 	if(!istype(I) || !I.custom_materials)
-		return FALSE
+		return 0 //Not Boolean, dont make FALSE
 	var/material_amount = 0
+	var/list/item_materials = I.get_material_composition(breakdown_flags)
 	for(var/MAT in materials)
-		material_amount += I.custom_materials[MAT]
+		material_amount += item_materials[MAT]
 	return material_amount
 
 /// Returns the amount of a specific material in this container.

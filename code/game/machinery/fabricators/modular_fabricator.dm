@@ -67,9 +67,11 @@
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
 	if(remote_materials)
-		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
+		//We think its a protolathe/mechfab. Connectable to Ore Silo
+		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
 	else
-		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium, /datum/material/plastic, /datum/material/adamantine), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+		//We think its a autolathe. NO Ore Silo Connection
+		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], 0, MATCONTAINER_EXAMINE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	. = ..()
 	stored_research = new stored_research_type
 
@@ -107,7 +109,7 @@
 	. += ..()
 	var/datum/component/material_container/materials = get_material_container()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.</span>"
+		. += span_notice("The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.")
 
 /obj/machinery/modular_fabricator/ui_state()
 	return GLOB.default_state
@@ -157,6 +159,7 @@
 			//Add
 			categories_associative[cat] += list(list(
 				"name" = D.name,
+				"desc" = D.desc,
 				"design_id" = D.id,
 				"material_cost" = material_cost,
 			))
@@ -361,7 +364,7 @@
 	return T
 
 /obj/machinery/modular_fabricator/on_deconstruction()
-	var/datum/component/material_container/materials = get_material_container()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 
 /obj/machinery/modular_fabricator/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
@@ -445,7 +448,7 @@
 			item_queue -= requested_design_id
 			removed = TRUE
 		//Requeue if necessary
-		if(queue_repeating || queue_data["repdeating"])
+		if(queue_repeating || queue_data["repeating"])
 			stored_item_amount ++
 			if(removed)
 				add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["build_mat"])
@@ -493,12 +496,13 @@
 	use_power(power)
 	materials.use_materials(materials_used)
 	if(is_stack)
-		var/obj/item/stack/N = new being_built.build_path(A, multiplier)
+		var/obj/item/stack/N = new being_built.build_path(src.loc, multiplier)
+		N.forceMove(A) //Forcemove to the release turf to trigger ZFall
 		N.update_icon()
 	else
 		for(var/i in 1 to multiplier)
-			var/obj/item/new_item = new being_built.build_path(A)
-
+			var/obj/item/new_item = new being_built.build_path(src.loc)
+			new_item.forceMove(A) //Forcemove to the release turf to trigger ZFall
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount
 	being_built = null
@@ -510,3 +514,5 @@
 
 /obj/machinery/modular_fabricator/proc/set_working_sprite()
 	return
+
+#undef MODFAB_MAX_POWER_USE

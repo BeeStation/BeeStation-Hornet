@@ -1,6 +1,7 @@
 /datum/objective/steal_five_of_type
 	name = "steal five of"
 	explanation_text = "Steal at least five items!"
+	martyr_compatible = FALSE
 	var/list/wanted_items = list()
 	var/stolen_count = 0
 	var/thing_name = "item"
@@ -41,9 +42,9 @@
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
 		for(var/obj/I in all_items) //Check for wanted items
-			if(istype(I, /obj/item/book/granter/spell))
-				var/obj/item/book/granter/spell/spellbook = I
-				if(!spellbook.used || !spellbook.oneuse) //if the book still has powers...
+			if(istype(I, /obj/item/book/granter/action/spell))
+				var/obj/item/book/granter/action/spell/spellbook = I
+				if(spellbook.uses > 0) //if the book still has powers...
 					stolen_count++ //it counts. nice.
 			else if(is_type_in_typecache(I, wanted_items))
 				stolen_count++

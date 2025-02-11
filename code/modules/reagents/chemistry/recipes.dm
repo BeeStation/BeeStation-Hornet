@@ -26,7 +26,7 @@
 	return
 	//I recommend you set the result amount to the total volume of all components.
 
-/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE)
+/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = FACTION_CHEMICAL_SUMMON, random = TRUE)
 	if(holder && holder.my_atom)
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
@@ -80,3 +80,6 @@
 			else
 				if(step_towards(X, T) && moving_power > 1)
 					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_towards), X, T), 2)
+
+/datum/chemical_reaction/proc/check_other() //override this proc if using required_other, and return TRUE to allow the chemical reaction. Slime cores do not use this.
+	return FALSE

@@ -12,10 +12,10 @@
 
 /obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && deconstructible)
-		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
+		user.visible_message(span_notice("[user] starts disassembling [src]..."), span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 50))
-			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
+			user.visible_message(span_notice("[user] disassembles [src]!"), span_notice("You break down [src] into scrap metal."))
 			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
 			new/obj/item/stack/sheet/iron(drop_location())
 			qdel(src)
@@ -75,6 +75,7 @@
 	name = "bus"
 	desc = "GO TO SCHOOL. READ A BOOK."
 	icon = 'icons/obj/bus.dmi'
+	icon_state = null
 	density = TRUE
 	anchored = TRUE
 	deconstructible = FALSE
@@ -104,7 +105,7 @@
 	icon_state = "driverseat"
 
 /obj/structure/fluff/bus/passable/seat/driver/attack_hand(mob/user)
-	playsound(src, 'sound/items/carhorn.ogg', 50, 1)
+	playsound(src, 'sound/items/carhorn.ogg', 50, TRUE)
 	. = ..()
 
 /obj/structure/fluff/paper
@@ -126,6 +127,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "error"
 	anchored = TRUE
 	density = TRUE
 
@@ -183,3 +185,10 @@
 
 /obj/structure/fluff/hedge/opaque //useful for mazes and such
 	opacity = TRUE
+
+/obj/structure/fluff/fans
+	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	icon_state = "fan_tiny"
+	name = "environmental regulation system"
+	desc = "A vent nested into the wall, managing the airflow between the rooms"
+	anchored = TRUE

@@ -16,8 +16,10 @@
 	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
-	sharpness = IS_SHARP
+	attack_verb_continuous = list("smashes", "crushes", "cleaves", "chops", "pulps")
+	attack_verb_simple = list("smash", "crush", "cleave", "chop", "pulp")
+	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT
 	light_range = 5
@@ -40,22 +42,22 @@
 
 /obj/item/kinetic_crusher/examine(mob/living/user)
 	. = ..()
-	. += "<span class='notice'>Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.</span>"
-	. += "<span class='notice'>Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.</span>"
+	. += span_notice("Mark a large creature with the destabilizing force, then hit them in melee to do <b>[force + detonation_damage]</b> damage.")
+	. += span_notice("Does <b>[force + detonation_damage + backstab_bonus]</b> damage if the target is backstabbed, instead of <b>[force + detonation_damage]</b>.")
 	for(var/t in trophies)
 		var/obj/item/crusher_trophy/T = t
-		. += "<span class='notice'>[icon2html(T, user)]It has \a [T] attached, which causes [T.effect_desc()].</span>"
+		. += span_notice("[icon2html(T, user)]It has \a [T] attached, which causes [T.effect_desc()].")
 
 /obj/item/kinetic_crusher/attackby(obj/item/I, mob/living/user)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		if(LAZYLEN(trophies))
-			to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
+			to_chat(user, span_notice("You remove [src]'s trophies."))
 			I.play_tool_sound(src)
 			for(var/t in trophies)
 				var/obj/item/crusher_trophy/T = t
 				T.remove_from(src, user)
 		else
-			to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
+			to_chat(user, span_warning("There are no trophies on [src]."))
 	else if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/T = I
 		T.add_to(src, user)
@@ -64,7 +66,7 @@
 
 /obj/item/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
 	if(!ISWIELDED(src))
-		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.")
+		to_chat(user, span_warning("[src] is too heavy to use with one hand. You fumble and drop everything."))
 		user.drop_all_held_items()
 		return
 	var/datum/status_effect/crusher_damage/C = target.has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
@@ -150,7 +152,7 @@
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.update_buttons()
 	item_state = "crusher[wielded]"
 
 //destablizing force
@@ -196,7 +198,7 @@
 
 /obj/item/crusher_trophy/examine(mob/living/user)
 	. = ..()
-	. += "<span class='notice'>Causes [effect_desc()] when attached to a kinetic crusher.</span>"
+	. += span_notice("Causes [effect_desc()] when attached to a kinetic crusher.")
 
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
@@ -211,12 +213,12 @@
 	for(var/t in H.trophies)
 		var/obj/item/crusher_trophy/T = t
 		if(istype(T, denied_type) || istype(src, T.denied_type))
-			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
+			to_chat(user, span_warning("You can't seem to attach [src] to [H]. Maybe remove a few trophies?"))
 			return FALSE
 	if(!user.transferItemToLoc(src, H))
 		return
 	H.trophies += src
-	to_chat(user, "<span class='notice'>You attach [src] to [H].</span>")
+	to_chat(user, span_notice("You attach [src] to [H]."))
 	return TRUE
 
 /obj/item/crusher_trophy/proc/remove_from(obj/item/kinetic_crusher/H, mob/living/user)

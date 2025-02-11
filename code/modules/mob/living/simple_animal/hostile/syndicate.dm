@@ -25,16 +25,14 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
 	melee_damage = 10
-	attacktext = "punches"
+	attack_verb_continuous = "punches"
+	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
@@ -46,7 +44,7 @@
 	del_on_death = TRUE
 	dodging = TRUE
 	rapid_melee = 2
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	mobchatspan = "syndmob"
 
 ///////////////Melee////////////
@@ -78,7 +76,8 @@
 	icon_state = "syndicate_knife"
 	icon_living = "syndicate_knife"
 	loot = list(/obj/effect/gibspawner/human)
-	attacktext = "slashes"
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	status_flags = 0
 	var/projectile_deflect_chance = 0
@@ -113,7 +112,8 @@
 	melee_damage = 30
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
-	attacktext = "slashes"
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/blade1.ogg'
 	armour_penetration = 35
 	light_color = LIGHT_COLOR_RED
@@ -285,13 +285,15 @@
 	melee_damage = 15
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	attacktext = "cuts"
+	attack_verb_continuous = "cuts"
+	attack_verb_simple = "cut"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list(FACTION_SYNDICATE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
-	movement_type = FLYING
+	is_flying_animal = TRUE
+	no_flying_animation = TRUE
 	limb_destroyer = TRUE
 	speak_emote = list("states")
 	bubble_icon = "syndibot"
@@ -302,3 +304,119 @@
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/swarming)
+
+
+/mob/living/simple_animal/hostile/syndicate/sniper
+	name = "Syndicate Sniper"
+	desc = "One of the best snipers the syndicate has to offer. Take cover or get shot!"
+	icon_state = "fsniper"
+	icon_living = "fsniper"
+	ranged = TRUE
+	speed = 1
+	dodge_prob = 40
+	ranged_cooldown_time = 40
+	check_friendly_fire = 1
+	sidestep_per_cycle = 3
+	minimum_distance = 4
+	turns_per_move = 6
+	melee_queue_distance = 2
+	health = 250
+	maxHealth = 250
+	melee_damage = 20
+	rapid_melee = 3
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
+	attack_sound = 'sound/weapons/genhit3.ogg'
+	projectilesound = 'sound/weapons/sniper_shot.ogg'
+	speak_chance = 2
+	var/cooldown = 0
+	speak = list("You're pretty good.","You can't dodge everything!","Fall down already!")
+	loot = list(/obj/item/gun/ballistic/sniper_rifle,
+					/obj/effect/mob_spawn/human/corpse/sniper,
+					/obj/item/ammo_box/magazine/sniper_rounds,
+					/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
+					/obj/item/ammo_box/magazine/sniper_rounds/soporific)
+	backup_nosound = TRUE
+
+/mob/living/simple_animal/hostile/syndicate/sniper/Aggro()
+	..()
+	ranged_cooldown = 30
+	if (cooldown < world.time)
+		cooldown = world.time + 150
+		summon_backup(10)
+		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, TRUE)
+		say("I've got you in my scope.")
+
+/mob/living/simple_animal/hostile/syndicate/sniper/Shoot()
+	var/allowed_projectile_types = list(/obj/item/ammo_casing/p50, /obj/item/ammo_casing/p50/penetrator)
+	casingtype = pick(allowed_projectile_types)
+	..()
+
+/mob/living/simple_animal/hostile/syndicate/sniper/death(gibbed)
+	playsound(get_turf(src), 'sound/creatures/wardendeath.ogg', 100, TRUE, 0)
+	..()
+
+/mob/living/simple_animal/hostile/syndicate/heavy
+	name = "Heavy gunner"
+	desc = "They didn't get that backpack for nothing."
+	icon_state = "Heavy"
+	icon_living = "Heavy"
+	sidestep_per_cycle = 0
+	minimum_distance = 5
+	approaching_target = TRUE
+	ranged = TRUE
+	rapid = 65
+	rapid_fire_delay = 0.5
+	projectiletype = /obj/projectile/beam
+	ranged_cooldown_time = 110
+	vision_range = 9
+	speak_chance = 0
+	speak = null
+	aggro_vision_range = 9
+	attack_verb_continuous = "hits"
+	attack_verb_simple = "hit"
+	attack_sound = 'sound/weapons/genhit3.ogg'
+	retreat_distance = 2
+	melee_queue_distance = 1
+	melee_damage = 25
+	move_to_delay = 4
+	projectilesound = null
+	speed = 15
+	health = 300
+	maxHealth = 300
+	loot = list(/obj/effect/mob_spawn/human/corpse/heavy)
+	var/cooldown = 0
+
+/mob/living/simple_animal/hostile/syndicate/heavy/Initialize(mapload)
+	..()
+
+/mob/living/simple_animal/hostile/syndicate/heavy/Aggro()
+	..()
+	if (cooldown < world.time)
+		cooldown = world.time + 300
+		playsound(get_turf(src), 'sound/creatures/heavysight1.ogg', 30, 0, 0)
+
+/mob/living/simple_animal/hostile/syndicate/heavy/OpenFire(atom/A)
+	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 30, 0, 0)
+	move_to_delay = 6//slowdown when shoot
+	speed = 30
+	sleep(15)
+	playsound(get_turf(src), 'sound/weapons/heavyminigunshoot.ogg', 30, 0, 0)
+	if(CheckFriendlyFire(A))
+		return
+	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
+		visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
+	if(rapid > 1)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
+		for(var/i in 1 to rapid)
+			addtimer(cb, (i - 1)*rapid_fire_delay)
+	else
+		Shoot(A)
+	ranged_cooldown = world.time + ranged_cooldown_time
+	playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 30, 0, 0)
+	move_to_delay = initial(move_to_delay)//restore speed
+	speed = initial(speed)
+
+/mob/living/simple_animal/hostile/syndicate/heavy/death(gibbed)
+	playsound(get_turf(src), 'sound/creatures/heavydeath1.ogg', 30, TRUE, 0)
+	..()

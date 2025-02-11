@@ -75,6 +75,9 @@
 	/// Should the toggle helmet proc be called on the helmet during equip
 	var/toggle_helmet = TRUE
 
+	///Should we preload some of this job's items?
+	var/preload = FALSE
+
 	///ID of the slot containing a gas tank
 	var/internals_slot = null
 
@@ -140,6 +143,14 @@
 	//to be overridden for toggling internals, id binding, access etc
 	return
 
+#define EQUIP_OUTFIT_ITEM(item_path, slot_name) if(##item_path) { \
+	H.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path, H), ##slot_name, TRUE); \
+	var/obj/item/outfit_item = H.get_item_by_slot(##slot_name); \
+	if (outfit_item && outfit_item.type == ##item_path) { \
+		outfit_item.on_outfit_equip(H, visualsOnly, ##slot_name); \
+	} \
+}
+
 /**
   * Equips all defined types and paths to the mob passed in
   *
@@ -153,49 +164,49 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		H.equip_to_slot_or_del(new uniform(H),ITEM_SLOT_ICLOTHING, TRUE)
+		EQUIP_OUTFIT_ITEM(uniform, ITEM_SLOT_ICLOTHING)
 	if(suit)
-		H.equip_to_slot_or_del(new suit(H),ITEM_SLOT_OCLOTHING, TRUE)
-	if(back)
-		H.equip_to_slot_or_del(new back(H),ITEM_SLOT_BACK, TRUE)
+		EQUIP_OUTFIT_ITEM(suit, ITEM_SLOT_OCLOTHING)
 	if(belt)
-		H.equip_to_slot_or_del(new belt(H),ITEM_SLOT_BELT, TRUE)
+		EQUIP_OUTFIT_ITEM(belt, ITEM_SLOT_BELT)
 	if(gloves)
-		H.equip_to_slot_or_del(new gloves(H),ITEM_SLOT_GLOVES, TRUE)
+		EQUIP_OUTFIT_ITEM(gloves, ITEM_SLOT_GLOVES)
 	if(shoes)
-		H.equip_to_slot_or_del(new shoes(H),ITEM_SLOT_FEET, TRUE)
+		EQUIP_OUTFIT_ITEM(shoes, ITEM_SLOT_FEET)
 	if(head)
-		H.equip_to_slot_or_del(new head(H),ITEM_SLOT_HEAD, TRUE)
+		EQUIP_OUTFIT_ITEM(head, ITEM_SLOT_HEAD)
 	if(mask)
-		H.equip_to_slot_or_del(new mask(H),ITEM_SLOT_MASK, TRUE)
+		EQUIP_OUTFIT_ITEM(mask, ITEM_SLOT_MASK)
 	if(neck)
-		H.equip_to_slot_or_del(new neck(H),ITEM_SLOT_NECK, TRUE)
+		EQUIP_OUTFIT_ITEM(neck, ITEM_SLOT_NECK)
 	if(ears)
-		H.equip_to_slot_or_del(new ears(H),ITEM_SLOT_EARS, TRUE)
+		EQUIP_OUTFIT_ITEM(ears, ITEM_SLOT_EARS)
 	if(glasses)
-		H.equip_to_slot_or_del(new glasses(H),ITEM_SLOT_EYES, TRUE)
+		EQUIP_OUTFIT_ITEM(glasses, ITEM_SLOT_EYES)
+	if(back)
+		EQUIP_OUTFIT_ITEM(back, ITEM_SLOT_BACK)
 	if(id)
-		H.equip_to_slot_or_del(new id(H),ITEM_SLOT_ID, TRUE)
+		EQUIP_OUTFIT_ITEM(id, ITEM_SLOT_ID)
 	if(suit_store)
-		H.equip_to_slot_or_del(new suit_store(H),ITEM_SLOT_SUITSTORE, TRUE)
+		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(accessory)
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(U)
-			U.attach_accessory(new accessory(H))
+			U.attach_accessory(SSwardrobe.provide_type(accessory, H))
 		else
 			WARNING("Unable to equip accessory [accessory] in outfit [name]. No uniform present!")
 
 	if(l_hand)
-		H.put_in_l_hand(new l_hand(H))
+		H.put_in_l_hand(SSwardrobe.provide_type(l_hand, H))
 	if(r_hand)
-		H.put_in_r_hand(new r_hand(H))
+		H.put_in_r_hand(SSwardrobe.provide_type(r_hand, H))
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			H.equip_to_slot_or_del(new l_pocket(H),ITEM_SLOT_LPOCKET, TRUE)
+			EQUIP_OUTFIT_ITEM(l_pocket, ITEM_SLOT_LPOCKET)
 		if(r_pocket)
-			H.equip_to_slot_or_del(new r_pocket(H),ITEM_SLOT_RPOCKET, TRUE)
+			EQUIP_OUTFIT_ITEM(r_pocket, ITEM_SLOT_RPOCKET)
 
 		if(box)
 			if(!backpack_contents)
@@ -209,7 +220,7 @@
 				if(!isnum_safe(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
-					H.equip_to_slot_or_del(new path(H),ITEM_SLOT_BACKPACK, TRUE)
+					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
@@ -223,11 +234,13 @@
 			H.open_internals(H.get_item_by_slot(internals_slot))
 		if(implants)
 			for(var/implant_type in implants)
-				var/obj/item/implant/I = new implant_type(H)
+				var/obj/item/implant/I = SSwardrobe.provide_type(implant_type, H)
 				I.implant(H, null, TRUE)
 
 	H.update_body()
 	return TRUE
+
+#undef EQUIP_OUTFIT_ITEM
 
 /**
   * Apply a fingerprint from the passed in human to all items in the outfit
@@ -240,42 +253,42 @@
 	if(!istype(H) && !ismonkey(H))
 		return
 	if(H.back)
-		H.back.add_fingerprint(H,1)	//The 1 sets a flag to ignore gloves
+		H.back.add_fingerprint(H, ignoregloves = TRUE)
 		for(var/obj/item/I in H.back.contents)
-			I.add_fingerprint(H,1)
+			I.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.wear_id)
-		H.wear_id.add_fingerprint(H,1)
+		H.wear_id.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.w_uniform)
-		H.w_uniform.add_fingerprint(H,1)
+		H.w_uniform.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.wear_suit)
-		H.wear_suit.add_fingerprint(H,1)
+		H.wear_suit.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.wear_mask)
-		H.wear_mask.add_fingerprint(H,1)
+		H.wear_mask.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.wear_neck)
-		H.wear_neck.add_fingerprint(H,1)
+		H.wear_neck.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.head)
-		H.head.add_fingerprint(H,1)
+		H.head.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.shoes)
-		H.shoes.add_fingerprint(H,1)
+		H.shoes.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.gloves)
-		H.gloves.add_fingerprint(H,1)
+		H.gloves.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.ears)
-		H.ears.add_fingerprint(H,1)
+		H.ears.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.glasses)
-		H.glasses.add_fingerprint(H,1)
+		H.glasses.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.belt)
-		H.belt.add_fingerprint(H,1)
+		H.belt.add_fingerprint(H, ignoregloves = TRUE)
 		for(var/obj/item/I in H.belt.contents)
-			I.add_fingerprint(H,1)
+			I.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.s_store)
-		H.s_store.add_fingerprint(H,1)
+		H.s_store.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.l_store)
-		H.l_store.add_fingerprint(H,1)
+		H.l_store.add_fingerprint(H, ignoregloves = TRUE)
 	if(H.r_store)
-		H.r_store.add_fingerprint(H,1)
+		H.r_store.add_fingerprint(H, ignoregloves = TRUE)
 	for(var/obj/item/I in H.held_items)
-		I.add_fingerprint(H,1)
-	return 1
+		I.add_fingerprint(H, ignoregloves = TRUE)
+	return TRUE
 
 /// Return a list of all the types that are required to disguise as this outfit type
 /datum/outfit/proc/get_chameleon_disguise_info()
@@ -283,6 +296,45 @@
 	types += chameleon_extras
 	list_clear_nulls(types)
 	return types
+
+/// Return a list of types to pregenerate for later equipping
+/// This should not be things that do unique stuff in Initialize() based off their location, since we'll be storing them for a while
+/datum/outfit/proc/get_types_to_preload()
+	var/list/preload = list()
+	preload += id
+	preload += uniform
+	preload += suit
+	preload += suit_store
+	preload += back
+	//Load in backpack gear and shit
+	for(var/type_to_load in backpack_contents)
+		var/num_to_load = backpack_contents[type_to_load]
+		if(!isnum(num_to_load))
+			num_to_load = 1
+		for(var/i in 1 to num_to_load)
+			preload += type_to_load
+	preload += belt
+	preload += ears
+	preload += glasses
+	preload += gloves
+	preload += head
+	preload += mask
+	preload += neck
+	preload += shoes
+	preload += l_pocket
+	preload += r_pocket
+	preload += l_hand
+	preload += r_hand
+	preload += accessory
+	preload += box
+	for(var/implant_type in implants)
+		preload += implant_type
+	/*
+	for(var/skillpath in skillchips)
+		preload += skillpath
+	*/
+
+	return preload
 
 /datum/outfit/proc/get_json_data()
 	. = list()
@@ -311,6 +363,33 @@
 	.["box"] = box
 	.["implants"] = implants
 	.["accessory"] = accessory
+
+/// Copy most vars from another outfit to this one
+/datum/outfit/proc/copy_from(datum/outfit/target)
+	name = target.name
+	uniform = target.uniform
+	suit = target.suit
+	toggle_helmet = target.toggle_helmet
+	back = target.back
+	belt = target.belt
+	gloves = target.gloves
+	shoes = target.shoes
+	head = target.head
+	mask = target.mask
+	neck = target.neck
+	ears = target.ears
+	glasses = target.glasses
+	id = target.id
+	l_pocket = target.l_pocket
+	r_pocket = target.r_pocket
+	suit_store = target.suit_store
+	r_hand = target.r_hand
+	l_hand = target.l_hand
+	internals_slot = target.internals_slot
+	backpack_contents = target.backpack_contents
+	box = target.box
+	implants = target.implants
+	accessory = target.accessory
 
 /datum/outfit/proc/save_to_file(mob/admin)
 	var/stored_data = get_json_data()
@@ -358,3 +437,13 @@
 			implants += imptype
 	accessory = text2path(outfit_data["accessory"])
 	return TRUE
+
+/datum/outfit/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---")
+	VV_DROPDOWN_OPTION(VV_HK_TO_OUTFIT_EDITOR, "Outfit Editor")
+
+/datum/outfit/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_HK_TO_OUTFIT_EDITOR])
+		usr.client.open_outfit_editor(src)

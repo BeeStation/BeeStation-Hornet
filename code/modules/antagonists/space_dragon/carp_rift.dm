@@ -9,10 +9,10 @@
 	name = "Summon Rift"
 	desc = "Summon a rift to bring forth a horde of space carp."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "carp_rift"
 
-/datum/action/innate/summon_rift/Activate()
+/datum/action/innate/summon_rift/on_activate()
 	var/datum/antagonist/space_dragon/dragon = owner.mind?.has_antag_datum(/datum/antagonist/space_dragon)
 	if(!dragon)
 		return
@@ -20,22 +20,22 @@
 	if(S.using_special)
 		return
 	if(!S.can_summon_rifts)
-		to_chat(S, "<span class='warning'>You can't summon a rift right now!</span>")
+		to_chat(S, span_warning("You can't summon a rift right now!"))
 		return
 	var/area/A = get_area(S)
 	if(!(A in dragon.chosen_rift_areas))
-		to_chat(S, "<span class='warning'>You can't summon a rift here!</span>")
+		owner.balloon_alert(owner, "can't summon a rift here, check your objectives!")
 		return
 	for(var/obj/structure/carp_rift/rift in dragon.rift_list)
 		var/area/RA = get_area(rift)
 		if(RA == A)
-			to_chat(S, "<span class='warning'>You've already summoned a rift in this area! You have to summon again somewhere else!</span>")
+			to_chat(S, span_warning("You've already summoned a rift in this area! You have to summon again somewhere else!"))
 			return
 	var/turf/rift_spawn_turf = get_turf(S)
 	if(istype(rift_spawn_turf, /turf/open/openspace))
 		owner.balloon_alert(S, "needs stable ground!")
 		return
-	to_chat(S, "<span class='warning'>You begin to open a rift...</span>")
+	to_chat(S, span_warning("You begin to open a rift..."))
 	if(do_after(S, 100, target = S))
 		for(var/obj/structure/carp_rift/c in rift_spawn_turf.contents)
 			return
@@ -44,7 +44,7 @@
 		S.can_summon_rifts = FALSE // the rift needs to finish charging before summoning another
 		CR.dragon = dragon
 		dragon.rift_list += CR
-		to_chat(S, "<span class='boldwarning'>The rift has been summoned. Prevent the crew from destroying it at all costs!</span>")
+		to_chat(S, span_boldwarning("The rift has been summoned. Prevent the crew from destroying it at all costs!"))
 		notify_ghosts("The Space Dragon has opened a rift!", source = CR, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Carp Rift Opened")
 		qdel(src) // remove the action, a new one is granted if this rift charges or is destroyed
 
@@ -60,8 +60,9 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/structure_carp_rift
 	max_integrity = 300
+	max_hit_damage = 50
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
@@ -86,25 +87,27 @@
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
 
+
+/datum/armor/structure_carp_rift
+	energy = 100
+	bomb = 50
+	rad = 100
+	fire = 100
+	acid = 100
+
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent( \
-		/datum/component/gravity_aura, \
-		range = 15, \
-		requires_visibility = FALSE, \
-		gravity_strength = 1, \
-	)
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()
 	if(time_charged < max_charge)
-		. += "<span class='notice'>It seems to be [(time_charged / max_charge) * 100]% charged.</span>"
+		. += span_notice("It seems to be [(time_charged / max_charge) * 100]% charged.")
 	else
-		. += "<span class='warning'>This one is fully charged. In this state, it is poised to transport a much larger amount of carp than normal.</span>"
+		. += span_warning("This one is fully charged. In this state, it is poised to transport a much larger amount of carp than normal.")
 
 	if(isobserver(user))
-		. += "<span class='notice'>It has [carp_stored] carp available to spawn as.</span>"
+		. += span_notice("It has [carp_stored] carp available to spawn as.")
 
 /obj/structure/carp_rift/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src, 'sound/magic/lightningshock.ogg', 50, TRUE)
@@ -115,7 +118,7 @@
 		if(dragon)
 			restore_rift_ability()
 			if(dragon.owner.current)
-				to_chat(dragon.owner.current, "<span class='boldwarning'>A rift has been destroyed!</span>")
+				to_chat(dragon.owner.current, span_boldwarning("A rift has been destroyed!"))
 			dragon = null
 	return ..()
 
@@ -174,9 +177,9 @@
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
 		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations")
-		obj_integrity = INFINITY
+		atom_integrity = INFINITY
 		icon_state = "carp_rift_charged"
-		set_light_color(LIGHT_COLOR_YELLOW)
+		set_light_color(LIGHT_COLOR_DIM_YELLOW)
 		update_light()
 		resistance_flags = INDESTRUCTIBLE
 		dragon.rifts_charged += 1
@@ -216,14 +219,14 @@
 	var/is_listed = FALSE
 	if (user.ckey in ckey_list)
 		if(carp_stored == 1)
-			to_chat(user, "<span class='warning'>You've already become a carp using this rift! Either wait for a backlog of carp spawns or until the next rift!</span>")
+			to_chat(user, span_warning("You've already become a carp using this rift! Either wait for a backlog of carp spawns or until the next rift!"))
 			return FALSE
 		is_listed = TRUE
 	var/carp_ask = alert("Become a carp?", "Help bring forth the horde?", "Yes", "No")
 	if(carp_ask == "No" || !src || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(carp_stored <= 0)
-		to_chat(user, "<span class='warning'>The rift already summoned enough carp!</span>")
+		to_chat(user, span_warning("The rift already summoned enough carp!"))
 		return FALSE
 	var/mob/living/simple_animal/hostile/carp/advanced/newcarp = new(loc)
 	var/datum/action/innate/wavespeak/wave_action = new
@@ -233,7 +236,7 @@
 	newcarp.key = user.key
 	newcarp.unique_name = TRUE
 	dragon.carp += newcarp.mind
-	to_chat(newcarp, "<span class='boldwarning'>You have arrived in order to assist the space dragon with securing the rifts. Do not jeopardize the mission, and protect the rifts at all costs!</span>")
+	to_chat(newcarp, span_boldwarning("You have arrived in order to assist the space dragon with securing the rifts. Do not jeopardize the mission, and protect the rifts at all costs!"))
 	carp_stored--
 	if(carp_stored <= 0 && charge_state < CHARGE_COMPLETED)
 		icon_state = "carp_rift"

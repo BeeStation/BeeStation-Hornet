@@ -1,12 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ab" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ac" = (
 /obj/structure/table,
@@ -16,25 +16,25 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ad" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ae" = (
 /obj/machinery/vending/cigarette,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "af" = (
 /obj/structure/closet/boxinggloves,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ag" = (
 /obj/structure/closet/masks,
-/obj/item/reagent_containers/food/snacks/deadmouse,
-/turf/open/floor/plasteel/dark,
+/obj/item/food/deadmouse,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ah" = (
 /obj/structure/window/reinforced{
@@ -53,7 +53,7 @@
 /area/template_noop)
 "ai" = (
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aj" = (
 /obj/machinery/door/window/eastright{
@@ -81,108 +81,11 @@
 /area/template_noop)
 "al" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"am" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"an" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/obj/item/trash/pistachios,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"ao" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/obj/item/stack/spacecash/c100,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"ap" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"aq" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/obj/item/cigbutt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"ar" = (
-/obj/item/trash/popcorn,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "as" = (
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -238,20 +141,6 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"ay" = (
-/obj/item/stack/medical/gauze,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "az" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -270,7 +159,7 @@
 	icon_state = "floor6"
 	},
 /obj/effect/decal/cleanable/robot_debris/old,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aB" = (
 /obj/structure/window/reinforced{
@@ -291,32 +180,18 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine,
 /area/template_noop)
-"aF" = (
-/obj/item/stack/spacecash/c10,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "aG" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aH" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aI" = (
 /obj/item/stack/medical/bruise_pack,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aJ" = (
 /obj/structure/window/reinforced,
@@ -346,27 +221,10 @@
 /obj/structure/chair/stool,
 /turf/open/floor/engine,
 /area/template_noop)
-"aN" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "aO" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aP" = (
 /obj/structure/table,
@@ -375,35 +233,35 @@
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aQ" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aR" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
 /obj/item/extinguisher,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aS" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aT" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aU" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aV" = (
 /obj/item/trash/chips,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aW" = (
 /obj/structure/table,
@@ -412,17 +270,15 @@
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aX" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/chair/stool/directional/west,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aY" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aZ" = (
 /obj/structure/chair/fancy/comfy{
@@ -430,24 +286,24 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ip" = (
 /obj/item/stack/spacecash/c10,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Hq" = (
 /obj/item/trash/popcorn,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Im" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "RY" = (
 /obj/structure/chair/fancy/comfy{
@@ -455,7 +311,7 @@
 	},
 /obj/item/trash/pistachios,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "VF" = (
 /obj/structure/chair/fancy/comfy{
@@ -463,7 +319,7 @@
 	},
 /obj/item/stack/spacecash/c100,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Wz" = (
 /obj/structure/chair/fancy/comfy{
@@ -471,12 +327,12 @@
 	},
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "YK" = (
 /obj/item/stack/medical/gauze,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"

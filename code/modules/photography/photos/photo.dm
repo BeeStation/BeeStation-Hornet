@@ -13,6 +13,8 @@
 	var/datum/picture/picture
 	var/scribble		//Scribble on the back.
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
+
 /obj/item/photo/Initialize(mapload, datum/picture/P, datum_name = TRUE, datum_desc = TRUE)
 	set_picture(P, datum_name, datum_desc, TRUE)
 	return ..()
@@ -40,7 +42,7 @@
 		icon = I
 
 /obj/item/photo/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is taking one last look at \the [src]! It looks like [user.p_theyre()] giving in to death!</span>")//when you wanna look at photo of waifu one last time before you die...
+	user.visible_message(span_suicide("[user] is taking one last look at \the [src]! It looks like [user.p_theyre()] giving in to death!"))//when you wanna look at photo of waifu one last time before you die...
 	if (user.gender == MALE)
 		playsound(user, 'sound/voice/human/manlaugh1.ogg', 50, 1)//EVERY TIME I DO IT MAKES ME LAUGH
 	else if (user.gender == FEMALE)
@@ -55,10 +57,10 @@
 		return
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		if(!user.is_literate())
-			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
+			to_chat(user, span_notice("You scribble illegibly on [src]!"))
 			return
 
-		var/txt = stripped_input(user, "What would you like to write on the back?", "Photo Writing", max_length=128)
+		var/txt = stripped_input(user, "What would you like to write on the back? 256 characters max.", "Photo Writing", max_length=256)
 
 		if(txt && user.canUseTopic(src, BE_CLOSE))
 			scribble = txt
@@ -71,11 +73,11 @@
 	if(in_range(src, user) || isobserver(user))
 		show(user)
 	else
-		. += "<span class='warning'>You need to get closer to get a good look at this photo!</span>"
+		. += span_warning("You need to get closer to get a good look at this photo!")
 
 /obj/item/photo/proc/show(mob/user)
 	if(!istype(picture) || !picture.picture_image)
-		to_chat(user, "<span class='warning'>[src] seems to be blank...</span>")
+		to_chat(user, span_warning("[src] seems to be blank..."))
 		return
 	user << browse_rsc(picture.picture_image, "tmp_photo.png")
 	user << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>[name]</title></head>" \

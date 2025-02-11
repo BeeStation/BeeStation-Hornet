@@ -4,6 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "memorizer2"
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -25,7 +26,7 @@
 		return
 	if(istype(target, /obj/effect/anomaly))
 		var/obj/effect/anomaly/A = target
-		to_chat(user, "<span class='notice'>The circuitry of [src] fries from the strain of neutralizing [A]!</span>")
+		to_chat(user, span_notice("The circuitry of [src] fries from the strain of neutralizing [A]!"))
 		A.anomalyNeutralize()
 		qdel(src)
 

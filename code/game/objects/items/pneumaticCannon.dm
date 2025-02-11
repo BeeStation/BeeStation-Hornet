@@ -2,19 +2,21 @@
 #define PCANNON_FIREALL 1
 #define PCANNON_FILO 2
 #define PCANNON_FIFO 3
+
 /obj/item/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	force = 8 //Very heavy
-	attack_verb = list("bludgeoned", "smashed", "beaten")
+	attack_verb_continuous = list("bludgeons", "smashes", "beats")
+	attack_verb_simple = list("bludgeon", "smash", "beat")
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/item_pneumatic_cannon
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -37,6 +39,11 @@
 	var/spin_item = TRUE //Do the projectiles spin when launched?
 	trigger_guard = TRIGGER_GUARD_NORMAL
 
+
+
+/datum/armor/item_pneumatic_cannon
+	fire = 60
+	acid = 50
 
 /obj/item/pneumatic_cannon/Initialize(mapload)
 	. = ..()
@@ -61,13 +68,13 @@
 	. = ..()
 	var/list/out = list()
 	if(!in_range(user, src))
-		out += "<span class='notice'>You'll need to get closer to see any more.</span>"
+		out += span_notice("You'll need to get closer to see any more.")
 		return
 	for(var/obj/item/I in loadedItems)
-		out += "<span class='info'>[icon2html(I, user)] It has \a [I] loaded.</span>"
+		out += span_info("[icon2html(I, user)] It has \a [I] loaded.")
 		CHECK_TICK
 	if(tank)
-		out += "<span class='notice'>[icon2html(tank, user)] It has \a [tank] mounted onto it.</span>"
+		out += span_notice("[icon2html(tank, user)] It has \a [tank] mounted onto it.")
 	. += out.Join("\n")
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
@@ -77,11 +84,11 @@
 		if(!tank)
 			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
-				to_chat(user, "<span class='warning'>\The [IT] is too small for \the [src].</span>")
+				to_chat(user, span_warning("\The [IT] is too small for \the [src]."))
 				return
 			updateTank(W, 0, user)
 	else if(W.type == type)
-		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
+		to_chat(user, span_warning("You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption."))
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		switch(pressureSetting)
 			if(1)
@@ -90,12 +97,12 @@
 				pressureSetting = 3
 			if(3)
 				pressureSetting = 1
-		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
+		to_chat(user, span_notice("You tweak \the [src]'s pressure output to [pressureSetting]."))
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(tank)
 			updateTank(tank, 1, user)
 	else if(loadedWeightClass >= maxWeightClass)
-		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
+		to_chat(user, span_warning("\The [src] can't hold any more items!"))
 	else if(isitem(W))
 		var/obj/item/IW = W
 		load_item(IW, user)
@@ -105,15 +112,15 @@
 		return TRUE
 	if(allowed_typecache && !is_type_in_typecache(I, allowed_typecache))
 		if(user)
-			to_chat(user, "<span class='warning'>[I] won't fit into [src]!</span>")
+			to_chat(user, span_warning("[I] won't fit into [src]!"))
 		return
 	if((loadedWeightClass + I.w_class) > maxWeightClass)	//Only make messages if there's a user
 		if(user)
-			to_chat(user, "<span class='warning'>\The [I] won't fit into \the [src]!</span>")
+			to_chat(user, span_warning("\The [I] won't fit into \the [src]!"))
 		return FALSE
 	if(I.w_class > w_class)
 		if(user)
-			to_chat(user, "<span class='warning'>\The [I] is too large to fit into \the [src]!</span>")
+			to_chat(user, span_warning("\The [I] is too large to fit into \the [src]!"))
 		return FALSE
 	return TRUE
 
@@ -123,7 +130,7 @@
 	if(user)		//Only use transfer proc if there's a user, otherwise just set loc.
 		if(!user.transferItemToLoc(I, src))
 			return FALSE
-		to_chat(user, "<span class='notice'>You load \the [I] into \the [src].</span>")
+		to_chat(user, span_notice("You load \the [I] into \the [src]."))
 	else
 		I.forceMove(src)
 	loadedItems += I
@@ -145,17 +152,17 @@
 	if(!can_trigger_gun(user))
 		return
 	if(!loadedItems || !loadedWeightClass)
-		to_chat(user, "<span class='warning'>\The [src] has nothing loaded.</span>")
+		to_chat(user, span_warning("\The [src] has nothing loaded."))
 		return
 	if(!tank && checktank)
-		to_chat(user, "<span class='warning'>\The [src] can't fire without a source of gas.</span>")
+		to_chat(user, span_warning("\The [src] can't fire without a source of gas."))
 		return
-	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
-		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
+	if(tank && !tank.remove_air(gasPerThrow * pressureSetting))
+		to_chat(user, span_warning("\The [src] lets out a weak hiss and doesn't react!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75) && clumsyCheck && iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.visible_message("<span class='warning'>[C] loses [C.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
+		C.visible_message(span_warning("[C] loses [C.p_their()] grip on [src], causing it to go off!"), span_userdanger("[src] slips out of your hands and goes off!"))
 		C.dropItemToGround(src, TRUE)
 		if(prob(10))
 			target = get_turf(user)
@@ -163,8 +170,8 @@
 			target = pick(RANGE_TURFS(3,src))
 		discharge = 1
 	if(!discharge)
-		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-				    		 "<span class='danger'>You fire \the [src]!</span>")
+		user.visible_message(span_danger("[user] fires \the [src]!"), \
+							span_danger("You fire \the [src]!"))
 	log_combat(user, target, "fired at", src)
 	var/turf/T = get_target(target, get_turf(src))
 	playsound(src, fire_sound, 50, 1)
@@ -172,7 +179,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(pressureSetting >= 3 && iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.visible_message("<span class='warning'>[C] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
+		C.visible_message(span_warning("[C] is thrown down by the force of the cannon!"), span_userdanger("[src] slams into your shoulder, knocking you down!"))
 		C.Paralyze(60)
 
 /obj/item/pneumatic_cannon/proc/fire_items(turf/target, mob/user)
@@ -233,17 +240,17 @@
 	if(removing)
 		if(!tank)
 			return
-		to_chat(user, "<span class='notice'>You detach \the [thetank] from \the [src].</span>")
+		to_chat(user, span_notice("You detach \the [thetank] from \the [src]."))
 		tank.forceMove(user.drop_location())
 		user.put_in_hands(tank)
 		tank = null
 	if(!removing)
 		if(tank)
-			to_chat(user, "<span class='warning'>\The [src] already has a tank.</span>")
+			to_chat(user, span_warning("\The [src] already has a tank."))
 			return
 		if(!user.transferItemToLoc(thetank, src))
 			return
-		to_chat(user, "<span class='notice'>You hook \the [thetank] up to \the [src].</span>")
+		to_chat(user, span_notice("You hook \the [thetank] up to \the [src]."))
 		tank = thetank
 	update_icon()
 
@@ -336,10 +343,14 @@
 	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.max_combined_w_class = STR.max_w_class*STR.max_items
 	STR.display_numerical_stacking = TRUE
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/throwing_star/magspear
 		))
 
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)
 		new /obj/item/throwing_star/magspear(src)
+
+#undef PCANNON_FIREALL
+#undef PCANNON_FILO
+#undef PCANNON_FIFO

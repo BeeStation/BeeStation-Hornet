@@ -78,7 +78,7 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/mecha
+		/obj/vehicle/sealed/mecha
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
@@ -196,7 +196,7 @@
 		/datum/heretic_knowledge/curse/corrosion,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
+	spell_to_add = /datum/action/spell/aoe/rust_conversion
 	cost = 1
 	route = HERETIC_PATH_RUST
 
@@ -238,7 +238,7 @@
 		/datum/heretic_knowledge/final/rust_final,
 		/datum/heretic_knowledge/summon/rusty,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
+	spell_to_add = /datum/action/spell/cone/staggered/entropic_plume
 	cost = 1
 	route = HERETIC_PATH_RUST
 
@@ -251,6 +251,8 @@
 		and becoming immune to many effects and dangers."
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
+	announcement_text = "Fear the decay, for the Rustbringer, %USER% has ascended! None shall escape the corrosion!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_rust.ogg'
 	route = HERETIC_PATH_RUST
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
@@ -289,7 +291,6 @@
 
 /datum/heretic_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	new /datum/rust_spread(loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
@@ -402,7 +403,7 @@
 		max_dist = max(max_dist, get_dist(found_turf, centre) + 1)
 
 	for(var/turf/nearby_turf as anything in spiral_range_turfs(max_dist, centre, FALSE))
-		if(nearby_turf in rusted_turfs || is_type_in_typecache(nearby_turf, blacklisted_turfs))
+		if((nearby_turf in rusted_turfs) || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
 
 		for(var/turf/line_turf as anything in getline(nearby_turf, centre))

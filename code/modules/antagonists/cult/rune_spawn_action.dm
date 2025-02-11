@@ -14,7 +14,7 @@
 	var/obj/effect/temp_visual/cult/rune_spawn/rune_center_type
 	var/rune_color
 
-/datum/action/innate/cult/create_rune/IsAvailable()
+/datum/action/innate/cult/create_rune/is_available()
 	if(!rune_type || cooldown > world.time)
 		return FALSE
 	return ..()
@@ -23,18 +23,18 @@
 	if(!T)
 		return FALSE
 	if(isspaceturf(T))
-		to_chat(owner, "<span class='warning'>You cannot scribe runes in space!</span>")
+		to_chat(owner, span_warning("You cannot scribe runes in space!"))
 		return FALSE
 	if(locate(/obj/effect/rune) in T)
-		to_chat(owner, "<span class='cult'>There is already a rune here.</span>")
+		to_chat(owner, span_cult("There is already a rune here."))
 		return FALSE
 	if(!is_station_level(T.z) && !is_mining_level(T.z))
-		to_chat(owner, "<span class='warning'>The veil is not weak enough here.</span>")
+		to_chat(owner, span_warning("The veil is not weak enough here."))
 		return FALSE
 	return TRUE
 
 
-/datum/action/innate/cult/create_rune/Activate()
+/datum/action/innate/cult/create_rune/on_activate()
 	var/turf/T = get_turf(owner)
 	if(turf_check(T))
 		var/chosen_keyword
@@ -101,7 +101,7 @@
 	rune_center_type = /obj/effect/temp_visual/cult/rune_spawn/rune4/center
 	rune_color = RUNE_COLOR_DARKRED
 
-/datum/action/innate/cult/create_rune/wall/Activate()
+/datum/action/innate/cult/create_rune/wall/on_activate()
 	. = ..()
 	var/obj/effect/rune/wall/W = locate(/obj/effect/rune/wall) in owner.loc
 	if(W)

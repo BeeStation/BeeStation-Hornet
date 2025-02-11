@@ -10,12 +10,11 @@
 
 /obj/item/gun/energy/beam_rifle
 	name = "particle acceleration rifle"
-	desc = "An energy-based anti material marksman rifle that uses highly charged particle beams moving at extreme velocities to decimate whatever is unfortunate enough to be targeted by one. \
-		<span class='boldnotice'>Hold down left click while scoped to aim, when weapon is fully aimed (Tracer goes from red to green as it charges), release to fire. Moving while aiming or \
-		changing where you're pointing at while aiming will delay the aiming process depending on how much you changed.</span>"
+	desc = "An energy-based anti material marksman rifle that uses highly charged particle beams moving at extreme velocities to decimate whatever is unfortunate enough to be targeted by one." + span_boldnotice("Hold down left click while scoped to aim, when weapon is fully aimed (Tracer goes from red to green as it charges), release to fire. Moving while aiming or changing where you're pointing at while aiming will delay the aiming process depending on how much you changed.")
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "esniper"
-	item_state = "esniper"
+	item_state = null
+	worn_icon_state = null
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
 	force = 15
@@ -104,13 +103,13 @@
 			zoom_lock = 0
 		switch(zoom_lock)
 			if(ZOOM_LOCK_AUTOZOOM_FREEMOVE)
-				to_chat(user, "<span class='boldnotice'>You switch [src]'s zooming processor to free directional.</span>")
+				to_chat(user, span_boldnotice("You switch [src]'s zooming processor to free directional."))
 			if(ZOOM_LOCK_AUTOZOOM_ANGLELOCK)
-				to_chat(user, "<span class='boldnotice'>You switch [src]'s zooming processor to locked directional.</span>")
+				to_chat(user, span_boldnotice("You switch [src]'s zooming processor to locked directional."))
 			if(ZOOM_LOCK_CENTER_VIEW)
-				to_chat(user, "<span class='boldnotice'>You switch [src]'s zooming processor to center mode.</span>")
+				to_chat(user, span_boldnotice("You switch [src]'s zooming processor to center mode."))
 			if(ZOOM_LOCK_OFF)
-				to_chat(user, "<span class='boldnotice'>You disable [src]'s zooming system.</span>")
+				to_chat(user, span_boldnotice("You disable [src]'s zooming system."))
 		reset_zooming()
 	else
 		..()
@@ -151,7 +150,7 @@
 
 /obj/item/gun/energy/beam_rifle/attack_self(mob/user)
 	projectile_setting_pierce = !projectile_setting_pierce
-	to_chat(user, "<span class='boldnotice'>You set \the [src] to [projectile_setting_pierce? "pierce":"impact"] mode.</span>")
+	to_chat(user, span_boldnotice("You set \the [src] to [projectile_setting_pierce? "pierce":"impact"] mode."))
 	aiming_beam()
 
 /obj/item/gun/energy/beam_rifle/proc/update_slowdown()
@@ -191,12 +190,12 @@
 		P.color = rgb(255 * percent,255 * ((100 - percent) / 100),0)
 	else
 		P.color = rgb(0, 255, 0)
-	var/turf/curloc = get_turf(src)
+	var/turf/current_location = get_turf(src)
 	var/turf/targloc = get_turf(aiming_target)
 	if(!istype(targloc))
-		if(!istype(curloc))
+		if(!istype(current_location))
 			return
-		targloc = get_turf_in_angle(lastangle, curloc, 10)
+		targloc = get_turf_in_angle(lastangle, current_location, 10)
 	P.preparePixelProjectile(targloc, current_user, aiming_params, 0)
 	P.fire(lastangle)
 
@@ -381,12 +380,12 @@
 	HS_BB.gun = host
 
 /obj/item/ammo_casing/energy/beam_rifle/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
-	var/turf/curloc = get_turf(user)
-	if(!istype(curloc) || !BB)
+	var/turf/current_location = get_turf(user)
+	if(!istype(current_location) || !BB)
 		return FALSE
 	var/obj/item/gun/energy/beam_rifle/gun = loc
 	if(!targloc && gun)
-		targloc = get_turf_in_angle(gun.lastangle, curloc, 10)
+		targloc = get_turf_in_angle(gun.lastangle, current_location, 10)
 	else if(!targloc)
 		return FALSE
 	var/firing_dir
@@ -438,7 +437,7 @@
 	new /obj/effect/temp_visual/explosion/fast(epicenter)
 	for(var/mob/living/L in hearers(aoe_mob_range, epicenter))		//handle aoe mob damage
 		L.adjustFireLoss(aoe_mob_damage)
-		to_chat(L, "<span class='userdanger'>\The [src] sears you!</span>")
+		to_chat(L, span_userdanger("\The [src] sears you!"))
 	for(var/turf/T in RANGE_TURFS(aoe_fire_range, epicenter))		//handle aoe fire
 		if(prob(aoe_fire_chance))
 			new /obj/effect/hotspot(T)
@@ -534,3 +533,10 @@
 /obj/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
 	qdel(src)
 	return BULLET_ACT_BLOCK
+
+#undef ZOOM_LOCK_AUTOZOOM_FREEMOVE
+#undef ZOOM_LOCK_AUTOZOOM_ANGLELOCK
+#undef ZOOM_LOCK_CENTER_VIEW
+#undef ZOOM_LOCK_OFF
+#undef AUTOZOOM_PIXEL_STEP_FACTOR
+#undef AIMING_BEAM_ANGLE_CHANGE_THRESHOLD

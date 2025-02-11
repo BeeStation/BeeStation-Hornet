@@ -2,7 +2,7 @@
 	name = BODY_ZONE_HEAD
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
 	icon = 'icons/mob/human_parts_greyscale.dmi'
-	icon_state = "default_human_head"
+	//icon_state = "default_human_head"
 	max_damage = 200
 	body_zone = BODY_ZONE_HEAD
 	body_part = HEAD
@@ -21,6 +21,9 @@
 	var/obj/item/organ/eyes/eyes
 	var/obj/item/organ/ears/ears
 	var/obj/item/organ/tongue/tongue
+
+	/// Do we show the information about missing organs upon being examined? Defaults to TRUE, useful for Dullahan heads.
+	var/show_organs_on_examine = TRUE
 
 	//Limb appearance info:
 	var/real_name = "" //Replacement name
@@ -66,35 +69,35 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(IS_ORGANIC_LIMB(src))
+	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
 		if(!brain)
-			. += "<span class='info'>The brain has been removed from [src].</span>"
+			. += span_info("The brain has been removed from [src].")
 		else if(brain.suicided || brainmob?.suiciding)
-			. += "<span class='info'>There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.</span>"
+			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
 		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
-			. += "<span class='info'>It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.</span>"
+			. += span_info("It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.")
 		else if(brainmob)
-			if(brainmob.get_ghost(FALSE, TRUE))
-				. += "<span class='info'>Its muscles are still twitching slightly... It still seems to have a bit of life left to it.</span>"
+			if(!brainmob.soul_departed())
+				. += span_info("Its muscles are still twitching slightly... It still seems to have a bit of life left to it.")
 			else
-				. += "<span class='info'>It seems seems particularly lifeless. Perhaps there'll be a chance for them later.</span>"
+				. += span_info("It seems seems particularly lifeless. Perhaps there'll be a chance for them later.")
 		else if(brain?.decoy_override)
-			. += "<span class='info'>It seems particularly lifeless. Perhaps there'll be a chance for them later.</span>"
+			. += span_info("It seems particularly lifeless. Perhaps there'll be a chance for them later.")
 		else
-			. += "<span class='info'>It seems completely devoid of life.</span>"
+			. += span_info("It seems completely devoid of life.")
 
 		if(!eyes)
-			. += "<span class='info'>[real_name]'s eyes appear to have been removed.</span>"
+			. += span_info("[real_name]'s eyes appear to have been removed.")
 
 		if(!ears)
-			. += "<span class='info'>[real_name]'s ears appear to have been removed.</span>"
+			. += span_info("[real_name]'s ears appear to have been removed.")
 
 		if(!tongue)
-			. += "<span class='info'>[real_name]'s tongue appears to have been removed.</span>"
+			. += span_info("[real_name]'s tongue appears to have been removed.")
 
 
 /obj/item/bodypart/head/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 
@@ -105,14 +108,14 @@
 	for(var/obj/item/I in src)
 		if(I == brain)
 			if(user)
-				user.visible_message("<span class='warning'>[user] saws [src] open and pulls out a brain!</span>", "<span class='notice'>You saw [src] open and pull out a brain.</span>")
+				user.visible_message(span_warning("[user] saws [src] open and pulls out a brain!"), span_notice("You saw [src] open and pull out a brain."))
 			if(brainmob)
 				brainmob.container = null
 				brainmob.forceMove(brain)
 				brain.brainmob = brainmob
 				brainmob = null
 			if(violent_removal && prob(rand(80, 100))) //ghetto surgery can damage the brain.
-				to_chat(user, "<span class='warning'>[brain] was damaged in the process!</span>")
+				to_chat(user, span_warning("[brain] was damaged in the process!"))
 				brain.setOrganDamage(brain.maxHealth)
 			brain.forceMove(T)
 			brain = null
@@ -188,7 +191,7 @@
 	..()
 
 /obj/item/bodypart/head/update_icon_dropped()
-	var/list/standing = get_limb_icon(1)
+	var/list/standing = get_limb_icon(TRUE)
 	if(!standing.len)
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
@@ -247,6 +250,18 @@
 
 				if(eyes.eye_color)
 					eyes_overlay.color = "#" + eyes.eye_color
+
+
+/obj/item/bodypart/head/talk_into(mob/holder, message, channel, spans, datum/language/language, list/message_mods)
+	var/mob/headholder = holder
+	if(istype(headholder))
+		headholder.log_talk(message, LOG_SAY, tag = "beheaded talk")
+
+	say(message, language, sanitize = FALSE)
+	return NOPASS
+
+/obj/item/bodypart/head/GetVoice()
+	return "The head of [real_name]"
 
 /obj/item/bodypart/head/monkey
 	icon = 'icons/mob/animal_parts.dmi'

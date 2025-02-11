@@ -6,14 +6,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "j" = (
 /obj/machinery/cryopod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "t" = (
 /obj/machinery/cryopod{
@@ -22,7 +22,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -30,10 +30,10 @@
 /area/ruin/unpowered)
 "x" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "C" = (
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "E" = (
 /obj/machinery/cryopod{
@@ -42,7 +42,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "L" = (
 /turf/closed/wall,
@@ -51,20 +51,20 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "R" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "T" = (
 /obj/machinery/cryopod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

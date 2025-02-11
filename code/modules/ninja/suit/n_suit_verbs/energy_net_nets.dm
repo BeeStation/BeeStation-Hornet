@@ -34,9 +34,9 @@ It is possible to destroy the net by the occupant or someone else.
 /obj/structure/energy_net/Destroy()
 	if(!success)
 		if(!QDELETED(affecting))
-			affecting.visible_message("[affecting.name] was recovered from the energy net!", "You were recovered from the energy net!", "<span class='italics'>You hear a grunt.</span>")
+			affecting.visible_message("[affecting.name] was recovered from the energy net!", "You were recovered from the energy net!", span_italics("You hear a grunt."))
 		if(!QDELETED(master))//As long as they still exist.
-			to_chat(master, "<span class='userdanger'>ERROR</span>: unable to initiate transport protocol. Procedure terminated.")
+			to_chat(master, "[span_userdanger("ERROR")]: unable to initiate transport protocol. Procedure terminated.")
 	return ..()
 
 /obj/structure/energy_net/process(delta_time)
@@ -73,11 +73,11 @@ It is possible to destroy the net by the occupant or someone else.
 
 	visible_message("[affecting] suddenly vanishes!")
 	affecting.forceMove(pick(GLOB.holdingfacility)) //Throw mob in to the holding facility.
-	to_chat(affecting, "<span class='danger'>You appear in a strange place!</span>")
-	to_chat(affecting, "<span class='hypnotext'>You have been captured by a ninja! The portal that brought you here will collapse in 5 minutes and return you to the station.</span>")
+	to_chat(affecting, span_danger("You appear in a strange place!"))
+	to_chat(affecting, span_hypnotext("You have been captured by a ninja! The portal that brought you here will collapse in 5 minutes and return you to the station."))
 
 	if(!QDELETED(master))//As long as they still exist.
-		to_chat(master, "<span class='notice'><b>SUCCESS</b>: transport procedure of [affecting] complete.</span>")
+		to_chat(master, span_notice("<b>SUCCESS</b>: transport procedure of [affecting] complete."))
 		// Give them a point towards their objective
 		for (var/datum/antagonist/antag in master.mind?.antag_datums)
 			for (var/datum/objective/capture/capture in antag.objectives)
@@ -114,7 +114,7 @@ It is possible to destroy the net by the occupant or someone else.
 	// Teleport
 	var/turf/picked_station_level = get_random_station_turf()	//Don't want to limit this specifically to z 2 in case we get multi-z in rotation
 	var/turf/safe_location = find_safe_turf(picked_station_level.z, extended_safety_checks = TRUE, dense_atoms = FALSE)
-	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)
+	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, bypass_area_restriction = TRUE)
 	target.Unconscious(3 SECONDS)
 
 /obj/structure/energy_net/attack_paw(mob/user)

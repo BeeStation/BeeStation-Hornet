@@ -21,7 +21,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer,
 		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied,
-		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer
+		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
 	DYE_REGISTRY_JUMPSKIRT = list(
 		DYE_RED = /obj/item/clothing/under/color/jumpskirt/red,
@@ -44,7 +46,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt,
 		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied/skirt,
-		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt
+		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt,
+		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
 	DYE_REGISTRY_SUITS = list(
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck,
@@ -72,7 +77,19 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/gloves/color/grey,
 		DYE_CMO = /obj/item/clothing/gloves/color/latex/nitrile,
 		DYE_DENIED = /obj/item/clothing/gloves/color/denied,
-		DYE_SECURITY = /obj/item/clothing/gloves/color/black
+		DYE_SECURITY = /obj/item/clothing/gloves/color/black,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
+	),
+	DYE_REGISTRY_BANDANA = list(
+		DYE_RED = /obj/item/clothing/mask/bandana/red,
+		DYE_ORANGE = /obj/item/clothing/mask/bandana/orange,
+		DYE_YELLOW = /obj/item/clothing/mask/bandana/gold,
+		DYE_GREEN = /obj/item/clothing/mask/bandana/green,
+		DYE_BLUE = /obj/item/clothing/mask/bandana/blue,
+		DYE_PURPLE = /obj/item/clothing/mask/bandana/purple,
+		DYE_BLACK = /obj/item/clothing/mask/bandana/black,
+		DYE_WHITE = /obj/item/clothing/mask/bandana/white
 	),
 	DYE_REGISTRY_SNEAKERS = list(
 		DYE_RED = /obj/item/clothing/shoes/sneakers/red,
@@ -106,13 +123,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_WHITE = /obj/item/clothing/head/soft,
 		DYE_RAINBOW = /obj/item/clothing/head/soft/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret,
-		DYE_CLOWN = /obj/item/clothing/head/kitty,
+		DYE_CLOWN = /obj/item/clothing/head/costume/kitty,
 		DYE_QM = /obj/item/clothing/head/soft/cargo,
-		DYE_LAW = /obj/item/clothing/head/bowler,
-		DYE_CAPTAIN = /obj/item/clothing/head/caphat,
-		DYE_HOP = /obj/item/clothing/head/hopcap,
-		DYE_HOS = /obj/item/clothing/head/HoS,
-		DYE_CE = /obj/item/clothing/head/hardhat/white,
+		DYE_LAW = /obj/item/clothing/head/hats/bowler,
+		DYE_CAPTAIN = /obj/item/clothing/head/hats/caphat,
+		DYE_HOP = /obj/item/clothing/head/hats/hopcap,
+		DYE_HOS = /obj/item/clothing/head/hats/hos,
+		DYE_CE = /obj/item/clothing/head/utility/hardhat/white,
 		DYE_RD = /obj/item/clothing/head/soft/purple,
 		DYE_CMO = /obj/item/clothing/head/soft,
 		DYE_DENIED = /obj/item/clothing/head/soft/denied,
@@ -126,7 +143,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_QM = /obj/item/clothing/head/beret/supply,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
 		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
-		DYE_HOS = /obj/item/clothing/head/HoS/beret,
+		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
 		DYE_RD = /obj/item/clothing/head/beret/sci,
 		DYE_CMO = /obj/item/clothing/head/beret/cmo,
@@ -190,7 +207,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/max_wash_capacity = 5
 	var/datum/looping_sound/washing_machine/soundloop
 
-/obj/machinery/washing_machine/Initialize()
+/obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	soundloop = new(src,  FALSE)
 
@@ -201,9 +218,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(!busy)
-		. += "<span class='notice'><b>Alt-click</b> it to start a wash cycle.</span>"
+		. += span_notice("<b>Alt-click</b> it to start a wash cycle.")
 	if(bloody_mess)
-		. += "<span class='notice'>[src] is dirty!</span>"
+		. += span_notice("[src] is dirty!")
 
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || busy)
@@ -313,9 +330,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
-	else
-		appearance_change(src)
-		src.desc = initial(src)
+		return
+	appearance_change(src)
+	desc = initial(desc)
 
 /obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
 	. = ..()
@@ -358,7 +375,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/restraints/handcuffs(loc)
 	..()
 
-/obj/machinery/washing_machine/relaymove(mob/user)
+/obj/machinery/washing_machine/relaymove(mob/living/user, direction)
 	container_resist(user)
 
 /obj/machinery/washing_machine/container_resist(mob/living/user)
@@ -391,7 +408,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else if(user.a_intent != INTENT_HARM)
 
 		if (!state_open)
-			to_chat(user, "<span class='warning'>Open the door first!</span>")
+			to_chat(user, span_warning("Open the door first!"))
 			return TRUE
 		else if(bloody_mess)
 			if(istype(W, /obj/item/reagent_containers/spray))
@@ -399,35 +416,35 @@ GLOBAL_LIST_INIT(dye_registry, list(
 				if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
 					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
 					playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0
 					update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
+					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/glass/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W
 					cleanspeed = used_soap.cleanspeed
-				user.visible_message("[user] starts to clean \the [src].", "<span class='notice'>You start to clean \the [src]...</span>")
+				user.visible_message("[user] starts to clean \the [src].", span_notice("You start to clean \the [src]..."))
 				if(do_after(user, cleanspeed, target = src))
-					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0
 					update_icon()
 				return TRUE
 
 		if(bloody_mess)
-			to_chat(user, "<span class='warning'>[src] must be cleaned up first.</span>")
+			to_chat(user, span_warning("[src] must be cleaned up first."))
 			return TRUE
 
 		if(contents.len >= max_wash_capacity)
-			to_chat(user, "<span class='warning'>The washing machine is full!</span>")
+			to_chat(user, span_warning("The washing machine is full!"))
 			return TRUE
 
 		if(!user.transferItemToLoc(W, src))
-			to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
+			to_chat(user, span_warning("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
 			return TRUE
 
 		if(W.dye_color)
@@ -442,7 +459,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(.)
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy.</span>")
+		to_chat(user, span_warning("[src] is busy."))
 		return
 
 	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))

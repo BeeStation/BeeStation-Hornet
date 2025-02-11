@@ -20,19 +20,19 @@
 
 /obj/item/discovery_scanner/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Left-Click on any mob or researchable specimin to scan and gain discovery research points.</span>"
-	. += "<span class='notice'>[src] has unlimited range.</span>"
-	. += "<span class='notice'>Science goggles can help detect researchable items.</span>"
+	. += span_notice("Left-Click on any mob or researchable specimin to scan and gain discovery research points.")
+	. += span_notice("[src] has unlimited range.")
+	. += span_notice("Science goggles can help detect researchable items.")
 
-/obj/item/discovery_scanner/attack_obj(obj/O, mob/living/user)
+/obj/item/discovery_scanner/attack_atom(obj/O, mob/living/user)
 	if(istype(O, /obj/machinery/computer/rdconsole))
-		to_chat(user, "<span class='notice'>You link [src] to [O].</span>")
+		to_chat(user, span_notice("You link [src] to [O]."))
 		var/obj/machinery/computer/rdconsole/rdconsole = O
 		linked_techweb = rdconsole.stored_research
 		return
 	. = ..()
 
 /obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
-	to_chat(user, "<span class='notice'>You begin scanning [discoverable.parent]...</span>")
-	if(do_after(user, 50, target=get_turf(user)))
+	to_chat(user, span_notice("You begin scanning [discoverable.parent]..."))
+	if(do_after(user, 50, target=get_turf(user), interaction_key = REF(discoverable.parent)))
 		discoverable.discovery_scan(linked_techweb, user)

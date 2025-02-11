@@ -2,7 +2,8 @@
 	name = "Bolt Rifle"
 	desc = "Some kind of bolt action rifle. You get the feeling you shouldn't have this."
 	icon_state = "moistnugget"
-	icon_state = "moistnugget"
+	item_state = "moistnugget"
+	worn_icon_state = "moistnugget"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
 	bolt_type = BOLT_TYPE_TWO_STEP
@@ -64,6 +65,7 @@
 	desc = "Careful not to lose your head."
 	can_sawoff = FALSE
 	equip_time = 0 SECONDS
+	has_weapon_slowdown = FALSE
 	recoil = 0
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
@@ -82,10 +84,6 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
-
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/Initialize(mapload)
-	. = ..()
-	chamber_round()
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/dropped()
 	guns_left = 0
@@ -178,16 +176,16 @@
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
-			to_chat(user, "<span class='warning'>There is already a sling on [src]!</span>")
+			to_chat(user, span_warning("There is already a sling on [src]!"))
 			return
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the [src], making a sling.</span>")
+			to_chat(user, span_notice("You tie the lengths of cable to the [src], making a sling."))
 			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling!"))
 
 /obj/item/gun/ballistic/rifle/pipe/sawoff(mob/user)
 	. = ..()

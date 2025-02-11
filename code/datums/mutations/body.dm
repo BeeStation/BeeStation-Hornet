@@ -10,7 +10,7 @@
 
 /datum/mutation/epilepsy/on_life()
 	if(prob(1 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
-		owner.visible_message("<span class='danger'>[owner] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
+		owner.visible_message(span_danger("[owner] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
 		owner.Jitter(1000 * GET_MUTATION_POWER(src))
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
@@ -89,7 +89,7 @@
 	owner.resize = 0.8
 	owner.update_transform()
 	passtable_on(owner, GENETIC_MUTATION)
-	owner.visible_message("<span class='danger'>[owner] suddenly shrinks!</span>", "<span class='notice'>Everything around you seems to grow..</span>")
+	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
 	if(..())
@@ -97,7 +97,7 @@
 	owner.resize = 1.25
 	owner.update_transform()
 	passtable_off(owner, GENETIC_MUTATION)
-	owner.visible_message("<span class='danger'>[owner] suddenly grows!</span>", "<span class='notice'>Everything around you seems to shrink..</span>")
+	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 
 
 //Clumsiness has a very large amount of small drawbacks depending on item.
@@ -168,33 +168,48 @@
 	instability = 5
 	power_coeff = 1
 	conflicts = list(ANTIGLOWY)
-	var/obj/effect/dummy/luminescent_glow/glowth //shamelessly copied from luminescents
-	var/glow = 2.5
-	var/range = 2.5
+	var/glow_power = 2.5
+	var/glow_range = 2.5
+	var/glow_color
+	var/obj/effect/dummy/lighting_obj/moblight/glow
 
 /datum/mutation/glow/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	glowth = new(owner)
+	glow_color = get_glow_color()
+	glow = owner.mob_light()
 	modify()
 
 /datum/mutation/glow/modify()
-	if(QDELETED(glowth))
+	if(!glow)
 		return
-	var/power = GET_MUTATION_POWER(src)
-	glowth.set_light_range_power_color(range * power, glow * power, "#[dna.features["mcolor"]]")
+
+	glow.set_light_range_power_color(glow_range * GET_MUTATION_POWER(src), glow_power, glow_color)
+
+/// Returns the color for the glow effect
+/datum/mutation/glow/proc/glow_color()
+	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
 
 /datum/mutation/glow/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	QDEL_NULL(glowth)
+	QDEL_NULL(glow)
+
+/// Returns a color for the glow effect
+/datum/mutation/glow/proc/get_glow_color()
+	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
 
 /datum/mutation/glow/anti
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
-	glow = -3.5 //Slightly stronger, since negating light tends to be harder than making it.
+	glow_power = -1.5
 	conflicts = list(GLOWY)
 	locked = TRUE
+
+/datum/mutation/glow/anti/get_glow_color()
+	return COLOR_BLACK
 
 /datum/mutation/strong
 	name = "Strength"
@@ -251,17 +266,17 @@
 /datum/mutation/badblink/on_life()
 	if(prob(warpchance))
 		var/warpmessage = pick(
-			"<span class='warning'>With a sickening 720 degree twist of their back, [owner] vanishes into thin air.</span>",
-			"<span class='warning'>[owner] does some sort of strange backflip into another dimension. It looks pretty painful.</span>",
-			"<span class='warning'>[owner] does a jump to the left, a step to the right, and warps out of reality.</span>",
-			"<span class='warning'>[owner]'s torso starts folding inside out until it vanishes from reality, taking [owner] with it.</span>",
-			"<span class='warning'>One moment, you see [owner]. The next, [owner] is gone.</span>")
-		owner.visible_message(warpmessage, "<span class='userdanger'>You feel a wave of nausea as you fall through reality!</span>")
+			span_warning("With a sickening 720 degree twist of their back, [owner] vanishes into thin air."),
+			span_warning("[owner] does some sort of strange backflip into another dimension. It looks pretty painful."),
+			span_warning("[owner] does a jump to the left, a step to the right, and warps out of reality."),
+			span_warning("[owner]'s torso starts folding inside out until it vanishes from reality, taking [owner] with it."),
+			span_warning("One moment, you see [owner]. The next, [owner] is gone."))
+		owner.visible_message(warpmessage, span_userdanger("You feel a wave of nausea as you fall through reality!"))
 		var/warpdistance = rand(10, 15) * GET_MUTATION_POWER(src)
 		do_teleport(owner, get_turf(owner), warpdistance, channel = TELEPORT_CHANNEL_BLINK)
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (warpchance * warpdistance))
 		warpchance = 0
-		owner.visible_message("<span class='danger'>[owner] appears out of nowhere!</span>")
+		owner.visible_message(span_danger("[owner] appears out of nowhere!"))
 	else
 		warpchance += 0.25 * GET_MUTATION_ENERGY(src)
 
@@ -275,11 +290,11 @@
 /datum/mutation/acidflesh/on_life()
 	if(prob(25))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
-			to_chat(owner, "<span class='danger'>Your acid flesh bubbles...</span>")
+			to_chat(owner, span_danger("Your acid flesh bubbles..."))
 			COOLDOWN_START(src, message_cooldown, 20 SECONDS)
 		if(prob(15))
 			owner.acid_act(rand(30, 50), 10)
-			owner.visible_message("<span class='warning'>[owner]'s skin bubbles and pops.</span>", "<span class='userdanger'>Your bubbling flesh pops! It burns!</span>")
+			owner.visible_message(span_warning("[owner]'s skin bubbles and pops."), span_userdanger("Your bubbling flesh pops! It burns!"))
 			playsound(owner, 'sound/weapons/sear.ogg', vol = 50, vary = TRUE)
 
 /datum/mutation/gigantism
@@ -294,14 +309,14 @@
 		return
 	owner.resize = 1.25
 	owner.update_transform()
-	owner.visible_message("<span class='danger'>[owner] suddenly grows!</span>", "<span class='notice'>Everything around you seems to shrink..</span>")
+	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 
 /datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.resize = 0.8
 	owner.update_transform()
-	owner.visible_message("<span class='danger'>[owner] suddenly shrinks!</span>", "<span class='notice'>Everything around you seems to grow..</span>")
+	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/spastic
 	name = "Spastic"
@@ -334,7 +349,7 @@
 	if(knockdown || stun)
 		owner.SetKnockdown(knockdown * 2)
 		owner.SetStun(stun * 2)
-		owner.visible_message("<span class='danger'>[owner] tries to stand up, but trips!</span>", "<span class='userdanger'>You trip over your own feet!</span>")
+		owner.visible_message(span_danger("[owner] tries to stand up, but trips!"), span_userdanger("You trip over your own feet!"))
 		COOLDOWN_START(src, stun_cooldown, 30 SECONDS)
 
 /datum/mutation/strongwings
@@ -352,7 +367,7 @@
 		return
 	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
 	if(!wings)
-		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!</span>")
+		to_chat(owner, span_warning("You don't have wings to strengthen!"))
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
 		var/obj/item/organ/wings/moth/moth_wings = wings
@@ -362,9 +377,9 @@
 		var/obj/item/organ/wings/bee/bee_wings = wings
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 	else
-		to_chat(owner, "<span class='warning'>Those wings are incompatible with the mutation!</span>")
+		to_chat(owner, span_warning("Those wings are incompatible with the mutation!"))
 		return
-	to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
+	to_chat(owner, span_notice("Your wings feel stronger."))
 
 /datum/mutation/strongwings/on_losing()
 	if(..())
@@ -376,11 +391,11 @@
 		var/obj/item/organ/wings/moth/moth_wings = wings
 		moth_wings.flight_level -= 1
 		moth_wings.Refresh(owner)
-		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
+		to_chat(owner, span_warning("Your wings feel weak."))
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings
 		bee_wings.jumpdist = initial(bee_wings.jumpdist)
-		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
+		to_chat(owner, span_warning("Your wings feel weak."))
 
 /datum/mutation/strongwings/modify()
 	..()
@@ -406,12 +421,12 @@
 	owner.dna.species.attack_verb = "slash"
 	owner.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
-	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
+	to_chat(owner, span_notice("Claws extend from your fingertips."))
 
 /datum/mutation/catclaws/on_losing()
 	if(..())
 		return
-	to_chat(owner, "<span class='warning'> Your claws retract into your hand.</span>")
+	to_chat(owner, span_warning(" Your claws retract into your hand."))
 	owner.dna.species.punchdamage -= added_damage
 	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)

@@ -17,6 +17,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
+	worn_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -31,7 +32,7 @@
 	var/font = PEN_FONT
 
 /obj/item/pen/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is scribbling numbers all over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
+	user.visible_message(span_suicide("[user] is scribbling numbers all over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku..."))
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -67,7 +68,7 @@
 			colour = "blue"
 		else
 			colour = "black"
-	to_chat(user, "<span class='notice'>\The [src] will now write in [colour].</span>")
+	to_chat(user, span_notice("\The [src] will now write in [colour]."))
 	desc = "It's a fancy four-color ink pen, set to [colour]."
 
 /obj/item/pen/fountain
@@ -84,12 +85,7 @@
 	font = CHARCOAL_FONT
 	custom_materials = null
 
-/datum/crafting_recipe/charcoal_stylus
-	name = "Charcoal Stylus"
-	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
-	time = 30
-	category = CAT_PRIMAL
+
 
 
 /obj/item/pen/fountain/captain
@@ -101,7 +97,8 @@
 	throw_speed = 4
 	colour = "crimson"
 	custom_materials = list(/datum/material/gold = 750)
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_SURFACE
 	resistance_flags = FIRE_PROOF
 	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
@@ -132,7 +129,7 @@
 	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
 	if(deg && (deg > 0 && deg <= 360))
 		degrees = deg
-		to_chat(user, "<span class='notice'>You rotate the top of the pen to [degrees] degrees.</span>")
+		to_chat(user, span_notice("You rotate the top of the pen to [degrees] degrees."))
 		SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
 
 /obj/item/pen/attack(mob/living/M, mob/user,stealth)
@@ -141,9 +138,9 @@
 
 	if(!force)
 		if(M.can_inject(user, 1))
-			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
+			to_chat(user, span_warning("You stab [M] with the pen."))
 			if(!stealth)
-				to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
+				to_chat(M, span_danger("You feel a tiny prick!"))
 			. = 1
 
 		log_combat(user, M, "stabbed", src)
@@ -201,12 +198,12 @@
 
 	if(reagents?.total_volume && M.reagents)
 		// Obvious message to other people, so that they can call out suspicious activity.
-		to_chat(user, "<span class='notice'>You prepare to engage the sleepy pen's internal mechanism!</span>")
+		to_chat(user, span_notice("You prepare to engage the sleepy pen's internal mechanism!"))
 		if (!do_after(user, 0.5 SECONDS, M) || !..())
-			to_chat(user, "<span class='warning'>You fail to engage the sleepy pen mechanism!</span>")
+			to_chat(user, span_warning("You fail to engage the sleepy pen mechanism!"))
 			return
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
-		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='notice'>You successfully inject [M] with the pen's contents!</span>", vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
+		user.visible_message(span_warning("[user] stabs [M] with [src]!"), span_notice("You successfully inject [M] with the pen's contents!"), vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
 		// Looks like a normal pen once it has been used
 		qdel(reagents)
 		reagents = null
@@ -224,7 +221,8 @@
  * (Alan) Edaggers
  */
 /obj/item/pen/edagger
-	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut") //these wont show up if the pen is off
+	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
+	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	var/on = FALSE
 
 /obj/item/pen/edagger/Initialize(mapload)
@@ -242,8 +240,9 @@
 		embedding = list(embed_chance = EMBED_CHANCE, armour_block = 30)
 		throwforce = initial(throwforce)
 		sharpness = initial(sharpness)
+		bleed_force = initial(bleed_force)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		to_chat(user, span_warning("[src] can now be concealed."))
 	else
 		on = TRUE
 		force = 18
@@ -253,9 +252,10 @@
 		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
-		sharpness = IS_SHARP
+		sharpness = SHARP_DISMEMBER
+		bleed_force = BLEED_CUT
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		to_chat(user, span_warning("[src] is now active."))
 	updateEmbedding()
 	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = on
@@ -315,7 +315,7 @@
 	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES) && !user.is_zone_selected(BODY_ZONE_HEAD))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		to_chat(user, span_warning("You don't want to harm [M]!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		M = user

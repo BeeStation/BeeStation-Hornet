@@ -4,6 +4,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "medspray"
 	item_state = "spraycan"
+	worn_icon_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	item_flags = NOBLUDGEON
@@ -30,14 +31,14 @@
 		amount_per_transfer_from_this = squirt_amount
 	else
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
-	to_chat(user, "<span class='notice'>You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
+	to_chat(user, span_notice("You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use."))
 
 /obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user)
 	if(!iscarbon(M))
 		return
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 
 	var/datum/task/target_zone_task = user.select_bodyzone(M, FALSE, BODYZONE_STYLE_MEDICAL)
@@ -61,24 +62,24 @@
 		return
 
 	if(M == user)
-		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src] on [user.p_them()]self.</span>")
+		M.visible_message(span_notice("[user] attempts to [apply_method] [src] on [user.p_them()]self."))
 		if(self_delay)
 			if(!do_after(user, self_delay, M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
-		to_chat(M, "<span class='notice'>You [apply_method] yourself with [src].</span>")
+		to_chat(M, span_notice("You [apply_method] yourself with [src]."))
 
 	else
 		log_combat(user, M, "attempted to apply", src, reagents.log_list())
-		M.visible_message("<span class='danger'>[user] attempts to [apply_method] [src] on [M].</span>", \
-							"<span class='userdanger'>[user] attempts to [apply_method] [src] on [M].</span>")
-		if(!do_after(user, target = M))
+		M.visible_message(span_danger("[user] attempts to [apply_method] [src] on [M]."), \
+							span_userdanger("[user] attempts to [apply_method] [src] on [M]."))
+		if(!do_after(user, 3 SECONDS, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return
-		M.visible_message("<span class='danger'>[user] [apply_method]s [M] down with [src].</span>", \
-							"<span class='userdanger'>[user] [apply_method]s [M] down with [src].</span>")
+		M.visible_message(span_danger("[user] [apply_method]s [M] down with [src]."), \
+							span_userdanger("[user] [apply_method]s [M] down with [src]."))
 
 	if(!reagents || !reagents.total_volume)
 		return
@@ -87,7 +88,7 @@
 		log_combat(user, M, "applied", src, reagents.log_list())
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-		reagents.reaction(M, apply_type, fraction, affecting = affecting)
+		reagents.expose(M, apply_type, fraction, affecting = affecting)
 		reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
 	return
 

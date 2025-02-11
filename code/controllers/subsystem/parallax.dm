@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(parallax)
 	name = "Parallax"
 	wait = 2
-	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
+	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/current_run_pointer = 1
@@ -30,11 +30,11 @@ SUBSYSTEM_DEF(parallax)
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
 
-/datum/controller/subsystem/parallax/Initialize(start_timeofday)
-	. = ..()
+/datum/controller/subsystem/parallax/Initialize()
 	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, PROC_REF(on_mob_login))
 	throttle_ghost_pop = CONFIG_GET(number/parallax_ghost_disable_pop)
 	throttle_all_pop = CONFIG_GET(number/parallax_disable_pop)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/parallax/fire(resumed = 0)
 	//Swap the 2 lists

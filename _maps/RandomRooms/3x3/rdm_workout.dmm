@@ -1,0 +1,111 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/stripes,
+/obj/item/cigbutt,
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
+	pixel_x = 13;
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/hacking_guide{
+	pixel_x = -32
+	},
+/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/structure/weightmachine,
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_y = -32;
+	pixel_x = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/effect/spawner/randomvend/snack,
+/obj/effect/turf_decal/stripes{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/eat{
+	pixel_x = 32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/item/trash/can,
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/obj/item/trash/candy,
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"R" = (
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/obj/item/trash/cheesie,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/punch_shit{
+	pixel_y = -32
+	},
+/obj/machinery/light/very_dim/directional/east,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/obj/item/trash/chips,
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+p
+N
+q
+"}
+(2,1,1) = {"
+W
+V
+a
+"}
+(3,1,1) = {"
+w
+L
+R
+"}

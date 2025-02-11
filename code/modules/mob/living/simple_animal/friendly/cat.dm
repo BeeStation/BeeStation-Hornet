@@ -25,9 +25,12 @@
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -37,11 +40,11 @@
 	held_state = "cat2"
 	chat_color = "#FFD586"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"
@@ -182,34 +185,36 @@
 
 /mob/living/simple_animal/pet/cat/update_resting()
 	. = ..()
-	if(stat != DEAD)
-		if (resting)
-			icon_state = "[icon_living]_rest"
-			collar_type = "[initial(collar_type)]_rest"
-		else
-			icon_state = "[icon_living]"
-			collar_type = "[initial(collar_type)]"
+	if(stat == DEAD)
+		return
+	if (resting)
+		icon_state = "[icon_living]_rest"
+		collar_type = "[initial(collar_type)]_rest"
+	else
+		icon_state = "[icon_living]"
+		collar_type = "[initial(collar_type)]"
+	regenerate_icons()
+
 
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
-		if(prob(3))
-			switch(rand(1, 3))
-				if (1)
-					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-					set_resting(TRUE)
-				if (2)
-					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-					set_resting(TRUE)
-					icon_state = "[icon_living]_sit"
-					collar_type = "[initial(collar_type)]_sit"
-				if (3)
-					if (resting)
-						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
-						set_resting(FALSE)
-					else
-						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+		if(prob(1))
+			manual_emote(pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			set_resting(TRUE)
+		else if (prob(1))
+			manual_emote(pick("sits down.", "crouches on its hind legs.", "looks alert."))
+			set_resting(TRUE)
+			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
+		else if (prob(1))
+			if (resting)
+				manual_emote(pick("gets up and meows.", "walks around.", "stops resting."))
+				set_resting(FALSE)
+			else
+				manual_emote(pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	..()
+
 	if(next_scan_time <= world.time)
 		make_babies()
 
@@ -263,7 +268,8 @@
 	gender = FEMALE
 	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/food/cakeslice/birthday = 3,  \
 	/obj/item/food/meat/slab = 2)
-	response_harm = "takes a bite out of"
+	response_harm_continuous = "takes a bite out of"
+	response_harm_simple = "take a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
 	deathsound = "bodyfall"
@@ -275,12 +281,12 @@
 	if(!B || !B.brainmob || !B.brainmob.mind)
 		return
 	B.brainmob.mind.transfer_to(src)
-	to_chat(src, "<span class='big bold'>You are a cak!</span><b> You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
+	to_chat(src, "[span_bigbold("You are a cak!")]<b> You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
 	so quickly that it generally doesn't matter. You're remarkably resilient to any damage besides this and it's hard for you to really die at all. You should go around and bring happiness and \
 	free cake to the station!</b>")
 	var/new_name = stripped_input(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change")
 	if(new_name)
-		to_chat(src, "<span class='notice'>Your name is now <b>\"new_name\"</b>!</span>")
+		to_chat(src, span_notice("Your name is now <b>\"new_name\"</b>!"))
 		name = new_name
 
 /mob/living/simple_animal/pet/cat/cak/Life()

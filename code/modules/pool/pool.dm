@@ -9,7 +9,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 */
 
 /obj/effect/overlay/poolwater
-	name = "Pool water"
+	name = "pool water"
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "water"
 	anchored = TRUE
@@ -17,7 +17,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /turf/open/indestructible/sound/pool
-	name = "Swimming pool"
+	name = "swimming pool"
 	desc = "A fun place where you go to swim! <b>Drag and drop yourself onto it to climb in...</b>"
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "pool"
@@ -76,7 +76,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
 			S.RemoveComponent()
-			visible_message("<span class='notice'>[dropping] climbs out of the pool.</span>")
+			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else
 		. = ..()
@@ -89,18 +89,34 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		return FALSE
 	. = ..()
 	if(user != dropping)
-		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+		dropping.visible_message(span_notice("[user] starts to lower [dropping] down into [src]."), \
+			span_notice("You start to lower [dropping] down into [src]."))
 	else
-		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
+		to_chat(user, span_notice("You start climbing down into [src]..."))
 	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
+/turf/open/indestructible/sound/pool/attackby(obj/item/W, mob/user, params)
+	if(..())
+		return
+	if(!istype(W, /obj/item/stack/rods))
+		return
+	if(locate(/obj/structure/pool_ladder) in src)
+		balloon_alert(user, "You try to make a pool ladder, but there is aleady one here!")
+		return
+	if(!W.tool_use_check(user,10))
+		return
+	if(!istype(get_step(src, NORTH), /turf/open/indestructible/sound/pool)) //Ladders only face up, and no stacking!
+		balloon_alert(user, "You start installing a pool ladder...")
+		if(do_after(user, 5 SECONDS, target=src))
+			W.use(10)
+			new /obj/structure/pool_ladder(src)
+			return TRUE
 
 /turf/open/indestructible/sound/pool/proc/splash(mob/user)
 	user.forceMove(src)
 	playsound(src, 'sound/effects/splosh.ogg', 100, 1) //Credit to hippiestation for this sound file!
-	user.visible_message("<span class='boldwarning'>SPLASH!</span>")
+	user.visible_message(span_boldwarning("SPLASH!"))
 	var/zap = 0
 	if(issilicon(user)) //Do not throw brick in a pool. Brick begs.
 		zap = 1 //Sorry borgs! Swimming will come at a cost.
@@ -121,7 +137,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		user.emp_act(zap)
 		user.emote("scream") //Chad coders use M.say("*scream")
 		do_sparks(zap, TRUE, user)
-		to_chat(user, "<span class='userdanger'>WARNING: WATER DAMAGE DETECTED!</span>")
+		to_chat(user, span_userdanger("WARNING: WATER DAMAGE DETECTED!"))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "robotpool", /datum/mood_event/robotpool)
 	else
 		if(!check_clothes(user))
@@ -148,7 +164,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		return TRUE
 
 /obj/effect/turf_decal/pool
-	name = "Pool siding"
+	name = "pool siding"
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "poolborder"
 
@@ -161,16 +177,51 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 //Pool machinery
 
 /obj/structure/pool_ladder
-	name = "Pool ladder"
-	desc = "Click this to get out of a pool quickly."
+	name = "pool ladder"
+	desc = "A faster and safer way to leave the pool."
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "ladder"
+	anchored = TRUE
 	pixel_y = 12
+
+/obj/structure/pool_ladder/examine(mob/user)
+	. = ..()
+	. += span_notice("There are <b>bolts</b> securing it to the side of the pool.")
+
+/obj/structure/pool_ladder/wrench_act(mob/living/user, obj/item/I)
+	balloon_alert(user, "You start disassembling [src].")
+	if(I.use_tool(src, user, 5 SECONDS))
+		deconstruct()
+
+/obj/structure/pool_ladder/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/rods/ten(get_turf(src))
+	..()
+
+/obj/structure/pool_ladder/attack_hand(mob/user)
+	var/datum/component/swimming/S = user.GetComponent(/datum/component/swimming)
+	if(S)
+		to_chat(user, span_notice("You start to climb out of the pool..."))
+		if(do_after(user, 1 SECONDS, target=src))
+			S.RemoveComponent()
+			visible_message(span_notice("[user] climbs out of the pool."))
+			user.forceMove(get_turf(get_step(src, NORTH))) //Ladders shouldn't adjoin another pool section. Ever.
+	else
+		to_chat(user, span_notice("You start to climb into the pool..."))
+		var/turf/T = get_turf(src)
+		if(do_after(user, 1 SECONDS, target=src))
+			if(!istype(T, /turf/open/indestructible/sound/pool)) //Ugh, fine. Whatever.
+				user.forceMove(get_turf(src))
+			else
+				var/turf/open/indestructible/sound/pool/P = T
+				P.splash(user)
+
+/obj/structure/pool_ladder/attack_robot(mob/user)
+	attack_hand(user)
 
 GLOBAL_LIST_EMPTY(pool_filters)
 
 /obj/machinery/pool_filter
-	name = "Pool filter"
+	name = "pool filter"
 	desc = "A device which can help you regulate conditions in a pool. Use a <b>wrench</b> to change its operating temperature, or hit it with a reagent container to load in new liquid to add to the pool."
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "poolfilter"
@@ -184,7 +235,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 
 /obj/machinery/pool_filter/examine(mob/user)
 	. = ..()
-	. += "<span class='boldnotice'>The thermostat on it reads [current_temperature].</span>"
+	. += span_boldnotice("The thermostat on it reads [current_temperature].")
 
 /obj/machinery/pool_filter/Initialize(mapload)
 	. = ..()
@@ -205,11 +256,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 
 //Brick can set the pool to low temperatures remotely. This will probably be hell on malf!
 
-/obj/machinery/pool_filter/attack_robot(mob/user)
-	. = ..()
-	wrench_act(user, null)
-
-/obj/machinery/pool_filter/attack_ai(mob/user)
+/obj/machinery/pool_filter/attack_silicon(mob/user)
 	. = ..()
 	wrench_act(user, null)
 
@@ -243,40 +290,18 @@ GLOBAL_LIST_EMPTY(pool_filters)
 				reagents.trans_to(splash_holder, trans_amount, transfered_by = src)
 				splash_holder.chem_temp = current_temperature
 				if(DT_PROB(80, delta_time))
-					splash_holder.reaction(M, TOUCH)
+					splash_holder.expose(M, TOUCH)
 				else //Sometimes the water penetrates a lil deeper than just a splosh.
-					splash_holder.reaction(M, INGEST)
+					splash_holder.expose(M, INGEST)
 				splash_holder.trans_to(M, trans_amount, transfered_by = src)	//Actually put reagents in the mob
 				qdel(splash_holder)
 				var/mob/living/carbon/C = M
 				if(current_temperature <= 283.5) //Colder than 10 degrees is going to make you very cold
 					if(iscarbon(M))
 						C.adjust_bodytemperature(-80, 80)
-					to_chat(M, "<span class='warning'>The water is freezing cold!</span>")
+					to_chat(M, span_warning("The water is freezing cold!"))
 				else if(current_temperature >= 308.5) //Hotter than 35 celsius is going to make you burn up
 					if(iscarbon(M))
 						C.adjust_bodytemperature(35, 0, 500)
 					M.adjustFireLoss(2.5 * delta_time)
-					to_chat(M, "<span class='danger'>The water is searing hot!</span>")
-
-/obj/structure/pool_ladder/attack_hand(mob/user)
-	var/datum/component/swimming/S = user.GetComponent(/datum/component/swimming)
-	if(S)
-		to_chat(user, "<span class='notice'>You start to climb out of the pool...</span>")
-		if(do_after(user, 1 SECONDS, target=src))
-			S.RemoveComponent()
-			visible_message("<span class='notice'>[user] climbs out of the pool.</span>")
-			user.forceMove(get_turf(get_step(src, NORTH))) //Ladders shouldn't adjoin another pool section. Ever.
-	else
-		to_chat(user, "<span class='notice'>You start to climb into the pool...</span>")
-		var/turf/T = get_turf(src)
-		if(do_after(user, 1 SECONDS, target=src))
-			if(!istype(T, /turf/open/indestructible/sound/pool)) //Ugh, fine. Whatever.
-				user.forceMove(get_turf(src))
-			else
-				var/turf/open/indestructible/sound/pool/P = T
-				P.splash(user)
-
-/obj/structure/pool_ladder/attack_robot(mob/user)
-	. = ..()
-	attack_hand(user)
+					to_chat(M, span_danger("The water is searing hot!"))

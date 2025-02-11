@@ -59,7 +59,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -88,7 +88,7 @@
 
 	var/mob/living/carbon/carbon_target = target
 	var/turf/open/target_turf = get_turf(carbon_target)
-	target_turf.TakeTemperature(-20)
+	target_turf.take_temperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
 	carbon_target.silent += 4
 
@@ -173,7 +173,7 @@
 		/datum/heretic_knowledge/rune_carver,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
+	spell_to_add = /datum/action/spell/pointed/void_phase
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -222,7 +222,7 @@
 		/datum/heretic_knowledge/spell/blood_siphon,
 		/datum/heretic_knowledge/summon/rusty
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/void_pull
+	spell_to_add = /datum/action/spell/aoe/void_pull
 	cost = 1
 	route = HERETIC_PATH_VOID
 
@@ -237,6 +237,8 @@
 		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 	route = HERETIC_PATH_VOID
+	announcement_text = "The nobleman of void %USER% has arrived, step along to the Waltz that ends worlds!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic
@@ -248,7 +250,7 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.GetTemperature() > T0C)
+	if(our_turf.get_temperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
 
@@ -256,7 +258,6 @@
 
 /datum/heretic_knowledge/final/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] The nobleman of void [user.real_name] has arrived, step along to the Waltz that ends worlds! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
 
 	// Let's get this show on the road!
@@ -266,7 +267,7 @@
 
 /datum/heretic_knowledge/final/void_final/on_lose(mob/user)
 	on_death() // Losing is pretty much dying. I think
-	RegisterSignal(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -288,7 +289,7 @@
 	var/turf/open/source_turf = get_turf(source)
 	if(!isopenturf(source_turf))
 		return
-	source_turf.TakeTemperature(-20)
+	source_turf.take_temperature(-20)
 
 	var/area/source_area = get_area(source)
 
@@ -297,8 +298,7 @@
 		storm.telegraph()
 
 	storm.area_type = source_area.type
-	storm.impacted_areas = list(source_area)
-	storm.update_areas()
+	storm.update_areas(list(source_area))
 
 /**
  * Signal proc for [COMSIG_MOB_DEATH].

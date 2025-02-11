@@ -25,7 +25,7 @@
 	return
 
 /mob/living/carbon/human/virtual_reality/canSuicide()
-	to_chat(src, "<span class='warning'>I'm sorry [first_name()], I'm afraid you can't do that.</span>")
+	to_chat(src, span_warning("I'm sorry [first_name()], I'm afraid you can't do that."))
 	return
 
 /mob/living/carbon/human/verb/suicide()
@@ -111,7 +111,7 @@
 								"[src] is twisting [p_their()] own neck! It looks like [p_theyre()] trying to commit suicide.", \
 								"[src] is holding [p_their()] breath! It looks like [p_theyre()] trying to commit suicide.")
 
-		visible_message("<span class='danger'>[suicide_message]</span>", "<span class='userdanger'>[suicide_message]</span>")
+		visible_message(span_danger("[suicide_message]"), span_userdanger("[suicide_message]"))
 
 		suicide_log()
 
@@ -128,8 +128,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>", \
-						"<span class='userdanger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>")
+		visible_message(span_danger("[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live."), \
+						span_userdanger("[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live."))
 
 		suicide_log()
 
@@ -145,8 +145,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide."))
 
 		suicide_log()
 
@@ -163,8 +163,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 
 		suicide_log()
 
@@ -182,8 +182,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 
 		suicide_log()
 
@@ -197,8 +197,8 @@
 	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 	if(confirm == "Yes")
 		var/turf/T = get_turf(src.loc)
-		T.visible_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", null, \
-		 "<span class='notice'>[src] bleeps electronically.</span>")
+		T.visible_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), null, \
+			span_notice("[src] bleeps electronically."))
 
 		suicide_log()
 
@@ -216,9 +216,9 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='italics'>You hear thrashing.</span>")
+		visible_message(span_danger("[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide."), \
+				span_italics("You hear thrashing."))
 
 		suicide_log()
 
@@ -236,8 +236,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] begins to fall down. It looks like [p_theyve()] lost the will to live.</span>", \
-						"<span class='userdanger'>[src] begins to fall down. It looks like [p_theyve()] lost the will to live.</span>")
+		visible_message(span_danger("[src] begins to fall down. It looks like [p_theyve()] lost the will to live."), \
+						span_userdanger("[src] begins to fall down. It looks like [p_theyve()] lost the will to live."))
 
 		suicide_log()
 
@@ -261,7 +261,7 @@
 			return TRUE
 		if(SOFT_CRIT)
 			to_chat(src, "You can't commit suicide while in a critical condition!")
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			to_chat(src, "You need to be conscious to commit suicide!")
 		if(DEAD)
 			to_chat(src, "You're already dead!")
@@ -278,7 +278,7 @@
 			return
 		if(world.time < (SSticker.round_start_time + (15 MINUTES)))
 			var/timeleft = ((SSticker.round_start_time + (15 MINUTES)) - world.time)
-			to_chat(src, "<span class='boldannounce'>Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)].</span>")
+			to_chat(src, span_boldannounce("Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)]."))
 			if(src.job)
 				message_admins("[key_name(src)] (job: [src.job]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
 			return

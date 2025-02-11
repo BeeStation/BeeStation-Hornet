@@ -39,6 +39,9 @@
 			// Tissues die without blood circulation
 			adjustBruteLoss(2)
 
+		//Body temperature stability and damage
+		dna.species.handle_body_temperature(src)
+
 		dna.species.spec_life(src) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured
@@ -91,7 +94,7 @@
 
 		var/datum/species/S = dna.species
 
-		if(S.breathid == "o2")
+		if(S.breathid == GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == "tox")
 			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
@@ -109,12 +112,21 @@
 /// Environment handlers for species
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 	// If we are in a cryo bed do not process life functions
-	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+	if(istype(loc, /obj/machinery/cryo_cell))
 		return
 
 	dna.species.handle_environment(environment, src)
-	dna.species.handle_environment_pressure(environment, src)
-	dna.species.handle_body_temperature(src)
+
+/**
+ * Adjust the core temperature of a mob
+ *
+ * vars:
+ * * amount The amount of degrees to change body temperature by
+ * * min_temp (optional) The minimum body temperature after adjustment
+ * * max_temp (optional) The maximum body temperature after adjustment
+ */
+/mob/living/carbon/human/proc/adjust_coretemperature(amount, min_temp=0, max_temp=INFINITY)
+	coretemperature = clamp(coretemperature + amount, min_temp, max_temp)
 
 /**
  * get_body_temperature Returns the body temperature with any modifications applied

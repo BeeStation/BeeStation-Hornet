@@ -21,7 +21,7 @@
 	if(incapacitated())
 		return FALSE
 	if(!radio_enabled) //AI cannot speak if radio is disabled (via intellicard) or depowered.
-		to_chat(src, "<span class='danger'>Your radio transmitter is offline!</span>")
+		to_chat(src, span_danger("Your radio transmitter is offline!"))
 		return FALSE
 	..()
 
@@ -32,7 +32,7 @@
 	if (!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 
 	if(!QDELETED(ai_hologram))
@@ -50,8 +50,8 @@
 		if(istype(D) && D.display_icon(src))
 			language_icon = "[D.get_icon()] "
 
-		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
-		message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
+		message = span_robot(say_emphasis(lang_treat(src, language, message)))
+		message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
@@ -82,7 +82,7 @@
 	<LI>You can only say 30 words for every announcement.</LI>
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI>
 	<LI>Numbers are in word format, e.g. eight, sixty, etc </LI>
-	<LI>Sound effects begin with an 's' before the actual word, e.g. scensor</LI>
+	<LI>Sound effects begin with 'sound' before the actual word, e.g. soundcensor. They're all at the top of the list.</LI>
 	<LI>Use Ctrl+F to see if a word exists in the list.</LI></UL><HR>
 	"}
 
@@ -101,7 +101,7 @@
 /mob/living/silicon/ai/proc/announcement()
 	var/static/announcing_vox = 0 // Stores the time of the last announcement
 	if(announcing_vox > world.time)
-		to_chat(src, "<span class='notice'>Please wait [DisplayTimeText(announcing_vox - world.time)].</span>")
+		to_chat(src, span_notice("Please wait [DisplayTimeText(announcing_vox - world.time)]."))
 		return
 
 	var/message = capped_input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", src.last_announcement)
@@ -115,7 +115,7 @@
 		return
 
 	if(control_disabled)
-		to_chat(src, "<span class='warning'>Wireless interface disabled, unable to interact with announcement PA.</span>")
+		to_chat(src, span_warning("Wireless interface disabled, unable to interact with announcement PA."))
 		return
 
 	var/list/words = splittext(trim(message), " ")
@@ -125,7 +125,7 @@
 		words.len = 30
 
 	for(var/word in words)
-		word = lowertext(trim(word))
+		word = LOWER_TEXT(trim(word))
 		if(!word)
 			words -= word
 			continue
@@ -133,7 +133,7 @@
 			incorrect_words += word
 
 	if(incorrect_words.len)
-		to_chat(src, "<span class='notice'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
+		to_chat(src, span_notice("These words are not available on the announcement system: [english_list(incorrect_words)]."))
 		return
 
 	announcing_vox = world.time + VOX_DELAY
@@ -147,7 +147,7 @@
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
-	word = lowertext(word)
+	word = LOWER_TEXT(word)
 
 	if(GLOB.vox_sounds[word])
 
@@ -155,7 +155,7 @@
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 
- 		// If there is no single listener, broadcast to everyone in the same z level
+		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)

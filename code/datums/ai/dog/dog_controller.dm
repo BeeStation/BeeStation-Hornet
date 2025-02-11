@@ -36,7 +36,7 @@
 /datum/ai_controller/dog/UnpossessPawn(destroy)
 	var/obj/item/carried_item = blackboard[BB_SIMPLE_CARRY_ITEM]
 	if(carried_item)
-		pawn.visible_message("<span='danger'>[pawn] drops [carried_item].</span>")
+		pawn.visible_message(span_danger("[pawn] drops [carried_item]."))
 		carried_item.forceMove(pawn.drop_location())
 		blackboard[BB_SIMPLE_CARRY_ITEM] = null
 	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_PARENT_QDELETING))
@@ -99,7 +99,7 @@
 		var/list/friends = blackboard[BB_DOG_FRIENDS]
 		if(blackboard[BB_SIMPLE_CARRY_ITEM] && !current_movement_target && friends[WEAKREF(user)])
 			var/obj/item/carried_item = blackboard[BB_SIMPLE_CARRY_ITEM]
-			pawn.visible_message("<span='danger'>[pawn] drops [carried_item] at [user]'s feet!</span>")
+			pawn.visible_message(span_danger("[pawn] drops [carried_item] at [user]'s feet!"))
 			// maybe have a dedicated proc for dropping things
 			carried_item.forceMove(get_turf(user))
 			blackboard[BB_SIMPLE_CARRY_ITEM] = null
@@ -111,7 +111,7 @@
 	if(friends[friend_ref])
 		return
 	if(in_range(pawn, new_friend))
-		new_friend.visible_message("<b>[pawn]</b> licks at [new_friend] in a friendly manner!", "<span class='notice'>[pawn] licks at you in a friendly manner!</span>")
+		new_friend.visible_message("<b>[pawn]</b> licks at [new_friend] in a friendly manner!", span_notice("[pawn] licks at you in a friendly manner!"))
 	friends[friend_ref] = TRUE
 	RegisterSignal(new_friend, COMSIG_MOB_POINTED, PROC_REF(check_point))
 	RegisterSignal(new_friend, COMSIG_MOB_SAY, PROC_REF(check_verbal_command))
@@ -128,11 +128,11 @@
 
 	var/obj/item/carried_item = blackboard[BB_SIMPLE_CARRY_ITEM]
 	if(carried_item)
-		examine_text += "<span class='notice'>[pawn.p_they(TRUE)] [pawn.p_are()] carrying [carried_item.get_examine_string(user)] in [pawn.p_their()] mouth.</span>"
+		examine_text += span_notice("[pawn.p_they(TRUE)] [pawn.p_are()] carrying [carried_item.get_examine_string(user)] in [pawn.p_their()] mouth.")
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		var/mob/living/living_pawn = pawn
 		if(!IS_DEAD_OR_INCAP(living_pawn))
-			examine_text += "<span class='notice'>[pawn.p_they(TRUE)] seem[pawn.p_s()] happy to see you!<span>"
+			examine_text += span_notice("[pawn.p_they(TRUE)] seem[pawn.p_s()] happy to see you!")
 
 /// If we died, drop anything we were carrying
 /datum/ai_controller/dog/proc/on_death(mob/living/ol_yeller)
@@ -142,7 +142,7 @@
 	if(!carried_item)
 		return
 
-	ol_yeller.visible_message("<span='danger'>[ol_yeller] drops [carried_item] as [ol_yeller.p_they()] die[ol_yeller.p_s()].</span>")
+	ol_yeller.visible_message(span_danger("[ol_yeller] drops [carried_item] as [ol_yeller.p_they()] die[ol_yeller.p_s()]."))
 	carried_item.forceMove(ol_yeller.drop_location())
 	blackboard[BB_SIMPLE_CARRY_ITEM] = null
 
@@ -163,7 +163,7 @@
 /datum/ai_controller/dog/proc/command_radial(mob/living/clicker)
 	var/list/commands = list(
 		COMMAND_HEEL = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow"),
-		COMMAND_FETCH = image(icon = 'icons/mob/actions/actions_spells.dmi', icon_state = "summons"),
+		COMMAND_FETCH = image(icon = 'icons/hud/actions/actions_spells.dmi', icon_state = "summons"),
 		COMMAND_ATTACK = image(icon = 'icons/effects/effects.dmi', icon_state = "bite"),
 		COMMAND_DIE = image(icon = 'icons/mob/pets.dmi', icon_state = "puppy_dead")
 		)
@@ -218,17 +218,17 @@
 	switch(command)
 		// heel: stop what you're doing, relax and try not to do anything for a little bit
 		if(COMMAND_HEEL)
-			pawn.visible_message("<span class='notice'>[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] sit[pawn.p_s()] down obediently, awaiting further orders.</span>")
+			pawn.visible_message(span_notice("[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] sit[pawn.p_s()] down obediently, awaiting further orders."))
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_NONE
 			COOLDOWN_START(src, heel_cooldown, AI_DOG_HEEL_DURATION)
 			CancelActions()
 		// fetch: whatever the commander points to, try and bring it back
 		if(COMMAND_FETCH)
-			pawn.visible_message("<span class='notice'>[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] bounce[pawn.p_s()] slightly in anticipation.</span>")
+			pawn.visible_message(span_notice("[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] bounce[pawn.p_s()] slightly in anticipation."))
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_FETCH
 		// attack: harass whoever the commander points to
 		if(COMMAND_ATTACK)
-			pawn.visible_message("<span class='danger'>[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] growl[pawn.p_s()] intensely.</span>") // imagine getting intimidated by a corgi
+			pawn.visible_message(span_danger("[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] growl[pawn.p_s()] intensely.")) // imagine getting intimidated by a corgi
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_ATTACK
 		if(COMMAND_DIE)
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_NONE
@@ -259,7 +259,7 @@
 			var/obj/item/pointed_item = pointed_movable
 			if(pointed_item.obj_flags & ABSTRACT)
 				return
-			pawn.visible_message("<span class='notice'>[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and barks excitedly!</span>")
+			pawn.visible_message(span_notice("[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and barks excitedly!"))
 			current_movement_target = pointed_movable
 			blackboard[BB_FETCH_TARGET] = pointed_movable
 			blackboard[BB_FETCH_DELIVER_TO] = pointing_friend
@@ -267,7 +267,7 @@
 				queue_behavior(/datum/ai_behavior/resist)//in case they are in bed or something
 			queue_behavior(/datum/ai_behavior/fetch)
 		if(DOG_COMMAND_ATTACK)
-			pawn.visible_message("<span class='notice'>[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and growls intensely!</span>")
+			pawn.visible_message(span_notice("[pawn] follows [pointing_friend]'s gesture towards [pointed_movable] and growls intensely!"))
 			current_movement_target = pointed_movable
 			blackboard[BB_DOG_HARASS_TARGET] = WEAKREF(pointed_movable)
 			if(living_pawn.buckled)

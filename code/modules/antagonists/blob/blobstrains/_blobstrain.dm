@@ -46,13 +46,13 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	if(message_living && !issilicon(M))
 		totalmessage += message_living
 	totalmessage += "!"
-	to_chat(M, "<span class='userdanger'>[totalmessage]</span>")
+	to_chat(M, span_userdanger("[totalmessage]"))
 
 /datum/blobstrain/proc/core_process()
 	if(resource_delay <= world.time)
 		resource_delay = world.time + 10 // 1 second
 		overmind.add_points(point_rate)
-	overmind.blob_core.obj_integrity = min(overmind.blob_core.max_integrity, overmind.blob_core.obj_integrity+core_regen)
+	overmind.blob_core.repair_damage(core_regen)
 
 /datum/blobstrain/proc/attack_living(var/mob/living/L) // When the blob attacks people
 	send_message(L)
@@ -78,4 +78,4 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	return
 
 /datum/blobstrain/proc/examine(mob/user)
-	return list("<b>Progress to Critical Mass:</b> <span class='notice'>[overmind.blobs_legit.len]/[overmind.blobwincount].</span>")
+	return list("<b>Progress to Critical Mass:</b> [span_notice("[overmind.blobs_legit.len]/[overmind.blobwincount].")]")

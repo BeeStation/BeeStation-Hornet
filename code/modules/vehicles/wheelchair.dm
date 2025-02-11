@@ -5,13 +5,22 @@
 	icon_state = "wheelchair"
 	layer = OBJ_LAYER
 	max_integrity = 100
-	armor = list(MELEE = 10,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 30, STAMINA = 0)	//Wheelchairs aren't super tough yo
+	armor_type = /datum/armor/ridden_wheelchair
 	legs_required = 0	//You'll probably be using this if you don't have legs
 	canmove = TRUE
 	density = FALSE		//Thought I couldn't fix this one easily, phew
 	move_resist = MOVE_FORCE_WEAK
 	// Run speed delay is multiplied with this for vehicle move delay.
 	var/delay_multiplier = 6.7
+
+
+/datum/armor/ridden_wheelchair
+	melee = 10
+	bullet = 10
+	laser = 10
+	bomb = 10
+	fire = 20
+	acid = 30
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
@@ -27,7 +36,7 @@
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
 
-/obj/vehicle/ridden/wheelchair/obj_destruction(damage_flag)
+/obj/vehicle/ridden/wheelchair/atom_destruction(damage_flag)
 	new /obj/item/stack/rods(drop_location(), 1)
 	new /obj/item/stack/sheet/iron(drop_location(), 1)
 	..()
@@ -40,8 +49,8 @@
 
 /obj/vehicle/ridden/wheelchair/driver_move(mob/living/user, direction)
 	if(istype(user))
-		if(canmove && (user.get_num_arms() < arms_required))
-			to_chat(user, "<span class='warning'>You don't have enough arms to operate the wheels!</span>")
+		if(canmove && (user.usable_hands < arms_required))
+			to_chat(user, span_warning("You don't have enough arms to operate the wheels!"))
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
@@ -52,7 +61,7 @@
 	var/datum/component/riding/D = GetComponent(/datum/component/riding)
 	//1.5 (movespeed as of this change) multiplied by 6.7 gets ABOUT 10 (rounded), the old constant for the wheelchair that gets divided by how many arms they have
 	//if that made no sense this simply makes the wheelchair speed change along with movement speed delay
-	D.vehicle_move_delay = round(1.5 * delay_multiplier) / clamp(user.get_num_arms(), arms_required, 2)
+	D.vehicle_move_delay = round(1.5 * delay_multiplier) / clamp(user.usable_hands, 1, 2)
 
 /obj/vehicle/ridden/wheelchair/Moved()
 	. = ..()
@@ -75,9 +84,9 @@
 	handle_rotation(newdir)
 
 /obj/vehicle/ridden/wheelchair/wrench_act(mob/living/user, obj/item/I)	//Attackby should stop it attacking the wheelchair after moving away during decon
-	to_chat(user, "<span class='notice'>You begin to detach the wheels...</span>")
+	to_chat(user, span_notice("You begin to detach the wheels..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You detach the wheels and deconstruct the chair.</span>")
+		to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
 		new /obj/item/stack/rods(drop_location(), 6)
 		new /obj/item/stack/sheet/iron(drop_location(), 4)
 		qdel(src)
@@ -112,5 +121,5 @@
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))
 		var/datum/component/riding/D = GetComponent(/datum/component/riding)
-		D.vehicle_move_delay = round(1.5 * 6.7) / user.get_num_arms()
+		D.vehicle_move_delay = round(1.5 * 6.7) / max(user.usable_hands, 1)
 	return ..()

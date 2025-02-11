@@ -39,6 +39,11 @@
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
+/obj/projectile/beam/laser/lesslethal
+	damage = 11
+	stamina = 18
+	icon_state = "minilaser"
+
 /obj/projectile/beam/weak
 	damage = 12
 
@@ -134,6 +139,22 @@
 /obj/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
 
+/obj/projectile/beam/emitter/hitscan
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
+	tracer_type = /obj/effect/projectile/tracer/laser/emitter
+	impact_type = /obj/effect/projectile/impact/laser/emitter
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = COLOR_LIME
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = COLOR_LIME
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = COLOR_LIME
+
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
@@ -198,5 +219,5 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
+		M.visible_message(span_danger("[M] explodes into a shower of gibs!"))
 		M.gib()

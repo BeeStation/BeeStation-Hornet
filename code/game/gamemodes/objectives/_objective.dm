@@ -1,15 +1,27 @@
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective
-	var/datum/mind/owner				//The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
-	var/datum/team/team					//An alternative to 'owner': a team. Use this when writing new code.
-	var/name = "generic objective" 		//Name for admin prompts
-	var/explanation_text = "Nothing"	//What that person is supposed to do.
-	var/team_explanation_text			//For when there are multiple owners.
-	var/datum/mind/target = null		//If they are focused on a particular person.
-	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
-	var/completed = 0					//currently only used for custom objectives.
-	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	/// The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
+	var/datum/mind/owner
+	/// An alternative to 'owner': a team. Use this when writing new code.
+	var/datum/team/team
+	/// Name of the objective for admin prompts
+	var/name = "generic objective"
+	/// What that person is supposed to do.
+	var/explanation_text = "Nothing"
+	/// For when there are multiple owners.
+	var/team_explanation_text
+	/// If they are focused on a particular person.
+	var/datum/mind/target = null
+	/// If they are focused on a particular number. Steal objectives have their own counter.
+	var/target_amount = 0
+	/// If the objective is to be marked as completed, regardless of any conditions. Currently only used for custom objectives.
+	var/completed = FALSE
+	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	var/martyr_compatible = TRUE
+	/// Whether the objective should show up as optional in the roundend screen
+	var/optional = FALSE
+	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
 
 /datum/objective/New(var/text)
@@ -70,7 +82,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
 	var/turf/location = get_turf(M.current)
-	if(!location || istype(location, /turf/open/floor/plasteel/shuttle/red) || istype(location, /turf/open/floor/mineral/plastitanium/red/brig)) // Fails if they are in the shuttle brig
+	if(!location || istype(location, /turf/open/floor/mineral/plastitanium/red/brig)) // Fails if they are in the shuttle brig
 		return FALSE
 	return location.onCentCom() || location.onSyndieBase()
 
@@ -78,7 +90,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return completed
 
 /datum/objective/proc/get_completion_message()
-	return check_completion() ? "[explanation_text] <span class='greentext'>Success!</span>" : "[explanation_text] <span class='redtext'>Fail.</span>"
+	return check_completion() ? "[explanation_text] [span_greentext("Success!")]" : "[explanation_text] [span_redtext("Fail.")]"
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
@@ -114,10 +126,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
-	for(var/datum/data/record/R as() in GLOB.data_core.locked)
-		var/datum/mind/M = R.fields["mindref"]
-		if(M)
-			. += M
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.weakref_mind.resolve()
+		if(mind)
+			. += mind
 
 //dupe_search_range is a list of antag datums / minds / teams
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
@@ -249,7 +261,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			receiver.antag_stash = null
 		//Update the mind
 		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
-		to_chat(receiver?.current, "<span class='notice bold'>You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)</span>")
+		to_chat(receiver?.current, span_noticebold("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
 		new eq_path(secret_bag)
@@ -266,11 +278,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				A.objectives -= src
 			own.crew_objectives -= src
 
-			to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 			own.announce_objectives()
 		qdel(src)
 	else
 		update_explanation_text()
 		for(var/datum/mind/own as() in get_owners())
-			to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()

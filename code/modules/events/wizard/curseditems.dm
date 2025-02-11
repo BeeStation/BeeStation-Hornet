@@ -33,7 +33,7 @@
 		if("voicemodulators")
 			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/clothing/mask/chameleon
 		if("catgirls2015")
-			loadout[TOBITSHIFT(ITEM_SLOT_HEAD) + 1] = /obj/item/clothing/head/kitty
+			loadout[TOBITSHIFT(ITEM_SLOT_HEAD) + 1] = /obj/item/clothing/head/costume/kitty
 			ruins_spaceworthiness = 1
 			ruins_wizard_loadout = 1
 

@@ -11,8 +11,10 @@
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 
-	response_help = "touches"
-	response_disarm = "pushes"
+	response_help_continuous = "touches"
+	response_help_simple = "touch"
+	response_disarm_continuous = "pushes"
+	response_disarm_simple = "push"
 
 	speed = -1
 	maxHealth = 50000
@@ -21,13 +23,14 @@
 
 	obj_damage = 100
 	melee_damage = 70
-	attacktext = "claws"
+	attack_verb_continuous = "claws"
+	attack_verb_simple = "claw"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("statue")
+	faction = list(FACTION_STATUE)
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
@@ -54,12 +57,17 @@
 
 // No movement while seen code.
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
+
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights)
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision)
+	var/datum/action/spell/aoe/flicker_lights/flicker = new(src)
+	flicker.Grant(src)
+	var/datum/action/spell/aoe/blindness/blind = new(src)
+	blind.Grant(src)
+	var/datum/action/spell/night_vision/night_vision = new(src)
+	night_vision.Grant(src)
 
 	// Set creator
 	if(creator)
@@ -74,7 +82,7 @@
 /mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
 	if(can_be_seen(NewLoc))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
 	return ..()
 
@@ -92,7 +100,7 @@
 /mob/living/simple_animal/hostile/statue/AttackingTarget()
 	if(can_be_seen(get_turf(loc)))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot attack, there are eyes on you!"))
 		return FALSE
 	else
 		return ..()
@@ -126,9 +134,11 @@
 		for(var/mob/living/M in viewers(getexpandedview(world.view, 1, 1), check))
 			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.is_blind())
 				return M
-		for(var/obj/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
-			if(M.occupant?.client && !M.occupant.is_blind())
-				return M.occupant
+		for(var/obj/vehicle/sealed/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
+			for(var/O in M.occupants)
+				var/mob/mechamob = O
+				if(mechamob?.client && !mechamob.is_blind())
+					return mechamob
 	return null
 
 // Cannot talk
@@ -157,73 +167,55 @@
 	. = ..()
 	return . - creator
 
+/mob/living/simple_animal/hostile/netherworld/statue/sentience_act()
+	faction -= "neutral"
+
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights
+/datum/action/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
-	charge_max = 300
-	clothes_req = 0
-	range = 14
+	cooldown_time = 30 SECONDS
+	spell_requirements = NONE
+	aoe_radius = 14
 
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets,mob/user = usr)
-	for(var/turf/T in targets)
-		for(var/obj/machinery/light/L in T)
-			L.flicker()
-	return
+/datum/action/spell/aoe/flicker_lights/get_things_to_cast_on(atom/center)
+	var/list/things = list()
+	for(var/obj/machinery/light/nearby_light in range(aoe_radius, center))
+		if(!nearby_light.on)
+			continue
+
+		things += nearby_light
+
+	return things
+
+/datum/action/spell/aoe/flicker_lights/cast_on_thing_in_aoe(obj/machinery/light/victim, atom/caster)
+	victim.flicker()
 
 //Blind AOE
-/obj/effect/proc_holder/spell/aoe_turf/blindness
+/datum/action/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = "<span class='notice'>You glare your eyes.</span>"
-	charge_max = 600
-	clothes_req = 0
-	range = 10
+	cooldown_time = 1 MINUTES
+	spell_requirements = NONE
+	aoe_radius = 14
 
-/obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets,mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
-			L.adjust_blindness(4)
-	return
+/datum/action/spell/aoe/blindness/on_cast(mob/user, atom/target)
+	user.visible_message(span_danger("[user] glares their eyes."))
+	return ..()
 
-//Toggle Night Vision
-/obj/effect/proc_holder/spell/targeted/night_vision
-	name = "Toggle Nightvision \[ON\]"
-	desc = "Toggle your nightvision mode."
+/datum/action/spell/aoe/blindness/get_things_to_cast_on(atom/center)
+	var/list/things = list()
+	for(var/mob/living/nearby_mob in range(aoe_radius, center))
+		if(nearby_mob == owner || nearby_mob == center)
+			continue
 
-	charge_max = 10
-	clothes_req = 0
+		things += nearby_mob
 
-	message = "<span class='notice'>You toggle your night vision!</span>"
-	range = -1
-	include_user = 1
+	return things
 
-/obj/effect/proc_holder/spell/targeted/night_vision/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
-		switch(target.lighting_alpha)
-			if (LIGHTING_PLANE_ALPHA_VISIBLE)
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-				name = "Toggle Nightvision \[More]"
-			if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-				name = "Toggle Nightvision \[Full]"
-			if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-				name = "Toggle Nightvision \[OFF]"
-			else
-				target.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-				name = "Toggle Nightvision \[ON]"
-		target.update_sight()
-
-/mob/living/simple_animal/hostile/statue/sentience_act()
-	faction -= "neutral"
-
-/mob/living/simple_animal/hostile/statue/restrained(ignore_grab)
-	. = ..()
-	if(can_be_seen(loc))
-		return 1
+/datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+	victim.set_blindness(4)

@@ -4,13 +4,13 @@ GLOBAL_VAR_INIT(meteor_wave_delay, 625) //minimum wait between waves in tenths o
 
 //Meteors probability of spawning during a given wave
 GLOBAL_LIST_INIT(meteors_normal, list(/obj/effect/meteor/dust=3, /obj/effect/meteor/medium=8, /obj/effect/meteor/big=3, \
-						  /obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3)) //for normal meteor event
+							/obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3)) //for normal meteor event
 
 GLOBAL_LIST_INIT(meteors_threatening, list(/obj/effect/meteor/medium=4, /obj/effect/meteor/big=8, \
-						  /obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3)) //for threatening meteor event
+							/obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3)) //for threatening meteor event
 
 GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium=5, /obj/effect/meteor/big=75, \
-						  /obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
+							/obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
 
 GLOBAL_LIST_INIT(meteorsB, list(/obj/effect/meteor/meaty=5, /obj/effect/meteor/meaty/xeno=1)) //for meaty ore event
 
@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	var/lifetime = DEFAULT_METEOR_LIFETIME
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
+
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
 	z_original = z
@@ -200,7 +202,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 /obj/effect/meteor/proc/ram_turf(turf/T)
 	//first yell at mobs about them dying horribly
 	for(var/mob/living/living_thing in T)
-		living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
+		living_thing.visible_message(span_warning("[src] slams into [living_thing]."), span_userdanger("[src] slams into you!."))
 
 	//then, ram the turf
 	switch(hitpwr)
@@ -219,9 +221,6 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		make_debris()
 		meteor_effect()
 		qdel(src)
-
-/obj/effect/meteor/ex_act()
-	return
 
 /obj/effect/meteor/examine(mob/user)
 	. = ..()
@@ -416,7 +415,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	hits = 10
 	heavy = 1
 	dropamt = 1
-	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/food/grown/pumpkin)
+	meteordrop = list(/obj/item/clothing/head/utility/hardhat/pumpkinhead, /obj/item/food/grown/pumpkin)
 	threat = 100
 
 /obj/effect/meteor/pumpkin/Initialize(mapload)
@@ -438,6 +437,8 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/falltime = 2 SECONDS
 	var/prefalltime = 8 SECONDS
 	layer = METEOR_LAYER
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 
 /obj/effect/falling_meteor/Initialize(mapload, meteor_type)
 	. = ..()

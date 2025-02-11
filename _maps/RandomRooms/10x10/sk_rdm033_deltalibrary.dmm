@@ -49,7 +49,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -180,7 +180,7 @@
 /area/template_noop)
 "H" = (
 /obj/structure/bookcase/random/adult,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
 /mob/living/basic/cockroach,
@@ -189,7 +189,7 @@
 "J" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -206,7 +206,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "N" = (
@@ -225,7 +225,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
@@ -233,7 +233,7 @@
 	name = "Occult Study"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "S" = (
 /obj/structure/table/wood,
@@ -247,7 +247,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "U" = (
@@ -281,7 +281,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/taperecorder,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/blood/old,

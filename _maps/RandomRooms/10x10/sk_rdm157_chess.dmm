@@ -16,7 +16,7 @@
 /area/template_noop)
 "e" = (
 /obj/structure/table/wood,
-/obj/item/clothing/head/festive,
+/obj/item/clothing/head/costume/festive,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "f" = (
@@ -132,30 +132,30 @@
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+/obj/item/reagent_containers/cup/soda_cans/tonic{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+/obj/item/reagent_containers/cup/soda_cans/tonic{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+/obj/item/reagent_containers/cup/soda_cans/tonic{
 	pixel_y = -3
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "G" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/nachos{
+/obj/item/food/nachos{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/nachos{
+/obj/item/food/nachos{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/nachos{
+/obj/item/food/nachos{
 	pixel_y = -3
 	},
 /turf/open/floor/carpet/orange,

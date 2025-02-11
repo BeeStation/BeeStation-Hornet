@@ -2,7 +2,7 @@
 	name = "chem implant"
 	desc = "Injects things."
 	icon_state = "reagents"
-	activated = FALSE
+	actions_types = null
 
 /obj/item/implant/chem/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -46,9 +46,9 @@
 	else
 		injectamount = cause
 	reagents.trans_to(R, injectamount)
-	to_chat(R, "<span class='italics'>You hear a faint beep.</span>")
+	to_chat(R, span_italics("You hear a faint beep."))
 	if(!reagents.total_volume)
-		to_chat(R, "<span class='italics'>You hear a faint click from your chest.</span>")
+		to_chat(R, span_italics("You hear a faint click from your chest."))
 		qdel(src)
 
 

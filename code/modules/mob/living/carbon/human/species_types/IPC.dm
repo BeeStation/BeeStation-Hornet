@@ -5,31 +5,27 @@
 	bodyflag = FLAG_IPC
 	sexes = FALSE
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
+	inherent_traits = list(TRAIT_BLOOD_COOLANT,TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
-	mutant_brain = /obj/item/organ/brain/positron
+	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
 	mutantstomach = /obj/item/organ/stomach/battery/ipc
 	mutantears = /obj/item/organ/ears/robot
-	mutant_heart = /obj/item/organ/heart/cybernetic/ipc
+	mutantheart = /obj/item/organ/heart/cybernetic/ipc
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
-	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
-	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
+	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
-	exotic_blood = /datum/reagent/oil
 	damage_overlay_type = "synth"
-	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
-	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
+
 	burnmod = 2
 	heatmod = 1.5
 	brutemod = 1
 	clonemod = 0
 	staminamod = 0.8
 	siemens_coeff = 1.5
-	blood_color = "#000000"
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
@@ -38,6 +34,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
+	species_bitflags = NOT_TRANSMORPHIC
 
 	species_chest = /obj/item/bodypart/chest/ipc
 	species_head = /obj/item/bodypart/head/ipc
@@ -45,6 +42,10 @@
 	species_r_arm = /obj/item/bodypart/r_arm/ipc
 	species_l_leg = /obj/item/bodypart/l_leg/ipc
 	species_r_leg = /obj/item/bodypart/r_leg/ipc
+
+	exotic_blood = /datum/reagent/oil
+	blood_color = "#000000"
+	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
@@ -103,10 +104,10 @@
 /datum/action/innate/change_screen
 	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
-/datum/action/innate/change_screen/Activate()
+/datum/action/innate/change_screen/on_activate()
 	var/screen_choice = input(usr, "Which screen do you want to use?", "Screen Change") as null | anything in GLOB.ipc_screens_list
 	var/color_choice = input(usr, "Which color do you want your screen to be?", "Color Change") as null | color
 	if(!screen_choice)
@@ -133,11 +134,11 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(!battery)
-		to_chat(H, "<span class='warning'>You try to siphon energy from \the [target], but your power cell is gone!</span>")
+		to_chat(H, span_warning("You try to siphon energy from \the [target], but your power cell is gone!"))
 		return
 
 	if(istype(H) && H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-		to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+		to_chat(user, span_warning("You are already fully charged!"))
 		return
 
 	if(istype(target, /obj/machinery/power/apc))
@@ -146,7 +147,7 @@
 			powerdraw_loop(A, H, TRUE)
 			return
 		else
-			to_chat(user, "<span class='warning'>There is not enough charge to draw from that APC.</span>")
+			to_chat(user, span_warning("There is not enough charge to draw from that APC."))
 			return
 
 	if(isethereal(target))
@@ -156,10 +157,10 @@
 			powerdraw_loop(target_battery, H, FALSE)
 			return
 		else
-			to_chat(user, "<span class='warning'>There is not enough charge to draw from that being!</span>")
+			to_chat(user, span_warning("There is not enough charge to draw from that being!"))
 			return
 /obj/item/apc_powercord/proc/powerdraw_loop(atom/target, mob/living/carbon/human/H, apc_target)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into [target].</span>", "<span class='notice'>You begin to draw power from the [target].</span>")
+	H.visible_message(span_notice("[H] inserts a power connector into [target]."), span_notice("You begin to draw power from the [target]."))
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(apc_target)
 		var/obj/machinery/power/apc/A = target
@@ -167,26 +168,26 @@
 			return
 		while(do_after(H, 10, target = A))
 			if(!battery)
-				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
+				to_chat(H, span_warning("You need a battery to recharge!"))
 				break
 			if(loc != H)
-				to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+				to_chat(H, span_warning("You must keep your connector out while charging!"))
 				break
 			if(A.cell.charge <= A.cell.maxcharge/4)
-				to_chat(H, "<span class='warning'>The [A] doesn't have enough charge to spare.</span>")
+				to_chat(H, span_warning("The [A] doesn't have enough charge to spare."))
 				break
 			A.charging = 1
 			if(A.cell.charge > A.cell.maxcharge/4 + 250)
 				battery.adjust_charge(250)
 				A.cell.charge -= 250
-				to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+				to_chat(H, span_notice("You siphon off some of the stored charge for your own use."))
 			else
 				battery.adjust_charge(A.cell.charge - A.cell.maxcharge/4)
 				A.cell.charge = A.cell.maxcharge/4
-				to_chat(H, "<span class='notice'>You siphon off as much as the [A] can spare.</span>")
+				to_chat(H, span_notice("You siphon off as much as the [A] can spare."))
 				break
 			if(battery.charge >= battery.max_charge)
-				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+				to_chat(H, span_notice("You are now fully charged."))
 				break
 	else
 		var/obj/item/organ/stomach/battery/A = target
@@ -195,22 +196,22 @@
 		var/charge_amt
 		while(do_after(H, 10, target = A.owner))
 			if(!battery)
-				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
+				to_chat(H, span_warning("You need a battery to recharge!"))
 				break
 			if(loc != H)
-				to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+				to_chat(H, span_warning("You must keep your connector out while charging!"))
 				break
 			if(A.charge == 0)
-				to_chat(H, "<span class='warning'>[A] is completely drained!</span>")
+				to_chat(H, span_warning("[A] is completely drained!"))
 				break
 			charge_amt = A.charge <= 50 ? A.charge : 50
 			A.adjust_charge(-1 * charge_amt)
 			battery.adjust_charge(charge_amt)
 			if(battery.charge >= battery.max_charge)
-				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+				to_chat(H, span_notice("You are now fully charged."))
 				break
 
-	H.visible_message("<span class='notice'>[H] unplugs from the [target].</span>", "<span class='notice'>You unplug from the [target].</span>")
+	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
 	return
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
@@ -282,3 +283,37 @@
 	)
 
 	return to_add
+
+/datum/status_effect/bleeding/robotic
+	alert_type = /atom/movable/screen/alert/status_effect/bleeding/robotic
+	bleed_heal_multiplier = 0
+
+/datum/status_effect/bleeding/robotic/tick()
+	// Since we don't have flesh, we will instantly repair any sealed wounds
+	bandaged_bleeding = 0
+	..()
+
+/datum/status_effect/bleeding/robotic/update_icon()
+	// The actual rate of bleeding, can be reduced by holding wounds
+	// Calculate the message to show to the user
+	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+		linked_alert.name = "Leaking (Held)"
+		if (bleed_rate > BLEED_RATE_MINOR)
+			linked_alert.desc = "Critical leaks have been detected in your system and require welding. Leak rate slowed by applied pressure."
+		else
+			linked_alert.desc = "Minor leaks have been detected in your system and require welding. Leak rate slowed by applied pressure."
+	else
+		if (bleed_rate < BLEED_RATE_MINOR)
+			linked_alert.name = "Leaking (Light)"
+			linked_alert.desc = "Minor leaks have been detected in your system and require welding."
+		else
+			linked_alert.name = "Leaking (Heavy)"
+			linked_alert.desc = "Critical leaks have been detected in your system and require welding."
+	linked_alert.icon_state = "bleed_robo"
+
+	linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
+
+/atom/movable/screen/alert/status_effect/bleeding/robotic
+	name = "Leaking"
+	desc = "You are leaking, weld the leaks back together or you will die."
+	icon_state = "bleed_robo"

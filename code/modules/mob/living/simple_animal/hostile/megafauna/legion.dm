@@ -17,7 +17,8 @@ Difficulty: Medium
 	icon_living = "legion"
 	desc = "One of many."
 	icon = 'icons/mob/lavaland/legion.dmi'
-	attacktext = "chomps"
+	attack_verb_continuous = "chomps"
+	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	speak_emote = list("echoes")
 	armour_penetration = 50
@@ -39,7 +40,7 @@ Difficulty: Medium
 	vision_range = 13
 	wander = FALSE
 	elimination = TRUE
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	attack_action_types = list(/datum/action/innate/megafauna_attack/create_skull,
 							   /datum/action/innate/megafauna_attack/charge_target)
@@ -49,14 +50,14 @@ Difficulty: Medium
 	name = "Create Legion Skull"
 	icon_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	button_icon_state = "legion_head"
-	chosen_message = "<span class='colossus'>You are now creating legion skulls.</span>"
+	chosen_message = span_colossus("You are now creating legion skulls.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/charge_target
 	name = "Charge Target"
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now charging at your target.</span>"
+	chosen_message = span_colossus("You are now charging at your target.")
 	chosen_attack_num = 2
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
@@ -84,7 +85,7 @@ Difficulty: Medium
 	A.faction = faction
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/charge_target()
-	visible_message("<span class='warning'><b>[src] charges!</b></span>")
+	visible_message(span_warning("<b>[src] charges!</b>"))
 	SpinAnimation(speed = 20, loops = 5)
 	ranged = FALSE
 	retreat_distance = 0
@@ -105,11 +106,13 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
-	if(. && ishuman(target))
-		var/mob/living/L = target
-		if(L.stat == UNCONSCIOUS)
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
-			A.infest(L)
+	if(!. || !ishuman(target))
+		return
+	var/mob/living/living_target = target
+	switch(living_target.stat)
+		if(UNCONSCIOUS, HARD_CRIT)
+			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legion = new(loc)
+			legion.infest(living_target)
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/reset_charge()
 	ranged = TRUE
@@ -145,7 +148,7 @@ Difficulty: Medium
 
 		L.GiveTarget(target)
 
-		visible_message("<span class='boldannounce'>[src] splits in twain!</span>")
+		visible_message(span_boldannounce("[src] splits in twain!"))
 	else
 		var/last_legion = TRUE
 		for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_living_list)
@@ -180,15 +183,15 @@ Difficulty: Medium
 
 /obj/item/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
-		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
+		to_chat(user, span_warning("The staff is still recharging!"))
 		return
 	if(!is_mining_level(user.z))
-		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
+		to_chat(user, span_warning("The staff's power is too dim to function this far from the necropolis"))
 		return
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
 	if(!user_area || !user_turf || !(user_area.type in allowed_areas))
-		to_chat(user, "<span class='warning'>You can only use this in an open area</span>")
+		to_chat(user, span_warning("You can only use this in an open area"))
 		return
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
@@ -200,10 +203,10 @@ Difficulty: Medium
 	if(A)
 		if(A.stage != END_STAGE)
 			if(A.stage == WIND_DOWN_STAGE)
-				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
+				to_chat(user, span_warning("The storm is already ending! It would be a waste to use the staff now."))
 				return
-			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \
-			"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>")
+			user.visible_message(span_warning("[user] holds [src] skywards as an orange beam travels into the sky!"), \
+			span_notice("You hold [src] skyward, dispelling the storm!"))
 			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 			A.wind_down()
 			log_game("[user] ([key_name(user)]) has dispelled a storm at [AREACOORD(user_turf)]")
@@ -218,8 +221,8 @@ Difficulty: Medium
 		A.telegraph_duration = 100
 		A.end_duration = 100
 
-	user.visible_message("<span class='danger'>[user] holds [src] skywards as red lightning crackles into the sky!</span>", \
-	"<span class='notice'>You hold [src] skyward, calling down a terrible storm!</span>")
+	user.visible_message(span_danger("[user] holds [src] skywards as red lightning crackles into the sky!"), \
+	span_notice("You hold [src] skyward, calling down a terrible storm!"))
 	playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 	A.telegraph()
 	storm_cooldown = world.time + 200
