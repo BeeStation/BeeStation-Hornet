@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	new_turf.z_depth = old_zdepth
 
 	var/is_mapload = old_atoms_state == INITIALIZATION_INNEW_MAPLOAD
-	SSatoms.InitAtom(src, new_turf, is_mapload)
+	SSatoms.InitAtom(src, new_turf, list(is_mapload))
 
 	SSatoms.initialized = old_atoms_state
 

@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 
 /turf/open/openspace/examine(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
-	return below.examine(user)
+	return below?.examine(user)
 
 /turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()

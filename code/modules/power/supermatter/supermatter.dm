@@ -23,6 +23,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
 	interacts_with_air = TRUE
+	zmm_flags = ZMM_MANGLE_PLANES
 
 	var/gasefficency = 0.15
 

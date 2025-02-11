@@ -26,6 +26,10 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/tmp/turf/below = null
 	/// The turf that we are linked to above
 	var/tmp/turf/above = null
+	/// The turf that we are linked to below
+	var/tmp/below_known = FALSE
+	/// The turf that we are linked to above
+	var/tmp/above_known = FALSE
 
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.

@@ -54,6 +54,9 @@
 	shadower = new(src)
 	SSzcopy.openspace_turfs += 1
 	GET_TURF_BELOW(src)
+	// Get turf below caused
+	if (!shadower)
+		return
 	if (!(z_flags & (Z_MIMIC_OVERWRITE|Z_MIMIC_NO_OCCLUDE)) && mouse_opacity)
 		mouse_opacity = MOUSE_OPACITY_OPAQUE
 	update_mimic(!mapload) // Only recursively update if the map isn't loading.

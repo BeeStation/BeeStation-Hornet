@@ -1,4 +1,4 @@
-GLOBAL_VAR_TYPED(temporary_multiz_step_ref, /turf)
+GLOBAL_DATUM(temporary_multiz_step_ref, /turf)
 
 #define get_step_multiz(ref, dir) \
 	(dir & UP ? ( \
@@ -98,32 +98,44 @@ GLOBAL_VAR_TYPED(temporary_multiz_step_ref, /turf)
 	calculate_zdepth()
 	if (was_enabled)
 		setup_zmimic()
-	ImmediateCalculateAdjacentTurfs()
-	below.ImmediateCalculateAdjacentTurfs()
+	immediate_calculate_adjacent_turfs()
+	below.immediate_calculate_adjacent_turfs()
 	return below_turf
 
 /turf/proc/set_above(turf/above_turf, force = FALSE)
 	if (!force && (above_turf?.below && above_turf?.below != src))
 		return null
+	// We no longer have the same above, cleanup the previous above
 	if (above)
 		above.z_depth = null
 		above.below = null
+		above.cleanup_zmimic()
+	// We previously had no above and still have no above
 	else if (!above_turf)
 		return null
+	// Set the new above
 	above = above_turf
+	// If we have no new above, recalculate our depth as the root and return
 	if (!above_turf)
 		calculate_zdepth()
 		return null
+	// Set our above's below turf to ourself
 	above_turf.below = src
+	// Determine if our new above was alread mimicing something
+	// This means that it is an openturf
 	var/was_enabled = above.shadower
+	// If it was, cleanup the previous shadow
 	if (was_enabled)
 		above.cleanup_zmimic()
+	// Recalculate our z-depth
 	calculate_zdepth()
 	// Fully reset the z-mimic of the above turf if it is a zmimic turf
+	// This will reset the planes and appearances that is uses to render
 	if (was_enabled)
 		above.setup_zmimic()
-	ImmediateCalculateAdjacentTurfs()
-	above.ImmediateCalculateAdjacentTurfs()
+	// Atmos recalculations
+	immediate_calculate_adjacent_turfs()
+	above.immediate_calculate_adjacent_turfs()
 	return above_turf
 
 /turf/proc/link_above(turf/above_turf)

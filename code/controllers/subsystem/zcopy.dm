@@ -114,7 +114,6 @@ SUBSYSTEM_DEF(zcopy)
 
 
 /datum/controller/subsystem/zcopy/Initialize(timeofday)
-	calculate_zstack_limits()
 	// Flush the queue.
 	fire(FALSE, TRUE)
 	return SS_INIT_SUCCESS
@@ -279,12 +278,12 @@ SUBSYSTEM_DEF(zcopy)
 		// Add everything below us to the update queue.
 		for (var/thing in T.below)
 			var/atom/movable/object = thing
-			if (QDELETED(object) || (object.zmm_flags & ZMM_IGNORE) || object.loc != T.below || object.invisibility == INVISIBILITY_ABSTRACT)
-				// Don't queue deleted stuff, stuff that's not visible, blacklisted stuff, or stuff that's centered on another tile but intersects ours.
-				continue
-
 			if(istype(object, /atom/movable/lighting_object))
 				T.shadower.copy_lighting(T.below.lighting_object, T.below.loc)
+				continue
+
+			if (QDELETED(object) || (object.zmm_flags & ZMM_IGNORE) || object.loc != T.below || object.invisibility == INVISIBILITY_ABSTRACT)
+				// Don't queue deleted stuff, stuff that's not visible, blacklisted stuff, or stuff that's centered on another tile but intersects ours.
 				continue
 
 			if (!object.bound_overlay)	// Generate a new overlay if the atom doesn't already have one.
@@ -482,7 +481,7 @@ SUBSYSTEM_DEF(zcopy)
 		switch (appearance:plane)
 			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE)
 				// fine
-			if (EMISSIVE_PLANE)
+			if (EMISSIVE_PLANE, GRAVITY_PULSE_PLANE)
 				obliterate = TRUE
 			else
 				plane_needs_fix = TRUE
