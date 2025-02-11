@@ -77,7 +77,7 @@ export const RecordPrint = (props) => {
             minValue={1}
             maxValue={10}
             step={1}
-            onChange={(e, value) => act('set_amount', { new_amount: value, record_ref: record_ref })}
+            onChange={(value) => act('set_amount', { new_amount: value, record_ref: record_ref })}
           />
           <Button
             icon="question"
