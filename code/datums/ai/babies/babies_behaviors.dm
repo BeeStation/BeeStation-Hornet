@@ -3,10 +3,8 @@
  */
 /datum/ai_behavior/find_partner
 	action_cooldown = 40 SECONDS
-
 	/// Range to look.
 	var/range = 7
-
 	/// Maximum number of children
 	var/max_children = 3
 
