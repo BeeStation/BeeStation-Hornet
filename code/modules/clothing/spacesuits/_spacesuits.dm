@@ -50,7 +50,7 @@
 	. = ..()
 	if(istype(item, /obj/item/clothing/head) \
 		// i know someone is gonna do it after i thought about it
-		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
+		&& !istype(item, /obj/item/clothing/head/helmet/space) \
 		// messy and icon can't be seen before putting on
 		&& !istype(item, /obj/item/clothing/head/costume/foilhat))
 		var/obj/item/clothing/head/hat = item
