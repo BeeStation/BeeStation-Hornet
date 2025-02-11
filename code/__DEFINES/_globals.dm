@@ -53,6 +53,9 @@
 /// Create an untyped null global
 #define GLOBAL_VAR(X) GLOBAL_RAW(/##X); GLOBAL_UNMANAGED(X)
 
+/// Create an untyped null global
+#define GLOBAL_VAR_TYPED(X, Typepath) GLOBAL_RAW(Typepath/##X); GLOBAL_UNMANAGED(X)
+
 /// Create a null global list
 #define GLOBAL_LIST(X) GLOBAL_RAW(/list/##X); GLOBAL_UNMANAGED(X)
 
