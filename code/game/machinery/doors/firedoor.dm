@@ -5,7 +5,7 @@
 
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "A convenable firelock. It has a card reader and a set of indicator lights on the side."
+	desc = "A convenable firelock. It has a set of indicator lights on the side."
 	icon = 'icons/obj/doors/firelocks/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
@@ -25,7 +25,6 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 	processing_flags = START_PROCESSING_MANUALLY
 	assemblytype = /obj/structure/firelock_frame
 
@@ -475,20 +474,7 @@
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(obj/item/attacked_item, mob/user)
-	if(!density || welded || !attacked_item)
-		return
-
-	var/obj/item/card/id/id_card = attacked_item.GetID()
-	if(istype(id_card))
-		if((alarm_type == FIRELOCK_ALARM_TYPE_GENERIC) || check_access(id_card))
-			playsound(src, 'sound/machines/beep.ogg', 50, 1)
-			open()
-			return
-		else
-			to_chat(user, span_danger("Access Denied, User not authorized to override alarms or pressure checks."))
-			playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
-			return
-	to_chat(user, span_warning("You try to pull the card reader. Nothing happens."))
+	return FALSE
 
 /obj/machinery/door/firedoor/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(!W.tool_start_check(user, amount=0))
