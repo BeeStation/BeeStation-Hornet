@@ -31,8 +31,12 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	deltimer(mentorhelptimerid)
 	mentorhelptimerid = 0
 
-/client/verb/mentorhelp()
+/// Used for methods where input via arg doesn't work
+/client/proc/get_mentorhelp()
 	var/msg = tgui_input_text(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
+	mentorhelp(msg)
+
+/client/verb/mentorhelp(msg as message)
 	set category = "Mentor"
 	set name = "Mentorhelp"
 
