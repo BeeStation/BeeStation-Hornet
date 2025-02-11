@@ -509,13 +509,9 @@
 		if(!(machine_stat & NOPOWER))
 			to_chat(user, span_warning("You begin forcing open  the [src], the motors whine..."))
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!crowbar.use_tool(src, user, 10 SECONDS))
-				return
 		else
 			to_chat(user, span_notice("You begin forcing open  the [src], the motors don't resist..."))
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!crowbar.use_tool(src, user, 1 SECONDS))
-				return
 		if(!(alarm_type != FIRELOCK_ALARM_TYPE_GENERIC))
 			log_game("[key_name(user)] has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using a crowbar")
 			user.log_message("has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using a crowbar", LOG_ATTACK)
