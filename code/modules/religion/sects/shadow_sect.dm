@@ -59,7 +59,7 @@
 	name = "Shadow Obelisk"
 	desc = "Grants favor from being shrouded in shadows."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
-	icon_state = "shadow-obelisk"
+	icon_state = "shadow_obelisk_1"
 	anchored = FALSE
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
 	max_integrity = 200
@@ -390,6 +390,7 @@
 // Grand ritual section
 
 /obj/structure/destructible/religion/shadow_obelisk/var1
+	icon_state = "shadow_obelisk_2"
 	max_integrity = 300
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius."
 	var/spread_delay = 80
@@ -408,6 +409,7 @@
 	last_spread = world.time + spread_delay
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2 // some cursed incheritence, but its the easiest way to do it
+	icon_state = "shadow_obelisk_3"
 	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
 	var/heal_delay = 50
@@ -443,6 +445,7 @@
 					L.blood_volume += 1.0
 
 /obj/structure/destructible/religion/shadow_obelisk/var1/var2/var3
+	icon_state = "shadow_obelisk_4"
 	max_integrity = 500
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area. People bucled to the obelisk will turn into shadow people, while shadow people can use them to teleport"
 	can_buckle = FALSE // it will be posible once anchored
