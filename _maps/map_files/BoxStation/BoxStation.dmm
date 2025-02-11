@@ -985,23 +985,6 @@
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"amF" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/vault{
-	req_access_txt = "53"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/nuke_storage)
 "amI" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
@@ -4441,16 +4424,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"baJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "baL" = (
 /obj/machinery/atmospherics/components/tank/air{
 	dir = 4
@@ -25356,14 +25329,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
-"gLJ" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/power/apc/auto_name/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "gLK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 10
@@ -30767,20 +30732,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"iVP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/plasteel,
-/area/maintenance/disposal/incinerator)
 "iVQ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -83012,7 +82963,7 @@ beU
 bgk
 bhL
 bjc
-gdq
+cAF
 blV
 beO
 aaa
@@ -92251,7 +92202,7 @@ cnT
 cOS
 mcF
 jwy
-hCm
+hbA
 aUw
 tav
 jMQ
@@ -92527,7 +92478,7 @@ cvJ
 bbR
 bqt
 cBq
-qsT
+bbR
 bbR
 bbR
 bwd
@@ -96413,7 +96364,7 @@ bVJ
 bVJ
 bVJ
 bVJ
-cnq
+eIa
 bVJ
 bVJ
 rFW
@@ -97123,7 +97074,7 @@ ayL
 fsO
 diC
 ayL
-jhn
+jWy
 ayL
 ayL
 bah
@@ -97164,7 +97115,7 @@ bCs
 bCs
 bCs
 bCs
-gPR
+fcX
 bCs
 bCs
 iRl
@@ -97172,7 +97123,7 @@ ayG
 ivd
 ier
 ayG
-pvU
+bNI
 ayG
 ayG
 bUE
@@ -97649,7 +97600,7 @@ eLl
 jbW
 tee
 xft
-qwq
+jHX
 txw
 xmd
 wXQ
@@ -101264,7 +101215,7 @@ aZV
 bqH
 bqH
 bqH
-oEc
+pFn
 bqH
 bqH
 bqH
@@ -101828,7 +101779,7 @@ cyi
 kpi
 cig
 syd
-bpI
+iwQ
 pJP
 cig
 aaa
@@ -106110,7 +106061,6 @@ aro
 aro
 aro
 aro
-lyt
 aro
 aro
 aro
@@ -115639,7 +115589,7 @@ oLE
 hrX
 sNm
 yeY
-hEp
+sNm
 sNm
 sNm
 cUE
@@ -118228,7 +118178,7 @@ ujl
 kch
 dGG
 vXe
-ehR
+xMa
 nfd
 rWR
 nso
