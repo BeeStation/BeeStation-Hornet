@@ -76,6 +76,7 @@
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
 	webbing = new(src)
@@ -410,6 +411,12 @@
 	web_speed = 0.5
 	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
 
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/update_overlays()
+	. = ..()
+	var/image/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = "guard-light-mask", layer = layer)
+	. += emissive_overlay
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
 	. = ..()
 	block = new
@@ -489,14 +496,25 @@
 	button_icon_state = "block"
 
 /datum/action/innate/spider/block/on_activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider)) // Update_button is here to make an effect to the icon as if it were a pointed/projectile icon.
 		return
+	button_icon_state = "block_1"
+	update_buttons()
 	if(owner.a_intent == INTENT_HELP)
 		owner.a_intent = INTENT_HARM
+		button_icon_state = "block_1"
+		update_buttons()
 		owner.visible_message(span_notice("[owner] widens its stance and blocks passage around it."),span_notice("You are now blocking others from passing around you."))
 	else
 		owner.a_intent = INTENT_HELP
+		button_icon_state = "block"
+		update_buttons()
 		owner.visible_message(span_notice("[owner] loosens up and allows others to pass again."),span_notice("You are no longer blocking others from passing around you."))
+
+/datum/action/innate/spider/block/on_deactivate(mob/user, atom/target)
+	button_icon_state = "block"
+	update_buttons()
 
 /datum/action/innate/spider/lay_web/is_available()
 	. = ..()
@@ -518,29 +536,6 @@
 		return FALSE
 
 	return TRUE
-
-/datum/action/innate/spider/lay_web/on_activate()
-	var/turf/spider_turf = get_turf(owner)
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
-	var/obj/structure/spider/stickyweb/web = locate() in spider_turf
-	if(web)
-		spider.visible_message(
-			span_notice("[spider] begins to pack more webbing onto the web."),
-			span_notice("You begin to seal the web."),
-		)
-	else
-		spider.visible_message(
-			span_notice("[spider] begins to secrete a sticky substance."),
-			span_notice("You begin to lay a web."),
-		)
-
-	spider.stop_automated_movement = TRUE
-
-	if(do_after(spider, 4 SECONDS * spider.web_speed, target = spider_turf))
-		if(spider.loc == spider_turf)
-			new /obj/structure/spider/stickyweb(spider_turf)
-
-	spider.stop_automated_movement = FALSE
 
 /datum/action/wrap
 	name = "Wrap"
