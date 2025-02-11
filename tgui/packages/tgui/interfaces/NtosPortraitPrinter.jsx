@@ -1,6 +1,6 @@
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Button, NoticeBox, Section, Stack, Tabs } from '../components';
+import { Box, Button, NoticeBox, Section, Stack, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosPortraitPrinter = (props) => {
@@ -56,13 +56,13 @@ export const NtosPortraitPrinter = (props) => {
               <Section fill>
                 <Stack height="100%" align="center" justify="center" direction="column">
                   <Stack.Item>
-                    <img
+                    <Box
+                      as="img"
                       src={resolveAsset(TABS[tabIndex].asset_prefix + '_' + tab2list[listIndex]['md5'])}
                       height="128px"
                       width="128px"
                       style={{
-                        'vertical-align': 'middle',
-                        '-ms-interpolation-mode': 'nearest-neighbor',
+                        verticalAlign: 'middle',
                       }}
                     />
                   </Stack.Item>

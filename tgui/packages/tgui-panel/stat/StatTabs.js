@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Flex, Tabs, Section, Input } from 'tgui/components';
-import { Box, ScrollableBox, Fragment, Divider } from '../../tgui/components';
+import { Button, Flex, Tabs, Section, Input, ScrollableBox, Divider } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
-import { StatStatus, HoboStatStatus } from './StatStatus';
-import { StatText, HoboStatText } from './StatText';
+import { StatStatus } from './StatStatus';
+import { StatText } from './StatText';
 import { StatTicket } from './StatTicket';
 
 // =======================
@@ -24,7 +23,7 @@ export const StatTabs = (props) => {
       break;
   }
   return (
-    <Fragment>
+    <>
       <Flex.Item shrink={0}>
         <div className="StatTabBackground">{settings.statTabMode === 'Scroll' ? <StatTabScroll /> : <StatTabWrap />}</div>
       </Flex.Item>
@@ -34,7 +33,7 @@ export const StatTabs = (props) => {
         </div>
       </ScrollableBox>
       {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
+        <>
           <Divider />
           <Input
             fluid
@@ -48,9 +47,9 @@ export const StatTabs = (props) => {
               })
             }
           />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -108,46 +107,5 @@ export const StatTabWrap = (props) => {
         </Button>
       ))}
     </Section>
-  );
-};
-
-// =======================
-// Non-Flex Support
-// =======================
-
-export const HoboStatTabs = (props) => {
-  const stat = useSelector(selectStatPanel);
-  const settings = useSettings();
-  let statSection = <HoboStatText />;
-  switch (stat.selectedTab) {
-    case 'Status':
-      statSection = <HoboStatStatus />;
-      break;
-    case '(!) Admin PM':
-      statSection = <StatTicket />;
-      break;
-  }
-  return (
-    <Box>
-      <StatTabWrap />
-      <Box grow={1}>{statSection}</Box>
-      {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
-          <Divider />
-          <Input
-            fluid
-            selfClear
-            onEnter={(e, value) =>
-              Byond.sendMessage('stat/pressed', {
-                action_id: 'ticket_message',
-                params: {
-                  msg: value,
-                },
-              })
-            }
-          />
-        </Fragment>
-      )}
-    </Box>
   );
 };

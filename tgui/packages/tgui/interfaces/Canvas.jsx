@@ -1,4 +1,4 @@
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { useBackend } from '../backend';
 import { Box, Button } from '../components';
 import { Window } from '../layouts';
@@ -51,8 +51,10 @@ class PaintCanvas extends Component {
     const y_size = this.props.value[0].length;
     const x_scale = this.canvasRef.current.width / x_size;
     const y_scale = this.canvasRef.current.height / y_size;
-    const x = Math.floor(event.offsetX / x_scale) + 1;
-    const y = Math.floor(event.offsetY / y_scale) + 1;
+
+    const rect = this.canvasRef.current.getBoundingClientRect();
+    const x = Math.floor((event.clientX - rect.left + PX_PER_UNIT) / x_scale);
+    const y = Math.floor((event.clientY - rect.top + PX_PER_UNIT) / y_scale);
     this.onCVClick(x, y);
   }
 

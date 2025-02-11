@@ -60,7 +60,7 @@ export const AdminSecretsPanel = (props) => {
     let Commands = Category[1].filter(filterSearch).map(makeButton);
     if (Commands.length) {
       return (
-        <Collapsible title={`${Category[0]} (${Commands.length})`} bold key>
+        <Collapsible title={`${Category[0]} (${Commands.length})`} bold key={Category[0]}>
           <Section>
             <Flex spacing={1} wrap="wrap" textAlign="center" justify="center">
               {Commands}

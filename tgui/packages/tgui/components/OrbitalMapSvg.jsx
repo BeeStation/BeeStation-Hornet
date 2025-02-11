@@ -1,5 +1,5 @@
 import { clamp } from 'common/math';
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 const FPS = 20;
 // Scales the positions to make things on the map appear closer or further away.
@@ -159,7 +159,7 @@ export class OrbitalMapSvg extends Component {
   // Handles rendering of the orbital map
   render() {
     const boxTargetStyle = {
-      'fill-opacity': 0,
+      fillOpacity: 0,
       stroke: '#DDDDDD',
       strokeWidth: '1',
     };

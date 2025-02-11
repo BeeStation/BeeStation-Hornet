@@ -112,7 +112,8 @@ const GuideSection = () => {
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
           <b>left click</b> on them to harvest them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
+          <span style={hereticBlue}>knowledge points</span>. Tapping them visible to all after a short time.
+          <span style={hereticPurple}> You can dream to discover influences with a 5 minute delay</span>
         </Stack.Item>
         <Stack.Item>
           - Use your&nbsp;
@@ -299,10 +300,8 @@ export const AntagInfoHeretic = (props) => {
     <Window width={675} height={600}>
       <Window.Content
         style={{
-          // 'font-family': 'Times New Roman',
-          // 'fontSize': '20px',
-          'background-image': 'none',
-          'background': ascended
+          backgroundImage: 'none',
+          background: ascended
             ? 'radial-gradient(circle, rgba(24,9,9,1) 54%, rgba(31,10,10,1) 60%, rgba(46,11,11,1) 80%, rgba(47,14,14,1) 100%);'
             : 'radial-gradient(circle, rgba(9,9,24,1) 54%, rgba(10,10,31,1) 60%, rgba(21,11,46,1) 80%, rgba(24,14,47,1) 100%);',
         }}>

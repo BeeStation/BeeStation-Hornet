@@ -1,4 +1,4 @@
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { useBackend, useLocalState } from '../backend';
 import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
 import { ButtonConfirm } from '../components/Button';
@@ -45,8 +45,8 @@ export const MessageMonitorContent = (_) => {
             fontFamily="monospace"
             backgroundColor="black"
             style={{
-              'color': 'red',
-              'white-space': 'pre-wrap',
+              color: 'red',
+              whiteSpace: 'pre-wrap',
             }}>
             {`-------------------
 Crypto-Breaker 5000
@@ -102,7 +102,7 @@ Please Wait...`}
           {!authenticated ? (
             <Dimmer
               style={{
-                'background-color': 'transparent',
+                backgroundColor: 'transparent',
               }}>
               <Flex direction="column" align="center" fontSize="15px">
                 <Flex.Item fontSize="20px">Awaiting Decryption Key...</Flex.Item>
@@ -232,7 +232,7 @@ Please Wait...`}
                 color="label"
                 fontSize={2}
                 style={{
-                  'background-color': 'transparent',
+                  backgroundColor: 'transparent',
                 }}>
                 No Data
               </Dimmer>
@@ -345,10 +345,10 @@ class PasswordScroller extends Component {
         backgroundColor="black"
         fontFamily="monospace"
         style={{
-          'color': 'red',
-          'white-space': 'pre-wrap',
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
+          color: 'red',
+          whiteSpace: 'pre-wrap',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
         }}>
         {this.state.text}
         <div ref={this.endRef} />
