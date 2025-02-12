@@ -16,6 +16,5 @@
 #define WEIGHT_DEAD 50
 #define WEIGHT_ROBOT 60
 #define WEIGHT_EMOTE 70
-#define WEIGHT_ROBOT 75
 #define WEIGHT_AI 80
 #define WEIGHT_LOWEST 999
