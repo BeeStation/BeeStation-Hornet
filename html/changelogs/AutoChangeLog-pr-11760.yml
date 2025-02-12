@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Merges mob properties and traits.
-  - bugfix: Hulk limb colour no longer applies to robotic limbs.
