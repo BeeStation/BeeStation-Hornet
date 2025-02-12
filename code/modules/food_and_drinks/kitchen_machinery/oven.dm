@@ -196,6 +196,11 @@
 	icon_state = "oven_tray"
 	max_items = 6
 
+/obj/item/plate/oven_tray/diamond
+	name = "oven tray"
+	desc = "Time to bake cookies!"
+	icon_state = "oven_tray"
+	max_items = 12
 
 /particles/smoke
 	icon = 'icons/effects/particles/smoke.dmi'
@@ -233,3 +238,10 @@
 
 #undef OVEN_TRAY_Y_OFFSET
 #undef OVEN_TRAY_X_OFFSET
+
+
+/obj/machinery/oven/RefreshParts()
+	var/required_bake_time =  30 SECONDS
+	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
+		required_bake_time -= L.rating
+

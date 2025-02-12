@@ -88,7 +88,7 @@
 	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/cakebatter/make_bakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/cake/plain, rand(70 SECONDS, 90 SECONDS), TRUE, TRUE)
+	AddComponent(/datum/component/bakeable, /obj/item/food/cake/plain, rand(50 SECONDS, 70 SECONDS), TRUE, TRUE)
 
 // Cake batter + rolling pin = pie dough
 /obj/item/food/cakebatter/make_processable()

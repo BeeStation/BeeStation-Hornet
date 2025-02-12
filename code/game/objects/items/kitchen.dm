@@ -98,3 +98,15 @@
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
+
+/obj/item/kitchen/rollingpin/diamond
+	name = "rolling pin"
+	desc = "Used to knock out the Bartender."
+	icon_state = "drolling_pin"
+	force = 10
+	throwforce = 7
+	throw_speed = 4
+	throw_range = 7
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.5,/datum/material/diamond=1000)
+	tool_behaviour = TOOL_ROLLINGPIN
+	toolspeed = 0.5
