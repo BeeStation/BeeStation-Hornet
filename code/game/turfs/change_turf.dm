@@ -64,6 +64,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 // Creates a new turf
 // new_baseturfs can be either a single type or list of types, formated the same as baseturfs. see turf.dm
 /turf/proc/ChangeTurf(path, list/new_baseturfs, flags)
+	SHOULD_NOT_SLEEP(TRUE)
+
 	switch(path)
 		if(null)
 			return
@@ -113,8 +115,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/list/old_signal_procs = signal_procs?.Copy()
 
 	var/old_atoms_state = SSatoms.initialized
+	// Disable initialisation for the atom
 	SSatoms.initialized = INITIALIZATION_INSSATOMS
 	var/turf/new_turf = new path(src)
+	// Store initialisation state
+	SSatoms.initialized = old_atoms_state
 
 	// These need to be set prior to initialisation, otherwise we will have to regenerate
 	// zmimic twice for turfs that are linked to other locations.
@@ -124,10 +129,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	old_below?.above = new_turf
 	new_turf.z_depth = old_zdepth
 
+	// Initialize the atom manually
 	var/is_mapload = old_atoms_state == INITIALIZATION_INNEW_MAPLOAD
 	SSatoms.InitAtom(src, new_turf, list(is_mapload))
-
-	SSatoms.initialized = old_atoms_state
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
