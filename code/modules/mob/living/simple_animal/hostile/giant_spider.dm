@@ -43,6 +43,7 @@
 	melee_damage = 15
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/spidervenom
+	var/spider_lightmask = "tarantula-light-mask" // Variable to prevent spider emissives from overlapping
 	faction = list(FACTION_SPIDER)
 	pass_flags = PASSTABLE
 	move_to_delay = 4
@@ -76,9 +77,15 @@
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
+/mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
+	. = ..()
+	var/mutable_appearance/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = spider_lightmask, layer = layer)
+	. += emissive_overlay
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
+	update_appearance() //Used for emissive spider eyes.
 	webbing = new(src)
 	webbing.Grant(src)
 	wrap = new(src)
@@ -254,9 +261,11 @@
 	speed = 1
 	onweb_speed = 0
 	web_speed = 0.33
+	spider_lightmask = "nurse-light-mask"
 	///The health HUD applied to the mob.
 	var/health_hud = DATA_HUD_MEDICAL_ADVANCED
 	var/datum/action/innate/spider/set_directive/set_directive
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
@@ -318,6 +327,7 @@
 	speed = 2
 	onweb_speed = 1
 	web_speed = 0.25
+	spider_lightmask = "broodmother-light-mask"
 
 	gender = FEMALE
 	butcher_results = list(
@@ -374,6 +384,7 @@
 	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
+	spider_lightmask = "hunter-light-mask"
 
 // Vipers are physically very weak and fragile, but also very fast and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
@@ -389,6 +400,7 @@
 	onweb_speed = -1
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
+	spider_lightmask = "viper-light-mask"
 
 //Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs.
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
@@ -410,12 +422,7 @@
 	mob_size = MOB_SIZE_LARGE
 	web_speed = 0.5
 	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
-
-/mob/living/simple_animal/hostile/poison/giant_spider/guard/update_overlays()
-	. = ..()
-	var/image/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = "guard-light-mask", layer = layer)
-	. += emissive_overlay
-	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	spider_lightmask = "guard-light-mask"
 
 /mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
 	. = ..()
