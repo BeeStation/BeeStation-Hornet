@@ -751,35 +751,35 @@
 	deactive_msg = span_notice("You discard the webbing.")
 
 /datum/action/spell/pointed/projectile/throw_web/can_cast_spell(feedback)
-    . = ..()
-    var/mob/living/user = owner
-    if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
-        return FALSE
-    var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
-    if(spider.busy != SPINNING_WEB)
-        return TRUE
-    else
-        return FALSE
+	. = ..()
+	var/mob/living/user = owner
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		return TRUE
+	else
+		return FALSE
 
 /datum/action/spell/pointed/projectile/throw_web/set_click_ability(mob/on_who)
-    var/mob/living/user = owner
-    if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
-        return FALSE
-    var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
-    if(spider.busy != SPINNING_WEB)
-        spider.busy = SPINNING_WEB
-        spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
-        spider.stop_automated_movement = TRUE
-        . = FALSE
-        if(do_after(spider, 30 * spider.web_speed, spider))
-            var/message = "<span class='notice'>You ready the completed net with your forelimbs."
-            to_chat(spider, message)
-            . = ..()
-        spider.busy = SPIDER_IDLE
-        spider.stop_automated_movement = FALSE
-    else
-        to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
-        return FALSE
+	var/mob/living/user = owner
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		spider.busy = SPINNING_WEB
+		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+		spider.stop_automated_movement = TRUE
+		. = FALSE
+		if(do_after(spider, 30 * spider.web_speed, spider))
+			var/message = "<span class='notice'>You ready the completed net with your forelimbs."
+			to_chat(spider, message)
+			. = ..()
+		spider.busy = SPIDER_IDLE
+		spider.stop_automated_movement = FALSE
+	else
+		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+		return FALSE
 
 // Directive command, for giving children orders
 // The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob
