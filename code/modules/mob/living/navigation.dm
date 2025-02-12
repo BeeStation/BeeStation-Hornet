@@ -79,6 +79,8 @@
 	var/list/path = get_path_to(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, id = get_idcard(), skip_first = FALSE)
 	if(!length(path))
 		balloon_alert(src, "no valid path with current access!")
+		//Let them path again
+		COOLDOWN_RESET(src, navigate_cooldown)
 		return
 	path |= get_turf(target_destination)
 	for(var/i in 1 to length(path))
