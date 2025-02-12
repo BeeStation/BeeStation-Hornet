@@ -79,7 +79,7 @@
 
 	//Fully heal the zombie's damage the first time they rise
 	C.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
-	if(C.heal_and_revive(0, span_danger("[target] suddenly convulses, as [target.p_they()][stand_up ? " stagger to [target.p_their()] feet and" : ""] gain a ravenous hunger in [target.p_their()] eyes!")))
+	if(C.heal_and_revive(0, span_danger("[C] suddenly convulses, as [C.p_they()][stand_up ? " stagger to [C.p_their()] feet and" : ""] gain a ravenous hunger in [C.p_their()] eyes!")))
 		return
 	C.grab_ghost()
 
