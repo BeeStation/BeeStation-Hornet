@@ -4565,6 +4565,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Waste to Filter"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aMj" = (
@@ -11220,6 +11221,10 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "HOPline";
+	name = "HOPline navigate verb destination"
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
 "bBB" = (
@@ -13233,6 +13238,13 @@
 /obj/structure/kitchenspike,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
+"bNI" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron/dark,
+/area/science/shuttledock)
 "bNJ" = (
 /obj/effect/landmark/start/mime,
 /turf/open/floor/wood,
@@ -16364,6 +16376,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/science/lab)
 "ckb" = (
@@ -18494,6 +18507,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "cFd" = (
@@ -20340,6 +20354,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
 "cXI" = (
@@ -22266,6 +22281,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "dti" = (
@@ -23574,6 +23590,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/green,
 /area/chapel/main)
 "dQI" = (
@@ -24486,6 +24503,10 @@
 /obj/item/cigbutt,
 /turf/open/floor/iron,
 /area/science/storage)
+"ejx" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/engine/storage_shared)
 "ejK" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "explo_prep";
@@ -24791,6 +24812,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/science/misc_lab/range)
 "erh" = (
@@ -26217,6 +26239,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "eVc" = (
@@ -27537,6 +27560,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/storage/primary)
 "fuC" = (
@@ -30535,6 +30559,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"gBt" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron/smooth_large,
+/area/security/prison)
 "gBw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -30843,6 +30874,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"gGV" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron/white,
+/area/science/research)
 "gHe" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -32342,6 +32380,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/teleporter)
 "hkK" = (
@@ -35290,6 +35329,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "imT" = (
@@ -38404,6 +38444,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
 "jyQ" = (
@@ -39245,6 +39286,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "jOW" = (
@@ -39398,6 +39440,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "jRz" = (
@@ -39554,6 +39597,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/gateway)
 "jUv" = (
@@ -45636,6 +45680,11 @@
 /obj/item/extinguisher,
 /turf/open/floor/iron,
 /area/maintenance/central)
+"mlc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron/dark/smooth_large,
+/area/maintenance/disposal/incinerator)
 "mli" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
@@ -46617,6 +46666,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"mCL" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/science/robotics/lab)
 "mDa" = (
 /obj/machinery/light{
 	light_color = "#7AC3FF"
@@ -56004,6 +56057,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "pWx" = (
@@ -59404,6 +59458,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"rib" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/construction/mining/aux_base)
 "rih" = (
 /obj/structure/railing{
 	dir = 4
@@ -64649,6 +64710,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "tgo" = (
@@ -68714,6 +68776,10 @@
 	},
 /turf/open/floor/iron,
 /area/construction/storage_wing)
+"uAZ" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "uBc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -68751,6 +68817,7 @@
 	pixel_y = -23
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
 "uBx" = (
@@ -69365,6 +69432,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "uOd" = (
@@ -72768,6 +72836,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "vYt" = (
@@ -73333,6 +73402,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "wlL" = (
@@ -77995,6 +78065,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "xPx" = (
@@ -91437,7 +91508,7 @@ aDa
 aDa
 lGS
 cWM
-jqc
+rib
 yki
 sRu
 wwp
@@ -105043,7 +105114,7 @@ ybL
 xHy
 aax
 qVZ
-acs
+gBt
 fNu
 dKF
 lsE
@@ -108208,7 +108279,7 @@ prv
 wRm
 pks
 cFg
-cFg
+mCL
 cFg
 cHR
 cIK
@@ -109468,7 +109539,7 @@ bZj
 pzy
 lDD
 rSd
-eAv
+gGV
 cgh
 jrP
 ciH
@@ -118481,7 +118552,7 @@ tVz
 mOA
 fAG
 fAG
-fAG
+bNI
 vqm
 xra
 yaR
@@ -119235,7 +119306,7 @@ lZw
 kja
 vkN
 rWW
-rWW
+mlc
 fxC
 cjb
 ckD
@@ -120494,7 +120565,7 @@ gyj
 tKG
 owR
 sao
-hkq
+ejx
 jay
 bxd
 byV
@@ -122563,7 +122634,7 @@ bIU
 bKB
 bMh
 bCi
-bCi
+uAZ
 bKD
 bCi
 bCi
