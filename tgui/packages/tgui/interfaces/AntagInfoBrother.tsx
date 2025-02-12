@@ -9,8 +9,8 @@ type Info = {
   objectives: Objective[];
   brothers: string;
 };
-export const AntagInfoBrother = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoBrother = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives, antag_name, brothers } = data;
   return (
     <Window width={620} height={250} theme="syndicate">

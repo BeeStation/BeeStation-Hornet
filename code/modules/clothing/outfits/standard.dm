@@ -133,7 +133,7 @@
 	ears = /obj/item/radio/headset/syndicate/alt/leader
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/H)
-	H.faction |= "pirate"
+	H.faction |= FACTION_PIRATE
 
 	var/obj/item/radio/R = H.ears
 	if(R)
@@ -219,7 +219,7 @@
 		qdel(briefcase_item)
 	for(var/i = 3 to 0 step -1)
 		SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/stack/spacecash/c1000, null, TRUE, TRUE)
-	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/energy/kinetic_accelerator/crossbow, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/energy/recharge/ebow, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/ballistic/revolver/mateba, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/a357, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
@@ -327,14 +327,6 @@
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
 	backpack_contents = list(/obj/item/storage/box=1)
-
-/datum/outfit/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-
-	var/obj/item/spellbook/S = locate() in H.held_items
-	if(S)
-		S.owner = H.mind
 
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"

@@ -5,7 +5,7 @@
 	"map_file": "DeltaStation2.dmm",
 	"shuttles": {
 		"emergency": "emergency_delta",
-		"ferry": "ferry_fancy",
+		"ferry": "ferry_standard",
 		"cargo": "cargo_delta",
 		"whiteship": "whiteship_delta"
 	}

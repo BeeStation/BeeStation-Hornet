@@ -37,7 +37,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
-	worn_icon_state = "baguette"
+	worn_icon_state = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -53,7 +53,7 @@
 	STR.can_be_opened = FALSE //Have to dump a trash bag out to look at its contents
 
 /obj/item/storage/bag/trash/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message(span_suicide("[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
@@ -78,13 +78,14 @@
 		J.mybag=src
 		J.update_icon()
 	else
-		to_chat(user, "<span class='warning'>You are unable to fit your [name] into the [J.name].</span>")
+		to_chat(user, span_warning("You are unable to fit your [name] into the [J.name]."))
 		return
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
 	icon_state = "bluetrashbag"
+	worn_icon_state = "bluetrashbag"
 	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/storage/bag/trash/bluespace/ComponentInitialize()
@@ -187,8 +188,8 @@
 		var/message_box = box ? " into [box]" : " with their [name]"
 
 		user.visible_message(
-			"<span class='notice'>[user] [message_action] the ores [message_location] [user.p_them()][message_box].</span>",
-			"<span class='notice'>You [message_action_pov] the ores [message_location] you[message_box_pov].</span>"
+			span_notice("[user] [message_action] the ores [message_location] [user.p_them()][message_box]."),
+			span_notice("You [message_action_pov] the ores [message_location] you[message_box_pov].")
 		)
 
 /obj/item/storage/bag/ore/proc/handle_ores_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box)
@@ -213,7 +214,7 @@
 		ore_found = TRUE
 		break // If we find any ore, no need to continue the loop
 	if (ore_found)
-		to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>");
+		to_chat(user, span_warning("Your [name] is full and can't hold any more!"));
 
 	return item_transferred
 
@@ -446,7 +447,7 @@
 			/obj/item/reagent_containers/medspray,
 			/obj/item/reagent_containers/syringe,
 			/obj/item/reagent_containers/dropper,
-			/obj/item/reagent_containers/cup/waterbottle
+			/obj/item/reagent_containers/cup/glass/waterbottle
 			)
 		)
 

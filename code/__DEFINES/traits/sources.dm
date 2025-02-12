@@ -53,7 +53,7 @@
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
-#define TRAIT_HULK "hulk"
+#define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
 #define EYES_COVERED "eyes_covered"
@@ -124,12 +124,19 @@
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
-
+#define LICH_TRAIT "lich_trait"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
+
+/// This trait comes from when a mob is currently typing.
+#define CURRENTLY_TYPING_TRAIT "currently_typing"
 
 #define VENTCRAWLING_TRAIT "ventcrawling"
 #define SPECIES_FLIGHT_TRAIT "species-flight"
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+#define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+/// Sources for TRAIT_IGNORING_GRAVITY
+#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
+#define FROM_SHADOW_SECT "shadow_sect"

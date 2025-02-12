@@ -14,6 +14,9 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
 	var/mob/oranges_ear/assigned_oranges_ear
 
+
+	/// Turf bitflags, see code/__DEFINES/flags.dm
+	var/turf_flags = NONE
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
 	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
@@ -30,11 +33,12 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/list/baseturfs = /turf/baseturf_bottom
 
 	/// How hot the turf is, in kelvin
-	var/initial_temperature = T20C
+	var/temperature = T20C
 
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
-	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+	///The max temperature of the fire which it was subjected to, determines the melting point of turf
+	var/max_fire_temperature_sustained = 0
 
 	/// If this turf should initialize atmos adjacent turfs or not
 	/// Optimization, not for setting outside of initialize
@@ -42,6 +46,9 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
+
+	/// Whether the turf blocks atmos from passing through it or not
+	var/blocks_air = FALSE
 
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
@@ -72,6 +79,9 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	/// See __DEFINES/construction.dm for RCD_MEMORY_*.
 	var/rcd_memory
 
+	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
+	var/force_no_gravity = FALSE
+
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
@@ -81,11 +91,29 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
 
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
+	/// For the area_contents list unit test
+	/// Allows us to know our area without needing to preassign it
+	/// Sorry for the mess
+	var/area/in_contents_of
+#endif
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
 		return FALSE
 	. = ..()
+
+/turf/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION(VV_HK_UPDATE_ACTIVE_TURF, "Update Turf Air")
+
+/turf/vv_do_topic(href_list)
+	. = ..()
+	if(href_list[VV_HK_UPDATE_ACTIVE_TURF])
+		if(isspaceturf(src))
+			return
+		air_update_turf(TRUE, FALSE)
 
 /turf/Initialize(mapload)
 	if(flags_1 & INITIALIZED_1)
@@ -129,7 +157,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
-		CALCULATE_ADJACENT_TURFS(src)
+		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -157,18 +185,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if(uses_integrity)
 		atom_integrity = max_integrity
 
-		if (islist(armor))
-			armor = getArmor(arglist(armor))
-		else if (!armor)
-			armor = getArmor()
-
-	if(isopenturf(src))
-		var/turf/open/O = src
-		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
-	else
-		update_air_ref(-1)
-		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
-
 	//Handle turf texture
 	var/datum/turf_texture/TT = get_turf_texture()
 	if(TT)
@@ -176,15 +192,9 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/proc/__auxtools_update_turf_temp_info()
-
-/turf/return_temperature()
-
-/turf/proc/set_temperature()
-
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
-/turf/proc/Initalize_Atmos(times_fired)
-	CALCULATE_ADJACENT_TURFS(src)
+/turf/proc/Initalize_Atmos(time)
+	CALCULATE_ADJACENT_TURFS(src, NORMAL_TURF)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -224,7 +234,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
-			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
+			to_chat(user, span_warning("You can't float up and down when there is gravity!"))
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
@@ -234,6 +244,24 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		user.changeNext_move(CLICK_CD_RAPID)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
+
+/// Call to move a turf from its current area to a new one
+/turf/proc/change_area(area/old_area, area/new_area)
+	//don't waste our time
+	if(old_area == new_area)
+		return
+
+	//move the turf
+	old_area.turfs_to_uncontain += src
+	new_area.contents += src
+	new_area.contained_turfs += src
+
+	//changes to make after turf has moved
+	on_change_area(old_area, new_area)
+
+/// Allows for reactions to an area change without inherently requiring change_area() be called (I hate maploading)
+/turf/proc/on_change_area(area/old_area, area/new_area)
+	transfer_area_lighting(old_area, new_area)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)
@@ -298,6 +326,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+
 	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
@@ -535,6 +564,15 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			continue
 		. += turf_to_check
 
+/turf/proc/get_heat_capacity()
+	. = heat_capacity
+
+/turf/proc/get_temperature()
+	. = temperature
+
+/turf/proc/take_temperature(temp)
+	temperature += temp
+
 /turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
 	if(max_amount <= 0)
 		return
@@ -575,7 +613,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
 		var/area/A = loc
-		if(TF in A?.get_turf_textures())
+		if(TF in A?.get_area_textures())
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
 	if(turf_texture)
 		vis_contents += load_turf_texture(turf_texture)
@@ -614,3 +652,17 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!ismopable(movable_content))
 			continue
 		movable_content.wash(clean_types)
+
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
+			return TRUE
+	return FALSE

@@ -194,16 +194,16 @@
 /obj/item/reagent_containers/cup/glass/waterbottle/examine(mob/user)
 	. = ..()
 	if(cap_lost)
-		. += "<span class='notice'>The cap seems to be missing.</span>"
+		. += span_notice("The cap seems to be missing.")
 	else if(cap_on)
-		. += "<span class='notice'>The cap is firmly on to prevent spilling. Alt-click to remove the cap.</span>"
+		. += span_notice("The cap is firmly on to prevent spilling. Alt-click to remove the cap.")
 	else
-		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
+		. += span_notice("The cap has been taken off. Alt-click to put a cap on.")
 
 /obj/item/reagent_containers/cup/glass/waterbottle/AltClick(mob/user)
 	. = ..()
 	if(cap_lost)
-		to_chat(user, "<span class='warning'>The cap seems to be missing! Where did it go?</span>")
+		to_chat(user, span_warning("The cap seems to be missing! Where did it go?"))
 		return
 
 	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
@@ -212,14 +212,14 @@
 		spillable = TRUE
 		animate(src, transform = null, time = 2, loop = 0)
 		if(fumbled)
-			to_chat(user, "<span class='warning'>You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?</span>")
+			to_chat(user, span_warning("You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?"))
 			cap_lost = TRUE
 		else
-			to_chat(user, "<span class='notice'>You remove the cap from [src].</span>")
+			to_chat(user, span_notice("You remove the cap from [src]."))
 	else
 		cap_on = TRUE
 		spillable = FALSE
-		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
+		to_chat(user, span_notice("You put the cap on [src]."))
 	update_appearance()
 
 /obj/item/reagent_containers/cup/glass/waterbottle/is_refillable()
@@ -237,20 +237,20 @@
 		return
 
 	if(cap_on && reagents.total_volume && istype(target))
-		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
+		to_chat(user, span_warning("You must remove the cap before you can do that!"))
 		return
 
 	return ..()
 
 /obj/item/reagent_containers/cup/glass/waterbottle/afterattack(obj/target, mob/living/user, proximity)
 	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.a_intent == INTENT_HARM)))
-		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
+		to_chat(user, span_warning("You must remove the cap before you can do that!"))
 		return
 
 	else if(istype(target, /obj/item/reagent_containers/cup/glass/waterbottle))
 		var/obj/item/reagent_containers/cup/glass/waterbottle/other_bottle = target
 		if(other_bottle.cap_on)
-			to_chat(user, "<span class='warning'>[other_bottle] has a cap firmly twisted on!</span>")
+			to_chat(user, span_warning("[other_bottle] has a cap firmly twisted on!"))
 			return
 
 	return ..()
@@ -263,10 +263,9 @@
 	if(!cap_on || !reagents.total_volume)
 		return
 	if(prob(flip_chance)) // landed upright
-		src.visible_message("<span class='notice'>[src] lands upright!</span>")
-		if(throwingdatum.thrower)
-			var/mob/living/living_thrower = throwingdatum.thrower
-			SEND_SIGNAL(living_thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
+		src.visible_message(span_notice("[src] lands upright!"))
+		if(throwingdatum?.thrower)
+			SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
 	else // landed on it's side
 		animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
@@ -287,6 +286,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	cap_icon_state = "bottle_cap"
+	icon_state_preview = "waterbottle_large"
 
 /obj/item/reagent_containers/cup/glass/waterbottle/large/empty
 	list_reagents = list()
@@ -460,13 +460,6 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	isGlass = FALSE
-
-/obj/item/reagent_containers/cup/glass/shaker/Initialize(mapload)
-	. = ..()
-	if(prob(10))
-		name = "\improper Nanotrasen 20th Anniversary Shaker"
-		desc += " It has an emblazoned Nanotrasen logo on it."
-		icon_state = "shaker_n"
 
 /obj/item/reagent_containers/cup/glass/flask
 	name = "flask"

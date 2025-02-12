@@ -55,7 +55,7 @@
 	. = ..()
 	check_setup()
 
-/obj/machinery/shuttle/engine/on_construction()
+/obj/machinery/shuttle/engine/on_construction(mob/user)
 	. = ..()
 	check_setup()
 
@@ -122,8 +122,8 @@
 	var/deltaTemperature = req_power / heat_cap
 	if(deltaTemperature < 0)
 		return
-	env.set_temperature(env.return_temperature() + deltaTemperature)
-	air_update_turf()
+	env.temperature = env.return_temperature() + deltaTemperature
+	air_update_turf(FALSE, FALSE)
 
 /obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
 	check_setup()

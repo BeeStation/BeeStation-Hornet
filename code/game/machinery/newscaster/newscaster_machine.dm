@@ -9,7 +9,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
+	armor_type = /datum/armor/machinery_newscaster
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?
@@ -60,6 +60,12 @@
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
+
+
+/datum/armor/machinery_newscaster
+	melee = 50
+	fire = 50
+	acid = 30
 
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
@@ -527,42 +533,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 /obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [name]...</span>")
+		to_chat(user, span_notice("You start [anchored ? "un" : ""]securing [name]..."))
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 60))
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 			if(machine_stat & BROKEN)
-				to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+				to_chat(user, span_warning("The broken remains of [src] fall on the ground."))
 				new /obj/item/stack/sheet/iron(loc, 5)
 				new /obj/item/shard(loc)
 				new /obj/item/shard(loc)
 			else
-				to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+				to_chat(user, span_notice("You [anchored ? "un" : ""]secure [name]."))
 				new /obj/item/wallframe/newscaster(loc)
 			qdel(src)
 	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		if(machine_stat & BROKEN)
 			if(!I.tool_start_check(user, amount=0))
 				return
-			user.visible_message("<span class='notice'>[user] is repairing [src].</span>", \
-							"<span class='notice'>You begin repairing [src]...</span>", \
-							"<span class='hear'>You hear welding.</span>")
+			user.visible_message(span_notice("[user] is repairing [src]."), \
+							span_notice("You begin repairing [src]..."), \
+							span_hear("You hear welding."))
 			if(I.use_tool(src, user, 40, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
+				to_chat(user, span_notice("You repair [src]."))
 				atom_integrity = max_integrity
 				set_machine_stat(machine_stat & ~BROKEN)
 				update_icon()
 		else
-			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+			to_chat(user, span_notice("[src] does not need repairs."))
 
 	else if(istype(I, /obj/item/paper))
 		if(!user.temporarilyRemoveItemFromInventory(I))
 			return
 		else
 			paper_remaining ++
-			to_chat(user, "<span class='notice'>You insert the [I] into \the [src]! It now holds [paper_remaining] sheets of paper.</span>")
+			to_chat(user, span_notice("You insert the [I] into \the [src]! It now holds [paper_remaining] sheets of paper."))
 			qdel(I)
 			return
 	return ..()
@@ -593,7 +599,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 /obj/machinery/newscaster/attack_paw(mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>The newscaster controls are far too complicated for your tiny brain!</span>")
+		to_chat(user, span_warning("The newscaster controls are far too complicated for your tiny brain!"))
 	else
 		take_damage(5, BRUTE, MELEE)
 

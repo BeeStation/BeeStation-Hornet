@@ -27,47 +27,48 @@
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src) && !issilicon(user) && !isobserver(user))
-		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
+		. += span_warning("You're too far away to examine [src]'s contents and display!")
 		return
 
 	if(charging)
-		. += "<span class='notice'>\The [src] contains:</span>\n"+\
-		"<span class='notice'>- \A [charging].</span>"
+		. += "[span_notice("\The [src] contains:")]\n"+\
+		span_notice("- \A [charging].")
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
-		. += "<span class='notice'>The status display reads:</span>"
-		. += "<span class='notice'>- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.</span>"
+		. += span_notice("The status display reads:")
+		. += span_notice("- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.")
 		if(charging)
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			if (istype(charging, /obj/item/ammo_box/magazine/recharge))
 				var/obj/item/ammo_box/magazine/recharge/magazine = charging
-				. += "<span class='notice'>- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo * 100]%</b>.</span>"
+				. += span_notice("- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo * 100]%</b>.")
 			else if(C)
-				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
+				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
 			else
-				. += "<span class='notice'>- \The [charging] has no power cell installed.</span>"
+				. += span_notice("- \The [charging] has no power cell installed.")
 
 
 /obj/machinery/recharger/proc/setCharging(new_charging)
 	charging = new_charging
 	if (new_charging)
 		START_PROCESSING(SSmachines, src)
+		update_use_power(ACTIVE_POWER_USE)
 		use_power = ACTIVE_POWER_USE
 		using_power = TRUE
 		update_appearance()
 	else
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		using_power = FALSE
 		update_appearance()
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
 	if(G.tool_behaviour == TOOL_WRENCH)
 		if(charging)
-			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
+			to_chat(user, span_notice("Remove the charging item first!"))
 			return
 		set_anchored(!anchored)
 		power_change()
-		to_chat(user, "<span class='notice'>You [anchored ? "attached" : "detached"] [src].</span>")
+		to_chat(user, span_notice("You [anchored ? "attached" : "detached"] [src]."))
 		G.play_tool_sound(src)
 		return
 
@@ -81,20 +82,20 @@
 			//Checks to make sure he's not in space doing it, and that the area got proper power.
 			var/area/a = get_area(src)
 			if(!isarea(a) || a.power_equip == 0)
-				to_chat(user, "<span class='notice'>[src] blinks red as you try to insert [G].</span>")
+				to_chat(user, span_notice("[src] blinks red as you try to insert [G]."))
 				return 1
 
 			if (istype(G, /obj/item/gun/energy))
 				var/obj/item/gun/energy/E = G
 				if(!E.can_charge)
-					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
+					to_chat(user, span_notice("Your gun has no external power connector."))
 					balloon_alert(user, "This gun cannot be charged.")
 					return 1
 
 			if (istype(G, /obj/item/gun/ballistic))
 				var/obj/item/gun/ballistic/gun = G
 				if (ispath(gun.mag_type, /obj/item/ammo_box/magazine/recharge))
-					to_chat(user, "<span class='notice'>You need to charge the magazine of this gun!</span>")
+					to_chat(user, span_notice("You need to charge the magazine of this gun!"))
 					balloon_alert(user, "Remove the magazine first!")
 					return 1
 
@@ -103,7 +104,7 @@
 			setCharging(G)
 
 		else
-			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
+			to_chat(user, span_notice("[src] isn't connected to anything!"))
 		return 1
 
 	if(anchored && !charging)

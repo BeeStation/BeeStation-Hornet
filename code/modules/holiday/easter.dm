@@ -39,7 +39,7 @@
 	speak_language = /datum/language/metalanguage // everyone should understand happy easter
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
-	egg_type = /obj/item/suprise_egg
+	egg_type = /obj/item/surprise_egg
 	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
@@ -122,12 +122,12 @@
 	//righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
 	obj_flags = UNIQUE_RENAME
 
-/obj/item/suprise_egg/loaded/Initialize(mapload)
+/obj/item/surprise_egg/loaded/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"
 
-/obj/item/suprise_egg/proc/dispensePrize(turf/where)
+/obj/item/surprise_egg/proc/dispensePrize(turf/where)
 	var/static/list/prize_list = list(
 		/obj/item/clothing/head/costume/bunnyhead,
 		/obj/item/clothing/suit/bunnysuit,
@@ -151,9 +151,9 @@
 	new won(where)
 	new/obj/item/food/chocolateegg(where)
 
-/obj/item/suprise_egg/attack_self(mob/user)
+/obj/item/surprise_egg/attack_self(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
+	to_chat(user, span_notice("You unwrap [src] and find a prize inside!"))
 	dispensePrize(get_turf(user))
 	qdel(src)
 
@@ -165,6 +165,7 @@
 	icon_state = "hotcrossbun"
 	foodtypes = SUGAR | GRAIN
 	tastes = list("easter")
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/scotchegg
 	name = "scotch egg"
@@ -173,9 +174,11 @@
 	icon_state = "scotchegg"
 	bite_consumption = 3
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/chocolatebunny
 	name = "chocolate bunny"
 	desc = "Contains less than 10% real rabbit!"
 	icon_state = "chocolatebunny"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
+	crafting_complexity = FOOD_COMPLEXITY_1

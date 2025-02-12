@@ -2,11 +2,11 @@
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) //makes the leader hoodie immune without giving the follower hoodies immunity
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
@@ -35,7 +35,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/holy/generate_item_list()
@@ -63,7 +63,7 @@
 	name = "Templar Kit"
 	var/icon/item_icon_file = 'icons/misc/premade_loadouts.dmi'
 	var/item_icon_state = "templar"
-	var/info_text = "Templar Kit, for waging a holy war against the unfaithful. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
+	var/info_text = "Templar Kit, for waging a holy war against the unfaithful. \n" + span_notice("The armor can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/PopulateContents()
 	new /obj/item/clothing/head/helmet/chaplain(src)
@@ -72,7 +72,7 @@
 /obj/item/storage/box/holy/student
 	name = "Profane Scholar Kit"
 	item_icon_state = "mikolash"
-	info_text = "Profane Scholar Kit, for granting the common masses the sight to the beyond. \n<span class='notice'>The robe can hold a variety of religious items.</span>"
+	info_text = "Profane Scholar Kit, for granting the common masses the sight to the beyond. \n" + span_notice("The robe can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/student/PopulateContents()
 	new /obj/item/clothing/suit/chaplainsuit/armor/templar/studentuni(src)
@@ -89,7 +89,7 @@
 /obj/item/storage/box/holy/sentinel
 	name = "Stone Sentinel Kit"
 	item_icon_state = "giantdad"
-	info_text = "Stone Sentinel Kit, for making a stalwart stance against herecy. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
+	info_text = "Stone Sentinel Kit, for making a stalwart stance against herecy. \n" + span_notice("The armor can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/sentinel/PopulateContents()
 	new /obj/item/clothing/suit/chaplainsuit/armor/ancient(src)
@@ -98,7 +98,7 @@
 /obj/item/storage/box/holy/witchhunter
 	name = "Witchhunter Kit"
 	item_icon_state = "witchhunter"
-	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n<span class='notice'>The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.</span>"
+	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n" + span_notice("The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.")
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/chaplainsuit/armor/witchhunter(src)
@@ -110,7 +110,7 @@
 /obj/item/storage/box/holy/graverobber
 	name = "Grave Robber Kit"
 	item_icon_state = "graverobber"
-	info_text = "Grave Robber Kit, for finding the treasures of those who parted this world. \n<span class='notice'>The coat can hold a variety of religious items. \nPickaxe not included.</span>"
+	info_text = "Grave Robber Kit, for finding the treasures of those who parted this world. \n" + span_notice("The coat can hold a variety of religious items. \nPickaxe not included.")
 
 /obj/item/storage/box/holy/graverobber/PopulateContents()
 	new /obj/item/clothing/suit/chaplainsuit/armor/templar/graverobber_coat(src)
@@ -121,7 +121,7 @@
 /obj/item/storage/box/holy/adept
 	name = "Divine Adept Kit"
 	item_icon_state = "crusader"
-	info_text = "Divine Adept Kit, for standing stalward with unvavering faith. \n<span class='notice'>The robes can hold a variety of religious items.</span>"
+	info_text = "Divine Adept Kit, for standing stalward with unvavering faith. \n" + span_notice("The robes can hold a variety of religious items.")
 
 /obj/item/storage/box/holy/adept/PopulateContents()
 	new /obj/item/clothing/suit/chaplainsuit/armor/templar/adept(src)
@@ -130,7 +130,7 @@
 /obj/item/storage/box/holy/follower
 	name = "Followers of the Chaplain Kit"
 	item_icon_state = "leader"
-	info_text = "Divine Adept Kit, for starting a non-heretical cult of your own. \n<span class='notice'>The hoodie can hold a variety of religious items. \nComes with four follower hoodies.</span>"
+	info_text = "Divine Adept Kit, for starting a non-heretical cult of your own. \n" + span_notice("The hoodie can hold a variety of religious items. \nComes with four follower hoodies.")
 
 /obj/item/storage/box/holy/follower/PopulateContents()
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie/leader(src)
@@ -159,9 +159,12 @@
 	obj_flags = UNIQUE_RENAME
 	var/chaplain_spawnable = TRUE
 
-/obj/item/nullrod/Initialize(mapload)
+
+/obj/item/nullrod/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/anti_magic, \
+	_source = INNATE_TRAIT, \
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 	AddComponent(/datum/component/effect_remover, \
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
@@ -169,7 +172,7 @@
 	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
 
 /obj/item/nullrod/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
+	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
@@ -333,7 +336,7 @@
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1
 	block_power = 30
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -440,7 +443,7 @@
 		var/obj/item/I = hitby
 		owner.attackby(src)
 		owner.attackby(src, owner)
-		owner.visible_message("<span class='danger'>[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!</span>")
+		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
 	return ..()
 
 /obj/item/nullrod/scythe
@@ -456,7 +459,7 @@
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("chops", "slices", "cuts", "reaps")
 	attack_verb_simple = list("chop", "slice", "cut", "reap")
@@ -508,7 +511,7 @@
 	if(possessed)
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
-		to_chat(user, "<span class='notice'>Anomalous otherworldly energies block you from awakening the blade!</span>")
+		to_chat(user, span_notice("Anomalous otherworldly energies block you from awakening the blade!"))
 		return
 
 	to_chat(user, "You attempt to wake the spirit of the blade...")
@@ -524,8 +527,7 @@
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
-		S.update_atom_languages()
-		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
+		S.get_language_holder().omnitongue = TRUE //Grants omnitongue
 		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
@@ -579,7 +581,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("saws", "tears", "lacerates", "cuts", "chops", "dices")
 	attack_verb_simple = list("saw", "tear", "lacerate", "cut", "chop", "dice")
@@ -605,7 +607,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	worn_icon_state = "render"
 	hitsound = 'sound/items/bikehorn.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -631,8 +633,8 @@
 	if(prob(30) && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		user.reagents.trans_to(H, user.reagents.total_volume, 1, 1, 0, transfered_by = user)
-		to_chat(user, "<span class='notice'>Your pride reflects on [H].</span>")
-		to_chat(H, "<span class='userdanger'>You feel insecure, taking on [user]'s burden.</span>")
+		to_chat(user, span_notice("Your pride reflects on [H]."))
+		to_chat(H, span_userdanger("You feel insecure, taking on [user]'s burden."))
 
 /obj/item/nullrod/whip
 	name = "holy whip"
@@ -659,7 +661,7 @@
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 30
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("enlightens", "redpills")
 	attack_verb_simple = list("enlighten", "redpill")
@@ -675,7 +677,7 @@
 	slot_flags = null
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/armblade/Initialize(mapload)
@@ -708,7 +710,7 @@
 	if(used_blessing)
 	else if(user.mind && (user.mind.holy_role))
 		to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
-		user.faction |= "carp"
+		user.faction |= FACTION_CARP
 		used_blessing = TRUE
 
 /obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
@@ -718,7 +720,7 @@
 	force = 14
 	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
-	sharpness = IS_BLUNT
+	sharpness = BLUNT
 	hitsound = "swing_hit"
 	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
 	attack_verb_simple = list("smash", "slam", "whack", "thwack")
@@ -737,7 +739,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -773,7 +775,7 @@
 	attack_verb_continuous = list("pokes", "impales", "pierces", "jabs")
 	attack_verb_simple = list("poke", "impale", "pierce", "jab")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 
 /obj/item/nullrod/egyptian
@@ -816,7 +818,7 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	armour_penetration = 10
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("stabs", "pokes", "slashes", "clocks")
@@ -836,7 +838,7 @@
 	throw_speed = 3
 	throw_range = 6
 	tool_behaviour = TOOL_KNIFE
-	sharpness = IS_SHARP_ACCURATE
+	sharpness = SHARP
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/nullrod/rainbow_knife/afterattack(atom/O, mob/user, proximity)

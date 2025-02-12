@@ -21,5 +21,11 @@
 ///Called when a payment component changes value
 #define COMSIG_OBJ_ATTEMPT_CHARGE_CHANGE "obj_attempt_simple_charge_change"
 
+/// called once a mindshield is implanted: (mob/user)
+#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
+
 ///from /obj/item/assembly/proc/pulsed(mob/pulser)
 #define COMSIG_ASSEMBLY_PULSED "assembly_pulsed"
+
+/// from /obj/proc/obj_break: ()
+#define COMSIG_OBJ_BREAK "obj_break"

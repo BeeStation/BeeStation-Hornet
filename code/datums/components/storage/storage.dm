@@ -46,7 +46,7 @@
 	var/attack_hand_interact = TRUE					//interact on attack hand.
 	var/quickdraw = FALSE							//altclick interact
 
-	var/datum/action/item_action/storage_gather_mode/modeswitch_action
+	var/datum/weakref/modeswitch_action_ref
 
 	/// whether or not we should have those cute little animations
 	var/animated = TRUE
@@ -151,20 +151,20 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		var/obj/item/valid_item = valid_type
 		desc += "\a [initial(valid_item.name)]"
 
-	return "\n\t<span class='notice'>[desc.Join("\n\t")]</span>"
+	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
 
 /datum/component/storage/proc/update_actions()
-	QDEL_NULL(modeswitch_action)
 	if(!isitem(parent) || !allow_quick_gather)
+		QDEL_NULL(modeswitch_action_ref)
 		return
-	var/obj/item/I = parent
-	modeswitch_action = new(I)
+	var/datum/action/existing = modeswitch_action_ref?.resolve()
+	if(!QDELETED(existing))
+		return
+
+	var/obj/item/item_parent = parent
+	var/datum/action/modeswitch_action = item_parent.add_item_action(/datum/action/item_action/storage_gather_mode)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
-	if(I.item_flags & PICKED_UP)
-		var/mob/M = I.loc
-		if(!istype(M))
-			return
-		modeswitch_action.Grant(M)
+	modeswitch_action_ref = WEAKREF(modeswitch_action)
 
 /datum/component/storage/proc/change_master(datum/component/storage/concrete/new_master)
 	if(new_master == src || (!isnull(new_master) && !istype(new_master)))
@@ -243,14 +243,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 				things -= A
 	var/len = length(things)
 	if(!len)
-		to_chat(pre_attack_mob, "<span class='warning'>You failed to pick up anything with [parent]!</span>")
+		to_chat(pre_attack_mob, span_warning("You failed to pick up anything with [parent]!"))
 		return
 	var/datum/progressbar/progress = new(pre_attack_mob, len, attack_item.loc)
 	var/list/rejections = list()
 	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), things, attack_item.loc, rejections, progress)))
 		stoplag(1)
 	progress.end_progress()
-	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
+	to_chat(pre_attack_mob, span_notice("You put everything you could [insert_preposition] [parent]."))
 	animate_parent()
 
 /datum/component/storage/proc/handle_mass_item_insertion(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
@@ -413,7 +413,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 /datum/component/storage/proc/show_to(mob/M)
 	if(!can_be_opened)
-		to_chat(M, "<span class='warning'>You shouldn't rummage through garbage!</span>")
+		to_chat(M, span_warning("You shouldn't rummage through garbage!"))
 		return FALSE
 	if(!M.client)
 		return FALSE
@@ -592,7 +592,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		handle_show_valid_items(source, user)
 
 /datum/component/storage/proc/handle_show_valid_items(datum/source, user)
-	to_chat(user, "<span class='notice'>[source] can hold: [can_hold_description]</span>")
+	to_chat(user, span_notice("[source] can hold: [can_hold_description]"))
 
 /datum/component/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/M)
 	SIGNAL_HANDLER
@@ -736,11 +736,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		animate_parent()
 	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
-			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")
+			to_chat(usr, span_notice("You put [I] [insert_preposition]to [parent]."))
 		else if(in_range(M, viewing)) //If someone is standing close enough, they can tell what it is...
-			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
+			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
 		else if(I && I.w_class >= 3) //Otherwise they can only see large or normal items from a distance...
-			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
+			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
 
 /datum/component/storage/proc/update_icon()
 	if(isobj(parent))
@@ -912,9 +912,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	parent_as_atom.add_fingerprint(user)
 	remove_from_storage(to_remove, get_turf(user))
 	if(!user.put_in_hands(to_remove))
-		to_chat(user, "<span class='notice'>You fumble for [to_remove] and it falls on the floor.</span>")
+		to_chat(user, span_notice("You fumble for [to_remove] and it falls on the floor."))
 		return
-	user.visible_message("<span class='warning'>[user] draws [to_remove] from [parent]!</span>", "<span class='notice'>You draw [to_remove] from [parent].</span>")
+	user.visible_message(span_warning("[user] draws [to_remove] from [parent]!"), span_notice("You draw [to_remove] from [parent]."))
 	return
 
 /datum/component/storage/proc/action_trigger(datum/signal_source, datum/action/source)

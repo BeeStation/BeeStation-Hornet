@@ -15,7 +15,7 @@
 	var/content_overlays = FALSE //If this is true, the belt will gain overlays based on what it's holding
 
 /obj/item/storage/belt/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins belting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins belting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/storage/belt/update_overlays()
@@ -315,7 +315,6 @@
 		/obj/item/implanter,
 		/obj/item/pinpointer/crew,
 		/obj/item/holosign_creator/medical,
-		/obj/item/pipe_dispenser/plumbing,
 		/obj/item/construction/plumbing,
 		/obj/item/plunger,
 		/obj/item/extrapolator
@@ -329,27 +328,15 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold[/obj/item/gun/medbeam] = TRUE
-	preload = TRUE
 
 /obj/item/storage/belt/medical/ert/PopulateContents()
-	SSwardrobe.provide_type(/obj/item/healthanalyzer/advanced)
-	SSwardrobe.provide_type(/obj/item/surgical_drapes)
-	SSwardrobe.provide_type(/obj/item/scalpel/advanced)
-	SSwardrobe.provide_type(/obj/item/retractor/advanced)
-	SSwardrobe.provide_type(/obj/item/surgicaldrill/advanced)
-	SSwardrobe.provide_type(/obj/item/reagent_containers/medspray/sterilizine)
-	SSwardrobe.provide_type(/obj/item/gun/medbeam)
-
-/obj/item/storage/belt/medical/ert/get_types_to_preload()
-	var/list/to_preload = list()
-	to_preload += /obj/item/healthanalyzer/advanced
-	to_preload += /obj/item/surgical_drapes
-	to_preload += /obj/item/scalpel/advanced
-	to_preload += /obj/item/retractor/advanced
-	to_preload += /obj/item/surgicaldrill/advanced
-	to_preload += /obj/item/reagent_containers/medspray/sterilizine
-	to_preload += /obj/item/gun/medbeam
-	return to_preload
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/scalpel/advanced(src)
+	new /obj/item/retractor/advanced(src)
+	new /obj/item/surgicaldrill/advanced(src)
+	new /obj/item/reagent_containers/medspray/sterilizine(src)
+	new /obj/item/gun/medbeam(src)
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -468,7 +455,7 @@
 		/obj/item/skeleton_key,
 		/obj/item/discovery_scanner,
 		/obj/item/gun/energy/e_gun/mini/exploration,
-		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/gun/energy/recharge/kinetic_accelerator,
 		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,
@@ -614,6 +601,25 @@
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
 	new /obj/item/stack/cable_coil/white(src)
+
+//Im pissed off at the amount of times I have to do this. So its a belt now
+/obj/item/storage/belt/military/abductor/med
+	name = "agent belt"
+	desc = "A belt used by abductor agents."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "belt"
+	item_state = "security"
+	worn_icon_state = "security"
+
+/obj/item/storage/belt/military/abductor/med/PopulateContents()
+	new /obj/item/scalpel/alien(src)
+	new /obj/item/hemostat/alien(src)
+	new /obj/item/retractor/alien(src)
+	new /obj/item/circular_saw/alien(src)
+	new /obj/item/surgicaldrill/alien(src)
+	new /obj/item/cautery/alien(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/blood_filter(src)
 
 /obj/item/storage/belt/military/army
 	name = "army belt"
@@ -892,14 +898,14 @@
 /obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
 	if(length(contents))
-		. += "<span class='notice'>Alt-click it to quickly draw the blade.</span>"
+		. += span_notice("Alt-click it to quickly draw the blade.")
 
 /obj/item/storage/belt/sabre/AltClick(mob/user)
 	if(!iscarbon(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		user.visible_message("[user] takes [I] out of [src].", "<span class='notice'>You take [I] out of [src].</span>")
+		user.visible_message("[user] takes [I] out of [src].", span_notice("You take [I] out of [src]."))
 		user.put_in_hands(I)
 		update_appearance()
 	else

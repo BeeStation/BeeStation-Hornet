@@ -42,7 +42,7 @@
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
+		. += span_notice("The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.")
 
 /obj/machinery/smartfridge/update_icon_state()
 	if(machine_stat)
@@ -95,12 +95,12 @@
 	if(!machine_stat)
 
 		if(contents.len >= max_n_of_items)
-			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
+			to_chat(user, span_warning("\The [src] is full!"))
 			return FALSE
 
 		if(accept_check(O))
-			load(O)
-			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
+			load(O, user)
+			user.visible_message("[user] has added \the [O] to \the [src].", span_notice("You add \the [O] to \the [src]."))
 			if (visible_contents)
 				update_appearance()
 			return TRUE
@@ -112,23 +112,23 @@
 				if(contents.len >= max_n_of_items)
 					break
 				if(accept_check(G))
-					load(G)
+					load(G, user)
 					loaded++
 
 			if(loaded)
 				if(contents.len >= max_n_of_items)
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-									"<span class='notice'>You fill \the [src] with \the [O].</span>")
+									span_notice("You fill \the [src] with \the [O]."))
 				else
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-									"<span class='notice'>You load \the [src] with \the [O].</span>")
+									span_notice("You load \the [src] with \the [O]."))
 				if(O.contents.len > 0)
-					to_chat(user, "<span class='warning'>Some items are refused.</span>")
+					to_chat(user, span_warning("Some items are refused."))
 				if (visible_contents)
 					update_appearance()
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
+				to_chat(user, span_warning("There is nothing in [O] to put in [src]!"))
 				return FALSE
 
 		if(istype(O, /obj/item/organ_storage))
@@ -138,7 +138,7 @@
 				if(accept_check(I))
 					load(I)
 					user.visible_message("[user] inserts \the [I] into \the [src].", \
-									"<span class='notice'>You insert \the [I] into \the [src].</span>")
+									span_notice("You insert \the [I] into \the [src]."))
 					O.cut_overlays()
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
@@ -146,14 +146,14 @@
 						update_appearance()
 					return TRUE
 				else
-					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
+					to_chat(user, span_warning("[src] does not accept [I]!"))
 					return FALSE
 			else
-				to_chat(user, "<span class='warning'>There is nothing in [O] to put into [src]!</span>")
+				to_chat(user, span_warning("There is nothing in [O] to put into [src]!"))
 				return FALSE
 
 	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
+		to_chat(user, span_warning("\The [src] smartly refuses [O]."))
 		return FALSE
 	else
 		return ..()
@@ -176,11 +176,11 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/proc/load(obj/item/O)
+/obj/machinery/smartfridge/proc/load(obj/item/O, mob/user)
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
-			to_chat(usr, "<span class='warning'>\the [O] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			to_chat(usr, span_warning("\the [O] is stuck to your hand, you cannot put it in \the [src]!"))
 			return FALSE
 		else
 			. = TRUE
@@ -248,7 +248,7 @@
 			var/desired = 0
 
 			if(!allow_ai_retrieve && isAI(usr))
-				to_chat(usr, "<span class='warning'>[src] does not seem to be configured to respect your authority!</span>")
+				to_chat(usr, span_warning("[src] does not seem to be configured to respect your authority!"))
 				return
 
 			if (params["amount"])
@@ -282,18 +282,18 @@
 	if(machine_stat & BROKEN)
 		if(!I.tool_start_check(user, amount=0))
 			return
-		user.visible_message("<span class='notice'>[user] is repairing [src].</span>", \
-						"<span class='notice'>You begin repairing [src]...</span>", \
-						"<span class='hear'>You hear welding.</span>")
+		user.visible_message(span_notice("[user] is repairing [src]."), \
+						span_notice("You begin repairing [src]..."), \
+						span_hear("You hear welding."))
 		if(I.use_tool(src, user, 40, volume=50))
 			if(!(machine_stat & BROKEN))
 				return
-			to_chat(user, "<span class='notice'>You repair [src].</span>")
+			to_chat(user, span_notice("You repair [src]."))
 			atom_integrity = max_integrity
 			set_machine_stat(machine_stat & ~BROKEN)
 			update_icon()
 	else
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, span_notice("[src] does not need repairs."))
 
 // ----------------------------
 //  Drying Rack 'smartfridge'
@@ -308,6 +308,8 @@
 	has_emissive = FALSE
 	opacity = FALSE
 	var/drying = FALSE
+	/// The reference to the last user's mind. Needed for the chef made trait to be properly applied correctly to dried food.
+	var/datum/weakref/current_user
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
@@ -321,6 +323,10 @@
 
 	QDEL_LIST(old_parts)
 	RefreshParts()
+
+/obj/machinery/smartfridge/drying_rack/Destroy()
+	current_user = null
+	return ..()
 
 /obj/machinery/smartfridge/drying_rack/on_deconstruction()
 	new /obj/item/stack/sheet/wood(drop_location(), 10)
@@ -348,7 +354,7 @@
 		return
 	switch(action)
 		if("Dry")
-			toggle_drying(FALSE)
+			toggle_drying(FALSE, usr)
 			return TRUE
 	return FALSE
 
@@ -362,9 +368,13 @@
 	if(!powered())
 		toggle_drying(TRUE)
 
-/obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
-	..()
+/obj/machinery/smartfridge/drying_rack/load(obj/item/dried_object, mob/user) //For updating the filled overlay
+	. = ..()
+	if(!.)
+		return
 	update_appearance()
+	if(drying && user?.mind)
+		current_user = WEAKREF(user.mind)
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -390,15 +400,20 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
+/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff, mob/user)
 	if(drying || forceoff)
 		drying = FALSE
+		current_user = FALSE
+		update_use_power(IDLE_POWER_USE)
 	else
 		drying = TRUE
+		update_use_power(ACTIVE_POWER_USE) //how does it use power? just don't question it!
+		if(user?.mind)
+			current_user = WEAKREF(user.mind)
 	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry(obj/item/target)
-	SEND_SIGNAL(target, COMSIG_ITEM_DRIED)
+	SEND_SIGNAL(target, COMSIG_ITEM_DRIED, current_user)
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	. = ..()
@@ -462,12 +477,17 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/smartfridge/organ/load(obj/item/O)
+/obj/machinery/smartfridge/organ/load(obj/item/item, mob/user)
 	. = ..()
 	if(!.)	//if the item loads, clear can_decompose
 		return
-	var/obj/item/organ/organ = O
-	organ.organ_flags |= ORGAN_FROZEN
+	if(isorgan(item))
+		var/obj/item/organ/organ = item
+		organ.organ_flags |= ORGAN_FROZEN
+	if(isbodypart(item))
+		var/obj/item/bodypart/bodypart = item
+		for(var/obj/item/organ/stored in bodypart.contents)
+			stored.organ_flags |= ORGAN_FROZEN
 
 /obj/machinery/smartfridge/organ/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)

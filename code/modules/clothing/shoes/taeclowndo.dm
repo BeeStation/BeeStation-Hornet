@@ -1,9 +1,9 @@
 /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	var/list/spelltypes = list	(
-								/obj/effect/proc_holder/spell/targeted/conjure_item/summon_pie,
-								/obj/effect/proc_holder/spell/aimed/banana_peel,
-								/obj/effect/proc_holder/spell/targeted/touch/megahonk,
-								/obj/effect/proc_holder/spell/targeted/touch/bspie,
+								/datum/action/spell/conjure_item/summon_pie,
+								/datum/action/spell/pointed/banana_peel,
+								/datum/action/spell/touch/megahonk,
+								/datum/action/spell/touch/bspie,
 								)
 	var/list/spells = list()
 
@@ -16,11 +16,8 @@
 	if(slot == ITEM_SLOT_FEET)
 		spells = new
 		for(var/spell in spelltypes)
-			var/obj/effect/proc_holder/spell/S = new spell
-			spells += S
-			S.charge_counter = 0
-			S.start_recharge()
-			H.mind?.AddSpell(S)
+			var/datum/action/spell/S = new spell
+			S.Grant(H)
 
 /obj/item/clothing/shoes/clown_shoes/taeclowndo/dropped(mob/user)
 	..()
@@ -29,6 +26,6 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_FEET) == src)
 		for(var/spell in spells)
-			var/obj/effect/proc_holder/spell/S = spell
-			H.mind?.spell_list.Remove(S)
+			var/datum/action/spell/S = spell
+			S.Remove(H)
 			qdel(S)

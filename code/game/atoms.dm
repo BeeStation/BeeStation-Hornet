@@ -8,7 +8,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	appearance_flags = TILE_BOUND
+	appearance_flags = TILE_BOUND|LONG_GLIDE
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
@@ -119,13 +119,18 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
+	///Holds merger groups currently active on the atom. Do not access directly, use GetMergeGroup() instead.
+	var/list/datum/merger/mergers
+
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
 	///any atom that uses integrity and can be damaged must set this to true, otherwise the integrity procs will throw an error
 	var/uses_integrity = FALSE
 
-	var/datum/armor/armor
+	VAR_PROTECTED/datum/armor/armor_type = /datum/armor/none
+	VAR_PRIVATE/datum/armor/armor
+
 	VAR_PRIVATE/atom_integrity //defaults to max_integrity
 	var/max_integrity = 500
 	var/integrity_failure = 0 //0 if we have no special broken behavior, otherwise is a percentage of at what point the atom breaks. 0.5 being 50%
@@ -245,12 +250,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	set_custom_materials(custom_materials)
 
 	if(uses_integrity)
-		if (islist(armor))
-			armor = getArmor(arglist(armor))
-		else if (!armor)
-			armor = getArmor()
-		else if (!istype(armor, /datum/armor))
-			stack_trace("Invalid type [armor.type] found in .armor during /atom Initialize()")
 		atom_integrity = max_integrity
 
 	ComponentInitialize()
@@ -325,8 +324,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 
 	return ..()
 
@@ -481,23 +482,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	return null
 
-/atom/proc/assume_air_moles(datum/gas_mixture/giver, moles)
-	return null
-
-/atom/proc/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	return null
-
 ///Remove air from this atom
 /atom/proc/remove_air(amount)
-	return null
-
-/atom/proc/remove_air_ratio(ratio)
-	return null
-
-/atom/proc/transfer_air(datum/gas_mixture/taker, amount)
-	return null
-
-/atom/proc/transfer_air_ratio(datum/gas_mixture/taker, ratio)
 	return null
 
 ///Return the current air environment in this atom
@@ -538,6 +524,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (reagents.flags & DRAINABLE)
+
+/** Handles exposing this atom to a list of reagents.
+  *
+  * Sends COMSIG_ATOM_EXPOSE_REAGENTS
+  * Calls expose_atom() for every reagent in the reagent list.
+  *
+  * Arguments:
+  * - [reagents][/list]: The list of reagents the atom is being exposed to.
+  * - [source][/datum/reagents]: The reagent holder the reagents are being sourced from.
+  * - method: How the atom is being exposed to the reagents.
+  * - volume_modifier: Volume multiplier.
+  * - show_message: Whether to display anything to mobs when they are exposed.
+  */
+/atom/proc/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
+	if((. = SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, source, method, volume_modifier, show_message)) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_atom(src, reagents[R])
 
 /// Is this atom grindable to get reagents
 /atom/proc/is_grindable()
@@ -635,7 +641,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 	if(z && user.z != z) // Z-mimic
 		var/diff = abs(user.z - z)
-		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
+		. += span_boldnotice("[p_theyre(TRUE)] [diff] level\s below you.")
 
 	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
 		for(var/i in custom_materials)
@@ -670,22 +676,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 						else
 							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
 					if(reagents.total_volume)
-						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])</span>"
-						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="", and_text="")].</span>"
+						. += span_notice("Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])")
+						. += span_notice("It would taste like: [english_list(taste_list, comma_text="", and_text="")].")
 				//-------------------------------
 			else
 				. += "Nothing."
 		else if(reagents.flags & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+				. += span_notice("It has [reagents.total_volume] unit\s left.")
 			else
-				. += "<span class='danger'>It's empty.</span>"
+				. += span_danger("It's empty.")
 
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
 		var/list/souls = return_souls()
 		if(!length(souls))
 			return
-		to_chat(user, "<span class='notice'>You sense a presence here...")
+		to_chat(user, span_notice("You sense a presence here..."))
 		//Count of souls
 		var/list/present_souls = list()
 		for(var/soul in souls)
@@ -694,7 +700,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		for(var/soul in present_souls)
 			if(!present_souls[soul] || !GLOB.soul_glimmer_colors[soul])
 				continue
-			to_chat(user, "\t<span class='notice'><span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+			to_chat(user, "\t[span_notice("<span class='[GLOB.soul_glimmer_cfc_list[soul]]'>[soul]")], [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -827,7 +833,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/relaymove(mob/living/user, direction)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
-		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
+		to_chat(user, span_warning("You can't move while buckled to [src]!"))
 	return
 
 /// Handle what happens when your contents are exploded by a bomb
@@ -1104,7 +1110,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
 	progress.end_progress()
-	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
+	to_chat(user, span_notice("You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can."))
 	STR.orient2hud(user)
 	src_object.orient2hud(user)
 	if(user.active_storage) //refresh the HUD to show the transfered contents
@@ -1305,6 +1311,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
+	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
 
@@ -1332,7 +1339,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 						else
 							valid_id = TRUE
 						if(!valid_id)
-							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+							to_chat(usr, span_warning("A reagent with that ID doesn't exist!"))
 
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
@@ -1346,7 +1353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				if(amount)
 					reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
-					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to [src]</span>")
+					message_admins(span_notice("[key_name(usr)] has added [amount] units of [chosen_id] to [src]"))
 
 	if(href_list[VV_HK_TRIGGER_EXPLOSION] && check_rights(R_FUN))
 		usr.client.cmd_admin_explosion(src)
@@ -1358,6 +1365,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
 		if(!isnull(strength))
 			AddComponent(/datum/component/radioactive, strength, src)
+
+	if(href_list[VV_HK_ARMOR_MOD])
+		var/list/pickerlist = list()
+		var/list/armorlist = get_armor().get_rating_list()
+
+		for (var/i in armorlist)
+			pickerlist += list(list("value" = armorlist[i], "name" = i))
+
+		var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [src]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
+		var/list/armor_all = ARMOR_LIST_ALL
+
+		if (islist(result))
+			if (result["button"] != 2) // If the user pressed the cancel button
+				// text2num conveniently returns a null on invalid values
+				var/list/converted = list()
+				for(var/armor_key in armor_all)
+					converted[armor_key] = text2num(result["values"][armor_key])
+				set_armor(get_armor().generate_new_with_specific(converted))
+				var/message = "[key_name(usr)] modified the armor on [src] ([type]) to: "
+				for(var/armor_key in armor_all)
+					message += "[armor_key]=[get_armor_rating(armor_key)],"
+				message = copytext(message, 1, -1)
+				log_admin(span_notice("[message]"))
+				message_admins(span_notice("[message]"))
 
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
@@ -1511,7 +1542,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 /atom/proc/StartProcessingAtom(mob/living/user, obj/item/process_item, list/chosen_option)
 	var/processing_time = chosen_option[TOOL_PROCESSING_TIME]
-	to_chat(user, "<span class='notice'>You start working on [src]</span>")
+	to_chat(user, span_notice("You start working on [src]"))
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
 		var/list/atom/created_atoms = list()
@@ -1524,7 +1555,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 				created_atom.pixel_x += rand(-8,8)
 				created_atom.pixel_y += rand(-8,8)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
-			to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
+			to_chat(user, span_notice("You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src]."))
 			created_atoms.Add(created_atom)
 		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
 		UsedforProcessing(user, process_item, chosen_option)
@@ -1535,6 +1566,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	return
 
 /atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	if(user.mind)
+		ADD_TRAIT(src, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
 	return
 
 //! Tool-specific behavior procs.
@@ -1566,10 +1599,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 ///Analyzer act
 /atom/proc/analyzer_act(mob/living/user, obj/item/I)
-	return
-
-///Generate a tag for this atom
-/atom/proc/GenerateTag()
 	return
 
 ///Connect this atom to a shuttle
@@ -1895,9 +1924,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
  * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
  * the forced gravity var.
  *
+ * HEY JACKASS, LISTEN
+ * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
+ *
+ * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
+ * for them to use. If you add more to it, make sure you do that, or things will behave strangely
+ *
  * Gravity situations:
  * * No gravity if you're not in a turf
  * * No gravity if this atom is in is a space turf
+ * * No gravity if the area has NO_GRAVITY flag (space, ordnance bomb site, nearstation, solars)
  * * Gravity if the area it's in always has gravity
  * * Gravity if there's a gravity generator on the z level
  * * Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY
@@ -1907,32 +1943,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(!isturf(gravity_turf))
 		gravity_turf = get_turf(src)
 
-		if(!gravity_turf)
+		if(!gravity_turf)//no gravity in nullspace
 			return FALSE
 
 	var/list/forced_gravity = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
-	if(!length(forced_gravity))
-		SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
 	if(length(forced_gravity))
-		var/max_grav
-		for(var/i in forced_gravity)
-			max_grav = max(max_grav, i)
-		return max_grav
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
 
-	if(!gravity_turf.check_gravity()) // Turf never has gravity
-		return FALSE
-	var/area/A = get_area(gravity_turf)
-	if(A.has_gravity) // Areas which always has gravity
-		return TRUE
-	else if(SSmapping.level_trait(gravity_turf.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
-		return TRUE
-	else if(GLOB.gravity_generators["[gravity_turf.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
-		var/max_grav = 0
-		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[gravity_turf.get_virtual_z_level()]"])
-			max_grav = max(G.setting,max_grav)
-		return max_grav
-	return FALSE
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
+	var/area/turf_area = gravity_turf.loc
+
+	return (!gravity_turf.force_no_gravity && !(turf_area.area_flags & NO_GRAVITY)) && (SSmapping.gravity_by_z_level[gravity_turf.z] || turf_area.default_gravity)
 
 /*
 * Called when something made out of plasma is exposed to high temperatures.
@@ -1942,7 +1971,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
+	if(GET_MOLES(/datum/gas/oxygen, environment) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
 		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
 		if(strength > 1)
 			if(user)
@@ -1963,7 +1992,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 			new /obj/effect/hotspot(T)
 		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
 		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
-		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
+		T.visible_message("<b>[span_userdanger("[src] ignites in a brilliant flash!")]</b>")
 		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
 			return TRUE
 		else if(isturf(src))
@@ -2007,3 +2036,14 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 
 /atom/movable/proc/get_orbitable()
 	return src
+
+/// Gets a merger datum representing the connected blob of objects in the allowed_types argument
+/atom/proc/GetMergeGroup(id, list/allowed_types)
+	RETURN_TYPE(/datum/merger)
+	var/datum/merger/candidate
+	if(mergers)
+		candidate = mergers[id]
+	if(!candidate)
+		new /datum/merger(id, allowed_types, src)
+		candidate = mergers[id]
+	return candidate

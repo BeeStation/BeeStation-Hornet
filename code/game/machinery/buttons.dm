@@ -10,10 +10,21 @@
 	var/device_type = null
 	var/id = null
 	var/initialized_button = 0
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_button
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+
+
+/datum/armor/machinery_button
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 90
+	acid = 70
 
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -63,34 +74,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
 			update_icon()
 		else
-			to_chat(user, "<span class='danger'>Maintenance Access Denied.</span>")
+			to_chat(user, span_danger("Maintenance Access Denied."))
 			flick("[skin]-denied", src)
 		return
 
 	if(panel_open)
 		if(!device && istype(W, /obj/item/assembly))
 			if(!user.transferItemToLoc(W, src))
-				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
+				to_chat(user, span_warning("\The [W] is stuck to you!"))
 				return
 			device = W
-			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
+			to_chat(user, span_notice("You add [W] to the button."))
 
 		if(!board && istype(W, /obj/item/electronics/airlock))
 			if(!user.transferItemToLoc(W, src))
-				to_chat(user, "<span class='warning'>\The [W] is stuck to you!</span>")
+				to_chat(user, span_warning("\The [W] is stuck to you!"))
 				return
 			board = W
 			if(board.one_access)
 				req_one_access = board.accesses
 			else
 				req_access = board.accesses
-			to_chat(user, "<span class='notice'>You add [W] to the button.</span>")
+			to_chat(user, span_notice("You add [W] to the button."))
 
 		if(!device && !board && W.tool_behaviour == TOOL_WRENCH)
-			to_chat(user, "<span class='notice'>You start unsecuring the button frame...</span>")
+			to_chat(user, span_notice("You start unsecuring the button frame..."))
 			W.play_tool_sound(src)
 			if(W.use_tool(src, user, 40))
-				to_chat(user, "<span class='notice'>You unsecure the button frame.</span>")
+				to_chat(user, span_notice("You unsecure the button frame."))
 				transfer_fingerprints_to(new /obj/item/wallframe/button(get_turf(src)))
 				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 				qdel(src)
@@ -111,7 +122,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 
 /obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
-	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	to_chat(usr, span_brass("You begin manipulating [src]!"))
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		attack_hand(eminence)
 
@@ -144,14 +155,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 				req_one_access = list()
 				board = null
 			update_icon()
-			to_chat(user, "<span class='notice'>You remove electronics from the button frame.</span>")
+			to_chat(user, span_notice("You remove electronics from the button frame."))
 
 		else
 			if(skin == "doorctrl")
 				skin = "launcher"
 			else
 				skin = "doorctrl"
-			to_chat(user, "<span class='notice'>You change the button frame's front panel.</span>")
+			to_chat(user, span_notice("You change the button frame's front panel."))
 		return
 
 	if((machine_stat & (NOPOWER|BROKEN)))
@@ -161,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		return
 
 	if(!allowed(user) && !istype(user, /mob/living/simple_animal/eminence))
-		to_chat(user, "<span class='danger'>Access Denied.</span>")
+		to_chat(user, span_danger("Access Denied."))
 		flick("[skin]-denied", src)
 		return
 

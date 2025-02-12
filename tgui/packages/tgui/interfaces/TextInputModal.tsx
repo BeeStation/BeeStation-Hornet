@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { useBackend, useLocalState } from '../backend';
 import { decodeHtmlEntities } from '../../common/string';
-import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 import { Box, Section, Stack, TextArea } from '../components';
 import { Window } from '../layouts';
 
@@ -24,10 +24,10 @@ export const removeAllSkiplines = (toSanitize: string) => {
   return toSanitize.replace(/[\r\n]+/, '');
 };
 
-export const TextInputModal = (_, context) => {
-  const { act, data } = useBackend<TextInputData>(context);
+export const TextInputModal = (_) => {
+  const { act, data } = useBackend<TextInputData>();
   const { large_buttons, max_length, message = '', multiline, placeholder, timeout, title } = data;
-  const [input, setInput] = useLocalState<string>(context, 'input', placeholder || '');
+  const [input, setInput] = useLocalState<string>('input', placeholder || '');
   const onType = (value: string) => {
     if (value === input) {
       return;
@@ -49,11 +49,10 @@ export const TextInputModal = (_, context) => {
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(event) => {
-          const keyCode = window.event ? event.which : event.keyCode;
-          if (keyCode === KEY_ENTER && (!visualMultiline || !event.shiftKey)) {
+          if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {
             act('submit', { entry: input });
           }
-          if (keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             act('cancel');
           }
         }}>
@@ -76,8 +75,8 @@ export const TextInputModal = (_, context) => {
 };
 
 /** Gets the user input and invalidates if there's a constraint. */
-const InputArea = (props, context) => {
-  const { act, data } = useBackend<TextInputData>(context);
+const InputArea = (props) => {
+  const { act, data } = useBackend<TextInputData>();
   const { max_length, multiline } = data;
   const { input, onType } = props;
 

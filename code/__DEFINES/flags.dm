@@ -56,14 +56,18 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HTML_USE_INITAL_ICON_1 (1<<13)
 /// Prevents direct access for anything in the contents of this atom.
 #define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
+/// Prevents aggregation of the item in the stack panel
+#define STAT_UNIQUE_1 (1<<15)
+/// Is this object currently processing in the atmos object list?
+#define ATMOS_IS_PROCESSING_1 		(1<<16)
 
 //turf-only flags. These use flags_1 too.
 // These exist to cover /turf and /area at the same time
-#define NOJAUNT_1					(1<<15)
-#define UNUSED_RESERVATION_TURF_1	(1<<16)
-#define CAN_BE_DIRTY_1				(1<<17) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<18) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<19) //! Blocks ruins spawning on the turf
+#define NOJAUNT_1					(1<<17)
+#define UNUSED_RESERVATION_TURF_1	(1<<18)
+#define CAN_BE_DIRTY_1				(1<<19) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
+#define NO_LAVA_GEN_1				(1<<20) 	//! Blocks lava rivers being generated on the turf
+#define NO_RUINS_1					(1<<21) //! Blocks ruins spawning on the turf
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -111,7 +115,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HIDDEN_STASH_LOCATION		(1<<10)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
 #define REMOTE_APC					(1<<11)
-
+/// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
+#define NO_GRAVITY 					(1<<12)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)
@@ -141,6 +146,10 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define FLOATING		(1<<3)
 #define PHASING			(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
 #define THROWN			(1<<5) //! while an atom is being thrown
+#define UPSIDE_DOWN 	(1<<6) /// The mob is walking on the ceiling. Or is generally just, upside down.
+
+/// Combination flag for movetypes which, for all intents and purposes, mean the mob is not touching the ground
+#define MOVETYPES_NOT_TOUCHING_GROUND (FLYING|FLOATING|UPSIDE_DOWN)
 
 //! ## Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF		(1<<0)

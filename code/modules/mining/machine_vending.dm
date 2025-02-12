@@ -106,28 +106,28 @@
 			if(!target_account) // if bound_bank_account is null, it means you need to get a new account
 				var/obj/item/card/id/I = M.get_idcard(TRUE)
 				if(!istype(I))
-					to_chat(usr, "<span class='alert'>Error: An ID is required!</span>")
+					to_chat(usr, span_alert("Error: An ID is required!"))
 					flick(icon_deny, src)
 					return
 				if(!I.registered_account)
-					to_chat(usr, "<span class='alert'>Error: Bank account is required on your card!</span>")
+					to_chat(usr, span_alert("Error: Bank account is required on your card!"))
 					flick(icon_deny, src)
 					return
 				target_account = I.registered_account
 			if(!target_account)
-				to_chat(usr, "<span class='alert'>Error: Something's bugged. Tell a coder!</span>")
+				to_chat(usr, span_alert("Error: Something's bugged. Tell a coder!"))
 				flick(icon_deny, src)
 				CRASH("the mining vendor failed to find a target account for purchase.")
 			var/datum/data/vendor_equipment/prize = locate(params["ref"]) in prize_list
 			if(!prize || !(prize in prize_list))
-				to_chat(usr, "<span class='alert'>Error: Invalid choice!</span>")
+				to_chat(usr, span_alert("Error: Invalid choice!"))
 				flick(icon_deny, src)
 				return
 			if(!target_account.adjust_currency(currency_type, -prize.cost)) // this checks if you can buy it first. if you have points, you buy it. if not, this error message comes.
-				to_chat(usr, "<span class='alert'>Error: Insufficient points for [prize.equipment_name] on [target_account.account_holder]'s bank account!</span>")
+				to_chat(usr, span_alert("Error: Insufficient points for [prize.equipment_name] on [target_account.account_holder]'s bank account!"))
 				flick(icon_deny, src)
 				return
-			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
+			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			var/obj/created = new prize.equipment_path(loc)
 			if (M.CanReach(src) && isitem(created))
 				M.put_in_hands(created)
@@ -157,7 +157,7 @@
 	icon_deny = "mining-deny"
 	prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
 	//Direct mining tools go here
-		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
+		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/recharge/kinetic_accelerator,							500),
 		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
@@ -309,18 +309,18 @@
 		if(points)
 			var/obj/item/card/id/C = I
 			if(!C.registered_account)
-				to_chat(user, "<span class='info'>[C] has no registered account!</span>")
+				to_chat(user, span_info("[C] has no registered account!"))
 				return ..()
 			C.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, points)
-			to_chat(user, "<span class='info'>You transfer [points] points to [C.registered_account.account_holder]'s bank account.</span>")
+			to_chat(user, span_info("You transfer [points] points to [C.registered_account.account_holder]'s bank account."))
 			points = 0
 		else
-			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
+			to_chat(user, span_info("There's no points left on [src]."))
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>There's [points] point\s on the card.</span>"
+	. += span_info("There's [points] point\s on the card.")
 
 ///Conscript kit
 /obj/item/card/id/pass/mining_access_card

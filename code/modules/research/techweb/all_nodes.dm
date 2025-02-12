@@ -391,7 +391,6 @@
 	description = "A refresher course on modern engineering technology."
 	prereq_ids = list("base")
 	design_ids = list(
-		"aac_electronics",
 		"adv_capacitor",
 		"adv_matter_bin",
 		"adv_scanning",
@@ -1652,7 +1651,7 @@
 		"pin_testing",
 		"tele_shield",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/smartmine
@@ -1678,8 +1677,11 @@
 		"adv_engi",
 		"weaponry",
 	)
-	design_ids = list("pin_loyalty")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	design_ids = list(
+		"pin_loyalty",
+		"shieldbelt"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/advmine

@@ -11,7 +11,7 @@
 	lights_power = 7
 	deflect_chance = 10
 	step_energy_drain = 15 //slightly higher energy drain since you movin those wheels FAST
-	armor = list(MELEE = 20, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100) //low armor to compensate for fire protection and speed
+	armor_type = /datum/armor/working_clarke
 	max_equip = 7
 	wreckage = /obj/structure/mecha_wreckage/clarke
 	enter_delay = 40
@@ -19,6 +19,17 @@
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
 	allow_diagonal_movement = FALSE
 	pivot_step = TRUE
+
+
+/datum/armor/working_clarke
+	melee = 20
+	bullet = 10
+	laser = 20
+	energy = 10
+	bomb = 60
+	rad = 70
+	fire = 100
+	acid = 100
 
 /obj/vehicle/sealed/mecha/working/clarke/Initialize(mapload)
 	. = ..()
@@ -90,10 +101,10 @@
 
 /datum/action/vehicle/sealed/mecha/mech_search_ruins
 	name = "Search for Ruins"
-	button_icon_state = "mech_search_ruins"
+	button_icon_state = "mech_search_ruins" //This is missing from code itself
 	COOLDOWN_DECLARE(search_cooldown)
 
-/datum/action/vehicle/sealed/mecha/mech_search_ruins/Trigger()
+/datum/action/vehicle/sealed/mecha/mech_search_ruins/on_activate(mob/user, atom/target)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!COOLDOWN_FINISHED(src, search_cooldown))
@@ -103,10 +114,10 @@
 		return
 	var/mob/living/living_owner = owner
 	button_icon_state = "mech_search_ruins_cooldown"
-	UpdateButtonIcon()
+	update_buttons()
 	COOLDOWN_START(src, search_cooldown, SEARCH_COOLDOWN)
 	addtimer(VARSET_CALLBACK(src, button_icon_state, "mech_search_ruins"), SEARCH_COOLDOWN)
-	addtimer(CALLBACK(src, PROC_REF(UpdateButtonIcon)), SEARCH_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(update_buttons)), SEARCH_COOLDOWN)
 	var/obj/pinpointed_ruin
 	for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
 		if(ruin_landmark.z != chassis.z)
