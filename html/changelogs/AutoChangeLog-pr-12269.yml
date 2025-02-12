@@ -1,4 +1,0 @@
-author: Gilgaxx
-delete-after: true
-changes:
-  - bugfix: Cyborgs and AI shells can quickly store equipment with Q again.
