@@ -13,7 +13,8 @@
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	// Managed by the limb overlay system
+	blocks_emissive = FALSE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
@@ -25,7 +26,7 @@
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
-	faction = list("neutral", "monkey")
+	faction = list(FACTION_NEUTRAL, FACTION_MONKEY)
 	/// Whether it can be made into a human with mutadone
 	var/natural = TRUE
 	///Item reference for jumpsuit

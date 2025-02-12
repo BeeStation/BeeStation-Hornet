@@ -5,15 +5,15 @@
  */
 
 import { toFixed } from 'common/math';
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import { Button, Collapsible, Flex, Knob, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectAudio } from './selectors';
 
-export const NowPlayingWidget = (props, context) => {
-  const audio = useSelector(context, selectAudio),
-    dispatch = useDispatch(context),
-    settings = useSettings(context),
+export const NowPlayingWidget = (props) => {
+  const audio = useSelector(selectAudio),
+    dispatch = useDispatch(),
+    settings = useSettings(),
     title = audio.meta?.title,
     url = audio.meta?.link,
     artist = audio.meta?.artist || 'Unknown Artist',
@@ -31,9 +31,9 @@ export const NowPlayingWidget = (props, context) => {
           mx={0.5}
           grow={1}
           style={{
-            'white-space': 'nowrap',
-            'overflow': 'hidden',
-            'text-overflow': 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}>
           {
             <Collapsible title={title || 'Unknown Track'} color={'blue'}>

@@ -10,7 +10,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_EPIC)
 	obj_damage = 400
 	light_range = 3
-	faction = list("mining", "boss")
+	faction = list(FACTION_MINING, FACTION_BOSS)
 	weather_immunities = list("lava","ash")
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
@@ -159,7 +159,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/megafauna_attack/Activate()
+/datum/action/innate/megafauna_attack/on_activate()
 	var/mob/living/simple_animal/hostile/megafauna/fauna = owner
 	fauna.chosen_attack = chosen_attack_num
 	to_chat(fauna, chosen_message)

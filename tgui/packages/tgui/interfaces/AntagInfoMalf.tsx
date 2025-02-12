@@ -29,7 +29,7 @@ type Info = {
 const IntroSection = (_props) => {
   return (
     <Section>
-      <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+      <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
         You are the{' '}
         <Box inline textColor="bad">
           Malfunctioning AI
@@ -87,7 +87,7 @@ export const AntagInfoMalf = (_props) => {
   const { objectives } = data;
   return (
     <Window width={660} height={530} theme="hackerman">
-      <Window.Content style={{ 'font-family': 'Consolas, monospace' }}>
+      <Window.Content style={{ fontFamily: 'Consolas, monospace' }}>
         <Stack vertical fill>
           <Stack.Item>
             <IntroSection />

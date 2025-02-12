@@ -3,19 +3,23 @@
 #define AREA_USAGE_EQUIP			1
 #define AREA_USAGE_LIGHT			2
 #define AREA_USAGE_ENVIRON			3
-#define AREA_USAGE_STATIC_EQUIP 	4
-#define AREA_USAGE_STATIC_LIGHT	5
+#define AREA_USAGE_STATIC_EQUIP		4
+#define AREA_USAGE_STATIC_LIGHT		5
 #define AREA_USAGE_STATIC_ENVIRON	6
 #define AREA_USAGE_LEN AREA_USAGE_STATIC_ENVIRON // largest idx
+
 /// Index of the first dynamic usage channel
 #define AREA_USAGE_DYNAMIC_START AREA_USAGE_EQUIP
 /// Index of the last dynamic usage channel
 #define AREA_USAGE_DYNAMIC_END AREA_USAGE_ENVIRON
+
 /// Index of the first static usage channel
 #define AREA_USAGE_STATIC_START AREA_USAGE_STATIC_EQUIP
 /// Index of the last static usage channel
 #define AREA_USAGE_STATIC_END AREA_USAGE_STATIC_ENVIRON
 
+#define DYNAMIC_TO_STATIC_CHANNEL(dyn_channel) (dyn_channel + (AREA_USAGE_STATIC_START - AREA_USAGE_DYNAMIC_START))
+#define STATIC_TO_DYNAMIC_CHANNEL(static_channel) (static_channel - (AREA_USAGE_STATIC_START - AREA_USAGE_DYNAMIC_START))
 
 //Power use
 #define NO_POWER_USE 0
@@ -224,12 +228,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 // ---------------------------------------------------
 
 #define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
-
-// Circulator defines
-// ---------------------------------------------------
-
-#define CIRCULATOR_HOT 0
-#define CIRCULATOR_COLD 1
 
 // Particle Accelerator defines
 // ---------------------------------------------------

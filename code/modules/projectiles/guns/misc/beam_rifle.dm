@@ -190,12 +190,12 @@
 		P.color = rgb(255 * percent,255 * ((100 - percent) / 100),0)
 	else
 		P.color = rgb(0, 255, 0)
-	var/turf/curloc = get_turf(src)
+	var/turf/current_location = get_turf(src)
 	var/turf/targloc = get_turf(aiming_target)
 	if(!istype(targloc))
-		if(!istype(curloc))
+		if(!istype(current_location))
 			return
-		targloc = get_turf_in_angle(lastangle, curloc, 10)
+		targloc = get_turf_in_angle(lastangle, current_location, 10)
 	P.preparePixelProjectile(targloc, current_user, aiming_params, 0)
 	P.fire(lastangle)
 
@@ -380,12 +380,12 @@
 	HS_BB.gun = host
 
 /obj/item/ammo_casing/energy/beam_rifle/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
-	var/turf/curloc = get_turf(user)
-	if(!istype(curloc) || !BB)
+	var/turf/current_location = get_turf(user)
+	if(!istype(current_location) || !BB)
 		return FALSE
 	var/obj/item/gun/energy/beam_rifle/gun = loc
 	if(!targloc && gun)
-		targloc = get_turf_in_angle(gun.lastangle, curloc, 10)
+		targloc = get_turf_in_angle(gun.lastangle, current_location, 10)
 	else if(!targloc)
 		return FALSE
 	var/firing_dir

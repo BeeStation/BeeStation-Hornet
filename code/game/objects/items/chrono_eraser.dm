@@ -258,9 +258,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/chrono_field)
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
-	GM.set_moles(GAS_O2, MOLES_O2STANDARD)
-	GM.set_moles(GAS_N2, MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
+	SET_MOLES(/datum/gas/oxygen, GM, MOLES_O2STANDARD)
+	SET_MOLES(/datum/gas/nitrogen, GM, MOLES_N2STANDARD)
+	GM.temperature = T20C
 	return GM
 
 /obj/structure/chrono_field/singularity_act()

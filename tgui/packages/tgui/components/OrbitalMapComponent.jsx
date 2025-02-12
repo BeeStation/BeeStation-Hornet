@@ -1,6 +1,5 @@
 import { clamp } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 const FPS = 20;
 
@@ -159,7 +158,6 @@ export class OrbitalMapComponent extends Component {
   }
 }
 
-OrbitalMapComponent.defaultHooks = pureComponentHooks;
 OrbitalMapComponent.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,
