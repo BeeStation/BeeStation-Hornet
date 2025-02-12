@@ -1545,6 +1545,22 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
+/datum/techweb_node/cook
+	id = "cook"
+	tech_tier = 2
+	display_name = "Advanced Cooking Tools"
+	description = "Cook faster!"
+	prereq_ids = list(
+		"adv_engi",
+		"biotech",
+	)
+	design_ids = list(
+		"knife_diamond",
+		"rollingpin_diamond",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
 /datum/techweb_node/exp_tools
 	id = "exp_tools"
 	tech_tier = 3

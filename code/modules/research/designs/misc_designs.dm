@@ -360,6 +360,30 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /////////////////////////////////////////
+////////////Kitchen Designs//////////////
+/////////////////////////////////////////
+
+/datum/design/diamondknife
+	name = "Diamond Knife"
+	desc = "A knife made out of diamond that cuts faster."
+	id = "knife_diamond"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200, /datum/material/diamond = 500)
+	build_path = /obj/item/knife/diamond
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/diamondrollingpin
+	name = "Diamond Rolling Pin"
+	desc = "A rolling pin made out of diamond that rolls faster."
+	id = "rollingpin_diamond"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/diamond = 500)
+	build_path = /obj/item/kitchen/rollingpin/diamond
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/////////////////////////////////////////
 /////////////Holobarriers////////////////
 /////////////////////////////////////////
 
