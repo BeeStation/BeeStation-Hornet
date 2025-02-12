@@ -527,7 +527,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 	return INITIALIZE_HINT_QDEL
 
 
-#define MAX_NAVIGATE_RANGE 125
 //Landmark that creates destinations for the navigate verb to path to
 /obj/effect/landmark/navigate_destination
 	name = "navigate verb destination"
