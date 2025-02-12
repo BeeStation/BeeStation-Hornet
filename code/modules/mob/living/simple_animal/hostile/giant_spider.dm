@@ -496,7 +496,6 @@
 		spider.stop_automated_movement = FALSE
 	else
 		to_chat(spider, span_warning("You're already spinning a web!"))
-
 /datum/action/innate/spider/block
 	name = "Block Passage"
 	desc = "Use your massive size to prevent others from passing by you."
