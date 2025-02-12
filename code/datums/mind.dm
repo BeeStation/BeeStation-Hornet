@@ -661,6 +661,9 @@
 		for(var/datum/objective/O as() in antag_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
+		// Objectives are often stored in the static data of antag uis, so we should update those as well
+		for(var/datum/antagonist/antag as anything in antag_datums)
+			antag.update_static_data(current)
 	if(crew_objectives.len)
 		to_chat(current, span_notice("Your optional objectives:"))
 		for(var/datum/objective/C as() in crew_objectives)
