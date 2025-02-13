@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Advanced wirebrushes no longer ignore radiation protection before dealing
+      damage.
