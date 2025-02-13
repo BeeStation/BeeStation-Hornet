@@ -184,3 +184,4 @@
 
 /datum/outfit/vip_target/clown/post_equip(mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
+	H.dna.add_mutation(CLOWNMUT)

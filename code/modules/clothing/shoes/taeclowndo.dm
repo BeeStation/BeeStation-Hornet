@@ -13,7 +13,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(slot == ITEM_SLOT_FEET)
+	if(slot == ITEM_SLOT_FEET && HAS_TRAIT(user, TRAIT_CLUMSY)) //Only clumsy fools can use the real clown shoes
 		spells = new
 		for(var/spell in spelltypes)
 			var/obj/effect/proc_holder/spell/S = new spell
