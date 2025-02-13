@@ -37,7 +37,7 @@
 					//Try to notify the ghost that they are being revived, but also that they are not loyal to the reviver
 					var/mob/ghostmob = M.notify_ghost_cloning("Your body is revived by [user] with a lazarus injector!", source=M)
 					if(ghostmob)
-						to_chat(ghostmob, span_userdanger("You are not brainwashed or enslaved in any way to [user], act according to whatever makes the most sense for what you are."))
+						to_chat(ghostmob, span_userdanger("Lazarus does not change your loyalties or force obedience to [user] if you weren't already under their control."))
 					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
 
 				else // only do this to mindless mobs
