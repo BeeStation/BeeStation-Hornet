@@ -244,6 +244,10 @@
 				I.righthand_file = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_inhand_right), initial(picked_item.greyscale_colors))
 		I.worn_icon_state = initial(picked_item.worn_icon_state)
 		I.item_state = initial(picked_item.item_state)
+		if(!keepname)
+			I.name = initial(picked_item.name)
+		I.desc = initial(picked_item.desc)
+		I.icon_state = initial(picked_item.icon_state)
 		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
@@ -291,10 +295,6 @@
 				comp.update_id_display()
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
-	if(!keepname)
-		name = initial(picked_item.name)
-	//desc = initial(picked_item.desc)
-	//icon_state = initial(picked_item.icon_state)
 
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
