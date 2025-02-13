@@ -649,6 +649,9 @@
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
+	if(resources < 2)
+		to_chat(src, span_warning("We do not have the resources for this!"))
+		return
 	if(do_after(src, 2 SECONDS))
 		Fabricate(/obj/structure/swarmer/trap, 2)
 
@@ -660,7 +663,7 @@
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, span_warning("There is already a blockade here. Aborting."))
 		return
-	if(resources < 5)
+	if(resources < 2)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 1 SECONDS))
@@ -685,7 +688,7 @@
 	set category = "Swarmer"
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, span_info("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
-	if(resources < 50)
+	if(resources < 20)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(!isturf(loc))
