@@ -1,0 +1,8 @@
+author: Bieyes, Aramix
+delete-after: true
+changes:
+  - rscadd: Added emissive (glowing) eyes for spiders.
+  - rscadd: Added quality of life changes to how the block ability sprites works.
+  - rscdel: Removed conflicting lay web ability definition.
+  - bugfix: fixed throw web ability (Aramix)
+  - imageadd: added two icons for block ability.
