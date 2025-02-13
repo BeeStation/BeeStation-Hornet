@@ -31,7 +31,7 @@
 					if(M.suiciding || M.ishellbound())
 						user.visible_message(span_notice("[user] injects [M] with [src], but nothing happened."))
 						return
-					M.revive(full_heal = 1, admin_revive = 1)
+					process_revival(M)
 					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
 
 					//Try to notify the ghost that they are being revived, but also that they are not loyal to the reviver
@@ -41,7 +41,7 @@
 					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
 
 				else // only do this to mindless mobs
-					M.revive(full_heal = 1, admin_revive = 1)
+					process_revival(M)
 					if(ishostile(target))
 						var/mob/living/simple_animal/hostile/H = M
 						H.faction = list(FACTION_NEUTRAL, "[REF(user)]") //Neutral includes crew and entirely passive mobs
@@ -78,6 +78,11 @@
 		return
 	if(!malfunctioning)
 		malfunctioning = 1
+
+/obj/item/lazarus_injector/proc/process_revival(mob/living/simple_animal/target)
+			target.do_jitter_animation(10)
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)
 
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
