@@ -30,9 +30,6 @@
 /datum/orbital_objective/proc/get_text()
 	return ""
 
-/datum/orbital_objective/proc/announce()
-	priority_announce(get_text(), "Central Command Report", SSstation.announcer.get_rand_report_sound())
-
 /datum/orbital_objective/proc/generate_payout()
 	payout = rand(min_payout, max_payout)
 
