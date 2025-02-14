@@ -1,6 +1,0 @@
-author: 'mrmanlikesbt, NotRanged '
-delete-after: true
-changes:
-  - rscadd: blob resource nodes make a balloon alert when a resource is made
-  - tweak: the blob "jump to node" menu is now tgui
-  - refactor: removed hardcoded blob values
