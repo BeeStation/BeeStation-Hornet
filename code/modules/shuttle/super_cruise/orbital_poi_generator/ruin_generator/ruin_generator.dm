@@ -348,17 +348,7 @@
 				valid = FALSE
 		if(valid)
 			new /obj/machinery/door/airlock/hatch(T)
-			switch(placed_room_entrances[door_pos])
-				if(SOUTH, NORTH)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(NORTH)
-					b2.setDir(SOUTH)
-				if(EAST, WEST)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(EAST)
-					b2.setDir(WEST)
+			new /obj/machinery/door/firedoor(T)
 
 	//Repopulate areas
 	require_area_resort()

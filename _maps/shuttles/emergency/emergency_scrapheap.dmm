@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -439,6 +435,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
+"Uc" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -452,9 +452,9 @@ gl
 ab
 jr
 ab
-ac
-ac
-ac
+Uc
+Uc
+Uc
 ab
 mN
 ab
@@ -469,8 +469,8 @@ aa
 ab
 ab
 ab
-ac
-ac
+Uc
+Uc
 ax
 aD
 ab
@@ -499,7 +499,7 @@ ay
 aE
 ab
 aL
-ac
+Uc
 aN
 aP
 aS
@@ -513,17 +513,17 @@ bl
 bn
 "}
 (4,1,1) = {"
-ac
+Uc
 ae
 aj
 ak
-ac
-ac
+Uc
+Uc
 ay
 aE
 ab
 aL
-ac
+Uc
 aO
 aQ
 aO
@@ -537,21 +537,21 @@ bl
 bn
 "}
 (5,1,1) = {"
-ac
+Uc
 af
 ak
 an
 ab
-ac
+Uc
 az
-ac
+Uc
 ad
 aL
-ac
+Uc
 aG
 aw
 aL
-ac
+Uc
 qt
 bc
 be
@@ -561,7 +561,7 @@ bl
 bn
 "}
 (6,1,1) = {"
-ac
+Uc
 ag
 ak
 ao
@@ -575,7 +575,7 @@ Gw
 aw
 aw
 aL
-ac
+Uc
 qt
 mJ
 be
@@ -585,21 +585,21 @@ bl
 bn
 "}
 (7,1,1) = {"
-ac
+Uc
 af
 ak
 ap
 NP
 qt
-ac
+Uc
 aG
 aw
 aL
-ac
+Uc
 aG
 aw
 aL
-ac
+Uc
 de
 ad
 ab
@@ -609,17 +609,17 @@ bm
 bn
 "}
 (8,1,1) = {"
-ac
+Uc
 ah
 al
 aa
-ac
-ac
+Uc
+Uc
 aB
 bo
 aw
 aL
-ac
+Uc
 aG
 aw
 aT
@@ -643,7 +643,7 @@ Gw
 aw
 aw
 aL
-ac
+Uc
 aG
 aw
 aU
@@ -661,13 +661,13 @@ aa
 aa
 aa
 aa
-ac
-ac
+Uc
+Uc
 aB
 aH
 aw
 aL
-ac
+Uc
 aG
 aw
 aV

@@ -82,11 +82,11 @@
 	name = "Chemistry Lab";
 	req_access_txt = "5; 33"
 	},
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white,
 /area/ruin)
 "aN" = (

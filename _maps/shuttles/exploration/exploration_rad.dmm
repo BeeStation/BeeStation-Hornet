@@ -32,9 +32,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cp" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -48,6 +45,9 @@
 	pixel_y = 24
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dt" = (
@@ -165,6 +165,7 @@
 	autoclose = 0.1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "sk" = (
@@ -418,6 +419,7 @@
 /obj/machinery/door/airlock/shuttle/glass{
 	autoclose = 0.1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "Sb" = (
@@ -461,9 +463,6 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
 "WU" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -471,6 +470,9 @@
 	dir = 4
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "YV" = (
