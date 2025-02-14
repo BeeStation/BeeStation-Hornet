@@ -11,8 +11,7 @@
 
 /obj/machinery/anesthetic_machine/Initialize(mapload)
 	. = ..()
-	attached_mask = new /obj/item/clothing/mask/breath/machine(src)
-	attached_mask.machine_attached = src
+	attached_mask = new /obj/item/clothing/mask/breath/machine(src, src)
 	update_icon()
 
 /obj/machinery/anesthetic_machine/update_icon()
@@ -135,13 +134,18 @@
 	else if(!mask_out)
 		. += span_notice("There is no tank mounted and the breath mask could be <b>detached</b> from it.")
 
+CREATION_TEST_IGNORE_SELF(/obj/item/clothing/mask/breath/machine)
+
 /obj/item/clothing/mask/breath/machine
 	var/obj/machinery/anesthetic_machine/machine_attached
 	clothing_flags = MASKINTERNALS | MASKEXTENDRANGE
 
-/obj/item/clothing/mask/breath/machine/Initialize(mapload)
+/obj/item/clothing/mask/breath/machine/Initialize(mapload, machine_attached)
 	. = ..()
+	if (!machine_attached)
+		CRASH("Anaethetic mask created without an attached machine")
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	src.machine_attached = machine_attached
 
 /obj/item/clothing/mask/breath/machine/Destroy()
 	machine_attached = null

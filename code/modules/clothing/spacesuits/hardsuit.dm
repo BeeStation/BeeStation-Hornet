@@ -52,6 +52,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	// Move to nullspace first to prevent qdel loops
+	moveToNullspace()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
@@ -1319,6 +1321,8 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
+	if (!H.mind)
+		return FALSE
 	if(H.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 	else
