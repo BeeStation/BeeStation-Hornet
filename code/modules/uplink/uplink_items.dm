@@ -421,16 +421,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
 
-/datum/uplink_item/bundles_TC/crate/purchase(mob/user, datum/component/uplink/U)
-	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
-	if(U.purchase_log)
-		U.purchase_log.LogPurchase(C, src, cost)
-	for(var/I in contents)
-		var/count = contents[I]
-		for(var/index in 1 to count)
-			new I(C)
-	return C
-
 // Dangerous Items
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
