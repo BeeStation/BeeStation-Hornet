@@ -590,7 +590,7 @@
 /obj/item/melee/classic_baton/retractible_stun/contractor_baton/pickup(mob/user)
 	..()
 	if(!owner_data)
-		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
+		var/datum/antagonist/traitor/traitor_data = user.mind?.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)
 			owner_data = traitor_data
 			to_chat(user, span_notice("[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun them, however the baton is weak against non-targets."))

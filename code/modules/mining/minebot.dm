@@ -580,7 +580,8 @@
 	var/mob/living/simple_animal/hostile/mining_drone/linked_bot
 
 /obj/item/minebot_upgrade/Destroy()
-	unequip()
+	if (linked_bot)
+		unequip()
 	return ..()
 
 /// Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot. Returns FALSE if the upgrade fails, otherwise returns TRUE
