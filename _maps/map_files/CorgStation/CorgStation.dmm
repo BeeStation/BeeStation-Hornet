@@ -3268,10 +3268,10 @@
 /turf/open/floor/iron,
 /area/bridge)
 "aPw" = (
-/obj/structure/table/reinforced,
 /obj/item/knife/kitchen,
 /obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "aPF" = (
@@ -7601,10 +7601,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "chJ" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/gibber,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "chL" = (
@@ -9813,7 +9813,8 @@
 	req_access_txt = "28"
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/processor,
+/obj/machinery/light,
+/obj/machinery/deepfryer,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "daX" = (
@@ -12862,15 +12863,13 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "eas" = (
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
 	pixel_x = -1;
 	pixel_y = 7
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/light,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "eay" = (
@@ -20439,12 +20438,8 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "gEw" = (
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_y = 5
-	},
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "gEE" = (
@@ -30230,7 +30225,6 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "jOn" = (
-/obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
 /obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5
@@ -30238,6 +30232,7 @@
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/item/reagent_containers/condiment/sugar,
 /obj/effect/turf_decal/tile/red,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "jOL" = (
@@ -35412,9 +35407,6 @@
 /turf/open/floor/wood,
 /area/hallway/primary/starboard)
 "lBT" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -52227,11 +52219,7 @@
 /area/security/courtroom)
 "rjr" = (
 /obj/effect/turf_decal/tile/red,
-/obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_y = 7
-	},
+/obj/machinery/processor,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "rjA" = (
@@ -53575,6 +53563,13 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"rGo" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "rGw" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -54821,7 +54816,6 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/deepfryer,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "sdI" = (
@@ -58462,8 +58456,15 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/vending/dinnerware,
 /obj/machinery/camera/directional/north,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_y = 5
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "tnM" = (
@@ -61947,8 +61948,10 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "uxz" = (
-/obj/machinery/light,
 /obj/effect/turf_decal/tile/red,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -64301,7 +64304,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "vke" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -64310,6 +64312,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "vkh" = (
@@ -66035,7 +66038,6 @@
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "vKM" = (
-/obj/machinery/gibber,
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	pixel_y = 32
@@ -66043,6 +66045,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "vKY" = (
@@ -109367,7 +109370,7 @@ ntO
 qyp
 oQO
 gWp
-cyL
+rGo
 lXY
 kuf
 bPr
