@@ -237,10 +237,10 @@
 	config_entry_value = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
 
 /datum/config_entry/string/alert_yellow
-	config_entry_value = "The security alert level has been changed to yellow. There is currently a critical engineering issue on the station. Crewmembers are advised to avoid damaged areas, and report them as needed."
+	config_entry_value = "The security alert level has been changed to yellow. There is currently a critical engineering issue on the station. Crewmembers are advised to avoid and report damaged areas. All crew are instructed to obey all instructions given by the Chief Engineer for the duration of this alert."
 
 /datum/config_entry/string/alert_cyan
-	config_entry_value = "The security alert level has been changed to cyan. There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems until the alert is lifted. Report any symptoms to medical personnel immediately."
+	config_entry_value = "The security alert level has been changed to cyan. There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems until the alert is lifted. Report any symptoms to medical personnel immediately. All crew are instructed to obey all instructions given by the Chief Medical Officer for the duration of this alert"
 
 /datum/config_entry/string/alert_red_upto
 	config_entry_value = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
