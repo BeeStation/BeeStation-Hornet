@@ -227,7 +227,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/clear_signal_refs()
 	return
 
-/turf/attack_hand(mob/user)
+/turf/attack_hand(mob/user, list/modifiers)
 	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
 		if(!user.has_gravity(src) || (user.movement_type & (FLOATING|FLYING)))
