@@ -82,7 +82,6 @@
 		C.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
 
 /obj/item/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
-	var/modifiers = params2list(clickparams)
 	if(proximity_flag && isliving(target))
 		var/mob/living/L = target
 		var/datum/status_effect/crusher_mark/CM = L.has_status_effect(STATUS_EFFECT_CRUSHERMARK)

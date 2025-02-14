@@ -20,14 +20,12 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	assemblytype = /obj/structure/firelock_frame
 	armor_type = /datum/armor/door_firedoor
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 	processing_flags = START_PROCESSING_MANUALLY
-	assemblytype = /obj/structure/firelock_frame
 
 	COOLDOWN_DECLARE(activation_cooldown)
 
@@ -36,7 +34,8 @@
 	///Y offset for the overlay lights, so that they line up with the thin border firelocks
 	var/light_yoffset = 0
 
-
+	///The type of door frame to drop during deconstruction
+	var/assemblytype = /obj/structure/firelock_frame
 	var/boltslocked = TRUE
 	///List of areas we handle. See calculate_affecting_areas()
 	var/list/affecting_areas

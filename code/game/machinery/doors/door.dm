@@ -21,13 +21,10 @@
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 
 	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
-	var/secondsElectrified = MACHINE_NOT_ELECTRIFIED
-	var/shockedby
 	var/visible = TRUE
 	var/operating = FALSE
 	var/glass = FALSE
 	var/welded = FALSE
-	var/normalspeed = 1
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE // Emergency access override
 	var/sub_door = FALSE // true if it's meant to go under another door.
@@ -35,7 +32,6 @@
 	var/autoclose = FALSE //does it automatically close after some time
 	var/safe = TRUE //whether the door detects things and mobs in its way and reopen or crushes them.
 	var/locked = FALSE //whether the door is bolted or not.
-	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
@@ -267,14 +263,6 @@
 		return
 	if(prob(20/severity) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
 		INVOKE_ASYNC(src, PROC_REF(open))
-	if(prob(severity*10 - 20))
-		if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
-			secondsElectrified = MACHINE_ELECTRIFIED_PERMANENT
-			LAZYADD(shockedby, "\[[time_stamp()]\]EM Pulse")
-			addtimer(CALLBACK(src, PROC_REF(unelectrify)), 300)
-
-/obj/machinery/door/proc/unelectrify()
-	secondsElectrified = MACHINE_NOT_ELECTRIFIED
 
 /obj/machinery/door/update_icon_state()
 	icon_state = "[base_icon_state][density]"
