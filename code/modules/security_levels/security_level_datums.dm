@@ -70,7 +70,7 @@
  * The station is sawed in half.
  */
 /datum/security_level/yellow
-	name = "yellow"
+	name = "yellow (Engineering)"
 	announcement_color = "yellow"
 	sound = 'sound/misc/yellowalert.ogg'
 	number_level = SEC_LEVEL_YELLOW
@@ -82,9 +82,10 @@
  * CYAN
  *
  * The station is undergoing stupid virologist syndrome
+ * Blame bacon for this not being called cyan alert.
  */
 /datum/security_level/cyan
-	name = "cyan"
+	name = "yellow (Medical)"
 	announcement_color = "cyan"
 	sound = 'sound/misc/cyanalert.ogg'
 	number_level = SEC_LEVEL_CYAN

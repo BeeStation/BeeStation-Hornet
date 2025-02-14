@@ -310,12 +310,12 @@ const PageMain = (props) => {
                 setShowAlertLevelConfirm={setShowAlertLevelConfirm}
               />
               <AlertButton
-                alertLevel="yellow"
+                alertLevel="yellow (Engineering)"
                 showAlertLevelConfirm={showAlertLevelConfirm}
                 setShowAlertLevelConfirm={setShowAlertLevelConfirm}
               />
               <AlertButton
-                alertLevel="cyan"
+                alertLevel="yellow (Medical)"
                 showAlertLevelConfirm={showAlertLevelConfirm}
                 setShowAlertLevelConfirm={setShowAlertLevelConfirm}
               />
