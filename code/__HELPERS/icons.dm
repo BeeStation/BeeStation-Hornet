@@ -1538,7 +1538,7 @@ GLOBAL_LIST_EMPTY(transformation_animation_objects)
 	for(var/A in transformation_objects)
 		vis_contents += A
 	if(reset_after)
-		addtimer(CALLBACK(src,.proc/_reset_transformation_animation,filter_index),time)
+		addtimer(CALLBACK(src,.PROC_REF(_reset_transformation_animation),filter_index),time)
 
 /*
  * Resets filters and removes transformation animations helper objects from vis contents.
