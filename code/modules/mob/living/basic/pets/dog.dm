@@ -86,7 +86,6 @@
 		regenerate_icons()
 	return ..()
 
-
 /mob/living/basic/pet/dog/pug
 	name = "\improper pug"
 	real_name = "pug"
@@ -100,7 +99,6 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_icon_state = "pug"
 	held_state = "pug"
-
 
 /mob/living/basic/pet/dog/bullterrier
 	name = "\improper bull terrier"
