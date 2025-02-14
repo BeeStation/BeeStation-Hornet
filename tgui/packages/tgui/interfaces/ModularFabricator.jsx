@@ -1,7 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput, Tabs, Tooltip } from '../components';
+import { Box, Button, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput } from '../components';
 import { Window } from '../layouts';
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 import { capitalize, createSearch } from 'common/string';
 import { round } from 'common/math';
 
@@ -185,8 +185,8 @@ export const ModFabCategoryList = (props) => {
   const [category, setCategory] = useLocalState('category', '');
   const [search, setSearch] = useLocalState('search', '');
   return (
-    <Fragment>
-      <Box>
+    <>
+      <Box bold>
         <Grid>
           <Grid.Column bold>Categories</Grid.Column>
           <Grid.Column textAlign="right">
@@ -215,7 +215,7 @@ export const ModFabCategoryList = (props) => {
           />
         </Fragment>
       ))}
-    </Fragment>
+    </>
   );
 };
 
@@ -228,7 +228,14 @@ export const ModFabCategoryItems = (props) => {
   const [search, setSearch] = useLocalState('search', '');
 
   return (
-    <Fragment>
+    <>
+      <Button
+        content="Return"
+        icon="backspace"
+        onClick={() => {
+          setCategory('');
+        }}
+      />
       {!!(allow_add_category && !search) && (
         <Button
           content="Add Category"
@@ -268,7 +275,7 @@ export const ModFabCategoryItems = (props) => {
               />
             </Table.Cell>
             <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
-              <NumberInput value={amount} minValue={0} maxValue={50} onChange={(e, value) => setAmount(value)} />
+              <NumberInput value={amount} minValue={0} maxValue={50} step={1} onChange={(value) => setAmount(value)} />
             </Table.Cell>
             <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
               <Button
@@ -294,7 +301,7 @@ export const ModFabCategoryItems = (props) => {
           </Table.Row>
         ))}
       </Table>
-    </Fragment>
+    </>
   );
 };
 
@@ -335,8 +342,8 @@ export const ModFabSecurityMessage = (props) => {
 };
 
 export const ModFabData = (props) => {
-  const { act, data } = useBackend();
-  const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
+  const { data } = useBackend();
+  const { can_sync = true } = data;
   return (
     <Section height="100px">
       <ModFabDataDisk />

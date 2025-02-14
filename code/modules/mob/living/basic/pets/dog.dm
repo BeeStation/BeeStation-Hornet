@@ -41,6 +41,10 @@
 		Write_Memory(TRUE)
 	..()
 
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "woofs happily!")
+
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/basic/pet/dog/corgi

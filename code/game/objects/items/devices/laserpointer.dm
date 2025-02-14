@@ -75,20 +75,14 @@
 	if (!diode)
 		to_chat(user, span_notice("You point [src] at [target], but nothing happens!"))
 		return
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
-	if(HAS_TRAIT(user, TRAIT_NOGUNS))
-		to_chat(user, span_warning("Your fingers can't press the button!"))
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 		return
-	if(user.has_dna())
-		var/mob/living/carbon/C = user
-		if(C.dna.check_mutation(HULK))
-			to_chat(user, span_warning("Your fingers can't press the button!"))
-			return
-
 	add_fingerprint(user)
-
+	
 	//nothing happens if the battery is drained
 	if(recharge_locked)
 		to_chat(user, span_notice("You point [src] at [target], but it's still charging."))

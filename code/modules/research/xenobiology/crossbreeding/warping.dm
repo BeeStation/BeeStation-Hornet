@@ -180,7 +180,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	for(var/obj/item/slime_extract/extract in rune_turf)
 		if(extract.color_slime == extracttype || !extracttype) //check if the extract is the first one or of the right color.
 			extracttype = extract.color_slime
-			qdel(extract) //vores the slime extract
+			qdel(extract) //destroy the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
 				switch(extracttype)
