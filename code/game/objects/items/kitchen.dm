@@ -101,7 +101,7 @@
 
 /obj/item/kitchen/rollingpin/diamond
 	name = "rolling pin"
-	desc = "Used to knock out the Bartender."
+	desc = "A better version of the rolling pin that rolls faster."
 	icon_state = "drolling_pin"
 	force = 10
 	throwforce = 7
