@@ -561,7 +561,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 	var/actual_key = navigation_id
 	while(GLOB.navigate_destinations[actual_key])
 		actual_key = "[navigation_id] ([++fail_assoc_count])"
-	GLOB.navigate_destinations[navigation_id] = src
+	GLOB.navigate_destinations[actual_key] = src
 
 /// Checks if this destination is available to a user.
 /obj/effect/landmark/navigate_destination/proc/is_available_to_user(mob/user)
