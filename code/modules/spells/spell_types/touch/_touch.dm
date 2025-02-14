@@ -79,7 +79,6 @@
  */
 /datum/action/spell/touch/proc/remove_hand(mob/living/hand_owner, reset_cooldown_after = FALSE)
 	if(!QDELETED(attached_hand))
-		UnregisterSignal(attached_hand, list(COMSIG_ITEM_AFTERATTACK, COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED))
 		hand_owner?.temporarilyRemoveItemFromInventory(attached_hand)
 		QDEL_NULL(attached_hand)
 
@@ -184,6 +183,8 @@
 	throw_speed = 0
 	/// A weakref to what spell made us.
 	var/datum/weakref/spell_which_made_us
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack)
 
 /obj/item/melee/touch_attack/Initialize(mapload, datum/action/spell/spell)
 	. = ..()

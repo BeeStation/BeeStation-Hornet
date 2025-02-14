@@ -219,6 +219,8 @@
 		to_chat(user, span_notice("You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\"."))
 	return FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
+
 /// Borg Built-in tablet interface
 /obj/item/modular_computer/tablet/integrated
 	name = "modular interface"
