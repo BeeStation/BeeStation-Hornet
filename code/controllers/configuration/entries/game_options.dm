@@ -110,31 +110,6 @@
 	config_entry_value = 2
 	min_val = 0
 
-/datum/config_entry/number/incursion_cost_base	//how many players per the first incursionist
-	config_entry_value = 6
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/incursion_cost_increment	//How much each member of the incursion's spawn price increases by
-	config_entry_value = 0.25
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/incursion_count_min	//Min number of players in the group
-	config_entry_value = 2
-	integer = TRUE
-	min_val = 1
-
-/datum/config_entry/number/incursion_count_max	//Max number of players in the group
-	config_entry_value = 6
-	integer = TRUE
-	min_val = 1
-
-/datum/config_entry/number/incursion_objective_amount	//How many objective
-	config_entry_value = 4
-	integer = TRUE
-	min_val = 0
-
 /datum/config_entry/flag/reactionary_explosions	//If we use reactionary explosions, explosions that react to walls and doors
 
 /datum/config_entry/flag/protect_roles_from_antagonist	//If security and such can be traitor/cult/other
