@@ -66,8 +66,8 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	. = ..()
 	if(isobserver(AM))
 		return
-	if(ismob(AM))
-		var/mob/interloper = AM
+	if(isliving(AM))
+		var/mob/living/interloper = AM
 		interloper.death()
 	if(ismecha(AM))
 		var/obj/vehicle/sealed/mecha/fuckphazons = AM

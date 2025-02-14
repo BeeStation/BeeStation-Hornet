@@ -36,8 +36,8 @@
 				processed_food.reagents.clear_reagents()
 				what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
 
-	if (ismob(what))
-		var/mob/themob = what
+	if (isliving(what))
+		var/mob/living/themob = what
 		themob.gib(TRUE,TRUE,TRUE)
 	else
 		qdel(what)

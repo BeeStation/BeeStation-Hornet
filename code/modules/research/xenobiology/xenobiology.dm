@@ -792,7 +792,7 @@
 	var/prompted = 0
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user)
+/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/living/user)
 	if(prompted || !ismob(M))
 		return
 	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
