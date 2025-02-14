@@ -258,7 +258,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(loc, /obj/item/robot_module))
 		var/obj/item/robot_module/parent_module = loc
 		var/mob/living/silicon/parent_robot = parent_module.loc
-		pickup(parent_robot)
+		if (istype(parent_robot))
+			pickup(parent_robot)
 
 	if(!hitsound)
 		if(damtype == BURN)

@@ -1,0 +1,5 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - imageadd: Updated the monkey cube and monkey cube box sprites
+  - imageadd: Added a gorilla cube sprite

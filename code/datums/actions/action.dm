@@ -151,6 +151,9 @@
 /datum/action/proc/Remove(mob/remove_from)
 	SHOULD_CALL_PARENT(TRUE)
 
+	if (!remove_from)
+		return
+
 	for(var/datum/hud/hud in viewers)
 		if(!hud.mymob)
 			continue

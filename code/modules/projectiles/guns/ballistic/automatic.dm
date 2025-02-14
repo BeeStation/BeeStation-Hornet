@@ -270,7 +270,7 @@
 	if (loc != user)
 		..()
 		return
-	if (!cover_open)
+	if (!cover_open && user.is_holding(src))
 		to_chat(user, span_warning("[src]'s cover is closed! Open it before trying to remove the magazine!"))
 		return
 	..()

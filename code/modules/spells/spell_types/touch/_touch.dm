@@ -318,6 +318,8 @@
 	/// A weakref to what spell made us.
 	var/datum/weakref/spell_which_made_us
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/touch_attack)
+
 /obj/item/melee/touch_attack/Initialize(mapload, datum/action/spell/spell)
 	. = ..()
 
