@@ -74,8 +74,8 @@
 	announcement_color = "yellow"
 	sound = 'sound/misc/yellowalert.ogg'
 	number_level = SEC_LEVEL_YELLOW
-	lowering_to_configuration_key = /datum/config_entry/string/alert_yellow
-	elevating_to_configuration_key = /datum/config_entry/string/alert_yellow
+	lowering_to_configuration_key = /datum/config_entry/string/alert_engineering
+	elevating_to_configuration_key = /datum/config_entry/string/alert_engineering
 	shuttle_call_time_mod = ALERT_COEFF_BLUE
 
 /**
@@ -89,8 +89,8 @@
 	announcement_color = "cyan"
 	sound = 'sound/misc/cyanalert.ogg'
 	number_level = SEC_LEVEL_CYAN
-	lowering_to_configuration_key = /datum/config_entry/string/alert_cyan
-	elevating_to_configuration_key = /datum/config_entry/string/alert_cyan
+	lowering_to_configuration_key = /datum/config_entry/string/alert_medical
+	elevating_to_configuration_key = /datum/config_entry/string/alert_medical
 	shuttle_call_time_mod = ALERT_COEFF_BLUE
 
 /**

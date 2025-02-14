@@ -236,10 +236,10 @@
 /datum/config_entry/string/alert_blue_downto
 	config_entry_value = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
 
-/datum/config_entry/string/alert_yellow
+/datum/config_entry/string/alert_engineering
 	config_entry_value = "The security alert level has been changed to yellow (Engineering). There is currently a critical engineering issue on the station. Crewmembers are advised to avoid and report damaged areas. All crew are instructed to obey all instructions given by the Chief Engineer for the duration of this alert."
 
-/datum/config_entry/string/alert_cyan
+/datum/config_entry/string/alert_medical
 	config_entry_value = "The security alert level has been changed to yellow (Medical). There is an ongoing C-B-R-N threat to the station. Crewmembers are advised to don protective gear, and personal oxygen systems until the alert is lifted. Report any symptoms to medical personnel immediately. All crew are instructed to obey all instructions given by the Chief Medical Officer for the duration of this alert."
 
 /datum/config_entry/string/alert_red_upto
