@@ -6,16 +6,16 @@
 
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, list(
-	"Midnight" = 'icons/hud/style/screen_midnight.dmi',
-	"Plasmafire" = 'icons/hud/style/screen_plasmafire.dmi',
-	"Slimecore" = 'icons/hud/style/screen_slimecore.dmi',
-	"Operative" = 'icons/hud/style/screen_operative.dmi',
-	"Clockwork" = 'icons/hud/style/screen_clockwork.dmi',
-	"Retro" = 'icons/hud/style/screen_retro.dmi',
+	"Midnight - LEGACY" = 'icons/hud/style/screen_midnight.dmi',
+	"Clockwork - LEGACY" = 'icons/hud/style/screen_clockwork.dmi',
 	"Trasen-Knox" = 'icons/hud/style/screen_trasenknox.dmi',
 	"Midnight-Knox" = 'icons/hud/style/screen_midnightknox.dmi',
 	"Plasma-Knox" = 'icons/hud/style/screen_plasmaknox.dmi',
 	"Nyan-knox" = 'icons/hud/style/screen_nyanknox.dmi',
+	//"Plasmafire" = 'icons/hud/style/screen_plasmafire.dmi',
+	//"Slimecore" = 'icons/hud/style/screen_slimecore.dmi',
+	//"Operative" = 'icons/hud/style/screen_operative.dmi',
+	//"Retro" = 'icons/hud/style/screen_retro.dmi',
 ))
 
 /proc/ui_style2icon(ui_style)
