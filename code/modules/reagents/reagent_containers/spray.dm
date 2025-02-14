@@ -319,6 +319,8 @@
 	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)
 	var/datum/reagent/set_reagent
 
+CREATION_TEST_IGNORE_SELF(/obj/item/reagent_containers/spray/cyborg)
+
 /obj/item/reagent_containers/spray/cyborg/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(set_reagent, volume)
