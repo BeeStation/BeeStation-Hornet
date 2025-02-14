@@ -404,8 +404,10 @@
 	if(drying || forceoff)
 		drying = FALSE
 		current_user = FALSE
+		update_use_power(IDLE_POWER_USE)
 	else
 		drying = TRUE
+		update_use_power(ACTIVE_POWER_USE) //how does it use power? just don't question it!
 		if(user?.mind)
 			current_user = WEAKREF(user.mind)
 	update_appearance()

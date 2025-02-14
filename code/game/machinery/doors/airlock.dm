@@ -524,7 +524,7 @@
 	else
 		return FALSE
 
-/obj/machinery/door/airlock/update_icon(state=0, override=0)
+/obj/machinery/door/airlock/update_icon(updates=ALL, state=0, override=0)
 	cut_overlays() // Needed without it you get like 300 unres indicator overlayers over time
 	if(operating && !override)
 		return
@@ -686,17 +686,17 @@
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)
 		if("opening")
-			update_icon(AIRLOCK_OPENING)
+			update_icon(state=AIRLOCK_OPENING)
 		if("closing")
-			update_icon(AIRLOCK_CLOSING)
+			update_icon(state=AIRLOCK_CLOSING)
 		if("deny")
 			if(!machine_stat)
-				update_icon(AIRLOCK_DENY)
+				update_icon(state=AIRLOCK_DENY)
 				playsound(src,doorDeni,50,0,3)
 				addtimer(CALLBACK(src, PROC_REF(finish_close_animation)), 6)
 
 /obj/machinery/door/airlock/proc/finish_close_animation()
-	update_icon(AIRLOCK_CLOSED)
+	update_icon(state=AIRLOCK_CLOSED)
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -1163,7 +1163,7 @@
 			return FALSE
 	if(charge && !detonated)
 		panel_open = TRUE
-		update_icon(AIRLOCK_OPENING)
+		update_icon(state=AIRLOCK_OPENING)
 		visible_message(span_warning("[src]'s panel is blown off in a spray of deadly shrapnel!"))
 		charge.forceMove(drop_location())
 		EX_ACT(charge, EXPLODE_DEVASTATE)
@@ -1190,7 +1190,7 @@
 	ui_update()
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN, forced)
 	operating = TRUE
-	update_icon(AIRLOCK_OPENING, 1)
+	update_icon(state=AIRLOCK_OPENING, override=TRUE)
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
@@ -1200,7 +1200,7 @@
 	air_update_turf(TRUE, FALSE)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
-	update_icon(AIRLOCK_OPEN, 1)
+	update_icon(state=AIRLOCK_OPEN, override=TRUE)
 	operating = FALSE
 	ui_update()
 	if(delayed_close_requested)
@@ -1237,7 +1237,7 @@
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE, forced)
 	ui_update()
 	operating = TRUE
-	update_icon(AIRLOCK_CLOSING, 1)
+	update_icon(state=AIRLOCK_CLOSING, override=TRUE)
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
 		set_density(TRUE)
@@ -1255,7 +1255,7 @@
 		set_opacity(1)
 	update_freelook_sight()
 	sleep(1)
-	update_icon(AIRLOCK_CLOSED, 1)
+	update_icon(state=AIRLOCK_CLOSED, override=TRUE)
 	operating = FALSE
 	delayed_close_requested = FALSE
 	ui_update()
@@ -1320,7 +1320,7 @@
 /obj/machinery/door/airlock/on_emag(mob/user)
 	..()
 	operating = TRUE
-	update_icon(AIRLOCK_EMAG, 1)
+	update_icon(state=AIRLOCK_EMAG, override=TRUE)
 	addtimer(CALLBACK(src, PROC_REF(after_emag)), 6)
 
 /obj/machinery/door/airlock/proc/after_emag()
@@ -1328,7 +1328,7 @@
 		return
 	operating = FALSE
 	if(!open())
-		update_icon(AIRLOCK_CLOSED, 1)
+		update_icon(state=AIRLOCK_CLOSED, override=TRUE)
 	bolt()
 	loseMainPower(TRUE)
 
