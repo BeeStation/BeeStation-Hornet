@@ -88,6 +88,9 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 			continue
 		to_chat(client, span_looc("[span_prefix("LOOC:")] <EM>[span_name("[mob.name]")]:</EM> [span_message("[msg]")]"), avoid_highlighting = (client == src))
 
+		if(client.prefs.read_preference(/datum/preference/toggle/enable_runechat_looc))
+			create_chat_message(src, /datum/language/common, "\[LOOC: [raw_msg]\]")
+
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))
 		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]LOOC: [text]")
