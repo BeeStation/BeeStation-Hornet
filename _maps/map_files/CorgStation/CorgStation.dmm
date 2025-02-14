@@ -4808,6 +4808,15 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"buU" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/dorms)
 "bvf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19918,15 +19927,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
-"gCv" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/dorms)
 "gDz" = (
 /obj/structure/chair/office,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -104228,8 +104228,8 @@ pvB
 oyo
 htf
 cOh
-gCv
 soX
+buU
 nrO
 qaK
 ilk
