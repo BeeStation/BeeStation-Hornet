@@ -68,6 +68,7 @@
 
 		if(!new_target)
 			balloon_alert(src, "can't find ladder or staircase going [target_destination == UP ? "up" : "down"]!")
+			COOLDOWN_RESET(src, navigate_cooldown)
 			return
 
 		target_destination = new_target
