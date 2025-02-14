@@ -18366,6 +18366,7 @@
 /area/science/test_area)
 "cDx" = (
 /obj/item/beacon,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "cDy" = (
@@ -32814,6 +32815,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "hsC" = (
