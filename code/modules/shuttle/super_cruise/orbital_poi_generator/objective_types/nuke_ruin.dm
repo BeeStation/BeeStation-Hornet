@@ -104,9 +104,6 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	if(timing)
 		detonation_timer = world.time + (timer_set * 10)
 		countdown.start()
-		priority_announce("Nuclear fission explosive armed at abandoned outpost, vacate \
-			outpost immediately.",
-			null, 'sound/misc/notice1.ogg', ANNOUNCEMENT_TYPE_PRIORITY)
 	else
 		detonation_timer = null
 		countdown.stop()
