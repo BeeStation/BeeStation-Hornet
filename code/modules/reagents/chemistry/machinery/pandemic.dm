@@ -7,7 +7,7 @@
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pand0"
-	use_power = TRUE
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	resistance_flags = ACID_PROOF
 	circuit = /obj/item/circuitboard/computer/pandemic

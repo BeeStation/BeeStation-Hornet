@@ -233,7 +233,7 @@
 		literally appropriating other races."
 	volume = 1
 	amount_per_transfer_from_this = 1
-	list_reagents = list("unstablemutationtoxin" = 1)
+	list_reagents = list(/datum/reagent/mutationtoxin/unstable = 1)
 
 /obj/item/reagent_containers/hypospray/medipen/atropine
 	name = "atropine autoinjector"

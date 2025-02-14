@@ -760,11 +760,8 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
-	if(isnull(GLOB.the_gateway))
-		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
-		return FALSE
-	if(!GLOB.the_gateway.active)
-		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no ACTIVE gateway on map).")
+	if(!length(GLOB.xeno_spawn))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations")
 		return FALSE
 	return TRUE
 
@@ -772,7 +769,7 @@
 	var/datum/mind/player_mind = new /datum/mind(applicant.key)
 	player_mind.active = TRUE
 
-	var/mob/living/simple_animal/hostile/swarmer/S = new (get_turf(GLOB.the_gateway))
+	var/mob/living/simple_animal/hostile/swarmer/S = new (pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
 
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")

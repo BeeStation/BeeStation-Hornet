@@ -53,7 +53,7 @@
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
-#define TRAIT_HULK "hulk"
+#define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
 #define EYES_COVERED "eyes_covered"
@@ -139,3 +139,4 @@
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
+#define FROM_SHADOW_SECT "shadow_sect"
