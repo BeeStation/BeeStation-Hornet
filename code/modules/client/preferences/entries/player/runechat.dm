@@ -30,4 +30,4 @@
 	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/toggle/enable_runechat_looc/is_accessible(datum/preferences/preferences,  ignore_page = TRUE)
-	return ..() && CONFIG_GET(flag/looc_enabled)
+	return ..() && CONFIG_GET(flag/looc_enabled) && preferences.read_player_preference(/datum/preference/toggle/enable_runechat)
