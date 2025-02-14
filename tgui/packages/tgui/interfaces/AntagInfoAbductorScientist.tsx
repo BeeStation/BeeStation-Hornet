@@ -21,11 +21,11 @@ const IntroSection = (_props) => {
           as="img"
           src={resolveAsset('ayylmao.png')}
           width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+          style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '-2%' }}>
+        <h1 style={{ position: 'relative', top: '25%', left: '-2%' }}>
           You are the{' '}
           <Box inline textColor="purple">
             Abductor
@@ -143,7 +143,7 @@ const EquipmentSection = (_props) => {
                 as="img"
                 src={resolveAsset('scitool.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
               />
               Your{' '}
               <Box inline textColor="purple">
@@ -169,7 +169,7 @@ const EquipmentSection = (_props) => {
                 as="img"
                 src={resolveAsset('atool.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
               />
               You have{' '}
               <Box inline textColor="purple">

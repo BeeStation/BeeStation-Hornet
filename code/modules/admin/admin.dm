@@ -659,6 +659,7 @@
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>" )
 
+
 /datum/admins/proc/manage_free_slots()
 	if(!check_rights())
 		return

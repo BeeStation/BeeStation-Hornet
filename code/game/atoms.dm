@@ -226,7 +226,6 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
-CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
@@ -324,8 +323,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 
 	return ..()
 

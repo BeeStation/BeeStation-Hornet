@@ -15,6 +15,8 @@
 	var/desc = "Basic knowledge of forbidden arts."
 	/// What's shown to the heretic when the knowledge is aquired
 	var/gain_text
+	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
+	var/datum/heretic_knowledge/abstract_parent_type = /datum/heretic_knowledge
 	/// The knowledge this unlocks next after learning.
 	var/list/next_knowledge = list()
 	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.
@@ -55,7 +57,7 @@
  * * user - the heretic which we're applying things to
  */
 /datum/heretic_knowledge/proc/on_gain(mob/user)
-
+	return
 /**
  * Called when the knowledge is removed from a mob,
  * either due to a heretic being de-heretic'd or bodyswap memery.
@@ -64,7 +66,7 @@
  * * user - the heretic which we're removing things from
  */
 /datum/heretic_knowledge/proc/on_lose(mob/user)
-
+	return
 /**
  * Determines if a heretic can actually attempt to invoke the knowledge as a ritual.
  * By default, we can only invoke knowledge with rituals associated.
@@ -154,23 +156,27 @@
  * A knowledge subtype that grants the heretic a certain spell.
  */
 /datum/heretic_knowledge/spell
-	/// The proc holder spell we add to the heretic. Type-path, becomes an instance via on_research().
-	var/obj/effect/proc_holder/spell/spell_to_add
+	abstract_parent_type = /datum/heretic_knowledge/spell
+	/// Spell path we add to the heretic. Type-path.
+	var/datum/action/spell/spell_to_add
+	/// The spell we actually created.
+	var/datum/weakref/created_spell_ref
 
-/datum/heretic_knowledge/spell/Destroy(force, ...)
-	if(istype(spell_to_add))
-		QDEL_NULL(spell_to_add)
-	return ..()
-
-/datum/heretic_knowledge/spell/on_research(mob/user)
-	spell_to_add = new spell_to_add()
+/datum/heretic_knowledge/spell/Destroy()
+	QDEL_NULL(created_spell_ref)
 	return ..()
 
 /datum/heretic_knowledge/spell/on_gain(mob/user)
-	user.mind.AddSpell(spell_to_add)
+	// Added spells are tracked on the body, and not the mind,
+	// because we handle heretic mind transfers
+	// via the antag datum (on_gain and on_lose).
+	var/datum/action/spell/created_spell = created_spell_ref?.resolve() || new spell_to_add(user)
+	created_spell.Grant(user)
+	created_spell_ref = WEAKREF(created_spell)
 
 /datum/heretic_knowledge/spell/on_lose(mob/user)
-	user.mind.RemoveSpell(spell_to_add)
+	var/datum/action/spell/created_spell = created_spell_ref?.resolve()
+	created_spell?.Remove(user)
 
 /*
  * A knowledge subtype for knowledge that can only

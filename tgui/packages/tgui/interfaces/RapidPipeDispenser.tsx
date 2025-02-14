@@ -216,7 +216,6 @@ const LayerSelect = (props) => {
         />
       ))}
       <Button.Checkbox
-        key="multilayer"
         checked={multi_layer}
         content="Multi"
         tooltip="Build on multiple pipe layers simultaneously"

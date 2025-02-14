@@ -6,7 +6,6 @@
 	dna_cost = 2
 	chemical_cost = 1
 	req_human = 1
-	req_stat = CONSCIOUS
 
 /datum/action/changeling/refractive_chitin/sting_action(mob/living/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = 1
