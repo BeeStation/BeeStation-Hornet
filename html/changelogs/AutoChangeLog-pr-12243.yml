@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Adds a new pickup and drop unit test that resolves some inconsistent action
-      assignment behaviours when picking up certain items.
