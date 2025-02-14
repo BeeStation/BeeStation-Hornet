@@ -13,8 +13,8 @@
 		//Add riding component
 		M.tame = TRUE
 		M.can_buckle = TRUE
-		M.buckle_lying = FALSE
-		var/datum/component/riding/D = M.LoadComponent(/datum/component/riding/tamed)
+		M.buckle_lying = 0
+		var/datum/component/riding/D = M.LoadComponent(/datum/component/riding/creature/tamed)
 		D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(0, 8), TEXT_WEST = list( 0, 8)))
 		D.set_vehicle_dir_layer(NORTH, M.layer)
 		D.set_vehicle_dir_layer(EAST, M.layer-0.1)

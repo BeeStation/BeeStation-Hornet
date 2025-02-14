@@ -85,6 +85,15 @@
 	obj_damage = 30
 	melee_damage = 10
 
+/mob/living/simple_animal/hostile/bear/Login()
+	. = ..()
+	if(!. || !client)
+		return FALSE
+
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/bear)
+	can_buckle = TRUE
+	buckle_lying = 0
+
 /mob/living/simple_animal/hostile/bear/update_icons()
 	..()
 	if(armored)

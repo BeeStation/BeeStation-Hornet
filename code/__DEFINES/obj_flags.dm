@@ -34,6 +34,7 @@
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
 #define ISCARVABLE			    (1<<17) //! Examine will not read out this item
 #define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
+#define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

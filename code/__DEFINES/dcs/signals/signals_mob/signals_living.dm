@@ -17,6 +17,8 @@
 #define COMSIG_LIVING_REGENERATE_LIMBS "living_regen_limbs"
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
+///from base of mob/living/set_body_position()
+#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"		//! sent from borg recharge stations: (amount, repairs)
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"			///From post-can inject check of syringe after attack (mob/user)

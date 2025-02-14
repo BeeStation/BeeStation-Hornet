@@ -19,10 +19,7 @@
 
 /obj/vehicle/ridden/secway/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 1.5
-	D.empable = TRUE
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/secway)
 
 /obj/vehicle/ridden/secway/atom_break()
 	START_PROCESSING(SSobj, src)
@@ -56,9 +53,10 @@
 	STOP_PROCESSING(SSobj,src)
 	return ..()
 
+//bullets will have a 60% chance to hit any riders
 /obj/vehicle/ridden/secway/bullet_act(obj/projectile/P)
-	if(prob(60) && buckled_mobs)
-		for(var/mob/M in buckled_mobs)
-			M.bullet_act(P)
-		return TRUE
-	return ..()
+	if(!buckled_mobs || prob(60))
+		return ..()
+	for(var/mob/rider as anything in buckled_mobs)
+		rider.bullet_act(P)
+	return TRUE
