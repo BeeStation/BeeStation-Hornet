@@ -32,12 +32,11 @@
 
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 
-/datum/action/cooldown/vampire/fortitude/UsePower(seconds_per_tick)
+/datum/action/cooldown/vampire/fortitude/UsePower()
 	. = ..()
 	if(!.)
 		return
 
-	/// We don't want people using fortitude being able to use vehicles
 	var/mob/living/carbon/user = owner
 	if(user.buckled && istype(user.buckled, /obj/vehicle))
 		user.buckled.unbuckle_mob(src, force = TRUE)

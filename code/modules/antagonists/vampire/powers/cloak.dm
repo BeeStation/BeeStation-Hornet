@@ -29,7 +29,7 @@
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 
-/datum/action/cooldown/vampire/cloak/UsePower(seconds_per_tick)
+/datum/action/cooldown/vampire/cloak/UsePower()
 	. = ..()
 	if(!.)
 		return

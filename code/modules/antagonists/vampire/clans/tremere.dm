@@ -81,7 +81,6 @@
 	to_chat(vampiredatum.owner.current, span_danger("You have now gained an additional Rank to spend!"))
 	vampiredatum.vampire_level_unspent++
 
-// Batform for special vassals
 /datum/action/spell/shapeshift/bat
 	name = "Bat Form"
 	desc = "Take on the shape a space bat."

@@ -45,7 +45,7 @@
 	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))
 		teleport_to_coffin(owner)
 
-/datum/action/cooldown/vampire/gohome/UsePower(seconds_per_tick)
+/datum/action/cooldown/vampire/gohome/UsePower()
 	if(!..())
 		return FALSE
 	switch(teleporting_stage)

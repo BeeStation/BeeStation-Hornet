@@ -104,7 +104,7 @@
 /datum/action/cooldown/vampire/proc/can_use()
 	var/mob/living/carbon/user = owner
 
-	if(!owner)
+	if(!user)
 		return FALSE
 	if(!isliving(user))
 		return FALSE
@@ -171,16 +171,16 @@
 	update_buttons()
 
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
-/datum/action/cooldown/vampire/proc/UsePower(mob/living/user)
-	if(!ContinueActive(user)) // We can't afford the Power? Deactivate it.
+/datum/action/cooldown/vampire/proc/UsePower()
+	if(!ContinueActive(owner)) // We can't afford the Power? Deactivate it.
 		DeactivatePower()
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
-	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && user.stat != CONSCIOUS)
+	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
 		if(vampiredatum_power)
 			vampiredatum_power.AddBloodVolume(-constant_bloodcost)
 		else
-			var/mob/living/living_user = user
+			var/mob/living/living_user = owner
 			if(!HAS_TRAIT(living_user, TRAIT_NO_BLOOD))
 				living_user.blood_volume -= constant_bloodcost
 	return TRUE
