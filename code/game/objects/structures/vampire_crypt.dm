@@ -167,7 +167,7 @@
 			span_hear("You hear a squishy wet noise."),
 		)
 		if(!do_after(user, 20 SECONDS, buckled_mob))
-			return
+			return FALSE
 	else
 		buckled_mob.visible_message(
 			span_danger("[user] tries to pull [buckled_mob] from the rack!"),
@@ -175,7 +175,7 @@
 			span_hear("You hear a squishy wet noise."),
 		)
 		if(!do_after(user, 10 SECONDS, buckled_mob))
-			return
+			return FALSE
 
 	return ..()
 

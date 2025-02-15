@@ -162,20 +162,14 @@ const VampireClan = (props: any) => {
             <Stack.Item>
               {clan.map((ClanInfo) => (
                 <>
-                  <Box
-                    as="img"
-                    height="20rem"
-                    opacity={0.5}
-                    src={resolveAsset(`vampire.${ClanInfo.clan_icon}.png`)}
-                    style={{
-                      '-ms-interpolation-mode': 'nearest-neighbor',
-                      'position': 'absolute',
-                      'top': '50%',
-                      'left': '50%',
-                      'transform': 'translate(-50%, -50%)',
-                    }}
-                  />
                   <Stack.Item fontSize="20px" textAlign="center">
+                    <Box
+                      inline
+                      as="img"
+                      src={resolveAsset(`vampire.${ClanInfo.clan_icon}.png`)}
+                      width="64px"
+                      style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
+                    />
                     You are part of the {ClanInfo.clan_name}
                   </Stack.Item>
                   <Stack.Item fontSize="16px">{ClanInfo.clan_description}</Stack.Item>

@@ -74,7 +74,7 @@
 
 /datum/vampire_clan/tremere/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	var/datum/action/spell/shapeshift/bat/batform = new
-	batform.Grant(vassaldatum.owner)
+	batform.Grant(vassaldatum.owner.current)
 
 /datum/vampire_clan/tremere/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
 	..()

@@ -256,3 +256,4 @@
  */
 /datum/vampire_clan/proc/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	SIGNAL_HANDLER
+	vassaldatum.BuyPower(new /datum/action/cooldown/vampire/targeted/brawn)
