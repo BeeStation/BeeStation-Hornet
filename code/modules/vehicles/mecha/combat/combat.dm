@@ -2,7 +2,6 @@
 	force = 30
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY)
 	armor_type = /datum/armor/mecha_combat
-	mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
 	destruction_knockdown_duration = 8 SECONDS
 	exit_delay = 40
 

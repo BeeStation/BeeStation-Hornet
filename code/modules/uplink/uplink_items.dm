@@ -2312,7 +2312,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			attached, an exosuit weapon can be fitted inside."
 	item = /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay
 	cost = 3
-	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_ROBOTICIST, JOB_RESEARCH_DIRECTOR)
+	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
 /datum/uplink_item/role_restricted/his_grace
 	name = "His Grace"

@@ -122,6 +122,7 @@
 	data["cabin_pressure"] = round(return_pressure(), 0.01)
 	data["cabin_temp"] = return_temperature()
 	//data["dna_lock"] = dna_lock
+	data["weapons_safety"] = weapons_safety
 	data["mech_view"] = ui_view.assigned_map
 	if(radio)
 		data["mech_electronics"] = list(
@@ -263,6 +264,9 @@
 			if(!userinput)
 				return
 			name = userinput
+		if("toggle_safety")
+			set_safety(usr)
+			return
 		/*
 		if("dna_lock")
 			var/mob/living/carbon/user = usr

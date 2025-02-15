@@ -13,26 +13,6 @@
  * where they target the "dangerous" modules
  */
 
-/// returns a number for the damage multiplier for this relative angle/dir
-/obj/vehicle/sealed/mecha/proc/get_armour_facing(relative_dir)
-	switch(abs(relative_dir))
-		if(180) // BACKSTAB!
-			return facing_modifiers[MECHA_BACK_ARMOUR]
-		if(0, 45)
-			return facing_modifiers[MECHA_FRONT_ARMOUR]
-	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
-
-///tries to deal internal damaget depending on the damage amount
-/obj/vehicle/sealed/mecha/proc/try_deal_internal_damage(damage)
-	if(damage < internal_damage_threshold)
-		return
-	if(!prob(internal_damage_probability))
-		return
-	var/internal_damage_to_deal = possible_int_damage
-	internal_damage_to_deal &= ~mecha_flags
-	if(internal_damage_to_deal)
-		set_internal_damage(pick(bitfield_to_list(internal_damage_to_deal)))
-
 /// tries to damage mech equipment depending on damage and where is being targetted
 /obj/vehicle/sealed/mecha/proc/try_damage_component(damage, def_zone)
 	if(damage < component_damage_threshold)
@@ -195,15 +175,11 @@
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	log_message("EMP detected", LOG_MECHA, color="red")
 
-	if(istype(src, /obj/vehicle/sealed/mecha/combat)) //todo this stupid mouse icon should be a flag
-		mouse_pointer = 'icons/mecha/mecha_mouse-disable.dmi'
-		for(var/occus in occupants)
-			var/mob/living/occupant = occus
-			occupant.update_mouse_pointer()
 	if(!equipment_disabled && LAZYLEN(occupants)) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupants, span_danger("Error -- Connection to equipment control unit has been lost."))
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = TRUE
+	set_mouse_pointer()
 
 /obj/vehicle/sealed/mecha/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return exposed_temperature>max_temperature
@@ -212,6 +188,14 @@
 	log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
 	take_damage(5, BURN, 0, 1)
 
+/obj/vehicle/sealed/mecha/fire_act() //Check if we should ignite the pilot of an open-canopy mech
+	. = ..()
+	if(enclosed || mecha_flags & SILICON_PILOT)
+		return
+	for(var/mob/living/cookedalive as anything in occupants)
+		if(cookedalive.fire_stacks < 5)
+			cookedalive.fire_stacks += 1
+			cookedalive.IgniteMob()
 
 /obj/vehicle/sealed/mecha/attackby_secondary(obj/item/weapon, mob/user, params)
 	if(istype(weapon, /obj/item/mecha_parts))
