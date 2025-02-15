@@ -104,6 +104,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	if(timing)
 		detonation_timer = world.time + (timer_set * 10)
 		countdown.start()
+		exploration_announce("Nuclear fission explosive armed. Vacate the outpost immediately.", z)
 	else
 		detonation_timer = null
 		countdown.stop()
