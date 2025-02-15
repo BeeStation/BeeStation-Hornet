@@ -79,7 +79,7 @@
 	wine_power = 50
 	discovery_points = 300
 
-/obj/item/food/grown/ghost_chili/attack_hand(mob/user)
+/obj/item/food/grown/ghost_chili/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
