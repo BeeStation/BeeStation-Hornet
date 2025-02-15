@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: Mechs are now affected by swarmer traps, however they will only be stunned
-      for three seconds instead of ten.
-  - bugfix: Adjusts swarmer abilities so that they are available in accordance to
-      the recently updated costs
