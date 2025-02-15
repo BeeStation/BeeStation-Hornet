@@ -41,7 +41,7 @@
 	if(prob(85) || vampiredatum.owner.current.stat != CONSCIOUS || HAS_TRAIT(vampiredatum.owner.current, TRAIT_MASQUERADE))
 		return
 	var/message = pick(strings("malkavian_revelations.json", "revelations", "strings"))
-	INVOKE_ASYNC(vampiredatum.owner.current, /mob/proc/whisper, message, , , , , , CLAN_MALKAVIAN)
+	INVOKE_ASYNC(vampiredatum.owner.current, /mob/living/whisper, message, , , , , , CLAN_MALKAVIAN)
 
 /datum/vampire_clan/malkavian/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	var/mob/living/carbon/carbonowner = vassaldatum.owner.current
