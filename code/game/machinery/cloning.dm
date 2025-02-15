@@ -90,7 +90,7 @@
 	if(heal_level > 100)
 		heal_level = 100
 
-/obj/machinery/clonepod/attack_hand(mob/user)
+/obj/machinery/clonepod/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

@@ -36,8 +36,8 @@
 		return
 	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this."))
 
-/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent != INTENT_HARM)
+/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/living/user, params)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER && !user.combat_mode)
 		user.visible_message(span_warning("[usr.name] deactivates [src]."),
 			span_notice("After some fiddling, you find a way to disable [src]'s power source."),
 			span_italics("You hear clicking."))
@@ -809,7 +809,7 @@
 			M.unequip_everything()
 			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
 			if(istype(new_mob))
-				new_mob.a_intent = INTENT_HARM
+				new_mob.set_combat_mode(TRUE)
 				M.mind.transfer_to(new_mob)
 				new_owner.assigned_role = ROLE_SWARMER
 				new_owner.special_role = ROLE_SWARMER

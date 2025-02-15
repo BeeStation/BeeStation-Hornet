@@ -67,7 +67,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 /obj/item/radio/intercom/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/item/radio/intercom/attack_hand(mob/user)
+/obj/item/radio/intercom/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
