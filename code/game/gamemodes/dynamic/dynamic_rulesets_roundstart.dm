@@ -97,6 +97,7 @@
 	minimum_players = 20
 	weight = 3
 	cost = 18
+	flags = LONE_RULESET
 
 /datum/dynamic_ruleset/roundstart/malf/pre_execute(population)
 	. = ..()
