@@ -1,0 +1,14 @@
+author: St0rmC4st3r, Rukofamicom
+delete-after: true
+changes:
+  - rscadd: Added an Exploration voucher as a way to obtain missing equipment when
+      latejoining.
+  - rscadd: Added a Ghost Shift Kit specifically made for solo explorers in the exploration
+      voucher which can be redeemed if the station is staffed with a skeleton crew.
+  - rscadd: Added a Gunslinger Kit in the exploration voucher. You can now cosplay
+      as a cool space cowboy!
+  - rscadd: Added a Laser Repeater kit as a sidegrade to the regular exploration energy
+      gun.
+  - tweak: Hats can now be attached to all space helmets, not just Plasmaman envirohelmets!
+  - tweak: Exploration crew now always spawns in the latejoin outfit, but with an
+      exploration voucher.
