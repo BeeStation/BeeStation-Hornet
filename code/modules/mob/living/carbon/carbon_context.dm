@@ -10,16 +10,15 @@
 
 	var/mob/living/carbon/human/human_user = user
 
-	if (human_user.a_intent == INTENT_HARM) //if (human_user.combat_mode) (I)
+	if (human_user.combat_mode)
 		context.add_left_click_action("Attack")
 	else if (human_user == src)
 		context.add_left_click_action("Check injuries")
 
 	if (human_user != src)
-		if(human_user.a_intent == INTENT_DISARM) //Delete this line (I)
-			context.add_left_click_action("Shove")
+		context.add_right_click_action("Shove")
 
-		else if (human_user.a_intent != INTENT_HARM) //if (!human_user.combat_mode) (I)
+		else if (!human_user.combat_mode)
 			if (body_position == STANDING_UP)
 				if(check_zone(user.get_combat_bodyzone(src)) == BODY_ZONE_HEAD && get_bodypart(BODY_ZONE_HEAD))
 					context.add_left_click_action("Headpat")

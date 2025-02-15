@@ -239,12 +239,20 @@
 /datum/screentip_context/proc/add_attack_self_action(action_text)
 	generic_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\[Z\] [action_text]")]</span>")]"
 
-/datum/screentip_context/proc/add_attack_hand_action(action_text, blocked_message = null, accessible = TRUE)
+/datum/screentip_context/proc/add_attack_hand_action(action_text, blocked_message = "hands full", accessible = TRUE)
 	if (ishuman(user) && held_item == null)
 		if (accessible)
 			left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
 		else
 			left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
+/datum/screentip_context/proc/add_attack_hand_secondary_action(action_text, blocked_message = "hands full", accessible = TRUE)
+	if (ishuman(user) && held_item == null)
+		if (accessible)
+			right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		else
+			right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+
 
 /datum/screentip_context/proc/add_generic_deconstruction_actions(obj/machinery/machine)
 	if (!machine.panel_open)
