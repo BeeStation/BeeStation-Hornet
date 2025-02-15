@@ -54,7 +54,7 @@
 	src.roleplay_callback = roleplay_callback
 
 /datum/component/tippable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(interact_with_tippable))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(interact_with_tippable))
 	if (roleplay_friendly)
 		RegisterSignal(parent, COMSIG_MOB_EMOTE, PROC_REF(accept_roleplay))
 
@@ -81,7 +81,7 @@
 	var/mob/living/living_user = user
 	if(DOING_INTERACTION_WITH_TARGET(user, source))
 		return
-	if(istype(living_user) && (living_user.a_intent == INTENT_HELP)) //REPLACE THIS WITH RIGHT CLICK ON COMBAT MODE LATER
+	if(istype(living_user) && !(living_user.combat_mode))
 		return
 
 	if(is_tipped)
