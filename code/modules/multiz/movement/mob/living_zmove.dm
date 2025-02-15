@@ -1,4 +1,3 @@
-#define MOVETYPE_NONE_JUMP -1
 #define MOVETYPE_NONE 0
 #define MOVETYPE_CLIMB 1
 #define MOVETYPE_FLY 2
@@ -30,7 +29,7 @@
 		return MOVETYPE_JETPACK
 	else if(can_climb)
 		return MOVETYPE_CLIMB
-	return upwards ? MOVETYPE_NONE_JUMP : MOVETYPE_NONE
+	return MOVETYPE_NONE
 
 /// Attempts a zMove up or down, provides feedback if unable to do so.
 /mob/living/zMove(dir, feedback = FALSE, feedback_to = src)
@@ -60,11 +59,6 @@
 		if(MOVETYPE_NONE)
 			if(feedback)
 				to_chat(feedback_to, span_warning("Something is blocking you!"))
-			return FALSE
-		if(MOVETYPE_NONE_JUMP)
-			visible_message(span_warning("[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly."), span_warning("You try jumping into the space above you. Gravity pulls you back down quickly."))
-			do_jump_animation()
-			adjustStaminaLoss(10, forced = TRUE)
 			return FALSE
 		if(MOVETYPE_JAUNT)
 			move_verb = "moving"
@@ -171,5 +165,3 @@
 #undef MOVETYPE_JETPACK
 #undef MOVETYPE_FLOAT
 #undef MOVETYPE_JAUNT
-
-#undef MOVETYPE_NONE_JUMP
