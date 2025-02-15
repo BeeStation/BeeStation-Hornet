@@ -6,15 +6,17 @@
 	movedelay = 2
 	dir_in = 1 //Facing North.
 	max_integrity = 100
-	deflect_chance = 3
 	armor_type = /datum/armor/combat_reticence
 	max_temperature = 15000
 	wreckage = /obj/structure/mecha_wreckage/reticence
 	operation_req_access = list(ACCESS_THEATRE)
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
 	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | QUIET_STEPS | QUIET_TURNS
-	internal_damage_threshold = 25
-	max_equip = 2
+	max_equip_by_category = list(
+		MECHA_UTILITY = 1,
+		MECHA_POWER = 1,
+		MECHA_ARMOR = 1,
+	)
 	step_energy_drain = 3
 	color = "#87878715"
 
@@ -27,9 +29,11 @@
 	fire = 100
 	acid = 100
 
-/obj/vehicle/sealed/mecha/combat/reticence/loaded/Initialize(mapload)
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/rcd //HAHA IT MAKES WALLS GET IT
-	ME.attach(src)
+/obj/vehicle/sealed/mecha/combat/reticence/loaded
+	equip_by_category = list(
+		MECHA_L_ARM = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced,
+		MECHA_R_ARM = /obj/item/mecha_parts/mecha_equipment/rcd,
+		MECHA_UTILITY = list(),
+		MECHA_POWER = list(),
+		MECHA_ARMOR = list(),
+	)

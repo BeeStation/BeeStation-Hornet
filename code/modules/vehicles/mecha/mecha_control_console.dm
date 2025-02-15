@@ -38,7 +38,6 @@
 			airtank = M.internal_tank ? M.return_pressure() : null,
 			pilot = M.return_drivers(),
 			location = get_area_name(M, TRUE),
-			active_equipment = M.selected,
 			emp_recharging = MT.recharging,
 			tracker_ref = REF(MT)
 		)
@@ -104,8 +103,7 @@
 				<b>Cell Charge:</b> [isnull(cell_charge) ? "Not Found":"[chassis.cell.percent()]%"]<br>
 				<b>Airtank:</b> [chassis.internal_tank ? "[round(chassis.return_pressure(), 0.01)]" : "Not Equipped"] kPa<br>
 				<b>Pilot:</b> [chassis.return_drivers() || "None"]<br>
-				<b>Location:</b> [get_area_name(chassis, TRUE) || "Unknown"]<br>
-				<b>Active Equipment:</b> [chassis.selected || "None"]"}
+				b>Location:</b> [get_area_name(chassis, TRUE) || "Unknown"]"}
 	if(istype(chassis, /obj/vehicle/sealed/mecha/working/ripley))
 		var/obj/vehicle/sealed/mecha/working/ripley/RM = chassis
 		answer += "<br><b>Used Cargo Space:</b> [round((LAZYLEN(RM.cargo) / RM.cargo_capacity * 100), 0.01)]%"
@@ -124,7 +122,7 @@
 	chassis = null
 	return ..()
 
-/obj/item/mecha_parts/mecha_tracking/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M)
+/obj/item/mecha_parts/mecha_tracking/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M, attach_right = FALSE)
 	if(!do_after(user, 15, M))
 		return
 	if(!..())

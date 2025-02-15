@@ -268,10 +268,7 @@
 	if (!can_hit)
 		return FALSE
 	mecha_attacker.do_attack_animation(src)
-	var/mech_damtype = mecha_attacker.damtype
-	if(mecha_attacker.selected)
-		mech_damtype = mecha_attacker.selected.damtype
-	switch(mech_damtype)
+	switch(mecha_attacker.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 		if(BURN)
@@ -280,7 +277,7 @@
 			return FALSE
 	mecha_attacker.visible_message(span_danger("[mecha_attacker.name] hits [src]!"), span_danger("You hit [src]!"), null, COMBAT_MESSAGE_RANGE)
 	..()
-	return take_damage(mecha_attacker.force * 3, mech_damtype, MELEE, mecha_attacker.selected, get_dir(src, mecha_attacker)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	return take_damage(mecha_attacker.force * 3, mecha_attacker.damtype, "melee", FALSE, get_dir(src, mecha_attacker)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 //====================================
 // Singularity

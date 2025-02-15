@@ -2,6 +2,7 @@
 /proc/default_ui_state(mob/user, atom/source)
 	return min(
 		ui_status_user_is_abled(user, source),
+		ui_status_user_has_free_hands(user, source),
 		ui_status_user_is_advanced_tool_user(user, source),
 		ui_status_only_living(user),
 		max(
@@ -55,8 +56,12 @@
 
 	return UI_INTERACTIVE
 
-/// Returns a UI status such that advanced tool users will be able to update,
+/// Returns a UI status such that those without blocked hands will be able to interact,
 /// but everyone else can only watch.
+/proc/ui_status_user_has_free_hands(mob/user, atom/source)
+	return HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) ? UI_UPDATE : UI_INTERACTIVE
+
+/// Returns a UI status such that advanced tool users will be able to interact,
 /proc/ui_status_user_is_advanced_tool_user(mob/user, atom/source)
 	return (user.canUseTopic(source, BE_CLOSE) && !HAS_TRAIT(user, TRAIT_DISCOORDINATED)) ? UI_INTERACTIVE : UI_UPDATE
 

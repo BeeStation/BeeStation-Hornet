@@ -77,6 +77,7 @@
 #include "spell_names.dm"
 #include "spell_shapeshift.dm"
 #include "stat_mc.dm"
+#include "strippable.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgery_linking.dm"

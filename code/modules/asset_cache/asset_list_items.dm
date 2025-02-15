@@ -568,6 +568,12 @@
 	// Special bee edit to handle Bluespace Crystals
 	insert_icon("polycrystal", uni_icon('icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
 
+/datum/asset/spritesheet/mechaarmor
+	name = "mechaarmor"
+
+/datum/asset/spritesheet_batched/mechaarmor/create_spritesheets()
+	insert_all_icons("", 'icons/ui_icons/mecha/armor.dmi')
+
 /datum/asset/simple/pAI
 	assets = list(
 		"paigrid.png" = 'html/paigrid.png'

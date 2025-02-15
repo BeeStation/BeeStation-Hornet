@@ -6,11 +6,15 @@
 	movedelay = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400
-	deflect_chance = 20
 	armor_type = /datum/armor/combat_durand
 	max_temperature = 30000
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
+	max_equip_by_category = list(
+		MECHA_UTILITY = 1,
+		MECHA_POWER = 1,
+		MECHA_ARMOR = 3,
+	)
 	var/obj/durand_shield/shield
 
 

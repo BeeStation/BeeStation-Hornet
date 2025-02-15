@@ -2281,15 +2281,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_CLOWN, JOB_NAME_CHAPLAIN)
 
-/datum/uplink_item/role_restricted/concealed_weapon_bay
-	name = "Concealed Weapon Bay"
-	desc = "A modification for non-combat mechas that allows them to equip one piece of equipment designed for combat mechs. \
-			It also hides the equipped weapon from plain sight. \
-			Only one can fit on a mecha."
-	item = /obj/item/mecha_parts/concealed_weapon_bay
-	cost = 3
-	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
-
 /datum/uplink_item/role_restricted/haunted_magic_eightball
 	name = "Haunted Magic Eightball"
 	desc = "Most magic eightballs are toys with dice inside. Although identical in appearance to the harmless toys, this occult device reaches into the spirit world to find its answers. \
