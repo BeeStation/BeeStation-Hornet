@@ -52,7 +52,7 @@
 	if(istype(buckled))
 		buckled.relaymove(src, dir)
 		// Return true if we changed position
-		return source != get_turf(L)
+		return source != get_turf(src)
 	var/move_verb = "floating"
 	var/delay = 1 SECONDS
 	var/upwards = dir == UP
