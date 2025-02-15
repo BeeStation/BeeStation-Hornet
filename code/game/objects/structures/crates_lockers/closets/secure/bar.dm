@@ -9,9 +9,10 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	can_weld_shut = FALSE
 
 /obj/structure/closet/secure_closet/bar/PopulateContents()
 	..()
 	for(var/i in 1 to 10)
-		new /obj/item/reagent_containers/food/drinks/beer( src )
+		new /obj/item/reagent_containers/cup/glass/bottle/beer( src )
 	new /obj/item/etherealballdeployer(src)

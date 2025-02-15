@@ -10,7 +10,7 @@
 	light_color = "#ffc1c1"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "c" = (
@@ -27,7 +27,7 @@
 	},
 /obj/item/circuitboard/computer/operating,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "e" = (
@@ -35,14 +35,14 @@
 /obj/structure/chair,
 /obj/item/reagent_containers/blood/random,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "f" = (
 /obj/effect/spawner/lootdrop/organ_spawner,
 /obj/effect/trap/nexus/trickyspawner/catbutcher,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
@@ -52,7 +52,7 @@
 /obj/item/surgical_drapes,
 /obj/item/clothing/mask/surgical,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -60,9 +60,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -87,7 +87,7 @@
 /obj/structure/table/glass,
 /obj/item/hemostat,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "o" = (
@@ -101,7 +101,7 @@
 /obj/item/weldingtool/mini,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "q" = (
@@ -112,7 +112,7 @@
 /obj/effect/spawner/lootdrop/organ_spawner,
 /obj/structure/closet/crate,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 

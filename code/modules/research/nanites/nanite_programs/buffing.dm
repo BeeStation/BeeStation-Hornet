@@ -27,17 +27,21 @@
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/adrenaline/on_trigger()
-	to_chat(host_mob, "<span class='notice'>You feel a sudden surge of energy!</span>")
+	to_chat(host_mob, span_notice("You feel a sudden surge of energy!"))
 	host_mob.SetAllImmobility(0)
 	host_mob.adjustStaminaLoss(-75)
 	host_mob.set_resting(FALSE)
-	host_mob.update_mobility()
 
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"
 	desc = "The nanites form a mesh under the host's skin, protecting them from melee and bullet impacts."
 	use_rate = 0.5
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	var/datum/armor/nanite_armor = /datum/armor/hardening_armor
+
+/datum/armor/hardening_armor
+	melee = 30
+	bullet = 30
 
 //TODO on_hit effect that turns skin grey for a moment
 
@@ -45,35 +49,37 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 30
-		H.physiology.armor.bullet += 30
+		H.physiology.physio_armor.add_other_armor(nanite_armor)
+
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 30
-		H.physiology.armor.bullet -= 30
+		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
 	use_rate = 0.50
 	rogue_types = list(/datum/nanite_program/skin_decay)
+	var/datum/armor/nanite_armor = /datum/armor/refractive_armor
+
+/datum/armor/refractive_armor
+	laser = 30
+	energy = 30
 
 /datum/nanite_program/refractive/enable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 30
-		H.physiology.armor.energy += 30
+		H.physiology.physio_armor.add_other_armor(nanite_armor)
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 30
-		H.physiology.armor.energy -= 30
+		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"
@@ -134,7 +140,7 @@
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/haste/on_trigger()
-	to_chat(host_mob, "<span class='notice'>Your body feels lighter and your legs feel relaxed!</span>")
+	to_chat(host_mob, span_notice("Your body feels lighter and your legs feel relaxed!"))
 	host_mob.set_resting(FALSE)
 	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
 
@@ -155,22 +161,23 @@
 	blade = new(host_mob)
 	host_mob.dropItemToGround(host_mob.get_active_held_item())
 	if(!host_mob.put_in_hands(blade))
-		to_chat(host_mob, "<span class='danger'>You feel an intense pain as your nanites fail to form a blade!</span>")
+		to_chat(host_mob, span_danger("You feel an intense pain as your nanites fail to form a blade!"))
 		host_mob.adjustBruteLoss(10)
 		QDEL_NULL(blade)
 		return
-	host_mob.visible_message("<span class='danger'>A metallic blade rapidly forms around [host_mob]'s arm!</span>", "<span class='warning'>A nanite blade quickly forms around our arm!</span>")
+	host_mob.visible_message(span_danger("A metallic blade rapidly forms around [host_mob]'s arm!"), span_warning("A nanite blade quickly forms around our arm!"))
 
 /datum/nanite_program/armblade/disable_passive_effect()
 	. = ..()
 	if(blade)
-		host_mob.visible_message("<span class='danger'>The metallic blade around [host_mob]'s arm retracts and dissolves!</span>", "<span class='warning'>Our nanite blade dissipates.</span>")
+		host_mob.visible_message(span_danger("The metallic blade around [host_mob]'s arm retracts and dissolves!"), span_warning("Our nanite blade dissipates."))
 		QDEL_NULL(blade)
 
 /obj/item/melee/arm_blade/nanite
 	name = "metallic armblade"
 	desc = "Nanites have formed this extremely sharp blade around your arm. Owie."
-	force = 15
+	force = 20
+	sharpness = SHARP_DISMEMBER
 	icon = 'icons/obj/nanite.dmi'
 	icon_state = "nanite_blade"
 	item_state = "nanite_blade"

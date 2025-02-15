@@ -106,7 +106,7 @@
 				)
 		)
 		for(var/turf/affected_turf as anything in template_and_bordering_turfs)
-			affected_turf.air_update_turf(TRUE)
+			affected_turf.air_update_turf(TRUE, TRUE)
 			affected_turf.levelupdate()
 
 /datum/map_template/proc/load_new_z(orbital_body_type, list/level_traits = list(ZTRAIT_AWAY = TRUE))
@@ -148,9 +148,15 @@
 
 	var/list/border = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
 							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
-	for(var/L in border)
-		var/turf/turf_to_disable = L
-		turf_to_disable.ImmediateDisableAdjacency()
+	// Cache for sonic speed
+	var/list/to_rebuild = SSair.adjacent_rebuild
+	// iterate over turfs in the border and clear them from active atmos processing
+	for(var/turf/border_turf as anything in border)
+		SSair.remove_from_active(border_turf)
+		to_rebuild -= border_turf
+		for(var/turf/sub_turf as anything in border_turf.atmos_adjacent_turfs)
+			sub_turf.atmos_adjacent_turfs?.Remove(border_turf)
+		border_turf.atmos_adjacent_turfs?.Cut()
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.
@@ -163,7 +169,7 @@
 
 	UNSETEMPTY(turf_blacklist)
 	parsed.turf_blacklist = turf_blacklist
-	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
+	var/datum/async_map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
 	map_placer.on_completion(CALLBACK(src, PROC_REF(on_placement_completed)))
 	var/list/generation_arguments =  list(T, init_atmos, parsed, finalize)
 	if (length(args) > 4)
@@ -171,7 +177,7 @@
 	map_placer.generate(arglist(generation_arguments))
 	return map_placer
 
-/datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
+/datum/map_template/proc/on_placement_completed(datum/async_map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		maps_loading --

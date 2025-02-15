@@ -5,11 +5,16 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
+	custom_materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
+	armor_type = /datum/armor/item_powertool
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
+
+
+/datum/armor/item_powertool
+	fire = 50
+	acid = 30
 
 /obj/item/powertool/attack_self(mob/user)
 	toggle_mode(user)
@@ -24,6 +29,7 @@
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill_screw"
 	item_state = "drill"
+	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
@@ -50,7 +56,8 @@
 
 	hitsound = null
 
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 	throw_range = 7
 
 /obj/item/powertool/hand_drill/proc/become_screwdriver()
@@ -59,23 +66,24 @@
 
 	hitsound = 'sound/items/drill_hit.ogg'
 
-	attack_verb = list("drilled", "screwed", "jabbed")
+	attack_verb_continuous = list("drills", "screws", "jabs", "whacks")
+	attack_verb_simple = list("drill", "screw", "jab", "whack")
 	throw_range = 3
 
 /obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
-		user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!"))
 	else
-		user.visible_message("<span class='suicide'>[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/powertool/hand_drill/attack(mob/living/M, mob/living/user)
 	if(!istype(M) || tool_behaviour != TOOL_SCREWDRIVER)
 		return ..()
-	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
+	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_ZONE_HEAD, simplified_probability = 40))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		to_chat(user, span_warning("You don't want to harm [M]!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		M = user
@@ -89,12 +97,14 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
+	worn_icon_state = "jawsoflife"
 
 	tool_behaviour = TOOL_CROWBAR
 
 	force = 15
 	throwforce = 7
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 
 /obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
@@ -115,7 +125,8 @@
 
 	usesound = 'sound/items/jaws_cut.ogg'
 
-	attack_verb = list("pinched", "nipped")
+	attack_verb_continuous = list("pinches", "nips")
+	attack_verb_simple = list("pinch", "nip")
 	force = 6
 	throw_speed = 3
 
@@ -127,7 +138,8 @@
 
 	usesound = 'sound/items/jaws_pry.ogg'
 
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 	force = 15
 	throw_speed = 2
 
@@ -135,10 +147,10 @@
 
 /obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_CROWBAR)
-		user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src], it looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is putting [user.p_their()] head in [src], it looks like [user.p_theyre()] trying to commit suicide!"))
 		playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
 	else
-		user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+		user.visible_message(span_suicide("[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"))
 		playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
@@ -150,8 +162,8 @@
 
 /obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
-		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		log_combat(user, C, "cut handcuffs from")
+		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
+		log_combat(user, C, "cut handcuffs from", important = FALSE)
 		qdel(C.handcuffed)
 		return
 	else

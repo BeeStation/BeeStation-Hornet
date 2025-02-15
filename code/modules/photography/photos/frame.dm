@@ -4,12 +4,13 @@
 	name = "picture frame"
 	desc = "The perfect showcase for your favorite deathtrap memories."
 	icon = 'icons/obj/decals.dmi'
-	materials = list()
+	custom_materials = list(/datum/material/wood = 2000)
 	flags_1 = 0
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/picture_frame
 	pixel_shift = -32
 	var/obj/item/photo/displayed
+	pixel_shift = 30
 
 /obj/item/wallframe/picture/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/photo))
@@ -19,18 +20,18 @@
 			displayed = I
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
+			to_chat(user, span_notice("\The [src] already contains a photo."))
 	..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/wallframe/picture/attack_hand(mob/user)
+/obj/item/wallframe/picture/attack_hand(mob/user, list/modifiers)
 	if(user.get_inactive_held_item() != src)
 		..()
 		return
 	if(contents.len)
 		var/obj/item/I = pick(contents)
 		user.put_in_hands(I)
-		to_chat(user, "<span class='notice'>You carefully remove the photo from \the [src].</span>")
+		to_chat(user, span_notice("You carefully remove the photo from \the [src]."))
 		displayed = null
 		update_icon()
 	return ..()
@@ -65,6 +66,7 @@
 	desc = "Every time you look it makes you laugh."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
+	custom_materials = list(/datum/material/wood = 2000)
 	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/photo/framed
 	var/persistence_id
@@ -76,8 +78,11 @@
 
 #undef FRAME_DEFINE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/picture_frame)
+
 /obj/structure/sign/picture_frame/Initialize(mapload, dir, building)
 	. = ..()
+	AddElement(/datum/element/art, OK_ART)
 	LAZYADD(SSpersistence.photo_frames, src)
 
 /obj/structure/sign/picture_frame/Destroy()
@@ -113,16 +118,16 @@
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
 	if(can_decon && (I.tool_behaviour == TOOL_SCREWDRIVER || I.tool_behaviour == TOOL_WRENCH))
-		to_chat(user, "<span class='notice'>You start unsecuring [name]...</span>")
+		to_chat(user, span_notice("You start unsecuring [name]..."))
 		if(I.use_tool(src, user, 30, volume=50))
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-			to_chat(user, "<span class='notice'>You unsecure [name].</span>")
+			to_chat(user, span_notice("You unsecure [name]."))
 			deconstruct()
 
 	else if(I.tool_behaviour == TOOL_WIRECUTTER && framed)
 		framed.forceMove(drop_location())
 		framed = null
-		user.visible_message("<span class='warning'>[user] cuts away [framed] from [src]!</span>")
+		user.visible_message(span_warning("[user] cuts away [framed] from [src]!"))
 		return
 
 	else if(istype(I, /obj/item/photo))
@@ -133,11 +138,11 @@
 			framed = P
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
+			to_chat(user, "[span_notice("\The [src] already contains a photo.")]")
 
 	..()
 
-/obj/structure/sign/picture_frame/attack_hand(mob/user)
+/obj/structure/sign/picture_frame/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_themes, /datum/holoparasite_theme, init_holo
 	var/message = messages[key]
 	if(holoparasite)
 		message = replacetext(message, "%NAME%", holoparasite.color_name)
-	to_chat(user, "<span class='holoparasite'>[message]</span>", type = MESSAGE_TYPE_INFO)
+	to_chat(user, span_holoparasite("[message]"), type = MESSAGE_TYPE_INFO)
 
 /proc/init_holoparasite_themes()
 	. = list()
@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_themes, /datum/holoparasite_theme, init_holo
 	else if(istype(path_or_instance, /datum/holoparasite_theme))
 		return path_or_instance
 	else if(istext(path_or_instance))
-		var/theme_name = lowertext(trim(path_or_instance))
+		var/theme_name = LOWER_TEXT(trim(path_or_instance))
 		var/named_path = text2path(theme_name)
 		if(ispath(named_path, /datum/holoparasite_theme))
 			return GLOB.holoparasite_themes[named_path]

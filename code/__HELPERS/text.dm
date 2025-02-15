@@ -62,6 +62,17 @@
 /proc/adminscrub(t,limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
+//Modified proc from strip_html_simple, guts the inbetween of <>
+/proc/strip_html_tags(t,limit=100)
+	var/index_one = findtext_char(t, "<")
+	var/index_two
+	while(index_one)
+		index_two = findtext_char(t, ">")
+		if(index_one >= index_two)
+			break
+		t = splicetext_char(t, index_one, index_two + 1, "") // I hope this + 1 works?
+		index_one = findtext_char(t, "<")
+	return t
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)
@@ -827,7 +838,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		return string
 
 	var/base = next_backslash == 1 ? "" : copytext(string, 1, next_backslash)
-	var/macro = lowertext(copytext(string, next_backslash + length(string[next_backslash]), next_space))
+	var/macro = LOWER_TEXT(copytext(string, next_backslash + length(string[next_backslash]), next_space))
 	var/rest = next_backslash > leng ? "" : copytext(string, next_space + length(string[next_space]))
 
 	//See https://secure.byond.com/docs/ref/info.html#/DM/text/macros

@@ -86,9 +86,12 @@
 		if (!(keybinding.category in keybindings))
 			keybindings[keybinding.category] = list()
 
+		var/datum/preference/required_type = keybinding.required_pref_type
 		keybindings[keybinding.category][keybinding.name] = list(
 			"name" = keybinding.full_name,
 			"description" = keybinding.description,
+			"pref_key" = required_type && initial(required_type.db_key),
+			"pref_value" = keybinding.required_pref_value,
 		)
 
 	return keybindings

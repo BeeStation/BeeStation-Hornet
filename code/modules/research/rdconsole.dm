@@ -107,24 +107,24 @@ Nothing else in the console has ID requirements.
 	if(istype(D, /obj/item/disk))
 		if(istype(D, /obj/item/disk/tech_disk))
 			if(t_disk)
-				to_chat(user, "<span class='danger'>A technology disk is already loaded!</span>")
+				to_chat(user, span_danger("A technology disk is already loaded!"))
 				return
 			if(!user.transferItemToLoc(D, src))
-				to_chat(user, "<span class='danger'>[D] is stuck to your hand!</span>")
+				to_chat(user, span_danger("[D] is stuck to your hand!"))
 				return
 			t_disk = D
 		else if (istype(D, /obj/item/disk/design_disk))
 			if(d_disk)
-				to_chat(user, "<span class='danger'>A design disk is already loaded!</span>")
+				to_chat(user, span_danger("A design disk is already loaded!"))
 				return
 			if(!user.transferItemToLoc(D, src))
-				to_chat(user, "<span class='danger'>[D] is stuck to your hand!</span>")
+				to_chat(user, span_danger("[D] is stuck to your hand!"))
 				return
 			d_disk = D
 		else
-			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
+			to_chat(user, span_danger("Machine cannot accept disks in that format."))
 			return
-		to_chat(user, "<span class='notice'>You insert [D] into \the [src]!</span>")
+		to_chat(user, span_notice("You insert [D] into \the [src]!"))
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		. = ..()
 
@@ -138,7 +138,7 @@ Nothing else in the console has ID requirements.
 		return FALSE
 	var/list/price = TN.get_price(stored_research)
 	if(stored_research.can_afford(price))
-		investigate_log("[key_name(user)] researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
+		user.investigate_log("researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
 		if(stored_research == SSresearch.science_tech)
 			SSblackbox.record_feedback("associative", "science_techweb_unlock", 1, list("id" = "[id]", "name" = TN.display_name, "price" = "[json_encode(price)]", "time" = SQLtime()))
 		if(stored_research.research_node_id(id))
@@ -182,7 +182,7 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You disable the security protocols[locked? " and unlock the console":""].</span>")
+	to_chat(user, span_notice("You disable the security protocols[locked? " and unlock the console":""]."))
 	playsound(src, "sparks", 75, 1)
 	locked = FALSE
 
@@ -200,7 +200,7 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/research_designs)
+		get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	)
 
 // heavy data from this proc should be moved to static data when possible
@@ -247,7 +247,7 @@ Nothing else in the console has ID requirements.
 		if(linked_destroy.loaded_item && (!QDELETED(linked_destroy.loaded_item)))
 			var/list/techyitems = techweb_item_boost_check(linked_destroy.loaded_item)
 			var/list/pointss = techweb_item_point_check(linked_destroy.loaded_item)
-			var/list/materials = linked_destroy.loaded_item.materials
+			var/list/materials = linked_destroy.loaded_item.custom_materials
 			var/list/matstuff = list()
 
 			if(length(techyitems))
@@ -329,7 +329,7 @@ Nothing else in the console has ID requirements.
 
 	// Build design cache
 	var/design_cache = list()
-	var/datum/asset/spritesheet/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
+	var/datum/asset/spritesheet_batched/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	var/size32x32 = "[spritesheet.name]32x32"
 	for (var/design_id in SSresearch.techweb_designs)
 		var/datum/design/design = SSresearch.techweb_designs[design_id] || SSresearch.error_design
@@ -367,12 +367,12 @@ Nothing else in the console has ID requirements.
 	switch (action)
 		if ("toggleLock")
 			if(obj_flags & EMAGGED)
-				to_chat(usr, "<span class='boldwarning'>Security protocol error: Unable to access locking protocols.</span>")
+				to_chat(usr, span_boldwarning("Security protocol error: Unable to access locking protocols."))
 				return TRUE
 			if(allowed(usr))
 				locked = !locked
 			else
-				to_chat(usr, "<span class='boldwarning'>Unauthorized Access.</span>")
+				to_chat(usr, span_boldwarning("Unauthorized Access."))
 			return TRUE
 		if ("compactify")
 			compact = !compact
@@ -535,10 +535,6 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/core
 	name = "Core R&D Console"
-
-/obj/machinery/computer/rdconsole/experiment
-	name = "E.X.P.E.R.I-MENTOR R&D Console"
-
 
 /obj/machinery/computer/rdconsole/vv_get_dropdown()
 	. = ..()

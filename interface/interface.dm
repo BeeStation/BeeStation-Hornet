@@ -11,7 +11,7 @@
 		else if (query != null)
 			src << link(wikiurl)
 	else
-		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
 	return
 
 /client/verb/forum()
@@ -24,7 +24,7 @@
 			return
 		src << link(forumurl)
 	else
-		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
 	return
 
 /client/verb/rules()
@@ -37,7 +37,7 @@
 			return
 		src << link(rulesurl)
 	else
-		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The rules URL is not set in the server configuration."))
 	return
 
 /client/verb/github()
@@ -50,7 +50,7 @@
 			return
 		src << link(githuburl)
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
 /client/verb/reportissue()
@@ -75,7 +75,7 @@
 		var/issue_label = CONFIG_GET(string/issue_label)
 		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[rustg_url_encode(url_params)][issue_label ? "&labels=[rustg_url_encode(issue_label)]" : ""]"))
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
 /client/verb/hotkeys_help()
@@ -239,7 +239,7 @@ Any-Mode: (hotkey doesn't need to be on)
 			return
 		src << link(donateurl)
 	else
-		to_chat(src, "<span class='danger'>The Donation URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Donation URL is not set in the server configuration."))
 	return
 
 /client/verb/discord()
@@ -252,7 +252,7 @@ Any-Mode: (hotkey doesn't need to be on)
 			return
 		src << link(discordurl)
 	else
-		to_chat(src, "<span class='danger'>The Discord invite is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Discord invite is not set in the server configuration."))
 	return
 
 /client/verb/map()
@@ -260,10 +260,10 @@ Any-Mode: (hotkey doesn't need to be on)
 	set desc = "View the current map in the webviewer"
 	set category = "OOC"
 	if(SSmapping.config.map_link == "None")
-		to_chat(src,"<span class='danger'>The current map does not have a webmap. </span>")
+		to_chat(src,span_danger("The current map does not have a webmap. "))
 	else if(SSmapping.config.map_link)
 		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
-		src << link("https://affectedarc07.github.io/SS13WebMap/BeeStation/[SSmapping.config.map_link]")
+		src << link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.config.map_link]")
 	else
-		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable. Open an issue on the github. </span>")
+		to_chat(src, span_danger("The current map is either invalid or unavailable. Open an issue on the github. "))

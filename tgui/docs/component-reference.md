@@ -63,17 +63,13 @@ it is used a lot in this framework.
 
 **Event handlers.**
 Event handlers are callbacks that you can attack to various element to
-listen for browser events. Inferno supports camelcase (`onClick`) and
-lowercase (`onclick`) event names.
+listen for browser events. React supports camelcase (`onClick`) event names.
 
 - Camel case names are what's called *synthetic* events, and are the
 **preferred way** of handling events in React, for efficiency and
 performance reasons. Please read
-[Inferno Event Handling](https://infernojs.org/docs/guides/event-handling)
+[React Event Handling](https://react.dev/learn/responding-to-events)
 to understand what this is about.
-- Lower case names are native browser events and should be used sparingly,
-for example when you need an explicit IE8 support. **DO NOT** use
-lowercase event handlers unless you really know what you are doing.
 
 ## `tgui/components`
 
@@ -366,7 +362,7 @@ dropdown when open. See Dropdown.tsx for more adcanced usage with DropdownEntry
 - `over: boolean` - Dropdown renders over instead of below
 - `color: string` - Color of dropdown button
 - `nochevron: boolean` - Whether or not the arrow on the right hand side of the dropdown button is visible
-- `displayText: string | number | InfernoNode` - Text to always display in place of the selected text
+- `displayText: string | number | ReactNode` - Text to always display in place of the selected text
 - `onClick: (e) => void` - Called when dropdown button is clicked
 - `onSelected: (value) => void` - Called when a value is picked from the list, `value` is the value that was picked
 
@@ -644,7 +640,8 @@ to perform some sort of action), there is a way to do that:
 
 **Props:**
 
-- `label: string|InfernoNode` - Item label.
+- `className: string` - Applies a CSS class to the element.
+- `label: string|ReactNode` - Item label.
 - `labelWrap: boolean` - Lets the label wrap and makes it not take the minimum width.
 - `labelColor: string` - Sets the color of the label.
 - `color: string` - Sets the color of the content text.
@@ -659,6 +656,7 @@ to perform some sort of action), there is a way to do that:
   - `bottom`
 - `buttons: any` - Buttons to render aside the content.
 - `children: any` - Content of this labeled item.
+- `tooltip: string` - Hovering this labeled item will show a tooltip.
 
 ### `LabeledList.Divider`
 
@@ -710,27 +708,25 @@ to fine tune the value, or single click it to manually type a number.
 **Props:**
 
 - `animated: boolean` - Animates the value if it was changed externally.
+- `disabled: boolean` - Makes the input field uneditable & non draggable to prevent user changes
 - `fluid: boolean` - Fill all available horizontal space.
-- `value: number` - Value itself.
+- `value: string|number` - Value itself.
 - `unit: string` - Unit to display to the right of value.
 - `minValue: number` - Lowest possible value.
 - `maxValue: number` - Highest possible value.
-- `step: number` (default: 1) - Adjust value by this amount when
+- `step: number` - Adjust value by this amount when
 dragging the input.
 - `stepPixelSize: number` (default: 1) - Screen distance mouse needs
 to travel to adjust value by one `step`.
-- `width: string|number` - Width of the element, in `Box` units or pixels.
-- `height: string|numer` - Height of the element, in `Box` units or pixels.
-- `lineHeight: string|number` - lineHeight of the element, in `Box` units or pixels.
-- `fontSize: string|number` - fontSize of the element, in `Box` units or pixels.
-- `format: value => value` - Format value using this function before
+- `width: string` - Width of the element, in `Box` units or pixels.
+- `height: string` - Height of the element, in `Box` units or pixels.
+- `lineHeight: string` - lineHeight of the element, in `Box` units or pixels.
+- `fontSize: string` - fontSize of the element, in `Box` units or pixels.
+- `format: (value: number) => string` - Format value using this function before
 displaying it.
-- `suppressFlicker: number` - A number in milliseconds, for which the input
-will hold off from updating while events propagate through the backend.
-Default is about 250ms, increase it if you still see flickering.
-- `onChange: (e, value) => void` - An event, which fires when you release
+- `onChange: (value: number) => void` - An event, which fires when you release
 the input, or successfully enter a number.
-- `onDrag: (e, value) => void` - An event, which fires about every 500ms
+- `onDrag: (value: number) => void` - An event, which fires about every 500ms
 when you drag the input up and down, on release and on manual editing.
 
 ### `Popper`
@@ -739,7 +735,7 @@ Popper lets you position elements so that they don't go out of the bounds of the
 
 **Props:**
 
-- `popperContent: InfernoNode` - The content that will be put inside the popper.
+- `popperContent: ReactNode` - The content that will be put inside the popper.
 - `options?: { ... }` - An object of options to pass to `createPopper`. See [https://popper.js.org/docs/v2/constructors/#options], but the one you want most is `placement`. Valid placements are "bottom", "top", "left", and "right". You can affix "-start" and "-end" to achieve something like top left or top right respectively. You can also use "auto" (with an optional "-start" or "-end"), where a best fit will be chosen.
 - `additionalStyles: { ... }` - A map of CSS styles to add to the element that will contain the popper.
 
@@ -772,7 +768,11 @@ percentage and how filled the bar is.
 - `maxValue: number` - Highest possible value.
 - `ranges: { color: [from, to] }` - Applies a `color` to the progress bar
 based on whether the value lands in the range between `from` and `to`.
-- `color: string` - Color of the progress bar.
+- `color: string` - Color of the progress bar. Can take any of the following formats:
+  - `#ffffff` - Hex format
+  - `rgb(r,g,b) / rgba(r,g,b,a)` - RGB format
+  - `<name>` - the name of a `color-<name>` CSS class. See `CSS_COLORS` in `constants.js`.
+  - `<name>` - the name of a base CSS color, if not overridden by the definitions above.
 - `children: any` - Content to render inside the progress bar.
 
 ### `Section`

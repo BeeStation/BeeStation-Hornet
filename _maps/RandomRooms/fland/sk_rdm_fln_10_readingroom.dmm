@@ -6,10 +6,10 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18,8 +18,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "j" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/dirt,
@@ -50,7 +50,7 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "t" = (
@@ -63,7 +63,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Bee Lounge"
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood,
@@ -71,18 +71,18 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "z" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "C" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/red,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/dirt,
@@ -90,10 +90,10 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "E" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "F" = (
 /obj/effect/decal/cleanable/dirt,
@@ -104,12 +104,12 @@
 /area/template_noop)
 "G" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/template_noop,
 /area/template_noop)
 "K" = (
@@ -122,7 +122,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "P" = (
@@ -137,7 +137,7 @@
 "S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "T" = (
 /obj/structure/chair/office,
@@ -148,12 +148,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,

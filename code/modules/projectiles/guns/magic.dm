@@ -9,7 +9,7 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	flags_1 =  CONDUCT_1
 	w_class = WEIGHT_CLASS_HUGE
-	var/checks_antimagic = TRUE
+	var/antimagic_flags = MAGIC_RESISTANCE
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 8
@@ -22,6 +22,7 @@
 	pin = /obj/item/firing_pin/magic
 	requires_wielding = FALSE	//Magic has no recoil, just hold with 1 hand
 	equip_time = 0
+	has_weapon_slowdown = FALSE
 
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -38,13 +39,13 @@
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
 			add_fingerprint(user)
-			to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return
 		else
 			no_den_usage = 0
-	if(checks_antimagic && user.anti_magic_check(TRUE, FALSE, major = FALSE, self = TRUE))
+	if(!user.can_cast_magic(antimagic_flags))
 		add_fingerprint(user)
-		to_chat(user, "<span class='warning'>Something is interfering with [src].</span>")
+		to_chat(user, span_warning("Something is interfering with [src]."))
 		return
 	. = ..()
 
@@ -91,10 +92,10 @@
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] whizzles quietly.</span>")
+	to_chat(user, span_warning("The [name] whizzles quietly."))
 
 /obj/item/gun/magic/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, fire_sound, 50, 1, -1)
 	return FIRELOSS
 

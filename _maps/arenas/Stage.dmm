@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "b" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
@@ -24,7 +24,7 @@
 /area/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "f" = (
 /obj/structure/chair/fancy/sofa/old/right{
@@ -37,7 +37,7 @@
 	color = "#c45c57"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/tdome/arena)
 "h" = (
@@ -50,13 +50,13 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "j" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "k" = (
 /obj/structure/chair/fancy/sofa/old/right{
@@ -64,7 +64,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/tdome/arena)
 "l" = (
@@ -72,25 +72,16 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "m" = (
-/turf/open/floor/plasteel/stairs,
-/area/tdome/arena)
-"n" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	color = "#c45c57";
-	dir = 8
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/turf/open/floor/iron/stairs,
 /area/tdome/arena)
 "o" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "p" = (
 /obj/structure/railing{
@@ -101,7 +92,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "q" = (
 /obj/structure/railing{
@@ -112,14 +103,14 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "r" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "s" = (
 /obj/structure/railing{
@@ -129,13 +120,13 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "t" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "u" = (
 /obj/structure/railing/corner{
@@ -145,7 +136,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "x" = (
 /obj/structure/curtain{
@@ -156,27 +147,12 @@
 "y" = (
 /turf/open/floor/wood,
 /area/tdome/arena)
-"z" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/tdome/arena)
 "A" = (
 /turf/open/floor/carpet/red,
 /area/tdome/arena)
-"B" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/tdome/arena)
-"C" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/tdome/arena)
 "D" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/tdome/arena)
 "E" = (
@@ -186,20 +162,29 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "F" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
-"G" = (
+"T" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/popcorn{
+/obj/item/food/popcorn{
 	pixel_y = 5
 	},
 /turf/open/floor/wood,
+/area/tdome/arena)
+"U" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/wood{
+	broken = 1
+	},
 /area/tdome/arena)
 "V" = (
 /obj/structure/railing/corner{
@@ -209,11 +194,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "X" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 
 (1,1,1) = {"
@@ -230,17 +215,17 @@ y
 e
 b
 k
-G
+T
 q
 x
-B
+D
 y
 "}
 (3,1,1) = {"
 e
 c
-G
-G
+T
+T
 q
 x
 A
@@ -249,7 +234,7 @@ A
 (4,1,1) = {"
 e
 c
-G
+T
 p
 u
 y
@@ -259,7 +244,7 @@ A
 (5,1,1) = {"
 e
 d
-G
+T
 q
 X
 y
@@ -279,7 +264,7 @@ A
 (7,1,1) = {"
 e
 f
-G
+T
 q
 X
 y
@@ -289,7 +274,7 @@ A
 (8,1,1) = {"
 e
 c
-G
+T
 q
 X
 y
@@ -299,10 +284,10 @@ A
 (9,1,1) = {"
 e
 g
-G
+T
 q
 X
-z
+D
 A
 A
 "}
@@ -319,7 +304,7 @@ A
 (11,1,1) = {"
 e
 f
-G
+T
 q
 X
 y
@@ -329,7 +314,7 @@ A
 (12,1,1) = {"
 e
 c
-G
+T
 s
 V
 y
@@ -339,8 +324,8 @@ A
 (13,1,1) = {"
 e
 c
-G
-G
+T
+T
 q
 x
 A
@@ -349,8 +334,8 @@ A
 (14,1,1) = {"
 e
 h
-n
-G
+U
+T
 q
 x
 y
@@ -363,6 +348,6 @@ o
 m
 r
 x
-C
+D
 y
 "}

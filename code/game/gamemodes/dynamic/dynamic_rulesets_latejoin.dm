@@ -74,84 +74,7 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
-
-//////////////////////////////////////////////
-//                                          //
-//       REVOLUTIONARY PROVOCATEUR          //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/latejoin/provocateur
-	name = "Provocateur"
-	persistent = TRUE
-	antag_datum = /datum/antagonist/rev/head
-	role_preference = /datum/role_preference/antagonist/revolutionary
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
-	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_WARDEN)
-	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
-	required_candidates = 1
-	weight = 2
-	delay = 1 MINUTES // Prevents rule start while head is offstation.
-	cost = 13
-	requirements = list(101,101,70,40,30,20,20,20,20,20)
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET
-	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
-	var/required_heads_of_staff = 3
-	var/finished = FALSE
-	/// How much threat should be injected when the revolution wins?
-	var/revs_win_threat_injection = 20
-	var/datum/team/revolution/revolution
-
-/datum/dynamic_ruleset/latejoin/provocateur/ready(forced=FALSE)
-	if (forced)
-		required_heads_of_staff = 1
-	if(!..())
-		return FALSE
-	var/head_check = 0
-	for(var/mob/player in mode.current_players[CURRENT_LIVING_PLAYERS])
-		if (player.mind.assigned_role in GLOB.command_positions)
-			head_check++
-	return (head_check >= required_heads_of_staff)
-
-/datum/dynamic_ruleset/latejoin/provocateur/execute(forced = FALSE)
-	var/mob/M = pick(candidates)	// This should contain a single player, but in case.
-	if(check_eligible(M.mind))	// Didnt die/run off z-level/get implanted since leaving shuttle.
-		assigned += M.mind
-		M.mind.special_role = ROLE_REV_HEAD
-		revolution = new()
-		var/datum/antagonist/rev/head/new_head = new()
-		new_head.give_flash = TRUE
-		new_head.give_hud = TRUE
-		new_head.remove_clumsy = TRUE
-		new_head = M.mind.add_antag_datum(new_head, revolution)
-		revolution.update_objectives()
-		revolution.update_heads()
-		SSshuttle.registerHostileEnvironment(revolution)
-		return DYNAMIC_EXECUTE_SUCCESS
-	else
-		log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
-		log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
-
-/datum/dynamic_ruleset/latejoin/provocateur/rule_process()
-	var/winner = revolution.process_victory(revs_win_threat_injection)
-	if (isnull(winner))
-		return
-
-	finished = winner
-	return RULESET_STOP_PROCESSING
-
-/// Checks for revhead loss conditions and other antag datums.
-/datum/dynamic_ruleset/latejoin/provocateur/proc/check_eligible(var/datum/mind/M)
-	var/turf/T = get_turf(M.current)
-	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
-		return TRUE
-	return FALSE
-
-/datum/dynamic_ruleset/latejoin/provocateur/round_result()
-	revolution.round_result(finished)
 
 //////////////////////////////////////////////
 //                                          //
@@ -176,7 +99,6 @@
 		/datum/dynamic_ruleset/roundstart/nuclear,
 		/datum/dynamic_ruleset/roundstart/wizard,
 		/datum/dynamic_ruleset/roundstart/revs,
-		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute(forced = FALSE)

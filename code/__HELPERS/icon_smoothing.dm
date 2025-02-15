@@ -113,6 +113,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
 		CRASH("[type] called smooth_icon() without being on a z-level")
+		// * NOTE: it can throw runtime if the atom is abstract type in nullspace, but somehow it called 'smmoth_icon()' due to smoothing vars.
+		// In this case, you need to nullify values of smoothing_flags and related list vars.
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
 			corners_diagonal_smooth(calculate_adjacencies())
@@ -293,7 +295,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(smooth_directional) { \
 			if(atom.dir != dir) { \
 				break set_adj_in_dir; \
-		 	}; \
+			}; \
 		}; \
 
 	#define SET_ADJ_IN_DIR(direction, direction_flag) \
@@ -517,3 +519,91 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 #undef DEFAULT_UNDERLAY_ICON
 #undef DEFAULT_UNDERLAY_ICON_STATE
+
+
+
+// These are subtypes of some smoothing objects.
+// This is used to identify if there's any artefact in your smoothing sprites in practice.
+/turf/closed/wall/debug
+	name = "Sprite smoothing debugging walls"
+	var/static/list/family = list()
+
+/turf/closed/wall/debug/Initialize(mapload)
+	. = ..()
+	family += src
+
+/turf/closed/wall/debug/Destroy()
+	. = ..()
+	family -= src
+
+/turf/closed/wall/debug/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	sprite_smooth_debug(user, family, src.parent_type)
+
+/obj/structure/table/debug
+	name = "Sprite smoothing debugging table"
+	var/static/list/family = list()
+
+/obj/structure/table/debug/Initialize(mapload)
+	. = ..()
+	family += src
+
+/obj/structure/table/debug/Destroy()
+	. = ..()
+	family -= src
+
+/obj/structure/table/debug/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	sprite_smooth_debug(user, family, src.parent_type)
+
+/turf/open/floor/carpet/debug
+	name = "Sprite smoothing debugging floor"
+	var/static/list/family = list()
+
+/turf/open/floor/carpet/debug/Initialize(mapload)
+	. = ..()
+	family += src
+
+/turf/open/floor/carpet/debug/Destroy()
+	. = ..()
+	family -= src
+
+/turf/open/floor/carpet/debug/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	sprite_smooth_debug(user, family, /turf/open)
+
+/proc/sprite_smooth_debug(mob/user, list/family, desired_subtypes)
+	// we don't want to see types that don't have smoothing.
+	var/static/list/filtered_list = list()
+	if(!filtered_list[desired_subtypes])
+		var/list/L = list()
+		var/list/temp_list = make_types_fancy(typesof(desired_subtypes))
+		for(var/each in temp_list)
+			var/atom/A = temp_list[each]
+			if(!initial(A.canSmoothWith) || !(initial(A.smoothing_flags) & SMOOTH_BITMASK) || findtext(initial(A.name), "Sprite smoothing debugging"))
+				continue
+			L[each] = A
+		filtered_list[desired_subtypes] = L
+
+	// actual code
+	var/atom/target = pick_closest_path(desired_subtypes, filtered_list[desired_subtypes])
+	if(!target)
+		return
+
+	target = new target(get_turf(locate(1,1,1)))
+	target.invisibility = INVISIBILITY_ABSTRACT
+	for(var/atom/each in family)
+		if(QDELETED(each))
+			continue
+		each.icon = target.icon
+		each.base_icon_state = target.base_icon_state
+		each.smoothing_flags = target.smoothing_flags
+		each.smoothing_groups = target.smoothing_groups.Copy()
+		each.canSmoothWith = target.canSmoothWith.Copy()
+	for(var/atom/each in family)
+		each.bitmask_smooth()
+	if(isturf(target))
+		var/turf/T = target
+		T.ScrapeAway()
+	else
+		qdel(target)

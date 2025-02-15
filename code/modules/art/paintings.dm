@@ -100,7 +100,7 @@
 		ui.open()
 
 /obj/item/canvas/attackby(obj/item/I, mob/living/user, params)
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		ui_interact(user)
 	else
 		return ..()
@@ -252,7 +252,7 @@
 			if("red")
 				return "#ff0000"
 		return P.colour
-	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
+	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/cup/rag))
 		return canvas_color
 
 /// Generates medium description
@@ -267,7 +267,7 @@
 		return "Crayon on canvas"
 	else if(istype(painting_implement, /obj/item/pen))
 		return "Ink on canvas"
-	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
+	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/cup/rag))
 		return //These are just for cleaning, ignore them
 	else
 		return "Unknown medium"
@@ -330,7 +330,7 @@
 	name = "painting frame"
 	desc = "The perfect showcase for your favorite deathtrap memories."
 	icon = 'icons/obj/decals.dmi'
-	materials = list(/obj/item/stack/sheet/wood = 2000)
+	custom_materials = list(/datum/material/wood = 2000)
 	flags_1 = NONE
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/painting
@@ -341,13 +341,16 @@
 	desc = "Art or \"Art\"? You decide."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
-	base_icon_state = "frame"
+	base_icon_state = "frame" //temporal replacement before the update_appearance() port
+	custom_materials = list(/datum/material/wood = 2000)
 	buildable_sign = FALSE
 	///Canvas we're currently displaying.
 	var/obj/item/canvas/current_canvas
 	///Description set when canvas is added.
 	var/desc_with_canvas
 	var/persistence_id
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/painting)
 
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
@@ -370,17 +373,17 @@
 /obj/structure/sign/painting/examine(mob/user)
 	. = ..()
 	if(persistence_id)
-		. += "<span class='notice'>Any painting placed here will be archived at the end of the shift.</span>"
+		. += span_notice("Any painting placed here will be archived at the end of the shift.")
 	if(current_canvas)
 		current_canvas.ui_interact(user)
-		. += "<span class='notice'>Use wirecutters to remove the painting.</span>"
+		. += span_notice("Use wirecutters to remove the painting.")
 
 /obj/structure/sign/painting/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(current_canvas)
 		current_canvas.forceMove(drop_location())
 		current_canvas = null
-		to_chat(user, "<span class='notice'>You remove the painting from the frame.</span>")
+		to_chat(user, span_notice("You remove the painting from the frame."))
 		update_appearance()
 		return TRUE
 
@@ -389,7 +392,7 @@
 		current_canvas = new_canvas
 		if(!current_canvas.finalized)
 			current_canvas.finalize(user)
-		to_chat(user, "<span class='notice'>You frame [current_canvas].</span>")
+		to_chat(user,span_notice("You frame [current_canvas]."))
 	update_appearance()
 
 /obj/structure/sign/painting/proc/try_rename(mob/user)
@@ -463,7 +466,7 @@
 		stack_trace("Invalid persistence_id - [persistence_id]")
 		return
 	var/data = current_canvas.get_data_string()
-	var/md5 = md5(lowertext(data))
+	var/md5 = md5(LOWER_TEXT(data))
 	var/list/current = SSpersistent_paintings.paintings[persistence_id]
 	if(!current)
 		current = list()

@@ -14,9 +14,9 @@
 /// The APCs cover is missing.
 #define APC_COVER_REMOVED 2
 
-// !NOT IMPLEMENTED! APC visuals 
-/// Pixel offset of the APC from the floor turf 
-//#define APC_PIXEL_OFFSET 25
+// APC visuals
+/// Pixel offset of the APC from the floor turf
+#define APC_PIXEL_OFFSET 25
 
 // APC charging status:
 /// The APC is not charging.
@@ -54,11 +54,11 @@
 /// The APCs external powernet has enough power to charge the APC.
 #define APC_HAS_POWER 2
 
-// !UNIMPLEMENTED! Ethereals/IPC:
+//Ethereals/IPC:
 /// How long it takes a powereater to drain or charge APCs. Also used as a spam limiter.
-//#define APC_DRAIN_TIME (7.5 SECONDS)
+#define APC_DRAIN_TIME (7.5 SECONDS)
 /// How much powereater species gain/drain from APCs.
-//#define APC_POWER_GAIN 200
+#define APC_POWER_GAIN 200
 
 // Wires & EMPs:
 /// The wire value used to reset the APCs wires after one's EMPed.

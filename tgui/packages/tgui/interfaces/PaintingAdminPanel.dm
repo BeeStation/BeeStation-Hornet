@@ -25,9 +25,9 @@ type PaintingData = {
   medium: string | null
 }
 
-export const PaintingAdminPanel = (props, context) => {
-  const { act, data } = useBackend<PaintingAdminPanelData>(context);
-  const [chosenPaintingRef, setChosenPaintingRef] = useLocalState<string|null>(context, 'chosenPainting', null);
+export const PaintingAdminPanel = (props) => {
+  const { act, data } = useBackend<PaintingAdminPanelData>();
+  const [chosenPaintingRef, setChosenPaintingRef] = useLocalState<string|null>('chosenPainting', null);
   const {
     paintings,
   } = data;
@@ -45,13 +45,12 @@ export const PaintingAdminPanel = (props, context) => {
               height="96px"
               width="96px"
               style={{
-                'vertical-align': 'middle',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                verticalAlign: 'middle',
               }} />
             <LabeledList>
               <LabeledList.Item label="md5" content={chosenPainting.md5} />
               <LabeledList.Item label="title">
-                <Box inline style={{ "word-break": "break-all" }}>{decodeHtmlEntities(chosenPainting.title)}</Box>
+                <Box inline style={{ wordBreak: 'break-all' }}>{decodeHtmlEntities(chosenPainting.title)}</Box>
                 <Button onClick={() => act("rename", { ref: chosenPainting.ref })} icon="edit" />
               </LabeledList.Item>
               <LabeledList.Item label="creator ckey" content={chosenPainting.creator_ckey} />
@@ -101,7 +100,7 @@ export const PaintingAdminPanel = (props, context) => {
                 key={painting.ref}
                 className="candystripe">
                 <Table.Cell
-                  style={{ "word-break": "break-all" }}>
+                  style={{ wordBreak: "break-all" }}>
                   {decodeHtmlEntities(painting.title)}
                 </Table.Cell>
                 <Table.Cell>{painting.creator_ckey}</Table.Cell>
@@ -110,8 +109,7 @@ export const PaintingAdminPanel = (props, context) => {
                   height="36px"
                   width="36px"
                   style={{
-                    'vertical-align': 'middle',
-                    '-ms-interpolation-mode': 'nearest-neighbor',
+                    verticalAlign: 'middle',
                   }} />
                 </Table.Cell>
                 <Table.Cell>

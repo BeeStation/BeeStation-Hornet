@@ -3,13 +3,13 @@
 
 /*
 field_generator power level display
-   The icon used for the field_generator need to have 6 icon states
-   named 'Field_Gen +p[num]' where 'num' ranges from 1 to 6
+	The icon used for the field_generator need to have 6 icon states
+	named 'Field_Gen +p[num]' where 'num' ranges from 1 to 6
 
-   The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
-   The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
-   no power level overlay is currently in the overlays list.
-   -Aygar
+	The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
+	The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
+	no power level overlay is currently in the overlays list.
+	-Aygar
 */
 
 #define field_generator_max_power 250
@@ -33,7 +33,7 @@ field_generator power level display
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
-	armor = list(MELEE = 25,  BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
+	armor_type = /datum/armor/field_generator
 	var/power_level = 0
 	var/active = FG_OFFLINE
 	var/power = 20  // Current amount of power
@@ -43,6 +43,15 @@ field_generator power level display
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
 	COOLDOWN_STATIC_DECLARE(loose_message_cooldown)
+
+
+/datum/armor/field_generator
+	melee = 25
+	bullet = 10
+	laser = 100
+	energy = 100
+	fire = 50
+	acid = 70
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
@@ -71,28 +80,28 @@ field_generator power level display
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
 			if(active >= FG_CHARGING)
-				to_chat(user, "<span class='warning'>You are unable to turn off [src] once it is online!</span>")
+				to_chat(user, span_warning("You are unable to turn off [src] once it is online!"))
 				return 1
 			else
 				user.visible_message("[user] turns on [src].", \
-					"<span class='notice'>You turn on [src].</span>", \
-					"<span class='italics'>You hear heavy droning.</span>")
+					span_notice("You turn on [src]."), \
+					span_italics("You hear heavy droning."))
 				turn_on()
 				investigate_log("<font color='green'>activated</font> by [key_name(user)].", INVESTIGATE_ENGINES)
 
 				add_fingerprint(user)
 	else
-		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
+		to_chat(user, span_warning("[src] needs to be firmly secured to the floor first!"))
 
 /obj/machinery/field/generator/can_be_unfasten_wrench(mob/user, silent)
 	if(active)
 		if(!silent)
-			to_chat(user, "<span class='warning'>Turn \the [src] off first!</span>")
+			to_chat(user, span_warning("Turn \the [src] off first!"))
 		return FAILED_UNFASTEN
 
 	else if(state == FG_WELDED)
 		if(!silent)
-			to_chat(user, "<span class='warning'>[src] is welded to the floor!</span>")
+			to_chat(user, span_warning("[src] is welded to the floor!"))
 		return FAILED_UNFASTEN
 
 	return ..()
@@ -111,32 +120,32 @@ field_generator power level display
 
 /obj/machinery/field/generator/welder_act(mob/living/user, obj/item/I)
 	if(active)
-		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
+		to_chat(user, span_warning("[src] needs to be off!"))
 		return TRUE
 
 	switch(state)
 		if(FG_UNSECURED)
-			to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
+			to_chat(user, span_warning("[src] needs to be wrenched to the floor!"))
 
 		if(FG_SECURED)
 			if(!I.tool_start_check(user, amount=0))
 				return TRUE
 			user.visible_message("[user] starts to weld [src] to the floor.", \
-				"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
-				"<span class='italics'>You hear welding.</span>")
+				span_notice("You start to weld \the [src] to the floor..."), \
+				span_italics("You hear welding."))
 			if(I.use_tool(src, user, 20, volume=50) && state == FG_SECURED)
 				state = FG_WELDED
-				to_chat(user, "<span class='notice'>You weld the field generator to the floor.</span>")
+				to_chat(user, span_notice("You weld the field generator to the floor."))
 
 		if(FG_WELDED)
 			if(!I.tool_start_check(user, amount=0))
 				return TRUE
 			user.visible_message("[user] starts to cut [src] free from the floor.", \
-				"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
-				"<span class='italics'>You hear welding.</span>")
+				span_notice("You start to cut \the [src] free from the floor..."), \
+				span_italics("You hear welding."))
 			if(I.use_tool(src, user, 20, volume=50) && state == FG_WELDED)
 				state = FG_SECURED
-				to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
+				to_chat(user, span_notice("You cut \the [src] free from the floor."))
 
 	return TRUE
 
@@ -145,7 +154,7 @@ field_generator power level display
 	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS && active == FG_OFFLINE && state != FG_UNSECURED)
 		state = FG_UNSECURED
 		anchored = FALSE
-		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+		M.visible_message(span_warning("[M] rips [src] free from its moorings!"))
 	else
 		..()
 	if(!anchored)
@@ -169,10 +178,10 @@ field_generator power level display
 	return ..()
 
 /*
-   The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
-   The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
-   no power level overlay is currently in the overlays list.
-   */
+	The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
+	The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
+	no power level overlay is currently in the overlays list.
+*/
 
 /obj/machinery/field/generator/proc/check_power_level()
 	var/new_level = round(6 * power / field_generator_max_power)
@@ -182,6 +191,8 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
+	air_update_turf(TRUE, FALSE)
+	can_atmos_pass = ATMOS_PASS_YES
 	spawn(1)
 		cleanup()
 		while (warming_up>0 && !active)
@@ -209,7 +220,7 @@ field_generator power level display
 		check_power_level()
 		return 1
 	else
-		visible_message("<span class='danger'>The [name] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
+		visible_message(span_danger("The [name] shuts down!"), span_italics("You hear something shutting down."))
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>", INVESTIGATE_ENGINES)
 		power = 0
@@ -251,8 +262,8 @@ field_generator power level display
 		turn_off()
 		return
 	move_resist = INFINITY
-	CanAtmosPass = ATMOS_PASS_NO
-	air_update_turf(TRUE)
+	can_atmos_pass = ATMOS_PASS_NO
+	air_update_turf(TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 1), 1)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 2), 2)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 4), 3)

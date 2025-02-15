@@ -1,2 +1,0 @@
-/obj/item/knife/ : /obj/item/kitchen/knife/{@OLD}
-/obj/item/knife/kitchen : /obj/item/kitchen/knife{@OLD}

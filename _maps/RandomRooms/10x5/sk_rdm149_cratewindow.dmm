@@ -18,7 +18,7 @@
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "i" = (
@@ -40,7 +40,7 @@
 "m" = (
 /obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "n" = (
@@ -69,7 +69,7 @@
 "z" = (
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "B" = (
@@ -94,7 +94,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/five,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "H" = (
@@ -127,7 +127,7 @@
 	pixel_y = 26
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Z" = (

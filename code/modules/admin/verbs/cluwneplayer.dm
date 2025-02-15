@@ -8,10 +8,12 @@
 
 	var/mob/living/simple_animal/cluwne/newmob =  new(get_turf(src))
 
-	if (client)
+	if(client)
 		client.give_award(/datum/award/achievement/misc/cluwne, client.mob)
 
-	M.transfer_to(newmob)
+	if(mind) // If the mob has a mind, we transfer
+		M.transfer_to(newmob)
+
 	if(key)  // afk (no mind)
 		newmob.key = key
 

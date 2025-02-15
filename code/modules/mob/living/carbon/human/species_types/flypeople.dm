@@ -8,9 +8,8 @@
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
-	mutant_bodyparts = list("insect_type")
-	default_features = list("insect_type" = "fly", "body_size" = "Normal")
+	meat = /obj/item/food/meat/slab/human/mutant/fly
+	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7
@@ -24,6 +23,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/fly
 	species_r_leg = /obj/item/bodypart/r_leg/fly
 
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
+
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
@@ -33,10 +34,11 @@
 		var/datum/reagent/consumable/nutri_check = chem
 		if(nutri_check.nutriment_factor > 0)
 			var/turf/pos = get_turf(H)
-			H.vomit(0, FALSE, FALSE, 2, TRUE)
+			H.vomit(10, FALSE, FALSE, 2, TRUE)
+			H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
-			H.visible_message("<span class='danger'>[H] vomits on the floor!</span>", \
-						"<span class='userdanger'>You throw up on the floor!</span>")
+			H.visible_message(span_danger("[H] vomits on the floor!"), \
+						span_userdanger("You throw up on the floor!"))
 		return TRUE
 	return ..()
 

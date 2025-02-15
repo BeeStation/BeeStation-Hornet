@@ -3,7 +3,9 @@
 	desc = "A strong, brass suit worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
-	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60)
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+	worn_icon_state = "clockwork_cuirass"
+	armor_type = /datum/armor/suit_clockwork
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
@@ -11,40 +13,72 @@
 	allowed = list(/obj/item/clockwork, /obj/item/stack/sheet/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 	var/allow_any = FALSE
 
+
+/datum/armor/suit_clockwork
+	melee = 50
+	bullet = 60
+	laser = 30
+	energy = 80
+	bomb = 80
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 60
+	bleed = 60
+
 /obj/item/clothing/suit/clockwork/anyone
 	allow_any = TRUE
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(!is_servant_of_ratvar(user) && !allow_any)
-		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
-		user.dropItemToGround(src, TRUE)
-		var/mob/living/carbon/C = user
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			H.electrocution_animation(20)
-		C.jitteriness += 1000
-		C.do_jitter_animation(C.jitteriness)
-		C.stuttering += 1
-		spawn(20)
-		if(C)
-			C.jitteriness = max(C.jitteriness - 990, 10)
+	if((istype(user, /mob/living/carbon/human/consistent) && !user.client) || (istype(user, /mob/living/carbon/human/dummy) && !user.client))
+		//Fake people need not apply (it fucks up my unit tests)
+		return
+	if(is_servant_of_ratvar(user) || allow_any)
+		return
+	to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
+	user.dropItemToGround(src, TRUE)
+	var/mob/living/carbon/C = user
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		H.electrocution_animation(20)
+	C.jitteriness += 1000
+	C.do_jitter_animation(C.jitteriness)
+	C.stuttering += 1
+	spawn(20)
+	if(C)
+		C.jitteriness = max(C.jitteriness - 990, 10)
 
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
 	desc = "A shiny suit, glowing with a vibrant energy. The wearer will be able to move quickly across battlefields, but will be able to withstand less damage before falling."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_speed"
+	worn_icon_state = "clockwork_cuirass_speed"
 	slowdown = -0.3
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40,  BULLET = 40, LASER = 10, ENERGY = -20, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 30)
+	armor_type = /datum/armor/clockwork_speed
+
+
+/datum/armor/clockwork_speed
+	melee = 40
+	bullet = 40
+	laser = 10
+	energy = -20
+	bomb = 60
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 30
+	bleed = 40
 
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
-	armor = list(MELEE = 10,  BULLET = 60, LASER = 40, ENERGY = 20, BOMB = 40, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 20)
+	worn_icon_state = "clockwork_cloak"
+	armor_type = /datum/armor/clockwork_cloak
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
@@ -52,6 +86,20 @@
 	var/f
 	var/start
 	var/previous_alpha
+
+
+/datum/armor/clockwork_cloak
+	melee = 10
+	bullet = 60
+	laser = 40
+	energy = 20
+	bomb = 40
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 20
+	bleed = 20
 
 /obj/item/clothing/suit/clockwork/cloak/equipped(mob/user, slot)
 	. = ..()
@@ -73,11 +121,12 @@
 	name = "base clock glasses"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
+	worn_icon_state = "wraith_specs"
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+		to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
 		if(ishuman(C))
@@ -115,7 +164,7 @@
 		wearer = user
 		applied_eye_damage = 0
 		START_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to falter...</span>")
+		to_chat(user, span_nezbere("You suddenly see so much more, but your eyes begin to falter..."))
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/process(delta_time)
 	. = ..()
@@ -129,7 +178,7 @@
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
 	..()
 	if(wearer && is_servant_of_ratvar(wearer))
-		to_chat(user, "<span class='nezbere'>You feel your eyes slowly recovering.</span>")
+		to_chat(user, span_nezbere("You feel your eyes slowly recovering."))
 		addtimer(CALLBACK(wearer, TYPE_PROC_REF(/mob/living, adjustOrganLoss), ORGAN_SLOT_EYES, -applied_eye_damage), 600)
 		wearer = null
 		applied_eye_damage = 0
@@ -140,11 +189,25 @@
 	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet"
-	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60)
+	armor_type = /datum/armor/helmet_clockcult
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	flash_protect = 1
 	bang_protect = 3
+
+
+/datum/armor/helmet_clockcult
+	melee = 50
+	bullet = 60
+	laser = 30
+	energy = 80
+	bomb = 80
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
+	stamina = 60
+	bleed = 60
 
 /obj/item/clothing/shoes/clockcult
 	name = "brass treads"
@@ -158,11 +221,17 @@
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_gauntlets"
 	siemens_coefficient = 0
-	permeability_coefficient = 0
 	strip_delay = 80
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/gloves_clockcult
+
+
+/datum/armor/gloves_clockcult
+	bio = 90
+	fire = 80
+	acid = 50
+	bleed = 20

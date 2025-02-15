@@ -21,6 +21,21 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/oxygen(src)
 
+/obj/structure/closet/l3closet/virology/starting
+	name = "level 3 biohazard research closet"
+	desc = "It's a storage unit for level 3 biohazard gear. This one comes with extra research materials."
+
+/obj/structure/closet/l3closet/virology/starting/PopulateContents()
+	.=..()
+	new /obj/item/storage/box/monkeycubes(src)
+	if(CONFIG_GET(flag/allow_virologist))
+		new /obj/item/extrapolator(src)
+		new /obj/item/book/manual/wiki/infections(src)
+		new /obj/item/stack/sheet/mineral/plasma(src)
+		new /obj/item/reagent_containers/cup/glass/bottle/virusfood (src)
+		new /obj/item/reagent_containers/cup/glass/bottle/virusfood (src)
+	else
+		new /obj/item/gun/syringe (src)
 
 /obj/structure/closet/l3closet/security
 	icon_state = "bio_sec"

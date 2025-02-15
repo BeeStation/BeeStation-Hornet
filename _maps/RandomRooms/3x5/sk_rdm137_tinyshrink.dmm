@@ -9,7 +9,7 @@
 	pixel_x = -4
 	},
 /obj/item/pen,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "p" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -31,13 +31,13 @@
 /area/template_noop)
 "x" = (
 /obj/item/chair,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "z" = (
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "F" = (
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "I" = (
 /obj/structure/chair/fancy/sofa/old/right{
@@ -47,7 +47,7 @@
 /area/template_noop)
 "T" = (
 /obj/machinery/door/airlock/wood,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "W" = (
 /obj/item/electropack,
@@ -57,12 +57,12 @@
 	},
 /obj/structure/closet,
 /obj/item/storage/pill_bottle/mannitol,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/gun/syringe,
 /obj/item/storage/box/syringes,
 /obj/item/restraints/handcuffs,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/head/helmet{

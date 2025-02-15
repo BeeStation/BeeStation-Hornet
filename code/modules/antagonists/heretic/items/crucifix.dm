@@ -4,6 +4,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "crucifix"
+	worn_icon_state = "cross"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)

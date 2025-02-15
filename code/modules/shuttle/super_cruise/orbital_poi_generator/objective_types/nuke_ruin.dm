@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 
 /obj/machinery/nuclearbomb/decomission/set_active()
 	if(safety)
-		to_chat(usr, "<span class='danger'>The safety is still on.</span>")
+		to_chat(usr, span_danger("The safety is still on."))
 		return
 	timing = !timing
 	if(timing)
@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 		countdown.start()
 		priority_announce("Nuclear fission explosive armed at abandoned outpost, vacate \
 			outpost immediately.",
-			null, 'sound/misc/notice1.ogg', "Priority")
+			null, 'sound/misc/notice1.ogg', ANNOUNCEMENT_TYPE_PRIORITY)
 	else
 		detonation_timer = null
 		countdown.stop()
@@ -124,6 +124,6 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/actually_explode()
 	SSticker.roundend_check_paused = FALSE
 	linked_objective.complete_objective()
-	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), target_z)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), target_z)
 	QDEL_NULL(linked_objective.linked_beacon)
 	qdel(src)

@@ -1,7 +1,7 @@
 /**
  * Sound Player component
  *
- * Component that will play a sound upon recieving some signal
+ * Component that will play a sound upon receiving some signal
  */
 /datum/component/sound_player
 	///Volume of the sound when played
@@ -21,7 +21,7 @@
 	src.sounds = sounds
 	src.uses = uses
 
-	RegisterSignal(parent, signal_list, PROC_REF(play_sound))
+	RegisterSignals(parent, signal_list, PROC_REF(play_sound))
 
 /**
  * Attempt to play the sound on parent

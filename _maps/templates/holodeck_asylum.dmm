@@ -43,25 +43,6 @@
 /obj/structure/toilet,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"ai" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"aj" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
 "ak" = (
 /turf/open/floor/holofloor/white,
 /area/template_noop)
@@ -82,65 +63,6 @@
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"an" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/holofloor/dark,
-/area/template_noop)
-"ao" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/holofloor/dark,
-/area/template_noop)
-"ap" = (
-/obj/structure/window{
-	dir = 1
-	},
-/obj/structure/curtain,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"aq" = (
-/obj/structure/window{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/bedsheet,
-/obj/item/screwdriver,
-/obj/item/wirecutters,
-/obj/item/hatchet,
-/obj/item/lighter,
-/obj/item/healthanalyzer,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
@@ -149,32 +71,6 @@
 /obj/structure/bed,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
-/area/template_noop)
-"at" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/holofloor/dark,
-/area/template_noop)
-"au" = (
-/obj/structure/window{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/assembly/flash,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/holofloor/white,
 /area/template_noop)
 "av" = (
 /obj/structure/window,
@@ -189,24 +85,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"ax" = (
-/obj/structure/curtain,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"ay" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
 "az" = (
 /obj/structure/table/glass,
 /obj/item/clothing/mask/muzzle,
@@ -215,48 +93,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"aA" = (
-/obj/structure/window,
-/obj/structure/curtain,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"aB" = (
-/obj/structure/window,
-/obj/structure/table/optable,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
 "aC" = (
 /obj/structure/window{
 	dir = 8
 	},
 /obj/structure/toilet,
 /turf/open/floor/holofloor/dark,
-/area/template_noop)
-"aD" = (
-/obj/structure/window,
-/obj/machinery/computer/operating{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/holofloor/white,
 /area/template_noop)
 "aE" = (
 /obj/machinery/door/window{
@@ -285,29 +127,9 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
-/area/template_noop)
-"aI" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/holofloor/dark,
-/area/template_noop)
-"aJ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "aK" = (
 /obj/structure/window{
@@ -343,23 +165,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"aP" = (
-/obj/machinery/door/window/brigdoor,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/open/floor/holofloor/dark,
-/area/template_noop)
 "aQ" = (
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12
-	},
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"aR" = (
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
@@ -373,24 +182,6 @@
 /obj/machinery/door/window/brigdoor,
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"aT" = (
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/holofloor/white,
-/area/template_noop)
-"aU" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "aV" = (
@@ -521,7 +312,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/assembly/flash,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4

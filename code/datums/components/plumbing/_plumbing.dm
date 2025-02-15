@@ -27,10 +27,10 @@
 	reagents = parent_movable.reagents
 	turn_connects = _turn_connects
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
-	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
-	RegisterSignal(parent, list(COMSIG_OBJ_HIDE), PROC_REF(hide))
-	RegisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS), PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
+	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
+	RegisterSignal(parent, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, PROC_REF(toggle_active))
+	RegisterSignal(parent, COMSIG_OBJ_HIDE, PROC_REF(hide))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
 
 	if(start)
 		//timer 0 so it can finish returning initialize, after which we're added to the parent.
@@ -38,7 +38,7 @@
 		addtimer(CALLBACK(src, PROC_REF(enable)), 0)
 
 /datum/component/plumbing/process()
-	if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
+	if(!demand_connects || !reagents) // This actually shouldn't happen, but better safe than sorry
 		return PROCESS_KILL
 	if(reagents.total_volume < reagents.maximum_volume)
 		for(var/D in GLOB.cardinals)
@@ -234,8 +234,10 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
+/datum/component/plumbing/proc/hide(atom/movable/AM, underfloor_accessibility)
 	SIGNAL_HANDLER
+
+	var/should_hide = !underfloor_accessibility
 
 	tile_covered = should_hide
 	AM.update_appearance()

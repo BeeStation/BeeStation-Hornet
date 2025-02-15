@@ -16,7 +16,7 @@
 /area/template_noop)
 "f" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
@@ -24,23 +24,23 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = -7;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+/obj/item/reagent_containers/cup/soda_cans/cola{
 	pixel_x = 12;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/starkist{
+/obj/item/reagent_containers/cup/soda_cans/starkist{
 	pixel_x = 10;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "j" = (
 /obj/machinery/light/small{
@@ -80,7 +80,7 @@
 "q" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "r" = (
@@ -89,7 +89,7 @@
 /area/template_noop)
 "t" = (
 /obj/structure/closet/firecloset/full,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "u" = (
 /obj/item/wirecutters,
@@ -99,11 +99,11 @@
 /area/template_noop)
 "w" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/shamblers{
+/obj/item/reagent_containers/cup/soda_cans/shamblers{
 	pixel_x = 9;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -117,7 +117,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game{
+/obj/item/reagent_containers/cup/soda_cans/pwr_game{
 	pixel_x = -7;
 	pixel_y = 10
 	},
@@ -130,13 +130,13 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "C" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "D" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = 4
 	},
 /turf/open/floor/plating,
@@ -148,7 +148,7 @@
 "F" = (
 /obj/item/stack/cable_coil/cut,
 /obj/effect/landmark/blobstart,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "G" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -160,7 +160,7 @@
 "M" = (
 /obj/structure/bed,
 /obj/item/toy/plush/beeplushie,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "N" = (
 /obj/structure/chair/office{

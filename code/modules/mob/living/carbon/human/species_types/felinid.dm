@@ -5,17 +5,18 @@
 	bodyflag = FLAG_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
-	mutanttail = /obj/item/organ/tail/cat
+	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
 	inert_mutation = CATCLAWS
+
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
 	return TRUE
@@ -47,46 +48,18 @@
 			var/obj/item/organ/tail/cat/tail = new
 			tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
 		else
-			mutanttail = null
+			mutant_organs = list()
 	return ..()
-
-/datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
-	var/obj/item/organ/ears/cat/ears = H.getorgan(/obj/item/organ/ears/cat)
-	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
-
-	if(ears)
-		var/obj/item/organ/ears/new_ears
-		if(new_species?.mutantears)
-			// Roundstart cat ears override new_species.mutantears, reset it here.
-			new_species.mutantears = initial(new_species.mutantears)
-			if(new_species.mutantears)
-				new_ears = new new_species.mutantears
-		if(!new_ears)
-			// Go with default ears
-			new_ears = new /obj/item/organ/ears
-		new_ears.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-
-	if(tail)
-		var/obj/item/organ/tail/new_tail
-		if(new_species && new_species.mutanttail)
-			// Roundstart cat tail overrides new_species.mutanttail, reset it here.
-			new_species.mutanttail = initial(new_species.mutanttail)
-			if(new_species.mutanttail)
-				new_tail = new new_species.mutanttail
-		if(new_tail)
-			new_tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
-		else
-			tail.Remove(H, pref_load = pref_load)
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You're nya't feeling so good.","You feel like your insides are melting.","You feel illsies.")
-			to_chat(M, "<span class='notice'>[sick_message]</span>")
+			to_chat(M, span_notice("[sick_message]"))
 		if(prob(15))
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
@@ -97,15 +70,15 @@
 	//Check to make sure legs are working
 	var/obj/item/bodypart/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
-	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
+	if(!left_leg || !right_leg || left_leg.bodypart_disabled || right_leg.bodypart_disabled)
 		return ..()
 	if(levels == 1)
 		//Nailed it!
-		H.visible_message("<span class='notice'>[H] lands elegantly on [H.p_their()] feet!</span>",
-			"<span class='warning'>You fall [levels] level\s into [T], perfecting the landing!</span>")
+		H.visible_message(span_notice("[H] lands elegantly on [H.p_their()] feet!"),
+			span_warning("You fall [levels] level\s into [T], perfecting the landing!"))
 		H.Stun(levels * 35)
 	else
-		H.visible_message("<span class='danger'>[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!</span>")
+		H.visible_message(span_danger("[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!"))
 		var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.5
 		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
 		H.apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)

@@ -32,17 +32,17 @@
 
 /datum/status_effect/unholy_determination/tick()
 	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
-	var/healing_amount = 1 + (2 - owner.get_num_legs())
+	var/healing_amount = 1 + (2 - owner.usable_legs)
 
 	// In softcrit you're, strong enough to stay up.
 	if(owner.health <= owner.crit_threshold && owner.health >= HEALTH_THRESHOLD_FULLCRIT)
 		if(prob(5))
-			to_chat(owner, "<span class='hypnophrase'>Your body feels like giving up, but you fight on!</span>")
+			to_chat(owner, span_hypnophrase("Your body feels like giving up, but you fight on!"))
 		healing_amount *= 2
 	// ...But reach hardcrit and you're done. You now die faster.
 	if (owner.health < HEALTH_THRESHOLD_FULLCRIT)
 		if(prob(5))
-			to_chat(owner, "<span class='big'><span class='hypnophrase'>You can't hold on for much longer...</span></span>")
+			to_chat(owner, span_big("[span_hypnophrase("You can't hold on for much longer...")]"))
 		healing_amount *= -0.5
 
 	if(owner.health > owner.crit_threshold && prob(4))

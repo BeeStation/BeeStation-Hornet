@@ -16,6 +16,7 @@
 	door_hinge = 5.5
 	door_anim_angle = 90
 	azimuth_angle_2 = 0.35
+	door_anim_time = 0 // no animation
 
 /obj/structure/closet/crate/critter/Initialize(mapload)
 	. = ..()
@@ -68,7 +69,7 @@
 
 /obj/structure/closet/crate/critter/return_air()
 	if(tank)
-		return tank.air_contents
+		return tank.return_air()
 	else
 		return loc.return_air()
 

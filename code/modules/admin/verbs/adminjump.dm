@@ -150,6 +150,8 @@
 		to_chat(src, "No areas found.")
 		return
 	var/area/A = tgui_input_list(src, "Pick an area", "Send Mob", sorted_areas)
+	if(isnull(A))
+		return
 	if(!istype(A))
 		return
 	if(M.forceMove(safepick(get_area_turfs(A))))

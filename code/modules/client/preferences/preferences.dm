@@ -249,10 +249,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/ui_assets(mob/user)
 	var/list/assets = list(
-		get_asset_datum(/datum/asset/spritesheet/preferences),
-		get_asset_datum(/datum/asset/spritesheet/preferences_large),
-		get_asset_datum(/datum/asset/spritesheet/preferences_huge),
-		get_asset_datum(/datum/asset/spritesheet/preferences_loadout),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences/large),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences/huge),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences_loadout),
 		get_asset_datum(/datum/asset/json/preferences),
 	)
 
@@ -448,4 +448,4 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model
-		character.dna.update_body_size()
+		character.dna.update_body_size(TRUE)

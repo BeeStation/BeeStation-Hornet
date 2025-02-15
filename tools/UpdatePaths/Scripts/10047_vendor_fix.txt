@@ -1,0 +1,5 @@
+/obj/machinery/vending/cola/random{extended_inventory = @ANY} : /obj/effect/spawner/randomvend/cola{@OLD; extended_inventory = @SKIP; hacked = @OLD:extended_inventory}
+/obj/machinery/vending/snack/random{extended_inventory = @ANY} : /obj/effect/spawner/randomvend/snack{@OLD; extended_inventory = @SKIP; hacked = @OLD:extended_inventory}
+
+/obj/machinery/vending/cola/random{extended_inventory = @UNSET} : /obj/effect/spawner/randomvend/cola{@OLD}
+/obj/machinery/vending/snack/random{extended_inventory = @UNSET} : /obj/effect/spawner/randomvend/snack{@OLD}

@@ -5,7 +5,7 @@
 	These remove snowflake code for special holodeck functions.
 */
 /obj/effect/holodeck_effect
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -50,14 +50,14 @@
 		deck.card_throwforce = 0
 		deck.card_throw_speed = 3
 		deck.card_throw_range = 7
-		deck.card_attack_verb = list("attacked")
+		deck.card_attack_verb_continuous = list("attacks")
 	else
 		deck.card_hitsound = 'sound/weapons/bladeslice.ogg'
 		deck.card_force = 5
 		deck.card_throwforce = 10
 		deck.card_throw_speed = 3
 		deck.card_throw_range = 7
-		deck.card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+		deck.card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 
 
 /obj/effect/holodeck_effect/sparks/activate(var/obj/machinery/computer/holodeck/HC)
@@ -66,7 +66,7 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(3, 1, T)
 		s.start()
-		T.set_temperature(5000)
+		T.temperature = (5000)
 		T.hotspot_expose(50000,50000,1)
 
 /obj/effect/holodeck_effect/random_book

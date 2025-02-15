@@ -112,6 +112,10 @@
 	if (CONFIG_GET(flag/log_attack) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
 
+/proc/log_econ(text)
+	if (CONFIG_GET(flag/log_econ))
+		WRITE_LOG(GLOB.world_econ_log, "MONEY: [text]")
+
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
 	if (CONFIG_GET(flag/log_manifest))
 		var/species = null
@@ -215,6 +219,11 @@
 /proc/log_href_exploit(atom/user, data = "")
 	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
 	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
+
+/// Logging for wizard powers learned
+/proc/log_spellbook(text)
+	WRITE_LOG(world.log, text)
+
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
@@ -363,3 +372,4 @@
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
+

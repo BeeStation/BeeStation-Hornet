@@ -15,16 +15,16 @@
 	antag_datum = /datum/antagonist/rev/head
 	false_report_weight = 10
 	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	required_jobs = list(list(JOB_NAME_CAPTAIN=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1),list(JOB_NAME_CHIEFENGINEER=1),list(JOB_NAME_RESEARCHDIRECTOR=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1)) //Any head present
+	required_jobs = list(list(JOB_NAME_CAPTAIN=1, JOB_NAME_LAWYER=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1, JOB_NAME_LAWYER=1),list(JOB_NAME_CHIEFENGINEER=1, JOB_NAME_LAWYER=1),list(JOB_NAME_RESEARCHDIRECTOR=1, JOB_NAME_LAWYER=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1, JOB_NAME_LAWYER=1)) //Any head present and a deconverter present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
 	title_icon = "revolution"
 
 	announce_span = "danger"
-	announce_text = "Some crewmembers are attempting a coup!\n\
-	<span class='danger'>Revolutionaries</span>: Expand your cause and overthrow the heads of staff by execution or otherwise.\n\
-	<span class='notice'>Crew</span>: Prevent the revolutionaries from taking over the station."
+	announce_text = "Some crewmembers are attempting a coup!\n \
+	" + span_danger("Revolutionaries") + ": Expand your cause and overthrow the heads of staff by execution or otherwise.\n \
+	" + span_notice("Crew") + ": Prevent the revolutionaries from taking over the station."
 
 	var/finished = 0
 	var/check_counter = 0
@@ -159,9 +159,11 @@
 //Checks for rev victory//
 //////////////////////////
 /datum/game_mode/revolution/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in revolution.objectives)
-		if(!(objective.check_completion()))
-			return FALSE
+	for(var/datum/mind/staff_mind in SSjob.get_all_heads())
+		var/turf/location = get_turf(staff_mind.current)
+		if(!considered_afk(staff_mind) && considered_alive(staff_mind) && is_station_level(location.z))
+			if(ishuman(staff_mind.current))
+				return FALSE
 	return TRUE
 
 /////////////////////////////
@@ -188,9 +190,9 @@
 //TODO What should be displayed for revs in non-rev rounds
 /datum/game_mode/revolution/special_report()
 	if(finished == 1)
-		return "<div class='panel redborder'><span class='redtext big'>The heads of staff were killed or exiled! The revolutionaries win!</span></div>"
+		return "<div class='panel redborder'>[span_redtextbig("The heads of staff were killed or exiled! The revolutionaries win!")]</div>"
 	else if(finished == 2)
-		return "<div class='panel redborder'><span class='redtext big'>The heads of staff managed to stop the revolution!</span></div>"
+		return "<div class='panel redborder'>[span_redtextbig("The heads of staff managed to stop the revolution!")]</div>"
 
 /datum/game_mode/revolution/generate_report()
 	return "Employee unrest has spiked in recent weeks, with several attempted mutinies on heads of staff. Some crew have been observed using flashbulb devices to blind their colleagues, \

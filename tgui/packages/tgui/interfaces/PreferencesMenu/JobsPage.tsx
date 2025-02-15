@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
-import type { Inferno, InfernoNode } from 'inferno';
+import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
 import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData } from './data';
@@ -38,7 +38,7 @@ type CreateSetPriority = (priority: JobPriority | null) => () => void;
 
 const createSetPriorityCache: Record<string, CreateSetPriority> = {};
 
-const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPriority => {
+const createCreateSetPriorityFromName = (jobName: string): CreateSetPriority => {
   if (createSetPriorityCache[jobName] !== undefined) {
     return createSetPriorityCache[jobName];
   }
@@ -52,7 +52,7 @@ const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPri
     }
 
     const setPriority = () => {
-      const { act } = useBackend<PreferencesMenuData>(context);
+      const { act } = useBackend<PreferencesMenuData>();
 
       act('set_job_preference', {
         job: jobName,
@@ -75,10 +75,10 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
   return (
     <Flex
       style={{
-        'align-items': 'center',
-        'justify-content': 'flex-end',
-        'height': '100%',
-        'border': '1px solid rgba(0, 0, 0, 0.4)',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        height: '100%',
+        border: '1px solid rgba(0, 0, 0, 0.4)',
       }}>
       {isOverflow ? (
         <>
@@ -116,28 +116,30 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
   );
 };
 
-const JobRow = (
-  props: {
-    className?: string;
-    job: Job;
-    name: string;
-  },
-  context
-) => {
-  const { data } = useBackend<PreferencesMenuData>(context);
+const JobRow = (props: { className?: string; job: Job; name: string }) => {
+  const { data } = useBackend<PreferencesMenuData>();
   const { className, job, name } = props;
 
   const isOverflow = data.overflow_role === name;
   const priority = data.job_preferences[name];
 
-  const createSetPriority = createCreateSetPriorityFromName(context, name);
+  const createSetPriority = createCreateSetPriorityFromName(name);
 
   const experienceNeeded = data.job_required_experience && data.job_required_experience[name];
   const daysLeft = data.job_days_left ? data.job_days_left[name] : 0;
+  const lockReason = job.lock_reason;
 
-  let rightSide: InfernoNode;
+  let rightSide: ReactNode;
 
-  if (experienceNeeded) {
+  if (lockReason) {
+    rightSide = (
+      <Stack align="center" height="100%" pr={1}>
+        <Stack.Item grow textAlign="right">
+          {lockReason}
+        </Stack.Item>
+      </Stack>
+    );
+  } else if (experienceNeeded) {
     const { experience_type, required_playtime } = experienceNeeded;
     const hoursNeeded = Math.ceil(required_playtime / 60);
 
@@ -169,19 +171,14 @@ const JobRow = (
   }
 
   return (
-    <Stack.Item
-      className={className}
-      height="100%"
-      style={{
-        'margin-top': 0,
-      }}>
+    <Stack.Item className={className} height="100%" mt={0}>
       <Stack fill align="center">
         <Tooltip content={job.description} position="bottom-start">
           <Stack.Item
             className="job-name"
             width="50%"
             style={{
-              'padding-left': '0.3em',
+              paddingLeft: '0.3em',
             }}>
             {name}
           </Stack.Item>
@@ -195,7 +192,7 @@ const JobRow = (
   );
 };
 
-const Department: Inferno.SFC<{ department: string }> = (props) => {
+const Department = (props: { department: string } & PropsWithChildren) => {
   const { children, department: name } = props;
   const className = `PreferencesMenu__Jobs__departments--${name}`;
 
@@ -254,8 +251,8 @@ const Gap = (props: { amount: number }) => {
   return <Box height={`calc(${props.amount}px + 0.2em)`} />;
 };
 
-const JoblessRoleDropdown = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const JoblessRoleDropdown = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const selected = data.character_preferences.misc.joblessrole;
 
   const options = [
@@ -274,20 +271,21 @@ const JoblessRoleDropdown = (props, context) => {
   ];
 
   return (
-    <Box width="30%" style={{ 'margin': '5px auto' }}>
+    <Box width="30%" style={{ margin: '5px auto' }}>
       <Dropdown
         width="100%"
         selected={selected}
         onSelected={createSetPreference(act, 'joblessrole')}
         options={options}
         displayText={<Box pr={1}>{options.find((option) => option.value === selected)!.displayText}</Box>}
+        displayTextFirst
       />
     </Box>
   );
 };
 
-const ClearJobsButton = (_, context) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const ClearJobsButton = (_) => {
+  const { act } = useBackend<PreferencesMenuData>();
   return <Button content="Clear All" confirm onClick={() => act('clear_job_preferences')} />;
 };
 

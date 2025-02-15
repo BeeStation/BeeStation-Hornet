@@ -48,13 +48,11 @@
 	heal_amt = CEILING(max(master_stats.potential * 0.8, 2) + 3, 0.5)
 	effect_heal_amt = CEILING(max(master_stats.potential * 0.85, 1), 1)
 	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REAGENTS_EFFECT_MULTIPLIER, 0.5)
-	owner.possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 
 /datum/holoparasite_ability/major/healing/remove()
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.remove_hud_from(owner)
-	owner.possible_a_intents = null
 
 /datum/holoparasite_ability/major/healing/register_signals()
 	..()
@@ -70,9 +68,9 @@
 	// too lazy to make this code better, this still works. dextrous can use more intents, so our 2-intent hud is just worse.
 	if(istype(owner.stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
 		return
-	hud.action_intent = new /atom/movable/screen/act_intent/holopara_healer
+	hud.action_intent = new /atom/movable/screen/combattoggle/flashy()
 	hud.action_intent.icon = hud.ui_style
-	hud.action_intent.icon_state = owner.a_intent
+	hud.action_intent.icon_state = owner.combat_mode
 	huds_to_add += hud.action_intent
 
 /**
@@ -81,9 +79,9 @@
 /datum/holoparasite_ability/major/healing/proc/on_attack(datum/_source, atom/target)
 	SIGNAL_HANDLER
 	ASSERT_ABILITY_USABILITY
-	if(owner.a_intent == INTENT_HELP)
+	if(!owner.combat_mode)
 		if(owner.has_matching_summoner(target, include_summoner = FALSE))
-			to_chat(owner, "<span class='danger bold'>You can't heal yourself!</span>")
+			to_chat(owner, span_dangerbold("You can't heal yourself!"))
 			owner.balloon_alert(owner, "cannot heal self", show_in_chat = FALSE)
 			return
 		if(heal(target))
@@ -139,7 +137,7 @@
 			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
-			human_target.bleed_rate = max(human_target.bleed_rate - actual_heal_amt, 0)
+			human_target.cauterise_wounds(actual_heal_amt * 0.2)
 
 	if(purge_toxins)
 		var/list/reagents_purged = list()
@@ -188,12 +186,12 @@
  * Heals an object.
  */
 /datum/holoparasite_ability/major/healing/proc/heal_obj(obj/target)
-	var/old_integrity = target.obj_integrity
-	target.obj_integrity = min(target.obj_integrity + (target.max_integrity * 0.1), target.max_integrity)
-	if(old_integrity > target.obj_integrity)
+	var/old_integrity = target.get_integrity()
+	target.repair_damage(target.get_integrity() + (target.max_integrity * 0.1), target.max_integrity)
+	if(old_integrity > target.get_integrity())
 		SSblackbox.record_feedback("associative", "holoparasite_obj_damage_healed", 1, list(
 			"target" = replacetext("[target.type]", "/obj/", ""),
-			"amount" = max(old_integrity - target.obj_integrity, 0)
+			"amount" = max(old_integrity - target.get_integrity(), 0)
 		))
 
 /**
@@ -202,9 +200,11 @@
 /datum/holoparasite_ability/major/healing/proc/spawn_heal_effect(atom/target)
 	new /obj/effect/temp_visual/heal(get_turf(target), owner.accent_color)
 
+/*
 /atom/movable/screen/act_intent/holopara_healer/MouseEntered(location, control, params)
 	if(!QDELETED(src))
 		openToolTip(usr, src, params, title = "Healing Intent", content = "<font color='green'><b>HELP</b></font> intent to heal.<br><font color='red'><b>HARM</b></font> intent to attack normally.")
 
 /atom/movable/screen/act_intent/holopara_healer/MouseExited(location, control, params)
 	closeToolTip(usr)
+*/

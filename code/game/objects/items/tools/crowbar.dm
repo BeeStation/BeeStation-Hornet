@@ -11,17 +11,25 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=50)
-
-	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
-	tool_behaviour = TOOL_CROWBAR
-	toolspeed = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
+	custom_materials = list(/datum/material/iron=50)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 
+	attack_verb_continuous = list("attacks", "bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
+	tool_behaviour = TOOL_CROWBAR
+	toolspeed = 1
+	armor_type = /datum/armor/item_crowbar
+	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
+
+
+/datum/armor/item_crowbar
+	fire = 50
+	acid = 30
+
 /obj/item/crowbar/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -34,6 +42,7 @@
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "crowbar_brass"
+	worn_icon_state = "crowbar"
 	toolspeed = 0.5
 
 /obj/item/crowbar/abductor
@@ -52,9 +61,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 3
-	materials = list(/datum/material/iron=70)
+	custom_materials = list(/datum/material/iron=70)
 	icon_state = "crowbar_large"
-	item_state = "crowbar"
+	worn_icon_state = "crowbar"
 	toolspeed = 0.7
 
 /obj/item/crowbar/cyborg

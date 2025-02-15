@@ -13,9 +13,10 @@
 
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
-	air_contents.set_moles(GAS_O2, MOLES_O2STANDARD)
-	air_contents.set_moles(GAS_N2, MOLES_N2STANDARD)
-	air_contents.set_temperature(T20C)
+	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
+	air_contents.gases[/datum/gas/oxygen][MOLES] = MOLES_O2STANDARD
+	air_contents.gases[/datum/gas/nitrogen][MOLES] = MOLES_N2STANDARD
+	air_contents.temperature = T20C
 
 
 /obj/structure/transit_tube_pod/Destroy()
@@ -33,7 +34,7 @@
 		if(!moving)
 			I.play_tool_sound(src)
 			if(contents.len)
-				user.visible_message("[user] empties \the [src].", "<span class='notice'>You empty \the [src].</span>")
+				user.visible_message("[user] empties \the [src].", span_notice("You empty \the [src]."))
 				empty_pod()
 			else
 				deconstruct(TRUE, user)
@@ -46,7 +47,7 @@
 		if(user)
 			location = user.loc
 			add_fingerprint(user)
-			user.visible_message("[user] removes [src].", "<span class='notice'>You remove [src].</span>")
+			user.visible_message("[user] removes [src].", span_notice("You remove [src]."))
 		var/obj/structure/c_transit_tube_pod/R = new/obj/structure/c_transit_tube_pod(location)
 		transfer_fingerprints_to(R)
 		R.setDir(dir)
@@ -80,9 +81,9 @@
 	if(!moving)
 		user.changeNext_move(CLICK_CD_BREAKOUT)
 		user.last_special = world.time + CLICK_CD_BREAKOUT
-		to_chat(user, "<span class='notice'>You start trying to escape from the pod...</span>")
+		to_chat(user, span_notice("You start trying to escape from the pod..."))
 		if(do_after(user, 600, target = src))
-			to_chat(user, "<span class='notice'>You manage to open the pod.</span>")
+			to_chat(user, span_notice("You manage to open the pod."))
 			empty_pod()
 
 /obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
@@ -135,8 +136,8 @@
 
 	if(!current_tube)
 		setDir(next_dir)
-				// Allow collisions when leaving the tubes.
-		Move(get_step(loc, dir), dir)
+		// Allow collisions when leaving the tubes.
+		Move(get_step(loc, dir), dir, DELAY_TO_GLIDE_SIZE(exit_delay))
 		qdel(src)
 		return
 
@@ -162,49 +163,38 @@
 /obj/structure/transit_tube_pod/assume_air(datum/gas_mixture/giver)
 	return air_contents.merge(giver)
 
-/obj/structure/transit_tube_pod/assume_air_moles(datum/gas_mixture/giver, moles)
-	return giver.transfer_to(air_contents, moles)
-
-/obj/structure/transit_tube_pod/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	return giver.transfer_ratio_to(air_contents, ratio)
-
 /obj/structure/transit_tube_pod/remove_air(amount)
 	return air_contents.remove(amount)
 
-/obj/structure/transit_tube_pod/remove_air_ratio(ratio)
-	return air_contents.remove_ratio(ratio)
 
-/obj/structure/transit_tube_pod/transfer_air(datum/gas_mixture/taker, moles)
-	return air_contents.transfer_to(taker, moles)
+/obj/structure/transit_tube_pod/relaymove(mob/living/user, direction)
+	if(!user.client || moving)
+		return
 
-/obj/structure/transit_tube_pod/transfer_air_ratio(datum/gas_mixture/taker, ratio)
-	return air_contents.transfer_ratio_to(taker, ratio)
+	for(var/obj/structure/transit_tube/station/station in loc)
+		if(station.pod_moving)
+			return
+		if(direction == turn(station.boarding_dir,180))
+			if(station.open_status == STATION_TUBE_OPEN)
+				user.forceMove(loc)
+				update_icon()
+			else
+				station.open_animation()
+		else if(direction in station.tube_dirs)
+			setDir(direction)
+			station.launch_pod()
+		return
 
-/obj/structure/transit_tube_pod/relaymove(mob/mob, direction)
-	if(istype(mob) && mob.client)
-		if(!moving)
-			for(var/obj/structure/transit_tube/station/station in loc)
-				if(!station.pod_moving)
-					if(direction == turn(station.boarding_dir,180))
-						if(station.open_status == STATION_TUBE_OPEN)
-							mob.forceMove(loc)
-							update_icon()
-						else
-							station.open_animation()
-
-					else if(direction in station.tube_dirs)
-						setDir(direction)
-						station.launch_pod()
-				return
-
-			for(var/obj/structure/transit_tube/TT in loc)
-				if(dir in TT.tube_dirs)
-					if(TT.has_exit(direction))
-						setDir(direction)
-						return
+	for(var/obj/structure/transit_tube/transit_tube in loc)
+		if(!(dir in transit_tube.tube_dirs))
+			continue
+		if(!transit_tube.has_exit(direction))
+			continue
+		setDir(direction)
+		return
 
 /obj/structure/transit_tube_pod/return_temperature()
-	return air_contents.return_temperature()
+	return air_contents.temperature
 
 #undef MOVE_ANIMATION_STAGE_ONE
 #undef MOVE_ANIMATION_STAGE_TWO

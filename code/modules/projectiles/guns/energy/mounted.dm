@@ -4,19 +4,19 @@
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "taser"
 	item_state = "armcannonstun4"
+	display_empty = FALSE
 	force = 5
 	selfcharge = 1
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead
 
-/obj/item/gun/energy/e_gun/advtaser/mounted/dropped()//if somebody manages to drop this somehow...
-	..()
+/obj/item/gun/energy/e_gun/advtaser/mounted/add_seclight_point()
+	return
 
 /obj/item/gun/energy/laser/mounted
 	name = "mounted laser"
 	desc = "An arm mounted cannon that fires lethal lasers."
 	icon = 'icons/obj/items_cyborg.dmi'
-	icon_state = "laser"
+	icon_state = "laser_cyborg"
 	item_state = "armcannonlase"
 	force = 5
 	selfcharge = 1

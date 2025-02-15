@@ -6,9 +6,9 @@
 /mob/living/circuit_drone
 	name = "drone"
 	icon = 'icons/obj/wiremod.dmi'
-	icon_state = "setup_medium_med"
-
-	light_system = MOVABLE_LIGHT
+	icon_state = "setup_drone_arms"		//RIP setup_medium_med, you were too cute for this world. Maybe some other day they'll find a use for you
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
 
 /mob/living/circuit_drone/Initialize(mapload)
 	. = ..()

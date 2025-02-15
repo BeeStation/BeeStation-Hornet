@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	var/current_size = 0
 
 	/// How much this costs by itself. Keep this updated with /datum/design/integrated_circuit
-	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000, /datum/material/copper = 500)
+	custom_materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000, /datum/material/copper = 500)
 
 /obj/item/integrated_circuit/Initialize(mapload)
 	. = ..()
@@ -100,9 +100,9 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /obj/item/integrated_circuit/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>The charge meter reads [cell ? round(cell.percent(), 1) : 0]%.</span>"
+		. += span_notice("The charge meter reads [cell ? round(cell.percent(), 1) : 0]%.")
 	else
-		. += "<span class='notice'>There is no power cell installed.</span>"
+		. += span_notice("There is no power cell installed.")
 
 /**
  * Sets the cell of the integrated circuit.
@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			return
 		set_cell(I)
 		I.add_fingerprint(user)
-		user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+		user.visible_message(span_notice("[user] inserts a power cell into [src]."), span_notice("You insert the power cell into [src]."))
 		return
 
 	if(istype(I, /obj/item/card/id))
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		if(!cell)
 			return
 		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] unscrews the power cell from [src].</span>", "<span class='notice'>You unscrew the power cell from [src].</span>")
+		user.visible_message(span_notice("[user] unscrews the power cell from [src]."), span_notice("You unscrew the power cell from [src]."))
 		cell.forceMove(drop_location())
 		set_cell(null)
 		return
@@ -270,8 +270,8 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 /obj/item/integrated_circuit/proc/get_material_cost()
 	. = list()
-	for(var/self_mat in materials)
-		.[self_mat] += materials[self_mat]
+	for(var/self_mat in custom_materials)
+		.[self_mat] += custom_materials[self_mat]
 	for(var/obj/item/circuit_component/comp in attached_components)
 		var/list/comp_cost = comp.get_material_cost()
 		for(var/comp_mat in comp_cost)

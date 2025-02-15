@@ -51,11 +51,12 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Ruin level count
 	var/ruin_levels = 0
 
-/datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
-	. = ..()
+/datum/controller/subsystem/processing/orbits/Initialize()
 	setup_event_list()
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
+
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/processing/orbits/Recover()
 	orbital_maps |= SSorbits.orbital_maps

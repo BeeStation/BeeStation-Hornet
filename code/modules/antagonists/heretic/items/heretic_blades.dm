@@ -9,17 +9,19 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER_EASY
+	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_LARGE
 	force = 24
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	var/after_use_message = ""
 
 /obj/item/melee/sickly_blade/attack(mob/living/M, mob/living/user)
 	if(!IS_HERETIC_OR_MONSTER(user))
-		to_chat(user, "<span class='danger'>You feel a pulse of alien intellect lash out at your mind!</span>")
+		to_chat(user, span_danger("You feel a pulse of alien intellect lash out at your mind!"))
 		var/mob/living/carbon/human/human_user = user
 		human_user.AdjustParalyzed(5 SECONDS)
 		return TRUE
@@ -29,12 +31,12 @@
 /obj/item/melee/sickly_blade/attack_self(mob/user)
 	var/turf/safe_turf = find_safe_turf(zlevels = z, extended_safety_checks = TRUE)
 	if(IS_HERETIC_OR_MONSTER(user))
-		if(do_teleport(user, safe_turf, channel = TELEPORT_CHANNEL_MAGIC))
-			to_chat(user, "<span class='warning'>As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]</span>")
+		if(do_teleport(user, safe_turf, channel = TELEPORT_CHANNEL_MAGIC_SELF))
+			to_chat(user, span_warning("As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]"))
 		else
-			to_chat(user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
+			to_chat(user, span_warning("You shatter [src], but your plea goes unanswered."))
 	else
-		to_chat(user,"<span class='warning'>You shatter [src].</span>")
+		to_chat(user,span_warning("You shatter [src]."))
 	playsound(src, "shatter", 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 	qdel(src)
 
@@ -53,7 +55,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 
-	. += "<span class='notice'>You can shatter the blade to teleport to a random, (mostly) safe location by <b>activating it in-hand</b>.</span>"
+	. += span_notice("You can shatter the blade to teleport to a random, (mostly) safe location by <b>activating it in-hand</b>.")
 
 /obj/item/melee/sickly_blade/rust
 	name = "\improper rusted blade"

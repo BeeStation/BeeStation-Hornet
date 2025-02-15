@@ -34,10 +34,7 @@
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "h" = (
-/obj/machinery/camera{
-	dir = 1;
-	network = list("auxbase")
-	},
+/obj/machinery/camera/directional/south,
 /obj/structure/mining_shuttle_beacon,
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)

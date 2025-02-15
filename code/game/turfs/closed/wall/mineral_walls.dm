@@ -10,6 +10,7 @@
 	var/active = null
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
+	material_flags = MATERIAL_EFFECTS
 
 /turf/closed/wall/mineral/gold
 	name = "gold wall"
@@ -34,7 +35,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SILVER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
-	custom_materials = list(/datum/material/silver = 4000)
 	max_integrity = 600
 
 /turf/closed/wall/mineral/copper
@@ -117,7 +117,7 @@
 			return
 	return
 
-/turf/closed/wall/mineral/uranium/attack_hand(mob/user)
+/turf/closed/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
 	. = ..()
 
@@ -147,10 +147,11 @@
 			new /obj/structure/girder/displaced(loc)
 	..()
 
-/turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	if(exposed_temperature > 300)
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
+/turf/closed/wall/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+/turf/closed/wall/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(plasma_ignition(6))
+		new /obj/structure/girder/displaced(loc)
 
 /turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
@@ -352,10 +353,20 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/////////////////////Lavaland Base Syndicate Explosive Walls /////////////////////
+
+/turf/closed/wall/mineral/plastitanium/explosive
+	var/obj/item/bombcore/large/syndicate_base/bombcore
+
+/turf/closed/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	bombcore = new /obj/item/bombcore/large/syndicate_base(src)
+
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
-	bombcore.installed = TRUE
 	bombcore.detonate()
+
+/turf/closed/wall/mineral/plastitanium/explosive/Destroy()
+	qdel(bombcore)
 	..()
 
 //have to copypaste this code

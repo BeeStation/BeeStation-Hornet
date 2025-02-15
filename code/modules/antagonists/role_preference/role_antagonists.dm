@@ -32,7 +32,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas
 	l_hand = /obj/item/melee/transforming/energy/sword
-	r_hand = /obj/item/gun/energy/kinetic_accelerator/crossbow
+	r_hand = /obj/item/gun/energy/recharge/ebow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/melee/transforming/energy/sword/sword = locate() in H.held_items
@@ -171,35 +171,17 @@
 	head = /obj/item/clothing/head/helmet/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
-/datum/role_preference/antagonist/devil
-	name = "Devil"
-	description = "Sign deals with crewmembers, turn them to the side of the Devil."
-	antag_datum = /datum/antagonist/devil
-	preview_outfit = /datum/outfit/devil_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/devil_preview
-	name = "Devil (Preview only)"
-	uniform = /obj/item/clothing/under/rank/civilian/lawyer/black
-	r_hand = /obj/item/storage/briefcase
-
-/datum/outfit/devil_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.dna.features["mcolor"] = "511"
-	H.dna.features["horns"] = "Simple"
-	H.set_species(/datum/species/lizard)
-
 /datum/role_preference/antagonist/revolutionary
 	name = "Head Revolutionary"
 	description = "Armed with a flash, convert as many people to the revolution as you can.\n\
 	Kill or exile all heads of staff on the station."
 	antag_datum = /datum/antagonist/rev/head
 	preview_outfit = /datum/outfit/revolutionary
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
 
 /datum/outfit/revolutionary
 	name = "Revolutionary (Preview only)"
 	uniform = /obj/item/clothing/under/costume/soviet
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 	gloves = /obj/item/clothing/gloves/color/black
 	l_hand = /obj/item/spear
 	r_hand = /obj/item/assembly/flash
@@ -269,32 +251,6 @@
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/role_preference/antagonist/hivemind_host
-	name = "Hivemind Host"
-	description = "A powerful host of a Hivemind. Assimilate crew into your hive to grow your power. \
-	Use the members of your hive as machines in your objectives, and work with or against other Hiveminds on the station."
-	antag_datum = /datum/antagonist/hivemind
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/role_preference/antagonist/hivemind_host/get_preview_icon()
-	var/icon/background = icon('icons/effects/hivemind.dmi', "awoken")
-	var/icon/outfit = render_preview_outfit(/datum/outfit/hivemind_host_preview)
-	background.Blend(outfit, ICON_OVERLAY)
-	return finish_preview_icon(background)
-
-/datum/outfit/hivemind_host_preview
-	name = "Hivemind Host (Preview only)"
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	uniform = /obj/item/clothing/under/rank/civilian/bartender
-	suit = /obj/item/clothing/suit/armor/vest
-
-/datum/outfit/hivemind_host_preview/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	H.hair_style = "Bob Hair 4"
-	H.hair_color = "111"
-	H.gradient_style = "Reflected Inverse"
-	H.gradient_color = "808"
-	H.update_hair()
-
 /datum/role_preference/antagonist/incursionist
 	name = "Incursionist"
 	description = "As a member of the Syndicate Incursion, work with your team of agents to accomplish your objectives.\n\
@@ -327,21 +283,8 @@
 	name = "Incursionist (Preview only)"
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 	mask = null
-
-/datum/role_preference/antagonist/gangster
-	name = "Gangster"
-	description = "Convince people to join your gang, wear your uniform, tag turf for the gang, and accomplish your gang's goals."
-	antag_datum = /datum/antagonist/gang
-	preview_outfit = /datum/outfit/gangster_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/outfit/gangster_preview
-	name = "Gangster (Preview only)"
-	head = /obj/item/clothing/head/beanie/black
-	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket
 
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
@@ -368,7 +311,7 @@
 /datum/outfit/nuclear_operative
 	name = "Nuclear Operative (Preview only)"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/syndipreview
 	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 
 /datum/role_preference/antagonist/wizard

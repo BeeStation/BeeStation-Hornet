@@ -1,21 +1,3 @@
-/turf/open/floor/goonplaque
-	name = "commemorative plaque"
-	icon_state = "plaque"
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
-	floor_tile = /obj/item/stack/tile/plasteel
-	tiled_dirt = FALSE
-
-/turf/open/floor/goonplaque/fland
-	name = "commemorative plaque"
-	icon_state = "plaque"
-	desc = "\"This plaque commemorates all the effort that has been put by the construction workers of this station, their department experts advisors, and the many roaming spacemans, that took the effort to walk around this station discovering anomalies that has been found during it's construction. This is a heartfelt thanks from the head developer of this station, hoping that the station will last for as long as possible.\" Beneath the text, you see engraved on the plaque a weird orb like being with a propeller on his head and a smile on it's face."
-	floor_tile = /obj/item/stack/tile/plasteel
-	tiled_dirt = FALSE
-
-/turf/open/floor/vault
-	icon_state = "rockvault"
-	floor_tile = /obj/item/stack/tile/plasteel
-
 //Circuit flooring, glows a little
 /turf/open/floor/circuit
 	icon = 'icons/turf/floors.dmi'
@@ -126,59 +108,46 @@
 	name = "high-traction floor"
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
-	broken_states = list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
-	burnt_states = list("noslip-scorched1","noslip-scorched2")
 	slowdown = -0.3
+
+/turf/open/floor/noslip/Initialize(mapload)
+	. = ..()
+	make_traction()
 
 /turf/open/floor/noslip/standard
 	name = "high-traction floor"
-	icon_state = "noslip_standard"
+	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/noslip/standard
-	broken_states = list("noslip-damaged1_standard","noslip-damaged2_standard","noslip-damaged3_standard")
-	burnt_states = list("noslip-scorched1_standard","noslip-scorched2_standard")
 
 /turf/open/floor/noslip/white
 	name = "high-traction floor"
-	icon_state = "noslip_white"
+	icon_state = "white"
 	floor_tile = /obj/item/stack/tile/noslip/white
-	broken_states = list("noslip-damaged1_white","noslip-damaged2_white","noslip-damaged3_white")
-	burnt_states = list("noslip-scorched1_white","noslip-scorched2_white")
 
 /turf/open/floor/noslip/blue
 	name = "high-traction floor"
-	icon_state = "noslip_blue"
+	icon_state = "bluefull"
 	floor_tile = /obj/item/stack/tile/noslip/blue
-	broken_states = list("noslip-damaged1_blue","noslip-damaged2_blue","noslip-damaged3_blue")
-	burnt_states = list("noslip-scorched1_blue","noslip-scorched2_blue")
 
 /turf/open/floor/noslip/darkblue
 	name = "high-traction floor"
-	icon_state = "noslip_darkblue"
+	icon_state = "darkbluefull"
 	floor_tile = /obj/item/stack/tile/noslip/darkblue
-	broken_states = list("noslip-damaged1_darkblue","noslip-damaged2_darkblue","noslip-damaged3_darkblue")
-	burnt_states = list("noslip-scorched1_darkblue","noslip-scorched2_darkblue")
 
 /turf/open/floor/noslip/dark
 	name = "high-traction floor"
-	icon_state = "noslip_dark"
+	icon_state = "darkfull"
 	floor_tile = /obj/item/stack/tile/noslip/dark
-	broken_states = list("noslip-damaged1_dark","noslip-damaged2_dark","noslip-damaged3_dark")
-	burnt_states = list("noslip-scorched1_dark","noslip-scorched2_dark")
 
 /turf/open/floor/noslip/vaporwave
 	name = "high-traction floor"
-	icon_state = "noslip_pinkblack"
+	icon_state = "bluefull"
 	floor_tile = /obj/item/stack/tile/noslip/vaporwave
-	broken_states = list("noslip-damaged1_pinkblack","noslip-damaged2_pinkblack","noslip-damaged3_pinkblack")
-	burnt_states = list("noslip-scorched1_pinkblack","noslip-scorched2_pinkblack")
-
-/turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
-	return
 
 /turf/open/floor/oldshuttle
 	icon = 'icons/turf/shuttleold.dmi'
 	icon_state = "floor"
-	floor_tile = /obj/item/stack/tile/plasteel
+	floor_tile = /obj/item/stack/tile/iron/base
 
 /turf/open/floor/bluespace
 	slowdown = -1
@@ -193,13 +162,28 @@
 	desc = "Time seems to flow very slowly around these tiles."
 	floor_tile = /obj/item/stack/tile/sepia
 
+/turf/open/floor/sepia/planetary
+	baseturfs = /turf/open/floor/plating/asteroid
+	planetary_atmos = TRUE
+
 
 /turf/open/floor/bronze
 	name = "bronze floor"
 	desc = "Some heavy bronze tiles."
-	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "clockwork_floor"
 	floor_tile = /obj/item/stack/sheet/bronze
+
+/turf/open/floor/bronze/flat
+	icon_state = "reebe"
+	floor_tile = /obj/item/stack/tile/mineral/bronze/flat
+
+/turf/open/floor/bronze/filled
+	icon = 'icons/obj/clockwork_objects.dmi'
+	floor_tile = /obj/item/stack/tile/mineral/bronze/filled
+
+/turf/open/floor/bronze/filled/lavaland
+	planetary_atmos = TRUE
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/floor/white
 	name = "white floor"
@@ -211,18 +195,18 @@
 	icon_state = "black"
 
 /turf/open/floor/monotile
-	icon_state = "monotile"
+	icon_state = "grey_full"
 	floor_tile = /obj/item/stack/tile/mono
 
 /turf/open/floor/monotile/steel
 	icon_state = "steel_monotile"
 
 /turf/open/floor/monotile/dark
-	icon_state = "monotile_dark"
+	icon_state = "black_full"
 	floor_tile = /obj/item/stack/tile/mono/dark
 
 /turf/open/floor/monotile/light
-	icon_state = "monotile_light"
+	icon_state = "white_full"
 	floor_tile = /obj/item/stack/tile/mono/light
 
 /turf/open/floor/monofloor
@@ -243,3 +227,34 @@
 /turf/open/floor/plating/rust/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rust)
+
+/turf/open/floor/vault
+	name = "strange floor"
+	desc = "You feel a strange nostalgia from looking at this..."
+	icon_state = "rockvault"
+	base_icon_state = "rockvault"
+
+/turf/open/floor/vault/rock
+	name = "rocky floor"
+
+/turf/open/floor/vault/alien
+	name = "alien floor"
+	icon_state = "alienvault"
+	base_icon_state = "alienvault"
+
+/turf/open/floor/vault/sandstone
+	name = "sandstone floor"
+	icon_state = "sandstonevault"
+	base_icon_state = "sandstonevault"
+
+/turf/open/floor/cult
+	name = "engraved floor"
+	icon_state = "cult"
+	base_icon_state = "cult"
+	floor_tile = /obj/item/stack/tile/cult
+
+/turf/open/floor/cult/narsie_act()
+	return
+
+/turf/open/floor/cult/airless
+	initial_gas_mix = AIRLESS_ATMOS

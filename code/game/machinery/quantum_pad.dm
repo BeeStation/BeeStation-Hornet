@@ -37,11 +37,11 @@
 
 /obj/machinery/quantumpad/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [ linked_pad ? "currently" : "not"] linked to another pad.</span>"
+	. += span_notice("It is [ linked_pad ? "currently" : "not"] linked to another pad.")
 	if(!panel_open)
-		. += "<span class='notice'>The panel is <i>screwed</i> in, obstructing the linking device.</span>"
+		. += span_notice("The panel is <i>screwed</i> in, obstructing the linking device.")
 	else
-		. += "<span class='notice'>The <i>linking</i> device is now able to be <i>scanned<i> with a multitool.</span>"
+		. += span_notice("The <i>linking</i> device is now able to be <i>scanned<i> with a multitool.")
 
 /obj/machinery/quantumpad/RefreshParts()
 	var/E = 0
@@ -69,12 +69,12 @@
 	if(istype(I, /obj/item/quantum_keycard))
 		var/obj/item/quantum_keycard/K = I
 		if(K.qpad)
-			to_chat(user, "<span class='notice'>You insert [K] into [src]'s card slot, activating it.</span>")
+			to_chat(user, span_notice("You insert [K] into [src]'s card slot, activating it."))
 			interact(user, K.qpad)
 		else
-			to_chat(user, "<span class='notice'>You insert [K] into [src]'s card slot, initiating the link procedure.</span>")
+			to_chat(user, span_notice("You insert [K] into [src]'s card slot, initiating the link procedure."))
 			if(do_after(user, 40, target = src))
-				to_chat(user, "<span class='notice'>You complete the link between [K] and [src].</span>")
+				to_chat(user, span_notice("You complete the link between [K] and [src]."))
 				K.qpad = src
 
 	if(default_deconstruction_crowbar(I))
@@ -87,41 +87,41 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/quantumpad)
 DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 	if (panel_open)
 		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-			to_chat(user, "<span class='notice'>You save the data in [buffer_parent]'s buffer. It can now be saved to pads with closed panels.</span>")
-			return COMPONENT_BUFFER_RECIEVED
+			to_chat(user, span_notice("You save the data in [buffer_parent]'s buffer. It can now be saved to pads with closed panels."))
+			return COMPONENT_BUFFER_RECEIVED
 		return NONE
 	if(istype(buffer, /obj/machinery/quantumpad))
 		if(buffer == src)
-			to_chat(user, "<span class='warning'>You cannot link a pad to itself!</span>")
-			return COMPONENT_BUFFER_RECIEVED
+			to_chat(user, span_warning("You cannot link a pad to itself!"))
+			return COMPONENT_BUFFER_RECEIVED
 		else
 			linked_pad = buffer
-			to_chat(user, "<span class='notice'>You link [src] to the one in [buffer_parent]'s buffer.</span>")
-			return COMPONENT_BUFFER_RECIEVED
+			to_chat(user, span_notice("You link [src] to the one in [buffer_parent]'s buffer."))
+			return COMPONENT_BUFFER_RECEIVED
 	else
-		to_chat(user, "<span class='warning'>There is no quantum pad data saved in [buffer_parent]'s buffer!</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		to_chat(user, span_warning("There is no quantum pad data saved in [buffer_parent]'s buffer!"))
+		return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/quantumpad/interact(mob/user, obj/machinery/quantumpad/target_pad = linked_pad)
 	if(!target_pad || QDELETED(target_pad))
 		if(!map_pad_link_id || !initMappedLink())
-			to_chat(user, "<span class='warning'>Target pad not found!</span>")
+			to_chat(user, span_warning("Target pad not found!"))
 			return
 
 	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [DisplayTimeText(last_teleport + teleport_cooldown - world.time)].</span>")
+		to_chat(user, span_warning("[src] is recharging power. Please wait [DisplayTimeText(last_teleport + teleport_cooldown - world.time)]."))
 		return
 
 	if(teleporting)
-		to_chat(user, "<span class='warning'>[src] is charging up. Please wait.</span>")
+		to_chat(user, span_warning("[src] is charging up. Please wait."))
 		return
 
 	if(target_pad.teleporting)
-		to_chat(user, "<span class='warning'>Target pad is busy. Please wait.</span>")
+		to_chat(user, span_warning("Target pad is busy. Please wait."))
 		return
 
 	if(target_pad.machine_stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Target pad is not responding to ping.</span>")
+		to_chat(user, span_warning("Target pad is not responding to ping."))
 		return
 	add_fingerprint(user)
 	doteleport(user, target_pad)
@@ -150,11 +150,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 				teleporting = FALSE
 				return
 			if(machine_stat & NOPOWER)
-				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+				to_chat(user, span_warning("[src] is unpowered!"))
 				teleporting = FALSE
 				return
 			if(!target_pad || QDELETED(target_pad) || target_pad.machine_stat & NOPOWER)
-				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = FALSE
 				return
 

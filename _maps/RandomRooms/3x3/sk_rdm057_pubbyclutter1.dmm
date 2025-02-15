@@ -12,7 +12,7 @@
 "c" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "d" = (

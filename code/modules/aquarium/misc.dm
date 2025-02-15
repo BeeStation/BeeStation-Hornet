@@ -17,11 +17,10 @@
 /obj/item/storage/fish_case
 	name = "stasis fish case"
 	desc = "A small case keeping the fish inside in stasis."
+	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "fishbox"
-
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-
 	component_type = /datum/component/storage/concrete/fish_case
 
 /obj/item/storage/fish_case/Initialize(mapload)
@@ -86,7 +85,7 @@
 
 /obj/item/book/fish_catalog/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/fish)
+		get_asset_datum(/datum/asset/spritesheet_batched/fish)
 	)
 
 /obj/item/aquarium_kit
@@ -98,7 +97,7 @@
 
 /obj/item/aquarium_kit/attack_self(mob/user)
 	. = ..()
-	to_chat(user,"<span class='notice'>There's instruction and tools necessary to build aquarium inside. All you need is to start crafting.</span>")
+	to_chat(user,span_notice("There's instruction and tools necessary to build aquarium inside. All you need is to start crafting."))
 
 
 /obj/item/aquarium_prop

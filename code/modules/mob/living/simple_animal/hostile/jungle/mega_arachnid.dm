@@ -25,7 +25,7 @@
 	alpha = 50
 	discovery_points = 5000
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/jungle/mega_arachnid/Life()
 	..()
@@ -58,7 +58,7 @@
 /obj/projectile/mega_arachnid/on_hit(atom/target, blocked = FALSE)
 	if(iscarbon(target) && blocked < 100)
 		var/obj/item/restraints/legcuffs/beartrap/mega_arachnid/B = new /obj/item/restraints/legcuffs/beartrap/mega_arachnid(get_turf(target))
-		B.spring_trap(null, target)
+		B.spring_trap(target)
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/mega_arachnid

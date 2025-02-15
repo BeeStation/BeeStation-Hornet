@@ -1,5 +1,5 @@
 /datum/preferences/proc/set_job_preference_level(datum/job/job, level)
-	if (!job)
+	if (!job || job.lock_flags)
 		return FALSE
 
 	log_preferences("[parent?.ckey]: Set [job.title] preference to level [level].")

@@ -4,24 +4,28 @@
 /datum/emote/living/carbon/airguitar
 	key = "airguitar"
 	message = "is strumming the air and headbanging like a safari chimp"
-	restraint_check = TRUE
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/blink
 	key = "blink"
 	key_third_person = "blinks"
 	message = "blinks"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/blink_r
 	key = "blink_r"
+	name = "blink (Rapid)"
 	message = "blinks rapidly"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/clap
 	key = "clap"
 	key_third_person = "claps"
 	message = "claps"
 	muzzle_ignore = TRUE
-	restraint_check = TRUE
-	emote_type = EMOTE_AUDIBLE
+	hands_use_check = TRUE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	vary = TRUE
 
 /datum/emote/living/carbon/clap/can_run_emote(mob/user, status_check = TRUE, intentional)
@@ -44,6 +48,7 @@
 	key_third_person = "eyerolls"
 	message = "rolls their eyes"
 	vary = TRUE
+	emote_type = EMOTE_VISIBLE
 	mob_type_blacklist_typecache = list(/mob/living/carbon/alien)
 
 /datum/emote/living/carbon/eyeroll/can_run_emote(mob/user, status_check = TRUE, intentional)
@@ -57,27 +62,30 @@
 	key_third_person = "gnarls"
 	message = "gnarls and shows its teeth.."
 	mob_type_allowed_typecache = list(/mob/living/carbon/monkey)
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/moan
 	key = "moan"
 	key_third_person = "moans"
 	message = "moans"
 	message_mime = "appears to moan"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/roll
 	key = "roll"
 	key_third_person = "rolls"
 	message = "rolls"
 	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
-	restraint_check = TRUE
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/scratch
 	key = "scratch"
 	key_third_person = "scratches"
 	message = "scratches"
 	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
-	restraint_check = TRUE
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/screech
 	key = "screech"
@@ -96,10 +104,10 @@
 				'sound/creatures/monkey/monkey_screech_7.ogg')
 
 /datum/emote/living/carbon/snap
-	emote_type = EMOTE_AUDIBLE
 	muzzle_ignore = TRUE
-	restraint_check = TRUE
+	hands_use_check = TRUE
 	vary = TRUE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/snap/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
@@ -133,13 +141,15 @@
 	key = "roar"
 	key_third_person = "roars"
 	message = "roars"
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"
 	message_param = "signs the number %t"
 	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
-	restraint_check = TRUE
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/sign/select_param(mob/user, params)
 	. = ..()
@@ -151,23 +161,26 @@
 	key_third_person = "signals"
 	message_param = "raises %t fingers"
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
-	restraint_check = TRUE
+	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/tail
 	key = "tail"
 	message = "waves their tail"
 	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/wink
 	key = "wink"
 	key_third_person = "winks"
 	message = "winks"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/sweatdrop
 	key = "sweatdrop"
 	key_third_person = "sweatdrops"
 	message = "sweats"
-	emote_type = EMOTE_ANIMATED
+	emote_type = EMOTE_ANIMATED | EMOTE_VISIBLE
 	sound_volume = 25
 	vary = TRUE
 	overlay_icon_state = "sweatdrop"
@@ -176,9 +189,12 @@
 	emote_length = 3 SECONDS
 	sound = 'sound/emotes/sweatdrop.ogg'
 
+/datum/emote/living/carbon/sweatdrop/sweat //This is entirely the same as sweatdrop, however people might use either, so i'm adding this one instead of editing the other one.
+	key = "sweat"
+
 /datum/emote/living/carbon/annoyed
 	key = "annoyed"
-	emote_type = EMOTE_ANIMATED
+	emote_type = EMOTE_ANIMATED | EMOTE_VISIBLE
 	sound_volume = 25
 	vary = TRUE
 	overlay_icon_state = "annoyed"
@@ -190,7 +206,7 @@
 /datum/emote/living/carbon/glasses
 	key = "glasses"
 	message = "pushes up their glasses"
-	emote_type = EMOTE_ANIMATED
+	emote_type = EMOTE_ANIMATED | EMOTE_VISIBLE
 	overlay_icon_state = "glasses"
 	emote_length = 1 SECONDS
 

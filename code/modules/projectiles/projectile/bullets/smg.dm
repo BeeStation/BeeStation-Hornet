@@ -23,6 +23,12 @@
 //Slightly worse disabler, but fully automatic
 /obj/projectile/bullet/c46x30mm_rubber
 	name = "4.6x30mm rubber bullet"
-	damage_type = STAMINA
-	armor_flag = STAMINA
-	damage = 20
+	damage = 4
+	stamina = 18
+	ricochets_max = 2
+	ricochet_chance = 110
+	ricochet_incidence_leeway = 55
+	ricochet_decay_chance = 0.8
+	ricochet_decay_damage = 0.85
+	armour_penetration = -15
+	bleed_force = BLEED_SCRATCH

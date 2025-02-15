@@ -5,7 +5,8 @@
 	icon_state = "banner"
 	item_state = "banner"
 	force = 8
-	attack_verb = list("forcefully inspired", "violently encouraged", "relentlessly galvanized")
+	attack_verb_continuous = list("forcefully inspires", "violently encourages", "relentlessly galvanizes")
+	attack_verb_simple = list("forcefully inspire", "violently encourage", "relentlessly galvanize")
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	var/inspiration_available = TRUE //If this banner can be used to inspire crew
@@ -18,16 +19,16 @@
 /obj/item/banner/examine(mob/user)
 	. = ..()
 	if(inspiration_available)
-		. += "<span class='notice'>Activate it in your hand to inspire nearby allies of this banner's allegiance!</span>"
+		. += span_notice("Activate it in your hand to inspire nearby allies of this banner's allegiance!")
 
 /obj/item/banner/attack_self(mob/living/carbon/human/user)
 	if(!inspiration_available)
 		return
 	if(morale_time > world.time)
-		to_chat(user, "<span class='warning'>You aren't feeling inspired enough to flourish [src] again yet.</span>")
+		to_chat(user, span_warning("You aren't feeling inspired enough to flourish [src] again yet."))
 		return
-	user.visible_message("<span class='big notice'>[user] flourishes [src]!</span>", \
-	"<span class='notice'>You raise [src] skywards, inspiring your allies!</span>")
+	user.visible_message(span_bignotice("[user] flourishes [src]!"), \
+	span_notice("You raise [src] skywards, inspiring your allies!"))
 	playsound(src, "rustle", 100, FALSE)
 	if(warcry)
 		user.say("[warcry]", forced="banner")
@@ -54,7 +55,7 @@
 	for(var/V in inspired)
 		var/mob/living/carbon/human/H = V
 		if(H != user)
-			to_chat(H, "<span class='notice'>Your confidence surges as [user] flourishes [user.p_their()] [name]!</span>")
+			to_chat(H, span_notice("Your confidence surges as [user] flourishes [user.p_their()] [name]!"))
 		inspiration(H)
 		special_inspiration(H)
 
@@ -87,14 +88,6 @@
 /obj/item/banner/security/mundane
 	inspiration_available = FALSE
 
-/datum/crafting_recipe/security_banner
-	name = "Securistan Banner"
-	result = /obj/item/banner/security/mundane
-	time = 40
-	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/security/officer = 1)
-	category = CAT_MISC
-
 /obj/item/banner/medical
 	name = "meditopia banner"
 	desc = "The banner of Meditopia, generous benefactors that cure wounds and shelter the weak."
@@ -110,14 +103,6 @@
 
 /obj/item/banner/medical/check_inspiration(mob/living/carbon/human/H)
 	return H.stat //Meditopia is moved to help those in need
-
-/datum/crafting_recipe/medical_banner
-	name = "Meditopia Banner"
-	result = /obj/item/banner/medical/mundane
-	time = 40
-	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/medical = 1)
-	category = CAT_MISC
 
 /obj/item/banner/medical/special_inspiration(mob/living/carbon/human/H)
 	H.adjustToxLoss(-15, FALSE, TRUE)
@@ -140,14 +125,6 @@
 /obj/item/banner/science/check_inspiration(mob/living/carbon/human/H)
 	return H.on_fire //Sciencia is pleased by dedication to the art of Toxins
 
-/datum/crafting_recipe/science_banner
-	name = "Sciencia Banner"
-	result = /obj/item/banner/science/mundane
-	time = 40
-	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/rnd/scientist = 1)
-	category = CAT_MISC
-
 /obj/item/banner/cargo
 	name = "cargonia banner"
 	desc = "The banner of the eternal Cargonia, with the mystical power of conjuring any object into existence."
@@ -160,14 +137,6 @@
 
 /obj/item/banner/cargo/mundane
 	inspiration_available = FALSE
-
-/datum/crafting_recipe/cargo_banner
-	name = "Cargonia Banner"
-	result = /obj/item/banner/cargo/mundane
-	time = 40
-	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/cargo/tech = 1)
-	category = CAT_MISC
 
 /obj/item/banner/engineering
 	name = "engitopia banner"
@@ -185,14 +154,6 @@
 /obj/item/banner/engineering/special_inspiration(mob/living/carbon/human/H)
 	H.radiation = 0
 
-/datum/crafting_recipe/engineering_banner
-	name = "Engitopia Banner"
-	result = /obj/item/banner/engineering/mundane
-	time = 40
-	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/engineering/engineer = 1)
-	category = CAT_MISC
-
 /obj/item/banner/command
 	name = "command banner"
 	desc = "The banner of Command, a staunch and ancient line of bueraucratic kings and queens."
@@ -205,14 +166,6 @@
 
 /obj/item/banner/command/check_inspiration(mob/living/carbon/human/H)
 	return HAS_TRAIT(H, TRAIT_MINDSHIELD) //Command is stalwart but rewards their allies.
-
-/datum/crafting_recipe/command_banner
-	name = "Command Banner"
-	result = /obj/item/banner/command/mundane
-	time = 40
-	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/captain/parade = 1)
-	category = CAT_MISC
 
 /obj/item/banner/red
 	name = "red banner"
@@ -245,52 +198,6 @@
 	name = "blue banner backpack"
 	desc = "It's a backpack with lots of extra room.  A blue banner is attached, that can't be removed."
 	icon_state = "bannerpack-blue"
-
-//this is all part of one item set
-/obj/item/clothing/suit/armor/plate/crusader
-	name = "Crusader's Armour"
-	desc = "Armour that's comprised of metal and cloth."
-	icon_state = "crusader"
-	w_class = WEIGHT_CLASS_BULKY
-	slowdown = 2.0 //gotta pretend we're balanced.
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50)
-
-/obj/item/clothing/suit/armor/plate/crusader/red
-	icon_state = "crusader-red"
-
-/obj/item/clothing/suit/armor/plate/crusader/blue
-	icon_state = "crusader-blue"
-
-/obj/item/clothing/head/helmet/plate/crusader
-	name = "Crusader's Hood"
-	desc = "A brownish hood."
-	icon_state = "crusader"
-	w_class = WEIGHT_CLASS_NORMAL
-	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50)
-
-/obj/item/clothing/head/helmet/plate/crusader/blue
-	icon_state = "crusader-blue"
-
-/obj/item/clothing/head/helmet/plate/crusader/red
-	icon_state = "crusader-red"
-
-//Prophet helmet
-/obj/item/clothing/head/helmet/plate/crusader/prophet
-	name = "Prophet's Hat"
-	desc = "A religious-looking hat."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
-	flags_1 = 0
-	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 70, BIO = 50, RAD = 50, FIRE = 60, ACID = 60, STAMINA = 60) //religion protects you from disease and radiation, honk.
-	worn_x_dimension = 64
-	worn_y_dimension = 64
-
-/obj/item/clothing/head/helmet/plate/crusader/prophet/red
-	icon_state = "prophet-red"
-
-/obj/item/clothing/head/helmet/plate/crusader/prophet/blue
-	icon_state = "prophet-blue"
 
 //Structure conversion staff
 /obj/item/godstaff
@@ -343,13 +250,25 @@
 	desc = "Metal boots, they look heavy."
 	icon_state = "crusader"
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 30) //does this even do anything on boots?
+	armor_type = /datum/armor/shoes_plate
 	clothing_flags = NOSLIP
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 
+
+
+/datum/armor/shoes_plate
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 40
+	bomb = 60
+	fire = 60
+	acid = 60
+	stamina = 30
+	bleed = 60
 
 /obj/item/clothing/shoes/plate/red
 	icon_state = "crusader-red"
@@ -364,14 +283,14 @@
 
 
 /obj/item/storage/box/itemset/crusader/blue/PopulateContents()
-	new /obj/item/clothing/suit/armor/plate/crusader/blue(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/crusader/blue(src)
 	new /obj/item/clothing/head/helmet/plate/crusader/blue(src)
 	new /obj/item/clothing/gloves/plate/blue(src)
 	new /obj/item/clothing/shoes/plate/blue(src)
 
 
 /obj/item/storage/box/itemset/crusader/red/PopulateContents()
-	new /obj/item/clothing/suit/armor/plate/crusader/red(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/crusader/red(src)
 	new /obj/item/clothing/head/helmet/plate/crusader/red(src)
 	new /obj/item/clothing/gloves/plate/red(src)
 	new /obj/item/clothing/shoes/plate/red(src)

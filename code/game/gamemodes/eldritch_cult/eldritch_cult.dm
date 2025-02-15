@@ -15,9 +15,9 @@
 	allowed_special = list(/datum/special_role/traitor/higher_chance)
 
 	announce_span = "danger"
-	announce_text = "Heretics have been spotted on the station!\n\
-	<span class='danger'>Heretics</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Do not let the madman succeed!"
+	announce_text = "Heretics have been spotted on the station!\n \
+	" + span_danger("Heretics") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Do not let the madman succeed!"
 
 	var/ecult_possible = 4 //hard limit on culties if scaling is turned off
 	var/num_ecult = 1
@@ -32,7 +32,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 
 	var/esc = CONFIG_GET(number/ecult_scaling_coeff)

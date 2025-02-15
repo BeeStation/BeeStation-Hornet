@@ -42,8 +42,8 @@
 		can_reclaim = TRUE
 
 	var/obj/item/card/id/I = user.get_idcard(TRUE)
-	if(istype(I, /obj/item/card/id/prisoner))
-		var/obj/item/card/id/prisoner/prisonerID = I
+	if(istype(I, /obj/item/card/id/gulag))
+		var/obj/item/card/id/gulag/prisonerID = I
 		if(prisonerID.points >= prisonerID.goal && !prisonerID.permanent)
 			can_reclaim = TRUE
 
@@ -72,7 +72,7 @@
 		if("release_items")
 			var/mob/living/carbon/human/H = locate(params["mobref"]) in stored_items
 			if(H != usr && !allowed(usr))
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, span_warning("Access denied."))
 				return
 			drop_items(H)
 			. = TRUE

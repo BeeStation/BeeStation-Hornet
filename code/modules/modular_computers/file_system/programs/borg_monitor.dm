@@ -28,7 +28,7 @@
 	data["card"] = !!get_id_name()
 
 	data["cyborgs"] = list()
-	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 		if(!evaluate_borg(R))
 			continue
 
@@ -59,29 +59,29 @@
 
 	switch(action)
 		if("messagebot")
-			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.cyborg_list
 			if(!istype(R))
 				return TRUE
 			var/sender_name = get_id_name()
 			if(!sender_name)
 				// This can only happen if the action somehow gets called as UI blocks this action with no ID
-				computer.visible_message("<span class='notice'>Insert an ID to send messages.</span>")
+				computer.visible_message(span_notice("Insert an ID to send messages."))
 				playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 				return TRUE
 			if(R.stat == DEAD) //Dead borgs will listen to you no longer
-				to_chat(usr, "<span class='warn'>Error -- Could not open a connection to unit:[R]</span>")
+				to_chat(usr, span_warn("Error -- Could not open a connection to unit:[R]"))
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
-			if(CHAT_FILTER_CHECK(message))
-				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
+			if(OOC_FILTER_CHECK(message))
+				to_chat(usr, span_warning("ERROR: Prohibited word(s) detected in message."))
 				return
-			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
+			to_chat(usr, "<br><br>[span_notice("Message to [R] (as [sender_name]) -- \"[message]\"")]<br>")
 			computer.send_sound()
-			to_chat(R, "<br><br><span class='notice'>Message from [sender_name] -- \"[message]\"</span><br>")
+			to_chat(R, "<br><br>[span_notice("Message from [sender_name] -- \"[message]\"")]<br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='notice'>Message from [sender_name] to [R] -- \"[message]\"</span><br>")
+				to_chat(R.connected_ai, "<br><br>[span_notice("Message from [sender_name] to [R] -- \"[message]\"")]<br>")
 				SEND_SOUND(R.connected_ai, 'sound/machines/twobeep_high.ogg')
 			R.logevent("Message from [sender_name] -- \"[message]\"")
 			usr.log_talk(message, LOG_PDA, tag="Cyborg Monitor Program: ID name \"[sender_name]\" to [R]")

@@ -5,6 +5,8 @@
 	var/jammed = FALSE
 	/// Moved relay
 	var/datum/component/moved_relay/associated_relay
+	/// used to track which z array of GLOB.jam_receivers_by_z this component is in.
+	var/associated_z
 
 /datum/component/jam_receiver/Initialize(_intensity_resist = JAMMER_PROTECTION_RADIO_BASIC)
 	. = ..()
@@ -12,12 +14,11 @@
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	var/atom/parent_atom = parent
-	// Register this receiver. Clump them together by Z since there will be more of them then jammers.
-	while (length(GLOB.jam_receivers_by_z) < parent_atom.z)
-		GLOB.jam_receivers_by_z += list(list())
+	var/turf/myturf = get_turf(parent)
+	associated_z = myturf?.z
 
-	GLOB.jam_receivers_by_z[parent_atom.z] += src
+	// Register this receiver. Clump them together by Z since there will be more of them then jammers.
+	add_self_to_list(associated_z)
 
 	// We need to know when our parent atoms move
 	associated_relay = parent.AddComponent(/datum/component/moved_relay)
@@ -33,12 +34,32 @@
 	var/datum/component/moved_relay/move_relay = associated_relay
 	move_relay.depth --
 	if (move_relay.depth == 0)
-		move_relay.RemoveComponent()
+		qdel(move_relay)
 		associated_relay = null
+	remove_self_from_list(associated_z)
 
 /datum/component/jam_receiver/proc/on_move(...)
 	SIGNAL_HANDLER
+	check_z_changed()
 	check_jammed()
+
+/datum/component/jam_receiver/proc/check_z_changed()
+	var/turf/myturf = get_turf(parent)
+	var/current_z = myturf?.z
+	if(current_z != associated_z) // z is changed. we change this.
+		remove_self_from_list(associated_z)
+		add_self_to_list(current_z)
+		associated_z = current_z
+
+/datum/component/jam_receiver/proc/add_self_to_list(target_z)
+	while (length(GLOB.jam_receivers_by_z) < target_z)
+		GLOB.jam_receivers_by_z += list(list())
+	if(target_z > 0)
+		GLOB.jam_receivers_by_z[target_z] += src
+
+/datum/component/jam_receiver/proc/remove_self_from_list(target_z)
+	if(target_z > 0)
+		GLOB.jam_receivers_by_z[target_z] -= src
 
 /datum/component/jam_receiver/proc/check_jammed()
 	var/atom/atom_parent = parent

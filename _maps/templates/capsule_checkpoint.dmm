@@ -1,0 +1,98 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing/sec{
+	dir = 5
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+"g" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing/sec{
+	dir = 10
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/checkpoint{
+	req_access_txt = "2";
+	dir = 1;
+	name = "Checkpoint"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+"j" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/pod,
+/area/template_noop)
+"k" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/checkpoint{
+	req_access_txt = "2";
+	dir = 4;
+	name = "Checkpoint"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+"s" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/checkpoint{
+	req_access_txt = "2";
+	name = "Checkpoint"
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/pod,
+/area/template_noop)
+"t" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/structure/railing/sec{
+	dir = 9
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing/sec{
+	dir = 6
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+"X" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/checkpoint{
+	req_access_txt = "2";
+	dir = 8;
+	name = "Checkpoint"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/pod,
+/area/template_noop)
+
+(1,1,1) = {"
+t
+X
+g
+"}
+(2,1,1) = {"
+i
+j
+s
+"}
+(3,1,1) = {"
+a
+k
+w
+"}

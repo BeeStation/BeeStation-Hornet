@@ -7,7 +7,7 @@
 /area/template_noop)
 "d" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "i" = (
@@ -26,7 +26,7 @@
 /obj/item/restraints/handcuffs/cable,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "r" = (
@@ -48,7 +48,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
@@ -75,7 +75,7 @@
 /area/template_noop)
 "M" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "P" = (

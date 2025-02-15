@@ -91,7 +91,7 @@
 
 /datum/tgui_input_emoji/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/emoji)
+		get_asset_datum(/datum/asset/spritesheet_batched/emoji)
 	)
 
 /datum/tgui_input_emoji/ui_static_data(mob/user)

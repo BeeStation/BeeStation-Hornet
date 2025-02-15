@@ -68,7 +68,7 @@
 
 /obj/item/clothing/glasses/hud/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+	to_chat(user, span_warning("PZZTTPFFFT"))
 	desc = "[desc] The display is flickering slightly."
 	//If we aren't already glitching out, start glitching
 	if(!(obj_flags & OBJ_EMPED))
@@ -121,6 +121,7 @@
 	name = "health scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
+	emissive_state = "hud_emissive"
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	hud_trait = TRAIT_MEDICAL_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
@@ -129,6 +130,7 @@
 	name = "night vision health scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
+	emissive_state = "nvg_emissive"
 	item_state = "glasses"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -138,6 +140,7 @@
 	name = "medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD."
 	icon_state = "sunhudmed"
+	emissive_state = "sun_emissive"
 	darkness_view = 1
 	flash_protect = 1
 	tint = 1
@@ -147,6 +150,7 @@
 	name = "prescription medical HUDglasses"
 	desc = "Prescription glasses with a built-in medical HUD."
 	icon_state = "prescmedhud"
+	emissive_state = "prehud_emissive"
 	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
@@ -158,13 +162,16 @@
 	name = "diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diagnostichud"
+	emissive_state = "hud_emissive"
 	hud_type = DATA_HUD_DIAGNOSTIC_BASIC
+	hud_trait = TRAIT_DIAGNOSTIC_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
 
 /obj/item/clothing/glasses/hud/diagnostic/night
 	name = "night vision diagnostic HUD"
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
+	emissive_state = "nvg_emissive"
 	item_state = "glasses"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -174,6 +181,7 @@
 	name = "diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD."
 	icon_state = "sunhuddiag"
+	emissive_state = "sun_emissive"
 	item_state = "glasses"
 	flash_protect = 1
 	tint = 1
@@ -187,12 +195,14 @@
 	name = "prescription diagnostic HUDglasses"
 	desc = "Prescription glasses with a built-in diagnostic HUD."
 	icon_state = "prescdiaghud"
+	emissive_state = "prehud_emissive"
 	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
+	emissive_state = "hud_emissive"
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	hud_trait = TRAIT_SECURITY_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/red
@@ -200,6 +210,7 @@
 /obj/item/clothing/glasses/hud/security/deputy
 	name = "deputy security HUD"
 	icon_state = "sunhudtoggle"
+	emissive_state = "sechud_emissive"
 
 /obj/item/clothing/glasses/hud/medsec
 	name = "medsec HUD"
@@ -226,6 +237,7 @@
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_action)
 
 /obj/item/clothing/glasses/hud/security/chameleon/emp_act(severity)
 	. = ..()
@@ -238,11 +250,13 @@
 	name = "eyepatch HUD"
 	desc = "A heads-up display that connects directly to the optical nerve of the user, replacing the need for that useless eyeball."
 	icon_state = "hudpatch"
+	emissive_state = "hudpatch_emissive"
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "security HUDSunglasses"
 	desc = "Sunglasses with a security HUD."
 	icon_state = "sunhudsec"
+	emissive_state = "sechud_emissive"
 	darkness_view = 1
 	flash_protect = 1
 	tint = 1
@@ -257,6 +271,7 @@
 	name = "night vision security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
+	emissive_state = "nvg_emissive"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
@@ -265,6 +280,7 @@
 	name = "prescription security HUDglasses"
 	desc = "Prescription glasses with a built-in security HUD. They do not provide flash protection."
 	icon_state = "prescsechud"
+	emissive_state = "prehud_emissive"
 	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
@@ -275,9 +291,11 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
+	bleed_force = BLEED_SURFACE
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars
 	name = "giga HUD gar glasses"
@@ -291,12 +309,14 @@
 	name = "Toggle HUD"
 	desc = "A hud with multiple functions."
 	icon_state = "togglehud"
+	emissive_state = "hud_emissive"
 	actions_types = list(/datum/action/item_action/switch_hud)
 
 /obj/item/clothing/glasses/hud/toggle/sunglasses
 	name = "Toggle HUDSunglasses"
 	desc = "Sunglasses with a Toggle HUD."
 	icon_state = "sunhudtoggle"
+	emissive_state = "sechud_emissive"
 	actions_types = list(/datum/action/item_action/switch_hud)
 
 /obj/item/clothing/glasses/hud/toggle/attack_self(mob/user)
@@ -321,10 +341,14 @@
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.add_hud_to(user)
 
+/datum/action/item_action/switch_hud
+	name = "Switch HUD"
+
 /obj/item/clothing/glasses/hud/toggle/thermal
 	name = "thermal HUD scanner"
 	desc = "Thermal imaging HUD in the shape of glasses."
 	icon_state = "thermal"
+	emissive_state = "meson_emissive"
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE

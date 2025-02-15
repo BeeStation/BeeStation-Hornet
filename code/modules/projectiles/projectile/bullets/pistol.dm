@@ -14,11 +14,21 @@
 	damage = 10
 	fire_stacks = 1
 
+/obj/projectile/bullet/c9mm_hp
+	name = "9mm hollow-point bullet"
+	damage = 25
+	armour_penetration = 30
+
+
 // 10mm (Stechkin)
 
 /obj/projectile/bullet/c10mm
 	name = "10mm bullet"
 	damage = 30
+
+/obj/projectile/bullet/c10mm/improv
+	name = "10mm bullet"
+	damage = 27
 
 /obj/projectile/bullet/c10mm_ap
 	name = "10mm armor-piercing bullet"

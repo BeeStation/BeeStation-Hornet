@@ -16,18 +16,23 @@
 	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
-	var/current_body_size = BODY_SIZE_NORMAL //This is a size multiplier, it starts at "1".
+	var/current_body_size = BODY_SIZE_NORMAL
+	//Holder for the displacement appearance, related to species height
+	var/icon/height_displacement
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
+	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
 		if(cholder?.dna == src)
 			cholder.dna = null
+	holder?.remove_filter("species_height_displacement")
 	holder = null
+	QDEL_NULL(height_displacement)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -38,13 +43,12 @@
 
 	return ..()
 
-/datum/dna/proc/transfer_identity(mob/living/carbon/destination, transfer_SE = FALSE)
+/datum/dna/proc/transfer_identity(mob/living/carbon/destination, transfer_SE = FALSE, transfer_species = TRUE)
 	if(!istype(destination))
 		return
 	destination.dna.unique_enzymes = unique_enzymes
 	destination.dna.uni_identity = uni_identity
 	destination.dna.blood_type = blood_type
-	destination.set_species(species.type, icon_update=0)
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
@@ -54,6 +58,8 @@
 		for(var/datum/mutation/M as() in mutations)
 			if(!istype(M, RACEMUT))
 				destination.dna.add_mutation(M, M.class)
+	if(transfer_species)
+		destination.set_species(species.type, icon_update=0)
 
 /datum/dna/proc/copy_dna(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
@@ -255,9 +261,9 @@
 		if(alert)
 			switch(stability)
 				if(1 to 19)
-					message = "<span class='warning'>You can feel your cells burning.</span>"
+					message = span_warning("You can feel your cells burning.")
 				if(-INFINITY to 0)
-					message = "<span class='boldwarning'>You can feel your DNA exploding, we need to do something fast!</span>"
+					message = span_boldwarning("You can feel your DNA exploding, we need to do something fast!")
 		if(stability <= 0)
 			holder.apply_status_effect(STATUS_EFFECT_DNA_MELT)
 		if(message)
@@ -296,20 +302,22 @@
 	return
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
-/datum/dna/proc/update_body_size()
-	if(!holder || !features["body_size"])
+/datum/dna/proc/update_body_size(force)
+	var/list/heights = species?.get_species_height()
+	if((!holder || !features["body_size"] || !length(heights)) && !force)
 		return
 
-	var/desired_size = GLOB.body_sizes[features["body_size"]]
+	var/desired_size = heights[features["body_size"]]
 
-	if(desired_size == current_body_size || current_body_size == 0)
+	if(desired_size == current_body_size && !force)
 		return
 
-	var/change_multiplier = desired_size / current_body_size
-	var/translate = ((change_multiplier-1) * 32) * 0.5
-	holder.transform = holder.transform.Scale(change_multiplier)
-	holder.transform = holder.transform.Translate(0, translate)
-	current_body_size = desired_size
+	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
+	holder.remove_filter("height_cutoff_fix")
+	holder.add_filter("height_cutoff_fix", 1, layering_filter(icon = height_displacement, color = "#ffffff00"))
+	//Build / setup displacement filter
+	holder.remove_filter("species_height_displacement")
+	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
@@ -337,11 +345,6 @@
 		dna.species = new_race
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
-		if(ishuman(src))
-			qdel(language_holder)
-			var/species_holder = initial(mrace.species_language_holder)
-			language_holder = new species_holder(src)
-		update_atom_languages()
 		if(icon_update)
 			update_mutations_overlay()// no lizard with human hulk overlay please.
 
@@ -629,23 +632,23 @@
 			if(1)
 				gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 				new/obj/vehicle/ridden/wheelchair(get_turf(src)) //don't buckle, because I can't imagine to plethora of things to go through that could otherwise break
-				to_chat(src, "<span class='warning'>My flesh turned into a wheelchair and I can't feel my legs.</span>")
+				to_chat(src, span_warning("My flesh turned into a wheelchair and I can't feel my legs."))
 			if(2)
 				corgize()
 			if(3)
-				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
+				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 			if(4)
-				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>") //you thought
+				to_chat(src, span_notice("Oh, I actually feel quite alright!")) //you thought
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					H.physiology.damage_resistance = -20000
 			if(5)
-				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
+				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
 			if(6)
 				apply_status_effect(STATUS_EFFECT_GO_AWAY)
 			if(7)
-				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
+				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				ForceContractDisease(new/datum/disease/decloning()) //slow acting, non-viral clone damage based GBS
 			if(8)
 				var/list/elligible_organs = list()
@@ -655,13 +658,13 @@
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)
-					visible_message("<span class='danger'>[src] vomits up their [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
+					visible_message(span_danger("[src] vomits up [p_their()] [O.name]!"), span_danger("You vomit up your [O.name]!")) //no "vomit up your the heart"
 					O.forceMove(drop_location())
 					if(prob(20))
 						O.animate_atom_living()
 			if(9 to 10)
 				ForceContractDisease(new/datum/disease/gastrolosis())
-				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
+				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 	else
 		switch(rand(0,5))
 			if(0)
@@ -686,7 +689,7 @@
 				else
 					set_species(/datum/species/dullahan)
 			if(4)
-				visible_message("<span class='warning'>[src]'s skin melts off!</span>", "<span class='boldwarning'>Your skin melts off!</span>")
+				visible_message(span_warning("[src]'s skin melts off!"), span_boldwarning("Your skin melts off!"))
 				spawn_gibs()
 				set_species(/datum/species/skeleton)
 				if(prob(90) && !QDELETED(src))
@@ -694,7 +697,7 @@
 					if(mind)
 						mind.hasSoul = FALSE
 			if(5)
-				to_chat(src, "<span class='phobia'>LOOK UP!</span>")
+				to_chat(src, span_phobia("LOOK UP!"))
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
 
 
@@ -705,5 +708,5 @@
 			return
 		eyes.Remove(src)
 		qdel(eyes)
-		visible_message("<span class='notice'>[src] looks up and their eyes melt away!</span>", "<span class='userdanger'>I understand now.</span>")
+		visible_message(span_notice("[src] looks up and their eyes melt away!"), span_userdanger("I understand now."))
 		addtimer(CALLBACK(src, PROC_REF(adjustOrganLoss), ORGAN_SLOT_BRAIN, 200), 20)

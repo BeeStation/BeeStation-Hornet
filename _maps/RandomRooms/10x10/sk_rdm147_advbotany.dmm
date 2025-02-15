@@ -21,8 +21,8 @@
 /area/template_noop)
 "g" = (
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -173,7 +173,7 @@
 /area/template_noop)
 "T" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "U" = (

@@ -23,14 +23,14 @@
 	if(!owner?.current?.contents)
 		return FALSE
 	var/pillcount = target_amount
-	for(var/obj/item/reagent_containers/food/snacks/grown/P in owner.current.get_contents())
+	for(var/obj/item/food/grown/P in owner.current.get_contents())
 		if(P.reagents.has_reagent(targetchem))
 			pillcount--
 	return pillcount <= 0
 
 /datum/objective/crew/foodhoard
 	var/datum/crafting_recipe/food/targetfood
-	var/obj/item/reagent_containers/food/foodpath
+	var/obj/item/food/foodpath
 	explanation_text = "Personally deliver at least (Something broke, yell on GitHub) to CentCom."
 	jobs = JOB_NAME_COOK
 
@@ -233,7 +233,7 @@
 	jobs = JOB_NAME_MIME
 
 /datum/objective/crew/nothingreallymatterstome/check_completion()
-	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing)
+	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing)
 
 /datum/objective/crew/nullrod
 	explanation_text = "Don't lose your nullrod. You can still transform it into another item."
@@ -283,7 +283,7 @@
 
 /datum/objective/crew/pwrgame/New()
 	. = ..()
-	var/list/possible_targets = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/welding, /obj/item/clothing/head/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
+	var/list/possible_targets = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/utility/welding, /obj/item/clothing/head/costume/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
 	if(prob(10))
 		possible_targets += list(/obj/item/clothing/suit/space)
 	clothing_target = pick(possible_targets)
@@ -332,7 +332,7 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || !(M.assigned_role in GLOB.security_positions))
+		if(!istype(M.current) || !(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 			continue
 		if(istype(get_area(M.current), /area/security/prison))
 			return FALSE

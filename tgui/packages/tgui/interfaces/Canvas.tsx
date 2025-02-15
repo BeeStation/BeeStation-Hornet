@@ -1,5 +1,5 @@
 import { Color } from 'common/color';
-import { Component, createRef, RefObject } from 'inferno';
+import { Component, createRef, RefObject } from 'react';
 import { useBackend } from '../backend';
 import { Box, Button, Flex } from '../components';
 import { Window } from '../layouts';
@@ -33,7 +33,7 @@ const toMassPaintFormat = (data: PointData[]) => {
 
 class PaintCanvas extends Component<PaintCanvasProps> {
   canvasRef: RefObject<HTMLCanvasElement>;
-  baseImageData: Color[][]
+  baseImageData: Color[][];
   modifiedElements: PointData[];
   onCanvasModified: (data: PointData[]) => void;
   drawing: boolean;
@@ -103,8 +103,10 @@ class PaintCanvas extends Component<PaintCanvasProps> {
     const y_resolution = this.props.imageHeight || 36;
     const x_scale = Math.round(width / x_resolution);
     const y_scale = Math.round(height / y_resolution);
-    const x = Math.floor(event.offsetX / x_scale);
-    const y = Math.floor(event.offsetY / y_scale);
+
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor((event.clientX - rect.left) / x_scale);
+    const y = Math.floor((event.clientY - rect.top) / y_scale);
     return { x, y };
   }
 
@@ -165,10 +167,10 @@ class PaintCanvas extends Component<PaintCanvasProps> {
         width={width}
         height={height}
         {...rest}
-        onMouseDown={this.handleStartDrawing}
-        onMouseMove={this.handleDrawing}
-        onMouseUp={this.handleEndDrawing}
-        onMouseOut={this.handleEndDrawing}>
+        onMouseDown={this.handleStartDrawing as any}
+        onMouseMove={this.handleDrawing as any}
+        onMouseUp={this.handleEndDrawing as any}
+        onMouseOut={this.handleEndDrawing as any}>
         Canvas failed to render.
       </canvas>
     );
@@ -194,8 +196,8 @@ type CanvasData = {
   show_plaque: boolean
 }
 
-export const Canvas = (props, context) => {
-  const { act, data } = useBackend<CanvasData>(context);
+export const Canvas = (props) => {
+  const { act, data } = useBackend<CanvasData>();
   const [width, height] = getImageSize(data.grid);
   const scaled_width = width * PX_PER_UNIT;
   const scaled_height = height * PX_PER_UNIT;
@@ -232,7 +234,7 @@ export const Canvas = (props, context) => {
                 textColor="black"
                 textAlign="left"
                 backgroundColor="white"
-                style={{ "border-style": "inset" }}>
+                style={{ borderStyle: "inset" }}>
                 <Box mb={1} fontSize="18px" bold>{data.name}</Box>
                 <Box bold>
                   {data.author}

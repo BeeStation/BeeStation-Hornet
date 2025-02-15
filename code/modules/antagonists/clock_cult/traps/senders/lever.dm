@@ -11,12 +11,11 @@
 	unwrench_path = /obj/item/wallframe/clocktrap/lever
 	component_datum = /datum/component/clockwork_trap/lever
 	max_integrity = 75
-	obj_integrity = 75
 
 /datum/component/clockwork_trap/lever
 	sends_input = TRUE
 
 /datum/component/clockwork_trap/lever/clicked(mob/user)
 	trigger_connected()
-	to_chat(user, "<span class='notice'>You activate the switch.</span>")
+	to_chat(user, span_notice("You activate the switch."))
 	playsound(user, 'sound/machines/click.ogg', 50)

@@ -6,6 +6,14 @@
 	caliber = "10mm"
 	projectile_type = /obj/projectile/bullet/c10mm
 
+/obj/item/ammo_casing/c10mm/improv
+	name = "improvised 10mm bullet casing"
+	desc = "A handmade 10mm bullet casing."
+	caliber = "10mm"
+	projectile_type = /obj/projectile/bullet/c10mm/improv
+	randomspread = TRUE
+	variance = 10 //Shit ammo is inaccurate.
+
 /obj/item/ammo_casing/c10mm/ap
 	name = "10mm armor-piercing bullet casing"
 	desc = "A 10mm armor-piercing bullet casing."
@@ -29,6 +37,12 @@
 	caliber = "9mm"
 	projectile_type = /obj/projectile/bullet/c9mm
 
+/obj/item/ammo_casing/c9mm/improv
+	name = "improvised 9mm bullet casing"
+	desc = "A handmade 9mm bullet casing."
+	randomspread = TRUE
+	variance = 10 //Shit ammo is inaccurate.
+
 /obj/item/ammo_casing/c9mm/ap
 	name = "9mm armor-piercing bullet casing"
 	desc = "A 9mm armor-piercing bullet casing."
@@ -38,6 +52,11 @@
 	name = "9mm incendiary bullet casing"
 	desc = "A 9mm incendiary bullet casing."
 	projectile_type = /obj/projectile/bullet/incendiary/c9mm
+
+/obj/item/ammo_casing/c9mm/hp
+	name = "9mm HP bullet casing"
+	desc = "A 9mm HP bullet casing."
+	projectile_type = /obj/projectile/bullet/c9mm_hp
 
 
 // .50AE (Desert Eagle)

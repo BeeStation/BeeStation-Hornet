@@ -1,4 +1,4 @@
-// 7.62 (Nagant Rifle)
+// 7.62 (Nagant Rifle / Pipe Rifle)
 
 /obj/item/ammo_casing/a762
 	name = "7.62 bullet casing"
@@ -6,6 +6,17 @@
 	icon_state = "762-casing"
 	caliber = "a762"
 	projectile_type = /obj/projectile/bullet/a762
+
+/obj/item/ammo_casing/a762/improv
+	name = "a762 improvised cartridge"
+	desc = "A handmade 7.62 cartidge, made from metal and some other scraps. It reeks of welding fuel."
+	icon_state = "762improv"
+	projectile_type = /obj/projectile/bullet/a762/improv
+
+/obj/item/ammo_casing/a762/improv/hotload
+	name = "7.62 hotload cartridge"
+	desc = "A higher quality handmade 7.62 cartridge. It smells like charcoal."
+	projectile_type = /obj/projectile/bullet/a762/improv/hotload
 
 /obj/item/ammo_casing/a762/enchanted
 	projectile_type = /obj/projectile/bullet/a762_enchanted

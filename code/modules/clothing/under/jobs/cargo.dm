@@ -1,3 +1,7 @@
+/obj/item/clothing/under/rank/cargo
+	icon = 'icons/obj/clothing/under/cargo.dmi'
+	worn_icon = 'icons/mob/clothing/under/cargo.dmi'
+
 /obj/item/clothing/under/rank/cargo/quartermaster
 	name = "quartermaster's jumpsuit"
 	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
@@ -11,8 +15,9 @@
 	item_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck
 	name = "quartermaster's turtleneck"
@@ -28,13 +33,14 @@
 	icon_state = "qmturtle_skirt"
 	item_state = "qmturtle_skirt"
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/cargo/tech
 	name = "cargo technician's jumpsuit"
 	desc = "Shooooorts! They're comfy and easy to wear!"
-	icon_state = "cargo"
+	icon_state = "cargotech"
 	item_state = "cargo"
 	body_parts_covered = CHEST|GROIN|ARMS
 	supports_variations = DIGITIGRADE_VARIATION
@@ -47,14 +53,22 @@
 	item_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/cargo/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
 	name = "shaft miner's jumpsuit"
 	icon_state = "miner"
 	item_state = "miner"
+	armor_type = /datum/armor/cargo_miner
+
+
+/datum/armor/cargo_miner
+	bio = 10
+	fire = 80
+	bleed = 10
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	desc = "A green uniform for operating in hazardous environments."
@@ -66,8 +80,10 @@
 /obj/item/clothing/under/rank/cargo/exploration
 	name = "exploration uniform"
 	desc = "A robust uniform used by exploration teams."
+	icon = 'icons/obj/clothing/under/civilian.dmi'
 	icon_state = "curator"
-	item_state = "curator"
+	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
+	item_state = null
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/mailman
@@ -83,5 +99,6 @@
 	item_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT

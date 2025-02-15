@@ -211,20 +211,20 @@
 		if(0 to NANITE_EXCESS_MINOR) //Minor excess amount, the extra nanites are quietly expelled without visible effects
 			return
 		if((NANITE_EXCESS_MINOR + 0.1) to NANITE_EXCESS_VOMIT) //Enough nanites getting rejected at once to be visible to the naked eye
-			host_mob.visible_message("<span class='warning'>A grainy grey slurry starts oozing out of [host_mob].</span>", "<span class='warning'>A grainy grey slurry starts oozing out of your skin.</span>", vision_distance = 4);
+			host_mob.visible_message(span_warning("A grainy grey slurry starts oozing out of [host_mob]."), span_warning("A grainy grey slurry starts oozing out of your skin."), vision_distance = 4);
 		if((NANITE_EXCESS_VOMIT + 0.1) to NANITE_EXCESS_BURST) //Nanites getting rejected in massive amounts, but still enough to make a semi-orderly exit through vomit
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
-				host_mob.visible_message("<span class='warning'>[host_mob] vomits a grainy grey slurry!</span>", "<span class='warning'>You suddenly vomit a metallic-tasting grainy grey slurry!</span>");
+				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
 				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
 			else
-				host_mob.visible_message("<span class='warning'>A metallic grey slurry bursts out of [host_mob]'s skin!</span>", "<span class='userdanger'>A metallic grey slurry violently bursts out of your skin!</span>");
+				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
 				if(isturf(host_mob.drop_location()))
 					var/turf/T = host_mob.drop_location()
 					T.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
 		if((NANITE_EXCESS_BURST + 0.1) to INFINITY) //Way too many nanites, they just leave through the closest exit before they harm/poison the host
-			host_mob.visible_message("<span class='warning'>A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!</span>",
-								"<span class='userdanger'>A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!</span>");
+			host_mob.visible_message(span_warning("A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!"),
+								span_userdanger("A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!"));
 
 			host_mob.adjust_blindness(15) //nanites coming out of your eyes
 			host_mob.Paralyze(12 SECONDS)
@@ -298,11 +298,11 @@
 	for(var/datum/nanite_program/program as anything in programs)
 		program.on_death(gibbed)
 
-/datum/component/nanites/proc/receive_signal(datum/source, code, source = "an unidentified source")
+/datum/component/nanites/proc/receive_signal(datum/source, code, signal_source = "an unidentified source")
 	SIGNAL_HANDLER
 
 	for(var/datum/nanite_program/program as anything in programs)
-		program.receive_nanite_signal(code, source)
+		program.receive_nanite_signal(code, signal_source)
 
 /datum/component/nanites/proc/receive_comm_signal(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
 	SIGNAL_HANDLER
@@ -401,22 +401,22 @@
 	if(!full_scan)
 		. = TRUE
 		if(!stealth)
-			message += "<span class='info bold'>Nanites Detected</span>"
-			message += "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>"
+			message += span_infobold("Nanites Detected")
+			message += span_info("Saturation: [nanite_volume]/[max_nanites]")
 	else
-		message += "<span class='info bold'>Nanites Detected</span>"
-		message += "<span class='info'>================</span>"
-		message += "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>"
-		message += "<span class='info'>Safety Threshold: [safety_threshold]</span>"
-		message += "<span class='info'>Cloud ID: [cloud_id ? cloud_id : "None"]</span>"
-		message += "<span class='info'>Cloud Sync: [cloud_active ? "Active" : "Disabled"]</span>"
-		message += "<span class='info'>================</span>"
-		message += "<span class='info'>Program List:</span>"
+		message += span_infobold("Nanites Detected")
+		message += span_info("================")
+		message += span_info("Saturation: [nanite_volume]/[max_nanites]")
+		message += span_info("Safety Threshold: [safety_threshold]")
+		message += span_info("Cloud ID: [cloud_id ? cloud_id : "None"]")
+		message += span_info("Cloud Sync: [cloud_active ? "Active" : "Disabled"]")
+		message += span_info("================")
+		message += span_info("Program List:")
 		if(!diagnostics)
-			message += "<span class='alert'>Diagnostics Disabled</span>"
+			message += span_alert("Diagnostics Disabled")
 		else
 			for(var/datum/nanite_program/program as anything in programs)
-				message += "<span class='info'><b>[program.name]</b> | [program.activated ? "<span class='green'>Active</span>" : "<span class='red'>Inactive</span>"]</span>"
+				message += span_info("<b>[program.name]</b> | [program.activated ? span_green("Active") : span_red("Inactive")]")
 				for(var/datum/nanite_rule/rule as anything in program.rules)
 					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
 		. = TRUE

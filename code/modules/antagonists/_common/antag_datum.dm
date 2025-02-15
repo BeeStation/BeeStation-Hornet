@@ -90,6 +90,7 @@ GLOBAL_LIST(admin_antag_list)
 	give_antag_moodies()
 	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
+	new_body.update_action_buttons()
 
 //This handles the application of antag huds/special abilities
 /datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
@@ -115,9 +116,9 @@ GLOBAL_LIST(admin_antag_list)
 		if(tips)
 			show_tips(tips)
 		if(info_button)
-			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
-				You can always come back to it using the button in the top left.</span>")
-			info_button?.Trigger()
+			to_chat(owner.current, span_boldnotice("For more info, read the panel. \
+				You can always come back to it using the button in the top left."))
+			info_button?.trigger()
 		greet()
 	apply_innate_effects()
 	give_antag_moodies()
@@ -127,6 +128,7 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.client.holder.auto_deadmin()
 	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
+	owner.current.update_action_buttons()
 
 //in the future, this should entirely replace greet.
 /datum/antagonist/proc/make_info_button()
@@ -169,6 +171,7 @@ GLOBAL_LIST(admin_antag_list)
 			owner.current.remove_from_current_living_antags()
 		if(!silent && owner.current)
 			farewell()
+		owner.current.update_action_buttons()
 	var/datum/team/team = get_team()
 	if(team)
 		team.remove_member(owner)
@@ -216,15 +219,15 @@ GLOBAL_LIST(admin_antag_list)
 				break
 
 	if(objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += span_greentextbig("The [name] was successful!")
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
 
 //Displayed at the start of roundend_category section, default to roundend_category header
 /datum/antagonist/proc/roundend_report_header()
-	return 	"<span class='header'>The [roundend_category] were:</span><br>"
+	return 	"[span_header("The [roundend_category] were:")]<br>"
 
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
@@ -360,7 +363,6 @@ GLOBAL_LIST(admin_antag_list)
 		/datum/antagonist/traitor,
 		/datum/antagonist/blob,
 		/datum/antagonist/changeling,
-		/datum/antagonist/devil,
 		/datum/antagonist/ninja,
 		/datum/antagonist/nukeop,
 		/datum/antagonist/wizard,
@@ -390,7 +392,7 @@ GLOBAL_LIST(admin_antag_list)
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(CLOWNMUT)
 			if(!silent && message)
-				to_chat(C, "<span class='boldnotice'>[message]</span>")
+				to_chat(C, span_boldnotice("[message]"))
 		else
 			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
 
@@ -399,24 +401,20 @@ GLOBAL_LIST(admin_antag_list)
 	name = "Open Special Role Information:"
 	button_icon_state = "round_end"
 
-/datum/action/antag_info/New(Target)
+/datum/action/antag_info/New(master)
 	. = ..()
-	name = "Open [target] Information"
+	name = "Open [master] Information"
 
-/datum/action/antag_info/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
+/datum/action/antag_info/on_activate(mob/user, atom/target)
 	target.ui_interact(owner)
 
-/datum/action/antag_info/IsAvailable(feedback = FALSE)
-	if(!target)
+/datum/action/antag_info/is_available(feedback = FALSE)
+	if(!master)
 		stack_trace("[type] was used without a target antag datum!")
 		return FALSE
 	. = ..()
 	if(!.)
 		return
-	if(!owner.mind || !(target in owner.mind.antag_datums))
+	if(!owner.mind || !(master in owner.mind.antag_datums))
 		return FALSE
 	return TRUE

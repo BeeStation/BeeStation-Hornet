@@ -6,7 +6,7 @@
 		to reroll your sacrifice targets."
 	gain_text = "The heart is the principle that continues and preserves."
 	required_atoms = list(
-		/obj/item/reagent_containers/food/snacks/grown/flower = 1,
+		/obj/item/food/grown/flower = 1,
 		/obj/item/book = 1,
 		/obj/item/clothing/under = 1,
 	)
@@ -32,7 +32,7 @@
 	if(!target_finder)
 		CRASH("Heretic datum didn't have a hunt_and_sacrifice knowledge learned, what?")
 
-	if(!target_finder.obtain_targets(user))
+	if(!target_finder.obtain_targets(user, heretic_datum = heretic_datum))
 		loc.balloon_alert(user, "Ritual failed, no targets found!")
 		return FALSE
 

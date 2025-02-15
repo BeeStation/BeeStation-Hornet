@@ -15,7 +15,7 @@
 	)
 
 /obj/structure/lattice/catwalk/over
-	layer = CATWALK_LAYER
+	layer = CATWALK_LATTICE
 	plane = GAME_PLANE
 
 /obj/structure/lattice/catwalk/ratvar_act()
@@ -29,6 +29,9 @@
 
 /obj/structure/lattice/catwalk/deconstruct()
 	var/turf/T = loc
+	var/turf/open/floor/plating/P = loc
+	if(istype(P))
+		return ..()
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
 	..()

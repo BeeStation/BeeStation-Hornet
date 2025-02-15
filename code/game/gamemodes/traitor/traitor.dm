@@ -20,9 +20,9 @@
 	reroll_friendly = 1
 
 	announce_span = "danger"
-	announce_text = "There are Syndicate agents on the station!\n\
-	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Do not let the traitors succeed!"
+	announce_text = "There are Syndicate agents on the station!\n \
+	" + span_danger("Traitors") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Do not let the traitors succeed!"
 
 	title_icon = "traitor"
 
@@ -41,7 +41,7 @@
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	if(num_players() < CONFIG_GET(number/malf_ai_minimum_pop))
 		restricted_jobs += JOB_NAME_AI
