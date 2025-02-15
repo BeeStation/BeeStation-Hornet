@@ -70,9 +70,7 @@ class PaintCanvas extends Component<PaintCanvasProps> {
   componentDidUpdate() {
     // eslint-disable-next-line max-len
     if (
-      (this.props.value !== undefined &&
-        JSON.stringify(this.baseImageData) !==
-          JSON.stringify(fromDM(this.props.value))) ||
+      (this.props.value !== undefined && JSON.stringify(this.baseImageData) !== JSON.stringify(fromDM(this.props.value))) ||
       this.is_grid_shown !== this.props.show_grid
     ) {
       this.syncCanvas();
@@ -136,7 +134,6 @@ class PaintCanvas extends Component<PaintCanvasProps> {
     if (
       !this.props.editable ||
       this.props.drawing_color === undefined ||
-      this.props.drawing_color === null ||
       this.props.drawing_color === null ||
       event.button !== LEFT_CLICK
     ) {
@@ -311,18 +308,18 @@ export const Canvas = (props) => {
                     key={`${index}`}
                     backgroundColor={element.color}
                     style={{
-                      'width': '24px',
-                      'height': '24px',
-                      'border-style': 'solid',
-                      'border-color': element.is_selected ? 'lightblue' : 'black',
-                      'border-width': '2px',
+                      width: '24px',
+                      height: '24px',
+                      borderStyle: 'solid',
+                      borderColor: element.is_selected ? 'lightblue' : 'black',
+                      borderWidth: '2px',
                     }}
                     onClick={() =>
                       act('select_color', {
                         selected_color: element.color,
                       })
                     }
-                    oncontextmenu={(e) => {
+                    onContextMenu={(e) => {
                       e.preventDefault();
                       act('change_palette', {
                         color_index: index + 1,
@@ -340,6 +337,7 @@ export const Canvas = (props) => {
             )}
             {!!data.finalized && !!data.show_plaque && (
               <Flex.Item
+                basis="content"
                 p={2}
                 width="60%"
                 textColor="black"
