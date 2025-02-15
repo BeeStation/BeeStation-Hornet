@@ -2,7 +2,7 @@
 #define PROB_SPECIAL 30
 
 /datum/antagonist/malf_ai
-	name = "\improper Malfunctioning AI"
+	name = "Malfunctioning AI"
 	roundend_category = "traitors"
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
@@ -16,7 +16,7 @@
 	var/should_give_codewords = TRUE
 	///since the module purchasing is built into the antag info, we need to keep track of its compact mode here
 	var/module_picker_compactmode = FALSE
-	///malf on_gain sound effect. Set here so Infected AI can override
+	///malf on_gain sound effect.
 	var/malf_sound = 'sound/ambience/antag/malf.ogg'
 
 /datum/antagonist/malf_ai/New(give_objectives = TRUE)

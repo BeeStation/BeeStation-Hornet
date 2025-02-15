@@ -239,19 +239,13 @@
 	exclusive_roles = list(JOB_NAME_AI)
 	required_enemies = list(3,3,2,2,2,1,1,1,1,0)
 	required_candidates = 1
-	minimum_players = 0 // Handled by /datum/dynamic_ruleset/proc/acceptable override
+	minimum_players = 20
 	weight = 3
 	cost = 13
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
-
-/datum/dynamic_ruleset/midround/malf/acceptable(population = 0, threat_level = 0)
-	. = ..()
-	if(population < CONFIG_GET(number/malf_ai_minimum_pop))
-		return FALSE
 
 /datum/dynamic_ruleset/midround/malf/trim_candidates()
 	..()

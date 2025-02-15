@@ -94,13 +94,9 @@
 	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
 	required_candidates = 1
+	minimum_players = 20
 	weight = 3
 	cost = 18
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-
-/datum/dynamic_ruleset/roundstart/malf/acceptable(population = 0, threat_level = 0)
-	minimum_players = CONFIG_GET(number/malf_ai_minimum_pop)
-	. = ..()
 
 /datum/dynamic_ruleset/roundstart/malf/pre_execute(population)
 	. = ..()
