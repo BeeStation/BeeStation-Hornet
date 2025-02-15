@@ -403,14 +403,19 @@
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | ISWEAPON
+	sharpness = SHARP
 	force = 15
 	attack_weight = 2
+
+/obj/item/gun/magic/hook/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, "<span class='warning'>[src] isn't ready to fire yet!</span>")
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
 	desc = "A hook."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
+	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/projectile/hook
 	name = "hook"
@@ -450,9 +455,6 @@
 /obj/item/gun/magic/hook/bounty
 	name = "hook"
 	ammo_type = /obj/item/ammo_casing/magic/hook/bounty
-
-/obj/item/gun/magic/hook/bounty/shoot_with_empty_chamber(mob/living/user)
-	to_chat(user, span_warning("The [src] isn't ready to fire yet!"))
 
 /obj/item/ammo_casing/magic/hook/bounty
 	projectile_type = /obj/projectile/hook/bounty
@@ -1215,7 +1217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		to_chat(user, span_warning("[name] is too far from the source of its power!"))
 	else
 		power = 15
-	if(user.mind.martial_art.no_guns)
+	if(HAS_TRAIT_FROM(user, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT))
 		to_chat(user, span_warning("To use this weapon would bring dishonor to the clan."))
 		return
 	var/turf/T = get_turf(target)

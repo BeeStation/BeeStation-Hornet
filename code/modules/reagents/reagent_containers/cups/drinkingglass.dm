@@ -44,7 +44,7 @@
 	icon_state = "shotglass"
 	gulp_size = 15
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = list(15)
 	volume = 15
 	custom_materials = list(/datum/material/glass=100)
 
