@@ -1,0 +1,7 @@
+author: wikimody
+delete-after: true
+changes:
+  - rscadd: Ability to use syringes to transfer chemicals in or out chemical or blood
+      bags
+  - bugfix: Mortar grinding logic now is closer to grinder making it able to grind
+      some things it couldn't before
