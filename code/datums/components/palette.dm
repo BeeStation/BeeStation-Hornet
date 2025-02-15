@@ -57,7 +57,7 @@
 	SIGNAL_HANDLER
 
 	if(!color_picker_menu)
-		INVOKE_ASYNC(src, .proc/open_radial_menu, user)
+		INVOKE_ASYNC(src, PROC_REF(pen_radial_menu), user)
 	else
 		close_radial_menu()
 

@@ -201,3 +201,5 @@ SUBSYSTEM_DEF(persistent_paintings)
 		painting_data += list(painting.to_json())
 	all_data["paintings"] = painting_data
 	WRITE_FILE(json_file, json_encode(all_data))
+
+#undef PAINTINGS_DATA_FORMAT_VERSION
