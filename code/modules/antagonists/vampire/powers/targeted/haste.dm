@@ -5,7 +5,7 @@
 
 /datum/action/cooldown/vampire/targeted/haste
 	name = "Immortal Haste"
-	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away, stunned, or left empty-handed."
+	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away or stunned."
 	button_icon_state = "power_speed"
 	power_explanation = "\
 		Click anywhere to immediately dash towards that location.\n\

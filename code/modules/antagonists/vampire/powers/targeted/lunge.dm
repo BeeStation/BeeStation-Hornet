@@ -63,7 +63,7 @@
 	owner.face_atom(target_atom)
 	if(level_current > 3)
 		do_lunge(target_atom)
-		return
+		return TRUE
 
 	prepare_target_lunge(target_atom)
 	return TRUE
@@ -83,7 +83,6 @@
 
 	if(!do_after(owner, 4 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE), extra_checks = CALLBACK(src, PROC_REF(CheckCanTarget), target_atom)))
 		end_target_lunge(base_x, base_y)
-
 		return FALSE
 
 	end_target_lunge()

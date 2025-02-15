@@ -24,11 +24,11 @@
 	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_VAMPIRE)
 	if(level_current >= 4)
 		ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE) // They'll get stun resistance + this, who cares.
-	var/mob/living/carbon/human/vampire_user = owner
-	if(IS_VAMPIRE(owner) || IS_VASSAL(owner))
-		fortitude_resist = max(0.3, 0.7 - level_current * 0.1)
-		vampire_user.physiology.brute_mod *= fortitude_resist
-		vampire_user.physiology.stamina_mod *= fortitude_resist
+
+	var/mob/living/carbon/human/user = owner
+	fortitude_resist = max(0.3, 0.7 - level_current * 0.1)
+	user.physiology.brute_mod *= fortitude_resist
+	user.physiology.stamina_mod *= fortitude_resist
 
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 
@@ -47,10 +47,11 @@
 		return
 
 	var/mob/living/carbon/human/vampire_user = owner
-	if(IS_VAMPIRE(owner) || IS_VASSAL(owner))
-		vampire_user.physiology.brute_mod /= fortitude_resist
-		if(!HAS_TRAIT_FROM(vampire_user, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE))
-			vampire_user.physiology.stamina_mod /= fortitude_resist
+	vampire_user.physiology.brute_mod /= fortitude_resist
+
+	if(!HAS_TRAIT_FROM(vampire_user, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE))
+		vampire_user.physiology.stamina_mod /= fortitude_resist
+
 	// Remove Traits & Effects
 	REMOVE_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_VAMPIRE)
 	REMOVE_TRAIT(owner, TRAIT_NODISMEMBER, TRAIT_VAMPIRE)
