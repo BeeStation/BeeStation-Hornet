@@ -29,10 +29,10 @@ export const Sleeper = (props) => {
 
   const ELLIPSIS_STYLE = {
     // enforces overflow ellipsis
-    'max-width': '1px',
-    'white-space': 'nowrap',
-    'text-overflow': 'ellipsis',
-    'overflow': 'hidden',
+    maxWidth: '1px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   };
 
   return (

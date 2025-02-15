@@ -22,6 +22,7 @@
 #include "breath.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
+#include "combat.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
@@ -45,6 +46,7 @@
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
+#include "janky_actions.dm"
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
 #include "merge_type.dm"
@@ -61,6 +63,7 @@
 #include "quirks.dm"
 #include "random_ruin_mapsize.dm"
 #include "rcd.dm"
+#include "reagent_container_defaults.dm"
 #include "reagent_grinder.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
@@ -82,6 +85,7 @@
 #include "teleporters.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
+#include "trait_tests.dm"
 #include "unit_test.dm"
 #include "walls_have_sheets.dm"
 #include "wizard_loadout.dm"
@@ -104,5 +108,7 @@
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
 #undef TEST_ASSERT_NOTEQUAL
+#undef TEST_ASSERT_TRUE
+#undef TEST_ASSERT_FALSE
 //#undef TEST_FOCUS - This define is used by vscode unit test extension to pick specific unit tests to run and appended later so needs to be used out of scope here
 #endif

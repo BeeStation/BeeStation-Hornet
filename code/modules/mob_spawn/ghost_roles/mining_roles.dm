@@ -271,9 +271,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/ash_walker)
 	use_cooldown = TRUE
 	role_ban = ROLE_LAVALAND_SYNDICATE
 
+/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/officer
+	name = "Syndicate Officer"
+	prompt_name = "a syndicate officer"
+	you_are_text = "You are a syndicate officer, leading a recon team onboard a Syndicate vessel."
+	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your reconnaissance as best you can, and try to keep a low profile."
+	important_text = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
+	outfit = /datum/outfit/lavaland_syndicate/officer
+	assignedrole = "Lavaland Syndicate"
+
 /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/special(mob/living/new_spawn)
 	. = ..()
-	new_spawn.grant_language(/datum/language/codespeak)
+	new_spawn.grant_language(/datum/language/codespeak, source = LANGUAGE_MIND)
 
 /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"
@@ -301,6 +310,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/ghost_role/human/ash_walker)
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/syndicate/alt
 	back = /obj/item/storage/backpack
+	r_pocket = /obj/item/gun/ballistic/automatic/pistol
+	id = /obj/item/card/id/syndicate/anyone
+	implants = list(/obj/item/implant/weapons_auth)
+
+/datum/outfit/lavaland_syndicate/officer
+	name = "Lavaland Syndicate Officer"
+	r_hand = null
+	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	ears = /obj/item/radio/headset/syndicate/alt
+	belt = /obj/item/storage/belt/sabre
+	back = /obj/item/storage/backpack
+	head = /obj/item/clothing/head/hats/hos/beret/syndicate
 	r_pocket = /obj/item/gun/ballistic/automatic/pistol
 	id = /obj/item/card/id/syndicate/anyone
 	implants = list(/obj/item/implant/weapons_auth)
