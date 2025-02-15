@@ -8,20 +8,17 @@ export const PortraitPicker = (props) => {
   const [listIndex, setListIndex] = useLocalState('listIndex', 0);
   const { paintings, search_string, search_mode } = data;
   const got_paintings = !!paintings.length;
-  const current_portrait_title = got_paintings
-    && paintings[listIndex]["title"];
-  const current_portrait_author = got_paintings
-    && "By " + paintings[listIndex]["creator"];
-  const current_portrait_asset_name = got_paintings
-    && "paintings" + "_" + paintings[listIndex]["md5"];
+  const current_portrait_title = got_paintings && paintings[listIndex]['title'];
+  const current_portrait_author = got_paintings && 'By ' + paintings[listIndex]['creator'];
+  const current_portrait_asset_name = got_paintings && 'paintings' + '_' + paintings[listIndex]['md5'];
   return (
     <Window theme="ntos" title="Portrait Picker" width={400} height={406}>
       <Window.Content>
         <Flex height="100%" direction="column">
           <Flex.Item mb={1}>
-            <Section
-              title="Search">
-              <Input fluid
+            <Section title="Search">
+              <Input
+                fluid
                 placeholder="Search Paintings..."
                 value={search_string}
                 onChange={(e, value) => {
@@ -29,7 +26,8 @@ export const PortraitPicker = (props) => {
                     to_search: value,
                   });
                   setListIndex(0);
-                }} />
+                }}
+              />
               <Button
                 content={search_mode}
                 onClick={() => {
@@ -37,16 +35,13 @@ export const PortraitPicker = (props) => {
                   if (search_string) {
                     setListIndex(0);
                   }
-                }} />
+                }}
+              />
             </Section>
           </Flex.Item>
           <Flex.Item mb={1} grow={2}>
             <Section fill>
-              <Flex
-                height="100%"
-                align="center"
-                justify="center"
-                direction="column">
+              <Flex height="100%" align="center" justify="center" direction="column">
                 {got_paintings ? (
                   <>
                     <Flex.Item>
@@ -57,19 +52,14 @@ export const PortraitPicker = (props) => {
                         style={{
                           'vertical-align': 'middle',
                           '-ms-interpolation-mode': 'nearest-neighbor',
-                        }} />
+                        }}
+                      />
                     </Flex.Item>
-                    <Flex.Item className="Section__titleText">
-                      {current_portrait_title}
-                    </Flex.Item>
-                    <Flex.Item>
-                      {current_portrait_author}
-                    </Flex.Item>
+                    <Flex.Item className="Section__titleText">{current_portrait_title}</Flex.Item>
+                    <Flex.Item>{current_portrait_author}</Flex.Item>
                   </>
                 ) : (
-                  <Flex.Item className="Section__titleText">
-                    No paintings found.
-                  </Flex.Item>
+                  <Flex.Item className="Section__titleText">No paintings found.</Flex.Item>
                 )}
               </Flex>
             </Section>

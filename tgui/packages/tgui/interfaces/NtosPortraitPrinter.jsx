@@ -8,20 +8,17 @@ export const NtosPortraitPrinter = (props) => {
   const [listIndex, setListIndex] = useLocalState('listIndex', 0);
   const { paintings, search_string, search_mode } = data;
   const got_paintings = !!paintings.length;
-  const current_portrait_title = got_paintings
-    && paintings[listIndex]["title"];
-  const current_portrait_author = got_paintings
-    && "By " + paintings[listIndex]["creator"];
-  const current_portrait_asset_name = got_paintings
-    && "paintings" + "_" + paintings[listIndex]["md5"];
+  const current_portrait_title = got_paintings && paintings[listIndex]['title'];
+  const current_portrait_author = got_paintings && 'By ' + paintings[listIndex]['creator'];
+  const current_portrait_asset_name = got_paintings && 'paintings' + '_' + paintings[listIndex]['md5'];
   return (
     <NtosWindow title="Art Galaxy" width={400} height={446}>
       <NtosWindow.Content>
         <Stack vertical fill>
           <Stack.Item>
-            <Section
-              title="Search">
-              <Input fluid
+            <Section title="Search">
+              <Input
+                fluid
                 placeholder="Search Paintings..."
                 value={search_string}
                 onChange={(e, value) => {
@@ -29,7 +26,8 @@ export const NtosPortraitPrinter = (props) => {
                     to_search: value,
                   });
                   setListIndex(0);
-                }} />
+                }}
+              />
               <Button
                 content={search_mode}
                 onClick={() => {
@@ -37,16 +35,13 @@ export const NtosPortraitPrinter = (props) => {
                   if (search_string) {
                     setListIndex(0);
                   }
-                }} />
+                }}
+              />
             </Section>
           </Stack.Item>
           <Stack.Item grow={2}>
             <Section fill>
-              <Stack
-                height="100%"
-                align="center"
-                justify="center"
-                direction="column">
+              <Stack height="100%" align="center" justify="center" direction="column">
                 {got_paintings ? (
                   <>
                     <Stack.Item>
@@ -57,19 +52,14 @@ export const NtosPortraitPrinter = (props) => {
                         style={{
                           'vertical-align': 'middle',
                           '-ms-interpolation-mode': 'nearest-neighbor',
-                        }} />
+                        }}
+                      />
                     </Stack.Item>
-                    <Stack.Item className="Section__titleText">
-                      {current_portrait_title}
-                    </Stack.Item>
-                    <Stack.Item>
-                      {current_portrait_author}
-                    </Stack.Item>
+                    <Stack.Item className="Section__titleText">{current_portrait_title}</Stack.Item>
+                    <Stack.Item>{current_portrait_author}</Stack.Item>
                   </>
                 ) : (
-                  <Stack.Item className="Section__titleText">
-                    No paintings found.
-                  </Stack.Item>
+                  <Stack.Item className="Section__titleText">No paintings found.</Stack.Item>
                 )}
               </Stack>
             </Section>
