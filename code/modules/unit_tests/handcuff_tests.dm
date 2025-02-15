@@ -5,8 +5,8 @@
 	// Put the test client inside them
 	second.Move(get_step(second, NORTH), NORTH)
 	TEST_ASSERT_EQUAL(second.Adjacent(first), TRUE, "The 2 mobs should be adjacent to each other")
-	first.a_intent = INTENT_GRAB
-	first.ClickOn(second)
+	//first.grabbedby(second)
+	first.start_pulling(second, supress_message = TRUE)
 	TEST_ASSERT_EQUAL(second.pulledby, first, "Second mob should be pulled by the first")
 	first.put_in_active_hand(cuffs)
 	TEST_ASSERT_EQUAL(first.get_active_held_item(), cuffs, "First mob should be holding handcuffs")

@@ -56,6 +56,99 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">15 February 2025</h2>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">All explorer assassination targets now spawn with a few medical supplies and a flashlight to help them deal with potential mobs nearby</li>
+				<li class="balance">The operative assassination target now spawns with a combat knife so that they have a moderately powerful melee option if they run out of ammo for the stechkin</li>
+				<li class="balance">The spy assassination target now spawns with a stechkin, suppressor, spy glasses kit, and chameleon mask for voice changing. They do not have a second clip for their gun.</li>
+				<li class="balance">The clown assassination target now spawns with a lube flower instead of water flower, and also knows taeclowndo thanks to their fancy shoes.</li>
+			</ul>
+
+			<h2 class="date">14 February 2025</h2>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Updated the monkey cube and monkey cube box sprites</li>
+				<li class="imageadd">Added a gorilla cube sprite</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes chameleon clothing bugged</li>
+				<li class="bugfix">Adds a new pickup and drop unit test that resolves some inconsistent action assignment behaviours when picking up certain items.</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the L6 SAW being stuck in your suit storage.</li>
+			</ul>
+			<h3 class="author">beelover updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">airlocks bolted at roundstart now have the appropriate lights on</li>
+				<li class="code_imp">added the updates argument to some children of the update_icon proc</li>
+			</ul>
+			<h3 class="author">mrmanlikesbt, NotRanged  updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">blob resource nodes make a balloon alert when a resource is made</li>
+				<li class="tweak">the blob "jump to node" menu is now tgui</li>
+				<li class="refactor">removed hardcoded blob values</li>
+			</ul>
+			<h3 class="author">rkz, Qustinnus, Mothblocks, TJatPBnJ, IndieanaJones, KathyRyals, Arkatos, norill, Fikou, dragomagol, SgtHunk, JJRCop, ninjanomnom, cacogen, Timberpoes, LemonInTheDark, Ghommie, Sealed101, Ghilker, TheBonded, Timothymtorres, CameronWoof, ArcaneDefence, BurgerLUA, OneAsianTortoise, vincentiusvin, itseasytosee, AnturK, GuillaumePrata, Timberpoes, Ghommie, zxaber, Gpeckman, haukeschaumann, tralezab, Jack LeCroy, MrMelbert, ShizCalev, Actioninja updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds combat mode</li>
+				<li class="rscadd">Adds martial art combo meters and TGUI guides</li>
+				<li class="refactor">refactors CanUseTopic and dexterity</li>
+				<li class="refactor">refactored syringe code to use flags</li>
+				<li class="tweak">clicking on the turf of a airlock while combat mode is off will now close the airlock. No more pixel hunting!</li>
+				<li class="balance">buffs to hook shotgun in addition to rclick functionality</li>
+				<li class="code_imp">renames RemoveComponent, component destroy will no longer runtime when parent is null</li>
+				<li class="refactor">refactored simple rotation component</li>
+				<li class="bugfix">fixed abandoned crates to not try to kill you if you perform actions on them AFTER they are unlocked</li>
+				<li class="code_imp">introduced variable weapon attack speed. No weapon utilizes this yet but admins can now varedit items to attack faster/slower.</li>
+				<li class="code_imp">unit tests reagent container transfer amounts</li>
+				<li class="code_imp">unit tests attacking people</li>
+				<li class="balance">Using Jaunts will conceal your runechat for their duration.</li>
+				<li class="code_imp">passed IS_HERETIC through the proc, rather than checking everytime you used a heretic spell. Less runtimes.</li>
+				<li class="bugfix">cutting wires while a TGUI menu is open will no longer shock you and bypass shock protection</li>
+				<li class="tweak">cleaned up airlock prying code. Nightmare blades are now crowbars and fulfill tool_acts, they still can break stuff by being on combat mode though. Rclick with a one to pry regardless of intent.</li>
+				<li class="refactor">refactors stun batons</li>
+				<li class="tweak">abductor batons are children of stun batons</li>
+			</ul>
+
+			<h2 class="date">13 February 2025</h2>
+			<h3 class="author">Bieyes, Aramix updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added emissive (glowing) eyes for spiders.</li>
+				<li class="rscadd">Added quality of life changes to how the block ability sprites works.</li>
+				<li class="rscdel">Removed conflicting lay web ability definition.</li>
+				<li class="bugfix">fixed throw web ability (Aramix)</li>
+				<li class="imageadd">added two icons for block ability.</li>
+			</ul>
+			<h3 class="author">Gilgaxx updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the ability to loosen ties to put around your head (great for getting drunk after work!)</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Lazarus injectors will now work as originally intended on non-sentient mobs. This means that lazarus revived mobs will be passive to crew and other passive mobs, friendly toward the person that revived them, and actively hostile to other hostile mobs.</li>
+				<li class="tweak">Lazarus injectors will continue to work as they always have on already sentient mobs, and the intent is now clearly stated in-game to those mobs when they are revived. Lazarus is not a brainwashing tool and does not force loyalty or obedience in the creatures it revives if they are smart enough to think for themselves</li>
+				<li class="tweak">Lazarus injectors now have a 10% chance of making any mob revived by one sentient, with its own free will to choose violence, servitude or anything in between.</li>
+				<li class="tweak">The examine text of lazarus injectors now includes a warning that creatures with "especially strong wills" are known to turn against the user. This is in reference to both already sentient mobs and the newly added chance to create a sentient mob.</li>
+				<li class="tweak">Lazarus now takes ten seconds to take effect, with the mob it is used on jittering a bit before actually being revived.</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Advanced wirebrushes no longer ignore radiation protection before dealing damage.</li>
+			</ul>
+
+			<h2 class="date">12 February 2025</h2>
+			<h3 class="author">Gilgaxx updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Cyborgs and AI shells can quickly store equipment with Q again.</li>
+			</ul>
+			<h3 class="author">Therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Moves the "Observe" verb from the OOC category to the Ghost category.</li>
+			</ul>
+
 			<h2 class="date">11 February 2025</h2>
 			<h3 class="author">PigeonVerde322, Rkz, Kylerace, ArcaneMusic, zxaber updated:</h3>
 			<ul class="changes bgimages16">
@@ -64,6 +157,14 @@
 				<li class="bugfix">fixes rechargers and inducers allowing for effectively infinite power. Now, what is used to charge these cells is exactly what can be expended from them.</li>
 				<li class="tweak">rechargers now suck power directly from surplus energy on the powergrid, as opposed to the Equipment part of an APC. This is to prevent the former fix from making every single recharger on the station a mini-energy siphon.</li>
 				<li class="rscadd">examining any machinery will now tell if it's powered or not.</li>
+			</ul>
+			<h3 class="author">RDS88 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Custom AI laws are now more readable on the end-of-round report. You don't need to squint to figure out why it was trying to door-crush you anymore</li>
+			</ul>
+			<h3 class="author">Therealdoooc213 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Chaplains can no longer sacrifice holodeck mobs.</li>
 			</ul>
 
 			<h2 class="date">10 February 2025</h2>
@@ -697,19 +798,6 @@
 				<li class="refactor">genericizes how turfs handle armor</li>
 				<li class="bugfix">fix ripley goliath armor runtime</li>
 				<li class="bugfix">fix armor tag examination runtime</li>
-			</ul>
-
-			<h2 class="date">14 December 2024</h2>
-			<h3 class="author">h42 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Easter bunnies place down easter eggs instead of errors again.</li>
-			</ul>
-
-			<h2 class="date">13 December 2024</h2>
-			<h3 class="author">Therealdoooc213 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">brig physicians medical access has been moved into skeleton crew access.</li>
-				<li class="balance">brig physicians locker now spawns with 1 of every type of station medkit (again)</li>
 			</ul>
 		</div>
 
