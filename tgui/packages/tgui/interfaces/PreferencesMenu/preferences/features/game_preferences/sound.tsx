@@ -23,6 +23,13 @@ export const sound_announcements: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const sound_combatmode: FeatureToggle = {
+  name: 'Enable combat mode sound',
+  category: 'SOUND',
+  description: 'When enabled, hear sounds when toggling combat mode.',
+  component: CheckboxInput,
+};
+
 export const sound_instruments: FeatureToggle = {
   name: 'Enable instruments',
   category: 'SOUND',

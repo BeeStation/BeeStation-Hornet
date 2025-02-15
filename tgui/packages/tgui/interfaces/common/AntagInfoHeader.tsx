@@ -19,7 +19,7 @@ export const AntagInfoHeader = (props: Props) => {
               as="img"
               src={resolveAsset(asset)}
               width="64px"
-              style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
             />
           </Stack.Item>
         )}

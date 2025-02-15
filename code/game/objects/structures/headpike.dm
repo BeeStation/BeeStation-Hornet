@@ -47,7 +47,7 @@
 		MA.pixel_y = 12
 		add_overlay(H)
 
-/obj/structure/headpike/attack_hand(mob/user)
+/obj/structure/headpike/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

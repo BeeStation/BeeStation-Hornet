@@ -12,7 +12,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
 	short_desc = "You are a swarmer!"
-	flavour_text = "Consume resources and replicate until there are no more resources left. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. Biological resources will be harvested at a later date; do not harm them."
+	flavour_text = "Consume resources and replicate until there are no more resources left. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. Biological resources will be harvested at a later date; dispatch those that get in your way without harming them."
 	density = FALSE
 	anchored = FALSE
 
@@ -36,8 +36,8 @@
 		return
 	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this."))
 
-/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent != INTENT_HARM)
+/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/living/user, params)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER && !user.combat_mode)
 		user.visible_message(span_warning("[usr.name] deactivates [src]."),
 			span_notice("After some fiddling, you find a way to disable [src]'s power source."),
 			span_italics("You hear clicking."))
@@ -58,8 +58,8 @@
 	initial_language_holder = /datum/language_holder/swarmer
 	bubble_icon = "swarmer"
 	mob_biotypes = list(MOB_ROBOTIC)
-	health = 40
-	maxHealth = 40
+	health = 65
+	maxHealth = 65
 	status_flags = CANPUSH
 	icon_state = "swarmer"
 	icon_living = "swarmer"
@@ -70,7 +70,7 @@
 	maxbodytemp = 500
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
-	melee_damage = 15
+	melee_damage = 35
 	melee_damage_type = STAMINA
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD)
@@ -86,10 +86,9 @@
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_TINY
-	ventcrawler = VENTCRAWLER_ALWAYS
 	ranged = 1
 	projectiletype = /obj/projectile/beam/disabler
-	ranged_cooldown_time = 20
+	ranged_cooldown_time = 10
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
@@ -590,7 +589,7 @@
 
 /obj/structure/swarmer/trap
 	name = "swarmer trap"
-	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Will not retain its form if damaged enough."
+	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Shocks everything nearby when triggered."
 	icon_state = "trap"
 	max_integrity = 10
 	density = FALSE
@@ -602,26 +601,48 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/structure/swarmer/trap/Destroy()
+	shock_area()
+	..()
+
 /obj/structure/swarmer/trap/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
-			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
-			if(iscyborg(L))
-				L.Paralyze(100)
+			shock_area()
 			qdel(src)
+
+/obj/structure/swarmer/trap/proc/shock_area()
+	new /obj/effect/temp_visual/shock_trap_activate(get_turf(src))
+	playsound(loc,'sound/magic/lightningshock.ogg',50, 1, -1)
+
+	var/list/mob/targets = viewers(1, loc) //All adjacent mobs
+	for(var/mob/living/L in targets)
+		L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
+		if(iscyborg(L))
+			L.flash_act()
+			L.adjustFireLoss(65) //This is the only way swarmers can deal with cyborgs in any capacity so it is especially harsh
+			L.Paralyze(100)
+
+/obj/effect/temp_visual/shock_trap_activate
+	randomdir = FALSE
+	duration = 6
+	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon_state = "energy_ball"
+	pixel_x = -32
+	pixel_y = -32
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Create trap"
 	set category = "Swarmer"
-	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources"
+	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 2 resources"
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
-	Fabricate(/obj/structure/swarmer/trap, 5)
+	if(do_after(src, 2 SECONDS))
+		Fabricate(/obj/structure/swarmer/trap, 2)
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
@@ -635,7 +656,7 @@
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 1 SECONDS))
-		Fabricate(/obj/structure/swarmer/blockade, 5)
+		Fabricate(/obj/structure/swarmer/blockade, 2)
 
 
 /obj/structure/swarmer/blockade
@@ -664,7 +685,7 @@
 		return
 	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
-		if(createtype && Fabricate(createtype, 50))
+		if(createtype && Fabricate(createtype, 20))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
 
 
@@ -788,7 +809,7 @@
 			M.unequip_everything()
 			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
 			if(istype(new_mob))
-				new_mob.a_intent = INTENT_HARM
+				new_mob.set_combat_mode(TRUE)
 				M.mind.transfer_to(new_mob)
 				new_owner.assigned_role = ROLE_SWARMER
 				new_owner.special_role = ROLE_SWARMER
@@ -814,7 +835,7 @@
 	completed = TRUE
 
 /datum/objective/do_not_harm_organisms
-	explanation_text = "Biological resources will be harvested at a later date; do not harm them."
+	explanation_text = "Biological resources will be harvested at a later date; dispatch those that get in your way without harming them."
 	completed = TRUE
 
 /datum/team/swarmer/roundend_report()
