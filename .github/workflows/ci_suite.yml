@@ -69,6 +69,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
       - name: Install OpenDream
         uses: robinraju/release-downloader@v1.9
         with:

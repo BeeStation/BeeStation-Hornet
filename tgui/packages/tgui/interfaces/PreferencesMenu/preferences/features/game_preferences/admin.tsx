@@ -1,4 +1,4 @@
-import { FeatureColorInput, Feature, FeatureToggle, CheckboxInput } from '../base';
+import { CheckboxInput, FeatureColorInput, Feature, FeatureDropdownInput, FeatureToggle } from '../base';
 
 export const asaycolor: Feature<string> = {
   name: 'Admin chat color',
@@ -8,12 +8,11 @@ export const asaycolor: Feature<string> = {
   component: FeatureColorInput,
 };
 
-export const announce_login: FeatureToggle = {
-  name: 'Announce Login',
+export const brief_outfit: Feature<string> = {
+  name: 'Brief outfit',
   category: 'ADMIN',
-  subcategory: 'Misc',
-  description: 'Whether you will announce whenever you login to fellow admins or not.',
-  component: CheckboxInput,
+  description: 'The outfit to gain when spawning as the briefing officer.',
+  component: FeatureDropdownInput,
 };
 
 export const combohud_lighting: FeatureToggle = {

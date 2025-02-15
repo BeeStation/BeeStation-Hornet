@@ -7,7 +7,6 @@
 /area/shuttle/escape)
 "c" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating/elevatorshaft,
 /area/shuttle/escape)
 "d" = (
@@ -203,7 +202,6 @@
 	name = "Disco Inferno"
 	},
 /obj/machinery/door/airlock/gold{
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0);
 	heat_proof = 1;
 	resistance_flags = 2
 	},

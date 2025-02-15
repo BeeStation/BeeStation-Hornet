@@ -145,10 +145,11 @@
 	using.hud = src
 	static_inventory += using
 
-//Intent
-	action_intent = new /atom/movable/screen/act_intent/robot()
-	action_intent.icon_state = mymob.a_intent
+	//Combat Mode
+	action_intent = new /atom/movable/screen/combattoggle/robot()
 	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
 //Health
@@ -209,7 +210,7 @@
 		screenmob.client.screen += module_store_icon	//"store" icon
 
 		if(!R.module.modules)
-			to_chat(usr, "<span class='danger'>Selected module has no modules to select.</span>")
+			to_chat(usr, span_danger("Selected module has no modules to select."))
 			return
 
 		if(!R.robot_modules_background)

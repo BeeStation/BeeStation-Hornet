@@ -12,18 +12,34 @@
 /obj/item/clothing/under/rank/security
 	icon = 'icons/obj/clothing/under/security.dmi'
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10)
+	armor_type = /datum/armor/rank_security
 	strip_delay = 50
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+
+
+/datum/armor/rank_security
+	melee = 10
+	bio = 10
+	fire = 30
+	acid = 30
+	stamina = 10
 
 /obj/item/clothing/under/rank/security/officer
 	name = "security jumpsuit"
 	desc = "A tactical security jumpsuit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rsecurity"
 	item_state = "r_suit"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/security_officer
 	alt_covers_chest = TRUE
+
+
+/datum/armor/security_officer
+	melee = 10
+	fire = 30
+	acid = 30
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/rank/security/officer/white
 	name = "white security jumpsuit"
@@ -71,7 +87,15 @@
 	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rwarden"
 	item_state = "r_suit"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/security_warden
+
+
+/datum/armor/security_warden
+	melee = 10
+	fire = 30
+	acid = 30
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/rank/security/warden/white
 	name = "white security suit"
@@ -105,11 +129,19 @@
 	desc = "Someone who wears this means business."
 	icon_state = "detective"
 	item_state = "det"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/security_detective
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+
+
+/datum/armor/security_detective
+	melee = 10
+	fire = 30
+	acid = 30
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/rank/security/detective/skirt
 	name = "detective's suitskirt"
@@ -148,11 +180,20 @@
 	desc = "A security jumpsuit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "rhos"
 	item_state = "r_suit"
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 10, BLEED = 10)
+	armor_type = /datum/armor/security_head_of_security
 	strip_delay = 60
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+
+
+/datum/armor/security_head_of_security
+	melee = 10
+	bio = 10
+	fire = 50
+	acid = 50
+	stamina = 10
+	bleed = 10
 
 /obj/item/clothing/under/rank/security/head_of_security/skirt
 	name = "head of security's jumpskirt"

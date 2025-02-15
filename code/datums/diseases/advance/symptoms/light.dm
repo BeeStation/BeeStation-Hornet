@@ -38,9 +38,9 @@
 			realpower = power * -1
 			healthchange = max(1 * realpower, (10 * realpower) - currenthealthmodifier)
 			if(prob(5))
-				to_chat(M, "<span class='warning'>[pick("You feel vulnerable.", "Your limbs feel loose and limber.", "The dark makes you feel relaxed.")]</span>")
+				to_chat(M, span_warning("[pick("You feel vulnerable.", "Your limbs feel loose and limber.", "The dark makes you feel relaxed.")]"))
 		else if(prob(5))
-			to_chat(M, "<span class='warning'>[pick("Your muscles feel tight.", "You feel lethargic.", "Your muscles feel hard and tough.")]</span>")
+			to_chat(M, span_warning("[pick("Your muscles feel tight.", "You feel lethargic.", "Your muscles feel hard and tough.")]"))
 	if(A.stage >= 5)
 		currenthealthmodifier += healthchange
 		M.maxHealth += healthchange

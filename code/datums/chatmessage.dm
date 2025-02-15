@@ -322,6 +322,9 @@
 	if(!islist(message_mods))
 		message_mods = list()
 
+	if(HAS_TRAIT(speaker, TRAIT_RUNECHAT_HIDDEN))
+		return
+
 	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
 	spans = spans ? spans.Copy() : list()
 
@@ -464,10 +467,10 @@
 		if(BALLOON_ALERT_WITH_CHAT)
 			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 			if(show_in_chat)
-				to_chat(viewer, "<span class='notice'>[text].</span>")
+				to_chat(viewer, span_notice("[text]."))
 		if(BALLOON_ALERT_NEVER)
 			if(show_in_chat)
-				to_chat(viewer, "<span class='notice'>[text].</span>")
+				to_chat(viewer, span_notice("[text]."))
 
 /atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, show_in_chat = TRUE)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)

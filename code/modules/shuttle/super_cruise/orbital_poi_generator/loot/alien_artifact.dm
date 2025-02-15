@@ -58,7 +58,7 @@
 	clockwork_warp_allowed = FALSE
 	requires_power = FALSE
 	mood_bonus = -999
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -66,7 +66,7 @@
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
-	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
+	mood_message = span_warning("[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!")
 
 /area/tear_in_reality/get_virtual_z(turf/T)
 	return REALITY_TEAR_VIRTUAL_Z
@@ -200,7 +200,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /datum/artifact_effect/airfreeze/Initialize(atom/source)
 	. = ..()
-	source.CanAtmosPass = ATMOS_PASS_NO
+	source.can_atmos_pass = ATMOS_PASS_NO
 
 /datum/artifact_effect/airfreeze/register_signals(source)
 	RegisterSignal(source, COMSIG_MOVABLE_MOVED, PROC_REF(updateAir))
@@ -208,10 +208,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 /datum/artifact_effect/airfreeze/proc/updateAir(atom/source, atom/oldLoc)
 	if(isturf(oldLoc))
 		var/turf/oldTurf = oldLoc
-		oldTurf.air_update_turf(TRUE)
+		oldTurf.air_update_turf(TRUE, TRUE)
 	if(isturf(source.loc))
 		var/turf/newTurf = source.loc
-		newTurf.air_update_turf(TRUE)
+		newTurf.air_update_turf(TRUE, TRUE)
 
 //===================
 // Atmos Stabilizer
@@ -223,8 +223,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /datum/artifact_effect/atmosfix/process(delta_time)
 	var/turf/T = get_turf(source_object)
-	var/datum/gas_mixture/air = T.return_air()
-	air.parse_gas_string(T.initial_gas_mix)
+	var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+	T.assume_air(base_mix)
 
 //===================
 // Gravity Well
@@ -418,10 +418,10 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(air.get_moles(input_id), 5)
+	var/moles = min(GET_MOLES(input_id, air), 5)
 	if(moles)
-		air.adjust_moles(input_id, -moles)
-		air.adjust_moles(output_id, moles)
+		air.gases[input_id][MOLES] += -moles
+		air.gases[output_id][MOLES] += moles
 
 //===================
 // Recharger

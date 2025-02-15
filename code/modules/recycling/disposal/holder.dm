@@ -19,7 +19,6 @@
 	var/unsorted = TRUE			// have we been sorted yet?
 
 /obj/structure/disposalholder/Destroy()
-	QDEL_NULL(gas)
 	active = FALSE
 	last_pipe = null
 	current_pipe = null
@@ -29,7 +28,7 @@
 /obj/structure/disposalholder/proc/init(obj/machinery/disposal/D)
 	if(!istype(D))
 		return //Why check for things that don't exist?
-	gas = D.air_contents// transfer gas resv. into holder object
+	gas = D.return_air()// transfer gas resv. into holder object
 
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
@@ -147,8 +146,12 @@
 
 // called to vent all gas in holder to a location
 /obj/structure/disposalholder/proc/vent_gas(turf/T)
-	T.assume_air(gas)
-	T.air_update_turf()
+	var/datum/gas_mixture/removed = gas.remove(gas.total_moles())
+	//Removed can be null if there is no atmosphere in gas variable
+	if(!removed)
+		return
+
+	T.assume_air(removed)
 
 /obj/structure/disposalholder/AllowDrop()
 	return TRUE

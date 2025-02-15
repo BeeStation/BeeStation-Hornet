@@ -28,18 +28,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 	. = ..()
 	anchored = bolt
 	create_reagents(buffer, reagent_flags)
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
+	AddComponent(/datum/component/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is fastened to the floor!</span>")
+		to_chat(user, span_warning("[src] is fastened to the floor!"))
 		return FALSE
 	return TRUE
 
 /obj/machinery/plumbing/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The maximum volume display reads: <b>[reagents.maximum_volume] units</b>.</span>"
+	. += span_notice("The maximum volume display reads: <b>[reagents.maximum_volume] units</b>.")
+
+/obj/machinery/plumbing/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/plumbing/wrench_act(mob/living/user, obj/item/I)
 	..()
@@ -47,21 +50,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 	return TRUE
 
 /obj/machinery/plumbing/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
-	to_chat(user, "<span class='notice'>You start furiously plunging [name].")
+	to_chat(user, span_notice("You start furiously plunging [name]."))
 	if(do_after(user, 30, target = src))
-		to_chat(user, "<span class='notice'>You finish plunging the [name].")
-		reagents.reaction(get_turf(src), TOUCH) //splash on the floor
+		to_chat(user, span_notice("You finish plunging the [name]."))
+		reagents.expose(get_turf(src), TOUCH) //splash on the floor
 		reagents.clear_reagents()
 
 /obj/machinery/plumbing/welder_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(anchored)
-		to_chat(user, "<span class='warning'>The [name] needs to be unbolted to do that!</span")
+		to_chat(user, span_warning("The [name] needs to be unbolted to do that!"))
 	if(I.tool_start_check(user, amount=0))
-		to_chat(user, "<span class='notice'>You start slicing the [name] apart.</span")
+		to_chat(user, span_warning("You start slicing the [name] apart."))
 		if(I.use_tool(src, user, rcd_delay * 2, volume=50))
 			deconstruct(TRUE)
-			to_chat(user, "<span class='notice'>You slice the [name] apart.</span")
+			to_chat(user, span_notice("You slice the [name] apart."))
 			return TRUE
 
 ///We can empty beakers in here and everything

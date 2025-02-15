@@ -11,6 +11,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/candy_corn/prison
 	name = "desiccated candy corn"
@@ -33,6 +34,7 @@
 	tastes = list("apple" = 2, "caramel" = 3)
 	foodtypes = JUNKFOOD | FRUIT | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/mint
 	name = "mint"
@@ -58,6 +60,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/chococoin
 	name = "chocolate coin"
@@ -72,6 +75,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/fudgedice
 	name = "fudge dice"
@@ -87,6 +91,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/chocoorange
 	name = "chocolate orange"
@@ -100,6 +105,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/bonbon
 	name = "bon bon"
@@ -241,7 +247,7 @@
 		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
 
 /obj/item/food/lollipop/long/proc/on_trip(mob/living/carbon/user)
-	visible_message("<span class='danger'>[user] is impaled by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
+	visible_message(span_danger("[user] is impaled by the [src]!"), span_danger("You are impaled by the [src]!"))
 	user.adjustBruteLoss(50)
 	user.adjustOxyLoss(50)
 
@@ -276,6 +282,7 @@
 	foodtypes = JUNKFOOD | SUGAR //| BUGS
 	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/swirl_lollipop
 	name = "Swirl lollipop"
@@ -290,3 +297,19 @@
 	tastes = list("whimsical joy" = 1, "sugar" = 2)
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/rock_candy
+	name = "Rock candy"
+	desc = "A bunch of sweet crystals on a stick. Good for your blood!\n Warning for California residents: This product may contain lead, which is known to the State of California to cause cancer, birth defects, or other reproductive harm."
+	icon_state = "rock_candy"
+	food_reagents = list(
+		/datum/reagent/iron = 10,
+		/datum/reagent/mercury/lead_acetate = 5, //One couldn't hurt, am I right?
+		/datum/reagent/consumable/sugar = 5,
+		/datum/reagent/medicine/omnizine = 2
+	)
+	tastes = list("dreams of California beaches" = 1, "adamantine" = 2)
+	foodtypes = JUNKFOOD | SUGAR
+	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_1

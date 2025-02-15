@@ -443,7 +443,7 @@
 /obj/effect/spawner/lootdrop/techstorage/security
 	name = "security circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/secure_data,
+				/obj/item/circuitboard/computer/records/security,
 				/obj/item/circuitboard/computer/security,
 				/obj/item/circuitboard/computer/prisoner
 				)
@@ -477,7 +477,7 @@
 				/obj/item/circuitboard/machine/clonepod,
 				/obj/item/circuitboard/machine/chem_dispenser,
 				/obj/item/circuitboard/computer/scan_consolenew,
-				/obj/item/circuitboard/computer/med_data,
+				/obj/item/circuitboard/computer/records/medical,
 				/obj/item/circuitboard/machine/smoke_machine,
 				/obj/item/circuitboard/machine/chem_master,
 				/obj/item/circuitboard/machine/clonescanner,
@@ -542,3 +542,74 @@
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
 
+///Former Snowdin loot tables
+
+/obj/effect/spawner/lootdrop/snowdin
+	name = "why are you using this dummy"
+	lootdoubles = 0
+	lootcount = 1
+	loot = list(/obj/item/bikehorn = 100)
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite
+	name = "dungeon lite"
+	loot = list(/obj/item/melee/classic_baton/police = 11,
+				/obj/item/melee/classic_baton/police/telescopic = 12,
+				/obj/item/book/granter/action/spell/smoke = 10,
+				/obj/item/book/granter/action/spell/blind = 10,
+				/obj/item/storage/firstaid/regular = 45,
+				/obj/item/storage/firstaid/toxin = 35,
+				/obj/item/storage/firstaid/brute = 27,
+				/obj/item/storage/firstaid/fire = 27,
+				/obj/item/storage/toolbox/syndicate = 12,
+				/obj/item/grenade/plastic/c4 = 7,
+				/obj/item/grenade/clusterbuster/smoke = 15,
+				/obj/item/clothing/under/chameleon = 13,
+				/obj/item/clothing/shoes/chameleon/noslip = 10,
+				/obj/item/borg/upgrade/ddrill = 3,
+				/obj/item/borg/upgrade/soh = 3)
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonmid
+	name = "dungeon mid"
+	loot = list(/obj/item/defibrillator/compact = 6,
+				/obj/item/storage/firstaid/tactical = 35,
+				/obj/item/shield/energy = 6,
+				/obj/item/shield/riot/tele = 12,
+				/obj/item/dnainjector/lasereyesmut = 7,
+				/obj/item/gun/magic/wand/fireball/inert = 3,
+				/obj/item/pneumatic_cannon = 15,
+				/obj/item/melee/transforming/energy/sword = 7,
+				/obj/item/book/granter/action/spell/knock = 15,
+				/obj/item/book/granter/action/spell/summonitem = 20,
+				/obj/item/book/granter/action/spell/forcewall = 17,
+				/obj/item/storage/backpack/holding = 12,
+				/obj/item/grenade/spawnergrenade/manhacks = 6,
+				/obj/item/grenade/spawnergrenade/spesscarp = 7,
+				/obj/item/grenade/clusterbuster/inferno = 3,
+				/obj/item/stack/sheet/mineral/diamond{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/uranium{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/plasma{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
+				/obj/item/book/granter/action/spell/barnyard = 4,
+				/obj/item/pickaxe/drill/diamonddrill = 6,
+				/obj/item/borg/upgrade/vtec = 7,
+				/obj/item/borg/upgrade/disablercooler = 7)
+
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonheavy
+	name = "dungeon heavy"
+	loot = list(/obj/item/singularityhammer = 25,
+				/obj/item/mjolnir = 10,
+				/obj/item/fireaxe = 25,
+				/obj/item/organ/brain/alien = 17,
+				/obj/item/dualsaber = 15,
+				/obj/item/organ/heart/demon = 7,
+				/obj/item/gun/ballistic/automatic/c20r/unrestricted = 16,
+				/obj/item/gun/magic/wand/resurrection/inert = 15,
+				/obj/item/gun/magic/wand/resurrection = 10,
+				/obj/item/uplink/old = 2,
+				/obj/item/book/granter/action/spell/charge = 12,
+				/obj/item/grenade/clusterbuster/spawner_manhacks = 15,
+				/obj/item/book/granter/action/spell/fireball = 10,
+				/obj/item/pickaxe/drill/jackhammer = 30,
+				/obj/item/borg/upgrade/syndicate = 13,
+				/obj/item/borg/upgrade/selfrepair = 17)

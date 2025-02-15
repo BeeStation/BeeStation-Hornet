@@ -146,7 +146,7 @@
 			if(!(tool in available_selections[params["chosen_category"]]))
 				return
 			tool_behaviour = tool
-			to_chat(usr, "<span class='notice'>Tool behaviour of [src] is now [tool_behaviour]</span>")
+			to_chat(usr, span_notice("Tool behaviour of [src] is now [tool_behaviour]"))
 			return
 
 /obj/item/construction/rcd/arcd/debug
@@ -182,17 +182,7 @@
 	atmos_build_speed = 0.1
 	disposal_build_speed = 0.1
 	transit_build_speed = 0.1
-	plumbing_build_speed = 0.1
-	destroy_speed = 0.1
-	paint_speed = 0.1
-	ranged = TRUE
 	upgrade_flags = RPD_UPGRADE_UNWRENCH
-
-/obj/item/spellbook/debug
-	name = "\improper Robehator's spell book"
-	uses = 200
-	everything_robeless = TRUE
-	bypass_lock = TRUE
 
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug
@@ -200,11 +190,24 @@
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
+	armor_type = /datum/armor/hardsuit_debug
 	strip_delay = 6000
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+
+/datum/armor/hardsuit_debug
+	melee = 300
+	bullet = 300
+	laser = 300
+	energy = 300
+	bomb = 300
+	bio = 300
+	rad = 300
+	fire = 300
+	acid = 300
+	stamina = 300
 
 /obj/item/clothing/suit/space/hardsuit/debug
 	name = "\improper Central Command black hardsuit"
@@ -213,9 +216,8 @@
 	hardsuit_type = "syndielite"
 	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
-	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
+	armor_type = /datum/armor/hardsuit_debug
 	gas_transfer_coefficient = 0
-	permeability_coefficient = 0
 	siemens_coefficient = 0
 	slowdown = -1
 	equip_delay_other = 6000 // stripping an admin for 10 minutes
@@ -228,6 +230,7 @@
 
 
 // debug bag
+
 /obj/item/storage/backpack/debug
 	name = "bag of portable hole"
 	desc = "A backpack that opens into a localized pocket of nullspace."
@@ -235,7 +238,19 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/backpack_debug
+
+
+/datum/armor/backpack_debug
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()
@@ -278,7 +293,6 @@
 		/obj/item/disk/data/debug=1,
 		/obj/item/uplink/debug=1,
 		/obj/item/uplink/nuclear/debug=1,
-		/obj/item/spellbook/debug=1,
 		/obj/item/storage/box/beakers/bluespace=1,
 		/obj/item/storage/box/beakers/variety=1,
 		/obj/item/storage/box/material=1
@@ -334,8 +348,8 @@
 	. = ..()
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
-	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
-	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	grant_all_languages(source = "debug")
+	user.grant_language(/datum/language/metalanguage, source = "debug")
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
@@ -419,7 +433,7 @@
 		return
 
 	if(working)
-		to_chat(user, "<span class='notice'>We're creating a map yet.</span>")
+		to_chat(user, span_notice("We're creating a map yet."))
 		return
 
 	if(ispath(map_template))
@@ -429,15 +443,15 @@
 /obj/item/map_template_diver/proc/create_map(mob/user)
 	set waitfor = FALSE
 
-	to_chat(user, "<span class='notice'>Creates a map template...</span>")
+	to_chat(user, span_notice("Creates a map template..."))
 	working = TRUE
 	map_template = new map_template()
 	var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
 	turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
-	to_chat(user, "<span class='notice'>Creation is completed.</span>")
+	to_chat(user, span_notice("Creation is completed."))
 	working = FALSE
 	dive_into(user)
 
 /obj/item/map_template_diver/proc/dive_into(mob/user)
-	to_chat(user, "<span class='notice'>Teleports to the test area.</span>")
+	to_chat(user, span_notice("Teleports to the test area."))
 	user.forceMove(turf_to_dive)
