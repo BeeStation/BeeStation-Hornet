@@ -10,6 +10,7 @@
 	armor_type = /datum/armor/combat_phazon
 	max_temperature = 25000
 	wreckage = /obj/structure/mecha_wreckage/phazon
+	mech_type = EXOSUIT_MODULE_PHAZON
 	force = 15
 	max_equip_by_category = list(
 		MECHA_UTILITY = 1,

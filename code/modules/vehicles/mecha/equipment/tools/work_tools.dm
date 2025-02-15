@@ -22,13 +22,6 @@
 	///Audio for using the hydraulic clamp
 	var/clampsound = 'sound/mecha/hydraulic.ogg'
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/vehicle/sealed/mecha/M, attach_right = FALSE)
-	. = ..()
-	if(!.)
-		return
-	if(!istype(M, /obj/vehicle/sealed/mecha/working/ripley))
-		return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach(obj/vehicle/sealed/mecha/M)
 	. = ..()
 	cargo_holder = M
@@ -156,7 +149,7 @@
 	equip_cooldown = 5
 	energy_drain = 0
 	range = MECHA_MELEE|MECHA_RANGED
-	mech_flags = EXOSUIT_MODULE_RIPLEY
+	mech_flags = EXOSUIT_MODULE_WORKING
 	var/sprays_left = 0
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize(mapload)
@@ -211,17 +204,10 @@
 		"total_reagents" = reagents.maximum_volume,
 	)
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/vehicle/sealed/mecha/M, attach_right = FALSE)
-	. = ..()
-	if(!.)
-		return
-	if(!istype(M, /obj/vehicle/sealed/mecha/working))
-		return FALSE
 
-
-#define MODE_DECONSTRUCT	0
-#define MODE_WALL			1
-#define MODE_AIRLOCK		2
+#define MODE_DECONSTRUCT 0
+#define MODE_WALL 1
+#define MODE_AIRLOCK 2
 
 /obj/item/mecha_parts/mecha_equipment/rcd
 	name = "mounted RCD"

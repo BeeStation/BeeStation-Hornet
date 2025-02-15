@@ -115,6 +115,8 @@
 
 	///Typepath for the wreckage it spawns when destroyed
 	var/wreckage
+	///single flag for the type of this mech, determines what kind of equipment can be attached to it
+	var/mech_type
 
 	///assoc list: key-typepathlist before init, key-equipmentlist after
 	var/list/equip_by_category = list(
@@ -1004,7 +1006,7 @@
 /obj/vehicle/sealed/mecha/mob_try_enter(mob/M)
 	if(!ishuman(M)) // no silicons or drones in mechas.
 		return
-	log_message("[M] tries to move into [src].", LOG_MECHA)
+	log_message("[M] tried to move into [src].", LOG_MECHA)
 	if(!operation_allowed(M))
 		to_chat(M, span_warning("Access denied. Insufficient operation keycodes."))
 		log_message("Permission denied (No keycode).", LOG_MECHA)
