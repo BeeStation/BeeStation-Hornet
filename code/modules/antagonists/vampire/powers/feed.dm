@@ -188,7 +188,7 @@
 
 /datum/action/cooldown/vampire/feed/proc/find_target()
 	if(owner.pulling && isliving(owner.pulling))
-		if(!can_feed_from(owner.pulling, give_warnings = TRUE))
+		if(!can_feed_from(owner.pulling))
 			return FALSE
 		target_ref = WEAKREF(owner.pulling)
 		return TRUE
@@ -215,11 +215,10 @@
 	//No one to suck blood from.
 	return FALSE
 
-/datum/action/cooldown/vampire/feed/proc/can_feed_from(mob/living/target, give_warnings = FALSE)
+/datum/action/cooldown/vampire/feed/proc/can_feed_from(mob/living/target)
 	if(istype(target, /mob/living/simple_animal/mouse))
 		if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
-			if(give_warnings)
-				owner.balloon_alert(owner, "too disgusting!")
+			owner.balloon_alert(owner, "too disgusting!")
 			return FALSE
 		return TRUE
 	//Mice check done, only humans are otherwise allowed
@@ -228,16 +227,13 @@
 
 	var/mob/living/carbon/human/target_user = target
 	if(!(target_user.dna?.species) || !(target_user.mob_biotypes & MOB_ORGANIC))
-		if(give_warnings)
-			owner.balloon_alert(owner, "no blood!")
+		owner.balloon_alert(owner, "no blood!")
 		return FALSE
 	if(!target_user.can_inject(owner, BODY_ZONE_HEAD, (1 << 0)))
-		if(give_warnings)
-			owner.balloon_alert(owner, "suit too thick!")
+		owner.balloon_alert(owner, "suit too thick!")
 		return FALSE
 	if((vampiredatum_power.my_clan && vampiredatum_power.my_clan.blood_drink_type == VAMPIRE_DRINK_SNOBBY) && !target_user.mind && !vampiredatum_power.frenzied)
-		if(give_warnings)
-			owner.balloon_alert(owner, "cant drink from mindless!")
+		owner.balloon_alert(owner, "cant drink from mindless!")
 		return FALSE
 	return TRUE
 
