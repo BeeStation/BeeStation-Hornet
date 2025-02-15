@@ -15,6 +15,7 @@
 	. = ..()
 	var/turf/current_turf = get_turf(src)
 	new /obj/item/book/kindred(current_turf)
+	qdel(src)
 
 /**
  *	# Archives of the Kindred:

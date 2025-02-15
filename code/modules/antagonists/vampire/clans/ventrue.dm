@@ -6,17 +6,13 @@
 /datum/vampire_clan/ventrue
 	name = CLAN_VENTRUE
 	description = "The Ventrue Clan is extremely snobby with their meals, and refuse to drink blood from people without a mind. \n\
-		You may only level yourself up to Level %MAX_LEVEL%, anything further will be ranks to spend on their Favorite Vassal through a Persuasion Rack. \n\
+		You may only level yourself up to Level 3, anything further will be ranks to spend on their Favorite Vassal through a Persuasion Rack. \n\
 		The Favorite Vassal will slowly turn more Vampiric this way, until they finally lose their last bits of Humanity."
 	clan_objective = /datum/objective/vampire/embrace
 	join_icon_state = "ventrue"
 	join_description = "Lose the ability to drink from mindless mobs, can't level up or gain new powers, \
 		instead you raise a vassal into a Vampire."
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
-
-/datum/vampire_clan/ventrue/New(datum/antagonist/vampire/owner_datum)
-	. = ..()
-	description = replacetext(description, "%MAX_LEVEL%", VENTRUE_MAX_LEVEL)
 
 /datum/vampire_clan/ventrue/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
 	if(!target)
