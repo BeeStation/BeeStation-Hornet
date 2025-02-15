@@ -37,7 +37,7 @@
 		return FALSE
 	if(remote_control)
 		remote_control.relaymove(src, dir)
-		return
+		return TRUE
 	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
@@ -47,10 +47,12 @@
 	if(istype(loc, /obj/effect/dummy/phased_mob)) // I despise this
 		var/obj/effect/dummy/phased_mob/L = loc
 		L.relaymove(src, dir)
-		return
+		// Return true if we changed position
+		return source != get_turf(L)
 	if(istype(buckled))
 		buckled.relaymove(src, dir)
-		return
+		// Return true if we changed position
+		return source != get_turf(L)
 	var/move_verb = "floating"
 	var/delay = 1 SECONDS
 	var/upwards = dir == UP
@@ -77,7 +79,8 @@
 			delay = 1 SECONDS
 		else
 			move_verb = "(unknown move type, call a coder!) moving"
-	return start_travel_z(src, upwards, move_verb, delay, allow_movement = (move_type != MOVETYPE_CLIMB))
+	start_travel_z(src, upwards, move_verb, delay, allow_movement = (move_type != MOVETYPE_CLIMB))
+	return TRUE
 
 /// Actually starts a zMove, doing movement animations
 /mob/living/proc/start_travel_z(mob/user, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS, allow_movement = TRUE)
