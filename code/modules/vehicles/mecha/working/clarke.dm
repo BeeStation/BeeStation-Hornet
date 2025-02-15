@@ -1,5 +1,5 @@
 ///Lavaproof, fireproof, fast mech with low armor and higher energy consumption, cannot strafe and has an internal ore box.
-/obj/vehicle/sealed/mecha/working/clarke
+/obj/vehicle/sealed/mecha/clarke
 	desc = "Combining man and machine for a better, stronger engineer. Can even resist lava!"
 	name = "\improper Clarke"
 	icon_state = "clarke"
@@ -10,7 +10,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	lights_power = 7
 	step_energy_drain = 15 //slightly higher energy drain since you movin those wheels FAST
-	armor_type = /datum/armor/working_clarke
+	armor_type = /datum/armor/mecha_clarke
 	equip_by_category = list(
 		MECHA_L_ARM = null,
 		MECHA_R_ARM = null,
@@ -32,7 +32,7 @@
 	pivot_step = TRUE
 
 
-/datum/armor/working_clarke
+/datum/armor/mecha_clarke
 	melee = 20
 	bullet = 10
 	laser = 20
@@ -42,38 +42,39 @@
 	fire = 100
 	acid = 100
 
-/obj/vehicle/sealed/mecha/working/clarke/Initialize(mapload)
+/obj/vehicle/sealed/mecha/clarke/Initialize(mapload)
 	. = ..()
-	box = new(src)
+	ore_box = new(src)
 
-/obj/vehicle/sealed/mecha/working/clarke/Destroy()
-	box.dump_box_contents()
+/obj/vehicle/sealed/mecha/clarke/atom_destruction()
+	if(ore_box)
+		INVOKE_ASYNC(ore_box, TYPE_PROC_REF(/obj/structure/ore_box, dump_box_contents))
 	return ..()
 
-/obj/vehicle/sealed/mecha/working/clarke/moved_inside(mob/living/carbon/human/H)
+/obj/vehicle/sealed/mecha/clarke/generate_actions()
+	. = ..()
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_search_ruins)
+
+/obj/vehicle/sealed/mecha/clarke/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(. && !HAS_TRAIT(H, TRAIT_DIAGNOSTIC_HUD))
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 		hud.add_hud_to(H)
 		ADD_TRAIT(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT)
 
-/obj/vehicle/sealed/mecha/working/clarke/remove_occupant(mob/living/carbon/H)
+/obj/vehicle/sealed/mecha/clarke/remove_occupant(mob/living/carbon/H)
 	if(isliving(H) && HAS_TRAIT_FROM(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT))
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 		hud.remove_hud_from(H)
 		REMOVE_TRAIT(H, TRAIT_DIAGNOSTIC_HUD, VEHICLE_TRAIT)
 	return ..()
 
-/obj/vehicle/sealed/mecha/working/clarke/mmi_moved_inside(obj/item/mmi/M, mob/user)
+/obj/vehicle/sealed/mecha/clarke/mmi_moved_inside(obj/item/mmi/M, mob/user)
 	. = ..()
 	if(.)
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 		var/mob/living/brain/B = M.brainmob
 		hud.add_hud_to(B)
-
-/obj/vehicle/sealed/mecha/working/clarke/generate_actions()
-	. = ..()
-	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_search_ruins)
 
 //Ore Box Controls
 
@@ -86,23 +87,31 @@
 	equipment_slot = MECHA_UTILITY
 	selectable = FALSE
 	detachable = FALSE
-	/// Var to avoid istype checking every time the topic button is pressed. This will only work inside Clarke mechs.
-	var/obj/vehicle/sealed/mecha/working/clarke/hostmech
 
-/obj/item/mecha_parts/mecha_equipment/orebox_manager/attach(obj/vehicle/sealed/mecha/M, attach_right = FALSE)
+/obj/item/mecha_parts/mecha_equipment/orebox_manager/attach(obj/vehicle/sealed/mecha/mecha, attach_right = FALSE)
 	. = ..()
-	if(istype(M, /obj/vehicle/sealed/mecha/working/clarke))
-		hostmech = M
+	ADD_TRAIT(chassis, TRAIT_OREBOX_FUNCTIONAL, TRAIT_MECH_EQUIPMENT(type))
 
-/obj/item/mecha_parts/mecha_equipment/orebox_manager/detach()
-	hostmech = null //just in case
+/obj/item/mecha_parts/mecha_equipment/orebox_manager/detach(atom/moveto)
+	REMOVE_TRAIT(chassis, TRAIT_OREBOX_FUNCTIONAL, TRAIT_MECH_EQUIPMENT(type))
 	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/orebox_manager/get_snowflake_data()
+	var/list/data = list("snowflake_id" = MECHA_SNOWFLAKE_ID_OREBOX_MANAGER)
+	data["cargo"] = length(chassis.ore_box?.contents)
+	return data
 
 /obj/item/mecha_parts/mecha_equipment/orebox_manager/ui_act(action, list/params)
 	. = ..()
-	if(action == "toggle")
-		hostmech.box?.dump_box_contents()
-		activated = TRUE
+	if(.)
+		return TRUE
+	if(action == "dump")
+		var/obj/structure/ore_box/cached_ore_box = chassis.ore_box
+		if(isnull(cached_ore_box))
+			return FALSE
+		cached_ore_box.dump_box_contents()
+		log_message("Dumped [cached_ore_box].", LOG_MECHA)
+		return TRUE
 
 #define SEARCH_COOLDOWN 1 MINUTES
 

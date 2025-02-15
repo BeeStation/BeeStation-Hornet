@@ -16,12 +16,12 @@
 /datum/bounty/item/mech/ripleymk2
 	name = "APLU MK-II \"Ripley\""
 	reward = 13000
-	wanted_types = list(/obj/vehicle/sealed/mecha/working/ripley/mk2)
+	wanted_types = list(/obj/vehicle/sealed/mecha/ripley/mk2)
 
 /datum/bounty/item/mech/clarke
 	name = "Clarke"
 	reward = 16000
-	wanted_types = list(/obj/vehicle/sealed/mecha/working/clarke)
+	wanted_types = list(/obj/vehicle/sealed/mecha/clarke)
 
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"

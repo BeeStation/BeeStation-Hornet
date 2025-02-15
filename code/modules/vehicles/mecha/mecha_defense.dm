@@ -357,6 +357,8 @@
 	..()
 
 /obj/vehicle/sealed/mecha/atom_destruction()
+	loc.assume_air(cabin_air)
+
 	if(wreckage)
 		var/mob/living/silicon/ai/AI
 		for(var/crew in occupants)

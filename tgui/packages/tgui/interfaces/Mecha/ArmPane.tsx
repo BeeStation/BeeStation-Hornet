@@ -118,7 +118,8 @@ const BallisticStats = (props: {weapon: MechWeapon}, context) => {
 const MECHA_SNOWFLAKE_ID_SLEEPER = "sleeper_snowflake";
 const MECHA_SNOWFLAKE_ID_SYRINGE = "syringe_snowflake";
 const MECHA_SNOWFLAKE_ID_MODE = "mode_snowflake";
-const MECHA_SNOWFLAKE_ID_EXTINGUISHER = "extinguisher_snowflake";
+const MECHA_SNOWFLAKE_ID_EXTINGUISHER = 'extinguisher_snowflake';
+const MECHA_SNOWFLAKE_ID_OREBOX_MANAGER = 'orebox_manager_snowflake';
 
 // Handles all the snowflake buttons and whatever
 const Snowflake = (props: {weapon: MechWeapon}, context) => {

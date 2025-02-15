@@ -3,7 +3,7 @@
 /obj/vehicle/sealed/mecha/generate_action_type()
 	. = ..()
 	if(istype(., /datum/action/vehicle/sealed/mecha))
-		ar/datum/action/vehicle/sealed/mecha/mecha_action = .
+		var/datum/action/vehicle/sealed/mecha/mecha_action = .
 		mecha_action.set_chassis(src)
 
 
@@ -79,19 +79,16 @@
 	. = ..()
 	RegisterSignal(chassis, COMSIG_MECH_SAFETIES_TOGGLE, PROC_REF(update_action_icon))
 
-/datum/action/vehicle/sealed/mecha/mech_toggle_safeties/Trigger(trigger_flags)
+/datum/action/vehicle/sealed/mecha/mech_toggle_safeties/on_activate()
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 
 	chassis.set_safety(owner)
 
-/datum/action/vehicle/sealed/mecha/mech_toggle_safeties/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force)
-	button_icon_state = "mech_safeties_[chassis.weapons_safety ? "on" : "off"]"
-	return ..()
-
 /datum/action/vehicle/sealed/mecha/mech_toggle_safeties/proc/update_action_icon()
 	SIGNAL_HANDLER
-	build_all_button_icons()
+	button_icon_state = "mech_safeties_[chassis.weapons_safety ? "on" : "off"]"
+	update_buttons()
 
 /datum/action/vehicle/sealed/mecha/strafe
 	name = "Toggle Strafing. Disabled when Alt is held."
