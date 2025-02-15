@@ -144,23 +144,6 @@
 	else //scrubbing == SIPHONING
 		icon_state = "scrub_purge"
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
-	if(!on || welded || !is_operational || !powered(power_channel))
-		return FALSE
-
-	var/amount = idle_power_usage
-
-	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
-		amount += idle_power_usage * length(filter_types)
-	else
-		amount = active_power_usage
-
-	if(widenet)
-		amount += amount * (adjacent_turfs.len * (adjacent_turfs.len / 2))
-	use_power(amount, power_channel)
-	return TRUE
-
-
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/update_power_usage()
 	idle_power_usage = initial(idle_power_usage)
 	active_power_usage = initial(idle_power_usage)
