@@ -142,6 +142,7 @@
 #include "code\__DEFINES\orbit_defines.dm"
 #include "code\__DEFINES\overlays.dm"
 #include "code\__DEFINES\pai.dm"
+#include "code\__DEFINES\paintings.dm"
 #include "code\__DEFINES\paper.dm"
 #include "code\__DEFINES\particles.dm"
 #include "code\__DEFINES\perf_test.dm"
