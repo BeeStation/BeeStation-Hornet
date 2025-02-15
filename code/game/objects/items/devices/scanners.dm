@@ -481,7 +481,9 @@ GENE SCANNER
 				else
 					blood_type = blood_id
 			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
-			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
+			if(HAS_TRAIT(C, TRAIT_MASQUERADE))
+				message += span_info("Blood level: 100 %, 560 cl, type: [blood_info]")
+			else if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
 				message += span_alert("Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]")
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
 				message += span_alert("Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]")
