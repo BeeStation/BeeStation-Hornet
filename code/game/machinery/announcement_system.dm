@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	else if(message_type == "ARRIVALS_BROKEN")
 		message = "The arrivals shuttle has been damaged. Docking for repairs."
 	else if(message_type == "EXPLORATION_PAYOUT")
-		message = "Exploration objective completed. [exploration_payout] credits have been distributed to the departmental budget."
+		message = "Exploration objective completed. [exploration_payout / channels.len] credits have been distributed to the departmental budget."
 
 	if(channels.len == 0)
 		radio.talk_into(src, message, null)
