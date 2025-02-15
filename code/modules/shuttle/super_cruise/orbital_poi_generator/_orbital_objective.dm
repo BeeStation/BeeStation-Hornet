@@ -47,5 +47,10 @@
 	//Handle payout
 	SSeconomy.distribute_funds(payout)
 	bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_EXPLO, payout)
+	//Announcement
+	if(length(GLOB.announcement_systems))
+		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
+		var/department_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL, RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
+		announcer.announce("EXPLORATION_PAYOUT", channels = department_channels, exploration_payout = payout)
 	//Delete
 	QDEL_NULL(SSorbits.current_objective)
