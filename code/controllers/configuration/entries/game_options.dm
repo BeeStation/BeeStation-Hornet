@@ -249,7 +249,7 @@
 	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
 
 /datum/config_entry/string/alert_gamma
-	config_entry_value = "Central Command has ordered the Epsilon security level on the station. This station is now under direct central command control. Central command personnel are to be listened to in favor of heads of staff."
+	config_entry_value = "Central Command has ordered the Gamma security level on the station. This station is now under direct central command control. Central command personnel are to be listened to in favor of heads of staff."
 
 /datum/config_entry/string/alert_black
 	config_entry_value = "Central Command has detected multiple syndicate infiltrator ships incoming. All crew are to prepare for hostile boarding. Any violations of orders from security personnel or heads of staff are punishable by death. This is not a drill, evacuate the station immediately."
