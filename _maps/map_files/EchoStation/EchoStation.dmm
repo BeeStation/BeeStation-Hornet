@@ -11036,11 +11036,9 @@
 	dir = 8;
 	name = "N2 to Pure"
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	piping_layer = 1;
-	name = "O2 to Pure";
+/obj/machinery/atmospherics/components/binary/pump/off/general/visible/layer1{
 	dir = 8;
-	pixel_y = -10
+	name = "O2 to Pure"
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
@@ -15511,9 +15509,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/brown/hidden/layer5{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/binary/valve{
+/obj/machinery/atmospherics/components/binary/valve/layer2{
 	dir = 8;
-	pixel_y = -10;
+	pixel_y = -5;
 	name = "Manual Lockout Valve";
 	piping_layer = 1
 	},
@@ -34662,23 +34660,17 @@
 /area/bridge)
 "qXA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Air to Distro";
-	target_pressure = 500;
-	piping_layer = 2;
-	pixel_x = -5
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Air Supply to Distro";
-	target_pressure = 500;
-	piping_layer = 5;
-	dir = 1;
-	pixel_x = 11
-	},
 /obj/structure/window/reinforced/spawner,
+/obj/machinery/atmospherics/components/binary/pump/on/general/visible/layer5{
+	dir = 1;
+	name = "Air Supply to Distro"
+	},
+/obj/machinery/atmospherics/components/binary/pump/on/general/visible/layer2{
+	name = "Air to Distro"
+	},
 /turf/open/floor/iron/dark/textured_corner{
 	dir = 1
 	},
@@ -46563,12 +46555,11 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "wJS" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped/inverse{
-	dir = 8;
-	piping_layer = 2
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 9
+	},
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/layer2/flipped/inverse{
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
