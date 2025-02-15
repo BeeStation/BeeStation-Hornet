@@ -166,21 +166,32 @@
 		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
-/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/user, slot)
+/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/user, slot)
 	. = ..()
 	attached_hat?.equipped(user, slot)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/lungs/living_lungs = human_user.getorganslot(ORGAN_SLOT_LUNGS)
+	//Early return if its not on the head slot, on a mob that doesnt breathe, or on a mob that breathes plasma
+	if(slot != ITEM_SLOT_HEAD || HAS_TRAIT(human_user, TRAIT_NOBREATH) || living_lungs.breathing_class == /datum/breathing_class/plasma)
+		return
 
-/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/user)
+	human_user.apply_status_effect(/datum/status_effect/suffocating/plasma)
+
+
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/user)
 	. = ..()
 	attached_hat?.dropped(user)
+	if(user.has_status_effect(/datum/status_effect/suffocating/plasma))
+		user.remove_status_effect(/datum/status_effect/suffocating/plasma)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
 	if(!user)
 		return
 
 	//The icon's may look differently due to overlays being applied asynchronously
-	for(var/X in actions)
-		var/datum/action/A=X
+	for(var/datum/action/A as anything in actions)
 		A.update_buttons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
