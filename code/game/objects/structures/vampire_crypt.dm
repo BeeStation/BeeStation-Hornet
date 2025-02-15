@@ -93,9 +93,8 @@
 	buckle_lying = 180
 	ghost_desc = "This is a Vassal rack, which allows Vampires to thrall crewmembers into loyal minions."
 	vampire_desc = "This is the Vassal rack, which allows you to thrall crewmembers into loyal minions in your service. This costs blood to do.\n\
-		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Click on the persuasion rack to unbuckle them.\n\
-		To convert into a Vassal, repeatedly click on the persuasion rack while not on help intent.\n\
-		The conversion time is decreased depending on how sharp the tool in you offhand is, if you have one.\n\
+		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Right-click on the persuasion rack to unbuckle them.\n\
+		To convert into a Vassal, repeatedly click on the persuasion rack. The time required scales with the tool in your off hand.\n\
 		Vassals can be turned into special ones by continuing to torture them once converted."
 	vassal_desc = "This is the vassal rack, which allows your master to thrall crewmembers into their minions.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
@@ -189,28 +188,38 @@
 	return TRUE
 
 /obj/structure/vampire/vassalrack/attack_hand(mob/user, list/modifiers)
-	..()
-	if(!has_buckled_mobs())
+	. = ..()
+	if(!. || !has_buckled_mobs())
 		return FALSE
 
 	var/datum/antagonist/vassal/vampiredatum = IS_VAMPIRE(user)
-
 	var/mob/living/carbon/buckled_person = pick(buckled_mobs)
-	if(user.a_intent == INTENT_HELP)
-		if(vampiredatum)
-			unbuckle_mob(buckled_person)
-			return FALSE
-		else
-			user_unbuckle_mob(buckled_person, user)
-			return
+
+	// oh no let me free this poor soul
+	if(!vampiredatum)
+		user_unbuckle_mob(buckled_person, user)
+		return TRUE
 
 	// Try to interact with vassal
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_person)
 	if(vassaldatum?.master == vampiredatum)
 		SEND_SIGNAL(vampiredatum, VAMPIRE_INTERACT_WITH_VASSAL, vassaldatum)
-		return
+		return TRUE
 
-	torture_victim(user, buckled_person)
+	try_to_torture(user, buckled_person)
+
+/obj/structure/vampire/vassalrack/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!has_buckled_mobs() || !isliving(user))
+		return
+	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
+	if(buckled_carbons)
+		if(user == owner)
+			unbuckle_mob(buckled_carbons)
+		else
+			user_unbuckle_mob(buckled_carbons, user)
 
 /**
  * Torture steps:
@@ -220,7 +229,7 @@
  * * If the victim has a mindshield or is an antagonist, they must accept the conversion. If they don't accept, they aren't converted
  * * Vassalize target
  */
-/obj/structure/vampire/vassalrack/proc/torture_victim(mob/living/user, mob/living/target)
+/obj/structure/vampire/vassalrack/proc/try_to_torture(mob/living/user, mob/living/target)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 
 	if(!vampiredatum.can_make_vassal(target) || is_torturing)
