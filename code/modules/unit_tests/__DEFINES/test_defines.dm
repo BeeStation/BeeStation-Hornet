@@ -23,7 +23,7 @@
 	var/lhs = ##a; \
 	var/rhs = ##b; \
 	if (lhs != rhs) { \
-		return Fail("Expected [isnull(lhs) ? "null" : lhs] to be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
+		Fail("Expected [isnull(lhs) ? "null" : lhs] to be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
 	} \
 } while (FALSE)
 
@@ -33,7 +33,7 @@
 	var/lhs = ##a; \
 	var/rhs = ##b; \
 	if (lhs == rhs) { \
-		return Fail("Expected [isnull(lhs) ? "null" : lhs] to not be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
+		Fail("Expected [isnull(lhs) ? "null" : lhs] to not be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
 	} \
 } while (FALSE)
 
