@@ -80,7 +80,7 @@
 	var/list/views = list()
 	for(var/i in 1 to 10)
 		views |= i
-	var/new_view = input("Choose your new view", "Modify view range", 0) as null|anything in views
+	var/new_view = tgui_input_list("Choose your new view", "Modify view range", 0, views)
 	if(new_view)
 		usr.client.view_size.setTo(clamp(new_view, 1, 10))
 	else

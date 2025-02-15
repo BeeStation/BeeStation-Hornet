@@ -320,12 +320,13 @@
 	// Empath examine
 	if(ismob(user))
 		if(HAS_TRAIT(user, TRAIT_EMPATH) && !appears_dead && (src != user))
-			if(a_intent != INTENT_HELP)
+			if(combat_mode)
 				damage_examine += "[capitalize(t_He)] seem[p_s()] to be on guard."
 			if(getOxyLoss() >= 10)
 				damage_examine += "[capitalize(t_He)] seem[p_s()] winded."
 			if(getToxLoss() >= 10)
 				damage_examine += "[capitalize(t_He)] seem[p_s()] sickly."
+
 			var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)
 			if(mood.sanity <= SANITY_DISTURBED)
 				damage_examine += "[capitalize(t_He)] seem[p_s()] distressed."
