@@ -4,7 +4,6 @@
 	icon_state = "gygax"
 	base_icon_state = "gygax"
 	movedelay = 3
-	dir_in = 1 //Facing North.
 	max_integrity = 250
 	armor_type = /datum/armor/combat_gygax
 	max_temperature = 25000

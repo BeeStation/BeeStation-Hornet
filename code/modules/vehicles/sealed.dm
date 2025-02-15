@@ -67,7 +67,6 @@
 	mob_exit(M, silent, randomstep)
 
 /obj/vehicle/sealed/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
-	SIGNAL_HANDLER
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
@@ -117,7 +116,7 @@
 
 /obj/vehicle/sealed/proc/DumpMobs(randomstep = TRUE)
 	for(var/i in occupants)
-		mob_exit(i, null, randomstep)
+		mob_exit(i, randomstep = randomstep)
 		if(iscarbon(i))
 			var/mob/living/carbon/Carbon = i
 			Carbon.Paralyze(40)
@@ -127,7 +126,7 @@
 	for(var/i in occupants)
 		if(!(occupants[i] & flag))
 			continue
-		mob_exit(i, null, randomstep)
+		mob_exit(i, randomstep = randomstep)
 		if(iscarbon(i))
 			var/mob/living/carbon/C = i
 			C.Paralyze(40)

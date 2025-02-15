@@ -11,6 +11,8 @@
 		moved_inside(M)
 
 /obj/vehicle/sealed/mecha/enter_checks(mob/M)
+	if(M.incapacitated())
+		return FALSE
 	if(atom_integrity <= 0)
 		to_chat(M, span_warning("You cannot get in the [src], it has been destroyed!"))
 		return FALSE
@@ -34,7 +36,7 @@
 	newoccupant.update_mouse_pointer()
 	add_fingerprint(newoccupant)
 	log_message("[newoccupant] moved in as pilot.", LOG_MECHA)
-	setDir(dir_in)
+	setDir(SOUTH)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	set_mouse_pointer()
 	if(!internal_damage)
@@ -75,14 +77,15 @@
 	brain_mob.reset_perspective(src)
 	brain_mob.remote_control = src
 	brain_mob.update_mouse_pointer()
-	setDir(dir_in)
+	add_fingerprint(newoccupant)
 	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
+	setDir(SOUTH)
 	if(!internal_damage)
 		SEND_SOUND(brain_obj, sound('sound/mecha/nominal.ogg',volume=50))
 	log_game("[key_name(user)] has put the MMI/posibrain of [key_name(brain_mob)] into [src] at [AREACOORD(src)]")
 	return TRUE
 
-/obj/vehicle/sealed/mecha/mob_exit(mob/M, silent, forced)
+/obj/vehicle/sealed/mecha/mob_exit(mob/M, silent = FALSE, randomstep = FALSE, forced = FALSE)
 	var/atom/movable/mob_container
 	var/turf/newloc = get_turf(src)
 	if(ishuman(M))
@@ -93,7 +96,8 @@
 	else if(isAI(M))
 		var/mob/living/silicon/ai/AI = M
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
-			AI.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
+			if(!AI.linked_core) //if the victim AI has no core
+				AI.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
 			AI = null
 			mecha_flags &= ~SILICON_PILOT
 			return
@@ -125,18 +129,16 @@
 			remove_occupant(ejector)
 		mmi.set_mecha(null)
 		mmi.update_appearance()
-	setDir(dir_in)
+	setDir(SOUTH)
 	return ..()
 
 /obj/vehicle/sealed/mecha/add_occupant(mob/M, control_flags)
-	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(mob_exit))
 	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick))
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
 	. = ..()
 	update_appearance()
 
 /obj/vehicle/sealed/mecha/remove_occupant(mob/M)
-	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 	M.clear_alert("charge")
@@ -158,7 +160,7 @@
 	is_currently_ejecting = TRUE
 	if(do_after(user, has_gravity() ? exit_delay : 0 , target = src))
 		to_chat(user, span_notice("You exit the mech."))
-		mob_exit(user, TRUE)
+		mob_exit(user, silent = TRUE)
 	else
 		to_chat(user, span_notice("You stop exiting the mech. Weapons are enabled again."))
 	is_currently_ejecting = FALSE

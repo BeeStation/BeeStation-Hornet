@@ -4,7 +4,6 @@
 	icon_state = "reticence"
 	base_icon_state = "reticence"
 	movedelay = 2
-	dir_in = 1 //Facing North.
 	max_integrity = 100
 	armor_type = /datum/armor/combat_reticence
 	max_temperature = 15000

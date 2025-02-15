@@ -4,7 +4,6 @@
 	icon_state = "durand"
 	base_icon_state = "durand"
 	movedelay = 4
-	dir_in = 1 //Facing North.
 	max_integrity = 400
 	armor_type = /datum/armor/combat_durand
 	max_temperature = 30000
@@ -67,7 +66,7 @@
 	. = ..()
 	shield.forceMove(T)
 
-/obj/vehicle/sealed/mecha/combat/durand/mob_exit(mob/M, silent, randomstep, forced)
+/obj/vehicle/sealed/mecha/combat/durand/mob_exit(mob/M, silent = FALSE, randomstep = FALSE, forced = FALSE)
 	if(defense_mode)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, M, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 		if(action)

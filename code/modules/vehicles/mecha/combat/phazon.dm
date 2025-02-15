@@ -4,7 +4,6 @@
 	icon_state = "phazon"
 	base_icon_state = "phazon"
 	movedelay = 2
-	dir_in = 2 //Facing South.
 	step_energy_drain = 3
 	max_integrity = 200
 	armor_type = /datum/armor/combat_phazon

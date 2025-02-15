@@ -18,7 +18,7 @@
  * Cooldown for gear is on the mech because exploits
  */
 /obj/vehicle/sealed/mecha
-	name = "mecha"
+	name = "exosuit"
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -37,8 +37,6 @@
 	generic_canpass = FALSE
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 	mouse_pointer = 'icons/effects/mouse_pointers/mecha_mouse.dmi'
-	///What direction will the mech face when entered/powered on? Defaults to South.
-	var/dir_in = SOUTH
 	///How much energy the mech will consume each time it moves. This variable is a backup for when leg actuators affect the energy drain.
 	var/normal_step_energy_drain = 10
 
@@ -275,9 +273,17 @@
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
 /obj/vehicle/sealed/mecha/proc/Eject()
+
+	var/mob/living/silicon/ai/unlucky_ai
 	for(var/mob/living/occupant as anything in occupants)
 		if(isAI(occupant))
-			occupant.gib() //No wreck, no AI to recover
+			var/mob/living/silicon/ai/ai = occupant
+			if(!ai.linked_core) // we probably shouldnt gib AIs with a core
+				unlucky_ai = occupant
+				ai.investigate_log("has been gibbed by having their mech destroyed.", INVESTIGATE_DEATHS)
+				ai.gib() //No wreck, no AI to recover
+			else
+				mob_exit(ai, silent = TRUE, forced = TRUE) // so we dont ghost the AI
 		else
 			occupant.Stun(2 SECONDS)
 			occupant.Knockdown(destruction_knockdown_duration)
@@ -329,6 +335,7 @@
 	SEND_SOUND(user, sound('sound/machines/beep.ogg', volume = 25))
 	balloon_alert(user, "equipment [weapons_safety ? "safe" : "ready"]")
 	set_mouse_pointer()
+	SEND_SIGNAL(src, COMSIG_MECH_SAFETIES_TOGGLE, user, weapons_safety)
 
 /**
  * Updates the pilot's mouse cursor override.
@@ -359,6 +366,7 @@
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_internals, VEHICLE_CONTROL_SETTINGS)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_lights, VEHICLE_CONTROL_SETTINGS)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_safeties, VEHICLE_CONTROL_SETTINGS)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_view_stats, VEHICLE_CONTROL_SETTINGS)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/strafe, VEHICLE_CONTROL_DRIVE)
 
@@ -419,18 +427,6 @@
 
 /obj/vehicle/sealed/mecha/examine(mob/user)
 	. = ..()
-	var/integrity = atom_integrity*100/max_integrity
-	switch(integrity)
-		if(85 to 100)
-			. += "It's fully intact."
-		if(65 to 85)
-			. += "It's slightly damaged."
-		if(45 to 65)
-			. += "It's badly damaged."
-		if(25 to 45)
-			. += "It's heavily damaged."
-		else
-			. += "It's falling apart."
 	if(LAZYLEN(flat_equipment))
 		. += "It's equipped with:"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME as anything in flat_equipment)
@@ -449,6 +445,24 @@
 					continue
 				. += span_warning("It looks like you can hit the pilot directly if you target the center or above.")
 				break //in case user is holding two guns
+
+/obj/vehicle/sealed/mecha/generate_integrity_message()
+	var/examine_text = ""
+	var/integrity = atom_integrity*100/max_integrity
+
+	switch(integrity)
+		if(85 to 100)
+			examine_text = "It's fully intact."
+		if(65 to 85)
+			examine_text = "It's slightly damaged."
+		if(45 to 65)
+			examine_text = "It's badly damaged."
+		if(25 to 45)
+			examine_text = "It's heavily damaged."
+		else
+			examine_text = "It's falling apart."
+
+	return examine_text
 
 //processing internal damage, temperature, air regulation, alert updates, lights power use.
 /obj/vehicle/sealed/mecha/process(delta_time)
@@ -490,7 +504,7 @@
 	for(var/mob/living/occupant as anything in occupants)
 		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
 			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
-			mob_exit(occupant) //bye bye
+			mob_exit(occupant, randomstep = TRUE) //bye bye
 			continue
 		if(cell)
 			var/cellcharge = cell.maxcharge ? cell.charge / cell.maxcharge : 0 //Division by 0 protection
@@ -715,7 +729,7 @@
 				to_chat(AI, span_warning("Occupants detected! Forced ejection initiated!"))
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))
 				for(var/ejectee in occupants)
-					mob_exit(ejectee, TRUE, TRUE) //IT IS MINE, NOW. SUCK IT, RD!
+					mob_exit(ejectee, silent = TRUE, randomstep = TRUE, forced = TRUE) //IT IS MINE, NOW. SUCK IT, RD!
 				AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
@@ -747,7 +761,7 @@
 	AI.remote_control = src
 	to_chat(AI, AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!") :\
 		span_notice("You have been uploaded to a mech's onboard computer."))
-	to_chat(AI, span_reallybigboldnotice("Use Middle-Mouse to toggle equipment safety. Clicks with safety enabled will pass AI commands."))
+	to_chat(AI, span_reallybigboldnotice("Use Middle-Mouse or the action button in your HUD to toggle equipment safety. Clicks with safety enabled will pass AI commands."))
 
 ///Handles an actual AI (simple_animal mecha pilot) entering the mech
 /obj/vehicle/sealed/mecha/proc/aimob_enter_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
@@ -837,7 +851,7 @@
 			else
 				gun.projectiles_cache = gun.projectiles_cache + ammo_needed
 			playsound(get_turf(user),A.load_audio,50,TRUE)
-			to_chat(user, span_notice("You add [ammo_needed] [A.round_term][ammo_needed > 1?"s":""] to the [gun.name]"))
+			to_chat(user, span_notice("You add [ammo_needed] [A.ammo_type][ammo_needed > 1?"s":""] to the [gun.name]"))
 			A.rounds = A.rounds - ammo_needed
 			if(A.custom_materials)	//Change material content of the ammo box according to the amount of ammo deposited into the weapon
 				/// list of materials contained in the ammo box after we put it through the equation so we can stick this list into set_custom_materials()
@@ -856,7 +870,7 @@
 		else
 			gun.projectiles_cache = gun.projectiles_cache + A.rounds
 		playsound(get_turf(user),A.load_audio,50,TRUE)
-		to_chat(user, span_notice("You add [A.rounds] [A.round_term][A.rounds > 1?"s":""] to the [gun.name]"))
+		to_chat(user, span_notice("You add [A.rounds] [A.ammo_type][A.rounds > 1?"s":""] to the [gun.name]"))
 		A.rounds = 0
 		A.set_custom_materials(list(/datum/material/iron=2000))
 		A.update_appearance()

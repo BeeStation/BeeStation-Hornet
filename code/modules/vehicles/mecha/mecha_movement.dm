@@ -1,3 +1,9 @@
+/// Sets the direction of the mecha and all of its occcupants
+/obj/vehicle/sealed/mecha/setDir(newdir)
+	. = ..()
+	for(var/mob/living/occupant as anything in occupants)
+		occupant.setDir(newdir)
+
 ///Plays the mech step sound effect. Split from movement procs so that other mechs (HONK) can override this one specific part.
 /obj/vehicle/sealed/mecha/proc/play_stepsound()
 	SIGNAL_HANDLER
