@@ -1239,7 +1239,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 SCREENTIP_ATTACK_HAND(/obj/machinery/computer/arcade/amputation, "Use")
 
-/obj/machinery/computer/arcade/amputation/attack_hand(mob/user)
+/obj/machinery/computer/arcade/amputation/attack_hand(mob/user, list/modifiers)
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/c_user = user

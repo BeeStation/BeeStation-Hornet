@@ -92,7 +92,7 @@
 
 SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
-/obj/machinery/clonepod/attack_hand(mob/user)
+/obj/machinery/clonepod/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

@@ -57,7 +57,7 @@
 
 SCREENTIP_ATTACK_HAND(/obj/machinery/airlock_sensor, "Use")
 
-/obj/machinery/airlock_sensor/attack_hand(mob/user)
+/obj/machinery/airlock_sensor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

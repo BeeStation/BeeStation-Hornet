@@ -53,7 +53,7 @@
 
 SCREENTIP_ATTACK_HAND(/obj/machinery/attack_hand, "Toggle Open")
 
-/obj/machinery/harvester/attack_hand(mob/user)
+/obj/machinery/harvester/attack_hand(mob/user, list/modifiers)
 	if(state_open)
 		close_machine()
 	else if(!harvesting)

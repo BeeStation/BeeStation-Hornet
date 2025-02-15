@@ -7,9 +7,9 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 35 SECONDS
+	cooldown_time = 40 SECONDS
 
-	invocation = "CL'VE"
+	invocation = "CL'VE!"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -27,7 +27,7 @@
 		nearby += nearby_human
 
 	for(var/mob/living/carbon/human/victim as anything in nearby)
-		if(victim == owner)
+		if(victim == owner || IS_HERETIC_OR_MONSTER(victim))
 			continue
 		if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
 			victim.visible_message(
@@ -44,13 +44,13 @@
 		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
 		victim.apply_damage(20, BURN, bodypart)
 
-		new /obj/effect/temp_visual/cleave(victim.drop_location())
+		new /obj/effect/temp_visual/cleave(get_turf(victim))
 
 	return TRUE
 
 /datum/action/spell/pointed/cleave/long
 	name = "Lesser Cleave"
-	cooldown_time = 65 SECONDS
+	cooldown_time = 60 SECONDS
 
 /obj/effect/temp_visual/cleave
 	icon = 'icons/effects/eldritch.dmi'
