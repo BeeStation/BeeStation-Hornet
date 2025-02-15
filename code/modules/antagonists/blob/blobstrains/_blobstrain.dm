@@ -12,9 +12,9 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	var/blobbernaut_message = "slams" //blobbernaut attack verb
 	var/message = "The blob strikes you" //message sent to any mob hit by the blob
 	var/message_living = null //extension to first mob sent to only living mobs i.e. silicons have no skin to be burnt
-	var/core_regen = 2
+	var/core_regen = BLOB_CORE_HP_REGEN
 	var/resource_delay = 0
-	var/point_rate = 2
+	var/point_rate = BLOB_BASE_POINT_RATE
 	var/mob/camera/blob/overmind
 
 /datum/blobstrain/New(mob/camera/blob/new_overmind)

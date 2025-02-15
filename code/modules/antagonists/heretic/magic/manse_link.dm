@@ -13,6 +13,7 @@
 	invocation = "PI'RC' TH' M'ND."
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION | SPELL_REQUIRES_NO_ANTIMAGIC
+	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 
 	cast_range = 7
 
@@ -80,7 +81,7 @@
 	if(!originator?.linked_mobs[living_owner])
 		CRASH("Uh oh, a Mansus Link ([type]) got somehow called Activate() [isnull(originator) ? "without an originator Raw Prophet" : "without being in the originator's linked_mobs list"].")
 
-	var/message = sanitize(input(living_owner, "Enter your message", "Telepathy from the Mansus"))
+	var/message = sanitize(tgui_input_text(living_owner, "Enter your message", "Telepathy from the Mansus"))
 	if(!message)
 		return
 

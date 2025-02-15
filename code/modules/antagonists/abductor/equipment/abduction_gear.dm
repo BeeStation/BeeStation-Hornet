@@ -17,7 +17,7 @@
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
 		/obj/item/gun/energy,
@@ -171,12 +171,12 @@
 	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 
-/obj/item/abductor/proc/AbductorCheck(mob/user)
+/obj/item/proc/AbductorCheck(mob/user)
 	if (HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
 	if (istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
-	to_chat(user, span_warning("You can't figure how this works!"))
+	to_chat(user, span_warning("You can't figure out how this works!"))
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(mob/user)
@@ -187,7 +187,7 @@
 		to_chat(user, span_warning("You're not trained to use this!"))
 		. = FALSE
 	else if(!training && !sci_training)
-		to_chat(user, span_warning("You can't figure how this works!"))
+		to_chat(user, span_warning("You can't figure out how this works!"))
 		. = FALSE
 	else
 		. = TRUE
@@ -432,21 +432,44 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 #define BATON_PROBE 3
 #define BATON_MODES 4
 
-/obj/item/abductor/baton
+/obj/item/melee/baton/abductor
 	name = "advanced baton"
 	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
-	var/mode = BATON_STUN
+
+	icon = 'icons/obj/abductor.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
 	worn_icon_state = "classic_baton"
-	slot_flags = ITEM_SLOT_BELT
+
 	force = 7
+
 	w_class = WEIGHT_CLASS_LARGE
+	slot_flags = ITEM_SLOT_BELT
+
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	//The mob we are currently incapacitating.
 	var/mob/current_target
 
-/obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
+	stun_time = 14 SECONDS
+
+	preload_cell_type = /obj/item/stock_parts/cell/infinite //Any sufficiently advanced technology is indistinguishable from magic
+	activate_sound = null
+	can_remove_cell = FALSE
+
+	var/mode = BATON_STUN
+
+	var/sleep_time = 2 MINUTES
+	var/time_to_cuff = 3 SECONDS
+
+/obj/item/melee/baton/abductor/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/melee/baton/abductor/proc/toggle(mob/living/user=usr)
+	if(!AbductorCheck(user))
+		return
 	mode = (mode+1)%BATON_MODES
 	var/txt
 	switch(mode)
@@ -459,10 +482,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			txt = "probing"
 
+	if(!turned_on)
+		toggle_on(user)
 	to_chat(usr, span_notice("You switch the baton to [txt] mode."))
 	update_icon()
 
-/obj/item/abductor/baton/examine(mob/user)
+/obj/item/melee/baton/abductor/examine(mob/user)
 	. = ..()
 	if (!isabductor(user))
 		return
@@ -477,7 +502,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			. += span_warning("The baton is in probing mode.")
 
-/obj/item/abductor/baton/update_icon()
+/obj/item/melee/baton/abductor/update_icon_state()
+	. = ..()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
@@ -492,65 +518,58 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			icon_state = "wonderprodProbe"
 			item_state = "wonderprodProbe"
 
-/obj/item/abductor/baton/attack(mob/target, mob/living/user)
+/obj/item/melee/baton/abductor/attack(mob/target, mob/living/user)
 	if(!AbductorCheck(user))
-		return
+		return FALSE
+
+	if(!deductcharge(cell_hit_cost))
+		to_chat(user, "<span class='warning'>[src] [cell ? "is out of charge" : "does not have a power source installed"].</span>")
+		return FALSE
+
+	if(!turned_on)
+		toggle_on(user)
 
 	if(iscyborg(target))
-		..()
-		return
+		if(mode == BATON_STUN)
+			..()
+		return FALSE
 
 	if(!isliving(target))
-		return
+		return FALSE
+
+	if(clumsy_check(user))
+		return FALSE
 
 	var/mob/living/L = target
 
 	user.do_attack_animation(L)
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return FALSE
+	if(shields_blocked(L, user))
+		return FALSE
 
 	switch (mode)
 		if(BATON_STUN)
-			StunAttack(L,user)
+			..()
 		if(BATON_SLEEP)
 			SleepAttack(L,user)
 		if(BATON_CUFF)
 			CuffAttack(L,user)
 		if(BATON_PROBE)
 			ProbeAttack(L,user)
+	return
 
-/obj/item/abductor/baton/attack_self(mob/living/user)
+/obj/item/melee/baton/abductor/proc/StunAttack(mob/living/L)
+	L.Paralyze(stun_time)
+
+/obj/item/melee/baton/abductor/attack_self(mob/living/user)
 	toggle(user)
 
-/obj/item/abductor/baton/proc/StunAttack(mob/living/L,mob/living/user)
+/obj/item/melee/baton/abductor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	turned_on = FALSE
+	..()
 
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
-	if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
-		to_chat(user, span_warning("The specimen's protective headgear is interfering with the baton's stun function!"))
-		L.visible_message(span_danger("[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!"), \
-								span_userdanger("You feel a slight tickle where [src] touches you!"))
-		return
-	L.Paralyze(140)
-	switch_target(L)
-	L.apply_effect(EFFECT_STUTTER, 7)
-	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
-
-	L.visible_message(span_danger("[user] has stunned [L] with [src]!"), \
-							span_userdanger("[user] has stunned you with [src]!"))
-	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.force_say(user)
-
-	log_combat(user, L, "stunned")
-
-/obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
+/obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/L,mob/living/user)
+	playsound(src, stun_sound, 50, TRUE, -1)
 	if(L.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, span_warning("The specimen's protective headgear is interfering with the sleep inducement!"))
@@ -560,8 +579,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			return
 		L.visible_message(span_danger("[user] has induced sleep in [L] with [src]!"), \
 							span_userdanger("You suddenly feel very drowsy!"))
-		playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-		L.Sleeping(1200)
+		L.Sleeping(sleep_time)
 		switch_target(L)
 		log_combat(user, L, "put to sleep")
 	else
@@ -575,7 +593,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.visible_message(span_danger("[user] tried to induce sleep in [L] with [src]!"), \
 							span_userdanger("You suddenly feel drowsy!"))
 
-/obj/item/abductor/baton/proc/CuffAttack(mob/living/L,mob/living/user)
+/obj/item/melee/baton/abductor/proc/CuffAttack(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
@@ -584,7 +602,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 			C.visible_message(span_danger("[user] begins restraining [C] with [src]!"), \
 									span_userdanger("[user] begins shaping an energy field around your hands!"))
-			if(do_after(user, 3 SECONDS, C) && C.canBeHandcuffed())
+			if(do_after(user, time_to_cuff, C) && C.canBeHandcuffed())
 				if(!C.handcuffed)
 					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
 					C.update_handcuffed()
@@ -595,7 +613,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-/obj/item/abductor/baton/proc/ProbeAttack(mob/living/L,mob/living/user)
+/obj/item/melee/baton/abductor/proc/ProbeAttack(mob/living/L,mob/living/user)
 	L.visible_message(span_danger("[user] probes [L] with [src]!"), \
 						span_userdanger("[user] probes you!"))
 
@@ -620,7 +638,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	to_chat(user, "[helptext]")
 
 /// Switch a target, freeing our old target
-/obj/item/abductor/baton/proc/switch_target(mob/new_target)
+/obj/item/melee/baton/abductor/proc/switch_target(mob/new_target)
 	if (current_target == new_target)
 		return
 	if (current_target)
@@ -637,13 +655,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		START_PROCESSING(SSprocessing, src)
 
 /// Called when a target is deleted
-/obj/item/abductor/baton/proc/unregister_target()
+/obj/item/melee/baton/abductor/proc/unregister_target()
 	SIGNAL_HANDLER
 	UnregisterSignal(current_target, COMSIG_PARENT_QDELETING)
 	current_target = null
 	STOP_PROCESSING(SSprocessing, src)
 
-/obj/item/abductor/baton/process(delta_time)
+/obj/item/melee/baton/abductor/process(delta_time)
 	if (!current_target)
 		return PROCESS_KILL
 	var/mob/living/L = current_target
@@ -659,7 +677,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "cuff" // Needs sprite
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	breakouttime = 450
+	breakouttime = 45 SECONDS
 	trashtype = /obj/item/restraints/handcuffs/energy/used
 	flags_1 = NONE
 

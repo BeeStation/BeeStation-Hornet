@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!istype(T) || !is_station_level(T.z))
 		to_chat(owner, span_warning("You cannot activate the Doomsday device while off-station!"))
 		return
-	if(alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", "confirm = TRUE;", "confirm = FALSE;") != "confirm = TRUE;")
+	if(tgui_alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", list("confirm = TRUE;", "confirm = FALSE;")) != "confirm = TRUE;")
 		return
 	if (device_active)
 		return //prevent the AI from activating an already active doomsday
@@ -689,7 +689,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!owner_AI.can_place_transformer(src))
 		return
 	active = TRUE
-	if(alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", "Yes", "No") != "Yes")
+	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) == "No")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_transformer(src))
@@ -908,7 +908,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		if(!E.can_malf_fake_alert)
 			continue
 		events_to_chose[E.name] = E
-	var/chosen_event = input(owner,"Send fake alert","Fake Alert") in events_to_chose
+	var/chosen_event = tgui_input_list(owner, "Send fake alert", "Fake Alert", events_to_chose)
 	if (!chosen_event)
 		return FALSE
 	var/datum/round_event_control/event_control = events_to_chose[chosen_event]
