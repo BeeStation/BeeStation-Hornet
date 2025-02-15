@@ -26,19 +26,19 @@
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"
 	reward = 11000
-	wanted_types = list(/obj/vehicle/sealed/mecha/medical/odysseus)
+	wanted_types = list(/obj/vehicle/sealed/mecha/odysseus)
 
 /datum/bounty/item/mech/gygax
 	name = "Gygax"
 	reward = 28000
-	wanted_types = list(/obj/vehicle/sealed/mecha/combat/gygax)
+	wanted_types = list(/obj/vehicle/sealed/mecha/gygax)
 
 /datum/bounty/item/mech/durand
 	name = "Durand"
 	reward = 20000
-	wanted_types = list(/obj/vehicle/sealed/mecha/combat/durand)
+	wanted_types = list(/obj/vehicle/sealed/mecha/durand)
 
 /datum/bounty/item/mech/phazon
 	name = "Phazon"
 	reward = 100000
-	wanted_types = list(/obj/vehicle/sealed/mecha/combat/phazon)
+	wanted_types = list(/obj/vehicle/sealed/mecha/phazon)

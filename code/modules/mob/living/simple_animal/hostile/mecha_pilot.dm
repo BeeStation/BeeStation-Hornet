@@ -25,7 +25,7 @@
 	search_objects = 0
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 
-	var/spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded
+	var/spawn_mecha_type = /obj/vehicle/sealed/mecha/marauder/mauler/loaded
 	var/obj/vehicle/sealed/mecha/mecha //Ref to pilot's mecha instance
 	var/required_mecha_charge = 7500 //If the pilot doesn't have a mecha, what charge does a potential Grand Theft Mecha need? (Defaults to half a battery)
 	var/mecha_charge_evacuate = 50 //Amount of charge at which the pilot tries to abandon the mecha
@@ -42,7 +42,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/Initialize(mapload)
 	. = ..()
-	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha/combat, TRUE)
+	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha, TRUE)
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/nanotrasen //nanotrasen are syndies! no it's just a weird path.
 	name = "\improper Nanotrasen Mecha Pilot"
@@ -50,7 +50,7 @@
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
 	faction = list(FACTION_NANOTRASEN_PRIVATE)
-	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/marauder/loaded
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/marauder/loaded
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/nanotrasen
 	name = "\improper Nanotrasen Mecha Pilot"
@@ -102,9 +102,9 @@
 	targets_from = null
 
 	//Find a new mecha
-	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha/combat, TRUE)
+	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha, TRUE)
 	var/search_aggressiveness = 2
-	for(var/obj/vehicle/sealed/mecha/combat/C in view(vision_range,src))
+	for(var/obj/vehicle/sealed/mecha/C in view(vision_range,src))
 		if(is_valid_mecha(C))
 			GiveTarget(C)
 			search_aggressiveness = 3 //We can see a mech? RUN FOR IT, IGNORE MOBS!
@@ -201,7 +201,7 @@
 	if(!.)
 		return
 	if(!mecha)
-		for(var/obj/vehicle/sealed/mecha/combat/mecha_in_range in view(vision_range, src))
+		for(var/obj/vehicle/sealed/mecha/mecha_in_range in view(vision_range, src))
 			if(is_valid_mecha(mecha_in_range))
 				target = mecha_in_range //Let's nab it!
 				minimum_distance = 1

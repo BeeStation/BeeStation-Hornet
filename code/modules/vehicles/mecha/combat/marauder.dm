@@ -1,4 +1,4 @@
-/obj/vehicle/sealed/mecha/combat/marauder
+/obj/vehicle/sealed/mecha/marauder
 	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "\improper Marauder"
 	icon_state = "marauder"
@@ -7,6 +7,8 @@
 	max_integrity = 500
 	armor_type = /datum/armor/combat_marauder
 	max_temperature = 60000
+	destruction_knockdown_duration = 40
+	exit_delay = 40
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
@@ -32,12 +34,12 @@
 	fire = 100
 	acid = 100
 
-/obj/vehicle/sealed/mecha/combat/marauder/generate_actions()
+/obj/vehicle/sealed/mecha/marauder/generate_actions()
 	. = ..()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_smoke)
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_zoom)
 
-/obj/vehicle/sealed/mecha/combat/marauder/loaded
+/obj/vehicle/sealed/mecha/marauder/loaded
 	equip_by_category = list(
 		MECHA_L_ARM = /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse,
 		MECHA_R_ARM = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
@@ -46,7 +48,7 @@
 		MECHA_ARMOR = list(/obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster),
 	)
 
-/obj/vehicle/sealed/mecha/combat/marauder/seraph
+/obj/vehicle/sealed/mecha/marauder/seraph
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "\improper Seraph"
 	icon_state = "seraph"
@@ -70,7 +72,7 @@
 		MECHA_ARMOR = list(/obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster),
 	)
 
-/obj/vehicle/sealed/mecha/combat/marauder/mauler
+/obj/vehicle/sealed/mecha/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
 	name = "\improper Mauler"
 	icon_state = "mauler"
@@ -92,7 +94,7 @@
 	)
 	destruction_knockdown_duration = 2 SECONDS //Syndi mechs get reduced knockdown
 
-/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded
+/obj/vehicle/sealed/mecha/marauder/mauler/loaded
 	equip_by_category = list(
 		MECHA_L_ARM = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
 		MECHA_R_ARM = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
