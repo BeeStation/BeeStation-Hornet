@@ -4075,9 +4075,9 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bKc" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input{
-	piping_layer = 2;
-	pixel_x = -5
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
+	chamber_id = "air";
+	name = "Air Chamber Injector"
 	},
 /turf/open/floor/engine/air,
 /area/engine/atmos)
@@ -15160,9 +15160,9 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "heN" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/carbon_input{
-	piping_layer = 4;
-	pixel_x = 5
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	chamber_id = "co2";
+	name = "Carbon Dioxide Chamber Injector"
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
@@ -20079,10 +20079,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "jGG" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrous_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4;
-	piping_layer = 4;
-	pixel_y = 5
+	chamber_id = "n2o";
+	name = "Nitrous Oxide Chamber Injector"
 	},
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
@@ -22165,9 +22165,9 @@
 	},
 /area/asteroid/paradise/surface)
 "kFJ" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input{
-	piping_layer = 4;
-	pixel_x = 5
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	chamber_id = "o2";
+	name = "Oxygen Chamber Injector"
 	},
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
@@ -33777,9 +33777,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "qxu" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input{
-	piping_layer = 4;
-	pixel_x = 5
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Nitrogen Chamber Injector";
+	chamber_id = "n2"
 	},
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
@@ -49520,10 +49520,10 @@
 /turf/open/floor/iron/dark,
 /area/security/nuke_storage)
 "yhl" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/plasma_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4;
-	piping_layer = 4;
-	pixel_y = 5
+	chamber_id = "plasma";
+	name = "Plasma Chamber Injector"
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
