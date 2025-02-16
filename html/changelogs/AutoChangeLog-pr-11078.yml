@@ -1,6 +1,0 @@
-author: '@spockye SpaceSomalian'
-delete-after: true
-changes:
-  - rscadd: Replaces the current Nuclear Operative base
-  - rscadd: replaces the syndicate infiltrator with the advanced infiltrator
-  - rscadd: ports improved syndicate posters and a syndicate S poster from shiptest
