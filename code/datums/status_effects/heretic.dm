@@ -327,6 +327,7 @@
 		qdel(src)
 		return
 	target.rust_heretic_act(strength, FALSE)
+	tick++
 	if (tick >= 5)
 		playsound(target, get_sfx("hull_creaking"), 60, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 		tick = 0

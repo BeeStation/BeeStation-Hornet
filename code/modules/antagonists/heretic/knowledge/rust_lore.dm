@@ -74,7 +74,7 @@
 	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
 		if (current_rite.target == target)
 			return COMPONENT_BLOCK_HAND_USE
-	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
+	source.apply_status_effect(/datum/status_effect/rust_rite, target, 2)
 
 /datum/heretic_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
@@ -83,7 +83,7 @@
 	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
 		if (current_rite.target == target)
 			return COMPONENT_BLOCK_HAND_USE
-	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
+	source.apply_status_effect(/datum/status_effect/rust_rite, target, 2)
 	return COMPONENT_USE_HAND
 
 /datum/heretic_knowledge/rust_regen
