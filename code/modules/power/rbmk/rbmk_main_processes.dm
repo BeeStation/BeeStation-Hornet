@@ -36,7 +36,7 @@
 		var/heat_delta = ((coolant_input.return_temperature()-273.15) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
 		temperature += heat_delta
-		coolant_output.merge(coolant_input) //And now, shove the input into the output.
+		coolant_input.pump_gas_to(coolant_output, coolant_input.return_pressure()) //And now, shove the input into the output.
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
 	else
 		if(has_fuel())
