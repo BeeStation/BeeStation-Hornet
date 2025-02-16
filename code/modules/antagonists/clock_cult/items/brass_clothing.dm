@@ -32,10 +32,10 @@
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(istype(user, /mob/living/carbon/human/consistent) || istype(user, /mob/living/carbon/human/dummy))
+	if((istype(user, /mob/living/carbon/human/consistent) && !user.client) || (istype(user, /mob/living/carbon/human/dummy) && !user.client))
 		//Fake people need not apply (it fucks up my unit tests)
 		return
-	if(is_servant_of_ratvar(user) && allow_any)
+	if(is_servant_of_ratvar(user) || allow_any)
 		return
 	to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 	user.dropItemToGround(src, TRUE)

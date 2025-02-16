@@ -229,7 +229,7 @@
 	. = ..()
 	if (flag)
 		return
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	add_fingerprint(user)
@@ -553,7 +553,7 @@
 	else
 		. = ..()
 
-/obj/item/toy/mecha/attack_hand(mob/user)
+/obj/item/toy/mecha/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -867,7 +867,7 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 //ATTACK HAND NOT CALLING PARENT
-/obj/item/toy/cards/deck/attack_hand(mob/user)
+/obj/item/toy/cards/deck/attack_hand(mob/user, list/modifiers)
 	draw_card(user)
 
 /obj/item/toy/cards/deck/proc/draw_card(mob/user)

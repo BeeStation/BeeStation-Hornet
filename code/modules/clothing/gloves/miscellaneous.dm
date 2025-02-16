@@ -96,12 +96,12 @@
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
 	if(get_dist(A, M) <= 1)
-		if(isliving(A) && M.a_intent == INTENT_HARM)
+		if(isliving(A) && M.combat_mode)
 			M.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 
-	else if(M.a_intent == INTENT_HARM)
+	else if(M.combat_mode)
 		for(var/mob/living/L in oview(1, M))
 			L.attack_hand(M)
 			M.changeNext_move(CLICK_CD_RAPID)
@@ -163,8 +163,9 @@
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
 
-/datum/action/item_action/artifact_pincher_mode/Trigger()
+/datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
-		button.icon_state = (pinchy.safety ? "template_active" : "template")
+		button_icon_state = (pinchy.safety ? "template_active" : "template")
+		update_buttons()

@@ -24,24 +24,25 @@ SUBSYSTEM_DEF(machines)
 	.["custom"] = cust
 
 /datum/controller/subsystem/machines/proc/makepowernets()
-	for(var/datum/powernet/PN in powernets)
-		qdel(PN)
+	for(var/datum/powernet/power_network as anything in powernets)
+		qdel(power_network)
 	powernets.Cut()
 
-	var/datum/powernet/NewPN = new()
+	var/datum/powernet/new_powernet = new()
 	for(var/obj/structure/cable/PC in GLOB.cable_list)
-		NewPN.add_cable(PC)
-	NewPN.repropogate_cables()
-	NewPN.dirty = FALSE
+		new_powernet.add_cable(PC)
+	new_powernet.repropogate_cables()
+	new_powernet.dirty = FALSE
 	dirty_powernets.len = 0
 
-/datum/controller/subsystem/machines/stat_entry()
-	. = ..("M:[processing.len]|PN:[powernets.len]")
+/datum/controller/subsystem/machines/stat_entry(msg)
+	msg = "M:[length(processing)]|PN:[length(powernets)]"
+	return ..()
 
-/datum/controller/subsystem/machines/fire(resumed = 0)
+/datum/controller/subsystem/machines/fire(resumed = FALSE)
 	if (!resumed)
-		for(var/datum/powernet/Powernet in powernets)
-			Powernet.reset() //reset the power state.
+		for(var/datum/powernet/powernet as anything in powernets)
+			powernet.reset() //reset the power state.
 		src.currentrun = processing.Copy()
 		dirty_index = 1
 		dirty_stop_index = length(dirty_powernets)
@@ -77,13 +78,9 @@ SUBSYSTEM_DEF(machines)
 	while(currentrun.len)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
-		if(!QDELETED(thing) && thing.process(wait * 0.1) != PROCESS_KILL)
-			if(thing.use_power)
-				thing.auto_use_power() //add back the power state
-		else
+		if(QDELETED(thing) || thing.process(wait * 0.1) == PROCESS_KILL)
 			processing -= thing
-			if (!QDELETED(thing))
-				thing.datum_flags &= ~DF_ISPROCESSING
+			thing.datum_flags &= ~DF_ISPROCESSING
 		if (MC_TICK_CHECK)
 			return
 

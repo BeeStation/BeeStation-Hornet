@@ -20,7 +20,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -122,10 +122,8 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/machinery/airalarm/all_access{
-	pixel_y = 22;
-	dir = 1
-	},
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 4
 	},
@@ -160,7 +158,9 @@
 /area/shuttle/abandoned)
 "gT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
@@ -181,12 +181,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "il" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/grass,
 /area/shuttle/abandoned)
 "iM" = (
@@ -197,7 +197,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
 /obj/item/wrench,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "iV" = (
@@ -234,8 +236,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -250,7 +254,7 @@
 /area/shuttle/abandoned)
 "la" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -294,7 +298,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "nV" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 6
 	},
 /turf/open/floor/grass,
@@ -305,7 +309,9 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "pU" = (
@@ -360,7 +366,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 10
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -368,16 +374,20 @@
 "rI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "rR" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -393,13 +403,13 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Sleeping Cabin"
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "vc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 5
 	},
 /obj/machinery/firealarm{
@@ -410,32 +420,34 @@
 /area/shuttle/abandoned)
 "vd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
 "vL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "wF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
 "xr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -446,7 +458,9 @@
 /area/shuttle/abandoned)
 "yo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/power/apc{
 	dir = 1;
@@ -467,7 +481,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
@@ -475,10 +489,8 @@
 "zB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "Ab" = (
@@ -517,7 +529,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "Eb" = (
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -539,7 +551,9 @@
 /obj/machinery/power/smes/engineering{
 	charge = 1e+006
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
@@ -559,11 +573,11 @@
 /area/shuttle/abandoned)
 "HL" = (
 /obj/structure/glowshroom/single,
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden,
 /turf/open/floor/grass,
 /area/shuttle/abandoned)
 "Ig" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/grass,
@@ -590,7 +604,7 @@
 /area/shuttle/abandoned)
 "Jz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 8
 	},
 /obj/machinery/firealarm{
@@ -633,7 +647,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 10
 	},
 /obj/docking_port/mobile{
@@ -674,16 +688,14 @@
 /turf/open/floor/iron/freezer,
 /area/shuttle/abandoned)
 "QS" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned)
 "Ri" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 22
-	},
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
@@ -694,10 +706,12 @@
 /turf/open/floor/monotile/steel,
 /area/shuttle/abandoned)
 "RH" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
 "Su" = (
@@ -710,10 +724,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "Tq" = (
@@ -743,24 +755,21 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/advanced_airlock_controller/directional/north,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "Uo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/air{
+/obj/machinery/atmospherics/components/tank/air{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "Us" = (
-/obj/machinery/airalarm/all_access{
-	pixel_y = 22;
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/grass,
@@ -783,7 +792,7 @@
 /turf/open/floor/grass,
 /area/shuttle/abandoned)
 "Yf" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "YG" = (
@@ -796,7 +805,7 @@
 /obj/machinery/door/airlock/titanium/glass{
 	name = "Botany Lab"
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
@@ -808,7 +817,9 @@
 "Zd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod/dark,

@@ -58,9 +58,9 @@
 		master = null
 	return ..()
 
-/obj/structure/particle_accelerator/ComponentInitialize()
+/obj/structure/particle_accelerator/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/particle_accelerator/set_anchored(anchorvalue)
 	. = ..()

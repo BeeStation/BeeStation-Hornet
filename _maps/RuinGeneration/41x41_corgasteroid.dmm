@@ -28,7 +28,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -43,7 +43,7 @@
 /area/ruin/unpowered)
 "cH" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/template_noop,
@@ -58,17 +58,17 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "cT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/closed/wall,
 /area/ruin/unpowered)
 "cX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/ruin/unpowered)
 "dk" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -77,17 +77,17 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "eZ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "fl" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "fB" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/closed/wall,
 /area/ruin/unpowered)
 "fN" = (
@@ -106,7 +106,7 @@
 /obj/structure/sign/warning/vacuum{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -135,7 +135,7 @@
 /area/ruin/unpowered)
 "hp" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/template_noop,
 /area/template_noop)
 "ie" = (
@@ -144,13 +144,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "iy" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "jk" = (
@@ -160,13 +160,13 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "jv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "jC" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
@@ -179,7 +179,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "kE" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "kN" = (
@@ -208,12 +208,12 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "mi" = (
 /obj/structure/chair/stool/directional/west,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
@@ -230,13 +230,13 @@
 /area/ruin/unpowered)
 "oI" = (
 /obj/structure/window/reinforced/spawner,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "oR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -260,7 +260,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -274,7 +274,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "qp" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "qq" = (
@@ -293,7 +293,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "qG" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating/asteroid,
@@ -310,19 +310,19 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "sw" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "te" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "tC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating/asteroid,
@@ -349,7 +349,7 @@
 /area/template_noop)
 "vh" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating,
@@ -365,14 +365,14 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vt" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -386,14 +386,14 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "vQ" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "vU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -412,8 +412,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "wr" = (
-/obj/machinery/advanced_airlock_controller/directional/east,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 10
 	},
 /obj/machinery/light/small{
@@ -434,11 +433,11 @@
 /area/ruin/unpowered)
 "wS" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "xC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -465,13 +464,13 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "yQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "zc" = (
@@ -479,7 +478,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -492,7 +491,7 @@
 /area/ruin/unpowered)
 "Ak" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /turf/template_noop,
@@ -504,7 +503,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Av" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -519,7 +518,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "By" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -531,7 +530,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Cb" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -562,13 +561,13 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Cy" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "CK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -583,7 +582,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Dq" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -592,10 +591,10 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Du" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Dx" = (
@@ -604,16 +603,16 @@
 /turf/template_noop,
 /area/template_noop)
 "DU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ef" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -631,7 +630,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -650,7 +649,7 @@
 /area/ruin/unpowered)
 "FX" = (
 /obj/item/crowbar/red,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -664,7 +663,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -695,7 +694,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "IF" = (
@@ -708,7 +707,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "IL" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -742,7 +741,7 @@
 /area/ruin/unpowered)
 "JI" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -756,7 +755,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/ruinloot/basic,
@@ -770,7 +769,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Lr" = (
@@ -784,20 +783,20 @@
 /area/ruin/unpowered)
 "LM" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Nr" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/template_noop,
 /area/template_noop)
 "Ns" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating/asteroid,
@@ -808,7 +807,7 @@
 	dir = 9
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -838,7 +837,7 @@
 /area/template_noop)
 "Pv" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "PF" = (
@@ -855,7 +854,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "Qr" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -872,7 +871,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -885,7 +884,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Rf" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -900,7 +899,7 @@
 "RG" = (
 /obj/structure/transit_tube/diagonal,
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
 /turf/template_noop,
@@ -929,11 +928,11 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Si" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "SC" = (
@@ -946,13 +945,13 @@
 /area/ruin/unpowered)
 "Ty" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "TZ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating/asteroid,
@@ -972,7 +971,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1019,7 +1018,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "VT" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/closed/wall,
@@ -1028,16 +1027,15 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
 	},
-/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Wn" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Xc" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -1048,7 +1046,7 @@
 /turf/template_noop,
 /area/template_noop)
 "XL" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating/asteroid,
@@ -1057,7 +1055,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 

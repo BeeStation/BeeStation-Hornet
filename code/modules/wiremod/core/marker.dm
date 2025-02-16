@@ -26,8 +26,10 @@
 	clear_marked_atom()
 	return TRUE
 
-/obj/item/multitool/circuit/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(marked_atom || !user.Adjacent(target))
+/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
+	var/is_right_clicking = LAZYACCESS(params2list(params), RIGHT_CLICK)
+
+	if(marked_atom || !user.Adjacent(target) || is_right_clicking)
 		return ..()
 
 	say("Marked [target].")

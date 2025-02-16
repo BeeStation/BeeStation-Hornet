@@ -55,7 +55,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 	else
 		. += span_danger("This casing doesn't support power cells for backup power.")
 
-/obj/structure/light_construct/attack_hand(mob/user)
+/obj/structure/light_construct/attack_hand(mob/user, list/modifiers)
 	if(cell)
 		user.visible_message("[user] removes [cell] from [src]!",span_notice("You remove [cell]."))
 		user.put_in_hands(cell)

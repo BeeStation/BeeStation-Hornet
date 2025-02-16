@@ -100,7 +100,7 @@
 	return make_plating()
 
 /turf/open/floor/wood/cold
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/wood/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -267,6 +267,9 @@
 /turf/open/floor/grass/snow/safe
 	slowdown = 1.5
 	planetary_atmos = FALSE
+
+/turf/open/floor/grass/snow/safe/nocold
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 
 /turf/open/floor/grass/fakebasalt //Heart is not a real planeteer power

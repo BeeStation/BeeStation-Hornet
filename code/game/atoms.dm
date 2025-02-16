@@ -119,6 +119,9 @@
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
 	var/greyscale_colors
 
+	///Holds merger groups currently active on the atom. Do not access directly, use GetMergeGroup() instead.
+	var/list/datum/merger/mergers
+
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
@@ -223,7 +226,6 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
-CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
@@ -321,8 +323,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 
 	return ..()
 
@@ -477,23 +481,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	return null
 
-/atom/proc/assume_air_moles(datum/gas_mixture/giver, moles)
-	return null
-
-/atom/proc/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	return null
-
 ///Remove air from this atom
 /atom/proc/remove_air(amount)
-	return null
-
-/atom/proc/remove_air_ratio(ratio)
-	return null
-
-/atom/proc/transfer_air(datum/gas_mixture/taker, amount)
-	return null
-
-/atom/proc/transfer_air_ratio(datum/gas_mixture/taker, ratio)
 	return null
 
 ///Return the current air environment in this atom
@@ -1498,32 +1487,52 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   *
   * Must return  parent proc ..() in the end if overridden
   */
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+/atom/proc/tool_act(mob/living/user, obj/item/tool, tool_type, is_right_clicking)
+	var/act_result
 	var/signal_result
 
-	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
-	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
-	if(processing_recipes.len)
-		process_recipes(user, I, processing_recipes)
-	if(QDELETED(I))
-		return TRUE
+	var/is_left_clicking = !is_right_clicking
+
+	if(is_left_clicking) // Left click first for sensibility
+		var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
+		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, tool, processing_recipes)
+		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
+			return TOOL_ACT_SIGNAL_BLOCKING
+		if(processing_recipes.len)
+			process_recipes(user, tool, processing_recipes)
+		if(QDELETED(tool))
+			return TRUE
+	else
+		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_SECONDARY_TOOL_ACT(tool_type), user, tool)
+		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
+			return TOOL_ACT_SIGNAL_BLOCKING
+
 	switch(tool_type)
 		if(TOOL_CROWBAR)
-			. = crowbar_act(user, I)
+			act_result = is_left_clicking ? crowbar_act(user, tool) : crowbar_act_secondary(user, tool)
 		if(TOOL_MULTITOOL)
-			. = multitool_act(user, I)
+			act_result = is_left_clicking ? multitool_act(user, tool) : multitool_act_secondary(user, tool)
 		if(TOOL_SCREWDRIVER)
-			. = screwdriver_act(user, I)
+			act_result = is_left_clicking ? screwdriver_act(user, tool) : screwdriver_act_secondary(user, tool)
 		if(TOOL_WRENCH)
-			. = wrench_act(user, I)
+			act_result = is_left_clicking ? wrench_act(user, tool) : wrench_act_secondary(user, tool)
 		if(TOOL_WIRECUTTER)
-			. = wirecutter_act(user, I)
+			act_result = is_left_clicking ? wirecutter_act(user, tool) : wirecutter_act_secondary(user, tool)
 		if(TOOL_WELDER)
-			. = welder_act(user, I)
+			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
 		if(TOOL_ANALYZER)
-			. = analyzer_act(user, I)
-	if(. || signal_result & COMPONENT_BLOCK_TOOL_ATTACK) //Either the proc or the signal handled the tool's events in some way.
-		return TRUE
+			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+	if(!act_result)
+		return
+
+	// A tooltype_act has completed successfully
+	if(is_left_clicking)
+		investigate_log("[key_name(user)] used [tool] on [src] at [AREACOORD(src)]", INVESTIGATE_TOOLS)
+		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_PRIMARY(tool_type), src)
+	else
+		investigate_log("[key_name(user)] used [tool] on [src] (right click) at [AREACOORD(src)]", INVESTIGATE_TOOLS)
+		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_SECONDARY(tool_type), src)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /atom/proc/process_recipes(mob/living/user, obj/item/I, list/processing_recipes)
 	//Only one recipe? use the first
@@ -1583,32 +1592,60 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 //! Tool-specific behavior procs.
 ///
 
-///Crowbar act
-/atom/proc/crowbar_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with crowbar capabilities is used to left click an object
+/atom/proc/crowbar_act(mob/living/user, obj/item/tool)
 	return
 
-///Multitool act
-/atom/proc/multitool_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with crowbar capabilities is used to right click an object
+/atom/proc/crowbar_act_secondary(mob/living/user, obj/item/tool)
 	return
 
-///Screwdriver act
-/atom/proc/screwdriver_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with multitool capabilities is used to left click an object
+/atom/proc/multitool_act(mob/living/user, obj/item/tool)
 	return
 
-///Wrench act
-/atom/proc/wrench_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with multitool capabilities is used to right click an object
+/atom/proc/multitool_act_secondary(mob/living/user, obj/item/tool)
 	return
 
-///Wirecutter act
-/atom/proc/wirecutter_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with screwdriver capabilities is used to left click an object
+/atom/proc/screwdriver_act(mob/living/user, obj/item/tool)
 	return
 
-///Welder act
-/atom/proc/welder_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with screwdriver capabilities is used to right click an object
+/atom/proc/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	return
 
-///Analyzer act
-/atom/proc/analyzer_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with wrench capabilities is used to left click an object
+/atom/proc/wrench_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with wrench capabilities is used to right click an object
+/atom/proc/wrench_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with wirecutter capabilities is used to left click an object
+/atom/proc/wirecutter_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with wirecutter capabilities is used to right click an object
+/atom/proc/wirecutter_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with welder capabilities is used to left click an object
+/atom/proc/welder_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with welder capabilities is used to right click an object
+/atom/proc/welder_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with analyzer capabilities is used to left click an object
+/atom/proc/analyzer_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with analyzer capabilities is used to right click an object
+/atom/proc/analyzer_act_secondary(mob/living/user, obj/item/tool)
 	return
 
 ///Connect this atom to a shuttle
@@ -1981,7 +2018,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 /atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
+	if(GET_MOLES(/datum/gas/oxygen, environment) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
 		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
 		if(strength > 1)
 			if(user)
@@ -2046,3 +2083,14 @@ if (UNLINT(target.base_luminosity != new_value)) {\
 
 /atom/movable/proc/get_orbitable()
 	return src
+
+/// Gets a merger datum representing the connected blob of objects in the allowed_types argument
+/atom/proc/GetMergeGroup(id, list/allowed_types)
+	RETURN_TYPE(/datum/merger)
+	var/datum/merger/candidate
+	if(mergers)
+		candidate = mergers[id]
+	if(!candidate)
+		new /datum/merger(id, allowed_types, src)
+		candidate = mergers[id]
+	return candidate
