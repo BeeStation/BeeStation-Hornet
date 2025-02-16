@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	return TRUE
 
 /obj/item/pipe_dispenser/pre_attack(atom/atom_to_attack, mob/user, params)
-	if(!user.IsAdvancedToolUser() || istype(atom_to_attack, /turf/open/space/transit))
+	if(!ISADVANCEDTOOLUSER(user) || istype(atom_to_attack, /turf/open/space/transit))
 		return ..()
 
 	if(istype(atom_to_attack, /obj/item/rpd_upgrade))
@@ -440,7 +440,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	if((mode & DESTROY_MODE) && istype(attack_target, /obj/item/pipe) || istype(attack_target, /obj/structure/disposalconstruct) || istype(attack_target, /obj/structure/c_transit_tube) || istype(attack_target, /obj/structure/c_transit_tube_pod) || istype(attack_target, /obj/item/pipe_meter) || istype(attack_target, /obj/structure/disposalpipe/broken))
 		activate()
 		qdel(attack_target)
-		return
+		return TRUE
 
 	if(mode & REPROGRAM_MODE)
 		// If this is a placed smart pipe, try to reprogram it
@@ -448,16 +448,16 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 		if(istype(target_smart_pipe))
 			if(target_smart_pipe.dir == ALL_CARDINALS)
 				balloon_alert(user, "has no unconnected directions!")
-				return
+				return TRUE
 			var/old_init_dir = target_smart_pipe.get_init_directions()
 			if(old_init_dir == p_init_dir)
 				balloon_alert(user, "already configured!")
-				return
+				return TRUE
 			// Check for differences in unconnected directions
 			var/target_differences = (p_init_dir ^ old_init_dir) & ~target_smart_pipe.connections
 			if(!target_differences)
 				balloon_alert(user, "already configured for its directions!")
-				return
+				return TRUE
 
 			activate()
 
@@ -467,7 +467,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			// Double check to make sure that nothing has changed. If anything we were about to change was connected during do_after, abort
 			if(target_differences & target_smart_pipe.connections)
 				balloon_alert(user, "can't configure for its direction!")
-				return
+				return TRUE
 			// Grab the current initializable directions, which may differ from old_init_dir if someone else was working on the same pipe at the same time
 			var/current_init_dir = target_smart_pipe.get_init_directions()
 			// Access p_init_dir directly. The RPD can change target layer and initializable directions (though not pipe type or dir) while working to dispense and connect a component,
@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			// Don't make a smart pipe with only one connection
 			if(ISSTUB(new_init_dir))
 				balloon_alert(user, "no one directional pipes allowed!")
-				return
+				return TRUE
 			target_smart_pipe.set_init_directions(new_init_dir)
 			// We're now reconfigured.
 			// We can never disconnect from existing connections, but we can connect to previously unconnected directions, and should immediately do so
@@ -502,20 +502,21 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			// Finally, update our internal state - update_pipe_icon also updates dir and connections
 			target_smart_pipe.update_pipe_icon()
 			user.visible_message(span_notice("[user] reprograms  the [target_smart_pipe]."), span_notice("You reprogram  the [target_smart_pipe]."))
-			return
+			return TRUE
 		// If this is an unplaced smart pipe, try to reprogram it
 		var/obj/item/pipe/quaternary/target_unsecured_pipe = attack_target
 		if(istype(target_unsecured_pipe) && ispath(target_unsecured_pipe.pipe_type, /obj/machinery/atmospherics/pipe/smart))
 			// An unplaced pipe never has any existing connections, so just directly assign the new configuration
 			target_unsecured_pipe.p_init_dir = p_init_dir
 			target_unsecured_pipe.update()
-			return
+			return TRUE
 
 	if(mode & BUILD_MODE)
 		switch(category) //if we've gotten this var, the target is valid
 			if(ATMOS_CATEGORY) //Making pipes
 				if(!do_pipe_build(attack_target, user, params))
 					return ..()
+				return TRUE
 
 			if(DISPOSALS_CATEGORY) //Making disposals pipes
 				if(!can_make_pipe)
@@ -523,7 +524,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
 					balloon_alert(user, "target is blocked!")
-					return
+					return TRUE
 				activate()
 				if(do_after(user, disposal_build_speed, target = attack_target))
 					var/obj/structure/disposalconstruct/new_disposals_segment = new (attack_target, queued_pipe_type, queued_pipe_dir, queued_pipe_flipped)
@@ -531,7 +532,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 					if(!new_disposals_segment.can_place())
 						balloon_alert(user, "not enough room!")
 						qdel(new_disposals_segment)
-						return
+						return TRUE
 
 					activate()
 
@@ -539,7 +540,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 					new_disposals_segment.update_appearance()
 					if(mode & WRENCH_MODE)
 						new_disposals_segment.wrench_act(user, src)
-					return
+					return TRUE
 
 			if(TRANSIT_CATEGORY) //Making transit tubes
 				if(!can_make_pipe)
@@ -547,12 +548,12 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
 					balloon_alert(user, "something in the way!")
-					return
+					return TRUE
 
 				var/turf/target_turf = get_turf(attack_target)
 				if(target_turf.is_blocked_turf(exclude_mobs = TRUE))
 					balloon_alert(user, "something in the way!")
-					return
+					return TRUE
 
 				activate()
 				if(do_after(user, transit_build_speed, target = attack_target))
@@ -569,12 +570,12 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 
 						if(queued_pipe_flipped)
 							tube.setDir(turn(queued_pipe_dir, 45 + ROTATION_FLIP))
-							tube.post_rotation(user, ROTATION_FLIP)
+							tube.AfterRotation(user, ROTATION_FLIP)
 
 						tube.add_fingerprint(usr)
 						if(mode & WRENCH_MODE)
 							tube.wrench_act(user, src)
-					return
+					return TRUE
 			else
 				return ..()
 

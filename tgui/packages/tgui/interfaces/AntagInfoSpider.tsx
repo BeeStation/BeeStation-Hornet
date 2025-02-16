@@ -37,7 +37,7 @@ const colors = {
   venom: 'purple',
   ability: 'yellow',
 };
-const image_style = { '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' };
+const image_style = { msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' };
 
 const BasicInfoSection = (_props) => {
   const { data } = useBackend<Info>();

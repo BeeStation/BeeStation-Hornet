@@ -334,6 +334,9 @@
 	if(!islist(message_mods))
 		message_mods = list()
 
+	if(HAS_TRAIT(speaker, TRAIT_RUNECHAT_HIDDEN))
+		return
+
 	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
 	spans = spans ? spans.Copy() : list()
 

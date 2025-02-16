@@ -1,6 +1,6 @@
 /obj/item/energy_katana
 	name = "energy katana"
-	desc = "A katana infused with strong energy."
+	desc = "A katana infused with strong energy. Right-click to dash."
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
 	worn_icon_state = "energy_katana"
@@ -26,7 +26,6 @@
 	)
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
-	var/dash_toggled = TRUE
 
 /obj/item/energy_katana/Initialize(mapload)
 	. = ..()
@@ -57,8 +56,11 @@
 
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(dash_toggled && get_dist(target, user) > 1)
+	var/list/modifiers = params2list(click_parameters)
+
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
 		jaunt.Teleport(user, target)
+		return
 	if(proximity_flag)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 

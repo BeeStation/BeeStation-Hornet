@@ -43,6 +43,7 @@
 	melee_damage = 15
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/spidervenom
+	var/spider_lightmask = "tarantula-light-mask" // Variable to prevent spider emissives from overlapping
 	faction = list(FACTION_SPIDER)
 	pass_flags = PASSTABLE
 	move_to_delay = 4
@@ -76,8 +77,15 @@
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
+/mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
+	. = ..()
+	var/mutable_appearance/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = spider_lightmask, layer = layer)
+	. += emissive_overlay
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
+	update_appearance() //Used for emissive spider eyes.
 	webbing = new(src)
 	webbing.Grant(src)
 	wrap = new(src)
@@ -253,9 +261,11 @@
 	speed = 1
 	onweb_speed = 0
 	web_speed = 0.33
+	spider_lightmask = "nurse-light-mask"
 	///The health HUD applied to the mob.
 	var/health_hud = DATA_HUD_MEDICAL_ADVANCED
 	var/datum/action/innate/spider/set_directive/set_directive
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
@@ -317,6 +327,7 @@
 	speed = 2
 	onweb_speed = 1
 	web_speed = 0.25
+	spider_lightmask = "broodmother-light-mask"
 
 	gender = FEMALE
 	butcher_results = list(
@@ -373,6 +384,7 @@
 	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
+	spider_lightmask = "hunter-light-mask"
 
 // Vipers are physically very weak and fragile, but also very fast and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
@@ -388,6 +400,7 @@
 	onweb_speed = -1
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
+	spider_lightmask = "viper-light-mask"
 
 //Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs.
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
@@ -409,6 +422,7 @@
 	mob_size = MOB_SIZE_LARGE
 	web_speed = 0.5
 	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
+	spider_lightmask = "guard-light-mask"
 
 /mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
 	. = ..()
@@ -482,21 +496,32 @@
 		spider.stop_automated_movement = FALSE
 	else
 		to_chat(spider, span_warning("You're already spinning a web!"))
-
 /datum/action/innate/spider/block
 	name = "Block Passage"
 	desc = "Use your massive size to prevent others from passing by you."
 	button_icon_state = "block"
 
 /datum/action/innate/spider/block/on_activate()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider)) // Update_button is here to make an effect to the icon as if it were a pointed/projectile icon.
 		return
-	if(owner.a_intent == INTENT_HELP)
-		owner.a_intent = INTENT_HARM
+	var/mob/living/living_owner = owner
+	button_icon_state = "block_1"
+	update_buttons()
+	if(!living_owner.combat_mode)
+		living_owner.combat_mode = TRUE
+		button_icon_state = "block_1"
+		update_buttons()
 		owner.visible_message(span_notice("[owner] widens its stance and blocks passage around it."),span_notice("You are now blocking others from passing around you."))
 	else
-		owner.a_intent = INTENT_HELP
+		living_owner.combat_mode = FALSE
+		button_icon_state = "block"
+		update_buttons()
 		owner.visible_message(span_notice("[owner] loosens up and allows others to pass again."),span_notice("You are no longer blocking others from passing around you."))
+
+/datum/action/innate/spider/block/on_deactivate(mob/user, atom/target)
+	button_icon_state = "block"
+	update_buttons()
 
 /datum/action/innate/spider/lay_web/is_available()
 	. = ..()
@@ -518,29 +543,6 @@
 		return FALSE
 
 	return TRUE
-
-/datum/action/innate/spider/lay_web/on_activate()
-	var/turf/spider_turf = get_turf(owner)
-	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = owner
-	var/obj/structure/spider/stickyweb/web = locate() in spider_turf
-	if(web)
-		spider.visible_message(
-			span_notice("[spider] begins to pack more webbing onto the web."),
-			span_notice("You begin to seal the web."),
-		)
-	else
-		spider.visible_message(
-			span_notice("[spider] begins to secrete a sticky substance."),
-			span_notice("You begin to lay a web."),
-		)
-
-	spider.stop_automated_movement = TRUE
-
-	if(do_after(spider, 4 SECONDS * spider.web_speed, target = spider_turf))
-		if(spider.loc == spider_turf)
-			new /obj/structure/spider/stickyweb(spider_turf)
-
-	spider.stop_automated_movement = FALSE
 
 /datum/action/wrap
 	name = "Wrap"
@@ -727,18 +729,18 @@
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
-	var/datum/action/spell/basic_projectile/throw_web/spidernet
+	var/datum/action/spell/pointed/projectile/throw_web/spidernet
 
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
 	. = ..()
 	spidernet = new
-	spidernet.Grant()
+	spidernet.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
 	. = ..()
 	spidernet.Remove()
 
-/datum/action/spell/basic_projectile/throw_web
+/datum/action/spell/pointed/projectile/throw_web
 	name = "Throw web"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
 	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
@@ -746,13 +748,22 @@
 	button_icon_state = "throw_web_0"
 	background_icon_state = "bg_alien"
 	cooldown_time = 2 SECONDS
-	projectile_range = 20 // Proc holder had no range :shrug:
 	projectile_type = /obj/projectile/bullet/spidernet
+	deactive_msg = span_notice("You discard the webbing.")
 
-/datum/action/spell/basic_projectile/throw_web/can_cast_spell(feedback)
+/datum/action/spell/pointed/projectile/throw_web/can_cast_spell(feedback)
 	. = ..()
 	var/mob/living/user = owner
-	var/message
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return FALSE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		return TRUE
+	else
+		return FALSE
+
+/datum/action/spell/pointed/projectile/throw_web/set_click_ability(mob/on_who)
+	var/mob/living/user = owner
 	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return FALSE
 	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
@@ -760,16 +771,16 @@
 		spider.busy = SPINNING_WEB
 		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
 		spider.stop_automated_movement = TRUE
-		if(do_after(spider, 40 * spider.web_speed, spider))
-			message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
+		. = FALSE
+		if(do_after(spider, 30 * spider.web_speed, spider))
+			var/message = "<span class='notice'>You ready the completed net with your forelimbs."
 			to_chat(spider, message)
-			return TRUE
+			. = ..()
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 	else
 		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
 		return FALSE
-
 
 // Directive command, for giving children orders
 // The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob

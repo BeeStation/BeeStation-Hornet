@@ -50,7 +50,7 @@
 		L.sec_hud_set_implants()
 	user.cut_overlay(psychic_overlay)
 
-/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user)
+/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)

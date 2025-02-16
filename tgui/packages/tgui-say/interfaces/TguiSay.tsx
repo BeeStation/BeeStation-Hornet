@@ -3,9 +3,9 @@ import { WINDOW_SIZES } from '../constants';
 import { dragStartHandler } from 'tgui/drag';
 import { eventHandlerMap } from '../handlers';
 import { getCss, getTheme, timers } from '../helpers';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Modal, State } from '../types';
-import { KEY_ESCAPE } from 'common/keycodes';
+import { isEscape } from 'common/keys';
 
 /** Primary class for the TGUI say modal. */
 export class TguiSay extends Component<{}, State> {
@@ -47,21 +47,20 @@ export class TguiSay extends Component<{}, State> {
     return (
       <div
         className={getCss('modal', theme, size)}
-        onmousedown={dragStartHandler}
+        onMouseDown={dragStartHandler}
         onKeyDown={(event) => {
-          if (event.keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             onEscape();
           }
-        }}
-        $HasKeyedChildren>
+        }}>
         <div className="top-border" />
         <div className="left-border" />
-        <div className="modal__content" $HasKeyedChildren>
+        <div className="modal__content">
           {!!theme && (
             <button
               className={getCss('button', theme)}
-              onclick={onClick}
-              oncontextmenu={(e) => {
+              onClick={onClick}
+              onContextMenu={(e) => {
                 e.preventDefault();
                 onContextMenu();
               }}
