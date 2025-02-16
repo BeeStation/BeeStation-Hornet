@@ -122,6 +122,11 @@
 #warn compiling in TESTING mode. testing() debug messages will be visible.
 #endif
 
+#ifdef UNIT_TESTS
+#warn Compiling with the unit tests flag outside of CI Building. Enabling access to all tests.
+#define LONG_RUNNING_TESTS
+#endif
+
 #ifdef CIBUILDING
 #define UNIT_TESTS
 #endif

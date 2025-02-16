@@ -16,6 +16,9 @@ on:
       max_required_byond_client:
         required: true
         type: string
+      additional_arguments:
+        required: false
+        type: string
 
 jobs:
   run_integration_tests:
@@ -58,7 +61,7 @@ jobs:
         run: |
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build --ci dm -DCIBUILDING -DANSICOLORS -Werror -ITG0001 -I"loop_checks"
+          tools/build/build --ci dm -DCIBUILDING -DANSICOLORS ${{ inputs.additional_arguments }} -Werror -ITG0001 -I"loop_checks"
       - name: Run Tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup

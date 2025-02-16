@@ -6,6 +6,13 @@
 // Outside here to satisfy ticked file enforcement while still providing defines
 #include "__DEFINES\test_defines.dm"
 
+#if defined(SPACEMAN_DMM) && defined(LONG_RUNNING_TESTS)
+#include "create_and_destroy.dm"
+#include janky_actions.dm
+#endif
+
+#if !defined(NO_QUICK_TESTS)
+
 // BEGIN_INCLUDE
 
 #include "achievement_validation.dm"
@@ -26,9 +33,6 @@
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
-/*
-#include "create_and_destroy.dm"
-*/
 #include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "emoting.dm"
@@ -46,7 +50,6 @@
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
-#include "janky_actions.dm"
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
 #include "merge_type.dm"
@@ -103,6 +106,8 @@
 #include "mapping\map_test.dm"
 
 // END_INCLUDE
+
+#endif
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
