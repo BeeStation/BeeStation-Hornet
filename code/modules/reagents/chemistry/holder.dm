@@ -905,26 +905,29 @@
 			return TRUE
 	return FALSE
 
-/*
-Check if this holder contains this reagent.
-Reagent takes a PATH to a reagent.
-Amount checks for having a specific amount of that chemical.
-Needs metabolizing takes into consideration if the chemical is metabolizing when it's checked.
-*/
-/datum/reagents/proc/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
+/**
+ * Check if this holder contains this reagent.
+ * Reagent takes a PATH to a reagent.
+ * Amount checks for having a specific amount of that chemical.
+ * Needs metabolizing takes into consideration if the chemical is metabolizing when it's checked.
+ */
+/datum/reagents/proc/has_reagent(datum/reagent/target_reagent, amount = -1, needs_metabolizing = FALSE)
+	if(!ispath(target_reagent))
+		stack_trace("invalid reagent path passed to has reagent [target_reagent]")
+		return FALSE
+
 	var/list/cached_reagents = reagent_list
-	for(var/_reagent in cached_reagents)
-		var/datum/reagent/R = _reagent
-		if (R.type == reagent)
+	for(var/datum/reagent/holder_reagent as anything in cached_reagents)
+		if (holder_reagent.type == target_reagent)
 			if(!amount)
-				if(needs_metabolizing && !R.metabolizing)
+				if(needs_metabolizing && !holder_reagent.metabolizing)
 					return
-				return R
+				return holder_reagent
 			else
-				if(round(R.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
-					if(needs_metabolizing && !R.metabolizing)
+				if(FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
+					if(needs_metabolizing && !holder_reagent.metabolizing)
 						return
-					return R
+					return holder_reagent
 				else
 					return
 

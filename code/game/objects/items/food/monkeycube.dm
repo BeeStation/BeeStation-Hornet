@@ -35,6 +35,7 @@
 /obj/item/food/monkeycube/gorilla
 	name = "gorilla cube"
 	desc = "A Waffle Co. brand gorilla cube. Now with extra molecules!"
+	icon_state = "gorillacube"
 	bite_consumption = 20
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 15
