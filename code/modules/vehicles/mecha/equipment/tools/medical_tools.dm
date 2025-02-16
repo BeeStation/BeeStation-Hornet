@@ -49,10 +49,7 @@
 	)
 	return data
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/ui_act(action, list/params)
-	. = ..()
-	if(.)
-		return
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/handle_ui_act(action, list/params)
 	switch(action)
 		if("eject")
 			go_out()
@@ -299,10 +296,7 @@
 		"total_reagents" = reagents.maximum_volume,
 	)
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/ui_act(action, list/params)
-	. = ..()
-	if(.)
-		return
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/handle_ui_act(action, list/params)
 	if(action == "change_mode")
 		mode = !mode
 		return TRUE

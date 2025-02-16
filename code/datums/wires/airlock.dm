@@ -193,7 +193,7 @@
 			A.autoclose = mend
 			if(A.autoclose && !A.density)
 				A.close()
-		if(WIRE_BOLTIGHT) // Cut to disable lights, mend to re-enable.
+		if(WIRE_BOLTLIGHT) // Cut to disable lights, mend to re-enable.
 			A.lights = mend
 			A.update_icon()
 	ui_update()

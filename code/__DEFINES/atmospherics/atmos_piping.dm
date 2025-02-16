@@ -42,6 +42,14 @@
 #define UNARY_PIPE_VOLUME 35
 
 //TANKS
+/// The volume of the standard handheld gas tanks on the station.
+#define TANK_STANDARD_VOLUME 70
+/// The minimum pressure an gas tanks release valve can be set to.
+#define TANK_MIN_RELEASE_PRESSURE 0
+/// The maximum pressure an gas tanks release valve can be set to.
+#define TANK_MAX_RELEASE_PRESSURE (ONE_ATMOSPHERE*3)
+/// The default initial value gas tanks release valves are set to. (At least the ones containing pure plasma/oxygen.)
+#define TANK_DEFAULT_RELEASE_PRESSURE 16
 /// temperature in kelvins at which a tank will start to melt
 #define TANK_MELT_TEMPERATURE 1000000
 /// Tank starts leaking
@@ -52,9 +60,6 @@
 #define TANK_FRAGMENT_PRESSURE (40.*ONE_ATMOSPHERE)
 /// +1 for each SCALE kPa aboe threshold
 #define TANK_FRAGMENT_SCALE (6.*ONE_ATMOSPHERE)
-#define TANK_MAX_RELEASE_PRESSURE (ONE_ATMOSPHERE*3)
-#define TANK_MIN_RELEASE_PRESSURE 0
-#define TANK_DEFAULT_RELEASE_PRESSURE 16
 /// Denotes that our tank is overpressurized simply from gas merging.
 #define TANK_MERGE_OVERPRESSURE "tank_overpressure"
 // Indices for the reaction_results returned by explosion_information()

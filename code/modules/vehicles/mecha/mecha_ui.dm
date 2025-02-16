@@ -58,8 +58,7 @@
 	)
 
 	var/list/regions = list()
-	var/list/tgui_region_data = SSid_access.all_region_access_tgui
-	for(var/region in SSid_access.station_regions)
+	for(var/region in get_region_accesses())
 		regions += tgui_region_data[region]
 	data["regions"] = regions
 	return data
@@ -151,7 +150,7 @@
 			one_access = 0
 			update_access()
 		if("grant_all")
-			accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+			accesses = get_all_accesses()
 			update_access()
 		if("one_access")
 			one_access = !one_access
@@ -167,13 +166,13 @@
 			var/region = params["region"]
 			if(isnull(region))
 				return
-			accesses |= SSid_access.get_region_access_list(list(region))
+			accesses |= get_region_accesses(region)
 			update_access()
 		if("deny_region")
 			var/region = params["region"]
 			if(isnull(region))
 				return
-			accesses -= SSid_access.get_region_access_list(list(region))
+			accesses -= get_region_accesses(region)
 			update_access()
 		if("select_module")
 			ui_selected_module_index = text2num(params["index"])
@@ -186,7 +185,7 @@
 				to_chat(usr, span_notice("You rename [name] to... well, [userinput]."))
 				return
 			name = userinput
-			chassis_camera?.update_c_tag(src)
+			//chassis_camera?.update_c_tag(src)
 		if("toggle_safety")
 			set_safety(usr)
 			return
@@ -209,7 +208,7 @@
 			toggle_overclock()
 			var/datum/action/act = locate(/datum/action/vehicle/sealed/mecha/mech_overclock) in usr.actions
 			act.button_icon_state = "mech_overload_[overclock_mode ? "on" : "off"]"
-			act.UpdateButtons()
+			act.update_buttons()
 		if("repair_int_damage")
 			try_repair_int_damage(usr, params["flag"])
 			return FALSE

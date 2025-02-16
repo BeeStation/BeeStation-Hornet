@@ -202,7 +202,7 @@
 	var/lavaland_only = FALSE
 
 	/// ref to screen object that displays in the middle of the UI
-	var/atom/movable/screen/mech_view/ui_view
+	var/atom/movable/screen/map_view/ui_view
 
 	/// Theme of the mech TGUI
 	var/ui_theme = "ntos"
@@ -232,7 +232,7 @@
 	if(!built_manually)
 		populate_parts()
 	update_access()
-	set_wires(new /datum/wires/mecha(src))
+	wires = new /datum/wires/mecha(src)
 	START_PROCESSING(SSobj, src)
 	AddElement(/datum/element/point_of_interest)
 	log_message("[src.name] created.", LOG_MECHA)
@@ -887,10 +887,10 @@
 				tank.set_active(TRUE)
 			else
 				action.button_icon_state = "mech_cabin_pressurized"
-				action.UpdateButtons()
+				action.update_buttons()
 		else
 			action.button_icon_state = "mech_cabin_[cabin_sealed ? "closed" : "open"]"
-			action.UpdateButtons()
+			action.update_buttons()
 
 		balloon_alert(occupant, "cabin [cabin_sealed ? "sealed" : "unsealed"]")
 	log_message("Cabin [cabin_sealed ? "sealed" : "unsealed"].", LOG_MECHA)
@@ -974,4 +974,4 @@
 		else
 			act.button_icon_state = "mech_lights_off"
 		balloon_alert(occupant, "toggled lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
-		act.UpdateButtons()
+		act.update_buttons()

@@ -60,11 +60,11 @@
 	if(active)
 		var/datum/action/action = locate(/datum/action/vehicle/sealed/mecha/mech_toggle_cabin_seal) in usr.actions
 		action.button_icon_state = "mech_cabin_[chassis.cabin_sealed ? "pressurized" : "open"]"
-		action.UpdateButtons()
+		action.update_buttons()
 	else
 		var/datum/action/action = locate(/datum/action/vehicle/sealed/mecha/mech_toggle_cabin_seal) in usr.actions
 		action.button_icon_state = "mech_cabin_[chassis.cabin_sealed ? "closed" : "open"]"
-		action.UpdateButtons()
+		action.update_buttons()
 
 /obj/item/mecha_parts/mecha_equipment/air_tank/process(seconds_per_tick)
 	if(!chassis)
@@ -107,8 +107,8 @@
 		"auto_pressurize_on_seal" = auto_pressurize_on_seal,
 		"port_connected" = internal_tank?.connected_port ? TRUE : FALSE,
 		"tank_release_pressure" = round(internal_tank.release_pressure),
-		"tank_release_pressure_min" = internal_tank.can_min_release_pressure,
-		"tank_release_pressure_max" = internal_tank.can_max_release_pressure,
+		"tank_release_pressure_min" = CAN_MIN_RELEASE_PRESSURE,
+		"tank_release_pressure_max" = CAN_MAX_RELEASE_PRESSURE,
 		"tank_pump_active" = tank_pump_active,
 		"tank_pump_direction" = tank_pump_direction,
 		"tank_pump_pressure" = round(tank_pump_pressure),
@@ -118,14 +118,11 @@
 		"cabin_air" = gas_mixture_parser(chassis.cabin_air, "cabin"),
 	)
 
-/obj/item/mecha_parts/mecha_equipment/air_tank/ui_act(action, list/params)
-	. = ..()
-	if(.)
-		return
+/obj/item/mecha_parts/mecha_equipment/air_tank/handle_ui_act(action, list/params)
 	switch(action)
 		if("set_cabin_pressure")
 			var/new_pressure = text2num(params["new_pressure"])
-			internal_tank.release_pressure = clamp(round(new_pressure), internal_tank.can_min_release_pressure, internal_tank.can_max_release_pressure)
+			internal_tank.release_pressure = clamp(round(new_pressure), CAN_MIN_RELEASE_PRESSURE, CAN_MAX_RELEASE_PRESSURE)
 			return TRUE
 		if("toggle_port")
 			if(internal_tank.connected_port)
