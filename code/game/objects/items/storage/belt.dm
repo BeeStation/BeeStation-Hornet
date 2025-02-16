@@ -905,7 +905,7 @@
 		. += span_notice("Alt-click it to quickly draw the blade.")
 
 /obj/item/storage/belt/sabre/AltClick(mob/user)
-	if(!iscarbon(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	if(length(contents))
 		var/obj/item/I = contents[1]

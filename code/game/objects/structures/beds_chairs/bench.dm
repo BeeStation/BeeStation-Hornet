@@ -24,6 +24,10 @@
 	buildstackamount = 3
 	item_chair = null
 
+///This proc adds the rotate component, overwrite this if you for some reason want to change some specific args.
+/obj/structure/chair/fancy/bench/pew/MakeRotate()
+	AddComponent(/datum/component/simple_rotation, ROTATION_REQUIRE_WRENCH|ROTATION_IGNORE_ANCHORED)
+
 /obj/structure/chair/fancy/bench/pew/left
 	name = "left wooden pew end"
 	icon_state = "pewend_left"

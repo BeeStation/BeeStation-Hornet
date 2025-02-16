@@ -117,7 +117,7 @@
 /obj/structure/janitorialcart/proc/check_menu(mob/living/user)
 	return istype(user) && !user.incapacitated()
 
-/obj/structure/janitorialcart/attack_hand(mob/user)
+/obj/structure/janitorialcart/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

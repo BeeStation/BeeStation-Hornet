@@ -45,11 +45,11 @@ const IntroSection = (_props) => {
           as="img"
           src={resolveAsset('wizard.png')}
           width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+          style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+        <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
           You are the{' '}
           <Box inline textColor="bad">
             Wizard

@@ -306,7 +306,7 @@
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/attack_hand(mob/user)
+/obj/structure/foamedmetal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
