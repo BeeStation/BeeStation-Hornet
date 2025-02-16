@@ -398,7 +398,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 								new /obj/item/electronics/firealarm(user.loc)
 							buildstage = FIRE_ALARM_BUILD_NO_CIRCUIT
 							update_appearance()
-istype(W, /obj/item/electronics/firealarm))
+					return TRUE
+				else if (istype(W, /obj/item/electronics/firealarm))
 					to_chat(user, span_notice("You insert the circuit."))
 					qdel(W)
 					buildstage = FIRE_ALARM_BUILD_NO_WIRES
@@ -408,7 +409,7 @@ istype(W, /obj/item/electronics/firealarm))
 				else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 					var/obj/item/electroadaptive_pseudocircuit/P = W
 					if(!P.adapt_circuit(user, 15))
-						return
+						return TRUE
 					user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
 					span_notice("You adapt a fire alarm circuit and slot it into the assembly."))
 					buildstage = AIR_ALARM_BUILD_NO_WIRES

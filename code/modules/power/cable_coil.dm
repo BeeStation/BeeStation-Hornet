@@ -129,25 +129,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 // Cable laying procedures
 //////////////////////////////////////////////
 
-/obj/item/stack/cable_coil/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	// Check for the item being used in afterattack
-	if (..())
-		return TRUE
-	// Check for attacks
-	if (user.a_intent == INTENT_HARM)
-		return FALSE
-	// Interact with the turf
-	var/turf/T = get_turf(target)
-	T.attackby(src, user, click_parameters)
-	return TRUE
-
 /obj/item/stack/cable_coil/attack_turf(turf/T, mob/living/user)
 	place_turf(T, user)
 	return TRUE
 
+/obj/item/stack/cable_coil/pre_attack_secondary(atom/target, mob/living/user, params)
+	place_turf(get_turf(target), user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 // called when cable_coil is clicked on a turf
 // Clicking on a turf will place the wire, which will join to surrounding tiles
-/obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew)
+/obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user)
 	if(!isturf(user.loc))
 		return TRUE
 
