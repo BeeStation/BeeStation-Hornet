@@ -136,7 +136,7 @@
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/obj/item/organ/appendix/appendix = H.getorganslot("appendix") //No appendixes for plant people
+	var/obj/item/organ/appendix/appendix = H.get_organ_slot("appendix") //No appendixes for plant people
 	if(appendix)
 		appendix.Remove(H)
 		QDEL_NULL(appendix)

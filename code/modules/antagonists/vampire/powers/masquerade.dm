@@ -61,9 +61,9 @@
 	REMOVE_TRAIT(user, TRAIT_MASQUERADE, TRAIT_VAMPIRE)
 
 	// Handle organs
-	var/obj/item/organ/heart/vampheart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/vampheart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	vampheart?.Stop()
-	var/obj/item/organ/eyes/eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	eyes?.flash_protect = max(initial(eyes.flash_protect) - 1, - 1)
 	to_chat(user, span_notice("Your heart beats one final time, while your skin dries out and your icy pallor returns."))
 

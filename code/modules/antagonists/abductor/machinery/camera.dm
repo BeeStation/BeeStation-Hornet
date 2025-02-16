@@ -90,7 +90,7 @@
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
+		if (!specimin.get_organ_slot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
@@ -145,7 +145,7 @@
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
+		if (!specimin.get_organ_slot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)

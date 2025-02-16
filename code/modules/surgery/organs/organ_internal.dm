@@ -58,7 +58,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!iscarbon(M) || owner == M)
 		return
 
-	var/obj/item/organ/replaced = M.getorganslot(slot)
+	var/obj/item/organ/replaced = M.get_organ_slot(slot)
 	if(replaced)
 		replaced.Remove(M, special = 1, pref_load = pref_load)
 		if(drop_if_replaced)
@@ -228,31 +228,31 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 
 	else
-		var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
+		var/obj/item/organ/lungs/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 		if(!L)
 			L = new()
 			L.Insert(src)
 		L.setOrganDamage(0)
 
-		var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/H = get_organ_slot(ORGAN_SLOT_HEART)
 		if(!H)
 			H = new()
 			H.Insert(src)
 		H.setOrganDamage(0)
 
-		var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+		var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
 		if(!T)
 			T = new()
 			T.Insert(src)
 		T.setOrganDamage(0)
 
-		var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 		if(!eyes)
 			eyes = new()
 			eyes.Insert(src)
 		eyes.setOrganDamage(0)
 
-		var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+		var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 		if(!ears)
 			ears = new()
 			ears.Insert(src)

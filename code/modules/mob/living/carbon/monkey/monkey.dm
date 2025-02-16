@@ -185,7 +185,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	return threatcount
 
 /mob/living/carbon/monkey/IsVocal()
-	if(!getorganslot(ORGAN_SLOT_LUNGS))
+	if(!get_organ_slot(ORGAN_SLOT_LUNGS))
 		return 0
 	return 1
 

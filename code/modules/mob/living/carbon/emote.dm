@@ -54,7 +54,7 @@
 /datum/emote/living/carbon/eyeroll/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = user.get_organ_slot(ORGAN_SLOT_EYES)
 	return istype(E)
 
 /datum/emote/living/carbon/gnarl

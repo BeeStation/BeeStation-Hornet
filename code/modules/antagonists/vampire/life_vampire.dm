@@ -112,6 +112,8 @@
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
 		user.regenerate_limb(missing_limb, FALSE)
+		if(missing_limb == BODY_ZONE_HEAD)
+			ensure_brain_nonvital()
 		AddBloodVolume(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = user.get_bodypart(missing_limb) // 2) Limb returns Damaged
 		missing_bodypart.brute_dam = 60
@@ -139,10 +141,10 @@
 	for(var/obj/item/organ/organ as anything in user.internal_organs)
 		organ.setOrganDamage(0)
 	if(!HAS_TRAIT(user, TRAIT_MASQUERADE))
-		var/obj/item/organ/heart/current_heart = user.getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/current_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 		current_heart?.Stop()
 	// Eyes
-	var/obj/item/organ/eyes/current_eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/current_eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	current_eyes?.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
 	current_eyes?.sight_flags = SEE_MOBS
 	current_eyes?.see_in_dark = NIGHTVISION_FOV_RANGE

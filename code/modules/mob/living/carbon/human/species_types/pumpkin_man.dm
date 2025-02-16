@@ -180,7 +180,7 @@
 		//Otherwise pull our brain out
 		else
 			to_chat(H, span_warning("You pull your brain out!"))
-			var/obj/item/organ/B = H.getorganslot(ORGAN_SLOT_BRAIN)
+			var/obj/item/organ/B = H.get_organ_slot(ORGAN_SLOT_BRAIN)
 			B.Remove(H)
 			B.forceMove(get_turf(H))
 

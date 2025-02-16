@@ -1050,7 +1050,7 @@
 	glass_desc = "A glass of what appears to be refreshing Space Cola."
 
 /datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
-	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = M.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T.liked_food & MEAT)
 		to_chat(M, span_notice("That drink was PERFECTLY beefy! It's great!."))
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
@@ -1082,7 +1082,7 @@
 	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
 
 /datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
-	var/obj/item/organ/tongue/T = M.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = M.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T.liked_food & MEAT)
 		to_chat(M, span_notice("That drink was like a liquid steak! It's amazing!."))
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)

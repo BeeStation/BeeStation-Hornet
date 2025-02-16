@@ -133,6 +133,8 @@
 		on_hud_created()
 	else
 		RegisterSignal(current_mob, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
+
+	ensure_brain_nonvital(current_mob)
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
@@ -229,8 +231,16 @@
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_RANKUP_VAMPIRES, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
-	check_cancel_sunlight() //check if sunlight should end
-	//Remove Language
+	check_cancel_sunlight()
+	owner.special_role = null
+
+	if(iscarbon(owner.current))
+		var/mob/living/carbon/carbon_owner = owner.current
+		var/obj/item/organ/brain/not_vamp_brain = carbon_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
+		if(not_vamp_brain && (not_vamp_brain.decoy_override != initial(not_vamp_brain.decoy_override)))
+			not_vamp_brain.organ_flags |= ORGAN_VITAL
+			not_vamp_brain.decoy_override = FALSE
+
 	owner.current.remove_language(/datum/language/vampiric)
 	return ..()
 
@@ -362,6 +372,19 @@
 
 	return report.Join("<br>")
 
+/// "Oh, well, that's step one. What about two through ten?"
+/// Beheading vampires is kinda buggy and results in them being dead-dead without actually being final deathed, which is NOT something that's desired.
+/// Just stake them. No shortcuts.
+/datum/antagonist/vampire/proc/ensure_brain_nonvital(mob/living/mob_override)
+	var/mob/living/carbon/carbon_owner = mob_override || owner.current
+	if(!iscarbon(carbon_owner) || isoozeling(carbon_owner))
+		return
+	var/obj/item/organ/brain/brain = carbon_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(QDELETED(brain))
+		return
+	brain.organ_flags &= ~ORGAN_VITAL
+	brain.decoy_override = TRUE
+
 /datum/antagonist/vampire/proc/give_starting_powers()
 	for(var/datum/action/cooldown/vampire/all_powers as anything in all_vampire_powers)
 		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
@@ -424,10 +447,10 @@
 	// Language
 	owner.current.remove_language(/datum/language/vampiric)
 	// Heart
-	var/obj/item/organ/heart/newheart = owner.current.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/newheart = owner.current.get_organ_slot(ORGAN_SLOT_HEART)
 	newheart?.beating = initial(newheart.beating)
 	// Eyes
-	var/obj/item/organ/eyes/user_eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/user_eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	user_eyes?.flash_protect = initial(user_eyes.flash_protect)
 	user_eyes?.sight_flags = initial(user_eyes.sight_flags)
 	user_eyes?.see_in_dark = NIGHTVISION_FOV_RANGE

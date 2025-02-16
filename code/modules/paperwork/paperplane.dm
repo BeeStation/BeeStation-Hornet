@@ -13,7 +13,7 @@
 	hit_probability = 100 //guaranteed to cause eye damage when it hits a mob.
 
 /obj/item/origami/paperplane/suicide_act(mob/living/user)
-	var/obj/item/organ/eyes/eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	user.Stun(200)
 	user.visible_message(span_suicide("[user] jams [src] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.adjust_blurriness(6)
@@ -65,7 +65,7 @@
 	if(..() || !ishuman(hit_atom))//if the plane is caught or it hits a nonhuman
 		return
 	var/mob/living/carbon/human/H = hit_atom
-	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = H.get_organ_slot(ORGAN_SLOT_EYES)
 	if(prob(hit_probability))
 		if(H.is_eyes_covered())
 			return

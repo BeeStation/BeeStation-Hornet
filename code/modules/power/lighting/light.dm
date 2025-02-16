@@ -539,7 +539,7 @@
 				var/datum/species/ethereal/E = user.dna.species
 				if(E.drain_time > world.time)
 					return
-				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
+				var/obj/item/organ/stomach/battery/stomach = user.get_organ_slot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
 					to_chat(user, span_warning("You can't receive charge!"))
 					return

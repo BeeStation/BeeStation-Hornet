@@ -795,7 +795,7 @@
 	set_dizziness(0)
 	cure_nearsighted()
 	//Some eye logic
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	cure_blind(null, eyes?.can_see)
 	cure_husk()
 	hallucination = 0

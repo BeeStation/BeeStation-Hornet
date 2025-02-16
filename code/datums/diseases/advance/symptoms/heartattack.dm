@@ -65,7 +65,7 @@ Bonus
 					heartattack(M, A)
 
 /datum/symptom/heartattack/proc/heartattack(mob/living/M, datum/disease/advance/A)
-	var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
 	if(M.getorgan(/obj/item/organ/heart))
 		heart.Remove(M)
 		qdel(heart)
