@@ -96,8 +96,9 @@
 		COMSIG_LIVING_RESTING_UPDATED //If we are downed
 	), PROC_REF(stop_leaning))
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
-	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(airlock_opened))
-	RegisterSignal(lean_target, COMSIG_VEHICLE_MOVE, PROC_REF(mech_moved))
+	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(fall_into))
+	RegisterSignal(lean_target, COMSIG_MOVABLE_MOVED, PROC_REF(fall_into_ex_turf))
+	RegisterSignal(lean_target, COMSIG_VEHICLE_MOVE, PROC_REF(fall_into_ex_turf))
 
 /mob/living/proc/stop_leaning(atom/parent)
 	SIGNAL_HANDLER
@@ -112,7 +113,7 @@
 		COMSIG_LIVING_MINOR_SHOCK,
 		COMSIG_LIVING_RESTING_UPDATED
 	))
-	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE))
+	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED))
 	leaned_object = null
 	animate(src, 0.2 SECONDS, pixel_x = base_pixel_x + body_position_pixel_x_offset, pixel_y = base_pixel_y + body_position_pixel_y_offset)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
@@ -128,18 +129,25 @@
 	visible_message(span_notice("[src] falls flat on [p_their()] face from losing [p_their()] balance!"), span_warning("You fall suddenly as the object you were leaning on vanishes from contact with you!"))
 	Knockdown(3 SECONDS)
 
-/mob/living/proc/airlock_opened(datum/source)
+/mob/living/proc/fall_into(datum/source, atom/moved, direction)
 	SIGNAL_HANDLER
 	if(HAS_TRAIT(src, NO_GRAVITY_TRAIT)) //If there's no gravity on the mob, don't fall lmao
 		return
-	fall(get_turf(source))
+	fall_forced(get_turf(source))
 
-/mob/living/proc/mech_moved(datum/source, direction)
+/mob/living/proc/fall_into_ex_turf(datum/source, atom/moved, direction)
 	SIGNAL_HANDLER
 	var/fall_location = get_step(get_turf(source), turn(direction, 180)) //Invert the direction the mech moved to, so we fall where the mech once was.
 	fall(fall_location)
 
 /mob/living/proc/fall(location)
+	stop_leaning() // Make sure we unregister signal handlers and reset animation
+	Move(location)
+	visible_message(span_notice("[src] falls flat on [p_their()] face from losing [p_their()] balance!"), span_warning("You fall suddenly!"))
+	Knockdown(3 SECONDS) //boowomp
+
+// Fall_forced is only really used for airlocks, because their density is dense when the airlock is still opening.
+/mob/living/proc/fall_forced(location)
 	stop_leaning() // Make sure we unregister signal handlers and reset animation
 	forceMove(location)
 	visible_message(span_notice("[src] falls flat on [p_their()] face from losing [p_their()] balance!"), span_warning("You fall suddenly as the airlock you were leaning on opens!"))

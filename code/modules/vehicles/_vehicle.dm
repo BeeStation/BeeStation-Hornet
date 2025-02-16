@@ -156,6 +156,7 @@
 		return step(src, direction)
 
 /obj/vehicle/proc/after_move(direction)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_VEHICLE_MOVE, direction)
 	return
 
