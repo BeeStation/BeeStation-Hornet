@@ -161,7 +161,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_scattershot_ammo
@@ -172,7 +171,6 @@
 	build_path = /obj/item/mecha_ammo/scattershot
 	materials = list(/datum/material/iron=6000)
 	construction_time = 20
-	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_carbine
@@ -183,7 +181,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_carbine_ammo
@@ -194,7 +191,6 @@
 	build_path = /obj/item/mecha_ammo/incendiary
 	materials = list(/datum/material/iron=6000)
 	construction_time = 20
-	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_ion
@@ -205,7 +201,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	materials = list(/datum/material/iron=20000,/datum/material/silver=6000,/datum/material/uranium=2000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_tesla
@@ -216,7 +211,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	materials = list(/datum/material/iron=20000,/datum/material/silver=8000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_laser
@@ -227,7 +221,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_laser_heavy
@@ -238,7 +231,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_disabler
@@ -249,7 +241,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_grenade_launcher
 	name = "Exosuit Weapon (SGL-6 Grenade Launcher)"
@@ -259,7 +250,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang
 	materials = list(/datum/material/iron=22000,/datum/material/gold=6000,/datum/material/silver=8000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_grenade_launcher_ammo
 	name = "SGL-6 Grenade Launcher Ammunition"
@@ -269,7 +259,6 @@
 	build_path = /obj/item/mecha_ammo/flashbang
 	materials = list(/datum/material/iron=4000,/datum/material/gold=500)
 	construction_time = 20
-	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_missile_rack
@@ -280,7 +269,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
 	materials = list(/datum/material/iron=22000,/datum/material/gold=6000,/datum/material/silver=8000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_missile_rack_ammo
 	name = "BRM-6 Missile Rack Ammunition"
@@ -290,7 +278,6 @@
 	build_path = /obj/item/mecha_ammo/missiles_br
 	materials = list(/datum/material/iron=8000,/datum/material/gold=500)
 	construction_time = 20
-	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/clusterbang_launcher
@@ -301,7 +288,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/clusterbang
 	materials = list(/datum/material/iron=20000,/datum/material/gold=10000,/datum/material/uranium=10000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/clusterbang_launcher_ammo
@@ -312,7 +298,6 @@
 	build_path = /obj/item/mecha_ammo/clusterbang
 	materials = list(/datum/material/iron=6000,/datum/material/gold=1500,/datum/material/uranium=1500)
 	construction_time = 20
-	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_wormhole_gen
@@ -323,7 +308,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/wormhole_generator
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_teleporter
 	name = "Exosuit Module (Teleporter Module)"
@@ -333,7 +317,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/teleporter
 	materials = list(/datum/material/iron=10000,/datum/material/diamond=10000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_rcd
 	name = "Exosuit Module (RCD Module)"
@@ -343,7 +326,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
 	materials = list(/datum/material/iron=30000,/datum/material/gold=20000,/datum/material/plasma=25000,/datum/material/silver=20000)
 	construction_time = 1200
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_thrusters
 	name = "Exosuit Module (RCS Thruster Package)"
@@ -353,7 +335,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/thrusters/gas
 	materials = list(/datum/material/iron=25000,/datum/material/titanium=5000,/datum/material/silver=3000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_gravcatapult
 	name = "Exosuit Module (Gravitational Catapult Module)"
@@ -363,7 +344,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_repair_droid
 	name = "Exosuit Module (Repair Droid Module)"
@@ -373,7 +353,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/repair_droid
 	materials = list(/datum/material/iron=10000,/datum/material/glass = 5000,/datum/material/gold=1000,/datum/material/silver=2000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_ccw_armor
 	name = "Exosuit Module (Reactive Armor Booster Module)"
@@ -383,7 +362,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster
 	materials = list(/datum/material/iron=20000,/datum/material/silver=5000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_proj_armor
 	name = "Exosuit Module (Reflective Armor Booster Module)"
@@ -393,7 +371,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
 	materials = list(/datum/material/iron=20000,/datum/material/gold=5000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_diamond_drill
 	name = "Exosuit Mining (Diamond Mining Drill)"
@@ -403,7 +380,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	materials = list(/datum/material/iron=10000,/datum/material/diamond=6500)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator_nuclear
 	name = "Exosuit Module (ExoNuclear Reactor)"
@@ -413,7 +389,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	materials = list(/datum/material/iron=10000,/datum/material/glass =  1000,/datum/material/silver=500)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_plasma_cutter
 	name = "Exosuit Mining (217-D Heavy Plasma Cutter)"
@@ -423,7 +398,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1000, /datum/material/plasma = 2000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mecha_kineticgun
 	name = "Exosuit Mining (Proto-kinetic Accelerator)"
@@ -433,7 +407,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
 	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_lmg
 	name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
@@ -443,7 +416,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
-	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_lmg_ammo
@@ -454,7 +426,6 @@
 	build_path = /obj/item/mecha_ammo/lmg
 	materials = list(/datum/material/iron=4000)
 	construction_time = 20
-	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_sleeper
@@ -465,7 +436,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	materials = list(/datum/material/iron=5000, /datum/material/glass =  10000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_syringe_gun
 	name = "Exosuit Medical (Syringe Gun)"
@@ -475,7 +445,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
 	materials = list(/datum/material/iron=3000, /datum/material/glass = 2000)
 	construction_time = 200
-	category = list("Exosuit Equipment")
 
 /datum/design/mech_medical_beamgun
 	name = "Exosuit Medical (Medical Beamgun)"
@@ -485,4 +454,3 @@
 	materials = list(/datum/material/iron = 15000, /datum/material/glass = 8000, /datum/material/plasma = 3000, /datum/material/gold = 8000, /datum/material/diamond = 2000)
 	construction_time = 250
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
-	category = list("Exosuit Equipment")

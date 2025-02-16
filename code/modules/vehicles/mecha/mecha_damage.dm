@@ -29,7 +29,7 @@
 	if(!prob(internal_damage_probability))
 		return
 	var/internal_damage_to_deal = possible_int_damage
-	internal_damage_to_deal &= ~mecha_flags
+	internal_damage_to_deal &= ~internal_damage
 	if(internal_damage_to_deal)
 		set_internal_damage(pick(bitfield_to_list(internal_damage_to_deal)))
 
@@ -52,8 +52,8 @@
 			return "activating internal fire supression..."
 		if(MECHA_INT_TEMP_CONTROL)
 			return "resetting temperature module..."
-		if(MECHA_INT_TANK_BREACH)
-			return "activating tank sealant..."
+		if(MECHA_CABIN_AIR_BREACH)
+			return "activating cabin breach sealant..."
 		if(MECHA_INT_CONTROL_LOST)
 			return "recalibrating coordination system..."
 
@@ -64,8 +64,8 @@
 			return "internal fire supressed"
 		if(MECHA_INT_TEMP_CONTROL)
 			return "temperature chip reactivated"
-		if(MECHA_INT_TANK_BREACH)
-			return "air tank sealed"
+		if(MECHA_CABIN_AIR_BREACH)
+			return "cabin breach sealed"
 		if(MECHA_INT_CONTROL_LOST)
 			return "coordination re-established"
 
@@ -76,7 +76,7 @@
 			return "fire supression canceled"
 		if(MECHA_INT_TEMP_CONTROL)
 			return "reset aborted"
-		if(MECHA_INT_TANK_BREACH)
+		if(MECHA_CABIN_AIR_BREACH)
 			return "sealant deactivated"
 		if(MECHA_INT_CONTROL_LOST)
 			return "recalibration failed"
@@ -94,7 +94,7 @@
 				to_chat(occupants, "[icon2html(src, occupants)][span_boldnotice("Life support system reactivated.")]")
 			if(MECHA_INT_FIRE)
 				to_chat(occupants, "[icon2html(src, occupants)][span_boldnotice("Internal fire extinguished.")]")
-			if(MECHA_INT_TANK_BREACH)
-				to_chat(occupants, "[icon2html(src, occupants)][span_boldnotice("Damaged internal tank has been sealed.")]")
+			if(MECHA_CABIN_AIR_BREACH)
+				to_chat(occupants, "[icon2html(src, occupants)][span_boldnotice("Cabin breach has been sealed.")]")
 	internal_damage &= ~int_dam_flag
 	diag_hud_set_mechstat()

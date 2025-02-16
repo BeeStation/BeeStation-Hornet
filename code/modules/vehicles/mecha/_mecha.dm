@@ -37,19 +37,17 @@
 	generic_canpass = FALSE
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 	mouse_pointer = 'icons/effects/mouse_pointers/mecha_mouse.dmi'
-	///How much energy the mech will consume each time it moves. This variable is a backup for when leg actuators affect the energy drain.
-	var/normal_step_energy_drain = 10
 
 	//Beestation stuff
 	///applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
 	var/step_restricted = 0
 
 	///How much energy the mech will consume each time it moves. this is the current active energy consumed
-	var/step_energy_drain = 10
+	var/step_energy_drain = 8
 	///How much energy we drain each time we mechpunch someone
 	var/melee_energy_drain = 15
-	///The minimum amount of energy charge consumed by leg overload
-	var/overload_step_energy_drain_min = 100
+	///Power we use to have the lights on
+	var/light_energy_drain = 2
 	///Modifiers for directional damage reduction
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 0.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 1.5)
 	///if we cant use our equipment(such as due to EMP)
@@ -60,10 +58,10 @@
 	var/obj/item/stock_parts/scanning_module/scanmod
 	/// Keeps track of the mech's capacitor
 	var/obj/item/stock_parts/capacitor/capacitor
-	///Whether the mechs maintenance protocols are on or off
-	var/construction_state = MECHA_LOCKED
+	/// Keeps track of the mech's servo motor
+	var/obj/item/stock_parts/servo/servo
 	///Contains flags for the mecha
-	var/mecha_flags = ADDING_ACCESS_POSSIBLE | CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
+	var/mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
 
 	///Spark effects are handled by this datum
 	var/datum/effect_system/spark_spread/spark_system = new
@@ -79,19 +77,16 @@
 	var/bumpsmash = FALSE
 
 	///////////ATMOS
-	///Whether we are currrently drawing from the internal tank
-	var/use_internal_tank = FALSE
-	///The setting of the valve on the internal tank
-	var/internal_tank_valve = ONE_ATMOSPHERE
-	///The internal air tank obj of the mech
-	var/obj/machinery/portable_atmospherics/canister/air/internal_tank
+	///Whether the pilot is hidden from the outside viewers and whether the cabin can be sealed to be airtight
+	var/enclosed = TRUE
+	///Whether the cabin exchanges gases with the environment
+	var/cabin_sealed = FALSE
 	///Internal air mix datum
 	var/datum/gas_mixture/cabin_air
-	///The connected air port, if we have one
-	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
+	///Volume of the cabin
+	var/cabin_volume = TANK_STANDARD_VOLUME * 3
 
-	///Special version of the radio, which is unsellable
-	var/obj/item/radio/mech/radio
+	///List of installed remote tracking beacons, including AI control beacons
 	var/list/trackers = list()
 
 	var/max_temperature = 25000
@@ -103,14 +98,16 @@
 	/// % chance for internal damage to occur
 	var/internal_damage_probability = 20
 	/// list of possibly dealt internal damage for this mech type
-	var/possible_int_damage = MECHA_INT_FIRE|MECHA_INT_TEMP_CONTROL|MECHA_INT_TANK_BREACH|MECHA_INT_CONTROL_LOST|MECHA_INT_SHORT_CIRCUIT
+	var/possible_int_damage = MECHA_INT_FIRE|MECHA_INT_TEMP_CONTROL|MECHA_CABIN_AIR_BREACH|MECHA_INT_CONTROL_LOST|MECHA_INT_SHORT_CIRCUIT
 	/// damage threshold above which we take component damage
 	var/component_damage_threshold = 10
 
-	///required access level for mecha operation
-	var/list/operation_req_access = list()
-	///required access to change internal components
-	var/list/internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE)
+	///Stores the DNA enzymes of a carbon so tht only they can access the mech
+	//var/dna_lock
+	/// A list of all granted accesses
+	var/list/accesses = list()
+	/// If the mech should require ALL or only ONE of the listed accesses
+	var/one_access = TRUE
 
 	///Typepath for the wreckage it spawns when destroyed
 	var/wreckage
@@ -125,9 +122,11 @@
 		MECHA_POWER = list(),
 		MECHA_ARMOR = list(),
 	)
-	///assoc list: max equips for non-arm modules key-count
+	///assoc list: max equips for modules key-count
 	var/list/max_equip_by_category = list(
-		MECHA_UTILITY = 0,
+		MECHA_L_ARM = 1,
+		MECHA_R_ARM = 1,
+		MECHA_UTILITY = 2,
 		MECHA_POWER = 1,
 		MECHA_ARMOR = 0,
 	)
@@ -151,8 +150,6 @@
 	var/exit_delay = 2 SECONDS
 	///Time you get knocked down for if you get forcible ejected by the mech exploding
 	var/destruction_knockdown_duration = 4 SECONDS
-	///Whether outside viewers can see the pilot inside
-	var/enclosed = TRUE
 	///In case theres a different iconstate for AI/MMI pilot(currently only used for ripley)
 	var/silicon_icon_state = null
 	///Currently ejecting, and unable to do things
@@ -170,9 +167,15 @@
 	var/defense_mode = FALSE
 
 	///Bool for leg overload on/off
-	var/leg_overload_mode = FALSE
-	///Bool for leg overload on/off
-	var/leg_overload_coeff = 100
+	var/overclock_mode = FALSE
+	///Whether it is possible to toggle overclocking from the cabin
+	var/can_use_overclock = FALSE
+	///Speed and energy usage modifier for leg overload
+	var/overclock_coeff = 1.5
+	///Current leg actuator temperature. Increases when overloaded, decreases when not.
+	var/overclock_temp = 0
+	///Temperature threshold at which actuators may start causing internal damage
+	var/overclock_temp_danger = 15
 
 	//Bool for zoom on/off
 	var/zoom_mode = FALSE
@@ -198,14 +201,13 @@
 	///Bool for whether this mech can only be used on lavaland
 	var/lavaland_only = FALSE
 
-
-	/// Ui size, so you can make the UI bigger if you let it load a lot of stuff
-	var/ui_x = 1100
-	/// Ui size, so you can make the UI bigger if you let it load a lot of stuff
-	var/ui_y = 600
 	/// ref to screen object that displays in the middle of the UI
 	var/atom/movable/screen/mech_view/ui_view
 
+	/// Theme of the mech TGUI
+	var/ui_theme = "ntos"
+	/// Module selected by default when mech UI is opened
+	var/ui_selected_module_index
 
 /datum/armor/sealed_mecha
 	melee = 20
@@ -214,15 +216,9 @@
 	fire = 100
 	acid = 100
 
-/obj/item/radio/mech //this has to go somewhere
-	subspace_transmission = TRUE
-
-/obj/vehicle/sealed/mecha/Initialize(mapload)
+/obj/vehicle/sealed/mecha/Initialize(mapload, built_manually)
 	. = ..()
 	ui_view = new(null, src)
-	if(enclosed)
-		internal_tank = new (src)
-		RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE , PROC_REF(disconnect_air))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 	spark_system.set_up(2, 0, src)
@@ -231,18 +227,12 @@
 	smoke_system.set_up(3, src)
 	smoke_system.attach(src)
 
-	radio = new(src)
-	radio.name = "[src] radio"
+	cabin_air = new(cabin_volume)
 
-	cabin_air = new
-	cabin_air.temperature = T20C
-	cabin_air.volume = 200
-	SET_MOLES(/datum/gas/oxygen, cabin_air, O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
-	SET_MOLES(/datum/gas/nitrogen, cabin_air, N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
-
-	add_cell()
-	add_scanmod()
-	add_capacitor()
+	if(!built_manually)
+		populate_parts()
+	update_access()
+	set_wires(new /datum/wires/mecha(src))
 	START_PROCESSING(SSobj, src)
 	AddElement(/datum/element/point_of_interest)
 	log_message("[src.name] created.", LOG_MECHA)
@@ -310,14 +300,32 @@
 	QDEL_NULL(cell)
 	QDEL_NULL(scanmod)
 	QDEL_NULL(capacitor)
-	QDEL_NULL(internal_tank)
+	QDEL_NULL(servo)
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_NULL(ui_view)
+	QDEL_NULL(wires)
 
 	GLOB.mechas_list -= src //global mech list
 	return ..()
+
+///Add parts on mech spawning. Skipped in manual construction.
+/obj/vehicle/sealed/mecha/proc/populate_parts()
+	cell = new /obj/item/stock_parts/cell/high(src)
+	scanmod = new /obj/item/stock_parts/scanning_module(src)
+	capacitor = new /obj/item/stock_parts/capacitor(src)
+	servo = new /obj/item/stock_parts/servo(src)
+	update_part_values()
+
+/obj/vehicle/sealed/mecha/CheckParts(list/parts_list)
+	. = ..()
+	cell = locate(/obj/item/stock_parts/cell) in contents
+	diag_hud_set_mechcell()
+	scanmod = locate(/obj/item/stock_parts/scanning_module) in contents
+	capacitor = locate(/obj/item/stock_parts/capacitor) in contents
+	servo = locate(/obj/item/stock_parts/servo) in contents
+	update_part_values()
 
 /obj/vehicle/sealed/mecha/atom_destruction()
 	loc.assume_air(cabin_air)
@@ -367,7 +375,10 @@
 
 /obj/vehicle/sealed/mecha/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
-	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_internals, VEHICLE_CONTROL_SETTINGS)
+	if(enclosed)
+		initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_cabin_seal, VEHICLE_CONTROL_SETTINGS)
+	if(can_use_overclock)
+		initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_overclock)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_lights, VEHICLE_CONTROL_SETTINGS)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_safeties, VEHICLE_CONTROL_SETTINGS)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/mecha/mech_view_stats, VEHICLE_CONTROL_SETTINGS)
@@ -406,24 +417,16 @@
 		to_chat(mob_occupant, span_notice("Equipment control unit has been rebooted successfully."))
 	set_mouse_pointer()
 
-/obj/vehicle/sealed/mecha/CheckParts(list/parts_list)
-	. = ..()
-	cell = locate(/obj/item/stock_parts/cell) in contents
-	scanmod = locate(/obj/item/stock_parts/scanning_module) in contents
-	capacitor = locate(/obj/item/stock_parts/capacitor) in contents
-	update_part_values()
-
 /obj/vehicle/sealed/mecha/proc/update_part_values() ///Updates the values given by scanning module and capacitor tier, called when a part is removed or inserted.
-	if(scanmod)
-		normal_step_energy_drain = 20 - (5 * scanmod.rating) //10 is normal, so on lowest part its worse, on second its ok and on higher its real good up to 0 on best
-		step_energy_drain = normal_step_energy_drain
-	else
-		normal_step_energy_drain = 500
-		step_energy_drain = normal_step_energy_drain
+	update_energy_drain()
+
 	if(capacitor)
 		var/datum/armor/stock_armor = get_armor_by_type(armor_type)
 		var/initial_energy = stock_armor.get_rating(ENERGY)
 		set_armor_rating(ENERGY, initial_energy + (capacitor.rating * 5))
+		overclock_temp_danger = initial(overclock_temp_danger) * capacitor.rating
+	else
+		overclock_temp_danger = initial(overclock_temp_danger)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -431,16 +434,29 @@
 /obj/vehicle/sealed/mecha/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(flat_equipment))
-		. += "It's equipped with:"
+		. += span_notice("It's equipped with:")
 		for(var/obj/item/mecha_parts/mecha_equipment/ME as anything in flat_equipment)
-			. += "[icon2html(ME, user)] \A [ME]."
+			if(istype(ME, /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay))
+				continue
+			. += span_notice("[icon2html(ME, user)] \A [ME].")
+	if(mecha_flags & PANEL_OPEN)
+		if(servo)
+			. += span_notice("Micro-servos reduce movement power usage by [100 - round(100 / servo.rating)]%")
+		else
+			. += span_warning("It's missing a micro-servo.")
+		if(capacitor)
+			. += span_notice("Capacitor increases armor against energy attacks by [capacitor.rating * 5].")
+		else
+			. += span_warning("It's missing a capacitor.")
+		if(!scanmod)
+			. += span_warning("It's missing a scanning module.")
 	if(enclosed)
 		return
 	if(mecha_flags & SILICON_PILOT)
-		. += "[src] appears to be piloting itself..."
+		. += span_notice("[src] appears to be piloting itself...")
 	else
 		for(var/occupante in occupants)
-			. += "You can see [occupante] inside."
+			. += span_notice("You can see [occupante] inside.")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			for(var/held_item in H.held_items)
@@ -467,43 +483,74 @@
 
 	return examine_text
 
+///Locate an internal tack in the utility modules
+/obj/vehicle/sealed/mecha/proc/get_internal_tank()
+	var/obj/item/mecha_parts/mecha_equipment/air_tank/module = locate(/obj/item/mecha_parts/mecha_equipment/air_tank) in equip_by_category[MECHA_UTILITY]
+	return module?.internal_tank
+
 //processing internal damage, temperature, air regulation, alert updates, lights power use.
 /obj/vehicle/sealed/mecha/process(delta_time)
+	if(overclock_mode || overclock_temp > 0)
+		process_overclock_effects(delta_time)
 	if(internal_damage)
-		if(internal_damage & MECHA_INT_FIRE)
-			if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && DT_PROB(2.5, delta_time))
-				clear_internal_damage(MECHA_INT_FIRE)
-			if(internal_tank)
-				var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
-				if(int_tank_air.return_pressure() > internal_tank.maximum_pressure && !(internal_damage & MECHA_INT_TANK_BREACH))
-					set_internal_damage(MECHA_INT_TANK_BREACH)
-				if(int_tank_air && int_tank_air.return_volume() > 0) //heat the air_contents
-					int_tank_air.temperature = (min(6000+T0C, int_tank_air.return_temperature()+rand(10,15)))
-			if(cabin_air && cabin_air.return_volume()>0)
-				cabin_air.temperature = (min(6000+T0C, cabin_air.return_temperature()+rand(10,15)))
-				if(cabin_air.return_temperature() > max_temperature/2)
-					take_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
+		process_internal_damage_effects(delta_time)
+	if(cabin_sealed)
+		process_cabin_air(delta_time)
+	if(length(occupants))
+		process_occupants(delta_time)
+	process_constant_power_usage(delta_time)
 
-		if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
-			if(internal_tank)
-				var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
-				var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(DT_PROB_RATE(0.05, delta_time))
-				if(loc)
-					loc.assume_air(leaked_gas)
-				else
-					qdel(leaked_gas)
+/obj/vehicle/sealed/mecha/proc/process_overclock_effects(delta_time)
+	if(!overclock_mode && overclock_temp > 0)
+		overclock_temp -= delta_time
+		return
+	overclock_temp = min(overclock_temp + delta_time, overclock_temp_danger * 2)
+	if(overclock_temp < overclock_temp_danger)
+		return
+	var/damage_chance = 100 * ((overclock_temp - overclock_temp_danger) / (overclock_temp_danger * 2))
+	if(SPT_PROB(damage_chance, delta_time))
+		do_sparks(5, TRUE, src)
+		try_deal_internal_damage(damage_chance)
+		take_damage(delta_time, BURN, 0, 0)
 
-		if(internal_damage & MECHA_INT_SHORT_CIRCUIT)
-			if(get_charge())
-				spark_system.start()
-				cell.charge -= min(10 * delta_time, cell.charge)
-				cell.maxcharge -= min(10 * delta_time, cell.maxcharge)
+/obj/vehicle/sealed/mecha/proc/process_internal_damage_effects(delta_time)
+	if(internal_damage & MECHA_INT_FIRE)
+		if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && SPT_PROB(2.5, delta_time))
+			clear_internal_damage(MECHA_INT_FIRE)
+		if(cabin_air && cabin_sealed && cabin_air.return_volume()>0)
+			if(cabin_air.return_pressure() > (PUMP_DEFAULT_PRESSURE * 30) && !(internal_damage & MECHA_CABIN_AIR_BREACH))
+				set_internal_damage(MECHA_CABIN_AIR_BREACH)
+			cabin_air.temperature = min(6000+T0C, cabin_air.temperature+rand(5,7.5)*delta_time)
+			if(cabin_air.return_temperature() > max_temperature/2)
+				take_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
 
-	if(!(internal_damage & MECHA_INT_TEMP_CONTROL))
-		if(cabin_air && cabin_air.return_volume() > 0)
-			var/delta = cabin_air.return_temperature() - T20C
-			cabin_air.temperature = (cabin_air.return_temperature() - clamp(round(delta / 8, 0.1), -5, 5) * delta_time)
+	if(internal_damage & MECHA_CABIN_AIR_BREACH && cabin_air && cabin_sealed) //remove some air from cabin_air
+		var/datum/gas_mixture/leaked_gas = cabin_air.remove_ratio(SPT_PROB_RATE(0.05, delta_time))
+		if(loc)
+			loc.assume_air(leaked_gas)
+		else
+			qdel(leaked_gas)
 
+	if(internal_damage & MECHA_INT_SHORT_CIRCUIT && get_charge())
+		spark_system.start()
+		use_power(min(10 * delta_time, cell.charge))
+		cell.maxcharge -= min(10 * delta_time, cell.maxcharge)
+
+/obj/vehicle/sealed/mecha/proc/process_cabin_air(delta_time)
+	if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && cabin_air && cabin_air.return_volume() > 0)
+		var/heat_capacity = cabin_air.heat_capacity()
+		var/required_energy = abs(T20C - cabin_air.temperature) * heat_capacity
+		required_energy = min(required_energy, 1000)
+		if(required_energy < 1)
+			return
+		var/delta_temperature = required_energy / heat_capacity
+		if(delta_temperature)
+			if(cabin_air.temperature < T20C)
+				cabin_air.temperature += delta_temperature
+			else
+				cabin_air.temperature -= delta_temperature
+
+/obj/vehicle/sealed/mecha/proc/process_occupants(delta_time)
 	for(var/mob/living/occupant as anything in occupants)
 		if(!enclosed && occupant?.incapacitated())  //no sides mean it's easy to just sorta fall out if you're incapacitated.
 			visible_message(span_warning("[occupant] tumbles out of the cockpit!"))
@@ -547,14 +594,17 @@
 			else if (checking == src)
 				break  // all good
 			checking = checking.loc
-
-	if(mecha_flags & LIGHTS_ON)
-		use_power(2*delta_time)
-
-//Diagnostic HUD updates
+	//Diagnostic HUD updates
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+
+/obj/vehicle/sealed/mecha/proc/process_constant_power_usage(seconds_per_tick)
+	if(mecha_flags & LIGHTS_ON && !use_power(light_energy_drain * seconds_per_tick))
+		mecha_flags &= ~LIGHTS_ON
+		set_light_on(mecha_flags & LIGHTS_ON)
+		playsound(src,'sound/machines/clockcult/brass_skewer.ogg', 40, TRUE)
+		log_message("Toggled lights off due to the lack of power.", LOG_MECHA)
 
 ///Called when a driver clicks somewhere. Handles everything like equipment, punches, etc.
 /obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, list/modifiers)
@@ -576,9 +626,6 @@
 		balloon_alert(user, "not while [phasing]!")
 		return
 	if(user.incapacitated())
-		return
-	if(construction_state)
-		balloon_alert(user, "end maintenance first!")
 		return
 	if(!get_charge())
 		return
@@ -692,7 +739,7 @@
 	//Transfer from core or card to mech. Proc is called by mech.
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
-			if(!construction_state) //Mech must be in maint mode to allow carding.
+			if(!(mecha_flags & PANEL_OPEN)) //Mech must be in maint mode to allow carding.
 				to_chat(user, span_warning("[name] must have maintenance protocols active in order to allow a transfer."))
 				return
 			var/list/ai_pilots = list()
@@ -783,105 +830,71 @@
 	pilot_mob.forceMove(get_turf(src))
 	update_appearance()
 
-/////////////////////////
-////// Access stuff /////
-/////////////////////////
-
-/obj/vehicle/sealed/mecha/proc/operation_allowed(mob/M)
-	req_access = list()
-	req_one_access = operation_req_access
-	return allowed(M)
-
-/obj/vehicle/sealed/mecha/proc/internals_access_allowed(mob/M)
-	req_one_access = internals_req_access
-	req_access = list()
-	return allowed(M)
-
 /obj/vehicle/sealed/mecha/remove_air(amount)
-	if(use_internal_tank)
+	if(enclosed && cabin_sealed)
 		return cabin_air.remove(amount)
 	return ..()
 
 /obj/vehicle/sealed/mecha/return_air()
-	if(use_internal_tank)
+	if(enclosed && cabin_sealed)
 		return cabin_air
 	return ..()
 
 /obj/vehicle/sealed/mecha/return_analyzable_air()
 	return cabin_air
 
+///fetches pressure of the gas mixture we are using
 /obj/vehicle/sealed/mecha/proc/return_pressure()
-	var/datum/gas_mixture/t_air = return_air()
-	if(t_air)
-		return t_air.return_pressure()
-	return
+	var/datum/gas_mixture/air = return_air()
+	return air?.return_pressure()
 
+///fetches temp of the gas mixture we are using
 /obj/vehicle/sealed/mecha/return_temperature()
-	var/datum/gas_mixture/t_air = return_air()
-	if(t_air)
-		return t_air.return_temperature()
-	return
+	var/datum/gas_mixture/air = return_air()
+	return air?.return_temperature()
 
-///////////////////////
-////// Ammo stuff /////
-///////////////////////
+///makes cabin unsealed, dumping cabin air outside or airtight filling the cabin with external air mix
+/obj/vehicle/sealed/mecha/proc/set_cabin_seal(mob/user, cabin_sealed)
+	if(!enclosed)
+		balloon_alert(user, "cabin can't be sealed!")
+		log_message("Tried to seal cabin. This mech can't be airtight.", LOG_MECHA)
+		return
+	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_CABIN_SEAL))
+		balloon_alert(user, "on cooldown!")
+		return
+	TIMER_COOLDOWN_START(src, COOLDOWN_MECHA_CABIN_SEAL, 1 SECONDS)
 
-/obj/vehicle/sealed/mecha/proc/ammo_resupply(obj/item/mecha_ammo/A, mob/user,fail_chat_override = FALSE)
-	if(!A.rounds)
-		if(!fail_chat_override)
-			to_chat(user, span_warning("This box of ammo is empty!"))
-		return FALSE
-	var/ammo_needed
-	var/found_gun
-	for(var/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/gun in flat_equipment)
-		ammo_needed = 0
+	src.cabin_sealed = cabin_sealed
 
-		if(gun.ammo_type != A.ammo_type)
-			continue
-		found_gun = TRUE
-		if(A.direct_load)
-			ammo_needed = initial(gun.projectiles) - gun.projectiles
+	var/datum/gas_mixture/environment_air = loc.return_air()
+	if(!isnull(environment_air))
+		if(cabin_sealed)
+			// Fill cabin with air
+			environment_air.pump_gas_to(cabin_air, environment_air.return_pressure())
 		else
-			ammo_needed = gun.projectiles_cache_max - gun.projectiles_cache
-
-		if(!ammo_needed)
-			continue
-		if(ammo_needed < A.rounds)
-			if(A.direct_load)
-				gun.projectiles = gun.projectiles + ammo_needed
+			// Dump cabin air
+			var/datum/gas_mixture/removed_gases = cabin_air.remove_ratio(1)
+			if(loc)
+				loc.assume_air(removed_gases)
 			else
-				gun.projectiles_cache = gun.projectiles_cache + ammo_needed
-			playsound(get_turf(user),A.load_audio,50,TRUE)
-			to_chat(user, span_notice("You add [ammo_needed] [A.ammo_type][ammo_needed > 1?"s":""] to the [gun.name]"))
-			A.rounds = A.rounds - ammo_needed
-			if(A.custom_materials)	//Change material content of the ammo box according to the amount of ammo deposited into the weapon
-				/// list of materials contained in the ammo box after we put it through the equation so we can stick this list into set_custom_materials()
-				var/list/new_material_content = list()
-				for(var/datum/material/current_material in A.custom_materials)
-					if(istype(current_material, /datum/material/iron))	//we can flatten an empty ammo box into a sheet of iron (2000 units) so we have to make sure the box always has this amount at minimum
-						new_material_content[current_material] = (A.custom_materials[current_material] - 2000) * (A.rounds / initial(A.rounds)) + 2000
-					else
-						new_material_content[current_material] = A.custom_materials[current_material] * (A.rounds / initial(A.rounds))
-				A.set_custom_materials(new_material_content)
-			A.update_name()
-			return TRUE
+				qdel(removed_gases)
 
-		if(A.direct_load)
-			gun.projectiles = gun.projectiles + A.rounds
+	var/obj/item/mecha_parts/mecha_equipment/air_tank/tank = locate(/obj/item/mecha_parts/mecha_equipment/air_tank) in equip_by_category[MECHA_UTILITY]
+	for(var/mob/occupant as anything in occupants)
+		var/datum/action/action = locate(/datum/action/vehicle/sealed/mecha/mech_toggle_cabin_seal) in occupant.actions
+		if(!isnull(tank) && cabin_sealed && tank.auto_pressurize_on_seal)
+			if(!tank.active)
+				tank.set_active(TRUE)
+			else
+				action.button_icon_state = "mech_cabin_pressurized"
+				action.build_all_button_icons()
 		else
-			gun.projectiles_cache = gun.projectiles_cache + A.rounds
-		playsound(get_turf(user),A.load_audio,50,TRUE)
-		to_chat(user, span_notice("You add [A.rounds] [A.ammo_type][A.rounds > 1?"s":""] to the [gun.name]"))
-		A.rounds = 0
-		A.set_custom_materials(list(/datum/material/iron=2000))
-		A.update_appearance()
-		return TRUE
-	if(!fail_chat_override)
-		if(found_gun)
-			to_chat(user, span_notice("You can't fit any more ammo of this type!"))
-		else
-			to_chat(user, span_notice("None of the equipment on this exosuit can use this ammo!"))
-	return FALSE
+			action.button_icon_state = "mech_cabin_[cabin_sealed ? "closed" : "open"]"
+			action.build_all_button_icons()
+
+		balloon_alert(occupant, "cabin [cabin_sealed ? "sealed" : "unsealed"]")
+	log_message("Cabin [cabin_sealed ? "sealed" : "unsealed"].", LOG_MECHA)
+	playsound(src, 'sound/machines/airlock.ogg', 50, TRUE)
 
 /obj/vehicle/sealed/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
@@ -892,3 +905,73 @@
 		for(var/occupant in occupants)
 			remove_action_type_from_mob(/datum/action/vehicle/sealed/mecha/mech_toggle_lights, occupant)
 		playsound(src, 'sound/items/welder.ogg', 50, 1)
+
+/// Apply corresponding accesses
+/obj/vehicle/sealed/mecha/proc/update_access()
+	req_access = one_access ? list() : accesses
+	req_one_access = one_access ? accesses : list()
+
+/// Electrocute user from power celll
+/obj/vehicle/sealed/mecha/proc/shock(mob/living/user)
+	if(!istype(user) || get_charge() < 1)
+		return FALSE
+	do_sparks(5, TRUE, src)
+	return electrocute_mob(user, cell, src, 0.7, TRUE)
+
+/// Toggle mech overclock with a button or by hacking
+/obj/vehicle/sealed/mecha/proc/toggle_overclock(forced_state = null)
+	if(!isnull(forced_state))
+		if(overclock_mode == forced_state)
+			return
+		overclock_mode = forced_state
+	else
+		overclock_mode = !overclock_mode
+	log_message("Toggled overclocking.", LOG_MECHA)
+	if(overclock_mode)
+		movedelay = movedelay / overclock_coeff
+		visible_message(span_notice("[src] starts heating up, making humming sounds."))
+	else
+		movedelay = initial(movedelay)
+		visible_message(span_notice("[src] cools down and the humming stops."))
+	update_energy_drain()
+
+/// Update the energy drain according to parts and status
+/obj/vehicle/sealed/mecha/proc/update_energy_drain()
+	if(servo)
+		step_energy_drain = initial(step_energy_drain) / servo.rating
+	else
+		step_energy_drain = 2 * initial(step_energy_drain)
+	if(overclock_mode)
+		step_energy_drain *= overclock_coeff
+
+	if(capacitor)
+		phasing_energy_drain = initial(phasing_energy_drain) / capacitor.rating
+		melee_energy_drain = initial(melee_energy_drain) / capacitor.rating
+		light_energy_drain = initial(light_energy_drain) / capacitor.rating
+	else
+		phasing_energy_drain = initial(phasing_energy_drain)
+		melee_energy_drain = initial(melee_energy_drain)
+		light_energy_drain = initial(light_energy_drain)
+
+/// Toggle lights on/off
+/obj/vehicle/sealed/mecha/proc/toggle_lights(forced_state = null, mob/user)
+	if(!(mecha_flags & HAS_LIGHTS))
+		if(user)
+			balloon_alert(user, "mech has no lights!")
+		return
+	if((!(mecha_flags & LIGHTS_ON) && forced_state != FALSE) && get_charge() < light_energy_drain)
+		if(user)
+			balloon_alert(user, "no power for lights!")
+		return
+	mecha_flags ^= LIGHTS_ON
+	set_light_on(mecha_flags & LIGHTS_ON)
+	playsound(src,'sound/machines/clockcult/brass_skewer.ogg', 40, TRUE)
+	log_message("Toggled lights [(mecha_flags & LIGHTS_ON)?"on":"off"].", LOG_MECHA)
+	for(var/mob/occupant as anything in occupants)
+		var/datum/action/act = locate(/datum/action/vehicle/sealed/mecha/mech_toggle_lights) in occupant.actions
+		if(mecha_flags & LIGHTS_ON)
+			act.button_icon_state = "mech_lights_on"
+		else
+			act.button_icon_state = "mech_lights_off"
+		balloon_alert(occupant, "toggled lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
+		act.build_all_button_icons()

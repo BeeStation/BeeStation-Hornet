@@ -47,6 +47,7 @@
 #define COOLDOWN_MECHA_ARMOR "mecha_armor"
 #define COOLDOWN_MECHA_MELEE_ATTACK "mecha_melee"
 #define COOLDOWN_MECHA_SMOKE "mecha_smoke"
+#define COOLDOWN_MECHA_CABIN_SEAL "mecha_cabin_seal"
 
 #define COOLDOWN_EMOTE_WINDOW "emote_window"
 
