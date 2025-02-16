@@ -77,7 +77,7 @@
 	// If we aren't in the dark, anyone watching us will cause us to drop out stuff
 	if(!QDELETED(current_turf?.lighting_object) && current_turf.get_lumcount() >= 0.2)
 		for(var/mob/living/watcher in viewers(world.view, get_turf(owner)) - owner)
-			if(!watcher.client)
+			if(QDELETED(watcher.client) || watcher.client?.is_afk() || watcher.stat != CONSCIOUS)
 				continue
 			if(watcher.has_unlimited_silicon_privilege)
 				continue

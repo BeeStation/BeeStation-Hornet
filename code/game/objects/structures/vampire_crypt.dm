@@ -207,7 +207,8 @@
 		SEND_SIGNAL(vampiredatum, VAMPIRE_INTERACT_WITH_VASSAL, vassaldatum)
 		return TRUE
 
-	try_to_torture(user, buckled_person)
+	var/obj/item/held_item = user.get_inactive_held_item()
+	try_to_torture(user, buckled_person, held_item)
 
 /obj/structure/vampire/vassalrack/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -222,6 +223,11 @@
 		else
 			user_unbuckle_mob(buckled_carbons, user)
 
+/obj/structure/vampire/vassalrack/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(IS_VAMPIRE(user) && has_buckled_mobs() && !user.combat_mode)
+		return try_to_torture(user, pick(buckled_mobs), attacking_item)
+	return ..()
+
 /**
  * Torture steps:
  *
@@ -230,7 +236,7 @@
  * * If the victim has a mindshield or is an antagonist, they must accept the conversion. If they don't accept, they aren't converted
  * * Vassalize target
  */
-/obj/structure/vampire/vassalrack/proc/try_to_torture(mob/living/user, mob/living/target)
+/obj/structure/vampire/vassalrack/proc/try_to_torture(mob/living/user, mob/living/target, var/obj/item/held_item)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 
 	if(!vampiredatum.can_make_vassal(target) || is_torturing)
@@ -243,7 +249,8 @@
 		is_torturing = TRUE
 		target.Paralyze(1 SECONDS)
 		vampiredatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
-		if(!do_torture(user, target))
+
+		if(!do_torture(user, target, held_item))
 			is_torturing = FALSE
 			return
 		is_torturing = FALSE
@@ -278,8 +285,7 @@
 				implant.Destroy()
 		SEND_SIGNAL(vampiredatum, VAMPIRE_MADE_VASSAL, user, target)
 
-/obj/structure/vampire/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target)
-	var/obj/item/held_item = user.get_inactive_held_item()
+/obj/structure/vampire/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target, var/obj/item/held_item)
 	var/torture_time = 15
 	torture_time -= held_item?.force / 4
 	torture_time -= held_item?.sharpness + 1
@@ -347,6 +353,10 @@
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
+/obj/structure/vampire/candelabrum/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CLICK_RIGHT, PROC_REF(distance_toggle))
+
 /obj/structure/vampire/candelabrum/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -354,6 +364,11 @@
 /obj/structure/vampire/candelabrum/update_icon_state()
 	icon_state = "candelabrum[lit ? "_lit" : ""]"
 	return ..()
+
+/obj/structure/vampire/candelabrum/proc/distance_toggle(datum/source, atom/location, control, params, mob/user)
+	SIGNAL_HANDLER
+	if(anchored && !user.incapacitated() && IS_VAMPIRE(user) && !user.Adjacent(src))
+		toggle()
 
 /obj/structure/vampire/candelabrum/bolt()
 	density = TRUE
@@ -452,7 +467,7 @@
 	. = ..()
 	density = TRUE
 	user.visible_message(
-		span_notice("[user] sits down on [src]."),
+		span_notice("[user] sits down on \the [src]."),
 		span_boldnotice("You sit down onto [src]."),
 	)
 	if(IS_VAMPIRE(user))
@@ -469,7 +484,7 @@
 
 // Unbuckling
 /obj/structure/vampire/bloodthrone/unbuckle_mob(mob/living/user, force = FALSE, can_fall = TRUE)
-	src.visible_message(span_danger("[user] unbuckles themselves from [src]."))
+	visible_message(span_danger("[user] unbuckles [user.p_them()]self from \the [src]."))
 	if(IS_VAMPIRE(user))
 		UnregisterSignal(user, COMSIG_MOB_SAY)
 	. = ..()

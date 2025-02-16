@@ -398,7 +398,7 @@
 	for(var/mob/living/nearby_viewers in viewers(target_turf))
 		if(nearby_viewers == subject)
 			continue
-		if(!isliving(nearby_viewers) || !nearby_viewers.mind)
+		if(!isliving(nearby_viewers) || !nearby_viewers.mind || nearby_viewers.client?.is_afk())
 			continue
 		if(IS_VAMPIRE(nearby_viewers) || IS_VASSAL(nearby_viewers))
 			continue

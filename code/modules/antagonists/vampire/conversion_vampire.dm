@@ -32,29 +32,12 @@
 	if(conversion_target.stat > UNCONSCIOUS)
 		user.balloon_alert(user, "must be awake!")
 		return FALSE
-	if(length(vassals) >= get_max_vassals())
-		user.balloon_alert(user, "max vassals reached!")
-		return FALSE
 	var/mob/living/master = conversion_target.mind.enslaved_to
 	if(master && master != owner.current)
 		user.balloon_alert(user, "enslaved to someone else!")
 		return FALSE
 
 	return TRUE
-
-/**
- *  This proc is responsible for calculating how many vassals you can have at any given
- *  time, ranges from 1 at 20 pop to 4 at 40 pop
- */
-/datum/antagonist/vampire/proc/get_max_vassals()
-	var/total_players = GLOB.joined_player_list.len
-	switch(total_players)
-		if(1 to 20)
-			return 1
-		if(21 to 30)
-			return 3
-		else
-			return 4
 
 /datum/antagonist/vampire/proc/make_vassal(mob/living/conversion_target)
 	if(IS_VASSAL(conversion_target))
