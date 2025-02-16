@@ -109,7 +109,7 @@
 // BEGIN_INCLUDE
 
 #include "create_and_destroy.dm"
-#include janky_actions.dm
+#include "janky_actions.dm"
 
 // END_INCLUDE
 
