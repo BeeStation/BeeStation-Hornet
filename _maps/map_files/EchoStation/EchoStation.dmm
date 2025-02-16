@@ -15490,33 +15490,6 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/crew_quarters/heads/hop)
-"hoG" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/brown/hidden/layer5{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/binary/valve/layer2{
-	dir = 8;
-	pixel_y = -5;
-	name = "Manual Lockout Valve";
-	piping_layer = 1
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/engine/engineering)
 "hoH" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/power/apc/auto_name/directional/north{
@@ -62665,7 +62638,7 @@ qdG
 vLP
 slQ
 rRt
-hoG
+hcT
 vxi
 pVY
 grQ
