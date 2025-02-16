@@ -288,7 +288,7 @@
 			balloon_alert(user, "already installed!")
 		return
 
-	if(istype(weapon, /obj/item/stock_parts/servo))
+	if(istype(weapon, /obj/item/stock_parts/manipulator))
 		if(!servo)
 			if(!user.transferItemToLoc(weapon, src, silent = FALSE))
 				return

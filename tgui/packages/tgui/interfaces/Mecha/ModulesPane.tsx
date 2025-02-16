@@ -876,14 +876,14 @@ const SnowflakeExtinguisher = (props, context) => {
 
 const SnowflakeGeneraor = (props, context) => {
   const { act, data } = useBackend<MainData>(context);
-  const { sheet_material_amount } = data;
+  const { mineral_material_amount } = data;
   const { ref, active, name } = props.module;
   const { fuel } = props.module.snowflake;
   return (
     <LabeledList.Item label="Fuel Amount">
       {fuel === null
         ? 'None'
-        : toFixed(fuel * sheet_material_amount, 0.1) + ' cm³'}
+        : toFixed(fuel * mineral_material_amount, 0.1) + ' cm³'}
     </LabeledList.Item>
   );
 };

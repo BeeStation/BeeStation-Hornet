@@ -536,6 +536,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_mining_scanner
 	name = "Exosuit Engineering (Mining Scanner)"
@@ -544,6 +545,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	materials = list(/datum/material/iron=5000,/datum/material/glass = 2500)
 	construction_time = 50
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_extinguisher
 	name = "Exosuit Engineering (Extinguisher)"
@@ -552,6 +554,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/extinguisher
 	materials = list(/datum/material/iron=10000)
 	construction_time = 100
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator
 	name = "Exosuit Module (Plasma Generator)"
@@ -560,6 +563,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator
 	materials = list(/datum/material/iron=10000,/datum/material/glass = 1000,/datum/material/silver=2000,/datum/material/plasma=5000)
 	construction_time = 100
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_mousetrap_mortar
 	name = "H.O.N.K Weapon (Mousetrap Mortar)"
@@ -568,6 +572,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/mousetrap_mortar
 	materials = list(/datum/material/iron=20000,/datum/material/bananium=5000)
 	construction_time = 300
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_banana_mortar
 	name = "H.O.N.K Weapon (Banana Mortar)"
@@ -576,6 +581,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar
 	materials = list(/datum/material/iron=20000,/datum/material/bananium=5000)
 	construction_time = 300
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_honker
 	name = "H.O.N.K Weapon (HoNkER BlAsT 5000)"
@@ -584,6 +590,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/honker
 	materials = list(/datum/material/iron=20000,/datum/material/bananium=10000)
 	construction_time = 500
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_punching_glove
 	name = "H.O.N.K Weapon (Oingo Boingo Punch-face)"
@@ -592,42 +599,25 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/punching_glove
 	materials = list(/datum/material/iron=20000,/datum/material/bananium=7500)
 	construction_time = 400
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_radio
 	name = "Mech Radio"
 	id = "mech_radio"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/radio
-	materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*2.5)
+	materials = list(/datum/material/iron=2500)
 	construction_time = 100
-	category = list(
-		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING,
-		RND_CATEGORY_MECHFAB_RIPLEY + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_GYGAX + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_DURAND + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_air_tank
 	name = "Mech Air Tank"
 	id = "mech_air_tank"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/air_tank
-	materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*5)
+	materials = list(/datum/material/iron=5000)
 	construction_time = 100
-	category = list(
-		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING,
-		RND_CATEGORY_MECHFAB_RIPLEY + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_GYGAX + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_DURAND + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_HONK + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_PHAZON + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT,
-		RND_CATEGORY_MECHFAB_CLARKE + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+	category = list("Exosuit Equipment")
 
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////

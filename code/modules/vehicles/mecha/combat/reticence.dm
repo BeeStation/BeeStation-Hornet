@@ -46,5 +46,5 @@
 	cell = new /obj/item/stock_parts/cell/hyper(src)
 	scanmod = new /obj/item/stock_parts/scanning_module/phasic(src)
 	capacitor = new /obj/item/stock_parts/capacitor/super(src)
-	servo = new /obj/item/stock_parts/servo/pico(src)
+	servo = new /obj/item/stock_parts/manipulator/pico(src)
 	update_part_values()

@@ -167,7 +167,7 @@
 	cell = new /obj/item/stock_parts/cell/high(src)
 	//No scanmod for Big Bess
 	capacitor = new /obj/item/stock_parts/capacitor(src)
-	servo = new /obj/item/stock_parts/servo(src)
+	servo = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/ripley/Exit(atom/movable/O)

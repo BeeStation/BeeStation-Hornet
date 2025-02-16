@@ -42,7 +42,7 @@
 	data["cabin_temp_hazard_max"]  = BODYTEMP_HEAT_WARNING_1 - T0C
 	data["one_atmosphere"]  = ONE_ATMOSPHERE
 
-	data["sheet_material_amount"] = SHEET_MATERIAL_AMOUNT
+	data["mineral_material_amount"] = MINERAL_MATERIAL_AMOUNT
 	//map of relevant flags to check tgui side, not every flag needs to be here
 	data["mechflag_keys"] = list(
 		"ID_LOCK_ON" = ID_LOCK_ON,
@@ -182,9 +182,6 @@
 			var/userinput = tgui_input_text(usr, "Choose a new exosuit name", "Rename exosuit", max_length = MAX_NAME_LEN, default = name)
 			if(!userinput)
 				return
-			if(is_ic_filtered(userinput) || is_soft_ic_filtered(userinput))
-				tgui_alert(usr, "You cannot set a name that contains a word prohibited in IC chat!")
-				return
 			if(userinput == format_text(name)) //default mecha names may have improper span artefacts in their name, so we format the name
 				to_chat(usr, span_notice("You rename [name] to... well, [userinput]."))
 				return
@@ -212,7 +209,7 @@
 			toggle_overclock()
 			var/datum/action/act = locate(/datum/action/vehicle/sealed/mecha/mech_overclock) in usr.actions
 			act.button_icon_state = "mech_overload_[overclock_mode ? "on" : "off"]"
-			act.build_all_button_icons()
+			act.UpdateButtons()
 		if("repair_int_damage")
 			try_repair_int_damage(usr, params["flag"])
 			return FALSE

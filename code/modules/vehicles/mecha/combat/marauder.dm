@@ -53,7 +53,7 @@
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	scanmod = new /obj/item/stock_parts/scanning_module/triphasic(src)
 	capacitor = new /obj/item/stock_parts/capacitor/quadratic(src)
-	servo = new /obj/item/stock_parts/servo/femto(src)
+	servo = new /obj/item/stock_parts/manipulator/femto(src)
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/marauder/seraph
@@ -123,5 +123,5 @@
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	scanmod = new /obj/item/stock_parts/scanning_module/triphasic(src)
 	capacitor = new /obj/item/stock_parts/capacitor/quadratic(src)
-	servo = new /obj/item/stock_parts/servo/femto(src)
+	servo = new /obj/item/stock_parts/manipulator/femto(src)
 	update_part_values()

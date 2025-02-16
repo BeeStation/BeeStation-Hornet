@@ -117,29 +117,6 @@
 /datum/action/vehicle/sealed/mecha/mech_defense_mode/on_activate(mob/user, atom/target)
 	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
 
-/datum/action/vehicle/sealed/mecha/mech_overload_mode
-	name = "Toggle leg actuators overload"
-	button_icon_state = "mech_overload_off"
-
-/datum/action/vehicle/sealed/mecha/mech_overload_mode/on_activate(mob/user, atom/target)
-	if(!owner || !chassis || !(owner in chassis.occupants))
-		return
-	/*if(!isnull(forced_state))
-		chassis.leg_overload_mode = forced_state
-	else Don't know what to do about this part*/
-	chassis.leg_overload_mode = !chassis.leg_overload_mode
-	button_icon_state = "mech_overload_[chassis.leg_overload_mode ? "on" : "off"]"
-	chassis.log_message("Toggled leg actuators overload.", LOG_MECHA)
-	if(chassis.leg_overload_mode)
-		chassis.movedelay = min(1, round(chassis.movedelay * 0.5))
-		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min,chassis.step_energy_drain*chassis.leg_overload_coeff)
-		chassis.balloon_alert(owner,"Toggled leg actuators overload.")
-	else
-		chassis.movedelay = initial(chassis.movedelay)
-		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.balloon_alert(owner, "Disabled leg actuators overload.")
-	update_buttons()
-
 /datum/action/vehicle/sealed/mecha/mech_smoke
 	name = "Smoke"
 	button_icon_state = "mech_smoke"
@@ -246,4 +223,4 @@
 	chassis.toggle_overclock(forced_state)
 	chassis.balloon_alert(owner, chassis.overclock_mode ? "started overclocking" : "stopped overclocking")
 	button_icon_state = "mech_overload_[chassis.overclock_mode ? "on" : "off"]"
-	build_all_button_icons()
+	UpdateButtons()

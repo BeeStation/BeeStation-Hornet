@@ -59,7 +59,7 @@
 	/// Keeps track of the mech's capacitor
 	var/obj/item/stock_parts/capacitor/capacitor
 	/// Keeps track of the mech's servo motor
-	var/obj/item/stock_parts/servo/servo
+	var/obj/item/stock_parts/manipulator/servo
 	///Contains flags for the mecha
 	var/mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
 
@@ -315,7 +315,7 @@
 	cell = new /obj/item/stock_parts/cell/high(src)
 	scanmod = new /obj/item/stock_parts/scanning_module(src)
 	capacitor = new /obj/item/stock_parts/capacitor(src)
-	servo = new /obj/item/stock_parts/servo(src)
+	servo = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/CheckParts(list/parts_list)
@@ -324,7 +324,7 @@
 	diag_hud_set_mechcell()
 	scanmod = locate(/obj/item/stock_parts/scanning_module) in contents
 	capacitor = locate(/obj/item/stock_parts/capacitor) in contents
-	servo = locate(/obj/item/stock_parts/servo) in contents
+	servo = locate(/obj/item/stock_parts/manipulator) in contents
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/atom_destruction()
@@ -652,7 +652,7 @@
 				return
 			if(SEND_SIGNAL(src, COMSIG_MECHA_EQUIPMENT_CLICK, livinguser, target) & COMPONENT_CANCEL_EQUIPMENT_CLICK)
 				return
-			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, modifiers)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, modifiers)
 			return
 		if(Adjacent(target) && (selected.range & MECHA_MELEE))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(livinguser, TRAIT_PACIFISM))
@@ -660,7 +660,7 @@
 				return
 			if(SEND_SIGNAL(src, COMSIG_MECHA_EQUIPMENT_CLICK, livinguser, target) & COMPONENT_CANCEL_EQUIPMENT_CLICK)
 				return
-			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, modifiers)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, modifiers)
 			return
 	if(!(livinguser in return_controllers_with_flag(VEHICLE_CONTROL_MELEE)))
 		to_chat(livinguser, "<span class='warning'>You're in the wrong seat to interact with your hands.</span>")
@@ -887,10 +887,10 @@
 				tank.set_active(TRUE)
 			else
 				action.button_icon_state = "mech_cabin_pressurized"
-				action.build_all_button_icons()
+				action.UpdateButtons()
 		else
 			action.button_icon_state = "mech_cabin_[cabin_sealed ? "closed" : "open"]"
-			action.build_all_button_icons()
+			action.UpdateButtons()
 
 		balloon_alert(occupant, "cabin [cabin_sealed ? "sealed" : "unsealed"]")
 	log_message("Cabin [cabin_sealed ? "sealed" : "unsealed"].", LOG_MECHA)
@@ -974,4 +974,4 @@
 		else
 			act.button_icon_state = "mech_lights_off"
 		balloon_alert(occupant, "toggled lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
-		act.build_all_button_icons()
+		act.UpdateButtons()

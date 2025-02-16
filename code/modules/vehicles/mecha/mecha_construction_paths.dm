@@ -193,7 +193,7 @@
 			"backward_message" = "removed capacitor"
 		),
 		list(
-			"key" = /obj/item/stock_parts/servo,
+			"key" = /obj/item/stock_parts/manipulator,
 			"action" = ITEM_MOVE_INSIDE,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "Scanning module is secured, the <b> micro-servo</b> can be added.",
@@ -529,7 +529,7 @@
 			"desc" = "HONK!!!!!!"
 		),
 		list(
-			"key" = /obj/item/stock_parts/servo,
+			"key" = /obj/item/stock_parts/manipulator,
 			"action" = ITEM_MOVE_INSIDE,
 			"desc" = "Humor <b>micro-servo</b> can be added!",
 			"forward_message" = "added smile"
@@ -674,7 +674,7 @@
 			"backward_message" = "removed capacitor"
 		),
 		list(
-			"key" = /obj/item/stock_parts/servo,
+			"key" = /obj/item/stock_parts/manipulator,
 			"action" = ITEM_MOVE_INSIDE,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "Scanning module is secured, the <b>capacitor</b> can be added.",

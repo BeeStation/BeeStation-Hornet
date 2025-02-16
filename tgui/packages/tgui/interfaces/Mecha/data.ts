@@ -47,7 +47,7 @@ export type MainData = {
   mech_view: string;
   modules: MechModule[];
   selected_module_index: number;
-  sheet_material_amount: number;
+  mineral_material_amount: number;
 };
 
 export type MechModule = {

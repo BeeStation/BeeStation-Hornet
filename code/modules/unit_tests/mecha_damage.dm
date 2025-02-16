@@ -15,7 +15,7 @@
 	var/expected_laser_armor = demo_mech.get_armor_rating(LASER)
 	var/expected_bullet_armor = demo_mech.get_armor_rating(BULLET)
 
-	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 	dummy.forceMove(locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
 	// The dummy needs to be targeting an arm. Left is chosen here arbitrarily.
 	dummy._set_zone_selected(BODY_ZONE_L_ARM)
@@ -83,4 +83,4 @@
 	TEST_ASSERT(post_hit_health < pre_integrity, "[checking] was [hit_by_phrase], but didn't take any damage.")
 
 	var/damage_taken = round(pre_integrity - post_hit_health, DAMAGE_PRECISION)
-	TEST_ASSERT_EQUAL(damage_taken, expected_damage, "[checking] didn't take the expected amount of damage when [hit_by_phrase]. (Expected damage: [expected_damage], recieved damage: [damage_taken])")
+	TEST_ASSERT_EQUAL(damage_taken, expected_damage, "[checking] didn't take the expected amount of damage when [hit_by_phrase]. (Expected damage: [expected_damage], received damage: [damage_taken])")
