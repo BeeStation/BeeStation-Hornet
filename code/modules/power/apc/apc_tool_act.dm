@@ -1,6 +1,8 @@
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 
-/obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
+/obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/W)
+	if(user.combat_mode)
+		return
 	. = TRUE
 	if (opened)
 		if(integration_cog)
