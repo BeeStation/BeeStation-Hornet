@@ -141,7 +141,7 @@
 			else
 				return -1
 
-/datum/surgery_step/manipulate_organs/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/manipulate_organs/success(mob/living/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(current_type == "insert")
 		if(istype(tool, /obj/item/organ_storage))
 			I = tool.contents[1]

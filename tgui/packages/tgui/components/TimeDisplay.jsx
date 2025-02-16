@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 // AnimatedNumber Copypaste
 const isSafeNumber = (value) => {

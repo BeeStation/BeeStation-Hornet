@@ -17,7 +17,7 @@
 		return
 
 	if(quickdraw)
-		to_chat(user, "<span class='notice'>You discreetly slip [to_insert] into [resolve_parent]. Alt-click [resolve_parent] to remove it.</span>")
+		to_chat(user, "<span class='notice'>You discreetly slip [to_insert] into [resolve_parent].  Right-click [resolve_parent] to remove it.</span>")
 	else
 		to_chat(user, "<span class='notice'>You discreetly slip [to_insert] into [resolve_parent].</span>")
 
@@ -132,5 +132,17 @@
 
 /datum/storage/pockets/void_cloak/New()
 	. = ..()
-	var/static/list/exception_cache = typecacheof(list(/obj/item/clothing/neck/heretic_focus,/obj/item/codex_cicatrix))
+	set_holdable(list(
+		/obj/item/bodypart,
+		/obj/item/clothing/neck/eldritch_amulet,
+		/obj/item/clothing/neck/heretic_focus,
+		/obj/item/codex_cicatrix,
+		/obj/item/eldritch_potion,
+		/obj/item/melee/rune_carver,
+		/obj/item/melee/sickly_blade,
+		/obj/item/organ,
+		/obj/item/reagent_containers/cup/beaker/eldritch,
+	))
+
+	var/static/list/exception_cache = typecacheof(list(/obj/item/bodypart, /obj/item/melee/sickly_blade))
 	exception_hold = exception_cache

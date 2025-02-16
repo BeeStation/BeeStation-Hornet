@@ -122,8 +122,8 @@
 
 	RegisterSignal(resolve_parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(mass_empty))
 
-	RegisterSignals(resolve_parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_GHOST/*, COMSIG_ATOM_ATTACK_HAND_SECONDARY*/), PROC_REF(open_storage_on_signal))
-	//RegisterSignal(resolve_parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(open_storage_attackby_secondary))
+	RegisterSignals(resolve_parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_GHOST, COMSIG_ATOM_ATTACK_HAND_SECONDARY), PROC_REF(open_storage_on_signal))
+	RegisterSignal(resolve_parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(open_storage_attackby_secondary))
 
 	RegisterSignal(resolve_location, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
 	RegisterSignal(resolve_location, COMSIG_ATOM_EXITED, PROC_REF(handle_exit))

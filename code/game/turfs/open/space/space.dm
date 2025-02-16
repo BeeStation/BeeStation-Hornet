@@ -253,3 +253,6 @@
 
 /turf/open/space/check_gravity()
 	return FALSE
+
+/turf/open/space/rad_act(pulse_strength)
+	return

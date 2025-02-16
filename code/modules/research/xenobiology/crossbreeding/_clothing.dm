@@ -66,7 +66,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	light_color = newcolor
 	set_light(5)
 
-/obj/structure/light_prism/attack_hand(mob/user)
+/obj/structure/light_prism/attack_hand(mob/user, list/modifiers)
 	to_chat(user, span_notice("You dispel [src]."))
 	qdel(src)
 
@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	else
 		REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
 
-/obj/item/clothing/head/peaceflower/attack_hand(mob/user)
+/obj/item/clothing/head/peaceflower/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)
