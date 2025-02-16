@@ -46,4 +46,4 @@
 			"You are going insane!",
 			"What was that?!"
 		)
-		to_chat(near, "<span class='warning'>[pick(messages)]</span>")
+		to_chat(near, span_warning("[pick(messages)]"))

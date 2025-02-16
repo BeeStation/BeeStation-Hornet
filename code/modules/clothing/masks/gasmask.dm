@@ -7,9 +7,13 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
+	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
+
+
+/datum/armor/mask_gas
+	bio = 100
 
 /obj/item/clothing/mask/gas/atmos/centcom
 	name = "\improper CentCom gas mask"
@@ -28,13 +32,22 @@
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=2000)
 	flash_protect = 2
 	tint = 2
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55, STAMINA = 15, BLEED = 5)
+	armor_type = /datum/armor/gas_welding
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSEYES
 	visor_flags_inv = HIDEEYES
 	visor_flags_cover = MASKCOVERSEYES
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/gas_welding
+	melee = 10
+	bio = 100
+	fire = 100
+	acid = 55
+	stamina = 15
+	bleed = 5
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -53,7 +66,6 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
@@ -104,8 +116,8 @@
 		user.update_inv_wear_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
-		to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into [choice], all praise the Honkmother!</span>")
+			A.update_buttons()
+		to_chat(user, span_notice("Your Clown Mask has now morphed into [choice], all praise the Honkmother!"))
 		return 1
 
 /obj/item/clothing/mask/gas/sexyclown
@@ -155,8 +167,8 @@
 		user.update_inv_wear_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
-		to_chat(user, "<span class='notice'>Your Mime Mask has now morphed into [choice]!</span>")
+			A.update_buttons()
+		to_chat(user, span_notice("Your Mime Mask has now morphed into [choice]!"))
 		return 1
 
 /obj/item/clothing/mask/gas/monkeymask
@@ -237,7 +249,7 @@
 		user.update_inv_wear_mask()
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.update_buttons()
 		to_chat(M, "The Tiki Mask has now changed into the [choice] Mask!")
 		return 1
 
@@ -260,13 +272,13 @@
 	return voice_change ? "Unknown" : default_name
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
-	. += "<span class='notice'>It was modified to make the user's voice sound robotic.</span>"
+	. += span_notice("It was modified to make the user's voice sound robotic.")
 	. += "The modulator is currently [voice_change ? "<b>ON</b>" : "<b>OFF</b>"]."
 
 /obj/item/clothing/mask/gas/old/modulator/attack_self(mob/user)
 	voice_change = !voice_change
-	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
+	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
 
 /obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
 	voice_change = !voice_change
-	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
+	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))

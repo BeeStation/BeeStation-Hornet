@@ -170,7 +170,7 @@
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "K" = (
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table/glass,
 /turf/open/floor/wood,
 /area/ruin/unpowered)

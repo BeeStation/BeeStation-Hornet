@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
 import { useBackend } from '../../backend';
 import { BlockQuote, Box, Button, Divider, Icon, Section, Stack, Tooltip } from '../../components';
-import { CharacterPreview } from './CharacterPreview';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { createSetPreference, Food, Perk, PreferencesMenuData, ServerData, Species } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -127,14 +127,14 @@ const SpeciesPerk = (props: { className: string; perk: Perk }) => {
           <Box>{perk.description}</Box>
         </Box>
       }>
-      <Box class={className} width="32px" height="32px">
+      <Box className={className} width="32px" height="32px">
         <Icon
           name={perk.ui_icon}
           size={1.5}
           ml={0}
           mt={1}
           style={{
-            'text-align': 'center',
+            textAlign: 'center',
             height: '100%',
             width: '100%',
           }}
@@ -161,7 +161,7 @@ const SpeciesPerks = (props: { perks: Species['perks'] }) => {
         </Stack>
       </Stack.Item>
 
-      <Stack grow>
+      <Stack>
         {neutral.map((perk) => {
           return (
             <Stack.Item key={perk.name}>
@@ -184,14 +184,8 @@ const SpeciesPerks = (props: { perks: Species['perks'] }) => {
   );
 };
 
-const SpeciesPageInner = (
-  props: {
-    handleClose: () => void;
-    species: ServerData['species'];
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const SpeciesPageInner = (props: { handleClose: () => void; species: ServerData['species'] }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const setSpecies = createSetPreference(act, 'species');
 
   let species: [string, Species][] = Object.entries(props.species).map(([species, data]) => {
@@ -285,7 +279,7 @@ const SpeciesPageInner = (
           </Stack.Item>
 
           <Stack.Item grow>
-            <Box fill>
+            <Box>
               <Box>
                 <Stack fill>
                   <Stack.Item width="70%">

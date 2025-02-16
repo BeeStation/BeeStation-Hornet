@@ -53,7 +53,7 @@
 		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return FALSE
 
 	var/mob/living/living_target = target
@@ -95,11 +95,11 @@
 
 	//Display an attack message.
 	if(target != user)
-		target.visible_message("<span class='danger'>[user] hits [target][head_attack_message] with a bottle of [src.name]!</span>", \
-				"<span class='userdanger'>[user] hits you [head_attack_message] with a bottle of [src.name]!</span>")
+		target.visible_message(span_danger("[user] hits [target][head_attack_message] with a bottle of [src.name]!"), \
+				span_userdanger("[user] hits you [head_attack_message] with a bottle of [src.name]!"))
 	else
-		target.visible_message("<span class='danger'>[target] hits [target.p_them()]self with a bottle of [src.name][head_attack_message]!</span>", \
-				"<span class='userdanger'>You hit yourself with a bottle of [src.name][head_attack_message]!</span>")
+		target.visible_message(span_danger("[target] hits [target.p_them()]self with a bottle of [src.name][head_attack_message]!"), \
+				span_userdanger("You hit yourself with a bottle of [src.name][head_attack_message]!"))
 
 	//Attack logs
 	log_combat(user, target, "attacked", src)
@@ -126,7 +126,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("stabs", "slashes", "attacks")
 	attack_verb_simple = list("stab", "slash", "attack")
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	var/static/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 
@@ -525,7 +525,7 @@
 		active = TRUE
 		log_bomber(user, "has primed a", src, "for detonation")
 
-		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
+		to_chat(user, span_info("You light [src] on fire."))
 		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
 		if(!isGlass)
 			addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
@@ -545,9 +545,9 @@
 /obj/item/reagent_containers/cup/glass/bottle/molotov/attack_self(mob/user)
 	if(active)
 		if(!isGlass)
-			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
+			to_chat(user, span_danger("The flame's spread too far on it!"))
 			return
-		to_chat(user, "<span class='info'>You snuff out the flame on [src].</span>")
+		to_chat(user, span_info("You snuff out the flame on [src]."))
 		cut_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
 		active = FALSE
 		return

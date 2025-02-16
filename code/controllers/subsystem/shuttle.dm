@@ -202,13 +202,13 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/can_evac_or_fail_reason = SSshuttle.canEvac(user)
 	if(can_evac_or_fail_reason != TRUE)
-		to_chat(user, "<span class='alert'>[can_evac_or_fail_reason]</span>")
+		to_chat(user, span_alert("[can_evac_or_fail_reason]"))
 		return
 
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH && SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_GREEN)
-		to_chat(user, "<span class='alert'>You must provide a reason.</span>")
+		to_chat(user, span_alert("You must provide a reason."))
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -231,7 +231,7 @@ SUBSYSTEM_DEF(shuttle)
 	log_game("[user ? key_name(user) : "An automated system"] has called the shuttle.")
 	if(user)
 		var/area/A = get_area(user)
-		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has called the shuttle at <span class='name'>[A.name]</span>.</span>", user)
+		deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] has called the shuttle at [span_name("[A.name]")]."), user)
 	if(call_reason)
 		SSblackbox.record_feedback("text", "shuttle_reason", 1, "[call_reason]")
 		log_game("Shuttle call reason: [call_reason]")
@@ -269,7 +269,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.cancel(get_area(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle.")
-		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has recalled the shuttle from <span class='name'>[get_area_name(user, TRUE)]</span>.</span>", user)
+		deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] has recalled the shuttle from [span_name("[get_area_name(user, TRUE)]")]."), user)
 		return 1
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
@@ -360,6 +360,8 @@ SUBSYSTEM_DEF(shuttle)
 			hostileEnvironments -= d
 	emergencyNoEscape = hostileEnvironments.len
 
+	if(!emergency)
+		message_admins("[src] has no emergency dock? What fuckery is this?")
 	if(emergencyNoEscape && (emergency.mode == SHUTTLE_IGNITING))
 		emergency.mode = SHUTTLE_STRANDED
 		emergency.timer = null
@@ -896,7 +898,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(mdp)
 		user.forceMove(get_turf(mdp))
 		message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
-		log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
+		log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.")
 		SSblackbox.record_feedback("text", "shuttle_manipulator", 1, "[mdp.name]")
 
 /datum/controller/subsystem/shuttle/proc/jump_to_preview(mob/user, datum/variable_ref/loaded_shuttle_reference)

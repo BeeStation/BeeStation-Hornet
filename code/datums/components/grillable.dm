@@ -15,6 +15,9 @@
 	///Do we use the large steam sprite?
 	var/use_large_steam_sprite = FALSE
 
+	/// REF() to the mind which placed us on the griddle
+	var/who_placed_us
+
 /datum/component/grillable/Initialize(cook_result, required_cook_time, positive_result, use_large_steam_sprite)
 	. = ..()
 	if(!isitem(parent)) //Only items support grilling at the moment
@@ -25,8 +28,16 @@
 	src.positive_result = positive_result
 	src.use_large_steam_sprite = use_large_steam_sprite
 
+	RegisterSignal(parent, COMSIG_ITEM_GRILL_PLACED, PROC_REF(on_grill_placed))
 	RegisterSignal(parent, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE,  PROC_REF(on_examine))
+
+/// Signal proc for [COMSIG_ITEM_GRILL_PLACED], item is placed on the grill.
+/datum/component/grillable/proc/on_grill_placed(datum/source, mob/griller)
+	SIGNAL_HANDLER
+
+	if(griller && griller.mind)
+		who_placed_us = REF(griller.mind)
 
 ///Ran every time an item is grilled by something
 /datum/component/grillable/proc/OnGrill(datum/source, atom/used_grill, delta_time = 1)
@@ -55,10 +66,14 @@
 	var/atom/original_object = parent
 	var/atom/grilled_result = new cook_result(original_object.loc)
 
+	if(who_placed_us)
+		ADD_TRAIT(grilled_result, TRAIT_FOOD_CHEF_MADE, who_placed_us)
+
 	grilled_result.pixel_x = original_object.pixel_x
 	grilled_result.pixel_y = original_object.pixel_y
 
 	grill_source.visible_message("<span class='[positive_result ? "notice" : "warning"]'>[parent] turns into \a [grilled_result]!</span>")
+	original_object.reagents?.trans_to(grilled_result, original_object.reagents.total_volume)
 	SEND_SIGNAL(parent, COMSIG_GRILL_COMPLETED, grilled_result)
 	currently_grilling = FALSE
 	qdel(parent)
@@ -70,18 +85,18 @@
 	if(!current_cook_time) //Not grilled yet
 		if(positive_result)
 			if(initial(cook_result.name) == PLURAL)
-				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>grilled</span>"] into some [initial(cook_result.name)].</span>"
+				examine_list += span_notice("[parent] can be [span_bold("grilled")] into some [initial(cook_result.name)].")
 			else
-				examine_list += "<span class='notice'>[parent] can be ["<span class='bold'>grilled</span>"] into \a [initial(cook_result.name)].</span>"
+				examine_list += span_notice("[parent] can be [span_bold("grilled")] into \a [initial(cook_result.name)].")
 		return
 
 	if(positive_result)
 		if(current_cook_time <= required_cook_time * 0.75)
-			examine_list += "<span class='notice'>[parent] probably needs to be cooked a bit longer!</span>"
+			examine_list += span_notice("[parent] probably needs to be cooked a bit longer!")
 		else if(current_cook_time <= required_cook_time)
-			examine_list += "<span class='notice'>[parent] seems to be almost finished cooking!</span>"
+			examine_list += span_notice("[parent] seems to be almost finished cooking!")
 	else
-		examine_list += "<span class='danger'>[parent] should probably not be put on the grill</span>"
+		examine_list += span_danger("[parent] should probably not be put on the grill")
 
 ///Ran when an object moves from the grill
 /datum/component/grillable/proc/OnMoved(atom/A, atom/OldLoc, Dir, Forced)

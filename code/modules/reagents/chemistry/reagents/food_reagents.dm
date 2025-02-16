@@ -23,7 +23,7 @@
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
-/datum/reagent/consumable/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == INGEST)
 		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
 			switch(quality)
@@ -111,47 +111,46 @@
 	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
 	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
 
-/datum/reagent/consumable/cooking_oil
-	name = "Cooking Oil"
-	description = "A variety of cooking oil derived from fat or plants. Used in food preparation and frying."
-	color = "#EADD6B" //RGB: 234, 221, 107 (based off of canola oil)
-	taste_mult = 0.8
-	taste_description = "oil"
-	nutriment_factor = 7 * REAGENTS_METABOLISM //Not very healthy on its own
-	metabolization_rate = 10 * REAGENTS_METABOLISM
+/datum/reagent/consumable/nutriment/fat
+	name = "Fat"
+	description = "Triglycerides found in vegetable oils and fatty animal tissue."
+	color = "#f0eed7"
+	taste_description = "lard"
+	brute_heal = 0
+	burn_heal = 1
+	nutriment_factor = 18 // Twice as nutritious compared to protein and carbohydrates
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 
-/datum/reagent/consumable/cooking_oil/reaction_obj(obj/exposed_obj, reac_volume)
+/datum/reagent/consumable/nutriment/fat/expose_obj(obj/exposed_obj, reac_volume)
 	if(!holder || (holder.chem_temp <= fry_temperature))
 		return
 	if(!isitem(exposed_obj) || HAS_TRAIT(exposed_obj, TRAIT_FOOD_FRIED))
 		return
 	// if the fried obj is indestructible or under the fry blacklist (His Grace), we dont want it to be fried, for obvious reasons
 	if(is_type_in_typecache(exposed_obj, GLOB.oilfry_blacklisted_items) || (exposed_obj.resistance_flags & INDESTRUCTIBLE))
-		exposed_obj.visible_message("<span class='notice'>The hot oil has no effect on [exposed_obj]!</span>")
+		exposed_obj.visible_message(span_notice("The hot oil has no effect on [exposed_obj]!"))
 		return
 	// if we are holding an item/atom inside, we dont want to arbitrarily fry this item
 	if(SEND_SIGNAL(exposed_obj, COMSIG_CONTAINS_STORAGE))
-		exposed_obj.visible_message("<span class='notice'>The hot oil splatters about as [exposed_obj] touches it. It seems too full to cook properly!</span>")
+		exposed_obj.visible_message(span_notice("The hot oil splatters about as [exposed_obj] touches it. It seems too full to cook properly!"))
 		return
 
 	log_game("[exposed_obj.name] ([exposed_obj.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(exposed_obj)].")
-	exposed_obj.visible_message("<span class='warning'>[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow.</span>")
+	exposed_obj.visible_message(span_warning("[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow."))
 	exposed_obj.AddElement(/datum/element/fried_item, volume)
-	exposed_obj.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
+	exposed_obj.reagents.add_reagent(src.type, reac_volume)
 
-/datum/reagent/consumable/cooking_oil/reaction_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+/datum/reagent/consumable/nutriment/fat/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!(method == VAPOR || method == TOUCH) || isnull(holder) || (holder.chem_temp < fry_temperature))
 		return
 
-	var/oil_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
+	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
 	if(method & TOUCH)
-		oil_damage *= max(1 - touch_protection, 0)
-	var/FryLoss = round(min(38, oil_damage * reac_volume))
+		burn_damage *= max(1 - touch_protection, 0)
+	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
-		exposed_mob.visible_message("<span class='warning'>The boiling oil sizzles as it covers [exposed_mob]!</span>", \
-		"<span class='userdanger'>You're covered in boiling oil!</span>")
+		exposed_mob.visible_message(span_warning("The boiling oil sizzles as it covers [exposed_mob]!"), \
+		span_userdanger("You're covered in boiling oil!"))
 		if(FryLoss)
 			exposed_mob.emote("scream")
 		playsound(exposed_mob, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
@@ -159,15 +158,29 @@
 		addtimer(CALLBACK(exposed_mob, TYPE_PROC_REF(/mob/living, unfry_mob)), 3)
 	if(FryLoss)
 		exposed_mob.adjustFireLoss(FryLoss)
-	return TRUE
 
-/datum/reagent/consumable/cooking_oil/reaction_turf(turf/open/exposed_turf, reac_volume)
+/datum/reagent/consumable/nutriment/fat/expose_turf(turf/open/exposed_turf, reac_volume)
 	if(!istype(exposed_turf) || isgroundlessturf(exposed_turf) || (reac_volume < 5))
 		return
-
 	exposed_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume * 1.5 SECONDS)
 	exposed_turf.name = "deep-fried [initial(exposed_turf.name)]"
 	exposed_turf.add_atom_colour(color, TEMPORARY_COLOUR_PRIORITY)
+
+/datum/reagent/consumable/nutriment/fat/oil
+	name = "Vegetable Oil"
+	description = "A variety of cooking oil derived from plant fats. Used in food preparation and frying."
+	color = "#EADD6B" //RGB: 234, 221, 107 (based off of canola oil)
+	taste_mult = 0.8
+	taste_description = "oil"
+	nutriment_factor = 7 //Not very healthy on its own
+	metabolization_rate = 10 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/nutriment/fat/oil/olive
+	name = "Olive Oil"
+	description = "A high quality oil, suitable for dishes where the oil is a key flavour."
+	taste_description = "olive oil"
+	color = "#DBCF5C"
+	nutriment_factor = 10
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"
@@ -178,11 +191,11 @@
 	taste_mult = 1.5 // stop sugar drowning out other flavours
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	metabolization_rate = 2 * REAGENTS_METABOLISM
-	overdose_threshold = 200 // Hyperglycaemic shock
+	overdose_threshold = 100 // Hyperglycaemic shock
 	taste_description = "sweetness"
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='userdanger'>You go into hyperglycaemic shock! Lay off the twinkies!</span>")
+	to_chat(M, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
 	M.AdjustSleeping(600)
 	. = 1
 
@@ -262,6 +275,8 @@
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "mint"
+	///40 joules per unit.
+	specific_heat = 40
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/carbon/M)
 	var/cooling = 0
@@ -291,15 +306,17 @@
 	M.adjust_bodytemperature(cooling, 50)
 	..()
 
-/datum/reagent/consumable/frostoil/reaction_turf(turf/T, reac_volume)
+/datum/reagent/consumable/frostoil/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 5)
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(15,30))
+		for(var/mob/living/simple_animal/slime/slime_animal in T)
+			slime_animal.adjustToxLoss(rand(15,30))
 	if(reac_volume >= 1) // Make Freezy Foam and anti-fire grenades!
 		if(isopenturf(T))
-			var/turf/open/OT = T
-			OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
-			OT.air.set_temperature(OT.air.return_temperature() - MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity()) // reduces environment temperature by 5K per unit.
+			var/turf/open/exposed_open_turf = T
+			exposed_open_turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
+			var/temperature = exposed_open_turf.air.temperature
+			var/heat_capacity = exposed_open_turf.air.heat_capacity()
+			exposed_open_turf.air.temperature = max(exposed_open_turf.air.temperature - ((temperature - TCMB) * (heat_capacity * reac_volume * specific_heat) / (heat_capacity + reac_volume * specific_heat)) / heat_capacity, TCMB) // Exchanges environment temperature with reagent. Reagent is at 2.7K with a heat capacity of 40J per unit.
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -308,7 +325,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "scorching agony"
 
-/datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
 
@@ -330,7 +347,7 @@
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
 	if(prob(5))
-		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+		M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 	..()
 
 /datum/reagent/consumable/sodiumchloride
@@ -341,7 +358,8 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
-/datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
+
+/datum/reagent/consumable/sodiumchloride/expose_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
 		return
 	if(reac_volume < 1)
@@ -368,7 +386,7 @@
 /datum/reagent/consumable/cocoa/on_mob_add(mob/living/carbon/M)
 	.=..()
 	if(iscatperson(M))
-		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
+		to_chat(M, span_warning("Your insides revolt at the presence of lethal chocolate!"))
 		M.vomit(20)
 
 /datum/reagent/drug/mushroomhallucinogen
@@ -415,7 +433,7 @@
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
 	if(isvampire(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
 		if(prob(min(25,current_cycle)))
-			to_chat(M, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
+			to_chat(M, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			M.Paralyze(10)
 			M.Jitter(10)
 	else if(ishuman(M))
@@ -438,25 +456,6 @@
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
-
-/datum/reagent/consumable/cornoil
-	name = "Corn Oil"
-	description = "An oil derived from various types of corn."
-	nutriment_factor = 20 * REAGENTS_METABOLISM
-	color = "#302000" // rgb: 48, 32, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
-	taste_description = "slime"
-
-/datum/reagent/consumable/cornoil/reaction_turf(turf/open/T, reac_volume)
-	if (!istype(T))
-		return
-	T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume*2 SECONDS)
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.return_air()
-		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,TCMB))
-		lowertemp.react(src)
-		qdel(hotspot)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
@@ -505,7 +504,7 @@
 	chem_flags = NONE
 	taste_description = "chalky wheat"
 
-/datum/reagent/consumable/flour/reaction_turf(turf/T, reac_volume)
+/datum/reagent/consumable/flour/expose_turf(turf/T, reac_volume)
 	if(!isspaceturf(T))
 		var/obj/effect/decal/cleanable/food/flour/reagentdecal = new(T)
 		reagentdecal = locate() in T //Might have merged with flour already there.
@@ -590,7 +589,7 @@
 		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
-/datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/honey/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
 		var/mob/living/carbon/C = M
 		for(var/s in C.surgeries)
@@ -617,7 +616,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!istype(M))
 		return
 	var/unprotected = FALSE
@@ -631,10 +630,10 @@
 				unprotected = TRUE
 	if(unprotected)
 		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
+			to_chat(M, span_notice("Your eye sockets feel wet."))
 		else
 			if(!M.eye_blurry)
-				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
+				to_chat(M, span_warning("Tears well up in your eyes!"))
 			M.adjust_blindness(2)
 			M.blur_eyes(5)
 	..()
@@ -644,7 +643,7 @@
 	if(M.eye_blurry)	//Don't worsen vision if it was otherwise fine
 		M.blur_eyes(4)
 		if(prob(10))
-			to_chat(M, "<span class = 'warning'>Your eyes sting!</span>")
+			to_chat(M, span_warning("Your eyes sting!"))
 			M.adjust_blindness(2)
 
 
@@ -724,7 +723,7 @@
 	//Lazy list of mobs affected by the luminosity of this reagent.
 	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
+/datum/reagent/consumable/tinlux/expose_mob(mob/living/M)
 	add_reagent_light(M)
 
 /datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)

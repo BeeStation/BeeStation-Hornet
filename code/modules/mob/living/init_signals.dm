@@ -30,6 +30,11 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
+
+
+
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
 		SIGNAL_REMOVETRAIT(TRAIT_CRITICAL_CONDITION),
@@ -40,6 +45,16 @@
 
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
+
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY)), PROC_REF(on_force_gravity))
+	// We hook for forced grav changes from our turf and ourselves
+	var/static/list/loc_connections = list(
+		SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
+		SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 ///Called when TRAIT_KNOCKEDOUT is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
@@ -63,6 +78,29 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_DEATHCOMA)
 
+/// Called when [TRAIT_NEGATES_GRAVITY] is gained or lost
+/mob/living/proc/on_negate_gravity(datum/source)
+	SIGNAL_HANDLER
+	if(!isgroundlessturf(loc))
+		if(HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
+			ADD_TRAIT(src, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+		else
+			REMOVE_TRAIT(src, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+
+/// Called when [TRAIT_IGNORING_GRAVITY] is gained or lost
+/mob/living/proc/on_ignore_gravity(datum/source)
+	SIGNAL_HANDLER
+	refresh_gravity()
+
+/// Called when [TRAIT_FORCED_GRAVITY] is gained or lost
+/mob/living/proc/on_force_gravity(datum/source)
+	SIGNAL_HANDLER
+	refresh_gravity()
+
+/// Called when our loc's [TRAIT_FORCED_GRAVITY] is gained or lost
+/mob/living/proc/on_loc_force_gravity(datum/source)
+	SIGNAL_HANDLER
+	refresh_gravity()
 
 ///Called when TRAIT_IMMOBILIZED is added to the mob.
 /mob/living/proc/on_immobilized_trait_gain(datum/source)
@@ -164,6 +202,16 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
 
+/// Called when [TRAIT_NIGHT_VISION] is added to the mob.
+/mob/living/proc/on_night_vision_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	update_sight()
+
+/// Called when [TRAIT_NIGHT_VISION] is removed from the mob.
+/mob/living/proc/on_night_vision_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	update_sight()
+
 
 /**
   * Called when traits that alter succumbing are added/removed.
@@ -178,11 +226,11 @@
 		clear_alert("succumb")
 
 ///From [element/movetype_handler/on_movement_type_trait_gain()]
-/mob/living/proc/on_movement_type_flag_enabled(datum/source, trait)
+/mob/living/proc/on_movement_type_flag_enabled(datum/source, trait, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed(FALSE)
 
 ///From [element/movetype_handler/on_movement_type_trait_loss()]
-/mob/living/proc/on_movement_type_flag_disabled(datum/source, trait)
+/mob/living/proc/on_movement_type_flag_disabled(datum/source, trait, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed(FALSE)

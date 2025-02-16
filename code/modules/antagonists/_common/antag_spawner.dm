@@ -107,10 +107,10 @@
 
 /obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
+		to_chat(user, span_warning("[src] is out of power!"))
 		return FALSE
 	if(!user.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE))
-		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
+		to_chat(user, span_danger("AUTHENTICATION FAILURE. ACCESS DENIED."))
 		return FALSE
 	return TRUE
 
@@ -119,7 +119,7 @@
 	if(!(check_usability(user)))
 		return
 
-	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
+	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
 	var/list/nuke_candidates = poll_ghost_candidates("Do you want to play as a syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative, 15 SECONDS)
 	if(LAZYLEN(nuke_candidates))
 		if(QDELETED(src) || !check_usability(user))
@@ -130,7 +130,7 @@
 		do_sparks(4, TRUE, src)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
+		to_chat(user, span_warning("Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded."))
 
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
@@ -228,15 +228,15 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
 
-	var/shatter_msg = "<span class='notice'>You shatter the bottle, no turning back now!</span>"
-	var/veil_msg = "<span class='warning'>You sense a dark presence lurking just beyond the veil...</span>"
-	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
+	var/shatter_msg = span_notice("You shatter the bottle, no turning back now!")
+	var/veil_msg = span_warning("You sense a dark presence lurking just beyond the veil...")
+	var/mob/living/demon_type = /mob/living/simple_animal/hostile/imp/slaughter
 	var/antag_type = /datum/antagonist/slaughter
 
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(!is_station_level(user.z))
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, span_notice("You should probably wait until you reach the station."))
 		return
 	if(used)
 		return
@@ -252,20 +252,18 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>You can't seem to work up the nerve to shatter the bottle. Perhaps you should try again later.</span>")
+		to_chat(user, span_notice("You can't seem to work up the nerve to shatter the bottle. Perhaps you should try again later."))
 
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, kind = "", datum/mind/user)
-	var/obj/effect/dummy/phased_mob/slaughter/holder = new /obj/effect/dummy/phased_mob/slaughter(T)
-	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
-	S.holder = holder
+	var/mob/living/simple_animal/hostile/imp/slaughter/S = new demon_type(T)
+	new /obj/effect/dummy/phased_mob(T, S)
 	S.key = C.key
 	S.mind.assigned_role = S.name
 	S.mind.special_role = S.name
 	S.mind.add_antag_datum(antag_type)
-	to_chat(S, S.playstyle_string)
-	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. \
-	Ctrl+Click a blood pool to manifest.</B>")
+	to_chat(S, ("<span class='bold'>You are currently not currently in the same plane of existence as the station. \
+		Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc.</span>"))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -274,6 +272,6 @@
 	icon_state = "vial"
 	color = "#FF69B4" // HOT PINK
 
-	veil_msg = "<span class='warning'>You sense an adorable presence lurking just beyond the veil...</span>"
-	demon_type = /mob/living/simple_animal/slaughter/laughter
+	veil_msg = span_warning("You sense an adorable presence lurking just beyond the veil...")
+	demon_type = /mob/living/simple_animal/hostile/imp/slaughter/laughter
 	antag_type = /datum/antagonist/slaughter/laughter

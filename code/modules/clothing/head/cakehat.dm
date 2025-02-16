@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	hitsound = 'sound/weapons/tap.ogg'
 	flags_inv = HIDEEARS|HIDEHAIR
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 	heat = 1000 //use round numbers, guh
@@ -66,10 +66,10 @@
 
 /obj/item/clothing/head/utility/hardhat/cakehat/energycake/turn_on(mob/living/user)
 	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)
-	to_chat(user, "<span class='warning'>You turn on \the [src].</span>")
+	to_chat(user, span_warning("You turn on \the [src]."))
 	return ..()
 
 /obj/item/clothing/head/utility/hardhat/cakehat/energycake/turn_off(mob/living/user)
 	playsound(user, 'sound/weapons/saberoff.ogg', 5, TRUE)
-	to_chat(user, "<span class='warning'>You turn off \the [src].</span>")
+	to_chat(user, span_warning("You turn off \the [src]."))
 	return ..()
