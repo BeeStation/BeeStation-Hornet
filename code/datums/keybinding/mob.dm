@@ -171,38 +171,6 @@
 		M.stop_pulling()
 	return TRUE
 
-/datum/keybinding/mob/cycle_intent_right
-	keys = list("Northwest") // this is BYOND for "HOME"
-	name = "cycle_intent_right"
-	full_name = "Cycle Intent Right"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_CYCLEINTENTRIGHT_DOWN
-
-/datum/keybinding/mob/cycle_intent_right/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.a_intent_change(INTENT_HOTKEY_RIGHT)
-	return TRUE
-
-/datum/keybinding/mob/cycle_intent_left
-	keys = list("Insert")
-	name = "cycle_intent_left"
-	full_name = "Cycle Intent Left"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_CYCLEINTENTLEFT_DOWN
-
-/datum/keybinding/mob/cycle_intent_left/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.a_intent_change(INTENT_HOTKEY_LEFT)
-	return TRUE
-
 /datum/keybinding/mob/swap_hands
 	keys = list("X")
 	name = "swap_hands"
@@ -245,7 +213,8 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.mob) return
+	if(!user.mob)
+		return
 	var/mob/M = user.mob
 	var/obj/item/I = M.get_active_held_item()
 	if(!I)

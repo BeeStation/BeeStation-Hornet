@@ -32,7 +32,7 @@
 	. += span_notice("Can be used again to interrupt the effect early. The recharge time is the same as the time spent in desync.")
 
 /obj/item/desynchronizer/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
 		return
 	var/new_duration = input(user, "Set the duration (5-300):", "Desynchronizer", duration / 10) as null|num
 	if(new_duration)

@@ -12,6 +12,8 @@
 		/obj/effect/decal/cleanable/vomit/old = 4,
 		/obj/effect/decal/cleanable/blood/gibs/old = 1,
 		/obj/effect/decal/cleanable/greenglow/filled = 1,
+		/obj/item/ammo_box/c38/box/exploration = 3,
+		/obj/item/ammo_box/c38/exploration = 1,
 		/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 		/obj/effect/spawner/lootdrop/glowstick = 4,
 		/obj/effect/spawner/lootdrop/maintenance = 3,

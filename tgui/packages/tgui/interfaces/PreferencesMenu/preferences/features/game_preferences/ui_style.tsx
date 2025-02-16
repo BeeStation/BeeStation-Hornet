@@ -23,12 +23,12 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
             <Box
               className={classes(['preferences64x32', icon])}
               style={{
-                'transform': 'scale(0.8)',
+                transform: 'scale(0.8)',
               }}
             />
           </Stack.Item>
 
-          <Stack.Item grow style={{ 'line-height': '32px' }}>
+          <Stack.Item grow style={{ lineHeight: '32px' }}>
             {name}
           </Stack.Item>
         </Stack>,
@@ -42,6 +42,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
       selected={value}
       clipSelectedText={false}
       displayText={value ? choices[value] : null}
+      displayTextFirst
       onSelected={props.handleSetValue}
       width="100%"
       displayHeight="32px"

@@ -38,11 +38,8 @@
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.rating
 
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
+	AddComponent(/datum/component/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
-
-/obj/machinery/smoke_machine/proc/can_be_rotated(mob/user,rotation_type)
-	return !anchored
 
 /obj/machinery/smoke_machine/update_icon()
 	if((!is_operational) || (!on) || (reagents.total_volume == 0))

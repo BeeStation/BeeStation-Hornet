@@ -2,7 +2,7 @@ import { multiline } from 'common/string';
 import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureButtonedDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
 import { Box, Dropdown, Stack } from '../../../../../components';
 import { classes } from 'common/react';
-import type { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 import { binaryInsertWith } from 'common/collections';
 import { useBackend } from '../../../../../backend';
 import { PreferencesMenuData } from '../../../data';
@@ -17,7 +17,7 @@ export const ghost_accs: FeatureChoiced = {
 };
 
 const insertGhostForm = binaryInsertWith<{
-  displayText: InfernoNode;
+  displayText: ReactNode;
   value: string;
 }>(({ value }) => value);
 
@@ -26,7 +26,7 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
 
   const serverData = props.serverData;
   if (!serverData) {
-    return;
+    return <> </>;
   }
 
   const displayNames = serverData.display_names;
@@ -36,7 +36,7 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
 
   const displayTexts = {};
   let options: {
-    displayText: InfernoNode;
+    displayText: ReactNode;
     value: string;
   }[] = [];
 
@@ -47,7 +47,7 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
           <Box className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])} />
         </Stack.Item>
 
-        <Stack.Item grow style={{ 'line-height': '32px' }}>
+        <Stack.Item grow style={{ lineHeight: '32px' }}>
           {displayName}
         </Stack.Item>
       </Stack>
@@ -73,6 +73,7 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
       disabled={!data.content_unlocked}
       selected={props.value}
       displayText={props.value ? displayTexts[props.value] : null}
+      displayTextFirst
       clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"

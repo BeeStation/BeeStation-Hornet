@@ -66,7 +66,8 @@ export const GulagTeleporterConsole = (props) => {
                 width="48px"
                 minValue={1}
                 maxValue={1000}
-                onChange={(e, value) => act('set_goal', { value })}
+                step={1}
+                onChange={(value) => act('set_goal', { value })}
               />
               <Button.Checkbox content="Permanent sentence" checked={permanent} onClick={() => act('set_permanent')} />
             </LabeledList.Item>

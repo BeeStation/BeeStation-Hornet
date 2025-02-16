@@ -11,13 +11,19 @@
 /// Asserts that a parameter is null
 #define TEST_ASSERT_NULL(a, reason) if (!isnull(a)) { return Fail("Expected null value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
 
+/// Asserts that a parameter is true
+#define TEST_ASSERT_TRUE(a, reason) if (a != TRUE) { return Fail("Expected true value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
+
+/// Asserts that a parameter is true
+#define TEST_ASSERT_FALSE(a, reason) if (a != FALSE) { return Fail("Expected false value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
+
 /// Asserts that the two parameters passed are equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_EQUAL(a, b, message) do { \
 	var/lhs = ##a; \
 	var/rhs = ##b; \
 	if (lhs != rhs) { \
-		return Fail("Expected [isnull(lhs) ? "null" : lhs] to be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
+		Fail("Expected [isnull(lhs) ? "null" : lhs] to be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
 	} \
 } while (FALSE)
 
@@ -27,7 +33,7 @@
 	var/lhs = ##a; \
 	var/rhs = ##b; \
 	if (lhs == rhs) { \
-		return Fail("Expected [isnull(lhs) ? "null" : lhs] to not be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
+		Fail("Expected [isnull(lhs) ? "null" : lhs] to not be equal to [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
 	} \
 } while (FALSE)
 

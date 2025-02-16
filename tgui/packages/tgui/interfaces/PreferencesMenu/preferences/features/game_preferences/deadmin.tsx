@@ -13,7 +13,7 @@ const DeadminCheckboxInput = (props: FeatureValueProps<BooleanLike, boolean, Fea
   return (
     <Button
       color="transparent"
-      style={forced ? { 'background-color': '#cc0000' } : null}
+      style={forced ? { backgroundColor: '#cc0000' } : undefined}
       tooltip={forced ? 'Forced by server config' : null}
       tooltipPosition="right"
       icon={forced ? 'minus-square-o' : props.value ? 'check-square-o' : 'square-o'}
