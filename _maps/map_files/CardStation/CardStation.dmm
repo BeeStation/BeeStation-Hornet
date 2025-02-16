@@ -44878,11 +44878,7 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 4
 	},
-/mob/living/simple_animal/chick/dave{
-	icon_state = "cardinal_sit";
-	desc = "A Cardinal!.";
-	dir = 4
-	},
+/mob/living/simple_animal/chick/dave,
 /turf/open/floor/iron/smooth_edge{
 	dir = 8
 	},
@@ -111894,18 +111890,6 @@
 	},
 /turf/open/floor/iron/textured,
 /area/hallway/secondary/exit/departure_lounge)
-"yfO" = (
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	desc = "This chicken resprite is temporary until i finish the actual Cardinal bird mob sprites - BarteG";
-	name = "Cardstation - Cardinal Chick"
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 8
-	},
-/area/bridge)
 "ygh" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 6
@@ -127163,7 +127147,7 @@ veH
 tOO
 kjl
 jJG
-yfO
+hJi
 hJi
 jBM
 lEE
