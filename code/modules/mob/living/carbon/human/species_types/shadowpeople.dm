@@ -61,13 +61,13 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(C.dna.species.id != "nightmare")
 		if(sect.grand_ritual_level == 1)
-			mutantheart = new/obj/item/organ/heart/shadow_ritual1
+			mutantheart = new/obj/item/organ/heart/shadow_ritual/first
 			mutantheart.Insert(C, 0, FALSE)
 		if(sect.grand_ritual_level == 2)
-			mutantheart = new/obj/item/organ/heart/shadow_ritual2
+			mutantheart = new/obj/item/organ/heart/shadow_ritual/second
 			mutantheart.Insert(C, 0, FALSE)
 		if(sect.grand_ritual_level == 3)
-			mutantheart = new/obj/item/organ/heart/shadow_ritual3
+			mutantheart = new/obj/item/organ/heart/shadow_ritual/third
 			mutantheart.Insert(C, 0, FALSE)
 
 
@@ -392,120 +392,60 @@
 	multiplicative_slowdown = -0.75
 
 
-/obj/item/organ/heart/shadow_ritual1
+/obj/item/organ/heart/shadow_ritual // This parent shoudl never apear itself
+	visual = TRUE
+	decay_factor = 0
+	var/shadow_conversion = 0
+	var/shadow_conversion_rate = 0
+	var/shadow_sect_dependency_granted = 0
+	var/datum/action/innate/shadow_coms/comm/coms = new
+
+/obj/item/organ/heart/shadow_ritual/first
 	name = "shadowed heart"
-	desc = "This heart seems to be covered in shadows, even under the strong light."
+	desc = "An object resembling a heart, completed shrouded by a thick layer of darkness."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_1"
-	visual = TRUE
-	decay_factor = 0
-	var/shadow_conversion = 0
-	var/datum/action/innate/shadow_coms/comm/coms = new
+	shadow_conversion_rate = 0.25
+	shadow_sect_dependency_granted = 1
 
-/obj/item/organ/heart/shadow_ritual2
+/obj/item/organ/heart/shadow_ritual/second
 	name = "faded heart"
-	desc = "It's hard to make out a heart under the cover of this ever-shifting darkness."
+	desc = "A hard to distinguish heart-like organ covered by a shifting darkness."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_2"
-	visual = TRUE
-	decay_factor = 0
-	var/shadow_conversion = 0
-	var/datum/action/innate/shadow_coms/comm/coms = new
+	shadow_conversion_rate = 0.5
+	shadow_sect_dependency_granted = 2
 
-/obj/item/organ/heart/shadow_ritual3
+/obj/item/organ/heart/shadow_ritual/third
 	name = "pulsing darkness"
-	desc = "You can't see the object covered in darkness, no light can dispel it. You can only see how the darkness itself moves, pulsing, time and time again."
+	desc = "An indistinguishable object cloaked in an undispellable darkness. The only thing that can be made out is the darkness as it moves and pulses."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "shadow_heart_3"
-	visual = TRUE
-	decay_factor = 0
+	shadow_conversion_rate = 1
 	var/respawn_progress = 0
-	var/shadow_conversion = 0
-	var/datum/action/innate/shadow_coms/comm/coms = new
+	shadow_sect_dependency_granted = 3
 
 
-/obj/item/organ/heart/shadow_ritual1/Stop()
+/obj/item/organ/heart/shadow_ritual/Stop()
 	return 0
 
-/obj/item/organ/heart/shadow_ritual2/Stop()
-	return 0
-
-/obj/item/organ/heart/shadow_ritual3/Stop()
-	return 0
-
-
-/obj/item/organ/heart/shadow_ritual1/update_icon()
+/obj/item/organ/heart/shadow_ritual/update_icon()
 	return
 
-/obj/item/organ/heart/shadow_ritual2/update_icon()
-	return
-
-/obj/item/organ/heart/shadow_ritual3/update_icon()
-	return
-
-
-/obj/item/organ/heart/shadow_ritual1/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/shadow_ritual/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(isshadow(M))
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = 1
+		spiec.shadow_sect_dependency = shadow_sect_dependency_granted
 		coms.Grant(M)
 	else
 		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel a cold feeling spreading from your chest. This might not have been a great idea."))
+		to_chat(M, span_userdanger("You feel a chill spreading throughout your body. That might not have been a great idea."))
 
-/obj/item/organ/heart/shadow_ritual2/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+
+/obj/item/organ/heart/shadow_ritual/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
-	if(isshadow(M))
-		var/mob/living/carbon/human/S = M
-		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = 2
-		coms.Grant(M)
-	else
-		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel a cold feeling spreading from your chest. This might not have been a great idea."))
-
-/obj/item/organ/heart/shadow_ritual3/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(isshadow(M))
-		var/mob/living/carbon/human/S = M
-		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = 3
-		coms.Grant(M)
-	else
-		shadow_conversion = 0
-		to_chat(M, span_userdanger("You feel a cold feeling spreading from your chest. This might not have been a great idea."))
-
-
-/obj/item/organ/heart/shadow_ritual1/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(isshadow(M))
-		var/mob/living/carbon/human/S = M
-		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = 0
-		coms.Remove(M)
-	if(shadow_conversion != 0)
-		shadow_conversion = 0
-		to_chat(M, span_bigboldinfo("You feel cold emptiness escaping your body. It feels great."))
-
-
-/obj/item/organ/heart/shadow_ritual2/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(isshadow(M))
-		var/mob/living/carbon/human/S = M
-		var/datum/species/shadow/spiec = S.dna.species
-		spiec.shadow_sect_dependency = 0
-		M.alpha = 255
-		coms.Remove(M)
-	if(shadow_conversion != 0)
-		to_chat(M, span_bigboldinfo("You feel cold emptiness escaping your body. It feels great."))
-		shadow_conversion = 0
-
-
-/obj/item/organ/heart/shadow_ritual3/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	respawn_progress = 0
 	if(isshadow(M))
 		var/mob/living/carbon/human/S = M
 		var/datum/species/shadow/spiec = S.dna.species
@@ -515,72 +455,35 @@
 		if(M.has_movespeed_modifier(/datum/movespeed_modifier/shadow_sect))
 			M.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_sect)
 	if(shadow_conversion != 0)
-		to_chat(M, span_bigboldinfo("You feel cold emptiness escaping your body. It feels great."))
+		to_chat(M, span_bigboldinfo("You feel the warmth returning to your body..."))
 		shadow_conversion = 0
 
+/obj/item/organ/heart/shadow_ritual/third/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	..()
+	respawn_progress = 0
 
-/obj/item/organ/heart/shadow_ritual1/on_life()
+/obj/item/organ/heart/shadow_ritual/on_life()
 	..()
 	if(!isshadow(owner))
-		shadow_conversion += 0.25
+		shadow_conversion += shadow_conversion_rate
 		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
 			shadow_conversion = 0
-			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping from the center of your chest!</span>")
+			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping from the center of your chest!"))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
 		else
-			var/random_mesage = rand(0,60)
+			var/random_mesage = rand(0,90 - 60 * shadow_conversion_rate)
 			if(random_mesage == 0)
-				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
+				to_chat(owner, span_warning("You see dark spots all over your skin."))
 			if(random_mesage == 1)
-				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unpleasant.</span>")
+				to_chat(owner, span_warning("Those lights around you seem weirdly unpleasant."))
 			if(random_mesage == 2)
-				to_chat(owner, "<span class='warning'>This cold feeling isn't going away.</span>")
+				to_chat(owner, span_warning("This cold feeling isn't going away."))
 			if(random_mesage == 4)
-				to_chat(owner, "<span class='warning'>That path of darkness over there seems like a great spot to rest.</span>")
-
-/obj/item/organ/heart/shadow_ritual2/on_life()
-	..()
-	if(!isshadow(owner))
-		shadow_conversion += 0.5
-		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
-			shadow_conversion = 0
-			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping from the center of your chest!</span>")
-			var/mob/living/carbon/old_owner = owner
-			old_owner.set_species(/datum/species/shadow)
-		else
-			var/random_mesage = rand(0,45)
-			if(random_mesage == 0)
-				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
-			if(random_mesage == 1)
-				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unpleasant.</span>")
-			if(random_mesage == 2)
-				to_chat(owner, "<span class='warning'>This cold feeling isn't going away.</span>")
-			if(random_mesage == 4)
-				to_chat(owner, "<span class='warning'>That path of darkness over there seems like a great spot to rest.</span>")
-
-/obj/item/organ/heart/shadow_ritual3/on_life()
-	..()
-	if(!isshadow(owner))
-		shadow_conversion += 1
-		if(shadow_conversion > SHADOW_CONVERSION_TRESHOLD)
-			shadow_conversion = 0
-			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping from the center of your chest!</span>")
-			var/mob/living/carbon/old_owner = owner
-			old_owner.set_species(/datum/species/shadow)
-		else
-			var/random_mesage = rand(0,30)
-			if(random_mesage == 0)
-				to_chat(owner, "<span class='warning'>You see dark spots all over your skin.</span>")
-			if(random_mesage == 1)
-				to_chat(owner, "<span class='warning'>Those lights around you seem weirdly unpleasant.</span>")
-			if(random_mesage == 2)
-				to_chat(owner, "<span class='warning'>This cold feeling isn't going away.</span>")
-			if(random_mesage == 4)
-				to_chat(owner, "<span class='warning'>That path of darkness over there seems like a great spot to rest.</span>")
+				to_chat(owner, span_warning("That path of darkness over there seems like a great spot to rest."))
 
 
-/obj/item/organ/heart/shadow_ritual3/on_death()
+/obj/item/organ/heart/shadow_ritual/third/on_death()
 	if(!owner)
 		return
 	var/turf/T = get_turf(owner)
@@ -594,9 +497,9 @@
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow)
-			to_chat(owner, "<span class='userdanger'>You feel the shadows invade your skin, leaping into the center of your chest! You're alive!</span>")
+			to_chat(owner, span_userdanger("You feel the shadows invade your skin, leaping into the center of your chest! You're alive!"))
 			SEND_SOUND(owner, sound('sound/effects/ghost.ogg'))
-		owner.visible_message("<span class='warning'>[owner] staggers to [owner.p_their()] feet!</span>")
+		owner.visible_message(span_warning("[owner] staggers to [owner.p_their()] feet!"))
 		playsound(owner, 'sound/hallucinations/far_noise.ogg', 50, 1)
 		respawn_progress = 0
 
