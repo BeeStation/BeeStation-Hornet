@@ -14,6 +14,10 @@
 	var/flipped_build_type
 	var/base_icon
 
+/obj/structure/c_transit_tube/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
+
 /obj/structure/c_transit_tube/proc/can_wrench_in_loc(mob/user)
 	var/turf/source_turf = get_turf(loc)
 	var/existing_tubes = 0
@@ -24,11 +28,7 @@
 			return FALSE
 	return TRUE
 
-/obj/structure/c_transit_tube/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,PROC_REF(post_rotation)))
-
-/obj/structure/c_transit_tube/proc/post_rotation(mob/user, degrees)
+/obj/structure/c_transit_tube/proc/AfterRotation(mob/user, degrees)
 	if(flipped_build_type && degrees == ROTATION_FLIP)
 		setDir(turn(dir, degrees)) //Turn back we don't actually flip
 		flipped = !flipped
@@ -50,6 +50,9 @@
 		transfer_fingerprints_to(R)
 		qdel(src)
 	return TRUE
+
+/obj/structure/c_transit_tube/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 // transit tube station
 /obj/structure/c_transit_tube/station

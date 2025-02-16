@@ -115,7 +115,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	return attack_hand(user)
 
-/turf/closed/wall/attack_hand(mob/user)
+/turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -124,8 +124,8 @@
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 
-/turf/closed/wall/try_clean(obj/item/W, mob/user, turf/T)
-	if((user.a_intent != INTENT_HELP) || !LAZYLEN(dent_decals))
+/turf/closed/wall/try_clean(obj/item/W, mob/living/user, turf/T)
+	if((user.combat_mode) || !LAZYLEN(dent_decals))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)

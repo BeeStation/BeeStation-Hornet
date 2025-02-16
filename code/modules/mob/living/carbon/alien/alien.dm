@@ -20,7 +20,6 @@
 	heat_protection = 0.5 // minor heat insulation
 
 	var/leaping = FALSE
-	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
@@ -66,9 +65,6 @@
 
 /mob/living/carbon/alien/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return FALSE
-
-/mob/living/carbon/alien/IsAdvancedToolUser()
-	return has_fine_manipulation
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
@@ -122,8 +118,8 @@ Des: Removes all infected images from the alien.
 		mind.transfer_to(new_xeno)
 	qdel(src)
 
-/mob/living/carbon/alien/can_hold_items()
-	return has_fine_manipulation
+/mob/living/carbon/alien/can_hold_items(obj/item/I)
+	return ((I && istype(I, /obj/item/clothing/mask/facehugger)) || (ISADVANCEDTOOLUSER(src) && ..()))
 
 /mob/living/carbon/alien/on_lying_down(new_lying_angle)
 	. = ..()

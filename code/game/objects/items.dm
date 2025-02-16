@@ -126,6 +126,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/slowdown = 0
 	/// Percentage of armour effectiveness to remove
 	var/armour_penetration = 0
+	/// The click cooldown given after attacking. Lower numbers means faster attacks
+	var/attack_speed = CLICK_CD_MELEE
+	/// The click cooldown on secondary attacks. Lower numbers mean faster attacks. Will use attack_speed if undefined.
+	var/secondary_attack_speed
 	/// A list of items that can be put in this item for like suit storage or something?? I honestly have no idea.
 	var/list/allowed = null
 	/// In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets etc.
@@ -240,6 +244,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(attack_verb_simple)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
 
+	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * toolspeed)
+
 	. = ..()
 	for(var/path in actions_types)
 		add_item_action(path)
@@ -254,7 +261,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(loc, /obj/item/robot_module))
 		var/obj/item/robot_module/parent_module = loc
 		var/mob/living/silicon/parent_robot = parent_module.loc
-		pickup(parent_robot)
+		if (istype(parent_robot))
+			pickup(parent_robot)
 
 	if(!hitsound)
 		if(damtype == BURN)
@@ -490,7 +498,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(usr)
 	return ..()
 
-/obj/item/attack_hand(mob/user)
+/obj/item/attack_hand(mob/user, modifiers)
 	. = ..()
 	if(.)
 		return
@@ -584,7 +592,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
-	if(!A.has_fine_manipulation)
+	if(!user.can_hold_items(src))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.dropItemToGround(src)
 		to_chat(user, span_warning("Your claws aren't capable of such fine manipulation!"))
@@ -899,7 +907,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
-	log_combat(user, M, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
+	log_combat(user, M, "attacked", "[src.name]", "(Combat mode: [user.combat_mode ? "On" : "Off"])")
 
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)

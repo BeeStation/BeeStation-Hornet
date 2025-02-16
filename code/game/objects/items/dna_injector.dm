@@ -49,13 +49,13 @@
 	return FALSE
 
 /obj/item/dnainjector/attack(mob/living/target, mob/living/user)
-	if(!user.IsAdvancedToolUser())
+	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(used)
 		to_chat(user, span_warning("This injector is used up!"))
 		return
-	if(!target.can_inject(user, TRUE))
+	if(!target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return
 	log_combat(user, target, "attempted to inject", src)
 
