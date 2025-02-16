@@ -305,6 +305,7 @@
 /// Offer them the oppertunity to join now.
 /obj/structure/vampire/vassalrack/proc/ask_for_vassilization(mob/living/user, mob/living/target)
 	if(vassilization_offered)
+		balloon_alert(user, "wait a moment!")
 		return FALSE
 	vassilization_offered = TRUE
 

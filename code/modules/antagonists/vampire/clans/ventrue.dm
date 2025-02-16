@@ -109,7 +109,7 @@
 	return TRUE
 
 /datum/vampire_clan/ventrue/on_favorite_vassal(datum/source, datum/antagonist/vassal/vassaldatum, mob/living/vampire)
-	to_chat(vampire, span_announce("* Vampire Tip: You can now upgrade your Favorite Vassal by buckling them onto a Candelabrum!"))
+	to_chat(vampire, span_announce("* Vampire Tip: You can now upgrade your Favorite Vassal by buckling them onto a persuasion rack!"))
 	vassaldatum.BuyPower(new /datum/action/cooldown/vampire/distress)
 
 #undef VAMPIRE_BLOOD_RANKUP_COST

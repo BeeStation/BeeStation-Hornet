@@ -34,7 +34,9 @@
 		return
 
 	var/mob/living/carbon/user = owner
-	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(user)
+	if(!user)
+		return
+
 	user.Jitter(5 SECONDS)
 	user.adjustStaminaLoss(bloodcost * 1.1)
 	user.adjustBruteLoss(-2.5)
