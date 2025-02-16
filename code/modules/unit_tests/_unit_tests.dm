@@ -6,7 +6,7 @@
 // Outside here to satisfy ticked file enforcement while still providing defines
 #include "__DEFINES\test_defines.dm"
 
-#if defined(SPACEMAN_DMM) && defined(LONG_RUNNING_TESTS)
+#if defined(SPACEMAN_DMM) || defined(LONG_RUNNING_TESTS)
 #include "create_and_destroy.dm"
 #include janky_actions.dm
 #endif
