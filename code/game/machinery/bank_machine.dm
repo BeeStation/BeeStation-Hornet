@@ -34,29 +34,45 @@
 	. = ..()
 
 /obj/machinery/computer/bank_machine/attackby(obj/item/I, mob/user)
-	var/value = 0
+	var/value
 	if(istype(I, /obj/item/stack/spacecash))
 		var/obj/item/stack/spacecash/C = I
 		value = C.value * C.amount
 	else if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/H = I
 		value = H.credits
-	if(value)
-		if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
-			var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-			united_budget.adjust_money(value)
-			to_chat(user, span_notice("You deposit [value] into a station budget account.</span>"))
-		else
-			var/money_amount_modulo = (value % length(list_of_budgets))
-			var/rounded_money_amount = ((value - money_amount_modulo) / length(list_of_budgets))
-			if(money_amount_modulo)
-				var/datum/bank_account/first_budget_card = list_of_budgets[1]
-				first_budget_card.adjust_money(money_amount_modulo) //If we have an indivisible amount of money, dump it in the first budget.
-			for(var/datum/bank_account/budget_department_id as anything in list_of_budgets)
-				budget_department_id.adjust_money(rounded_money_amount)
-			to_chat(user, span_notice("You deposit [value] into all station budgets."))
+	if(!value)
+		return
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+		var/datum/bank_account/united_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+		united_budget.adjust_money(value)
+		to_chat(user, span_notice("You deposit [value] into a station budget account.</span>"))
 		qdel(I)
 		return
+
+	var/list/budget_choice = list()
+	for(var/datum/bank_account/department/budget as anything in list_of_budgets)
+		budget_choice += budget.department_id
+	budget_choice += "All"
+	var/targeted_budget = tgui_input_list(user, "Into which budget would you like to deposit the money?", "Money deposit", budget_choice)
+	if(!targeted_budget)
+		return
+
+	if(!(targeted_budget == "All"))
+		var/datum/bank_account/selected_budget = SSeconomy.get_budget_account(targeted_budget)
+		selected_budget.adjust_money(value)
+		to_chat(user, span_notice("You deposit [value] into the [selected_budget.account_holder]."))
+	else
+		var/money_amount_modulo = (value % length(list_of_budgets))
+		var/rounded_money_amount = ((value - money_amount_modulo) / length(list_of_budgets))
+		if(money_amount_modulo)
+			var/datum/bank_account/first_budget_card = list_of_budgets[1]
+			first_budget_card.adjust_money(money_amount_modulo) //If we have an indivisible amount of money, dump it in the first budget.
+		for(var/datum/bank_account/budget_department_id as anything in list_of_budgets)
+			budget_department_id.adjust_money(rounded_money_amount)
+		to_chat(user, span_notice("You deposit [value] into all station budgets."))
+	qdel(I)
 	return ..()
 
 /obj/machinery/computer/bank_machine/ui_state(mob/user)
