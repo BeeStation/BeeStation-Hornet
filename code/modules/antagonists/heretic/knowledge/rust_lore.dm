@@ -50,44 +50,41 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/limited_amount/base_rust/on_research(mob/user)
-	. = ..()
-	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.heretic_path = route
-
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
 	desc = "Your Mansus Grasp will apply an effect which causes objects to rust while you are nearby. \
-		Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
+		Surfaces and structures can only be rusted by using Right-Click."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_fist/on_gain(mob/user)
+/datum/heretic_knowledge/rust_fist/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp))
 
-/datum/heretic_knowledge/rust_fist/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+/datum/heretic_knowledge/rust_fist/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
 
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
-	var/static/list/always_hit_typecache = typecacheof(list(
-		/mob/living/carbon,
-		/mob/living/silicon,
-		/mob/living/simple_animal/bot,
-		/obj/item/storage/secure/safe/caps_spare,
-		/obj/machinery/door,
-		/obj/vehicle/sealed/mecha
-	))
-	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
-	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
+	if(!ismob(target) && !istype(target, /obj/vehicle))
 		return COMPONENT_BLOCK_HAND_USE
 	// Cannot stack on the same target
 	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
 		if (current_rite.target == target)
 			return COMPONENT_BLOCK_HAND_USE
 	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
+
+/datum/heretic_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
+	SIGNAL_HANDLER
+
+	// Cannot stack on the same target
+	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
+		if (current_rite.target == target)
+			return COMPONENT_BLOCK_HAND_USE
+	source.apply_status_effect(/datum/status_effect/rust_rite, target, 1)
+	return COMPONENT_USE_HAND
 
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"
@@ -102,11 +99,11 @@
 	cost = 1
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_regen/on_gain(mob/user)
+/datum/heretic_knowledge/rust_regen/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 
-/datum/heretic_knowledge/rust_regen/on_lose(mob/user)
+/datum/heretic_knowledge/rust_regen/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_LIVING_LIFE))
 
 /*
@@ -158,11 +155,11 @@
 	cost = 2
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_mark/on_gain(mob/user)
+/datum/heretic_knowledge/rust_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/rust_mark/on_lose(mob/user)
+/datum/heretic_knowledge/rust_mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/heretic_knowledge/rust_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -219,10 +216,10 @@
 	cost = 2
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_blade_upgrade/on_gain(mob/user)
+/datum/heretic_knowledge/rust_blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/rust_blade_upgrade/on_lose(mob/user)
+/datum/heretic_knowledge/rust_blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
 
 /datum/heretic_knowledge/rust_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
@@ -287,7 +284,7 @@
 			return FALSE
 	return ..()
 
-/datum/heretic_knowledge/final/rust_final/on_research(mob/user)
+/datum/heretic_knowledge/final/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	// This map doesn't have a Bridge, for some reason??
 	// Let them complete the ritual anywhere

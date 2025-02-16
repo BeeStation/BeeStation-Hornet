@@ -59,7 +59,7 @@
 	///State of the apc charging (not charging, charging, fully charged)
 	var/charging = APC_NOT_CHARGING
 	///Can the APC charge?
-	var/chargemode = 1
+	var/chargemode = TRUE
 	///Number of ticks where the apc is trying to recharge
 	var/chargecount = 0
 	///Is the apc interface locked?
@@ -500,6 +500,7 @@
 		force_update = TRUE
 		return
 
+//dont use any power from that channel if we shut that power channel off
 	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
 	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
 	lastused_environ = APC_CHANNEL_IS_ON(environ) ? area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON] : 0

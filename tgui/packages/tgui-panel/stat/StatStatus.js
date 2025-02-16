@@ -6,14 +6,6 @@ import { StatText } from './StatText';
 export const StatStatus = (props) => {
   const stat = useSelector(selectStatPanel);
   const dispatch = useDispatch();
-  let statPanelData = [];
-  if (stat.infomationUpdate) {
-    for (const [key, value] of Object.entries(stat.infomationUpdate)) {
-      if (key === stat.selectedTab) {
-        statPanelData = value;
-      }
-    }
-  }
   return (
     <Flex direction="column">
       {stat.dead_popup ? (

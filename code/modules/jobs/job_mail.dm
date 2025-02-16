@@ -225,6 +225,7 @@
 		/obj/item/storage/box/minertracker = 15,
 		/obj/item/stack/sheet/mineral/plasma/five = 15,
 		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
+		/obj/item/mining_voucher/exploration = 7,
 		/obj/item/stack/marker_beacon/thirty = 5,
 		/obj/item/extraction_pack = 5,
 		/obj/item/gps/mining/exploration = 5,
@@ -351,6 +352,7 @@
 		// it's hard to not look cool
 		/obj/item/clothing/glasses/science/sciencesun = 10,
 		/obj/item/taperecorder = 7,
+		/obj/item/mining_voucher/exploration = 7,
 		/obj/item/toy/plush/slimeplushie/random = 7,
 		/obj/item/disk/tech_disk/research/random  = 4,
 		/obj/item/borg/upgrade/ai = 2,

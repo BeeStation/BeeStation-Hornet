@@ -101,3 +101,9 @@
 	else if(isturf(target))
 		SSexplosions.medturf += target
 	. = ..()
+
+/obj/item/gun/energy/laser/repeater/explorer
+	name = "Laser Repeater Model 2284-E"
+	desc = "An exploration-fitted laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
+	pin = /obj/item/firing_pin/off_station
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature)
