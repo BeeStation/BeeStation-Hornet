@@ -14,8 +14,7 @@
 	name = "Masquerade"
 	desc = "Feign the vital signs of a mortal, and escape both casual and medical notice as the monster you truly are."
 	button_icon_state = "power_human"
-	power_explanation = "\
-		Masquerade will forge your identity to be practically identical to that of a human.\n\
+	power_explanation = "Masquerade will forge your identity to be practically identical to that of a human.\n\
 		You lose nearly all Vampire benefits, including your passive healing.\n\
 		You gain a Genetic sequence, and appear to have 100% blood when scanned by a Health Analyzer.\n\
 		You won't appear as Pale when examined. Anything further than pale, however, will not be hidden.\n\

@@ -11,8 +11,7 @@
 	name = "Mesmerize"
 	desc = "Dominate the mind of a mortal who can see your eyes."
 	button_icon_state = "power_mez"
-	power_explanation = "\
-		Click any player to attempt to mesmerize them, and freeze them in place.\n\
+	power_explanation = "Click any player to attempt to mesmerize them, and freeze them in place.\n\
 		You cannot wear anything covering your face, and both parties must be facing eachother.\n\
 		If your target is already mesmerized or a Curator, you will fail.\n\
 		Once mesmerized, the target will be unable to move for a certain amount of time, scaling your rank.\n\

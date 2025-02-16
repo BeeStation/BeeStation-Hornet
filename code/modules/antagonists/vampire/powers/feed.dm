@@ -5,8 +5,7 @@
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
-	power_explanation = "\
-		Activate Feed while next to someone and you will begin to feed blood off of them.\n\
+	power_explanation = "Activate Feed while next to someone and you will begin to feed blood off of them.\n\
 		The time needed before you start feeding decreases the higher level you are.\n\
 		Feeding off of someone while you have them aggressively grabbed will put them to sleep.\n\
 		You are given a Masquerade Infraction if you feed too close to a mortal.\n\

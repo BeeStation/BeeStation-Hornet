@@ -28,8 +28,7 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/three
 	desc = "Create a Blood shield and fire a blood bolt at your enemy, dealing Burn damage."
 	level_current = 2
-	power_explanation = "\
-		Activating Thaumaturgy will temporarily give you a Blood Shield.\n\
+	power_explanation = "Activating Thaumaturgy will temporarily give you a Blood Shield.\n\
 		The blood shield has a 75% block chance, but costs 15 Blood per hit to maintain.\n\
 		You can also fire a blood bolt which will deactivate your shield."
 	prefire_message = "Click where you wish to fire (using your power removes blood shield)."
@@ -41,8 +40,7 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/advanced
 	desc = "Create a Blood shield and fire a blood bolt, dealing Burn damage and opening doors/lockers."
 	level_current = 3
-	power_explanation = "\
-		Activating Thaumaturgy will temporarily give you a Blood Shield,\n\
+	power_explanation = "Activating Thaumaturgy will temporarily give you a Blood Shield,\n\
 		The blood shield has a 75% block chance, but costs 15 Blood per hit to maintain.\n\
 		You can also fire a blood bolt which will deactivate your shield.\n\
 		If the blood bolt hits a locker or door, it will open it."
@@ -54,8 +52,7 @@
 	upgraded_power = /datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/advanced/two
 	desc = "Create a Blood shield and fire a blood bolt, dealing Burn damage and opening doors/lockers."
 	level_current = 4
-	power_explanation = "\
-		Activating Thaumaturgy will temporarily give you a Blood Shield,\n\
+	power_explanation = "Activating Thaumaturgy will temporarily give you a Blood Shield,\n\
 		The blood shield has a 75% block chance, but costs 15 Blood per hit to maintain.\n\
 		You can also fire a blood bolt which will deactivate your shield.\n\
 		If the blood bolt hits a locker or door, it will open it.\n\
@@ -72,8 +69,7 @@
 	upgraded_power = null
 	desc = "Create a Blood shield and fire a blood bolt, dealing Burn damage, stealing Blood and opening doors/lockers."
 	level_current = 5
-	power_explanation = "\
-		Activating Thaumaturgy will temporarily give you a Blood Shield,\n\
+	power_explanation = "Activating Thaumaturgy will temporarily give you a Blood Shield,\n\
 		The blood shield has a 75% block chance, but costs 15 Blood per hit to maintain.\n\
 		You can also fire a blood bolt which will deactivate your shield.\n\
 		If the blood bolt hits a locker or door, it will open it.\n\
