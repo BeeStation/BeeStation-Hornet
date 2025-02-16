@@ -83,7 +83,6 @@
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "trait_tests.dm"
-#include "unit_test.dm"
 #include "walls_have_sheets.dm"
 #include "wizard_loadout.dm"
 #include "worn_icons.dm"
@@ -114,6 +113,12 @@
 // END_INCLUDE
 
 #endif
+
+// BEGIN_INCLUDE
+
+#include "unit_test.dm"
+
+// END_INCLUDE
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
