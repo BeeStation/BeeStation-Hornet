@@ -97,7 +97,7 @@
 	id = SPECIES_ASHWALKER
 	examine_limb_id = SPECIES_LIZARD
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS, NO_UNDERWEAR)
-	inherent_traits = list(TRAIT_NOGUNS)
+	inherent_traits = list(TRAIT_CHUNKYFINGERS)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED

@@ -538,11 +538,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 	return FALSE // we shouldn't get random TRUE cases
 
-/mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
+/mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H, modifiers)
 	if(DOING_INTERACTION_WITH_TARGET(H, src))
 		to_chat(H, span_warning("You're already interacting with [src]."))
 		return
-	if(H.a_intent == INTENT_DISARM && !tipped)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !tipped)
 		H.visible_message(span_danger("[H] begins tipping over [src]."), span_warning("You begin tipping over [src]..."))
 
 		if(world.time > last_tipping_action_voice + 15 SECONDS)
@@ -555,7 +555,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if(do_after(H, 3 SECONDS, target=src))
 			tip_over(H)
 
-	else if(H.a_intent == INTENT_HELP && tipped)
+	else if(!H.combat_mode && tipped)
 		H.visible_message(span_notice("[H] begins righting [src]."), span_notice("You begin righting [src]..."))
 		if(do_after(H, 3 SECONDS, target=src))
 			set_right(H)

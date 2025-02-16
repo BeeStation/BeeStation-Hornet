@@ -774,7 +774,7 @@
 /obj/machinery/control_point/attackby(mob/user, params)
 	capture(user)
 
-/obj/machinery/control_point/attack_hand(mob/user)
+/obj/machinery/control_point/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
