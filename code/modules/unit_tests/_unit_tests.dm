@@ -6,11 +6,6 @@
 // Outside here to satisfy ticked file enforcement while still providing defines
 #include "__DEFINES\test_defines.dm"
 
-#if defined(SPACEMAN_DMM) || defined(LONG_RUNNING_TESTS)
-#include "create_and_destroy.dm"
-#include janky_actions.dm
-#endif
-
 #if !defined(NO_QUICK_TESTS)
 
 // BEGIN_INCLUDE
@@ -104,6 +99,17 @@
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
 #include "mapping\map_test.dm"
+
+// END_INCLUDE
+
+#endif
+
+#if defined(SPACEMAN_DMM) || defined(LONG_RUNNING_TESTS)
+
+// BEGIN_INCLUDE
+
+#include "create_and_destroy.dm"
+#include janky_actions.dm
 
 // END_INCLUDE
 
