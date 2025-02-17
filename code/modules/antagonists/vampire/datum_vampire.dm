@@ -111,6 +111,9 @@
 	name = "vampire team"
 	var/datum/atom_hud/antag/hud
 	var/datum/antagonist/vampire/master_vampire
+
+/datum/team/vampire/roundend_report()
+	return
 /**
  * Apply innate effects is everything given to the mob
  * When a body is tranferred, this is called on the new mob
