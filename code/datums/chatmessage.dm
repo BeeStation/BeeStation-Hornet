@@ -645,7 +645,7 @@
 	group.message.maptext_height = CHAT_MESSAGE_HEIGHT
 	group.message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	group.message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
-  	group.message.pixel_x = offset_x
+	group.message.pixel_x = offset_x
 	group.message.pixel_y = offset_y
 
 	// View the message
