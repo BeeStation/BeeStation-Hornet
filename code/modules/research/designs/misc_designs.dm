@@ -598,3 +598,12 @@
 	materials = list(/datum/material/plastic = 1000)
 	build_path = /obj/item/blank_coffee_cartridge
 	category = list("Equipment")
+
+/datum/design/syrup_bottle
+	name = "Syrup bottle"
+	id = "syrup_bottle"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 1000)
+	build_path = /obj/item/reagent_containers/cup/bottle/syrup_bottle
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
