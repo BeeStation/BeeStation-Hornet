@@ -38,7 +38,7 @@
 	if(!component_parent?.parent)
 		return
 	setup_generic_item_hint()
-	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
+	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/activator/signal/remove_parent(datum/source, pensive)
 	if(sound_timer)
@@ -96,4 +96,4 @@
 	if(isturf(atom_parent.loc))
 		playsound(get_turf(component_parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(5, 15) SECONDS
-	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(atom_parent.loc) ? 2 : 1))
+	sound_timer = addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(atom_parent.loc) ? 2 : 1), TIMER_STOPPABLE)
