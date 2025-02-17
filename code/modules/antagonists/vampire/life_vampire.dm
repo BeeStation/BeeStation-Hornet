@@ -77,7 +77,7 @@
 		return
 	var/mob/living/carbon/user = owner.current
 	var/costMult = 1 // Coffin makes it cheaper
-	var/bruteheal = min(user.getBruteLoss_nonProsthetic(), actual_regen) // BRUTE: Always Heal
+	var/bruteheal = min(user.getBruteLoss(), actual_regen) // BRUTE: Always Heal
 	var/fireheal = 0 // BURN: Heal in Coffin while Fakedeath, or when damage above maxhealth (you can never fully heal fire)
 	// Checks if you're in torpor here, additionally checks if you're in a coffin right below it.
 	if(in_torpor)
@@ -86,7 +86,7 @@
 				to_chat(user, span_alert("You do not heal while your Masquerade ability is active."))
 				COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_MASQUERADE)
 				return
-			fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen)
+			fireheal = min(user.getFireLoss(), actual_regen)
 			mult *= 5 // Increase multiplier if we're sleeping in a coffin.
 			costMult /= 2 // Decrease cost if we're sleeping in a coffin.
 			user.ExtinguishMob()
@@ -95,7 +95,7 @@
 				return TRUE
 		// In Torpor, but not in a Coffin? Heal faster anyways.
 		else
-			fireheal = min(user.getFireLoss_nonProsthetic(), actual_regen) / 1.2 // 20% slower than being in a coffin
+			fireheal = min(user.getFireLoss(), actual_regen) / 1.2 // 20% slower than being in a coffin
 			mult *= 3
 	// Heal if Damaged
 	if((bruteheal + fireheal > 0) && mult > 0) // Just a check? Don't heal/spend, and return.

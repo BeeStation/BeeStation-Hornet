@@ -100,32 +100,3 @@
 /// You can't go to sleep in a coffin with a stake in you.
 /datum/antagonist/vampire/proc/can_stake_kill()
 	return owner.current.IsSleeping() || owner.current.stat >= UNCONSCIOUS || HAS_TRAIT(owner.current, TRAIT_TORPOR)
-
-/**
- * CARBON INTEGRATION
- *
- * All overrides of mob/living and mob/living/carbon
- */
-/// Brute
-/mob/living/proc/getBruteLoss_nonProsthetic()
-	return getBruteLoss()
-
-/mob/living/carbon/getBruteLoss_nonProsthetic()
-	var/amount = 0
-	for(var/obj/item/bodypart/chosen_bodypart as anything in bodyparts)
-		if(!IS_ORGANIC_LIMB(chosen_bodypart))
-			continue
-		amount += chosen_bodypart.brute_dam
-	return amount
-
-/// Burn
-/mob/living/proc/getFireLoss_nonProsthetic()
-	return getFireLoss()
-
-/mob/living/carbon/getFireLoss_nonProsthetic()
-	var/amount = 0
-	for(var/obj/item/bodypart/chosen_bodypart as anything in bodyparts)
-		if(!IS_ORGANIC_LIMB(chosen_bodypart))
-			continue
-		amount += chosen_bodypart.burn_dam
-	return amount
