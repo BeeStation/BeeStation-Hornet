@@ -3110,6 +3110,9 @@
 	pixel_x = 1;
 	pixel_y = 6
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "aSi" = (
@@ -26255,14 +26258,11 @@
 /turf/open/floor/iron,
 /area/bridge)
 "iBE" = (
-/obj/machinery/power/terminal{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/power/terminal{
+	dir = 8
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
@@ -43567,7 +43567,7 @@
 /area/engine/atmos)
 "ovm" = (
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "2-8"
 	},
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
@@ -44557,6 +44557,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
+"oLx" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "oLH" = (
 /obj/structure/disposalpipe/sorting/mail/destination/toxins/flip{
 	dir = 4
@@ -55393,14 +55402,11 @@
 /obj/structure/table,
 /obj/item/paper/guides/jobs/engi/gravity_gen,
 /obj/item/pen/blue,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
@@ -58441,9 +58447,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "tqT" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -89272,9 +89275,9 @@ bdz
 vgb
 mwc
 ind
-wmh
 iBE
 wmh
+oLx
 wxY
 vgb
 anT
