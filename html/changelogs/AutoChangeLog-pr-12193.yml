@@ -1,0 +1,8 @@
+author: PowerfulBacon, Archanial
+delete-after: true
+changes:
+  - bugfix: Overhead chat messages will no longer get cut off.
+  - bugfix: Overhead chat messages will no longer have an extra line of spacing in
+      some cases.
+  - bugfix: Overhead chat messages will no longer get bumped by messages that you
+      cannot see.
