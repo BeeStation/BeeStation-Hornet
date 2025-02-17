@@ -244,11 +244,3 @@
 
 	qdel(src)
 	return stored
-
-//Special subtype for artifacts that use it in a wonky-ish way, don't worry :)
-/obj/shapeshift_holder/no_damage
-
-/obj/shapeshift_holder/no_damage/restore(death=FALSE, convert_damage = FALSE)
-	convert_damage = FALSE //Bruh
-	death = FALSE
-	. = ..()

@@ -15,10 +15,18 @@
 	var/mob/choosen_animal
 	///How long we keep them as animals
 	var/animal_time = 15 SECONDS
+	///holder for our super fucking cool spell datum because the fucking shapeshift datum wont work without it and this is easier than rewriting that :)))
+	var/datum/action/spell/shapeshift/spell_holder = new
 
 /datum/xenoartifact_trait/major/animalize/New(atom/_parent)
 	. = ..()
+	spell_holder.die_with_shapeshifted_form = FALSE
+	spell_holder.convert_damage = FALSE
 	choosen_animal = pick(possible_animals)
+
+/datum/xenoartifact_trait/major/animalize/Destroy(force, ...)
+	. = ..()
+	QDEL_NULL(spell_holder)
 
 /datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -57,7 +65,7 @@
 	if(!istype(target))
 		return
 	//Check for a mob swap holder, and deny the transform if we find one
-	var/obj/shapeshift_holder/no_damage/H = (locate(/obj/shapeshift_holder/no_damage) in target) || istype(target.loc, /obj/shapeshift_holder/no_damage) ? target.loc : null
+	var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
 	if(H)
 		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
@@ -65,7 +73,7 @@
 	//Setup the animal
 	var/mob/new_animal = new choosen_animal(target.loc)
 	//Swap holder
-	H = new(new_animal, src, target, FALSE)
+	H = new(new_animal, spell_holder, target)
 	RegisterSignal(new_animal, COMSIG_MOB_DEATH, PROC_REF(un_trigger))
 	return new_animal
 
