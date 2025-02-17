@@ -26,7 +26,7 @@
 	time = 125
 
 /datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] starts dissecting [target].", "<span class='notice'>You start dissecting [target].</span>")
+	user.visible_message("[user] starts dissecting [target].", span_notice("You start dissecting [target]."))
 
 /datum/surgery_step/dissection/proc/check_value(mob/living/carbon/target)
 	if(isalienroyal(target))
@@ -40,14 +40,14 @@
 		if(H.dna?.species)
 			if(isabductor(H))
 				return 8000
-			if(isgolem(H) || iszombie(H))
+			if(isgolem(H) || iszombie(H) || isashwalker(H))
 				return 4000
-			if(isslimeperson(H) || isluminescent(H) || isstargazer(H) || ispodperson(H))
+			if(isslimeperson(H) || isluminescent(H) || isstargazer(H) || isdiona(H))
 				return 3000
 			return 2000
 
 /datum/surgery_step/dissection/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], and add your discoveries to the research database!</span>")
+	user.visible_message("[user] dissects [target]!", span_notice("You dissect [target], and add your discoveries to the research database!"))
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = check_value(target)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
 	target.apply_damage(80, BRUTE, L)
@@ -55,7 +55,7 @@
 	return TRUE
 
 /datum/surgery_step/dissection/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], but do not find anything particularly interesting.</span>")
+	user.visible_message("[user] dissects [target]!", span_notice("You dissect [target], but do not find anything particularly interesting."))
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = (check_value(target) * 0.2)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
 	target.apply_damage(80, BRUTE, L)

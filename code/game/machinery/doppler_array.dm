@@ -23,13 +23,12 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 	RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(power_change))
 	printer_ready = world.time + PRINTER_TIMEOUT
+	// Alt clicking when unwrenched does not rotate. (likely from UI not returning the mouse click)
+	// Also there is no sprite change for rotation dir, this shouldn't even have a rotate component tbh
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(RotationMessage)))
 
-/obj/machinery/doppler_array/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
-
-/datum/data/tachyon_record
-	name = "Log Recording"
+/datum/tachyon_record
+	var/name = "Log Recording"
 	var/timestamp
 	var/coordinates = ""
 	var/displacement = 0
@@ -49,7 +48,7 @@
 /obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	data["records"] = list()
-	for(var/datum/data/tachyon_record/R in records)
+	for(var/datum/tachyon_record/R in records)
 		var/list/record_data = list(
 			name = R.name,
 			timestamp = R.timestamp,
@@ -72,33 +71,33 @@
 
 	switch(action)
 		if("delete_record")
-			var/datum/data/tachyon_record/record = locate(params["ref"]) in records
+			var/datum/tachyon_record/record = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			records -= record
 			. = TRUE
 		if("print_record")
-			var/datum/data/tachyon_record/record  = locate(params["ref"]) in records
+			var/datum/tachyon_record/record  = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			print(usr, record)
 			. = TRUE
 
-/obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
+/obj/machinery/doppler_array/proc/print(mob/user, datum/tachyon_record/record)
 	if(!record)
 		return
 	if(printer_ready < world.time)
 		printer_ready = world.time + PRINTER_TIMEOUT
 		new /obj/item/paper/record_printout(loc, record)
 	else if(user)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, span_warning("[src] is busy right now."))
 
 /obj/item/paper/record_printout
 	name = "paper - Log Recording"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 
-/obj/item/paper/record_printout/Initialize(mapload, datum/data/tachyon_record/record)
+/obj/item/paper/record_printout/Initialize(mapload, datum/tachyon_record/record)
 	. = ..()
 
 	if(record)
@@ -123,20 +122,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored && !isinspace())
 			set_anchored(TRUE)
-			to_chat(user, "<span class='notice'>You fasten [src].</span>")
+			to_chat(user, span_notice("You fasten [src]."))
 		else if(anchored)
 			set_anchored(FALSE)
-			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
+			to_chat(user, span_notice("You unfasten [src]."))
 		I.play_tool_sound(src)
 		return
 	return ..()
 
-/obj/machinery/doppler_array/proc/rot_message(mob/user)
-	to_chat(user, "<span class='notice'>You adjust [src]'s dish to face to the [dir2text(dir)].</span>")
+/obj/machinery/doppler_array/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
+/obj/machinery/doppler_array/proc/RotationMessage(mob/user)
+	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
-													took,orig_dev_range,orig_heavy_range,orig_light_range)
+													took,orig_dev_range,orig_heavy_range,orig_light_range,explosion_index)
 	SIGNAL_HANDLER
 
 	if(machine_stat & NOPOWER)
@@ -157,7 +159,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	if(!(direct & dir) && !integrated)
 		return FALSE
 
-	var/datum/data/tachyon_record/R = new /datum/data/tachyon_record()
+	var/datum/tachyon_record/R = new /datum/tachyon_record()
 	R.name = "Log Recording #[record_number]"
 	R.timestamp = station_time_timestamp()
 	R.coordinates = "[epicenter.x], [epicenter.y]"

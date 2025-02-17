@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 2
+#define DB_MINOR_VERSION 3
 
 
 //! ## Timing subsystem
@@ -141,9 +141,10 @@
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
 #define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_QUIRKS			72
-#define INIT_ORDER_JOBS				71 //Must initialize before events for holidays
-#define INIT_ORDER_EVENTS			70
+#define INIT_ORDER_DEPARTMENT		72 //This is important: it has access distributing code, so should be initialized quickly
+#define INIT_ORDER_QUIRKS			71
+#define INIT_ORDER_JOBS				70 //Must initialize before events for holidays
+#define INIT_ORDER_EVENTS			69
 #define INIT_ORDER_AI_MOVEMENT 		56 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
@@ -203,7 +204,6 @@
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
 #define FIRE_PRIORITY_ZFALL         30
-#define FIRE_PRIORITY_FIELDS		30
 #define FIRE_PRIOTITY_SMOOTHING		35
 #define FIRE_PRIORITY_NETWORKS		40
 #define FIRE_PRIORITY_OBJ			40
@@ -216,7 +216,6 @@
 #define FIRE_PRIORITY_ASSETS		105
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
-#define FIRE_PRIORITY_ATMOS_ADJACENCY	300
 #define FIRE_PRIORITY_CHAT			400
 #define FIRE_PRIORITY_RUNECHAT		410
 #define FIRE_PRIORITY_OVERLAYS		500
@@ -237,25 +236,25 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
-// SSair run section
-#define SSAIR_PIPENETS 1
-#define SSAIR_ATMOSMACHINERY 2
-#define SSAIR_EXCITEDGROUPS 3
-#define SSAIR_HIGHPRESSURE 4
-#define SSAIR_HOTSPOTS 5
-#define SSAIR_TURF_CONDUCTION 6
-#define SSAIR_REBUILD_PIPENETS 7
-#define SSAIR_EQUALIZE 8
-#define SSAIR_ACTIVETURFS 9
-#define SSAIR_TURF_POST_PROCESS 10
-#define SSAIR_FINALIZE_TURFS 11
-#define SSAIR_ATMOSMACHINERY_AIR 12
-#define SSAIR_DEFERRED_AIRS 13
 
-// Explosion Subsystem subtasks
-#define SSEXPLOSIONS_MOVABLES 1
-#define SSEXPLOSIONS_TURFS 2
-#define SSEXPLOSIONS_THROWS 3
+// Wardrobe subsystem tasks
+#define SSWARDROBE_STOCK 1
+#define SSWARDROBE_INSPECT 2
+
+//Wardrobe cache metadata indexes
+#define WARDROBE_CACHE_COUNT 1
+#define WARDROBE_CACHE_LAST_INSPECT 2
+#define WARDROBE_CACHE_CALL_INSERT 3
+#define WARDROBE_CACHE_CALL_REMOVAL 4
+
+//Wardrobe preloaded stock indexes
+#define WARDROBE_STOCK_CONTENTS 1
+#define WARDROBE_STOCK_CALL_INSERT 2
+#define WARDROBE_STOCK_CALL_REMOVAL 3
+
+//Wardrobe callback master list indexes
+#define WARDROBE_CALLBACK_INSERT 1
+#define WARDROBE_CALLBACK_REMOVE 2
 
 //SSticker.current_state values
 /// Game is loading
@@ -301,6 +300,24 @@
 	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
 */
 #define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
+
+// Air subsystem subtasks
+#define SSAIR_PIPENETS 1
+#define SSAIR_ATMOSMACHINERY 2
+#define SSAIR_ACTIVETURFS 3
+#define SSAIR_HOTSPOTS 4
+#define SSAIR_EXCITEDGROUPS 5
+#define SSAIR_HIGHPRESSURE 6
+#define SSAIR_PROCESS_ATOMS 7
+
+//Pipenet rebuild helper defines, these suck but it'll do for now
+#define SSAIR_REBUILD_PIPENET 1
+#define SSAIR_REBUILD_QUEUE 2
+
+// Explosion Subsystem subtasks
+#define SSEXPLOSIONS_MOVABLES 1
+#define SSEXPLOSIONS_TURFS 2
+#define SSEXPLOSIONS_THROWS 3
 
 // Subsystem delta times or tickrates, in seconds. I.e, how many seconds in between each process() call for objects being processed by that subsystem.
 // Only use these defines if you want to access some other objects processing delta_time, otherwise use the delta_time that is sent as a parameter to process()

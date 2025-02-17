@@ -12,11 +12,7 @@
  */
 
 /obj/item/storage/fancy
-	name = "null box do not use"
-	desc = "Mmm. Runtimes."
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "donutbox"
-	base_icon_state = "donutbox"
 	resistance_flags = FLAMMABLE
 	//custom_materials = list(/datum/material/cardboard = 2000)
 	/// Used by examine to report what this thing is holding.
@@ -25,6 +21,10 @@
 	var/spawn_type = null
 	/// Whether the container is open or not
 	var/is_open = FALSE
+	/// What this container folds up into when it's empty.
+	var/obj/fold_result = /obj/item/stack/sheet/cardboard
+	/// Whether it supports open and closed state icons.
+	var/has_open_closed_states = TRUE
 
 /obj/item/storage/fancy/PopulateContents()
 	if(!spawn_type)
@@ -34,7 +34,7 @@
 		new spawn_type(src)
 
 /obj/item/storage/fancy/update_icon_state()
-	icon_state = "[base_icon_state][is_open ? contents.len : null]"
+	icon_state = "[base_icon_state][has_open_closed_states && is_open ? contents.len : null]"
 	return ..()
 
 /obj/item/storage/fancy/examine(mob/user)
@@ -71,18 +71,17 @@
 	name = "donut box"
 	desc = "Mmm. Donuts."
 	icon = 'icons/obj/food/donuts.dmi'
-	icon_state = "donutbox_inner"
+	icon_state = "donutbox"
 	base_icon_state = "donutbox"
 	spawn_type = /obj/item/food/donut/premade
-	is_open = TRUE
-	appearance_flags = KEEP_TOGETHER
+	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
 
 /obj/item/storage/fancy/donut_box/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/food/donut))
+	STR.set_holdable(list(/obj/item/food/donut))
 
 /obj/item/storage/fancy/donut_box/PopulateContents()
 	. = ..()
@@ -130,7 +129,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 12
-	STR.can_hold = typecacheof(list(/obj/item/food/egg))
+	STR.set_holdable(list(/obj/item/food/egg))
 
 /*
  * Candle Box
@@ -154,7 +153,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
-	STR.can_hold = typecacheof(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
+	STR.set_holdable(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
@@ -182,26 +181,26 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to extract contents.</span>"
+	. += span_notice("Alt-click to extract contents.")
 	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
 	if(L)
-		. += "<span class='notice'>There seems to be a lighter inside. Ctrl-click to pull it out.</span>"
+		. += span_notice("There seems to be a lighter inside. Ctrl-click to pull it out.")
 
-/obj/item/storage/fancy/cigarettes/AltClick(mob/living/carbon/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+/obj/item/storage/fancy/cigarettes/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	var/obj/item/I = locate(/obj/item) in contents
 	if(I && contents.len > 0)
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
 		user.put_in_hands(I)
 		contents -= I
-		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
+		to_chat(user, span_notice("You take \a [I] out of the pack."))
 	else
-		to_chat(user, "<span class='notice'>There are no [contents_tag]s left in the pack.</span>")
+		to_chat(user, span_notice("There are no [contents_tag]s left in the pack."))
 
 /obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -211,9 +210,9 @@
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
 		user.put_in_hands(I)
 		contents -= I
-		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
+		to_chat(user, span_notice("You take \a [I] out of the pack."))
 	else
-		to_chat(user, "<span class='warning'>There is no lighter in the pack.</span>")
+		to_chat(user, span_warning("There is no lighter in the pack."))
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	. = ..()
@@ -251,7 +250,7 @@
 
 	var/obj/item/clothing/mask/cigarette/cig = locate() in contents
 	if(!cig)
-		to_chat(user, "<span class='notice'>There are no [contents_tag]s left in the pack.</span>")
+		to_chat(user, span_notice("There are no [contents_tag]s left in the pack."))
 		return
 	if(target != user || !contents.len || user.wear_mask)
 		return ..()
@@ -259,7 +258,7 @@
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, cig, target)
 	target.equip_to_slot_if_possible(cig, ITEM_SLOT_MASK)
 	contents -= cig
-	to_chat(user, "<span class='notice'>You take \a [cig] out of the pack.</span>")
+	to_chat(user, span_notice("You take \a [cig] out of the pack."))
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
@@ -347,16 +346,14 @@
 	base_icon_state = "cig_paper_pack"
 	contents_tag = "rolling paper"
 	spawn_type = /obj/item/rollingpaper
+	custom_price = PAYCHECK_LOWER
+	has_open_closed_states = FALSE
 
 /obj/item/storage/fancy/rollingpapers/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 10
-	STR.can_hold = typecacheof(list(/obj/item/rollingpaper))
-
-/obj/item/storage/fancy/rollingpapers/update_icon_state()
-	SHOULD_CALL_PARENT(FALSE)
-	return
+	STR.set_holdable(list(/obj/item/rollingpaper))
 
 /obj/item/storage/fancy/rollingpapers/update_overlays()
 	. = ..()
@@ -382,7 +379,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
-	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette/cigar))
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette/cigar))
 
 /obj/item/storage/fancy/cigarettes/cigars/update_icon_state()
 	. = ..()
@@ -432,7 +429,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 8
-	STR.can_hold = typecacheof(list(/obj/item/food/bonbon))
+	STR.set_holdable(list(/obj/item/food/bonbon))
 
 
 /obj/item/storage/fancy/nugget_box
@@ -448,4 +445,6 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list( /obj/item/food/nugget))
+	STR.set_holdable(list( /obj/item/food/nugget))
+
+

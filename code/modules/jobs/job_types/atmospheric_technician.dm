@@ -1,15 +1,16 @@
 /datum/job/atmospheric_technician
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
 	description = "Maintain the air distribution loop to ensure adequate atmospheric conditions in the station, re-pressurize areas after hull breaches, and be a firefighter if necessary."
-	department_for_prefs = DEPT_BITFLAG_ENG
+	department_for_prefs = DEPT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#fff5cc"
-	exp_requirements = 120
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120 //High grief percentage
+	exp_type = EXP_TYPE_ENGINEERING
+	exp_type_department = EXP_TYPE_ENGINEERING
 
 	outfit = /datum/outfit/job/atmospheric_technician
 

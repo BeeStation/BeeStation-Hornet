@@ -177,6 +177,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/scigoggles_night
+	name = "Night Vision Science Goggles"
+	desc = "An advanced set of science goggles that let experiments continue even in complete darkness"
+	id= "scigoggles_night"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/plasma = 300, /datum/material/copper = 300)
+	build_path= /obj/item/clothing/glasses/science/night
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/diskplantgene
 	name = "Plant Data Disk"
 	desc = "A disk for storing plant genetic data."
@@ -551,6 +561,16 @@
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
+/datum/design/oven_tray
+	name = "Oven Tray"
+	desc = "Gotta shove something in!"
+	id = "oven_tray"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 500)
+	build_path = /obj/item/plate/oven_tray
+	category = list("initial","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /////////////////////////////////////////
 /////////Coffeemaker Stuff///////////////
 /////////////////////////////////////////
@@ -558,23 +578,23 @@
 /datum/design/coffeepot
 	name = "Coffeepot"
 	id = "coffeepot"
-	build_type = PROTOLATHE | AWAY_LATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 500, /datum/material/plastic = 500)
 	build_path = /obj/item/reagent_containers/cup/coffeepot
-	category = list(RND_CATEGORY_EQUIPMENT)
+	category = list("Equipment")
 
 /datum/design/coffeepot_bluespace
 	name = "Bluespace Coffeepot"
 	id = "bluespace_coffeepot"
-	build_type = PROTOLATHE | AWAY_LATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1000, /datum/material/plastic = 500, /datum/material/bluespace = 500)
 	build_path = /obj/item/reagent_containers/cup/coffeepot/bluespace
-	category = list(RND_CATEGORY_EQUIPMENT)
+	category = list("Equipment")
 
 /datum/design/coffee_cartridge
 	name = "Blank Coffee Cartridge"
 	id = "coffee_cartridge"
-	build_type = PROTOLATHE | AWAY_LATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 1000)
 	build_path = /obj/item/blank_coffee_cartridge
-	category = list(RND_CATEGORY_EQUIPMENT)
+	category = list("Equipment")

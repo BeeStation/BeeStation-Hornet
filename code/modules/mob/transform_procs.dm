@@ -55,7 +55,7 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	O.a_intent = INTENT_HARM
+	O.set_combat_mode(TRUE)
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -205,7 +205,7 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	O.a_intent = INTENT_HARM
+	O.set_combat_mode(TRUE)
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -450,7 +450,7 @@
 		else
 			O.set_species(/datum/species/human)
 
-	O.a_intent = INTENT_HELP
+	O.set_combat_mode(FALSE)
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
@@ -550,7 +550,7 @@
 	qdel(src)
 
 /mob/living/silicon/robot/proc/replace_banned_cyborg()
-	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
+	to_chat(src, span_userdanger("You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!"))
 	ghostize(FALSE)
 
 	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
@@ -576,7 +576,7 @@
 		if("Drone")
 			new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
 
-	new_xeno.a_intent = INTENT_HARM
+	new_xeno.set_combat_mode(TRUE)
 	new_xeno.key = key
 
 	to_chat(new_xeno, "<B>You are now an alien.</B>")
@@ -599,14 +599,14 @@
 		new_slime = pick(babies)
 	else
 		new_slime = new /mob/living/simple_animal/slime(loc)
-	new_slime.a_intent = INTENT_HARM
+	new_slime.set_combat_mode(TRUE)
 	new_slime.key = key
 
 	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
 	. = new_slime
 	qdel(src)
 
-/mob/proc/become_overmind(starting_points = 60)
+/mob/proc/become_overmind(starting_points = OVERMIND_STARTING_POINTS)
 	var/mob/camera/blob/B = new /mob/camera/blob(get_turf(src), starting_points)
 	B.key = key
 	. = B
@@ -618,7 +618,7 @@
 		return
 
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
-	new_corgi.a_intent = INTENT_HARM
+	new_corgi.set_combat_mode(TRUE)
 	new_corgi.key = key
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
@@ -629,7 +629,7 @@
 	if(pre_transform())
 		return
 	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
-	new_gorilla.a_intent = INTENT_HARM
+	new_gorilla.set_combat_mode(TRUE)
 	if(mind)
 		mind.transfer_to(new_gorilla)
 	else
@@ -642,7 +642,7 @@
 	if(pre_transform())
 		return
 	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
-	new_gorilla.a_intent = INTENT_HARM
+	new_gorilla.set_combat_mode(TRUE)
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(new_gorilla)
 	if(mind)
@@ -660,16 +660,16 @@
 	if(isnull(mobpath))
 		return
 	if(!mobpath)
-		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
+		to_chat(usr, span_danger("Sorry but this mob type is currently unavailable."))
 		return
 
 	if(pre_transform())
 		return
 
-	var/mob/new_mob = new mobpath(src.loc)
+	var/mob/living/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = INTENT_HARM
+	new_mob.set_combat_mode(TRUE)
 
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	. = new_mob
@@ -682,14 +682,14 @@
 	if(isnull(mobpath))
 		return
 	if(!mobpath)
-		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
+		to_chat(usr, span_danger("Sorry but this mob type is currently unavailable."))
 		return
 
-	var/mob/new_mob = new mobpath(src.loc)
+	var/mob/living/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = INTENT_HARM
-	to_chat(new_mob, "<span class='boldnotice'>You feel more... animalistic!</span>")
+	new_mob.set_combat_mode(TRUE)
+	to_chat(new_mob, span_boldnotice("You feel more... animalistic!"))
 
 	. = new_mob
 	qdel(src)

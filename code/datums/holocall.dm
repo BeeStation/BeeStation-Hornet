@@ -181,7 +181,7 @@
 
 /datum/action/innate/end_holocall
 	name = "End Holocall"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 	var/datum/holocall/hcall
 
@@ -189,7 +189,7 @@
 	..()
 	hcall = HC
 
-/datum/action/innate/end_holocall/Activate()
+/datum/action/innate/end_holocall/on_activate()
 	hcall.Disconnect(hcall.calling_holopad)
 
 

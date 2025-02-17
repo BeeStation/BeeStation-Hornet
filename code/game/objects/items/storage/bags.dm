@@ -37,7 +37,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
-	worn_icon_state = "baguette"
+	worn_icon_state = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -49,11 +49,11 @@
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.max_combined_w_class = 30
 	STR.max_items = 30
-	STR.cant_hold = typecacheof(list(/obj/item/disk/nuclear))
+	STR.set_holdable(null, list(/obj/item/disk/nuclear))
 	STR.can_be_opened = FALSE //Have to dump a trash bag out to look at its contents
 
 /obj/item/storage/bag/trash/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message(span_suicide("[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
@@ -78,13 +78,14 @@
 		J.mybag=src
 		J.update_icon()
 	else
-		to_chat(user, "<span class='warning'>You are unable to fit your [name] into the [J.name].</span>")
+		to_chat(user, span_warning("You are unable to fit your [name] into the [J.name]."))
 		return
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
 	icon_state = "bluetrashbag"
+	worn_icon_state = "bluetrashbag"
 	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/storage/bag/trash/bluespace/ComponentInitialize()
@@ -131,8 +132,8 @@
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	component_type = /datum/component/storage/concrete/stack
-	///If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
-	var/spam_protection = FALSE
+	var/is_bluespace = FALSE //If this is TRUE, when picking up ores it picks up ore from neighbouring tiles as well
+	var/bs_range=1	//Range in which the bluespace satchels pick up ores from.
 	var/mob/listeningTo
 
 /obj/item/storage/bag/ore/ComponentInitialize()
@@ -140,7 +141,7 @@
 	AddComponent(/datum/component/rad_insulation, 0.05) //please datum mats no more cancer
 	var/datum/component/storage/concrete/stack/STR = GetComponent(/datum/component/storage/concrete/stack)
 	STR.allow_quick_empty = TRUE
-	STR.can_hold = typecacheof(list(/obj/item/stack/ore))
+	STR.set_holdable(list(/obj/item/stack/ore))
 	STR.max_w_class = WEIGHT_CLASS_HUGE
 	STR.max_items = 20
 	STR.max_combined_stack_amount = 250
@@ -171,31 +172,51 @@
 	if (istype(user.pulling, /obj/structure/ore_box))
 		box = user.pulling
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	if(STR)
-		for(var/A in tile)
-			if (!is_type_in_typecache(A, STR.can_hold))
-				continue
-			if (box)
-				user.transferItemToLoc(A, box)
-				box.ui_update()
-				show_message = TRUE
-			else if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
-				show_message = TRUE
-			else
-				if(!spam_protection)
-					to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>")
-					spam_protection = TRUE
-					continue
+
+	if (STR)
+		// Handle the tile the player steps in
+		show_message=handle_ores_in_turf(tile, user, box)
+
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
 		STR.animate_parent()
-		if (box)
-			user.visible_message("<span class='notice'>[user] offloads the ores beneath [user.p_them()] into [box].</span>", \
-			"<span class='notice'>You offload the ores beneath you into your [box].</span>")
-		else
-			user.visible_message("<span class='notice'>[user] scoops up the ores beneath [user.p_them()].</span>", \
-				"<span class='notice'>You scoop up the ores beneath you with your [name].</span>")
-	spam_protection = FALSE
+		//Handling message perspectives semi-dynamically.
+		var/message_action_pov = box ? "offload" : "scoop up"
+		var/message_action = box ? "offloads" : "scoop up"
+		var/message_location = is_bluespace ? "around" : "beneath"
+		var/message_box_pov = box ? " into [box]" : " with your [name]"
+		var/message_box = box ? " into [box]" : " with their [name]"
+
+		user.visible_message(
+			span_notice("[user] [message_action] the ores [message_location] [user.p_them()][message_box]."),
+			span_notice("You [message_action_pov] the ores [message_location] you[message_box_pov].")
+		)
+
+/obj/item/storage/bag/ore/proc/handle_ores_in_turf(var/turf/turf, var/mob/living/user, var/obj/structure/ore_box/box)
+	var/item_transferred = FALSE
+	var/collection_range = (is_bluespace ? bs_range : 0) // 0 means the current turf only
+	var/ore_found=FALSE
+	if (box)
+		for (var/obj/item/stack/ore/ore in turf)
+			user.transferItemToLoc(ore, box)
+			box.ui_update()
+			item_transferred = TRUE
+	else
+		for (var/obj/item/stack/ore/ore in range(collection_range, turf))
+			//This logic is needed so that we can send both an ore scooping up and the full bag message,
+			//if there are too many ores in a single tile for a normal ore bag to hold
+			if (!item_transferred)
+				item_transferred = SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+			else
+				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, ore, user, TRUE)
+	// Check if any ore exists in the turf
+	for(var/obj/item/stack/ore/ore in turf)
+		ore_found = TRUE
+		break // If we find any ore, no need to continue the loop
+	if (ore_found)
+		to_chat(user, span_warning("Your [name] is full and can't hold any more!"));
+
+	return item_transferred
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -211,6 +232,7 @@
 	STR.max_items = INFINITY
 	STR.max_combined_w_class = INFINITY
 	STR.max_combined_stack_amount = INFINITY
+	is_bluespace = TRUE
 
 // -----------------------------
 //          Plant bag
@@ -230,7 +252,16 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 100
 	STR.max_items = 100
-	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown, /obj/item/reagent_containers/honeycomb, /obj/item/disk/plantgene, /obj/item/food/seaweed_sheet))
+	STR.set_holdable(
+		list(
+			/obj/item/food/grown,
+			/obj/item/seeds,
+			/obj/item/grown,
+			/obj/item/reagent_containers/cup/glass/honeycomb,
+			/obj/item/disk/plantgene,
+			/obj/item/food/seaweed_sheet
+		)
+	)
 
 ////////
 
@@ -257,7 +288,7 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 10
 	STR.max_items = 3
-	STR.can_hold = typecacheof(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown))
+	STR.set_holdable(list(/obj/item/food/grown, /obj/item/seeds, /obj/item/grown))
 
 // -----------------------------
 //        Sheet Snatcher
@@ -280,7 +311,7 @@
 	. = ..()
 	var/datum/component/storage/concrete/stack/STR = GetComponent(/datum/component/storage/concrete/stack)
 	STR.allow_quick_empty = TRUE
-	STR.can_hold = typecacheof(list(/obj/item/stack/sheet))
+	STR.set_holdable(list(/obj/item/stack/sheet))
 	STR.max_combined_stack_amount = 150
 
 // -----------------------------
@@ -318,7 +349,7 @@
 	STR.max_combined_w_class = 21
 	STR.max_items = 7
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/codex_cicatrix))
+	STR.set_holdable(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/codex_cicatrix))
 
 /*
  * Trays - Agouri
@@ -408,7 +439,17 @@
 	STR.max_combined_w_class = 200
 	STR.max_items = 50
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/medspray, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/waterbottle))
+	STR.set_holdable(
+		list(
+			/obj/item/reagent_containers/pill,
+			/obj/item/reagent_containers/cup/beaker,
+			/obj/item/reagent_containers/cup/glass/bottle,
+			/obj/item/reagent_containers/medspray,
+			/obj/item/reagent_containers/syringe,
+			/obj/item/reagent_containers/dropper,
+			/obj/item/reagent_containers/cup/glass/waterbottle
+			)
+		)
 
 /*
  *  Biowaste bag (mostly for xenobiologists)
@@ -429,7 +470,21 @@
 	STR.max_combined_w_class = 200
 	STR.max_items = 25
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/food/deadmouse, /obj/item/food/monkeycube, /obj/item/organ, /obj/item/bodypart))
+	STR.set_holdable(
+		list(
+			/obj/item/slime_extract,
+			/obj/item/reagent_containers/syringe,
+			/obj/item/reagent_containers/dropper,
+			/obj/item/reagent_containers/cup/beaker,
+			/obj/item/reagent_containers/cup/glass/bottle,
+			/obj/item/reagent_containers/blood,
+			/obj/item/reagent_containers/hypospray/medipen,
+			/obj/item/food/deadmouse,
+			/obj/item/food/monkeycube,
+			/obj/item/organ,
+			/obj/item/bodypart
+			)
+		)
 
 /obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/item/slimecross/reproductive))
@@ -452,4 +507,15 @@
 	STR.max_items = 50
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics, /obj/item/rcd_ammo))
+	STR.set_holdable(
+		list(
+			/obj/item/stack/ore/bluespace_crystal,
+			/obj/item/assembly,
+			/obj/item/stock_parts,
+			/obj/item/reagent_containers/cup/beaker,
+			/obj/item/stack/cable_coil,
+			/obj/item/circuitboard,
+			/obj/item/electronics,
+			/obj/item/rcd_ammo
+			)
+		)

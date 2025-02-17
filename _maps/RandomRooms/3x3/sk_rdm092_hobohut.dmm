@@ -2,7 +2,7 @@
 "a" = (
 /obj/structure/closet/cardboard,
 /obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/obj/item/reagent_containers/cup/glass/bottle/hooch,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (

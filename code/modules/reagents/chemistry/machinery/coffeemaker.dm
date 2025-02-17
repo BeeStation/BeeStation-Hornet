@@ -24,14 +24,14 @@
 	/// The amount of creamer packets left
 	var/creamer_packs = 20
 
-	var/static/radial_examine = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_examine")
-	var/static/radial_brew = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_brew")
-	var/static/radial_eject_pot = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_eject_pot")
-	var/static/radial_eject_cartridge = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_eject_cartridge")
-	var/static/radial_take_cup = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_take_cup")
-	var/static/radial_take_sugar = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_take_sugar")
-	var/static/radial_take_sweetener = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_take_sweetener")
-	var/static/radial_take_creamer = image(icon = 'icons/hud/radial_coffee.dmi', icon_state = "radial_take_creamer")
+	var/static/radial_examine = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "radial_examine")
+	var/static/radial_brew = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_brew")
+	var/static/radial_eject_pot = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_eject_pot")
+	var/static/radial_eject_cartridge = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_eject_cartridge")
+	var/static/radial_take_cup = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_take_cup")
+	var/static/radial_take_sugar = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_take_sugar")
+	var/static/radial_take_sweetener = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_take_sweetener")
+	var/static/radial_take_creamer = image(icon = 'icons/hud/radials/radial_coffee.dmi', icon_state = "radial_take_creamer")
 
 /obj/machinery/coffeemaker/Initialize(mapload)
 	. = ..()
@@ -275,10 +275,10 @@
 
 /obj/machinery/coffeemaker/proc/take_cup(mob/user)
 	if(!coffee_cups) //shouldn't happen, but we all know how stuff manages to break
-		balloon_alert("no cups left!")
+		balloon_alert(user, "no cups left!")
 		return
 	balloon_alert_to_viewers("took cup")
-	var/obj/item/reagent_containers/food/drinks/coffee_cup/new_cup = new(get_turf(src))
+	var/obj/item/reagent_containers/cup/glass/coffee_cup/new_cup = new(get_turf(src))
 	user.put_in_hands(new_cup)
 	coffee_cups--
 
@@ -404,7 +404,8 @@
 	is_open = TRUE
 	spawn_type = /obj/item/coffee_cartridge
 
-/obj/item/storage/fancy/coffee_cart_rack/Initialize()
+/obj/item/storage/fancy/coffee_cart_rack/Initialize(mapload)
 	. = ..()
-	atom_storage.max_slots = 4
-	atom_storage.set_holdable(list(/obj/item/coffee_cartridge))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 4
+	STR.set_holdable(list(/obj/item/coffee_cartridge))

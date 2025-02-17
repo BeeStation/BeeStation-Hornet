@@ -100,6 +100,24 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	if(!GLOB.psyphoza_cap_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
+	if(!GLOB.diona_leaves_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_leaves, GLOB.diona_leaves_list)
+	if(!GLOB.diona_thorns_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_thorns, GLOB.diona_thorns_list)
+	if(!GLOB.diona_flowers_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_flowers, GLOB.diona_flowers_list)
+	if(!GLOB.diona_moss_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_moss, GLOB.diona_moss_list)
+	if(!GLOB.diona_mushroom_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_mushroom, GLOB.diona_mushroom_list)
+	if(!GLOB.diona_antennae_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_antennae, GLOB.diona_antennae_list)
+	if(!GLOB.diona_eyes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_eyes, GLOB.diona_eyes_list)
+	if(!GLOB.diona_pbody_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_pbody, GLOB.diona_pbody_list)
+
+
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -128,7 +146,15 @@
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
 		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
-		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list)
+		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
+		"diona_leaves" = pick(GLOB.diona_leaves_list),
+		"diona_thorns" = pick(GLOB.diona_thorns_list),
+		"diona_flowers" = pick(GLOB.diona_flowers_list),
+		"diona_moss" = pick(GLOB.diona_moss_list),
+		"diona_mushroom" = pick(GLOB.diona_mushroom_list),
+		"diona_antennae" = pick(GLOB.diona_antennae_list),
+		"diona_eyes" = pick(GLOB.diona_eyes_list),
+		"diona_pbody" = pick(GLOB.diona_pbody_list)
 		)
 	)
 
@@ -259,13 +285,19 @@ GLOBAL_LIST_EMPTY(species_list)
  * * progress - if TRUE, a progress bar is displayed.
  * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
  */
-/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1, hidden = FALSE)
 	if(!user)
 		return FALSE
+	if(!isnum(delay))
+		CRASH("do_after was passed a non-number delay: [delay || "null"].")
 
-	if(target)
-		LAZYADD(user.do_afters, target)
-		LAZYADD(target.targeted_by, user)
+	if(!interaction_key && target)
+		interaction_key = target //Use the direct ref to the target
+	if(interaction_key) //Do we have a interaction_key now?
+		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+		if(current_interaction_count >= max_interact_count) //We are at our peak
+			return
+		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 
 	var/atom/user_loc = user.loc
 	var/atom/target_loc = target?.loc
@@ -278,12 +310,18 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
+	if (HAS_TRAIT(user, INSTANT_DO_AFTER))
+		delay = -1
+
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
+
 	if(progress)
-		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
-			progbar = new(user, delay, target)
-		else
-			progbar = new(user, delay, user)
+		if(user.client)
+			progbar = new(user, delay, target || user)
+
+		if(!hidden && delay >= 1 SECONDS)
+			cog = new(user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -291,48 +329,46 @@ GLOBAL_LIST_EMPTY(species_list)
 	while(world.time < endtime)
 		stoplag(1)
 
-		if(QDELETED(user))
-			. = FALSE
-			break
-
-		if(progress)
+		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
 		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		// Check flags
-		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
+		if(QDELETED(user) \
+			|| (!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
+			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && HAS_TRAIT(user, TRAIT_INCAPACITATED)) \
+			|| (extra_checks && !extra_checks.Invoke()))
 			. = FALSE
+			break
 
-		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
+		if(target && (user != target) && \
+			(QDELETED(target) \
+			|| (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
 			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
-			. = FALSE
-
-
-		if(extra_checks && !extra_checks.Invoke())
-			. = FALSE
-
-		// If we have a target, we check for them moving here. We don't care about it if we're drifting or we ignore target loc change
-		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
-			if(target_loc && user != target && (QDELETED(target) || target_loc != target.loc))
-				. = FALSE
-
-		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
-			. = FALSE
-
-		if(!.)
 			break
 
 	if(!QDELETED(progbar))
 		progbar.end_progress()
 
-	if(!QDELETED(target))
-		LAZYREMOVE(user.do_afters, target)
-		LAZYREMOVE(target.targeted_by, user)
+	cog?.remove()
+
+	if(interaction_key)
+		var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
+		if(reduced_interaction_count > 0) // Not done yet!
+			LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
+			return
+		// all out, let's clear er out fully
+		LAZYREMOVE(user.do_afters, interaction_key)
+
+/// Returns the total amount of do_afters this mob is taking part in
+/mob/proc/do_after_count()
+	var/count = 0
+	for(var/key in do_afters)
+		count += do_afters[key]
+	return count
 
 /proc/is_species(A, species_datum)
 	. = FALSE
@@ -390,7 +426,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	return spawned_mobs
 
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
-	message = "<span class='linkify'>[message]</span>"
+	message = span_linkify("[message]")
 	for(var/mob/M in GLOB.player_list)
 		var/death_rattle = TRUE
 		var/arrivals_rattle = TRUE
@@ -676,7 +712,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /// Returns a list of unslaved cyborgs
 /proc/active_free_borgs()
 	. = list()
-	for(var/mob/living/silicon/robot/borg in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/robot/borg as anything in GLOB.cyborg_list)
 		if(borg.connected_ai || borg.shell)
 			continue
 		if(borg.stat == DEAD)
@@ -791,7 +827,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	//This name has already been taken and this is not the original user, return FALSE
 	else
-		to_chat(C.mob, "<span class='warning'>Cyborg name already used this round by another character, your name has been randomized</span>")
+		to_chat(C.mob, span_warning("Cyborg name already used this round by another character, your name has been randomized"))
 		return FALSE
 
 /proc/view_or_range(distance = world.view , center = usr , type)
@@ -830,3 +866,5 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 #undef FACING_SAME_DIR
 #undef FACING_EACHOTHER
 #undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
+#define ISADVANCEDTOOLUSER(mob) (HAS_TRAIT(mob, TRAIT_ADVANCEDTOOLUSER) && !HAS_TRAIT(mob, TRAIT_DISCOORDINATED))

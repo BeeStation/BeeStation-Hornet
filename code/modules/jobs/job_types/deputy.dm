@@ -2,7 +2,7 @@
 	title = JOB_NAME_DEPUTY
 	description = "Follow orders and do your best to maintain order on the station while following Space Law."
 	lock_flags = JOB_LOCK_REASON_ABSTRACT
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = "Station"
@@ -42,7 +42,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
-	box = /obj/item/storage/box/survival/normal
+	box = /obj/item/storage/box/survival
 
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"

@@ -60,7 +60,7 @@
 				client.screen -= screen
 
 /atom/movable/screen/fullscreen
-	icon = 'icons/mob/screen_full.dmi'
+	icon = 'icons/hud/fullscreen/screen_full.dmi'
 	icon_state = "default"
 	screen_loc = "CENTER-7,CENTER-7"
 	layer = FULLSCREEN_LAYER
@@ -134,27 +134,27 @@
 	icon_state = "impairedoverlay"
 
 /atom/movable/screen/fullscreen/flash
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 
 /atom/movable/screen/fullscreen/flash/black
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "black"
 
 /atom/movable/screen/fullscreen/flash/static
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "noise"
 
 /atom/movable/screen/fullscreen/high
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
 /atom/movable/screen/fullscreen/color_vision
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 	alpha = 80
@@ -169,7 +169,7 @@
 	color = "#0000ff"
 
 /atom/movable/screen/fullscreen/lighting_backdrop
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "flash"
 	transform = matrix(200, 0, 0, 0, 200, 0)
 	plane = LIGHTING_PLANE
@@ -195,6 +195,7 @@
 	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness
+	invisibility = INVISIBILITY_LIGHTING
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
@@ -215,7 +216,7 @@
 
 /atom/movable/screen/fullscreen/blind_context_disable/Initialize(mapload)
 	. = ..()
-	var/icon/mask = icon('icons/mob/psychic.dmi', "click_mask")
+	var/icon/mask = icon('icons/hud/fullscreen/psychic.dmi', "click_mask")
 	add_filter("click_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
 
 /atom/movable/screen/fullscreen/blind_context_disable/Destroy()

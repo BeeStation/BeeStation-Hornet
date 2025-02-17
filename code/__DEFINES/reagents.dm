@@ -36,6 +36,11 @@
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
 
+//Used in holder.dm/equlibrium.dm to set values and volume limits
+///the minimum volume of reagents than can be operated on.
+#define CHEMICAL_QUANTISATION_LEVEL 0.0001
+/// the default temperature at which chemicals are added to reagent holders at
+#define DEFAULT_REAGENT_TEMPERATURE 300
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
 #define CHEMICAL_NOT_DEFINED   (1<<0)  // identical to CHEMICAL_NOT_SYNTH, but it is good to label when you are not sure which flag you should set on it, or something that shouldn't exist in the game. - i.e) medicine parent type
@@ -118,3 +123,7 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 		"bandaid_big_blank",))
 
 #define PATCH_SHAPE_LIST (GLOB.patch_shape_list)
+
+//used by chem master
+#define CONDIMASTER_STYLE_AUTO "auto"
+#define CONDIMASTER_STYLE_FALLBACK "_"

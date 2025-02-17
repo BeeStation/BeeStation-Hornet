@@ -1,10 +1,3 @@
-GLOBAL_LIST_INIT(slots, list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store"))
-
-GLOBAL_LIST_INIT(slot2slot, list("head" = ITEM_SLOT_HEAD, "wear_mask" = ITEM_SLOT_MASK, "neck" = ITEM_SLOT_NECK, "back" = ITEM_SLOT_BACK, "wear_suit" = ITEM_SLOT_OCLOTHING, "w_uniform" = ITEM_SLOT_ICLOTHING, "shoes" = ITEM_SLOT_FEET, "belt" = ITEM_SLOT_BELT, "gloves" = ITEM_SLOT_GLOVES, "glasses" = ITEM_SLOT_EYES, "ears" = ITEM_SLOT_EARS, "wear_id" = ITEM_SLOT_ID, "s_store" = ITEM_SLOT_SUITSTORE))
-GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "wear_mask" = /obj/item/clothing/mask/changeling, "back" = /obj/item/changeling, "wear_suit" = /obj/item/clothing/suit/changeling, "w_uniform" = /obj/item/clothing/under/changeling, "shoes" = /obj/item/clothing/shoes/changeling, "belt" = /obj/item/changeling, "gloves" = /obj/item/clothing/gloves/changeling, "glasses" = /obj/item/clothing/glasses/changeling, "ears" = /obj/item/changeling, "wear_id" = /obj/item/card/id/changeling, "s_store" = /obj/item/changeling))
-
-
-
 /datum/game_mode/changeling
 	name = "changeling"
 	config_tag = "changeling"
@@ -20,9 +13,9 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	reroll_friendly = 1
 
 	announce_span = "green"
-	announce_text = "Alien changelings have infiltrated the crew!\n\
-	<span class='green'>Changelings</span>: Accomplish the objectives assigned to you.\n\
-	<span class='notice'>Crew</span>: Root out and eliminate the changeling menace."
+	announce_text = "Alien changelings have infiltrated the crew!\n \
+	" + span_green("Changelings") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Root out and eliminate the changeling menace!"
 
 	title_icon = "changeling"
 
@@ -38,7 +31,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/num_changelings = 1
 
@@ -98,7 +91,23 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 /proc/is_changeling(mob/M)
 	return M?.mind?.has_antag_datum(/datum/antagonist/changeling)
 
-/proc/changeling_transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
+/datum/antagonist/changeling/proc/transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
+	var/static/list/slot2slot = list(
+		"head" = ITEM_SLOT_HEAD,
+		"wear_mask" = ITEM_SLOT_MASK,
+		"neck" = ITEM_SLOT_NECK,
+		"back" = ITEM_SLOT_BACK,
+		"wear_suit" = ITEM_SLOT_OCLOTHING,
+		"w_uniform" = ITEM_SLOT_ICLOTHING,
+		"shoes" = ITEM_SLOT_FEET,
+		"belt" = ITEM_SLOT_BELT,
+		"gloves" = ITEM_SLOT_GLOVES,
+		"glasses" = ITEM_SLOT_EYES,
+		"ears" = ITEM_SLOT_EARS,
+		"wear_id" = ITEM_SLOT_ID,
+		"s_store" = ITEM_SLOT_SUITSTORE,
+	)
+
 	var/datum/dna/chosen_dna = chosen_prof.dna
 	user.real_name = chosen_prof.name
 	user.underwear = chosen_prof.underwear
@@ -106,41 +115,45 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	user.socks = chosen_prof.socks
 
 	chosen_dna.transfer_identity(user, 1)
-	user.updateappearance(mutcolor_update=1)
 
 	///Bodypart data hack. Will rewrite when I rewrite changelings soon-ish
 	for(var/obj/item/bodypart/BP as() in user.bodyparts)
 		if(IS_ORGANIC_LIMB(BP))
 			BP.update_limb(is_creating = TRUE)
 
+	user.updateappearance(mutcolor_update=1)
 	user.domutcheck()
 
 	//vars hackery. not pretty, but better than the alternative.
-	for(var/slot in GLOB.slots)
-		if(istype(user.vars[slot], GLOB.slot2type[slot]) && !(chosen_prof.exists_list[slot])) //remove unnecessary flesh items
+	for(var/slot in slot2type)
+		if(istype(user.vars[slot], slot2type[slot]) && !(chosen_prof.exists_list[slot])) //remove unnecessary flesh items
 			qdel(user.vars[slot])
 			continue
 
-		if((user.vars[slot] && !istype(user.vars[slot], GLOB.slot2type[slot])) || !(chosen_prof.exists_list[slot]))
+		if((user.vars[slot] && !istype(user.vars[slot], slot2type[slot])) || !(chosen_prof.exists_list[slot]))
 			continue
 
-		if(istype(user.vars[slot], GLOB.slot2type[slot]) && slot == "wear_id") //always remove old flesh IDs, so they get properly updated
+		if(istype(user.vars[slot], slot2type[slot]) && slot == "wear_id") //always remove old flesh IDs, so they get properly updated
 			qdel(user.vars[slot])
 
 		var/obj/item/C
 		var/equip = 0
 		if(!user.vars[slot])
-			var/thetype = GLOB.slot2type[slot]
+			var/thetype = slot2type[slot]
 			equip = 1
 			C = new thetype(user)
 
-		else if(istype(user.vars[slot], GLOB.slot2type[slot]))
+		else if(istype(user.vars[slot], slot2type[slot]))
 			C = user.vars[slot]
 
 		C.appearance = chosen_prof.appearance_list[slot]
 		C.name = chosen_prof.name_list[slot]
 		C.flags_cover = chosen_prof.flags_cover_list[slot]
+		C.lefthand_file = chosen_prof.lefthand_file_list[slot]
+		C.righthand_file = chosen_prof.righthand_file_list[slot]
 		C.item_state = chosen_prof.item_state_list[slot]
+		C.worn_icon = chosen_prof.worn_icon_list[slot]
+		C.worn_icon_state = chosen_prof.worn_icon_state_list[slot]
 
 		if(istype(C, /obj/item/card/id/changeling) && chosen_prof.id_job_name)
 			var/obj/item/card/id/changeling/flesh_id = C
@@ -148,7 +161,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 			flesh_id.hud_state = chosen_prof.id_hud_state
 
 		if(equip)
-			user.equip_to_slot_or_del(C, GLOB.slot2slot[slot])
+			user.equip_to_slot_or_del(C, slot2slot[slot])
 			if(!QDELETED(C))
 				ADD_TRAIT(C, TRAIT_NODROP, CHANGELING_TRAIT)
 

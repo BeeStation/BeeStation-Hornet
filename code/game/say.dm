@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_CTF_BLUE]" = "blueteamradio"
 	))
 
-/atom/movable/proc/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, atom/source=src)
+/atom/movable/proc/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, range = 7, atom/source=src)
 	if(!can_speak())
 		return
 	if(message == "" || !message)
@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	spans |= speech_span
 	if(!language)
 		language = get_selected_language()
-	send_speech(message, 7, source, , spans, message_language=language)
+	send_speech(message, range, source, , spans, message_language=language)
 
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(istype(D) && D.display_icon(src))
 			languageicon = "[D.get_icon()] "
 
-	messagepart = "[space]<span class='message'>[say_emphasis(messagepart)]</span></span>"
+	messagepart = "[space][span_message("[say_emphasis(messagepart)]")]</span>"
 
 	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
@@ -240,9 +240,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
 	if(ishuman(M))
 		// Humans use their job as seen on the crew manifest. This is so the AI
 		// can know their job even if they don't carry an ID.
-		var/datum/data/record/findjob = find_record("name", name, GLOB.data_core.general)
-		if(findjob)
-			job = findjob.fields["rank"]
+		var/datum/record/crew/found_record = find_record(name, GLOB.manifest.general)
+		if(found_record)
+			job = found_record.rank
 		else
 			job = "Unknown"
 	else if(iscarbon(M))  // Carbon nonhuman

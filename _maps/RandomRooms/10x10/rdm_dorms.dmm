@@ -153,7 +153,7 @@
 /area/template_noop)
 "AG" = (
 /obj/structure/closet/crate/trashcart,
-/obj/item/trash/can/food/peaches/maint,
+/obj/item/trash/canned/peaches/maint,
 /obj/item/trash/chips,
 /obj/item/trash/energybar,
 /turf/open/floor/plating,
@@ -312,7 +312,7 @@
 /area/template_noop)
 "Vu" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/waterbottle/empty{
+/obj/item/reagent_containers/cup/glass/waterbottle/empty{
 	pixel_x = -6;
 	pixel_y = 7
 	},

@@ -4,7 +4,7 @@
 GLOBAL_LIST_EMPTY(radial_menus)
 
 /atom/movable/screen/radial
-	icon = 'icons/mob/radial.dmi'
+	icon = 'icons/hud/radials/radial_generic.dmi'
 	appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
@@ -368,6 +368,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	/// If provided, will display an info button that will put this text in your chat
 	var/info
+
+	/// If provided, this will be the name the radial slice hud button. This has priority over everything else.
+	var/name
 
 /datum/radial_menu_choice/Destroy(force, ...)
 	. = ..()

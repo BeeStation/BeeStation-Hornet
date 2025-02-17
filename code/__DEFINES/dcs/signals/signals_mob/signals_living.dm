@@ -35,10 +35,13 @@
 #define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
 	/// When returned from `COMSIG_ATOM_SINGULARITY_TRY_MOVE`, the singularity will move to that turf
 	#define SINGULARITY_TRY_MOVE_BLOCK (1 << 0)
-#define COMSIG_LIVING_CAN_TRACK "mob_can_track"					///from base of /mob/living/can_track()
+///from base of /mob/living/can_track()
+#define COMSIG_LIVING_CAN_TRACK "mob_can_track"
 	#define COMPONENT_CANT_TRACK 1
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
+///(NOT on humans) from mob/living/*/UnarmedAttack(): (atom/target, proximity, modifiers)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 
@@ -69,3 +72,25 @@
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
+
+/// from /datum/status_effect/incapacitating/stamcrit/on_apply()
+#define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
+///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
+#define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
+///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)
+#define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
+	/// Block the electrocute_act() proc from proceeding
+	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
+///sent by stuff like stunbatons and tasers: ()
+///from base of mob/living/set_body_position()
+#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
+/// Sent to a mob being injected with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
+/// Sent to a mob being withdrawn from with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
+///from base of mob/living/set_usable_legs()
+#define COMSIG_LIVING_LIMBLESS_SLOWDOWN  "living_limbless_slowdown"
+/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
+#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+///From living/set_resting(): (new_resting, silent, instant)
+#define COMSIG_LIVING_RESTING "living_resting"

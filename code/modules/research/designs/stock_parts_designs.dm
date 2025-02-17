@@ -316,3 +316,13 @@
 	build_path = /obj/item/stock_parts/subspace/transmitter
 	category = list("Stock Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/water_recycler
+	name = "Water Recycler"
+	desc = "A small hydrostatic reclaimer, it takes moisture out of the air and returns it back to the source."
+	id = "w-recycler"
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(/datum/material/plastic = 200, /datum/material/iron = 50)
+	build_path = /obj/item/stock_parts/water_recycler
+	category = list("Stock Parts")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE

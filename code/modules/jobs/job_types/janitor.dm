@@ -1,7 +1,7 @@
 /datum/job/janitor
 	title = JOB_NAME_JANITOR
 	description = "Clean up vomit, trash, and other messes around the station. Put down signs to warn people of slipping hazards, and eradicate rodents when you find them. Keep the station clean and tidy."
-	department_for_prefs = DEPT_BITFLAG_SRV
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -42,3 +42,9 @@
 	if(GARBAGEDAY in SSevents.holidays)
 		l_pocket = /obj/item/gun/ballistic/revolver
 		r_pocket = /obj/item/ammo_box/a357
+
+/datum/outfit/job/janitor/get_types_to_preload()
+	. = ..()
+	if(GARBAGEDAY in SSevents.holidays)
+		. += /obj/item/gun/ballistic/revolver
+		. += /obj/item/ammo_box/a357

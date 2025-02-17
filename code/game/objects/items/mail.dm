@@ -25,8 +25,8 @@
 
 	var/static/list/generic_goodies = list(
 		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
-		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game			= 10,
-		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy	= 10,
+		/obj/item/reagent_containers/cup/soda_cans/pwr_game			= 10,
+		/obj/item/reagent_containers/cup/soda_cans/monkey_energy	= 10,
 		/obj/item/food/cheesiehonkers 			= 10,
 		/obj/item/food/candy						= 10,
 		/obj/item/food/chips						= 10,
@@ -48,11 +48,11 @@
 			/obj/item/firing_pin,
 			/obj/item/storage/lockbox/loyalty,
 			/obj/item/grenade/clusterbuster/cleaner,
-			/obj/item/book/granter/spell/mimery_blockade,
+			/obj/item/book/granter/action/spell/mime,
 			/obj/item/gun/ballistic/rifle/boltaction/enchanted,
 			/obj/item/melee/classic_baton/police/telescopic,
-			/obj/item/reagent_containers/glass/bottle/random_virus/minor,
-			/obj/item/reagent_containers/glass/bottle/random_virus,
+			/obj/item/reagent_containers/cup/bottle/random_virus/minor,
+			/obj/item/reagent_containers/cup/bottle/random_virus,
 			/obj/item/gun/ballistic/revolver/nagant
 		)
 
@@ -83,11 +83,11 @@
 	var/datum/mind/recipient
 	if(recipient_ref)
 		recipient = recipient_ref.resolve()
-	var/msg = "<span class='notice'><i>You notice the postmarking on the front of the mail...</i></span>"
+	var/msg = span_notice("<i>You notice the postmarking on the front of the mail...</i>")
 	if(recipient)
-		msg += "\n<span class='info'>Certified NT mail for [recipient].</span>"
+		msg += "\n[span_info("Certified NT mail for [recipient].")]"
 	else
-		msg += "\n<span class='info'>Certified mail for [GLOB.station_name].</span>"
+		msg += "\n[span_info("Certified mail for [GLOB.station_name].")]"
 	. += "\n[msg]"
 
 
@@ -135,7 +135,7 @@
 
 		if(sort_tag != destination_tag.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[destination_tag.currTag])
-			to_chat(user, "<span class='notice'>*[tag]*</span>")
+			to_chat(user, span_notice("*[tag]*"))
 			sort_tag = destination_tag.currTag
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
@@ -146,22 +146,22 @@
 		// whether a mind can actually be qdel'd is an exercise for the reader
 		if(recipient && recipient != user?.mind)
 			if(!is_changeling(user) && !(user?.mind?.has_antag_datum(/datum/antagonist/obsessed)))
-				to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
+				to_chat(user, span_notice("You can't open somebody else's mail! That's <em>immoral</em>!"))
 				return
 			var/can_open = FALSE
 			var/datum/antagonist/obsessed/obs_datum = locate() in user?.mind?.antag_datums
 			if(obs_datum)
 				if(obs_datum.trauma.obsession.name != recipient.name)
-					to_chat(user, "<span class='notice'>This <em>worthless</em> piece of parchment isn't adressed to your beloved!</span>")
+					to_chat(user, span_notice("This <em>worthless</em> piece of parchment isn't adressed to your beloved!"))
 					return
 				can_open = TRUE
 			if(user.real_name != recipient.name && !can_open)
-				to_chat(user, "<span class='warning'>We must keep our disguise intact.</span>")  // cuz your disguise cant open the mail so you shouldnt either
+				to_chat(user, span_warning("We must keep our disguise intact."))  // cuz your disguise cant open the mail so you shouldnt either
 				return
 
 	user.visible_message("[user] start to unwrap a package...", \
-			"<span class='notice'>You start to unwrap the package...</span>", \
-			"<span class='italics'>You hear paper ripping.</span>")
+			span_notice("You start to unwrap the package..."), \
+			span_italics("You hear paper ripping."))
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
@@ -190,10 +190,10 @@
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
-		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
-		if(R) // datacore is primary
-			color = get_chatcolor_by_hud(R.fields["hud"])
-		else if(this_job.title) // when they have no datacore, roundstart job will be base
+		var/datum/record/crew/R = find_record(recipient.name, GLOB.manifest.general)
+		if(R) // manifest is primary
+			color = get_chatcolor_by_hud(R.hud)
+		else if(this_job.title) // when they have no manifest, roundstart job will be base
 			color = get_chatcolor_by_hud(this_job.title)
 		if(!color)
 			color = COLOR_WHITE
@@ -204,7 +204,7 @@
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
 		if(target_atom.type in danger_goodies)
-			message_admins("<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECEIVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]</span>")
+			message_admins(span_adminnotice("<b><font color=orange>DANGEROUS ITEM RECEIVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]"))
 
 	return TRUE
 

@@ -77,7 +77,7 @@
 	if(..())
 		return
 	if(morph.movement_type & VENTCRAWLING)
-		to_chat(morph, "<span class='danger'>It's too cramped, you can't do that here!.</span></span>")
+		to_chat(morph, span_danger("It's too cramped, you can't do that here!"))
 		return
 	var/ref = params["id"]
 	var/atom/movable/target = locate(ref) in morph.contents
@@ -86,7 +86,7 @@
 	switch(action)
 		if("drop")
 			morph.RemoveContents(target)
-			morph.visible_message("<span class='warning'>[morph] spits <span class='name'>[target]</span> out!</span>")
+			morph.visible_message(span_warning("[morph] spits [span_name("[target]")] out!"))
 			playsound(morph, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
 			return TRUE
 		if("disguise")
@@ -94,7 +94,7 @@
 			return FALSE
 		if("throw")
 			morph.throwatom = target
-			to_chat(morph, "<span class='danger'>You prepare to throw <span class='name'>[target]</span></span>")
+			to_chat(morph, span_danger("You prepare to throw [span_name("[target]")]"))
 			return TRUE
 		if("unthrow")
 			morph.throwatom = null
@@ -110,11 +110,11 @@
 		switch(action)
 			if("digest")
 				if(HAS_TRAIT(living_target, TRAIT_HUSK))
-					to_chat(morph, "<span class='warning'><span class='name'>[living_target]</span> has already been stripped of all nutritional value!</span>")
+					to_chat(morph, span_warning("[span_name("[living_target]")] has already been stripped of all nutritional value!"))
 					return FALSE
 				if(morph.throwatom == living_target)
 					morph.throwatom = null
-				to_chat(morph, "<span class='danger'>You begin digesting <span class='name'>[living_target]</span></span>")
+				to_chat(morph, span_danger("You begin digesting [span_name("[living_target]")]"))
 				if(do_after(morph, living_target.maxHealth))
 					if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/simple_animal/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 						var/list/turfs_to_throw = view(2, morph)
@@ -130,7 +130,7 @@
 					living_target.take_overall_damage(burn = 50)
 					living_target.become_husk("burn") // Digested bodies can be fixed with synthflesh.
 					morph.adjustHealth(-(living_target.maxHealth * 0.5))
-					to_chat(morph, "<span class='danger'>You digest <span class='name'>[living_target]</span>, restoring some health</span>")
+					to_chat(morph, span_danger("You digest [span_name("[living_target]")], restoring some health"))
 					playsound(morph, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)
 					return TRUE
 	else if(isitem(target))
@@ -140,25 +140,25 @@
 				item.attack_self(morph)
 			if("usethrow")
 				morph.throwatom = item
-				to_chat(morph, "<span class='danger'>You prepare to throw [item]</span>")
+				to_chat(morph, span_danger("You prepare to throw [item]"))
 				item.attack_self(morph)
 				return TRUE
 			if("digest")
 				if(morph.throwatom == item)
 					morph.throwatom = null
 				if(item.resistance_flags & (ACID_PROOF | UNACIDABLE | INDESTRUCTIBLE))
-					to_chat(morph, "<span class='danger'>[item] cannot be digested.</span>")
+					to_chat(morph, span_danger("[item] cannot be digested."))
 				else
 					if(item.reagents?.total_volume)
 						var/nutriment_healing = clamp(CEILING(item.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 0.4, 1), 0, 5)
 						var/vitamin_healing = clamp(CEILING(item.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/vitamin) * 0.6, 1), 0, 5)
 						if(max(nutriment_healing, vitamin_healing) <= 0)
-							to_chat(morph, "<span class='warning'>There are not enough nutrients in [item] to heal from it!</span>")
+							to_chat(morph, span_warning("There are not enough nutrients in [item] to heal from it!"))
 						else
 							var/max_heal_amt = round(morph.maxHealth * MORPH_MAX_HEALING_FROM_FOOD)
 							var/left_to_heal = max_heal_amt - food_healed
 							if(left_to_heal <= 0)
-								to_chat(morph, "<span class='warning'>You cannot heal any more from food at the moment!</span>")
+								to_chat(morph, span_warning("You cannot heal any more from food at the moment!"))
 								return TRUE
 							var/amt_healed = min(nutriment_healing + vitamin_healing, left_to_heal)
 							if(amt_healed > 0)
@@ -167,11 +167,11 @@
 								addtimer(CALLBACK(src, PROC_REF(food_healing_decay_timer), amt_healed), MORPH_FOOD_HEALING_DECAY_TIME)
 								playsound(morph, 'sound/items/eatfood.ogg', vol = 150, vary = TRUE)
 								qdel(item)
-								to_chat(morph, "<span class='danger'>You digest [item], regaining a small bit of health from its nutrients!</span>")
+								to_chat(morph, span_danger("You digest [item], regaining a small bit of health from its nutrients!"))
 								return TRUE
 					playsound(morph, 'sound/items/welder.ogg', vol = 150, vary = TRUE)
 					qdel(item)
-					to_chat(morph, "<span class='danger'>You digest [item].</span>")
+					to_chat(morph, span_danger("You digest [item]."))
 					return TRUE
 
 /datum/morph_stomach/proc/food_healing_decay_timer(amt)
@@ -185,13 +185,12 @@
 
 /datum/action/innate/morph_stomach/New(our_target)
 	. = ..()
-	button.name = name
 	if(istype(our_target, /datum/morph_stomach))
 		morph_stomach = our_target
 	else
 		CRASH("morph_stomach action created with non stomach")
 
-/datum/action/innate/morph_stomach/Activate()
+/datum/action/innate/morph_stomach/on_activate()
 	morph_stomach.ui_interact(owner)
 
 #undef MORPH_FOOD_HEALING_DECAY_TIME

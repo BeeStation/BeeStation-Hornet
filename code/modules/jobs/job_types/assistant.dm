@@ -4,7 +4,7 @@ Assistant
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
 	description = "Help out around the station or ask the Head of Personnel for an assignment. As the lowest-level position, expect to be treated like an intern most of the time."
-	department_for_prefs = DEPT_BITFLAG_ASSISTANT
+	department_for_prefs = DEPT_NAME_ASSISTANT
 	supervisors = "absolutely everyone"
 	faction = "Station"
 	total_positions = 5
@@ -19,7 +19,7 @@ Assistant
 
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
-	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_LOWER) // Get a job. Job reassignment changes your paycheck now. Get over it.
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	rpg_title = "Lout"
@@ -49,6 +49,8 @@ Assistant
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
 
 /datum/outfit/job/assistant/proc/give_grey_suit(mob/living/carbon/human/target)
+	//We don't cache these, because they can delete on init
+	//Too fragile, better to just eat the cost
 	if (target.jumpsuit_style == PREF_SUIT)
 		uniform = /obj/item/clothing/under/color/grey
 	else

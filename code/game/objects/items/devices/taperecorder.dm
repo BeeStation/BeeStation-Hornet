@@ -23,7 +23,7 @@
 	var/open_panel = FALSE
 	var/canprint = TRUE
 	var/list/icons_available = list()
-	var/radial_icon_file = 'icons/obj/radial_taperecorder.dmi'
+	var/radial_icon_file = 'icons/hud/radials/radial_taperecorder.dmi'
 	///Whether we've warned during this recording session that the tape is almost up.
 	var/time_warned = FALSE
 	///Seconds under which to warn that the tape is almost up.
@@ -43,13 +43,13 @@
 /obj/item/taperecorder/proc/readout()
 	if(mytape)
 		if(playing)
-			return "<span class='notice'><b>PLAYING</b></span>"
+			return span_notice("<b>PLAYING</b>")
 		else
 			var/time = mytape.used_capacity / 10 //deciseconds / 10 = seconds
 			var/mins = round(time / 60)
 			var/secs = time - mins * 60
-			return "<span class='notice'><b>[mins]</b>m <b>[secs]</b>s</span>"
-	return "<span class='notice'><b>NO TAPE INSERTED</b></span>"
+			return span_notice("<b>[mins]</b>m <b>[secs]</b>s")
+	return span_notice("<b>NO TAPE INSERTED</b>")
 
 /obj/item/taperecorder/proc/update_available_icons()
 	icons_available = list()
@@ -78,7 +78,7 @@
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) || isobserver(user))
-		. += "<span class='notice'>The wire panel is [open_panel ? "opened" : "closed"]. The display reads:</span>"
+		. += span_notice("The wire panel is [open_panel ? "opened" : "closed"]. The display reads:")
 		. += "[readout()]"
 
 /obj/item/taperecorder/attackby(obj/item/I, mob/user, params)
@@ -113,7 +113,7 @@
 	..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/taperecorder/attack_hand(mob/user)
+/obj/item/taperecorder/attack_hand(mob/user, list/modifiers)
 	if(loc == user)
 		if(mytape)
 			if(!user.is_holding(src))
@@ -396,7 +396,7 @@
 	var/list/timestamp_otherside = list()
 	var/unspooled = FALSE
 	var/list/icons_available = list()
-	var/radial_icon_file = 'icons/obj/radial_tape.dmi'
+	var/radial_icon_file = 'icons/hud/radials/radial_tape.dmi'
 
 /obj/item/tape/fire_act(exposed_temperature, exposed_volume)
 	unspool()
@@ -495,7 +495,7 @@
 	icon_state = "random_tape"
 
 /obj/item/tape/random/Initialize(mapload)
-	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple", "tape_greyscale")]"
+	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple", "greyscale")]"
 	. = ..()
 
 /obj/item/tape/dyed

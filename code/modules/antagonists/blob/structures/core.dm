@@ -3,15 +3,20 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	desc = "A huge, pulsating yellow mass."
-	max_integrity = 400
+	max_integrity = BLOB_CORE_MAX_HP
 	max_hit_damage = 40
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 90, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/blob_core
 	explosion_block = 6
 	point_return = -1
 	health_regen = 0 //we regen in Life() instead of when pulsed
 	resistance_flags = LAVA_PROOF
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
+
+
+/datum/armor/blob_core
+	fire = 75
+	acid = 90
 
 /obj/structure/blob/core/Initialize(mapload, client/new_overmind = null, placed = 0)
 	GLOB.blob_cores += src
@@ -50,7 +55,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
 
 /obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(obj_integrity > 0)
+	if(atom_integrity > 0)
 		if(overmind) //we should have an overmind, but...
 			overmind.update_health_hud()
 
@@ -62,10 +67,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
 	if(overmind)
 		overmind.blobstrain.core_process()
 		overmind.update_health_hud()
-	Pulse_Area(overmind, 12, 4, 3)
-	for(var/obj/structure/blob/normal/B in range(1, src))
-		if(DT_PROB(2.5, delta_time))
+	Pulse_Area(overmind, BLOB_CORE_CLAIM_RANGE, BLOB_CORE_PULSE_RANGE, BLOB_CORE_EXPAND_RANGE)
+
+	for(var/obj/structure/blob/normal/B in range(BLOB_CORE_STRONG_REINFORCE_RANGE, src))
+		if(DT_PROB(BLOB_REINFORCE_CHANCE, delta_time))
 			B.change_to(/obj/structure/blob/shield/core, overmind)
+	for(var/obj/structure/blob/normal/B in range(BLOB_CORE_REFLECTOR_REINFORCE_RANGE, src))
+		if(DT_PROB(BLOB_REINFORCE_CHANCE, delta_time))
+			B.change_to(/obj/structure/blob/shield/reflective, overmind)
 	..()
 
 /obj/structure/blob/core/ComponentInitialize()

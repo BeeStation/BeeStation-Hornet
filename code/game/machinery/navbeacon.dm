@@ -9,7 +9,7 @@
 	desc = "A radio beacon used for bot navigation."
 	layer = UNDER_CATWALK
 	max_integrity = 500
-	armor = list(MELEE = 70,  BULLET = 70, LASER = 70, ENERGY = 70, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_navbeacon
 
 	var/open = FALSE		// true if cover is open
 	var/locked = TRUE		// true if controls are locked
@@ -19,6 +19,15 @@
 	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
 
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+
+
+/datum/armor/machinery_navbeacon
+	melee = 70
+	bullet = 70
+	laser = 70
+	energy = 70
+	fire = 80
+	acid = 80
 
 /obj/machinery/navbeacon/Initialize(mapload)
 	. = ..()
@@ -78,7 +87,7 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open = !open
 
-		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
+		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", span_notice("You [open ? "open" : "close"] the beacon's cover."))
 
 		update_icon()
 
@@ -86,16 +95,16 @@
 		if(open)
 			if (src.allowed(user))
 				src.locked = !src.locked
-				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
+				to_chat(user, span_notice("Controls are now [src.locked ? "locked" : "unlocked"]."))
 			else
-				to_chat(user, "<span class='danger'>Access denied.</span>")
+				to_chat(user, span_danger("Access denied."))
 			updateDialog()
 		else
-			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
+			to_chat(user, span_warning("You must open the cover first!"))
 	else
 		return ..()
 
-/obj/machinery/navbeacon/attack_ai(mob/user)
+/obj/machinery/navbeacon/attack_silicon(mob/user)
 	interact(user, 1)
 
 /obj/machinery/navbeacon/attack_paw()
@@ -109,7 +118,7 @@
 		return		// prevent intraction when T-scanner revealed
 
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI
-		to_chat(user, "<span class='warning'>The beacon's control cover is closed!</span>")
+		to_chat(user, span_warning("The beacon's control cover is closed!"))
 		return
 
 

@@ -2,13 +2,14 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	lighting_colour_tube = "#ffe8d2"
 	lighting_colour_bulb = "#ffdcb7"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	camera_networks = list(CAMERA_NETWORK_MINE)
 
 /area/mine/explored
 	name = "Mine"
@@ -44,15 +45,9 @@
 /area/mine/lobby
 	name = "Mining Station"
 
-/area/mine/storage
-	name = "Mining Station Storage"
-
 /area/mine/production
 	name = "Mining Station Starboard Wing"
 	icon_state = "mining_production"
-
-/area/mine/abandoned
-	name = "Abandoned Mining Station"
 
 /area/mine/living_quarters
 	name = "Mining Station Port Wing"
@@ -67,14 +62,9 @@
 	lighting_colour_tube = "#edfdff"
 	lighting_colour_bulb = "#dafffd"
 
-/area/mine/cafeteria
-	name = "Mining Station Cafeteria"
-
-/area/mine/hydroponics
-	name = "Mining Station Hydroponics"
-
-/area/mine/sleeper
-	name = "Mining Station Emergency Sleeper"
+/area/mine/gateway
+	name = "Mining Station Gateway Terminal"
+	icon_state = "mining_dock"
 
 /area/mine/laborcamp
 	name = "Labor Camp"
@@ -92,34 +82,13 @@
 	icon_state = "medresearch"
 	requires_power = TRUE	//Remove this when there will be pre-built APCs in the area.
 
-/area/mine/science/shuttledock
-	name = "Outpost"
-
-/area/mine/science/xenoarch
-	name = "Outpost Xenoarcheology Lab"
-
-/area/mine/science/elevator	//for going to lavaland depths if there will be those
-	name = "Outpost Elevator"
-
-/area/mine/science/experimentor
-	name = "Outpost Experimentor Lab"
-
-/area/mine/science/heavyexperiment
-	name = "Outpost Reinforced Chamber"
-
-/area/mine/science/robotics
-	name = "Outpost Robotics"
-
-
-
-
 
 
 /**********************Lavaland Areas**************************/
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	ambient_buzz = 'sound/ambience/magma.ogg'

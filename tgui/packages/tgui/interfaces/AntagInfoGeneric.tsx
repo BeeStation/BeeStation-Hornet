@@ -9,8 +9,8 @@ type Info = {
   objectives: Objective[];
 };
 
-export const AntagInfoGeneric = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoGeneric = (_props) => {
+  const { data } = useBackend<Info>();
   const { antag_name, objectives } = data;
   return (
     <Window width={620} height={250} theme="neutral">

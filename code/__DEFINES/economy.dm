@@ -1,12 +1,23 @@
+/// Number of paychecks jobs start with at the creation of a new bank account for a player (So at shift-start or game join, but not a blank new account.)
 #define STARTING_PAYCHECKS 5
 
-#define PAYCHECK_ASSISTANT 10
-#define PAYCHECK_MINIMAL 10
-#define PAYCHECK_EASY 15
-#define PAYCHECK_MEDIUM 40
-#define PAYCHECK_HARD 70
-#define PAYCHECK_COMMAND_NT   20 // given from nanotrasen to heads
-#define PAYCHECK_COMMAND_DEPT 80 // given from department budget
+//Current Paycheck values.
+///Paygrade for Prisoners, Assistants, and gimmicks (not VIP).
+#define PAYCHECK_LOWER 15
+///Paygrade for Civilians
+#define PAYCHECK_MINIMAL 30
+///Paygrade for Service and menial tasks
+#define PAYCHECK_EASY 35
+///Paygrade for most regular crew with importance to the station
+#define PAYCHECK_MEDIUM 60
+///Second only to heads, these people die.
+#define PAYCHECK_HARD 90
+// given from nanotrasen to heads
+#define PAYCHECK_COMMAND_NT 20
+// given from department budget
+#define PAYCHECK_COMMAND_DEPT 80
+// Command Total
+#define PAYCHECK_COMMAND 100
 #define PAYCHECK_VIP 2000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
 			or be targeted by antags for their money - oh, my, being rich isn't always good.

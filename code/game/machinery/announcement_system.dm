@@ -58,12 +58,12 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	if(P.tool_behaviour == TOOL_SCREWDRIVER)
 		P.play_tool_sound(src)
 		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance hatch of [src].</span>")
+		to_chat(user, span_notice("You [panel_open ? "open" : "close"] the maintenance hatch of [src]."))
 		update_icon()
 	else if(default_deconstruction_crowbar(P))
 		return
 	else if(P.tool_behaviour == TOOL_MULTITOOL && panel_open && (machine_stat & BROKEN))
-		to_chat(user, "<span class='notice'>You reset [src]'s firmware.</span>")
+		to_chat(user, span_notice("You reset [src]'s firmware."))
 		set_machine_stat(machine_stat & ~BROKEN)
 		update_icon()
 	else
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	str = replacetext(str, "%STNAME", "[GLOB.station_name]")  // retrieves the stations name
 	return str
 
-/obj/machinery/announcement_system/proc/announce(message_type, user, rank, list/channels)
+/obj/machinery/announcement_system/proc/announce(message_type, user, rank, list/channels, exploration_payout = 0)
 	if(!is_operational)
 		return
 
@@ -91,6 +91,8 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		message = CompileText("%PERSON, %RANK has been moved to cryo storage.", user, rank)
 	else if(message_type == "ARRIVALS_BROKEN")
 		message = "The arrivals shuttle has been damaged. Docking for repairs."
+	else if(message_type == "EXPLORATION_PAYOUT")
+		message = "Exploration objective completed. [exploration_payout / channels.len] credits have been distributed to the departmental budget."
 
 	if(channels.len == 0)
 		radio.talk_into(src, message, null)
@@ -99,7 +101,6 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 			radio.talk_into(src, message, channel)
 
 //config stuff
-
 
 /obj/machinery/announcement_system/ui_state(mob/user)
 	return GLOB.default_state
@@ -126,7 +127,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	if(!usr.canUseTopic(src, !issilicon(usr)))
 		return
 	if(machine_stat & BROKEN)
-		visible_message("<span class='warning'>[src] buzzes.</span>", "<span class='hear'>You hear a faint buzz.</span>")
+		visible_message(span_warning("[src] buzzes."), span_hear("You hear a faint buzz."))
 		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, TRUE)
 		return
 	switch(action)
@@ -155,19 +156,17 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 			update_icon()
 			. = TRUE
 
-/obj/machinery/announcement_system/attack_robot(mob/living/silicon/user)
-	. = attack_ai(user)
-
-/obj/machinery/announcement_system/attack_ai(mob/user)
+/obj/machinery/announcement_system/attack_silicon(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	if(machine_stat & BROKEN)
-		to_chat(user, "<span class='warning'>[src]'s firmware appears to be malfunctioning!</span>")
+		to_chat(user, span_warning("[src]'s firmware appears to be malfunctioning!"))
 		return
 	interact(user)
+	return TRUE
 
 /obj/machinery/announcement_system/proc/act_up() //does funny breakage stuff
-	if(!obj_break()) // if badmins flag this unbreakable or its already broken
+	if(!atom_break()) // if badmins flag this unbreakable or its already broken
 		return
 
 	arrival = pick("#!@%ERR-34%2 CANNOT LOCAT@# JO# F*LE!", "CRITICAL ERROR 99.", "ERR)#: DA#AB@#E NOT F(*ND!")

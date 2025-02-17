@@ -70,7 +70,7 @@
 			SpeakPeace(list("Congratulations.", "By my very loose calculations you've now wasted a decent chunk of the round doing this.", "But you've seen this meme to its conclusion, and that's an experience in itself, right?"))
 		if(251)
 			SpeakPeace(list("Anyway, here.", "I can't give you anything that would impact the progression of the round.","But you've earned this at least."))
-			var/obj/item/reagent_containers/food/drinks/trophy/silver_cup/the_ride = new(get_turf(user))
+			var/obj/item/reagent_containers/cup/glass/trophy/silver_cup/the_ride = new(get_turf(user))
 			the_ride.name = "Overextending The Joke: Second Place"
 			the_ride.desc = "There's a point where this needed to stop, and we've clearly passed it."
 		if(252)
@@ -81,7 +81,7 @@
 			SpeakPeace(list("The ends exists somewhere beyond meaningful milestones.", "There will be no more messages until then.", "You disgust me."))
 		if(5643)
 			user.client.give_award(/datum/award/achievement/misc/time_waste, user)
-			var/obj/item/reagent_containers/food/drinks/trophy/gold_cup/never_ends = new(get_turf(user))
+			var/obj/item/reagent_containers/cup/glass/trophy/gold_cup/never_ends = new(get_turf(user))
 			never_ends.name = "Overextending The Joke: First Place"
 			never_ends.desc = "And so we are left alone with our regrets."
 		else
@@ -98,13 +98,13 @@
 /obj/structure/speaking_tile/attack_hulk(mob/user, does_attack_animation = 0)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_larva(mob/user)
+/obj/structure/speaking_tile/attack_larva(mob/user, list/modifiers)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_ai(mob/user)
+/obj/structure/speaking_tile/attack_silicon(mob/user)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_slime(mob/user)
+/obj/structure/speaking_tile/attack_slime(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_animal(mob/user)
@@ -112,7 +112,7 @@
 
 /obj/structure/speaking_tile/proc/SpeakPeace(list/statements)
 	for(var/i in 1 to statements.len)
-		say("<span class='deadsay'>[statements[i]]</span>")
+		say(span_deadsay("[statements[i]]"))
 		if(i != statements.len)
 			sleep(30)
 

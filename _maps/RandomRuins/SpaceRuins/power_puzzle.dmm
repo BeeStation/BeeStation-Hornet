@@ -347,6 +347,9 @@
 /obj/machinery/power/apc/auto_name/directional/east{
 	start_charge = 0
 	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bo" = (
@@ -405,6 +408,9 @@
 "bw" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bx" = (
@@ -778,6 +784,9 @@
 "cI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cJ" = (
@@ -787,10 +796,16 @@
 "cK" = (
 /obj/item/export_scanner,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cL" = (
 /obj/effect/decal/cleanable/ash,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cM" = (
@@ -845,6 +860,29 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
+"hg" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/central)
+"sm" = (
+/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/central)
+"yH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/central)
 "Ce" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -866,6 +904,13 @@
 	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/central2)
+"Ys" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/storage/central)
 
 (1,1,1) = {"
 aa
@@ -1043,7 +1088,7 @@ ah
 bl
 bq
 bp
-cD
+sm
 cI
 cJ
 cg
@@ -1076,7 +1121,7 @@ bl
 bq
 bp
 bn
-cJ
+Ys
 cJ
 cA
 bp
@@ -1140,7 +1185,7 @@ aY
 br
 bp
 bp
-bp
+yH
 bp
 bp
 bp
@@ -1172,7 +1217,7 @@ aY
 bs
 bp
 bp
-bp
+yH
 cN
 cO
 bp
@@ -1268,7 +1313,7 @@ aN
 bv
 cC
 cF
-bA
+hg
 cF
 bA
 cn

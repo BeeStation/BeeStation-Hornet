@@ -47,12 +47,12 @@
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
 	var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)
 	if(myhead)
-		user.visible_message("<span class='suicide'>[user] puts [user.p_their()] head into \the [src], and begins closing it! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] puts [user.p_their()] head into \the [src], and begins closing it! It looks like [user.p_theyre()] trying to commit suicide!"))
 		myhead.dismember()
 		myhead.forceMove(src)//force your enemies to kill themselves with your head collection box!
 		playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
 		return BRUTELOSS
-	user.visible_message("<span class='suicide'>[user] beating [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] beating [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/storage/box/update_overlays()
@@ -66,12 +66,12 @@
 	if(!foldable || (flags_1 & HOLOGRAM_1))
 		return
 	if(contents.len)
-		to_chat(user, "<span class='warning'>You can't fold this box with items still inside!</span>")
+		to_chat(user, span_warning("You can't fold this box with items still inside!"))
 		return
 	if(!ispath(foldable))
 		return
 
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	to_chat(user, span_notice("You fold [src] flat."))
 	var/obj/item/I = new foldable
 	qdel(src)
 	user.put_in_hands(I)
@@ -119,7 +119,7 @@
 	item_state = null
 	alpha = 0
 
-/obj/item/storage/box/mime/attack_hand(mob/user)
+/obj/item/storage/box/mime/attack_hand(mob/user, list/modifiers)
 	..()
 	if(user.mind.miming)
 		alpha = 255
@@ -162,6 +162,9 @@
 	illustration = "survival"
 	desc = "A compact box that is designed to hold specific emergency supplies"
 	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
+	var/mask_type = /obj/item/clothing/mask/breath
+	var/internal_type = /obj/item/tank/internals/emergency_oxygen
+	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
 
 /obj/item/storage/box/survival/Initialize(mapload)
 	. = ..()
@@ -181,62 +184,61 @@
 	STR.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
+	if(!isplasmaman(loc))
+		new mask_type(src)
+		new internal_type(src)
+	else
+		new /obj/item/tank/internals/plasmaman/belt(src)
+
+	if(!isnull(medipen_type))
+		new medipen_type(src)
+
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
 		new /obj/item/radio/off(src)
 
-// Ordinary survival box
-/obj/item/storage/box/survival/normal/PopulateContents()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+/obj/item/storage/box/survival/proc/wardrobe_removal()
+	if(!isplasmaman(loc)) //We need to specially fill the box with plasmaman gear, since it's intended for one
+		return
+	var/obj/item/mask = locate(mask_type) in src
+	var/obj/item/internals = locate(internal_type) in src
+	new /obj/item/tank/internals/plasmaman/belt(src)
+	qdel(mask) // Get rid of the items that shouldn't be
+	qdel(internals)
 
 // Mining survival box
+/obj/item/storage/box/survival/mining
+	mask_type = /obj/item/clothing/mask/gas/explorer
+
 /obj/item/storage/box/survival/mining/PopulateContents()
 	..()
-	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+	new /obj/item/stack/medical/gauze(src)
 
 // Engineer survival box
-/obj/item/storage/box/survival/engineer/PopulateContents()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
+/obj/item/storage/box/survival/engineer
+	name = "extended-capacity survival box"
+	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank."
+	internal_type = /obj/item/tank/internals/emergency_oxygen/engi
 
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+/obj/item/storage/box/survival/engineer/radio/PopulateContents()
+	..() // we want the regular items too.
+	new /obj/item/radio/off(src)
 
 // Syndie survival box
-/obj/item/storage/box/syndie/PopulateContents()
-	new /obj/item/clothing/mask/gas/syndicate(src)
-
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+/obj/item/storage/box/survival/syndie //why is this its own thing if it's just the engi box with a syndie mask and medipen?
+	name = "extended-capacity survival box"
+	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank."
+	mask_type = /obj/item/clothing/mask/gas/syndicate
+	internal_type = /obj/item/tank/internals/emergency_oxygen/engi
+	medipen_type = null
 
 // Security survival box
-/obj/item/storage/box/survival/security/PopulateContents()
-	..()
-	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
+/obj/item/storage/box/survival/security
+	mask_type = /obj/item/clothing/mask/gas/sechailer
 
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+/obj/item/storage/box/survival/security/radio/PopulateContents()
+	..() // we want the regular stuff too
+	new /obj/item/radio/off(src)
 
 // Clown survival box
 
@@ -244,15 +246,11 @@
 	icon_state = "hugbox"
 	illustration = "heart"
 
-/obj/item/storage/box/survival/hug/PopulateContents()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
+	internal_type = /obj/item/tank/internals/emergency_oxygen/clown
 
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen/clown(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+// Medical survival box
+/obj/item/storage/box/survival/medical
+	mask_type = /obj/item/clothing/mask/breath/medical
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -316,7 +314,7 @@
 
 /obj/item/storage/box/beakers/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker( src )
+		new /obj/item/reagent_containers/cup/beaker( src )
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
@@ -324,18 +322,18 @@
 
 /obj/item/storage/box/beakers/bluespace/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+		new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 
 /obj/item/storage/box/beakers/variety
 	name = "beaker variety box"
 
 /obj/item/storage/box/beakers/variety/PopulateContents()
-	new /obj/item/reagent_containers/glass/beaker(src)
-	new /obj/item/reagent_containers/glass/beaker/large(src)
-	new /obj/item/reagent_containers/glass/beaker/plastic(src)
-	new /obj/item/reagent_containers/glass/beaker/meta(src)
-	new /obj/item/reagent_containers/glass/beaker/noreact(src)
-	new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+	new /obj/item/reagent_containers/cup/beaker(src)
+	new /obj/item/reagent_containers/cup/beaker/large(src)
+	new /obj/item/reagent_containers/cup/beaker/plastic(src)
+	new /obj/item/reagent_containers/cup/beaker/meta(src)
+	new /obj/item/reagent_containers/cup/beaker/noreact(src)
+	new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 
 /obj/item/storage/box/medsprays
 	name = "box of medical sprayers"
@@ -503,7 +501,7 @@
 
 /obj/item/storage/box/drinkingglasses/PopulateContents()
 	for(var/i in 1 to 6)
-		new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+		new /obj/item/reagent_containers/cup/glass/drinkingglass(src)
 
 /obj/item/storage/box/condimentbottles
 	name = "box of condiment bottles"
@@ -512,7 +510,7 @@
 
 /obj/item/storage/box/condimentbottles/PopulateContents()
 	for(var/i in 1 to 6)
-		new /obj/item/reagent_containers/food/condiment(src)
+		new /obj/item/reagent_containers/condiment(src)
 
 /obj/item/storage/box/cups
 	name = "box of paper cups"
@@ -521,7 +519,7 @@
 
 /obj/item/storage/box/cups/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup( src )
+		new /obj/item/reagent_containers/cup/glass/sillycup( src )
 
 /obj/item/storage/box/donkpockets
 
@@ -540,7 +538,7 @@
 /obj/item/storage/box/donkpockets/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/food/donkpocket))
+	STR.set_holdable(list(/obj/item/food/donkpocket))
 
 /obj/item/storage/box/donkpockets/donkpocketspicy
 	name = "box of spicy-flavoured donk-pockets"
@@ -589,7 +587,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 7
-	STR.can_hold = typecacheof(list(/obj/item/food/monkeycube))
+	STR.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/monkeycubes/PopulateContents()
 	for(var/i in 1 to 5)
@@ -609,7 +607,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 3
-	STR.can_hold = typecacheof(list(/obj/item/food/monkeycube))
+	STR.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/gorillacubes/PopulateContents()
 	for(var/i in 1 to 3)
@@ -749,7 +747,7 @@
 
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
-	desc = "<span class='alert'>Keep out of reach of children.</span>"
+	desc = span_alert("Keep out of reach of children.")
 	illustration = "mousetrap"
 
 /obj/item/storage/box/mousetraps/PopulateContents()
@@ -774,7 +772,7 @@
 /obj/item/storage/box/snappops/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/toy/snappop))
+	STR.set_holdable(list(/obj/item/toy/snappop))
 	STR.max_items = 8
 
 /obj/item/storage/box/snappops/PopulateContents()
@@ -796,7 +794,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 10
-	STR.can_hold = typecacheof(list(/obj/item/match))
+	STR.set_holdable(list(/obj/item/match))
 
 /obj/item/storage/box/matches/PopulateContents()
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_FILL_TYPE, /obj/item/match)
@@ -819,7 +817,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 21
-	STR.can_hold = typecacheof(list(/obj/item/light/tube, /obj/item/light/bulb))
+	STR.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
 	STR.max_combined_w_class = 21
 	STR.click_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
 
@@ -871,14 +869,14 @@
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	user.visible_message(span_suicide("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
 	return BRUTELOSS
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, 1, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /////clown box & honkbot assembly
 /obj/item/storage/box/clown
@@ -889,12 +887,12 @@
 /obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
 	if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
 		if(contents.len) //prevent accidently deleting contents
-			to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
+			to_chat(user, span_warning("You need to empty [src] out first!"))
 			return
 		if(!user.temporarilyRemoveItemFromInventory(I))
 			return
 		qdel(I)
-		to_chat(user, "<span class='notice'>You add some wheels to the [src]! You've got a honkbot assembly now! Honk!</span>")
+		to_chat(user, span_notice("You add some wheels to the [src]! You've got a honkbot assembly now! Honk!"))
 		var/obj/item/bot_assembly/honkbot/A = new
 		qdel(src)
 		user.put_in_hands(A)
@@ -1018,7 +1016,7 @@
 	for(var/i in 1 to 3)
 		new /obj/item/food/grown/tomato(src)
 		new /obj/item/food/meatball(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/wine(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/wine(src)
 
 /obj/item/storage/box/ingredients/vegetarian
 	theme_name = "vegetarian"
@@ -1083,7 +1081,7 @@
 		new /obj/item/food/grown/oat(src)
 	new /obj/item/food/grown/wheat(src)
 	new /obj/item/food/grown/cocoapod(src)
-	new /obj/item/reagent_containers/honeycomb(src)
+	new /obj/item/reagent_containers/cup/glass/honeycomb(src)
 	new /obj/item/seeds/flower/poppy(src)
 
 /obj/item/storage/box/ingredients/carnivore

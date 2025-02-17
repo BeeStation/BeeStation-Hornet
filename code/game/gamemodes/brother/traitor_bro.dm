@@ -8,10 +8,10 @@
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 
 	announce_span = "danger"
-	announce_text = "There are Syndicate agents and Blood Brothers on the station!\n\
-	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
-	<span class='danger'>Blood Brothers</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Do not let the traitors or brothers succeed!"
+	announce_text = "There are Syndicate agents and Blood Brothers on the station!\n \
+	" + span_danger("Traitors") + ": Accomplish your objectives.\n \
+	" + span_danger("Blood Brothers") + ": Accomplish your objectives.\n \
+	" + span_notice("Crew") + ": Do not let the traitors or brothers succeed!"
 
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
@@ -25,7 +25,7 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += JOB_NAME_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		restricted_jobs += GLOB.command_positions
+		restricted_jobs += SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 
 	var/list/datum/mind/possible_brothers = get_players_for_role(/datum/antagonist/brother, /datum/role_preference/antagonist/blood_brother)
 

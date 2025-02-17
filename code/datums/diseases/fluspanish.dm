@@ -7,7 +7,7 @@
 	cure_chance = 10
 	agent = "1nqu1s1t10n flu virion"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 0.75
+	spreading_modifier = 0.75
 	desc = "If left untreated the subject will burn to death for being a heretic."
 	danger = DISEASE_DANGEROUS
 
@@ -21,7 +21,7 @@
 			if(prob(5))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>You're burning in your own skin!</span>")
+				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
 				affected_mob.take_bodypart_damage(0,5)
 
 		if(3)
@@ -31,6 +31,6 @@
 			if(prob(5))
 				affected_mob.emote("cough")
 			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You're burning in your own skin!</span>")
+				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
 				affected_mob.take_bodypart_damage(0,5)
 	return

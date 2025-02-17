@@ -6,7 +6,7 @@
 /obj/machinery/grill
 	name = "grill"
 	desc = "Just like the old days."
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "grill_open"
 	density = TRUE
 	pass_flags_self = PASSMACHINE | LETPASSTHROW // sorta like griddles
@@ -40,7 +40,7 @@
 	if(istype(I, /obj/item/stack/sheet/mineral/coal) || istype(I, /obj/item/stack/sheet/wood))
 		var/obj/item/stack/S = I
 		var/stackamount = S.get_amount()
-		to_chat(user, "<span class='notice'>You put [stackamount] [I]s in [src].</span>")
+		to_chat(user, span_notice("You put [stackamount] [I]s in [src]."))
 		if(istype(I, /obj/item/stack/sheet/mineral/coal))
 			grill_fuel += (500 * stackamount)
 		else
@@ -49,12 +49,12 @@
 		update_appearance()
 		return
 	if(I.resistance_flags & INDESTRUCTIBLE)
-		to_chat(user, "<span class='warning'>You don't feel it would be wise to grill [I]...</span>")
+		to_chat(user, span_warning("You don't feel it would be wise to grill [I]..."))
 		return ..()
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents.has_reagent(/datum/reagent/consumable/monkey_energy))
 			grill_fuel += (20 * (I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy)))
-			to_chat(user, "<span class='notice'>You pour the Monkey Energy in [src].</span>")
+			to_chat(user, span_notice("You pour the Monkey Energy in [src]."))
 			I.reagents.remove_reagent(/datum/reagent/consumable/monkey_energy, I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy))
 			update_appearance()
 			return
@@ -62,12 +62,12 @@
 		if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
 			return ..()
 		else if(!grill_fuel)
-			to_chat(user, "<span class='notice'>There is not enough fuel.</span>")
+			to_chat(user, span_notice("There is not enough fuel."))
 			return
 		else if(!grilled_item && user.transferItemToLoc(I, src))
 			grilled_item = I
 			RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
-			to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
+			to_chat(user, span_notice("You put the [grilled_item] on [src]."))
 			update_appearance()
 			grill_loop.start()
 			return
@@ -114,12 +114,12 @@
 		new /obj/item/stack/rods(loc, 5)
 	..()
 
-/obj/machinery/grill/attack_ai(mob/user)
-	return
+/obj/machinery/grill/attack_silicon(mob/user)
+	return TRUE
 
-/obj/machinery/grill/attack_hand(mob/user)
+/obj/machinery/grill/attack_hand(mob/user, list/modifiers)
 	if(grilled_item)
-		to_chat(user, "<span class='notice'>You take out [grilled_item] from [src].</span>")
+		to_chat(user, span_notice("You take out [grilled_item] from [src]."))
 		grilled_item.forceMove(drop_location())
 		update_appearance()
 		return

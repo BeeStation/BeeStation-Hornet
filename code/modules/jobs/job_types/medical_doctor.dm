@@ -1,7 +1,7 @@
 /datum/job/medical_doctor
 	title = JOB_NAME_MEDICALDOCTOR
 	description = "Treat people of both minor wounds, serious injuries and resurrect them from the dead. Make use of surgeries and surgical tools, Chemistry's pills and patches, Virology's viruses and in dire cases, Genetics' cloning."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -12,8 +12,8 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/medical_doctor
 
-	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	extra_access = list(ACCESS_CHEMISTRY, ACCESS_GENETICS,  ACCESS_VIROLOGY)
+	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_VIROLOGY)
+	extra_access = list(ACCESS_CHEMISTRY, ACCESS_GENETICS)
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
@@ -58,4 +58,5 @@
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe

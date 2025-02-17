@@ -35,6 +35,7 @@
 		"light_replacer",
 		"mechfab",
 		"micro_mani",
+		"oven_tray",
 		"package_wrap",
 		"paystand",
 		"plasmaglass",
@@ -56,12 +57,12 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"space_heater",
+		"syrup_bottle",
+		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -294,6 +295,7 @@
 		"griddle",
 		"microwave",
 		"monkey_recycler",
+		"oven",
 		"processor",
 		"reagentgrinder",
 		"smartfridge",
@@ -392,7 +394,6 @@
 	description = "A refresher course on modern engineering technology."
 	prereq_ids = list("base")
 	design_ids = list(
-		"aac_electronics",
 		"adv_capacitor",
 		"adv_matter_bin",
 		"adv_scanning",
@@ -429,6 +430,8 @@
 		"researchdisk_locator",
 		"rped",
 		"scanner_gate",
+		"shieldwallgen",
+		"shieldwallgen_atmos",
 		"solarcontrol",
 		"stack_console",
 		"stack_machine",
@@ -1097,9 +1100,11 @@
 		"idcardconsole",
 		"libraryconsole",
 		"mining",
+		"photobooth",
 		"objective",
 		"rdcamera",
 		"seccamera",
+		"security_photobooth",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
@@ -1164,7 +1169,7 @@
 	prereq_ids = list("comptech")
 	design_ids = list(
 		"automated_announcement",
-		"med_data",
+		"records/medical",
 		"prisonmanage",
 		"secdata",
 		"vendor",
@@ -1238,6 +1243,7 @@
 		"night_visision_goggles",
 		"nvgmesons",
 		"security_hud_night",
+		"scigoggles_night",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -1649,7 +1655,7 @@
 		"pin_testing",
 		"tele_shield",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/smartmine
@@ -1675,8 +1681,11 @@
 		"adv_engi",
 		"weaponry",
 	)
-	design_ids = list("pin_loyalty")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	design_ids = list(
+		"pin_loyalty",
+		"shieldbelt"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/advmine
@@ -2004,7 +2013,7 @@
 	display_name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("ballistic_weapons")
-	design_ids = list("mech_scattershot")
+	design_ids = list("mech_scattershot", "mech_scattershot_ammo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -2014,7 +2023,7 @@
 	display_name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("ballistic_weapons")
-	design_ids = list("mech_carbine")
+	design_ids = list("mech_carbine", "mech_carbine_ammo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -2078,7 +2087,16 @@
 	display_name = "Exosuit Weapon (SGL-6 Grenade Launcher)"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("explosive_weapons")
-	design_ids = list("mech_grenade_launcher")
+	design_ids = list("mech_grenade_launcher", "mech_grenade_launcher_ammo")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/mech_missile_rack
+	id = "mech_missile_rack"
+	display_name = "Exosuit Weapon (BRM-6 Missile Rack)"
+	description = "An advanced piece of mech weaponry"
+	prereq_ids = list("explosive_weapons")
+	design_ids = list("mech_missile_rack", "mech_missile_rack_ammo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -2088,7 +2106,7 @@
 	display_name = "Exosuit Module (SOB-3 Clusterbang Launcher)"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("explosive_weapons")
-	design_ids = list("clusterbang_launcher")
+	design_ids = list("clusterbang_launcher", "clusterbang_launcher_ammo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -2118,7 +2136,7 @@
 	display_name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("ballistic_weapons")
-	design_ids = list("mech_lmg")
+	design_ids = list("mech_lmg", "mech_lmg_ammo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -2390,7 +2408,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2433,7 +2451,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2472,7 +2490,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/crowbar/abductor,
 		/obj/item/multitool/abductor,

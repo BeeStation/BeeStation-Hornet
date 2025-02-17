@@ -60,7 +60,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/plating{
 	broken = 1
 	},

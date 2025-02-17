@@ -28,6 +28,7 @@
 /datum/component/riding/Initialize()
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
+	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, PROC_REF(vehicle_turned))
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
@@ -42,20 +43,24 @@
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
+	M.updating_glide_size = TRUE
 	if(del_on_unbuckle_all && !AM.has_buckled_mobs())
 		qdel(src)
 
 /datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
 
-	handle_vehicle_offsets()
+	var/atom/movable/movable_parent = parent
+	M.set_glide_size(movable_parent.glide_size)
+	M.updating_glide_size = FALSE
+	handle_vehicle_offsets(movable_parent.dir)
 
-/datum/component/riding/proc/handle_vehicle_layer()
+/datum/component/riding/proc/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
 	var/static/list/defaults = list(TEXT_NORTH = OBJ_LAYER, TEXT_SOUTH = ABOVE_MOB_LAYER, TEXT_EAST = ABOVE_MOB_LAYER, TEXT_WEST = ABOVE_MOB_LAYER)
-	. = defaults["[AM.dir]"]
-	if(directional_vehicle_layers["[AM.dir]"])
-		. = directional_vehicle_layers["[AM.dir]"]
+	. = defaults["[dir]"]
+	if(directional_vehicle_layers["[dir]"])
+		. = directional_vehicle_layers["[dir]"]
 	if(isnull(.))	//you can set it to null to not change it.
 		. = AM.layer
 	AM.layer = .
@@ -63,24 +68,32 @@
 /datum/component/riding/proc/set_vehicle_dir_layer(dir, layer)
 	directional_vehicle_layers["[dir]"] = layer
 
-/datum/component/riding/proc/vehicle_moved(datum/source)
+/datum/component/riding/proc/vehicle_moved(datum/source, dir)
 	SIGNAL_HANDLER
 
-	var/atom/movable/AM = parent
-	for(var/i in AM.buckled_mobs)
-		ride_check(i)
-	handle_vehicle_offsets()
-	handle_vehicle_layer()
+	var/atom/movable/movable_parent = parent
+	if (isnull(dir))
+		dir = movable_parent.dir
+	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
+	for (var/m in movable_parent.buckled_mobs)
+		ride_check(m)
+		var/mob/buckled_mob = m
+		buckled_mob.set_glide_size(movable_parent.glide_size)
+	handle_vehicle_offsets(dir)
+	handle_vehicle_layer(dir)
+
+/datum/component/riding/proc/vehicle_turned(datum/source, _old_dir, new_dir)
+	vehicle_moved(source, new_dir)
 
 /datum/component/riding/proc/ride_check(mob/living/M)
 	var/atom/movable/AM = parent
 	var/mob/AMM = AM
 	var/kick_us_off
-	if((ride_check_rider_restrained && HAS_TRAIT(M, TRAIT_RESTRAINED)) || (ride_check_rider_incapacitated && M.incapacitated(TRUE, TRUE)))
+	if((ride_check_rider_restrained && HAS_TRAIT(M, TRAIT_RESTRAINED)) || (ride_check_rider_incapacitated && M.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
 		kick_us_off = TRUE
-	if(kick_us_off || (istype(AMM) && ((ride_check_ridden_restrained && HAS_TRAIT(AMM, TRAIT_RESTRAINED)) || (ride_check_ridden_incapacitated && AMM.incapacitated(TRUE, TRUE)))))
-		M.visible_message("<span class='warning'>[M] falls off of [AM]!</span>", \
-						"<span class='warning'>You fall off of [AM]!</span>")
+	if(kick_us_off || (istype(AMM) && ((ride_check_ridden_restrained && HAS_TRAIT(AMM, TRAIT_RESTRAINED)) || (ride_check_ridden_incapacitated && AMM.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))))
+		M.visible_message(span_warning("[M] falls off of [AM]!"), \
+						span_warning("You fall off of [AM]!"))
 		AM.unbuckle_mob(M)
 	return TRUE
 
@@ -88,17 +101,16 @@
 	var/atom/movable/AM = parent
 	AM.unbuckle_mob(M)
 
-/datum/component/riding/proc/handle_vehicle_offsets()
+/datum/component/riding/proc/handle_vehicle_offsets(dir)
 	var/atom/movable/AM = parent
-	var/AM_dir = "[AM.dir]"
+	var/AM_dir = "[dir]"
 	var/passindex = 0
 	if(AM.has_buckled_mobs())
 		for(var/m in AM.buckled_mobs)
 			passindex++
 			var/mob/living/buckled_mob = m
 			var/list/offsets = get_offsets(passindex)
-			var/rider_dir = get_rider_dir(passindex)
-			buckled_mob.setDir(rider_dir)
+			buckled_mob.setDir(dir)
 			dir_loop:
 				for(var/offsetdir in offsets)
 					if(offsetdir == AM_dir)
@@ -138,12 +150,6 @@
 		return FALSE
 	riding_offsets["[index]"] = offsets
 
-//Override this to set the passengers/riders dir based on which passenger they are.
-//ie: rider facing the vehicle's dir, but passenger 2 facing backwards, etc.
-/datum/component/riding/proc/get_rider_dir(pass_index)
-	var/atom/movable/AM = parent
-	return AM.dir
-
 //KEYS
 /datum/component/riding/proc/keycheck(mob/user)
 	return !keytype || user.is_holding_item_of_type(keytype)
@@ -175,7 +181,7 @@
 	last_vehicle_move = world.time
 
 	if(emped && empable)
-		to_chat(user, "<span class='notice'>\The [AM]'s controls aren't responding!</span>")
+		to_chat(user, span_notice("\The [AM]'s controls aren't responding!"))
 		return
 	if(keycheck(user))
 		var/turf/next = get_step(AM, direction)
@@ -200,10 +206,10 @@
 		else
 			last_move_diagonal = FALSE
 
-		handle_vehicle_layer()
-		handle_vehicle_offsets()
+		handle_vehicle_layer(AM.dir)
+		handle_vehicle_offsets(AM.dir)
 	else
-		to_chat(user, "<span class='notice'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
+		to_chat(user, span_notice("You'll need the keys in one of your hands to [drive_verb] [AM]."))
 
 /datum/component/riding/proc/Unbuckle(atom/movable/M)
 	addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), M), 0, TIMER_UNIQUE)
@@ -238,25 +244,25 @@
 	var/mob/living/carbon/human/H = parent
 	H.add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 
-/datum/component/riding/human/proc/on_host_unarmed_melee(atom/target)
+/datum/component/riding/human/proc/on_host_unarmed_melee(mob/living/carbon/human/human_parent, atom/target, proximity, modifiers)
 	SIGNAL_HANDLER
 
-	var/mob/living/carbon/human/H = parent
-	if(H.a_intent == INTENT_DISARM && (target in H.buckled_mobs))
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && (target in human_parent.buckled_mobs))
 		force_dismount(target)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/component/riding/human/handle_vehicle_layer()
+/datum/component/riding/human/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
 	if(AM.buckled_mobs?.len)
 		for(var/mob/M in AM.buckled_mobs) //ensure proper layering of piggyback and carry, sometimes weird offsets get applied
 			M.layer = MOB_LAYER
 		if(!AM.buckle_lying)
-			if(AM.dir == SOUTH)
+			if(dir == SOUTH)
 				AM.layer = ABOVE_MOB_LAYER
 			else
 				AM.layer = OBJ_LAYER
 		else
-			if(AM.dir == NORTH)
+			if(dir == NORTH)
 				AM.layer = OBJ_LAYER
 			else
 				AM.layer = ABOVE_MOB_LAYER
@@ -275,8 +281,8 @@
 	var/atom/movable/AM = parent
 	AM.unbuckle_mob(user)
 	user.Paralyze(60)
-	user.visible_message("<span class='warning'>[AM] pushes [user] off of [AM.p_them()]!</span>", \
-						"<span class='warning'>[AM] pushes you off of [AM.p_them()]!</span>")
+	user.visible_message(span_warning("[AM] pushes [user] off of [AM.p_them()]!"), \
+						span_warning("[AM] pushes you off of [AM.p_them()]!"))
 
 /datum/component/riding/cyborg
 	del_on_unbuckle_all = TRUE
@@ -290,20 +296,20 @@
 			if(R.module && R.module.ride_allow_incapacitated)
 				kick = FALSE
 		if(kick)
-			to_chat(user, "<span class='userdanger'>You fall off of [AM]!</span>")
+			to_chat(user, span_userdanger("You fall off of [AM]!"))
 			Unbuckle(user)
 			return
 	if(iscarbon(user))
 		var/mob/living/carbon/carbonuser = user
 		if(!carbonuser.usable_hands)
 			Unbuckle(user)
-			to_chat(user, "<span class='userdanger'>You can't grab onto [AM] with no hands!</span>")
+			to_chat(user, span_userdanger("You can't grab onto [AM] with no hands!"))
 			return
 
-/datum/component/riding/cyborg/handle_vehicle_layer()
+/datum/component/riding/cyborg/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
 	if(AM.buckled_mobs && AM.buckled_mobs.len)
-		if(AM.dir == SOUTH)
+		if(dir == SOUTH)
 			AM.layer = ABOVE_MOB_LAYER
 		else
 			AM.layer = OBJ_LAYER
@@ -313,16 +319,16 @@
 /datum/component/riding/cyborg/get_offsets(pass_index) // list(dir = x, y, layer)
 	return list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list( 6, 3))
 
-/datum/component/riding/cyborg/handle_vehicle_offsets()
+/datum/component/riding/cyborg/handle_vehicle_offsets(dir)
 	var/atom/movable/AM = parent
 	if(AM.has_buckled_mobs())
 		for(var/mob/living/M in AM.buckled_mobs)
-			M.setDir(AM.dir)
+			M.setDir(dir)
 			if(iscyborg(AM))
 				var/mob/living/silicon/robot/R = AM
 				if(istype(R.module))
-					M.pixel_x = R.module.ride_offset_x[dir2text(AM.dir)]
-					M.pixel_y = R.module.ride_offset_y[dir2text(AM.dir)]
+					M.pixel_x = R.module.ride_offset_x[dir2text(dir)]
+					M.pixel_y = R.module.ride_offset_y[dir2text(dir)]
 			else
 				..()
 
@@ -332,8 +338,8 @@
 	var/turf/target = get_edge_target_turf(AM, AM.dir)
 	var/turf/targetm = get_step(get_turf(AM), AM.dir)
 	M.Move(targetm)
-	M.visible_message("<span class='warning'>[M] is thrown clear of [AM]!</span>", \
-					"<span class='warning'>You're thrown clear of [AM]!</span>")
+	M.visible_message(span_warning("[M] is thrown clear of [AM]!"), \
+					span_warning("You're thrown clear of [AM]!"))
 	M.throw_at(target, 14, 5, AM)
 	M.Knockdown(60)
 

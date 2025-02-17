@@ -1,5 +1,5 @@
 /obj/item/melee/transforming
-	sharpness = IS_SHARP
+	sharpness = SHARP_DISMEMBER
 	bleed_force = 0
 	var/active = FALSE
 	var/force_on = 30 //force when active
@@ -32,8 +32,8 @@
 			attack_verb_continuous = attack_verb_off
 		if(embedding)
 			updateEmbedding()
-	if(is_sharp())
-		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound, !active)
+	if(sharpness)
+		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound)
 
 /obj/item/melee/transforming/attack_self(mob/living/carbon/user)
 	if(transform_weapon(user))
@@ -78,13 +78,6 @@
 		bleed_force = initial(bleed_force)
 		if(embedding)
 			disableEmbedding()
-	if(is_sharp())
-		var/datum/component/butchering/BT = LoadComponent(/datum/component/butchering)
-		BT.butchering_enabled = TRUE
-	else
-		var/datum/component/butchering/BT = GetComponent(/datum/component/butchering)
-		if(BT)
-			BT.butchering_enabled = FALSE
 	transform_messages(user, supress_message_text)
 	add_fingerprint(user)
 	return TRUE
@@ -99,5 +92,5 @@
 
 /obj/item/melee/transforming/proc/clumsy_transform_effect(mob/living/user)
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_bodypart_damage(5,5)
