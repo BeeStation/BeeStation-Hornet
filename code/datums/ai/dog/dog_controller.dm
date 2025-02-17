@@ -282,7 +282,7 @@
  * * user - refers to user who will see the screentip when the proper context is there
  */
 /datum/ai_controller/dog/proc/add_context(datum/source, datum/screentip_context/context, mob/living/user)
-	if (user.a_intent == INTENT_HARM)
+	if (user.combat_mode)
 		context.add_attack_hand_action("Punch")
 	else
 		context.add_attack_hand_action("Pet")
