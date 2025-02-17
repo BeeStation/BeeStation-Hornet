@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixes the RBMK not removing input gases when it should.
