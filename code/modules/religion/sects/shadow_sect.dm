@@ -54,16 +54,15 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/affected_mobs = list()
 
-
 /obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	sect.obelisk_number = sect.obelisk_number - 1
-	sect.obelisks -= src
+	if (sect)
+		sect.obelisk_number = sect.obelisk_number - 1
+		sect.obelisks -= src
 	STOP_PROCESSING(SSobj, src)
 	for(var/X in affected_mobs)
 		on_mob_leave(X)
