@@ -281,9 +281,9 @@
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/add_context_self(datum/screentip_context/context, mob/user)
-	context.add_ctrl_click_action("Unlock interface")
+	context.add_alt_click_action("Unlock interface")
 	if (context.accept_silicons())
-		context.add_alt_click_action("Toggle Power")
+		context.add_ctrl_click_action("Toggle Power")
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()

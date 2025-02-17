@@ -261,5 +261,5 @@
 		add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
 
 /datum/screentip_context/proc/add_generic_unfasten_actions(obj/machinery/machine, need_panel_open = FALSE)
-	if (machine.panel_open || !need_panel_open)
+	if ((machine.panel_open || !need_panel_open) & machine.anchored)
 		add_left_click_tool_action("Unfasten", TOOL_WRENCH)

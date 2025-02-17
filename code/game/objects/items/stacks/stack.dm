@@ -81,7 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 /obj/item/stack/add_context_self(datum/screentip_context/context, mob/user)
 
 	context.add_left_click_action("Open stack crafting")
-	context.add_alt_click_action("Split Stack")
+	context.add_right_click_action("Split Stack")
 
 
 /** Sets the amount of materials per unit for this stack.
