@@ -3,6 +3,7 @@
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	banning_key = ROLE_MORPH
+	special_role = ROLE_MORPH
 	antagpanel_category = "Morph"
 	show_name_in_check_antagonists = TRUE
 	ui_name = "AntagInfoMorph"

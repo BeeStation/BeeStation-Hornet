@@ -86,14 +86,14 @@
 		return TRUE
 
 /datum/game_mode/proc/setup_maps()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/setup_antag_candidates()
 	antag_candidates = get_players_for_role(antag_datum, role_preference)
 
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/create_special_antags()
 	var/list/living_crew = list()

@@ -1,233 +1,163 @@
+/*
+* Order of procs being called by 'dynamic.dm'
+*
+* check_points_requirement()
+* trim_candidates()
+* allowed()
+* pre_execute()
+* execute()
+* rule_process()
+*/
+
 /datum/dynamic_ruleset
-	/// For admin logging and round end screen.
-	// If you want to change this variable name, the force latejoin/midround rulesets
-	// to not use sort_names.
-	var/name = ""
-	/// For admin logging and round end screen, do not change this unless making a new rule type.
-	var/ruletype = ""
-	/// If set to TRUE, the rule won't be discarded after being executed, and dynamic will call rule_process() every time it ticks.
-	var/persistent = FALSE
-	/// If set to TRUE, dynamic mode will be able to draft this ruleset again later on. (doesn't apply for roundstart rules)
-	var/repeatable = FALSE
-	/// If set higher than 0 decreases weight by itself causing the ruleset to appear less often the more it is repeated.
-	var/repeatable_weight_decrease = 2
-	/// List of players that are being drafted for this rule
-	var/list/mob/candidates = list()
-	/// List of players that were selected for this rule
-	var/list/datum/mind/assigned = list()
-	/// The /datum/role_preference typepath used for this ruleset.
-	var/role_preference = null
-	/// The antagonist datum that is assigned to the mobs mind on ruleset execution.
-	var/datum/antagonist/antag_datum = null
-	/// If set, and config flag protect_roles_from_antagonist is false, then the rule will not pick players from these roles.
-	var/list/protected_roles = list()
-	/// If set, rule will deny candidates from those roles always.
-	var/list/restricted_roles = list()
-	/// If set, rule will only accept candidates from those roles, IMPORTANT: DOES NOT WORK ON ROUNDSTART RULESETS.
-	var/list/exclusive_roles = list()
-	/// If set, there needs to be a certain amount of players doing those roles (among the players who won't be drafted) for the rule to be drafted IMPORTANT: DOES NOT WORK ON ROUNDSTART RULESETS.
-	var/list/enemy_roles = list()
-	/// If enemy_roles was set, this is the amount of enemy job workers needed per threat_level range (0-10,10-20,etc) IMPORTANT: DOES NOT WORK ON ROUNDSTART RULESETS.
-	var/required_enemies = list(1,1,0,0,0,0,0,0,0,0)
-	/// The rule needs this many candidates (post-trimming) to be executed (example: Cult needs 4 players at round start)
-	var/required_candidates = 0
-	/// 0 -> 9, probability for this rule to be picked against other rules. If zero this will effectively disable the rule.
+	/*
+	 * Configurable Variables
+	*/
+
+	/// For admin logging and round end screen. (traitors, wizard, nuclear emergency)
+	var/name = "Ruleset"
+	/// For admin logging and round end screen. (Roundstart, Midround, Latejoin)
+	var/rule_category
+	/// If set to TRUE, dynamic will call rule_process() every time it ticks.
+	var/should_process = FALSE
+	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
-	/// Threat cost for this rule, this is decreased from the mode's threat when the rule is executed.
-	var/cost = 0
-	/// Cost per level the rule scales up.
-	var/scaling_cost = 0
-	/// How many times a rule has scaled up upon getting picked.
-	var/scaled_times = 0
-	/// Used for the roundend report
-	var/total_cost = 0
+	/// What is the minimum number of population points for this to be drafted.
+	var/minimum_points_required = 0
+	/// How many points this ruleset costs to run. (How many players for one of this antagonist to spawn)
+	var/points_cost = 5
+	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
+	var/drafted_players_amount = 1
+	/// The role preference used for this ruleset
+	var/role_preference = /datum/role_preference/antagonist/traitor
+	/// The antag datum assigned to a candidates mind on execution
+	var/antag_datum = /datum/antagonist/traitor
+	/// If the config flag 'protect_roles_from_antagonist' is TRUE, then these roles are excluded
+	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	/// The roles that can never have this ruleset applied to them regardless of the config
+	var/list/banned_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)
+	var/list/blocking_rulesets = list()
+	/// Should the chosen player(s) be picked based off of their antagonist reputation
+	var/use_antag_reputation = FALSE
 	/// A flag that determines how the ruleset is handled. Check __DEFINES/dynamic.dm for an explanation of the accepted values.
 	var/flags = NONE
-	/// Pop range per requirement. If zero defaults to mode's pop_per_requirement.
-	var/pop_per_requirement = 0
-	/// Requirements are the threat level requirements per pop range.
-	/// With the default values, The rule will never get drafted below 10 threat level (aka: "peaceful extended"), and it requires a higher threat level at lower pops.
-	var/list/requirements = list(40,30,20,10,10,10,10,10,10,10)
-	/// Reference to the mode, use this instead of SSticker.mode.
-	var/datum/game_mode/dynamic/mode = null
-	/// If a ruleset type which is in this list has been executed, then the ruleset will not be executed.
-	var/list/blocking_rules = list()
-	/// The minimum amount of players required for the rule to be considered.
-	var/minimum_players = 0
-	/// The maximum amount of players required for the rule to be considered.
-	/// Anything below zero or exactly zero is ignored.
-	var/maximum_players = 0
-	/// Calculated during acceptable(), used in scaling and team sizes.
-	var/indice_pop = 0
-	/// Base probability used in scaling. The higher it is, the more likely to scale. Kept as a var to allow for config editing._SendSignal(sigtype, list/arguments)
-	var/base_prob = 60
-	/// Delay for when execute will get called from the time of post_setup (roundstart) or process (midround/latejoin).
-	/// Make sure your ruleset works with execute being called during the game when using this, and that the clean_up proc reverts it properly in case of faliure.
-	var/delay = 0
-	/// Whether antag rep should be considered when rolling candidates or not.
-	var/consider_antag_rep = FALSE
 
-	/// Judges the amount of antagonists to apply, for both solo and teams.
-	/// Note that some antagonists (such as traitors, lings, heretics, etc) will add more based on how many times they've been scaled.
-	/// Written as a linear equation--ceil(x/denominator) + offset, or as a fixed constant.
-	/// If written as a linear equation, will be in the form of `list("denominator" = denominator, "offset" = offset).
-	var/antag_cap = 0
+	/*
+	 * Backend Variables
+	*/
 
-	/// Whether thie ruleset has been determined to be dead or not already.
-	/// Currently only used for logging.
-	var/dead = FALSE
-
-	/// Whether repeated_mode_adjust weight changes have been logged already.
-	var/logged_repeated_mode_adjust = FALSE
-
-	/// Was this ruleset spawned from the lategame mode?
-	var/lategame_spawned = FALSE
-
+	/// Reference to the dynamic gamemode
+	var/dynamic
+	/// List of possible people for this ruleset to draft. Assigned in 'dynamic.dm' 'pick_roundstart_rulesets()'
+	var/candidates = list()
+	/// List of minds to become antag
+	var/chosen_minds = list()
 
 /datum/dynamic_ruleset/New(datum/game_mode/dynamic/dynamic_mode)
-	// Rulesets can be instantiated more than once, such as when an admin clicks
-	// "Execute Midround Ruleset". Thus, it would be wrong to perform any
-	// side effects here. Dynamic rulesets should be stateless anyway.
 	SHOULD_NOT_OVERRIDE(TRUE)
+	dynamic = dynamic_mode
+	. = ..()
 
-	mode = dynamic_mode
-	..()
-
-/datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
-	ruletype = "Roundstart"
-	consider_antag_rep = TRUE
-
-// Can be drafted when a player joins the server
-/datum/dynamic_ruleset/latejoin
-	ruletype = "Latejoin"
-
-/// By default, a rule is acceptable if it satisfies the threat level/population requirements.
-/// If your rule has extra checks, such as counting security officers, do that in ready() instead
-/datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
-	if(minimum_players > population)
-		log_game("DYNAMIC: FAIL: [src] failed acceptable: minimum_players ([minimum_players]) > population ([population])")
+/*
+* Check if dynamic has enough points for this event to be possible
+* Called from 'dynamic.dm' 'pick_roundstart_rulesets()'
+*/
+/datum/dynamic_ruleset/proc/check_points_requirement()
+	if(dynamic.roundstart_points < minimum_points_required)
+		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
 		return FALSE
-
-	if(maximum_players > 0 && population > maximum_players)
-		log_game("DYNAMIC: FAIL: [src] failed acceptable: maximum_players ([maximum_players]) < population ([population])")
-		return FALSE
-
-
-	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
-	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
-	var/requirement = requirements[indice_pop]
-	if (threat_level < requirement)
-		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirement])")
-		return FALSE
-
 	return TRUE
 
-/// When picking rulesets, if dynamic picks the same one multiple times, it will "scale up".
-/// However, doing this blindly would result in lowpop rounds (think under 10 people) where over 80% of the crew is antags!
-/// This function is here to ensure the antag ratio is kept under control while scaling up.
-/// Returns how much threat to actually spend in the end.
-/datum/dynamic_ruleset/proc/scale_up(population, max_scale)
-	if (!scaling_cost)
-		return 0
+/*
+* Remove candidates that do not meet your requirements.
+* Usually this doesn't need to be changed unless you need some specific requirements from your candidates.
+* Called from 'dynamic.dm' 'pick_roundstart_rulesets()'
+*/
+/datum/dynamic_ruleset/proc/trim_candidates()
+	for(var/mob/dead/new_player/player in candidates)
+		var/client/client = GET_CLIENT(player)
 
-	var/antag_fraction = 0
-	for(var/_ruleset in (mode.executed_rules + list(src))) // we care about the antags we *will* assign, too
-		var/datum/dynamic_ruleset/ruleset = _ruleset
-		antag_fraction += ((1 + ruleset.scaled_times) * ruleset.get_antag_cap(population)) / mode.roundstart_pop_ready
+		// Connected?
+		if(!client || !player.mind)
+			candidates.Remove(player)
+			continue
 
-	for(var/i in 1 to max_scale)
-		if(antag_fraction < 0.25)
-			scaled_times += 1
-			antag_fraction += get_antag_cap(population) / mode.roundstart_pop_ready // we added new antags, gotta update the %
+		// Antag banned/disabled or not enough hours?
+		if(!client.should_include_for_role(
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
+		))
+			candidates.Remove(player)
+			continue
 
-	return scaled_times * scaling_cost
+		// Already assigned antag?
+		if(player.mind.special_role)
+			candidates.Remove(player)
+			continue
 
-/// Returns what the antag cap with the given population is.
-/datum/dynamic_ruleset/proc/get_antag_cap(population)
-	if (isnum(antag_cap))
-		return antag_cap
+/*
+* Check if all requirements for this ruleset are met.
+* Called from 'dynamic.dm' 'pick_roundstart_rulesets()'
+*/
+/datum/dynamic_ruleset/proc/allowed()
+	if(length(candidates) < drafted_players_amount)
+		// log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
+		return FALSE
+	return TRUE
 
-	return CEILING(population / antag_cap["denominator"], 1) + (antag_cap["offset"] || 0)
+/*
+* Picks a player from the list of candidates.
+* If 'use_antag_reputation' is set to TRUE, take antag_rep into account.
+*/
+/datum/dynamic_ruleset/proc/select_player(list/candidates)
+	var/mob/dead/new_player/selected_player = dynamic && use_antag_reputation ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
 
-/// This is called if persistent variable is true everytime SSTicker ticks.
+	if(selected_player)
+		candidates -= selected_player
+	return selected_player.mind
+
+/*
+* Choose candidates
+* Apply special_role and banned_roles
+* Called from 'dynamic.dm' 'execute_roundstart_rulesets()'
+*/
+/datum/dynamic_ruleset/proc/pre_execute()
+	for(var/i = 1 to drafted_players_amount)
+		var/datum/mind/chosen_mind = select_player()
+
+		GLOB.pre_setup_antags += chosen_mind
+		chosen_minds += chosen_mind
+
+		chosen_mind.special_role = antag_datum.special_role
+		chosen_mind.restricted_roles = banned_roles
+	return TRUE
+
+/*
+* Give your chosen_minds their antag datums.
+* Called from 'dynamic.dm' 'post_setup'
+*/
+/datum/dynamic_ruleset/proc/execute()
+	for(var/datum/mind/chosen_mind in chosen_minds)
+		chosen_mind.add_antag_datum(antag_datum)
+		GLOB.pre_setup_antags -= chosen_mind
+	return DYNAMIC_EXECUTE_SUCCESS
+
+/*
+* If 'should_process' is TRUE this is called every tick.
+*/
 /datum/dynamic_ruleset/proc/rule_process()
 	return
 
-/// Called on game mode pre_setup for roundstart rulesets.
-/// Do everything you need to do before job is assigned here.
-/// IMPORTANT: ASSIGN special_role HERE (for midrounds, this doesn't apply)
-/datum/dynamic_ruleset/proc/pre_execute()
-	return TRUE
 
-/// Called on post_setup on roundstart and when the rule executes on midround and latejoin.
-/// Give your candidates or assignees equipment and antag datum here.
-/datum/dynamic_ruleset/proc/execute(forced = FALSE)
-	for(var/datum/mind/M in assigned)
-		M.add_antag_datum(antag_datum)
-		GLOB.pre_setup_antags -= M
-	return TRUE
-
-/// Here you can perform any additional checks you want. (such as checking the map etc)
-/// Remember that on roundstart no one knows what their job is at this point.
-/// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
-/datum/dynamic_ruleset/proc/ready(forced = FALSE)
-	return check_candidates()
-
-/// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
-/// This one only handles refunding the threat, override in ruleset to clean up the rest.
-/datum/dynamic_ruleset/proc/clean_up()
-	if(!lategame_spawned) // lategame execute failures shouldn't refund
-		mode.refund_threat(cost + (scaled_times * scaling_cost))
-	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
-	mode.threat_log += "[worldtime2text()]: [msg]"
-	message_admins(msg)
-	log_game("DYNAMIC: [ruletype] [name] is cleaning up, failed to execute.")
-
-/// Gets weight of the ruleset
-/// Note that this decreases weight if repeatable is TRUE and repeatable_weight_decrease is higher than 0
-/// Note: If you don't want repeatable rulesets to decrease their weight use the weight variable directly
-/datum/dynamic_ruleset/proc/get_weight()
-	if(repeatable && weight > 1 && repeatable_weight_decrease > 0)
-		for(var/datum/dynamic_ruleset/DR in mode.executed_rules)
-			if(istype(DR, type))
-				weight = max(weight-repeatable_weight_decrease,1)
-	var/list/repeated_mode_adjust = CONFIG_GET(number_list/repeated_mode_adjust)
-	if(CHECK_BITFIELD(flags, PERSISTENT_RULESET) && LAZYLEN(repeated_mode_adjust))
-		var/adjustment = 0
-		for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
-			var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
-			if(!round)
-				continue
-			if(!islist(round))
-				round = list(round)
-			if(name in round)
-				adjustment += repeated_mode_adjust[rounds_ago]
-		if(adjustment)
-			var/old_weight = weight
-			weight *= ((100 - adjustment) / 100)
-			if(!logged_repeated_mode_adjust)
-				log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [weight] by repeated_mode_adjust")
-				logged_repeated_mode_adjust = TRUE
-	return weight
-
-/// Checks if there are enough candidates to run, and logs otherwise
-/datum/dynamic_ruleset/proc/check_candidates()
-	var/candidates_amt = length(candidates)
-	if (required_candidates > candidates_amt)
-		log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates_amt] found)")
-		return FALSE
-	return TRUE
-
-/// Here you can remove candidates that do not meet your requirements.
-/// This means if their job is not correct or they have disconnected you can remove them from candidates here.
-/// Usually this does not need to be changed unless you need some specific requirements from your candidates.
-/datum/dynamic_ruleset/proc/trim_candidates()
-	return
+/datum/dynamic_ruleset/latejoin
+	rule_category = DYNAMIC_LATEJOIN
 
 /// Set mode result and news report here.
 /// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
 /datum/dynamic_ruleset/proc/round_result()
-
+	return
 
 /// Checks if the ruleset is "dead", where all the antags are either dead or deconverted.
 /datum/dynamic_ruleset/proc/is_dead()
@@ -283,39 +213,3 @@
 	log_game("DYNAMIC: ruleset [src] is no longer considered dead")
 	message_admins("DYNAMIC: ruleset [src] is no longer considered dead")
 
-/// Picks a candidate from a list, while potentially taking antag rep into consideration.
-/datum/dynamic_ruleset/proc/antag_pick_n_take(list/candidates)
-	. = (mode && consider_antag_rep) ? mode.antag_pick(candidates, role_preference) : pick(candidates)
-	if(.)
-		candidates -= .
-
-//////////////////////////////////////////////
-//                                          //
-//           ROUNDSTART RULESETS            //
-//                                          //
-//////////////////////////////////////////////
-
-/// Checks if candidates are connected and if they are banned or don't want to be the antagonist.
-/datum/dynamic_ruleset/roundstart/trim_candidates()
-	for(var/mob/dead/new_player/P in candidates)
-		var/client/client = GET_CLIENT(P)
-		if (!client || !P.mind) // Are they connected?
-			candidates.Remove(P)
-			continue
-
-		if(!client.should_include_for_role(
-			banning_key = initial(antag_datum.banning_key),
-			role_preference_key = role_preference,
-			req_hours = initial(antag_datum.required_living_playtime)
-		))
-			candidates.Remove(P)
-			continue
-
-		if(P.mind.special_role) // We really don't want to give antag to an antag.
-			candidates.Remove(P)
-			continue
-
-/// Do your checks if the ruleset is ready to be executed here.
-/// Should ignore certain checks if forced is TRUE
-/datum/dynamic_ruleset/roundstart/ready(population, forced = FALSE)
-	return ..()

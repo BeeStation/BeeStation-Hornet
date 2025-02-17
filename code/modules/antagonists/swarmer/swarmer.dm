@@ -726,6 +726,7 @@
 /datum/antagonist/swarmer
 	name = "Swarmer"
 	banning_key = ROLE_SWARMER
+	special_role = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE

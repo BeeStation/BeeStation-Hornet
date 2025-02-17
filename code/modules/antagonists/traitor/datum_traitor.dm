@@ -6,7 +6,7 @@
 	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
-	var/special_role = ROLE_TRAITOR
+	special_role = ROLE_TRAITOR
 	/// Shown when giving uplinks and codewords to the player
 	var/employer = "The Syndicate"
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment

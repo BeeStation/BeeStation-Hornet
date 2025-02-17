@@ -1,3 +1,4 @@
+/*
 /// Returns the world.time of the next midround injection.
 /// Will return a cached result from `next_midround_injection`, the variable.
 /// If that variable is null, will generate a new one.
@@ -108,3 +109,4 @@
 	var/heavy_coefficient = CLAMP01((next_midround_roll - midround_light_upper_bound) / (midround_heavy_lower_bound - midround_light_upper_bound))
 
 	return 100 * (heavy_coefficient * max(1, chance_modifier))
+*/

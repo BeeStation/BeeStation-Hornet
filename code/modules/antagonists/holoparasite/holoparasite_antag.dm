@@ -9,6 +9,7 @@
 	show_to_ghosts = TRUE
 	ui_name = "AntagInfoHoloparasite"
 	banning_key = ROLE_HOLOPARASITE
+	special_role = ROLE_HOLOPARASITE
 	var/datum/team/holoparasites/team
 	var/datum/holoparasite_holder/holder
 	var/datum/holoparasite_stats/stats

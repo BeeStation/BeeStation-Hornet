@@ -14,26 +14,12 @@
 /// Only used for midround/latejoin rolling.
 #define INTACT_STATION_RULESET (1 << 4)
 
-/// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
-#define PERSISTENT_RULESET (1 << 5)
-
-/// This is a "heavy" midround ruleset, and should be run later into the round
-#define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
-
-/// This is a "light" midround ruleset, and should be run early into the round
-#define MIDROUND_RULESET_STYLE_LIGHT "Light"
-
-/// No round event was hijacked this cycle
-#define HIJACKED_NOTHING "HIJACKED_NOTHING"
-
-/// This cycle, a round event was hijacked when the last midround event was too recent.
-#define HIJACKED_TOO_RECENT "HIJACKED_TOO_RECENT"
-
-/// Requirements when something needs a lot of threat to run, but still possible at low-pop
-#define REQUIREMENTS_VERY_HIGH_THREAT_NEEDED list(90,90,90,80,60,50,40,40,40,40)
-
+#define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
 #define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
-#define DYNAMIC_EXECUTE_FAILURE 0
 
 #define RULESET_STOP_PROCESSING 1
+
+#define DYNAMIC_ROUNDSTART "Roundstart"
+#define DYNAMIC_MIDROUND "Midround"
+#define DYNAMIC_LATEJOIN "Latejoin"

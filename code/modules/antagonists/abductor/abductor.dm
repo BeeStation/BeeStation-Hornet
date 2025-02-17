@@ -3,6 +3,7 @@
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
 	banning_key = ROLE_ABDUCTOR
+	special_role = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team

@@ -4,6 +4,7 @@
 	antagpanel_category = "Blob"
 	show_to_ghosts = TRUE
 	banning_key = ROLE_BLOB
+	special_role = ROLE_BLOB
 	ui_name = "AntagInfoBlob"
 
 	var/datum/action/innate/blobpop/pop_action

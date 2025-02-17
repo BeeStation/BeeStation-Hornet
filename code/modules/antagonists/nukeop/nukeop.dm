@@ -3,6 +3,7 @@
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
 	banning_key = ROLE_OPERATIVE
+	special_role = ROLE_OPERATIVE
 	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
