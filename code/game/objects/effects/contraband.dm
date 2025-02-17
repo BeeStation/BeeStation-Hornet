@@ -690,4 +690,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	the characteristics of their traits."
 	icon_state = "poster52"
 
+/obj/structure/sign/poster/contraband/syndicate
+	name = "Syndicate Emblem"
+	desc = "Almost anyone could recognize this as the logo of the Syndicate."
+	icon_state = "poster51"
+
+/obj/structure/sign/poster/contraband/m90
+	// have fun seeing this poster in "spawn 'c20r'", admins...
+	name = "M-90"
+	desc = "A poster advertising the Scarborough Arms M-90"
+	icon_state = "poster53"
+
 #undef PLACE_SPEED
