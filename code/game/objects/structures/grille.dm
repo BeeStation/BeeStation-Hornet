@@ -190,10 +190,10 @@
 	if(!. && istype(mover, /obj/projectile))
 		return prob(30)
 
-/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	. = !density
-	if(istype(caller))
-		. = . || (caller.pass_flags & PASSGRILLE)
+	if(istype(passing_atom))
+		. = . || (passing_atom.pass_flags & PASSGRILLE)
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

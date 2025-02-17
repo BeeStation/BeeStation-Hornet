@@ -265,21 +265,21 @@
 /// Intercepts client owner clicks to activate the ability
 /// This proc is called via reflection, do not change the name if you do
 /// not know what that means.
-/datum/action/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
 	if(!is_available())
-		unset_click_ability(caller, refund_cooldown = FALSE)
+		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 	if(!target)
 		return FALSE
 	// The actual action begins here
-	if(!pre_activate(caller, target))
+	if(!pre_activate(clicker, target))
 		return FALSE
 
 	// And if we reach here, the action was complete successfully
 	if(unset_after_click)
 		start_cooldown()
-		unset_click_ability(caller, refund_cooldown = FALSE)
-	caller.next_click = world.time + click_cd_override
+		unset_click_ability(clicker, refund_cooldown = FALSE)
+	clicker.next_click = world.time + click_cd_override
 
 	return TRUE
 
