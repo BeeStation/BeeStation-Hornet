@@ -57,8 +57,8 @@
 	pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
 	pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 
-/obj/item/sticker/attack_hand(mob/user)
-	if(user.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+/obj/item/sticker/attack_hand(mob/living/user)
+	if(user.combat_mode && sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
 		A.attack_hand(user)
 		if(prob(33)) //We have a 1/3 chance of falling off
@@ -68,21 +68,21 @@
 	unstick()
 	return ..()
 
-/obj/item/sticker/attack_alien(mob/user)
-	if(user.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+/obj/item/sticker/attack_alien(mob/living/user)
+	if(user.combat_mode && sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
 		A.attack_alien(user)
 	return attack_hand(user) //can be picked up by aliens
 
 /obj/item/sticker/attack_animal(mob/living/simple_animal/M)
-	if(M.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+	if(M.combat_mode && sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
 		A.attack_animal(M)
 	return attack_hand(M)
 
-/obj/item/sticker/CtrlClick(mob/user)
+/obj/item/sticker/CtrlClick(mob/living/user)
 	. = ..()
-	if(user.a_intent != INTENT_HELP && sticker_state == STICKER_STATE_STUCK)
+	if(user.combat_mode && sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
 		A.CtrlClick(user)
 		return

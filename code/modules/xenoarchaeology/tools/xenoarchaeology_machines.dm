@@ -15,7 +15,7 @@
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 
 /obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
-	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT))
+	if(user.combat_mode || (I.item_flags & ABSTRACT))
 		return ..()
 	if(move_inside && length(held_contents) >= max_contents)
 		return

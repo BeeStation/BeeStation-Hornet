@@ -23,8 +23,7 @@
 /datum/xenoartifact_trait/minor/slippery/remove_parent(datum/source, pensive)
 	if(!component_parent?.parent)
 		return ..()
-	slip_comp.RemoveComponent()
-	slip_comp = null
+	QDEL_NULL(slip_comp)
 	return ..()
 
 /datum/xenoartifact_trait/minor/slippery/get_dictionary_hint()

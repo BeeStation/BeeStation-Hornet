@@ -35,7 +35,7 @@
 	if(!component_parent?.parent)
 		return ..()
 	var/datum/component/edible/E = component_parent.parent.GetComponent(/datum/component/edible)
-	E.RemoveComponent()
+	qdel(E)
 	return ..()
 
 /datum/xenoartifact_trait/activator/edible/translation_type_b(datum/source, atom/item, atom/target)

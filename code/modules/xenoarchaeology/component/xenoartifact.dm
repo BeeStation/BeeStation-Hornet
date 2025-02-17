@@ -110,7 +110,7 @@
 		var/atom/atom_parent = parent
 		//Remove discovery component
 		var/datum/component/discoverable/artifact/X = atom_parent.GetComponent(/datum/component/discoverable/artifact)
-		X.RemoveComponent()
+		qdel(X)
 		//Reset parent's visuals
 		atom_parent.remove_filter("texture_overlay")
 		atom_parent.remove_filter("outline_1")
