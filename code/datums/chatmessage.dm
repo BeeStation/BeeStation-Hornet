@@ -663,7 +663,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(group.message, alpha = 255, pixel_y = (message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 
