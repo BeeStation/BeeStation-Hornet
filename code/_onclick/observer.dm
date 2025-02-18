@@ -68,6 +68,10 @@
 			chemscan(user, src, 1, TRUE)
 		if(user.genetics_scan)
 			genescan(src, user)
+		if(user.nanite_scan)
+			var/response = SEND_SIGNAL(src, COMSIG_NANITE_SCAN, user, TRUE)
+			if(!response)
+				to_chat(user, span_info("No nanites detected in the subject."))
 	return ..()
 
 // ---------------------------------------
