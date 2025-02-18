@@ -50,7 +50,7 @@
 	return istype(target_atom)
 
 /datum/action/cooldown/vampire/targeted/InterceptClickOn(mob/living/caller, params, atom/target)
-	INVOKE_ASYNC(src, PROC_REF(click_with_power), target)
+	CALLBACK(src, PROC_REF(click_with_power), target)
 
 /// Click Target
 /datum/action/cooldown/vampire/targeted/proc/click_with_power(atom/target_atom)
