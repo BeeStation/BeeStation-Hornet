@@ -122,11 +122,10 @@
 	acid = 60
 
 /// NOTE: This can be any coffin that you are resting AND inside of.
-/obj/structure/closet/crate/coffin/proc/claim_coffin(mob/living/claimant, area/current_area)
-	var/datum/antagonist/vampire/vampiredatum = claimant.mind.has_antag_datum(/datum/antagonist/vampire)
-	// Successfully claimed?
+/obj/structure/closet/crate/coffin/proc/claim_coffin(mob/living/claimer, area/current_area)
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(claimer)
 	if(vampiredatum.claim_coffin(src, current_area))
-		resident = claimant
+		resident = claimer
 		anchored = TRUE
 		START_PROCESSING(SSprocessing, src)
 
@@ -165,7 +164,7 @@
 	if(!resident || !resident.mind)
 		return
 	// Unclaiming
-	var/datum/antagonist/vampire/vampiredatum = resident.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(resident)
 	if(vampiredatum && vampiredatum.coffin == src)
 		vampiredatum.coffin = null
 		vampiredatum.vampire_lair_area = null
@@ -196,9 +195,10 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	// Only the User can put themself into Torpor. If already in it, you'll start to heal.
+
+	// Vampire functionality
 	if(user in src)
-		var/datum/antagonist/vampire/vampiredatum = user.mind.has_antag_datum(/datum/antagonist/vampire)
+		var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 		if(!vampiredatum)
 			return FALSE
 		var/area/current_area = get_area(src)
@@ -211,6 +211,7 @@
 		LockMe(user)
 		//Level up if possible.
 		if(!vampiredatum.my_clan)
+			vampiredatum.assign_clan_and_bane()
 			to_chat(user, span_notice("You must enter a Clan to rank up."))
 		else
 			vampiredatum.SpendRank()

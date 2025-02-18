@@ -26,12 +26,11 @@
 
 	var/chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display)
 	chosen_clan = options[chosen_clan]
-	if(QDELETED(src) || QDELETED(owner.current))
+	if(QDELETED(src) || QDELETED(owner.current) || !chosen_clan)
 		return FALSE
-	if(!chosen_clan)
-		to_chat(person_selecting, span_announce("You choose to remain ignorant, for now."))
-		return
+
 	my_clan = new chosen_clan(src)
+	ui.send_full_update(force = TRUE)
 
 /datum/antagonist/vampire/proc/remove_clan(mob/admin)
 	if(owner.current.has_status_effect(/datum/status_effect/frenzy))

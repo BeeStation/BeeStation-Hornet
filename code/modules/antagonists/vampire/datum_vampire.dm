@@ -318,19 +318,6 @@
 
 	return data + ..()
 
-/datum/antagonist/vampire/ui_act(action, params, datum/tgui/ui)
-	. = ..()
-	if(.)
-		return
-
-	switch(action)
-		if("join_clan")
-			if(my_clan)
-				return
-			assign_clan_and_bane()
-			ui.send_full_update(force = TRUE)
-			return
-
 /datum/antagonist/vampire/roundend_report()
 	var/list/report = list()
 

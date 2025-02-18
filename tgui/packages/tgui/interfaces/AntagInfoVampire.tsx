@@ -139,17 +139,6 @@ const VampireClan = (props: any) => {
         <Box mt={5} bold textAlign="center" fontSize="40px">
           You are not in a Clan.
         </Box>
-        <Box mt={3}>
-          <Button
-            fluid
-            icon="users"
-            content="Join Clan"
-            textAlign="center"
-            fontSize="30px"
-            lineHeight={2}
-            onClick={() => act('join_clan')}
-          />
-        </Box>
       </Section>
     );
   }
