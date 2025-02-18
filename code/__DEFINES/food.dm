@@ -148,3 +148,9 @@ DEFINE_BITFIELD(food_types, list(
 #define FOOD_LIKED 1
 #define FOOD_DISLIKED 2
 #define FOOD_TOXIC 3
+
+//utensils neededed to eat
+#define CUTLERY_FORK "crowbar"
+#define CUTLERY_SPOON "spoon"
+#define CUTLERY_SPOON "knife"
+#define CUTLERY_BAREHANDED "barehanded"
