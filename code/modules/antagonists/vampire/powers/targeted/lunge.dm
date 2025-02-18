@@ -4,7 +4,7 @@
 	button_icon_state = "power_lunge"
 	power_explanation = "Click any player to start spinning wildly and, after a short delay, lunge at them.\n\
 		When lunging at someone, you will aggressively grab them, unless they are a curator.\n\
-		You cannot use Lunge if you are already grabbing someone, or are being grabbed.\n\
+		You cannot lunge if you are already grabbing someone, or are being grabbed.\n\
 		If you grab from behind or darkness, you will knock the target down, scaling with your rank.\n\
 		If used on a dead body, you will tear their organs out.\n\
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."

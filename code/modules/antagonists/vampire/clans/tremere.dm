@@ -34,41 +34,49 @@
 /datum/vampire_clan/tremere/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
 	// Purchase Power Prompt
 	var/list/options = list()
+	var/list/radial_display = list()
 	for(var/datum/action/cooldown/vampire/targeted/tremere/power as anything in vampiredatum.powers)
-		if(!(power.purchase_flags & TREMERE_CAN_BUY))
+		if(!(power.purchase_flags & TREMERE_CAN_BUY) || isnull(power.upgraded_power))
 			continue
-		if(isnull(power.upgraded_power))
-			continue
-		options[initial(power.name)] = power
 
-	if(options.len < 1)
-		to_chat(vampiredatum.owner.current, span_notice("You grow more ancient by the night!"))
+		var/datum/action/cooldown/vampire/targeted/tremere/upgrade = power.upgraded_power
+		options[upgrade.name] = power
+
+		var/datum/radial_menu_choice/option = new
+		option.name = upgrade.name
+		option.image = image(icon = 'icons/vampires/actions_vampire.dmi', icon_state = initial(upgrade.button_icon_state))
+		option.info = "[span_boldnotice(upgrade.name)]\n[span_cult(upgrade.power_explanation)]"
+		radial_display[upgrade.name] = option
+
+	var/mob/living/user = vampiredatum.owner.current
+
+	if(!length(options))
+		to_chat(user, span_notice("You grow more ancient by the night!"))
 	else
-		// Give them the UI to purchase a power.
-		var/choice = tgui_input_list(vampiredatum.owner.current, "You have the opportunity to grow more ancient. Select a power you wish to upgrade.", "Your Blood Thickens...", options)
-		// Prevent Vampires from closing/reopning their coffin to spam Levels.
-		if(cost_rank && vampiredatum.vampire_level_unspent <= 0)
-			return
-		// Did you choose a power?
-		if(!choice || !options[choice])
-			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
-			return
-		// Prevent Vampires from purchasing a power while outside of their Coffin.
-		if(!istype(vampiredatum.owner.current.loc, /obj/structure/closet/crate/coffin))
-			to_chat(vampiredatum.owner.current, span_warning("You must be in your Coffin to purchase Powers."))
+		to_chat(user, span_notice("You have the opportunity to grow more ancient. Select a power to advance your Rank."))
+
+		var/power_response
+		if(istype(user.loc, /obj/structure/closet))
+			var/obj/structure/closet/container = user.loc
+			power_response = show_radial_menu(user, container, radial_display)
+		else
+			power_response = show_radial_menu(user, user, radial_display)
+
+		if(!power_response || QDELETED(src) || QDELETED(user) || QDELETED(user))
+			return FALSE
+
+		var/datum/action/cooldown/vampire/purchased_power = options[power_response]
+		var/datum/action/cooldown/vampire/targeted/tremere/tremere_power = purchased_power
+
+		if(isnull(tremere_power.upgraded_power))
+			user.balloon_alert(vampiredatum.owner.current, "cannot upgrade [power_response]!")
+			to_chat(user, span_notice("[power_response] is already at max level!"))
 			return
 
-		// Good to go - Buy Power!
-		var/datum/action/cooldown/vampire/purchased_power = options[choice]
-		var/datum/action/cooldown/vampire/targeted/tremere/tremere_power = purchased_power
-		if(isnull(tremere_power.upgraded_power))
-			vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "cannot upgrade [choice]!")
-			to_chat(vampiredatum.owner.current, span_notice("[choice] is already at max level!"))
-			return
 		vampiredatum.BuyPower(new tremere_power.upgraded_power)
 		vampiredatum.RemovePower(tremere_power)
-		vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "upgraded [choice]!")
-		to_chat(vampiredatum.owner.current, span_notice("You have upgraded [choice]!"))
+		user.balloon_alert(user, "upgraded [power_response]!")
+		to_chat(user, span_notice("You have upgraded [power_response]!"))
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 

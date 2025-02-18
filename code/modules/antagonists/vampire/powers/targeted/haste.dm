@@ -8,7 +8,7 @@
 	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away or stunned."
 	button_icon_state = "power_speed"
 	power_explanation = "Click anywhere to immediately dash towards that location.\n\
-		The Power will not work if you are lying down, in no gravity, or are aggressively grabbed.\n\
+		The Power will not work if you are lying down, zero-gravity, or are being aggressively grabbed.\n\
 		Anyone in your way during your Haste will be knocked down.\n\
 		Higher levels will increase the knockdown dealt to enemies."
 	power_flags = BP_AM_TOGGLE
