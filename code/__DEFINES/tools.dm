@@ -20,6 +20,11 @@
 #define TOOL_RUSTSCRAPER "rustscraper"
 #define TOOL_BIKEHORN		"bike horn"
 #define TOOL_SEED "seed"
+#define TOOL_FORK "fork"
+#define TOOL_SPOON "spoon"
+#define TOOL_KNIFE "knife"
+#define TOOL_BAREHANDED "barehanded"
+
 // If delay between the start and the end of tool operation is less than MIN_TOOL_SOUND_DELAY,
 // tool sound is only played when op is started. If not, it's played twice.
 #define MIN_TOOL_SOUND_DELAY 20
