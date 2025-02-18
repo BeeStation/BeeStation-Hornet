@@ -126,6 +126,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/slowdown = 0
 	/// Percentage of armour effectiveness to remove
 	var/armour_penetration = 0
+	/// The click cooldown given after attacking. Lower numbers means faster attacks
+	var/attack_speed = CLICK_CD_MELEE
+	/// The click cooldown on secondary attacks. Lower numbers mean faster attacks. Will use attack_speed if undefined.
+	var/secondary_attack_speed
 	/// A list of items that can be put in this item for like suit storage or something?? I honestly have no idea.
 	var/list/allowed = null
 	/// In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets etc.
@@ -236,6 +240,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
 	if(attack_verb_simple)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
+
+	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * toolspeed)
 
 	. = ..()
 	for(var/path in actions_types)
@@ -488,7 +495,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(usr)
 	return ..()
 
-/obj/item/attack_hand(mob/user)
+/obj/item/attack_hand(mob/user, modifiers)
 	. = ..()
 	if(.)
 		return
@@ -558,6 +565,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		user.dropItemToGround(src)
 		return TRUE
 
+/obj/item/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	// Do not pickup items on a right click action
+	if (. == SECONDARY_ATTACK_CALL_NORMAL)
+		. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
@@ -582,7 +595,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
-	if(!A.has_fine_manipulation)
+	if(!user.can_hold_items(src))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.dropItemToGround(src)
 		to_chat(user, span_warning("Your claws aren't capable of such fine manipulation!"))
@@ -897,7 +910,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
-	log_combat(user, M, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
+	log_combat(user, M, "attacked", "[src.name]", "(Combat mode: [user.combat_mode ? "On" : "Off"])")
 
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)

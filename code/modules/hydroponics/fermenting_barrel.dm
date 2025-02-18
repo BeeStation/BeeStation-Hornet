@@ -53,7 +53,7 @@
 	else
 		return ..()
 
-/obj/structure/fermenting_barrel/attack_hand(mob/user)
+/obj/structure/fermenting_barrel/attack_hand(mob/user, list/modifiers)
 	open = !open
 	if(open)
 		DISABLE_BITFIELD(reagents.flags, DRAINABLE)

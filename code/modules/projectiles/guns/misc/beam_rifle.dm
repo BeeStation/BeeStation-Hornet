@@ -196,7 +196,8 @@
 		if(!istype(current_location))
 			return
 		targloc = get_turf_in_angle(lastangle, current_location, 10)
-	P.preparePixelProjectile(targloc, current_user, aiming_params, 0)
+	var/mouse_modifiers = params2list(aiming_params)
+	P.preparePixelProjectile(targloc, current_user, mouse_modifiers, 0)
 	P.fire(lastangle)
 
 /obj/item/gun/energy/beam_rifle/process()
@@ -299,7 +300,7 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
+		if(!ismob(target) || user.combat_mode) //melee attack
 			return
 		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
@@ -393,7 +394,8 @@
 		firing_dir = BB.firer.dir
 	if(!BB.suppressed && firing_effect_type)
 		new firing_effect_type(get_turf(src), firing_dir)
-	BB.preparePixelProjectile(target, user, params, spread)
+	var/modifiers = params2list(params)
+	BB.preparePixelProjectile(target, user, modifiers, spread)
 	BB.fire(gun? gun.lastangle : null, null)
 	BB = null
 	return TRUE

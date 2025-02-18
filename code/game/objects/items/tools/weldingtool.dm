@@ -78,22 +78,22 @@
 
 
 /obj/item/weldingtool/process(delta_time)
-	switch(welding)
-		if(0)
-			force = 3
-			damtype = BRUTE
-			update_icon()
-			if(!can_off_process)
-				STOP_PROCESSING(SSobj, src)
-			return
+	if(welding)
+		force = 15
+		damtype = BURN
+		burned_fuel_for += delta_time
+		if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
+			use(TRUE)
+		update_appearance()
+
 	//Welders left on now use up fuel, but lets not have them run out quite that fast
-		if(1)
-			force = 15
-			damtype = BURN
-			burned_fuel_for += delta_time
-			if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
-				use(1)
-			update_icon()
+	else
+		force = 3
+		damtype = BRUTE
+		update_appearance()
+		if(!can_off_process)
+			STOP_PROCESSING(SSobj, src)
+		return
 
 	//This is to start fires. process() is only called if the welder is on.
 	open_flame()
@@ -124,36 +124,55 @@
 	. = ..()
 	target.cut_overlay(GLOB.welding_sparks)
 
-/obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
+/obj/item/weldingtool/afterattack(atom/attacked_atom, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
-	if(!status && O.is_refillable())
-		reagents.trans_to(O, reagents.total_volume, transfered_by = user)
-		balloon_alert(user, "You empty the fuel tank.")
-		update_icon()
-	if(isOn())
-		use(1)
-		var/turf/location = get_turf(user)
-		location.hotspot_expose(700, 50, 1)
-		if(get_fuel() <= 0)
-			set_light_on(0)
 
-		if(isliving(O))
-			var/mob/living/L = O
-			if(L.IgniteMob())
-				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(L)] on fire with [src] at [AREACOORD(user)]")
-				log_game("[key_name(user)] set [key_name(L)] on fire with [src] at [AREACOORD(user)]")
+	if(isOn())
+		handle_fuel_and_temps(1, user)
+
+		if (!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
+			handle_fuel_and_temps(1, user)
+			var/mob/living/attacked_mob = attacked_atom
+			if(attacked_mob.IgniteMob())
+				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
+				log_game("[key_name(user)] set [key_name(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
+
+	if(!status && attacked_atom.is_refillable())
+		reagents.trans_to(attacked_atom, reagents.total_volume, transfered_by = user)
+		to_chat(user, span_notice("You empty [src]'s fuel tank into [attacked_atom]."))
+		update_appearance()
+
+/obj/item/weldingtool/attack_qdeleted(atom/attacked_atom, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+
+	if(isOn())
+		handle_fuel_and_temps(1, user)
+
+		if(!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
+			var/mob/living/attacked_mob = attacked_atom
+			if(attacked_mob.IgniteMob())
+				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)].")
+				log_game("set [key_name(attacked_mob)] on fire with [src]")
 
 
 /obj/item/weldingtool/attack_self(mob/user)
 	if(src.reagents.has_reagent(/datum/reagent/toxin/plasma))
 		message_admins("[ADMIN_LOOKUPFLW(user)] activated a rigged welder at [AREACOORD(user)].")
+		log_game("activated a rigged welder", LOG_ATTACK)
 		explode()
 	switched_on(user)
 
-	update_icon()
+	update_appearance()
 
+// Ah fuck, I can't believe you've done this
+/obj/item/weldingtool/proc/handle_fuel_and_temps(used = 0, mob/living/user)
+	use(used)
+	var/turf/location = get_turf(user)
+	location.hotspot_expose(700, 50, 1)
 
 // Returns the amount of fuel in the welder
 /obj/item/weldingtool/proc/get_fuel()

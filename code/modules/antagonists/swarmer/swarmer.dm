@@ -36,8 +36,8 @@
 		return
 	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this."))
 
-/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent != INTENT_HARM)
+/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/living/user, params)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER && !user.combat_mode)
 		user.visible_message(span_warning("[usr.name] deactivates [src]."),
 			span_notice("After some fiddling, you find a way to disable [src]'s power source."),
 			span_italics("You hear clicking."))
@@ -613,6 +613,9 @@
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
 			shock_area()
 			qdel(src)
+	else if(ismecha(AM))
+		shock_area()
+		qdel(src)
 
 /obj/structure/swarmer/trap/proc/shock_area()
 	new /obj/effect/temp_visual/shock_trap_activate(get_turf(src))
@@ -625,6 +628,11 @@
 			L.flash_act()
 			L.adjustFireLoss(65) //This is the only way swarmers can deal with cyborgs in any capacity so it is especially harsh
 			L.Paralyze(100)
+	var/list/obj/object_targets = oview(1, src)
+	for(var/obj/vehicle/sealed/mecha/mechs in object_targets)
+		mechs.emp_act(1)
+		mechs.take_damage(35, BURN, ENERGY, 1) //Makes them take the same amount of damage as cyborgs when combined with the EMP
+		COOLDOWN_START(mechs, cooldown_vehicle_move, 3 SECONDS) //"Stuns" the mech for the duration of equipment disable, overriding their normal step cooldown
 
 /obj/effect/temp_visual/shock_trap_activate
 	randomdir = FALSE
@@ -641,6 +649,9 @@
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
+	if(resources < 2)
+		to_chat(src, span_warning("We do not have the resources for this!"))
+		return
 	if(do_after(src, 2 SECONDS))
 		Fabricate(/obj/structure/swarmer/trap, 2)
 
@@ -652,7 +663,7 @@
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, span_warning("There is already a blockade here. Aborting."))
 		return
-	if(resources < 5)
+	if(resources < 2)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 1 SECONDS))
@@ -677,7 +688,7 @@
 	set category = "Swarmer"
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, span_info("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
-	if(resources < 50)
+	if(resources < 20)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(!isturf(loc))
@@ -730,6 +741,7 @@
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	var/datum/team/swarmer/swarm
 
 /datum/antagonist/swarmer/on_gain()
@@ -810,7 +822,7 @@
 			M.unequip_everything()
 			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
 			if(istype(new_mob))
-				new_mob.a_intent = INTENT_HARM
+				new_mob.set_combat_mode(TRUE)
 				M.mind.transfer_to(new_mob)
 				new_owner.assigned_role = ROLE_SWARMER
 				new_owner.special_role = ROLE_SWARMER

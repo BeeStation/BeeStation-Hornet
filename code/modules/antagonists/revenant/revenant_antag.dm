@@ -6,6 +6,7 @@
 	banning_key = ROLE_REVENANT
 	special_role = ROLE_REVENANT
 	// TODO: ui_name = "AntagInfoRevenant"
+	required_living_playtime = 4
 
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()

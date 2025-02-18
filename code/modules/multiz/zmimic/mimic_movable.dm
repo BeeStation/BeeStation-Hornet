@@ -184,7 +184,7 @@
 	to_chat(user, span_notice("\The [src] is too far away."))
 	return TRUE
 
-/atom/movable/openspace/mimic/attack_hand(mob/user)
+/atom/movable/openspace/mimic/attack_hand(mob/user, list/modifiers)
 	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 

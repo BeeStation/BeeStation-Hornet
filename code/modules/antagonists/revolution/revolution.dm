@@ -15,6 +15,7 @@
 	antag_moodlet = /datum/mood_event/revolution
 	var/hud_type = "rev"
 	var/datum/team/revolution/rev_team
+	required_living_playtime = 0
 
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
 	. = ..()
