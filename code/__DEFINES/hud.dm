@@ -1,33 +1,37 @@
-/*!
-## HUD styles.
+//HUD styles.  Index order defines how they are cycled in F12.
+/// Standard hud
+#define HUD_STYLE_STANDARD 1
+/// Reduced hud (just hands and intent switcher)
+#define HUD_STYLE_REDUCED 2
+/// No hud (for screenshots)
+#define HUD_STYLE_NOHUD 3
 
-**Index order defines how they are cycled in F12.**
-*/
-
-#define HUD_STYLE_STANDARD 1 //! Standard hud
-#define HUD_STYLE_REDUCED 2 //! Reduced hud (just hands and intent switcher)
-#define HUD_STYLE_NOHUD 3 //! No hud (for screenshots)
-
-#define HUD_VERSIONS 3	//! Used in show_hud(); Please ensure this is the same as the maximum index.
+/// Used in show_hud(); Please ensure this is the same as the maximum index.
+#define HUD_VERSIONS 3
 
 #define HOVER_OUTLINE_FILTER "hover_outline"
 
 // Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)
 /// Used for progress bars and chat messages
-#define APPEARANCE_UI_IGNORE_ALPHA			(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
+#define APPEARANCE_UI_IGNORE_ALPHA (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
 /// Used for HUD objects
-#define APPEARANCE_UI						(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|PIXEL_SCALE)
+#define APPEARANCE_UI (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|PIXEL_SCALE)
 
 /*
 	These defines specificy screen locations.  For more information, see the byond documentation on the screen_loc var.
+
 	The short version:
+
 	Everything is encoded as strings because apparently that's how Byond rolls.
+
 	"1,1" is the bottom left square of the user's screen.  This aligns perfectly with the turf grid.
 	"1:2,3:4" is the square (1,3) with pixel offsets (+2, +4); slightly right and slightly above the turf grid.
 	Pixel offsets are used so you don't perfectly hide the turf under them, that would be crappy.
+
 	In addition, the keywords NORTH, SOUTH, EAST, WEST and CENTER can be used to represent their respective
 	screen borders. NORTH-1, for example, is the row just below the upper edge. Useful if you want your
 	UI to scale with screen size.
+
 	The size of the user's screen is defined by client.view (indirectly by world.view), in our case "15x15".
 	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
 */
@@ -89,6 +93,11 @@
 #define ui_living_healthdoll "EAST-1:28,CENTER-1:15"
 
 //Cyborgs
+//borgs
+#define ui_borg_health "EAST-1:28,CENTER-1:15"
+#define ui_borg_pull "EAST-2:26,SOUTH+1:7"
+#define ui_borg_radio "EAST-1:28,SOUTH+1:7"
+#define ui_borg_intents "EAST-2:26,SOUTH:5"
 #define ui_borg_lamp "CENTER-3:16, SOUTH:5"
 #define ui_borg_tablet "CENTER-4:16, SOUTH:5"
 #define ui_inv1 "CENTER-2:16,SOUTH:5"
@@ -185,10 +194,6 @@
 #define ui_language_menu "EAST-4:6,SOUTH:21"
 #define ui_navigate_menu "EAST-4:22,SOUTH:5"
 
-#define ui_borg_pull "EAST-2:26,SOUTH+1:7"
-#define ui_borg_radio "EAST-1:28,SOUTH+1:7"
-#define ui_borg_intents "EAST-2:26,SOUTH:5"
-
 
 //Upper-middle right (alerts)
 #define ui_alert1 "EAST-1:28,CENTER+5:27"
@@ -205,9 +210,6 @@
 #define ui_mood "EAST-1:28,CENTER:17"
 #define ui_spacesuit "EAST-1:28,CENTER-4:10"
 #define ui_stamina "EAST-1:28,CENTER-3:10"
-
-//borgs
-#define ui_borg_health "EAST-1:28,CENTER-1:15"		//borgs have the health display where humans have the pressure damage indicator.
 
 //aliens
 #define ui_alien_health "EAST,CENTER-1:15"	//aliens have the health display where humans have the pressure damage indicator.

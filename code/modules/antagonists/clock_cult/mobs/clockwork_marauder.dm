@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "clockwork_marauder"
 	icon_dead = "anime_fragment"
-	possible_a_intents = list(INTENT_HARM)
+	combat_mode = TRUE
 	health = 140
 	maxHealth = 140
 
