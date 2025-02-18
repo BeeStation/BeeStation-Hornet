@@ -39228,7 +39228,6 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "gGj" = (
-/obj/machinery/food_cart/coffee,
 /obj/machinery/light/small{
 	dir = 1
 	},

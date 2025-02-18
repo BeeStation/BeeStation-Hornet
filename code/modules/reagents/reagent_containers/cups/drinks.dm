@@ -533,6 +533,7 @@
 /obj/item/reagent_containers/cup/glass/britcup
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
+	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "britcup"
 	volume = 30
 	spillable = TRUE

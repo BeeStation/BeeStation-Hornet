@@ -158,25 +158,6 @@
 		new /obj/item/stack/sheet/iron(loc, 4)
 	qdel(src)
 
-/obj/machinery/food_cart/coffee
-	name = "coffee cart"
-	desc = "Ah! The bitter drink of the Gods."
-	icon_state = "icecream_vat"
-	glasses = 10
-	portion = 20
-
-/obj/machinery/food_cart/coffee/Initialize(mapload)
-	..()
-	var/A = rand(0,3)
-	var/B = rand(0,3)
-	var/C = rand(0,3)
-	var/D = rand(0,1)
-	reagents.add_reagent(/datum/reagent/consumable/cafe_latte, A*20)
-	reagents.add_reagent(/datum/reagent/consumable/icecoffee, B*20)
-	reagents.add_reagent(/datum/reagent/consumable/soy_latte, C*20)
-	reagents.add_reagent(/datum/reagent/consumable/pumpkin_latte, D*20)
-	reagents.add_reagent(/datum/reagent/consumable/coffee, (10-A-B-C-D)*20)
-
 #undef STORAGE_CAPACITY
 #undef LIQUID_CAPACIY
 #undef MIXER_CAPACITY
