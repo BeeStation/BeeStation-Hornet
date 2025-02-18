@@ -80,33 +80,33 @@
 	// =====================================================
 	// Compile the screentip string
 	// =====================================================
-	var/screen_tip_message = "[context.access_context][context.generic_context]"
+	var/screen_tip_message = "[context.access_context && CENTER(context.access_context)][context.generic_context && CENTER(context.generic_context)]"
 	// Should we display everything inline or with left and right side by side
 	// Standard Click
 	if (context.left_mouse_context && context.right_mouse_context)
-		screen_tip_message += "\n[context.left_mouse_context] | [context.right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.left_mouse_context] | [context.right_mouse_context]")
 	else if (context.left_mouse_context || context.right_mouse_context)
-		screen_tip_message += "\n[context.left_mouse_context][context.right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.left_mouse_context][context.right_mouse_context]")
 	// Control Click
 	if (context.ctrl_left_mouse_context && context.ctrl_right_mouse_context)
-		screen_tip_message += "\n[context.ctrl_left_mouse_context] | [context.ctrl_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.ctrl_left_mouse_context] | [context.ctrl_right_mouse_context]")
 	else if (context.ctrl_left_mouse_context || context.ctrl_right_mouse_context)
-		screen_tip_message += "\n[context.ctrl_left_mouse_context][context.ctrl_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.ctrl_left_mouse_context][context.ctrl_right_mouse_context]")
 	// Shift Click
 	if (context.shift_left_mouse_context && context.shift_right_mouse_context)
-		screen_tip_message += "\n[context.shift_left_mouse_context] | [context.shift_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.shift_left_mouse_context] | [context.shift_right_mouse_context]")
 	else if (context.shift_left_mouse_context || context.shift_right_mouse_context)
-		screen_tip_message += "\n[context.shift_left_mouse_context][context.shift_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.shift_left_mouse_context][context.shift_right_mouse_context]")
 	// Alt Click
 	if (context.alt_left_mouse_context && context.alt_right_mouse_context)
-		screen_tip_message += "\n[context.alt_left_mouse_context] | [context.alt_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.alt_left_mouse_context] | [context.alt_right_mouse_context]")
 	else if (context.alt_left_mouse_context || context.alt_right_mouse_context)
-		screen_tip_message += "\n[context.alt_left_mouse_context][context.alt_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.alt_left_mouse_context][context.alt_right_mouse_context]")
 	// Ctrl-shift Click
 	if (context.ctrl_shift_left_mouse_context && context.ctrl_shift_right_mouse_context)
-		screen_tip_message += "\n[context.ctrl_shift_left_mouse_context] | [context.ctrl_shift_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.ctrl_shift_left_mouse_context] | [context.ctrl_shift_right_mouse_context]")
 	else if (context.ctrl_shift_left_mouse_context || context.ctrl_shift_right_mouse_context)
-		screen_tip_message += "\n[context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context]"
+		screen_tip_message += CENTER("\n[context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context]")
 	if (context.wirecutter)
 		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [context.wirecutter]")]</span>")]"
 	if (context.screwdriver)

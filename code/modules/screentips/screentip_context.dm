@@ -70,9 +70,9 @@
 
 /datum/screentip_context/proc/add_access_context(context_text, has_access = FALSE)
 	if (has_access)
-		access_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_ALLOWED]'>[CENTER(context_text)]</span>")]"
+		access_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_ALLOWED]'>[context_text]</span>")]"
 	else
-		access_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_REJECTED]'>[CENTER(context_text)]")]</span>"
+		access_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_REJECTED]'>[context_text]")]</span>"
 
 // ================================
 // Left Click Actions
@@ -80,13 +80,13 @@
 
 /datum/screentip_context/proc/add_left_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.lmb_icon] [action_text]</span>")
 	else
-		left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[GLOB.lmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_left_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
-		left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+		left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.lmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_left_click_tool_action(action_text, tool)
 	switch (tool)
@@ -107,51 +107,51 @@
 		if (TOOL_ROLLINGPIN)
 			rolling_pin = "[GLOB.lmb_icon] [action_text] [rolling_pin]"
 		else
-			left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+			left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.lmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_alt_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		alt_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		alt_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>alt-[GLOB.lmb_icon] [action_text]</span>")
 	else
-		alt_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("alt-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		alt_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>alt-[GLOB.lmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_alt_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the left mouse action to only show this (we aren't using our hands anymore)
-		alt_left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		alt_left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>alt-[GLOB.lmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_ctrl_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		ctrl_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		ctrl_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-[GLOB.lmb_icon] [action_text]</span>")
 	else
-		ctrl_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		ctrl_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>ctrl-[GLOB.lmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_ctrl_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the left mouse action to only show this (we aren't using our hands anymore)
-		ctrl_left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		ctrl_left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-[GLOB.lmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_shift_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		shift_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		shift_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>shift-[GLOB.lmb_icon] [action_text]</span>")
 	else
-		shift_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("shift-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		shift_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>shift-[GLOB.lmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_shift_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the left mouse action to only show this (we aren't using our hands anymore)
-		shift_left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		shift_left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>shift-[GLOB.lmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_ctrl_shift_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		ctrl_shift_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		ctrl_shift_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-shift-[GLOB.lmb_icon] [action_text]</span>")
 	else
-		ctrl_shift_left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		ctrl_shift_left_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>ctrl-shift-[GLOB.lmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_ctrl_shift_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the left mouse action to only show this (we aren't using our hands anymore)
-		ctrl_shift_left_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.lmb_icon] [action_text]")]</span>")]"
+		ctrl_shift_left_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-shift-[GLOB.lmb_icon] [action_text]</span>")
 
 // ================================
 // Right Click Actions
@@ -159,13 +159,13 @@
 
 /datum/screentip_context/proc/add_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
+		right_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.rmb_icon] [action_text]</span>")
 	else
-		right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		right_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[GLOB.rmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_right_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
-		right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
+		right_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.rmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_right_click_tool_action(action_text, tool)
 	switch (tool)
@@ -186,65 +186,65 @@
 		if (TOOL_ROLLINGPIN)
 			rolling_pin = "[rolling_pin] [GLOB.rmb_icon] [action_text]"
 		else
-			right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.rmb_icon] [action_text]")]</span>")]"
+			right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.rmb_icon] [action_text]")]</span>"
 
 /datum/screentip_context/proc/add_alt_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		alt_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		alt_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>alt-[GLOB.rmb_icon] [action_text]")]</span>"
 	else
-		alt_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("alt-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		alt_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>alt-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>"
 
 /datum/screentip_context/proc/add_alt_right_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the right mouse action to only show this (we aren't using our hands anymore)
-		alt_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("alt-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		alt_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>alt-[GLOB.rmb_icon] [action_text]")]</span>"
 
 /datum/screentip_context/proc/add_ctrl_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		ctrl_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		ctrl_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-[GLOB.rmb_icon] [action_text]")]</span>"
 	else
-		ctrl_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		ctrl_right_mouse_context += MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>ctrl-[GLOB.rmb_icon] [action_text] ([blocked_message])</span>")
 
 /datum/screentip_context/proc/add_ctrl_right_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the right mouse action to only show this (we aren't using our hands anymore)
-		ctrl_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		ctrl_right_mouse_context = MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-[GLOB.rmb_icon] [action_text]</span>")
 
 /datum/screentip_context/proc/add_shift_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>shift-[GLOB.rmb_icon] [action_text]")]</span>"
 	else
-		shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("shift-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>shift-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>"
 
 /datum/screentip_context/proc/add_shift_right_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the right mouse action to only show this (we aren't using our hands anymore)
-		shift_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		shift_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>shift-[GLOB.rmb_icon] [action_text]")]</span>"
 
 /datum/screentip_context/proc/add_ctrl_shift_right_click_action(action_text, blocked_message = null, accessible = TRUE)
 	if (accessible)
-		ctrl_shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		ctrl_shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-shift-[GLOB.rmb_icon] [action_text]")]</span>"
 	else
-		ctrl_shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("ctrl-shift-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>")]"
+		ctrl_shift_right_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>ctrl-shift-[GLOB.rmb_icon] [action_text] ([blocked_message])")]</span>"
 
 /datum/screentip_context/proc/add_ctrl_shift_right_click_item_action(action_text, item_required)
 	if (istype(held_item, item_required))
 		// Reset the right mouse action to only show this (we aren't using our hands anymore)
-		ctrl_shift_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("ctrl-shift-[GLOB.rmb_icon] [action_text]")]</span>")]"
+		ctrl_shift_right_mouse_context = "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>ctrl-shift-[GLOB.rmb_icon] [action_text]")]</span>"
 
 // ================================
 // Generic Actions
 // ================================
 
 /datum/screentip_context/proc/add_attack_self_action(action_text)
-	generic_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\[Z\] [action_text]")]</span>")]"
+	generic_context += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>\[Z\] [action_text]")]</span>"
 
 /datum/screentip_context/proc/add_attack_hand_action(action_text, blocked_message = "hands full", accessible = TRUE)
 	if (ishuman(user) && held_item == null)
 		if (accessible)
-			left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.lmb_icon] [action_text]")]</span>")]"
+			left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[GLOB.lmb_icon] [action_text]")]</span>"
 		else
-			left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[CENTER("[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>")]"
+			left_mouse_context += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_INACCESSIBLE]'>[GLOB.lmb_icon] [action_text] ([blocked_message])")]</span>"
 
 /datum/screentip_context/proc/add_attack_hand_secondary_action(action_text, blocked_message = "hands full", accessible = TRUE)
 	if (ishuman(user) && held_item == null)
