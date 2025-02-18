@@ -82,9 +82,11 @@
 	vampiredatum.vampire_level_unspent++
 
 /datum/action/spell/shapeshift/bat
-	name = "Bat Form"
+	name = "Bat Transformation"
 	desc = "Take on the shape a space bat."
 	invocation = "SQUEAAAAK!"
+	button_icon_state = "shapeshift"
 	cooldown_time = 5 SECONDS
+	spell_requirements = NONE
 	convert_damage = FALSE
 	possible_shapes = list(/mob/living/simple_animal/hostile/retaliate/bat/vampire)
