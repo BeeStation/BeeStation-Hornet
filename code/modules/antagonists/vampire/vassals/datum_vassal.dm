@@ -56,6 +56,7 @@
 	owner.current.log_message("has been vassalized by [master.owner.current]!", LOG_ATTACK, color="#960000")
 	/// Give Recuperate Power
 	BuyPower(new /datum/action/cooldown/vampire/recuperate)
+	BuyPower(new /datum/action/cooldown/vampire/distress)
 	/// Give Objectives
 	var/datum/objective/vampire/vassal/vassal_objective = new
 	vassal_objective.owner = owner
