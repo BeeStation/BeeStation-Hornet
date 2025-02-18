@@ -6833,7 +6833,7 @@
 /area/science/research)
 "dhL" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1
+	dir = 9
 	},
 /obj/item/kirbyplants/random,
 /obj/structure/cable/yellow{
@@ -10200,14 +10200,14 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "eUC" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
 /obj/machinery/digital_clock/directional/north,
-/turf/open/floor/carpet/green,
+/obj/structure/table/wood,
+/obj/machinery/coffeemaker/impressa,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream{
+	pixel_x = 14;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "eUW" = (
 /obj/structure/cable/yellow{
@@ -19884,7 +19884,9 @@
 /area/security/brig)
 "jQZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -20353,10 +20355,6 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "kcD" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -1;
 	pixel_y = 31
@@ -20365,11 +20363,12 @@
 	dir = 1;
 	light_color = "#7AC3FF"
 	},
-/obj/item/storage/crayons{
-	pixel_x = 3;
-	pixel_y = 4
+/obj/structure/table/wood,
+/obj/item/reagent_containers/condiment/milk{
+	pixel_x = -7;
+	pixel_y = 7
 	},
-/turf/open/floor/carpet/green,
+/turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "kcF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29364,12 +29363,16 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/fancy/sofa/old/left{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/carpet/green,
+/obj/structure/table/wood,
+/obj/item/storage/fancy/coffee_condi_display{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
+	pixel_y = 18;
+	pixel_x = 5
+	},
+/turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "oFs" = (
 /obj/structure/railing/corner{
@@ -30938,7 +30941,9 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "psG" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
 /obj/effect/spawner/randomvend/cola,
 /obj/machinery/airalarm/directional/west,
 /obj/structure/sign/map/echo{
@@ -37378,18 +37383,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
-"sMK" = (
-/obj/effect/decal/cleanable/food/plant_smudge,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/fancy/sofa/old/right{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "sMV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -38259,13 +38252,28 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/fancy/sofa/old/right{
-	dir = 8
+/obj/structure/table/wood,
+/obj/item/storage/box/coffeepack{
+	pixel_y = 8;
+	pixel_x = 3
 	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
+/obj/item/reagent_containers/cup/glass/mug{
+	pixel_y = 9;
+	pixel_x = -8
 	},
-/turf/open/floor/carpet/green,
+/obj/item/reagent_containers/cup/glass/mug/nanotrasen{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/glass/britcup{
+	pixel_x = -8;
+	pixel_y = -4
+	},
+/obj/item/coffee_cartridge/bootleg{
+	pixel_y = -1;
+	pixel_x = 3
+	},
+/turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "tkw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -45900,19 +45908,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
-"wVz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_y = 28
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_y = 23
-	},
-/obj/item/paicard,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "wVF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -127808,7 +127803,7 @@ sxD
 fCF
 hhu
 eUC
-sMK
+tov
 eEc
 uoe
 kJV
@@ -128065,7 +128060,7 @@ vdv
 gMh
 hhu
 kcD
-wVz
+tov
 fsb
 jeo
 oLK
