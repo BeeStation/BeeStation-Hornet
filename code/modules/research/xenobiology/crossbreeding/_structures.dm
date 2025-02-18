@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	GLOB.bluespace_slime_crystals -= src
 	return ..()
 
-/obj/structure/slime_crystal/bluespace/attack_hand(mob/user)
+/obj/structure/slime_crystal/bluespace/attack_hand(mob/user, list/modifiers)
 
 	if(in_use)
 		return
@@ -469,7 +469,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 		if(blood_amt == max_blood_amt)
 			return
 
-/obj/structure/slime_crystal/red/attack_hand(mob/user)
+/obj/structure/slime_crystal/red/attack_hand(mob/user, list/modifiers)
 	if(blood_amt < 100)
 		return ..()
 
@@ -502,7 +502,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 	else
 		. += "It doesn't hold any mutations"
 
-/obj/structure/slime_crystal/green/attack_hand(mob/user)
+/obj/structure/slime_crystal/green/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!iscarbon(user) || !user.has_dna())
 		return
@@ -550,7 +550,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 /obj/structure/slime_crystal/gold
 	colour = "gold"
 
-/obj/structure/slime_crystal/gold/attack_hand(mob/user)
+/obj/structure/slime_crystal/gold/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!ishuman(user))
 		return
@@ -656,7 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cerulean_slime_crystal)
 			SC.master_crystal_destruction()
 	return ..()
 
-/obj/structure/slime_crystal/rainbow/attack_hand(mob/user)
+/obj/structure/slime_crystal/rainbow/attack_hand(mob/user, list/modifiers)
 	for(var/X in inserted_cores)
 		if(inserted_cores[X])
 			var/obj/structure/slime_crystal/SC = inserted_cores[X]

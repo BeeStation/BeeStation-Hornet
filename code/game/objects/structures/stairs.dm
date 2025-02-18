@@ -42,7 +42,7 @@
 	update_surrounding()
 
 // Passthrough for 0G travel
-/obj/structure/stairs/attack_hand(mob/user)
+/obj/structure/stairs/attack_hand(mob/user, list/modifiers)
 	var/turf/T = get_turf(src)
 	T.attack_hand(user)
 

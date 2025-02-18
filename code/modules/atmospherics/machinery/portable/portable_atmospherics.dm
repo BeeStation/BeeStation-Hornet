@@ -147,7 +147,7 @@
 
 /obj/machinery/portable_atmospherics/AltClick(mob/living/user)
 	. = ..()
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, !ismonkey(user)) || !can_interact(user))
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)) || !can_interact(user))
 		return
 	if(!holding)
 		return
@@ -254,7 +254,7 @@
 
 /obj/machinery/portable_atmospherics/welder_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return FALSE //We're attacking the machine.
 
 	if(atom_integrity < max_integrity)
