@@ -24,13 +24,19 @@
 		option.info = "[initial(all_clans.name)] - [span_boldnotice("[initial(all_clans.join_description)]")]"
 		radial_display[initial(all_clans.name)] = option
 
-	var/chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display)
+	var/chosen_clan
+	if(istype(person_selecting.loc, /obj/structure/closet))
+		var/obj/structure/closet/container = person_selecting.loc
+		chosen_clan = show_radial_menu(container, owner.current, radial_display)
+	else
+		chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display)
+
 	chosen_clan = options[chosen_clan]
+
 	if(QDELETED(src) || QDELETED(owner.current) || !chosen_clan)
 		return FALSE
 
 	my_clan = new chosen_clan(src)
-	ui.send_full_update(force = TRUE)
 
 /datum/antagonist/vampire/proc/remove_clan(mob/admin)
 	if(owner.current.has_status_effect(/datum/status_effect/frenzy))

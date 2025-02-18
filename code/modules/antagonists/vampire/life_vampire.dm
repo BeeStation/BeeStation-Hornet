@@ -56,57 +56,80 @@
 	total_blood_drank += blood_taken
 	return blood_taken
 
-/**
- * ## HEALING
- */
+/*
+* Runs on the vampire's lifetick.
+* Heal clone damage, brain damage, brute and burn damage.
+*
+* By default, burn damage is healed 50% as much as brute
+* When undergoing torpor it's 80%, if you're in a coffin 100%
+*/
 
 /// Constantly runs on Vampire's LifeTick, and is increased by being in Torpor/Coffins
-/datum/antagonist/vampire/proc/handle_healing(mult = 1)
-	if(QDELETED(owner?.current))
-		return
+/datum/antagonist/vampire/proc/handle_healing()
 	var/in_torpor = is_in_torpor()
-	// Don't heal if I'm staked or on Masquerade (+ not in a Coffin). Masqueraded Vampires in a Coffin however, will heal.
+
+	// Weirdness shield
+	if(QDELETED(owner?.current))
+		return FALSE
+	// Don't heal if  staked
 	if(check_staked())
 		return FALSE
+	// Dont heal if you have TRAIT_MASQUERADE and not undergoing torpor
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		return FALSE
+
 	var/actual_regen = vampire_regen_rate + additional_regen
-	owner.current.adjustCloneLoss(-1 * (actual_regen * 4) * mult)
-	owner.current.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1 * (actual_regen * 4) * mult) //adjustBrainLoss(-1 * (actual_regen * 4) * mult, 0)
-	if(!iscarbon(owner.current)) // Damage Heal: Do I have damage to ANY bodypart?
-		return
+
+	// Heal clone and brain damage
+	owner.current.adjustCloneLoss(-1 * (actual_regen * 4))
+	owner.current.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1 * (actual_regen * 4))
+
+	if(!iscarbon(owner.current))
+		return FALSE
 	var/mob/living/carbon/user = owner.current
-	var/costMult = 1 // Coffin makes it cheaper
-	var/bruteheal = min(user.getBruteLoss(), actual_regen) // BRUTE: Always Heal
-	var/fireheal = 0 // BURN: Heal in Coffin while Fakedeath, or when damage above maxhealth (you can never fully heal fire)
-	// Checks if you're in torpor here, additionally checks if you're in a coffin right below it.
+
+	var/bloodcost_multiplier = 1 // Coffin makes it cheaper
+	var/healing_mulitplier = 1
+
+	var/brute_heal = min(user.getBruteLoss(), actual_regen) * healing_mulitplier
+	var/burn_heal = min(user.getFireLoss(), actual_regen) * 0.75 * healing_mulitplier
+
 	if(in_torpor)
+		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set bloodcost to 50%, and regenerate limbs
+		// If not: heal 3x as fast and heal burn damage at 80%
 		if(istype(user.loc, /obj/structure/closet/crate/coffin))
 			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
 				to_chat(user, span_alert("You do not heal while your Masquerade ability is active."))
 				COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_MASQUERADE)
-				return
-			fireheal = min(user.getFireLoss(), actual_regen)
-			mult *= 5 // Increase multiplier if we're sleeping in a coffin.
-			costMult /= 2 // Decrease cost if we're sleeping in a coffin.
-			user.ExtinguishMob()
-			user.remove_all_embedded_objects() // Remove Embedded!
-			if(check_limbs(costMult))
-				return TRUE
-		// In Torpor, but not in a Coffin? Heal faster anyways.
-		else
-			fireheal = min(user.getFireLoss(), actual_regen) / 1.2 // 20% slower than being in a coffin
-			mult *= 3
-	// Heal if Damaged
-	if((bruteheal + fireheal > 0) && mult > 0) // Just a check? Don't heal/spend, and return.
-		// We have damage. Let's heal (one time)
-		user.heal_overall_damage(brute = bruteheal * mult, burn = fireheal * mult) // Heal BRUTE / BURN in random portions throughout the body.
-		AddBloodVolume(((bruteheal * -0.5) + (fireheal * -1)) * costMult * mult) // Costs blood to heal
-		return TRUE
+				return FALSE
 
-/datum/antagonist/vampire/proc/check_limbs(costMult = 1)
-	var/limb_regen_cost = 50 * -costMult
+			burn_heal = min(user.getFireLoss(), actual_regen)
+			healing_mulitplier = 5
+			bloodcost_multiplier = 0.5 // Decrease cost if we're sleeping in a coffin.
+			// Extinguish and remove embedded objects
+			user.ExtinguishMob()
+			user.remove_all_embedded_objects()
+			if(try_regenerate_limbs(bloodcost_multiplier))
+				return TRUE
+		else
+			burn_heal = min(user.getFireLoss(), actual_regen) * 0.8
+			healing_mulitplier = 3
+
+	// Heal if Damaged
+	brute_heal *= healing_mulitplier
+	burn_heal *= healing_mulitplier
+
+	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
+		var/bloodcost = (brute_heal * 0.5 + burn_heal) * bloodcost_multiplier * healing_mulitplier
+		user.heal_overall_damage(brute_heal, burn_heal)
+		AddBloodVolume(-bloodcost)
+		return TRUE
+	return FALSE
+
+/datum/antagonist/vampire/proc/try_regenerate_limbs(cost_muliplier = 1)
 	var/mob/living/carbon/user = owner.current
+	var/limb_regen_cost = 50 * -cost_muliplier
+
 	var/list/missing = user.get_missing_limbs()
 	if(missing.len && (vampire_blood_volume < limb_regen_cost + 5))
 		return FALSE
@@ -115,7 +138,7 @@
 		if(missing_limb == BODY_ZONE_HEAD)
 			ensure_brain_nonvital()
 		AddBloodVolume(-limb_regen_cost)
-		var/obj/item/bodypart/missing_bodypart = user.get_bodypart(missing_limb) // 2) Limb returns Damaged
+		var/obj/item/bodypart/missing_bodypart = user.get_bodypart(missing_limb)
 		missing_bodypart.brute_dam = 60
 		to_chat(user, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
 		playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
