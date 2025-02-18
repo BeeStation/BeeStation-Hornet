@@ -92,7 +92,7 @@
 	if(!istype(vassaldatum))
 		return FALSE
 	if(!vampiredatum.vampire_level_unspent <= 0)
-		vampiredatum.SpendRank(vassaldatum.owner.current)
+		vampiredatum.spend_rank(vassaldatum.owner.current)
 		return TRUE
 	if(vampiredatum.vampire_blood_volume >= VAMPIRE_BLOOD_RANKUP_COST)
 		// We don't have any ranks to spare? Let them upgrade... with enough Blood.
@@ -103,7 +103,7 @@
 		)
 		var/rank_response = show_radial_menu(vampiredatum.owner.current, vassaldatum.owner.current, rank_options, radius = 36, require_near = TRUE)
 		if(rank_response == "Yes")
-			vampiredatum.SpendRank(vassaldatum.owner.current, cost_rank = FALSE, blood_cost = VAMPIRE_BLOOD_RANKUP_COST)
+			vampiredatum.spend_rank(vassaldatum.owner.current, cost_rank = FALSE, blood_cost = VAMPIRE_BLOOD_RANKUP_COST)
 		return TRUE
 	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels or enough Blood to Rank [vassaldatum.owner.current] up with."))
 	return TRUE

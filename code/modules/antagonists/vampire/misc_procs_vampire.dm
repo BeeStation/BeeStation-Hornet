@@ -56,7 +56,7 @@
 	if(!istype(owner.current.loc, /obj/structure/closet/crate/coffin))
 		to_chat(owner, span_notice("<EM>You have grown more ancient! Sleep in a coffin that you have claimed to thicken your blood and become more powerful[istype(my_clan, /datum/vampire_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up" : ""]</EM>"))
 		return
-	SpendRank()
+	spend_rank()
 
 /datum/antagonist/vampire/proc/RankDown()
 	vampire_level_unspent--
@@ -82,7 +82,7 @@
 			if(power.currently_active)
 				power.DeactivatePower()
 
-/datum/antagonist/vampire/proc/SpendRank(mob/living/carbon/human/target, cost_rank = TRUE, blood_cost)
+/datum/antagonist/vampire/proc/spend_rank(mob/living/carbon/human/target, cost_rank = TRUE, blood_cost)
 	if(!owner || !owner.current || !owner.current.client || (cost_rank && vampire_level_unspent <= 0))
 		return
 	SEND_SIGNAL(src, VAMPIRE_RANK_UP, target, cost_rank, blood_cost)
