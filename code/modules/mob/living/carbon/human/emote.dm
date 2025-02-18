@@ -266,7 +266,7 @@
 	key_third_person = "beeps"
 	message = "beeps"
 	message_param = "beeps at %t"
-	sound = 'sound/machines/beep.ogg'
+	sound = 'sound/machines/twobeep.ogg'
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/boop
