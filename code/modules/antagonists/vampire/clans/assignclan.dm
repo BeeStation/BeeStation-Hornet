@@ -25,9 +25,9 @@
 		radial_display[initial(all_clans.name)] = option
 
 	var/chosen_clan
-	if(istype(person_selecting.loc, /obj/structure/closet))
-		var/obj/structure/closet/container = person_selecting.loc
-		chosen_clan = show_radial_menu(container, owner.current, radial_display)
+	if(istype(owner.current.loc, /obj/structure/closet))
+		var/obj/structure/closet/container = owner.current.loc
+		chosen_clan = show_radial_menu(person_selecting, container, radial_display)
 	else
 		chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display)
 
