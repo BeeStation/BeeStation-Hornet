@@ -145,36 +145,37 @@
 /datum/vampire_clan/proc/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
 	// Purchase Power Prompt
 	var/list/options = list()
+	var/list/radial_display = list()
 	for(var/datum/action/cooldown/vampire/power as anything in vampiredatum.all_vampire_powers)
 		if(initial(power.purchase_flags) & VAMPIRE_CAN_BUY && !(locate(power) in vampiredatum.powers))
 			options[initial(power.name)] = power
 
-	if(options.len < 1)
-		to_chat(vampiredatum.owner.current, span_notice("You grow more ancient by the night!"))
-	else
-		// Give them the UI to purchase a power.
-		var/choice = tgui_input_list(vampiredatum.owner.current, "You have the opportunity to grow more ancient. Select a power to advance your Rank.", "Your Blood Thickens...", options)
-		// Prevent Vampires from closing/reopning their coffin to spam Levels.
-		if(cost_rank && vampiredatum.vampire_level_unspent <= 0)
-			return
-		// Did you choose a power?
-		if(!choice || !options[choice])
-			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
-			return
-		// Prevent Vampires from closing/reopning their coffin to spam Levels.
-		if(locate(options[choice]) in vampiredatum.powers)
-			to_chat(vampiredatum.owner.current, span_notice("You prevent your blood from thickening just yet, but you may try again later."))
-			return
-		// Prevent Vampires from purchasing a power while outside of their Coffin.
-		if(!istype(vampiredatum.owner.current.loc, /obj/structure/closet/crate/coffin))
-			to_chat(vampiredatum.owner.current, span_warning("You must be in your Coffin to purchase Powers."))
-			return
+			var/datum/radial_menu_choice/option = new
+			option.image = image(icon = 'icons/vampires/actions_vampire.dmi', icon_state = initial(power.button_icon_state))
+			option.info = "[span_boldnotice(initial(power.name))]\n[span_cult(power.power_explanation)]"
+			radial_display[initial(power.name)] = option
 
-		// Good to go - Buy Power!
-		var/datum/action/cooldown/vampire/purchased_power = options[choice]
+	var/mob/living/user = vampiredatum.owner.current
+
+	if(!length(options))
+		to_chat(user, span_notice("You grow more ancient by the night!"))
+	else
+		to_chat(user, span_notice("You have the opportunity to grow more ancient. Select a power to advance your Rank."))
+
+		var/power_response
+		if(istype(user.loc, /obj/structure/closet))
+			var/obj/structure/closet/container = user.loc
+			power_response = show_radial_menu(user, container, radial_display)
+		else
+			power_response = show_radial_menu(user, user, radial_display)
+
+		if(!power_response || QDELETED(src) || QDELETED(user) || QDELETED(user))
+			return FALSE
+
+		var/datum/action/cooldown/vampire/purchased_power = options[power_response]
 		vampiredatum.BuyPower(new purchased_power)
-		vampiredatum.owner.current.balloon_alert(vampiredatum.owner.current, "learned [choice]!")
-		to_chat(vampiredatum.owner.current, span_notice("You have learned how to use [choice]!"))
+		user.balloon_alert(user, "learned [power_response]!")
+		to_chat(user, span_notice("You have learned how to use [power_response]!"))
 
 	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
 
@@ -234,7 +235,7 @@
 		option.info = "[initial(vassaldatums.name)] - [span_boldnotice("[initial(vassaldatums.vassal_description)]")]"
 		radial_display[initial(vassaldatums.name)] = option
 
-	if(!options.len)
+	if(!length(options))
 		return
 
 	to_chat(vampiredatum.owner.current, span_notice("You can change who this Vassal is, who are they to you?"))
