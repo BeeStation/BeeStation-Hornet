@@ -132,10 +132,14 @@ const GuideSection = () => {
         </Stack.Item>
         <Stack.Item>
           - Follow your <span style={hereticRed}>Living Heart</span> to find your targets. Bring them back to a&nbsp;
-          <span style={hereticGreen}>transmutation rune</span> to&nbsp;
+          <span style={hereticGreen}>transmutation rune</span> in critical&nbsp; or worse condition to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. The Mansus <b>ONLY</b> accepts targets pointed to by the&nbsp;
           <span style={hereticRed}>Living Heart</span>.
+        </Stack.Item>
+        <Stack.Item>
+          - Make yourself a <span style={hereticYellow}>focus</span> to be&nbsp; able to cast various advanced spells to assist
+          you in acquire&nbsp; harder and harder sacrifices.
         </Stack.Item>
         <Stack.Item>
           - Create an item to use as a&nbsp;<span style={hereticYellow}>focus</span> for your&nbsp;
@@ -297,7 +301,7 @@ export const AntagInfoHeretic = (props) => {
   const [currentTab, setTab] = useLocalState('currentTab', 0);
 
   return (
-    <Window width={675} height={600}>
+    <Window width={675} height={625}>
       <Window.Content
         style={{
           backgroundImage: 'none',

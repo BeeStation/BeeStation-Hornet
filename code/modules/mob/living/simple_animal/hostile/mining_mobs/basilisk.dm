@@ -24,7 +24,7 @@
 	melee_damage = 12
 	attack_verb_continuous = "bites into"
 	attack_verb_simple = "bite into"
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	vision_range = 2
@@ -75,7 +75,7 @@
 	melee_damage = 15
 	attack_verb_continuous = "impales"
 	attack_verb_simple = "impale"
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = HARD_CRIT
