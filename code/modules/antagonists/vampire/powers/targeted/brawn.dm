@@ -107,21 +107,18 @@
 	if(isliving(target_atom))
 		var/mob/living/target = target_atom
 		var/mob/living/carbon/carbonuser = user
-		var/hitStrength = carbonuser.dna.species.punchdamage * 1.25 + 2
 		// Knockdown!
 		var/powerlevel = min(5, 1 + level_current)
-		if(rand(5 + powerlevel) >= 5)
-			target.visible_message(
-				span_danger("[user] lands a vicious punch, sending [target] away!"), \
-				span_userdanger("[user] has landed a horrifying punch on you and sends you flying!"),
-			)
-			target.Knockdown(min(5, rand(10, 10 * powerlevel)))
+		target.visible_message(
+			span_danger("[user] lands a vicious punch, sending [target] away!"), \
+			span_userdanger("[user] has landed a horrifying punch on you and sends you flying!"))
+		target.Knockdown(min(5, rand(10, 10 * powerlevel)))
 		// Attack!
 		owner.balloon_alert(owner, "you punch [target]!")
 		playsound(get_turf(target), 'sound/weapons/punch4.ogg', 60, 1, -1)
 		user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(target.get_combat_bodyzone()))
-		target.apply_damage(hitStrength, BRUTE, affecting)
+		target.apply_damage(carbonuser.dna.species.punchdamage * 1.25 + 2, BRUTE, affecting)
 		// Knockback
 		var/send_dir = get_dir(owner, target)
 		var/turf/turf_thrown_at = get_ranged_target_turf(target, send_dir, powerlevel)
