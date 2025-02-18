@@ -1531,6 +1531,12 @@
 			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
 		if(TOOL_ANALYZER)
 			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+		if(TOOL_KNIFE)
+			act_result = is_left_clicking ? knife_act(user, tool) : knife_act_secondary(user, tool)
+		if(TOOL_SPOON)
+			act_result = is_left_clicking ? spoon_act(user, tool) : spoon_act_secondary(user, tool)
+		if(TOOL_FORK)
+			act_result = is_left_clicking ? fork_act(user, tool) : fork_act_secondary(user, tool)
 	if(!act_result)
 		return
 
