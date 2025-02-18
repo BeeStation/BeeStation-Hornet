@@ -1287,12 +1287,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig/dock)
-"atg" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/closed/wall,
-/area/vacant_room/commissary/commissary1)
 "atl" = (
 /obj/machinery/conveyor{
 	dir = 10;
@@ -1622,6 +1616,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "axH" = (
@@ -7207,9 +7204,6 @@
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "chW" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -14221,9 +14215,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "eBr" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
@@ -16605,14 +16596,11 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "frA" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -21951,15 +21939,15 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "hhw" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
@@ -37493,6 +37481,9 @@
 "mqz" = (
 /obj/structure/chair/stool/bar/directional/north,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "mqH" = (
@@ -38209,10 +38200,10 @@
 /area/maintenance/solars/starboard/aft)
 "mEs" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -46411,11 +46402,11 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
 "poY" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/chair/stool/bar/directional/north,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "ppd" = (
@@ -49245,11 +49236,11 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "qkp" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
@@ -60448,9 +60439,6 @@
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
 "tTZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/sign/chalkboard_menu,
 /turf/closed/wall,
 /area/vacant_room/commissary/commissary1)
@@ -66198,6 +66186,12 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "vJi" = (
@@ -68770,6 +68764,9 @@
 	req_access_txt = "12"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/vacant_room/commissary/commissary1)
 "wDp" = (
@@ -106331,7 +106328,7 @@ qlH
 pkM
 pkM
 vux
-aPI
+mEs
 wDh
 vJf
 hhw
@@ -106588,7 +106585,7 @@ vlc
 pkM
 gQS
 phh
-mEs
+rYj
 tTZ
 qkp
 eBr
@@ -107358,8 +107355,8 @@ tDV
 vpg
 pkM
 frA
-eJK
-atg
+fKx
+wdV
 chW
 poY
 xla

@@ -713,6 +713,13 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/asteroid/paradise/surface)
+"aoZ" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/cafeteria)
 "apg" = (
 /obj/machinery/light{
 	dir = 1
@@ -10209,7 +10216,11 @@
 /obj/machinery/coffeemaker{
 	pixel_x = -2
 	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
 "eUW" = (
 /obj/structure/cable/yellow{
@@ -20370,7 +20381,11 @@
 	pixel_x = -7;
 	pixel_y = 7
 	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
 "kcF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29374,7 +29389,11 @@
 	pixel_y = 18;
 	pixel_x = 5
 	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
 "oFs" = (
 /obj/structure/railing/corner{
@@ -31574,6 +31593,11 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"pLY" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/cafeteria)
 "pMt" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
@@ -38275,7 +38299,11 @@
 	pixel_y = -1;
 	pixel_x = 3
 	},
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
 "tkw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -127805,7 +127833,7 @@ sxD
 fCF
 hhu
 eUC
-tov
+aoZ
 eEc
 uoe
 kJV
@@ -128062,7 +128090,7 @@ vdv
 gMh
 hhu
 kcD
-tov
+pLY
 fsb
 jeo
 oLK

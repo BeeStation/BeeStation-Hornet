@@ -20853,6 +20853,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/item/coffee_cartridge/bootleg{
+	pixel_y = -1;
+	pixel_x = 3
+	},
+/obj/item/storage/box/coffeepack{
+	pixel_y = 8;
+	pixel_x = 3
+	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary)
 "eQT" = (
@@ -39626,13 +39634,26 @@
 "kUt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	id = "commissaryshutter";
-	name = "Vacant Commissary Shutter"
-	},
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 32
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/mug{
+	pixel_y = 9;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/nanotrasen{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/glass/britcup{
+	pixel_x = -8;
+	pixel_y = -4
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "commissaryshutter";
+	name = "Vacant Commissary Shutter"
 	},
 /turf/open/floor/plating,
 /area/vacant_room/commissary)
@@ -55092,7 +55113,6 @@
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "pUs" = (
-/obj/structure/table,
 /obj/machinery/button/door{
 	id = "commissaryshutter";
 	name = "Commissary Shutter Toggle";
@@ -55107,11 +55127,6 @@
 	pixel_y = -8;
 	specialfunctions = 4
 	},
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/pen,
 /obj/item/toy/figure/assistant{
 	pixel_x = 8;
 	pixel_y = 6
@@ -55119,6 +55134,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/condiment/milk{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream{
+	pixel_x = -3;
+	pixel_y = -3
 	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary)
@@ -56529,6 +56553,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/coffeemaker{
+	pixel_x = -2
+	},
+/obj/structure/table/wood,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary)
 "qqK" = (
@@ -67888,11 +67916,16 @@
 "ueH" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
+	pixel_y = 14;
+	pixel_x = 41
+	},
 /obj/machinery/door/poddoor/shutters{
 	id = "commissaryshutter";
 	name = "Vacant Commissary Shutter"
 	},
-/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/vacant_room/commissary)
 "ueJ" = (
@@ -79382,6 +79415,9 @@
 /obj/item/circuitboard/machine/paystand,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/item/storage/fancy/coffee_condi_display{
+	pixel_x = -4
 	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary)

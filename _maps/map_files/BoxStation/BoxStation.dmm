@@ -30765,6 +30765,9 @@
 /obj/item/food/cakeslice/brioche{
 	pixel_y = -2
 	},
+/obj/item/food/breadslice/creamcheese{
+	pixel_y = 19
+	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
 "iPY" = (
@@ -37363,10 +37366,6 @@
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "lmz" = (
-/obj/item/food/breadslice/creamcheese{
-	pixel_x = 29;
-	pixel_y = 19
-	},
 /obj/item/clothing/suit/apron/chef,
 /obj/item/clothing/head/soft/green,
 /obj/effect/decal/cleanable/dirt,
