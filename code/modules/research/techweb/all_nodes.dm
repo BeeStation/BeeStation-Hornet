@@ -2404,7 +2404,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2447,7 +2447,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2486,7 +2486,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/crowbar/abductor,
 		/obj/item/multitool/abductor,

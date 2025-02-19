@@ -38,6 +38,7 @@
 		add_tray_to_oven(new /obj/item/plate/oven_tray(src)) //Start with a tray
 
 /obj/machinery/oven/Destroy()
+	used_tray?.invisibility = 0
 	QDEL_NULL(oven_loop)
 	QDEL_NULL(particles)
 	. = ..()
@@ -55,10 +56,12 @@
 		var/mutable_appearance/door_overlay = mutable_appearance(icon, "oven_lid_open")
 		door_overlay.pixel_y = OVEN_LID_Y_OFFSET
 		. += door_overlay
+		used_tray?.invisibility = 0
 	else
 		. += mutable_appearance(icon, "oven_lid_closed")
 		if(used_tray?.contents.len)
 			. += emissive_appearance(icon, "oven_light_mask", alpha = src.alpha)
+		used_tray?.invisibility = 50
 
 /obj/machinery/oven/process(delta_time)
 	..()
@@ -123,6 +126,7 @@
 	oven_tray.flags_1 &= ~IS_ONTOP_1
 	oven_tray.vis_flags &= ~VIS_INHERIT_PLANE
 	vis_contents -= oven_tray
+	oven_tray.invisibility = 0
 	used_tray = null
 	UnregisterSignal(oven_tray, COMSIG_MOVABLE_MOVED)
 	update_baking_audio()

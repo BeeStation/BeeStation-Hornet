@@ -96,7 +96,7 @@
 /obj/machinery/microwave/examine(mob/user)
 	. = ..()
 	if(!operating)
-		. += span_notice("Alt-click [src] to turn it on.")
+		. += "<span class='notice'>Right-click [src] to turn it on.</span>"
 
 	if(!in_range(user, src) && !issilicon(user) && !isobserver(user))
 		. += span_warning("You're too far away to examine [src]'s contents and display!")
@@ -311,7 +311,7 @@
 			update_appearance()
 		return
 
-	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && user.a_intent == INTENT_HELP)
+	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && !user.combat_mode)
 		if(ingredients.len >= max_n_of_items)
 			balloon_alert(user, "it's full!")
 			return TRUE
@@ -326,7 +326,7 @@
 
 	return ..()
 
-/obj/machinery/microwave/AltClick(mob/user)
+/obj/machinery/microwave/attack_hand_secondary(mob/user, list/modifiers)
 	if(user.canUseTopic(src, !issilicon(usr)))
 		if(!length(ingredients))
 			balloon_alert(user, "it's empty!")

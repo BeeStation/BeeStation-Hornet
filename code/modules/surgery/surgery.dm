@@ -108,20 +108,20 @@
 			return TRUE
 
 
-/datum/surgery/proc/next_step(mob/user, intent)
+/datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
 	if(step_in_progress)
 		return TRUE
 
 	var/try_to_fail = FALSE
-	if(intent == INTENT_DISARM)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		try_to_fail = TRUE
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
 		if(S.try_op(user, target, user.get_active_held_item(), src, try_to_fail))
 			return TRUE
-		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
+		if(iscyborg(user) && !user.combat_mode) //to save asimov borgs a LOT of heartache
 			return TRUE
 	failed_step = TRUE
 	return FALSE

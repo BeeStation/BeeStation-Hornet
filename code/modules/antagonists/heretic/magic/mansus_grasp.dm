@@ -16,24 +16,26 @@
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
+/datum/action/spell/touch/mansus_grasp/is_valid_spell(atom/cast_on)
+	return TRUE // This baby can hit anything
+
 /datum/action/spell/touch/mansus_grasp/can_cast_spell(feedback = TRUE)
 	return ..() && !!IS_HERETIC(owner)
+
+/datum/action/spell/touch/mansus_grasp/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	victim.visible_message(
+		span_danger("The spell bounces off of [victim]!"),
+		span_danger("The spell bounces off of you!"),
+	)
 
 /datum/action/spell/touch/mansus_grasp/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	if(!isliving(victim))
 		return FALSE
 
-	var/mob/living/living_hit = victim
-	if(living_hit.can_block_magic(antimagic_flags))
-		victim.visible_message(
-			("<span class='danger'>The spell bounces off of [victim]!</span>"),
-			("<span class='danger'>The spell bounces off of you!</span>"),
-		)
-		return FALSE
-
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
 		return FALSE
 
+	var/mob/living/living_hit = victim
 	living_hit.apply_damage(10, BRUTE)
 	if(iscarbon(victim))
 		var/mob/living/carbon/carbon_hit = victim
@@ -43,6 +45,15 @@
 		carbon_hit.adjustStaminaLoss(80)
 
 	return TRUE
+
+/datum/action/spell/touch/mansus_grasp/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	if(isliving(victim)) // if it's a living mob, go with our normal afterattack
+		return SECONDARY_ATTACK_CALL_NORMAL
+
+	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) & COMPONENT_USE_HAND)
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
@@ -74,9 +85,12 @@
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
-	var/datum/action/spell/touch/mansus_grasp/source = locate() in user.actions
-	if(!IS_HERETIC(user))
-		return
+	var/datum/action/spell/touch/mansus_grasp/source = spell_which_made_us?.resolve()
+	if(QDELETED(source) || !IS_HERETIC(user))
+		return SHAME
+
+	if(user.can_block_magic(source.antimagic_flags))
+		return SHAME
 
 	var/escape_our_torment = 0
 	while(carbon_user.stat == CONSCIOUS)
@@ -90,7 +104,7 @@
 			if(prob(50))
 				carbon_user.emote("scream")
 				//carbon_user.adjust_timed_status_effect(26 SECONDS, /datum/status_effect/speech/stutter)
-		source?.cast_on_hand_hit(src, user, user)
+		source.cast_on_hand_hit(src, user, user)
 
 		escape_our_torment++
 		stoplag(0.4 SECONDS)
