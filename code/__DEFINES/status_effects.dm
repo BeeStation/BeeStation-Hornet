@@ -123,6 +123,8 @@
 
 #define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
+#define STATUS_EFFECT_STAGGERED /datum/status_effect/staggered
+
 //---------//
 // NEUTRAL //
 //---------//
@@ -164,3 +166,9 @@
 
 #define STATUS_EFFECT_OFFERING /datum/status_effect/offering // you are offering up an item to people
 
+
+//Staggered slowdown, an effect caused by tackling
+#define STAGGERED_SLOWDOWN_LENGTH 3 SECONDS
+#define STAGGERED_SLOWDOWN_STRENGTH 0.85 //multiplier
+#define adjust_staggered_up_to(user, duration, up_to) user.amount_staggered() > up_to ? user.set_staggered(up_to) : user.adjust_staggered(duration)
+#define set_staggered_if_lower(user, duration) user.amount_staggered() < duration ? FALSE : user.set_staggered(duration)
