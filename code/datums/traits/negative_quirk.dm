@@ -236,7 +236,7 @@
 /datum/quirk/family_heirloom/post_spawn()
 	if(where == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
-		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
+		H.back.atom_storage.show_contents(H)
 
 	to_chat(quirk_target, span_boldnotice("There is a precious family [heirloom.name] [where], passed down from generation to generation. Keep it safe!"))
 
@@ -569,7 +569,7 @@
 /datum/quirk/junkie/post_spawn()
 	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
-		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
+		H.back.atom_storage.show_contents(H)
 
 /datum/quirk/junkie/proc/announce_drugs()
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] of [initial(reagent_type.name)] [where_drug]. Better hope you don't run out..."))

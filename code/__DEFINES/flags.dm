@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
 /// Prevents aggregation of the item in the stack panel
 #define STAT_UNIQUE_1 (1<<15)
+// Whether or not this atom is storing contents for a disassociated storage object
+#define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 /// Is this object currently processing in the atmos object list?
 #define ATMOS_IS_PROCESSING_1 		(1<<16)
 
