@@ -147,7 +147,8 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshipshutter"
+	id = "kitchenshipshutter";
+	id_tag = "kitchenshipshutter"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
@@ -172,7 +173,8 @@
 	pixel_y = 6;
 	pixel_x = -26;
 	name = "Serving Window Shutters";
-	id = "kitchenshipshutter"
+	id = "kitchenshipshutter";
+	id_tag = "kitchenshipshutter"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria,
@@ -393,7 +395,8 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshipshutter"
+	id = "kitchenshipshutter";
+	id_tag = "kitchenshipshutter"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
@@ -445,11 +448,6 @@
 /area/shuttle/abandoned)
 "vd" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/machinery/button{
-	pixel_y = 26;
-	pixel_x = 26;
-	id = "kitchenship"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
@@ -654,8 +652,7 @@
 /area/shuttle/abandoned)
 "Mh" = (
 /obj/structure/closet/secure_closet/freezer/fridge{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
+	req_access = null
 	},
 /obj/item/storage/box/ingredients/vegetarian{
 	pixel_x = -1;
@@ -746,8 +743,7 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/titanium/glass{
-	name = "Kitchen";
-	id_tag = "kitchenship"
+	name = "Kitchen"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /obj/machinery/door/firedoor,
@@ -777,7 +773,8 @@
 	pixel_x = 3
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshipshutter"
+	id = "kitchenshipshutter";
+	id_tag = "kitchenshipshutter"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
@@ -872,8 +869,7 @@
 /area/shuttle/abandoned)
 "XW" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
+	req_access = null
 	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -1111,7 +1107,7 @@ hL
 hL
 hL
 hL
-hL
+lE
 Nw
 Yf
 QS
