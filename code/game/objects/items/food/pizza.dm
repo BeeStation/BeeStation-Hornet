@@ -49,16 +49,14 @@
 /obj/item/food/pizza/cut // Pizza cut versions, gives at slice until it runs out of slices to give, does not use pizza/nameofthepizza/cut, but rather pizza/cut/nameofthepizza
 	name = "Cut Pizza"
 	desc = "A cut pizza. Get your slice!"
-	icon_state = "pizzamargherita8" //we use the margherita one as template
+	icon_state = "pizzamargheritacut" //we use the margherita one as template
 	var/slices = 8
-	var/obj/item/food/pizzaslice/slice_type
+	var/obj/item/food/pizza/cut/slice_type
 	/// this var used to be used for spawning 6 slices when cutting a pizza(for some reason, it's common sense pizzas are cut in 8), but now it determines
 	/// what type of slice you pull out of each pizza when right clicking. It was originally on the whole pizzas, but now is on the cut versions
 
 /obj/item/food/pizza/cut/attack_hand_secondary(mob/living/user)
 	. = ..()
-	if(.)
-		return
 	user.visible_message(span_notice("[user] takes a slice of pizza from [src]."), span_notice("You take a slice of pizza from [src]."))
 	slice_type = new(get_turf(src))
 	user.put_in_hands(slice_type)
@@ -66,8 +64,9 @@
 	if(slices <= 0)
 		qdel(src)
 	else
-		icon_state = "[initial(icon_state)][slices]" //its nameofthepizza[slices]
+		icon_state = "[initial(icon_state)][slices]"
 		update_appearance()
+	return
 
 //////////PIZZA TYPES//////////
 //////////MARGHERITA//////////
