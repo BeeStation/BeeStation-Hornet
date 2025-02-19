@@ -25,15 +25,15 @@
 	food_reagents = list(
 		/datum/reagent/consumable/eggyolk = 5
 	)
-	microwaved_type = /obj/item/food/boiledegg
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_TINY
 	crafting_complexity = FOOD_COMPLEXITY_1
 
-/*
+/obj/item/food/egg/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/boiledegg, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
+
 /obj/item/food/egg/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/boiledegg)
-*/
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."

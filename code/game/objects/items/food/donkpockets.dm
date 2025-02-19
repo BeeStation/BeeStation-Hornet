@@ -26,7 +26,6 @@
 	name = "\improper Donk-pocket"
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
-	microwaved_type = /obj/item/food/donkpocket/warm
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4
 	)
@@ -36,6 +35,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
+	/// What type of donk pocket we're warmed into via baking or microwaving.
+	var/warm_type = /obj/item/food/donkpocket/warm
 	/// The lower end for how long it takes to bake
 	var/baking_time_short = 25 SECONDS
 	/// The upper end for how long it takes to bake
@@ -43,7 +44,10 @@
 
 //donk pockets cook quick... try not to burn them using an unoptimal tool
 /obj/item/food/donkpocket/make_bakeable()
-	AddComponent(/datum/component/bakeable, microwaved_type, rand(25 SECONDS, 30 SECONDS), TRUE, TRUE)
+	AddComponent(/datum/component/bakeable, warm_type, rand(baking_time_short, baking_time_long), TRUE, TRUE)
+
+/obj/item/food/donkpocket/make_microwaveable()
+	AddElement(/datum/element/microwavable, warm_type)
 
 /obj/item/food/donkpocket/warm
 	name = "warm Donk-pocket"
@@ -55,7 +59,8 @@
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
 
-	microwaved_type = /obj/item/food/badrecipe
+	// Warmed donk pockets will burn if you leave them in the oven or microwave.
+	warm_type = /obj/item/food/badrecipe
 	baking_time_short = 10 SECONDS
 	baking_time_long = 15 SECONDS
 
@@ -67,7 +72,6 @@
 	name = "\improper Dank-pocket"
 	desc = "The food of choice for the seasoned botanist."
 	icon_state = "dankpocket"
-	microwaved_type = /obj/item/food/donkpocket/warm/dankpocket
 	food_reagents = list(
 		/datum/reagent/drug/space_drugs = 2,
 		/datum/reagent/toxin/lipolicide = 3,
@@ -75,6 +79,7 @@
 	)
 	tastes = list("meat" = 2, "dough" = 2)
 	foodtypes = GRAIN | VEGETABLES
+	warm_type = /obj/item/food/donkpocket/warm/dankpocket
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/donkpocket/warm/dankpocket
@@ -102,7 +107,7 @@
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-	microwaved_type = /obj/item/food/donkpocket/warm/spicy
+	warm_type = /obj/item/food/donkpocket/warm/spicy
 
 /obj/item/food/donkpocket/warm/spicy
 	name = "warm Spicy-pocket"
@@ -129,7 +134,7 @@
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-	microwaved_type = /obj/item/food/donkpocket/warm/teriyaki
+	warm_type = /obj/item/food/donkpocket/warm/teriyaki
 
 /obj/item/food/donkpocket/warm/teriyaki
 	name = "warm Teriyaki-pocket"
@@ -155,7 +160,7 @@
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-	microwaved_type = /obj/item/food/donkpocket/warm/pizza
+	warm_type = /obj/item/food/donkpocket/warm/pizza
 
 /obj/item/food/donkpocket/warm/pizza
 	name = "warm Pizza-pocket"
@@ -181,7 +186,7 @@
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-	microwaved_type = /obj/item/food/donkpocket/warm/honk
+	warm_type = /obj/item/food/donkpocket/warm/honk
 
 /obj/item/food/donkpocket/warm/honk
 	name = "warm Honk-pocket"
@@ -208,7 +213,7 @@
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-	microwaved_type = /obj/item/food/donkpocket/warm/berry
+	warm_type = /obj/item/food/donkpocket/warm/berry
 
 /obj/item/food/donkpocket/warm/berry
 	name = "warm Berry-pocket"
@@ -234,7 +239,7 @@
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-	microwaved_type = /obj/item/food/donkpocket/warm/gondola
+	warm_type = /obj/item/food/donkpocket/warm/gondola
 
 /obj/item/food/donkpocket/warm/gondola
 	name = "warm Gondola-pocket"

@@ -207,9 +207,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 	reagents.clear_reagents()
 
-/obj/item/reagent_containers/microwave_act(obj/machinery/microwave/M)
+/obj/item/reagent_containers/microwave_act(obj/machinery/microwave/microwave_source, mob/microwaver, randomize_pixel_offset)
 	reagents.expose_temperature(1000)
-	return ..()
+	return ..() | COMPONENT_MICROWAVE_SUCCESS
 
 /obj/item/reagent_containers/fire_act(temperature, volume)
 	reagents.expose_temperature(temperature)

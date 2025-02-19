@@ -1,4 +1,18 @@
-//Microwaving doesn't use recipes, instead it calls the microwave_act of the objects. For food, this creates something based on the food's cooked_type
+// Microwaving doesn't use recipes, instead it calls the microwave_act of the objects.
+// For food, this creates something based on the food's cooked_type
+
+/// Values based on microwave success
+#define MICROWAVE_NORMAL 0
+#define MICROWAVE_MUCK 1
+#define MICROWAVE_PRE 2
+
+/// Values for how broken the microwave is
+#define NOT_BROKEN 0
+#define KINDA_BROKEN 1
+#define REALLY_BROKEN 2
+
+/// The max amount of dirtiness a microwave can be
+#define MAX_MICROWAVE_DIRTINESS 100
 
 /obj/machinery/microwave
 	name = "microwave oven"
@@ -8,18 +22,20 @@
 	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/microwave
 	pass_flags = PASSTABLE
 	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_power = 3
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 100
 	var/wire_disabled = FALSE // is its internal wire cut?
 	var/operating = FALSE
-	var/dirty = 0 // 0 to 100 // Does it need cleaning?
+	/// How dirty is it?
+	var/dirty = 0
 	var/dirty_anim_playing = FALSE
-	var/broken = 0 // 0, 1 or 2 // How broken is it???
+	/// How broken is it? NOT_BROKEN, KINDA_BROKEN, REALLY_BROKEN
+	var/broken = NOT_BROKEN
 	var/open = FALSE
 	var/max_n_of_items = 10
 	var/efficiency = 0
@@ -36,18 +52,38 @@
 
 /obj/machinery/microwave/Initialize(mapload)
 	. = ..()
+
 	wires = new /datum/wires/microwave(src)
 	create_reagents(100)
 	soundloop = new(src, FALSE)
+	set_on_table()
 
 	update_appearance(UPDATE_ICON)
 
-/obj/machinery/microwave/Destroy()
+/obj/machinery/microwave/Exited(atom/movable/gone, direction)
+	if(gone in ingredients)
+		ingredients -= gone
+		if(!QDELING(gone) && ingredients.len && isitem(gone))
+			var/obj/item/itemized_ingredient = gone
+			if(!(itemized_ingredient.item_flags & NO_PIXEL_RANDOM_DROP))
+				itemized_ingredient.pixel_x = itemized_ingredient.base_pixel_x + rand(-6, 6)
+				itemized_ingredient.pixel_y = itemized_ingredient.base_pixel_y + rand(-5, 6)
+	return ..()
+
+
+/obj/machinery/microwave/on_deconstruction()
 	eject()
+	return ..()
+
+/obj/machinery/microwave/Destroy()
+	QDEL_LIST(ingredients)
+	QDEL_NULL(wires)
 	QDEL_NULL(soundloop)
-	if(wires)
-		QDEL_NULL(wires)
+	return ..()
+
+/obj/machinery/microwave/set_anchored(anchorvalue)
 	. = ..()
+	set_on_table()
 
 /obj/machinery/microwave/RefreshParts()
 	efficiency = 0
@@ -109,7 +145,7 @@
 	. = ..()
 
 	// All of these will use a full icon state instead
-	if (panel_open || dirty == 100 || broken || dirty_anim_playing)
+	if (panel_open || dirty == MAX_MICROWAVE_DIRTINESS || broken || dirty_anim_playing)
 		return .
 
 	var/ingredient_count = 0
@@ -162,12 +198,12 @@
 
 #undef MICROWAVE_INGREDIENT_OVERLAY_SIZE
 
-/obj/machinery/microwave/update_icon()
+/obj/machinery/microwave/update_icon_state()
 	if(broken)
 		icon_state = "mwb"
 	else if(dirty_anim_playing)
 		icon_state = "mwbloody1"
-	else if(dirty == 100)
+	else if(dirty == MAX_MICROWAVE_DIRTINESS)
 		icon_state = open ? "mwbloodyo" : "mwbloody"
 	else if(operating)
 		icon_state = "back_on"
@@ -180,36 +216,53 @@
 
 	return ..()
 
+/obj/machinery/microwave/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(dirty >= MAX_MICROWAVE_DIRTINESS)
+		return FALSE
+	if(default_unfasten_wrench(user, tool))
+		update_appearance()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/microwave/crowbar_act(mob/living/user, obj/item/tool)
+	if(operating)
+		return
+	if(!default_deconstruction_crowbar(tool))
+		return
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/microwave/screwdriver_act(mob/living/user, obj/item/tool)
+	if(operating)
+		return
+	if(dirty >= MAX_MICROWAVE_DIRTINESS)
+		return
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, tool))
+		update_appearance()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/machinery/microwave/attackby(obj/item/O, mob/living/user, params)
 	if(operating)
 		return
-	if(default_deconstruction_crowbar(O))
-		return
-
-	if(dirty < 100)
-		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
-			update_icon()
-			return
 
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
 		return TRUE
 
-	if(broken > 0)
-		if(broken == 2 && O.tool_behaviour == TOOL_WIRECUTTER) // If it's broken and they're using a screwdriver
+	if(broken > NOT_BROKEN)
+		if(broken == REALLY_BROKEN && O.tool_behaviour == TOOL_WIRECUTTER) // If it's broken and they're using a TOOL_WIRECUTTER
 			user.visible_message("[user] starts to fix part of \the [src].", span_notice("You start to fix part of \the [src]..."))
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes part of \the [src].", span_notice("You fix part of \the [src]."))
-				broken = 1 // Fix it a bit
-		else if(broken == 1 && O.tool_behaviour == TOOL_WELDER) // If it's broken and they're doing the wrench
+				broken = KINDA_BROKEN // Fix it a bit
+		else if(broken == KINDA_BROKEN && O.tool_behaviour == TOOL_WELDER) // If it's broken and they're doing the wrench
 			user.visible_message("[user] starts to fix part of \the [src].", span_notice("You start to fix part of \the [src]..."))
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes \the [src].", span_notice("You fix \the [src]."))
-				broken = 0
-				update_icon()
+				broken = NOT_BROKEN
+				update_appearance()
 				return FALSE //to use some fuel
 		else
-			to_chat(user, span_warning("It's broken!"))
+			balloon_alert(user, "it's broken!")
 			return TRUE
 		return
 
@@ -220,7 +273,7 @@
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 			user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 			dirty = 0
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, span_warning("You need more space cleaner!"))
 		return TRUE
@@ -234,11 +287,11 @@
 		if(do_after(user, cleanspeed, target = src))
 			user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 			dirty = 0
-			update_icon()
+			update_appearance()
 		return TRUE
 
-	if(dirty == 100) // The microwave is all dirty so can't be used!
-		to_chat(user, span_warning("\The [src] is dirty!"))
+	if(dirty >= MAX_MICROWAVE_DIRTINESS) // The microwave is all dirty so can't be used!
+		balloon_alert(user, "it's too dirty!")
 		return TRUE
 
 	if(istype(O, /obj/item/storage/bag/tray))
@@ -248,7 +301,7 @@
 			if(!IS_EDIBLE(S))
 				continue
 			if(ingredients.len >= max_n_of_items)
-				to_chat(user, span_warning("\The [src] is full, you can't put anything in!"))
+				balloon_alert(user, "it's full!")
 				return TRUE
 			if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
 				loaded++
@@ -260,10 +313,10 @@
 
 	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && !user.combat_mode)
 		if(ingredients.len >= max_n_of_items)
-			to_chat(user, span_warning("\The [src] is full, you can't put anything in!"))
+			balloon_alert(user, "it's full!")
 			return TRUE
 		if(!user.transferItemToLoc(O, src))
-			to_chat(user, span_warning("\The [O] is stuck to your hand!"))
+			balloon_alert(user, "it's stuck to your hand!")
 			return FALSE
 
 		ingredients += O
@@ -271,10 +324,13 @@
 		update_appearance()
 		return
 
-	..()
+	return ..()
 
 /obj/machinery/microwave/attack_hand_secondary(mob/user, list/modifiers)
 	if(user.canUseTopic(src, !issilicon(usr)))
+		if(!length(ingredients))
+			balloon_alert(user, "it's empty!")
+			return
 		cook(user)
 
 /obj/machinery/microwave/ui_interact(mob/user)
@@ -289,7 +345,7 @@
 		if(isAI(user))
 			examine(user)
 		else
-			to_chat(user, span_warning("\The [src] is empty."))
+			balloon_alert(user, "it's empty!")
 		return
 
 	var/choice = show_radial_menu(user, src, isAI(user) ? ai_radial_options : radial_options, require_near = !issilicon(user))
@@ -305,39 +361,44 @@
 		if("eject")
 			eject()
 		if("use")
-			cook()
+			cook(user)
 		if("examine")
 			examine(user)
 
 /obj/machinery/microwave/proc/eject()
-	for(var/i in ingredients)
-		var/atom/movable/AM = i
-		AM.forceMove(drop_location())
-	ingredients.Cut()
+	var/atom/drop_loc = drop_location()
+	for(var/atom/movable/movable_ingredient as anything in ingredients)
+		movable_ingredient.forceMove(drop_loc)
 	open()
+	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 
-/obj/machinery/microwave/proc/cook(mob/user)
+/obj/machinery/microwave/proc/cook(mob/cooker)
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if(operating || broken > 0 || panel_open || !anchored || dirty == 100)
+	if(operating || broken > 0 || panel_open || !anchored || dirty >= MAX_MICROWAVE_DIRTINESS)
 		return
 
 	if(wire_disabled)
 		audible_message("[src] buzzes.")
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		return
 
 	if(prob(max((5 / efficiency) - 5, dirty * 5))) //a clean unupgraded microwave has no risk of failure
-		muck(user)
+		muck()
 		return
-	for(var/obj/O in ingredients)
-		if(istype(O, /obj/item/food) || istype(O, /obj/item/grown))
-			continue
-		if(prob(min(dirty * 5, 100)))
-			start_can_fail(user)
-			return
-		break
-	start()
+
+	// How many items are we cooking that aren't already food items
+	var/non_food_ingedients = length(ingredients)
+	for(var/atom/movable/potential_fooditem as anything in ingredients)
+		if(IS_EDIBLE(potential_fooditem))
+			non_food_ingedients--
+
+	// If we're cooking non-food items we can fail randomly
+	if(length(non_food_ingedients) && prob(min(dirty * 5, 100)))
+		start_can_fail(cooker)
+		return
+
+	start(cooker)
 
 /obj/machinery/microwave/proc/wzhzhzh()
 	visible_message(span_notice("\The [src] turns on."), null, span_hear("You hear a microwave humming."))
@@ -345,7 +406,7 @@
 
 	set_light(1.5)
 	soundloop.start()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/microwave/proc/spark(mob/user)
 	visible_message(span_warning("Sparks fly around [src]!"))
@@ -353,84 +414,83 @@
 	s.set_up(2, 1, src)
 	s.start(user)
 
-#define MICROWAVE_NORMAL 0
-#define MICROWAVE_MUCK 1
-#define MICROWAVE_PRE 2
-
-/obj/machinery/microwave/proc/start(mob/user)
+/obj/machinery/microwave/proc/start(mob/cooker)
 	wzhzhzh()
-	loop(MICROWAVE_NORMAL, 10, user)
+	loop(MICROWAVE_NORMAL, 10, cooker = cooker)
 
-/obj/machinery/microwave/proc/start_can_fail(mob/user)
+/obj/machinery/microwave/proc/start_can_fail(mob/cooker)
 	wzhzhzh()
-	loop(MICROWAVE_PRE, 4, user)
+	loop(MICROWAVE_PRE, 4, cooker = cooker)
 
 /obj/machinery/microwave/proc/muck(mob/user)
 	wzhzhzh()
-	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 	dirty_anim_playing = TRUE
-	update_icon()
-	loop(MICROWAVE_MUCK, 4, user)
+	update_appearance()
+	loop(MICROWAVE_MUCK, 4)
 
-/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2), mob/user) // standard wait is 10
-	if(machine_stat & (NOPOWER|BROKEN))
-		operating = FALSE
-		if(type == MICROWAVE_PRE)
-			pre_fail()
-		after_finish_loop()
+/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2), mob/cooker) // standard wait is 10
+	if((machine_stat & BROKEN) && type == MICROWAVE_PRE)
+		pre_fail()
 		return
-	if(!time)
+
+	if(!time || !length(ingredients))
 		switch(type)
 			if(MICROWAVE_NORMAL)
-				loop_finish(user)
+				loop_finish(cooker)
 			if(MICROWAVE_MUCK)
 				muck_finish()
 			if(MICROWAVE_PRE)
-				pre_success()
+				pre_success(cooker)
 		return
 	time--
 	use_power(500)
-	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
+	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait, cooker), wait)
 
-/obj/machinery/microwave/proc/loop_finish(mob/user)
+/obj/machinery/microwave/power_change()
+	. = ..()
+	if((machine_stat & NOPOWER) && operating)
+		pre_fail()
+		eject()
+
+/obj/machinery/microwave/proc/loop_finish(mob/cooker)
 	operating = FALSE
 
+	var/iron_amount = 0
+	for(var/obj/item/cooked_item in ingredients)
+		var/sigreturn = cooked_item.microwave_act(src, cooker, randomize_pixel_offset = ingredients.len)
+		if(sigreturn & COMPONENT_MICROWAVE_SUCCESS)
+			if(isstack(cooked_item))
+				var/obj/item/stack/cooked_stack = cooked_item
+				dirty += cooked_stack.amount
+			else
+				dirty++
 
-	var/iron = 0
-	for(var/obj/item/O in ingredients)
-		O.microwave_act(src)
-		if(O.custom_materials && length(O.custom_materials))
-			if(O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
-				iron += O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)]
+		iron_amount += (cooked_item.custom_materials?[SSmaterials.GetMaterialRef(/datum/material/iron)] || 0)
 
-	if(iron)
+	if(iron_amount)
 		spark()
-		broken = 2
-		if(prob(max(iron / 2, 33)))
+		broken = REALLY_BROKEN
+		if(prob(max(iron_amount / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dump_inventory_contents(user)
+		dump_inventory_contents()
 
 	after_finish_loop()
 
-/obj/machinery/microwave/dump_inventory_contents(mob/user)
-	. = ..()
-	if(user && user.mind)
-		for(var/obj/item/result as anything in ingredients)
-			ADD_TRAIT(result, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
-	ingredients.Cut()
-
 /obj/machinery/microwave/proc/pre_fail()
-	broken = 2
+	broken = REALLY_BROKEN
+	operating = FALSE
 	spark()
+	after_finish_loop()
 
-/obj/machinery/microwave/proc/pre_success()
-	loop(MICROWAVE_NORMAL, 10)
+/obj/machinery/microwave/proc/pre_success(mob/cooker)
+	loop(MICROWAVE_NORMAL, 10, cooker = cooker)
 
 /obj/machinery/microwave/proc/muck_finish()
 	visible_message(span_warning("\The [src] gets covered in muck!"))
 
-	dirty = 100
+	dirty = MAX_MICROWAVE_DIRTINESS
 	dirty_anim_playing = FALSE
 	operating = FALSE
 
@@ -448,8 +508,22 @@
 
 /obj/machinery/microwave/proc/close()
 	open = FALSE
-	update_appearance(UPDATE_ICON)
+	update_appearance()
+
+/// Go on top of a table if we're anchored & not varedited
+/obj/machinery/microwave/proc/set_on_table()
+	var/obj/structure/table/counter = locate(/obj/structure/table) in get_turf(src)
+	if(anchored && counter && !pixel_y)
+		pixel_y = 6
+	else if(!anchored)
+		pixel_y = initial(pixel_y)
 
 #undef MICROWAVE_NORMAL
 #undef MICROWAVE_MUCK
 #undef MICROWAVE_PRE
+
+#undef NOT_BROKEN
+#undef KINDA_BROKEN
+#undef REALLY_BROKEN
+
+#undef MAX_MICROWAVE_DIRTINESS
