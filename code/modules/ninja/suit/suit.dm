@@ -19,28 +19,27 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 1
 	resistance_flags = LAVA_PROOF | ACID_PROOF
-	armor_type = /datum/armor/space_space_ninja
+	armor_type = /datum/armor/space_ninja
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	cell = null
 	show_hud = FALSE
 	actions_types = list(
 		/datum/action/item_action/initialize_ninja_suit,
-		/datum/action/item_action/ninjasmoke,
 		/datum/action/item_action/ninjaboost,
 		/datum/action/item_action/ninjapulse,
 		/datum/action/item_action/ninjastar,
-		/datum/action/item_action/ninjanet,
 		/datum/action/item_action/ninja_sword_recall,
 		/datum/action/item_action/ninja_stealth,
-		/datum/action/item_action/toggle_glove
+		/datum/action/item_action/toggle_glove,
+		/datum/action/item_action/ninja_hack
 	)
 
 	//Important parts of the suit.
 	var/mob/living/carbon/human/affecting = null
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/techweb/stored_research
-	var/obj/item/disk/tech_disk/t_disk//To copy design onto disk.
+	var/obj/item/disk/tech_disk/t_disk //To copy design onto disk.
 	var/obj/item/energy_katana/energyKatana //For teleporting the katana back to the ninja (It's an ability)
 
 	//Other articles of ninja gear worn together, used to easily reference them after initializing.
@@ -50,7 +49,6 @@ Contents:
 
 	//Main function variables.
 	var/s_initialized = 0//Suit starts off.
-	var/s_coold = 0//If the suit is on cooldown. Can be used to attach different cooldowns to abilities. Ticks down every second based on suit ntick().
 	var/s_cost = 2.5//Base energy cost each ntick.
 	var/s_acost = 12.5//Additional cost for additional powers active.
 	var/s_delay = 40//How fast the suit does certain things, lower is faster. Can be overridden in specific procs. Also determines adverse probability.
@@ -58,27 +56,25 @@ Contents:
 	var/a_maxamount = 7//Maximum number of adrenaline boosts.
 	var/s_maxamount = 20//Maximum number of smoke bombs.
 
-		//Support function variables.
+	//Support function variables.
 	var/stealth = FALSE//Stealth off.
 	var/s_busy = FALSE//Is the suit busy with a process? Like AI hacking. Used for safety functions.
 
-		//Ability function variables.
-	var/s_bombs = 10//Number of smoke bombs.
+	//Ability function variables.
 	var/a_boost = 3//Number of adrenaline boosters.
 
-
-/datum/armor/space_space_ninja
-	melee = 60
-	bullet = 50
-	laser = 30
-	energy = 15
-	bomb = 30
+/datum/armor/space_ninja
+	melee = 20
+	bullet = 40
+	laser = 40
+	energy = 70
+	bomb = 60
 	bio = 100
 	rad = 30
 	fire = 100
 	acid = 100
-	stamina = 60
-	bleed = 60
+	stamina = 70
+	bleed = 40
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
 	. = ..()
@@ -86,7 +82,6 @@ Contents:
 		if(user == affecting)
 			. += "All systems operational. Current energy capacity: <B>[display_energy(cell.charge)]</B>.\n"+\
 			"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
-			"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
 			"There are <B>[a_boost]</B> adrenaline booster\s remaining."
 
 /obj/item/clothing/suit/space/space_ninja/Initialize(mapload)
@@ -116,6 +111,16 @@ Contents:
 	if(!user || !ishuman(user) || !(user.wear_suit == src))
 		return
 	user.adjust_bodytemperature(BODYTEMP_NORMAL - user.bodytemperature)
+	update_action_buttons()
+	if (!s_initialized)
+		return
+	if(!affecting)
+		terminate()//Kills the suit and attached objects.
+		return
+	cell.use(s_cost)
+	user.nutrition = NUTRITION_LEVEL_WELL_FED
+	// Slowly heals bleeding wounds over time
+	user.cauterise_wounds(0.1)
 
 /obj/item/clothing/suit/space/space_ninja/Destroy()
 	QDEL_NULL(spark_system)
@@ -140,20 +145,8 @@ Contents:
 		qdel(n_gloves)
 	if(!QDELETED(n_shoes))
 		qdel(n_shoes)
-	if(!QDELETED(energyKatana))
-		energyKatana.visible_message(span_warning("[src] flares and then turns to dust!"))
-		qdel(energyKatana)
 	if(!QDELETED(src))
 		qdel(src)
-
-//Randomizes suit parameters.
-/obj/item/clothing/suit/space/space_ninja/proc/randomize_param()
-	s_cost = rand(1,10)
-	s_acost = rand(10,50)
-	s_delay = rand(10,100)
-	s_bombs = rand(5,20)
-	a_boost = rand(1,7)
-
 
 //This proc prevents the suit from being taken off.
 /obj/item/clothing/suit/space/space_ninja/proc/lock_suit(mob/living/carbon/human/H)
@@ -201,7 +194,7 @@ Contents:
 		REMOVE_TRAIT(n_hood, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	if(n_shoes)
 		REMOVE_TRAIT(n_shoes, TRAIT_NODROP, NINJA_SUIT_TRAIT)
-		n_shoes.slowdown++
+		n_shoes.slowdown += 0.5
 	if(n_gloves)
 		n_gloves.icon_state = "s-ninja"
 		n_gloves.item_state = "s-ninja"
@@ -212,35 +205,104 @@ Contents:
 		var/mob/living/worn_mob = loc
 		worn_mob.update_equipment_speed_mods()
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, datum/action/action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))
 		toggle_on_off()
 		return TRUE
 	if(!s_initialized)
 		to_chat(user, span_warning("<b>ERROR</b>: suit offline.  Please activate suit."))
 		return FALSE
-	if(istype(action, /datum/action/item_action/ninjasmoke))
-		ninjasmoke()
-		return TRUE
 	if(istype(action, /datum/action/item_action/ninjaboost))
 		ninjaboost()
-		return TRUE
-	if(istype(action, /datum/action/item_action/ninjapulse))
-		ninjapulse()
 		return TRUE
 	if(istype(action, /datum/action/item_action/ninjastar))
 		ninjastar()
 		return TRUE
-	if(istype(action, /datum/action/item_action/ninjanet))
-		ninjanet()
-		return TRUE
 	if(istype(action, /datum/action/item_action/ninja_sword_recall))
 		ninja_sword_recall()
-		return TRUE
-	if(istype(action, /datum/action/item_action/ninja_stealth))
-		stealth()
 		return TRUE
 	if(istype(action, /datum/action/item_action/toggle_glove))
 		n_gloves.toggledrain()
 		return TRUE
 	return FALSE
+
+/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U, params)
+	if(U != affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
+		return ..()
+
+	if(istype(I, /obj/item/reagent_containers/cup))//If it's a glass beaker.
+		if(I.reagents.has_reagent(/datum/reagent/uranium/radium, a_transfer) && a_boost < a_maxamount)
+			I.reagents.remove_reagent(/datum/reagent/uranium/radium, a_transfer)
+			a_boost++;
+			to_chat(U, span_notice("There are now [a_boost] adrenaline boosts remaining."))
+			return
+
+	else if(istype(I, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/CELL = I
+		if(CELL.maxcharge > cell.maxcharge && n_gloves && n_gloves.candrain)
+			to_chat(U, span_notice("Higher maximum capacity detected.\nUpgrading..."))
+			if (n_gloves?.candrain && do_after(U,s_delay, target = src))
+				U.transferItemToLoc(CELL, src)
+				CELL.charge = min(CELL.charge+cell.charge, CELL.maxcharge)
+				var/obj/item/stock_parts/cell/old_cell = cell
+				old_cell.charge = 0
+				U.put_in_hands(old_cell)
+				old_cell.add_fingerprint(U)
+				old_cell.corrupt()
+				old_cell.update_icon()
+				cell = CELL
+				to_chat(U, span_notice("Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%"))
+			else
+				to_chat(U, span_danger("Procedure interrupted. Protocol terminated."))
+		return
+
+	else if(istype(I, /obj/item/disk/tech_disk))//If it's a data disk, we want to copy the research on to the suit.
+		var/obj/item/disk/tech_disk/TD = I
+		var/has_research = 0
+		if(has_research)//If it has something on it.
+			to_chat(U, "Research information detected, processing...")
+			if(do_after(U,s_delay, target = src))
+				TD.stored_research.copy_research_to(stored_research)
+				to_chat(U, span_notice("Data analyzed and updated. Disk erased."))
+			else
+				to_chat(U, "[span_userdanger("ERROR")]: Procedure interrupted. Process terminated.")
+		else
+			to_chat(U, span_notice("No research information detected."))
+		return
+	return ..()
+
+
+/datum/action/item_action/initialize_ninja_suit
+	name = "Toggle ninja suit"
+
+/datum/action/item_action/ninjaboost
+	check_flags = NONE
+	name = "Adrenaline Boost"
+	desc = "Inject a secret chemical that will counteract all movement-impairing effect."
+	button_icon_state = "repulse"
+	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+
+/datum/action/item_action/ninjastar
+	name = "Create Throwing Stars (10W)"
+	desc = "Creates some throwing stars"
+	button_icon_state = "throwingstar"
+	icon_icon = 'icons/obj/items_and_weapons.dmi'
+
+/datum/action/item_action/ninjastar/is_available()
+	if (!..())
+		return FALSE
+	var/obj/item/clothing/suit/space/space_ninja/ninja = master
+	return ninja.cell.charge >= 50
+
+/datum/action/item_action/ninja_sword_recall
+	name = "Recall Energy Katana (Variable Cost)"
+	desc = "Teleports the Energy Katana linked to this suit to its wearer, cost based on distance."
+	button_icon_state = "energy_katana"
+	icon_icon = 'icons/obj/items_and_weapons.dmi'
+
+/datum/action/item_action/toggle_glove
+	name = "Toggle interaction"
+	desc = "Switch between normal interaction and drain mode."
+	button_icon_state = "s-ninjan"
+	icon_icon = 'icons/obj/clothing/gloves.dmi'
+

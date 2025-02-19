@@ -2,6 +2,9 @@
  * The shielded component causes the parent item to nullify a certain number of attacks against the wearer, see: shielded hardsuits.
  */
 
+#define COLOUR_GOOD "#5eabeb"
+#define COLOUR_BAD "#cb5858"
+
 /datum/component/shielded
 	/// The person currently wearing us
 	var/mob/living/wearer
@@ -48,8 +51,8 @@
 		charge_recovery = 20,
 		recharge_start_delay = 20 SECONDS,
 		charge_increment_delay = 1 SECONDS,
-		shield_icon_file = 'icons/effects/effects.dmi',
-		shield_icon = "shield-old",
+		shield_icon_file = null,
+		shield_icon = null,
 		shield_inhand = FALSE,
 		shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE,
 		shield_alpha = 160,
@@ -126,6 +129,7 @@
 		return
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
 	current_integrity = 0
+	update_shield_health()
 	on_integrity_changed?.Invoke(wearer, current_integrity)
 
 	if(!charge_recovery) // if charge_recovery is 0, we don't recharge
@@ -134,6 +138,7 @@
 
 	// Remove effects on shield break
 	if (_effects_activated)
+		wearer.remove_filter("shield_filter")
 		on_deactive_effects?.Invoke(wearer)
 		_effects_activated = FALSE
 	wearer.update_appearance(UPDATE_ICON)
@@ -143,11 +148,13 @@
 /datum/component/shielded/proc/adjust_charge(change)
 	var/needs_update = current_integrity == 0
 	current_integrity = clamp(current_integrity + change, 0, max_integrity)
+	update_shield_health()
 	on_integrity_changed?.Invoke(wearer, current_integrity)
 	if(wearer && needs_update)
 		wearer.update_appearance(UPDATE_ICON)
 		// re-add effects when the shield recovers
 		if (!_effects_activated)
+			update_shield_health()
 			on_active_effects?.Invoke(wearer, current_integrity)
 			_effects_activated = TRUE
 
@@ -159,8 +166,13 @@
 		lost_wearer(source, user)
 		return
 
+	// Changed from 1 valid slot to another, don't re-apply effects
+	if (wearer == user)
+		return
+
 	wearer = user
 	if (!_effects_activated)
+		update_shield_health()
 		on_active_effects?.Invoke(user, current_integrity)
 		_effects_activated = TRUE
 	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
@@ -174,6 +186,7 @@
 
 	if(wearer)
 		if (_effects_activated)
+			wearer.remove_filter("shield_filter")
 			on_deactive_effects?.Invoke(user, current_integrity)
 			_effects_activated = FALSE
 		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
@@ -209,6 +222,7 @@
 		return
 	. = COMPONENT_HIT_REACTION_BLOCK
 	current_integrity = max(current_integrity - damage, 0)
+	update_shield_health()
 	on_integrity_changed?.Invoke(wearer, current_integrity)
 
 	INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, attack_text, current_integrity)
@@ -222,6 +236,7 @@
 	if (!current_integrity)
 		// Remove effects on shield break
 		if (_effects_activated)
+			wearer.remove_filter("shield_filter")
 			on_deactive_effects?.Invoke(wearer)
 			_effects_activated = FALSE
 		wearer.update_appearance(UPDATE_ICON)
@@ -253,3 +268,20 @@
 	adjust_charge(recharge_rune.added_shield)
 	to_chat(user, span_notice("You charge \the [parent]. It can now absorb [current_integrity] hits."))
 	qdel(recharge_rune)
+
+/// If we don't have an icon, use the default shield appearance
+/datum/component/shielded/proc/update_shield_health()
+	if (shield_icon_file)
+		return
+	var/list/good = rgb2num(COLOUR_GOOD)
+	var/list/bad = rgb2num(COLOUR_BAD)
+	var/proportion = current_integrity / max_integrity
+	var/colour_first = rgb(proportion * good[1] + (1 - proportion) * bad[1], proportion * good[2] + (1 - proportion) * bad[2], proportion * good[3] + (1 - proportion) * bad[3], 70)
+	var/colour_second = rgb((proportion * good[1] + (1 - proportion) * bad[1]) * 0.8, (proportion * good[2] + (1 - proportion) * bad[2]) * 0.8, (proportion * good[3] + (1 - proportion) * bad[3]) * 0.8, 70)
+	wearer.add_filter("shield_filter", 10, outline_filter(2, colour_first))
+	// Do the animation
+	wearer.transition_filter("shield_filter", 2 SECONDS, list(size = 2, color = colour_second), easing = SINE_EASING, loop = -1)
+	animate(time = 2 SECONDS, color = colour_first, easing = SINE_EASING, loop = -1)
+
+#undef COLOUR_GOOD
+#undef COLOUR_BAD
