@@ -14,6 +14,7 @@
 	food_flags = FOOD_IN_CONTAINER
 	w_class = WEIGHT_CLASS_NORMAL
 	max_volume = 30
+	preserved_food = TRUE
 	var/maint = FALSE
 	var/maint_overlay = ""
 	crafting_complexity = FOOD_COMPLEXITY_1

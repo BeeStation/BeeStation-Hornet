@@ -99,3 +99,11 @@
 		/obj/item/food/grown/tomato = 1
 	)
 	subcategory = CAT_PIZZA
+
+/datum/crafting_recipe/food/antspizza
+	reqs = list(
+		/obj/item/food/pizzaslice/margherita = 1,
+		/datum/reagent/ants = 4
+	)
+	result = /obj/item/food/pizzaslice/ants
+	category = CAT_PIZZA

@@ -98,6 +98,6 @@
 /obj/item/plate_shard/Initialize(mapload)
 	. = ..()
 
-	AddComponent(/datum/component/caltrop, _min_damage = force)
+	AddComponent(/datum/component/caltrop, min_damage = force)
 
 	icon_state = "[base_icon_state][pick(1,variants)]"

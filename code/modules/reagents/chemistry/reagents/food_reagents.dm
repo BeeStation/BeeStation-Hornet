@@ -609,6 +609,20 @@
 	chem_flags = NONE
 	taste_description = "mayonnaise"
 
+/datum/reagent/consumable/mold // yeah, ok, togopal, I guess you could call that a condiment
+	name = "Mold"
+	description = "This condiment will make any food break the mold. Or your stomach."
+	color ="#708a88"
+	taste_description = "rancid fungus"
+	chem_flags = NONE
+
+/datum/reagent/consumable/eggrot
+	name = "Rotten Eggyolk"
+	description = "It smells absolutely dreadful."
+	color ="#708a88"
+	taste_description = "rotten eggs"
+	chem_flags = NONE
+
 /datum/reagent/consumable/tearjuice
 	name = "Tear Juice"
 	description = "A blinding substance extracted from certain onions."

@@ -60,13 +60,28 @@
 	food_reagents = list(/datum/reagent/toxin/bad_food = 30)
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
+	preserved_food = TRUE //Can't decompose any more than this
+
+/obj/item/food/badrecipe/moldy
+	name = "moldy mess"
+	desc = "A rancid, disgusting culture of mold and ants. Somewhere under there, at <i>some point,</i> there was food."
+	food_reagents = list(/datum/reagent/consumable/mold = 30)
+	preserved_food = FALSE
+	ant_attracting = TRUE
+	decomp_type = null
+	decomposition_time = 30 SECONDS
+
+/obj/item/food/badrecipe/moldy/bacteria
+	name = "bacteria rich moldy mess"
+	desc = "Not only is this rancid lump of disgusting bile crawling with insect life, but it is also teeming with various microscopic cultures. <i>It moves when you're not looking.</i>"
 
 /obj/item/food/badrecipe/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_GRILLED,  PROC_REF(OnGrill))
+	RegisterSignal(src, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 
 ///Prevents grilling burnt shit from well, burning.
 /obj/item/food/badrecipe/proc/OnGrill()
+	SIGNAL_HANDLER
 	return COMPONENT_HANDLED_GRILLING
 
 /obj/item/food/badrecipe/burn()
@@ -93,7 +108,7 @@
 		/datum/reagent/toxin = 2,
 	)
 	tastes = list("cobwebs" = 1)
-	foodtypes = MEAT | TOXIC// | BUGS
+	foodtypes = MEAT | TOXIC | BUGS
 	w_class = WEIGHT_CLASS_TINY
 	crafting_complexity = FOOD_COMPLEXITY_1
 
@@ -107,7 +122,7 @@
 		/datum/reagent/toxin = 4,
 	)
 	tastes = list("cobwebs" = 1, "guts" = 2)
-	foodtypes = MEAT | TOXIC// | BUGS
+	foodtypes = MEAT | TOXIC | BUGS
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/melonfruitbowl
