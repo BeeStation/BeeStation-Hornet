@@ -180,7 +180,7 @@ You may notice something like this in `process_cell()`. It's not quite the same 
 
 Back in the old FEA days, neighbor count was hardcoded to 4 (Likely because this is what cell sharing on an infinite grid would look like). This means that turf A -> turf B is the same as turf B -> turf A, because they're each portioning up the gas in the same way.
 
-But when we moved to LINDA, we started using the length of our atmos_adjacent_turfs list (or an analog). 
+But when we moved to LINDA, we started using the length of our atmos_adjacent_turfs list (or an analog).
 We need this so things like multiz can work, and so tiles in a corner share in a way that makes sense.
 
 Because of this, turf A -> turf B was no longer the same as turf B -> turf A, assuming one of those turfs had a different neighbor count, from I DON'T KNOW WALLS?
@@ -400,7 +400,7 @@ Performance and gameplay are much more important then realism. In all your work 
 
 *Figure 8.1: The structure of pipelines shown in color, components are a mix*
 
-`/datum/pipeline` handles the simulation of piping and such. It has 2 main actions, one of which you should know very well. The other is slightly more of a hurdle.
+`/datum/pipenet` handles the simulation of piping and such. It has 2 main actions, one of which you should know very well. The other is slightly more of a hurdle.
 
 To understand pipelines you'll first need to understand how we process things like pumps or vents, atmos components that is.
 To start with, a set of pipes is treated as one gas mixture, however several different components draw from this mix. Think pumps, heaters, mixers, vents, etc.

@@ -344,9 +344,9 @@
 	return
 
 /**
- * Similar to setPipenet() but instead of setting a network to a pipenet, it replaces the old pipenet with a new one, called by Merge() in datum_pipenet.dm
+ * Replaces the connection to the old_pipenet with the new_pipenet
  */
-/obj/machinery/atmospherics/proc/replace_pipenet()
+/obj/machinery/atmospherics/proc/replace_pipenet(datum/pipenet/old_pipenet, datum/pipenet/new_pipenet)
 	return
 
 /**
