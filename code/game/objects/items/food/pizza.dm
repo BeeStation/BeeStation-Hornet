@@ -1,5 +1,5 @@
+//////////PIZZA//////////
 
-// Pizza (Whole)
 /obj/item/food/pizza
 	icon = 'icons/obj/food/pizza.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
@@ -18,6 +18,8 @@
 	///What label pizza boxes use if this pizza spawns in them.
 	var/boxtag = ""
 
+//////////RAW PIZZA//////////
+
 /obj/item/food/pizza/raw
 	foodtypes =  GRAIN | DAIRY | VEGETABLES | RAW
 	cut_pizza = null
@@ -32,7 +34,8 @@
 		AddElement(/datum/element/processable, TOOL_SAW, cut_pizza, 1, 4.5 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
 		AddElement(/datum/element/processable, TOOL_SCALPEL, cut_pizza, 1, 6 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
 
-// Pizza Slice
+//////////PIZZA SLICE//////////
+
 /obj/item/food/pizzaslice
 	icon = 'icons/obj/food/pizza.dmi'
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
@@ -43,26 +46,30 @@
 /obj/item/food/pizzaslice/make_processable()
 	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, 1, 1 SECONDS, table_required = TRUE, /*screentip_verb = "Flatten"*/)
 
-// Pizza cut versions, gives at slice until it runs out of slices to give
-/obj/item/food/pizza/cut
+/obj/item/food/pizza/cut // Pizza cut versions, gives at slice until it runs out of slices to give, does not use pizza/nameofthepizza/cut, but rather pizza/cut/nameofthepizza
 	name = "Cut Pizza"
 	desc = "A cut pizza. Get your slice!"
-	icon_state = "pizzamargheritacut"
+	icon_state = "pizzamargheritacut8" //we use the margherita one as template
 	var/slices = 8
+	var/obj/item/food/pizzaslice/slice_type
+	/// this var used to be used for spawning 6 slices when cutting a pizza(for some reason, it's common sense pizzas are cut in 8), but now it determines
+	/// what type of slice you pull out of each pizza when right clicking. It was originally on the whole pizzas, but now is on the cut versions
 
-/obj/item/food/pizza/cut/attack_hand(mob/living/user)
+/obj/item/food/pizza/cut/attack_hand_secondary(mob/living/user)
 	. = ..()
 	if(.)
 		return
 	user.visible_message(span_notice("[user] takes a slice of pizza from [src]."), span_notice("You take a slice of pizza from [src]."))
-	var/obj/item/food/pizzaslice/pizza = new(get_turf(src))
-	user.put_in_hands(pizza)
+	slice_type = new(get_turf(src))
+	user.put_in_hands(slice_type)
 	slices--
 	if(slices <= 0)
 		qdel(src)
+	else
+		icon_state = "" //its nameofthepizza[slices]
+		update_appearance()
 
 //////////PIZZA TYPES//////////
-
 //////////MARGHERITA//////////
 
 /obj/item/food/pizza/margherita
@@ -113,20 +120,9 @@
 
 /obj/item/food/pizza/cut/margherita
 	name = "pizza margherita"
-	desc = "A cut pizza. Get your slice!"
-	icon_state = "pizzamargheritacut"
-	slices = 8
+	icon_state = "pizzamargherita8"
+	slice_type = /obj/item/food/pizzaslice/margherita
 
-/obj/item/food/pizza/cut/margherita/cut/attack_hand(mob/living/user)
-	. = ..()
-	if(.)
-		return
-	user.visible_message(span_notice("[user] takes a slice of pizza from [src]."), span_notice("You take a slice of pizza from [src]."))
-	var/obj/item/food/pizzaslice/margherita/pizzamargherita = new(get_turf(src))
-	user.put_in_hands(pizzamargherita)
-	slices--
-	if(slices <= 0)
-		qdel(src)
 
 //////////MEAT//////////
 
@@ -141,7 +137,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 8
 	)
 	foodtypes = GRAIN | VEGETABLES| DAIRY | MEAT
-	cut_pizza = /obj/item/food/pizzas/cut/meat
+	cut_pizza = /obj/item/food/pizza/cut/meat
 	boxtag = "Meatlovers' Supreme"
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -162,11 +158,12 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT
 	crafting_complexity = FOOD_COMPLEXITY_3
 
-/obj/item/food/pizza/meat/cut
-	name = "pizza margherita"
+/obj/item/food/pizza/cut/meat
+	name = "meatpizza"
 	desc = "A cut pizza. Get your slice!"
 	icon_state = "pizzamargheritacut"
-	var/meateslices = 8
+	slice_type = /obj/item/food/pizzaslice/meat
+
 //////////MUSHROOM//////////
 
 /obj/item/food/pizza/mushroom
@@ -180,7 +177,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
-	cut_pizza = /obj/item/food/pizzas/cut/mushroom
+	cut_pizza = /obj/item/food/pizza/cut/mushroom
 	boxtag = "Mushroom Special"
 	crafting_complexity = FOOD_COMPLEXITY_2
 
@@ -201,6 +198,12 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_2
 
+/obj/item/food/pizza/cut/mushroom
+	name = "Mushroom pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/mushroom
+
 //////////VEGETABLE//////////
 
 /obj/item/food/pizza/vegetable
@@ -214,7 +217,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 2, "cheese" = 1, "carrot" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
-	cut_pizza = /obj/item/food/pizzas/cut/vegetable
+	cut_pizza = /obj/item/food/pizza/cut/vegetable
 	boxtag = "Gourmet Vegetable"
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -235,6 +238,12 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/obj/item/food/pizza/cut/vegetable
+	name = "Vegetable pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/vegetable
+
 //////////DONKPOCKET//////////
 
 /obj/item/food/pizza/donkpocket
@@ -250,7 +259,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1, "laziness" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | JUNKFOOD
-	cut_pizza = /obj/item/food/pizzas/cut/donkpocket
+	cut_pizza = /obj/item/food/pizza/cut/donkpocket
 	boxtag = "Bangin' Donk"
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -271,6 +280,12 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | JUNKFOOD
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/obj/item/food/pizza/cut/donkpocket
+	name = "Donkpocket pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/donkpocket
+
 //////////DANK//////////
 
 /obj/item/food/pizza/dank
@@ -285,7 +300,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
-	cut_pizza = /obj/item/food/pizzas/cut/dank
+	cut_pizza = /obj/item/food/pizza/cut/dank
 	boxtag = "Fresh Herb"
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -306,6 +321,11 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/obj/item/food/pizza/cut/dank
+	name = "Dank pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/dank
 
 //////////SASSYSAGE//////////
 
@@ -321,7 +341,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY
-	cut_pizza = /obj/item/food/pizzas/cut/sassysage
+	cut_pizza = /obj/item/food/pizza/cut/sassysage
 	boxtag = "Sausage Lovers"
 	crafting_complexity = FOOD_COMPLEXITY_3
 
@@ -342,6 +362,12 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/obj/item/food/pizza/cut/sassysage
+	name = "Sassysage pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/sassysage
+
 //////////PINEAPPLE//////////
 
 /obj/item/food/pizza/pineapple
@@ -357,7 +383,7 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 2, "ham" = 2)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE
-	cut_pizza = /obj/item/food/pizzas/cut/pineapple
+	cut_pizza = /obj/item/food/pizza/cut/pineapple
 	boxtag = "Honolulu Chew"
 	crafting_complexity = FOOD_COMPLEXITY_4
 
@@ -378,6 +404,12 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE
 	crafting_complexity = FOOD_COMPLEXITY_4
 
+/obj/item/food/pizza/cut/pineapple
+	name = "Hawaiian pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/pineapple
+
 //////////ARNOLD//////////
 
 /obj/item/food/pizza/arnold
@@ -392,7 +424,7 @@
 		/datum/reagent/medicine/omnizine = 30
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pepperoni" = 2, "9 millimeter bullets" = 2)
-	cut_pizza = /obj/item/food/pizzas/cut/arnold
+	cut_pizza = /obj/item/food/pizza/cut/arnold
 	boxtag = "9mm Pepperoni"
 	crafting_complexity = FOOD_COMPLEXITY_4
 
@@ -451,3 +483,8 @@
 	i_kill_you(I, user)
 	. = ..()
 
+/obj/item/food/pizza/cut/arnold
+	name = "Arnold pizza"
+	desc = "A cut pizza. Get your slice!"
+	icon_state = "pizzamargheritacut"
+	slice_type = /obj/item/food/pizzaslice/arnold
