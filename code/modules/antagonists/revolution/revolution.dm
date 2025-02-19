@@ -339,8 +339,7 @@
 
 /// Updates the state of the world depending on if revs won or loss.
 /// Returns who won, at which case this method should no longer be called.
-/// If revs_win_injection_amount is passed, then that amount of threat will be added if the revs win.
-/datum/team/revolution/proc/process_victory(revs_win_injection_amount)
+/datum/team/revolution/proc/process_victory()
 	if (check_rev_victory())
 		return REVOLUTION_VICTORY
 	else if (check_heads_victory())

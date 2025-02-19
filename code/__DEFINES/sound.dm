@@ -102,7 +102,7 @@
 #define ANNOUNCER_ALIENS			"announcer_aliens"
 #define ANNOUNCER_ANIMES 			"announcer_animes"
 #define ANNOUNCER_GRANOMALIES 		"announcer_granomalies"
-#define ANNOUNCER_INTERCEPT 		"announcer_animes"
+#define ANNOUNCER_INTERCEPT 		"announcer_intercept"
 #define ANNOUNCER_IONSTORM 			"announcer_ionstorm"
 #define ANNOUNCER_METEORS			"announcer_meteors"
 #define ANNOUNCER_OUTBREAK5			"announcer_outbreak5"

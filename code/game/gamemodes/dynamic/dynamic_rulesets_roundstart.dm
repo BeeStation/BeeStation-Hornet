@@ -92,7 +92,7 @@
 	team = new
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		team.add_member(chosen_mind)
-		GLOB.pre_setup_antags -= mind
+		GLOB.pre_setup_antags -= chosen_mind
 
 /datum/dynamic_ruleset/roundstart/brothers/execute()
 	team.pick_meeting_area()
@@ -206,6 +206,7 @@
 	points_cost = 20
 	flags = HIGH_IMPACT_RULESET
 
+	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
@@ -213,8 +214,8 @@
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		if(leader)
 			leader = FALSE
-			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(/datum/antagonist/nukeop/leader)
-			leader_datum = new_op.nuke_team
+			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
+			leader_datum = leader_datum.nuke_team
 		else
 			chosen_mind.add_antag_datum(antag_datum)
 
@@ -266,10 +267,10 @@
 	name = "Clown Operatives"
 	antag_datum = /datum/antagonist/nukeop/clownop
 	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
+	weight = 2
 
 /datum/dynamic_ruleset/roundstart/nuclear/clown_ops/pre_execute()
 	. = ..()
-
 	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
 		var/turf/turf = get_turf(nuke)
 		if(turf)
@@ -312,12 +313,8 @@
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/datum/dynamic_ruleset/roundstart/revolution/clean_up()
-	qdel(revolution)
-	. = ..()
-
 /datum/dynamic_ruleset/roundstart/revolution/rule_process()
-	var/winner = revolution.process_victory(revs_win_threat_injection)
+	var/winner = revolution.process_victory()
 	if(isnull(winner))
 		return
 	finished = winner
@@ -355,7 +352,7 @@
 
 		new_incursionist.team = incursion_team
 		incursion_team.add_member(chosen_mind)
-		Mchosen_mind.add_antag_datum(new_incursionist)
+		chosen_mind.add_antag_datum(new_incursionist)
 		GLOB.pre_setup_antags -= chosen_mind
 	return DYNAMIC_EXECUTE_SUCCESS
 

@@ -181,7 +181,7 @@
 		for(var/datum/station_goal/G in station_goals)
 			G.prepare_report()
 	gamemode_ready = TRUE
-	return 1
+	return TRUE
 
 
 ///Handles late-join antag assignments
