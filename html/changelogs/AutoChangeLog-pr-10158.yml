@@ -1,7 +1,0 @@
-author: rkz, Spockye, EvilDragonFiend, anturk, fikou, cacogen
-delete-after: true
-changes:
-  - rscadd: Deadspace navigation. Activate it using the button below the languages
-      button. It will display a holographic trail leading to your selected destination.
-  - rscadd: Navigational landmarks. The must be manually placed, but a player can
-      be directed to the location at any time using the Navigate button.
