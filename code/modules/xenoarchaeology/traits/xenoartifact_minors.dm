@@ -61,7 +61,7 @@
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
-	X.density = TRUE
+	X.set_density(TRUE)
 	X.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	X.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 	X.charge_req += 20
@@ -139,7 +139,7 @@
 		setup_sentience(X, C.ckey)
 		return
 	S = new(get_turf(X), X)
-	S.density = FALSE
+	S.set_density(FALSE)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)
 	if(!(SSzclear.get_free_z_level()))
@@ -362,7 +362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 		holder.dropItemToGround(X)
 	X.visible_message(span_danger("The [X.name] buckles to the floor!"))
 	X.set_anchored(TRUE)
-	X.density = TRUE
+	X.set_density(TRUE)
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
 	if(item.tool_behaviour == TOOL_WRENCH)
@@ -372,7 +372,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/sentient_artifact)
 			holder.dropItemToGround(X)
 		X.set_anchored(!X.anchored)
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
-			X.density = !X.density
+			X.set_density(!X.density)
 		return TRUE
 	return ..()
 
