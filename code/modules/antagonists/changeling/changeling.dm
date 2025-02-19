@@ -3,6 +3,7 @@
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
 	banning_key = ROLE_CHANGELING
+	special_role = ROLE_CHANGELING
 	required_living_playtime = 4
 	ui_name = "AntagInfoChangeling"
 	antag_moodlet = /datum/mood_event/focused

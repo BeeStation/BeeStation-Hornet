@@ -18,7 +18,7 @@
 /datum/game_mode/event/generate_report()
 	return endround_report
 
-/datum/game_mode/event/send_intercept(report = 0)
+/datum/game_mode/event/send_intercept(report = FALSE)
 	if(intercept_message)
 		priority_announce(intercept_message, "Security Report", SSstation.announcer.get_rand_report_sound())
 

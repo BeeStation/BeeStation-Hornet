@@ -1,3 +1,4 @@
+/*
 /datum/game_mode/dynamic/proc/setup_hijacking()
 	RegisterSignal(SSdcs, COMSIG_GLOB_PRE_RANDOM_EVENT, PROC_REF(on_pre_random_event))
 
@@ -24,3 +25,4 @@
 	if (next_midround_injection() - get_time() < time_range)
 		dynamic_log("Random event [round_event_control.name] tried to roll, but the next midround injection is too soon.")
 		return CANCEL_PRE_RANDOM_EVENT
+*/
