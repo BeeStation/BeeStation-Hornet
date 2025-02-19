@@ -43,14 +43,14 @@
 			if (W.use_tool(src, user, 20))
 				open = !open
 				to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
-			return
+			return TRUE
 		if (W.tool_behaviour == TOOL_WIRECUTTER)
 			to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
-			return
+			return TRUE
 		if ((W.tool_behaviour == TOOL_MULTITOOL))
 			if(l_hacking)
 				to_chat(user, span_danger("This safe is already being hacked."))
-				return
+				return TRUE
 			if(open)
 				to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
 				l_hacking = TRUE
@@ -59,9 +59,9 @@
 					l_set = FALSE
 
 				l_hacking = FALSE
-				return
+				return TRUE
 			to_chat(user, span_notice("You must <b>unscrew</b> the service panel before you can pulse the wiring."))
-			return
+			return TRUE
 
 	// -> storage/attackby() what with handle insertion, etc
 	return ..()
