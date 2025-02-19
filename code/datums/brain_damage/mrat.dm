@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 	var/mob/camera/imaginary_friend/friend = owner
 	if(!istype(friend))
 		qdel(src)
-	if(alert(friend, "Are you sure you want to leave?", "Leave:", "Yes", "No") != "Yes")
+	if(tgui_alert(friend, "Are you sure you want to leave?", "Leave:", list("Yes", "No")) != "Yes")
 		return
 	to_chat(friend, span_warning("You have ejected yourself from [friend.owner]."))
 	to_chat(friend.owner, span_warning("Your mentor has left."))
@@ -186,7 +186,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend/mrat)
 /datum/action/innate/mrat_kick/on_activate()
 	if(!istype(friend))
 		qdel(src)
-	if(!istype(friend) || alert(friend, "Are you sure you want to remove your mentor?", "Remove:", "Yes", "No") != "Yes")
+	if(!istype(friend) || tgui_alert(friend, "Are you sure you want to remove your mentor?", "Remove:", list("Yes", "No")) != "Yes")
 		return
 	to_chat(friend, span_warning("You have been removed from [friend.owner]."))
 	to_chat(friend.owner, span_warning("Your mentor has been removed."))
