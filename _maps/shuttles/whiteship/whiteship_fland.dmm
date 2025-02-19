@@ -147,8 +147,7 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshipshutter";
-	id_tag = "kitchenshipshutter"
+	id = "kitchenship_shutter"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
@@ -173,8 +172,7 @@
 	pixel_y = 6;
 	pixel_x = -26;
 	name = "Serving Window Shutters";
-	id = "kitchenshipshutter";
-	id_tag = "kitchenshipshutter"
+	id = "kitchenship_shutter"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria,
@@ -395,8 +393,7 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshipshutter";
-	id_tag = "kitchenshipshutter"
+	id = "kitchenship_shutter"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
@@ -773,8 +770,7 @@
 	pixel_x = 3
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshipshutter";
-	id_tag = "kitchenshipshutter"
+	id = "kitchenship_shutter"
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
