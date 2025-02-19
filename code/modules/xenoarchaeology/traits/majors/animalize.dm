@@ -51,7 +51,7 @@
 		var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
 		if(!istype(H))
 			continue
-		H?.restore(FALSE, FALSE)
+		H?.restore(FALSE)
 		target.Knockdown(2 SECONDS)
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	return ..()

@@ -41,7 +41,7 @@
 /obj/machinery/xenoarchaeology_machine/proc/activate_machine()
 	return
 
-/obj/machinery/xenoarchaeology_machine/AltClick(mob/user)
+/obj/machinery/xenoarchaeology_machine/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	alt_activate_machine(user)
 
@@ -233,7 +233,7 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-Click to calibrate inserted artifacts.\nArtifacts can be calibrated by labeling them 100% correctly, excluding malfunctions.</span>"
+	. += "<span class='notice'>Right-Click to calibrate inserted artifacts.\nArtifacts can be calibrated by labeling them 100% correctly, excluding malfunctions.</span>"
 
 /obj/machinery/xenoarchaeology_machine/calibrator/activate_machine(mob/living/user)
 	if(length(held_contents))

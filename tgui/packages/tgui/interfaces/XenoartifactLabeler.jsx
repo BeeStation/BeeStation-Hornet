@@ -117,7 +117,7 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
         tooltip={`${tooltip_stats[specific_trait]['alt_name'] ? `${tooltip_stats[specific_trait]['alt_name']},` : ``}
           Weight: ${tooltip_stats[specific_trait]['weight']},
           Conductivity: ${tooltip_stats[specific_trait]['conductivity']}`}
-        oncontextmenu={(e) => {
+        onContextMenu={(e) => {
           e.preventDefault();
           act(`toggle_trait`, { trait_name: specific_trait, select: false });
         }}

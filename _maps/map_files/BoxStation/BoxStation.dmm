@@ -14291,7 +14291,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -39065,6 +39065,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "mFY" = (
@@ -49714,6 +49717,13 @@
 	},
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
+"qBm" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/obj/machinery/meter,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "qBA" = (
 /obj/machinery/power/apc/auto_name/directional/east{
 	pixel_x = 24
@@ -67822,10 +67832,6 @@
 /obj/item/pen,
 /turf/open/floor/iron/dark,
 /area/security/warden)
-"xNg" = (
-/obj/machinery/meter,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "xNj" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -115569,7 +115575,7 @@ fGJ
 eqb
 klH
 nUT
-mRr
+qBm
 cOx
 cNW
 cOe
@@ -115826,7 +115832,7 @@ xtd
 mYt
 klH
 cOe
-xNg
+mRr
 cOe
 cNW
 cOe
