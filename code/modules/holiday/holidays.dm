@@ -493,7 +493,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	return FALSE
 
 /datum/holiday/ramadan/getStationPrefix()
-	return pick("Harm","Halaal","Jihad","Muslim")
+	return pick("Harm","Halaal","Eid","Suhur","Iftar","Muslim")
 
 /datum/holiday/ramadan/end
 	name = "End of Ramadan"
