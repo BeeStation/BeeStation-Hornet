@@ -40,6 +40,8 @@
 	var/crafting_complexity = 0
 	///Buff given when a hand-crafted version of this item is consumed. Randomized according to crafting_complexity if not assigned.
 	var/datum/status_effect/food/crafted_food_buff = null
+	//the utensils you need to eat this type of food without being a mess
+	var/utensils
 
 /obj/item/food/Initialize(mapload)
 	. = ..()

@@ -193,3 +193,22 @@
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
 	armor_type = /datum/armor/none
+
+/obj/item/knife/diamond
+	name = "diamond knife"
+	icon = 'icons/obj/service/kitchen.dmi'
+	icon_state = "dknife"
+	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	item_state = "dknife"
+	worn_icon_state = "knife"
+	desc = "The original knife, it is said that all other knives are only copies of this one."
+	force = 15
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 15
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	throw_speed = 3
+	throw_range = 6
+	custom_materials = list(/datum/material/iron=12000,/datum/material/diamond=1000)
+	tool_behaviour = TOOL_KNIFE
+	toolspeed = 0.5
