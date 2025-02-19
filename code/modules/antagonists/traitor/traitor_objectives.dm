@@ -1,4 +1,4 @@
-/datum/antagonist/traitor/proc/forge_human_objectives()
+/datum/antagonist/traitor/proc/forge_objectives()
 	var/is_hijacker = FALSE
 	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
 		is_hijacker = prob(10)

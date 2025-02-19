@@ -9,22 +9,16 @@
 	var/special_role = ROLE_TRAITOR
 	/// Shown when giving uplinks and codewords to the player
 	var/employer = "The Syndicate"
-	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/datum/weakref/uplink_ref
 	var/datum/contractor_hub/contractor_hub
 	/// If this specific traitor has been assigned codewords. This is not always true, because it varies by faction.
 	var/has_codewords = FALSE
 
 /datum/antagonist/traitor/on_gain()
-	if(owner.current && isAI(owner.current))
-		traitor_kind = TRAITOR_AI
-		ui_name = "AntagInfoMalf"
-
 	SSticker.mode.traitors += owner
 	owner.special_role = special_role
 	if(give_objectives)
-		forge_traitor_objectives()
-	finalize_traitor()
+		forge_objectives()
 	..()
 
 /datum/antagonist/traitor/apply_innate_effects()
@@ -34,16 +28,6 @@
 	handle_clown_mutation(owner.current, removing=FALSE)
 
 /datum/antagonist/traitor/on_removal()
-	//Remove malf powers.
-	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
-		var/mob/living/silicon/ai/A = owner.current
-		A.set_zeroth_law("")
-		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
-		A.malf_picker.remove_malf_verbs(A)
-		qdel(A.malf_picker)
-		QDEL_NULL(A.radio.keyslot)
-		A.radio.recalculateChannels()
-
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
 		to_chat(owner.current,span_userdanger(" You are no longer the [special_role]! "))
@@ -64,22 +48,19 @@
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
 
-/datum/antagonist/traitor/proc/forge_traitor_objectives()
-	switch(traitor_kind)
-		if(TRAITOR_AI)
-			forge_ai_objectives()
-		else
-			forge_human_objectives()
 
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
+
 	msg += span_alertsyndie("You are the [owner.special_role].")
 	msg += span_alertsyndie("Use the 'Traitor Info and Backstory' action at the top left in order to select a backstory and review your objectives, uplink location, and codewords!")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor", "Complete your objectives, no matter the cost.")
+
+	ui_interact(owner.current)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
+
 	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
-		"Complete your objectives, no matter the cost.")
-	if(traitor_kind == TRAITOR_AI)
-		has_codewords = TRUE
+
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -91,23 +72,9 @@
 	traitorhud.leave_hud(owner.current)
 	set_antag_hud(owner.current, null)
 
-/datum/antagonist/traitor/proc/finalize_traitor()
-	switch(traitor_kind)
-		if(TRAITOR_AI)
-			add_law_zero()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-			owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
-		if(TRAITOR_HUMAN)
-			ui_interact(owner.current)
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_traitor_icons_added()
-	var/mob/living/M = mob_override || owner.current
-	if(isAI(M) && traitor_kind == TRAITOR_AI)
-		var/mob/living/silicon/ai/A = M
-		A.hack_software = TRUE
 	// Give codewords to the new mob on mind transfer.
 	if(mob_override && istype(faction) && faction.give_codewords)
 		give_codewords(mob_override)
@@ -115,9 +82,6 @@
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_traitor_icons_removed()
-	var/mob/living/silicon/ai/A = mob_override || owner.current
-	if(istype(A)  && traitor_kind == TRAITOR_AI)
-		A.hack_software = FALSE
 	// Remove codewords from the old mob on mind transfer.
 	if(mob_override && istype(faction) && faction.give_codewords)
 		remove_codewords(mob_override)
@@ -136,11 +100,10 @@
 	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/proc/equip(var/silent = FALSE)
-	if(traitor_kind == TRAITOR_HUMAN)
-		var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
-		var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
-		if(uplink)
-			uplink_ref = WEAKREF(uplink)
+	var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
+	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
+	if(uplink)
+		uplink_ref = WEAKREF(uplink)
 
 /datum/antagonist/traitor/proc/assign_exchange_role()
 	//set faction
