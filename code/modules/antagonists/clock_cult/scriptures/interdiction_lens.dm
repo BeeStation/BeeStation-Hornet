@@ -37,7 +37,7 @@
 	QDEL_NULL(internal_dampener)
 	. = ..()
 
-/obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user, list/modifiers)
 	if(is_servant_of_ratvar(user))
 		if(!anchored)
 			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))

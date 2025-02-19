@@ -52,6 +52,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	// Move to nullspace first to prevent qdel loops
+	moveToNullspace()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
@@ -564,7 +566,7 @@
 		Nanotrasen officials note that it is unique in every way and the design has not been copied in any way."
 	item_state = "exploration_hardsuit"
 	armor_type = /datum/armor/hardsuit_exploration
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/gun/ballistic/rifle/leveraction/exploration, /obj/item/gun/energy/laser/repeater/explorer)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
@@ -1319,6 +1321,8 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
+	if (!H.mind)
+		return FALSE
 	if(H.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 	else

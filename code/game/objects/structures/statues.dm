@@ -21,6 +21,8 @@
 /obj/structure/statue/Initialize(mapload)
 	. = ..()
 	AddElement(art_type, impressiveness)
+	//AddElement(/datum/element/beauty, impressiveness * 75)
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
@@ -39,6 +41,9 @@
 				deconstruct(TRUE)
 			return
 	return ..()
+
+/obj/structure/statue/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -79,7 +84,7 @@
 	radiate()
 	..()
 
-/obj/structure/statue/uranium/attack_hand(mob/user)
+/obj/structure/statue/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
 	. = ..()
 
@@ -228,7 +233,7 @@
 	honk()
 	return ..()
 
-/obj/structure/statue/bananium/attack_hand(mob/user)
+/obj/structure/statue/bananium/attack_hand(mob/user, list/modifiers)
 	honk()
 	. = ..()
 

@@ -29,7 +29,7 @@
 		return . | SPELL_CANCEL_CAST
 
 /datum/action/spell/telepathy/is_valid_spell(mob/user, atom/target)
-	return ..() && isliving(user)
+	return ..() && isliving(target)
 
 /datum/action/spell/telepathy/on_cast(mob/living/user, mob/living/target)
 	. = ..()

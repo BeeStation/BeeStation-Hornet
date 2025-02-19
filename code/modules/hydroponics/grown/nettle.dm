@@ -110,8 +110,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 			user.Paralyze(100)
 			to_chat(user, span_userdanger("You are stunned by [src] as you try picking it up!"))
 
-/obj/item/food/grown/nettle/death/attack(mob/living/M, mob/user)
-	if(!M.can_inject(user) && user.a_intent == INTENT_HARM)
+/obj/item/food/grown/nettle/death/attack(mob/living/M, mob/living/user)
+	if(!M.can_inject(user) && user.combat_mode)
 		to_chat(user, span_warning("The [src] harmlessly bounces off of [M]! They're protected from its needles!"))
 		return FALSE
 	else
