@@ -15,6 +15,8 @@
 #define JOB_TRAIT "job"
 #define CYBORG_ITEM_TRAIT "cyborg-item"
 #define ADMIN_TRAIT "admin" // (B)admins only.
+/// Any traits given through a smite.
+#define SMITE_TRAIT "smite"
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
