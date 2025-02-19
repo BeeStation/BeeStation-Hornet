@@ -19362,7 +19362,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -23207,7 +23207,7 @@
 	req_access_txt = "3"
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/walter{
 	density = 0;
 	dir = 1
 	},
@@ -36984,7 +36984,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "szu" = (
-/mob/living/simple_animal/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/Ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4

@@ -716,7 +716,7 @@
 	else
 		var/location = get_turf(holder.my_atom)
 		for(var/i in rand(1, created_volume) to created_volume) // More lulz.
-			new /mob/living/simple_animal/pet/dog/corgi(location)
+			new /mob/living/basic/pet/dog/corgi(location)
 	..()
 
 /datum/chemical_reaction/hair_dye

@@ -30,7 +30,11 @@
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 /// From base of /mob/proc/reset_perspective() : ()
 #define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
-#define COMSIG_MOB_ALLOWED "mob_allowed"						//! from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
+///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
+#define COMSIG_MOB_TRIED_ACCESS "tried_access"
+	#define ACCESS_ALLOWED (1<<0)
+	#define ACCESS_DISALLOWED (1<<1)
+	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
 
 ///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
 #define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"

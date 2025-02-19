@@ -5545,7 +5545,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/walter{
 	density = 0;
 	dir = 1
 	},
@@ -35326,7 +35326,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/Ian,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -52251,7 +52251,7 @@
 "nss" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/item/beacon,
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	name = "Swanson"
 	},
 /turf/open/floor/engine/light,
