@@ -29,5 +29,4 @@
 		return
 	C.dna.add_mutation(HULK)
 	C.dna.add_mutation(XRAY)
-	C.dna.add_mutation(SPACEMUT)
 	C.dna.add_mutation(TK)
