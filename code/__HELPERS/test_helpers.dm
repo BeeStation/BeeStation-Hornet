@@ -6,7 +6,7 @@
 	RETURN_TYPE(/list)
 	var/list/output = list()
 	for (var/type in subtypesof(/datum/ignore_type))
-		var/datum/ignore_type/temp = new()
+		var/datum/ignore_type/temp = new type()
 		temp.add_ignores(output)
 	return output
 

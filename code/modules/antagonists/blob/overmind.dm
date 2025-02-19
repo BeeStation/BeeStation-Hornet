@@ -125,7 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 		blob_points = INFINITY
 		addtimer(CALLBACK(src, PROC_REF(victory)), 450)
 	else if(!free_strain_rerolls && (last_reroll_time + BLOB_POWER_REROLL_FREE_TIME<world.time))
-		to_chat(src, "<b><span class='big'><font color=\"#EE4000\">You have gained another free strain re-roll.</font></span></b>")
+		to_chat(src, "<b>[span_big("<font color=\"#EE4000\">You have gained another free strain re-roll.</font>")]</b>")
 		free_strain_rerolls = 1
 
 	if(!victory_in_progress && max_count < blobs_legit.len)

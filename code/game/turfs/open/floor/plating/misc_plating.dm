@@ -200,7 +200,7 @@
 	. = ..()
 	if(!istype(newloc, /turf/open/indestructible/sound/pool))
 		var/datum/component/swimming/S = Obj.GetComponent(/datum/component/swimming) //Handling admin TPs here.
-		S?.RemoveComponent()
+		S?.ClearFromParent()
 
 /turf/open/MouseDrop_T(atom/dropping, mob/user)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
@@ -209,7 +209,7 @@
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming)
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
-			S.RemoveComponent()
+			S.ClearFromParent()
 			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else

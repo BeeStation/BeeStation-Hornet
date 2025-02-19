@@ -5,6 +5,7 @@
 	show_to_ghosts = TRUE
 	banning_key = ROLE_BLOB
 	ui_name = "AntagInfoBlob"
+	required_living_playtime = 4
 
 	var/datum/action/innate/blobpop/pop_action
 	var/starting_points_human_blob = OVERMIND_STARTING_POINTS
@@ -82,8 +83,8 @@
 	if(!blobtag)
 		Remove()
 		return
-	var/mob/camera/blob/B = new /mob/camera/blob(get_turf(old_body), blobtag.starting_points_human_blob)
-	owner.mind.transfer_to(B)
+	var/mob/camera/blob/blob = new /mob/camera/blob(get_turf(old_body), blobtag.starting_points_human_blob)
+	owner.mind.transfer_to(blob)
 	old_body.gib()
 	B.place_blob_core(placement_override = TRUE, pop_override = TRUE)
 

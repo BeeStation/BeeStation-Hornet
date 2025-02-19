@@ -24,14 +24,14 @@
 				if(M.client)
 					to_chat(src, span_warning("Someone could see your blob core from here!"))
 					return FALSE
-		var/turf/T = get_turf(src)
-		if(!is_valid_turf(T))
+		var/turf/turf = get_turf(src)
+		if(!is_valid_turf(turf))
 			to_chat(src, span_warning("You cannot place your core in this area!"))
 			return FALSE
-		if(T.density)
+		if(turf.density)
 			to_chat(src, span_warning("This spot is too dense to place a blob core on!"))
 			return FALSE
-		for(var/obj/O in T)
+		for(var/obj/O in turf)
 			if(istype(O, /obj/structure/blob))
 				if(istype(O, /obj/structure/blob/normal))
 					qdel(O)
@@ -45,8 +45,8 @@
 			to_chat(src, span_warning("It is too early to place your blob core!"))
 			return FALSE
 	else if(placement_override == 1)
-		var/turf/T = pick(GLOB.blobstart)
-		forceMove(T) //got overrided? you're somewhere random, motherfucker
+		var/turf/turf = pick(GLOB.blobstart)
+		forceMove(turf) //got overrided? you're somewhere random, motherfucker
 	if(placed && blob_core)
 		blob_core.forceMove(loc)
 	else
@@ -70,15 +70,15 @@
 		for(var/i in 1 to GLOB.blob_nodes.len)
 			var/obj/structure/blob/special/node/B = GLOB.blob_nodes[i]
 			nodes["Blob Node #[i] ([B.overmind ? "[B.overmind.blobstrain.name]":"No Strain"])"] = B
-		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
-		var/obj/structure/blob/special/node/chosen_node = nodes[node_name]
+		var/node_name = tgui_input_list(src, "Choose a node to jump to.", "Node Jump", nodes)
+		var/obj/structure/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
 			forceMove(chosen_node.loc)
 
-/mob/camera/blob/proc/createSpecial(price, blobstrain, nearEquals, needsNode, turf/T)
-	if(!T)
-		T = get_turf(src)
-	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
+/mob/camera/blob/proc/createSpecial(price, blobstrain, nearEquals, needsNode, turf/turf)
+	if(!turf)
+		turf = get_turf(src)
+	var/obj/structure/blob/B = (locate(/obj/structure/blob) in turf)
 	if(!B)
 		to_chat(src, "<span class='warning'>There is no blob here!</span>")
 		balloon_alert(src, "no blob here!")
@@ -87,13 +87,13 @@
 		to_chat(src, "<span class='warning'>Unable to use this blob, find a normal one.</span>")
 		balloon_alert(src, "need normal blob!")
 		return
-	if(needsNode)
-		if(nodes_required && !(locate(/obj/structure/blob/special/node) in orange(BLOB_NODE_PULSE_RANGE, T)) && !(locate(/obj/structure/blob/special/core) in orange(BLOB_CORE_PULSE_RANGE, T)))
-			to_chat(src, "<span class='warning'>You need to place this blob closer to a node or core!</span>")
+	if(needsNode && nodes_required)
+		if(!(locate(/obj/structure/blob/node) in orange(BLOB_NODE_PULSE_RANGE, turf)) && !(locate(/obj/structure/blob/core) in orange(BLOB_NODE_PULSE_RANGE + 1, turf)))
+			to_chat(src, span_warning("You need to place this blob closer to a node or core!"))
 			balloon_alert(src, "too far from node or core!")
 			return //handholdotron 2000
 	if(nearEquals)
-		for(var/obj/structure/blob/L in orange(nearEquals, T))
+		for(var/obj/structure/blob/L in orange(nearEquals, turf))
 			if(L.type == blobstrain)
 				to_chat(src, "<span class='warning'>There is a similar blob nearby, move more than [nearEquals] tiles away from it!</span>")
 				L.balloon_alert(src, "too close!")
@@ -110,23 +110,23 @@
 	else
 		to_chat(src, span_warning("You no longer require a nearby node or core to place factory and resource blobs."))
 
-/mob/camera/blob/proc/create_shield(turf/T)
-	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
+/mob/camera/blob/proc/create_shield(turf/turf)
+	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in turf
 	if(S)
 		if(!can_buy(BLOB_UPGRADE_REFLECTOR_COST))
 			return
 		if(S.get_integrity() < S.max_integrity * 0.5)
 			add_points(BLOB_UPGRADE_REFLECTOR_COST)
-			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
+			to_chat(src, span_warning("This shield blob is too damaged to be modified properly!"))
 			return
 		to_chat(src, span_warning("You secrete a reflective ooze over the shield blob, allowing it to reflect projectiles at the cost of reduced integrity."))
 		S.change_to(/obj/structure/blob/shield/reflective, src)
 	else
-		createSpecial(BLOB_UPGRADE_STRONG_COST, /obj/structure/blob/shield, 0, FALSE, T)
+		createSpecial(BLOB_UPGRADE_STRONG_COST, /obj/structure/blob/shield, 0, FALSE, turf)
 
 /mob/camera/blob/proc/create_blobbernaut()
-	var/turf/T = get_turf(src)
-	var/obj/structure/blob/special/factory/B = locate(/obj/structure/blob/special/factory) in T
+	var/turf/turf = get_turf(src)
+	var/obj/structure/blob/special/factory/B = locate(/obj/structure/blob/special/factory) in turf
 	if(!B)
 		to_chat(src, span_warning("You must be on a factory blob!"))
 		return
@@ -165,7 +165,7 @@
 		to_chat(blobber, "Your overmind's blob reagent is: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")
 		to_chat(blobber, "The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> reagent [blobstrain.shortdesc ? "[blobstrain.shortdesc]" : "[blobstrain.description]"]")
 	else
-		to_chat(src, "<span class='warning'>You could not conjure a sentience for your blobbernaut. Your points have been refunded. Try again later.</span>")
+		to_chat(src, span_warning("You could not conjure a sentience for your blobbernaut. Your points have been refunded. Try again later."))
 		add_points(BLOBMOB_BLOBBERNAUT_RESOURCE_COST)
 		B.naut = null
 
@@ -178,20 +178,20 @@
 	if(!blob_core)
 		to_chat(src, span_userdanger("You have no core and are about to die! May you rest in peace."))
 		return
-	if(!is_valid_turf(T))
+	if(!is_valid_turf(turf))
 		to_chat(src, span_warning("You cannot relocate your core here!"))
 		return
 	if(!can_buy(BLOB_POWER_RELOCATE_COST))
 		return
 	var/turf/old_turf = get_turf(blob_core)
 	var/olddir = blob_core.dir
-	blob_core.forceMove(T)
+	blob_core.forceMove(turf)
 	blob_core.setDir(B.dir)
 	B.forceMove(old_turf)
 	B.setDir(olddir)
 
-/mob/camera/blob/proc/remove_blob(turf/T)
-	var/obj/structure/blob/B = locate() in T
+/mob/camera/blob/proc/remove_blob(turf/turf)
+	var/obj/structure/blob/B = locate() in turf
 	if(!B)
 		to_chat(src, span_warning("There is no blob there!"))
 		return
@@ -206,49 +206,49 @@
 		to_chat(src, span_notice("Gained [B.point_return] resources from removing \the [B]."))
 	qdel(B)
 
-/mob/camera/blob/proc/expand_blob(turf/T)
+/mob/camera/blob/proc/expand_blob(turf/turf)
 	if(world.time < last_attack)
 		return
 	var/list/possibleblobs = list()
-	for(var/obj/structure/blob/AB in range(1, T))
+	for(var/obj/structure/blob/AB in range(1, turf))
 		possibleblobs += AB
 	if(!possibleblobs.len)
 		to_chat(src, span_warning("There is no blob adjacent to the target tile!"))
 		return
 	if(can_buy(BLOB_EXPAND_COST))
 		var/attacksuccess = FALSE
-		for(var/mob/living/L in T)
+		for(var/mob/living/L in turf)
 			if(FACTION_BLOB in L.faction) //no friendly/dead fire
 				continue
 			if(L.stat != DEAD)
 				attacksuccess = TRUE
 			blobstrain.attack_living(L)
-		var/obj/structure/blob/B = locate() in T
+		var/obj/structure/blob/B = locate() in turf
 		if(B)
 			if(attacksuccess) //if we successfully attacked a turf with a blob on it, only give an attack refund
-				B.blob_attack_animation(T, src)
+				B.blob_attack_animation(turf, src)
 				add_points(BLOB_ATTACK_REFUND)
 			else
-				to_chat(src, "<span class='warning'>There is a blob there!</span>")
+				to_chat(src, span_warning("There is a blob there!"))
 				add_points(BLOB_EXPAND_COST) //otherwise, refund all of the cost
 		else
 			var/list/cardinalblobs = list()
 			var/list/diagonalblobs = list()
 			for(var/I in possibleblobs)
 				var/obj/structure/blob/IB = I
-				if(get_dir(IB, T) in GLOB.cardinals)
+				if(get_dir(IB, turf) in GLOB.cardinals)
 					cardinalblobs += IB
 				else
 					diagonalblobs += IB
 			var/obj/structure/blob/OB
 			if(cardinalblobs.len)
 				OB = pick(cardinalblobs)
-				if(!OB.expand(T, src))
+				if(!OB.expand(turf, src))
 					add_points(BLOB_ATTACK_REFUND) //assume it's attacked SOMETHING, possibly a structure
 			else
 				OB = pick(diagonalblobs)
 				if(attacksuccess)
-					OB.blob_attack_animation(T, src)
+					OB.blob_attack_animation(turf, src)
 					playsound(OB, 'sound/effects/splat.ogg', 50, 1)
 					add_points(BLOB_ATTACK_REFUND)
 				else
@@ -258,13 +258,13 @@
 		else
 			last_attack = world.time + CLICK_CD_RAPID
 
-/mob/camera/blob/proc/rally_spores(turf/T)
+/mob/camera/blob/proc/rally_spores(turf/turf)
 	to_chat(src, "You rally your spores.")
-	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
+	var/list/surrounding_turfs = block(locate(turf.x - 1, turf.y - 1, turf.z), locate(turf.x + 1, turf.y + 1, turf.z))
 	if(!surrounding_turfs.len)
 		return
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in blob_mobs)
-		if(!BS.key && isturf(BS.loc) && get_dist(BS, T) <= 35)
+		if(!BS.key && isturf(BS.loc) && get_dist(BS, turf) <= 35)
 			BS.LoseTarget()
 			BS.Goto(pick(surrounding_turfs), BS.move_to_delay, 0)
 

@@ -18,9 +18,8 @@
 #define BLOB_ATTACK_REFUND                          2           // Points 'refunded' when the expand attempt actually attacks something instead
 #define BLOB_BRUTE_RESIST                           0.5         // Brute damage taken gets multiplied by this value
 #define BLOB_FIRE_RESIST                            1           // Burn damage taken gets multiplied by this value
-#define BLOB_EXPAND_CHANCE_MULTIPLIER               1           // Increase this value to make blobs naturally expand faster
 #define BLOB_REINFORCE_CHANCE                       2.5         // The delta_time chance for cores/nodes to reinforce their surroundings
-#define BLOB_REAGENTATK_VOL                         25          // Amount of strain-reagents that get injected when the blob attacks: main source of blob damage
+#define BLOB_REAGENT_INJECT_VOL                     25          // Amount of strain-reagents that get injected when the blob attacks: main source of blob damage
 
 
 // Structure properties
@@ -32,7 +31,6 @@
 #define BLOB_CORE_EXPAND_RANGE                      3           // Radius of automatic expansion
 #define BLOB_CORE_STRONG_REINFORCE_RANGE            1           // The radius of tiles surrounding the core that get upgraded
 #define BLOB_CORE_REFLECTOR_REINFORCE_RANGE         0
-#define BLOB_CORE_MAX_SPORES                        0           // Spores that the core can produce for free
 
 #define BLOB_NODE_MAX_HP                            200
 #define BLOB_NODE_HP_REGEN                          3
@@ -42,7 +40,6 @@
 #define BLOB_NODE_EXPAND_RANGE                      2           // Radius of automatic expansion
 #define BLOB_NODE_STRONG_REINFORCE_RANGE            0           // The radius of tiles surrounding the node that get upgraded
 #define BLOB_NODE_REFLECTOR_REINFORCE_RANGE         0
-#define BLOB_NODE_MAX_SPORES                        0           // Spores that nodes can maintain
 
 #define BLOB_FACTORY_MAX_HP                         200
 #define BLOB_FACTORY_HP_REGEN                       1
@@ -56,13 +53,13 @@
 #define BLOB_RESOURCE_GATHER_ADDED_DELAY            0.25 SECONDS// Every additional resource blob adds this amount to the gather delay
 #define BLOB_RESOURCE_GATHER_AMOUNT                 1           // The amount of points added to the overmind
 
-#define BLOB_REGULAR_MAX_HP                         30
+#define BLOB_REGULAR_MAX_HP                         25
 #define BLOB_REGULAR_HP_REGEN                       1           // Health regenerated when pulsed by a node/core
 
 #define BLOB_STRONG_MAX_HP                          150
 #define BLOB_STRONG_HP_REGEN                        2
 
-#define BLOB_REFLECTOR_MAX_HP                       150
+#define BLOB_REFLECTOR_MAX_HP                       100
 #define BLOB_REFLECTOR_HP_REGEN                     2
 
 
@@ -78,6 +75,7 @@
 #define BLOB_REFUND_REFLECTOR_COST                  8
 #define BLOB_REFUND_FACTORY_COST                    25
 #define BLOB_REFUND_NODE_COST                       25
+#define BLOB_REFUND_RESOURCE_COST                   15
 
 // Blob power properties
 
@@ -92,13 +90,14 @@
 #define BLOBMOB_HEALING_MULTIPLIER                  0.0125      // Multiplies by -maxHealth and heals the blob by this amount every blob_act
 #define BLOBMOB_SPORE_HEALTH                        30          // Base spore health
 #define BLOBMOB_SPORE_SPAWN_COOLDOWN                8 SECONDS
-#define BLOBMOB_SPORE_DMG                     4
+#define BLOBMOB_SPORE_DMG                   		4
+#define BLOBMOB_SPORE_OBJ_DMG                   	20
 #define BLOBMOB_BLOBBERNAUT_RESOURCE_COST           40          // Purchase price for making a blobbernaut
 #define BLOBMOB_BLOBBERNAUT_HEALTH                  200         // Base blobbernaut health
-#define BLOBMOB_BLOBBERNAUT_DMG_SOLO          20          // Damage without active overmind (core dead or xenobio mob)
-#define BLOBMOB_BLOBBERNAUT_DMG               4           // Damage dealt with active overmind (most damage comes from strain chems)
-#define BLOBMOB_BLOBBERNAUT_REAGENTATK_VOL          20          // Amounts of strain reagents applied on attack -- basically the main damage stat
-#define BLOBMOB_BLOBBERNAUT_DMG_OBJ                 60          // Damage dealth to objects/machines
-#define BLOBMOB_BLOBBERNAUT_HEALING_CORE            0.05        // Percentage multiplier HP restored on Life() when within 2 tiles of the blob core
-#define BLOBMOB_BLOBBERNAUT_HEALING_NODE            0.025       // Same, but for a nearby node
-#define BLOBMOB_BLOBBERNAUT_HEALTH_DECAY            0.0125      // Percentage multiplier HP lost when not near blob tiles or without factory
+#define BLOBMOB_BLOBBERNAUT_DMG_SOLO          		20          // Damage without active overmind (core dead or xenobio mob)
+#define BLOBMOB_BLOBBERNAUT_DMG             		4         	// Damage dealt with active overmind (most damage comes from strain chems)
+#define BLOBMOB_BLOBBERNAUT_OBJ_DMG                 60
+#define BLOBMOB_BLOBBERNAUT_REAGENT_INJECT_VOL      20          // Amounts of strain reagents applied on attack -- basically the main damage stat
+#define BLOBMOB_BLOBBERNAUT_HEALING_CORE            0.1         // Percentage multiplier HP restored on Life() when within 2 tiles of the blob core
+#define BLOBMOB_BLOBBERNAUT_HEALING_NODE            0.05        // Same, but for a nearby node
+#define BLOBMOB_BLOBBERNAUT_HEALTH_DECAY            0.025       // Percentage multiplier HP lost when not near blob tiles or without factory

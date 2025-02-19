@@ -24,6 +24,10 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "woofs happily!")
+
 	var/turns_since_scan = 0
 	var/obj/movement_target
 
@@ -689,6 +693,25 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 	if(next_scan_time <= world.time) //someone add a cooldown, eventually. IDK TODO. Im making a life() pr mf
 		make_babies()
+
+	if(!stat && !resting && !buckled)
+		if(prob(1))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases her tail."))
+			spawn(0)
+				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+					setDir(i)
+					sleep(1)
+
+/mob/living/simple_animal/pet/dog/pug/Life()
+	..()
+
+	if(!stat && !resting && !buckled)
+		if(prob(1))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chases its tail."))
+			spawn(0)
+				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+					setDir(i)
+					sleep(1)
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()

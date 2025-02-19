@@ -27,6 +27,10 @@
 
 
 //Blob
+#define BLOB_REROLL_TIME 2400 //blob gets a free reroll every X time
+#define BLOB_SPREAD_COST 4
+#define BLOB_ATTACK_REFUND 2 //blob refunds this much if it attacks and doesn't spread
+#define BLOB_REFLECTOR_COST 15
 #define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
 
 //gang dominators

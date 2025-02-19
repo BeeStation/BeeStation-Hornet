@@ -14,7 +14,7 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	unique_name = 1
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	initial_language_holder = /datum/language_holder/empty
@@ -50,7 +50,7 @@
 				H.color = overmind.blobstrain.complementary_color
 			else
 				H.color = "#000000"
-		adjustHealth(-maxHealth*BLOBMOB_HEALING_MULTIPLIER)
+		adjustHealth(-maxHealth * BLOBMOB_HEALING_MULTIPLIER)
 
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)
 	..()
@@ -102,7 +102,7 @@
 	verb_exclaim = "psychically yells"
 	verb_yell = "psychically screams"
 	melee_damage = BLOBMOB_SPORE_DMG
-	obj_damage = 20
+	obj_damage = BLOBMOB_SPORE_OBJ_DMG
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attack_verb_continuous = "hits"
 	attack_verb_simple = "hit"
@@ -125,8 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		factory = linked_node
 		factory.spores += src
 	. = ..()
-	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
-	disease += R*/
 
 /mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
@@ -321,7 +319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		melee_damage = BLOBMOB_BLOBBERNAUT_DMG
 		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 	else
-		melee_damage = initial(melee_damage)
+		melee_damage = BLOBMOB_BLOBBERNAUT_DMG_SOLO
 		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
