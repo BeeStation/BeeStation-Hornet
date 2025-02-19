@@ -146,9 +146,6 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenship_shutter"
-	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "hL" = (
@@ -165,17 +162,6 @@
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/abandoned)
-"iM" = (
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/button{
-	pixel_y = 6;
-	pixel_x = -26;
-	name = "Serving Window Shutters";
-	id = "kitchenship_shutter"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "iV" = (
 /obj/structure/cable/yellow{
@@ -392,9 +378,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenship_shutter"
-	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "rR" = (
@@ -769,9 +752,6 @@
 	pixel_y = 3;
 	pixel_x = 3
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenship_shutter"
-	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "Su" = (
@@ -927,7 +907,7 @@ pU
 Fj
 dc
 gT
-iM
+Rl
 up
 bl
 LD
