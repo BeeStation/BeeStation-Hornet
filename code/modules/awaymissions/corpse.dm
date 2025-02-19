@@ -101,11 +101,11 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(ckey)
 		M.ckey = ckey
 		if(show_flavour)
-			var/output_message = span_bigbold("[short_desc]")
+			var/output_message = span_bigbold(short_desc)
 			if(flavour_text != "")
-				output_message += "\n[span_bold("[flavour_text]")]"
+				output_message += "\n[span_bold(flavour_text)]"
 			if(important_info != "")
-				output_message += "\n[span_userdanger("[important_info]")]"
+				output_message += "\n[span_userdanger(important_info)]"
 			to_chat(M, output_message)
 		var/datum/mind/MM = M.mind
 		var/datum/antagonist/A

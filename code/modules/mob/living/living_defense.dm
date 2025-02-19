@@ -17,17 +17,17 @@
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armour_penetration)
 		if(penetrated_text)
-			to_chat(src, span_userdanger("[penetrated_text]"))
+			to_chat(src, span_userdanger(penetrated_text))
 		else
 			to_chat(src, span_userdanger("Your armor was penetrated!"))
 	else if(armor >= 100)
 		if(absorb_text)
-			to_chat(src, span_notice("[absorb_text]"))
+			to_chat(src, span_notice(absorb_text))
 		else
 			to_chat(src, span_notice("Your armor absorbs the blow!"))
 	else
 		if(soften_text)
-			to_chat(src, span_warning("[soften_text]"))
+			to_chat(src, span_warning(soften_text))
 		else
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor

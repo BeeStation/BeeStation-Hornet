@@ -189,6 +189,6 @@
 
 /// Send a message to all mentors (MENTOR LOG:)
 /proc/message_mentors(msg, client/target)
-	msg = span_mentor("[span_prefix("MENTOR LOG:")] [span_messagelinkify("[msg]")]")
+	msg = span_mentor("[span_prefix("MENTOR LOG:")] [span_messagelinkify(msg)]")
 	for(var/client/client in GLOB.mentors | GLOB.admins)
 		to_chat(client, msg, type = MESSAGE_TYPE_MENTORLOG, avoid_highlighting = client == target)

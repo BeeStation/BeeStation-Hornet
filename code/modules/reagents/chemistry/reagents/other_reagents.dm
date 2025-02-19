@@ -531,7 +531,7 @@
 		for(var/i in mutationtexts)
 			if(mutationtexts[i] == filter)
 				pick_ur_fav += i
-		to_chat(H, span_warning("[pick(pick_ur_fav)]"))
+		to_chat(H, span_warning(pick(pick_ur_fav)))
 
 	if(current_cycle >= cycles_to_turn)
 		var/datum/species/species_type = pick(race) //this worked with the old code, somehow, and it works here...
