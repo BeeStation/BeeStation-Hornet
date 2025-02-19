@@ -80,7 +80,7 @@
 	blacklist = list(/obj/item/food/cake/birthday/energy)
 	reqs = list(
 		/obj/item/food/cake/birthday = 1,
-		/obj/item/melee/transforming/energy/sword = 1,
+		/obj/item/melee/energy/sword = 1,
 	)
 	result = /obj/item/food/cake/birthday/energy
 	subcategory = CAT_CAKE

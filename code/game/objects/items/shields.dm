@@ -254,6 +254,8 @@
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "An advanced hard-light shield. It can be retracted, expanded, and stored anywhere, but can't take much punishment before needing a reset"
+	icon_state = "eshield"
+	item_state = "eshield"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -266,12 +268,15 @@
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE
-	base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
-	var/on_force = 10
-	var/on_throwforce = 8
-	var/on_throw_speed = 2
-	var/active = 0
-	var/clumsy_check = TRUE
+	/// Force of the shield when active.
+	var/active_force = 10
+	/// Throwforce of the shield when active.
+	var/active_throwforce = 8
+	/// Throwspeed of ethe shield when active.
+	var/active_throw_speed = 2
+	/// Whether clumsy people can transform this without side effects.
+	var/can_clumsy_use = FALSE
+
 	var/cooldown_duration = 100
 	var/cooldown_timer
 
@@ -288,10 +293,16 @@
 
 /obj/item/shield/energy/Initialize(mapload)
 	. = ..()
-	icon_state = "[base_icon_state]0"
+	AddComponent(/datum/component/transforming, \
+		force_on = active_force, \
+		throwforce_on = active_throwforce, \
+		throw_speed_on = active_throw_speed, \
+		hitsound_on = hitsound, \
+		clumsy_check = !can_clumsy_use)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
 			if(P.reflectable)
@@ -299,38 +310,24 @@
 				P.set_angle(get_dir(owner, hitby))
 				return 1
 		return ..()
-	return 0
+	return FALSE
 
-/obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if(cooldown_timer >= world.time)
-		return
-	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, span_warning("You beat yourself in the head with [src]."))
-		user.take_bodypart_damage(5)
-	active = !active
-	icon_state = "[base_icon_state][active]"
-	if(active)
-		force = on_force
-		throwforce = on_throwforce
-		throw_speed = on_throw_speed
-		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		to_chat(user, span_notice("[src] is now active and back at full power."))
-		if(atom_integrity <= 1)
-			atom_integrity = max_integrity
-	else
-		force = initial(force)
-		throwforce = initial(throwforce)
-		throw_speed = initial(throw_speed)
-		w_class = WEIGHT_CLASS_TINY
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
-		to_chat(user, span_notice("[src] can now be concealed."))
-	add_fingerprint(user)
+/*
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ */
+/obj/item/shield/energy/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+
+	if(user)
+		balloon_alert(user, active ? "activated" : "deactivated")
+	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, TRUE)
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
-	icon_state = "teleriot0"
+	icon_state = "teleriot"
+	worn_icon_state = "teleriot"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	slot_flags = null
@@ -339,30 +336,34 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	var/active = 0
+
+/obj/item/shield/riot/tele/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/transforming, \
+		force_on = 8, \
+		throwforce_on = 5, \
+		throw_speed_on = 2, \
+		hitsound_on = hitsound, \
+		w_class_on = WEIGHT_CLASS_NORMAL, \
+		attack_verb_continuous_on = list("smacks", "strikes", "cracks", "beats"), \
+		attack_verb_simple_on = list("smack", "strike", "crack", "beat"))
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		return ..()
-	return 0
+	return FALSE
 
-/obj/item/shield/riot/tele/attack_self(mob/living/user)
-	active = !active
-	icon_state = "teleriot[active]"
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+/**
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ *
+ * Allows it to be placed on back slot when active.
+ */
+/obj/item/shield/riot/tele/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
 
-	if(active)
-		force = 8
-		throwforce = 5
-		throw_speed = 2
-		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, span_notice("You extend \the [src]."))
-	else
-		force = 3
-		throwforce = 3
-		throw_speed = 3
-		w_class = WEIGHT_CLASS_NORMAL
-		slot_flags = null
-		to_chat(user, span_notice("[src] can now be concealed."))
-	add_fingerprint(user)
+	slot_flags = active ? ITEM_SLOT_BACK : null
+	if(user)
+		balloon_alert(user, active ? "extended" : "collapsed")
+	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	return COMPONENT_NO_DEFAULT_MESSAGE
