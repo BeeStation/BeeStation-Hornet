@@ -1349,12 +1349,6 @@
 /obj/structure/filingcabinet/security,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
-"mS" = (
-/obj/machinery/porta_turret/syndicate{
-	dir = 6
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mT" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -4894,6 +4888,13 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"UM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/item/xenoarchaeology_labeler,
+/turf/open/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/science)
 "UN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -4949,6 +4950,12 @@
 /obj/item/paper/fluff/ruins/syndicomms,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
+"Vg" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 6
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Vk" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -5403,13 +5410,6 @@
 	},
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"Zr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/item/xenoartifact_labeler,
-/turf/open/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/science)
 "Zw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5979,7 +5979,7 @@ ab
 ac
 eh
 Qi
-Zr
+UM
 xR
 Mr
 ug
@@ -6005,7 +6005,7 @@ QA
 wb
 IO
 mn
-mS
+Vg
 ab
 ab
 ab
