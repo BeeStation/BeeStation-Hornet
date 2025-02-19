@@ -112,6 +112,137 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "sec_headset"
 	worn_icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
+	actions_types = list(/datum/action/item_action/dispatch)
+	var/radio_channel = RADIO_CHANNEL_SECURITY
+	COOLDOWN_DECLARE(dispatch_cooldown_timer)
+	var/dispatch_cooldown = 20 SECONDS
+
+/obj/item/radio/headset/headset_sec/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/dispatch))
+		dispatch(user)
+	else
+		CRASH("Unimplemented UI action was somehow activated on [src]")
+
+GLOBAL_LIST_EMPTY(secsets)
+
+// **** Dispatch ****
+
+/datum/action/item_action/dispatch
+	name = "Signal dispatch"
+	desc = "Opens up a quick select wheel for reporting crimes, including your current location, to your fellow security officers."
+	button_icon_state = "dispatch"
+	icon_icon = 'icons/hud/actions/actions_hailer.dmi'
+
+/obj/item/radio/headset/headset_sec/Destroy()
+	GLOB.secsets -= src
+	. = ..()
+
+/obj/item/radio/headset/headset_sec/Initialize(mapload)
+	. = ..()
+	GLOB.secsets += src
+	//recalculateChannels()
+
+/obj/item/radio/headset/headset_sec/proc/dispatch(mob/living/user)
+
+	if(COOLDOWN_TIMELEFT(src, dispatch_cooldown_timer))
+		to_chat(user, "<span class='warning'>Dispatch radio broadcasting systems are recharging.</span>")
+		balloon_alert(user, "still recharging!")
+		return FALSE
+	var/list/options = list()
+	for(var/option in list(
+		"Requesting Backup",
+		"Detaining Perp",
+		"Awaiting Orders",
+		"Falling Back",
+		))
+		//Hardcoded for each icon, not all crimes need emergency callout for more officers
+		options[option] = image(icon = 'icons/hud/actions/actions_dispatch.dmi', icon_state = option)
+
+	var/message = show_radial_menu(user, user, options)
+	if(!message)
+		return FALSE
+
+	var/area/current_area = get_area(user)
+	var/sanitized_area_string
+
+	if(!current_area)
+		sanitized_area_string = null
+
+	//We can be super specific for heads quarters. Good tracking or something.
+	else if(istype(current_area, /area/crew_quarters/heads/captain))
+		sanitized_area_string = "Captain's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/chief))
+		sanitized_area_string = "CE's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/cmo))
+		sanitized_area_string = "CMO's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/hop))
+		sanitized_area_string = "HOP's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/hos))
+		sanitized_area_string = "HOS's Quarters"
+	else if(istype(current_area, /area/crew_quarters/heads/hor))
+		sanitized_area_string = "RD's Quarters"
+	else if(istype(current_area, /area/crew_quarters))
+		sanitized_area_string = "Crew Quarters"
+
+	//Secondmost clear tracking. Shuttles. Our shuttles can track in hyperspace, Im pretty sure the headset can figure out where its at.
+	else if(istype(current_area, /area/shuttle/arrival))
+		sanitized_area_string = "Shuttle (Arrivals)"
+	else if(istype(current_area, /area/shuttle/mining))
+		sanitized_area_string = "Shuttle (Mining)"
+	else if(istype(current_area, /area/shuttle/science))
+		sanitized_area_string = "Shuttle (Science)"
+	else if(istype(current_area, /area/shuttle/exploration))
+		sanitized_area_string = "Shuttle (Exploration)"
+	else if(istype(current_area, /area/shuttle/labor))
+		sanitized_area_string = "Shuttle (Labor)"
+	else if(istype(current_area, /area/shuttle/supply))
+		sanitized_area_string = "Shuttle (Supply)"
+	else if(istype(current_area, /area/shuttle/escape))
+		sanitized_area_string = "Shuttle (Escape)"
+	else if(istype(current_area, /area/shuttle))
+		sanitized_area_string = "Shuttle (Unidentifiable)"
+
+	//Departments
+	else if(istype(current_area, /area/medical))
+		sanitized_area_string = "Medical"
+	else if(istype(current_area, /area/science))
+		sanitized_area_string = "Science"
+	else if(istype(current_area, /area/engineering))
+		sanitized_area_string = "Engineering"
+	else if(istype(current_area, /area/bridge))
+		sanitized_area_string = "Bridge"
+	else if(istype(current_area, /area/security))
+		sanitized_area_string = "Security"
+	else if(istype(current_area, /area/cargo))
+		sanitized_area_string = "Cargo"
+	else if(istype(current_area, /area/cargo))
+		sanitized_area_string = "Cargo"
+
+	//Dont get too specific here. Brig and Command may be a fortress, but theres even areas the all-seeing sec doesnt always have a grasp on.
+	else if(istype(current_area, /area/security/checkpoint))
+		sanitized_area_string = "Security Checkpoint"
+
+	//Hallways? Which hallway? We start getting pretty vague with this. Thats intentional.
+	else if(istype(current_area, /area/hallway))
+		sanitized_area_string = "Station Hallway"
+	//Ending with the most vague place of all
+	else if(istype(current_area, /area/maintenance))
+		sanitized_area_string = "Maintenance"
+	else
+		sanitized_area_string = null
+
+	if(isnull(sanitized_area_string))
+		talk_into(src, "Dispatch, Officer [user.last_name()], [message]. Currently at unchartered location, unable to pinpoint.", radio_channel)
+	else
+		talk_into(src, "Dispatch, Officer [user.last_name()], [message] at [sanitized_area_string], requesting response.", radio_channel)
+	user.do_alert_animation(user)
+	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
+	for(var/atom/movable/hailer in GLOB.secsets)
+		if(ismob(hailer.loc))
+			//AI slop voiceline, kill as soon as possible
+			//playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
+			//Tempsound
+			playsound(hailer.loc, "sound/voice/hiss2.ogg", 100, FALSE)
 
 /obj/item/radio/headset/headset_spacepol
 	name = "spacepol radio headset"

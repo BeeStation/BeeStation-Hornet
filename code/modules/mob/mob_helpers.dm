@@ -293,6 +293,12 @@
 	firstname.Find(real_name)
 	return firstname.match
 
+/// Find the last name of a mob from the real name with regex
+/mob/proc/last_name()
+	var/static/regex/lasttname = new("\[^\\s-\]+$") //First word before whitespace or "-"
+	lasttname.Find(real_name)
+	return lasttname.match
+
 ///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
 /mob/proc/is_blind()
 	SHOULD_BE_PURE(TRUE)
