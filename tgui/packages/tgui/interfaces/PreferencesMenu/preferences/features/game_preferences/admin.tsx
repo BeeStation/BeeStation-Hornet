@@ -6,6 +6,7 @@ export const asaycolor: Feature<string> = {
   subcategory: 'Chat',
   description: 'The color of your messages in Adminsay.',
   component: FeatureColorInput,
+  important: true,
 };
 
 export const brief_outfit: Feature<string> = {
@@ -13,6 +14,7 @@ export const brief_outfit: Feature<string> = {
   category: 'ADMIN',
   description: 'The outfit to gain when spawning as the briefing officer.',
   component: FeatureDropdownInput,
+  important: true,
 };
 
 export const combohud_lighting: FeatureToggle = {
@@ -21,4 +23,5 @@ export const combohud_lighting: FeatureToggle = {
   subcategory: 'Misc',
   description: 'Whether you see combo HUD lighting as fullbright or not.',
   component: CheckboxInput,
+  important: true,
 };
