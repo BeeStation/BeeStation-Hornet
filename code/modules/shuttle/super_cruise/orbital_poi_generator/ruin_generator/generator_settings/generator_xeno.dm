@@ -25,10 +25,10 @@
 		/obj/structure/alien/egg = 3,
 		/obj/structure/alien/weeds/node = 24,
 		/obj/structure/alien/gelpod = 12,
-		/obj/effect/mob_spawn/human/corpse/nanotrasensoldier = 3,
-		/obj/effect/mob_spawn/human/corpse/assistant = 3,
-		/obj/effect/mob_spawn/human/corpse/cargo_tech = 3,
-		/obj/effect/mob_spawn/human/corpse/damaged = 3,
+		/obj/effect/mob_spawn/corpse/human/nanotrasensoldier = 3,
+		/obj/effect/mob_spawn/corpse/human/assistant = 3,
+		/obj/effect/mob_spawn/corpse/human/cargo_tech = 3,
+		/obj/effect/mob_spawn/corpse/human/damaged = 3,
 		null = 270
 	)
 	for(var/trash in subtypesof(/obj/item/trash))
