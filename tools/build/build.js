@@ -202,10 +202,10 @@ export const TgFontTarget = new Juke.Target({
 export const TguiTarget = new Juke.Target({
   dependsOn: [YarnTarget],
   inputs: [
-    'tgui/.yarn/install-target',
-    'tgui/webpack.config.js',
-    'tgui/**/package.json',
-    'tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)',
+    "tgui/.yarn/install-target",
+    "tgui/webpack.config.js",
+    "tgui/**/package.json",
+    "tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)",
   ],
   outputs: [
     'tgui/public/tgui.bundle.css',

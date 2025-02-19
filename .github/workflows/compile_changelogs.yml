@@ -7,6 +7,7 @@ on:
 
 jobs:
   CompileCL:
+    name: "Compile changelogs"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,16 +23,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/changelog/requirements.txt
       - name: Compile CL
-        run: python tools/changelog/ss13_genchangelog.py html/changelog.html html/changelogs
+        run: python tools/changelog/ss13_genchangelog.py html/changelogs
       - name: Commit
         run: |
           git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
           git config --local user.name "ss13-beebot"
           git pull origin master
+          git add html/changelogs
           git commit -m "Automatic changelog compile [ci skip]" -a || true
       - name: Push
         uses: CasperWA/push-protected@v2
         with:
           #github_token: ${{ secrets.GITHUB_TOKEN }} Use this instead if you have unprotected branches
-          token: ${{ secrets.CL_TOKEN }} 
+          token: ${{ secrets.CL_TOKEN }}
           branch: master
