@@ -23,7 +23,7 @@
 	new /obj/effect/temp_visual/dir_setting/entropic(get_step(user, user.dir), user.dir)
 
 /datum/action/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, atom/caster, level)
-	target_turf.rust_heretic_act()
+	target_turf.rust_heretic_act(20, TRUE)
 
 /datum/action/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
 	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
@@ -107,7 +107,7 @@
 		if(!X || prob(25))
 			continue
 		var/turf/T = X
-		T.rust_heretic_act()
+		T.rust_heretic_act(20, TRUE)
 
 /datum/action/spell/basic_projectile/rust_wave/short
 	name = "Lesser Patron's Reach"

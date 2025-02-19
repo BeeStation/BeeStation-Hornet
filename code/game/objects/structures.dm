@@ -61,6 +61,6 @@
 			if(!broken)
 				return  span_warning("It's falling apart!")
 
-/obj/structure/rust_heretic_act()
-	take_damage(500, BRUTE, MELEE, 1)
+/obj/structure/rust_heretic_act(intensity, initial, is_source = TRUE)
+	take_damage(10 * intensity, BRUTE, MELEE, 1, sound_effect = FALSE, armour_penetration = 100)
 	return TRUE

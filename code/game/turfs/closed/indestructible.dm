@@ -19,8 +19,8 @@
 /turf/closed/indestructible/singularity_act()
 	return
 
-/turf/closed/indestructible/rust_heretic_act()
-	return
+/turf/closed/indestructible/rust_heretic_act(intensity, initial, is_source = TRUE)
+	return FALSE
 
 /turf/closed/indestructible/turf_destruction(damage_flag, additional_damage)
 	return

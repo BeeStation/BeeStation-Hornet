@@ -193,6 +193,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HULK "hulk"
 /// Trait that stores the skin colour of a mob
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
+/// Trait that stores the currently active heretic target
+#define TRAIT_VALUE_FLESH_MARK "v_flesh_mark"
+
 #define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
 
 /// This mob has no soul

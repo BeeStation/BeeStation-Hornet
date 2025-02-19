@@ -54,15 +54,23 @@
 		return FALSE
 
 	var/turf/open/our_turf = loc
-	if(our_turf.get_temperature() > T0C)
-		loc.balloon_alert(user, "ritual failed, not cold enough!")
+	if(locate(/turf/open/floor/grass/snow) in RANGE_TURFS(1, our_turf))
+		loc.balloon_alert(user, "ritual failed, too much snow!")
 		return FALSE
 
 	return ..()
 
+/datum/heretic_knowledge/limited_amount/base_void/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	// Spawn snow
+	for (var/turf/open/floor/target_floor in view(2, loc))
+		if (prob(100 / get_dist(target_floor, loc)))
+			// The snow coats over the turf
+			target_floor.PlaceOnTop(/turf/open/floor/grass/snow/safe, flags = CHANGETURF_IGNORE_AIR)
+	return ..()
+
 /datum/heretic_knowledge/void_grasp
 	name = "Grasp of Void"
-	desc = "Your Mansus Grasp will temporarily mute and chill the victim."
+	desc = "Your Mansus Grasp will chill and mute the victim for 12 seconds, while limiting their movement and preventing escape."
 	gain_text = "I saw the cold watcher who observes me. The chill mounts within me. \
 		They are quiet. This isn't the end of the mystery."
 	next_knowledge = list(/datum/heretic_knowledge/cold_snap)
@@ -79,13 +87,18 @@
 	SIGNAL_HANDLER
 
 	if(!iscarbon(target))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	var/mob/living/carbon/carbon_target = target
 	var/turf/open/target_turf = get_turf(carbon_target)
 	target_turf.take_temperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
-	carbon_target.silent += 4
+	carbon_target.silent = max(8, carbon_target.silent)
+	carbon_target.add_movespeed_modifier(/datum/movespeed_modifier/void_slowdown)
+	addtimer(CALLBACK(src, PROC_REF(clear_slowdown), carbon_target), 12 SECONDS)
+
+/datum/heretic_knowledge/void_grasp/proc/clear_slowdown(mob/living/carbon/carbon_target)
+	carbon_target.remove_movespeed_modifier(/datum/movespeed_modifier/void_slowdown)
 
 /datum/heretic_knowledge/cold_snap
 	name = "Aristocrat's Way"
@@ -137,6 +150,8 @@
 
 	if(istype(target, /mob/living))
 		target.apply_status_effect(/datum/status_effect/heretic_mark/void)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/void_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
