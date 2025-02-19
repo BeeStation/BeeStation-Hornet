@@ -57,7 +57,7 @@
 	//Do a gas check first
 	var/turf/turf = get_turf(src)
 	var/datum/gas_mixture/air = turf?.return_air()
-	if((air?.total_moles(GAS_TRITIUM) < MOLES_GAS_VISIBLE))
+	if((GET_MOLES(/datum/gas/tritium, air) < MOLES_GAS_VISIBLE))
 		return
 	for(var/obj/item/item in loc)
 		if(!prob(33))
