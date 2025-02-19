@@ -402,7 +402,7 @@
 	else
 		// If we click on a turf adjacent to a target while we have them in an aggro-grab
 		// then we won't cancel the grab
-		if (ismob(pulling) && grab_state >= GRAB_AGGRESSIVE && isturf(AM) && Adjacent(AM, pulling))
+		if (ismob(pulling) && grab_state >= GRAB_AGGRESSIVE && isturf(AM) && get_dist(AM, pulling) <= 1)
 			return
 		stop_pulling()
 
