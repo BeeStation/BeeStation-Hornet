@@ -15,7 +15,7 @@
 		/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 		/obj/effect/spawner/lootdrop/glowstick = 4,
 		/obj/effect/spawner/lootdrop/maintenance = 3,
-		/obj/item/ammo_box/c38/exploration = 3,
+		/obj/item/ammo_box/c38/exploration = 1,
 		/obj/structure/blob/node/lone = 1,
 		/mob/living/simple_animal/hostile/blob/blobspore = 2,
 		/mob/living/simple_animal/hostile/blob/blobbernaut/independent = 1,

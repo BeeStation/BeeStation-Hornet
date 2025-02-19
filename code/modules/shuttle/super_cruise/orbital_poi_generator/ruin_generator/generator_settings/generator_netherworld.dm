@@ -15,7 +15,7 @@
 		/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 		/obj/effect/spawner/lootdrop/glowstick = 4,
 		/obj/effect/spawner/lootdrop/maintenance = 3,
-		/obj/item/ammo_box/c38/exploration = 3,
+		/obj/item/ammo_box/c38/exploration = 1,
 		/mob/living/simple_animal/hostile/netherworld/blankbody = 2,
 		/mob/living/simple_animal/hostile/netherworld/migo = 2,
 		/obj/structure/spawner/nether = 0.3,

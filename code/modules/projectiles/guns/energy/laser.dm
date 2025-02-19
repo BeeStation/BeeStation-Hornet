@@ -38,7 +38,8 @@
 	gun_charge = 200
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
-	var/cranking
+	var/cranking = FALSE
+	var/fire_interrupted = FALSE
 
 /obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
 	if(cell.charge >= gun_charge)
@@ -48,7 +49,7 @@
 		balloon_alert(user, "You start cranking")
 		while(cell.charge < gun_charge)
 			cranking = TRUE
-			if(do_after(user, 1 SECONDS) && cranking)
+			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
 				cell.give(50)
 				flick("repeater", src)
@@ -56,13 +57,16 @@
 			else
 				break
 	cranking = FALSE
+	fire_interrupted = FALSE
 
 /obj/item/gun/energy/laser/repeater/process_fire()
-	cranking = FALSE //no more cranking when you shoot.
+	if(cranking)
+		fire_interrupted = TRUE //no more cranking when you shoot.
 	..()
 
 /obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
-	crank_charge(user)
+	if(!cranking)
+		crank_charge(user)
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
