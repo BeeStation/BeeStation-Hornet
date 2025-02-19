@@ -40,6 +40,14 @@
 
 	return is_admin(preferences.parent)
 
+/datum/preference/choiced/brief_outfit/compile_constant_data()
+	var/list/data = ..()
+	var/list/outfit_names = list()
+	for(var/datum/outfit/outfit_type as anything in subtypesof(/datum/outfit))
+		outfit_names["[outfit_type]"] = initial(outfit_type.name)
+	data["outfit_names"] = outfit_names
+	return data
+
 /datum/preference/toggle/combohud_lighting
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "combohud_lighting"
