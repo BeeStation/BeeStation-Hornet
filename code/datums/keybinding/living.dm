@@ -38,7 +38,7 @@
 	return TRUE
 
 /datum/keybinding/living/toggle_combat_mode
-	keys = list("`")
+	keys = list("F")
 	name = "toggle_combat_mode"
 	full_name = "Toggle Combat Mode"
 	description = "Toggles combat mode. Like Help/Harm but cooler."
@@ -81,7 +81,7 @@
 	user_mob.set_combat_mode(FALSE, silent = FALSE)
 
 /datum/keybinding/living/look_up
-	keys = list("L")
+	keys = list()
 	name = "look up"
 	full_name = "Look Up"
 	description = "Look up at the next z-level. Only works if below any nearby open space within a 3x3 square."
@@ -104,7 +104,7 @@
 	return TRUE
 
 /datum/keybinding/living/look_down
-	keys = list(";")
+	keys = list()
 	name = "look down"
 	full_name = "Look Down"
 	description = "Look down at the previous z-level. Only works if above any nearby open space within a 3x3 square."

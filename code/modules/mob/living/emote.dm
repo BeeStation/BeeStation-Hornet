@@ -124,6 +124,20 @@
 	message = "drools"
 	emote_type = EMOTE_VISIBLE
 
+/datum/emote/living/jump
+	key = "jump"
+	key_third_person = "jumps"
+	message = "jumps"
+	emote_type = EMOTE_VISIBLE
+	cooldown = 2 SECONDS
+
+/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!isliving(user))
+		return
+	var/mob/living/living = user
+	living.do_jump_animation()
+
 /datum/emote/living/faint
 	key = "faint"
 	key_third_person = "faints"
