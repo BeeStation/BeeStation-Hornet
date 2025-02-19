@@ -49,7 +49,7 @@
 /obj/item/food/pizza/cut // Pizza cut versions, gives at slice until it runs out of slices to give, does not use pizza/nameofthepizza/cut, but rather pizza/cut/nameofthepizza
 	name = "Cut Pizza"
 	desc = "A cut pizza. Get your slice!"
-	icon_state = "pizzamargheritacut8" //we use the margherita one as template
+	icon_state = "pizzamargherita8" //we use the margherita one as template
 	var/slices = 8
 	var/obj/item/food/pizzaslice/slice_type
 	/// this var used to be used for spawning 6 slices when cutting a pizza(for some reason, it's common sense pizzas are cut in 8), but now it determines
@@ -66,7 +66,7 @@
 	if(slices <= 0)
 		qdel(src)
 	else
-		icon_state = "" //its nameofthepizza[slices]
+		icon_state = "[initial(icon_state)][slices]" //its nameofthepizza[slices]
 		update_appearance()
 
 //////////PIZZA TYPES//////////
