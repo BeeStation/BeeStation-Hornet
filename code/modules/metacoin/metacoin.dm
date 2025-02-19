@@ -18,6 +18,9 @@
 		else
 			inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason="You tried.")
 
+	if(check_rights_for(src, R_ADMIN))
+		inc_metabalance(METACOIN_ROUNDEND_ADMIN, reason="Thanks for adminning! This should offset the cost for not playing.")
+
 /client/proc/process_greentext()
 	src.give_award(/datum/award/achievement/misc/greentext, src.mob)
 
