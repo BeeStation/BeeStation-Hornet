@@ -1663,6 +1663,27 @@
 /atom/proc/analyzer_act_secondary(mob/living/user, obj/item/tool)
 	return
 
+/// Called on an object when a tool with knife capabilities is used to left click an object
+/atom/proc/knife_act(mob/living/user, obj/item/tool)
+
+/// Called on an object when a tool with knife capabilities is used to right click an object
+/atom/proc/knife_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with spoon capabilities is used to left click an object
+/atom/proc/spoon_act(mob/living/user, obj/item/tool)
+
+/// Called on an object when a tool with spoon capabilities is used to right click an object
+/atom/proc/spoon_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with fork capabilities is used to left click an object
+/atom/proc/fork_act(mob/living/user, obj/item/tool)
+
+/// Called on an object when a tool with fork capabilities is used to right click an object
+/atom/proc/fork_act_secondary(mob/living/user, obj/item/tool)
+	return
+
 ///Connect this atom to a shuttle
 /atom/proc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	return
