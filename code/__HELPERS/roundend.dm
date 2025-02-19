@@ -370,20 +370,13 @@
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
+
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
-		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
-		parts += "[FOURSPACES]Threat left: [mode.mid_round_budget]"
-		if(mode.roundend_threat_log.len)
-			parts += "[FOURSPACES]Threat edits:"
-			for(var/entry as anything in mode.roundend_threat_log)
-				parts += "[FOURSPACES][FOURSPACES][entry]<BR>"
+
 		parts += "[FOURSPACES]Executed rules:"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			if (rule.lategame_spawned)
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -0 threat (Lategame, threat cost ignored)"
-			else
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
+		for(var/datum/dynamic_ruleset/rule in mode.executed_roundstart_rulesets)
+			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>"
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -796,11 +789,8 @@
 		discordmsg += "Threat level: [mode.threat_level]\n"
 		discordmsg += "Threat left: [mode.mid_round_budget]\n"
 		discordmsg += "Executed rules:\n"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			if (rule.lategame_spawned)
-				discordmsg += "[rule.ruletype] - [rule.name]: -0 threat (Lategame, threat cost ignored)\n"
-			else
-				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
+		for(var/datum/dynamic_ruleset/rule in mode.executed_roundstart_rulesets)
+			discordmsg += "[rule.ruletype] - <b>[rule.name]</b>"
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"

@@ -314,7 +314,7 @@
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/revolution/rule_process()
-	var/winner = revolution.process_victory()
+	var/winner = team.process_victory()
 	if(isnull(winner))
 		return
 	finished = winner
