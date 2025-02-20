@@ -11,11 +11,11 @@
 
 /datum/action/cooldown/vampire/distress/ActivatePower()
 	. = ..()
-	var/turf/open/floor/target_area = get_area(owner)
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(owner)
 
 	owner.balloon_alert(owner, "you call out for your master!")
-	to_chat(vassaldatum.master.owner, span_userdanger("[owner], your loyal Vassal, is desperately calling for aid at [target_area]!"))
+	to_chat(vassaldatum.master.owner, span_userdanger("[owner], your loyal Vassal, is desperately calling for aid at [get_area(owner)]!"))
 
 	var/mob/living/user = owner
 	user.adjustBruteLoss(10)
+	DeactivatePower()

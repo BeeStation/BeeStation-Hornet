@@ -144,18 +144,6 @@
 	time = 15 SECONDS
 	category = CAT_STRUCTURE
 
-/datum/crafting_recipe/meatcoffin
-	name = "Meat Coffin"
-	result = /obj/structure/closet/crate/coffin/meatcoffin
-	tools = list(TOOL_KNIFE, TOOL_ROLLINGPIN)
-	reqs = list(
-		/obj/item/food/meat/slab = 5,
-		/obj/item/restraints/handcuffs/cable = 1,
-	)
-	time = 15 SECONDS
-	category = CAT_STRUCTURE
-	always_available = FALSE //only for the elite vampires
-
 /datum/crafting_recipe/metalcoffin
 	name = "Metal Coffin"
 	result = /obj/structure/closet/crate/coffin/metalcoffin
@@ -166,45 +154,6 @@
 	)
 	time = 10 SECONDS
 	category = CAT_STRUCTURE
-
-/datum/crafting_recipe/vassalrack
-	name = "Persuasion Rack"
-	result = /obj/structure/vampire/vassalrack
-	tools = list(TOOL_WELDER, TOOL_WRENCH)
-	reqs = list(
-		/obj/item/stack/sheet/wood = 3,
-		/obj/item/stack/sheet/iron = 2,
-		/obj/item/restraints/handcuffs/cable = 2,
-	)
-	time = 15 SECONDS
-	category = CAT_STRUCTURE
-	always_available = FALSE
-
-/datum/crafting_recipe/candelabrum
-	name = "Candelabrum"
-	result = /obj/structure/vampire/candelabrum
-	tools = list(TOOL_WELDER, TOOL_WRENCH)
-	reqs = list(
-		/obj/item/stack/sheet/iron = 3,
-		/obj/item/stack/rods = 1,
-		/obj/item/candle = 1,
-	)
-	time = 10 SECONDS
-	category = CAT_STRUCTURE
-	always_available = FALSE
-
-/datum/crafting_recipe/bloodthrone
-	name = "Blood Throne"
-	result = /obj/structure/vampire/bloodthrone
-	tools = list(TOOL_WRENCH)
-	reqs = list(
-		/obj/item/stack/sheet/cotton/cloth = 3,
-		/obj/item/stack/sheet/iron = 5,
-		/obj/item/stack/sheet/wood = 1,
-	)
-	time = 5 SECONDS
-	category = CAT_STRUCTURE
-	always_available = FALSE
 
 /datum/crafting_recipe/air_sensor
 	name = "Monitored Air Sensor"

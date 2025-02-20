@@ -196,3 +196,14 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/bronze)
+
+/* Fleshy Mass */
+
+GLOBAL_LIST_INIT(fleshymass_recipes, list ( \
+	new/datum/stack_recipe("Persuasion rack", /obj/structure/vampire/vassalrack, 10, one_per_turf = TRUE, time = 5 ), \
+	new/datum/stack_recipe("Candelabrum", /obj/structure/vampire/candelabrum, 10, one_per_turf = TRUE, time = 5 ), \
+	new/datum/stack_recipe("Blood throne", /obj/structure/vampire/bloodthrone, 20, one_per_turf = TRUE, time = 5 ), \
+	new/datum/stack_recipe("Meat coffin", /obj/structure/closet/crate/coffin/meatcoffin, 20, one_per_turf = TRUE, time = 5 ), \
+))
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/fleshymass)

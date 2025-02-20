@@ -115,7 +115,6 @@ Metals Sheets
 	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
 	item_state = "sheet-runed"
-	//icon = 'icons/obj/stacks/mineral.dmi'
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/blood = 15)
@@ -208,3 +207,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
+
+/* Fleshy iron */
+
+/obj/item/stack/sheet/fleshymass
+	name = "fleshy mass"
+	singular_name = "fleshy mass"
+	desc = "You swear it looks at you..."
+	icon_state = "sheet-fleshymass"
+	item_state = "sheet-fleshymass"
+
+/obj/item/stack/sheet/fleshymass/get_recipes()
+	return GLOB.fleshymass_recipes
