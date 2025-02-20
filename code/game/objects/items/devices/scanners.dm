@@ -133,6 +133,12 @@ GENE SCANNER
 #undef MODE_TRAY //Normal mode, shows objects under floors
 #undef MODE_BLUEPRINT //Blueprint mode, shows how wires and pipes are by default
 
+#define SCANMODE_HEALTH 0
+//#define SCANMODE_WOUND 1
+#define SCANMODE_COUNT 1 // Update this to be the number of scan modes if you add more
+#define SCANNER_CONDENSED 0
+#define SCANNER_VERBOSE 1
+
 /obj/item/healthanalyzer
 	name = "health analyzer"
 	icon = 'icons/obj/device.dmi'
@@ -141,7 +147,7 @@ GENE SCANNER
 	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
+	desc = "A hand-held body scanner capable of distinguishing vital signs of the subject. Has a side button to scan for chemicals"
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -150,24 +156,27 @@ GENE SCANNER
 	throw_speed = 3
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
-	var/scanmode = 0
+	var/mode = SCANNER_VERBOSE
+	var/scanmode = SCANMODE_HEALTH
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
 	return BRUTELOSS
 
+/*
 /obj/item/healthanalyzer/attack_self(mob/user)
-	if(!scanmode)
-		to_chat(user, span_notice("You switch the health analyzer to scan chemical contents."))
-		scanmode = 1
-	else
-		to_chat(user, span_notice("You switch the health analyzer to check physical health."))
-		scanmode = 0
+	scanmode = (scanmode + 1) % SCANMODE_COUNT
+	switch(scanmode)
+		if(SCANMODE_HEALTH)
+			to_chat(user, "<span class='notice'>You switch the health analyzer to check physical health.</span>")
+		//if(SCANMODE_WOUND)
+		//	to_chat(user, "<span class='notice'>You switch the health analyzer to report extra info on wounds.</span>")
+*/
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
+
 	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
-	playsound(src, 'sound/effects/fastbeep.ogg', 10)
 
 	// Clumsiness/brain damage check
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
@@ -182,16 +191,24 @@ GENE SCANNER
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."), \
 						span_notice("You analyze [M]'s vitals."))
 
-	if(scanmode == 0)
-		healthscan(user, M, advanced=advanced)
-	else if(scanmode == 1)
-		chemscan(user, M)
+	balloon_alert(user, "analyzing vitals")
+	playsound(src, 'sound/effects/fastbeep.ogg', 10)
+
+	switch (scanmode)
+		if (SCANMODE_HEALTH)
+			healthscan(user, M, mode, advanced)
+		//if (SCANMODE_WOUND)
+		//	woundscan(user, M, src)
 
 	add_fingerprint(user)
 
+/obj/item/healthanalyzer/attack_secondary(mob/living/victim, mob/living/user, params)
+	chemscan(user, victim)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 
 // Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
+/proc/healthscan(mob/user, mob/living/M, mode = SCANNER_VERBOSE, advanced = FALSE, to_chat = TRUE)
 	if(isliving(user) && user.incapacitated())
 		return
 
@@ -216,6 +233,11 @@ GENE SCANNER
 
 	message += span_info("Analyzing results for [M]:\n\tOverall status: [mob_status]")
 
+	if(advanced && HAS_TRAIT_FROM(M, TRAIT_HUSK, BURN))
+		message += "<span class='alert ml-1'>Subject has been husked by severe burns.</span>\n"
+	else if(HAS_TRAIT(M, TRAIT_HUSK))
+		message += "<span class='alert ml-1'>Subject has been husked.</span>\n"
+
 	// Damage descriptions
 	if(brute_loss > 10)
 		message += "\t[span_alert("[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.")]"
@@ -233,7 +255,7 @@ GENE SCANNER
 		message += "\t[span_alert("Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.")]"
 		if(advanced)
 			message += "\t[span_info("Cellular Damage Level: [M.getCloneLoss()].")]"
-	if(!M.getorgan(/obj/item/organ/brain))
+	if(!M.getorganslot(ORGAN_SLOT_BRAIN))
 		message += "\t[span_alert("Subject lacks a brain.")]"
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -310,7 +332,7 @@ GENE SCANNER
 					message += "\t[span_info("Healthy.")]"
 
 	// Body part damage report
-	if(iscarbon(M))
+	if(iscarbon(M) && mode == SCANNER_VERBOSE)
 		var/mob/living/carbon/C = M
 		var/list/damaged = C.get_damaged_bodyparts(1,1)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
@@ -482,10 +504,11 @@ GENE SCANNER
 		return(jointext(message, "\n"))
 
 /proc/chemscan(mob/living/user, mob/living/M, to_chat = TRUE)
-	if(!istype(M))
+	if(user.incapacitated())
 		return
+
 	var/message = list()
-	if(M.reagents)
+	if(istype(M) && M.reagents)
 		if(M.reagents.reagent_list.len)
 			message += span_notice("Subject contains the following reagents:")
 			for(var/datum/reagent/R in M.reagents.reagent_list)
@@ -497,17 +520,39 @@ GENE SCANNER
 			for(var/datum/reagent/R in M.reagents.addiction_list)
 				message += span_alert("[R.name]")
 		else
-			message += span_notice("Subject is not addicted to any reagents.")
+			message += "<span class='notice'>Subject is not addicted to any types of drug.</span>"
 	if(to_chat)
 		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 	else
 		return(jointext(message, "\n"))
+
+/obj/item/healthanalyzer/verb/toggle_mode()
+	set name = "Switch Verbosity"
+	set category = "Object"
+
+	if(usr.incapacitated())
+		return
+
+	mode = !mode
+	to_chat(usr, mode == SCANNER_VERBOSE ? "The scanner now shows specific limb damage." : "The scanner no longer shows limb damage.")
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
 	advanced = TRUE
+
+#undef SCANMODE_HEALTH
+//#undef SCANMODE_WOUND
+#undef SCANMODE_COUNT
+#undef SCANNER_CONDENSED
+#undef SCANNER_VERBOSE
+
+
+
+
+
+
 
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which can be used to scan gases in the atmosphere or within containers. Can also be used to scan unusual station phenomena. Alt-Click to use the built in barometer function."
@@ -533,6 +578,7 @@ GENE SCANNER
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
+	var/ranged_scan_distance = 1
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
@@ -563,7 +609,7 @@ GENE SCANNER
 	if(!istype(location))
 		return
 
-	scan_turf(user, location)
+	atmos_scan(user=user, target=get_turf(src), silent=FALSE)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 
@@ -627,7 +673,13 @@ GENE SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1,amount))
 
-/proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE, to_chat = TRUE)
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!can_see(user, target, ranged_scan_distance))
+		return
+	atmos_scan(user, (target.return_analyzable_air() ? target : get_turf(target)))
+
+/proc/atmos_scan(mob/user, atom/target, silent=FALSE)
 	var/mixture = target.return_analyzable_air()
 	if(!mixture)
 		return FALSE
@@ -648,16 +700,20 @@ GENE SCANNER
 		var/pressure = air_contents.return_pressure()
 		var/volume = air_contents.return_volume() //could just do mixture.volume... but safety, I guess?
 		var/temperature = air_contents.return_temperature()
+		var/heat_capacity = air_contents.heat_capacity()
+		var/thermal_energy = air_contents.thermal_energy()
 		var/cached_scan_results = air_contents.analyzer_results
 
 		if(total_moles > 0)
 			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure,0.01)] kPa")
+			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
+			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
 
-			for(var/id in air_contents.get_gases())
-				var/gas_concentration = air_contents.get_moles(id)/total_moles
-				message += span_notice("[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.get_moles(id), 0.01)] mol)")
+			for(var/id in air_contents.gases)
+				var/gas_concentration = GET_MOLES(id,air_contents)/total_moles
+				message += span_notice("[air_contents.gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(GET_MOLES(id, air_contents), 0.01)] mol)")
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 
 		else
@@ -672,57 +728,9 @@ GENE SCANNER
 			message += span_boldnotice("Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.")
 			message += span_notice("Instability of the last fusion reaction: [instability].")
 
-	if(to_chat)
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
-		return TRUE
-	else
-		return(jointext(message, "\n"))
-
-/obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
-	var/list/message = list()
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	message += span_info("<B>Results:</B>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		message += span_info("Pressure: [round(pressure, 0.01)] kPa")
-	else
-		message += span_alert("Pressure: [round(pressure, 0.01)] kPa")
-	if(total_moles)
-		var/o2_concentration = environment.get_moles(GAS_O2)/total_moles
-		var/n2_concentration = environment.get_moles(GAS_N2)/total_moles
-		var/co2_concentration = environment.get_moles(GAS_CO2)/total_moles
-		var/plasma_concentration = environment.get_moles(GAS_PLASMA)/total_moles
-
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			message += span_info("Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)")
-		else
-			message += span_alert("Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			message += span_info("Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)")
-		else
-			message += span_alert("Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)")
-
-		if(co2_concentration > 0.01)
-			message += span_alert("CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)")
-		else
-			message += span_info("CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)")
-
-		if(plasma_concentration > 0.005)
-			message += span_alert("Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)")
-		else
-			message += span_info("Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)")
-
-		for(var/id in environment.get_gases())
-			if(id in GLOB.hardcoded_gases)
-				continue
-			var/gas_concentration = environment.get_moles(id)/total_moles
-			message += span_alert("[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)")
-		message += span_info("Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)")
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+	// we let the join apply newlines so we do need handholding
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	return TRUE
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
@@ -730,14 +738,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ranged_analyzer"
 	worn_icon_state = "analyzer"
-
-/obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(target.tool_act(user, src, tool_behaviour))
-		return
-	// Tool act didn't scan it, so let's get it's turf.
-	var/turf/location = get_turf(target)
-	scan_turf(user, location)
+	ranged_scan_distance = 15
 
 //slime scanner
 

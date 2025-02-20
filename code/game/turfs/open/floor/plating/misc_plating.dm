@@ -132,7 +132,6 @@
 		GM = new
 	. = ..()
 	air = GM
-	update_air_ref(2)
 	return
 
 /turf/open/floor/plating/beach
@@ -201,7 +200,7 @@
 	. = ..()
 	if(!istype(newloc, /turf/open/indestructible/sound/pool))
 		var/datum/component/swimming/S = Obj.GetComponent(/datum/component/swimming) //Handling admin TPs here.
-		S?.RemoveComponent()
+		S?.ClearFromParent()
 
 /turf/open/MouseDrop_T(atom/dropping, mob/user)
 	if(!isliving(user) || !isliving(dropping)) //No I don't want ghosts to be able to dunk people into the pool.
@@ -210,7 +209,7 @@
 	var/datum/component/swimming/S = dropping.GetComponent(/datum/component/swimming)
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
-			S.RemoveComponent()
+			S.ClearFromParent()
 			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else
@@ -304,6 +303,18 @@
 	icon_state = "sandwater_inner"
 	baseturfs = /turf/open/floor/plating/beach/coastline_t/sandwater_inner
 
+/turf/open/floor/plating/beach/deep_water/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/plating/beach/coastline_t/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/plating/beach/coastline_b/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
 /turf/open/floor/plating/ironsand
 	gender = PLURAL
 	name = "iron sand"
@@ -329,7 +340,7 @@
 	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "ice-0"
 	initial_gas_mix = FROZEN_ATMOS
-	initial_temperature = 180
+	temperature = 180
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/floor/plating/ice
 	slowdown = 1
@@ -355,7 +366,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/open/floor/plating/ice/smooth/planetary
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/ice/smooth/red
 	icon = 'icons/turf/floors/red_ice.dmi'
@@ -363,10 +375,10 @@
 	base_icon_state = "red_ice"
 
 /turf/open/floor/plating/ice/colder
-	initial_temperature = 140
+	temperature = 140
 
 /turf/open/floor/plating/ice/temperate
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/plating/ice/break_tile()
 	return
@@ -381,7 +393,7 @@
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snowplating"
 	initial_gas_mix = FROZEN_ATMOS
-	initial_temperature = 180
+	temperature = 180
 	attachment_holes = FALSE
 	planetary_atmos = TRUE
 	footstep = FOOTSTEP_SAND
@@ -390,7 +402,9 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/open/floor/plating/snowed/cavern
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
+
 
 /turf/open/floor/plating/snowed/smoothed
 	planetary_atmos = TRUE
@@ -402,13 +416,14 @@
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
 
 /turf/open/floor/plating/snowed/smoothed/planetary
-	initial_gas_mix = "o2=22;n2=82;TEMP=270.15"
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/snowed/colder
-	initial_temperature = 140
+	temperature = 140
 
-/turf/open/floor/plating/snowed/temperatre
-	initial_temperature = 255.37
+/turf/open/floor/plating/snowed/temperate
+	temperature = 255.37
 
 /turf/open/floor/plating/elevatorshaft
 	name = "elevator shaft"

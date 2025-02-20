@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { useBackend, useLocalState } from '../backend';
 import { decodeHtmlEntities } from '../../common/string';
-import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
+import { isEscape, KEY } from 'common/keys';
 import { Box, Section, Stack, TextArea } from '../components';
 import { Window } from '../layouts';
 
@@ -49,11 +49,10 @@ export const TextInputModal = (_) => {
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(event) => {
-          const keyCode = window.event ? event.which : event.keyCode;
-          if (keyCode === KEY_ENTER && (!visualMultiline || !event.shiftKey)) {
+          if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {
             act('submit', { entry: input });
           }
-          if (keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             act('cancel');
           }
         }}>

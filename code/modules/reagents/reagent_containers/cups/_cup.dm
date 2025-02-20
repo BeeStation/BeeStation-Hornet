@@ -73,10 +73,6 @@
 	if(!istype(target_mob))
 		return
 
-	if(user.a_intent == INTENT_HARM)
-		//Early terminate, move to afterattack where we splash
-		return
-
 	if(target_mob != user)
 		target_mob.visible_message(span_danger("[user] attempts to feed [target_mob] something from [src]."), \
 				span_userdanger("[user] attempts to feed you something from [src]."))
@@ -139,13 +135,6 @@
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
-
-	else if(reagents.total_volume)
-		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
-								span_notice("You splash the contents of [src] onto [target]."))
-			reagents.expose(target, TOUCH)
-			reagents.clear_reagents()
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
 	var/hotness = attacking_item.is_hot()
@@ -404,9 +393,9 @@
 				user.adjustStaminaLoss(40)
 				if(grinded.reagents) //food and pills
 					grinded.reagents.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
-				if(grinded.juice_results) //prioritize juicing
+				if(grinded.juice_typepath) //prioritize juicing
 					grinded.on_juice()
-					reagents.add_reagent_list(grinded.juice_results)
+					reagents.add_reagent_list(grinded.juice_typepath)
 					to_chat(user, "You juice [grinded] into a fine liquid.")
 					QDEL_NULL(grinded)
 					return
@@ -428,7 +417,7 @@
 			to_chat(user, span_danger("You can't grind this!"))
 			return
 
-	if(I.juice_results || I.grind_results)
+	if(I.grind_results || I.juice_typepath || I.is_grindable())
 		I.forceMove(src)
 		grinded = I
 		return

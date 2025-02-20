@@ -22,7 +22,7 @@
 	filling_color = "#FFA500"
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
-	juice_results = /datum/reagent/consumable/carrotjuice
+	juice_typepath = /datum/reagent/consumable/carrotjuice
 	wine_power = 30
 
 /obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, params)
@@ -53,7 +53,7 @@
 	desc = "Closely related to carrots."
 	icon_state = "parsnip"
 	foodtypes = VEGETABLES
-	juice_results = /datum/reagent/consumable/parsnipjuice
+	juice_typepath = /datum/reagent/consumable/parsnipjuice
 	wine_power = 35
 	discovery_points = 300
 

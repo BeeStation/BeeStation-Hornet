@@ -14,7 +14,7 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	unique_name = 1
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	initial_language_holder = /datum/language_holder/empty
@@ -50,7 +50,7 @@
 				H.color = overmind.blobstrain.complementary_color
 			else
 				H.color = "#000000"
-		adjustHealth(-maxHealth*0.0125)
+		adjustHealth(-maxHealth * BLOBMOB_HEALING_MULTIPLIER)
 
 /mob/living/simple_animal/hostile/blob/fire_act(exposed_temperature, exposed_volume)
 	..()
@@ -95,14 +95,14 @@
 	desc = "A floating, fragile spore."
 	icon_state = "blobpod"
 	icon_living = "blobpod"
-	health = 30
-	maxHealth = 30
+	health = BLOBMOB_SPORE_HEALTH
+	maxHealth = BLOBMOB_SPORE_HEALTH
 	verb_say = "psychically pulses"
 	verb_ask = "psychically probes"
 	verb_exclaim = "psychically yells"
 	verb_yell = "psychically screams"
-	melee_damage = 4
-	obj_damage = 20
+	melee_damage = BLOBMOB_SPORE_DMG
+	obj_damage = BLOBMOB_SPORE_OBJ_DMG
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attack_verb_continuous = "hits"
 	attack_verb_simple = "hit"
@@ -125,8 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 		factory = linked_node
 		factory.spores += src
 	. = ..()
-	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
-	disease += R*/
 
 /mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
@@ -239,11 +237,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	icon_state = "blobbernaut"
 	icon_living = "blobbernaut"
 	icon_dead = "blobbernaut_dead"
-	health = 200
-	maxHealth = 200
+	health = BLOBMOB_BLOBBERNAUT_HEALTH
+	maxHealth = BLOBMOB_BLOBBERNAUT_HEALTH
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	melee_damage = 20
-	obj_damage = 60
+	melee_damage = BLOBMOB_BLOBBERNAUT_DMG
+	obj_damage = BLOBMOB_BLOBBERNAUT_OBJ_DMG
 	attack_verb_continuous = "slams"
 	attack_verb_simple = "slam"
 	attack_sound = 'sound/effects/blobattack.ogg'
@@ -270,14 +268,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 			damagesources++
 		else
 			if(locate(/obj/structure/blob/core) in blobs_in_area)
-				adjustHealth(-maxHealth*0.1)
+				adjustHealth(-maxHealth * BLOBMOB_BLOBBERNAUT_HEALING_CORE)
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
 				if(overmind)
 					H.color = overmind.blobstrain.complementary_color
 				else
 					H.color = "#000000"
 			if(locate(/obj/structure/blob/node) in blobs_in_area)
-				adjustHealth(-maxHealth*0.05)
+				adjustHealth(-maxHealth * BLOBMOB_BLOBBERNAUT_HEALING_NODE)
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src))
 				if(overmind)
 					H.color = overmind.blobstrain.complementary_color
@@ -285,7 +283,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 					H.color = "#000000"
 		if(damagesources)
 			for(var/i in 1 to damagesources)
-				adjustHealth(maxHealth*0.025) //take 2.5% of max health as damage when not near the blob or if the naut has no factory, 5% if both
+				adjustHealth(maxHealth * BLOBMOB_BLOBBERNAUT_HEALTH_DECAY)
 			var/image/I = new('icons/mob/blob.dmi', src, "nautdamage", MOB_LAYER+0.01)
 			I.appearance_flags = RESET_COLOR
 			if(overmind)
@@ -309,10 +307,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_icons()
 	..()
 	if(overmind) //if we have an overmind, we're doing chemical reactions instead of pure damage
-		melee_damage = 4
+		melee_damage = BLOBMOB_BLOBBERNAUT_DMG
 		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 	else
-		melee_damage = initial(melee_damage)
+		melee_damage = BLOBMOB_BLOBBERNAUT_DMG_SOLO
 		attack_verb_continuous = overmind.blobstrain.blobbernaut_message
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)

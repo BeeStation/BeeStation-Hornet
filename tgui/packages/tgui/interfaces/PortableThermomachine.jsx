@@ -70,7 +70,8 @@ export const PortableThermomachine = (props) => {
                   unit="°C"
                   minValue={data.minTemp}
                   maxValue={data.maxTemp}
-                  onChange={(e, value) =>
+                  step={1}
+                  onChange={(value) =>
                     act('target', {
                       target: value,
                     })

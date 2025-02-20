@@ -32,9 +32,6 @@
 	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, span_warning("You don't have the dexterity to do this!"))
-		return TRUE
 	interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
@@ -221,6 +218,17 @@
 /obj/item/instrument/harmonica/dropped(mob/M)
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
+
+/datum/action/item_action/instrument
+	name = "Use Instrument"
+	desc = "Use the instrument specified"
+
+/datum/action/item_action/instrument/on_activate(mob/user, atom/target)
+	if(istype(target, /obj/item/instrument))
+		var/obj/item/instrument/I = target
+		I.interact(usr)
+		return
+	return ..()
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"

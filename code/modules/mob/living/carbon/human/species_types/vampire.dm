@@ -13,8 +13,8 @@
 	mutanttongue = /obj/item/organ/tongue/vampire
 	examine_limb_id = SPECIES_HUMAN
 	skinned_type = /obj/item/stack/sheet/animalhide/human
-	var/info_text = "You are a " + span_danger("Vampire") + ". You will slowly but constantly lose blood if outside of a coffin. If inside a coffin, you will slowly heal. You may gain more blood by grabbing a live victim and using your drain ability."
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/bat/batform //attached to the datum itself to avoid cloning memes, and other duplicates
+	var/info_text = "You are a <span class='danger'>Vampire</span>. You will slowly but constantly lose blood if outside of a coffin. If inside a coffin, you will slowly heal. You may gain more blood by grabbing a live victim and using your drain ability."
+	var/datum/action/spell/shapeshift/bat/batform //attached to the datum itself to avoid cloning memes, and other duplicates
 
 /datum/species/vampire/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -28,12 +28,12 @@
 	C.update_body(0)
 	if(isnull(batform))
 		batform = new
-		C.AddSpell(batform)
+		batform.Grant(C)
 
 /datum/species/vampire/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	if(!isnull(batform))
-		C.RemoveSpell(batform)
+		batform.Remove(C)
 		QDEL_NULL(batform)
 
 /datum/species/vampire/spec_life(mob/living/carbon/human/C)
@@ -139,8 +139,7 @@
 	name = "Drain Victim"
 	desc = "Leech blood from any carbon victim you are passively grabbing."
 
-/datum/action/item_action/organ_action/vampire/Trigger()
-	. = ..()
+/datum/action/item_action/organ_action/vampire/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		var/obj/item/organ/tongue/vampire/V = target
@@ -159,7 +158,7 @@
 				to_chat(H, span_notice("[victim] doesn't have blood!"))
 				return
 			V.drain_cooldown = world.time + 30
-			if(victim.anti_magic_check(FALSE, TRUE, FALSE))
+			if(victim.can_block_magic(FALSE, TRUE, FALSE))
 				to_chat(victim, span_warning("[H] tries to bite you, but stops before touching you!"))
 				to_chat(H, span_warning("[victim] is blessed! You stop just in time to avoid catching fire."))
 				return
@@ -190,16 +189,14 @@
 	name = "Check Blood Level"
 	desc = "Check how much blood you have remaining."
 
-/datum/action/item_action/organ_action/vampire_heart/Trigger()
-	. = ..()
+/datum/action/item_action/organ_action/vampire_heart/on_activate(mob/user, atom/target)
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		to_chat(H, span_notice("Current blood level: [H.blood_volume]/[BLOOD_VOLUME_MAXIMUM]."))
 
-/obj/effect/proc_holder/spell/targeted/shapeshift/bat
+/datum/action/spell/shapeshift/bat
 	name = "Bat Form"
 	desc = "Take on the shape a space bat."
 	invocation = "Squeak!"
-	charge_max = 50
-	cooldown_min = 50
-	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat/vampire
+	cooldown_time = 5 SECONDS
+	possible_shapes = list(/mob/living/simple_animal/hostile/retaliate/bat/vampire)

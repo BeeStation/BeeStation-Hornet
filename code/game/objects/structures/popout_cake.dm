@@ -168,13 +168,13 @@
 	var/obj/structure/popout_cake/cake = null
 
 
-/datum/action/item_action/pull_string/IsAvailable()
+/datum/action/item_action/pull_string/is_available()
 	if(..())
 		if(!cake.used_string)
 			return TRUE
 		return FALSE
 
-/datum/action/item_action/pull_string/Trigger()
+/datum/action/item_action/pull_string/on_activate(mob/user, atom/target)
 	if(cake.used_string)
 		to_chat(usr, span_notice("The string is loose, it's already been used!"))
 		return

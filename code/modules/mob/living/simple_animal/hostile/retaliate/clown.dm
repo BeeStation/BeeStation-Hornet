@@ -16,7 +16,7 @@
 	speak_language = /datum/language/metalanguage // somehow clown speaks in this (same to all clown mobs)
 	emote_see = list("honks", "squeaks")
 	speak_chance = 1
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	maxHealth = 75
 	health = 75
 	speed = 1
@@ -58,7 +58,7 @@
 	. = ..()
 	if(banana_time && banana_time < world.time)
 		var/turf/T = get_turf(src)
-		var/list/adjacent =  T.GetAtmosAdjacentTurfs(1)
+		var/list/adjacent =  T.get_atmos_adjacent_turfs(1)
 		new banana_type(pick(adjacent))
 		banana_time = world.time + rand(30,60)
 

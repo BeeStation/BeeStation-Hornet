@@ -55,18 +55,18 @@
 /datum/hallucination/fake_flood/proc/Expand()
 	for(var/image/I in flood_images)
 		I.alpha = min(I.alpha + 50, 255)
-	for(var/turf/FT in flood_turfs)
+	for(var/turf/flood_turf in flood_turfs)
 		for(var/dir in GLOB.cardinals)
-			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+			var/turf/nearby_turf = get_step(flood_turf, dir)
+			if((nearby_turf in flood_turfs) || !TURFS_CAN_SHARE(nearby_turf, flood_turf) || isspaceturf(nearby_turf))
 				continue
-			var/obj/effect/plasma_image_holder/pih = new(T)
+			var/obj/effect/plasma_image_holder/pih = new(nearby_turf)
 			var/image/new_plasma = image(image_icon, pih, image_state, FLY_LAYER)
 			new_plasma.alpha = 50
 			new_plasma.plane = GAME_PLANE
 			flood_images += new_plasma
 			flood_image_holders += pih
-			flood_turfs += T
+			flood_turfs += nearby_turf
 	if(target.client)
 		target.client.images |= flood_images
 

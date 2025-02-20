@@ -4,10 +4,11 @@
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/is_available()
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -40,7 +41,7 @@
 	button_icon_state = "slimeeat"
 
 
-/datum/action/innate/slime/feed/Activate()
+/datum/action/innate/slime/feed/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()
 
@@ -148,7 +149,7 @@
 	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
-/datum/action/innate/slime/evolve/Activate()
+/datum/action/innate/slime/evolve/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
 	if(S.is_adult)
@@ -198,7 +199,7 @@
 				babies += M
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)
-			new_slime.a_intent = INTENT_HARM
+			new_slime.set_combat_mode(TRUE)
 			if(src.mind)
 				src.mind.transfer_to(new_slime)
 			else
@@ -214,7 +215,7 @@
 	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 
-/datum/action/innate/slime/reproduce/Activate()
+/datum/action/innate/slime/reproduce/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
 

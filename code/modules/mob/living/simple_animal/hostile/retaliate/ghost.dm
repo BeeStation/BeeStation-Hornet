@@ -13,7 +13,7 @@
 	response_disarm_simple = "swing through"
 	response_harm_continuous = "punches through"
 	response_harm_simple = "punch through"
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	healable = 0
 	speed = 0
 	maxHealth = 40

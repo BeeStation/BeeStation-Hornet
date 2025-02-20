@@ -37,10 +37,8 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger()
-	if(!IsAvailable())
-		return
-	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/on_activate(mob/user, atom/target)
+	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".x[message]")
@@ -73,9 +71,11 @@
 
 /datum/action/item_action/organ_action/colossus/New()
 	..()
-	cords = target
+	if (!istype(master, /obj/item/organ/vocal_cords/colossus))
+		CRASH("/obj/item/organ/vocal_cords/colossus assigned to colossus")
+	cords = master
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/is_available()
 	if(world.time < cords.next_command)
 		return FALSE
 	if(!owner)
@@ -89,13 +89,8 @@
 			return FALSE
 	return TRUE
 
-/datum/action/item_action/organ_action/colossus/Trigger()
-	. = ..()
-	if(!IsAvailable())
-		if(world.time < cords.next_command)
-			to_chat(owner, span_notice("You must wait [DisplayTimeText(cords.next_command - world.time)] before Speaking again."))
-		return
-	var/command = input(owner, "Speak with the Voice of God", "Command")
+/datum/action/item_action/organ_action/colossus/on_activate(mob/user, atom/target)
+	var/command = tgui_input_text(owner, "Speak with the Voice of God", "Command")
 	if(QDELETED(src) || QDELETED(owner))
 		return
 	if(!command)
@@ -120,6 +115,8 @@
 /obj/item/organ/vocal_cords/colossus/speak_with(message)
 	var/cooldown = voice_of_god(uppertext(message), owner, spans, base_multiplier)
 	next_command = world.time + (cooldown * cooldown_mod)
+	for (var/datum/action/item_action/organ_action/colossus/action in actions)
+		action.start_cooldown(cooldown * cooldown_mod)
 
 //////////////////////////////////////
 ///////////VOICE OF GOD///////////////
@@ -143,7 +140,7 @@
 	message = LOWER_TEXT(message)
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in hearers(8, get_turf(user)))
-		if(L.can_hear() && !L.anti_magic_check(FALSE, TRUE) && L.stat != DEAD)
+		if(L.can_hear() && !L.can_block_magic(MAGIC_RESISTANCE_HOLY) && L.stat != DEAD)
 
 			if(L == user && !include_speaker)
 				continue
@@ -416,38 +413,6 @@
 			var/mob/living/L = V
 			if(L.m_intent != MOVE_INTENT_RUN)
 				L.toggle_move_intent()
-
-	//HELP INTENT
-	else if((findtext(message, helpintent_words)))
-		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/human/H in listeners)
-			addtimer(CALLBACK(H, /mob/verb/a_intent_change, INTENT_HELP), i * 2)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob, click_random_mob)), i * 2)
-			i++
-
-	//DISARM INTENT
-	else if((findtext(message, disarmintent_words)))
-		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/human/H in listeners)
-			addtimer(CALLBACK(H, /mob/verb/a_intent_change, INTENT_DISARM), i * 2)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob, click_random_mob)), i * 2)
-			i++
-
-	//GRAB INTENT
-	else if((findtext(message, grabintent_words)))
-		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/human/H in listeners)
-			addtimer(CALLBACK(H, /mob/verb/a_intent_change, INTENT_GRAB), i * 2)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob, click_random_mob)), i * 2)
-			i++
-
-	//HARM INTENT
-	else if((findtext(message, harmintent_words)))
-		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/human/H in listeners)
-			addtimer(CALLBACK(H, /mob/verb/a_intent_change, INTENT_HARM), i * 2)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob, click_random_mob)), i * 2)
-			i++
 
 	//THROW/CATCH
 	else if((findtext(message, throwmode_words)))

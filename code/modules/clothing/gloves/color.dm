@@ -224,7 +224,7 @@
 			REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/atom_break()
-	..()
+	. = ..()
 	if(ishuman(loc))
 		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 

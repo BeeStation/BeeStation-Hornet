@@ -114,11 +114,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 
 //How did this even happen?
 /obj/structure/anchored_mjolnir/Destroy()
-	if (contained)
+	if(contained)
 		QDEL_NULL(contained)
 	return ..()
 
-/obj/structure/anchored_mjolnir/attack_hand(mob/user)
+/obj/structure/anchored_mjolnir/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if (iswizard(user))
 		var/hammer = contained

@@ -185,21 +185,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 		return
 	return TRUE
 
-/obj/item/food/grown/on_grind()
-	. = ..()
-	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
-	if(grind_results&&grind_results.len)
-		for(var/i in 1 to grind_results.len)
-			grind_results[grind_results[i]] = nutriment
-		reagents.del_reagent(/datum/reagent/consumable/nutriment)
-		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
+/obj/item/food/grown/grind(datum/reagents/target_holder, mob/user)
+	if(on_grind() == -1)
+		return FALSE
 
-/obj/item/food/grown/on_juice()
-	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
-	if(juice_results)
-		juice_results = nutriment
-		reagents.del_reagent(/datum/reagent/consumable/nutriment)
-		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
+	var/grind_results_num = LAZYLEN(grind_results)
+	if(grind_results_num)
+		var/total_nutriment_amount = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment, include_subtypes = TRUE)
+		var/single_reagent_amount = grind_results_num > 1 ? round(total_nutriment_amount / grind_results_num, CHEMICAL_QUANTISATION_LEVEL) : total_nutriment_amount
+		reagents.remove_all_type(/datum/reagent/consumable/nutriment, total_nutriment_amount)
+		for(var/reagent in grind_results)
+			reagents.add_reagent(reagent, single_reagent_amount)
+
+	if(reagents && target_holder)
+		reagents.trans_to(target_holder, reagents.total_volume, transfered_by = user)
+	return TRUE
 
 /obj/item/food/grown/dropped(mob/user, silent)
 	. = ..()

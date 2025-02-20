@@ -236,11 +236,8 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(be_close && !in_range(M, src))
-		to_chat(src, span_warning("You are too far away!"))
-		return FALSE
-	return TRUE
+/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+	return ..(M, be_close, no_dexterity, no_tk, need_hands, TRUE) //Resting is just an aesthetic feature for them.
 
 /mob/proc/makePAI(delold)
 	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
@@ -254,9 +251,10 @@
 /datum/action/innate/pai
 	name = "PAI Action"
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon_state = null
 	var/mob/living/silicon/pai/P
 
-/datum/action/innate/pai/Trigger()
+/datum/action/innate/pai/on_activate(mob/user, atom/target)
 	if(!ispAI(owner))
 		return 0
 	P = owner
@@ -266,8 +264,7 @@
 	button_icon_state = "pai"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/software/Trigger()
-	..()
+/datum/action/innate/pai/software/on_activate(mob/user, atom/target)
 	P.ui_act()
 
 /datum/action/innate/pai/shell
@@ -275,8 +272,7 @@
 	button_icon_state = "pai_holoform"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/shell/Trigger()
-	..()
+/datum/action/innate/pai/shell/on_activate(mob/user, atom/target)
 	if(P.holoform)
 		P.fold_in(0)
 	else
@@ -287,8 +283,7 @@
 	button_icon_state = "pai_chassis"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/chassis/Trigger()
-	..()
+/datum/action/innate/pai/chassis/on_activate(mob/user, atom/target)
 	P.choose_chassis()
 
 /datum/action/innate/pai/rest
@@ -296,8 +291,7 @@
 	button_icon_state = "pai_rest"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/rest/Trigger()
-	..()
+/datum/action/innate/pai/rest/on_activate(mob/user, atom/target)
 	P.toggle_resting()
 
 /datum/action/innate/pai/light
@@ -306,8 +300,7 @@
 	button_icon_state = "emp"
 	background_icon_state = "bg_tech"
 
-/datum/action/innate/pai/light/Trigger()
-	..()
+/datum/action/innate/pai/light/on_activate(mob/user, atom/target)
 	P.toggle_integrated_light()
 
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)

@@ -16,7 +16,7 @@
 	opacity = TRUE
 	max_integrity = 100
 	can_be_unanchored = FALSE
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/mineral = /obj/item/stack/sheet/iron
@@ -28,13 +28,13 @@
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
 	qdel(src)
 
-/obj/structure/falsewall/attack_hand(mob/user)
+/obj/structure/falsewall/attack_hand(mob/user, list/modifiers)
 	if(opening)
 		return
 	. = ..()
@@ -57,7 +57,7 @@
 		z_flags &= density ? (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP) : ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		opening = FALSE
 		update_icon()
-		air_update_turf(TRUE)
+		air_update_turf(TRUE, !density)
 
 /obj/structure/falsewall/update_icon()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	if(opening)
@@ -181,7 +181,7 @@
 	radiate()
 	return ..()
 
-/obj/structure/falsewall/uranium/attack_hand(mob/user)
+/obj/structure/falsewall/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
 	. = ..()
 
@@ -261,6 +261,10 @@
 	mineral = /obj/item/stack/sheet/mineral/plasma
 	walltype = /turf/closed/wall/mineral/plasma
 
+/obj/structure/falsewall/plasma/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)
 		if(plasma_ignition(6, user))
@@ -269,11 +273,12 @@
 	else
 		return ..()
 
-/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
+/obj/structure/falsewall/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
 
+/obj/structure/falsewall/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(plasma_ignition(6))
+		new /obj/structure/girder/displaced(loc)
 
 /obj/structure/falsewall/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
