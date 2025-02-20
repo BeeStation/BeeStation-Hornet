@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - balance: Derelicts now contain much less exploration ballistic ammo.
+  - bugfix: Fixed laser repeater recharge exploit.
