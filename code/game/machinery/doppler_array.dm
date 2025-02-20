@@ -224,7 +224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	SIGNAL_HANDLER
 
 	var/turf/zone = suit.loc
-	if(zone.get_virtual_z_level() != epicenter.get_virtual_z_level())
+	if(!zone || zone?.get_virtual_z_level() != epicenter.get_virtual_z_level())
 		return FALSE
 
 	if(next_announce > world.time)
