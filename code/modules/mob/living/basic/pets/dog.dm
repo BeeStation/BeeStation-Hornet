@@ -41,7 +41,7 @@
 		Write_Memory(TRUE)
 	..()
 
-/mob/living/simple_animal/pet/dog/Initialize(mapload)
+/mob/living/basic/pet/dog/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "woofs happily!")
 
