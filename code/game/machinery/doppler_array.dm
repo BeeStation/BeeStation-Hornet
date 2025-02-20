@@ -221,8 +221,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	suit = hardsuit
 
 /obj/machinery/doppler_array/integrated/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
-	SIGNAL_HANDLER
-
 	var/turf/zone = suit.loc
 	if(!zone || zone?.get_virtual_z_level() != epicenter.get_virtual_z_level())
 		return FALSE
@@ -241,8 +239,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	for(var/message in messages)
 		say(message)
 
-/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
-		took, orig_dev_range, orig_heavy_range, orig_light_range) //probably needs a way to ignore admin explosives later on
+//probably needs a way to ignore admin explosives later on
+/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	. = ..()
 	if(!.)
 		return
