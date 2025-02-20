@@ -9,6 +9,7 @@
 	health = 1
 	maxHealth = 1
 	speed = 1.25
+	can_be_held = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	pass_flags = PASSTABLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -42,7 +43,6 @@
 
 /mob/living/basic/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return FALSE
-
 
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
