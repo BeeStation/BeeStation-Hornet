@@ -207,7 +207,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/crate_shelf_loader,
-/obj/structure/closet/crate,
+/obj/effect/mapping_helpers/crate_shelf_loader,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "aA" = (
@@ -592,9 +592,7 @@
 	},
 /obj/structure/crate_shelf,
 /obj/effect/turf_decal/siding/dark/end,
-/obj/structure/closet/crate,
 /obj/effect/mapping_helpers/crate_shelf_loader,
-/obj/structure/closet/crate/science,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "lt" = (
@@ -842,8 +840,8 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/crate_shelf_loader,
-/obj/structure/closet/crate,
-/obj/structure/closet/crate/medical,
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/obj/effect/mapping_helpers/crate_shelf_loader,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "VX" = (
