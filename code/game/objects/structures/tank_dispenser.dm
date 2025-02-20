@@ -35,22 +35,24 @@
 		if(5 to TANK_DISPENSER_CAPACITY)
 			add_overlay("plasma-5")
 
-/obj/structure/tank_dispenser/attack_hand(mob/living/user, list/modifiers)
-	. = ..()
-	if (!plasmatanks)
-		balloon_alert(user, "no plasma tanks!")
-		return
-	dispense(/obj/item/tank/internals/plasma, user)
-	plasmatanks--
-	update_appearance()
 
-/obj/structure/tank_dispenser/attack_hand_secondary(mob/user, list/modifiers)
+
+/obj/structure/tank_dispenser/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if (!oxygentanks)
 		balloon_alert(user, "no oxygen tanks!")
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		return
 	dispense(/obj/item/tank/internals/oxygen, user)
 	oxygentanks--
+	update_appearance()
+
+/obj/structure/tank_dispenser/attack_hand_secondary(mob/living/user, list/modifiers)
+	. = ..()
+	if (!plasmatanks)
+		balloon_alert(user, "no plasma tanks!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	dispense(/obj/item/tank/internals/plasma, user)
+	plasmatanks--
 	update_appearance()
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
