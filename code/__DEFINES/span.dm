@@ -55,7 +55,6 @@
 #define span_danger(str) ("<span class='danger'>" + (str) + "</span>")
 #define span_dangerbold(str) ("<span class='danger bold'>" + (str) + "</span>")
 #define span_dangerholoparasite(str) ("<span class='danger holoparasite'>" + (str) + "</span>")
-#define span_dangers(str) ("<span class='dangers'>" + (str) + "</span>")
 #define span_deadsay(str) ("<span class='deadsay'>" + (str) + "</span>")
 #define span_deadsaybold(str) ("<span class='deadsay bold'>" + (str) + "</span>")
 #define span_deadsayitalicsbold(str) ("<span class='deadsay italics bold'>" + (str) + "</span>")
