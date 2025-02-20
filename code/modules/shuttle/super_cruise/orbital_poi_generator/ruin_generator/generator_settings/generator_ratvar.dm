@@ -14,7 +14,7 @@
 		/obj/effect/decal/cleanable/greenglow/filled = 1,
 		/obj/effect/spawner/lootdrop/glowstick/lit = 6,
 		/obj/effect/spawner/lootdrop/maintenance = 3,
-		/obj/item/ammo_box/c38/exploration = 3,
+		/obj/item/ammo_box/c38/exploration = 1,
 		null = 70,
 		/obj/effect/spawner/structure/ratvar_skewer_trap = 4,
 		/obj/effect/spawner/structure/ratvar_flipper_trap = 2,
