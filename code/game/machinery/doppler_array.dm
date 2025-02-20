@@ -136,8 +136,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
-/obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
-													took,orig_dev_range,orig_heavy_range,orig_light_range,explosion_index)
+/obj/machinery/doppler_array/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 	SIGNAL_HANDLER
 
 	if(machine_stat & NOPOWER)
@@ -209,6 +208,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	name = "tachyon-doppler research array"
 	desc = "A specialized tachyon-doppler bomb detection array that uses the results of the highest yield of explosions for research."
 	var/datum/techweb/linked_techweb
+
+//Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
+/obj/machinery/doppler_array/integrated
+	name = "integrated tachyon-doppler module"
+	max_dist = 21
+	use_power = NO_POWER_USE
+	var/obj/item/clothing/head/helmet/space/hardsuit/suit
+
+/obj/machinery/doppler_array/integrated/New(hardsuit)
+	. = ..()
+	suit = hardsuit
+
+/obj/machinery/doppler_array/integrated/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
+	SIGNAL_HANDLER
+
+	var/turf/zone = suit.loc
+	if(zone.get_virtual_z_level() != epicenter.get_virtual_z_level())
+		return FALSE
+
+	if(next_announce > world.time)
+		return FALSE
+	next_announce = world.time + cooldown
+
+	var/distance = get_dist(epicenter, zone)
+	if(distance > max_dist)
+		return FALSE
+
+	var/list/messages = list("Explosive disturbance detected.",
+							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
+							"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+	for(var/message in messages)
+		say(message)
 
 /obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
 		took, orig_dev_range, orig_heavy_range, orig_light_range) //probably needs a way to ignore admin explosives later on
