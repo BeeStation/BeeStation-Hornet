@@ -124,8 +124,8 @@
 	playsound(loc, 'sound/items/welder2.ogg', 20, 1)
 
 
-/obj/item/razor/attack(mob/M, mob/user)
-	if(!ishuman(M) || extended != 1 || user.a_intent == INTENT_HARM)
+/obj/item/razor/attack(mob/M, mob/living/user)
+	if(!ishuman(M) || extended != 1 || user.combat_mode)
 		return ..()
 	var/mob/living/carbon/human/H = M
 	// Must be targetting the head
@@ -140,7 +140,7 @@
 	var/datum/task/select_bodyzone = user.select_bodyzone(M, TRUE, BODYZONE_STYLE_DEFAULT, override_zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH))
 	select_bodyzone.continue_with(CALLBACK(src, PROC_REF(razor_action), H, user, mirror))
 
-/obj/item/razor/proc/razor_action(mob/living/carbon/human/H, mob/user, mirror, location)
+/obj/item/razor/proc/razor_action(mob/living/carbon/human/H, mob/living/user, mirror, location)
 	if (!user.can_interact_with(H, TRUE))
 		to_chat(user, span_warning("[H] is too far away!"))
 		return
@@ -148,7 +148,7 @@
 		to_chat(user, span_warning("[src] is too far away!"))
 		return
 	if(location == BODY_ZONE_PRECISE_MOUTH)
-		if(user.a_intent == INTENT_HELP)
+		if(!user.combat_mode)
 			if(H.gender == MALE)
 				INVOKE_ASYNC(src, PROC_REF(new_facial_hairstyle), H, user, mirror)
 				return
@@ -181,7 +181,7 @@
 					shave(H, location)
 
 	else if(location == BODY_ZONE_HEAD)
-		if(user.a_intent == INTENT_HELP)
+		if(!user.combat_mode)
 			INVOKE_ASYNC(src, PROC_REF(new_hairstyle), H, user)
 			return
 		else

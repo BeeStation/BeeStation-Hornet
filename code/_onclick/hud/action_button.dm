@@ -50,8 +50,10 @@
 	if(usr.next_click > world.time)
 		return
 	usr.next_click = world.time + 1
-
-	linked_action.trigger()
+	var/trigger_flags
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		trigger_flags |= TRIGGER_SECONDARY_ACTION
+	linked_action.trigger(trigger_flags = trigger_flags)
 	SEND_SOUND(usr, 'sound/effects/pop.ogg')
 	transform = turn(matrix() * 0.9, pick(-8, 8))
 	alpha = 200

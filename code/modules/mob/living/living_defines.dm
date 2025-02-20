@@ -6,6 +6,7 @@
 	pressure_resistance = 10
 	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
 
+	hud_type = /datum/hud/living
 
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
@@ -91,6 +92,8 @@
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
 
 	var/bubble_icon = "default" //what icon the mob uses for speechbubbles
+	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
+	var/health_doll_icon
 
 	var/last_bumped = 0
 	var/unique_name = 0 //if a mob's name should be appended with an id when created e.g. Mob (666)
@@ -151,6 +154,9 @@
 	var/icon/held_rh = 'icons/mob/pets_held_rh.dmi'
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
+
+	///If combat mode is on or not
+	var/combat_mode = FALSE
 
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE

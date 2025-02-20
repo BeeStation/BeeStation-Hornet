@@ -41,15 +41,15 @@
 	return ..()
 
 /obj/vehicle/ridden/AltClick(mob/user)
-	if(inserted_key && user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		if(!is_occupant(user))
-			to_chat(user, span_notice("You must be riding the [src] to remove [src]'s key!"))
-			return
-		to_chat(user, span_notice("You remove \the [inserted_key] from \the [src]."))
-		inserted_key.forceMove(drop_location())
-		user.put_in_hands(inserted_key)
-		inserted_key = null
-	return
+	if(!inserted_key || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !issilicon(user)))
+		return ..()
+	if(!is_occupant(user))
+		to_chat(user, span_warning("You must be riding the [src] to remove [src]'s key!"))
+		return
+	to_chat(user, span_notice("You remove \the [inserted_key] from \the [src]."))
+	inserted_key.forceMove(drop_location())
+	user.put_in_hands(inserted_key)
+	inserted_key = null
 
 /obj/vehicle/ridden/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(!in_range(user, src) || !in_range(M, src))
