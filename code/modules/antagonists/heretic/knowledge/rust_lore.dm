@@ -27,7 +27,7 @@
 /datum/heretic_knowledge/limited_amount/base_rust
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. \
-		Allows you to transmute a knife with any trash item into a Rusty Blade. \
+		Allows you to transmute a knife with a container that contains water into a Rusty Blade. \
 		You can only create two at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
 	next_knowledge = list(/datum/heretic_knowledge/rust_fist)
@@ -41,7 +41,7 @@
 		)
 	required_atoms = list(
 		/obj/item/knife = 1,
-		/obj/item/trash = 1,
+		/datum/reagent/water = 5,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	limit = 2
@@ -52,8 +52,8 @@
 
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
-	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click."
+	desc = "Your Mansus Grasp will apply an effect which causes objects to rust while you are nearby. \
+		Surfaces and structures can only be rusted by using Right-Click."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
@@ -66,31 +66,24 @@
 /datum/heretic_knowledge/rust_fist/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
 
-/datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+/datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
-	var/static/list/always_hit_typecache = typecacheof(list(
-		/mob/living/carbon,
-		/mob/living/silicon,
-		/mob/living/simple_animal/bot,
-		/obj/item/storage/secure/safe/caps_spare,
-		/obj/machinery/door,
-		/obj/vehicle/sealed/mecha
-	))
-	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
-	if(source.combat_mode && !is_type_in_typecache(target, always_hit_typecache))
-		return
-	return target.rust_heretic_act()
+	if(!ismob(target) && !istype(target, /obj/vehicle))
+		return COMPONENT_BLOCK_HAND_USE
+	// Cannot stack on the same target
+	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
+		if (current_rite.target == target)
+			return COMPONENT_BLOCK_HAND_USE
+	source.apply_status_effect(/datum/status_effect/rust_rite, target, 2)
 
 /datum/heretic_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
 
-	// Rusting an airlock causes it to lose power, mostly to prevent the airlock from shocking you.
-	// This is a bit of a hack, but fixing this would require the enture wire cut/pulse system to be reworked.
-	if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/airlock = target
-		airlock.loseMainPower()
-
-	target.rust_heretic_act()
+	// Cannot stack on the same target
+	for (var/datum/status_effect/rust_rite/current_rite as anything in source.has_status_effect_list(/datum/status_effect/rust_rite))
+		if (current_rite.target == target)
+			return COMPONENT_BLOCK_HAND_USE
+	source.apply_status_effect(/datum/status_effect/rust_rite, target, 2)
 	return COMPONENT_USE_HAND
 
 /datum/heretic_knowledge/rust_regen
@@ -173,6 +166,8 @@
 	SIGNAL_HANDLER
 	if(isliving(target))
 		target.apply_status_effect(/datum/status_effect/heretic_mark/rust)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/rust_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
@@ -370,7 +365,7 @@
 
 /datum/rust_spread/New(loc)
 	centre = get_turf(loc)
-	centre.rust_heretic_act()
+	centre.rust_heretic_act(1, TRUE)
 	rusted_turfs += centre
 	START_PROCESSING(SSprocessing, src)
 
@@ -391,7 +386,7 @@
 		if(!length(edge_turfs))
 			break
 		var/turf/afflicted_turf = pick_n_take(edge_turfs)
-		afflicted_turf.rust_heretic_act()
+		afflicted_turf.rust_heretic_act(1, TRUE)
 		rusted_turfs |= afflicted_turf
 
 /**

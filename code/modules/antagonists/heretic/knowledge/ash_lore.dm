@@ -52,7 +52,7 @@
 
 /datum/heretic_knowledge/ashen_grasp
 	name = "Grasp of Ash"
-	desc = "Your Mansus Grasp will burn the eyes of the victim, causing damage and blindness."
+	desc = "Your Mansus Grasp blinds the victim and temporarilly disables their headset."
 	gain_text = "The Nightwatcher was the first of them, his treason started it all. \
 		Their lantern, expired to ash - their watch, absent."
 	next_knowledge = list(/datum/heretic_knowledge/spell/ash_passage)
@@ -68,15 +68,24 @@
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
+	if (!istype(target))
+		return COMPONENT_BLOCK_HAND_USE
+
 	if(HAS_TRAIT(target, TRAIT_BLIND))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	if(!target.getorganslot(ORGAN_SLOT_EYES))
-		return
+		return COMPONENT_BLOCK_HAND_USE
 
 	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
 	target.blur_eyes(10)
+	target.set_blindness(5)
+
+	if (!istype(target, /mob/living/carbon/human))
+		return
+	var/mob/living/carbon/human/human_target = target
+	human_target.ears?.emp_act(EMP_HEAVY)
 
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Ashen Passage"
@@ -88,7 +97,7 @@
 		/datum/heretic_knowledge/essence,
 		/datum/heretic_knowledge/medallion,
 	)
-	spell_to_add = /datum/action/spell/jaunt/ethereal_jaunt/ash
+	spell_to_add = /datum/action/spell/ashen_passage
 	cost = 1
 	route = HERETIC_PATH_ASH
 
@@ -119,7 +128,10 @@
 /datum/heretic_knowledge/ash_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	target.apply_status_effect(/datum/status_effect/heretic_mark/ash)
+	if (istype(target))
+		target.apply_status_effect(/datum/status_effect/heretic_mark/ash)
+	else
+		return COMPONENT_BLOCK_HAND_USE
 
 /datum/heretic_knowledge/ash_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
