@@ -7,10 +7,10 @@
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/iron
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 	material_modifier = 0.5
 	material_flags = MATERIAL_EFFECTS | MATERIAL_AFFECT_STATISTICS
 	/// Beauty component mood modifier
@@ -21,6 +21,8 @@
 /obj/structure/statue/Initialize(mapload)
 	. = ..()
 	AddElement(art_type, impressiveness)
+	//AddElement(/datum/element/beauty, impressiveness * 75)
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
@@ -39,6 +41,9 @@
 				deconstruct(TRUE)
 			return
 	return ..()
+
+/obj/structure/statue/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -79,7 +84,7 @@
 	radiate()
 	..()
 
-/obj/structure/statue/uranium/attack_hand(mob/user)
+/obj/structure/statue/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
 	. = ..()
 
@@ -109,8 +114,14 @@
 	name = "statue of a scientist"
 	icon_state = "sci"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
+/obj/structure/statue/plasma/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
+/obj/structure/statue/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/structure/statue/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 		plasma_ignition(6)
 
 
@@ -222,7 +233,7 @@
 	honk()
 	return ..()
 
-/obj/structure/statue/bananium/attack_hand(mob/user)
+/obj/structure/statue/bananium/attack_hand(mob/user, list/modifiers)
 	honk()
 	. = ..()
 

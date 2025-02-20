@@ -1,10 +1,10 @@
 import { Stack, Icon } from '../../components';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { DisplayName } from './DisplayName';
 
 export class Port extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.iconRef = createRef();
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);

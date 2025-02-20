@@ -50,7 +50,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 		stored_extinguisher = null
 		update_icon()
 
-/obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && !stored_extinguisher)
 		to_chat(user, span_notice("You start unsecuring [name]..."))
 		I.play_tool_sound(src)
@@ -72,13 +72,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 			return TRUE
 		else
 			toggle_cabinet(user)
-	else if(user.a_intent != INTENT_HARM)
+	else if(!user.combat_mode)
 		toggle_cabinet(user)
 	else
 		return ..()
 
 
-/obj/structure/extinguisher_cabinet/attack_hand(mob/user)
+/obj/structure/extinguisher_cabinet/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -113,7 +113,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 	return attack_hand(user)
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	toggle_cabinet(user)
 

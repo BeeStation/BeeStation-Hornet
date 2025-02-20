@@ -3,16 +3,16 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
 	desc = "A thick spire of tendrils."
-	max_integrity = 200
+	max_integrity = BLOB_FACTORY_MAX_HP
 	max_hit_damage = 40
-	health_regen = 1
-	point_return = 25
+	health_regen = BLOB_FACTORY_HP_REGEN
+	point_return = BLOB_REFUND_FACTORY_COST
 	resistance_flags = LAVA_PROOF
 	var/list/spores = list()
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/naut = null
-	var/max_spores = 3
+	var/max_spores = BLOB_FACTORY_MAX_SPORES
 	var/spore_delay = 0
-	var/spore_cooldown = 80 //8 seconds between spores and after spore death
+	var/spore_cooldown = BLOBMOB_SPORE_SPAWN_COOLDOWN
 
 
 /obj/structure/blob/factory/scannerreport()

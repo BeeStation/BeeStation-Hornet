@@ -15,6 +15,8 @@
 	var/desc = "Basic knowledge of forbidden arts."
 	/// What's shown to the heretic when the knowledge is aquired
 	var/gain_text
+	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
+	var/datum/heretic_knowledge/abstract_parent_type = /datum/heretic_knowledge
 	/// The knowledge this unlocks next after learning.
 	var/list/next_knowledge = list()
 	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.
@@ -37,14 +39,15 @@
  * This is only ever called once per heretic.
  *
  * Arguments
- * * user - the heretic who researched something
+ * * user - The heretic who researched something
+ * * our_heretic - The antag datum of who researched us. This should never be null.
  */
-/datum/heretic_knowledge/proc/on_research(mob/user)
+/datum/heretic_knowledge/proc/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(gain_text)
 		to_chat(user, span_warning("[gain_text]"))
-	on_gain(user)
+	on_gain(user, our_heretic)
 
 /**
  * Called when the knowledge is applied to a mob.
@@ -54,8 +57,8 @@
  * Arguments
  * * user - the heretic which we're applying things to
  */
-/datum/heretic_knowledge/proc/on_gain(mob/user)
-
+/datum/heretic_knowledge/proc/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	return
 /**
  * Called when the knowledge is removed from a mob,
  * either due to a heretic being de-heretic'd or bodyswap memery.
@@ -63,8 +66,8 @@
  * Arguments
  * * user - the heretic which we're removing things from
  */
-/datum/heretic_knowledge/proc/on_lose(mob/user)
-
+/datum/heretic_knowledge/proc/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	return
 /**
  * Determines if a heretic can actually attempt to invoke the knowledge as a ritual.
  * By default, we can only invoke knowledge with rituals associated.
@@ -154,23 +157,27 @@
  * A knowledge subtype that grants the heretic a certain spell.
  */
 /datum/heretic_knowledge/spell
-	/// The proc holder spell we add to the heretic. Type-path, becomes an instance via on_research().
-	var/obj/effect/proc_holder/spell/spell_to_add
+	abstract_parent_type = /datum/heretic_knowledge/spell
+	/// Spell path we add to the heretic. Type-path.
+	var/datum/action/spell/spell_to_add
+	/// The spell we actually created.
+	var/datum/weakref/created_spell_ref
 
-/datum/heretic_knowledge/spell/Destroy(force, ...)
-	if(istype(spell_to_add))
-		QDEL_NULL(spell_to_add)
+/datum/heretic_knowledge/spell/Destroy()
+	QDEL_NULL(created_spell_ref)
 	return ..()
 
-/datum/heretic_knowledge/spell/on_research(mob/user)
-	spell_to_add = new spell_to_add()
-	return ..()
+/datum/heretic_knowledge/spell/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	// Added spells are tracked on the body, and not the mind,
+	// because we handle heretic mind transfers
+	// via the antag datum (on_gain and on_lose).
+	var/datum/action/spell/created_spell = created_spell_ref?.resolve() || new spell_to_add(user)
+	created_spell.Grant(user)
+	created_spell_ref = WEAKREF(created_spell)
 
-/datum/heretic_knowledge/spell/on_gain(mob/user)
-	user.mind.AddSpell(spell_to_add)
-
-/datum/heretic_knowledge/spell/on_lose(mob/user)
-	user.mind.RemoveSpell(spell_to_add)
+/datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	var/datum/action/spell/created_spell = created_spell_ref?.resolve()
+	created_spell?.Remove(user)
 
 /*
  * A knowledge subtype for knowledge that can only
@@ -385,7 +392,7 @@
 	// 1 uncommon item.
 	required_atoms[pick(potential_uncommoner_items)] += 1
 
-/datum/heretic_knowledge/knowledge_ritual/on_research(mob/user)
+/datum/heretic_knowledge/knowledge_ritual/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
 	var/list/requirements_string = list()
@@ -431,11 +438,10 @@
 	/// The sound to use for the announcement.
 	var/announcement_sound
 
-/datum/heretic_knowledge/final/on_research(mob/user)
+/datum/heretic_knowledge/final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/total_points = 0
-	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(heretic_datum.researched_knowledge))
+	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(our_heretic.researched_knowledge))
 		total_points += knowledge.cost
 
 /datum/heretic_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
@@ -471,6 +477,9 @@
 /datum/heretic_knowledge/final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	heretic_datum.ascended = TRUE
+
+	// Show the cool red gradiant in our UI
+	heretic_datum.update_static_data(user)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user

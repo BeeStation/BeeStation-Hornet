@@ -685,8 +685,7 @@
 					owner.log_message("used [I] due to a Muscle Spasm", LOG_ATTACK)
 					I.attack_self(owner)
 			if(3)
-				var/prev_intent = owner.a_intent
-				owner.a_intent = INTENT_HARM
+				owner.set_combat_mode(TRUE)
 
 				var/range = 1
 				if(istype(owner.get_active_held_item(), /obj/item/gun)) //get targets to shoot at
@@ -699,14 +698,13 @@
 					to_chat(owner, span_warning("Your arm spasms!"))
 					owner.log_message(" attacked someone due to a Muscle Spasm", LOG_ATTACK) //the following attack will log itself
 					owner.ClickOn(pick(targets))
-				owner.a_intent = prev_intent
+				owner.set_combat_mode(FALSE)
 			if(4)
-				var/prev_intent = owner.a_intent
-				owner.a_intent = INTENT_HARM
+				owner.set_combat_mode(TRUE)
 				to_chat(owner, span_warning("Your arm spasms!"))
 				owner.log_message("attacked [owner.p_them()]self to a Muscle Spasm", LOG_ATTACK)
 				owner.ClickOn(owner)
-				owner.a_intent = prev_intent
+				owner.set_combat_mode(FALSE)
 			if(5)
 				if(owner.incapacitated())
 					return
@@ -1121,7 +1119,7 @@
 
 /datum/status_effect/heretic_mark/void/on_effect()
 	var/turf/open/turfie = get_turf(owner)
-	turfie.TakeTemperature(-40)
+	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
@@ -1141,8 +1139,8 @@
 
 /datum/status_effect/amok/tick()
 	. = ..()
-	var/prev_intent = owner.a_intent
-	owner.a_intent = INTENT_HARM
+	var/prev_combat_mode = owner.combat_mode
+	owner.set_combat_mode(TRUE)
 
 	var/list/mob/living/targets = list()
 	for(var/mob/living/potential_target in oview(owner, 1))
@@ -1152,7 +1150,7 @@
 	if(LAZYLEN(targets))
 		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
 		owner.ClickOn(pick(targets))
-	owner.a_intent = prev_intent
+	owner.set_combat_mode(prev_combat_mode)
 
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"
@@ -1186,6 +1184,103 @@
 /datum/status_effect/cloudstruck/Destroy()
 	. = ..()
 	QDEL_NULL(mob_overlay)
+
+//Deals with ants covering someone.
+/datum/status_effect/ants
+	id = "ants"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/ants
+	duration = 2 MINUTES //Keeping the normal timer makes sure people can't somehow dump 300+ ants on someone at once so they stay there for like 30 minutes. Max w/ 1 dump is 57.6 brute.
+	examine_text = "<span class='warning'>SUBJECTPRONOUN is covered in ants!</span>"
+	/// Will act as the main timer as well as changing how much damage the ants do.
+	var/ants_remaining = 0
+	/// Common phrases people covered in ants scream
+	var/static/list/ant_debuff_speech = list(
+		"GET THEM OFF ME!!",
+		"OH GOD THE ANTS!!",
+		"MAKE IT END!!",
+		"THEY'RE EVERYWHERE!!",
+		"GET THEM OFF!!",
+		"SOMEBODY HELP ME!!"
+	)
+
+/datum/status_effect/ants/on_creation(mob/living/new_owner, amount_left)
+	if(isnum(amount_left) && new_owner.stat < HARD_CRIT)
+		if(new_owner.stat < UNCONSCIOUS) // Unconcious people won't get messages
+			to_chat(new_owner, "<span class='userdanger'>You're covered in ants!</span>")
+		ants_remaining += amount_left
+		RegisterSignal(new_owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
+	. = ..()
+
+/datum/status_effect/ants/refresh(effect, amount_left)
+	var/mob/living/carbon/human/victim = owner
+	if(isnum(amount_left) && ants_remaining >= 1 && victim.stat < HARD_CRIT)
+		if(victim.stat < UNCONSCIOUS) // Unconcious people won't get messages
+			if(!prob(1)) // 99%
+				to_chat(victim, "<span class='userdanger'>You're covered in MORE ants!</span>")
+			else // 1%
+				victim.say("AAHH! THIS SITUATION HAS ONLY BEEN MADE WORSE WITH THE ADDITION OF YET MORE ANTS!!", forced = /datum/status_effect/ants)
+		ants_remaining += amount_left
+	. = ..()
+
+/datum/status_effect/ants/on_remove()
+	ants_remaining = 0
+	to_chat(owner, "<span class='notice'>All of the ants are off of your body!</span>")
+	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
+	. = ..()
+
+/datum/status_effect/ants/proc/ants_washed()
+	SIGNAL_HANDLER
+	owner.remove_status_effect(STATUS_EFFECT_ANTS)
+	//return COMPONENT_CLEANED
+
+/datum/status_effect/ants/tick()
+	var/mob/living/carbon/human/victim = owner
+	victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.004),0.1))) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
+	if(victim.stat <= SOFT_CRIT) //Makes sure people don't scratch at themselves while they're in a critical condition
+		if(prob(15))
+			switch(rand(1,2))
+				if(1)
+					victim.say(pick(ant_debuff_speech), forced = /datum/status_effect/ants)
+				if(2)
+					victim.emote("scream")
+		if(prob(50)) // Most of the damage is done through random chance. When tested yielded an average 100 brute with 200u ants.
+			switch(rand(1,50))
+				if (1 to 8) //16% Chance
+					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
+					to_chat(victim, "<span class='danger'>You scratch at the ants on your scalp!.</span>")
+					hed.receive_damage(1,0)
+				if (9 to 29) //40% chance
+					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
+					to_chat(victim, "<span class='danger'>You scratch at the ants on your arms!</span>")
+					arm.receive_damage(3,0)
+				if (30 to 49) //38% chance
+					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
+					to_chat(victim, "<span class='danger'>You scratch at the ants on your leg!</span>")
+					leg.receive_damage(3,0)
+				if(50) // 2% chance
+					to_chat(victim, "<span class='danger'>You rub some ants away from your eyes!</span>")
+					victim.blur_eyes(3)
+					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
+	ants_remaining--
+	if(ants_remaining <= 0 || victim.stat >= HARD_CRIT)
+		victim.remove_status_effect(STATUS_EFFECT_ANTS) //If this person has no more ants on them or are dead, they are no longer affected.
+
+/atom/movable/screen/alert/status_effect/ants
+	name = "Ants!"
+	desc = "<span class='warning'>JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!</span>"
+	icon_state = "antalert"
+
+/atom/movable/screen/alert/status_effect/ants/Click()
+	var/mob/living/living = owner
+	if(!istype(living) || !living.can_resist() || living != owner)
+		return
+	to_chat(living, "<span class='notice'>You start to shake the ants off!</span>")
+	if(!do_after(living, 2 SECONDS, target = living))
+		return
+	for (var/datum/status_effect/ants/ant_covered in living.status_effects)
+		to_chat(living, "<span class='notice'>You manage to get some of the ants off!</span>")
+		ant_covered.ants_remaining -= 10 // 5 Times more ants removed per second than just waiting in place
 
 /datum/status_effect/smoke
 	id = "smoke"

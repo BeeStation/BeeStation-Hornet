@@ -31,7 +31,6 @@
 	response_disarm_simple = "gently push aside"
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
-	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
@@ -44,6 +43,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "purrs!")
 	add_verb(/mob/living/proc/toggle_resting)
 
 /mob/living/simple_animal/pet/cat/space
@@ -237,14 +237,6 @@
 				stop_automated_movement = 1
 				SSmove_manager.move_to(src, movement_target, 0, 3)
 
-/mob/living/simple_animal/pet/cat/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
 /mob/living/simple_animal/pet/cat/proc/wuv(change, mob/M)
 	if(change)
 		if(M && stat != DEAD)
@@ -305,7 +297,7 @@
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()
-	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
+	if(L.combat_mode && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
 
