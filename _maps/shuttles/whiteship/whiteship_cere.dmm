@@ -211,17 +211,17 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "aA" = (
-/obj/structure/crate_shelf,
-/obj/structure/railing{
+/obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 1
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
 	},
-/obj/effect/mapping_helpers/crate_shelf_loader,
-/obj/structure/closet/crate,
-/obj/structure/closet/crate/medical,
-/turf/open/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "aB" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -365,15 +365,14 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/abandoned)
 "aO" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/machinery/door/airlock/hatch{
-	name = "Probe Access"
+/obj/structure/chair/fancy/shuttle{
+	name = "tactical chair"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+/obj/effect/turf_decal/trimline/dark_red,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/open/floor/iron/ridged/steel{
+	color = "#808080"
 	},
-/turf/open/floor/pod,
 /area/shuttle/abandoned)
 "aP" = (
 /obj/machinery/light/small/directional/north{
@@ -400,25 +399,6 @@
 	name = "Probe Cockpit"
 	},
 /turf/open/floor/pod,
-/area/shuttle/abandoned)
-"aR" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/dark_red/line{
-	dir = 4
-	},
-/obj/item/ammo_casing/c10mm{
-	dir = 9;
-	pixel_y = 11
-	},
-/obj/item/gun/ballistic/automatic/pistol{
-	pixel_x = 13;
-	pixel_y = 3
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
 /area/shuttle/abandoned)
 "aS" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -483,17 +463,17 @@
 	},
 /area/shuttle/abandoned)
 "aZ" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 5
 	},
-/obj/effect/turf_decal/trimline/dark_red/line{
-	dir = 8
+/obj/item/storage/pod{
+	pixel_x = 5;
+	pixel_y = -28
 	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/iron/dark,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ba" = (
 /obj/structure/mecha_wreckage/gygax,
@@ -529,8 +509,21 @@
 	},
 /area/shuttle/abandoned)
 "bV" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 8;
+	dynamic_id = 1;
+	height = 16;
+	id = "whiteship";
+	launch_status = 0;
+	name = "NT Recovery White-Ship";
+	port_direction = 8;
+	width = 13
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/pod,
 /area/shuttle/abandoned)
 "db" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
@@ -592,34 +585,17 @@
 	},
 /area/shuttle/abandoned)
 "jd" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/button/door{
+	id = "cerewhiteleft";
+	name = "Cargo Blast Door Toggle";
+	pixel_x = -24
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 5
-	},
-/obj/item/storage/pod{
-	pixel_x = 5;
-	pixel_y = -28
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"jS" = (
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 8;
-	dynamic_id = 1;
-	height = 16;
-	id = "whiteship";
-	launch_status = 0;
-	name = "NT Recovery White-Ship";
-	port_direction = 8;
-	width = 13
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/pod,
+/obj/structure/crate_shelf,
+/obj/effect/turf_decal/siding/dark/end,
+/obj/structure/closet/crate,
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/obj/structure/closet/crate/science,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "lt" = (
 /obj/structure/table/reinforced,
@@ -669,14 +645,23 @@
 	},
 /area/shuttle/abandoned)
 "te" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/chair/foldable{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
-/obj/structure/railing{
-	dir = 5
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 4
 	},
-/turf/open/space/basic,
+/obj/item/ammo_casing/c10mm{
+	dir = 9;
+	pixel_y = 11
+	},
+/obj/item/gun/ballistic/automatic/pistol{
+	pixel_x = 13;
+	pixel_y = 3
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
 /area/shuttle/abandoned)
 "uh" = (
 /obj/structure/filingcabinet,
@@ -689,8 +674,28 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "vt" = (
-/obj/structure/closet/syndicate/personal,
-/turf/open/floor/mineral/plastitanium,
+/obj/structure/table/reinforced,
+/obj/item/screwdriver/nuke{
+	pixel_y = -17;
+	pixel_x = 2
+	},
+/obj/item/clothing/suit/armor/reactive/table{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/paper/crumpled{
+	pixel_x = 9;
+	pixel_y = 6;
+	default_raw_text = "These screws are so damn locked up that at this rate my plastitanium screwdriver is going to break before I figure out how this vest ticks. Damn you and your cheap rust prone designs Nanotrasen! Fuck!"
+	},
+/obj/item/stack/cable_coil/cut/red{
+	pixel_y = 18;
+	pixel_x = -2
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
 /area/shuttle/abandoned)
 "xb" = (
 /obj/machinery/mech_bay_recharge_port{
@@ -699,14 +704,15 @@
 /turf/open/floor/iron/dark/textured,
 /area/shuttle/abandoned)
 "xV" = (
-/obj/structure/chair/fancy/shuttle{
-	name = "tactical chair"
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/machinery/door/airlock/hatch{
+	name = "Probe Access"
 	},
-/obj/effect/turf_decal/trimline/dark_red,
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-/turf/open/floor/iron/ridged/steel{
-	color = "#808080"
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
 	},
+/turf/open/floor/pod,
 /area/shuttle/abandoned)
 "xZ" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -740,28 +746,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "zU" = (
-/obj/structure/table/reinforced,
-/obj/item/screwdriver/nuke{
-	pixel_y = -17;
-	pixel_x = 2
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
-/obj/item/clothing/suit/armor/reactive/table{
-	pixel_x = -4;
-	pixel_y = 1
+/obj/machinery/door/airlock/external{
+	name = "Probe Port Airlock"
 	},
-/obj/item/paper/crumpled{
-	pixel_x = 9;
-	pixel_y = 6;
-	default_raw_text = "These screws are so damn locked up that at this rate my plastitanium screwdriver is going to break before I figure out how this vest ticks. Damn you and your cheap rust prone designs Nanotrasen! Fuck!"
-	},
-/obj/item/stack/cable_coil/cut/red{
-	pixel_y = 18;
-	pixel_x = -2
-	},
-/obj/machinery/light{
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/textured,
+/turf/open/floor/pod,
 /area/shuttle/abandoned)
 "Ao" = (
 /obj/effect/turf_decal/siding/dark{
@@ -800,32 +794,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/abandoned)
 "Ld" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 9
-	},
-/turf/open/space/basic,
-/area/shuttle/abandoned)
-"Ly" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/airlock/external{
-	name = "Probe Port Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"Nd" = (
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/robot_debris/up,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"Ou" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -836,6 +804,17 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/pod,
+/area/shuttle/abandoned)
+"Ly" = (
+/obj/structure/closet/syndicate/personal,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"Nd" = (
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/robot_debris/up,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "QF" = (
 /obj/effect/turf_decal/edges/techfloor,
@@ -855,16 +834,16 @@
 	},
 /area/shuttle/abandoned)
 "Vi" = (
-/obj/machinery/button/door{
-	id = "cerewhiteleft";
-	name = "Cargo Blast Door Toggle";
-	pixel_x = -24
-	},
 /obj/structure/crate_shelf,
-/obj/effect/turf_decal/siding/dark/end,
-/obj/structure/closet/crate,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/crate_shelf_loader,
-/obj/structure/closet/crate/science,
+/obj/structure/closet/crate,
+/obj/structure/closet/crate/medical,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "VX" = (
@@ -905,7 +884,6 @@ aa
 aa
 aa
 aa
-aa
 ad
 aj
 ab
@@ -917,9 +895,9 @@ aa
 aa
 aa
 aa
+aa
 "}
 (2,1,1) = {"
-aa
 aa
 aa
 ad
@@ -928,9 +906,10 @@ ab
 aN
 ab
 aW
-vt
+Ly
 ab
 aN
+aa
 aa
 aa
 aa
@@ -938,13 +917,12 @@ aa
 "}
 (3,1,1) = {"
 aa
-aa
 ad
 aj
 ab
 aN
 az
-Vi
+jd
 aW
 aI
 aM
@@ -953,9 +931,9 @@ aa
 aa
 aa
 aa
+aa
 "}
 (4,1,1) = {"
-aa
 aN
 aN
 aN
@@ -964,22 +942,22 @@ aN
 xZ
 ax
 ah
-jd
+aZ
 ab
 ab
-Ly
+zU
 aN
 aN
+aa
 aa
 "}
 (5,1,1) = {"
-aa
 aN
 xb
 ba
 ap
 aN
-aA
+Vi
 iM
 ai
 aJ
@@ -989,9 +967,9 @@ ao
 SI
 aN
 aa
+aa
 "}
 (6,1,1) = {"
-Ld
 aN
 al
 Nd
@@ -999,22 +977,22 @@ aq
 av
 aB
 Ao
-aZ
+aA
 aK
-Ou
+Ld
 hb
 fP
 sX
 aN
 aa
+aa
 "}
 (7,1,1) = {"
 bV
-jS
 an
 am
 ar
-aO
+xV
 Wj
 at
 ak
@@ -1025,9 +1003,9 @@ aQ
 aN
 aN
 aN
+aa
 "}
 (8,1,1) = {"
-te
 aN
 zL
 aV
@@ -1040,15 +1018,15 @@ aH
 aN
 aw
 aS
-aR
+te
 bb
 av
+aa
 "}
 (9,1,1) = {"
-aa
 aN
 ag
-zU
+vt
 lt
 aN
 aC
@@ -1058,12 +1036,12 @@ aL
 aN
 aT
 aU
-xV
+aO
 QF
 av
+aa
 "}
 (10,1,1) = {"
-aa
 aN
 aN
 aN
@@ -1079,9 +1057,9 @@ DA
 aX
 af
 av
+aa
 "}
 (11,1,1) = {"
-aa
 aa
 ad
 aj
@@ -1097,9 +1075,9 @@ as
 ab
 av
 aN
+aa
 "}
 (12,1,1) = {"
-aa
 aa
 aa
 ad
@@ -1115,9 +1093,9 @@ aN
 aN
 aa
 aa
+aa
 "}
 (13,1,1) = {"
-aa
 aa
 aa
 aa
@@ -1128,6 +1106,7 @@ ab
 av
 av
 aN
+aa
 aa
 aa
 aa
