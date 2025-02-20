@@ -99,7 +99,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 			to_chat(user, span_notice("You carefully remove the poster from the wall."))
 			roll_and_drop(user.loc)
 
-/obj/structure/sign/poster/attack_hand(mob/user)
+/obj/structure/sign/poster/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -672,5 +672,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	name = "Suit Sensors"
 	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
+
+/obj/structure/sign/poster/contraband/syndicate
+	name = "Syndicate Emblem"
+	desc = "Almost anyone could recognize this as the logo of the Syndicate."
+	icon_state = "poster51"
+
+/obj/structure/sign/poster/contraband/m90
+	// have fun seeing this poster in "spawn 'c20r'", admins...
+	name = "M-90"
+	desc = "A poster advertising the Scarborough Arms M-90"
+	icon_state = "poster53"
 
 #undef PLACE_SPEED

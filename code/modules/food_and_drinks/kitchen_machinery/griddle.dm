@@ -83,7 +83,7 @@
 	else
 		return ..()
 
-/obj/machinery/griddle/attack_hand(mob/user)
+/obj/machinery/griddle/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	on = !on
 	if(on)

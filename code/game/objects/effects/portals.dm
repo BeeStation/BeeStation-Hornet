@@ -75,7 +75,7 @@
 	if(HAS_TRAIT(mover, TRAIT_NO_TELEPORT))
 		return TRUE
 
-/obj/effect/portal/attack_hand(mob/user)
+/obj/effect/portal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

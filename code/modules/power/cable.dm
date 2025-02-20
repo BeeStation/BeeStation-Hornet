@@ -549,7 +549,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 	color = null
 	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
 
-/obj/item/stack/cable_coil/attack_hand(mob/user)
+/obj/item/stack/cable_coil/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

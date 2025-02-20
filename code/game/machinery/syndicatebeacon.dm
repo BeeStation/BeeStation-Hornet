@@ -45,7 +45,7 @@
 /obj/machinery/power/singularity_beacon/attack_silicon(mob/user)
 	return TRUE
 
-/obj/machinery/power/singularity_beacon/attack_hand(mob/user)
+/obj/machinery/power/singularity_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
