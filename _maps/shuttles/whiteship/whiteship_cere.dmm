@@ -220,6 +220,7 @@
 	},
 /obj/effect/mapping_helpers/crate_shelf_loader,
 /obj/structure/closet/crate,
+/obj/structure/closet/crate/medical,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "aB" = (
@@ -369,6 +370,9 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Probe Access"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/shuttle/abandoned)
 "aP" = (
@@ -403,10 +407,6 @@
 	},
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 4
-	},
-/obj/effect/decal/cleanable/ash{
-	pixel_y = -13;
-	pixel_x = 18
 	},
 /obj/item/ammo_casing/c10mm{
 	dir = 9;
@@ -492,9 +492,7 @@
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood{
-	icon_state = "bubblegumfoot"
-	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "ba" = (
@@ -600,6 +598,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 5
 	},
+/obj/item/storage/pod{
+	pixel_x = 5;
+	pixel_y = -28
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "jS" = (
@@ -616,6 +618,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/pod,
 /area/shuttle/abandoned)
 "lt" = (
@@ -686,10 +689,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "vt" = (
-/obj/item/storage/pod{
-	pixel_x = 5;
-	pixel_y = -28
-	},
+/obj/structure/closet/syndicate/personal,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "xb" = (
@@ -703,7 +703,7 @@
 	name = "tactical chair"
 	},
 /obj/effect/turf_decal/trimline/dark_red,
-/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/open/floor/iron/ridged/steel{
 	color = "#808080"
 	},
@@ -742,7 +742,7 @@
 "zU" = (
 /obj/structure/table/reinforced,
 /obj/item/screwdriver/nuke{
-	pixel_y = -11;
+	pixel_y = -17;
 	pixel_x = 2
 	},
 /obj/item/clothing/suit/armor/reactive/table{
@@ -755,7 +755,7 @@
 	default_raw_text = "These screws are so damn locked up that at this rate my plastitanium screwdriver is going to break before I figure out how this vest ticks. Damn you and your cheap rust prone designs Nanotrasen! Fuck!"
 	},
 /obj/item/stack/cable_coil/cut/red{
-	pixel_y = 13;
+	pixel_y = 18;
 	pixel_x = -2
 	},
 /obj/machinery/light{
@@ -813,6 +813,9 @@
 /obj/machinery/door/airlock/external{
 	name = "Probe Port Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/pod,
 /area/shuttle/abandoned)
 "Nd" = (
@@ -831,6 +834,7 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Probe Access"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/pod,
 /area/shuttle/abandoned)
 "QF" = (
@@ -857,10 +861,10 @@
 	pixel_x = -24
 	},
 /obj/structure/crate_shelf,
-/obj/effect/mapping_helpers/crate_shelf_loader,
 /obj/effect/turf_decal/siding/dark/end,
 /obj/structure/closet/crate,
-/obj/structure/closet/crate,
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/obj/structure/closet/crate/science,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
 "VX" = (
@@ -906,7 +910,7 @@ ad
 aj
 ab
 aF
-aF
+aN
 aN
 aa
 aa
@@ -1102,7 +1106,7 @@ ad
 aj
 ab
 aN
-aN
+ab
 Hm
 ay
 aN
