@@ -24,12 +24,12 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+	var/turns_since_scan = 0
+	var/obj/movement_target
+
 /mob/living/simple_animal/pet/dog/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "woofs happily!")
-
-	var/turns_since_scan = 0
-	var/obj/movement_target
 
 /mob/living/simple_animal/pet/dog/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
@@ -712,24 +712,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
 					sleep(1)
-
-/mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
-/mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "yaps happily!")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-			emote("me", 1, "growls!")
 
 /mob/living/simple_animal/pet/dog/corgi/cardigan
 	name = "\improper cardigan corgi"

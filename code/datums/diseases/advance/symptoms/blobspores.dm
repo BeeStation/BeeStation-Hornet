@@ -81,7 +81,7 @@
 		return
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
-		blob_options += /obj/structure/blob/factory/lone
+		blob_options += /obj/structure/blob/special/factory/lone
 	if(strong_blob)
 		blob_options += /obj/structure/blob/shield/
 	if(node_blob)

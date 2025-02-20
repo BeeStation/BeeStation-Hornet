@@ -36,18 +36,18 @@
 	. = ..()
 	produce_spores()
 
-/obj/structure/blob/factory/lone //A blob factory that functions without a pulses
+/obj/structure/blob/special/factory/lone //A blob factory that functions without a pulses
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/factory/lone)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/special/factory/lone)
 
-/obj/structure/blob/factory/lone/Initialize(mapload, owner_overmind)
+/obj/structure/blob/special/factory/lone/Initialize(mapload, owner_overmind)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/structure/blob/factory/lone/process()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/blob/factory/lone, Be_Pulsed)), 10 SECONDS, TIMER_UNIQUE)
+/obj/structure/blob/special/factory/lone/process()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/blob/special/factory/lone, Be_Pulsed)), 10 SECONDS, TIMER_UNIQUE)
 
-/obj/structure/blob/factory/lone/Be_Pulsed()
+/obj/structure/blob/special/factory/lone/Be_Pulsed()
 	. = ..()
 
 /obj/structure/blob/special/node/lone/Destroy()

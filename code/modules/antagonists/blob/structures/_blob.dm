@@ -12,7 +12,7 @@
 	can_atmos_pass = ATMOS_PASS_PROC
 	/// How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/point_return = 0
-	max_integrity = 30
+	max_integrity = BLOB_REGULAR_MAX_HP
 	armor_type = /datum/armor/structure_blob
 	/// how much health this blob regens when pulsed
 	var/health_regen = BLOB_REGULAR_HP_REGEN
@@ -47,7 +47,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 			overmind.blobs_legit += src
 	GLOB.blobs += src //Keep track of the blob in the normal list either way
 	setDir(pick(GLOB.cardinals))
-	update_icon()
+	update_appearance()
 	if(atmosblock)
 		air_update_turf(TRUE, TRUE)
 	ConsumeTile()
@@ -64,7 +64,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		overmind.blobs_legit -= src  //if it was in the legit blobs list, it isn't now
 		overmind = null
 	GLOB.blobs -= src //it's no longer in the all blobs list either
-	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1) //Expand() is no longer broken, no check necessary.
+	playsound(src.loc, 'sound/effects/splat.ogg', 50, TRUE) //Expand() is no longer broken, no check necessary.
 	return ..()
 
 /obj/structure/blob/blob_act()
@@ -88,6 +88,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	return !atmosblock
 
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
+	. = ..()
 	if(overmind)
 		add_atom_colour(overmind.blobstrain.color, FIXED_COLOUR_PRIORITY)
 	else
@@ -99,13 +100,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		if(COOLDOWN_FINISHED(src, heal_timestamp))
 			atom_integrity = min(max_integrity, atom_integrity+health_regen)
 			COOLDOWN_START(src, heal_timestamp, 20)
-		update_icon()
+		update_appearance()
 		COOLDOWN_START(src, pulse_timestamp, 10)
 		return TRUE//we did it, we were pulsed!
 	return FALSE //oh no we failed
 
 /obj/structure/blob/proc/ConsumeTile()
 	for(var/atom/A in loc)
+		if(isliving(A) && overmind && !isblobmonster(A)) // Make sure to inject strain-reagents with automatic attacks when needed.
+			overmind.blobstrain.attack_living(A)
+			continue // Don't smack them twice though
 		A.blob_act(src)
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
@@ -135,12 +139,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 			else
 				T = null
 	if(!T)
-		return 0
+		return
 	var/make_blob = TRUE //can we make a blob?
 
 	if(isspaceturf(T) && !(locate(/obj/structure/lattice) in T) && prob(80))
 		make_blob = FALSE
-		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1) //Let's give some feedback that we DID try to spawn in space, since players are used to it
+		playsound(src.loc, 'sound/effects/splat.ogg', 50, TRUE) //Let's give some feedback that we DID try to spawn in space, since players are used to it
 
 	ConsumeTile() //hit the tile we're in, making sure there are no border objects blocking us
 	if(!T.CanPass(src, get_dir(T, src))) //is the target turf impassable
@@ -149,6 +153,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	for(var/atom/A in T)
 		if(!A.CanPass(src, get_dir(T, src))) //is anything in the turf impassable
 			make_blob = FALSE
+		if(isliving(A) && overmind && !controller) // Make sure to inject strain-reagents with automatic attacks when needed.
+			overmind.blobstrain.attack_living(A)
+			continue // Don't smack them twice though
 		A.blob_act(src) //also hit everything in the turf
 
 	if(make_blob) //well, can we?
@@ -157,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		if(T.Enter(B)) //NOW we can attempt to move into the tile
 			B.set_density(initial(B.density))
 			B.forceMove(T)
-			B.update_icon()
+			B.update_appearance()
 			if(B.overmind && expand_reaction)
 				B.overmind.blobstrain.expand_reaction(src, B, T, controller)
 			return B
@@ -165,14 +172,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 			blob_attack_animation(T, controller)
 			T.blob_act(src) //if we can't move in hit the turf again
 			qdel(B) //we should never get to this point, since we checked before moving in. destroy the blob so we don't have two blobs on one tile
-			return null
+			return
 	else
 		blob_attack_animation(T, controller) //if we can't, animate that we attacked
-	return null
+	return
 
 /obj/structure/blob/bullet_act(obj/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
-		playsound(src, 'sound/weapons/pierce.ogg', 50, 1) //we don't have a hitsound so lets just overwrite it here
+		playsound(src, 'sound/weapons/pierce.ogg', 50, TRUE) //we don't have a hitsound so lets just overwrite it here
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
 		take_damage((P.energy)*0.6)
 	else
@@ -244,11 +251,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
+				playsound(src.loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/blob/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	switch(damage_type)
@@ -270,7 +277,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && atom_integrity > 0)
-		update_icon()
+		update_appearance()
 
 /obj/structure/blob/atom_destruction(damage_flag)
 	if(overmind)
@@ -282,7 +289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		CRASH("change_to(): invalid type for blob")
 	var/obj/structure/blob/B = new type(src.loc, controller)
 	B.creation_action()
-	B.update_icon()
+	B.update_appearance()
 	B.setDir(dir)
 	qdel(src)
 	return B
@@ -316,35 +323,39 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	icon_state = "blob"
 	light_range = 0
 	max_integrity = BLOB_REGULAR_MAX_HP
+	var/initial_integrity = BLOB_REGULAR_HP_INIT
 	health_regen = BLOB_REGULAR_HP_REGEN
 	brute_resist = BLOB_BRUTE_RESIST * 0.5
 
 /obj/structure/blob/normal/Initialize(mapload)
 	. = ..()
-	update_integrity(21) //doesn't start at full health
+	update_integrity(initial_integrity)
 
 /obj/structure/blob/normal/scannerreport()
 	if(atom_integrity <= 15)
 		return "Currently weak to brute damage."
 	return "N/A"
 
-/obj/structure/blob/normal/update_icon()
-	..()
+/obj/structure/blob/normal/update_desc()
+	. = ..()
 	if(atom_integrity <= 15)
-		icon_state = "blob_damaged"
-		name = "fragile blob"
 		desc = "A thin lattice of slightly twitching tendrils."
+	else if(overmind)
+		desc = "A thick wall of writhing tendrils."
+	else
+		desc = "A thick wall of lifeless tendrils."
+
+/obj/structure/blob/normal/update_icon_state()
+	icon_state = "blob[(atom_integrity <= 15) ? "_damaged" : null]"
+
+	/// - [] TODO: Move this elsewhere
+	if(atom_integrity <= 15)
 		brute_resist = BLOB_BRUTE_RESIST
 	else if (overmind)
-		icon_state = "blob"
-		name = "blob"
-		desc = "A thick wall of writhing tendrils."
 		brute_resist = BLOB_BRUTE_RESIST * 0.5
 	else
-		icon_state = "blob"
-		name = "dead blob"
-		desc = "A thick wall of lifeless tendrils."
 		brute_resist = BLOB_BRUTE_RESIST * 0.5
+	return ..()
 
 /obj/structure/blob/special	// Generic type for nodes/factories/cores/resource
 	// Core and node vars: claiming, pulsing and expanding

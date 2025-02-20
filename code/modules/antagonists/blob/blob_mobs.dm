@@ -241,7 +241,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	maxHealth = BLOBMOB_BLOBBERNAUT_HEALTH
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	melee_damage = BLOBMOB_BLOBBERNAUT_DMG_SOLO
-	obj_damage = BLOBMOB_BLOBBERNAUT_DMG_OBJ
+	obj_damage = BLOBMOB_BLOBBERNAUT_OBJ_DMG
 	attack_verb_continuous = "slams"
 	attack_verb_simple = "slam"
 	attack_sound = 'sound/effects/blobattack.ogg'

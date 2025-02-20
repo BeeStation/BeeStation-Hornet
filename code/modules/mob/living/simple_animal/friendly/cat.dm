@@ -174,14 +174,14 @@
 
 		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
 			if(!M.stat)
-				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "splats \the [M]!")
+				manual_emote("splats \the [M]!")
 				M.splat()
 				movement_target = null
 				stop_automated_movement = 0
 				break
 		for(var/obj/item/toy/cattoy/T in get_turf(src))
 			if (T.cooldown < (world.time - 400))
-				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "bats \the [T] around with its paw!")
+				manual_emote("bats \the [T] around with \his paw!")
 				T.cooldown = world.time
 
 /mob/living/simple_animal/pet/cat/update_resting()
@@ -237,18 +237,6 @@
 			if(movement_target)
 				stop_automated_movement = 1
 				SSmove_manager.move_to(src, movement_target, 0, 3)
-
-/mob/living/simple_animal/pet/cat/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD)
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "purrs!")
-			if(flags_1 & HOLOGRAM_1)
-				return
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD)
-			emote("me", 1, "hisses!")
 
 /mob/living/simple_animal/pet/cat/cak //I told you I'd do it, Remie
 	name = "Keeki"

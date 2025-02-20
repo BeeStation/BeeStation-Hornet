@@ -71,7 +71,11 @@
 			var/obj/structure/blob/special/node/B = GLOB.blob_nodes[i]
 			nodes["Blob Node #[i] ([B.overmind ? "[B.overmind.blobstrain.name]":"No Strain"])"] = B
 		var/node_name = tgui_input_list(src, "Choose a node to jump to.", "Node Jump", nodes)
-		var/obj/structure/blob/node/chosen_node = nodes[node_name]
+		if(isnull(node_name))
+			return FALSE
+		if(isnull(nodes[node_name]))
+			return FALSE
+		var/obj/structure/blob/special/node/chosen_node = nodes[node_name]
 		if(chosen_node)
 			forceMove(chosen_node.loc)
 
@@ -80,15 +84,15 @@
 		turf = get_turf(src)
 	var/obj/structure/blob/B = (locate(/obj/structure/blob) in turf)
 	if(!B)
-		to_chat(src, "<span class='warning'>There is no blob here!</span>")
+		to_chat(src, span_warning("There is no blob here!"))
 		balloon_alert(src, "no blob here!")
 		return
 	if(!istype(B, /obj/structure/blob/normal))
-		to_chat(src, "<span class='warning'>Unable to use this blob, find a normal one.</span>")
+		to_chat(src, span_warning("Unable to use this blob, find a normal one."))
 		balloon_alert(src, "need normal blob!")
 		return
 	if(needsNode && nodes_required)
-		if(!(locate(/obj/structure/blob/node) in orange(BLOB_NODE_PULSE_RANGE, turf)) && !(locate(/obj/structure/blob/core) in orange(BLOB_NODE_PULSE_RANGE + 1, turf)))
+		if(!(locate(/obj/structure/blob/special/node) in orange(BLOB_NODE_PULSE_RANGE, turf)) && !(locate(/obj/structure/blob/special/core) in orange(BLOB_NODE_PULSE_RANGE + 1, turf)))
 			to_chat(src, span_warning("You need to place this blob closer to a node or core!"))
 			balloon_alert(src, "too far from node or core!")
 			return //handholdotron 2000
@@ -170,8 +174,8 @@
 		B.naut = null
 
 /mob/camera/blob/proc/relocate_core()
-	var/turf/T = get_turf(src)
-	var/obj/structure/blob/special/node/B = locate(/obj/structure/blob/special/node) in T
+	var/turf/turf = get_turf(src)
+	var/obj/structure/blob/special/node/B = locate(/obj/structure/blob/special/node) in turf
 	if(!B)
 		to_chat(src, span_warning("You must be on a blob node!"))
 		return
@@ -183,6 +187,7 @@
 		return
 	if(!can_buy(BLOB_POWER_RELOCATE_COST))
 		return
+
 	var/turf/old_turf = get_turf(blob_core)
 	var/olddir = blob_core.dir
 	blob_core.forceMove(turf)
