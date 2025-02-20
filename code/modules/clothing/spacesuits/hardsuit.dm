@@ -1031,7 +1031,6 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
-	var/obj/machinery/doppler_array/integrated/bomb_radar
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
@@ -1051,10 +1050,6 @@
 	acid = 80
 	stamina = 30
 	bleed = 70
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
-	. = ..()
-	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
 	..()

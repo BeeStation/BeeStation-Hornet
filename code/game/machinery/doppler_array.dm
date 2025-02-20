@@ -9,7 +9,6 @@
 	verb_say = "states coldly"
 	var/cooldown = 10
 	var/next_announce = 0
-	var/integrated = FALSE
 	var/max_dist = 150
 	/// Number which will be part of the name of the next record, increased by one for each already created record
 	var/record_number = 1
@@ -48,19 +47,19 @@
 /obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	data["records"] = list()
-	for(var/datum/tachyon_record/R in records)
+	for(var/datum/tachyon_record/record in records)
 		var/list/record_data = list(
-			name = R.name,
-			timestamp = R.timestamp,
-			coordinates = R.coordinates,
-			displacement = R.displacement,
-			factual_epicenter_radius = R.factual_radius["epicenter_radius"],
-			factual_outer_radius = R.factual_radius["outer_radius"],
-			factual_shockwave_radius = R.factual_radius["shockwave_radius"],
-			theory_epicenter_radius = R.theory_radius["epicenter_radius"],
-			theory_outer_radius = R.theory_radius["outer_radius"],
-			theory_shockwave_radius = R.theory_radius["shockwave_radius"],
-			ref = REF(R)
+			name = record.name,
+			timestamp = record.timestamp,
+			coordinates = record.coordinates,
+			displacement = record.displacement,
+			factual_epicenter_radius = record.factual_radius["epicenter_radius"],
+			factual_outer_radius = record.factual_radius["outer_radius"],
+			factual_shockwave_radius = record.factual_radius["shockwave_radius"],
+			theory_epicenter_radius = record.theory_radius["epicenter_radius"],
+			theory_outer_radius = record.theory_radius["outer_radius"],
+			theory_shockwave_radius = record.theory_radius["shockwave_radius"],
+			ref = REF(record)
 		)
 		data["records"] += list(record_data)
 	return data
@@ -156,17 +155,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 
 	if(distance > max_dist)
 		return FALSE
-	if(!(direct & dir) && !integrated)
+	if(!(direct & dir))
 		return FALSE
 
-	var/datum/tachyon_record/R = new /datum/tachyon_record()
-	R.name = "Log Recording #[record_number]"
-	R.timestamp = station_time_timestamp()
-	R.coordinates = "[epicenter.x], [epicenter.y]"
-	R.displacement = took
-	R.factual_radius["epicenter_radius"] = devastation_range
-	R.factual_radius["outer_radius"] = heavy_impact_range
-	R.factual_radius["shockwave_radius"] = light_impact_range
+	var/datum/tachyon_record/new_record = new /datum/tachyon_record()
+	new_record.name = "Log Recording #[record_number]"
+	new_record.timestamp = station_time_timestamp()
+	new_record.coordinates = "[epicenter.x], [epicenter.y]"
+	new_record.displacement = took
+	new_record.factual_radius["epicenter_radius"] = devastation_range
+	new_record.factual_radius["outer_radius"] = heavy_impact_range
+	new_record.factual_radius["shockwave_radius"] = light_impact_range
 
 	var/list/messages = list("Explosive disturbance detected.",
 							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
@@ -175,15 +174,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	// If the bomb was capped, say its theoretical size.
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
 		messages += "Theoretical: Epicenter radius: [orig_dev_range]. Outer radius: [orig_heavy_range]. Shockwave radius: [orig_light_range]."
-		R.theory_radius["epicenter_radius"] = orig_dev_range
-		R.theory_radius["outer_radius"] = orig_heavy_range
-		R.theory_radius["shockwave_radius"] = orig_light_range
+		new_record.theory_radius["epicenter_radius"] = orig_dev_range
+		new_record.theory_radius["outer_radius"] = orig_heavy_range
+		new_record.theory_radius["shockwave_radius"] = orig_light_range
 
 	for(var/message in messages)
 		say(message)
 
 	record_number++
-	records += R
+	records += new_record
 	//Update to viewers
 	ui_update()
 
@@ -205,13 +204,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
-
-//Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
-/obj/machinery/doppler_array/integrated
-	name = "integrated tachyon-doppler module"
-	integrated = TRUE
-	max_dist = 21 //Should detect most explosions in hearing range.
-	use_power = NO_POWER_USE
 
 /obj/machinery/doppler_array/research
 	name = "tachyon-doppler research array"
