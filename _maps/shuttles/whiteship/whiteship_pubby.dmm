@@ -101,6 +101,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds/node,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
 "n" = (
@@ -344,7 +345,7 @@ r
 P
 r
 r
-r
+b
 a
 "}
 (4,1,1) = {"
@@ -370,7 +371,7 @@ x
 d
 "}
 (6,1,1) = {"
-b
+r
 r
 G
 j
@@ -378,7 +379,7 @@ n
 b
 s
 r
-b
+r
 "}
 (7,1,1) = {"
 k
