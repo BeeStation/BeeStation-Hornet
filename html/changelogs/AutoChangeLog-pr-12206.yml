@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - admin: Greatly improved the usability and styling of the admin brief outfit preference.
-  - code_imp: Added support to carry menuWidth over to preference dropdowns.
