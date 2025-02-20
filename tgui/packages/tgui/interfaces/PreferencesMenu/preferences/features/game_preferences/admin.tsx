@@ -54,7 +54,7 @@ export const brief_outfit: Feature<string> = {
           placement: 'bottom-start',
         }}
         popperContent={
-          isOpen && (
+          isOpen ? (
             <TrackOutsideClicks onOutsideClick={handleCloseInternal} removeOnOutsideClick>
               <Box
                 className="theme-generic-yellow"
@@ -114,6 +114,8 @@ export const brief_outfit: Feature<string> = {
                 </Box>
               </Box>
             </TrackOutsideClicks>
+          ) : (
+            <> </>
           )
         }>
         <Flex pr={2}>
