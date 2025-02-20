@@ -98,7 +98,7 @@
 	var/atom/movable/movable_parent = parent
 	movable_parent.unbuckle_mob(rider)
 
-	if(!isanimal(movable_parent) && !iscyborg(movable_parent))
+	if(!iscyborg(movable_parent) && !isanimal_or_basicmob(movable_parent))
 		return
 
 	var/turf/target = get_edge_target_turf(movable_parent, movable_parent.dir)
@@ -121,26 +121,30 @@
 		return
 
 	for(var/mob/yeet_mob in user.buckled_mobs)
-		force_dismount(yeet_mob, (user.a_intent == INTENT_HELP)) // gentle on help, byeeee if not
+		force_dismount(yeet_mob, (!user.combat_mode)) // gentle on help, byeeee if not
 
 /// If the ridden creature has abilities, and some var yet to be made is set to TRUE, the rider will be able to control those abilities
-/datum/component/riding/creature/proc/setup_abilities(mob/living/M)
+/datum/component/riding/creature/proc/setup_abilities(mob/living/rider)
+	if(!isliving(parent))
+		return
+		
 	var/mob/living/ridden_creature = parent
 
-	for(var/i in ridden_creature.abilities)
-		var/obj/effect/proc_holder/proc_holder = i
-		M.AddAbility(proc_holder)
+	for(var/datum/action/action as anything in ridden_creature.actions)
+		action.give_action(rider)
 
 /// Takes away the riding parent's abilities from the rider
-/datum/component/riding/creature/proc/remove_abilities(mob/living/M)
-	if(!istype(parent, /mob/living))
+/datum/component/riding/creature/proc/remove_abilities(mob/living/rider)
+	if(!isliving(parent))
 		return
 
 	var/mob/living/ridden_creature = parent
 
-	for(var/i in ridden_creature.abilities)
-		var/obj/effect/proc_holder/proc_holder = i
-		M.RemoveAbility(proc_holder)
+	for(var/datum/action/action as anything in ridden_creature.actions)
+		if(istype(action, /datum/action) && rider.click_intercept == action)
+			var/datum/action/cooldown_action = action
+			cooldown_action.unset_click_ability(rider, refund_cooldown = TRUE)
+		action.hide_from(rider)
 
 
 ///////Yes, I said humans. No, this won't end well...//////////
@@ -180,14 +184,14 @@
 	unequip_buckle_inhands(parent)
 	var/mob/living/carbon/human/H = parent
 	H.remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
-	former_rider.density = TRUE
+	former_rider.set_density(!former_rider.body_position)
 	return ..()
 
 /// If the carrier shoves the person they're carrying, force the carried mob off
-/datum/component/riding/creature/human/proc/on_host_unarmed_melee(mob/living/carbon/human/human_parent, atom/target)
+/datum/component/riding/creature/human/proc/on_host_unarmed_melee(mob/living/carbon/human/human_parent, atom/target, proximity, modifiers)
 	SIGNAL_HANDLER
 
-	if(human_parent.a_intent == INTENT_DISARM && (target in human_parent.buckled_mobs))
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && (target in human_parent.buckled_mobs))
 		force_dismount(target)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
