@@ -61,9 +61,11 @@
 
 	var/outfit = null
 
+	/// Minutes of experience-time required to play in this job. 
 	var/exp_requirements = 0
-
+	/// Experience required to play this job
 	var/exp_type = ""
+	/// Department experience required to play this job
 	var/exp_type_department = ""
 
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
@@ -174,7 +176,7 @@
 
 				if(!permitted)
 					if(M.client)
-						to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [G.display_name]!</span>")
+						to_chat(M, span_warning("Your current species or role does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
@@ -184,7 +186,7 @@
 						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
 					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
 						if(M.client)
-							to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+							to_chat(M, span_notice("Equipping you with [G.display_name]!"))
 						if(on_dummy && o)
 							qdel(o)
 					else
@@ -205,29 +207,29 @@
 			if(istype(placed_in))
 				if(isturf(placed_in))
 					if(M.client)
-						to_chat(M, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
+						to_chat(M, span_notice("Placing [G.display_name] on [placed_in]!"))
 				else
 					if(M.client)
-						to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
+						to_chat(M, span_notice("Placing [G.display_name] in [placed_in.name]]"))
 				continue
 
 			if(H.equip_to_appropriate_slot(item))
 				if(M.client)
-					to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+					to_chat(M, span_notice("Placing [G.display_name] in your inventory!"))
 				continue
 			if(H.put_in_hands(item))
 				if(M.client)
-					to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+					to_chat(M, span_notice("Placing [G.display_name] in your hands!"))
 				continue
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
 				G.spawn_item(B, metadata, jumpsuit_style)
 				if(M.client)
-					to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
+					to_chat(M, span_notice("Placing [G.display_name] in [B.name]!"))
 				continue
 			if(M.client)
-				to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+				to_chat(M, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(item)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)

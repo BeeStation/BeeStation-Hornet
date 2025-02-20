@@ -7,7 +7,7 @@
 		return
 
 	if(!length(GLOB.cyborg_list))
-		to_chat(usr, "<span class='warning'>There are no borgs to show a panel for!</span>")
+		to_chat(usr, span_warning("There are no borgs to show a panel for!"))
 		return
 
 	if(isnull(borgo))
@@ -17,7 +17,7 @@
 		return
 
 	if(QDELING(borgo))
-		to_chat(usr, "<span class='warning'>Cannot open a panel for that borg, it's being/been deleted!</span>")
+		to_chat(usr, span_warning("Cannot open a panel for that borg, it's being/been deleted!"))
 		return
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)
@@ -161,11 +161,9 @@
 			var/upgradepath = text2path(params["upgrade"])
 			var/obj/item/borg/upgrade/installedupgrade = locate(upgradepath) in borg
 			if (installedupgrade)
-				installedupgrade.deactivate(borg, user)
-				borg.upgrades -= installedupgrade
 				message_admins("[key_name_admin(user)] removed the [installedupgrade] upgrade from [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] removed the [installedupgrade] upgrade from [key_name(borg)].")
-				qdel(installedupgrade)
+				qdel(installedupgrade) // see [mob/living/silicon/robot/on_upgrade_deleted()].
 			else
 				var/obj/item/borg/upgrade/upgrade = new upgradepath(borg)
 				upgrade.action(borg, user)

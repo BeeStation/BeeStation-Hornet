@@ -22,7 +22,7 @@ const PlaytimeSection = (props) => {
               collapsing
               p={0.5}
               style={{
-                'vertical-align': 'middle',
+                verticalAlign: 'middle',
               }}>
               <Box align="right">{jobName + (removedJobs?.includes(jobName) ? ' (Removed)' : '')}</Box>
             </Table.Cell>
@@ -47,8 +47,8 @@ const PlaytimeSection = (props) => {
   );
 };
 
-export const TrackedPlaytime = (props, context) => {
-  const { data } = useBackend(context);
+export const TrackedPlaytime = (props) => {
+  const { data } = useBackend();
   const { failReason, jobPlaytimes = {}, jobRemovedPlaytimes = {}, specialPlaytimes, livingTime, ghostTime } = data;
   return (
     <Window title="Tracked Playtime" width={550} height={650}>

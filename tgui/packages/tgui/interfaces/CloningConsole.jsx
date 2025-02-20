@@ -1,11 +1,9 @@
-import { map } from 'common/collections';
 import { useBackend } from '../backend';
 import { Box, Button, Collapsible, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
-import { Fragment } from 'inferno';
 
-export const CloningConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CloningConsole = (props) => {
+  const { act, data } = useBackend();
   const { useRecords, hasAutoprocess, autoprocess, temp, scanTemp, scannerLocked, hasOccupant, recordsLength, experimental } =
     data;
   const lacksMachine = data.lacksMachine || [];
@@ -72,7 +70,7 @@ export const CloningConsole = (props, context) => {
                           <div
                             key={record['name']}
                             style={{
-                              'word-break': 'break-all',
+                              wordBreak: 'break-all',
                             }}>
                             Scan ID {record['id']}
                             <br />
@@ -107,7 +105,7 @@ export const CloningConsole = (props, context) => {
                             />
                             <br />
                             {record['damages'] ? (
-                              <Fragment>
+                              <>
                                 Health Implant Data
                                 <br />
                                 <small>
@@ -125,12 +123,12 @@ export const CloningConsole = (props, context) => {
                                   <ProgressBar color="red" value={record['damages']['brute'] / 100} />
                                 </small>
                                 <br />
-                              </Fragment>
+                              </>
                             ) : (
-                              <Fragment>
+                              <>
                                 Health implant data not available
                                 <br />
-                              </Fragment>
+                              </>
                             )}
                             Unique Identifier:
                             <br />
@@ -179,7 +177,7 @@ export const CloningConsole = (props, context) => {
                     {diskData['id'] ? (
                       <Box
                         style={{
-                          'word-break': 'break-all',
+                          wordBreak: 'break-all',
                         }}>
                         ID: {diskData['id']}
                         <br />

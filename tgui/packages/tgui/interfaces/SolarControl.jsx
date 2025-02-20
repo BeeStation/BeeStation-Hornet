@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Grid, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SolarControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SolarControl = (props) => {
+  const { act, data } = useBackend();
   const { generated, angle, tracking_state, tracking_rate, connected_panels, connected_tracker } = data;
   return (
     <Window width={380} height={230}>
@@ -69,7 +69,7 @@ export const SolarControl = (props, context) => {
                   maxValue={+720}
                   value={angle}
                   format={(angle) => Math.round(360 + angle) % 360}
-                  onDrag={(e, value) => act('angle', { value })}
+                  onDrag={(value) => act('angle', { value })}
                 />
               )}
               {tracking_state === 1 && (
@@ -85,7 +85,7 @@ export const SolarControl = (props, context) => {
                     const sign = Math.sign(rate) > 0 ? '+' : '-';
                     return sign + toFixed(Math.abs(rate));
                   }}
-                  onDrag={(e, value) => act('rate', { value })}
+                  onDrag={(value) => act('rate', { value })}
                 />
               )}
               {tracking_state === 2 && (

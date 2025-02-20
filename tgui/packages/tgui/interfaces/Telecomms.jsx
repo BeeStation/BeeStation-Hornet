@@ -3,8 +3,8 @@ import { Button, Input, LabeledList, Section, Table, NoticeBox, NumberInput, Lab
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
-export const Telecomms = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Telecomms = (props) => {
+  const { act, data } = useBackend();
   const {
     type,
     minfreq,
@@ -77,14 +77,14 @@ export const Telecomms = (props, context) => {
                       )}
                     </Table.Cell>
                     <NumberInput
-                      animate
+                      animated
                       unit="GHz"
                       step={0.2}
                       stepPixelSize={10}
                       minValue={minfreq / 10}
                       maxValue={maxfreq / 10}
                       value={changefrequency / 10}
-                      onChange={(e, value) => act('change_freq', { value })}
+                      onChange={(value) => act('change_freq', { value })}
                     />
                     <Button
                       icon={'times'}
@@ -155,14 +155,14 @@ export const Telecomms = (props, context) => {
                     </Table.Cell>
                     <Table.Cell>
                       <NumberInput
-                        animate
+                        animated
                         unit="GHz"
                         step={0.2}
                         stepPixelSize={10}
                         minValue={minfreq / 10}
                         maxValue={maxfreq / 10}
                         value={frequency / 10}
-                        onChange={(e, value) => act('tempfreq', { value })}
+                        onChange={(value) => act('tempfreq', { value })}
                       />
                     </Table.Cell>
                     <Button icon={'plus'} color={'good'} disabled={!multitool} onClick={() => act('freq')} />

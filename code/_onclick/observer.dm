@@ -15,7 +15,7 @@
 	else if(A.loc)
 		abstract_move(get_turf(A))
 
-/mob/dead/observer/ClickOn(var/atom/A, var/params)
+/mob/dead/observer/ClickOn(atom/A, params)
 	if(check_click_intercept(params,A))
 		return
 
@@ -50,7 +50,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(user.gas_scan && atmosanalyzer_scan(user, src))
+		if(user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
 			return TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)

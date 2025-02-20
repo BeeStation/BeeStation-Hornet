@@ -148,6 +148,7 @@
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
+		ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 	if(is_flying_animal)
 		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
@@ -186,21 +187,11 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 
 /mob/living/simple_animal/updatehealth()
 	. = ..()
 	health = clamp(health, 0, maxHealth)
-	update_health_hud()
-
-/mob/living/simple_animal/update_health_hud()
-	if(!hud_used)
-		return
-	var/severity = 5 - clamp(FLOOR((health / maxHealth) * 5, 1), 0, 5)
-	if(severity > 0)
-		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-	else
-		clear_fullscreen("brute")
 
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)
@@ -279,10 +270,10 @@
 	if(isturf(loc) && isopenturf(loc))
 		var/turf/open/ST = loc
 		if(ST.air)
-			var/tox = ST.air.get_moles(GAS_PLASMA)
-			var/oxy = ST.air.get_moles(GAS_O2)
-			var/n2  = ST.air.get_moles(GAS_N2)
-			var/co2 = ST.air.get_moles(GAS_CO2)
+			var/tox = GET_MOLES(/datum/gas/plasma, ST.air)
+			var/oxy = GET_MOLES(/datum/gas/oxygen, ST.air)
+			var/n2  = GET_MOLES(/datum/gas/nitrogen, ST.air)
+			var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, ST.air)
 
 			if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 				. = FALSE
@@ -495,18 +486,6 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(incapacitated())
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
-	if(be_close && !in_range(M, src))
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	if(!(no_dexterity || dextrous))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
-	return TRUE
-
 /mob/living/simple_animal/stripPanelUnequip(obj/item/what, mob/who, where)
 	if(!canUseTopic(who, BE_CLOSE))
 		return
@@ -564,6 +543,10 @@
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = max(see_in_dark, 8)
 
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		see_in_dark = max(see_in_dark, 8)
+
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
@@ -573,11 +556,8 @@
 /mob/living/simple_animal/get_idcard(hand_first)
 	return access_card
 
-/mob/living/simple_animal/can_hold_items()
-	return dextrous
-
-/mob/living/simple_animal/IsAdvancedToolUser()
-	return dextrous
+/mob/living/simple_animal/can_hold_items(obj/item/I)
+	return dextrous && ..()
 
 /mob/living/simple_animal/activate_hand(selhand)
 	if(!dextrous)

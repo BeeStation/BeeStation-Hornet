@@ -27,10 +27,10 @@
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		damage = take_damage(P.damage, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration)
 	if(P.suppressed != SUPPRESSED_VERY)
-		visible_message("<span class='danger'>[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE)
+		visible_message(span_danger("[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		..(user, 1)
 		if(density)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
@@ -38,7 +38,7 @@
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
-		user.visible_message("<span class='danger'>[user] smashes [src]!</span>", "<span class='danger'>You smash [src]!</span>", null, COMBAT_MESSAGE_RANGE)
+		user.visible_message(span_danger("[user] smashes [src]!"), span_danger("You smash [src]!"), null, COMBAT_MESSAGE_RANGE)
 		return 1
 	return 0
 
@@ -93,13 +93,13 @@
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
 
-/obj/attack_slime(mob/living/simple_animal/slime/M)
-	if(!M.is_adult)
+/obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
+	if(!user.is_adult)
 		return
 	var/damage = rand(15)
-	if(M.transformeffects & SLIME_EFFECT_RED)
+	if(user.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
-	attack_generic(M, damage, MELEE, 1)
+	attack_generic(user, damage, MELEE, 1)
 
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
@@ -196,6 +196,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //what happens when the obj's integrity reaches zero.
 /obj/atom_destruction(damage_flag)
+	. = ..()
 	if(damage_flag == ACID)
 		acid_melt()
 	else if(damage_flag == FIRE)

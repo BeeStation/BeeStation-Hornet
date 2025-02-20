@@ -1,10 +1,9 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const PortableGenerator = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PortableGenerator = (props) => {
+  const { act, data } = useBackend();
   const { stack_percent } = data;
   const stackPercentState = (stack_percent > 50 && 'good') || (stack_percent > 15 && 'average') || 'bad';
   return (
