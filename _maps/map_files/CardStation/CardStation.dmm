@@ -2824,13 +2824,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
-"aHD" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "aHG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -4618,6 +4611,9 @@
 "aYr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
@@ -7848,6 +7844,9 @@
 /turf/open/floor/iron/white,
 /area/medical/booth)
 "bIr" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "bIA" = (
@@ -9927,6 +9926,9 @@
 	},
 /turf/open/floor/prison/dark,
 /area/storage/tech)
+"cdm" = (
+/turf/closed/wall/rust,
+/area/maintenance/port/aft)
 "cdE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -11429,6 +11431,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/wood/big,
 /area/crew_quarters/dorms)
+"crF" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/catwalk_floor/iron,
+/area/maintenance/department/science/xenobiology)
 "crI" = (
 /obj/effect/turf_decal/trimline/red/filled/corner{
 	dir = 8
@@ -14317,6 +14325,9 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
 "cWX" = (
@@ -15011,6 +15022,14 @@
 /obj/machinery/light_switch/directional/north,
 /turf/open/floor/carpet,
 /area/medical/exam_room)
+"dfn" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "dfG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass,
@@ -16259,10 +16278,6 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/iron,
 /area/maintenance/department/eva)
-"dtW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
 "dua" = (
 /obj/machinery/door/poddoor/shutters{
 	desc = "Cargo loading bay";
@@ -17239,6 +17254,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/wood,
 /area/medical/exam_room)
+"dCl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow{
+	icon_state = "0-1"
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/science/xenobiology)
 "dCn" = (
 /obj/structure/table/wood/fancy,
 /obj/structure/cable/yellow{
@@ -22416,6 +22439,10 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"eOC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "eOG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -24788,6 +24815,9 @@
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-9"
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -34631,6 +34661,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"hrA" = (
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "hrE" = (
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 8
@@ -37979,6 +38012,9 @@
 	dir = 8
 	},
 /area/hallway/primary/fore)
+"ice" = (
+/turf/closed/wall,
+/area/maintenance/port/aft)
 "ich" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/structure/sign/poster/official/random{
@@ -41680,6 +41716,9 @@
 /area/science/research)
 "iNX" = (
 /obj/machinery/light/small/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "iOd" = (
@@ -53462,6 +53501,13 @@
 /obj/machinery/ntnet_relay,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"ltK" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "lug" = (
 /obj/machinery/disposal/bin,
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -53526,14 +53572,6 @@
 	dir = 1
 	},
 /area/maintenance/disposal/incinerator)
-"luV" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "luY" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating/rust,
@@ -53557,9 +53595,6 @@
 /obj/structure/showcase/machinery/cloning_pod,
 /turf/open/floor/carpet/royalblack,
 /area/bridge/showroom/corporate)
-"lvq" = (
-/turf/closed/wall/rust,
-/area/maintenance/port/aft)
 "lvr" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -55880,6 +55915,9 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/bridge)
+"lVO" = (
+/turf/closed/wall/r_wall,
+/area/maintenance/port/aft)
 "lWb" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -55919,11 +55957,6 @@
 "lWu" = (
 /turf/closed/wall,
 /area/space/nearstation)
-"lWw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
 "lWx" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
@@ -58814,6 +58847,13 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/port)
+"mCv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/science/xenobiology)
 "mCz" = (
 /obj/effect/turf_decal/trimline/red/warning_offset,
 /obj/effect/turf_decal/siding/dark/corner,
@@ -59395,6 +59435,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"mIX" = (
+/turf/open/floor/plating/rust,
+/area/maintenance/department/engine)
 "mJf" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
@@ -67161,9 +67204,6 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/science/lobby)
-"ooe" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/port/aft)
 "ook" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -70447,6 +70487,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/purple,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hor)
 "oZr" = (
@@ -73468,6 +73511,9 @@
 	name = "Research Director's Toilet";
 	req_access_txt = "30"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark/textured_half,
 /area/crew_quarters/heads/hor)
 "pFl" = (
@@ -75501,6 +75547,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-6"
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -79344,9 +79393,6 @@
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/security/main)
-"qTP" = (
-/turf/open/floor/plating/rust,
-/area/maintenance/department/engine)
 "qTU" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -80428,6 +80474,10 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/science/breakroom)
+"rfy" = (
+/obj/effect/spawner/room/threexthree,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "rfA" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -88239,9 +88289,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"sTt" = (
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "sTu" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 8
@@ -88274,6 +88321,12 @@
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
+"sTA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/science/xenobiology)
 "sTE" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/heater{
 	dir = 8
@@ -91961,6 +92014,9 @@
 /obj/effect/turf_decal/siding/thinplating_new/end{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/heads/hor)
 "tJc" = (
@@ -93030,9 +93086,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
-"tTW" = (
-/turf/closed/wall,
-/area/maintenance/port/aft)
 "tUa" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 1
@@ -95571,6 +95624,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hor)
 "uuq" = (
@@ -96799,6 +96855,9 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
 	req_access_txt = "30"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
@@ -103061,6 +103120,11 @@
 	},
 /turf/open/floor/wood,
 /area/chapel/office)
+"vUL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "vUM" = (
 /obj/machinery/status_display/evac/directional/north,
 /obj/effect/turf_decal/siding/dark{
@@ -103267,6 +103331,9 @@
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Quarters";
 	req_access_txt = "30"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/crew_quarters/heads/hor)
@@ -105832,10 +105899,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/teleporter)
-"wyU" = (
-/obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "wyW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/east,
@@ -106337,10 +106400,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
-"wEh" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "wEs" = (
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 1
@@ -110491,6 +110550,10 @@
 /obj/machinery/light/floor,
 /turf/open/floor/wood/big,
 /area/crew_quarters/kitchen)
+"xBe" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "xBg" = (
 /turf/open/floor/iron/stairs/left{
 	dir = 4
@@ -137264,17 +137327,17 @@ tvM
 tvM
 bXY
 qOa
-ooe
-ooe
-ooe
-ooe
-wEh
-wEh
-ooe
-ooe
-ooe
-ooe
-ooe
+lVO
+lVO
+lVO
+lVO
+xBe
+xBe
+lVO
+lVO
+lVO
+lVO
+lVO
 hyT
 hzj
 hzj
@@ -137521,17 +137584,17 @@ tvM
 tvM
 tvM
 vKv
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
 yev
-ooe
+lVO
 nzj
 hyT
 nzj
@@ -137778,19 +137841,19 @@ tvM
 tvM
 tvM
 nEX
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-ooe
-ooe
-ooe
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+lVO
+lVO
+lVO
 nzj
 hzj
 hzj
@@ -138035,19 +138098,19 @@ vKv
 rqR
 nEX
 vKv
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-lvq
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+cdm
 rol
-ooe
+lVO
 nzj
 nzj
 hyT
@@ -138288,26 +138351,26 @@ vEP
 bTu
 spD
 ojW
-dtW
-qTP
+eOC
+mIX
 lrw
 qQj
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-lvq
-lvq
-ooe
-wEh
-wEh
-ooe
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+cdm
+cdm
+lVO
+xBe
+xBe
+lVO
 nzj
 nzj
 nzj
@@ -138545,24 +138608,24 @@ vEP
 bTu
 spD
 agV
-lWw
+vUL
 mpE
 mpE
 cYY
-sTt
-sTt
-sTt
-sTt
+hrA
+hrA
+hrA
+hrA
 inF
 eww
-sTt
-sTt
-sTt
-sTt
-aHD
-sTt
+hrA
+hrA
+hrA
+hrA
+ltK
+hrA
 wUQ
-sTt
+hrA
 mMh
 tSW
 tSW
@@ -138784,14 +138847,14 @@ pFh
 tIT
 uHT
 aYr
-ovR
-ovR
-wVc
-ovR
-tvM
+crF
+crF
+mCv
+crF
+sTA
 iNX
-ovR
-wVc
+crF
+dCl
 spD
 iAH
 gcf
@@ -139063,19 +139126,19 @@ jDr
 jDr
 jDr
 jDr
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-tTW
-wEh
-wEh
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+ice
+xBe
+xBe
 ibu
 ejQ
 ons
@@ -139320,19 +139383,19 @@ gjH
 grS
 bMR
 jDr
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-tTW
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+ice
 hyT
-wEh
+xBe
 lbS
 euG
 tSW
@@ -139577,21 +139640,21 @@ gch
 sWr
 vEb
 jDr
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-tTW
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+ice
 hyT
-tTW
-tTW
-aHD
+ice
+ice
+ltK
 tSW
 tSW
 oww
@@ -139834,21 +139897,21 @@ kfl
 wqz
 uAq
 jDr
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-sTt
-tTW
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+hrA
+ice
 nzj
-tTW
-sTt
-sTt
+ice
+hrA
+hrA
 vqq
 tSW
 cYl
@@ -140091,22 +140154,22 @@ jDr
 jDr
 jDr
 jDr
-tTW
-tTW
-tTW
-tTW
-wEh
-wEh
-tTW
-tTW
-tTW
-tTW
-tTW
+ice
+ice
+ice
+ice
+xBe
+xBe
+ice
+ice
+ice
+ice
+ice
 nzj
-tTW
-sTt
-sTt
-sTt
+ice
+hrA
+hrA
+hrA
 tSW
 icP
 tSW
@@ -140360,11 +140423,11 @@ hyT
 nzj
 nzj
 nzj
-tTW
-sTt
-sTt
-sTt
-wEh
+ice
+hrA
+hrA
+hrA
+xBe
 jWd
 nlU
 nzj
@@ -140617,11 +140680,11 @@ hhb
 hhb
 nzj
 nzj
-tTW
-sTt
-sTt
-sTt
-lvq
+ice
+hrA
+hrA
+hrA
+cdm
 hmH
 uVk
 uVk
@@ -140874,11 +140937,11 @@ syC
 hhb
 hyT
 hyT
-tTW
-sTt
-sTt
-sTt
-tTW
+ice
+hrA
+hrA
+hrA
+ice
 hyT
 hyT
 nzj
@@ -141131,12 +141194,12 @@ elW
 nne
 hyT
 hyT
-tTW
-lvq
-aHD
-tTW
-lvq
-tTW
+ice
+cdm
+ltK
+ice
+cdm
+ice
 nzj
 nzj
 nzj
@@ -141388,12 +141451,12 @@ roe
 hjQ
 nzj
 nzj
-tTW
-sTt
-sTt
-sTt
+ice
+hrA
+hrA
+hrA
 sMs
-tTW
+ice
 nzj
 nzj
 nzj
@@ -141645,12 +141708,12 @@ lKW
 hhb
 hyT
 hyT
-tTW
-sTt
-sTt
-sTt
-sTt
-tTW
+ice
+hrA
+hrA
+hrA
+hrA
+ice
 hyT
 nzj
 nzj
@@ -141902,12 +141965,12 @@ oYN
 mlD
 nzj
 nzj
-wEh
-sTt
-sTt
-sTt
-sTt
-wEh
+xBe
+hrA
+hrA
+hrA
+hrA
+xBe
 hyT
 hyT
 hyT
@@ -142125,7 +142188,7 @@ kIn
 aeT
 mpE
 mpE
-wyU
+rfy
 jDr
 mpE
 mpE
@@ -142143,7 +142206,7 @@ abM
 abM
 abM
 wEc
-dtW
+eOC
 jDr
 hyT
 ecs
@@ -142159,12 +142222,12 @@ vNL
 ewh
 hyT
 hyT
-tTW
-sTt
-sTt
-sTt
-sTt
-tTW
+ice
+hrA
+hrA
+hrA
+hrA
+ice
 hyT
 nzj
 nzj
@@ -142383,7 +142446,7 @@ aeT
 mpE
 aZr
 mpE
-luV
+dfn
 fZs
 mpE
 aZr
@@ -142395,7 +142458,7 @@ tPA
 aui
 aeT
 aeT
-luV
+dfn
 aeT
 aeT
 mnN
@@ -142416,12 +142479,12 @@ aAL
 hhb
 hyT
 hyT
-tTW
-sTt
-sTt
-sTt
-sTt
-tTW
+ice
+hrA
+hrA
+hrA
+hrA
+ice
 nzj
 nzj
 nzj
@@ -142653,7 +142716,7 @@ elC
 elC
 mpE
 mpE
-wyU
+rfy
 aeT
 xpA
 xpA
@@ -142673,12 +142736,12 @@ hhb
 hhb
 hhb
 nzj
-tTW
-tTW
-tTW
-tTW
-tTW
-tTW
+ice
+ice
+ice
+ice
+ice
+ice
 nzj
 nzj
 nzj
