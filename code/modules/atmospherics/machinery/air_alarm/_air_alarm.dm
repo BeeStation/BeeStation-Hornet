@@ -676,11 +676,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 
 /// Used for syndicate_access air alarm helper, which sets air alarm's required access to syndicate_access.
 /obj/machinery/airalarm/proc/give_syndicate_access()
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = null
+	req_one_access = list(ACCESS_SYNDICATE)
 
 ///Used for away_general_access air alarm helper, which set air alarm's required access to away_general_access.
 /obj/machinery/airalarm/proc/give_away_general_access()
-	req_access = list(ACCESS_AWAY_GENERAL)
+	req_access = null
+	req_one_access = list(ACCESS_AWAY_GENERAL)
 
 ///Used for engine_access air alarm helper, which set air alarm's required access to away_general_access.
 /obj/machinery/airalarm/proc/give_engine_access()
