@@ -389,7 +389,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
 	desc = "It's the HoP's beloved corgi."
-	var/turns_since_scan = 0
 	var/obj/movement_target
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -682,7 +681,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	response_harm_simple = "kick"
 	held_state = "lisa"
 	worn_slot_flags = ITEM_SLOT_HEAD
-	var/turns_since_scan = 0
 	var/puppies = 0
 
 //Lisa already has a cute bow!
