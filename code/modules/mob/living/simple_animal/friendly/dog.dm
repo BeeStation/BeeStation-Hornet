@@ -24,6 +24,10 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "woofs happily!")
+
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/simple_animal/pet/dog/corgi
@@ -368,7 +372,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
 	desc = "It's the HoP's beloved corgi."
-	var/turns_since_scan = 0
 	var/obj/movement_target
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -674,7 +677,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	response_harm_simple = "kick"
 	held_state = "lisa"
 	worn_slot_flags = ITEM_SLOT_HEAD
-	var/turns_since_scan = 0
 	var/puppies = 0
 
 //Lisa already has a cute bow!
@@ -708,24 +710,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
 					sleep(1)
-
-/mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
-/mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "yaps happily!")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-			emote("me", 1, "growls!")
 
 /mob/living/simple_animal/pet/dog/corgi/cardigan
 	name = "\improper cardigan corgi"

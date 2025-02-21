@@ -189,7 +189,3 @@
 	if(!ammo_pack || ammo_pack.loc != user)
 		to_chat(user, span_warning("You need the backpack power source to fire the gun!"))
 	. = ..()
-
-/obj/item/gun/energy/minigun/dropped(mob/living/user)
-	..()
-	ammo_pack.attach_gun(user)

@@ -28,7 +28,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/destructible/clockwork/sigil/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/sigil/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	dispell()
 
