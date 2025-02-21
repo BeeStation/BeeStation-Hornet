@@ -543,6 +543,15 @@
 	foodtypes = MEAT | SUGAR
 	crafting_complexity = FOOD_COMPLEXITY_2
 
+/obj/item/shard/fork_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(I.use_tool(src, user, 0, volume=50))
+		var/obj/item/food/bbqribs = new (user.loc)
+		if (isitem(bbqribs))
+			bbqribs.use_from_hand(user)
+		qdel(src)
+	return TRUE
+
 /obj/item/food/meatclown
 	name = "meat clown"
 	desc = "A delicious, round piece of meat clown. How horrifying."

@@ -412,26 +412,6 @@
 
 //////////ARNOLD//////////
 
-// Moldly Pizza
-// NOT Used in cytobiology.
-/obj/item/food/pizzaslice/moldy
-	name = "moldy pizza slice"
-	desc = "This was once a perfectly good slice of pizza pie, but now it lies here, rancid and bursting with spores. \
-		What a bummer! But we should not dwell on the past, only look towards the future."
-	icon_state = "moldy_slice"
-	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/tomatojuice = 1,
-		/datum/reagent/toxin/amatoxin = 2,
-	)
-	tastes = list("stale crust" = 1, "rancid cheese" = 2, "mushroom" = 1)
-	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS
-	preserved_food = TRUE
-
-/obj/item/food/pizzaslice/moldy/bacteria
-	name = "bacteria rich moldy pizza slice"
-	desc = "Not only is this once delicious pizza encrusted with a layer of spore-spewing fungus, it also seems to shift and slide when unattended, teeming with new life."
-
 /obj/item/food/pizza/arnold
 	name = "\improper Arnold pizza"
 	desc = "Hello, you've reached Arnold's pizza shop. I'm not here now, I'm out killing pepperoni."
@@ -509,7 +489,28 @@
 	icon_state = "pizzamargheritacut"
 	slice_type = /obj/item/food/pizzaslice/arnold
 
-// Ant Pizza, now with more ants.
+//////////MOLDY PIZZA//////////
+// NOT Used in cytobiology.
+/obj/item/food/pizzaslice/moldy
+	name = "moldy pizza slice"
+	desc = "This was once a perfectly good slice of pizza pie, but now it lies here, rancid and bursting with spores. \
+		What a bummer! But we should not dwell on the past, only look towards the future."
+	icon_state = "moldy_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/tomatojuice = 1,
+		/datum/reagent/toxin/amatoxin = 2,
+	)
+	tastes = list("stale crust" = 1, "rancid cheese" = 2, "mushroom" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS
+	preserved_food = TRUE
+
+/obj/item/food/pizzaslice/moldy/bacteria
+	name = "bacteria rich moldy pizza slice"
+	desc = "Not only is this once delicious pizza encrusted with a layer of spore-spewing fungus, it also seems to shift and slide when unattended, teeming with new life."
+
+//////////ANT PIZZA//////////
+//now with more ants.
 /obj/item/food/pizzaslice/ants
 	name = "\improper Ant Party pizza slice"
 	desc = "The key to a perfect slice of pizza is not to overdo it with the ants."
