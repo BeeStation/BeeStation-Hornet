@@ -351,16 +351,6 @@
 	icon_state = "therune"
 	desc = "Reality Shifting drinks."
 
-/datum/barsign/the_wizard
-	name = "The Wizard"
-	icon_state = "the-wizard"
-	desc = "Magical mixes."
-
-/datum/barsign/months_moths_moths
-	name = "Moths Moths Moths"
-	icon_state = "moths-moths-moths"
-	desc = "LIVE MOTHS!"
-
 /datum/barsign/hiddensigns
 	hidden = TRUE
 
