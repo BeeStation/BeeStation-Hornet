@@ -439,45 +439,15 @@
 //  Food smartfridge
 // ----------------------------
 /obj/machinery/smartfridge/food
+	name = "smartfridge"
 	desc = "A refrigerated storage unit for food."
+	icon = 'icons/obj/vending.dmi'
+	icon_state = "kitchen_smartfridge"
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
 	if(IS_EDIBLE(O)|| istype(O, /obj/item/reagent_containers/condiment)|| istype(O, /obj/item/storage/fancy/egg_box))
 		return TRUE
 	return FALSE
-
-/obj/machinery/smartfridge/food/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Fridge")
-		ui.open()
-
-/obj/machinery/smartfridge/food/proc/remove_item(obj/item/I, mob/user)
-	if(istype(I))
-		I.forceMove(user.loc)
-		user.put_in_hands(I)
-		to_chat(user, span_notice("You remove [I] from [src]."))
-		ui_update()
-
-/obj/machinery/smartfridge/food/ui_data(mob/user)
-	var/list/data = list()
-	data["food_name"] = "[name]"
-
-	data["contents"] = list()
-	data["contents_ref"] = list()
-	for(var/content in src)
-		data["contents"] += "[content]"
-		data["contents_ref"] += "[REF(content)]"
-
-	return data
-
-/obj/machinery/smartfridge/food/ui_data(action, params)
-	. = ..()
-	switch(action)
-		if("remove")
-			var/obj/item/I= locate(params["ref"]) in src
-			remove_item(I, usr)
-			. = TRUE
 
 // -------------------------------------
 // Xenobiology Slime-Extract Smartfridge
