@@ -376,7 +376,7 @@
 
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_roundstart_rulesets)
-			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>"
+			parts += "[FOURSPACES][FOURSPACES][rule.rule_category] - <b>[rule.name]</b>"
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -786,11 +786,9 @@
 	discordmsg += "Gamemode: [SSticker.mode.name]\n"
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
-		discordmsg += "Threat level: [mode.threat_level]\n"
-		discordmsg += "Threat left: [mode.mid_round_budget]\n"
 		discordmsg += "Executed rules:\n"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_roundstart_rulesets)
-			discordmsg += "[rule.ruletype] - <b>[rule.name]</b>"
+			discordmsg += "[rule.rule_category] - <b>[rule.name]</b>\n"
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"

@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	// Set variables
 	for(var/variable in rule_conf)
 		if(!(variable in ruleset.vars))
-			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
+			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
 			continue
 		ruleset.vars[variable] = rule_conf[variable]
 
@@ -177,7 +177,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		rule.candidates = roundstart_candidates.Copy()
 		rule.trim_candidates()
 
-		if(rule.allowed)
+		if(rule.allowed())
 			possible_rulesets[rule] = rule.weight
 
 	// Pick rulesets

@@ -1,5 +1,3 @@
-// TODO: scale team antagonists with get_antag_cap()
-
 /datum/dynamic_ruleset/roundstart
 	rule_category = DYNAMIC_ROUNDSTART
 	use_antag_reputation = TRUE
@@ -321,7 +319,7 @@
 	return RULESET_STOP_PROCESSING
 
 /datum/dynamic_ruleset/roundstart/revolution/round_result()
-	revolution.round_result(finished)
+	team.round_result(finished)
 
 //////////////////////////////////////////////
 //                                          //
@@ -336,13 +334,10 @@
 	drafted_players_amount = 2
 	weight = 3
 	points_cost = 20
-	flags = HIGH_IMPACT_RULESET
 	minimum_points_required = 22
-	var/datum/team/incursion/incursion_team
+	flags = HIGH_IMPACT_RULESET
 
-/datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
-	drafted_players_amount = clamp(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
-	return ..()
+	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
 	incursion_team = new
