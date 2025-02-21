@@ -328,19 +328,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] failed to find air alarm at [AREACOORD(src)].")
 	qdel(src)
 
-//APC helpers
-/obj/effect/mapping_helpers/apc
-
 /obj/effect/mapping_helpers/apc/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
-		return
-	var/obj/machinery/power/apc/apc = locate(/obj/machinery/power/apc) in loc
-	if(!apc)
-		log_mapping("[src] failed to find an APC at [AREACOORD(src)]")
+		return INITIALIZE_HINT_QDEL
+	var/obj/machinery/power/apc/target = locate(/obj/machinery/power/apc) in loc
+	if(isnull(target))
+		var/area/target_area = get_area(target)
+		log_mapping("[src] failed to find an apc at [AREACOORD(src)] ([target_area.type]).")
 	else
-		payload(apc)
+		payload(target)
+
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/apc/LateInitialize()
+	. = ..()
+	var/obj/machinery/power/apc/target = locate(/obj/machinery/power/apc) in loc
+
+	if(isnull(target))
+		qdel(src)
+		return
+	if(target.unlocked)
+		target.unlock()
+	if(target.syndicate_access)
+		target.give_syndicate_access()
+	if(target.away_engine_access)
+		target.give_away_engine_access()
+	if(target.exploration_access)
+		target.give_exploration_access()
+
+	target.update_icon()
+	qdel(src)
 
 /obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/payload)
 	return
@@ -351,8 +370,68 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 /obj/effect/mapping_helpers/apc/discharged/payload(obj/machinery/power/apc/apc)
 	var/obj/item/stock_parts/cell/C = apc.get_cell()
+	if(isnull(C))
+		return
+
 	C.charge = 0
+
 	C.update_icon()
+	qdel(src)
+
+/obj/effect/mapping_helpers/apc/charge
+	name = "apc zero change helper"
+	icon_state = "apc_nopower"
+	var/charge_percentage = 100
+
+/obj/effect/mapping_helpers/apc/charge/payload(obj/machinery/power/apc/apc)
+	var/obj/item/stock_parts/cell/C = apc.get_cell()
+	if(isnull(C))
+		return
+
+	C.charge = C.maxcharge * charge_percentage / 100
+
+	C.update_icon()
+	qdel(src)
+
+/obj/effect/mapping_helpers/airalarm/unlocked
+	name = "apc unlocked interface helper"
+	icon_state = "apc_unlocked_interface_helper"
+
+/obj/effect/mapping_helpers/apc/unlocked/payload(obj/machinery/power/apc/target)
+	if(!target.locked)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to unlock the [target] but it's already unlocked!")
+	target.unlocked = TRUE
+
+/obj/effect/mapping_helpers/apc/syndicate_access
+	name = "apc syndicate access helper"
+	icon_state = "apc_syndicate_access_helper"
+
+/obj/effect/mapping_helpers/apc/syndicate_access/payload(obj/machinery/power/apc/target)
+	if(!target.syndicate_access)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s access to syndicate access but it's already changed!")
+	target.syndicate_access = TRUE
+
+/obj/effect/mapping_helpers/apc/exploration_access
+	name = "apc exploration access helper"
+	icon_state = "apc_exploration_access_helper"
+
+/obj/effect/mapping_helpers/apc/exploration_access/payload(obj/machinery/power/apc/target)
+	if(!target.exploration_access)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s access to exploration acess but it's already changed!")
+	target.exploration_access = TRUE
+
+/obj/effect/mapping_helpers/apc/away_engine_access
+	name = "apc away engine access helper"
+	icon_state = "apc_away_engine_access_helper"
+
+/obj/effect/mapping_helpers/apc/away_engine_access/payload(obj/machinery/power/apc/target)
+	if(!target.away_engine_access)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to adjust [target]'s access to away engine access but it's already changed!")
+	target.away_engine_access = TRUE
 
 
 //needs to do its thing before spawn_rivers() is called

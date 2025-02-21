@@ -130,6 +130,16 @@
 	/// To prevent sound loop bugs
 	var/apc_sound_stage = null
 
+	//Access helpers for APCs
+	/// Used for APC helper called unlocked to make APC unlocked.
+	var/unlocked = FALSE
+	/// Used for APC helper called syndicate_access to make APC's required access syndicate_access.
+	var/syndicate_access = FALSE
+	/// Used for APC helper called away_engine_access to make APC's required access away_engine_access.
+	var/away_engine_access = FALSE
+	/// Used for APC helper called exploration_access to make APC's required access exploration_access.
+	var/exploration_access = FALSE
+
 	armor_type = /datum/armor/power_apc
 
 /datum/armor/power_apc
@@ -665,3 +675,24 @@
 	icon_state = "power_mod"
 	custom_price = 5
 	desc = "Heavy-duty switching circuits for power control."
+
+/// Used for unlocked apc helper, which unlocks the apc.
+/obj/machinery/power/apc/proc/unlock()
+	locked = FALSE
+	req_access = null
+	req_one_access = null
+
+/// Used for syndicate_access apc helper, which sets apc's required access to syndicate_access.
+/obj/machinery/power/apc/proc/give_syndicate_access()
+	req_access = null
+	req_one_access = list(ACCESS_SYNDICATE)
+
+///Used for away_general_access apc helper, which set apc's required access to away_general_access.
+/obj/machinery/power/apc/proc/give_away_engine_access()
+	req_access = null
+	req_one_access = list(ACCESS_AWAY_ENGINE)
+
+///Used for away_general_access air alarm helper, which set air alarm's required access to away_general_access.
+/obj/machinery/power/apc/proc/give_exploration_access()
+	req_access = null
+	req_one_access = list(ACCESS_EXPLORATION)
