@@ -439,14 +439,18 @@
 //  Food smartfridge
 // ----------------------------
 /obj/machinery/smartfridge/food
-	icon = 'icons/obj/machines/kitchen.dmi'
-	icon_state = "kitchen_smartfridge"
 	desc = "A refrigerated storage unit for food."
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
 	if(IS_EDIBLE(O)|| istype(O, /obj/item/reagent_containers/condiment)|| istype(O, /obj/item/storage/fancy/egg_box))
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/food/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Fridge")
+		ui.open()
 
 /obj/machinery/smartfridge/food/proc/remove_item(obj/item/I, mob/user)
 	if(istype(I))
@@ -470,7 +474,6 @@
 /obj/machinery/smartfridge/food/ui_data(action, params)
 	. = ..()
 	switch(action)
-		// Take item out
 		if("remove")
 			var/obj/item/I= locate(params["ref"]) in src
 			remove_item(I, usr)

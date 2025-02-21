@@ -1,7 +1,7 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Input, Button, Section, Tabs, LabeledList, Box, Icon } from '../components';
+import { Input, Button, Section, Tabs, LabeledList, Box, Flex, Icon } from '../components';
 
 export const Fridge = () => {
   return (
@@ -30,6 +30,15 @@ const FridgeContents = (_props) => {
       title="Fridge Contents"
       buttons={
         <>
+          <Flex color="black" backgroundColor="white" style={{ padding: '2px 2px 0 2px' }}>
+            <Flex.Item align="center" grow={1}>
+              <Box align="center">{item}</Box>
+            </Flex.Item>
+            <Flex.Item>
+              {<Button icon="search" onClick={() => act('examine', { ref: contents_ref[index] })} />}
+              <Button icon="eject" onClick={() => act('remove', { ref: contents_ref[index] })} />
+            </Flex.Item>
+          </Flex>
           <Box inline>
             <Icon name="search" mr={1} />
           </Box>
