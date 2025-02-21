@@ -275,7 +275,6 @@
 	name = "warden's hat"
 	desc = "A warden's red hat. Looking at it gives you the feeling of wanting to keep people in cells for as long as possible."
 	icon_state = "wardenhat"
-	dog_fashion = /datum/dog_fashion/head/warden_red
 
 /datum/armor/hats_warden
 	melee = 40
