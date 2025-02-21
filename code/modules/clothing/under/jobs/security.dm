@@ -299,19 +299,3 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-
-/*
- * Triiodine's security uniforms
- */
-
-
-/obj/item/clothing/under/rank/security/officer/mallcop
-	name = "NT mall cop uniform"
-	desc = "The radio and badge are sewn on, what a crappy knock off. Secway not included."
-	icon_state = "mallcop"
-	item_state = "gy_suit"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/security/officer/mallcop/deputy
-	name = "deputy uniform"
-	desc = "A lightly armored formal uniform fit for wannabe security members."
