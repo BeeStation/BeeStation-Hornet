@@ -308,47 +308,47 @@
 
 /datum/barsign/orangejuice
 	name = "Oranges' Juicery"
-	icon_state = "orangejuice"
+	icon = "orangejuice"
 	desc = "For those who wish to be optimally tactful to the non-alcoholic population."
 
 /datum/barsign/rock_bottom
 	name = "Rock Bottom"
-	icon_state = "rock-bottom"
+	icon = "rock-bottom"
 	desc = "When it feels like you're stuck in a pit, might as well have a drink."
 
 /datum/barsign/le_cafe_silencieux
 	name = "Le Café Silencieux"
-	icon_state = "le_cafe_silencieux"
+	icon = "le_cafe_silencieux"
 	desc = "..."
 
 /datum/barsign/assembly_line
 	name = "The Assembly Line"
-	icon_state = "the-assembly-line"
+	icon = "the-assembly-line"
 	desc = "Where every drink is masterfully crafted with industrial efficiency!"
 
 /datum/barsign/cult_cove
 	name = "Cult Cove"
-	icon_state = "cult-cove"
+	icon = "cult-cove"
 	desc = "Nar'Sie's favourite retreat"
 
 /datum/barsign/neon_flamingo
 	name = "Neon Flamingo"
-	icon_state = "neon-flamingo"
+	icon = "neon-flamingo"
 	desc = "A bus for all but the flamboyantly challenged."
 
 /datum/barsign/slowdive
 	name = "Slowdive"
-	icon_state = "slowdive"
+	icon = "slowdive"
 	desc = "First stop out of hell, last stop before heaven."
 
 /datum/barsign/the_red_mons
 	name = "The Red Mons"
-	icon_state = "the-red-mons"
+	icon = "the-red-mons"
 	desc = "Drinks from the Red Planet."
 
 /datum/barsign/the_rune
 	name = "The Rune"
-	icon_state = "therune"
+	icon = "therune"
 	desc = "Reality Shifting drinks."
 
 /datum/barsign/hiddensigns
