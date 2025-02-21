@@ -52,14 +52,14 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Knowing how to remake your heart is important
 	route = HERETIC_PATH_START
 
-/datum/heretic_knowledge/living_heart/on_research(mob/user)
+/datum/heretic_knowledge/living_heart/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
 	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		our_heart.AddComponent(/datum/component/living_heart)
 
-/datum/heretic_knowledge/living_heart/on_lose(mob/user)
+/datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		qdel(our_heart.GetComponent(/datum/component/living_heart))

@@ -1039,6 +1039,17 @@
 	},
 /turf/open/floor/iron,
 /area/security/prison)
+"atl" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/iron/white,
+/area/science/lab)
 "aua" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input,
 /obj/machinery/sparker/toxmix{
@@ -1375,6 +1386,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "aCk" = (
@@ -10260,6 +10272,7 @@
 "eVr" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "eVt" = (
@@ -15348,6 +15361,7 @@
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/security/brig)
 "htB" = (
@@ -16629,6 +16643,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "idf" = (
@@ -17754,6 +17769,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "iJL" = (
@@ -24642,6 +24658,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/smooth_large,
 /area/engine/engineering)
 "mjZ" = (
@@ -26006,6 +26023,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "mTe" = (
@@ -27106,6 +27124,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "nxK" = (
@@ -29607,6 +29626,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/gateway)
 "oKH" = (
@@ -37957,6 +37977,19 @@
 /obj/effect/turf_decal/evac/evac_big,
 /turf/open/floor/iron,
 /area/maintenance/department/science/central)
+"tcZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/quartermaster/storage)
 "tdh" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -38009,6 +38042,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 5
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/glass/reinforced,
 /area/medical/medbay/central)
 "tex" = (
@@ -38023,6 +38057,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "teS" = (
@@ -38546,6 +38581,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "tpq" = (
@@ -39353,6 +39389,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "HOPline";
+	name = "HOPline navigate verb destination"
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
@@ -42229,6 +42269,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "vaG" = (
@@ -42745,6 +42786,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
 /area/security/nuke_storage)
 "vnh" = (
@@ -43440,6 +43482,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
 "vHe" = (
@@ -45312,6 +45355,7 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark,
 /area/storage/primary)
 "wGS" = (
@@ -60238,7 +60282,7 @@ xHG
 lzs
 vxn
 rMK
-axf
+tcZ
 eVv
 jFB
 wzA
@@ -130653,7 +130697,7 @@ xnw
 azg
 ylg
 tJo
-rDX
+atl
 gMG
 aSX
 oFy

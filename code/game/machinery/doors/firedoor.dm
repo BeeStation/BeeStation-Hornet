@@ -20,14 +20,12 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	assemblytype = /obj/structure/firelock_frame
 	armor_type = /datum/armor/door_firedoor
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 	processing_flags = START_PROCESSING_MANUALLY
-	assemblytype = /obj/structure/firelock_frame
 
 	COOLDOWN_DECLARE(activation_cooldown)
 
@@ -36,7 +34,8 @@
 	///Y offset for the overlay lights, so that they line up with the thin border firelocks
 	var/light_yoffset = 0
 
-
+	///The type of door frame to drop during deconstruction
+	var/assemblytype = /obj/structure/firelock_frame
 	var/boltslocked = TRUE
 	///List of areas we handle. See calculate_affecting_areas()
 	var/list/affecting_areas
@@ -432,7 +431,7 @@
 	if(is_playing_alarm)
 		soundloop.start()
 
-/obj/machinery/door/firedoor/attack_hand(mob/user)
+/obj/machinery/door/firedoor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -490,13 +489,14 @@
 			return
 	to_chat(user, span_warning("You try to pull the card reader. Nothing happens."))
 
-/obj/machinery/door/firedoor/try_to_weld(obj/item/weldingtool/W, mob/user)
+/obj/machinery/door/firedoor/try_to_weld_secondary(obj/item/weldingtool/W, mob/user)
 	if(!W.tool_start_check(user, amount=0))
 		return
 	user.visible_message(span_notice("[user] starts [welded ? "unwelding" : "welding"] [src]."), span_notice("You start welding [src]."))
 	if(W.use_tool(src, user, DEFAULT_STEP_TIME, volume=50))
 		welded = !welded
-		to_chat(user, span_danger("[user] [welded?"welds":"unwelds"] [src]."), span_notice("You [welded ? "weld" : "unweld"] [src]."))
+		user.visible_message(span_danger("[user] [welded?"welds":"unwelds"] [src]."), span_notice("You [welded ? "weld" : "unweld"] [src]."))
+		log_game("[key_name(user)] [welded ? "welded":"unwelded"] firedoor [src] with [W] at [AREACOORD(src)]")
 		update_icon()
 		correct_state()
 
