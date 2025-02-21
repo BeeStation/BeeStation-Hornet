@@ -11672,7 +11672,8 @@
 	},
 /obj/structure/fluff/paper/stack{
 	dir = 6;
-	pixel_y = 9
+	pixel_y = 9;
+	max_integrity = 20
 	},
 /turf/open/floor/carpet/red,
 /area/security/courtroom)
@@ -12527,7 +12528,8 @@
 "cDQ" = (
 /obj/structure/lattice,
 /obj/structure/fence/corner{
-	dir = 9
+	dir = 9;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -14995,7 +14997,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/maintenance/port/central)
+/area/quartermaster/exploration_prep)
 "dfe" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/cup/glass/drinkingglass,
@@ -15193,14 +15195,6 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/item/stack/cable_coil/yellow{
-	amount = 5
-	},
-/obj/item/stack/cable_coil/yellow{
-	amount = 5
-	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/glasses/meson,
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/chief)
 "dhq" = (
@@ -19543,7 +19537,8 @@
 /area/storage/tech)
 "egj" = (
 /obj/structure/fluff/paper/stack{
-	dir = 4
+	dir = 4;
+	max_integrity = 20
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -22727,6 +22722,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/dark/smooth_large,
 /area/engine/transit_tube)
 "eRR" = (
@@ -24127,7 +24123,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/maintenance/department/bridge)
+/area/quartermaster/exploration_prep)
 "fil" = (
 /obj/machinery/status_display/supply,
 /turf/closed/wall,
@@ -25562,7 +25558,9 @@
 /area/maintenance/department/bridge)
 "fzn" = (
 /obj/structure/lattice,
-/obj/structure/fence/end,
+/obj/structure/fence/end{
+	pixel_y = 15
+	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "fzq" = (
@@ -29921,7 +29919,7 @@
 /obj/structure/table/glass,
 /obj/item/screwdriver{
 	pixel_x = -4;
-	pixel_y = 5
+	pixel_y = 4
 	},
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
@@ -31832,9 +31830,7 @@
 	name = "Telecomms Control Room";
 	req_one_access_txt = "19; 61"
 	},
-/turf/open/floor/iron/dark/textured_half{
-	initial_gas_mix = "n2=100;TEMP=80"
-	},
+/turf/open/floor/iron/dark/textured_half,
 /area/tcommsat/computer)
 "gNy" = (
 /obj/effect/landmark/start/chief_engineer,
@@ -33287,13 +33283,16 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_y = 23
-	},
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 15
 	},
 /obj/item/stack/cable_coil/random,
+/obj/machinery/reagentgrinder{
+	pixel_y = 23
+	},
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_y = 8
+	},
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
 "hdu" = (
@@ -33557,14 +33556,14 @@
 	id = "AI";
 	pixel_y = 5
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Chamber entrance shutters";
-	name = "AI Chamber Entrance Shutters"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/poddoor/preopen{
+	id = "AI Chamber entrance shutters";
+	name = "AI Chamber Entrance Blast Door"
+	},
 /turf/open/floor/iron/dark/textured_half,
 /area/ai_monitored/turret_protected/ai)
 "hfo" = (
@@ -34431,7 +34430,8 @@
 "hoP" = (
 /obj/structure/lattice,
 /obj/structure/fence/end{
-	dir = 4
+	dir = 4;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -37785,7 +37785,8 @@
 "iag" = (
 /obj/structure/table/glass/plasma,
 /obj/structure/fluff/paper/stack{
-	dir = 1
+	dir = 1;
+	max_integrity = 20
 	},
 /turf/open/floor/carpet/purple,
 /area/science/breakroom)
@@ -44117,7 +44118,8 @@
 	dir = 6
 	},
 /obj/structure/fluff/paper/stack{
-	dir = 2
+	dir = 2;
+	max_integrity = 20
 	},
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
@@ -54830,7 +54832,8 @@
 "lJy" = (
 /obj/structure/lattice,
 /obj/structure/fence/corner{
-	dir = 10
+	dir = 10;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -60990,7 +60993,8 @@
 	pixel_x = 3;
 	color = "#808080";
 	desc = "A damp piece of paper.";
-	name = "sheet of paper"
+	name = "sheet of paper";
+	max_integrity = 20
 	},
 /obj/effect/decal/fakelattice{
 	color = "#808080"
@@ -62920,7 +62924,9 @@
 /area/security/main)
 "nuk" = (
 /obj/structure/lattice,
-/obj/structure/fence,
+/obj/structure/fence{
+	pixel_y = 15
+	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "nup" = (
@@ -63812,7 +63818,9 @@
 /turf/open/space,
 /area/solar/starboard/fore)
 "nDe" = (
-/obj/structure/closet/secure_closet/freezer,
+/obj/structure/closet/secure_closet/freezer{
+	name = "freezer"
+	},
 /obj/effect/turf_decal/stripes/white{
 	dir = 4
 	},
@@ -64308,7 +64316,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/maintenance/port/central)
+/area/science/research)
 "nHM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75399,6 +75407,10 @@
 /obj/item/clothing/glasses/science,
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/camera/directional/west,
+/obj/item/paicard{
+	pixel_y = 4;
+	pixel_x = 17
+	},
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "qdt" = (
@@ -77993,7 +78005,8 @@
 "qGD" = (
 /obj/structure/lattice,
 /obj/structure/fence{
-	dir = 8
+	dir = 8;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -80101,7 +80114,8 @@
 "rcJ" = (
 /obj/structure/table/wood/fancy,
 /obj/structure/fluff/paper/stack{
-	dir = 6
+	dir = 6;
+	max_integrity = 20
 	},
 /turf/open/floor/carpet/black,
 /area/security/detectives_office)
@@ -81144,7 +81158,8 @@
 "rpI" = (
 /obj/structure/lattice,
 /obj/structure/fence/end{
-	dir = 8
+	dir = 8;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -84960,7 +84975,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/tech/grid,
-/area/maintenance/department/bridge)
+/area/quartermaster/exploration_prep)
 "shD" = (
 /obj/structure/closet/l3closet/scientist,
 /obj/item/clothing/neck/stethoscope,
@@ -97690,7 +97705,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/maintenance/port/central)
+/area/science/research)
 "uSL" = (
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
@@ -97986,7 +98001,9 @@
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
 "uVO" = (
-/obj/structure/fluff/paper/stack,
+/obj/structure/fluff/paper/stack{
+	max_integrity = 20
+	},
 /obj/structure/chair/office{
 	dir = 4
 	},
@@ -98371,7 +98388,8 @@
 /obj/structure/fluff/paper/stack{
 	dir = 4;
 	pixel_y = 10;
-	pixel_x = 3
+	pixel_x = 3;
+	max_integrity = 20
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -99351,9 +99369,6 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/paicard{
-	pixel_y = 7
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 28
@@ -99457,6 +99472,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/construction)
+"vjX" = (
+/obj/structure/lattice,
+/obj/structure/fence{
+	pixel_y = 15;
+	dir = 2
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "vke" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 1
@@ -101770,7 +101793,9 @@
 /area/science/xenobiology)
 "vIF" = (
 /obj/structure/lattice,
-/obj/structure/fence/corner,
+/obj/structure/fence/corner{
+	pixel_y = 15
+	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "vIQ" = (
@@ -102687,7 +102712,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /obj/effect/turf_decal/trimline/neutral/line,
 /obj/effect/turf_decal/trimline/purple/line,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -106090,7 +106115,8 @@
 	dir = 1
 	},
 /obj/structure/fluff/paper/stack{
-	dir = 10
+	dir = 10;
+	max_integrity = 20
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -106454,7 +106480,8 @@
 /obj/structure/fluff/paper/stack{
 	dir = 4;
 	pixel_y = 10;
-	pixel_x = 3
+	pixel_x = 3;
+	max_integrity = 20
 	},
 /turf/open/floor/carpet/purple,
 /area/science/breakroom)
@@ -106901,7 +106928,8 @@
 "wMb" = (
 /obj/structure/lattice,
 /obj/structure/fence/corner{
-	dir = 4
+	dir = 4;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -108654,7 +108682,8 @@
 "xgc" = (
 /obj/structure/lattice,
 /obj/structure/fence/end{
-	dir = 1
+	dir = 1;
+	pixel_y = 15
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -109576,7 +109605,7 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
-/area/maintenance/port/central)
+/area/quartermaster/exploration_prep)
 "xra" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -155694,7 +155723,7 @@ hyT
 hDA
 cDQ
 nuk
-nuk
+vjX
 fzn
 lbx
 hyT
