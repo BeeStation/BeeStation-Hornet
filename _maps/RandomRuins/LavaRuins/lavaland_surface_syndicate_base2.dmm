@@ -5264,11 +5264,11 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Zi" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/layer2/flipped{
+	dir = 4
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
