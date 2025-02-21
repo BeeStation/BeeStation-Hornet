@@ -18,7 +18,6 @@
 
 
 /obj/structure/stairs/Initialize(mapload)
-	GLOB.stairs += src
 	if(force_open_above)
 		force_open_above()
 		build_signal_listener()
@@ -34,7 +33,6 @@
 
 /obj/structure/stairs/Destroy()
 	listeningTo = null
-	GLOB.stairs -= src
 	return ..()
 
 /obj/structure/stairs/Move()			//Look this should never happen but...

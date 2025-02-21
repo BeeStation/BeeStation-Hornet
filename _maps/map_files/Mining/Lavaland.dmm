@@ -2999,10 +2999,6 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination{
-	navigation_id = "DOOM";
-	name = "DOOM navigate verb destination"
-	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vv" = (
@@ -5308,10 +5304,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/production)
-"Mh" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/mine/science)
 "Mi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -6217,10 +6209,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/laborcamp)
-"Ts" = (
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/iron,
-/area/mine/gateway)
 "Tv" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -37273,7 +37261,7 @@ lf
 sQ
 uw
 Nj
-Ts
+Ku
 HM
 an
 CF
@@ -48839,7 +48827,7 @@ HT
 HT
 HT
 Lc
-Mh
+im
 FJ
 jh
 tk

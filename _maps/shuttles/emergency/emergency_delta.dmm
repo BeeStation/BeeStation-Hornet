@@ -1346,7 +1346,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron/large,
 /area/shuttle/escape)
 "Hw" = (
