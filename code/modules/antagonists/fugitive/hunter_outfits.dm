@@ -2,7 +2,7 @@
 	name = "Spacepol Nobody (Preview)"
 
 	id = /obj/item/card/id/silver/spacepol
-	uniform = /obj/item/clothing/under/syndicate/combat
+	uniform = /obj/item/clothing/under/rank/security/officer/spacepol
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
 	box = /obj/item/storage/box/survival
