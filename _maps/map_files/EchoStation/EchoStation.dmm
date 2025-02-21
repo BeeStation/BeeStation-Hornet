@@ -6203,7 +6203,9 @@
 	name = "Vacant Office APC";
 	pixel_y = 24
 	},
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/charge{
+	charge_percentage = 0
+	},
 /obj/structure/light_construct{
 	dir = 1
 	},
@@ -6997,7 +6999,9 @@
 	anchored = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/charge{
+	charge_percentage = 0
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},

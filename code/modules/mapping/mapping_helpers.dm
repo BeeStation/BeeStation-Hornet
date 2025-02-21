@@ -328,6 +328,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		log_mapping("[src] failed to find air alarm at [AREACOORD(src)].")
 	qdel(src)
 
+/obj/effect/mapping_helpers/apc
+	name = "apc helpers"
+	icon_state = "apc_helper"
+
 /obj/effect/mapping_helpers/apc/Initialize(mapload)
 	. = ..()
 	if(!mapload)
@@ -364,22 +368,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 /obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/payload)
 	return
 
-/obj/effect/mapping_helpers/apc/discharged
-	name = "apc zero change helper"
-	icon_state = "apc_nopower"
-
-/obj/effect/mapping_helpers/apc/discharged/payload(obj/machinery/power/apc/apc)
-	var/obj/item/stock_parts/cell/C = apc.get_cell()
-	if(isnull(C))
-		return
-
-	C.charge = 0
-
-	C.update_icon()
-	qdel(src)
-
 /obj/effect/mapping_helpers/apc/charge
-	name = "apc zero change helper"
+	name = "apc change helper"
 	icon_state = "apc_nopower"
 	var/charge_percentage = 100
 
@@ -393,9 +383,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	C.update_icon()
 	qdel(src)
 
-/obj/effect/mapping_helpers/airalarm/unlocked
+/obj/effect/mapping_helpers/apc/unlocked
 	name = "apc unlocked interface helper"
-	icon_state = "apc_unlocked_interface_helper"
+	icon_state = "apc_unlocked_helper"
 
 /obj/effect/mapping_helpers/apc/unlocked/payload(obj/machinery/power/apc/target)
 	if(!target.locked)

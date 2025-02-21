@@ -14007,7 +14007,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/charge{
+	charge_percentage = 0
+	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "ewZ" = (
@@ -61232,7 +61234,9 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/apc/discharged,
+/obj/effect/mapping_helpers/apc/charge{
+	charge_percentage = 0
+	},
 /turf/open/floor/wood,
 /area/library)
 "tzV" = (

@@ -679,8 +679,6 @@
 /// Used for unlocked apc helper, which unlocks the apc.
 /obj/machinery/power/apc/proc/unlock()
 	locked = FALSE
-	req_access = null
-	req_one_access = null
 
 /// Used for syndicate_access apc helper, which sets apc's required access to syndicate_access.
 /obj/machinery/power/apc/proc/give_syndicate_access()
