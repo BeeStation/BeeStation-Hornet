@@ -442,7 +442,7 @@
 	desc = "A refrigerated storage unit for food."
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
-	if(IS_EDIBLE(O))
+	if(IS_EDIBLE(O)|| istype(O, /obj/item/reagent_containers/condiment)|| istype(O, /obj/item/storage/fancy/egg_box)
 		return TRUE
 	return FALSE
 
