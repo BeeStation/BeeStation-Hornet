@@ -5210,13 +5210,19 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aFK" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/plate/small,
 /obj/item/food/mint,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5;
-	pixel_x = -4
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/knife/kitchen,
+/obj/item/plate/small{
+	pixel_x = 9
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -7944,18 +7950,18 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "baA" = (
-/obj/machinery/gibber,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/food_cart,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "baC" = (
-/obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/turf_decal/bot,
+/obj/machinery/gibber,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "baQ" = (
@@ -8105,13 +8111,18 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "bch" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_x = -3;
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -8373,8 +8384,8 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "bdG" = (
-/obj/machinery/vending/wardrobe/chef_wardrobe,
 /obj/effect/turf_decal/bot,
+/obj/machinery/chem_master/condimaster,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bdH" = (
@@ -8612,16 +8623,16 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfc" = (
-/obj/machinery/chem_master/condimaster,
 /obj/effect/turf_decal/bot,
+/obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfd" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bff" = (
@@ -8758,7 +8769,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bgr" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -9005,32 +9015,18 @@
 /area/crew_quarters/kitchen)
 "bhQ" = (
 /obj/structure/table/reinforced,
-/obj/item/food/dough,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/apron/chef,
+/obj/item/kitchen/rollingpin,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhR" = (
-/obj/machinery/griddle,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhS" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
 /obj/effect/turf_decal/bot,
+/obj/item/food/dough,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhV" = (
@@ -9547,8 +9543,8 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blr" = (
-/obj/machinery/food_cart,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/deepfryer,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bls" = (
@@ -9567,12 +9563,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "blw" = (
-/obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
 	desc = "Used to grind things up into raw materials and liquids.";
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blx" = (
@@ -9591,48 +9587,44 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blz" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/suit/apron/chef,
-/obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/bot,
+/obj/machinery/griddle,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blA" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/knife/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blB" = (
-/obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
+/obj/machinery/griddle,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blC" = (
+/obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/bot,
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_x = 32
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 5;
+	pixel_x = -4
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -21757,8 +21749,8 @@
 	req_access_txt = "28"
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "cKi" = (
@@ -90213,7 +90205,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "wMq" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -94337,11 +94328,6 @@
 	},
 /turf/open/floor/plating,
 /area/medical/genetics)
-"ybT" = (
-/obj/machinery/deepfryer,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
 "ybZ" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light,
@@ -132065,7 +132051,7 @@ rOT
 etm
 ttZ
 bdJ
-ybT
+pSp
 bgs
 bhQ
 bjF
@@ -132580,8 +132566,8 @@ hhO
 evr
 bdJ
 pSp
-bgu
 bhS
+bgu
 bjF
 blA
 bnq

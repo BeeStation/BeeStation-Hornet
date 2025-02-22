@@ -441,8 +441,17 @@
 /obj/machinery/smartfridge/food
 	name = "smartfridge"
 	desc = "A refrigerated storage unit for food."
-	icon = 'icons/obj/vending.dmi'
-	icon_state = "kitchen_smartfridge"
+	icon = 'icons/obj/machines/kitchen.dmi'
+	icon_state = "smartfridge_on1"
+	initial_contents = list(
+		/obj/item/reagent_containers/condiment/milk = 5,
+		/obj/item/reagent_containers/condiment/soymilk = 5,
+		/obj/item/storage/fancy/egg_box = 3,
+		/obj/item/food/meat/slab/monkey = 4,
+		/obj/item/reagent_containers/condiment/flour = 3,
+		/obj/item/reagent_containers/condiment/rice = 3,
+		/obj/item/reagent_containers/condiment/sugar = 3,
+	)
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
 	if(IS_EDIBLE(O)|| istype(O, /obj/item/reagent_containers/condiment)|| istype(O, /obj/item/storage/fancy/egg_box))
