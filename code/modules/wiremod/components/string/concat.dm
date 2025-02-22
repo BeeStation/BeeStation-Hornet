@@ -7,7 +7,7 @@
 	display_name = "Concatenate"
 	desc = "A component that combines strings."
 
-	/// The inputs used to create the list
+	/// The inputs to concatenate
 	var/list/datum/port/input/entry_ports = list()
 
 	/// The result from the output
