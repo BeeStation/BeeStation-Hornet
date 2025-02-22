@@ -492,14 +492,17 @@
 	required_reagents = list(/datum/reagent/consumable/bluecherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/vanillashake
+	id = "vanillashake"
 	results = list(/datum/reagent/consumable/vanillashake = 5)
 	required_reagents = list(/datum/reagent/consumable/vanilla = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/caramelshake
+	id = "caramelshake"
 	results = list(/datum/reagent/consumable/caramelshake = 5)
 	required_reagents = list(/datum/reagent/consumable/caramel = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/sodiumchloride = 1)
 
 /datum/chemical_reaction/drink/choccyshake
+	id = "chocolateshake"
 	results = list(/datum/reagent/consumable/choccyshake = 5)
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/cream = 1)
 
