@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/trim
 	display_name = "String Trim"
-	desc = "A component that trims strings. Use a Negative Left Value to trim characters off the total length or a positive value to set the string length to a specific length."
+	desc = "A component that trims strings. Use a Negative Right Value to trim characters off the total length or a positive value to set the string length to a specific length."
 
 	//Trims characters off the left hand side of the string.
 	var/datum/port/input/left_trim_input
@@ -35,7 +35,7 @@
 
 	var/right_trim_sanity = right_trim_input.value
 
-	//We add one to make it more clear to use. copytext uses the end as length+1, which results in having to set a string length of 2, to get one character out of the string.
+	//We add one to make it easier to use. copytext uses the end as length+1, which results in having to set a string length of 2, to get one character out of the string.
 	if(right_trim_sanity > 0)
 		right_trim_sanity ++
 
