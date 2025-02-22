@@ -121,6 +121,15 @@ const TagBox = (props) => {
   const [page, setPage] = useLocalState('page', 1);
   const { bitflags } = props;
   const { selectedBitflags } = data;
+  const disableDifficultyButtons = (flag) => {
+    return (
+      selectedBitflags & bitflags.EASY ||
+      selectedBitflags & bitflags.MODERATE ||
+      selectedBitflags & bitflags.HARD ||
+      selectedBitflags & bitflags.DANGEROUS
+    );
+  };
+
   return (
     <LabeledList>
       <LabeledList.Item label="Affects">
@@ -284,6 +293,7 @@ const TagBox = (props) => {
         <Button
           icon="chess-pawn"
           color={selectedBitflags & bitflags.EASY ? 'green' : 'red'}
+          disabled={disableDifficultyButtons() && !(selectedBitflags & bitflags.EASY)}
           onClick={() => {
             act('toggle_tag_easy');
             setPage(1);
@@ -293,6 +303,7 @@ const TagBox = (props) => {
         <Button
           icon="chess-knight"
           color={selectedBitflags & bitflags.MODERATE ? 'green' : 'red'}
+          disabled={disableDifficultyButtons() && !(selectedBitflags & bitflags.MODERATE)}
           onClick={() => {
             act('toggle_tag_moderate');
             setPage(1);
@@ -302,6 +313,7 @@ const TagBox = (props) => {
         <Button
           icon="chess-queen"
           color={selectedBitflags & bitflags.HARD ? 'green' : 'red'}
+          disabled={disableDifficultyButtons() && !(selectedBitflags & bitflags.HARD)}
           onClick={() => {
             act('toggle_tag_hard');
             setPage(1);
@@ -311,6 +323,7 @@ const TagBox = (props) => {
         <Button
           icon="exclamation-triangle"
           color={selectedBitflags & bitflags.DANGEROUS ? 'green' : 'red'}
+          disabled={disableDifficultyButtons() && !(selectedBitflags & bitflags.DANGEROUS)}
           onClick={() => {
             act('toggle_tag_dangerous');
             setPage(1);
@@ -341,9 +354,9 @@ const RecipeLibrary = (props) => {
 
   const bookmarkArray = Array.from(bookmarkedReactions);
 
-  const startIndex = 50 * (page - 1);
+  const startIndex = 21 * (page - 1);
 
-  const endIndex = 50 * page;
+  const endIndex = 21 * page;
 
   const visibleReactions = bookmarkMode
     ? bookmarkArray
@@ -364,7 +377,6 @@ const RecipeLibrary = (props) => {
   return (
     <Section
       fill
-      scrollable
       title={bookmarkMode ? 'Bookmarked recipes' : 'Possible recipes'}
       buttons={
         <>

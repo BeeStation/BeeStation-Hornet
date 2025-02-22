@@ -1,6 +1,6 @@
 ///Returns a list of chemical_reaction datums that have the input STRING as a product
 /proc/get_reagent_type_from_product_string(string)
-	var/input_reagent = replacetext(lowertext(string), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+	var/input_reagent = replacetext(LOWER_TEXT(string), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
 	if (isnull(input_reagent))
 		return
 
@@ -29,7 +29,7 @@
 /proc/get_chem_id(chem_name)
 	for(var/chemical in GLOB.chemical_reagents_list)
 		var/datum/reagent/Reagent = GLOB.chemical_reagents_list[chemical]
-		if(ckey(chem_name) == ckey(lowertext(Reagent.name)))
+		if(ckey(chem_name) == ckey(LOWER_TEXT(Reagent.name)))
 			return chemical
 
 ///Takes a type in and returns a list of associated recipes
