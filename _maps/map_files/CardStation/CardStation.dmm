@@ -5907,6 +5907,11 @@
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
+"bkS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "bkV" = (
 /turf/closed/wall/rust,
 /area/maintenance/department/medical/central)
@@ -14212,14 +14217,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
-"cVo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
 "cVt" = (
 /turf/closed/wall/rust,
 /area/storage/emergency/port)
@@ -29239,11 +29236,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"gmf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron,
-/area/maintenance/department/medical)
 "gmj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50038,6 +50030,14 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/construction)
+"kGP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "kGR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -90567,7 +90567,7 @@
 	},
 /obj/item/paper{
 	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (that's just south of the chemistry lab).</br><P align="right">-Dr. Antek</P>";
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (that's just south of the chemistry lab).</br><P align="right">-Dr. Antek";
 	c_tag = s;
 	pixel_x = -14;
 	pixel_y = 6
@@ -138456,7 +138456,7 @@ vEP
 bTu
 spD
 ojW
-cVo
+kGP
 koj
 lrw
 qQj
@@ -168714,7 +168714,7 @@ vIv
 wZS
 wdS
 aTS
-gmf
+bkS
 nME
 wZS
 wZS
