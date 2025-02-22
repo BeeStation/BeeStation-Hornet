@@ -334,3 +334,5 @@
 	cache_force_disabled = TRUE
 	if ((machine.panel_open || !need_panel_open) & machine.anchored)
 		add_left_click_tool_action("Unfasten", TOOL_WRENCH)
+
+#undef SCREENTIP_VARIABLE_UNSET
