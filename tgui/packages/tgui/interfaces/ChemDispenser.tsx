@@ -196,7 +196,7 @@ export const ChemDispenser = (_props) => {
               {shown_recipes.map((recipe) => (
                 <div
                   className="recipe_box"
-                  key={recipe.name}
+                  key={recipe.id}
                   onClick={() => {
                     set_selected_recipe(recipe);
                   }}>

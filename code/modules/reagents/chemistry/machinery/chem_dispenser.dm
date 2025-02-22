@@ -231,18 +231,18 @@
 	for(var/i in GLOB.chemical_reactions_list)
 		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list[i])
 			var/list/required_reagents = list()
+			var/display_name = reaction::name
+			if (ispath(display_name, /datum/reagent))
+				var/datum/reagent/reagent_path = display_name
+				display_name = reagent_path::name
 			for (var/datum/reagent/reagent as anything in reaction.required_reagents)
-				var/display_name = reagent::name
-				if (ispath(display_name, /datum/reagent))
-					var/datum/reagent/reagent_path = display_name
-					display_name = reagent_path::name
 				required_reagents += list(list(
-					"name" = reagent::name,
+					"name" = display_name,
 					"volume" = reaction.required_reagents[reagent],
-					"path" = reagent,
+					"path" = reagent
 				))
 			reactions += list(list(
-				name = reaction.name,
+				name = display_name,
 				results = reaction.results,
 				required_reagents = required_reagents,
 				required_catalysts = reaction.required_catalysts,
