@@ -41,76 +41,72 @@ export const Reagents = (props) => {
   return (
     <Window width={720} height={850}>
       <Window.Content>
-        <Stack fill vertical>
-          <Stack.Item>
-            <Stack fill>
-              <Stack.Item grow basis={0}>
-                <Section
-                  title="Recipe lookup"
-                  minWidth="353px"
-                  buttons={
-                    <>
-                      <Button
-                        content="Search"
-                        icon="search"
-                        color="purple"
-                        tooltip="Search for a recipe by product name"
-                        onClick={() => act('search_recipe')}
-                      />
-                      <Button
-                        icon="times"
-                        color="red"
-                        disabled={!reagent_mode_recipe}
-                        onClick={() =>
-                          act('recipe_click', {
-                            id: null,
-                          })
-                        }
-                      />
-                    </>
-                  }>
-                  <RecipeLookup recipe={reagent_mode_recipe} bookmarkedReactions={bookmarkedReactions} />
-                </Section>
-              </Stack.Item>
-              <Stack.Item grow basis={0}>
-                <Section
-                  title="Reagent lookup"
-                  minWidth="300px"
-                  buttons={
-                    <>
-                      <Button
-                        content="Search"
-                        icon="search"
-                        tooltip="Search for a reagent by name"
-                        tooltipPosition="left"
-                        onClick={() => act('search_reagents')}
-                      />
-                      <Button
-                        icon="times"
-                        color="red"
-                        disabled={!reagent_mode_reagent}
-                        onClick={() =>
-                          act('reagent_click', {
-                            id: null,
-                          })
-                        }
-                      />
-                    </>
-                  }>
-                  <ReagentLookup reagent={reagent_mode_reagent} />
-                </Section>
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div style={{ display: 'flex', flex: '1 1 auto' }}>
+            <div style={{ flex: '1 1 0', minWidth: '353px' }}>
+              <Section
+                title="Recipe lookup"
+                buttons={
+                  <>
+                    <Button
+                      content="Search"
+                      icon="search"
+                      color="purple"
+                      tooltip="Search for a recipe by product name"
+                      onClick={() => act('search_recipe')}
+                    />
+                    <Button
+                      icon="times"
+                      color="red"
+                      disabled={!reagent_mode_recipe}
+                      onClick={() =>
+                        act('recipe_click', {
+                          id: null,
+                        })
+                      }
+                    />
+                  </>
+                }>
+                <RecipeLookup recipe={reagent_mode_recipe} bookmarkedReactions={bookmarkedReactions} />
+              </Section>
+            </div>
+            <div style={{ flex: '1 1 0', minWidth: '300px' }}>
+              <Section
+                title="Reagent lookup"
+                buttons={
+                  <>
+                    <Button
+                      content="Search"
+                      icon="search"
+                      tooltip="Search for a reagent by name"
+                      tooltipPosition="left"
+                      onClick={() => act('search_reagents')}
+                    />
+                    <Button
+                      icon="times"
+                      color="red"
+                      disabled={!reagent_mode_reagent}
+                      onClick={() =>
+                        act('reagent_click', {
+                          id: null,
+                        })
+                      }
+                    />
+                  </>
+                }>
+                <ReagentLookup reagent={reagent_mode_reagent} />
+              </Section>
+            </div>
+          </div>
+          <div style={{ flex: '0 1 auto' }}>
             <Section title="Tags">
               <TagBox bitflags={bitflags} />
             </Section>
-          </Stack.Item>
-          <Stack.Item grow={2} basis={0}>
+          </div>
+          <div style={{ flex: '2 1 auto' }}>
             <RecipeLibrary flagIcons={flagIcons} />
-          </Stack.Item>
-        </Stack>
+          </div>
+        </div>
       </Window.Content>
     </Window>
   );
@@ -354,9 +350,9 @@ const RecipeLibrary = (props) => {
 
   const bookmarkArray = Array.from(bookmarkedReactions);
 
-  const startIndex = 21 * (page - 1);
+  const startIndex = 25 * (page - 1);
 
-  const endIndex = 21 * page;
+  const endIndex = 25 * page;
 
   const visibleReactions = bookmarkMode
     ? bookmarkArray
@@ -364,7 +360,7 @@ const RecipeLibrary = (props) => {
       (reaction) => (selectedBitflags ? matchBitflag(selectedBitflags, reaction.bitflags) : true) && matchReagents(reaction)
     );
 
-  const pageIndexMax = Math.ceil(visibleReactions.length / 50);
+  const pageIndexMax = Math.ceil(visibleReactions.length / 25);
 
   const addBookmark = (bookmark) => {
     bookmarkedReactions.add(bookmark);
