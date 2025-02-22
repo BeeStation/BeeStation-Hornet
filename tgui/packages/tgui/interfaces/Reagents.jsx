@@ -388,7 +388,11 @@ const RecipeLibrary = (props) => {
             maxValue={pageIndexMax}
             onDrag={(e, value) => setPage(value)}
           />
-          <Button icon="arrow-right" disabled={page === pageIndexMax} onClick={() => setPage(Math.min(page + 1, pageIndexMax))} />
+          <Button
+            icon="arrow-right"
+            disabled={page === pageIndexMax}
+            onClick={() => setPage(Math.min(page + 1, pageIndexMax))}
+          />
         </>
       }>
       <Table>
