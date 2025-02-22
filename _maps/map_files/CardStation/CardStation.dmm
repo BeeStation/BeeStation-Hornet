@@ -13788,10 +13788,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "cQP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron,
-/area/maintenance/department/medical)
+/obj/structure/fluff/hedge/opaque,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "cRc" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -15588,6 +15588,11 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/aisat_interior)
+"dkX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "dkZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -33976,11 +33981,6 @@
 /obj/effect/landmark/start/exploration,
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
-"hiZ" = (
-/obj/structure/fluff/hedge/opaque,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/smooth,
-/area/hallway/primary/fore)
 "hjc" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L3"
@@ -80823,6 +80823,14 @@
 "rjD" = (
 /turf/open/floor/wood/big,
 /area/crew_quarters/barbershop)
+"rjU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "rkb" = (
 /obj/machinery/light/directional/east,
 /obj/machinery/computer/cargo/request{
@@ -90556,7 +90564,7 @@
 	},
 /obj/item/paper{
 	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab). <p align="right"> <br>-Dr. Antek";
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab). <p align="right">-Dr. Antek";
 	pixel_x = -14;
 	pixel_y = 6
 	},
@@ -108852,14 +108860,6 @@
 	},
 /turf/open/floor/iron/dark/textured_half,
 /area/vacant_room/commissary/commissary1)
-"xfL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
 "xfR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -138452,7 +138452,7 @@ vEP
 bTu
 spD
 ojW
-xfL
+rjU
 koj
 lrw
 qQj
@@ -148615,7 +148615,7 @@ xHJ
 oAT
 bsO
 kdI
-hiZ
+cQP
 kTJ
 qmM
 keI
@@ -149643,7 +149643,7 @@ vxJ
 oZa
 slA
 kdI
-hiZ
+cQP
 gdr
 iBe
 kGJ
@@ -168710,7 +168710,7 @@ vIv
 wZS
 wdS
 aTS
-cQP
+dkX
 nME
 wZS
 wZS
