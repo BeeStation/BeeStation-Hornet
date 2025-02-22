@@ -1,0 +1,5 @@
+author: rkz, ninjanomnom
+delete-after: true
+changes:
+  - rscadd: adds gas overlays to pipes. Pipes now have a colored visual display that
+      shows their contents at a glance.
