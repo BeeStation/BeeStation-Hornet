@@ -221,6 +221,7 @@
 		"comp_textcase",
 		"comp_tonumber",
 		"comp_tostring",
+		"comp_trim",
 		"comp_typecast",
 		"compact_remote_shell",
 		"component_printer",

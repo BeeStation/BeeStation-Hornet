@@ -137,6 +137,12 @@
 	build_path = /obj/item/circuit_component/length
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS, WIREMOD_STRING_COMPONENTS)
 
+/datum/design/component/trim
+	name = "String Trim Component"
+	id = "comp_trim"
+	build_path = /obj/item/circuit_component/trim
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS)
+
 /datum/design/component/light
 	name = "Light Component"
 	id = "comp_light"

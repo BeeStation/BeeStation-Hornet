@@ -4387,6 +4387,7 @@
 #include "code\modules\wiremod\components\string\textcase.dm"
 #include "code\modules\wiremod\components\string\tonumber.dm"
 #include "code\modules\wiremod\components\string\tostring.dm"
+#include "code\modules\wiremod\components\string\trim.dm"
 #include "code\modules\wiremod\components\utility\clock.dm"
 #include "code\modules\wiremod\components\utility\delay.dm"
 #include "code\modules\wiremod\components\utility\getter.dm"
