@@ -28,7 +28,7 @@
 
 /datum/chemical_reaction/food/chocolate_bar2
 	name = "Chocolate Bar"
-	id = "chocolate_bar"
+	id = "chocolate_bar2"
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/sugar = 2)
 	mob_react = FALSE
 

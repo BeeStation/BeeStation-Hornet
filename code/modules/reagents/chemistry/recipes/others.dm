@@ -21,13 +21,13 @@
 
 /datum/chemical_reaction/spraytan
 	name = "Spray Tan"
-	id = /datum/reagent/spraytan
+	id = "spraytan"
 	results = list(/datum/reagent/spraytan = 2)
 	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/oil = 1)
 
 /datum/chemical_reaction/spraytan2
 	name = "Spray Tan"
-	id = /datum/reagent/spraytan
+	id = "spraytan2"
 	results = list(/datum/reagent/spraytan = 2)
 	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/consumable/nutriment/fat/oil = 1)
 
@@ -757,13 +757,13 @@
 
 /datum/chemical_reaction/lye
 	name = /datum/reagent/lye
-	id = /datum/reagent/lye
+	id = "lye"
 	results = list(/datum/reagent/lye = 3)
 	required_reagents = list(/datum/reagent/sodium = 1, /datum/reagent/hydrogen = 1, /datum/reagent/oxygen = 1)
 
 /datum/chemical_reaction/lye2
 	name = /datum/reagent/lye
-	id = /datum/reagent/lye
+	id = "lye2"
 	results = list(/datum/reagent/lye = 2)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/water = 1, /datum/reagent/carbon = 1)
 

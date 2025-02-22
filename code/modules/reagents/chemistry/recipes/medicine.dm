@@ -52,13 +52,13 @@
 
 /datum/chemical_reaction/mine_salve
 	name = "Miner's Salve"
-	id = /datum/reagent/medicine/mine_salve
+	id = "minersalve"
 	results = list(/datum/reagent/medicine/mine_salve = 3)
 	required_reagents = list(/datum/reagent/oil = 1, /datum/reagent/water = 1, /datum/reagent/iron = 1)
 
 /datum/chemical_reaction/mine_salve2
 	name = "Miner's Salve"
-	id = /datum/reagent/medicine/mine_salve
+	id = "minersalve2"
 	results = list(/datum/reagent/medicine/mine_salve = 15)
 	required_reagents = list(/datum/reagent/toxin/plasma = 5, /datum/reagent/iron = 5, /datum/reagent/consumable/sugar = 1) // A sheet of plasma, a twinkie and a sheet of metal makes four of these
 
