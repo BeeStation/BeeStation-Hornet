@@ -151,3 +151,5 @@
 
 	/// Whether or not we want to show screentips
 	var/show_screentips = TRUE
+	/// Should extended screentips be shown?
+	var/show_extended_screentips = FALSE

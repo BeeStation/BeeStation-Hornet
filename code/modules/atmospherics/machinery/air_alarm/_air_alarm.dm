@@ -132,23 +132,14 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	check_enviroment()
 
 /obj/machinery/airalarm/add_context_self(datum/screentip_context/context, mob/user)
-	if(isnull(context.held_item))
-		return
-
-	if(context.held_item.tool_behaviour == TOOL_CROWBAR)
-		if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
-			context.add_left_click_tool_action("Pry out Electronics", TOOL_CROWBAR)
-
-	else if(context.held_item.tool_behaviour == TOOL_SCREWDRIVER && buildstage == AIR_ALARM_BUILD_COMPLETE)
+	if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
+		context.add_left_click_tool_action("Pry out Electronics", TOOL_CROWBAR)
+	if(buildstage == AIR_ALARM_BUILD_COMPLETE)
 		context.add_left_click_tool_action("[panel_open ? "Expose wires" : "Unexpose wires"]", TOOL_SCREWDRIVER)
-
-	else if(context.held_item.tool_behaviour == TOOL_WIRECUTTER)
-		if (panel_open)
-			context.add_left_click_tool_action("Manipulate wires", TOOL_WIRECUTTER)
-
-	else if(context.held_item.tool_behaviour == TOOL_WRENCH)
-		if(buildstage == AIR_ALARM_BUILD_NO_CIRCUIT)
-			context.add_left_click_tool_action("Detatch Alarm", TOOL_WRENCH)
+	if (panel_open)
+		context.add_left_click_tool_action("Manipulate wires", TOOL_WIRECUTTER)
+	if(buildstage == AIR_ALARM_BUILD_NO_CIRCUIT)
+		context.add_left_click_tool_action("Detatch Alarm", TOOL_WRENCH)
 
 /obj/machinery/airalarm/process()
 	if(!COOLDOWN_FINISHED(src, warning_cooldown) || (machine_stat & (NOPOWER|BROKEN)) || shorted || (buildstage != AIR_ALARM_BUILD_COMPLETE))

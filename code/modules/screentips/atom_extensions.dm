@@ -41,7 +41,7 @@
 	// =====================================================
 	// Initialise data
 	// =====================================================
-	var/screentip_message = "<span style='line-height: 0.5'>[MAPTEXT(CENTER(capitalize(format_text(name))))]</span>"
+	var/screentip_message = "<span style='line-height: 0' class='maptext extremelybig'>[CENTER(capitalize(format_text(name)))]</span>"
 	var/datum/screentip_cache/cache = GLOB.screentips_cache["[type]"]
 	var/obj/item/held_item = client.mob.get_active_held_item()
 	// =====================================================
@@ -62,16 +62,24 @@
 		// Make sure that the item we are holding is also cachable
 		// The assoc value might be null if we haven't generated the cache for this yet
 		if (cache?.generated && (!held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
-			if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
-				client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.attack_hand][cache.message]</span>"
+			if (held_item?.tool_behaviour || client.show_extended_screentips)
+				if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
+					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message][cache.tool_message]")]</span>")]</span>"
+				else
+					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message][cache.tool_message]")]</span>")]</span>"
 			else
-				client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][cache.message]</span>"
+				if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
+					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message]")]</span>")]</span>"
+				else
+					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message]")]</span>")]</span>"
 			return
 	// =====================================================
 	// Build the context
 	// =====================================================
 	// Making a new context is faster than re-using it
 	var/datum/screentip_context/context = new()
+	context.user = client.mob
+	context.held_item = held_item
 	SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, context, client.mob)
 	// Add direct interactions
 	add_context_self(context, client.mob)
@@ -81,62 +89,66 @@
 	// =====================================================
 	// Compile the screentip string
 	// =====================================================
-	var/screen_tip_message = "[context.access_context && CENTER(context.access_context)][context.generic_context && CENTER(context.generic_context)]"
+	var/screen_tip_message = "[context.access_context][context.generic_context]"
 	// Should we display everything inline or with left and right side by side
 	// Standard Click
 	if (context.left_mouse_context && context.right_mouse_context)
-		screen_tip_message += CENTER("\n[context.left_mouse_context] | [context.right_mouse_context]")
+		screen_tip_message += "<br>[context.left_mouse_context] | [context.right_mouse_context]"
 	else if (context.left_mouse_context || context.right_mouse_context)
-		screen_tip_message += CENTER("\n[context.left_mouse_context][context.right_mouse_context]")
+		screen_tip_message += "<br>[context.left_mouse_context][context.right_mouse_context]"
 	// Control Click
 	if (context.ctrl_left_mouse_context && context.ctrl_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.ctrl_left_mouse_context] | [context.ctrl_right_mouse_context]")
+		screen_tip_message += "<br>[context.ctrl_left_mouse_context] | [context.ctrl_right_mouse_context]"
 	else if (context.ctrl_left_mouse_context || context.ctrl_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.ctrl_left_mouse_context][context.ctrl_right_mouse_context]")
+		screen_tip_message += "<br>[context.ctrl_left_mouse_context][context.ctrl_right_mouse_context]"
 	// Shift Click
 	if (context.shift_left_mouse_context && context.shift_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.shift_left_mouse_context] | [context.shift_right_mouse_context]")
+		screen_tip_message += "<br>[context.shift_left_mouse_context] | [context.shift_right_mouse_context]"
 	else if (context.shift_left_mouse_context || context.shift_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.shift_left_mouse_context][context.shift_right_mouse_context]")
+		screen_tip_message += "<br>[context.shift_left_mouse_context][context.shift_right_mouse_context]"
 	// Alt Click
 	if (context.alt_left_mouse_context && context.alt_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.alt_left_mouse_context] | [context.alt_right_mouse_context]")
+		screen_tip_message += "<br>[context.alt_left_mouse_context] | [context.alt_right_mouse_context]"
 	else if (context.alt_left_mouse_context || context.alt_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.alt_left_mouse_context][context.alt_right_mouse_context]")
+		screen_tip_message += "<br>[context.alt_left_mouse_context][context.alt_right_mouse_context]"
 	// Ctrl-shift Click
 	if (context.ctrl_shift_left_mouse_context && context.ctrl_shift_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.ctrl_shift_left_mouse_context] | [context.ctrl_shift_right_mouse_context]")
+		screen_tip_message += "<br>[context.ctrl_shift_left_mouse_context] | [context.ctrl_shift_right_mouse_context]"
 	else if (context.ctrl_shift_left_mouse_context || context.ctrl_shift_right_mouse_context)
-		screen_tip_message += CENTER("\n[context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context]")
+		screen_tip_message += "<br>[context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context]"
+	var/tool_message = ""
 	if (context.wirecutter)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_wirecutters] [context.wirecutter]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_wirecutters] [context.wirecutter]"
 	if (context.screwdriver)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_screwdriver] [context.screwdriver]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_screwdriver] [context.screwdriver]"
 	if (context.wrench)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_wrench] [context.wrench]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_wrench] [context.wrench]"
 	if (context.welder)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_welder] [context.welder]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_welder] [context.welder]"
 	if (context.crowbar)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_crowbar] [context.crowbar]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_crowbar] [context.crowbar]"
 	if (context.multitool)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_multitool] [context.multitool]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_multitool] [context.multitool]"
 	if (context.knife)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_knife] [context.knife]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_knife] [context.knife]"
 	if (context.rolling_pin)
-		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_rolling_pin] [context.rolling_pin]")]</span>")]"
+		tool_message += "<br>[GLOB.hint_rolling_pin] [context.rolling_pin]"
 	// =====================================================
 	// Set the screentip UI
 	// =====================================================
 	// Screentips only show if you are a silicon, carbon, or you explicitly request the mob type to show
 	if (issilicon(client.mob) || iscarbon(client.mob) || context.relevant_type)
-		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][screen_tip_message]</span>"
+		if (held_item?.tool_behaviour || client.show_extended_screentips)
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[screen_tip_message][tool_message]")]</span>")]</span>"
+		else
+			client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER(screen_tip_message)]</span>")]</span>"
 	else
 		client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message]</span>"
 	// =====================================================
 	// Populate the screentip cache to prevent unnecessary re-generation
 	// =====================================================
 	// If we asked to be cached, generate the cache
-	if (context.cache_enabled)
+	if (context.cache_enabled && !context.cache_force_disabled)
 		// Try to find the parent cache item
 		cache = GLOB.screentips_cache["[type]"]
 		if (!cache)
@@ -145,11 +157,14 @@
 		// Go to the relevant cache item
 		if (context.relevant_type)
 			var/datum/screentip_cache/new_cache = new()
+			if (!cache.cache_states)
+				cache.cache_states = list()
 			cache.cache_states[context.relevant_type] = new_cache
 			cache = new_cache
 		// Set the cache message
 		cache.generated = TRUE
 		cache.message = screen_tip_message
+		cache.tool_message = tool_message
 		SSscreentips.caches_generated ++
 	// =====================================================
 	// Cleanup references for the sake of managing hard-deletes

@@ -5,4 +5,5 @@
 	var/list/cache_states = null
 	var/attack_hand
 	var/message
+	var/tool_message
 	var/generated = TRUE
