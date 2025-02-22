@@ -70,6 +70,7 @@
 	// =====================================================
 	// Build the context
 	// =====================================================
+	// Making a new context is faster than re-using it
 	var/datum/screentip_context/context = new()
 	SEND_SIGNAL(src, COMSIG_ATOM_ADD_CONTEXT, context, client.mob)
 	// Add direct interactions
@@ -108,21 +109,21 @@
 	else if (context.ctrl_shift_left_mouse_context || context.ctrl_shift_right_mouse_context)
 		screen_tip_message += CENTER("\n[context.ctrl_shift_left_mouse_context][context.ctrl_shift_right_mouse_context]")
 	if (context.wirecutter)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wirecutters] [context.wirecutter]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_wirecutters] [context.wirecutter]")]</span>")]"
 	if (context.screwdriver)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_screwdriver] [context.screwdriver]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_screwdriver] [context.screwdriver]")]</span>")]"
 	if (context.wrench)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_wrench] [context.wrench]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_wrench] [context.wrench]")]</span>")]"
 	if (context.welder)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_welder] [context.welder]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_welder] [context.welder]")]</span>")]"
 	if (context.crowbar)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_crowbar] [context.crowbar]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_crowbar] [context.crowbar]")]</span>")]"
 	if (context.multitool)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_multitool] [context.multitool]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_multitool] [context.multitool]")]</span>")]"
 	if (context.knife)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_knife] [context.knife]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_knife] [context.knife]")]</span>")]"
 	if (context.rolling_pin)
-		screen_tip_message += "\n[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("[GLOB.hint_rolling_pin] [context.rolling_pin]")]</span>")]"
+		screen_tip_message += "[MAPTEXT("<span style='line-height: 0.35; color:[SCREEN_TIP_NORMAL]'>[CENTER("\n[GLOB.hint_rolling_pin] [context.rolling_pin]")]</span>")]"
 	// =====================================================
 	// Set the screentip UI
 	// =====================================================
