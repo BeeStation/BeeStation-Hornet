@@ -5386,14 +5386,6 @@
 	},
 /turf/open/floor/engine,
 /area/medical/chemistry)
-"bgg" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
 "bgk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -8521,11 +8513,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
-"bPX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron,
-/area/maintenance/department/medical)
 "bPY" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
@@ -13801,10 +13788,13 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "cQP" = (
-/obj/structure/fluff/hedge/opaque,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/smooth,
-/area/hallway/primary/fore)
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "cRc" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -69919,6 +69909,11 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
+"oSo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "oSq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -90564,8 +90559,7 @@
 	},
 /obj/item/paper{
 	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><p>-Dr. Antek";
-	c_tag = s;
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><p align="right">-Dr. Antek";
 	pixel_x = -14;
 	pixel_y = 6
 	},
@@ -92683,6 +92677,11 @@
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
+"tPz" = (
+/obj/structure/fluff/hedge/opaque,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "tPA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-10"
@@ -138453,7 +138452,7 @@ vEP
 bTu
 spD
 ojW
-bgg
+cQP
 koj
 lrw
 qQj
@@ -148616,7 +148615,7 @@ xHJ
 oAT
 bsO
 kdI
-cQP
+tPz
 kTJ
 qmM
 keI
@@ -149644,7 +149643,7 @@ vxJ
 oZa
 slA
 kdI
-cQP
+tPz
 gdr
 iBe
 kGJ
@@ -168711,7 +168710,7 @@ vIv
 wZS
 wdS
 aTS
-bPX
+oSo
 nME
 wZS
 wZS
