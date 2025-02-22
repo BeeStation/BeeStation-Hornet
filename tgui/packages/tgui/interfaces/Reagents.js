@@ -378,7 +378,7 @@ const RecipeLibrary = (props, context) => {
               setPage(1);
             }}
           />
-          <Button icon="minus" disabled={page === 1} onClick={() => setPage(Math.max(page - 1, 1))} />
+          <Button icon="arrow-left" disabled={page === 1} onClick={() => setPage(Math.max(page - 1, 1))} />
           <NumberInput
             width="25px"
             step={1}
@@ -388,7 +388,7 @@ const RecipeLibrary = (props, context) => {
             maxValue={pageIndexMax}
             onDrag={(e, value) => setPage(value)}
           />
-          <Button icon="plus" disabled={page === pageIndexMax} onClick={() => setPage(Math.min(page + 1, pageIndexMax))} />
+          <Button icon="arrow-right" disabled={page === pageIndexMax} onClick={() => setPage(Math.min(page + 1, pageIndexMax))} />
         </>
       }>
       <Table>
