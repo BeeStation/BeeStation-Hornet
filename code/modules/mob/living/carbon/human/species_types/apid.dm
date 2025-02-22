@@ -7,8 +7,7 @@
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
-	mutant_bodyparts = list("apid_stripes","apid_antenna","apid_headstripes")
-	default_features = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
+	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -40,7 +39,7 @@
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
-			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")
+			to_chat(H, span_warning("The cold is making you feel tired..."))
 		switch(cold_cycle)
 			if(5 to 10)
 				H.drowsyness++

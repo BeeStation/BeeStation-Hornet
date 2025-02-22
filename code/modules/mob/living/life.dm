@@ -7,9 +7,6 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 
-	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
-		float(on = TRUE)
-
 	if (notransform)
 		return
 	if(!loc)
@@ -39,14 +36,7 @@
 		if(environment)
 			handle_environment(environment)
 
-		//Handle gravity
-		var/gravity = has_gravity()
-		update_gravity(gravity)
-
-		if(gravity > STANDARD_GRAVITY)
-			if(!get_filter("gravity"))
-				add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
-			handle_high_gravity(gravity)
+		handle_gravity(delta_time, times_fired)
 
 		if(stat != DEAD)
 			handle_traits(delta_time) // eye, ear, brain damages
@@ -96,7 +86,7 @@
 		ExtinguishMob()
 		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.get_moles(GAS_O2) < 1)
+	if(GET_MOLES(/datum/gas/oxygen, G) < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return TRUE
 	var/turf/location = get_turf(src)
@@ -120,9 +110,20 @@
 /mob/living/proc/update_damage_hud()
 	return
 
-/mob/living/proc/handle_high_gravity(gravity)
-	if(gravity >= GRAVITY_DAMAGE_TRESHOLD) //Aka gravity values of 3 or more
-		var/grav_stregth = gravity - GRAVITY_DAMAGE_TRESHOLD
-		adjustBruteLoss(min(grav_stregth,3))
+/mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
+	if(gravity_state > STANDARD_GRAVITY)
+		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
 
+/mob/living/proc/gravity_animate()
+	if(!get_filter("gravity"))
+		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
+	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
+	animate(y = 0, time = 10)
+
+/mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+		return
+
+	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
 #undef BODYTEMP_DIVISOR

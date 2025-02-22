@@ -33,9 +33,9 @@ Bonus
 	suffixes = list(" Combustion")
 	var/infective = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b> Increases the intensity of the flames.<br>\
-					  <b>Stage Speed 8:</b> Further increases flame intensity.<br>\
-					  <b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Stage Speed 8:</b> Further increases flame intensity.<br>\
+						<b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
@@ -56,18 +56,18 @@ Bonus
 	switch(A.stage)
 		if(3)
 			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
-				to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
+				to_chat(M, span_warning("[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]"))
 		if(4)
 			Firestacks_stage_4(M, A)
 			M.IgniteMob()
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
+				to_chat(M, span_userdanger("Your skin bursts into flames!"))
 				M.emote("scream")
 		if(5)
 			Firestacks_stage_5(M, A)
 			M.IgniteMob()
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+				to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
 				M.emote("scream")
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
@@ -75,7 +75,7 @@ Bonus
 	M.take_overall_damage(burn = 3 * power, required_status = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 2), 20)
-		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
+		M.visible_message(span_danger("[M] bursts into flames, spreading burning sparks about the area!"))
 	return 1
 
 /datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
@@ -86,7 +86,7 @@ Bonus
 	M.take_overall_damage(burn = 5 * power, required_status = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 4), 20)
-		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
+		M.visible_message(span_danger("[M] bursts into flames, spreading burning sparks about the area!"))
 	return 1
 
 
@@ -127,8 +127,8 @@ Bonus
 	var/chems = FALSE
 	var/explosion_power = 1
 	threshold_desc = "<b>Stealth 3:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
-					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
-					  <b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+						<b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
+						<b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
@@ -156,24 +156,24 @@ Bonus
 	switch(A.stage)
 		if(3)
 			if(prob(base_message_chance) && M.stat <= DEAD)
-				to_chat(M, "<span class='warning'>[pick("Your veins boil.", "You feel hot.", "You smell meat cooking.")]</span>")
+				to_chat(M, span_warning("[pick("Your veins boil.", "You feel hot.", "You smell meat cooking.")]"))
 		if(4)
 			if(M.fire_stacks < 0)
-				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
+				M.visible_message(span_warning("[M]'s sweat sizzles and pops on contact with water!"))
 				explosion(get_turf(M),-1,(-1 + explosion_power),(2 * explosion_power))
 			Alkali_fire_stage_4(M, A)
 			M.IgniteMob()
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='userdanger'>Your sweat bursts into flames!</span>")
+				to_chat(M, span_userdanger("Your sweat bursts into flames!"))
 				M.emote("scream")
 		if(5)
 			if(M.fire_stacks < 0 && M.stat <= DEAD)
-				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
+				M.visible_message(span_warning("[M]'s sweat sizzles and pops on contact with water!"))
 				explosion(get_turf(M),-1,(-1 + explosion_power),(2 * explosion_power))
 			Alkali_fire_stage_5(M, A)
 			M.IgniteMob()
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+				to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
 				M.emote("scream")
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)

@@ -83,7 +83,7 @@
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
 		if(rand(1, 3) == 3)
-			var/lowerletter = lowertext(newletter)
+			var/lowerletter = LOWER_TEXT(newletter)
 			if(lowerletter == "o")
 				newletter = "u"
 			else if(lowerletter == "s")
@@ -102,12 +102,12 @@
 		switch(rand(1, 20))
 			if(1)
 				newletter += "'"
-			if(10)
+			if(2)
 				newletter += "[newletter]"
-			if(20)
+			if(3)
 				newletter += "[newletter][newletter]"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(4 to 20)
+				pass()
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -121,7 +121,7 @@
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
 		if(rand(1, 2) == 2)
-			var/lowerletter = lowertext(newletter)
+			var/lowerletter = LOWER_TEXT(newletter)
 			if(lowerletter == "o")
 				newletter = "u"
 			else if(lowerletter == "t")
@@ -151,8 +151,8 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(6 to 15)
+				pass()
 		. += newletter
 	return sanitize(.)
 
@@ -165,7 +165,7 @@
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
 		if(rand(1, 2) == 2)
-			var/lowerletter = lowertext(newletter)
+			var/lowerletter = LOWER_TEXT(newletter)
 			if(lowerletter == "o")
 				newletter = "u"
 			else if(lowerletter == "t")
@@ -195,8 +195,8 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
-			else
-				SWITCH_EMPTY_STATEMENT
+			if(6 to 15)
+				pass()
 		. += newletter
 	return sanitize(.)
 
@@ -209,7 +209,7 @@
 	var/rawchar
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
-		if(prob(80) && !(lowertext(newletter) in list("a", "e", "i", "o", "u", " ")))
+		if(prob(80) && !(LOWER_TEXT(newletter) in list("a", "e", "i", "o", "u", " ")))
 			if(prob(10))
 				newletter = "[newletter]-[newletter]-[newletter]-[newletter]"
 			else if(prob(20))
@@ -283,7 +283,7 @@
 	if(!istext(msg))
 		msg = "[msg]"
 	for(var/mob/M as anything in GLOB.mob_list)
-		if(lowertext(M.real_name) == lowertext(msg))
+		if(LOWER_TEXT(M.real_name) == LOWER_TEXT(msg))
 			return M
 	return FALSE
 
@@ -292,44 +292,6 @@
 	var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace or "-"
 	firstname.Find(real_name)
 	return firstname.match
-
-
-/**
-  * change a mob's act-intent.
-  *
-  * Input the intent as a string such as "help" or use "right"/"left
-  */
-/mob/verb/a_intent_change(input as text)
-	set name = "a-intent"
-	set hidden = 1
-
-	if(!possible_a_intents || !possible_a_intents.len)
-		return
-
-	if(input in possible_a_intents)
-		a_intent = input
-	else
-		var/current_intent = possible_a_intents.Find(a_intent)
-
-		if(!current_intent)
-			// Failsafe. Just in case some badmin was playing with VV.
-			current_intent = 1
-
-		if(input == INTENT_HOTKEY_RIGHT)
-			current_intent += 1
-		if(input == INTENT_HOTKEY_LEFT)
-			current_intent -= 1
-
-		// Handle looping
-		if(current_intent < 1)
-			current_intent = possible_a_intents.len
-		if(current_intent > possible_a_intents.len)
-			current_intent = 1
-
-		a_intent = possible_a_intents[current_intent]
-
-	if(hud_used && hud_used.action_intent)
-		hud_used.action_intent.icon_state = "[a_intent]"
 
 ///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
 /mob/proc/is_blind()
@@ -421,7 +383,7 @@
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)
 				orbit_link = " <a href='?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""][orbit_link]</span>")
+			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""][orbit_link]"))
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound, volume = notify_volume))
 			if(flashwindow)
@@ -461,14 +423,14 @@
 				user.visible_message("[user] has fixed some of the dents on [H]'s [parse_zone(affecting.body_zone)], reducing [H.p_their()] leaking to [H.get_bleed_rate_string()].")
 			else
 				user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
-					"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
+					span_notice("You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)]."))
 			if((affecting.brute_dam <= 0 && brute_heal) && ((!H.is_bleeding()) && H.has_mechanical_bleeding()))
 				return FALSE //successful heal, but the target is at full health. Returns false to signal you can stop healing now
 			if(affecting.burn_dam <=0 && burn_heal)
 				return FALSE //same as above, but checking for burn damage instead
 			return TRUE //successful heal
 		else
-			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
+			to_chat(user, span_warning("[affecting] is already in good condition!"))
 			return FALSE
 
 ///Is the passed in mob an admin ghost
@@ -519,13 +481,6 @@
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
 		return FALSE
-
-///Is the mob a flying mob
-/mob/proc/is_flying(mob/M = src)
-	if(M.movement_type & FLYING)
-		return 1
-	else
-		return 0
 
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()
@@ -596,7 +551,7 @@
   */
 /mob/proc/common_trait_examine()
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
-		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
+		. += "[span_notice("This body has been dissected and analyzed. It is no longer worth experimenting on.")]<br>"
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
@@ -617,6 +572,10 @@
 	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
 		return TRUE
 
+///Can this mob hold items
+/mob/proc/can_hold_items(obj/item/I)
+	return length(held_items)
+
 /**
  * Zone selection helpers.
  *
@@ -635,7 +594,7 @@
 			if (BODYZONE_STYLE_MEDICAL)
 				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
 				if (!accurate_health && isliving(target))
-					to_chat(src, "<span class='warning'>You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!</span>")
+					to_chat(src, span_warning("You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!"))
 				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health), override_zones))
 	// Return the value instantly
 	if (precise)

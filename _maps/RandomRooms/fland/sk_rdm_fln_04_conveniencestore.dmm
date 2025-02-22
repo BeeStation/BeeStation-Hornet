@@ -6,7 +6,7 @@
 /turf/template_noop/closed,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/template_noop)
 "f" = (
@@ -45,7 +45,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "n" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -57,7 +57,7 @@
 /obj/structure/table,
 /obj/item/circuitboard/machine/paystand,
 /obj/item/stack/sheet/iron/five,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/template_noop)
 "s" = (
@@ -68,7 +68,7 @@
 /area/template_noop)
 "t" = (
 /obj/structure/rack,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/template_noop)
 "u" = (
@@ -101,10 +101,10 @@
 /area/template_noop)
 "B" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Convenience store Backroom"
+	name = "Convenience Store Backroom"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "C" = (
@@ -118,7 +118,7 @@
 "F" = (
 /obj/machinery/button/door{
 	id = "ConvenienceShutter";
-	name = "Convenience store Shutters";
+	name = "Convenience Store Shutters";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
 	pixel_y = -26;
@@ -139,22 +139,22 @@
 /area/template_noop)
 "I" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Convenience store Maintenance";
+	name = "Convenience Store Maintenance";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/template_noop,
 /area/template_noop)
 "P" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "R" = (
@@ -174,7 +174,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "ConvenienceShutter";
-	name = "Convenience store Shutters"
+	name = "Convenience Store Shutters"
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -187,7 +187,7 @@
 "W" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "ConvenienceShutter";
-	name = "Convenience store Shutters"
+	name = "Convenience Store Shutters"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -195,8 +195,8 @@
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /turf/open/floor/iron,

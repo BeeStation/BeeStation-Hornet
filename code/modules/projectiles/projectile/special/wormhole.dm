@@ -18,6 +18,8 @@
 	name = "orange bluespace beam"
 	color = "#FF6600"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/beam/wormhole)
+
 /obj/projectile/beam/wormhole/Initialize(mapload, obj/item/ammo_casing/energy/wormhole/casing)
 	. = ..()
 	if(casing)

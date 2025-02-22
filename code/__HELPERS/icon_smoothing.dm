@@ -295,7 +295,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		if(smooth_directional) { \
 			if(atom.dir != dir) { \
 				break set_adj_in_dir; \
-		 	}; \
+			}; \
 		}; \
 
 	#define SET_ADJ_IN_DIR(direction, direction_flag) \
@@ -536,7 +536,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	. = ..()
 	family -= src
 
-/turf/closed/wall/debug/attack_hand(mob/user)
+/turf/closed/wall/debug/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	sprite_smooth_debug(user, family, src.parent_type)
 
@@ -552,7 +552,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	. = ..()
 	family -= src
 
-/obj/structure/table/debug/attack_hand(mob/user)
+/obj/structure/table/debug/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	sprite_smooth_debug(user, family, src.parent_type)
 
@@ -568,7 +568,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	. = ..()
 	family -= src
 
-/turf/open/floor/carpet/debug/attack_hand(mob/user)
+/turf/open/floor/carpet/debug/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	sprite_smooth_debug(user, family, /turf/open)
 

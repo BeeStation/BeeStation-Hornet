@@ -20,10 +20,10 @@
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list("hostile","stickman")
+	faction = list(FACTION_HOSTILE,FACTION_STICKMAN)
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	var/datum/action/boss/wizard_summon_minions/changesummons = /datum/action/boss/wizard_summon_minions
@@ -47,6 +47,8 @@
 	icon_living = "stickdog"
 	icon_dead = "stickdog_dead"
 	mob_biotypes = list(MOB_INORGANIC, MOB_BEAST)
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/stickman)
 
 /mob/living/simple_animal/hostile/stickman/Initialize(mapload, var/wizard_summoned)
 	. = ..()

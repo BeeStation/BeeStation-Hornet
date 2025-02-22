@@ -30,7 +30,7 @@
 	id = "bluespacebeaker"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 5000, /datum/material/plasma = 3000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/reagent_containers/glass/beaker/bluespace
+	build_path = /obj/item/reagent_containers/cup/beaker/bluespace
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
@@ -40,7 +40,7 @@
 	id = "splitbeaker"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000)
-	build_path = /obj/item/reagent_containers/glass/beaker/noreact
+	build_path = /obj/item/reagent_containers/cup/beaker/noreact
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
@@ -50,7 +50,7 @@
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 	materials = list(/datum/material/glass = 2500, /datum/material/plastic = 3000)
-	build_path = /obj/item/reagent_containers/glass/beaker/plastic
+	build_path = /obj/item/reagent_containers/cup/beaker/plastic
 	category = list("Medical Designs")
 
 /datum/design/meta_beaker
@@ -59,7 +59,17 @@
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 	materials = list(/datum/material/glass = 2500, /datum/material/plastic = 3000, /datum/material/gold = 1000, /datum/material/titanium = 1000)
-	build_path = /obj/item/reagent_containers/glass/beaker/meta
+	build_path = /obj/item/reagent_containers/cup/beaker/meta
+	category = list("Medical Designs")
+
+/datum/design/blood_pack
+	name = "Blood Pack"
+	desc = "An empty pack for blood transfusions"
+	id = "blood_pack"
+	build_type = PROTOLATHE
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	materials = list(/datum/material/plastic = 500)
+	build_path = /obj/item/reagent_containers/blood
 	category = list("Medical Designs")
 
 /datum/design/bluespacesyringe
@@ -84,7 +94,7 @@
 
 /datum/design/noreactsyringe
 	name = "Cryo Syringe"
-	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
+	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
 	id = "noreactsyringe"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 2000, /datum/material/gold = 1000)

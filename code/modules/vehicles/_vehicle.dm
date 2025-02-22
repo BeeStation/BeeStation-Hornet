@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "error"
 	max_integrity = 300
-	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/obj_vehicle
 	density = TRUE
 	anchored = FALSE
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
@@ -25,6 +25,15 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
+
+/datum/armor/obj_vehicle
+	melee = 30
+	bullet = 30
+	laser = 30
+	bomb = 30
+	fire = 60
+	acid = 60
+
 /obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
 		return 1
@@ -43,15 +52,15 @@
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(resistance_flags & ON_FIRE)
-		. += "<span class='warning'>It's on fire!</span>"
-	var/healthpercent = obj_integrity/max_integrity * 100
+		. += span_warning("It's on fire!")
+	var/healthpercent = atom_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
 			. += "It looks slightly damaged."
 		if(25 to 50)
 			. += "It appears heavily damaged."
 		if(0 to 25)
-			. += "<span class='warning'>It's falling apart!</span>"
+			. += span_warning("It's falling apart!")
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return I? (key_type_exact? (I.type == key_type) : istype(I, key_type)) : FALSE
@@ -60,7 +69,7 @@
 	return occupants
 
 /obj/vehicle/proc/occupant_amount()
-	return length(occupants)
+	return LAZYLEN(occupants)
 
 /obj/vehicle/proc/return_amount_of_controllers_with_flag(flag)
 	. = 0
@@ -85,12 +94,13 @@
 	return is_occupant(M) && occupants[M] & VEHICLE_CONTROL_DRIVE
 
 /obj/vehicle/proc/is_occupant(mob/M)
-	return !isnull(occupants[M])
+	return !isnull(LAZYACCESS(occupants, M))
 
 /obj/vehicle/proc/add_occupant(mob/M, control_flags)
-	if(!istype(M) || occupants[M])
+	if(!istype(M) || is_occupant(M))
 		return FALSE
-	occupants[M] = NONE
+
+	LAZYSET(occupants, M, NONE)
 	add_control_flags(M, control_flags)
 	after_add_occupant(M)
 	grant_passenger_actions(M)
@@ -108,7 +118,7 @@
 		return FALSE
 	remove_control_flags(M, ALL)
 	remove_passenger_actions(M)
-	occupants -= M
+	LAZYREMOVE(occupants, M)
 	cleanup_actions_for_mob(M)
 	after_remove_occupant(M)
 	return TRUE
@@ -122,7 +132,7 @@
 
 /obj/vehicle/proc/driver_move(mob/living/user, direction)
 	if(key_type && !is_key(inserted_key))
-		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
+		to_chat(user, span_warning("[src] has no key inserted!"))
 		return FALSE
 	if(!default_driver_move)
 		return
@@ -149,7 +159,7 @@
 	return
 
 /obj/vehicle/proc/add_control_flags(mob/controller, flags)
-	if(!istype(controller) || !flags)
+	if(!is_occupant(controller) || !flags)
 		return FALSE
 	occupants[controller] |= flags
 	for(var/i in GLOB.bitflags)
@@ -158,7 +168,7 @@
 	return TRUE
 
 /obj/vehicle/proc/remove_control_flags(mob/controller, flags)
-	if(!istype(controller) || !flags)
+	if(!is_occupant(controller) || !flags)
 		return FALSE
 	occupants[controller] &= ~flags
 	for(var/i in GLOB.bitflags)

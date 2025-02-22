@@ -7,12 +7,12 @@ type Data = {
   maxStatusLineLength: number;
 };
 
-export const StatusDisplayControls = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const StatusDisplayControls = (props) => {
+  const { act, data } = useBackend<Data>();
   const { upperText: initialUpper, lowerText: initialLower, maxStatusLineLength } = data;
 
-  const [upperText, setUpperText] = useSharedState(context, 'statusUpperText', initialUpper);
-  const [lowerText, setLowerText] = useSharedState(context, 'statusLowerText', initialLower);
+  const [upperText, setUpperText] = useSharedState('statusUpperText', initialUpper);
+  const [lowerText, setLowerText] = useSharedState('statusLowerText', initialLower);
 
   return (
     <>
@@ -29,7 +29,11 @@ export const StatusDisplayControls = (props, context) => {
       <Section title="Graphics">
         <Button icon="flag" content="Logo" onClick={() => act('setStatusPicture', { picture: 'default' })} />
 
-        <Button icon="bell-o" content="Red Alert" onClick={() => act('setStatusPicture', { picture: 'redalert' })} />
+        <Button
+          icon="exclamation"
+          content="Security Alert Level"
+          onClick={() => act('setStatusPicture', { picture: 'currentalert' })}
+        />
 
         <Button
           icon="exclamation-triangle"
@@ -38,6 +42,8 @@ export const StatusDisplayControls = (props, context) => {
         />
 
         <Button icon="biohazard" content="Biohazard" onClick={() => act('setStatusPicture', { picture: 'biohazard' })} />
+
+        <Button icon="radiation" content="Radiation" onClick={() => act('setStatusPicture', { picture: 'radiation' })} />
       </Section>
 
       <Section title="Message">

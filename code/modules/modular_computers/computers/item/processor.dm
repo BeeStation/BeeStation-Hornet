@@ -1,5 +1,8 @@
 // Held by /obj/machinery/modular_computer to reduce amount of copy-pasted code.
 //TODO: REFACTOR THIS SPAGHETTI CODE, MAKE IT A COMPUTER_HARDWARE COMPONENT OR REMOVE IT
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
+
 /obj/item/modular_computer/processor
 	name = "processing unit"
 	desc = "You shouldn't see this. If you do, report it."
@@ -69,4 +72,4 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		sound = pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg')
 	playsound(src, sound, 50, TRUE)
-	machinery_computer.visible_message("<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+	machinery_computer.visible_message(span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]"))

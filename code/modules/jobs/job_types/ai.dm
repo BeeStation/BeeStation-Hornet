@@ -1,7 +1,7 @@
 /datum/job/ai
 	title = JOB_NAME_AI
 	description = "Follow your laws above all else, be the invisible eye that watches all."
-	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
@@ -50,7 +50,7 @@
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+		for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 			if(!R.connected_ai)
 				R.TryConnectToAI()
 

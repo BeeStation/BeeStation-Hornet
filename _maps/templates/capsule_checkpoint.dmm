@@ -18,7 +18,7 @@
 /obj/machinery/door/window/checkpoint{
 	req_access_txt = "2";
 	dir = 1;
-	name = "checkpoint windoor"
+	name = "Checkpoint"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -34,7 +34,7 @@
 /obj/machinery/door/window/checkpoint{
 	req_access_txt = "2";
 	dir = 4;
-	name = "checkpoint windoor"
+	name = "Checkpoint"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -45,7 +45,7 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/door/window/checkpoint{
 	req_access_txt = "2";
-	name = "checkpoint windoor"
+	name = "Checkpoint"
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/pod,
@@ -73,7 +73,7 @@
 /obj/machinery/door/window/checkpoint{
 	req_access_txt = "2";
 	dir = 8;
-	name = "checkpoint windoor"
+	name = "Checkpoint"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8

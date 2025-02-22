@@ -2,7 +2,7 @@
 /// !!!!!!!!!!HEY LISTEN!!!!!!!!!!!!!!!!!!!!!!!!
 /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-// If you modify this file you ALSO need to modify code/modules/goonchat/browserAssets/browserOutput.css
+// If you modify this file you ALSO need to modify tgui/packages/tgui-panel/styles/tgchat/chat-light.scss and chat-dark.scss
 // BUT you have to use PX font sizes with are on a x8 scale of these font sizes
 // Sample font-size: DM: 8 CSS: 64px
 
@@ -84,24 +84,24 @@ h1.alert, h2.alert		{color: #000000;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
 .adminhelp_conclusion {
-  display: block;
-  color: white;
-  text-align: center;
-  background-color: black;
-  border: 2px solid red;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px 20px;
+	display: block;
+	color: white;
+	text-align: center;
+	background-color: black;
+	border: 2px solid red;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 20px;
 }
 .death_message {
-  display: block;
-  color: white;
-  text-align: center;
-  background-color: black;
-  border: 2px solid rgb(240, 62, 225);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px 20px;
+	display: block;
+	color: white;
+	text-align: center;
+	background-color: black;
+	border: 2px solid rgb(240, 62, 225);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 20px;
 }
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
@@ -204,9 +204,9 @@ h1.alert, h2.alert		{color: #000000;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #3bb5d3;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
 @keyframes hypnocolor {
-    0% { color: #0d0d0d; }
-    25% { color: #410194; }
-    50% { color: #7f17d8; }
+	0% { color: #0d0d0d; }
+	25% { color: #410194; }
+	50% { color: #7f17d8; }
 	75% { color: #410194; }
 	100% { color: #3bb5d3; }
 }
@@ -232,4 +232,5 @@ h1.alert, h2.alert		{color: #000000;}
 
 .monkeyhive				{color: #774704;}
 .monkeylead				{color: #774704;	font-size: 2;}
+.tape_recorder			{color: #ff0000;	font-family: 'Courier New', cursive, sans-serif;}
 </style>"}

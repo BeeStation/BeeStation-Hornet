@@ -38,7 +38,7 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/power/rad_collector/anchored/Initialize()
+/obj/machinery/power/rad_collector/anchored/Initialize(mapload)
 	. = ..()
 	set_anchored(TRUE)
 
@@ -49,29 +49,30 @@
 /obj/machinery/power/rad_collector/process(delta_time)
 	if(!loaded_tank)
 		return
+	var/datum/gas_mixture/loaded_tank_air = loaded_tank.return_air()
 	if(!bitcoinmining)
-		if(loaded_tank.air_contents.get_moles(GAS_PLASMA) < 0.0001)
+		if(GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			var/msg = "Plasma depleted, recommend replacing tank."
 			radio.talk_into(src, msg, RADIO_CHANNEL_ENGINEERING)
 			eject()
 		else
-			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(GAS_PLASMA))
-			loaded_tank.air_contents.adjust_moles(GAS_PLASMA, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, gasdrained)
+			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents))
+			REMOVE_MOLES(/datum/gas/plasma, loaded_tank.air_contents, gasdrained)
+			ADD_MOLES(/datum/gas/tritium, loaded_tank.air_contents, gasdrained)
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
 	else if(is_station_level(z) && SSresearch.science_tech)
-		if(!loaded_tank.air_contents.get_moles(GAS_TRITIUM) || !loaded_tank.air_contents.get_moles(GAS_O2))
+		if(!GET_MOLES(/datum/gas/tritium, loaded_tank.air_contents) || !GET_MOLES(/datum/gas/oxygen, loaded_tank.air_contents))
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
 			var/gasdrained = bitcoinproduction_drain*drainratio*delta_time
-			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(GAS_O2, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(GAS_CO2, gasdrained*2)
+			loaded_tank_air.gases[/datum/gas/tritium][MOLES] += -gasdrained
+			loaded_tank_air.gases[/datum/gas/oxygen][MOLES] += -gasdrained
+			loaded_tank_air.gases[/datum/gas/carbon_dioxide][MOLES] += gasdrained*2
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
 			if(D)
@@ -85,18 +86,20 @@
 		if(!src.locked)
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
-			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
-			var/fuel = loaded_tank?.air_contents.get_moles(GAS_PLASMA)
+			span_notice("You turn the [src.name] [active? "on":"off"]."))
+			var/fuel = 0
+			if(loaded_tank)
+				fuel = GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents)
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINES)
 			return
 		else
-			to_chat(user, "<span class='warning'>The controls are locked!</span>")
+			to_chat(user, span_warning("The controls are locked!"))
 			return
 
 /obj/machinery/power/rad_collector/can_be_unfasten_wrench(mob/user, silent)
 	if(loaded_tank)
 		if(!silent)
-			to_chat(user, "<span class='warning'>Remove the plasma tank first!</span>")
+			to_chat(user, span_warning("Remove the plasma tank first!"))
 		return FAILED_UNFASTEN
 	return ..()
 
@@ -112,13 +115,13 @@
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals/plasma))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first!</span>")
+			to_chat(user, span_warning("[src] needs to be secured to the floor first!"))
 			return TRUE
 		if(loaded_tank)
-			to_chat(user, "<span class='warning'>There's already a plasma tank loaded!</span>")
+			to_chat(user, span_warning("There's already a plasma tank loaded!"))
 			return TRUE
 		if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
+			to_chat(user, span_warning("Close the maintenance panel first!"))
 			return TRUE
 		if(!user.transferItemToLoc(W, src))
 			return
@@ -128,11 +131,11 @@
 		if(allowed(user))
 			if(active)
 				locked = !locked
-				to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the controls.</span>")
+				to_chat(user, span_notice("You [locked ? "lock" : "unlock"] the controls."))
 			else
-				to_chat(user, "<span class='warning'>The controls can only be locked when \the [src] is active!</span>")
+				to_chat(user, span_warning("The controls can only be locked when \the [src] is active!"))
 		else
-			to_chat(user, "<span class='danger'>Access denied.</span>")
+			to_chat(user, span_danger("Access denied."))
 			return TRUE
 	else
 		return ..()
@@ -145,7 +148,7 @@
 	if(..())
 		return TRUE
 	if(loaded_tank)
-		to_chat(user, "<span class='warning'>Remove the plasma tank first!</span>")
+		to_chat(user, span_warning("Remove the plasma tank first!"))
 	else
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	return TRUE
@@ -153,27 +156,27 @@
 /obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/I)
 	if(loaded_tank)
 		if(locked)
-			to_chat(user, "<span class='warning'>The controls are locked!</span>")
+			to_chat(user, span_warning("The controls are locked!"))
 			return TRUE
 		eject()
 		return TRUE
 	if(default_deconstruction_crowbar(I))
 		return TRUE
-	to_chat(user, "<span class='warning'>There isn't a tank loaded!</span>")
+	to_chat(user, span_warning("There isn't a tank loaded!"))
 	return TRUE
 
 /obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/I)
 	if(!is_station_level(z) && !SSresearch.science_tech)
-		to_chat(user, "<span class='warning'>[src] isn't linked to a research system!</span>")
+		to_chat(user, span_warning("[src] isn't linked to a research system!"))
 		return TRUE
 	if(locked)
-		to_chat(user, "<span class='warning'>[src] is locked!</span>")
+		to_chat(user, span_warning("[src] is locked!"))
 		return TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>[src] is currently active, producing [bitcoinmining ? "research points":"power"].</span>")
+		to_chat(user, span_warning("[src] is currently active, producing [bitcoinmining ? "research points":"power"]."))
 		return TRUE
 	bitcoinmining = !bitcoinmining
-	to_chat(user, "<span class='warning'>You [bitcoinmining ? "enable":"disable"] the research point production feature of [src].</span>")
+	to_chat(user, span_warning("You [bitcoinmining ? "enable":"disable"] the research point production feature of [src]."))
 	return TRUE
 
 /obj/machinery/power/rad_collector/return_analyzable_air()
@@ -190,16 +193,16 @@
 			// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 			// So joules = stored_energy * SSmachines.wait * 0.1
 			var/joules = stored_energy * SSmachines.wait * 0.1
-			. += "<span class='notice'>[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
+			. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
 		else
-			. += "<span class='notice'>[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.</span>"
+			. += span_notice("[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.")
 	else
 		if(!bitcoinmining)
-			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>. Use a multitool to change production modes.\"</span>"
+			. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>. Use a multitool to change production modes.\"")
 		else
-			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Research point production mode. Please insert <b>Tritium</b> and <b>Oxygen</b>. Use a multitool to change production modes.\"</span>"
+			. += span_notice("<b>[src]'s display displays the words:</b> \"Research point production mode. Please insert <b>Tritium</b> and <b>Oxygen</b>. Use a multitool to change production modes.\"")
 
-/obj/machinery/power/rad_collector/obj_break(damage_flag)
+/obj/machinery/power/rad_collector/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		eject()

@@ -1,259 +1,210 @@
-GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
+GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
+
+/* Dense invisible object starting the teleportation. Created by gateways on activation. */
+/obj/effect/gateway_portal_bumper
+	var/obj/machinery/gateway/parent_gateway
+	density = TRUE
+	invisibility = INVISIBILITY_ABSTRACT
+
+/obj/effect/gateway_portal_bumper/Bumped(atom/movable/AM)
+	if(get_dir(src, AM) == SOUTH)
+		parent_gateway.try_teleport(AM)
+
+/obj/effect/gateway_portal_bumper/Destroy()
+	parent_gateway = null
+	return ..()
 
 /obj/machinery/gateway
 	name = "gateway"
-	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
+	desc = "A gateway built for quick travel between linked destinations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/active = 0
-	var/checkparts = TRUE
-	var/list/obj/effect/landmark/randomspawns = list()
-	var/calibrated = TRUE
-	var/list/linked = list()
-	var/can_link = FALSE	//Is this the centerpiece?
+	move_resist = INFINITY
 
-/obj/machinery/gateway/Initialize(mapload)
-	randomspawns = GLOB.awaydestinations
-	update_icon()
-	if(!istype(src, /obj/machinery/gateway/centerstation) && !istype(src, /obj/machinery/gateway/centeraway))
-		switch(dir)
-			if(SOUTH,SOUTHEAST,SOUTHWEST)
-				density = FALSE
-	return ..()
+	// 3x2 offset by one row
+	pixel_x = -32
+	pixel_y = -32
+	bound_height = 64
+	bound_width = 96
+	bound_x = -32
+	bound_y = 0
+	density = TRUE
 
-/obj/machinery/gateway/proc/toggleoff()
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = 0
-		G.update_icon()
-	active = 0
-	update_icon()
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 100
+	active_power_usage = 1000
 
-/obj/machinery/gateway/proc/detect()
-	if(!can_link)
-		return FALSE
-	linked = list()	//clear the list
-	var/turf/T = loc
-	var/ready = FALSE
+	var/obj/effect/gateway_portal_bumper/bumper
 
-	for(var/i in GLOB.alldirs)
-		T = get_step(loc, i)
-		var/obj/machinery/gateway/G = locate(/obj/machinery/gateway) in T
-		if(G)
-			linked.Add(G)
-			continue
+	var/active = FALSE
 
-		//this is only done if we fail to find a part
-		ready = FALSE
-		toggleoff()
-		break
+	/// The gateway this machine is linked to
+	var/obj/machinery/gateway/linked_gateway
 
-	if((linked.len == 8) || !checkparts)
-		ready = TRUE
-	return ready
+	/// Cooldown for says and buzz-sigh
+	COOLDOWN_DECLARE(telegraph_cooldown)
 
-/obj/machinery/gateway/update_icon()
-	if(active)
-		icon_state = "on"
-		return
-	icon_state = "off"
-
-/obj/machinery/gateway/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
-	if(!detect())
-		return
-	if(!active)
-		toggleon(user)
-		return
-	toggleoff()
-
-/obj/machinery/gateway/proc/toggleon(mob/user)
-	return FALSE
-
-/obj/machinery/gateway/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
-	return
-
-/obj/machinery/gateway/centerstation/Initialize(mapload)
-	. = ..()
-	if(!GLOB.the_gateway)
-		GLOB.the_gateway = src
-	update_icon()
-	wait = world.time + CONFIG_GET(number/gateway_delay)	//+ thirty minutes default
-	awaygate = locate(/obj/machinery/gateway/centeraway)
-
-/obj/machinery/gateway/centerstation/Destroy()
+/obj/machinery/gateway/Destroy()
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null
-	if(awaygate)
-		awaygate.stationgate = null
-		awaygate = null
+	if(linked_gateway)
+		linked_gateway.linked_gateway = null
+		linked_gateway = null
+	if(!isnull(bumper))
+		QDEL_NULL(bumper)
 	return ..()
+
+/obj/machinery/gateway/examine(mob/user)
+	. = ..()
+
+	. += span_info("It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, but not linked") : "off"].")
+
+	if(active)
+		. += ""
+		. += span_info("Use a <b>multi-tool</b> to turn it off.")
+
+/obj/machinery/gateway/MouseDrop_T(atom/movable/AM, mob/user)
+	. = ..()
+	if(AM == user)
+		try_teleport(AM) // This is so that if you're drag-clicking yourself into the gateway it'll appear as if you're entering it
+	else
+		try_teleport(AM, user)
+
+/obj/machinery/gateway/proc/pre_check_teleport(atom/movable/AM, turf/dest_turf)
+	if(!active)
+		return FALSE
+	if(!linked_gateway || QDELETED(linked_gateway))
+		say_cooldown("Target destination not found.")
+		return FALSE
+	if(!linked_gateway.active)
+		say_cooldown("Destination gateway not active.")
+		return FALSE
+
+	return check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY)
+
+/obj/machinery/gateway/proc/say_cooldown(words, sound)
+	if(COOLDOWN_FINISHED(src, telegraph_cooldown))
+		COOLDOWN_START(src, telegraph_cooldown, 5 SECONDS)
+		say(words)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+
+/// Try to teleport
+/obj/machinery/gateway/proc/try_teleport(atom/movable/target_movable, atom/movable/assailant)
+	if(isnull(linked_gateway))
+		return
+
+	var/self = isnull(assailant) || !ismob(assailant)
+
+	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
+	if(!pre_check_teleport(target_movable, dest_turf))
+		return // Gateway off/broken
+
+	if(ismob(target_movable))
+		var/mob/target_mob = target_movable
+		if(src in target_mob.do_afters)
+			return // Don't enter if we're already trying to enter
+
+		if(!self)//Let the assailant know
+			to_chat(assailant, span_warning("You try to push [target_mob] into [src]..."))
+		target_mob.visible_message( \
+			self ? span_notice("[target_mob] tries to climb into [src]...") : span_warning("[assailant] tries to shove [target_mob] into [src]..."), \
+			self ? span_notice("You begin climbing into [src]...") : span_userdanger("You're being shoved into [src] by [assailant]!"))
+
+		// Try the actual teleport
+		if(!do_after(self ? target_movable : assailant, 5 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
+			return // failed do_after, we don't teleport
+		if(!active)
+			return // Its not on dummy!
+
+	actually_teleport(target_movable, dest_turf)
+
+/obj/machinery/gateway/proc/actually_teleport(atom/movable/AM, turf/dest_turf, rough_landing = FALSE)
+	if(!do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY, ignore_check_teleport = TRUE)) // We've already done the check_teleport() hopefully
+		return
+	AM.visible_message(span_notice("[AM] passes through [linked_gateway]!"), span_notice("You pass through [src]."))
+	AM.setDir(SOUTH)
+
+	if(rough_landing && isliving(AM))
+		var/mob/living/victim = AM
+		victim.Knockdown(3 SECONDS)
+		to_chat(victim, span_userdanger("You fall onto \the [get_turf(AM)]!"))
+
+/obj/machinery/gateway/update_icon_state()
+	icon_state = active ? "on" : "off"
+	return ..()
+
+// Try to turn it on
+/obj/machinery/gateway/attack_hand(mob/living/user)
+	if(!active && toggleon(user))
+		user.visible_message(span_notice("[user] switches [src] on."), span_notice("You switch [src] on."))
+		return TRUE
+	if(active)
+		to_chat(user, span_warning("You need a multitool to turn it off!"))
+		return TRUE
+	return ..()
+
+// Silicons can turn it on and off however they please
+/obj/machinery/gateway/attack_silicon(mob/user)
+	if(active ? toggleoff(telegraph = TRUE) : toggleon(user))
+		to_chat(user, span_notice("You turn send a [active ? "startup" : "shutdown"] signal to [src]."))
+		visible_message(span_notice("[src] turns on."), ignored_mobs = list(user))
+		return TRUE
+	return ..()
+
+// Otherwise, you need a multitool to turn it off
+/obj/machinery/gateway/multitool_act(mob/living/user, obj/item/I)
+	if(active && toggleoff(telegraph = TRUE))
+		user.visible_message(span_notice("[user] switches [src] off."), span_notice("You switch [src] off."))
+		return TRUE
+	else if(!active)
+		to_chat(user, span_warning("Its already off!"))
+		return TRUE
+	return ..()
+
+/obj/machinery/gateway/proc/toggleon(mob/user)
+	if(!powered())
+		to_chat(user, span_warning("It has no power!"))
+		return FALSE
+	if(!linked_gateway)
+		to_chat(user, span_warning("No destination found!"))
+		return FALSE
+
+	active = TRUE
+	use_power = ACTIVE_POWER_USE
+	update_icon()
+	bumper = new(get_turf(src))
+	bumper.parent_gateway = src
+	return TRUE
+
+/obj/machinery/gateway/proc/toggleoff(telegraph = FALSE)
+	if(!active)
+		return FALSE
+	active = FALSE
+	use_power = IDLE_POWER_USE
+	QDEL_NULL(bumper)
+	update_icon()
+	if(telegraph)
+		playsound(src, 'sound/machines/terminal_off.ogg', 50, 0)
+	return TRUE
 
 //this is da important part wot makes things go
-/obj/machinery/gateway/centerstation
-	density = TRUE
-	icon_state = "offcenter"
-	use_power = IDLE_POWER_USE
+/obj/machinery/gateway/station
 
-	//warping vars
-	var/wait = 0				//this just grabs world.time at world start
-	var/obj/machinery/gateway/centeraway/awaygate = null
-	can_link = TRUE
-
-/obj/machinery/gateway/centerstation/update_icon()
-	if(active)
-		icon_state = "oncenter"
-		return
-	icon_state = "offcenter"
-
-/obj/machinery/gateway/centerstation/process()
-	if((machine_stat & (NOPOWER)) && use_power)
-		if(active)
-			toggleoff()
-		return
-
-	if(active)
-		use_power(5000)
-
-/obj/machinery/gateway/centerstation/toggleon(mob/user)
-	if(!detect())
-		return
-	if(!powered())
-		return
-	if(!awaygate)
-		to_chat(user, "<span class='notice'>Error: No destination found.</span>")
-		return
-	if(world.time < wait)
-		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [DisplayTimeText(wait - world.time)].</span>")
-		return
-
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = 1
-		G.update_icon()
-	active = 1
+/obj/machinery/gateway/station/Initialize(mapload)
+	. = ..()
+	if(isnull(GLOB.the_gateway))
+		GLOB.the_gateway = src
 	update_icon()
+	linked_gateway = locate(/obj/machinery/gateway/away)
 
-//okay, here's the good teleporting stuff
-/obj/machinery/gateway/centerstation/Bumped(atom/movable/AM)
-	if(!active)
-		return
-	if(!detect())
-		return
-	if(!awaygate || QDELETED(awaygate))
-		return
+/obj/machinery/gateway/away
 
-	if(awaygate.calibrated)
-		AM.forceMove(get_step(awaygate.loc, SOUTH))
-		AM.setDir(SOUTH)
-		if (ismob(AM))
-			var/mob/M = AM
-			if (M.client)
-				M.client.move_delay = max(world.time + 5, M.client.move_delay)
-		return
-	else
-		var/obj/effect/landmark/dest = pick(randomspawns)
-		if(dest)
-			AM.forceMove(get_turf(dest))
-			AM.setDir(SOUTH)
-			use_power(5000)
-		return
-
-/obj/machinery/gateway/centeraway/multitool_act(mob/living/user, obj/item/I)
-	if(calibrated)
-		to_chat(user, "\black The gate is already calibrated, there is no work for you to do here.")
-	else
-		to_chat(user, "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target.")
-		calibrated = TRUE
-	return TRUE
-
-/////////////////////////////////////Away////////////////////////
-
-
-/obj/machinery/gateway/centeraway
-	density = TRUE
-	icon_state = "offcenter"
-	use_power = NO_POWER_USE
-	var/obj/machinery/gateway/centerstation/stationgate = null
-	can_link = TRUE
-
-
-/obj/machinery/gateway/centeraway/Initialize(mapload)
+/obj/machinery/gateway/away/Initialize(mapload)
 	. = ..()
 	update_icon()
-	stationgate = locate(/obj/machinery/gateway/centerstation)
-
-/obj/machinery/gateway/centeraway/Destroy()
-	if(stationgate)
-		stationgate.awaygate = null
-		stationgate = null
-	return ..()
-
-/obj/machinery/gateway/centeraway/update_icon()
-	if(active)
-		icon_state = "oncenter"
-		return
-	icon_state = "offcenter"
-
-/obj/machinery/gateway/centeraway/toggleon(mob/user)
-	if(!detect())
-		return
-	if(!stationgate)
-		to_chat(user, "<span class='notice'>Error: No destination found.</span>")
-		return
-
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = 1
-		G.update_icon()
-	active = 1
-	update_icon()
-
-/obj/machinery/gateway/centeraway/proc/check_exile_implant(mob/living/L)
-	for(var/obj/item/implant/exile/E in L.implants)//Checking that there is an exile implant
-		to_chat(L, "\black The station gate has detected your exile implant and is blocking your entry.")
-		return TRUE
-	return FALSE
-
-/obj/machinery/gateway/centeraway/Bumped(atom/movable/AM)
-	if(!detect())
-		return
-	if(!active)
-		return
-	if(!stationgate || QDELETED(stationgate))
-		return
-	if(isliving(AM))
-		if(check_exile_implant(AM))
-			return
-	else
-		for(var/mob/living/L in AM.contents)
-			if(check_exile_implant(L))
-				say("Rejecting [AM]: Exile implant detected in contained lifeform.")
-				return
-	if(AM.has_buckled_mobs())
-		for(var/mob/living/L in AM.buckled_mobs)
-			if(check_exile_implant(L))
-				say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
-				return
-	AM.forceMove(get_step(stationgate.loc, SOUTH))
-	AM.setDir(SOUTH)
-	if (ismob(AM))
-		var/mob/M = AM
-		if (M.client)
-			M.client.move_delay = max(world.time + 5, M.client.move_delay)
-
-
-/obj/machinery/gateway/centeraway/admin
-	desc = "A mysterious gateway built by unknown hands, this one seems more compact."
-
-/obj/machinery/gateway/centeraway/admin/Initialize(mapload)
-	. = ..()
-	if(stationgate && !stationgate.awaygate)
-		stationgate.awaygate = src
-
-/obj/machinery/gateway/centeraway/admin/detect()
-	return TRUE
+	linked_gateway = locate(/obj/machinery/gateway/station)
 
 
 /obj/item/paper/fluff/gateway

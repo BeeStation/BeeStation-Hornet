@@ -258,3 +258,5 @@
 
 /datum/bank_account/remote // Bank account not belonging to the local station
 	add_to_accounts = FALSE
+
+#undef ACCOUNT_CREATION_MAX_ATTEMPT

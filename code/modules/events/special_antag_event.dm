@@ -25,7 +25,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 	if (alert_observers)
-		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been triggered!</span>")
+		deadchat_broadcast(span_deadsay("<b>[name]</b> has just been triggered!"))
 	return E
 
 ////////////////////////////////
@@ -49,7 +49,7 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
+		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON))) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
 			continue
 		if(H.mind.assigned_role in protected_jobs)
 			continue

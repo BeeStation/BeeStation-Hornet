@@ -14,12 +14,12 @@
 	var/list/obj/machinery/vending/infectedMachines = list()
 	var/obj/machinery/vending/originMachine
 	var/list/rampant_speeches = list("Try our aggressive new marketing strategies!", \
-									 "You should buy products to feed your lifestyle obsession!", \
-									 "Consume!", \
-									 "Your money can buy happiness!", \
-									 "Engage direct marketing!", \
-									 "Advertising is legalized lying! But don't let that put you off our great deals!", \
-									 "You don't want to buy anything? Yeah, well, I didn't want to buy your mom either.")
+									"You should buy products to feed your lifestyle obsession!", \
+									"Consume!", \
+									"Your money can buy happiness!", \
+									"Engage direct marketing!", \
+									"Advertising is legalized lying! But don't let that put you off our great deals!", \
+									"You don't want to buy anything? Yeah, well, I didn't want to buy your mom either.")
 
 
 /datum/round_event/brand_intelligence/announce(fake)
@@ -63,7 +63,7 @@
 			if(QDELETED(upriser))
 				continue
 			var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null) // it will delete upriser on creation and override any machine checks
-			M.faction = list("profit")
+			M.faction = list(FACTION_HOSTILE)
 			M.speak = rampant_speeches.Copy()
 			M.speak_chance = 7
 

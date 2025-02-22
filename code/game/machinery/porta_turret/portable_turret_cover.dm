@@ -23,20 +23,15 @@
 //>necessary
 //I'm not fixing it because i'm fucking bored of this code already, but someone should just reroute these to the parent turret's procs.
 
-/obj/machinery/porta_turret_cover/attack_ai(mob/user)
+/obj/machinery/porta_turret_cover/attack_silicon(mob/user)
 	. = ..()
 	if(.)
 		return
 
 	return parent_turret.attack_ai(user)
 
-
-/obj/machinery/porta_turret_cover/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
-
-	return parent_turret.attack_hand(user)
+/obj/machinery/porta_turret_cover/attack_hand(mob/user, modifiers)
+	return ..() || parent_turret.attack_hand(user, modifiers)
 
 
 /obj/machinery/porta_turret_cover/attackby(obj/item/I, mob/user, params)
@@ -45,12 +40,12 @@
 			return
 		if(!parent_turret.anchored)
 			parent_turret.set_anchored(TRUE)
-			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
+			to_chat(user, span_notice("You secure the exterior bolts on the turret."))
 			parent_turret.invisibility = 0
 			parent_turret.update_appearance()
 		else
 			parent_turret.set_anchored(FALSE)
-			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
+			to_chat(user, span_notice("You unsecure the exterior bolts on the turret."))
 			parent_turret.invisibility = INVISIBILITY_MAXIMUM
 			parent_turret.update_appearance()
 			qdel(src)
@@ -59,10 +54,10 @@
 	if(I.GetID())
 		if(parent_turret.allowed(user))
 			parent_turret.locked = !parent_turret.locked
-			to_chat(user, "<span class='notice'>Controls are now [parent_turret.locked ? "locked" : "unlocked"].</span>")
+			to_chat(user, span_notice("Controls are now [parent_turret.locked ? "locked" : "unlocked"]."))
 			updateUsrDialog()
 		else
-			to_chat(user, "<span class='notice'>Access denied.</span>")
+			to_chat(user, span_notice("Access denied."))
 	else
 		return ..()
 
@@ -70,8 +65,8 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, parent_turret))
-		to_chat(user, "<span class='notice'>You add [parent_turret] to multitool buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
+		to_chat(user, span_notice("You add [parent_turret] to multitool buffer."))
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/porta_turret_cover/attacked_by(obj/item/I, mob/user)
@@ -95,7 +90,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 /obj/machinery/porta_turret_cover/on_emag(mob/user)
 	..()
 	parent_turret.obj_flags |= EMAGGED
-	to_chat(user, "<span class='notice'>You short out [parent_turret]'s threat assessment circuits.</span>")
+	to_chat(user, span_notice("You short out [parent_turret]'s threat assessment circuits."))
 	visible_message("[parent_turret] hums oddly...")
 	parent_turret.on = FALSE
 	addtimer(VARSET_CALLBACK(parent_turret, on, TRUE), 40)

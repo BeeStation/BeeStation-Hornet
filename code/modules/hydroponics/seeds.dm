@@ -9,6 +9,7 @@
 	worn_icon_state = "seed"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	tool_behaviour = TOOL_SEED
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/plantdesc
 	var/product						// A type path. The thing that is created when the plant is harvested.
@@ -30,6 +31,7 @@
 	var/rarity = 0					// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
 	var/list/mutatelist = list()	// The type of plants that this plant can mutate into.
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
+	var/datum/mind/mind				// For if the seed can hold a mind. Used for diona related stuffs.
 	var/list/reagents_add = list()
 	// A list of reagents to add to product.
 	// Format: "reagent_id" = potency multiplier
@@ -38,6 +40,8 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
 /obj/item/seeds/Initialize(mapload, nogenes = 0)
 	. = ..()
@@ -361,7 +365,7 @@
 	if(get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 		text += "- Plant type: Mushroom. Can grow in dry soil.\n"
 	if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
-		text += "- Plant type: <span class='warning'>UNKNOWN</span> \n"
+		text += "- Plant type: [span_warning("UNKNOWN")] \n"
 	if(potency != -1)
 		text += "- Potency: [potency]\n"
 	if(yield != -1)
@@ -391,10 +395,10 @@
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
+		to_chat(user, span_info("*---------*\n This is \a [span_name("[src]")]."))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, EXAMINE_BLOCK("<span class='notice'>[text]</span>"))
+			to_chat(user, EXAMINE_BLOCK(span_notice("[text]")))
 
 		return
 

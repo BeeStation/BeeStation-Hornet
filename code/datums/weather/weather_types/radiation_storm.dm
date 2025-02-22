@@ -6,7 +6,7 @@
 	telegraph_duration = 400
 	telegraph_message = null
 
-	weather_message = "<span class='userdanger'><i>You feel waves of heat wash over you! Find shelter!</i></span>"
+	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_duration_upper = 1500
@@ -14,7 +14,7 @@
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 100
-	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
+	end_message = span_notice("The air seems to be cooling off again.")
 
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/ai_monitored/turret_protected/ai_upload, /area/ai_monitored/turret_protected/ai_upload_foyer,
@@ -34,7 +34,7 @@
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			if(H.dna && !HAS_TRAIT(H, TRAIT_RADIMMUNE))
+			if(H.dna && !HAS_TRAIT(H, TRAIT_RADIMMUNE) && !isdiona(L))
 				if(prob(max(0,100-resist)))
 					H.randmuti()
 					if(prob(50))

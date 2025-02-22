@@ -53,22 +53,22 @@
 
 	if(isliving(crossing_movable))
 		var/mob/living/crossing_mob = crossing_movable
-		if(crossing_mob.mob_size > MOB_SIZE_SMALL && !(crossing_mob.movement_type & FLYING))
+		if(crossing_mob.mob_size > MOB_SIZE_SMALL && !(crossing_mob.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			if(HAS_TRAIT(crossing_mob, TRAIT_PACIFISM))
-				crossing_mob.visible_message("<span class='notice'>[crossing_mob] carefully steps over [parent_as_living].</span>", "<span class='notice'>You carefully step over [parent_as_living] to avoid hurting it.</span>")
+				crossing_mob.visible_message(span_notice("[crossing_mob] carefully steps over [parent_as_living]."), span_notice("You carefully step over [parent_as_living] to avoid hurting it."))
 				return
 			if(should_squash)
-				crossing_mob.visible_message("<span class='notice'>[crossing_mob] squashed [parent_as_living].</span>", "<span class='notice'>You squashed [parent_as_living].</span>")
+				crossing_mob.visible_message(span_notice("[crossing_mob] squashed [parent_as_living]."), span_notice("You squashed [parent_as_living]."))
 				Squish(parent_as_living)
 			else
-				parent_as_living.visible_message("<span class='notice'>[parent_as_living] avoids getting crushed.</span>")
+				parent_as_living.visible_message(span_notice("[parent_as_living] avoids getting crushed."))
 
 	if(isstructure(crossing_movable) && !crossing_movable.anchored)
 		if(should_squash)
-			crossing_movable.visible_message("<span class='notice'>[parent_as_living] is crushed under [crossing_movable].</span>")
+			crossing_movable.visible_message(span_notice("[parent_as_living] is crushed under [crossing_movable]."))
 			Squish(parent_as_living)
 		else
-			parent_as_living.visible_message("<span class='notice'>[parent_as_living] avoids getting crushed.</span>")
+			parent_as_living.visible_message(span_notice("[parent_as_living] avoids getting crushed."))
 
 /datum/component/squashable/proc/Squish(mob/living/target)
 	if(squash_flags & SQUASHED_SHOULD_BE_GIBBED)

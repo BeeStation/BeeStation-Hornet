@@ -59,8 +59,8 @@
 	//Logic
 	//a list of logic types a nanite program's rules follow
 	var/static/list/logic = list(
-    	"AND" = NL_AND,
-    	"OR" = NL_OR,
+		"AND" = NL_AND,
+		"OR" = NL_OR,
 		"NOR" = NL_NOR,
 		"NAND" = NL_NAND,
 	)
@@ -124,7 +124,7 @@
 	var/datum/nanite_extra_setting/ES = extra_settings[setting]
 	if(istype(ES, /datum/nanite_extra_setting/text))
 		if(CHAT_FILTER_CHECK(value))
-			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			to_chat(usr, span_warning("Your message contains forbidden words."))
 			var/logmsg = "attempted to set a forbidden nanite cloud [src] field \"[setting]\" with contents: \"[value]\". The message was filtered and blocked."
 			log_admin_private("[key_name(usr)] [logmsg]")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] [logmsg]")

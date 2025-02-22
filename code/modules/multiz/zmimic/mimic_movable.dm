@@ -1,10 +1,14 @@
-/atom/movable
-	/// The mimic (if any) that's *directly* copying us.
-	var/tmp/atom/movable/openspace/mimic/bound_overlay
-	/// General MultiZ flags, not entirely related to zmimic but better than using obj_flags
-	var/z_flags = NONE
-	/// Movable-level Z-Mimic flags. This uses ZMM_* flags, not ZM_* flags.
-	var/zmm_flags = NONE
+/// The multiplication factor for openturf shadower darkness. Lighting will be multiplied by this.
+#define SHADOWER_DARKENING_FACTOR 0.8
+/// The above, but as an RGB string for lighting-less turfs.
+#define SHADOWER_DARKENING_COLOR "#CCCCCC"
+
+/// The mimic (if any) that's *directly* copying us.
+/atom/movable/var/tmp/atom/movable/openspace/mimic/bound_overlay
+/// General MultiZ flags, not entirely related to zmimic but better than using obj_flags
+/atom/movable/var/z_flags = NONE
+/// Movable-level Z-Mimic flags. This uses ZMM_* flags, not ZM_* flags.
+/atom/movable/var/zmm_flags = NONE
 
 /atom/movable/setDir(ndir)
 	. = ..()
@@ -19,7 +23,7 @@
 		SSzcopy.queued_overlays += bound_overlay
 		bound_overlay.queued += 1
 	else if (bound_overlay && !bound_overlay.destruction_timer)
-		bound_overlay.destruction_timer = QDEL_IN(bound_overlay, 10 SECONDS)
+		bound_overlay.destruction_timer = QDEL_IN_STOPPABLE(bound_overlay, 10 SECONDS)
 
 // Grabs a list of every openspace mimic that's directly or indirectly copying this object. Returns an empty list if none found.
 /atom/movable/proc/get_associated_mimics()
@@ -177,11 +181,11 @@
 	return ..()
 
 /atom/movable/openspace/mimic/attackby(obj/item/W, mob/user)
-	to_chat(user, "<span class='notice'>\The [src] is too far away.</span>")
+	to_chat(user, span_notice("\The [src] is too far away."))
 	return TRUE
 
-/atom/movable/openspace/mimic/attack_hand(mob/user)
-	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")
+/atom/movable/openspace/mimic/attack_hand(mob/user, list/modifiers)
+	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
 /atom/movable/openspace/mimic/examine(...)
@@ -195,12 +199,12 @@
 			deltimer(destruction_timer)
 			destruction_timer = null
 	else if (!destruction_timer)
-		destruction_timer = QDEL_IN(src, 10 SECONDS)
+		destruction_timer = QDEL_IN_STOPPABLE(src, 10 SECONDS)
 
 // Called when the turf we're on is deleted/changed.
 /atom/movable/openspace/mimic/proc/owning_turf_changed()
 	if (!destruction_timer)
-		destruction_timer = QDEL_IN(src, 10 SECONDS)
+		destruction_timer = QDEL_IN_STOPPABLE(src, 10 SECONDS)
 
 // Get actual source atom when orbiting
 /atom/movable/openspace/mimic/get_orbitable()
@@ -240,9 +244,12 @@
 	loc.attackby(W, user)
 
 /atom/movable/openspace/turf_mimic/attack_hand(mob/user as mob)
-	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")
+	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
 /atom/movable/openspace/turf_mimic/examine(mob/examiner)
 	SHOULD_CALL_PARENT(FALSE)
 	. = delegate.examine(examiner)
+
+#undef SHADOWER_DARKENING_FACTOR
+#undef SHADOWER_DARKENING_COLOR

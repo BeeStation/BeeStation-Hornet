@@ -31,8 +31,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	dextrous = TRUE
 	held_items = list(null, null)
-	possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
-	faction = list("jungle")
+	faction = list(FACTION_JUNGLE)
 	robust_searching = TRUE
 	stat_attack = HARD_CRIT
 	minbodytemp = 270
@@ -76,7 +75,7 @@
 			L.throw_at(throw_target, rand(1,2), 7, src)
 		else
 			L.Unconscious(20)
-			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
+			visible_message(span_danger("[src] knocks [L] out!"))
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)
@@ -102,7 +101,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/gorilla/can_use_guns(obj/item/G)
-	to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+	to_chat(src, span_warning("Your meaty finger is much too large for the trigger guard!"))
 	return FALSE
 
 
@@ -129,3 +128,63 @@
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+
+/mob/living/simple_animal/hostile/gorilla/proc/apply_overlay(cache_index)
+	. = gorilla_overlays[cache_index]
+	if(.)
+		add_overlay(.)
+
+/mob/living/simple_animal/hostile/gorilla/proc/remove_overlay(cache_index)
+	var/I = gorilla_overlays[cache_index]
+	if(I)
+		cut_overlay(I)
+		gorilla_overlays[cache_index] = null
+		return TRUE
+	return FALSE
+
+/mob/living/simple_animal/hostile/gorilla/update_inv_hands()
+	cut_overlays("standing_overlay")
+	remove_overlay(GORILLA_HANDS_LAYER)
+
+	var/standing = FALSE
+	for(var/I in held_items)
+		if(I)
+			standing = TRUE
+			break
+	if(!standing)
+		if(stat != DEAD)
+			icon_state = "crawling"
+			speed = 1
+		return ..()
+	if(stat != DEAD)
+		icon_state = "standing"
+		speed = 3 // Gorillas are slow when standing up.
+
+	var/list/hands_overlays = list()
+
+	var/obj/item/l_hand = get_item_for_held_index(1)
+	var/obj/item/r_hand = get_item_for_held_index(2)
+
+	if(r_hand)
+		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(src, default_layer = GORILLA_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
+		r_hand_overlay.pixel_y -= 1
+		hands_overlays += r_hand_overlay
+
+	if(l_hand)
+		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(src, default_layer = GORILLA_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
+		l_hand_overlay.pixel_y -= 1
+		hands_overlays += l_hand_overlay
+
+	if(hands_overlays.len)
+		gorilla_overlays[GORILLA_HANDS_LAYER] = hands_overlays
+	apply_overlay(GORILLA_HANDS_LAYER)
+	add_overlay("standing_overlay")
+	return ..()
+
+/mob/living/simple_animal/hostile/gorilla/regenerate_icons()
+	update_inv_hands()
+
+
+
+#undef GORILLA_HANDS_LAYER
+#undef GORILLA_TOTAL_LAYERS

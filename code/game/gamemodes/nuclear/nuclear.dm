@@ -12,9 +12,9 @@
 	antag_datum = /datum/antagonist/nukeop
 
 	announce_span = "danger"
-	announce_text = "Syndicate forces are approaching the station in an attempt to destroy it!\n\
-	<span class='danger'>Operatives</span>: Secure the nuclear authentication disk and use your nuke to destroy the station.\n\
-	<span class='notice'>Crew</span>: Defend the nuclear authentication disk and ensure that it leaves with you on the emergency shuttle."
+	announce_text = "Syndicate forces are approaching the station in an attempt to destroy it!\n \
+	" + span_danger("Operatives") + ": Secure the nuclear authentication disk and use your nuke to destroy the station.\n \
+	" + span_notice("Crew") + ": Defend the nuclear authentication disk and ensure that it leaves with you on the emergency shuttle."
 
 	title_icon = "nukeops"
 
@@ -125,7 +125,7 @@
 	l_pocket = /obj/item/modular_computer/tablet/nukeops
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol
-	backpack_contents = list(/obj/item/storage/box/syndie=1,\
+	backpack_contents = list(/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/knife/combat/survival)
 
 	var/tc = 25
@@ -173,7 +173,7 @@
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
 	r_hand = /obj/item/gun/ballistic/shotgun/automatic/bulldog
-	backpack_contents = list(/obj/item/storage/box/syndie=1,\
+	backpack_contents = list(/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
 		/obj/item/knife/combat/survival)
@@ -196,3 +196,5 @@
 
 	round_credits += ..()
 	return round_credits
+
+#undef FLUKEOPS_TIME_DELAY

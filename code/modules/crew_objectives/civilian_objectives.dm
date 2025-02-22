@@ -233,7 +233,7 @@
 	jobs = JOB_NAME_MIME
 
 /datum/objective/crew/nothingreallymatterstome/check_completion()
-	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing)
+	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing)
 
 /datum/objective/crew/nullrod
 	explanation_text = "Don't lose your nullrod. You can still transform it into another item."
@@ -332,7 +332,7 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || !(M.assigned_role in GLOB.security_positions))
+		if(!istype(M.current) || !(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 			continue
 		if(istype(get_area(M.current), /area/security/prison))
 			return FALSE

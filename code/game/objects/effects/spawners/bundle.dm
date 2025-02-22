@@ -1,6 +1,6 @@
 /obj/effect/spawner/bundle
 	name = "bundle spawner"
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	color = "#00FF00"
 
@@ -84,7 +84,7 @@
 	name = "plague doctor costume spawner"
 	items = list(
 		/obj/item/clothing/suit/bio_suit/plaguedoctorsuit,
-		/obj/item/clothing/head/bio_hood/plague,
+		/obj/item/clothing/head/costume/plague,
 		/obj/item/clothing/mask/gas/plaguedoctor)
 
 /obj/effect/spawner/bundle/costume/nightowl

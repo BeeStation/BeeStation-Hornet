@@ -9,7 +9,7 @@ type Info = {
   objectives: Objective[];
 };
 
-const StructureAltar = (_props, _context) => {
+const StructureAltar = (_props) => {
   return (
     <Box>
       <Box
@@ -17,7 +17,7 @@ const StructureAltar = (_props, _context) => {
         as="img"
         src={resolveAsset('cult-altar.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -47,7 +47,7 @@ const StructureAltar = (_props, _context) => {
   );
 };
 
-const StructureArchives = (_props, _context) => {
+const StructureArchives = (_props) => {
   return (
     <Box>
       <Box
@@ -55,7 +55,7 @@ const StructureArchives = (_props, _context) => {
         as="img"
         src={resolveAsset('cult-archives.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -86,7 +86,7 @@ const StructureArchives = (_props, _context) => {
   );
 };
 
-const StructureForge = (_props, _context) => {
+const StructureForge = (_props) => {
   return (
     <Box>
       <Box
@@ -94,7 +94,7 @@ const StructureForge = (_props, _context) => {
         as="img"
         src={resolveAsset('cult-forge.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -125,7 +125,7 @@ const StructureForge = (_props, _context) => {
   );
 };
 
-const StructurePylon = (_props, _context) => {
+const StructurePylon = (_props) => {
   return (
     <Box>
       <Box
@@ -133,7 +133,7 @@ const StructurePylon = (_props, _context) => {
         as="img"
         src={resolveAsset('cult-pylon.gif')}
         width="48px"
-        style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+        style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
       />
       The{' '}
       <Box inline textColor="red">
@@ -151,8 +151,8 @@ const StructurePylon = (_props, _context) => {
   );
 };
 
-const StructureSection = (_props, context) => {
-  const [tab, setTab] = useLocalState(context, 'structureTab', 1);
+const StructureSection = (_props) => {
+  const [tab, setTab] = useLocalState('structureTab', 1);
   return (
     <Section title="Structures">
       <Tabs>
@@ -179,8 +179,8 @@ const StructureSection = (_props, context) => {
   );
 };
 
-const BloodMagicSection = (_props, context) => {
-  const [tab, setTab] = useLocalState(context, 'magicTab', 1);
+const BloodMagicSection = (_props) => {
+  const [tab, setTab] = useLocalState('magicTab', 1);
   return (
     <Stack>
       <Stack.Item>
@@ -229,7 +229,7 @@ const BloodMagicSection = (_props, context) => {
               as="img"
               src={resolveAsset('cult-carve.png')}
               width="32px"
-              style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
             />
             <Box inline textColor="red">
               Prepare Blood Magic
@@ -414,8 +414,8 @@ const BloodMagicSection = (_props, context) => {
   );
 };
 
-const RunesSection = (_props, context) => {
-  const [tab, setTab] = useLocalState(context, 'runeTab', 1);
+const RunesSection = (_props) => {
+  const [tab, setTab] = useLocalState('runeTab', 1);
   return (
     <Stack>
       <Stack.Item>
@@ -681,8 +681,8 @@ const RunesSection = (_props, context) => {
   );
 };
 
-const PowersSection = (_props, context) => {
-  const [tab, setTab] = useLocalState(context, 'powersTab', 1);
+const PowersSection = (_props) => {
+  const [tab, setTab] = useLocalState('powersTab', 1);
   return (
     <Section title="Powers">
       <Stack vertical>
@@ -694,7 +694,7 @@ const PowersSection = (_props, context) => {
                 as="img"
                 src={resolveAsset('dagger.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
               />
               Your{' '}
               <Box inline textColor="red">
@@ -715,7 +715,7 @@ const PowersSection = (_props, context) => {
                 as="img"
                 src={resolveAsset('cult-comms.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+                style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
               />
               Use{' '}
               <Box inline textColor="red">
@@ -745,8 +745,8 @@ const PowersSection = (_props, context) => {
   );
 };
 
-export const AntagInfoBloodCult = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoBloodCult = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={750} height={900} theme="narsie">

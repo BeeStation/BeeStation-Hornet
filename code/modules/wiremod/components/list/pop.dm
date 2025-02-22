@@ -23,7 +23,7 @@
 		COMP_POP_POP,
 		COMP_POP_DEQUEUE
 	)
-	options_port = add_option_port("Mode", options, COMP_POP_POP)
+	options_port = add_option_port("Mode", options, 0, COMP_POP_POP)
 
 
 /obj/item/circuit_component/pop/populate_ports()

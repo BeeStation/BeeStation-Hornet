@@ -85,12 +85,13 @@
 /datum/hud/proc/update_parallax_pref(mob/viewmob)
 	remove_parallax(viewmob)
 	create_parallax(viewmob)
-	update_parallax()
+	update_parallax(viewmob)
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
-/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
+/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups, mob/viewmob)
 	. = FALSE
-	var/client/C = mymob.client
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
@@ -182,8 +183,9 @@
 			L.screen_loc = "CENTER-7:0,CENTER-7:0"
 			C.frozen_parallax = TRUE
 
-/datum/hud/proc/update_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/update_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	if(!C)
 		return
 	var/turf/posobj = get_turf(C.eye)
@@ -192,7 +194,7 @@
 	var/area/areaobj = posobj.loc
 
 	// Update the movement direction of the parallax if necessary (for shuttles)
-	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
+	set_parallax_movedir(areaobj.parallax_movedir, FALSE, screenmob)
 
 	var/force
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
@@ -210,7 +212,7 @@
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
-		L.update_status(mymob)
+		L.update_status(screenmob)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)
 
@@ -264,6 +266,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
+
 /atom/movable/screen/parallax_layer/Initialize(mapload, view)
 	. = ..()
 	if (!view)
@@ -314,6 +318,8 @@
 
 /atom/movable/screen/parallax_layer/random/space_gas
 	icon_state = "random_layer1"
+
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_gas)
 
 /atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
 	. = ..()

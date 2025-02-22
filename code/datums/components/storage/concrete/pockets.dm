@@ -8,9 +8,9 @@
 	. = ..()
 	if(. && silent && !prevent_warning)
 		if(quickdraw)
-			to_chat(user, "<span class='notice'>You discreetly slip [I] into [parent]. Alt-click [parent] to remove it.</span>")
+			to_chat(user, span_notice("You discreetly slip [I] into [parent]. Alt-click [parent] to remove it."))
 		else
-			to_chat(user, "<span class='notice'>You discreetly slip [I] into [parent].</span>")
+			to_chat(user, span_notice("You discreetly slip [I] into [parent]."))
 
 /datum/component/storage/concrete/pockets
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -49,12 +49,7 @@
 	quickdraw = TRUE
 	silent = TRUE
 
-/datum/component/storage/concrete/pockets/shoes/Initialize()
-	. = ..()
-
-/datum/component/storage/concrete/pockets/shoes/clown/Initialize()
-	. = ..()
-
+/datum/component/storage/concrete/pockets/shoes/clown
 
 /datum/component/storage/concrete/pockets/pocketprotector
 	max_items = 3
@@ -64,12 +59,15 @@
 /datum/component/storage/concrete/pockets/pocketprotector/Initialize()
 	original_parent = parent
 	. = ..()
-	can_hold = typecacheof(list( //Same items as a PDA
-		/obj/item/pen,
-		/obj/item/toy/crayon,
-		/obj/item/lipstick,
-		/obj/item/flashlight/pen,
-		/obj/item/clothing/mask/cigarette))
+	set_holdable(
+		list( //Same items as a PDA
+			/obj/item/pen,
+			/obj/item/toy/crayon,
+			/obj/item/lipstick,
+			/obj/item/flashlight/pen,
+			/obj/item/clothing/mask/cigarette
+		)
+	)
 
 /datum/component/storage/concrete/pockets/pocketprotector/real_location()
 	// if the component is reparented to a jumpsuit, the items still go in the protector
@@ -83,11 +81,14 @@
 /datum/component/storage/concrete/pockets/holster/Initialize()
 	original_parent = parent
 	. = ..()
-	can_hold = typecacheof(list(
-		/obj/item/gun/ballistic/automatic/pistol,
-		/obj/item/gun/ballistic/revolver,
-		/obj/item/ammo_box,
-		/obj/item/ammo_casing))
+	set_holdable(
+		list(
+			/obj/item/gun/ballistic/automatic/pistol,
+			/obj/item/gun/ballistic/revolver,
+			/obj/item/ammo_box,
+			/obj/item/ammo_casing
+		)
+	)
 
 /datum/component/storage/concrete/pockets/holster/real_location()
 	// if the component is reparented to a jumpsuit, the items still go in the protector
@@ -96,7 +97,7 @@
 /datum/component/storage/concrete/pockets/holster/detective/Initialize()
 	original_parent = parent
 	. = ..()
-	can_hold = typecacheof(list(
+	set_holdable(list(
 		/obj/item/gun/ballistic/revolver/detective,
 		/obj/item/ammo_box/c38,
 		/obj/item/ammo_casing/c38))
@@ -107,10 +108,14 @@
 
 /datum/component/storage/concrete/pockets/helmet/Initialize()
 	. = ..()
-	can_hold = typecacheof(list(/obj/item/reagent_containers/food/drinks/bottle/vodka,
-					  /obj/item/reagent_containers/food/drinks/bottle/molotov,
-					  /obj/item/reagent_containers/food/drinks/drinkingglass,
-					  /obj/item/ammo_box/a762))
+	set_holdable(
+		list(
+			/obj/item/reagent_containers/cup/glass/bottle/vodka,
+			/obj/item/reagent_containers/cup/glass/bottle/molotov,
+			/obj/item/reagent_containers/cup/glass/drinkingglass,
+			/obj/item/ammo_box/a762
+			)
+		)
 
 /datum/component/storage/concrete/pockets/void_cloak
 	quickdraw = TRUE

@@ -7,11 +7,6 @@
 #define LINE1_Y -8
 #define LINE2_Y -15
 
-#define SD_BLANK 0  // 0 = Blank
-#define SD_EMERGENCY 1  // 1 = Emergency Shuttle timer
-#define SD_MESSAGE 2  // 2 = Arbitrary message(s)
-#define SD_PICTURE 3  // 3 = alert picture
-
 /// Status display which can show images and scrolling text.
 /obj/machinery/status_display
 	name = "status display"
@@ -39,6 +34,8 @@
 	var/header_text_color = "#2CF"
 
 //makes it go on the wall when built
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/status_display)
+
 /obj/machinery/status_display/Initialize(mapload, ndir, building)
 	. = ..()
 	update_appearance()
@@ -215,6 +212,8 @@
 		// p q r s t u v w x y z { | } ~
 		5, 5, 5, 5, 4, 5, 4, 6, 4, 4, 4, 3, 2, 3, 4,
 	)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/overlay/status_display_text)
 
 /obj/effect/overlay/status_display_text/Initialize(mapload, yoffset, line, text_color, header_text_color)
 	. = ..()
@@ -450,8 +449,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 	. = ..()
 
 /obj/machinery/status_display/ai/attack_ai(mob/living/silicon/ai/user)
-	if(!isAI(user))
-		return
 	var/list/choices = list()
 	for(var/emotion_const in emotion_map)
 		var/icon_state = emotion_map[emotion_const]
@@ -501,9 +498,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 
 	var/static/list/picture_options = list(
 		"Default" = "default",
+		"Delta Alert" = "deltaalert",
 		"Red Alert" = "redalert",
+		"Blue Alert" = "bluealert",
+		"Green Alert" = "greenalert",
 		"Biohazard" = "biohazard",
 		"Lockdown" = "lockdown",
+		"Radiation" = "radiation",
 		"Happy" = "ai_happy",
 		"Neutral" = "ai_neutral",
 		"Very Happy" = "ai_veryhappy",

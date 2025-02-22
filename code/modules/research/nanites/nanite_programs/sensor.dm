@@ -259,7 +259,7 @@
 		if(findtext(hearing_args[HEARING_RAW_MESSAGE], sentence.get_value()))
 			send_code()
 	else
-		if(lowertext(hearing_args[HEARING_RAW_MESSAGE]) == lowertext(sentence.get_value()))
+		if(LOWER_TEXT(hearing_args[HEARING_RAW_MESSAGE]) == LOWER_TEXT(sentence.get_value()))
 			send_code()
 
 /datum/nanite_program/sensor/species
@@ -273,10 +273,10 @@
 	var/list/static/allowed_species = list()
 
 /datum/nanite_program/sensor/species/New()
-    if(!length(allowed_species))
-        for(var/id in get_selectable_species())
-            allowed_species[id] = GLOB.species_list[id]
-    . = ..()
+	if(!length(allowed_species))
+		for(var/id in get_selectable_species())
+			allowed_species[id] = GLOB.species_list[id]
+	. = ..()
 
 
 /datum/nanite_program/sensor/species/register_extra_settings()

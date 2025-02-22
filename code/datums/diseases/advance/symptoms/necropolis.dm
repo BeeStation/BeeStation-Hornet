@@ -16,8 +16,8 @@
 	prefixes = list("Lava ", "Lavaland ", "Eldritch ")
 	bodies = list("Goliath", "Tentacle", "Carapace")
 	threshold_desc = "<b>Stealth 8:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
-					  <b>Transmission 6:</b> The area near the host roils with paralyzing tendrils.<br>\
-					  <b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava"
+						<b>Transmission 6:</b> The area near the host roils with paralyzing tendrils.<br>\
+						<b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava"
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
@@ -30,8 +30,8 @@
 		severity -= 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Stealth 8:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
-					  <b>Transmission 6:</b> The area near the host roils with paralyzing tendrils.<br>\
-					  <b>Resistance 12:</b>	Host becomes immune to heat, ash, and lava"
+						<b>Transmission 6:</b> The area near the host roils with paralyzing tendrils.<br>\
+						<b>Resistance 12:</b>	Host becomes immune to heat, ash, and lava"
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
@@ -51,10 +51,10 @@
 	switch(A.stage)
 		if(2)
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, "<span class='notice'>Your skin feels scaly.</span>")
+				to_chat(M, span_notice("Your skin feels scaly."))
 		if(3, 4)
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
+				to_chat(M, span_notice("[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]"))
 		if(5)
 			if(tendrils)
 				tendril(A)
@@ -72,9 +72,9 @@
 			if(HAS_TRAIT(M, TRAIT_NECROPOLIS_INFECTED))
 				REMOVE_TRAIT(M, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
 				if(M.stat != DEAD)
-					to_chat(M, "<span class='notice'>The tendrils loosen their grip, protecting the necropolis within you.</span>")
+					to_chat(M, span_notice("The tendrils loosen their grip, protecting the necropolis within you."))
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
+				to_chat(M, span_notice("[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]"))
 	return
 
 /datum/symptom/necroseed/proc/tendril(datum/disease/advance/A)
@@ -98,7 +98,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you quicker but vulnerable.</span>")
+	to_chat(M, span_danger("You feel weak and powerless as the necropolis' blessing leaves your body, leaving you quicker but vulnerable."))
 	M.dna.species.punchdamage = initial(M.dna.species.punchdamage)
 	M.dna.species.brutemod = initial(M.dna.species.heatmod)
 	M.dna.species.burnmod = initial(M.dna.species.heatmod)
@@ -116,8 +116,8 @@
 		return
 	var/mob/living/M = A.affected_mob
 	if(chest && A.stage >= 5 && M.sethellbound())
-		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
-		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
+		to_chat(M, span_danger("Your soul is ripped from your body!"))
+		M.visible_message(span_danger("An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest."))
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gib)), 0.5 SECONDS)	//we can't gib mob while it's already dying
 		if(!ishuman(M) || HAS_TRAIT(M, TRAIT_NONECRODISEASE)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
@@ -133,7 +133,7 @@
 		if(L == spawner)
 			retract()
 			return
-		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		visible_message(span_danger("[src] grabs hold of [L]!"))
 		L.Stun(40)
 		L.adjustBruteLoss(rand(1,10))
 		latched = TRUE

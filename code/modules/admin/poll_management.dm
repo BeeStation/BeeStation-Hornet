@@ -100,7 +100,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='danger'>Not connected to database. Cannot retrieve data.</span>")
+		to_chat(usr, span_danger("Not connected to database. Cannot retrieve data."))
 		return
 	var/output = "<div align='center'><B>Player Poll Results</B><hr>[poll.question]<hr>"
 	//Each poll type is different
@@ -168,7 +168,7 @@ SELECT p.text, pv.rating, COUNT(*)
 				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td><td>[query_get_poll_results.item[3]]</td></tr>"
 			qdel(query_get_poll_results)
 		if (POLLTYPE_IRV)
-			to_chat(usr, "<span class='warning'>View results for instant runoff voting is not currently supported.</span>")
+			to_chat(usr, span_warning("View results for instant runoff voting is not currently supported."))
 			return
 	output += "</table>"
 	if(!QDELETED(usr))
@@ -344,7 +344,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/list/error_state = list()
 	var/new_poll = FALSE
@@ -416,9 +416,9 @@ SELECT p.text, pv.rating, COUNT(*)
 		error_state += "This poll type requires at least one option."
 	if(error_state.len)
 		if(poll.edit_ready)
-			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]"))
 		else
-			to_chat(usr, "<span class='danger'>Poll not [new_poll ? "initialized" : "submitted"] because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Poll not [new_poll ? "initialized" : "submitted"] because the following errors were present:\n[error_state.Join("\n")]"))
 			if(new_poll)
 				qdel(poll)
 		return
@@ -465,7 +465,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/datum/db_query/query_delete_poll = SSdbcore.NewQuery(
 		"CALL set_poll_deleted(:poll_id)",
@@ -495,7 +495,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/new_poll = !poll_id
 	if(poll_type != POLLTYPE_MULTI)
@@ -557,7 +557,7 @@ SELECT p.text, pv.rating, COUNT(*)
   */
 /datum/poll_question/proc/save_all_options()
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	for(var/o in options)
 		var/datum/poll_option/option = o
@@ -571,7 +571,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/table = "poll_vote"
 	if(poll_type == POLLTYPE_TEXT)
@@ -585,7 +585,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		return
 	qdel(query_clear_poll_votes)
 	poll_votes = 0
-	to_chat(usr, "<span class='danger'>Poll [poll_type == POLLTYPE_TEXT ? "responses" : "votes"] cleared.</span>")
+	to_chat(usr, span_danger("Poll [poll_type == POLLTYPE_TEXT ? "responses" : "votes"] cleared."))
 
 /**
   * Show the options for creating a poll option or editing its parameters.
@@ -604,7 +604,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		Maximum Value
 		<input type='text' name='maxval' size='3' value='[option?.max_val]'>
 		<div class='row'>
-  			<div class='column left'>
+				<div class='column left'>
 				<label class='inputlabel checkbox'>Minimum description
 				<input type='checkbox' id='descmincheck' name='descmincheck' value='1'[option?.desc_min ? " checked": ""]>
 				<div class='inputbox'></div></label>
@@ -654,7 +654,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/list/error_state = list()
 	var/new_option = FALSE
@@ -712,10 +712,10 @@ SELECT p.text, pv.rating, COUNT(*)
 			option.desc_max = null
 	if(error_state.len)
 		if(new_option)
-			to_chat(usr, "<span class='danger'>Option not added because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Option not added because the following errors were present:\n[error_state.Join("\n")]"))
 			qdel(option)
 		else
-			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>")
+			to_chat(usr, span_danger("Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]"))
 		return
 	if(new_option)
 		poll.options += option
@@ -752,7 +752,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	var/list/values = list("text" = text, "default_percentage_calc" = default_percentage_calc, "pollid" = parent_poll.poll_id, "id" = option_id)
@@ -788,7 +788,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	. = parent_poll
 	if(option_id)
 		if(!SSdbcore.Connect())
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 			return
 		var/datum/db_query/query_delete_poll_option = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("poll_option")] AS o INNER JOIN [format_table_name("poll_vote")] AS v ON o.id = v.optionid SET o.deleted = 1, v.deleted = 1 WHERE o.id = :option_id",
@@ -806,7 +806,7 @@ SELECT p.text, pv.rating, COUNT(*)
   */
 /proc/load_poll_data()
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	var/datum/db_query/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime < NOW() AND NOW() < endtime, 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
 	if(!query_load_polls.Execute())

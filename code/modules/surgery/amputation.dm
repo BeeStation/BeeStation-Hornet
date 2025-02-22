@@ -16,13 +16,13 @@
 	success_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/sever_limb/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to sever [target]'s [parse_zone(surgery.location)]...</span>",
+	display_results(user, target, span_notice("You begin to sever [target]'s [parse_zone(surgery.location)]..."),
 		"[user] begins to sever [target]'s [parse_zone(surgery.location)]!",
 		"[user] begins to sever [target]'s [parse_zone(surgery.location)]!")
 
 /datum/surgery_step/sever_limb/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/L = target
-	display_results(user, target, "<span class='notice'>You sever [L]'s [parse_zone(surgery.location)].</span>",
+	display_results(user, target, span_notice("You sever [L]'s [parse_zone(surgery.location)]."),
 		"[user] severs [L]'s [parse_zone(surgery.location)]!",
 		"[user] severs [L]'s [parse_zone(surgery.location)]!")
 	if(surgery.operated_bodypart)

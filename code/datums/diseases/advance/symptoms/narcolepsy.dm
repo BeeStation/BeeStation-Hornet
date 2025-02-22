@@ -29,7 +29,7 @@ Bonus
 	var/sleepy_ticks = 0
 	var/stamina = FALSE
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
-					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+						<b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()
@@ -72,28 +72,28 @@ Bonus
 	switch(A.stage)
 		if(1)
 			if(prob(10))
-				to_chat(M, "<span class='warning'>You feel tired.</span>")
+				to_chat(M, span_warning("You feel tired."))
 		if(2)
 			if(prob(10))
-				to_chat(M, "<span class='warning'>You feel very tired.</span>")
+				to_chat(M, span_warning("You feel very tired."))
 				sleepy_ticks += rand(10,14)
 				if(stamina)
 					M.adjustStaminaLoss(10)
 		if(3)
 			if(prob(15))
-				to_chat(M, "<span class='warning'>You try to focus on staying awake.</span>")
+				to_chat(M, span_warning("You try to focus on staying awake."))
 				sleepy_ticks += rand(10,14)
 				if(stamina)
 					M.adjustStaminaLoss(15)
 		if(4)
 			if(prob(20))
-				to_chat(M, "<span class='warning'>You nod off for a moment.</span>")
+				to_chat(M, span_warning("You nod off for a moment."))
 				sleepy_ticks += rand(10,14)
 				if(stamina)
 					M.adjustStaminaLoss(20)
 		if(5)
 			if(prob(25))
-				to_chat(M, "<span class='warning'>[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]</span>")
+				to_chat(M, span_warning("[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]"))
 				M.drowsyness = max(M.drowsyness, 2)
 				sleepy_ticks += rand(10,14)
 				if(stamina)

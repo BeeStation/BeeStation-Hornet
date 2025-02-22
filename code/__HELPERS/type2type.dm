@@ -120,6 +120,9 @@
 		else
 			return null
 
+///Returns a single dir rotated by x degrees clockwise, adhering to the cardinal directions.
+#define turn_cardinal(dir, rotation) ( angle2dir_cardinal ( dir2angle(dir) + rotation ) )
+
 /// Returns the angle in english
 /proc/angle2text(degree)
 	return dir2text(angle2dir(degree))
@@ -545,7 +548,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 		if(/turf)
 			return "turf"
 		else //regex everything else (works for /proc too)
-			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
+			return LOWER_TEXT(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
 
 /// Return html to load a url.
 /// for use inside of browse() calls to html assets that might be loaded on a cdn.

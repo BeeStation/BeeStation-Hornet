@@ -39,7 +39,7 @@
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/open/floor/iron,
 /area/template_noop)
 "j" = (

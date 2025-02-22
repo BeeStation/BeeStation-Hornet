@@ -31,7 +31,7 @@ Bonus
 	suffixes = list(" Fever")
 	var/unsafe = FALSE //over the heat threshold
 	threshold_desc = "<b>Resistance 5:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
-					  <b>Resistance 10:</b> Further increases fever intensity."
+						<b>Resistance 10:</b> Further increases fever intensity."
 
 /datum/symptom/fever/severityset(datum/disease/advance/A)
 	. = ..()
@@ -58,9 +58,9 @@ Bonus
 	if(M.stat == DEAD)
 		return
 	if(!unsafe || A.stage < 4)
-		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
+		to_chat(M, span_warning("[pick("You feel hot.", "You feel like you're burning.")]"))
 	else
-		to_chat(M, "<span class='userdanger'>[pick("You feel too hot.", "You feel like your blood is boiling.")]</span>")
+		to_chat(M, span_userdanger("[pick("You feel too hot.", "You feel like your blood is boiling.")]"))
 	set_body_temp(A.affected_mob, A)
 
 /**

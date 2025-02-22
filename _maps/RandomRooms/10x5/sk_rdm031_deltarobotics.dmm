@@ -39,7 +39,7 @@
 /obj/structure/rack,
 /obj/item/book/manual/wiki/robotics_cyborgs,
 /obj/item/storage/belt/utility,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,

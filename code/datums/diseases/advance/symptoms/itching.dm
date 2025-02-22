@@ -32,7 +32,7 @@ BONUS
 	bodies = list("Itch")
 	var/scratch = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Increases frequency of itching.<br>\
-					  <b>Stage Speed 7:</b> The host will scrath itself when itching, causing superficial damage."
+						<b>Stage Speed 7:</b> The host will scrath itself when itching, causing superficial damage."
 
 /datum/symptom/itching/Start(datum/disease/advance/A)
 	if(!..())
@@ -53,6 +53,6 @@ BONUS
 	var/obj/item/bodypart/bodypart = M.get_bodypart(picked_bodypart)
 	if(bodypart && (IS_ORGANIC_LIMB(bodypart)) && !bodypart.is_pseudopart)	 //robotic limbs will mean less scratching overall
 		var/can_scratch = scratch && !M.incapacitated() && get_location_accessible(M, picked_bodypart)
-		M.visible_message("[can_scratch ? "<span class='warning'>[M] scratches [M.p_their()] [bodypart.name].</span>" : ""]", "<span class='notice'>Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]</span>")
+		M.visible_message("[can_scratch ? span_warning("[M] scratches [M.p_their()] [bodypart.name].") : ""]", span_notice("Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]"))
 		if(can_scratch)
 			bodypart.receive_damage(0.5)

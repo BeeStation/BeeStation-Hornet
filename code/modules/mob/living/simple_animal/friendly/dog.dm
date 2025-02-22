@@ -13,7 +13,7 @@
 	speak_language = /datum/language/metalanguage
 	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
@@ -23,6 +23,10 @@
 	mobchatspan = "corgi"
 
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "woofs happily!")
 
 //Corgis and pugs are now under one dog subtype
 
@@ -183,7 +187,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		return FALSE
 
 	if(!ispath(equipping.dog_fashion, /datum/dog_fashion/back))
-		to_chat(user, "<span class='warning'>You set [equipping] on [source]'s back, but it falls off!</span>")
+		to_chat(user, span_warning("You set [equipping] on [source]'s back, but it falls off!"))
 		equipping.forceMove(source.drop_location())
 		if(prob(25))
 			step_rand(equipping)
@@ -230,7 +234,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		return FALSE
 
 	if(!istype(equipping, /obj/item/clothing/neck/petcollar))
-		to_chat(user, "<span class='warning'>That's not a collar.</span>")
+		to_chat(user, span_warning("That's not a collar."))
 		return FALSE
 
 	return TRUE
@@ -259,27 +263,27 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(def_zone)
 		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
-				return ((1 - (inventory_head.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
+				return ((1 - (inventory_head.get_armor_rating(type) / 100)) * (1 - penetration / 100)) * 100
 		else
 			if(inventory_back)
-				return ((1 - (inventory_back.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
+				return ((1 - (inventory_back.get_armor_rating(type) / 100)) * (1 - penetration / 100)) * 100
 		return 0
 	else
 		if(inventory_head)
-			armorval *= 1 - min((inventory_head.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
+			armorval *= 1 - min((inventory_head.get_armor_rating(type) / 100) * (1 - penetration / 100), 1)
 		if(inventory_back)
-			armorval *= 1 - min((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
+			armorval *= 1 - min((inventory_back.get_armor_rating(type) / 100) * (1 - penetration / 100), 1)
 	return (1 - armorval) * 100
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/razor))
 		if (shaved)
-			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
+			to_chat(user, span_warning("You can't shave this corgi, it's already been shaved!"))
 			return
 		if (nofur)
-			to_chat(user, "<span class='warning'> You can't shave this corgi, it doesn't have a fur coat!</span>")
+			to_chat(user, span_warning(" You can't shave this corgi, it doesn't have a fur coat!"))
 			return
-		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
+		user.visible_message("[user] starts to shave [src] using \the [O].", span_notice("You start to shave [src] using \the [O]..."))
 		if(do_after(user, 50, target = src))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
 			playsound(loc, 'sound/items/welder2.ogg', 20, 1)
@@ -302,17 +306,17 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 /mob/living/simple_animal/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user, drop = TRUE)
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
+			to_chat(user, span_warning("You can't put more than one hat on [src]!"))
 		return
 	if(!item_to_add)
-		user.visible_message("[user] pets [src].","<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
+		user.visible_message("[user] pets [src].",span_notice("You rest your hand on [src]'s head for a moment."))
 		if(flags_1 & HOLOGRAM_1)
 			return
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
 		return
 
 	if(user && !user.temporarilyRemoveItemFromInventory(item_to_add))
-		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
+		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!"))
 		return 0
 
 	var/valid = FALSE
@@ -323,17 +327,17 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 	if(valid)
 		if(health <= 0)
-			to_chat(user, "<span class ='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
+			to_chat(user, span_notice("There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()]."))
 		else if(user)
 			user.visible_message("[user] puts [item_to_add] on [real_name]'s head.  [src] looks at [user] and barks once.",
-				"<span class='notice'>You put [item_to_add] on [real_name]'s head.  [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
-				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+				span_notice("You put [item_to_add] on [real_name]'s head.  [src] gives you a peculiar look, then wags [p_their()] tail once and barks."),
+				span_italics("You hear a friendly-sounding bark."))
 		item_to_add.forceMove(src)
 		src.inventory_head = item_to_add
 		update_corgi_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
+		to_chat(user, span_warning("You set [item_to_add] on [src]'s head, but it falls off!"))
 		if (drop)
 			item_to_add.forceMove(drop_location())
 		if(prob(25))
@@ -368,7 +372,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
 	desc = "It's the HoP's beloved corgi."
-	var/turns_since_scan = 0
 	var/obj/movement_target
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -527,7 +530,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_state = "narsian"
 	icon_living = "narsian"
 	icon_dead = "narsian_dead"
-	faction = list("neutral", "cult")
+	faction = list(FACTION_NEUTRAL, FACTION_CULT)
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
@@ -538,15 +541,15 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	..()
 	for(var/mob/living/simple_animal/pet/P in ohearers(1, src))
 		if(!istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
-			visible_message("<span class='warning'>[src] devours [P]!</span>", \
-			"<span class='cult big bold'>DELICIOUS SOULS</span>")
+			visible_message(span_warning("[src] devours [P]!"), \
+			span_cultbigbold("DELICIOUS SOULS"))
 			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 			narsie_act()
 			if(P.mind)
 				if(P.mind.hasSoul)
 					P.mind.hasSoul = FALSE //Nars-Ian ate your soul; you don't have one anymore
 				else
-					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
+					visible_message(span_cultbigbold("... Aw, someone beat me to this one."))
 			P.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			P.gib()
 
@@ -622,7 +625,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
+		to_chat(usr, span_warning("You can't fit this on [src]!"))
 		return
 	..()
 
@@ -674,13 +677,12 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	response_harm_simple = "kick"
 	held_state = "lisa"
 	worn_slot_flags = ITEM_SLOT_HEAD
-	var/turns_since_scan = 0
 	var/puppies = 0
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "<span class='danger'>[src] already has a cute bow!</span>")
+		to_chat(usr, span_danger("[src] already has a cute bow!"))
 		return
 	..()
 
@@ -709,24 +711,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 					setDir(i)
 					sleep(1)
 
-/mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
-/mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "yaps happily!")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-			emote("me", 1, "growls!")
-
 /mob/living/simple_animal/pet/dog/corgi/cardigan
 	name = "\improper cardigan corgi"
 	real_name = "Cardigan Welsh corgi"
@@ -749,3 +733,37 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
 	worn_slot_flags = ITEM_SLOT_HEAD
+
+/mob/living/simple_animal/pet/dog/corgi/capybara
+	name = "\improper capybara"
+	real_name = "capybara"
+	desc = "It's a capybara."
+	icon_state = "capybara"
+	icon_living = "capybara"
+	icon_dead = "capybara_dead"
+	held_state = null
+	can_be_held = FALSE
+	butcher_results = list()
+	childtype = list()
+
+	animal_species = /mob/living/simple_animal/pet/dog
+
+/mob/living/simple_animal/pet/dog/corgi/capybara/update_corgi_fluff()
+	// First, change back to defaults
+	name = real_name
+	desc = initial(desc)
+	// BYOND/DM doesn't support the use of initial on lists.
+	speak = list("Bark!", "Squee!", "Squee.")
+	speak_emote = list("barks", "squeaks")
+	emote_hear = list("barks!", "squees!", "squeaks!", "yaps.", "squeaks.")
+	emote_see = list("shakes its head.", "medidates on peace.", "looks to be in peace.", "shivers.")
+	desc = initial(desc)
+	set_light(0)
+
+	if(inventory_head && inventory_head.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		DF.apply(src)
+
+	if(inventory_back && inventory_back.dog_fashion)
+		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
+		DF.apply(src)

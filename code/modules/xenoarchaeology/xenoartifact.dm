@@ -58,6 +58,8 @@
 	AddComponent(/datum/component/xenoartifact_pricing)
 	AddComponent(/datum/component/discoverable, XENOA_DP, TRUE) //Same values as original artifacts from exploration
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
+
 /obj/item/xenoartifact/Initialize(mapload, difficulty)
 	. = ..()
 
@@ -145,7 +147,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
+/obj/item/xenoartifact/attack_hand(mob/user, list/modifiers) //tweedle dum, density feature
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 
 	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
@@ -153,7 +155,7 @@
 
 	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
 		if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
-			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
+			to_chat(user, span_notice("You snuff out [name]"))
 			process_type = null
 			return FALSE
 		if(P?.safety && isliving(loc))
@@ -166,10 +168,10 @@
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()
 	if(user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
-		. += "<span class='notice'>[special_desc]</span>"
+		. += span_notice("[special_desc]")
 	if(isobserver(user))
 		for(var/datum/xenoartifact_trait/t as() in traits)
-			. += (t?.desc ? "<span class='notice'>[t.desc]</span>" : "<span class='notice'>[t.label_name]</span>")
+			. += (t?.desc ? span_notice("[t.desc]") : span_notice("[t.label_name]"))
 	. += label_desc
 
 /obj/item/xenoartifact/attack_self(mob/user)
@@ -177,7 +179,7 @@
 		return
 
 	if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
-		to_chat(user, "<span class='notice'>You snuff out [name]</span>")
+		to_chat(user, span_notice("You snuff out [name]"))
 		process_type = null
 		return
 
@@ -210,7 +212,7 @@
 	//abort if safety
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety)
-		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
+		to_chat(user, span_notice("You perform a safe operation on [src] with [I]."))
 		return
 	..()
 
@@ -218,7 +220,7 @@
 	//abort if safety
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety)
-		to_chat(user, "<span class='notice'>You perform a safe operation on [src].</span>")
+		to_chat(user, span_notice("You perform a safe operation on [src]."))
 		return
 	..()
 
@@ -342,7 +344,7 @@
 		var/mob/living/carbon/human/H = target
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			if(H.anti_artifact_check())
-				to_chat(target, "<span class='warning'>The [name] was unable to target you!</span>")
+				to_chat(target, span_warning("The [name] was unable to target you!"))
 				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 25, TRUE)
 				return
 
@@ -363,8 +365,8 @@
 /obj/item/xenoartifact/proc/create_beam(atom/target)
 	if((locate(src) in target?.contents) || !get_turf(target))
 		return
-	var/datum/beam/xenoa_beam/B = new((!isturf(loc) ? loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
-	B.set_color(material)
+	var/datum/beam/xenoa_beam/B =  src.Beam(BeamTarget=target,icon_state = "xenoa_beam",icon='icons/obj/xenoarchaeology/xenoartifact.dmi', time = 1.5 SECONDS, beam_type=/obj/effect/ebeam/xenoa_ebeam)
+	B.beam_color = material
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam/xenoa_beam, Start))
 
 ///Default template used to interface with activator signals.
@@ -404,13 +406,13 @@
 		if(PROCESS_TYPE_LIT) //Burning
 			true_target = get_target_in_proximity(min(max_range, 5))
 			if(true_target[1])
-				visible_message("<span class='danger' size='4'>The [name] flicks out.</span>")
+				visible_message(span_danger("The [name] flicks out."))
 				default_activate(25, null, null)
 				process_type = null
 				return PROCESS_KILL
 		if(PROCESS_TYPE_TICK) //Clock-ing
 			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE)
-			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
+			visible_message(span_danger("The [name] ticks."))
 			true_target = get_target_in_proximity(min(max_range, 5))
 			default_activate(25, null, null)
 			if(DT_PROB(XENOA_TICK_CANCEL_PROB, delta_time) && COOLDOWN_FINISHED(src, xenoa_cooldown))
@@ -421,6 +423,8 @@
 
 /obj/item/xenoartifact/maint //Semi-toddler-safe version, for maint loot table.
 	material = XENOA_BLUESPACE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/maint)
 
 /obj/item/xenoartifact/maint/Initialize(mapload, difficulty)
 	if(prob(1))
@@ -446,7 +450,9 @@
 /datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
 	price = f_price
 
- ///Objective version for exploration
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact/objective)
+
+//Objective version for exploration
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	traits += new /datum/xenoartifact_trait/special/objective
 	. = ..()
@@ -460,10 +466,6 @@
 	name = "artifact beam"
 
 /datum/beam/xenoa_beam
-	var/color
-
-/datum/beam/xenoa_beam/proc/set_color(col) //Custom proc to set beam colour
-	color = col
 
 /datum/beam/xenoa_beam/Draw()
 	var/Angle = round(get_angle(origin,target))
@@ -481,7 +483,7 @@
 		if(QDELETED(src))
 			break
 		var/obj/effect/ebeam/xenoa_ebeam/X = new(origin_turf) // Start Xenoartifact - This assigns colour to the beam
-		X.color = color
+		X.color = beam_color
 		X.owner = src
 		elements += X // End Xenoartifact
 

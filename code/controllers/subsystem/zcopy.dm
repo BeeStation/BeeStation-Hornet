@@ -2,11 +2,6 @@
  *! Here be dragons.
  */
 
-/// The multiplication factor for openturf shadower darkness. Lighting will be multiplied by this.
-#define SHADOWER_DARKENING_FACTOR 0.8
-/// The above, but as an RGB string for lighting-less turfs.
-#define SHADOWER_DARKENING_COLOR "#CCCCCC"
-
 SUBSYSTEM_DEF(zcopy)
 	name = "Z-Copy"
 	wait = 1

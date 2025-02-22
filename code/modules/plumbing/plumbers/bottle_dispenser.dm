@@ -6,7 +6,9 @@
 
 /obj/machinery/plumbing/bottle_dispenser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use an open container on it to fill it up!</span>"
+	. += span_notice("Use an open container on it to fill it up!")
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/bottle_dispenser)
 
 /obj/machinery/plumbing/bottle_dispenser/Initialize(mapload, bolt)
 	. = ..()
@@ -18,7 +20,7 @@
 	if (!container)
 		return ..()
 	if (!(container.flags & OPENCONTAINER))
-		user.balloon_alert("[C] is not fillable!")
+		user.balloon_alert(user, "[C] is not fillable!")
 		return FALSE
 	reagents.trans_to(container, min(reagents.total_volume, container.maximum_volume - container.total_volume), transfered_by = user)
 	return FALSE

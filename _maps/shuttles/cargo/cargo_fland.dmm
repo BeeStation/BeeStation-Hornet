@@ -54,7 +54,6 @@
 "ah" = (
 /obj/machinery/button/door{
 	id = "QMUnloadDoor";
-	layer = 4;
 	name = "Unloading Door Toggle";
 	pixel_x = 25;
 	pixel_y = 6;
@@ -62,7 +61,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoadingDoor";
-	layer = 4;
 	name = "Loading Door Toggle";
 	pixel_x = 25;
 	pixel_y = -6;
@@ -443,7 +441,6 @@
 "cX" = (
 /obj/machinery/button/door{
 	id = "QMUnloadDoor";
-	layer = 4;
 	name = "Unloading Door Toggle";
 	pixel_x = 25;
 	pixel_y = 6;
@@ -451,7 +448,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoadingDoor";
-	layer = 4;
 	name = "Loading Door Toggle";
 	pixel_x = 25;
 	pixel_y = -6;

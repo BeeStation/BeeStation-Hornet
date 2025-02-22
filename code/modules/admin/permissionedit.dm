@@ -137,7 +137,7 @@
 		log_admin("[key_name(usr)] attempted to edit admin permissions without sufficient rights.")
 		return
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='admin prefix'>Admin Edit blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_adminprefix("Admin Edit blocked: Advanced ProcCall detected."))
 		return
 	var/datum/asset/permissions_assets = get_asset_datum(/datum/asset/simple/namespaced/common)
 	permissions_assets.send(owner)
@@ -152,19 +152,19 @@
 		skip = TRUE
 	if(!CONFIG_GET(flag/admin_legacy_system) && CONFIG_GET(flag/protect_legacy_admins) && task == "rank")
 		if(admin_ckey in GLOB.protected_admins)
-			to_chat(usr, "<span class='admin prefix'>Editing the rank of this admin is blocked by server configuration.</span>")
+			to_chat(usr, span_adminprefix("Editing the rank of this admin is blocked by server configuration."))
 			return
 	if(!CONFIG_GET(flag/admin_legacy_system) && CONFIG_GET(flag/protect_legacy_ranks) && task == "permissions")
 		if(D.rank in GLOB.protected_ranks)
-			to_chat(usr, "<span class='admin prefix'>Editing the flags of this rank is blocked by server configuration.</span>")
+			to_chat(usr, span_adminprefix("Editing the flags of this rank is blocked by server configuration."))
 			return
 	if(CONFIG_GET(flag/load_legacy_ranks_only) && (task == "add" || task == "rank" || task == "permissions"))
-		to_chat(usr, "<span class='admin prefix'>Database rank loading is disabled, only temporary changes can be made to a rank's permissions and permanently creating a new rank is blocked.</span>")
+		to_chat(usr, span_adminprefix("Database rank loading is disabled, only temporary changes can be made to a rank's permissions and permanently creating a new rank is blocked."))
 		legacy_only = TRUE
 	if(check_rights(R_DBRANKS, FALSE))
 		if(!skip)
 			if(!SSdbcore.Connect())
-				to_chat(usr, "<span class='danger'>Unable to connect to database, changes are temporary only.</span>")
+				to_chat(usr, span_danger("Unable to connect to database, changes are temporary only."))
 				use_db = FALSE
 			else
 				use_db = alert("Permanent changes are saved to the database for future rounds, temporary changes will affect only the current round", "Permanent or Temporary?", "Permanent", "Temporary", "Cancel")
@@ -218,8 +218,8 @@
 		. = ckey(admin_key)
 	if(!.)
 		return FALSE
-	if(!admin_ckey && (. in GLOB.admin_datums+GLOB.deadmins))
-		to_chat(usr, "<span class='danger'>[admin_key] is already an admin.</span>")
+	if(!admin_ckey && (. in (GLOB.admin_datums+GLOB.deadmins)))
+		to_chat(usr, span_danger("[admin_key] is already an admin."))
 		return FALSE
 	if(use_db)
 		//if an admin exists without a datum they won't be caught by the above
@@ -232,7 +232,7 @@
 			return FALSE
 		if(query_admin_in_db.NextRow())
 			qdel(query_admin_in_db)
-			to_chat(usr, "<span class='danger'>[admin_key] already listed in admin database. Check the Management tab if they don't appear in the list of admins.</span>")
+			to_chat(usr, span_danger("[admin_key] already listed in admin database. Check the Management tab if they don't appear in the list of admins."))
 			return FALSE
 		qdel(query_admin_in_db)
 		var/datum/db_query/query_add_admin = SSdbcore.NewQuery(
@@ -300,7 +300,7 @@
 	D.deactivate() //after logs so the deadmined admin can see the message.
 
 /datum/admins/proc/auto_deadmin()
-	to_chat(owner, "<span class='interface'>You are now a normal player.</span>")
+	to_chat(owner, span_interface("You are now a normal player."))
 	var/old_owner = owner
 	deactivate()
 	message_admins("[old_owner] deadmined via auto-deadmin config.")
@@ -494,13 +494,13 @@
 		return
 	for(var/datum/admin_rank/R in GLOB.admin_ranks)
 		if(R.name == admin_rank && (!(R.rights & usr.client.holder.rank.can_edit_rights) == R.rights))
-			to_chat(usr, "<span class='admin prefix'>You don't have edit rights to all the rights this rank has, rank deletion not permitted.</span>")
+			to_chat(usr, span_adminprefix("You don't have edit rights to all the rights this rank has, rank deletion not permitted."))
 			return
 	if(!CONFIG_GET(flag/admin_legacy_system) && CONFIG_GET(flag/protect_legacy_ranks) && (admin_rank in GLOB.protected_ranks))
-		to_chat(usr, "<span class='admin prefix'>Deletion of protected ranks is not permitted, it must be removed from admin_ranks.txt.</span>")
+		to_chat(usr, span_adminprefix("Deletion of protected ranks is not permitted, it must be removed from admin_ranks.txt."))
 		return
 	if(CONFIG_GET(flag/load_legacy_ranks_only))
-		to_chat(usr, "<span class='admin prefix'>Rank deletion not permitted while database rank loading is disabled.</span>")
+		to_chat(usr, span_adminprefix("Rank deletion not permitted while database rank loading is disabled."))
 		return
 	var/datum/db_query/query_admins_with_rank = SSdbcore.NewQuery(
 		"SELECT 1 FROM [format_table_name("admin")] WHERE `rank` = :admin_rank",
@@ -511,7 +511,7 @@
 		return
 	if(query_admins_with_rank.NextRow())
 		qdel(query_admins_with_rank)
-		to_chat(usr, "<span class='danger'>Error: Rank deletion attempted while rank still used; Tell a coder, this shouldn't happen.</span>")
+		to_chat(usr, span_danger("Error: Rank deletion attempted while rank still used; Tell a coder, this shouldn't happen."))
 		return
 	qdel(query_admins_with_rank)
 	if(alert("Are you sure you want to remove [admin_rank]?","Confirm Removal","Do it","Cancel") == "Do it")
@@ -548,4 +548,4 @@
 		qdel(query_sync_lastadminrank)
 		return
 	qdel(query_sync_lastadminrank)
-	to_chat(usr, "<span class='admin'>Sync of [admin_key] successful.</span>")
+	to_chat(usr, span_admin("Sync of [admin_key] successful."))

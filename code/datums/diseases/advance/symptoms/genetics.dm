@@ -33,8 +33,8 @@ Bonus
 	bodies = list("Mutant")
 	var/no_reset = FALSE
 	threshold_desc = "<b>Resistance 8:</b> Causes two harmful mutations at once.<br>\
-					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\
-					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
+						<b>Stage Speed 10:</b> Increases mutation frequency.<br>\
+						<b>Stealth 5:</b> The mutations persist even if the virus is cured."
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
@@ -49,7 +49,7 @@ Bonus
 		return
 	switch(A.stage)
 		if(4, 5)
-			to_chat(C, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
+			to_chat(C, span_warning("[pick("Your skin feels itchy.", "You feel light headed.")]"))
 			C.dna.remove_mutation_group(possible_mutations)
 			for(var/i in 1 to power)
 				C.randmut(possible_mutations)

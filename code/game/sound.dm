@@ -60,7 +60,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
- 	// Looping through the player list has the added bonus of working for mobs inside containers
+	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	/// Everyone that actually heard the sound
@@ -84,7 +84,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 		if(below_turf && istransparentturf(turf_source))
 			listeners += get_hearers_in_view(maxdistance, below_turf)
-			
+
 	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
 		if(get_dist(listening_mob, turf_source) <= maxdistance)
 			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)

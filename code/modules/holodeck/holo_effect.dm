@@ -5,7 +5,7 @@
 	These remove snowflake code for special holodeck functions.
 */
 /obj/effect/holodeck_effect
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -66,7 +66,7 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(3, 1, T)
 		s.start()
-		T.set_temperature(5000)
+		T.temperature = (5000)
 		T.hotspot_expose(50000,50000,1)
 
 /obj/effect/holodeck_effect/random_book

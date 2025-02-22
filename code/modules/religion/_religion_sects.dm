@@ -46,7 +46,7 @@
 	var/altar_anchored = TRUE
 
 /datum/religion_sect/proc/is_available(mob/user)
-    return TRUE // basically all available
+	return TRUE // basically all available
 
 /datum/religion_sect/New()
 	. = ..()
@@ -61,14 +61,14 @@
 /// Activates once selected and on newjoins, oriented around people who become holy.
 /datum/religion_sect/proc/on_conversion(mob/living/chap)
 	SHOULD_CALL_PARENT(TRUE)
-	to_chat(chap, "<span class='bold notice'>\"[quote]\"</span>")
-	to_chat(chap, "<span class='notice'>[desc]</span>")
+	to_chat(chap, span_boldnotice("\"[quote]\""))
+	to_chat(chap, span_notice("[desc]"))
 
 /// Returns TRUE if the item can be sacrificed. Can be modified to fit item being tested as well as person offering. Returning TRUE will stop the attackby sequence and proceed to on_sacrifice.
 /datum/religion_sect/proc/can_sacrifice(obj/item/I, mob/living/chap)
 	. = TRUE
 	if(chap.mind.holy_role == HOLY_ROLE_DEACON)
-		to_chat(chap, "<span class='warning'>You are merely a deacon of [GLOB.deity], and therefore cannot perform rites.")
+		to_chat(chap, span_warning("You are merely a deacon of [GLOB.deity], and therefore cannot perform rites."))
 		return
 	if(!is_type_in_typecache(I,desired_items_typecache))
 		return FALSE
@@ -105,7 +105,7 @@
 	var/mob/living/carbon/human/blessed = target
 	for(var/obj/item/bodypart/bodypart as anything in blessed.bodyparts)
 		if(!IS_ORGANIC_LIMB(bodypart))
-			to_chat(chap, "<span class='warning'>[GLOB.deity] refuses to heal this metallic taint!</span>")
+			to_chat(chap, span_warning("[GLOB.deity] refuses to heal this metallic taint!"))
 			return TRUE
 
 	var/heal_amt = 10
@@ -116,8 +116,8 @@
 			var/obj/item/bodypart/affecting = X
 			if(affecting.heal_damage(heal_amt, heal_amt, null, BODYTYPE_ORGANIC))
 				blessed.update_damage_overlays()
-		blessed.visible_message("<span class='notice'>[chap] heals [blessed] with the power of [GLOB.deity]!</span>")
-		to_chat(blessed, "<span class='boldnotice'>May the power of [GLOB.deity] compel you to be healed!</span>")
+		blessed.visible_message(span_notice("[chap] heals [blessed] with the power of [GLOB.deity]!"))
+		to_chat(blessed, span_boldnotice("May the power of [GLOB.deity] compel you to be healed!"))
 		playsound(chap, "punch", 25, TRUE, -1)
 		SEND_SIGNAL(blessed, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE

@@ -12,30 +12,30 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "af" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/tank/air,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ag" = (
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ah" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ai" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aj" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ak" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "al" = (
@@ -43,7 +43,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "am" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -95,7 +95,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aw" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -176,7 +176,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aL" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aM" = (
@@ -215,7 +215,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "aU" = (
 /obj/machinery/smartfridge/food,
-/turf/closed/wall,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aV" = (
 /obj/item/bedsheet/patriot,
@@ -265,14 +265,14 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "be" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/food/egg_smudge,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bf" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -336,7 +336,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "br" = (
 /obj/item/toy/figure/chef,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bs" = (
@@ -352,7 +352,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bu" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bv" = (
@@ -402,7 +402,7 @@
 "bH" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/food/burger/superbite,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bI" = (
@@ -453,7 +453,7 @@
 "bR" = (
 /obj/structure/chair/stool/bar,
 /obj/item/toy/figure/assistant,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
@@ -759,7 +759,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dd" = (
 /obj/structure/sign/poster/contraband/eat,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "de" = (
@@ -774,20 +774,20 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dh" = (
 /obj/machinery/mech_bay_recharge_port,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "di" = (
 /turf/open/floor/mech_bay_recharge_floor,
 /area/ruin/space/has_grav/powered/macspace)
 "dj" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dk" = (
-/obj/machinery/atmospherics/components/unary/tank/oxygen,
+/obj/machinery/atmospherics/components/tank/oxygen,
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dl" = (
@@ -801,13 +801,13 @@
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dn" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 6
 	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "do" = (
-/obj/machinery/atmospherics/pipe/manifold4w,
+/obj/machinery/atmospherics/pipe/smart/manifold4w,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dp" = (
@@ -818,7 +818,7 @@
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dq" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
 /turf/closed/wall,
@@ -841,7 +841,7 @@
 	dir = 4
 	},
 /obj/item/toy/toy_xeno,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dy" = (
@@ -857,7 +857,7 @@
 	dir = 4
 	},
 /obj/item/toy/figure/scientist,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dA" = (
@@ -885,7 +885,7 @@
 	dir = 4
 	},
 /obj/item/toy/figure/roboticist,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dE" = (
@@ -906,7 +906,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dH" = (
 /obj/structure/chair/wood/wings,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "ea" = (
@@ -930,7 +930,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "lR" = (
 /obj/item/food/fishfingers,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)

@@ -110,7 +110,7 @@
 /area/shuttle/escape)
 "aE" = (
 /obj/machinery/smartfridge/survival_pod,
-/turf/closed/wall/mineral/titanium/survival,
+/turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aF" = (
 /obj/structure/extinguisher_cabinet,

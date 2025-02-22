@@ -15,7 +15,7 @@
 	var/lethal = FALSE
 	var/moretrauma = FALSE
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
-					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
+						<b>Speed 9:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
@@ -23,7 +23,7 @@
 		severity += 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>transmission 7:</b> The disease's damage reaches lethal levels.<br>\
-					  <b>Speed 6:</b> Host's brain develops even more traumas than normal."
+						<b>Speed 6:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
@@ -40,21 +40,21 @@
 	switch(A.stage)
 		if(1)
 			if(prob(10) && M.stat != DEAD)
-				to_chat(M, "<span class='notice'>Your head feels strange...</span>")
+				to_chat(M, span_notice("Your head feels strange..."))
 		if(2, 3)
 			if(prob(10) && M.stat != DEAD)
-				to_chat(M, "<span class='danger'>Your brain begins hurting...</span>")
+				to_chat(M, span_danger("Your brain begins hurting..."))
 		if(4, 5)
 			if(lethal)
 				if(prob(35))
 					M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5,90)), 200)
 					if(M.stat != DEAD)
-						to_chat(M, "<span class='danger'>Your brain hurts immensely!</span>")
+						to_chat(M, span_danger("Your brain hurts immensely!"))
 			else
 				if(prob(35))
 					M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5,90)), 120)
 					if(M.stat != DEAD)
-						to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
+						to_chat(M, span_danger("Your head hurts immensely!"))
 			if(moretrauma && A.stage == 5)
 				givetrauma(A, 10)
 

@@ -51,6 +51,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	/// List of clients with this registered to it.
 	var/list/viewing_clients = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_view)
+
 /atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences)
 	. = ..()
 

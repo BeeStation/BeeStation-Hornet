@@ -78,7 +78,7 @@
 		return
 	else if(!COOLDOWN_FINISHED(src, sticker_cooldown) && isliving(loc))
 		var/mob/living/user = loc
-		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
+		to_chat(user, span_warning("The labeler is still printing."))
 
 	if(action == "clear_traits")
 		clear_selection()
@@ -113,7 +113,7 @@
 		COOLDOWN_START(src, sticker_cooldown, 5 SECONDS)
 		create_label(sticker_name, target, user)
 	else if(!COOLDOWN_FINISHED(src, sticker_cooldown))
-		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
+		to_chat(user, span_warning("The labeler is still printing."))
 
 ///reset all the options
 /obj/item/xenoartifact_labeler/proc/clear_selection()
@@ -170,7 +170,7 @@
 	var/mutable_appearance/sticker_overlay
 	var/list/trait_list = list() //List of traits used to compare and generate modifier.
 
-/obj/item/xenoartifact_label/Initialize()
+/obj/item/xenoartifact_label/Initialize(mapload)
 	. = ..()
 	icon_state = "sticker_[pick("star", "box", "tri", "round")]"
 	var/sticker_state = "[icon_state]_small"
@@ -180,8 +180,8 @@
 
 /obj/item/xenoartifact_label/proc/attempt_attach(atom/target, mob/user, instant = FALSE)
 	if(istype(target, /mob/living))
-		to_chat(target, "<span class='warning'>[user] attempts to stick a [src] to you!</span>")
-		to_chat(user, "<span class='warning'>You attempt to stick a [src] on [target]!</span>")
+		to_chat(target, span_warning("[user] attempts to stick a [src] to you!"))
+		to_chat(user, span_warning("You attempt to stick a [src] on [target]!"))
 		if(!do_after(user, 30, target = target))
 			if(instant)
 				qdel(src)

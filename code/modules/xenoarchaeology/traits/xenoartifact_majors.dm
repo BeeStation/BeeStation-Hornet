@@ -48,7 +48,7 @@
 	flags = PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/shock/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>You feel a slight static after touching the [X.name].</span>")
+	to_chat(user, span_notice("You feel a slight static after touching the [X.name]."))
 	return TRUE
 
 /datum/xenoartifact_trait/major/shock/activate(obj/item/xenoartifact/X, atom/target, mob/user)
@@ -72,7 +72,7 @@
 	label_desc = "Temporal: The shape is drooling and sluggish. Additionally, light around it seems to invert."
 
 /datum/xenoartifact_trait/major/timestop/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>Your hand feels slow while stroking the [X.name].</span>")
+	to_chat(user, span_notice("Your hand feels slow while stroking the [X.name]."))
 	return TRUE
 
 /datum/xenoartifact_trait/major/timestop/activate(obj/item/xenoartifact/X, atom/target)
@@ -198,13 +198,13 @@
 ///============
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
-	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
+	label_desc = "Transparent: The shape of the Artifact is difficult to perceive. You feel the need to call it, precious..."
 	weight = 25
 	var/list/victims = list()
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, obj/item/I)
 	if(istype(I) && I.light_power > 0)
-		to_chat(user, "<span class='info'>The [I.name]'s light passes through the structure.</span>")
+		to_chat(user, span_info("The [I.name]'s light passes through the structure."))
 		return TRUE
 	..()
 
@@ -258,7 +258,7 @@
 	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	X.visible_message("<span class='notice'>The [X] lights up!</span>")
+	X.visible_message(span_notice("The [X] lights up!"))
 	X.set_light(X.charge*0.08, max(X.charge*0.05, 5), X.light_color)
 	addtimer(CALLBACK(src, PROC_REF(unlight), X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
@@ -313,7 +313,7 @@
 
 /datum/xenoartifact_trait/major/heal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/healthanalyzer))
-		to_chat(user, "<span class='info'>The [item] recognizes foreign [healing_type] healing proteins.\n</span>")
+		to_chat(user, span_info("The [item] recognizes foreign [healing_type] healing proteins.\n"))
 		return TRUE
 	..()
 
@@ -439,7 +439,7 @@
 
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='info'>The [item] detects trace amounts of [initial(output.name)] exchanging with [initial(input.name)].\n</span>")
+		to_chat(user, span_info("The [item] detects trace amounts of [initial(output.name)] exchanging with [initial(input.name)].\n"))
 		return TRUE
 	..()
 
@@ -448,10 +448,10 @@
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(air.get_moles(input_id), 5)
+	var/moles = min(GET_MOLES(input_id, air), 5)
 	if(moles)
-		air.adjust_moles(input_id, -moles)
-		air.adjust_moles(output_id, moles)
+		air.gases[input_id][MOLES] += -moles
+		air.gases[output_id][MOLES] += moles
 
 ///============
 /// Destabilizing, teleports the victim to that weird place from the exploration meme.
@@ -473,7 +473,7 @@
 	if(istype(user))
 		P = user.get_item_by_slot(ITEM_SLOT_GLOVES)
 	if(!P?.safety && do_banish(item))
-		to_chat(user, "<span class='warning'>The [item] dissapears!</span>")
+		to_chat(user, span_warning("The [item] dissapears!"))
 		return TRUE
 	..()
 

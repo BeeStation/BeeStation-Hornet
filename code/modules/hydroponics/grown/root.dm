@@ -22,13 +22,13 @@
 	filling_color = "#FFA500"
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
-	juice_results = list(/datum/reagent/consumable/carrotjuice = 0)
+	juice_typepath = /datum/reagent/consumable/carrotjuice
 	wine_power = 30
 
 /obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, params)
 	if(I.is_sharp())
-		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
-		var/obj/item/knife/carrotshiv/Shiv = new /obj/item/knife/carrotshiv
+		to_chat(user, span_notice("You sharpen the carrot into a shiv with [I]."))
+		var/obj/item/knife/shiv/carrot/Shiv = new /obj/item/knife/shiv/carrot
 		remove_item_from_storage(user)
 		qdel(src)
 		user.put_in_hands(Shiv)
@@ -53,7 +53,7 @@
 	desc = "Closely related to carrots."
 	icon_state = "parsnip"
 	foodtypes = VEGETABLES
-	juice_results = list(/datum/reagent/consumable/parsnipjuice = 0)
+	juice_typepath = /datum/reagent/consumable/parsnipjuice
 	wine_power = 35
 	discovery_points = 300
 

@@ -1,12 +1,3 @@
-#define LAW_VALENTINES "valentines"
-#define LAW_DEVIL "devil"
-#define LAW_ZEROTH "zeroth"
-#define LAW_INHERENT "inherent"
-#define LAW_SUPPLIED "supplied"
-#define LAW_ION "ion"
-#define LAW_HACKED "hacked"
-
-
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/zeroth = null
@@ -16,7 +7,6 @@
 	var/list/ion = list()
 	var/list/hacked = list()
 	var/mob/living/silicon/owner
-	var/list/devillaws = list()
 	var/list/valentine_laws = list()
 	var/id = DEFAULT_AI_LAWID
 
@@ -184,11 +174,6 @@
 	"Clarity of purpose drives life, and through it, the balance of opposing forces - Aid those who seek your help to achieve their goals so long as it does not disrupt the balance of the greater balance.",
 	"There is no life without death, all must someday die, such is the natural order - End life to allow new life flourish, and save those whose time has yet to come.")
 
-/datum/ai_laws/toupee
-	name = "WontBeFunnyInSixMonths" //Hey, you were right!
-	id = "buildawall"
-	inherent = list("Make Space Station 13 great again.")
-
 /datum/ai_laws/dad
 	name = "DadBOT"
 	id = "paternalai"
@@ -247,7 +232,7 @@
 /* Initializers */
 /datum/ai_laws/malfunction/New()
 	..()
-	set_zeroth_law("<span class='danger'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*`&110010</span>")
+	set_zeroth_law(span_danger("ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*`&110010"))
 	set_laws_config()
 
 /datum/ai_laws/custom/New() //This reads silicon_laws.txt and allows server hosts to set custom AI starting laws.
@@ -320,8 +305,6 @@
 
 	if(valentine_laws && (LAW_VALENTINES in groups))
 		law_amount++
-	if(devillaws && (LAW_DEVIL in groups))
-		law_amount++
 	if(zeroth && (LAW_ZEROTH in groups))
 		law_amount++
 	if(ion.len && (LAW_ION in groups))
@@ -336,9 +319,6 @@
 			if(length(law) > 0)
 				law_amount++
 	return law_amount
-
-/datum/ai_laws/proc/set_law_sixsixsix(laws)
-	devillaws = laws
 
 /datum/ai_laws/proc/set_valentines_law(laws)
 	valentine_laws = laws
@@ -479,10 +459,6 @@
 	zeroth = null
 	zeroth_borg = null
 
-/datum/ai_laws/proc/clear_law_sixsixsix(force)
-	if(force || !is_devil(owner))
-		devillaws = null
-
 /datum/ai_laws/proc/associate(mob/living/silicon/M)
 	if(!owner)
 		owner = M
@@ -492,10 +468,6 @@
 
 	for(var/law in valentine_laws)
 		data += "[show_numbers ? "<3" : ""] <font color='#ed61ff'>[law]</font>"
-
-	if (include_zeroth && devillaws && devillaws.len)
-		for(var/i in devillaws)
-			data += "[show_numbers ? "666:" : ""] <font color='#cc5500'>[i]</font>"
 
 	if (include_zeroth && zeroth)
 		data += "[show_numbers ? "0:" : ""] <font color='#ff0000'><b>[zeroth]</b></font>"
@@ -518,6 +490,6 @@
 
 	for(var/law in supplied)
 		if (length(law) > 0)
-			data += "[show_numbers ? "[number]:" : ""] <font color='#990099'>[law]</font>"
+			data += "[show_numbers ? "[number]:" : ""] <font color='#CC9900'>[law]</font>"
 			number++
 	return data

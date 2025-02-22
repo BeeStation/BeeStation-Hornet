@@ -11,6 +11,7 @@
 	foodtypes = GRAIN | MEAT //lettuce doesn't make burger a vegetable.
 	eat_time = 15 //Quick snack
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/plain
 	name = "burger"
@@ -21,13 +22,14 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/plain/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		new/obj/effect/particle_effect/smoke(get_turf(src))
 		playsound(src, 'sound/effects/smoke.ogg', 50, TRUE)
-		visible_message("<span class='warning'>Oh, ye gods! [src] is ruined! But what if...?</span>")
+		visible_message(span_warning("Oh, ye gods! [src] is ruined! But what if...?"))
 		name = "steamed ham"
 		desc = pick("Ahh, Head of Personnel, welcome. I hope you're prepared for an unforgettable luncheon!",
 		"And you call these steamed hams despite the fact that they are obviously microwaved?",
@@ -47,6 +49,7 @@
 	foodtypes = MEAT | GRAIN | GORE
 	var/subjectname = ""
 	var/subjectjob = null
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/human/CheckParts(list/parts_list)
 	..()
@@ -70,6 +73,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | MEAT | GORE
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/appendix
 	name = "appendix burger"
@@ -82,6 +86,7 @@
 	icon_state = "appendixburger"
 	tastes = list("bun" = 4, "grass" = 2)
 	foodtypes = GRAIN | MEAT | GORE
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/fish
 	name = "fillet -o- carp sandwich"
@@ -94,6 +99,7 @@
 	)
 	tastes = list("bun" = 4, "fish" = 4)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/tofu
 	name = "tofu burger"
@@ -106,6 +112,7 @@
 	)
 	tastes = list("bun" = 4, "tofu" = 4)
 	foodtypes = GRAIN | VEGETABLES
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/roburger
 	name = "roburger"
@@ -118,6 +125,7 @@
 	)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 	foodtypes = GRAIN | TOXIC
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/roburgerbig
 	name = "roburger"
@@ -143,6 +151,7 @@
 	)
 	tastes = list("bun" = 4, "acid" = 4)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/bearger
 	name = "bearger"
@@ -154,6 +163,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/clown
 	name = "clown burger"
@@ -162,10 +172,10 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/protein = 12,
-		/datum/reagent/medicine/mannitol = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | FRUIT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/mime
 	name = "mime burger"
@@ -178,6 +188,7 @@
 		/datum/reagent/consumable/nothing = 6
 	)
 	foodtypes = GRAIN
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/brain
 	name = "brainburger"
@@ -190,6 +201,7 @@
 	)
 	tastes = list("bun" = 4, "brains" = 2)
 	foodtypes = GRAIN | MEAT | GORE
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/ghost
 	name = "ghost burger"
@@ -206,6 +218,7 @@
 	alpha = 170
 	verb_say = "moans"
 	verb_yell = "wails"
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/ghost/Initialize(mapload)
 	. = ..()
@@ -255,6 +268,7 @@
 		/datum/reagent/colorful_reagent/powder/red = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/orange
 	name = "orange burger"
@@ -268,6 +282,7 @@
 		/datum/reagent/colorful_reagent/powder/orange = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/yellow
 	name = "yellow burger"
@@ -281,6 +296,7 @@
 		/datum/reagent/colorful_reagent/powder/yellow = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/green
 	name = "green burger"
@@ -294,6 +310,7 @@
 		/datum/reagent/colorful_reagent/powder/green = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/blue
 	name = "blue burger"
@@ -307,6 +324,7 @@
 		/datum/reagent/colorful_reagent/powder/blue = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/purple
 	name = "purple burger"
@@ -320,6 +338,7 @@
 		/datum/reagent/colorful_reagent/powder/purple = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/black
 	name = "black burger"
@@ -333,6 +352,7 @@
 		/datum/reagent/colorful_reagent/powder/black = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/white
 	name = "white burger"
@@ -346,6 +366,7 @@
 		/datum/reagent/colorful_reagent/powder/white = 10
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/spell
 	name = "spell burger"
@@ -358,6 +379,7 @@
 	)
 	tastes = list("bun" = 4, "magic" = 2)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/bigbite
 	name = "big bite burger"
@@ -370,6 +392,7 @@
 	)
 	w_class = WEIGHT_CLASS_NORMAL
 	foodtypes = GRAIN | MEAT | DAIRY
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/jelly
 	name = "jelly burger"
@@ -377,6 +400,7 @@
 	icon_state = "jellyburger"
 	tastes = list("bun" = 4, "jelly" = 2)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/jelly/slime
 	food_reagents = list(
@@ -385,6 +409,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | TOXIC
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/jelly/cherry
 	food_reagents = list(
@@ -408,6 +433,7 @@
 	max_volume = 100
 	tastes = list("bun" = 4, "type two diabetes" = 10)
 	foodtypes = GRAIN | MEAT | DAIRY
+	crafting_complexity = FOOD_COMPLEXITY_5
 
 /obj/item/food/burger/fivealarm
 	name = "five alarm burger"
@@ -421,6 +447,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/rat
 	name = "rat burger"
@@ -432,6 +459,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | MEAT | GORE
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/baseball
 	name = "home run baseball burger"
@@ -443,6 +471,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | GROSS
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/baconburger
 	name = "bacon burger"
@@ -455,6 +484,7 @@
 	)
 	tastes = list("bacon" = 4, "bun" = 2)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/empoweredburger
 	name = "empowered burger"
@@ -468,6 +498,7 @@
 	)
 	tastes = list("bun" = 2, "pure electricity" = 4)
 	foodtypes = GRAIN | TOXIC
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/burger/crab
 	name = "crab burger"
@@ -480,6 +511,7 @@
 	)
 	tastes = list("bun" = 2, "crab meat" = 4)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/soylent
 	name = "soylent burger"
@@ -492,6 +524,7 @@
 	)
 	tastes = list("bun" = 2, "assistant" = 4)
 	foodtypes = GRAIN | MEAT | DAIRY
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 /obj/item/food/burger/rib
 	name = "mcrib"
@@ -505,6 +538,7 @@
 	)
 	tastes = list("bun" = 2, "pork patty" = 4)
 	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/mcguffin
 	name = "mcguffin"
@@ -518,6 +552,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	foodtypes = GRAIN | MEAT | BREAKFAST
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/chicken
 	name = "chicken sandwich" //Apparently the proud people of Americlapstan object to this thing being called a burger. Apparently McDonald's just calls it a burger in Europe as to not scare and confuse us.
@@ -529,9 +564,10 @@
 		/datum/reagent/consumable/mayonnaise = 3,
 		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
-		/datum/reagent/consumable/cooking_oil = 2
+		/datum/reagent/consumable/nutriment/fat/oil = 2
 	)
 	foodtypes = GRAIN | MEAT | FRIED
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/cheese
 	name = "cheese burger"
@@ -544,6 +580,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | MEAT | DAIRY
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/burger/cheese/Initialize(mapload)
 	. = ..()
@@ -561,6 +598,7 @@
 	)
 	foodtypes = GRAIN | MEAT | DAIRY | TOXIC | GROSS | FRUIT
 	w_class = WEIGHT_CLASS_NORMAL // The crazy hamburger in the video was bigger than joker's hand therefore i think this weight class is adequate.
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 // empty burger you can customize
 /obj/item/food/burger/empty

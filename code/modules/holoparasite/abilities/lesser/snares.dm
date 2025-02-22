@@ -73,10 +73,10 @@
 	// Bit of a nasty hardcoded hack, but eh, it works!
 	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
 	if(summoner_traitor?.has_codewords)
-		message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
-		message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
+		message = GLOB.syndicate_code_phrase_regex.Replace(message, span_blue("$1"))
+		message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	// Assemble the message prefix
-	var/message_prefix = "<span class='holoparasite italics robot'>\[[COLOR_TEXT(owner.accent_color, snare.name)]\] [speaker.GetVoice()]"
+	var/message_prefix = span_holoparasiteitalicsrobot("\"[COLOR_TEXT(owner.accent_color, snare.name)]\" [speaker.GetVoice()]")
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
@@ -84,7 +84,7 @@
 	else
 		var/atom/movable/source = speaker.GetSource() || speaker
 		message_part = source.say_quote(message, spans, message_mods)
-	message_part = "<span class='message'>[summoner.say_emphasis(message_part)]</span></span>"
+	message_part = span_message("[summoner.say_emphasis(message_part)]")
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
 	to_chat(owner.list_summoner_and_or_holoparasites(), final_message)
@@ -116,25 +116,25 @@
 
 /datum/holoparasite_ability/lesser/snare/proc/arm_snare(custom_name)
 	if(length(snares) >= HOLOPARA_MAX_SNARES)
-		to_chat(owner, "<span class='danger'>You have too many snares deployed! You may only have up to <b>[HOLOPARA_MAX_SNARES]</b> active snares at once!</span>")
+		to_chat(owner, span_danger("You have too many snares deployed! You may only have up to <b>[HOLOPARA_MAX_SNARES]</b> active snares at once!"))
 		owner.balloon_alert(owner, "too many snares", show_in_chat = FALSE)
 		return
 	if(!owner.is_manifested())
-		to_chat(owner, "<span class='danger'>You must be manifested to deploy a snare!</span>")
+		to_chat(owner, span_danger("You must be manifested to deploy a snare!"))
 		owner.balloon_alert(owner, "must be manifested to deploy snare", show_in_chat = FALSE)
 		return
 	var/turf/snare_turf = get_turf(owner)
 	var/area/snare_area = get_area(snare_turf)
 	if(locate(/obj/effect/snare) in snare_turf)
-		to_chat(owner, "<span class='danger'>There is already a snare at this location!</span>")
+		to_chat(owner, span_danger("There is already a snare at this location!"))
 		owner.balloon_alert(owner, "snare already here", show_in_chat = FALSE)
 		return
 	var/snare_name = name_snare(custom_name, snare_area)
 	if(!length(snare_name))
 		return
-	owner.visible_message("<span class='warning holoparasite'>[owner.color_name] begins to rig some sort of elaborate device...</span>", "<span class='notice holoparasite'>You begin to set up a snare...</span>")
+	owner.visible_message(span_warningholoparasite("[owner.color_name] begins to rig some sort of elaborate device..."), span_noticeholoparasite("You begin to set up a snare..."))
 	if(!do_after(owner, 2.5 SECONDS, snare_turf))
-		to_chat(owner, "<span class='danger holoparasite'>You were interrupted while setting up the snare!</span>")
+		to_chat(owner, span_dangerholoparasite("You were interrupted while setting up the snare!"))
 		owner.balloon_alert(owner, "snare deployment interrupted", show_in_chat = FALSE)
 		return
 	var/obj/effect/snare/snare = new(snare_turf, src)
@@ -144,7 +144,7 @@
 	if(audio_relay)
 		snare.become_hearing_sensitive()
 		RegisterSignal(snare, COMSIG_MOVABLE_HEAR, PROC_REF(snare_on_hear))
-	to_chat(owner, "<span class='danger bold'>Surveillance snare deployed!</span>")
+	to_chat(owner, span_dangerbold("Surveillance snare deployed!"))
 	snare.balloon_alert(owner, "snare armed", show_in_chat = FALSE)
 	update_both_huds()
 	var/datum/space_level/snare_z_level = SSmapping.get_level(snare_turf.z)
@@ -161,7 +161,7 @@
 	var/obj/effect/snare/snare_to_disarm
 	switch(length(snares))
 		if(0)
-			to_chat(owner, "<span class='warning'>You have no snares to disarm!</span>")
+			to_chat(owner, span_warning("You have no snares to disarm!"))
 			return
 		if(1)
 			snare_to_disarm = snares[1]
@@ -181,20 +181,22 @@
 	else
 		custom_name = trim(custom_name, MAX_NAME_LEN)
 		if(CHAT_FILTER_CHECK(custom_name))
-			to_chat(owner, "<span class='warning'>That custom name contains forbidden words!</span>")
+			to_chat(owner, span_warning("That custom name contains forbidden words!"))
 			return
 	return avoid_assoc_duplicate_keys("[custom_name] @ [snare_area.name]", snare_names)
 
 /datum/holoparasite_ability/lesser/snare/proc/get_snare_by_name(name_to_find)
-	name_to_find = trim(lowertext(name_to_find), MAX_NAME_LEN)
+	name_to_find = trim(LOWER_TEXT(name_to_find), MAX_NAME_LEN)
 	for(var/obj/effect/snare/snare as() in snares)
-		if(lowertext(snare.name) == name_to_find)
+		if(LOWER_TEXT(snare.name) == name_to_find)
 			return snare
 
 /atom/movable/screen/holoparasite/snare
 	var/datum/holoparasite_ability/lesser/snare/ability
 
-/atom/movable/screen/holoparasite/snare/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/snare)
+
+/atom/movable/screen/holoparasite/snare/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make snare holoparasite HUD without proper reference to snare ability")
@@ -249,6 +251,8 @@
 	/// A reference to the holoparasite ability that created this snare.
 	var/datum/holoparasite_ability/lesser/snare/ability
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/snare)
+
 /obj/effect/snare/Initialize(mapload, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()
 	if(!istype(_ability))
@@ -284,7 +288,7 @@
 	var/mob/living/simple_animal/hostile/holoparasite/owner = ability.owner
 	if(owner.has_matching_summoner(crosser))
 		return
-	to_chat(owner.list_summoner_and_or_holoparasites(), "<span class='warning bold'>[crosser] has crossed surveillance snare, [COLOR_TEXT(owner.accent_color, name)].</span>")
+	to_chat(owner.list_summoner_and_or_holoparasites(), span_warningbold("[crosser] has crossed surveillance snare, [COLOR_TEXT(owner.accent_color, name)]."))
 	SSblackbox.record_feedback("amount", "holoparasite_snares_triggered", 1)
 
 /**

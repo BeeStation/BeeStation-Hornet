@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/gentle)
+
 /obj/item/slimecross/gentle
 	name = "gentle extract"
 	desc = "It pulses slowly, as if breathing."
@@ -12,7 +14,7 @@
 /obj/item/slimecross/gentle/Initialize(mapload)
 	..()
 	extract = new extract_type(src.loc)
-	visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")
+	visible_message(span_notice("[src] glows and pulsates softly."))
 	extract.name = name
 	extract.desc = desc
 	extract.icon = icon
@@ -32,7 +34,7 @@
 	if(user.incapacitated() || !iscarbon(user))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, use_cooldown))
-		to_chat(user, "<span class='notice'>[src] isn't ready yet!</span>")
+		to_chat(user, span_notice("[src] isn't ready yet!"))
 		return FALSE
 	COOLDOWN_START(src, use_cooldown, 10 SECONDS) //This will be overwritten depending on exact activation, but prevents bypassing cooldowns on extracts with a do_after.
 	return TRUE

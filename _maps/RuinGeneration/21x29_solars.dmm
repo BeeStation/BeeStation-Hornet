@@ -205,7 +205,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/directional/south,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "N" = (
