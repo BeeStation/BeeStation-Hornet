@@ -442,7 +442,7 @@
 	name = "smartfridge"
 	desc = "A refrigerated storage unit for food."
 	icon = 'icons/obj/machines/kitchen.dmi'
-	icon_state = "smartfridge_on1"
+	icon_state = "smartfridge_on"
 	initial_contents = list(
 		/obj/item/reagent_containers/condiment/milk = 5,
 		/obj/item/reagent_containers/condiment/soymilk = 5,
