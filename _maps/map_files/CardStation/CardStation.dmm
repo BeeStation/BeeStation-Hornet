@@ -6604,6 +6604,11 @@
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/mineral/plastitanium,
 /area/engine/engine_room/external)
+"bsF" = (
+/obj/structure/fluff/hedge/opaque,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "bsG" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/membrane,
@@ -13789,12 +13794,9 @@
 /area/maintenance/department/medical)
 "cQP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle{
-	pixel_x = -9;
-	pixel_y = -7
-	},
+/obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/iron,
-/area/maintenance/department/engine)
+/area/maintenance/department/medical)
 "cRc" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -69909,11 +69911,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"oSo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron,
-/area/maintenance/department/medical)
 "oSq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -84779,6 +84776,14 @@
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
+"sdG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "sdK" = (
 /obj/structure/railing,
 /obj/structure/cable/yellow{
@@ -90559,7 +90564,7 @@
 	},
 /obj/item/paper{
 	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><p align="right">-Dr. Antek";
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).";
 	pixel_x = -14;
 	pixel_y = 6
 	},
@@ -92677,11 +92682,6 @@
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
-"tPz" = (
-/obj/structure/fluff/hedge/opaque,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/smooth,
-/area/hallway/primary/fore)
 "tPA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-10"
@@ -138452,7 +138452,7 @@ vEP
 bTu
 spD
 ojW
-cQP
+sdG
 koj
 lrw
 qQj
@@ -148615,7 +148615,7 @@ xHJ
 oAT
 bsO
 kdI
-tPz
+bsF
 kTJ
 qmM
 keI
@@ -149643,7 +149643,7 @@ vxJ
 oZa
 slA
 kdI
-tPz
+bsF
 gdr
 iBe
 kGJ
@@ -168710,7 +168710,7 @@ vIv
 wZS
 wdS
 aTS
-oSo
+cQP
 nME
 wZS
 wZS
