@@ -4,6 +4,7 @@ import { useBackend, useLocalState, useSharedState } from '../backend';
 import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Input, LabeledList, ProgressBar, Section, Stack, TextArea, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
+import { require } from 'tgui-dev-server/require';
 
 type Reagent = {
   name: string;
@@ -54,8 +55,43 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
   let result: SatisfiedRecipe[] = [];
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term] = useLocalState('search_term', '');
+  const [selected_recipe] = useLocalState<Recipe | null>('selected_recipe', null);
   let initial_length = Object.keys(unlocked_recipes).length;
-  if (search_term.length > 0) {
+  if (selected_recipe !== null) {
+    // Build a recipe lookup list
+    const recipe_lookup: { [path: string]: Recipe[] } = {};
+    for (const recipe of recipes) {
+      if (!unlocked_recipes[recipe.name]) {
+        continue;
+      }
+      for (const result of Object.keys(recipe.results)) {
+        if (recipe_lookup[result]) {
+          recipe_lookup[result].push(recipe);
+        } else {
+          recipe_lookup[result] = [recipe];
+        }
+      }
+    }
+    // Find all the relevant recipes
+    let used_recipes: { [recipe_name: string]: boolean } = {};
+    let search_list: Recipe[] = [selected_recipe];
+    let depth = 0;
+    while (search_list.length > 0) {
+      const head = search_list.pop();
+      if (used_recipes[head!.name]) {
+        continue;
+      }
+      used_recipes[head!.name] = true;
+      for (const requirement of head!.required_reagents) {
+        const recipes = recipe_lookup[requirement.path];
+        if (!recipes) {
+          continue;
+        }
+        recipes.forEach((x) => search_list.push(x));
+      }
+      result.push({ rating: depth++, ...head! });
+    }
+  } else if (search_term.length > 0) {
     for (const recipe of recipes) {
       if (!unlocked_recipes[recipe.name]) {
         continue;
@@ -107,6 +143,7 @@ export const ChemDispenser = (_props) => {
   const [unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term, set_search_term] = useLocalState('search_term', '');
   const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list).sort((a, b) => b.rating - a.rating);
+  const [selected_recipe, set_selected_recipe] = useLocalState<Recipe | null>('selected_recipe', null);
   return (
     <Window width={695} height={720}>
       <Window.Content className="chem_dispenser">
@@ -131,23 +168,38 @@ export const ChemDispenser = (_props) => {
             title="Recipes"
             className="grow"
             buttons={
-              <>
-                Search discovered:
-                <Input
-                  value={search_term}
-                  minWidth="240px"
-                  ml={1}
-                  onInput={(_, val) => {
-                    if (val !== search_term) {
-                      set_search_term(val);
-                    }
+              selected_recipe ? (
+                <Button
+                  content="Return"
+                  onClick={() => {
+                    set_selected_recipe(null);
                   }}
+                  icon="arrow-left"
                 />
-              </>
+              ) : (
+                <>
+                  Search discovered:
+                  <Input
+                    value={search_term}
+                    minWidth="240px"
+                    ml={1}
+                    onInput={(_, val) => {
+                      if (val !== search_term) {
+                        set_search_term(val);
+                      }
+                    }}
+                  />
+                </>
+              )
             }>
             <Box className="recipe_container" mr={-1}>
               {shown_recipes.map((recipe) => (
-                <div className="recipe_box" key={recipe.name}>
+                <div
+                  className="recipe_box"
+                  key={recipe.name}
+                  onClick={() => {
+                    set_selected_recipe(recipe);
+                  }}>
                   <div className="recipe_title">{recipe.name}</div>
                   <div className="recipe_required">
                     {recipe.required_temp > 0 &&
