@@ -383,9 +383,6 @@
 /area/hallway/primary/aft)
 "aer" = (
 /obj/item/bot_assembly/medbot,
-/obj/item/bot_assembly/medbot{
-	pixel_y = -4
-	},
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow,
@@ -5907,11 +5904,6 @@
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
-"bkS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron,
-/area/maintenance/department/medical)
 "bkV" = (
 /turf/closed/wall/rust,
 /area/maintenance/department/medical/central)
@@ -13796,10 +13788,13 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "cQP" = (
-/obj/structure/fluff/hedge/opaque,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/smooth,
-/area/hallway/primary/fore)
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "cRc" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -19473,6 +19468,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
+"efr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "efE" = (
 /obj/effect/turf_decal/edges/techfloor,
 /obj/machinery/power/terminal{
@@ -37962,6 +37962,11 @@
 	dir = 8
 	},
 /area/hallway/secondary/entry)
+"ibk" = (
+/obj/structure/fluff/hedge/opaque,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "ibu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -45484,6 +45489,12 @@
 	pixel_x = -1;
 	pixel_y = 4
 	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "Newton";
+	pixel_y = -13;
+	pixel_x = 31;
+	paint_colour = "#253a9a"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "jJc" = (
@@ -50030,14 +50041,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/construction)
-"kGP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
 "kGR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -74761,12 +74764,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "Newton";
-	pixel_y = 33;
-	pixel_x = 9;
-	paint_colour = "#253a9a"
-	},
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
 "pTH" = (
@@ -90567,7 +90564,7 @@
 	},
 /obj/item/paper{
 	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (that's just south of the chemistry lab).</br><P align="right">-Dr. Antek";
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><p align="right">-Dr. Antek";
 	c_tag = s;
 	pixel_x = -14;
 	pixel_y = 6
@@ -138456,7 +138453,7 @@ vEP
 bTu
 spD
 ojW
-kGP
+cQP
 koj
 lrw
 qQj
@@ -148619,7 +148616,7 @@ xHJ
 oAT
 bsO
 kdI
-cQP
+ibk
 kTJ
 qmM
 keI
@@ -149647,7 +149644,7 @@ vxJ
 oZa
 slA
 kdI
-cQP
+ibk
 gdr
 iBe
 kGJ
@@ -163590,7 +163587,7 @@ fBN
 fBN
 fBN
 fBN
-msb
+fBN
 fBN
 ylh
 aIA
@@ -168714,7 +168711,7 @@ vIv
 wZS
 wdS
 aTS
-bkS
+efr
 nME
 wZS
 wZS
