@@ -44,6 +44,12 @@
 /obj/item/clothing/under/rank/security/officer/white
 	name = "white security jumpsuit"
 	desc = "A tactical relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
+	icon_state = "wsecurity"
+	item_state = "gy_suit"
+
+/obj/item/clothing/under/rank/security/officer/grey
+	name = "grey security jumpsuit"
+	desc = "A relic of a bygone age, before Nanotrasen decided an officers dignity was an unnecessary expense."
 	icon_state = "security"
 	item_state = "gy_suit"
 
@@ -83,7 +89,7 @@
  */
 
 /obj/item/clothing/under/rank/security/warden
-	name = "security suit"
+	name = "warden suit"
 	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rwarden"
 	item_state = "r_suit"
@@ -98,8 +104,14 @@
 	bleed = 10
 
 /obj/item/clothing/under/rank/security/warden/white
-	name = "white security suit"
+	name = "white warden suit"
 	desc = "A formal relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
+	icon_state = "wwarden"
+	item_state = "gy_suit"
+
+/obj/item/clothing/under/rank/security/warden/grey
+	name = "grey warden suit"
+	desc = "A relic of a bygone age, before Nanotrasen decided an officers dignity was an unnecessary expense."
 	icon_state = "warden"
 	item_state = "gy_suit"
 
@@ -209,6 +221,12 @@
 /obj/item/clothing/under/rank/security/head_of_security/white
 	name = "head of security's white jumpsuit"
 	desc = "There are old men, and there are bold men, but there are very few old, bold men."
+	icon_state = "whos"
+	item_state = "gy_suit"
+
+/obj/item/clothing/under/rank/security/head_of_security/grey
+	name = "head of security's white jumpsuit"
+	desc = "There are old men, and there are bold men, but there are very few old, bold men."
 	icon_state = "hos"
 	item_state = "gy_suit"
 
@@ -262,12 +280,49 @@
 	icon_state = "brig_phys"
 	item_state = "labcoat_sec"
 
+/obj/item/clothing/under/rank/brig_physician/red
+	name = "brig physician's jumpsuit"
+	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
+	icon = 'icons/obj/clothing/under/security.dmi'
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
+	icon_state = "rbrig_phys"
+	item_state = "labcoat_sec"
+
 /obj/item/clothing/under/rank/brig_physician/skirt
 	name = "brig physician's jumpskirt"
 	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
 	icon = 'icons/obj/clothing/under/security.dmi'
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "brig_phys_skirt"
+	item_state = "labcoat_sec"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
+
+/obj/item/clothing/under/rank/brig_physician/skirt/red
+	name = "brig physician's jumpskirt"
+	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
+	icon = 'icons/obj/clothing/under/security.dmi'
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
+	icon_state = "rbrig_phys_skirt"
+	item_state = "labcoat_sec"
+
+/obj/item/clothing/under/rank/brig_physician/red
+	name = "brig physician's red jumpsuit"
+	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps, coloured red to cut on cleaning costs."
+	icon = 'icons/obj/clothing/under/security.dmi'
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
+	icon_state = "rbrig_phys"
+	item_state = "labcoat_sec"
+
+/obj/item/clothing/under/rank/brig_physician/skirt/red
+	name = "brig physician's red jumpskirt"
+	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps, coloured red to cut on cleaning costs."
+	icon = 'icons/obj/clothing/under/security.dmi'
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
+	icon_state = "rbrig_phys_skirt"
 	item_state = "labcoat_sec"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE

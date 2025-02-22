@@ -30,6 +30,7 @@
 		/obj/item/clothing/mask/gas/sechailer = 6,
 		/obj/item/clothing/under/rank/security/officer/skirt = 3,
 		/obj/item/clothing/under/rank/security/officer/white = 3,
+		/obj/item/clothing/under/rank/security/officer/grey = 3,
 		/obj/item/clothing/under/pants/khaki = 3,
 		/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
 		/obj/item/clothing/neck/tie/red = 6,
