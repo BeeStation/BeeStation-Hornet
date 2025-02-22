@@ -6548,14 +6548,6 @@
 /obj/item/clothing/glasses/meson,
 /turf/open/floor/circuit,
 /area/storage/tech)
-"brk" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/door/poddoor{
-	id = "smeject";
-	name = "Supermatter Ejection Door"
-	},
-/turf/open/space/basic,
-/area/engine/engine_room)
 "brr" = (
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
 	pixel_y = -32
@@ -146447,7 +146439,7 @@ luj
 luj
 luj
 voC
-brk
+uLJ
 nzj
 nzj
 nzj
