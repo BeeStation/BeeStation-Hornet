@@ -39,20 +39,23 @@ export const Reagents = (props) => {
   const [page, setPage] = useLocalState('page', 1);
 
   return (
-    <Window width={720} height={850}>
+    <Window width={1080} height={850}>
       <Window.Content>
         <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-          <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: '7', display: 'flex', flexDirection: 'column' }}>
             <Section title="Tags">
               <TagBox bitflags={bitflags} />
             </Section>
-            <Section>
-              <RecipeLibrary flagIcons={flagIcons} />
-            </Section>
+            <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+              <Section style={{ flex: '1' }}>
+                <RecipeLibrary flagIcons={flagIcons} />
+              </Section>
+            </div>
           </div>
-          <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: '3', display: 'flex', flexDirection: 'column' }}>
             <Section
               title="Recipe lookup"
+              style={{ flex: '1' }}
               buttons={
                 <>
                   <Button
@@ -78,6 +81,7 @@ export const Reagents = (props) => {
             </Section>
             <Section
               title="Reagent lookup"
+              style={{ flex: '1' }}
               buttons={
                 <>
                   <Button
@@ -346,9 +350,9 @@ const RecipeLibrary = (props) => {
 
   const bookmarkArray = Array.from(bookmarkedReactions);
 
-  const startIndex = 25 * (page - 1);
+  const startIndex = 24 * (page - 1);
 
-  const endIndex = 25 * page;
+  const endIndex = 24 * page;
 
   const visibleReactions = bookmarkMode
     ? bookmarkArray
@@ -356,7 +360,7 @@ const RecipeLibrary = (props) => {
       (reaction) => (selectedBitflags ? matchBitflag(selectedBitflags, reaction.bitflags) : true) && matchReagents(reaction)
     );
 
-  const pageIndexMax = Math.ceil(visibleReactions.length / 25);
+  const pageIndexMax = Math.ceil(visibleReactions.length / 24);
 
   const addBookmark = (bookmark) => {
     bookmarkedReactions.add(bookmark);
