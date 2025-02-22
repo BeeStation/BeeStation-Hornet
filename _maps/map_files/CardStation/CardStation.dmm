@@ -657,6 +657,10 @@
 /area/maintenance/department/medical/morgue)
 "agV" = (
 /obj/machinery/light/small/directional/north,
+/obj/item/reagent_containers/cup/glass/bottle/hooch{
+	pixel_y = 1;
+	pixel_x = -5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "ahe" = (
@@ -1842,6 +1846,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
 "ave" = (
@@ -4938,7 +4943,6 @@
 /area/maintenance/disposal/incinerator)
 "bcn" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/fore)
 "bcs" = (
@@ -6548,12 +6552,12 @@
 /turf/open/floor/circuit,
 /area/storage/tech)
 "brk" = (
+/obj/structure/lattice/catwalk,
 /obj/machinery/door/poddoor{
 	id = "smeject";
 	name = "Supermatter Ejection Door"
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/engine/engine_room)
 "brr" = (
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
@@ -9186,7 +9190,7 @@
 /area/engine/engine_room)
 "bWg" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/airlock/research{
 	name = "Genetics Lab";
 	req_access_txt = "9"
 	},
@@ -13787,15 +13791,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "cQP" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/light_switch/directional/north,
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/theatre/backstage)
+/obj/structure/fluff/hedge/opaque,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "cRc" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -14213,6 +14212,14 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
+"cVo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "cVt" = (
 /turf/closed/wall/rust,
 /area/storage/emergency/port)
@@ -21362,7 +21369,7 @@
 /area/security/prison)
 "eCt" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id = "rdpriv";
 	name = "Privacy Shutters"
 	},
@@ -22535,11 +22542,15 @@
 	dir = 10
 	},
 /obj/machinery/camera/directional/south,
-/obj/structure/closet/crate/freezer/blood,
 /obj/structure/fluff/fans{
 	pixel_x = -24
 	},
-/obj/machinery/iv_drip,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
 /turf/open/floor/noslip/white,
 /area/maintenance/starboard/central)
 "ePT" = (
@@ -23973,7 +23984,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "fgE" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -29228,6 +29239,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"gmf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "gmj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -29965,9 +29981,9 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/screwdriver{
-	pixel_x = -4;
-	pixel_y = 4
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_y = 14;
+	pixel_x = -3
 	},
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
@@ -30161,7 +30177,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/iron/white,
 /area/medical/booth)
 "gvf" = (
@@ -31992,7 +32008,7 @@
 /area/hallway/primary/fore)
 "gOq" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public{
+/obj/machinery/door/airlock/research{
 	name = "Monkey Pen";
 	req_access_txt = "9"
 	},
@@ -33340,12 +33356,13 @@
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 15
 	},
-/obj/item/stack/cable_coil/random,
 /obj/machinery/reagentgrinder{
 	pixel_y = 23
 	},
-/obj/item/reagent_containers/cup/beaker/large{
-	pixel_y = 8
+/obj/item/stack/cable_coil/random,
+/obj/item/screwdriver{
+	pixel_x = -4;
+	pixel_y = 4
 	},
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
@@ -47785,7 +47802,6 @@
 	dir = 9
 	},
 /obj/structure/closet/secure_closet/freezer/cream_pie,
-/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "khz" = (
@@ -53659,9 +53675,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
-	},
-/obj/machinery/light_switch/directional/north{
-	pixel_x = 26
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
@@ -64911,7 +64924,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public{
+/obj/machinery/door/airlock/grunge{
 	name = "Emergency Storage";
 	req_access_txt = "12"
 	},
@@ -66779,10 +66792,17 @@
 /area/engine/atmos)
 "ojW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/fermenting_barrel{
+	pixel_y = 10;
+	pixel_x = 3;
+	anchored = 1
+	},
+/obj/structure/fermenting_barrel{
+	pixel_y = -6;
+	pixel_x = -5;
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
 "okb" = (
@@ -68704,10 +68724,11 @@
 	dir = 5
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/machinery/light/small/directional/east,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32;
+	desc = "A large piece of space-resistant printed paper. A corner seems to be peeling off..."
+	},
 /turf/open/floor/iron/yellowsiding/corner{
 	dir = 8
 	},
@@ -70651,9 +70672,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -73035,8 +73053,8 @@
 /turf/open/floor/noslip/white,
 /area/medical/medbay/central)
 "pxR" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "pya" = (
@@ -73531,7 +73549,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Toilet";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -77496,11 +77515,10 @@
 /area/engine/engine_room)
 "qzQ" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/machinery/disposal/deliveryChute{
-	dir = 1
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
+/obj/structure/closet/crate/freezer/blood,
+/obj/machinery/iv_drip,
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/noslip/white,
 /area/maintenance/starboard/central)
@@ -87248,7 +87266,7 @@
 /area/ai_monitored/storage/eva)
 "sHH" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
+	name = "Medbay Storage Closet";
 	req_one_access_txt = "12;6"
 	},
 /obj/structure/disposalpipe/segment{
@@ -90547,6 +90565,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/item/paper{
+	name = "Medbay resources";
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (that's just south of the chemistry lab).</br><P align="right">-Dr. Antek</P>";
+	c_tag = s;
+	pixel_x = -14;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "trS" = (
@@ -91465,7 +91490,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "tDc" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/item/kirbyplants{
 	icon_state = "plant-17";
 	pixel_y = 19
@@ -93221,7 +93246,7 @@
 	},
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/security/warden)
 "tUJ" = (
@@ -96916,7 +96941,8 @@
 "uHT" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -97617,7 +97643,7 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
 	},
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "uPi" = (
@@ -97893,6 +97919,9 @@
 /turf/open/floor/vault/rock,
 /area/science/mixing/chamber)
 "uSW" = (
+/obj/item/mop{
+	pixel_y = 3
+	},
 /obj/structure/mopbucket,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
@@ -101372,7 +101401,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/techfloor/diagonal,
 /turf/open/floor/iron/techmaint,
@@ -102320,7 +102349,7 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 6
 	},
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/machinery/requests_console/auto_name/directional/east,
 /obj/machinery/button/door{
 	id = "quarantineshutters";
@@ -106219,7 +106248,9 @@
 	},
 /obj/machinery/light/small/directional/west,
 /obj/machinery/newscaster/directional/west,
-/obj/item/toy/figure/md,
+/obj/item/toy/figure/md{
+	pixel_y = 3
+	},
 /turf/open/floor/wood,
 /area/medical/break_room)
 "wBj" = (
@@ -107929,7 +107960,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	pixel_x = 28
@@ -108161,7 +108192,7 @@
 	dir = 10
 	},
 /obj/structure/window/reinforced/spawner,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
@@ -109686,7 +109717,7 @@
 /area/engine/engine_smes)
 "xpD" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/chief)
 "xpQ" = (
@@ -112299,6 +112330,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
 "xUd" = (
@@ -112429,9 +112461,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_y = 2
-	},
+/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -112583,10 +112613,12 @@
 	pixel_y = 5
 	},
 /obj/item/folder/blue{
-	pixel_x = 3;
+	pixel_x = 18;
 	pixel_y = 3
 	},
-/obj/item/folder/red,
+/obj/item/folder/red{
+	pixel_x = 15
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -113217,7 +113249,7 @@
 "yeN" = (
 /obj/machinery/button/door{
 	id = "psycho";
-	pixel_y = 32;
+	pixel_y = 24;
 	name = "Privacy Shutters"
 	},
 /turf/open/floor/carpet,
@@ -138424,7 +138456,7 @@ vEP
 bTu
 spD
 ojW
-sGx
+cVo
 koj
 lrw
 qQj
@@ -148587,7 +148619,7 @@ xHJ
 oAT
 bsO
 kdI
-dUa
+cQP
 kTJ
 qmM
 keI
@@ -149615,7 +149647,7 @@ vxJ
 oZa
 slA
 kdI
-dUa
+cQP
 gdr
 iBe
 kGJ
@@ -152501,7 +152533,7 @@ jTD
 nnw
 qit
 upT
-cQP
+bsP
 eNW
 stg
 jKy
@@ -168682,7 +168714,7 @@ vIv
 wZS
 wdS
 aTS
-vIv
+gmf
 nME
 wZS
 wZS
