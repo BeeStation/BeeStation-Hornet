@@ -217,6 +217,7 @@
 		"comp_speech",
 		"comp_split",
 		"comp_string_contains",
+		"comp_switch_case",
 		"comp_tempsensor",
 		"comp_textcase",
 		"comp_tonumber",

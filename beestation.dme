@@ -4394,6 +4394,7 @@
 #include "code\modules\wiremod\components\utility\iterator.dm"
 #include "code\modules\wiremod\components\utility\router.dm"
 #include "code\modules\wiremod\components\utility\setter.dm"
+#include "code\modules\wiremod\components\utility\switchcase.dm"
 #include "code\modules\wiremod\components\utility\typecast.dm"
 #include "code\modules\wiremod\core\admin_panel.dm"
 #include "code\modules\wiremod\core\component.dm"
