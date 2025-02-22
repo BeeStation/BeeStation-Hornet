@@ -69,6 +69,10 @@
     &.catalyst {
       background-color: rgb(212, 151, 214);
     }
+
+    &.insertable {
+      background-color: rgb(242, 200, 149);
+    }
   }
 
   .beaker_section {
@@ -110,5 +114,14 @@
 
   .beaker_content_part {
     flex-grow: 1;
+  }
+
+  .no_recipes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    color: rgb(255, 199, 199);
   }
 }

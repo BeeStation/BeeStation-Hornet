@@ -3,10 +3,10 @@ import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState, useSharedState } from '../backend';
 import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Input, LabeledList, ProgressBar, Section, Stack, TextArea, Tooltip } from '../components';
 import { Window } from '../layouts';
+import { classes } from 'common/react';
 
 type Reagent = {
   name: string;
-  id: string;
   volume: number;
   path: string;
 };
@@ -14,13 +14,18 @@ type Reagent = {
 type Recipe = {
   name: string;
   results: { [path: string]: number };
-  required_reagents: { [path: string]: number };
+  required_reagents: Reagent[];
   required_catalysts: { [path: string]: number };
   required_container: string;
   required_other: boolean;
   is_cold_recipe: boolean;
   required_temp: number;
+  id: string;
 };
+
+interface SatisfiedRecipe extends Recipe {
+  rating: number;
+}
 
 type ChemDispenserData = {
   amount: number;
@@ -45,8 +50,8 @@ type ChemDispenserData = {
  * @param recipes All craftable recipes
  * @returns All recipes that can be made with any of the ingredients currently contained in the beaker.
  */
-const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[]): Recipe[] => {
-  let result: Recipe[] = [];
+const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[]): SatisfiedRecipe[] => {
+  let result: SatisfiedRecipe[] = [];
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term] = useLocalState('search_term', '');
   let initial_length = Object.keys(unlocked_recipes).length;
@@ -56,20 +61,36 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
         continue;
       }
       if (recipe.name?.toLowerCase().includes(search_term.toLowerCase())) {
-        result.push(recipe);
+        result.push({ rating: 1, ...recipe });
       }
+    }
+  } else if (contents.length === 0) {
+    for (const recipe of recipes) {
+      if (!unlocked_recipes[recipe.name]) {
+        continue;
+      }
+      let matches = 0;
+      for (const required of recipe.required_reagents) {
+        if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
+          matches++;
+        }
+      }
+      result.push({ rating: matches, ...recipe });
     }
   } else {
     for (const recipe of recipes) {
       if (recipe.required_container || recipe.required_other) {
         continue;
       }
-      for (const [required_path, required_amount] of Object.entries(recipe.required_reagents)) {
-        if (contents.some((x) => x.path === required_path && x.volume >= required_amount)) {
-          result.push(recipe);
-          unlocked_recipes[recipe.name] = 1;
-          break;
+      let matches = 0;
+      for (const required of recipe.required_reagents) {
+        if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
+          matches++;
         }
+      }
+      if (matches > 0) {
+        result.push({ rating: matches, ...recipe });
+        unlocked_recipes[recipe.name] = 1;
       }
     }
     if (initial_length !== Object.keys(unlocked_recipes).length) {
@@ -85,6 +106,7 @@ export const ChemDispenser = (_props) => {
   const beakerContents = data.beakerContents || [];
   const [unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term, set_search_term] = useLocalState('search_term', '');
+  const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list).sort((a, b) => b.rating - a.rating);
   return (
     <Window width={695} height={720}>
       <Window.Content className="chem_dispenser">
@@ -124,7 +146,7 @@ export const ChemDispenser = (_props) => {
               </>
             }>
             <Box className="recipe_container" mr={-1}>
-              {compile_recipes(data.beakerContents, data.reactions_list).map((recipe) => (
+              {shown_recipes.map((recipe) => (
                 <div className="recipe_box" key={recipe.name}>
                   <div className="recipe_title">{recipe.name}</div>
                   <div className="recipe_required">
@@ -138,9 +160,14 @@ export const ChemDispenser = (_props) => {
                           <Icon name="fire-flame-curved" color="orange" pt={0.8} pl={1} pr={2} />
                         </Tooltip>
                       ))}
-                    {Object.entries(recipe.required_reagents).map((x) => (
-                      <div className="recipe_ingredient" key={x[0]}>
-                        {x[0].substring(x[0].lastIndexOf('/') + 1)}
+                    {recipe.required_reagents.map((x) => (
+                      <div
+                        className={classes([
+                          'recipe_ingredient',
+                          !!beakerContents.some((y) => y.name === x.name) && 'satisfied',
+                        ])}
+                        key={x.path}>
+                        {x.name}
                       </div>
                     ))}
                     {Object.entries(recipe.required_catalysts).map((x) => (
@@ -153,6 +180,20 @@ export const ChemDispenser = (_props) => {
                   </div>
                 </div>
               ))}
+              {shown_recipes.length === 0 && !!search_term && (
+                <div className="no_recipes">
+                  <div>No discovered recipes matching the search term &apos;{search_term}&apos;.</div>
+                  <br />
+                  <div>Add or create new reagents to unlock more.</div>
+                </div>
+              )}
+              {shown_recipes.length === 0 && Object.keys(unlocked_recipes).length === 0 && !search_term && (
+                <div className="no_recipes">
+                  <div>No recipes discovered.</div>
+                  <br />
+                  <div>Add some reagents to the beaker to start unlocking recipes.</div>
+                </div>
+              )}
             </Box>
           </Section>
           <Section
@@ -213,7 +254,7 @@ export const ChemDispenser = (_props) => {
                 <Box color="label">{(!data.isBeakerLoaded && 'N/A') || (beakerContents.length === 0 && 'Nothing')}</Box>
 
                 {beakerContents.map((chemical) => (
-                  <div className="beaker_chemical beaker_label" key={chemical.name}>
+                  <div className="beaker_chemical beaker_label" key={chemical.path}>
                     <AnimatedNumber initial={0} value={chemical.volume} /> units of {chemical.name}
                   </div>
                 ))}

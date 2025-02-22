@@ -230,15 +230,23 @@
 	var/list/reactions
 	for(var/i in GLOB.chemical_reactions_list)
 		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list[i])
+			var/list/required_reagents = list()
+			for (var/datum/reagent/reagent as anything in reaction.required_reagents)
+				required_reagents += list(list(
+					"name" = reagent::name,
+					"volume" = reaction.required_reagents[reagent],
+					"path" = reagent,
+				))
 			reactions += list(list(
 				name = reaction.name,
 				results = reaction.results,
-				required_reagents = reaction.required_reagents,
+				required_reagents = required_reagents,
 				required_catalysts = reaction.required_catalysts,
 				required_container = reaction.required_container,
 				required_other = reaction.required_other,
 				is_cold_recipe = reaction.is_cold_recipe,
-				required_temp = reaction.required_temp
+				required_temp = reaction.required_temp,
+				id = reaction.id
 			))
 	data["reactions_list"] = reactions
 	return data
