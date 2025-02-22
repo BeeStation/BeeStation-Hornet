@@ -70,7 +70,6 @@
 /obj/machinery/door/airlock/glass/incinerator
 	autoclose = FALSE
 	heat_proof = TRUE
-	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/door/airlock/glass/incinerator/syndicatelava_interior
 	name = "Turbine Interior Airlock"
@@ -108,7 +107,6 @@
 /obj/machinery/door/airlock/research/glass/incinerator
 	autoclose = FALSE
 	heat_proof = TRUE
-	req_access = list(ACCESS_TOX)
 
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior
 	name = "Mixing Room Interior Airlock"
@@ -326,7 +324,6 @@
 /obj/machinery/door/airlock/public/glass/incinerator
 	autoclose = FALSE
 	heat_proof = TRUE
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
 
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior
 	name = "Turbine Interior Airlock"

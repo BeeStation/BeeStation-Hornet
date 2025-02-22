@@ -54,7 +54,7 @@
 "aq" = (
 /obj/machinery/door/airlock/survival_pod{
 	name = "Emergency Shuttle Brig";
-	req_one_access_txt = "2"
+	req_access_txt = "2"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -77,7 +77,7 @@
 "ax" = (
 /obj/machinery/door/airlock/survival_pod{
 	name = "Emergency Shuttle Brig";
-	req_one_access_txt = "2"
+	req_access_txt = "2"
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -103,7 +103,7 @@
 "aD" = (
 /obj/machinery/door/airlock/survival_pod{
 	name = "Emergency Shuttle Bridge";
-	req_one_access_txt = "19"
+	req_access_txt = "19"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,

@@ -856,7 +856,7 @@
 "Eg" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engine Room";
-	req_one_access_txt = "10;24"
+	req_access_txt = "10;24"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,

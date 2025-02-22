@@ -64,7 +64,7 @@
 	alpha = 180
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	req_one_access_txt = "32"
+	req_access_txt = "32"
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -233,7 +233,7 @@
 "eJ" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
-	req_one_access_txt = "35;28"
+	req_access_txt = "35;28"
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
@@ -520,7 +520,7 @@
 "nn" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	req_one_access_txt = "35;28"
+	req_access_txt = "35;28"
 	},
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
@@ -545,7 +545,7 @@
 /obj/machinery/door/airlock/research{
 	id_tag = "ResearchExt";
 	name = "Research Division";
-	req_one_access_txt = "7;29"
+	req_access_txt = "7;29"
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
@@ -584,7 +584,7 @@
 "ow" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Disposal Access";
-	req_one_access_txt = "31;48;26"
+	req_access_txt = "31;48;26"
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -1142,7 +1142,7 @@
 "Eg" = (
 /obj/machinery/door/airlock{
 	name = "Theatre";
-	req_one_access_txt = "46;37"
+	req_access_txt = "46;37"
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
@@ -1252,7 +1252,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "innerbrign";
 	name = "Brig";
-	req_one_access_txt = "63;38"
+	req_access_txt = "63;38"
 	},
 /turf/open/floor/iron,
 /area/security/main)
@@ -1386,7 +1386,7 @@
 "KY" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
-	req_one_access_txt = "31;48"
+	req_access_txt = "31;48"
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
@@ -1409,7 +1409,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
 	name = "Medbay";
-	req_one_access_txt = "5"
+	req_access_txt = "5"
 	},
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
@@ -1701,7 +1701,7 @@
 "RB" = (
 /obj/machinery/door/airlock/research{
 	name = "Exploration Preparation Room";
-	req_one_access_txt = "49;47"
+	req_access_txt = "49;47"
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)

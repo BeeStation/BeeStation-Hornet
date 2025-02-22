@@ -11,7 +11,7 @@
 
 	icon_state = "apc0"
 	use_power = NO_POWER_USE
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 200
 	integrity_failure = 0.25
 	damage_deflection = 10

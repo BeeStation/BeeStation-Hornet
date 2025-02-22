@@ -25,7 +25,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	var/launch_warning = TRUE
 	var/list/turrets = list() //List of connected turrets
 
-	req_one_access = list(ACCESS_AUX_BASE, ACCESS_HEADS)
+	req_access = list(ACCESS_AUX_BASE, ACCESS_HEADS)
 	var/possible_destinations
 	clockwork = TRUE
 	circuit = /obj/item/circuitboard/computer/auxillary_base
@@ -132,7 +132,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 /obj/machinery/computer/auxillary_base/proc/set_mining_mode()
 	if(is_mining_level(z)) //The console switches to controlling the mining shuttle once landed.
-		req_one_access = list()
+		req_access = list()
 		shuttleId = "mining" //The base can only be dropped once, so this gives the console a new purpose.
 		possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 

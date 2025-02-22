@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	req_access_txt = "11"
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	armor_type = /datum/armor/item_shuttle_creator
 	resistance_flags = FIRE_PROOF
 	var/ready = TRUE

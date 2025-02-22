@@ -534,7 +534,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		for(var/obj/A in loc)
 			if(istype(A, /obj/machinery/door/airlock/))
 				var/obj/machinery/door/airlock/airlock = A
-				airlock.req_access_txt = "39"
+				airlock.req_access = list(ACCESS_VIROLOGY)
 				if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
 					airlock.name = "Virology Maintenance"
 				else

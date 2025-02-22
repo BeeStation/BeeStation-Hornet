@@ -10,7 +10,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 0
 	power_channel = AREA_USAGE_EQUIP
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
+	req_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
 	processing_flags = NONE
 	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/defibrillator/defib //this mount's defibrillator

@@ -1,11 +1,9 @@
 /obj/item/electronics/airlock
 	name = "airlock electronics"
-	req_access = list(ACCESS_MAINT_TUNNELS)
+	req_access = list()
 	custom_price = 5
 	/// A list of all granted accesses
 	var/list/accesses = list()
-	/// If the airlock should require ALL or only ONE of the listed accesses
-	var/one_access = 0
 	/// Unrestricted sides, or sides of the airlock that will open regardless of access
 	var/unres_sides = 0
 	///what name are we passing to the finished airlock
@@ -53,7 +51,6 @@
 /obj/item/electronics/airlock/ui_data()
 	var/list/data = list()
 	data["accesses"] = accesses
-	data["oneAccess"] = one_access
 	data["unres_direction"] = unres_sides
 	data["passedName"] = passed_name
 	data["passedCycleId"] = passed_cycle_id
@@ -65,13 +62,9 @@
 	switch(action)
 		if("clear_all")
 			accesses = list()
-			one_access = 0
 			. = TRUE
 		if("grant_all")
 			accesses = get_all_accesses()
-			. = TRUE
-		if("one_access")
-			one_access = !one_access
 			. = TRUE
 		if("set")
 			var/access = text2num(params["access"])

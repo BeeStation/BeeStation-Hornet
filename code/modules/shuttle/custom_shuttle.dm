@@ -5,7 +5,7 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
-	req_access = list( )
+	req_access = list()
 	possible_destinations = "whiteship_home"
 
 	var/datum/weakref/designator_ref = null

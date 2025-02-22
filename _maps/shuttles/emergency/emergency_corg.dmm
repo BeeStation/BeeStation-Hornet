@@ -637,7 +637,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
-	req_one_access_txt = "32;19"
+	req_access_txt = "32;19"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
@@ -895,7 +895,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
-	req_one_access_txt = "32;19"
+	req_access_txt = "32;19"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,

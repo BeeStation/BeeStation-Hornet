@@ -386,7 +386,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Cockpit";
-	req_one_access_txt = "19;5;2"
+	req_access_txt = "19;5;2"
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
@@ -844,7 +844,7 @@
 "Gl" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Emergency Shuttle Airlock";
-	req_one_access_txt = "63"
+	req_access_txt = "63"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
@@ -1143,7 +1143,7 @@
 "Rk" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Cockpit";
-	req_one_access_txt = "19;5;2"
+	req_access_txt = "19;5;2"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/pod/dark,

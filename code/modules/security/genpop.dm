@@ -19,7 +19,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = OPEN_DOOR_LAYER
 	//Seccies and brig phys may always pass, either way.
-	req_one_access = list(ACCESS_BRIG, ACCESS_BRIGPHYS)
+	req_access = list(ACCESS_BRIG, ACCESS_BRIGPHYS)
 	//Cooldown so we don't shock a million times a second
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
@@ -61,7 +61,7 @@
 //Executive officer's line variant. For rule of cool.
 /*/obj/machinery/turnstile/xo
 	name = "\improper XO line turnstile"
-	req_one_access = list(ACCESS_BRIG, ACCESS_HEADS)
+	req_access = list(ACCESS_BRIG, ACCESS_HEADS)
 */
 
 /obj/structure/closet/secure_closet/genpop

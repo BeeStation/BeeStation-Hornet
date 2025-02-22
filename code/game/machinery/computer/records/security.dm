@@ -9,7 +9,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_screen = "security"
 	icon_keyboard = "security_key"
-	req_one_access = list(ACCESS_SEC_RECORDS)
+	req_access = list(ACCESS_SEC_RECORDS)
 	circuit = /obj/item/circuitboard/computer/records/security
 	light_color = LIGHT_COLOR_RED
 
@@ -22,7 +22,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 /obj/machinery/computer/records/security/syndie
 	icon_keyboard = "syndie_key"
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/computer/records/security/laptop
 	name = "security laptop"
@@ -33,7 +33,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 /obj/machinery/computer/records/security/laptop/syndie
 	desc = "A cheap, jailbroken security laptop. It functions as a security records console. It's bolted to the table."
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/computer/records/security/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()

@@ -23,7 +23,7 @@ RLD
 	throw_range = 5
 	w_class = WEIGHT_CLASS_LARGE
 	custom_materials = list(/datum/material/iron=100000)
-	req_access_txt = "11"
+	req_access = list(ACCESS_ENGINE_EQUIP )
 	armor_type = /datum/armor/item_construction
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
