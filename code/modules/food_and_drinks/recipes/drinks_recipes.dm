@@ -492,25 +492,32 @@
 	required_reagents = list(/datum/reagent/consumable/bluecherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/vanillashake
+	name = "Vanilla Milkshake"
 	id = "vanillashake"
 	results = list(/datum/reagent/consumable/vanillashake = 5)
 	required_reagents = list(/datum/reagent/consumable/vanilla = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/caramelshake
+	name = "Caramel Milkshake"
 	id = "caramelshake"
 	results = list(/datum/reagent/consumable/caramelshake = 5)
 	required_reagents = list(/datum/reagent/consumable/caramel = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/sodiumchloride = 1)
 
 /datum/chemical_reaction/drink/choccyshake
+	name = "Chocolate Milkshake"
 	id = "chocolateshake"
 	results = list(/datum/reagent/consumable/choccyshake = 5)
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/strawberryshake
+	name = "Strawberry Milkshake"
+	id = "strawberryshake"
 	results = list(/datum/reagent/consumable/strawberryshake = 5)
 	required_reagents = list(/datum/reagent/consumable/berryjuice = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/bananashake
+	name = "Banana Milkshake"
+	id = "bananashake"
 	results = list(/datum/reagent/consumable/bananashake = 5)
 	required_reagents = list(/datum/reagent/consumable/banana = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
@@ -603,17 +610,20 @@
 
 /datum/chemical_reaction/hot_cocoa
 	name = "Hot Coco"
+	id = "hotcocoa"
 	results = list(/datum/reagent/consumable/hot_cocoa = 6)
 	required_reagents = list(/datum/reagent/consumable/milk = 5, /datum/reagent/consumable/cocoa = 1)
 	required_temp = 320
 
 /datum/chemical_reaction/coffee
 	name = "Coffee"
+	id = "coffee"
 	results = list(/datum/reagent/consumable/coffee = 5)
 	required_reagents = list(/datum/reagent/toxin/coffeepowder = 1, /datum/reagent/water = 5)
 
 /datum/chemical_reaction/tea
 	name = "Tea"
+	id = "tea"
 	results = list(/datum/reagent/consumable/tea = 5)
 	required_reagents = list(/datum/reagent/toxin/teapowder = 1, /datum/reagent/water = 5)
 
