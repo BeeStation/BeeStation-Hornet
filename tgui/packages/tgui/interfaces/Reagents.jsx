@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Icon, LabeledList, NumberInput, Section, Stack, Table } from '../components';
+import { Button, Icon, LabeledList, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { ReagentLookup } from './common/ReagentLookup';
 import { RecipeLookup } from './common/RecipeLookup';
@@ -41,70 +41,66 @@ export const Reagents = (props) => {
   return (
     <Window width={720} height={850}>
       <Window.Content>
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <div style={{ display: 'flex', flex: '1 1 auto' }}>
-            <div style={{ flex: '1 1 0', minWidth: '353px' }}>
-              <Section
-                title="Recipe lookup"
-                buttons={
-                  <>
-                    <Button
-                      content="Search"
-                      icon="search"
-                      color="purple"
-                      tooltip="Search for a recipe by product name"
-                      onClick={() => act('search_recipe')}
-                    />
-                    <Button
-                      icon="times"
-                      color="red"
-                      disabled={!reagent_mode_recipe}
-                      onClick={() =>
-                        act('recipe_click', {
-                          id: null,
-                        })
-                      }
-                    />
-                  </>
-                }>
-                <RecipeLookup recipe={reagent_mode_recipe} bookmarkedReactions={bookmarkedReactions} />
-              </Section>
-            </div>
-            <div style={{ flex: '1 1 0', minWidth: '300px' }}>
-              <Section
-                title="Reagent lookup"
-                buttons={
-                  <>
-                    <Button
-                      content="Search"
-                      icon="search"
-                      tooltip="Search for a reagent by name"
-                      tooltipPosition="left"
-                      onClick={() => act('search_reagents')}
-                    />
-                    <Button
-                      icon="times"
-                      color="red"
-                      disabled={!reagent_mode_reagent}
-                      onClick={() =>
-                        act('reagent_click', {
-                          id: null,
-                        })
-                      }
-                    />
-                  </>
-                }>
-                <ReagentLookup reagent={reagent_mode_reagent} />
-              </Section>
-            </div>
-          </div>
-          <div style={{ flex: '0 1 auto' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+          <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
             <Section title="Tags">
               <TagBox bitflags={bitflags} />
             </Section>
+            <Section>
+              <RecipeLibrary flagIcons={flagIcons} />
+            </Section>
           </div>
-          <div style={{ flex: '2 1 auto' }}>
-            <RecipeLibrary flagIcons={flagIcons} />
+          <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+            <Section
+              title="Recipe lookup"
+              buttons={
+                <>
+                  <Button
+                    content="Search"
+                    icon="search"
+                    color="purple"
+                    tooltip="Search for a recipe by product name"
+                    onClick={() => act('search_recipe')}
+                  />
+                  <Button
+                    icon="times"
+                    color="red"
+                    disabled={!reagent_mode_recipe}
+                    onClick={() =>
+                      act('recipe_click', {
+                        id: null,
+                      })
+                    }
+                  />
+                </>
+              }>
+              <RecipeLookup recipe={reagent_mode_recipe} bookmarkedReactions={bookmarkedReactions} />
+            </Section>
+            <Section
+              title="Reagent lookup"
+              buttons={
+                <>
+                  <Button
+                    content="Search"
+                    icon="search"
+                    tooltip="Search for a reagent by name"
+                    tooltipPosition="left"
+                    onClick={() => act('search_reagents')}
+                  />
+                  <Button
+                    icon="times"
+                    color="red"
+                    disabled={!reagent_mode_reagent}
+                    onClick={() =>
+                      act('reagent_click', {
+                        id: null,
+                      })
+                    }
+                  />
+                </>
+              }>
+              <ReagentLookup reagent={reagent_mode_reagent} />
+            </Section>
           </div>
         </div>
       </Window.Content>
