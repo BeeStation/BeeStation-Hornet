@@ -5386,6 +5386,14 @@
 	},
 /turf/open/floor/engine,
 /area/medical/chemistry)
+"bgg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/engine)
 "bgk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -8513,6 +8521,11 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"bPX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "bPY" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
@@ -13788,13 +13801,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "cQP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/broken_bottle{
-	pixel_x = -9;
-	pixel_y = -7
-	},
-/turf/open/floor/iron,
-/area/maintenance/department/engine)
+/obj/structure/fluff/hedge/opaque,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron/smooth,
+/area/hallway/primary/fore)
 "cRc" = (
 /obj/machinery/door/airlock/science{
 	name = "Exploration Shuttle Dock";
@@ -19468,11 +19478,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
-"efr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
-/turf/open/floor/iron,
-/area/maintenance/department/medical)
 "efE" = (
 /obj/effect/turf_decal/edges/techfloor,
 /obj/machinery/power/terminal{
@@ -37962,11 +37967,6 @@
 	dir = 8
 	},
 /area/hallway/secondary/entry)
-"ibk" = (
-/obj/structure/fluff/hedge/opaque,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/smooth,
-/area/hallway/primary/fore)
 "ibu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -90564,7 +90564,7 @@
 	},
 /obj/item/paper{
 	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><p align="right">-Dr. Antek";
+	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><p>-Dr. Antek";
 	c_tag = s;
 	pixel_x = -14;
 	pixel_y = 6
@@ -138453,7 +138453,7 @@ vEP
 bTu
 spD
 ojW
-cQP
+bgg
 koj
 lrw
 qQj
@@ -148616,7 +148616,7 @@ xHJ
 oAT
 bsO
 kdI
-ibk
+cQP
 kTJ
 qmM
 keI
@@ -149644,7 +149644,7 @@ vxJ
 oZa
 slA
 kdI
-ibk
+cQP
 gdr
 iBe
 kGJ
@@ -168711,7 +168711,7 @@ vIv
 wZS
 wdS
 aTS
-efr
+bPX
 nME
 wZS
 wZS
