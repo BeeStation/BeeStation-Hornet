@@ -314,6 +314,15 @@
 		each_client.mob.reset_perspective()
 	eye_users = null
 
+	if (chat_messages)
+		for (var/chatmessage in chat_messages)
+			qdel(chatmessage)
+		chat_messages = null
+	if (balloon_alerts)
+		for (var/balloon_alerts in balloon_alerts)
+			qdel(balloon_alerts)
+		balloon_alerts = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]

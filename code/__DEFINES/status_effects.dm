@@ -123,6 +123,9 @@
 
 #define STATUS_EFFECT_BLEED /datum/status_effect/bleeding
 
+//Deals with covering the target in ants.
+#define STATUS_EFFECT_ANTS /datum/status_effect/ants
+
 //---------//
 // NEUTRAL //
 //---------//
@@ -156,6 +159,8 @@
 
 // Grouped effect sources, see also code/__DEFINES/traits.dm
 #define STASIS_MACHINE_EFFECT "stasis_machine"
+
+#define STASIS_ADMIN "stasis_admin"
 
 // Stasis helpers
 #define STASIS_ASCENSION_EFFECT "heretic_ascension"
