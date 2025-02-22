@@ -116,6 +116,9 @@
 	}\
 ##typepath/proc/swim(index) {\
 		var/parent = round(index * 0.5);\
+		if (parent <= 0) {\
+			return;\
+		}\
 		var##stored_type/a = elements[index];\
 		var##stored_type/b = elements[parent];\
 		while(parent > 0 && (##comparison > 0)) {\
@@ -131,9 +134,12 @@
 	}\
 ##typepath/proc/sink(index) {\
 		var/g_child = get_greater_child(index);\
+		if (g_child <= 0) {\
+			return;\
+		}\
 		var##stored_type/a = elements[index];\
 		var##stored_type/b = elements[g_child];\
-		while(g_child > 0 && (##comparison < 0)) {\
+		while(##comparison < 0) {\
 			elements.Swap(index,g_child);\
 			index = g_child;\
 			g_child = get_greater_child(index);\
@@ -145,17 +151,15 @@
 		}\
 	}\
 ##typepath/proc/get_greater_child(index) {\
-		var##stored_type/tmp;\
-		return GREATER_CHILD_HEAP(elements, index, compare_value, tmp);\
-		if (index * 2 > length(_heap_list)) {\
+		if (index * 2 > length(elements)) {\
 			return 0;\
 		}\
-		if (index * 2 + 1 > length(_heap_list)) {\
+		if (index * 2 + 1 > length(elements)) {\
 			return index * 2;\
 		}\
 		var##stored_type/a = elements[index * 2];\
 		var##stored_type/b = elements[index * 2 + 1];\
-		return ##comparison < 0 ? (index * 2 + 1) : (index * 2);\
+		return (##comparison) < 0 ? (index * 2 + 1) : (index * 2);\
 	}\
 ##typepath/proc/resort(atom/A) {\
 		var/index = elements.Find(A);\
