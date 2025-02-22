@@ -141,7 +141,7 @@ export const ChemDispenser = (_props) => {
               )}
               <Button
                 icon="book"
-                disabled={!data.isBeakerLoaded || !data.canReagentLookup}
+                disabled={!data.canReagentLookup}
                 content={'Reaction search'}
                 tooltip={
                   !data.canReagentLookup
