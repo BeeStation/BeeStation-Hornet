@@ -1,0 +1,114 @@
+@use '../colors.scss';
+
+.chem_dispenser {
+  .root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .discover_count {
+    margin-top: 3px;
+    color: colors.$label;
+  }
+
+  .grow {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+  }
+
+  .recipe_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .recipe_title {
+    margin-bottom: 3px;
+    user-select: none;
+  }
+
+  .recipe_box {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.705);
+    margin: 2px;
+    padding: 4px;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid rgb(190, 190, 190);
+    transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+
+    &:hover {
+      background-color: rgba(10, 10, 10, 0.705);
+      box-shadow: inset 0px 0px 3px colors.$primary;
+      border-color: colors.$primary;
+    }
+  }
+
+  .recipe_required {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .recipe_ingredient {
+    margin: 0px 2px;
+    background-color: rgb(178, 178, 178);
+    color: rgb(0, 0, 0);
+    padding: 3px 5px;
+    border-radius: 5px;
+    user-select: none;
+
+    &.satisfied {
+      background-color: rgb(99, 233, 112);
+    }
+
+    &.catalyst {
+      background-color: rgb(212, 151, 214);
+    }
+  }
+
+  .beaker_section {
+    flex-basis: 120px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .beaker_labelled_part {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .beaker_contents {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .beaker_chemical {
+    margin-right: 3px;
+    margin-bottom: 4px;
+    border: 1px solid colors.$primary;
+    padding: 3px 5px;
+    border-radius: 4px;
+  }
+
+  .beaker_label {
+    color: colors.$label;
+  }
+
+  .beaker_label_part {
+    width: 70px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .beaker_content_part {
+    flex-grow: 1;
+  }
+}

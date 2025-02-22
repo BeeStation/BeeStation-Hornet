@@ -194,7 +194,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume, "path" = R.type))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -206,6 +206,7 @@
 		data["beakerCurrentVolume"] = null
 		data["beakerMaxVolume"] = null
 		data["beakerTransferAmounts"] = null
+	data["containerType"] = beaker?.type
 
 	var/chemicals[0]
 	var/is_hallucinating = FALSE
@@ -222,6 +223,24 @@
 	data["recipes"] = saved_recipes
 
 	data["recordingRecipe"] = recording_recipe
+	return data
+
+/obj/machinery/chem_dispenser/ui_static_data(mob/user)
+	var/list/data = list()
+	var/list/reactions
+	for(var/i in GLOB.chemical_reactions_list)
+		for(var/datum/chemical_reaction/reaction as anything in GLOB.chemical_reactions_list[i])
+			reactions += list(list(
+				name = reaction.name,
+				results = reaction.results,
+				required_reagents = reaction.required_reagents,
+				required_catalysts = reaction.required_catalysts,
+				required_container = reaction.required_container,
+				required_other = reaction.required_other,
+				is_cold_recipe = reaction.is_cold_recipe,
+				required_temp = reaction.required_temp
+			))
+	data["reactions_list"] = reactions
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)
