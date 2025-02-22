@@ -20,7 +20,7 @@ GLOBAL_LIST(chemical_reactions_list)				//list of all /datum/chemical_reaction d
 GLOBAL_LIST(chemical_reactions_list_reactant_index) //list of all /datum/chemical_reaction datums. Used during chemical reactions. Indexed by REACTANT types
 GLOBAL_LIST(chemical_reactions_list_product_index) 			//list of all /datum/chemical_reaction datums. Used for the reaction lookup UI. Indexed by PRODUCT type
 /// Reagent lists by name, for easier typepath sorting
-GLOBAL_LIST_INIT(chemical_name_list, init_chemical_name_list())
+//GLOBAL_LIST_INIT(chemical_name_list, init_chemical_name_list())
 GLOBAL_LIST(chemical_reactions_results_lookup_list) 		//List of all reactions with their associated product and result ids. Used for reaction lookups
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_EMPTY(tech_list)					//list of all /datum/tech datums indexed by id.

@@ -8,8 +8,8 @@ const bookmarkedReactions = new Set();
 
 const matchBitflag = (a, b) => a & b && (a | b) === b;
 
-export const Reagents = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Reagents = (props) => {
+  const { act, data } = useBackend();
   const { reagent_mode_recipe, reagent_mode_reagent, bitflags = {} } = data;
 
   const flagIcons = [
@@ -36,7 +36,7 @@ export const Reagents = (props, context) => {
     { flag: bitflags.PLANT, icon: 'seedling' },
   ];
 
-  const [page, setPage] = useLocalState(context, 'page', 1);
+  const [page, setPage] = useLocalState('page', 1);
 
   return (
     <Window width={720} height={850}>
@@ -116,9 +116,9 @@ export const Reagents = (props, context) => {
   );
 };
 
-const TagBox = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [page, setPage] = useLocalState(context, 'page', 1);
+const TagBox = (props) => {
+  const { act, data } = useBackend();
+  const [page, setPage] = useLocalState('page', 1);
   const { bitflags } = props;
   const { selectedBitflags } = data;
   return (
@@ -322,14 +322,14 @@ const TagBox = (props, context) => {
   );
 };
 
-const RecipeLibrary = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [page, setPage] = useLocalState(context, 'page', 1);
+const RecipeLibrary = (props) => {
+  const { act, data } = useBackend();
+  const [page, setPage] = useLocalState('page', 1);
   const { flagIcons } = props;
   const { selectedBitflags, currentReagents = [], master_reaction_list = [], linkedBeaker } = data;
 
-  const [reagentFilter] = useLocalState(context, 'reagentFilter', true);
-  const [bookmarkMode, setBookmarkMode] = useLocalState(context, 'bookmarkMode', false);
+  const [reagentFilter] = useLocalState('reagentFilter', true);
+  const [bookmarkMode, setBookmarkMode] = useLocalState('bookmarkMode', false);
 
   const matchReagents = (reaction) => {
     if (!reagentFilter || currentReagents === null) {

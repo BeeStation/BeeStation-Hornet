@@ -15,6 +15,7 @@
 		var/datum/reagent/D = new path()
 		GLOB.chemical_reagents_list[path] = D
 
+/*
 /// Creates an list which is indexed by reagent name
 /proc/init_chemical_name_list()
 	var/list/name_list = list()
@@ -22,6 +23,7 @@
 		var/datum/reagent/Reagent = GLOB.chemical_reagents_list[X]
 		name_list += Reagent.name
 	return sort_list(name_list)
+*/
 
 /proc/build_chemical_reactions_lists()
 	//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
@@ -410,7 +412,7 @@
 			ui_reaction_id = text2path(params["id"])
 			return TRUE
 		if("search_reagents")
-			var/input_reagent = tgui_input_list(usr, "Select reagent", "Reagent", GLOB.chemical_name_list)
+			var/input_reagent = (input("Enter the name of any reagent", "Input") as text|null)
 			input_reagent = get_reagent_type_from_product_string(input_reagent) //from string to type
 			var/datum/reagent/reagent = find_reagent_object_from_type(input_reagent)
 			if(!reagent)
