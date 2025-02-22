@@ -7,11 +7,10 @@
 
 	for(var/datum/chemical_reaction/reaction_path as anything in subtypesof(/datum/chemical_reaction))
 		if (names[reaction_path::id])
-			TEST_FAIL("The reaction with the ID [R.id] is duplicated.")
+			TEST_FAIL("The reaction with the ID [R::id] is duplicated.")
 		names[reaction_path::id] = TRUE
 
 	var/paths = subtypesof(/datum/reagent)
-	var/found_ids = list()
 
 	for(var/datum/reagent/path as anything in paths)
 		if (ispath(path::name))
