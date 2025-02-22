@@ -150,11 +150,11 @@
 	back = /obj/item/storage/backpack/chameleon
 	backpack_contents = list(
 		/obj/item/suppressor,
-		/obj/item/storage/box/rxglasses/spyglasskit,
 		/obj/item/switchblade/plastitanium,
 		/obj/item/storage/firstaid/infiltrator,
 		/obj/item/flashlight
 	)
+	r_hand = /obj/item/storage/box/rxglasses/spyglasskit
 	l_hand = /obj/item/gun/ballistic/automatic/pistol //They do not get an extra magazine like the other two
 
 //=====================
