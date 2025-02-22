@@ -90562,11 +90562,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/item/paper{
-	name = "Medbay resources";
-	default_raw_text = "Since I'm going to be on vacation leave for the next few cycles, I just wanted to let you know that other than the blood freezer in the surgery room, there's a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).                                               -Dr. Antek";
-	pixel_x = -14;
-	pixel_y = 6
+/obj/item/paper/fluff/stations/cardstation/medbay_blood{
+	pixel_x = -15;
+	pixel_y = 2
 	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
