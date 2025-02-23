@@ -92,11 +92,14 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		if (blacklisted)
 			continue
 
-		if (quirk.quirk_value > 0)
+		//I don't fully understand why declaring this is necessary, but when I tried to simplify it to just calling quirk.quirk_value it runtimes with a null value??
+		var/initial_value = initial(quirk.quirk_value)
+
+		if (initial_value > 0)
 			if (length(positive_quirks) == MAX_POSITIVE_QUIRKS)
 				continue
 
-			positive_quirks[quirk_name] = quirk.quirk_value
+			positive_quirks[quirk_name] = initial_value
 
 		new_quirks += quirk_name
 
