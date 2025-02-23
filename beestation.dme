@@ -1054,6 +1054,8 @@
 #include "code\datums\storage\subtypes\extract_inventory.dm"
 #include "code\datums\storage\subtypes\implant.dm"
 #include "code\datums\storage\subtypes\pockets.dm"
+#include "code\datums\storage\subtypes\rped.dm"
+#include "code\datums\storage\subtypes\trash.dm"
 #include "code\datums\traits\_quirk.dm"
 #include "code\datums\traits\negative_quirk.dm"
 #include "code\datums\traits\neutral_quirk.dm"

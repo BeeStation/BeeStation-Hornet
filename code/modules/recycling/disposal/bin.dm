@@ -268,11 +268,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 // attack by item places it in to disposal
 /obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))	//Not doing component overrides because this is a specific type.
-		var/obj/item/storage/bag/trash/T = I
-		to_chat(user, "<span class='warning'>You empty the bag.</span>")
-		for(var/obj/item/O in T.contents)
-			T.atom_storage.attempt_remove(O,src)
-		T.update_appearance()
+		var/obj/item/storage/bag/trash/bag = I
+		to_chat(user, span_warning("You empty the bag."))
+		bag.atom_storage.remove_all(src)
 		update_appearance()
 	else
 		return ..()

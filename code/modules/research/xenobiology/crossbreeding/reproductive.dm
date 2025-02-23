@@ -19,7 +19,7 @@ Reproductive extracts:
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/food/monkeycube)
-	create_storage(type = /datum/storage/extract_inventory)
+	create_storage(storage_type = /datum/storage/extract_inventory)
 	atom_storage.can_hold = typecache_to_take
 
 /obj/item/slimecross/reproductive/examine()

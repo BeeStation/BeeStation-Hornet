@@ -30,11 +30,11 @@
 		if(istype(X, type))
 			var/obj/item/implant/storage/imp_e = X
 			if(!imp_e.atom_storage || (imp_e.atom_storage && imp_e.atom_storage.max_slots < max_slot_stacking))
-				imp_e.create_storage(type = /datum/storage/implant)
+				imp_e.create_storage(storage_type = /datum/storage/implant)
 				qdel(src)
 				return TRUE
 			return FALSE
-	create_storage(type = /datum/storage/implant)
+	create_storage(storage_type = /datum/storage/implant)
 
 	return ..()
 

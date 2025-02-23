@@ -336,7 +336,7 @@
 /obj/item/clothing/accessory/pocketprotector/full/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/pocketprotector)
+	create_storage(storage_type = /datum/storage/pockets/pocketprotector)
 
 	new /obj/item/pen/red(src)
 	new /obj/item/pen(src)
@@ -403,7 +403,7 @@
 
 /obj/item/clothing/accessory/holster/Initialize(mapload)
 	. = ..()
-	create_storage(type = holstertype)
+	create_storage(storage_type = holstertype)
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"

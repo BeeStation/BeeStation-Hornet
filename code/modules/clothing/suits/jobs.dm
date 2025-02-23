@@ -26,7 +26,7 @@
 
 /obj/item/clothing/suit/apron/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/pockets/exo/large)
+	create_storage(storage_type = /datum/storage/pockets/exo/large)
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -158,7 +158,7 @@
 
 /obj/item/clothing/suit/hazardvest/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/pockets/exo/large)
+	create_storage(storage_type = /datum/storage/pockets/exo/large)
 
 //Lawyer
 /obj/item/clothing/suit/toggle/lawyer

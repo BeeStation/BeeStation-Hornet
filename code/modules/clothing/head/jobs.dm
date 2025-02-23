@@ -118,7 +118,7 @@
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/small/fedora/detective)
+	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
 
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
 

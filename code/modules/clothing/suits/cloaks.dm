@@ -12,7 +12,7 @@
 
 /obj/item/clothing/neck/cloak/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/pockets/exo/cloak)
+	create_storage(storage_type = /datum/storage/pockets/exo/cloak)
 
 /obj/item/clothing/neck/cloak/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

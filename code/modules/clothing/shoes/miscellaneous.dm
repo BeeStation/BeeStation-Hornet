@@ -25,7 +25,7 @@
 /obj/item/clothing/shoes/combat/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT boots"
@@ -117,7 +117,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/pockets/shoes/clown)
+	create_storage(storage_type = /datum/storage/pockets/shoes/clown)
 	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
@@ -172,7 +172,7 @@
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
@@ -211,7 +211,7 @@
 /obj/item/clothing/shoes/winterboots/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/winterboots/noslip
 	name = "high-traction winter boots"
@@ -244,7 +244,7 @@
 /obj/item/clothing/shoes/workboots/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
@@ -301,7 +301,7 @@
 /obj/item/clothing/shoes/griffin/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
@@ -324,7 +324,7 @@
 /obj/item/clothing/shoes/bhop/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))
@@ -405,7 +405,7 @@
 /obj/item/clothing/shoes/russian/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/shoes)
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/swagshoes
 	name = "swag shoes"

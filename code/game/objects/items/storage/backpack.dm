@@ -56,7 +56,7 @@
 
 /obj/item/storage/backpack/holding/Initialize(mapload)
 	. = ..()
-	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 70, max_slots = 30, type = /datum/storage/bag_of_holding)
+	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 70, max_slots = 30, storage_type = /datum/storage/bag_of_holding)
 	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
@@ -94,7 +94,7 @@
 
 /obj/item/storage/backpack/hammerspace/Initialize(mapload)
 	. = ..()
-	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 1000, max_slots = 200, type = /datum/storage/bag_of_holding)
+	create_storage(max_specific_storage = WEIGHT_CLASS_GIGANTIC, max_total_storage = 1000, max_slots = 200, storage_type = /datum/storage/bag_of_holding)
 	atom_storage.allow_big_nesting = TRUE
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.allow_quick_empty = TRUE

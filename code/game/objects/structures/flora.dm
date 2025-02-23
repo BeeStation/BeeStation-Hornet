@@ -320,11 +320,9 @@
 	throw_range = 4
 	item_flags = NO_PIXEL_RANDOM_DROP
 
-/*
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/kirbyplants)
-*/
+	create_storage(storage_type = /datum/storage/implant)
 
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()

@@ -106,7 +106,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/pockets/void_cloak)
+	create_storage(storage_type = /datum/storage/pockets/void_cloak)
 	make_visible()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()

@@ -1352,15 +1352,4 @@
 	stat = new_stat
 	update_action_buttons_icon(TRUE)
 
-/mob/proc/set_active_storage(new_active_storage)
-	if(active_storage)
-		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
-	active_storage = new_active_storage
-	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
-
-/mob/proc/active_storage_deleted(datum/source)
-	SIGNAL_HANDLER
-	set_active_storage(null)
-
 #undef MOB_FACE_DIRECTION_DELAY

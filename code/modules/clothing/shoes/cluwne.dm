@@ -10,7 +10,7 @@
 
 /obj/item/clothing/shoes/cluwne/Initialize(mapload)
 	.=..()
-	create_storage(type = /datum/storage/pockets/shoes/clown)
+	create_storage(storage_type = /datum/storage/pockets/shoes/clown)
 	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
