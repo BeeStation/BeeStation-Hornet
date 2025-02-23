@@ -1946,8 +1946,8 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "aAK" = (
+/obj/machinery/processor,
 /obj/effect/turf_decal/siding/white,
-/obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "aAM" = (
@@ -3968,7 +3968,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "aVD" = (
-/obj/machinery/processor,
+/obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "aVP" = (
@@ -21087,11 +21087,10 @@
 /turf/open/floor/iron/white,
 /area/science/explab)
 "eXP" = (
+/obj/machinery/deepfryer,
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
-/obj/structure/table,
-/obj/item/food/cakebatter,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "eYm" = (
@@ -24237,11 +24236,15 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/effect/turf_decal/siding/white{
-	dir = 8
+/obj/item/food/dough{
+	pixel_y = 1
 	},
+/obj/item/food/piedough,
 /obj/item/food/dough{
 	pixel_x = -4
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -30884,7 +30887,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
-/obj/item/reagent_containers/condiment/enzyme,
+/obj/item/food/piedough,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "iXb" = (
@@ -34286,14 +34289,10 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "kqk" = (
-/obj/structure/rack,
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/storage/box/donkpockets,
-/obj/item/stack/package_wrap,
-/turf/open/floor/iron/checker,
+/obj/structure/table,
+/obj/effect/turf_decal/siding/white,
+/obj/item/reagent_containers/condiment/enzyme,
+/turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "kqv" = (
 /obj/structure/cable/yellow{
@@ -35159,7 +35158,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/deepfryer,
+/obj/machinery/oven,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "kFl" = (
@@ -42848,18 +42847,49 @@
 /area/maintenance/fore)
 "nTa" = (
 /obj/structure/table,
-/obj/machinery/microwave,
-/obj/effect/turf_decal/siding/white{
-	dir = 8
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -9
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/machinery/camera/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/camera/directional/north,
-/turf/open/floor/iron/cafeteria,
+/turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "nTi" = (
 /obj/structure/cable/yellow{
@@ -45816,10 +45846,10 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "pkl" = (
+/obj/machinery/griddle,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/processor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "pks" = (
@@ -51685,7 +51715,6 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/food/piedough,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "ruF" = (
@@ -55670,7 +55699,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "sZa" = (
-/obj/machinery/oven,
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "sZo" = (
@@ -61051,13 +61080,19 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "vgA" = (
+/obj/structure/rack,
+/obj/item/storage/box/donkpockets,
+/obj/item/stack/package_wrap,
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 6
+	},
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/machinery/oven,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "vgU" = (
@@ -64176,42 +64211,11 @@
 /area/security/prison)
 "wpm" = (
 /obj/structure/table,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -9;
-	pixel_y = 5
+/obj/machinery/microwave,
+/obj/effect/turf_decal/siding/white{
+	dir = 8
 	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -9
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/turf/open/floor/iron/checker,
+/turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "wps" = (
 /obj/machinery/light_switch{
@@ -107735,7 +107739,7 @@ sZa
 cYc
 pkl
 aVz
-aAK
+kqk
 bfX
 dOI
 tYi
@@ -108245,7 +108249,7 @@ dZF
 lzP
 aEY
 dZF
-kqk
+sZa
 kQw
 eSw
 vqg
