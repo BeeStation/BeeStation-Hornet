@@ -84,8 +84,8 @@
 
 	var/list/saved_recipes = list()
 
-	//Whether the chem lookup button is usable or not on chem dispensers & subtypes. Defaults to TRUE
-	var/can_reagent_lookup = TRUE
+	//The type of lookup we default to, 1 for chemistry, 2 for bartending, 3 for all
+	var/lookup_type = 1
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -170,12 +170,6 @@
 	if(A == beaker)
 		beaker = null
 		cut_overlays()
-
-
-/obj/machinery/chem_dispenser/ui_static_data(mob/user)
-	var/list/data = list()
-	data["canReagentLookup"] = can_reagent_lookup
-	return data
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -344,18 +338,16 @@
 				saved_recipes[name] = recording_recipe
 				recording_recipe = null
 				. = TRUE
+
 		if("cancel_recording")
 			recording_recipe = null
 			. = TRUE
 
 		if("reaction_lookup")
-			//drink dispensers shouldnt be able to look up reagents
-			//UI should have stopped this from happening, sanity check incase it somehow got bypassed
-			if(!can_reagent_lookup)
-				to_chat(usr, "<span class ='danger'>This dispenser does not support reagent lookup!</span>")
-				message_admins("[ADMIN_LOOKUPFLW(usr)] has bypassed a UI check on [src], but was stopped by a code check. This should not have happened and something has gone wrong.")
-			else if(beaker)
-				beaker.reagents.ui_interact(usr)
+			if(beaker)
+				if(lookup_type == 2)
+					message_admins("sending lookup_type 2")
+				beaker.reagents.ui_interact(usr, lookup_type = lookup_type)
 
 /obj/machinery/chem_dispenser/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -502,7 +494,7 @@
 		/datum/reagent/toxin/mindbreaker,
 		/datum/reagent/toxin/staminatoxin
 	)
-	can_reagent_lookup = FALSE
+	lookup_type = 2
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()

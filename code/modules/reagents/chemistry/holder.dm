@@ -124,6 +124,8 @@
 	var/ui_reaction_index = 1
 	///If we're syncing with the beaker - so return reactions that are actively happening
 	var/ui_beaker_sync = FALSE
+	///what machine we are currently. 1 is chemistry, 2 is bartending, 3 is both
+	var/machinetype = 1
 
 /datum/reagents/New(maximum=100, new_flags=0)
 	maximum_volume = maximum
@@ -176,12 +178,15 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 
-/datum/reagents/ui_interact(mob/user, datum/tgui/ui)
+/datum/reagents/ui_interact(mob/user, datum/tgui/ui, lookup_type = 1)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Reagents", "Reaction search")
 		ui.status = UI_INTERACTIVE //How do I prevent a UI from autoclosing if not in LoS
 		ui.open()
+		if(lookup_type == 2)
+			message_admins("sending lookup_type 2")
+		ui_data(machinetype = lookup_type)
 
 
 /datum/reagents/ui_status(mob/user)
@@ -234,12 +239,13 @@
 				addict_text += "Potent [ref.name]"
 	return addict_text */
 
-/datum/reagents/ui_data(mob/user)
+/datum/reagents/ui_data(mob/user, machinetype = 1)
 	var/data = list()
 	data["selectedBitflags"] = ui_tags_selected
 	data["currentReagents"] = previous_reagent_list //This keeps the string of reagents that's updated when handle_reactions() is called
 	data["beakerSync"] = ui_beaker_sync
 	data["linkedBeaker"] = my_atom.name //To solidify the fact that the UI is linked to a beaker - not a machine.
+	data["selectedMachineType"] = machinetype
 
 	//reagent lookup data
 	if(ui_reagent_id)
@@ -443,6 +449,10 @@
 			return TRUE
 		if("beaker_sync")
 			ui_beaker_sync = !ui_beaker_sync
+			return TRUE
+		if("set_machine_flags")
+			machinetype = (machinetype % 3) + 1
+			message_admins("setting machinetype [machinetype]")
 			return TRUE
 		if("toggle_tag_brute")
 			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_BRUTE
