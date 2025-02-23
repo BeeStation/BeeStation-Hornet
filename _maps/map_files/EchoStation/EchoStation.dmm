@@ -8383,15 +8383,24 @@
 /area/storage/tech)
 "dVA" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/freezer/meat{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
-	},
 /obj/machinery/power/apc/auto_name/directional/north{
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/structure/table,
+/obj/item/storage/box/ingredients/wildcard{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/storage/box/ingredients/fruity{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/storage/box/ingredients/vegetarian{
+	pixel_x = -1;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -8825,22 +8834,7 @@
 /area/hallway/primary/aft)
 "eop" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
-	},
-/obj/item/storage/box/ingredients/fruity{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/box/ingredients/vegetarian{
-	pixel_x = -1;
-	pixel_y = 4
-	},
-/obj/item/storage/box/ingredients/wildcard{
-	pixel_x = -5;
-	pixel_y = 8
-	},
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "eot" = (
@@ -9700,15 +9694,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "eHY" = (
-/obj/structure/closet/secure_closet/freezer/fridge{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
-	},
 /obj/effect/turf_decal/bot,
-/obj/item/food/meat/slab/penguin,
-/obj/item/food/meat/slab/penguin,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 5
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -9980,6 +9972,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/machinery/smartfridge/food,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "ePB" = (
@@ -10061,6 +10054,9 @@
 /turf/open/openspace,
 /area/engineering/hallway)
 "eQA" = (
+/obj/structure/table,
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "eQB" = (
@@ -34952,9 +34948,6 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -41263,8 +41256,8 @@
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/asteroid/paradise/surface)
 "uGp" = (
-/obj/machinery/smartfridge/food,
-/turf/open/floor/iron/cafeteria_red,
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "uGq" = (
 /obj/effect/spawner/structure/window/reinforced,

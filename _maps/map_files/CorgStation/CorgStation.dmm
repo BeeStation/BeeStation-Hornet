@@ -1942,14 +1942,10 @@
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
 "ayL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/hallway/secondary/service)
 "ayM" = (
 /obj/machinery/atmospherics/miner/nitrogen,
 /turf/open/floor/engine/n2,
@@ -4963,7 +4959,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/food_cart,
+/obj/machinery/chem_master/condimaster,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "bnG" = (
@@ -7645,7 +7641,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "chJ" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
@@ -9865,6 +9860,27 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "dam" = (
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
 /obj/machinery/button/door{
 	id = "kitchenconveyor";
 	name = "Kitchen Belt Shutters";
@@ -9872,8 +9888,8 @@
 	pixel_y = -5;
 	req_access_txt = "28"
 	},
+/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/processor,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "daX" = (
@@ -12921,12 +12937,8 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 7
-	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/deepfryer,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "eay" = (
@@ -22275,10 +22287,10 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "hhn" = (
-/obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/gibber,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "hhw" = (
@@ -28350,6 +28362,15 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
+"jcI" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "jdc" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
@@ -30418,14 +30439,8 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "jOn" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/cooking_to_serve_man,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/item/reagent_containers/condiment/sugar,
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/processor,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "jOL" = (
@@ -31428,11 +31443,11 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "khh" = (
-/obj/machinery/chem_master/condimaster,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/food_cart,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "khn" = (
@@ -35561,6 +35576,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "lAT" = (
@@ -35624,7 +35640,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "lCz" = (
@@ -44790,13 +44806,14 @@
 /area/crew_quarters/heads/cmo)
 "ozm" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/griddle,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
+/obj/item/storage/bag/tray,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "ozr" = (
@@ -46571,10 +46588,10 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "pgJ" = (
-/obj/structure/table/reinforced,
 /obj/item/food/mint,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "phh" = (
@@ -55093,7 +55110,6 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/deepfryer,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "sdI" = (
@@ -58361,8 +58377,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/structure/extinguisher_cabinet/directional/north,
+/obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "tgX" = (
@@ -58762,8 +58778,12 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/vending/dinnerware,
 /obj/machinery/camera/directional/north,
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "tnM" = (
@@ -61386,10 +61406,10 @@
 /turf/open/floor/plating,
 /area/security/brig)
 "uir" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
-/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "uiz" = (
@@ -62099,7 +62119,7 @@
 /area/security/prison)
 "uuV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 6
+	dir = 5
 	},
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron/white,
@@ -62238,7 +62258,13 @@
 "uxz" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/oven,
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/cooking_to_serve_man,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/sugar,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "uxA" = (
@@ -62546,6 +62572,15 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"uCQ" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/iron/white,
+/area/crew_quarters/kitchen)
 "uDa" = (
 /obj/machinery/airalarm/directional/west,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -64566,8 +64601,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "vke" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -64575,6 +64608,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/griddle,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "vkh" = (
@@ -66312,7 +66346,6 @@
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "vKM" = (
-/obj/machinery/gibber,
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	pixel_y = 32
@@ -66320,6 +66353,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
 "vKY" = (
@@ -73344,6 +73378,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "yeH" = (
@@ -108139,9 +108176,9 @@ bXu
 dSh
 ggr
 isU
-dSh
-dSh
 kTz
+ayL
+ayL
 dSh
 vZJ
 phs
@@ -108653,9 +108690,9 @@ dqO
 gRw
 iOt
 eeE
-cyL
+jcI
 lAK
-ayL
+cyL
 cyL
 gNF
 dam
@@ -108910,9 +108947,9 @@ kKu
 qyp
 djh
 rPt
-cyL
+uCQ
 uuV
-uir
+tIp
 tIp
 rbi
 rjr
@@ -109681,7 +109718,7 @@ ntO
 qyp
 oQO
 gWp
-cyL
+uir
 lXY
 kuf
 bPr

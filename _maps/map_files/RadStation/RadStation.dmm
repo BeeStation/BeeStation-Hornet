@@ -834,6 +834,9 @@
 	pixel_x = 13;
 	pixel_y = 17
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "anx" = (
@@ -3846,6 +3849,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "bjw" = (
@@ -3861,6 +3867,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "bkD" = (
@@ -6443,9 +6452,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "cbV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -7056,9 +7062,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
 "cly" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -9358,9 +9361,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "cYQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -13281,9 +13281,6 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/auxiliary)
 "elX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -17414,9 +17411,6 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hos)
 "fyb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -18580,7 +18574,7 @@
 /area/space/nearstation)
 "fQM" = (
 /obj/machinery/light/small,
-/obj/machinery/food_cart,
+/obj/machinery/icecream_vat,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -19968,6 +19962,9 @@
 	dir = 8;
 	name = "Kitchen Doors";
 	req_one_access_txt = "28;25;35"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -21728,6 +21725,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -25389,9 +25389,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/chief)
 "ibb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
@@ -26550,12 +26547,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
-"ixJ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
 "ixS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -28599,6 +28590,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -30829,12 +30823,12 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "jSk" = (
-/obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/turf_decal/bot,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "jSp" = (
@@ -31454,6 +31448,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
@@ -32518,12 +32515,12 @@
 	name = "Hydro";
 	sortType = 21
 	},
-/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/green{
 	color = "#439C1E";
 	dir = 4
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "kvh" = (
@@ -34542,11 +34539,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "lbY" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -36273,9 +36270,6 @@
 /area/crew_quarters/cafeteria)
 "lFS" = (
 /obj/effect/landmark/start/cook,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/cafeteria,
@@ -38181,8 +38175,10 @@
 /turf/open/floor/iron,
 /area/maintenance/port/aft)
 "mod" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo"
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "mou" = (
@@ -38718,9 +38714,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26;
 	pixel_y = -1
-	},
-/obj/machinery/chem_master/condimaster{
-	name = "CondiMaster Neo"
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -39682,16 +39675,15 @@
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "mJD" = (
-/obj/machinery/door/airlock/glass{
-	name = "Kitchen";
-	req_one_access_txt = "28;25;35"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -39842,6 +39834,9 @@
 "mLI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
@@ -40034,13 +40029,13 @@
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
 "mQc" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 5
 	},
 /turf/open/floor/iron/white,
@@ -40048,9 +40043,6 @@
 "mQz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -40066,6 +40058,9 @@
 /obj/effect/turf_decal/guideline/guideline_half_edge/green{
 	color = "#439C1E";
 	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
@@ -43768,14 +43763,12 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "nXR" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/food/meat/slab/penguin,
-/obj/item/food/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/oven,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "nXU" = (
@@ -49112,9 +49105,15 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "pGW" = (
-/obj/machinery/smartfridge/food,
-/turf/open/floor/iron/white,
-/area/crew_quarters/kitchen)
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "pHx" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
@@ -52713,7 +52712,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/security)
 "qPH" = (
-/obj/machinery/icecream_vat,
+/obj/machinery/food_cart,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "qPI" = (
@@ -57823,9 +57822,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "swK" = (
@@ -66395,11 +66392,7 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "vlR" = (
-/obj/structure/table,
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/obj/machinery/microwave,
+/obj/machinery/griddle,
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "vlT" = (
@@ -70099,7 +70092,9 @@
 	pixel_x = 1;
 	pixel_y = 23
 	},
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
+/obj/structure/table,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "wAt" = (
@@ -113229,9 +113224,9 @@ fwL
 wbE
 lbY
 vlR
-ixJ
+rhw
 gUi
-xbr
+pGW
 swv
 uHQ
 rpK
@@ -113487,7 +113482,7 @@ eVo
 jgI
 ane
 mQc
-pGW
+ibb
 gmj
 cbV
 pyP

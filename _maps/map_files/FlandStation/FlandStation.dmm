@@ -67221,10 +67221,7 @@
 "roM" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/structure/table,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 6
-	},
+/obj/machinery/processor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "roS" = (
@@ -70895,6 +70892,9 @@
 "sis" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 6
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "siB" = (

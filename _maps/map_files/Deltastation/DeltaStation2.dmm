@@ -8115,15 +8115,6 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bci" = (
@@ -8385,7 +8376,10 @@
 /area/crew_quarters/kitchen)
 "bdG" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/chem_master/condimaster,
+/obj/machinery/smartfridge/food,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bdH" = (
@@ -8631,8 +8625,13 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/smartfridge/food,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bff" = (
@@ -8776,7 +8775,9 @@
 	c_tag = "Kitchen";
 	name = "service camera"
 	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/bot,
+/obj/machinery/dish_drive,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bgs" = (
@@ -8797,9 +8798,8 @@
 	},
 /area/security/courtroom)
 "bgu" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/bot,
-/obj/machinery/dish_drive,
+/obj/machinery/chem_master/condimaster,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bgD" = (
@@ -9013,20 +9013,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
-"bhQ" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/suit/apron/chef,
-/obj/item/kitchen/rollingpin,
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
-"bhR" = (
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
 "bhS" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/food/dough,
+/obj/item/food/dough{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 5;
+	pixel_x = -9
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhV" = (
@@ -9592,39 +9589,45 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blA" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/table/reinforced,
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
+/obj/machinery/processor,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blB" = (
-/obj/machinery/griddle,
 /obj/effect/turf_decal/bot,
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/apron/chef,
+/obj/item/kitchen/rollingpin,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blC" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5;
-	pixel_x = -4
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -132053,7 +132056,7 @@ ttZ
 bdJ
 pSp
 bgs
-bhQ
+blz
 bjF
 bly
 aYD
@@ -132310,9 +132313,9 @@ vIE
 iDY
 bff
 wMq
-bhR
+wMq
 idA
-blz
+bgu
 bnq
 hcP
 cbr
@@ -132567,7 +132570,7 @@ evr
 bdJ
 pSp
 bhS
-bgu
+blz
 bjF
 blA
 bnq
