@@ -82,7 +82,6 @@ const QuirkList = (props: {
                       <Stack.Item grow basis="content">
                         <b>{quirk.name}</b>
                       </Stack.Item>
-
                     </Stack>
                   </Stack.Item>
 
@@ -157,7 +156,6 @@ export const QuirksPage = (props) => {
           if (selectedQuirk.value > 0) {
             positiveQuirks += 1;
           }
-
         }
 
         const getReasonToNotAdd = (quirkName: string) => {
@@ -192,7 +190,6 @@ export const QuirksPage = (props) => {
           <Stack align="center" fill>
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
-
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
                     Available Quirks
@@ -227,25 +224,24 @@ export const QuirksPage = (props) => {
                 </Stack.Item>
               </Stack>
             </Stack.Item>
-              <Stack vertical fill align="center">
-                <Stack.Item>
-                  <Box fontSize="1.3em">Positive Quirks</Box>
-                </Stack.Item>
+            <Stack vertical fill align="center">
+              <Stack.Item>
+                <Box fontSize="1.3em">Positive Quirks</Box>
+              </Stack.Item>
 
-                <Stack.Item>
-                  <StatDisplay>
-                    {positiveQuirks} / {maxPositiveQuirks}
-                  </StatDisplay>
-                </Stack.Item>
+              <Stack.Item>
+                <StatDisplay>
+                  {positiveQuirks} / {maxPositiveQuirks}
+                </StatDisplay>
+              </Stack.Item>
 
-                <Stack.Item>
-                  <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
-                </Stack.Item>
-              </Stack>
+              <Stack.Item>
+                <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
+              </Stack.Item>
+            </Stack>
 
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
-
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
                     Current Quirks
@@ -255,7 +251,6 @@ export const QuirksPage = (props) => {
                 <Stack.Item grow width="100%">
                   <QuirkList
                     onClick={(quirkName, quirk) => {
-
                       setSelectedQuirks(selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk));
 
                       act('remove_quirk', { quirk: quirk.name });
