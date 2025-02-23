@@ -231,7 +231,6 @@ export const QuirksPage = (props) => {
                           quirkName,
                           {
                             ...quirk,
-                            failTooltip: getReasonToNotAdd(quirkName),
                           },
                         ];
                       })}
