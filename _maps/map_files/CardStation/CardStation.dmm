@@ -6561,12 +6561,12 @@
 /turf/open/floor/circuit,
 /area/storage/tech)
 "brk" = (
-/obj/machinery/suit_storage_unit/exploration,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
 	},
-/turf/open/floor/iron/ridged/steel,
-/area/quartermaster/exploration_prep)
+/obj/item/radio/intercom/directional/south,
+/turf/open/floor/iron/smooth_half,
+/area/security/main)
 "brr" = (
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
 	pixel_y = -32
@@ -9308,12 +9308,12 @@
 /turf/open/floor/plating,
 /area/construction)
 "bXr" = (
-/obj/effect/turf_decal/tile/red/half{
-	dir = 8
+/obj/effect/turf_decal/siding/red{
+	dir = 4
 	},
-/obj/machinery/status_display/ai/directional/south,
-/turf/open/floor/iron/smooth_half,
-/area/security/main)
+/obj/machinery/status_display/ai/directional/north,
+/turf/open/floor/iron/white/textured,
+/area/security/brig/medbay)
 "bXD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -43323,6 +43323,13 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
+"jig" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
+/obj/machinery/status_display/ai/directional/south,
+/turf/open/floor/iron/smooth_half,
+/area/security/main)
 "jih" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -45293,6 +45300,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/wood/big,
 /area/crew_quarters/barbershop)
 "jGO" = (
@@ -69767,6 +69775,13 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
+"oQu" = (
+/obj/machinery/suit_storage_unit/exploration,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/ridged/steel,
+/area/quartermaster/exploration_prep)
 "oQw" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/glass_large{
@@ -74151,13 +74166,6 @@
 	dir = 1
 	},
 /area/engine/atmos)
-"pKX" = (
-/obj/effect/turf_decal/tile/red/half{
-	dir = 8
-	},
-/obj/item/radio/intercom/directional/south,
-/turf/open/floor/iron/smooth_half,
-/area/security/main)
 "pKZ" = (
 /obj/structure/chair/fancy/bench/left{
 	dir = 8
@@ -87983,13 +87991,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"sOv" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 4
-	},
-/obj/machinery/status_display/ai/directional/north,
-/turf/open/floor/iron/white/textured,
-/area/security/brig/medbay)
 "sOx" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -91981,8 +91982,8 @@
 	dir = 10
 	},
 /obj/machinery/requests_console/auto_name/directional/south,
-/obj/item/clothing/head/collectable/welding{
-	pixel_x = -8;
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -4;
 	pixel_y = 4
 	},
 /obj/item/book/manual/wiki/robotics_cyborgs{
@@ -134135,7 +134136,7 @@ xLT
 xVe
 crK
 sQF
-brk
+oQu
 odS
 hel
 gJw
@@ -150236,7 +150237,7 @@ sff
 poN
 juO
 vKQ
-bXr
+jig
 eQO
 gwh
 qdP
@@ -150493,7 +150494,7 @@ hua
 cwL
 hua
 aAX
-pKX
+brk
 eQO
 ubf
 vqz
@@ -156155,7 +156156,7 @@ xjD
 uJz
 ndH
 phN
-sOv
+bXr
 iws
 gkw
 jHC
