@@ -18,7 +18,8 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		list("Jolly","Depression","Apathetic","Hypersensitive"),
 		list("Ageusia","Vegetarian","Deviant Tastes"),
 		list("Ananas Affinity","Ananas Aversion"),
-		list("Alcohol Tolerance","Light Drinker","Drunken Resilience")
+		list("Alcohol Tolerance","Light Drinker"),
+		list("Light Drinker","Drunken Resilience")
 	)
 
 /datum/controller/subsystem/processing/quirks/Initialize()
