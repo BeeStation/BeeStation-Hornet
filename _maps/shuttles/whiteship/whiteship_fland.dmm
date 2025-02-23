@@ -9,15 +9,13 @@
 /area/shuttle/abandoned)
 "aA" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 9
+	dir = 8
 	},
+/obj/structure/table/wood,
 /turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
 "bl" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
@@ -40,14 +38,13 @@
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "cc" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/structure/railing{
-	dir = 8
+/obj/structure/table/wood,
+/obj/item/candle{
+	pixel_x = 6;
+	pixel_y = 12
 	},
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/iron/stairs{
-	dir = 1
-	},
+/obj/item/plate,
+/turf/open/floor/wood,
 /area/shuttle/abandoned)
 "cy" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
@@ -91,21 +88,13 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "eO" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 6
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
 	},
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/machinery/airalarm/directional/north,
-/obj/effect/mapping_helpers/airalarm/all_access,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/wood,
 /area/shuttle/abandoned)
 "eV" = (
-/obj/machinery/atmospherics/components/tank/air{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -116,6 +105,9 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
+/obj/machinery/chem_dispenser/drinks/beer/fullupgrade{
+	dir = 1
+	},
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "fy" = (
@@ -124,12 +116,18 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "gk" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/cardboard/twenty,
-/obj/item/stack/sheet/cardboard/twenty,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
+/obj/structure/table/reinforced,
+/obj/item/stack/package_wrap{
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler_refill,
+/obj/item/stack/sheet/cardboard/twenty,
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "gT" = (
@@ -146,6 +144,7 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "hL" = (
@@ -161,6 +160,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "iV" = (
@@ -183,17 +183,11 @@
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "ji" = (
+/obj/structure/chair/stool/bar/directional/south,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 4
+	dir = 5
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/airlock/titanium{
-	name = "Power Unit"
-	},
-/turf/open/floor/pod/dark,
+/turf/open/floor/wood,
 /area/shuttle/abandoned)
 "js" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
@@ -216,21 +210,15 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "la" = (
-/obj/structure/chair/wood/normal{
-	dir = 8
-	},
 /obj/machinery/light/directional/north,
-/turf/open/floor/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
 "lA" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/turf_decal/box,
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = -32
-	},
-/turf/open/floor/iron/smooth_edge{
-	dir = 1
-	},
+/obj/structure/sign/warning/vacuum/external,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "lE" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -288,20 +276,14 @@
 /turf/open/floor/iron/smooth_edge,
 /area/shuttle/abandoned)
 "nV" = (
-/obj/structure/sign/barsign{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 4
-	},
+/obj/item/kirbyplants/random,
+/obj/machinery/airalarm/directional/north,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "og" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/turf/open/floor/carpet/red,
+/obj/structure/fluff/hedge,
+/turf/open/floor/wood,
 /area/shuttle/abandoned)
 "oH" = (
 /obj/machinery/power/terminal,
@@ -311,10 +293,18 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "pO" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 26
+	},
+/turf/open/floor/iron/stairs{
 	dir = 1
 	},
-/turf/open/floor/wood,
 /area/shuttle/abandoned)
 "pU" = (
 /obj/structure/table/wood,
@@ -351,7 +341,10 @@
 /area/shuttle/abandoned)
 "rz" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8
+	dir = 10
+	},
+/obj/structure/chair/wood/normal{
+	dir = 1
 	},
 /turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
@@ -378,14 +371,15 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "rR" = (
 /turf/open/floor/glass/reinforced,
 /area/shuttle/abandoned)
 "tv" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 6
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/shuttle/abandoned)
@@ -418,13 +412,11 @@
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "vc" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/box,
+/turf/open/floor/iron/smooth_edge{
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
 "vd" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
@@ -443,7 +435,7 @@
 /area/shuttle/abandoned)
 "vL" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 5
+	dir = 4
 	},
 /turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
@@ -456,10 +448,13 @@
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "xr" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/titanium{
+	name = "Power Unit"
 	},
-/turf/open/floor/wood,
+/obj/machinery/door/firedoor,
+/turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "xK" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -467,7 +462,9 @@
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "yo" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "zf" = (
@@ -487,10 +484,10 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "zB" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/light/directional/west,
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
 	},
@@ -499,25 +496,22 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)
 "Cd" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap{
-	pixel_x = -1;
-	pixel_y = 8
-	},
-/obj/item/hand_labeler,
-/obj/item/hand_labeler_refill,
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 1
+	},
+/obj/machinery/microwave{
+	pixel_y = 5
 	},
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
 "Cy" = (
-/obj/structure/fluff/hedge,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/chair/wood/normal,
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "Dh" = (
@@ -550,13 +544,15 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "Hd" = (
-/obj/structure/table/wood,
-/obj/item/plate,
-/obj/item/candle{
-	pixel_x = 6;
-	pixel_y = 12
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
 	},
-/turf/open/floor/wood,
+/obj/structure/sign/barsign{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/obj/structure/chair/wood/normal,
+/turf/open/floor/carpet/red,
 /area/shuttle/abandoned)
 "Hf" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
@@ -595,17 +591,16 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "Jz" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/dark/hidden,
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "JD" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser/drinks/fullupgrade{
 	dir = 1
 	},
 /turf/open/floor/iron/textured,
@@ -667,6 +662,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/greenglow,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 8
 	},
@@ -752,6 +750,7 @@
 	pixel_y = 3;
 	pixel_x = 3
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "Su" = (
@@ -773,7 +772,7 @@
 /area/shuttle/abandoned)
 "Sy" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
@@ -784,7 +783,7 @@
 /area/shuttle/abandoned)
 "Tw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/shuttle/abandoned)
@@ -792,6 +791,17 @@
 /obj/machinery/vending/dinnerware,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
+	},
+/obj/item/toy/figure/bartender{
+	pixel_y = 18;
+	pixel_x = 5
+	},
+/obj/item/toy/figure/chef{
+	pixel_y = 16;
+	pixel_x = -8
+	},
+/obj/item/food/candyheart{
+	pixel_y = 12
 	},
 /turf/open/floor/iron/textured,
 /area/shuttle/abandoned)
@@ -803,7 +813,6 @@
 /area/shuttle/abandoned)
 "Uo" = (
 /obj/structure/rack,
-/obj/machinery/light/small,
 /obj/item/clothing/head/flatcap{
 	pixel_x = -3;
 	pixel_y = -4
@@ -812,6 +821,7 @@
 	pixel_y = 4;
 	pixel_x = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/smooth_edge{
 	dir = 1
 	},
@@ -902,9 +912,9 @@ Ih
 Ih
 hL
 Cy
-qZ
 pU
 Fj
+og
 dc
 gT
 Rl
@@ -943,8 +953,8 @@ rG
 hL
 la
 vL
-vc
 MK
+eO
 dc
 rI
 jg
@@ -961,11 +971,11 @@ Ih
 XJ
 bm
 hL
-eO
+qZ
 cc
-xr
+Fj
 Sy
-dc
+ji
 RH
 Rl
 JD
@@ -980,8 +990,8 @@ dB
 hL
 hL
 mi
+lE
 hL
-ji
 hL
 lE
 nV
@@ -1003,7 +1013,7 @@ bm
 zB
 tv
 eV
-hL
+xr
 pO
 Jz
 Ri
@@ -1024,8 +1034,8 @@ Tw
 cy
 eg
 hL
-zf
 hL
+zf
 lE
 nN
 js
@@ -1044,8 +1054,8 @@ MR
 ec
 iV
 hL
-bm
 Uo
+bm
 hL
 bx
 KX
@@ -1064,8 +1074,8 @@ qX
 oH
 Oz
 hL
+vc
 TH
-lA
 hL
 YN
 an
@@ -1084,8 +1094,8 @@ hL
 hL
 hL
 lE
+lA
 Nw
-Yf
 QS
 Yf
 Fm
