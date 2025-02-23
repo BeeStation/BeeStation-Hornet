@@ -318,6 +318,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bl" = (
@@ -330,8 +332,6 @@
 	},
 /obj/effect/decal/cleanable/oil,
 /obj/structure/spider/stickyweb,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bm" = (
@@ -818,6 +818,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "cO" = (
@@ -825,8 +827,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "cR" = (
