@@ -148,7 +148,7 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
 const render_hint = (hint_type: RecipeHintTypes, message: string | number[]) => {
   let hint_icon: string;
   let colour: string;
-  let tooltip = message;
+  let tooltip: any = message;
   switch (hint_type) {
     case 'explosion':
       hint_icon = 'explosion';
@@ -377,7 +377,10 @@ export const ChemDispenser = (_props) => {
                 <div className="no_recipes">
                   <div>No recipes to show.</div>
                   <br />
-                  <div>Only recipes that can be made from components in the beaker will be shown. Use the search function to find more, or empty the beaker to start again.</div>
+                  <div>
+                    Only recipes that can be made from components in the beaker will be shown. Use the search function to find
+                    more, or empty the beaker to start again.
+                  </div>
                 </div>
               )}
             </Box>
