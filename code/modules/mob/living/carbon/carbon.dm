@@ -10,6 +10,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
+	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_OVERRIDE_SKIN_COLOUR), PROC_REF(_signal_body_part_update))
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
@@ -61,11 +62,12 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		mode() // Activate held item
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/surgery/S in surgeries)
 		if(body_position == LYING_DOWN || !S.lying_required)
-			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
-				if(S.next_step(user,user.a_intent))
+			var/list/modifiers = params2list(params)
+			if((S.self_operable || user != src) && !user.combat_mode)
+				if(S.next_step(user, modifiers))
 					return TRUE
 	return ..()
 
@@ -211,7 +213,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/on_fall()
 	. = ..()
-	loc.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
+	loc?.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
@@ -404,14 +406,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/list/tab_data = ..()
 	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
 	if(vessel)
-		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.storedPlasma]/[vessel.max_plasma]")
+		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.stored_plasma]/[vessel.max_plasma]")
 	if(locate(/obj/item/assembly/health) in src)
 		tab_data["Health"] = GENERATE_STAT_TEXT("[health]")
 	return tab_data
-
-/mob/living/carbon/Stat()
-	..()
-	add_abilities_to_panel()
 
 /mob/living/carbon/attack_ui(slot)
 	if(!has_hand_for_held_index(active_hand_index))
@@ -582,6 +580,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = max(see_in_dark, 8)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 		see_in_dark = max(see_in_dark, 8)
 
 	if(see_override)
@@ -764,10 +766,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		else
 			hud_used.stamina.icon_state = "stamina_full"
 
-/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used?.internals)
-		hud_used.internals.icon_state = "internal[internal_state]"
-
 /mob/living/carbon/proc/update_spacesuit_hud_icon(cell_state = "empty")
 	if(hud_used?.spacesuit)
 		hud_used.spacesuit.icon_state = "spacesuit_[cell_state]"
@@ -804,7 +802,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			set_stat(CONSCIOUS)
 			if(!is_blind())
 				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
-				B?.RemoveComponent()
+				B?.ClearFromParent()
 	update_damage_hud()
 	update_health_hud()
 	update_stamina_hud()
@@ -1240,3 +1238,51 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		set_lying_angle(pick(90, 270))
 	else
 		set_lying_angle(new_lying_angle)
+
+/mob/living/carbon/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, disgust))
+			set_disgust(var_value)
+			. = TRUE
+		if(NAMEOF(src, hal_screwyhud))
+			set_screwyhud(var_value)
+			. = TRUE
+		if(NAMEOF(src, handcuffed))
+			set_handcuffed(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	return ..()
+
+/mob/living/carbon/get_attack_type()
+	var/datum/species/species = dna?.species
+	if (species)
+		return species.attack_type
+	return ..()
+
+/mob/living/carbon/proc/_signal_body_part_update(datum/source)
+	SIGNAL_HANDLER
+	update_body_parts()
+
+/// Returns whether or not the carbon should be able to be shocked
+/mob/living/carbon/proc/should_electrocute(power_source)
+	if (ismecha(loc))
+		return FALSE
+
+	if (wearing_shock_proof_gloves())
+		return FALSE
+
+	if(!get_powernet_info_from_source(power_source))
+		return FALSE
+
+	if (HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+		return FALSE
+
+	return TRUE
+
+/// Returns if the carbon is wearing shock proof gloves
+/mob/living/carbon/proc/wearing_shock_proof_gloves()
+	return gloves?.siemens_coefficient == 0

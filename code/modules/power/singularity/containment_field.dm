@@ -28,6 +28,7 @@
 /obj/machinery/field/containment/Destroy()
 	FG1?.fields -= src
 	FG2?.fields -= src
+	air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/machinery/field/containment/proc/block_singularity()
@@ -35,7 +36,7 @@
 	return SINGULARITY_TRY_MOVE_BLOCK
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/machinery/field/containment/attack_hand(mob/user)
+/obj/machinery/field/containment/attack_hand(mob/user, list/modifiers)
 	if(get_dist(src, user) > 1)
 		return FALSE
 	else

@@ -59,7 +59,7 @@
 	return attack_hand(user)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/paper_bin/attack_hand(mob/user)
+/obj/item/paper_bin/attack_hand(mob/user, list/modifiers)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
@@ -151,7 +151,7 @@
 	. = ..()
 	. += span_notice("You can cut the cord on this with a sharp implement, freeing all 30 sheets at once.")
 
-/obj/item/paper_bin/bundlenatural/attack_hand(mob/user)
+/obj/item/paper_bin/bundlenatural/attack_hand(mob/user, list/modifiers)
 	..()
 	if(total_paper < 1)
 		qdel(src)

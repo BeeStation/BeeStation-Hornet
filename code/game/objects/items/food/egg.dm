@@ -28,12 +28,21 @@
 	microwaved_type = /obj/item/food/boiledegg
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_TINY
+	ant_attracting = FALSE
+	decomp_type = /obj/item/food/egg/rotten
+	decomp_req_handle = TRUE //so laid eggs can actually become chickens
 	crafting_complexity = FOOD_COMPLEXITY_1
 
 /*
 /obj/item/food/egg/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/boiledegg)
 */
+
+/obj/item/food/egg/rotten
+	food_reagents = list(/datum/reagent/consumable/eggrot = 10, /datum/reagent/consumable/mold = 10)
+	microwaved_type = /obj/item/food/boiledegg/rotten
+	foodtypes = GROSS
+	preserved_food = TRUE
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."
@@ -63,6 +72,15 @@
 
 		to_chat(usr, span_notice("You colour [src] with [W]."))
 		icon_state = "egg-[clr]"
+
+	else if(is_reagent_container(W))
+		var/obj/item/reagent_containers/dunk_test_container = W
+		if(dunk_test_container.is_drainable() && dunk_test_container.reagents.has_reagent(/datum/reagent/water))
+			to_chat(user, "<span class='notice'>You check if [src] is rotten.</span>")
+			if(istype(src, /obj/item/food/egg/rotten))
+				to_chat(user, "<span class='warning'>[src] floats in the [dunk_test_container]!</span>")
+			else
+				to_chat(user,"<span class='notice'>[src] sinks into the [dunk_test_container]!</span>")
 	else
 		..()
 
@@ -117,7 +135,15 @@
 	foodtypes = MEAT | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD // pretty sure I've seen people pop these in their mouths... right?
 	w_class = WEIGHT_CLASS_SMALL
+	ant_attracting = FALSE
+	decomp_type = /obj/item/food/boiledegg/rotten
 	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/boiledegg/rotten
+	food_reagents = list(/datum/reagent/consumable/eggrot = 10)
+	tastes = list("rotten egg" = 1)
+	foodtypes = GROSS
+	preserved_food = TRUE
 
 /obj/item/food/omelette //FUCK THIS
 	name = "omelette du fromage"

@@ -299,13 +299,13 @@
 			call_mode()
 			return
 		if(BOT_SUMMON)		//Called by PDA
-			bot_summon()
+			summon_step()
 			return
 	return TRUE //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
 
 /mob/living/simple_animal/bot/attack_hand(mob/living/carbon/human/H)
-	if(H.a_intent == INTENT_HELP)
+	if(!H.combat_mode)
 		ui_interact(H)
 	else
 		return ..()
@@ -335,7 +335,7 @@
 		else
 			to_chat(user, span_warning("Access denied."))
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/living/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!locked)
 			open = !open
@@ -357,7 +357,7 @@
 					ejectpai(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+		if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 			if(health >= maxHealth)
 				to_chat(user, span_warning("[src] does not need a repair!"))
 				return
@@ -466,7 +466,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	var/list/adjacent = T.GetAtmosAdjacentTurfs(1)
+	var/list/adjacent = T.get_atmos_adjacent_turfs(1)
 	var/atom/final_result
 	var/static/list/turf_typecache = typecacheof(/turf)
 	if(shuffle)	//If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
@@ -801,7 +801,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				access_card.access = user_access + prev_access //Adds the user's access, if any.
 			mode = BOT_SUMMON
 			speak("Responding.", radio_channel)
-			calc_summon_path()
 
 		if("ejectpai")
 			ejectpairemote(user)
@@ -828,9 +827,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return
 		else
 			to_chat(src, span_warning("Unidentified control sequence received:[command]"))
-
-/mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
-	summon_step()
 
 // calculates a path to the current destination
 // given an optional turf to avoid

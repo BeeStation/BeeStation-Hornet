@@ -12,6 +12,7 @@
 #define STYLE_INVISIBLE 12
 #define STYLE_GONDOLA 13
 #define STYLE_SEETHROUGH 14
+#define STYLE_DROPPOD 15
 
 #define MAX_EMAG_ROCKETS 8
 #define BEACON_COST 500
@@ -49,19 +50,166 @@
 GLOBAL_LIST_EMPTY(supplypod_loading_bays)
 
 GLOBAL_LIST_INIT(podstyles, list(\
-	list(POD_SHAPE_NORML, "pod",         TRUE, "default", "yellow",   RUBBLE_NORMAL, "supply pod",     "A Nanotrasen supply drop pod."),\
-	list(POD_SHAPE_NORML, "advpod",      TRUE, "bluespace", "blue",     RUBBLE_NORMAL, "bluespace supply pod" ,     "A Nanotrasen Bluespace supply pod. Teleports back to CentCom after delivery."),\
-	list(POD_SHAPE_NORML, "advpod",      TRUE, "centcom", "blue",     RUBBLE_NORMAL, "\improper CentCom supply pod", "A Nanotrasen supply pod, this one has been marked with Central Command's designations. Teleports back to CentCom after delivery."),\
-	list(POD_SHAPE_NORML, "darkpod",     TRUE, "syndicate", "red",      RUBBLE_NORMAL, "blood-red supply pod", "An intimidating supply pod, covered in the blood-red markings of the Syndicate. It's probably best to stand back from this."),\
-	list(POD_SHAPE_NORML, "darkpod",     TRUE, "deathsquad", "blue",     RUBBLE_NORMAL, "\improper Deathsquad drop pod",     "A Nanotrasen drop pod. This one has been marked the markings of Nanotrasen's elite strike team."),\
-	list(POD_SHAPE_NORML, "pod",         TRUE, "cultist", "red",      RUBBLE_NORMAL, "bloody supply pod",     "A Nanotrasen supply pod covered in scratch-marks, blood, and strange runes."),\
-	list(POD_SHAPE_OTHER, "missile",     FALSE, FALSE, FALSE,   RUBBLE_THIN,     "cruise missile", "A big ass missile that didn't seem to fully detonate. It was likely launched from some far-off deep space missile silo. There appears to be an auxillery payload hatch on the side, though manually opening it is likely impossible."),\
-	list(POD_SHAPE_OTHER, "smissile",    FALSE, FALSE,         FALSE,   RUBBLE_THIN,     "\improper Syndicate cruise missile", "A big ass, blood-red missile that didn't seem to fully detonate. It was likely launched from some deep space Syndicate missile silo. There appears to be an auxillery payload hatch on the side, though manually opening it is likely impossible."),\
-	list(POD_SHAPE_OTHER, "box",         TRUE, FALSE,            FALSE,   RUBBLE_WIDE, "\improper Aussec supply crate", "An incredibly sturdy supply crate, designed to withstand orbital re-entry. Has 'Aussec Armory - 2532' engraved on the side."),\
-	list(POD_SHAPE_NORML, "clownpod",    TRUE, "clown", "green",    RUBBLE_NORMAL, "\improper HONK pod",     "A brightly-colored supply pod. It likely originated from the Clown Federation."),\
-	list(POD_SHAPE_OTHER, "orange",      TRUE, FALSE, FALSE,   RUBBLE_NONE,     "\improper Orange", "An angry orange."),\
-	list(POD_SHAPE_OTHER, FALSE,         FALSE,    FALSE,            FALSE,   RUBBLE_NONE,     "\improper S.T.E.A.L.T.H. pod MKVII", "A supply pod that, under normal circumstances, is completely invisible to conventional methods of detection. How are you even seeing this?"),\
-	list(POD_SHAPE_OTHER, "gondola",     FALSE, FALSE, FALSE,   RUBBLE_NONE,     "gondola",     "The silent walker. This one seems to be part of a delivery agency."),\
-	list(POD_SHAPE_OTHER, FALSE,         FALSE,    FALSE,            FALSE,   RUBBLE_NONE,         FALSE,      FALSE,      "rl_click", "give_po")\
+	//Supply Pod
+	list(
+		POD_SHAPE_NORML,
+		"pod",
+		TRUE,
+		"default",
+		"yellow",
+		RUBBLE_NORMAL,
+		"supply pod",
+		"A Nanotrasen supply drop pod."
+	),\
+	//BS Supplypod
+	list(
+		POD_SHAPE_NORML,
+		"advpod",
+		TRUE,
+		"bluespace",
+		"blue",
+		RUBBLE_NORMAL,
+		"bluespace supply pod" ,
+		"A Nanotrasen Bluespace supply pod. Teleports back to CentCom after delivery."
+	),\
+	//CentCom Supplypod
+	list(
+		POD_SHAPE_NORML,
+		"advpod",
+		TRUE,
+		"centcom",
+		"blue",
+		RUBBLE_NORMAL,
+		"\improper CentCom supply pod",
+		"A Nanotrasen supply pod, this one has been marked with Central Command's designations. Teleports back to CentCom after delivery."
+	),\
+	list(
+		POD_SHAPE_NORML,
+		"darkpod",
+		TRUE,
+		"syndicate",
+		"red",
+		RUBBLE_NORMAL,
+		"blood-red supply pod",
+		"An intimidating supply pod, covered in the blood-red markings of the Syndicate. It's probably best to stand back from this."
+	),\
+	list(
+		POD_SHAPE_NORML,
+		"darkpod",
+		TRUE,
+		"deathsquad",
+		"blue",
+		RUBBLE_NORMAL,
+		"\improper Deathsquad drop pod",
+		"A Nanotrasen drop pod. This one has been marked the markings of Nanotrasen's elite strike team."
+	),\
+	list(
+		POD_SHAPE_NORML,
+		"pod",
+		TRUE,
+		"cultist",
+		"red",
+		RUBBLE_NORMAL,
+		"bloody supply pod",
+		"A Nanotrasen supply pod covered in scratch-marks, blood, and strange runes."
+	),\
+	list(
+		POD_SHAPE_OTHER,
+		"missile",
+		FALSE,
+		FALSE,
+		FALSE,
+		RUBBLE_THIN,
+		"cruise missile",
+		"A big ass missile that didn't seem to fully detonate. It was likely launched from some far-off deep space missile silo. There appears to be an auxillery payload hatch on the side, though manually opening it is likely impossible."
+	),\
+	list(
+		POD_SHAPE_OTHER,
+		"smissile",
+		FALSE,
+		FALSE,
+		FALSE,
+		RUBBLE_THIN,
+		"\improper Syndicate cruise missile",
+		"A big ass, blood-red missile that didn't seem to fully detonate. It was likely launched from some deep space Syndicate missile silo. There appears to be an auxillery payload hatch on the side, though manually opening it is likely impossible."
+	),\
+	list(
+		POD_SHAPE_OTHER,
+		"box",
+		TRUE,
+		FALSE,
+		FALSE,
+		RUBBLE_WIDE,
+		"\improper Aussec supply crate",
+		"An incredibly sturdy supply crate, designed to withstand orbital re-entry. Has 'Aussec Armory - 2532' engraved on the side."
+	),\
+	//STYLE_HONK 10
+	list(
+		POD_SHAPE_NORML,
+		"clownpod",
+		TRUE,
+		"clown",
+		"green",
+		RUBBLE_NORMAL,
+		"\improper HONK pod",
+		"A brightly-colored supply pod. It likely originated from the Clown Federation."
+	),\
+	//STYLE_FRUIT 11
+	list(
+		POD_SHAPE_OTHER,
+		"orange",
+		TRUE,
+		FALSE,
+		FALSE,
+		RUBBLE_NONE,
+		"\improper Orange",
+		"An angry orange."
+	),\
+	//STYLE_INVISIBLE 12
+	list(
+		POD_SHAPE_OTHER,
+		FALSE,
+		FALSE,
+		FALSE,
+		FALSE,
+		RUBBLE_NONE,
+		"\improper S.T.E.A.L.T.H. pod MKVII",
+		"A supply pod that, under normal circumstances, is completely invisible to conventional methods of detection. How are you even seeing this?"
+	),\
+	//STYLE_GONDOLA 13
+	list(
+		POD_SHAPE_OTHER,
+		"gondola",
+		FALSE,
+		FALSE,
+		FALSE,
+		RUBBLE_NONE,
+		"gondola",
+		"The silent walker. This one seems to be part of a delivery agency."
+	),\
+	//STYLE_SEETHROUGH 14
+	list(
+		POD_SHAPE_OTHER,
+		FALSE,
+		FALSE,
+		FALSE,
+		FALSE,
+		RUBBLE_NONE,
+		FALSE,
+		FALSE,
+		"rl_click",
+		"give_po"
+	),\
+	//STYLE_DROPPOD 15
+	list(
+		POD_SHAPE_NORML,
+		"syndicate_droppod",
+		TRUE,
+		//"syndicate", //TODO: Door
+		"red", //TODO: Thruster Glow
+		RUBBLE_NORMAL,
+		"HELLE drop pod",
+		"An intimidating drop pod, covered in thick armored plating. It's probably best to stand back from this."
+	),\
 ))
 

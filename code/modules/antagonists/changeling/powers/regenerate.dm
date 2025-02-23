@@ -5,7 +5,7 @@
 	button_icon_state = "regenerate"
 	chemical_cost = 10
 	dna_cost = 1
-	req_stat = HARD_CRIT
+	check_flags = AB_CHECK_DEAD
 
 /datum/action/changeling/regenerate/sting_action(mob/living/user)
 	..()
@@ -44,7 +44,7 @@
 	chemical_cost = 15
 	dna_cost = 2
 	req_human = TRUE
-	req_stat = DEAD
+	check_flags = NONE
 	ignores_fakedeath = TRUE
 
 /datum/action/changeling/limbsnake/sting_action(mob/user)

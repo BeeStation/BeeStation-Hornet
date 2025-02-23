@@ -272,7 +272,7 @@
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
-		if (user.a_intent != INTENT_HARM)
+		if (!user.combat_mode)
 			if (affect_silicon)
 				var/list/desc = get_silicon_stun_description(target, user)
 
@@ -292,7 +292,7 @@
 		return
 	if(!isliving(target))
 		return
-	if (user.a_intent == INTENT_HARM)
+	if (user.combat_mode)
 		if(!..())
 			return
 		if(!iscyborg(target))
@@ -513,7 +513,7 @@
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
-		if (user.a_intent != INTENT_HARM)
+		if (!user.combat_mode)
 			if (affect_silicon)
 				var/list/desc = get_silicon_stun_description(target, user)
 
@@ -533,7 +533,7 @@
 		return
 	if(!isliving(target))
 		return
-	if (user.a_intent == INTENT_HARM)
+	if (user.combat_mode)
 		if(!..())
 			return
 		if(!iscyborg(target))
@@ -590,7 +590,7 @@
 /obj/item/melee/classic_baton/retractible_stun/contractor_baton/pickup(mob/user)
 	..()
 	if(!owner_data)
-		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
+		var/datum/antagonist/traitor/traitor_data = user.mind?.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)
 			owner_data = traitor_data
 			to_chat(user, span_notice("[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun them, however the baton is weak against non-targets."))
@@ -706,7 +706,7 @@
 	T.visible_message(span_danger("[T] smacks into [src] and rapidly flashes to ash."),\
 	span_italics("You hear a loud crack as you are washed with a wave of heat."))
 	shard.Consume()
-	CALCULATE_ADJACENT_TURFS(T)
+	CALCULATE_ADJACENT_TURFS(T, MAKE_ACTIVE)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
 	return FALSE
@@ -818,7 +818,7 @@
 			to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
 	update_icon()
 
-/obj/item/melee/roastingstick/attack_hand(mob/user)
+/obj/item/melee/roastingstick/attack_hand(mob/user, list/modifiers)
 	..()
 	if (held_sausage)
 		user.put_in_hands(held_sausage)
@@ -934,8 +934,8 @@
 	var/stamina_force = 25
 
 // #11200 Review - TEMP: Hacky code to deal with force string for this item.
-/obj/item/melee/tonfa/openTip(location, control, params, mob/user)
-	if (user != null && user.a_intent != INTENT_HARM)
+/obj/item/melee/tonfa/openTip(location, control, params, mob/living/user)
+	if (user != null && !user.combat_mode)
 		force = non_harm_force
 	else
 		force = initial(force)
@@ -961,11 +961,11 @@
 	if(!isliving(target))
 		return ..()
 	if(iscyborg(target))
-		if (user.a_intent != INTENT_HARM)
+		if (!user.combat_mode)
 			playsound(get_turf(src), hitsound, 75, 1, -1)
 			user.do_attack_animation(target) // The attacker cuddles the Cyborg, awww. No damage here.
 			return
-	if (user.a_intent != INTENT_HARM)
+	if (!user.combat_mode)
 		force = non_harm_force
 	else
 		force = initial(force)

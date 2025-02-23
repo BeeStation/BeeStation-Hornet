@@ -93,7 +93,18 @@
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOHUNGER)
+	inherent_traits = list(
+		TRAIT_RESISTCOLD,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOHUNGER
+	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
 	mutantbrain = /obj/item/organ/brain/nightmare
@@ -127,21 +138,20 @@
 	name = "tumorous mass"
 	desc = "A fleshy growth that was dug out of the skull of a Nightmare."
 	icon_state = "brain-x-d"
-	var/obj/effect/proc_holder/spell/targeted/shadowwalk/shadowwalk
+	var/datum/action/spell/jaunt/shadow_walk/shadowwalk
 
 /obj/item/organ/brain/nightmare/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(M.dna.species.id != "nightmare")
 		M.set_species(/datum/species/shadow/nightmare)
 		visible_message(span_warning("[M] thrashes as [src] takes root in [M.p_their()] body!"))
-	var/obj/effect/proc_holder/spell/targeted/shadowwalk/SW = new
-	M.AddSpell(SW)
-	shadowwalk = SW
+	shadowwalk = new /datum/action/spell/jaunt/shadow_walk
+	shadowwalk.Grant(M)
 
 
 /obj/item/organ/brain/nightmare/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(shadowwalk)
-		M.RemoveSpell(shadowwalk)
+		shadowwalk.Remove(M)
 	..()
 
 
@@ -227,6 +237,8 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
+	//Fuck you, *crowbars your evil thing
+	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()

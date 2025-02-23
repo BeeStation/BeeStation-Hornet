@@ -187,7 +187,7 @@
 	if(hotspot && !isspaceturf(T))
 		if(T.air)
 			var/datum/gas_mixture/G = T.air
-			G.set_temperature(max(min(G.return_temperature()-(CT*1000),G.return_temperature()/CT),TCMB))
+			G.temperature = (max(min(G.return_temperature()-(CT*1000),G.return_temperature()/CT),TCMB))
 			G.react(src)
 			qdel(hotspot)
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
@@ -248,7 +248,7 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
-	L.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
+	L.AddComponent(/datum/component/anti_magic, type, MAGIC_RESISTANCE_HOLY)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
 	for (var/datum/component/anti_magic/anti_magic in L.GetComponents(/datum/component/anti_magic))
@@ -2286,3 +2286,78 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1
 	M.losebreath = 0
+
+/datum/reagent/ants
+	name = "Ants"
+	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
+	reagent_state = SOLID
+	color = "#993333"
+	taste_mult = 1.3
+	taste_description = "tiny legs scuttling down the back of your throat."
+	metabolization_rate = 5 * REAGENTS_METABOLISM //1u per second
+	glass_name = "glass of ants"
+	glass_desc = "Bottoms up...?"
+	/// How much damage the ants are going to be doing (rises with each tick the ants are in someone's body)
+	var/ant_damage = 0
+	/// Tells the debuff how many ants we are being covered with.
+	var/amount_left = 0
+	/// List of possible common statements to scream when eating ants
+	var/static/list/ant_screams = list(
+		"THEY'RE UNDER MY SKIN!!",
+		"GET THEM OUT OF ME!!",
+		"HOLY HELL THEY BURN!!",
+		"MY GOD THEY'RE INSIDE ME!!",
+		"GET THEM OUT!!"
+		)
+
+/datum/reagent/ants/on_mob_life(mob/living/carbon/victim, delta_time)
+	ant_damage++
+	if(ant_damage < 5) // Makes ant food a little more appetizing, since you won't be screaming as much.
+		return ..()
+	if(DT_PROB(5, delta_time))
+		if(DT_PROB(5, delta_time)) //Super rare statement
+			victim.say("AUGH NO NOT THE ANTS! NOT THE ANTS! AAAAUUGH THEY'RE IN MY EYES! MY EYES! AUUGH!!", forced = /datum/reagent/ants)
+		else
+			victim.say(pick(ant_screams), forced = /datum/reagent/ants)
+	if(DT_PROB(15, delta_time))
+		victim.emote("scream")
+	if(DT_PROB(2, delta_time)) // Stuns, but purges ants.
+		victim.vomit(rand(5,10), FALSE, TRUE, 1, TRUE, FALSE)
+	return ..()
+
+/datum/reagent/ants/on_mob_end_metabolize(mob/living/living_anthill)
+	ant_damage = 0
+	to_chat(living_anthill, "<span class='notice'>You feel like the last of the ants are out of your system.</span>")
+	return ..()
+
+/datum/reagent/ants/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
+	. = ..()
+	if(!iscarbon(exposed_mob) || (method == INGEST||INJECT))
+		return
+	if(method == PATCH||TOUCH||VAPOR)
+		amount_left = round(reac_volume,0.1)
+		exposed_mob.apply_status_effect(STATUS_EFFECT_ANTS, amount_left)
+
+/datum/reagent/ants/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	var/turf/open/my_turf = exposed_obj.loc // No dumping ants on an object in a storage slot
+	if(!istype(my_turf)) //Are we actually in an open turf?
+		return
+	var/static/list/accepted_types = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/disposalpipe))
+	if(!accepted_types[exposed_obj.type]) // Bypasses pipes, vents, and cables to let people create ant mounds on top easily.
+		return
+	expose_turf(my_turf, reac_volume)
+
+/datum/reagent/ants/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(!istype(exposed_turf) || isspaceturf(exposed_turf)) // Is the turf valid
+		return
+	if((reac_volume <= 10)) // Makes sure people don't duplicate ants.
+		return
+
+	var/obj/effect/decal/cleanable/ants/pests = locate() in exposed_turf.contents
+	if(!pests)
+		pests = new(exposed_turf)
+	var/spilled_ants = (round(reac_volume,1) - 5) // To account for ant decals giving 3-5 ants on initialize.
+	pests.reagents.add_reagent(/datum/reagent/ants, spilled_ants)
+	pests.update_ant_damage()
