@@ -191,7 +191,7 @@
 	qdel(src)
 
 // Accepts a mind to initialize goodies for a piece of mail.
-/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient, list/recieved_report)
+/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient, list/received_report)
 	switch(rand(1,5))
 		if(5)
 			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
@@ -220,7 +220,7 @@
 		var/target_good = pick_weight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
-		recieved_report += "[key_name(body)] received [target_atom.name]"
+		received_report += "[key_name(body)] received [target_atom.name]"
 
 	return TRUE
 
@@ -251,7 +251,7 @@
 
 		mail_recipients += human.mind
 
-	var/list/recieved_report = list()
+	var/list/received_report = list()
 
 	for(var/i in 1 to mail_count)
 		var/datum/mind/recipient = pick_n_take(mail_recipients)
@@ -262,9 +262,9 @@
 			new_mail = new /obj/item/mail(src)
 		else
 			new_mail = new /obj/item/mail/envelope(src)
-		new_mail.initialize_for_recipient(recipient, recieved_report)
+		new_mail.initialize_for_recipient(recipient, received_report)
 
-	to_chat(GLOB.admins, "<span class='adminhelp_conclusion'><span class='bold big'>Mail Report</span><br>[span_adminnotice(jointext(recieved_report, "\n"))]</span>")
+	to_chat(GLOB.admins, "<span class='adminhelp_conclusion'><span class='bold big'>Mail Report</span><br>[span_adminnotice(jointext(received_report, "\n"))]</span>")
 
 	update_icon()
 
