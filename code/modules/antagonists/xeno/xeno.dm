@@ -18,6 +18,7 @@
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
 	// TODO: ui_name = "AntagInfoXeno"
+	required_living_playtime = 4
 	var/datum/team/xeno/xeno_team
 
 /datum/antagonist/xeno/create_team(datum/team/xeno/new_team)
