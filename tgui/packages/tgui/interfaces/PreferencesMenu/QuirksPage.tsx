@@ -83,9 +83,6 @@ const QuirkList = (props: {
                         <b>{quirk.name}</b>
                       </Stack.Item>
 
-                      <Stack.Item>
-                        <b>{quirk.value}</b>
-                      </Stack.Item>
                     </Stack>
                   </Stack.Item>
 
@@ -145,7 +142,7 @@ export const QuirksPage = (props) => {
           if (quirkA.value === quirkB.value) {
             return quirkA.name > quirkB.name ? 1 : -1;
           } else {
-            return quirkA.value - quirkB.value;
+            return quirkB.value - quirkA.value;
           }
         });
 
@@ -195,15 +192,6 @@ export const QuirksPage = (props) => {
           <Stack align="center" fill>
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
-                <Stack.Item>
-                  <Box fontSize="1.3em">Positive Quirks</Box>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <StatDisplay>
-                    {positiveQuirks} / {maxPositiveQuirks}
-                  </StatDisplay>
-                </Stack.Item>
 
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
@@ -231,6 +219,7 @@ export const QuirksPage = (props) => {
                           quirkName,
                           {
                             ...quirk,
+                            failTooltip: getReasonToNotAdd(quirkName),
                           },
                         ];
                       })}
@@ -238,10 +227,21 @@ export const QuirksPage = (props) => {
                 </Stack.Item>
               </Stack>
             </Stack.Item>
+              <Stack vertical fill align="center">
+                <Stack.Item>
+                  <Box fontSize="1.3em">Positive Quirks</Box>
+                </Stack.Item>
 
-            <Stack.Item>
-              <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
-            </Stack.Item>
+                <Stack.Item>
+                  <StatDisplay>
+                    {positiveQuirks} / {maxPositiveQuirks}
+                  </StatDisplay>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
+                </Stack.Item>
+              </Stack>
 
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
@@ -269,6 +269,7 @@ export const QuirksPage = (props) => {
                           quirkName,
                           {
                             ...quirk,
+                            failTooltip: getReasonToNotAdd(quirkName),
                           },
                         ];
                       })}
