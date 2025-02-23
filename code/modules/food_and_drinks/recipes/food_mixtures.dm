@@ -2,6 +2,7 @@
 //////////////////////////////////////////FOOD MIXTURES////////////////////////////////////
 
 /datum/chemical_reaction/food
+	name = "Abstract Food Reaction"
 	//reaction_tags = REACTION_TAG_FOOD | REACTION_TAG_EASY
 
 /datum/chemical_reaction/food/tofu

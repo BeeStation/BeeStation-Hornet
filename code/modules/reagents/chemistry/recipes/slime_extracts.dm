@@ -1,5 +1,6 @@
 
 /datum/chemical_reaction/slime
+	name = "Abstract Slime Reaction"
 	var/deletes_extract = TRUE
 
 /datum/chemical_reaction/slime/on_reaction(datum/reagents/holder)

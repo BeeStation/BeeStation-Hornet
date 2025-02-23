@@ -422,6 +422,19 @@
 	required_reagents = list(/datum/reagent/fluorosurfactant = 1, /datum/reagent/water = 1)
 	mob_react = FALSE
 
+/datum/chemical_reaction/foam/New()
+	. = ..()
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Creates an expanding bubble of foam",
+		REACTION_HINT_RADIUS_TABLE = list(
+			round(sqrt(10), 1),
+			round(sqrt(50), 1),
+			round(sqrt(100), 1),
+			round(sqrt(200), 1),
+			round(sqrt(500), 1),
+		)
+	)
+
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M as() in viewers(5, location))
@@ -437,6 +450,19 @@
 	name = "Metal Foam"
 	required_reagents = list(/datum/reagent/aluminium = 3, /datum/reagent/foaming_agent = 1, /datum/reagent/toxin/acid/fluacid = 1)
 	mob_react = FALSE
+
+/datum/chemical_reaction/metalfoam/New()
+	. = ..()
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Creates an expanding bubble of hardening foam",
+		REACTION_HINT_RADIUS_TABLE = list(
+			round(sqrt(10*2.5), 1),
+			round(sqrt(50*2.5), 1),
+			round(sqrt(100*2.5), 1),
+			round(sqrt(200*2.5), 1),
+			round(sqrt(500*2.5), 1),
+		)
+	)
 
 /datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -454,6 +480,19 @@
 	required_reagents = list(/datum/reagent/aluminium = 3, /datum/reagent/smart_foaming_agent = 1, /datum/reagent/toxin/acid/fluacid = 1)
 	mob_react = TRUE
 
+/datum/chemical_reaction/smart_foam/New()
+	. = ..()
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Creates an expanding bubble of hardening smart-foam",
+		REACTION_HINT_RADIUS_TABLE = list(
+			round(sqrt(10*2.5), 1),
+			round(sqrt(50*2.5), 1),
+			round(sqrt(100*2.5), 1),
+			round(sqrt(200*2.5), 1),
+			round(sqrt(500*2.5), 1),
+		)
+	)
+
 /datum/chemical_reaction/smart_foam/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/location = get_turf(holder.my_atom)
 	location.visible_message(span_danger("The solution spews out metallic foam!"))
@@ -466,6 +505,19 @@
 	name = "Iron Foam"
 	required_reagents = list(/datum/reagent/iron = 3, /datum/reagent/foaming_agent = 1, /datum/reagent/toxin/acid/fluacid = 1)
 	mob_react = FALSE
+
+/datum/chemical_reaction/ironfoam/New()
+	. = ..()
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Creates an expanding bubble of iron foam",
+		REACTION_HINT_RADIUS_TABLE = list(
+			round(sqrt(10*2.5), 1),
+			round(sqrt(50*2.5), 1),
+			round(sqrt(100*2.5), 1),
+			round(sqrt(200*2.5), 1),
+			round(sqrt(500*2.5), 1),
+		)
+	)
 
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -610,6 +662,9 @@
 	name = "Life"
 	required_reagents = list(/datum/reagent/medicine/strange_reagent = 1, /datum/reagent/medicine/synthflesh = 1, /datum/reagent/blood = 1)
 	required_temp = 374
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Produces hostile lifeforms",
+	)
 
 /datum/chemical_reaction/life/on_reaction(datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (hostile)") //defaults to HOSTILE_SPAWN
@@ -618,6 +673,9 @@
 	name = "Life (Friendly)"
 	required_reagents = list(/datum/reagent/medicine/strange_reagent = 1, /datum/reagent/medicine/synthflesh = 1, /datum/reagent/consumable/sugar = 1)
 	required_temp = 374
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Produces friendly lifeforms",
+	)
 
 /datum/chemical_reaction/life_friendly/on_reaction(datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
@@ -625,6 +683,9 @@
 /datum/chemical_reaction/corgium
 	name = "corgium"
 	required_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/colorful_reagent = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/blood = 1)
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Produces a corgi",
+	)
 
 /datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
 	if(isliving(holder.my_atom) && !iscorgi(holder.my_atom))
@@ -725,6 +786,9 @@
 
 //////////////////EXPANDED MUTATION TOXINS/////////////////////
 
+/datum/chemical_reaction/mutationtoxin
+	name = "Abstract Mutation Toxin Reaction"
+
 /datum/chemical_reaction/mutationtoxin/stable
 	name = /datum/reagent/mutationtoxin
 	results = list(/datum/reagent/mutationtoxin = 5)
@@ -814,14 +878,19 @@
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)
 
 /datum/chemical_reaction/ants // Breeding ants together, high sugar cost makes this take a while to farm.
+	name = "Breed Ants"
 	results = list(/datum/reagent/ants = 3)
 	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 8)
 
 /datum/chemical_reaction/ant_slurry // We're basically glueing ants together with synthflesh & maint sludge to make a bigger ant.
+	name = "Any Slurry"
 	required_reagents = list(/datum/reagent/ants = 50, /datum/reagent/medicine/synthflesh = 20, /datum/reagent/ammonia = 5)
 	required_temp = 480
 	//reaction_flags = REACTION_INSTANT
 	//reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
+	hints = list(
+		REACTION_HINT_EXPLOSION_OTHER = "Creates a giant ant"
+	)
 
 /datum/chemical_reaction/ant_slurry/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

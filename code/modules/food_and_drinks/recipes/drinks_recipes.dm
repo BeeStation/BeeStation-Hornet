@@ -411,27 +411,27 @@
 	results = list(/datum/reagent/consumable/bluecherryshake = 5)
 	required_reagents = list(/datum/reagent/consumable/bluecherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
-/datum/chemical_reaction/drink/vanillashake
+/datum/chemical_reaction/vanillashake
 	name = "Vanilla Milkshake"
 	results = list(/datum/reagent/consumable/vanillashake = 5)
 	required_reagents = list(/datum/reagent/consumable/vanilla = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
-/datum/chemical_reaction/drink/caramelshake
+/datum/chemical_reaction/caramelshake
 	name = "Caramel Milkshake"
 	results = list(/datum/reagent/consumable/caramelshake = 5)
 	required_reagents = list(/datum/reagent/consumable/caramel = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/sodiumchloride = 1)
 
-/datum/chemical_reaction/drink/choccyshake
+/datum/chemical_reaction/choccyshake
 	name = "Chocolate Milkshake"
 	results = list(/datum/reagent/consumable/choccyshake = 5)
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/cream = 1)
 
-/datum/chemical_reaction/drink/strawberryshake
+/datum/chemical_reaction/strawberryshake
 	name = "Strawberry Milkshake"
 	results = list(/datum/reagent/consumable/strawberryshake = 5)
 	required_reagents = list(/datum/reagent/consumable/berryjuice = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
-/datum/chemical_reaction/drink/bananashake
+/datum/chemical_reaction/bananashake
 	name = "Banana Milkshake"
 	results = list(/datum/reagent/consumable/bananashake = 5)
 	required_reagents = list(/datum/reagent/consumable/banana = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
