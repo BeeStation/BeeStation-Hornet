@@ -230,6 +230,9 @@
 	name = "Sorium"
 	results = list(/datum/reagent/sorium = 4)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/nitrogen = 1, /datum/reagent/carbon = 1)
+
+/datum/chemical_reaction/sorium/New()
+	. = ..()
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a vortex which pushes objects away from itself",
 		REACTION_HINT_RADIUS_TABLE = list(
@@ -254,6 +257,9 @@
 	name = "Sorium vortex"
 	required_reagents = list(/datum/reagent/sorium = 1)
 	required_temp = 474
+
+/datum/chemical_reaction/sorium_vortex/New()
+	. = ..()
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a vortex which pushes objects away from itself",
 		REACTION_HINT_RADIUS_TABLE = list(
