@@ -1,10 +1,5 @@
 
 /datum/unit_test/reagent_id_duplicates/Run()
-	build_chemical_reactions_list()
-	build_chemical_reagent_list()
-
-	var/list/names = list()
-
 	for(var/datum/chemical_reaction/reaction_path as anything in subtypesof(/datum/chemical_reaction))
 		if (!reaction_path::name)
 			TEST_FAIL("The reaction with the path [reaction_path] has no name.")
