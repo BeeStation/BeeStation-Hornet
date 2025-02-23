@@ -73,25 +73,6 @@
 	lose_text = span_danger("You start tromping around like a barbarian.")
 	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
-/datum/quirk/musician
-	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
-	icon = "guitar"
-	quirk_value = 1
-	mob_trait = TRAIT_MUSICIAN
-	gain_text = span_notice("You know everything about musical instruments.")
-	lose_text = span_danger("You forget how musical instruments work.")
-	medical_record_text = "Patient brain scans show a highly-developed auditory pathway."
-
-/datum/quirk/musician/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
-	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
-
 /datum/quirk/linguist
 	name = "Linguist"
 	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
@@ -195,33 +176,6 @@
 	quirk_value = 1
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
-
-/datum/quirk/spiritual
-	name = "Spiritual"
-	desc = "You hold a spiritual belief, whether in God, nature or the arcane rules of the universe. You gain comfort from the presence of holy people, and believe that your prayers are more special than others."
-	icon = "bible"
-	quirk_value = 1
-	mob_trait = TRAIT_SPIRITUAL
-	gain_text = span_notice("You have faith in a higher power.")
-	lose_text = span_danger("You lose faith!")
-	process = TRUE
-	medical_record_text = "Patient reports a belief in a higher power."
-
-/datum/quirk/spiritual/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
-	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
-
-/datum/quirk/spiritual/on_process()
-	var/comforted = FALSE
-	for(var/mob/living/carbon/human/H in oview(5, quirk_target))
-		if(H.mind?.holy_role && H.stat == CONSCIOUS)
-			comforted = TRUE
-			break
-	if(comforted)
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
-	else
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
 
 /datum/quirk/tagger
 	name = "Tagger"
