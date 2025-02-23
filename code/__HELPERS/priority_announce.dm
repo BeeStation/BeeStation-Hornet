@@ -185,8 +185,6 @@
 			var/turf/mob_turf = get_turf(mob)
 			if(istype(get_area(mob_turf), /area/shuttle/exploration) || mob_turf.z == target_z)
 				targets |= mob
-		else if(isobserver(mob))
-			targets |= mob
 
 	minor_announce(message, "[command_name()] Update", players = targets, should_play_sound = FALSE)
 

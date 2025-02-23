@@ -62,10 +62,10 @@
 		var/list/_L = _target.status_traits; \
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
-			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority);\
+			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
 		} else { \
 			target_heap = list(); \
-			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority);\
+			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
 			_L[_trait] = target_heap;\
 			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
 			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
@@ -157,7 +157,7 @@
 			for (var/datum/trait/_trait_datum as anything in _trait_list) { \
 				var/_T = _trait_datum.source;\
 				if (##_condition) { \
-					REMOVE_HEAP(_trait_list, _trait_datum, priority); \
+					REMOVE_HEAP(_trait_list, _trait_datum, priority, /datum/trait/priority); \
 					if (length(_trait_list) && _trait_list[1] != _cached_source) {\
 						SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 					}\
