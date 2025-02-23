@@ -74,8 +74,10 @@
 			icon_state = "[initial(icon_state)]1"
 		if(26 to 75)
 			icon_state = "[initial(icon_state)]2"
-		if(76 to INFINITY)
+		if(76 to 99)
 			icon_state = "[initial(icon_state)]3"
+		if(100)
+			icon_state = "[initial(icon_state)]4"
 	return ..()
 
 /obj/machinery/smartfridge/update_overlays()
@@ -457,14 +459,15 @@
 	desc = "A refrigerated storage unit for food."
 	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "smartfridge_on"
+	max_n_of_items = 100
 	initial_contents = list(
-		/obj/item/reagent_containers/condiment/milk = 5,
-		/obj/item/reagent_containers/condiment/soymilk = 5,
-		/obj/item/storage/fancy/egg_box = 3,
-		/obj/item/food/meat/slab/monkey = 4,
-		/obj/item/reagent_containers/condiment/flour = 3,
-		/obj/item/reagent_containers/condiment/rice = 3,
-		/obj/item/reagent_containers/condiment/sugar = 3,
+		/obj/item/reagent_containers/condiment/milk = 0,
+		/obj/item/reagent_containers/condiment/soymilk = 0,
+		/obj/item/storage/fancy/egg_box = 0,
+		/obj/item/food/meat/slab/monkey = 0,
+		/obj/item/reagent_containers/condiment/flour = 0,
+		/obj/item/reagent_containers/condiment/rice = 0,
+		/obj/item/reagent_containers/condiment/sugar = 0,
 	)
 
 /obj/machinery/smartfridge/food/Initialize(mapload)
@@ -491,6 +494,10 @@
 	if(IS_EDIBLE(O)|| istype(O, /obj/item/reagent_containers/condiment)|| istype(O, /obj/item/storage/fancy/egg_box))
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/RefreshParts()
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
+		max_n_of_items = 1500 * B.rating
 
 // -------------------------------------
 // Xenobiology Slime-Extract Smartfridge
