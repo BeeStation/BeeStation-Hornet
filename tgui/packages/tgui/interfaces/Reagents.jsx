@@ -458,17 +458,18 @@ const RecipeLibrary = (props) => {
                 ))}
             </Table.Cell>
             <Table.Cell width="20px">
-              {(!bookmarkMode && (
-                <Button
-                  icon="book"
-                  color="green"
-                  disabled={bookmarkedReactions.has(reaction)}
-                  onClick={() => {
+              <Button
+                icon='heart'
+                color={bookmarkedReactions.has(reaction) ? 'green' : 'grey'}
+                onClick={() => {
+                  if (bookmarkedReactions.has(reaction)) {
+                    removeBookmark(reaction);
+                  } else {
                     addBookmark(reaction);
-                    act('update_ui');
-                  }}
-                />
-              )) || <Button icon="trash" color="red" onClick={() => removeBookmark(reaction)} />}
+                  }
+                  act('update_ui');
+                }}
+              />
             </Table.Cell>
           </Table.Row>
         ))}
