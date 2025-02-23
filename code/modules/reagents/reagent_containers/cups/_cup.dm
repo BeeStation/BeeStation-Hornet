@@ -168,6 +168,7 @@
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_beaker"
+	isGlass = TRUE
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
@@ -194,6 +195,20 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	label_icon = "label_beakerlarge"
+
+/obj/item/reagent_containers/cup/beaker/potion
+	name = "potion"
+	desc = "A recipent for the strongest potions for going into battle. Can hold up to 100 units."
+	icon_state = "potion"
+	custom_materials = list(/datum/material/glass=2500)
+	volume = 100
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
+	label_icon = "label_potion"
+
+/obj/item/reagent_containers/cup/beaker/large/potion/attack_self(mob/user)
+	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)
+
 
 /obj/item/reagent_containers/cup/beaker/plastic
 	name = "x-large beaker"
