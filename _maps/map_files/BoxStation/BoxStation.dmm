@@ -66624,12 +66624,12 @@
 /turf/open/floor/iron/techmaint,
 /area/teleporter)
 "xqq" = (
-/obj/machinery/door/airlock{
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/glass{
 	name = "Bar - Kitchen";
 	req_one_access_txt = "25;28;35"
 	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "xqG" = (
