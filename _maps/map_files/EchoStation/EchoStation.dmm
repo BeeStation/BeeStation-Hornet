@@ -25991,7 +25991,7 @@
 "mSg" = (
 /obj/machinery/door/airlock/atmos{
 	name = "atmospherics Storage";
-	req_access = "11"
+	req_access_txt = "11"
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 1

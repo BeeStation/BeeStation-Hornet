@@ -1809,7 +1809,7 @@
 	dir = 1
 	},
 /obj/machinery/teleport/hub{
-	req_access = "32"
+	req_access_txt = "32"
 	},
 /obj/item/gps{
 	gpstag = "TP0"
@@ -23717,7 +23717,6 @@
 "hyk" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = "0";
 	req_access_txt = "24"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -45114,7 +45113,7 @@
 	dir = 5
 	},
 /obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = "58"
+	req_access_txt = "58"
 	},
 /obj/item/clothing/head/frenchberet{
 	desc = "A quality beret, with a small name tag \"Dubois\" in the rim. You feel less inclined to engage military conflict, for some reason."
@@ -69241,7 +69240,7 @@
 "wlD" = (
 /obj/machinery/door/airlock/atmos{
 	name = "atmospherics Storage";
-	req_access = "24"
+	req_access_txt = "24"
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -74559,7 +74558,7 @@
 "xYq" = (
 /obj/machinery/jukebox{
 	dept_req_for_free = 0;
-	req_access = "0"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/holofloor/wood,

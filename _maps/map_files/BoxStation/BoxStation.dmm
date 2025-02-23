@@ -26006,7 +26006,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Atmospherics External Airlock";
-	req_access = "24, 13"
+	req_access_txt = "24, 13"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
