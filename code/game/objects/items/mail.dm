@@ -29,7 +29,6 @@
 		/obj/item/stack/spacecash/c1000 = 1,
 		/obj/item/clothing/suit/armor/vest = 1,
 		/obj/item/stack/sheet/telecrystal = 1,
-		/obj/item/knife/survival = 1,
 		/obj/item/knife = 3,
 		/obj/item/knife/ritual = 1,
 		/obj/item/clothing/neck/heretic_focus = 1,
@@ -69,6 +68,11 @@
 		/obj/item/wirecutters = 1,
 		/obj/item/gun/ballistic/automatic/pistol/service = 1,
 		/obj/item/ammo_box/magazine/recharge/service = 1,
+		/obj/item/powertool/hand_drill = 1,
+		/obj/item/powertool/jaws_of_life = 1,
+		/obj/item/weldingtool/experimental = 1,
+		/obj/item/scalpel/advanced = 1,
+		/obj/item/switchblade/plastitanium = 1
 	)
 
 	/// Overlays (pure fluff), Does the letter have the postmark overlay?
@@ -180,13 +184,14 @@
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
-	if(contents.len)
-		user.put_in_hands(contents[1])
+	for (var/obj/item/item in contents)
+		if (!user.put_in_hands(item))
+			item.forceMove(get_turf(user))
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
 // Accepts a mind to initialize goodies for a piece of mail.
-/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
+/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient, list/recieved_report)
 	switch(rand(1,5))
 		if(5)
 			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
@@ -211,14 +216,11 @@
 		if(!color)
 			color = COLOR_WHITE
 
-	var/list/recieved_report = list()
 	for(var/i in 1 to goodie_count)
 		var/target_good = pick_weight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
 		recieved_report += "[key_name(body)] received [target_atom.name]"
-
-	to_chat(GLOB.admins, "<span class='adminhelp_conclusion bold big adminnotice'>Mail Report</span><br>[span_adminnotice(jointext(recieved_report, "\n"))]")
 
 	return TRUE
 
@@ -249,16 +251,20 @@
 
 		mail_recipients += human.mind
 
+	var/list/recieved_report = list()
+
 	for(var/i in 1 to mail_count)
 		var/datum/mind/recipient = pick_n_take(mail_recipients)
 		if (!recipient)
-			continue
+			break
 		var/obj/item/mail/new_mail
 		if(prob(FULL_CRATE_LETTER_ODDS))
 			new_mail = new /obj/item/mail(src)
 		else
 			new_mail = new /obj/item/mail/envelope(src)
-		new_mail.initialize_for_recipient(recipient)
+		new_mail.initialize_for_recipient(recipient, recieved_report)
+
+	to_chat(GLOB.admins, "<span class='adminhelp_conclusion'><span class='bold big'>Mail Report</span><br>[span_adminnotice(jointext(recieved_report, "\n"))]</span>")
 
 	update_icon()
 
