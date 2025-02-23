@@ -3850,7 +3850,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
@@ -17420,6 +17420,9 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/green{
 	color = "#439C1E"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
@@ -31449,9 +31452,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "kfi" = (
@@ -40060,7 +40060,7 @@
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 5
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
