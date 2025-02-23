@@ -367,7 +367,7 @@
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
-	liked_food = MEAT //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
+	liked_food = MEAT | BUGS //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
 	toxic_food = NONE
 	disliked_food = NONE
 
