@@ -24,7 +24,7 @@
 
 /obj/item/storage/backpack/Initialize(mapload)
 	. = ..()
-	create_storage(max_slots = 25, max_total_storage = 25)
+	create_storage(max_slots = 25, max_specific_storage = WEIGHT_CLASS_LARGE, max_total_storage = 28)
 
 /*
  * Backpack Types
