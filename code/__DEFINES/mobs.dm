@@ -399,7 +399,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // Roundstart trait system
 
 //The maximum amount of positive quirks one character can have at roundstart, and I hope whoever originally named this simply MAX_QUIRKS stubs their toe
-#define MAX_POSITIVE_QUIRKS 2
+#define MAX_POSITIVE_QUIRKS 3
 
 // AI Toggles
 #define AI_CAMERA_LUMINOSITY	5
