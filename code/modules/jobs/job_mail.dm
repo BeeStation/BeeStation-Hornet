@@ -47,7 +47,7 @@
 		/obj/item/reagent_containers/cup/bottle/toxin/mutagen = 12,
 		/obj/item/grenade/chem_grenade/antiweed = 10,
 		/obj/item/gun/energy/floragun = 10,
-		/obj/item/seeds/random = 10,,
+		/obj/item/seeds/random = 10,
 		/obj/item/scythe = 10
 	)
 
