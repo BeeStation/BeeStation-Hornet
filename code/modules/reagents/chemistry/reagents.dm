@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 //Hydroponics stuff
 
 /// A single reagent
-/datum/reagent
+/datum/reagent/obj/item/food/egg/blue
 	/// datums don't have names by default
 	var/name = "Reagent"
 	/// nor do they have descriptions
