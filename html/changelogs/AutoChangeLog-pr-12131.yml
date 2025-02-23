@@ -1,0 +1,11 @@
+author: Pyrotechnics2
+delete-after: true
+changes:
+  - rscadd: Electrical & Welding Supply Locker to Atmos Room
+  - rscadd: Turbine Fuel Line Purge connection
+  - rscadd: Canister Storage Area
+  - rscadd: Various door & pump name changes
+  - rscadd: Atmospherics Monitoring Room with the complete suite of computers needed
+      for complete remote control of all operations
+  - rscadd: Revamped Atmos Loop System allowing for easy additions & purging of all
+      lines without modifications
