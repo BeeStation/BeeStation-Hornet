@@ -237,20 +237,32 @@
 				display_name = reagent_path::name
 			for (var/datum/reagent/reagent as anything in reaction.required_reagents)
 				required_reagents += list(list(
-					"name" = display_name,
+					"name" = reagent::name,
 					"volume" = reaction.required_reagents[reagent],
 					"path" = reagent
 				))
+			var/list/results = list()
+			for (var/datum/reagent/result_path as anything in reaction.results)
+				var/created_amount = reaction.results[result_path]
+				results += list(list(
+					"name" = result_path::name,
+					"volume" = created_amount,
+					"path" = result_path,
+					"description" = result_path::description,
+					"addiction" = result_path::addiction_threshold,
+					"overdose" = result_path::overdose_threshold,
+				))
 			reactions += list(list(
 				name = display_name,
-				results = reaction.results,
+				results = results,
 				required_reagents = required_reagents,
 				required_catalysts = reaction.required_catalysts,
 				required_container = reaction.required_container,
 				required_other = reaction.required_other,
 				is_cold_recipe = reaction.is_cold_recipe,
 				required_temp = reaction.required_temp,
-				id = reaction.id
+				id = reaction.type,
+				hints = reaction.hints
 			))
 	data["reactions_list"] = reactions
 	return data
@@ -281,12 +293,13 @@
 			if(QDELETED(cell))
 				return
 			var/reagent_name = params["reagent"]
+			var/multiplier = floor(params["multiplier"] || 1)
 			if(!recording_recipe)
 				var/reagent = GLOB.name2reagent[reagent_name]
 				if(beaker && dispensable_reagents.Find(reagent))
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
-					var/actual = min(amount, (cell.charge * powerefficiency)*10, free)
+					var/actual = min(amount * multiplier, (cell.charge * powerefficiency)*10, free)
 					if(!cell.use(actual / powerefficiency))
 						say("Not enough energy to complete operation!")
 						return

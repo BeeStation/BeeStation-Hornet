@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Input, LabeledList, ProgressBar, Section, Stack, TextArea, Tooltip } from '../components';
+import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Input, LabeledList, ProgressBar, Section, Stack, Table, TextArea, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 import { require } from 'tgui-dev-server/require';
@@ -12,9 +12,17 @@ type Reagent = {
   path: string;
 };
 
+interface ExtendedReagentInfo extends Reagent {
+  description: string;
+  addiction: number;
+  overdose: number;
+}
+
+type RecipeHintTypes = 'explosion' | 'explosion_radius' | 'safety';
+
 type Recipe = {
   name: string;
-  results: { [path: string]: number };
+  results: ExtendedReagentInfo[];
   required_reagents: Reagent[];
   required_catalysts: { [path: string]: number };
   required_container: string;
@@ -22,6 +30,7 @@ type Recipe = {
   is_cold_recipe: boolean;
   required_temp: number;
   id: string;
+  hints: Record<RecipeHintTypes, string | number[]>;
 };
 
 interface SatisfiedRecipe extends Recipe {
@@ -54,8 +63,8 @@ type ChemDispenserData = {
 const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[]): SatisfiedRecipe[] => {
   let result: SatisfiedRecipe[] = [];
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
-  const [search_term] = useLocalState('search_term', '');
-  const [selected_recipe] = useLocalState<Recipe | null>('selected_recipe', null);
+  const [search_term] = useSharedState('search_term', '');
+  const [selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
   let initial_length = Object.keys(unlocked_recipes).length;
   if (selected_recipe !== null) {
     // Build a recipe lookup list
@@ -64,18 +73,18 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
       if (!unlocked_recipes[recipe.name]) {
         continue;
       }
-      for (const result of Object.keys(recipe.results)) {
-        if (recipe_lookup[result]) {
-          recipe_lookup[result].push(recipe);
+      for (const result of recipe.results) {
+        if (recipe_lookup[result.path]) {
+          recipe_lookup[result.path].push(recipe);
         } else {
-          recipe_lookup[result] = [recipe];
+          recipe_lookup[result.path] = [recipe];
         }
       }
     }
     // Find all the relevant recipes
     let used_recipes: { [recipe_name: string]: boolean } = {};
     let search_list: Recipe[] = [selected_recipe];
-    let depth = 0;
+    let depth = 100;
     while (search_list.length > 0) {
       const head = search_list.pop();
       if (used_recipes[head!.name]) {
@@ -89,7 +98,7 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
         }
         recipes.forEach((x) => search_list.push(x));
       }
-      result.push({ rating: depth++, ...head! });
+      result.push({ rating: depth--, ...head! });
     }
   } else if (search_term.length > 0) {
     for (const recipe of recipes) {
@@ -136,14 +145,61 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
   return result;
 };
 
+const render_hint = (hint_type: RecipeHintTypes, message: string | number[]) => {
+  let hint_icon: string;
+  let colour: string;
+  let tooltip = message;
+  switch (hint_type) {
+    case 'explosion':
+      hint_icon = 'explosion';
+      colour = 'yellow';
+      break;
+    case 'explosion_radius':
+      hint_icon = 'circle-notch';
+      colour = 'yellow';
+      tooltip = (
+        <Table>
+          <Table.Row>
+            <Table.Cell mr={1} bold>
+              Amt.
+            </Table.Cell>
+            <Table.Cell mr={1}>10</Table.Cell>
+            <Table.Cell mr={1}>50</Table.Cell>
+            <Table.Cell mr={1}>100</Table.Cell>
+            <Table.Cell mr={1}>200</Table.Cell>
+            <Table.Cell mr={1}>500</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell bold>Radius</Table.Cell>
+            <Table.Cell>{(message as number[])[0]}</Table.Cell>
+            <Table.Cell>{(message as number[])[1]}</Table.Cell>
+            <Table.Cell>{(message as number[])[2]}</Table.Cell>
+            <Table.Cell>{(message as number[])[3]}</Table.Cell>
+            <Table.Cell>{(message as number[])[4]}</Table.Cell>
+          </Table.Row>
+        </Table>
+      );
+      break;
+    case 'safety':
+      hint_icon = 'radiation';
+      colour = 'yellow';
+      break;
+  }
+  return (
+    <Tooltip content={tooltip}>
+      <Icon name={hint_icon} color={colour} pt={0.8} pl={1} pr={2} />
+    </Tooltip>
+  );
+};
+
 export const ChemDispenser = (_props) => {
   const { act, data } = useBackend<ChemDispenserData>();
   const beakerTransferAmounts = data.beakerTransferAmounts || [];
   const beakerContents = data.beakerContents || [];
   const [unlocked_recipes] = useSharedState('unlocked_recipes', {});
-  const [search_term, set_search_term] = useLocalState('search_term', '');
+  const [search_term, set_search_term] = useSharedState('search_term', '');
   const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list).sort((a, b) => b.rating - a.rating);
-  const [selected_recipe, set_selected_recipe] = useLocalState<Recipe | null>('selected_recipe', null);
+  const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
   return (
     <Window width={695} height={720}>
       <Window.Content className="chem_dispenser">
@@ -173,6 +229,7 @@ export const ChemDispenser = (_props) => {
                   content="Return"
                   onClick={() => {
                     set_selected_recipe(null);
+                    set_search_term('');
                   }}
                   icon="arrow-left"
                 />
@@ -195,13 +252,79 @@ export const ChemDispenser = (_props) => {
             <Box className="recipe_container" mr={-1}>
               {shown_recipes.map((recipe) => (
                 <div
-                  className="recipe_box"
+                  className={classes(['recipe_box'])}
                   key={recipe.id}
                   onClick={() => {
+                    if (
+                      recipe.required_reagents.every(
+                        (x) => beakerContents.some((y) => y.path === x.path) || data.chemicals.some((y) => x.name === y.title)
+                      )
+                    ) {
+                      let has_all = true;
+                      for (const chem of recipe.required_reagents) {
+                        // we already have this component
+                        if (beakerContents.some((y) => y.path === chem.path && y.volume >= chem.volume)) {
+                          continue;
+                        }
+                        has_all = false;
+                        const printable_chem = data.chemicals.filter((x) => x.title === chem.name)[0];
+                        if (!printable_chem) {
+                          continue;
+                        }
+                        act('dispense', {
+                          reagent: printable_chem.id,
+                          multiplier: chem.volume,
+                        });
+                      }
+                      // If we have all the reagents already, make it again anyway
+                      if (has_all) {
+                        for (const chem of recipe.required_reagents) {
+                          const printable_chem = data.chemicals.filter((x) => x.title === chem.name)[0];
+                          if (!printable_chem) {
+                            continue;
+                          }
+                          act('dispense', {
+                            reagent: printable_chem.id,
+                            multiplier: chem.volume,
+                          });
+                        }
+                      }
+                      return;
+                    }
+                    if (selected_recipe) {
+                      return;
+                    }
                     set_selected_recipe(recipe);
                   }}>
-                  <div className="recipe_title">{recipe.name}</div>
-                  <div className="recipe_required">
+                  <div
+                    className={classes([
+                      'recipe_title',
+                      !!recipe.required_reagents.every(
+                        (x) => beakerContents.some((y) => y.path === x.path) || data.chemicals.some((y) => x.name === y.title)
+                      ) && 'create',
+                    ])}>
+                    {Object.entries(recipe.hints).map((x) => {
+                      return render_hint(x[0] as RecipeHintTypes, x[1]);
+                    })}
+                    {recipe.results.map((x) => (
+                      <>
+                        {!!x.description && (
+                          <Tooltip content={x.description}>
+                            <Icon name="info" color="white" pt={0.8} pl={1} pr={2} />
+                          </Tooltip>
+                        )}
+                        {!!x.addiction && (
+                          <Tooltip content={'Causes addictions when more than ' + x.addiction + 'u is ingested.'}>
+                            <Icon name="pills" color="red" pt={0.8} pl={1} pr={2} />
+                          </Tooltip>
+                        )}
+                        {!!x.overdose && (
+                          <Tooltip content={'Causes an overdose when more than ' + x.overdose + 'u is ingested.'}>
+                            <Icon name="syringe" color="red" pt={0.8} pl={1} pr={2} />
+                          </Tooltip>
+                        )}
+                      </>
+                    ))}
                     {recipe.required_temp > 0 &&
                       (recipe.is_cold_recipe ? (
                         <Tooltip content={'Maximum temp: ' + recipe.required_temp + 'K'}>
@@ -212,14 +335,18 @@ export const ChemDispenser = (_props) => {
                           <Icon name="fire-flame-curved" color="orange" pt={0.8} pl={1} pr={2} />
                         </Tooltip>
                       ))}
+                    {recipe.name}
+                  </div>
+                  <div className="recipe_required">
                     {recipe.required_reagents.map((x) => (
                       <div
                         className={classes([
                           'recipe_ingredient',
-                          !!beakerContents.some((y) => y.name === x.name) && 'satisfied',
+                          !!beakerContents.some((y) => y.name === x.name && y.volume >= x.volume) && 'satisfied',
+                          !!data.chemicals.some((y) => y.title === x.name) && 'insertable',
                         ])}
                         key={x.path}>
-                        {x.name}
+                        {x.volume} {x.name}
                       </div>
                     ))}
                     {Object.entries(recipe.required_catalysts).map((x) => (
@@ -244,6 +371,13 @@ export const ChemDispenser = (_props) => {
                   <div>No recipes discovered.</div>
                   <br />
                   <div>Add some reagents to the beaker to start unlocking recipes.</div>
+                </div>
+              )}
+              {shown_recipes.length === 0 && Object.keys(unlocked_recipes).length > 0 && !search_term && (
+                <div className="no_recipes">
+                  <div>No recipes to show.</div>
+                  <br />
+                  <div>Only recipes that can be made from components in the beaker will be shown. Use the search function to find more, or empty the beaker to start again.</div>
                 </div>
               )}
             </Box>

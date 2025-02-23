@@ -6,16 +6,13 @@
 	var/list/names = list()
 
 	for(var/datum/chemical_reaction/reaction_path as anything in subtypesof(/datum/chemical_reaction))
-		if (!reaction_path::id)
-			TEST_FAIL("The reaction with the path [reaction_path] has no ID.")
-		else if (names[reaction_path::id])
-			TEST_FAIL("The reaction with the ID [reaction_path::id] and path [reaction_path] is duplicated.")
 		if (!reaction_path::name)
 			TEST_FAIL("The reaction with the path [reaction_path] has no name.")
-		names[reaction_path::id] = TRUE
 
 	var/paths = subtypesof(/datum/reagent)
 
 	for(var/datum/reagent/path as anything in paths)
-		if (ispath(path::name))
+		if (!path::name)
+			TEST_FAIL("The reagent [path] has no display name.")
+		else if (ispath(path::name))
 			TEST_FAIL("The reagent [path] is using a path for it's display name, rather than an appropriate name.")

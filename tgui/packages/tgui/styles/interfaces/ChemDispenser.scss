@@ -16,6 +16,7 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0;
+    width: 100%;
   }
 
   .recipe_container {
@@ -23,16 +24,23 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    flex-basis: 0;
+    width: 100%;
   }
 
   .recipe_title {
     margin-bottom: 3px;
     user-select: none;
+
+    &.create {
+      color: rgb(248, 233, 214);
+    }
   }
 
   .recipe_box {
     display: flex;
     flex-grow: 1;
+    flex-shrink: 1;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.705);
     margin: 2px;
@@ -41,6 +49,21 @@
     border-radius: 4px;
     border: 1px solid rgb(190, 190, 190);
     transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+    min-width: 0%;
+    max-width: 100%;
+
+    @media screen and (min-width: 0px) and (max-width: 500px) {
+      width: 99%;
+    }
+    @media screen and (min-width: 500px) and (max-width: 700px) {
+      width: 45%;
+    }
+    @media screen and (min-width: 700px) and (max-width: 900px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 900px) {
+      width: 24%;
+    }
 
     &:hover {
       background-color: rgba(10, 10, 10, 0.705);
@@ -52,6 +75,9 @@
   .recipe_required {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: center;
   }
 
   .recipe_ingredient {
@@ -61,6 +87,7 @@
     padding: 3px 5px;
     border-radius: 5px;
     user-select: none;
+    margin-bottom: 2px;
 
     &.satisfied {
       background-color: rgb(99, 233, 112);
@@ -70,7 +97,7 @@
       background-color: rgb(212, 151, 214);
     }
 
-    &.insertable {
+    &.insertable:not(.satisfied) {
       background-color: rgb(242, 200, 149);
     }
   }
