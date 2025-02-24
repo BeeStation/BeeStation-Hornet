@@ -9015,6 +9015,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "cSe" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -11219,6 +11222,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
 	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
@@ -14508,6 +14514,14 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/white,
+/area/science/research)
+"eGi" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/science/research)
 "eGm" = (
@@ -29738,6 +29752,9 @@
 /area/engine/atmos)
 "jMG" = (
 /obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -37454,6 +37471,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
+"mpS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/science/research)
 "mqk" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /mob/living/simple_animal/bot/mulebot,
@@ -46946,6 +46969,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/scientist,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -49728,6 +49754,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"qtc" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/turf/open/floor/iron/white,
+/area/science/research)
 "qtg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -50233,6 +50266,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
+"qAd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/turf/open/floor/iron/cafeteria{
+	dir = 5
+	},
+/area/science/research)
 "qAf" = (
 /obj/structure/rack{
 	pixel_y = -3
@@ -51150,6 +51191,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
+"qSc" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/iron/white,
+/area/science/research)
 "qSi" = (
 /obj/structure/chair,
 /obj/machinery/camera/directional/north,
@@ -57424,6 +57471,9 @@
 "sZH" = (
 /obj/structure/chair/stool{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
 	},
 /turf/open/floor/iron/cafeteria{
 	dir = 5
@@ -104320,7 +104370,7 @@ sDG
 xOC
 wVF
 wVF
-wVF
+eGi
 mcf
 ked
 fAu
@@ -104577,7 +104627,7 @@ jpk
 dWx
 jpk
 enO
-enO
+mpS
 jpk
 hdz
 wQB
@@ -104834,7 +104884,7 @@ fjp
 pga
 pga
 oKw
-enO
+mpS
 xlX
 hdz
 hdz
@@ -105091,7 +105141,7 @@ fKx
 jEC
 gfL
 tZF
-enO
+mpS
 jpk
 xuI
 gtG
@@ -105348,10 +105398,10 @@ fKx
 hzU
 pga
 vBD
-enO
-jpk
+qSc
+qtc
 dBu
-cSe
+qAd
 sZH
 pyH
 cSe
