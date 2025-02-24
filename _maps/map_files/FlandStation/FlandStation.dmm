@@ -15266,16 +15266,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/iron/techmaint,
 /area/science/shuttle)
-"eax" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Dormitories - Central";
-	name = "dormitories camera"
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/dorms)
 "eaA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -27034,6 +27024,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron/cafeteria,
 /area/maintenance/starboard/aft)
 "gSY" = (
@@ -44395,7 +44388,6 @@
 	dir = 8
 	},
 /obj/structure/railing/corner,
-/obj/machinery/light/small,
 /obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
@@ -59145,6 +59137,10 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/machinery/camera/directional/south{
+	c_tag = "Dormitories - Central";
+	name = "dormitories camera"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
@@ -143523,7 +143519,7 @@ llg
 oIH
 waG
 xHL
-eax
+hqF
 juU
 gSW
 rXi

@@ -31150,7 +31150,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/table/wood,
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
 	pixel_y = 14;
 	pixel_x = 41
@@ -36651,7 +36650,6 @@
 	dir = 8;
 	pixel_x = 32
 	},
-/obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/mug{
 	pixel_y = 9;
 	pixel_x = -8

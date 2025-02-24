@@ -12267,6 +12267,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "cnX" = (
@@ -20420,6 +20423,12 @@
 /obj/item/storage/photo_album,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
+"eOg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "eOi" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -23308,6 +23317,21 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"fYn" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "fYs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -29922,6 +29946,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
+"iEA" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "iEJ" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod One"
@@ -38162,6 +38199,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"lRS" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "lSa" = (
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
@@ -39345,6 +39397,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/structure/sign/departments/custodian{
 	pixel_y = -32
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
@@ -50154,9 +50209,6 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/maintenance/disposal/incinerator)
 "qTr" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -50165,6 +50217,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "qTu" = (
@@ -53635,6 +53690,12 @@
 "sei" = (
 /turf/open/floor/engine,
 /area/science/explab)
+"seY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "sfk" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/stripes/line,
@@ -58240,6 +58301,18 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
+"tPa" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "tPk" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -61496,9 +61569,6 @@
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "vjf" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -61509,6 +61579,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "vjl" = (
@@ -91303,8 +91376,8 @@ aaa
 aaa
 aKx
 aLN
-aLE
-smE
+eOg
+fYn
 wPn
 lKQ
 pwn
@@ -91560,8 +91633,8 @@ ayE
 ayE
 ayE
 jSj
-aLE
-smE
+seY
+tPa
 fXh
 ehT
 pwn
@@ -91817,7 +91890,7 @@ ihk
 ihk
 rDh
 ohK
-tgD
+iEA
 qTr
 uDQ
 wdV
@@ -92332,7 +92405,7 @@ aaa
 fHM
 wCW
 aLE
-aul
+lRS
 aSs
 aRV
 enr

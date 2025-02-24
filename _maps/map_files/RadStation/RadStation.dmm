@@ -10950,6 +10950,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "dyS" = (
@@ -21549,6 +21553,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/sepia,
 /area/maintenance/port/central)
@@ -59359,6 +59366,9 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/sepia,
 /area/vacant_room/office)
 "sXD" = (
@@ -74025,6 +74035,9 @@
 /area/security/brig)
 "xJL" = (
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "xKe" = (
