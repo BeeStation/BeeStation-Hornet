@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 import { classes } from 'common/react';
 import { require } from 'tgui-dev-server/require';
 import { createLogger } from 'tgui/logging';
+import { storage } from 'common/storage';
 
 type Reagent = {
   name: string;
@@ -55,13 +56,30 @@ type ChemDispenserData = {
   reactions_list: Recipe[];
 };
 
+/**
+ * A cache of the negative scores for items, since a chem dispenser is
+ * unlikely to unlock new recipes while the UI is open.
+ */
 const negative_score_cache: { [path: string]: number } = {};
 
-const logger = createLogger('ChemDispenser');
-
+/**
+ * The previous list of satisfied recipes, cached to prevent
+ * unnecessary recalculations.
+ */
 let recipe_list: SatisfiedRecipe[] = [];
+
+/**
+ * The previous contents of the beaker, used for triggering updates
+ * to the UI when necessary.
+ */
 let last_contents: { path: string; volume: number }[] = [];
 
+/**
+ * Checks if we need an update, to prevent rebuildin the chemical array
+ * unnecessarilly
+ * @param after The new data
+ * @returns Returns true if the after data is different to the previous data
+ */
 const needs_update = (after: { path: string; volume: number }[]) => {
   if (last_contents.length !== after.length) {
     return true;
@@ -80,7 +98,7 @@ const needs_update = (after: { path: string; volume: number }[]) => {
  * @param recipes All craftable recipes
  * @returns All recipes that can be made with any of the ingredients currently contained in the beaker.
  */
-const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[]): SatisfiedRecipe[] => {
+const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[], favourites: { [id: string]: boolean }): SatisfiedRecipe[] => {
   if (recipe_list.length && !needs_update(contents)) {
     return recipe_list;
   }
@@ -89,7 +107,6 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term] = useSharedState('search_term', '');
   const [selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
-  const [favourites] = useSharedState<{ [id: string]: boolean }>('favourites', {});
   let initial_length = Object.keys(unlocked_recipes).length;
   if (selected_recipe !== null) {
     // Build a recipe lookup list
@@ -225,15 +242,44 @@ const render_hint = (hint_type: RecipeHintTypes, message: string | number[]) => 
   );
 };
 
-export const ChemDispenser = (_props) => {
+/**
+ * Whether or not this is the first time we are loading the UI
+ */
+let firstLoad = true;
+
+/**
+ * Indicates whether we are waiting to save data in the storage,
+ * so we don't queue loads of updates at once.
+ */
+let waitingForSave = false;
+
+export const ChemDispenser = async (_props) => {
   const { act, data } = useBackend<ChemDispenserData>();
   const beakerTransferAmounts = data.beakerTransferAmounts || [];
   const beakerContents = data.beakerContents || [];
   const [unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term, set_search_term] = useSharedState('search_term', '');
-  const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list).sort((a, b) => b.rating - a.rating);
   const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
-  const [favourites, setFavourites] = useSharedState<{ [id: string]: boolean }>('favourites', {});
+  const [favourites, setFavourites] = useLocalState<{[id: string]: boolean}>('favourites', {});
+  const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list, favourites).sort((a, b) => b.rating - a.rating);
+
+  if (firstLoad) {
+    storage.get('favourites').then(result => {
+      // Nothing stored
+      if (result === undefined) {
+        return;
+      }
+      if (typeof result === 'object' && !Array.isArray(result) && result !== null) {
+        // Good enough
+        setFavourites(result);
+      } else {
+        // Invalid storage
+        storage.set('favourites', {});
+      }
+    });
+    firstLoad = false;
+  }
+
   return (
     <Window width={695} height={720}>
       <Window.Content className="chem_dispenser">
@@ -350,6 +396,13 @@ export const ChemDispenser = (_props) => {
                       }
                       recipe_list = [];
                       setFavourites(favourites);
+                      if (!waitingForSave) {
+                        waitingForSave = true;
+                        window.setTimeout(async () => {
+                          waitingForSave = false;
+                          await storage.set('favourites', favourites);
+                        }, 5000);
+                      }
                     }}>
                     <Icon name={favourites[recipe.id] ? 'star' : 'star-o'} />
                   </div>
