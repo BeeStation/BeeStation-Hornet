@@ -11133,9 +11133,6 @@
 /turf/open/floor/iron,
 /area/quartermaster/sorting)
 "fhD" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/wood,
 /obj/item/storage/fancy/coffee_condi_display{
@@ -11146,9 +11143,10 @@
 	pixel_x = 5
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
+/obj/structure/window/reinforced{
+	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
 "fhM" = (
@@ -17719,7 +17717,7 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/turf_decal/siding/wood{
-	dir = 9
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
@@ -25827,6 +25825,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden,
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "myh" = (
@@ -27301,11 +27300,10 @@
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "niG" = (
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
+/obj/item/beacon{
+	pixel_y = 3
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "niR" = (
 /obj/machinery/light,
@@ -27492,7 +27490,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "nnM" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "nnR" = (
@@ -28604,6 +28604,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/item/storage/box/coffeepack{
+	pixel_y = 2;
+	pixel_x = 6
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
@@ -31613,16 +31617,17 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "poM" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
 /obj/effect/spawner/randomvend/cola,
 /obj/machinery/airalarm/directional/west,
 /obj/structure/sign/map/echo{
 	name = "map - level 2";
 	pixel_y = 32
 	},
-/turf/open/floor/carpet/green,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
 "ppi" = (
 /obj/structure/railing{
@@ -36224,8 +36229,8 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/machinery/camera/directional/west,
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/camera/motion/directional/west,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "rGG" = (
@@ -43084,6 +43089,13 @@
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/asteroid/paradise/surface/sand)
+"uYw" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/cafeteria)
 "uYE" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
@@ -43714,11 +43726,11 @@
 /turf/open/floor/iron/dark,
 /area/science/server)
 "vnm" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool/directional/west,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "vnr" = (
@@ -47437,14 +47449,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/maint)
 "xjM" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/structure/table/wood,
-/obj/item/storage/box/coffeepack{
-	pixel_y = 8;
-	pixel_x = 3
-	},
 /obj/item/reagent_containers/cup/glass/mug{
 	pixel_y = 9;
 	pixel_x = -8
@@ -47458,12 +47463,15 @@
 	pixel_y = -4
 	},
 /obj/item/coffee_cartridge/bootleg{
-	pixel_y = -1;
+	pixel_y = 3;
 	pixel_x = 3
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 5
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/cafeteria)
@@ -48985,9 +48993,6 @@
 /turf/open/floor/iron,
 /area/security/prison)
 "xTb" = (
-/obj/item/beacon{
-	pixel_y = 3
-	},
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
@@ -128680,7 +128685,7 @@ wdv
 eyu
 hhu
 poM
-tov
+uYw
 pUp
 jNl
 orc
@@ -128937,7 +128942,7 @@ sxD
 fCF
 hhu
 ivQ
-niG
+kHj
 eEc
 uoe
 kJV
@@ -129968,7 +129973,7 @@ kSu
 hVF
 lfw
 xTb
-tov
+niG
 wzi
 qgB
 cbu
