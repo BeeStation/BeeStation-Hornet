@@ -71,7 +71,8 @@
 		return
 	ADD_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	//Setup the animal
-	var/mob/new_animal = new choosen_animal(target.loc)
+	var/mob/living/new_animal = new choosen_animal(target.loc)
+	new_animal.can_be_held = TRUE
 	//Swap holder
 	H = new(new_animal, spell_holder, target)
 	RegisterSignal(new_animal, COMSIG_MOB_DEATH, PROC_REF(un_trigger))
