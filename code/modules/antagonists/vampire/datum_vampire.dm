@@ -64,8 +64,6 @@
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
 	///Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
-	///Used in life_vampire.dm to stop final_death being called multiple times
-	var/has_succumb_to_final_death = FALSE
 
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/cooldown/vampire, ignore_root_path = TRUE)

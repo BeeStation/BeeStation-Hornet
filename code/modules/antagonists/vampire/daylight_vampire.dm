@@ -21,8 +21,7 @@
 ///Ranks the Vampire up, called by Sol.
 /datum/antagonist/vampire/proc/sol_rank_up(atom/source)
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(RankUp))
+	CALLBACK(src, PROC_REF(RankUp))
 
 ///Called when Sol is near starting.
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
@@ -67,7 +66,7 @@
 			to_chat(owner.current, span_userdanger("You are staked! Remove the offending weapon from your heart before sleeping."))
 			COOLDOWN_START(src, vampire_spam_sol_burn, VAMPIRE_SPAM_SOL) //This should happen twice per Sol
 		if(!is_in_torpor())
-			check_begin_torpor(TRUE)
+			torpor_begin()
 			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 		return
 
@@ -112,11 +111,7 @@
  * - Having less than 10 Brute & Burn Combined while INSIDE of your Coffin while it isnt Sol.
  * - Sol being over, dealt with by /sunlight/process() [vampire_daylight.dm]
 */
-/datum/antagonist/vampire/proc/check_begin_torpor(SkipChecks = FALSE)
-	/// Are we entering Torpor via Sol/Death? Then entering it isnt optional!
-	if(SkipChecks)
-		torpor_begin()
-		return
+/datum/antagonist/vampire/proc/check_begin_torpor()
 	var/mob/living/carbon/user = owner.current
 	var/total_brute = user.getBruteLoss()
 	var/total_burn = user.getFireLoss()
@@ -131,9 +126,12 @@
 	var/total_burn = user.getFireLoss()
 	var/total_damage = total_brute + total_burn
 	if(total_burn >= 199)
-		return FALSE
+		return
 	if(SSsunlight.sunlight_active)
-		return FALSE
+		return
+
+	if(check_staked())
+		torpor_end()
 	// You are in a Coffin, so instead we'll check TOTAL damage, here.
 	if(istype(user.loc, /obj/structure/closet/crate/coffin))
 		if(total_damage <= 10)

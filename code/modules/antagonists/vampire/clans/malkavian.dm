@@ -56,12 +56,6 @@
 		carbonowner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
 		carbonowner.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
 
-/datum/vampire_clan/malkavian/on_final_death(datum/antagonist/vampire/source)
-	var/obj/item/soulstone/vampire/stone = new /obj/item/soulstone/vampire(get_turf(vampiredatum.owner.current))
-	INVOKE_ASYNC(stone, TYPE_PROC_REF(/obj/item/soulstone/vampire, init_shade), vampiredatum.owner.current)
-
-	return DONT_DUST
-
 /datum/vampire_clan/malkavian/proc/on_vampire_broke_masquerade(datum/source, datum/antagonist/vampire/masquerade_breaker)
 	SIGNAL_HANDLER
 

@@ -168,18 +168,18 @@
 		current_heart?.Stop()
 	// Eyes
 	var/obj/item/organ/eyes/current_eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
-	current_eyes?.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
-	current_eyes?.sight_flags = SEE_MOBS
-	current_eyes?.see_in_dark = NIGHTVISION_FOV_RANGE
-	current_eyes?.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	user.update_sight()
+	if(current_eyes)
+		current_eyes.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
+		current_eyes.sight_flags = SEE_MOBS
+		current_eyes.see_in_dark = NIGHTVISION_FOV_RANGE
+		current_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		user.update_sight()
 
 	if(user.stat == DEAD)
 		user.revive()
 	// From [powers/panacea.dm]
-	var/list/bad_organs = list(
-		user.getorgan(/obj/item/organ/body_egg),
-		user.getorgan(/obj/item/organ/zombie_infection))
+	var/list/bad_organs = list(user.getorgan(/obj/item/organ/body_egg), user.getorgan(/obj/item/organ/zombie_infection))
+
 	for(var/tumors in bad_organs)
 		var/obj/item/organ/yucky_organs = tumors
 		if(!istype(yucky_organs))
@@ -198,9 +198,6 @@
 	SIGNAL_HANDLER
 
 	if(source.stat != DEAD) // weirdness shield
-		return
-	if(gibbed)
-		INVOKE_ASYNC(src, PROC_REF(final_death))
 		return
 
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
@@ -223,23 +220,11 @@
 /// FINAL DEATH.
 /// Don't call this directly, use handle_death().
 /datum/antagonist/vampire/proc/do_handle_death()
-	// Not "Alive"?
-	if(QDELETED(owner.current))
-		final_death()
+	if(QDELETED(owner.current) || check_staked() || is_in_torpor())
 		return
-	// Fire Damage? (above double health)
-	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
-		final_death()
-		return
-	// Staked while "Temp Death" or Asleep
-	if(can_stake_kill() && check_staked())
-		final_death()
-		return
-	// Temporary Death? Convert to Torpor.
-	if(is_in_torpor())
-		return
+
 	to_chat(owner.current, span_userdanger("Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor."))
-	check_begin_torpor(TRUE)
+	torpor_begin()
 
 /datum/antagonist/vampire/proc/HandleStarving() // I am thirsty for blood!
 	// Nutrition - The amount of blood is how full we are.
@@ -288,71 +273,5 @@
 		return
 
 	owner.current.blood_volume = vampire_blood_volume
-
-/// Gibs the Vampire, roundremoving them.
-/datum/antagonist/vampire/proc/final_death()
-	if(has_succumb_to_final_death)
-		return
-	has_succumb_to_final_death = TRUE
-
-	var/mob/living/carbon/user = owner.current
-
-	// Free vassals
-	for(var/datum/antagonist/vassal/vassal in vassals)
-		if(vassal.special_type == REVENGE_VASSAL)
-			continue
-		var/datum/antagonist/ex_vassal/ex_vassal = new()
-		ex_vassal.vampire_team = vampire_team
-		vassal.owner.add_antag_datum(ex_vassal)
-
-		vassal.owner.remove_antag_datum(/datum/antagonist/vassal)
-
-	// If we have no body, end here.
-	if(!user)
-		return
-	UnregisterSignal(src, list(
-		COMSIG_VAMPIRE_ON_LIFETICK,
-		COMSIG_LIVING_REVIVE,
-		COMSIG_LIVING_LIFE,
-		COMSIG_LIVING_DEATH,
-	))
-	UnregisterSignal(SSsunlight, list(
-		COMSIG_SOL_RANKUP_VAMPIRES,
-		COMSIG_SOL_NEAR_START,
-		COMSIG_SOL_END,
-		COMSIG_SOL_RISE_TICK,
-		COMSIG_SOL_WARNING_GIVEN,
-	))
-
-	DisableAllPowers(forced = TRUE)
-	if(!iscarbon(user))
-		user.gib(TRUE, FALSE, FALSE)
-		return
-	// Drop anything in us and play a tune
-	user.drop_all_held_items()
-	user.unequip_everything()
-	user.remove_all_embedded_objects()
-	playsound(user, 'sound/effects/tendril_destroyed.ogg', 40, TRUE)
-
-	var/unique_death = SEND_SIGNAL(src, VAMPIRE_FINAL_DEATH)
-	if(unique_death & DONT_DUST)
-		return
-
-	// Elders get dusted, Fledglings get gibbed.
-	if(vampire_level >= 4)
-		user.visible_message(
-			span_warning("[user]'s skin crackles and dries, their skin and bones withering to dust. A hollow cry whips from what is now a sandy pile of remains."),
-			span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
-			span_hear("You hear a dry, crackling sound."),
-		)
-		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, dust)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
-		return
-
-	user.visible_message(
-		span_warning("[user]'s skin bursts forth in a spray of gore and detritus. A horrible cry echoes from what is now a wet pile of decaying meat."),
-		span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
-		span_hear("<span class='italics'>You hear a wet, bursting sound."),
-	)
-	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, gib), TRUE, FALSE, FALSE), 2 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 #undef VAMPIRE_PASSIVE_BLOOD_DRAIN

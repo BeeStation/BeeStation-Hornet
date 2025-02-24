@@ -40,7 +40,6 @@
 
 	RegisterSignal(vampiredatum, VAMPIRE_MADE_VASSAL, PROC_REF(on_vassal_made))
 	RegisterSignal(vampiredatum, VAMPIRE_EXIT_TORPOR, PROC_REF(on_exit_torpor))
-	RegisterSignal(vampiredatum, VAMPIRE_FINAL_DEATH, PROC_REF(on_final_death))
 
 	RegisterSignal(vampiredatum, VAMPIRE_ENTERS_FRENZY, PROC_REF(on_enter_frenzy))
 	RegisterSignal(vampiredatum, VAMPIRE_EXITS_FRENZY, PROC_REF(on_exit_frenzy))
@@ -55,7 +54,6 @@
 		VAMPIRE_MAKE_FAVORITE,
 		VAMPIRE_MADE_VASSAL,
 		VAMPIRE_EXIT_TORPOR,
-		VAMPIRE_FINAL_DEATH,
 		VAMPIRE_ENTERS_FRENZY,
 		VAMPIRE_EXITS_FRENZY,
 	))
@@ -99,15 +97,6 @@
  */
 /datum/vampire_clan/proc/on_exit_torpor(datum/antagonist/vampire/source)
 	SIGNAL_HANDLER
-
-/**
- * Called when a Vampire enters Final Death
- * args:
- * source - the Vampire exiting Torpor
- */
-/datum/vampire_clan/proc/on_final_death(datum/antagonist/vampire/source)
-	SIGNAL_HANDLER
-	return FALSE
 
 /**
  * Called during Vampire's LifeTick

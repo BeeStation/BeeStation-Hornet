@@ -96,7 +96,3 @@
 		if(istype(embedded_stake, /obj/item/stake))
 			return TRUE
 	return FALSE
-
-/// You can't go to sleep in a coffin with a stake in you.
-/datum/antagonist/vampire/proc/can_stake_kill()
-	return owner.current.IsSleeping() || owner.current.stat >= UNCONSCIOUS || HAS_TRAIT(owner.current, TRAIT_TORPOR)

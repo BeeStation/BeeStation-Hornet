@@ -1029,6 +1029,7 @@
 	. = ..()
 	if(.)
 		return
+
 	// Invalid Target, or not targetting the chest?
 	if(check_zone(user.get_combat_bodyzone()) != BODY_ZONE_CHEST)
 		return
@@ -1057,13 +1058,10 @@
 		return
 	if(!target.mind)
 		return
-	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(target)
-	if(vampiredatum)
-		if(vampiredatum?.can_stake_kill())
-			vampiredatum.final_death()
-		else
-			to_chat(target, span_userdanger("You have been staked! Your powers are useless while it remains in place."))
-			target.balloon_alert(target, "you have been staked!")
+
+	if(IS_VAMPIRE(target))
+		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it remains in place."))
+		target.balloon_alert(target, "you have been staked!")
 
 ///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
 /mob/living/proc/can_be_staked()

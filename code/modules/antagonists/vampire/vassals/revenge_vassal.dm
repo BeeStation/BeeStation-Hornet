@@ -33,14 +33,6 @@
 
 	return report.Join("<br>")
 
-/datum/antagonist/vassal/revenge/on_gain()
-	. = ..()
-	RegisterSignal(master, VAMPIRE_FINAL_DEATH, PROC_REF(on_master_death))
-
-/datum/antagonist/vassal/revenge/on_removal()
-	UnregisterSignal(master, VAMPIRE_FINAL_DEATH)
-	return ..()
-
 /datum/antagonist/vassal/revenge/ui_static_data(mob/user)
 	var/list/data = list()
 	for(var/datum/action/cooldown/vampire/power as anything in powers)
