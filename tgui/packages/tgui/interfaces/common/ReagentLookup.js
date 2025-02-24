@@ -1,9 +1,9 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Icon, LabeledList } from '../../components';
 
-export const ReagentLookup = (props) => {
+export const ReagentLookup = (props, context) => {
   const { reagent } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   if (!reagent) {
     return <Box>No reagent selected!</Box>;
   }

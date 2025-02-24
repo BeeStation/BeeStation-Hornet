@@ -116,7 +116,7 @@ const TagBox = (props) => {
   const { act, data } = useBackend();
   const [page, setPage] = useLocalState('page', 1);
   const { bitflags } = props;
-  const { selectedBitflags, selectedMachineType } = data;
+  const { selectedBitflags } = data;
   const disableDifficultyButtons = (flag) => {
     return (
       selectedBitflags & bitflags.EASY ||
@@ -128,17 +128,6 @@ const TagBox = (props) => {
 
   return (
     <LabeledList>
-      <LabeledList.Item label="Machine Flags">
-        <Button
-          color={selectedMachineType ? 'green' : 'red'}
-          icon="book"
-          onClick={() => {
-            act('set_machine_flags');
-            setPage(1);
-          }}>
-          Machine Flags: {selectedMachineType}
-        </Button>
-      </LabeledList.Item>
       <LabeledList.Item label="Affects">
         <Button
           color={selectedBitflags & bitflags.BRUTE ? 'green' : 'red'}
