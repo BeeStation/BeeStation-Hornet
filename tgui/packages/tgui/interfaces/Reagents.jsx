@@ -459,7 +459,7 @@ const RecipeLibrary = (props) => {
             </Table.Cell>
             <Table.Cell width="20px">
               <Button
-                icon='heart'
+                icon="heart"
                 color={bookmarkedReactions.has(reaction) ? 'green' : 'grey'}
                 onClick={() => {
                   if (bookmarkedReactions.has(reaction)) {
