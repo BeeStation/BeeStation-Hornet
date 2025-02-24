@@ -5,6 +5,7 @@ import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Input, LabeledList, Pr
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 import { require } from 'tgui-dev-server/require';
+import { createLogger } from 'tgui/logging';
 
 type Reagent = {
   name: string;
@@ -54,6 +55,25 @@ type ChemDispenserData = {
   reactions_list: Recipe[];
 };
 
+const negative_score_cache: { [path: string]: number } = {};
+
+const logger = createLogger('ChemDispenser');
+
+let recipe_list: SatisfiedRecipe[] = [];
+let last_contents: { path: string; volume: number }[] = [];
+
+const needs_update = (after: { path: string; volume: number }[]) => {
+  if (last_contents.length !== after.length) {
+    return true;
+  }
+  for (let i = 0; i < last_contents.length; i++) {
+    if (last_contents[i].path !== after[i].path || last_contents[i].volume !== after[i].volume) {
+      return true;
+    }
+  }
+  return false;
+};
+
 /**
  *
  * @param contents The current contents of the beaker
@@ -61,10 +81,15 @@ type ChemDispenserData = {
  * @returns All recipes that can be made with any of the ingredients currently contained in the beaker.
  */
 const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[]): SatisfiedRecipe[] => {
+  if (recipe_list.length && !needs_update(contents)) {
+    return recipe_list;
+  }
+  const { act, data } = useBackend<ChemDispenserData>();
   let result: SatisfiedRecipe[] = [];
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term] = useSharedState('search_term', '');
   const [selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
+  const [favourites] = useSharedState<{ [id: string]: boolean }>('favourites', {});
   let initial_length = Object.keys(unlocked_recipes).length;
   if (selected_recipe !== null) {
     // Build a recipe lookup list
@@ -109,39 +134,47 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
         result.push({ rating: 1, ...recipe });
       }
     }
-  } else if (contents.length === 0) {
-    for (const recipe of recipes) {
-      if (!unlocked_recipes[recipe.name]) {
-        continue;
-      }
-      let matches = 0;
-      for (const required of recipe.required_reagents) {
-        if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
-          matches++;
-        }
-      }
-      result.push({ rating: matches, ...recipe });
-    }
   } else {
     for (const recipe of recipes) {
       if (recipe.required_container || recipe.required_other) {
         continue;
       }
-      let matches = 0;
-      for (const required of recipe.required_reagents) {
-        if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
-          matches++;
+      let matches = 100;
+      if (favourites[recipe.id]) {
+        matches += 100;
+      }
+      // Gain points if we have the reagent already
+      if (contents.length > 0) {
+        for (const required of recipe.required_reagents) {
+          if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
+            matches += 2;
+            continue;
+          }
         }
       }
-      if (matches > 0) {
-        result.push({ rating: matches, ...recipe });
-        unlocked_recipes[recipe.name] = 1;
+      // Lose points if we can't add the reagent
+      if (negative_score_cache[recipe.id]) {
+        // -1 point for every reagent that we can't add
+        matches -= negative_score_cache[recipe.id];
+      } else {
+        let negativePoints = 0;
+        for (const required of recipe.required_reagents) {
+          if (!data.chemicals.some((x) => required.name === x.title)) {
+            negativePoints++;
+          }
+        }
+        negative_score_cache[recipe.id] = negativePoints;
+        matches -= negativePoints;
       }
+      result.push({ rating: matches, ...recipe });
+      unlocked_recipes[recipe.name] = 1;
     }
     if (initial_length !== Object.keys(unlocked_recipes).length) {
       set_unlocked_recipes(unlocked_recipes);
     }
   }
+  recipe_list = result;
+  last_contents = contents;
   return result;
 };
 
@@ -200,6 +233,7 @@ export const ChemDispenser = (_props) => {
   const [search_term, set_search_term] = useSharedState('search_term', '');
   const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list).sort((a, b) => b.rating - a.rating);
   const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
+  const [favourites, setFavourites] = useSharedState<{ [id: string]: boolean }>('favourites', {});
   return (
     <Window width={695} height={720}>
       <Window.Content className="chem_dispenser">
@@ -220,6 +254,7 @@ export const ChemDispenser = (_props) => {
           </Section>
           <Section
             scrollable
+            autofocus
             fill
             title="Recipes"
             className="grow"
@@ -228,6 +263,7 @@ export const ChemDispenser = (_props) => {
                 <Button
                   content="Return"
                   onClick={() => {
+                    recipe_list = [];
                     set_selected_recipe(null);
                     set_search_term('');
                   }}
@@ -242,6 +278,7 @@ export const ChemDispenser = (_props) => {
                     ml={1}
                     onInput={(_, val) => {
                       if (val !== search_term) {
+                        recipe_list = [];
                         set_search_term(val);
                       }
                     }}
@@ -252,7 +289,12 @@ export const ChemDispenser = (_props) => {
             <Box className="recipe_container" mr={-1}>
               {shown_recipes.map((recipe) => (
                 <div
-                  className={classes(['recipe_box'])}
+                  className={classes([
+                    'recipe_box',
+                    recipe.required_reagents.every(
+                      (x) => beakerContents.some((y) => y.path === x.path) || data.chemicals.some((y) => x.name === y.title)
+                    ) && 'craftable',
+                  ])}
                   key={recipe.id}
                   onClick={() => {
                     if (
@@ -294,8 +336,23 @@ export const ChemDispenser = (_props) => {
                     if (selected_recipe) {
                       return;
                     }
+                    recipe_list = [];
                     set_selected_recipe(recipe);
                   }}>
+                  <div
+                    className={classes(['favourite', !favourites[recipe.id] && 'unfavourited'])}
+                    onClick={(e, data) => {
+                      e.stopPropagation();
+                      if (favourites[recipe.id]) {
+                        delete favourites[recipe.id];
+                      } else {
+                        favourites[recipe.id] = true;
+                      }
+                      recipe_list = [];
+                      setFavourites(favourites);
+                    }}>
+                    <Icon name={favourites[recipe.id] ? 'star' : 'star-o'} />
+                  </div>
                   <div
                     className={classes([
                       'recipe_title',

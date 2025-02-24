@@ -1,4 +1,5 @@
 @use '../colors.scss';
+@use 'sass:color';
 
 .chem_dispenser {
   .root {
@@ -38,16 +39,17 @@
   }
 
   .recipe_box {
+    position: relative;
     display: flex;
     flex-grow: 1;
     flex-shrink: 1;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.705);
+    background-color: color.adjust(colors.$primary, $alpha: -0.9);
     margin: 2px;
     padding: 4px;
     align-items: center;
     border-radius: 4px;
-    border: 1px solid rgb(190, 190, 190);
+    border: 1px solid colors.$primary;
     transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
     min-width: 0%;
     max-width: 100%;
@@ -66,9 +68,48 @@
     }
 
     &:hover {
-      background-color: rgba(10, 10, 10, 0.705);
+      background-color: color.adjust(colors.$primary, $alpha: -0.7);
       box-shadow: inset 0px 0px 3px colors.$primary;
-      border-color: colors.$primary;
+    }
+
+    &.craftable {
+      background-color: color.adjust(colors.$good, $alpha: -0.9);
+      border: 1px solid colors.$good;
+
+      &:hover {
+        background-color: color.adjust(colors.$good, $alpha: -0.7);
+        box-shadow: inset 0px 0px 3px colors.$good;
+      }
+
+      .favourite {
+        background-color: color.adjust(colors.$good, $alpha: -0.3);
+
+        &.unfavourited {
+          background-color: color.adjust(colors.$good, $saturation: -10%, $alpha: -0.3);
+        }
+
+        &:hover {
+          background-color: color.adjust(colors.$good, $lightness: 30%, $alpha: -0.3);
+        }
+      }
+    }
+
+    .favourite {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background-color: color.adjust(colors.$primary, $alpha: -0.3);
+      padding: 3px 4px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &.unfavourited {
+        background-color: color.adjust(colors.$primary, $saturation: -10%, $alpha: -0.3);
+      }
+
+      &:hover {
+        background-color: color.adjust(colors.$primary, $lightness: 30%, $alpha: -0.3);
+      }
     }
   }
 
