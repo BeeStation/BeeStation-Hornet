@@ -74,6 +74,8 @@ let recipe_list: SatisfiedRecipe[] = [];
  */
 let last_contents: { path: string; volume: number }[] = [];
 
+const logger = createLogger('ChemDispenser');
+
 /**
  * Checks if we need an update, to prevent rebuildin the chemical array
  * unnecessarilly
@@ -98,7 +100,11 @@ const needs_update = (after: { path: string; volume: number }[]) => {
  * @param recipes All craftable recipes
  * @returns All recipes that can be made with any of the ingredients currently contained in the beaker.
  */
-const compile_recipes = (contents: { path: string; volume: number }[], recipes: Recipe[], favourites: { [id: string]: boolean }): SatisfiedRecipe[] => {
+const compile_recipes = (
+  contents: { path: string; volume: number }[],
+  recipes: Recipe[],
+  favourites: { [id: string]: boolean }
+): SatisfiedRecipe[] => {
   if (recipe_list.length && !needs_update(contents)) {
     return recipe_list;
   }
@@ -140,7 +146,7 @@ const compile_recipes = (contents: { path: string; volume: number }[], recipes: 
         }
         recipes.forEach((x) => search_list.push(x));
       }
-      result.push({ rating: depth--, ...head! });
+      result.push({ rating: depth++, ...head! });
     }
   } else if (search_term.length > 0) {
     for (const recipe of recipes) {
@@ -243,42 +249,45 @@ const render_hint = (hint_type: RecipeHintTypes, message: string | number[]) => 
 };
 
 /**
- * Whether or not this is the first time we are loading the UI
- */
-let firstLoad = true;
-
-/**
  * Indicates whether we are waiting to save data in the storage,
  * so we don't queue loads of updates at once.
  */
 let waitingForSave = false;
 
-export const ChemDispenser = async (_props) => {
+export const ChemDispenser = (_props) => {
   const { act, data } = useBackend<ChemDispenserData>();
   const beakerTransferAmounts = data.beakerTransferAmounts || [];
   const beakerContents = data.beakerContents || [];
   const [unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term, set_search_term] = useSharedState('search_term', '');
   const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
-  const [favourites, setFavourites] = useLocalState<{[id: string]: boolean}>('favourites', {});
-  const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list, favourites).sort((a, b) => b.rating - a.rating);
+  const [favourites, setFavourites] = useLocalState<{ [id: string]: boolean } | undefined>('favourites', undefined);
 
-  if (firstLoad) {
-    storage.get('favourites').then(result => {
+  let usedFavourites: { [id: string]: boolean } = favourites!;
+
+  if (favourites === undefined) {
+    logger.log('Fetching store...');
+    storage.get('chem_dispenser_favourites').then((result) => {
+      logger.log('Store found', result);
       // Nothing stored
       if (result === undefined) {
         return;
       }
       if (typeof result === 'object' && !Array.isArray(result) && result !== null) {
         // Good enough
+        recipe_list = [];
         setFavourites(result);
       } else {
         // Invalid storage
-        storage.set('favourites', {});
+        storage.set('chem_dispenser_favourites', {});
       }
     });
-    firstLoad = false;
+    usedFavourites = {};
   }
+
+  const shown_recipes = compile_recipes(data.beakerContents, data.reactions_list, usedFavourites).sort(
+    (a, b) => b.rating - a.rating
+  );
 
   return (
     <Window width={695} height={720}>
@@ -386,25 +395,25 @@ export const ChemDispenser = async (_props) => {
                     set_selected_recipe(recipe);
                   }}>
                   <div
-                    className={classes(['favourite', !favourites[recipe.id] && 'unfavourited'])}
+                    className={classes(['favourite', !usedFavourites[recipe.id] && 'unfavourited'])}
                     onClick={(e, data) => {
                       e.stopPropagation();
-                      if (favourites[recipe.id]) {
-                        delete favourites[recipe.id];
+                      if (usedFavourites[recipe.id]) {
+                        delete usedFavourites[recipe.id];
                       } else {
-                        favourites[recipe.id] = true;
+                        usedFavourites[recipe.id] = true;
                       }
                       recipe_list = [];
-                      setFavourites(favourites);
+                      setFavourites(usedFavourites);
                       if (!waitingForSave) {
                         waitingForSave = true;
-                        window.setTimeout(async () => {
+                        window.setTimeout(() => {
                           waitingForSave = false;
-                          await storage.set('favourites', favourites);
+                          storage.set('chem_dispenser_favourites', usedFavourites);
                         }, 5000);
                       }
                     }}>
-                    <Icon name={favourites[recipe.id] ? 'star' : 'star-o'} />
+                    <Icon name={usedFavourites[recipe.id] ? 'star' : 'star-o'} />
                   </div>
                   <div
                     className={classes([
