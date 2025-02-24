@@ -360,8 +360,8 @@
 	var/datum/changelingprofile/removeprofile = get_profile_to_remove()
 	if(removeprofile)
 		stored_profiles -= removeprofile
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/antagonist/changeling/proc/create_initial_profile()

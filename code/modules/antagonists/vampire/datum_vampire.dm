@@ -142,6 +142,29 @@
 	new /obj/structure/vampire/vassalrack(user_loc)
 #endif
 
+// Taken directly from changeling.dm
+/datum/antagonist/vampire/proc/create_initial_profile()
+	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
+	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+		C.set_species(/datum/species/human)
+		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
+		for(var/datum/record/crew/E in GLOB.manifest.general)
+			if(E.name == C.real_name)
+				E.species = "\improper Human"
+				var/static/list/show_directions = list(SOUTH, WEST)
+				var/image = get_flat_existing_human_icon(C, show_directions)
+				var/datum/picture/pf = new
+				var/datum/picture/ps = new
+				pf.picture_name = "[C]"
+				ps.picture_name = "[C]"
+				pf.picture_desc = "This is [C]."
+				ps.picture_desc = "This is [C]."
+				pf.picture_image = icon(image, dir = SOUTH)
+				ps.picture_image = icon(image, dir = WEST)
+				E.gender = C.gender
+	if(ishuman(C))
+		add_new_profile(C)
+
 /**
  * Remove innate effects is everything given to the mob
  * When a body is tranferred, this is called on the old mob.
@@ -227,6 +250,7 @@
 	// Assign Powers
 	give_starting_powers()
 	assign_starting_stats()
+	create_initial_profile()
 
 /// Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/vampire/on_removal()
