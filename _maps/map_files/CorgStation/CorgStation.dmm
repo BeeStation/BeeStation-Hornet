@@ -200,6 +200,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "acC" = (
@@ -789,6 +792,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -6682,6 +6688,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -13159,6 +13168,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "egL" = (
@@ -16607,6 +16619,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "frW" = (
@@ -17219,6 +17234,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "fDz" = (
@@ -22259,6 +22277,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "hmj" = (
@@ -22632,6 +22653,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "hth" = (
@@ -23211,6 +23235,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
@@ -23855,6 +23882,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -25278,6 +25308,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
 "iln" = (
@@ -35828,6 +35861,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "lPy" = (
@@ -37492,15 +37528,15 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "msw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
@@ -38763,9 +38799,6 @@
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/relay)
 "mOb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -38776,6 +38809,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/structure/disposalpipe/sorting/mail/destination/dormitories{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -40536,6 +40572,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
 "nvT" = (
@@ -41109,6 +41148,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/medical)
+"nEy" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/crew_quarters/fitness/recreation)
 "nEX" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/matches{
@@ -45945,6 +45990,9 @@
 /area/solar/port/fore)
 "pgD" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
 "pgR" = (
@@ -49704,6 +49752,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"qtm" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/dorms)
 "qtn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53911,6 +53966,11 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/bot,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "rTm" = (
@@ -54423,6 +54483,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
 "sdc" = (
@@ -54628,6 +54691,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -55485,9 +55551,7 @@
 /area/chapel/office)
 "suW" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
-/obj/structure/disposalpipe/sorting/mail/destination/dormitories{
-	dir = 2
-	},
+/obj/structure/disposalpipe/junction,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "svm" = (
@@ -64257,6 +64321,9 @@
 "vgL" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/mapping_helpers/tile_breaker,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "vgQ" = (
@@ -101971,7 +102038,7 @@ gNR
 txJ
 vhc
 xug
-coK
+nEy
 mOb
 gCX
 aVa
@@ -104532,7 +104599,7 @@ hmj
 rvD
 ddZ
 hVk
-kmq
+qtm
 kvb
 lDs
 kmq
