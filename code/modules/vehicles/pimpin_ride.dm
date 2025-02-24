@@ -65,7 +65,7 @@
 	if(floorbuffer)
 		add_overlay("cart_buffer")
 
-/obj/vehicle/ridden/janicart/attack_hand(mob/user)
+/obj/vehicle/ridden/janicart/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

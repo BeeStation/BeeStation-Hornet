@@ -225,6 +225,7 @@
 		/obj/item/storage/box/minertracker = 15,
 		/obj/item/stack/sheet/mineral/plasma/five = 15,
 		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
+		/obj/item/mining_voucher/exploration = 7,
 		/obj/item/stack/marker_beacon/thirty = 5,
 		/obj/item/extraction_pack = 5,
 		/obj/item/gps/mining/exploration = 5,
@@ -320,7 +321,7 @@
 		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
 		//when you thought it could get worse...
-		/obj/item/book/granter/spell/mimery_blockade = 1,
+		/obj/item/book/granter/action/spell/mime
 	)
 
 //PSYCHOLOGIST / PSYCHIATRIST GIMMICK
@@ -351,6 +352,7 @@
 		// it's hard to not look cool
 		/obj/item/clothing/glasses/science/sciencesun = 10,
 		/obj/item/taperecorder = 7,
+		/obj/item/mining_voucher/exploration = 7,
 		/obj/item/toy/plush/slimeplushie/random = 7,
 		/obj/item/disk/tech_disk/research/random  = 4,
 		/obj/item/borg/upgrade/ai = 2,

@@ -11,7 +11,7 @@
 
 	icon_state = "apc0"
 	use_power = NO_POWER_USE
-	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 200
 	integrity_failure = 0.25
 	damage_deflection = 10
@@ -59,7 +59,7 @@
 	///State of the apc charging (not charging, charging, fully charged)
 	var/charging = APC_NOT_CHARGING
 	///Can the APC charge?
-	var/chargemode = 1
+	var/chargemode = TRUE
 	///Number of ticks where the apc is trying to recharge
 	var/chargecount = 0
 	///Is the apc interface locked?
@@ -143,8 +143,6 @@
 	acid = 50
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
-	if (!req_access)
-		req_access = list(ACCESS_ENGINE_EQUIP)
 	..()
 	GLOB.apcs_list += src
 
@@ -183,12 +181,7 @@
 
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	if(area)
-		area.power_light = FALSE
-		area.power_equip = FALSE
-		area.power_environ = FALSE
-		area.power_change()
-		area.apc = null
+	disconnect_from_area()
 	QDEL_NULL(alarm_manager)
 	if(occupier)
 		malfvacate(TRUE)
@@ -198,8 +191,50 @@
 		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
+	return ..()
 
+/obj/machinery/power/apc/proc/assign_to_area(area/target_area = get_area(src))
+	if(area == target_area)
+		return
+
+	disconnect_from_area()
+	area = target_area
+	area.power_light = TRUE
+	area.power_equip = TRUE
+	area.power_environ = TRUE
+	area.power_change()
+	area.apc = src
+	auto_name = TRUE
+
+	update_name()
+
+/obj/machinery/power/apc/update_name(updates)
 	. = ..()
+	if(auto_name)
+		name = "\improper [get_area_name(area, TRUE)] APC"
+
+/obj/machinery/power/apc/proc/disconnect_from_area()
+	if(isnull(area))
+		return
+
+	area.power_light = FALSE
+	area.power_equip = FALSE
+	area.power_environ = FALSE
+	area.power_change()
+	area.apc = null
+	area = null
+
+/obj/machinery/power/apc/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
+
+/obj/machinery/power/apc/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > 2000)
+
+/obj/machinery/power/apc/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(min(exposed_temperature/100, 10), BURN)
+
+
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)
@@ -286,6 +321,7 @@
 			coverlocked = FALSE
 			visible_message(span_warning("The APC cover is knocked down!"))
 			update_appearance()
+	qdel(src)
 
 /obj/machinery/power/apc/ui_state(mob/user)
 	if(isAI(user))
@@ -464,6 +500,7 @@
 		force_update = TRUE
 		return
 
+//dont use any power from that channel if we shut that power channel off
 	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
 	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
 	lastused_environ = APC_CHANNEL_IS_ON(environ) ? area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON] : 0

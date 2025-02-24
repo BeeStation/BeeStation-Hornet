@@ -33,11 +33,11 @@
 	default = string
 	apply()
 
-/datum/view_data/proc/safeApplyFormat()
+/datum/view_data/proc/afterViewChange()
 	if(isZooming())
 		assertFormat()
-		return
-	resetFormat()
+	else
+		resetFormat()
 	if(chief?.mob)
 		SEND_SIGNAL(chief.mob, COMSIG_VIEWDATA_UPDATE, getView())
 
@@ -103,7 +103,7 @@
 
 /datum/view_data/proc/apply()
 	chief?.change_view(getView())
-	safeApplyFormat()
+	afterViewChange()
 
 /datum/view_data/proc/supress()
 	is_suppressed = TRUE

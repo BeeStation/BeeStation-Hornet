@@ -10,12 +10,16 @@
 	anchored = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 200 //The shield can only take so much beating (prevents perma-prisons)
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 
 /obj/structure/emergency_shield/Initialize(mapload)
 	. = ..()
 	setDir(pick(GLOB.cardinals))
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/emergency_shield/Destroy()
+	air_update_turf(TRUE, FALSE)
+	. = ..()
 
 /obj/structure/emergency_shield/Move()
 	var/turf/T = loc
@@ -60,7 +64,6 @@
 	max_integrity = 20
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
-
 /obj/structure/emergency_shield/invoker/emp_act(severity)
 	return
 
@@ -370,7 +373,7 @@
 		connect_to_network()
 
 
-/obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, item))
 		update_appearance()
 		updateUsrDialog()
@@ -383,7 +386,7 @@
 		wires.interact(user)
 		return TRUE
 
-	if(user.a_intent == INTENT_HARM) //so we can hit the machine
+	if(user.combat_mode) //so we can hit the machine
 		return ..()
 
 	if(machine_stat)
@@ -507,13 +510,7 @@
 
 /obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/machinery/power/shieldwallgen/atmos/proc/can_be_rotated(mob/user, rotation_type)
-	if (anchored)
-		to_chat(user, span_warning("It is fastened to the floor!"))
-		return FALSE
-	return TRUE
+	AddComponent(/datum/component/simple_rotation)
 
 /// Same as in the normal shieldwallgen, but with the shieldwalls replaced with atmos shieldwalls
 /obj/machinery/power/shieldwallgen/atmos/setup_field(direction)
@@ -653,8 +650,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holofield"
 	density = FALSE
-	CanAtmosPass = ATMOS_PASS_NO
-	CanAtmosPassVertical = 1
+	can_atmos_pass = ATMOS_PASS_NO
 	hardshield = FALSE
 	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"

@@ -37,16 +37,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 
 	pipename = initial(pipe_type.name)
 
-	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
+	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidden under floor tiles
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 	if(flip)
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
-		rotcomp.BaseRot(null,ROTATION_FLIP)
+		rotcomp.Rotate(usr, ROTATION_FLIP) // this only gets used by pipes created by RPDs or pipe dispensers
 
 	update_appearance(UPDATE_ICON)
-
-	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
-		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
@@ -93,24 +92,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
 			dpdir |= turn(dir, 180)
 	return dpdir
 
-/obj/structure/disposalconstruct/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
-
-/obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
-	if(rotation_type == ROTATION_FLIP)
+/obj/structure/disposalconstruct/proc/AfterRotation(mob/user, degrees)
+	if(degrees == ROTATION_FLIP)
 		var/obj/structure/disposalpipe/temp = pipe_type
 		if(initial(temp.flip_type))
-			if(dir in GLOB.diagonals)	// Fix RPD-induced diagonal turning
+			if(ISDIAGONALDIR(dir)) // Fix RPD-induced diagonal turning
 				setDir(turn(dir, 45))
 			pipe_type = initial(temp.flip_type)
-	update_icon()
+	update_appearance()
 
-/obj/structure/disposalconstruct/proc/can_be_rotated(mob/user,rotation_type)
-	if(anchored)
-		to_chat(user, span_warning("You must unfasten the pipe before rotating it!"))
-		return FALSE
-	return TRUE
+/obj/structure/disposalconstruct/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 // construction/deconstruction
 // wrench: (un)anchor

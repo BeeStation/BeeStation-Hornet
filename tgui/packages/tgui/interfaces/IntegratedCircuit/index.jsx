@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { Input, InfinitePlane, Stack, Box, Button, Section } from '../../components';
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { Layout, Window } from '../../layouts';
 import { resolveAsset } from '../../assets';
 import { CircuitInfo } from './CircuitInfo';
@@ -10,8 +10,8 @@ import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
 
 export class IntegratedCircuit extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       locations: {},
       selectedPort: null,
@@ -290,7 +290,7 @@ export class IntegratedCircuit extends Component {
         }>
         <Window.Content
           style={{
-            'background-image': 'none',
+            backgroundImage: 'none',
           }}>
           <InfinitePlane
             width="100%"

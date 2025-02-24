@@ -13,6 +13,7 @@
 	/// if it's declared, the vendor will only use this account, not the account from your card
 	var/datum/bank_account/bound_bank_account
 	var/currency_type = ACCOUNT_CURRENCY_MINING
+	var/vendor_type = "generic"
 
 /obj/machinery/vendor/Initialize(mapload)
 	. = ..()
@@ -134,11 +135,22 @@
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
 
+/obj/machinery/vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
+	return
+
 /obj/machinery/vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		return
 	if(default_deconstruction_crowbar(I))
 		return
+	if(istype(I, /obj/item/mining_voucher))
+		var/obj/item/mining_voucher/V = I
+		if(src.vendor_type == V.voucher_type)
+			RedeemVoucher(V, user)
+			return
+		else
+			to_chat(user, span_warning("This voucher seems to be incompatible with [src]."))
+			return
 	return ..()
 
 /obj/machinery/vendor/ex_act(severity, target)
@@ -217,6 +229,7 @@
 		new /datum/data/vendor_equipment("Laser Pointer",				/obj/item/laser_pointer,											300),
 		new /datum/data/vendor_equipment("Toy Alien",					/obj/item/clothing/mask/facehugger/toy,								300),
 		)
+	vendor_type = "mining"
 
 /datum/data/vendor_equipment
 	var/equipment_name = "generic"
@@ -230,11 +243,16 @@
 
 /obj/machinery/vendor/mining/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_voucher))
-		RedeemVoucher(I, user)
-		return
+		var/obj/item/mining_voucher/V = I
+		if(src.vendor_type == V.voucher_type)
+			RedeemVoucher(V, user)
+			return
+		else
+			to_chat(user, span_warning("This voucher seems to be incompatible with [src]."))
+			return
 	return ..()
 
-/obj/machinery/vendor/mining/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
+/obj/machinery/vendor/mining/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sort_list(items)
@@ -290,11 +308,12 @@
 /**********************Mining Equipment Voucher**********************/
 
 /obj/item/mining_voucher
-	name = "mining voucher"
+	name = "mining equipment voucher"
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
+	var/voucher_type = "mining"
 
 /**********************Mining Point Card**********************/
 

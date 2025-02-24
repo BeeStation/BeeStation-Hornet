@@ -665,7 +665,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/dangerous/carbine
 	name = "M-90gl Carbine"
 	desc = "A fully-loaded, specialized three-round burst carbine that fires 5.56mm ammunition from a 30 round magazine \
-			with a toggleable 40mm underbarrel grenade launcher."
+			with a 40mm underbarrel grenade launcher. Use secondary-fire to fire the grenade launcher."
 	item = /obj/item/gun/ballistic/automatic/m90
 	cost = 14
 	surplus = 50
@@ -795,6 +795,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 	cost = 12
 	surplus = 0
+
+/datum/uplink_item/stealthy_weapons/art_of_thievery
+	name = "The Art of Thievery"
+	desc = "A manual that teaches a single user how to pickpocket people without them noticing. Not guaranteed to work on all targets."
+	item = /obj/item/book/granter/art_of_thievery
+	cost = 5
+	surplus = 40
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol"

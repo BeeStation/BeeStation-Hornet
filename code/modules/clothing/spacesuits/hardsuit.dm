@@ -52,6 +52,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	// Move to nullspace first to prevent qdel loops
+	moveToNullspace()
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
@@ -564,7 +566,7 @@
 		Nanotrasen officials note that it is unique in every way and the design has not been copied in any way."
 	item_state = "exploration_hardsuit"
 	armor_type = /datum/armor/hardsuit_exploration
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/gun/ballistic/rifle/leveraction/exploration, /obj/item/gun/energy/laser/repeater/explorer)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
@@ -724,7 +726,7 @@
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.update_buttons()
 	//Update the icon_state first
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
 	update_icon()
@@ -849,6 +851,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor_type = /datum/armor/hardsuit_wizard
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	clothing_flags = CASTING_CLOTHES
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 
@@ -872,6 +875,7 @@
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = CASTING_CLOTHES
 	armor_type = /datum/armor/hardsuit_wizard
 	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
@@ -898,8 +902,15 @@
 /obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, FALSE, INFINITY, FALSE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
 
+/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user, slot)
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
 
 	//Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
@@ -970,7 +981,6 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
-	var/obj/machinery/doppler_array/integrated/bomb_radar
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
 	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 	actions_types = list(
@@ -978,6 +988,7 @@
 		/datum/action/item_action/toggle_research_scanner
 	)
 
+	var/obj/machinery/doppler_array/integrated/bomb_radar
 
 /datum/armor/hardsuit_rd
 	melee = 30
@@ -1016,12 +1027,10 @@
 	supports_variations = DIGITIGRADE_VARIATION
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
-	/obj/item/hand_tele, /obj/item/aicard)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
 	armor_type = /datum/armor/hardsuit_research_director
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 	cell = /obj/item/stock_parts/cell/super
-
 
 /datum/armor/hardsuit_research_director
 	melee = 30
@@ -1261,6 +1270,8 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
+	if (!H.mind)
+		return FALSE
 	if(H.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 	else
@@ -1336,7 +1347,6 @@
 	var/recharge_rate = 1 SECONDS
 	/// The icon for the shield
 	var/shield_icon = "shield-old"
-
 
 /datum/armor/hardsuit_shielded
 	melee = 30

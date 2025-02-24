@@ -94,7 +94,7 @@
 
 		var/datum/species/S = dna.species
 
-		if(S.breathid == "o2")
+		if(S.breathid == GAS_O2)
 			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == "tox")
 			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
@@ -112,7 +112,7 @@
 /// Environment handlers for species
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 	// If we are in a cryo bed do not process life functions
-	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+	if(istype(loc, /obj/machinery/cryo_cell))
 		return
 
 	dna.species.handle_environment(environment, src)

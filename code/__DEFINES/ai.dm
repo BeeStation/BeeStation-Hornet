@@ -195,7 +195,6 @@
 
 // AI laws
 #define LAW_VALENTINES "valentines"
-#define LAW_DEVIL "devil"
 #define LAW_ZEROTH "zeroth"
 #define LAW_INHERENT "inherent"
 #define LAW_SUPPLIED "supplied"

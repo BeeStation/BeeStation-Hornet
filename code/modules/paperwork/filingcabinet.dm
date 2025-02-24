@@ -35,7 +35,7 @@
 	. = ..()
 	if(mapload)
 		for(var/obj/item/I in loc)
-			if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
+			if(I.w_class < WEIGHT_CLASS_NORMAL)
 				I.forceMove(src)
 
 /obj/structure/filingcabinet/deconstruct(disassembled = TRUE)
@@ -45,8 +45,14 @@
 			I.forceMove(loc)
 	qdel(src)
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/documents))
+/obj/structure/filingcabinet/attackby(obj/item/P, mob/living/user, params)
+	var/list/modifiers = params2list(params)
+	if(P.tool_behaviour == TOOL_WRENCH && LAZYACCESS(modifiers, RIGHT_CLICK))
+		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
+		if(P.use_tool(src, user, 20, volume=50))
+			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
+			set_anchored(!anchored)
+	else if(P.w_class < WEIGHT_CLASS_NORMAL)
 		if(!user.transferItemToLoc(P, src))
 			return
 		to_chat(user, span_notice("You put [P] in [src]."))
@@ -54,13 +60,8 @@
 		sleep(5)
 		icon_state = initial(icon_state)
 		updateUsrDialog()
-	else if(P.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
-		if(P.use_tool(src, user, 20, volume=50))
-			to_chat(user, span_notice("You successfully [anchored ? "unwrench" : "wrench"] [src]."))
-			set_anchored(!anchored)
-	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, span_warning("You can't put [P] in [src]!"))
+	else if(!user.combat_mode)
+		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
 	else
 		return ..()
 
@@ -97,7 +98,7 @@
 	to_chat(user, span_notice("You find nothing in [src]."))
 
 /obj/structure/filingcabinet/Topic(href, href_list)
-	if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+	if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)))
 		return
 	if(href_list["retrieve"])
 		usr << browse("", "window=filingcabinet") // Close the menu

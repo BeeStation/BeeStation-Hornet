@@ -63,7 +63,7 @@
 
 
 /obj/item/hand_labeler/attack_self(mob/user)
-	if(!user.IsAdvancedToolUser())
+	if(!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to use [src]!"))
 		return
 	mode = !mode

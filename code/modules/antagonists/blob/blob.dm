@@ -5,9 +5,10 @@
 	show_to_ghosts = TRUE
 	banning_key = ROLE_BLOB
 	ui_name = "AntagInfoBlob"
+	required_living_playtime = 4
 
 	var/datum/action/innate/blobpop/pop_action
-	var/starting_points_human_blob = 60
+	var/starting_points_human_blob = OVERMIND_STARTING_POINTS
 	var/point_rate_human_blob = 2
 
 /datum/antagonist/blob/roundend_report()
@@ -77,16 +78,16 @@
 	icon_icon = 'icons/mob/blob.dmi'
 	button_icon_state = "blob"
 
-/datum/action/innate/blobpop/Activate()
+/datum/action/innate/blobpop/on_activate()
 	var/mob/old_body = owner
 	var/datum/antagonist/blob/blobtag = owner.mind.has_antag_datum(/datum/antagonist/blob)
 	if(!blobtag)
 		Remove()
 		return
-	var/mob/camera/blob/B = new /mob/camera/blob(get_turf(old_body), blobtag.starting_points_human_blob)
-	owner.mind.transfer_to(B)
+	var/mob/camera/blob/blob = new /mob/camera/blob(get_turf(old_body), blobtag.starting_points_human_blob)
+	owner.mind.transfer_to(blob)
 	old_body.gib()
-	B.place_blob_core(blobtag.point_rate_human_blob, pop_override = TRUE)
+	blob.place_blob_core(blobtag.point_rate_human_blob, pop_override = TRUE)
 
 /datum/antagonist/blob/antag_listing_status()
 	. = ..()

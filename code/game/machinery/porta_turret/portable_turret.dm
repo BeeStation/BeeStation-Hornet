@@ -503,7 +503,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	while(targets.len > 0)
 		var/atom/movable/M = pick(targets)
 		targets -= M
-		if(target(M, valid_shot_turfs["[M.z]"]))
+		if (M)
+			target(M, valid_shot_turfs["[M.z]"])
 			return 1
 
 
@@ -572,12 +573,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	return FALSE
 
 /obj/machinery/porta_turret/proc/target(atom/movable/target, turf/bullet_source)
+	set waitfor = FALSE
 	if(target)
 		popUp()				//pop the turret up if it's not already up.
 		setDir(get_dir(base, target))//even if you can't shoot, follow the target
 		shootAt(target, bullet_source)
-		return 1
-	return
 
 /obj/machinery/porta_turret/proc/shootAt(atom/movable/target, turf/bullet_source)
 	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
@@ -641,7 +641,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
-/datum/action/turret_toggle/Trigger(trigger_flags)
+/datum/action/turret_toggle/on_activate(mob/user, atom/target)
 	var/obj/machinery/porta_turret/P = target
 	if(!istype(P))
 		return
@@ -652,7 +652,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
-/datum/action/turret_quit/Trigger(trigger_flags)
+/datum/action/turret_quit/on_activate(mob/user, atom/target)
 	var/obj/machinery/porta_turret/P = target
 	if(!istype(P))
 		return
@@ -691,7 +691,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	check_should_process()
 	return TRUE
 
-/obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/caller, params, atom/A)
+/obj/machinery/porta_turret/InterceptClickOn(mob/living/caller, params, atom/A)
 	if(!manual_control)
 		return FALSE
 	if(!can_interact(caller))

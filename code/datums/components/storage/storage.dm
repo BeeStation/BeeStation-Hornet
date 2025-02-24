@@ -46,7 +46,7 @@
 	var/attack_hand_interact = TRUE					//interact on attack hand.
 	var/quickdraw = FALSE							//altclick interact
 
-	var/datum/action/item_action/storage_gather_mode/modeswitch_action
+	var/datum/weakref/modeswitch_action_ref
 
 	/// whether or not we should have those cute little animations
 	var/animated = TRUE
@@ -101,7 +101,8 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(close_all))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
-	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_alt_click))
+	RegisterSignals(parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_HAND_SECONDARY), PROC_REF(on_open_storage_click))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(on_open_storage_attackby))
 	RegisterSignal(parent, COMSIG_MOUSEDROP_ONTO, PROC_REF(mousedrop_onto))
 	RegisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 
@@ -154,17 +155,17 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
 
 /datum/component/storage/proc/update_actions()
-	QDEL_NULL(modeswitch_action)
 	if(!isitem(parent) || !allow_quick_gather)
+		QDEL_NULL(modeswitch_action_ref)
 		return
-	var/obj/item/I = parent
-	modeswitch_action = new(I)
+	var/datum/action/existing = modeswitch_action_ref?.resolve()
+	if(!QDELETED(existing))
+		return
+
+	var/obj/item/item_parent = parent
+	var/datum/action/modeswitch_action = item_parent.add_item_action(/datum/action/item_action/storage_gather_mode)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
-	if(I.item_flags & PICKED_UP)
-		var/mob/M = I.loc
-		if(!istype(M))
-			return
-		modeswitch_action.Grant(M)
+	modeswitch_action_ref = WEAKREF(modeswitch_action)
 
 /datum/component/storage/proc/change_master(datum/component/storage/concrete/new_master)
 	if(new_master == src || (!isnull(new_master) && !istype(new_master)))
@@ -883,31 +884,44 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	return hide_from(target)
 
-/datum/component/storage/proc/on_alt_click(datum/source, mob/user)
-	SIGNAL_HANDLER
-
-	if(!isliving(user) || !user.CanReach(parent))
-		return
+/datum/component/storage/proc/open_storage(mob/user)
+	if(!user.CanReach(parent))
+		user.balloon_alert(user, "can't reach!")
+		return FALSE
+	if(!isliving(user) || user.incapacitated())
+		return FALSE
 	if(locked)
 		var/atom/host = parent
 		host.balloon_alert(user, "[host] is locked.")
-		return COMPONENT_INTERCEPT_ALT
+		return FALSE
 
+	. = TRUE
 	var/atom/A = parent
 	if(!quickdraw)
 		A.add_fingerprint(user)
 		user_show_to_mob(user)
 		playsound(A, "rustle", 50, 1, -5)
-		return COMPONENT_INTERCEPT_ALT
-
-	if(user.incapacitated())
 		return
 
 	var/obj/item/to_remove = locate() in real_location()
 	if(!to_remove)
-		return COMPONENT_INTERCEPT_ALT
+		return
+
 	INVOKE_ASYNC(src, PROC_REF(attempt_put_in_hands), to_remove, user)
-	return COMPONENT_INTERCEPT_ALT
+
+/datum/component/storage/proc/on_open_storage_click(datum/source, mob/user, list/modifiers)
+	SIGNAL_HANDLER
+
+	if(open_storage(user))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
+
+/datum/component/storage/proc/on_open_storage_attackby(datum/source, obj/item/weapon, mob/user, params)
+	SIGNAL_HANDLER
+
+	if(open_storage(user))
+		return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
 
 ///attempt to put an item from contents into the users hands
 /datum/component/storage/proc/attempt_put_in_hands(obj/item/to_remove, mob/user)

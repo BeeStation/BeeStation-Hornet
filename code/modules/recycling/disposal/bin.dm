@@ -70,6 +70,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		trunk.linked = null
 	return ..()
 
+/obj/machinery/disposal/return_air()
+	if(!flushing)
+		return loc?.return_air()
+	return air_contents
+
 /obj/machinery/disposal/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
@@ -84,7 +89,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	air_contents.merge(removed)
 	trunk_check()
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 	if(!pressure_charging && !full_pressure && !flush)
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -102,7 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 				deconstruct()
 			return
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
 			return
 		place_item_in_disposal(I, user)
@@ -171,8 +176,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	user.forceMove(loc)
 	update_appearance()
 
-// monkeys and xenos can only pull the flush lever
+// clumsy monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
+	if(ISADVANCEDTOOLUSER(user))
+		return ..()
 	if(machine_stat & BROKEN)
 		return
 	flush = !flush
@@ -406,16 +413,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	var/atom/L = loc //recharging from loc turf
 
 	var/datum/gas_mixture/env = L.return_air()
+	if(!env.temperature)
+		return
 	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
 
-	if(env.return_temperature() > 0)
-		var/transfer_moles = 0.05 * delta_time * pressure_delta * air_contents.return_volume() / (env.return_temperature() * R_IDEAL_GAS_EQUATION)
+	var/transfer_moles = 0.05 * delta_time * (pressure_delta*air_contents.volume)/(env.temperature * R_IDEAL_GAS_EQUATION)
 
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = env.remove(transfer_moles)
-		air_contents.merge(removed)
-		air_update_turf()
-
+	//Actually transfer the gas
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	air_contents.merge(removed)
+	air_update_turf(FALSE, FALSE)
 
 	//if full enough, switch to ready mode
 	if(air_contents.return_pressure() >= SEND_PRESSURE)

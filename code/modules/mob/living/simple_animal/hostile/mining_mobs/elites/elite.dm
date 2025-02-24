@@ -18,7 +18,6 @@
 	stat_attack = HARD_CRIT
 	layer = LARGE_MOB_LAYER
 	sentience_type = SENTIENCE_BOSS
-	hud_type = /datum/hud/lavaland_elite
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
 	var/can_talk = FALSE
@@ -67,7 +66,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
 	icon_icon = 'icons/hud/actions/actions_elites.dmi'
-	button_icon_state = ""
+	button_icon_state = null
 	background_icon_state = "bg_default"
 	var/chosen_message
 	var/chosen_attack_num = 0
@@ -77,37 +76,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return ..()
 	return FALSE
 
-/datum/action/innate/elite_attack/Activate()
+/datum/action/innate/elite_attack/on_activate()
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)
-
-/mob/living/simple_animal/hostile/asteroid/elite/update_health_hud()
-	if(hud_used)
-		var/severity = 0
-		var/healthpercent = (health/maxHealth) * 100
-		switch(healthpercent)
-			if(100 to INFINITY)
-				hud_used.healths.icon_state = "elite_health0"
-			if(80 to 100)
-				severity = 1
-			if(60 to 80)
-				severity = 2
-			if(40 to 60)
-				severity = 3
-			if(20 to 40)
-				severity = 4
-			if(10 to 20)
-				severity = 5
-			if(1 to 20)
-				severity = 6
-			else
-				severity = 7
-		hud_used.healths.icon_state = "elite_health[severity]"
-		if(severity > 0)
-			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-		else
-			clear_fullscreen("brute")
 
 //The Pulsing Tumor, the actual "spawn-point" of elites, handles the spawning, arena, and procs for dealing with basic scenarios.
 
@@ -146,7 +118,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	fire = 100
 	acid = 100
 
-/obj/structure/elite_tumor/attack_hand(mob/user)
+/obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(ishuman(user))
 		switch(activity)

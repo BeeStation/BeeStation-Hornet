@@ -302,6 +302,24 @@
 	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
+/obj/item/robot_module/medical/be_transformed_to(obj/item/robot_module/old_module)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/medical_icons = list(
+		"Qualified Doctor" = image(icon = 'icons/mob/robots.dmi', icon_state = "qualified_doctor"),
+		"Machinified Doctor" = image(icon = 'icons/mob/robots.dmi', icon_state = "medical")
+	)
+	var/medical_robot_icon = show_radial_menu(cyborg, cyborg, medical_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
+	switch(medical_robot_icon)
+		if("Machinified Doctor")
+			cyborg_base_icon = "medical"
+			special_light_key = "medical"
+		if("Qualified Doctor")
+			cyborg_base_icon = "qualified_doctor"
+			special_light_key = "qualified_doctor"
+		else
+			return FALSE
+	return ..()
+
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	basic_modules = list(

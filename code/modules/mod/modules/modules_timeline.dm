@@ -408,9 +408,10 @@
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/fresh_air = new
-	fresh_air.set_moles(GAS_O2, MOLES_O2STANDARD)
-	fresh_air.set_moles(GAS_N2, MOLES_N2STANDARD)
-	fresh_air.set_temperature(T20C)
+	fresh_air.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
+	fresh_air.gases[/datum/gas/oxygen][MOLES] = MOLES_O2STANDARD
+	fresh_air.gases[/datum/gas/nitrogen][MOLES] = MOLES_N2STANDARD
+	fresh_air.temperature = T20C
 	return fresh_air
 
 /obj/structure/chrono_field/singularity_act()

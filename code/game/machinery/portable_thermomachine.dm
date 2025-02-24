@@ -72,6 +72,7 @@
 		. += "There is no power cell installed."
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Temperature range at <b>[settable_temperature_range]°C</b>.<br>Heating power at <b>[siunit(heating_power, "W", 1)]</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.") //100%, 75%, 50%, 25%
+		. += "<span class='notice'><b>Right-click</b> to toggle [on ? "off" : "on"].</span>"
 
 /obj/machinery/portable_thermomachine/update_icon_state()
 	. = ..()
@@ -126,8 +127,8 @@
 	if(mode == HEATER_MODE_COOL)
 		delta_temperature *= -1
 	if(delta_temperature)
-		environment.set_temperature(environment.return_temperature() + delta_temperature)
-		air_update_turf()
+		environment.temperature = environment.return_temperature() + delta_temperature
+		air_update_turf(FALSE, FALSE)
 	cell.use(required_energy / efficiency)
 
 /obj/machinery/portable_thermomachine/RefreshParts()
@@ -190,19 +191,6 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/portable_thermomachine/AltClick(mob/user)
-	if(!can_interact(user))
-		return
-	if(mode == HEATER_MODE_COOL)
-		target_temperature = (settable_temperature_median - settable_temperature_range) - T0C
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	else if(mode == HEATER_MODE_HEAT)
-		target_temperature = (settable_temperature_median + settable_temperature_range) - T0C
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	else
-		return
-	balloon_alert(user, "You set the target temperature to [target_temperature] C.")
-
 /obj/machinery/portable_thermomachine/proc/toggle_power()
 	on = !on
 	mode = HEATER_MODE_STANDBY
@@ -216,6 +204,12 @@
 
 /obj/machinery/portable_thermomachine/ui_state(mob/user)
 	return GLOB.physical_state
+
+/obj/machinery/portable_thermomachine/attack_hand_secondary(mob/user, list/modifiers)
+	if(!can_interact(user))
+		return
+	toggle_power()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/portable_thermomachine/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

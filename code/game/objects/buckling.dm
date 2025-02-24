@@ -14,7 +14,7 @@
 	var/can_be_unanchored = FALSE
 
 //Interaction
-/atom/movable/attack_hand(mob/living/user)
+/atom/movable/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -78,10 +78,9 @@
   * Returns TRUE if there are mobs buckled to this atom and FALSE otherwise
   */
 /atom/movable/proc/has_buckled_mobs()
-	if(!buckled_mobs)
-		return FALSE
-	if(buckled_mobs.len)
+	if(length(buckled_mobs))
 		return TRUE
+	return FALSE
 
 /**
   * Set a mob as buckled to src

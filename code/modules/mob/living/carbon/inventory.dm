@@ -12,7 +12,31 @@
 			return handcuffed
 		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
-	return null
+	return ..()
+
+/mob/living/carbon/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == back)
+		return ITEM_SLOT_BACK
+
+	if(back && (looking_for in back))
+		return ITEM_SLOT_BACKPACK
+
+	if(looking_for == wear_mask)
+		return ITEM_SLOT_MASK
+
+	if(looking_for == wear_neck)
+		return ITEM_SLOT_NECK
+
+	if(looking_for == head)
+		return ITEM_SLOT_HEAD
+
+	if(looking_for == handcuffed)
+		return ITEM_SLOT_HANDCUFFED
+
+	if(looking_for == legcuffed)
+		return ITEM_SLOT_LEGCUFFED
+
+	return ..()
 
 /mob/living/carbon/proc/get_all_worn_items()
 	return list(
@@ -227,10 +251,8 @@
 /mob/living/carbon/proc/close_all_airtanks()
 	if(external)
 		close_externals()
-		update_internals_hud_icon(0)
 	if(internal)
 		close_internals()
-		update_internals_hud_icon(0)
 
 
 /**

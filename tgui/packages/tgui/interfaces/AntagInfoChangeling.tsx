@@ -39,7 +39,7 @@ export const AntagInfoChangeling = (_props) => {
     <Window width={720} height={500} theme="neutral">
       <Window.Content
         style={{
-          'backgroundImage': 'none',
+          backgroundImage: 'none',
         }}>
         <Stack vertical fill>
           <Stack.Item>
@@ -83,11 +83,11 @@ const IntroductionSection = (_props) => {
             as="img"
             src={resolveAsset('changeling.gif')}
             width="64px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+            style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
           />
         </Stack.Item>
         <Stack.Item grow>
-          <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+          <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
             You are{' '}
             <Box inline textColor="bad">
               {true_name}

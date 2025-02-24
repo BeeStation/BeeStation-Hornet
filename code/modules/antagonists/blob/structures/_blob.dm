@@ -9,15 +9,15 @@
 	anchored = TRUE
 	layer = BELOW_MOB_LAYER
 	pass_flags_self = PASSBLOB
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	max_integrity = 30
 	armor_type = /datum/armor/structure_blob
-	var/health_regen = 2 //how much health this blob regens when pulsed
+	var/health_regen = BLOB_REGULAR_HP_REGEN
 	var/pulse_timestamp = 0 //we got pulsed when?
 	var/heal_timestamp = 0 //we got healed when?
-	var/brute_resist = 0.5 //multiplies brute damage by this
-	var/fire_resist = 1 //multiplies burn damage by this
+	var/brute_resist = BLOB_BRUTE_RESIST
+	var/fire_resist = BLOB_FIRE_RESIST
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
@@ -39,7 +39,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	setDir(pick(GLOB.cardinals))
 	update_icon()
 	if(atmosblock)
-		air_update_turf(1)
+		air_update_turf(TRUE, TRUE)
 	ConsumeTile()
 
 /obj/structure/blob/proc/creation_action() //When it's created by the overmind, do this.
@@ -48,7 +48,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 /obj/structure/blob/Destroy()
 	if(atmosblock)
 		atmosblock = FALSE
-		air_update_turf(1)
+		air_update_turf(TRUE, FALSE)
 	if(overmind)
 		overmind.blobs_legit -= src  //if it was in the legit blobs list, it isn't now
 	GLOB.blobs -= src //it's no longer in the all blobs list either
@@ -72,10 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 						result++
 		. -= result - 1
 
-/obj/structure/blob/BlockThermalConductivity()
-	return atmosblock
-
-/obj/structure/blob/CanAtmosPass(turf/T)
+/obj/structure/blob/can_atmos_pass(turf/T, vertical = FALSE)
 	return !atmosblock
 
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
@@ -84,7 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	else
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
-/obj/structure/blob/proc/Pulse_Area(mob/camera/blob/pulsing_overmind, claim_range = 10, pulse_range = 3, expand_range = 2)
+/obj/structure/blob/proc/Pulse_Area(mob/camera/blob/pulsing_overmind, claim_range = BLOB_CORE_CLAIM_RANGE, pulse_range = BLOB_CORE_PULSE_RANGE, expand_range = BLOB_CORE_EXPAND_RANGE)
 	if(QDELETED(pulsing_overmind))
 		pulsing_overmind = overmind
 	Be_Pulsed()
@@ -339,9 +336,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	name = "normal blob"
 	icon_state = "blob"
 	light_range = 0
-	max_integrity = 25
-	health_regen = 1
-	brute_resist = 0.25
+	max_integrity = BLOB_REGULAR_MAX_HP
+	health_regen = BLOB_REGULAR_HP_REGEN
+	brute_resist = BLOB_BRUTE_RESIST * 0.5
 
 /obj/structure/blob/normal/Initialize(mapload)
 	. = ..()
@@ -358,14 +355,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		icon_state = "blob_damaged"
 		name = "fragile blob"
 		desc = "A thin lattice of slightly twitching tendrils."
-		brute_resist = 0.5
+		brute_resist = BLOB_BRUTE_RESIST
 	else if (overmind)
 		icon_state = "blob"
 		name = "blob"
 		desc = "A thick wall of writhing tendrils."
-		brute_resist = 0.25
+		brute_resist = BLOB_BRUTE_RESIST * 0.5
 	else
 		icon_state = "blob"
 		name = "dead blob"
 		desc = "A thick wall of lifeless tendrils."
-		brute_resist = 0.25
+		brute_resist = BLOB_BRUTE_RESIST * 0.5
