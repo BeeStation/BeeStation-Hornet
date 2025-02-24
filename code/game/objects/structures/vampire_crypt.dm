@@ -14,16 +14,16 @@
 /obj/structure/vampire/examine(mob/user)
 	. = ..()
 	if(!user.mind && ghost_desc)
-		. += span_cult("[ghost_desc]")
+		. += span_cult(ghost_desc)
 	if(IS_VAMPIRE(user) && vampire_desc)
 		if(!owner)
 			. += span_cult("It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential")
 			return
-		. += span_cult("[vampire_desc]")
+		. += span_cult(vampire_desc)
 	if(IS_VASSAL(user) && vassal_desc)
-		. += span_cult("[vassal_desc]")
+		. += span_cult(vassal_desc)
 	if(IS_CURATOR(user) && curator_desc)
-		. += span_cult("[curator_desc]")
+		. += span_cult(curator_desc)
 
 /// This handles bolting down the structure.
 /obj/structure/vampire/proc/bolt(mob/user)
@@ -144,8 +144,7 @@
 		return
 	user.visible_message(
 		span_notice("[user] straps [target] into the rack, immobilizing them."),
-		span_boldnotice("You secure [target] tightly in place. They won't escape you now."),
-	)
+		span_boldnotice("You secure [target] tightly in place. They won't escape you now."))
 
 	playsound(loc, 'sound/effects/pop_expl.ogg', 25, 1)
 	update_appearance(UPDATE_ICON)

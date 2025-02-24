@@ -60,7 +60,6 @@
 
 #define TREMERE_VASSAL "tremere_vassal"
 #define FAVORITE_VASSAL "favorite_vassal"
-#define REVENGE_VASSAL "revenge_vassal"
 
 /**
  * Power defines
@@ -173,8 +172,6 @@
 #define IS_VAMPIRE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vampire))
 #define IS_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal))
 #define IS_FAVORITE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/favorite))
-#define IS_REVENGE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/revenge))
-#define IS_EX_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ex_vassal))
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)
 
 //Used in vampire_life.dm

@@ -209,7 +209,7 @@
 		to_chat(vampiredatum.owner.current, span_notice("This Vassal was already assigned a special position."))
 		return FALSE
 	if(!(vassaldatum.owner.current.mob_biotypes & MOB_ORGANIC))
-		to_chat(vampiredatum.owner.current, span_notice("This Vassal is unable to gain a Special rank due to innate features."))
+		to_chat(vampiredatum.owner.current, span_notice("This Vassal is unable to gain a special rank due to innate features."))
 		return FALSE
 
 	var/list/options = list()

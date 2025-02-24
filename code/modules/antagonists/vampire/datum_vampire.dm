@@ -337,7 +337,7 @@
 				break
 
 	// Now list their vassals
-	if(vassals.len)
+	if(length(vassals))
 		report += span_header("Their Vassals were...")
 		for(var/datum/antagonist/vassal/all_vassals as anything in vassals)
 			if(!all_vassals.owner)
@@ -349,8 +349,6 @@
 				vassal_report += " the [all_vassals.owner.assigned_role]"
 			if(IS_FAVORITE_VASSAL(all_vassals.owner.current))
 				vassal_report += " and was the <b>Favorite Vassal</b>"
-			else if(IS_REVENGE_VASSAL(all_vassals.owner.current))
-				vassal_report += " and was the <b>Revenge Vassal</b>"
 			report += vassal_report.Join()
 
 	if(objectives.len == 0 || objectives_complete)
