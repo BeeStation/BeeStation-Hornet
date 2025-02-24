@@ -1,7 +1,7 @@
 // Given to heretic monsters.
 /datum/action/spell/emp/eldritch
 	name = "Energetic Pulse"
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 30 SECONDS
 	invocation = "E'P"

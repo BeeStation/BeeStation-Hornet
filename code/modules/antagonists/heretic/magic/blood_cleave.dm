@@ -1,7 +1,7 @@
 /datum/action/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "cleave"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'

@@ -1,7 +1,7 @@
 // Given to heretic monsters.
 /datum/action/spell/shapeshift/eldritch
 	school = SCHOOL_FORBIDDEN
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	invocation = "SH'PE"
 	invocation_type = INVOCATION_WHISPER
 	possible_shapes = list(
