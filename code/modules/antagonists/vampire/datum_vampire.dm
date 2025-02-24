@@ -143,7 +143,7 @@
 #endif
 
 // Taken directly from changeling.dm
-/datum/antagonist/vampire/proc/create_initial_profile()
+/datum/antagonist/vampire/proc/check_blacklisted_species()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(C.dna.species.species_bitflags & NOT_TRANSMORPHIC)
 		C.set_species(/datum/species/human)
@@ -162,8 +162,6 @@
 				pf.picture_image = icon(image, dir = SOUTH)
 				ps.picture_image = icon(image, dir = WEST)
 				E.gender = C.gender
-	if(ishuman(C))
-		add_new_profile(C)
 
 /**
  * Remove innate effects is everything given to the mob
@@ -250,7 +248,7 @@
 	// Assign Powers
 	give_starting_powers()
 	assign_starting_stats()
-	create_initial_profile()
+	check_blacklisted_species()
 
 /// Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/vampire/on_removal()
