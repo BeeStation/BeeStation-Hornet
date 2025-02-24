@@ -166,7 +166,7 @@
 
 
 /datum/chemical_reaction/stabilizing_agent
-	name = /datum/reagent/stabilizing_agent
+	name = "Stabilizing Agent"
 	id = /datum/reagent/stabilizing_agent
 	results = list(/datum/reagent/stabilizing_agent = 3)
 	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/oxygen = 1, /datum/reagent/hydrogen = 1)
@@ -253,7 +253,7 @@
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/ldm_vortex
-	name = "LDM Vortex"
+	name = "Liquid Dark Matter Vortex"
 	id = "ldm_vortex"
 	required_reagents = list(/datum/reagent/liquid_dark_matter = 1)
 	required_temp = 474
@@ -310,7 +310,7 @@
 				C.Stun(100)
 
 /datum/chemical_reaction/smoke_powder
-	name = /datum/reagent/smoke_powder
+	name = "Smoke Powder"
 	id = /datum/reagent/smoke_powder
 	results = list(/datum/reagent/smoke_powder = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1)
@@ -351,7 +351,7 @@
 		holder.clear_reagents()
 
 /datum/chemical_reaction/sonic_powder
-	name = /datum/reagent/sonic_powder
+	name = "Sonic powder"
 	id = /datum/reagent/sonic_powder
 	results = list(/datum/reagent/sonic_powder = 3)
 	required_reagents = list(/datum/reagent/oxygen = 1, /datum/reagent/consumable/space_cola = 1, /datum/reagent/phosphorus = 1)
@@ -402,7 +402,7 @@
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/cryostylane
-	name = /datum/reagent/cryostylane
+	name = "Cryostylane"
 	id = /datum/reagent/cryostylane
 	results = list(/datum/reagent/cryostylane = 3)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/nitrogen = 1)
@@ -435,7 +435,7 @@
 	holder.chem_temp += 10*created_volume
 
 /datum/chemical_reaction/pyrosium
-	name = /datum/reagent/pyrosium
+	name = "Pyrosium"
 	id = /datum/reagent/pyrosium
 	results = list(/datum/reagent/pyrosium = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/phosphorus = 1)
@@ -494,6 +494,7 @@
 	playsound(holder.my_atom, 'sound/machines/defib_zap.ogg', 50, TRUE)
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/heat
+	name = "Teslium Heated"
 	id = "teslium_lightning2"
 	required_temp = 474
 	required_reagents = list(/datum/reagent/teslium = 1)

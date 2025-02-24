@@ -507,34 +507,39 @@
 	required_reagents = list(/datum/reagent/consumable/vanilla = 5, /datum/reagent/consumable/milk = 5, /datum/reagent/consumable/eggyolk = 5)
 
 /datum/chemical_reaction/drink/cherryshake
-	name = "Cherry Shake"
+	name = "Cherry Milkshake"
 	id = /datum/reagent/consumable/cherryshake
 	results = list(/datum/reagent/consumable/cherryshake = 5)
 	required_reagents = list(/datum/reagent/consumable/cherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/bluecherryshake
-	name = "Blue Cherry Shake"
+	name = "Blue Cherry Milkshake"
 	id = /datum/reagent/consumable/bluecherryshake
 	results = list(/datum/reagent/consumable/bluecherryshake = 5)
 	required_reagents = list(/datum/reagent/consumable/bluecherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/vanillashake
+	name = "Vanilla Milkshake"
 	results = list(/datum/reagent/consumable/vanillashake = 5)
 	required_reagents = list(/datum/reagent/consumable/vanilla = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/caramelshake
+	name = "Caramel Milkshake"
 	results = list(/datum/reagent/consumable/caramelshake = 5)
 	required_reagents = list(/datum/reagent/consumable/caramel = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/sodiumchloride = 1)
 
 /datum/chemical_reaction/drink/choccyshake
+	name = "Chocolate Milkshake"
 	results = list(/datum/reagent/consumable/choccyshake = 5)
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/strawberryshake
+	name = "Strawberry Milkshake"
 	results = list(/datum/reagent/consumable/strawberryshake = 5)
 	required_reagents = list(/datum/reagent/consumable/berryjuice = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drink/bananashake
+	name = "Banana Milkshake"
 	results = list(/datum/reagent/consumable/bananashake = 5)
 	required_reagents = list(/datum/reagent/consumable/banana = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
@@ -557,7 +562,7 @@
 	required_reagents = list(/datum/reagent/consumable/dr_gibb = 5, /datum/reagent/consumable/ice = 5, /datum/reagent/consumable/cream = 5)
 
 /datum/chemical_reaction/drink/triple_citrus
-	name = /datum/reagent/consumable/triple_citrus
+	name = "Triple Citrus"
 	id = /datum/reagent/consumable/triple_citrus
 	results = list(/datum/reagent/consumable/triple_citrus = 5)
 	required_reagents = list(/datum/reagent/consumable/lemonjuice = 1, /datum/reagent/consumable/limejuice = 1, /datum/reagent/consumable/orangejuice = 1)
@@ -569,7 +574,7 @@
 	required_reagents = list(/datum/reagent/consumable/grapejuice = 1, /datum/reagent/consumable/sodawater = 1)
 
 /datum/chemical_reaction/drink/grappa
-	name = /datum/reagent/consumable/ethanol/grappa
+	name = "Grappa"
 	id = /datum/reagent/consumable/ethanol/grappa
 	results = list(/datum/reagent/consumable/ethanol/grappa = 10)
 	required_reagents = list (/datum/reagent/consumable/ethanol/wine = 10)
@@ -643,7 +648,7 @@
 	required_reagents = list(/datum/reagent/toxin/teapowder = 1, /datum/reagent/water = 5)
 
 /datum/chemical_reaction/eggnog
-	name = /datum/reagent/consumable/ethanol/eggnog
+	name = "Egg Nog"
 	id = /datum/reagent/consumable/ethanol/eggnog
 	results = list(/datum/reagent/consumable/ethanol/eggnog = 15)
 	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 5, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/eggyolk = 5)
@@ -728,7 +733,7 @@
 	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/drink/sake
-	name = /datum/reagent/consumable/ethanol/sake
+	name = "Sake"
 	id = /datum/reagent/consumable/ethanol/sake
 	results = list(/datum/reagent/consumable/ethanol/sake = 10)
 	required_reagents = list(/datum/reagent/consumable/rice = 10)
