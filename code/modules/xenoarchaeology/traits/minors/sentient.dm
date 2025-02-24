@@ -51,6 +51,8 @@
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
 	var/atom/atom_parent = component_parent?.parent
+	if(!atom_parent?.loc)
+		mob_spawner = new(component_parent?.parent, src)
 	if(!component_parent?.parent || !ckey || !atom_parent?.loc)
 		return
 	//Sentience
