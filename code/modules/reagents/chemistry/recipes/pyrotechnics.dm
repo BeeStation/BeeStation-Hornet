@@ -254,7 +254,6 @@
 
 /datum/chemical_reaction/ldm_vortex
 	name = "Liquid Dark Matter Vortex"
-	id = "ldm_vortex"
 	required_reagents = list(/datum/reagent/liquid_dark_matter = 1)
 	required_temp = 474
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
