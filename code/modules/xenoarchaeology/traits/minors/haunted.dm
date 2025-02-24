@@ -14,8 +14,6 @@
 	var/datum/component/deadchat_control/controller
 	///How long between moves
 	var/move_delay = 8 SECONDS
-	///Ref to our landmark
-	var/obj/effect/landmark/landmark
 
 /datum/xenoartifact_trait/minor/haunted/register_parent(datum/source)
 	. = ..()
@@ -30,11 +28,10 @@
 			"activate" = CALLBACK(src, PROC_REF(activate_parent), atom_parent)), move_delay))
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
 	//Landmark
-	landmark = new(component_parent?.parent)
+	component_parent?.parent.AddElement(/datum/element/point_of_interest)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
 	QDEL_NULL(controller)
-	QDEL_NULL(landmark)
 	return ..()
 
 /datum/xenoartifact_trait/minor/haunted/do_hint(mob/user, atom/item)
