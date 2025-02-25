@@ -1,3 +1,5 @@
+import { Region } from '../common/AccessConfig';
+
 export type AccessData = {
   name: string;
   number: number;
@@ -21,7 +23,7 @@ export type MainData = {
   overclock_temp_percentage: number;
 
   one_access: boolean;
-  regions: string[];
+  regions: Region[];
   accesses: string[];
 
   servo_rating: number;
