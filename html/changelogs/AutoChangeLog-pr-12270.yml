@@ -1,0 +1,4 @@
+author: Gilgaxx
+delete-after: true
+changes:
+  - bugfix: Fourth wall (the drink) no longer tries to summon mentor rats.
