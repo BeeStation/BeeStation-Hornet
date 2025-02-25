@@ -132,7 +132,7 @@ const PowerBar = (props) => {
           bad: [-Infinity, 0.25],
         }}
         style={{
-          'text-shadow': '1px 1px 0 black',
+          textShadow: '1px 1px 0 black',
         }}>
         {power_max === null
           ? 'Power cell missing'
@@ -157,7 +157,7 @@ const IntegrityBar = (props) => {
           bad: [-Infinity, 0.25],
         }}
         style={{
-          'text-shadow': '1px 1px 0 black',
+          textShadow: '1px 1px 0 black',
         }}>
         {!scanmod_rating ? 'Unknown' : `${integrity} of ${integrity_max}`}
       </ProgressBar>
