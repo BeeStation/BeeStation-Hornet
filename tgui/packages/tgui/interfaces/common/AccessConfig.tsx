@@ -53,7 +53,7 @@ const DIFFMAP = [
   },
 ] as const;
 
-export function AccessConfig(props: ConfigProps) {
+export const AccessConfig = (props) => {
   const { accesses = [], selectedList = [], accessMod, grantAll, denyAll, grantDep, denyDep } = props;
 
   const [selectedAccessName, setSelectedAccessName] = useState(accesses[0]?.name);
@@ -62,7 +62,7 @@ export function AccessConfig(props: ConfigProps) {
 
   const selectedAccessEntries = sortBy((entry: Area) => entry.desc)(selectedAccess?.accesses || []);
 
-  function checkAccessIcon(accesses: Area[]) {
+  const checkAccessIcon = (accesses: Area[]) => {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {
@@ -79,7 +79,7 @@ export function AccessConfig(props: ConfigProps) {
     } else {
       return ACCESS.Granted;
     }
-  }
+  };
 
   return (
     <Section
@@ -129,9 +129,9 @@ export function AccessConfig(props: ConfigProps) {
       </Stack>
     </Section>
   );
-}
+};
 
-function AccessButtons(props: AccessButtonProps) {
+const AccessButtons = (props: AccessButtonProps) => {
   const { selectedAccessEntries, selectedList, accessMod, grantDep, denyDep, selectedAccess } = props;
 
   return (
@@ -166,4 +166,4 @@ function AccessButtons(props: AccessButtonProps) {
       </Stack.Item>
     </Stack>
   );
-}
+};
