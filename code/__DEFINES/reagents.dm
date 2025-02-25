@@ -157,8 +157,6 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 #define REACTION_TAG_SLIME (1<<12)
 /// This reaction is a drug reaction
 #define REACTION_TAG_DRUG (1<<13)
-/// This reaction is a unique reaction
-#define REACTION_TAG_UNIQUE (1<<14)
 /// This reaction is produces a product that affects reactions
 #define REACTION_TAG_CHEMICAL (1<<15)
 /// This reaction is produces a product that affects plants

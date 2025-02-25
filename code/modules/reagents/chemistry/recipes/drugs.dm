@@ -25,7 +25,7 @@
 	results = list(/datum/reagent/drug/methamphetamine = 4)
 	required_reagents = list(/datum/reagent/medicine/ephedrine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1)
 	required_temp = 374
-	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_DRUG | REACTION_TAG_DANGEROUS | REACTION_TAG_ORGAN
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_DRUG | REACTION_TAG_ORGAN
 
 /datum/chemical_reaction/bath_salts
 	name = /datum/reagent/drug/bath_salts

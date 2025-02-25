@@ -83,6 +83,8 @@
 	var/list/recording_recipe
 
 	var/list/saved_recipes = list()
+	/// The default filters for recipes that are shown in the UI
+	var/default_filters = ALL & ~(REACTION_TAG_DRINK | REACTION_TAG_FOOD | REACTION_TAG_SLIME)
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -262,9 +264,11 @@
 				is_cold_recipe = reaction.is_cold_recipe,
 				required_temp = reaction.required_temp,
 				id = reaction.type,
-				hints = reaction.hints
+				hints = reaction.hints,
+				reaction_tags = reaction.reaction_tags
 			))
 	data["reactions_list"] = reactions
+	data["default_filtesr"] = default_filters
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)
@@ -521,6 +525,7 @@
 		/datum/reagent/toxin/mindbreaker,
 		/datum/reagent/toxin/staminatoxin
 	)
+	default_filters = REACTION_TAG_DRINK | REACTION_TAG_FOOD
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
@@ -595,6 +600,7 @@
 		/datum/reagent/consumable/ethanol/atomicbomb,
 		/datum/reagent/consumable/ethanol/fernet
 	)
+	default_filters = REACTION_TAG_DRINK | REACTION_TAG_FOOD
 
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade //fully ugpraded stock parts, emagged
 	desc = "Contains a large reservoir of the good stuff. This model has had its safeties shorted out."
@@ -612,7 +618,7 @@
 	dispensable_reagents = list(/datum/reagent/toxin/mutagen)
 	upgrade_reagents = null
 	emagged_reagents = list(/datum/reagent/toxin/plasma)
-
+	default_filters = REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
@@ -636,6 +642,7 @@
 		/datum/reagent/ash,
 		/datum/reagent/diethylamine)
 	upgrade_reagents = null
+	default_filters = REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	name = "minor botanical chemical dispenser"
@@ -654,6 +661,7 @@
 		/datum/reagent/toxin/plantbgone/weedkiller,
 		/datum/reagent/toxin/pestkiller,
 		/datum/reagent/diethylamine)
+	default_filters = REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /obj/machinery/chem_dispenser/mutagensaltpetersmall/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
