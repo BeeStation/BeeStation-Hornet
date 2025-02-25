@@ -14,6 +14,10 @@
 	if(!user.transferItemToLoc(src, M))
 		to_chat(user, span_warning("\The [src] is stuck to your hand, you cannot put it in \the [M]!"))
 		return FALSE
+	//Equip delay only when occupied
+	if(LAZYLEN(M.occupants))
+		if(!do_after(user, 1.5 SECONDS, M))
+			return FALSE
 	user.visible_message("[user] attaches [src] to [M].", span_notice("You attach [src] to [M]."))
 	return TRUE
 

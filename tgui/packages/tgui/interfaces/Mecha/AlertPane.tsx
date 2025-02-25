@@ -18,8 +18,8 @@ export const InternalDamageToNormalDesc = {
   'MECHA_INT_SHORT_CIRCUIT': 'Circuits operational',
 };
 
-export const AlertPane = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
+export const AlertPane = (props) => {
+  const { act, data } = useBackend<MainData>();
   const {
     internal_damage,
     internal_damage_keys,
@@ -39,16 +39,9 @@ export const AlertPane = (props, context) => {
             icon="forward"
             onClick={() => !!can_use_overclock && act('toggle_overclock')}
             color={
-              overclock_mode &&
-              (overclock_temp_percentage > 1
-                ? 'bad'
-                : overclock_temp_percentage > 0.5
-                  ? 'average'
-                  : 'good')
+              overclock_mode && (overclock_temp_percentage > 1 ? 'bad' : overclock_temp_percentage > 0.5 ? 'average' : 'good')
             }>
-            {overclock_mode
-              ? `Overclocking (${Math.round(overclock_temp_percentage * 100)}%)`
-              : 'Overclock'}
+            {overclock_mode ? `Overclocking (${Math.round(overclock_temp_percentage * 100)}%)` : 'Overclock'}
           </Button>
         )
       }>
@@ -62,23 +55,9 @@ export const AlertPane = (props, context) => {
             <Stack.Item key={t}>
               <Stack justify="space-between">
                 <Stack.Item>
-                  <Box
-                    color={
-                      internal_damage & internal_damage_keys[t]
-                        ? 'red'
-                        : 'green'
-                    }>
-                    <Icon
-                      mr={1}
-                      name={
-                        internal_damage & internal_damage_keys[t]
-                          ? 'warning'
-                          : 'check'
-                      }
-                    />
-                    {internal_damage & internal_damage_keys[t]
-                      ? InternalDamageToDamagedDesc[t]
-                      : InternalDamageToNormalDesc[t]}
+                  <Box color={internal_damage & internal_damage_keys[t] ? 'red' : 'green'}>
+                    <Icon mr={1} name={internal_damage & internal_damage_keys[t] ? 'warning' : 'check'} />
+                    {internal_damage & internal_damage_keys[t] ? InternalDamageToDamagedDesc[t] : InternalDamageToNormalDesc[t]}
                   </Box>
                 </Stack.Item>
                 {!!(internal_damage & internal_damage_keys[t]) && (

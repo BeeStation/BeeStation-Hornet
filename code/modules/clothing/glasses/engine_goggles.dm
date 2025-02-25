@@ -96,7 +96,7 @@
 		MA.color = "#04e66d"
 		MA.plane = TEXT_EFFECT_PLANE
 		pic.appearance = MA
-		flick_overlay(pic, list(user.client), 10)
+		flick_overlay_global(pic, list(user.client), 10)
 
 /obj/item/clothing/glasses/meson/engine/proc/show_shuttle()
 	var/mob/living/carbon/human/user = loc
@@ -113,7 +113,7 @@
 				pic = new('icons/turf/overlays.dmi', place, "greenOverlay", AREA_LAYER)
 			else
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
-			flick_overlay(pic, list(user.client), 8)
+			flick_overlay_global(pic, list(user.client), 8)
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = "trayson-[mode]"

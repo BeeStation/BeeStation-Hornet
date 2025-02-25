@@ -1,13 +1,43 @@
+/// A preview of the mech for the UI
+/atom/movable/screen/mech_view
+	name = "mechview"
+	del_on_map_removal = FALSE
+	layer = OBJ_LAYER
+	plane = GAME_PLANE
+
+	/// The body that is displayed
+	var/obj/vehicle/sealed/mecha/owner
+	///list of plane masters to apply to owners
+	var/list/plane_masters = list()
+
+/atom/movable/screen/mech_view/Initialize(mapload, obj/vehicle/sealed/mecha/newowner)
+	. = ..()
+	owner = newowner
+	assigned_map = "mech_view_[REF(owner)]"
+	set_position(1, 1)
+	for(var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
+		plane_master.screen_loc = "[assigned_map]:CENTER"
+		plane_masters += plane_master
+
+/atom/movable/screen/mech_view/Destroy()
+	QDEL_LIST(plane_masters)
+	owner = null
+	return ..()
+
 /obj/vehicle/sealed/mecha/ui_close(mob/user)
 	. = ..()
-	ui_view.hide_from(user)
+	user.client?.screen -= ui_view.plane_masters
+	user.client?.clear_map(ui_view.assigned_map)
 
 /obj/vehicle/sealed/mecha/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Mecha", name)
 		ui.open()
-		ui_view.display_to(user)
+		ui.set_autoupdate(TRUE)
+		user.client?.screen |= ui_view.plane_masters
+		user.client?.register_map_obj(ui_view)
 
 /obj/vehicle/sealed/mecha/ui_status(mob/user)
 	if(contains(user))
@@ -25,7 +55,7 @@
 
 /obj/vehicle/sealed/mecha/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/mecha_equipment),
+		get_asset_datum(/datum/asset/spritesheet_batched/mecha_equipment),
 	)
 
 /obj/vehicle/sealed/mecha/ui_static_data(mob/user)
@@ -57,10 +87,10 @@
 		"MECHA_INT_SHORT_CIRCUIT" = MECHA_INT_SHORT_CIRCUIT,
 	)
 
-	var/list/regions = list()
-	for(var/region in get_region_accesses())
-		regions += tgui_region_data[region]
-	data["regions"] = regions
+	//var/list/regions = list()
+	//for(var/region in get_region_accesses())
+	//	regions += tgui_region_data[region]
+	//data["regions"] = regions
 	return data
 
 /obj/vehicle/sealed/mecha/ui_data(mob/user)
@@ -84,7 +114,7 @@
 	data["overclock_mode"] = overclock_mode
 	data["overclock_temp_percentage"] = overclock_temp / overclock_temp_danger
 
-	data["dna_lock"] = dna_lock
+	//data["dna_lock"] = dna_lock
 
 	data["one_access"] = one_access
 	data["accesses"] = accesses
@@ -189,6 +219,7 @@
 		if("toggle_safety")
 			set_safety(usr)
 			return
+		/*
 		if("dna_lock")
 			var/mob/living/carbon/user = usr
 			if(!istype(user) || !user.dna)
@@ -198,6 +229,7 @@
 			to_chat(user, "[icon2html(src, occupants)][span_notice("You feel a prick as the needle takes your DNA sample.")]")
 		if("reset_dna")
 			dna_lock = null
+		*/
 		if("toggle_cabin_seal")
 			set_cabin_seal(usr, !cabin_sealed)
 		if("toggle_id_lock")

@@ -202,7 +202,7 @@
 	var/lavaland_only = FALSE
 
 	/// ref to screen object that displays in the middle of the UI
-	var/atom/movable/screen/map_view/ui_view
+	var/atom/movable/screen/mech_view/ui_view
 
 	/// Theme of the mech TGUI
 	var/ui_theme = "ntos"
@@ -265,12 +265,13 @@
 	AddElement(/datum/element/atmos_sensitive)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
-/obj/vehicle/sealed/mecha/proc/Eject()
+/obj/vehicle/sealed/mecha/proc/Eject(var/mob/living/silicon/ai/unlucky_ai)
 
 	for(var/mob/living/occupant as anything in occupants)
 		if(isAI(occupant))
 			var/mob/living/silicon/ai/ai = occupant
 			if(!ai.linked_core) // we probably shouldnt gib AIs with a core
+				unlucky_ai = occupant
 				ai.investigate_log("has been gibbed by having their mech destroyed.", INVESTIGATE_DEATHS)
 				ai.gib() //No wreck, no AI to recover
 			else
@@ -328,8 +329,27 @@
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/atom_destruction()
+	spark_system?.start()
 	loc.assume_air(cabin_air)
-	Eject()
+
+	var/mob/living/silicon/ai/unlucky_ai
+	Eject(unlucky_ai)
+
+	if(wreckage)
+		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, unlucky_ai)
+		for(var/obj/item/mecha_parts/mecha_equipment/E in flat_equipment)
+			if(E.detachable && prob(30))
+				WR.crowbar_salvage += E
+				E.detach(WR) //detaches from src into WR
+				E.active = TRUE
+			else
+				E.detach(loc)
+				qdel(E)
+		if(cell)
+			WR.crowbar_salvage += cell
+			cell.forceMove(WR)
+			cell.use(rand(0, cell.charge), TRUE)
+			cell = null
 	return ..()
 
 /obj/vehicle/sealed/mecha/update_icon_state()
@@ -508,14 +528,14 @@
 	if(overclock_temp < overclock_temp_danger)
 		return
 	var/damage_chance = 100 * ((overclock_temp - overclock_temp_danger) / (overclock_temp_danger * 2))
-	if(SPT_PROB(damage_chance, delta_time))
+	if(DT_PROB(damage_chance, delta_time))
 		do_sparks(5, TRUE, src)
 		try_deal_internal_damage(damage_chance)
 		take_damage(delta_time, BURN, 0, 0)
 
 /obj/vehicle/sealed/mecha/proc/process_internal_damage_effects(delta_time)
 	if(internal_damage & MECHA_INT_FIRE)
-		if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && SPT_PROB(2.5, delta_time))
+		if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && DT_PROB(2.5, delta_time))
 			clear_internal_damage(MECHA_INT_FIRE)
 		if(cabin_air && cabin_sealed && cabin_air.return_volume()>0)
 			if(cabin_air.return_pressure() > (PUMP_DEFAULT_PRESSURE * 30) && !(internal_damage & MECHA_CABIN_AIR_BREACH))
@@ -525,7 +545,7 @@
 				take_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
 
 	if(internal_damage & MECHA_CABIN_AIR_BREACH && cabin_air && cabin_sealed) //remove some air from cabin_air
-		var/datum/gas_mixture/leaked_gas = cabin_air.remove_ratio(SPT_PROB_RATE(0.05, delta_time))
+		var/datum/gas_mixture/leaked_gas = cabin_air.remove_ratio(DT_PROB_RATE(0.05, delta_time))
 		if(loc)
 			loc.assume_air(leaked_gas)
 		else
@@ -690,7 +710,7 @@
 			speech_bubble_recipients += listener.client
 
 	var/image/mech_speech = image('icons/mob/talk.dmi', src, "machine[say_test(speech_args[SPEECH_MESSAGE])]",MOB_LAYER+1)
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), mech_speech, speech_bubble_recipients, 3 SECONDS)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), mech_speech, speech_bubble_recipients, 3 SECONDS)
 
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()

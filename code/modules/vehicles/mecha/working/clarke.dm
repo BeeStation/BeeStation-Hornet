@@ -86,7 +86,6 @@
 	desc = "An automated ore box management device."
 	icon_state = "mecha_bin"
 	equipment_slot = MECHA_UTILITY
-	selectable = FALSE
 	detachable = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/orebox_manager/attach(obj/vehicle/sealed/mecha/mecha, attach_right = FALSE)

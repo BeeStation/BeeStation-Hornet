@@ -7,8 +7,8 @@ import { AlertPane } from './AlertPane';
 import { AccessConfig } from '../common/AccessConfig';
 import { MainData } from './data';
 
-export const Mecha = (props, context) => {
-  const { data } = useBackend<MainData>(context);
+export const Mecha = (props) => {
+  const { data } = useBackend<MainData>();
   return (
     <Window theme={data.ui_theme} width={800} height={560}>
       <Window.Content>
@@ -18,22 +18,10 @@ export const Mecha = (props, context) => {
   );
 };
 
-export const Content = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
-  const [edit_access, editAccess] = useLocalState(
-    context,
-    'edit_access',
-    false
-  );
-  const {
-    name,
-    mecha_flags,
-    mechflag_keys,
-    mech_view,
-    one_access,
-    regions,
-    accesses,
-  } = data;
+export const Content = (props) => {
+  const { act, data } = useBackend<MainData>();
+  const [edit_access, editAccess] = useLocalState('edit_access', false);
+  const { name, mecha_flags, mechflag_keys, mech_view, one_access, regions, accesses } = data;
   const id_lock = mecha_flags & mechflag_keys['ID_LOCK_ON'];
   return (
     <Stack fill>
@@ -43,14 +31,7 @@ export const Content = (props, context) => {
             <Section
               fill
               title={name}
-              buttons={
-                <Button
-                  icon="edit"
-                  tooltip="Rename"
-                  tooltipPosition="left"
-                  onClick={() => act('changename')}
-                />
-              }>
+              buttons={<Button icon="edit" tooltip="Rename" tooltipPosition="left" onClick={() => act('changename')} />}>
               <Stack fill vertical>
                 <Stack.Item>
                   <ByondUi
@@ -68,7 +49,6 @@ export const Content = (props, context) => {
                     <PowerBar />
                     <LightsBar />
                     <CabinSeal />
-                    <DNALock />
                     <LabeledList.Item label="ID Lock">
                       <Button
                         icon={id_lock ? 'lock' : 'lock-open'}
@@ -139,8 +119,8 @@ export const Content = (props, context) => {
   );
 };
 
-const PowerBar = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
+const PowerBar = (props) => {
+  const { act, data } = useBackend<MainData>();
   const { power_level, power_max } = data;
   return (
     <LabeledList.Item label="Power">
@@ -158,18 +138,14 @@ const PowerBar = (props, context) => {
           ? 'Power cell missing'
           : power_level === 1e31
             ? 'Infinite'
-            : `${formatSiUnit(power_level * 1000, 0, 'J')} of ${formatSiUnit(
-              power_max * 1000,
-              0,
-              'J'
-            )}`}
+            : `${formatSiUnit(power_level * 1000, 0, 'J')} of ${formatSiUnit(power_max * 1000, 0, 'J')}`}
       </ProgressBar>
     </LabeledList.Item>
   );
 };
 
-const IntegrityBar = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
+const IntegrityBar = (props) => {
+  const { act, data } = useBackend<MainData>();
   const { integrity, integrity_max, scanmod_rating } = data;
   return (
     <LabeledList.Item label="Integrity">
@@ -189,8 +165,8 @@ const IntegrityBar = (props, context) => {
   );
 };
 
-const LightsBar = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
+const LightsBar = (props) => {
+  const { act, data } = useBackend<MainData>();
   const { power_level, power_max, mecha_flags, mechflag_keys } = data;
   const has_lights = mecha_flags & mechflag_keys['HAS_LIGHTS'];
   const lights_on = mecha_flags & mechflag_keys['LIGHTS_ON'];
@@ -207,8 +183,8 @@ const LightsBar = (props, context) => {
   );
 };
 
-const CabinSeal = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
+const CabinSeal = (props) => {
+  const { act, data } = useBackend<MainData>();
   const {
     enclosed,
     cabin_sealed,
@@ -223,16 +199,10 @@ const CabinSeal = (props, context) => {
     cabin_temp_warning_max,
     cabin_temp_hazard_max,
   } = data;
-  const temp_warning =
-    cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
-  const temp_hazard =
-    cabin_temp < cabin_temp_hazard_min || cabin_temp > cabin_temp_hazard_max;
-  const pressure_warning =
-    cabin_pressure < cabin_pressure_warning_min ||
-    cabin_pressure > cabin_pressure_warning_max;
-  const pressure_hazard =
-    cabin_pressure < cabin_pressure_hazard_min ||
-    cabin_pressure > cabin_pressure_hazard_max;
+  const temp_warning = cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
+  const temp_hazard = cabin_temp < cabin_temp_hazard_min || cabin_temp > cabin_temp_hazard_max;
+  const pressure_warning = cabin_pressure < cabin_pressure_warning_min || cabin_pressure > cabin_pressure_warning_max;
+  const pressure_hazard = cabin_pressure < cabin_pressure_hazard_min || cabin_pressure > cabin_pressure_hazard_max;
   return (
     <LabeledList.Item
       label="Cabin Air"
@@ -240,25 +210,13 @@ const CabinSeal = (props, context) => {
         !!cabin_sealed && (
           <>
             <Button
-              color={
-                temp_hazard
-                  ? 'danger'
-                  : temp_warning
-                    ? 'average'
-                    : 'transparent'
-              }
+              color={temp_hazard ? 'danger' : temp_warning ? 'average' : 'transparent'}
               icon="temperature-low"
               tooltipPosition="top"
               tooltip={`Air temperature: ${cabin_temp}°C`}
             />
             <Button
-              color={
-                pressure_hazard
-                  ? 'danger'
-                  : pressure_warning
-                    ? 'average'
-                    : 'transparent'
-              }
+              color={pressure_hazard ? 'danger' : pressure_warning ? 'average' : 'transparent'}
               icon="gauge-high"
               tooltipPosition="top"
               tooltip={`Air pressure: ${cabin_pressure} kPa`}
@@ -273,40 +231,6 @@ const CabinSeal = (props, context) => {
         onClick={() => act('toggle_cabin_seal')}
         selected={cabin_sealed}
       />
-    </LabeledList.Item>
-  );
-};
-
-const DNALock = (props, context) => {
-  const { act, data } = useBackend<MainData>(context);
-  const { dna_lock } = data;
-  return (
-    <LabeledList.Item label="DNA Lock">
-      <Button
-        onClick={() => act('dna_lock')}
-        icon="syringe"
-        content={dna_lock ? 'Enabled' : 'Unset'}
-        tooltip="Set new DNA key"
-        selected={!!dna_lock}
-        tooltipPosition="top"
-      />
-      {!!dna_lock && (
-        <>
-          <Button
-            icon="key"
-            tooltip={`Key enzyme: ${dna_lock}`}
-            tooltipPosition="top"
-            disabled={!dna_lock}
-          />
-          <Button
-            onClick={() => act('reset_dna')}
-            icon="ban"
-            tooltip="Reset DNA lock"
-            tooltipPosition="top"
-            disabled={!dna_lock}
-          />
-        </>
-      )}
     </LabeledList.Item>
   );
 };

@@ -145,6 +145,13 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 	else
 		. = ..()
 
+/datum/action/vehicle/sealed/mecha/mech_defense_mode
+	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."
+	button_icon_state = "mech_defense_mode_off"
+
+/datum/action/vehicle/sealed/mecha/mech_defense_mode/on_activate(mob/user, atom/target)
+	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
+
 ////////////////////////////
 ///// Shield processing ////
 ////////////////////////////

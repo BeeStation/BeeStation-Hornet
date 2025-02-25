@@ -21,7 +21,7 @@
 	var/list/status = list()
 	status += "The orange light is [mecha.internal_damage & MECHA_INT_SHORT_CIRCUIT ? "on" : "off"]."
 	status += "The red light is [mecha.overclock_mode ? "blinking" : "off"]."
-	status += "The green light is [(mecha.mecha_flags & ID_LOCK_ON) || mecha.dna_lock ? "on" : "off"]."
+	status += "The green light is [(mecha.mecha_flags & ID_LOCK_ON) ? "on" : "off"]."
 	if(mecha.mecha_flags & HAS_LIGHTS)
 		status += "The yellow light is [mecha.light_on ? "on" : "off"]."
 	status += "The blue light is [mecha.equipment_disabled ? "on" : "off"]."
@@ -32,7 +32,6 @@
 	switch(wire)
 		if(WIRE_IDSCAN)
 			mecha.mecha_flags ^= ID_LOCK_ON
-			mecha.dna_lock = null
 		if(WIRE_DISARM)
 			mecha.equipment_disabled = TRUE
 			mecha.set_mouse_pointer()
@@ -49,7 +48,6 @@
 		if(WIRE_IDSCAN)
 			if(!mend)
 				mecha.mecha_flags &= ~ID_LOCK_ON
-				mecha.dna_lock = null
 		if(WIRE_DISARM)
 			mecha.equipment_disabled = !mend
 			mecha.set_mouse_pointer()

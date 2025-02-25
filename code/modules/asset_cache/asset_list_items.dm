@@ -573,7 +573,7 @@
 
 /datum/asset/spritesheet_batched/mecha_equipment/create_spritesheets()
 	insert_all_icons("", 'icons/mob/mecha_equipment.dmi')
-	insert_all_icons("", 'icons/obj/ore.dmi')
+	insert_all_icons("", 'icons/obj/stacks/minerals.dmi')
 
 /datum/asset/simple/pAI
 	assets = list(

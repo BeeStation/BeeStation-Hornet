@@ -257,13 +257,13 @@
 		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
-			activated = FALSE
+			active = FALSE
 			return PROCESS_KILL
 	else //no repair needed, we turn off
 		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(src.icon, icon_state = "repair_droid")
 		chassis.add_overlay(droid_overlay)
-		activated = FALSE
+		active = FALSE
 		return PROCESS_KILL
 
 

@@ -66,26 +66,25 @@
 		action.button_icon_state = "mech_cabin_[chassis.cabin_sealed ? "closed" : "open"]"
 		action.update_buttons()
 
-/obj/item/mecha_parts/mecha_equipment/air_tank/process(seconds_per_tick)
+/obj/item/mecha_parts/mecha_equipment/air_tank/process(delta_time)
 	if(!chassis)
 		return
 	process_cabin_pressure()
 	process_pump()
 
-/obj/item/mecha_parts/mecha_equipment/air_tank/proc/process_cabin_pressure(seconds_per_tick)
+/obj/item/mecha_parts/mecha_equipment/air_tank/proc/process_cabin_pressure(delta_time)
 	if(!chassis.cabin_sealed || !active)
 		return
 	var/datum/gas_mixture/external_air = chassis.loc.return_air()
 	var/datum/gas_mixture/tank_air = internal_tank.return_air()
 	var/datum/gas_mixture/cabin_air = chassis.cabin_air
 	var/release_pressure = internal_tank.release_pressure
-	var/cabin_pressure = cabin_air.return_pressure()
-	if(cabin_pressure < release_pressure)
+	if(cabin_air.return_pressure() < release_pressure)
 		tank_air.release_gas_to(cabin_air, release_pressure)
-	if(cabin_pressure)
-		cabin_air.pump_gas_to(external_air, PUMP_MAX_PRESSURE, GAS_CO2)
+	if(cabin_air.has_gas(/datum/gas/carbon_dioxide))
+		cabin_air.pump_gas_to(external_air, PUMP_MAX_PRESSURE, /datum/gas/carbon_dioxide)
 
-/obj/item/mecha_parts/mecha_equipment/air_tank/proc/process_pump(seconds_per_tick)
+/obj/item/mecha_parts/mecha_equipment/air_tank/proc/process_pump(delta_time)
 	if(!tank_pump_active)
 		return
 	var/turf/local_turf = get_turf(chassis)
