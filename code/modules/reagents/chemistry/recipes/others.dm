@@ -922,6 +922,7 @@
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)
 
 /datum/chemical_reaction/ants // Breeding ants together, high sugar cost makes this take a while to farm.
+	name = "Breed Ants"
 	results = list(/datum/reagent/ants = 3)
 	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 8)
 

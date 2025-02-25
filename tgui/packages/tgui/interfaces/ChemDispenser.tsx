@@ -398,7 +398,7 @@ export const ChemDispenser = (_props) => {
                       placement: 'left-start',
                     }}
                     popperContent={
-                      showFilters && (
+                      (showFilters && (
                         <div className="chem_dispenser_filter_modal">
                           <Stack vertical>
                             <Button
@@ -557,7 +557,7 @@ export const ChemDispenser = (_props) => {
                             />
                           </Stack>
                         </div>
-                      )
+                      )) as any
                     }>
                     <Button
                       icon="arrow-down-short-wide"
@@ -626,7 +626,7 @@ export const ChemDispenser = (_props) => {
                   }}>
                   <div
                     className={classes(['favourite', !usedFavourites[recipe.id] && 'unfavourited'])}
-                    onClick={(e, data) => {
+                    onClick={(e) => {
                       e.stopPropagation();
                       if (usedFavourites[recipe.id]) {
                         delete usedFavourites[recipe.id];
