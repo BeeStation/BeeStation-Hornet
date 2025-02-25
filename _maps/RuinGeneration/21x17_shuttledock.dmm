@@ -43,7 +43,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "F" = (
@@ -52,7 +51,6 @@
 "W" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 

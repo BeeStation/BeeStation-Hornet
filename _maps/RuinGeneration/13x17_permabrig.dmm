@@ -365,7 +365,6 @@
 /area/ruin/unpowered)
 "My" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "MX" = (

@@ -6279,9 +6279,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/shuttle)
-"bBo" = (
-/turf/open/floor/iron/dark,
-/area/science/shuttle)
 "bBq" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -9771,11 +9768,6 @@
 /obj/machinery/meter,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
-"cAH" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/science/shuttle)
 "cAL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -51334,10 +51326,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "nfd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -51347,7 +51335,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/floor/iron/sepia,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
 /area/science/shuttle)
 "nfh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -110802,7 +110793,7 @@ cae
 aCf
 pMf
 vWv
-bBo
+dHZ
 iYB
 aCf
 aCf
@@ -112086,13 +112077,13 @@ cTG
 dvJ
 aCf
 aCf
-cAH
-cAH
-cAH
+cCP
+cCP
+cCP
 aCf
-cAH
-cAH
-cAH
+cCP
+cCP
+cCP
 aCf
 aCf
 aAg
@@ -112855,7 +112846,7 @@ dal
 vDW
 rov
 crB
-cAH
+cCP
 ibd
 cRQ
 cRQ
@@ -112865,7 +112856,7 @@ cRQ
 cRQ
 cRQ
 wui
-cAH
+cCP
 bAt
 cTG
 iSy
@@ -113112,7 +113103,7 @@ vaR
 vDW
 cje
 crB
-cAH
+cCP
 ibd
 cRQ
 cRQ
@@ -113122,7 +113113,7 @@ cRQ
 cRQ
 cRQ
 wui
-cAH
+cCP
 bAt
 cTG
 cUI
@@ -113624,7 +113615,7 @@ aKC
 sYV
 aJa
 vDW
-cAH
+cCP
 sRz
 aCf
 qqw
@@ -113638,7 +113629,7 @@ cRQ
 uYy
 aCf
 jHH
-cAH
+cCP
 aCf
 aCf
 lbL
@@ -113883,7 +113874,7 @@ aTQ
 vDW
 suE
 eah
-cAH
+cCP
 ibd
 cRQ
 cRQ
@@ -113893,7 +113884,7 @@ cRQ
 cRQ
 cRQ
 wui
-cAH
+cCP
 uPJ
 jtC
 aCf
