@@ -988,7 +988,7 @@
 	required_reagents = list(/datum/reagent/ants = 50, /datum/reagent/medicine/synthflesh = 20, /datum/reagent/ammonia = 5)
 	required_temp = 480
 	//reaction_flags = REACTION_INSTANT
-	//reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/ant_slurry/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

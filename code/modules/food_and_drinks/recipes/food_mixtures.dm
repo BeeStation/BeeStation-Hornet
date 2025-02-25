@@ -2,7 +2,7 @@
 //////////////////////////////////////////FOOD MIXTURES////////////////////////////////////
 
 /datum/chemical_reaction/food
-	//reaction_tags = REACTION_TAG_FOOD | REACTION_TAG_EASY
+	reaction_tags = REACTION_TAG_FOOD | REACTION_TAG_EASY
 
 /datum/chemical_reaction/food/tofu
 	name = "Tofu"
