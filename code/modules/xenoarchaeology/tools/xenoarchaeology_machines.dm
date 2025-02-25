@@ -33,8 +33,10 @@
 		if(move_inside)
 			register_contents(I)
 
-/obj/machinery/xenoarchaeology_machine/attack_hand(mob/living/user)
+/obj/machinery/xenoarchaeology_machine/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
+	if(modifiers && modifiers["right"])
+		return
 	activate_machine()
 
 /// Does a machine thing when you 'click' the machine. Typically called by 'attack_hand'.
