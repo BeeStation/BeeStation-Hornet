@@ -3,13 +3,14 @@
 
 /datum/chemical_reaction/food
 	name = "Abstract Food Reaction"
-	//reaction_tags = REACTION_TAG_FOOD | REACTION_TAG_EASY
+	reaction_tags = REACTION_TAG_FOOD
 
 /datum/chemical_reaction/food/tofu
 	name = "Tofu"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 10)
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
 	mob_react = FALSE
+	reaction_tags = REACTION_TAG_FOOD
 
 /datum/chemical_reaction/food/tofu/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

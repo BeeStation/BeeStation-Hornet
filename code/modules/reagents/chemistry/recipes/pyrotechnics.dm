@@ -2,6 +2,7 @@
 	name = "Generic explosive"
 	var/strengthdiv = 10
 	var/modifier = 0
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/reagent_explosion/New()
 	. = ..()
@@ -115,6 +116,7 @@
 	name = "Black Powder"
 	results = list(/datum/reagent/blackpowder = 3)
 	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/blackpowder/on_reaction(datum/reagents/holder, created_volume)
 	reaction_alert_admins(holder)
@@ -137,6 +139,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Can be placed onto walls and safes to melt them."
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/emp_pulse
 	name = "EMP Pulse"
@@ -147,6 +150,7 @@
 			1, 7, 14, 28, 71
 		)
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/emp_pulse/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -162,6 +166,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a swarm of bees"
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = holder.my_atom.drop_location()
@@ -188,6 +193,7 @@
 	hints = list(
 		REACTION_HINT_SAFETY = "Prevents some explosive reactions from occurring"
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_CHEMICAL | REACTION_TAG_PLAN
 
 /datum/chemical_reaction/clf3
 	name = "Chlorine Trifluoride"
@@ -197,6 +203,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Heats up other reagents stored in the container"
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_CHEMICAL | REACTION_TAG_BURN
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -230,6 +237,7 @@
 	name = "Sorium"
 	results = list(/datum/reagent/sorium = 4)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/nitrogen = 1, /datum/reagent/carbon = 1)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/sorium/New()
 	. = ..()
@@ -257,6 +265,7 @@
 	name = "Sorium vortex"
 	required_reagents = list(/datum/reagent/sorium = 1)
 	required_temp = 474
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/sorium_vortex/New()
 	. = ..()
@@ -280,6 +289,7 @@
 	name = "Liquid Dark Matter"
 	results = list(/datum/reagent/liquid_dark_matter = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/carbon = 1)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/liquid_dark_matter/New()
 	. = ..()
@@ -307,8 +317,9 @@
 	name = "LDM Vortex"
 	required_reagents = list(/datum/reagent/liquid_dark_matter = 1)
 	required_temp = 474
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
-/datum/chemical_reaction/sorium/New()
+/datum/chemical_reaction/ldm_vortex/New()
 	. = ..()
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a vortex which pulls objects towards itself",
@@ -330,6 +341,7 @@
 	name = "Flash powder"
 	results = list(/datum/reagent/flash_powder = 3)
 	required_reagents = list(/datum/reagent/aluminium = 1, /datum/reagent/potassium = 1, /datum/reagent/sulfur = 1 )
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/flash_powder/New()
 	. = ..()
@@ -366,6 +378,7 @@
 	name = "Flash powder activation"
 	required_reagents = list(/datum/reagent/flash_powder = 1)
 	required_temp = 374
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/flash_powder_flash/New()
 	. = ..()
@@ -398,6 +411,7 @@
 	name = /datum/reagent/smoke_powder
 	results = list(/datum/reagent/smoke_powder = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/smoke_powder/New()
 	. = ..()
@@ -433,6 +447,7 @@
 	required_reagents = list(/datum/reagent/smoke_powder = 1)
 	required_temp = 374
 	mob_react = FALSE
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/smoke_powder_smoke/New()
 	. = ..()
@@ -463,6 +478,7 @@
 	name = /datum/reagent/sonic_powder
 	results = list(/datum/reagent/sonic_powder = 3)
 	required_reagents = list(/datum/reagent/oxygen = 1, /datum/reagent/consumable/space_cola = 1, /datum/reagent/phosphorus = 1)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/sonic_powder/New()
 	. = ..()
@@ -491,6 +507,7 @@
 	name = "Sonic powder deafen"
 	required_reagents = list(/datum/reagent/sonic_powder = 1)
 	required_temp = 374
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/sonic_powder_deafen/New()
 	. = ..()
@@ -519,6 +536,7 @@
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a clloud of ignited plasma",
 		REACTION_HINT_SAFETY = "Reaction prevented by stabilizing agent"
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
 	reaction_alert_admins(holder)
@@ -537,6 +555,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Ignites victims when ingested",
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/cryostylane
 	name = /datum/reagent/cryostylane
@@ -545,6 +564,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Reduces the temperature of the container when created",
 	)
+	reaction_tags = REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/cryostylane/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // cools the fuck down
@@ -558,6 +578,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Reduces the temperature of the container when created, according to the amount created",
 	)
+	reaction_tags = REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/cryostylane_oxygen/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = max(holder.chem_temp - 10*created_volume,0)
@@ -570,6 +591,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Increases the temperature of the container when created, according to the amount created",
 	)
+	reaction_tags = REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/pyrosium_oxygen/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp += 10*created_volume
@@ -581,6 +603,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Increases the temperature of the container when created",
 	)
+	reaction_tags = REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/pyrosium/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // also cools the fuck down
@@ -592,12 +615,14 @@
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
 	mix_message = span_danger("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
 	required_temp = 400
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/energized_jelly
 	name = "Energized Jelly"
 	results = list(/datum/reagent/teslium/energized_jelly = 2)
 	required_reagents = list(/datum/reagent/toxin/slimejelly = 1, /datum/reagent/teslium = 1)
 	mix_message = span_danger("The slime jelly starts glowing intermittently.")
+	reaction_tags = REACTION_TAG_HEALING | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/teslium_lightning
 	name = "Teslium Destabilization"
@@ -608,6 +633,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a high-energy lightning bolt on creation",
 	)
+	reaction_tags = REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/teslium_lightning/on_reaction(datum/reagents/holder, created_volume)
 	var/T1 = created_volume * 20 //100 units : Zap 3 times, with powers 2000/5000/12000. Tesla revolvers have a power of 10000 for comparison.
@@ -646,6 +672,7 @@
 	required_reagents = list(/datum/reagent/stabilizing_agent = 1,/datum/reagent/fluorosurfactant = 1,/datum/reagent/carbon = 1)
 	required_temp = 200
 	is_cold_recipe = 1
+	reaction_tags = REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/reagent_explosion/cults_explosion
 	name = "Cults Explosion"

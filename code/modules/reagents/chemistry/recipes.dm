@@ -17,6 +17,9 @@
 	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
 	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
 
+	/// Tags for the reactions
+	var/reaction_tags = NONE
+
 // Extra checks for the reaction to occur.
 /datum/chemical_reaction/proc/can_react(datum/reagents/holder)
 	SHOULD_CALL_PARENT(TRUE)
