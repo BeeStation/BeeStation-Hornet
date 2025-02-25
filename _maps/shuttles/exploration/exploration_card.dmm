@@ -290,9 +290,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshittletop"
 	},
@@ -963,9 +960,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshittletop"
 	},
@@ -1034,9 +1028,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/machinery/door/poddoor/shutters{
 	id = "exploshittletop"
 	},
