@@ -158,6 +158,6 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 /// This reaction is a drug reaction
 #define REACTION_TAG_DRUG (1<<13)
 /// This reaction is produces a product that affects reactions
-#define REACTION_TAG_CHEMICAL (1<<15)
+#define REACTION_TAG_CHEMICAL (1<<14)
 /// This reaction is produces a product that affects plants
-#define REACTION_TAG_PLANT (1<<16)
+#define REACTION_TAG_PLANT (1<<15)

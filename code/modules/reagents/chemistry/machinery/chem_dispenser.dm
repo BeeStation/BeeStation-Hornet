@@ -268,7 +268,7 @@
 				reaction_tags = reaction.reaction_tags
 			))
 	data["reactions_list"] = reactions
-	data["default_filtesr"] = default_filters
+	data["default_filters"] = default_filters
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)

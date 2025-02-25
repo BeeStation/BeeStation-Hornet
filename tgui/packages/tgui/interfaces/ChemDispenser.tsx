@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Input, LabeledList, ProgressBar, Section, Stack, Table, TextArea, Tooltip } from '../components';
+import { AnimatedNumber, Box, Button, Dimmer, Divider, Flex, Icon, Input, LabeledList, Popper, ProgressBar, Section, Stack, Table, TextArea, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 import { require } from 'tgui-dev-server/require';
@@ -33,6 +33,7 @@ type Recipe = {
   required_temp: number;
   id: string;
   hints: Record<RecipeHintTypes, string | number[]>;
+  reaction_tags: ReactionTags;
 };
 
 interface SatisfiedRecipe extends Recipe {
@@ -54,7 +55,31 @@ type ChemDispenserData = {
     id: string;
   }[];
   reactions_list: Recipe[];
+  default_filters: ReactionTags;
 };
+
+/**
+ * Reaction tags defined by the backend
+ */
+enum ReactionTags {
+  None = 0,
+  BRUTE = 1 << 0,
+  BURN = 1 << 1,
+  TOXIN = 1 << 2,
+  OXY = 1 << 3,
+  CLONE = 1 << 4,
+  HEALING = 1 << 5,
+  DAMAGING = 1 << 6,
+  EXPLOSIVE = 1 << 7,
+  OTHER = 1 << 8,
+  ORGAN = 1 << 9,
+  DRINK = 1 << 10,
+  FOOD = 1 << 11,
+  SLIME = 1 << 12,
+  DRUG = 1 << 13,
+  CHEMICAL = 1 << 14,
+  PLANT = 1 << 15,
+}
 
 /**
  * A cache of the negative scores for items, since a chem dispenser is
@@ -113,15 +138,12 @@ const compile_recipes = (
   const [unlocked_recipes, set_unlocked_recipes] = useSharedState('unlocked_recipes', {});
   const [search_term] = useSharedState('search_term', '');
   const [selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
+  const [filters] = useSharedState('filters', 0);
   let initial_length = Object.keys(unlocked_recipes).length;
   if (selected_recipe !== null) {
     // Build a recipe lookup list
     const recipe_lookup: { [path: string]: Recipe[] } = {};
     for (const recipe of recipes) {
-      // Always show dependants, regardless of unlock status
-      // If we view something with hidden recipes, we actually
-      // unlock them permanently
-      unlocked_recipes[recipe.name] = 1;
       for (const result of recipe.results) {
         if (recipe_lookup[result.path]) {
           recipe_lookup[result.path].push(recipe);
@@ -136,10 +158,17 @@ const compile_recipes = (
     let depth = 100;
     while (search_list.length > 0) {
       const head = search_list.pop();
+      if (head!.required_container || head!.required_other) {
+        continue;
+      }
       if (used_recipes[head!.name]) {
         continue;
       }
       used_recipes[head!.name] = true;
+      // If our result is a base reagent, don't show it
+      if (head?.results.length === 1 && data.chemicals.some((x) => x.title === head?.results[0].name)) {
+        continue;
+      }
       for (const requirement of head!.required_reagents) {
         const recipes = recipe_lookup[requirement.path];
         if (!recipes) {
@@ -147,11 +176,15 @@ const compile_recipes = (
         }
         recipes.forEach((x) => search_list.push(x));
       }
+      // Always show dependants, regardless of unlock status
+      // If we view something with hidden recipes, we actually
+      // unlock them permanently
+      unlocked_recipes[head!.name] = 1;
       result.push({ rating: depth++, ...head! });
     }
   } else if (search_term.length > 0) {
     for (const recipe of recipes) {
-      if (!unlocked_recipes[recipe.name]) {
+      if (recipe.required_container || recipe.required_other) {
         continue;
       }
       if (recipe.name?.toLowerCase().includes(search_term.toLowerCase())) {
@@ -164,17 +197,28 @@ const compile_recipes = (
         continue;
       }
       let matches = 100;
+      let unlocked = false;
+      // Skip filtered recipes
+      if (filters === 0) {
+        if ((recipe.reaction_tags & data.default_filters) === 0) {
+          continue;
+        }
+      } else {
+        // Must match all the filters to be shown
+        if ((recipe.reaction_tags & filters) !== filters) {
+          continue;
+        }
+      }
       // Always show favourited recipes, regardless of unlock status
       if (favourites[recipe.id]) {
         matches += 100;
-      } else if (!unlocked_recipes[recipe.name]) {
-        continue;
       }
       // Gain points if we have the reagent already
       if (contents.length > 0) {
         for (const required of recipe.required_reagents) {
           if (contents.some((x) => x.path === required.path && x.volume >= required.volume)) {
             matches += 2;
+            unlocked = true;
             continue;
           }
         }
@@ -193,8 +237,13 @@ const compile_recipes = (
         negative_score_cache[recipe.id] = negativePoints;
         matches -= negativePoints;
       }
+      if (!unlocked && !unlocked_recipes[recipe.name] && filters === 0 && !favourites[recipe.id]) {
+        continue;
+      }
       result.push({ rating: matches, ...recipe });
-      unlocked_recipes[recipe.name] = 1;
+      if (filters === 0 && unlocked && !favourites[recipe.id]) {
+        unlocked_recipes[recipe.name] = 1;
+      }
     }
   }
   if (initial_length !== Object.keys(unlocked_recipes).length) {
@@ -266,6 +315,8 @@ export const ChemDispenser = (_props) => {
   const [search_term, set_search_term] = useSharedState('search_term', '');
   const [selected_recipe, set_selected_recipe] = useSharedState<Recipe | null>('selected_recipe', null);
   const [favourites, setFavourites] = useLocalState<{ [id: string]: boolean } | undefined>('favourites', undefined);
+  const [filters, setFilters] = useSharedState('filters', 0);
+  const [showFilters, setShowFilters] = useLocalState('show_filters', false);
 
   let usedFavourites: { [id: string]: boolean } = favourites!;
 
@@ -342,6 +393,181 @@ export const ChemDispenser = (_props) => {
                       }
                     }}
                   />
+                  <Popper
+                    options={{
+                      placement: 'left-start',
+                    }}
+                    popperContent={
+                      showFilters && (
+                        <div className="chem_dispenser_filter_modal">
+                          <Stack vertical>
+                            <Button
+                              content={'Clear Filters'}
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(ReactionTags.None);
+                                setShowFilters(false);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.BRUTE ? 'orange' : 'transparent'}
+                              icon="hand-fist"
+                              content="Brute"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.BRUTE);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.BURN ? 'orange' : 'transparent'}
+                              icon="fire"
+                              content="Burn"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.BURN);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.TOXIN ? 'orange' : 'transparent'}
+                              icon="radiation"
+                              content="Toxin"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.TOXIN);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.OXY ? 'orange' : 'transparent'}
+                              icon="wind"
+                              content="Suffocation"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.OXY);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.CLONE ? 'orange' : 'transparent'}
+                              icon="person"
+                              content="Clone"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.CLONE);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.ORGAN ? 'orange' : 'transparent'}
+                              icon="lungs"
+                              content="Organ"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.ORGAN);
+                              }}
+                            />
+                            <Divider />
+                            <Button
+                              color={filters & ReactionTags.HEALING ? 'green' : 'transparent'}
+                              icon="kit-medical"
+                              content="Healing"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.HEALING);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.DAMAGING ? 'green' : 'transparent'}
+                              icon="book-skull"
+                              content="Damaging"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.DAMAGING);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.EXPLOSIVE ? 'green' : 'transparent'}
+                              icon="explosion"
+                              content="Explosive"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.EXPLOSIVE);
+                              }}
+                            />
+                            <Divider />
+                            <Button
+                              color={filters & ReactionTags.DRINK ? 'blue' : 'transparent'}
+                              icon="mug-saucer"
+                              content="Drink"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.DRINK);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.FOOD ? 'blue' : 'transparent'}
+                              icon="bacon"
+                              content="Food"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.FOOD);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.SLIME ? 'blue' : 'transparent'}
+                              icon="droplet"
+                              content="Slime"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.SLIME);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.DRUG ? 'blue' : 'transparent'}
+                              icon="joint"
+                              content="Drug"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.DRUG);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.CHEMICAL ? 'blue' : 'transparent'}
+                              icon="flask"
+                              content="Chemical"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.CHEMICAL);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.PLANT ? 'blue' : 'transparent'}
+                              icon="seedling"
+                              content="Plant"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.PLANT);
+                              }}
+                            />
+                            <Button
+                              color={filters & ReactionTags.OTHER ? 'blue' : 'transparent'}
+                              icon="ellipsis"
+                              content="Other"
+                              onClick={() => {
+                                recipe_list = [];
+                                setFilters(filters ^ ReactionTags.OTHER);
+                              }}
+                            />
+                          </Stack>
+                        </div>
+                      )
+                    }>
+                    <Button
+                      icon="arrow-down-short-wide"
+                      color={filters !== 0 && 'green'}
+                      ml={0.5}
+                      onClick={() => {
+                        setShowFilters(!showFilters);
+                      }}
+                    />
+                  </Popper>
                 </>
               )
             }>
