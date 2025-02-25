@@ -565,6 +565,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		user.dropItemToGround(src)
 		return TRUE
 
+/obj/item/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	// Do not pickup items on a right click action
+	if (. == SECONDARY_ATTACK_CALL_NORMAL)
+		. = SECONDARY_ATTACK_CONTINUE_CHAIN
+
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 

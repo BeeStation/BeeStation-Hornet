@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/rust,
 /area/shuttle/escape)
@@ -541,6 +537,10 @@
 /obj/item/clothing/gloves/fingerless,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"sP" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "wq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/optable,
@@ -611,9 +611,9 @@ hP
 ab
 Vh
 ad
-ac
-ac
-ac
+sP
+sP
+sP
 ad
 Ge
 ad
@@ -701,9 +701,9 @@ ab
 ai
 an
 ad
-ac
+sP
 SF
-ac
+sP
 ad
 bN
 bd
@@ -720,7 +720,7 @@ bK
 bL
 "}
 (6,1,1) = {"
-ac
+sP
 ae
 aj
 ao
@@ -744,7 +744,7 @@ bK
 bL
 "}
 (7,1,1) = {"
-ac
+sP
 af
 ak
 ak
@@ -768,7 +768,7 @@ bK
 bL
 "}
 (8,1,1) = {"
-ac
+sP
 ag
 ak
 ap
@@ -792,7 +792,7 @@ bK
 bL
 "}
 (9,1,1) = {"
-ac
+sP
 af
 al
 aq
@@ -816,7 +816,7 @@ bK
 bL
 "}
 (10,1,1) = {"
-ac
+sP
 ah
 ak
 aq
@@ -832,7 +832,7 @@ ax
 ax
 bq
 ax
-ac
+sP
 bB
 bB
 bJ
@@ -880,7 +880,7 @@ bn
 bp
 aR
 ax
-ac
+sP
 bB
 bB
 bD
@@ -947,13 +947,13 @@ aE
 aE
 aE
 ad
-ac
-ac
-ac
+sP
+sP
+sP
 ad
 ad
 ad
-ac
+sP
 ad
 aa
 aa
