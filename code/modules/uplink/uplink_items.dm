@@ -1184,12 +1184,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/ammo_casing/caseless/rocket
 	cost = 3
 
-/datum/uplink_item/ammo/rocket/hedp
-	name = "84mm HEDP Rocket"
-	desc = "A high-yield HEDP rocket; extremely effective against armored targets, as well as surrounding personnel. \
+/datum/uplink_item/ammo/rocket/heap
+	name = "84mm HEAP Rocket"
+	desc = "A high-yield HEAP rocket; extremely effective against literally everything and anything near that thing that doesn't exist anymore. \
 			Strike fear into the hearts of your enemies."
-	item = /obj/item/ammo_casing/caseless/rocket/hedp
-	cost = 5
+	item = /obj/item/ammo_casing/caseless/rocket/heap
+	cost = 6
 
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"

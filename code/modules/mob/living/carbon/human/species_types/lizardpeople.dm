@@ -7,8 +7,16 @@
 	default_color = "00FF00"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
-	mutant_bodyparts = list("tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None",
-						"frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "body_size" = "Normal")
+	mutant_bodyparts = list(
+		"tail_lizard" = "Smooth",
+		"snout" = "Round",
+		"horns" = "None",
+		"frills" = "None",
+		"spines" = "None",
+		"body_markings" = "None",
+		"legs" = "Normal Legs",
+		"body_size" = "Normal"
+	)
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
@@ -96,9 +104,12 @@
 	id = SPECIES_ASHWALKER
 	examine_limb_id = SPECIES_LIZARD
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS, NO_UNDERWEAR)
-	inherent_traits = list(TRAIT_CHUNKYFINGERS)
+	inherent_traits = list(
+		TRAIT_CHUNKYFINGERS
+	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
+	mutantbrain = /obj/item/organ/brain/primitive
 	digitigrade_customization = DIGITIGRADE_FORCED
 
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
