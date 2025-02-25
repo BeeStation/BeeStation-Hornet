@@ -118,9 +118,10 @@ const compile_recipes = (
     // Build a recipe lookup list
     const recipe_lookup: { [path: string]: Recipe[] } = {};
     for (const recipe of recipes) {
-      if (!unlocked_recipes[recipe.name]) {
-        continue;
-      }
+      // Always show dependants, regardless of unlock status
+      // If we view something with hidden recipes, we actually
+      // unlock them permanently
+      unlocked_recipes[recipe.name] = 1;
       for (const result of recipe.results) {
         if (recipe_lookup[result.path]) {
           recipe_lookup[result.path].push(recipe);
@@ -163,8 +164,11 @@ const compile_recipes = (
         continue;
       }
       let matches = 100;
+      // Always show favourited recipes, regardless of unlock status
       if (favourites[recipe.id]) {
         matches += 100;
+      } else if (!unlocked_recipes[recipe.name]) {
+        continue;
       }
       // Gain points if we have the reagent already
       if (contents.length > 0) {
@@ -192,9 +196,9 @@ const compile_recipes = (
       result.push({ rating: matches, ...recipe });
       unlocked_recipes[recipe.name] = 1;
     }
-    if (initial_length !== Object.keys(unlocked_recipes).length) {
-      set_unlocked_recipes(unlocked_recipes);
-    }
+  }
+  if (initial_length !== Object.keys(unlocked_recipes).length) {
+    set_unlocked_recipes(unlocked_recipes);
   }
   recipe_list = result;
   last_contents = contents;
