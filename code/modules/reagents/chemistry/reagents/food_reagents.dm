@@ -835,17 +835,8 @@
 	color = "#C65A00"
 	chem_flags = NONE
 	taste_mult = 2
-	taste_description = "bitter sweetness"
+	taste_description = "caramel"
 	reagent_state = SOLID
-
-/datum/reagent/consumable/bbqsauce
-	name = "BBQ Sauce"
-	description = "Sweet, Smokey, Savory, and gets everywhere. Perfect for Grilling."
-	nutriment_factor = 5 * REAGENTS_METABOLISM
-	color = "#78280A" // rgb: 120 40, 10
-	chem_flags = NONE
-	taste_mult = 2.5 //sugar's 1.5, capsacin's 1.5, so a good middle ground.
-	taste_description = "smokey sweetness"
 
 /datum/reagent/consumable/char
 	name = "Char"
@@ -862,6 +853,32 @@
 	if(prob(10))
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
+
+/datum/reagent/consumable/bbqsauce
+	name = "BBQ Sauce"
+	description = "Sweet, Smokey, Savory, and gets everywhere. Perfect for Grilling."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#78280A" // rgb: 120 40, 10
+	chem_flags = NONE
+	taste_mult = 2.5 //sugar's 1.5, capsacin's 1.5, so a good middle ground.
+	taste_description = "smokey sweetness"
+
+/datum/reagent/consumable/laughsyrup
+	name = "Laughin' Syrup"
+	description = "The product of juicing Laughin' Peas. Fizzy, and seems to change flavour based on what it's used with!"
+	color = "#803280"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_mult = 2
+	taste_description = "fizzy sweetness"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+
+/datum/reagent/consumable/creamer
+	name = "Coffee Creamer"
+	description = "Powdered milk for cheap coffee. How delightful."
+	taste_description = "milk"
+	color = "#efeff0"
+	nutriment_factor = 1.5 * REAGENTS_METABOLISM
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 
 /datum/reagent/consumable/nutriment/cloth
 	name = "Cloth"

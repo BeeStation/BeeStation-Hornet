@@ -570,3 +570,40 @@
 	build_path = /obj/item/plate/oven_tray
 	category = list("initial","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/////////////////////////////////////////
+/////////Coffeemaker Stuff///////////////
+/////////////////////////////////////////
+
+/datum/design/coffeepot
+	name = "Coffeepot"
+	id = "coffeepot"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/glass = 500, /datum/material/plastic = 500)
+	build_path = /obj/item/reagent_containers/cup/coffeepot
+	category = list("Equipment")
+
+/datum/design/coffeepot_bluespace
+	name = "Bluespace Coffeepot"
+	id = "bluespace_coffeepot"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1000, /datum/material/plastic = 500, /datum/material/bluespace = 500)
+	build_path = /obj/item/reagent_containers/cup/coffeepot/bluespace
+	category = list("Equipment")
+
+/datum/design/coffee_cartridge
+	name = "Blank Coffee Cartridge"
+	id = "coffee_cartridge"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 1000)
+	build_path = /obj/item/blank_coffee_cartridge
+	category = list("Equipment")
+
+/datum/design/syrup_bottle
+	name = "Syrup bottle"
+	id = "syrup_bottle"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 1000)
+	build_path = /obj/item/reagent_containers/cup/bottle/syrup_bottle
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
