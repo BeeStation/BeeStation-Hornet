@@ -524,8 +524,7 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/robotics
 	name = "Robotics R&D Console"
-	req_access = null
-	req_access_txt = "29"
+	req_access = list(ACCESS_ROBOTICS)
 
 /obj/machinery/computer/rdconsole/robotics/Initialize(mapload)
 	. = ..()

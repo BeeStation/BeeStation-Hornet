@@ -9,7 +9,7 @@
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = AREA_USAGE_ENVIRON
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 250
 	integrity_failure = 0.33
 	armor_type = /datum/armor/machinery_airalarm
@@ -686,15 +686,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 /obj/machinery/airalarm/proc/give_engine_access()
 	name = "engine air alarm"
 	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 ///Used for mixingchamber_access air alarm helper, which set air alarm's required access to away_general_access.
 /obj/machinery/airalarm/proc/give_mixingchamber_access()
 	name = "chamber air alarm"
 	locked = FALSE
-	req_access = null
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_TOX)
 
 ///Used for all_access air alarm helper, which set air alarm's required access to null.
 /obj/machinery/airalarm/proc/give_all_access()
@@ -702,7 +700,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
-	req_one_access = null
 
 ///Used for air alarm cold room tlv helper, which sets cold room temperature and pressure alarm thresholds
 /obj/machinery/airalarm/proc/set_tlv_cold_room()

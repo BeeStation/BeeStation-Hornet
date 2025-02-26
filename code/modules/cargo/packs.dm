@@ -33,10 +33,7 @@
 	else
 		C = new crate_type(A)
 		C.name = crate_name
-	if(access)
-		C.req_access = list(access)
-	if(access_any)
-		C.req_one_access = access_any
+	C.req_access = access_any
 
 	fill(C)
 	return C

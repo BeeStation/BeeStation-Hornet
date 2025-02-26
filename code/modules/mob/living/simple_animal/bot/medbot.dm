@@ -720,7 +720,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	COOLDOWN_START(src, declare_cooldown, 20 SECONDS)
 
 /obj/machinery/bot_core/medbot
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 #undef MEDBOT_PANIC_NONE
 #undef MEDBOT_PANIC_LOW
 #undef MEDBOT_PANIC_MED

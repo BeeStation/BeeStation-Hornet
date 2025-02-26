@@ -326,7 +326,7 @@
 /obj/machinery/door/airlock/public/glass/incinerator
 	autoclose = FALSE
 	heat_proof = TRUE
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
 
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior
 	name = "Turbine Interior Airlock"

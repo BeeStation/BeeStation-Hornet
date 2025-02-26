@@ -17,7 +17,7 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
-	req_one_access = list(ACCESS_LAWYER, ACCESS_SECURITY)
+	req_access = list(ACCESS_LAWYER, ACCESS_SECURITY)
 	///Boolean on whether we should add a height chart to the underlays of the people we take photos of.
 	var/add_height_chart = FALSE
 	///Boolean on whether the machine is currently busy taking someone's pictures, so you can't start taking pictures while it's working.
@@ -32,7 +32,7 @@
 	name = "security photobooth"
 	desc = "A machine with some drapes and a camera, used to update security record photos. Requires Security access to use, and adds a height chart to the person."
 	circuit = /obj/item/circuitboard/machine/photobooth/security
-	req_one_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_SECURITY)
 	add_height_chart = TRUE
 
 /obj/machinery/photobooth/Initialize(mapload)
@@ -100,8 +100,7 @@
 	. = ..()
 	if(obj_flags & EMAGGED)
 		return FALSE
-	req_access = list() //in case someone sets this to something
-	req_one_access = list()
+	req_access = list()
 	balloon_alert(user, "beeps softly")
 	obj_flags |= EMAGGED
 	return TRUE
