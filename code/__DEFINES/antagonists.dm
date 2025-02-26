@@ -25,14 +25,6 @@
 #define APPRENTICE_HEALING "healing"
 #define APPRENTICE_WILDMAGIC "wildmagic"
 
-
-//Blob
-#define BLOB_REROLL_TIME 2400 //blob gets a free reroll every X time
-#define BLOB_SPREAD_COST 4
-#define BLOB_ATTACK_REFUND 2 //blob refunds this much if it attacks and doesn't spread
-#define BLOB_REFLECTOR_COST 15
-#define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
-
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3
@@ -76,7 +68,6 @@
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
 /// Define for the heretic faction applied to heretics and heretic mobs.
-#define FACTION_HERETIC "heretics"
 
 #define FACTION_SYNDICATE "Syndicate"
 #define FACTION_BLOB "Blob"
@@ -107,6 +98,12 @@
 #define CONSTRUCT_JUGGERNAUT "Juggernaut"
 #define CONSTRUCT_WRAITH "Wraith"
 #define CONSTRUCT_ARTIFICER "Artificer"
+
+/// Used in logging spells for roundend results
+#define LOG_SPELL_TYPE "type"
+#define LOG_SPELL_AMOUNT "amount"
+
+
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40
@@ -139,6 +136,8 @@
 	WIZARD_LOADOUT_SOULTAP, \
 )
 
+/// Checks if the given mob is a wizard
+#define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
 ///Checks if given mob is a hive host
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel

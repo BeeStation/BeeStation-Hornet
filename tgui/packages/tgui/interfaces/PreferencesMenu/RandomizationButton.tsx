@@ -28,6 +28,7 @@ export const RandomizationButton = (props: {
       {...dropdownProps}
       clipSelectedText={false}
       displayText={<Icon name="dice-d20" mr="-0.25em" />}
+      displayTextFirst
       options={[
         {
           displayText: 'Do not randomize',

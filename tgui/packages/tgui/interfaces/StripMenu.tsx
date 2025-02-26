@@ -197,8 +197,8 @@ interface StripMenuRowProps {
   extra_actions: StripMenuActions;
 }
 
-const StripMenuRow = (props: StripMenuRowProps, context) => {
-  const { act, data } = useBackend<StripMenuData>(context);
+const StripMenuRow = (props: StripMenuRowProps) => {
+  const { act, data } = useBackend<StripMenuData>();
 
   const name = props.obscured ? 'Obscured' : props.empty ? 'Empty' : props.itemName;
 
@@ -251,8 +251,8 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
   );
 };
 
-export const StripMenu = (props, context) => {
-  const { act, data } = useBackend<StripMenuData>(context);
+export const StripMenu = (props) => {
+  const { act, data } = useBackend<StripMenuData>();
 
   const items = data.items;
   const layout = data.layout || DEFAULT_LAYOUT;
@@ -318,7 +318,7 @@ export const StripMenu = (props, context) => {
         scrollable
         fitted
         // Remove the nanotrasen logo from the window
-        style={{ 'background-image': 'none' }}>
+        style={{ backgroundImage: 'none' }}>
         <Table mt={1} className="strip-menu-table" fontSize="1.1em">
           {contents}
         </Table>

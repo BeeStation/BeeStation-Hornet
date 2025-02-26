@@ -10,7 +10,7 @@
 	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
-	inherent_factions = list("plants", "vines", "diona")
+	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	attack_verb = "slash"
 	attack_sound = 'sound/emotes/diona/hit.ogg'
 	burnmod = 1.25
@@ -61,12 +61,12 @@
 	if(H.stat != CONSCIOUS)
 		H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 	if((H.health <= H.crit_threshold)) //Shit, we're dying! Scatter!
-		split_ability.Trigger(TRUE)
+		split_ability.split(FALSE, H)
 	if(H.nutrition > NUTRITION_LEVEL_WELL_FED && !informed_nymph)
 		informed_nymph = TRUE
-		to_chat(H, "<span class='warning'>You feel sufficiently satiated to allow a nymph to split off from your gestalt!")
+		to_chat(H, span_warning("You feel sufficiently satiated to allow a nymph to split off from your gestalt!"))
 	if(partition_ability)
-		partition_ability.UpdateButtonIcon()
+		partition_ability.update_buttons()
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -88,7 +88,7 @@
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
-		drone.switch_ability.Trigger(H) //Bring them home.
+		drone.switch_ability.trigger() //Bring them home.
 
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = FALSE
@@ -125,7 +125,7 @@
 	if(gibbed)
 		QDEL_NULL(H)
 		return
-	split_ability.Trigger(TRUE)
+	split_ability.split(gibbed, H)
 
 /datum/species/diona/spec_gib(no_brain, no_organs, no_bodyparts, mob/living/carbon/human/H)
 	H.unequip_everything()
@@ -167,7 +167,7 @@
 	. = ..()
 	if(. && target != user && target.on_fire)
 		user.balloon_alert(user, "[user] you hug [target]")
-		target.visible_message("<span class='warning'>[user] catches fire from hugging [target]!</span>", "<span class='boldnotice'>[user] catches fire hugging you!</span>", "<span class='italics'>You hear a fire crackling.</span>")
+		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
 			user.IgniteMob()
@@ -180,18 +180,13 @@
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
+	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
 
-/datum/action/diona/split/Trigger(special)
-	. = ..()
-	var/mob/living/carbon/human/user = owner
-	if(!isdiona(user))
-		return FALSE
-	if(special)
-		startSplitting(FALSE, user) //This runs when you are dead.
-		return TRUE
-	if(user.incapacitated(IGNORE_RESTRAINTS)) //Are we incapacitated right now?
-		return FALSE
+/datum/action/diona/split/is_available()
+	return ..() && isdiona(owner)
+
+/datum/action/diona/split/on_activate(mob/user, atom/target)
 	if(tgui_alert(usr, "Are we sure we wish to devolve ourselves and split into separated nymphs?",,list("Yes", "No")) != "Yes")
 		return FALSE
 	if(do_after(user, 8 SECONDS, user, hidden = TRUE))
@@ -251,22 +246,20 @@
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
-	var/ability_partition_cooldown
+	cooldown_time = 5 MINUTES
+	var/ability_partition_cooldow
 
-/datum/action/diona/partition/Trigger(special)
-	. = ..()
-	if(!IsAvailable())
-		return
+/datum/action/diona/partition/on_activate(mob/user, atom/target)
 	var/mob/living/carbon/human/H = owner
-	ability_partition_cooldown = world.time + 5 MINUTES
+	start_cooldown()
 	H.nutrition = NUTRITION_LEVEL_STARVING
 	playsound(H, 'sound/creatures/venus_trap_death.ogg', 25, 1)
 	new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
 
-/datum/action/diona/partition/IsAvailable()
+/datum/action/diona/partition/is_available()
 	if(..())
 		var/mob/living/carbon/human/H = owner
-		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && (ability_partition_cooldown <= world.time))
+		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 			return TRUE
 		return FALSE
 

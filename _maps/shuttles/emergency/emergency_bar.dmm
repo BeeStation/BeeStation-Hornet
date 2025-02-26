@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ae" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -265,7 +261,6 @@
 "bC" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bE" = (
@@ -801,7 +796,6 @@
 /area/shuttle/escape)
 "Zp" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Zq" = (
@@ -921,9 +915,9 @@ ag
 an
 as
 ab
-ac
+Zp
 Rk
-ac
+Zp
 ae
 kS
 gl

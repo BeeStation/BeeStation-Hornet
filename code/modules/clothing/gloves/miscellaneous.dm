@@ -96,12 +96,12 @@
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
 	if(get_dist(A, M) <= 1)
-		if(isliving(A) && M.a_intent == INTENT_HARM)
+		if(isliving(A) && M.combat_mode)
 			M.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 
-	else if(M.a_intent == INTENT_HARM)
+	else if(M.combat_mode)
 		for(var/mob/living/L in oview(1, M))
 			L.attack_hand(M)
 			M.changeNext_move(CLICK_CD_RAPID)
@@ -113,9 +113,9 @@
 /obj/item/clothing/gloves/rapid/attack_self(mob/user)
 	var/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
 	if(input == "*me") //If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
-		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry cannot contain *me.</span>")
+		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry cannot contain *me."))
 	else if(CHAT_FILTER_CHECK(input))
-		to_chat(user, "<span class='warning'>Invalid battlecry, please use another. Battlecry contains prohibited word(s).</span>")
+		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry contains prohibited word(s)."))
 	else if(input)
 		warcry = input
 
@@ -133,7 +133,7 @@
 		if(!wand.used && range == initial(range))
 			wand.used = TRUE
 			range = 6
-			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
@@ -141,7 +141,7 @@
 	if(get_dist(A, user) <= 1 )
 		return FALSE
 	if(user in viewers(range, A))
-		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
+		user.visible_message(span_danger("[user] waves their hands at [A]"), span_notice("You begin manipulating [A]."))
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(do_after(user, 0.8 SECONDS, A))
@@ -163,8 +163,9 @@
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
 
-/datum/action/item_action/artifact_pincher_mode/Trigger()
+/datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
-		button.icon_state = (pinchy.safety ? "template_active" : "template")
+		button_icon_state = (pinchy.safety ? "template_active" : "template")
+		update_buttons()

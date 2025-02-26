@@ -1,19 +1,18 @@
-import { useDispatch, useSelector } from 'common/redux';
-import { Button, Flex, Tabs, Section, Input } from 'tgui/components';
-import { Box, ScrollableBox, Fragment, Divider } from '../../tgui/components';
+import { useDispatch, useSelector } from 'tgui/backend';
+import { Button, Flex, Tabs, Section, Input, ScrollableBox, Divider } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
-import { StatStatus, HoboStatStatus } from './StatStatus';
-import { StatText, HoboStatText } from './StatText';
+import { StatStatus } from './StatStatus';
+import { StatText } from './StatText';
 import { StatTicket } from './StatTicket';
 
 // =======================
 // Flex Supported
 // =======================
 
-export const StatTabs = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const settings = useSettings(context);
+export const StatTabs = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const settings = useSettings();
   let statSection = <StatText />;
   switch (stat.selectedTab) {
     case 'Status':
@@ -24,7 +23,7 @@ export const StatTabs = (props, context) => {
       break;
   }
   return (
-    <Fragment>
+    <>
       <Flex.Item shrink={0}>
         <div className="StatTabBackground">{settings.statTabMode === 'Scroll' ? <StatTabScroll /> : <StatTabWrap />}</div>
       </Flex.Item>
@@ -34,7 +33,7 @@ export const StatTabs = (props, context) => {
         </div>
       </ScrollableBox>
       {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
+        <>
           <Divider />
           <Input
             fluid
@@ -48,15 +47,15 @@ export const StatTabs = (props, context) => {
               })
             }
           />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
-export const StatTabScroll = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+export const StatTabScroll = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   // Map the input data into tabs, then filter out extra_data
   let statTabs = stat.statTabs;
   return (
@@ -84,9 +83,9 @@ export const StatTabScroll = (props, context) => {
   );
 };
 
-export const StatTabWrap = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
+export const StatTabWrap = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   // Map the input data into tabs, then filter out extra_data
   let statTabs = stat.statTabs;
   return (
@@ -108,46 +107,5 @@ export const StatTabWrap = (props, context) => {
         </Button>
       ))}
     </Section>
-  );
-};
-
-// =======================
-// Non-Flex Support
-// =======================
-
-export const HoboStatTabs = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const settings = useSettings(context);
-  let statSection = <HoboStatText />;
-  switch (stat.selectedTab) {
-    case 'Status':
-      statSection = <HoboStatStatus />;
-      break;
-    case '(!) Admin PM':
-      statSection = <StatTicket />;
-      break;
-  }
-  return (
-    <Box>
-      <StatTabWrap />
-      <Box grow={1}>{statSection}</Box>
-      {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
-          <Divider />
-          <Input
-            fluid
-            selfClear
-            onEnter={(e, value) =>
-              Byond.sendMessage('stat/pressed', {
-                action_id: 'ticket_message',
-                params: {
-                  msg: value,
-                },
-              })
-            }
-          />
-        </Fragment>
-      )}
-    </Box>
   );
 };

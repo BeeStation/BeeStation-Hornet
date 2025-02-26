@@ -82,7 +82,7 @@
 		var/obj/item/food/pancakes/pancake = item
 		if(!user.transferItemToLoc(pancake, src))
 			return
-		to_chat(user, "<span class='notice'>You add the [pancake] to the [src].</span>")
+		to_chat(user, span_notice("You add the [pancake] to the [src]."))
 		pancake.name = initial(pancake.name)
 		contents += pancake
 		update_snack_overlays(pancake)
@@ -107,9 +107,9 @@
 	add_overlay(pancake_visual)
 	update_appearance()
 
-/obj/item/food/pancakes/attack(mob/target, mob/living/user, def_zone, stacked = TRUE)
-	if(user.a_intent == INTENT_HARM || !contents.len || !stacked)
+/obj/item/food/pancakes/attack(mob/target, mob/living/user, params, stacked = TRUE)
+	if(user.combat_mode || !contents.len || !stacked)
 		return ..()
 	var/obj/item/item = contents[contents.len]
-	. = item.attack(target, user, def_zone, FALSE)
+	. = item.attack(target, user, params, FALSE)
 	update_appearance()

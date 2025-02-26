@@ -6,8 +6,10 @@
 	item_flags = ISWEAPON
 	/// this is to support when you don't want to display "bottle" part with a custom name. i.e.) "Bica-Kelo mix" rather than "Bica-Kelo mix bottle"
 	var/label_name
-	///How many units are we currently transferring?
+	/// The maximum amount of reagents per transfer that will be moved out of this reagent container.
 	var/amount_per_transfer_from_this = 5
+	/// Does this container allow changing transfer amounts at all, the container can still have only one possible transfer value in possible_transfer_amounts at some point even if this is true
+	var/has_variable_transfer_amount = TRUE
 	///Possible amounts of units transfered a click
 	var/list/possible_transfer_amounts = list(5,10,15,20,25,30)
 	///The amount of reagents this can hold
@@ -44,29 +46,57 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		reagents.add_reagent(/datum/reagent/blood, disease_amount, data)
 	if(!label_name)
 		label_name = name
-
 	add_initial_reagents()
+
+/obj/item/reagent_containers/examine()
+	. = ..()
+	if(has_variable_transfer_amount)
+		if(possible_transfer_amounts.len > 1)
+			. += "<span class='notice'>Left-click or right-click in-hand to increase or decrease its transfer amount.</span>"
+		else if(possible_transfer_amounts.len)
+			. += "<span class='notice'>Left-click or right-click in-hand to view its transfer amount.</span>"
+
+/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
+	if (!user.combat_mode)
+		return
+	return ..()
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
 /obj/item/reagent_containers/attack_self(mob/user)
-	if(length(possible_transfer_amounts))
-		var/i = 0
-		for(var/A in possible_transfer_amounts)
-			i++
-			if(A == amount_per_transfer_from_this)
-				if(i < length(possible_transfer_amounts))
-					amount_per_transfer_from_this = possible_transfer_amounts[i + 1]
-				else
-					amount_per_transfer_from_this = possible_transfer_amounts[1]
-				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u.")
-				return
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, FORWARD)
 
-/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+/obj/item/reagent_containers/attack_self_secondary(mob/user)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, BACKWARD)
+
+/obj/item/reagent_containers/proc/mode_change_message(mob/user)
+	return
+
+/obj/item/reagent_containers/proc/change_transfer_amount(mob/user, direction = FORWARD)
+	var/list_len = length(possible_transfer_amounts)
+	if(!list_len)
+		return
+	var/index = possible_transfer_amounts.Find(amount_per_transfer_from_this) || 1
+	switch(direction)
+		if(FORWARD)
+			index = (index % list_len) + 1
+		if(BACKWARD)
+			index = (index - 1) || list_len
+		else
+			CRASH("change_transfer_amount() called with invalid direction value")
+	amount_per_transfer_from_this = possible_transfer_amounts[index]
+	balloon_alert(user, "transferring [amount_per_transfer_from_this]u")
+	mode_change_message(user)
+
+/obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, params)
+	if (try_splash(user, target))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	return ..()
 
 /// Tries to splash the target. Used on both right-click and normal click when in combat mode.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
@@ -80,17 +110,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 	var/reagent_text
 	user.visible_message(
-		"<span class='danger'>[user] splashes the contents of [src] onto [target][punctuation]</span>",
-		"<span class='danger'>You splash the contents of [src] onto [target][punctuation]</span>",
+		span_danger("[user] splashes the contents of [src] onto [target][punctuation]"),
+		span_danger("You splash the contents of [src] onto [target][punctuation]"),
 		ignored_mobs = target,
 	)
 
 	if (ismob(target))
 		var/mob/target_mob = target
 		target_mob.show_message(
-			"<span class='userdanger'>[user] splash the contents of [src] onto you!</span>",
+			span_userdanger("[user] splash the contents of [src] onto you!"),
 			MSG_VISUAL,
-			"<span class='userdanger'>You feel drenched!</span>",
+			span_userdanger("You feel drenched!"),
 		)
 
 	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
@@ -101,7 +131,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
 		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
 
-	reagents.reaction(target, TOUCH)
+	reagents.expose(target, TOUCH)
 	log_combat(user, target, "splashed", reagent_text)
 	reagents.clear_reagents()
 
@@ -152,17 +182,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 			reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target
 		var/mob/M = target
 		var/R
-		target.visible_message("<span class='danger'>[M] has been splashed with something!</span>", \
-						"<span class='userdanger'>[M] has been splashed with something!</span>")
+		target.visible_message(span_danger("[M] has been splashed with something!"), \
+						span_userdanger("[M] has been splashed with something!"))
 		for(var/datum/reagent/A in reagents.reagent_list)
 			R += "[A.type]  ([num2text(A.volume)]),"
 
 		if(thrownby)
 			log_combat(thrown_by, M, "splashed", R)
-		reagents.reaction(target, TOUCH)
+		reagents.expose(target, TOUCH)
 
 	else if(bartender_check(target) && thrown)
-		visible_message("<span class='notice'>[src] lands onto the [target.name] without spilling a single drop.</span>")
+		visible_message(span_notice("[src] lands onto the [target.name] without spilling a single drop."))
 		return
 
 	else
@@ -170,8 +200,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 			log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]", "in [AREACOORD(target)]")
 			log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
 			message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
-		visible_message("<span class='notice'>[src] spills its contents all over [target].</span>")
-		reagents.reaction(target, TOUCH)
+		visible_message(span_notice("[src] spills its contents all over [target]."))
+		reagents.expose(target, TOUCH)
 		if(QDELETED(src))
 			return
 
@@ -181,23 +211,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	reagents.expose_temperature(1000)
 	return ..()
 
-/obj/item/reagent_containers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	reagents.expose_temperature(exposed_temperature)
+/obj/item/reagent_containers/fire_act(temperature, volume)
+	reagents.expose_temperature(temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
 	update_icon()
 
-/obj/item/reagent_containers/update_icon(dont_fill = FALSE)
-	if(!fill_icon_thresholds || dont_fill)
-		return ..()
-
-	cut_overlays()
+/obj/item/reagent_containers/update_overlays()
+	. = ..()
+	if(!fill_icon_thresholds)
+		return
 
 	if(!reagents.total_volume)
 		if(label_icon && (name != initial(name) || desc != initial(desc)))
 			var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
-			add_overlay(label)
-		return ..()
+			. += label
+		return
 	var/fill_name = fill_icon_state ? fill_icon_state : icon_state
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
 
@@ -209,11 +238,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 			filling.icon_state = "[fill_name][fill_icon_thresholds[i]]"
 
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
-	add_overlay(filling)
+	. += filling
 	if(label_icon && (name != initial(name) || desc != initial(desc)))
 		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
-		add_overlay(label)
-	return ..()
+		. += label
 
 /obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	// Always attempt to isolate diseases from reagent containers, if possible.

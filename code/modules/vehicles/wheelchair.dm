@@ -32,10 +32,6 @@
 	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
 	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT) //the wheelchair doesnt immobilize us like a bed would
 
-/obj/vehicle/ridden/wheelchair/ComponentInitialize()	//Since it's technically a chair I want it to have chair properties
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
-
 /obj/vehicle/ridden/wheelchair/atom_destruction(damage_flag)
 	new /obj/item/stack/rods(drop_location(), 1)
 	new /obj/item/stack/sheet/iron(drop_location(), 1)
@@ -50,7 +46,7 @@
 /obj/vehicle/ridden/wheelchair/driver_move(mob/living/user, direction)
 	if(istype(user))
 		if(canmove && (user.usable_hands < arms_required))
-			to_chat(user, "<span class='warning'>You don't have enough arms to operate the wheels!</span>")
+			to_chat(user, span_warning("You don't have enough arms to operate the wheels!"))
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
@@ -84,13 +80,16 @@
 	handle_rotation(newdir)
 
 /obj/vehicle/ridden/wheelchair/wrench_act(mob/living/user, obj/item/I)	//Attackby should stop it attacking the wheelchair after moving away during decon
-	to_chat(user, "<span class='notice'>You begin to detach the wheels...</span>")
+	to_chat(user, span_notice("You begin to detach the wheels..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You detach the wheels and deconstruct the chair.</span>")
+		to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
 		new /obj/item/stack/rods(drop_location(), 6)
 		new /obj/item/stack/sheet/iron(drop_location(), 4)
 		qdel(src)
 	return TRUE
+
+/obj/vehicle/ridden/wheelchair/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/vehicle/ridden/wheelchair/proc/handle_rotation(direction)
 	if(has_buckled_mobs())
@@ -103,20 +102,6 @@
 	cut_overlays()
 	var/image/V = image(icon = icon, icon_state = "wheelchair_overlay", layer = FLY_LAYER, dir = src.dir)
 	add_overlay(V)
-
-
-
-/obj/vehicle/ridden/wheelchair/proc/can_be_rotated(mob/living/user)
-	return TRUE
-
-/obj/vehicle/ridden/wheelchair/proc/can_user_rotate(mob/living/user)
-	var/mob/living/L = user
-	if(istype(L))
-		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-			return FALSE
-	if(isobserver(user) && CONFIG_GET(flag/ghost_interaction))
-		return TRUE
-	return FALSE
 
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))

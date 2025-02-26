@@ -44,8 +44,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HUSK				"husk"
 #define TRAIT_BADDNA			"baddna"
 #define TRAIT_CLUMSY			"clumsy"
+//means that you can't use weapons with normal trigger guards.
+#define TRAIT_CHUNKYFINGERS "chunkyfingers"
 #define TRAIT_DUMB				"dumb"
-#define TRAIT_DISCOORDINATED	"discoordinated" //sets IsAdvancedToolUser to FALSE on humans and monkies
+//Whether a mob is dexterous enough to use machines and certain items or not.
+#define TRAIT_ADVANCEDTOOLUSER "advancedtooluser"
+//Antagonizes the above.
+#define TRAIT_DISCOORDINATED	"discoordinated"
 #define TRAIT_PACIFISM			"pacifism"
 #define TRAIT_IGNORESLOWDOWN	"ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
@@ -60,6 +65,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SLEEPIMMUNE		"sleep_immunity"
 #define TRAIT_PUSHIMMUNE		"push_immunity"
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
+#define TRAIT_HOLY				"holy"
+#define TRAIT_ANTIMAGIC			"antimagic" //Unharmable
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic" /// This mob recently blocked magic with some form of antimagic
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock" /// This allows a person who has antimagic to cast spells without getting blocked
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+/// Can weave webs into cloth
+#define TRAIT_WEB_WEAVER "web_weaver"
 #define TRAIT_STABLEHEART		"stable_heart"
 #define TRAIT_STABLELIVER		"stable_liver"
 #define TRAIT_NOVOMIT			"no_vomit"
@@ -68,6 +82,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTCOLD		"resist_cold"
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
+#define TRAIT_BOMBIMMUNE "bomb_immunity"
 #define TRAIT_RADIMMUNE			"rad_immunity"
 #define TRAIT_NORADDAMAGE		"no_rad_damage"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
@@ -94,6 +109,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSLIPWATER		"noslip_water"
 /// Stops all slipping and sliding from ocurring
 #define TRAIT_NOSLIPALL "noslip_all"
+//Inherent trait preventing effects of stasis on a mob
+#define TRAIT_NOSTASIS "no_stasis"
+#define TRAIT_MARTIAL_ARTS_IMMUNE "martial_arts_immune" // nobody can use martial arts on this mob
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
@@ -170,6 +188,24 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BLOOD			"no_blood" // Bleeding heals itself and bleeding is impossible
 #define TRAIT_NO_BLEEDING		"no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
 #define TRAIT_BLOOD_COOLANT		"blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
+#define TRAIT_NO_BUMP_SLAM		"no_bump_slam"	// Disables the ability to slam into walls
+/// Trait given by being a hulk
+#define TRAIT_HULK "hulk"
+/// Trait that stores the skin colour of a mob
+#define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
+#define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
+
+/// This mob has no soul
+#define TRAIT_NO_SOUL "no_soul"
+/// Immune to being afflicted by time stop (spell)
+#define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
+/// Whether a spider's consumed this mob
+#define TRAIT_SPIDER_CONSUMED "spider_consumed"
+/// Whether we're sneaking, from the alien sneak ability.
+/// Maybe worth generalizing into a general "is sneaky" / "is stealth" trait in the future.
+#define TRAIT_ALIEN_SNEAK "sneaking_alien"
+/// This mob is phased out of reality from magic, either a jaunt or rod form
+#define TRAIT_MAGICALLY_PHASED "magically_phased"
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -200,6 +236,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
  */
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
+/// Properly wielded two handed item
+#define TRAIT_WIELDED "wielded"
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
@@ -232,6 +270,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
+/// Climbable trait, given and taken by the climbable element when added or removed. Exists to be easily checked via HAS_TRAIT().
+#define TRAIT_CLIMBABLE "trait_climbable"
+
 /// Allows heretics to cast their spells.
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
 /// Designates a heart as a living heart for a heretic.
@@ -243,7 +284,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA			"ageusia"
 #define TRAIT_HEAVY_SLEEPER		"heavy_sleeper"
-#define TRAIT_NIGHT_VISION		"night_vision"
+#define TRAIT_NIGHT_VISION_WEAK		"night_vision_trait"
 #define TRAIT_LIGHT_STEP		"light_step"
 #define TRAIT_SPIRITUAL			"spiritual"
 #define TRAIT_VORACIOUS			"voracious"
@@ -279,9 +320,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
+
+/// Is runechat for this atom/movable currently disabled, regardless of prefs or anything?
+#define TRAIT_RUNECHAT_HIDDEN "runechat_hidden"
+
+/// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
+#define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
+
 ///Turf trait for when a turf is transparent
 #define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
-
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
 #define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
@@ -310,7 +357,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// For unit testing, all do_afters set on this mob complete instantly and do not sleep
 #define INSTANT_DO_AFTER "instant_do_after"
-
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This means the user is currently holding/wearing a "tactical camouflage" item (like a potted plant).
 #define TRAIT_TACTICALLY_CAMOUFLAGED "tactically_camouflaged"
 
@@ -323,5 +371,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
-
+#define TRAIT_NIGHT_VISION "night_vision"
 // END TRAIT DEFINES

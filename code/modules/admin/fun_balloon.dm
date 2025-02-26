@@ -83,7 +83,7 @@
 		var/turf/T = find_safe_turf()
 		new /obj/effect/temp_visual/gravpush(get_turf(M))
 		M.forceMove(T)
-		to_chat(M, "<span class='notice'>Pop!</span>")
+		to_chat(M, span_notice("Pop!"))
 
 /obj/effect/station_crash
 	name = "station crash"
@@ -107,7 +107,7 @@
 
 /obj/effect/forcefield/arena_shuttle
 	name = "portal"
-	timeleft = 0
+	initial_duration = 0
 	var/list/warp_points = list()
 
 /obj/effect/forcefield/arena_shuttle/Initialize(mapload)
@@ -126,7 +126,7 @@
 		var/turf/LA = get_turf(pick(warp_points))
 		L.forceMove(LA)
 		L.hallucination = 0
-		to_chat(L, "<span class='reallybig redtext'>The battle is won. Your bloodlust subsides.</span>")
+		to_chat(L, span_reallybigredtext("The battle is won. Your bloodlust subsides."))
 		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)
 	else
@@ -143,7 +143,7 @@
 
 /obj/effect/forcefield/arena_shuttle_entrance
 	name = "portal"
-	timeleft = 0
+	initial_duration = 0
 	var/list/warp_points = list()
 
 /obj/effect/forcefield/arena_shuttle_entrance/Bumped(atom/movable/AM)
@@ -157,7 +157,7 @@
 	var/obj/effect/landmark/LA = pick(warp_points)
 	var/mob/living/M = AM
 	M.forceMove(get_turf(LA))
-	to_chat(M, "<span class='reallybig redtext'>You're trapped in a deadly arena! To escape, you'll need to drag a severed head to the escape portals.</span>")
+	to_chat(M, span_reallybigredtext("You're trapped in a deadly arena! To escape, you'll need to drag a severed head to the escape portals."))
 	spawn()
 		var/obj/effect/mine/pickup/bloodbath/B = new (M)
 		B.mineEffect(M)
@@ -165,5 +165,5 @@
 
 /area/shuttle_arena
 	name = "arena"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	requires_power = FALSE

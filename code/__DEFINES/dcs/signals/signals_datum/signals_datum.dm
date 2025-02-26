@@ -14,6 +14,22 @@
 /// fires on the target datum when an element is attached to it  (/datum/element)
 #define COMSIG_ELEMENT_DETACH "element_detach"
 
+// Merger datum signals
+/// Called on the object being added to a merger group: (datum/merger/new_merger)
+#define COMSIG_MERGER_ADDING "comsig_merger_adding"
+/// Called on the object being removed from a merger group: (datum/merger/old_merger)
+#define COMSIG_MERGER_REMOVING "comsig_merger_removing"
+/// Called on the merger after finishing a refresh: (list/leaving_members, list/joining_members)
+#define COMSIG_MERGER_REFRESH_COMPLETE "comsig_merger_refresh_complete"
+
+// Gas mixture signals
+/// From /datum/gas_mixture/proc/merge: ()
+#define COMSIG_GASMIX_MERGED "comsig_gasmix_merged"
+/// From /datum/gas_mixture/proc/remove: ()
+#define COMSIG_GASMIX_REMOVED "comsig_gasmix_removed"
+/// From /datum/gas_mixture/proc/react: ()
+#define COMSIG_GASMIX_REACTED "comsig_gasmix_reacted"
+
 /// Sent when the amount of materials in material_container changes
 #define COMSIG_MATERIAL_CONTAINER_CHANGED "material_container_changed"
 
@@ -74,9 +90,6 @@
 		#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"          //from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 
-// /datum/action signals
-#define COMSIG_ACTION_TRIGGER "action_trigger"						//! from base of datum/action/proc/Trigger(): (datum/action)
-	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
 
 // /datum/mind signals
 #define COMSIG_MIND_TRANSFER_TO		"mind_transfer_to"		// (mob/old, mob/new)
@@ -105,12 +118,6 @@
 #define COMSIG_ALARM_CLEAR(alarm_type) "!alarm_clear [alarm_type]"
 
 /// signals from globally accessible objects
-
-// Alarm listener datum signals
-///Sent when an alarm is fired (alarm, area/source_area)
-#define COMSIG_ALARM_TRIGGERED "comsig_alarm_triggered"
-///Send when an alarm source is cleared (alarm_type, area/source_area)
-#define COMSIG_ALARM_CLEARED "comsig_alarm_clear"
 
 // Radio jammer signals
 /// Calls something to toggle its jamming ability. (mob/user, silent = FALSE)
