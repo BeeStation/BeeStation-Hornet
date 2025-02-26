@@ -179,7 +179,7 @@ SELECT p.text, pv.rating, COUNT(*)
   *
   */
 /datum/admins/proc/poll_management_panel(datum/poll_question/poll)
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
+	var/list/output = list("<form method='get' action='byond://?src=[REF(src)]'>[HrefTokenFormField()]")
 	output += {"<input type='hidden' name='src' value='[REF(src)]'>Poll type
 	<div class="select">
 		<select name='polltype' [poll ? " disabled": ""]>
@@ -592,7 +592,7 @@ SELECT p.text, pv.rating, COUNT(*)
   *
   */
 /datum/admins/proc/poll_option_panel(datum/poll_question/poll, datum/poll_option/option)
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
+	var/list/output = list("<form method='get' action='byond://?src=[REF(src)]'>[HrefTokenFormField()]")
 	output += {"<input type='hidden' name='src' value='[REF(src)]'>	Option for poll [poll.question]
 	<br>
 	<textarea class='textbox' name='optiontext'>[option?.text]</textarea>
