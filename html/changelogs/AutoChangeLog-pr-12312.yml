@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Fixes some cabling issues on all maps, and makes them compatible with upcoming
+      smartcables.
