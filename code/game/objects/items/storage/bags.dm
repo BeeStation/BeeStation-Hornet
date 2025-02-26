@@ -478,8 +478,6 @@
 			/obj/item/reagent_containers/cup/beaker,
 			/obj/item/reagent_containers/cup/bottle,
 			/obj/item/reagent_containers/blood,
-			/obj/item/reagent_containers/cup/bottle,
-			/obj/item/reagent_containers/blood,
 			/obj/item/reagent_containers/hypospray/medipen,
 			/obj/item/food/deadmouse,
 			/obj/item/food/monkeycube,
