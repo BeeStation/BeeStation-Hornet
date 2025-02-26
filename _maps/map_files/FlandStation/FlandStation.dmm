@@ -9016,7 +9016,6 @@
 /area/asteroid/nearstation)
 "cqg" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -9024,6 +9023,7 @@
 	pixel_x = 22;
 	dir = 4
 	},
+/obj/machinery/chem_master/condimaster,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "cqq" = (
@@ -19817,12 +19817,10 @@
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
 "fhD" = (
-/obj/structure/table,
-/obj/item/food/pie/cream,
 /obj/effect/turf_decal/bot,
-/obj/item/kitchen/rollingpin,
-/obj/item/food/hotdog,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/food/hotdog,
+/obj/structure/table,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "fhF" = (
@@ -27020,12 +27018,12 @@
 	icon_state = "paperbag_NanotrasenStandard_closed"
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/item/reagent_containers/condiment/sugar,
 /obj/item/reagent_containers/condiment/flour{
 	pixel_x = 4
 	},
+/obj/structure/table,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "gSY" = (
@@ -49944,12 +49942,12 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "mLj" = (
-/obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/item/storage/box/ingredients/wildcard,
 /obj/item/food/mint,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/item/food/chocolatebar,
+/obj/structure/table,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "mLS" = (
@@ -54096,8 +54094,8 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "nRh" = (
-/obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/turf_decal/bot,
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "nRn" = (
@@ -56098,11 +56096,10 @@
 	pixel_y = 6;
 	req_access_txt = "28"
 	},
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/obj/item/food/pie/cream,
+/obj/item/kitchen/rollingpin,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "osz" = (
@@ -62436,9 +62433,12 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "qdx" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/microwave{
+	pixel_y = 5
+	},
+/obj/structure/table,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "qdH" = (
@@ -63514,16 +63514,19 @@
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "qrj" = (
-/obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Kitchen";
 	name = "service camera"
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/obj/item/food/spaghetti/raw,
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "qrm" = (
@@ -67207,9 +67210,9 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "roM" = (
-/obj/machinery/chem_master/condimaster,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/processor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "roS" = (
@@ -70880,6 +70883,9 @@
 "sis" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 6
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "siB" = (
@@ -74935,21 +74941,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"tkK" = (
-/obj/structure/table,
-/obj/item/food/spaghetti/raw,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "tkM" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -119714,12 +119705,12 @@ xNi
 xNi
 ttS
 roM
-fhD
+haU
 mib
 gSV
 czD
 mib
-haU
+fhD
 wRF
 hvk
 cDP
@@ -120228,7 +120219,7 @@ mWm
 xNi
 iLg
 pYP
-tkK
+haU
 mib
 mLj
 czD

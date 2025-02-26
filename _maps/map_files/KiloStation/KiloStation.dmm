@@ -1867,9 +1867,9 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "arD" = (
-/obj/structure/sink{
-	pixel_y = 26
-	},
+/obj/structure/kitchenspike,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "arE" = (
@@ -16433,9 +16433,6 @@
 /area/hallway/primary/fore)
 "dxY" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -16443,6 +16440,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/item/book/manual/chef_recipes{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/storage/bag/tray,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "dys" = (
@@ -20731,7 +20733,6 @@
 /area/quartermaster/warehouse)
 "eOE" = (
 /obj/effect/decal/cleanable/food/flour,
-/obj/effect/landmark/start/cook,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -22316,11 +22317,28 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "fms" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/processor,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
+	pixel_x = -8;
+	pixel_y = 2
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
@@ -30359,7 +30377,6 @@
 /turf/closed/wall,
 /area/hallway/primary/aft)
 "hTH" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/button/door{
 	id = "coldroom";
 	name = "Coldroom Shutter Toggle";
@@ -30369,6 +30386,7 @@
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/bot,
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "hTT" = (
@@ -38006,9 +38024,9 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "kqr" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/bot,
+/obj/machinery/food_cart,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "kqG" = (
@@ -38075,8 +38093,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/processor,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/oven,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "krs" = (
@@ -39131,10 +39149,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "kKc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
@@ -41948,13 +41962,9 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "lHW" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/item/storage/bag/tray,
-/obj/item/book/manual/chef_recipes{
-	pixel_x = -4;
-	pixel_y = 6
-	},
+/obj/machinery/oven,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "lHX" = (
@@ -49025,28 +49035,11 @@
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "nZh" = (
-/obj/structure/table,
-/obj/item/reagent_containers/condiment/peppermill{
-	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
-	pixel_x = -8;
-	pixel_y = 12
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 6;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/oven,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "nZk" = (
@@ -56370,11 +56363,14 @@
 /area/medical/cryo)
 "qnN" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/icecream_vat,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/microwave{
+	pixel_y = 5
+	},
+/obj/structure/table,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "qoh" = (
@@ -59698,11 +59694,11 @@
 /turf/open/floor/iron/dark,
 /area/storage/tcom)
 "rrK" = (
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/food_cart,
+/obj/machinery/processor,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "rrW" = (
@@ -65134,9 +65130,9 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "tdM" = (
-/obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/bot,
+/obj/machinery/icecream_vat,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "tdQ" = (
@@ -67685,6 +67681,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/white,
+/obj/effect/landmark/start/cook,
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/kitchen)
 "ubT" = (
@@ -74541,10 +74538,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
+/obj/machinery/griddle,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "wgW" = (

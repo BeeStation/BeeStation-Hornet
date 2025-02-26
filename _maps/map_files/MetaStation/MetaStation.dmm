@@ -775,10 +775,10 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "agV" = (
@@ -13227,7 +13227,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/obj/structure/closet/secure_closet/freezer/meat,
+/obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "bNF" = (
@@ -13464,7 +13464,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "bOX" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/table,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "bOY" = (
@@ -13739,7 +13739,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bQI" = (
-/obj/machinery/vending/wardrobe/chef_wardrobe,
+/obj/machinery/smartfridge/food,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
 "bQQ" = (
@@ -23319,7 +23319,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/vending/dinnerware,
+/obj/machinery/deepfryer,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "dLV" = (
@@ -25419,7 +25419,17 @@
 /area/library)
 "eDs" = (
 /obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/dish_drive{
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = -2
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "eDC" = (
@@ -32056,10 +32066,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/table,
-/obj/machinery/dish_drive{
-	pixel_y = 12
-	},
+/obj/machinery/griddle,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "hfu" = (
@@ -41708,9 +41715,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "kId" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/cooking_to_serve_man,
-/obj/item/storage/box/donkpockets,
+/obj/machinery/oven,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "kIn" = (
@@ -50300,14 +50305,16 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "nSl" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
 /obj/machinery/button/door{
 	id = "kitchenhydro";
 	name = "Service Shutter Control";
 	pixel_y = -24;
 	req_access_txt = "28"
+	},
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -55436,12 +55443,8 @@
 /area/engine/engineering)
 "pLS" = (
 /obj/structure/table,
-/obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 5
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -64073,6 +64076,7 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "sST" = (
@@ -66044,11 +66048,8 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "tDj" = (
+/obj/item/food/dough,
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 4
-	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "tDC" = (
@@ -69396,11 +69397,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 4
-	},
+/obj/machinery/processor,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "uNB" = (
@@ -72398,13 +72395,14 @@
 /area/medical/virology)
 "vOq" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/beaker{
+/obj/machinery/reagentgrinder{
+	pixel_y = 5;
 	pixel_x = 5
 	},
 /obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 6
+	pixel_y = 6;
+	pixel_x = -6
 	},
-/obj/item/food/mint,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "vOs" = (
@@ -73016,7 +73014,14 @@
 /turf/open/floor/iron,
 /area/maintenance/solars/port/fore)
 "wde" = (
-/obj/machinery/deepfryer,
+/obj/structure/table,
+/obj/item/storage/box/ingredients/fruity{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/food/mint{
+	pixel_x = -9
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "wdl" = (

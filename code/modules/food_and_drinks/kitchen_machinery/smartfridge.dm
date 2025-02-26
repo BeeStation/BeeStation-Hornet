@@ -18,7 +18,10 @@
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
+	/// Contents added on creation
 	var/list/initial_contents
+	/// Contents added after creation
+	var/list/additional_contents
 	var/visible_contents = TRUE
 	/// Is this smartfridge going to have a glowing screen? (Drying Racks are not)
 	var/has_emissive = TRUE
@@ -26,6 +29,17 @@
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
 	create_reagents(100, NO_REACT)
+
+	// Combine initial_contents and additional_contents
+	if(islist(initial_contents) && islist(additional_contents))
+		for(var/typekey in additional_contents)
+			var/amount = additional_contents[typekey]
+			if(isnull(amount))
+				amount = 1
+			if(initial_contents[typekey])
+				initial_contents[typekey] += amount
+			else
+				initial_contents[typekey] = amount
 
 	if(islist(initial_contents))
 		for(var/typekey in initial_contents)
@@ -60,8 +74,10 @@
 			icon_state = "[initial(icon_state)]1"
 		if(26 to 75)
 			icon_state = "[initial(icon_state)]2"
-		if(76 to INFINITY)
+		if(76 to 99)
 			icon_state = "[initial(icon_state)]3"
+		if(100)
+			icon_state = "[initial(icon_state)]4"
 	return ..()
 
 /obj/machinery/smartfridge/update_overlays()
@@ -439,12 +455,49 @@
 //  Food smartfridge
 // ----------------------------
 /obj/machinery/smartfridge/food
+	name = "smartfridge"
 	desc = "A refrigerated storage unit for food."
+	icon = 'icons/obj/machines/kitchen.dmi'
+	icon_state = "smartfridge_on"
+	max_n_of_items = 100
+	initial_contents = list(
+		/obj/item/reagent_containers/condiment/milk = 0,
+		/obj/item/reagent_containers/condiment/soymilk = 0,
+		/obj/item/storage/fancy/egg_box = 0,
+		/obj/item/food/meat/slab/monkey = 0,
+		/obj/item/reagent_containers/condiment/flour = 0,
+		/obj/item/reagent_containers/condiment/rice = 0,
+		/obj/item/reagent_containers/condiment/sugar = 0,
+	)
+
+/obj/machinery/smartfridge/food/Initialize(mapload)
+	if(!mapload)
+		return
+
+	var/list/items = list(
+		/obj/item/reagent_containers/condiment/milk,
+		/obj/item/reagent_containers/condiment/soymilk,
+		/obj/item/storage/fancy/egg_box,
+		/obj/item/food/meat/slab/monkey,
+		/obj/item/reagent_containers/condiment/flour,
+		/obj/item/reagent_containers/condiment/rice,
+		/obj/item/reagent_containers/condiment/sugar
+	)
+
+	additional_contents = list()
+	for (var/item_type in items)
+		additional_contents[item_type] = rand(1, 5)
+
+	. = ..()
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
-	if(IS_EDIBLE(O))
+	if(IS_EDIBLE(O)|| istype(O, /obj/item/reagent_containers/condiment)|| istype(O, /obj/item/storage/fancy/egg_box))
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/RefreshParts()
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
+		max_n_of_items = 1500 * B.rating
 
 // -------------------------------------
 // Xenobiology Slime-Extract Smartfridge
