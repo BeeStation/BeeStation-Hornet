@@ -123,6 +123,11 @@
 		update_static_data(AI)
 	else
 		if(AM.power_type)
+			if(AM.unlock_text)
+				to_chat(AI, AM.unlock_text)
+			if(AM.unlock_sound)
+				AI.playsound_local(AI, AM.unlock_sound, 50, 0)
+
 			if(!action) //Unlocking for the first time
 				var/datum/action/AC = new AM.power_type
 				AC.Grant(AI)
@@ -130,10 +135,7 @@
 				if(AM.one_purchase)
 					possible_modules[AM.category] -= AM
 					update_static_data(AI)
-				if(AM.unlock_text)
-					to_chat(AI, AM.unlock_text)
-				if(AM.unlock_sound)
-					AI.playsound_local(AI, AM.unlock_sound, 50, 0)
+
 			else //Adding uses to an existing module
 				action.uses += initial(action.uses)
 				action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."

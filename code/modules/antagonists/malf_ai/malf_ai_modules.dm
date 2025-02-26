@@ -83,10 +83,10 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/New()
 	. = ..()
-	desc = "[desc] It has [uses] use\s remaining."
+	desc = desc + (uses ? "It has [uses] use\s remaining." : "")
 
 /datum/action/innate/ai/proc/update_desc()
-	desc = "[initial(desc)] It has [uses] use\s remaining."
+	desc = initial(desc) + (uses ? "It has [uses] use\s remaining." : "")
 
 /datum/action/innate/ai/proc/adjust_uses(amt, silent)
 	uses += amt
@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 	var/turf/machine_turf = get_turf(to_explode)
 	message_admins("[ADMIN_LOOKUPFLW(user)] overloaded [to_explode.name] ([to_explode.type]) at [ADMIN_VERBOSEJMP(machine_turf)].")
-	user.log_message("overloaded [to_explode.name] ([to_explode.type])", LOG_ATTACK)
+	user.log_message("overloaded [to_explode.name]", LOG_ATTACK)
 	explosion(to_explode, heavy_impact_range = 2, light_impact_range = 3)
 	if(!QDELETED(to_explode)) //to check if the explosion killed it before we try to delete it
 		qdel(to_explode)
@@ -734,13 +734,12 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	to_chat(owner, span_notice("All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized."))
 	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, 0)
 
-/// Reactivate Camera Network: Reactivates up to 30 cameras across the station.
+/// Reactivate Camera Network: Reactivates up to 20 cameras across the station.
 /datum/ai_module/malf/utility/reactivate_cameras
 	name = "Reactivate Camera Network"
 	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. \
-		Can be used to repair up to 30 cameras."
+		Can be used to repair up to 20 cameras."
 	cost = 10
-	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/reactivate_cameras
 	unlock_text = span_notice("You deploy nanomachines to the cameranet.")
 	unlock_sound = 'sound/items/wirecutter.ogg'
@@ -749,7 +748,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	name = "Reactivate Cameras"
 	desc = "Reactivates disabled cameras across the station; remaining uses can be used later."
 	button_icon_state = "reactivate_cameras"
-	uses = 30
+	uses = 20
 	auto_use_uses = FALSE
 	cooldown_time = 3 SECONDS
 
