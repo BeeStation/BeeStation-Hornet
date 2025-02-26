@@ -19,7 +19,7 @@
 
 /obj/machinery/computer/telecomms/server/ui_interact(mob/user)
 	. = ..()
-	var/dat = "<TITLE>Telecommunication Server Monitor</TITLE><center><b>Telecommunications Server Monitor</b></center>"
+	var/dat = "<center><b>Telecommunications Server Monitor</b></center>"
 
 	switch(screen)
 
@@ -126,7 +126,7 @@
 
 
 
-	user << browse(dat, "window=comm_monitor;size=575x400")
+	user << browse(HTML_SKELETON_TITLE("Telecommunication Server Monitor", dat), "window=comm_monitor;size=575x400")
 	onclose(user, "server_control")
 
 	temp = ""

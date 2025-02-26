@@ -622,7 +622,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	dellog += "</ol>"
 
-	usr << browse(dellog.Join(), "window=dellog")
+	usr << browse(HTML_SKELETON(dellog.Join()), "window=dellog")
 
 /client/proc/cmd_display_overlay_log()
 	set category = "Debug"
