@@ -83,10 +83,10 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/New()
 	. = ..()
-	desc = desc + (uses ? "It has [uses] use\s remaining." : "")
+	desc = desc + (uses ? " It has [uses] use\s remaining." : "")
 
 /datum/action/innate/ai/proc/update_desc()
-	desc = initial(desc) + (uses ? "It has [uses] use\s remaining." : "")
+	desc = initial(desc) + (uses ? " It has [uses] use\s remaining." : "")
 
 /datum/action/innate/ai/proc/adjust_uses(amt, silent)
 	uses += amt
