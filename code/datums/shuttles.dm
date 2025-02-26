@@ -570,11 +570,11 @@
 
 /datum/map_template/shuttle/whiteship/pubby
 	suffix = "pubby"
-	name = "NT White UFO"
+	name = "NT Personal Trader"
 
 /datum/map_template/shuttle/whiteship/cere
 	suffix = "cere"
-	name = "NT Construction Vessel"
+	name = "Syndicate Probe Ship"
 
 /datum/map_template/shuttle/whiteship/delta
 	suffix = "delta"
