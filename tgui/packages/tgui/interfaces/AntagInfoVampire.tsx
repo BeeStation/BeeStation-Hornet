@@ -3,20 +3,13 @@ import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Divider, Dropdown, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
-
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-  complete: BooleanLike;
-  was_uncompleted: BooleanLike;
-  reward: number;
-};
+import { ObjectivesSection, Objective } from './common/ObjectiveSection';
+import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 type VampireInformation = {
   clan: ClanInfo[];
   in_clan: BooleanLike;
-  power: PowerInfo[];
+  powers: PowerInfo[];
 };
 
 type ClanInfo = {
@@ -26,199 +19,374 @@ type ClanInfo = {
 };
 
 type PowerInfo = {
-  power_name: string;
-  power_explanation: string;
-  power_icon: string;
+  name: string;
+  explanation: string;
+  icon: string;
+  cost: string;
+  constant_cost: string;
+  cooldown: string;
 };
 
 type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (props: any) => {
-  const { data } = useBackend<Info>();
-  const { objectives } = data;
-  return (
-    <Stack vertical>
-      <Stack.Item bold>Your current objectives:</Stack.Item>
-      <Stack.Item>
-        {(!objectives && 'None!') ||
-          objectives.map((objective) => (
-            <Stack.Item key={objective.count}>
-              #{objective.count}: {objective.explanation}
-            </Stack.Item>
-          ))}
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-export const AntagInfoVampire = (props: any) => {
+export const AntagInfoVampire = (_props) => {
   const [tab, setTab] = useLocalState('tab', 1);
   return (
-    <Window width={620} height={580} theme="narsie">
+    <Window width={620} height={900} theme="syndicate">
       <Window.Content>
         <Tabs>
-          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 1} onClick={() => setTab(1)}>
-            Introduction
+          <Tabs.Tab icon="list" selected={tab === 1} onClick={() => setTab(1)}>
+            Basics
           </Tabs.Tab>
-          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 2} onClick={() => setTab(2)}>
-            Clan & Powers
+          <Tabs.Tab icon="list" selected={tab === 2} onClick={() => setTab(2)}>
+            Powers
           </Tabs.Tab>
         </Tabs>
-        {tab === 1 && <VampireIntro />}
-        {tab === 2 && <VampireClan />}
+        {tab === 1 && <VampireIntroduction />}
+        {tab === 2 && <PowerSection />}
       </Window.Content>
     </Window>
   );
 };
 
-const VampireIntro = () => {
+const VampireIntroduction = (_props) => {
+  const { data } = useBackend<Info>();
+  const { objectives } = data;
   return (
     <Stack vertical fill>
-      <Stack.Item minHeight="16rem">
-        <Section scrollable fill>
-          <Stack vertical>
-            <Stack.Item textColor="red" fontSize="20px">
-              You are a Vampire, an undead blood-seeking monster living aboard Space Station 13
-            </Stack.Item>
-            <Stack.Item>
-              <ObjectivePrintout />
-            </Stack.Item>
-          </Stack>
-        </Section>
+      <Stack.Item>
+        <AntagInfoHeader name={'Vampire'} asset="traitor.png" />
+      </Stack.Item>
+      <Stack.Item grow maxHeight="150px">
+        <ObjectivesSection objectives={objectives} />
       </Stack.Item>
       <Stack.Item>
-        <Section fill title="Strengths and Weaknesses">
-          <Stack vertical>
-            <Stack.Item>
-              <span>
-                You regenerate your health slowly, you&#39;re weak to fire, and you depend on blood to survive. Don&#39;t allow
-                your blood to run too low, or you&#39;ll enter a
-              </span>
-              <span className={'color-red'}> Frenzy</span>!<br />
-              <br />
-              <span>
-                Avoid using your Feed ability near mortals, or else you will risk <i>breaking the Masquerade</i>!
-              </span>
-            </Stack.Item>
-          </Stack>
-        </Section>
+        <VampireGuide />
       </Stack.Item>
-      <Stack.Item>
-        <Section fill title="Items">
-          <Stack vertical>
-            <Stack.Item>
-              Rest in a <b>Coffin</b> to claim it, and that area, as your lair.
-              <br />
-              Examine your new structures to see how they function!
-              <br />
-              Medical and Genetic Analyzers can sell you out, your Masquerade ability will hide your identity to prevent this.
-              <br />
-            </Stack.Item>
-            <Stack.Item>
-              <Section textAlign="center" textColor="red" fontSize="20px">
-                Other Vampires are not necessarily your friends, but your survival may depend on cooperation. Betray them at
-                your own discretion and peril.
-              </Section>
-            </Stack.Item>
-          </Stack>
-        </Section>
+      <Stack.Item grow>
+        <ClanSection />
       </Stack.Item>
     </Stack>
   );
 };
 
-const VampireClan = (props: any) => {
-  const { act, data } = useBackend<VampireInformation>();
+const VampireGuide = (_props) => {
+  const [tab, setTab] = useLocalState('guideTab', 1);
+  return (
+    <Section title="Guide">
+      <Stack>
+        <Stack.Item>
+          <Tabs vertical>
+            <Tabs.Tab icon="list" selected={tab === 1} onClick={() => setTab(1)}>
+              The Basics
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 2} onClick={() => setTab(2)}>
+              Blood
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 3} onClick={() => setTab(3)}>
+              Masquerade
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 4} onClick={() => setTab(4)}>
+              Sol
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 5} onClick={() => setTab(5)}>
+              Your Lair
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 6} onClick={() => setTab(6)}>
+              Vassals
+            </Tabs.Tab>
+          </Tabs>
+        </Stack.Item>
+        <Stack.Divider />
+        <Stack.Item>
+          {tab === 1 && (
+            // The Basics
+            <Box>
+              As a vampire, you are a creature of the night, free from the weaknesses of mortals yet bound by your own.
+              <br /> <br />
+              <Box fontSize="20px" textColor="blue">
+                Your Strengths:
+              </Box>
+              <br />
+              <Box textColor="purple">Enhanced Senses</Box>Night vision and heat vision allow you to track prey and navigate the
+              shadows with ease.
+              <br /> <br />
+              <Box textColor="blue">Undead Physiology</Box>You do not breathe, have no heartbeat, and cannot be affected by
+              sleep or illness.
+              <br /> <br />
+              <Box textColor="darkgreen">Resilience</Box>The cold and radiation mean nothing to you. You cannot take toxin
+              damage, and even critical injuries will not knock you down.
+              <br /> <br />
+              <Box textColor="pink">Immense Strength</Box>As a vampire, your primary weapons are your hands. Each time you rank
+              up so does the damage that your fists deal.
+              <br /> <br />
+              <Box fontSize="20px" textColor="red">
+                Your Weaknesses:
+              </Box>
+              <br />
+              <Box textColor="red">Stakes</Box>A stake to the heart will paralyze you, disabling powers, halting all healing and
+              preventing revival.
+              <br /> <br />
+              <Box textColor="orange">Sol</Box>A stake to the heart will paralyze you, disabling powers, halting all healing and
+              preventing revival.
+              <br /> <br />
+              <Box textColor="gold">The Masquerade</Box>Being discovered as a vampire can lead to ruin. If your secret is
+              exposed, other vampires will turn against you and steal your vassals.
+              <br /> <br />
+            </Box>
+          )}
+          {tab === 2 && (
+            // Blood
+            <Box>
+              As an undead predator, you constantly feel the pull of{' '}
+              <Box inline textColor="red">
+                Hunger.
+              </Box>{' '}
+              Feeding is not just a luxury. <i>It is a necessity.</i> As your blood reaches zero you will slowly feel the side
+              effects, such as blurry vision and impaired healing.
+              <br /> <br />
+              When you finally deplete nearly all your blood you will enter a{' '}
+              <Box inline textColor="purple">
+                Frenzy.
+              </Box>{' '}
+              You become ravenous and able to instantly aggressively grab people. You cannot use any items that require
+              dexterity and lose access to all vampiric powers except{' '}
+              <Box inline textColor="red">
+                Feed
+              </Box>{' '}
+              and{' '}
+              <Box inline textColor="blue">
+                Trespass
+              </Box>
+              <br />
+              You will exit your frenzy after consuming{' '}
+              <Box inline textColor="red">
+                250 Blood.
+              </Box>
+            </Box>
+          )}
+          {tab === 3 && (
+            // Masquerade
+            <Box>
+              The only rule of the Kindred is maintaining the{' '}
+              <Box inline textColor="gold">
+                Masquerade.
+              </Box>{' '}
+              If an un-enlightened crewmember witnesses you feeding, you will recieve a
+              <Box inline textColor="red">
+                Masquerade Infraction.
+              </Box>
+              <br /> <br />
+              You will be allowed <b>three</b>{' '}
+              <Box inline textColor="red">
+                Masquerade Infractions
+              </Box>{' '}
+              before you officially break the Masquerade and are exiled from the Kindred.
+              <br /> <br />
+              The {"curator's "}
+              <Box inline textColor="blue">
+                Archive of the Kindred
+              </Box>{' '}
+              can instantly reveal your true identity if used on you with your <i>Masquerade Ability</i> disabled.
+            </Box>
+          )}
+          {tab === 4 && (
+            // Sol
+            <Box>
+              Every <i>10 minutes</i>,{' '}
+              <Box inline textColor="orange">
+                Sol
+              </Box>{' '}
+              arrives, bathing the station in light for <i>1 minute</i>. If you are not in a coffin or closet, you will burn.
+              <br /> <br />
+              The end of each{' '}
+              <Box inline textColor="orange">
+                Sol
+              </Box>{' '}
+              grants you the opportunity to rank up in your coffin. Ranking up will increase your strength, health, blood
+              capacity, and power capabilities.
+            </Box>
+          )}
+          {tab === 5 && (
+            // Lair
+            <Box>
+              Every vampire requires a lair. Whether it be in maintenance or the {"captain's"} bedroom, this is where you will
+              vassalize the crew and get up to other evil deeds.
+              <br /> <br />
+              To claim a lair you must bring a coffin to any room and rest inside of it. You can obtain a coffin in one of 3
+              primary ways:
+              <br /> <br />
+              Make one in the{' '}
+              <Box inline textColor="blue">
+                Crafting Menu
+              </Box>{' '}
+              under the{' '}
+              <Box inline textColor="blue">
+                Structures
+              </Box>{' '}
+              Category
+              <br />
+              The{' '}
+              <Box inline textColor="yellow">
+                Chapel
+              </Box>{' '}
+              often contains coffins
+              <br />
+              Coffins can rarely spawn in{' '}
+              <Box inline textColor="green">
+                Maintenance
+              </Box>
+            </Box>
+          )}
+          {tab === 6 && (
+            // Vassals
+            <Box>
+              A {"vampire's"} true strength lies in their ability to vassalize the crew.
+              <br /> <br />
+              Crewmembers can be vassalized by building a{' '}
+              <Box inline textColor="purple">
+                Persuasion Rack
+              </Box>
+              , securing it in your lair, attaching your victim, and <i>persuading</i> them. Vassals can only be deconverted by
+              way of{' '}
+              <Box inline textColor="red">
+                Mindshield.
+              </Box>
+              <br /> <br />
+              It <b>is</b> possible for{' '}
+              <Box inline textColor="red">
+                Mindshielded
+              </Box>{' '}
+              crewmembers to be vassalized if their mind is weak enough. It is impossible to convert servants of eldritch gods
+              however.
+              <br /> <br />
+              Additionally, you can promote <b>one</b> vassal into a{' '}
+              <Box inline textColor="blue">
+                Favorite Vassal
+              </Box>
+              , which will gain powers unique to the Clan that you have chosen.
+            </Box>
+          )}
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+const PowerSection = (_props) => {
+  const { data } = useBackend<VampireInformation>();
+  const { powers } = data;
+  if (!powers) {
+    return <Section minHeight="220px" />;
+  }
+
+  const [tab, setTab] = useLocalState('powerTab', 0);
+  return (
+    <Section title="Powers">
+      <Stack>
+        <Stack.Item>
+          <Tabs vertical>
+            {powers.map((power, index) => (
+              <Tabs.Tab key={index} selected={tab === index} onClick={() => setTab(index)}>
+                <Stack align="center">
+                  <Stack.Item>
+                    <Box
+                      inline
+                      as="img"
+                      src={resolveAsset(`${power.icon}.png`)}
+                      width="32px"
+                      style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>{power.name}</Stack.Item>
+                </Stack>
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Stack.Item>
+        <Stack.Divider />
+        <Stack.Item grow>
+          {powers.map(
+            (power, index) =>
+              tab === index && (
+                <Box key={index}>
+                  <Box inline bold textColor="red">
+                    {power.cost !== '0' && (
+                      <>
+                        BLOOD COST: {power.cost}
+                        <br />
+                      </>
+                    )}
+                    {power.constant_cost !== '0' && (
+                      <>
+                        BLOOD DRAIN: {power.constant_cost}
+                        <br />
+                        <br />
+                      </>
+                    )}
+                    {power.cooldown !== '0' && (
+                      <>
+                        COOLDOWN: {power.cooldown} seconds
+                        <br />
+                        <br />
+                      </>
+                    )}
+                  </Box>
+                  <Box style={{ whiteSpace: 'pre-wrap' }}>{power.explanation}</Box>
+                </Box>
+              )
+          )}
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+const ClanSection = (props: any) => {
+  const { data } = useBackend<VampireInformation>();
   const { clan, in_clan } = data;
 
   if (!in_clan) {
     return (
-      <Section minHeight="220px">
-        <Box mt={5} bold textAlign="center" fontSize="40px">
-          You are not in a Clan.
-        </Box>
+      <Section title="Clan">
+        <Stack vertical>
+          <Stack.Item fontSize="20px">
+            <Box inline textColor="red">
+              You are not in a clan!
+            </Box>
+          </Stack.Item>
+          <Stack.Item>To enter a clan you must first claim a lair by sleeping in a coffin.</Stack.Item>
+        </Stack>
       </Section>
     );
   }
 
   return (
-    <Stack vertical fill>
-      <Stack.Item minHeight="20rem">
-        <Section scrollable fill>
-          <Stack vertical>
-            <Stack.Item>
-              {clan.map((ClanInfo) => (
-                <>
-                  <Stack.Item fontSize="20px" textAlign="center">
-                    <Box
-                      inline
-                      as="img"
-                      src={resolveAsset(`vampire.${ClanInfo.clan_icon}.png`)}
-                      width="64px"
-                      style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
-                    />
-                    You are part of the {ClanInfo.clan_name}
-                  </Stack.Item>
-                  <Stack.Item fontSize="16px">{ClanInfo.clan_description}</Stack.Item>
-                </>
-              ))}
-            </Stack.Item>
-          </Stack>
-        </Section>
-        <PowerSection />
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const PowerSection = (props: any) => {
-  const { act, data } = useBackend<VampireInformation>();
-  const { power } = data;
-  if (!power) {
-    return <Section minHeight="220px" />;
-  }
-
-  const [selectedPower, setSelectedPower] = useLocalState('power', power[0]);
-
-  return (
-    <Section
-      fill
-      scrollable={!!power}
-      title="Powers"
-      buttons={
-        <Button
-          icon="info"
-          tooltipPosition="left"
-          tooltip={'Select a Power using the dropdown menu for an in-depth explanation.'}
-        />
-      }>
+    <Section title="Clan">
       <Stack>
-        <Stack.Item minWidth="15rem">
-          <Dropdown
-            displayText={selectedPower.power_name}
-            selected={selectedPower.power_name}
-            width="100%"
-            options={power.map((powers) => powers.power_name)}
-            onSelected={(powerName: string) => setSelectedPower(power.find((p) => p.power_name === powerName) || power[0])}
-          />
-          <Box
-            as="img"
-            height="15rem"
-            src={resolveAsset(`vampire.${selectedPower.power_icon}.png`)}
-            style={{
-              '-ms-interpolation-mode': 'nearest-neighbor',
-              'position': 'absolute',
-              'top': '57%',
-              'left': '17%',
-              'transform': 'translate(-50%, -50%)',
-            }}
-          />
-        </Stack.Item>
-        <Stack.Divider />
-        <Stack.Item scrollable grow={1} fontSsize="16px" style={{ whiteSpace: 'pre-wrap' }}>
-          {selectedPower && selectedPower.power_explanation}
+        <Stack.Item>
+          {clan.map((ClanInfo) => (
+            <>
+              <Stack.Item fontSize="20px" textAlign="center">
+                <Box
+                  inline
+                  as="img"
+                  src={resolveAsset(`${ClanInfo.clan_icon}.png`)}
+                  width="128px"
+                  style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
+                />
+                <Box inline textColor="red">
+                  You are part of the {ClanInfo.clan_name}!
+                </Box>
+              </Stack.Item>
+              <Stack.Item fontSize="16px">
+                <br />
+                {ClanInfo.clan_description}
+              </Stack.Item>
+            </>
+          ))}
         </Stack.Item>
       </Stack>
     </Section>

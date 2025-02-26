@@ -11,9 +11,8 @@
 	var/name = CLAN_NONE
 	///Description of what the clan is, given when joining and through your antag UI.
 	var/description = "The Caitiff is as basic as you can get with Vampires. \n\
-		Entirely Clan-less, they are blissfully unaware of who they really are. \n\
-		No additional abilities is gained, nothing is lost, if you want a plain Vampire, this is it. \n\
-		The Favorite Vassal will gain the Brawn ability, to help in combat."
+		No additional abilities are gained, nothing is lost, if you want a plain Vampire, this is it. \n\
+		Your Favorite Vassal will gain the Brawn ability, to help in combat."
 	///The clan objective that is required to greentext.
 	var/datum/objective/vampire/clan_objective
 	///The icon of the radial icon to join this clan.

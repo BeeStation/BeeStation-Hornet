@@ -330,11 +330,15 @@
 	for(var/datum/action/cooldown/vampire/power as anything in powers)
 		var/list/power_data = list()
 
-		power_data["power_name"] = power.name
-		power_data["power_explanation"] = power.power_explanation
-		power_data["power_icon"] = power.button_icon_state
+		power_data["name"] = power.name
+		power_data["explanation"] = power.power_explanation
+		power_data["icon"] = power.button_icon_state
 
-		data["power"] += list(power_data)
+		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
+		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
+		power_data["cooldown"] = power.cooldown_time / 10
+
+		data["powers"] += list(power_data)
 
 	return data + ..()
 
