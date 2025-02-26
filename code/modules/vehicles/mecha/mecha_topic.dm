@@ -4,7 +4,7 @@
 ////////////////////////////////////
 
 /obj/vehicle/sealed/mecha/proc/get_stats_html(mob/user)
-	. = {"<html>
+	. = {"<!DOCTYPE html><html>
 			<head>
 				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<title>[name] data</title>
