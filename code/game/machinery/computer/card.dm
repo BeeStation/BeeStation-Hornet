@@ -508,7 +508,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			body = "<a href='byond://?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
 			body += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a>"
 			if(!target_dept)
-				body += "<br><hr><a href = 'byond://?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
+				body += "<br><hr><a href='byond://?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
 			body += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
 			if(target_dept == DEPT_ALL) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
 				body += "<a href='byond://?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
