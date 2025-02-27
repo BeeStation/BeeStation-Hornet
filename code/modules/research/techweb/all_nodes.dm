@@ -1712,7 +1712,6 @@
 		"weaponry",
 	)
 	design_ids = list(
-		"ioncarbine",
 		"stunrevolver",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
