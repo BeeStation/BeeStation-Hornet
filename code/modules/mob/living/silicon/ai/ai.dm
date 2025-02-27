@@ -1006,6 +1006,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/matrix/M = matrix()
 	M.Turn(rotation)
 	transform = M
+	playsound(target, 'sound/effects/bang.ogg', 50, TRUE)
 	throw_at(target, 1, 1, spin = FALSE)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
