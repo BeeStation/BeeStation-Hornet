@@ -9,6 +9,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
+	fire_rate = 1.5
 
 /obj/item/gun/energy/ionrifle/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
@@ -19,13 +20,15 @@
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
-	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
+	desc = "The MK.II Prototype Ion Projector is much faster, built to be ergonomic and efficient, but packs less of a punch per shot."
 	icon_state = "ioncarbine"
 	worn_icon_state = "ioncarbine"
-	w_class = WEIGHT_CLASS_LARGE
+	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
+	ammo_type = list(/obj/item/ammo_casing/energy/ion/weak)
 	ammo_x_offset = 2
+	fire_rate = 2.5
 
 /obj/item/gun/energy/ionrifle/carbine/add_seclight_point()
 	. = ..()
