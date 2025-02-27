@@ -7,7 +7,7 @@
 	return ..(max(scale_reward * 0.7, 1.2))
 
 /datum/bounty/item/core/bleed
-	name = "Bleed Anomaly Core"
+	name = "Blood Anomaly Core"
 	reward = 25000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/blood)
 
