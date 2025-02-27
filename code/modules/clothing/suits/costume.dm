@@ -329,6 +329,18 @@
 	actions_types = list(/datum/action/item_action/toggle_human_head)
 	hoodtype = /obj/item/clothing/head/hooded/human_head
 
+/obj/item/clothing/suit/hooded/banana
+	name = "Banana suit"
+	desc = "Become the embodiment of potassium!."
+	icon_state = "banana"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
+	item_state = "banana"
+	body_parts_covered = CHEST|GROIN
+	flags_inv = HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/banana
+
+
 /obj/item/clothing/suit/costume/striped_sweater
 	name = "striped sweater"
 	desc = "Reminds you of someone, but you just can't put your finger on it..."

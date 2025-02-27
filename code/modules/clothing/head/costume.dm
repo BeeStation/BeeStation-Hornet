@@ -234,12 +234,13 @@
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "bee"
 	body_parts_covered = HEAD
-	clothing_flags = THICKMATERIAL | SNUG_FIT
+	clothing_flags =  SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
+	clothing_flags = THICKMATERIAL | SNUG_FIT
 	armor_type = /datum/armor/bee_costume_syndie
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
 
@@ -275,3 +276,14 @@
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+
+/obj/item/clothing/head/hooded/banana_hood
+	name = "banana hood"
+	desc = "A hood attached to a banana costume."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	icon_state = "banana"
+	body_parts_covered = HEAD
+	clothing_flags = SNUG_FIT
+	flags_inv = HIDEHAIR|HIDEEARS
+	dynamic_hair_suffix = ""
