@@ -3213,6 +3213,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "bpn" = (
@@ -4277,9 +4278,6 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
 "bPr" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/fence/door{
 	req_one_access_txt = "32"
 	},
@@ -10710,14 +10708,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/crew_quarters/kitchen/coldroom)
-"eZG" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/techmaint/planetary{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/asteroid/paradise/surface)
 "eZH" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -14442,6 +14432,9 @@
 /obj/effect/turf_decal/evac/evac_big{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
@@ -17313,10 +17306,11 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "ikz" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/asteroid/snow/planetary,
+/turf/open/floor/plating/snowed/smoothed/planetary,
 /area/asteroid/paradise/surface)
 "ikE" = (
 /obj/structure/railing,
@@ -18728,7 +18722,7 @@
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
 "iYn" = (
-/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "iYQ" = (
@@ -19400,11 +19394,6 @@
 /obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
-"jrL" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
 "jsb" = (
 /obj/machinery/atmospherics/components/trinary/mixer/flipped{
 	dir = 8
@@ -23771,10 +23760,13 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "lwo" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
+/obj/structure/fence{
+	dir = 8
 	},
-/turf/open/floor/plating/snowed/smoothed/planetary,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/asteroid/snow/planetary,
 /area/asteroid/paradise/surface)
 "lxo" = (
 /obj/structure/closet/crate,
@@ -28873,9 +28865,6 @@
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "ocv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
@@ -31146,9 +31135,8 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "pdR" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/iron,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "pdU" = (
 /obj/structure/ladder,
@@ -33021,9 +33009,7 @@
 /area/hallway/primary/aft)
 "qdf" = (
 /obj/machinery/power/smes,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/asteroid/paradise/surface)
 "qdm" = (
@@ -35839,6 +35825,9 @@
 /area/maintenance/department/science/central)
 "rzJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/asteroid/paradise/surface/sand)
 "rAh" = (
@@ -47875,9 +47864,6 @@
 /obj/machinery/power/solar_control{
 	use_power = 0;
 	idle_power_usage = 0
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -189329,7 +189315,7 @@ xdL
 tOf
 xdL
 pdR
-jrL
+iYn
 voC
 voC
 voC
@@ -189581,11 +189567,11 @@ uYG
 ouX
 hif
 fmH
-btO
+tBy
 btO
 moh
 btO
-tBy
+pdR
 iYn
 bzO
 shD
@@ -265430,8 +265416,8 @@ gpg
 uDA
 uDA
 bIK
-lwo
-ikz
+yjV
+wVV
 bPr
 ocv
 pPR
@@ -265687,10 +265673,10 @@ gpg
 uDA
 cnJ
 wGC
-bIK
+yjV
 sBX
 xzJ
-eZG
+wXl
 uJN
 wXl
 trc
@@ -266202,8 +266188,8 @@ wVV
 jSw
 bIK
 rzJ
-kqB
-lEc
+ikz
+lwo
 qdf
 xCK
 sol
