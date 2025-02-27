@@ -70,7 +70,7 @@
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
 				return
-	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
+	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes && LEFT_CLICK)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
 			return
