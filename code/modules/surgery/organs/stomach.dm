@@ -196,8 +196,6 @@
 	desc = "A basic device designed to mimic the functions of a human stomach"
 	organ_flags = ORGAN_SYNTHETIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
-	var/emp_vulnerability = 80 //Chance of permanent effects if emp-ed.
-	COOLDOWN_DECLARE(severe_cooldown)
 
 /obj/item/organ/stomach/cybernetic/upgraded
 	name = "cybernetic stomach"
@@ -205,17 +203,13 @@
 	desc = "An electronic device designed to mimic the functions of a human stomach. Handles disgusting food a bit better."
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD
 	disgust_metabolism = 2
-	emp_vulnerability = 40
 
 /obj/item/organ/stomach/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(!COOLDOWN_FINISHED(src, severe_cooldown)) //So we cant just spam emp to kill people.
+	if(prob(30/severity))
 		owner.vomit(stun = FALSE)
-		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
-	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
-		organ_flags |= ORGAN_FAILING //Starts organ failure - gonna need replacing soon.
 
 /obj/item/organ/stomach/diona
 	name = "nutrient vessel"

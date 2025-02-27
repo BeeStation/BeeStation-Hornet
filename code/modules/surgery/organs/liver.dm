@@ -112,11 +112,8 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	switch(severity)
-		if(1)
-			damage+=100
-		if(2)
-			damage+=50
+	if(prob(30/severity))
+		damage += (30/severity)
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc
 	name = "substance processor"
