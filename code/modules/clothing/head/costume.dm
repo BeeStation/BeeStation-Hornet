@@ -285,5 +285,5 @@
 	icon_state = "banana"
 	body_parts_covered = HEAD
 	clothing_flags = SNUG_FIT
-	flags_inv = HIDEHAIR|HIDEEARS
+	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACIALHAIR
 	dynamic_hair_suffix = ""
