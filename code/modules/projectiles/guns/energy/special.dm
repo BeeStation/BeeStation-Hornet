@@ -7,9 +7,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
-	ammo_type = list(/obj/item/ammo_casing/energy/ion)
+	ammo_type = list(/obj/item/ammo_casing/energy/ion) //Heavy EMP, 15 shots
 	ammo_x_offset = 3
 	fire_rate = 1.5
+	gun_charge = 1200
 
 /obj/item/gun/energy/ionrifle/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
@@ -26,9 +27,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
-	ammo_type = list(/obj/item/ammo_casing/energy/ion/weak)
+	ammo_type = list(/obj/item/ammo_casing/energy/ion/weak) //Light EMP, 24 shots
 	ammo_x_offset = 2
 	fire_rate = 2.5
+	full_auto = TRUE
 
 /obj/item/gun/energy/ionrifle/carbine/add_seclight_point()
 	. = ..()
