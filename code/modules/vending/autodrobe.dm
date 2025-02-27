@@ -124,7 +124,7 @@
 					/obj/item/clothing/suit/hooded/carp_costume = 3,
 					/obj/item/clothing/suit/hooded/ian_costume = 3,
 					/obj/item/clothing/suit/hooded/bee_costume = 3,
-					/obj/item/clothing/suit/hooded/banana_costume = 3,
+					/obj/item/clothing/suit/hooded/banana = 3,
 					/obj/item/clothing/suit/costume/dracula = 3,
 					/obj/item/clothing/under/costume/draculass = 3,
 					/obj/item/clothing/suit/costume/snowman = 3,

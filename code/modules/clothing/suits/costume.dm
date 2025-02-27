@@ -338,8 +338,7 @@
 	item_state = "banana"
 	body_parts_covered = CHEST|GROIN
 	flags_inv = HIDEJUMPSUIT
-	hoodtype = /obj/item/clothing/head/hooded/banana
-
+	hoodtype = /obj/item/clothing/head/hooded/banana_hood
 
 /obj/item/clothing/suit/costume/striped_sweater
 	name = "striped sweater"
