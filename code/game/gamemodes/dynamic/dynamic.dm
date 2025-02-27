@@ -39,6 +39,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/executed_roundstart_rulesets = list()
 	/// List of candidates used on roundstart rulesets.
 	var/list/roundstart_candidates = list()
+	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value when calculated
+	/// Defined here so they can be configured in 'dynamic.json'
+	var/divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
+	var/divergence_percent_upper = DYNAMIC_POINT_DIVERGENCE_UPPER
+
+
 
 	/*
 	 * Other variables
@@ -89,27 +95,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	// Load dynamic.json configurations into each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
-	/*
-	 * Ready players add 1
-	 * Unready players add 0.5
-	 * Observing players add 0
-	 * TODO: make these config values
-	*/
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
-		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
-			continue
-		if(player.ready == PLAYER_READY_TO_PLAY)
-			roundstart_points += 1
-			roundstart_candidates.Add(player)
-		else
-			roundstart_points += 0.5
-	roundstart_points = round(roundstart_points, 1)
+	set_roundstart_points()
 
 	// Log ready the configured roundstart rulesets and ready players
-	log_game("DYNAMIC: Listing [configured_roundstart_rulesets.len] round start rulesets, and [roundstart_candidates.len] players ready.")
+	log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] round start rulesets, and [length(roundstart_candidates)] players ready.")
 	if(!length(roundstart_candidates))
-		log_game("DYNAMIC: FAIL: [roundstart_candidates.len] roundstart_candidates.")
+		log_game("DYNAMIC: FAIL: no roundstart candidates.")
 		return TRUE
 
 	// Pick rulesets to be executed from 'configured_roundstart_rulesets'
@@ -155,6 +146,29 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.banned_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 	return ruleset
+
+/*
+* Ready players add 1
+* Unready players add 0.5
+* Observing players add 0
+* TODO: make these config values
+* Add some RNG at the end so we don't have super predictable rounds
+*/
+/datum/game_mode/dynamic/proc/set_roundstart_points()
+	for(var/i in GLOB.new_player_list)
+		var/mob/dead/new_player/player = i
+		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
+			continue
+		if(player.ready == PLAYER_READY_TO_PLAY)
+			roundstart_points += 1
+			roundstart_candidates.Add(player)
+		else
+			roundstart_points += 0.5
+
+	var/point_divergence = 1 + rand(-divergence_percent_lower, divergence_percent_upper) / 100
+	roundstart_points *= point_divergence
+
+	roundstart_points = round(roundstart_points, 1)
 
 /*
 * Pick the roundstart rulesets to run based off of their configured variables (weight, cost, etc.)

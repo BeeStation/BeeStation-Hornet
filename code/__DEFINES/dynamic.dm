@@ -1,3 +1,8 @@
+/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value when calculated
+/// These should be configured in 'dynamic.json'
+#define DYNAMIC_POINT_DIVERGENCE_LOWER 20
+#define DYNAMIC_POINT_DIVERGENCE_UPPER 40
+
 /// This is the only ruleset that should be picked this round, used by admins and should not be on rulesets in code.
 #define ONLY_RULESET (1 << 0)
 
@@ -10,7 +15,7 @@
 /// This ruleset can't execute alongside ANY other roundstart ruleset.
 #define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
 
-///
+/// If this flag is set dynamic will call rule_process() every tick
 #define SHOULD_PROCESS_RULESET (1 << 4)
 
 /// This ruleset should only be rolled if the station is mostly intact, i.e the crew is not mostly dead and the station isn't full of holes.

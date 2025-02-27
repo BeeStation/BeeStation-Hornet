@@ -90,7 +90,7 @@
 */
 /datum/dynamic_ruleset/proc/allowed()
 	if(length(candidates) < drafted_players_amount)
-		// log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
+		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
 		return FALSE
 	return TRUE
 
