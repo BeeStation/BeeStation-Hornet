@@ -104,8 +104,6 @@
 
 			//mjolnir is funky so it gets a bypass
 			if(istype(item_to_retrieve.loc, /obj/structure/anchored_mjolnir))
-				var/obj/structure/anchored_mjolnir/mjolnir = item_to_retrieve.loc
-				mjolnir.contained.forceMove(mjolnir.loc)
 				break
 
 			// If its on someone, properly drop it
