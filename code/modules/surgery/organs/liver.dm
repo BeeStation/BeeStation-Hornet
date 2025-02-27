@@ -130,12 +130,9 @@
 	status = ORGAN_ROBOTIC
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc/emp_act(severity)
-	to_chat(owner, span_warning("Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance."))
-	switch(severity)
-		if(1)
-			owner.toxloss += 15
-		if(2)
-			owner.toxloss += 5
+	if(prob(30/severity))
+		to_chat(owner, span_warning("Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance."))
+		owner.adjustToxLoss(8/severity)
 
 /obj/item/organ/liver/diona
 	name = "liverwort"

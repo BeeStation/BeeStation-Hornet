@@ -255,13 +255,9 @@
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	switch(severity)
-		if(1)
-			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
-			to_chat(owner, span_warning("Alert: Posibrain heavily damaged."))
-		if(2)
-			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
-			to_chat(owner, span_warning("Alert: Posibrain damaged."))
+	if(prob(30/severity)) //25% for light, 50% for heavy
+		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
+		to_chat(owner, span_warning("Alert: Posibrain damaged."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 

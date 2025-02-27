@@ -144,13 +144,8 @@
 		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
 
 /obj/item/organ/stomach/battery/emp_act(severity)
-	switch(severity)
-		if(1)
-			adjust_charge(-0.5 * max_charge)
-			applyOrganDamage(30)
-		if(2)
-			adjust_charge(-0.25 * max_charge)
-			applyOrganDamage(15)
+	. = ..()
+	adjust_charge((-0.3 * max_charge) / severity)
 
 /obj/item/organ/stomach/battery/ipc
 	name = "micro-cell"
