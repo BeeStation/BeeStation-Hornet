@@ -2,7 +2,6 @@
 	"Dynamic": {
 		"divergence_percent_lower": 20,
 		"divergence_percent_upper": 20,
-		"roundstart_points_per_observer": 0,
 		"roundstart_points_per_ready": 1,
 		"roundstart_points_per_unready": 0.5
 	},

@@ -34,11 +34,12 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/// Configurable
 
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
+	/// These should always be greater than 0 and an integer. NO DECIMALS!
 	/// These are defined here so they can be configured in 'dynamic.json'
 	var/divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
 	var/divergence_percent_upper = DYNAMIC_POINT_DIVERGENCE_UPPER
 	/// How many roundstart points should be granted per player based off their status (OBSERVING, READY, UNREADY)
-	/// Also defined here so they can be configured in 'dynamic.json'
+	/// Defined here so they can be configured in 'dynamic.json'
 	var/roundstart_points_per_observer = DYNAMIC_POINTS_PER_OBSERVER
 	var/roundstart_points_per_ready = DYNAMIC_POINTS_PER_READY
 	var/roundstart_points_per_unready = DYNAMIC_POINTS_PER_UNREADY

@@ -1,5 +1,6 @@
 /// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value.
-/// These are really meant to just be placeholder values and should be configured in 'dynamic.json'
+/// These should always be greater than 0 and an integer. NO DECIMALS!
+/// These should ideally be configured in 'dynamic.json'
 #define DYNAMIC_POINT_DIVERGENCE_LOWER 20
 #define DYNAMIC_POINT_DIVERGENCE_UPPER 40
 
