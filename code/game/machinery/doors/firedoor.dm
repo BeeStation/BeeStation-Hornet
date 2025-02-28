@@ -634,69 +634,6 @@
 	density = TRUE
 	alarm_type = FIRELOCK_ALARM_TYPE_GENERIC
 
-/obj/machinery/door/firedoor/border_only
-	icon = 'icons/obj/doors/firelocks/edge_Doorfire.dmi'
-	flags_1 = ON_BORDER_1
-	can_atmos_pass = ATMOS_PASS_PROC
-
-/obj/machinery/door/firedoor/border_only/closed
-	icon_state = "door_closed"
-	density = TRUE
-	alarm_type = FIRELOCK_ALARM_TYPE_GENERIC
-
-/obj/machinery/door/firedoor/border_only/Initialize(mapload)
-	. = ..()
-	adjust_lights_starting_offset()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
-	)
-
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/machinery/door/firedoor/border_only/adjust_lights_starting_offset()
-	light_xoffset = 0
-	light_yoffset = 0
-	switch(dir)
-		if(NORTH)
-			light_yoffset = 2
-		if(SOUTH)
-			light_yoffset = 0
-		if(EAST)
-			light_xoffset = 2
-		if(WEST)
-			light_xoffset = -2
-	update_overlays()
-	update_icon()
-
-/obj/machinery/door/firedoor/border_only/Moved()
-	. = ..()
-	adjust_lights_starting_offset()
-
-/obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(!(border_dir == dir)) //Make sure looking at appropriate border
-		return TRUE
-
-/obj/machinery/door/firedoor/border_only/CanAStarPass(obj/item/card/id/ID, to_dir)
-	return !density || (dir != to_dir)
-
-/obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, direction)
-	SIGNAL_HANDLER
-	if(leaving.movement_type & PHASING)
-		return
-	if(leaving == src)
-		return // Let's not block ourselves.
-
-	if(direction == dir && density)
-		leaving.Bump(src)
-		return COMPONENT_ATOM_BLOCK_EXIT
-
-/obj/machinery/door/firedoor/border_only/can_atmos_pass(turf/T, vertical = FALSE)
-	if(get_dir(loc, T) == dir)
-		return !density
-	else
-		return TRUE
-
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/firelocks/doorfire.dmi'
@@ -704,25 +641,6 @@
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
-
-/obj/machinery/door/firedoor/window
-	name = "firelock window shutter"
-	icon = 'icons/obj/doors/firelocks/doorfirewindow.dmi'
-	desc = "A second window that slides in when the original window is broken, designed to protect against hull breaches. Truly a work of genius by NT engineers."
-	glass = TRUE
-	explosion_block = 0
-	max_integrity = 100
-	resistance_flags = 0 // not fireproof
-	heat_proof = FALSE
-	assemblytype = /obj/structure/firelock_frame/window
-
-/obj/machinery/door/firedoor/window/attack_alien(mob/living/carbon/alien/humanoid/user)
-	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-	return attack_generic(user, 60, BRUTE, MELEE, 0)
-
-/obj/machinery/door/firedoor/window/process(delta_time)
-	set waitfor = FALSE
-	return PROCESS_KILL
 
 /obj/item/electronics/firelock
 	name = "firelock circuitry"
@@ -774,21 +692,10 @@
 				update_icon()
 				return
 			if(attacking_object.tool_behaviour == TOOL_WRENCH)
-				var/obj/machinery/door/firedoor/conflicting = locate(/obj/machinery/door/firedoor) in get_turf(src)
-				if(conflicting && ((type != /obj/structure/firelock_frame/border) || \
-						!istype(conflicting, /obj/machinery/door/firedoor/border_only) || (conflicting.dir == dir)))
-					to_chat(user, span_warning("There's already a firelock there."))
-					return
 				attacking_object.play_tool_sound(src)
 				user.visible_message("<span class = 'notice'>[user] starts bolting down [src]...</span>", \
 					"<span class = 'notice'>You begin bolting [src]...</span>")
 				if(!attacking_object.use_tool(src, user, DEFAULT_STEP_TIME))
-					return
-
-				conflicting = locate(/obj/machinery/door/firedoor) in get_turf(src)
-				if(conflicting && ((type != /obj/structure/firelock_frame/border) || \
-						!istype(conflicting, /obj/machinery/door/firedoor/border_only) || (conflicting.dir == dir)))
-					to_chat(user, span_warning("There's already a firelock there."))
 					return
 				user.visible_message("<span class = 'notice'>[user] finishes the firelock.</span>", \
 					"<span class = 'notice'>You finish the firelock.</span>")
@@ -846,12 +753,17 @@
 				if(attacking_object.use_tool(src, user, DEFAULT_STEP_TIME, volume=50))
 					if(constructionStep != CONSTRUCTION_NO_CIRCUIT)
 						return
-					user.visible_message("<span class = 'notice'>[user] cuts apart [src]!</span>", \
-						"<span class = 'notice'>You cut [src] into metal.</span>")
-					var/turf/tagetloc = get_turf(src)
-					new /obj/item/stack/sheet/iron(tagetloc, 3)
-					if(firelock_type == /obj/machinery/door/firedoor/heavy)
-						new /obj/item/stack/sheet/plasteel(tagetloc, 2)
+					var/turf/T = get_turf(src)
+					switch(firelock_type)
+						if(/obj/machinery/door/firedoor/heavy)
+							user.visible_message(span_notice("[user] cuts apart [src]!"), \
+										span_notice("You cut [src] into iron and plasteel."))
+							new /obj/item/stack/sheet/plasteel(T, 2)
+							new /obj/item/stack/sheet/iron(T, 3)
+						else
+							user.visible_message(span_notice("[user] cuts apart [src]!"), \
+										span_notice("You cut [src] into iron."))
+							new /obj/item/stack/sheet/iron(T, 3)
 					qdel(src)
 					return TRUE
 				return
@@ -890,29 +802,6 @@
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	firelock_type = /obj/machinery/door/firedoor/heavy
-
-/obj/structure/firelock_frame/border
-	name = "firelock frame"
-	icon = 'icons/obj/doors/firelocks/edge_Doorfire.dmi'
-	icon_state = "door_frame"
-	density = FALSE
-	firelock_type = /obj/machinery/door/firedoor/border_only
-
-/obj/structure/reagent_dispensers/plumbed/storage/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/simple_rotation)
-
-/obj/structure/firelock_frame/border/update_icon()
-	return
-
-/obj/structure/firelock_frame/window
-	name = "window firelock frame"
-	icon = 'icons/obj/doors/firelocks/doorfirewindow.dmi'
-	icon_state = "door_frame"
-	firelock_type = /obj/machinery/door/firedoor/window
-
-/obj/structure/firelock_frame/window/update_icon()
-	return
 
 #undef CONSTRUCTION_PANEL_OPEN
 #undef CONSTRUCTION_NO_CIRCUIT
