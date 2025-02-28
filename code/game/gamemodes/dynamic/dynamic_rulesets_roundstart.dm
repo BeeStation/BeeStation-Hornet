@@ -95,16 +95,15 @@
 	antag_datum = /datum/antagonist/malf_ai
 	required_candidates = 1
 	minimum_players = 30
-	weight = 3
-	cost = 18
+	weight = 4
+	cost = 13
 	flags = LONE_RULESET
 
 /datum/dynamic_ruleset/roundstart/malf/pre_execute(population)
 	. = ..()
-	for(var/mob/living/player in candidates)
-		if(!isAI(player))
-			candidates -= player
-			continue
+	// This excludes silicons for some reason
+	restricted_roles = get_all_jobs()
+	restricted_roles |= JOB_NAME_CYBORG
 
 	if(!length(candidates))
 		return FALSE
