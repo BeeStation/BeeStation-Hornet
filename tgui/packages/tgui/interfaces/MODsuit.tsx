@@ -368,14 +368,7 @@ const SuitStatusSection = (props) => {
         )}
         {!!ai_name && (
           <LabeledList.Item label="pAI Control">
-            {has_pai && (
-              <Button
-                icon="eject"
-                content="Eject pAI"
-                disabled={is_ai}
-                onClick={() => act('eject_pai')}
-              />
-            )}
+            {has_pai && <Button icon="eject" content="Eject pAI" disabled={is_ai} onClick={() => act('eject_pai')} />}
           </LabeledList.Item>
         )}
       </LabeledList>
