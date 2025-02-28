@@ -28,8 +28,7 @@
 	grill_loop = new(src, FALSE)
 	if(isnum(variant))
 		variant = rand(1,3)
-	// Add expose_reagent to add pancakes. I tried already.  https://github.com/BeeStation/BeeStation-Hornet/pull/8479
-	//RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT,  PROC_REF(on_expose_reagent))
+	RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
 
 /obj/machinery/griddle/Destroy()
 	QDEL_NULL(grill_loop)
@@ -43,7 +42,6 @@
 		return
 	variant = rand(1,3)
 
-/* See https://github.com/BeeStation/BeeStation-Hornet/pull/8479
 /obj/machinery/griddle/proc/on_expose_reagent(atom/parent_atom, datum/reagent/exposing_reagent, reac_volume)
 	SIGNAL_HANDLER
 
@@ -59,7 +57,6 @@
 			break
 	visible_message(span_notice("[exposing_reagent] begins to cook on [src]."))
 	return NONE
-*/
 
 /obj/machinery/griddle/crowbar_act(mob/living/user, obj/item/I)
 	. = ..()

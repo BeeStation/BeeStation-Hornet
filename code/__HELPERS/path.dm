@@ -90,7 +90,7 @@
 	heuristic = get_dist(tile, node_goal)
 	f_value = number_tiles + heuristic
 
-HEAP_TYPE(/datum/path_heap, f_value)
+DECLARE_HEAP_TYPE(/datum/path_heap, /datum/jps_node, b.f_value - a.f_value)
 
 /// The datum used to handle the JPS pathfinding, completely self-contained
 /datum/pathfind
@@ -357,10 +357,6 @@ HEAP_TYPE(/datum/path_heap, f_value)
 
 	for(var/obj/machinery/door/window/iter_windoor in src)
 		if(!iter_windoor.CanAStarPass(ID, actual_dir))
-			return TRUE
-
-	for(var/obj/machinery/door/firedoor/border_only/firedoor in src)
-		if(!firedoor.CanAStarPass(ID, actual_dir))
 			return TRUE
 
 	// Destination blockers check
