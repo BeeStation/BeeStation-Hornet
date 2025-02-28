@@ -166,12 +166,12 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/anti_magic/on_part_activation()
-	mod.wearer.AddComponent(/datum/component/anti_magic, MOD_TRAIT, _magic = TRUE, _holy = TRUE)
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_HOLY, MOD_TRAIT)
 
 /obj/item/mod/module/anti_magic/on_part_deactivation(deleting = FALSE)
-	for (var/datum/component/anti_magic/anti_magic in mod.wearer.GetComponents(/datum/component/anti_magic))
-		if (anti_magic.source == MOD_TRAIT)
-			qdel(anti_magic)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_HOLY, MOD_TRAIT)
 
 /obj/item/mod/module/anti_magic/wizard
 	name = "MOD magic neutralizer module"
