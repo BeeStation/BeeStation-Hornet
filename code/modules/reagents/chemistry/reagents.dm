@@ -72,7 +72,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	holder = null
 
 /// Applies this reagent to an [/atom]
-/datum/reagent/proc/expose_atom(atom/A, volume)
+/datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
+	SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
 	return
 
 /// Applies this reagent to a [/mob/living]
