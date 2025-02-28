@@ -212,18 +212,6 @@
 	if(L)
 		. += span_notice("There seems to be a lighter inside. Alt-click to pull it out.")
 
-/obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-	var/obj/item/I = locate(/obj/item/lighter) in contents
-	if(I)
-		I.atom_storage.attempt_remove(src, I, user)
-		user.put_in_hands(I)
-		contents -= I
-		to_chat(user, span_notice("You take \a [I] out of the pack."))
-	else
-		to_chat(user, span_warning("There is no lighter in the pack."))
-
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	. = ..()
 	icon_state = "[base_icon_state][contents.len ? null : "_empty"]"
