@@ -339,8 +339,9 @@
 			new /obj/item/food/butter(drop_location())
 		//Recipe to make Mayonnaise
 		if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
-			var/amount = beaker.reagents.get_reagent_amount(/datum/reagent/consumable/eggyolk)
-			beaker.reagents.remove_reagent(/datum/reagent/consumable/eggyolk, amount)
-			beaker.reagents.add_reagent(/datum/reagent/consumable/mayonnaise, amount)
+			beaker.reagents.convert_reagent(/datum/reagent/consumable/eggyolk, /datum/reagent/consumable/mayonnaise)
+		//Recipe to make whipped cream
+		if (beaker.reagents.has_reagent(/datum/reagent/consumable/cream))
+			beaker.reagents.convert_reagent(/datum/reagent/consumable/cream, /datum/reagent/consumable/whipped_cream)
 
 #undef MILK_TO_BUTTER_COEFF

@@ -477,7 +477,7 @@
 		list(
 			/obj/item/reagent_containers/pill,
 			/obj/item/reagent_containers/cup/beaker,
-			/obj/item/reagent_containers/cup/glass/bottle,
+			/obj/item/reagent_containers/cup/bottle,
 			/obj/item/reagent_containers/medspray,
 			/obj/item/reagent_containers/syringe,
 			/obj/item/reagent_containers/dropper,
@@ -508,7 +508,7 @@
 			/obj/item/reagent_containers/syringe,
 			/obj/item/reagent_containers/dropper,
 			/obj/item/reagent_containers/cup/beaker,
-			/obj/item/reagent_containers/cup/glass/bottle,
+			/obj/item/reagent_containers/cup/bottle,
 			/obj/item/reagent_containers/blood,
 			/obj/item/reagent_containers/hypospray/medipen,
 			/obj/item/food/deadmouse,

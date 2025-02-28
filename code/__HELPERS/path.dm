@@ -359,10 +359,6 @@ DECLARE_HEAP_TYPE(/datum/path_heap, /datum/jps_node, b.f_value - a.f_value)
 		if(!iter_windoor.CanAStarPass(ID, actual_dir))
 			return TRUE
 
-	for(var/obj/machinery/door/firedoor/border_only/firedoor in src)
-		if(!firedoor.CanAStarPass(ID, actual_dir))
-			return TRUE
-
 	// Destination blockers check
 	var/reverse_dir = get_dir(destination_turf, src)
 	for(var/obj/iter_object in destination_turf)

@@ -22,8 +22,9 @@
 	desc = "An egg!"
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
+	item_state = "egg"
 	food_reagents = list(
-		/datum/reagent/consumable/eggyolk = 5
+		/datum/reagent/consumable/eggyolk = 2, /datum/reagent/consumable/eggwhite = 4
 	)
 	microwaved_type = /obj/item/food/boiledegg
 	foodtypes = MEAT | RAW
@@ -32,6 +33,9 @@
 	decomp_type = /obj/item/food/egg/rotten
 	decomp_req_handle = TRUE //so laid eggs can actually become chickens
 	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/egg/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/boiledegg, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
 
 /*
 /obj/item/food/egg/make_microwaveable()
@@ -44,6 +48,9 @@
 	foodtypes = GROSS
 	preserved_food = TRUE
 
+/obj/item/food/egg/rotten/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/boiledegg/rotten, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
+
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."
 
@@ -55,11 +62,13 @@
 	add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
 /obj/item/food/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(!..()) //was it caught by a mob?
-		var/turf/T = get_turf(hit_atom)
-		new/obj/effect/decal/cleanable/food/egg_smudge(T)
-		reagents.expose(hit_atom, TOUCH)
-		qdel(src)
+	if (..()) // was it caught by a mob?
+		return
+
+	var/turf/T = get_turf(hit_atom)
+	new/obj/effect/decal/cleanable/food/egg_smudge(T)
+	reagents.expose(hit_atom, TOUCH)
+	qdel(src)
 
 /obj/item/food/egg/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
@@ -75,14 +84,37 @@
 
 	else if(is_reagent_container(W))
 		var/obj/item/reagent_containers/dunk_test_container = W
-		if(dunk_test_container.is_drainable() && dunk_test_container.reagents.has_reagent(/datum/reagent/water))
-			to_chat(user, "<span class='notice'>You check if [src] is rotten.</span>")
-			if(istype(src, /obj/item/food/egg/rotten))
-				to_chat(user, "<span class='warning'>[src] floats in the [dunk_test_container]!</span>")
-			else
-				to_chat(user,"<span class='notice'>[src] sinks into the [dunk_test_container]!</span>")
+		if (!dunk_test_container.is_drainable() || !dunk_test_container.reagents.has_reagent(/datum/reagent/water))
+			return
+
+		to_chat(user, span_notice("You check if [src] is rotten."))
+		if(istype(src, /obj/item/food/egg/rotten))
+			to_chat(user, span_warning("[src] floats in the [dunk_test_container]!"))
+		else
+			to_chat(user, span_notice("[src] sinks into the [dunk_test_container]!"))
 	else
 		..()
+
+/obj/item/food/egg/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	if(!istype(target, /obj/machinery/griddle))
+		return SECONDARY_ATTACK_CALL_NORMAL
+
+	var/atom/broken_egg = new /obj/item/food/rawegg(target.loc)
+	broken_egg.pixel_x = pixel_x
+	broken_egg.pixel_y = pixel_y
+	playsound(get_turf(user), 'sound/items/sheath.ogg', 40, TRUE)
+	reagents.copy_to(broken_egg,reagents.total_volume)
+
+	var/obj/machinery/griddle/hit_griddle = target
+	hit_griddle.AddToGrill(broken_egg, user)
+	target.balloon_alert(user, "cracks [src] open")
+
+	qdel(src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/food/egg/blue
 	icon_state = "egg-blue"
@@ -110,17 +142,34 @@
 
 /obj/item/food/friedegg
 	name = "fried egg"
-	desc = "A fried egg, with a touch of salt and pepper."
+	desc = "A fried egg. Would go well with a touch of salt and pepper."
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "friedegg"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 6,
-		/datum/reagent/consumable/nutriment/vitamin = 1
+		/datum/reagent/consumable/eggyolk = 2 ,
+		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	bite_consumption = 1
-	tastes = list("egg" = 4, "salt" = 1, "pepper" = 1)
+	tastes = list("egg" = 4)
 	foodtypes = MEAT | FRIED | BREAKFAST
+	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/rawegg
+	name = "raw egg"
+	desc = "Supposedly good for you, if you can stomach it. Better fried."
+	icon = 'icons/obj/food/egg.dmi'
+	icon_state = "rawegg"
+	food_reagents = list() //Receives all reagents from its whole egg counterpart
+	bite_consumption = 1
+	tastes = list("raw egg" = 6, "sliminess" = 1)
+	eatverbs = list("gulp down")
+	foodtypes = MEAT | RAW
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/rawegg/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/friedegg, rand(20 SECONDS, 35 SECONDS), TRUE, FALSE)
 
 /obj/item/food/boiledegg
 	name = "boiled egg"
