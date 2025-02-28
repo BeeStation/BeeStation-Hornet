@@ -16,6 +16,14 @@
 	for(var/i in 1 to created_volume)
 		new /obj/item/food/tofu(location)
 
+/datum/chemical_reaction/food/chocolatepudding
+	results = list(/datum/reagent/consumable/chocolatepudding = 20)
+	required_reagents = list(/datum/reagent/consumable/cream  = 5, /datum/reagent/consumable/cocoa = 5, /datum/reagent/consumable/eggyolk = 2)
+
+/datum/chemical_reaction/food/vanillapudding
+	results = list(/datum/reagent/consumable/vanillapudding = 20)
+	required_reagents = list(/datum/reagent/consumable/vanilla = 5, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/eggyolk = 2)
+
 /datum/chemical_reaction/food/chocolate_bar
 	name = "Chocolate Bar"
 	id = "chocolate_bar"
@@ -127,7 +135,7 @@
 /datum/chemical_reaction/food/cakebatter
 	name = "Cake Batter"
 	id = "cakebatter"
-	required_reagents = list(/datum/reagent/consumable/eggyolk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 6, /datum/reagent/consumable/eggwhite = 12, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 	mix_message = "The ingredients form a cake batter."
 
 /datum/chemical_reaction/food/cakebatter/on_reaction(datum/reagents/holder, created_volume)
@@ -139,10 +147,9 @@
 	id = "vegancakebatter"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 
-//pancake batter goes here
-/*
 /datum/chemical_reaction/food/pancakebatter
-*/
+	results = list(/datum/reagent/consumable/pancakebatter = 15)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 6, /datum/reagent/consumable/eggwhite = 12, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/flour = 5)
 
 /datum/chemical_reaction/food/uncooked_rice
 	name = "Uncooked Rice"
@@ -160,3 +167,7 @@
 	id = /datum/reagent/consumable/bbqsauce
 	results = list(/datum/reagent/consumable/bbqsauce = 5)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/tomatojuice = 1, /datum/reagent/medicine/salglu_solution = 3, /datum/reagent/consumable/blackpepper = 1)
+
+/datum/chemical_reaction/food/gravy
+	results = list(/datum/reagent/consumable/gravy = 3)
+	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/flour = 1)

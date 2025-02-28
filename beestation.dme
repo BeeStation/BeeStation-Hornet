@@ -242,6 +242,7 @@
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_moveloop.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_nanite.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_ntnet.dm"
+#include "code\__DEFINES\dcs\signals\signals_datum\signals_reagent.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum\signals_storage.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_carbon.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_holoparasite.dm"
