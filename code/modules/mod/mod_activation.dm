@@ -70,6 +70,7 @@
 		else if(!deploy && part.loc != src)
 			if(active && !delayed_seal_part(part))
 				return
+			retract(null, part)
 	if(deploy)
 		SEND_SIGNAL(src, COMSIG_MOD_DEPLOYED, user)
 	else

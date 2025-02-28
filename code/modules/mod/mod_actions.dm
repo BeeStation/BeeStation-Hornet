@@ -40,7 +40,7 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Deploy MODsuit"
-	desc = "Deploy/Conceal a part of the MODsuit."
+	desc = "LMB: Deploy/Undeploy part. RMB: Deploy/Undeploy full suit."
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/on_activate(mob/user, atom/target, trigger_flags)
@@ -55,7 +55,7 @@
 
 /datum/action/item_action/mod/activate
 	name = "Activate MODsuit"
-	desc = "Activate/Deactivate the MODsuit."
+	desc = "LMB: Activate/Deactivate suit with prompt. RMB: Activate/Deactivate suit skipping prompt."
 	button_icon_state = "activate"
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
