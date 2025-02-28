@@ -57,7 +57,9 @@
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hats/hopcap
-	l_pocket = /obj/item/melee/classic_baton/police/telescopic
-	l_hand = /obj/item/storage/box/ids
+	backpack_contents = list(
+		/obj/item/storage/box/ids=1,
+		/obj/item/melee/classic_baton/police/telescopic=1
+	)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)
