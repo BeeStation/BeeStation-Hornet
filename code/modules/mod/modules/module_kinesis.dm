@@ -29,7 +29,7 @@
 	/// Overlay we add to each grabbed atom.
 	var/mutable_appearance/kinesis_icon
 	/// Our mouse movement catcher.
-	var/atom/movable/screen/fullscreen/kinesis/kinesis_catcher
+	var/atom/movable/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
 	var/datum/looping_sound/gravgen/kinesis/soundloop
 	/// The cooldown between us hitting objects with kinesis.
@@ -168,12 +168,8 @@
 	kinesis_icon.overlays += emissive_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis")
 	grabbed_atom.add_overlay(kinesis_icon)
 	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
-	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/kinesis, 0)
-	kinesis_catcher.kinesis_user = mod.wearer
-	kinesis_catcher.view_list = getviewsize(mod.wearer.client.view)
-	kinesis_catcher.RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/atom/movable/screen/fullscreen/kinesis, on_move))
-	kinesis_catcher.RegisterSignal(mod.wearer, COMSIG_VIEWDATA_UPDATE, TYPE_PROC_REF(/atom/movable/screen/fullscreen/kinesis, on_viewdata_update))
-	kinesis_catcher.calculate_params()
+	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
+	kinesis_catcher.assign_to_mob(mod.wearer)
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -250,6 +246,9 @@
 	if(damage_self && source.uses_integrity)
 		source.take_damage(source.max_integrity/5, BRUTE, MELEE)
 
+/atom/movable/screen/fullscreen/cursor_catcher/kinesis
+	icon_state = "kinesis"
+
 /obj/item/mod/module/anomaly_locked/kinesis/prebuilt
 	prebuilt = TRUE
 
@@ -260,56 +259,11 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	removable = FALSE
 
-/atom/movable/screen/fullscreen/kinesis
-	icon_state = "kinesis"
-	plane = HUD_PLANE
-	mouse_opacity = MOUSE_OPACITY_ICON
-	var/mob/kinesis_user
-	var/list/view_list
-	var/given_x
-	var/given_y
-	var/turf/given_turf
-	var/mouse_params
-
-/atom/movable/screen/fullscreen/kinesis/proc/on_move(atom/source, atom/oldloc, dir, forced)
-	SIGNAL_HANDLER
-
-	if(given_turf)
-		var/x_offset = source.loc.x - oldloc.x
-		var/y_offset = source.loc.y - oldloc.y
-		given_turf = locate(given_turf.x+x_offset, given_turf.y+y_offset, given_turf.z)
-
-/atom/movable/screen/fullscreen/kinesis/proc/on_viewdata_update(datum/source, view)
-	SIGNAL_HANDLER
-
-	view_list = getviewsize(view)
-
-/atom/movable/screen/fullscreen/kinesis/MouseEntered(location, control, params)
-	. = ..()
-	MouseMove(location, control, params)
-	if(usr == kinesis_user)
-		calculate_params()
-
-/atom/movable/screen/fullscreen/kinesis/MouseMove(location, control, params)
-	if(usr != kinesis_user)
-		return
-	mouse_params = params
-
-/atom/movable/screen/fullscreen/kinesis/proc/calculate_params()
-	var/list/modifiers = params2list(mouse_params)
-	var/icon_x = text2num(LAZYACCESS(modifiers, VIS_X))
-	var/icon_y = text2num(LAZYACCESS(modifiers, VIS_Y))
-	var/our_x = round(icon_x / world.icon_size)
-	var/our_y = round(icon_y / world.icon_size)
-	given_turf = locate(kinesis_user.x+our_x-round(view_list[1]/2),kinesis_user.y+our_y-round(view_list[2]/2),kinesis_user.z)
-	given_x = round(icon_x - world.icon_size * our_x, 1)
-	given_y = round(icon_y - world.icon_size * our_y, 1)
-
 /obj/item/mod/module/anomaly_locked/kinesis/plus
 	name = "MOD kinesis+ module"
 	desc = "A modular plug-in to the forearm, this module was recently redeveloped in secret. \
 		The bane of all ne'er-do-wells, the kinesis+ module is a powerful tool that allows the user \
-		to manipulate the world around them. Like its older counterpart, it's capable of manipulating \
+		to manipulate the world around them. Like it's older counterpart, it's capable of manipulating \
 		structures, machinery, vehicles, and, thanks to the fruitful efforts of its creators - living beings."
 	complexity = 0
 	prebuilt = TRUE
