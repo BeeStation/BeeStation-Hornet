@@ -101,6 +101,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	faction = list(FACTION_SWARMER, FACTION_MINING)
 	weather_immunities = list("ash") //wouldn't be fun otherwise
 	AIStatus = AI_ON
+	ranged_cooldown_time = 20
+	melee_damage = 15
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
 	. = ..()

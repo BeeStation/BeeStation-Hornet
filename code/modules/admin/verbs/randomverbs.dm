@@ -1258,3 +1258,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		server = S
 		break
 	tgui_send_admin_pda(usr, null, server, theme = "admin", allow_send_all = TRUE)
+
+/// "Turns" people into objects. Really, we just add them to the contents of the item.
+/proc/objectify(atom/movable/target, path)
+	var/atom/tomb = new path(get_turf(target))
+	target.forceMove(tomb)
+	target.AddComponent(/datum/component/itembound, tomb)

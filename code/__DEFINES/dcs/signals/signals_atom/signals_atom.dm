@@ -128,11 +128,6 @@
 /// called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 
-///from base of atom/expose_reagents():
-#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
-	/// Prevents the atom from being exposed to reagents if returned on [COMPONENT_ATOM_EXPOSE_REAGENTS]
-	#define COMPONENT_NO_EXPOSE_REAGENTS (1<<0)
-
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
 ///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
@@ -151,16 +146,6 @@
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
 /////////////////
-#define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
-#define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
-	#define COMPONENT_ALLOW_EXAMINATE 1 						//Allows the user to examinate regardless of client.eye.
-#define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
-#define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
-	#define COMPONENT_INTERCEPT_ALT 1
-#define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"				//! from base of atom/CtrlShiftClick(/mob)
-#define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"					//! from base of atom/MouseDrop(): (/atom/over, /mob/user)
-	#define COMPONENT_NO_MOUSEDROP 1
-#define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//! from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 
 /// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"

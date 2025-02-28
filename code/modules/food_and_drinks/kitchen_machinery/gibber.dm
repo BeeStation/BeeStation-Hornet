@@ -60,7 +60,7 @@
 /obj/machinery/gibber/relaymove(mob/living/user, direction)
 	go_out()
 
-/obj/machinery/gibber/attack_hand(mob/user)
+/obj/machinery/gibber/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -74,7 +74,7 @@
 		to_chat(user, span_notice("[src] cannot be used unless bolted to the ground."))
 		return
 
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(!iscarbon(L))
 			to_chat(user, span_danger("This item is not suitable for the gibber!"))
@@ -124,8 +124,9 @@
 	set category = "Object"
 	set name = "empty gibber"
 	set src in oview(1)
-
 	if(usr.incapacitated())
+		return
+	if(!usr.canUseTopic())
 		return
 	src.go_out()
 	add_fingerprint(usr)

@@ -404,7 +404,7 @@
 	postfire_empty_checks()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/gun/ballistic/attack_hand(mob/user)
+/obj/item/gun/ballistic/attack_hand(mob/user, list/modifiers)
 	if(!internal_magazine && loc == user && user.is_holding(src) && magazine)
 		eject_magazine(user)
 		return
@@ -529,6 +529,11 @@
 		else
 			name = "sawn-off [src.name]"
 		desc = sawn_desc
+			//The file might not have a "gun" icon, let's prepare for this
+		lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+		righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+		inhand_x_dimension = 32
+		inhand_y_dimension = 32
 		w_class = WEIGHT_CLASS_LARGE
 		if (sawn_item_state)
 			item_state = sawn_item_state

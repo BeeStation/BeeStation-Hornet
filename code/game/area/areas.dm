@@ -5,6 +5,7 @@
   */
 /area
 	name = "Space"
+	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
@@ -473,11 +474,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
   */
 /area/proc/power_change()
-	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()				// reverify power status (to update icons etc.)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	update_appearance()
-
 
 /**
   * Add a static amount of power load to an area
@@ -493,13 +491,27 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			power_usage[powerchannel] += value
 
 /**
-  * Clear all power usage in area
+ * Remove a static amount of power load to an area
+ *
+ * Possible channels
+ * *AREA_USAGE_STATIC_EQUIP
+ * *AREA_USAGE_STATIC_LIGHT
+ * *AREA_USAGE_STATIC_ENVIRON
+ */
+/area/proc/removeStaticPower(value, powerchannel)
+	switch(powerchannel)
+		if(AREA_USAGE_STATIC_START to AREA_USAGE_STATIC_END)
+			power_usage[powerchannel] -= value
+
+/**
+ * Clear all non-static power usage in area
   *
-  * Clears all power used for equipment, light and environment channels
+	* Clears all power used for the dynamic equipment, light and environment channels
   */
 /area/proc/clear_usage()
-	for(var/i in AREA_USAGE_DYNAMIC_START to AREA_USAGE_DYNAMIC_END)
-		power_usage[i] = 0
+	power_usage[AREA_USAGE_EQUIP] = 0
+	power_usage[AREA_USAGE_LIGHT] = 0
+	power_usage[AREA_USAGE_ENVIRON] = 0
 
 /**
   * Add a power value amount to the stored used_x variables
@@ -596,3 +608,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/proc/get_area_textures()
 	return list()
+
+/// returns a name of the area. some subtype area needs to return different value.
+/area/proc/get_navigation_area_name()
+	return navigation_area_name || name
