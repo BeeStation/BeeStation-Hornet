@@ -12,9 +12,9 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /*
 * pre_setup()
-* init_rulesets()
-* configure_ruleset()
-* pick_roundstart_rulesets()
+* 	init_rulesets()
+* 	configure_ruleset()
+* 	pick_roundstart_rulesets()
 * post_setup()
 * process()
 */
@@ -33,24 +33,30 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	 * Roundstart
 	*/
 
-	/// Set at the beginning of the round. Spent to 'purchase' rules.
+	/// Set at the beginning of the round. Used to purchase rules.
 	var/roundstart_points = 0
 	/// The list of rulesets to be executed at roundstart
 	var/executed_roundstart_rulesets = list()
 	/// List of candidates used on roundstart rulesets.
 	var/list/roundstart_candidates = list()
-	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value when calculated
-	/// Defined here so they can be configured in 'dynamic.json'
+
+	/// Configurable
+
+	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
+	/// These are defined here so they can be configured in 'dynamic.json'
 	var/divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
 	var/divergence_percent_upper = DYNAMIC_POINT_DIVERGENCE_UPPER
-
-
+	/// How many roundstart points should be granted per player based off their status (OBSERVING, READY, UNREADY)
+	/// Also defined here so they can be configured in 'dynamic.json'
+	var/roundstart_points_per_observer = DYNAMIC_POINTS_PER_OBSERVER
+	var/roundstart_points_per_ready = DYNAMIC_POINTS_PER_READY
+	var/roundstart_points_per_unready = DYNAMIC_POINTS_PER_UNREADY
 
 	/*
 	 * Other variables
 	*/
 
-	/// Dynamic configuration, loaded on pre_setup from 'dynamic.json'
+	/// Dynamic configuration, loaded on 'pre_setup' from 'dynamic.json'
 	var/list/dynamic_configuration = null
 	/// Some rulesets (like revolution) need to process
 	var/list/rulesets_to_process = list()
@@ -92,9 +98,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 						continue
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
 
-	// Load dynamic.json configurations into each roundstart ruleset
+	// Apply dynamic.json configurations into each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
+	// Set our points according to pop and a bit of RNG
 	set_roundstart_points()
 
 	// Log ready the configured roundstart rulesets and ready players
@@ -158,12 +165,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	for(var/i in GLOB.new_player_list)
 		var/mob/dead/new_player/player = i
 		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
+			roundstart_points += roundstart_points_per_observer
 			continue
 		if(player.ready == PLAYER_READY_TO_PLAY)
-			roundstart_points += 1
+			roundstart_points += roundstart_points_per_ready
 			roundstart_candidates.Add(player)
+			continue
 		else
-			roundstart_points += 0.5
+			roundstart_points += roundstart_points_per_unready
 
 	var/point_divergence = 1 + rand(-divergence_percent_lower, divergence_percent_upper) / 100
 	roundstart_points *= point_divergence
@@ -241,8 +250,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			return TRUE
 
-		// Check for 'NO_OTHER_ROUNDSTARTS_RULESET'
-		if(CHECK_BITFIELD(other_ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
+		// Check for 'NO_OTHER_ROUNDSTART_RULESETS'
+		if(CHECK_BITFIELD(other_ruleset.flags, NO_OTHER_ROUNDSTART_RULESETS))
 			return TRUE
 
 		// Check for 'LONE_RULESET'
