@@ -240,7 +240,7 @@
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
-	clothing_flags = THICKMATERIAL | SNUG_FIT
+	clothing_flags = THICKMATERIAL|SNUG_FIT
 	armor_type = /datum/armor/bee_costume_syndie
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
 
