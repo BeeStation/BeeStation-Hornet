@@ -210,7 +210,7 @@
 	. = ..()
 	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
 	if(L)
-		. += span_notice("There seems to be a lighter inside. Right-click to pull it out.")
+		. += span_notice("There seems to be a lighter inside. Alt-click to pull it out.")
 
 /obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
