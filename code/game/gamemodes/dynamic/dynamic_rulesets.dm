@@ -19,7 +19,7 @@
 	var/rule_category
 	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
-	/// What is the minimum number of population points for this to be drafted.
+	/// The minimum number of points dynamic that had to initially generate for this to be drafted.
 	var/minimum_points_required = 0
 	/// How many points this ruleset costs to run. (How many players for one of this antagonist to spawn)
 	var/points_cost = 5

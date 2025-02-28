@@ -9,20 +9,17 @@
 #define DYNAMIC_POINTS_PER_READY 1
 #define DYNAMIC_POINTS_PER_UNREADY 0.5
 
-/// This is the only ruleset that should be picked this round, used by admins and should not be on rulesets in code.
-#define ONLY_RULESET (1 << 0)
-
 /// Only one ruleset with this flag will be picked.
-#define HIGH_IMPACT_RULESET (1 << 1)
+#define HIGH_IMPACT_RULESET (1 << 0)
 
 /// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
-#define LONE_RULESET (1 << 2)
+#define LONE_RULESET (1 << 1)
 
 /// This ruleset can't execute alongside ANY other roundstart ruleset.
-#define NO_OTHER_ROUNDSTART_RULESETS (1 << 3)
+#define NO_OTHER_ROUNDSTART_RULESETS (1 << 2)
 
 /// If this flag is set dynamic will call rule_process() every tick
-#define SHOULD_PROCESS_RULESET (1 << 4)
+#define SHOULD_PROCESS_RULESET (1 << 3)
 
 /// This ruleset should only be rolled if the station is mostly intact, i.e the crew is not mostly dead and the station isn't full of holes.
 /// Only used for midround/latejoin rolling.
