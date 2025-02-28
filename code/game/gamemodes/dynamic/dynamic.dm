@@ -1,14 +1,5 @@
-// Are HIGH_IMPACT_RULESETs allowed to stack?
-GLOBAL_VAR_INIT(dynamic_no_stacking, TRUE)
 // If enabled does not accept or execute any rulesets.
 GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
-// How high threat is required for HIGH_IMPACT_RULESETs stacking.
-// This is independent of dynamic_no_stacking.
-GLOBAL_VAR_INIT(dynamic_stacking_limit, 90)
-// List of forced roundstart rulesets.
-GLOBAL_LIST_EMPTY(dynamic_forced_roundstart_ruleset)
-// Forced threat level, setting this to zero or higher forces the roundstart threat to the value.
-GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /*
 * pre_setup()
@@ -86,7 +77,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 * Pick rulesets to execute
 */
 /datum/game_mode/dynamic/pre_setup()
-	// Load the dynamic.json configurations
+	// Load the 'dynamic.json' configurations
 	if(CONFIG_GET(flag/dynamic_config_enabled))
 		var/json_file = file("config/dynamic.json")
 		if(fexists(json_file))
@@ -98,7 +89,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 						continue
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
 
-	// Apply dynamic.json configurations into each roundstart ruleset
+	// Apply 'dynamic.json' configurations into each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
 	// Set our points according to pop and a bit of RNG
@@ -111,14 +102,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		return TRUE
 
 	// Pick rulesets to be executed from 'configured_roundstart_rulesets'
-	if(length(GLOB.dynamic_forced_roundstart_ruleset))
-		//rigged_roundstart()
-	else
-		pick_roundstart_rulesets(configured_roundstart_rulesets)
+	pick_roundstart_rulesets(configured_roundstart_rulesets)
 
 /*
-* Returns a list of all ruleset types (roundstart, midround, latejoin)
-* Then configures their variables via configure_ruleset()
+* Returns a list of all ruleset types (Roundstart, Midround, Latejoin) and configures their variables by calling configure_ruleset()
 */
 /datum/game_mode/dynamic/proc/init_rulesets(ruleset_subtype)
 	var/list/rulesets = list()
