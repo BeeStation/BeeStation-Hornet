@@ -112,6 +112,8 @@
 	var/obj/item/mod/module/module
 	/// A reference to the mob we are pinned to.
 	var/mob/pinner
+	/// Timer until we remove our cooldown overlay
+	var/cooldown_timer
 
 /datum/action/item_action/mod/pinned_module/New(Target, obj/item/mod/module/linked_module, mob/user)
 	var/obj/item/mod/control/mod = Target
@@ -128,11 +130,22 @@
 	desc = "Quickly activate [linked_module]."
 	icon_icon = linked_module.icon
 	button_icon_state = linked_module.icon_state
-	RegisterSignals(linked_module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED), PROC_REF(module_interacted_with))
+	RegisterSignals(linked_module, list(
+		COMSIG_MODULE_ACTIVATED,
+		COMSIG_MODULE_DEACTIVATED,
+		COMSIG_MODULE_USED,
+	), PROC_REF(module_interacted_with))
+	RegisterSignal(linked_module, COMSIG_MODULE_COOLDOWN_STARTED, PROC_REF(cooldown_started))
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(pinner_deleted))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
-	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
+	deltimer(cooldown_timer)
+	UnregisterSignal(module, list(
+		COMSIG_MODULE_ACTIVATED,
+		COMSIG_MODULE_DEACTIVATED,
+		COMSIG_MODULE_COOLDOWN_STARTED,
+		COMSIG_MODULE_USED,
+	))
 	module.pinned_to -= REF(pinner)
 	module = null
 	pinner = null
@@ -156,9 +169,7 @@
 	else if(module.active)
 		current_button.add_overlay(image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_active", layer = FLOAT_LAYER-0.1))
 	if(!COOLDOWN_FINISHED(module, cooldown_timer))
-		var/image/cooldown_image = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_cooldown")
-		current_button.add_overlay(cooldown_image)
-		addtimer(CALLBACK(current_button, TYPE_PROC_REF(/image, cut_overlay), cooldown_image), COOLDOWN_TIMELEFT(module, cooldown_timer))
+		current_button.add_overlay(image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_cooldown"))
 
 /// If the guy whose UI we are pinned to got deleted
 /datum/action/item_action/mod/pinned_module/proc/pinner_deleted()
@@ -169,3 +180,12 @@
 	SIGNAL_HANDLER
 
 	update_buttons()
+
+/datum/action/item_action/mod/pinned_module/proc/cooldown_started(datum/source, cooldown_time)
+	SIGNAL_HANDLER
+
+	deltimer(cooldown_timer)
+	update_buttons()
+	if (cooldown_time == 0)
+		return
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(update_buttons), UPDATE_BUTTON_OVERLAY), cooldown_time + 1, TIMER_STOPPABLE)

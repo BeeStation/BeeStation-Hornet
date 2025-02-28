@@ -26,7 +26,7 @@
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/microwave_beam, /obj/item/mod/module/organ_thrower)
-	cooldown_time = 10 SECONDS
+	cooldown_time = 4 SECONDS
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/microwave_beam/on_select_use(atom/target)

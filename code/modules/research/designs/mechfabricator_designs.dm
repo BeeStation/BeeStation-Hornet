@@ -966,17 +966,15 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 	research_icon_state = "cosmohonk-plating"
 
-/* No Paint for now. Add when combat mode
 /datum/design/mod_paint_kit
 	name = "MOD paint kit"
 	desc = "A paint kit for Modular Suits."
 	id = "mod_paint_kit"
-	build_type = MECHFAB
+	build_type = MECHFAB|PROTOLATHE
 	materials = list(/datum/material/iron = 1000, /datum/material/plastic = 500)
 	construction_time = 5 SECONDS
 	build_path = /obj/item/mod/paint
 	category = list("Misc")
-*/
 
 /datum/design/module
 	name = "MOD Module"

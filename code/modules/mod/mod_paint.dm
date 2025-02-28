@@ -32,7 +32,6 @@
 		return TRUE
 	paint_skin(mod, user)
 
-/* Not usable until combat mode or alternative fire
 /obj/item/mod/paint/pre_attack_secondary(atom/attacked_atom, mob/living/user, params)
 	if(!istype(attacked_atom, /obj/item/mod/control))
 		return ..()
@@ -49,7 +48,6 @@
 	proxy_view.register_to_client(user.client)
 	ui_interact(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-*/
 
 /obj/item/mod/paint/ui_interact(mob/user, datum/tgui/ui)
 	if(!editing_mod)
