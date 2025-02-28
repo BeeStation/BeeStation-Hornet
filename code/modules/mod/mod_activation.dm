@@ -79,6 +79,9 @@
 /// Deploys a part of the suit onto the user.
 /obj/item/mod/control/proc/deploy(mob/user, obj/item/part)
 	var/datum/mod_part/part_datum = get_part_datum(part)
+	if(!wearer)
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE // pAI is trying to deploy it from your hands
 	if(part.loc != src)
 		if(!user)
 			return FALSE
@@ -211,8 +214,8 @@
 			return
 
 	to_chat(wearer, span_notice("Systems [active ? "started up. Parts sealed. Welcome" : "shut down. Parts unsealed. Goodbye"], [wearer]."))
-	if(ai)
-		to_chat(ai, span_notice("<b>SYSTEMS [active ? "ACTIVATED. WELCOME" : "DEACTIVATED. GOODBYE"]: \"[ai]\"</b>"))
+	if(ai_assistant)
+		to_chat(ai_assistant, span_notice("<b>SYSTEMS [active ? "ACTIVATED. WELCOME" : "DEACTIVATED. GOODBYE"]: \"[ai_assistant]\"</b>"))
 	activating = FALSE
 	SEND_SIGNAL(src, COMSIG_MOD_TOGGLED, user)
 	return TRUE

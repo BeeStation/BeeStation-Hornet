@@ -128,6 +128,7 @@
 	else
 		used()
 	SEND_SIGNAL(mod, COMSIG_MOD_MODULE_SELECTED, src)
+	ui_update()
 
 /// Called when the module is activated
 /obj/item/mod/module/proc/activate()

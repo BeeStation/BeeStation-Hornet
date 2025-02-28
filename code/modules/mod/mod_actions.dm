@@ -15,17 +15,17 @@
 
 /datum/action/item_action/mod/Grant(mob/user)
 	var/obj/item/mod/control/mod = master
-	if(ai_action && user != mod.ai)
+	if(ai_action && user != mod.ai_assistant)
 		return
-	else if(!ai_action && user == mod.ai)
+	else if(!ai_action && user == mod.ai_assistant)
 		return
 	return ..()
 
 /datum/action/item_action/mod/Remove(mob/user)
 	var/obj/item/mod/control/mod = master
-	if(ai_action && user != mod.ai)
+	if(ai_action && user != mod.ai_assistant)
 		return
-	else if(!ai_action && user == mod.ai)
+	else if(!ai_action && user == mod.ai_assistant)
 		return
 	return ..()
 
@@ -110,14 +110,17 @@
 	var/override = FALSE
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
-	/// A ref to the mob we are pinned to.
-	var/pinner_ref
+	/// A reference to the mob we are pinned to.
+	var/mob/pinner
 
 /datum/action/item_action/mod/pinned_module/New(Target, obj/item/mod/module/linked_module, mob/user)
-	if(isAI(user))
+	var/obj/item/mod/control/mod = Target
+	if(user == mod.ai_assistant)
 		ai_action = TRUE
-	..()
+	. = ..()
 	module = linked_module
+	pinner = user
+	module.pinned_to[REF(user)] = src
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands and check conscious
 		check_flags = NONE
@@ -125,22 +128,18 @@
 	desc = "Quickly activate [linked_module]."
 	icon_icon = linked_module.icon
 	button_icon_state = linked_module.icon_state
-	RegisterSignal(linked_module, COMSIG_MODULE_ACTIVATED, PROC_REF(on_module_activate))
-	RegisterSignal(linked_module, COMSIG_MODULE_DEACTIVATED, PROC_REF(on_module_deactivate))
-	RegisterSignal(linked_module, COMSIG_MODULE_USED, PROC_REF(on_module_use))
+	RegisterSignals(linked_module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED), PROC_REF(module_interacted_with))
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(pinner_deleted))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
-	module.pinned_to -= pinner_ref
+	module.pinned_to -= REF(pinner)
 	module = null
+	pinner = null
 	return ..()
 
 /datum/action/item_action/mod/pinned_module/Grant(mob/user)
-	var/user_ref = REF(user)
-	if(!pinner_ref)
-		pinner_ref = user_ref
-		module.pinned_to[pinner_ref] = src
-	else if(pinner_ref != user_ref)
+	if(pinner != user)
 		return
 	return ..()
 
@@ -161,18 +160,12 @@
 		current_button.add_overlay(cooldown_image)
 		addtimer(CALLBACK(current_button, TYPE_PROC_REF(/image, cut_overlay), cooldown_image), COOLDOWN_TIMELEFT(module, cooldown_timer))
 
+/// If the guy whose UI we are pinned to got deleted
+/datum/action/item_action/mod/pinned_module/proc/pinner_deleted()
+	pinner = null
+	qdel(src)
 
-/datum/action/item_action/mod/pinned_module/proc/on_module_activate(datum/source)
-	SIGNAL_HANDLER
-
-	update_buttons()
-
-/datum/action/item_action/mod/pinned_module/proc/on_module_deactivate(datum/source)
-	SIGNAL_HANDLER
-
-	update_buttons()
-
-/datum/action/item_action/mod/pinned_module/proc/on_module_use(datum/source)
+/datum/action/item_action/mod/pinned_module/proc/module_interacted_with(datum/source)
 	SIGNAL_HANDLER
 
 	update_buttons()

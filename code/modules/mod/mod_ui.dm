@@ -13,8 +13,9 @@
 		"cell_charge_current" = get_charge(),
 		"cell_charge_max" = get_max_charge(),
 		"active" = active,
-		"ai_name" = ai?.name,
-		"is_ai" = ai && ai == user,
+		"ai_name" = ai_assistant?.name,
+		"has_pai" = ispAI(ai_assistant),
+		"is_ai" = ai_assistant && ai_assistant == user,
 		// Wires
 		"open" = open,
 		"seconds_electrified" = seconds_electrified,
@@ -70,29 +71,43 @@
 	data["parts"] = part_info
 	return data
 
-/obj/item/mod/control/ui_act(action, params)
+/obj/item/mod/control/ui_state(mob/user)
+	if(user == ai_assistant)
+		return GLOB.contained_state
+	return ..()
+
+/obj/item/mod/control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
-	if(locked && !allowed(usr))
-		balloon_alert(usr, "insufficient access!")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return
 	if(malfunctioning && prob(75))
-		balloon_alert(usr, "button malfunctions!")
+		balloon_alert(ui.user, "button malfunctions!")
 		return
 	switch(action)
 		if("lock")
-			if(ai)
-				if(!isAI(usr))
-					balloon_alert(usr, "AI permissions required to unlock AI-assisted modsuit.")
+			//Suit locking with an AI requires AI consent. Not the case for PAI's however, thus isAI()
+			if(ai_assistant && isAI(ai_assistant))
+				//Check if the UI user is the AI interacting. Suit pilot cannot toggle lock.
+				if(!isAI(ui.user))
+					balloon_alert(ui.user, "AI permissions required to unlock AI-assisted modsuit.")
 					return
 				else
-					to_chat(usr, "Permission granted, AI Controller.")
-			locked = !locked
-			balloon_alert(usr, "[locked ? "locked" : "unlocked"]!")
+					to_chat(ui.user, "Permission granted, AI Controller.")
+			if(!locked || allowed(ui.user))
+				locked = !locked
+				balloon_alert(ui.user, "[locked ? "locked" : "unlocked"]!")
+			else
+				balloon_alert(ui.user, "access insufficent!")
+				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		/*
+		if("call")
+			if(!mod_link.link_call)
+				call_link(ui.user, mod_link)
+			else
+				mod_link.end_call()
+		*/
 		if("activate")
-			toggle_activate(usr)
+			toggle_activate(ui.user)
 		if("select")
 			var/obj/item/mod/module/module = locate(params["ref"]) in modules
 			if(!module)
@@ -107,6 +122,10 @@
 			var/obj/item/mod/module/module = locate(params["ref"]) in modules
 			if(!module)
 				return
-			module.pin(usr)
+			module.pin(ui.user)
+		if("eject_pai")
+			if (!ishuman(ui.user))
+				return
+			remove_pai(ui.user)
 
 	return TRUE

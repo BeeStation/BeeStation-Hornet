@@ -35,7 +35,8 @@ type SuitStatus = {
   complexity: number;
   selected_module: string;
   ai_name: string;
-  is_ai: BooleanLike;
+  has_pai: boolean;
+  is_ai: boolean;
 };
 
 type UserStatus = {
@@ -147,8 +148,9 @@ const ConfigureNumberEntry = (props) => {
       minValue={-50}
       maxValue={50}
       stepPixelSize={5}
+      step={1}
       width="39px"
-      onChange={(e, value) =>
+      onChange={(value) =>
         act('configure', {
           key: name,
           value: value,
@@ -307,6 +309,8 @@ const SuitStatusSection = (props) => {
     malfunctioning,
     locked,
     ai_name,
+    has_pai,
+    is_ai,
   } = data.suit_status;
   const { display_time, shift_time, shift_id } = data.module_custom_status;
   const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
@@ -362,7 +366,18 @@ const SuitStatusSection = (props) => {
             <Box color="red">Shorted</Box>
           </LabeledList.Item>
         )}
-        {!!ai_name && <LabeledList.Item label="AI Core">{ai_name}</LabeledList.Item>}
+        {!!ai_name && (
+          <LabeledList.Item label="pAI Control">
+            {has_pai && (
+              <Button
+                icon="eject"
+                content="Eject pAI"
+                disabled={is_ai}
+                onClick={() => act('eject_pai')}
+              />
+            )}
+          </LabeledList.Item>
+        )}
       </LabeledList>
 
       {!!display_time && (
@@ -382,7 +397,7 @@ const HardwareSection = (props) => {
   return (
     <Section title="Hardware" style={{ 'text-transform': 'capitalize' }}>
       <LabeledList>
-        <LabeledList.Item label="AI Card">{ai_name || 'No AI Card Detected'}</LabeledList.Item>
+        <LabeledList.Item label="AI Assistant">{ai_name || 'No AI Detected'}</LabeledList.Item>
         <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
         <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
         <ModParts />
