@@ -476,20 +476,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 					to_chat(user, span_notice("You insert the processing unit in the frame."))
 					qdel(C)
 					buildstage = 1
-					return
+					return TRUE
 
 			if(C.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You wrench the frame off the wall."))
 				C.play_tool_sound(src)
 				new /obj/item/wallframe/genpop_interface( user.loc )
 				qdel(src)
-				return
+				return TRUE
 		if(1)
 			if(istype(C, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/cable = C
 				if(cable.get_amount() < 5)
 					to_chat(user, span_warning("You need five lengths of cable to wire the prisoner interface!"))
-					return
+					return TRUE
 				user.visible_message(span_notice("[user.name] wires the prisoner interface."), span_notice("You start wiring the prisoner interface."))
 				if (do_after(user, 20, target = src))
 					if (cable.get_amount() >= 5 && buildstage == 1)
@@ -497,7 +497,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 						to_chat(user, span_notice("You wire the prisoner interface."))
 						buildstage = 2
 						update_icon()
-				return
+				return TRUE
 
 			if(C.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, span_notice("You start prying out the electronics off the frame."))
@@ -508,7 +508,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 						buildstage = 0
 						update_icon()
-				return
+				return TRUE
 		if(2)
 			if(C.tool_behaviour == TOOL_SCREWDRIVER)
 				if(panel_open)
@@ -516,13 +516,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 					C.play_tool_sound(src)
 					panel_open = FALSE
 					update_icon()
-					return
+					return TRUE
 				else
 					to_chat(user, span_notice("You open the panel of the [src]."))
 					C.play_tool_sound(src)
 					panel_open = TRUE
 					update_icon()
-					return
+					return TRUE
 
 			if(C.tool_behaviour == TOOL_WIRECUTTER && panel_open)
 				C.play_tool_sound(src)
@@ -530,7 +530,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 				new /obj/item/stack/cable_coil(loc, 5)
 				buildstage = 1
 				update_icon()
-				return
+				return TRUE
 
 	if(!istype(C, /obj/item/card/id))
 		. = ..()
@@ -538,6 +538,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 		var/obj/item/card/id/I = C
 		playsound(src, 'sound/machines/ping.ogg', 20)
 		desired_name = I.registered_name
+		return TRUE
 
 /obj/machinery/genpop_interface/proc/set_picture(state)
 	if(maptext)

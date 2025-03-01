@@ -542,8 +542,8 @@
 			to_chat(user, span_notice("You disable the circuitboard's ID scanning protocols."))
 		else
 			to_chat(user, span_notice("You reset the circuitboard's ID scanning protocols."))
-		return
-	. = ..()
+		return TRUE
+	return ..()
 
 /obj/item/circuitboard/computer/shuttle/white_ship
 	name = "white ship control (Computer Board)"

@@ -165,6 +165,6 @@
 		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
 		log_combat(user, C, "cut handcuffs from", important = FALSE)
 		qdel(C.handcuffed)
-		return
+		return TRUE
 	else
 		..()
