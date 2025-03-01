@@ -15,6 +15,9 @@ const CATEGORIES_ORDER = ['ADMIN', 'CHAT', 'GRAPHICS', 'SOUND', 'GHOST', 'UI', '
 
 // Specific scales used to make the layout better
 const SUBCATEGORY_SCALES = {
+  'ADMIN': {
+    'Misc': '100%',
+  },
   'CHAT': {
     'IC': '100%',
     'Runechat': '100%',

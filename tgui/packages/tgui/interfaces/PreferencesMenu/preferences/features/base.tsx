@@ -151,8 +151,9 @@ export const StandardizedDropdown = (props: {
   value?: string;
   buttons?: boolean;
   displayHeight?: string;
+  menuWidth?: string;
 }) => {
-  const { choices, disabled, buttons, displayNames, onSetValue, displayHeight, value } = props;
+  const { choices, disabled, buttons, displayNames, onSetValue, displayHeight, menuWidth, value } = props;
 
   return (
     <Dropdown
@@ -162,6 +163,7 @@ export const StandardizedDropdown = (props: {
       onSelected={onSetValue}
       clipSelectedText={false}
       displayHeight={displayHeight}
+      menuWidth={menuWidth}
       width="100%"
       displayText={value ? displayNames[value] : ''}
       displayTextFirst
