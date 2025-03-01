@@ -539,26 +539,26 @@
 	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/cocoa = 1)
 	mix_message = "The color changes as the mixture blends smoothly."
 
-/datum/chemical_reaction/hot_cocoa
+/datum/chemical_reaction/drink/hot_cocoa
 	name = "Hot Coco"
 	results = list(/datum/reagent/consumable/hot_cocoa = 6)
 	required_reagents = list(/datum/reagent/consumable/milk = 5, /datum/reagent/consumable/cocoa = 1)
 	required_temp = 320
 
-/datum/chemical_reaction/coffee
+/datum/chemical_reaction/drink/coffee
 	name = "Coffee"
 	results = list(/datum/reagent/consumable/coffee = 5)
 	required_reagents = list(/datum/reagent/toxin/coffeepowder = 1, /datum/reagent/water = 5)
 
-/datum/chemical_reaction/tea
+/datum/chemical_reaction/drink/tea
 	name = "Tea"
 	results = list(/datum/reagent/consumable/tea = 5)
 	required_reagents = list(/datum/reagent/toxin/teapowder = 1, /datum/reagent/water = 5)
 
-/datum/chemical_reaction/eggnog
+/datum/chemical_reaction/drink/eggnog
 	name = "Egg Nog"
 	results = list(/datum/reagent/consumable/ethanol/eggnog = 15)
-	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 5, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/eggyolk = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 5, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/eggyolk = 2)
 
 /datum/chemical_reaction/drink/narsour
 	name = "Nar'sour"
@@ -692,14 +692,12 @@
 	results = list(/datum/reagent/consumable/ethanol/blank_paper = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol/silencer = 1, /datum/reagent/consumable/nothing = 1, /datum/reagent/consumable/nuka_cola = 1)
 
-
 /datum/chemical_reaction/drink/wizz_fizz
 	name = "Wizz Fizz"
 	results = list(/datum/reagent/consumable/ethanol/wizz_fizz = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol/triple_sec = 1, /datum/reagent/consumable/sodawater = 1, /datum/reagent/consumable/ethanol/champagne = 1)
 	mix_message = "The beverage starts to froth with an almost mystical zeal!"
 	mix_sound = 'sound/effects/bubbles2.ogg'
-
 
 /datum/chemical_reaction/drink/bug_spray
 	name = "Bug Spray"
