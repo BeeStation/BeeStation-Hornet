@@ -403,7 +403,7 @@
 	projectile.firer = user ? user : src
 	projectile.fired_from = src
 	if(istype(projectile,/obj/projectile/beam/emitter/drill))
-		var/obj/projectile/beam/emitter/drill/D
+		var/obj/projectile/beam/emitter/drill/D = projectile
 		D.damage = laser_damage
 		D.structural_damage = laser_structural_damage
 	if(last_projectile_params)
