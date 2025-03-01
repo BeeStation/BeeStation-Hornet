@@ -59,7 +59,7 @@
 	if(isliving(parent))
 		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
-		RegisterSignal(parent, COMSIG_MOB_ALLOWED, PROC_REF(check_access))
+		RegisterSignal(parent, COMSIG_MOB_TRIED_ACCESS, PROC_REF(check_access))
 		RegisterSignal(parent, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_shock))
 		RegisterSignal(parent, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(on_minor_shock))
 		RegisterSignal(parent, COMSIG_SPECIES_GAIN, PROC_REF(check_viable_biotype))
@@ -84,7 +84,7 @@
 								COMSIG_NANITE_SYNC,
 								COMSIG_ATOM_EMP_ACT,
 								COMSIG_MOB_DEATH,
-								COMSIG_MOB_ALLOWED,
+								COMSIG_MOB_TRIED_ACCESS,
 								COMSIG_LIVING_ELECTROCUTE_ACT,
 								COMSIG_LIVING_MINOR_SHOCK,
 								COMSIG_MOVABLE_HEAR,
