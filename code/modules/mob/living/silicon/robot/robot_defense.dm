@@ -121,9 +121,10 @@
 		return TRUE
 	if(has_status_effect(STATUS_EFFECT_CYBORG_MALFUNCTION))
 		return FALSE //Malfunctions simplify the process for gameplay reasons
-	if(!opened && !locked)
-		to_chat(user, span_notice("You need to pry the cover open first!"))
-		return TRUE
+	if(!opened)
+		if(!locked) //Tell the player what went wrong instead of just leaving them in the dark
+			to_chat(user, span_notice("You need to pry the cover open first!"))
+		return !locked
 	if(wiresexposed)
 		to_chat(user, span_warning("You must unexpose the wires first!"))
 		return TRUE
