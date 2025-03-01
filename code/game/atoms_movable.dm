@@ -280,6 +280,9 @@
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
 		return FALSE
+	if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
+		stop_pulling()
+		return FALSE
 	if(isliving(pulling))
 		var/mob/living/L = pulling
 		if(L.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
