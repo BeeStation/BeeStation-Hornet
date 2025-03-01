@@ -395,7 +395,7 @@
 		power_usage -= 50 * manipulator.rating
 	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
 
-/obj/machinery/power/emitter/drill/proc/fire_beam(mob/user)
+/obj/machinery/power/emitter/drill/fire_beam(mob/user)
 	var/obj/projectile/projectile = new projectile_type(get_turf(src))
 	playsound(src, projectile_sound, 50, TRUE)
 	if(prob(35))
