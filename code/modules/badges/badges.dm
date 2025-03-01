@@ -16,8 +16,7 @@ Special ranks:
 //Global list of badges
 GLOBAL_LIST_EMPTY(badge_data)
 
-/client
-	var/list/cached_badges = null
+/client/var/list/cached_badges = null
 
 //Loads the badge ranks
 /proc/load_badge_ranks()

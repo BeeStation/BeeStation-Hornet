@@ -232,6 +232,17 @@
 		stored_pda = null
 		update_icon()
 
+/obj/machinery/pdapainter/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	if(stored_pda || stored_id_card)
+		context.add_attack_hand_action("Paint Item")
+		context.add_attack_hand_secondary_action("Eject Item")
+	else
+		context.add_left_click_item_action("Insert", /obj/item/modular_computer/tablet/pda)
+		context.add_left_click_item_action("Insert", /obj/item/card/id)
+	if (machine_stat & BROKEN)
+		context.add_left_click_tool_action("Repair", TOOL_WELDER)
+	context.add_generic_unfasten_actions(src)
+
 /**
  * Eject the stored ID card into the user's hands if possible, otherwise on the floor.
  *
