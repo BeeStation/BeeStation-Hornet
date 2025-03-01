@@ -13,6 +13,7 @@
 	. = ..()
 	if(!linked_techweb)
 		linked_techweb = SSresearch.science_tech
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 
 /obj/item/discovery_scanner/Destroy()
 	linked_techweb = null	//Note: Shouldn't hard del anyway since techwebs don't get deleted, however if they do then troubles will arise and this will need to be changed.
