@@ -50,7 +50,7 @@
 			return
 	if(istype(target, /obj/item))
 		var/obj/item/O = target
-		if(O.GetComponent(/datum/component/storage))
+		if(O.atom_storage)
 			to_chat(user, span_notice("You can't make this item any smaller without compromising its storage functions!."))
 			return
 		if(O.w_class == WEIGHT_CLASS_TINY)
