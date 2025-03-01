@@ -234,6 +234,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// If the item is able to be used as a seed in a hydroponics tray.
 	var/obj/item/seeds/fake_seed
 
+	/// How many charges get restored, when using this item to restore shield
+	var/added_shield = 0
+
 /obj/item/Initialize(mapload)
 
 	if(attack_verb_continuous)
@@ -307,13 +310,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	LAZYADD(actions, action)
 	RegisterSignal(action, COMSIG_PARENT_QDELETING, PROC_REF(on_action_deleted))
-	if(ismob(loc))
-		// We're being held or are equipped by someone while adding an action?
-		// Then they should also probably be granted the action, given it's in a correct slot
-		var/mob/holder = loc
-		give_item_action(action, holder, holder.get_slot_by_item(src))
-
+	grant_action_to_bearer(action)
 	return action
+
+/// Grant the action to anyone who has this item equipped to an appropriate slot
+/obj/item/proc/grant_action_to_bearer(datum/action/action)
+	if(!ismob(loc))
+		return
+	var/mob/holder = loc
+	give_item_action(action, holder, holder.get_slot_by_item(src))
 
 /// Removes an instance of an action from our list of item actions.
 /obj/item/proc/remove_item_action(datum/action/action)
@@ -1508,6 +1513,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
 	return
+
+/// Whether or not this item can be put into a storage item through attackby
+/obj/item/proc/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	return TRUE
 
 /**
  * * Overridden to generate icons for monkey clothing

@@ -69,7 +69,6 @@
 	var/datum/station_alert/alert_control
 
 	var/speed = 0 // VTEC speed boost.
-	var/magpulse = FALSE // Magboot-like effect.
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
 	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
@@ -1094,10 +1093,11 @@
 	designation = module.name
 	if(hands)
 		hands.icon_state = module.moduleselect_icon
-	if(module.can_be_pushed)
-		status_flags |= CANPUSH
-	else
-		status_flags &= ~CANPUSH
+
+	REMOVE_TRAITS_IN(src, MODULE_TRAIT)
+	if(module.module_traits)
+		for(var/trait in module.module_traits)
+			ADD_TRAIT(src, trait, MODULE_TRAIT)
 
 	if(module.clean_on_move)
 		AddElement(/datum/element/cleaning)
@@ -1112,7 +1112,6 @@
 
 	hat_offset = module.hat_offset
 
-	magpulse = module.magpulsing
 	updatename()
 
 
