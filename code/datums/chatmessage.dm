@@ -275,8 +275,6 @@
 	// If we are not in a group, then we will handle bumping the chat messages automatically
 	bump_chat_messages()
 
-	LAZYADD(message_loc.chat_messages, src)
-
 	// Register with the runechat SS to handle EOL and destruction
 	var/duration = lifespan - CHAT_MESSAGE_EOL_FADE
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
@@ -369,6 +367,13 @@
 					m.fadertimer = addtimer(CALLBACK(m, PROC_REF(end_of_life)), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 				else
 					m.end_of_life()
+
+/datum/chatmessage/proc/transfer_to(atom/location)
+	LAZYREMOVE(message_loc.chat_messages, src)
+	message_loc = location
+	// Due to async, this may not have been created yet
+	message?.loc = location
+	LAZYADD(message_loc.chat_messages, src)
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
@@ -669,6 +674,9 @@
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/atom/proc/transfer_messages_to(atom/new_location)
+	for (var/datum/chatmessage/message as() in chat_messages)
+		message.transfer_to(new_location)
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
