@@ -31,12 +31,12 @@
 	//Firstly, heat up the reactor based off of rate_of_reaction.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
 	if(input_moles >= minimum_coolant_level)
-		last_coolant_temperature = coolant_input.return_temperature()-273.15
+		last_coolant_temperature = clamp(coolant_input.temperature-273.15, TCMB, INFINITY)
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = ((coolant_input.return_temperature()-273.15) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
+		var/heat_delta = (clamp(coolant_input.temperature-273.15, TCMB, INFINITY) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
 		temperature += heat_delta
-		coolant_output.merge(coolant_input) //And now, shove the input into the output.
+		coolant_input.pump_gas_to(coolant_output, coolant_input.return_pressure()) //And now, shove the input into the output.
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
 	else
 		if(has_fuel())
@@ -49,7 +49,7 @@
 
 	//Now, heat up the output and set our pressure.
 	coolant_output.temperature = temperature + 273.15 //Heat the coolant output gas that we just had pass through us.
-	last_output_temperature = coolant_output.return_temperature()-273.15
+	last_output_temperature = clamp(coolant_output.temperature-273.15, TCMB, INFINITY)
 	pressure = coolant_output.return_pressure()
 	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
 	if(power < 0) // Not letting power get into the negatives, because -22% power is just absurd.
@@ -87,7 +87,7 @@
 			depletion_modifier += total_degradation_moles / 15 //Oops! All depletion. This causes your fuel rods to get SPICY.
 			playsound(src, pick('sound/machines/sm/accent/normal/1.ogg','sound/machines/sm/accent/normal/2.ogg','sound/machines/sm/accent/normal/3.ogg','sound/machines/sm/accent/normal/4.ogg','sound/machines/sm/accent/normal/5.ogg'), 100, TRUE)
 		//From this point onwards, we clear out the remaining gasses.
-		moderator_input.remove_ratio(moderator_input_total_mols) //Woosh. And the soul is gone.
+		moderator_input.remove(moderator_input_total_mols) //Woosh. And the soul is gone.
 		rate_of_reaction += total_fuel_moles / 1000
 	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
