@@ -138,7 +138,7 @@
 			// Only notify people if an actual change happened
 			log_game("[key_name(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
-			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has changed the security level to [params["newSecurityLevel"]] with [src] at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+			deadchat_broadcast(span_deadsay("[span_name(usr.real_name)] has changed the security level to [params["newSecurityLevel"]] with [src] at [span_name(get_area_name(usr, TRUE))]."), usr)
 
 			alert_level_tick += 1
 			. = TRUE
@@ -175,14 +175,14 @@
 
 			var/associates = emagged ? "the Syndicate": "CentCom"
 			usr.log_talk(message, LOG_SAY, tag = "message to [associates]")
-			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has messaged [associates], \"[message]\" at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+			deadchat_broadcast(span_deadsay("[span_name(usr.real_name)] has messaged [associates], \"[message]\" at [span_name(get_area_name(usr, TRUE))]."), usr)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("purchaseShuttle")
 			var/can_buy_shuttles_or_fail_reason = can_buy_shuttles(usr)
 			if (can_buy_shuttles_or_fail_reason != TRUE)
 				if (can_buy_shuttles_or_fail_reason != FALSE)
-					to_chat(usr, span_alert("[can_buy_shuttles_or_fail_reason]"))
+					to_chat(usr, span_alert(can_buy_shuttles_or_fail_reason))
 				return
 			var/list/shuttles = flatten_list(SSmapping.shuttle_templates)
 			var/datum/map_template/shuttle/shuttle = locate(params["shuttle"]) in shuttles
@@ -336,12 +336,12 @@
 				revoke_maint_all_access()
 				log_game("[key_name(usr)] disabled emergency maintenance access.")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] disabled emergency maintenance access.")
-				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] disabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+				deadchat_broadcast(span_deadsay("[span_name(usr.real_name)] disabled emergency maintenance access at [span_name(get_area_name(usr, TRUE))]."), usr)
 			else
 				make_maint_all_access()
 				log_game("[key_name(usr)] enabled emergency maintenance access.")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] enabled emergency maintenance access.")
-				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] enabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+				deadchat_broadcast(span_deadsay("[span_name(usr.real_name)] enabled emergency maintenance access at [span_name(get_area_name(usr, TRUE))]."), usr)
 		// Request codes for the Captain's Spare ID safe.
 		if("requestSafeCodes")
 			if(SSjob.assigned_captain)
@@ -553,7 +553,7 @@
 		to_chat(user, span_warning("You cannot send an announcement that contains prohibited words."))
 		return
 	SScommunications.make_announcement(user, is_ai, input, null, syndicate)
-	deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] made a priority announcement from [span_name("[get_area_name(usr, TRUE)]")]."), user)
+	deadchat_broadcast(span_deadsay("[span_name(user.real_name)] made a priority announcement from [span_name(get_area_name(usr, TRUE))]."), user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)
 

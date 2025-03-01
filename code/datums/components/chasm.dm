@@ -99,7 +99,7 @@
 
 	if(T)
 		// send to the turf below
-		AM.visible_message(span_boldwarning("[AM] falls into [parent]!"), span_userdanger("[fall_message]"))
+		AM.visible_message(span_boldwarning("[AM] falls into [parent]!"), span_userdanger(fall_message))
 		T.visible_message(span_boldwarning("[AM] falls from above!"))
 		AM.forceMove(T)
 		if(isliving(AM))
@@ -110,7 +110,7 @@
 
 	else
 		// send to oblivion
-		AM.visible_message(span_boldwarning("[AM] falls into [parent]!"), span_userdanger("[oblivion_message]"))
+		AM.visible_message(span_boldwarning("[AM] falls into [parent]!"), span_userdanger(oblivion_message))
 		if (isliving(AM))
 			var/mob/living/L = AM
 			L.notransform = TRUE

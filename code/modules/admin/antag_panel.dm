@@ -153,7 +153,7 @@ GLOBAL_VAR(antag_prototypes)
 				continue
 		else //Show removal and current one
 			priority_sections |= antag_category
-			antag_header_parts += span_bad("[current_antag.name]")
+			antag_header_parts += span_bad(current_antag.name)
 			antag_header_parts += "<a href='?src=[REF(src)];remove_antag=[REF(current_antag)]'>Remove</a>"
 
 
