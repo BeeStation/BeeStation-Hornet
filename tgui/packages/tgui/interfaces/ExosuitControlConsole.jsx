@@ -58,7 +58,6 @@ export const ExosuitControlConsole = (props) => {
               </LabeledList.Item>
               <LabeledList.Item label="Pilot">{mech.pilot || 'None'}</LabeledList.Item>
               <LabeledList.Item label="Location">{mech.location || 'Unknown'}</LabeledList.Item>
-              <LabeledList.Item label="Active Equipment">{mech.active_equipment || 'None'}</LabeledList.Item>
               {mech.cargo_space >= 0 && (
                 <LabeledList.Item label="Used Cargo Space">
                   <Box color={(mech.cargo_space <= 30 && 'good') || (mech.cargo_space <= 70 && 'average') || 'bad'}>
