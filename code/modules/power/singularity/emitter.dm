@@ -94,7 +94,7 @@
 		max_fire_delay -= 2 SECONDS * laser.rating
 		min_fire_delay -= 0.4 SECONDS * laser.rating
 		fire_shoot_delay -= 2 SECONDS * laser.rating
-		las_damage += 2.5 * laser.rating
+		las_damage += 5 * laser.rating
 	laser_damage = las_damage
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
