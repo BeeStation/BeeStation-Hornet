@@ -13,6 +13,7 @@ export const ghost_accs: FeatureChoiced = {
   subcategory: 'Appearance',
   description: 'Determines what adjustments your ghost will have.',
   component: FeatureButtonedDropdownInput,
+  important: true,
 };
 
 const insertGhostForm = binaryInsertWith<{
@@ -88,6 +89,7 @@ export const ghost_form: FeatureChoiced = {
   category: 'BYOND MEMBER',
   description: 'The appearance of your ghost. Requires BYOND membership.',
   component: GhostFormInput,
+  important: true,
 };
 
 export const ghost_hud: FeatureToggle = {
@@ -110,6 +112,7 @@ export const ghost_orbit: FeatureChoiced = {
 
     return <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />;
   },
+  important: true,
 };
 
 export const ghost_others: FeatureChoiced = {
@@ -121,6 +124,7 @@ export const ghost_others: FeatureChoiced = {
     their default sprites, or always as the default white ghost?
   `,
   component: FeatureButtonedDropdownInput,
+  important: true,
 };
 
 export const inquisitive_ghost: FeatureToggle = {
