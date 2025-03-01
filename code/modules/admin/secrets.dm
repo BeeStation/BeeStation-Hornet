@@ -517,21 +517,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("floorlava")
 			SSweather.run_weather(/datum/weather/floor_is_lava)
 
-		if("virus")
-			if(!check_rights(R_FUN))
-				return
-			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Virus Outbreak"))
-			switch(alert("Do you want this to be a random disease or do you have something in mind?",,"Make Your Own","Random","Choose"))
-				if("Make Your Own")
-					AdminCreateVirus(usr.client)
-				if("Random")
-					E = new /datum/round_event/disease_outbreak()
-				if("Choose")
-					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in sort_list(typesof(/datum/disease, GLOBAL_PROC_REF(cmp_typepaths_asc)))
-					E = new /datum/round_event/disease_outbreak{}()
-					var/datum/round_event/disease_outbreak/DO = E
-					DO.virus_type = virus
-
 		if("dumbify")
 			if(!check_rights(R_FUN))
 				return
