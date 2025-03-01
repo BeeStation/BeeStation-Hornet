@@ -4,30 +4,30 @@
 /datum/song/proc/instrument_status_ui()
 	. = list()
 	. += "<div class='statusDisplay'>"
-	. += "<b><a href='?src=[REF(src)];switchinstrument=1'>Current instrument</a>:</b> "
+	. += "<b><a href='byond://?src=[REF(src)];switchinstrument=1'>Current instrument</a>:</b> "
 	if(!using_instrument)
 		. += "[span_danger("No instrument loaded!")]<br>"
 	else
 		. += "[using_instrument.name]<br>"
 	. += "Playback Settings:<br>"
 	if(can_noteshift)
-		. += "<a href='?src=[REF(src)];setnoteshift=1'>Note Shift/Note Transpose</a>: [note_shift] keys / [round(note_shift / 12, 0.01)] octaves<br>"
+		. += "<a href='byond://?src=[REF(src)];setnoteshift=1'>Note Shift/Note Transpose</a>: [note_shift] keys / [round(note_shift / 12, 0.01)] octaves<br>"
 	var/smt
 	var/modetext = ""
 	switch(sustain_mode)
 		if(SUSTAIN_LINEAR)
 			smt = "Linear"
-			modetext = "<a href='?src=[REF(src)];setlinearfalloff=1'>Linear Sustain Duration</a>: [sustain_linear_duration / 10] seconds<br>"
+			modetext = "<a href='byond://?src=[REF(src)];setlinearfalloff=1'>Linear Sustain Duration</a>: [sustain_linear_duration / 10] seconds<br>"
 		if(SUSTAIN_EXPONENTIAL)
 			smt = "Exponential"
-			modetext = "<a href='?src=[REF(src)];setexpfalloff=1'>Exponential Falloff Factor</a>: [sustain_exponential_dropoff]% per decisecond<br>"
-	. += "<a href='?src=[REF(src)];setsustainmode=1'>Sustain Mode</a>: [smt]<br>"
+			modetext = "<a href='byond://?src=[REF(src)];setexpfalloff=1'>Exponential Falloff Factor</a>: [sustain_exponential_dropoff]% per decisecond<br>"
+	. += "<a href='byond://?src=[REF(src)];setsustainmode=1'>Sustain Mode</a>: [smt]<br>"
 	. += modetext
 	. += using_instrument?.ready()? "Status: [span_good("Ready")]<br>" : "Status: [span_bad("!Instrument Definition Error!")]<br>"
 	. += "Instrument Type: [legacy? "Legacy" : "Synthesized"]<br>"
-	. += "<a href='?src=[REF(src)];setvolume=1'>Volume</a>: [volume]<br>"
-	. += "<a href='?src=[REF(src)];setdropoffvolume=1'>Volume Dropoff Threshold</a>: [sustain_dropoff_volume]<br>"
-	. += "<a href='?src=[REF(src)];togglesustainhold=1'>Sustain indefinitely last held note</a>: [full_sustain_held_note? "Enabled" : "Disabled"].<br>"
+	. += "<a href='byond://?src=[REF(src)];setvolume=1'>Volume</a>: [volume]<br>"
+	. += "<a href='byond://?src=[REF(src)];setdropoffvolume=1'>Volume Dropoff Threshold</a>: [sustain_dropoff_volume]<br>"
+	. += "<a href='byond://?src=[REF(src)];togglesustainhold=1'>Sustain indefinitely last held note</a>: [full_sustain_held_note? "Enabled" : "Disabled"].<br>"
 	. += "</div>"
 
 /datum/song/ui_interact(mob/user)
@@ -38,31 +38,31 @@
 	if(lines.len > 0)
 		dat += "<H3>Playback</H3>"
 		if(!playing)
-			dat += "<A href='?src=[REF(src)];play=1'>Play</A> [span_linkon("Stop")]<BR><BR>"
+			dat += "<A href='byond://?src=[REF(src)];play=1'>Play</A> [span_linkon("Stop")]<BR><BR>"
 			dat += "Repeat Song: "
-			dat += repeat > 0 ? "<A href='?src=[REF(src)];repeat=-10'>-</A><A href='?src=[REF(src)];repeat=-1'>-</A>" : "[span_linkoff("-")][span_linkoff("-")]"
+			dat += repeat > 0 ? "<A href='byond://?src=[REF(src)];repeat=-10'>-</A><A href='byond://?src=[REF(src)];repeat=-1'>-</A>" : "[span_linkoff("-")][span_linkoff("-")]"
 			dat += " [repeat] times "
-			dat += repeat < max_repeats ? "<A href='?src=[REF(src)];repeat=1'>+</A><A href='?src=[REF(src)];repeat=10'>+</A>" : "[span_linkoff("+")][span_linkoff("+")]"
+			dat += repeat < max_repeats ? "<A href='byond://?src=[REF(src)];repeat=1'>+</A><A href='byond://?src=[REF(src)];repeat=10'>+</A>" : "[span_linkoff("+")][span_linkoff("+")]"
 			dat += "<BR>"
 		else
-			dat += "[span_linkon("Play")] <A href='?src=[REF(src)];stop=1'>Stop</A><BR>"
+			dat += "[span_linkon("Play")] <A href='byond://?src=[REF(src)];stop=1'>Stop</A><BR>"
 			dat += "Repeats left: <B>[repeat]</B><BR>"
 	if(!editing)
-		dat += "<BR><B><A href='?src=[REF(src)];edit=2'>Show Editor</A></B><BR>"
+		dat += "<BR><B><A href='byond://?src=[REF(src)];edit=2'>Show Editor</A></B><BR>"
 	else
 		dat += "<H3>Editing</H3>"
-		dat += "<B><A href='?src=[REF(src)];edit=1'>Hide Editor</A></B>"
-		dat += " <A href='?src=[REF(src)];newsong=1'>Start a New Song</A>"
-		dat += " <A href='?src=[REF(src)];import=1'>Import a Song</A><BR><BR>"
+		dat += "<B><A href='byond://?src=[REF(src)];edit=1'>Hide Editor</A></B>"
+		dat += " <A href='byond://?src=[REF(src)];newsong=1'>Start a New Song</A>"
+		dat += " <A href='byond://?src=[REF(src)];import=1'>Import a Song</A><BR><BR>"
 		var/bpm = round(600 / tempo)
-		dat += "Tempo: <A href='?src=[REF(src)];tempo=[world.tick_lag]'>-</A> [bpm] BPM <A href='?src=[REF(src)];tempo=-[world.tick_lag]'>+</A><BR><BR>"
+		dat += "Tempo: <A href='byond://?src=[REF(src)];tempo=[world.tick_lag]'>-</A> [bpm] BPM <A href='byond://?src=[REF(src)];tempo=-[world.tick_lag]'>+</A><BR><BR>"
 		var/linecount = 0
 		for(var/line in lines)
 			linecount += 1
-			dat += "Line [linecount]: <A href='?src=[REF(src)];modifyline=[linecount]'>Edit</A> <A href='?src=[REF(src)];deleteline=[linecount]'>X</A> [line]<BR>"
-		dat += "<A href='?src=[REF(src)];newline=1'>Add Line</A><BR><BR>"
+			dat += "Line [linecount]: <A href='byond://?src=[REF(src)];modifyline=[linecount]'>Edit</A> <A href='byond://?src=[REF(src)];deleteline=[linecount]'>X</A> [line]<BR>"
+		dat += "<A href='byond://?src=[REF(src)];newline=1'>Add Line</A><BR><BR>"
 		if(help)
-			dat += "<B><A href='?src=[REF(src)];help=1'>Hide Help</A></B><BR>"
+			dat += "<B><A href='byond://?src=[REF(src)];help=1'>Hide Help</A></B><BR>"
 			dat += {"
 					Lines are a series of chords, separated by commas (,), each with notes separated by hyphens (-).<br>
 					Every note in a chord will play together, with chord timed by the tempo.<br>
@@ -81,7 +81,7 @@
 					A song may only contain up to [MUSIC_MAXLINES] lines.<br>
 					"}
 		else
-			dat += "<B><A href='?src=[REF(src)];help=2'>Show Help</A></B><BR>"
+			dat += "<B><A href='byond://?src=[REF(src)];help=2'>Show Help</A></B><BR>"
 
 	var/datum/browser/popup = new(user, "instrument", parent?.name || "instrument", 700, 500)
 	popup.set_content(dat.Join(""))

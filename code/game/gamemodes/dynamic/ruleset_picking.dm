@@ -56,8 +56,8 @@
 
 		log_game("DYNAMIC: [rule] ruleset executing...")
 		message_admins("DYNAMIC: Executing midround ruleset [rule] in [DisplayTimeText(ADMIN_CANCEL_MIDROUND_TIME)]. \
-			<a href='?src=[REF(src)];cancelmidround=[midround_injection_timer_id]'>CANCEL</a> | \
-			<a href='?src=[REF(src)];differentmidround=[midround_injection_timer_id]'>SOMETHING ELSE</a>")
+			<a href='byond://?src=[REF(src)];cancelmidround=[midround_injection_timer_id]'>CANCEL</a> | \
+			<a href='byond://?src=[REF(src)];differentmidround=[midround_injection_timer_id]'>SOMETHING ELSE</a>")
 		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
 	else
 		execute_midround_rule(rule)

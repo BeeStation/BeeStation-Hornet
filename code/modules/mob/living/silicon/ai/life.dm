@@ -141,7 +141,7 @@
 				sleep(50)
 				to_chat(src, "Receiving control information from APC.")
 				sleep(2)
-				to_chat(src, "<A HREF=?src=[REF(src)];emergencyAPC=[TRUE]>APC ready for connection.</A>")
+				to_chat(src, "<a href='byond://?src=[REF(src)];emergencyAPC=[TRUE]'>APC ready for connection.</a>")
 				apc_override = theAPC
 				theAPC.ui_interact(src)
 				setAiRestorePowerRoutine(POWER_RESTORATION_APC_FOUND)
