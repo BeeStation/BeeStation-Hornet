@@ -2,6 +2,7 @@
 	name = "Ninja"
 	antagpanel_category = "Ninja"
 	banning_key = ROLE_NINJA
+	special_role = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused

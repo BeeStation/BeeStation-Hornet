@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////
 //                                          //
 //            MIDROUND RULESETS             //
@@ -5,7 +6,7 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround // Can be drafted once in a while during a round
-	ruletype = "Midround"
+	rule_category = DYNAMIC_MIDROUND
 	var/midround_ruleset_style
 	/// If the ruleset should be restricted from ghost roles.
 	var/restrict_ghost_roles = TRUE
@@ -17,8 +18,8 @@
 	var/list/list_observers = list()
 
 	/// The minimum round time before this ruleset will show up
-	var/minimum_round_time = 0
-
+	var/minimum_round_time = 0 MINUTES
+/*
 /datum/dynamic_ruleset/midround/from_ghosts
 	weight = 0
 	required_type = /mob/dead/observer
@@ -967,3 +968,4 @@
 	. = ..()
 	// Set their job in addition to their antag role to be a space ninja for logging purposes
 	new_character.mind.assigned_role = ROLE_NINJA
+*/
