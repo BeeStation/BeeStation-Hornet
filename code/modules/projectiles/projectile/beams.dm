@@ -155,6 +155,13 @@
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
+/obj/projectile/beam/emitter/dril;
+	name = "emitter beam"
+	icon_state = "emitter"
+	damage = 30
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	light_color =
+
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
