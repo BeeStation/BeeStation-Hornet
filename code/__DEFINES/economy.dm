@@ -67,10 +67,13 @@
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 
 /// How much mail the Economy SS will create per minute, regardless of firing time.
-#define MAX_MAIL_PER_MINUTE 3
+#define MAX_MAIL_PER_MINUTE 1
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70
-
+/// Max amount of mail that can be queued
+#define MAX_MAIL_LIMIT 12
+/// Amount of mail required before a mail crate spawns
+#define MAIL_REQUIRED_BEFORE_SPAWN 6
 
 /// used for custom_currency
 #define ACCOUNT_CURRENCY_MINING "mining points"
