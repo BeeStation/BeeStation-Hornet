@@ -18,7 +18,7 @@
 	button_icon_state = "power_dominate"
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
 		This will completely immobilize them for the next 10 seconds."
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS|BP_CANT_USE_DURING_SOL
 	bloodcost = 15
 	constant_bloodcost = 2
 	cooldown_time = 50 SECONDS

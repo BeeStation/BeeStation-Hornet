@@ -88,7 +88,7 @@
 	SEND_SIGNAL(src, VAMPIRE_RANK_UP, target, cost_rank, blood_cost)
 
 /// Do I have a stake in my heart?
-/datum/antagonist/vampire/proc/check_staked()
+/datum/antagonist/vampire/proc/check_if_staked()
 	var/obj/item/bodypart/chosen_bodypart = owner.current.get_bodypart(BODY_ZONE_CHEST)
 	if(!chosen_bodypart)
 		return FALSE

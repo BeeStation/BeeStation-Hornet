@@ -9,6 +9,7 @@
 	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY
 	bloodcost = 5
 	constant_bloodcost = 0.2
+	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
 
 /// Must have nobody around to see the cloak

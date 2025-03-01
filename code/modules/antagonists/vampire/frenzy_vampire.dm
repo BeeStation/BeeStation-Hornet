@@ -24,7 +24,8 @@
 /atom/movable/screen/alert/status_effect/frenzy
 	name = "Frenzy"
 	desc = "You are in a Frenzy! You are entirely Feral and, depending on your Clan, fighting for your life!"
-	icon_state = "frenzy"
+	icon = 'icons/vampires/actions_vampire.dmi'
+	icon_state = "frenzy_alert"
 	alerttooltipstyle = "cult"
 
 /datum/status_effect/frenzy

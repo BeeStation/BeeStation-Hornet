@@ -34,10 +34,15 @@
 	var/bloodcost = 0
 	///The cost to MAINTAIN this Power Only used for constant powers
 	var/constant_bloodcost = 0
+	/// A multiplier for the bloodcost during sol.
+	var/sol_multiplier = 1
 
 // Modify description to add cost.
 /datum/action/cooldown/vampire/New(Target)
 	. = ..()
+	update_desc()
+
+/datum/action/cooldown/vampire/proc/update_desc(rebuild = TRUE)
 	if(bloodcost > 0)
 		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
 	if(constant_bloodcost > 0)
@@ -117,7 +122,7 @@
 		to_chat(user, span_warning("You cannot use powers while in a Frenzy!"))
 		return FALSE
 	// Stake?
-	if((check_flags & BP_CANT_USE_WHILE_STAKED) && vampiredatum_power?.check_staked())
+	if((check_flags & BP_CANT_USE_WHILE_STAKED) && vampiredatum_power?.check_if_staked())
 		to_chat(user, span_warning("You have a stake in your chest! Your powers are useless."))
 		return FALSE
 	// Conscious? -- We use our own (AB_CHECK_CONSCIOUS) here so we can control it more, like the error message.
@@ -131,6 +136,10 @@
 	// Constant Cost (out of blood)
 	if(constant_bloodcost > 0 && vampiredatum_power?.vampire_blood_volume <= 0)
 		to_chat(user, span_warning("You don't have the blood to upkeep [src]."))
+		return FALSE
+	// Sol check
+	if((check_flags & BP_CANT_USE_DURING_SOL) && user.has_status_effect(/datum/status_effect/vampire_sol))
+		to_chat(user, span_warning("You can't use [src] during Sol!"))
 		return FALSE
 	return TRUE
 

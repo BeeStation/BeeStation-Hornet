@@ -18,7 +18,7 @@
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 	// Standard Updates
 	SEND_SIGNAL(src, COMSIG_VAMPIRE_ON_LIFETICK)
-	INVOKE_ASYNC(src, PROC_REF(HandleStarving))
+	INVOKE_ASYNC(src, PROC_REF(handle_starving))
 	INVOKE_ASYNC(src, PROC_REF(update_blood))
 
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
@@ -50,7 +50,7 @@
 	// Apply to Volume
 	AddBloodVolume(blood_taken)
 	// Reagents (NOT Blood!)
-	if(target.reagents && target.reagents.total_volume)
+	if(target.reagents?.total_volume)
 		target.reagents.trans_to(owner.current, INGEST, 1) // Run transfer of 1 unit of reagent from them to me.
 	owner.current.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, 1) // Play THIS sound for user only. The "null" is where turf would go if a location was needed. Null puts it right in their head.
 	total_blood_drank += blood_taken
@@ -72,10 +72,13 @@
 	if(QDELETED(owner?.current))
 		return FALSE
 	// Don't heal if  staked
-	if(check_staked())
+	if(check_if_staked())
 		return FALSE
 	// Dont heal if you have TRAIT_MASQUERADE and not undergoing torpor
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+		return FALSE
+	// No healing during sol, cry about it
+	if(!in_torpor && (HAS_TRAIT(owner.current, TRAIT_MASQUERADE) || owner.current.has_status_effect(/datum/status_effect/vampire_sol)))
 		return FALSE
 
 	var/actual_regen = vampire_regen_rate + additional_regen
@@ -177,7 +180,7 @@
 
 	if(user.stat == DEAD)
 		user.revive()
-	// From [powers/panacea.dm]
+	// From 'panacea.dm'
 	var/list/bad_organs = list(user.getorgan(/obj/item/organ/body_egg), user.getorgan(/obj/item/organ/zombie_infection))
 
 	for(var/tumors in bad_organs)
@@ -220,15 +223,16 @@
 /// FINAL DEATH.
 /// Don't call this directly, use handle_death().
 /datum/antagonist/vampire/proc/do_handle_death()
-	if(QDELETED(owner.current) || check_staked() || is_in_torpor())
+	if(QDELETED(owner.current) || check_if_staked() || is_in_torpor())
 		return
 
 	to_chat(owner.current, span_userdanger("Your immortal body will not yet relinquish your soul to the abyss. You enter Torpor."))
 	torpor_begin()
 
-/datum/antagonist/vampire/proc/HandleStarving() // I am thirsty for blood!
+/datum/antagonist/vampire/proc/handle_starving() // I am thirsty for blood!
 	// Nutrition - The amount of blood is how full we are.
-	owner.current.set_nutrition(min(vampire_blood_volume, NUTRITION_LEVEL_FED))
+	if(!isoozeling(owner.current))
+		owner.current.set_nutrition(min(vampire_blood_volume, NUTRITION_LEVEL_FED))
 
 	// BLOOD_VOLUME_GOOD: [336] - Pale
 	// handled in vampire_integration.dm
