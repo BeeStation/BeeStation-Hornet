@@ -44,7 +44,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		C.drunkenness = max((C.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
 		if(C.drunkenness >= 250)
 			C.client?.give_award(/datum/award/achievement/misc/drunk, C)
-		var/obj/item/organ/liver/L = C.getorganslot(ORGAN_SLOT_LIVER)
+		var/obj/item/organ/liver/L = C.get_organ_slot(ORGAN_SLOT_LIVER)
 		if (istype(L))
 			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance, 0))/150))
 	return ..()
@@ -216,7 +216,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		to_chat(M, span_notice("[pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
 
 	if(prob(5) && iscarbon(M))
-		var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 		if(M.is_blind())
 			if(istype(eyes))
 				eyes.Remove(M)
