@@ -72,12 +72,14 @@
 	cost = 1500
 	contraband = TRUE
 	max_supply = 2
-	contains = list(/obj/vehicle/ridden/atv,
-					/obj/item/key,
-					/obj/item/clothing/suit/jacket/leather/overcoat,
-					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft/cargo,
-					/obj/item/clothing/mask/bandana/skull/black)//so you can properly #cargoniabikergang
+	contains = list(
+		/obj/vehicle/ridden/atv,
+		/obj/item/key/atv,
+		/obj/item/clothing/suit/jacket/leather/overcoat,
+		/obj/item/clothing/gloves/color/black,
+		/obj/item/clothing/head/soft/cargo,
+		/obj/item/clothing/mask/bandana/skull/black,//so you can properly #cargoniabikergang
+	)
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
 

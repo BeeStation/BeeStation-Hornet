@@ -116,6 +116,7 @@ Slimecrossing Potions
 	if(!proximity)
 		return
 	if(!istype(C))
+		// applying this to vehicles is handled in the ridable element, see [/datum/element/ridable/proc/check_potion]
 		to_chat(user, span_warning("The potion can only be used on clothing!"))
 		return
 	if(istype(C, /obj/item/clothing/suit/space))
