@@ -3,7 +3,7 @@
 	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
 	invisibility = INVISIBILITY_SPIRIT
 	health = INFINITY
