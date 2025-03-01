@@ -155,12 +155,22 @@
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
-/obj/projectile/beam/emitter/dril;
+/obj/projectile/beam/emitter/dril
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
+	structural_damage = 100
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	light_color =
+	light_color = LIGHT_COLOR_ORANGE
+
+/obj/projectile/beam/emitter/dril/on_hit(atom/target, blocked)
+	damage = initial(damage)
+	if(isobj(target) && !istype(target, /obj/structure/blob))
+		damage = structural_damage
+	else if(istype(target, /turf/closed/mineral))
+		var/turf/closed/mineral/T = target
+		T.gets_drilled()
+	. = ..()
 
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"

@@ -372,7 +372,7 @@
 /obj/machinery/power/emitter/drill
 	laser_damage = 5
 	var/laser_structural_damage = 100
-	projectile_type = /obj/projectile/beam/emitter/hitscan
+	projectile_type = /obj/projectile/beam/emitter/drill
 
 /obj/machinery/power/emitter/drill/RefreshParts()
 	var/max_fire_delay = 12 SECONDS
@@ -402,8 +402,9 @@
 		sparks.start()
 	projectile.firer = user ? user : src
 	projectile.fired_from = src
-	if(istype(projectile,/obj/projectile/beam/emitter))
+	if(istype(projectile,/obj/projectile/beam/emitter/drill))
 		projectile.damage = laser_damage
+		projectile.structural_damage = laser_structural_damage
 	if(last_projectile_params)
 		projectile.p_x = last_projectile_params[2]
 		projectile.p_y = last_projectile_params[3]
