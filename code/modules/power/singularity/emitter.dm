@@ -27,7 +27,7 @@
 	var/maximum_fire_delay = 10 SECONDS
 	///Min delay before firing
 	var/minimum_fire_delay = 2 SECONDS
-	///Damage of laser
+	///Damage of defalut laser
 	var/laser_damage = 30
 	///When was the last shot
 	var/last_shot = 0
@@ -88,11 +88,14 @@
 	var/max_fire_delay = 12 SECONDS
 	var/fire_shoot_delay = 12 SECONDS
 	var/min_fire_delay = 2.4 SECONDS
+	var/las_damage = 25
 	var/power_usage = 350
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
 		max_fire_delay -= 2 SECONDS * laser.rating
 		min_fire_delay -= 0.4 SECONDS * laser.rating
 		fire_shoot_delay -= 2 SECONDS * laser.rating
+		las_damage += 2.5 * laser.rating
+	laser_damage = las_damage
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
 	fire_delay = fire_shoot_delay
@@ -220,6 +223,8 @@
 		sparks.start()
 	projectile.firer = user ? user : src
 	projectile.fired_from = src
+	if(istype(projectile,/obj/projectile/beam/emitter))
+		projectile.damage = laser_damage
 	if(last_projectile_params)
 		projectile.p_x = last_projectile_params[2]
 		projectile.p_y = last_projectile_params[3]
