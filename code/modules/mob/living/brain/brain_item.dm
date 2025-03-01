@@ -255,9 +255,8 @@
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	if(prob(30/severity))
-		owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
-		to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
+	owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
