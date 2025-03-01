@@ -186,7 +186,7 @@
 		return
 	var/mob/living/silicon/ai/AI = usr
 	var/turf/T = get_turf(AI.eyeobj)
-	var/turf/target = upwards ? T.above() : T.below()
+	var/turf/target = upwards ? GET_TURF_ABOVE(T) : GET_TURF_BELOW(T)
 	if(isturf(target))
 		AI.eyeobj.forceMove(target)
 		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)

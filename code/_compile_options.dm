@@ -40,7 +40,8 @@
 /////////////////////// ZMIMIC
 
 ///Enables Multi-Z lighting
-#define ZMIMIC_LIGHT_BLEED
+/// Doesn't work and causes artifacts when lights are deleted
+//#define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
 //#define PROFILE_MAPLOAD_INIT_ATOM
