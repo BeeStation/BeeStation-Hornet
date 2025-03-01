@@ -40,6 +40,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/ai_hud_on = FALSE //Is the AI Viewrange HUD currently enabled?
 	var/health_scan = FALSE //Are health scans currently enabled?
 	var/gas_scan = FALSE //Are gas scans currently enabled?
+	var/virus_scan = FALSE //Are virus extrapolator scans currently enabled?
+	var/genetics_scan = FALSE //Are genetic scans currently enabled?
+	var/nanite_scan = FALSE //Are nanite scans currently enabled?
 	var/list/datahuds = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED) //list of data HUDs shown to ghosts.
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
@@ -784,6 +787,42 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(src, span_notice("Gas scan enabled."))
 		gas_scan = TRUE
+
+/mob/dead/observer/verb/toggle_virus_scan()
+	set name = "Toggle Virus Scan"
+	set desc = "Toggles whether you scan for viruses on click"
+	set category = "Ghost"
+
+	if(virus_scan)
+		to_chat(src, span_notice("Virus scan disabled."))
+		virus_scan = FALSE
+	else
+		to_chat(src, span_notice("Virus scan enabled."))
+		virus_scan = TRUE
+
+/mob/dead/observer/verb/toggle_genetics_scan()
+	set name = "Toggle Genetics Scan"
+	set desc = "Toggles whether you can scan the genetics of a living beings on click"
+	set category = "Ghost"
+
+	if(genetics_scan)
+		to_chat(src, span_notice("Genetics scan disabled."))
+		genetics_scan = FALSE
+	else
+		to_chat(src, span_notice("Genetics scan enabled."))
+		genetics_scan = TRUE
+
+/mob/dead/observer/verb/toggle_nanite_scan()
+	set name = "Toggle Nanite Scan"
+	set desc = "Toggles whether you can scan the nanties of a living beings on click"
+	set category = "Ghost"
+
+	if(nanite_scan)
+		to_chat(src, span_notice("Nanite scan disabled."))
+		nanite_scan = FALSE
+	else
+		to_chat(src, span_notice("Nanite scan enabled."))
+		nanite_scan = TRUE
 
 /mob/dead/observer/verb/restore_ghost_appearance()
 	set name = "Restore Ghost Character"
