@@ -22,7 +22,10 @@ export const LanguageMenu = (props) => {
                         <Stack.Item>
                           <Stack mb={-1}>
                             <Stack.Item mr={0.2}>
-                              <Box className={classes(['chat16x16', 'language-' + languageData.icon_state])} />
+                              <Box
+                                className={classes(['chat16x16', 'language-' + languageData.icon_state])}
+                                style={{ verticalAlign: 'bottom' }}
+                              />
                             </Stack.Item>
                             <Stack.Item>{languageData.name}</Stack.Item>
                           </Stack>

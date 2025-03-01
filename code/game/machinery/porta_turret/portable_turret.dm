@@ -691,13 +691,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	check_should_process()
 	return TRUE
 
-/obj/machinery/porta_turret/InterceptClickOn(mob/living/caller, params, atom/A)
+/obj/machinery/porta_turret/InterceptClickOn(mob/living/clicker, params, atom/A)
 	if(!manual_control)
 		return FALSE
-	if(!can_interact(caller))
+	if(!can_interact(clicker))
 		remove_control()
 		return FALSE
-	log_combat(caller,A,"fired with manual turret control at", src)
+	log_combat(clicker,A,"fired with manual turret control at", src)
 	target(A)
 	return TRUE
 

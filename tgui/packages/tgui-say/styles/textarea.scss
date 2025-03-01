@@ -11,6 +11,9 @@
   font-size: 1.1rem;
   margin-left: 5px;
   padding: 7px;
+  textarea {
+    resize: none;
+  }
   // This doesn't work in IE11. Oh well.
   &:focus-within {
     border-color: #303030;
