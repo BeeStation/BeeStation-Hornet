@@ -50,6 +50,7 @@
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
 				/obj/item/clothing/neck/tie/horrible = 3,
+				/obj/item/clothing/head/beret/black = 3,
 				/obj/item/clothing/head/chaplain/kippah = 3,
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
