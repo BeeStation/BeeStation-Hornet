@@ -125,9 +125,12 @@
 					return
 
 			var/new_sec_level = SSsecurity_level.text_level_to_number(params["newSecurityLevel"])
-			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
+			var/current_sec_level = SSsecurity_level.get_current_level_as_number()
+			if (current_sec_level > SEC_LEVEL_RED)
+				to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 				return
-			if (SSsecurity_level.get_current_level_as_number() == new_sec_level)
+			if (current_sec_level == new_sec_level)
 				return
 
 			SSsecurity_level.set_level(new_sec_level)
