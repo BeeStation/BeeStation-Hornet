@@ -186,6 +186,11 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		log_message("has thrown [thrown_thing]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+		do_attack_animation(target, no_effect = 1)
+		var/sound/throwsound = 'sound/weapons/throw.ogg'
+		var/power_throw_text = "."
+		playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
+		log_message("has thrown [thrown_thing] [power_throw_text]", LOG_ATTACK)
 		return TRUE
 	return FALSE
 
