@@ -9,4 +9,5 @@ export const darkened_flash: FeatureToggle = {
     bright one.
   `,
   component: CheckboxInput,
+  important: true,
 };
