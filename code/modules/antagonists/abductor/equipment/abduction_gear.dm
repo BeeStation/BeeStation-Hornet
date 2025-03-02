@@ -165,6 +165,13 @@
 			break
 	. = ..()
 
+//backpack with mildly more slots to accomodate outfit spawning
+/obj/item/storage/backpack/abductor
+
+/obj/item/storage/backpack/abductor/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 30
+	atom_storage.max_total_storage = 30
 
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
@@ -399,6 +406,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"
