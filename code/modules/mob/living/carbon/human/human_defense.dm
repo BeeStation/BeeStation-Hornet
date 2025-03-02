@@ -448,14 +448,13 @@
 			if(!informed)
 				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
 				informed = TRUE
-			switch(severity)
-				if(EMP_HEAVY)
-					bodypart.receive_damage(0,10) //Burns, heavy.
-				if(EMP_LIGHT)
-					bodypart.receive_damage(0,5) //Burns, light.
-			bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
+			if(prob(30/severity)) //Random chance to disable and burn limbs
+				bodypart.receive_damage(burn = 5)
+				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
+			else
+				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
-				if(prob(20))
+				if(prob(5))
 					bodypart.dismember(BRUTE)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
