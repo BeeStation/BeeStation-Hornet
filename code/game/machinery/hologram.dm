@@ -198,20 +198,20 @@ Possible to do for anyone motivated enough:
 		dat = temp
 	else
 		if(on_network)
-			dat += "<a href='?src=[REF(src)];AIrequest=1'>Request an AI's presence</a><br>"
-			dat += "<a href='?src=[REF(src)];Holocall=1'>Call another holopad</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];AIrequest=1'>Request an AI's presence</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];Holocall=1'>Call another holopad</a><br>"
 		if(disk)
 			if(disk.record)
 				//Replay
-				dat += "<a href='?src=[REF(src)];replay_start=1'>Replay disk recording</a><br>"
-				dat += "<a href='?src=[REF(src)];loop_start=1'>Loop disk recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];replay_start=1'>Replay disk recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];loop_start=1'>Loop disk recording</a><br>"
 				//Clear
-				dat += "<a href='?src=[REF(src)];record_clear=1'>Clear disk recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];record_clear=1'>Clear disk recording</a><br>"
 			else
 				//Record
-				dat += "<a href='?src=[REF(src)];record_start=1'>Start new recording</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];record_start=1'>Start new recording</a><br>"
 			//Eject
-			dat += "<a href='?src=[REF(src)];disk_eject=1'>Eject disk</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];disk_eject=1'>Eject disk</a><br>"
 
 		if(LAZYLEN(holo_calls))
 			dat += "=====================================================<br>"
@@ -222,7 +222,7 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad != src)
-					dat += "<a href='?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [get_area(HC.calling_holopad)]</a><br>"
+					dat += "<a href='byond://?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [get_area(HC.calling_holopad)]</a><br>"
 					one_unanswered_call = TRUE
 				else
 					one_answered_call = TRUE
@@ -233,7 +233,7 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad == src)
-					dat += "<a href='?src=[REF(src)];disconnectcall=[REF(HC)]'>Disconnect call from [HC.user]</a><br>"
+					dat += "<a href='byond://?src=[REF(src)];disconnectcall=[REF(HC)]'>Disconnect call from [HC.user]</a><br>"
 
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 175)
@@ -300,22 +300,22 @@ Possible to do for anyone motivated enough:
 		if(last_request + 200 < world.time)
 			last_request = world.time
 			temp = "You requested an AI's presence.<BR>"
-			temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+			temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, span_info("Your presence is requested at <a href='?src=[REF(AI)];jumptoholopad=[REF(src)]'>\the [area]</a>."))
+				to_chat(AI, span_info("Your presence is requested at <a href='byond://?src=[REF(AI)];jumptoholopad=[REF(src)]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<BR>"
-			temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+			temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 
 	else if(href_list["Holocall"])
 		if(outgoing_call)
 			return
 
 		temp = "You must stand on the holopad to make a call!<br>"
-		temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+		temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
 			for(var/I in holopads)
@@ -330,7 +330,7 @@ Possible to do for anyone motivated enough:
 
 			if(usr.loc == loc)
 				temp = "Dialing...<br>"
-				temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
+				temp += "<A href='byond://?src=[REF(src)];mainmenu=1'>Main Menu</A>"
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])
@@ -635,8 +635,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		replay_mode = TRUE
 		replay_holo = setup_replay_holo(disk.record)
 		temp = "Replaying...<br>"
-		temp += "<A href='?src=[REF(src)];offset=1'>Change offset</A><br>"
-		temp += "<A href='?src=[REF(src)];replay_stop=1'>End replay</A>"
+		temp += "<A href='byond://?src=[REF(src)];offset=1'>Change offset</A><br>"
+		temp += "<A href='byond://?src=[REF(src)];replay_stop=1'>End replay</A>"
 		SetLightsAndPower()
 		replay_entry(1)
 	return
@@ -661,7 +661,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	record_user = user
 	disk.record.set_caller_image(user)
 	temp = "Recording...<br>"
-	temp += "<A href='?src=[REF(src)];record_stop=1'>End recording.</A>"
+	temp += "<A href='byond://?src=[REF(src)];record_stop=1'>End recording.</A>"
 
 /obj/machinery/holopad/proc/record_message(mob/living/speaker,message,language)
 	if(!record_mode)
