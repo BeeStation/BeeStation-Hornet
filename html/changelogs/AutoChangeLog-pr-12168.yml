@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Altered the game preference menu to hide less important settings and dangerous
+      settings by default.
+  - tweak: Changes ghost ears, ghost whispers and ghost emotes to be false by default
+      to prevent players being spammed in the chat by default.
