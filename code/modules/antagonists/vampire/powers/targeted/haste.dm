@@ -7,9 +7,9 @@
 	name = "Immortal Haste"
 	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away or stunned."
 	button_icon_state = "power_speed"
-	power_explanation = "Click anywhere to immediately dash towards that location.\n\
-		The Power will not work if you are lying down, zero-gravity, or are being aggressively grabbed.\n\
-		Anyone in your way during your Haste will be knocked down.\n\
+	power_explanation = "Click anywhere to immediately dash towards that location.\n\n\
+		The Power will not work if you are lying down, zero-gravity, or are being aggressively grabbed.\n\n\
+		Anyone in your way during your Haste will be knocked down.\n\n\
 		Higher levels will increase the knockdown dealt to enemies."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS

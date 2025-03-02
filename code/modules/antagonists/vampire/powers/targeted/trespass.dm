@@ -2,8 +2,8 @@
 	name = "Trespass"
 	desc = "Become mist and advance two tiles in one direction. Useful for skipping past doors and barricades."
 	button_icon_state = "power_tres"
-	power_explanation = "Click anywhere from 1-2 tiles away from you to teleport.\n\
-		This power goes through all obstacles except Walls.\n\
+	power_explanation = "Click anywhere from 1-2 tiles away from you to teleport.\n\n\
+		This power goes through all obstacles except Walls.\n\n\
 		Higher levels decrease the sound played from using the Power, and increase the speed of the transition."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS

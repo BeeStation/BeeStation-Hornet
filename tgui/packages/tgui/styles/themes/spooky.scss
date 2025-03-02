@@ -19,7 +19,7 @@ $updated-bg-map: colors.$bg-map !default;
 $updated-bg-map: map.set($updated-bg-map, 'good', colors.$good);
 $updated-bg-map: map.set($updated-bg-map, 'bad', colors.$bad);
 
-.theme-spookyconsole {
+.theme-spooky {
   // Atomic classes
   @include meta.load-css('../atomic/color.scss', $with: ('bg-map': $updated-bg-map));
 

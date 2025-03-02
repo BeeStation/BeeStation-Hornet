@@ -2,11 +2,11 @@
 	name = "Predatory Lunge"
 	desc = "Spring at your target to grapple them without warning, or tear the dead's heart out. Attacks from concealment or the rear may even knock them down if strong enough."
 	button_icon_state = "power_lunge"
-	power_explanation = "Click any player to start spinning wildly and, after a short delay, lunge at them.\n\
-		When lunging at someone, you will aggressively grab them, unless they are a curator.\n\
-		You cannot lunge if you are already grabbing someone, or are being grabbed.\n\
-		If you grab from behind or darkness, you will knock the target down, scaling with your rank.\n\
-		If used on a dead body, you will tear their organs out.\n\
+	power_explanation = "Click any player to start spinning wildly and, after a short delay, lunge at them.\n\n\
+		When lunging at someone, you will aggressively grab them, unless they are a curator.\n\n\
+		You cannot lunge if you are already grabbing someone, or are being grabbed.\n\n\
+		If you grab from behind or darkness, you will knock the target down, scaling with your rank.\n\n\
+		If used on a dead body, you will tear their organs out.\n\n\
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
