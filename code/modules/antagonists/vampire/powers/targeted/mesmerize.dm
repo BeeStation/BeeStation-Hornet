@@ -123,7 +123,7 @@
 		addtimer(CALLBACK(src, PROC_REF(end_mesmerize), user, mesmerized_target), power_time)
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
-/datum/action/cooldown/vampire/targeted/mesmerize/DeactivatePower()
+/datum/action/cooldown/vampire/targeted/mesmerize/deactivate_power()
 	target_ref = null
 	. = ..()
 

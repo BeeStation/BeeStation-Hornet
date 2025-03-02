@@ -19,7 +19,7 @@
 	if(!istype(held_item, /obj/item/stack/sheet/iron))
 		return FALSE
 
-/datum/action/cooldown/vampire/conversion/ActivatePower()
+/datum/action/cooldown/vampire/conversion/activate_power()
 	. = ..()
 
 	var/obj/item/held_item = owner.get_active_held_item()
@@ -30,4 +30,4 @@
 			new /obj/item/stack/sheet/fleshymass(get_turf(owner), quantity)
 			to_chat(owner, span_warning("You bleed on the iron transforming it with your vampiric blood"))
 			SEND_SOUND(owner, sound('sound/effects/magic.ogg', 0, 1, 25))
-	DeactivatePower()
+	deactivate_power()

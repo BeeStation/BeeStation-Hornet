@@ -26,7 +26,7 @@
 	var/prev_eye_color
 	var/list/prev_features // For lizards and such
 
-/datum/action/cooldown/vampire/veil/ActivatePower()
+/datum/action/cooldown/vampire/veil/activate_power()
 	. = ..()
 	cast_effect() // POOF
 	veil_user()
@@ -79,7 +79,7 @@
 
 	to_chat(owner, span_warning("You mystify the air around your person. Your identity is now altered."))
 
-/datum/action/cooldown/vampire/veil/DeactivatePower()
+/datum/action/cooldown/vampire/veil/deactivate_power()
 	. = ..()
 	if(!ishuman(owner))
 		return

@@ -38,7 +38,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/gohome/ActivatePower()
+/datum/action/cooldown/vampire/gohome/activate_power()
 	..()
 	owner.balloon_alert(owner, "preparing to teleport...")
 	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))
@@ -105,7 +105,7 @@
 	vampiredatum_power.coffin.take_contents()
 	playsound(vampiredatum_power.coffin.loc, vampiredatum_power.coffin.close_sound, 15, 1, -3)
 
-	DeactivatePower()
+	deactivate_power()
 
 /datum/effect_system/steam_spread/vampire
 	effect_type = /obj/effect/particle_effect/smoke/vampsmoke

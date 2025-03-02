@@ -13,7 +13,7 @@
 	constant_bloodcost = 0.2
 	var/fortitude_resist // So we can raise and lower your brute resist based on what your level_current WAS.
 
-/datum/action/cooldown/vampire/fortitude/ActivatePower()
+/datum/action/cooldown/vampire/fortitude/activate_power()
 	. = ..()
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, span_notice("Your flesh has become as hard as steel!"))
@@ -40,7 +40,7 @@
 	if(user.buckled && istype(user.buckled, /obj/vehicle))
 		user.buckled.unbuckle_mob(src, force = TRUE)
 
-/datum/action/cooldown/vampire/fortitude/DeactivatePower()
+/datum/action/cooldown/vampire/fortitude/deactivate_power()
 	if(!ishuman(owner))
 		return
 

@@ -18,7 +18,7 @@
 
 /datum/action/cooldown/vampire/targeted/on_activate(mob/user, atom/target)
 	if(currently_active)
-		DeactivatePower()
+		deactivate_power()
 		return FALSE
 	if(!can_pay_cost(owner) || !can_use(owner))
 		return FALSE
@@ -26,11 +26,12 @@
 	if(prefire_message)
 		to_chat(owner, span_announce(prefire_message))
 
-	ActivatePower()
+	activate_power()
 
-	return set_click_ability(owner)
+	if(currently_active)
+		set_click_ability(owner)
 
-/datum/action/cooldown/vampire/targeted/DeactivatePower()
+/datum/action/cooldown/vampire/targeted/deactivate_power()
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 	currently_active = FALSE
@@ -76,4 +77,4 @@
 	unset_click_ability(owner)
 	pay_cost()
 	start_cooldown()
-	DeactivatePower()
+	deactivate_power()

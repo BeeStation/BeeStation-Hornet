@@ -67,12 +67,12 @@
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/cooldown/vampire/on_activate(mob/user, atom/target)
 	if(currently_active)
-		DeactivatePower()
+		deactivate_power()
 		return FALSE
 	if(!can_pay_cost() || !can_use())
 		return FALSE
 	pay_cost()
-	ActivatePower()
+	activate_power()
 	if(!(power_flags & BP_AM_TOGGLE) || !currently_active)
 		start_cooldown()
 	return TRUE
@@ -160,7 +160,7 @@
 		vampiredatum_power.vampire_blood_volume -= bloodcost
 		vampiredatum_power.update_hud()
 
-/datum/action/cooldown/vampire/proc/ActivatePower()
+/datum/action/cooldown/vampire/proc/activate_power()
 	currently_active = TRUE
 	if(power_flags & BP_AM_TOGGLE)
 		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
@@ -168,7 +168,7 @@
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
 
-/datum/action/cooldown/vampire/proc/DeactivatePower()
+/datum/action/cooldown/vampire/proc/deactivate_power()
 	if(!currently_active) //Already inactive? Return
 		return
 	if(power_flags & BP_AM_TOGGLE)
@@ -183,7 +183,7 @@
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
 /datum/action/cooldown/vampire/proc/UsePower()
 	if(!ContinueActive(owner)) // We can't afford the Power? Deactivate it.
-		DeactivatePower()
+		deactivate_power()
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
 	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)

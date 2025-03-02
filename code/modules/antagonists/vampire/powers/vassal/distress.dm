@@ -9,7 +9,7 @@
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 
-/datum/action/cooldown/vampire/distress/ActivatePower()
+/datum/action/cooldown/vampire/distress/activate_power()
 	. = ..()
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(owner)
 
@@ -18,4 +18,4 @@
 
 	var/mob/living/user = owner
 	user.adjustBruteLoss(10)
-	DeactivatePower()
+	deactivate_power()

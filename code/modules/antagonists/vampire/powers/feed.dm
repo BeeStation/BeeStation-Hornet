@@ -45,7 +45,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/feed/DeactivatePower()
+/datum/action/cooldown/vampire/feed/deactivate_power()
 	var/mob/living/user = owner
 	if(target_ref)
 		var/mob/living/feed_target = target_ref.resolve()
@@ -61,7 +61,7 @@
 	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_FEED)
 	return ..()
 
-/datum/action/cooldown/vampire/feed/ActivatePower()
+/datum/action/cooldown/vampire/feed/activate_power()
 	var/mob/living/feed_target = target_ref.resolve()
 	if(istype(feed_target, /mob/living/simple_animal/mouse))
 		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))
@@ -69,7 +69,7 @@
 			var/mob/living/user = owner
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
 		vampiredatum_power.AddBloodVolume(25)
-		DeactivatePower()
+		deactivate_power()
 		feed_target.death()
 		return
 	var/feed_timer = clamp(round(FEED_DEFAULT_TIMER / (1.25 * (level_current || 1))), 1, FEED_DEFAULT_TIMER)
@@ -79,7 +79,7 @@
 	owner.balloon_alert(owner, "feeding off [feed_target]...")
 	if(!do_after(owner, feed_timer, feed_target, NONE, TRUE))
 		owner.balloon_alert(owner, "feed stopped")
-		DeactivatePower()
+		deactivate_power()
 		return
 	if(owner.pulling == feed_target && owner.grab_state >= GRAB_AGGRESSIVE)
 		if(!IS_VAMPIRE(feed_target) && !IS_VASSAL(feed_target) && !IS_CURATOR(feed_target))
@@ -143,7 +143,7 @@
 			feed_target.add_mob_blood(feed_target)
 			feed_target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 			INVOKE_ASYNC(feed_target, TYPE_PROC_REF(/mob, emote), "scream")
-		DeactivatePower()
+		deactivate_power()
 		return
 
 	var/feed_strength_mult = 0
@@ -174,11 +174,11 @@
 
 	if(vampiredatum_power.vampire_blood_volume >= vampiredatum_power.max_blood_volume)
 		user.balloon_alert(owner, "full on blood!")
-		DeactivatePower()
+		deactivate_power()
 		return
 	if(feed_target.blood_volume <= 10)
 		user.balloon_alert(owner, "no blood left!")
-		DeactivatePower()
+		deactivate_power()
 		return
 	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 	//play sound to target to show they're dying.

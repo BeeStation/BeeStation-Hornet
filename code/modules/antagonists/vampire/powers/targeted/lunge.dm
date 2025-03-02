@@ -154,6 +154,6 @@
 			target.Knockdown(10 + level_current * 5)
 			target.Paralyze(0.1)
 
-/datum/action/cooldown/vampire/targeted/lunge/DeactivatePower()
+/datum/action/cooldown/vampire/targeted/lunge/deactivate_power()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_VAMPIRE)
 	return ..()

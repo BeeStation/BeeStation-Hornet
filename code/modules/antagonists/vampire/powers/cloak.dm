@@ -28,7 +28,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/cloak/ActivatePower()
+/datum/action/cooldown/vampire/cloak/activate_power()
 	. = ..()
 	var/mob/living/user = owner
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/cloak)
@@ -51,7 +51,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/cloak/DeactivatePower()
+/datum/action/cooldown/vampire/cloak/deactivate_power()
 	var/mob/living/user = owner
 
 	animate(user, alpha = 255, time = 1 SECONDS)

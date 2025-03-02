@@ -77,7 +77,7 @@
 	bloodcost = 80
 	cooldown_time = 8 SECONDS
 
-/datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/ActivatePower()
+/datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/activate_power()
 	. = ..()
 	owner.balloon_alert(owner, "you start thaumaturgy")
 	if(level_current >= 2) // Only if we're at least level 2.
@@ -92,7 +92,7 @@
 			span_warning("We activate our Blood shield!"),
 			span_hear("You hear liquids forming together."))
 
-/datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/DeactivatePower()
+/datum/action/cooldown/vampire/targeted/tremere/thaumaturgy/deactivate_power()
 	if(blood_shield)
 		QDEL_NULL(blood_shield)
 	return ..()

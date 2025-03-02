@@ -23,7 +23,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/recuperate/ActivatePower()
+/datum/action/cooldown/vampire/recuperate/activate_power()
 	. = ..()
 	to_chat(owner, span_notice("Your muscles clench as your master's immortal blood mixes with your own, knitting your wounds."))
 	owner.balloon_alert(owner, "recuperate turned on.")
@@ -58,6 +58,6 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/recuperate/DeactivatePower()
+/datum/action/cooldown/vampire/recuperate/deactivate_power()
 	owner.balloon_alert(owner, "recuperate turned off.")
 	return ..()

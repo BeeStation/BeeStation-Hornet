@@ -78,12 +78,12 @@
 		return FALSE
 	return isturf(target_atom)
 
-/datum/action/cooldown/vampire/targeted/tremere/auspex/ActivatePower()
+/datum/action/cooldown/vampire/targeted/tremere/auspex/activate_power()
 	. = ..()
 	owner.AddElement(/datum/element/digital_camo)
 	animate(owner, alpha = 15, time = 1 SECONDS)
 
-/datum/action/cooldown/vampire/targeted/tremere/auspex/DeactivatePower()
+/datum/action/cooldown/vampire/targeted/tremere/auspex/deactivate_power()
 	animate(owner, alpha = 255, time = 1 SECONDS)
 	owner.RemoveElement(/datum/element/digital_camo)
 	return ..()

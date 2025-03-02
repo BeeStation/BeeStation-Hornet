@@ -20,7 +20,6 @@
 		return FALSE
 	return TRUE
 
-
 /datum/action/cooldown/vampire/targeted/trespass/CheckValidTarget(atom/target_atom)
 	. = ..()
 	if(!.)
@@ -29,7 +28,6 @@
 	if(target_atom == get_turf(owner) || get_turf(target_atom) == get_turf(owner))
 		return FALSE
 	return TRUE // All we care about is destination. Anything you click is fine.
-
 
 /datum/action/cooldown/vampire/targeted/trespass/CheckCanTarget(atom/target_atom)
 	var/final_turf = isturf(target_atom) ? target_atom : get_turf(target_atom)
