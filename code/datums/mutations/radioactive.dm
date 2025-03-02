@@ -11,8 +11,8 @@
 	if(!(type in visual_indicators))
 		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "radiation"))
 
-/datum/mutation/radioactive/on_life()
-	radiation_pulse(owner, 20 * GET_MUTATION_POWER(src))
+/datum/mutation/radioactive/on_life(delta_time, times_fired)
+	radiation_pulse(owner, 10 * GET_MUTATION_POWER(src) * delta_time)
 
 /datum/mutation/radioactive/get_visual_indicator()
 	return visual_indicators[type][1]
