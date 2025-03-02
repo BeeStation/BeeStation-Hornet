@@ -75,8 +75,8 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/animalhide/ashdrake = 5
 	)
-	always_available = FALSE
 	category = CAT_CLOTHING
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/watcherbola
 	name = "Watcher Bola"
@@ -182,8 +182,8 @@
 	time = 3 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 5)
 	result = /obj/item/skeleton_key
-	always_available = FALSE
 	category = CAT_MISC
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/headpike
 	name = "Spike Head (Glass Spear)"
@@ -239,8 +239,8 @@
 		/obj/item/stack/sheet/animalhide/goliath_hide = 3,
 		/obj/item/stack/sheet/sinew = 4
 	)
-	always_available = FALSE
 	category = CAT_EQUIPMENT
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/dragon_lasso
 	name = "Ash Drake Lasso"
@@ -251,8 +251,8 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/animalhide/ashdrake = 5
 	)
-	always_available = FALSE
 	category = CAT_EQUIPMENT
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_MUST_BE_LEARNED
 
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"

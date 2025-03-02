@@ -1,5 +1,5 @@
 
-/// Structures crafting, should always be one_per_turf = TRUE, but it don't warrant it's own sub category yet
+/// Structures crafting, should always be CRAFT_ONE_PER_TURF, but it don't warrant it's own sub category yet
 
 /datum/crafting_recipe/personal_locker
 	name = "Personal Locker"
@@ -12,7 +12,7 @@
 		/obj/item/stack/cable_coil = 2
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/shutters
 	name = "Shutters"
@@ -25,7 +25,7 @@
 		/obj/item/electronics/airlock = 1
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/glassshutters
 	name = "Windowed Shutters"
@@ -39,7 +39,7 @@
 		/obj/item/electronics/airlock = 1
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/radshutters
 	name = "Radiation Shutters"
@@ -53,7 +53,7 @@
 		/obj/item/stack/sheet/mineral/uranium = 2
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/blast_doors
 	name = "Blast Door"
@@ -66,7 +66,7 @@
 		/obj/item/electronics/airlock = 1
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/showercurtain
 	name = "Shower Curtains"
@@ -79,7 +79,7 @@
 		/obj/item/stack/rods = 1
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/aquarium
 	name = "Aquarium"
@@ -92,7 +92,7 @@
 		/obj/item/aquarium_kit = 1
 	)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/guillotine
 	name = "Guillotine"
@@ -106,7 +106,7 @@
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_STRUCTURE
 	dangerous_craft = TRUE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/mirror
 	name = "Wall Mirror Frame"
@@ -118,7 +118,7 @@
 	)
 	tool_behaviors = list(TOOL_WRENCH)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/air_sensor
 	name = "Monitored Air Sensor"
@@ -130,8 +130,8 @@
 		)
 	blacklist = list(/obj/item/analyzer/ranged)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
-	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	category = CAT_ATMOSPHERIC
+
 /datum/crafting_recipe/weightmachine
 	name = "Chest press machine"
 	result = /obj/structure/weightmachine
@@ -143,7 +143,7 @@
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/weightmachine/weightlifter
 	name = "Inline bench press"
@@ -156,7 +156,7 @@
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/punching_bag
 	name = "Punching bag"
@@ -167,5 +167,5 @@
 	)
 	tool_behaviors = list(TOOL_WIRECUTTER)
 	category = CAT_STRUCTURE
-	one_per_turf = TRUE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 

@@ -1,6 +1,8 @@
 ///Ok foodstuffs act kinda in a funky way, as their category is pre-defined in here as you can see, so nonly the subcategory needs to be defined!
 
 /datum/crafting_recipe/food
+	mass_craftable = TRUE
+	crafting_flags = parent_type::crafting_flags | CRAFT_TRANSFERS_REAGENTS | CRAFT_CLEARS_REAGENTS
 	var/real_parts
 	var/total_nutriment_factor
 

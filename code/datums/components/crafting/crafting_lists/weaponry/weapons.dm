@@ -358,7 +358,6 @@
 		/obj/item/stack/cable_coil = 10
 	)
 	category = CAT_WEAPON_MELEE
-	always_available = TRUE
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/sharpmop

@@ -434,27 +434,6 @@
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))
 
-/datum/asset/spritesheet_batched/crafting
-	name = "crafting"
-
-/datum/asset/spritesheet_batched/crafting/create_spritesheets()
-	var/chached_list = list()
-	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
-		if(!R.name)
-			continue
-		var/atom/A = R.result
-		if(!ispath(A, /atom))
-			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
-			continue
-		if(chached_list[A]) // this prevents an icon to be inserted again
-			continue
-		chached_list[A] = TRUE
-
-		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
-		var/datum/universal_icon/entry = get_display_icon_for(A)
-		entry.scale(42, 42)
-		insert_icon(imgid, entry)
-
 // basically admin debugging tool assets
 /datum/asset/spritesheet_batched/tools
 	name = "tools"
@@ -700,4 +679,4 @@
 	)
 
 	for(var/tool in tool_icons)
-		Insert(tool, tool_icons[tool])
+		Insert(replacetext(tool, " ", ""), tool_icons[tool])

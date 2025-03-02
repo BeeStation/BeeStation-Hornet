@@ -15,20 +15,17 @@
 	var/max_res_amount = 1
 	/// How long it takes to make
 	var/time = 0
-	/// If only one of the resulting atom is allowed per turf
-	var/one_per_turf = FALSE
-	/// If the atom requires a floor below
-	var/on_floor = FALSE
 	/// Bitflag of additional placement checks required to place. (STACK_CHECK_CARDINALS|STACK_CHECK_ADJACENT)
 	var/placement_checks = NONE
-	/// If TRUE, the created atom will gain custom mat datums
-	var/applies_mats = FALSE
 	/// What trait, if any, boosts the construction speed of this item
 	var/trait_booster
 	/// How much the trait above, if supplied, boosts the construct speed of this item
 	var/trait_modifier = 1
 	/// Category for general crafting menu
 	var/category
+
+	///crafting_flags var to hold bool values
+	var/crafting_flags = CRAFT_CHECK_DENSITY
 
 /datum/stack_recipe/New(
 	title,
@@ -37,11 +34,8 @@
 	res_amount = 1,
 	max_res_amount = 1,
 	time = 0,
-	one_per_turf = FALSE,
-	on_floor = FALSE,
-	window_checks = FALSE,
+	crafting_flags = CRAFT_CHECK_DENSITY,
 	placement_checks = NONE,
-	applies_mats = FALSE,
 	trait_booster,
 	trait_modifier = 1,
 	category,
@@ -53,10 +47,7 @@
 	src.res_amount = res_amount
 	src.max_res_amount = max_res_amount
 	src.time = time
-	src.one_per_turf = one_per_turf
-	src.on_floor = on_floor
 	src.placement_checks = placement_checks
-	src.applies_mats = applies_mats
 	src.trait_booster = trait_booster
 	src.trait_modifier = trait_modifier
 	src.category = src.category || category || CAT_MISC
@@ -76,7 +67,6 @@
 	on_floor = FALSE,
 	window_checks = FALSE,
 	placement_checks = NONE,
-	applies_mats = FALSE,
 	trait_booster,
 	trait_modifier = 1,
 	desc,

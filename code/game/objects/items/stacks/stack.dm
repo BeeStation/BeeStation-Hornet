@@ -1,15 +1,9 @@
 /* Stack type objects!
  * Contains:
- * 		Stacks
- * 		Recipe datum
- * 		Recipe list datum
+ * Stacks
+ * Recipe datum
+ * Recipe list datum
  */
-
-//stack recipe placement check types
-/// Checks if there is an object of the result type in any of the cardinal directions
-#define STACK_CHECK_CARDINALS (1<<0)
-/// Checks if there is an object of the result type within one tile
-#define STACK_CHECK_ADJACENT (1<<1)
 
 /*
  * Stacks
@@ -332,7 +326,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		user = builder,
 		anchor = builder,
 		choices = options,
-		custom_check = CALLBACK(src, .proc/radial_check, builder),
+		custom_check = CALLBACK(src, PROC_REF(radial_check), builder),
 		radius = radial_radius,
 		tooltips = TRUE,
 	)
@@ -415,7 +409,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	builder.investigate_log("[key_name(builder)] crafted [recipe.title]", INVESTIGATE_CRAFTING)
 
 	// Apply mat datums
-	if(recipe.applies_mats && LAZYLEN(mats_per_unit))
+	if((recipe.crafting_flags & CRAFT_APPLIES_MATS) && LAZYLEN(mats_per_unit))
 		if(isstack(created))
 			var/obj/item/stack/crafted_stack = created
 			crafted_stack.set_mats_per_unit(mats_per_unit, recipe.req_amount / recipe.res_amount)
@@ -446,32 +440,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		return FALSE
 	var/turf/dest_turf = get_turf(builder)
 
-	// If we're making a window, we have some special snowflake window checks to do.
-	if(ispath(recipe.result_type, /obj/structure/window))
-		var/obj/structure/window/result_path = recipe.result_type
-		if(!valid_window_location(dest_turf, builder.dir, is_fulltile = initial(result_path.fulltile)))
-			builder.balloon_alert(builder, "won't fit here!")
-			return FALSE
-
-	if(recipe.one_per_turf && (locate(recipe.result_type) in dest_turf))
+	if((recipe.crafting_flags & CRAFT_ONE_PER_TURF) && (locate(recipe.result_type) in dest_turf))
 		builder.balloon_alert(builder, "already one here!")
 		return FALSE
 
-	if(recipe.on_floor)
-		if(!isanyfloor(dest_turf))
-			builder.balloon_alert(builder, "must be made on a floor!")
+	if(recipe.crafting_flags & CRAFT_CHECK_DIRECTION)
+		if(!valid_build_direction(dest_turf, builder.dir, is_fulltile = (recipe.crafting_flags & CRAFT_IS_FULLTILE)))
+			builder.balloon_alert(builder, "won't fit here!")
 			return FALSE
 
+	if(recipe.crafting_flags & CRAFT_ON_SOLID_GROUND)
+		if(isclosedturf(dest_turf))
+			builder.balloon_alert(builder, "cannot be made on a wall!")
+			return FALSE
+
+		if(is_type_in_typecache(dest_turf, GLOB.turfs_without_ground))
+			builder.balloon_alert(builder, "must be made on solid ground!")
+			return FALSE
+
+	if(recipe.crafting_flags & CRAFT_CHECK_DENSITY)
 		for(var/obj/object in dest_turf)
-			if(istype(object, /obj/structure/grille))
-				continue
-			if(istype(object, /obj/structure/table))
-				continue
-			if(istype(object, /obj/structure/window))
-				var/obj/structure/window/window_structure = object
-				if(!window_structure.fulltile)
-					continue
-			if(object.density)
+			if(object.density && !(object.obj_flags & IGNORE_DENSITY) || object.obj_flags & BLOCKS_CONSTRUCTION)
 				builder.balloon_alert(builder, "something is in the way!")
 				return FALSE
 

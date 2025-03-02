@@ -110,7 +110,8 @@
 
 /datum/crafting_recipe/paperframes
 	name = "Paper Frames"
-	result = /obj/item/stack/sheet/paperframes/five
+	result = /obj/item/stack/sheet/paperframes
+	result_amount = 5
 	time = 1 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
@@ -142,7 +143,8 @@
 
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
-	result = /obj/item/stack/tile/carpet/black/fifty
+	result = /obj/item/stack/tile/carpet/black
+	result_amount = 50
 	time = 0.5 SECONDS
 	reqs = list(
 		/obj/item/stack/tile/carpet = 50,

@@ -140,33 +140,6 @@
 	result = /datum/reagent/consumable/gravy
 	reaction = /datum/chemical_reaction/food/gravy
 
-/datum/crafting_recipe/food/reaction/mothic_pizza_dough
-	result = /obj/item/food/mothic_pizza_dough
-	reaction = /datum/chemical_reaction/food/mothic_pizza_dough
-	category = CAT_BREAD
-
-/datum/crafting_recipe/food/reaction/curd_cheese
-	result = /obj/item/food/cheese/curd_cheese
-	reaction = /datum/chemical_reaction/food/curd_cheese
-
-/datum/crafting_recipe/food/reaction/mozzarella
-	result = /obj/item/food/cheese/mozzarella
-	reaction = /datum/chemical_reaction/food/mozzarella
-
-/datum/crafting_recipe/food/reaction/cornmeal_batter
-	result = /datum/reagent/consumable/cornmeal_batter
-	reaction = /datum/chemical_reaction/food/cornmeal_batter
-	category = CAT_BREAD
-
-/datum/crafting_recipe/food/reaction/cornbread
-	result = /obj/item/food/bread/corn
-	reaction = /datum/chemical_reaction/food/cornbread
-	category = CAT_BREAD
-
-/datum/crafting_recipe/food/reaction/yoghurt
-	result = /datum/reagent/consumable/yoghurt
-	reaction = /datum/chemical_reaction/food/yoghurt
-
 /datum/crafting_recipe/food/reaction/quality_oil
 	result = /datum/reagent/consumable/quality_oil
 	reaction = /datum/chemical_reaction/food/quality_oil
@@ -188,11 +161,6 @@
 /datum/crafting_recipe/food/rollingpin/flatdough
 	reqs = list(/obj/item/food/dough = 1)
 	result = /obj/item/food/flatdough
-	category = CAT_BREAD
-
-/datum/crafting_recipe/food/rollingpin/flatrootdough
-	reqs = list(/obj/item/food/rootdough = 1)
-	result = /obj/item/food/flatrootdough
 	category = CAT_BREAD
 
 /datum/crafting_recipe/food/rollingpin/piedough
@@ -241,34 +209,14 @@
 	result = /obj/item/food/doughslice
 	category = CAT_BREAD
 
-/datum/crafting_recipe/food/knife/rootdoughslice
-	reqs = list(/obj/item/food/flatrootdough = 1)
-	result = /obj/item/food/rootdoughslice
-	category = CAT_BREAD
-
 /datum/crafting_recipe/food/knife/pastrybase
 	reqs = list(/obj/item/food/piedough = 1)
 	result = /obj/item/food/pastrybase
 	category = CAT_BREAD
 
-/datum/crafting_recipe/food/knife/doughball
-	reqs = list(/obj/item/food/doughslice = 1)
-	result = /obj/item/food/bait/doughball
-	category = CAT_BREAD
-
-/datum/crafting_recipe/food/knife/nizaya
-	reqs = list(/obj/item/food/rootdoughslice = 1)
-	result = /obj/item/food/spaghetti/nizaya
-	category = CAT_SPAGHETTI
-
 /datum/crafting_recipe/food/knife/rawcutlet
 	reqs = list(/obj/item/food/meat/slab = 1)
 	result = /obj/item/food/meat/rawcutlet
-	category = CAT_MEAT
-
-/datum/crafting_recipe/food/knife/headcheese_slice
-	reqs = list(/obj/item/food/headcheese = 1)
-	result = /obj/item/food/headcheese_slice
 	category = CAT_MEAT
 
 /datum/crafting_recipe/food/knife/potatowedge
@@ -287,10 +235,6 @@
 	reqs = list(/obj/item/food/cheese/wheel = 1)
 	result = /obj/item/food/cheese/wedge
 
-/datum/crafting_recipe/food/knife/firm_cheese_slice
-	reqs = list(/obj/item/food/cheese/firm_cheese = 1)
-	result = /obj/item/food/cheese/firm_cheese_slice
-
 /datum/crafting_recipe/food/knife/salami
 	reqs = list(/obj/item/food/sausage = 1)
 	result = /obj/item/food/salami
@@ -300,40 +244,6 @@
 	reqs = list(/obj/item/food/sausage = 1)
 	result = /obj/item/food/sausage/american
 	category = CAT_MEAT
-
-/datum/crafting_recipe/food/knife/tempehslice
-	reqs = list(/obj/item/food/tempeh = 1)
-	result = /obj/item/food/tempehslice
-
-/datum/crafting_recipe/food/knife/brownie
-	reqs = list(/obj/item/food/brownie_sheet = 1)
-	result = /obj/item/food/brownie
-	category = CAT_PASTRY
-
-/datum/crafting_recipe/food/knife/spicyfiletsushislice
-	reqs = list(/obj/item/food/spicyfiletsushiroll = 1)
-	result = /obj/item/food/spicyfiletsushislice
-	category = CAT_SEAFOOD
-
-/datum/crafting_recipe/food/knife/vegetariansushislice
-	reqs = list(/obj/item/food/vegetariansushiroll = 1)
-	result = /obj/item/food/vegetariansushislice
-	category = CAT_SEAFOOD
-
-/datum/crafting_recipe/food/knife/beef_wellington_slice
-	reqs = list(/obj/item/food/beef_wellington = 1)
-	result = /obj/item/food/beef_wellington_slice
-	category = CAT_MEAT
-
-/datum/crafting_recipe/food/knife/green_lasagne_slice
-	reqs = list(/obj/item/food/green_lasagne = 1)
-	result = /obj/item/food/green_lasagne_slice
-	category = CAT_SPAGHETTI
-
-/datum/crafting_recipe/food/knife/lil_baked_rice
-	reqs = list(/obj/item/food/big_baked_rice = 1)
-	result = /obj/item/food/lil_baked_rice
-	category = CAT_SALAD
 
 /datum/crafting_recipe/food/knife/watermelonslice
 	reqs = list(/obj/item/food/grown/watermelon = 1)
@@ -380,16 +290,6 @@
 	reqs = list(/obj/item/food/raw_sausage = 1)
 	result = /obj/item/food/sausage
 
-/datum/crafting_recipe/food/grill/moonfish
-	reqs = list(/obj/item/food/fishmeat/moonfish = 1)
-	result = /obj/item/food/grilled_moonfish
-	category = CAT_SEAFOOD
-
-/datum/crafting_recipe/food/grill/rootflatbread
-	reqs = list(/obj/item/food/flatrootdough = 1)
-	result = /obj/item/food/root_flatbread
-	category = CAT_BREAD
-
 /datum/crafting_recipe/food/grill/griddle_toast
 	reqs = list(/obj/item/food/breadslice/plain = 1)
 	result = /obj/item/food/griddle_toast
@@ -409,11 +309,6 @@
 	reqs = list(/obj/item/food/cheese_sandwich = 1)
 	result = /obj/item/food/grilled_cheese_sandwich
 	category = CAT_BREAD
-
-/datum/crafting_recipe/food/grill/moonfish
-	reqs = list(/obj/item/food/cheese/firm_cheese_slice = 1)
-	result = /obj/item/food/grilled_cheese
-	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/grill/friedegg
 	reqs = list(/obj/item/food/egg = 1)
@@ -476,24 +371,6 @@
 	reqs = list(/obj/item/food/grown/tomato = 1)
 	result = /datum/reagent/consumable/ketchup
 
-/datum/crafting_recipe/food/grinder/kortaflour
-	reqs = list(/obj/item/food/grown/korta_nut = 1)
-	result = /datum/reagent/consumable/korta_flour
-
-/datum/crafting_recipe/food/grinder/kortamilk
-	reqs = list(/obj/item/food/grown/korta_nut = 1)
-	result = /datum/reagent/consumable/korta_milk
-	steps = list("Put into grinder and juice")
-
-/datum/crafting_recipe/food/grinder/kortanectar
-	reqs = list(/obj/item/food/grown/korta_nut/sweet = 1)
-	result = /datum/reagent/consumable/korta_nectar
-	steps = list("Put into grinder and juice")
-
-/datum/crafting_recipe/food/grinder/mushroom_powder
-	reqs = list(/obj/item/food/grown/ash_flora/seraka = 1)
-	result = /datum/reagent/toxin/mushroom_powder
-
 /datum/crafting_recipe/food/grinder/flour
 	reqs = list(/obj/item/food/grown/wheat = 1)
 	result = /datum/reagent/consumable/flour
@@ -536,14 +413,6 @@
 /datum/crafting_recipe/food/grinder/bluecherryjelly
 	reqs = list(/obj/item/food/grown/bluecherries = 1)
 	result = /datum/reagent/consumable/bluecherryjelly
-
-/datum/crafting_recipe/food/grinder/olivepaste
-	reqs = list(/obj/item/food/grown/olive = 1)
-	result = /datum/reagent/consumable/olivepaste
-
-/datum/crafting_recipe/food/grinder/peanutbutter
-	reqs = list(/obj/item/food/grown/peanut = 1)
-	result = /datum/reagent/consumable/peanut_butter
 
 // Machinery: Processor
 /datum/crafting_recipe/food/processor
@@ -592,21 +461,9 @@
 	result = /obj/item/food/tortilla
 	category = CAT_BREAD
 
-/datum/crafting_recipe/food/processor/tempeh
-	reqs = list(/obj/item/food/tempehstarter = 1)
-	result = /obj/item/food/tempeh
-
 /datum/crafting_recipe/food/processor/yakiimo
 	reqs = list(/obj/item/food/grown/potato/sweet = 1)
 	result = /obj/item/food/yakiimo
-
-/datum/crafting_recipe/food/processor/popsicle_stick
-	reqs = list(/obj/item/grown/log = 1)
-	result = /obj/item/popsicle_stick
-
-/datum/crafting_recipe/food/processor/spidereggs
-	reqs = list(/obj/item/food/spidereggs = 1)
-	result = /obj/item/food/spidereggs/processed
 
 // Machinery: Microwave
 /datum/crafting_recipe/food/microwave
@@ -630,11 +487,6 @@
 	result = /obj/item/food/spaghetti/boiledspaghetti
 	category = CAT_SPAGHETTI
 
-/datum/crafting_recipe/food/microwave/khinkali
-	reqs = list(/obj/item/food/rawkhinkali = 1)
-	result = /obj/item/food/khinkali
-	category = CAT_BREAD
-
 /datum/crafting_recipe/food/microwave/onionrings
 	reqs = list(/obj/item/food/onion_slice = 1)
 	result = /obj/item/food/onionrings
@@ -654,10 +506,6 @@
 	result = /obj/item/clothing/head/utility/hardhat/cakehat/energycake
 	category = CAT_CAKE
 
-/datum/crafting_recipe/food/microwave/cheese_curds
-	reqs = list(/obj/item/food/cheese/curd_cheese = 1)
-	result = /obj/item/food/cheese/cheese_curds
-
 // Machinery: Oven
 /datum/crafting_recipe/food/oven
 	machinery = list(/obj/machinery/oven)
@@ -669,17 +517,9 @@
 	reqs = list(/obj/item/food/dough = 1)
 	result = /obj/item/food/bread/plain
 
-/datum/crafting_recipe/food/oven/rootbread
-	reqs = list(/obj/item/food/rootdough = 1)
-	result = /obj/item/food/bread/root
-
 /datum/crafting_recipe/food/oven/bun
 	reqs = list(/obj/item/food/doughslice = 1)
 	result = /obj/item/food/bun
-
-/datum/crafting_recipe/food/oven/rootroll
-	reqs = list(/obj/item/food/rootdoughslice = 1)
-	result = /obj/item/food/rootroll
 
 /datum/crafting_recipe/food/oven/pastrybase
 	reqs = list(/obj/item/food/rawpastrybase = 1)
@@ -696,10 +536,6 @@
 	result = /obj/item/food/pizza/margherita
 	category = CAT_PIZZA
 
-/datum/crafting_recipe/food/oven/rootflatbread
-	reqs = list(/obj/item/food/flatrootdough = 1)
-	result = /obj/item/food/root_flatbread
-
 /datum/crafting_recipe/food/oven/pie
 	reqs = list(/obj/item/food/piedough = 1)
 	result = /obj/item/food/pie/plain
@@ -709,50 +545,6 @@
 	reqs = list(/obj/item/food/cakebatter = 1)
 	result = /obj/item/food/cake/plain
 	category = CAT_PASTRY
-
-/datum/crafting_recipe/food/oven/breadstick
-	reqs = list(/obj/item/food/raw_breadstick = 1)
-	result = /obj/item/food/breadstick
-
-/datum/crafting_recipe/food/oven/baked_cheese
-	reqs = list(/obj/item/food/cheese/wheel = 1)
-	result = /obj/item/food/baked_cheese
-	category = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/oven/browniesheet
-	reqs = list(/obj/item/food/raw_brownie_batter = 1)
-	result = /obj/item/food/brownie_sheet
-	category = CAT_PASTRY
-
-/datum/crafting_recipe/food/oven/green_lasagne
-	reqs = list(/obj/item/food/raw_green_lasagne = 1)
-	result = /obj/item/food/green_lasagne
-	category = CAT_SPAGHETTI
-
-/datum/crafting_recipe/food/oven/big_baked_rice
-	reqs = list(/obj/item/food/raw_baked_rice = 1)
-	result = /obj/item/food/big_baked_rice
-	category = CAT_SALAD
-
-/datum/crafting_recipe/food/oven/ratatouille
-	reqs = list(/obj/item/food/raw_ratatouille = 1)
-	result = /obj/item/food/ratatouille
-	category = CAT_SALAD
-
-/datum/crafting_recipe/food/oven/stuffed_peppers
-	reqs = list(/obj/item/food/raw_stuffed_peppers = 1)
-	result = /obj/item/food/stuffed_peppers
-	category = CAT_SALAD
-
-/datum/crafting_recipe/food/oven/roasted_bell_pepper
-	reqs = list(/obj/item/food/grown/bell_pepper = 1)
-	result = /obj/item/food/roasted_bell_pepper
-	category = CAT_SALAD
-
-/datum/crafting_recipe/food/oven/oven_baked_corn
-	reqs = list(/obj/item/food/grown/corn = 1)
-	result = /obj/item/food/oven_baked_corn
-	category = CAT_SALAD
 
 /datum/crafting_recipe/food/oven/yakiimo
 	reqs = list(/obj/item/food/grown/potato/sweet = 1)
@@ -766,20 +558,6 @@
 	category = CAT_MISCFOOD
 	non_craftable = TRUE
 
-/datum/crafting_recipe/food/drying/firm_cheese
-	reqs = list(/obj/item/food/cheese/cheese_curds = 1)
-	result = /obj/item/food/cheese/firm_cheese
-
-/datum/crafting_recipe/food/drying/headcheese
-	reqs = list(/obj/item/food/raw_headcheese = 1)
-	result = /obj/item/food/headcheese
-	category = CAT_MEAT
-
-/datum/crafting_recipe/food/drying/tiziran_sausage
-	reqs = list(/obj/item/food/raw_tiziran_sausage = 1)
-	result = /obj/item/food/tiziran_sausage
-	category = CAT_MEAT
-
 /datum/crafting_recipe/food/drying/sosjerky
 	reqs = list(/obj/item/food/meat/slab = 1)
 	result = /obj/item/food/sosjerky/healthy
@@ -788,7 +566,3 @@
 /datum/crafting_recipe/food/drying/no_raisin/healthy
 	reqs = list(/obj/item/food/grown/grapes = 1)
 	result = /obj/item/food/no_raisin/healthy
-
-/datum/crafting_recipe/food/drying/semki
-	reqs = list(/obj/item/food/grown/sunflower = 1)
-	result = /obj/item/food/semki/healthy
