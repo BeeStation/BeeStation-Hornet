@@ -1,12 +1,12 @@
-///How long Sol will last until it's night again.
+/// How long Sol lasts
 #define TIME_VAMPIRE_DAY 60
-///Base time nighttime should be in for, until Sol rises.
+/// The grace period inbetween Sol
 #define TIME_VAMPIRE_NIGHT 600
-///Time left to send an alert to Vampires about an incoming Sol.
+/// First audio warning that Sol is coming
 #define TIME_VAMPIRE_DAY_WARN 90
-///Time left to send an urgent alert to Vampires about an incoming Sol.
+/// Second audio warning that Sol is coming
 #define TIME_VAMPIRE_DAY_FINAL_WARN 30
-///Time left to alert that Sol is rising.
+/// Final audio warning that Sol is coming
 #define TIME_VAMPIRE_BURN_INTERVAL 5
 
 ///How much time Sol can be 'off' by, keeping the time inconsistent.
@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(sunlight)
 			message_admins("VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)")
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
-				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minutes or risk Final Death!"),
+				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minute\s!"),
 				vassal_warning_message = span_danger("Solar flares bombard the station with UV light!"),
 			)
 

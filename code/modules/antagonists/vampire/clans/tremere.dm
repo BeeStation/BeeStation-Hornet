@@ -1,13 +1,12 @@
 /datum/vampire_clan/tremere
 	name = CLAN_TREMERE
-	description = "The Tremere Clan is extremely weak to True Faith, and will burn when entering areas considered such, like the Chapel. \n\
-		Additionally, a whole new moveset is learned, built on Blood magic rather than Blood abilities, which are upgraded overtime. \n\
-		More ranks can be gained by Vassalizing crewmembers. \n\
+	description = "You cannot purchase the standard vampire powers but instead learn Blood Magic, which are upgraded overtime. \n\
+		More ranks are gained by Vassalizing crewmembers instead of each Sol.\n\
 		The Favorite Vassal gains the ability to morph themselves into a bat at will."
 	clan_objective = /datum/objective/vampire/tremere_power
 	join_icon_state = "tremere"
-	join_description = "You lose all default powers, but gain Blood Magic instead, powers you level up overtime.\n IMPORTANT: \
-		Members of the Tremere clan do not gain ranks the usual way but are instead granted ranks per one person they vassalize."
+	join_description = "You lose all default powers, but gain Blood Magic instead, powers you level up overtime.\n<b>IMPORTANT:</b> \
+		Members of the Tremere clan do not gain ranks the usual way but are instead granted ranks per person they vassalize."
 
 /datum/vampire_clan/tremere/New(mob/living/carbon/user)
 	. = ..()

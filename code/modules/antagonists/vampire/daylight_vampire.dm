@@ -21,7 +21,7 @@
 ///Ranks the Vampire up, called by Sol.
 /datum/antagonist/vampire/proc/sol_rank_up(atom/source)
 	SIGNAL_HANDLER
-	CALLBACK(src, PROC_REF(RankUp))
+	INVOKE_ASYNC(src, PROC_REF(RankUp))
 
 ///Called when Sol is near starting.
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)

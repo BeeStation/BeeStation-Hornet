@@ -113,8 +113,8 @@ const VampireGuide = (_props) => {
               </Box>
               <br />
               As a vampire, one of the first things you should do is set up a Lair. Ideally this should be located somewhere
-              that nobody will <b>ever</b> wander into. Some good locations are a hidden area in maintenance or any backroom in
-              whatever department you may be working in. Get creative!
+              that nobody will <b>ever</b> wander into. Some good locations can include: a hidden room in maintenance or any
+              backroom in whatever department you may be working in. Get creative!
               <br /> <br />
               To claim a lair, bring a coffin to your desired location and rest in it.
               <br /> <br />
@@ -154,9 +154,11 @@ const VampireGuide = (_props) => {
               <Box inline textColor="yellow">
                 Sol
               </Box>{' '}
-              you will gain a new Rank to spend on a power in your Coffin. While most of them are offensive in nature, there are
-              a few ultility powers you can purchase. These powers are essential to surviving as a vampire and without them, you
-              are bound to fail.
+              you will gain a new Rank. Ranking up as a vampire increases your total strength, health, feed rate, and blood
+              capacity.
+              <br /> <br />
+              Alongside this, you also gain a new power to pick in your coffin. These powers are essential to surviving and
+              vassalizing the crew.
             </Box>
           )}
           {tab === 2 && (
@@ -175,8 +177,8 @@ const VampireGuide = (_props) => {
               <Box textColor="green">Resilience</Box>The cold and radiation mean nothing to you. You cannot take toxin damage,
               and critical injuries will not knock you down.
               <br /> <br />
-              <Box textColor="pink">Immense Strength</Box>As a vampire, your primary weapons are your hands. Each time you rank
-              up so does the damage that your fists deal.
+              <Box textColor="pink">Immense Strength</Box>As a vampire, your primary weapons are your fists. Every time you rank
+              up, the damage done by your fists increases.
               <br /> <br />
               <Box fontSize="20px" textColor="red">
                 Your Weaknesses
@@ -236,7 +238,7 @@ const VampireGuide = (_props) => {
               <Box inline textColor="red">
                 250 Blood
               </Box>{' '}
-              you will exit your{' '}
+              you will exit the{' '}
               <Box inline textColor="purple">
                 frenzy.
               </Box>
@@ -244,8 +246,7 @@ const VampireGuide = (_props) => {
               <Box fontSize="20px" textColor="blue">
                 Powers
               </Box>
-              <br />A {"vampire's"} unique abilities give them the majority of their strength.
-              <br /> <br />
+              <br />
               All powers cost{' '}
               <Box inline textColor="red">
                 blood.
@@ -254,13 +255,17 @@ const VampireGuide = (_props) => {
               <Box inline textColor="red">
                 blood
               </Box>{' '}
-              as apposed to other powers that will simply remove their cost in{' '}
+              when active. Other powers simply remove their cost in{' '}
               <Box inline textColor="red">
                 blood
               </Box>{' '}
-              immediately after using the power.
+              immediately after use.
               <br /> <br />
-              Detailed information on each of the powers you have unlocked can be found under the{' '}
+              Detailed information on each of the{' '}
+              <Box inline textColor="blue">
+                Powers
+              </Box>{' '}
+              you have unlocked can be found under the{' '}
               <Box inline textColor="blue">
                 Powers Tab
               </Box>{' '}
@@ -347,7 +352,7 @@ const VampireGuide = (_props) => {
               </Box>
               <br />
               Every vampire needs a crypt. Whether it be in maintenance or the {"captain's"} bedroom, this is where you will
-              vassalize the crew and get up to other evil deeds.
+              vassalize the crew and recieve your vampiric gifts.
               <br /> <br />
               To claim a lair you should first locate a hidden area that nobody will <b>ever</b> walk into. After securing your
               chosen location, find a coffin.
@@ -361,6 +366,8 @@ const VampireGuide = (_props) => {
                 Structures
               </Box>{' '}
               category, or they can be found across the station. Most stations have coffins in the Chapel
+              <br /> <br />
+              After obtaining a coffin, simply bring it to your chosen lair and rest in it to claim the area.
               <br /> <br />
               <Box fontSize="20px" textColor="red">
                 Structures
@@ -512,30 +519,26 @@ const ClanSection = (props: any) => {
 
   return (
     <Section title="Clan">
-      <Stack>
-        <Stack.Item>
-          {clan.map((ClanInfo) => (
-            <>
-              <Stack.Item fontSize="20px" textAlign="center">
-                <Box
-                  inline
-                  as="img"
-                  src={resolveAsset(`${ClanInfo.clan_icon}.png`)}
-                  width="128px"
-                  style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
-                />
-                <Box inline textColor="red">
-                  You are part of the <b>{ClanInfo.clan_name}</b>!
-                </Box>
-              </Stack.Item>
-              <Stack.Item fontSize="16px">
-                <br />
-                {ClanInfo.clan_description}
-              </Stack.Item>
-            </>
-          ))}
-        </Stack.Item>
-      </Stack>
+      {clan.map((ClanInfo, index) => (
+        <Stack key={index}>
+          <Stack.Item>
+            <Box
+              as="img"
+              src={resolveAsset(`${ClanInfo.clan_icon}.png`)}
+              width="128px"
+              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+            />
+          </Stack.Item>
+          <Stack.Item grow>
+            <Stack.Item textAlign="center">
+              <Box inline fontSize="20px" textColor="red">
+                You are part of the <b>{ClanInfo.clan_name}!</b>
+              </Box>
+            </Stack.Item>
+            <Box fontSize="16px">{ClanInfo.clan_description}</Box>
+          </Stack.Item>
+        </Stack>
+      ))}
     </Section>
   );
 };

@@ -10,9 +10,9 @@
 	///The name of the clan we're in.
 	var/name = CLAN_NONE
 	///Description of what the clan is, given when joining and through your antag UI.
-	var/description = "The Caitiff is as basic as you can get with Vampires. \n\
-		No additional abilities are gained, nothing is lost, if you want a plain Vampire, this is it. \n\
-		Your Favorite Vassal will gain the Brawn ability, to help in combat."
+	var/description = "The Caitiff is as basic as you can get with Vampires.\n\
+		No additional abilities are gained, nothing is lost, if you want a plain Vampire, this is it.\n\
+		Your Favorite Vassal will gain the Brawn ability to help in combat."
 	///The clan objective that is required to greentext.
 	var/datum/objective/vampire/clan_objective
 	///The icon of the radial icon to join this clan.
@@ -20,7 +20,7 @@
 	///Same as join_icon, but the state
 	var/join_icon_state = "caitiff"
 	///Description shown when trying to join the clan.
-	var/join_description = "The default, Classic Vampire."
+	var/join_description = "The default, Classic Vampire. You gain nothing, you lose nothing."
 	///Whether the clan can be joined by players. FALSE for flavortext-only clans.
 	var/joinable_clan = TRUE
 

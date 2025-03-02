@@ -551,6 +551,7 @@
 		"malkavian.png" = 'html/img/vampire/malkavian.png',
 		"nosferatu.png" = 'html/img/vampire/nosferatu.png',
 		"tremere.png" = 'html/img/vampire/tremere.png',
+		"ventrue.png" = 'html/img/vampire/ventrue.png',
 		"power_bleed.png" = 'html/img/vampire/power_bleed.png',
 		"power_auspex.png" = 'html/img/vampire/power_auspex.png',
 		"power_cloak.png" = 'html/img/vampire/power_cloak.png',

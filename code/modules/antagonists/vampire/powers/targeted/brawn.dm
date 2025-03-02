@@ -119,7 +119,7 @@
 		playsound(get_turf(target), 'sound/weapons/punch4.ogg', 60, 1, -1)
 		user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(target.get_combat_bodyzone()))
-		target.apply_damage(carbonuser.dna.species.punchdamage * 1.25 + 2, BRUTE, affecting)
+		target.apply_damage(carbonuser.dna.species.punchdamage * 2 + 2, BRUTE, affecting)
 		// Knockback
 		var/send_dir = get_dir(owner, target)
 		var/turf/turf_thrown_at = get_ranged_target_turf(target, send_dir, powerlevel)
