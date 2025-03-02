@@ -172,7 +172,7 @@ SELECT p.text, pv.rating, COUNT(*)
 			return
 	output += "</table>"
 	if(!QDELETED(usr))
-		usr << browse(output, "window=playerpolllist;size=500x300")
+		usr << browse(HTML_SKELETON(output), "window=playerpolllist;size=500x300")
 
 /**
   * Show the options for creating a poll or editing its parameters along with its linked options.

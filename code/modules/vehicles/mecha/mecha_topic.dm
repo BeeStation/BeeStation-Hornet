@@ -4,7 +4,7 @@
 ////////////////////////////////////
 
 /obj/vehicle/sealed/mecha/proc/get_stats_html(mob/user)
-	. = {"<html>
+	. = {"<!DOCTYPE html><html>
 			<head>
 				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<title>[name] data</title>
@@ -158,7 +158,7 @@
 /obj/vehicle/sealed/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user)
 		return
-	. = {"<html>
+	. = {"<!DOCTYPE html><html>
 			<head>
 				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>
@@ -190,7 +190,7 @@
 /obj/vehicle/sealed/mecha/proc/output_maintenance_dialog(obj/item/card/id/id_card,mob/user)
 	if(!id_card || !user)
 		return
-	. = {"<html>
+	. = {"<!DOCTYPE html><html>
 			<head>
 				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 				<style>

@@ -131,10 +131,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
-/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	. = !density
-	if(istype(caller))
-		. = . || (caller.pass_flags & PASSTABLE)
+	if(istype(passing_atom))
+		. = . || (passing_atom.pass_flags & PASSTABLE)
 
 /obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)

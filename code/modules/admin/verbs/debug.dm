@@ -622,7 +622,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	dellog += "</ol>"
 
-	usr << browse(dellog.Join(), "window=dellog")
+	usr << browse(HTML_SKELETON(dellog.Join()), "window=dellog")
 
 /client/proc/cmd_display_overlay_log()
 	set category = "Debug"
@@ -636,7 +636,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Display Initialize() Log"
 	set desc = "Displays a list of things that didn't handle Initialize() properly"
 
-	usr << browse(replacetext(SSatoms.InitLog(), "\n", "<br>"), "window=initlog")
+	var/datum/browser/browser = new(usr, "initlog", "Initialize Log", 500, 500)
+	browser.set_content(replacetext(SSatoms.InitLog(), "\n", "<br>"))
+	browser.open()
 
 /client/proc/debug_huds(i as num)
 	set category = "Debug"
@@ -1033,13 +1035,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/bucket_list_output = generate_timer_source_output(SStimer.bucket_list)
 	var/second_queue = generate_timer_source_output(SStimer.second_queue)
 
-	usr << browse({"
+	var/datum/browser/browser = new(usr, "check_timer_sources", "Timer Sources", 700, 700)
+	browser.set_content({"
 		<h3>bucket_list</h3>
 		[bucket_list_output]
 
 		<h3>second_queue</h3>
 		[second_queue]
-	"}, "window=check_timer_sources;size=700x700")
+	"})
+	browser.open()
 
 /proc/generate_timer_source_output(list/datum/timedevent/events)
 	var/list/per_source = list()

@@ -6,7 +6,7 @@
 
 	if(!GLOB.mentorlog.len)
 		dat += "No mentors have done anything this round!"
-	usr << browse(dat, "window=mentor_log")
+	usr << browse(HTML_SKELETON(dat), "window=mentor_log")
 
 /// Logs a mentor action to the investigate panel and game.log
 /proc/log_mentor(text)
