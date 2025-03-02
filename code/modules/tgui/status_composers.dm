@@ -2,6 +2,7 @@
 /proc/default_ui_state(mob/user, atom/source)
 	return min(
 		ui_status_user_is_abled(user, source),
+		ui_status_user_has_free_hands(user, source),
 		ui_status_user_is_advanced_tool_user(user, source),
 		ui_status_only_living(user),
 		max(
@@ -14,10 +15,10 @@
 /// far away users will be able to see, and anyone farther won't see anything.
 /// Dead users will receive updates no matter what, though you likely want to add
 /// a [`ui_status_only_living`] check for finer observer interactions.
-/proc/ui_status_user_is_adjacent(mob/user, atom/source)
+/proc/ui_status_user_is_adjacent(mob/user, atom/source, allow_tk = TRUE)
 	if (isliving(user))
 		var/mob/living/living_user = user
-		return living_user.shared_living_ui_distance(source)
+		return living_user.shared_living_ui_distance(source, allow_tk = allow_tk)
 	else
 		return UI_UPDATE
 
@@ -55,10 +56,14 @@
 
 	return UI_INTERACTIVE
 
-/// Returns a UI status such that advanced tool users will be able to update,
+/// Returns a UI status such that those without blocked hands will be able to interact,
 /// but everyone else can only watch.
+/proc/ui_status_user_has_free_hands(mob/user, atom/source)
+	return HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) ? UI_UPDATE : UI_INTERACTIVE
+
+/// Returns a UI status such that advanced tool users will be able to interact,
 /proc/ui_status_user_is_advanced_tool_user(mob/user, atom/source)
-	return (user.canUseTopic(source, BE_CLOSE) && !HAS_TRAIT(user, TRAIT_DISCOORDINATED)) ? UI_INTERACTIVE : UI_UPDATE
+	return ISADVANCEDTOOLUSER(user) ? UI_INTERACTIVE : UI_UPDATE
 
 /// Returns a UI status such that silicons will be able to interact with whatever
 /// they would have access to if this was a machine. For example, AIs can
