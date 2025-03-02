@@ -364,8 +364,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 /obj/anomaly/singularity/proc/event()
 	var/numb = rand(1,4)
 	switch(numb)
-		if(1)//EMP
-			emp_area()
 		if(2)//Stun mobs who lack optic scanners
 			mezzer()
 		if(3,4) //Sets all nearby mobs on fire
@@ -406,8 +404,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	return
 
 
-/obj/anomaly/singularity/proc/emp_area()
-	empulse(src, 8, 10)
 
 /obj/anomaly/singularity/singularity_act()
 	var/gain = (energy/2)
