@@ -87,7 +87,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	)), \
 	null, \
 	new/datum/stack_recipe("firelock frame",							/obj/structure/firelock_frame, 3, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
-	new/datum/stack_recipe("directional firelock frame",				/obj/structure/firelock_frame/border, 3, one_per_turf = FALSE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("turret frame",								/obj/machinery/porta_turret_construct, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("meatspike frame",							/obj/structure/kitchenspike_frame, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("reflector frame",							/obj/structure/reflector, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
