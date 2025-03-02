@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(economy)
 		var/datum/bank_account/B = A
 		B.payday(1)
 	var/effective_mailcount = living_player_count()
-	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
+	mail_waiting = clamp(mail_waiting + clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE), 0, MAX_MAIL_LIMIT)
 
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
 	if(!length(bank_accounts))

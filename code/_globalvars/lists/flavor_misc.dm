@@ -278,8 +278,6 @@ GLOBAL_LIST_INIT(admiral_messages, list(
 	"You knew the risks coming in.",
 ))
 
-GLOBAL_LIST_INIT(junkmail_messages, world.file2list("strings/junkmail.txt"))
-
 // All valid inputs to status display post_status
 GLOBAL_LIST_INIT(status_display_approved_pictures, list(
 	"blank",
