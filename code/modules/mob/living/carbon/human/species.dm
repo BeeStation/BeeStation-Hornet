@@ -852,6 +852,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.remove_overlay(BODY_BEHIND_LAYER)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
+	H.remove_overlay(HANDS_PART_LAYER)
 
 	REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
@@ -1125,17 +1126,45 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
 
-			if(S.hasinner)
-				var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
-				if(S.gender_specific)
-					inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
+			if(S.hasinner)	// Im so fucking sorry. I can't do this any other way without refactoring all of IPC limb code.
+							// This is due to the fact that IPC chassis are considered a bodypart. Not their actual bodypart limbs.
+				if(bodypart == "ipc_chassis")
+					var/list/robot_bodyparts = list()
+					for(var/obj/item/bodypart/robot_bodypart as anything in H.bodyparts)
+						robot_bodyparts += robot_bodypart.body_zone
+						if(robot_bodypart.body_zone == BODY_ZONE_L_ARM)
+							robot_bodyparts += BODY_ZONE_PRECISE_L_HAND
+						if(robot_bodypart.body_zone == BODY_ZONE_R_ARM)
+							robot_bodyparts += BODY_ZONE_PRECISE_R_HAND
+
+					var/list/robot_handparts = list(
+						BODY_ZONE_PRECISE_L_HAND,
+						BODY_ZONE_PRECISE_R_HAND,
+					)
+					for(var/robot_bodypart in robot_bodyparts)
+						var/auxlayer = BODYPARTS_LAYER
+						if(robot_bodypart in robot_handparts)
+							auxlayer = HANDS_PART_LAYER
+						var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(auxlayer))
+						inner_accessory_overlay.icon_state = "m_[robot_bodypart]inner_[S.icon_state]_[layertext]"
+						if(S.hasinnercolor == MUTCOLORS)
+							if(fixed_mut_color)
+								inner_accessory_overlay.color = "#[fixed_mut_color]"
+							else
+								inner_accessory_overlay.color = "#[H.dna.features["mcolor"]]"
+						standing += inner_accessory_overlay
+
 				else
-					inner_accessory_overlay.icon_state = "m_[bodypart]inner_[S.icon_state]_[layertext]"
+					var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
+					if(S.gender_specific)
+						inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
+					else
+						inner_accessory_overlay.icon_state = "m_[bodypart]inner_[S.icon_state]_[layertext]"
 
-				if(S.center)
-					inner_accessory_overlay = center_image(inner_accessory_overlay, S.dimension_x, S.dimension_y)
+					if(S.center)
+						inner_accessory_overlay = center_image(inner_accessory_overlay, S.dimension_x, S.dimension_y)
 
-				standing += inner_accessory_overlay
+					standing += inner_accessory_overlay
 
 		H.overlays_standing[layer] = standing.Copy()
 		standing = list()
@@ -1143,6 +1172,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.apply_overlay(BODY_BEHIND_LAYER)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
+	H.apply_overlay(HANDS_PART_LAYER)
 
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
