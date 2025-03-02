@@ -204,7 +204,7 @@
 /obj/item/stack/rods{
 	amount = 23
 	},
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
 /obj/item/flashlight/seclite,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/mineral/copper,

@@ -56,28 +56,28 @@
 
 /turf/open/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
-		return
+		return TRUE
 	if(istype(C, /obj/item/stack/rods) && attachment_holes)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
-			return
+			return TRUE
 		if(locate(/obj/structure/lattice/catwalk/over, src))
-			return
+			return TRUE
 		if (istype(C, /obj/item/stack/rods))
 			var/obj/item/stack/rods/R = C
 			if (R.use(2))
 				to_chat(user, span_notice("You lay down the catwalk."))
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
-				return
+		return TRUE
 	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
-			return
+			return TRUE
 		var/obj/item/stack/sheet/iron/R = C
 		if (R.get_amount() < 1)
 			to_chat(user, span_warning("You need one sheet to make a reinforced floor!"))
-			return
+			return TRUE
 		else
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
 			if(do_after(user, 30, target = src))
@@ -86,7 +86,7 @@
 					playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 					R.use(1)
 					to_chat(user, span_notice("You reinforce the floor."))
-				return
+				return TRUE
 	if(istype(C, /obj/item/stack/sheet/plasteel) && attachment_holes)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
@@ -94,7 +94,7 @@
 		var/obj/item/stack/sheet/iron/R = C
 		if (R.get_amount() < 1)
 			to_chat(user, span_warning("You need one sheet to make a prison secure floor!"))
-			return
+			return TRUE
 		else
 			to_chat(user, span_notice("You begin reinforcing the floor to secure the plating.."))
 			if(do_after(user, 30, target = src))
@@ -103,7 +103,7 @@
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 					R.use(1)
 					to_chat(user, span_notice("You secure the plating."))
-				return
+			return TRUE
 	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
 		if(!broken && !burnt)
 			for(var/obj/O in src)
@@ -114,6 +114,8 @@
 			tile.place_tile(src, user)
 		else
 			to_chat(user, span_warning("This section is too damaged to support a tile! Use a welder to fix the damage."))
+		return TRUE
+	return FALSE
 
 /turf/open/floor/plating/welder_act(mob/living/user, obj/item/I)
 	if((broken || burnt) && I.use_tool(src, user, 0, volume=80))

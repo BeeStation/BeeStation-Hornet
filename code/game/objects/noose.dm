@@ -27,8 +27,8 @@
 		var/obj/item/stack/cable_coil/C = new(get_turf(src))
 		C.amount = 25
 		qdel(src)
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/structure/chair/noose/Initialize(mapload)
 	. = ..()
