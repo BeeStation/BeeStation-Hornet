@@ -621,24 +621,13 @@
 //ANIMAL RIDING
 
 /mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-	if(riding_datum)
-		if(user.incapacitated())
+	if(user.incapacitated())
+		return
+	for(var/atom/movable/A in get_turf(src))
+		if(A != src && A != M && A.density)
 			return
-		for(var/atom/movable/A in get_turf(src))
-			if(A != src && A != M && A.density)
-				return
-		M.forceMove(get_turf(src))
-		return ..()
 
-/mob/living/simple_animal/relaymove(mob/living/user, direction)
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-	if(tame && riding_datum)
-		riding_datum.handle_ride(user, direction)
-
-/mob/living/simple_animal/buckle_mob(mob/living/buckled_mob, force = 0, check_loc = 1)
-	. = ..()
-	LoadComponent(/datum/component/riding)
+	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))
@@ -718,3 +707,7 @@
 		hunted = null
 		COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
 		return
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
