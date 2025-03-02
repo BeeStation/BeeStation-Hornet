@@ -280,6 +280,9 @@
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
 		return FALSE
+	if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
+		stop_pulling()
+		return FALSE
 	if(isliving(pulling))
 		var/mob/living/L = pulling
 		if(L.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
@@ -313,6 +316,9 @@
 			stop_pulling()
 			return
 		if(pulling.anchored || pulling.move_resist > move_force)
+			stop_pulling()
+			return
+		if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
@@ -490,7 +496,7 @@
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
-		if(pulling.anchored)
+		if(pulling.anchored || HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
 		else
 			var/pull_dir = get_dir(src, pulling)
