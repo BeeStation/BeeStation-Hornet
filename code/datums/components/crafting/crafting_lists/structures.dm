@@ -5,7 +5,7 @@
 	name = "Personal Locker"
 	result = /obj/structure/closet/secure_closet/personal/empty
 	time = 10 SECONDS
-	tools = list(TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 2,
 		/obj/item/electronics/airlock = 1,
@@ -18,7 +18,7 @@
 	name = "Shutters"
 	result = /obj/machinery/door/poddoor/shutters/preopen
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/stack/sheet/plasteel = 5,
 		/obj/item/stack/cable_coil = 5,
@@ -31,7 +31,7 @@
 	name = "Windowed Shutters"
 	result = /obj/machinery/door/poddoor/shutters/window/preopen
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/stack/sheet/plasteel = 5,
 		/obj/item/stack/sheet/rglass = 2,
@@ -45,7 +45,7 @@
 	name = "Radiation Shutters"
 	result = /obj/machinery/door/poddoor/shutters/radiation/preopen
 	time = 10 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/stack/sheet/plasteel = 5,
 		/obj/item/stack/cable_coil = 5,
@@ -59,7 +59,7 @@
 	name = "Blast Door"
 	result = /obj/machinery/door/poddoor/preopen
 	time = 15 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	reqs = list(
 		/obj/item/stack/sheet/plasteel = 15,
 		/obj/item/stack/cable_coil = 15,
@@ -72,7 +72,7 @@
 	name = "Shower Curtains"
 	result = /obj/structure/curtain
 	time = 3 SECONDS
-	tools = list(TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
 	reqs = 	list(
 		/obj/item/stack/sheet/cotton/cloth = 2,
 		/obj/item/stack/sheet/plastic = 2,
@@ -85,7 +85,7 @@
 	name = "Aquarium"
 	result = /obj/structure/aquarium
 	time = 7.5 SECONDS
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/iron = 15,
 		/obj/item/stack/sheet/glass = 10,
@@ -103,7 +103,7 @@
 		/obj/item/stack/sheet/wood = 20,
 		/obj/item/stack/cable_coil = 10
 	)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_STRUCTURE
 	dangerous_craft = TRUE
 	one_per_turf = TRUE
@@ -116,7 +116,7 @@
 		/obj/item/stack/sheet/mineral/silver = 1,
 		/obj/item/stack/sheet/glass = 2
 	)
-	tools = list(TOOL_WRENCH)
+	tool_behaviors = list(TOOL_WRENCH)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
@@ -129,7 +129,7 @@
 		/obj/item/stack/sheet/iron = 1,
 		)
 	blacklist = list(/obj/item/analyzer/ranged)
-	tools = list(TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 /datum/crafting_recipe/weightmachine
@@ -141,7 +141,7 @@
 		/obj/item/stack/rods = 6,
 		/obj/item/barbell/stacklifting = 1,
 	)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
@@ -154,7 +154,7 @@
 		/obj/item/stack/rods = 6,
 		/obj/item/barbell = 1,
 	)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
@@ -165,7 +165,7 @@
 	reqs = list(
 	/obj/item/stack/sheet/cotton/cloth = 10,
 	)
-	tools = list(TOOL_WIRECUTTER)
+	tool_behaviors = list(TOOL_WIRECUTTER)
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 

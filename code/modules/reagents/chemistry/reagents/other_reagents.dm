@@ -10,6 +10,7 @@
 	glass_name = "glass of tomato juice"
 	glass_desc = "Are you sure this is tomato juice?"
 	shot_glass_icon_state = "shotglassred"
+	default_container = /obj/item/reagent_containers/blood
 
 /datum/reagent/blood/expose_mob(mob/living/L, method=TOUCH, reac_volume)
 	if(data && data["viruses"])
@@ -166,6 +167,7 @@
 	glass_desc = "The father of all refreshments."
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
+	default_container = /obj/item/reagent_containers/cup/glass/waterbottle
 
 
 /*
@@ -245,6 +247,7 @@
 	glass_name = "glass of holy water"
 	glass_desc = "A glass of holy water."
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
@@ -1016,6 +1019,7 @@
 	taste_description = "the inside of a reactor"
 	var/irradiation_level = 1
 	process_flags = ORGANIC | SYNTHETIC
+	default_container = /obj/effect/decal/cleanable/greenglow
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/M)
 	M.apply_effect(irradiation_level/M.metabolism_efficiency,EFFECT_IRRADIATE,0)
@@ -1563,7 +1567,7 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
-
+	default_container = /obj/effect/decal/cleanable/oil
 
 /datum/reagent/stable_plasma
 	name = "Stable Plasma"
@@ -1707,6 +1711,7 @@
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "ash"
+	default_container = /obj/effect/decal/cleanable/ash
 
 /datum/reagent/acetone
 	name = "Acetone"

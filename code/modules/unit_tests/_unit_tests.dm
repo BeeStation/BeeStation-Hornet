@@ -25,7 +25,6 @@
 #include "combat.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
-#include "crafting_tests.dm"
 /*
 #include "create_and_destroy.dm"
 */

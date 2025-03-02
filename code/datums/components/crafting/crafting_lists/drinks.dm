@@ -120,7 +120,7 @@
 	result = /obj/item/reagent_containers/cup/glass/sillycup/smallcarton
 	time = 1 SECONDS
 	reqs = list(/obj/item/stack/sheet/cardboard = 1)
-	category = CAT_DRINK
+	category = CAT_CONTAINERS
 
 /datum/crafting_recipe/honeycomb
 	name = "Honeycomb"
