@@ -55,23 +55,18 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if(opened && !wiresexposed && !issilicon(user))
-		if(cell)
-			cell.update_icon()
-			cell.add_fingerprint(user)
-			to_chat(user, span_notice("You remove \the [cell]."))
-			user.put_in_active_hand(cell)
-			cell = null
-			update_icons()
-			diag_hud_set_borgcell()
-
 	if(!opened)
-		if(..()) // hulk attack
-			spark_system.start()
-			spawn(0)
-				step_away(src,user,15)
-				sleep(3)
-				step_away(src,user,15)
+		return ..()
+	if(!wiresexposed && !issilicon(user))
+		if(!cell)
+			return
+		cell.update_icon()
+		cell.add_fingerprint(user)
+		user.put_in_active_hand(cell)
+		to_chat(user, span_notice("You remove \the [cell]."))
+		cell = null
+		update_icons()
+		diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
