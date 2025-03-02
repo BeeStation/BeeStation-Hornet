@@ -156,7 +156,7 @@
 	impact_light_color_override = COLOR_LIME
 
 /obj/projectile/beam/emitter/drill
-	name = "emitter beam"
+	name = "driller beam"
 	icon_state = "emitter"
 	damage = 30
 	var/structural_damage = 100
@@ -176,9 +176,9 @@
 
 /obj/projectile/beam/emitter/drill/hitscan
 	hitscan = TRUE
-	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
-	tracer_type = /obj/effect/projectile/tracer/laser/emitter
-	impact_type = /obj/effect/projectile/impact/laser/emitter
+	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter/drill
+	tracer_type = /obj/effect/projectile/tracer/laser/emitter/drill
+	impact_type = /obj/effect/projectile/impact/laser/emitter/drill
 	impact_effect_type = null
 	hitscan_light_intensity = 3
 	hitscan_light_range = 0.75
