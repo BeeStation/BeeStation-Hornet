@@ -130,20 +130,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/plasteel)
 
-/* Runed Metal */
-
-GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
-	new/datum/stack_recipe("runed door",							/obj/machinery/door/airlock/cult, 1, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
-	new/datum/stack_recipe("runed girder",							/obj/structure/girder/cult, 1, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
-	null, \
-	new/datum/stack_recipe("pylon",									/obj/structure/destructible/cult/pylon, 4, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
-	new/datum/stack_recipe("forge",									/obj/structure/destructible/cult/forge, 3, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
-	new/datum/stack_recipe("archives",								/obj/structure/destructible/cult/tome, 3, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
-	new/datum/stack_recipe("altar",									/obj/structure/destructible/cult/talisman, 3, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
-))
-
-STACKSIZE_MACRO(/obj/item/stack/sheet/runed_metal)
-
 /* Brass */
 
 GLOBAL_LIST_INIT(brass_recipes, list ( \
