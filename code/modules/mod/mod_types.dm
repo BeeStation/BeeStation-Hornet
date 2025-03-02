@@ -114,7 +114,7 @@
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
-		/obj/item/mod/module/storage,
+		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/gps,
 		/obj/item/mod/module/orebag,
 		/obj/item/mod/module/clamp,
@@ -203,6 +203,7 @@
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/waddle,
 		/obj/item/mod/module/bikehorn,
+		/obj/item/mod/module/balloon
 	)
 
 /obj/item/mod/control/pre_equipped/traitor
@@ -210,6 +211,7 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/pathfinder/plus,
@@ -221,12 +223,30 @@
 		/obj/item/mod/module/jetpack,
 	)
 
+/obj/item/mod/control/pre_equipped/traitor_elite
+	theme = /datum/mod_theme/elite
+	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_modules = list(
+		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/pathfinder/plus,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/dna_lock,
+	)
+	default_pins = list(
+		/obj/item/mod/module/armor_booster,
+		/obj/item/mod/module/jetpack/advanced,
+	)
+
 /obj/item/mod/control/pre_equipped/nuclear
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_SYNDICATE)
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
@@ -396,6 +416,7 @@
 		/obj/item/mod/module/storage/bluespace,
 		//obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/emp_shield,
 	)
 
 /obj/item/mod/control/pre_equipped/chrono
@@ -436,11 +457,13 @@
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/stealth/ninja,
 		/obj/item/mod/module/quick_carry/advanced,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/anomaly_locked/kinesis/admin,
 	)
 	default_pins = list(
 		/obj/item/mod/module/stealth/ninja,
