@@ -31,7 +31,7 @@
 /datum/action/cooldown/vampire/cloak/ActivatePower()
 	. = ..()
 	var/mob/living/user = owner
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
 
@@ -56,6 +56,9 @@
 
 	animate(user, alpha = 255, time = 1 SECONDS)
 	user.RemoveElement(/datum/element/digital_camo)
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.balloon_alert(user, "cloak turned off.")
 	return ..()
+
+/datum/movespeed_modifier/cloak
+	multiplicative_slowdown = 1.5

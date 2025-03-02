@@ -29,7 +29,7 @@
 	user.physiology.brute_mod *= fortitude_resist
 	user.physiology.stamina_mod *= fortitude_resist
 
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/fortitude)
 
 /datum/action/cooldown/vampire/fortitude/UsePower()
 	. = ..()
@@ -56,7 +56,10 @@
 	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_VAMPIRE)
 	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE)
 
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/fortitude)
 	owner.balloon_alert(owner, "fortitude turned off.")
 
 	return ..()
+
+/datum/movespeed_modifier/fortitude
+	multiplicative_slowdown = 1.5
