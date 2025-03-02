@@ -176,7 +176,7 @@
 		user.balloon_alert(owner, "full on blood!")
 		DeactivatePower()
 		return
-	if(feed_target.blood_volume <= 0)
+	if(feed_target.blood_volume <= 10)
 		user.balloon_alert(owner, "no blood left!")
 		DeactivatePower()
 		return
