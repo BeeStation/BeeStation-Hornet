@@ -168,8 +168,8 @@
 		if(4)
 			external = "[src] seems resigned to its fate."
 			internal = "You resign yourself to your fate."
-	visible_message(span_notice("[external]"),
-		span_revennotice("[internal]"))
+	visible_message(span_notice(external),
+		span_revennotice(internal))
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"

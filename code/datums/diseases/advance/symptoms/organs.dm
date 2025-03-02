@@ -107,7 +107,7 @@
 				eyes.applyOrganDamage(-1)
 		else
 			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]"))
+				to_chat(M, span_notice(pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")))
 
 
 /datum/symptom/organ_restoration //heals damage to other internal organs that get damaged far less often
@@ -212,4 +212,4 @@
 						M.add_splatter_floor(get_turf(M))
 						return
 	if(prob(2) && M.stat != DEAD)
-		to_chat(M, span_notice("[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]"))
+		to_chat(M, span_notice(pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")))

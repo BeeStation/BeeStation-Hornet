@@ -363,10 +363,10 @@
 			var/image/strain_icon = image('icons/mob/blob.dmi', "blob_core")
 			strain_icon.color = initial(strain.color)
 
-			var/info_text = span_boldnotice("[initial(strain.name)]")
-			info_text += "<br>[span_notice("[initial(strain.analyzerdescdamage)]")]"
+			var/info_text = span_boldnotice(initial(strain.name))
+			info_text += "<br>[span_notice(initial(strain.analyzerdescdamage))]"
 			if (!isnull(initial(strain.analyzerdesceffect)))
-				info_text += "<br>[span_notice("[initial(strain.analyzerdesceffect)]")]"
+				info_text += "<br>[span_notice(initial(strain.analyzerdesceffect))]"
 
 			var/datum/radial_menu_choice/choice = new
 			choice.image = strain_icon
