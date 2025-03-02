@@ -34,7 +34,7 @@ type Info = {
 export const AntagInfoVampire = (_props) => {
   const [tab, setTab] = useLocalState('tab', 1);
   return (
-    <Window width={620} height={700} theme="syndicate">
+    <Window width={620} height={700} theme="spooky">
       <Window.Content>
         <Tabs>
           <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
