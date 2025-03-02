@@ -94,7 +94,7 @@
 	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
 	required_candidates = 1
-	minimum_players = 30
+	minimum_players = 24
 	weight = 4
 	cost = 13
 	flags = LONE_RULESET
