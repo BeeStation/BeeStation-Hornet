@@ -564,12 +564,19 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
-	overlay_state_inactive = "module_plasma"
 	required_slots = list(ITEM_SLOT_HEAD)
 
+/obj/item/mod/module/plasma_stabilizer/generate_worn_overlay(mutable_appearance/standing)
+	if (!active)
+		return list()
+	var/mutable_appearance/visor_overlay = mod.get_visor_overlay(standing)
+	visor_overlay.appearance_flags |= RESET_COLOR
+	visor_overlay.color = COLOR_VOID_PURPLE
+	return list(visor_overlay)
+
 /obj/item/mod/module/plasma_stabilizer/on_equip()
-	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION, REF(src))
 
 /obj/item/mod/module/plasma_stabilizer/on_unequip()
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION, REF(src))
 

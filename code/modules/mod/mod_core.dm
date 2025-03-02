@@ -23,21 +23,27 @@
 	mod.core = null
 	mod = null
 
+/// Returns the item responsible for charging the suit, like a power cell, an ethereal's stomach, the core itself, etc.
 /obj/item/mod/core/proc/charge_source()
 	return
 
+/// Returns the amount of charge in the core.
 /obj/item/mod/core/proc/charge_amount()
 	return 0
 
+/// Returns the max amount of charge stored in the core.
 /obj/item/mod/core/proc/max_charge_amount()
 	return 1
 
+/// Adds a set amount of charge to the core.
 /obj/item/mod/core/proc/add_charge(amount)
 	return FALSE
 
+/// Subtracts a set amount of charge from the core.
 /obj/item/mod/core/proc/subtract_charge(amount)
 	return FALSE
 
+/// Checks if there's enough charge in the core to use an amount of energy.
 /obj/item/mod/core/proc/check_charge(amount)
 	return FALSE
 
@@ -202,11 +208,11 @@
 
 	if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!mod.open)
-			mod.balloon_alert(user, "open the cover first!")
+			mod.balloon_alert(user, "cover closed!")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return NONE
 		if(cell)
-			mod.balloon_alert(user, "cell already installed!")
+			mod.balloon_alert(user, "already has cell!")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return COMPONENT_NO_AFTERATTACK
 		install_cell(attacking_item)
@@ -238,7 +244,9 @@
 	name = "MOD ethereal core"
 	icon_state = "mod-core-ethereal"
 	desc = "A reverse engineered core of a Modular Outerwear Device. Using natural liquid electricity from Ethereals, \
-		preventing the need to use external sources to convert electric charge."
+		preventing the need to use external sources to convert electric charge. As the suits are naturally charged by \
+		liquid electricity, this core makes it much more efficient, running all soft, hard, and wetware with several \
+		times less energy usage."
 	/// A modifier to all charge we use, ethereals don't need to spend as much energy as normal suits.
 	var/charge_modifier = 0.1
 
@@ -257,16 +265,16 @@
 
 /obj/item/mod/core/ethereal/add_charge(amount)
 	var/obj/item/organ/stomach/battery/ethereal/charge_source = charge_source()
-	if(!charge_source)
+	if(isnull(charge_source))
 		return FALSE
-	charge_source.adjust_charge(amount*charge_modifier)
+	charge_source.adjust_charge(amount * charge_modifier)
 	return TRUE
 
 /obj/item/mod/core/ethereal/subtract_charge(amount)
 	var/obj/item/organ/stomach/battery/ethereal/charge_source = charge_source()
-	if(!charge_source)
+	if(isnull(charge_source))
 		return FALSE
-	charge_source.adjust_charge(-amount*charge_modifier)
+	charge_source.adjust_charge(-amount * charge_modifier)
 	return TRUE
 
 /obj/item/mod/core/ethereal/check_charge(amount)

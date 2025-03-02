@@ -49,6 +49,12 @@
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	balloon_alert(mod.wearer, "armor boosted, EVA lost")
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
+	/*
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		RegisterSignal(mod, COMSIG_MOD_PART_SEALED, PROC_REF(seal_helmet))
+		seal_helmet(mod, head_cover)
+	*/
 	var/list/mod_parts = mod.get_parts(all = TRUE)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.set_armor(part.get_armor().add_other_armor(armor_mod))
@@ -65,6 +71,11 @@
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		balloon_alert(mod.wearer, "armor retracts, EVA ready")
+	/*
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
+	*/
 	var/list/mod_parts = mod.get_parts(all = TRUE)
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
@@ -81,6 +92,28 @@
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
+
+/*
+/obj/item/mod/module/armor_booster/proc/seal_helmet(datum/source, datum/mod_part/part)
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(part != head_cover)
+		return
+	if(part.sealed)
+		ADD_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, REF(src))
+	else
+		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, REF(src))
+*/
+
+/obj/item/mod/module/armor_booster/on_install()
+	RegisterSignal(mod, COMSIG_MOD_GET_VISOR_OVERLAY, PROC_REF(on_visor_overlay))
+
+/obj/item/mod/module/armor_booster/on_uninstall(deleting)
+	UnregisterSignal(mod, COMSIG_MOD_GET_VISOR_OVERLAY)
+
+/obj/item/mod/module/armor_booster/proc/on_visor_overlay(datum/source,  mutable_appearance/standing, list/overrides)
+	SIGNAL_HANDLER
+	if (active)
+		overrides += mutable_appearance(overlay_icon_file, "module_armorbooster_visor-[mod.skin]", layer = standing.layer + 0.1)
 
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
 /obj/item/mod/module/energy_shield
@@ -166,12 +199,12 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/anti_magic/on_part_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, MOD_TRAIT)
-	ADD_TRAIT(mod.wearer, TRAIT_HOLY, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, REF(src))
+	ADD_TRAIT(mod.wearer, TRAIT_HOLY, REF(src))
 
 /obj/item/mod/module/anti_magic/on_part_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, MOD_TRAIT)
-	REMOVE_TRAIT(mod.wearer, TRAIT_HOLY, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, REF(src))
+	REMOVE_TRAIT(mod.wearer, TRAIT_HOLY, REF(src))
 
 /obj/item/mod/module/anti_magic/wizard
 	name = "MOD magic neutralizer module"
@@ -183,10 +216,10 @@
 	required_slots = list()
 
 /obj/item/mod/module/anti_magic/wizard/on_part_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, REF(src))
 
 /obj/item/mod/module/anti_magic/wizard/on_part_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC_NO_SELFBLOCK, REF(src))
 
 ///Insignia - Gives you a skin specific stripe.
 /obj/item/mod/module/insignia
@@ -242,10 +275,10 @@
 	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/noslip/on_part_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, REF(src))
 
 /obj/item/mod/module/noslip/on_part_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, REF(src))
 
 ///Flamethrower - Launches fire across the area.
 /obj/item/mod/module/flamethrower
@@ -367,7 +400,7 @@
 
 /obj/item/mod/module/chameleon/used()
 	if(mod.active || mod.activating)
-		balloon_alert(mod.wearer, "suit active!")
+		balloon_alert(mod.wearer, "unit active!")
 		return FALSE
 	return ..()
 

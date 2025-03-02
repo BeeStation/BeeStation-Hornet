@@ -129,13 +129,13 @@
 
 /obj/item/implant/mod/proc/recall()
 	if(!module?.mod)
-		balloon_alert(imp_in, "no connected suit!")
+		balloon_alert(imp_in, "no connected unit!")
 		return FALSE
 	if(module.mod.open)
-		balloon_alert(imp_in, "suit is open!")
+		balloon_alert(imp_in, "cover open!")
 		return FALSE
 	if(module.mod.ai_controller)
-		balloon_alert(imp_in, "already in transit!")
+		balloon_alert(imp_in, "already moving!")
 		return FALSE
 	if(ismob(get_atom_on_turf(module.mod)))
 		var/mob/living/carbon/carrying_mob = get_atom_on_turf(module.mod)
@@ -149,7 +149,7 @@
 		return FALSE
 	//balloon_alert(imp_in, "check returned TRUE!")
 	if(module.z != z || get_dist(imp_in, module.mod) > MOD_AI_RANGE)
-		balloon_alert(imp_in, "too far away!")
+		balloon_alert(imp_in, "too far!")
 		return FALSE
 	var/datum/ai_controller/mod_ai = new /datum/ai_controller/mod(module.mod)
 	module.mod.ai_controller = mod_ai

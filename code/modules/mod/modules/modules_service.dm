@@ -36,7 +36,7 @@
 	if(!istype(target, /obj/item))
 		return
 	if(!isturf(target.loc))
-		balloon_alert(mod.wearer, "must be on the floor!")
+		balloon_alert(mod.wearer, "not in storage!")
 		return
 	var/obj/item/microwave_target = target
 	var/datum/effect_system/spark_spread/spark_effect = new()

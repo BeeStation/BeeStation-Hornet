@@ -54,21 +54,23 @@
 			"configuration_data" = module.get_configuration(user),
 		))
 	data["module_custom_status"] = module_custom_status
-	data["module_info"] = module_info
-	return data
-
-/obj/item/mod/control/ui_static_data(mob/user)
-	var/data = list()
-	data["ui_theme"] = ui_theme
 	data["control"] = name
-	data["complexity_max"] = complexity_max
+	data["module_info"] = module_info
 	var/part_info = list()
 	for(var/obj/item/part as anything in get_parts())
 		part_info += list(list(
 			"slot" = english_list(parse_slot_flags(part.slot_flags)),
 			"name" = part.name,
+			"deployed" = part.loc != src,
+			"ref" = REF(part),
 		))
 	data["parts"] = part_info
+	return data
+
+/obj/item/mod/control/ui_static_data(mob/user)
+	var/data = list()
+	data["ui_theme"] = ui_theme
+	data["complexity_max"] = complexity_max
 	return data
 
 /obj/item/mod/control/ui_state(mob/user)
@@ -95,7 +97,7 @@
 					to_chat(ui.user, "Permission granted, AI Controller.")
 			if(!locked || allowed(ui.user))
 				locked = !locked
-				balloon_alert(ui.user, "[locked ? "locked" : "unlocked"]!")
+				balloon_alert(ui.user, "[locked ? "locked" : "unlocked"]")
 			else
 				balloon_alert(ui.user, "access insufficent!")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -123,6 +125,14 @@
 			if(!module)
 				return
 			module.pin(ui.user)
+		if("deploy")
+			var/obj/item/mod_part = locate(params["ref"]) in get_parts()
+			if(!mod_part)
+				return
+			if(mod_part.loc == src)
+				deploy(ui.user, mod_part)
+			else
+				retract(ui.user, mod_part)
 		if("eject_pai")
 			if (!ishuman(ui.user))
 				return

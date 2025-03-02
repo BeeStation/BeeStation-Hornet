@@ -63,7 +63,6 @@
 	desc = "A Super Cool Awesome Visor (SCAV), intended for modular suits."
 	icon_state = "rave_visor"
 	complexity = 1
-	overlay_state_inactive = "module_rave"
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// The client colors applied to the wearer.
 	var/datum/client_colour/rave_screen
@@ -115,9 +114,12 @@
 		SEND_SOUND(mod.wearer, sound('sound/machines/terminal_off.ogg', volume = 50, channel = CHANNEL_JUKEBOX))
 
 /obj/item/mod/module/visor/rave/generate_worn_overlay(mutable_appearance/standing)
-	. = ..()
-	for(var/mutable_appearance/appearance as anything in .)
-		appearance.color = active ? rainbow_order[rave_number] : null
+	if (!active)
+		return list()
+	var/mutable_appearance/visor_overlay = mod.get_visor_overlay(standing)
+	visor_overlay.appearance_flags |= RESET_COLOR
+	visor_overlay.color = active ? rainbow_order[rave_number] : null
+	return list(visor_overlay)
 
 /obj/item/mod/module/visor/rave/on_active_process(delta_time)
 	rave_number++
@@ -278,7 +280,7 @@
 	mod.wearer.AddElement(/datum/element/forced_gravity, NEGATIVE_GRAVITY)
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED,  PROC_REF(check_upstairs))
 	mod.wearer.update_gravity(mod.wearer.has_gravity())
-	//ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
+	//ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, REF(src))
 	check_upstairs() //todo at some point flip your screen around
 
 /obj/item/mod/module/atrocinator/deactivate(display_message = TRUE, deleting = FALSE)
@@ -294,7 +296,7 @@
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 	step_count = 0
 	mod.wearer.update_gravity(mod.wearer.has_gravity())
-	//REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
+	//REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, REF(src))
 	var/turf/open/openspace/current_turf = get_turf(mod.wearer)
 	if(istype(current_turf))
 		current_turf.zFall(mod.wearer)

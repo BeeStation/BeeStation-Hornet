@@ -19,7 +19,7 @@
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
 		hud.add_hud_to(mod.wearer)
 	for(var/trait in visor_traits)
-		ADD_TRAIT(mod.wearer, trait, MOD_TRAIT)
+		ADD_TRAIT(mod.wearer, trait, REF(src))
 	mod.wearer.update_sight()
 
 /obj/item/mod/module/visor/on_deactivation(display_message = TRUE, deleting = FALSE)
@@ -27,7 +27,7 @@
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
 		hud.remove_hud_from(mod.wearer)
 	for(var/trait in visor_traits)
-		REMOVE_TRAIT(mod.wearer, trait, MOD_TRAIT)
+		REMOVE_TRAIT(mod.wearer, trait, REF(src))
 	mod.wearer.update_sight()
 
 //Medical Visor

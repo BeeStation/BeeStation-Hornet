@@ -7,19 +7,21 @@ import { Window } from '../layouts';
 type MODsuitData = {
   // Static
   ui_theme: string;
-  control: string;
   complexity_max: number;
-  parts: PartData[];
   // Dynamic
   suit_status: SuitStatus;
   user_status: UserStatus;
   module_custom_status: ModuleCustomStatus;
   module_info: Module[];
+  control: string;
+  parts: PartData[];
 };
 
 type PartData = {
   slot: string;
   name: string;
+  deployed: BooleanLike;
+  ref: string;
 };
 
 type SuitStatus = {
@@ -35,8 +37,8 @@ type SuitStatus = {
   complexity: number;
   selected_module: string;
   ai_name: string;
-  has_pai: boolean;
-  is_ai: boolean;
+  has_pai: BooleanLike;
+  is_ai: BooleanLike;
 };
 
 type UserStatus = {
@@ -215,6 +217,12 @@ const ConfigureListEntry = (props) => {
   );
 };
 
+const ConfigureButtonEntry = (props) => {
+  const { name, value, module_ref } = props;
+  const { act } = useBackend();
+  return <Button onClick={() => act('configure', { key: name, ref: module_ref })} icon={value} />;
+};
+
 const ConfigureDataEntry = (props) => {
   const { name, display_name, type, value, values, module_ref } = props;
   const configureEntryTypes = {
@@ -222,6 +230,7 @@ const ConfigureDataEntry = (props) => {
     bool: <ConfigureBoolEntry {...props} />,
     color: <ConfigureColorEntry {...props} />,
     list: <ConfigureListEntry {...props} />,
+    button: <ConfigureButtonEntry {...props} />,
   };
   return <LabeledList.Item label={display_name}>{configureEntryTypes[type]}</LabeledList.Item>;
 };
@@ -390,10 +399,10 @@ const HardwareSection = (props) => {
   return (
     <Section title="Hardware" style={{ textTransform: 'capitalize' }}>
       <LabeledList>
-        <LabeledList.Item label="AI Assistant">{ai_name || 'No AI Detected'}</LabeledList.Item>
-        <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
         <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
+        <LabeledList.Item label="Core">{core_name || 'No Core Detected'}</LabeledList.Item>
         <ModParts />
+        <LabeledList.Item label="AI Assistant">{ai_name || 'No AI Detected'}</LabeledList.Item>
       </LabeledList>
     </Section>
   );
@@ -406,7 +415,17 @@ const ModParts = (props) => {
     <>
       {parts.map((part) => {
         return (
-          <LabeledList.Item key={part.slot} label={part.slot + ' Slot'}>
+          <LabeledList.Item
+            key={part.slot}
+            label={part.slot + ' Slot'}
+            buttons={
+              <Button
+                selected={part.deployed}
+                icon={part.deployed ? 'arrow-down' : 'arrow-up'}
+                content={part.deployed ? 'Retract' : 'Deploy'}
+                onClick={() => act('deploy', { ref: part.ref })}
+              />
+            }>
             {part.name}
           </LabeledList.Item>
         );

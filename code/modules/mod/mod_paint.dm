@@ -28,7 +28,7 @@
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)
-		balloon_alert(user, "suit is active!")
+		balloon_alert(user, "unit active!")
 		return TRUE
 	paint_skin(mod, user)
 
@@ -37,7 +37,7 @@
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)
-		balloon_alert(user, "suit is active!")
+		balloon_alert(user, "unit active!")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	if(editing_mod)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -178,10 +178,10 @@
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)
-		balloon_alert(user, "suit is active!")
+		balloon_alert(user, "unit active!")
 		return TRUE
 	if(!(skin in mod.theme.variants))
-		balloon_alert(user, "incompatible theme!")
+		balloon_alert(user, "wrong theme for skin!")
 		return TRUE
 	mod.theme.set_skin(mod, skin)
 	balloon_alert(user, "skin applied")
