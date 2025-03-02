@@ -2,7 +2,6 @@
 	name = "appendix"
 	icon_state = "appendix"
 	visual = FALSE
-	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_APPENDIX
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -29,8 +28,8 @@
 	if(M)
 		M.adjustToxLoss(4, TRUE, TRUE)	//forced to ensure people don't use it to gain tox as slime person
 
-/obj/item/organ/appendix/get_availability(datum/species/S)
-	return !((TRAIT_NOHUNGER in S.species_traits) || (TRAIT_POWERHUNGRY in  S.inherent_traits))
+/obj/item/organ/appendix/get_availability(mob/living/carbon/target, datum/species/species)
+	return !((TRAIT_NOHUNGER in species.species_traits) || (TRAIT_POWERHUNGRY in species.inherent_traits)) && ..()
 
 /obj/item/organ/appendix/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	for(var/datum/disease/appendicitis/A in M.diseases)
