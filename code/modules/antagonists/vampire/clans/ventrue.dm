@@ -10,8 +10,8 @@
 		The Favorite Vassal will slowly turn more Vampiric this way, until they finally lose their last bits of Humanity."
 	clan_objective = /datum/objective/vampire/embrace
 	join_icon_state = "ventrue"
-	join_description = "Lose the ability to drink from mindless mobs, can't level up or gain new powers, \
-		instead you raise a vassal into a Vampire."
+	join_description = "You lose the ability to drink from mindless mobs\nIMPORTANT: \
+		Members of the Ventrue Clan can only gain 3 powers, the rest of their ranks they will use to level up a vassal into a vampire!"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 
 /datum/vampire_clan/ventrue/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)

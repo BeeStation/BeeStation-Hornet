@@ -43,12 +43,13 @@
 	update_desc()
 
 /datum/action/cooldown/vampire/proc/update_desc(rebuild = TRUE)
+	desc = initial(desc)
 	if(bloodcost > 0)
 		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
 	if(constant_bloodcost > 0)
-		desc += "<br><br><b>CONSTANT COST:</b><i> [name] costs [constant_bloodcost] Blood maintain active.</i>"
+		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
 	if(power_flags & BP_AM_SINGLEUSE)
-		desc += "<br><br><b>SINGLE USE:</br><i> [name] can only be used once per night.</i>"
+		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
 
 /datum/action/cooldown/vampire/Destroy()
 	vampiredatum_power = null

@@ -6,8 +6,8 @@
 		The Favorite Vassal gains the ability to morph themselves into a bat at will."
 	clan_objective = /datum/objective/vampire/tremere_power
 	join_icon_state = "tremere"
-	join_description = "You will burn if you enter the Chapel, lose all default powers, \
-		but gain Blood Magic instead, powers you level up overtime."
+	join_description = "You lose all default powers, but gain Blood Magic instead, powers you level up overtime.\n IMPORTANT: \
+		Members of the Tremere clan do not gain ranks the usual way but are instead granted ranks per one person they vassalize."
 
 /datum/vampire_clan/tremere/New(mob/living/carbon/user)
 	. = ..()
@@ -21,15 +21,6 @@
 		if(power.purchase_flags & TREMERE_CAN_BUY)
 			vampiredatum.RemovePower(power)
 	return ..()
-
-/datum/vampire_clan/tremere/handle_clan_life(datum/antagonist/vampire/source)
-	. = ..()
-	var/area/current_area = get_area(vampiredatum.owner.current)
-	if(istype(current_area, /area/chapel))
-		to_chat(vampiredatum.owner.current, span_warning("You don't belong in holy areas! The Faith burns you!"))
-		vampiredatum.owner.current.adjustFireLoss(10)
-		vampiredatum.owner.current.adjust_fire_stacks(2)
-		vampiredatum.owner.current.IgniteMob()
 
 /datum/vampire_clan/tremere/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
 	// Purchase Power Prompt

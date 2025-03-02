@@ -1,7 +1,6 @@
 /datum/vampire_clan/malkavian
 	name = CLAN_MALKAVIAN
-	description = "Little is documented about Malkavians. Complete insanity is the most common theme. \n\
-		The Favorite Vassal will suffer the same fate as the Master."
+	description = "members of the Malkavian"
 	join_icon_state = "malkavian"
 	join_description = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, \
 		and become the enforcer of the Masquerade code."

@@ -34,18 +34,22 @@ type Info = {
 export const AntagInfoVampire = (_props) => {
   const [tab, setTab] = useLocalState('tab', 1);
   return (
-    <Window width={620} height={900} theme="syndicate">
+    <Window width={620} height={700} theme="syndicate">
       <Window.Content>
         <Tabs>
-          <Tabs.Tab icon="list" selected={tab === 1} onClick={() => setTab(1)}>
+          <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
             Basics
           </Tabs.Tab>
-          <Tabs.Tab icon="list" selected={tab === 2} onClick={() => setTab(2)}>
+          <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
+            General Guide
+          </Tabs.Tab>
+          <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
             Powers
           </Tabs.Tab>
         </Tabs>
         {tab === 1 && <VampireIntroduction />}
-        {tab === 2 && <PowerSection />}
+        {tab === 2 && <VampireGuide />}
+        {tab === 3 && <PowerSection />}
       </Window.Content>
     </Window>
   );
@@ -57,13 +61,10 @@ const VampireIntroduction = (_props) => {
   return (
     <Stack vertical fill>
       <Stack.Item>
-        <AntagInfoHeader name={'Vampire'} asset="traitor.png" />
+        <AntagInfoHeader name={'Vampire'} asset="vampire.png" />
       </Stack.Item>
       <Stack.Item grow maxHeight="150px">
         <ObjectivesSection objectives={objectives} />
-      </Stack.Item>
-      <Stack.Item>
-        <VampireGuide />
       </Stack.Item>
       <Stack.Item grow>
         <ClanSection />
@@ -83,18 +84,21 @@ const VampireGuide = (_props) => {
               The Basics
             </Tabs.Tab>
             <Tabs.Tab icon="list" selected={tab === 2} onClick={() => setTab(2)}>
-              Blood
+              Strengths & Weaknesses
             </Tabs.Tab>
             <Tabs.Tab icon="list" selected={tab === 3} onClick={() => setTab(3)}>
-              Masquerade
+              Blood & Powers
             </Tabs.Tab>
             <Tabs.Tab icon="list" selected={tab === 4} onClick={() => setTab(4)}>
-              Sol
+              Masquerade
             </Tabs.Tab>
             <Tabs.Tab icon="list" selected={tab === 5} onClick={() => setTab(5)}>
-              Your Lair
+              Sol
             </Tabs.Tab>
             <Tabs.Tab icon="list" selected={tab === 6} onClick={() => setTab(6)}>
+              Your Lair
+            </Tabs.Tab>
+            <Tabs.Tab icon="list" selected={tab === 7} onClick={() => setTab(7)}>
               Vassals
             </Tabs.Tab>
           </Tabs>
@@ -104,77 +108,177 @@ const VampireGuide = (_props) => {
           {tab === 1 && (
             // The Basics
             <Box>
-              As a vampire, you are a creature of the night, free from the weaknesses of mortals yet bound by your own.
-              <br /> <br />
               <Box fontSize="20px" textColor="blue">
-                Your Strengths:
+                Creating a Lair
+              </Box>
+              <br />
+              As a vampire, one of the first things you should do is set up a Lair. Ideally this should be located somewhere
+              that nobody will <b>ever</b> wander into. Some good locations are a hidden area in maintenance or any backroom in
+              whatever department you may be working in. Get creative!
+              <br /> <br />
+              To claim a lair, bring a coffin to your desired location and rest in it.
+              <br /> <br />
+              <Box fontSize="20px" textColor="gold">
+                Vassailizing the Crew
+              </Box>
+              <br />
+              Sooner or later you are going to want to vassalize the crew. However, before you do so, you need to build a{' '}
+              <Box inline textColor="blue">
+                Persuasion Rack.
+              </Box>{' '}
+              with{' '}
+              <Box inline textColor="red">
+                Fleshy Mass
+              </Box>{' '}
+              which is obtained by using your{' '}
+              <Box inline textColor="red">
+                Vampiric Conversion
+              </Box>{' '}
+              power with iron in-hand to transform it into {"it's"} vampiric counterpart.
+              <br /> <br />
+              <Box inline textColor="blue">
+                Persuasion racks
+              </Box>{' '}
+              are what you will be using to convert crewmembers into your vassals. To use a{' '}
+              <Box inline textColor="blue">
+                persuasion rack
+              </Box>{' '}
+              you must first capture a subject and restrain them. After this, drag them onto the rack and torture them by
+              clicking on the rack. <b>Torturing someone with a better tool will make the process faster!</b>
+              <br /> <br />
+              <Box fontSize="20px" textColor="green">
+                Ranking Up
+              </Box>
+              <br />
+              At the end of{' '}
+              <Box inline textColor="yellow">
+                Sol
+              </Box>{' '}
+              you will gain a new Rank to spend on a power in your Coffin. While most of them are offensive in nature, there are
+              a few ultility powers you can purchase. These powers are essential to surviving as a vampire and without them, you
+              are bound to fail.
+            </Box>
+          )}
+          {tab === 2 && (
+            // Strengths and Weaknesses
+            <Box>
+              <Box fontSize="20px" textColor="blue">
+                Your Strengths
               </Box>
               <br />
               <Box textColor="purple">Enhanced Senses</Box>Night vision and heat vision allow you to track prey and navigate the
               shadows with ease.
               <br /> <br />
               <Box textColor="blue">Undead Physiology</Box>You do not breathe, have no heartbeat, and cannot be affected by
-              sleep or illness.
+              sleep or illness, you will also eventually self-revive over time.
               <br /> <br />
-              <Box textColor="darkgreen">Resilience</Box>The cold and radiation mean nothing to you. You cannot take toxin
-              damage, and even critical injuries will not knock you down.
+              <Box textColor="green">Resilience</Box>The cold and radiation mean nothing to you. You cannot take toxin damage,
+              and critical injuries will not knock you down.
               <br /> <br />
               <Box textColor="pink">Immense Strength</Box>As a vampire, your primary weapons are your hands. Each time you rank
               up so does the damage that your fists deal.
               <br /> <br />
               <Box fontSize="20px" textColor="red">
-                Your Weaknesses:
+                Your Weaknesses
               </Box>
               <br />
-              <Box textColor="red">Stakes</Box>A stake to the heart will paralyze you, disabling powers, halting all healing and
-              preventing revival.
+              <Box textColor="red">Stakes</Box>A stake to the heart will paralyze you, disable powers, halt all healing, and
+              prevent your revival.
               <br /> <br />
-              <Box textColor="orange">Sol</Box>A stake to the heart will paralyze you, disabling powers, halting all healing and
-              preventing revival.
+              <Box textColor="orange">Sol</Box>Every <b>10 minutes</b> Sol will bathe the station in sunlight, severely
+              hindering you unless in a coffin.
               <br /> <br />
-              <Box textColor="gold">The Masquerade</Box>Being discovered as a vampire can lead to ruin. If your secret is
-              exposed, other vampires will turn against you and steal your vassals.
+              <Box textColor="gold">The Masquerade</Box>All vampires swear an oath to maintain their secrecy and vampirism. If
+              you break this oath, other vampires will turn against you.
               <br /> <br />
             </Box>
           )}
-          {tab === 2 && (
-            // Blood
+          {tab === 3 && (
+            // Blood & Powers
             <Box>
-              As an undead predator, you constantly feel the pull of{' '}
+              <Box fontSize="20px" textColor="red">
+                Blood Drain
+              </Box>
+              <br />
+              As an undead vampire, you constantly feel the pull of{' '}
               <Box inline textColor="red">
                 Hunger.
               </Box>{' '}
-              Feeding is not just a luxury. <i>It is a necessity.</i> As your blood reaches zero you will slowly feel the side
-              effects, such as blurry vision and impaired healing.
+              Feeding is not just a luxury. <b>It is a necessity.</b> As your blood reaches zero you will slowly feel the
+              side-effects, such as blurry vision and impaired healing.
               <br /> <br />
-              When you finally deplete nearly all your blood you will enter a{' '}
+              If you are ever desperate, you can drink from a{' '}
+              <Box inline textColor="red">
+                blood bag
+              </Box>{' '}
+              to satiate your thirst.
+              <br /> <br />
+              <Box fontSize="20px" textColor="purple">
+                Entering a Frenzy
+              </Box>
+              <br />
+              If you ever deplete all of your blood you will enter a{' '}
               <Box inline textColor="purple">
                 Frenzy.
               </Box>{' '}
-              You become ravenous and able to instantly aggressively grab people. You cannot use any items that require
-              dexterity and lose access to all vampiric powers except{' '}
+              Your screen turns blood red, you become deaf and mute, you become ravenous with the ability to instantly
+              aggressively grab people, you lose your fine motor control and cannot use items that require dexterity, and
+              finally, you lose access to all vampiric powers except{' '}
               <Box inline textColor="red">
                 Feed
               </Box>{' '}
               and{' '}
               <Box inline textColor="blue">
-                Trespass
+                Trespass.
               </Box>
-              <br />
-              You will exit your frenzy after consuming{' '}
+              <br /> <br />
+              After consuming{' '}
               <Box inline textColor="red">
-                250 Blood.
+                250 Blood
+              </Box>{' '}
+              you will exit your{' '}
+              <Box inline textColor="purple">
+                frenzy.
               </Box>
+              <br /> <br />
+              <Box fontSize="20px" textColor="blue">
+                Powers
+              </Box>
+              <br />A {"vampire's"} unique abilities give them the majority of their strength.
+              <br /> <br />
+              All powers cost{' '}
+              <Box inline textColor="red">
+                blood.
+              </Box>{' '}
+              Some powers can be toggled <b>on</b> or <b>off</b> and will constantly drain{' '}
+              <Box inline textColor="red">
+                blood
+              </Box>{' '}
+              as apposed to other powers that will simply remove their cost in{' '}
+              <Box inline textColor="red">
+                blood
+              </Box>{' '}
+              immediately after using the power.
+              <br /> <br />
+              Detailed information on each of the powers you have unlocked can be found under the{' '}
+              <Box inline textColor="blue">
+                Powers Tab
+              </Box>{' '}
+              in the top of this window.
             </Box>
           )}
-          {tab === 3 && (
+          {tab === 4 && (
             // Masquerade
             <Box>
+              <Box fontSize="20px" textColor="gold">
+                The Masquerade
+              </Box>
+              <br />
               The only rule of the Kindred is maintaining the{' '}
               <Box inline textColor="gold">
                 Masquerade.
               </Box>{' '}
-              If an un-enlightened crewmember witnesses you feeding, you will recieve a
+              If an un-enlightened crewmember witnesses you feeding, you will recieve a{' '}
               <Box inline textColor="red">
                 Masquerade Infraction.
               </Box>
@@ -183,90 +287,137 @@ const VampireGuide = (_props) => {
               <Box inline textColor="red">
                 Masquerade Infractions
               </Box>{' '}
-              before you officially break the Masquerade and are exiled from the Kindred.
+              before you are exiled from the Kindred and all vampires turn against you.
               <br /> <br />
               The {"curator's "}
               <Box inline textColor="blue">
                 Archive of the Kindred
               </Box>{' '}
-              can instantly reveal your true identity if used on you with your <i>Masquerade Ability</i> disabled.
-            </Box>
-          )}
-          {tab === 4 && (
-            // Sol
-            <Box>
-              Every <i>10 minutes</i>,{' '}
-              <Box inline textColor="orange">
-                Sol
+              can instantly reveal your true identity if used on you with your{' '}
+              <Box inline textColor="gold">
+                Masquerade Ability
               </Box>{' '}
-              arrives, bathing the station in light for <i>1 minute</i>. If you are not in a coffin or closet, you will burn.
-              <br /> <br />
-              The end of each{' '}
-              <Box inline textColor="orange">
-                Sol
-              </Box>{' '}
-              grants you the opportunity to rank up in your coffin. Ranking up will increase your strength, health, blood
-              capacity, and power capabilities.
+              disabled.
             </Box>
           )}
           {tab === 5 && (
-            // Lair
+            // Sol
             <Box>
-              Every vampire requires a lair. Whether it be in maintenance or the {"captain's"} bedroom, this is where you will
-              vassalize the crew and get up to other evil deeds.
-              <br /> <br />
-              To claim a lair you must bring a coffin to any room and rest inside of it. You can obtain a coffin in one of 3
-              primary ways:
-              <br /> <br />
-              Make one in the{' '}
-              <Box inline textColor="blue">
-                Crafting Menu
-              </Box>{' '}
-              under the{' '}
-              <Box inline textColor="blue">
-                Structures
-              </Box>{' '}
-              Category
-              <br />
-              The{' '}
-              <Box inline textColor="yellow">
-                Chapel
-              </Box>{' '}
-              often contains coffins
-              <br />
-              Coffins can rarely spawn in{' '}
-              <Box inline textColor="green">
-                Maintenance
+              <Box fontSize="20px" textColor="yellow">
+                Sol
               </Box>
+              <br />
+              Every <b>10 minutes</b>,{' '}
+              <Box inline textColor="yellow">
+                Sol
+              </Box>{' '}
+              arrives, bathing the station in light for <b>1 minute</b>. While this occurs, you recieve a series of debuffs:
+              <br /> <br />
+              <Box textColor="red">Hindered Healing</Box>
+              You lose the ability to passively heal unless inside a{' '}
+              <Box inline textColor="blue">
+                Coffin
+              </Box>{' '}
+              and take 50% more damage.
+              <br /> <br />
+              <Box textColor="blue">Impaired Powers</Box>
+              All powers take <b>twice</b> their usual cooldown, most powers take more{' '}
+              <Box inline textColor="red">
+                Blood
+              </Box>{' '}
+              to use and maintain, and other powers are completely blocked.
+              <br /> <br />
+              <Box textColor="orange">Revealed</Box>
+              When your body is affected by{' '}
+              <Box inline textColor="yellow">
+                Sol
+              </Box>
+              , it is <b>very</b> obvious. Your body gains an orange aura as if you were set on fire and you lose access to the{' '}
+              <Box inline textColor="gold">
+                Masquerade Ability
+              </Box>
+              . Aside from this, you are also 35% slower, making it hard to escape
             </Box>
           )}
           {tab === 6 && (
-            // Vassals
+            // Lair
             <Box>
-              A {"vampire's"} true strength lies in their ability to vassalize the crew.
-              <br /> <br />
-              Crewmembers can be vassalized by building a{' '}
-              <Box inline textColor="purple">
-                Persuasion Rack
+              <Box fontSize="20px" textColor="green">
+                Your Lair
               </Box>
-              , securing it in your lair, attaching your victim, and <i>persuading</i> them. Vassals can only be deconverted by
-              way of{' '}
-              <Box inline textColor="red">
-                Mindshield.
-              </Box>
+              <br />
+              Every vampire needs a crypt. Whether it be in maintenance or the {"captain's"} bedroom, this is where you will
+              vassalize the crew and get up to other evil deeds.
               <br /> <br />
-              It <b>is</b> possible for{' '}
+              To claim a lair you should first locate a hidden area that nobody will <b>ever</b> walk into. After securing your
+              chosen location, find a coffin.
+              <br /> <br />
+              Coffins can either be made in the{' '}
+              <Box inline textColor="blue">
+                Crafting Menu
+              </Box>{' '}
+              in the{' '}
+              <Box inline textColor="blue">
+                Structures
+              </Box>{' '}
+              category, or they can be found across the station. Most stations have coffins in the Chapel
+              <br /> <br />
+              <Box fontSize="20px" textColor="red">
+                Structures
+              </Box>
+              <br />
+              <Box textColor="purple">Persuasion Rack</Box>The persuasion rack is used to vassalize crewmembers into your loyal
+              thralls. To use it, first secure it in your lair and capture and restrain a subject. After restraining them, drag
+              them onto the rack and repeatedly torture them by clicking on the rack.
+              <br /> <br />
+              If your target is{' '}
               <Box inline textColor="red">
                 Mindshielded
               </Box>{' '}
-              crewmembers to be vassalized if their mind is weak enough. It is impossible to convert servants of eldritch gods
-              however.
+              or otherwise disloyal to Nanotrasen they <b>can only be converted if their mind is weak enough</b>. Crew that
+              serve eldritch gods cannot be converted.
               <br /> <br />
-              Additionally, you can promote <b>one</b> vassal into a{' '}
+              <Box textColor="blue">Candelabrum</Box>A vampiric candle that will drain the sanity of any mortals viewing it,
+              excluding vassals.
+              <br /> <br />
+              <Box textColor="darkred">Blood Throne</Box>Sitting on this throne will allow you to commune with all vassals by{' '}
+              <b>speaking.</b> They cannot respond to you.
+            </Box>
+          )}
+          {tab === 7 && (
+            // Vassals
+            <Box>
+              <Box fontSize="20px" textColor="purple">
+                Vassals
+              </Box>
+              <br />
+              Crewmembers can be vassalized by building a{' '}
+              <Box inline textColor="purple">
+                Persuasion Rack.
+              </Box>
+              After securing this in your Lair you can use it by first capturing a subject and restraining them. After this,
+              drag them onto the rack and torture them by clicking on the rack.{' '}
+              <b>Torturing someone with a better tool will make the process faster!</b>
+              <br /> <br />
+              If your target is{' '}
+              <Box inline textColor="red">
+                Mindshielded
+              </Box>{' '}
+              or otherwise disloyal to Nanotrasen they <b>can only be converted if their mind is weak enough</b>. Crew that
+              serve eldritch gods cannot be converted.
+              <br /> <br />
+              After sucessfully torturing your latest vassal, they can only be deconverted by use of{' '}
+              <Box inline textColor="red">
+                Mindshield.
+              </Box>{' '}
+              You can however promote <b>one</b> vassal into your{' '}
               <Box inline textColor="blue">
                 Favorite Vassal
               </Box>
-              , which will gain powers unique to the Clan that you have chosen.
+              , which will gain powers unique to the Clan that you have chosen and will be immune to{' '}
+              <Box inline textColor="red">
+                Mindshields.
+              </Box>{' '}
             </Box>
           )}
         </Stack.Item>
@@ -313,15 +464,11 @@ const PowerSection = (_props) => {
               tab === index && (
                 <Box key={index}>
                   <Box inline bold textColor="red">
-                    {power.cost !== '0' && (
+                    {power.cost !== '0' && <>BLOOD COST: {power.cost}</>}
+                    {power.cost !== '0' && power.constant_cost !== '0' && <br />}
+                    {power.constant_cost !== '0' && <>BLOOD DRAIN: {power.constant_cost}</>}
+                    {(power.cost !== '0' || power.constant_cost !== '0') && power.cooldown !== '0' && (
                       <>
-                        BLOOD COST: {power.cost}
-                        <br />
-                      </>
-                    )}
-                    {power.constant_cost !== '0' && (
-                      <>
-                        BLOOD DRAIN: {power.constant_cost}
                         <br />
                         <br />
                       </>
@@ -378,7 +525,7 @@ const ClanSection = (props: any) => {
                   style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated', float: 'left' }}
                 />
                 <Box inline textColor="red">
-                  You are part of the {ClanInfo.clan_name}!
+                  You are part of the <b>{ClanInfo.clan_name}</b>!
                 </Box>
               </Stack.Item>
               <Stack.Item fontSize="16px">

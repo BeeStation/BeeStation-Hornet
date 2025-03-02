@@ -220,7 +220,7 @@
 
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassaldatums.vassal_hud_name))
-		option.info = "[initial(vassaldatums.name)] - [span_boldnotice("[initial(vassaldatums.vassal_description)]")]"
+		option.info = "[span_boldnotice(initial(vassaldatums.name))]\n[span_cult(initial(vassaldatums.vassal_description))]"
 		radial_display[initial(vassaldatums.name)] = option
 
 	if(!length(options))

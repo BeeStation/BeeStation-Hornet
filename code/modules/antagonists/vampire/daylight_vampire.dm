@@ -200,7 +200,7 @@
 	LAZYNULL(burdened_actions)
 
 /datum/status_effect/vampire_sol/get_examine_text()
-	return span_warning("[owner.p_they()] seem[owner.p_s()] sickly and painfully overburned!")
+	return span_warning("[capitalize(owner.p_they())] seem[owner.p_s()] sickly and painfully overburned!")
 
 /datum/status_effect/vampire_sol/proc/on_sol_end()
 	SIGNAL_HANDLER
