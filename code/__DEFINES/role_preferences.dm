@@ -17,6 +17,7 @@
 //then you MUST update the database!
 #define ROLE_TRAITOR			"Traitor"
 #define ROLE_OPERATIVE			"Nuclear Operative"
+#define ROLE_OPERATIVE			"Clown Operative"
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
 //#define ROLE_MALF				"Malf AI" // Currently under traitor datum, so we can't have this separate.
@@ -53,7 +54,7 @@
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
 #define ROLE_PRISONER			"Prisoner"
-#define ROLE_WIZARD_APPRENTICE "apprentice"
+#define ROLE_WIZARD_APPRENTICE 	"Apprentice"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(

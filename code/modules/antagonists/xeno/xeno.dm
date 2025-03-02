@@ -14,6 +14,7 @@
 /datum/antagonist/xeno
 	name = "Xenomorph"
 	banning_key = ROLE_ALIEN
+	special_role = ROLE_ALIEN
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
