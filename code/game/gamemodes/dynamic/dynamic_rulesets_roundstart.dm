@@ -99,20 +99,15 @@
 	cost = 13
 	flags = LONE_RULESET
 
-/datum/dynamic_ruleset/roundstart/malf/pre_execute(population)
-	. = ..()
-	// This excludes silicons for some reason
-	restricted_roles = get_all_jobs()
-	restricted_roles |= JOB_NAME_CYBORG
-
-	if(!length(candidates))
-		return FALSE
-	var/mob/mob = antag_pick_n_take(candidates)
-	assigned += mob.mind
-	mob.mind.restricted_roles = restricted_roles
-	mob.mind.special_role = ROLE_MALF
-	GLOB.pre_setup_antags += mob.mind
-	return TRUE
+/datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
+	var/list/living_players = mode.current_players[CURRENT_LIVING_PLAYERS]
+	for(var/mob/living/player in living_players)
+		if(isAI(player))
+			candidates -= player
+			player.mind.special_role = ROLE_MALF
+			player.mind.add_antag_datum(antag_datum)
+			return DYNAMIC_EXECUTE_SUCCESS
+	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 //////////////////////////////////////////////
 //                                          //
