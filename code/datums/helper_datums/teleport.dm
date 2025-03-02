@@ -398,6 +398,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 		// If it contains objects, try to break it
 		if (obj_damage > 0) // should skip this if not needed
 			for (var/obj/object in checked_turf.contents)
+				// If you can throw things over it, dashing through it goes over it too
 				if (object.density)
 					object.take_damage(obj_damage)
 		// check if we should stop due to obstacles
