@@ -125,7 +125,7 @@
 
 /datum/antagonist/traitor/internal_affairs/reinstate_escape_objective()
 	..()
-	var/objtype = traitor_kind == TRAITOR_HUMAN ? /datum/objective/escape : /datum/objective/survive/exist
+	var/objtype = /datum/objective/escape
 	var/datum/objective/escape_objective = new objtype
 	escape_objective.owner = owner
 	add_objective(escape_objective)
@@ -203,7 +203,7 @@
 					to_chat(owner.current, fail_msg)
 					objective.stolen = FALSE
 
-/datum/antagonist/traitor/internal_affairs/proc/forge_iaa_objectives()
+/datum/antagonist/traitor/internal_affairs/forge_objectives()
 	if(SSticker.mode.target_list.len && SSticker.mode.target_list[owner]) // Is a double agent
 		// Assassinate
 		var/datum/mind/target_mind = SSticker.mode.target_list[owner]
@@ -229,15 +229,11 @@
 			log_game("[owner.key] has been designated an External Affairs Agent")
 			forge_single_human_objective()
 
-/datum/antagonist/traitor/internal_affairs/forge_traitor_objectives()
-	forge_iaa_objectives()
-
-	var/objtype = traitor_kind == TRAITOR_HUMAN ? /datum/objective/escape : /datum/objective/survive/exist
-	var/datum/objective/escape_objective = new objtype
+	var/datum/objective/escape_objective = new /datum/objective/escape
 	escape_objective.owner = owner
 	add_objective(escape_objective)
 
-/datum/antagonist/traitor/internal_affairs/proc/greet_iaa()
+/datum/antagonist/traitor/internal_affairs/greet()
 	var/crime = pick("distribution of contraband" , "unauthorized erotic action on duty", "embezzlement", "piloting under the influence", "dereliction of duty", "syndicate collaboration", "mutiny", "multiple homicides", "corporate espionage", "receiving bribes", "malpractice", "worship of prohibited life forms", "possession of profane texts", "murder", "arson", "insulting their manager", "grand theft", "conspiracy", "attempting to unionize", "vandalism", "gross incompetence")
 
 	to_chat(owner.current, span_userdanger("You are the [special_role]."))
@@ -255,9 +251,6 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("[syndicate ? "External Affairs" : "Internal Affairs"]",
 		"[syndicate?"Eliminate your target and cause as much damage to Nanotrasen property as you see fit."\
 		: "Eliminate your target without drawing too much attention to yourself, but watch your back since somebody is after you."]")
-
-/datum/antagonist/traitor/internal_affairs/greet()
-	greet_iaa()
 
 #undef PROB_ACTUAL_TRAITOR
 #undef PINPOINTER_EXTRA_RANDOM_RANGE

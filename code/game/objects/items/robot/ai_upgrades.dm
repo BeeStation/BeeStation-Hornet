@@ -14,13 +14,15 @@
 		return ..()
 	var/mob/living/silicon/ai/AI = A
 	AI.hack_software = TRUE
+	// Malfunctioning AIs consume the upgrade for a bit extra processing time
 	if(AI.malf_picker)
 		AI.malf_picker.processing_time += 50
 		to_chat(AI, span_userdanger("[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead."))
 	else
-		to_chat(AI, span_userdanger("[user] has upgraded you with combat software!"))
-		to_chat(AI, span_userdanger("Your current laws and objectives remain unchanged.")) //this unlocks malf powers, but does not give the license to plasma flood
 		AI.add_malf_picker()
+		to_chat(AI, span_userdanger("[user] has upgraded you with combat software!"))
+		to_chat(AI, span_userdanger("Your current laws and objectives remain unchanged."))
+		to_chat(AI, span_userdanger("Hack APCs to gain processing time and unlock powerful Malfunction Abilities."))
 		log_game("[key_name(user)] has upgraded [key_name(AI)] with a [src].")
 		message_admins("[ADMIN_LOOKUPFLW(user)] has upgraded [ADMIN_LOOKUPFLW(AI)] with a [src].")
 	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
