@@ -269,16 +269,17 @@
 	)
 
 /datum/armor/mod_theme_engineering
-	melee = 10
+	melee = 15
 	bullet = 5
-	laser = 20
+	laser = 10
 	energy = 10
 	bomb = 10
 	rad = 75 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
-	acid = 25
-	bleed = 10
+	acid = 50
+	stamina = 15
+	bleed = 50
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
@@ -338,7 +339,7 @@
 	)
 
 /datum/armor/mod_theme_atmospheric
-	melee = 10
+	melee = 15
 	bullet = 5
 	laser = 10
 	energy = 15
@@ -347,7 +348,8 @@
 	bio = 100
 	fire = 100
 	acid = 75
-	bleed = 10
+	stamina = 15
+	bleed = 50
 
 /datum/mod_theme/advanced
 	name = "advanced"
@@ -410,7 +412,7 @@
 	)
 
 /datum/armor/mod_theme_advanced
-	melee = 15
+	melee = 20
 	bullet = 5
 	laser = 20
 	energy = 15
@@ -419,7 +421,8 @@
 	bio = 100
 	fire = 100
 	acid = 90
-	bleed = 10
+	stamina = 20
+	bleed = 50
 
 /datum/mod_theme/mining
 	name = "mining"
@@ -527,15 +530,16 @@
 	)
 
 /datum/armor/mod_theme_mining
-	melee = 20
+	melee = 25
 	bullet = 5
-	laser = 5
-	energy = 5
+	laser = 10
+	energy = 10
 	bomb = 30
 	bio = 100
 	fire = 100
 	acid = 75
-	bleed = 15
+	stamina = 20
+	bleed = 60
 
 /datum/mod_theme/loader
 	name = "loader"
@@ -603,7 +607,8 @@
 	bio = 10
 	fire = 25
 	acid = 25
-	bleed = 10
+	stamina = 10
+	bleed = 25
 
 /datum/mod_theme/medical
 	name = "medical"
@@ -703,15 +708,16 @@
 	)
 
 /datum/armor/mod_theme_medical
-	melee = 5
+	melee = 10
 	bullet = 5
-	laser = 5
-	energy = 5
+	laser = 10
+	energy = 10
 	bomb = 10
 	bio = 100
 	fire = 60
 	acid = 75
-	bleed = 5
+	stamina = 15
+	bleed = 55
 
 /datum/mod_theme/rescue
 	name = "rescue"
@@ -782,15 +788,16 @@
 	)
 
 /datum/armor/mod_theme_rescue
-	melee = 10
+	melee = 15
 	bullet = 10
-	laser = 5
-	energy = 5
-	bomb = 10
+	laser = 10
+	energy = 10
+	bomb = 15
 	bio = 100
 	fire = 100
 	acid = 100
-	bleed = 5
+	stamina = 20
+	bleed = 50
 
 /datum/mod_theme/research
 	name = "research"
@@ -862,7 +869,8 @@
 	bio = 100
 	fire = 100
 	acid = 100
-	bleed = 15
+	stamina = 25
+	bleed = 50
 
 /datum/mod_theme/security
 	name = "security"
@@ -924,15 +932,17 @@
 	)
 
 /datum/armor/mod_theme_security
-	melee = 15
-	bullet = 15
+	melee = 20
+	bullet = 20
 	laser = 15
-	energy = 15
+	energy = 25
 	bomb = 25
 	bio = 100
+	rad = 30
 	fire = 75
 	acid = 75
-	bleed = 15
+	stamina = 25
+	bleed = 50
 
 /datum/mod_theme/safeguard
 	name = "safeguard"
@@ -993,15 +1003,17 @@
 	)
 
 /datum/armor/mod_theme_safeguard
-	melee = 15
-	bullet = 15
+	melee = 20
+	bullet = 20
 	laser = 15
-	energy = 15
+	energy = 25
 	bomb = 40
 	bio = 100
+	rad = 40
 	fire = 100
 	acid = 95
-	bleed = 15
+	stamina = 30
+	bleed = 55
 
 /datum/mod_theme/magnate
 	name = "magnate"
@@ -1067,14 +1079,15 @@
 
 /datum/armor/mod_theme_magnate
 	melee = 20
-	bullet = 15
-	laser = 15
-	energy = 15
+	bullet = 25
+	laser = 25
+	energy = 25
 	bomb = 50
 	bio = 100
 	fire = 100
 	acid = 100
-	bleed = 15
+	stamina = 30
+	bleed = 50
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
@@ -1142,6 +1155,7 @@
 	bio = 100
 	fire = 60
 	acid = 30
+	stamina = 5
 	bleed = 5
 
 /datum/mod_theme/syndicate
@@ -1242,15 +1256,17 @@
 	)
 
 /datum/armor/mod_theme_syndicate
-	melee = 15
-	bullet = 20
+	melee = 22.5
+	bullet = 22.5
 	laser = 15
-	energy = 15
+	energy = 30
 	bomb = 35
 	bio = 100
+	rad = 40
 	fire = 50
 	acid = 90
-	bleed = 25
+	stamina = 30
+	bleed = 55
 
 /datum/mod_theme/elite
 	name = "elite"
@@ -1321,9 +1337,11 @@
 	energy = 35
 	bomb = 55
 	bio = 100
+	rad = 65
 	fire = 100
 	acid = 100
-	bleed = 25
+	stamina = 45
+	bleed = 60
 
 /datum/mod_theme/enchanted
 	name = "enchanted"
@@ -1391,9 +1409,11 @@
 	energy = 50
 	bomb = 35
 	bio = 100
+	rad = 50
 	fire = 100
 	acid = 100
-	bleed = 30
+	stamina = 50
+	bleed = 60
 
 /datum/mod_theme/prototype
 	name = "prototype"
@@ -1456,15 +1476,17 @@
 	)
 
 /datum/armor/mod_theme_prototype
-	melee = 20
-	bullet = 5
-	laser = 10
-	energy = 10
+	melee = 25 //Isaac has engineer AND a miner's protection. Go figure.
+	bullet = 10
+	laser = 20
+	energy = 15
 	bomb = 50
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 75
-	bleed = 5
+	stamina = 30
+	bleed = 55
 
 /datum/mod_theme/responsory
 	name = "responsory"
@@ -1557,15 +1579,17 @@
 	)
 
 /datum/armor/mod_theme_responsory
-	melee = 50
+	melee = 45
 	bullet = 40
 	laser = 50
 	energy = 50
 	bomb = 50
 	bio = 100
+	rad = 90
 	fire = 100
 	acid = 90
-	bleed = 10
+	stamina = 40
+	bleed = 60
 
 /datum/mod_theme/apocryphal
 	name = "apocryphal"
@@ -1626,15 +1650,16 @@
 	)
 
 /datum/armor/mod_theme_apocryphal
-	melee = 80
-	bullet = 80
+	melee = 70
+	bullet = 70
 	laser = 50
 	energy = 60
 	bomb = 100
 	bio = 100
 	fire = 100
 	acid = 100
-	bleed = 25
+	stamina = 50
+	bleed = 60
 
 /datum/mod_theme/corporate
 	name = "corporate"
@@ -1767,7 +1792,8 @@
 	bio = 100
 	fire = 100
 	acid = 100
-	bleed = 15
+	stamina = 55
+	bleed = 50
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1830,8 +1856,10 @@
 	laser = 50
 	energy = 50
 	bomb = 100
+	rad = 100
 	bio = 100
 	fire = 100
+	stamina = 50
 	acid = 100
 
 /datum/mod_theme/administrative
@@ -1893,6 +1921,8 @@
 	energy = 100
 	bomb = 100
 	bio = 100
+	rad = 100
 	fire = 100
 	acid = 100
+	stamina = 100
 	bleed = 100

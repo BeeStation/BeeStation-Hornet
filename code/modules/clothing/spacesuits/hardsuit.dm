@@ -319,8 +319,8 @@
 /datum/armor/hardsuit_engine
 	melee = 30
 	bullet = 5
-	laser = 10
-	energy = 12
+	laser = 20
+	energy = 20
 	bomb = 10
 	bio = 100
 	rad = 75
@@ -417,7 +417,7 @@
 /datum/armor/engine_elite
 	melee = 40
 	bullet = 5
-	laser = 10
+	laser = 20
 	energy = 15
 	bomb = 50
 	bio = 100
@@ -854,20 +854,6 @@
 	clothing_flags = CASTING_CLOTHES
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-
-/datum/armor/hardsuit_wizard
-	melee = 40
-	bullet = 40
-	laser = 40
-	energy = 50
-	bomb = 35
-	bio = 100
-	rad = 50
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 70
-
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
 	name = "gem-encrusted hardsuit"
@@ -1057,21 +1043,6 @@
 	item_state = "sec_helm"
 	hardsuit_type = "sec"
 	armor_type = /datum/armor/hardsuit_security
-
-
-
-/datum/armor/hardsuit_security
-	melee = 35
-	bullet = 35
-	laser = 30
-	energy = 50
-	bomb = 40
-	bio = 100
-	rad = 50
-	fire = 75
-	acid = 75
-	stamina = 50
-	bleed = 70
 
 /obj/item/clothing/suit/space/hardsuit/security
 	icon_state = "hardsuit-sec"

@@ -17,11 +17,13 @@
 	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/grav)
 	required_slots = list(ITEM_SLOT_GLOVES)
 	/// Range of the knesis grab.
-	var/grab_range = 5
+	var/grab_range = 8
 	/// Time between us hitting objects with kinesis.
 	var/hit_cooldown_time = 1 SECONDS
 	/// Stat required for us to grab a mob.
 	var/stat_required = DEAD
+	/// Disables normal grabbing checks. Allows for grabbing people through cameras, grabbing yourself, grabbing turfs, etc. DEBUG var
+	var/disable_safeties = FALSE
 	/// Atom we grabbed with kinesis.
 	var/atom/movable/grabbed_atom
 	/// Ref of the beam following the grabbed atom.
@@ -296,6 +298,8 @@
 		REMOVE_TRAIT(previous_grab, TRAIT_MOVE_PHASING, REF(src))
 
 /obj/item/mod/module/anomaly_locked/kinesis/admin/can_grab(atom/target)
+	if(disable_safeties)
+		return TRUE
 	if(mod.wearer == target)
 		return FALSE
 	if(!ismovable(target))
@@ -306,6 +310,8 @@
 	return TRUE
 
 /obj/item/mod/module/anomaly_locked/kinesis/admin/range_check(atom/target)
+	if(disable_safeties)
+		return TRUE
 	if(!isturf(mod.wearer.loc))
 		return FALSE
 	if(ismovable(target) && !isturf(target.loc))

@@ -245,7 +245,7 @@
 	icon_state = "ethereal_heart-on"
 	base_icon_state = "ethereal_heart"
 	visual = TRUE //This is used by the ethereal species for color
-	desc = "A crystal-like organ that functions similarly to a heart for Ethereals. It can revive its owner."
+	desc = "A crystal-like organ that functions similarly to a heart for Ethereals."
 
 	///Color of the heart, is set by the species on gain
 	var/ethereal_color = "#9c3030"
