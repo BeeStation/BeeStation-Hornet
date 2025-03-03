@@ -303,8 +303,10 @@
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/item)
 	if(..())
+		update_appearance()
 		return TRUE
 	default_deconstruction_screwdriver(user, "emitter_open", "emitter", item)
+	update_appearance()
 	return TRUE
 
 /obj/machinery/power/emitter/attackby(obj/item/item, mob/user, params)

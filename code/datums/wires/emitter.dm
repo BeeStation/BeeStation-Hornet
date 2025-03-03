@@ -4,7 +4,7 @@
 	holder_type = /obj/machinery/power/emitter
 
 /datum/wires/emitter/New(atom/holder)
-	wires = list(WIRE_ACTIVATE,WIRE_INTERFACE)
+	wires = list(WIRE_ACTIVATE,WIRE_INTERFACE,WIRE_POWER)
 	..()
 
 /datum/wires/emitter/on_pulse(wire)
@@ -15,3 +15,19 @@
 		if(WIRE_INTERFACE)
 			E.mode = !E.mode
 			E.set_projectile()
+		if(WIRE_POWER)
+			if(!E.welded)
+				return FALSE
+			if(!E.powernet)
+				return FALSE
+			if(E.active)
+				E.active = FALSE
+			else
+				E.active = TRUE
+				E.shot_number = 0
+				E.fire_delay = E.maximum_fire_delay
+			message_admins("Emitter turned [E.active ? "ON" : "OFF"] by signal in [ADMIN_VERBOSEJMP(E)]")
+			log_game("Emitter turned [E.active ? "ON" : "OFF"] by signal in [AREACOORD(E)]")
+			E.investigate_log("turned [E.active ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by signal at [AREACOORD(E)]", INVESTIGATE_ENGINES)
+			E.update_appearance()
+
