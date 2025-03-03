@@ -49,20 +49,20 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
-	owner.special_role = "[name]"
-	owner.assigned_role = "[name]"
+	owner.special_role = ROLE_ABDUCTOR
+	owner.assigned_role = ROLE_ABDUCTOR
 	objectives += team.objectives
 	for(var/datum/objective/O in objectives)
 		log_objective(owner.current, O.explanation_text)
 	finalize_abductor()
-	ADD_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner.current, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
 
 /datum/antagonist/abductor/on_removal()
 	if(owner.current)
 		to_chat(owner.current,span_userdanger("You are no longer the [owner.special_role]!"))
 	owner.special_role = null
-	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner.current, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
 
 /datum/antagonist/abductor/greet()
@@ -98,13 +98,13 @@
 	update_abductor_icons_added(owner,"abductor")
 
 /datum/antagonist/abductor/scientist/on_gain()
-	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner.current, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner.current, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/scientist/on_removal()
-	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner.current, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner.current, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner,mob/admin)
