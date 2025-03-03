@@ -22,7 +22,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/shadow
 	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
-	var/shadow_sect_dependency = 0 // only important if shadow sect is at play
+	var/shadow_sect_dependency = 0 // only important if shadow sect is at play, is a way to check what level of rituals it completed, used by shadow hearts
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
@@ -395,10 +395,10 @@
 /obj/item/organ/heart/shadow_ritual // This parent shoudl never apear itself
 	visual = TRUE
 	decay_factor = 0
-	var/shadow_conversion = 0
-	var/shadow_conversion_rate = 0
-	var/shadow_sect_dependency_granted = 0
-	var/datum/action/innate/shadow_coms/comm/coms = new
+	var/shadow_conversion = 0 // Determins progres of transforming owner into shadow person
+	var/shadow_conversion_rate = 0 // Rate of said conversion
+	var/shadow_sect_dependency_granted = 0 // What level of shadow heart dependenct heart grants
+	var/datum/action/innate/shadow_coms/comm/coms = new // For granting shadow coms
 
 /obj/item/organ/heart/shadow_ritual/first
 	name = "shadowed heart"

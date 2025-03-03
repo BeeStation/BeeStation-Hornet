@@ -21,15 +21,15 @@
 
 
 	altar_icon_state = "convertaltar-dark"
-	var/light_reach = 1
-	var/light_power = 0
-	var/list/obelisks = list()
-	var/obelisk_number = 0
-	var/list/active_obelisks = list()
-	var/active_obelisk_number = 0
-	var/night_vision_active = FALSE
-	var/grand_ritual_in_progress = FALSE
-	var/grand_ritual_level = 0
+	var/light_reach = 1 // range of ligth for obelisks
+	var/light_power = 0 // power of light for obelisks (will be negative)
+	var/list/obelisks = list() // list of all obeliscs
+	var/obelisk_number = 0  // number of obeliscs
+	var/list/active_obelisks = list() // list of obeliscs anhord to the floor aka "active"
+	var/active_obelisk_number = 0 //number of such obeliscs
+	var/night_vision_active = FALSE // if night vision aura of obeliscs is active
+	var/grand_ritual_in_progress = FALSE // if there is grand ritual being preformed
+	var/grand_ritual_level = 0 // what is the level of the last performed ritual (max is 3)
 
 
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
@@ -393,8 +393,8 @@
 	icon_state = "shadow_obelisk_2"
 	max_integrity = 300
 	desc = "Grants favor while in the darkness. Blesses all tiles in its radius."
-	var/spread_delay = 80
-	var/last_spread = 0
+	var/spread_delay = 80 // how often will obelisc bless the tiles in radius
+	var/last_spread = 0 // how long it was since it last did that
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/process(delta_time)
 	. = ..()
