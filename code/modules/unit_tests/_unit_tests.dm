@@ -53,6 +53,7 @@
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
+#include "modsuit.dm"
 #include "ntnetwork_tests.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"

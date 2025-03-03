@@ -49,6 +49,9 @@
 #define COMSIG_MOVABLE_SET_GRAB_STATE "living_set_grab_state"
 ///called when the movable's glide size is updated: (new_glide_size)
 #define COMSIG_MOVABLE_UPDATE_GLIDE_SIZE "movable_glide_size"
+/// from base of atom/movable/Process_Spacemove(): (movement_dir)
+#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
+	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
 
 ///from base of atom/movable/newtonian_move(): (inertia_direction)
 #define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"

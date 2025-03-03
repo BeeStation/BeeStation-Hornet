@@ -2,6 +2,7 @@
 	name = "flux wave anomaly"
 	icon_state = "electricity2"
 	density = TRUE
+	aSignal = /obj/item/assembly/signaler/anomaly/flux
 	var/canshock = FALSE
 	var/shockdamage = 20
 	var/explosive = ANOMALY_FLUX_EXPLOSIVE

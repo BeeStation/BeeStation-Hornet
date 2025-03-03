@@ -396,6 +396,12 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
+// Eye protection
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+
 // Roundstart trait system
 
 #define MAX_QUIRKS 6 //! The maximum amount of quirks one character can have at roundstart
@@ -425,6 +431,13 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
 #define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
 #define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
+
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
@@ -524,7 +537,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SHOES_LAYER 18
 /// Ears layer (Spessmen have ears? Wow)
 #define EARS_LAYER 17
-/// Suit layer (armor, hardsuits, etc.)
+/// Suit layer (armor, coats, etc.)
 #define SUIT_LAYER 16
 /// Glasses layer
 #define GLASSES_LAYER 15
@@ -570,7 +583,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define ABOVE_SHOES_LAYER (SHOES_LAYER-1)
 /// The layer above mutant body parts
 #define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
-
 
 //used by canUseTopic()
 /// If silicons need to be next to the atom to use this
