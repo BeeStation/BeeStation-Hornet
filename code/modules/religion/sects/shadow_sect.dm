@@ -394,7 +394,7 @@
 	max_integrity = 300
 	desc = "Grants favor while in the darkness. Blesses all tiles in its radius."
 	var/spread_delay = 80 // how often will obelisc bless the tiles in radius
-	var/last_spread = 0 // how long it was since it last did that
+	var/last_spread = 0 // how long it was since it last did
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/process(delta_time)
 	. = ..()
@@ -412,8 +412,8 @@
 	icon_state = "shadow_obelisk_3"
 	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
-	var/heal_delay = 50
-	var/last_heal = 0
+	var/heal_delay = 50 // how often will obelisc heal the shadowpeople in radius
+	var/last_heal = 0 // how long it was since it last did
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/process(delta_time)
 	. = ..()
