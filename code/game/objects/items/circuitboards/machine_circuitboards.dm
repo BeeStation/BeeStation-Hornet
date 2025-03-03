@@ -202,6 +202,7 @@
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
+	desc = "It seems like you can change it's modulator with a scredriver"
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -211,6 +212,7 @@
 /obj/item/circuitboard/machine/emitter/drill
 	name = "emitter - driling mode (Machine Board)"
 	icon_state = "engineering"
+	desc = "It seems like you can change it's modulator with a scredriver"
 	build_path = /obj/machinery/power/emitter/drill
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
