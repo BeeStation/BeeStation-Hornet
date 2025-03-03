@@ -155,6 +155,42 @@
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
+/obj/projectile/beam/emitter/drill
+	name = "driller beam"
+	icon_state = "emitter"
+	damage = 30
+	var/structural_damage = 100
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = COLOR_DARK_ORANGE
+
+/obj/projectile/beam/emitter/drill/on_hit(atom/target, blocked)
+	damage = initial(damage)
+	if(isobj(target) && !istype(target, /obj/structure/blob))
+		damage = structural_damage
+	if(isturf(target))
+		damage = structural_damage
+	else if(istype(target, /turf/closed/mineral))
+		var/turf/closed/mineral/T = target
+		T.gets_drilled()
+	. = ..()
+
+/obj/projectile/beam/emitter/drill/hitscan
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter/drill
+	tracer_type = /obj/effect/projectile/tracer/laser/emitter/drill
+	impact_type = /obj/effect/projectile/impact/laser/emitter/drill
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = COLOR_DARK_ORANGE
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = COLOR_DARK_ORANGE
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = COLOR_DARK_ORANGE
+
+
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"

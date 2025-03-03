@@ -27,6 +27,8 @@
 	var/maximum_fire_delay = 10 SECONDS
 	///Min delay before firing
 	var/minimum_fire_delay = 2 SECONDS
+	///Damage of defalut laser
+	var/laser_damage = 30
 	///When was the last shot
 	var/last_shot = 0
 	///Number of shots made (gets reset every few shots)
@@ -86,11 +88,14 @@
 	var/max_fire_delay = 12 SECONDS
 	var/fire_shoot_delay = 12 SECONDS
 	var/min_fire_delay = 2.4 SECONDS
+	var/las_damage = 25
 	var/power_usage = 350
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
 		max_fire_delay -= 2 SECONDS * laser.rating
 		min_fire_delay -= 0.4 SECONDS * laser.rating
 		fire_shoot_delay -= 2 SECONDS * laser.rating
+		las_damage += 5 * laser.rating
+	laser_damage = las_damage
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
 	fire_delay = fire_shoot_delay
@@ -218,6 +223,8 @@
 		sparks.start()
 	projectile.firer = user ? user : src
 	projectile.fired_from = src
+	if(istype(projectile,/obj/projectile/beam/emitter))
+		projectile.damage = laser_damage
 	if(last_projectile_params)
 		projectile.p_x = last_projectile_params[2]
 		projectile.p_y = last_projectile_params[3]
@@ -296,8 +303,10 @@
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/item)
 	if(..())
+		update_appearance()
 		return TRUE
 	default_deconstruction_screwdriver(user, "emitter_open", "emitter", item)
+	update_appearance()
 	return TRUE
 
 /obj/machinery/power/emitter/attackby(obj/item/item, mob/user, params)
@@ -359,6 +368,63 @@
 	..()
 	locked = FALSE
 	user?.visible_message("[user.name] emags [src].",span_notice("You short out the lock."))
+
+
+//Emiter with much higher structural damage but less normal one
+/obj/machinery/power/emitter/drill
+	name = "drill"
+	desc = "A heavy-duty industrial laser, modified to destroy structures and rocks."
+	laser_damage = 5
+	var/laser_structural_damage = 100
+	projectile_type = /obj/projectile/beam/emitter/drill/hitscan
+
+/obj/machinery/power/emitter/drill/RefreshParts()
+	var/max_fire_delay = 12 SECONDS
+	var/fire_shoot_delay = 12 SECONDS
+	var/min_fire_delay = 2.4 SECONDS
+	var/las_damage = 0
+	var/las_structural_damage = 50
+	var/power_usage = 350
+	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
+		max_fire_delay -= 2 SECONDS * laser.rating
+		min_fire_delay -= 0.4 SECONDS * laser.rating
+		fire_shoot_delay -= 2 SECONDS * laser.rating
+		las_damage += 5 * laser.rating
+		las_structural_damage += 50 * laser.rating
+	laser_damage = las_damage
+	maximum_fire_delay = max_fire_delay
+	minimum_fire_delay = min_fire_delay
+	fire_delay = fire_shoot_delay
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		power_usage -= 50 * manipulator.rating
+	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
+
+/obj/machinery/power/emitter/drill/fire_beam(mob/user)
+	var/obj/projectile/projectile = new projectile_type(get_turf(src))
+	playsound(src, projectile_sound, 50, TRUE)
+	if(prob(35))
+		sparks.start()
+	projectile.firer = user ? user : src
+	projectile.fired_from = src
+	if(istype(projectile,/obj/projectile/beam/emitter/drill))
+		var/obj/projectile/beam/emitter/drill/D = projectile
+		D.damage = laser_damage
+		D.structural_damage = laser_structural_damage
+	if(last_projectile_params)
+		projectile.p_x = last_projectile_params[2]
+		projectile.p_y = last_projectile_params[3]
+		projectile.fire(last_projectile_params[1])
+	else
+		projectile.fire(dir2angle(dir))
+	if(!manual)
+		last_shot = world.time
+		if(shot_number < 3)
+			fire_delay = 20
+			shot_number ++
+		else
+			fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
+			shot_number = 0
+	return projectile
 
 
 /obj/machinery/power/emitter/prototype
