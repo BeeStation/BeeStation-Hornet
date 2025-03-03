@@ -394,26 +394,28 @@
 	max_integrity = 300
 	desc = "Grants favor while in the darkness. Blesses all tiles in its radius."
 	var/spread_delay = 80 // how often will obelisc bless the tiles in radius
-	var/last_spread = 0 // how long it was since it last did
+	COOLDOWN_DECLARE(cooldown_holy_spread)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/process(delta_time)
 	. = ..()
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(!anchored)
 		return
-	if(last_spread <= world.time)
+	if(COOLDOWN_FINISHED(src, cooldown_holy_spread))
+		COOLDOWN_START(src, cooldown_holy_spread, spread_delay)
 		for(var/turf/T in circlerangeturfs(src, sect.light_reach))
 			if(istype(T))
 				if(T.get_lumcount() <= 0)
 					T.Bless()
-	last_spread = world.time + spread_delay
+
+
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2 // some cursed incheritence, but its the easiest way to do it
 	icon_state = "shadow_obelisk_3"
 	max_integrity = 400
 	desc = "Grants favor from being shrouded in shadows. Bleses all tiles in its radius. Heals all shadowpeople in area."
 	var/heal_delay = 50 // how often will obelisc heal the shadowpeople in radius
-	var/last_heal = 0 // how long it was since it last did
+	COOLDOWN_DECLARE(cooldown_holy_heal)
 
 /obj/structure/destructible/religion/shadow_obelisk/after_rit_1/after_rit_2/process(delta_time)
 	. = ..()
@@ -422,8 +424,8 @@
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.grand_ritual_in_progress)
 		return
-	if(last_heal <= world.time)
-		last_heal = world.time + heal_delay
+	if(COOLDOWN_FINISHED(src, cooldown_holy_heal))
+		COOLDOWN_START(src, cooldown_holy_heal, heal_delay)
 		new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
 		for(var/mob/living/L in range(sect.light_reach, src))
 			if(L.health == L.maxHealth)
