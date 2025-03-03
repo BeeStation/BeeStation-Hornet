@@ -175,7 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 		var/datum/species/ethereal/E = H.dna.species
 		if(E.drain_time > world.time)
 			return
-		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(!istype(stomach))
 			to_chat(H, span_warning("You can't receive charge!"))
 			return

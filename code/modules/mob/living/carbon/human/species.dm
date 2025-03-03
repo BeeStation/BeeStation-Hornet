@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	for(var/slot in slot_organs)
 
-		var/obj/item/organ/oldorgan = C.getorganslot(slot) //used in removing
+		var/obj/item/organ/oldorgan = C.get_organ_slot(slot) //used in removing
 		var/obj/item/organ/neworgan = slot_mutantorgans[slot] //used in adding
 
 		if(visual_only && !initial(neworgan.visual))
@@ -740,7 +740,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		// eyes
 		if(!(NOEYESPRITES in species_traits))
-			var/obj/item/organ/eyes/E = H.getorganslot(ORGAN_SLOT_EYES)
+			var/obj/item/organ/eyes/E = H.get_organ_slot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
 				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1271,7 +1271,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
 				return FALSE
-			var/obj/item/organ/eyes/E = H.getorganslot(ORGAN_SLOT_EYES)
+			var/obj/item/organ/eyes/E = H.get_organ_slot(ORGAN_SLOT_EYES)
 			if(E?.no_glasses)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
@@ -1543,7 +1543,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
 			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-			var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
+			var/obj/item/organ/stomach/battery/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 			if(!istype(battery))
 				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
 			else
@@ -2303,7 +2303,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ////////////
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
 			flyslip(H)
@@ -2315,7 +2315,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/space_move(mob/living/carbon/human/H)
 	if(H.loc && !isspaceturf(H.loc) && H.getorgan(/obj/item/organ/wings))
-		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 		if(wings.flight_level == WINGS_FLIGHTLESS)
 			var/datum/gas_mixture/current = H.loc.return_air()
 			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
@@ -2334,7 +2334,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ////////////////
 
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
-	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
 	tail?.set_wagging(H, FALSE)
 
 ///////////////
@@ -2351,7 +2351,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 
 /datum/species/proc/CanFly(mob/living/carbon/human/H)
-	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!H.getorgan(/obj/item/organ/wings))
 		return FALSE
 	if(H.stat || H.body_position == LYING_DOWN)

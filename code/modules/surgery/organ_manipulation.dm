@@ -95,7 +95,7 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(surgery.location != I.zone || target.getorganslot(I.slot))
+		if(surgery.location != I.zone || target.get_organ_slot(I.slot))
 			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(surgery.location)]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
