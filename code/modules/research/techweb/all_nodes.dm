@@ -126,7 +126,7 @@
 		"mod_chestplate",
 		"mod_gauntlets",
 		"mod_helmet",
-		//"mod_paint_kit",
+		"mod_paint_kit",
 		"mod_shell",
 		"mod_plating_standard",
 		"mod_storage",
