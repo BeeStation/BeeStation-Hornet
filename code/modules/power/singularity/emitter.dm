@@ -370,6 +370,8 @@
 
 //Emiter with much higher structural damage but less normal one
 /obj/machinery/power/emitter/drill
+	name = "drill"
+	desc = "A heavy-duty industrial laser, modified to destroy structures and rocks."
 	laser_damage = 5
 	var/laser_structural_damage = 100
 	projectile_type = /obj/projectile/beam/emitter/drill/hitscan
@@ -378,7 +380,7 @@
 	var/max_fire_delay = 12 SECONDS
 	var/fire_shoot_delay = 12 SECONDS
 	var/min_fire_delay = 2.4 SECONDS
-	var/las_damage = 5
+	var/las_damage = 0
 	var/las_structural_damage = 50
 	var/power_usage = 350
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
