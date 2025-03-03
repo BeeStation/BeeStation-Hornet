@@ -103,13 +103,11 @@
 /datum/antagonist/vampire/proc/create_vampire_team()
 	var/static/count = 0
 	vampire_team = new(owner)
-	vampire_team.hud = new/datum/atom_hud/antag()
 	vampire_team.name = "Vampire team #[++count]" // only displayed to admins
 	vampire_team.master_vampire = src
 
 /datum/team/vampire
 	name = "vampire team"
-	var/datum/atom_hud/antag/hud
 	var/datum/antagonist/vampire/master_vampire
 
 /datum/team/vampire/roundend_report()
@@ -126,9 +124,9 @@
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	handle_clown_mutation(current_mob, mob_override ? null : "Your clownish nature has been subdued by your thirst for blood.")
 
-	set_antag_hud(current_mob, "vampire")
 	create_vampire_team()
-	vampire_team.hud.join_hud(current_mob)
+
+	add_antag_hud(ANTAG_HUD_VAMPIRE, "vampire", current_mob)
 
 	current_mob.faction |= FACTION_VAMPIRE
 
@@ -137,7 +135,6 @@
 	else
 		RegisterSignal(current_mob, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
 
-	ensure_brain_nonvital(current_mob)
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
@@ -185,8 +182,7 @@
 		QDEL_NULL(vamprank_display)
 		QDEL_NULL(sunlight_display)
 
-	vampire_team.hud.leave_hud(current_mob)
-	set_antag_hud(current_mob, null)
+	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
 	current_mob.faction -= FACTION_VAMPIRE
 
@@ -385,19 +381,6 @@
 		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
-
-/// "Oh, well, that's step one. What about two through ten?"
-/// Beheading vampires is kinda buggy and results in them being dead-dead without actually being final deathed, which is NOT something that's desired.
-/// Just stake them. No shortcuts.
-/datum/antagonist/vampire/proc/ensure_brain_nonvital(mob/living/mob_override)
-	var/mob/living/carbon/carbon_owner = mob_override || owner.current
-	if(!iscarbon(carbon_owner) || isoozeling(carbon_owner))
-		return
-	var/obj/item/organ/brain/brain = carbon_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
-	if(QDELETED(brain))
-		return
-	brain.organ_flags &= ~ORGAN_VITAL
-	brain.decoy_override = TRUE
 
 /datum/antagonist/vampire/proc/give_starting_powers()
 	for(var/datum/action/cooldown/vampire/all_powers as anything in all_vampire_powers)

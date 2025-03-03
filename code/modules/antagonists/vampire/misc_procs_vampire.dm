@@ -20,11 +20,12 @@
 /datum/antagonist/vampire/proc/break_masquerade(mob/admin)
 	if(broke_masquerade)
 		return
+	broke_masquerade = TRUE
 
 	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	to_chat(owner.current, span_cultbigbold("You have broken the Masquerade!"))
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your Vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
-	broke_masquerade = TRUE
+
 	set_antag_hud(owner.current, "masquerade_broken")
 	SEND_GLOBAL_SIGNAL(COMSIG_VAMPIRE_BROKE_MASQUERADE, src)
 
@@ -32,9 +33,10 @@
 /datum/antagonist/vampire/proc/fix_masquerade(mob/admin)
 	if(!broke_masquerade)
 		return
+	broke_masquerade = FALSE
+
 	set_antag_hud(owner.current, "vampire")
 	to_chat(owner.current, span_cultbigbold("You have re-entered the Masquerade."))
-	broke_masquerade = FALSE
 
 /datum/antagonist/vampire/proc/give_masquerade_infraction()
 	if(broke_masquerade)
