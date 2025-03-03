@@ -208,6 +208,28 @@
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/emitter/drill
+	name = "emitter - driling mode (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/emitter/drill
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(build_path == /obj/machinery/power/emitter)
+			name = "emitter - driling mode (Machine Board)"
+			build_path = /obj/machinery/power/emitter/drill
+			to_chat(user, span_notice("Emitter's laser modulator was overclocked."))
+		else
+			name = "emitter (Machine Board)"
+			build_path = /obj/machinery/power/emitter
+			to_chat(user, span_notice("Emiters's laser modulator was returned to default state."))
+	else
+		return ..()
+
 /obj/item/circuitboard/machine/generator
 	name = "thermo-electric generator (Machine Board)"
 	icon_state = "engineering"
