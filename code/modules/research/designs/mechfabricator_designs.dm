@@ -931,10 +931,26 @@
 	name = "MOD [theme.name] plating"
 	desc = "External plating for a MODsuit. [theme.desc]"
 
+/datum/design/mod_plating/civilian
+	name = "MOD Civilian Plating"
+	id = "mod_plating_civilian"
+	build_path = /obj/item/mod/construction/plating/civilian
+	materials = list(
+		/datum/material/iron = 3000,
+		/datum/material/glass = 1500,
+		/datum/material/plasma = 1000,
+	)
+	research_icon_state = "civilian-plating"
+
 /datum/design/mod_plating/engineering
 	id = "mod_plating_engineering"
 	build_path = /obj/item/mod/construction/plating/engineering
-	materials = list(/datum/material/iron = 6000, /datum/material/gold = 2000, /datum/material/glass = 1000, /datum/material/plasma = 1000)
+	materials = list(
+		/datum/material/iron = 6000,
+		/datum/material/gold = 2000,
+		/datum/material/glass = 1000,
+		/datum/material/plasma = 1000
+	)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 	research_icon_state = "engineering-plating"
 

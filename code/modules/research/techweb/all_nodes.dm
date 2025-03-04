@@ -129,6 +129,7 @@
 		"mod_paint_kit",
 		"mod_shell",
 		"mod_plating_standard",
+		"mod_plating_civilian",
 		"mod_storage",
 		"mod_welding",
 		"mod_mouthhole",
