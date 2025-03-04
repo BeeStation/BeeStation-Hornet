@@ -320,16 +320,18 @@
 	throw_range = 4
 	item_flags = NO_PIXEL_RANDOM_DROP
 
+/obj/item/kirbyplants/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/implant)
+
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
-	AddComponent(/datum/component/storage/concrete/kirbyplants)
 
-/datum/component/storage/concrete/kirbyplants
-	max_items = 1
-	max_w_class = WEIGHT_CLASS_NORMAL
-	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
+/datum/storage/kirbyplants
+	max_slots = 1
+	max_specific_storage = WEIGHT_CLASS_NORMAL
 	animated = FALSE
 
 /obj/item/kirbyplants/random

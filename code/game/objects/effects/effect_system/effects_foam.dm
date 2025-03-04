@@ -100,6 +100,7 @@
 	slippery_foam = FALSE
 
 /obj/effect/particle_effect/foam/dissipating/Initialize(mapload)
+	. = ..()
 	flick("atmos_resin_chainreact_dissolving", src)
 	QDEL_IN(src, 6)
 
