@@ -1,5 +1,4 @@
 import { useBackend, useLocalState } from '../backend';
-import { Fragment } from 'inferno';
 import { Box, Button, Collapsible, ColorBox, Dropdown, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 import { map } from 'common/collections';
@@ -15,8 +14,9 @@ const FilterIntegerEntry = (props) => {
       minValue={-500}
       maxValue={500}
       stepPixelSize={5}
+      step={1}
       width="39px"
-      onDrag={(e, value) =>
+      onDrag={(value) =>
         act('modify_filter_value', {
           name: filterName,
           new_data: {
@@ -33,7 +33,7 @@ const FilterFloatEntry = (props) => {
   const { act } = useBackend();
   const [step, setStep] = useLocalState(`${filterName}-${name}`, 0.01);
   return (
-    <Fragment>
+    <>
       <NumberInput
         value={value}
         minValue={-500}
@@ -42,7 +42,7 @@ const FilterFloatEntry = (props) => {
         step={step}
         format={(value) => toFixed(value, numberOfDecimalDigits(step))}
         width="80px"
-        onDrag={(e, value) =>
+        onDrag={(value) =>
           act('transition_filter_value', {
             name: filterName,
             new_data: {
@@ -56,12 +56,14 @@ const FilterFloatEntry = (props) => {
       </Box>
       <NumberInput
         value={step}
+        minValue={-Infinity}
+        maxValue={Infinity}
         step={0.001}
         format={(value) => toFixed(value, 4)}
         width="70px"
-        onChange={(e, value) => setStep(value)}
+        onChange={(value) => setStep(value)}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -89,7 +91,7 @@ const FilterColorEntry = (props) => {
   const { value, filterName, name } = props;
   const { act } = useBackend();
   return (
-    <Fragment>
+    <>
       <Button
         icon="pencil-alt"
         onClick={() =>
@@ -111,7 +113,7 @@ const FilterColorEntry = (props) => {
           })
         }
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -119,7 +121,7 @@ const FilterIconEntry = (props) => {
   const { value, filterName } = props;
   const { act } = useBackend();
   return (
-    <Fragment>
+    <>
       <Button
         icon="pencil-alt"
         onClick={() =>
@@ -131,7 +133,7 @@ const FilterIconEntry = (props) => {
       <Box inline ml={1}>
         {value}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -211,12 +213,15 @@ const FilterEntry = (props) => {
     <Collapsible
       title={name + ' (' + type + ')'}
       buttons={
-        <Fragment>
+        <>
           <NumberInput
             value={priority}
+            minValue={-Infinity}
+            maxValue={Infinity}
             stepPixelSize={10}
+            step={1}
             width="60px"
-            onChange={(e, value) =>
+            onChange={(value) =>
               act('change_priority', {
                 name: name,
                 new_priority: value,
@@ -235,7 +240,7 @@ const FilterEntry = (props) => {
             width="90px"
           />
           <Button.Confirm icon="minus" onClick={() => act('remove_filter', { name: name })} />
-        </Fragment>
+        </>
       }>
       <Section level={2}>
         <LabeledList>
@@ -277,7 +282,7 @@ export const Filteriffic = (props) => {
         <Section
           title={
             hiddenSecret ? (
-              <Fragment>
+              <>
                 <Box mr={0.5} inline>
                   MASS EDIT:
                 </Box>
@@ -287,9 +292,9 @@ export const Filteriffic = (props) => {
                   confirmContent="ARE YOU SURE?"
                   onClick={() => act('mass_apply', { path: massApplyPath })}
                 />
-              </Fragment>
+              </>
             ) : (
-              <Box inline onDblClick={() => setHiddenSecret(true)}>
+              <Box inline onDoubleClick={() => setHiddenSecret(true)}>
                 {name}
               </Box>
             )

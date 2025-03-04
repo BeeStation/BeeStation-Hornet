@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	return TRUE
 
 /obj/item/pipe_dispenser/pre_attack(atom/atom_to_attack, mob/user, params)
-	if(!user.IsAdvancedToolUser() || istype(atom_to_attack, /turf/open/space/transit))
+	if(!ISADVANCEDTOOLUSER(user) || istype(atom_to_attack, /turf/open/space/transit))
 		return ..()
 
 	if(istype(atom_to_attack, /obj/item/rpd_upgrade))
@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 
 						if(queued_pipe_flipped)
 							tube.setDir(turn(queued_pipe_dir, 45 + ROTATION_FLIP))
-							tube.post_rotation(user, ROTATION_FLIP)
+							tube.AfterRotation(user, ROTATION_FLIP)
 
 						tube.add_fingerprint(usr)
 						if(mode & WRENCH_MODE)

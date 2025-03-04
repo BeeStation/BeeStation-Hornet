@@ -156,7 +156,7 @@
 	desc = "You can see slightly more clearly in full darkness than most people."
 	icon = "eye"
 	value = 1
-	mob_trait = TRAIT_NIGHT_VISION
+	mob_trait = TRAIT_NIGHT_VISION_WEAK
 	gain_text = span_notice("The shadows seem a little less dark.")
 	lose_text = span_danger("Everything seems a little darker.")
 	medical_record_text = "Patient possesses a better than average retina."

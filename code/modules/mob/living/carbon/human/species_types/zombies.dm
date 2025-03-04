@@ -6,6 +6,7 @@
 	id = "zombie"
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
+	mutanttongue = /obj/item/organ/tongue/zombie
 	species_traits = list(
 		NOBLOOD,
 		NOZOMBIE,
@@ -29,8 +30,6 @@
 		TRAIT_NOSTASIS
 	)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	mutanttongue = /obj/item/organ/tongue/zombie
-	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	bodytemp_normal = T0C // They have no natural body heat, the environment regulates body temp
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_EXIST // Take damage at fire temp
@@ -42,6 +41,18 @@
 	species_r_arm = /obj/item/bodypart/r_arm/zombie
 	species_l_leg = /obj/item/bodypart/l_leg/zombie
 	species_r_leg = /obj/item/bodypart/r_leg/zombie
+
+	var/static/list/spooks = list(
+		'sound/hallucinations/growl1.ogg',
+		'sound/hallucinations/growl2.ogg',
+		'sound/hallucinations/growl3.ogg',
+		'sound/hallucinations/veryfar_noise.ogg',
+		'sound/hallucinations/wail.ogg'
+	)
+
+/// Zombies do not stabilize body temperature they are the walking dead and are cold blooded
+/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi)
+	return
 
 /datum/species/zombie/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -66,10 +77,6 @@
 	var/heal_rate = 1
 	COOLDOWN_DECLARE(regen_cooldown)
 
-	/// Zombies do not stabilize body temperature they are the walking dead and are cold blooded
-/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi)
-	return
-
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE
 
@@ -83,7 +90,7 @@
 
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
 	. = ..()
-	C.a_intent = INTENT_HARM // THE SUFFERING MUST FLOW
+	C.set_combat_mode(TRUE) // THE SUFFERING MUST FLOW
 
 	//Zombies never actually die, they just fall down until they regenerate enough to rise back up.
 	//They must be restrained, beheaded or gibbed to stop being a threat.

@@ -21,30 +21,71 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
+	worn_icon = 'icons/mob/clothing/neck.dmi'
+	worn_icon_state = "bluetie"
 	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_NECK
 	custom_price = 15
+
+/obj/item/clothing/neck/tie/examine(mob/user)
+	. = ..()
+	if (slot_flags & ITEM_SLOT_NECK)
+		. += span_notice("Alt-click the tie to loosen it, to fit around your head.")
+	else
+		. += span_notice("Alt-click the tie to tighten it, to fit around your neck.")
+
+/obj/item/clothing/neck/tie/AltClick(mob/user)
+	. = ..()
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/matrix/widen = matrix()
+		if(!user.is_holding(src))
+			if(C.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+				to_chat(user, span_warning("You must be holding [src] in order to loosen it!"))
+			if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
+				to_chat(user, span_warning("You must be holding [src] in order to tighten it!"))
+			return
+		if((C.get_item_by_slot(ITEM_SLOT_HEAD) == src) || (C.get_item_by_slot(ITEM_SLOT_NECK) == src))
+			to_chat(user, span_warning("You can't adjust [src] while wearing it!"))
+			return
+		if(slot_flags & ITEM_SLOT_NECK)
+			slot_flags = ITEM_SLOT_HEAD
+			worn_icon_state += "_head"
+			widen.Scale(1.25, 1)
+			transform = widen
+			user.visible_message(span_notice("[user] loosens [src]'s knot."), span_notice("You loosen [src]'s knot to fit around your head."))
+		else
+			slot_flags = initial(slot_flags)
+			worn_icon_state = initial(worn_icon_state)
+			transform = initial(transform)
+			user.visible_message(span_notice("[user] tightnens [src]'s knot."), span_notice("You tighten [src]'s knot to fit around your neck."))
 
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
 	icon_state = "bluetie"
+	worn_icon_state = "bluetie"
 
 /obj/item/clothing/neck/tie/red
 	name = "red tie"
 	icon_state = "redtie"
+	worn_icon_state = "redtie"
 
 /obj/item/clothing/neck/tie/black
 	name = "black tie"
 	icon_state = "blacktie"
+	worn_icon_state = "blacktie"
 
 /obj/item/clothing/neck/tie/horrible
 	name = "horrible tie"
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
+	worn_icon_state = "horribletie"
 
 /obj/item/clothing/neck/tie/detective
 	name = "loose tie"
 	desc = "A loosely tied necktie, a perfect accessory for the over-worked detective."
 	icon_state = "detective"
+	worn_icon_state = "detective"
 
 /obj/item/clothing/neck/maid
 	name = "maid neck cover"
@@ -62,7 +103,7 @@
 
 /obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
-		if(user.a_intent == INTENT_HELP)
+		if(!user.combat_mode)
 			var/heart_strength = span_danger("no")
 			var/lung_strength = span_danger("no")
 

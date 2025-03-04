@@ -71,7 +71,6 @@ export const RDConsole = (props) => {
         <Section title="Access Logs">
           <Flex direction="column">
             <RDServerLogItem
-              key="logheader"
               color="label"
               value={{ researcher_name: 'Researcher', research_name: 'Technology', cost: 'Cost', location: 'Location' }}
             />

@@ -71,11 +71,8 @@
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
 	return O.attack_atom(src, user, params)
 
-/obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
-	return attack_hand(user)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/clothing/mask/facehugger/attack_hand(mob/user)
+/obj/item/clothing/mask/facehugger/attack_hand(mob/user, list/modifiers)
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
 		if(Leap(user))
 			return
@@ -150,7 +147,7 @@
 		return FALSE
 	if(iscarbon(M))
 		// disallowed carbons
-		if(isalien(M) || isdevil(M))
+		if(isalien(M))
 			return FALSE
 		var/mob/living/carbon/target = M
 		// gotta have a head to be implanted (no changelings or sentient plants), gotta be able to have the xeno implanted
