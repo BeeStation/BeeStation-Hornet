@@ -185,6 +185,7 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = null
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/large
 	name = "large beaker"
@@ -198,13 +199,14 @@
 
 /obj/item/reagent_containers/cup/beaker/potion
 	name = "potion"
-	desc = "A recipent for the strongest potions for going into battle. Can hold up to 100 units."
+	desc = "A recipent for the strongest potions for going into battle. That is, if you can handle them. Can hold up to 100 units." //https://www.youtube.com/watch?v=R_FQU4KzN7A
 	icon_state = "potion"
 	custom_materials = list(/datum/material/glass=2500)
 	volume = 100
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	label_icon = "label_potion"
+	isGlass = TRUE
 
 /obj/item/reagent_containers/cup/beaker/large/potion/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)
@@ -219,6 +221,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120)
 	label_icon = "label_beakerlarge"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/meta
 	name = "metamaterial beaker"
@@ -230,6 +233,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120,180)
 	fill_icon_thresholds = list(1, 10, 25, 35, 50, 60, 80, 100)
 	label_icon = "label_beakerlarge"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/noreact
 	name = "cryostasis beaker"
@@ -243,6 +247,7 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = null
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/bluespace
 	name = "bluespace beaker"
@@ -257,6 +262,7 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = "label_beakerlarge"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)

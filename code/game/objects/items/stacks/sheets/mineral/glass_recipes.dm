@@ -3,7 +3,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	new/datum/stack_recipe("glass shard", /obj/item/shard, on_floor = FALSE), \
 	new/datum/stack_recipe("directional window", /obj/structure/window/unanchored, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("fulltile window", /obj/structure/window/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("glass tile", /obj/item/stack/tile/glass, 1, 4, 20) \
+	new/datum/stack_recipe("glass tile", /obj/item/stack/tile/glass, 1, 4, 20), \
+	new/datum/stack_recipe("potion", /obj/item/reagent_containers/cup/beaker/potion, on_floor = FALSE) \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/glass)
