@@ -1,0 +1,402 @@
+2022-09-01:
+  Impish_Delights:
+  - rscadd: Two hydro trays to botany maint to replace missing service lathe
+  - rscdel: Random airlock in dorm maint room removed
+  - rscdel: Botany private service protolathe removed
+  - tweak: Rearranged botany maint slightly
+  - tweak: Bartender and Curator can now access their respective maintenance airlocks
+  - bugfix: Shaft Miners can now access the Aux Base construction room via the bar
+      maint airlock
+  - bugfix: cargo maintenance by brig now has proper access set on airlock, maintenance
+      can be traversed without cargo access
+  PestoVerde322:
+  - rscadd: Added the plastic chair, steel bench, folding chair, chair with arms (aka
+      fancy chair), corporate armchair, dirty mattress
+  - rscadd: Added king sized variants of all the beds with their respective bedsheets,
+      remember, you're constantly under observation by the administration team
+  - rscadd: Added concave corners for all the sofas.
+  - imageadd: added brand new icons for chairs, beds, bedsheets and some benches,
+      including renewed in-hand icons
+  - code_imp: Restructured how chairs are really sorted out
+  ? itsmeow, Timberpoes, cacogen, MTandi, Fhaxaris, vincentiusvin, ArcaneMusic, LemonInTheDark,
+    GuillaumePrata, Cheshify, Jackraxxus, OneAsianTortoise, Profakos, tralezab, jlsnow301
+  : - tweak: The title bar of Modular PC programs now contains the program's name
+        instead of the file name.
+    - bugfix: Fixed a bunch of modular PC runtimes with try_eject.
+    - tweak: Anyone can now download BotKeeper (tablet app). Only bots your current
+        ID can unlock will be listed to control.
+    - bugfix: Fixed NTOS File Manager renaming/deleting wrong programs when used with
+        external disk.
+    - code_imp: Improved ID console name/job sanitization code, and added feedback
+        for when sanitization fails.
+    - bugfix: Modular ID console will no longer insert/eject ID card for AI or to
+        telekinesis players.
+    - code_imp: Supermatter's defines have been moved into it's own file in the __DEFINES
+        folder.
+    - rscadd: Modular Computers equipped with the new integrated radio card chip can
+        now be used as a remote signaller.
+    - rscadd: Scientists now start with tablets pre-equipped with a signaller chip
+        and the program downloaded.
+    - bugfix: Fixed a bug preventing the Job Management app from de-prioritising jobs
+        when 5 or more jobs were prioritised.
+    - code_imp: Improved computer hardware code and delete management.
+    - bugfix: Signaller code transmissions on the 145.7 frequency are no longer received
+        by all signallers, even if they are tuned to another frequency.
+    - bugfix: Fixes tablet not updating appearance immediately after it is repaired.
+    - refactor: Modernized NTChat, now with muting and pinging!
+    - admin: NTChat now has a filter check.
+    - bugfix: Brig physician slots can no longer be increased through the Job Management
+        tablet app.
+    - tweak: The Software Downloader will now say "Insert ID" instead of "No Access"
+        if no ID is inserted, and no longer responds to hovering the button.
+  ro5490:
+  - rscadd: Added a new rite to the Technophile Sect - Machine Implantation - Add
+      cybernetics to your followers with ease!
+  - tweak: Technophile Sect favor is gained a little easier and rite costs have been
+      lowered a little
+  - tweak: Tech Sect Machine Blessing rite now has a chance to create nutriment, toolset,
+      and wing implants
+  - rscadd: The Chaplain now has access to a Space Carp Sect!
+  - rscadd: Flood Area rite for the Carp Sect, flood the chapel with water - 200 Favor
+      Cost
+  - rscadd: Summon Carp-Suit rite for the Carp Sect, Summons a Space-Carp suit! -
+      300 Favor cost
+  - rscadd: Summon Carp rite for the Carp Sect, Summon a Holy Space-Carp from the
+      observer pool - 500 Favor cost
+  - rscadd: Carp Sect uses the blue altar
+  - rscadd: Summoned Carp are sub-chaplains and as such, are holy!
+2022-09-02:
+  EvilDragonfiend:
+  - rscadd: New wizard ritual - Wild Magic Manipulation. Simply, Wizard version of
+      Surplus crate. Your spell points are multiplied by 70%(round down) and You get
+      random spells and items, including any available ritual.
+  - rscadd: New wizard apprentice - Wild Magic school. They get 2 random wizard spells.
+  - rscadd: Wizard rituals now let the wizards say spell words. It's actually nothing,
+      but a flavor for ghosts observing a wizard
+  - refactor: minor change to wizard related description for codewise
+  - bugfix: curse of madness is not revertable when you have a window to write your
+      mad message. This won't let you get free +4 spell points when wild magic picked
+      curse of madness.
+  - rscadd: Nanotrasen VIP Expense Account Budget has been added. VIPs will be paid
+      from this budget directly from Nanotrasen rather than the station budget.
+  - tweak: Station heads can't change VIP's payment anymore. (but they can't give
+      bonus to them also.)
+  - tweak: VIP bank accounts are all fixated to Nanotrasen VIP budget department,
+      and changing department will not change their assigned department.
+  - tweak: VIP payment is now 2000 credits, and roundstarts with 10000 credits
+  - tweak: VIP mail from cargo is now yellow
+  - bugfix: cargo ordering app through a tablet will not accept improper id card
+  - tweak: department change lock feature - even if you change your department, some
+      jobs (VIP, Captain, HoS) don't have a newly changed department as your bank
+      account paying department.
+  EvilDragonfiend, JOYK1LLZ:
+  - rscadd: Beer goggles (and some special goggles like eye of god, omni hud) now
+      can see Total Booze power of chemicals, but also expect the tastes of the chemicals
+      in a container.
+  - rscadd: mob trait "sommelier" - tells different flavour texts when you examine
+      drinks. it's given to bar-related spawns including station bartender.
+  - rscadd: mob trait "bar master" - tells the exact amount of reagent even if you
+      don't have beer googles. it's given to bar-related non-human without beer goggles.
+  'PigeonVerde322, PositiveEntropy ':
+  - rscadd: FORGOT to credit PositiveEntropy for the Wooden chairs icons and the armchair/Sofa
+      icons in the previous PR, apoligies!
+  - rscadd: Added time-to-build to all the chairs
+  - rscadd: Courtesy of para, now benches can be coloured
+  - bugfix: fixed a bug that, if you moved while deconstructing any chair, it would
+      override the deconstruction time
+  - bugfix: fixed Corporate benches being broken, now they use a different system
+      than GAGs, also courtesy of para, now benches padding can be coloured!
+  benbot16:
+  - balance: Changelings no longer lose extra genetic points when readapting.
+  etherware-novice:
+  - rscadd: Added the toy captains card
+  - rscadd: Adds the all access dispenser
+  - rscadd: Adds an admin-only version that actually creates captains spare ids
+  - tweak: Adds the card to the arcade prizes
+  - tweak: Adds the dispenser to maint spawns
+  - tweak: oozelings have 50% more blorbles
+  - refactor: tounges can now modify your ask, yell, and exclaim verbs
+  - refactor: area mood buffs can now be applied to only certain jobs
+  - rscadd: added new job restricted area mood buffs
+2022-09-03:
+  Dejaku51, out-of-phaze, LemonInTheDark, MrStonedOne:
+  - code_imp: Fix client timers having invalid <1ds waits
+  EvilDragonfiend:
+  - code_imp: removed an unused proc '/obj/item/proc/GetJobName()'
+  itsmeow:
+  - rscadd: Adds entropic plume spell to heretics
+  - rscdel: Removes rust wave spell from heretics
+  - bugfix: The ash man and rust walker nodes now link to the correct nodes.
+  - bugfix: Rust's rune visual effect does not appear on reinforced walls.
+  - bugfix: Animated sprites in custom vendors and display cases no longer expand
+      into all their frames
+  - bugfix: Pirates event no longer spawns two pirate ships.
+  - refactor: Comms console message responses now use string keys so that DEFINES
+      can be used.
+2022-09-04:
+  CydiaLamiales:
+  - rscadd: Added a new mind trait for the medical staff
+  - tweak: Tweaked the Doctor's Delight to not drain hunger from all medical staff
+  Dejaku51, Kylerace, LemonInTheDark:
+  - refactor: Optimized icon2html code
+  EvilDragonfiend:
+  - rscadd: agent card 'forge' option shows a hud/card style menu so that you don't
+      still have syndicate hud accidentally.
+  - code_imp: adjusted some code that doesn't use job-defines to use job-defines,
+      and adjusted its incorrect code indentation.
+  Hardly:
+  - tweak: Abductees no longer get random deep rooted traumas
+  LemonLimeSoda:
+  - rscadd: 'added a new midround event with the same weight as xenos and blobs: spontaneous
+      zombie infection'
+  - tweak: changed the wizard blob zombies event's name to avoid confusion
+  Penwin0:
+  - bugfix: Bulldog shotguns have in hand sprites again
+  etherware-novice:
+  - rscadd: Heads and QM get spare radio key boxes
+  - rscadd: Clown has ordered some fake encryption keys for their pranks
+  - rscadd: Added the bluespace light replacer
+  - tweak: Moved the standard light replacer to a round-start item
+2022-09-05:
+  etherware-novice:
+  - tweak: pai cards chime when new personalities are submitted
+2022-09-06:
+  PestoVerde322, PacifistDalek:
+  - imageadd: updates the turbine sprites and overlays
+  itsmeow:
+  - bugfix: Restoring an AI through the modular computer app now properly informs
+      their ghost.
+  - bugfix: If you wrench an emitter or shuttle engine before adding the board to
+      the machine frame, it now lets you weld the frame as expected.
+  - bugfix: Verbs with ! in the name have had it removed, and can now be run from
+      TGUI chat (Server Hop)
+  - code_imp: Added a linter check for to prevent verbs with ! in the name
+  - code_imp: Improved clarity of check_grep
+2022-09-07:
+  CydiaLamiales:
+  - rscadd: Added the Magic Eightball to the BeeCoin store
+  ike709:
+  - server: Fixed atmos performance problems on linux servers
+2022-09-08:
+  benbot16:
+  - bugfix: Plasma anti-wildlife turrets will shoot things now.
+  dwasint:
+  - server: Updates auxmos to 1.1.2
+  etherware-novice:
+  - admin: make pai button
+2022-09-09:
+  itsmeow:
+  - bugfix: Pirates will no longer ignore the fact that you paid them off.
+  - bugfix: Refusing to pay pirates will no longer still attempt to pay them off.
+2022-09-10:
+  13spacemen:
+  - rscadd: The BYOND hub entry shows time and alert now
+  CydiaLamiales:
+  - tweak: Made shield sattelite and shield system control crates always available
+      for purchase
+  EvilDragonfiend:
+  - bugfix: magic mirror no longer shows non-magical makeup selection window
+  LemonLimeSoda:
+  - balance: slimepeople (including oozelings, jellypeople, etc) are no longer immune
+      to/heal from zombie tumors
+  Sarchutar, Ryll-Ryll:
+  - rscadd: Shields for hardsuits (Syndie, CTF, Wizard etc) are now a component
+  - rscdel: Shielded Syndicate Hardsuits cannot have their shield color changed with
+      a multitool anymore
+  The-Moon-Itself:
+  - tweak: The typecheck wiremod component now typecasts as well, and has been renamed
+      accordingly
+  etherware-novice:
+  - tweak: intercom overlay sprites
+  - tweak: Automated welcomer announces station name now
+  itsmeow:
+  - rscadd: Emagged and syndicate borgs can now self destruct from their management
+      app.
+  - tweak: Syndicate and emagged borgs get their interface theme set to syndicate
+      and properly recolored on the HUD.
+  - rscadd: Ghosts can now click on the Supermatter to see its monitoring info.
+  - rscadd: Added Incursion to dynamic.
+  ro5490:
+  - rscadd: Necro Summoned Undead are now able to cast a smoke spell, just like the
+      chaplain himself!
+  - tweak: Necro Sect rites are now faster to perform and cost a bit less.
+  - tweak: Necro Sect gains favor a little easier
+  - bugfix: No more favor loss if the Neco Sect's Summon Undead rite fails.
+  - rscadd: Necro Sect now has a Create Lesser Lich rite which grants the new lesser
+      lichdom spell
+2022-09-11:
+  itsmeow:
+  - code_imp: Improved dynamic's handling of midround execute() failure, and improved
+      the code.
+  - admin: Added messages for if midrounds fail due to execute() failure, and list
+      how much threat is refunded.
+  - server: Added more logging for dynamic execute() failure.
+2022-09-12:
+  itsmeow:
+  - admin: Clients without telemetry are denied access
+2022-09-14:
+  benbot16:
+  - bugfix: Mining cyborg plasma cutters no longer require wielding, meaning they
+      no longer have scatter by default.
+  - bugfix: Fixes repairing cyborgs with plasma cutters
+  etherware-novice:
+  - tweak: skate craft recepie spawns the item
+  - admin: nukes going off after round end no longer mutes ooc
+  itsmeow:
+  - bugfix: Fixed the chrono-suit and eradication gun.
+  ro5490:
+  - tweak: Depleted Uranium/Rad-proof Fulltile windows now cost 2 uranium to make
+      instead of 10.
+  - tweak: Depleted Uranium/Rad-proof directional windows now cost 1 uranium to make
+      instead of 5.
+2022-09-16:
+  Tyranicranger4:
+  - rscadd: Added gas ignitor setups to Box/Delta Xenobio
+  - spellcheck: fixed a single letter typo for heretics
+2022-09-17:
+  etherware-novice:
+  - tweak: fixes bar mood event and all access machine
+  itsmeow:
+  - bugfix: Martyr/hijack objectives spawn properly again.
+2022-09-18:
+  EvilDragonfiend:
+  - bugfix: blood brothers implant will show your true name instead of fake names
+  PestoVerde322:
+  - code_imp: fixed broken bedsheets spawners and their worn icons
+  - refactor: refactored how bedsheets works
+  etherware-novice:
+  - rscadd: IPC chassis's (and ethereals) have been modified to interface with heavy-duty
+      inducers
+  - tweak: pendriver drives noise
+  itsmeow:
+  - tweak: Emagged tablets can use Cyborg Monitoring's message feature without an
+      ID inserted.
+  - rscadd: Added a syndicate version of Cyborg Monitoring for messaging/monitoring
+      syndicate borgs.
+  - admin: Added an IC filter check and logging to Cyborg Monitoring messages.
+2022-09-19:
+  12Oreos:
+  - rscadd: Medieval Mutation that modifies speech when applied
+  The-Moon-Itself:
+  - bugfix: cuffs are now properly accounted for in situations that affects all equipped
+      items on a mob. This  most notable affects when a mob transforms, where cuffs
+      will now drop with everything else rather than being deleted.
+  itsmeow:
+  - tweak: Midround xenos now have a lower weight and will occur less often.
+  - tweak: At 20 to 30 threat, midround xenos require two security instead of one.
+2022-09-22:
+  PestoVerde322:
+  - rscadd: Added a brand new lavaland, featuring a Sauna, proper cooking equipment,
+      a gulag that doesn't look like a nanotransen 2x2 jail and overall more aesthetic
+      than before
+  The-Moon-Itself:
+  - rscadd: Nested shuttles. shuttles can now land on top of each other and be towed
+      around.
+  - rscadd: Dock turfs. Shuttles can always land on these, regardless of whether the
+      dock is in space, on the station, or on another shuttle. Tiles are craftable
+      with 1 plasteel per 4 tiles.
+  - rscadd: Dry docks. Works like docks, but you can build on these as if you were
+      in space and designate what you build onto a shuttle. Tiles are craftable with
+      2 plasteel per 4 tiles.
+  - tweak: Arrival shuttles and Emergency shuttles cannot be towed by other shuttles.
+  - refactor: Lots of changes to shuttle code, especially relating to docking.
+  - balance: Machinery now blocks custom docking to prevent theft of important equipment.
+  etherware-novice:
+  - tweak: soap is properly gendered
+2022-09-23:
+  Penwin0:
+  - code_imp: build_appearance_list is faster
+  PestoVerde322:
+  - bugfix: fixed the orientation of the steel bench
+  - bugfix: you can't pick up a bench and convert any bench into a chair anymore
+  Tyranicranger4:
+  - rscdel: Removed hidden unused objects from Virology.
+  - bugfix: Fixed virology windoor access, viro's now have access to their own windoor.
+  itsmeow:
+  - code_imp: Fixes an issue with the modular PC singaller app initializing its frequency
+      too early.
+  - code_imp: Enforces parent proc calls in run_program
+2022-09-24:
+  benbot16:
+  - tweak: Blacklists certain items from Pun-Pun's mask/hat saving functionality (notably
+      facehuggers and chameleon clothing)
+2022-09-25:
+  itsmeow:
+  - bugfix: Dynamic incursion will no longer allow security to be traitors.
+  - tweak: SSD and soulless bodies now have indicator overlays while dead on medhuds.
+  - tweak: Examining a disconnected player while they are dead will now show that
+      their soul is "distant, and may return soon".
+  - bugfix: Lesser Lichdom now calls set_hellbound any /mob/living.
+2022-09-26:
+  itsmeow:
+  - balance: Dynamic will no longer spawn traitors, changeling, blood brothers, or
+      heretics during the cult, nuclear assault, wizard, and revs roundstart rules.
+2022-09-27:
+  itsmeow:
+  - bugfix: Fixed a runtime with medhud SSD indicators whenever a player joined or
+      left.
+2022-09-28:
+  PestoVerde322:
+  - bugfix: fixed the missing labor shuttle dock for lavaland
+  - rscadd: missing cameras around lavaland
+  - rscadd: a light in the lavaland's sauna.
+  Phil Smith:
+  - balance: PKAs now have the same weakness in a vacuum as they have in a pressurized
+      environment
+  itsmeow:
+  - bugfix: Fixed another runtime with the MedHUD SSD indicator on mind transfer.
+2022-09-29:
+  BarteG44:
+  - rscadd: Added black and white decal colors
+  - rscadd: Added flat floor decals for monotiles
+  EvilDragonfiend:
+  - rscadd: compression box of (head items) that contains head outfits (and CE tools
+      for CE) to solve the overloading issue of the head lockers. Holding this box
+      will slow your movement extremely, so you'll not be able to steal their compressed
+      box that easily.
+  - tweak: mixed wardrobe has a compression box of its jumpsuits/skirts because it
+      has the same issue too.
+  - tweak: all heads lockers will have pet collar and pet carrier.
+  - tweak: captain's locker now has a megaphone.
+  - refactor: changed some head locker items ordering
+  Tyranicranger4:
+  - bugfix: Box station engine monitoring camera consoles now work properly.
+  etherware-novice:
+  - tweak: Airlock and Decal painters now have an indicator for low ink
+  - refactor: Adjusts the Airlock painters examine text
+  - tweak: Captain cryoing does a stationwide announcement
+  itsmeow:
+  - admin: Added an IC filter check to most forms of telepathy and alternate speech
+      (such as hivemind talk, silicon binary, blood bros, etc)
+  - admin: Added an IC filter check and logging to nanite cloud messages.
+  - admin: Added an IC filter check and logging to nanite program text fields.
+  - admin: Added an IC filter check to Poly.
+  - admin: Added an IC filter check to Allied Station messages.
+  - admin: Added an IC filter check to requests console announcements.
+  - bugfix: Added an OOC filter check to dchat if you are still inside your body.
+  ivanmixo:
+  - balance: bruise pack/gauze/ointment application do_afters(the use bars) can't
+      be stacked on yourself anymore yet
+  - bugfix: you can't apply gauze on people who arent hurt anymore
+  - rscdel: useless do_after_mob proc
+  - refactor: refactored bruise pack/ointment/gauze application proc
+  - balance: the area of the body you're targeting when applying touch based healing
+      reagents through a patch/medspray now actually matters
+  - code_imp: Added a bunch of comments to items related to chems and stacks
+  spockye:
+  - rscadd: Added missing shutters to Delta chapel
+  - bugfix: Removes the duplicate door from Pubby's genetics department
+  - bugfix: replaces wrong zoning
+  - bugfix: unpowers the pond
+  - bugfix: Removes Table (randomly placed table at departures airlock)
+2022-09-30:
+  LemonInTheDark, Whoneedspace:
+  - code_imp: Weather now handled by ZTRAITS
+  - code_imp: Reduces sound loop overtime
+  PestoVerde322:
+  - rscadd: adds helpful code comments to procs
+  - refactor: refactors and sorts _HELPERS/unsorted.dm into their own files
+  - refactor: turf_flags.dm is renamed to turfs.dm
+  - rscadd: adds some new directional flags
+  itsmeow:
+  - tweak: Lightened the color effect on all glasses tints.

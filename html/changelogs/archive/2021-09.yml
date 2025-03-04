@@ -1,0 +1,356 @@
+2021-09-01:
+  AnCopper:
+  - tweak: budget cards are indestructible.
+  EvilDragonfiend:
+  - bugfix: Exploration Crew has their HUD icon now.
+  - bugfix: Exploration Crew job can be given from the HoP console.
+  - rscadd: Job selection in the HoP Console is now tidily sorted by department.
+  - rscadd: When you grant a custom job "Acting Captain", now it gives you a better
+      blank HUD icon. (Captain HUD without star)
+  Ivniinvi:
+  - bugfix: RD now has exploration access
+  - rscadd: Battle Royale loot has had some loot buffs, most notably the spawn rate
+      of loot drops has doubled and the landing time of packages has been decreased.
+  PowerfulBacon:
+  - balance: Cogged APCs will now report 100% charge on power monitors.
+  - bugfix: Fixes corgstation disposals and bar disconnect from powergrid.
+  - bugfix: Fixes QM headset having exploration access.
+  - bugfix: Fixes custom shuttles being unable to dock.
+  - tweak: Entering the portal in the center of the shadow labrynth will return you
+      to a random anomalous artifact.
+2021-09-02:
+  DatBoiTim:
+  - tweak: Tweaked Mining Webbing to also allow storage of exploration gear due to
+      also being available to explorers
+  - tweak: More exploration gear fits into webbing
+  Inithis:
+  - tweak: added nitrile gloves to the Paramedic's default, roundstart loadout.
+  Ivniinvi:
+  - rscadd: You can now print multiple Wanted or Missing posters.
+  - bugfix: Clockwork cultists and Cogscarabs will no longer be stuck in an infinite
+      teleport loop.
+  Kapu1178:
+  - balance: IPCs are no longer deaf when EMP'd, and are now forced to speak spanish
+      for 2 minutes.
+  MNarath1:
+  - bugfix: fixes mobs not beeing able to hear instruments in lockers
+  PowerfulBacon:
+  - bugfix: Fixes reality destabilization auto-restabilization.
+  ivanmixo:
+  - bugfix: bone axe now properly switches in hand sprites
+  - tweak: wagging your tail is a visible emote again
+  kreeperHLC:
+  - bugfix: Equipment no longer disappears when you try to install it in the wrong
+      type of mecha.
+2021-09-03:
+  Ivniinvi:
+  - rscadd: Coffee the Crab is now present in BoxStation Science
+  - rscadd: Birdboat the Goose is now present in DeltaStation, MetaStation, CorgStation,
+      and PubbyStation maints
+  - rscadd: Lia the Carp is now present in the CorgStation HoS office
+  - rscadd: Cayenne the Carp is now present in the traitor deployable capsule shuttle
+  - rscadd: Tom the Turkey is the mascot of the Exploration Crew, and appears on the
+      three exploration shuttles.
+  - rscadd: Debtors and Assistants can now purchase a Bottle of Mystery Pills for
+      3TC.
+  MNarath1:
+  - bugfix: fixes my own mistake on instruments
+  PowerfulBacon:
+  - bugfix: You can now upload to AIs on different station floors.
+  - bugfix: Fixes meta comms, will proper fix it tomorrow.
+  - bugfix: Runechat not displaying messages if you can't hear it rather tahn if they
+      can't hear it.
+  - tweak: Changes exploration mainframes to proper exploration communication setups
+      on pubby and metastation.
+  yyzsong:
+  - rscdel: Randomly generated names can no longer have skywalker as a last name
+2021-09-04:
+  Ivniinvi, TheChosenEvilOne:
+  - rscadd: Birdboat now has a chance to be controllable by dead chat, think twitch
+      plays pokemon but goose and deadchat.
+  - rscadd: Deadchat controlled singularity variant.
+  Ivniinvi, bobbahbrown:
+  - admin: Add Requests Manager to view all prayers/centcom and syndicate requests/and
+      nuke code requests within a round.
+  KubeRoot:
+  - bugfix: TGUI interfaces have been manually tweaked across the board to update
+      more consistently
+  - bugfix: Some potential exploits related to TGUI input validation/sanitisation
+      have been fixed
+  - bugfix: Nanite cloud control now shows rules even when you don't have a disk with
+      valid rules inserted
+  - bugfix: Extra settings for numbers in nanites now treat 0 as a valid number.
+  - bugfix: Cargo express console now doesn't add a second order to the cargo console
+      cart. As a side-effect, it also doesn't print a requisition form.
+  - bugfix: The holodeck computer will no longer break when reenabling safety
+  - tweak: Chemistry heater no longer stays on when removing beaker with alt-click
+  - code_imp: Added signals for machine_open and machine_close
+  - refactor: References to IRC now better describe TGS' and Discord's existence.
+  - admin: Players will now be better informed that messages are sent through TGS
+      to IRC/Discord/etc when attempting to adminhelp with no available admins/use
+      adminwho verb.
+  - admin: Initial ahelps are now multiline too.
+2021-09-05:
+  AnCopper:
+  - tweak: Communications consoles also work on the centcom z level
+  - rscadd: Added the AI lab room as a possible ruin room.
+  Crossedfall:
+  - config: 'The AI will have a random lawset at the start of each shift from the
+      following list: Asimov, asimov++, crewsimov, corporate, maintain.'
+  Fox-McCloud AnCopper:
+  - tweak: ashwalkers malf AI module has been moved to the syndicate lavaland base
+      vault.
+  - tweak: Heavily beefed up the security of the Syndie vault, added two more turrets
+      and 3 layer walls.
+  Froststahr:
+  - code_imp: Mapmerge2 has been updated along with an experimental .dmm merge driver
+      being included for conflict resolution.
+  KubeRoot:
+  - bugfix: Radios and intercoms can no longer be toggled from a distance by non-silicons
+      using hotkeys
+  - bugfix: Monkeys can now interact with wall-mounted intercoms
+  - bugfix: Radio and intercom UIs now update when toggled via hotkey
+  - rscadd: Bounty console now uses a tgui interface
+  - rscadd: There is a new "Bounty Hunter" program available for modular computers
+      and tablets
+  - admin: SDQL2 now supports all subsystems.
+  - bugfix: Alarm Monitoring program changed to avoid always-on unclearable fire alarms
+  - tweak: Hacking a firing pin out of a gun is no longer done via a crafting menu
+      - you can now do it by simply holding the gun in your hand and clicking it with
+      a welder/screwdriver/wirecutters
+  - bugfix: You are no longer prevented from selecting more neutral/negative quirks
+      once you have reached the limit of 6 positive ones.
+  - bugfix: Fixed a scenario that allowed infinite resource generation via ore machines.
+  - code_imp: TGUI interfaces updating from ui_act will not update again due to ui_update
+  'LemonInTheDark, Port By Froststahr. ':
+  - admin: The panic bunker allows for a minimum time to be set, blocking players
+      who lack the required amount of living played time from accessing the game.
+  PowerfulBacon:
+  - balance: Removes the bolt of death and bolt of adminheal from xenobiology space
+      carps (Chaos + Regular)
+  - balance: Bag of holding's can no longer teleport their contents through walls
+      when dumped.
+  - bugfix: Fixes gamemode presetup being called late.
+  - bugfix: Fixes cult having a random chance to fail to setup between 24-28 players.
+  - balance: Cryo syringes no long have the no react flag.
+  - balance: Reagents inside cryo syringes will be at 20 kelvin.
+  - balance: Heavy weapons require two hands to hold.
+  - balance: Light/medium weapons will be less accurate when fired with 1 hand.
+  - refactor: Refactors meteors, they are now orbital map components and will fly
+      towards the station, colliding with orbital bodies and flying shuttles.
+  francinum:
+  - balance: Ore Silo connections can no longer cross z-level boundaries, and will
+      break if the object changes z-lvels.
+  ivanmixo:
+  - refactor: all syndicate boxes now look like syndicate boxes
+  - refactor: replaced some of the more egregious spawn()s with timers
+  - rscdel: removed the separated chemicals trait from botany
+  lordScrubling:
+  - balance: having x-ray makes you ignore flash protection and tint
+  - balance: flashbangs can flash people with x-ray through walls
+  - rscadd: syndicate autosurgeons get a special variant of eyes that allow flash
+      protection
+  lordScrubling, Mothblocks, Rohesie:
+  - rscadd: placing fireman carried people onto things
+  qwertyquerty:
+  - rscadd: Nuclear countdown music
+  tiramisuapimancer:
+  - bugfix: IPC hands are now properly visible over jumpsuits on side states
+2021-09-06:
+  Ivniinvi:
+  - tweak: 'Moths can no longer consume the following items: Indestructible items,
+      Items with Melee armor, Space Suits, Hardsuits.'
+  - rscdel: The exploration nuke no longer plays alarm.ogg
+  KubeRoot:
+  - bugfix: Geysers no longer generate in ruins. In fact, nothing should generate
+      in ruins, as ruins now generate before other things.
+  - tweak: Due to changes in the way the map is setup, floors that are parts of ruins
+      on lavaland loaded at roundstart will now deconstruct into lava instead of basalt
+      floors.
+  - code_imp: When a template is loaded with a passthrough turf, non-passthrough area
+      on it, onto a genturf, the genturf is now forced to generate with the old area.
+      This allows ruins to have objects in a powered area on a passthrough turf on
+      lavaland.
+  - code_imp: Passthrough turfs can now hint towards if the turf below should be closed/open
+      (wall/floor). This can be useful in ruins, as it can influence map generation
+      without overriding the exact turf placed underneath.
+  - imageadd: Sprites for passthrough turfs with closed/open preferrence (visible
+      in editor only)
+  PowerfulBacon:
+  - code_imp: Improves the supercruise collision detection by optimising it and making
+      it so passing something triggers a collision event.
+  - code_imp: SSorbits now supports multiple orbital maps.
+  Tavczan:
+  - rscadd: Abandoned crate tamper-proofing now detects EMPs.
+  The-Moon-Itself:
+  - rscadd: Bitwise operations and Trigonometry related circuit components, unlocked
+      in a new techweb node.
+  - rscadd: Rounding circuit component.
+  - tweak: Arithmetic circuit now has a modulus option.
+  - tweak: New abstract circuit to base components that initialize with an arbitrary
+      amount of inputs.
+  ivanmixo:
+  - balance: chaplain's soulstone can no longer shard bodies with souls
+  jupyterkat:
+  - bugfix: fixed mech radios
+2021-09-07:
+  Ivniinvi:
+  - bugfix: Ghosts no longer get spammed with It's Loose notifications when there's
+      no singulo or tesla.
+  fighterslam:
+  - bugfix: Fixed the syndicate lavaland base to have the proper frequencies to be
+      compatible with Supercruise.
+  qwertyquerty:
+  - rscadd: Added new space ambient music
+  - bugfix: fixed ambient music and buzz
+2021-09-08:
+  KubeRoot:
+  - bugfix: Silicons can once again interact with intercoms
+  - bugfix: Button.Input no longer breaks tgui interfaces. Fixes advanced injector
+      creation interface, as well as NTOS file manager, chat, ID card modification
+      and Revelation.
+  rkvothe14:
+  - config: decreased the font size cap from 32 to 24 to prevent chat bugs.
+2021-09-09:
+  fighterslam:
+  - rscadd: Adds Corporate Sofas, an alternative, sleeker style of sofa.
+2021-09-10:
+  AnCopper:
+  - tweak: ERT Commanders get an Omni Door remote.
+  - rscadd: added microwaves, donk pockets, and oxygen tank dispensers to exploration
+      shuttles
+  - tweak: the BSA is indestructible.
+  AnturK, Ivniinvi, Inept, Coiax, AdipemDragon, YakumoChen, Sheits, tralezab:
+  - rscadd: Aquarium and aquarium accessories. Also fish. Check out cargo to start.
+  - rscadd: Aquarium fish now reproduce.
+  DatBoiTim:
+  - rscadd: Sleep and Drowsyness Immunity To Meth
+  - balance: Decreased Speed Buff from Meth
+  - balance: Increased Stamina Damage Reduction
+  Goshagosha:
+  - rscadd: Added structure (plant) 'Strange plant' to code/modules/mining/lavaland/ash_flora.dm
+  - rscadd: Added boolean flag destroy_on_harvest (FALSE) to plants in ash_flora.
+      If it is on, plants will not regrow.
+  - rscdel: Strange seeds removed from biogenerator
+  - imageadd: xpod[1-4] added to icons/obj/lavaland/ash_flora.dmi (2,3,4 are placeholders
+      for better art variety)
+  ImSynthex:
+  - tweak: You can now throw stuff at movables with no density, such as mobs on the
+      floor, mice, APCs etc etc
+  - refactor: Refactored thrownthing datum
+  Ivniinvi:
+  - admin: Updated some logging, added some logging.
+  - admin: Admins can now force people to stub their toes.
+  - admin: Fixes the FLW link in some logging.
+  PowerfulBacon:
+  - code_imp: Replaces get_hearers_in_view with range for musical instruments.
+  - tweak: Musical instrument range reduced from 15 to 11
+  - balance: Flashbangs now blind with an intensity of 2 meaning wearing glasses alone
+      will still blind you. (You will not get stunned while wearing glasses).
+  - balance: Flashbangs effect is directly proportional to the distance away.
+  - bugfix: Fixes docking with lavaland.
+  Qwertytoforty AnCopper:
+  - tweak: Telekinesis can no longer throw objects with people in them, or buckled
+      to them.
+  ike709:
+  - bugfix: Custom emotes work again.
+  ivanmixo:
+  - balance: cyborg *spinning someone now knocks down instead of paralyzing
+2021-09-11:
+  francinum:
+  - server: You should NOT be granting this lightly.
+2021-09-12:
+  Archanial:
+  - refactor: removed static usage of typecache in get_area()
+  PowerfulBacon:
+  - bugfix: Fixes meteors causing bugs in SSorbits.
+  francinum:
+  - bugfix: Mechs can now properly recalibrate their controls.
+2021-09-13:
+  Bokkiewokkie:
+  - admin: Fixed a security issue with the advanced proccall
+  PowerfulBacon:
+  - tweak: Custom shuttles and rooms can be made on asteriods.
+  - bugfix: Fixes another case of meteors moving invalidly.
+  - refactor: Refactors the tesla to be less intensive on the server. (Slightly weakening
+      its destructive capability)
+  - admin: The MC panel now shows tick uage and the tick limit.
+  Vexylius:
+  - rscadd: Janitorial toolset implant
+  - rscadd: Botanical toolset implant
+  ike709:
+  - code_imp: BYOND infinite loop detection is now documented.
+2021-09-14:
+  Pirill:
+  - imageadd: New sprites for geraniums, lilies and rainbow flowers
+  - rscadd: Forget-me-nots as a new flower type
+  - rscadd: Craftable flower crowns from rainbow flowers, sunflowers, poppies and
+      lilies
+  - rscadd: Two new botany cargo bounties for forget-me-nots and rainbow flower crowns
+  - bugfix: Fixes rainbow flower reagent code
+  PowerfulBacon:
+  - balance: All golems excluding bone golems are transsting immune.
+  - balance: Levelling up projectile spells (Fireball, spellcards, tesla spell, magic
+      missile) makes the projectiles more powerful.
+  - balance: Upgrading repulse makes the effect stronger (larger throw distance, longer
+      paralyze)
+  - tweak: Altered the charlie station ruin outpost to add an ORM, KA, Autolathe and
+      Ore Silo. Removed the exosuit fab having access to station mats. Added a bunch
+      of materials around and a shuttle creator.
+  - tweak: Traitor capsule shuttle gets a plasma refinery and an emergency pickaxe.
+  - bugfix: Trait induced blindness will no longer cause your screen to be blurry
+      forever if you get blurred.
+  lordScrubling:
+  - rscadd: Added hotkey to toggle walking/running
+  - rscadd: Ability to rebind locking movement hotkey
+  qwertyquerty, Merct:
+  - rscadd: Soundtrack music shows in credits
+2021-09-15:
+  Ivniinvi:
+  - admin: Battle Royale requires +ADMIN instead of +FUN after the round ends.
+  Kapu1178:
+  - rscadd: Humans now display a chat bubble when typing, as an effort to move us
+      closer to Baystation
+  - tweak: Typing Indicators are now on the right instead of the left, to not be covered
+      by medhuds.
+  - tweak: Say hotkey is probably more responsive
+  PowerfulBacon:
+  - bugfix: Resolves a crash exploit related to z-levels and supercruise.
+  - tweak: Thrown humans can now be caught.
+  TheFakeElon:
+  - code_imp: improves fail2topic regex
+2021-09-16:
+  ike709:
+  - server: The DB subsystem will now always disconnect properly.
+2021-09-17:
+  KubeRoot, Mothblocks:
+  - code_imp: Tooltips in tgui are now very fast, even with a lot of them on one interface.
+2021-09-19:
+  Therosass:
+  - bugfix: Warping grey runes no longer create invisible slimes.
+2021-09-23:
+  Autisem:
+  - bugfix: Mines explode once instead of too much
+  heepox:
+  - rscadd: Adds a ClothesMate Refill canister to cargo for 800 credits.
+2021-09-25:
+  Raven-Industries:
+  - tweak: increased book title limit from 20 chars to 50
+2021-09-26:
+  KubeRoot:
+  - bugfix: The metastation external airlock in holodeck maintenance now sets up correctly
+      roundstart
+2021-09-27:
+  Archanial:
+  - bugfix: Fixed join via pod trait sending people to hyperspace
+  ike709:
+  - tweak: 514.1568 is now required for playing and compiling
+2021-09-29:
+  AnCopper:
+  - tweak: The projector can not be researched.
+2021-09-30:
+  Ivniinvi:
+  - tweak: Roundstart tips are up-to-date.
+  KubeRoot:
+  - tweak: The "Say" window no longer has input lag when opening it with the hotkey.
+  - tweak: The "Say" window now has input lag when closing it with enter.

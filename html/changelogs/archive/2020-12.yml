@@ -1,0 +1,329 @@
+2020-12-01:
+  MNarath1:
+  - admin: Admins now get a message if the AI or a borg decides to delete Crew mainfest
+      entries
+  ike709:
+  - refactor: A bunch of mob-related code has been improved.
+  - tweak: For performance reasons, animals will only attempt to mate at a maximum
+      rate of once every 5 minutes.
+  - tweak: For performance reasons, cats will only kill mice or play with toys when
+      they move to tiles with mice or toys.
+  - tweak: For performance reasons, Kalo's cleaning range has been halved to 5 turfs.
+      I've also lowered the rate at which he finds things to clean.
+  - tweak: For performance reasons, Cak will only frost a donut when entering a turf
+      with a donut.
+  - tweak: Several other performance tweaks.
+2020-12-02:
+  ? ''
+  : - tweak: Doors are smoother
+  Froststahr:
+  - bugfix: The white changeling icons are now fixed and returned to their codersprite
+      glory.
+  MNarath1:
+  - bugfix: fixes a back sprite icon that was not properly mirrored
+  - bugfix: minecart beeing animated
+  - refactor: refactored some code regarding the crate animation to use actual sphere
+      coordinates instead
+  - bugfix: fixes (hopefully) the broken looking crate animation
+  PowerfulBacon:
+  - rscadd: Traitors now have a low chance of spawning on heretics (60%), devil (15%).
+  - code_imp: Minor antagonist roles can now be configured to optionally use antagonist
+      rep
+  TemporalOroboros:
+  - code_imp: Repathed screen objects
+  That0nePerson:
+  - rscadd: Adds a communication implant
+  - rscadd: Blood brothers get a communication implant to their team roundstart
+  Tiviplus, Rohesie, ninjanomnom, ike709, park66665:
+  - refactor: converted decals from components to elements
+2020-12-04:
+  Alt_Alpha9:
+  - bugfix: If multiple holidays are active, the station name may be derived from
+      any of them instead of a single one.
+  Sinestia:
+  - bugfix: shuttle list hides dangerous shuttles properly now
+  francinum:
+  - admin: VV now works more reliably
+  - bugfix: VV can now show the panel of objects with invalid iconstates
+  park66665:
+  - bugfix: layer manifolds are now saner
+2020-12-05:
+  Alt_Alpha9:
+  - tweak: The damp rag can now clean microwaves
+  MNarath1:
+  - bugfix: Radiation filter breaking airlock filter
+  PowerfulBacon:
+  - rscdel: Removes unconciousness from mech brute attacks
+  eeSPee:
+  - bugfix: limbsnakes properly disember limbs
+  - tweak: Chimeracost doubled
+  - tweak: biodegrade cost halved
+  park66665:
+  - bugfix: fixed some memory leak and harddels in atmos pipenet code
+  - bugfix: improved performance by a tiny bit
+  - bugfix: fixed mini-sized bugs
+  - code_imp: code is a bit saner
+2020-12-06:
+  MNarath1:
+  - bugfix: fixes reinforced floor examine runtime
+  Naevi:
+  - tweak: The BeeStation BYOND logo is festive now
+  francinum:
+  - bugfix: No children allowed.
+2020-12-07:
+  Alt_Alpha9:
+  - tweak: Unlicensed PDA now has a charcoal stylus instead of those fancy pens
+  Kmc2000 with BadminJenkins:
+  - rscadd: Added a new roundend sound
+  ike709:
+  - balance: Reduces bumpslams to a 10% chance. The 10% chance has a 5 second cooldown
+      if it fails or a 20 second cooldown if it passes (aka you can't get bumpslammed
+      successfully twice in 20 seconds).
+2020-12-08:
+  Vasily2013:
+  - bugfix: optimizes the CC z level to load a bit faster.
+2020-12-09:
+  Archanial:
+  - rscadd: Delta's AI sat now fastmos compatible.
+  - rscadd: Fixed some AACs not working.
+  - rscadd: Minor improvements to box's AI sat.
+  - rscdel: Removed double stacked windows on pubby's chapel.
+  - rscadd: More firelocks in pubby's chapel.
+  - rscadd: Added tiny fans to ferries.
+  - rscadd: Windows in labor camp are plasma (again).
+  - bugfix: APC in labor camp is no longer floating mid air.
+  - bugfix: Generic computers are replaced with computer frames in science outpost.
+2020-12-11:
+  Alt_Alpha9:
+  - tweak: hitting yourself with items now makes grammatical sense
+  - tweak: The name of a beaker is now displayed when someone tries to feed you it
+  Archanial:
+  - admin: Admins can now easily see if the objective is currently completed in TP
+      (objective's text will be green).
+  BeloneX:
+  - tweak: Removes health analyzer limb specific damage toggle
+  Blueturbo47:
+  - tweak: Fixed a firelock placement.
+  Froststahr:
+  - admin: quantum spin inverter is now logged
+  Kerbin-Fiber:
+  - tweak: Mentor Follow has been removed. Never even worked.
+  MCterra10:
+  - bugfix: Protected roles no longer get midround antags
+  PowerfulBacon:
+  - rscadd: Coderskirt
+  - refactor: Refactors get contributors code to only get the list once and store
+      it as a static variable.
+  - bugfix: coderskirt
+  - bugfix: black slime core will now kill all mobs it is used on
+  Sinmero:
+  - tweak: Ctrl-Shift-clicking station bounced radio/intercom will toggle the speakers.
+  - tweak: Alt-clicking station bounced radio/intercom will toggle broadcasting.
+  park66665:
+  - bugfix: Protected roles really should no longer get antag at dynameme rounds
+  - bugfix: fixed quite a lot of pipes on every map (except Kilo which only had one
+      trivial problem) to improve experience and performance
+  qwertyquerty:
+  - rscdel: ike hates shitcode, coderskirt removed
+2020-12-12:
+  Ruko, Isy232:
+  - balance: Styptic powder, Synthflesh and Silver Sulf now do nothing when splashed.
+  - balance: Styptic powder and Silver Sulf now do 0.5 healing per tick and 1 when
+      instantly applied but their OD threshold is upped to 100u and the metabolism
+      rate is increased to 1u per tick. A 40 Styptic powder patch will heal 40 to
+      the limb it is applied to and then 20 damage over 40 ticks. They also do stamina
+      damage equal to the amount applied x2, the medicine is painful so this is pain
+      damage.
+  - balance: Atropine's brute, toxin and fire damage healing is doubled and it only
+      looses its effectiveness at 80 damage instead of critical condition. Atropine
+      also now causes dropping of items in its confusion state so its no longer suitable
+      for combat use and its overdose threshold is lowered to 15u. Overdosinng on
+      atropine now causes atropine to become histamine in a 2 to 3 reaction.
+  - balance: Bicardine, Kelotane, Dexalin and Anti-toxin now heal 1.5 per tick while
+      below 50 damage and 0.5 per tick when above 50 damage. This makes them no longer
+      as effective on large wounds but they are quite capable of healing smaller ones.
+      Their metabolism rate has also been halved so they stick around longer.
+  - balance: Salicyclic acid, Dexalin Plus and Oxandrolone now heal 3 damage per tick.
+      They also do 2 stamina damage per tick up to 80. They now only do stamina damage
+      while healing.
+  - balance: Anti-toxin no longer purges chems and only heals toxin damage. Use charcoal
+      or something.
+  - balance: The overdose of most chems now causes organ damage instead of just reversing
+      the effects of what the chem healed.
+  - rscadd: Adds bicaridine/kelotane pill bottles to burn/brute treatment kits.
+  - balance: Brute and burn patches now contain 30u of their reagents instead of only
+      20.
+  - balance: Perfluorodecalin now causes more toxin damage as a side effect, overdoses
+      at 30u and causes lung damage upon overdose.
+  - balance: Salbutamol can now cause an overdose. The threshold is 25u (I made salbutamol
+      pills have less u to avoid OD on them). This overdose causes Sulbutamol to become
+      histamine in a 1 to 1 reaction.
+  - balance: Corazone now heals the heart by 1.5 per tick, however it now has an overdose
+      threshold at 20u and if you overdose it will turn into histamine in a 1to 1
+      reaction.
+  - balance: Carthatoline now heals 3 toxin loss per tick and its OD causes brain
+      damage. Its overdose threshold is now 25u.
+  - balance: Leporazine now has an overdose at 30u. This overdose causes your temperature
+      to rapidly increase or decrease randomly.
+  - rscadd: You can now find bicaridine and kelotane pill bottles in medical vendors.
+  park66665:
+  - bugfix: improved decal performance
+  - bugfix: decals no longer disappear on shuttle move
+2020-12-13:
+  That0nePerson:
+  - rscadd: Adds Cookie's Homemade Rum to the maint loot table
+2020-12-14:
+  eeSPee:
+  - tweak: Xeno abilities tell their plasma cost in the description.
+  ike709:
+  - bugfix: Fixed the stray bullet hallucination runtiming.
+  - tweak: Stray bullet hallucination is less frequent.
+2020-12-15:
+  Archanial:
+  - rscadd: Aux base access.
+  - tweak: Curator no longer has construction access.
+  NotRanged:
+  - rscadd: Added a long range atmos scanner
+  Ryll/Shaps:
+  - bugfix: Fixed an issue with underwear sometimes showing through clothes
+  nemvar:
+  - bugfix: fixed atmos component code (again)
+2020-12-16:
+  PowerfulBacon:
+  - rscdel: Circuit atmospheric modules.
+  bloons3:
+  - admin: increased emergency shuttle verbosity logging
+  ike709:
+  - bugfix: Players will no longer be popcap redirected if they have a mob.
+  oranges:
+  - rscadd: Added ANZAC day
+2020-12-17:
+  Blueturbo47:
+  - bugfix: Some of the maint rooms were marked as the wrong area.
+  bloons3:
+  - admin: Binary chat messages are now marked as such in logs.
+  - tweak: You can now only use the emergency shuttle console once per 5 seconds.
+2020-12-18:
+  That0nePerson:
+  - bugfix: Fixes drying rack not transfering reagents
+  qwertyquerty:
+  - balance: Power usage gameplay difficulty curve
+  - rscadd: Zoom in keybind (set to ] by default, unbound if you have played before
+      and you'll have to set it up in keybind prefs)
+2020-12-19:
+  MNarath1:
+  - rscadd: Directional firelocks frames to iron sheet recipe
+  - rscadd: Window firelock frames to reinforced glass sheet recipe
+  - bugfix: a runtime error during firelock construction(only when making them from
+      scratch)
+  - refactor: small changes to the heavy firelock code and var define of firelock_type
+  PowerfulBacon:
+  - bugfix: Fixes overhead chat scrambling languages you can understand but not speak.
+  That0nePerson:
+  - rscadd: Added alcoholic qurik
+  francinum:
+  - rscadd: Two new armbands in the beecoin shop.
+  jlsnow301:
+  - rscadd: Voting panel upgraded to TGUI.
+  - rscadd: Users are now shown which option they voted for.
+  - rscadd: Users can now change their votes.
+2020-12-20:
+  DatBoiTim:
+  - rscadd: Added the multitool for sale in YouTool vendors.
+2020-12-21:
+  MNarath1:
+  - bugfix: cult floor is atmos proof again
+  - tweak: makes space ruin version of cult floor non atmos proof again
+2020-12-22:
+  Archanial:
+  - rscadd: Old mask is back.
+  MNarath1:
+  - rscadd: Adds ranged analyzer to advanced engineering tech node
+  - bugfix: Ranged analyzer not buildable
+  St0rmC4st3r:
+  - tweak: Flux anomalies are now much more rare.
+  Victor239:
+  - balance: Security cyborgs must be researched first.
+  r1ks-iwnl:
+  - rscadd: New race restricted martial art for lizards - Tribal Claw.
+2020-12-23:
+  'stylemistake ':
+  - refactor: TGUI will keep trying to load for 10 seconds in case of a network problem
+      and will show a bluescreen if it completely fails.
+  - bugfix: This hopefully fixes the whitescreen problem.
+2020-12-24:
+  Autisem:
+  - tweak: Sentinel's compromise restores blood volume
+2020-12-26:
+  Sinestia:
+  - bugfix: AI interface conforms to 17x15 properly
+2020-12-27:
+  Autisem:
+  - bugfix: Dryed gaia can now be used to make torches
+  - rscadd: Bioprinters now can also print soymilk
+  DatBoiTim:
+  - tweak: Syndicate MMI is a standalone uplink item. Restricted to Roboticist and
+      RD.
+  - tweak: Increased Syndicate Surgery Duffle Bag cost to 3 TC
+  Froststahr:
+  - rscadd: Abductors now start with agent IDs! Just swipe a victim's ID card onto
+      it to copy their access.
+  MNarath1:
+  - bugfix: Fix firelock windows dropping iron instead of reinforced glass
+  PowerfulBacon:
+  - tweak: meteors can now only appear after 50 minutes.
+  - tweak: If corgium reacts in your body, it will turn you into a corgi for some  time.
+  - tweak: Jaunting ignores slowdown.
+  - bugfix: Fixed an unintended combat stim injector nerf.
+  - code_imp: Adds a validation check when loading jobs.txt
+  - spellcheck: Removed a double space from baton attack message.
+  cerebrallolzy, jupyterkat:
+  - balance: No longer can run away from explosions.
+  - refactor: Explosions is now a subsystem.
+  - refactor: Nukes now only gibs everyone, unfortunately
+  eeSPee:
+  - balance: Reduced the disgust you get from Transcendent Olfaction when you are
+      filthy
+  - balance: supersoldiers now look like humans
+  r1ks-iwnl:
+  - bugfix: Fixed Advanced Health Analyzer working exactly like the normal Health
+      Analyzer.
+2020-12-28:
+  PowerfulBacon:
+  - tweak: Christmas day now occurs on Christmas day.
+  - rscdel: Corgium no longer requires being heated to react
+  - tweak: Cultists can now be summoned if buckled to an object, but not while being
+      dragged + cuffed.
+  - tweak: Cultists can now use spells that do not require their hands while cuffed
+      (Communicate, EMP, Conceal presense).
+  St0rmC4st3r:
+  - bugfix: Removed an oversight that allowed CTF players to build iron walls.
+  eeSPee:
+  - balance: Vomit no longer hardstuns you for 2-5 seconds, but knocks you down, and
+      stuns for a really short duration
+  francinum:
+  - refactor: Beecoin shop items are now referenced by ID.
+  - bugfix: Fixed some shop items being unbuyable.
+  - refactor: Note, this update has unequipped your shop items. They will need to
+      be re-equipped.
+  - rscdel: The autodoc machine has been removed.
+  ike709:
+  - bugfix: Fixed the 4th character slot for players that have purchased it with beecoins.
+  r1ks-iwnl:
+  - rscadd: Health scanning someone as a ghost now also shows the chemicals inside
+      their body.
+2020-12-30:
+  St0rmC4st3r:
+  - bugfix: chloral hydrate bottle now has 30u instead of 15u.
+  park66665:
+  - bugfix: forced dynamic rulesets now respect role protection
+  - rscdel: admeme-unrelated sec and/or cap roundstart traitors on dynamic (hopefully)
+2020-12-31:
+  DatBoiTim:
+  - bugfix: SecBorg Module Upgrade now given by research.
+  bloons3:
+  - admin: xenobio potions now persistently log
+  ike709:
+  - refactor: world/Topic()'s player list has been moved from "status" to "playerlist"
+  r1ks-iwnl:
+  - tweak: Syndicate radio implant can't be bought on incursion gamemode.

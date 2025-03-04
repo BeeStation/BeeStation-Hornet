@@ -1,0 +1,357 @@
+2024-01-02:
+  Impish_Delights:
+  - rscadd: Wild West Frontier crate, a collection of cowboy and ranch hand outfits
+      and gear available as contraband on the cargo console. Includes a chance to
+      obtain the lever-action rifle, similar to the Mosin in the Russian Supplies
+      crate. Slim chance of obtaining the special Cursed Gunslinger crate when ordering
+  - rscadd: Armored variants of the "poncho of shame" and cowboy hat, available exclusive
+      to the Cursed Gunslinger crate. Non-reskinable variant of the detective's revolver
+      included as well.
+  - rscadd: Variant of the ammo toolbox, and bandolier for .38 ammo instead of Mosin
+      and shotgun ammo respectively.
+  - imageadd: Grey and Red color palette versions of the "Poncho of Shame", and "Cowboy
+      Hat"
+  Penwin0:
+  - bugfix: Damage overlays are visible again
+  PowerfulBacon:
+  - balance: Launchad computer can now set a timer to automatically recall after a
+      set amount of time, up to 5 minutes.
+  Tsar-Salat:
+  - code_imp: removes unnecessary material var, no player facing changes
+  - bugfix: fixes inconsistent material consumption while crafting tables
+2024-01-03:
+  Tsar-Salat:
+  - bugfix: The QM's dastardly plan has been foiled. Materials can be removed from
+      techfabs again.
+2024-01-05:
+  MarkusLarsson421:
+  - balance: Added Engineering Mech Access, Medbay Mech Access and Mining Mech Access
+      to the Roboticist and Research Director.
+  - balance: Changed mechs from requiring all the assigned keycodes to only one of
+      them to enter.
+2024-01-06:
+  Impish_Delights:
+  - bugfix: Regular bandoliers hold shotgun ammo again. Whoops.
+2024-01-08:
+  LemonInTheDark, MrStonedOne, itsmeow:
+  - code_imp: Optimized how the master controller distributes roundstart subsystem
+      initializations, greatly reducing the amount of time between the round starting
+      and gaining the ability to move.
+  Mothblocks, LemonInTheDark, itsmeow:
+  - code_imp: Optimized various atom initializations, reducing init times by ~0.4sec.
+  - bugfix: Fixed slot machines being invisible.
+  Mothblocks, itsmeow:
+  - code_imp: Deferred light emergency power cell creation, saving 165ms of init time.
+  PinkSuzuky, Absolucy, Rkz:
+  - bugfix: Alternate Appearances (Such as when you're holding a potted plant) are
+      no longer removed when a living thing gets gibbed.
+  rkz, dakae:
+  - bugfix: Plasma no longer has broken material amounts due to /datum/export fuckery
+  - bugfix: fixed broken material export formatting
+2024-01-09:
+  EvilDragonfiend (QoL), Mothblocks (TG weakref docs):
+  - code_imp: Weakref VV QoL - View the original reference. Available from weakref
+      vv window
+  - code_imp: added 2 variables at weakref datum to diagnose at glance
+  - code_imp: added weakref docs
+  HowToLoLu:
+  - code_imp: get_active_held_item and is_holding_item_of_type now returns null instead
+      of a zero
+  ToasterBan:
+  - bugfix: Mindbreaker Toxin now properly prevents hallucinations in RDS
+  Tsar-Salat:
+  - tweak: Making tables from iron will produce the default tables again, instead
+      of 'iron tables'
+  rkz, Donkie, Seris02:
+  - refactor: refactored the cleaning system
+  - tweak: adjusted some cleaning intensity values (how well certain things can clean),
+      but not to the point it changes balance
+  - bugfix: Fixed mobs/items/turfs not being predictably washed by the various methods
+      on board
+  - bugfix: Fixed showers not properly reducing clothing radioactivity
+  - admin: added a VV to directly add/edit a mob's radioactive green aura.
+  rkz, spookydonut:
+  - server: removed SS_NO_TICK_CHECK for alleged free performance in night cycles,
+      shuttle, & sun subsystems
+2024-01-10:
+  Impish_Delights:
+  - balance: Sniper rounds no longer paralyze for 10 seconds, causing half a second
+      of knockdown instead.
+2024-01-11:
+  HowToLoLu:
+  - bugfix: Fixes a bug where Gas Miners could effectively halt Auxmos
+  - bugfix: A few things no longer unnecessarily update turf adjacency
+  Miliviu:
+  - bugfix: Fixed being able to get infinite glass and wires disassembling Disco Tiles
+  Rukofamicom:
+  - rscdel: Removed the indicator that determines whether or not events were triggered
+      "randomly" to prevent confusion and harassment of administrative staff moving
+      forward. All event triggers will share the same message regardless of whether
+      they were triggered by the random event system, an admin or dynamic.
+  rkz, TemporalOroboros, Cowbin:
+  - bugfix: fixes cyborgs being unable to refill from loose stacks
+  - code_imp: removes redundant cyborg typepaths
+2024-01-13:
+  HowToLoLu:
+  - code_imp: There is now a Unit Test for Icon Smoothing
+  - bugfix: 'The following computers are now visible: Bank Machines, Cryopod Console,
+      Old pod terminals, Pandemic 3000s, and Syndicate Droppod computers.'
+  - bugfix: Alien weeds, Alien nodes and Jungle Chasms now appear correctly in the
+      map editor.
+  - bugfix: The Advanced Camera and Xeno Archeology consoles no longer runtime under
+      certain conditions.
+  - bugfix: Copper, Bamboo and Clockwork walls/falsewalls have working smoothing values.
+  - bugfix: Copper falsewalls stay visible when used.
+  - bugfix: Bamboo falsewalls are now visible.
+  - bugfix: Resolved a small visual issue on Bamboo and Titanium falsewalls when used.
+  - bugfix: Clockwork walls now appear smooth when in line of sight
+  - bugfix: Ash rock walls now actually show up
+  PestoVerde322:
+  - imageadd: Redid the icons for the Crates, Closets and the mulebot
+  - code_imp: Overhauled the Crates&Locker code for overlays and emissives
+  - code_imp: Crate climbing times has been re-enabled, now climb time will be different
+      between opened and closed crates!
+  - refactor: Sorted the icons for the storage icons (crates, backpacks, misc storage...)
+  - rscadd: Made the name more intuitive for when looking up the Rapid part dispenser
+      and it's bluespace variant
+  PowerfulBacon:
+  - code_imp: Adds in a diagnostic mode to the master controller.
+  Rukofamicom:
+  - bugfix: Quick equip belt hotkey now respects the functionality of storage items
+      that can't be opened and will not quickly remove items.
+  rkz, Haukeschaumann, Skoglol:
+  - refactor: refactored and cleaned up electrocute_act proc. Shocking and the like.
+  - rscadd: Fireman carrying, Piggybacking... basically most forms of buckling/attaching
+      a mob to another mob now propogates shocks. If your buddy gets zapped w/o gloves,
+      you're getting zapped too!
+2024-01-14:
+  Absolucy:
+  - bugfix: Monkeys can no longer rip apart DNA scanners from the inside.
+  Pink Solene:
+  - rscadd: added a white bandana
+  - imageadd: added a white bandana sprite
+  - imagedel: removed duplicate bandana sprites
+  - tweak: creating a white bandana out of cloth actually creates a white bandana
+      instead of a botany bandana now
+  - code_imp: changed the parent of bandanas to be a white bandana and made a bandana/botany
+      variant for the botany one, then made the necessary changes to ensure botany
+      bandanas appear where they are expected.
+  PowerfullBacon:
+  - bugfix: fixed a runtime related to carpet getting burned by atmospheric fires
+  ToasterBan:
+  - bugfix: Chicken Nugget boxes now properly function
+  - bugfix: Mjollnir is now visible when wielded in two hands
+  Tsar-Salat:
+  - bugfix: Cable color no longer overrides cable stackcrafting
+  Varo (with the help of the good people in discord):
+  - rscadd: Adds a plushie delivery beacon.
+  - rscadd: Adds a plushie lover trait (+1)
+  - tweak: changes the instrument delivery beacon sprite
+  - tweak: changes the "musician" trait description to be more representative of its
+      actual use.
+2024-01-15:
+  DrDuckedGoose:
+  - tweak: Resprites the majority of ``floors.dmi``
+  - rscadd: Add overlays and variables for non-slip floors
+  - rscadd: Adds procedural visual damage to floors
+  - rscadd: Add area & turf dependant 'grime'
+  - tweak: Improve open turf variant system
+  - tweak: Changes all mapping occurrences of old broken tiles
+  - tweak: Change all occurrences of non-slip floor tiles to new system
+  - tweak: Re-maps some areas to better match the new tile appearances
+  - tweak: Resprites decals to match new flooring
+  Haliris with BriggsIDP, Powerfulbacon and TsunamiAnt, Kmc2000 with GoatMonarch, Cdey & Old Oraclestation code:
+  - rscadd: Adds the turnstile, genpop interface, prisoner id and genpop lockers from
+      NSV. Added workshop area to brig based on the holodeck code, where prisoners
+      can make donuts or bots and scan them to get reduced sentences. Adds secure
+      floors and prison grilles to help secure the prison area better.
+  - tweak: Changed the path of the previous prisoner id used for gulag (now id/gulag).
+      Updated paths of the current holodeck templates to holodeck/recreational to
+      allow for easier subtypes implementation. Removed holographic flag preventing
+      the crafting menu from working.
+  - imageadd: Added sprites for the turnstile and genpop interface
+  itsmeow:
+  - bugfix: Fixed Dynamic spawning Wizard at literally any population.
+  - bugfix: Fixed the roundend display not showing when something was executed as
+      a 'lategame' round-ender.
+  - tweak: Dynamic will now no longer trigger 'lategame' round-enders below 22 population,
+      to allow rounds to come to their natural end via the shuttle vote.
+  - balance: Tweaked the minimum population for some antagonists, moving most antags
+      that start at 25-pop to 22-pop. This is to improve the overlap between the lategame
+      injector and antagonist variety.
+2024-01-16:
+  Absolucy:
+  - bugfix: Ghosts can no longer open and close cryotubes.
+  DrDuckedGoose:
+  - tweak: Update genpop floors
+  - bugfix: Fix broken maint floors
+  itsmeow:
+  - bugfix: Fixed the UpdatePaths scripts for newfood.
+  - code_imp: Added UpdatePaths for various recent PRs.
+  - bugfix: Fixed UpdatePaths leaving behind None artefacts when `@SKIP` is used.
+2024-01-17:
+  Miliviu:
+  - bugfix: Fixed the bug where force feeding unintentionally resulted in the feeder
+      eating the food, instead of the intended recipient
+  Powerfulbacon, Haliris:
+  - bugfix: Fixed turnstile not checking for access proper
+  - code_imp: Cleaned up turnstile code
+2024-01-19:
+  Pink Sosokey:
+  - bugfix: Fixed a bug involving the Beecoin Shop and white hoodies where only the
+      hood would be purchasable.
+  - rscadd: Added the gold cross necklace to fix the duplicate instance of gold necklaces
+      on the bee shop. This means anyone who owns 'necklace, gold' will now have the
+      cross necklace, with 'dope necklace' remaining the old version.
+  - imageadd: Created sprites for the cross necklace.
+2024-01-20:
+  EvilDragonfiend:
+  - tweak: Sanity Disruptor now less appear on dynamic. it still has pop lock, but
+      has the same chance to all anomalies'
+  - tweak: Sanity Disruptor blinds people very very shortly than +60 seconds
+  - tweak: Sanity Disruptor pulse can be protected by xenoartifact protective gears
+  - tweak: Sanity Disruptor interval pulses a little bit often (10s to 7s)
+  - bugfix: Sanity Disruptor can be neutralised by signal.
+  - balance: fake wizard robe now protects artifact 75%, instead of 100%.
+2024-01-22:
+  Absolucy:
+  - bugfix: Fix ghosts being able to interact with the holoparasite HUD through Observe.
+  Penwin0:
+  - bugfix: Fixes the heavy-duty saline drip getting the wrong icon.
+  PestoVerde322:
+  - bugfix: Aligned the genpop workshop entrances and remove the useless distros there.
+  Solene Yoon, RKZ:
+  - tweak: Mailbag is now a type of Stachel, so they can be used in the back slot.
+  - code_imp: Repathed Mailbag and all references to it to be a subtype of satchel.
+  - tweak: flipped the sprite for the Mailbag to make it consistent with other duffel
+      bags.
+  - imageadd: Added sprites for the Mailbag, inhand and equipped (backslot and belt
+      slot).
+  - tweak: Added a line to the description of cargo winter coats to make it obvious
+      to players it can carry cargo related items.
+  - rscadd: Added a white winter coat and made it available in the bee shop.
+  - imageadd: Added sprites for the white winter coat.
+  - code_imp: RKZ made the mailbag accepted items list less ugly.
+  ToasterBan:
+  - rscadd: Portable seed extractor is now used via an action button rather than it
+      being a verb
+  - bugfix: Khinkalis can be cooked again
+  itsmeow:
+  - bugfix: Fixed ByondUI elements persisting (such as in the preference menu) and
+      causing lag after changing mobs.
+2024-01-23:
+  Aramix Penwin:
+  - bugfix: Heretic head of staff sacrifice now completes.
+  DrDuckedGoose:
+  - bugfix: Fixes turf texture blending
+  - bugfix: Fixes turf states
+  PinkSuzuki:
+  - code_imp: adds a missing atribution from the washing machine sounds to the License.txt
+      file
+  Solene Yoon:
+  - soundadd: Added sounds for the Washing Machine wash cycle.
+  - rscadd: New groups of items are now Dyable (Suits, Hats, Berets and for the clown,
+      Bananas, Practice Laser-Guns and Banana Peels).
+  - tweak: Reworked the REDCOAT dye into DENIED dye of the Denied Stamp.
+  - rscadd: Added ERROR clothing items (Hat, Jumpsuit, Jumpskirt, Shoes and Gloves).
+  - rscadd: DENIED dye will now work on bedsheets to produce what looks like a cultist
+      bedsheet.
+  - rscadd: Added a White Beret, Rainbow Beret, Mime Invisible Beret and H.O.N.K Tactical
+      Beret.
+  - bugfix: Fixed some bugs regarding Washing Machines having to do with Shoes and
+      Jumpskirts being unable to be dyed, Pet Gibbing and Washing Machine cleaning.
+  - tweak: 'QOL Washing Machine Tweaks: (Wash Cycles clean the Washing Machine, Alt-Clicking
+      will close an open Washing Machine and start a new Wash Cycle).'
+  - rscadd: Washing a Dyed item now returns it to normal.
+  - tweak: Accessories (like medals and waistcoats) now retain their colour when attached
+      to a Spray-painted item.
+  - code_imp: added boilerplate code to ensure accessories always appear on top of
+      whatever overlay the clothing may have.
+  - tweak: Colour Sources (Stamps and Crayons) now survive Wash Cycles.
+  - rscadd: Added Space Law book, SOP books and paper as single use colour sources
+      (These don't survive).
+  - tweak: Ensured Colour Dye Registries are attached to the parents of each article
+      of clothing, in order to be able to dye all type of items (e.g you used not
+      to be able to Dye fingerless gloves).
+  - code_imp: added a flippable var for softcaps
+  XeonMations:
+  - bugfix: Fixed incorrect ushanka sprite when looking east/west
+2024-01-24:
+  Hardly:
+  - rscadd: Added black beret to clothesmate
+  - rscadd: Added unused clothing such as pharaoh hat, gothic coat, dracula coat and
+      draculass coat to autodrobe
+  - tweak: Moved the beret from autodrobe to clothesmate
+  - rscadd: Brig Physician's Winter Coat can now be bought for 5000 beecoins.
+  - rscadd: Gothic Coat can now be bought for 8000 beecoins.
+  Miliviu:
+  - bugfix: fixed RCD not being able to build airlocks on top of Firedoors
+  XeonMations:
+  - bugfix: Fixed catwalks removing wiring underneath them despite there being plating
+2024-01-25:
+  Markus Larsson, PinkSuzuki:
+  - tweak: Changed the full wall and door of the Labour shuttles to now use directional
+      windows and windoor.
+  - balance: Added one recharger on the table on all the Labour shuttles.
+  - balance: Added one GPS on all the Labour shuttles.
+  - balance: Added GPSs to the suit storage units for EVA, Mining, Mining EVA, Exploration,
+      CMO, HoS, and Security.
+  - balance: Added three intercomms to gulag.
+  - balance: Removed two GPS of the four on the outpost in mining.
+  - code_imp: Added parameter to datum/component/gps/Initialize whether or not the
+      GPS should start turned on or not, default true.
+  - imageadd: Security variant of the GPS.
+  - tweak: Renamed gps-s (Science variant) to their radio key equivalent gps-n.
+  XeonMations:
+  - bugfix: actually fixed the ushanka this time
+2024-01-27:
+  Markus Larsson:
+  - tweak: Gave the Brig Phys Medbay Mech Access.
+  "Rat\xF3n":
+  - tweak: Zombies infect on a 80% chance (+armor) instead of instantly infecting
+      on hit.
+2024-01-28:
+  MarkusLarsson421:
+  - bugfix: Detectives office is no longer a vacuum on round start.
+  - bugfix: Reconnects AI upload.
+  - bugfix: Detective Booze-O-Mat is no longer maintenance accessible.
+  itsmeow:
+  - refactor: Optimized asset generation greatly using rustg IconForge (also by itsmeow),
+      greatly reducing post-initialization lag as well as reducing init times and
+      saving server computation.
+  - config: Added 'smart' asset caching, for batched rustg IconForge spritesheets.
+      It is persistent and suitable for use on local, with automatic invalidation.
+  - config: Enabled legacy asset caching for the two remaining spritesheets during
+      local development.
+  - rscadd: Added Debug -> Regenerate Asset Cache verb for legacy spritesheets.
+  - tweak: Replaced many uses of the slow md5asfile() function with rust-g based MD5.
+  - code_imp: Cleaned up the duplicate function vars vendor_icon_preview and icon_state_preview,
+      removing vendor_icon_preview and moving icon_state_preview to /obj/item.
+  - bugfix: Fixed some preferences icons cropping to incorrect scales.
+  - server: The legacy spritesheet cache will no longer be cleared by TGS redeployments,
+      instead the regenerate verb should be used, or delete the files from data/spritesheets/legacy_cache.
+2024-01-29:
+  EvilDragonfiend:
+  - code_imp: improved ISEVEN() and ISODD() macro
+  Rukofamicom:
+  - tweak: Left clicking an equipped trash bag now unequips it instead of displaying
+      a cheeky message.
+2024-01-31:
+  '@BriggsIDP @MarkusLarsson421 ':
+  - rscadd: new Prefab map folder for any .DME files not used in game, but for mappers
+      to store prefabs permanently
+  - rscadd: RandomMapHelper.dmm
+  BriggsIDP:
+  - rscadd: Added a Prefab folder and Departments.dmm file for mappers
+  Hardly:
+  - bugfix: Re-added voltaic to the list of languages multilingual quirk users can
+      choose.
+  Markus Larsson, XeonMations:
+  - bugfix: Remapped kilostation's security department to look nicer and function
+      better.
+  Varo, MarkusLarsson421:
+  - tweak: Reworks the lobby, changes the front desk position to where cloning was,
+      moves genetics to the big monkey room, moves cloning where genetic was, adds
+      a surgery room, reworks the CMO office, storage and chemistry room, removes
+      a big part of virology and places it all below chemistry, tweaks some maintenance
+      areas

@@ -1,0 +1,160 @@
+2024-04-01:
+  ClownMoff:
+  - rscadd: Added missing blast doors in HoS room
+  - tweak: 'CorgStation: fixed the cargo APC not being wired, rewired some of the
+      QM room, changed HoS shutters for blast doors.'
+  - tweak: replaced a floating air alarm for a proper one in the wall facing the correct
+      direction
+  - rscdel: 'CorgStation: removed a floating camera in space and the wild airlock
+      in sec gear room.'
+  rkz, Rohesie:
+  - refactor: progressbar handling, especially deletion
+  - code_imp: adds stack traces & code docs to progressbars
+2024-04-02:
+  pigeonverde, rkz, qustinnus(deleted account, credit him anyway), tralezab, Sylphet, JohnFulpWillard, FernandoJ8:
+  - rscadd: A new kitchen machine, the griddle, for cooking your meats on!
+  - rscadd: remapped kitchens to support new machine
+  - tweak: Most meats are cooked through the griddle, rather than microwaving. Not
+      following this will lead to your meat just producing a burnt mess when you microwave
+      it.
+  - tweak: burgers are now made with meat patties. These patties can be made by rolling
+      a meatball.
+  - rscadd: patty sprites, new meatballs sprites, new sausage sprites, griddle sprites,
+      steam animation
+  - balance: Upgrading the food processor actually works.
+  - code_imp: Added check to prevent mindless runtime when cluwning mob
+  - bugfix: Grills now grill food, not reagent containers
+2024-04-03:
+  EveLed:
+  - rscadd: added circular sunglasses
+  - rscadd: added relaxed slacks
+  - rscadd: added circular sunglasses to the clothing vendor
+  - rscadd: added circular glasses to the clothes vendor
+  - rscadd: added relaxed slacks to the autodrobe
+  - imageadd: sprites for circular sunglasses
+  - imageadd: sprites for relaxed slacks
+  HowToLoLu:
+  - bugfix: CTF is no longer completely dark
+2024-04-04:
+  ClownMoff:
+  - tweak: KiloStation cryo tubes now face the proper direction for them to work.
+  EvilDragonfiend:
+  - bugfix: explodable component no longer executes loop to explode again
+  rkz, ArcaneMusic, qustinnus, 4Dplanner, cacogen, AnturK:
+  - rscadd: Adds meat & wood material datums
+  - rscadd: Sheetifier machine, for making raw meat into a building material!
+  - rscadd: tile & walls support for the basemat system
+  - tweak: more wooden items are now flammable
+2024-04-05:
+  EvilDragonfiend:
+  - bugfix: view tags verb is now in Admin category instead of Admin.Game
+  Miliviu:
+  - tweak: Updated the Webmap URL to the new domain
+  - bugfix: Multiple Random Arcades now work and spawn a random arcade
+  "Rat\xF3n":
+  - bugfix: lockers now glow in the dark
+  - bugfix: Vendors will no longer try to put mobs in your hands
+  rkz, Krysonism:
+  - rscadd: Chicken, Lizardmeat, synthmeat now have their own meat sprites
+  - rscadd: replaces sprites for meat
+2024-04-06:
+  Miliviu:
+  - admin: LOOC will now tell you if you were near the sender
+  - tweak: cryogenic freezer no longer accepts mobs that were never controlled by
+      a player
+  "Rat\xF3n":
+  - bugfix: Heretics can no longer create walking husks by sacrificing a husked target.
+  - bugfix: No more floating things spat out of fabricators!
+  XeonMations:
+  - rscadd: Added tan suits to the clothesmate
+  rkz, Dakae:
+  - code_imp: removed sleeper in deconstruct()
+2024-04-07:
+  LemonInTheDark (port by EvilDragonfiend):
+  - code_imp: dev protection to master is added to prevent a dev to try merging master
+      instead of a branch
+  Twaticus, Fikou, Miliviu:
+  - rscadd: 4 new stamps! centcom, syndicate, mime and chaplain
+  - imageadd: new stamp sprites by Twaticus
+  rkz. Tastyfish, Mothblocks:
+  - server: added annotations and colorized pass/fail to integration tests
+2024-04-08:
+  rkz, Timberpoes:
+  - refactor: refactors stack merge and deletion handling. Should reduce weird material
+      cases where you can end up with a stack of 0 stacks
+  - admin: adds some rad protections to debug gear so its less noisy
+2024-04-10:
+  XeonMations:
+  - bugfix: Fixed wigs attached to animals being sent to the shadow realm after a
+      pet is released from a person's grasp
+  - bugfix: Fixed wigs bitflag checking uses && instead of single &
+  rkz, jlsnow301, Tlaltecuhtli, ExcessiveUseOfCobblestone, antropod, cacogen:
+  - bugfix: Vendors actually consider item prices. You cannot buy all products(minus
+      premiums which still had price) for free.
+  - bugfix: You can now return items that were vended from vendors. It will replenish
+      stock appropriately, but you wont get a refund.
+  - bugfix: You cannot use vendor returns as a method to move vendors off the z-level.
+  - bugfix: No more BSOD on adding items to custom vendor
+  - code_imp: removed 5 year old deprecated references on cooking vendors
+  - code_imp: The vending machine, on item insertion, no longer tries to update html
+      menus that havent existed for 3+ years
+  - code_imp: adds framework for job discounts at vendors if within the same department.
+      Not currently enabled.
+2024-04-11:
+  JixS4v:
+  - bugfix: orbiting a zmimic as a ghost will make you orbit the original atom.
+2024-04-13:
+  rkz, coiax, zxaber:
+  - rscadd: AI's can now set their emote displays across the station through a radial
+      by clicking on them, or by using *emotes in chatbar.
+  - refactor: Refactored the AI Emote system to not be a 17 line if statement column.
+  - bugfix: Fix issue where AI couldnt change statusdisplay emote after it was set
+  - bugfix: Added extra checks to ensure a power disabled AI could eventually return
+      itself to power (reinforcing intended behavior)
+2024-04-15:
+  EvilDragonfiend:
+  - code_imp: slightly improved weather datum. This may fix a bug that weathers (radiation
+      storm*) are rendered incorrectly.
+  Mothblocks, Rkz, miliviu:
+  - bugfix: Fixes cigarette boxes not rendering properly when closed
+  - rscadd: donuts in boxes now reflect their contents
+  - bugfix: Putting a Santa Hat on Ian now shows the hat
+2024-04-16:
+  EvilDragonfiend:
+  - bugfix: Fixes flags_1 define macros
+2024-04-19:
+  rkz, actioninja:
+  - rscadd: makes vending machines, wep rechargers, disposal units, and smartfridges
+      emissive. (Glow-in-the-dark, for the layman)
+2024-04-20:
+  PowerfulBacon:
+  - tweak: Modifies the hub entry to make it a little more interesting.
+2024-04-21:
+  nikothedude (EvilDragon ports):
+  - code_imp: LabeledListItem component now can have tooltip
+  rkz, Ghommie, haukeschaumann:
+  - rscadd: Goliaths, paper wizards and sloths now have footstep sounds.
+  - bugfix: footsteps properly use audio falloff (being further away from the sound
+      source gives a quieter sound)
+  - code_imp: makes footsteps component sane, and converts it to an element
+2024-04-22:
+  EvilDragonfiend:
+  - bugfix: Fixed /image ref was identified as /appearance in vv editor
+2024-04-24:
+  EvilDragonfiend:
+  - code_imp: fixed wrong usage of signal procs
+  Tsar-Salat:
+  - code_imp: removed a 4 year old empty species proc
+2024-04-25:
+  Memendia:
+  - bugfix: adds a space to the dchat message for split personality
+2024-04-28:
+  rkz, Mothblocks, Ryll/Shaps:
+  - rscadd: Adds new succumb HUD alert upon crit status. Replaces the old "Whisper
+      to die" system.
+  - refactor: Refactored stat system to check hardcrit directly
+  - bugfix: fixed stat handling to utilize new hardcrit check, reducing duplicate
+      code
+2024-04-30:
+  anturk:
+  - server: fixed font awesome issue causing off-centered icons in TGUI

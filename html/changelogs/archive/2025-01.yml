@@ -1,0 +1,178 @@
+2025-01-01:
+  BarteG44:
+  - rscadd: Added a "Mapper Comment" mapping helper object visible only in a mapping
+      editor
+  Therealdoooc213:
+  - tweak: Nar'sie now uses play_soundtrack_music instead of sound_to_playing_players
+  XeonMations:
+  - code_imp: Downgraded dompurify to v2.5.7 due to issues with newer versions.
+2025-01-03:
+  BarteG44:
+  - bugfix: fixed mobs buckled to the operating table not being forced to lay down
+  PowerfulBacon:
+  - bugfix: Fixes stamina armour.
+  Rukofamicom:
+  - tweak: Access requirements have been removed from the main entrance/exit to the
+      lavaland base. Any crew with access to an activated gateway will now be able
+      to freely access the planet as well.
+  mrmanlikesbt:
+  - balance: gives nukeops a TC increase per player
+  - balance: decreased the nuke op war extra tc player minimum from 50 to 30
+  - tweak: nuke op reinforcements aren't given the declare war tc
+2025-01-05:
+  BotTierPC:
+  - bugfix: Re-Organizes MegaSeed Vendors Alphabetically
+2025-01-06:
+  BarteG44:
+  - tweak: removed OOC joke from plants' names on Delta
+  - bugfix: fixed door access on some airlocks and windoors on Delta
+  Therealdoooc213:
+  - bugfix: boxstation brigmed now has a nanomed+
+  - rscadd: clown planet biodome now has 2 bananium fuel rods
+2025-01-08:
+  BarteG44:
+  - bugfix: Fixed bleeding out while buckled to an operating table
+  wikimody:
+  - balance: Changed damage of nanite armblade 15 -> 20
+  - balance: Changed damage of burning green extract armblade 15 -> 20
+  - balance: Changed damage of hydraulic armblade 18 -> 20
+2025-01-10:
+  DrDuckedGoose:
+  - bugfix: Fix missing icon broken floors
+  St0rmC4st3r:
+  - rscadd: Added many new dried meat types.
+  - balance: It is now easier to make meat product.
+  - balance: You can now juice organs to get liquid gibs. Brains are an explicit exception.
+  - bugfix: You can now dry meat into healthy jerky again.
+  - bugfix: Fixed diona meat being cooked into a meat stake instead of a vegetable.
+  - imageadd: Added some icons and images
+2025-01-12:
+  Tsar-Salat:
+  - tweak: zombies no longer have healing stunted by stasis
+2025-01-13:
+  BarteG44:
+  - rscadd: made it possible to map crate shelves with pre placed crates
+  - bugfix: Fixed bar dispensers having duplicate glass overlays
+  ClownMoff:
+  - imageadd: Updated the bikehorn and golden bikehorn sprites
+  Geatish:
+  - bugfix: writing a caption after taking a picture has now the correct 256 character
+      limit.
+  Therealdoooc213:
+  - rscadd: All maps with  a brig medical bay now start with a roller bed and crew
+      monitoring console
+  - rscdel: blood filters from brig phys locker
+  - tweak: brig physicians now have a custom medical bag  with different meds
+  - bugfix: brig physicians now show on security crew manifest again
+  - tweak: brig physicians are now paid by security
+  - tweak: brig physicians spawn with a flash in their right pocket
+  - tweak: miners start with gauze in their backpack now
+  XeonMations:
+  - bugfix: You can now juice things once more in a reagent grinder.
+2025-01-14:
+  mrmanlikesbt:
+  - bugfix: fixed dragon's wall tearing permanently breaking if the wall is destroyed
+      before the timer is finished
+2025-01-16:
+  PestoVerde322:
+  - rscadd: Added the white replica jackboots, a subvariant of the replica jackboots.
+  - tweak: Sorted the icon in the worn icon files.
+  - bugfix: Added the ERROR icons to the clothing files.
+  - imageadd: Implemented some new icons for the jackboots, aswell better icons for
+      the rainbow shoes, kindlekicks (to fit better in line with the current shoes)
+      and the shoes spawner (only seen in mapmaking).
+  rkz, cacogen:
+  - rscadd: players can be individually given items by shift+ctrl+clicking them
+  - bugfix: fixes harddels and give alert not clearing
+  - bugfix: Dead, crit, and sleeping people cannot take offered items
+2025-01-21:
+  Geatish:
+  - tweak: Moved the Experimental Syndicate Jaunter to conspicious weapons in the
+      uplink
+  - balance: lowered the Thermal glasses cost from 3 tc to 2 tc
+  PowerfulBacon:
+  - tweak: Improves the UI for autolathes and exosuit fabricators, including better
+      scale handling and descriptions.
+  Tsar-Salat:
+  - bugfix: fix ert medical belt
+  mrmanlikesbt:
+  - balance: emags can open firelocks now
+  rkz, LemonInTheDark, Gamer025, Capybara Holly:
+  - bugfix: fixes diagonal movement causing noticeable delay from orbiter's perspective
+  - bugfix: fixes pulling objects causing visible delay from puller's perspective
+  - bugfix: resolves some minor parallax issues
+2025-01-22:
+  mrmanlikesbt:
+  - rscadd: Silicons have a new emote, slowclap
+  - tweak: MMIs can use silicon emotes
+2025-01-23:
+  itsmeow, jlsnow301:
+  - code_imp: Removed 'context' parameter from TGUIs. This is an internal change that
+      should not affect anything.
+  mrmanlikesbt, Watermelon914, Timberpoes:
+  - refactor: Refactors how spans are done in code.
+2025-01-24:
+  ClownMoff:
+  - balance: Increased all department non-command workers pay by 20 credits.
+  - balance: Increased assistants pay by 5 credits.
+  PowerfulBacon:
+  - bugfix: Fixes players chat being unreadable, fixes players chat breaking
+  - bugfix: Chat icons work again
+  therealdoooc, Profakos, BongoDongo2000, Jacquerel:
+  - code_imp: converts faction strings to defines
+  therealdoooc213:
+  - tweak: medical doctors now have virology access
+  - tweak: paramedics have virology access on skeleton crew
+2025-01-25:
+  PowerfulBacon:
+  - bugfix: Revenants whispering to people will no longer show an incorrect style
+      in the chat
+  XeonMations, Timberpoes:
+  - rscadd: Crew can now request the spare safe codes via a communications console,
+      provided there is no acting captain
+  rkz, Haukeschuemann, optimumtact, cobby, spookydonut, TemporalOroboros:
+  - refactor: refactors chemical exposure code to support atoms
+  - bugfix: aheals reset addiction/sanity
+  - bugfix: fixes null in addiction list
+  - bugfix: fixes rounding in remove_any
+  - code_imp: autodocs holder.dm
+2025-01-26:
+  Therealdoooc213:
+  - tweak: moves the holopad from the centre of RadStation
+  rkz, lizardqueenlexi, SyncIt21:
+  - bugfix: fixes juicing not giving juice (I promise <3)
+  - bugfix: fixes food trash not appearing
+  - bugfix: grinding stacks now grinds as many pieces/sheets from the stack as possible
+      that can fit in a beaker/container without wasting the whole stack
+  - bugfix: All in 1 grinder now mixes faster with upgraded parts
+  - code_imp: reagent holder code will no longer accept non-typepaths in procs (it
+      expects reagent typepaths)
+2025-01-29:
+  PowerfulBacon:
+  - bugfix: Fixes span defines causing included ternarys to break.
+2025-01-30:
+  Tsar-Salat:
+  - admin: removed admin preference to announce login. Admin arrivals will always
+      be announced in admin logs.
+  itsmeow:
+  - bugfix: Clients with persistent invisible chat windows should now properly have
+      their chat size reset to be visible again.
+2025-01-31:
+  Bokkiewokkie:
+  - balance: added the ability for vines to traverse multi-z
+  ? JixS4v, XeonMations, HowToLu, Aramix, 00-Steven, 13spacemen, Aerden, afonamos2,
+    AlinaStarkova, Arkatos1, Ben10Omintrix, BurgerLUA, Comxy, Deadgebert, EliteCreature,
+    EnterTheJake, FlufflesTheDog, Ghilker, GoblinBackwards, GoldenAlpharex, GuillaumePrata,
+    Higgin, JohnFulpWillard, Kylerace, LemonInTheDark, MTandi, MacBlaze1, Mothblocks,
+    OrionTheFox, Pickle-Coding, Putnam3145, RandomGamer123, Sadboysuss, Sealed101,
+    ShizCalev, SuperNovaa41, SyncIt21, Tastyfish, TemporalOroboros, TheBoondock, thegrb93,
+    Timberpoes, TiviPlus, Tlaltecuhtli, TwistedCicrularConvexLens, ZephyrTFA, blessedmulligan,
+    chestlet, esainane, haukeschuemann, jlsnow301, kriskog, lessthnthree, mc-oofert,
+    mogeoko, nicbn, nikothedude, ninjanomnom, norill, skylord-a52, timothymtorres,
+    tralezab, vincentiusvin, zxaber, Absolucy, SergeiKoralev
+  : - rscadd: 'Added a new atmospheric system to the game: LINDA.'
+    - refactor: The majority of atmospherics related systems have been changed. Please
+        report any bugs to the github!
+    - rscadd: Added new functionality to atmospheric pipes.
+  PowerfulBacon:
+  - bugfix: Fixes a crash bug caused by alt-clicking on a monkey with a 515 client.

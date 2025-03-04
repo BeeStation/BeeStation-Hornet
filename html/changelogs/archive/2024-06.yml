@@ -1,0 +1,157 @@
+2024-06-01:
+  Gilgaxx:
+  - bugfix: fixed even MORE broken arcade machines
+2024-06-03:
+  Geatish:
+  - rscadd: You can now choose cigars and DromedaryCo cigs in the smoker trait option
+  HowToLoLu:
+  - bugfix: The autolathe shock wire reacts to cutting the wire once more
+2024-06-04:
+  EvilDragonfiend:
+  - code_imp: _basemap.dm has FORCE_MAP define options for debug
+  PowerfulBacon:
+  - balance: Increases weapon slowdown for heavy weapons.
+  - bugfix: Fixes incorrect message on brains and heads.
+  - bugfix: Fixes z-clear not announcing brains that have someone inside their brain
+      instead of ghosted.
+  ro5490:
+  - bugfix: fixed openspace tiles being replaced by a nature orb
+2024-06-07:
+  TsunamiAnt:
+  - tweak: no pool overlay on ocean water
+  - bugfix: deep water is now called deep water
+  ro5490:
+  - rscadd: Added Final Darkness rite to the Shadow-Sect
+  - rscadd: Faithsworn mob
+2024-06-09:
+  PowerfulBacon:
+  - tweak: Removes the unintuitive and inconsistent interaction with PDA and firelock.
+2024-06-12:
+  XeonMations:
+  - bugfix: Fixed the ED-209 Crafting recipe using a dragnet instead of a disabler
+  - balance: Changed legion core healing from 50 to 20 on station z level
+  - balance: Made inert legion cores no longer able to be preserved and thus work
+  rkz, MrMelbert(Lizard Variants), Krysonism(New sprites), Thunder12345(Spacelizard plushy):
+  - rscadd: new lizard plushy variants!
+  - rscadd: Find a few new lizard plushy hiding spots, because they now exist in the
+      maps! Oppose the moths!
+2024-06-17:
+  EvilDragonfiend:
+  - code_imp: Improved job datum access list readibility. "base_access" will be given
+      always. if "jobs_have_minimal_access" config is turned on, "extra_access" will
+      be given additionally.
+  - rscadd: added a investigate_list() proc. This returns a text form of a list, good
+      to investigate a list at a glance. This will be useful when you want to investigate
+      TGUI list.
+  MarkusLarsson421:
+  - balance: Made nanite mindshield unobtainable.
+  - rscadd: Classified Nanites category (mindshield).
+  Miliviu:
+  - bugfix: Antag Token coin is now visible
+  PestoVerde322:
+  - bugfix: fixed the Iansuit's and Beesuit's head icon not rendering.
+  PowerfulBacon:
+  - rscdel: Removes gravity auras from carp rifts due to lag.
+  - bugfix: Durand shield will no longer block projectiles shot from behind.
+  XeonMations:
+  - bugfix: Fixed candles being able to create unnatural darkness.
+2024-06-18:
+  PowerfulBacon:
+  - bugfix: You will now be hit by projectiles when moving, preventing abuse of inertia
+      mechanics, lying and guns in space.
+  Tsar-Salat:
+  - bugfix: resolve build error
+2024-06-19:
+  Gilgaxx:
+  - balance: Removed one time limitation on Reactivate Cameras module for Malf AI
+      but lowered the cameras fixed (30 -> 20)
+  - bugfix: Action buttons for malf powers with multiple uses now correctly update
+  - tweak: Purchasing more uses of a Malf Module now gives feedback in chat and with
+      noise
+  - bugfix: Removed a malf power logging runtime
+  PowerfulBacon:
+  - bugfix: Mechs now take damage from xenomorph attacks
+  XeonMations:
+  - bugfix: Fixed a bug where any projectile would delete the singularity instead
+      of being deleted itself.
+2024-06-20:
+  Gilgaxx:
+  - rscadd: Added a HUD button to access the Spawners Menu for ghosts
+  - bugfix: Added missing text description for swarmer in the Spawners Menu
+  PowerfulBacon:
+  - bugfix: Fixes being unable to use items while buckled.
+  - bugfix: Fixes inconsistencies between when you can and can't use items, resulting
+      in hotkeys bypassing some item use checks.
+  ToasterBan:
+  - tweak: Rust Heretic's Mark of Rust can no longer damage grenades
+2024-06-23:
+  Gilgaxx:
+  - bugfix: fixed the metallic arm sprite turning you into a white square.
+2024-06-25:
+  EvilDragonfiend:
+  - code_imp: Language menu TGUI now shows language icon, and better readable description
+      layout
+  - code_imp: Slightly improved language menu code
+  Gilgaxx:
+  - bugfix: 'Echostation: replaced disposals'' delivery chute (input) with a disposals
+      outlet (output)'
+  - bugfix: 'Echostation: Inverted the airmixer to distro so it''s now 21/79 o2/n2'
+  HowToLoLu:
+  - bugfix: Tinfoil envirosuit helmets act as internals now and no longer block syringes,
+      just like other envirosuit helmets
+  Markus Larsson:
+  - rscadd: Added almost 20 new maintenance rooms.
+  - tweak: Added a chance for a ripley to spawn.
+  - tweak: Added a sniffer to the Robotics maintenance room.
+  PowerfulBacon:
+  - balance: Lowers damage of cult sword from 30 to 23. Maximum damage from sharpening
+      reduced from 40 to 30.
+  - balance: Cult stun now EMPs the target's headset.
+  - balance: Holy protection is now visible to anyone with holy protection themselves,
+      and is also visible to cultists.
+  - balance: Flagellant's have postiive armour rather than negative armour, making
+      them somewhat viable.
+  - balance: Holy protection will now allow you to bypass the mirror shield's blocking,
+      and will result in taking reduced damage from cult swords.
+  - balance: EMPs will no longer disable all your channels on radio headsets, instead
+      temporarilly disabling them for 20 seconds similar to other EMP effects.
+  XeonMations:
+  - bugfix: Renewed Cyborg software to correctly deal with laser pointer spam.
+  - balance: Laser pointers now stunlock a cyborg for 5 seconds instead of the previous
+      1-2 seconds, now consider cyborg software before flashing a borg.
+  rkz, Fikou, twaticus, Pepsiman0, Twaticus, Arkatos1:
+  - rscadd: expanded Tile reskinning to all iron tiles. Tile reskinning now controlled
+      via radial menu when pressing 'Z' while holding the tilestack.
+  - rscadd: rad edits
+  - rscadd: adds several new iron tile types, at the moment exclusively in the tile
+      reskinning menu
+2024-06-27:
+  PowerfulBacon:
+  - bugfix: Fixes item attack logs.
+  XeonMations:
+  - bugfix: Fixed holy aura not being removed after holy water is removed from the
+      person's symptom
+2024-06-28:
+  XeonMations:
+  - balance: Made explosive flashbulbs spawn with a flash.
+2024-06-29:
+  spockye:
+  - tweak: A couple fland station power cable and disposals fixes
+2024-06-30:
+  ClownMoff:
+  - rscadd: adds the bananium e-sword (3TC) and bananium shield (16 TC) to the uplink,
+      restricted for clowns
+  MarkusLarsson421:
+  - rscadd: Surplus Implant duffelbag.
+  - rscadd: Cargo order for surplus implant crate.
+  ? rkz, HowToLu/Dakae, PigeonVerde/PestoVerde, Floria/BriggsIDP, Spockye, made using
+    code from TGcoders(wallem, vincentiusvin, paxilmaniac, tralezab, colovorat, coconutwarrior97,
+    timothymtorres, OrionTheFox, coldud13)
+  : - rscadd: Adds glass tiles, a new, craftable tiletype that you can see through!
+    - rscadd: Adds catwalk tiles. They come in multiple different colors and look
+        much like regular lattice catwalks, but you can move their grille for ease
+        of access instead of having to crowbar the whole tile!
+    - code_imp: adds zmimic hooks for tiles and material turfs
+    - balance: Medium buff to floor bot logic making them more discerning when repairing
+        or placing tiles. They will now also actually repair tiles instead of always
+        replacing them, if possible.

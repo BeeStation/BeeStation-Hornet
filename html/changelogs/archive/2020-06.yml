@@ -1,0 +1,323 @@
+2020-06-01:
+  That0nePerson:
+  - rscadd: Added a copper golem.
+2020-06-02:
+  Crossedfall:
+  - tweak: Adjusted the CL generation settings
+  - tweak: Yet another CLs tweak
+  Flakkyboo:
+  - imageadd: New sprite for lava land tobacco
+  ike709:
+  - code_imp: Life() has been optimized. Hopefully mobs will cause less lag now.
+2020-06-03:
+  ike709:
+  - tweak: Crew transfer vote will occur at the 90 minute mark, and every 30 minutes
+      thereafter.
+2020-06-04:
+  Flakkyboo:
+  - rscadd: Added a Goliath shield and it takes less damage from fauna.
+  - rscadd: Added a new Watcher bola, slightly better than the standard bola.
+  - rscadd: Added a new one handed bone sword.
+  - rscadd: Added a new belt quiver to carry arrows.
+  - rscadd: Two new craftable bow types "pipe bow" and "bone bow".
+  - rscadd: 4 new arrow types wood, ash, bone and bronze.
+  - rscadd: New export prices for bows, arrows.
+  - rscadd: New bounty for a bow.
+  - rscadd: New variation of bone armor (heavy bone armor)
+  - rscadd: Cotton seeds in askwalker nest for bowcrafting.
+  - rscadd: QOL cultivator for ashwalkers added to nest.
+  - tweak: blowgun no longer needs a firing pin and can be used by anyone
+  - soundadd: New sounds for drawing the arrow and firing.
+  - rscadd: New weapon and ammo type for bows.
+  - bugfix: Added a crafting recipe for the primal explorers belt.
+  - rscadd: A new material Silk which can be made from cloth on the loom. (needed
+      in bowcrafting)
+  - imageadd: Added Sprites for the new items and materials.
+  - imageadd: New sprites for existing bone equipment.
+  - refactor: Cloth is now a subtype of cotton and coded in descending order of creation.
+  - refactor: Crafting refactor
+  Mick1299:
+  - tweak: small change to preserve_virus recipe
+  - refactor: changed some spacing, added comments
+  PowerfulBacon:
+  - rscadd: Cargo shuttle construction kit
+  - rscadd: Firelocks into maints
+  Sarchutar:
+  - rscadd: Ghosts get a message when someone changes laws of AIs/Unsynced cyborgs
+  - rscadd: Ghosts get a message when someone builds an AI
+  ike709 and a bunch of TG coders:
+  - bugfix: MONSTERMOS IS NO LONGER JANKY, IT SHOULD WORK PERFECTLY NOW
+  - refactor: Moved the pixel scaling and zoom methods from the menu bar to the Game
+      Preferences window. You'll need to reset them.
+  - bugfix: Yellow slime power cells will charge SMES units.
+  - bugfix: Fixed a monstermos runtime.
+  - bugfix: Fixed a ton of other runtimes.
+  - rscadd: Simple mobs will now receive an alert about being in too hot/cold environment.
+  - rscadd: Simple mobs will now receive an alert about choking to death.
+  - bugfix: A bunch of visual fixes related to multi-z.
+  - tweak: Multi-Z power relays can repaired but must be manually updated with a multi-tool
+      when reinstalling/moving around.
+  - bugfix: You can now place cables on catwalks that go over openspace.
+  - bugfix: AI can now look up/down zlevels on multi-z.
+  - rscadd: Added railings for multi-z.
+  - bugfix: Tank Dispensers, Ore Boxes and Coin Presses are no longer usable by ghosts
+  - refactor: Refactored client.view into a datum, changed some zoom values to work
+      properly
+  - rscadd: Fully adds widescreen support to zooming
+  - bugfix: Pixel size will now automatically update on zoom, so you won't end up
+      with ui buttons you can't see.
+  - tweak: Most input windows now have sorted lists of choices.
+  - bugfix: walking downstair won't show the falling visible message anymore.
+  - bugfix: Mechs can now go down (stairs)
+  - bugfix: Mechs can't push (non-anchored) objects and mobs with move resistance
+      greater than "very strong" anymore.
+2020-06-05:
+  PowerfulBacon:
+  - bugfix: fixes deltas cargo space problem
+  Trigg:
+  - bugfix: That annoying (but harmless?) runtime in jobs.dm literally every initialization
+      is gone.
+  - bugfix: Abductor species no longer runtime on creation.
+  - bugfix: Flashbangs no longer runtime when banging completely unprotected targets.
+2020-06-06:
+  Kmc2000:
+  - bugfix: Beam rifles work again
+  Monster860:
+  - bugfix: Fixed an issue where openspace turfs would crash the game instantly on
+      round load.
+  zeskorion:
+  - bugfix: delta and pubby should repressurize proper now
+2020-06-08:
+  PowerfulBacon:
+  - refactor: Refactored shuttle designation
+  - bugfix: fixed shuttle max sized being halved
+  - tweak: Improves shuttles atmospherics system.
+  ike709:
+  - bugfix: Internals should no longer cause the Status tab to lag you.
+  - tweak: Being moved by space wind is a bit rarer.
+  - tweak: Cycling airlock skip delay reduced from 30 seconds to 15. Reminder that
+      a higher distro pipe pressure makes them repressurize quicker.
+2020-06-09:
+  ArcaneMusic, zxaber:
+  - bugfix: Railings have icon states
+  - tweak: You can now create and deconstruct linen bins from iron rods
+  St0rmC4st3r:
+  - tweak: You have to eat floorpills to discover what they have inside. Prepare your
+      calomel.
+2020-06-10:
+  zeskorion:
+  - bugfix: legion cores no longer apply if you fail the do_mob
+2020-06-11:
+  Tamuren:
+  - rscadd: Added dermal buttons
+  ike709:
+  - bugfix: IPCs can no longer be selected as a bloodcult sacrifice target.
+2020-06-12:
+  Dingo-Dongler:
+  - rscadd: Examining people with sechuds will let you give someone an on the spot
+      citation. Pick up that trash!
+  zeskorion:
+  - rscadd: macrophage disease symptom and corresponding mob
+  - rscadd: currently admin only macrophage mob that spawns with a disease inside
+      of it which contains the macrophage symptom. Phage has appropriate stats for
+      the disease
+  - tweak: changes up random experimental diseases a bit codewise, to support random
+      spawning diseases with one symptom fixed. This feature has been added to the
+      necroseed culture tendril loot, so it's now a bit of a gamble to drink
+  - imageadd: macrophage sprites, done by Slyonic
+2020-06-13:
+  ike709:
+  - rscadd: There is a small chance that you will stub your toe if you run into a
+      table without shoes.
+  zeskorion:
+  - rscadd: random room weighting. Some rooms will seem rarer now
+  - rscadd: random room stocking. Some rooms are allowed to spawn more than once
+  - rscadd: 11 new rooms by GizkaFreechman
+  - rscadd: two other new rooms
+  - rscadd: paper that spawns beernuke codes. Fun for the whole family. spawns in
+      randommaint
+  - tweak: the random maint experimental cloner is no longer commented out, as weighting
+      balances it out instead
+  - tweak: weighting has been applied to current room pool
+  - bugfix: bananium room now has real bananium walls instead of falsewalls
+2020-06-14:
+  Mick1299:
+  - bugfix: two broken uniform pieces
+  zeskorion:
+  - code_imp: fixes a runtime in experimental diseases that dont have a special symptom
+2020-06-15:
+  Flakkyboo:
+  - tweak: Reduced loom time for cloth to silk.
+  - balance: Reduced Material cost and buildtime for the pipebow making it easier
+      to make.
+  - imageadd: edited unloaded bow sprites to make reloading easier by giving you more
+      valid space to click
+  PowerfulBacon:
+  - code_imp: Ghost chat are now filter checked
+  zeskorion:
+  - rscdel: Removed xenolings, again. dammit qwert
+2020-06-17:
+  Mick1299:
+  - spellcheck: attack_verb grammar fix for a few weapons
+  Vasily2013:
+  - rscadd: Pixel shift presets of airlock controllers (significant to mappers)
+2020-06-18:
+  zeskorion:
+  - rscadd: morph is now an actual event antag with actual abilities
+  - tweak: being pierceimmune makes you immune to BLOCKING_NASTY
+  - tweak: some mobs are immune to BLOCKING_NASTY
+  - tweak: simplemob damage is no longer random
+  - tweak: laughter demon now uses clown demon sprite, as opposed to bow demon
+  - tweak: monkys no longer use rng and disarm like normal humans. praise be.
+  - tweak: monkys are more susceptible to radiation
+  - tweak: changes up many uses of harm_intent_damage,  (bees can now be killed in
+      one punch)
+  - tweak: wrestling slimes off no longer uses rng
+  - balance: slimes no longer have rng stun, instead doing a knockdown when they have
+      powerlevel
+  - balance: if too many killer tomatoes are on screen, killer tomatoes will attack
+      each other and allies
+  - balance: beepsky can now be blocked,  no longer drops a baton
+  - balance: paper wizard no longer summons ranged stickmen
+  - balance: neurotoxin spit no longer works if the target has thick clothing, and
+      it only Stuns, instead of paralysis
+  - balance: xenomorphs no longer stun when shoving, instead causing knockdown and
+      stam damage
+  - balance: buffed cat surgeon
+  - balance: spider nurses and broodmothers heal when they feed on targets
+  - balance: removed 2 disarms being sufficient to make someone drop a gun no matter
+      where the disarms happen. This code was getting in the way of my monky changes
+      and was also cancerous
+  - bugfix: xenos now deal damage to blocks
+  - bugfix: fixes monkeys moving about while in crit or cuffed
+  - bugfix: snakes now actually inject venom
+2020-06-19:
+  AyyRobotics:
+  - rscadd: Updated & added Safety Moth posters
+  - rscadd: Added Syndie Moth Poster
+  - imageadd: Updated & added poster icons
+  Flakkyboo:
+  - bugfix: You now spawn as a skeleton from the skeleton remains.
+  FleshGordo:
+  - config: Made Flypeople a roundstart race once more
+  Mick1299:
+  - balance: detective_scanner no longer functions through walls
+  WirelessWarlock:
+  - balance: Laser pointer are now unable to point through walls.
+  ike709:
+  - bugfix: You will no longer stub your toe repeatedly by continually walking into
+      a table. It can only occur a maximum of once every 10 seconds.
+  zeskorion:
+  - balance: stimulum renders you unable to block with non-shields instead of dealing
+      toxin damage to you
+2020-06-20:
+  BettonnCZ:
+  - tweak: Edited the sprite for the stacking machine
+  Sinmero:
+  - bugfix: People who bought gold necklace in beecoin shop before its name change
+      should have access to it again.
+  Trigg:
+  - admin: Admin verbs and tabs have been moved and reorganized all around. You should
+      find each tab to be more intuitive and less cluttered with unrelated verbs.
+  - admin: The "Ticket Manager" verb now works. It's... Identical to the "Open Ticket
+      Browser" verb.
+  - admin: An old and mostly unknown admin verb now features logging.
+  - admin: You can now edit team objectives from the team panel. No more removing
+      and adding!
+  zeskorion:
+  - rscadd: Psychiatrist maint job. Other than being somewhat  rare (about as rare
+      as the magician), a bit more money and access, and having a weirdo locked in
+      the back, he has nothing out of the ordinary
+  - rscadd: adds random maint to delta
+2020-06-21:
+  Crossedfall:
+  - config: Versions older than 513.1526 are no longer supported.
+  WirelessWarlock:
+  - bugfix: Cyborg and Integrated Circuit cameras now work again.
+  bobbahbrown:
+  - refactor: Improved performance of lighting code
+  zeskorion:
+  - tweak: cat surgeon better at 2d spessmen
+  - bugfix: fixed a few map things
+2020-06-22:
+  That0nePerson:
+  - balance: sulfonal now takes perfluorodecalin instead of acetone
+  - balance: lexorin now takes sulfonal, gives 4u.
+2020-06-23:
+  bobbahbrown:
+  - rscdel: Removed exploitable world/topic command server_hop
+  deathride58:
+  - tweak: There is now a one second cooldown on opening the crew manifest.
+2020-06-24:
+  Sinmero:
+  - rscadd: Added Hydraulic blade implant
+  - rscadd: Added Advanced Combat Cybernetic Implants tech
+  - imageadd: Added Hydraulic blade sprites
+  SpaceManiac:
+  - refactor: BSQL has been replaced with rust-g, improving SQL reliability and safety.
+  XDTM:
+  - imageadd: Adds dermal button icons for nanites
+  bobbahbrown:
+  - admin: Fixed malformed SQL queries for logging admin permission changes.
+2020-06-26:
+  ArcaneMusic:
+  - bugfix: fixed botany plants missing icon states
+  Dingo-Dongler:
+  - rscadd: Added the dice cup, which throws all dice inside it when used. Craftable
+      with two leather.
+  - tweak: Dice now show what side is face up when examined
+  - bugfix: Sqiudpeople no longer /list people on hitting them
+  Mick1299:
+  - tweak: Metastation SM pumps
+  francinum:
+  - server: SQL Query arguments are now logged more reliably.
+  xboxnoob:
+  - tweak: Changed pumps in reactor room to volumetrics so they wont get cloged in
+      Metastation (other stations will be done in the future)
+  zeskorion:
+  - bugfix: skinsuit helmet no longer has ear protection
+2020-06-27:
+  Crossedfall:
+  - rscdel: Removed default squid names that were against our rules
+  ike709:
+  - tweak: Push broom must be wielded in both hands to sweep.
+  - bugfix: Push broom no longer causes really bad things to happen if you try to
+      put it in a full backpack.
+  - bugfix: The Patreon and Discord buttons exist again.
+2020-06-28:
+  Crossedfall:
+  - bugfix: Bans & Notes can be edited again
+  - bugfix: Resolves SQL error for Lavaland role ban checks
+  - rscdel: Removes qdel warning for admins
+2020-06-29:
+  Mick1299:
+  - bugfix: Bot navigation beacon outside engineering on Metastation
+  PowerfulBacon:
+  - code_imp: Changes some stats to not be multi-column which reduced lag in testing.
+  zeskorion:
+  - rscadd: The disease extrapolator, a scanner that can scan or extract diseases
+      and their symptoms, whatever they're in. it spawns in viro and the cmo locker,
+      and virologists start with one
+  - rscadd: mice, vector, old bloodstains, crusty vomit, and used syringes can now
+      contain extractable diseases. A few more minor sources also contain diseases
+      to extract
+  - rscadd: sharing syringes spreads diseases
+  - rscdel: viro no longer spawns with highly potent viral base
+  - tweak: viro now has maint access
+  - tweak: medical lathe can print scanning modules
+  - bugfix: fixed double-viro on box and meta. no idea when it got reverted, and why
+      it was only on two maps...
+  - imageadd: extrapolator sprites
+  - tweak: maint is a bit grosser
+  - balance: you can no longer beat cat surgeon by standing still and facetanking
+      his saw whilst punching
+  - bugfix: cat surgeon properly heals when finishing operations
+  - tweak: cat surgeon is rarer
+2020-06-30:
+  Archanial:
+  - rscadd: Added a P.R.O.V.E cartridge to deltastion.
+  zeskorion:
+  - balance: nerfs macrophage
+  - bugfix: fixes a bug with death plagues taking up the beneficial channel
+  - code_imp: cleans up dynamic severity
+  - refactor: refactors disease channels

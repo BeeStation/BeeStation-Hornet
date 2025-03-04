@@ -1,0 +1,149 @@
+2024-02-03:
+  Varo:
+  - tweak: 'Kilo Mebay: removed random decals, added a fire extinguisher, fixed map
+      errors.'
+2024-02-06:
+  Dakae:
+  - bugfix: Ventcrawling to unconnected equipment is no longer possible
+  Haliris:
+  - bugfix: fixes recreational holodeck loading the wrong offline template.
+  Hardly:
+  - tweak: Reverted the crate's drag slowdown back to 0.
+  Tyranicranger4:
+  - admin: Logs roundstart Heretic objectives
+2024-02-09:
+  XeonMations, Dakae:
+  - bugfix: AIs now talk in loud mode over the binary channel for themselves, their
+      linked borgs and any humans/observers!
+2024-02-10:
+  Dakae Reds88:
+  - bugfix: Fixes an exploit related to imperfect mutation toxin
+  - tweak: Imperfect Mutation Toxin no longer instantly transforms the user upon processing
+  Haliris:
+  - tweak: Venus human trap cannot pull anything anymore.
+  - balance: Venus human trap will now lose HP for every second they spend off vines,
+      while healing slowly within them.
+  itsmeow:
+  - rscadd: Added a backstory selection system for Traitors, allowing easier determination
+      of the roleplay motivations behind a traitor.
+  - code_imp: Cleaned up traitor objective generation and split AI vs human traitors
+      into their own files.
+  - tweak: Changed how murderbone is determined for traitors. It no longer depends
+      directly on your objectives, but instead informs your objectives. As a consequence,
+      lowered the 'base' probability to match the previous overall probability.
+  - bugfix: Fixes a bug from when soft-tracked objectives were added, it accidentally
+      lowered the rate of murderbone traitors. This has been corrected.
+  - rscadd: Enabled the 'neutral' theme for emagged ModPCs, for use by non-syndicate
+      traitors.
+  - admin: Added traitor faction and backstory display to Traitor Panel. Added logging
+      for faction/backstory selection.
+2024-02-12:
+  MarkusLarsson421:
+  - bugfix: Fixes power hungry trait description.
+2024-02-13:
+  Hardly:
+  - rscadd: Replica Jackboots are now available in the loadout shop.
+  - rscadd: White winter coats, replica jackboots and winter shoes can now be obtained
+      through the clothesmate.
+2024-02-14:
+  spockye:
+  - bugfix: fixed meta Brig and the area around it
+2024-02-15:
+  Aramix:
+  - bugfix: IV drip sprite now properly updates again
+  DrDuckedGoose:
+  - bugfix: Fix high-traction mapping helper
+  Impish_Delights:
+  - tweak: Due to numerous complaints from Syndicate Agents and NT Sec alike, all
+      ballistic firearms are now pre-chambered right off the shelf. Happy hunting!
+  MarkusLarsson421:
+  - imageadd: New decals of three different sizes to say where Departures is
+  Programs-The-Station:
+  - bugfix: fixed Corg's Bot Pathfinding Trap
+  - rscadd: Adds a "Remove All Overlays" input to the BCI Object Overlay. This does
+      what it says on the box.
+  XeonMations:
+  - rscadd: Added six more maintenance rooms!
+  itsmeow:
+  - bugfix: Mentors are no longer reloaded when admin datums are created.
+  - tweak: Admins can no longer see mentor-only verbs when deadminned.
+  itsmeow, LemonInTheDark, Timberpoes, Rohesie:
+  - code_imp: Improved ban cache loading, reducing post-roundstart lag.
+2024-02-16:
+  itsmeow:
+  - code_imp: Optimized GAGS via Rust-g. It is now 250x faster.
+2024-02-17:
+  '@MarkusLarsson421, @Nakalon, @XeonMations ':
+  - rscadd: Security Checkpoint capsule
+  - imageadd: Added security themed rail and windoor variant.
+  Bokkiewokkie:
+  - bugfix: Fixed some atoms initializing improperly
+  MarkusLarsson421:
+  - rscadd: Added a Science duffelbag to Scientist, Roboticist, RD and the Science
+      wardrobe vendor.
+  Miliviu:
+  - rscadd: Add Prisoner event that will spawn a few prisoners in Genpop
+  PowerfulBacon:
+  - bugfix: Fixes race condition in shuttle loading which caused some issues in certain
+      cases.
+  - bugfix: Fixes an issue I introduced with shuttle loading that caused shuttles
+      to be deleted during the loading process under certain high-load circumstances.
+  "Rat\xF3n":
+  - tweak: Nukies can do war without the TC if the pop is below the required amount
+  - tweak: TGUIfied the nukie war prompt
+  - bugfix: The nukie war time limit display now works properly
+  Shiraizawa:
+  - tweak: decreased the chance to have a heartattack caused by high stress levels
+      from phobias by 5 times
+  - bugfix: fixed falling into a fainting loop caused by phobias for real now
+  - rscadd: new flavor text when your fear level is high enough to faint, but you
+      fainted recently already (This means you are about to faint if you dont run)
+  itsmeow:
+  - code_imp: Optimized PDA painter init, saving 65ms.
+2024-02-18:
+  ToasterBan:
+  - tweak: Anomaly cores can now be used in the destructive analyser for discovery
+      research points
+2024-02-20:
+  EvilDragonfiend:
+  - bugfix: Fixes SM throwing runtime when a ghost examines SM
+  RDS88-beeman:
+  - bugfix: your mood will no longer be bold for no reason
+2024-02-21:
+  Miliviu:
+  - tweak: Now maximum prisoner number scales with Security Team population
+  - bugfix: Prisoners now can spawn in Rad Station
+2024-02-22:
+  EveLed:
+  - rscadd: Added rancher hats to clothesmates and the beecoin item shop
+  lowwy:
+  - balance: Warm Eldritch Medallion is now fire proof & lava proof
+2024-02-24:
+  '@BriggsIDP @PestoVerde322 ':
+  - bugfix: fixed a bit of Delta Brig
+  Shiraizawa:
+  - rscdel: Removed "deep throat" from sausage eatverbs
+  ToasterBan:
+  - bugfix: fixed missing texture files on russian hunter shuttle
+2024-02-27:
+  Crossedfall:
+  - bugfix: Fixes subtract blending in IconForge
+  ToasterBan:
+  - tweak: standardised the punctuation of emotes
+  - balance: medbots no longer tend wounds
+  - balance: medbots now use internal reagent containers, and inject said containers
+  - tweak: roundstart medbots spawn with 200u epi
+  - tweak: medbots can synthesise a slight amount of epi, toggleable
+  - tweak: epi no longer harms oozelings
+  - tweak: medbots now only start healing upon crit by default, can be changed as
+      normal
+  - tweak: medbots can now look for damage up to 120, rather than 75
+  - tweak: emagged medbots now drain people of blood
+  - tweak: research upgrades on medbots now cause them to inject more than they use
+      up
+  - soundadd: voicelines for medbots running out of chemicals
+  itsmeow:
+  - bugfix: Fixed the tile sprayer preview icons being invisible.
+2024-02-28:
+  EvilDragonfiend:
+  - bugfix: agent box is properly invisible now

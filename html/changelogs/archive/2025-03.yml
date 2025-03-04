@@ -1,0 +1,14 @@
+2025-03-02:
+  PowerfulBacon:
+  - tweak: Altered the game preference menu to hide less important settings and dangerous
+      settings by default.
+  - tweak: Changes ghost ears, ghost whispers and ghost emotes to be false by default
+      to prevent players being spammed in the chat by default.
+2025-03-04:
+  PowerfulBacon:
+  - bugfix: Fixes mobs being able to swap with you while you are in combat mode
+  - bugfix: Fixes an issue where ctrl-click wouldn't stop pulling items while in combat
+      mode.
+  mrmanlikesbt:
+  - bugfix: fixed abductor consoles
+  - code_imp: some code cleanup on abductors

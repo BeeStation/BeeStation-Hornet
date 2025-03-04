@@ -1,0 +1,318 @@
+2021-05-02:
+  Archanial:
+  - admin: admins can ban from heretic
+  Cenrus:
+  - tweak: Suit sensors can now be changed in the strip menu.
+  DatBoiTim:
+  - bugfix: Ovulogenesis uses a new method for adding its reagents now they all get
+      added
+  - bugfix: Eggsacs actually have their transmission thresholds work
+  PowerfulBacon:
+  - code_imp: Microoptimises MouseMove
+  ivanmixo:
+  - bugfix: Fixed up Corgstation's toxins lab
+2021-05-03:
+  PowerfulBacon:
+  - tweak: Corgstation SM ejection sequence now requires CE access.
+  - tweak: Corgstation science door name corrected.
+  - tweak: Corgstation tool storage now has a modular computer vendor.
+  - bugfix: All prick messages will now have the same punctuation
+  francinum:
+  - bugfix: Neets can now properly ignore the hygiene system.
+  yorii:
+  - spellcheck: fixed a few "typos"
+2021-05-04:
+  PowerfulBacon:
+  - tweak: Changelings have a 70% chance to hear hivemind messages even if they do
+      not have the ability.
+  - tweak: Last resort can no longer be used while being absorbed.
+2021-05-05:
+  MCterra10:
+  - bugfix: mining borg cutter upgrade can be applied again
+  Sinmero:
+  - rscdel: Removes move sound from chap armor
+  francinum:
+  - tweak: The pool of syndicate codewords has been adjusted.
+  ike709:
+  - bugfix: Fixed glass shard harddels.
+  - bugfix: Fixed beaker harddels.
+  - refactor: Cryopods no longer lag the server when people despawn.
+2021-05-06:
+  PowerfulBacon:
+  - bugfix: Fixes infinite ore silo point exploit.
+2021-05-07:
+  PowerfulBacon:
+  - bugfix: Changeling item will not delete on drop.
+  - tweak: Changeling items can be deleted by non changelings by clicking on it.
+2021-05-09:
+  CogumeloGames:
+  - rscadd: mirrors reflect lasers
+  PowerfulBacon:
+  - rscadd: Updates corgstation to include detective wardrobe, Medical records and
+      adds a spare ID safe to the bridge.
+  Rukofamicom:
+  - rscdel: Wishgranter is no longer available on lavaland
+  bloons3:
+  - config: The map blacklist config is used to disable the Wishgranter ruin instead
+      of removing the template
+2021-05-10:
+  AnCopper:
+  - tweak: Updated the witch custome sprite.
+  Malgover:
+  - rscadd: Grave Robber Kit for the Chaplain's armaments beacon & witch hunter hat
+      fix
+  PowerfulBacon:
+  - rscadd: Modular fabricator interface for exosuit fabs.
+  - code_imp: Removed the build queue from the mod fab interface code.
+  TheFakeElon:
+  - rscadd: Adds a new softcrit system, you can now interact and walk around slowly
+      while in crit.
+  - bugfix: IPC crit damage code actually works properly now.
+  ninjanomnom:
+  - code_imp: support for named arguments to components and elements
+  - admin: added VV for messing with components and elements
+2021-05-11:
+  ike709:
+  - bugfix: Fixed a bug preventing donors from joining
+2021-05-12:
+  Archanial:
+  - refactor: slightly refactored flash code.
+  - bugfix: Fixed rare case of incursion uplink not spawning
+  Autisem:
+  - refactor: minigun is energy weapon now, making it not freeze the server
+  KubeRoot:
+  - bugfix: modular computers shouldn't leave behind power cells, id cards, or any
+      knick-knack for that matter, anymore when deleted.
+  - code_imp: Td should spike slightly less, assuming harddels actually go down
+  - code_imp: You feel a great disturbance in the force, mob code has changed. Please
+      report any odd targeting behavior on the issue tracker
+  francinum:
+  - bugfix: You can no longer teleport with weight machines.
+  ike709:
+  - bugfix: Fixed a harddel caused by proximity checkers.
+  - bugfix: Fixed a harddel with start landmarks.
+  yorii:
+  - tweak: Unstable mutation toxin can now also turn you into a skeleton.
+2021-05-13:
+  Archanial, Qustinnus, MrMelbert. coiax, Rohesie, Ghommie:
+  - rscadd: Station trait system, together with 24 traits.
+  - rscadd: Custom announcer support. Medbot and intern announcers.
+  - rscadd: Deathrattle implant. Available for nuke ops for 4tc.
+  bloons3:
+  - config: Disables security borgs
+  - config: Security borg transformation modules are handled via a techweb, and gated
+      via config
+  ike709:
+  - tweak: Blood tomatoes no longer produce quite as much gibs. We can't have nice
+      things.
+2021-05-14:
+  Autisem:
+  - tweak: Admin equip outfit now has plasmaman clothing as sub catagory
+  - rscadd: We have a confirmed reddit moment spotted near your station. Remember
+      NT has a 0 tolerance policy to a fat bugs bunny
+2021-05-15:
+  Autisem:
+  - bugfix: admin outfit manager can load outfits from json files
+2021-05-16:
+  Archanial:
+  - bugfix: Rare case of special traitor equipment not spawning
+  - rscadd: Arabian cat
+  - rscadd: Exotic cat crate
+  - tweak: Same station trait cannot appear twice (shouldn't affect anything in game).
+  - tweak: Station traits will appear less often.
+  - tweak: Intern and unnatural atmosphere are less common, medbot announcer is more
+      common now.
+  bloons3:
+  - rscadd: Adds a variant of the temperature gun that starts with a firing pin
+  - balance: Changes the security temperature gun to be bulky
+  - balance: Changes the x-ray energy gun to be bulky
+  novaremnant:
+  - rscadd: Added Apid Mutation Toxin
+  - rscadd: Added recipe for Apid Mutation Toxin
+  - rscadd: Added Ethereal Mutation Toxin
+  - rscadd: Added recipe for Ethereal Mutation Toxin
+  tralezab:
+  - tweak: Clown tears use sheets instead of ore
+2021-05-17:
+  Archanial:
+  - bugfix: Fixed riot knight armor runtime
+  ThomasTheDOOT:
+  - rscadd: reddit moment sprites where done by me
+  francinum:
+  - server: Minor logging change to the ban system. No end-user effects.
+2021-05-18:
+  Archanial:
+  - rscdel: Removed janitor's PDA locator due to performance issues.
+  - tweak: Emergency maint access is now limited to station z level.
+  - refactor: Removed some in world loops
+  - bugfix: Fixed rare case of players spawning in lobby screen.
+  - bugfix: Fixed request console runtime
+  Froststahr:
+  - rscdel: Sapient space sharks have been hunted to extinction, leaving only non-sapient
+      ones in the wild.
+  ivanmixo:
+  - bugfix: fixes the visible manifolds in engi on corg
+2021-05-19:
+  81Denton:
+  - rscadd: Directional stairs
+  Archanial:
+  - bugfix: Darkpurple stabilized slime runtime
+  - admin: Reduced logging after the round.
+  Phil Smith:
+  - balance: Adrenaline nanites are now under weaponized tech which means you now
+      need illegal tech to get it!
+  ivanmixo:
+  - bugfix: Swarmer beacon and maintenance sec officer's corpses now get properly
+      deleted upon death
+  - code_imp: True/False consistency
+2021-05-20:
+  ? ''
+  : - rscadd: Degraded sunhuds
+    - rscadd: Science sunglasses removal crafting recipe
+  Archanial:
+  - bugfix: Warrant console and spawner menu runtimes.
+  - code_imp: Fixed some bitwise operation errors.
+  Autisem:
+  - tweak: The BS Miners cost has been altered to be buildable round start without
+      needing to mine
+  FatCat1978, ninjanomnom, stylemistake, nemvar, Timberpoes, Fikou, TemporalOroboros:
+  - rscadd: The Detective now features a classy and stylish piece of spy equipment.
+      The SpyGlasses offer a remote view of  a linked camera, which can be inconspicuously
+      worn on clothing
+  - bugfix: Makes it possible to wear the spy bug by making it actually an accessory
+      clothing item.
+  - code_imp: Moves out the recursive movement tracker found in the orbiting components
+      to a datum usable by other things
+  Ryll-Ryll:
+  - rscadd: Added stickytapes
+  - rscadd: Added pellet cloud grenades
+  - refactor: Refactored embeds, there can now be harmless embeds
+  - rscadd: Added back the pellet cloud option to admin podlaunchers
+  eeSPee:
+  - rscadd: Changed the memory allocation for space ruin generation
+  - rscadd: Added new ruins
+  ike709:
+  - bugfix: The entire game can no longer be destroyed by an admin attempting to un-possess
+      something when they haven't actually possessed anything first
+  - rscdel: The BS miner cost changes have been reverted. They should've have been
+      changed in the first place, sorry.
+  ivanmixo:
+  - rscadd: Announcement system, Beepsky, boxes of bodybags, Intellicard in RD's office,
+      cleanbot in AI sat, mirror in theatre, extra toolbox in sci's main lab
+  - bugfix: Bar backroom piping is connected to pipenet, Kitchen APC and Turbine SMES
+      are now actually wired into the power grid, Bot navigation issue near arrivals
+      fixed
+  - tweak: Armory and Secure tech storage doors are now reinforced, roboticists can
+      now open the anesthetic closet in robotics
+  kit-katz:
+  - rscadd: plenty of pets and critters can now be picked up and worn as a hat (ethically)
+  - rscadd: most corgi types, pugs, corgi puppies, Walter, ALL cat types(yes even
+      cak),
+  - rscadd: mice, hamsters, chickens and chicks(The other type) crabs and SNAKES!!
+  - imageadd: sprites for the above
+  'sergeirocks100 ':
+  - rscadd: Adds fingerless insulated gloves as a Assistant heirloom item.
+2021-05-21:
+  Archanial:
+  - bugfix: Fixed runtime when qdeleting proximity monitor
+  - bugfix: Fixed runtime in cmp.dm
+  - bugfix: Fixed bloodtomatoes not deleting themselves.
+  - rscdel: Removed donutstation.
+  - admin: Admins will now get a pop up asking them if they want to start Battle Royale
+      if the round was delayed.
+  Kapu1178:
+  - refactor: whip isnt shitcode anymore
+  - bugfix: Synths now properly inherit mutant bodyparts
+  - bugfix: Synths process chems as intended, and have the proper bitflags and traits
+  - balance: All synths revive on healing like IPCs, and military synths have additional
+      traits.
+  'Tlaltecuhtli ':
+  - balance: tendril crates need keys to open which you can spend mining points to
+      get
+  - balance: ashwalkers can craft em with bones cause they got no points
+  francinum:
+  - rscdel: For performance reasons, lavaland atmos is static again. The randomization
+      system still exists but sits unused.
+  yorii:
+  - bugfix: made some generic healing sources handle toxinlovers properly
+  - bugfix: made the easy dismemberment trait on several species actually function
+  - bugfix: made the beelover trait actually function
+  - code_imp: some related code cleanup
+  yyzsong:
+  - rscdel: Removes the filter from the corg filter to space setup
+2021-05-23:
+  Kapu1178:
+  - bugfix: Synth infinite brute stacking
+  Rukofamicom:
+  - bugfix: Ethereal Disco Grenades no longer crash the server
+  jupyterkat:
+  - bugfix: modfabs no longer teleport disks
+  zeskorion:
+  - tweak: necroseed tendril range halved. if an admin bwoinks you for this they should
+      be ridiculed and kicked in a corner
+  - tweak: self respiration can now counteract autophageocytosis bleeding
+  - tweak: pituitary disruption is less disruptive to a round overall
+  - tweak: biometallic replication numbers and thresholds have been tweaked
+  - tweak: wizarditis transmission threshold is significantly easier
+  - bugfix: wizarditis now works
+2021-05-24:
+  Ivniinvi:
+  - spellcheck: fixed a typo in the exofab
+  Mothblocks and tgstation:
+  - refactor: Optimized TGUI_CREATE_MESSAGE() significantly.
+  - tweak: Updated the unit test code.
+  PowerfulBacon:
+  - refactor: Entering softcrit knocks the player down for 4 seconds.
+  - refactor: Items cannot be used during softcrit. (Attacking, healing, suicide bombing
+      can no longer be performed)
+  - refactor: Hardcrit threshold changed from -50 to -40.
+  - refactor: Random oxy damage during softcrit removed. (Oxygen damage is already
+      handled by the lungs)
+  - refactor: Random sleeping during softcrit replaced with knockdown.
+  - refactor: Reduced the probability of being knocked down / gasping / coughing during
+      softcrit.
+  - refactor: Damage effect overlay now kicks in at -0 health rather than -10 health.
+  - tweak: Riot shields, Roman shields, Goliath shields no longer block bullets.
+  Rukofamicom:
+  - bugfix: Disco grenade 2, electric boogaloo
+  ike709:
+  - bugfix: Fixed a material dupe exploit with stacking machines.
+2021-05-25:
+  Archanial:
+  - bugfix: runtime when throwing petholders
+  - tweak: Death pop up will only appear when your mob dies, not on ghosting
+  PowerfulBacon:
+  - bugfix: Hardsuits protect against space again.
+  eeSPee:
+  - rscadd: Gangs Rework
+2021-05-27:
+  Cyberboss, MCterra:
+  - server: port TGS event handler from /tg/
+  Rukofamicom:
+  - bugfix: Slimes gain less nutrition by feeding on other slimes due to an infinite
+      breeding exploit
+  - tweak: Sentient slimes no longer get bonus nutrition when breeding
+  ivanmixo:
+  - tweak: Skeletons, androids and zombies are now immune to cellular damage
+  yorii:
+  - rscadd: Rerolling blob strains now uses a radial menu, and lets you see what the
+      strain does before picking it.
+2021-05-28:
+  r1ks-iwnl:
+  - bugfix: fixed shooting yourself in the mouth with a gun while pacified to create
+      1 hit kill projectiles.
+2021-05-29:
+  Ivniinvi:
+  - bugfix: Monkey Cube crate's description is now accurate.
+2021-05-30:
+  bloons3:
+  - code_imp: Justifies LAZYLEN()
+2021-05-31:
+  ? ''
+  : - server: Compiler version is now 514.1554. Players are encouraged to stay on
+        513 for now.
+  Froststahr:
+  - rscdel: Integrated circuits have been removed to enable replacing them with TG's
+      new Wiremod circuits
+  SpacePrius:
+  - rscadd: Added copier to HoP office on pubbystation
