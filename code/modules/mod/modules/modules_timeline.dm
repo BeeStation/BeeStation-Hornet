@@ -156,12 +156,14 @@
 	///the dummy for phasing from this module, the wearer is phased out while this exists.
 	var/obj/effect/dummy/phased_mob/chrono/phased_mob
 
+/*
 /obj/item/mod/module/timeline_jumper/used()
 	var/area/noteleport_check = get_area(mod.wearer)
 	if(noteleport_check && (noteleport_check.teleport_restriction >= TELEPORT_ALLOW_NONE))
 		to_chat(mod.wearer, span_danger("Some dull, universal force is between you and the [phased_mob ? "current timeline" : "stream between timelines"]."))
 		return FALSE
 	return ..()
+*/
 
 /obj/item/mod/module/timeline_jumper/on_use()
 	if(!phased_mob)

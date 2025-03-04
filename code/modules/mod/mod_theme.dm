@@ -1594,7 +1594,7 @@
 	armor_type = /datum/armor/mod_theme_prototype
 	resistance_flags = FIRE_PROOF
 	siemens_coefficient = 0
-	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 7
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_inactive = 1.25
 	slowdown_active = 0.75

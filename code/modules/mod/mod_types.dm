@@ -324,7 +324,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/energy_shield/wizard,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/emp_shield/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/ninja
@@ -358,10 +358,13 @@
 		//obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/tether,
+		/obj/item/mod/module/springlock,
+		/obj/item/mod/module/active_sonar,
 	)
 	default_pins = list(
 		/obj/item/mod/module/tether,
 		/obj/item/mod/module/anomaly_locked/kinesis/prototype,
+		/obj/item/mod/module/active_sonar,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
@@ -451,7 +454,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 	)
@@ -464,7 +467,7 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 	)
@@ -477,7 +480,7 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/magnetic_harness,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/emp_shield/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/chrono
@@ -518,7 +521,7 @@
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/stealth/ninja,
 		/obj/item/mod/module/quick_carry/advanced,
