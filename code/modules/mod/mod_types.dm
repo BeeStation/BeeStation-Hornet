@@ -318,6 +318,28 @@
 		/obj/item/mod/module/emp_shield,
 	)
 
+/obj/item/mod/control/pre_equipped/ninja
+	theme = /datum/mod_theme/ninja
+	applied_cell = /obj/item/stock_parts/cell/ninja
+	applied_modules = list(
+		/obj/item/mod/module/storage,
+		/obj/item/mod/module/noslip,
+		/obj/item/mod/module/status_readout/ninja,
+		/obj/item/mod/module/stealth/ninja,
+		/obj/item/mod/module/dispenser/ninja,
+		/obj/item/mod/module/dna_lock/reinforced,
+		/obj/item/mod/module/emp_shield/pulse,
+		//obj/item/mod/module/quick_cuff,
+	)
+	default_pins = list(
+		/obj/item/mod/module/stealth/ninja,
+		/obj/item/mod/module/dispenser/ninja,
+		/obj/item/mod/module/emp_shield/pulse,
+		/obj/item/mod/module/weapon_recall,
+		/obj/item/mod/module/adrenaline_boost,
+		/obj/item/mod/module/energy_net,
+	)
+
 /obj/item/mod/control/pre_equipped/prototype
 	theme = /datum/mod_theme/prototype
 	req_access = list(ACCESS_AWAY_GENERAL)
@@ -503,5 +525,8 @@
 
 /obj/item/mod/control/pre_equipped/empty/elite
 	theme = /datum/mod_theme/elite
+
+/obj/item/mod/control/pre_equipped/empty/ninja
+	theme = /datum/mod_theme/ninja
 
 INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)

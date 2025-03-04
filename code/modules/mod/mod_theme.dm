@@ -1513,6 +1513,76 @@
 	stamina = 50
 	bleed = 60
 
+/datum/mod_theme/ninja
+	name = "ninja"
+	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
+	extended_desc = "A suit of nano-enhanced armor designed specifically for Spider Clan assassin-saboteurs. \
+		This MODsuit employs the cutting edge of stealth and combat technology, built skin-tight but just as durable as \
+		suits two or three times as thick. The nanomachines making up the outermost layer of armor \
+		are capable of shifting their form into almost-microscopic radiating fins, rendering the suit itself \
+		nigh-immune to even volcanic heat. It's entirely sealed against even the strongest acids, \
+		and the myoelectric artificial muscles of the suit leave it light as a feather during movement."
+	default_skin = "ninja"
+	armor_type = /datum/armor/mod_theme_ninja
+	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
+	charge_drain = DEFAULT_CHARGE_DRAIN * 0.5
+	siemens_coefficient = 0
+	slowdown_inactive = 0.5
+	slowdown_active = 0
+	ui_theme = "hackerman"
+	inbuilt_modules = list(/obj/item/mod/module/welding/camera_vision, /obj/item/mod/module/hacker, /obj/item/mod/module/weapon_recall, /obj/item/mod/module/adrenaline_boost, /obj/item/mod/module/energy_net)
+	allowed_suit_storage = list(
+		/obj/item/gun,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+	)
+	variants = list(
+		"ninja" = list(
+			/obj/item/clothing/head/mod = list(
+				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
+				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
+				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/suit/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT,
+				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/gloves/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/shoes/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
+			),
+		),
+	)
+
+/datum/armor/mod_theme_ninja
+	melee = 40
+	bullet = 30
+	laser = 20
+	energy = 30
+	bomb = 30
+	bio = 100
+	rad = 60
+	fire = 100
+	acid = 100
+	bleed = 50
+
 /datum/mod_theme/prototype
 	name = "prototype"
 	desc = "A prototype modular suit powered by locomotives. While it is comfortable and has a big capacity, it remains very bulky and power-inefficient."

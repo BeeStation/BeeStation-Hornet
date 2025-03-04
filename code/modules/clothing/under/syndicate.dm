@@ -109,3 +109,11 @@
 	bio = 10
 	stamina = 10
 	bleed = 15
+
+/obj/item/clothing/under/syndicate/ninja
+	name = "ninja suit"
+	desc = "A nano-enhanced jumpsuit designed for maximum comfort and tacticality."
+	icon_state = "ninja_suit"
+	strip_delay = 12 SECONDS
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	can_adjust = FALSE
