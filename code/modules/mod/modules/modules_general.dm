@@ -83,6 +83,7 @@
 	removable = FALSE
 	max_combined_w_class = 21
 	max_items = 7
+	required_slots = list(ITEM_SLOT_BELT)
 
 /obj/item/mod/module/storage/bluespace
 	name = "MOD bluespace storage module"
@@ -591,3 +592,101 @@
 /obj/item/mod/module/plasma_stabilizer/on_unequip()
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION, REF(src))
 
+//Finally, https://pipe.miroware.io/5b52ba1d94357d5d623f74aa/mspfa/Nuke%20Ops/Panels/0648.gif can be real:
+///Hat Stabilizer - Allows displaying a hat over the MOD-helmet, à la plasmamen helmets.
+/obj/item/mod/module/hat_stabilizer
+	name = "MOD hat stabilizer module"
+	desc = "A simple set of deployable stands, directly atop one's head; \
+		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
+		You still need to take the hat off your head while the helmet deploys, though. \
+		This is a must-have for Nanotrasen Captains, enabling them to show off their authoritative hat even while in their MODsuit."
+	icon_state = "hat_holder"
+	incompatible_modules = list(/obj/item/mod/module/hat_stabilizer)
+	required_slots = list(ITEM_SLOT_HEAD)
+	/*Intentionally left inheriting 0 complexity and removable = TRUE;
+	even though it comes inbuilt into the Magnate/Corporate MODS and spawns in maints, I like the idea of stealing them*/
+	///Currently "stored" hat. No armor or function will be inherited, ONLY the icon.
+	var/obj/item/clothing/head/attached_hat
+	/// Original cover flags for the MOD helmet, before a hat is placed
+	var/former_flags
+	var/former_visor_flags
+
+/obj/item/mod/module/hat_stabilizer/on_part_activation()
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(!istype(helmet))
+		return
+	RegisterSignal(helmet, COMSIG_PARENT_EXAMINE, PROC_REF(add_examine))
+	RegisterSignal(helmet, COMSIG_PARENT_ATTACKBY,  PROC_REF(place_hat))
+	RegisterSignal(helmet, COMSIG_ATOM_ATTACK_HAND_SECONDARY,  PROC_REF(remove_hat))
+
+/obj/item/mod/module/hat_stabilizer/on_part_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	if(attached_hat)	//knock off the helmet if its on their head. Or, technically, auto-rightclick it for them; that way it saves us code, AND gives them the bubble
+		remove_hat(src, mod.wearer)
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(!istype(helmet))
+		return
+	UnregisterSignal(helmet, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(helmet, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(helmet, COMSIG_ATOM_ATTACK_HAND_SECONDARY)
+
+/obj/item/mod/module/hat_stabilizer/proc/add_examine(datum/source, mob/user, list/base_examine)
+	SIGNAL_HANDLER
+	if(attached_hat)
+		base_examine += span_notice("There's \a [attached_hat] placed on the helmet. Right-click to remove it.")
+	else
+		base_examine += span_notice("There's nothing placed on the helmet. Yet.")
+
+/obj/item/mod/module/hat_stabilizer/proc/place_hat(datum/source, obj/item/hitting_item, mob/user)
+	SIGNAL_HANDLER
+	if(!istype(hitting_item, /obj/item/clothing/head))
+		return
+	var/obj/item/clothing/hat = hitting_item
+	if(!mod.active)
+		balloon_alert(user, "suit must be active!")
+		return
+	if(attached_hat)
+		balloon_alert(user, "hat already attached!")
+		return
+	if(mod.wearer.transferItemToLoc(hitting_item, src, force = FALSE, silent = TRUE))
+		attached_hat = hat
+		var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+		if(istype(helmet))
+			former_flags = helmet.flags_cover
+			former_visor_flags = helmet.visor_flags_cover
+			helmet.flags_cover |= attached_hat.flags_cover
+			helmet.visor_flags_cover |= attached_hat.visor_flags_cover
+		balloon_alert(user, "hat attached, right-click to remove")
+		mod.wearer.update_clothing(mod.slot_flags)
+
+/obj/item/mod/module/hat_stabilizer/generate_worn_overlay()
+	. = ..()
+	if(attached_hat)
+		. += attached_hat.build_worn_icon(default_layer = ABOVE_BODY_FRONT_LAYER-0.1, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+
+/obj/item/mod/module/hat_stabilizer/proc/remove_hat(datum/source, mob/user)
+	SIGNAL_HANDLER
+	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(!attached_hat)
+		return
+	attached_hat.forceMove(drop_location())
+	if(user.put_in_active_hand(attached_hat))
+		balloon_alert(user, "hat removed")
+	else
+		balloon_alert_to_viewers("the hat falls to the floor!")
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(helmet))
+		helmet.flags_cover = former_flags
+		helmet.visor_flags_cover = former_visor_flags
+	attached_hat = null
+	mod.wearer.update_clothing(mod.slot_flags)
+
+/obj/item/mod/module/hat_stabilizer/syndicate
+	name = "MOD elite hat stabilizer module"
+	desc = "A simple set of deployable stands, directly atop one's head; \
+		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
+		You still need to take the hat off your head while the helmet deploys, though. This is a must-have for \
+		Syndicate Operatives and Agents alike, enabling them to continue to style on the opposition even while in their MODsuit."
+	complexity = 0
+	removable = FALSE

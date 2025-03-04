@@ -499,14 +499,26 @@
 
 /datum/outfit/centcom/death_commando/officer
 	name = "Death Commando Officer"
-	head = /obj/item/clothing/head/helmet/space/beret
-	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
+	back = /obj/item/mod/control/pre_equipped/apocryphal/officer
+	backpack_contents = list(
+		/obj/item/aiModule/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1,
-		/obj/item/door_remote/omni=1)
+		/obj/item/door_remote/omni=1
+	)
+
+/datum/outfit/centcom/death_commando/officer/post_equip(mob/living/carbon/human/squaddie, visualsOnly = FALSE)
+	. = ..()
+	var/obj/item/mod/control/mod = squaddie.back
+	if(!istype(mod))
+		return
+	var/obj/item/mod/module/hat_stabilizer/hat_holder = locate() in mod.modules
+	var/obj/item/clothing/head/helmet/space/beret/beret = new(hat_holder)
+	hat_holder.attached_hat = beret
+	squaddie.update_clothing(mod.slot_flags)
 
 /datum/outfit/centcom/death_commando/doomguy
 	name = "The Juggernaut"

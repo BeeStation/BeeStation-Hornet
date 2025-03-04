@@ -196,7 +196,7 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-		//obj/item/mod/module/hat_stabilizer,
+		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/pathfinder,
@@ -225,6 +225,7 @@
 		/obj/item/mod/module/pathfinder/plus,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -242,6 +243,7 @@
 		/obj/item/mod/module/pathfinder/plus,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -258,6 +260,7 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -274,7 +277,7 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/dna_lock,
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -289,6 +292,7 @@
 		/obj/item/mod/module/thermal_regulator,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 		/obj/item/mod/module/flamethrower,
 	)
 	default_pins = list(
@@ -305,7 +309,7 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/quick_carry,
 		/obj/item/mod/module/visor/diaghud,
-		//obj/item/mod/module/hat_stabilizer/syndicate,
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 		//obj/item/mod/module/quick_cuff,
 	)
 
@@ -450,13 +454,23 @@
 		/obj/item/mod/module/jetpack,
 	)
 
+/obj/item/mod/control/pre_equipped/apocryphal/officer
+	applied_modules = list(
+		/obj/item/mod/module/storage/bluespace,
+		/obj/item/mod/module/hat_stabilizer,
+		/obj/item/mod/module/welding,
+		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/jetpack,
+	)
+
 /obj/item/mod/control/pre_equipped/corporate
 	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
 	req_access = list(ACCESS_CENT_SPECOPS)
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		//obj/item/mod/module/hat_stabilizer,
+		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/emp_shield,
 	)
