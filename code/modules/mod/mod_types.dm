@@ -174,7 +174,7 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
-		//obj/item/mod/module/pepper_shoulders,
+		/obj/item/mod/module/pepper_shoulders,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard
@@ -185,7 +185,7 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
-		//obj/item/mod/module/pepper_shoulders,
+		/obj/item/mod/module/pepper_shoulders,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -389,7 +389,7 @@
 /obj/item/mod/control/pre_equipped/responsory/security
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/gps
-	//additional_module = /obj/item/mod/module/pepper_shoulders
+	additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
@@ -429,7 +429,7 @@
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/gps
-	//additional_module = /obj/item/mod/module/pepper_shoulders
+	additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic

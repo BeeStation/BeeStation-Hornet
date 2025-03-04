@@ -60,7 +60,6 @@
 	balloon_alert(mod.wearer, "[item] reattached")
 	drain_power(use_power_cost)
 
-/*
 ///Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
 /obj/item/mod/module/pepper_shoulders
 	name = "MOD pepper shoulders module"
@@ -76,7 +75,7 @@
 	required_slots = list(ITEM_SLOT_OCLOTHING)
 
 /obj/item/mod/module/pepper_shoulders/on_part_activation()
-	RegisterSignal(mod.wearer, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(on_check_block))
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_shields))
 
 /obj/item/mod/module/pepper_shoulders/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
@@ -99,7 +98,6 @@
 	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a smoke of pepper spray!"), span_notice("Your [src] releases a cloud of pepper spray!"))
 	used()
 
-*/
 
 ///Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
