@@ -132,6 +132,14 @@
 	if(moving_diagonally)//no mob swap during diagonal moves.
 		return TRUE
 
+	var/either_combat_mode = combat_mode
+	var/target_combat_mode = FALSE
+	if (isliving(M))
+		var/mob/living/L = M
+		if (L.stat == CONSCIOUS)
+			either_combat_mode ||= L.combat_mode
+			target_combat_mode = L.combat_mode
+
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap = FALSE
 		var/too_strong = (M.move_resist > move_force) //can't swap with immovable objects unless they help us
@@ -144,8 +152,8 @@
 				mob_swap = TRUE
 			else if(
 				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !combat_mode) &&\
-				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !combat_mode)
+				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !either_combat_mode) &&\
+				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !either_combat_mode)
 			)
 				mob_swap = TRUE
 		if(mob_swap)
@@ -185,16 +193,9 @@
 		var/mob/living/L = M
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
 			return TRUE
-	//If they're a human, and they're not in help intent, block pushing
-	if(ishuman(M))
-		var/mob/living/carbon/human/human = M
-		if(human.combat_mode)
-			return TRUE
-	//if they are a cyborg, and they're alive and in combat mode, block pushing
-	if(iscyborg(M))
-		var/mob/living/silicon/robot/borg = M
-		if(borg.combat_mode && borg.stat != DEAD)
-			return TRUE
+	// Don't allow pushing the target if they are in combat mode.
+	if(target_combat_mode)
+		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
 		if(!isclothing(M))
