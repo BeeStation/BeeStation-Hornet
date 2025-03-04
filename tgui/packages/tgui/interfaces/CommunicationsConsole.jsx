@@ -19,8 +19,8 @@ const sortShuttles = sortBy(
   (shuttle) => shuttle.creditCost
 );
 
-const AlertButton = (props, context) => {
-  const { act, data } = useBackend(context);
+const AlertButton = (props) => {
+  const { act, data } = useBackend();
   const { alertLevelTick, canSetAlertLevel } = data;
   const { alertLevel, setShowAlertLevelConfirm } = props;
 
@@ -48,11 +48,11 @@ const AlertButton = (props, context) => {
   );
 };
 
-const MessageModal = (props, context) => {
-  const { data } = useBackend(context);
+const MessageModal = (props) => {
+  const { data } = useBackend();
   const { maxMessageLength } = data;
 
-  const [input, setInput] = useLocalState(context, props.label, '');
+  const [input, setInput] = useLocalState(props.label, '');
 
   const longEnough = props.minLength === undefined || input.length >= props.minLength;
 
@@ -129,8 +129,8 @@ const NoConnectionModal = () => {
   );
 };
 
-const PageBuyingShuttle = (props, context) => {
-  const { act, data } = useBackend(context);
+const PageBuyingShuttle = (props) => {
+  const { act, data } = useBackend();
   const { canBuyShuttles } = data;
 
   return (
@@ -207,8 +207,8 @@ const PageBuyingShuttle = (props, context) => {
   );
 };
 
-const PageChangingStatus = (props, context) => {
-  const { act } = useBackend(context);
+const PageChangingStatus = (props) => {
+  const { act } = useBackend();
 
   return (
     <Box>
@@ -217,8 +217,8 @@ const PageChangingStatus = (props, context) => {
   );
 };
 
-const PageMain = (props, context) => {
-  const { act, data } = useBackend(context);
+const PageMain = (props) => {
+  const { act, data } = useBackend();
   const {
     alertLevel,
     alertLevelTick,
@@ -242,16 +242,15 @@ const PageMain = (props, context) => {
     page,
   } = data;
 
-  const [callingShuttle, setCallingShuttle] = useLocalState(context, 'calling_shuttle', false);
-  const [messagingAssociates, setMessagingAssociates] = useLocalState(context, 'messaging_associates', false);
-  const [messagingSector, setMessagingSector] = useLocalState(context, 'messaing_sector', null);
-  const [requestingNukeCodes, setRequestingNukeCodes] = useLocalState(context, 'requesting_nuke_codes', false);
+  const [callingShuttle, setCallingShuttle] = useLocalState('calling_shuttle', false);
+  const [messagingAssociates, setMessagingAssociates] = useLocalState('messaging_associates', false);
+  const [messagingSector, setMessagingSector] = useLocalState('messaing_sector', null);
+  const [requestingNukeCodes, setRequestingNukeCodes] = useLocalState('requesting_nuke_codes', false);
 
-  const [[showAlertLevelConfirm, confirmingAlertLevelTick], setShowAlertLevelConfirm] = useLocalState(
-    context,
-    'showConfirmPrompt',
-    [null, null]
-  );
+  const [[showAlertLevelConfirm, confirmingAlertLevelTick], setShowAlertLevelConfirm] = useLocalState('showConfirmPrompt', [
+    null,
+    null,
+  ]);
 
   return (
     <Box>
@@ -486,8 +485,8 @@ const PageMain = (props, context) => {
   );
 };
 
-const PageMessages = (props, context) => {
-  const { act, data } = useBackend(context);
+const PageMessages = (props) => {
+  const { act, data } = useBackend();
   const messages = data.messages || [];
 
   return (
@@ -550,7 +549,7 @@ const PageMessages = (props, context) => {
   );
 };
 
-const ConditionalTooltip = (props, context) => {
+const ConditionalTooltip = (props) => {
   const { condition, children, ...rest } = props;
 
   if (!condition) {
@@ -560,13 +559,36 @@ const ConditionalTooltip = (props, context) => {
   return <Tooltip {...rest}>{children}</Tooltip>;
 };
 
-export const CommunicationsConsole = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { authenticated, authorizeName, canLogOut, emagged, hasConnection, page, canBuyShuttles } = data;
+export const CommunicationsConsole = (props) => {
+  const { act, data } = useBackend();
+  const {
+    canRequestSafeCode,
+    safeCodeDeliveryWait,
+    safeCodeDeliveryArea,
+    authenticated,
+    authorizeName,
+    canLogOut,
+    emagged,
+    hasConnection,
+    page,
+    canBuyShuttles,
+  } = data;
 
   return (
     <Window width={800} height={550} theme={emagged ? 'syndicate' : undefined}>
       <Window.Content>
+        {(canRequestSafeCode ? (
+          <Section title="Emergency Safe Code">
+            <Button icon="key" content="Request Safe Code" color="good" onClick={() => act('requestSafeCodes')} />
+          </Section>
+        ) : null) ||
+          (safeCodeDeliveryWait ? (
+            <Section title="Emergency Safe Code Delivery">
+              {`Drop pod to ${safeCodeDeliveryArea} in \
+            ${Math.round(safeCodeDeliveryWait / 10)}s`}
+            </Section>
+          ) : null)}
+
         {authenticated ? (
           <Stack fill>
             <Stack.Item width="40%">

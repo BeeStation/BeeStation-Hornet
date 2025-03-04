@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Dropdown, Grid, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const NaniteCodes = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteCodes = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <Section title="Codes" level={3} mr={1}>
@@ -14,7 +14,8 @@ export const NaniteCodes = (props, context) => {
             width="47px"
             minValue={0}
             maxValue={9999}
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('set_code', {
                 target_code: 'activation',
                 code: value,
@@ -28,7 +29,8 @@ export const NaniteCodes = (props, context) => {
             width="47px"
             minValue={0}
             maxValue={9999}
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('set_code', {
                 target_code: 'deactivation',
                 code: value,
@@ -42,7 +44,8 @@ export const NaniteCodes = (props, context) => {
             width="47px"
             minValue={0}
             maxValue={9999}
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('set_code', {
                 target_code: 'kill',
                 code: value,
@@ -57,7 +60,8 @@ export const NaniteCodes = (props, context) => {
               width="47px"
               minValue={0}
               maxValue={9999}
-              onChange={(e, value) =>
+              step={1}
+              onChange={(value) =>
                 act('set_code', {
                   target_code: 'trigger',
                   code: value,
@@ -71,8 +75,8 @@ export const NaniteCodes = (props, context) => {
   );
 };
 
-export const NaniteDelays = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteDelays = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <Section title="Delays" level={3} ml={1}>
@@ -84,7 +88,8 @@ export const NaniteDelays = (props, context) => {
             width="57px"
             minValue={0}
             maxValue={3600}
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('set_restart_timer', {
                 delay: value,
               })
@@ -98,7 +103,8 @@ export const NaniteDelays = (props, context) => {
             width="57px"
             minValue={0}
             maxValue={3600}
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('set_shutdown_timer', {
                 delay: value,
               })
@@ -114,7 +120,8 @@ export const NaniteDelays = (props, context) => {
                 width="57px"
                 minValue={0}
                 maxValue={3600}
-                onChange={(e, value) =>
+                step={1}
+                onChange={(value) =>
                   act('set_trigger_timer', {
                     delay: value,
                   })
@@ -128,7 +135,8 @@ export const NaniteDelays = (props, context) => {
                 width="57px"
                 minValue={0}
                 maxValue={3600}
-                onChange={(e, value) =>
+                step={1}
+                onChange={(value) =>
                   act('set_timer_trigger_delay', {
                     delay: value,
                   })
@@ -142,7 +150,7 @@ export const NaniteDelays = (props, context) => {
   );
 };
 
-export const NaniteExtraEntry = (props, context) => {
+export const NaniteExtraEntry = (props) => {
   const { extra_setting } = props;
   const { name, type } = extra_setting;
   const typeComponentMap = {
@@ -154,9 +162,9 @@ export const NaniteExtraEntry = (props, context) => {
   return <LabeledList.Item label={name}>{typeComponentMap[type]}</LabeledList.Item>;
 };
 
-export const NaniteExtraNumber = (props, context) => {
+export const NaniteExtraNumber = (props) => {
   const { extra_setting } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   const { name, value, min, max, unit } = extra_setting;
   return (
     <NumberInput
@@ -165,7 +173,8 @@ export const NaniteExtraNumber = (props, context) => {
       minValue={min}
       maxValue={max}
       unit={unit}
-      onChange={(e, val) =>
+      step={1}
+      onChange={(val) =>
         act('set_extra_setting', {
           target_setting: name,
           value: val,
@@ -175,9 +184,9 @@ export const NaniteExtraNumber = (props, context) => {
   );
 };
 
-export const NaniteExtraText = (props, context) => {
+export const NaniteExtraText = (props) => {
   const { extra_setting } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   const { name, value } = extra_setting;
   return (
     <Input
@@ -193,9 +202,9 @@ export const NaniteExtraText = (props, context) => {
   );
 };
 
-export const NaniteExtraType = (props, context) => {
+export const NaniteExtraType = (props) => {
   const { extra_setting } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   const { name, value, types } = extra_setting;
   return (
     <Dropdown
@@ -213,9 +222,9 @@ export const NaniteExtraType = (props, context) => {
   );
 };
 
-export const NaniteExtraBoolean = (props, context) => {
+export const NaniteExtraBoolean = (props) => {
   const { extra_setting } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   const { name, value, true_text, false_text } = extra_setting;
   return (
     <Button.Checkbox
@@ -230,7 +239,7 @@ export const NaniteExtraBoolean = (props, context) => {
   );
 };
 
-export const NaniteProgrammer = (props, context) => {
+export const NaniteProgrammer = (props) => {
   return (
     <Window width={420} height={550}>
       <Window.Content scrollable>
@@ -240,8 +249,8 @@ export const NaniteProgrammer = (props, context) => {
   );
 };
 
-export const NaniteProgrammerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NaniteProgrammerContent = (props) => {
+  const { act, data } = useBackend();
   const {
     has_disk,
     has_program,

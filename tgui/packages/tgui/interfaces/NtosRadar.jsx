@@ -1,12 +1,11 @@
 import { classes } from 'common/react';
-import { Fragment } from 'inferno';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Icon, NoticeBox, Section, Tooltip } from '../components';
 import { NtosWindow } from '../layouts';
 
-export const NtosRadar = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosRadar = (props) => {
+  const { act, data } = useBackend();
   const { full_capability } = data;
   return (
     <NtosWindow width={full_capability ? 800 : 400} height={full_capability ? 600 : 500} theme="ntos">
@@ -16,8 +15,8 @@ export const NtosRadar = (props, context) => {
 };
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-export const NtosRadarContentSmall = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosRadarContentSmall = (props) => {
+  const { act, data } = useBackend();
   const { selected, object = [], target = [], scanning, full_capability } = data;
   const { sig_err } = props;
   return (
@@ -45,7 +44,7 @@ export const NtosRadarContentSmall = (props, context) => {
               <Icon
                 name={target.dist > 0 ? 'arrow-up' : 'crosshairs'}
                 style={{
-                  'transform': `rotate(${target.rotate_angle}deg)`,
+                  transform: `rotate(${target.rotate_angle}deg)`,
                 }}
               />
             ) : null}{' '}
@@ -88,8 +87,8 @@ export const NtosRadarContentSmall = (props, context) => {
   );
 };
 
-export const NtosRadarContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosRadarContent = (props) => {
+  const { act, data } = useBackend();
   const { selected, object = [], target = [], scanning, full_capability } = data;
   const { sig_err } = props;
   return (
@@ -130,10 +129,10 @@ export const NtosRadarContent = (props, context) => {
       </Flex.Item>
       <Flex.Item
         style={{
-          'background-image': 'url("' + resolveAsset('ntosradarbackground.png') + '")',
-          'background-position': 'center',
-          'background-repeat': 'no-repeat',
-          'top': '20px',
+          backgroundImage: 'url("' + resolveAsset('ntosradarbackground.png') + '")',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          top: '20px',
         }}
         position="relative"
         m={1.5}
@@ -146,7 +145,7 @@ export const NtosRadarContent = (props, context) => {
             </NoticeBox>
           )
           : (!!target.use_rotate && (
-            <Fragment>
+            <>
               <Box
                 as="img"
                 src={resolveAsset(target.arrowstyle)}
@@ -154,7 +153,7 @@ export const NtosRadarContent = (props, context) => {
                 top="20px"
                 left="243px"
                 style={{
-                  'transform': `rotate(${target.rotate_angle}deg)`,
+                  transform: `rotate(${target.rotate_angle}deg)`,
                 }}
               />
               {target.pointer_z ? (
@@ -167,7 +166,7 @@ export const NtosRadarContent = (props, context) => {
                   left={224 + 'px'}
                 />
               ) : null}
-            </Fragment>
+            </>
           )) || (
             <Icon
               name={target.pointer_z ? target.pointer_z : 'crosshairs'}

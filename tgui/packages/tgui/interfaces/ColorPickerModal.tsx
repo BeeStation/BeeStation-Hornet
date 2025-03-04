@@ -12,7 +12,7 @@ import { clamp } from 'common/math';
 import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, InfernoNode } from 'inferno';
+import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
 import { logger } from 'tgui/logging';
 import { InputButtons } from './common/InputButtons';
 
@@ -27,10 +27,10 @@ type ColorPickerData = {
   default_color: string;
 };
 
-export const ColorPickerModal = (_, context) => {
-  const { data } = useBackend<ColorPickerData>(context);
+export const ColorPickerModal = (_) => {
+  const { data } = useBackend<ColorPickerData>();
   const { timeout, message, title, autofocus, default_color = '#000000' } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(context, 'color_picker_choice', hexToHsva(default_color));
+  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>('color_picker_choice', hexToHsva(default_color));
 
   return (
     <Window height={400} title={title} width={600} theme="generic">
@@ -61,10 +61,7 @@ export const ColorPickerModal = (_, context) => {
   );
 };
 
-export const ColorSelector = (
-  { color, setColor, defaultColor }: { color: HsvaColor; setColor; defaultColor: string },
-  context
-) => {
+export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaColor; setColor; defaultColor: string }) => {
   const handleChange = (params: Partial<HsvaColor>) => {
     setColor((current: HsvaColor) => {
       return Object.assign({}, current, params);
@@ -129,7 +126,7 @@ export const ColorSelector = (
                 <Hue hue={color.h} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
-                <TextSetter value={color.h} callback={(_, v) => handleChange({ h: v })} max={360} unit="°" />
+                <TextSetter value={color.h} callback={(v) => handleChange({ h: v })} max={360} unit="°" />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -142,7 +139,7 @@ export const ColorSelector = (
                 <Saturation color={color} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
-                <TextSetter value={color.s} callback={(_, v) => handleChange({ s: v })} unit="%" />
+                <TextSetter value={color.s} callback={(v) => handleChange({ s: v })} unit="%" />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -155,7 +152,7 @@ export const ColorSelector = (
                 <Value color={color} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
-                <TextSetter value={color.v} callback={(_, v) => handleChange({ v: v })} unit="%" />
+                <TextSetter value={color.v} callback={(v) => handleChange({ v: v })} unit="%" />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -171,7 +168,7 @@ export const ColorSelector = (
               <Stack.Item>
                 <TextSetter
                   value={rgb.r}
-                  callback={(_, v) => {
+                  callback={(v) => {
                     rgb.r = v;
                     handleChange(rgbaToHsva(rgb));
                   }}
@@ -191,7 +188,7 @@ export const ColorSelector = (
               <Stack.Item>
                 <TextSetter
                   value={rgb.g}
-                  callback={(_, v) => {
+                  callback={(v) => {
                     rgb.g = v;
                     handleChange(rgbaToHsva(rgb));
                   }}
@@ -211,7 +208,7 @@ export const ColorSelector = (
               <Stack.Item>
                 <TextSetter
                   value={rgb.b}
-                  callback={(_, v) => {
+                  callback={(v) => {
                     rgb.b = v;
                     handleChange(rgbaToHsva(rgb));
                   }}
@@ -234,7 +231,7 @@ const TextSetter = ({
   unit,
 }: {
   value: number;
-  callback: any;
+  callback: (value: number) => void;
   min?: number;
   max?: number;
   unit?: string;
@@ -276,7 +273,7 @@ interface HexColorInputProps extends Omit<ColorInputBaseProps, 'escape' | 'valid
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): InfernoNode => {
+export const HexColorInput = (props: HexColorInputProps) => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
@@ -315,7 +312,7 @@ export class ColorInput extends Component {
   state: { localValue: string };
 
   constructor(props: ColorInputBaseProps) {
-    super();
+    super(props);
     this.props = props;
     this.state = { localValue: this.props.escape(this.props.color) };
   }
@@ -377,7 +374,7 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    'background-color': `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
+    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
   };
 
   return (
@@ -457,7 +454,7 @@ const Saturation = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: 0,
             v: color.v,
@@ -505,7 +502,7 @@ const Value = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: color.s,
             v: 0,

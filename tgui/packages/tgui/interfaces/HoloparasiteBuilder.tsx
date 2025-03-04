@@ -182,10 +182,10 @@ const chat_background_colors = {
  */
 const minimum_recommended_contrast = 0.14285;
 
-const InputValidity = (props: { field: string; validity: Validity }, context) => {
+const InputValidity = (props: { field: string; validity: Validity }) => {
   const {
     data: { themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   const is_are = props.field.endsWith('s') ? 'are' : 'is';
   switch (props.validity) {
     case Validity.Valid: {
@@ -260,23 +260,23 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
       );
     }
     default: {
-      break;
+      return null;
     }
   }
 };
 
-const BasicNameInput = (_props, context) => {
+const BasicNameInput = (_props) => {
   const {
     act,
     data: { custom_name, max_lengths, themed_name, validation },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   const set_name = (_, name: string) => {
     act('set:name', { 'name': name });
   };
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
       }}>
       <Stack.Item grow>
         <Input
@@ -295,11 +295,11 @@ const BasicNameInput = (_props, context) => {
   );
 };
 
-const BasicColorInput = (_props, context) => {
+const BasicColorInput = (_props) => {
   const {
     data: { accent_color, validation },
-  } = useBackend<Info>(context);
-  const [_color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
+  } = useBackend<Info>();
+  const [_color_select, set_color_select] = useLocalState<HsvaColor | null>('color_select', null);
   const accent_color_rgb = hexToRgba(accent_color);
   // these are reversed and I'm too lazy to figure out why
   const light_mode_contrast = contrast(chat_background_colors.light, accent_color_rgb);
@@ -307,7 +307,7 @@ const BasicColorInput = (_props, context) => {
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
       }}>
       <Stack.Item grow>
         <ColorBox color={accent_color} onClick={() => set_color_select(hexToHsva(accent_color))} />
@@ -333,12 +333,12 @@ const BasicColorInput = (_props, context) => {
   );
 };
 
-const BasicColorSelector = (_props, context) => {
+const BasicColorSelector = (_props) => {
   const {
     act,
     data: { accent_color },
-  } = useBackend<Info>(context);
-  const [color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', hexToHsva(accent_color));
+  } = useBackend<Info>();
+  const [color_select, set_color_select] = useLocalState<HsvaColor | null>('color_select', hexToHsva(accent_color));
   return (
     <Section fill title="Accent Color Selection">
       <Stack fill vertical>
@@ -388,14 +388,14 @@ const BasicColorSelector = (_props, context) => {
   );
 };
 
-const BasicPointsInfo = (_props, context) => {
+const BasicPointsInfo = (_props) => {
   const {
     data: { points, max_points, themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
       }}>
       <Stack.Item grow>
         <ProgressBar
@@ -439,12 +439,12 @@ const BasicPointsInfo = (_props, context) => {
   );
 };
 
-const BasicSection = (_props, context) => {
+const BasicSection = (_props) => {
   const {
     act,
     data: { themed_name, points, max_points, validation },
-  } = useBackend<Info>(context);
-  const [_unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
+  } = useBackend<Info>();
+  const [_unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
   const manifest_disabled = points < 0 || validation.name !== Validity.Valid || validation.notes !== Validity.Valid;
   return (
     <Section fill title="Basic Info">
@@ -488,18 +488,18 @@ const BasicSection = (_props, context) => {
   );
 };
 
-const NotesSection = (_props, context) => {
+const NotesSection = (_props) => {
   const {
     act,
     data: { themed_name, notes, max_lengths, validation },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill title="Notes">
       <Stack fill vertical p={0.5}>
         <Stack.Item>
           <Stack
             style={{
-              'vertical-align': 'middle',
+              verticalAlign: 'middle',
             }}>
             <Stack.Item>
               <InputValidity field="notes" validity={validation.notes} />
@@ -532,10 +532,10 @@ const NotesSection = (_props, context) => {
   );
 };
 
-const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }, context) => {
+const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }) => {
   const {
     data: { rated_skills, themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Collapsible title={props.title}>
       <Stack vertical>
@@ -586,13 +586,14 @@ const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[
   );
 };
 
-const Abilities = (
-  props: { abilities: Ability[]; on_click: (ability: Ability, selected: boolean) => void; only_path?: string },
-  context
-) => {
+const Abilities = (props: {
+  abilities: Ability[];
+  on_click: (ability: Ability, selected: boolean) => void;
+  only_path?: string;
+}) => {
   const {
     data: { selected_abilities, themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   const abilities = props.only_path
     ? (props.abilities || []).filter((ability: Ability) => ability.path === props.only_path)
     : (props.abilities || []).filter((ability: Ability) => !ability.hidden || selected_abilities.includes(ability.path));
@@ -649,14 +650,14 @@ const Abilities = (
   );
 };
 
-const MajorAbilitiesTab = (_props, context) => {
+const MajorAbilitiesTab = (_props) => {
   const {
     act,
     data: {
       themed_name,
       abilities: { major },
     },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -683,13 +684,13 @@ const MajorAbilitiesTab = (_props, context) => {
   );
 };
 
-const LesserAbilitiesTab = (_props, context) => {
+const LesserAbilitiesTab = (_props) => {
   const {
     act,
     data: {
       abilities: { lesser },
     },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -712,7 +713,7 @@ const LesserAbilitiesTab = (_props, context) => {
   );
 };
 
-const WeaponsTab = (_props, context) => {
+const WeaponsTab = (_props) => {
   const {
     act,
     data: {
@@ -720,7 +721,7 @@ const WeaponsTab = (_props, context) => {
       forced_weapon,
       themed_name,
     },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -742,8 +743,8 @@ const WeaponsTab = (_props, context) => {
   );
 };
 
-const StatsSection = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+const StatsSection = (_props) => {
+  const { act, data } = useBackend<Info>();
   return (
     <Section fill title="Stats">
       <Stack fill vertical>
@@ -796,8 +797,8 @@ const StatsSection = (_props, context) => {
   );
 };
 
-const AbilitiesTabs = (_props, context) => {
-  const [tab, set_tab] = useLocalState<AbilityTab>(context, 'tab', AbilityTab.Major);
+const AbilitiesTabs = (_props) => {
+  const [tab, set_tab] = useLocalState<AbilityTab>('tab', AbilityTab.Major);
   return (
     <Section fill pb={6}>
       <Tabs>
@@ -818,12 +819,12 @@ const AbilitiesTabs = (_props, context) => {
   );
 };
 
-const ResetButton = (_props, context) => {
+const ResetButton = (_props) => {
   const {
     data: { used, waiting, themed_name },
-  } = useBackend<Info>(context);
-  const [unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
-  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
+  } = useBackend<Info>();
+  const [unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
+  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>('reset_dialog', false);
   return (
     <Button
       icon="undo"
@@ -836,146 +837,138 @@ const ResetButton = (_props, context) => {
   );
 };
 
-const WaitingDialog = (_props, context) => {
+const WaitingDialog = (_props) => {
   const {
     data: { themed_name, waiting },
-  } = useBackend<Info>(context);
-  return (
-    !!waiting && (
-      <Dimmer fontSize="32px">
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon name="cog" spin />
-          </Stack.Item>
-          <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  } = useBackend<Info>();
+  return waiting ? (
+    <Dimmer fontSize="32px">
+      <Stack align="center" fill justify="center" vertical>
+        <Stack.Item>
+          <Icon name="cog" spin />
+        </Stack.Item>
+        <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-const UsedDialog = (_props, context) => {
+const UsedDialog = (_props) => {
   const {
     data: { used, themed_name },
-  } = useBackend<Info>(context);
-  return (
-    !!used && (
-      <Dimmer fontSize="32px">
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon name="exclamation-triangle" color="orange" />
-          </Stack.Item>
-          <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  } = useBackend<Info>();
+  return used ? (
+    <Dimmer fontSize="32px">
+      <Stack align="center" fill justify="center" vertical>
+        <Stack.Item>
+          <Icon name="exclamation-triangle" color="orange" />
+        </Stack.Item>
+        <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-const ResetDialog = (_props, context) => {
-  const { act } = useBackend<Info>(context);
-  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
-  return (
-    !!reset_dialog && (
-      <Dimmer>
-        <Stack align="baseline" vertical>
-          <Stack.Item>
-            <Stack ml={-2}>
-              <Stack.Item>
-                <Icon color="red" name="trash" size={10} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item fontSize="18px" textAlign="center">
-            Are you sure you want to reset <b>all of your chosen stats and abilities</b>?
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Button
-                  color="good"
-                  content="Keep"
-                  onClick={() => {
-                    set_reset_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="bad"
-                  content="Reset"
-                  onClick={() => {
-                    act('reset');
-                    set_reset_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+const ResetDialog = (_props) => {
+  const { act } = useBackend<Info>();
+  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>('reset_dialog', false);
+  return reset_dialog ? (
+    <Dimmer>
+      <Stack align="baseline" vertical>
+        <Stack.Item>
+          <Stack ml={-2}>
+            <Stack.Item>
+              <Icon color="red" name="trash" size={10} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item fontSize="18px" textAlign="center">
+          Are you sure you want to reset <b>all of your chosen stats and abilities</b>?
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button
+                color="good"
+                content="Keep"
+                onClick={() => {
+                  set_reset_dialog(false);
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="bad"
+                content="Reset"
+                onClick={() => {
+                  act('reset');
+                  set_reset_dialog(false);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-const UnusedPointsDialog = (_props, context) => {
+const UnusedPointsDialog = (_props) => {
   const {
     act,
     data: { points, themed_name },
-  } = useBackend<Info>(context);
-  const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
-  return (
-    !!unused_points_dialog && (
-      <Dimmer>
-        <Stack align="baseline" vertical>
-          <Stack.Item>
-            <Stack ml={-2}>
-              <Stack.Item>
-                <Icon color="yellow" name="exclamation-triangle" size={10} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item fontSize="18px">
-            <Stack vertical textAlign="center">
-              <Stack.Item>
-                You have <b>{points.toLocaleString()} unused points</b>!
-              </Stack.Item>
-              <Stack.Item>
-                Are you <i>sure</i> you would like to summon your {themed_name} without having allocated all of your points?
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Button
-                  color="good"
-                  content="Go Back"
-                  onClick={() => {
-                    set_unused_points_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="bad"
-                  content="Continue Anyways"
-                  onClick={() => {
-                    act('spawn');
-                    set_unused_points_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  } = useBackend<Info>();
+  const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>('unused_points_dialog', false);
+  return unused_points_dialog ? (
+    <Dimmer>
+      <Stack align="baseline" vertical>
+        <Stack.Item>
+          <Stack ml={-2}>
+            <Stack.Item>
+              <Icon color="yellow" name="exclamation-triangle" size={10} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item fontSize="18px">
+          <Stack vertical textAlign="center">
+            <Stack.Item>
+              You have <b>{points.toLocaleString()} unused points</b>!
+            </Stack.Item>
+            <Stack.Item>
+              Are you <i>sure</i> you would like to summon your {themed_name} without having allocated all of your points?
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button
+                color="good"
+                content="Go Back"
+                onClick={() => {
+                  set_unused_points_dialog(false);
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="bad"
+                content="Continue Anyways"
+                onClick={() => {
+                  act('spawn');
+                  set_unused_points_dialog(false);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-export const HoloparasiteBuilder = (_props, context) => {
-  const [color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
+export const HoloparasiteBuilder = (_props) => {
+  const [color_select] = useLocalState<HsvaColor | null>('color_select', null);
   return (
     <Window theme="generic" width={1000} height={960} buttons={<ResetButton />}>
       <Window.Content>

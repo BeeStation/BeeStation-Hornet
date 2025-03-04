@@ -124,6 +124,20 @@
 	message = "drools"
 	emote_type = EMOTE_VISIBLE
 
+/datum/emote/living/jump
+	key = "jump"
+	key_third_person = "jumps"
+	message = "jumps"
+	emote_type = EMOTE_VISIBLE
+	cooldown = 2 SECONDS
+
+/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!isliving(user))
+		return
+	var/mob/living/living = user
+	living.do_jump_animation()
+
 /datum/emote/living/faint
 	key = "faint"
 	key_third_person = "faints"
@@ -290,10 +304,10 @@
 		var/mob/living/carbon/human/H = user
 		if(H.usable_hands == 0)
 			if(H.usable_legs != 0)
-				message_param = "tries to point at %t with a leg, <span class='userdanger'>falling down</span> in the process!"
+				message_param = "tries to point at %t with a leg, [span_userdanger("falling down")] in the process!"
 				H.Paralyze(20)
 			else
-				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
+				message_param = "[span_userdanger("bumps [user.p_their()] head on the ground")] trying to motion towards %t."
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 	..()
 
@@ -515,7 +529,7 @@
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		to_chat(user, span_danger("Invalid emote."))
 		return TRUE
 	return FALSE
 
@@ -579,10 +593,10 @@
 	if(intentional)
 		var/obj/item/circlegame/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+			to_chat(user, span_notice("You make a circle with your hand."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to make a circle with."))
 
 /datum/emote/living/slap
 	key = "slap"
@@ -596,9 +610,9 @@
 	if(intentional)
 		var/obj/item/slapper/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+			to_chat(user, span_notice("You ready your slapping hand."))
 		else
-			to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+			to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
 /datum/emote/living/raisehand
 	key = "highfive"
@@ -612,10 +626,10 @@
 	if(intentional)
 		var/obj/item/highfive/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+			to_chat(user, span_notice("You raise your hand for a high-five."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to high-five with."))
 
 /datum/emote/living/fingergun
 	key = "fingergun"
@@ -629,10 +643,10 @@
 	if(intentional)
 		var/obj/item/gun/ballistic/revolver/mime/N = new(user)
 		if(user.put_in_hands(N))
-			to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+			to_chat(user, span_notice("You form your fingers into a gun."))
 		else
 			qdel(N)
-			to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+			to_chat(user, span_warning("You don't have any free hands to make fingerguns with."))
 
 /datum/emote/living/click
 	key = "click"

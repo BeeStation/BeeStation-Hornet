@@ -1,22 +1,22 @@
 import { useBackend, useLocalState } from '../backend';
-import { Fragment } from 'inferno';
 import { Box, Button, Collapsible, ColorBox, Dropdown, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 import { map } from 'common/collections';
 import { toFixed } from 'common/math';
 import { numberOfDecimalDigits } from '../../common/math';
 
-const FilterIntegerEntry = (props, context) => {
+const FilterIntegerEntry = (props) => {
   const { value, name, filterName } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
     <NumberInput
       value={value}
       minValue={-500}
       maxValue={500}
       stepPixelSize={5}
+      step={1}
       width="39px"
-      onDrag={(e, value) =>
+      onDrag={(value) =>
         act('modify_filter_value', {
           name: filterName,
           new_data: {
@@ -28,12 +28,12 @@ const FilterIntegerEntry = (props, context) => {
   );
 };
 
-const FilterFloatEntry = (props, context) => {
+const FilterFloatEntry = (props) => {
   const { value, name, filterName } = props;
-  const { act } = useBackend(context);
-  const [step, setStep] = useLocalState(context, `${filterName}-${name}`, 0.01);
+  const { act } = useBackend();
+  const [step, setStep] = useLocalState(`${filterName}-${name}`, 0.01);
   return (
-    <Fragment>
+    <>
       <NumberInput
         value={value}
         minValue={-500}
@@ -42,7 +42,7 @@ const FilterFloatEntry = (props, context) => {
         step={step}
         format={(value) => toFixed(value, numberOfDecimalDigits(step))}
         width="80px"
-        onDrag={(e, value) =>
+        onDrag={(value) =>
           act('transition_filter_value', {
             name: filterName,
             new_data: {
@@ -56,18 +56,20 @@ const FilterFloatEntry = (props, context) => {
       </Box>
       <NumberInput
         value={step}
+        minValue={-Infinity}
+        maxValue={Infinity}
         step={0.001}
         format={(value) => toFixed(value, 4)}
         width="70px"
-        onChange={(e, value) => setStep(value)}
+        onChange={(value) => setStep(value)}
       />
-    </Fragment>
+    </>
   );
 };
 
-const FilterTextEntry = (props, context) => {
+const FilterTextEntry = (props) => {
   const { value, name, filterName } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
 
   return (
     <Input
@@ -85,11 +87,11 @@ const FilterTextEntry = (props, context) => {
   );
 };
 
-const FilterColorEntry = (props, context) => {
+const FilterColorEntry = (props) => {
   const { value, filterName, name } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
-    <Fragment>
+    <>
       <Button
         icon="pencil-alt"
         onClick={() =>
@@ -111,15 +113,15 @@ const FilterColorEntry = (props, context) => {
           })
         }
       />
-    </Fragment>
+    </>
   );
 };
 
-const FilterIconEntry = (props, context) => {
+const FilterIconEntry = (props) => {
   const { value, filterName } = props;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   return (
-    <Fragment>
+    <>
       <Button
         icon="pencil-alt"
         onClick={() =>
@@ -131,13 +133,13 @@ const FilterIconEntry = (props, context) => {
       <Box inline ml={1}>
         {value}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
-const FilterFlagsEntry = (props, context) => {
+const FilterFlagsEntry = (props) => {
   const { name, value, filterName, filterType } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
 
   const filterInfo = data.filter_info;
   const flags = filterInfo[filterType]['flags'];
@@ -157,7 +159,7 @@ const FilterFlagsEntry = (props, context) => {
   ))(flags);
 };
 
-const FilterDataEntry = (props, context) => {
+const FilterDataEntry = (props) => {
   const { name, value, hasValue, filterName } = props;
 
   const filterEntryTypes = {
@@ -198,8 +200,8 @@ const FilterDataEntry = (props, context) => {
   );
 };
 
-const FilterEntry = (props, context) => {
-  const { act, data } = useBackend(context);
+const FilterEntry = (props) => {
+  const { act, data } = useBackend();
   const { name, filterDataEntry } = props;
   const { type, priority, ...restOfProps } = filterDataEntry;
 
@@ -211,12 +213,15 @@ const FilterEntry = (props, context) => {
     <Collapsible
       title={name + ' (' + type + ')'}
       buttons={
-        <Fragment>
+        <>
           <NumberInput
             value={priority}
+            minValue={-Infinity}
+            maxValue={Infinity}
             stepPixelSize={10}
+            step={1}
             width="60px"
-            onChange={(e, value) =>
+            onChange={(value) =>
               act('change_priority', {
                 name: name,
                 new_priority: value,
@@ -235,7 +240,7 @@ const FilterEntry = (props, context) => {
             width="90px"
           />
           <Button.Confirm icon="minus" onClick={() => act('remove_filter', { name: name })} />
-        </Fragment>
+        </>
       }>
       <Section level={2}>
         <LabeledList>
@@ -260,14 +265,14 @@ const FilterEntry = (props, context) => {
   );
 };
 
-export const Filteriffic = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Filteriffic = (props) => {
+  const { act, data } = useBackend();
   const name = data.target_name || 'Unknown Object';
   const filters = data.target_filter_data || {};
   const hasFilters = filters !== {};
   const filterDefaults = data['filter_info'];
-  const [massApplyPath, setMassApplyPath] = useLocalState(context, 'massApplyPath', '');
-  const [hiddenSecret, setHiddenSecret] = useLocalState(context, 'hidden', false);
+  const [massApplyPath, setMassApplyPath] = useLocalState('massApplyPath', '');
+  const [hiddenSecret, setHiddenSecret] = useLocalState('hidden', false);
   return (
     <Window width={500} height={500} title="Filteriffic" resizable>
       <Window.Content scrollable>
@@ -277,7 +282,7 @@ export const Filteriffic = (props, context) => {
         <Section
           title={
             hiddenSecret ? (
-              <Fragment>
+              <>
                 <Box mr={0.5} inline>
                   MASS EDIT:
                 </Box>
@@ -287,9 +292,9 @@ export const Filteriffic = (props, context) => {
                   confirmContent="ARE YOU SURE?"
                   onClick={() => act('mass_apply', { path: massApplyPath })}
                 />
-              </Fragment>
+              </>
             ) : (
-              <Box inline onDblClick={() => setHiddenSecret(true)}>
+              <Box inline onDoubleClick={() => setHiddenSecret(true)}>
                 {name}
               </Box>
             )

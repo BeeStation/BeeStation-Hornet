@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ChemSplitter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemSplitter = (props) => {
+  const { act, data } = useBackend();
   const { straight, side, max_transfer } = data;
   return (
     <Window width={220} height={105}>
@@ -21,7 +21,7 @@ export const ChemSplitter = (props, context) => {
                 format={(value) => toFixed(value, 2)}
                 step={0.05}
                 stepPixelSize={4}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('set_amount', {
                     target: 'straight',
                     amount: value,
@@ -39,7 +39,7 @@ export const ChemSplitter = (props, context) => {
                 format={(value) => toFixed(value, 2)}
                 step={0.05}
                 stepPixelSize={4}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('set_amount', {
                     target: 'side',
                     amount: value,

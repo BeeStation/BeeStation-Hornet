@@ -3,8 +3,8 @@ import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber, Table }
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
-export const Sleeper = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Sleeper = (props) => {
+  const { act, data } = useBackend();
 
   const { open, occupant = {}, occupied, chems = [] } = data;
 
@@ -29,10 +29,10 @@ export const Sleeper = (props, context) => {
 
   const ELLIPSIS_STYLE = {
     // enforces overflow ellipsis
-    'max-width': '1px',
-    'white-space': 'nowrap',
-    'text-overflow': 'ellipsis',
-    'overflow': 'hidden',
+    maxWidth: '1px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   };
 
   return (

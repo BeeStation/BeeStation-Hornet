@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Box, NumberInput, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const RadioactiveMicrolaser = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RadioactiveMicrolaser = (props) => {
+  const { act, data } = useBackend();
   const { irradiate, stealth, scanmode, intensity, wavelength, on_cooldown, cooldown } = data;
   return (
     <Window theme="syndicate" width={320} height={335}>
@@ -54,7 +54,8 @@ export const RadioactiveMicrolaser = (props, context) => {
                 width="40px"
                 minValue={1}
                 maxValue={20}
-                onChange={(e, value) => {
+                step={1}
+                onChange={(value) => {
                   return act('radintensity', {
                     target: value,
                   });
@@ -71,7 +72,8 @@ export const RadioactiveMicrolaser = (props, context) => {
                 width="40px"
                 minValue={0}
                 maxValue={120}
-                onChange={(e, value) => {
+                step={1}
+                onChange={(value) => {
                   return act('radwavelength', {
                     target: value,
                   });

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosTempGate = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosTempGate = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={335} height={115}>
       <Window.Content>
@@ -26,7 +26,7 @@ export const AtmosTempGate = (props, context) => {
                 minValue={data.min_temperature}
                 maxValue={data.max_temperature}
                 step={1}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('temperature', {
                     temperature: value,
                   })

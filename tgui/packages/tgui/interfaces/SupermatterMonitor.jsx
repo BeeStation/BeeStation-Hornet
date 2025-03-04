@@ -18,8 +18,8 @@ export const SupermatterMonitor = () => {
   );
 };
 
-export const SupermatterMonitorContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SupermatterMonitorContent = (props) => {
+  const { act, data } = useBackend();
   const {
     active,
     standalone_mode,
@@ -130,7 +130,7 @@ export const SupermatterMonitorContent = (props, context) => {
           buttons={!standalone_mode ? <Button icon="arrow-left" content="Back" onClick={() => act('PRG_clear')} /> : null}>
           <LabeledList>
             {gases.map((gas) => (
-              <LabeledList.Item key={gas.name} label={getGasLabel(gas.name)}>
+              <LabeledList.Item key={gas.name} label={gas.name}>
                 <ProgressBar color={getGasColor(gas.name)} value={gas.amount} minValue={0} maxValue={gasMaxAmount}>
                   {toFixed(gas.amount, 2) + '%'}
                 </ProgressBar>
@@ -143,8 +143,8 @@ export const SupermatterMonitorContent = (props, context) => {
   );
 };
 
-const SupermatterList = (props, context) => {
-  const { act, data } = useBackend(context);
+const SupermatterList = (props) => {
+  const { act, data } = useBackend();
   const { supermatters = [] } = data;
   return (
     <Section

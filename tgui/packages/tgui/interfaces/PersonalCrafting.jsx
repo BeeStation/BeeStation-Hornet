@@ -3,8 +3,8 @@ import { classes } from 'common/react';
 import { Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs, Box } from '../components';
 import { Window } from '../layouts';
 
-export const PersonalCrafting = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PersonalCrafting = (props) => {
+  const { act, data } = useBackend();
   const { busy, display_craftable_only, display_compact } = data;
   const crafting_recipes = data.crafting_recipes || {};
   // Sort everything into flat categories
@@ -49,7 +49,7 @@ export const PersonalCrafting = (props, context) => {
     }
   }
   // Sort out the tab state
-  const [tab, setTab] = useLocalState(context, 'tab', categories[0]?.name);
+  const [tab, setTab] = useLocalState('tab', categories[0]?.name);
   const shownRecipes = recipes.filter((recipe) => recipe.category === tab);
   return (
     <Window theme="generic" title="Crafting Menu" width={700} height={800}>
@@ -107,9 +107,9 @@ export const PersonalCrafting = (props, context) => {
   );
 };
 
-const CraftingList = (props, context) => {
+const CraftingList = (props) => {
   const { craftables = [] } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const { craftability = {}, display_compact, display_craftable_only } = data;
   return craftables.map((craftable) => {
     if (display_craftable_only && !craftability[craftable.ref]) {
@@ -134,7 +134,7 @@ const CraftingList = (props, context) => {
             <Button
               icon="cog"
               content="Craft"
-              style={{ 'margin-top': '14px' }}
+              style={{ marginTop: '14px' }}
               disabled={!craftability[craftable.ref]}
               tooltip={craftable.tool_text && 'Tools needed: ' + craftable.tool_text}
               tooltipPosition="left"
@@ -155,7 +155,7 @@ const CraftingList = (props, context) => {
         key={craftable.name}
         title={
           <>
-            <span style={{ 'margin-right': '2px' }} className={classes(['crafting42x42', craftable.path])} />
+            <span style={{ marginRight: '2px' }} className={classes(['crafting42x42', craftable.path])} />
             {craftable.name}
           </>
         }
@@ -164,7 +164,7 @@ const CraftingList = (props, context) => {
           <Button
             icon="cog"
             content="Craft"
-            style={{ 'margin-top': '14px' }}
+            style={{ marginTop: '14px' }}
             disabled={!craftability[craftable.ref]}
             onClick={() =>
               act('make', {

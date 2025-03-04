@@ -37,22 +37,20 @@
 
 /obj/item/wirebrush/advanced/examine(mob/user)
 	. = ..()
-	. += "<span class='danger'>There is a warning label that indicates extended use of [src] may result in loss of hair, yellowing skin, and death.</span>"
+	. += span_danger("There is a warning label that indicates extended use of [src] may result in loss of hair, yellowing skin, and death.")
 
 /obj/item/wirebrush/advanced/proc/irradiate(mob/living/user)
 	if(!istype(user))
 		return
 
 	if(prob(crit_fail_prob))
-		to_chat(user, "<span class='danger'>You feel a sharp pain as your entire body grows oddly warm.</span>")
-		user.radiation += crit_fail_rads
+		to_chat(user, span_danger("You feel a sharp pain as \the [src] grows oddly warm."))
+		user.rad_act(crit_fail_rads)
 		if(user.radiation > crit_fail_rads_threshold) // If you ignore the warning signs you get punished
 			user.emote("vomit")
 			user.adjustToxLoss(crit_fail_damage, forced=TRUE)
 			user.adjustOxyLoss(crit_fail_damage, forced=TRUE)
 		return
 
-	user.radiation += radiation_on_use
-
-	if(prob(25))
+	if(user.rad_act(radiation_on_use) && prob(25))
 		user.emote("cough")

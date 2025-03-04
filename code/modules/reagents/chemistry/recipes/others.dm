@@ -478,7 +478,7 @@
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M as() in viewers(5, location))
-		to_chat(M, "<span class='danger'>The solution spews out foam!</span>")
+		to_chat(M, span_danger("The solution spews out foam!"))
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume*2, location, holder)
 	s.start()
@@ -496,7 +496,7 @@
 	var/location = get_turf(holder.my_atom)
 
 	for(var/mob/M as() in viewers(5, location))
-		to_chat(M, "<span class='danger'>The solution spews out a metallic foam!</span>")
+		to_chat(M, span_danger("The solution spews out a metallic foam!"))
 
 	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume*5, location, holder, 1)
@@ -511,7 +511,7 @@
 
 /datum/chemical_reaction/smart_foam/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/location = get_turf(holder.my_atom)
-	location.visible_message("<span class='danger'>The solution spews out metallic foam!</span>")
+	location.visible_message(span_danger("The solution spews out metallic foam!"))
 	var/datum/effect_system/foam_spread/metal/smart/s = new()
 	s.set_up(created_volume * 5, location, holder, TRUE)
 	s.start()
@@ -526,7 +526,7 @@
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/mob/M as() in viewers(5, location))
-		to_chat(M, "<span class='danger'>The solution spews out a metallic foam!</span>")
+		to_chat(M, span_danger("The solution spews out a metallic foam!"))
 	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume*5, location, holder, 2)
 	s.start()
@@ -927,3 +927,19 @@
 	id = /datum/reagent/mutationtoxin/psyphoza
 	results = list(/datum/reagent/mutationtoxin/psyphoza = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)
+
+/datum/chemical_reaction/ants // Breeding ants together, high sugar cost makes this take a while to farm.
+	results = list(/datum/reagent/ants = 3)
+	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 8)
+
+/datum/chemical_reaction/ant_slurry // We're basically glueing ants together with synthflesh & maint sludge to make a bigger ant.
+	required_reagents = list(/datum/reagent/ants = 50, /datum/reagent/medicine/synthflesh = 20, /datum/reagent/ammonia = 5)
+	required_temp = 480
+	//reaction_flags = REACTION_INSTANT
+	//reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
+
+/datum/chemical_reaction/ant_slurry/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in rand(1, created_volume) to created_volume)
+		new /mob/living/simple_animal/hostile/ant(location)
+	..()

@@ -6,9 +6,8 @@
 
 import { toFixed } from 'common/math';
 import { capitalize } from 'common/string';
-import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
-import { Box, Button, Collapsible, ColorBox, Divider, Stack, Input, LabeledList, NumberInput, Section, Tabs, TextArea } from 'tgui/components';
+import { useLocalState, useDispatch, useSelector } from 'tgui/backend';
+import { Box, Button, Collapsible, ColorBox, Divider, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
@@ -16,9 +15,9 @@ import { changeSettingsTab, updateSettings, addHighlightSetting, removeHighlight
 import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
 import { selectActiveTab, selectSettings, selectHighlightSettings, selectHighlightSettingById } from './selectors';
 
-export const SettingsPanel = (props, context) => {
-  const activeTab = useSelector(context, selectActiveTab);
-  const dispatch = useDispatch(context);
+export const SettingsPanel = (props) => {
+  const activeTab = useSelector(selectActiveTab);
+  const dispatch = useDispatch();
   return (
     <Stack fill>
       <Stack.Item>
@@ -50,10 +49,10 @@ export const SettingsPanel = (props, context) => {
   );
 };
 
-export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, highContrast, fontSize, lineHeight, statTabMode } = useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
+export const SettingsGeneral = (props) => {
+  const { theme, fontFamily, highContrast, fontSize, lineHeight, statTabMode } = useSelector(selectSettings);
+  const dispatch = useDispatch();
+  const [freeFont, setFreeFont] = useLocalState('freeFont', false);
   return (
     <Section>
       <LabeledList>
@@ -156,7 +155,7 @@ export const SettingsGeneral = (props, context) => {
             value={fontSize}
             unit="px"
             format={(value) => toFixed(value)}
-            onChange={(e, value) =>
+            onChange={(value) =>
               dispatch(
                 updateSettings({
                   fontSize: value,
@@ -174,7 +173,7 @@ export const SettingsGeneral = (props, context) => {
             maxValue={5}
             value={lineHeight}
             format={(value) => toFixed(value, 2)}
-            onDrag={(e, value) =>
+            onDrag={(value) =>
               dispatch(
                 updateSettings({
                   lineHeight: value,
@@ -233,9 +232,9 @@ export const SettingsGeneral = (props, context) => {
   );
 };
 
-const TextHighlightSettings = (props, context) => {
-  const highlightSettings = useSelector(context, selectHighlightSettings);
-  const dispatch = useDispatch(context);
+const TextHighlightSettings = (props) => {
+  const highlightSettings = useSelector(selectHighlightSettings);
+  const dispatch = useDispatch();
   return (
     <Section fill scrollable height="250px">
       <Stack vertical>
@@ -268,10 +267,10 @@ const TextHighlightSettings = (props, context) => {
   );
 };
 
-const TextHighlightSetting = (props, context) => {
+const TextHighlightSetting = (props) => {
   const { id, ...rest } = props;
-  const highlightSettingById = useSelector(context, selectHighlightSettingById);
-  const dispatch = useDispatch(context);
+  const highlightSettingById = useSelector(selectHighlightSettingById);
+  const dispatch = useDispatch();
   const { enabled, highlightColor, highlightText, highlightSelf, highlightWholeMessage, matchWord, matchCase } =
     highlightSettingById[id];
   return (

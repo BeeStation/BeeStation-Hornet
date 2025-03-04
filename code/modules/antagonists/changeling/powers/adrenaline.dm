@@ -6,12 +6,12 @@
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = 1
-	req_stat = UNCONSCIOUS
+	check_flags = AB_CHECK_DEAD
 
 //Recover from stuns.
 /datum/action/changeling/adrenaline/sting_action(mob/living/user)
 	..()
-	to_chat(user, "<span class='notice'>Energy rushes through us.[(user.body_position == LYING_DOWN) ? " We arise." : ""]</span>")
+	to_chat(user, span_notice("Energy rushes through us.[(user.body_position == LYING_DOWN) ? " We arise." : ""]"))
 	user.SetSleeping(0)
 	user.SetUnconscious(0)
 	user.SetStun(0)

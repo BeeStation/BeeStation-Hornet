@@ -158,7 +158,7 @@
 			if (!user.transferItemToLoc(used_item,src))
 				return
 			diskette = used_item
-			to_chat(user, "<span class='notice'>You insert [used_item].</span>")
+			to_chat(user, span_notice("You insert [used_item]."))
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
 		return ..()
