@@ -49,6 +49,8 @@
 		mod.quick_deploy(usr)
 	else
 		mod.choose_deploy(usr)
+	//if(ishuman(user))
+
 
 /datum/action/item_action/mod/deploy/ai
 	ai_action = TRUE

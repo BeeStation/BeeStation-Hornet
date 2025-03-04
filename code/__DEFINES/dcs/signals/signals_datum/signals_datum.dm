@@ -128,3 +128,6 @@
 /// Called when a buffer tries to send some stored data to something (datum/source, mob/user, datum/buffer, obj/item/buffer_parent) (buffer item may be null)
 #define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
 	#define COMPONENT_BUFFER_RECEIVED (1 << 0)
+
+/// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
+#define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"

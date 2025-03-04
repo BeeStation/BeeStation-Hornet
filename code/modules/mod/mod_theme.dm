@@ -476,7 +476,7 @@
 			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDEBELT,
 				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
 				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
 			),
@@ -508,7 +508,7 @@
 			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDEBELT,
 				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
 				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
 			),
@@ -1342,6 +1342,82 @@
 	acid = 100
 	stamina = 45
 	bleed = 60
+
+/datum/mod_theme/infiltrator
+	name = "infiltrator"
+	desc = "A specialized infiltration suit, developed by the Roseus Galactic Actors Guild to strike fear and awe into the hearts of the public."
+	extended_desc = "Several questions have been raised over the years in regards to the clandestine Infiltrator modular suit. \
+		Why is the suit blood red despite being a sneaking suit? Why did a movie company of all things develop a stealth suit? \
+		The simplest answer is that Roseus Galactic hire more than a few eccentric individuals who know more about \
+		visual aesthetics and prop design than they do functional operative camouflage. But the true reason goes deeper. \
+		The visual appearance of the suit exemplifies brazen displays of power, not true stealth. However, the suit's inbuilt stealth mechanisms\
+		prevent anyone from fully recognizing the occupant, only the suit, creating perfect anonymity. This visual transformation is \
+		backed by inbuilt psi-emitters, heightening stressors common amongst Nanotrasen staff, and clouding identifiable information. \
+		Scrubbed statistical data presented a single correlation within documented psychological profiles. The fear of the Unknown."
+	default_skin = "infiltrator"
+	armor_type = /datum/armor/mod_theme_infiltrator
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+	siemens_coefficient = 0
+	slowdown_inactive = 0
+	slowdown_active = 0
+	activation_step_time = MOD_ACTIVATION_STEP_TIME * 0.5
+	ui_theme = "syndicate"
+	slot_flags = ITEM_SLOT_BELT
+	inbuilt_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/storage/belt, /obj/item/mod/module/demoralizer)
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/assembly/flash,
+		/obj/item/melee/baton,
+		/obj/item/melee/transforming/energy/sword,
+		/obj/item/shield/energy,
+	)
+	variants = list(
+		"infiltrator" = list(
+			/obj/item/clothing/head/mod = list(
+				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
+				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
+				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT|HIDEANTENNAE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/suit/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDEMUTWINGS,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/gloves/mod = list(
+				SEALED_CLOTHING = THICKMATERIAL,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/shoes/mod = list(
+				SEALED_CLOTHING = THICKMATERIAL,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
+			),
+		),
+	)
+
+/datum/armor/mod_theme_infiltrator
+	melee = 40
+	bullet = 40
+	laser = 40
+	energy = 40
+	bomb = 40
+	rad = 75
+	fire = 100
+	acid = 100
+	stamina = 40
+	bleed = 50
 
 /datum/mod_theme/enchanted
 	name = "enchanted"

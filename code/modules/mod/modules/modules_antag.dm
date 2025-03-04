@@ -469,3 +469,69 @@
 	if(!holding_storage || holding_storage.max_w_class >= mod.w_class)
 		return
 	mod.forceMove(drop_location())
+
+/obj/item/mod/module/demoralizer
+	name = "MOD psi-echo demoralizer module"
+	desc = "One incredibly morbid member of the RND team at Roseus Galactic posed a question to her colleagues. \
+	'I desire the power to scar my enemies mentally as I murder them. Who will stop me implementing this in our next project?' \
+	And thus the Psi-Echo Demoralizer Device was reluctantly invented. The future of psychological warfare, today!"
+	icon_state = "brain_hurties"
+	complexity = 0
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
+	removable = FALSE
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	var/datum/proximity_monitor/advanced/demoraliser/demoralizer
+
+/obj/item/mod/module/demoralizer/on_part_activation()
+	var/datum/demoralise_moods/module/mood_category = new()
+	demoralizer = new(mod.wearer, 7, TRUE, mood_category)
+
+/obj/item/mod/module/demoralizer/on_part_deactivation(deleting = FALSE)
+	QDEL_NULL(demoralizer)
+
+/obj/item/mod/module/infiltrator
+	name = "MOD infiltration core programs module"
+	desc = "The primary stealth systems operating within the suit. Utilizing electromagnetic signals, \
+		the wearer simply cannot be observed closely, or heard clearly by those around them.\
+		It also contains some dampening systems to help protect a user from blows to the head."
+	icon_state = "infiltrator"
+	complexity = 0
+	removable = FALSE
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0
+	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
+	required_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_OCLOTHING)
+
+/obj/item/mod/module/infiltrator/on_install()
+	mod.item_flags |= EXAMINE_SKIP
+
+/obj/item/mod/module/infiltrator/on_uninstall(deleting = FALSE)
+	mod.item_flags &= ~EXAMINE_SKIP
+
+/obj/item/mod/module/infiltrator/on_part_activation()
+	ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_UNKNOWN, MOD_TRAIT)
+	RegisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH, PROC_REF(on_speech_modification))
+	//var/obj/item/organ/tongue/user_tongue = mod.wearer.getorganslot(ORGAN_SLOT_TONGUE)
+	//user_tongue.temp_say_mod = "states"
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(head_cover))
+		head_cover.flash_protect = FLASH_PROTECTION_WELDER_HYPER_SENSITIVE
+
+/obj/item/mod/module/infiltrator/on_part_deactivation(deleting = FALSE)
+	REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_UNKNOWN, MOD_TRAIT)
+	UnregisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH)
+	//var/obj/item/organ/tongue/user_tongue = mod.wearer.getorganslot(ORGAN_SLOT_TONGUE)
+	//user_tongue.temp_say_mod = initial(user_tongue.temp_say_mod)
+	if(deleting)
+		return
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(head_cover))
+		head_cover.flash_protect = initial(head_cover.flash_protect)
+
+/obj/item/mod/module/infiltrator/proc/on_speech_modification(datum/source)
+	SIGNAL_HANDLER
+	if(!mod.active)
+		return
+	//Prevent speech modifications if the suit is active
+	return PREVENT_MODIFY_SPEECH

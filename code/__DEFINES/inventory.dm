@@ -79,10 +79,12 @@
 #define HIDEHEADGEAR (1<<11)
 ///for lizard snouts, because some HIDEFACE clothes don't actually conceal that portion of the head.
 #define HIDESNOUT (1<<12)
-///hides mutant/moth wings, does not apply to functional wings
-//#define HIDEMUTWINGS (1<<13)
+///hides mutant/moth wings
+#define HIDEMUTWINGS (1<<13)
 ///hides belts and riggings
 #define HIDEBELT (1<<14)
+///hides antennae
+#define HIDEANTENNAE (1<<15)
 
 
 //bitflags for clothing coverage - also used for limbs

@@ -1627,6 +1627,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	category = "Space Suits"
 	surplus = 40
 
+/datum/uplink_item/suits/infiltrator_bundle
+	name = "Infiltrator MODsuit"
+	desc = "Developed by the Roseus Galactic Actors Guild in conjunction with the Gorlex Marauders to produce a functional suit for urban operations, \
+			this suit proves to be cheaper than your standard issue MODsuit, with none of the movement restrictions of the space suits employed by the company. \
+			However, this greater mobility comes at a cost, and the suit is ineffective at protecting the wearer from the vacuum of space. \
+			The suit does come pre-equipped with a special psi-emitter stealth module that makes it impossible to recognize the wearer \
+			as well as causing significant demoralization amongst Nanotrasen crew."
+	item = /obj/item/mod/control/pre_equipped/infiltrator
+	cost = 6
+
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
 	desc = "This red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
@@ -1714,7 +1724,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/suits/plate_compression
 	name = "MODsuit Plate Compression Module"
-	desc = "A MODsuit module that lets the suit compress into a smaller size. Not compatible with storage modules."
+	desc = "A MODsuit module that lets the suit compress into a smaller size. Not compatible with storage modules or the Infiltrator MODsuit."
 	item = /obj/item/mod/module/plate_compression
 	cost = 2
 
@@ -2624,6 +2634,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 2
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
+
+/datum/uplink_item/badass/tactical_naptime
+	name = "Sleepy Time Pajama Bundle"
+	desc = "Even soldiers need to get a good nights rest. Comes with blood-red pajamas, a blankie, a hot mug of cocoa and a fuzzy friend."
+	item = /obj/item/storage/box/syndie_kit/sleepytime
+	cost = 4
+	limited_stock = 1
+	cant_discount = TRUE
+	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/badass/toy_box
 	name = "Box of DonkCo. Toys"
