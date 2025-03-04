@@ -140,7 +140,7 @@
 	var/door_hack_counter = 0
 
 /obj/item/mod/module/hacker/on_part_activation()
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, .proc/hack)
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_EARLY_UNARMED_ATTACK,  PROC_REF(hack))
 
 /obj/item/mod/module/hacker/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
@@ -430,7 +430,7 @@
 	addtimer(CALLBACK(src, PROC_REF(boost_aftereffects), mod.wearer), 7 SECONDS)
 
 /obj/item/mod/module/adrenaline_boost/on_install()
-	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, .proc/on_attackby)
+	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY,  PROC_REF(on_attackby))
 
 /obj/item/mod/module/adrenaline_boost/on_uninstall(deleting)
 	UnregisterSignal(mod, COMSIG_PARENT_ATTACKBY)
