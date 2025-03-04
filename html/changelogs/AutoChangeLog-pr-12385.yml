@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: fixed abductor consoles
-  - code_imp: some code cleanup on abductors
