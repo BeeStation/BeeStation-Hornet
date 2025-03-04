@@ -1264,23 +1264,19 @@
 	build_path = /obj/item/mod/module/holster
 	department_type = MODULE_SECURITY
 
-/*
 /datum/design/module/mod_sonar
 	name = "MOD Module: Active Sonar"
 	id = "mod_sonar"
 	materials = list(/datum/material/titanium = 250, /datum/material/glass = 1000, /datum/material/gold = 500, /datum/material/uranium = 250)
 	build_path = /obj/item/mod/module/active_sonar
 	department_type = MODULE_SECURITY
-*/
 
-/*
 /datum/design/module/projectile_dampener
 	name = "MOD Module: Projectile Dampener"
 	id = "mod_projectile_dampener"
 	materials = list(/datum/material/iron = 1000, /datum/material/bluespace = 500)
 	build_path = /obj/item/mod/module/projectile_dampener
 	department_type = MODULE_SECURITY
-*/
 
 /datum/design/module/surgicalprocessor
 	name = "MOD Module: Surgical Processor"
