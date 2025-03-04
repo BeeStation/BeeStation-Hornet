@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: zombie tumors work again
+  - code_imp: tgui'd VV dropdown organ manipulator
