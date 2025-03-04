@@ -169,6 +169,19 @@
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_beaker"
 	isGlass = TRUE
+	throwforce = 10
+
+/obj/item/reagent_containers/cup/beaker/throw_impact(mob/living/target, mob/thrower)
+	SplashReagents(target, TRUE, override_spillable = TRUE)
+	if(isGlass)
+		for(var/i = 0; i < 2; i++)
+			var/obj/item/shard/B = new(loc)
+			target.Bumped(B)
+		qdel(src)
+	else
+		target.Bumped(src)
+
+	return TRUE
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
