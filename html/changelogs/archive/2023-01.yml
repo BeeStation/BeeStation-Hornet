@@ -1,0 +1,387 @@
+2023-01-01:
+  CydiaLamiales:
+  - rscadd: Added a radial menu to the pAI face selection
+  - tweak: Made the Rad Collector and the Tesla coil generate discovery points alongside
+      general research points while in research mode.
+  - tweak: Increased the amount of money added to the Engineering budget to the Tesla
+      coils in research mode.
+  PestoVerde322:
+  - rscadd: Added hoodies, avviable via the beecoin shop, in-game vendors or crafting
+  - rscadd: Added Durathread hoodies, avviable only via crafting
+  - code_imp: Standardized all the timers under the stack folder to use `SECONDS`
+      instead of deciseconds and some True-False variables
+  Tsar-Salat:
+  - tweak: made chicken sandwiches more dystopian and less political
+2023-01-04:
+  PowerfulBacon:
+  - rscadd: Title screens now support images that are any aspect ratio.
+2023-01-05:
+  PowerfulBacon:
+  - admin: It is now possible to view the results of polls (Except IRV).
+2023-01-06:
+  PowerfulBacon:
+  - bugfix: Fixes animated title screens
+  RKz:
+  - bugfix: Depleted Uranium directional windows will now appear correctly.
+2023-01-07:
+  PowerfulBacon:
+  - bugfix: Removes an unused variable from the unit tests.
+  ike709:
+  - bugfix: Fixed a runtime that broke titlescreens.
+  itsmeow:
+  - rscadd: Added more robust logging for admin supply pods.
+2023-01-08:
+  EvilDragonfiend:
+  - balance: basic medicines (Bicaridine, Kelotane, Anti-toxin, Dexalin, Tricordrazine)
+      are less effective over 20 damage ("if(prob(100/(2**(round(PLAYER_DAMAGE / 20
+      )))))") 100% chance to heal, but for every 20 damage you have, the chance is
+      halved. (100% / 50% at 20 / 25% at 40 / 12.5% at 60).
+  - balance: Bicaridine/Kelotane/Anti-toxin heals 0.5 (brute/burn/toxin)
+  - balance: Dexalin heals 1.5 (oxy damage)
+  - balance: Tricordrazine heals 1 (4 types), metabolisation rate is 1.2u, max overdose
+      is now 50u.
+  ike709:
+  - tweak: Attempting to compile BeeStation in OpenDream now gives a better error
+      message
+2023-01-09:
+  CydiaLamiales:
+  - rscadd: Added a confirmation for sending OOC messages mid-round if the user is
+      able
+  benbot16:
+  - rscadd: Adds multi-Z trunks to pipe dispensers.
+  - imageadd: Adds construction sprites for multi-Z trunks.
+2023-01-10:
+  Dejaku51:
+  - bugfix: Fixes phobia gain message not showing
+2023-01-12:
+  DoctorSquishy, RKz:
+  - tweak: Operating Computers placed NE,NW,SE,SW from operating tables can find the
+      table now
+2023-01-13:
+  Tsar-Salat:
+  - rscadd: Color coordinated mixer devices for atmos
+  - tweak: renamed mixer nodes to be less confusing and go along with new color changes
+  - imageadd: replaced regular mixers devices with colored coordinated red-blue ones
+2023-01-14:
+  spockye:
+  - bugfix: fixed mauler and marauder sprites
+2023-01-15:
+  CydiaLamiales:
+  - rscadd: Added a new Botanical belt
+  - rscadd: Added the botanical belt to the Botany lockers and the Biogenerator
+  - imageadd: Added icons for the Botanical belt
+  - imageadd: Added belt icons for the Plant Analyzer, Pest Spray, Hatchet, Spade
+      and Cultivator
+  - code_imp: Replaced all can_hold lists with static lists for belts
+  PowerfulBacon:
+  - code_imp: Removes the internal blocks_air variable which can cause issues with
+      atmos.
+  TineaVer:
+  - bugfix: fixed missing range checks when rotating some structures
+  benbot16:
+  - tweak: Obsessed antags no longer stutter/vomit/faint while talking near their
+      target.
+  - spellcheck: Fixes a typo in some obsessed logging
+2023-01-16:
+  An anonymous wizard:
+  - bugfix: I have replenished the magic within my animated statues, you are welcome.
+  CydiaLamiales:
+  - bugfix: Fixed Detective's Spyglass Kit showing a black screen upon opening the
+      remove view window
+2023-01-17:
+  CydiaLamiales:
+  - code_imp: added log_crafting
+  - admin: Added logging to crafting items
+  - admin: Added messages for crafting dangerous items
+  Dejaku51:
+  - rscadd: Added secure safes to all heads offices on Corg
+2023-01-18:
+  RKz:
+  - tweak: Paleness is no longer the presenting symptom for bloodloss. It has now
+      been wrapped up into a catch-all term of "appearing faint", which can be applied
+      to any carbon with a blood level, Organic or Inorganic.
+2023-01-19:
+  CydiaLamiales:
+  - tweak: Allowed for the Codex Cicatrix to fit inside bookshelves and book bags
+  - code_imp: Added a log_uplink_purchase proc which logs buying items from an uplink
+  - admin: Added a message for a player buying an item from an uplink as a non-antag
+  Penwin0:
+  - bugfix: Geese drop meat properly, instead of invisible "snack"
+  RKz:
+  - rscadd: New developments in the spacefaring education system has allowed the once
+      forgotten piratespeak to be relearned! Pirates can now... speak actual piratespeak
+2023-01-20:
+  CydiaLamiales:
+  - rscadd: Added a radial menu to the skin selection of Detective's revolver, Bartender's
+      double barrel shotgun, Captain's fountain pen and Chaplain's Bible.
+  - tweak: If a bible has been reskinned, all other bibles will get reskinned to the
+      same appearance when attempting to reskin them
+  - rscadd: Allowed blind Chaplains to reskin their bibles.
+  - bugfix: Fixed a bug that would make the skin selection prompt to appear for a
+      second time when you cancelled it for the double barrel shotgun
+  - refactor: Refactored the reskin_obj code to use a radial menu instead of outputting
+      the choices to the chat
+  EvilDragonfiend:
+  - rscadd: ghost chat pref to toggle (F) option to all mobs or mind-having mobs in
+      chat. with this, ghost will not see (F) button on emotes that are done by mobs
+      having no mind. new players has this turned on by default (they see all), but
+      old players should set this toggle if they want to see all mobs emote
+  RKz:
+  - tweak: edited the Plasma canister sprite to be more orange, to differentiate it
+      from the Nitrogen canister color
+  cnleth:
+  - bugfix: Ghouls no longer appear to have a blank stare with their eyes obscured
+  dwasint:
+  - rscadd: Added warping effect to gravitational anomaly
+  - refactor: Refactored the layer and plane system
+  itsmeow:
+  - rscadd: Added TGUI inputs and alerts internally, however they are not enabled.
+  - bugfix: Improved the response of most alert menus when you X them out rather than
+      hitting No/Cancel.
+  - tweak: Increased the contrast of selected/hovered TGUI buttons to 30% (from 15%)
+  - rscadd: Converted the message monitor to TGUI
+  - rscadd: The Message Monitor can now send admin messages with emojis and images.
+  - tweak: Changed the flavor text for the monitor decryption key paper.
+  - tweak: Emagging the message monitor no longer immediately prints the key, but
+      instead prints the key when the message monitor is usable again (after 10 *
+      keylength seconds). The key couldn't be used prior to this previously, so it
+      just makes it more consistent.
+  - bugfix: Fixed PDA messages with images not always properly line breaking inside
+      "View Messages" on the Messenger app.
+  - bugfix: Fixed a possible hard-del when the message monitor's linked server was
+      deleted.
+  - admin: Added logging and admin messages for deletion of PDA/request logs.
+  - tweak: Improved the Message Monitor's server linking behavior to support multiple
+      servers of the same network and name.
+  - bugfix: Fixed an exploit where you could unlink the active message monitor server,
+      link to another with a different decryption key, and still be authenticated.
+  - admin: Added an admin verb, "Send PDA Message"
+  - tweak: Raised Dynamic costs for most midround antagonists to better represent
+      their impact.
+  - tweak: Added HIGH_IMPACT flags to Blob and Xenos, meaning they typically will
+      not coincide in the same round.
+  - tweak: Added living antagonist percentage checks to all midround injections, scaling
+      with population. This means if there are too many currently active antagonists,
+      Dynamic will not inject any midrounds.
+  - tweak: Lowered dynamic security requirements across the board, to allow for a
+      better variety of antagonists on lowpop rather than defaulting to excessive
+      amounts of traitors.
+2023-01-21:
+  DatBoiTim:
+  - rscadd: Added an Alt+Click Interaction to the Plasma Refinery which creates plasma
+      sheets for the cost of 100 moles.
+  PowerfulBacon:
+  - bugfix: Fixes title screens being bugged when animated.
+  PowerfulBacon, CydiaLamiales:
+  - rscadd: Added an emergency o2 locker, two coffees, two GPSs and a note to Hilbert's
+      Hotel
+  - rscadd: Added an emergency escape mechanism to the door of Hilbert's Hotel which
+      launches the user towards the station
+  - bugfix: Fixes Hilbert's Hotel not properly linking its rooms to the item orb
+2023-01-22:
+  CydiaLamiales:
+  - rscadd: Added integrated welding tools going on a 30 second cooldown when being
+      smacked with a lighteater
+  - rscdel: Removed integrated welding tools getting dusted when hit with a lighteater
+  - code_imp: integrated welding tool is now a subtype of a welding tool instead of
+      the large welding tool
+  - code_imp: small integrated welding tool is now a subtype of the integrated welding
+      too
+  - bugfix: fixed the PAI snake inhand sprite being a white square
+  - imageadd: added new inhand snake and PAI snake icons
+  DatBoiTim:
+  - bugfix: fixed a on startup warning
+  Kapu1178, Kevinz, XSlayer300, Ryll/Shaps, Seris02, GoldenAlpharex, Shadowtail117:
+  - rscadd: Speech Format Help verb under the OOC tab.
+  - rscadd: Text emphasis. Surrounding a block of text with underscores will italicize
+      it and surrounding it with two asterisks will bold it
+  - rscadd: Emotes that start with an apostrophe wont format weirdly
+  - rscadd: You can now have custom say mods, and can use them to emote over radio.
+      say";screeches-HELP SECURITY!" results in [Common] Joe screeches, "HELP SECURITY!"
+  PestoVerde322:
+  - tweak: Adjusted the smoothing of some walls, catwalks and lattices
+  - bugfix: Fixed the missing icons for the resin nest
+  - bugfix: fixed (hopefully) the broken alien resin bug
+  - bugfix: bamboo floor no longer smooth with glass, somehow
+  - bugfix: adjusted a decal using old colors compared to the new one
+  Pigeonverde322, Imaginos16:
+  - imageadd: new icons for materials and ores.
+  - refactor: refactored how the material code is sorted out.
+  - imagedel: removed some unused material and ore icons that they where just bad.
+  PowerfulBacon:
+  - rscadd: Adds in job icons to the orbit panel
+  S34NW, CydiaLamiales, Naevi:
+  - rscadd: Added a new racial ability to Mothmen - cocooning
+  - refactor: Moths getting their wings burned off now gives them a new trait - MOTH_BURNT_WINGS,
+      which makes their wings/antennae and markings to always render as burnt and
+      stops them from opening their wings
+  - tweak: Ahealing a mothperson now removes the burnt trait
+  - bugfix: fixed Ahealing a mothperson without wings giving them new wings that were
+      invisible
+  - imageadd: New icon for mothperson cocoons
+  Zonespace27:
+  - rscdel: Making single-tank assemblies has been removed
+  - balance: Bomb casings can only be armed when undamaged and bolted, bomb casing
+      minimum time reduced to 60s, bomb casing wires reworked, plasteel can be used
+      to repair bomb casings
+  - balance: TTVs detonate at 1/4th their actual capacity without a bomb casing; theoretical
+      unnaffected; bomb casings now fit TTVs
+  - balance: Grenades (chemical and syndicate minibomb) no longer do devastation damage
+  - balance: Syndicate minibomb cost reduced to 4
+  itsmeow, Indie-ana Jones, redguy999, Timberpoes, Ryll-Ryll, Ghommie, read-0nly, ivanmixo, JohnFulpWillard, tralezab:
+  - tweak: Space Dragon now has its own role preference. Be sure to enable it!
+  - refactor: The Space Dragon has totally new objectives where it can spawn rifts
+      that summon sentient space carp, and must defend the rifts until three are created,
+      flooding the station with sentient carp.
+  - rscadd: Space Dragon is now a ruleset in dynamic as well as a station event.
+  - tweak: Space Dragons can now set their color.
+  - rscadd: Space Dragon now has its own death sound.
+  - tweak: Space Dragon roar is now quieter.
+2023-01-23:
+  Bobbanz1:
+  - code_imp: Changed the default installed PDA programs to only being installed on
+      the PDA subtype instead of the default Tablet SSD.
+  - code_imp: Changes the size of the Notepad to 0 and makes it undeletable and unavailable
+      on NTNet.
+  - code_imp: Moves the Wiki Uplink Program to only being installed by default on
+      the PDAs
+  DatBoiTim:
+  - rscadd: Added a Smiley Face IPC Screen.
+  RKz:
+  - bugfix: Railings now correctly drop their iron rod components when deconstructed
+  - spellcheck: "all mentions of \"\xB0K\" have been removed, because degrees are\
+      \ not used to measure kelvin, kelvin is used to measure kelvin"
+  itsmeow:
+  - tweak: Railing deconstruction is no longer instant- 3.5 seconds total between
+      two steps, slightly longer than construction (3 seconds).
+2023-01-24:
+  The-Moon-Itself:
+  - bugfix: It's now impossible to land shuttles ontop of the arrival shuttle to prevent
+      spawning or the arrivals shuttle from leaving
+  - bugfix: It's also impossible now to land another shuttle on the cargo shuttle
+      to stowaway on it.
+  - bugfix: Fixes improper firedoor updates and potential failure to create shuttles
+      with the rapid shuttle designator when designating in multiple areas at the
+      same time
+2023-01-25:
+  EvilDragonfiend:
+  - code_imp: html tooltip helping DEFINEs and proc
+  - rscadd: character pref will now notify about naming policy
+  - config: add configurable tooltip config file
+  RKz:
+  - bugfix: fixed bad layering for lizard snouts in mutant_bodyparts.dmi
+  Rohesie, RKz:
+  - tweak: using disarm intent on a pet won't make you beat the shit out of them anymore,
+      you will simply gently push them. HoP animal abuse cases down %95! HoS animal
+      abuse cases down... %1 percent...
+  - rscadd: setter for density
+  - code_imp: density is now changed by a setter, replaced most usages of density
+      = T/F when used to change density
+  - code_imp: more update_icon has been replaced to update_appearance
+  Tsar-Salat:
+  - bugfix: stuff that is supposed to make you blind (i.e. blindfolds, stabbing your
+      eyes out) will actually share the correct check with regular blindness now
+  haukeschuemann:
+  - rscadd: All mobs can now switch hands with middle click. This mostly affects gorillas,
+      dexterous stands and monky.
+  - code_imp: Changeling sting code has been migrated over to signals.
+  itsmeow:
+  - tweak: Dynamic will now count unreadied players as half a player (round up) for
+      ruleset selection purposes, allowing rulesets to get a more accurate depiction
+      of the roundstart population.
+  - tweak: The volume of lobby music has been reduced by 35%.
+  - tweak: The volume of shuttle takeoff and landing has been reduced by 30-40%
+2023-01-26:
+  PowerfulBacon:
+  - bugfix: Fixes cultists requiring the carp faction to use their spells.
+  RKz:
+  - bugfix: fixed lizard frills and moth wings disappearing after choosing a new one
+  - code_imp: capitalized a wing name
+2023-01-27:
+  BriggsIDP:
+  - rscadd: Added new "givesitem" emote. Added trigger to inventory.dm to call it.
+  CydiaLamiales, DrDuckedGoose:
+  - rscadd: Added new antagonist preference toggles for Nightmare, Morph and Swarmer.
+      Please go toggle them in your preferences!
+  - refactor: Hypnosis brain trauma now gives/removes Hypnotized antag datum which
+      processes the Hypnosis effects
+  - admin: Hypnotized victim is now an antag datum
+  - imageadd: Added an icon for the Hypnotized, Xenomorph, Swarmer, Nightmare, Morph,
+      Pirate, Pirate Captain antags
+  - rscadd: Adds objectives to Nightmare, Morph, Hypnotized and Swarmers
+  - rscadd: Added antag hud for Pirates which shows other pirates and the pirate captain
+  EvilDragonfiend:
+  - bugfix: offer mob to ghost now properly works
+  PestoVerde322:
+  - rscdel: Removed an old instance of fake coal used to smuggle diamonds on board
+      the station.
+  - bugfix: fixed goliath hides not using the right sprite.
+  RKz:
+  - tweak: added missing weight_class to toy figurines. They will no longer be comically
+      overweight and should be more congruent with their size.
+  itsmeow:
+  - bugfix: Fixed blobs being able to place their core and move onto disallowed tiles
+      that were not in space.
+  ro5490:
+  - bugfix: fixed a tank rupture log issue
+2023-01-29:
+  IndieanaJones, Rukofamicom, Benbot16:
+  - rscadd: The Spider infestation midround event now spawns sentient spiders. These
+      fall under the "spider" midround preference.
+  - rscadd: Nurse spiders can now heal other spiders.
+  - tweak: Webs can now be stacked, up to a limit of 3.
+  - tweak: Reworks how spider eggs spawn new spiders.
+  - tweak: Spiders now take damage slowdown below 75% health.
+  - tweak: Spider venom will now cause stamina damage, and paralyzes in large doses
+      or if purged with chemicals.
+  - tweak: Spiders now speak buzzwords. They can still understand common.
+  - tweak: Tweaks spider AI.
+  - balance: Tweaks several spider stats, mostly decreasing health and increasing
+      speed.
+2023-01-30:
+  Bobbanz1, ninjanomnom:
+  - code_imp: Moves the dejavu component out of the crossbreeding file and into a
+      file in the component folder
+  CydiaLamiales:
+  - rscadd: Added a new malnourished bear type which is overall weaker than the normal
+      one
+  - tweak: Tweaked the bear malfunction of artifacts to spawn malnourished bears
+  - rscadd: Added a line of text showing the Security Level in the current round
+  CydiaLamiales, unid15:
+  - rscadd: Added a new cake structure - towering cake
+  - rscadd: Added an upgraded version of this cake to the nuke up uplink
+  - imageadd: new icon for the towering cake and the pull string action
+  EvilDragonfiend:
+  - tweak: medibots have more skins based on which first aid kit was used when it's
+      made. These currently have no speicla ability by its shape which means these
+      are just skins.
+  - imageadd: more medibot skins (advanced, rad, syndi, doctors roundstart kit)
+  Ghommie, RKz:
+  - bugfix: new advancements in Object Permanence Theory at NT Labs have been discovered!
+      Lizard snoots will no longer disappear when wearing certain hoods or helmets.
+  Ivniinvi:
+  - tweak: Phobias can now be weighted
+  - tweak: The phobias of Robots and Doctors are slightly less likely to occur
+  - tweak: The phobia of Space is significantly less likely to occur
+  PowerfulBacon:
+  - tweak: Improved the smoothness of shuttles on the orbital map.
+  - tweak: Orbital map now updates according to real time rather than tick time.
+  - bugfix: Meteors should move at the correct speed on the map now.
+  Rukofamicom:
+  - bugfix: Geneticist flavor blurb now matches current Beestation SOP
+  - tweak: Geneticist is no longer partially paid by Science and no longer has science
+      departmental or radio access
+  - tweak: Science no longer has access to genetics
+  - rscdel: Removes medsci headset from code
+  Zytolg, RKz:
+  - rscadd: Lizard speech now has a variation on the use of X in normal conversation.
+      Things like "Xenomorph" will sound the same as before as it is phonetically
+      similiar, however uses of "x-ray" will become "ecks-ray".
+  spockye:
+  - bugfix: fixed techfloor_grey icon name
+2023-01-31:
+  Bobbanz1:
+  - bugfix: Fixed an issue that was being caused by custom say that was clashing with
+      roleplaying by changing the trigger letter to |
+  Tsar-Salat:
+  - code_imp: timers are put in the closest future bucket, as a precaution

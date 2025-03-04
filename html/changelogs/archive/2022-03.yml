@@ -1,0 +1,246 @@
+2022-03-01:
+  Hardly:
+  - bugfix: Fixed tables clipping in mac space restaurant.
+2022-03-03:
+  someone543:
+  - rscadd: Space law to book management console and SecTech
+2022-03-06:
+  EvilDragonfiend:
+  - refactor: Change to the cloning console and machine codes for error returns
+  - bugfix: Cloning console TG window is now automatically updated when you trigger
+      something.
+  - tweak: Cloning console now tells which error you have failed to clone at.
+  - tweak: Cloning console now properly lets you know that you can't clone a presaved
+      person. It has always been so, but it has not warned you.
+  - bugfix: Cloning record id is now reliably saved based on your name and mind, which
+      fixes the record conflicts.
+  - bugfix: Cloning console displays and accepts data in cloning diskettes properly,
+      but remember that the clonable data becomes outdated once you clone them.
+  - bugfix: Cloning console now can track the presaved person's health status.
+  - tweak: Players can't turn on the autoclone manually anymore. admin still can turn
+      it on by variable edit. (Note that Autoclone has not ever been working, ever.)
+  - tweak: Body only clone will not transfer your quirks anymore and transferring
+      your brain into that body will make you lose them. This is likely a bug due
+      to the structure of quirks. Full scan clone still keeps them, so the brain transplant
+      trick will not work.
+  - bugfix: Experimental cloner will properly work now and they can save data records
+      now.
+  - rscadd: Experimental clone ghost role added. It will find candidates to pick rather
+      than just allowing all ghosts to come in. (*a clone being catatonic means no
+      ghost wanted the role.)
+  - bugfix: You're not allowed to scan xenomorphs anymore - they'll not be cloned
+      as a human. Don't harass them.
+  Ivniinvi:
+  - rscadd: New species specific mutations that can only be discovered within each
+      roundstart species.
+  - tweak: Fireball can now only be applied to lizards.
+2022-03-07:
+  DatBoiTim:
+  - rscadd: The ability to attach any knife to a Larry
+  - imageadd: Larry Attachable Icons based on knife inhands
+  zeskorion:
+  - tweak: advanced mutation toxin slime transformation no longer has random colors
+2022-03-10:
+  ike709:
+  - refactor: Destroy() now always calls parent.
+  - refactor: Cleaned up a fair bit of SSAugury, but more work is needed.
+  - refactor: Miscellaneous minor code improvements & optimizations.
+2022-03-11:
+  Blueturbo47:
+  - rscadd: More Air Circulation to MetaStation Turbine
+  Isy232:
+  - balance: Ephedrine speed increase halved but no longer forces items to be dropped.
+  - balance: Modafinil now increases speed and stamina regeneration moderately.
+  ivanmixo:
+  - bugfix: you can no longer get free flash protection from degraded sunglasses huds
+  nednaZ:
+  - bugfix: Examining an object will now show it's Force value properly.
+2022-03-14:
+  Froststahr:
+  - rscadd: Lights have new overlay sprites for emergency and night modes
+  - bugfix: Light overlays are now functional
+  Hardly:
+  - balance: Nerfed oil slime extract's explosion radius when injected with plasma
+  Ivniinvi:
+  - admin: Stasis pod messages have greater visibility.
+  Jeff-3:
+  - spellcheck: fixed a typo in Dr. Gibb's description
+  MNarath1:
+  - tweak: adds a check for double clicking for ai so the ai camera won't jump if
+      you click a machine
+  - bugfix: fixes AI Atmos machines Cntrl click
+  PowerfulBacon:
+  - code_imp: Simplifies the PR template.
+2022-03-15:
+  MNarath1:
+  - bugfix: fixes disposal pipe segments becoming invisible if a pipe gets deconstructed
+2022-03-16:
+  Jeff-3:
+  - spellcheck: Fixed a typo in the exploration room
+  - refactor: Brig timers are more accurate and no longer lengthened by lag
+  LemonInTheDark, ported by ike709:
+  - bugfix: Fixed an issue with DNA console sanitization.
+  TheFakeElon:
+  - bugfix: fixes more href vulnerabilities in dna_console.dm
+2022-03-18:
+  Ivniinvi:
+  - bugfix: Genetics will no longer be stuck with impossible to solve mutations.
+  ike709:
+  - rscadd: Recommended client version has been bumped to 514.1582.
+  - rscadd: Players are encouraged to update their clients to fix potential lag caused
+      by unicode parsing.
+2022-03-19:
+  EvilDragonfiend:
+  - rscadd: New medical implant! "Surgical Serverlink Brain Implant" allows you to
+      perform advanced surgical programs without an operating computer. only available
+      by a tech disk from explorative ruins.
+  - bugfix: Borgs now can perform surgical programs with an operating computer.
+  - bugfix: You'll always see better 'Tend Wounds' surgeries rather than basic ones
+      when you have better versions.
+  - refactor: auto surgeons now can have multiple implants through 'starting_organ
+      = list(item A, item B, item C)' at its codewise.
+  Jeff-3:
+  - bugfix: Microwaves no longer get stuck cooking forever
+2022-03-20:
+  Hardly:
+  - rscadd: Mentor Chat can now be filtered from the chat
+  - tweak: Improved msay hotkey window
+  - rscdel: Unused modchat stuff from TGUI
+  covertcorvid:
+  - rscadd: Added notice for silicons who attempt to have more than 9 TGUI windows
+      open
+  - bugfix: Fixed the atmosbot UI not having any gas names on it
+  - tweak: Deafness now immediately silences sounds instead of letting them finish
+  - bugfix: Fixed automatic conveyors not moving items
+  - bugfix: Makes magic SMES always appear full and not do undefined math
+  - bugfix: Fixed the pre-loaded defib wallmount overlay not appearing
+2022-03-21:
+  Crossedfall:
+  - rscadd: 'Reverts: "Remove Crewsimov"'
+  DatBoiTim:
+  - rscdel: Remove Crewsimov
+  Hardly:
+  - bugfix: Pixel Perfect 1.5x should properly save now
+  Jeff-3:
+  - bugfix: Removed null reference in space vines
+  - bugfix: Holoparasites no longer kill slime people when attempting to heal
+  PestoVerde322:
+  - rscadd: Created new sprites for the IDs, there is also new sprites for dedicated
+      jobs (eg. janitors).
+  TheFakeElon:
+  - bugfix: Adds missing bitshift values to the global bitflag list
+  - code_imp: adds brackets for some multi-bitfield defines
+  Vasily2013:
+  - refactor: Kilo pipes are standardized. Distro on layer 1, Scrubbers on layer 3.
+  - rscadd: 'Kilo: The airlock in the engine room now serves as a non-public passage
+      between atmos and the rest of engineering.'
+  - tweak: A few Kilo airlocks are now larger, so things may be dragged through them.
+2022-03-22:
+  Jeff-3:
+  - spellcheck: Fixed a typo in the corazone description
+2022-03-23:
+  DatBoiTim:
+  - rscdel: Removed Sentient Diseases
+  Ivniinvi:
+  - balance: Cat Claws no longer deal 20 damage with punches.
+  - balance: Acid Ooze hands now have 2/3 of their previous power.
+  MCterra10:
+  - server: fixes topic security issue
+  Wueue:
+  - rscadd: Added new Sprites for the Vault Safe and Sec-TV
+  ivanmixo:
+  - rscadd: Ghosts now get alerted about explosions happening around the station
+2022-03-24:
+  ike709:
+  - code_imp: Made it more explicit that coders need to be compiling with VSCode,
+      not BYOND's Dream Maker editor.
+  - tweak: Adjusted the error message to also mention installing the recommended VSCode
+      extensions.
+  nednaZ:
+  - balance: Reduces the number of watchers/guardians on Artifact Recovery missions.
+      (From 6-15 to 4-10)
+  - balance: Reduces the health/integrity of artifact watchers and guardians. (Watchers
+      have 100(From 200), Guardians have 200(From 500))
+  - balance: Artifact Guardians have a shorter leash range around Watchers. (2 tiles,
+      down from 5)
+  - balance: Guardians have a slightly longer cooldown between attacks. (1.5 seconds,
+      up from 1 second)
+  - balance: Chaser Guardians have had their damage reduced to 10 (Down from 20)
+  - balance: Ranged Burst Guardians have had their burst radius reduced to 2 (Down
+      from 5).
+  - balance: Self Burst Guardians have had their burst radius reduced down to 3. (Down
+      from 8)
+  - balance: Both types of Burst Guardians have had their damage reduced to 7 (Down
+      from 10)
+  - balance: EMP Pulse Guardians have had their invisible stun removed entirely and
+      replaced with a visible target location that indicates the location the EMP
+      will strike. The EMP itself can now be dodged.
+2022-03-26:
+  Mat05usz:
+  - rscadd: Some decals across Delta brig to make it more consistent and possibly
+      a tiny bit 'prettier'.
+  - tweak: Power monitor console in Delta Station's SM room replaced with Engineering
+      console
+  - bugfix: Delta brig cells are now properly ordered
+2022-03-27:
+  Archanial:
+  - rscadd: GAGS to enviro helmets, protective helmets and mk.2 helmets.
+  - rscadd: Some more mk.2 and protective helmets (for vip, CC roles and bartender).
+  - rscdel: Removed enviro replacement helmet variants.
+  - bugfix: fixed some description in protective helmets.
+  - tweak: tweaked sprite of curator's envirohelm to actually have a visor (and light!)
+  - tweak: plasmaman bartender starts with tophat attached to his actual hat
+  Crossedfall:
+  - server: BYOND bumped to 514.1583
+  - server: Bumps minimist to 1.2.6
+  Mat05usz:
+  - tweak: Autotransfer vote is now using real time instead of time-dilated timer,
+      making it trigger consistently at 90 minutes.
+  zeskorion:
+  - bugfix: IPC crit damage now checks the nocritdamage trait.
+  - bugfix: IPC crit damage no longer accounts for robotic limb resilience that they
+      dont have.
+  - tweak: at maintainer request, ipc crit damage works like other species with nobreath
+      (ipcs take 1 brute damage per life tick, as opposed to 6 burn damage.)
+2022-03-28:
+  DatBoiTim:
+  - rscdel: Removed Corporate Agents
+  - rscdel: Removed Mushroom Species
+  Dejaku51:
+  - rscadd: Used grenades now look used when examined.
+  - bugfix: It should no longer be possible to DC admins by spamming grenades.
+  - rscadd: Added a new machine to the robotics lab; the ectoscopic sniffer.
+  Isy232:
+  - balance: Nanite armour 50/35 => 30.
+  Jeff-3:
+  - bugfix: the blind can no longer see
+  Ryll-Ryll AnCopper:
+  - tweak: Clowns are now unable to conceptualize death and think corpses of people
+      are simply sleeping.
+  Victor239:
+  - balance: Reinforced and nar'sien bolas now knockdown instead.
+  zeskorion:
+  - bugfix: fixes an extrapolator bug
+2022-03-29:
+  Ivniinvi:
+  - bugfix: Eminence can no longer teleport to Servants of Rat'Var on the CentCom
+      Z Level
+2022-03-30:
+  Arkatos1, JohnFulpWillard, Fikou:
+  - rscadd: Carps now support GAGS.
+  - rscadd: Cayenne can carry nuke disk!
+  - rscadd: Achievement for picking up a nuke disk as Cayenne!
+  Dejaku51:
+  - rscdel: reverted changes to blindness
+  - bugfix: fixed not being able to insert eyes during organ manipulation surgery
+  - bugfix: fixed species change removing organs, etc.
+  - bugfix: other misc eye-related fixes
+2022-03-31:
+  Archanial:
+  - bugfix: fixed Lia's bad icon on fland
+  - bugfix: Fixes radio implants not working
+  MNarath1:
+  - bugfix: ghosts not beeing able to hear instruments
+  - bugfix: pai card alert ping not visible to ghosts
+  nednaZ (EvilDragonfiend substituted to post the PR):
+  - bugfix: Autosurgeons work again

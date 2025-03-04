@@ -1,0 +1,397 @@
+2021-08-01:
+  Ivniinvi, Randomguy523:
+  - rscadd: pAIs can now be emagged to reset their master.
+  PowerfulBacon:
+  - refactor: Chat messages are now shared between people that see the message the
+      same, reducing the amount of lag caused due to chat messages on high pop.
+  - refactor: Refactors stat panel verbs to cache the verbs.
+  lordScrubling:
+  - bugfix: sparks and igniters not igniting gas
+2021-08-02:
+  Ivniinvi:
+  - rscadd: Sentience potion spawns are now clearly marked in the ghost role popup.
+  PowerfulBacon:
+  - refactor: Refactors TGUI window auto updating.
+  - refactor: TGUI Windows no lonegr auto update by default, and instead need ui_update
+      to be called, or to have their autoupdating var set to TRUE by using set_autoupdating(TRUE)
+  - refactor: Spawners menu is now a single instance rather than on every single ghost.
+  - bugfix: Deaf people can no longer see runechat messages.
+  - code_imp: Removes a pointless loop from get_all_open_uis()
+  ivanmixo:
+  - bugfix: fixed false positive quirk cap trigger
+2021-08-04:
+  Ivniinvi:
+  - rscadd: Sleepers and operating computers now automatically update their UIs.
+  - rscadd: Gene console now correctly shows cooldown for joker and scramble.
+  ReneAngel (Sprite), ImSynthex (Github):
+  - imageadd: Replaced station bounced radio sprite
+  ivanmixo:
+  - tweak: entertainment monitors now need to be examine to toggle the UI instead
+      of clicked
+  - rscadd: ghosts can now examine wires to check their power status
+  - bugfix: the cancel button on the supply requests console now works again
+  mcmeiler:
+  - bugfix: Crafting UI updates after crafting
+  - bugfix: Fixed the beecoin shop nurse outfit spawning in-game.
+2021-08-05:
+  Cenrus:
+  - bugfix: Fixed nurse/midwife spider wrap action button
+  Ivniinvi:
+  - rscadd: Nuke/Self-Destruct UIs now autoupdate.
+  - rscadd: Adds a description to the viro/maints teratoma spawner.
+  - bugfix: You can no longer use a soulstone on soulless targets.
+  - tweak: Contents of DeltaStation kitchen were rearranged but not changed.
+  - rscadd: A pAI's master can now clear the pAI's zeroth law.
+  Raven-Industries:
+  - bugfix: fixed brig timer's UI not updating properly
+  ivanmixo:
+  - bugfix: Fix floating light on the lavaland sci post and a missing wire in Box
+      maint
+  - tweak: SciDrobe instead of a blank computer on the lavaland sci post
+  - rscdel: Removed the Pheromone Receptor ability from changelings
+  - bugfix: fixed some runtimes related to outfits and limbs
+  tiramisuapimancer:
+  - tweak: ethereals are now physically capable of wearing underclothing
+2021-08-06:
+  Dingo-Dongler:
+  - bugfix: Luminescents and stargazers have their actions working again
+  Ivniinvi:
+  - rscadd: pAI PDA messages now show up as actually from a person, and can be replied
+      to
+  - rscadd: Mediborg's Amputation Adventure can now be emagged.
+  Kapu1178:
+  - code_imp: wzhzhzh()
+  KubeRoot:
+  - tweak: Round start timer in the stat-panel now tracks time accurately from actual
+      start of round.
+  - bugfix: Defibrillator paddles now behave more consistently in regards to overextending
+      and dropping
+  Rukofamicom:
+  - admin: New bans no longer default to local.
+  TheChaser212:
+  - bugfix: Animals can move after being tabled
+  - bugfix: Cats look like they're resting when changed outside of Life
+  warior4356 AnCopper:
+  - rscadd: Added ERT law board to ERT and Deathsquad commander kits.
+2021-08-07:
+  AnCopper:
+  - tweak: Changed Commando Names.
+  'AnCopper jc-denthead ':
+  - tweak: You can no longer deconstruct tables or racks on help intent.
+  Froststahr:
+  - rscdel: A few religions whose use would result in risking a ban have been deleted.
+  KubeRoot:
+  - refactor: Bitfields now use tg's macro, separated more cleanly.
+  - refactor: area_flags from tgcl
+  - tweak: Random mineral turfs no longer cause large amounts of turf changes on initialization.
+  - rscdel: Old lavaland cave generation based on straight lines
+  - rscadd: Beautiful new lavaland cave generation from tg, with organic and complex
+      cave systems
+  - bugfix: fix lots of potential harddels, courtesy of tg
+  Naevi:
+  - rscadd: Retro jacket and retro chicken head, 2 new donator items inspired by hotline
+      miami.
+  Pirill:
+  - imageadd: BSRPED inhand sprites
+  - tweak: RPED inhand sprites
+  Stylemistake, Various /tg/ Coders, Froststahr port:
+  - code_imp: TGFont is now working again
+  - code_imp: Juke build is now used when compiling the server, the BUILD.bat must
+      be used
+  - server: TGS instances will require the precompile scripts to be added
+  TheChaser212:
+  - rscadd: Non-humans can be The Fly'd
+  - bugfix: Tier 4 parts work correctly with the teleporter
+  Yorii, Adopted by Froststahr:
+  - rscadd: Smooth movable lighting system implemented. Projectiles, sparks, thrown
+      flashlights or moving mobs with lights should be much smoother and less laggy.
+  - rscadd: Directional lighting is in, applying to certain things like flashlights,
+      headlamps, etc.
+  - balance: Light sources no longer stack in range, though they still do in intensity.
+  - balance: Mechs no longer block sight. It's a non-trivial cost for the lighting
+      system with little to no gain.
+  fighterslam, dapnee:
+  - rscadd: Adds plasmaglass tables from Citadel
+  jupyterkat:
+  - bugfix: fixed hearing AGAIN
+  lordScrubling:
+  - bugfix: blue shirt and tie security uniform in beeshop now has armor
+  - bugfix: prototype replacement envirosuit uses the right smile sprite now
+  - balance: atmos envirosuits inherit radiation protection from engineering envirosuits
+  - balance: only plasmamen can wear replacement envirohelms
+  - spellcheck: fixed some envirosuit typos
+  - rscadd: fireman carry works on monkeys and they can piggyback you
+2021-08-08:
+  Froststahr:
+  - bugfix: CBT in TGS should work again.
+  ivanmixo:
+  - bugfix: medical skirts are now properly oriented
+2021-08-09:
+  Froststahr:
+  - bugfix: Mounted Seclights and swarmers should light up properly again.
+  ivanmixo:
+  - rscdel: Removed bluespace miners from config and game
+  yyzsong:
+  - balance: Welders now burn through one unit of fuel per nine seconds, down from
+      twenty-four.
+2021-08-10:
+  Archanial:
+  - rscdel: Removed non static typecacheof uses in storage component
+  ImSynthex:
+  - balance: Cheap lighter no longer costs more than a Zippo lighter
+2021-08-11:
+  KubeRoot:
+  - bugfix: Plumbing port visuals are now more reliable, fixing a bug with boxstation's
+      roundstart bottlers and presses
+  - bugfix: Unwrenching ducts no longer doubles them
+  PowerfulBacon:
+  - refactor: Heretics can now only spawn on dynamic.
+2021-08-12:
+  Froststahr:
+  - rscdel: Due to errors and poor quality control, the new lighting system has been
+      reverted for now.
+  ImSynthex:
+  - tweak: Laptops and tablets no longer drop batteries when deleted
+  - bugfix: Necro seed stealth 8 ability now works as intended
+  PowerfulBacon:
+  - bugfix: Fixes midround antags not existing
+  super12pl:
+  - tweak: IPCs are no longer an exception from from foreigner quirk.
+2021-08-13:
+  ImSynthex:
+  - bugfix: AIs can no longer strip people
+  MCterra, Arrow768:
+  - server: Complete topic rework to use JSON and just be better in general
+2021-08-14:
+  Crossedfall:
+  - config: Secret_extended's probability has been reduced to 1 (will be replaced
+      with dynamic extended later). Wizard, blood brothers, and IAA have been disabled
+      entirely.
+  Ivniinvi:
+  - bugfix: Muscled Veins surgery now actually works.
+  MCterra10:
+  - bugfix: fixed case-sensitive tokens not working
+  Phil Smith:
+  - imageadd: Ports TG's stasis bed sprite
+  PowerfulBacon:
+  - balance: Disabler beams reduced from 35 damage to 28.(-7)
+  Rukofamicom:
+  - tweak: Medical, Engineering and Science jobs now require two hours played
+  - tweak: Brig Physician now only requires two hours as normal crew
+  - tweak: AI now requires 10 hours as a cyborg
+  - tweak: HoP now requires 10 hours as a different Head of Staff
+  Vexylius:
+  - rscadd: Prescription Medical HUD
+  ivanmixo:
+  - rscadd: handheld pinpointer now shows the name of the person it's tracking
+2021-08-15:
+  MCterra:
+  - bugfix: fix roundstart cultists not getting objectives
+  fighterslam:
+  - balance: Nerfed Frank the turtle's damage from 18 to 5 and the health from 2500
+      (Same as Hierophant) to 100. It can still attack, unlike most other station
+      pets, and won't die in 2 hits, unlike most other station pets.
+  francinum:
+  - tweak: Admins will only show their admin badge, the mentor badge will be dropped
+      to reduce clutter.
+2021-08-16:
+  AnCopper:
+  - tweak: juggernauts cant be pulled.
+  - tweak: intercomms are above windows.
+  Ivniinvi:
+  - rscadd: Bulk Discount is now an option that can be rolled for low-value items
+      in the uplink.
+  PowerfulBacon:
+  - refactor: Circuit component printer is now a modular fabricator and uses the modular
+      fabricator UI.
+  francinum:
+  - balance: Frank has had their health returned, and their damage further nerfed
+      along with a slowdown
+  - tweak: Players can now opt out of "end of round grief" by toggling the, "Go to
+      the post-round arena" preference. The default is on.
+  ike709:
+  - rscdel: EORG Arena has been removed until it is rewritten to be less terrible
+  jupyterkat:
+  - bugfix: turrets should work correctly again
+2021-08-18:
+  ike709:
+  - rscadd: Auxmos has been updated to the latest version.
+2021-08-19:
+  Crossedfall:
+  - tweak: Updated the changelog header to include McTerra, PowerfulBacon, & Francinum
+      as major code contributors and Naevi as a spriter.
+  KubeRoot:
+  - code_imp: tgui tooltips now use Popper
+  - bugfix: Holoparasite stat selection now displays stats correctly
+  Rukofamicom:
+  - tweak: Reproductive spiders may no longer accidentally clear their directives,
+      and may not reproduce without one set.
+2021-08-20:
+  PowerfulBacon:
+  - bugfix: Fixes poll voting
+  jupyterkat:
+  - bugfix: another important recursive contents fix
+  mcmeiler:
+  - spellcheck: fixed a typo in "oozeling vacuole"
+2021-08-22:
+  EOBGames AnCopper:
+  - rscadd: rouny plush
+  EvilDragonfiend:
+  - bugfix: The naming component at the pill press(the plumbing machine) is now a
+      button instead of a text input, to prevent you to get a blank named pill(i.e.
+      " pill").
+  francinum:
+  - soundadd: New Station Announcer trait voice pack
+  lordScrubling:
+  - rscadd: layer manifolds have a 280L volume
+2021-08-23:
+  AffectedArc07:
+  - server: Added SSmetrics. This has config changes.
+2021-08-24:
+  Fox McCloud, Buggy123:
+  - bugfix: Tendrils no longer spawn inside ruins
+  - bugfix: Gibtonite will now spawn properly, as well as any other potential full
+      turf replacements for random ores
+  PowerfulBacon:
+  - bugfix: Fixes gibtonite spawning
+  francinum:
+  - tweak: Crew Manifest is now sorted with command at the top.
+  - tweak: Heads of Staff are listed in both the Command block and their relevant
+      department block of the crew manifest.
+  jupyterkat:
+  - rscadd: Gas mixes can be edited through VV
+2021-08-25:
+  Raven-Industries:
+  - tweak: reduced riot armor volume from 100 to 65
+2021-08-26:
+  Ivniinvi:
+  - rscadd: Examining the Blob Overmind (ghosts only) will now show how many nodes
+      it has.
+  Kapu1178:
+  - bugfix: I P C B R A I N S W O R K
+  SomeguyManperson AnCopper:
+  - tweak: Increased plasma to tritium rate in radiation collectors from 0.001 to
+      0.01, this means that a standard plasma tank at 303 kPA (or 10 moles) will be
+      completely converted into tritium at just over 30 minutes, requiring it to be
+      replaced in order to generate electricity, fill the plasma tanks or make the
+      plasma colder to fit more into the tank.
+  ivanmixo:
+  - rscdel: removed the abductor pregnant objective
+  super12pl:
+  - rscadd: Phobia quirk
+2021-08-27:
+  DatBoiTim:
+  - bugfix: Advanced Mimery Gun now able to be fired multiple times without issues
+  - bugfix: You can now dispell the advanced mimery gun properly
+  - code_imp: Added a subtype of the finger gun that is lethal. This is used by advanced
+      mimery only.
+  - refactor: Advanced Mimery now does a finger gun variant instead of some weird
+      magical projectile stuff
+  EvilDragonfiend:
+  - imageadd: added job HUD icons for Exploration Crew, Psychiatrist, Barber, Debtor(almost
+      no change), Stage Magician, and VIP.
+  Ivniinvi:
+  - rscadd: The Captain now starts with a tablet in their backpack.
+  - tweak: 'The following items can no longer be found in surplus crates: His Grace,
+      Romerol, Syndicate Balloon.'
+  PowerfulBacon:
+  - tweak: Blocking now works on harm intent and no longer works on help intent.
+  - code_imp: Improves turret judgement code
+  jupyterkat:
+  - tweak: all wall-mounted machines now show up above windows
+  lordScrubling:
+  - bugfix: self surgery being instantly successful in poor conditions
+2021-08-28:
+  Ivniinvi:
+  - rscadd: Coffee the Crab is now present in BoxStation Science
+2021-08-29:
+  ike709:
+  - admin: Removed an admin privilege elevation exploit and other potential avenues
+      for abuse
+2021-08-30:
+  ImSynthex:
+  - tweak: Changed the corporate lawset
+  KubeRoot:
+  - bugfix: Solar control screen no longer floats off the console when facing east.
+      Solar control screen is now also emissive, like other computers.
+2021-08-31:
+  Ivniinvi:
+  - rscadd: The obviously fake nuke disk is now an arcade prize.
+  - rscadd: 'The round report in #ooc on Discord now includes a summary for Dynamic
+      Mode.'
+  - bugfix: 'Dynamic round report in #ooc no longer has extraneous html bold tags'
+  - tweak: The departmental budget's pre-initialize name has been changed.
+  KubeRoot:
+  - bugfix: Central Command has identified and fixed issues with pod launching interfaces.
+  - bugfix: Broken computers no longer glow in the dark
+  - rscadd: Seed Extractor and Plant DNA Manipulator now use tgui
+  - rscadd: Plant DNA Manipulator has a checkbox that skips confirmation prompt for
+      rapid botanying
+  Phil Smith:
+  - bugfix: The spriteless jumpsuit in sec maints in deltastation is now a real one
+  PowerfulBacon:
+  - bugfix: Fixes finger gun allowing free movement in space
+  - rscadd: Adds in AI buttons to move their camera to above and below connected z-levels.
+  - refactor: Sounds now play across multi-z station levels.
+  - refactor: Explosions now explode across multi-z station levels.
+  - bugfix: Fixes blood brothers admin add
+  ? PowerfulBacon (Code, UI, Other sprites not mentioned, Other map files not mentioned),
+    Reds88 (Vortex Gun Sprite), Isy (Damaged hallway map files)
+  : - rscadd: Adds in randomly generated ruins
+    - rscadd: Adds in dynamic z-levels.
+    - rscadd: Adds in ruin beacons on the shuttle supercruise map.
+    - code_imp: Adds z-clear
+    - code_imp: Ruin mapsize validation unit test
+    - code_imp: Fixes fastdmm2 not compiling on beestation code due to the updates.
+    - refactor: Budget cards no longer get free money.
+    - refactor: Bounties reward 3x as much, but the reward is distributed among station
+        budgets.
+    - refactor: Paychecks have been slightly reduced.
+    - refactor: Station budgets now start with more money to compensate early game
+        when no objectives or bounties have been completed.
+    - refactor: Research disks can be found on ruin stations. These can be used to
+        unlock special research.
+    - refactor: Bags of holding are now a separate research node unlocked by finding
+        disks on derelict stations.
+    - refactor: Wormhole projectors are now a separate research node unlocked by finding
+        disks on derelict stations.
+    - refactor: Quantum spin inverters are now a separate research node unlocked by
+        finding disks on derelict stations.
+    - refactor: Advanced combat cyber implants are now a separate research node unlocked
+        by finding disks on derelict stations. (Hydraulic armblades)
+    - refactor: Combat cybernetic implants implants are now a separate research node
+        unlocked by finding disks on derelict stations. (Xray, thermal vision, anti
+        stun implants, thrust implants)
+    - refactor: Clusterbangs are now a found research disk.
+    - refactor: Phazons are now a found research disk.
+    - refactor: Exotic ammo is now a found research disk.
+    - refactor: Beam rifles are now a found research disk.
+    - refactor: Temp gun and X-ray gun is now a found research disk.
+    - refactor: Nuclear energy gun is now a found research disk.
+    - rscadd: Completion station missions reward money to budget cards.
+    - rscadd: Adds in a new mining scanner effect.
+    - refactor: Refactors vendors to be modular
+    - rscadd: Adds discovery research
+    - rscadd: Adds discovery scanner
+    - balance: Felinids get stunned when falling z-levels for the same length of time
+        that normal humans get knocked down.
+    - refactor: You will no longer fall down if the turf below you is space.
+    - refactor: You can now ascend and descend connected z-levels by clicking on the
+        space tile.
+    - balance: Off-station traitor roles have a prefered chance (30%) to have their
+        team members as targets (Shaft miners and exploartion crew.). Additionally,
+        on station traitor roles have a reduced chance to have their target as an
+        off station roles.
+    - refactor: Turrets can now shoot above themselves, preventing the nukie shuttle
+        from being boardable from above.
+    - refactor: Bolt of teleportation will teleport people to open turfs unless none
+        are available.
+    - refactor: Immovable rod no longer loops.
+    - rscdel: Box station no longer has the crab.
+  francinum:
+  - admin: Bans now properly create their relevant notes.
+  - server: You should probably manually unexpire any note with an expiration date
+      of 0.
+  lordScrubling:
+  - rscadd: Ability to see a tag with the armor values of a piece of clothing when
+      you inspect it

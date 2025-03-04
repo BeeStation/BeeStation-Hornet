@@ -1,0 +1,315 @@
+2021-10-01:
+  AnCopper:
+  - tweak: You can no longer drag blobbernauts.
+  Archanial:
+  - bugfix: fixed runtime related to missing client in mentorhelp
+  Crossedfall:
+  - bugfix: Resolves a bad index runtime caused by the stat panel's verb caching
+  Ivniinvi:
+  - spellcheck: Fixed artifact supercruise message.
+  - bugfix: Alkali Perspiration now correctly updates its severity.
+  - bugfix: The debug uplinks now actually use the debug toggle.
+  KubeRoot:
+  - rscadd: Space hotel now has a secondary solar control console that can reach the
+      north-east solar array.
+  - bugfix: Space hotel has had some missing and miscolored cables tidied up.
+  checkraisefold:
+  - spellcheck: Changed flavor text to text in Notes for VIPs from the VIP extraction
+      exploration mission.
+  fighterslam:
+  - bugfix: Fixed DeltaStation holodeck.
+  lordScrubling:
+  - rscadd: throwing creatures doesn't make blood trails anymore
+  qwertyquerty:
+  - server: Report round id as int on ?status
+2021-10-02:
+  Archanial:
+  - tweak: Station trait command report is now generated independly, that means it
+      will be printed even if intercept isn't enabled.
+  - bugfix: fixed lavaland turret control runtime
+2021-10-03:
+  DrMacCool:
+  - rscadd: Added exploration envirosuit+helmet.
+  - rscadd: Plasmamen on the exploration crew now spawn in said clothes.
+  KubeRoot:
+  - bugfix: Newly created chat tabs will now show important messages. If you're using
+      custom-created chat tabs, you'll need to delete and recreate them to be able
+      to see them. This fixes being unable to see if somebody is overdosing when doing
+      chemical scans with the health analyzer.
+  St0rmC4st3r:
+  - bugfix: Shuttles will no longer refuse to lift off due to counting all other shuttle's
+      weight as their own.
+2021-10-04:
+  Archanial:
+  - rscdel: Removed deathrattle station trait
+  Kapu1178:
+  - code_imp: Sprite sheets! A new system to allow for better species in the future.
+  KubeRoot:
+  - bugfix: Fixes an issue that would sometimes lead to increased view range while
+      not ghosted
+  - bugfix: View range is now actually fixed, sorry for the trouble.
+2021-10-05:
+  DrMacCool:
+  - rscadd: Adds the 'NOSOCKS' trait.
+  - tweak: Species with NOSOCKS can't wear socks.
+  - tweak: Squids now have the 'NOSOCKS' trait.
+  Ivniinvi:
+  - rscadd: There is now a brain trauma that allows ghosts to issue a movement command
+      once every 12 seconds.
+  - admin: Deadchat_control is now a smite option.
+2021-10-06:
+  KubeRoot, EdgeLordExe:
+  - rscadd: Radios now have code support for anonymization
+  - tweak: The intercoms in chapel confessionals will now hide your name
+  Pirill:
+  - spellcheck: Fixed a few typos related to exploration, wall building, wraith spectacles
+      and Battle Royale
+  rkvothe14:
+  - bugfix: fixes Nightmare's lighteater so they can destroy light sources again.
+2021-10-09:
+  Archanial:
+  - bugfix: fixed hud runtime
+2021-10-10:
+  KubeRoot:
+  - bugfix: The exploration detonator now correctly checks if you're on the station
+      Z level for its safety. You can also no longer detonate explosives across Z
+      levels.
+  - bugfix: Artifacts from supercruise often didn't work, they should be much more
+      interesting now.
+2021-10-11:
+  Archanial:
+  - rscdel: Removed hangover landmarks
+  - tweak: Hangover now dynamically places its spawns around the station
+  - bugfix: Fixed random_safe_station_turf sometimes returning null even if it had
+      viable turf
+  Dejaku51:
+  - bugfix: Fixed camera name and network in Incenerator on Meta and Box
+  Ivniinvi:
+  - admin: Traitor panel will now show if the person in question is banned from a
+      specific antagonist.
+  TheGreyDiamond:
+  - bugfix: fixed zero padding mistake
+2021-10-15:
+  DrMacCool:
+  - rscadd: Adds 18 new hairstyles/beards requested by the community.
+2021-10-18:
+  TheChaser212:
+  - rscadd: Electrical species use power stored in their stomachs rather than normal
+      nutrition
+  - rscadd: Ethereals recharge continuously and lose nutrition in the same ways as
+      other species
+  - rscadd: EMPing electrical species will drain their charge
+  - rscadd: IPC powercords and batteries work in ethereals
+  - tweak: Replaced old ethereal charge system
+  - rscdel: Removed the ability to insert brains without surgery
+  - tweak: IPCs use a battery icon instead of hunger
+  - bugfix: Fixed ethereals not gaining charge from shocks
+  - bugfix: Fixed some problems with the biometallic replication symptom
+  - bugfix: Lots of other small things
+  lordScrubling, Ghilker, TetraK1, Dennok, Donkie:
+  - rscadd: Temperature pump atmos device from tg
+  - rscadd: Pressure valve from atmos device tg
+  - rscadd: Temperature gate atmos device from tg
+  - tweak: Passive gate pressure limit upped to 100 atmospheres
+2021-10-19:
+  Ivniinvi:
+  - admin: Added ratvarsmall and narsiesmaller span classes.
+  francinum:
+  - code_imp: A few unused globals were cleaned up.
+2021-10-20:
+  tiramisuapimancer:
+  - balance: nuclear particles no longer deal direct toxin damage, but do more regular
+      irradiating
+2021-10-21:
+  Archanial:
+  - bugfix: fixed necroseed runtime
+  - refactor: symptoms on death is now triggered by disease itself using signals
+  - refactor: action speed modifier refactored into modifier system, similar to movespeed.
+  Dingo-Dongler:
+  - rscadd: Clipboards and notice boards are now updated to TGUI, with clipboards
+      having much better functionality.
+  Hardly:
+  - rscadd: Shuttle seat is now craftable using two sheets of iron
+  Kapu1178:
+  - code_imp: Cleaned up IPC code in general.
+  - bugfix: VV health adjustment works on synthetics
+  - bugfix: IPCs now actually have blood, oil, and it leaves decals when they are
+      hurt
+  - bugfix: IPCs are now actually immune to toxin damage.
+  - bugfix: IPCs wont process reagents they weren't supposed to process.
+  - refactor: Mild refactor to species metabolisms.
+  Pirill:
+  - imageadd: Adds printed toolbox right handed in-hand sprites
+  Ryll-Ryll, jupyterkat, ninjanomnom:
+  - rscadd: Dogs now have all-new AI! Go throw a grenade at Ian and see what happens!
+  - rscadd: Added AI datum support for complex JPS pathing
+  - refactor: Implements JPS Pathfinding
+  - bugfix: janky monkey ais
+  - bugfix: Monkeys are once again capable of using guns, take back your freedom!
+  - rscadd: Monkey ai is now actually able to make use of guns instead of just player
+      controlled monkeys.
+  - rscadd: Monkey ai will prioritize guns once they learn of what guns can do.
+  - rscadd: Monkey ai now understands the ancient art of throwing.
+  - rscadd: Monkey ai will use random objects on each other in their surroundings
+      and in their hands.
+  - rscadd: Monkey ai will occasionally "gift" people things.
+  - rscadd: Monkey ai consumes food once in a while according to their desire.
+  TheChaser212:
+  - bugfix: IPCs use charge at the same rate they used to
+  - bugfix: Ethereals can't queue up multiple chargings
+  - tweak: Ethereals don't need to wait if they can't charge
+  - tweak: APCs can be drained to a quarter charge
+  francinum:
+  - bugfix: Exosuit fabricators no longer automatically link to the default silo network
+      on build.
+  jupyterkat:
+  - bugfix: fixed ruin turfs get vented sometimes
+  silicons, Ivniinvi:
+  - rscadd: Baystation instruments are here!
+  - refactor: Existing instruments have been rolled into the new unified instruments
+      system.
+  - refactor: A sound subsystem has been added, SSsounds. Use it for persistent channel
+      management.
+  zeskorion:
+  - rscadd: random diseases now have better random names
+2021-10-22:
+  Autisem:
+  - bugfix: super soldiers get hair
+  'Ivniinvi, timothymtorres, Azarak, mickyan, ':
+  - bugfix: Fixed pAI loudness booster to work when not in holoform
+  - bugfix: Fixed garbage collection for songs, making the game slightly faster
+  - tweak: You may now change the sound of certain instruments with a selection of
+      appropriate variations, similarly to the piano synth
+  - bugfix: Fixed accordion not working
+  - rscadd: Adds a hidden fun instrument
+  Pirill, Naevii, nianjiilical, Useroth:
+  - rscadd: Adds cherry bulbs and fairygrass as new mutations of cherries and grass
+  - rscadd: Adds pink, yellow, green, blue and purple bioluminescence traits to cherry
+      bulbs, holymelons, omega weed, fairygrass and moonflowers
+  - rscadd: Adds colored fairygrass tiles based on their bioluminescence trait
+  - imageadd: New grass and fairygrass sprites
+  Pirill, kit-katz:
+  - rscadd: 'Adds three new pAI holochassis: carp, bee and phantom!'
+  - imageadd: Adds inhands and head-worn sprites for all other pAI chassis that were
+      missing them
+  zeskorion:
+  - bugfix: fixes disease names
+2021-10-23:
+  Archanial:
+  - bugfix: fixed incursion implant not exploding (thanks pricklytomato!)
+  Crossedfall:
+  - bugfix: Removed the extra light switch from Box Station's research lab
+  - bugfix: Re-added the access requirement to Pubby's RD office
+  Skoglol:
+  - admin: Added a few new buildmode modes. Outfit, to quickly apply or remove outfits.
+      Delete, to quickly delete any atoms. Slightly overhauled the copy proc used
+      here and in supply pods, now compatible with most mobs.
+2021-10-25:
+  DeltaFire15:
+  - bugfix: Cyborg B.o.r.i.s. installation now checks for if the chest has a cell,
+      just like how it does with MMIs.
+  Ivniinvi:
+  - bugfix: Emitters that don't use power won't warn about powernets.
+  Ivniinvi, Denton, ArcaneMusic, XRandomXManX:
+  - rscadd: The Decal Painter is now available at protolathes and autolathes for you
+      to paint decals.
+  Kapu1178:
+  - code_imp: Cleans up species outfit code.
+  KubeRoot:
+  - bugfix: Wizarditis now functions correctly at high stages.
+  - bugfix: Resetting the thunderdome no longer breaks it.
+  - bugfix: The viral extrapolator can no longer be used at a distance.
+  Phil Smith:
+  - bugfix: When offering a renaming potion to someone it now no longer says that
+      you are giving the potion to yourself but it now properly gives the name of
+      the person you are handing it to.
+  Pirill:
+  - imageadd: New sprites and inhands for radiation and combat medkits, tweaked sprites
+      for the biohazard toxin medkit
+  - rscadd: Makes regular prescription glasses printable at a Medical Protolathe
+  - rscadd: Adds craftable prescription versions of medical, security and diagnostic
+      HUDglasses, science goggles and meson scanners
+  - tweak: Makes the Blood Cult Zealot's Blindfold correct nearsightedness when in
+      use
+  - imageadd: Resprites the original prescription medical HUDglasses and adds equivalent
+      sprites for the rest
+  The-Moon-Itself:
+  - bugfix: The chameleon projector now projects objects with overlays, such as computers
+      and holosigns, correctly.
+  TheChaser212:
+  - admin: Added some useful items to the debug outfit
+  jupyterkat:
+  - bugfix: fixed layer manifold runtime
+  zeskorion:
+  - bugfix: slime pylons no longer kill toxinlovers/slimepeople
+2021-10-26:
+  Kapu1178:
+  - rscdel: Kills the "Synth" species
+  tralezab, AnturK:
+  - rscadd: curators can now print paintings
+  - rscadd: persistent paintings
+  - rscadd: AIs can now pick paintings as their screens
+  - rscadd: tgui canvases
+2021-10-27:
+  FriendlyContractor:
+  - tweak: Ash heretics immune to being set on fire
+  Kapu1178:
+  - tweak: IPC blood trails are black now
+  KubeRoot:
+  - bugfix: Boxstation's turbine and toxins burn chamber airlocks will now pressurise
+      and depressurise correctly, no longer softlocking you.
+  MNarath1:
+  - bugfix: small misstype from tesla code
+  PowerfulBacon:
+  - rscadd: Syndicate listening outpost ruin part.
+  Syrox25:
+  - rscadd: Adds Paper Cup recipe to the Misc tab
+  The-Moon-Itself:
+  - rscadd: More list related WireMod components.
+  - tweak: The index component now has more features.
+  - tweak: The component printer now has a list component category
+  TheChaser212:
+  - rscadd: Syndicate implants are now hidden from health scans
+  - imageadd: Added inhand icons for the energy saw
+2021-10-28:
+  Ivniinvi:
+  - bugfix: Toxins will no longer bomb the MetaStation Exploration Shuttle at roundstart.
+  Phil Smith:
+  - tweak: A small commemoration to our former LRP server, golden, is now on the captain's
+      laser gun.
+  Pirill:
+  - bugfix: Fixes fairygrass shuttle flight runtime
+  francinum:
+  - config: Brig timer presets and max durations can be modified in the config
+  - config: The economy flag hasn't done anything for over a year, and has been removed.
+  jupyterkat:
+  - tweak: body only records are now clearer
+  - bugfix: body only records persist after cloning
+2021-10-29:
+  Ivniinvi:
+  - balance: Unintentional spins and flips no longer cause confusion.
+  TheChaser212:
+  - tweak: Cyborg mesons work similarly to human mesons by showing dark areas
+  rkvothe14:
+  - spellcheck: Fixed a minor typo in Show/Hide GhostLaws.
+2021-10-30:
+  Crossedfall:
+  - bugfix: The burn chamber vent on PubbyStation is no longer mapped into the wrong
+      area and can be configured using the Supermatter Engine Air Alarm.
+  Kapu1178:
+  - code_imp: adds a dna check to human/move() to prevent 531168 runtimes
+  TheChaser212:
+  - bugfix: Backup objectives shouldn't disappear anymore
+  - code_imp: Cleaned up cryopod objective handling
+  francinum:
+  - server: Revision information is once again burned into dd.log, SSFeedback's revision
+      information has been hard disabled as a temporary fix.
+  zeskorion:
+  - tweak: humans always deal normal punch damage to mobs, instead of having weird
+      damage calcs depending on the mob subtype
+  - tweak: attacking borgs with a punch that deals over 10 damage damages them
+  - balance: bees now have 6 hp
+  - bugfix: pacifists can no longer attack aliens
+2021-10-31:
+  Ivniinvi:
+  - bugfix: Spin and flip confusion now properly checks for intent.
