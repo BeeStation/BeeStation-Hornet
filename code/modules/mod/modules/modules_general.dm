@@ -345,10 +345,10 @@
 		including augmentations. However, it will take from the suit's power to do so."
 	complexity = 2
 
-/obj/item/mod/module/emp_shield/advanced/on_suit_activation()
+/obj/item/mod/module/emp_shield/advanced/on_part_activation()
 	mod.wearer.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
 
-/obj/item/mod/module/emp_shield/advanced/on_suit_deactivation(deleting)
+/obj/item/mod/module/emp_shield/advanced/on_part_deactivation(deleting)
 	mod.wearer.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
 
 ///Flashlight - Gives the suit a customizable flashlight.
