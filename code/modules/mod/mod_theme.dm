@@ -905,8 +905,7 @@
 		a few years out of date, leading to an overall lower capacity for modules."
 	default_skin = "security"
 	armor_type = /datum/armor/mod_theme_security
-	siemens_coefficient = 0
-	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
+	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	slowdown_inactive = 1
 	slowdown_active = 0.5
 	allowed_suit_storage = list(
@@ -1455,8 +1454,6 @@
 	armor_type = /datum/armor/mod_theme_enchanted
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	siemens_coefficient = 0
-	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
 	ui_theme = "wizard"

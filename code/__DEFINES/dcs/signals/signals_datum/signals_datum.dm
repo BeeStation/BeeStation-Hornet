@@ -131,3 +131,8 @@
 
 /// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
 #define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"
+
+/// Called when a projectile dampener captures an object.
+#define COMSIG_DAMPENER_CAPTURE "dampener_capture"
+/// Called when a projectile dampener releases an object.
+#define COMSIG_DAMPENER_RELEASE "dampener_release"
