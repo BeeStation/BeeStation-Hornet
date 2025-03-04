@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Fixes an issue where ctrl-click wouldn't stop pulling items while in combat
+      mode.
