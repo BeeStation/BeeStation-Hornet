@@ -98,6 +98,8 @@
 					if(head)
 						head.add_mob_blood(src)
 						update_inv_head()
+
+
 		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
@@ -105,11 +107,6 @@
 
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
-
-		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
-			dismember_limb = TRUE
-			//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
-			//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
 
 		else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && stat == DEAD))
 			//Delimbing cannot normally occur with blunt weapons
