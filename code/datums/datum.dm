@@ -294,6 +294,6 @@
 	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"
 
 /// Intercept click on when registered as a click intercept
-/datum/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
 	SHOULD_NOT_SLEEP(TRUE)
 	return FALSE

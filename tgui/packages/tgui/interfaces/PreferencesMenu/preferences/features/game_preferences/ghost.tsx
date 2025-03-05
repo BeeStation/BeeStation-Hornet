@@ -44,7 +44,10 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
     const displayText = (
       <Stack>
         <Stack.Item>
-          <Box className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])} />
+          <Box
+            className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])}
+            style={{ verticalAlign: 'bottom' }}
+          />
         </Stack.Item>
 
         <Stack.Item grow style={{ lineHeight: '32px' }}>

@@ -61,8 +61,12 @@
 		browse_messages()
 		return
 
-	var/F = file("[GLOB.log_directory]/[selected].html")
+	var/filepath = "[GLOB.log_directory]/[selected].html"
+	var/F = file(filepath)
 	if(!fexists(F))
 		to_chat(src, span_danger("No [selected] logfile was found."))
 		return
-	src << browse(F,"window=investigate[selected];size=800x300")
+
+	var/datum/browser/browser = new(usr, "investigate[selected]", "Investigation of [selected]", 800, 300)
+	browser.set_content(rustg_file_read(filepath))
+	browser.open()

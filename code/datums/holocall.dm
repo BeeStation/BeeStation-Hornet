@@ -29,10 +29,10 @@
 
 	var/call_start_time
 
-//creates a holocall made by `caller` from `calling_pad` to `callees`
-/datum/holocall/New(mob/living/caller, obj/machinery/holopad/calling_pad, list/callees)
+//creates a holocall made by `holocall_user` from `calling_pad` to `callees`
+/datum/holocall/New(mob/living/holocall_user, obj/machinery/holopad/calling_pad, list/callees)
 	call_start_time = world.time
-	user = caller
+	user = holocall_user
 	calling_pad.outgoing_call = src
 	calling_holopad = calling_pad
 	dialed_holopads = list()

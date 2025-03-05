@@ -269,13 +269,13 @@
 /// Intercepts client owner clicks to activate the ability
 /// This proc is called via reflection, do not change the name if you do
 /// not know what that means.
-/datum/action/InterceptClickOn(mob/living/caller, params, atom/target)
-	return _internal_InterceptClickOn(caller, params, target)
+/datum/action/InterceptClickOn(mob/living/clicker, params, atom/target)
+	return _internal_InterceptClickOn(clicker, params, target)
 
-/datum/action/proc/_internal_InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/proc/_internal_InterceptClickOn(mob/living/clicker, params, atom/target)
 	set waitfor = FALSE
 	if(!is_available())
-		unset_click_ability(caller, refund_cooldown = FALSE)
+		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 	if(!target)
 		return FALSE
@@ -283,14 +283,14 @@
 	// normal, even if the action isn't able to run; the user asked for it after all.
 	. = TRUE
 	// The actual action begins here
-	if(!pre_activate(caller, target))
+	if(!pre_activate(clicker, target))
 		return
 
 	// And if we reach here, the action was complete successfully
 	if(unset_after_click)
 		start_cooldown()
-		unset_click_ability(caller, refund_cooldown = FALSE)
-	caller.next_click = world.time + click_cd_override
+		unset_click_ability(clicker, refund_cooldown = FALSE)
+	clicker.next_click = world.time + click_cd_override
 
 /// Whether our action is currently available to use or not
 /datum/action/proc/is_available()
