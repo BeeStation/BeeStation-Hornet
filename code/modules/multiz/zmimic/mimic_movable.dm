@@ -162,7 +162,7 @@
 	var/queued = 0
 	var/destruction_timer
 	var/mimiced_type
-	var/original_z
+	var/original_depth
 	var/override_depth
 	var/have_performed_fixup = FALSE
 
