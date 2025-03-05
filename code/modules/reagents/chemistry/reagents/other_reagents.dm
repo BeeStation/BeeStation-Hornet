@@ -2298,7 +2298,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	glass_name = "glass of ants"
 	glass_desc = "Bottoms up...?"
 	/// How much damage the ants are going to be doing (rises with each tick the ants are in someone's body)
-	var/ant_damage = 0
+	var/ant_damage = 0 // Not actual damage, only way to check how long they were inside
 	/// Tells the debuff how many ants we are being covered with.
 	var/amount_left = 0
 	/// List of possible common statements to scream when eating ants
