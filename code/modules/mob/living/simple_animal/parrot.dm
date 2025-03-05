@@ -373,7 +373,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
  */
-/mob/living/simple_animal/parrot/Life()
+/mob/living/simple_animal/parrot/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 
 	//Sprite update for when a parrot gets pulled
@@ -918,7 +918,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	. = ..()
 
-/mob/living/simple_animal/parrot/Poly/Life()
+/mob/living/simple_animal/parrot/Poly/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
 		Write_Memory(FALSE)
 		memory_saved = TRUE
