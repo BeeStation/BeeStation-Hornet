@@ -210,14 +210,36 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	label_icon = "label_beakerlarge"
 
+/obj/item/reagent_containers/cup/beaker/vial
+	name = "Vial"
+	desc = "A  very small recipent for the strongest potions for going into battle. That is, if you can handle them. Can hold up to 100 units." //https://www.youtube.com/watch?v=R_FQU4KzN7A
+	icon_state = "vial_potion"
+	custom_materials = list(/datum/material/glass=2500)
+	volume = 15
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15)
+	label_icon = "label_potion"
+	isGlass = TRUE
+
+/obj/item/reagent_containers/cup/beaker/small_potion
+	name = "Small potion"
+	desc = "A small recipent for the strongest potions for going into battle. That is, if you can handle them. Can hold up to 100 units." //https://www.youtube.com/watch?v=R_FQU4KzN7A
+	icon_state = "small_potion"
+	custom_materials = list(/datum/material/glass=2500)
+	volume = 30
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15,20,25,30)
+	label_icon = "label_potion"
+	isGlass = TRUE
+
 /obj/item/reagent_containers/cup/beaker/potion
 	name = "potion"
 	desc = "A recipent for the strongest potions for going into battle. That is, if you can handle them. Can hold up to 100 units." //https://www.youtube.com/watch?v=R_FQU4KzN7A
 	icon_state = "potion"
 	custom_materials = list(/datum/material/glass=2500)
-	volume = 100
+	volume = 75
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
+	possible_transfer_amounts = list(5,10,15,20,25,30,50,75)
 	label_icon = "label_potion"
 	isGlass = TRUE
 
