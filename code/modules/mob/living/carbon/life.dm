@@ -335,7 +335,7 @@
 			if(dna.temporary_mutations[mut] < world.time)
 				if(mut == UI_CHANGED)
 					if(dna.previous["UI"])
-						dna.uni_identity = merge_text(dna.uni_identity,dna.previous["UI"])
+						dna.unique_identity = merge_text(dna.unique_identity,dna.previous["UI"])
 						updateappearance(mutations_overlay_update=1)
 						dna.previous.Remove("UI")
 					dna.temporary_mutations.Remove(mut)
@@ -351,6 +351,13 @@
 					if(dna.previous["blood_type"])
 						dna.blood_type = dna.previous["blood_type"]
 						dna.previous.Remove("blood_type")
+					dna.temporary_mutations.Remove(mut)
+					continue
+				if(mut == UF_CHANGED)
+					if(dna.previous["UF"])
+						dna.unique_features = dna.previous["UF"]
+						updateappearance(mutations_overlay_update=1)
+						dna.previous.Remove("UF")
 					dna.temporary_mutations.Remove(mut)
 					continue
 		for(var/datum/mutation/HM as() in dna.mutations)
