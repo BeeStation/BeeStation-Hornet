@@ -380,9 +380,9 @@
 		. += "\Roman[round(abs(armor_value), 10) / 10]"
 	if (!isnull(compare_value))
 		if (armor_value > compare_value)
-			. = span_green("[.]")
+			. = span_green(.)
 		else if (armor_value < compare_value)
-			. = span_red("[.]")
+			. = span_red(.)
 
 /obj/item/clothing/atom_break(damage_flag)
 	. = ..()
