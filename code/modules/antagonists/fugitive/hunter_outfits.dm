@@ -22,7 +22,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/warden/sergeant
 	belt = /obj/item/storage/belt/military
 	head = /obj/item/clothing/head/beret/sergeant
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	shoes = /obj/item/clothing/shoes/jackboots
 	mask = /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
@@ -69,14 +69,14 @@
 
 /datum/outfit/bounty/armor
 	name = "Bounty Hunter - Armored"
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/garb
 
 /datum/outfit/bounty/hook
 	name = "Bounty Hunter - Hook"
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	uniform = /obj/item/clothing/under/color/black
 	r_hand = /obj/item/implanter/stealth
 	head = /obj/item/clothing/head/beanie/black
@@ -125,7 +125,7 @@
 	if(prob(30))
 		gloves = /obj/item/clothing/gloves/fingerless
 	else if(prob(10))
-		gloves = /obj/item/clothing/gloves/combat
+		gloves = /obj/item/clothing/gloves/tackler/combat
 	if(prob(10))
 		uniform = /obj/item/clothing/under/pants/track
 	else if(prob(10))
@@ -142,7 +142,7 @@
 	if(visualsOnly)
 		return
 	if(prob(50))
-		gloves = /obj/item/clothing/gloves/combat
+		gloves = /obj/item/clothing/gloves/tackler/combat
 	else if(prob(30))
 		gloves = /obj/item/clothing/gloves/fingerless
 
