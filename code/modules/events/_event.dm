@@ -86,7 +86,7 @@
 
 	triggering = TRUE
 	if (alert_observers)
-		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='byond://?src=[REF(src)];cancel=1'>CANCEL</a>)")
 		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
 		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME SECONDS)
 		var/gamemode = SSticker.mode.config_tag

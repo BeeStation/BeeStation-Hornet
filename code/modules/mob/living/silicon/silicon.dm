@@ -144,7 +144,7 @@
 		for(var/alarm_type in alarm_types_show)
 			msg += "[uppertext(alarm_type)]: [alarm_types_show[alarm_type]] alarms detected. - "
 
-		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href='byond://?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
 		to_chat(src, msg)
 
 	if(alarms_to_clear.len < 3)
@@ -157,7 +157,7 @@
 		for(var/alarm_type in alarm_types_clear)
 			msg += "[uppertext(alarm_type)]: [alarm_types_clear[alarm_type]] alarms cleared. - "
 
-		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href='byond://?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
 		to_chat(src, msg)
 
 	alarms_to_show = list()

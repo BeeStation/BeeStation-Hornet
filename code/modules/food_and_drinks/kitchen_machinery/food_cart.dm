@@ -82,27 +82,27 @@
 	var/dat
 	dat += "<br><b>STORED INGREDIENTS AND DRINKS</b><br><div class='statusDisplay'>"
 	dat += "Remaining glasses: [glasses]<br>"
-	dat += "Portion: <a href='?src=[REF(src)];portion=1'>[portion]</a><br>"
+	dat += "Portion: <a href='byond://?src=[REF(src)];portion=1'>[portion]</a><br>"
 	for(var/i in 1 to LAZYLEN(reagents.reagent_list))
 		var/datum/reagent/R = reagents.reagent_list[i]
 		dat += "[R.name]: [R.volume] "
-		dat += "<a href='?src=[REF(src)];disposeI=[i]'>Purge</a>"
+		dat += "<a href='byond://?src=[REF(src)];disposeI=[i]'>Purge</a>"
 		if (glasses > 0)
-			dat += "<a href='?src=[REF(src)];pour=[i]'>Pour in a glass</a>"
-		dat += "<a href='?src=[REF(src)];mix=[i]'>Add to the mixer</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];pour=[i]'>Pour in a glass</a>"
+		dat += "<a href='byond://?src=[REF(src)];mix=[i]'>Add to the mixer</a><br>"
 	dat += "</div><br><b>MIXER CONTENTS</b><br><div class='statusDisplay'>"
 	for(var/i in 1 to LAZYLEN(mixer.reagents.reagent_list))
 		var/datum/reagent/R = mixer.reagents.reagent_list[i]
 		dat += "[R.name]: [R.volume] "
-		dat += "<a href='?src=[REF(src)];transfer=[i]'>Transfer back</a>"
+		dat += "<a href='byond://?src=[REF(src)];transfer=[i]'>Transfer back</a>"
 		if (glasses > 0)
-			dat += "<a href='?src=[REF(src)];m_pour=[i]'>Pour in a glass</a>"
+			dat += "<a href='byond://?src=[REF(src)];m_pour=[i]'>Pour in a glass</a>"
 		dat += "<br>"
 	dat += "</div><br><b>STORED FOOD</b><br><div class='statusDisplay'>"
 	for(var/V in stored_food)
 		if(stored_food[V] > 0)
-			dat += "<b>[V]: [stored_food[V]]</b> <a href='?src=[REF(src)];dispense=[V]'>Dispense</a><br>"
-	dat += "</div><br><a href='?src=[REF(src)];refresh=1'>Refresh</a> <a href='?src=[REF(src)];close=1'>Close</a>"
+			dat += "<b>[V]: [stored_food[V]]</b> <a href='byond://?src=[REF(src)];dispense=[V]'>Dispense</a><br>"
+	dat += "</div><br><a href='byond://?src=[REF(src)];refresh=1'>Refresh</a> <a href='byond://?src=[REF(src)];close=1'>Close</a>"
 
 	var/datum/browser/popup = new(user, "foodcart","Food Cart", 500, 350, src)
 	popup.set_content(dat)
