@@ -333,28 +333,39 @@
 	. = ..()
 
 	if(href_list["list_armor"])
+		var/obj/item/clothing/compare_to = null
+		for (var/flag in bitfield_to_list(slot_flags))
+			var/thing = usr.get_item_by_slot(flag)
+			if (istype(thing, /obj/item/clothing))
+				compare_to = thing
+				break
+
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
 		var/datum/armor/armor = get_armor()
+		var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
+
 		var/added_damage_header = FALSE
 		for(var/damage_key in ARMOR_LIST_DAMAGE)
 			var/rating = armor.get_rating(damage_key)
-			if(!rating)
+			var/compare_rating = compare_armor ? compare_armor.get_rating(damage_key) : null
+			if(!rating && !compare_rating)
 				continue
 			if(!added_damage_header)
 				readout += "\n<b>ARMOR (I-X)</b>"
 				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating)]"
+			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, compare_rating)]"
 
 		var/added_durability_header = FALSE
 		for(var/durability_key in ARMOR_LIST_DURABILITY)
 			var/rating = armor.get_rating(durability_key)
-			if(!rating)
+			var/compare_rating = compare_armor ? compare_armor.get_rating(durability_key) : null
+			if(!rating && !compare_rating)
 				continue
 			if(!added_durability_header)
 				readout += "\n<b>DURABILITY (I-X)</b>"
-				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating)]"
+				added_durability_header = TRUE
+			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
 
 		if(flags_cover & HEADCOVERSMOUTH)
 			readout += "<br /><b>COVERAGE</b>"
@@ -423,7 +434,7 @@ SEE_OBJS  // can see all objs, no matter what
 SEE_TURFS // can see all turfs (and areas), no matter what
 SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
 		// in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
+BLIND	 // can't see anything
 */
 
 /proc/generate_female_clothing(index,t_color,icon,type)
