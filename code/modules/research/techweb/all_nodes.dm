@@ -1711,10 +1711,7 @@
 		"emp_basic",
 		"weaponry",
 	)
-	design_ids = list(
-		"ioncarbine",
-		"stunrevolver",
-	)
+	design_ids = list("stunrevolver")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
