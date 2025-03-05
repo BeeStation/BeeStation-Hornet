@@ -28,6 +28,8 @@ Behavior that's still missing from this component that original food items had t
 	var/eat_time = 30
 	///Defines how much it lowers someones satiety (Need to eat, essentialy)
 	var/junkiness = 0
+	///Cutlery neededed in hand to eat something (spoon,fork,knife,hands)
+	var/cutlery[] = list()
 	///Message to send when eating
 	var/list/eatverbs
 	///Callback to be ran before you eat something, so you can check if someone *can* eat it.
