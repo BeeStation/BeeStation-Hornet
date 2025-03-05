@@ -546,10 +546,18 @@
 /datum/reagent/consumable/eggyolk
 	name = "Egg Yolk"
 	description = "It's full of protein."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 4 * REAGENTS_METABOLISM
 	color = "#FFB500"
 	chem_flags = NONE
 	taste_description = "egg"
+
+/datum/reagent/consumable/eggwhite
+	name = "Egg White"
+	description = "It's full of even more protein."
+	nutriment_factor = 1.5 * REAGENTS_METABOLISM
+	color = "#fffdf7"
+	taste_description = "bland egg"
+	chem_flags = NONE
 
 /datum/reagent/consumable/corn_starch
 	name = "Corn Starch"
@@ -875,3 +883,26 @@
 /datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/M)
 	holder.add_reagent(/datum/reagent/consumable/nutriment, 1)
 	holder.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)
+
+/datum/reagent/consumable/gravy
+	name = "Gravy"
+	description = "A mixture of flour, water, and the juices of cooked meat."
+	taste_description = "gravy"
+	color = "#623301"
+	taste_mult = 1.2
+	chem_flags = NONE
+
+/datum/reagent/consumable/pancakebatter
+	name = "pancake batter"
+	description = "A very milky batter. 5 units of this on the griddle makes a mean pancake."
+	taste_description = "milky batter"
+	color = "#fccc98"
+	chem_flags = NONE
+
+/datum/reagent/consumable/whipped_cream
+	name = "Whipped Cream"
+	description = "A white fluffy cream made from whipping cream at intense speed."
+	color = "#efeff0"
+	nutriment_factor = 4
+	taste_description = "fluffy sweet cream"
+	chem_flags = NONE

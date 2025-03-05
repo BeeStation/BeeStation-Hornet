@@ -22,6 +22,7 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "chat_ghostears"
 	preference_type = PREFERENCE_PLAYER
+	default_value = FALSE
 
 /datum/preference/toggle/chat_ghostlaws
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
@@ -42,11 +43,13 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "chat_ghostsight"
 	preference_type = PREFERENCE_PLAYER
+	default_value = FALSE
 
 /datum/preference/toggle/chat_ghostwhisper
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "chat_ghostwhisper"
 	preference_type = PREFERENCE_PLAYER
+	default_value = FALSE
 
 /datum/preference/toggle/chat_ooc
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES

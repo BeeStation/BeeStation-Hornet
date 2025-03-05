@@ -160,9 +160,9 @@
 		to_chat(H, span_notice("You attune [src] to your own channel."))
 		mothership = T.mothership
 
-/obj/item/organ/tongue/abductor/examine(mob/M)
+/obj/item/organ/tongue/abductor/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(M, TRAIT_ABDUCTOR_TRAINING) || HAS_TRAIT(M.mind, TRAIT_ABDUCTOR_TRAINING) || isobserver(M))
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING) || isobserver(user))
 		if(!mothership)
 			. += span_notice("It is not attuned to a specific mothership.")
 		else
