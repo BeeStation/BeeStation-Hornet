@@ -32,7 +32,13 @@
 	custom_price = PAYCHECK_MEDIUM * 0.9
 
 /obj/item/reagent_containers/cup/glass/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
+	if(bartender_check(target) && ranged)
+		return
 	SplashReagents(target, ranged, override_spillable = TRUE)
+	var/obj/item/broken_bottle/B = new(loc)
+	if(!ranged && thrower)
+		thrower.put_in_hands(B)
+	B.mimic_broken(src, target)
 	var/obj/item/shard/B = new(loc)
 	B.item_state = broken_item_state
 

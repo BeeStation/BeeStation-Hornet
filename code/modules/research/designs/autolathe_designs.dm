@@ -1117,7 +1117,7 @@
 	category = list("hacked", "Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/small potion
+/datum/design/small_potion
 	name = "Small Potion Bottle"
 	id = "small_potion"
 	build_type = AUTOLATHE
