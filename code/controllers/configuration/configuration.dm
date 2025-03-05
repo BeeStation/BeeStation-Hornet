@@ -62,6 +62,8 @@
 	LoadTopicRateWhitelist()
 	LoadProtectedIDs()
 	LoadChatFilter()
+	if (fexists("[directory]/ezdb.txt"))
+		LoadEntries("ezdb.txt")
 
 	loaded = TRUE
 
