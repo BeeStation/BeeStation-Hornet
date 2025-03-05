@@ -36,8 +36,12 @@
 			if(we_breath)
 				adjustOxyLoss(8)
 				Unconscious(80)
-			// Tissues die without blood circulation
-			adjustBruteLoss(2)
+
+			// Tissues die without blood circulation, machines burn without coolant circulation
+			if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+				adjustFireLoss(1)
+			else
+				adjustBruteLoss(2)
 
 		//Body temperature stability and damage
 		dna.species.handle_body_temperature(src)
