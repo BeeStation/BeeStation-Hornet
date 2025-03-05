@@ -194,6 +194,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that stores the skin colour of a mob
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
 #define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
+/// This mob can strip other mobs.
+#define TRAIT_CAN_STRIP "can_strip"
+#define TRAIT_KNOW_ROBO_WIRES "know_robo_wires"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
