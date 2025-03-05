@@ -266,13 +266,13 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/xenoartifact_labeler
+/datum/design/xenoartifact_labeller
 	name = "Artifact Labeler"
 	desc = "A scientific labeler used to warn others of the dangers of an alien artifact."
 	id = "xenoa_labeler"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/silver = 1000, /datum/material/gold = 3000)
-	build_path = /obj/item/xenoartifact_labeler
+	build_path = /obj/item/xenoarchaeology_labeler
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -283,6 +283,16 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/silver = 1000)
 	build_path = /obj/item/clothing/gloves/artifact_pinchers
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/xenoartifact_tracker
+	name = "Artifact Tracker"
+	desc = "A tracker for researching artifacts."
+	id = "xenoa_tracker"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 500, /datum/material/gold = 500)
+	build_path = /obj/item/sticker/artifact_tracker
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
