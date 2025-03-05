@@ -59,6 +59,7 @@
 	var/use_static		//determines if the accessory will be skipped by color preferences
 	var/color_src = MUTCOLORS	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
 	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
+	var/hasinnercolor	//Decides if the inner part of the sprite should be colored specifically.
 	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
 	var/dimension_x = 32
 	var/dimension_y = 32
@@ -1806,7 +1807,7 @@
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
-	hasinner = 1
+	hasinner = TRUE
 	color_src = HAIR
 
 /datum/sprite_accessory/wings/none
@@ -2525,29 +2526,83 @@
 	icon_state = "tvantennae"
 
 /datum/sprite_accessory/ipc_chassis // Used for changing limb icons, doesn't need to hold the actual icon. That's handled in ipc.dm
-	icon = null
-	icon_state = "who cares fuck you" // In order to pull the chassis correctly, we need AN icon_state(see line 36-39). It doesn't have to be useful, because it isn't used.
+	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_state = "who cares fuck you" // In order to pull the chassis correctly, we need AN icon_state(see line 36-39). It doesn't have to be useful, because it isn't used. -2024-12-31: It is used now. But only for the greyscale chassis. Dont worry about it.
 	color_src = 0
 
-/datum/sprite_accessory/insect_type
-	icon = null
-	icon_state = "NULL"
-	color_src = 0
-
-/datum/sprite_accessory/insect_type/fly
-	name = "Common Fly"
-	limbs_id = "fly"
-	gender_specific = FALSE
-
-/datum/sprite_accessory/insect_type/bee
-	name = "Hoverfly"
-	limbs_id = "bee"
-	gender_specific = TRUE
-
-/datum/sprite_accessory/ipc_chassis/mcgreyscale
+/datum/sprite_accessory/ipc_chassis/greyscale_morpheuscybernetics
 	name = "Morpheus Cyberkinetics (Custom)"
-	limbs_id = "mcgipc"
-	color_src = MUTCOLORS
+	icon_state = "mcipc"
+	limbs_id = "mcipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_bishopcyberkinetics
+	name = "Bishop Cyberkinetics (Custom)"
+	icon_state = "bshipc"
+	limbs_id = "bshipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_bishopcyberkinetics2
+	name = "Bishop Cyberkinetics 2.0 (Custom)"
+	icon_state = "bs2ipc"
+	limbs_id = "bs2ipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_hephaestussindustries
+	name = "Hephaestus Industries (Custom)"
+	icon_state = "hsiipc"
+	limbs_id = "hsiipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_hephaestussindustries2
+	name = "Hephaestus Industries 2.0 (Custom)"
+	icon_state = "hi2ipc"
+	limbs_id = "hi2ipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_hellguardmunitions
+	name = "Shellguard Munitions Standard Series (Custom)"
+	icon_state = "sgmipc"
+	limbs_id = "sgmipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_wardtakahashimanufacturing
+	name = "Ward-Takahashi Manufacturing (Custom)"
+	icon_state = "wtmipc"
+	limbs_id = "wtmipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_xionmanufacturinggroup
+	name = "Xion Manufacturing Group (Custom)"
+	icon_state = "xmgipc"
+	limbs_id = "xmgipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_xionmanufacturinggroup2
+	name = "Xion Manufacturing Group 2.0 (Custom)"
+	icon_state = "xm2ipc"
+	limbs_id = "xm2ipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/greyscale_zenghupharmaceuticals
+	name = "Zeng-Hu Pharmaceuticals (Custom)"
+	icon_state = "zhpipc"
+	limbs_id = "zhpipc"
+	hasinnercolor = MUTCOLORS
+	hasinner = TRUE
+
+/datum/sprite_accessory/ipc_chassis/morpheuscybernetics
+	name = "Morpheus Cyberkinetics"
+	limbs_id = "mcipc"
 
 /datum/sprite_accessory/ipc_chassis/bishopcyberkinetics
 	name = "Bishop Cyberkinetics"
@@ -2584,6 +2639,21 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+/datum/sprite_accessory/insect_type
+	icon = null
+	icon_state = "NULL"
+	color_src = 0
+
+/datum/sprite_accessory/insect_type/fly
+	name = "Common Fly"
+	limbs_id = "fly"
+	gender_specific = FALSE
+
+/datum/sprite_accessory/insect_type/bee
+	name = "Hoverfly"
+	limbs_id = "bee"
+	gender_specific = TRUE
 
 //Psyphoza caps
 
