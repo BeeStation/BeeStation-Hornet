@@ -39,9 +39,7 @@
 	if(!ranged && thrower)
 		thrower.put_in_hands(B)
 	B.mimic_broken(src, target)
-	var/obj/item/shard/B = new(loc)
 	B.item_state = broken_item_state
-
 	qdel(src)
 	target.Bumped(B)
 
