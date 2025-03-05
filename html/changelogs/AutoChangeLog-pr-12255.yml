@@ -1,7 +1,0 @@
-author: Gilgaxx
-delete-after: true
-changes:
-  - bugfix: Mentors can no longer go "nuh uh" when a mentoree tries to kick out their
-      Mrat.
-  - tweak: TGUIfied most mentor related prompts.
-  - tweak: Made Msay for mentors hot pink again!
