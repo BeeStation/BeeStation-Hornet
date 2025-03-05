@@ -58,8 +58,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/tipped_status = MEDBOT_PANIC_NONE
 	///The name we got when we were tipped
 	var/tipper_name
-	///The last time we were tipped/righted and said a voice line, to avoid spam
-	var/last_tipping_action_voice = 0
+	///Cooldown to track last time we were tipped/righted and said a voice line, to avoid spam
+	COOLDOWN_DECLARE(last_tipping_action_voice)
 	var/shut_up = 0 //self explanatory :)
 	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
@@ -146,6 +146,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		GLOB.medibot_unique_id_gen = 0
 	medibot_counter = GLOB.medibot_unique_id_gen
 	GLOB.medibot_unique_id_gen++
+
+	AddComponent(/datum/component/tippable, \
+		tip_time = 3 SECONDS, \
+		untip_time = 3 SECONDS, \
+		self_right_time = 3.5 MINUTES, \
+		pre_tipped_callback = CALLBACK(src, PROC_REF(pre_tip_over)), \
+		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
+		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)))
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -321,38 +329,60 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	else
 		return
 
-/mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
-	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
-	user.visible_message(span_danger("[user] tips over [src]!"), span_danger("You tip [src] over!"))
+/*
+ * Proc used in a callback for before this medibot is tipped by the tippable component.
+ *
+ * user - the mob who is tipping us over
+ */
+/mob/living/simple_animal/bot/medbot/proc/pre_tip_over(mob/user)
+	if(!COOLDOWN_FINISHED(src, last_tipping_action_voice))
+		return
+
+	COOLDOWN_START(src, last_tipping_action_voice, 15 SECONDS) // message for tipping happens when we start interacting, message for righting comes after finishing
+	var/static/list/messagevoice = list(
+		"Hey, wait..." = 'sound/voice/medbot/hey_wait.ogg',
+		"Please don't..." = 'sound/voice/medbot/please_dont.ogg',
+		"I trusted you..." = 'sound/voice/medbot/i_trusted_you.ogg',
+		"Nooo..." = 'sound/voice/medbot/nooo.ogg',
+		"Oh fuck-" = 'sound/voice/medbot/oh_fuck.ogg',
+		)
+	var/message = pick(messagevoice)
+	speak(message)
+	playsound(src, messagevoice[message], 70, FALSE)
+
+/*
+ * Proc used in a callback for after this medibot is tipped by the tippable component.
+ *
+ * user - the mob who tipped us over
+ */
+/mob/living/simple_animal/bot/medbot/proc/after_tip_over(mob/user)
 	tipped = TRUE
-	var/matrix/mat = transform
-	transform = mat.Turn(180)
 	tipper_name = user.name
+	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 
-/mob/living/simple_animal/bot/medbot/proc/set_right(mob/user)
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
+/*
+ * Proc used in a callback for after this medibot is righted, either by themselves or by a mob, by the tippable component.
+ *
+ * user - the mob who righted us. Can be null.
+ */
+/mob/living/simple_animal/bot/medbot/proc/after_righted(mob/user)
 	var/list/messagevoice
-
 	if(user)
-		user.visible_message(span_notice("[user] sets [src] right-side up!"), span_green("You set [src] right-side up!"))
 		if(user.name == tipper_name)
 			messagevoice = list("I forgive you." = 'sound/voice/medbot/forgive.ogg')
 		else
 			messagevoice = list("Thank you!" = 'sound/voice/medbot/thank_you.ogg', "You are a good person." = 'sound/voice/medbot/youre_good.ogg')
 	else
-		visible_message(span_notice("[src] manages to writhe wiggle enough to right itself."))
 		messagevoice = list("Fuck you." = 'sound/voice/medbot/fuck_you.ogg', "Your behavior has been reported, have a nice day." = 'sound/voice/medbot/reported.ogg')
 
 	tipper_name = null
-	if(world.time > last_tipping_action_voice + 15 SECONDS)
-		last_tipping_action_voice = world.time
+	if(COOLDOWN_FINISHED(src, last_tipping_action_voice))
+		COOLDOWN_START(src, last_tipping_action_voice, 15 SECONDS)
 		var/message = pick(messagevoice)
 		speak(message)
 		playsound(src, messagevoice[message], 70)
 	tipped_status = MEDBOT_PANIC_NONE
 	tipped = FALSE
-	transform = matrix()
 
 /// if someone tipped us over, check whether we should ask for help or just right ourselves eventually
 /mob/living/simple_animal/bot/medbot/proc/handle_panic()
@@ -372,7 +402,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 			messagevoice = list("Is this the end?" = 'sound/voice/medbot/is_this_the_end.ogg', "Nooo!" = 'sound/voice/medbot/nooo.ogg')
 		if(MEDBOT_PANIC_END)
 			speak("PSYCH ALERT: Crewmember [tipper_name] recorded displaying antisocial tendencies by torturing bots in [get_area(src)]. Please schedule psych evaluation.", radio_channel)
-			set_right() // strong independent medbot
 
 	if(prob(tipped_status))
 		do_jitter_animation(tipped_status * 0.1)
@@ -537,30 +566,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		return TRUE
 
 	return FALSE // we shouldn't get random TRUE cases
-
-/mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H, modifiers)
-	if(DOING_INTERACTION_WITH_TARGET(H, src))
-		to_chat(H, span_warning("You're already interacting with [src]."))
-		return
-	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !tipped)
-		H.visible_message(span_danger("[H] begins tipping over [src]."), span_warning("You begin tipping over [src]..."))
-
-		if(world.time > last_tipping_action_voice + 15 SECONDS)
-			last_tipping_action_voice = world.time // message for tipping happens when we start interacting, message for righting comes after finishing
-			var/list/messagevoice = list("Hey, wait..." = 'sound/voice/medbot/hey_wait.ogg',"Please don't..." = 'sound/voice/medbot/please_dont.ogg',"I trusted you..." = 'sound/voice/medbot/i_trusted_you.ogg', "Nooo..." = 'sound/voice/medbot/nooo.ogg', "Oh fuck-" = 'sound/voice/medbot/oh_fuck.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(src, messagevoice[message], 70, FALSE)
-
-		if(do_after(H, 3 SECONDS, target=src))
-			tip_over(H)
-
-	else if(!H.combat_mode && tipped)
-		H.visible_message(span_notice("[H] begins righting [src]."), span_notice("You begin righting [src]..."))
-		if(do_after(H, 3 SECONDS, target=src))
-			set_right(H)
-	else
-		..()
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
