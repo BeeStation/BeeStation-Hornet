@@ -243,9 +243,6 @@
 	label_icon = "label_potion"
 	isGlass = TRUE
 
-/obj/item/reagent_containers/cup/beaker/large/potion/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)
-
 
 /obj/item/reagent_containers/cup/beaker/plastic
 	name = "x-large beaker"
