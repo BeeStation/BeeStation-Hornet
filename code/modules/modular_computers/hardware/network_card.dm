@@ -14,6 +14,9 @@
 	malfunction_probability = 1
 	device_type = MC_NET
 
+/obj/item/computer_hardware/network_card/Initialize()
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/computer_hardware/network_card/LateInitialize()
 	. = ..()
