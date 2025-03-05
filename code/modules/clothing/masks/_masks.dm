@@ -13,9 +13,9 @@
 	var/unique_death /// The unique sound effect of dying while wearing this
 
 /obj/item/clothing/mask/attack_self(mob/user)
-	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
-		TOGGLE_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
-		var/status = !CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
+	if((clothing_flags & VOICEBOX_TOGGLABLE))
+		clothing_flags ^= (VOICEBOX_DISABLED)
+		var/status = !(clothing_flags & VOICEBOX_DISABLED)
 		to_chat(user, span_notice("You turn the voice box in [src] [status ? "on" : "off"]."))
 
 /obj/item/clothing/mask/equipped(mob/M, slot)

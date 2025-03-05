@@ -28,18 +28,21 @@
 	user.visible_message(span_suicide("[user] is trying to upload [user.p_them()]self into [src]! That's not going to work out well!"))
 	return BRUTELOSS
 
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	if(!proximity || !target)
-		return
+/obj/item/aicard/pre_attack(atom/target, mob/living/user, params)
 	if(AI) //AI is on the card, implies user wants to upload it.
-		log_combat(user, AI, "uploaded", src, "to [target].", important = FALSE)
+		var/our_ai = AI
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
+		if(!AI)
+			log_combat(user, our_ai, "uploaded", src, "to [target].", important = FALSE)
+			update_appearance()
+			return TRUE
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 		if(AI)
 			log_combat(user, AI, "carded", src, important = FALSE)
-	update_icon() //Whatever happened, update the card's state (icon, name) to match.
+			update_appearance()
+			return TRUE
+	return ..()
 
 /obj/item/aicard/update_icon_state()
 	if(!AI)

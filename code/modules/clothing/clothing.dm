@@ -12,7 +12,7 @@
 	max_integrity = 200
 	integrity_failure = 0.4
 	var/damaged_clothes = CLOTHING_PRISTINE //similar to machine's BROKEN stat and structure's broken var
-	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
+	var/flash_protect = FLASH_PROTECTION_NONE 		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/bang_protect = 0		//what level of sound protection the item has. 1 is the level of a normal bowman.
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/up = 0					//but separated to allow items to protect but not impair vision, like space helmets
@@ -27,8 +27,6 @@
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
-	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
-
 	var/clothing_flags = NONE
 
 	/// What items can be consumed to repair this clothing (must by an /obj/item/stack)
@@ -41,6 +39,9 @@
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+	var/list/clothing_traits
 
 	var/pocket_storage_component_path
 
@@ -234,8 +235,7 @@
 		RegisterSignal(C, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
 
 	zones_disabled++
-	for(var/i in body_zone2cover_flags(def_zone))
-		body_parts_covered &= ~i
+	body_parts_covered &= ~body_zone2cover_flags(def_zone)
 
 	if(body_parts_covered == NONE) // if there are no more parts to break then the whole thing is kaput
 		atom_destruction((damage_type == BRUTE ? MELEE : LASER)) // melee/laser is good enough since this only procs from direct attacks anyway and not from fire/bombs
@@ -262,6 +262,8 @@
 	if(!istype(user))
 		return
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	for(var/trait in clothing_traits)
+		REMOVE_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
 
 	if(LAZYLEN(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
@@ -277,8 +279,9 @@
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(bristle))
-
-		if(LAZYLEN(user_vars_to_edit))
+		for(var/trait in clothing_traits)
+			ADD_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
+		if (LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
@@ -334,28 +337,39 @@
 	. = ..()
 
 	if(href_list["list_armor"])
+		var/obj/item/clothing/compare_to = null
+		for (var/flag in bitfield_to_list(slot_flags))
+			var/thing = usr.get_item_by_slot(flag)
+			if (istype(thing, /obj/item/clothing))
+				compare_to = thing
+				break
+
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
 		var/datum/armor/armor = get_armor()
+		var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
+
 		var/added_damage_header = FALSE
 		for(var/damage_key in ARMOR_LIST_DAMAGE)
 			var/rating = armor.get_rating(damage_key)
-			if(!rating)
+			var/compare_rating = compare_armor ? compare_armor.get_rating(damage_key) : null
+			if(!rating && !compare_rating)
 				continue
 			if(!added_damage_header)
 				readout += "\n<b>ARMOR (I-X)</b>"
 				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating)]"
+			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, compare_rating)]"
 
 		var/added_durability_header = FALSE
 		for(var/durability_key in ARMOR_LIST_DURABILITY)
 			var/rating = armor.get_rating(durability_key)
-			if(!rating)
+			var/compare_rating = compare_armor ? compare_armor.get_rating(durability_key) : null
+			if(!rating && !compare_rating)
 				continue
 			if(!added_durability_header)
 				readout += "\n<b>DURABILITY (I-X)</b>"
-				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating)]"
+				added_durability_header = TRUE
+			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, compare_rating)]"
 
 		if(flags_cover & HEADCOVERSMOUTH)
 			readout += "<br /><b>COVERAGE</b>"
@@ -424,7 +438,7 @@ SEE_OBJS  // can see all objs, no matter what
 SEE_TURFS // can see all turfs (and areas), no matter what
 SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
 		// in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
+BLIND	 // can't see anything
 */
 
 /proc/generate_female_clothing(index,t_color,icon,type)
@@ -541,6 +555,8 @@ BLIND     // can't see anything
 	new /obj/effect/decal/cleanable/shreds(get_turf(src), name)
 
 /obj/item/clothing/atom_destruction(damage_flag)
+	if(damage_flag in list(ACID, FIRE))
+		return ..()
 	if(damage_flag == BOMB)
 		//so the shred survives potential turf change from the explosion.
 		addtimer(CALLBACK(src, PROC_REF(_spawn_shreds)), 1)
@@ -552,7 +568,7 @@ BLIND     // can't see anything
 			var/mob/living/possessing_mob = loc
 			possessing_mob.visible_message(span_danger("[src] is consumed until naught but shreds remains!"), span_boldwarning("[src] falls apart into little bits!"))
 		deconstruct(FALSE)
-	else if(!(damage_flag in list(ACID, FIRE)))
+	else
 		body_parts_covered = NONE
 		slot_flags = NONE
 		update_clothes_damaged_state(CLOTHING_SHREDDED)
@@ -565,8 +581,6 @@ BLIND     // can't see anything
 				M.visible_message(span_danger("[src] fall[p_s()] apart, completely shredded!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		name = "shredded [initial(name)]" // change the name -after- the message, not before.
 		update_appearance()
-	else
-		..()
 
 /// If we're a clothing with at least 1 shredded/disabled zone, give the wearer a periodic heads up letting them know their clothes are damaged
 /obj/item/clothing/proc/bristle(mob/living/L)

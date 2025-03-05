@@ -40,7 +40,7 @@
 	var/requires_power = POWER_REQ_ALL
 	var/can_be_carded = TRUE
 	var/icon/holo_icon //Default is assigned when AI is created.
-	var/obj/vehicle/sealed/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
+	var/obj/controlled_equipment //A piece of equipment, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
 	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/multitool/aiMulti
@@ -480,7 +480,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			log_game("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
-		if(controlled_mech)
+		if(controlled_equipment)
 			to_chat(src, span_warning("You are already loaded into an onboard computer!"))
 			return
 		if(!GLOB.cameranet.checkCameraVis(M))

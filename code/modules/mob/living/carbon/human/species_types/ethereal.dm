@@ -8,6 +8,7 @@
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
@@ -36,7 +37,7 @@
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
 
 	var/current_color
-	//var/default_color
+	var/default_color
 	var/r1
 	var/g1
 	var/b1
@@ -69,8 +70,9 @@
 	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	spec_updatehealth(ethereal)
 
-	//The following code is literally only to make admin-spawned ethereals not be black.
-	new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
+	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.getorganslot(ORGAN_SLOT_HEART)
+	ethereal_heart.ethereal_color = default_color
+
 	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
 		if(limb.limb_id == SPECIES_ETHEREAL)
 			limb.update_limb(is_creating = TRUE)

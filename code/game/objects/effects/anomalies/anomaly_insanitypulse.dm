@@ -3,6 +3,7 @@
 	icon_state = "purplecrack"
 
 	COOLDOWN_DECLARE(pulse_cooldown)
+	aSignal = /obj/item/assembly/signaler/anomaly/insanity
 	var/pulse_interval = 7 SECONDS
 
 	var/weak_pulse_power = 8
