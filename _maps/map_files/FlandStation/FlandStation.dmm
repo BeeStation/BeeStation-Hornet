@@ -90753,10 +90753,6 @@
 /area/crew_quarters/dorms)
 "wYm" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
-	pixel_x = 1;
-	pixel_y = 24
-	},
 /obj/item/assembly/flash/handheld{
 	pixel_x = 15;
 	pixel_y = 4
@@ -90766,6 +90762,7 @@
 	pixel_y = 6
 	},
 /obj/item/camera/detective,
+/obj/structure/detectiveboard/directional/north,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "wYo" = (
@@ -91592,6 +91589,10 @@
 	},
 /obj/machinery/newscaster{
 	pixel_y = 31
+	},
+/obj/item/radio/intercom{
+	pixel_x = 31;
+	pixel_y = -4
 	},
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
