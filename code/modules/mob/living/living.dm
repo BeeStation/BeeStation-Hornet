@@ -1229,7 +1229,7 @@
 		return mind.soulOwner == mind
 	return TRUE
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
 
@@ -1737,6 +1737,7 @@
 		return
 	. = body_position
 	body_position = new_value
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BODY_POSITION)
 	if(new_value == LYING_DOWN) // From standing to lying down.
 		on_lying_down()
 	else // From lying down to standing up.

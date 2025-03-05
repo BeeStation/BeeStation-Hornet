@@ -1334,6 +1334,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(src, /obj/item/shrapnel))
 		src.disableEmbedding()
 
+///Called by the carbon throw_item() proc. Returns null if the item negates the throw, or a reference to the thing to suffer the throw else.
+/obj/item/proc/on_thrown(mob/living/carbon/user, atom/target)
+	if((item_flags & ABSTRACT) || HAS_TRAIT(src, TRAIT_NODROP))
+		return
+	user.dropItemToGround(src, silent = TRUE)
+	if(throwforce && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("You set [src] down gently on the ground."))
+		return
+	return src
+
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
   *

@@ -10,11 +10,11 @@
 	///False means wheels are not popped out
 	var/wheelToggle = FALSE
 	///The vehicle associated with the shoes
-	var/obj/vehicle/ridden/scooter/wheelys/W
+	var/obj/vehicle/ridden/scooter/skateboard/wheelys/W
 
 /obj/item/clothing/shoes/wheelys/Initialize(mapload)
 	. = ..()
-	W = new /obj/vehicle/ridden/scooter/wheelys(null)
+	W = new /obj/vehicle/ridden/scooter/skateboard/wheelys(null)
 
 /obj/item/clothing/shoes/wheelys/ui_action_click(mob/user, action)
 	if(!isliving(user))

@@ -3,13 +3,10 @@
 	desc = "A fun way to get around."
 	icon_state = "scooter"
 	are_legs_exposed = TRUE
-	fall_off_if_missing_arms = TRUE
 
 /obj/vehicle/ridden/scooter/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0), TEXT_SOUTH = list(-2), TEXT_EAST = list(0), TEXT_WEST = list( 2)))
-
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter)
 
 /obj/vehicle/ridden/scooter/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, span_notice("You begin to remove the handlebars..."))
@@ -36,9 +33,6 @@
 /obj/vehicle/ridden/scooter/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!istype(M))
 		return FALSE
-	if(M.usable_legs < legs_required && M.usable_hands < arms_required)
-		to_chat(M, span_warning("You don't think it'd be a good idea trying to ride \the [src]..."))
-		return FALSE
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard
@@ -46,8 +40,6 @@
 	desc = "An unfinished scooter which can only barely be called a skateboard. It's still rideable, but probably unsafe. Looks like you'll need to add a few rods to make handlebars."
 	icon_state = "skateboard"
 	density = FALSE
-	arms_required = 0
-	fall_off_if_missing_arms = FALSE
 	var/datum/effect_system/spark_spread/sparks
 	///Whether the board is currently grinding
 	var/grinding = FALSE
@@ -62,12 +54,7 @@
 
 /obj/vehicle/ridden/scooter/skateboard/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 1.5
-	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard)
 	sparks = new
 	sparks.set_up(1, 0, src)
 	sparks.attach(src)
@@ -98,61 +85,62 @@
 
 /obj/vehicle/ridden/scooter/skateboard/Bump(atom/A)
 	. = ..()
-	if(A.density && has_buckled_mobs())
-		var/mob/living/H = buckled_mobs[1]
-		var/multiplier = 1
-		if(HAS_TRAIT(H, TRAIT_PROSKATER))
-			multiplier = 0.3 //70% reduction
-		H.adjustStaminaLoss(multiplier * instability * 6)
-		playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
-		if(!iscarbon(H) || H.getStaminaLoss() >= 100 || grinding || world.time < next_crash)
-			var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
-			unbuckle_mob(H)
-			H.throw_at(throw_target, 3, 2)
-			var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
-				if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
-					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
-					H.updatehealth()
-			visible_message(span_danger("[src] crashes into [A], sending [H] flying!"))
-			H.Paralyze(80 * multiplier)
-		else
-			var/backdir = turn(dir, 180)
-			vehicle_move(backdir)
-			H.spin(4, 1)
-		next_crash = world.time + 10
+	if(!A.density || !has_buckled_mobs())
+		return
+
+	var/mob/living/rider = buckled_mobs[1]
+	var/multiplier = 1
+	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
+		multiplier = 0.3 //70% reduction
+	rider.adjustStaminaLoss(multiplier * instability * 6)
+	playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
+	if(!iscarbon(rider) || rider.getStaminaLoss() >= 100 || grinding || world.time < next_crash)
+		var/atom/throw_target = get_edge_target_turf(rider, pick(GLOB.cardinals))
+		unbuckle_mob(rider)
+		rider.throw_at(throw_target, 3, 2)
+		var/head_slot = rider.get_item_by_slot(ITEM_SLOT_HEAD)
+		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
+			if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
+				rider.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
+				rider.updatehealth()
+		visible_message("<span class='danger'>[src] crashes into [A], sending [rider] flying!</span>")
+		rider.Paralyze(80 * multiplier)
+	else
+		var/backdir = turn(dir, 180)
+		step(src, backdir)
+		rider.spin(4, 1)
+	next_crash = world.time + 10
 
 ///Moves the vehicle forward and if it lands on a table, repeats
 /obj/vehicle/ridden/scooter/skateboard/proc/grind()
-	vehicle_move(dir)
-	if(has_buckled_mobs() && locate(/obj/structure/table) in loc.contents)
-		var/mob/living/L = buckled_mobs[1]
-		var/multiplier = 1
-		if(HAS_TRAIT(L, TRAIT_PROSKATER))
-			multiplier = 0.3 //70% reduction
-		L.adjustStaminaLoss(multiplier * instability * 0.5)
-		if (L.getStaminaLoss() >= 100)
-			playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
-			unbuckle_mob(L)
-			var/atom/throw_target = get_edge_target_turf(src, pick(GLOB.cardinals))
-			L.throw_at(throw_target, 2, 2)
-			visible_message(span_danger("[L] loses [L.p_their()] footing and slams on the ground!"))
-			L.Paralyze(multiplier * 40)
-			grinding = FALSE
-			icon_state = board_icon
-			return
-		else
-			playsound(src, 'sound/vehicles/skateboard_roll.ogg', 50, TRUE)
-			if(prob (25))
-				var/turf/location = get_turf(loc)
-				if(location)
-					location.hotspot_expose(1000,1000)
-				sparks.start() //the most radical way to start plasma fires
-			addtimer(CALLBACK(src, PROC_REF(grind)), 2)
-			return
-	else
+	step(src, dir)
+	if(!has_buckled_mobs() || !(locate(/obj/structure/table) in loc.contents))
 		grinding = FALSE
-		icon_state = board_icon
+		icon_state = "[initial(icon_state)]"
+		return
+
+	var/mob/living/L = buckled_mobs[1]
+	var/multiplier = 1
+	if(HAS_TRAIT(L, TRAIT_PROSKATER))
+		multiplier = 0.3 //70% reduction
+	L.adjustStaminaLoss(multiplier * instability * 0.5)
+	if (L.getStaminaLoss() >= 100)
+		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
+		unbuckle_mob(L)
+		var/atom/throw_target = get_edge_target_turf(src, pick(GLOB.cardinals))
+		L.throw_at(throw_target, 2, 2)
+		visible_message("<span class='danger'>[L] loses [L.p_their()] footing and slams on the ground!</span>")
+		L.Paralyze(multiplier * 40)
+		grinding = FALSE
+		icon_state = "[initial(icon_state)]"
+	else
+		playsound(src, 'sound/vehicles/skateboard_roll.ogg', 50, TRUE)
+		if(prob (25))
+			var/turf/location = get_turf(loc)
+			if(location)
+				location.hotspot_expose(1000,1000)
+			sparks.start() //the most radical way to start plasma fires
+		addtimer(CALLBACK(src, PROC_REF(grind)), 2)
 
 /obj/vehicle/ridden/scooter/skateboard/MouseDrop(atom/over_object)
 	. = ..()
@@ -265,47 +253,36 @@
 	return
 
 //Wheelys
-/obj/vehicle/ridden/scooter/wheelys
+/obj/vehicle/ridden/scooter/skateboard/wheelys
 	name = "Wheely-Heels"
 	desc = "Uses patented retractable wheel technology. Never sacrifice speed for style - not that this provides much of either."
-	icon = null
+	icon_state = null
 	density = FALSE
+	instability = 12
+	///Stores the shoes associated with the vehicle
+	var/obj/item/clothing/shoes/wheelys/shoes = null
+	///Name of the wheels, for visible messages
+	var/wheel_name = "wheels"
+	///Component typepath to attach in [/obj/vehicle/ridden/scooter/skateboard/wheelys/proc/make_ridable()]
+	var/component_type = /datum/component/riding/vehicle/scooter/skateboard/wheelys
 
-/obj/vehicle/ridden/scooter/wheelys/Initialize(mapload)
+/obj/vehicle/ridden/scooter/skateboard/wheelys/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 0
-	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/wheelys)
 
-/obj/vehicle/ridden/scooter/wheelys/post_unbuckle_mob(mob/living/M)
+/obj/vehicle/ridden/scooter/skateboard/wheelys/post_unbuckle_mob(mob/living/M)
 	if(!has_buckled_mobs())
-		to_chat(M, span_notice("You pop the Wheely-Heel's wheels back into place."))
+		to_chat(M, "<span class='notice'>You pop the [wheel_name] back into place.</span>")
 		moveToNullspace()
 	return ..()
 
-/obj/vehicle/ridden/scooter/wheelys/post_buckle_mob(mob/living/M)
-	to_chat(M, span_notice("You pop out the Wheely-Heel's wheels."))
+/obj/vehicle/ridden/scooter/skateboard/wheelys/pick_up_board(mob/living/carbon/Skater)
+	return
+
+/obj/vehicle/ridden/scooter/skateboard/wheelys/post_buckle_mob(mob/living/M)
+	to_chat(M, "<span class='notice'>You pop out the [wheel_name].</span>")
 	return ..()
 
-/obj/vehicle/ridden/scooter/wheelys/Bump(atom/A)
-	. = ..()
-	if(A.density && has_buckled_mobs())
-		var/mob/living/H = buckled_mobs[1]
-		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
-		unbuckle_mob(H)
-		H.throw_at(throw_target, 4, 3)
-		var/multiplier = 1
-		if(HAS_TRAIT(H, TRAIT_PROSKATER))
-			multiplier = 0.3 //70% reduction
-		H.Paralyze(multiplier * 30)
-		H.adjustStaminaLoss(multiplier * 10)
-		var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
-			if(prob(multiplier * 100)) //Pro skaters have a 70% chance to not get the brain damage
-				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
-				H.updatehealth()
-		visible_message(span_danger("[src] crashes into [A], sending [H] flying!"))
-		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+///Sets the shoes that the vehicle is associated with, called when the shoes are initialized
+/obj/vehicle/ridden/scooter/skateboard/wheelys/proc/link_shoes(newshoes)
+	shoes = newshoes

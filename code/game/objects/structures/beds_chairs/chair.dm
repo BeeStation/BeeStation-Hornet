@@ -401,6 +401,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 		usr.put_in_hands(C)
 		qdel(src)
 
+/obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+	return ..()
+
 /obj/structure/chair/stool/bar
 	name = "bar stool"
 	desc = "The apex of the bar experience."
