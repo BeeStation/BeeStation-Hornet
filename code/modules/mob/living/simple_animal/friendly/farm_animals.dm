@@ -140,16 +140,46 @@
 
 /mob/living/simple_animal/cow/Initialize(mapload)
 	AddComponent(/datum/component/udder)
+	AddComponent(/datum/component/tippable, \
+		tip_time = 0.5 SECONDS, \
+		untip_time = 0.5 SECONDS, \
+		self_right_time = rand(25 SECONDS, 50 SECONDS), \
+		post_tipped_callback = CALLBACK(src, PROC_REF(after_cow_tipped)))
 	. = ..()
 
-/mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M, modifiers)
-	if(!stat && modifiers && LAZYACCESS(modifiers, RIGHT_CLICK) && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] tips over [src]."),
-			span_notice("You tip over [src]."))
-		to_chat(src, span_userdanger("You are tipped over by [M]!"))
-		Paralyze(60, ignore_canstun = TRUE)
-		icon_state = icon_dead
-		addtimer(CALLBACK(src, PROC_REF(tip_back), M), rand(20,50))
+/*
+ * Proc called via callback after the cow is tipped by the tippable component.
+ * Begins a timer for us pleading for help.
+ *
+ * tipper - the mob who tipped us
+ */
+/mob/living/simple_animal/cow/proc/after_cow_tipped(mob/living/carbon/tipper)
+	addtimer(CALLBACK(src, PROC_REF(look_for_help), tipper), rand(10 SECONDS, 20 SECONDS))
+
+/*
+ * Find a mob in a short radius around us (prioritizing the person who originally tipped us)
+ * and either look at them for help, or give up. No actual mechanical difference between the two.
+ *
+ * tipper - the mob who originally tipped us
+ */
+/mob/living/simple_animal/cow/proc/look_for_help(mob/living/carbon/tipper)
+	// visible part of the visible message
+	var/seen_message = ""
+	// self part of the visible message
+	var/self_message = ""
+	// the mob we're looking to for aid
+	var/mob/living/carbon/savior
+	// look for someone in a radius around us for help. If our original tipper is in range, prioritize them
+	for(var/mob/living/carbon/potential_aid in oview(3, get_turf(src)))
+		if(potential_aid == tipper)
+			savior = tipper
+			break
+		savior = potential_aid
+
+	if(prob(75) && savior)
+		var/text = pick("imploringly", "pleadingly", "with a resigned expression")
+		seen_message = "[src] looks at [savior] [text]."
+		self_message = "You look at [savior] [text]."
 	else
 		..()
 
