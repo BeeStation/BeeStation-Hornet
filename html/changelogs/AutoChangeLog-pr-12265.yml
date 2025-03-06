@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - refactor: Refactors multi-z to allow for partial z-levels.

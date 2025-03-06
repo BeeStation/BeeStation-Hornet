@@ -1,8 +1,0 @@
-author: XeonMations, MrMelbert, JohnFulpWillard, SuperNovaa41, GPeckman, Ben10Omintrix
-delete-after: true
-changes:
-  - balance: You can now tip over borgs with alt clicking them with non-help intent!
-      (Will be changed to combat mode on + right click once combat mode is merged)
-  - rscadd: Tippable component. Admins can now add this component to make you able
-      to be tipped over.
-  - refactor: Bots and cows now use the tippable component instead of snowflake code.
