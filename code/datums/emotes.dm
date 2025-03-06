@@ -320,7 +320,7 @@
 			var/mob/living/carbon/human/loud_mouth = user
 			if(loud_mouth.mind?.miming) // vow of silence prevents outloud noises
 				return FALSE
-			if(!loud_mouth.getorganslot(ORGAN_SLOT_TONGUE))
+			if(!loud_mouth.get_organ_slot(ORGAN_SLOT_TONGUE))
 				return FALSE
 
 	if(only_forced_audio && intentional)

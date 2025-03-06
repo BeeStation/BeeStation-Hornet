@@ -158,7 +158,7 @@
 
 /// Returns TRUE if a breathing tube is equipped.
 /mob/living/carbon/proc/can_breathe_tube()
-	if (getorganslot(ORGAN_SLOT_BREATHING_TUBE))
+	if (get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
 		return TRUE
 
 /// Returns TRUE if an air tank compatible mask or breathing tube is equipped.
@@ -342,15 +342,15 @@
 
 	if(offered)
 		if(IS_DEAD_OR_INCAP(offered))
-			to_chat(src, "<span class='warning'>They're unable to take anything in their current state!</span>")
+			to_chat(src, span_warning("They're unable to take anything in their current state!"))
 			return
 
 		if(!CanReach(offered))
-			to_chat(src, "<span class='warning'>You have to be adjacent to offer things!</span>")
+			to_chat(src, span_warning("You have to be adjacent to offer things!"))
 			return
 	else
 		if(!(locate(/mob/living/carbon) in orange(1, src)))
-			to_chat(src, "<span class='warning'>There's nobody adjacent to offer it to!</span>")
+			to_chat(src, span_warning("There's nobody adjacent to offer it to!"))
 			return
 
 	if(offered_item.on_offered(src)) // see if the item interrupts with its own behavior
@@ -376,7 +376,7 @@
 /mob/living/carbon/proc/take(mob/living/carbon/offerer, obj/item/I)
 	clear_alert("[offerer]")
 	if(IS_DEAD_OR_INCAP(src))
-		to_chat(src,  "<span class='warning'>You're unable to take anything in your current state!</span>")
+		to_chat(src,  span_warning("You're unable to take anything in your current state!"))
 		return
 	if(get_dist(src, offerer) > 1)
 		to_chat(src, span_warning("[offerer] is out of range!"))
