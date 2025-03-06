@@ -1,0 +1,261 @@
+2023-11-01:
+  HowToLoLu:
+  - bugfix: Bots will no longer runtime due to trying to pathfind their way out of
+      an object.
+  - tweak: The atmosbot on the Corg Station Emergency Shuttle now starts off.
+  PowerfulBacon:
+  - rscadd: Adds in a new death notice message to reflect the policy changes.
+2023-11-10:
+  Absolucy:
+  - bugfix: Fixed some heretic spells restarting the cooldown even though they failed
+      (cleave, blood siphon, mansus link, nightwatcher's rebirth)
+  - bugfix: Fixed Nightwatcher's Rebirth causing toxin damage to oozeling users, when
+      it should be healing them of toxin damage.
+  - bugfix: Fixed a runtime error when accidentally using Blood Siphon on a non-living
+      target.
+  BeeLover66:
+  - bugfix: Radio channels no longer always default to common when no encryption key
+      is installed
+  - rscadd: There is now a warning message when you try to transmit to a channel without
+      the proper encryption key
+  CydiaLamiales:
+  - balance: The .357 revolver and speedloader now require at least 25 players in
+      order to be bought from the uplink
+  - tweak: Made vendors show pills and bottles better
+  - code_imp: added a vendor_icon_preview var to obj/item, which is an icon state
+      shown when the item is sold at vendors, pulled from the item's icon file
+  Dejaku51:
+  - rscadd: Added relative coords components which lets you get relative coordinates
+      to target from circuit POV (requires line of sight)
+  - code_imp: Changed can_see default value of length var to 7
+  - tweak: Added information about needing to be secured to server and scanner gate
+      shell
+  - bugfix: Fixed scanner gate shell outputting turf instead of scanned object
+  - bugfix: made securing a shell after inserting circuit work
+  EvilDragonfiend:
+  - rscadd: mime invisible walls, agent stealth box, heretic influence, and mobs in
+      lockers/closets will be visible to ghosts.
+  - bugfix: Lazarus injector will not accidentally change faction status when it has
+      a player mind.
+  - bugfix: Mobs with player mind that are revived by Lazarus injector will have their
+      AI status off, so that people will not be attacked randomly.
+  - rscadd: Lazarus injector will not revive a mob with an unrevivable mind. If it
+      revives a mob, it will notify its ghost.
+  JixS4v:
+  - tweak: Unwrapping crates takes 0.3 seconds now.
+  - tweak: Heretics now shatter the blade farthest away from them when they make a
+      new blade at the limit.
+  - tweak: Gives the detective a chem scanner in the PDA
+  PestoVerde322:
+  - code_imp: Overhauled the moodlet code to linebreak whenever a new moodlet is added
+  - code_imp: Moved the pool moodlet into their own dedicated files.
+  - bugfix: Fixed the moodlet on the Syndicate Balloon
+  - rscdel: removed and reworked an overused meme moodlet description
+  PowerfulBacon:
+  - balance: Necrotic Metabolism will no longer allow symtpoms to process in dead
+      hosts, instead it will allow dead bodies to spread the disease via airbourne
+      transmission which no longer happens by default.
+  - refactor: Refactors most turf breaking mechanics, removing environment smash in
+      exchange for damage. This means most simplemobs will be able to break turfs
+      slowly now.
+  - balance: Turfs now have integrity and can be damaged like normal objects.
+  - tweak: Tweaks dynamic's endgame, making only specific threats capable of spawning
+      after the midround spawn time limit has passed (100 minute mark) and making
+      dynamic ignore the cost of threats after that point has passed.
+  Rukofamicom:
+  - bugfix: bluespace capsules can't be deepfried anymore.
+  - code_imp: Cleaned up safe Initialization code slightly
+  - bugfix: Morphs may no longer utilize stomach abilities while ventcrawling. This
+      means no more victims or items left inside of atmos pipes where they are nearly
+      impossible to find.
+  - rscadd: Adds a new "Large" weight class for items, between normal and bulky. Largel
+      items fit inside of backpacks, but take up twice as much space as normal items
+      do.
+  - balance: Several normal items have been changed to Large, including boxes, guns,
+      stun batons, and a variety of other items without major balance implications.
+  - tweak: Belts of all varieties are now bulky items and no longer fit into backpacks.
+  - tweak: Boxes have had their storage capacity reduced dramatically so that the
+      space they take up inside of a bag matches the amount of storage space they
+      have inside.
+  - tweak: The emergency internals box that all players spawn with is smaller than
+      most other boxes, but may only store emergency equipment and tiny items.
+  - tweak: All backpacks have had an increase in their base storage capacity to make
+      up for the loss of storage space in your roundstart box.
+  - tweak: Fanny packs have had their storage capacity increased from 3 slots to 5,
+      and may now hold normal sized items. Fanny packs are primarily craftable by
+      botanists and are considered belts.
+  - tweak: All other belts now have 7 slots if they didn't already, this most notably
+      impacts security officers who will find their belts have 2 additional slots.
+  - tweak: Most security personnel now spawn with a loaded belt instead of a loose
+      baton, cuffs and flash.
+  - tweak: Detectives now spawn with a 5-slot "utility" belt that holds some of their
+      tools that were previously loose. This belt is actually just a renamed fanny
+      pack and can hold anything they want however.
+  - tweak: Holsters now have one less slot, and may hold loose bullets instead of
+      only full clips. Detective holsters no longer spawn pre-loaded with ammo.
+  - tweak: Boxes of shotgun ammo no longer fit in sec belts, however individual shotgun
+      shells do.
+  - tweak: Medkits are now large items instead of bulky and can fit into bags again.
+      These same medkits no longer fit in suit slots or belt slots.
+  - tweak: The extra large medkit that several medical roles spawn with is now a "doctor's
+      bag". The doctor's bag fits in in the suit slot of all labcoats, including those
+      previously excluded from storing medkits.
+  - tweak: Compressed matter cartridges now fit inside of construction bags
+  - tweak: The emergency survival boxes everyone spawns with have a new icon showing
+      they contain an emergency O2 tank.
+  - code_imp: Adds a new procs to `obj/item/` for increasing and decreasing weight
+      by one class
+  Tyranicranger4, San7890, Dragomagol, Melbert, Mothblocks:
+  - admin: Adds logging to Lavaland elite creation
+  - admin: Adds logging to BSA aiming (seperate from firing)
+  - admin: Adds logging to going DNR
+  - admin: Adds logging to creating areas using blueprints (seperate from modifying
+      them)
+  - admin: Adds logging plus an admin notification for when non-roundstart upload
+      consoles are created
+  - admin: Renames the undelay round end button from "End Round Normally" to "Undelay
+      Round End"
+  - tweak: BSArtillery aiming now uses a tgui input list
+  itsmeow:
+  - code_imp: Fixed compile warnings
+  - bugfix: Fixed clockcult mid-init disconnections incorrectly spawning regular drones
+      instead of cogscarabs.
+  rkz, IndieanaJones, tralezab, Angustmeta:
+  - rscadd: adds completely new sprites and sounds for Venus Human Traps!
+  - bugfix: Cleans up VHTs to no longer instantly kill you due to spaghetti, and their
+      tether knockdown ability actually works!
+  - balance: Did I mention it no longer INSTANTLY KILLS YOU?
+  - tweak: Observers now have a timer to which they can see when a new VHT will be
+      born from a flower pod!
+  - tweak: Observers can now control VHTs
+  - bugfix: cleaned up some misc shitcode
+  theoctopusempress:
+  - rscadd: Recipe for Standard glitter
+  - rscadd: Recipes for pink, white and blue glitter
+  - tweak: Changed name of Generic glitter to Standard glitter and changed its description
+2023-11-11:
+  rkz, TemporalOroboros:
+  - bugfix: teslium & black powder explosions now correctly pass their strengthdiv
+      & modifier values to reagent_explosion/proc/explode
+  - tweak: slightly more concise blackpowder explosion text span
+2023-11-12:
+  Nakalon:
+  - tweak: IPC brains now appear as IPC brains when inside an MMI.
+  PowerfulBacon:
+  - bugfix: Fixes a compile warning and minimum gun spread calculations.
+  Rukofamicom:
+  - rscadd: Adds the toy rubber duck mine, crafted by hand from a rubber ducky and
+      a flash. You can probably guess what it does when you step on the mine from
+      its components.
+2023-11-13:
+  JixS4v:
+  - bugfix: Magnetic spearguns can accept spears again.
+  - bugfix: Quivers can have spears placed into them after being taken out.
+  benbot16:
+  - bugfix: Alien embryos properly delete themselves when chestbursting.
+2023-11-16:
+  Rukofamicom:
+  - bugfix: Megafauna no longer continue attacking dead players ad infinium.
+  rkz, Ghommie:
+  - server: Fixes GetComponents() returning a list with a null entry when there's
+      no component of a given type
+2023-11-17:
+  rkz, Arkatos1:
+  - rscadd: converted AI robot controls to TGUI
+2023-11-20:
+  EvilDragonfiend:
+  - code_imp: cleaned up some anomaly codes, and separated the file into multiple
+      dm
+  - rscadd: Sanity Disruptor Anomaly! This will appear at +30 pops with a little bit
+      high chance. Sadly, this doesn't have a core. The anomaly will pulse to make
+      you stunned, blinded, and a little bit hallucinated. Although it's almost harmless.
+  - bugfix: Fixed the original insanity pulse artifact can't send more pulses when
+      it reaches the end of the world map where the item exists. Also, fixed a pulse
+      triggers the effect on a mob twice as it included a turf twice.
+  - code_imp: new turf calculation proc get_edge_turfs() -- By PowerfulBacon
+  - code_imp: Omnitool debug tool now uses TGUI as tool selection instead of the radial
+      options. Also, it has more tool options (wire, botany, bike horn) also, it's
+      tiny item now.
+  RKz, actioninja, Qustinnus:
+  - tweak: adds sound falloff to several sounds that sorely needed it. Includes the
+      Supermatter, mouse squeaking, clown honking, footsteps, generic item attacks
+      musical instruments, and a few other minor items
+  - code_imp: documents the entire sound looping system, adds functionality for further
+      sound loops in the future
+  The-Moon-Itself:
+  - bugfix: The wiremod write component has been given the proper ports to function
+      again.
+2023-11-21:
+  EvilDragonfiend:
+  - code_imp: 'Revert "Fixes GetComponents() returning a list with a null entry when
+      there''s no component of a given type" #10150'
+2023-11-22:
+  PestoVerde322:
+  - rscdel: The antimatter engine has been retired.
+2023-11-24:
+  Absolucy:
+  - balance: The Dextrous holoparasite ability is now purely a weapon, rather than
+      a major ability.
+  rkz:
+  - bugfix: fixed Venus Human Traps vine beams not disappearing after successfully
+      (or unsuccessfully) grabbing a mob
+  rkz, MrStonedOne:
+  - server: Subsystems now track their average & last tick allocations. Can be checked
+      through View Variables on the designated subsystem
+2023-11-25:
+  Dejaku51:
+  - rscadd: Added absolute value component for wiremod
+  EvilDragonfiend:
+  - code_imp: 'added chat span classes for sorting only purpose (virtually. These
+      don''t exist). when you want a chat to be sorted in a group, you need to use
+      "srt_SOMETHING" in this way: "\<span class=''srt_deadchat''>". This example
+      will sort a chat in deadchat group.'
+  - bugfix: most bad practices for chat sorting in radio group are fixed. non-radio
+      messages will not be seen in radio group. (especially cult messages)
+  - rscadd: 'some chats are now sorted into radio: holopara chats, blood/clock cult
+      telepathy, etc'
+2023-11-26:
+  Absolucy:
+  - bugfix: Simplemobs can now properly use intent selection hotkeys (as long as they
+      can use multiple intents already)
+  PowerfulBacon:
+  - balance: Space-dragons will no longer be instantly killed by devastating explosives.
+  rkz, ArcaneMusic, Tralezab:
+  - admin: adds new admin tool, the teambuilder! Admins can now easily put identifiable
+      markings on any player and give them a new custom radio, all with a simple machine.
+      Useful for events, or if you want multiple rival syndicates to face each other
+      with the same gear, but also know whos on what team!
+2023-11-27:
+  EvilDragonfiend:
+  - code_imp: better color calculation code
+  - bugfix: single pure colors (red, green, blue) will not be considered to be too
+      dark.
+  NaN-Blank:
+  - bugfix: Doubles material values of Plastitanium tiles so that when recycled they
+      return the same materials it takes to create them.
+  Rukofamicom:
+  - bugfix: Donk pockets now have their old nutriment value again, and their maltodextrin
+      value has been updated to match this new (old) value as it should.
+  - bugfix: Dank pockets can now be microwaved again
+  - tweak: The amount of maltodextrin in premade donuts and ramen is now correct after
+      having been missed in the previous PR.
+  - code_imp: Adds proper list spacing to snacks_and_vend.dm items containing maltodextrin
+      and cleans up some unused variables
+2023-11-28:
+  rkz:
+  - rscadd: converts pies to newfood
+  - balance: adds protein reagents to meat, xeno, and tofu pies
+  - tweak: adjusts pie foodtypes
+2023-11-29:
+  HowToLoLu:
+  - bugfix: You can no longer fit every item into a Bluespace RPED by dragging the
+      item into it.
+  JixS4v:
+  - bugfix: deadminning gives you mentor status if you were a mentor before becoming
+      an admin
+  rkz, ShizCalev, Timberpoes, rdagan:
+  - balance: corrupted cells will now blow up the BSRPED user instead of being sent
+      when targeting a machine.
+  - balance: reagents will be removed from beakers upon insertion into a BSRPED
+  - bugfix: fixes cells not inheriting plasma corruption correctly, and blowing up
+      even with no plasma inside

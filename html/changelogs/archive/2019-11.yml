@@ -1,0 +1,377 @@
+2019-11-01:
+  Cenrus:
+  - tweak: Cultists can now snuff out spells by dropping them.
+  - imageadd: about 9 new potted plant sprites made by Fiodoss!
+  - bugfix: lighting in fore maintenance on BoxStation
+  - rscadd: Potted plants, pews and carpets in BoxStation
+  - bugfix: Box fitness room APC now receives power again.
+  - bugfix: Air supply pipes in BoxStation fore maintenance have been repaired.
+  - rscadd: Renault to BoxStation
+  - imageadd: Departmental signs by spriter MayhemSailor
+  - tweak: More lights on BoxStation
+  - bugfix: Fixes ORM point claiming
+  - tweak: You no longer need to insert your ID into the ORM to collect points
+  - rscadd: a new line in the you are a zombie message has been added
+  - imageadd: inhand floor tile sprites
+  - tweak: Emags can now open closets, regardless of your intent.
+  MarkSuckerberg:
+  - code_imp: removed a lot of dirty vars from maps(mostly kilostation)
+  - spellcheck: Changelog no longer says Beestation Station
+  - rscadd: '"Wipe Core" verb in the OOC tab for AIs, basically just the equivalent
+      of cryo'
+  - rscadd: the Automated announcement system now announces when someone has been
+      cryo'd.
+  Neri/Kevak:
+  - bugfix: Fixed Abductor Scientists being unable to preform Advanced Surgeries.
+  - bugfix: Fixed Abductor Scientists being unable to see experimental organ types.
+2019-11-02:
+  ike709:
+  - tweak: Atmos should hopefully lag a little less
+2019-11-03:
+  Cenrus:
+  - bugfix: BoxStation Solars
+  - rscadd: Mirror in BoxStation medbay
+  - bugfix: Husked corpses will now always appear husked
+  ike709:
+  - rscadd: 'High priority feature: The DNA scanner now has a small chance to turn
+      occupants into bananas.'
+  - rscadd: Ported plumbing from TG. Read the guide on the bee wiki.
+  - bugfix: Fixed the holodeck computer. No, it wasn't because of the new UI. It doesn't
+      even use the new UI.
+2019-11-04:
+  Cenrus:
+  - rscadd: Second dropper in MetaStation xenobiology
+  - rscadd: MetaStation departmental signs
+  - tweak: Moved engineering foyer air alarm on MetaStation
+  - rscadd: Potted plants in MetaStation
+  - rscadd: Exotic carpets in MetaStation
+  - tweak: made the bar slightly bigger on MetaStation
+  - tweak: made the art storage slightly smaller on MetaStation
+  - rscadd: added plants and preparation space in the MetaStation bar
+  - rscadd: DeltaStation departmental signs
+  - rscadd: Exotic carpets in DeltaStation
+  MarkSuckerberg:
+  - rscadd: Berets to more departments
+2019-11-05:
+  Jerry Derpington, baldest of the balds:
+  - rscdel: Nanotrasen has lost communication to two away mission sites that contained
+      a beach for Nanotrasen employees.
+  - rscadd: Nanotrasen has been able to locate a new away mission site that ALSO has
+      a beach. Nanotrasen employees will be able to enjoy the beach after all!
+2019-11-06:
+  Cenrus:
+  - tweak: White no-slip tiles added to MetaStation medbay.
+2019-11-08:
+  Trilbyspaceclone and nemvar:
+  - rscadd: You can now craft more fancy boxes with cardboard.
+  carlarctg:
+  - tweak: gives cyborg tools unused sprites, and changes their name and description
+  ike709:
+  - tweak: More tgui-next interfaces
+  nemvar:
+  - rscadd: You can now make caramel by heating sugar. Be careful not to overcook
+      it.
+  - rscadd: Adjusted the candied apple recipe
+2019-11-09:
+  Cenrus:
+  - soundadd: New female scream
+  - soundadd: New male scream
+  ike709:
+  - rscadd: Several new tgui-next UIs and fixes from TG.
+  - tweak: Some UIs might have broken.
+  - tweak: GPS units might have broken. Report bugs/weirdness on github.
+2019-11-10:
+  Cenrus:
+  - rscadd: Modifications have been made to the Mech Fabricator to allow it to withdraw
+      and deposit to the ore silo (Thanks to alexkar598 from Yogstation for the code!)
+  - bugfix: Correct attacker is shown when being attacked by items
+  - soundadd: new station ship ambience
+  Hulkamania:
+  - admin: IC button changed to clarify that the issue should be dealt with IC, not
+      display rule 10.
+  Kerbin-Fiber:
+  - imageadd: Plumbing pipes are now being produced with STYLE!
+  Ktlwjec:
+  - tweak: The medical job selections are now blue, instead of purple.
+  Skoglol:
+  - rscadd: Rolling blood brother now has a sound alert and bigger text.
+  - rscadd: Rolling traitor now has bigger text.
+2019-11-12:
+  nichlas0010:
+  - rscadd: Xenos now have a wincondition to hijack the shuttle
+2019-11-13:
+  Cenrus:
+  - bugfix: Janitor Cyborgs now get lube and drying spray again
+  spessbandit:
+  - refactor: Event announcement code has been slightly refactored.
+  - admin: Forcing an ion storm should announce 100% of the time now, instead of 33%.
+2019-11-14:
+  Archanial:
+  - rscadd: Added energy cake
+  - rscadd: Added energy cakehat
+  - bugfix: Birthday cake recipe now matches one in wiki
+  - rscadd: You can now make cakehats, will you figure out how?
+  Arkatos:
+  - tweak: You can now only check yourself for injuries if you are conscious.
+  Steamp0rt and Lunaman:
+  - rscadd: Improved antagonist tutorial
+  jlsnow301:
+  - rscadd: new limbs for flypeople
+  - tweak: damage received increased
+  - tweak: speed increased
+  - tweak: 'favored foods removed: no longer use underwear'
+2019-11-15:
+  81Denton:
+  - tweak: people now crawl in the direction their heads are facing
+  - balance: Explosions now cause knockdown instead of KOs, with the amount of time
+      scaling off bomb armor. Heavy explosions still cause a ~2 second KO for follow
+      up attacks.
+  - balance: Devastating explosions now no longer gib players with more than 50 bomb
+      armor. This used to be more or less random depending on the amount of bomb armor.
+  - code_imp: Removed reagent explosion code that would trigger for <1 amount reactions.
+  AWalton:
+  - balance: increased volume of pepper sprays to 50
+  - tweak: adds knockdown of 3 second for no protection, 3 for no mouth protection
+  - tweak: Changes bluring and blindness of eyes
+  - balance: Replaces Paralysis with blind
+  - balance: vastly decreased the scope of pepperspray protection.
+  - rscadd: New variable for pepperspray protection, PEPPERPROOF, decides if you can
+      be pepperproof with certain equipment
+  Cenrus:
+  - bugfix: Clockwork slab interface
+  Kerbin_Fiber:
+  - imageadd: Changed the Station's Donksoft Toy Vendor with a more station coloured
+      look
+  py01:
+  - balance: Increased spread on dual wielded energy weapons.
+2019-11-16:
+  Moccha-Bee:
+  - rscadd: Added 3 new gas interactions for the SM
+  St0rmC4st3r:
+  - bugfix: fixed the circuits not being printed (finally)
+  actioninja:
+  - bugfix: Shuttle sounds should no longer ass blast your ears as they no longer
+      play PER DOOR and instead from the nearest engine, or door if none are available.
+  - soundadd: Distant shuttle sounds.
+2019-11-18:
+  AffectedArc07 and spessbro:
+  - rscadd: Added new chaplain book option
+  - rscadd: Added hypertool null rod option
+  - imageadd: added Insuls book to storage.dmi
+  - imageadd: added hypertool icon to device.dmi
+  - tweak: Religion is now a globalvar instead of being a subsystem for some reason
+  Cenrus:
+  - rscadd: round start facehugger egg chance in Box and Delta
+  - bugfix: Cryostasis shotgun darts can be fabricated again
+  Readystorm546:
+  - rscadd: '>whole new 360 clock cult map.'
+  - rscadd: '>Changed arrows to a + so it makes more sense with this update.'
+  - rscadd: '>Changed the clock cult paper to match the new map.'
+2019-11-19:
+  Acer202:
+  - rscadd: Mura space banjos are now in stock at your local NT instrument supplier!
+      Start picking today!
+  AffectedArc07:
+  - rscadd: You can now skin IDs in the PDA painter
+  - imageadd: The PDA painter sprite now has a glass slot to insert IDs to be painted
+  - tweak: The "PDA painter" is now called "color manipulator"
+  - tweak: You can now emag the PDA painter to paint any style of PDA or ID (apart
+      from admin ones)
+  - tweak: The PDA painter will now show "friendly" names for PDAs and IDs instead
+      of icon state names
+  - bugfix: You can now paint a PDA in any station PDA scheme
+  - imageadd: The augment manipulator has its own sprite (Done by Quantum_M)
+  Cenrus:
+  - tweak: Improved piping in BoxStation
+  Ghommie:
+  - imageadd: Updated ratvarian computer sprites.
+  Moccha-Bee:
+  - bugfix: Fixed floodlights not turning off properly when they're underpowered.
+  - bugfix: Fixed emitters not changing icons properly when they're underpowered.
+  - bugfix: Fixed liquid pumps turning on unintentionally when underpowered.
+  - bugfix: Humanizing a monkey no longer yeets any buried smuggler's satchels from
+      the tile invisibly onto their person.
+  SomeAngryMiner:
+  - imageadd: Nanotrasen Shipped new Bluespace Lenses for their artillery, "supposedly"
+      increasing explosive capacity. Hey, atleast it looks nicer.
+  Twaticus and Rowelll:
+  - rscadd: Bee socks
+  - rscadd: New underwear
+  - imageadd: Midway Boxers, Long Johns, Halter Swimsuit
+  - rscadd: Underwear can now have any color. (Your character will most likely be
+      nude now so check your prefs!!)
+  - rscadd: Underwear color option in dressers
+  - tweak: changed some underwear names
+  - imagedel: deleted duplicate underwear
+2019-11-20:
+  Moccha-Bee:
+  - balance: rebalanced the minimum pop recquirement for power sink and sleeping carp
+  Nemvar/Kurgis/ArcaneMusic/Some Angry Miner:
+  - imageadd: walls now have 2 more pixels of perspective, should look better now.
+  - imageadd: Beespky has improved chase and movement animations.
+  - imageadd: Advanced plasmacutter now has different inhands from standard cutter.
+  - imageadd: Combat gloves no longer have red fibers in them.
+  Sarchutar:
+  - rscadd: added some more ids to the color manipulator
+  - bugfix: fixed roboticist pda not giving the right icon
+  - bugfix: fixed some ids being blank
+  Skoglol:
+  - rscadd: Ghosts can now turn using the ctrl + direction hotkeys.
+  - bugfix: The "Restore Ghost Character" verb now changes the name of your ghost
+      mob as well.
+  ike709:
+  - bugfix: Players locally banned from one of the servers are no longer globally
+      banned from both servers. This fix applies to all bans retroactively. We apologize
+      for the inconvenience.
+  - config: Added some new config options.
+2019-11-21:
+  Dawson1917 & AWalton:
+  - balance: Riot suit slowdown is now 20%, down from 50%.
+  Surrealaser:
+  - rscadd: Remote access to crew monitoring is now integrated with the crew locator
+      upgrade for Mediborgs.
+2019-11-22:
+  JJRcop:
+  - rscadd: You can now build a new PDA messaging server if you lose it.
+  - tweak: Requests console messages no longer work if the messaging server is offline.
+      Emergency alerts will still function in that case as long as the rest of telecomms
+      is online.
+  Naksu and Tlaltecuhtli:
+  - refactor: 'how to make a custom primed grenade now: apply wire, apply beakers,
+      interact with the wire by multitool or hitting the grenade with an assembly,
+      attach assembly to wire.\n if its an proxy sensor when you prime it it ll activate
+      the activation mode of the sensor with whatever time it was set in the prox
+      sensor ( you can screwdrive to speed set it to 5 or 3 s)\n if its a timer it
+      ll change the det_time to whatever the timer had( you can screwdriver to speed
+      set it to 5 or 3 s)\n'
+  - admin: '"Spawn reagent container" verb has been added to the Debug tab. It can
+      be used to spawn reagent containers and grenades with fully customized contents.'
+  actioninja and stylemistake:
+  - rscadd: laptop vendor TGUI-Next
+  - bugfix: Personal Crafting UI will no longer reset its state when crafing an item.
+  - bugfix: Improved table layout of Smart Fridge and Crew Console.
+  - bugfix: Fix ORM not smelting alloys.
+  - bugfix: Fix Computer Fabricator.
+  - refactor: Tgui CSS got a massive rework.
+  - rscadd: Improved tgui error reporting.
+  - rscadd: You can now control your character and use hotkeys while tgui windows
+      are open.
+  - rscadd: New Rapid Pipe Dispenser interface.
+  - rscadd: New NtOS theme.
+  - rscadd: New NtOS Menu interface.
+  - rscadd: New Power Monitor interface.
+  - rscadd: New Supermatter Monitor interface.
+  crossedfall:
+  - admin: OOC Mutes don't look super weird anymore
+  weeeeesoda:
+  - rscadd: You can now purify soulstones! This can be done by any crew member using
+      a bible on one.
+  - rscadd: Purified constructs can be created by using a purifed soulstone on a construct
+      shell. Amongst their normal abilities, purified constructs can dispel cult runes
+      by clicking on them.
+  - rscdel: Ability to place chaplains soulstone or mining soulstones in construct
+      shells
+  - imageadd: angelplasm, angelic sprites, purifed sprites
+2019-11-25:
+  Akrilla:
+  - rscadd: Syndicate Contracts. Use the new contract uplink to select a contract,
+      and bring the assigned target dead or alive to the designated drop off. Call
+      for the extraction pod and send them off for your TC payment, with much higher
+      rewards for keeping them alive. A high risk, high reward choice for a traitor
+      who wants a real challenge.
+  - rscadd: New 20 TC contract kit - supplies you with your contractor loadout and
+      uplink.
+  - rscadd: Targets successfully extracted will be held for ransom by the Syndicate
+      after their use to them is fulfilled. Central command covers the cost, but they'll
+      be taking a cut out of station funds to offset their loss..
+  - rscadd: Contract kit's specialist space suit now has its custom sprite.
+  - soundadd: Assigning to tablet plays greeting soundclip
+  - rscadd: Contract kit comes with a contractor baton - a unique, lightly electrified
+      weapon to help complete your contracts
+  Cenrus:
+  - rscadd: Heads of staff get their batons back
+  - balance: Batons now deal knockdown and stamina damage
+  - bugfix: BoxStation SM reconnected to the scrubber network
+  - bugfix: Hide visible manifold in BoxStation robotics
+  - soundadd: Returns Endless space track to its glorious position in the repository
+      (listed as title0.ogg)
+  Qustinnus:
+  - rscadd: Added new parallax layers
+  Qustinnus, Cephur, Tralezab:
+  - bugfix: Missing techpriest icon
+  - tweak: Most headgear now fit on borgs.
+  - rscadd: The delinquent hat, available in the AutoDrobe
+  Skoglol, actioninja, stylemistake:
+  - rscadd: tgui-next turbine computer and station alert console
+  - rscadd: New NtOS Net Downloader interface.
+  - tweak: UIs will not be greyed out if you're a ghost, for better observing experience.
+  - bugfix: Fix the sheet progress bar in Portable Generator.
+  - rscadd: DNA vault, holodeck, spawners, and engraved message tgui-next
+  - rscadd: tgui-next Syndicate Uplink
+  - rscadd: Space heater and tanks now have tgui-next ui's. Some touchups of mint,
+      vault controller and station alert console.
+  actioninja:
+  - bugfix: Personal crafting menus now work properly on categories without subcategories
+  jlsnow301:
+  - tweak: Valid maps are now added to a shuffled list.
+  nicbm:
+  - tweak: BoH bombing changed again. Now it's more violent.
+2019-11-27:
+  AnturK:
+  - admin: Admins can now save and load custom outfits.
+  Arkatos:
+  - rscadd: Action buttons can now be dragged onto each other to swap places
+  Moccha-Bee:
+  - rscadd: Finally the RCD can be directly linked to the Ore Silo.
+  SomeAngryMiner:
+  - rscadd: An experimental active shield is being developed by NanoTrasen onboard
+      their stations, Space station 13 has been tasked to do field research on its
+      uses. All Durand type mech blueprints have been adjusted to this.
+  - tweak: Proyectile components have been ported.
+2019-11-28:
+  4dplanner:
+  - bugfix: thrown objects (but not mobs) no longer hit the thrower
+  - bugfix: mirror shield rebound no longer depends on the original thrower's momentum
+  Akrilla:
+  - rscadd: Contractor Hub. A unique store for contractors to buy items with Contractor
+      Rep, with two Rep being given when completing a contract.
+  - rscadd: Contractor pinpointer, available through the Hub. A very inaccurate pinpointer
+      that ignores suit sensors.
+  - rscadd: Call reinforcements, available through the Hub. Limited to a one-time
+      buy for a contractor, you can purchase an agent to be sent down to help in your
+      mission. Role is polled to ghosts.
+  - rscadd: Blackout, available through the Hub. Disable station power for a small
+      duration - an expensive, but powerful option of getting into secure areas.
+  - rscadd: Fulton extraction, available through the Hub. Purchase a fulton extraction
+      kit to help move your targets across the station for those difficult dropoffs.
+  - tweak: Assigning yourself to another tablet will give you another contract set.
+  - rscadd: Contractors can now reroll their contracts a small number of times.
+  - imageadd: Brand new sprites! A redesign of the specialist space suit, and the
+      kit's own unique tablet. Done by Mey Ha Zah.
+  - tweak: Displays contract target jobs under their name.
+  - tweak: New locations, such as maintenance, are now possible dropoff locations.
+  - bugfix: Codewords are now displayed correctly on the round end report.
+  Moccha-Bee:
+  - rscadd: Randomized lavaland atmos generation.
+  Skogkol:
+  - rscadd: Added "Never for this round" to shades, slimes (pyroclastic anomaly),
+      defective clone, imaginary friend and split personality ghost popups.
+  St0rmC4st3r:
+  - rscadd: Squid and Zombie Xenobio toxins
+  - rscadd: Squids added to the Unstable Mutation Toxin pool
+  actioninja:
+  - bugfix: BSA can pick targets again
+  ike709 & Council:
+  - tweak: Nanotrasen has outsourced telescopic baton production to Space China. Telescopic
+      batons are no longer able to do damage. However, it also knocks people down
+      for longer.
+  - tweak: Contractor baton now only does 10 damage, down from 16.
+  ishitbyabullet and Fikou:
+  - rscadd: We recently lost contact with a snow resort cabin that has a gateway.
+      Due to the gateway and lack of communication, we have allowed you to come to
+      this location for us. Yes, this is a different snow resort cabin.
+  - rscdel: We also declared that the old cabin away mission site is no longer necessary
+      for you guys to explore. We already know everything there is to know about it.
+      Good job!
+  - rscadd: You can now create snow golems! They have ice powers, but take more damage
+      from burns, heat and fire.

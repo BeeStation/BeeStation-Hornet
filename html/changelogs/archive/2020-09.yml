@@ -1,0 +1,276 @@
+2020-09-01:
+  BeloneX:
+  - rscadd: Added the holofan to engi borgs
+  Crossedfall:
+  - bugfix: Updates our external RSC url to be actually functional
+  Jared-Fogle:
+  - rscadd: Nanotrasen has taught all crew how to properly point
+  PowerfulBacon:
+  - rscadd: Syndie kit lootbox
+  - bugfix: mega syndie kit is restricted on nuke ops again.
+  eeSPee:
+  - rscadd: added a paper for the syndicate comms agent containing all the frequencies,
+      and how to use their equipment
+2020-09-02:
+  Dingo-Dongler:
+  - rscadd: Paper can be folded into more types of origami.
+  Isy232:
+  - rscadd: Added plungers to chemistry closets
+  PowerfulBacon:
+  - tweak: Scrubbers filter BZ by default
+  - bugfix: Observers no longer add highlights when hovering over things
+  - bugfix: Items with the 'SLOWS_IN_HAND' flag will now update your movement speed
+      when equipped and dropped.
+  - tweak: Changes the sound effect of the action_button/click
+  'Ty-the-Smonk ':
+  - rscadd: Bees can now vent crawl
+  Victor239:
+  - rscadd: Added an electric razor and wig to the chameleon kit, allowing you to
+      disguise your hair also.
+  eeSPee:
+  - bugfix: fixed IAA AI being unable to complete the survive objective
+2020-09-03:
+  Crossedfall:
+  - code_imp: Removed rust-g overrides
+  St0rmC4st3r:
+  - tweak: Defibrillation and revival surgery now snatch the ghost into the body.
+2020-09-04:
+  BeloneX:
+  - tweak: replaces the glass in the labor camp with reinforced plasma glass.
+  - bugfix: fixed the paper wizard den so everything doesnt instantly die from low
+      pressure anymore.
+  yorii:
+  - bugfix: fixed ethereal charging
+2020-09-05:
+  Archanial:
+  - rscadd: Shotguns now blow people away at point blank.
+  St0rmC4st3r:
+  - tweak: Bartender quits buying new monkeys for every shift. Pun Pun is back!
+  super12pl:
+  - rscadd: Adds sterilizer spray to robodrobe
+  - rscadd: Adds morgue to robotics on DeltaStation and PubbyStation
+2020-09-06:
+  PowerfulBacon:
+  - tweak: Cult stun now works on mindshield instead of hearing protection
+  ivanmixo:
+  - bugfix: The ashwalker's bonfire does not require oxygen to burn anymore.
+  kriskog/Fikou ported by Archanial:
+  - rscadd: Omnitool.
+  - rscadd: Debug outfit has been updated and adjusted.
+  - balance: Admin RCD is superfast now and has upgrades.
+  zeskorion:
+  - tweak: reworked phobias
+2020-09-07:
+  PowerfulBacon:
+  - bugfix: Fixes a cargo bug where items wouldn't be sold if placed in an anchored
+      container
+  zeskorion:
+  - tweak: biometallic replication has slightly better stats, buffs preexisting robot
+      limbs
+  - bugfix: TRD now works on mechanical limbs as intended
+  - bugfix: fixed exolocomotive xenomitosis capitalization and healing threshold
+  - tweak: exolocomotive xenomitosis now works on monky
+  - imageadd: pink zombies and macrophages, so exolocomotive xenomitosis can be more
+      aesthetic
+  - tweak: organs take three times as long to decay
+2020-09-09:
+  ivanmixo:
+  - bugfix: You now actually target the chest roundstart
+2020-09-10:
+  Dingo-Dongler:
+  - bugfix: You can fold origami properly now.
+  Victor239:
+  - bugfix: Security webbing has +1 slot compared to sec belts again, and sec belts
+      allow you to use all slots again.
+2020-09-12:
+  St0rmC4st3r:
+  - rscdel: A clearly illegal slaughterhouse to the west of the research division
+      on boxstation has been permanently removed.
+  - rscadd: An actual medbay with treatment separation and more than one surgery room
+      has been installed in the place of the removed slaughterhouse.
+2020-09-14:
+  ExcessiveUseOfCobblestone(Idea by Arathian):
+  - tweak: Mutation tox now has a minute window where you can purge the chem to avoid
+      being changed (It functions EXACTLY like old slime mutation toxin)
+  - tweak: Slime Mutation Toxin is replaced by Mutation Toxin since they now function
+      100% the same. Think of this as just a name change!
+  PowerfulBacon:
+  - bugfix: Spraycans with less than 2 but more than 0 charges left can no longer
+      be used on objects
+  ike709:
+  - rscadd: PanDEMIC 2200 UI now includes severity for the overall disease and each
+      symptom.
+  ivanmixo:
+  - bugfix: You can't order stuff from the express supply console as a ghost anymore
+  zeskorion:
+  - tweak: vehicles no longer block bullets for you
+  - tweak: mobs which pass tables can move past vehicles
+2020-09-15:
+  ivanmixo:
+  - bugfix: The old science research station ghost roles now have a proper title
+2020-09-16:
+  Crossedfall:
+  - bugfix: Acid properly degrades armor
+  - bugfix: You can empty storage containers/boxes directly into disposals again
+  - bugfix: The mutations overlay will update correctly now
+2020-09-17:
+  BeloneX:
+  - tweak: All projectiles now move 1.25 times as fast.
+  Naevii:
+  - tweak: Updated HoS cloak sprite
+  r1ks-iwnl:
+  - balance: Adds silver sulfadizine to synthflesh recipe.
+  tiramisuapimancer:
+  - rscadd: Felinids are now immune to carpotoxin and can have little a fish
+  - tweak: Felinids like meat and dairy, and dislike vegetables and sugar.
+2020-09-18:
+  Archanial:
+  - rscadd: New immersion smite.
+  - rscadd: Bullteriers!
+  - rscadd: Breadcats! Ask your local chef for one!
+  - rscadd: You can now scoop and hold pets.
+  - rscadd: Warden has a new pet - Walter!
+  Moccha-Bee:
+  - rscadd: Renamed bubblegum and blood-drunk gps signals.
+  St0rmC4st3r:
+  - rscadd: ID modification is now logged.
+  Victor239:
+  - rscdel: Removed broodmothers from gold slime pool
+  - balance: Increased ATMOSfan max signs to 6
+  - tweak: Shoulder holsters are now an accessory, not a belt.
+  YoshimiWasTaken:
+  - bugfix: Should have the sprites now
+  - imageadd: added the damn sprites
+  eeSPee:
+  - rscadd: Recharging station crate purchasing from cargo consoles
+  ivanmixo:
+  - tweak: Replaces the firelocks with windoors in the public garden on MetaStation
+  super12pl:
+  - soundadd: lizards can now scream
+  zeskorion:
+  - balance: nerfed toe stubbing
+  - balance: explosions have been fucked with a bit
+2020-09-19:
+  eeSPee:
+  - tweak: DRAGnets will now teleport targets at beacons designated for Dragnet portals.
+  - rscadd: Dragnet beacons printable at secfab.
+  - rscadd: Dragnet beacons in armory on every map.
+2020-09-20:
+  EdgeLordExe:
+  - bugfix: Eldritch Water metabs properly.
+  zeskorion:
+  - bugfix: lizards no longer get cockwork tails
+  - bugfix: macrophage works again
+  - bugfix: pink macrophages work again
+  - bugfix: biometallic replication and organic flux induction should scale with pituitary
+      disruption again
+  - bugfix: antivirus no longer works on humans. (why do biotypes suck ass)
+2020-09-21:
+  Archanial:
+  - bugfix: You can now pick new pai holoforms again.
+2020-09-22:
+  Archanial:
+  - tweak: Deepfried pets no longer reappear after being bitten(why would you ever
+      do that).
+  DatBoiTim:
+  - rscadd: Multilingual
+2020-09-25:
+  BeloneX:
+  - config: Disabled the Gateway roundstart
+  Vivalas:
+  - admin: Claiming a ticket now works directly through a reply.
+2020-09-26:
+  Moccha-Bee:
+  - rscadd: multi-directional sprites to the arcade and 80s floor.
+2020-09-27:
+  Crossedfall:
+  - config: Gangs is now disabled in the config
+  EdgeLordExe:
+  - config: Added heretics to the config
+  Kmc2000 with Gun Jesus:
+  - rscadd: Fully automatic firing for guns, except this time it isn't horribly coded
+      and broken.
+  Moccha-Bee:
+  - bugfix: the eighties floor not spawning.
+  PowerfulBacon:
+  - bugfix: Changelings and cult will no longer be assigned invalid targets
+  - rscadd: Clockcult gamemode
+  - rscadd: Clockwork slab
+  - rscadd: Brass armory
+  - rscadd: brass spear
+  - rscadd: brass battlehammer
+  - rscadd: brass sword
+  - rscadd: The Eminence simplemob
+  - rscadd: Cogscarab drone subtype
+  - rscadd: TGUI clockwork menu
+  - rscadd: Clockwork traps
+  - rscadd: Clockwork scriptures, structures and slab powers
+  - rscadd: replica fabricator
+  - rscadd: integration cog
+  - rscadd: Rat'var the clockwork justicar
+  - rscadd: New Reebe
+  - bugfix: Clockcult has been completely rewritten from scratch, Reebe has been completely
+      redesigned and it no longer crashes upon using camera consoles, winning, doing
+      anything etc.
+  - config: Adds clockcult to the config
+  Zeskorion, GizkaFreechman, thatguythere03:
+  - rscadd: 28 random maint rooms by GizkaFreechman, edited by myself
+  - rscadd: Random maint traps
+  - rscadd: cluwne rune, which can be used by cultists in a manner similar to an invocation
+      rune, if the Honkmother has blessed one of the invokers with her presence
+  - rscadd: new random maint job, the VIP. he's rich, apparently important, and actually
+      probably quite useless.
+  - imageadd: sprites for new job and cluwne rune by thatguythere03
+  - tweak: edited most random maint maps to make maint easier to get through (changing
+      table placements and such)
+  - balance: faithless no longer has a 12% chance to stun for 6 seconds on hit
+  super12pl:
+  - balance: Multilingual now costs 1 point instead of 2
+2020-09-28:
+  DatBoiTim:
+  - balance: Adjusted Foreigner to be a Negative trait
+  PowerfulBacon:
+  - bugfix: Fixes a clockcult map bug
+  - tweak: Starting game... will now be announced closer to when the game is starting.
+2020-09-29:
+  Archanial:
+  - bugfix: Cloning works again.
+  PerishedFraud:
+  - bugfix: Makes mining station's outer airlocks not vent out the entire station
+      if you go through them too fast
+  Victor239:
+  - tweak: All Command roles now require 20h playtime in the relevant department,
+      except HOP requires 10h Service. Warden and QM require 10h each.
+  archeoid:
+  - bugfix: fixed non-functional passkeys for circuits
+  eeSPee:
+  - tweak: people scream when taking damage
+  qwertyquerty:
+  - rscadd: Re-add qwerty lighting in specific areas
+  - code_imp: You can now specify area bulb brightness
+  - tweak: Added a paywall for felinid species
+  - bugfix: Added input capping and sanitization
+  - config: Added some new input wrappers
+  - rscadd: Added race paywall to config
+  - config: Felinids are no longer paywalled.
+  r1ks-iwnl:
+  - imageadd: Adds 8 new icons for circuit boards, based on department colors
+  - refactor: Reorganizes computer_circuits.dm and machine_circuitboard.dm
+2020-09-30:
+  Archanial:
+  - rscadd: Circuit boards are colored.
+  - bugfix: Every machine broken by previous pr should be working now.
+  PowerfulBacon:
+  - rscdel: Hierophant relay no longer transmits the radio channels of people on Reebe,
+      but will still recieve them.
+  - bugfix: Clockies can now be deconverted properly.
+  - bugfix: More than 1 of each weapon can now be summoned.
+  - bugfix: Clockwork marauders can now speak rat'varian
+  - bugfix: Clockwork marauders can now take damage from bullets
+  - bugfix: Spells will now consume vitality when they are meant to
+  TMTIME:
+  - bugfix: Clowns no longer harm themselves with toy dualsabers
+  francinum:
+  - server: ss13_feedback can now be disabled with the LIMITED_FEEDBACK flag.
+  zeskorion:
+  - bugfix: mutation toxin is restricted again
