@@ -1,0 +1,11 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Quirks no longer require balancing of good and bad. All characters are
+      now able to choose three positive quirks, even if they take no negative quirks.
+      Nothing increases or decreases this amount, and negative quirks exist only for
+      those who wish to actually interact with them as part of their character.
+  - tweak: Drunken Resilience may no longer be combined with Light Drinker, get to
+      chugging if you want that whiskey to numb the pain.
+  - tweak: Alcohol tolerance, light drinker, plushie lover, musician and spiritual
+      have all been moved to neutral traits
