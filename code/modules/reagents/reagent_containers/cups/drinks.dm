@@ -4,7 +4,7 @@
 /obj/item/reagent_containers/cup/glass
 	name = "drink"
 	desc = "yummy"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drinks.dmi'
 	icon_state = null
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
@@ -95,12 +95,36 @@
 /obj/item/reagent_containers/cup/glass/coffee
 	name = "robust coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
+	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "coffee"
+	base_icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)
 	spillable = TRUE
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	drink_type = BREAKFAST
+	var/lid_open = 0
+
+/obj/item/reagent_containers/cup/glass/coffee/no_lid
+	icon_state = "coffee_empty"
+	list_reagents = null
+
+/obj/item/reagent_containers/cup/glass/coffee/examine(mob/user)
+	. = ..()
+	. += span_notice("Alt-click to toggle cup lid.")
+	return
+
+/obj/item/reagent_containers/cup/glass/coffee/AltClick(mob/user)
+	lid_open = !lid_open
+	update_icon_state()
+	return ..()
+
+/obj/item/reagent_containers/cup/glass/coffee/update_icon_state()
+	if(lid_open)
+		icon_state = reagents.total_volume ? "coffee_full" : "coffee_empty"
+	else
+		icon_state = "coffee"
+	return ..()
 
 /obj/item/reagent_containers/cup/glass/bubble_tea
 	name = "Bubble tea"
@@ -128,27 +152,51 @@
 /obj/item/reagent_containers/cup/glass/mug // parent type is literally just so empty mug sprites are a thing
 	name = "mug"
 	desc = "A drink served in a classy mug."
-	icon_state = "tea"
+	icon = 'icons/obj/drinks/coffee.dmi'
+	icon_state = "tea_empty"
+	base_icon_state = "tea"
 	item_state = "coffee"
 	spillable = TRUE
 
 /obj/item/reagent_containers/cup/glass/mug/update_icon_state()
-	icon_state = reagents.total_volume ? "tea" : "tea_empty"
+	icon_state = "[base_icon_state][reagents.total_volume ? null : "_empty"]"
 	return ..()
 
 /obj/item/reagent_containers/cup/glass/mug/tea
 	name = "Duke Purple tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
+	icon_state = "tea"
 	list_reagents = list(/datum/reagent/consumable/tea = 30)
 
 /obj/item/reagent_containers/cup/glass/mug/cocoa
 	name = "Dutch hot coco"
 	desc = "Made in Space South America."
+	icon_state = "tea"
 	list_reagents = list(/datum/reagent/consumable/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
 	drink_type = SUGAR
 	resistance_flags = FREEZE_PROOF
 	custom_price = PAYCHECK_MEDIUM * 1.2
 
+/obj/item/reagent_containers/cup/glass/mug/nanotrasen
+	name = "\improper Nanotrasen mug"
+	desc = "A mug to display your corporate pride."
+	icon_state = "mug_nt_empty"
+	base_icon_state = "mug_nt"
+
+/obj/item/reagent_containers/cup/glass/coffee_cup
+	name = "coffee cup"
+	desc = "A heat-formed plastic coffee cup. Can theoretically be used for other hot drinks, if you're feeling adventurous."
+	icon = 'icons/obj/drinks/coffee.dmi'
+	icon_state = "coffee_cup_e"
+	base_icon_state = "coffee_cup"
+	possible_transfer_amounts = list(10)
+	volume = 30
+	spillable = TRUE
+	isGlass = FALSE
+
+/obj/item/reagent_containers/cup/glass/coffee_cup/update_icon_state()
+	icon_state = reagents.total_volume ? base_icon_state : "[base_icon_state]_e"
+	return ..()
 
 /obj/item/reagent_containers/cup/glass/dry_ramen
 	name = "cup ramen"
@@ -162,7 +210,7 @@
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
 	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
@@ -426,7 +474,7 @@
 /obj/item/reagent_containers/cup/glass/colocup
 	name = "colo cup"
 	desc = "A cheap, mass produced style of cup, typically used at parties. They never seem to come out red, for some reason..."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drinks.dmi'
 	icon_state = "colocup"
 	item_state = "colocup"
 	custom_materials = list(/datum/material/plastic = 1000)
@@ -485,6 +533,7 @@
 /obj/item/reagent_containers/cup/glass/britcup
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
+	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "britcup"
 	volume = 30
 	spillable = TRUE

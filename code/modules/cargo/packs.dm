@@ -2720,6 +2720,31 @@
 					/obj/item/food/canned/beefbroth
 					)
 	crate_name = "Beef Broth Care"
+
+/datum/supply_pack/organic/syrup
+	name = "Coffee Syrups Box"
+	desc = "A packaged box of various syrups, perfect for making your delicious coffee even more diabetic."
+	cost = 800
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
+		//obj/item/reagent_containers/cup/bottle/syrup_bottle/korta_nectar,
+	)
+	crate_name = "coffee syrups box"
+	crate_type = /obj/structure/closet/crate/cardboard
+
+/datum/supply_pack/organic/syrup_contraband
+	contraband = TRUE
+	name = "Contraband Syrups Box"
+	desc = "A packaged box containing illegal coffee syrups. Possession of these carries a penalty established in the galactic penal code."
+	cost = 1200
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/laughsyrup,
+	)
+	crate_name = "illegal syrups box"
+	crate_type = /obj/structure/closet/crate/cardboard
+
 //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// Livestock /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -3544,3 +3569,59 @@
 					/obj/item/toner/large,
 					/obj/item/toner/large)
 	crate_name = "large toner crate"
+
+
+/datum/supply_pack/service/coffee_mug
+	name = "Coffee Mug"
+	desc = "A bog standard coffee mug, for drinking coffee."
+	cost = PAYCHECK_LOWER
+	contains = list(/obj/item/reagent_containers/cup/glass/mug)
+
+/datum/supply_pack/service/nt_mug
+	name = "Nanotrasen Coffee Mug"
+	desc = "A blue mug bearing the logo of your corporate masters. Usually given out at inductions or events, we'll send one out special for a nominal fee."
+	cost = PAYCHECK_LOWER
+	contains = list(/obj/item/reagent_containers/cup/glass/mug/nanotrasen)
+
+/datum/supply_pack/service/coffee_cartridge
+	name = "Coffee Cartridge"
+	desc = "A basic cartridge for a coffeemaker. Makes 4 pots."
+	cost = PAYCHECK_LOWER
+	contains = list(/obj/item/coffee_cartridge)
+
+/datum/supply_pack/service/coffee_cartridge_fancy
+	name = "Fancy Coffee Cartridge"
+	desc = "A fancy cartridge for a coffeemaker. Makes 4 pots."
+	cost = PAYCHECK_MEDIUM
+	contains = list(/obj/item/coffee_cartridge/fancy)
+
+/datum/supply_pack/service/coffeepot
+	name = "Coffeepot"
+	desc = "A standard-sized coffeepot, for use with a coffeemaker."
+	cost = PAYCHECK_MEDIUM
+	contains = list(/obj/item/reagent_containers/cup/coffeepot)
+
+/datum/supply_pack/service/coffeekit
+	name = "Coffee Equipment Crate"
+	desc = "A complete kit to setup your own cozy coffee shop, the coffeemaker is for some reason not included."
+	cost = 800
+	contains = list(
+		/obj/item/storage/box/coffeepack/robusta,
+		/obj/item/storage/box/coffeepack,
+		/obj/item/reagent_containers/cup/coffeepot,
+		/obj/item/storage/fancy/coffee_condi_display,
+		/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
+		/obj/item/reagent_containers/condiment/milk,
+		/obj/item/reagent_containers/condiment/soymilk,
+		/obj/item/reagent_containers/condiment/sugar,
+		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel, //one extra syrup as a treat
+	)
+	crate_name = "coffee equipment crate"
+
+/datum/supply_pack/service/coffeemaker
+	name = "Impressa Coffeemaker Crate"
+	desc = "An assembled Impressa model coffeemaker."
+	cost = 800
+	contains = list(/obj/machinery/coffeemaker/impressa)
+	crate_name = "coffeemaker crate"
+	crate_type = /obj/structure/closet/crate/large
