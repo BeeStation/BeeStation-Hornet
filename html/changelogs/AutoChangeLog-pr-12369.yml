@@ -1,6 +1,0 @@
-author: wikimody
-delete-after: true
-changes:
-  - bugfix: Welding a damaged wall now heals it's values rather than only it's appearance
-  - bugfix: Rclicking untiled floors no longer reinforces them, as it overrode the
-      behavior of Rclicking with iron sheets to build girders
