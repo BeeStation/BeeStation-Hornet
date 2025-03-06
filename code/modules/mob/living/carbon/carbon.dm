@@ -172,9 +172,15 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		var/turf/end_T = get_turf(target)
 		if(start_T && end_T)
 			log_combat(src, thrown_thing, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
+
+	do_attack_animation(target, no_effect = 1)
+	var/sound/throwsound = 'sound/weapons/throw.ogg'
+	playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
+	log_message("has thrown [thrown_thing].", LOG_ATTACK)
 	visible_message(span_danger("[src] throws [thrown_thing]."), \
 					span_danger("You throw [thrown_thing]."))
 	log_message("has thrown [thrown_thing]", LOG_ATTACK)
+
 	newtonian_move(get_dir(target, src))
 	thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 	return TRUE
