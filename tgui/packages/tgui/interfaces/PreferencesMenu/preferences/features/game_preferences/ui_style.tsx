@@ -61,6 +61,7 @@ export const ui_style: FeatureChoiced = {
   category: 'UI',
   subcategory: 'HUD',
   component: UIStyleInput,
+  important: true,
 };
 
 export const intent_style: FeatureToggle = {
