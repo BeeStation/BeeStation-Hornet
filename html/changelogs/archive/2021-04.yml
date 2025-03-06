@@ -1,0 +1,321 @@
+2021-04-01:
+  Dawson1917:
+  - tweak: Handcuff timer raised to 4 seconds from 3
+2021-04-02:
+  Archanial:
+  - rscadd: Spare has been moved to safe located in bridge.
+  - rscadd: Captain gets code to that safe.
+  - config: New config entry SPARE_ENFORCE_COC.
+  - config: If there is no captain and SPARE_ENFORCE_COC is enabled code will be given
+      to head highest in CoC.
+  - config: If there is no captain and SPARE_ENFORCE_COC is not enabled code will
+      be given to all of roundstart heads.
+2021-04-03:
+  KubeRoot:
+  - tweak: Align powercell sprites with overlay
+2021-04-04:
+  123chess456:
+  - rscadd: Illegal technology now unlocks Mediborg's Amputation Adventure, the most
+      fun arcade game on the station!
+  Lautarourtiaga:
+  - bugfix: Stops RPGLoot from unstacking stackable items
+  MNarath1:
+  - rscdel: removes runed metal debris from the cult archive in station library
+  'SomeoneYouProbablyKnow, ArcaneDefence, Tlaltecuhtli ':
+  - rscadd: The detective now has all his extra clothes in a vendor and not their
+      locker.
+  - imageadd: added icon for Detective Clothing Drobe
+  - rscadd: Map changes required to support DetDrobe
+  Victor239:
+  - balance: Updating security records now requires a single access permission, and
+      this is the same requirement whether it be via console or SecHUDs.
+  - balance: Portable turrets require Security access instead of Brig access.
+  bloons3:
+  - rscadd: Brig Physician has access to **Holding** Cells, equal to the Lawyer
+  ghost:
+  - balance: Monkey Cube Crate is now small (stacking) and costs half as much (1000).
+  zeskorion:
+  - bugfix: rooms in maint will no longer spawn empty due to new rooms being pathed
+      improperly. Also, the rooms that were added four months ago will finally show
+      up!
+  - bugfix: biometallic replication now allows nanites on inorganics properly
+2021-04-05:
+  DatBoiTim:
+  - bugfix: ARDS Severity Not Calculating Properly
+  - bugfix: Blobspore on Death Messages Ignoring Neutering
+  - bugfix: Regen Coma using fake death regardless of threshold
+2021-04-06:
+  PowerfulBacon:
+  - bugfix: Fixes an issue with livers.
+  ivanmixo:
+  - rscdel: Removed unused dog borg code
+2021-04-08:
+  Mothblocks, r1ks-iwnl:
+  - rscadd: Updates view tracked playtime menu to TGUI.
+2021-04-09:
+  DatBoiTim:
+  - bugfix: Fixed Mismatch Fake Death Flags on Regen Coma
+  - bugfix: You can now wake up from stealth threshold regen coma
+  - code_imp: Regen Coma now has a Define
+  Rukofamicom:
+  - balance: Meat Hook Grab now does 10 Armor-piercing damage instead of 25. Can now
+      be used for normal melee attacks as well.
+  - balance: Hierophant club now does 20 damage on melee attack w/ AoE (down from
+      30), and 15 on homing projectile (down from 30)
+  - balance: Open cleaving saw now does 15 (down from 20) damage to players and 60
+      (up from 50) damage to fauna
+  - balance: Closed cleaving saw now does 8 (down from 12) damage, bonus bleed effect
+      on fauna is unchanged, and this still kills all non-boss fauna in the same number
+      of hits as before
+  - rscdel: 'Eleven items have been removed from Necropolis chest drop table: All
+      three hardsuits, Chaplain weapons, Infinite Soulstone, Katana,  Mysterious Core,
+      Inferno Grenade, Voodoo Doll, and the Instant Summons spellbook.'
+  - rscdel: Spectral Blade, Lava staff, Spellbook of Sacred Flame, Wand of Fireball,
+      Mayhem in a Bottle, Blood Contract, Spellblade, and Staff of Storms have all
+      been removed from megafauna drop tables.
+  - tweak: PKA-related rewards have increased drop chances for necropolis chests.
+  - tweak: Lavaland puzzle chest now always awards PKA-related rewards
+  - tweak: All megafauna now drop a moderately large caches of ores, roughly 1500
+      points worth.
+  - tweak: All megafauna will now always drop the same equipment reward every time
+      they are killed,
+  - tweak: Anomalous crystals are now dropped by the greater Legion instead of Colossus.
+  - tweak: Bottle of dragon's blood no longer has a chance to grant an Ash Drake transformation,
+      but retained its other three effects.
+  - rscadd: Wicker Doll (Voodoo doll) is now available in traitor uplinks for both
+      Curators and Stage Magicians at a cost of 12 TC
+  - rscadd: Prison cube is now available in traitor uplinks for Curators at a cost
+      of 6 TC
+2021-04-10:
+  St0rmC4st3r:
+  - bugfix: The quick control buttons were removed from the insides of all cryopods
+      as per SpaceOSHA request.
+2021-04-11:
+  Cenrus:
+  - rscadd: Emagged library console can now make heretic books and clockwork slabs.
+  yyzsong:
+  - rscadd: Insulated boxing gloves and their crafting recipe. Needs insulated gloves
+      and boxing gloves. Clothing tab.
+2021-04-12:
+  PowerfulBacon:
+  - tweak: Contractor baton now only works with the assigned contractor.
+  - tweak: Contractor baton no longer causes non-targets to drop their held items.
+  - tweak: Contractor baton causes the contract target to have 4 seconds of confusion
+      when hit.
+2021-04-13:
+  DeltaFire15:
+  - bugfix: Certain things will no longer get affected by same-tile explosions despite
+      them not being supposed to.
+2021-04-14:
+  PowerfulBacon:
+  - bugfix: Fixes a bug that caused megafauna and silicon to be unable to hear.
+  jupyterkat:
+  - code_imp: prevent explosions flag is actually used now
+2021-04-15:
+  yorii:
+  - bugfix: Starthistle can now actually be mutated to Galaxythistle
+2021-04-19:
+  Kapu1178:
+  - rscadd: species sensor nanites are functional and in Harmonic
+  Penwin0:
+  - bugfix: hotdog is no longer a pastry
+  PowerfulBacon:
+  - tweak: Silicons cant be siphoned by the vitality matrix.
+  - tweak: Vitality matrix only generates vitality when damaging players.
+  - tweak: Vitality matrix no longer sihpons convertible players when the gateway
+      is not opening.
+  - tweak: Clockwork marauders are limited to 4 maximum
+  - tweak: Nullrod deals 15 bonus damage against marauders and breaks their shields.
+  - rscadd: Monkeys now can mutate into humans, gorillas or lose limbs when affected
+      by radiation.
+  Sarchutar:
+  - bugfix: The haunted magic eightballs interface is actually usable now
+  - tweak: The list of votes of said eightball gets reset upon shaking
+  Shoutgun.boom:
+  - bugfix: Fixed a few underwear sprites clipping
+  That0nePerson:
+  - rscadd: Adds a tip of the round for blocking
+  Vexylius:
+  - rscadd: Readded some old winter coats back to the game.
+  bloons3:
+  - admin: Logs cutting cuffs via jaws of life
+  - admin: Logs clock cultists applying hateful manacles
+  - admin: logs more cluwne spawns from random maint runes
+  - tweak: 'Removed the ability to unlock illegal tech using common items, see #3988
+      for full list'
+  r1ks-iwnl:
+  - tweak: Tribal claw tail sweep can't be used on yourself.
+  - bugfix: Fixes being able to stabilise legion cores multiple times.
+  - bugfix: Fixes being able to scan floor pill contents using the PDA reagent scanner.
+  super12pl:
+  - tweak: Reduces malf ai's and nuke ops' dynamic's midround cost to 20 so it matches
+      the wizard's.
+  zeskorion:
+  - rscadd: electroadaptive pseudocircuit now functions as airlock electronics
+  - rscadd: added OR, NOR, and NAND logic types to nanite programs
+2021-04-20:
+  zeskorion:
+  - bugfix: fixes nanites
+  - bugfix: zams fixed antoher fucky wucky with nanites oops
+2021-04-21:
+  Rukofamicom:
+  - rscadd: Added bottles for Tricordrazine and Spaceacillin
+  - tweak: Both varieties of NanoMed now stock primarily emergency and basic supplies
+      instead of overabundant healing supplies
+  Sarchutar:
+  - bugfix: The hand teleporters "None (Dangerous)" option is visible/working again
+2021-04-23:
+  Bokkiewokkie:
+  - imageadd: Added some more icons to boxes.
+  kit-katz:
+  - tweak: tweaks poison nanite program so oozelings and slimepeople dont vomit their
+      guts out using it.
+2021-04-24:
+  Archanial:
+  - tweak: Removed build button from autolathe's UI.
+  - tweak: You cannot go over 50 and under 0 with "+" and "-" buttons in autolathe's
+      UI.
+2021-04-26:
+  DatBoiTim:
+  - rscadd: Dermagraphic Ovulogenesis Symptom
+  - rscadd: Egg and egg sac sprites
+  - tweak: Bee Viro Symptom spawns insulin bees alongside honey bees on positive threshold
+  - tweak: DNA Saboteur no longer gives neutral mutations on positive threshold
+  - tweak: Biometallic Replication no longer makes that annoying clanging sound every
+      five seconds on positive threshold
+  - tweak: Pituitary Disruption won't give you plasmeme lungs anymore
+  - tweak: Viral Aggressive Metabolism No Longer Vaccinates When Self Curing
+  - rscadd: PANDEMIC Replacement Crate
+  - rscadd: Extrapolator replacement Crate
+  - tweak: Decreased Virus Extrapolator Cooldown
+  - tweak: Increased Virus Sample Crate Cost
+  - tweak: Increased Maint Virus Spawn Rate
+  - tweak: Makes Maint Viruses Better
+  - code_imp: Added a minimum symptom level argument used in random disease generation
+  Goblinu:
+  - rscdel: Removes Post-death explosion on goliath children
+  Kapu1178:
+  - balance: Increased nanite cloud resync timer from 30 seconds to 90 seconds
+  KazooBard:
+  - balance: Shortened makeshift bola removal time to 2 seconds
+  - balance: Makeshift bola no longer causes item drop.
+  Mothblocks:
+  - bugfix: Fixes dynamic executing latejoin rulesets more than it should be
+  PestoVerde322:
+  - imageadd: added the new icon for the turbine and compressor (in 4 different ways)
+  PowerfulBacon:
+  - tweak: Lessens runechat backdrop
+  - tweak: Increases runechat line width fro 96 to 128
+  - tweak: Emotes now show up on runechat in grey text and the icon is grey too.
+  - tweak: Runechat message icons now have a space between the
+  - tweak: Size of runechat message icons reduced fro 9 to 7
+  - tweak: The message generated fro talking into radios is no longer a whisper, and
+      will no longer be rendered on runechat.
+  - tweak: Loud radio messages are no longer big on runechat.
+  - tweak: Clown megaphone works again.
+  - tweak: megaphones are now larger on runechat again.
+  - tweak: Runechat line height reduced.
+  - rscdel: Wagging tail no longer displays an emote message
+  - rscadd: Corgstation
+  - rscadd: Lit glowsticks spawner.
+  - rscadd: Corgstation code ownership
+  - rscadd: Corgstation Emergency Shuttle
+  - rscadd: Corgstation Arrivals Shuttle
+  - bugfix: Fixes force_map not actually working
+  - tweak: Allows shuttles to be created in area/science/shuttle
+  - tweak: Pins some important vars on fastdmm2 for obj/machinery/camera
+  - tweak: Allows anchored supermatter crystals to be launched via those chapel cannon
+      thingys
+  'Timberpoes ':
+  - rscadd: Roboticists rejoice. NanoTrasen has heard your cries for help. They've
+      seen CCTV footage (recorded by the AI) of you all staring enviously at geneticists,
+      lording around their shiny, polished, usable DNA Consoles. Cry no more, for
+      you can now please your Silicon Overlords and robust those Machine Cultist Chaplains
+      in high definition glory with a beautiful new interface added to Exosuit Fabricators.
+  actioninja, Kylerace:
+  - bugfix: Glowing overlays no longer render above everything, and mobs and items
+      properly block them
+  covertcorvid:
+  - bugfix: fixed alt-click rotation on TEG circulators and drink/booze dispensers
+  silicons, /tg/ coders, port by froststahr:
+  - rscadd: New hijack! To do it, you must alt-click the shuttle console a series
+      of times. After that has been successfully done 5 times, the hijack is complete.
+  - rscadd: After each hack, the shuttle in-transit is delayed slightly, and crew
+      are also notified of what is going on.
+  - rscadd: Who can hijack? Blood brothers, traitors, changelings, wizards, highlanders,
+      incursions, nukies, heretics
+  - rscdel: Old method of hijack no longer works for ordinary antags, if you want
+      your greentext, you MUST secure the console. Not that that'll be difficult compared
+      to killing everything.
+2021-04-27:
+  Cenrus:
+  - bugfix: Borg upgrades can be installed again
+  yorii:
+  - code_imp: Old non-functioning Give verb replaced with new giving system from tgstation
+  - code_imp: Give is now also a customizable keybind, defaulting to G.
+  - code_imp: Old give methods such as Ctrl-Shift-Clicking, Right Click->Give, or
+      using the verb Give, all do the same thing now.
+2021-04-28:
+  Archanial:
+  - rscadd: You can deconstruct ore silo now.
+  Azlan, Fikou:
+  - imageadd: New brass spear sprite
+  - rscadd: Ancient spear null rod option
+  Bokkiewokkie:
+  - rscadd: Allows you to hack suit storage units with an EMP or Emag.
+  - bugfix: Fixed recyclers and suit storage units deleting important items.
+  - bugfix: Fixed disposals mailing not working across z-levels.
+  DatBoiTim:
+  - bugfix: Ovulogenesis actually spawns eggs
+  - bugfix: Ovulogenesis Eggs have their sprites setup correctly in code
+  KubeRoot:
+  - bugfix: Autolathe now displays materials in sheets correctly
+  - bugfix: Security IDs can now be swiped on autolathes to lock/unlock interface.
+      The code for this was broken.
+  - bugfix: Autolathe's security interface lock/unlock button is now more intuitively
+      labeled
+  - bugfix: Autolathe UI no longer breaks and duplicates entries when hacked
+  Malgover:
+  - rscadd: aristocrat coats to the law office's wardrobe and reworks the hastur robes.
+  Mothblocks:
+  - rscadd: A victory for revolutionaries will no longer end the round on dynamic,
+      instead no new security and command will be allowed to join.
+  Penwin0:
+  - balance: Increased Changeling Armour resistances
+  Rukofamicom:
+  - rscdel: Ashwalkers no longer speak common
+  SerynEngi:
+  - rscadd: Recipe for Liquid Electricity.
+  - tweak: Lowered Liquid electricity shock damage and probability
+  TheFakeElon:
+  - bugfix: Thrusters now check for wings/flight
+  bloons3:
+  - tweak: gas miners on maps are no longer in space ruin mode and actively consume
+      power
+  eeSPee:
+  - tweak: Prevents midround antags from spawning after shuttle has been called.
+  - balance: forensic scanner glitch out when scanning heretic runes and realities
+  - tweak: ghost/mob sentience system
+  froststahr:
+  - rscadd: Borgs use radial menus for module and skin selection
+  yorii:
+  - rscdel: Strange seeds can no longer contain corgium.
+2021-04-29:
+  That0nePerson:
+  - balance: even smaller felinid buff
+2021-04-30:
+  Cenrus:
+  - rscadd: Added vents to the courtroom on CorgStation
+  Crossedfall:
+  - server: The discord webhook handler's URL can be configured now
+  Mat05usz:
+  - rscadd: 'Corg Station: Multiple cameras so AI is slightly less blind.'
+  - tweak: 'Corg Station: Xenobio is slightly bigger, has ChemMaster, a water tank,
+      an extinguisher and a box of beakers.'
+  - bugfix: 'Corg Station: Xenobio airlocks now start locked and cycle properly.'
+  - bugfix: 'Corg Station: Bots no longer stop middle of a hallway and do nothing.'
+  - rscadd: 'Corg Station: Detective office now has a window with privacy shutters.'
+  - bugfix: 'Corg Station: Doors to detective office now require detective access.'
+  bloons3:
+  - rscdel: Removed keycard authentication access from Security
+  - rscdel: Removed keycard authentication device from Warden's office

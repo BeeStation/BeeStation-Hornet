@@ -1,0 +1,383 @@
+2021-07-01:
+  Archanial:
+  - rscadd: SIGNAL_HANDLER to all procs meant to handle signals
+  - rscdel: Removed SIGNAL_HANDLER_DOES_SLEEP
+  - rscdel: Some sleeps
+  'KathyRyals ':
+  - rscadd: The Honkworks 5.0 cartridge's software has been updated to be able to
+      hack machines, computers and airlocks to make them honk for a while.
+  - code_imp: Added a new sound_player component to be able to play any sound with
+      any signals.
+  MNarath1:
+  - rscdel: Removes a now completly unused define
+  jupyterkat:
+  - bugfix: fixed statpanel being empty during init
+2021-07-02:
+  MCterra10:
+  - bugfix: lumi eyes can be turned off again
+  francinum:
+  - server: Notices are more clear.
+  ivanmixo:
+  - bugfix: You can no longer eat thru the miner gas mask
+  lordScrubling:
+  - bugfix: explorer mask toggle
+2021-07-03:
+  Archanial:
+  - bugfix: Fixed ORM runtime.
+  - bugfix: Fixed runtime related to removing item from shells
+  - rscadd: Hangover, random spawn and late join station traits now have announcements.
+  - bugfix: Almost empty beer bottles
+  - refactor: Not providing any sound to priority_announce will make it silent.
+  PowerfulBacon:
+  - balance: Stabilized light pink extract speed reduced from 2x increase to 1.5x
+      increase.
+  - balance: Stabilized light pink extract now applies pacifism to its user.
+  Watermelon914, Mothblocks:
+  - rscadd: Wiremod, circuit replacement.
+  actioninja, lordScrubling:
+  - imageadd: overlay sprites from tg
+  - imagedel: old impaired sight overlays
+  ivanmixo:
+  - tweak: Solder now stops hallucinations as well
+  lordScrubling:
+  - bugfix: paramedic envirohelm appearing invisible with light on
+  - imageadd: paramedic envirohelm light state
+  - imageadd: basic envirohelm inhand sprite from tg
+  - imagedel: old basic envirohelm inhand sprite
+2021-07-04:
+  ike709:
+  - code_imp: Nuked /client/MouseMove() for a massive amount of free performance.
+  lordScrubling:
+  - bugfix: explorer mask being larger when adjusted down than while adjusted up when
+      it should be the other way around
+  - bugfix: adjusting a mask thats not on your face turning off your internals
+2021-07-05:
+  Archanial:
+  - rscdel: Remove xray from genetics.
+  MNarath1, MrMelbert:
+  - bugfix: fixes contractor tablets breaking when targets cryo
+  Naevii, ivanmixo:
+  - rscadd: Skirts for medical
+  - imageadd: Sprites for the medical skirts
+  - tweak: Gives the paramedic uniform a more descriptive name
+  PowerfulBacon:
+  - refactor: Refactors gamemode loading to select and setup maps for gamemodes 30
+      seconds before roundstart.
+  - bugfix: Reebe loading
+  - bugfix: Items being too big on clockcult
+  - bugfix: Clockcult camera runtime
+  - balance: Clockwork weapons are stronger when fighting near the ark.
+  - config: Raises clockcult probability to 2
+  - refactor: sword and spear are no longer two-handed weapons.
+  ike709:
+  - tweak: Diagonal movement is now faster, by correcting the delay from an arbitrary
+      2x to the correct sqrt(2).
+  ivanmixo:
+  - bugfix: nanite program hub and programmer to be deconstructed can now be deconstructed
+2021-07-06:
+  Archanial:
+  - bugfix: fixed multitool
+  francinum:
+  - config: Default map ideal pop bounds adjusted.
+  jupyterkat:
+  - balance: firefighters are now radproof
+2021-07-07:
+  Froststahr:
+  - bugfix: Some TGUI mistakes have been corrected, panel, air alarm, and contractor
+      uplink should look good again.
+  - tweak: Uplink interface has been modified in looks, and will auto-focus
+  ivanmixo:
+  - bugfix: Replaces the pipe painter with a hand labeler in corg's experimentation
+      lab
+  - tweak: Cargo and service now have techfabs instead of protolathes on corg
+  jupyterkat:
+  - bugfix: updated pubbystation's holodeck
+2021-07-08:
+  AMonkeyThatCodes, Qustinnus, Mat05usz:
+  - rscadd: Datumized AI.
+  - rscadd: Monkeys are now more 'intelligent' and scary.
+  - soundadd: New monkeys sounds for screeching.
+  Archanial:
+  - balance: You can't speak on radion while in crit.
+  - bugfix: Messages will no longer appear twice for ghosts if the target is speaking
+      on radio,
+  KubeRoot:
+  - tweak: Operation computers only recognize humans or monkeys as patients.
+  Mothblocks, Froststahr port:
+  - code_imp: Asset URL mappings are now cached to improve performance
+  Raven-Industries:
+  - bugfix: fixed syntax
+  - code_imp: changed ^ to ** in lighting.dm and ghost_role.dm
+  francinum:
+  - bugfix: Minor runtime patch
+2021-07-09:
+  AnCopper:
+  - rscadd: Added commando magboots, given to Deathsquads
+  - tweak: Moved Deathsquad, Deathsquad Officer, and Juggernaut outfits to the ERT
+      outfit file.
+  Kapu1178:
+  - bugfix: Voice Sensor Nanites
+  - bugfix: Traitor codewords (thanks bosnia)
+  - refactor: Alot of on_hear() changed to signals
+  actionninja:
+  - rscadd: New filter editor for admins + development purposes
+  francinum:
+  - admin: Custom map template uploads should now work properly.
+  ivanmixo:
+  - tweak: there is now a delay to the application of the gender change potion
+2021-07-10:
+  DatBoiTim:
+  - tweak: Cryostatic Shells now at sec lathe instead of medlathe
+  lordScrubling, zxaber:
+  - rscadd: Fission360 and Lifeline program for modular computers
+  - rscadd: Nuclear operatives start with a tablet instead of a pinpointer
+2021-07-11:
+  'actioninja, Floyd, LemonInTheDark ':
+  - rscadd: New filter editor for admins + development purposes
+2021-07-12:
+  PowerfulBacon:
+  - balance: Sonic jackhammer can no longer break reinforced, cult and plastitanium
+      walls.
+  francinum:
+  - bugfix: You can now properly load shuttle templates via the template upload system
+2021-07-13:
+  Froststahr:
+  - admin: The diconnected typo is gone
+  Mat05usz:
+  - bugfix: Monkeys now retaliate against people who throw stuff/shoot at them.
+  - bugfix: Monkeys no longer try to steal undroppable items.
+  Qustinnus, 4Dplanner, Mat05usz:
+  - rscadd: Adds map_generator datums, which will handle terrain generation for a
+      specific area.
+  - rscadd: Adds a jungle generator datum, which uses rust-g noise to generate 3 layers
+      of perlin noise to make a somewhat cohesive and seamless jungle based on height,
+      humidity and heat.
+  kylerace:
+  - bugfix: fixed holodeck harddels
+  lordScrubling:
+  - rscadd: brass sword emp works on mechs
+  - rscadd: clockwork armaments envirosuit compatibility for plasmamen
+  - rscadd: visual effect on brass sword emp
+  - bugfix: brass sword emp not working
+2021-07-14:
+  Archanial:
+  - bugfix: Fixed game hanging itself in lobby
+  KubeRoot:
+  - rscadd: You can now use the Activate Held Object and Drop Object hotkeys (default
+      Z and Q, respectively) to activate arm-implanted tools and put objects away.
+      You must have the hand free before you can activate it this way.
+  - balance: Arm implant tools are no longer no-drop, and instead simply snap back
+      if they get dropped. Don't sweat it, if you slip just press Z again.
+  MNarath1:
+  - bugfix: fixes ai multicamera mode turn static
+  Phil Smith:
+  - imageadd: Gives the circuit multitool its own sprite instead of it having the
+      same sprite as the normal multitool.
+  ivanmixo:
+  - bugfix: Tinea Luxor now actually makes you glow
+  - admin: added logging for antimatter
+  - admin: grouped singulo, antimatter and supermatter logs into one
+  - rscadd: Captain skirt
+  - bugfix: Cargo skirt now works properly with digitigrade legs
+  - tweak: DNA saboteur can no longer give positive mutations
+2021-07-15:
+  Ivniinvi:
+  - tweak: Brain trauma lines now reference Beestation servers.
+  MNarath1:
+  - bugfix: fixes logging of xenomorph neurotoxin spit not showing shooter
+2021-07-16:
+  Archanial:
+  - bugfix: Cult pylons heal 1 damage per tick again.
+  Ivniinvi:
+  - bugfix: cargo pack descriptions are now accurate
+  KubeRoot:
+  - rscadd: You can now drag objects in the stat-panel
+  - rscadd: Smoke machines can now be rotated with alt-click
+2021-07-17:
+  TheChaser212:
+  - rscadd: Food has a chance to be cooked when set on fire
+  - bugfix: The temperature of reagents in smoke/foam isn't reset
+  - rscadd: Added scanner circuit shell
+  - tweak: Added a user and triggered port to airlock shells
+  - tweak: Added a payer port to moneybot shells
+  jupyterkat:
+  - bugfix: fixed request console announcements announcing html garbage
+  lordScrubling:
+  - bugfix: witch hunter hat having no armor
+  - rscadd: spectre inspector goggles ghost tracking is toggled again
+2021-07-19:
+  KubeRoot:
+  - tweak: You can now wear xenobio pressure-proofed jumpsuits in space.
+  PowerfulBacon:
+  - bugfix: Fixes blocking thrown items.
+  - tweak: admins can choose to instantly trigger meteors
+  TheChaser212:
+  - rscadd: Monkeys are now pressure/temperature proof based on their hat
+  jupyterkat:
+  - code_imp: Optimized radio messages
+  lordScrubling:
+  - rscadd: Ability to construct showers and sinks
+  - bugfix: phantom ids when you eject an id from a modular pc
+  lordScrubling, uomo91, Timberpoes:
+  - rscadd: ability to buckle from next to a chair
+  mcmeiler:
+  - rscadd: Added a positive moodlet for headpats
+2021-07-20:
+  Ivniinvi:
+  - bugfix: Space Adapted Apids no longer sleep in the cold.
+  ivanmixo:
+  - balance: baseball bats can no longer stunlock at all
+  jupyterkat:
+  - bugfix: fixed hearing
+  - bugfix: fixed photobooth deck breaking the entire holodeck
+  lordScrubling:
+  - spellcheck: incorrect sink/showerframe description
+2021-07-21:
+  YakiAttaki:
+  - spellcheck: removed a spurious space from a moth default name
+  francinum:
+  - admin: Mentor panel edits now take effect immediately.
+  jupyterkat:
+  - bugfix: fixed beach holodeck
+  - bugfix: fixed soporific ammo breaking borg movements
+2021-07-22:
+  Naevii, ivanmixo:
+  - imageadd: New lawyer suit and skirt sprites
+2021-07-23:
+  'ArcaneMusic,  ShizCalev ':
+  - rscadd: Nanotrasen's Customer Service Division has developed a new, shielded product
+      cage to better allow for sale of food and drink items on station, called the
+      "Vend-A-Tray".
+  - rscadd: Vend-A-Trays are made with display case frames and a manipulator stock
+      part.
+  - bugfix: Fixed display cases going invisible when you put things inside of them.
+  - bugfix: Fixed the pedestal for open display cases being glass colored.
+  MCterra10:
+  - rscdel: Remove fastmos changes from all maps
+  TheChaser212:
+  - bugfix: Changeling powers that require absorptions actually need them now
+  ike709:
+  - bugfix: Fixed a small chance for bloodcult to runtime and ruin gamemode setup.
+  - code_imp: Replaced extools with auxtools.
+  - rscadd: Added Putnam's auxmos, which is like TG's atmos but incredibly performant.
+  - rscdel: Removed fastmos, because it's no longer maintained by anybody and it's
+      very unstable.
+  - code_imp: Atmos is now even more performant than fastmos was.
+  - tweak: Firelocks require a crowbar to open/close again.
+  - tweak: Firelocks are fulltile again.
+  - bugfix: Squids and snails will no longer set the CPU on fire when they stand on
+      salt.
+  - tweak: Squids and snails receive a flat 10 burn damage for stepping on salt, rather
+      than continuously taking damage.
+  ivanmixo:
+  - rscdel: old "inflict_handler" file
+  - bugfix: blind spell works again
+  - refactor: refactors the blind spell to not be ancient
+  lordScrubling:
+  - bugfix: fixes bz formation using no2 instead of n2o, anesthetic tanks having no2
+      inside of them instead of n2o, n2o gas miners producing no2, etc
+2021-07-24:
+  Cenrus:
+  - bugfix: Fixes lens not dealing intended amount of damage to mechs
+  - bugfix: Prism not healing as much as intended
+  Froststahr:
+  - tweak: The map airlocks have now been fully reverted to the old system
+  Sinestia:
+  - bugfix: Fusion has been fixed
+2021-07-25:
+  Cenrus:
+  - bugfix: Fixed antivirus muting IPCs.
+  ImSynthex:
+  - rscadd: Added cyborg recharger to Deltastation dorms bathroom
+  Ivniinvi:
+  - rscadd: Adds a delay to inserting equipment into a mech (1.5s)
+  MNarath1:
+  - code_imp: Rewrote the slime processor to be more performant
+  Mick1299:
+  - tweak: Increase Janitor borg light replacer restock rate
+  PowerfulBacon:
+  - rscadd: Adds in chat badges for admin ranks, mentors and donators.
+  - balance: Door crushing no longer stuns if you are already stunned, preventing
+      chain stunning.
+  - balance: Door crushing stun time reduced from 10 seconsd to 6 seconds.
+  - balance: Door crushing damage reduced by chest armour
+  - refactor: Illegal tech is now given to items bought from the uplink, rather than
+      items that exist in the uplink.
+  - refactor: 'Refactors embedding:'
+  - refactor: Using a hemostat allows you to remove embedded items with no damage
+      applied.
+  - refactor: 'You can now remove embeds from other people ghetto style: Using a screwdriver
+      allows you to remove small and tiny embedded items with an 80% success rate,
+      and using wirecutters allows you to pull out normal, small or tiny embedded
+      items with a 50% success rate.'
+  - refactor: Embeds no longer apply damage constantly, instead they will apply damage
+      until you go under their damage limit (Essentially creating the effect of lowering
+      maxhealth while applied, but alone will not out right kill you).
+  - refactor: Embedded items no longer deal damage when they embed, the impact from
+      the object damages anyway.
+  - refactor: Embeds are blocked by armour, wearing armour reduced the chance of an
+      embed embedding into you. If you have more armour than the embed limit, the
+      embed will fall off, If you have less but still have armour the probability
+      of the embed failing will be decreased linearly proportional to the amount of
+      armour you have.
+  actioninja, LemonInTheDark, and MrStonedOne:
+  - code_imp: Performance is now logged to a CSV
+  - code_imp: SendMaps can now be profiled with a Debug verb.
+  - code_imp: Improved SSprofiler, and makes it only run every 5 minutes
+  eeSPee:
+  - tweak: Standardizes deputy passes and mining access cards to derive from the same
+      subclass.
+  ivanmixo:
+  - bugfix: wiki button works again
+  jupyterkat:
+  - bugfix: fixed get hearing again
+  lordScrubling:
+  - imagedel: duplicate old default envirohelm sprite
+  - rscadd: you can buckle to stasis units and beds adjacently now
+  - bugfix: borg appartus drop work with alt click now
+  - rscadd: Captain and sec/brigphys plasmamen start with sechailer on
+  - bugfix: Sensors start maxed on cap and sec/brigphys envirosuits
+2021-07-26:
+  Fikou:
+  - rscadd: bronze airlocks and windows
+  Ghilker, lordScrubling:
+  - rscadd: atmos holosigns hold open firelocks
+  PowerfulBacon:
+  - tweak: Added a library to corg shuttle, added status displays and added a sink
+  - bugfix: Fixed corgstation shuttle windows.
+2021-07-27:
+  KubeRoot:
+  - rscadd: Stack menu now uses tgui and has a search bar.
+  - bugfix: Metastation engineering is now named more accurately
+2021-07-28:
+  Bluezorua and lordscrubling (thanks for unshitting my code):
+  - rscadd: BEEF BROTH
+  - rscadd: BEEF FIZZ
+  - imageadd: BEEF BROTH
+  Ivniinvi:
+  - bugfix: DeltaStation bar disposals now actually works
+  eeSPee:
+  - rscadd: 'Added new malf ai module: Fake Alert'
+  lordScrubling:
+  - rscadd: sterilizers speed up surgery above cap
+  - rscadd: hand mirrors help with self surgery
+  - tweak: surgery scales speed before starting to fail
+  - balance: operating tables give better surgery chances than stasis units
+  - bugfix: getting the lowest surgery multiplier from a structure when being on multiple
+      structures
+  - bugfix: shields not working in offhand
+  mcmeiler:
+  - rscadd: Added medical berets to MediDrobes
+  yyzsong:
+  - bugfix: Boxstation detective disposals works again. Chainsmokers rejoice.
+2021-07-29:
+  AnCopper SomeguyManperson:
+  - bugfix: After about 2 years, X4 is directional again.
+  Peer:
+  - rscadd: Dadbot lawset
+2021-07-30:
+  ivanmixo:
+  - bugfix: wizard can buy blind spell again
+2021-07-31:
+  Phil Smith:
+  - tweak: Hotdog weenie

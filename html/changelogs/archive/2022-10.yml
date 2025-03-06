@@ -1,0 +1,653 @@
+2022-10-01:
+  CydiaLamiales:
+  - rscadd: Added a couple of missing disposal pipes to Boxstation
+  - rscadd: Added a couple of missing distro pipes to Boxstation
+  - rscadd: Added 'To Space' posters near chutes in Virology to Boxstation
+  - rscadd: Added wires under the windows of RD's and CMO's offices to Boxstation
+  - rscadd: Added a couple more vents and scrubbers in hallways to Boxstation
+  - rscdel: Removed couple of out of place pipes in Boxstation
+  - rscdel: Removed an out of place Meter in Boxstation
+  - tweak: Tweaked the distro pipe layout in Medbay, Evac and Science in Boxstation
+  - tweak: Spaced apart the scrubbers and vents in the hallways in Boxstation
+  - tweak: Made the airlock air pipes to be more in-line with other maps in Boxstation
+  - tweak: Made the wiring in Brig and other places more pretty in Boxstation
+  - bugfix: Fixed the layering issues with some distro pipes in Boxstation
+  - bugfix: Fixed the disposals network not properly sending away items in Boxstation
+  - bugfix: Fixed the power generator SMES not being properly connected to the power
+      grid in Boxstation
+  PestoVerde322:
+  - bugfix: Cleaned up some icons being weird.
+  itsmeow:
+  - balance: Dynamic will not spawn midround traitors, obsessed, or heretics at lowpop
+      if over 15% of the living crew is antag.
+  - balance: Dynamic's threat will now scale the center of the threat curve down by
+      one threat for each player under 30 players readied at roundstart.
+  - bugfix: Fixed dynamic simulation capping threat based on actual roundstart players
+      ready instead of simulated players ready.
+2022-10-02:
+  Bobbanz1:
+  - bugfix: Fixed an oversight, now buttons inside shuttles no longer have their electronics
+      sold!
+  CydiaLamiales:
+  - bugfix: Fixed meson goggles no longer giving you SM hallucination immunity if
+      you dropped a second pair of mesons while wearing them.
+  - rscadd: Added the Science Glasses to RD's locker
+  - rscadd: Added the Diagnostic HUD to RD's locker
+  DrDuckedGoose:
+  - rscadd: New monkey sprites
+  - tweak: Tweaks monkey inventory update - procs interface with ``monkey_icon``
+  - rscadd: Add ``i_clothing`` slot to monkey equipment slots
+  - tweak: Allow monkeys to equip ``i_clothing``
+  - rscadd: Add Experiment gimmick job
+  - rscadd: Add Experiment job-spawn to MetaStation
+  Penwin0:
+  - code_imp: Birdboat doesn't loop forever when checking for food and doesn't call
+      stoplag() anymore
+  PestoVerde322:
+  - rscadd: Added new way on how broken machinery works
+  - code_imp: added a new signal for broken machinery
+  - refactor: refactored machine_stat and is_processing
+  - refactor: refactored relay.dm with a better logic for it's operational logic
+  benbot16:
+  - bugfix: Fixes calling the labor camp shuttle using the prison shuttle terminal
+  dwasint:
+  - bugfix: lit glowstick map helpers to actually work
+  - bugfix: guns being not able to fire when you click outside of vision
+  itsmeow:
+  - rscadd: Imaginary friends now have runechat.
+  - rscadd: Imaginary friends now have visible points.
+  - bugfix: Fixed a possible hard-delete with imaginary friend actions.
+  - tweak: Imaginary friends can now hear their owner if out of range.
+  - bugfix: Imaginary friends now properly turn when they turn instead of next time
+      they move.
+  spockye:
+  - rscadd: Remakes the Delta station exploration room, and the maintenance around
+      it
+  - bugfix: fixes wrong zoning around the map
+  - rscadd: new box vacant office
+  - bugfix: fixes zones and wires on box station
+  - bugfix: removed unused passtrought turf tiles in maintenance
+2022-10-03:
+  BrumalLake:
+  - bugfix: light eater now works on glowshrooms
+  - bugfix: light eater now longer disintegrates shadowshrooms
+  Penwin:
+  - rscadd: Adds Assimilation back into the gamemode rotation
+  - rscadd: Reworks a lot of the Assimilation gamemode
+  - rscadd: The Gamemode features several alien Hiveminds competing for dominion over
+      the station crew
+  - rscadd: Their abilities are mostly stealthy and revolve around manipulation of
+      the crew
+  - rscadd: Whichever Host manages to rise above the rest may Assert Dominion and
+      gain powerful bonuses
+  PowerfulBacon:
+  - bugfix: Vent pumps no longer runtime if their vents are empty
+  TheChaser212:
+  - bugfix: Fixed corgstation webmap link
+  - bugfix: AIs now lose syndicate channel when malf status removed
+2022-10-04:
+  Ivniinvi:
+  - tweak: Mutadone no longer turns monkeys into humans.
+  PowerfulBacon:
+  - config: The default walk and run speed has been decreased by 0.5.
+  - config: The depreciated config option, outdated_movedelay, has been removed.
+  - rscdel: Reverts examine boxes due to bugs.
+  Zonespace27:
+  - code_imp: Added a variety of new greps to the Github and corrected map issues
+      that failed the greps
+  benbot16:
+  - bugfix: Fixes slime status tabs not showing round status information
+  etherware-novice:
+  - rscadd: examine boxes are a comin
+  itsmeow:
+  - bugfix: Cyborg's Modular Interface now properly shows its HUD icon.
+  - tweak: Moved Cyborg's Crew Manifest onto the HUD and removed the last Robot Command
+      verb.
+  ivanmixo:
+  - balance: removed ability to screwdriver grenades to shorten their fuses to 1 second
+  zeskorion:
+  - balance: fungal tuberculosis is now lethal past stage 4.
+2022-10-05:
+  DrDuckedGoose:
+  - rscadd: Adds sprites for cowboy hats & science cowboy hat to head.dmi
+  - rscadd: Adds ranching hat & science ranching hat to botany & science wardrobes,
+      respectively.
+  - rscadd: Add dedicated DMI for monkey icons
+  - bugfix: Fixes missing icons for facehuggers - for monkeys
+  - tweak: Tweaks monkey sprite to look less dumpy
+  PowerfulBacon:
+  - refactor: Refactors the signals files to split them down into submodules.
+  TheChaser212:
+  - tweak: Ghosts can alt-click without using the stat menu
+  - bugfix: Added missing checks on alt-clicks
+  Zonespace27:
+  - bugfix: NTNet DOS tool now allows you to select a relay to target
+  itsmeow:
+  - bugfix: Fixed conveyors creating holes in spacetime and moving anchored things.
+  spockye:
+  - rscadd: adds missing zones
+  - rscadd: changes the shuttle construction
+  - rscadd: adds missing tile at exploration flaps
+  - rscadd: adds missing wires around the station
+  - rscdel: removed un-used wires
+  - bugfix: fixes air tiles in space
+  - bugfix: fixes wrong zones
+  - bugfix: fixes a wall camera outside perma
+  - bugfix: connects the hallway  with itself outside clown's office
+  - bugfix: re-adds girders on the asteroid shielding around the station
+  - rscdel: Removed stacked lockers from pubby viro
+  - bugfix: fixes wrong zoning
+  - rscadd: adds missing zoning
+  - rscadd: adds missing lattices
+  - bugfix: fixes airless tiles inside the station
+  - rscadd: adds missing disposal tubes
+  - rscdel: removed redundant wires and stacked disposals
+  - bugfix: fixed a few zone errors on Meta station
+  - rscdel: Removes redundant wiring on Meta
+  - rscadd: adds missing wiring on Meta
+  - rscdel: removes redundant piping on Meta
+  - rscadd: adds missing piping on Meta
+  - rscdel: removes redundant disposals on Meta
+  - rscdel: removes hidden wall lattices on Meta
+2022-10-06:
+  AffectedArc07:
+  - refactor: Converted all character + preference data to live in the database instead
+      of savefiles
+  - server: You will need to convert all your old savefiles. Good luck.
+  Ivniinvi:
+  - rscadd: MetaStation kitchen has more lights
+  Tyranicranger4:
+  - rscadd: Adds an evidence storage room to the Corg Brig.
+  - tweak: Redoes the Medical area in the Corg Brig to better accommodate the new
+      evidence room.
+  - bugfix: Fixes random miscolored cabling on Pubby
+  - rscdel: Removes a single rogue wire on Pubby
+  - bugfix: Fixes multiple maintenance doors not being unlocked during emergency maintenance
+      access on Box
+  - tweak: Replaced the Experimentor shutters button in robotics with a robotics shutters
+      button (Corg)
+  - bugfix: Fixed incorrectly configured shutters in robotics (Corg)
+  itsmeow:
+  - rscadd: 'CorgStation: Added x3 WT-550 rubber mags to armory.'
+  - rscadd: 'CorgStation: Added DROPNet beacon to armory.'
+  - tweak: 'CorgStation: Replaced 2 Security lockers in sec office with 1 L3 Locker,
+      and 1 L4 Locker.'
+  - rscadd: 'Corgstation: Added donuts to all security offices.'
+  - tweak: 'CorgStation: Cargo ORM moved to internal cargo office wall.'
+  - bugfix: 'CorgStation: Fixed delivery office cable being missing.'
+  - tweak: 'CorgStation: Replaced cargo office airlock with a windowed one.'
+  - tweak: 'CorgStation: Unblocked QM''s chest drawer in office.'
+  - tweak: 'CorgStation: Moved Toxins burn chamber air alarm to outside airlock.'
+  - bugfix: 'CorgStation: Added names to airlocks to Toxins and Exploration.'
+  - rscadd: 'CorgStation: Added button for toxins burn chamber shutters.'
+  - tweak: 'CorgStation: Slightly expanded toxins burn chamber area to allow placement
+      of air alarm.'
+  - rscadd: 'CorgStation: Added 3x Cable Coils to robotics'
+  - rscadd: 'CorgStation: Added curator console in library to allow printing paintings.'
+  - rscadd: 'CorgStation: Added x4 painting mounts - 2 public, 2 private to the library.'
+  - rscdel: 'CorgStation: Removed botany backroom maintenance.'
+  - rscadd: 'CorgStation: Added all-in-one grinder and chemmaster to Botany.'
+  - rscadd: 'CorgStation: Added additional lockers to Botany.'
+  - rscadd: 'CorgStation: Added a backpack sprayer and a botany book to Botany.'
+  - rscadd: 'CorgStation: Added box of donuts to kitchen counter.'
+  - tweak: 'CorgStation: Removed botanist ability to enter kitchen.'
+  - rscadd: 'CorgStation: Added two L3 lockers outside of the transit tube on the
+      virology mini-sat.'
+  - bugfix: 'CorgStation: Fixed a camera in the virology monkey containment cell being
+      mislabeled.'
+  - rscadd: 'CorgStation: Added a small light to the service lathe room.'
+  - rscadd: 'CorgStation: Added an N2 to Mix line in Atmospherics.'
+  spockye:
+  - rscadd: Remakes the Box station exploration prep room
+  - bugfix: removed stacked viro lockers
+  zeskorion:
+  - tweak: kilo viro has been remapped
+2022-10-07:
+  BrumalLake:
+  - bugfix: cargo tech credit objective now works
+  Tyranicranger4:
+  - rscdel: Removes duplicate mapping objects on Meta/Delta/Box/Pubby/Kilo
+  - bugfix: Fixes a missing wire on Box dorms preventing the cryo room from receiving
+      power.
+  itsmeow:
+  - bugfix: Fixed emag law formatting not showing properly in Cyborg Self-Monitoring.
+2022-10-08:
+  Ivniinvi:
+  - rscadd: Devices with a power cell can now be charged in a microwave if below 40%
+      power, with occasional explosive results!
+  Penwin0:
+  - bugfix: Balloon alerts aren't offset to the left anymore
+  PowerfulBacon:
+  - bugfix: Fixes energy guns runtiming when deleted by z-clear.
+  - bugfix: Fixes things not being randomly teleported by z-clear.
+  TheChaser212:
+  - bugfix: Burned mess now becomes ash when burnt
+  etherware-novice:
+  - bugfix: hair dye and nat wig
+2022-10-09:
+  BrumalLake:
+  - bugfix: client-less can no longer use camera consoles
+  PestoVerde322:
+  - rscadd: Cargo has now the option to buy singular or in bulk laser guns
+  - tweak: The laser guns are now under "Armory" rather than "Security"
+  - tweak: The cost for a bulk laser gun crate is now rebalanced to be a cheaper option
+      compared to Energy guns
+  PowerfulBacon:
+  - refactor: Radio jamming is now component based. (No player facing changes.)
+  etherware-novice:
+  - tweak: hiveminds cant get objectives to target another host
+  - rscadd: examine boxes (but for real this time)
+  itsmeow:
+  - bugfix: Fixed having nonexistent species data blocking Character Setup from opening
+      by setting the slot to a random existing species.
+2022-10-10:
+  Bobbanz1:
+  - bugfix: MULEbot is now capable of being summoned by the AI repeatedly instead
+      of only once.
+  BrumalLake:
+  - rscadd: self repairing with cable and welding now fixes part you initially targeted,
+      and only one self repair can be done at a time but the time has been reduced
+      from 5 to 1.5s
+  CydiaLamiales:
+  - bugfix: Autolathes now display the correct material cost
+  itsmeow:
+  - rscdel: Removed PDAs.
+  - rscdel: Removed round-start backpack tablets.
+  - refactor: Due to a buyout and massive restructuring of Thinktronic Systems, all
+      crew now start with tablets containing pre-installed programs for messaging,
+      and programs for tasks previously done by PDAs.
+  - tweak: PDA sprites have been slightly changed to account for the new program overlays.
+      Wide PDAs have normal sized screens, and PDAs start off with a black screen.
+  - rscadd: Added themes to tablets in the Settings app.
+  - tweak: Renamed Hardware Configuration to Settings.
+  - code_imp: Improved tablet flashlight UI interaction with cyborg code.
+  - admin: Added logging to PDA bombs.
+  - tweak: Brig physician now starts with a cartridge.
+  - rscadd: Added a locator app for janitors to find mops, cleanbots, and janicarts
+      with.
+  - bugfix: Improved ModPC behavior with sechuds showing the wrong HUD.
+  - tweak: You can now use holochips directly on a PDA/tablet to insert credits to
+      the ID inside.
+  - tweak: Tablet flashlight now uses movable lighting instead of jumping around
+  - tweak: Tablets can be used while inside lockers.
+  - code_imp: Changed tablet program access requirements to support lists.
+  - code_imp: Added an emoji entry TGUI interface. For use with the mime PDA.
+  - rscadd: Emagging a modPC now opens a console window with flavor text and sets
+      the theme to syndicate.
+  - bugfix: Fixes PDA sent photos opening an undersized window.
+  - tweak: Cyborg integrated tablet now has a button background.
+  - tweak: AI now has a small integrated tablet only for sending messages.
+  - tweak: Added an improved photo selection TGUI menu, mainly for use by silicons.
+  - bugfix: Photos now describe their dimensions properly.
+  - bugfix: Photo descriptions no longer randomly place periods around.
+  - bugfix: Photos can no longer describe invisible things.
+  - rscadd: Nukie tablets now start with the Remote Airlock Control program, for remotely
+      interfacing with the infiltrator's blast door.
+  - tweak: Regular cargo techs no longer have the Ore Silo logs in their PDA Cartridge.
+      It's now locked to the QM.
+  - rscadd: Added a new Cargo Technician cartridge with its own icon.
+  - rscadd: Added a Log Viewer program for viewing ore silo and NTChat logs on the
+      filesystem.
+  - bugfix: Modular computers now correctly show visible_messages to the user if they
+      are holding it.
+  - rscdel: Removed the messaging console's system message capability.
+  - rscadd: The Status Display modPC app can now update status alert images.
+  sergeirocks100:
+  - rscadd: Lizardpeople can wear underwear again.
+  - imageadd: The separate male and female chest sprites for lizardpeople have been
+      readded.
+2022-10-11:
+  Absolutely-Steph:
+  - rscdel: Removed old Health Analyzers from most medkits and made them less accessible
+      in vendor.
+  - tweak: Tweaked some Medkit Items.
+  - rscadd: Health analyzers now have their own research nodes and need to be unlocked.
+  BrumalLake:
+  - rscadd: ert now use your backup human name
+  DrDuckedGoose:
+  - bugfix: Fix monkey clothing not generating on strip menu interactions
+  PowerfulBacon:
+  - admin: The adminhelp resolution message has been updated.
+  - balance: Abductor silencer is now a passive radio jammer.
+  - balance: Abductor baton can only incapacitate a single target at a time. Attacking
+      multiple targets will result in the previous target waking up.
+  - balance: Abductors can no longer teleport into locations that are being viewed
+      by valid specimins.
+  PowerfulBacon (Code), Azlan (Sprite):
+  - rscadd: Adds in the bluespace anchor, an item that prevents nearby teleportations.
+  - balance: Syndicate teleporter, abductor teleports, genetic mutation warps, clockcult
+      teleports and chronosuit teleports are now on the 'blink' teleport channel,
+      meaning they can be blocked by the bluespace anchor.
+  benbot16:
+  - bugfix: Plasma cutters will no longer heat things while unpowered
+  covertcorvid:
+  - bugfix: Fixed atmospheric technicians, shaft miners, the HOP, the HOS, and the
+      QM lacking their specialized list of mail goodies.
+  dwasint:
+  - bugfix: tables now check if they can be fully built before the material is consumed
+  - tweak: holo parasites can't use fugu glands anymore to double their damage
+  etherware-novice:
+  - tweak: lathes/techfabs/etc light up when theres new research designs
+  - rscadd: Added clown headset/voicebox
+  - tweak: Added both to the Clown Tech node
+  - rscadd: suit sensors poster
+  - rscadd: Added a paper slip that acts as a fake id card that you can use to fake
+      identity, craftable with paper and wirecutters.
+  - rscadd: Add a message for glue suicide
+  - rscadd: teg screwdriver sprites
+  itsmeow:
+  - bugfix: Fixed some runtimes in Cyborg Self Monitoring and Robot Control.
+  - admin: Removed a useless admin message for if someone has an invalid keybind set.
+2022-10-12:
+  CydiaLamiales:
+  - rscadd: Added some new tips.
+  - tweak: Rewrote some outdated tips.
+  - tweak: medHUDs can now perform medical evaluations on people not listed on the
+      medical records
+  PowerfulBacon:
+  - balance: Grenade lances will no longer explode the grenade inside the attacked
+      person, but instead inside of the lance.
+  - balance: Spirit realm ghosts can no longer summon nar'sie
+  - balance: Spirit realm ghosts can no longer apocalypse
+  - bugfix: Fixes battle of the gods ending not summoning nar'sie on clockcult defeat.
+  - bugfix: Fixes cult ghosts being able to summon more cult ghosts due to a bug in
+      the status effect.
+  - code_imp: Optimises pausing and unpausing atmos on a specific z-level.
+  - balance: The movespeed of vehicles has been modified to be proportional to the
+      configuration run delay value.
+  - bugfix: Corgium will no longer last forever and will no longer affect people with
+      damaged livers forever.
+  ike709:
+  - rscdel: Removed the Corginator from Xenoarch because the corgium trait was removed
+  itsmeow:
+  - rscadd: Newscasters now use TGUI and have new features like channel editing and
+      descriptions.
+  - tweak: Security Newscasters have been removed in favor of ID scanning on all newscasters.
+  - rscadd: Added Bounty Board to all newscasters, where you can post bounties for
+      the crew to fulfill.
+  - admin: Reworked admin newscaster panel and topics to use TGUI.
+  - code_imp: Fixed some issues with IE8 compat classes on TGUI Flex components.
+  - code_imp: Fixed TGUI Buttons with right-positioned icons lacking a margin from
+      the content text.
+  - rscadd: Added a Newscaster & Bounty Board ModPC app and added it to the Curator,
+      HoP, and Captain's PDA roundstart, also downloadable.
+  - bugfix: Fixed the gas scanner not having newlines.
+  - tweak: ChemMasters now have an exact output units mode for pills/patches/bottles.
+  - tweak: ChemMasters can now have a set name input to use for all pills, instead
+      of prompting every time.
+  - admin: ChemMaster packaging names are now subject to the IC filter.
+2022-10-13:
+  The-Moon-Itself:
+  - bugfix: docking ripples show on towed shuttles
+  - bugfix: towed shuttles are deleted on jumpToNullSpace
+  - bugfix: Transit docking port map reservations are now properly oriented
+2022-10-14:
+  Ivniinvi:
+  - tweak: The slot machine will now tell the crew how much you won if you Jackpot!
+  itsmeow:
+  - bugfix: D.E.T.O.M.A.T.I.X. charges are no longer infinite.
+  - bugfix: D.E.T.O.M.A.T.I.X. explosions now do the same damage as before tablet-PDAs.
+  - bugfix: Power-ON disks are now improper nouns.
+  zeskorion:
+  - balance: dormant diseases should now be more common, virus sample crate price
+      has significantly increased
+  - bugfix: Thermite clouds no longer block vision or movement, and set players moving
+      through them on fire
+2022-10-15:
+  Fresh341:
+  - balance: Nerfed the damage of the blood boil rune from 25 to 15
+  PestoVerde322:
+  - bugfix: Shuttle chairs and Corporate chairs are now impossible to pick up and
+      transformed into normal Fancy chairs.
+  - refactor: base_icon_state is now an atomized variable
+  - code_imp: mechs now use base_icon_state for their icon changes
+  - bugfix: fixed the position of the welding glasses
+  - bugfix: fixed a stray pixel in a PAI icon
+  benbot16:
+  - bugfix: Repairing prosthetic limbs with non-welding tool welders works now
+  ike709:
+  - bugfix: Fixed a parallax runtime involving null clients
+  itsmeow:
+  - rscdel: Removed fake AA dispenser machine.
+2022-10-16:
+  Crossedfall:
+  - server: Upgraded xmldom to 0.8.3
+  Penwin0:
+  - bugfix: Hiveminds can properly get Assert Dominance now
+  - bugfix: Awakened vessels are properly affected by One Mind
+  - bugfix: Romerol properly pulls ghosts now
+  RubberEyes:
+  - tweak: changed the fingerprint to DNA in the medical records app in PDAs
+  - tweak: added scrollbars to the direct messenger PDA app
+  - tweak: added the botany chem dispenser to research node and it can now be printed
+      if researched
+  Tyranicranger4:
+  - rscdel: Removes a random double bed from the middle of the (DeltaStation) brig.
+2022-10-17:
+  Crossedfall:
+  - bugfix: Purchased character slots will become available immediately
+  PestoVerde322:
+  - rscdel: Removed all the instances of the firelock window shutters from Corgstation
+2022-10-18:
+  PestoVerde322:
+  - bugfix: the text "real_feedback" is no longer yielded when cleaning a rune with
+      a nullrod
+  PowerfulBacon:
+  - bugfix: Abductor teleportation is no longer blocked by the teleporting agent.
+  - tweak: Abductor teleport console is now blocked by mobs within 5 tiles rather
+      than mobs that can see the location, to make it less frustrating to find a valid
+      warp point.
+  - balance: Abductor emergency teleport now applies sleeping rather than stun.
+  The-Moon-Itself:
+  - tweak: Wiremod input ports can connect to multiple output ports
+  - rscdel: Deletes Wiremod combiner component
+2022-10-20:
+  itsmeow:
+  - refactor: Refactored and abstracted the admin ticketing system for use by mentors
+  - rscadd: Added a mentor ticketing panel
+  - rscadd: Mentorhelps can now be escalated to adminhelps
+  - rscadd: Adminhelp de-escalation to mhelp button is now automatic and will create
+      a corresponding ticket
+  - tweak: Admins can now see mentorhelp tickets in the admin ticket manager
+  - code_imp: Removed unused mentor code
+  - tweak: Admin Ticket Manager now has collapsible Closed and Resolved sections
+  - tweak: All close actions on tickets now have a confirmation prompt
+  - bugfix: Fix a runtime caused by admin-following from the ticket panel for a player
+      that has disconnected.
+  - bugfix: Overriding a claim on a ticket no longer shows the admin's IC name in
+      the admin log, but their CKEY instead.
+  - tweak: The ticket menu no longer shows a Re-open button if the ticket is open.
+  - tweak: Improved the UI of the ticket messaging box and added auto-scroll when
+      a new message appears.
+  - bugfix: Fixed issues with claiming and ticket resolve actions - it will now silently
+      claim the ticket before resolving (and no longer messages the ticket subject
+      about the claiming).
+  - tweak: All ticket close actions except Resolve now have confirmation states in
+      the ticket manager.
+  - tweak: Adminhelp/mentorhelp resolve messages will now go under the "Admin PM"/"Mentor
+      PM" chat filters.
+  - bugfix: Fixed admin PM replies sometimes creating HTML entities (like `&#39;`)
+2022-10-22:
+  Crossedfall:
+  - bugfix: Corrects the savefile importer so it properly loads equipped gear into
+      the database
+  Penwin0:
+  - admin: You don't need Permission editing perms to use forcemapconfig
+2022-10-23:
+  PowerfulBacon:
+  - rscdel: Reverts the clown headset
+  benbot16:
+  - bugfix: Jaws of life can now deconstruct airlocks properly.
+2022-10-25:
+  itsmeow:
+  - balance: 'Dynamic: Traitors, Changelings, and Heretics can no longer spawn alongside
+      hivemind (assimilation).'
+2022-10-26:
+  PestoVerde322:
+  - rscadd: Added craftable filing cabinets that can be constructed for 2 iron sheets
+  - rscadd: Added Rad-resistant shutter and Window shutter
+  - rscadd: Added Radproof shutters next to the SM on all the maps.
+  - rscadd: Added blast doors and shutters with their variants to the crafting menu
+      and blast door
+  - rscadd: Replaced all the old Supermatter shutters with radiation proof one on
+      all the maps
+  - rscadd: Brand new sounds from Tau Ceti for shutters, no more the same sounds as
+      heavy duty blast doors
+  - rscdel: Removed old unused multitile shutters
+  - tweak: new dedicated structures category, instead of misc for all structure things
+  itsmeow:
+  - balance: Lighteaters will no longer erase hardsuits with headlamps from existence,
+      instead, permanently disabling their headlamps.
+  - bugfix: PDAs are now properly affected by lighteaters when they lack a primary/secondary
+      card slot.
+  san7890:
+  - rscadd: For developers, made the Merge conflict marker more explicit than before.
+2022-10-27:
+  MaltVinegar:
+  - bugfix: fixed RCD-constructed floor not stopping air
+  - bugfix: fixed incongruence in price between constructing floor on lattice and
+      constructing on the space below the lattice
+  Penwin, AnturK:
+  - code_imp: removes priority_overlays from the code
+  benbot16:
+  - tweak: Tweaks ERT medic's loadout
+  mystery3525:
+  - rscadd: Several new admin smites
+2022-10-28:
+  Skoglol, Dennok, TheChosenEvilOne, Timberpoes, Anturk, DuffCreeper, vincentiusvin, ported by mystery3525:
+  - tweak: RPD subcategories and preview icons reorganized.
+  - rscadd: RPD now starts with painting turned off, hitting pipes with build and
+      no paint will target the turf underneath instead. Bye bye turf pixelhunting.
+  - rscadd: Reverse wrench mode upgrade to the RPD. Attention, due to budget cuts,
+      the mode is hard linked to the destroy mode control button.
+  - rscadd: You can now change piping layers on the RPD by scrolling with the mouse
+      wheel.
+  - bugfix: Various cumulative fixes to RPDs
+  - rscadd: RPD can destroy broken disposal pipe
+  - balance: Securing a disposal pipe over a floor tile with a crowbar in your offhand
+      will remove the floor tile before trying to secure it
+  itsmeow:
+  - bugfix: Airlock, tile, and decal painter inhand sprites work correctly when facing
+      sideways.
+  - rscdel: Removed a duplicate paper icon.
+2022-10-29:
+  Tyranicranger4:
+  - tweak: Remaps Xenobio, moving it from the edge of the station towards the middle
+      of the Science Department (MetaStation).
+  - tweak: Remaps Toxins and the Toxins storage room, moving them from the middle
+      of the Science Department towards the edge where Xenobio used to be (MetaStation).
+  - tweak: Remaps the 'science maintenance' hallway, moving it further to the right,
+      adding additional decals and expanding it slightly (MetaStation).
+  - tweak: The toxins 'launch' room is now part of the 'science maintenance' area
+      instead of the 'mixing' area. It also been visually changed slightly, although
+      it's function remains the same. (MetaStation)
+  - tweak: The toxins 'launch' room, the toxins 'test area', the exploration dock
+      and the 'starboard aft' solars have been moved down and to the right slightly.
+      (MetaStation)
+  - tweak: Remaps the maintenance area surrounding parts of the Science Department
+      (MetaStation)
+  - tweak: Remaps the science exploration area (MetaStation)
+  - tweak: Remaps wiring/piping/disposals throughout the Science Department. (MetaStation)
+  - tweak: Makes the experimentor room slightly smaller on the bottom (MetaStation)
+  - tweak: Remaps the R&D server room, moving it next to the Research Director's office
+      where Toxins storage used to be. (MetaStation)
+  - tweak: Makes various visual changes to parts of the Science Department, mostly
+      consists of replacing floor tiles/decals. (MetaStation)
+  - tweak: The Research Director's office now directly connects to the R&D server
+      room. Additionally the floor tiles in the RD's office now use decals. (MetaStation)
+  itsmeow:
+  - bugfix: Autolathes no longer give the item they were processing if the required
+      materials are removed during processing.
+  spockye:
+  - rscadd: 'KiloStation: Added grilles on some walls in space south of the station'
+  - bugfix: 'KiloStation: Fixed some incorrect nearstation areas in space south of
+      the station'
+  - bugfix: 'KiloStation: Fixed maints above chapel being incorrectly labelled as
+      Chapel Office'
+  - rscdel: 'KiloStation: Removed Starboard Bow solar grilles and nearstation area
+      classifications'
+  - bugfix: 'KiloStation: Fixed incorrect nearstation areas in space by xenoarch'
+  - tweak: 'KiloStation: Moved cam in room between upload transit and captain''s office'
+  - tweak: 'KiloStation: Moved floating extinguisher cabinet in dorms'
+  - rscdel: 'KiloStation: Removed extinguisher cabinet behind washing machine in dorms'
+  - tweak: 'KiloStation: Moved camera in virology'
+  - rscdel: 'KiloStation: Removed useless cable dead end in medical maints'
+  - rscdel: 'KiloStation: Removed useless cable dead end in perma'
+  - tweak: 'KiloStation: Connected cable dead end between vault and botany maints'
+  - rscdel: 'KiloStation: Removed duplicate scrubber underneath rack in xenoarch'
+  - rscdel: 'KiloStation: Removed random disposal pipe in departures'
+  - bugfix: 'KiloStation: Fixed disconnected power cables to window grilles in xenobio'
+2022-10-30:
+  Archanial:
+  - bugfix: fixed runtime when praying
+  DrDuckedGoose:
+  - tweak: Tweaks ``Hypodermic`` injections rates from ``5, 10, 15`` > (``7, 14 ,
+      21`` * ``metabolization_rate``).
+  - tweak: Changes ``C.D.E`` knockout from ``5 Seconds`` > ``2 Seconds``
+  - tweak: Changes logging ``xyz`` > ``area``
+  - tweak: Change research point reward from ``2.3 * final price`` > ``2.5 * final
+      price``
+  - tweak: Change discovery point reward from ``350*final_price/initial_price`` >
+      ``350*(final price/initial price)) * max(1, final price/1000)``
+  - tweak: Aggressively lowers stun times on all related traits
+  - tweak: Artifacts will now target the user too. The only way to avoid this is to
+      be inside science & wearing safety-pinchers.
+  - tweak: Slightly lower sentient buffs to arfiacts
+  - tweak: Blacklist aura from destabilizing.
+  - tweak: Artifacts malfunction more often.
+  - tweak: All artifacts get an extra slot for malfunctions, ``1`` > ``2``
+  - tweak: Extend sentient play offer
+  - tweak: Wall trait now points randomly east or north if it is 3x1
+  - tweak: Increase bananium malfunction chance
+  - tweak: Ghosts can take control of player-less artifacts
+  - tweak: Artifact consoles now have a stability meter that stops spam-buying.
+  - tweak: Sentient artifacts are more common, slightly,
+  - tweak: Ghosts can activate haunted artifacts.
+  - tweak: Tweaks labeler UI to show elements in alphabetical order.
+  - tweak: Tweak console UI to have less clutter.
+  - bugfix: Swaps over to AREACOORD for logging.
+  - bugfix: Fix cheeky runtime on ``Weighted``. No longer checks all gloves for ``safety``
+      variable.
+  - bugfix: Fix issue with ``weighted`` signal order preventing activation.
+  - bugfix: Fix ``lamp`` trait runtiming
+  - bugfix: Fix ``anti_artifact`` runtiming
+  - bugfix: Fix fragile artifacts not breaking due to byond being beyond illogical.
+  - bugfix: Fix strip malfunction from stripping non-removable clothing..
+  - rscadd: Adds ``anti-clone`` malfunction. Creates an evil twin of the target.
+  - rscadd: Add better functions for adding malfunctions that support typing
+  - rscadd: Add exploding malfunction ``delaminating``, unique to bananium.
+  - rscadd: Add all artifact smoke screen trait.
+  - rscadd: Add Plasma & Bluespace trait, ``Marker`` trait, colors the target
+  - rscadd: Add all artifact malfunction ``absorbing``. Absorbs nearby gasses, suffocating
+      small rooms. Will spit gasses back out when destroyed.
+  - rscadd: Add ``Honked`` activator. Only clowns, and clown related items, can activate
+      this artifact.
+  - rscadd: Add ``Emotional`` major. Makes target perform a random emote, from a curated
+      list.
+  - rscadd: Add ``Desynced`` minor. Makes the artifact disappear for a short period
+      after activating.
+  - rscadd: Add ``Hallucinogenic`` malfunction. Makes the target experience a random
+      hallucination.
+  - rscadd: Add bar to UI that shows thread stability.
+  PowerfulBacon:
+  - balance: Flashes now cause confusion instead of paralysis if a target has no stamina
+      damage.
+  - balance: Flashes will cause knockdown with the length of the knockdown proportional
+      to the target's stamina damage if they have less than 40% stamina damage.
+  - balance: Flashes will cause paralysis with the length of the paralysis proportional
+      to the target's stamina damage if they have more than 40% stamina damage.
+  - balance: Flashes will paralyse for 7 seconds if a target is lying down.
+  - tweak: Ghost alert to control a mob will now jump you to the target
+2022-10-31:
+  Archanial:
+  - bugfix: undefined 2 things in chatmessage.dm
+  CydiaLamiales:
+  - rscadd: Added Toxins Storage access to the Exploration team on skeleton crew
+  benbot16:
+  - tweak: Oozeling water melting is now affected by the clothing/suit the oozeling
+      is wearing.
+  itsmeow:
+  - refactor: Refactored emagging to have a SHOULD_EMAG signal, properly use signals,
+      and enforce parent calls.
+  - tweak: Tweaked wording on emag action visible_messages.
+  - bugfix: Fixed some visible_messages on emagged items not showing.
