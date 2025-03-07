@@ -40,6 +40,7 @@
 		thrower.put_in_hands(B)
 	B.mimic_broken(src, target)
 	B.item_state = broken_item_state
+
 	qdel(src)
 	target.Bumped(B)
 
