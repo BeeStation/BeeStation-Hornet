@@ -1,0 +1,339 @@
+2023-06-01:
+  Absolucy:
+  - tweak: High-impact roundstart dynamic rulesets are weighted less if they've been
+      chosen in a recent round.
+  - tweak: Normally blocked rulesets can now occur if the ruleset blocking them is
+      "dead". For example, this means heretics could show up after you deconvert the
+      entire cult, or traitors could appear after flukies all blow themselves up.
+  - tweak: Some midround/latejoin dynamic rulesets will not roll if the station has
+      been heavily damaged.
+  - tweak: Roundstart rulesets (and obsessed) in dynamic now actually use antag rep.
+  - bugfix: Changeling transformation sting works again.
+  - rscadd: Tourettes can now combine with voice of god for an... interesting effect.
+  - bugfix: Fixed an exploit with mentorhelps and adminhelps.
+  CydiaLamiales:
+  - rscadd: Added the 'blueprint' mode to the T-ray scanner, which shows the normal
+      layout of pipes, wires and disposal pipes
+  - rscadd: Added the ability to toggle T-ray scanner modes by Alt-clicking it
+  - tweak: Things revealed by the T-ray scanner now stay visible for 16 ticks rather
+      than 8
+  - imageadd: added an icon for the T-ray scanner in the 'blueprint' mode
+  EvilDragonfiend:
+  - code_imp: improved language codes
+  - rscadd: added Metalanguage - everyone can understand this, but only speakable
+      by specific situation. (mentor rat can say this. curator can't say this). You
+      know this language, but it will not be visible in your known language list.
+  - imageadd: lang icon for metalanguage
+  - tweak: Gibbering language icon will not be visible to yourself any longer. No
+      meta yourself that your language is broken.
+  - tweak: some mobs (especially animals) will now say in Metalanguage instead of
+      Common. Rats will squeak, cats will meow, but not in Galactic Common.
+  - tweak: revenant can see ghosts/other revs, but they can't orbit them
+  - rscadd: revenant can teleport to the station when they're in no-station z-level
+      (non-station). They get the spell when they are out of the station. You will
+      teleport to a random station location and get stunned for 4s and revealed for
+      8s
+  - code_imp: minor clean up rev code
+  EvilDragonfiend, Aramix, nicbn(TG):
+  - bugfix: ported a camera code - Camera will capture your current shape correctly
+      - especially when you're big or resting. (credit to nicbn in TG)
+  - bugfix: ghosts in a photo will be looked like they're orbiting. (credit to Aramix
+      in bee discord)
+  HowToLoLu:
+  - bugfix: Odd movements in space no longer causes an error
+  'Jikka Joestar ':
+  - bugfix: Fixed visibility from medbay reception on Kilo Station
+  JixS4v:
+  - rscadd: Added hotkeys for the AI to disconnect and reconnect to its most recently
+      used shell
+2023-06-02:
+  ALieJar:
+  - imagedel: old talisman sprite
+  - imageadd: new talisman sprite
+  Absolucy:
+  - balance: The heretic sacrifice minigame now heals fire, suffocation, sleep, stamina,
+      and stun before the hands start.
+  CydiaLamiales:
+  - bugfix: Fixed throwing mobs not being logged properly
+  someone543:
+  - bugfix: Sergeant Araneus now uses chitters instead of squeak
+2023-06-03:
+  itsmeow:
+  - tweak: Rewrote all the spraytan overdose messages to be less OOC and suspicious.
+  - tweak: Spraytan overdose speech now occurs less often.
+2023-06-04:
+  PowerfulBacon:
+  - bugfix: Mjolnir is no longer invisible while on the ground.
+2023-06-05:
+  EvilDragonfiend:
+  - code_imp: Replaced text() proc into embbed text
+  - code_imp: cleaned up some awful looking html
+2023-06-06:
+  Absolucy:
+  - tweak: Many ghost-related alerts, verbs, and prompts have been converted to use
+      tgui alerts/inputs. As a result, you can now search on the Observe/Jump-To-Mob/Teleport
+      prompts!
+  - bugfix: Fixed a potential bug with alerts when tgui input was disabled.
+  JixS4v:
+  - bugfix: sulfuric acid is now properly spelled
+  itsmeow:
+  - balance: Re-added incursion's radio keys.
+2023-06-07:
+  Absolucy:
+  - tweak: Sacrificing a DNR corpse will no longer force the unwilling ghost back
+      into their body, and will instead poll ghosts for who wants to be the shade.
+  Dejaku51:
+  - bugfix: Fixed xenobio infinite pylons exploit that could potentially crash the
+      server
+2023-06-08:
+  Absolucy:
+  - bugfix: Fixed roundstart persistent dynamic rulesets ignoring repeated mode weight
+      adjustment (roundstart rulesets will no longer recur as often directly after
+      each other)
+  Archanial:
+  - bugfix: fixed runtime in AAC
+  - bugfix: fixed runtime in express cargo console.
+  Crossedfall:
+  - rscadd: New quick options to 'pretty' format TGUI
+  Haliris:
+  - tweak: tweaked the string/names files to prevent some bad names from being randomly
+      generated.
+  JixS4v:
+  - tweak: botany belts are now able to hold droppers
+  - tweak: droppers can now only transfer 1u 2u, or 5u
+  JixS4v, Timberpoes:
+  - bugfix: Printing a long recording from a tape recorder no longer freezes clients
+  - tweak: Tape recorders can now print multi-page transcripts
+  RKz:
+  - tweak: tweaked "Basic Shuttle Research" tech to be easier to research
+  - bugfix: you can edit crew records with medhuds again, with the timeout properly
+      applying
+  RKz, Mothblocks:
+  - code_imp: points of interest use an element
+  - bugfix: fix incorrect pathing for a swarmer spawn
+  Rukofamicom:
+  - bugfix: Removes the ability for players to selectively refuse revivals by quickly
+      leaving their body after being forced back into it. DNR will still prevent resuscitations,
+      this only applies to players who have not enabled this.
+  itsmeow:
+  - code_imp: Updated some TGUI dependencies.
+  - tweak: TGUI now supports DPI scaling, provided you use a BYOND version modified
+      to use a modern browser.
+  - tweak: TGUI LabeledLists should now wrap text by default instead of overflowing.
+  - bugfix: TGUI Number inputs modals now accept negative numbers.
+  - bugfix: TGUI Number inputs modals can now accept decimals and not round them.
+  - tweak: Tabs can now have customized colors. They should also function better inside
+      Section boxes, and have better padding and margins.
+  - tweak: Arrow keys are grabbed by TGUI for keyboard navigation, won't move your
+      character unless you have hotkeys off.
+  - tweak: Improved TGUI's handling of static data on refresh, now a Loading prompt
+      will be shown while static data is on cooldown instead of just straight up not
+      sending it.
+  - tweak: Multiline TGUI inputs now support line breaks, accessible via shift-enter!
+      A maximum of two consecutive line breaks is allowed, any more than that will
+      be automatically stripped. This only applies to input boxes that start with
+      the multiline view enabled, and will thus not work on input boxes that aren't
+      meant to support it.
+  itsmeow, jlsnow301:
+  - code_imp: 'Standardized TGUI code formatting using PrettierX. Developers: Install
+      the Prettier extension for VSCode.'
+  mystery3525:
+  - code_imp: Adds a unit test for techweb/build design id assignments
+  - refactor: Moved techweb initialization checks to a unit test
+2023-06-09:
+  Absolucy:
+  - tweak: Nanite scanners now have a more visually pleasing output.
+  - tweak: Nanite scanners now display program rules, including which ones are active
+      or not.
+  - tweak: Forceful nanite syncs (slime/person splitting, nanite sting, infective
+      exo-locomotion) now copy settings such as cloud ID.
+  - admin: Selecting a typepath as admin (i.e through the Spawn verb) will now use
+      tgui input, which includes an actual search thingy.
+  Tyranicranger4, Fikou:
+  - admin: Individual player logs can now be viewed even after someone has disconnected.
+2023-06-10:
+  Absolucy:
+  - bugfix: Blood filtering won't take forever trying to wean off the last 1 toxin
+      damage in someone
+  - rscadd: Holding a health analyzer in your other hand during blood filtering surgery
+      will show the remaining toxin damage and reagent volume, similar to wound tending
+      surgery.
+  - tweak: Tweaked the surgery messages for filtering blood so that they appear properly
+      to third party observers.
+  Archanial:
+  - bugfix: fixed nanite healing program without a host.
+2023-06-11:
+  BriggsIDP:
+  - tweak: edits lavaland_surface_seed_vault.dmm
+  Rkz, Kapu1178, Azarak, Gandalf2k15, Rohesie:
+  - code_imp: adds a neutered pixelshifting system. It has no keybind and thus cannot
+      be accessed by players.
+  - code_imp: Added base_pixel vars to atom/movable, replaced most uses of initial(pixel).
+  itsmeow:
+  - balance: Morphs can no longer throw bodies significant distances.
+  mystery3525:
+  - rscadd: Gives kilostation science a component printer
+  someone543:
+  - bugfix: fixed duplicate small crack on carpet examine
+  spockye:
+  - bugfix: fixed a couple mapping errors on Rad station
+2023-06-12:
+  Absolucy:
+  - bugfix: Fixed victims of Toxoplasmosis Sapiens pouncing on cats whenever unconscious/crit,
+      instead of when NOT unconscious/crit.
+  - bugfix: Transformation sting is no longer unfixable if you're monkeyized after
+      being stung.
+  EvilDragonfiend:
+  - bugfix: piano no longer throws runtime because of null-user
+  - bugfix: Fixed abductor baton image is missing from asset
+  HowToLoLu:
+  - bugfix: PAI can no longer phase out of solid structures and machines such as closets
+      (even when they were welded) and disposal pipes
+  LemonInTheDark, MrStonedOne, Mothblocks, EvilDragonfiend:
+  - rscadd: Added cross-round serverside spritesheet caching, and various fixes and
+      improvements for it.
+  - config: Added CACHE_ASSETS, which enables asset caching when enabled. It is disabled
+      in development, but should be enabled n production.
+  - bugfix: Fixed vending machine showing icons as glass when they failed to load.
+2023-06-13:
+  Absolucy:
+  - bugfix: Fixed roundstart operating computers only partially linking to their given
+      stasis bed/operating table.
+  itsmeow:
+  - bugfix: Fixed admin player panel bluescreening/runtiming when closed.
+  - tweak: Metabalance is now cached on the player's client datum to reduce database
+      use.
+  - bugfix: You can now purchase items that cost exactly your metabalance.
+  - tweak: Antag token count is now cached on the player's client datum to reduce
+      database use.
+2023-06-16:
+  CydiaLamiales:
+  - bugfix: Fixed failed surgery steps not hitting the patient
+  - rscadd: Added Mentorhelp, Game Preferences and Character Preferences buttons to
+      the bar in top left.
+  EvilDragonfiend:
+  - tweak: Being able to see ghosts no longer lets you see OOC information such as
+      countdown objects.
+  - bugfix: Countdown timers are now properly visible over most objects
+2023-06-17:
+  CydiaLamiales:
+  - tweak: the Detective can no longer roll antag
+  - rscadd: Gave the Detective the mindshield back
+  EvilDragonfiend:
+  - tweak: debug outfit is faster and knows all surgeries, and can see ghosts.
+  HowToLoLu:
+  - bugfix: Exploration VIP targets now memorize why they have strange abilities,
+      or an uplink in their head.
+  PowerfulBacon:
+  - balance: AI tracking now requires a target to stand still for X seconds in order
+      to acquire a track when used from the menu or from radio. X is calculated using
+      the following formula. If the target has GPS tracking beacon, X is 0. If not
+      X starts at 4. Subtract 1 second if the target is in the light. Subtract 1 second
+      if the target's ID matches their name. Subtract 1 second if the target's face
+      is visible and not disfigured.
+  - balance: AI tracking can instantly track a target if they have sensors enabled,
+      or are a robot.
+2023-06-18:
+  Crossedfall:
+  - tweak: Adjusted the CI's caching to also target yarn and pip
+  CydiaLamiales:
+  - bugfix: Made sleek titanium tiles create the tile items of their respective color
+      when removed with a crowbar
+2023-06-20:
+  CydiaLamiales:
+  - tweak: Added the 'Crew Manifest' program to the list of default PDA apps
+  Rukofamicom:
+  - rscadd: Added a toggle for guard spiders that makes it impossible for other mobs
+      to force their way around.
+  - balance: Guards can now actually block narrow passages
+  itsmeow:
+  - bugfix: Headmins can now ban more than 1 admin.
+2023-06-21:
+  Absolucy:
+  - admin: Updating the tool speed of an arm implant will now update the tool speed
+      of all of its stored items.
+  - admin: Added VV options to add/remove items from arm implants.
+  Absolucy, SomeRandomOwl, stanalbatross, thedonkified:
+  - admin: Modified the Play Internet Sound Verb so it now displays extra info about
+      any song being actively played as well as showing the link
+  - rscadd: added the ability to make up to 10 individual highlights in tgchat, customise
+      their colours, and toggle if they highlight the whole message or not. Ported
+      from CM and /tg/.
+  - rscadd: you can now use regex for text highlighting. The syntax is /[regex expression]/,
+      eg /dog[0-9]/. There are no quantifiers, but you can use capture groups. The
+      regex must read a minimum of two characters.
+  EvilDragonfiend:
+  - rscadd: Crafting menu now shows icons
+  - rscadd: icon_state_preview variable to atom. this is used as an icon preview without
+      being changed.
+  - imageadd: bolas image references without frames. (bola_ref, gonbola_ref, bola_watcher_ref)
+  - bugfix: fixed a possible minor bug in morph UI
+  - bugfix: fixed 'Pingles.png' bad name format in dmi.
+  Haliris:
+  - spellcheck: fixed atmosbots displaying their temperature in Celsius rather than
+      Kelvin.
+  PowerfulBacon:
+  - bugfix: Fixes projectiles sometimes failing to be blocked.
+  - bugfix: Fixes an exploit regarding limb grower categories.
+  Rukofamicom:
+  - bugfix: fixed an exploit that allowed for gentle crossbreed cooldowns to be bypassed.
+      They now properly mirror luminescent behavior.
+2023-06-22:
+  Absolucy:
+  - bugfix: The option to highlight your own chat messages works once again.
+  PowerfulBacon:
+  - bugfix: Changes the way item pickup works in order to reduce overtime from sending
+      images to all clients in the game.
+  - tweak: Optimises turf decal init time slightly
+  - bugfix: Speeds up init times by reducing the amount of work to load space turfs.
+  RKz:
+  - bugfix: medhud medical eval doesnt time out immediately
+2023-06-23:
+  PowerfulBacon:
+  - bugfix: Vendors now vend into hand
+  PowerfulBacon, MrStonedOne:
+  - tweak: Admins making SDQL requests from the command line will need to confirm
+      their action before running it.
+  itsmeow:
+  - bugfix: Fixed exploit in CentCom faxes
+2023-06-24:
+  Rukofamicom:
+  - rscdel: Replaces the barber's chainsaw with a hatchet because the baboons won't
+      stop valid-hunting with the chainsaw.
+2023-06-26:
+  EvilDragonfiend:
+  - bugfix: fixed id card console and guardian builder html exploit
+2023-06-27:
+  EvilDragonfiend:
+  - tweak: Techweb searched nodes are now sorted in where it belongs to - researched,
+      researchable, future
+  - rscadd: VV drop menu that adds research points. Accessible by R&D console.
+  - rscadd: 'Added a new botany trait: Richer Juice. Doubles 2x chem results. Not
+      compatible with Densified Chemicals. You can''t take both. available from 3D
+      orange'
+  - balance: deathnettle now has 12% Fluorosulfuric acid
+  Isy232:
+  - balance: Security hardsuit ballistic armour 15 => 35
+  - balance: Security hardsuit disabler armour 40 => 50
+  - balance: Security hardsuit bomb armour 10 => 40
+  - balance: Head of Security's hardsuit is now equal in stats to the security hardsuit,
+      excluding the additional jetpack.
+  - balance: Security, Durathread and Syndicate jumpsuit stamina armour 30 => 10
+  - balance: The Captain's jumpsuit is now equal in stats to the security jumpsuit.
+  - balance: Syndicate hardsuit disabler armour 40 => 55
+  - balance: Elite syndicate hardsuit disabler armour 60 => 80
+  - tweak: Security jumpsuit description improved.
+2023-06-29:
+  HowToLoLu:
+  - bugfix: Bartenders now are given a Weapons Permit regardless of player count at
+      the round start.
+  PowerfulBacon:
+  - bugfix: Fixes some icon failures related to maploading, fixing the biodomes black
+      floor tiles.
+  - tweak: Atom init times now export to CSV instead of JSON if you compile the game
+      with the PROFILE_MAPLOAD_INIT_ATOM flag
+  SandPoot,CydiaLamiales:
+  - tweak: Pointing will make the arrow face it and you can also pixel-perfect point.
+2023-06-30:
+  HowToLoLu:
+  - bugfix: Eye Color and Body Size are now respected when cloning

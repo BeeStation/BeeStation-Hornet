@@ -1,4 +1,0 @@
-author: BarteG44
-delete-after: true
-changes:
-  - bugfix: fixed mjolnir dropping onto the ground when summoned with a spell

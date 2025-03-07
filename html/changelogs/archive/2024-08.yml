@@ -1,0 +1,299 @@
+2024-08-01:
+  Aramix:
+  - tweak: Cerulean Pylons will now make a best effort attempt at spawning 3 polycrystals
+      instead of desperately trying to fulfill that as a guarantee
+  DrDuckedGoose:
+  - bugfix: Switch checker tiles back to their 'intended' sprite
+  XeonMations:
+  - balance: Electric vehicles such as the janicart, secway, electric wheelchair and
+      ATV now are affected by EMPs
+2024-08-02:
+  PowerfulBacon:
+  - bugfix: Fixes issues with time freezing
+2024-08-03:
+  mystery3525:
+  - bugfix: Oversight which made infrequent runtimes with mining mechs
+  - bugfix: Mining mechs should actually spawn 25% of the time instead of 16% of the
+      time.
+  rkz, CakeQ, MistakeNot4892:
+  - rscadd: adds several new decal designs from Baystation
+2024-08-04:
+  EvilDragonfiend:
+  - rscadd: debug orb of the debug outfit now allows you to spacewalk
+  - rscadd: Pseudo-world diver debugging item - that makes a new z level then loads
+      a desired map template onto the z.
+  - rscadd: smooth live debugging objects (wall, table, turf)
+  - rscadd: a new mapping helper - Spaceproof directional windows, Group directional
+      windows
+  - rscadd: a new 10x10 maint room. You can stare at space as much as you want...
+      for some reason there are items stuck in space??
+  - rscadd: a new turf proc /turf/proc/get_nearby_turf_by_dir(direction). It returns
+      a turf from the turf that is next to from the given direction.
+  - code_imp: minor change to map template list code
+  Geatish:
+  - rscdel: Removed the deepthroat eatverb from the raw sausage
+  PowerfulBacon:
+  - balance: Chemical factories now use power instead of matter.
+  - rscdel: Removes pill presses and patch dispensors.
+  - tweak: Bottle dispensors no longer produce glass bottles out of nowhere, they
+      now require a bottle to fill.
+  - bugfix: The plumbing RCD can now print bottle fillers.
+  - balance: Security winter coat is now stronger than the armour vest for energy,
+      laser, heat, and stamina but weaker against melee and projectiles.
+  - balance: Security corporate jacket slowdown reduced.
+  - balance: Security heavy armour vest is now stronger than the armour vest across
+      the board, but has more slowdown.
+  - balance: Exercising now provides temporary stun resistance.
+  - rscdel: Reverts medical scanners showing missing organs
+  XeonMations:
+  - tweak: Medical scanners now show missing organs.
+  rkz, Gandalf2k15, LemonInTheDark, LT3, MrMelbert:
+  - rscadd: Converts security levels into a subystem. Much more easily debugged and
+      cleaner.
+  - code_imp: Datumizes individual levels to easily be added or removed
+  rkz, Yenwodyah:
+  - code_imp: cleaned up buckling checks, reducing edge cases. Documents buckling
+      code.
+  - balance: removes snowflake code for cyborg buckling. Cyborgs can instantly buckle
+      people on the same tile as them(like obj buckling), but now have the same time
+      to buckle people to things as any other buckling object if buckled from an adjacent
+      tile
+  rkz, mothblocks, ZephyrTFA, kubisopplay:
+  - tweak: Dead/Catatonic mobs cannot have a split personality anymore.
+  - bugfix: Resolves issues related to split personality shitcode sending clients
+      to lobby.
+  - bugfix: updates verbs on login to prevent weird inheritance of verbs
+  rkz, thgvr, Fikou:
+  - rscadd: Greyscales all blood decals.
+  - rscadd: Species now all have different blood colors, which will show in the footprints,
+      blood trails, and damage overlays when they get hurt
+  - rscadd: Gave some species their own bloodtype
+  - rscadd: new footstep sprites
+2024-08-05:
+  Aramix:
+  - bugfix: Monkies no longer teleport at will when trying to kill you
+  Markus Larsson:
+  - bugfix: Fixed insuls not properly spawning in Engineering lockers.
+  MarkusLarsson421:
+  - rscadd: Added aft security and aft science area.
+  XeonMations:
+  - rscadd: Humans are now Indomitable.
+2024-08-06:
+  EdgeLordExe ported and fixed by mystery3525 with help from BriggsIDP:
+  - rscadd: Added new smart pipes mapping helper
+  - rscadd: Added new smart pipes air supply/scrubbers pipe helper
+  - rscadd: Added sanity checks for the pipes mapping helper
+  - rscadd: Updated Runtimestation to use the supply_scrubbers helper
+  - bugfix: Fixed found issues relating to smart pipes
+  EvilDragonfiend:
+  - rscadd: 'Added a tip to sillytips.txt: There is no supermatter SILVER. There is
+      only supermatter SLIVER.'
+  Tsar-Salat:
+  - rscdel: Reverts grayscaled blood and species specific colors for them. They will
+      return at a later date
+2024-08-07:
+  DarnTheMarn:
+  - tweak: Moved the security techfab to the warden office
+  - balance: Security techfab is now inaccessible to security officers and detectives
+  MarkusLarsson421:
+  - bugfix: Fixes cheap lights not burning you
+  mystery3525:
+  - bugfix: A pipe that was on top of another pipe in Fland Xenobio
+  - bugfix: A runtime with helmet of justice
+  - code_imp: Micro optimizes airlock access code with boolean short-circuiting
+  rkz, azarak, TemporalOroboros, Rohesie, Couls, ShizCalev, TastyFish:
+  - rscadd: Adds directional lighting system in 2024!
+  - rscadd: adds directional lighting to cyborg lights, flashlights, and gunlights
+  - refactor: refactors glow effects to be less terrible. Includes ethereal glow,
+      and also the glowy/antiglowy mutation.
+2024-08-08:
+  Pigeonverde322, timothymtorres, TheBonded:
+  - code_imp: Improved nightvision code
+  - tweak: Mobs can no longer read in the dark unless they have some type of night
+      vision.
+  PowerfulBacon:
+  - balance: Replaces PTSDs with service pistols, a less-lethal officer's pistol that
+      fires rounds which burn and disable a target simultaneously. It has 10 shots
+      and is reloaded via a magazine that can be recharged.
+  - bugfix: Fixes weapon rechargers not showing the charge amount of inserted rechargable
+      magazines.
+  SunShine214:
+  - balance: Changed repairing other IPC's to have delay.
+  - bugfix: Fixed repairing an IPC with a welder that is off being possible.
+  kit-katz:
+  - imageadd: changed sprites for tritium, plasma, nitrous oxide, water vapor, nitryl,
+      feron and fire
+  mystery3525:
+  - rscadd: AIs can now change their internal camera capture size with "AI Commands"
+      > "Adjust Camera Zoom"
+  - rscadd: Cyborgs can change their internal camera capture size in the Actions Menu
+      on their internal PDA app
+  rkz, Johnfulpwillard:
+  - code_imp: removes an unused armor flag. Not player-facing
+2024-08-09:
+  PowerfulBacon:
+  - bugfix: Fixes database queries having unnecessary delays, resulting in the player
+      panel taking a long time to open.
+  TsunamiAnt:
+  - tweak: Changed the vox guide around a bit to make sound effects better sorted
+  - soundadd: added a new vox chime to enhance vox announcements
+  - soundadd: added two new vox alarm sounds
+2024-08-10:
+  Rukofamicom:
+  - balance: 'Service pistol has modestly improved stats: 12 shots up from 10, 10%
+      more burn damage, and an extra magazine is now available in all head lockers.'
+  - tweak: Adjusted service pistol magazine sprite to accommodate increased capacity.
+  - tweak: Box of flashbangs has been removed from HoS locker to make room for the
+      extra magazine.
+  'rkz, haukeschuemann, Fikou, RealestEstate/ValkyrieSkies, zxaber, MLGTASTICa, InvalidArguement3, ':
+  - rscadd: clarke mecha. An agile mech that's lavaproof and comes with a built in
+      ore-storage system, but is only above the odysseus in armor rating.
+  - rscadd: PKA equipment for mechs
+  - rscadd: new mecha & figurine toys and sprites
+  - rscdel: Firefighter ripley subtype.
+  - tweak: Mech Firefighter armor moved to the Ripley MKII, Fireproof ability moved
+      to Clarke.
+2024-08-11:
+  Tsar-Salat:
+  - bugfix: fix clarke construction
+2024-08-12:
+  rkz, Fikou, Kapu, Ryll/Shaps, ShizCalev:
+  - rscadd: repair damaged clothes using cloth or its respective medium.
+  - balance: catastrophically damaged clothes will no longer send active sensors.
+  rkz, Ryll/Shaps, KingofKosmos, Ghommie:
+  - rscadd: personalized combat messages. Expect much more "you attack player" than
+      "playername attacks player"
+2024-08-14:
+  PowerfulBacon:
+  - balance: Billy clubs will now deal bonus to damage all structures and machines.
+  - balance: Billy clubs no longer conduct electricity.
+  - balance: Breaching rounds will now deal bonus damage all structures and machines.
+      Increases damage against turfs.
+  - tweak: Added a maximum damage to prevent important structures in defense gamemodes
+      from being killed in a single shot (Space dragons & Clock Cult).
+  - bugfix: Airlocks will no longer shock the target upon being broken due to an unintentional
+      side-effect of using usr.
+  ro5490:
+  - admin: sorted out keypress log clutter
+2024-08-15:
+  Tsar-Salat:
+  - bugfix: you can buckle to stuff from adjacent turfs again
+  - bugfix: adds missing step() hook in cardboard box relaymove. Boxes (and traitor
+      stealth implant boxes) will now move when the player moves.
+  XeonMations:
+  - rscadd: Examining a syndicate bomb now shows a balloon popup with the time remaining
+  - rscadd: Gave fire alarms a toggleable lock. (Requires atmospherics access)
+  - balance: Fire alarms now lock themselves when they detect a fire.
+  rkz:
+  - bugfix: possibly fixes stamina healing
+2024-08-16:
+  Dejaku51:
+  - rscadd: BSA now has a windup with sparks on target location
+  - rscadd: BSA now has integrated battery and is powered with a cable attached to
+      the end of BSA
+  - rscadd: BSA shows amount of charge in quarters on the capacitor part of the BSA
+  - balance: BSA requires 5MW to shoot
+  - soundadd: BSA now makes a sound when winding up and shooting
+  - soundadd: BSA makes a sound on quarters charged with unique one on full charge
+  Sarchutar:
+  - bugfix: ability to close morgues when adjacent without having to click on the
+      tray
+  - bugfix: cyborgs can now close morgues by clicking on the tray
+  Spockye:
+  - bugfix: Remakes the escape pod shuttle
+  - rscadd: Ports Capybaras from Shiptest
+  rkz, Kylerace, LemonInTheDark, Tastyfish, Mat05usz:
+  - code_imp: Adds new subsystem to optimize radio and searching areas
+2024-08-20:
+  ro5490:
+  - rscadd: Added a new Floor Cluwne Smite, and interaction
+  - bugfix: fixed the stalker smite from killing people
+2024-08-21:
+  HowToLoLu:
+  - bugfix: FastDMM2 is usable once again for map editing
+2024-08-22:
+  Dejaku51:
+  - code_imp: Zfall and Elevator controller doesn't init anymore
+  - bugfix: Natural Light Cycle subsystem inits correctly
+  Ivniinvi:
+  - spellcheck: fixed capitalization of cake in uplink
+2024-08-23:
+  PowerfulBacon:
+  - code_imp: Cleans up the code by removing LAssailant from mobs. Attacking something
+      that a slime is feeding on will no longer cause it to become your friend.
+2024-08-24:
+  Patience, [Draggeru](https://github.com/Draggeru):
+  - rscadd: Kimonos, Yukatas, Sandals
+  - imageadd: epic sprites
+  PatienceStPim:
+  - rscadd: Sushi & Seafood crafting tab
+  - rscadd: Seaweed sheets added to biogenerator
+  - imageadd: Sprites for sushi
+  - balance: Uncooked rice is now made from mixing 10 units rice/water in any container,
+      no longer requiring a bowl to do so. Recipes that previously used bowls of rice
+      now need boiled rice and a bowl, instead.
+  Tsar-Salat:
+  - code_imp: adjusts a diseases speech replacement
+  - code_imp: converts zfall sleep() to a timer
+  XeonMations:
+  - bugfix: Fixed changeling antag info panel not showing their objectives.
+2024-08-25:
+  Ghommie, XeonMations:
+  - refactor: Refactored movetypes.
+  - bugfix: Jitteriness, melee attack animations and resting/standing up should no
+      longer momentarily disable the floating movetype
+  HowToLoLu:
+  - bugfix: Eminences no longer attempt to update a non-existent health hud
+  - code_imp: Changed a few stack traces in hud code to crashes for less obfuscated
+      runtimes
+  PowerfulBacon:
+  - rscadd: Adds a dispoal pipe that filters items which haven't been sorted but need
+      to be sorted.
+  - tweak: Tweaks the code of the disposal pipe filtering so that items not entering
+      from the input will not be sorted.
+  Rukofamicom:
+  - tweak: Mechs now fling their occupants in a random direction upon destruction,
+      including when a mech falls down a chasm.
+  - code_imp: Mechs now have an Eject() proc that can be called directly without destroying
+      the mech.
+  - bugfix: Mechs can no longer continue walking around when falling into a chasm
+  - tweak: Mechs no longer put pilots to sleep when breaking, instead stunning the
+      pilot and knocking them down for a time dependant on the type of mech.
+  XeonMations:
+  - bugfix: Fixed an early exit condition for book cases, potentially fixing them
+  rkz, Dennok, rdragan, Ghilker, Mothblocks, Cacogen, ZephyrTFA:
+  - rscadd: adds deconstruction scan to RCDs. Allows you to see roundstart walls.
+  - balance: roundstart walls cost less mats to build
+  - bugfix: RCDs will automatically complete girders instead of building a new wall
+  - bugfix: RCDs will automatically grilles instead of building new grilles
+  - bugfix: fixes Silo link message
+  rkz, kapu:
+  - bugfix: fixes VV bodypart editor
+2024-08-26:
+  XeonMations:
+  - bugfix: Fixed a few mobs having floating animations.
+  - bugfix: Ghosts can no longer become stuck in the orbit animation.
+2024-08-27:
+  XeonMations:
+  - bugfix: Ghosts can now orbit the same person another ghost is orbiting.
+2024-08-28:
+  ClownMoff:
+  - rscadd: Adds the Dromedaire Co cigarettes to the vendor
+  XeonMations:
+  - bugfix: Fixed simplemobs being able to interact with machinery via CTRL, ALT clicks.
+2024-08-29:
+  Dejaku51:
+  - rscadd: thermal mechanics for tcomms
+  - bugfix: thermal mechanics for RnD servers
+  - bugfix: upgrading RnD servers
+  - tweak: upgrading RnD servers now makes it use less power and produce less heat
+  Rukofamicom:
+  - bugfix: Gibtonite flashes again, so miners can better time the deactivation of
+      it with a scanner.
+2024-08-30:
+  XeonMations:
+  - bugfix: Fixed revenants being able to fall down z levels
+  - bugfix: Certain FLYING checks now also check for FLOATING movetypes.
+2024-08-31:
+  PowerfulBacon:
+  - bugfix: Fixes some mapping issues with RuntimeStation
