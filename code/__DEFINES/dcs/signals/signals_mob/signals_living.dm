@@ -31,6 +31,9 @@
 #define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
 /// Called when a living mob has its resting updated: (resting_state)
 #define COMSIG_LIVING_RESTING_UPDATED "resting_updated"
+///from base of mob/living/gib(): (no_brain, no_organs, no_bodyparts)
+///Note that it is fired regardless of whether the mob was dead beforehand or not.
+#define COMSIG_LIVING_GIBBED "living_gibbed"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
