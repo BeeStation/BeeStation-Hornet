@@ -1,8 +1,0 @@
-author: therealdoooc213, Kryonism, Tastyfish
-delete-after: true
-changes:
-  - refactor: Dogs are now basic mobs.
-  - code_imp: Adds framework for future basic mob pets
-  - refactor: Syndicate sentience potions now use the simple_access component
-  - bugfix: basic mobs can now have sentience potions and mind transferance potions
-      used on them
