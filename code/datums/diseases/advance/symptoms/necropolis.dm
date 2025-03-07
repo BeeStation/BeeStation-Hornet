@@ -119,7 +119,7 @@
 		to_chat(M, span_danger("Your soul is ripped from your body!"))
 		M.visible_message(span_danger("An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest."))
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
-		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gib)), 0.5 SECONDS)	//we can't gib mob while it's already dying
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, gib)), 0.5 SECONDS)	//we can't gib mob while it's already dying
 		if(!ishuman(M) || HAS_TRAIT(M, TRAIT_NONECRODISEASE)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
 			return
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
