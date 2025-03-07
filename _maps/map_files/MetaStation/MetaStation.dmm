@@ -26843,18 +26843,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
-"fhP" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/suit_storage_unit/medical,
-/turf/open/floor/iron,
-/area/medical/storage)
 "fic" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -29970,6 +29958,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"gmj" = (
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/Ian,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "gmp" = (
 /obj/item/radio/intercom{
 	pixel_x = -29
@@ -32402,6 +32402,39 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/ai_monitored/security/armory)
+"hkQ" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table/glass,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/beakers{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/iron,
+/area/medical/storage)
 "hkS" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Departure Lounge"
@@ -33138,6 +33171,19 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"hzE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/suit_storage_unit/industrial/loader,
+/turf/open/floor/iron,
+/area/quartermaster/warehouse)
 "hzF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -38851,6 +38897,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
+"jHy" = (
+/mob/living/basic/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/security/warden)
 "jHE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40770,39 +40824,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron/grid/steel,
-/area/medical/storage)
-"krt" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/table/glass,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/belt/medical,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	name = "First-Aid Supplies";
-	req_access_txt = "5"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/medical/first_aid_kit,
-/obj/item/storage/box/syringes,
-/obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/iron,
 /area/medical/storage)
 "krD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -47539,16 +47560,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
-"mQV" = (
-/mob/living/simple_animal/pet/dog/pug{
-	density = 0;
-	dir = 8
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "mRb" = (
 /obj/structure/bed/dogbed/runtime,
 /mob/living/simple_animal/pet/cat/Runtime,
@@ -49813,14 +49824,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
-"nJM" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
-/obj/structure/bed/dogbed/walter,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/warden)
 "nJY" = (
 /obj/machinery/door/airlock/security{
 	name = "Armory";
@@ -57835,6 +57838,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"qDR" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/suit_storage_unit/medical,
+/turf/open/floor/iron,
+/area/medical/storage)
 "qEw" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -59134,13 +59149,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/disposal)
-"ral" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/smes,
-/turf/open/floor/iron,
-/area/maintenance/solars/port/fore)
 "rao" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -60878,6 +60886,13 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"rMo" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes,
+/turf/open/floor/iron,
+/area/maintenance/solars/port/fore)
 "rMC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -62059,18 +62074,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"sgc" = (
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "sgr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63823,6 +63826,16 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
+"sPk" = (
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "sPB" = (
 /obj/effect/turf_decal/pool{
 	dir = 8
@@ -76372,19 +76385,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
-"xnj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/suit_storage_unit/industrial/loader,
-/turf/open/floor/iron,
-/area/quartermaster/warehouse)
 "xns" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -98433,7 +98433,7 @@ lBQ
 gGF
 awS
 ayl
-xnj
+hzE
 aAM
 aCa
 aDm
@@ -98676,7 +98676,7 @@ bbo
 aee
 qrR
 dhb
-ral
+rMo
 aji
 dnd
 aRG
@@ -100810,7 +100810,7 @@ vNW
 bXK
 pXO
 ndt
-fhP
+qDR
 fIL
 jSs
 xPR
@@ -101579,7 +101579,7 @@ aJo
 vRu
 iKg
 bXK
-krt
+hkQ
 krk
 vHE
 dVa
@@ -104373,7 +104373,7 @@ biX
 mla
 bmt
 bkz
-sgc
+gmj
 bsQ
 bus
 oLS
@@ -106915,7 +106915,7 @@ qtX
 adY
 xgM
 iSo
-nJM
+jHy
 adY
 sbU
 aEN
@@ -113912,7 +113912,7 @@ xId
 cgq
 wto
 vkc
-mQV
+sPk
 uEf
 tVX
 uMx
