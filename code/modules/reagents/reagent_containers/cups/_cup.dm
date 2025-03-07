@@ -174,9 +174,8 @@
 /obj/item/reagent_containers/cup/beaker/throw_impact(mob/living/target, mob/thrower)
 	SplashReagents(target, TRUE, override_spillable = TRUE)
 	if(isGlass)
-		for(var/i = 0; i < 2; i++)
-			var/obj/item/shard/B = new(loc)
-			target.Bumped(B)
+		var/obj/item/shard/B = new(loc)
+		target.Bumped(B)
 		playsound(loc, "shatter", 100, 1)
 		qdel(src)
 	else
