@@ -145,16 +145,15 @@
 		var/mob/living/buckled_mob = m
 		var/list/offsets = get_offsets(passindex)
 		buckled_mob.setDir(dir)
-		dir_loop:
-			for(var/offsetdir in offsets)
-				if(offsetdir == AM_dir)
-					var/list/diroffsets = offsets[offsetdir]
-					buckled_mob.pixel_x = diroffsets[1]
-					if(diroffsets.len >= 2)
-						buckled_mob.pixel_y = diroffsets[2]
-					if(diroffsets.len == 3)
-						buckled_mob.layer = diroffsets[3]
-					break dir_loop
+		for(var/offsetdir in offsets)
+			if(offsetdir == AM_dir)
+				var/list/diroffsets = offsets[offsetdir]
+				buckled_mob.pixel_x = diroffsets[1]
+				if(diroffsets.len >= 2)
+					buckled_mob.pixel_y = diroffsets[2]
+				if(diroffsets.len == 3)
+					buckled_mob.layer = diroffsets[3]
+				break
 	var/list/static/default_vehicle_pixel_offsets = list(TEXT_NORTH = list(0, 0), TEXT_SOUTH = list(0, 0), TEXT_EAST = list(0, 0), TEXT_WEST = list(0, 0))
 	var/px = default_vehicle_pixel_offsets[AM_dir]
 	var/py = default_vehicle_pixel_offsets[AM_dir]
