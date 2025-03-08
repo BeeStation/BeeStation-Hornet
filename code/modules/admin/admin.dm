@@ -33,14 +33,14 @@
 	var/body = "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b>"
-		body += " <A href='?_src_=holder;[HrefToken()];editrights=[(GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add"];key=[M.key]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>"
+		body += " <A href='byond://?_src_=holder;[HrefToken()];editrights=[(GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add"];key=[M.key]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>"
 		if(CONFIG_GET(flag/use_exp_tracking))
-			body += " <A href='?_src_=holder;[HrefToken()];getplaytimewindow=[REF(M)]'>" + M.client.get_exp_living() + "</a>"
+			body += " <A href='byond://?_src_=holder;[HrefToken()];getplaytimewindow=[REF(M)]'>" + M.client.get_exp_living() + "</a>"
 
 	if(isnewplayer(M))
 		body += " <B>Hasn't Entered Game</B>"
 	else
-		body += " <A href='?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
+		body += " <A href='byond://?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
 
 	if(M.client)
 		body += "<br><br><b>First Seen:</b> [M.client.player_join_date]<br><b>Byond account registered on:</b> [M.client.account_join_date]"
@@ -52,25 +52,25 @@
 
 		body += "<br><br><b>CentCom Galactic Ban DB: </b> "
 		if(CONFIG_GET(string/centcom_ban_db))
-			body += "<a href='?_src_=holder;[HrefToken()];centcomlookup=[M.client.ckey]'>Search</a>"
+			body += "<a href='byond://?_src_=holder;[HrefToken()];centcomlookup=[M.client.ckey]'>Search</a>"
 		else
 			body += "<i>Disabled</i>"
 		body += "<br><br><b>Show related accounts by:</b> "
-		body += "<a href='?_src_=holder;[HrefToken()];showrelatedacc=cid;client=[REF(M.client)]'>CID</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];showrelatedacc=ip;client=[REF(M.client)]'>IP</a>"
+		body += "<a href='byond://?_src_=holder;[HrefToken()];showrelatedacc=cid;client=[REF(M.client)]'>CID</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];showrelatedacc=ip;client=[REF(M.client)]'>IP</a>"
 		var/rep = 0
 		rep += SSpersistence.antag_rep[M.ckey]
 		body += "<br><br><b>Antag Rep:</b> [rep] "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=add;mob=[REF(M)]'>+</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=subtract;mob=[REF(M)]'>-</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=set;mob=[REF(M)]'>=</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=zero;mob=[REF(M)]'>0</a>"
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=add;mob=[REF(M)]'>+</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=subtract;mob=[REF(M)]'>-</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=set;mob=[REF(M)]'>=</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=zero;mob=[REF(M)]'>0</a>"
 		var/antag_tokens = M.client.get_antag_token_count_db()
 		body += "<br><b>Antag Tokens</b>: [antag_tokens] "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=add;mob=[REF(M)]'>+</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "
-		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=zero;mob=[REF(M)]'>0</a>"
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=add;mob=[REF(M)]'>+</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=zero;mob=[REF(M)]'>0</a>"
 		body += "<br><b>[CONFIG_GET(string/metacurrency_name)]s</b>: [M.client.get_metabalance_async()] "
 		var/full_version = "Unknown"
 		if(M.client.byond_version)
@@ -79,57 +79,57 @@
 
 
 	body += "<br>"
-	body += "<a href='?_src_=vars;[HrefToken()];Vars=[REF(M)]'>VV</a> "
+	body += "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(M)]'>VV</a> "
 	if(M.mind)
-		body += "<a href='?_src_=holder;[HrefToken()];traitor=[REF(M)]'>TP</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];traitor=[REF(M)]'>TP</a> "
 	else
-		body += "<a href='?_src_=holder;[HrefToken()];initmind=[REF(M)]'>Init Mind</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];initmind=[REF(M)]'>Init Mind</a> "
 	if (iscyborg(M))
-		body += "<a href='?_src_=holder;[HrefToken()];borgpanel=[REF(M)]'>BP</a> "
-	body += "<a href='?priv_msg=[M.ckey]'>PM</a> "
-	body += "<a href='?_src_=holder;[HrefToken()];subtlemessage=[REF(M)]'>SM</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];borgpanel=[REF(M)]'>BP</a> "
+	body += "<a href='byond://?priv_msg=[M.ckey]'>PM</a> "
+	body += "<a href='byond://?_src_=holder;[HrefToken()];subtlemessage=[REF(M)]'>SM</a> "
 	if (ishuman(M) && M.mind)
-		body += "<a href='?_src_=holder;[HrefToken()];HeadsetMessage=[REF(M)]'>HM</a> "
-	body += "<a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a> "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];HeadsetMessage=[REF(M)]'>HM</a> "
+	body += "<a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a> "
 	//Default to client logs if available
 	var/source = LOGSRC_MOB
 	if(M.ckey)
 		source = LOGSRC_CKEY
-	body += "<a href='?_src_=holder;[HrefToken()];individuallog=[REF(M)];log_src=[source]'>LOGS</a><br>"
+	body += "<a href='byond://?_src_=holder;[HrefToken()];individuallog=[REF(M)];log_src=[source]'>LOGS</a><br>"
 
 	body += "<br><b>Mob Type:</b> [M.type]<br><br>"
 
-	body += "<A href='?_src_=holder;[HrefToken()];boot2=[REF(M)]'>Kick</A> "
+	body += "<A href='byond://?_src_=holder;[HrefToken()];boot2=[REF(M)]'>Kick</A> "
 	if(M.client)
-		body += "<A href='?_src_=holder;[HrefToken()];newbankey=[M.key];newbanip=[M.client.address];newbancid=[M.client.computer_id]'>Ban</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];newbankey=[M.key];newbanip=[M.client.address];newbancid=[M.client.computer_id]'>Ban</A> "
 	else
-		body += "<A href='?_src_=holder;[HrefToken()];newbankey=[M.key]'>Ban</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];newbankey=[M.key]'>Ban</A> "
 
-	body += "<A href='?_src_=holder;[HrefToken()];showmessageckey=[M.ckey]'>Notes</A>"
+	body += "<A href='byond://?_src_=holder;[HrefToken()];showmessageckey=[M.ckey]'>Notes</A>"
 	if(isliving(M))
-		body += " <A href='?_src_=holder;[HrefToken()];force_cryo=[REF(M)]'>Force Cryo</A> "
+		body += " <A href='byond://?_src_=holder;[HrefToken()];force_cryo=[REF(M)]'>Force Cryo</A> "
 	if(M.client)
-		body += " <A href='?_src_=holder;[HrefToken()];sendtoprison=[REF(M)]'>Prison</A> "
-		body += " <A href='?_src_=holder;[HrefToken()];sendbacktolobby=[REF(M)]'>Send to Lobby</A>"
+		body += " <A href='byond://?_src_=holder;[HrefToken()];sendtoprison=[REF(M)]'>Prison</A> "
+		body += " <A href='byond://?_src_=holder;[HrefToken()];sendbacktolobby=[REF(M)]'>Send to Lobby</A>"
 		var/muted = M.client.prefs.muted
 		body += "<br><br><b>Mute: </b> "
-		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_IC]' [(muted & MUTE_IC)?"style='font-weight: bold'":""]>IC</a> "
-		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_OOC]' [(muted & MUTE_OOC)?"style='font-weight: bold'":""]>OOC</a> "
-		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_PRAY]' [(muted & MUTE_PRAY)?"style='font-weight: bold'":""]>PRAY</a> "
-		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_ADMINHELP]' [(muted & MUTE_ADMINHELP)?"style='font-weight: bold'":""]>ADMINHELP</a> "
-		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_MHELP]' [(muted & MUTE_MHELP)?"style='font-weight: bold'":""]>MHELP</a> "
-		body += "<A href='?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_DEADCHAT]' [(muted & MUTE_DEADCHAT)?"style='font-weight: bold'":""]>DEADCHAT</a> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_IC]' [(muted & MUTE_IC)?"style='font-weight: bold'":""]>IC</a> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_OOC]' [(muted & MUTE_OOC)?"style='font-weight: bold'":""]>OOC</a> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_PRAY]' [(muted & MUTE_PRAY)?"style='font-weight: bold'":""]>PRAY</a> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_ADMINHELP]' [(muted & MUTE_ADMINHELP)?"style='font-weight: bold'":""]>ADMINHELP</a> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_MHELP]' [(muted & MUTE_MHELP)?"style='font-weight: bold'":""]>MHELP</a> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_DEADCHAT]' [(muted & MUTE_DEADCHAT)?"style='font-weight: bold'":""]>DEADCHAT</a> "
 
 	body += "<br><br>"
-	body += "<A href='?_src_=holder;[HrefToken()];jumpto=[REF(M)]'>Jump to</A> "
-	body += "<A href='?_src_=holder;[HrefToken()];getmob=[REF(M)]'>Get</A> "
-	body += "<A href='?_src_=holder;[HrefToken()];sendmob=[REF(M)]'>Send To</A>"
+	body += "<A href='byond://?_src_=holder;[HrefToken()];jumpto=[REF(M)]'>Jump to</A> "
+	body += "<A href='byond://?_src_=holder;[HrefToken()];getmob=[REF(M)]'>Get</A> "
+	body += "<A href='byond://?_src_=holder;[HrefToken()];sendmob=[REF(M)]'>Send To</A>"
 
 	body += "<br><br>"
-	body += "<A href='?_src_=holder;[HrefToken()];traitor=[REF(M)]'>Traitor Panel</A> "
-	body += "<A href='?_src_=holder;[HrefToken()];narrateto=[REF(M)]'>Narrate To</A> "
-	body += "<A href='?_src_=holder;[HrefToken()];subtlemessage=[REF(M)]'>Subtle Message</A> "
-	body += "<A href='?_src_=holder;[HrefToken()];languagemenu=[REF(M)]'>Language Menu</A>"
+	body += "<A href='byond://?_src_=holder;[HrefToken()];traitor=[REF(M)]'>Traitor Panel</A> "
+	body += "<A href='byond://?_src_=holder;[HrefToken()];narrateto=[REF(M)]'>Narrate To</A> "
+	body += "<A href='byond://?_src_=holder;[HrefToken()];subtlemessage=[REF(M)]'>Subtle Message</A> "
+	body += "<A href='byond://?_src_=holder;[HrefToken()];languagemenu=[REF(M)]'>Language Menu</A>"
 
 	if (M.client)
 		if(!isnewplayer(M))
@@ -141,70 +141,70 @@
 			if(ishuman(M))
 				body += "<B>Human</B> "
 			else
-				body += "<A href='?_src_=holder;[HrefToken()];humanone=[REF(M)]'>Humanize</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];humanone=[REF(M)]'>Humanize</A> "
 
 			//Monkey
 			if(ismonkey(M))
 				body += "<B>Monkeyized</B> "
 			else
-				body += "<A href='?_src_=holder;[HrefToken()];monkeyone=[REF(M)]'>Monkeyize</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];monkeyone=[REF(M)]'>Monkeyize</A> "
 
 			//Corgi
 			if(iscorgi(M))
 				body += "<B>Corgized</B> "
 			else
-				body += "<A href='?_src_=holder;[HrefToken()];corgione=[REF(M)]'>Corgize</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];corgione=[REF(M)]'>Corgize</A> "
 
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
-				body += "<A href='?_src_=holder;[HrefToken()];makeai=[REF(M)]'>Make AI</A> "
-				body += "<A href='?_src_=holder;[HrefToken()];makepai=[REF(M)]'>Make PAI</A> "
-				body += "<A href='?_src_=holder;[HrefToken()];makerobot=[REF(M)]'>Make Robot</A> "
-				body += "<A href='?_src_=holder;[HrefToken()];makealien=[REF(M)]'>Make Alien</A> "
-				body += "<A href='?_src_=holder;[HrefToken()];makeslime=[REF(M)]'>Make Slime</A> "
-				body += "<A href='?_src_=holder;[HrefToken()];makeblob=[REF(M)]'>Make Blob</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makeai=[REF(M)]'>Make AI</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makepai=[REF(M)]'>Make PAI</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makerobot=[REF(M)]'>Make Robot</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makealien=[REF(M)]'>Make Alien</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makeslime=[REF(M)]'>Make Slime</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makeblob=[REF(M)]'>Make Blob</A> "
 
 			if(istype(M, /mob/living/simple_animal/cluwne))
 				body += "<B>Is a Cluwne</B> "
 			else if(ishuman(M))
-				body += "<A href='?_src_=holder;[HrefToken()];makecluwne=[REF(M)]'>Make Cluwne</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makecluwne=[REF(M)]'>Make Cluwne</A> "
 
 			//Simple Animals
 			if(isanimal(M))
-				body += "<A href='?_src_=holder;[HrefToken()];makeanimal=[REF(M)]'>Re-Animalize</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makeanimal=[REF(M)]'>Re-Animalize</A> "
 			else
-				body += "<A href='?_src_=holder;[HrefToken()];makeanimal=[REF(M)]'>Animalize</A> "
+				body += "<A href='byond://?_src_=holder;[HrefToken()];makeanimal=[REF(M)]'>Animalize</A> "
 
 			body += "<br><br>"
 			body += "<b>Rudimentary transformation:</b><font size=2><br>These transformations only create a new mob type and copy stuff over. The buttons in 'Transformations' are preferred, when possible.</font><br>"
 
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=observer;mob=[REF(M)]'>Observer</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=human;mob=[REF(M)]'>Human</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=monkey;mob=[REF(M)]'>Monkey</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=robot;mob=[REF(M)]'>Cyborg</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=cat;mob=[REF(M)]'>Cat</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=runtime;mob=[REF(M)]'>Runtime</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=corgi;mob=[REF(M)]'>Corgi</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=ian;mob=[REF(M)]'>Ian</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=crab;mob=[REF(M)]'>Crab</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=coffee;mob=[REF(M)]'>Coffee</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=shade;mob=[REF(M)]'>Shade</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=observer;mob=[REF(M)]'>Observer</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=human;mob=[REF(M)]'>Human</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=monkey;mob=[REF(M)]'>Monkey</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=robot;mob=[REF(M)]'>Cyborg</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=cat;mob=[REF(M)]'>Cat</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=runtime;mob=[REF(M)]'>Runtime</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=corgi;mob=[REF(M)]'>Corgi</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=ian;mob=[REF(M)]'>Ian</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=crab;mob=[REF(M)]'>Crab</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=coffee;mob=[REF(M)]'>Coffee</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=shade;mob=[REF(M)]'>Shade</A> "
 
-			body += "<br><b>Slime:</b> <A href='?_src_=holder;[HrefToken()];simplemake=slime;mob=[REF(M)]'>Baby</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=adultslime;mob=[REF(M)]'>Adult</A> "
+			body += "<br><b>Slime:</b> <A href='byond://?_src_=holder;[HrefToken()];simplemake=slime;mob=[REF(M)]'>Baby</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=adultslime;mob=[REF(M)]'>Adult</A> "
 
-			body += "<br><b>Alien:</b> <A href='?_src_=holder;[HrefToken()];simplemake=drone;mob=[REF(M)]'>Drone</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=hunter;mob=[REF(M)]'>Hunter</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=sentinel;mob=[REF(M)]'>Sentinel</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=praetorian;mob=[REF(M)]'>Praetorian</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=queen;mob=[REF(M)]'>Queen</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=larva;mob=[REF(M)]'>Larva</A> "
+			body += "<br><b>Alien:</b> <A href='byond://?_src_=holder;[HrefToken()];simplemake=drone;mob=[REF(M)]'>Drone</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=hunter;mob=[REF(M)]'>Hunter</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=sentinel;mob=[REF(M)]'>Sentinel</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=praetorian;mob=[REF(M)]'>Praetorian</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=queen;mob=[REF(M)]'>Queen</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=larva;mob=[REF(M)]'>Larva</A> "
 
-			body += "<br><b>Construct:</b> <A href='?_src_=holder;[HrefToken()];simplemake=constructarmored;mob=[REF(M)]'>Juggernaut</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=constructbuilder;mob=[REF(M)]'>Artificer</A> "
-			body += "<A href='?_src_=holder;[HrefToken()];simplemake=constructwraith;mob=[REF(M)]'>Wraith</A> "
+			body += "<br><b>Construct:</b> <A href='byond://?_src_=holder;[HrefToken()];simplemake=constructarmored;mob=[REF(M)]'>Juggernaut</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=constructbuilder;mob=[REF(M)]'>Artificer</A> "
+			body += "<A href='byond://?_src_=holder;[HrefToken()];simplemake=constructwraith;mob=[REF(M)]'>Wraith</A> "
 
 			body += "<br>"
 
@@ -212,11 +212,11 @@
 		body += "<br><br>"
 		body += "<b>Other actions:</b>"
 		body += "<br>"
-		body += "<A href='?_src_=holder;[HrefToken()];forcespeech=[REF(M)]'>Forcesay</A> "
-		body += "<A href='?_src_=holder;[HrefToken()];tdome1=[REF(M)]'>Thunderdome 1</A> "
-		body += "<A href='?_src_=holder;[HrefToken()];tdome2=[REF(M)]'>Thunderdome 2</A> "
-		body += "<A href='?_src_=holder;[HrefToken()];tdomeadmin=[REF(M)]'>Thunderdome Admin</A> "
-		body += "<A href='?_src_=holder;[HrefToken()];tdomeobserve=[REF(M)]'>Thunderdome Observer</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];forcespeech=[REF(M)]'>Forcesay</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];tdome1=[REF(M)]'>Thunderdome 1</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];tdome2=[REF(M)]'>Thunderdome 2</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];tdomeadmin=[REF(M)]'>Thunderdome Admin</A> "
+		body += "<A href='byond://?_src_=holder;[HrefToken()];tdomeobserve=[REF(M)]'>Thunderdome Observer</A> "
 
 	body += "<br></body>"
 
@@ -233,39 +233,39 @@
 
 	var/dat = {"
 		<center><B>Game Panel</B></center><hr>\n
-		<A href='?src=[REF(src)];[HrefToken()];c_mode=1'>Change Game Mode</A><br>
+		<A href='byond://?src=[REF(src)];[HrefToken()];c_mode=1'>Change Game Mode</A><br>
 		"}
 	if(GLOB.master_mode == "secret")
-		dat += "<A href='?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
+		dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
-			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
 			if (GLOB.dynamic_forced_roundstart_ruleset.len > 0)
 				for(var/datum/dynamic_ruleset/roundstart/rule in GLOB.dynamic_forced_roundstart_ruleset)
-					dat += {"<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_remove=[FAST_REF(rule)]'>-> [rule.name] <-</A><br>"}
-				dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_clear=1'>(Clear Rulesets)</A><br>"
-			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_options=1'>(Dynamic mode options)</A><br>"
+					dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_remove=[FAST_REF(rule)]'>-> [rule.name] <-</A><br>"}
+				dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_clear=1'>(Clear Rulesets)</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_options=1'>(Dynamic mode options)</A><br>"
 		else if (SSticker.IsRoundInProgress())
-			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_latejoin=1'>(Force Next Latejoin Ruleset)</A><br>"
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_latejoin=1'>(Force Next Latejoin Ruleset)</A><br>"
 			if (SSticker && SSticker.mode && istype(SSticker.mode,/datum/game_mode/dynamic))
 				var/datum/game_mode/dynamic/mode = SSticker.mode
 				if (mode.forced_latejoin_rule)
-					dat += {"<A href='?src=[REF(src)];[HrefToken()];f_dynamic_latejoin_clear=1'>-> [mode.forced_latejoin_rule.name] <-</A><br>"}
-			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_midround=1'>(Execute Midround Ruleset!)</A><br>"
+					dat += {"<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_latejoin_clear=1'>-> [mode.forced_latejoin_rule.name] <-</A><br>"}
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_midround=1'>(Execute Midround Ruleset!)</A><br>"
 		dat += "<hr/>"
 	if(SSticker.IsRoundInProgress())
-		dat += "<a href='?src=[REF(src)];[HrefToken()];gamemode_panel=1'>(Game Mode Panel)</a><BR>"
+		dat += "<a href='byond://?src=[REF(src)];[HrefToken()];gamemode_panel=1'>(Game Mode Panel)</a><BR>"
 
 	dat += {"
 		<BR>
-		<A href='?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
-		<A href='?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
-		<A href='?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
-		<A href='?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
+		<A href='byond://?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
+		<A href='byond://?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
+		<A href='byond://?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
+		<A href='byond://?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
 		"}
 
 	if(marked_datum && istype(marked_datum, /atom))
-		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
+		dat += "<A href='byond://?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
 
 	usr << browse(dat, "window=admin2;size=210x200")
 	return
@@ -334,17 +334,17 @@
 		<h3>Common options</h3>
 		<i>All these options can be changed midround.</i> <br/>
 		<br/>
-		<b>Force extended:</b> - Option is <a href='?src=[REF(src)];[HrefToken()];f_dynamic_force_extended=1'> <b>[GLOB.dynamic_forced_extended ? "ON" : "OFF"]</a></b>.
+		<b>Force extended:</b> - Option is <a href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_force_extended=1'> <b>[GLOB.dynamic_forced_extended ? "ON" : "OFF"]</a></b>.
 		<br/>This will force the round to be extended. No rulesets will be drafted. <br/>
 		<br/>
-		<b>No stacking:</b> - Option is <a href='?src=[REF(src)];[HrefToken()];f_dynamic_no_stacking=1'> <b>[GLOB.dynamic_no_stacking ? "ON" : "OFF"]</b></a>.
+		<b>No stacking:</b> - Option is <a href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_no_stacking=1'> <b>[GLOB.dynamic_no_stacking ? "ON" : "OFF"]</b></a>.
 		<br/>Unless the threat goes above [GLOB.dynamic_stacking_limit], only one "round-ender" ruleset will be drafted. <br/>
 		<br/>
-		<b>Forced threat level:</b> Current value : <a href='?src=[REF(src)];[HrefToken()];f_dynamic_forced_threat=1'><b>[GLOB.dynamic_forced_threat_level]</b></a>.
+		<b>Forced threat level:</b> Current value : <a href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_forced_threat=1'><b>[GLOB.dynamic_forced_threat_level]</b></a>.
 		<br/>The value threat is set to if it is higher than -1.<br/>
 		<br/>
 		<br/>
-		<b>Stacking threeshold:</b> Current value : <a href='?src=[REF(src)];[HrefToken()];f_dynamic_stacking_limit=1'><b>[GLOB.dynamic_stacking_limit]</b></a>.
+		<b>Stacking threeshold:</b> Current value : <a href='byond://?src=[REF(src)];[HrefToken()];f_dynamic_stacking_limit=1'><b>[GLOB.dynamic_stacking_limit]</b></a>.
 		<br/>The threshold at which "round-ender" rulesets will stack. A value higher than 100 ensure this never happens. <br/>
 		"}
 
@@ -684,15 +684,15 @@
 		dat += "</td>"
 		dat += "<td>"
 		if(job.total_positions >= 0)
-			dat += "<A href='?src=[REF(src)];[HrefToken()];customjobslot=[job.title]'>Custom</A> | "
-			dat += "<A href='?src=[REF(src)];[HrefToken()];addjobslot=[job.title]'>Add 1</A> | "
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];customjobslot=[job.title]'>Custom</A> | "
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];addjobslot=[job.title]'>Add 1</A> | "
 			if(job.total_positions > job.current_positions)
-				dat += "<A href='?src=[REF(src)];[HrefToken()];removejobslot=[job.title]'>Remove</A> | "
+				dat += "<A href='byond://?src=[REF(src)];[HrefToken()];removejobslot=[job.title]'>Remove</A> | "
 			else
 				dat += "Remove | "
-			dat += "<A href='?src=[REF(src)];[HrefToken()];unlimitjobslot=[job.title]'>Unlimit</A></td>"
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];unlimitjobslot=[job.title]'>Unlimit</A></td>"
 		else
-			dat += "<A href='?src=[REF(src)];[HrefToken()];limitjobslot=[job.title]'>Limit</A></td>"
+			dat += "<A href='byond://?src=[REF(src)];[HrefToken()];limitjobslot=[job.title]'>Limit</A></td>"
 
 	browser.height = min(100 + count * 20, 650)
 	browser.set_content(dat.Join())
