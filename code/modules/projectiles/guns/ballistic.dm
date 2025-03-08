@@ -64,8 +64,6 @@
 	var/rack_delay = 5
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
-	//Whether our gun has emissive overlays
-	var/emissive_features = FALSE
 
 /obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
@@ -130,9 +128,6 @@
 			add_overlay("[icon_state]_mag_empty")
 	else
 		add_overlay("[icon_state]_mag")
-		if (emissive_features)
-			emissive_appearance(icon, "[icon_state]_mag_mask", layer = src.layer, alpha = 80)
-			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 		var/capacity_number = 0
 		switch(get_ammo() / magazine.max_ammo)
 			if(0.2 to 0.39)
