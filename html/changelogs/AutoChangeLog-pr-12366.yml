@@ -1,4 +1,0 @@
-author: itsmeow, JohnFulpWillard, S34NW
-delete-after: true
-changes:
-  - code_imp: HREFs will now use byond:// links, improving 516 compatibility
