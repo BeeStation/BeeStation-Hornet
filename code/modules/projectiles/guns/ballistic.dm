@@ -3,6 +3,8 @@
 	name = "projectile gun"
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_LARGE
+	pickup_sound = 'sound/items/handling/gun/gun_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 
 	//sound info vars
 	var/load_sound = "gun_insert_full_magazine"
