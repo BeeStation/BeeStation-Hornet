@@ -130,7 +130,6 @@
 	fire_rate = 4
 	can_suppress = FALSE
 	worn_icon_state = null
-	emissive_features = TRUE
 
 // ==================================
 // Officer's Pistol
