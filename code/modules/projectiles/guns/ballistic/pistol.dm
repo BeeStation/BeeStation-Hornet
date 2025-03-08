@@ -131,6 +131,13 @@
 	can_suppress = FALSE
 	worn_icon_state = null
 
+/obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 10)
+
 // ==================================
 // Officer's Pistol
 // ==================================
