@@ -168,7 +168,7 @@
 	if(owner.is_blind())
 		return TRUE
 	for(var/mob/living/M in oview(7, owner))
-		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
+		if(istype(M, /mob/living/simple_animal/pet) || istype(M, /mob/living/basic/pet) || M.ckey)
 			return FALSE
 	return TRUE
 

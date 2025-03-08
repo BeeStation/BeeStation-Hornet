@@ -122,7 +122,7 @@
 	color = "#ecca7f"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
+	var/mob/living/basic/pet/dog/corgi/new_corgi
 
 /datum/reagent/corgium/on_mob_metabolize(mob/living/L)
 	. = ..()
@@ -2298,7 +2298,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	glass_name = "glass of ants"
 	glass_desc = "Bottoms up...?"
 	/// How much damage the ants are going to be doing (rises with each tick the ants are in someone's body)
-	var/ant_damage = 0
+	var/ant_damage = 0 // Not actual damage, only way to check how long they were inside
 	/// Tells the debuff how many ants we are being covered with.
 	var/amount_left = 0
 	/// List of possible common statements to scream when eating ants
