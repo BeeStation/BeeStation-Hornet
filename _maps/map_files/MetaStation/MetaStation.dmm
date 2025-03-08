@@ -1549,7 +1549,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/closet/radiation,
+/obj/machinery/shower{
+	name = "emergency shower";
+	pixel_y = 7
+	},
 /turf/open/floor/iron,
 /area/engine/engineering)
 "aok" = (
@@ -2507,16 +2510,13 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/obj/machinery/shower{
-	dir = 8;
-	name = "emergency shower"
-	},
 /obj/structure/sign/warning/securearea{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/closet/radiation,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "axY" = (
@@ -9706,7 +9706,6 @@
 /area/bridge)
 "bqX" = (
 /obj/structure/table/wood,
-/obj/item/stamp/captain,
 /obj/machinery/computer/security/wooden_tv,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -20612,7 +20611,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "dcK" = (
-/mob/living/basic/pet/dog/pug{
+/mob/living/simple_animal/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -21612,6 +21611,13 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
 "djk" = (
@@ -36189,7 +36195,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
 "iCR" = (
-/mob/living/basic/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -49541,17 +49547,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"nDW" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
-	},
-/turf/open/floor/plating,
-/area/security/checkpoint/medical)
 "nFp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -72191,6 +72186,13 @@
 	icon_state = "plant-21"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
 "vMd" = (
@@ -74105,7 +74107,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -79501,6 +79503,16 @@
 /area/crew_quarters/heads/captain/private)
 "yld" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "Isolation Shutters"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
 "yle" = (
@@ -104668,7 +104680,7 @@ tyH
 cga
 rAK
 rdQ
-nDW
+wNG
 iBa
 rdQ
 rdQ
