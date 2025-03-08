@@ -1,0 +1,10 @@
+author: rkz, Ryll/Shaps, necromanceranne, Rohesie, silicons, Timberpoes, TaeruAlethea,
+  bobbahbrown, Ghommie
+delete-after: true
+changes:
+  - refactor: refactored riding onto a centralized element/component system.
+  - bugfix: Mobs without MOBILITY_MOVE can no longer move by users trying to ride
+      them around.
+  - bugfix: riders will now turn with their vehicle (notable piggybacking fix)
+  - tweak: ridden vehicles now check incapacitation traits instead of number of hands
+  - tweak: ridden vehicles now pass the same stuff as tables
