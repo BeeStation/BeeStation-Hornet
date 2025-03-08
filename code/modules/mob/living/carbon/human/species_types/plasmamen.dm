@@ -52,8 +52,8 @@
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment)
-			if(environment.total_moles())
+		if(environment?.total_moles())
+			if(!HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
 				if(GET_MOLES(/datum/gas/oxygen, environment) >= 1) //Same threshold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)

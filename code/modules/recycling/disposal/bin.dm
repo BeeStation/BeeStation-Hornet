@@ -235,7 +235,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		AM.forceMove(get_turf(src))
 	..()
 
-/obj/machinery/disposal/get_dumping_location(obj/item/storage/source,mob/user)
+/obj/machinery/disposal/get_dumping_location()
 	return src
 
 //How disposal handles getting a storage dump from a storage object

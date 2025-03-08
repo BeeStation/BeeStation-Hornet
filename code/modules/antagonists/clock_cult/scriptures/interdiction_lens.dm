@@ -100,18 +100,17 @@
 	return TRUE
 
 //Dampening field
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
+/datum/proximity_monitor/advanced/projectile_dampener/clockwork
 
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/projectile/P, track_projectile = TRUE)
-	if(P in tracked)
+/datum/proximity_monitor/advanced/projectile_dampener/clockwork/capture_projectile(obj/projectile/projectile)
+	if(projectile in tracked)
 		return
-	if(isliving(P.firer))
-		if(is_servant_of_ratvar(P.firer))
+	if(isliving(projectile.firer))
+		if(is_servant_of_ratvar(projectile.firer))
 			return
-	projector.dampen_projectile(P, track_projectile)
-	if(track_projectile)
-		tracked += P
+	SEND_SIGNAL(src, COMSIG_DAMPENER_CAPTURE, projectile)
+	tracked += projectile
 
 /obj/item/borg/projectile_dampen/clockcult
 	name = "internal clockcult projectile dampener"

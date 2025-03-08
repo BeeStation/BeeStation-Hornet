@@ -23,8 +23,6 @@
 
 	var/moduleselect_icon = "nomod"
 
-	var/can_be_pushed = TRUE
-	var/magpulsing = FALSE
 	var/clean_on_move = FALSE
 
 	var/did_feedback = FALSE
@@ -36,6 +34,11 @@
 	var/ride_allow_incapacitated = TRUE
 	var/allow_riding = TRUE
 	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
+
+	/**
+	* List of traits that will be applied to the mob if this module is used.
+	*/
+	var/list/module_traits = null
 
 /obj/item/robot_module/Initialize(mapload)
 	. = ..()
@@ -296,7 +299,7 @@
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "medical"
 	moduleselect_icon = "medical"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_module/medical/be_transformed_to(obj/item/robot_module/old_module)
@@ -356,7 +359,6 @@
 		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
-	magpulsing = TRUE
 	hat_offset = -4
 
 /obj/item/robot_module/deathsquad
@@ -376,7 +378,7 @@
 	ratvar_modules = list(/obj/item/clock_module/abscond)
 	cyborg_base_icon = "centcom"
 	moduleselect_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 
@@ -399,7 +401,7 @@
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "sec"
 	moduleselect_icon = "security"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_module/security/do_transform_animation()
@@ -440,7 +442,7 @@
 		/obj/item/clock_module/sigil_submission)
 	cyborg_base_icon = "peace"
 	moduleselect_icon = "standard"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = -2
 
 /obj/item/robot_module/peacekeeper/do_transform_animation()
@@ -668,7 +670,7 @@
 		/obj/item/pinpointer/syndicate_cyborg)
 	cyborg_base_icon = "synd_sec"
 	moduleselect_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_module/syndicate/rebuild_modules()
@@ -707,7 +709,7 @@
 		/obj/item/organ_storage)
 	cyborg_base_icon = "synd_medical"
 	moduleselect_icon = "malf"
-	can_be_pushed = FALSE
+	module_traits = list(TRAIT_PUSHIMMUNE)
 	hat_offset = 3
 
 /obj/item/robot_module/saboteur
@@ -739,8 +741,7 @@
 		)
 	cyborg_base_icon = "synd_engi"
 	moduleselect_icon = "malf"
-	can_be_pushed = FALSE
-	magpulsing = TRUE
+	module_traits = list(TRAIT_PUSHIMMUNE, TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 	canDispose = TRUE
 

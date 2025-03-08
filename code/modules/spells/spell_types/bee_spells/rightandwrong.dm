@@ -71,7 +71,6 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/scrying,
 	/obj/item/voodoo,
 	/obj/item/warpwhistle,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword))
 
@@ -88,7 +87,6 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/antag_spawner/contract,
 	/obj/item/blood_contract,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/gun/magic,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword,
