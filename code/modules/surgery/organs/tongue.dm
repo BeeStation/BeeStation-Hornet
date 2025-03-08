@@ -299,8 +299,8 @@
 
 /obj/item/organ/tongue/robot/emp_act(severity)
 	owner.emote("scream")
-	owner.apply_status_effect(STATUS_EFFECT_SPANISH)
-	owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+	owner.apply_status_effect(/datum/status_effect/spanish)
+	owner.apply_status_effect(/datum/status_effect/ipc/emp)
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT

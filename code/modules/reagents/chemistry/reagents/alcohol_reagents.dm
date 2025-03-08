@@ -736,7 +736,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/manly_dorf/on_mob_metabolize(mob/living/M)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || (C.has_dna() && C.dna.check_mutation(DWARFISM)))
+		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || (C.has_dna() && C.dna.check_mutation(/datum/mutation/dwarfism)))
 			to_chat(C, span_notice("Now THAT is MANLY!"))
 			boozepwr = 5 //We've had worse in the mines
 			dorf_mode = TRUE

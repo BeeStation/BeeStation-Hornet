@@ -57,7 +57,7 @@
 			if(icon_state == "honk1" || icon_state == "honk2")
 				var/mob/living/carbon/C = H
 				if(C.has_dna())
-					C.dna.add_mutation(CLOWNMUT)
+					C.dna.add_mutation(/datum/mutation/clumsy)
 				C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 			src.update_icon()
 			return
@@ -116,7 +116,7 @@
 		if(choice == "Clown Bible" || choice == "Banana Bible")
 			var/mob/living/carbon/C = M
 			if(C.has_dna())
-				C.dna.add_mutation(CLOWNMUT)
+				C.dna.add_mutation(/datum/mutation/clumsy)
 			C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 		to_chat(M, "[src] is now skinned as '[choice].'")
 		src.update_icon()
