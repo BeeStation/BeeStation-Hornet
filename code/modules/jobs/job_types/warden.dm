@@ -55,9 +55,9 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	l_pocket = /obj/item/clothing/accessory/badge/officer
 	r_pocket = /obj/item/modular_computer/tablet/pda/warden
-		backpack_contents = list(
-		/obj/item/ammo_box/magazine/recharge/security=1)
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/recharge/security=1,)
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
