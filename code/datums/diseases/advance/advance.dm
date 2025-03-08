@@ -116,28 +116,33 @@
 		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
-/datum/disease/advance/stage_act()
+/datum/disease/advance/stage_act(delta_time, times_fired)
 	if(dormant)
 		return
-	..()
-	if(carrier)
+	. = ..()
+	if(!.)
 		return
 
-	if(symptoms?.len)
+	if(!length(symptoms))
+		return
 
-		if(!processing)
-			processing = TRUE
-			for(var/datum/symptom/S in symptoms)
-				S.Start(src)
+	if(!processing)
+		processing = TRUE
+		for(var/s in symptoms)
+			var/datum/symptom/symptom_datum = s
+			if(symptom_datum.Start(src)) //this will return FALSE if the symptom is neutered
+				symptom_datum.next_activation = world.time + rand(symptom_datum.symptom_delay_min SECONDS, symptom_datum.symptom_delay_max SECONDS)
+			symptom_datum.on_stage_change(src)
 
-		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
+	for(var/s in symptoms)
+		var/datum/symptom/symptom_datum = s
+		symptom_datum.Activate(src)
 
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
 	..()
 	for(var/datum/symptom/S as() in symptoms)
-		S.on_stage_change(new_stage, src)
+		S.on_stage_change(src)
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
@@ -239,6 +244,10 @@
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
 	GenerateProperties()
 	AssignProperties()
+	if(processing && symptoms && symptoms.len)
+		for(var/datum/symptom/S in symptoms)
+			S.Start(src)
+			S.on_stage_change(src)
 	if(!keepid)
 		id = null
 	var/the_id = GetDiseaseID()
@@ -296,8 +305,8 @@
 
 	SetSpread()
 	spreading_modifier = max(CEILING(0.4 * transmission, 1), 1)
-	cure_chance = 15 - clamp(resistance, -5, 5) // can be between 10 and 20
-	stage_prob = max(stage_rate, 2)
+	cure_chance = clamp(7.5 - (0.5 * resistance), 5, 10) // can be between 5 and 10
+	stage_prob = max(stage_rate, 1)
 	SetDanger(severity)
 	GenerateCure()
 	symptoms = sort_list(symptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
