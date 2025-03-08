@@ -13,12 +13,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engine_room)
-"aag" = (
-/obj/structure/bed/dogbed/ian,
-/obj/machinery/camera/directional/north,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "aah" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp/green{
@@ -3173,6 +3167,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"aOr" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "aOL" = (
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
 /obj/effect/turf_decal/tile/green{
@@ -3520,25 +3520,6 @@
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningdock)
-"aRY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table,
-/obj/item/toy/plush/flushed,
-/obj/item/wrench{
-	pixel_y = -1;
-	pixel_x = 10
-	},
-/obj/item/clothing/head/collectable/hardhat{
-	pixel_x = 1;
-	pixel_y = 6
-	},
-/turf/open/floor/iron/dark,
-/area/engine/gravity_generator)
 "aSc" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 10
@@ -5100,6 +5081,12 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
+"bre" = (
+/obj/structure/bed/dogbed/ian,
+/obj/machinery/camera/directional/north,
+/mob/living/basic/pet/dog/corgi/Ian,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/hop)
 "brm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -5647,12 +5634,6 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
-"bCg" = (
-/mob/living/simple_animal/pet/dog/bullterrier{
-	name = "Mr. Licks"
-	},
-/turf/open/floor/grass,
-/area/hallway/primary/starboard)
 "bCh" = (
 /obj/machinery/vending/tool,
 /obj/effect/turf_decal/stripes/line,
@@ -8382,15 +8363,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"cxu" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/engine/gravity_generator)
 "cxv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10717,6 +10689,16 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"doP" = (
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "doY" = (
 /obj/machinery/door/window/southleft{
 	name = "Cloning Shower"
@@ -18344,19 +18326,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
-"fRC" = (
-/obj/machinery/power/terminal{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
-/area/engine/gravity_generator)
 "fRG" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 4
@@ -34882,19 +34851,6 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"lpA" = (
-/obj/machinery/requests_console{
-	department = "Warden's Office";
-	departmentType = 5;
-	pixel_y = 32
-	},
-/obj/structure/bed/dogbed/walter,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
-/turf/open/floor/iron/dark,
-/area/security/warden)
 "lpO" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -34980,6 +34936,13 @@
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"lrk" = (
+/mob/living/basic/pet/dog/corgi/cardigan{
+	name = "His Highness Sir Nose Boops II"
+	},
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/hallway/primary/starboard)
 "lrx" = (
 /turf/open/floor/circuit/red,
 /area/hallway/secondary/entry)
@@ -38246,6 +38209,12 @@
 /obj/machinery/holopad,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
+"msd" = (
+/mob/living/basic/pet/dog/bullterrier{
+	name = "Mr. Licks"
+	},
+/turf/open/floor/grass,
+/area/hallway/primary/starboard)
 "msl" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
@@ -38822,6 +38791,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engine_smes)
+"mzX" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "mzY" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/effect/turf_decal/tile/neutral,
@@ -39382,6 +39361,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"mIP" = (
+/mob/living/basic/pet/dog/corgi{
+	name = "Dr. Cute Paws"
+	},
+/turf/open/floor/grass,
+/area/hallway/primary/starboard)
 "mJa" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/table/reinforced,
@@ -39760,13 +39745,6 @@
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/relay)
-"mOd" = (
-/mob/living/simple_animal/pet/dog/corgi/cardigan{
-	name = "His Highness Sir Nose Boops II"
-	},
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/open/floor/grass,
-/area/hallway/primary/starboard)
 "mOl" = (
 /obj/effect/turf_decal/caution/red{
 	dir = 1;
@@ -40390,6 +40368,19 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/maintenance/port)
+"naj" = (
+/obj/machinery/requests_console{
+	department = "Warden's Office";
+	departmentType = 5;
+	pixel_y = 32
+	},
+/obj/structure/bed/dogbed/walter,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/mob/living/basic/pet/dog/bullterrier/walter,
+/turf/open/floor/iron/dark,
+/area/security/warden)
 "nal" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -45618,6 +45609,12 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/bar)
+"oNM" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "oNO" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/table,
@@ -46761,12 +46758,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
-"plB" = (
-/mob/living/simple_animal/pet/dog/corgi{
-	name = "Dr. Cute Paws"
-	},
-/turf/open/floor/grass,
-/area/hallway/primary/starboard)
 "plC" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
@@ -49456,6 +49447,18 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"qfL" = (
+/obj/structure/table,
+/obj/item/paper/guides/jobs/engi/gravity_gen,
+/obj/item/pen/blue,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "qgj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56163,21 +56166,6 @@
 /obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/iron,
 /area/science/lab)
-"suf" = (
-/obj/structure/table,
-/obj/item/paper/guides/jobs/engi/gravity_gen,
-/obj/item/pen/blue,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/engine/gravity_generator)
 "suh" = (
 /obj/machinery/light_switch{
 	pixel_x = -25;
@@ -63774,16 +63762,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/storage)
-"uWI" = (
-/mob/living/simple_animal/pet/dog/pug{
-	density = 0;
-	dir = 8
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "uWQ" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "CloningDoor";
@@ -68575,6 +68553,28 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"wCq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/item/toy/plush/flushed,
+/obj/item/wrench{
+	pixel_y = -1;
+	pixel_x = 10
+	},
+/obj/item/clothing/head/collectable/hardhat{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "wCt" = (
 /obj/structure/rack,
 /obj/item/clothing/neck/petcollar,
@@ -71785,12 +71785,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"xFL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/engine/gravity_generator)
 "xGc" = (
 /obj/structure/table/reinforced,
 /obj/item/multitool,
@@ -73448,6 +73442,15 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"ygl" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/gravity_generator)
 "ygu" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -89075,8 +89078,8 @@ vgb
 iRz
 klq
 wKA
-suf
-aRY
+qfL
+wCq
 feu
 vgb
 anT
@@ -89331,9 +89334,9 @@ bdz
 vgb
 mwc
 aeZ
+mzX
 mOK
-fRC
-mOK
+ygl
 wxY
 vgb
 anT
@@ -89589,8 +89592,8 @@ myH
 lfd
 klP
 vYG
-cxu
-xFL
+oNM
+aOr
 kUy
 vgb
 anT
@@ -101933,7 +101936,7 @@ kIy
 lWn
 dLw
 nDQ
-uWI
+doP
 vlH
 fkM
 eEH
@@ -108849,7 +108852,7 @@ seE
 jsO
 xUk
 uGg
-aag
+bre
 xzd
 vtM
 xvC
@@ -112707,7 +112710,7 @@ goO
 jId
 kTG
 tTo
-lpA
+naj
 dgh
 vvd
 njs
@@ -113501,8 +113504,8 @@ adc
 bqa
 ogz
 uKT
-mOd
-plB
+lrk
+mIP
 nVF
 fqj
 lWw
@@ -113759,7 +113762,7 @@ fLo
 fLo
 uKT
 kpg
-bCg
+msd
 otU
 fqj
 xRS
