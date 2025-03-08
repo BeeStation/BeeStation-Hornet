@@ -145,3 +145,11 @@
 
 /datum/movespeed_modifier/visible_hunger/hungry
 	multiplicative_slowdown = 0.2
+
+/datum/movespeed_modifier/jetpack
+	id = MOVESPEED_ID_JETPACK
+	variable = TRUE
+
+/datum/movespeed_modifier/cyber_thrusters
+	id = MOVESPEED_ID_CYBER_THRUSTER
+	variable = TRUE
