@@ -9690,6 +9690,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "cWY" = (
@@ -36645,6 +36648,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "lXI" = (
+/obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "lXO" = (
@@ -46386,6 +46390,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/sign/chalkboard_menu{
+	pixel_y = 32
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "plf" = (
@@ -50234,6 +50241,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "qwV" = (
@@ -51340,6 +51348,9 @@
 "qQJ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
@@ -62347,10 +62358,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"uAx" = (
-/obj/structure/sign/chalkboard_menu,
-/turf/closed/wall,
-/area/vacant_room/commissary/commissary1)
 "uAy" = (
 /obj/machinery/telecomms/server/presets/exploration,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -70978,6 +70985,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
@@ -106413,7 +106423,7 @@ pkM
 suP
 phh
 rYj
-uAx
+gUL
 pla
 mwW
 lXI

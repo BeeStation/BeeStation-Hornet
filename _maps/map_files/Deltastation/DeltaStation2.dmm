@@ -51392,6 +51392,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/medical/central)
 "kAf" = (
@@ -59115,6 +59118,9 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/tile_breaker,
+/obj/structure/sign/chalkboard_menu{
+	pixel_y = 32
+	},
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "mZU" = (
@@ -78667,10 +78673,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/security/brig)
-"tch" = (
-/obj/structure/sign/chalkboard_menu,
-/turf/closed/wall,
-/area/vacant_room/commissary/commissary1)
 "tcl" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -140262,7 +140264,7 @@ kWK
 tAK
 laZ
 yeK
-tch
+fFN
 mZS
 wAb
 wAb

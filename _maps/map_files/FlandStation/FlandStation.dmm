@@ -7236,6 +7236,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"bQG" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "bQH" = (
 /obj/structure/window/reinforced,
 /obj/machinery/light{
@@ -12582,6 +12591,9 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/vacant_room/commissary/commissary1)
 "dnT" = (
@@ -13360,6 +13372,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "commissaryshutters3"
 	},
+/obj/structure/sign/chalkboard_menu{
+	pixel_y = 32
+	},
 /turf/open/floor/grass/no_border,
 /area/vacant_room/commissary/commissary1)
 "dzW" = (
@@ -13652,6 +13667,11 @@
 /obj/item/coffee_cartridge/fancy{
 	pixel_y = 6;
 	pixel_x = 7
+	},
+/obj/machinery/button/door{
+	id = "commissaryshutters3";
+	name = "Commissary Shutters Control #3";
+	pixel_x = 32
 	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
@@ -18840,6 +18860,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/suit/apron/chef,
 /obj/item/clothing/head/soft/green,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
 "eUd" = (
@@ -34452,6 +34475,7 @@
 /area/hallway/primary/aft)
 "iLe" = (
 /obj/effect/turf_decal/siding/wood,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/wood,
 /area/vacant_room/commissary/commissary1)
 "iLg" = (
@@ -43951,6 +43975,9 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/research)
 "lez" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
 "leS" = (
@@ -47103,6 +47130,9 @@
 "lUA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
@@ -53644,6 +53674,14 @@
 /obj/effect/turf_decal/guideline/guideline_mid_alt/purple,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"nGV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/dark,
+/area/vacant_room/commissary/commissary1)
 "nGX" = (
 /obj/structure/sign/departments/minsky/engineering/telecommmunications,
 /turf/closed/wall/r_wall,
@@ -53778,6 +53816,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
+"nHQ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/vacant_room/commissary/commissary1)
 "nHR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -82524,10 +82571,6 @@
 /obj/structure/filingcabinet/filingcabinet,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
-"vbg" = (
-/obj/structure/sign/chalkboard_menu,
-/turf/closed/wall,
-/area/vacant_room/commissary/commissary1)
 "vbi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -83594,11 +83637,6 @@
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "vmK" = (
-/obj/machinery/button/door{
-	id = "commissaryshutters3";
-	name = "Commissary Shutters Control #3";
-	pixel_x = 32
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "commissaryshutters3"
 	},
@@ -94435,6 +94473,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary1)
@@ -136852,7 +136893,7 @@ uAb
 xdd
 xzx
 xzx
-vbg
+viG
 dzI
 vnU
 viG
@@ -138399,8 +138440,8 @@ qNl
 gLv
 dMo
 xEX
-dMo
-dMo
+nHQ
+nGV
 sEz
 eHR
 eHR
@@ -138913,7 +138954,7 @@ ajC
 viG
 cwT
 eTS
-lez
+spY
 dAh
 viG
 cKW
@@ -139684,7 +139725,7 @@ vaj
 jDh
 rwP
 pGQ
-sBZ
+bQG
 sBZ
 sJl
 uLk
