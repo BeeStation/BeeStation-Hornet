@@ -360,15 +360,15 @@
 					/obj/item/clothing/head/helmet/sec)
 	crate_name = "armor crate"
 
-/datum/supply_pack/security/disabler
-	name = "Disabler Crate"
-	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
+/datum/supply_pack/security/lp12
+	name = "LP-12 Crate"
+	desc = "Three stamina-draining LP-12 pistols. Requires Security access to open."
 	cost = 1500
 	max_supply = 2
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
-	crate_name = "disabler crate"
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security)
+	crate_name = "LP-12 crate"
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"

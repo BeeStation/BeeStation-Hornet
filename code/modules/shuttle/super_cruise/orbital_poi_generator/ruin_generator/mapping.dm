@@ -151,7 +151,7 @@
 /obj/effect/spawner/lootdrop/ruinloot/armory
 	loot = list(
 		"" = 30,
-		/obj/item/gun/energy/disabler = 5,
+		/obj/item/gun/ballistic/automatic/pistol/security = 5,
 		/obj/item/gun/energy/e_gun = 2,
 		/obj/item/gun/energy/laser = 3,
 		/obj/item/gun/ballistic/automatic/pistol/m1911/no_mag = 4,
