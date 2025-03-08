@@ -128,11 +128,11 @@
 
 		if (!magazine.ammo_count())
 			add_overlay("[icon_state]_mag_empty")
+	else
+		add_overlay("[icon_state]_mag")
 		if (emissive_features)
 			emissive_appearance(icon, "[icon_state]_mag_mask", layer = src.layer, alpha = 80)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-	else
-		add_overlay("[icon_state]_mag")
 		var/capacity_number = 0
 		switch(get_ammo() / magazine.max_ammo)
 			if(0.2 to 0.39)
