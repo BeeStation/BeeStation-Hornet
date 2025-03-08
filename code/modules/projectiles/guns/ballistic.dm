@@ -65,7 +65,7 @@
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
 	//Whether our gun has emissive overlays
-	var/emissive_features
+	var/emissive_features = FALSE
 
 /obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
