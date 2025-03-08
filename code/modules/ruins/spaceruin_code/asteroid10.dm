@@ -11,14 +11,14 @@
 		/datum/reagent/corgium = 10
 	)
 
-/mob/living/simple_animal/pet/dog/corgi/chef/Initialize(mapload)
+/mob/living/basic/pet/dog/corgi/chef/Initialize(mapload)
 	..()
 	var/obj/item/clothing/head/utility/chefhat/hat = new (src)
 	inventory_head = hat
 	update_corgi_fluff()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/seccie/Initialize(mapload)
+/mob/living/basic/pet/dog/corgi/seccie/Initialize(mapload)
 	..()
 	var/obj/item/clothing/head/helmet/hat = new (src)
 	inventory_head = hat

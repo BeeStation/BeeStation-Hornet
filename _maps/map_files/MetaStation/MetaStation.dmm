@@ -20602,6 +20602,16 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"dcK" = (
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "ddb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -36261,6 +36271,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
+"iCR" = (
+/mob/living/basic/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/security/warden)
 "iCT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47684,16 +47702,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
-"mQV" = (
-/mob/living/simple_animal/pet/dog/pug{
-	density = 0;
-	dir = 8
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "mRb" = (
 /obj/structure/bed/dogbed/runtime,
 /mob/living/simple_animal/pet/cat/Runtime,
@@ -49958,14 +49966,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
-"nJM" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
-/obj/structure/bed/dogbed/walter,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/security/warden)
 "nJY" = (
 /obj/machinery/door/airlock/security{
 	name = "Armory";
@@ -60959,6 +60959,13 @@
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/hydroponics)
+"rKF" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes,
+/turf/open/floor/iron,
+/area/maintenance/solars/port/fore)
 "rKN" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -61024,13 +61031,6 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
-"rMo" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/smes,
-/turf/open/floor/iron,
-/area/maintenance/solars/port/fore)
 "rMC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -62222,18 +62222,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
-"sgc" = (
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "sgr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -74301,6 +74289,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"wzc" = (
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/Ian,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "wzA" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -98863,7 +98863,7 @@ bbo
 aee
 qrR
 dhb
-rMo
+rKF
 aji
 dnd
 aRG
@@ -104560,7 +104560,7 @@ biX
 mla
 bmt
 bkz
-sgc
+wzc
 bsQ
 bus
 oLS
@@ -107102,7 +107102,7 @@ qtX
 adY
 xgM
 iSo
-nJM
+iCR
 adY
 sbU
 aEN
@@ -114099,7 +114099,7 @@ xId
 cgq
 wto
 vkc
-mQV
+dcK
 uEf
 tVX
 uMx
