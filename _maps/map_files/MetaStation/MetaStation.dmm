@@ -20612,7 +20612,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "dcK" = (
-/mob/living/basic/pet/dog/pug{
+/mob/living/simple_animal/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -28169,7 +28169,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
-	req_one_access_txt = "33;69"
+	req_one_access_txt = "33"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -36189,7 +36189,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
 "iCR" = (
-/mob/living/basic/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -41349,7 +41349,7 @@
 	dir = 8;
 	icon_state = "right";
 	name = "Chemistry Desk";
-	req_access_txt = "5; 33"
+	req_access_txt = "33"
 	},
 /obj/item/folder/yellow,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -47771,7 +47771,7 @@
 /obj/machinery/door/window/eastright{
 	dir = 8;
 	name = "Chemistry Desk";
-	req_access_txt = "5; 33"
+	req_access_txt = "33"
 	},
 /obj/item/folder/white{
 	pixel_x = 4;
@@ -47810,7 +47810,7 @@
 	dir = 2;
 	icon_state = "right";
 	name = "Chemistry Desk";
-	req_access_txt = "5; 33"
+	req_access_txt = "33"
 	},
 /obj/item/folder/yellow,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -74105,7 +74105,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
