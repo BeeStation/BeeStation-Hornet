@@ -108,7 +108,6 @@
 /datum/antagonist/rev/head/admin_add(datum/mind/new_owner,mob/admin)
 	give_flash = TRUE
 	give_hud = TRUE
-	remove_clumsy = TRUE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has head-rev'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has head-rev'ed [key_name(new_owner)].")
@@ -134,14 +133,11 @@
 	//This is probably overkill but making these impact state annoys me
 	var/old_give_flash = give_flash
 	var/old_give_hud = give_hud
-	var/old_remove_clumsy = remove_clumsy
 	give_flash = TRUE
 	give_hud = FALSE
-	remove_clumsy = FALSE
 	equip_rev()
 	give_flash = old_give_flash
 	give_hud = old_give_hud
-	remove_clumsy = old_remove_clumsy
 
 /datum/antagonist/rev/head/proc/admin_repair_flash(mob/admin)
 	var/list/L = owner.current.get_contents()
@@ -162,7 +158,6 @@
 	hud_type = "rev_head"
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 4
-	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
 
@@ -247,9 +242,6 @@
 	var/mob/living/carbon/H = owner.current
 	if(!ishuman(H) && !ismonkey(H))
 		return
-
-	if(remove_clumsy)
-		handle_clown_mutation(H, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 
 	if(give_flash)
 		var/obj/item/assembly/flash/handheld/T = new(H)

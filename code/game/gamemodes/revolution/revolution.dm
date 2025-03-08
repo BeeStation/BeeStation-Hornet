@@ -106,7 +106,6 @@
 		var/datum/antagonist/rev/head/new_head = new()
 		new_head.give_flash = TRUE
 		new_head.give_hud = TRUE
-		new_head.remove_clumsy = TRUE
 		rev_mind.add_antag_datum(new_head,revolution)
 		GLOB.pre_setup_antags -= rev_mind
 

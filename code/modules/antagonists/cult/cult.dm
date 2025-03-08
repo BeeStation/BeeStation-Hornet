@@ -75,7 +75,6 @@
 	var/mob/living/carbon/C = owner.current
 	if(!istype(C))
 		return
-	handle_clown_mutation(C, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, C)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, C)

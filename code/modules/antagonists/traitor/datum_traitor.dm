@@ -27,12 +27,6 @@
 	finalize_traitor()
 	..()
 
-/datum/antagonist/traitor/apply_innate_effects()
-	handle_clown_mutation(owner.current, silent ? null : "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-
-/datum/antagonist/traitor/remove_innate_effects()
-	handle_clown_mutation(owner.current, removing=FALSE)
-
 /datum/antagonist/traitor/on_removal()
 	//Remove malf powers.
 	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
