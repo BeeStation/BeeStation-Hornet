@@ -5,9 +5,9 @@
 	if(!owner)
 		return "Unassigned"
 	if(owner.current)
-		return "<a href='?_src_=holder;[HrefToken()];adminplayeropts=[REF(owner.current)]'>[owner.current.real_name]</a> "
+		return "<a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(owner.current)]'>[owner.current.real_name]</a> "
 	else
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(owner)]'>[owner.name]</a> "
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(owner)]'>[owner.name]</a> "
 
 //Whatever interesting things happened to the antag admins should know about
 //Include additional information about antag in this part
@@ -28,12 +28,12 @@
 	if(!owner)
 		return
 	var/list/parts = list()
-	parts += "<a href='?priv_msg=[ckey(owner.key)]'>PM</a>"
+	parts += "<a href='byond://?priv_msg=[ckey(owner.key)]'>PM</a>"
 	if(owner.current) //There's body to follow
-		parts += "<a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(owner.current)]'>FLW</a>"
+		parts += "<a href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(owner.current)]'>FLW</a>"
 	else
 		parts += ""
-	parts += "<a href='?_src_=holder;[HrefToken()];traitor=[REF(owner)]'>Show Objective</a>"
+	parts += "<a href='byond://?_src_=holder;[HrefToken()];traitor=[REF(owner)]'>Show Objective</a>"
 	return parts //Better as one cell or two/three
 
 //Builds table row for the antag
@@ -145,27 +145,27 @@
 	dat += "Round Duration: <B>[time2text(world.timeofday - SSticker.round_start_timeofday, "hh:mm:ss", 0)]</B><BR>"
 	dat += "<B>Emergency shuttle</B><BR>"
 	if(EMERGENCY_IDLE_OR_RECALLED)
-		dat += "<a href='?_src_=holder;[HrefToken()];call_shuttle=1'>Call Shuttle</a><br>"
+		dat += "<a href='byond://?_src_=holder;[HrefToken()];call_shuttle=1'>Call Shuttle</a><br>"
 	else
 		var/timeleft = SSshuttle.emergency.timeLeft()
 		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-			dat += "ETA: <a href='?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_leading(num2text(timeleft % 60), 2, "0")]</a><BR>"
-			dat += "<a href='?_src_=holder;[HrefToken()];call_shuttle=2'>Send Back</a><br>"
+			dat += "ETA: <a href='byond://?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_leading(num2text(timeleft % 60), 2, "0")]</a><BR>"
+			dat += "<a href='byond://?_src_=holder;[HrefToken()];call_shuttle=2'>Send Back</a><br>"
 		else
-			dat += "ETA: <a href='?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_leading(num2text(timeleft % 60), 2, "0")]</a><BR>"
+			dat += "ETA: <a href='byond://?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_leading(num2text(timeleft % 60), 2, "0")]</a><BR>"
 	dat += "<B>Continuous Round Status</B><BR>"
-	dat += "<a href='?_src_=holder;[HrefToken()];toggle_continuous=1'>[CONFIG_GET(keyed_list/continuous)[SSticker.mode.config_tag] ? "Continue if antagonists die" : "End on antagonist death"]</a>"
+	dat += "<a href='byond://?_src_=holder;[HrefToken()];toggle_continuous=1'>[CONFIG_GET(keyed_list/continuous)[SSticker.mode.config_tag] ? "Continue if antagonists die" : "End on antagonist death"]</a>"
 	if(CONFIG_GET(keyed_list/continuous)[SSticker.mode.config_tag])
-		dat += ", <a href='?_src_=holder;[HrefToken()];toggle_midround_antag=1'>[CONFIG_GET(keyed_list/midround_antag)[SSticker.mode.config_tag] ? "creating replacement antagonists" : "not creating new antagonists"]</a><BR>"
+		dat += ", <a href='byond://?_src_=holder;[HrefToken()];toggle_midround_antag=1'>[CONFIG_GET(keyed_list/midround_antag)[SSticker.mode.config_tag] ? "creating replacement antagonists" : "not creating new antagonists"]</a><BR>"
 	else
 		dat += "<BR>"
 	if(CONFIG_GET(keyed_list/midround_antag)[SSticker.mode.config_tag])
-		dat += "Time limit: <a href='?_src_=holder;[HrefToken()];alter_midround_time_limit=1'>[CONFIG_GET(number/midround_antag_time_check)] minutes into round</a><BR>"
-		dat += "Living crew limit: <a href='?_src_=holder;[HrefToken()];alter_midround_life_limit=1'>[CONFIG_GET(number/midround_antag_life_check) * 100]% of crew alive</a><BR>"
-		dat += "If limits past: <a href='?_src_=holder;[HrefToken()];toggle_noncontinuous_behavior=1'>[SSticker.mode.round_ends_with_antag_death ? "End The Round" : "Continue As Extended"]</a><BR>"
-	dat += "<a href='?_src_=holder;[HrefToken()];end_round=[REF(usr)]'>End Round Now</a><br>"
-	dat += "<a href='?_src_=holder;[HrefToken()];delay_round_end=1'>[SSticker.delay_end ? "Undelay Round End" : "Delay Round End"]</a><br>"
-	dat += "<a href='?_src_=holder;[HrefToken()];check_teams=1'>Check Teams</a>"
+		dat += "Time limit: <a href='byond://?_src_=holder;[HrefToken()];alter_midround_time_limit=1'>[CONFIG_GET(number/midround_antag_time_check)] minutes into round</a><BR>"
+		dat += "Living crew limit: <a href='byond://?_src_=holder;[HrefToken()];alter_midround_life_limit=1'>[CONFIG_GET(number/midround_antag_life_check) * 100]% of crew alive</a><BR>"
+		dat += "If limits past: <a href='byond://?_src_=holder;[HrefToken()];toggle_noncontinuous_behavior=1'>[SSticker.mode.round_ends_with_antag_death ? "End The Round" : "Continue As Extended"]</a><BR>"
+	dat += "<a href='byond://?_src_=holder;[HrefToken()];end_round=[REF(usr)]'>End Round Now</a><br>"
+	dat += "<a href='byond://?_src_=holder;[HrefToken()];delay_round_end=1'>[SSticker.delay_end ? "Undelay Round End" : "Delay Round End"]</a><br>"
+	dat += "<a href='byond://?_src_=holder;[HrefToken()];check_teams=1'>Check Teams</a>"
 	var/connected_players = GLOB.clients.len
 	var/lobby_players = 0
 	var/observers = 0
