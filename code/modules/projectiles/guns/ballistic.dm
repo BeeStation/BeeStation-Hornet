@@ -64,6 +64,8 @@
 	var/rack_delay = 5
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
+	//Whether our gun has emissive overlays
+	var/emissive_features
 
 /obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
@@ -116,30 +118,39 @@
 		add_overlay("[icon_state]_suppressor")
 	if(!chambered && empty_indicator)
 		add_overlay("[icon_state]_empty")
-	if (magazine)
-		if (special_mags)
-			if(magazine.multiple_sprites)
-				add_overlay("[icon_state]_mag_[initial(magazine.icon_state)]")
-			else
-				add_overlay("[icon_state]_mag_[magazine.icon_state]")
-			if (!magazine.ammo_count())
-				add_overlay("[icon_state]_mag_empty")
+	if (!magazine)
+		return
+	if (special_mags)
+		if(magazine.multiple_sprites)
+			add_overlay("[icon_state]_mag_[initial(magazine.icon_state)]")
 		else
-			add_overlay("[icon_state]_mag")
-			var/capacity_number = 0
-			switch(get_ammo() / magazine.max_ammo)
-				if(0.2 to 0.39)
-					capacity_number = 20
-				if(0.4 to 0.59)
-					capacity_number = 40
-				if(0.6 to 0.79)
-					capacity_number = 60
-				if(0.8 to 0.99)
-					capacity_number = 80
-				if(1.0)
-					capacity_number = 100
-			if (capacity_number)
-				add_overlay("[icon_state]_mag_[capacity_number]")
+			add_overlay("[icon_state]_mag_[magazine.icon_state]")
+
+		if (!magazine.ammo_count())
+			add_overlay("[icon_state]_mag_empty")
+		if (emissive_features)
+			// No ammo left
+			if(!magazine.ammo_count())
+				emissive_appearance(icon, "[icon_state]_mag_empty", layer = src.layer, alpha = 80)
+			else
+				emissive_appearance(icon, "[icon_state]_mag_[magazine.ammo_count()]", layer = src.layer, alpha = 80)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	else
+		add_overlay("[icon_state]_mag")
+		var/capacity_number = 0
+		switch(get_ammo() / magazine.max_ammo)
+			if(0.2 to 0.39)
+				capacity_number = 20
+			if(0.4 to 0.59)
+				capacity_number = 40
+			if(0.6 to 0.79)
+				capacity_number = 60
+			if(0.8 to 0.99)
+				capacity_number = 80
+			if(1.0)
+				capacity_number = 100
+		if (capacity_number)
+			add_overlay("[icon_state]_mag_[capacity_number]")
 
 
 /obj/item/gun/ballistic/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
