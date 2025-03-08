@@ -129,11 +129,7 @@
 		if (!magazine.ammo_count())
 			add_overlay("[icon_state]_mag_empty")
 		if (emissive_features)
-			// No ammo left
-			if(!magazine.ammo_count())
-				emissive_appearance(icon, "[icon_state]_mag_empty", layer = src.layer, alpha = 80)
-			else
-				emissive_appearance(icon, "[icon_state]_mag_[magazine.ammo_count()]", layer = src.layer, alpha = 80)
+			emissive_appearance(icon, "[icon_state]_mag_mask", layer = src.layer, alpha = 80)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		add_overlay("[icon_state]_mag")
