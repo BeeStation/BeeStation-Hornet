@@ -1390,6 +1390,7 @@
 	description = "A powder that is used for coloring things."
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 207, 54, 0
+	color_intensity = 50
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the back of class"
 
