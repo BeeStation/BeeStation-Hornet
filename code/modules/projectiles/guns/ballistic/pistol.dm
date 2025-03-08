@@ -118,6 +118,19 @@
 		user.dropItemToGround(src)
 
 
+/obj/item/gun/ballistic/automatic/pistol/security
+	name = "LP-12 duty pistol"
+	desc = "The LP-12 is the latest in the line of loss prevention technology. Using rechargable power packs, it can be reloaded on the field by corporate security."
+	icon_state = "security"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/recharge/security
+	can_suppress = FALSE
+	fire_sound = 'sound/weapons/taser2.ogg'
+	casing_ejector = FALSE
+	fire_rate = 4
+	can_suppress = FALSE
+	worn_icon_state = null
+
 // ==================================
 // Officer's Pistol
 // ==================================
