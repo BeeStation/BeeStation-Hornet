@@ -151,7 +151,7 @@
 //////////// CardStation
 
 /obj/item/paper/fluff/stations/cardstation/medbay_blood
-	name = "paper- 'Medbay Storage Closet'"
-	default_raw_text = "<i>Since I'm going to be on vacation leave for the next few cycles,\
-	I just wanted to let you know that other than the blood freezer in the surgery room, there's\
+	name = "Medbay Storage Closet"
+	default_raw_text = "<i>Since I'm going to be on vacation leave for the next few cycles, \
+	I just wanted to let you know that other than the blood freezer in the surgery room, there's \
 	a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><P align=right>-Dr. Antek</p></i>"
