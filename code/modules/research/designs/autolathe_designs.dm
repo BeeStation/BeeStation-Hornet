@@ -1114,7 +1114,7 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 500)
 	build_path = /obj/item/reagent_containers/cup/beaker/potion
-	category = list("hacked", "Medical")
+	category = list("Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/small_potion
@@ -1123,7 +1123,7 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 450)
 	build_path = /obj/item/reagent_containers/cup/beaker/small_potion
-	category = list("hacked", "Medical")
+	category = list("Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/vial
@@ -1132,5 +1132,5 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 400)
 	build_path = /obj/item/reagent_containers/cup/beaker/vial
-	category = list("hacked", "Medical")
+	category = list("Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
