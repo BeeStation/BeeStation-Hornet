@@ -40702,12 +40702,12 @@
 	name = "Disabler Storage";
 	req_one_access_txt = "1;4"
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/structure/rack,
+/obj/effect/loot_jobscale/armoury/lp12,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hbR" = (
@@ -64333,6 +64333,10 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/escape)
+"oJi" = (
+/obj/effect/loot_jobscale/armoury/lp12,
+/turf/open/space/basic,
+/area/space)
 "oJp" = (
 /obj/machinery/chem_master{
 	dir = 4
@@ -98219,7 +98223,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+oJi
 aaa
 aaa
 aaa

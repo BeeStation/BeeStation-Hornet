@@ -20148,7 +20148,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/lp12,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fmD" = (

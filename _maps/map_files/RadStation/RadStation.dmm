@@ -35900,9 +35900,6 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 2
-	},
 /obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = -3;
 	pixel_y = 8
@@ -49156,17 +49153,10 @@
 "pHx" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/loot_jobscale/armoury/lp12,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "pHy" = (

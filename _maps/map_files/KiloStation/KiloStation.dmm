@@ -40860,8 +40860,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/loot_jobscale/armoury/lp12,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/security/armory)
 "lsq" = (

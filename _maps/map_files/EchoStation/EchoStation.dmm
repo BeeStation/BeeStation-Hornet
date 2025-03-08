@@ -31097,14 +31097,7 @@
 "pdd" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
+/obj/effect/loot_jobscale/armoury/lp12,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "pdf" = (
