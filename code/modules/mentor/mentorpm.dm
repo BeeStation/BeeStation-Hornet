@@ -125,7 +125,7 @@
 
 	if(key)
 		if(include_link)
-			. += "<a href='?_src_=mentor;mentor_msg=[ckey];'>"
+			. += "<a href='byond://?_src_=mentor;mentor_msg=[ckey];'>"
 		if(C && C.holder && C.holder.fakekey)
 			. += "Administrator"
 		else

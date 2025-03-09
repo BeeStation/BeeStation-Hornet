@@ -53,7 +53,7 @@
 	playable = TRUE
 	playable_bantype = ban_type
 	if (!key)	//check if there is nobody already inhibiting this mob
-		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()

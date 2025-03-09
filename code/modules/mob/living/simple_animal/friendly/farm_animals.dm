@@ -102,7 +102,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/rabid
 	name = "Rabid Maintenance Pete"
 	faction = list(FACTION_HOSTILE)
-
+			
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
