@@ -121,8 +121,9 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
-	handle_clown_mutation(current_mob, mob_override ? null : "Your clownish nature has been subdued by your thirst for blood.")
+	handle_clown_mutation(current_mob, "Your clownish nature has been subdued by your thirst for blood.")
 
 	create_vampire_team()
 
@@ -503,3 +504,17 @@
 			gourmand_objective.owner = owner
 			gourmand_objective.name = "Optional Objective"
 			objectives += gourmand_objective
+
+/datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+	SIGNAL_HANDLER
+
+	if(!iscarbon(source))
+		return
+
+	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
+	if(IS_VASSAL(examiner) in vassals)
+		text += span_warning("<EM>This is your Master!</EM>")
+		examine_text += text
+	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
+		text += span_warning("<EM>[return_full_name()]</EM>")
+		examine_text += text

@@ -25,6 +25,8 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+
 	current_mob.faction |= FACTION_VAMPIRE
 
 	vampire_team = master.vampire_team
@@ -138,3 +140,15 @@
 	master = vampire
 	new_owner.add_antag_datum(src)
 	to_chat(choice, span_notice("Through divine intervention, you've gained a new vassal!"))
+
+/datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+	SIGNAL_HANDLER
+
+	if(!iscarbon(source))
+		return
+
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(examiner)
+	if(src in vampiredatum?.vassals)
+		examine_text += span_warning("<EM>This is your vassal!</EM>")
+	else if(vampiredatum || IS_CURATOR(examiner) || IS_VASSAL(examiner))
+		examine_text += span_warning("<EM>This is [master.return_full_name()]'s vassal</EM>")
