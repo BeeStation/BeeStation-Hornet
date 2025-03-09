@@ -90,6 +90,8 @@
 	var/lamp_enabled = FALSE
 	///Set lamp color
 	var/lamp_color = COLOR_WHITE
+	///Set to true if a doomsday event is locking our lamp to on and RED
+	var/lamp_doom = FALSE
 	///Lamp brightness. Starts at 3, but can be 1 - 5.
 	var/lamp_intensity = 3
 	///Lamp button reference
@@ -651,9 +653,9 @@
 			eye_lights = new()
 		if(last_flashed && last_flashed + FLASHED_COOLDOWN >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
-		else if(lamp_enabled)
+		else if(lamp_enabled || lamp_doom)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
-			eye_lights.color = lamp_color
+			eye_lights.color = lamp_doom ? COLOR_RED : lamp_color
 			eye_lights.plane = ABOVE_LIGHTING_PLANE //glowy eyes
 		else
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[ratvar ? "_r" : ""]"
