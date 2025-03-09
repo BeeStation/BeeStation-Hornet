@@ -43,17 +43,15 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/mesmerize/CheckValidTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/mesmerize/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
-	return isliving(target_atom)
 
-/datum/action/cooldown/vampire/targeted/mesmerize/CheckCanTarget(atom/target_atom)
-	. = ..()
-	if(!.)
+	// Must be living
+	if(!isliving(target_atom))
 		return FALSE
-	var/mob/living/current_target = target_atom // We already know it's carbon due to CheckValidTarget()
+	var/mob/living/current_target = target_atom
 	// No mind
 	if(!current_target.mind)
 		owner.balloon_alert(owner, "[current_target] is mindless.")
@@ -62,20 +60,16 @@
 	if(IS_VAMPIRE(current_target))
 		owner.balloon_alert(owner, "vampires are immune to [src].")
 		return FALSE
-	// Dead/Unconscious
+	// Is our target alive or unconcious?
 	if(current_target.stat > CONSCIOUS)
 		owner.balloon_alert(owner, "[current_target] is not [(current_target.stat == DEAD || HAS_TRAIT(current_target, TRAIT_FAKEDEATH)) ? "alive" : "conscious"].")
 		return FALSE
-	// Target has eyes?
-	if(!current_target.get_organ_slot(ORGAN_SLOT_EYES) && !issilicon(current_target))
-		owner.balloon_alert(owner, "[current_target] has no eyes.")
-		return FALSE
-	// Target blind?
-	if(current_target.is_blind() && !issilicon(current_target))
+	// Is our target blind?
+	if((!current_target.get_organ_slot(ORGAN_SLOT_EYES) || current_target.is_blind()) && !issilicon(current_target))
 		owner.balloon_alert(owner, "[current_target] is blind.")
 		return FALSE
 	// Facing target?
-	if(!is_source_facing_target(owner, current_target)) // in unsorted.dm
+	if(!is_source_facing_target(owner, current_target))
 		owner.balloon_alert(owner, "you must be facing [current_target].")
 		return FALSE
 	// Target facing me? (On the floor, they're facing everyone)
@@ -83,7 +77,6 @@
 		owner.balloon_alert(owner, "[current_target] must be facing you.")
 		return FALSE
 
-	// Gone through our checks, let's mark our guy.
 	target_ref = WEAKREF(current_target)
 	return TRUE
 
@@ -135,4 +128,8 @@
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
 
 /datum/action/cooldown/vampire/targeted/mesmerize/ContinueActive(mob/living/user, mob/living/target)
-	return ..() && can_use(user) && CheckCanTarget(target)
+	. = ..()
+	if(!can_use(user))
+		return FALSE
+	if(!check_valid_target(target))
+		return FALSE

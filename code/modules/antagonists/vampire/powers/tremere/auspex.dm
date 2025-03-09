@@ -72,11 +72,14 @@
 	bloodcost = 25
 	cooldown_time = 8 SECONDS
 
-/datum/action/cooldown/vampire/targeted/tremere/auspex/CheckValidTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/tremere/auspex/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
-	return isturf(target_atom)
+
+	// Target has to be a tile
+	if(!isturf(target_atom))
+		return FALSE
 
 /datum/action/cooldown/vampire/targeted/tremere/auspex/activate_power()
 	. = ..()

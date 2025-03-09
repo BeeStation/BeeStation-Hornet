@@ -38,24 +38,21 @@
 	return TRUE
 
 /// Check: Are we lunging at a person?
-/datum/action/cooldown/vampire/targeted/lunge/CheckValidTarget(atom/target_atom)
-	. = ..()
-	if(!.)
-		return FALSE
-	return isliving(target_atom)
-
-/datum/action/cooldown/vampire/targeted/lunge/CheckCanTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/lunge/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
 
+	// Has to be alive
+	if(!isliving(target_atom))
+		return FALSE
+	// Has to be on a turf
 	if(!isturf(target_atom.loc))
 		return FALSE
-	// Check: can the Vampire even move?
+	// Has to be mobile
 	var/mob/living/user = owner
 	if(user.body_position == LYING_DOWN || HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
-	return TRUE
 
 /datum/action/cooldown/vampire/targeted/lunge/FireTargetedPower(atom/target_atom)
 	. = ..()
@@ -80,7 +77,7 @@
 		var/y_offset = base_y + rand(-3, 3)
 		animate(pixel_x = x_offset, pixel_y = y_offset, time = 1)
 
-	if(!do_after(owner, 4 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE), extra_checks = CALLBACK(src, PROC_REF(CheckCanTarget), target_atom)))
+	if(!do_after(owner, 4 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE), extra_checks = CALLBACK(src, PROC_REF(check_valid_target), target_atom)))
 		end_target_lunge(base_x, base_y)
 		return FALSE
 

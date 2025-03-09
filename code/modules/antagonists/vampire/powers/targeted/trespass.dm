@@ -20,35 +20,30 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/vampire/targeted/trespass/CheckValidTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/trespass/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
-	// Can't target my tile
-	if(target_atom == get_turf(owner) || get_turf(target_atom) == get_turf(owner))
+
+	// Can't trespass to the same tile we're already on
+	if(target_atom.loc == owner.loc)
 		return FALSE
-	return TRUE // All we care about is destination. Anything you click is fine.
-
-/datum/action/cooldown/vampire/targeted/trespass/CheckCanTarget(atom/target_atom)
-	var/final_turf = isturf(target_atom) ? target_atom : get_turf(target_atom)
-
-	// Are either tiles WALLS?
-	var/turf/from_turf = get_turf(owner)
+	// Check if path is obstructed
+	var/turf/starting_turf = get_turf(owner)
+	var/turf/ending_turf = isturf(target_atom) ? target_atom : get_turf(target_atom)
 	var/this_dir
 	for(var/i = 1 to 2)
 		// Keep Prev Direction if we've reached final turf
-		if(from_turf != final_turf)
-			this_dir = get_dir(from_turf, final_turf) // Recalculate dir so we don't overshoot on a diagonal.
-		from_turf = get_step(from_turf, this_dir)
-		// ERROR! Wall!
-		if(iswallturf(from_turf))
+		if(starting_turf != ending_turf)
+			this_dir = get_dir(starting_turf, ending_turf)
+		starting_turf = get_step(starting_turf, this_dir)
+		// Walls block trespass
+		if(iswallturf(starting_turf))
 			var/wallwarning = (i == 1) ? "in the way" : "at your destination"
 			owner.balloon_alert(owner, "There is a wall [wallwarning].")
 			return FALSE
-	// Done
-	target_turf = from_turf
 
-	return TRUE
+	target_turf = starting_turf
 
 /datum/action/cooldown/vampire/targeted/trespass/FireTargetedPower(atom/target_atom)
 	. = ..()

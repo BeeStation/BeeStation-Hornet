@@ -45,21 +45,19 @@
 	bloodcost = 30
 	cooldown_time = 35 SECONDS
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/CheckValidTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/tremere/dominate/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
-	return isliving(target_atom)
 
-/datum/action/cooldown/vampire/targeted/tremere/dominate/CheckCanTarget(atom/target_atom)
-	. = ..()
-	if(!.)
+	// Has to be alive
+	if(!isliving(target_atom))
 		return FALSE
+	// Has to have a mind
 	var/mob/living/selected_target = target_atom
 	if(!selected_target.mind)
 		owner.balloon_alert(owner, "[selected_target] is mindless.")
 		return FALSE
-	return TRUE
 
 /datum/action/cooldown/vampire/targeted/tremere/dominate/advanced
 	name = "Level 4: Possession"
@@ -91,11 +89,12 @@
 	cooldown_time = 2 MINUTES
 
 // The advanced version
-/datum/action/cooldown/vampire/targeted/tremere/dominate/advanced/CheckCanTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/tremere/dominate/advanced/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
 
+	// Check range
 	var/mob/living/selected_target = target_atom
 	if((IS_VASSAL(selected_target) || selected_target.stat >= SOFT_CRIT) && !owner.Adjacent(selected_target))
 		owner.balloon_alert(owner, "out of range.")

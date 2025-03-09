@@ -40,7 +40,7 @@
 		var/obj/structure/closet/closet = user.loc
 		if(!istype(closet))
 			return FALSE
-		addtimer(CALLBACK(src, PROC_REF(break_closet), user, closet), 1)
+		addtimer(CALLBACK(src, PROC_REF(break_closet), closet), 1)
 		closet.visible_message(
 			span_warning("[closet] tears apart as [user] bashes it open from within!"),
 			span_warning("[closet] tears apart as you bash it open from within!"))
@@ -70,12 +70,11 @@
 	return used
 
 // This is its own proc because its done twice, to repeat code copypaste.
-/datum/action/cooldown/vampire/targeted/brawn/proc/break_closet(mob/living/carbon/human/user, obj/structure/closet/closet)
-	if(closet)
-		closet.welded = FALSE
-		closet.locked = FALSE
-		closet.broken = TRUE
-		closet.open()
+/datum/action/cooldown/vampire/targeted/brawn/proc/break_closet(obj/structure/closet/closet)
+	closet.welded = FALSE
+	closet.locked = FALSE
+	closet.broken = TRUE
+	closet.open()
 
 /datum/action/cooldown/vampire/targeted/brawn/proc/escape_puller()
 	if(!owner.pulledby)
@@ -153,18 +152,17 @@
 			playsound(get_turf(target_airlock), 'sound/effects/bang.ogg', 30, 1, -1)
 			target_airlock.open(2) // open(2) is like a crowbar or jaws of life.
 
-/datum/action/cooldown/vampire/targeted/brawn/CheckValidTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/brawn/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
-		return FALSE
-	return isliving(target_atom) || istype(target_atom, /obj/machinery/door) || istype(target_atom, /obj/structure/closet)
-
-/datum/action/cooldown/vampire/targeted/brawn/CheckCanTarget(atom/target_atom)
-	. = ..()
-	if(!.)
+		to_chat(world, "a")
 		return FALSE
 
-	// Can't be in a locker when targeting someone
+	// Target has to be either: alive, a door, or a closet
+	if(!isliving(target_atom) && !istype(target_atom, /obj/machinery/door) && !istype(target_atom, /obj/structure/closet))
+		to_chat(world, "b")
+		return FALSE
+	// Can't be inside of a closet
 	if(istype(owner.loc, /obj/structure/closet))
+		to_chat(world, "c")
 		return FALSE
-	return isliving(target_atom) || istype(target_atom, /obj/machinery/door) || istype(target_atom, /obj/structure/closet)

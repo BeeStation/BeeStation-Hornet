@@ -39,11 +39,14 @@
 	return TRUE
 
 /// Anything will do, if it's not me or my square
-/datum/action/cooldown/vampire/targeted/haste/CheckValidTarget(atom/target_atom)
+/datum/action/cooldown/vampire/targeted/haste/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
-	return target_atom.loc != owner.loc
+
+	// Can't dash to the same tile we're already on
+	if(target_atom.loc == owner.loc)
+		return FALSE
 
 /// This is a non-async proc to make sure the power is "locked" until this finishes.
 /datum/action/cooldown/vampire/targeted/haste/FireTargetedPower(atom/target_atom)
