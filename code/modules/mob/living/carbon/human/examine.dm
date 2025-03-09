@@ -392,8 +392,8 @@
 				hud_examine += "Detected cybernetic modifications: [english_list(detected_implants)]"
 
 			if(target_record)
-				hud_examine += "Physical status: <a href='byond://?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[physical_status]\]</a>"
-				hud_examine += "Mental status: <a href='byond://?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[mental_status]\]</a>"
+				hud_examine += "Physical status: <a href='byond://?src=[REF(src)];hud=m;physical_status=1;examine_time=[world.time]'>\[[target_record.physical_status]\]</a>"
+				hud_examine += "Mental status: <a href='byond://?src=[REF(src)];hud=m;mental_status=1;examine_time=[world.time]'>\[[target_record.mental_status]\]</a>"
 
 			hud_examine += "<a href='byond://?src=[REF(src)];hud=m;evaluation=1;examine_time=[world.time]'>\[Medical evaluation\]</a><br>"
 
@@ -414,7 +414,7 @@
 			if(ishuman(user))
 				hud_examine += "Criminal status: <a href='byond://?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
 			else
-				hud_examine += "Criminal status: [wanted_status]"
+				hud_examine += "Criminal status: [target_record.wanted_status]"
 
 			hud_examine += "Important Notes: [security_note]"
 			hud_examine += "Security record: <a href='byond://?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
