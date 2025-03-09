@@ -26,6 +26,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
 	// Being Grabbed
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_AGGRESSIVE)
 		user.balloon_alert(user, "you're being grabbed!")

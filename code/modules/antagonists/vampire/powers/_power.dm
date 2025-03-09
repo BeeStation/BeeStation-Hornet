@@ -196,10 +196,11 @@
 	return TRUE
 
 /// Checks to make sure this power can stay active
-/datum/action/cooldown/vampire/proc/ContinueActive(mob/living/user, mob/living/target)
-	if(!constant_bloodcost > 0 || vampiredatum_power.vampire_blood_volume > 0)
-		return TRUE
-	return FALSE
+/datum/action/cooldown/vampire/proc/ContinueActive(mob/living/user)
+	if(vampiredatum_power.vampire_blood_volume < constant_bloodcost)
+		return FALSE
+
+	return TRUE
 
 /// Used to unlearn Single-Use Powers
 /datum/action/cooldown/vampire/proc/remove_after_use()

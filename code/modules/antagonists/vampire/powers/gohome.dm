@@ -55,7 +55,7 @@
 			INVOKE_ASYNC(src, PROC_REF(flicker_lights), 4, 60)
 	teleporting_stage++
 
-/datum/action/cooldown/vampire/gohome/ContinueActive(mob/living/user, mob/living/target)
+/datum/action/cooldown/vampire/gohome/ContinueActive(mob/living/user)
 	if(!..())
 		return FALSE
 	if(!isturf(owner.loc))

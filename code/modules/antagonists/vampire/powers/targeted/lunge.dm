@@ -91,7 +91,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /datum/action/cooldown/vampire/targeted/lunge/process()
-	if(!currently_active) //If running SSfasprocess (on cooldown)
+	if(!power_in_use) //If running SSfasprocess (on cooldown)
 		return ..() //Manage our cooldown timers
 	if(prob(75))
 		owner.spin(8, 1)
@@ -152,5 +152,5 @@
 			target.Paralyze(0.1)
 
 /datum/action/cooldown/vampire/targeted/lunge/deactivate_power()
+	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_VAMPIRE)
-	return ..()

@@ -42,7 +42,7 @@
 
 	animate(owner, alpha = max(25, owner.alpha - min(75, 10 + 5 * level_current)), time = 1.5 SECONDS)
 
-/datum/action/cooldown/vampire/cloak/ContinueActive(mob/living/user, mob/living/target)
+/datum/action/cooldown/vampire/cloak/ContinueActive(mob/living/user)
 	. = ..()
 	if(!.)
 		return FALSE

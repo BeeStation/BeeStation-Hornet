@@ -19,6 +19,7 @@
 /datum/action/cooldown/vampire/targeted/on_activate(mob/user, atom/target)
 	if(currently_active)
 		deactivate_power()
+		start_cooldown()
 		return FALSE
 	if(!can_pay_cost(owner) || !can_use(owner))
 		return FALSE
@@ -31,9 +32,16 @@
 	if(currently_active)
 		set_click_ability(owner)
 
+/datum/action/cooldown/vampire/targeted/activate_power()
+	currently_active = TRUE
+
+	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
+	update_buttons()
+
 /datum/action/cooldown/vampire/targeted/deactivate_power()
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
+
 	currently_active = FALSE
 	update_buttons()
 	unset_click_ability(owner)
@@ -71,6 +79,8 @@
 
 	power_in_use = TRUE
 	FireTargetedPower(target_atom)
+	if(power_flags & BP_AM_TOGGLE)
+		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
 	// Skip this part so we can return TRUE right away.
 	if(power_activates_immediately)
 		power_activated_sucessfully() // Mesmerize pays only after success.
@@ -81,7 +91,6 @@
 
 /// The power went off! We now pay the cost of the power.
 /datum/action/cooldown/vampire/targeted/proc/power_activated_sucessfully()
-	unset_click_ability(owner)
 	pay_cost()
 	start_cooldown()
 	deactivate_power()

@@ -87,16 +87,16 @@
 	var/mob/living/carbon/mesmerized_target = target_ref.resolve()
 
 	if(issilicon(mesmerized_target))
-		var/mob/living/silicon/mesmerized = mesmerized_target
-		mesmerized.emp_act(EMP_HEAVY)
-		owner.balloon_alert(owner, "temporarily shut [mesmerized] down.")
+		var/mob/living/silicon/silicon = mesmerized_target
+		silicon.emp_act(EMP_HEAVY)
+		owner.balloon_alert(owner, "temporarily shut [silicon] down.")
 		power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 		return
 
 	if(istype(mesmerized_target))
-		owner.balloon_alert(owner, "attempting to hypnotically gaze [mesmerized_target]...")
+		owner.balloon_alert(owner, "attempting to hypnotize [mesmerized_target]...")
 
-	if(!do_after(user, 4 SECONDS, mesmerized_target, NONE, TRUE, extra_checks = CALLBACK(src, PROC_REF(ContinueActive), user, mesmerized_target)))
+	if(!do_after(user, 4 SECONDS, mesmerized_target, NONE, TRUE, extra_checks = CALLBACK(src, PROC_REF(ContinueActive), user)))
 		return
 
 	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS
@@ -127,9 +127,11 @@
 	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
 
-/datum/action/cooldown/vampire/targeted/mesmerize/ContinueActive(mob/living/user, mob/living/target)
+/datum/action/cooldown/vampire/targeted/mesmerize/ContinueActive(mob/living/user)
 	. = ..()
 	if(!can_use(user))
 		return FALSE
+
+	var/mob/living/target = target_ref.resolve()
 	if(!check_valid_target(target))
 		return FALSE

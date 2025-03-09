@@ -50,7 +50,7 @@
 		for(var/obj/item/bodypart/part in user.bodyparts)
 			user.add_bleeding(-10)
 
-/datum/action/cooldown/vampire/recuperate/ContinueActive(mob/living/user, mob/living/target)
+/datum/action/cooldown/vampire/recuperate/ContinueActive(mob/living/user)
 	if(user.stat >= DEAD)
 		return FALSE
 	if(user.incapacitated())

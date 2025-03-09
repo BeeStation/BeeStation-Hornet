@@ -155,14 +155,11 @@
 /datum/action/cooldown/vampire/targeted/brawn/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
-		to_chat(world, "a")
 		return FALSE
 
 	// Target has to be either: alive, a door, or a closet
 	if(!isliving(target_atom) && !istype(target_atom, /obj/machinery/door) && !istype(target_atom, /obj/structure/closet))
-		to_chat(world, "b")
 		return FALSE
 	// Can't be inside of a closet
 	if(istype(owner.loc, /obj/structure/closet))
-		to_chat(world, "c")
 		return FALSE
