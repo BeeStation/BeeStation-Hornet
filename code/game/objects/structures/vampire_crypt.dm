@@ -270,6 +270,8 @@
 				return
 
 		balloon_alert(user, "ready for communion!")
+		return
+
 	if(wants_vassilization || !(HAS_TRAIT(target, TRAIT_MINDSHIELD) || length(target.mind.antag_datums)))
 		user.balloon_alert_to_viewers("smears blood...", "paints bloody marks...")
 		if(!do_after(user, 5 SECONDS, target))
