@@ -218,7 +218,6 @@
 	do_handle_death()
 	handling_death = FALSE
 
-/// FINAL DEATH.
 /// Don't call this directly, use handle_death().
 /datum/antagonist/vampire/proc/do_handle_death()
 	if(QDELETED(owner.current) || check_if_staked() || is_in_torpor())

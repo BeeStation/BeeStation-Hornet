@@ -473,14 +473,7 @@
 
 /// Name shown on antag list
 /datum/antagonist/vampire/antag_listing_name()
-	return ..() + "([return_full_name()])"
-
-/// Whatever interesting things happened to the antag admins should know about
-/// Include additional information about antag in this part
-/datum/antagonist/vampire/antag_listing_status()
-	if(owner && !considered_alive(owner))
-		return "<font color=red>Final Death</font>"
-	return ..()
+	return ..() + return_full_name()
 
 /datum/antagonist/vampire/proc/forge_vampire_objectives()
 	// Claim a Lair Objective
@@ -488,7 +481,7 @@
 	lair_objective.owner = owner
 	objectives += lair_objective
 	// Survive Objective
-	var/datum/objective/survive/vampire/survive_objective = new
+	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner
 	objectives += survive_objective
 

@@ -68,13 +68,7 @@
 		return TRUE
 	return FALSE
 
-/// Space_Station_13_areas.dm  <--- all the areas
-
 //////////////////////////////////////////////////////////////////////////////////////
-
-/datum/objective/survive/vampire
-	name = "vampiresurvive"
-	explanation_text = "Survive the entire shift without succumbing to Final Death."
 
 // WIN CONDITIONS?
 // Handled by parent

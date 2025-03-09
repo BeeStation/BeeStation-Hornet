@@ -108,8 +108,6 @@
 #define VAMPIRE_MADE_VASSAL "vampire_made_vassal"
 ///Called when a Vampire exits Torpor.
 #define VAMPIRE_EXIT_TORPOR "vampire_exit_torpor"
-///Whether the Vampire should not be dusted when arriving Final Death
-#define DONT_DUST (1<<0)
 ///Called when a Vampire breaks the Masquerade
 #define COMSIG_VAMPIRE_BROKE_MASQUERADE "comsig_vampire_broke_masquerade"
 ///Called when a Vampire enters Frenzy
