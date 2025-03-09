@@ -46,6 +46,7 @@
 	return TRUE
 
 /datum/action/cooldown/vampire/feed/deactivate_power()
+	. = ..()
 	var/mob/living/user = owner
 	if(target_ref)
 		var/mob/living/feed_target = target_ref.resolve()
@@ -59,15 +60,11 @@
 	blood_taken = 0
 	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, TRAIT_FEED)
 	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_FEED)
-	return ..()
 
 /datum/action/cooldown/vampire/feed/activate_power()
 	var/mob/living/feed_target = target_ref.resolve()
 	if(istype(feed_target, /mob/living/simple_animal/mouse))
 		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))
-		if(vampiredatum_power.my_clan && vampiredatum_power.my_clan.blood_drink_type != VAMPIRE_DRINK_INHUMANELY)
-			var/mob/living/user = owner
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
 		vampiredatum_power.AddBloodVolume(25)
 		deactivate_power()
 		feed_target.death()

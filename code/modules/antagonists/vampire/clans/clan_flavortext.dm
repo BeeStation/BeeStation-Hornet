@@ -6,7 +6,6 @@
 		Full Moons do not seem to have an effect, despite common-told stories. \n\
 		The Favorite Vassal turns into a Werewolf whenever their Master does."
 	joinable_clan = FALSE
-	blood_drink_type = VAMPIRE_DRINK_INHUMANELY
 
 /datum/vampire_clan/gangrel/on_enter_frenzy(datum/antagonist/vampire/source)
 	ADD_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)

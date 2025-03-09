@@ -142,8 +142,6 @@
 #define VAMPIRE_DRINK_NORMAL "vampire_drink_normal"
 ///Drinks blood but is snobby, refusing to drink from mindless
 #define VAMPIRE_DRINK_SNOBBY "vampire_drink_snobby"
-///Drinks blood from disgusting creatures without Humanity consequences.
-#define VAMPIRE_DRINK_INHUMANELY "vampire_drink_imhumanely"
 
 /**
  * Traits

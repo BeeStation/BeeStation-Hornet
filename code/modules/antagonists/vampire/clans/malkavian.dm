@@ -5,7 +5,6 @@
 	join_icon_state = "malkavian"
 	join_description = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, \
 		and are the enforcer of the Masquerade code. You can also travel through Phobetor tears, rifts through spacetime only you can travel through."
-	blood_drink_type = VAMPIRE_DRINK_INHUMANELY
 
 /datum/vampire_clan/malkavian/on_enter_frenzy(datum/antagonist/vampire/source)
 	ADD_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)

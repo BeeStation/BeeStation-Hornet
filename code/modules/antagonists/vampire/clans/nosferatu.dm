@@ -8,7 +8,6 @@
 	join_icon_state = "nosferatu"
 	join_description = "You are permanently disfigured, look like a vampire to all who examine you, \
 		lose your Masquerade ability, but gain the ability to vent-crawl even while clothed."
-	blood_drink_type = VAMPIRE_DRINK_INHUMANELY
 
 /datum/vampire_clan/nosferatu/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
