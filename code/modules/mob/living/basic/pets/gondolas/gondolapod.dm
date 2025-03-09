@@ -68,6 +68,7 @@
 	name = "Deliver"
 	desc = "Open your pod and release any contents stored within."
 	button_icon = 'icons/hud/screen_gen.dmi'
+	icon_icon = 'icons/hud/screen_gen.dmi'
 	button_icon_state = "arrow"
 	check_flags = AB_CHECK_PHASED
 
@@ -88,6 +89,7 @@
 	name = "Check contents"
 	desc = "See how many items you are currently holding in your pod."
 	button_icon = 'icons/obj/implants.dmi'
+	icon_icon = 'icons/obj/implants.dmi'
 	button_icon_state = "storage"
 	check_flags = AB_CHECK_PHASED
 
