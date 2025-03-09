@@ -250,25 +250,12 @@
 	desc = "Metal boots, they look heavy."
 	icon_state = "crusader"
 	w_class = WEIGHT_CLASS_NORMAL
-	armor_type = /datum/armor/shoes_plate
+	armor_type = /datum/armor/security_metal
 	clothing_flags = NOSLIP
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-
-
-
-/datum/armor/shoes_plate
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 40
-	bomb = 60
-	fire = 60
-	acid = 60
-	stamina = 30
-	bleed = 60
 
 /obj/item/clothing/shoes/plate/red
 	icon_state = "crusader-red"

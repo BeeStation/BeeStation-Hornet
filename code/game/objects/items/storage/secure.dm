@@ -230,14 +230,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 
 
 /datum/armor/safe_caps_spare
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 70
-	rad = 100
-	fire = 80
-	acid = 70
+	penetration = 200
+	blunt = 100
+	absorption = 50
+	reflectivity = 100
+	heat = 50
 
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()

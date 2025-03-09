@@ -16,13 +16,8 @@
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
-	armor_type = /datum/armor/item_pitchfork
+	armor_type = /datum/armor/military_metal
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/item_pitchfork
-	fire = 100
-	acid = 30
 
 /obj/item/pitchfork/ComponentInitialize()
 	. = ..()

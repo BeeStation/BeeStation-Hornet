@@ -26,14 +26,9 @@
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
-	armor_type = /datum/armor/restraints_handcuffs
+	armor_type = /datum/armor/civilian_metal
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
-
-
-/datum/armor/restraints_handcuffs
-	fire = 50
-	acid = 50
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
 	if(!istype(C))

@@ -14,7 +14,6 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
-	armor_type = /datum/armor/structure_grille
 	max_integrity = 50
 	integrity_failure = 0.4
 	var/rods_type = /obj/item/stack/rods
@@ -24,15 +23,6 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)
-
-
-/datum/armor/structure_grille
-	melee = 50
-	bullet = 70
-	laser = 70
-	energy = 100
-	bomb = 10
-	rad = 100
 
 /obj/structure/grille/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	. = ..()

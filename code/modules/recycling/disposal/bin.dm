@@ -5,7 +5,6 @@
 /obj/machinery/disposal
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	density = TRUE
-	armor_type = /datum/armor/machinery_disposal
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
@@ -27,16 +26,6 @@
 	// find the attached trunk (if present) and init gas resvr.
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
-
-
-/datum/armor/machinery_disposal
-	melee = 25
-	bullet = 10
-	laser = 10
-	energy = 100
-	rad = 100
-	fire = 90
-	acid = 30
 
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()

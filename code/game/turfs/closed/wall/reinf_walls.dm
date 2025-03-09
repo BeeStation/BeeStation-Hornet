@@ -7,9 +7,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	opacity = TRUE
 	density = TRUE
-	max_integrity = 900
+	max_integrity = 1200
 	damage_deflection = 21
-	armor_type = /datum/armor/r_wall_armor
 
 	var/d_state = INTACT
 	hardness = 10
@@ -21,17 +20,6 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 50 \
 	)
-
-/datum/armor/r_wall_armor
-	melee = 30
-	bullet = 30
-	laser = 20
-	energy = 20
-	bomb = 10
-	bio = 100
-	rad = 100
-	fire = 80
-	acid = 70
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)

@@ -12,7 +12,6 @@
 	pass_flags_self = PASSDOORS
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
-	armor_type = /datum/armor/machinery_door
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
@@ -41,17 +40,6 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
-
-
-/datum/armor/machinery_door
-	melee = 30
-	bullet = 30
-	laser = 20
-	energy = 20
-	bomb = 10
-	rad = 100
-	fire = 80
-	acid = 70
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()

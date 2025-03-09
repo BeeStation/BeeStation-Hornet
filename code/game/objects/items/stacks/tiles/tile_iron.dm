@@ -10,7 +10,7 @@
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/iron
-	armor_type = /datum/armor/tile_iron
+	armor_type = /datum/armor/civilian_metal
 	resistance_flags = FIRE_PROOF
 	matter_amount = 1
 	cost = 125
@@ -66,11 +66,6 @@
 		/obj/item/stack/tile/iron/grimy,
 		/obj/item/stack/tile/iron/sepia,
 	)
-
-
-/datum/armor/tile_iron
-	fire = 100
-	acid = 70
 
 /obj/item/stack/tile/iron/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)

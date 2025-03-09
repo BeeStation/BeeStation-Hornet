@@ -57,7 +57,6 @@
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 0.33
-	armor_type = /datum/armor/machinery_vending
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
@@ -177,12 +176,6 @@
 
 	///Name of lighting mask for the vending machine
 	var/light_mask
-
-
-/datum/armor/machinery_vending
-	melee = 20
-	fire = 50
-	acid = 70
 
 /obj/item/circuitboard
 	///determines if the circuit board originated from a vendor off station or not.

@@ -216,9 +216,4 @@
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	strip_delay = 80
-	armor_type = /datum/armor/krav_maga_combatglovesplus
-
-/datum/armor/krav_maga_combatglovesplus
-	bio = 90
-	fire = 80
-	acid = 50
+	armor_type = /datum/armor/military_padded
