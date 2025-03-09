@@ -1177,7 +1177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 
 /datum/species/golem/durathread/spec_unarmedattack(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
-	target.apply_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+	target.apply_status_effect(/datum/status_effect/strandling)
 
 /datum/species/golem/bone
 	name = "Bone Golem"

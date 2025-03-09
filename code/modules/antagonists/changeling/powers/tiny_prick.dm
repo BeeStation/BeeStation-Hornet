@@ -103,8 +103,8 @@
 	if(istype(C))
 		if(ismonkey(C))
 			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
-		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION)
-		C.apply_status_effect(STATUS_EFFECT_LING_TRANSFORMATION, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
+		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(/datum/status_effect/ling_transformation)
+		C.apply_status_effect(/datum/status_effect/ling_transformation, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
 	start_cooldown()
 
 /datum/action/changeling/sting/false_armblade

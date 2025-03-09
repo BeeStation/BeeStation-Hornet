@@ -18,5 +18,5 @@
 		return
 	if(slot == ITEM_SLOT_ICLOTHING)
 		var/mob/living/carbon/C = user
-		C.dna.add_mutation(CLUWNEMUT)
+		C.dna.add_mutation(/datum/mutation/cluwne)
 	return ..()

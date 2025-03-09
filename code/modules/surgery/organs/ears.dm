@@ -161,13 +161,13 @@
 			owner.Dizzy(30)
 			owner.Knockdown(200)
 			to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+			owner.apply_status_effect(/datum/status_effect/ipc/emp)
 		if(2)
 			owner.Jitter(15)
 			owner.Dizzy(15)
 			owner.Knockdown(100)
 			to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+			owner.apply_status_effect(/datum/status_effect/ipc/emp)
 
 /obj/item/organ/ears/diona
 	name = "trichomes"

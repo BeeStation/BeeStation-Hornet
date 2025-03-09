@@ -440,7 +440,7 @@
 				M.confused += min(M.confused + 10, 20)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
-				M.apply_status_effect(STATUS_EFFECT_PACIFY, 100)
+				M.apply_status_effect(/datum/status_effect/pacify, 100)
 
 
 
@@ -454,7 +454,7 @@
 		M.confused += min(M.confused + 4, 20)
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
-		M.apply_status_effect(STATUS_EFFECT_PACIFY, 40)
+		M.apply_status_effect(/datum/status_effect/pacify, 40)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

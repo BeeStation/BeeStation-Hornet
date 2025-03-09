@@ -61,11 +61,11 @@
 		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
 		qdel(C.handcuffed)
 		return
-	else if(istype(C) && C.has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
+	else if(istype(C) && C.has_status_effect(/datum/status_effect/strandling))
 		to_chat(C, span_notice("You attempt to remove the durathread strand from around your neck."))
 		if(do_after(user, 15, C))
 			to_chat(C, span_notice("You succesfuly remove the durathread strand."))
-			C.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+			C.remove_status_effect(/datum/status_effect/strandling)
 	else
 		..()
 
