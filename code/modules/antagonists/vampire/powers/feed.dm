@@ -13,7 +13,6 @@
 	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	purchase_flags = VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER
-	bloodcost = 0
 	cooldown_time = 15 SECONDS
 	///Amount of blood taken, reset after each Feed. Used for logging.
 	var/blood_taken = 0

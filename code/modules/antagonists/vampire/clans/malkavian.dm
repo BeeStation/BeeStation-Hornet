@@ -1,3 +1,6 @@
+#define REVELATION_MIN_COOLDOWN	20 SECONDS
+#define REVELATION_MAX_COOLDOWN	1 MINUTES
+
 /datum/vampire_clan/malkavian
 	name = CLAN_MALKAVIAN
 	description = "Little is documented about Malkavians. Complete insanity is the most common theme.\n\
@@ -5,6 +8,7 @@
 	join_icon_state = "malkavian"
 	join_description = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, \
 		and are the enforcer of the Masquerade code. You can also travel through Phobetor tears, rifts through spacetime only you can travel through."
+	COOLDOWN_DECLARE(revelation_cooldown)
 
 /datum/vampire_clan/malkavian/on_enter_frenzy(datum/antagonist/vampire/source)
 	ADD_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
@@ -37,10 +41,13 @@
 
 /datum/vampire_clan/malkavian/handle_clan_life(datum/antagonist/vampire/source)
 	. = ..()
-	if(prob(85) || vampiredatum.owner.current.stat != CONSCIOUS || HAS_TRAIT(vampiredatum.owner.current, TRAIT_MASQUERADE))
+	if(!COOLDOWN_FINISHED(src, revelation_cooldown) || prob(85) || vampiredatum.owner.current.stat != CONSCIOUS || HAS_TRAIT(vampiredatum.owner.current, TRAIT_MASQUERADE))
 		return
+
 	var/message = pick(strings("malkavian_revelations.json", "revelations", "strings"))
 	INVOKE_ASYNC(vampiredatum.owner.current, TYPE_PROC_REF(/mob/living, whisper), message)
+
+	COOLDOWN_START(src, revelation_cooldown, rand(REVELATION_MIN_COOLDOWN, REVELATION_MAX_COOLDOWN))
 
 /datum/vampire_clan/malkavian/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
 	var/mob/living/carbon/carbonowner = vassaldatum.owner.current
@@ -68,3 +75,6 @@
 	masquerade_objective.explanation_text = "Ensure [masquerade_breaker.owner.current], who has broken the Masquerade, succumbs to Final Death."
 	vampiredatum.objectives += masquerade_objective
 	vampiredatum.owner.announce_objectives()
+
+#undef REVELATION_MAX_COOLDOWN
+#undef REVELATION_MIN_COOLDOWN
