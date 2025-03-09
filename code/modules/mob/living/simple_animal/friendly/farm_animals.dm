@@ -98,6 +98,7 @@
 			H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), \
 									span_userdanger("[src] takes a big chomp out of your [NB]!"))
 			NB.dismember()
+
 /mob/living/simple_animal/hostile/retaliate/goat/rabid
 	name = "Rabid Maintenance Pete"
 	faction = list(FACTION_HOSTILE)
@@ -181,25 +182,9 @@
 		seen_message = "[src] looks at [savior] [text]."
 		self_message = "You look at [savior] [text]."
 	else
-		..()
-
-/mob/living/simple_animal/cow/proc/tip_back(mob/living/carbon/M)
-	if(stat && M)
-		return
-	icon_state = icon_living
-	var/external
-	var/internal
-	switch(pick(1,2,3,4))
-		if(1,2,3)
-			var/text = pick("imploringly.", "pleadingly.",
-				"with a resigned expression.")
-			external = "[src] looks at [M] [text]"
-			internal = "You look at [M] [text]"
-		if(4)
-			external = "[src] seems resigned to its fate."
-			internal = "You resign yourself to your fate."
-	visible_message(span_notice(external),
-		span_revennotice(internal))
+		seen_message = "[src] seems resigned to its fate."
+		self_message = "You resign yourself to your fate."
+	visible_message(span_notice(seen_message), span_notice(self_message))
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"
