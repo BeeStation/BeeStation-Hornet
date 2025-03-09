@@ -21,19 +21,19 @@
 	if(level_current > 3)
 		target_range = 6
 
-/datum/action/cooldown/vampire/targeted/lunge/can_use(mob/living/carbon/user)
+/datum/action/cooldown/vampire/targeted/lunge/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if(user.pulledby && user.pulledby.grab_state >= GRAB_AGGRESSIVE)
-		owner.balloon_alert(user, "grabbed!")
+	if(owner.pulledby && owner.pulledby.grab_state >= GRAB_AGGRESSIVE)
+		owner.balloon_alert(owner, "grabbed!")
 		return FALSE
-	if(user.pulling)
-		owner.balloon_alert(user, "grabbing someone!")
+	if(owner.pulling)
+		owner.balloon_alert(owner, "grabbing someone!")
 		return FALSE
 	if(datum_flags & DF_ISPROCESSING)
-		owner.balloon_alert(user, "already lunging!")
+		owner.balloon_alert(owner, "already lunging!")
 		return FALSE
 	return TRUE
 

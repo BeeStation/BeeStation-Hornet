@@ -28,9 +28,11 @@
 		/mob/living/simple_animal/hostile/retaliate/bat = 1,
 	)
 
-/datum/action/cooldown/vampire/gohome/can_use(mob/living/carbon/user)
-	if(!..())
+/datum/action/cooldown/vampire/gohome/can_use()
+	. = ..()
+	if(!.)
 		return FALSE
+
 	/// Have No Lair (NOTE: You only got this power if you had a lair, so this means it's destroyed)
 	if(!istype(vampiredatum_power) || !vampiredatum_power.coffin)
 		owner.balloon_alert(owner, "coffin was destroyed!")
@@ -38,14 +40,16 @@
 	return TRUE
 
 /datum/action/cooldown/vampire/gohome/activate_power()
-	..()
+	. = ..()
 	owner.balloon_alert(owner, "preparing to teleport...")
 	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))
 		teleport_to_coffin(owner)
 
 /datum/action/cooldown/vampire/gohome/UsePower()
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
+
 	switch(teleporting_stage)
 		if(GOHOME_START)
 			INVOKE_ASYNC(src, PROC_REF(flicker_lights), 3, 20)
@@ -55,13 +59,15 @@
 			INVOKE_ASYNC(src, PROC_REF(flicker_lights), 4, 60)
 	teleporting_stage++
 
-/datum/action/cooldown/vampire/gohome/ContinueActive(mob/living/user)
-	if(!..())
+/datum/action/cooldown/vampire/gohome/ContinueActive()
+	. = ..()
+	if(!.)
 		return FALSE
+
 	if(!isturf(owner.loc))
 		return FALSE
 	if(!vampiredatum_power.coffin)
-		user.balloon_alert(user, "coffin destroyed!")
+		owner.balloon_alert(owner, "coffin destroyed!")
 		to_chat(owner, span_warning("Your coffin has been destroyed! You no longer have a destination."))
 		return FALSE
 	return TRUE

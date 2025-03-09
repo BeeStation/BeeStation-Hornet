@@ -22,20 +22,21 @@
 	///List of all people hit by our power, so we don't hit them again.
 	var/list/hit = list()
 
-/datum/action/cooldown/vampire/targeted/haste/can_use(mob/living/carbon/user)
+/datum/action/cooldown/vampire/targeted/haste/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
 
 	// Being Grabbed
-	if(user.pulledby && user.pulledby.grab_state >= GRAB_AGGRESSIVE)
-		user.balloon_alert(user, "you're being grabbed!")
+	if(owner.pulledby && owner.pulledby.grab_state >= GRAB_AGGRESSIVE)
+		owner.balloon_alert(owner, "you're being grabbed!")
 		return FALSE
-	if(!user.has_gravity(user.loc)) //We dont want people to be able to use this to fly around in space
-		user.balloon_alert(user, "you cannot dash while floating!")
+	if(!owner.has_gravity(owner.loc)) //We dont want people to be able to use this to fly around in space
+		owner.balloon_alert(owner, "you cannot dash while floating!")
 		return FALSE
-	if(user.body_position == LYING_DOWN)
-		user.balloon_alert(user, "you must be standing to tackle!")
+	var/mob/living/carbon/user = owner
+	if(user?.body_position == LYING_DOWN)
+		owner.balloon_alert(owner, "you must be standing to tackle!")
 		return FALSE
 	return TRUE
 

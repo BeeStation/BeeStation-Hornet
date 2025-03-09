@@ -29,17 +29,19 @@
 	///Our mesmerized target - Prevents several mesmerizes.
 	var/datum/weakref/target_ref
 
-/datum/action/cooldown/vampire/targeted/mesmerize/can_use(mob/living/carbon/user)
+/datum/action/cooldown/vampire/targeted/mesmerize/can_use()
 	. = ..()
-	if(!.) // Default checks
+	if(!.)
 		return FALSE
-	if(!user.get_organ_slot(ORGAN_SLOT_EYES))
-		// Cant use balloon alert, they've got no eyes!
-		to_chat(user, span_warning("You have no eyes with which to mesmerize."))
+
+	// Must have eyes
+	if(!owner.get_organ_slot(ORGAN_SLOT_EYES))
+		to_chat(owner, span_warning("You have no eyes with which to mesmerize."))
 		return FALSE
-	// Check: Eyes covered?
+	// Must have eyes unobstructed
+	var/mob/living/carbon/user = owner
 	if(istype(user) && (user.is_eyes_covered() && level_current <= 2) || !isturf(user.loc))
-		user.balloon_alert(user, "your eyes are concealed from sight.")
+		owner.balloon_alert(owner, "your eyes are concealed from sight.")
 		return FALSE
 	return TRUE
 
@@ -96,7 +98,7 @@
 	if(istype(mesmerized_target))
 		owner.balloon_alert(owner, "attempting to hypnotize [mesmerized_target]...")
 
-	if(!do_after(user, 4 SECONDS, mesmerized_target, NONE, TRUE, extra_checks = CALLBACK(src, PROC_REF(ContinueActive), user)))
+	if(!do_after(user, 4 SECONDS, mesmerized_target, NONE, TRUE, extra_checks = CALLBACK(src, PROC_REF(ContinueActive))))
 		return
 
 	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS
@@ -127,9 +129,12 @@
 	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
 		owner.balloon_alert(owner, "[target] snapped out of their trance.")
 
-/datum/action/cooldown/vampire/targeted/mesmerize/ContinueActive(mob/living/user)
+/datum/action/cooldown/vampire/targeted/mesmerize/ContinueActive()
 	. = ..()
-	if(!can_use(user))
+	if(!.)
+		return FALSE
+
+	if(!can_use())
 		return FALSE
 
 	var/mob/living/target = target_ref.resolve()

@@ -19,9 +19,8 @@
 /datum/action/cooldown/vampire/targeted/on_activate(mob/user, atom/target)
 	if(currently_active)
 		deactivate_power()
-		start_cooldown()
 		return FALSE
-	if(!can_pay_cost(owner) || !can_use(owner))
+	if(!can_pay_cost(owner) || !can_use())
 		return FALSE
 
 	if(prefire_message)
@@ -68,7 +67,7 @@
 	if(power_in_use)
 		return
 	// Can use?
-	if(!can_use(owner))
+	if(!can_use())
 		return
 	// Valid target?
 	if(!check_valid_target(target_atom))

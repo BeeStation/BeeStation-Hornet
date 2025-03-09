@@ -13,10 +13,11 @@
 	cooldown_time = 5 SECONDS
 
 /// Must have nobody around to see the cloak
-/datum/action/cooldown/vampire/cloak/can_use(mob/living/carbon/user)
+/datum/action/cooldown/vampire/cloak/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
+
 	for(var/mob/living/watcher in view(9, owner) - owner)
 		if(watcher.stat == DEAD || QDELETED(watcher.client) || watcher.client?.is_afk())
 			continue
@@ -42,11 +43,12 @@
 
 	animate(owner, alpha = max(25, owner.alpha - min(75, 10 + 5 * level_current)), time = 1.5 SECONDS)
 
-/datum/action/cooldown/vampire/cloak/ContinueActive(mob/living/user)
+/datum/action/cooldown/vampire/cloak/ContinueActive()
 	. = ..()
 	if(!.)
 		return FALSE
-	if(user.stat != CONSCIOUS)
+
+	if(owner.stat != CONSCIOUS)
 		to_chat(owner, span_warning("Your cloak failed because you fell unconcious!"))
 		return FALSE
 	return TRUE

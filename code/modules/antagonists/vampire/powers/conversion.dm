@@ -21,7 +21,6 @@
 
 /datum/action/cooldown/vampire/conversion/activate_power()
 	. = ..()
-
 	var/obj/item/held_item = owner.get_active_held_item()
 	if(istype(held_item, /obj/item/stack/sheet/iron))
 		var/obj/item/stack/sheet/iron/iron = held_item

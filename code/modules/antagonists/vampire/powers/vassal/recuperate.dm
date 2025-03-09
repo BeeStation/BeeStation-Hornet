@@ -17,9 +17,8 @@
 	if(!.)
 		return
 
-	var/mob/living/carbon/user = owner
-	if(user.stat >= DEAD || user.incapacitated())
-		user.balloon_alert(user, "you are incapacitated...")
+	if(owner.stat >= DEAD || owner.incapacitated())
+		owner.balloon_alert(owner, "you are incapacitated...")
 		return FALSE
 	return TRUE
 
@@ -50,10 +49,10 @@
 		for(var/obj/item/bodypart/part in user.bodyparts)
 			user.add_bleeding(-10)
 
-/datum/action/cooldown/vampire/recuperate/ContinueActive(mob/living/user)
-	if(user.stat >= DEAD)
+/datum/action/cooldown/vampire/recuperate/ContinueActive()
+	if(owner.stat == DEAD)
 		return FALSE
-	if(user.incapacitated())
+	if(owner.incapacitated())
 		owner.balloon_alert(owner, "too exhausted...")
 		return FALSE
 	return TRUE

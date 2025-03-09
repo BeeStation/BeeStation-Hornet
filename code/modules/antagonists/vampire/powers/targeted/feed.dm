@@ -29,7 +29,7 @@
 	///Are we feeding with passive grab or not?
 	var/silent_feed = TRUE
 
-/datum/action/cooldown/vampire/targeted/feed/can_use(mob/living/carbon/user)
+/datum/action/cooldown/vampire/targeted/feed/can_use()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -38,11 +38,12 @@
 	if(target_ref)
 		return FALSE
 	// Mouth covered
+	var/mob/living/carbon/user = owner
 	if(user?.is_mouth_covered() && !isplasmaman(user))
 		owner.balloon_alert(owner, "mouth covered!")
 		return FALSE
 
-/datum/action/cooldown/vampire/targeted/feed/ContinueActive(mob/living/user)
+/datum/action/cooldown/vampire/targeted/feed/ContinueActive()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -50,7 +51,7 @@
 	var/mob/living/target = target_ref.resolve()
 	if(!target)
 		return FALSE
-	if(!user.Adjacent(target))
+	if(!owner.Adjacent(target))
 		return FALSE
 	return TRUE
 
@@ -112,7 +113,7 @@
 	owner.balloon_alert(owner, "feeding off [feed_target]...")
 	if(!do_after(owner, feed_time, feed_target, NONE, TRUE))
 		owner.balloon_alert(owner, "feed stopped")
-		power_activated_sucessfully()
+		deactivate_power()
 		return
 
 	// Agressively grabbing a target will make them fall asleep and alert nearby people
@@ -154,7 +155,7 @@
 	var/mob/living/user = owner
 	var/mob/living/feed_target = target_ref.resolve()
 
-	if(!ContinueActive(owner))
+	if(!ContinueActive())
 		if(!silent_feed)
 			user.visible_message(
 				span_warning("[user] is ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),

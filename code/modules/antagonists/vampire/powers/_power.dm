@@ -63,6 +63,7 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
+		level_current = vampiredatum.vampire_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/cooldown/vampire/on_activate(mob/user, atom/target)
@@ -111,8 +112,6 @@
 	var/mob/living/carbon/user = owner
 
 	if(!user)
-		return FALSE
-	if(!isliving(user))
 		return FALSE
 	// Torpor?
 	if((check_flags & BP_CANT_USE_IN_TORPOR) && HAS_TRAIT(user, TRAIT_TORPOR))
@@ -182,7 +181,7 @@
 
 /// Used by powers that are continuously active (That have BP_AM_TOGGLE flag)
 /datum/action/cooldown/vampire/proc/UsePower()
-	if(!ContinueActive(owner)) // We can't afford the Power? Deactivate it.
+	if(!ContinueActive()) // We can't afford the Power? Deactivate it.
 		deactivate_power()
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
@@ -196,7 +195,7 @@
 	return TRUE
 
 /// Checks to make sure this power can stay active
-/datum/action/cooldown/vampire/proc/ContinueActive(mob/living/user)
+/datum/action/cooldown/vampire/proc/ContinueActive()
 	if(vampiredatum_power.vampire_blood_volume < constant_bloodcost)
 		return FALSE
 
