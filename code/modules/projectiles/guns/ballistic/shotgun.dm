@@ -374,7 +374,7 @@
 	name = "lever action shotgun"
 	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
 	w_class = WEIGHT_CLASS_LARGE
-	dual_wield_spread = 0
+	single_hand_spread = 0
 	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"
 	icon_state = "leveraction"

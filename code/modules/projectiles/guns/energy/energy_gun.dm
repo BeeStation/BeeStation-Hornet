@@ -8,7 +8,7 @@
 	modifystate = 1
 	ammo_x_offset = 3
 	weapon_weight = WEAPON_MEDIUM
-	dual_wield_spread = 60
+	single_hand_spread = 60
 
 /obj/item/gun/energy/e_gun/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \

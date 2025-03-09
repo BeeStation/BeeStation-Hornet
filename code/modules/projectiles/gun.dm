@@ -45,7 +45,7 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
-	var/dual_wield_spread = 24			//additional spread when dual wielding
+	var/single_hand_spread = 24			//additional spread when holding a gun with only one hand
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
 	var/requires_wielding = TRUE
@@ -357,7 +357,7 @@
 
 		//If you're not holding it with both hands, suffer aim penalty
 		else
-			bonus_spread += dual_wield_spread
+			bonus_spread += single_hand_spread
 
 	var/zone_override = null
 	if(aimed == GUN_AIMED_POINTBLANK)
