@@ -18,6 +18,11 @@
 	. = ..()
 	SEND_SIGNAL(master, VAMPIRE_MAKE_FAVORITE, src)
 
+/datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/current_mob = mob_override || owner.current
+	set_antag_hud(current_mob, vassal_hud_name)
+
 ///Set the Vassal's rank to their Vampire level
 /datum/antagonist/vassal/favorite/proc/set_vassal_level(mob/living/carbon/human/target)
 	master.vampire_level = vassal_level

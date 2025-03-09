@@ -30,7 +30,7 @@
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
 
-	set_antag_hud(current_mob, vassal_hud_name)
+	add_antag_hud(ANTAG_HUD_VAMPIRE, vassal_hud_name, current_mob)
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -38,7 +38,7 @@
 
 	vampire_team.remove_member(current_mob.mind)
 
-	set_antag_hud(current_mob, null)
+	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
 	current_mob.faction -= FACTION_VAMPIRE
 
