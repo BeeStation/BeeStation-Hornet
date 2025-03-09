@@ -194,6 +194,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that stores the skin colour of a mob
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
 #define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
+/// Trait that prevents you from being moved when pulled.
+#define TRAIT_NO_MOVE_PULL "no_move_pull"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
@@ -230,6 +232,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait for psyphoza, flag for examine logic
 #define TRAIT_PSYCHIC_SENSE "psychic_sense"
+
+///Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
 
 /**
  * Atom Traits

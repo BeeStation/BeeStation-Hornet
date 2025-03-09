@@ -19,6 +19,8 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
   description?: string;
   predictable?: boolean;
   small_supplemental?: boolean;
+  /** Indicates that a preference is important and likely to be frequently changed by the user. */
+  important?: boolean;
 };
 
 /**

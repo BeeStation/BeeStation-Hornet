@@ -153,9 +153,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return FALSE
 
 	var/atom/movable/thrown_thing
-	var/obj/item/I = get_active_held_item()
-
-	if(!I)
+	var/obj/item/held_item = get_active_held_item()
+	if(!held_item)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
 			var/mob/living/throwable_mob = pulling
 			if(!throwable_mob.buckled)
@@ -163,31 +162,28 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				stop_pulling()
 				if(HAS_TRAIT(src, TRAIT_PACIFISM))
 					to_chat(src, span_notice("You gently let go of [throwable_mob]."))
-				var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-				var/turf/end_T = get_turf(target)
-				if(start_T && end_T)
-					log_combat(src, throwable_mob, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
+					return FALSE
+	else
+		thrown_thing = held_item.on_thrown(src, target)
+	if(!thrown_thing)
+		return FALSE
+	if(isliving(thrown_thing))
+		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+		var/turf/end_T = get_turf(target)
+		if(start_T && end_T)
+			log_combat(src, thrown_thing, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
 
-	else if(!CHECK_BITFIELD(I.item_flags, ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
-		thrown_thing = I
-		var/pacifist = FALSE
-		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			pacifist = TRUE
-		else
-			I.item_flags |= WAS_THROWN
-		dropItemToGround(I, silent = TRUE)
-		if(pacifist)
-			to_chat(src, span_notice("You set [I] down gently on the ground."))
-			return TRUE
+	do_attack_animation(target, no_effect = 1)
+	var/sound/throwsound = 'sound/weapons/throw.ogg'
+	playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
+	log_message("has thrown [thrown_thing].", LOG_ATTACK)
+	visible_message(span_danger("[src] throws [thrown_thing]."), \
+					span_danger("You throw [thrown_thing]."))
+	log_message("has thrown [thrown_thing]", LOG_ATTACK)
 
-	if(thrown_thing)
-		visible_message(span_danger("[src] throws [thrown_thing]."), \
-						span_danger("You throw [thrown_thing]."))
-		log_message("has thrown [thrown_thing]", LOG_ATTACK)
-		newtonian_move(get_dir(target, src))
-		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
-		return TRUE
-	return FALSE
+	newtonian_move(get_dir(target, src))
+	thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	return TRUE
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
