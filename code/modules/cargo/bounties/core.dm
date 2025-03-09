@@ -7,41 +7,41 @@
 	return ..(max(scale_reward * 0.7, 1.2))
 
 /datum/bounty/item/core/bleed
-	name = "Blood Anomaly Core"
+	name = "blood anomaly core"
 	reward = 25000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/blood)
 
 /datum/bounty/item/core/bluespace
-	name = "Bluespace Anomaly Core"
+	name = "bluespace anomaly core"
 	reward = 45000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/bluespace)
 
 /datum/bounty/item/core/delimber
-	name = "Bioscrambler Anomaly Core"
+	name = "bioscrambler anomaly core"
 	reward = 30000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/bioscrambler)
 
 /datum/bounty/item/core/flux
-	name = "Flux Anomaly Core"
+	name = "flux anomaly core"
 	reward = 20000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/flux)
 
 /datum/bounty/item/core/pyro
-	name = "Pyroclastic Anomaly Core"
+	name = "pyroclastic anomaly core"
 	reward = 25000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/pyro)
 
 /datum/bounty/item/core/vortex
-	name = "Vortex Anomaly Core"
+	name = "vortex anomaly core"
 	reward = 50000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/vortex)
 
 /datum/bounty/item/core/gravity
-	name = "Gravitational Anomaly Core"
+	name = "gravitational anomaly core"
 	reward = 20000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/grav)
 
 /datum/bounty/item/core/hallucination
-	name = "Hallucination Anomaly Core"
+	name = "hallucination anomaly core"
 	reward = 15000
 	wanted_types = list(/obj/item/assembly/signaler/anomaly/hallucination)
