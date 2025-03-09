@@ -1,12 +1,14 @@
+#define LUNGE_TIME 3 SECONDS
+
 /datum/action/cooldown/vampire/targeted/lunge
 	name = "Predatory Lunge"
 	desc = "Spring at your target to grapple them without warning, or tear the dead's heart out. Attacks from concealment or the rear may even knock them down if strong enough."
 	button_icon_state = "power_lunge"
-	power_explanation = "Click any player to start spinning wildly and, after a short delay, lunge at them.\n\n\
-		When lunging at someone, you will aggressively grab them, unless they are a curator.\n\n\
-		You cannot lunge if you are already grabbing someone, or are being grabbed.\n\n\
-		If you grab from behind or darkness, you will knock the target down, scaling with your rank.\n\n\
-		If used on a dead body, you will tear their organs out.\n\n\
+	power_explanation = "Click any player to start spinning wildly and, after a short delay, lunge at them.\n\
+		When lunging at someone, you will aggressively grab them, unless they are a curator.\n\
+		You cannot lunge if you are already grabbing someone, or are being grabbed.\n\
+		If you grab from behind or darkness, you will knock the target down, scaling with your rank.\n\
+		If used on a dead body, you will tear their organs out.\n\
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
@@ -68,6 +70,12 @@
 /datum/action/cooldown/vampire/targeted/lunge/proc/prepare_target_lunge(atom/target_atom)
 	START_PROCESSING(SSprocessing, src)
 	owner.balloon_alert(owner, "lunge started!")
+
+	// Spin
+	owner.spin(8, 1)
+	owner.balloon_alert_to_viewers("spins wildly!", "you spin!")
+	// Smoke
+	do_smoke(0, owner.loc, smoke_type = /obj/effect/particle_effect/smoke/transparent)
 	//animate them shake
 	var/base_x = owner.base_pixel_x
 	var/base_y = owner.base_pixel_y
@@ -77,7 +85,8 @@
 		var/y_offset = base_y + rand(-3, 3)
 		animate(pixel_x = x_offset, pixel_y = y_offset, time = 1)
 
-	if(!do_after(owner, 4 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE), extra_checks = CALLBACK(src, PROC_REF(check_valid_target), target_atom)))
+	// Actually lunge now
+	if(!do_after(owner, LUNGE_TIME, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE), extra_checks = CALLBACK(src, PROC_REF(check_valid_target), target_atom)))
 		end_target_lunge(base_x, base_y)
 		return FALSE
 
@@ -93,11 +102,6 @@
 /datum/action/cooldown/vampire/targeted/lunge/process()
 	if(!power_in_use) //If running SSfasprocess (on cooldown)
 		return ..() //Manage our cooldown timers
-	if(prob(75))
-		owner.spin(8, 1)
-		owner.balloon_alert_to_viewers("spins wildly!", "you spin!")
-		return
-	do_smoke(0, owner.loc, smoke_type = /obj/effect/particle_effect/smoke/transparent)
 
 ///Actually lunges the target, then calls lunge end.
 /datum/action/cooldown/vampire/targeted/lunge/proc/do_lunge(atom/hit_atom)
@@ -151,6 +155,4 @@
 			target.Knockdown(10 + level_current * 5)
 			target.Paralyze(0.1)
 
-/datum/action/cooldown/vampire/targeted/lunge/deactivate_power()
-	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_VAMPIRE)
+#undef LUNGE_TIME

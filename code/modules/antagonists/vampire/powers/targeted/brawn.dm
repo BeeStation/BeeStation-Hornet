@@ -2,9 +2,9 @@
 	name = "Brawn"
 	desc = "Snap restraints, break lockers and doors, or deal terrible damage with your bare hands."
 	button_icon_state = "power_strength"
-	power_explanation = "Use this power to deal a horrific blow. Punching a Cyborg will EMP it and deal high damage.\n\n\
-		At level 3, you can break closets open and break restraints.\n\n\
-		At level 4, you can bash airlocks open.\n\n\
+	power_explanation = "Use this power to deal a horrific blow. Punching a Cyborg will EMP it and deal high damage.\n\
+		At level 3, you can break closets open and break restraints.\n\
+		At level 4, you can bash airlocks open.\n\
 		Higher ranks will increase the damage when punching someone."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS

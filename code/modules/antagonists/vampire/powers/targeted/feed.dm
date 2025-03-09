@@ -8,10 +8,11 @@
 	name = "Feed"
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
-	power_explanation = "Activate Feed while next to someone and you will begin to feed blood off of them.\n\n\
-		The time needed before you start feeding decreases the higher level you are.\n\n\
-		Feeding off of someone while you have them aggressively grabbed will put them to sleep.\n\n\
-		You are given a Masquerade Infraction if you feed too close to a mortal.\n\n\
+	power_explanation = "Activate Feed while next to someone and you will begin to feed blood off of them.\n\
+		The time needed before you start feeding decreases the higher level you are.\n\
+		Feeding off of someone while you have them aggressively grabbed will put them to sleep and make you feed faster.\n\
+		NOTE: This is very obvious and the radius of people noticing you feed is much larger!\n\
+		You are given a Masquerade Infraction if you feed too close to a mortal.\n\
 		Mice can be fed off if you are in desperate need of blood."
 	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS

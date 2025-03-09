@@ -488,7 +488,7 @@ const PowerSection = (_props) => {
                       </>
                     )}
                   </Box>
-                  <Box style={{ whiteSpace: 'pre-wrap' }}>{power.explanation}</Box>
+                  <Box style={{ whiteSpace: 'pre-wrap', lineHeight: '1' }}>{power.explanation.replace(/\n/g, '\n\n')}</Box>
                 </Box>
               )
           )}
