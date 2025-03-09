@@ -37869,12 +37869,11 @@
 /turf/closed/wall,
 /area/quartermaster/qm)
 "miT" = (
-/mob/living/simple_animal/pet/dog/pug{
-	desc = "It's Pugley III, the research department's lovable pug clone. Hopefully nothing happens to this one - fourth time lucky!";
-	name = "Pugley III";
-	real_name = "Pugley III"
-	},
 /obj/structure/bed/dogbed,
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
 /turf/open/floor/engine,
 /area/science/explab)
 "mjh" = (
@@ -42266,18 +42265,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/caution{
-	dir = 8
-	},
-/mob/living/basic/pet/dog/pug{
-	density = 0;
-	dir = 8
 	},
 /obj/item/beacon,
 /turf/open/floor/engine,

@@ -35759,16 +35759,15 @@
 /obj/machinery/airalarm/directional/south,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/pug{
-	desc = "It's Pugley III, the research department's lovable pug clone. Hopefully nothing happens to this one - fourth time lucky!";
-	name = "Pugley III";
-	real_name = "Pugley III"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
+	},
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)

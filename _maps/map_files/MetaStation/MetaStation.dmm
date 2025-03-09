@@ -57272,12 +57272,11 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "qsd" = (
-/mob/living/simple_animal/pet/dog/pug{
-	desc = "It's Pugley IV, the research department's lovable pug clone. Hopefully nothing happens to this one - fourth time lucky!";
-	name = "Pugley IV";
-	real_name = "Pugley IV"
-	},
 /obj/structure/bed/dogbed,
+/mob/living/basic/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "qsA" = (
@@ -59023,30 +59022,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/security/main)
-"qYH" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/mob/living/basic/pet/dog/pug{
-	density = 0;
-	dir = 8
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/science/explab)
 "qYK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -114060,7 +114035,7 @@ xId
 cgq
 knS
 pxt
-qYH
+pxt
 pxt
 pxt
 mYD
