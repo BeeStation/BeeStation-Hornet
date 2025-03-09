@@ -298,8 +298,8 @@
 /obj/effect/spawner/lootdrop/ten_percent_girlfriend_spawner
 	name = "10% chance girlfriend spawner"
 	loot = list(
-		/mob/living/simple_animal/pet/dog/corgi = 9,
-		/mob/living/simple_animal/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi = 9,
+		/mob/living/basic/pet/dog/corgi/Lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
