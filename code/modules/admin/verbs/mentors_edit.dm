@@ -29,7 +29,7 @@ its mentors, not actual dangerous perms
 
 	html += "</table>"
 
-	usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
+	usr << browse(HTML_SKELETON(html),"window=editmentors;size=1000x650")
 	qdel(query_mentor_list)
 
 /client/Topic(href, href_list)
