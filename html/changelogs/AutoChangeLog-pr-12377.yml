@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: You can no longer pull mobs that are in the process of entering a vent.
