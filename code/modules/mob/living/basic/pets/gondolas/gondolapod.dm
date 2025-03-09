@@ -67,7 +67,7 @@
 /datum/action/innate/deliver_gondola_package
 	name = "Deliver"
 	desc = "Open your pod and release any contents stored within."
-	con = 'icons/hud/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	button_icon_state = "arrow"
 	check_flags = AB_CHECK_PHASED
 
