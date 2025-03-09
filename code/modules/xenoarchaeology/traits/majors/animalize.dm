@@ -10,7 +10,7 @@
 	weight = 15
 	conductivity = 12
 	///List of potential animals we could turn people into
-	var/list/possible_animals = list(/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/dog/bullterrier, /mob/living/simple_animal/pet/dog/pug)
+	var/list/possible_animals = list(/mob/living/basic/pet/dog/corgi, /mob/living/basic/pet/dog/bullterrier, /mob/living/basic/pet/dog/pug)
 	///The animal we will turn people into
 	var/mob/choosen_animal
 	///How long we keep them as animals
