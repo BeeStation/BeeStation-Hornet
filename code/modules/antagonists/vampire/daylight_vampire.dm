@@ -178,7 +178,7 @@
 			if(power.currently_active)
 				to_chat(owner, span_warning("[power.name] is harder to upkeep during Sol, now requiring [power.constant_bloodcost] blood while the solar flares last!"), type = MESSAGE_TYPE_INFO)
 			LAZYSET(burdened_actions, power, TRUE)
-		power.update_desc(rebuild = FALSE)
+		power.update_desc()
 		power.update_buttons()
 	return TRUE
 
@@ -195,7 +195,7 @@
 		if(LAZYACCESS(burdened_actions, power))
 			power.bloodcost /= power.sol_multiplier
 			power.constant_bloodcost /= power.sol_multiplier
-		power.update_desc(rebuild = FALSE)
+		power.update_desc()
 		power.update_buttons()
 	LAZYNULL(burdened_actions)
 
