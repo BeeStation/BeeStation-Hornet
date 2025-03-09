@@ -7,7 +7,8 @@
 	clan_objective = /datum/objective/vampire/kindred
 	join_icon_state = "nosferatu"
 	join_description = "You are permanently disfigured, look like a vampire to all who examine you, \
-		lose your Masquerade ability, but gain the ability to vent-crawl even while clothed."
+		lose your Masquerade ability, but gain the ability to vent-crawl even while clothed.\n\
+		<b>IMPORTANT:</b> You lose any possibility of hiding your vampirism, anybody that examines you will know your true nature!"
 
 /datum/vampire_clan/nosferatu/New(datum/antagonist/vampire/owner_datum)
 	. = ..()

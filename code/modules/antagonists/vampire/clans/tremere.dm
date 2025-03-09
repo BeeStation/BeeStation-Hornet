@@ -5,8 +5,8 @@
 		The Favorite Vassal gains the ability to morph themselves into a bat at will."
 	clan_objective = /datum/objective/vampire/tremere_power
 	join_icon_state = "tremere"
-	join_description = "You lose all default powers, but gain Blood Magic instead, powers you level up overtime.\n<b>IMPORTANT:</b> \
-		Members of the Tremere clan do not gain ranks the usual way but are instead granted ranks per person they vassalize."
+	join_description = "You lose all default powers, but gain Blood Magic instead, powers you level up overtime.\n\
+		<b>IMPORTANT:</b> Members of the Tremere clan do not gain ranks the usual way but are instead granted ranks per person they vassalize."
 
 /datum/vampire_clan/tremere/New(mob/living/carbon/user)
 	. = ..()
