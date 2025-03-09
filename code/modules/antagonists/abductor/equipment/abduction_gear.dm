@@ -907,7 +907,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "The most advanced form of jumpsuit known to reality, looks uncomfortable."
 	name = "alien jumpsuit"
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
-	icon_state = "abductor-suit"
+	icon_state = "abductor"
 	item_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	armor_type = /datum/armor/under_abductor
