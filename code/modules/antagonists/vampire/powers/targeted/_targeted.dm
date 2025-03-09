@@ -12,9 +12,9 @@
 	var/power_in_use = FALSE
 
 /// Modify description to add notice that this is aimed.
-/datum/action/cooldown/vampire/targeted/New(Target)
+/datum/action/cooldown/vampire/targeted/update_desc()
 	. = ..()
-	desc += "<br>\[<i>Targeted Power</i>\]"
+	desc += "<br><br><i>Targeted Power</i>"
 
 /datum/action/cooldown/vampire/targeted/on_activate(mob/user, atom/target)
 	if(currently_active)
@@ -58,19 +58,15 @@
 /datum/action/cooldown/vampire/targeted/proc/click_with_power(atom/target_atom)
 	// Already using?
 	if(power_in_use)
-		to_chat(world, "1")
 		return
 	// Can use?
 	if(!can_use(owner))
-		to_chat(world, "2")
 		return
 	// Valid target?
 	if(!check_valid_target(target_atom))
-		to_chat(world, "3")
 		return
 	// Enough blood?
 	if(!can_pay_cost())
-		to_chat(world, "4")
 		return
 
 	power_in_use = TRUE

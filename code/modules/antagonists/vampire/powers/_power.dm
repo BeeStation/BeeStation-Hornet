@@ -42,7 +42,7 @@
 	. = ..()
 	update_desc()
 
-/datum/action/cooldown/vampire/proc/update_desc(rebuild = TRUE)
+/datum/action/cooldown/vampire/proc/update_desc()
 	desc = initial(desc)
 	if(bloodcost > 0)
 		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
@@ -53,7 +53,7 @@
 
 /datum/action/cooldown/vampire/Destroy()
 	vampiredatum_power = null
-	return ..()
+	. = ..()
 
 /datum/action/cooldown/vampire/is_available(feedback = FALSE)
 	return next_use_time <= world.time
