@@ -200,18 +200,24 @@
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	armor_type = /datum/armor/debug
+	armor_type = /datum/armor/hardsuit_debug
 	strip_delay = 6000
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/datum/armor/debug
-	penetration = 300
-	blunt = 300
-	absorption = 300
-	reflectivity = 300
-	heat = 300
+
+/datum/armor/hardsuit_debug
+	melee = 300
+	bullet = 300
+	laser = 300
+	energy = 300
+	bomb = 300
+	bio = 300
+	rad = 300
+	fire = 300
+	acid = 300
+	stamina = 300
 
 /obj/item/clothing/suit/space/hardsuit/debug
 	name = "\improper Central Command black hardsuit"
@@ -242,7 +248,19 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor_type = /datum/armor/debug
+	armor_type = /datum/armor/backpack_debug
+
+
+/datum/armor/backpack_debug
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()

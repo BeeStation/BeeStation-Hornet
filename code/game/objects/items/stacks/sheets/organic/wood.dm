@@ -18,11 +18,16 @@ Woods Sheets
 	icon = 'icons/obj/stacks/organic.dmi'
 	mats_per_unit = list(/datum/material/wood=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "wood"
+	armor_type = /datum/armor/sheet_wood
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/wood
 	material_type = /datum/material/wood
 	grind_results = list(/datum/reagent/carbon = 20)
 	walltype = /turf/closed/wall/mineral/wood
+
+
+/datum/armor/sheet_wood
+	fire = 50
 
 /obj/item/stack/sheet/wood/get_recipes()
 	return GLOB.wood_recipes
@@ -38,9 +43,14 @@ Woods Sheets
 	icon = 'icons/obj/stacks/organic.dmi'
 	force = 10
 	throwforce = 10
+	armor_type = /datum/armor/sheet_bamboo
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)
+
+
+/datum/armor/sheet_bamboo
+	fire = 50
 
 /obj/item/stack/sheet/bamboo/get_recipes()
 	return GLOB.bamboo_recipes

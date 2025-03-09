@@ -20,6 +20,12 @@
 	attack_verb_simple = list("bash", "batter", "bludgeon", "whack")
 	tool_behaviour = TOOL_WRENCH
 	toolspeed = 1
+	armor_type = /datum/armor/item_wrench
+
+
+/datum/armor/item_wrench
+	fire = 50
+	acid = 30
 
 /obj/item/wrench/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

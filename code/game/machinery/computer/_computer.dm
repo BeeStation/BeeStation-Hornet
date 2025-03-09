@@ -12,6 +12,7 @@
 	active_power_usage = 300
 	max_integrity = 200
 	integrity_failure = 0.5
+	armor_type = /datum/armor/machinery_computer
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
 	light_range = 1
@@ -26,6 +27,10 @@
 
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE
+
+/datum/armor/machinery_computer
+	fire = 40
+	acid = 20
 
 /obj/machinery/computer/Initialize(mapload)
 	. = ..()

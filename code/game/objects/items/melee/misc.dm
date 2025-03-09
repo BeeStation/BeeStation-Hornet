@@ -149,8 +149,12 @@
 	lefthand_file = null
 	righthand_file = null
 	block_power = 60
-	armor_type = /datum/armor/military_metal
-	resistance_flags = ACID_PROOF | FIRE_PROOF
+	armor_type = /datum/armor/sabre_mime
+
+
+/datum/armor/sabre_mime
+	fire = 100
+	acid = 100
 
 /obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
 	var/obj/item/storage/belt/sabre/mime/M = R.real_location()

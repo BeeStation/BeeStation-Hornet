@@ -5,12 +5,18 @@
 	desc = "A huge, pulsating yellow mass."
 	max_integrity = 400
 	max_hit_damage = 40
+	armor_type = /datum/armor/blob_core
 	explosion_block = 6
 	point_return = -1
 	health_regen = 0 //we regen in Life() instead of when pulsed
 	resistance_flags = LAVA_PROOF
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
+
+
+/datum/armor/blob_core
+	fire = 75
+	acid = 90
 
 /obj/structure/blob/core/Initialize(mapload, client/new_overmind = null, placed = 0)
 	GLOB.blob_cores += src

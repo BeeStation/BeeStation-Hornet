@@ -49,6 +49,17 @@
 	/// whether it can be painted
 	var/paintable = FALSE
 
+	armor_type = /datum/armor/machinery_atmospherics
+
+/datum/armor/machinery_atmospherics
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	rad = 100
+	fire = 100
+	acid = 70
+
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"

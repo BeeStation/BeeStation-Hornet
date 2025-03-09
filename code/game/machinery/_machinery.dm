@@ -145,6 +145,15 @@ Class Procs:
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
+	armor_type = /datum/armor/obj_machinery
+
+/datum/armor/obj_machinery
+	melee = 25
+	bullet = 10
+	laser = 10
+	fire = 50
+	acid = 70
+
 /obj/machinery/Initialize(mapload)
 	. = ..()
 	GLOB.machines += src

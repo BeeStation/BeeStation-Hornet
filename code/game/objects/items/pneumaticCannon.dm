@@ -16,7 +16,7 @@
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	armor_type = /datum/armor/civilian_metal
+	armor_type = /datum/armor/item_pneumatic_cannon
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -38,6 +38,12 @@
 	var/fire_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	var/spin_item = TRUE //Do the projectiles spin when launched?
 	trigger_guard = TRIGGER_GUARD_NORMAL
+
+
+
+/datum/armor/item_pneumatic_cannon
+	fire = 60
+	acid = 50
 
 /obj/item/pneumatic_cannon/Initialize(mapload)
 	. = ..()

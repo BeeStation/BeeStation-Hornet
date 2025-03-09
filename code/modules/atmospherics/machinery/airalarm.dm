@@ -70,6 +70,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.33
+	armor_type = /datum/armor/machinery_airalarm
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
@@ -105,6 +106,13 @@
 		GAS_NITRYL			= new/datum/tlv/dangerous,
 		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
+
+
+/datum/armor/machinery_airalarm
+	energy = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/machinery/airalarm/server // No checks here.
 	TLV = list(

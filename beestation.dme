@@ -626,7 +626,6 @@
 #include "code\datums\announcers\medbot_announcer.dm"
 #include "code\datums\armor\_armor.dm"
 #include "code\datums\armor\_atom_armor.dm"
-#include "code\datums\armor\armor_common.dm"
 #include "code\datums\atmosphere\_atmosphere.dm"
 #include "code\datums\brain_damage\brain_trauma.dm"
 #include "code\datums\brain_damage\hypnosis.dm"

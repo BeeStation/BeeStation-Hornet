@@ -17,6 +17,7 @@
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
+	armor_type = /datum/armor/item_vending_refill
 
 	// Built automatically from the corresponding vending machine.
 	// If null, considered to be full. Otherwise, is list(/typepath = amount).
@@ -24,6 +25,11 @@
 	var/list/product_categories
 	var/list/contraband
 	var/list/premium
+
+
+/datum/armor/item_vending_refill
+	fire = 70
+	acid = 30
 
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()

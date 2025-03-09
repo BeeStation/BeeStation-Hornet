@@ -20,11 +20,16 @@
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
-	armor_type = /datum/armor/civilian_metal
+	armor_type = /datum/armor/item_knife
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
+
+
+/datum/armor/item_knife
+	fire = 50
+	acid = 50
 
 /obj/item/knife/Initialize(mapload)
 	. = ..()

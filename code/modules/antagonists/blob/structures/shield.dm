@@ -9,6 +9,12 @@
 	explosion_block = 3
 	point_return = 4
 	atmosblock = TRUE
+	armor_type = /datum/armor/blob_shield
+
+
+/datum/armor/blob_shield
+	fire = 90
+	acid = 90
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)

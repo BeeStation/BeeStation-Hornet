@@ -13,6 +13,7 @@
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("enforces the law upon")
 	attack_verb_simple = list("enforce the law upon")
+	armor_type = /datum/armor/melee_baton
 
 	var/stunforce = 40
 	var/turned_on = FALSE
@@ -20,6 +21,12 @@
 	var/hitcost = 1000
 	var/throw_hit_chance = 35
 	var/preload_cell_type //if not empty the baton starts with this type of cell
+
+
+/datum/armor/melee_baton
+	bomb = 50
+	fire = 80
+	acid = 80
 
 /obj/item/melee/baton/get_cell()
 	return cell

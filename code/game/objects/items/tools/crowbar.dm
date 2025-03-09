@@ -17,8 +17,14 @@
 	attack_verb_simple = list("attack", "bash", "batter", "bludgeon", "whack")
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1
+	armor_type = /datum/armor/item_crowbar
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
+
+
+/datum/armor/item_crowbar
+	fire = 50
+	acid = 30
 
 /obj/item/crowbar/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

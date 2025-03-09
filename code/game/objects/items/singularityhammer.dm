@@ -14,10 +14,19 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ISWEAPON
-	armor_type = /datum/armor/military_heavy_armor
+	armor_type = /datum/armor/item_singularityhammer
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_string = "LORD SINGULOTH HIMSELF"
 	var/charged = 5
+
+
+/datum/armor/item_singularityhammer
+	melee = 50
+	bullet = 50
+	laser = 50
+	bomb = 50
+	fire = 100
+	acid = 100
 
 /obj/item/singularityhammer/Initialize(mapload)
 	. = ..()

@@ -87,9 +87,20 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = INDESTRUCTIBLE
 	CanAtmosPass = ATMOS_PASS_DENSITY
+	armor_type = /datum/armor/structure_projected_forcefield
 	var/obj/item/forcefield_projector/generator
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/projected_forcefield)
+
+
+/datum/armor/structure_projected_forcefield
+	bullet = 25
+	laser = 50
+	energy = 50
+	bomb = 25
+	rad = 100
+	fire = 100
+	acid = 100
 
 /obj/structure/projected_forcefield/Initialize(mapload, obj/item/forcefield_projector/origin)
 	. = ..()

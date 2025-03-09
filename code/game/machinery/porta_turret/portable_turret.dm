@@ -39,7 +39,7 @@
 	//the turret's health
 	max_integrity = 160
 	integrity_failure = 0.5
-	armor_type = /datum/armor/security_metal
+	armor_type = /datum/armor/machinery_porta_turret
 
 	//if the turret's behaviour control access is locked
 	var/locked = TRUE
@@ -99,6 +99,16 @@
 	var/datum/action/turret_quit/quit_action
 	var/datum/action/turret_toggle/toggle_action
 	var/mob/remote_controller
+
+
+/datum/armor/machinery_porta_turret
+	melee = 50
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 30
+	fire = 90
+	acid = 90
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -762,7 +772,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	lethal_projectile = /obj/projectile/bullet/p50/penetrator/shuttle
 	lethal_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
 	stun_projectile_sound = 'sound/weapons/gunshot_smg.ogg'
-	armor_type = /datum/armor/military_light_armor
+	armor_type = /datum/armor/syndicate_shuttle
+
+
+/datum/armor/syndicate_shuttle
+	melee = 50
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 80
+	fire = 90
+	acid = 90
 
 /obj/machinery/porta_turret/syndicate/shuttle/target(atom/movable/target)
 	if(target)

@@ -22,6 +22,7 @@
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	tool_behaviour = TOOL_WIRECUTTER
 	toolspeed = 1
+	armor_type = /datum/armor/item_wirecutters
 	var/random_color = TRUE
 	var/static/list/wirecutter_colors = list(
 		"blue" = "#1861d5",
@@ -32,6 +33,12 @@
 		"cyan" = "#18a2d5",
 		"yellow" = "#d58c18"
 	)
+
+
+
+/datum/armor/item_wirecutters
+	fire = 50
+	acid = 30
 
 /obj/item/wirecutters/Initialize(mapload)
 	. = ..()

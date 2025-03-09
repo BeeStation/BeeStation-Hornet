@@ -29,8 +29,13 @@
 	attack_verb_continuous = list("attacks", "stabs", "pokes")
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor_type = /datum/armor/civilian_metal
+	armor_type = /datum/armor/kitchen_fork
 	var/datum/reagent/forkload //used to eat omelette
+
+
+/datum/armor/kitchen_fork
+	fire = 50
+	acid = 30
 
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] stabs \the [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to take a bite out of [user.p_them()]self!</span>")

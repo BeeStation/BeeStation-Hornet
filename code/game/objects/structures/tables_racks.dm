@@ -289,7 +289,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
+	armor_type = /datum/armor/table_glass
 	var/list/debris = list()
+
+
+/datum/armor/table_glass
+	fire = 80
+	acid = 100
 
 /obj/structure/table/glass/Initialize(mapload)
 	. = ..()
@@ -356,6 +362,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	buildstack = /obj/item/stack/sheet/plasmaglass
 	glass_shard_type = /obj/item/shard/plasma
 	max_integrity = 270
+	armor_type = /datum/armor/glass_plasma
+
+
+/datum/armor/glass_plasma
+	melee = 10
+	bullet = 5
+	bomb = 10
+	fire = 80
+	acid = 100
 
 /obj/structure/table/glass/plasma/Initialize(mapload)
 	. = ..()
@@ -476,6 +491,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	buildstack = /obj/item/stack/sheet/plasteel
 	max_integrity = 200
 	integrity_failure = 0.25
+	armor_type = /datum/armor/table_reinforced
+
+
+/datum/armor/table_reinforced
+	melee = 10
+	bullet = 30
+	laser = 30
+	energy = 100
+	bomb = 20
+	fire = 80
+	acid = 70
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)

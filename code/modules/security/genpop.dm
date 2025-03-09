@@ -12,6 +12,8 @@
 	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
 	max_integrity = 600
 	integrity_failure = 0.35
+	//Robust! It'll be tough to break...
+	armor_type = /datum/armor/machinery_turnstile
 	anchored = TRUE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -22,6 +24,17 @@
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
 	var/state = TURNSTILE_SECURED
+
+
+/datum/armor/machinery_turnstile
+	melee = 50
+	bullet = 20
+	energy = 80
+	bomb = 10
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 50
 
 /obj/item/circuitboard/machine/turnstile
 	name = "Turnstile circuitboard"

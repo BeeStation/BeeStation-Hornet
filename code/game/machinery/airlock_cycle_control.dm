@@ -53,6 +53,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 0.2
+	armor_type = /datum/armor/machinery_advanced_airlock_controller
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
@@ -75,6 +76,14 @@
 	var/list/airlocks = list()
 	var/list/vents = list()
 	var/obj/vis_target = null
+
+
+/datum/armor/machinery_advanced_airlock_controller
+	energy = 100
+	bio = 100
+	rad = 100
+	fire = 90
+	acid = 30
 
 /obj/machinery/advanced_airlock_controller/lavaland
 	exterior_pressure = WARNING_LOW_PRESSURE + 10

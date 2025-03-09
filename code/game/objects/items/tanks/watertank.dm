@@ -12,6 +12,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
+	armor_type = /datum/armor/item_watertank
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -19,6 +20,11 @@
 
 	var/list/fill_icon_thresholds = list(1, 20, 30, 40, 50, 60, 70, 80, 90)
 	var/list/worn_fill_icon_thresholds = list(1, 20, 40, 65, 75, 90)
+
+
+/datum/armor/item_watertank
+	fire = 100
+	acid = 30
 
 /obj/item/watertank/Initialize(mapload)
 	. = ..()

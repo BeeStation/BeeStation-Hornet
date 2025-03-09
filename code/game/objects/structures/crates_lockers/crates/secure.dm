@@ -5,10 +5,19 @@
 	secure = TRUE
 	locked = TRUE
 	max_integrity = 500
-	armor_type = /datum/armor/security_metal
+	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
 	damage_deflection = 25
+
+
+/datum/armor/crate_secure
+	melee = 30
+	bullet = 50
+	laser = 50
+	energy = 100
+	fire = 80
+	acid = 80
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)

@@ -18,10 +18,15 @@
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	max_integrity = 200
-	armor_type = /datum/armor/civilian_metal
+	armor_type = /datum/armor/item_fireaxe
 	resistance_flags = FIRE_PROOF
 	item_flags = ISWEAPON
 	var/icon_prefix = "fireaxe"
+
+
+/datum/armor/item_fireaxe
+	fire = 100
+	acid = 30
 
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()

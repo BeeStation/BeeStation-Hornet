@@ -3,6 +3,7 @@
 	icon = 'icons/obj/atmos.dmi'
 	use_power = NO_POWER_USE
 	max_integrity = 250
+	armor_type = /datum/armor/machinery_portable_atmospherics
 	anchored = FALSE
 	interacts_with_air = TRUE
 
@@ -12,6 +13,13 @@
 
 	var/volume = 0
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
+
+
+/datum/armor/machinery_portable_atmospherics
+	energy = 100
+	rad = 100
+	fire = 60
+	acid = 30
 
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()

@@ -13,6 +13,7 @@
 	name = "portable thermomachine"
 	desc = "Made by Space Amish using traditional space techniques, this thermomachine is guaranteed not to set the station on fire. Warranty void if used in engines."
 	max_integrity = 250
+	armor_type = /datum/armor/machinery_portable_thermomachine
 	circuit = /obj/item/circuitboard/machine/portable_thermomachine
 	//We don't use area power, we always use the cell
 	use_power = NO_POWER_USE
@@ -40,6 +41,12 @@
 	var/settable_temperature_range = 30
 	///Should we add an overlay for open portable thermomachines
 	var/display_panel = TRUE
+
+
+/datum/armor/machinery_portable_thermomachine
+	rad = 100
+	fire = 80
+	acid = 10
 
 /obj/machinery/portable_thermomachine/get_cell()
 	return cell

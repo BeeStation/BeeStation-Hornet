@@ -13,7 +13,13 @@
 	attack_verb_continuous = list("bans")
 	attack_verb_simple = list("ban")
 	max_integrity = 200
+	armor_type = /datum/armor/item_banhammer
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_banhammer
+	fire = 100
+	acid = 70
 
 /obj/item/banhammer/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
@@ -86,7 +92,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
+	armor_type = /datum/armor/item_claymore
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_claymore
+	fire = 100
+	acid = 50
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -240,6 +252,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	block_level = 0
 	block_power = 30
+	armor_type = /datum/armor/claymore_bone
+
+
+/datum/armor/claymore_bone
+	fire = 100
+	acid = 50
 
 /obj/item/katana
 	name = "katana"
@@ -265,7 +283,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
+	armor_type = /datum/armor/item_katana
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/item_katana
+	fire = 100
+	acid = 50
 
 /obj/item/katana/cursed
 	slot_flags = null

@@ -5,8 +5,15 @@
 	density = FALSE
 	layer = SIGN_LAYER
 	max_integrity = 100
+	armor_type = /datum/armor/structure_sign
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+
+
+/datum/armor/structure_sign
+	melee = 50
+	fire = 50
+	acid = 50
 
 /obj/structure/sign/basic
 	name = "blank sign"

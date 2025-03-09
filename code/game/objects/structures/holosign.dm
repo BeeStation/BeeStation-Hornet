@@ -6,8 +6,17 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
+	armor_type = /datum/armor/structure_holosign
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
+
+
+/datum/armor/structure_holosign
+	bullet = 50
+	laser = 50
+	energy = 50
+	fire = 20
+	acid = 20
 
 /obj/structure/holosign/emp_act(severity)
 	take_damage(max_integrity/severity, BRUTE, MELEE, 1)
