@@ -519,7 +519,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	sac_target.invisibility = initial(sac_target.invisibility)
 	sac_target.density = initial(sac_target.density)
 	sac_target.set_anchored(initial(sac_target.anchored))
-	to_chat(sac_target, span_big("[span_hypnophrase("Unnatural forces begin to claw at your very being from beyond the veil.")]"))
+	to_chat(sac_target, span_big(span_hypnophrase("Unnatural forces begin to claw at your very being from beyond the veil.")))
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
 	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
@@ -543,7 +543,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	sac_target.hallucination += 12
 	sac_target.emote("scream")
 
-	to_chat(sac_target, span_reallybig("[span_hypnophrase("The grasping hands reveal themselves to you!")]"))
+	to_chat(sac_target, span_reallybig(span_hypnophrase("The grasping hands reveal themselves to you!")))
 	to_chat(sac_target, span_hypnophrase("You feel invigorated! Fight to survive!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
@@ -612,7 +612,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		sac_target.revive(TRUE, TRUE)
 		sac_target.grab_ghost()
 	to_chat(sac_target, span_hypnophrase("The fight is over, but at great cost. You have been returned to the station in one piece."))
-	to_chat(sac_target, span_big("[span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")]"))
+	to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
 
 	// Oh god where are we?
 	sac_target.flash_act()

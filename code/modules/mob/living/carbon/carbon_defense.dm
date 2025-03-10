@@ -155,10 +155,10 @@
 		attack_message_victim = "[user] [message_verb_continuous] you[message_hit_area] with [I][extra_wound_details]!"
 	if(user == src)
 		attack_message_victim = "You [message_verb_simple] yourself[message_hit_area] with [I][extra_wound_details]!"
-	visible_message(span_danger("[attack_message_spectator]"),\
-		span_userdanger("[attack_message_victim]"), null, COMBAT_MESSAGE_RANGE, user)
+	visible_message(span_danger(attack_message_spectator),\
+		span_userdanger(attack_message_victim), null, COMBAT_MESSAGE_RANGE, user)
 	if(user != src)
-		to_chat(user, span_danger("[attack_message_attacker]"))
+		to_chat(user, span_danger(attack_message_attacker))
 	return TRUE
 
 
