@@ -59,7 +59,7 @@
 			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You're nya't feeling so good.","You feel like your insides are melting.","You feel illsies.")
-			to_chat(M, span_notice("[sick_message]"))
+			to_chat(M, span_notice(sick_message))
 		if(prob(15))
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
