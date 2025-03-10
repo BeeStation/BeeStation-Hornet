@@ -299,13 +299,13 @@
 			call_mode()
 			return
 		if(BOT_SUMMON)		//Called by PDA
-			bot_summon()
+			summon_step()
 			return
 	return TRUE //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
 
 /mob/living/simple_animal/bot/attack_hand(mob/living/carbon/human/H)
-	if(H.a_intent == INTENT_HELP)
+	if(!H.combat_mode)
 		ui_interact(H)
 	else
 		return ..()
@@ -335,7 +335,7 @@
 		else
 			to_chat(user, span_warning("Access denied."))
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/living/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!locked)
 			open = !open
@@ -357,7 +357,7 @@
 					ejectpai(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+		if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 			if(health >= maxHealth)
 				to_chat(user, span_warning("[src] does not need a repair!"))
 				return
@@ -801,7 +801,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				access_card.access = user_access + prev_access //Adds the user's access, if any.
 			mode = BOT_SUMMON
 			speak("Responding.", radio_channel)
-			calc_summon_path()
 
 		if("ejectpai")
 			ejectpairemote(user)
@@ -828,9 +827,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return
 		else
 			to_chat(src, span_warning("Unidentified control sequence received:[command]"))
-
-/mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
-	summon_step()
 
 // calculates a path to the current destination
 // given an optional turf to avoid
@@ -1096,9 +1092,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/hack
 	if(issilicon(user) || IsAdminGhost(user)) //Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
-		hack += "Harm Prevention Safety System: <A href='?src=[REF(src)];operation=hack'>[emagged ? span_bad("DANGER") : "Engaged"]</A><BR>"
+		hack += "Harm Prevention Safety System: <A href='byond://?src=[REF(src)];operation=hack'>[emagged ? span_bad("DANGER") : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Remote network control radio: <A href='?src=[REF(src)];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
+		hack += "Remote network control radio: <A href='byond://?src=[REF(src)];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
 /mob/living/simple_animal/bot/proc/showpai(mob/user)
@@ -1108,9 +1104,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 			eject += "Personality card status: "
 			if(paicard)
 				if(client)
-					eject += "<A href='?src=[REF(src)];operation=ejectpai'>Active</A>"
+					eject += "<A href='byond://?src=[REF(src)];operation=ejectpai'>Active</A>"
 				else
-					eject += "<A href='?src=[REF(src)];operation=ejectpai'>Inactive</A>"
+					eject += "<A href='byond://?src=[REF(src)];operation=ejectpai'>Inactive</A>"
 			else if(!allow_pai || key)
 				eject += "Unavailable"
 			else

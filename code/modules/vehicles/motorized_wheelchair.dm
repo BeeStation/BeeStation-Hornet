@@ -13,6 +13,9 @@
 	var/obj/item/stock_parts/cell/power_cell
 	var/low_power_alerted = FALSE
 
+/obj/vehicle/ridden/wheelchair/motorized/make_ridable()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/motorized)
+
 /obj/vehicle/ridden/wheelchair/motorized/CheckParts(list/parts_list)
 	..()
 	refresh_parts()
@@ -23,10 +26,6 @@
 		speed += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
 		power_efficiency = C.rating
-	var/datum/component/riding/D = GetComponent(/datum/component/riding)
-	D.vehicle_move_delay = round(1.5 * delay_multiplier) / speed
-	D.empable = TRUE
-
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()
 	return power_cell
@@ -38,25 +37,17 @@
 		thing.forceMove(T)
 	return ..()
 
-/obj/vehicle/ridden/wheelchair/motorized/driver_move(mob/living/user, direction)
-	if(istype(user))
-		if(!canmove)
-			return FALSE
-		if(!power_cell)
-			to_chat(user, span_warning("There seems to be no cell installed in [src]."))
-			canmove = FALSE
-			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
-		if(power_cell.charge < power_usage / max(power_efficiency, 1))
-			to_chat(user, span_warning("The display on [src] blinks 'Out of Power'."))
-			canmove = FALSE
-			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
-		if(user.usable_hands < arms_required)
-			to_chat(user, span_warning("You don't have enough arms to operate the motor controller!"))
-			canmove = FALSE
-			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
-			return FALSE
+/obj/vehicle/ridden/wheelchair/motorized/relaymove(mob/living/user, direction)
+	if(!power_cell)
+		to_chat(user, "<span class='warning'>There seems to be no cell installed in [src].</span>")
+		canmove = FALSE
+		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
+		return FALSE
+	if(power_cell.charge < power_usage / max(power_efficiency, 1))
+		to_chat(user, "<span class='warning'>The display on [src] blinks 'Out of Power'.</span>")
+		canmove = FALSE
+		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
+		return FALSE
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/Moved()
@@ -67,9 +58,6 @@
 		say("Warning: Power low!")
 		low_power_alerted = TRUE
 
-/obj/vehicle/ridden/wheelchair/motorized/set_move_delay(mob/living/user)
-	return
-
 /obj/vehicle/ridden/wheelchair/motorized/post_buckle_mob(mob/living/user)
 	. = ..()
 	set_density(TRUE)
@@ -79,14 +67,13 @@
 	set_density(FALSE)
 
 /obj/vehicle/ridden/wheelchair/motorized/attack_hand(mob/living/user)
-	if(power_cell && panel_open)
-		power_cell.update_icon()
-		user.put_in_hands(power_cell)
-		power_cell = null
-		to_chat(user, span_notice("You remove the power cell from [src]."))
-		low_power_alerted = FALSE
-		return
-	return ..()
+	if(!power_cell || !panel_open)
+		return ..()
+	power_cell.update_icon()
+	to_chat(user, "<span class='notice'>You remove the power cell from [src].</span>")
+	user.put_in_hands(power_cell)
+	power_cell = null
+	low_power_alerted = FALSE
 
 /obj/vehicle/ridden/wheelchair/motorized/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -94,33 +81,35 @@
 		panel_open = !panel_open
 		user.visible_message(span_notice("[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src]."), span_notice("You [panel_open ? "open" : "close"] the maintenance panel."))
 		return
-	if(panel_open)
-		if(istype(I, /obj/item/stock_parts/cell))
-			if(power_cell)
-				to_chat(user, span_warning("There is a power cell already installed."))
-			else
-				I.forceMove(src)
-				power_cell = I
-				to_chat(user, span_notice("You install the [I]."))
-			refresh_parts()
-			return
-		if(istype(I, /obj/item/stock_parts))
-			var/obj/item/stock_parts/B = I
-			var/P
-			for(var/obj/item/stock_parts/A in contents)
-				for(var/D in required_parts)
-					if(ispath(A.type, D))
-						P = D
-						break
-				if(istype(B, P) && istype(A, P))
-					if(B.get_part_rating() > A.get_part_rating())
-						B.forceMove(src)
-						user.put_in_hands(A)
-						user.visible_message(span_notice("[user] replaces [A] with [B] in [src]."), span_notice("You replace [A] with [B]."))
-						break
-			refresh_parts()
-			return
-	return ..()
+	if(!panel_open)
+		return ..()
+
+	if(istype(I, /obj/item/stock_parts/cell))
+		if(power_cell)
+			to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
+		else
+			I.forceMove(src)
+			power_cell = I
+			to_chat(user, "<span class='notice'>You install the [I].</span>")
+		refresh_parts()
+		return
+	if(!istype(I, /obj/item/stock_parts))
+		return ..()
+
+	var/obj/item/stock_parts/newstockpart = I
+	for(var/obj/item/stock_parts/oldstockpart in contents)
+		var/type_to_check
+		for(var/pathtypes in required_parts)
+			if(ispath(oldstockpart.type, pathtypes))
+				type_to_check = oldstockpart.type
+				break
+		if(istype(newstockpart, type_to_check) && istype(oldstockpart, type_to_check))
+			if(newstockpart.get_part_rating() > oldstockpart.get_part_rating())
+				newstockpart.forceMove(src)
+				user.put_in_hands(oldstockpart)
+				user.visible_message("<span class='notice'>[user] replaces [oldstockpart] with [newstockpart] in [src].</span>", "<span class='notice'>You replace [oldstockpart] with [newstockpart].</span>")
+				break
+	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, span_notice("You begin to detach the wheels..."))

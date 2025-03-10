@@ -5,7 +5,8 @@
 	icon_state = "bloodpack"
 	volume = 200
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
-	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE
+	has_variable_transfer_amount = FALSE
+	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
 
 /obj/item/reagent_containers/chem_bag/Initialize(mapload)
 	. = ..()

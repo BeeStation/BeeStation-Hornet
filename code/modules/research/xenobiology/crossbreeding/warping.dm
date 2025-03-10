@@ -180,7 +180,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	for(var/obj/item/slime_extract/extract in rune_turf)
 		if(extract.color_slime == extracttype || !extracttype) //check if the extract is the first one or of the right color.
 			extracttype = extract.color_slime
-			qdel(extract) //vores the slime extract
+			qdel(extract) //destroy the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
 				switch(extracttype)
@@ -651,7 +651,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/storage/toolbox/mechanical/old,
 		/obj/item/storage/toolbox/emergency/old,
 		/obj/effect/spawner/lootdrop/three_course_meal,
-		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+		/mob/living/basic/pet/dog/corgi/puppy/void,
 		/obj/structure/closet/crate/necropolis/tendril,
 		/obj/item/card/emagfake,
 		/obj/item/flashlight/flashdark,

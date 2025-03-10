@@ -1,4 +1,3 @@
-import type { Inferno } from 'inferno';
 import { Box, Icon, Stack, Tooltip } from '../../components';
 import { PreferencesMenuData, Quirk } from './data';
 import { useBackend, useLocalState } from '../../backend';
@@ -46,47 +45,42 @@ const QuirkList = (props: {
               <Stack.Item
                 align="center"
                 style={{
-                  'min-width': '15%',
-                  'max-width': '15%',
-                  'text-align': 'center',
+                  minWidth: '15%',
+                  maxWidth: '15%',
+                  textAlign: 'center',
                 }}>
                 {quirk.icon && <Icon color="#333" fontSize={3} name={quirk.icon} />}
               </Stack.Item>
 
               <Stack.Item
                 align="stretch"
+                ml={0}
                 style={{
-                  'border-right': '1px solid black',
-                  'margin-left': 0,
+                  borderRight: '1px solid black',
                 }}
               />
 
               <Stack.Item
                 grow
+                ml={0}
                 style={{
-                  'margin-left': 0,
-
                   // Fixes an IE bug for text overflowing in Flex boxes
-                  'min-width': '0%',
+                  minWidth: '0%',
                 }}>
                 <Stack vertical fill>
                   <Stack.Item
                     className={`${className}--${getValueClass(quirk.value)}`}
                     style={{
-                      'border-bottom': '1px solid black',
-                      'padding': '2px',
+                      borderBottom: '1px solid black',
+                      padding: '2px',
                     }}>
                     <Stack
                       fill
                       style={{
-                        'font-size': '1.2em',
+                        fontSize: '1.2em',
                       }}>
                       <Stack.Item grow basis="content">
                         <b>{quirk.name}</b>
-                      </Stack.Item>
-
-                      <Stack.Item>
-                        <b>{quirk.value}</b>
                       </Stack.Item>
                     </Stack>
                   </Stack.Item>
@@ -94,9 +88,9 @@ const QuirkList = (props: {
                   <Stack.Item
                     grow
                     basis="content"
+                    mt={0}
                     style={{
-                      'margin-top': 0,
-                      'padding': '3px',
+                      padding: '3px',
                     }}>
                     {quirk.description}
                   </Stack.Item>
@@ -120,7 +114,7 @@ const QuirkList = (props: {
   );
 };
 
-const StatDisplay: Inferno.StatelessComponent<{}> = (props) => {
+const StatDisplay = (props) => {
   return (
     <Box backgroundColor="#eee" bold color="black" fontSize="1.2em" px={3} py={0.5}>
       {props.children}
@@ -147,11 +141,10 @@ export const QuirksPage = (props) => {
           if (quirkA.value === quirkB.value) {
             return quirkA.name > quirkB.name ? 1 : -1;
           } else {
-            return quirkA.value - quirkB.value;
+            return quirkB.value - quirkA.value;
           }
         });
 
-        let balance = 0;
         let positiveQuirks = 0;
 
         for (const selectedQuirkName of selectedQuirks) {
@@ -163,8 +156,6 @@ export const QuirksPage = (props) => {
           if (selectedQuirk.value > 0) {
             positiveQuirks += 1;
           }
-
-          balance += selectedQuirk.value;
         }
 
         const getReasonToNotAdd = (quirkName: string) => {
@@ -173,8 +164,6 @@ export const QuirksPage = (props) => {
           if (quirk.value > 0) {
             if (positiveQuirks >= maxPositiveQuirks) {
               return "You can't have any more positive quirks!";
-            } else if (balance + quirk.value > 0) {
-              return 'You need a negative quirk to balance this out!';
             }
           }
 
@@ -197,30 +186,10 @@ export const QuirksPage = (props) => {
           return undefined;
         };
 
-        const getReasonToNotRemove = (quirkName: string) => {
-          const quirk = quirkInfo[quirkName];
-
-          if (balance - quirk.value > 0) {
-            return 'You need to remove a positive quirk first!';
-          }
-
-          return undefined;
-        };
-
         return (
           <Stack align="center" fill>
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
-                <Stack.Item>
-                  <Box fontSize="1.3em">Positive Quirks</Box>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <StatDisplay>
-                    {positiveQuirks} / {maxPositiveQuirks}
-                  </StatDisplay>
-                </Stack.Item>
-
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
                     Available Quirks
@@ -255,21 +224,24 @@ export const QuirksPage = (props) => {
                 </Stack.Item>
               </Stack>
             </Stack.Item>
+            <Stack vertical fill align="center">
+              <Stack.Item>
+                <Box fontSize="1.3em">Positive Quirks</Box>
+              </Stack.Item>
 
-            <Stack.Item>
-              <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
-            </Stack.Item>
+              <Stack.Item>
+                <StatDisplay>
+                  {positiveQuirks} / {maxPositiveQuirks}
+                </StatDisplay>
+              </Stack.Item>
+
+              <Stack.Item>
+                <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
+              </Stack.Item>
+            </Stack>
 
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
-                <Stack.Item>
-                  <Box fontSize="1.3em">Quirk Balance</Box>
-                </Stack.Item>
-
-                <Stack.Item>
-                  <StatDisplay>{balance}</StatDisplay>
-                </Stack.Item>
-
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
                     Current Quirks
@@ -279,10 +251,6 @@ export const QuirksPage = (props) => {
                 <Stack.Item grow width="100%">
                   <QuirkList
                     onClick={(quirkName, quirk) => {
-                      if (getReasonToNotRemove(quirkName) !== undefined) {
-                        return;
-                      }
-
                       setSelectedQuirks(selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk));
 
                       act('remove_quirk', { quirk: quirk.name });
@@ -296,7 +264,7 @@ export const QuirksPage = (props) => {
                           quirkName,
                           {
                             ...quirk,
-                            failTooltip: getReasonToNotRemove(quirkName),
+                            failTooltip: getReasonToNotAdd(quirkName),
                           },
                         ];
                       })}

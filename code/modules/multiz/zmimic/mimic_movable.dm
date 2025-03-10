@@ -162,7 +162,7 @@
 	var/queued = 0
 	var/destruction_timer
 	var/mimiced_type
-	var/original_z
+	var/original_depth
 	var/override_depth
 	var/have_performed_fixup = FALSE
 
@@ -184,7 +184,7 @@
 	to_chat(user, span_notice("\The [src] is too far away."))
 	return TRUE
 
-/atom/movable/openspace/mimic/attack_hand(mob/user)
+/atom/movable/openspace/mimic/attack_hand(mob/user, list/modifiers)
 	to_chat(user, span_notice("You cannot reach \the [src] from here."))
 	return TRUE
 
@@ -234,8 +234,6 @@
 	plane = ZMIMIC_MAX_PLANE	// These *should* only ever be at the top?
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/turf/delegate
-
-CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/openspace/turf_mimic)
 
 /atom/movable/openspace/turf_mimic/Initialize(mapload, ...)
 	. = ..()

@@ -156,9 +156,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		/datum/orbital_objective/artifact = 2,
 		/datum/orbital_objective/vip_recovery = 1
 	)
-	if(!length(possible_objectives))
-		priority_announce("Priority station objective received - Details transmitted to all available objective consoles. \
-			[GLOB.station_name] will have funds distributed upon objective completion.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 	var/chosen = pick_weight(valid_objectives)
 	if(!chosen)
 		return
@@ -174,7 +171,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		return "An objective has already been selected and must be completed first."
 	objective.on_assign(objective_computer)
 	objective.generate_attached_beacon()
-	objective.announce()
 	current_objective = objective
 	possible_objectives.Remove(objective)
 	update_objective_computers()

@@ -19,7 +19,7 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	density = TRUE
 	status_flags = CANSTUN|CANPUSH
-	a_intent = INTENT_HARM //so we always get pushed instead of trying to swap
+	combat_mode = TRUE //so we always get pushed instead of trying to swap
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	hud_type = /datum/hud/ai
@@ -553,12 +553,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if (length(cameras))
 		var/obj/machinery/camera/cam = cameras[1]
 		if (cam.can_use())
-			queueAlarm("--- [alarm_type] alarm detected in [home_name]! (<A HREF=?src=[REF(src)];switchcamera=[REF(cam)]>[cam.c_tag]</A>)", alarm_type)
+			queueAlarm("--- [alarm_type] alarm detected in [home_name]! (<a href='byond://?src=[REF(src)];switchcamera=[REF(cam)]'>[cam.c_tag]</a>)", alarm_type)
 		else
 			var/first_run = FALSE
 			var/dat2 = ""
 			for (var/obj/machinery/camera/camera as anything in cameras)
-				dat2 += "[(!first_run) ? "" : " | "]<A HREF=?src=[REF(src)];switchcamera=[REF(camera)]>[camera.c_tag]</A>"
+				dat2 += "[(!first_run) ? "" : " | "]<a href='byond://?src=[REF(src)];switchcamera=[REF(camera)]'>[camera.c_tag]</a>"
 				first_run = TRUE
 			queueAlarm("--- [alarm_type] alarm detected in [home_name]! ([dat2])", alarm_type)
 	else
@@ -794,14 +794,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		to_chat(user, "[span_boldnotice("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 
-/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(control_disabled || incapacitated())
+/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+	if(control_disabled)
 		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE
-	if(be_close && !in_range(M, src))
-		to_chat(src, span_warning("You are too far away!"))
-		return FALSE
-	return can_see(M) //stop AIs from leaving windows open and using then after they lose vision
+	return can_see(M) && ..() //stop AIs from leaving windows open and using then after they lose vision
 
 /mob/living/silicon/ai/proc/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras
@@ -815,9 +812,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mods)
-	var/start = "Relayed Speech: "
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
 	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
@@ -840,16 +836,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(istype(D) && D.display_icon(src))
 		language_icon = D.get_icon()
 
-	var/rendered = "<i>[span_gamesay("[start][language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
+	var/rendered = "<i>[span_gamesay("[language_icon][span_name("[hrefpart][namepart] ([jobpart])</a> ")][span_message(treated_message)]")]</i>"
 
 	show_message(rendered, 2)
+	speaker.create_private_chat_message(
+		message = raw_message,
+		message_language = message_language,
+		hearers = list(src),
+		includes_ghosts = FALSE)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
 /mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = span_message(say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods)))
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
 	if (ishuman(speaker))
@@ -906,7 +907,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	add_verb(/mob/living/silicon/ai/proc/choose_modules)
 	malf_picker = new /datum/module_picker
-
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
@@ -1038,7 +1038,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		Remove(owner) //If the last shell is blown, destroy it.
 
-/mob/living/silicon/ai/proc/disconnect_shell(trigger_flags)
+/mob/living/silicon/ai/proc/disconnect_shell()
 	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
 		to_chat(src, span_danger("Your remote connection has been reset!"))
 		deployed_shell.undeploy()

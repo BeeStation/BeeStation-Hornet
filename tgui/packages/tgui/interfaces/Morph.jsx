@@ -73,8 +73,8 @@ const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }) =
             <img
               src={`data:image/jpeg;base64,${img}`}
               style={{
-                'vertical-align': 'middle',
-                'horizontal-align': 'middle',
+                verticalAlign: 'middle',
+                horizontalAlign: 'middle',
               }}
             />
           ) : null}
