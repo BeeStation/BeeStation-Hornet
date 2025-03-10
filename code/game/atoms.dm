@@ -1542,6 +1542,12 @@
 			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
 		if(TOOL_ANALYZER)
 			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+		if(TOOL_KNIFE)
+			act_result = is_left_clicking ? knife_act(user, tool) : knife_act_secondary(user, tool)
+		if(TOOL_SPOON)
+			act_result = is_left_clicking ? spoon_act(user, tool) : spoon_act_secondary(user, tool)
+		if(TOOL_FORK)
+			act_result = is_left_clicking ? fork_act(user, tool) : fork_act_secondary(user, tool)
 	if(!act_result)
 		return
 
@@ -1666,6 +1672,27 @@
 
 /// Called on an object when a tool with analyzer capabilities is used to right click an object
 /atom/proc/analyzer_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with knife capabilities is used to left click an object
+/atom/proc/knife_act(mob/living/user, obj/item/tool)
+
+/// Called on an object when a tool with knife capabilities is used to right click an object
+/atom/proc/knife_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with spoon capabilities is used to left click an object
+/atom/proc/spoon_act(mob/living/user, obj/item/tool)
+
+/// Called on an object when a tool with spoon capabilities is used to right click an object
+/atom/proc/spoon_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with fork capabilities is used to left click an object
+/atom/proc/fork_act(mob/living/user, obj/item/tool)
+
+/// Called on an object when a tool with fork capabilities is used to right click an object
+/atom/proc/fork_act_secondary(mob/living/user, obj/item/tool)
 	return
 
 ///Connect this atom to a shuttle
