@@ -63,6 +63,7 @@
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)		//For all of them
+#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
 #define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.

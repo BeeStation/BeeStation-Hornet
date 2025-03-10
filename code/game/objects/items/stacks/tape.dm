@@ -26,6 +26,15 @@
 	user.visible_message(span_notice("[user] begins wrapping [I] with [src]."), span_notice("You begin wrapping [I] with [src]."))
 
 	if(do_after(user, 30, target=I))
+		use(1)
+		if(istype(I, /obj/item/clothing/gloves/fingerless))
+			var/obj/item/clothing/gloves/tackler/offbrand/O = new /obj/item/clothing/gloves/tackler/offbrand
+			to_chat(user, span_notice("You turn [I] into [O] with [src]."))
+			use(1)
+			QDEL_NULL(I)
+			user.put_in_hands(O)
+			return
+
 		I.embedding = conferred_embed
 		I.updateEmbedding()
 		to_chat(user, span_notice("You finish wrapping [I] with [src]."))

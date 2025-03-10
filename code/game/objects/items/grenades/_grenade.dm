@@ -164,7 +164,7 @@
 		var/turf/T = get_turf(src)
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		message_admins("A projectile ([hitby]) detonated a grenade held by [key_name_admin(owner)] at [ADMIN_COORDJMP(T)]")
-		prime()
+		INVOKE_ASYNC(src, PROC_REF(prime))
 		return TRUE //It hit the grenade, not them
 
 /obj/item/grenade/afterattack(atom/target, mob/user)

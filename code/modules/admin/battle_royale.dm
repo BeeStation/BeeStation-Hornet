@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/clothing/head/helmet/sec,
 		/obj/item/clothing/under/syndicate,
-		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/gloves/tackler/combat,
 		/obj/item/deployablemine/stun,
 		/obj/item/switchblade,
 		/obj/item/club/tailclub,

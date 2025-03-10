@@ -277,12 +277,6 @@
 			return TRUE
 	return FALSE
 
-/mob/living/carbon/proc/clear_shove_slowdown()
-	remove_movespeed_modifier(/datum/movespeed_modifier/shove)
-	var/active_item = get_active_held_item()
-	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
-		visible_message(span_warning("[name] regains their grip on \the [active_item]!"), span_warning("You regain your grip on \the [active_item]."), null, COMBAT_MESSAGE_RANGE)
-
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
 		return

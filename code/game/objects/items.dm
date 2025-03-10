@@ -619,6 +619,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
 		return TRUE
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
@@ -712,7 +714,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
 		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
-			L.attackby(src, owner)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 			owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
@@ -721,14 +723,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(istype(L, /mob/living/simple_animal))
 				var/mob/living/simple_animal/S = L
 				if(!S.hardattacks)
-					S.attackby(src, owner)
+					INVOKE_ASYNC(S, TYPE_PROC_REF(/atom, attackby), src, owner)
 					owner.visible_message(span_danger("[S] injures themselves on [owner]'s [src]!"))
 			else
-				L.attackby(src, owner)
+				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
-		owner.blockbreak()
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
 	if(attackforce)
 		owner.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
@@ -966,7 +968,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
 	thrownby = WEAKREF(thrower)

@@ -115,4 +115,5 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/reagent_containers/cup/glass/bottle/homemaderum = 1,
 	/obj/item/xenoartifact/maint = 1,
 	/obj/item/paper_reader = 1,
+	/obj/item/clothing/gloves/tackler/offbrand = 1,
 ))
