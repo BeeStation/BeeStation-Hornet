@@ -48,7 +48,7 @@
 /obj/item/ammo_box/magazine/recharge/security/lethal
 	name = "LP-12 lethal powercell"
 	desc = "A rechargeable powercell designed to fit in the chamber of an LP-12. This cell features a lethal beam and has a capacity of 8 shots."
-	icon_state = "lsecurity-10"
+	icon_state = "lsecurity-8"
 	max_ammo = 8
 	ammo_type = /obj/item/ammo_casing/energy/lasergun
 
