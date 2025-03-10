@@ -1039,7 +1039,7 @@
 
 /datum/status_effect/spanish
 	id = "spanish"
-	duration = 120 SECONDS
+	duration = 25 SECONDS
 	alert_type = null
 
 /datum/status_effect/spanish/on_apply(mob/living/new_owner, ...)
@@ -1057,9 +1057,10 @@
 /datum/status_effect/ipc/emp
 	id = "ipc_emp"
 	examine_text = span_warning("SUBJECTPRONOUN is buzzing and twitching!")
-	duration = 120 SECONDS
+	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
 	status_type = STATUS_EFFECT_REFRESH
+
 /atom/movable/screen/alert/status_effect/emp
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
