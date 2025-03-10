@@ -57,6 +57,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/warden
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
 	backpack_contents = list(
+		/obj/item/ammo_box/magazine/recharge/security/lethal=1,\
 		/obj/item/ammo_box/magazine/recharge/security=1,)
 
 	backpack = /obj/item/storage/backpack/security

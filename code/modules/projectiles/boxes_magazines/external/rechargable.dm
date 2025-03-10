@@ -35,8 +35,8 @@
 	return ..()
 
 /obj/item/ammo_box/magazine/recharge/security
-	name = "LP-12 powercell"
-	desc = "A rechargeable powercell designed to fit in the chamber of an LP-12."
+	name = "LP-12 nonlethal powercell"
+	desc = "A rechargeable powercell designed to fit in the chamber of an LP-12. This cell features a nonlethal beam and has a capacity of 10 shots."
 	icon_state = "security-10"
 	max_ammo = 10
 	ammo_type = /obj/item/ammo_casing/caseless/laser/disabler
@@ -44,6 +44,17 @@
 /obj/item/ammo_box/magazine/recharge/security/update_icon()
 	..()
 	icon_state = "security-[CEILING(ammo_count(),2)]"
+
+/obj/item/ammo_box/magazine/recharge/security/lethal
+	name = "LP-12 lethal powercell"
+	desc = "A rechargeable powercell designed to fit in the chamber of an LP-12. This cell features a lethal beam and has a capacity of 8 shots."
+	icon_state = "lsecurity-10"
+	max_ammo = 8
+	ammo_type = /obj/item/ammo_casing/energy/lasergun
+
+/obj/item/ammo_box/magazine/recharge/security/lethal/update_icon()
+	..()
+	icon_state = "lsecurity-[CEILING(ammo_count(),2)]"
 
 /obj/item/ammo_box/magazine/recharge/service
 	name = "energy pistol magazine"
