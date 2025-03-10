@@ -392,11 +392,12 @@
 	safe_breath_min = 13
 	safe_breath_max = 100
 
-/obj/item/organ/lungs/cybernetic/emp_act()
+/obj/item/organ/lungs/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	owner.losebreath = 20
+	if(prob(30/severity))
+		owner.losebreath += 10
 
 
 /obj/item/organ/lungs/cybernetic/upgraded

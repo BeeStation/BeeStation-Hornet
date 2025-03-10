@@ -194,11 +194,13 @@
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
 
-/obj/item/organ/heart/cybernetic/emp_act()
+/obj/item/organ/heart/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	Stop()
+	if(prob(30/severity))
+		Stop()
+		addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
 /obj/item/organ/heart/cybernetic/on_life()
 	. = ..()
@@ -222,11 +224,6 @@
 /obj/item/organ/heart/cybernetic/ipc
 	desc = "An electronic device that appears to mimic the functions of an organic heart."
 	dose_available = FALSE
-
-/obj/item/organ/heart/cybernetic/ipc/emp_act()
-	. = ..()
-	to_chat(owner, span_warning("Alert: Cybernetic heart failed one heartbeat"))
-	addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"

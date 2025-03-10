@@ -142,10 +142,9 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	if(prob(10 * severity))
-		return
-	to_chat(owner, span_warning("Static obfuscates your vision!"))
-	owner.flash_act(visual = 1)
+	if(prob(30/severity))
+		to_chat(owner, span_warning("Static obfuscates your vision!"))
+		owner.flash_act(visual = 1)
 
 /obj/item/organ/eyes/robotic/xray
 	name = "\improper X-ray eyes"

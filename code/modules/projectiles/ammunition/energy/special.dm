@@ -2,6 +2,11 @@
 	projectile_type = /obj/projectile/ion
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+	e_cost = 80
+
+/obj/item/ammo_casing/energy/ion/weak
+	projectile_type = /obj/projectile/ion/weak
+	e_cost = 60
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/projectile/energy/declone
