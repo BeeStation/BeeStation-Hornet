@@ -280,6 +280,9 @@
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
 		return FALSE
+	if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
+		stop_pulling()
+		return FALSE
 	if(isliving(pulling))
 		var/mob/living/L = pulling
 		if(L.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
@@ -313,6 +316,9 @@
 			stop_pulling()
 			return
 		if(pulling.anchored || pulling.move_resist > move_force)
+			stop_pulling()
+			return
+		if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
@@ -490,7 +496,7 @@
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
-		if(pulling.anchored)
+		if(pulling.anchored || HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
 		else
 			var/pull_dir = get_dir(src, pulling)
@@ -730,9 +736,24 @@
 	return TRUE
 
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	set waitfor = 0
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
-	return hit_atom.hitby(src, throwingdatum=throwingdatum)
+	set waitfor = FALSE
+	var/hitpush = TRUE
+	var/impact_flags = pre_impact(hit_atom, throwingdatum)
+	if(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
+		return // in case a signal interceptor broke or deleted the thing before we could process our hit
+	if(impact_flags & COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH)
+		hitpush = FALSE
+	var/caught = hit_atom.hitby(src, throwingdatum=throwingdatum, hitpush=hitpush)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum, caught)
+	return caught
+
+///Called before we attempt to call hitby and send the COMSIG_MOVABLE_IMPACT signal
+/atom/movable/proc/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_IMPACT, hit_atom, throwingdatum)
+	var/target_flags = SEND_SIGNAL(hit_atom, COMSIG_ATOM_PREHITBY, src, throwingdatum)
+	if(target_flags & COMSIG_HIT_PREVENTED)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_NEVERMIND
+	return impact_flags
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))

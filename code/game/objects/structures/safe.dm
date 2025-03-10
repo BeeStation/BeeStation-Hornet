@@ -85,7 +85,7 @@ FLOOR SAFES
 			var/obj/item/P = contents[i]
 			dat += "<tr><td><a href='byond://?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
 		dat += "</table></center>"
-	user << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>[name]</title></head><body>[dat]</body></html>", "window=safe;size=350x300")
+	user << browse(HTML_SKELETON_TITLE(name, dat), "window=safe;size=350x300")
 
 /obj/structure/safe/Topic(href, href_list)
 	if(!ishuman(usr))
@@ -139,7 +139,7 @@ FLOOR SAFES
 		return
 
 	if(href_list["retrieve"])
-		user << browse("", "window=safe") // Close the menu
+		user << browse(null, "window=safe") // Close the menu
 
 		var/obj/item/P = locate(href_list["retrieve"]) in src
 		if(open)

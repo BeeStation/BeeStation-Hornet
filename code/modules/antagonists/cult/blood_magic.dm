@@ -223,12 +223,12 @@
 	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
 	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
-/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
-	var/turf/caller_turf = get_turf(caller)
-	if(!isturf(caller_turf))
+/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
 
-	if(!ishuman(clicked_on) || get_dist(caller, clicked_on) > 7)
+	if(!ishuman(clicked_on) || get_dist(clicker, clicked_on) > 7)
 		return FALSE
 
 	var/mob/living/carbon/human/human_clicked = clicked_on

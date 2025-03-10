@@ -1,0 +1,18 @@
+author: Ryll-Ryll, uomo91, ShizCalev, GPeckman, necromanceranne, MrMelbert, optimumtact,
+  carlarctg, Ghommie, GuillaumePrata, XeonMations
+delete-after: true
+changes:
+  - rscadd: 'Added tackling, you can now tackle people to the floor with special gloves:'
+  - rscadd: Added the enhanced retrieval gloves to the game, available at the security
+      vendor.
+  - rscadd: Added guerilla gloves to the game. You can order them at cargo.
+  - rscadd: Added makeshift guerilla gloves. You can make them with a pair of fingerless
+      gloves and duct tape.
+  - balance: People with wings can tackle people better than people without wings.
+      This includes moths.
+  - balance: Moths with burnt wings or without wings will be worse off tackling people.
+  - balance: Anyone with a lizard tail that is wagging it will be able to better defend
+      against tackles.
+  - balance: Lizards without a tail will be worse at defending against tackles.
+  - balance: Fly people have a higher chance of breaking their bodies after splatting
+      themselves into a window/wall
