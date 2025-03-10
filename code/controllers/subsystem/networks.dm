@@ -1,8 +1,7 @@
 SUBSYSTEM_DEF(networks)
 	name = "Networks"
 	priority = FIRE_PRIORITY_NETWORKS
-	wait = 5
-	flags = SS_KEEP_TIMING
+	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_NETWORKS
 
 	var/list/relays = list()
@@ -27,12 +26,6 @@ SUBSYSTEM_DEF(networks)
 	/// network tress
 	var/list/root_networks = list()
 
-
-
-	// Why not list?  Because its a Copy() every time we add a packet, and thats stupid.
-	var/datum/netdata/first = null // start of the queue.  Pulled off in fire.
-	var/datum/netdata/last = null	// end of the queue.  pushed on by transmit
-	var/packet_count = 0
 	// packet stats
 	var/count_broadcasts_packets = 0 // count of broadcast packets sent
 	var/count_failed_packets = 0 	// count of message fails
@@ -60,7 +53,7 @@ SUBSYSTEM_DEF(networks)
 
 
 /datum/controller/subsystem/networks/stat_entry(msg)
-	msg = "NET: QUEUE([packet_count]) FAILS([count_failed_packets]) BROADCAST([count_broadcasts_packets])"
+	msg = "NET: FAILS([count_failed_packets]) BROADCAST([count_broadcasts_packets])"
 	return ..()
 
 /datum/controller/subsystem/networks/Initialize()
@@ -129,45 +122,6 @@ SUBSYSTEM_DEF(networks)
 		SEND_SIGNAL(sending_interface.parent, COMSIG_COMPONENT_NTNET_ACK, data)
 	count_good_packets++
 
-/// Helper define to make sure we pop the packet and qdel it
-#define POP_PACKET(CURRENT) first = CURRENT.next;  packet_count--; if(!first) { last = null; packet_count = 0; }; qdel(CURRENT);
-
-/datum/controller/subsystem/networks/fire(resumed = 0)
-	var/datum/netdata/current
-	var/datum/component/ntnet_interface/target_interface
-	while(first)
-		current = first
-		/// Check if we are a list.  If so process the list
-		if(islist(current.receiver_id)) // are we a broadcast list
-			var/list/receivers = current.receiver_id
-			if (length(receivers))
-				var/receiver_id = receivers[receivers.len] // pop it
-				receivers.len--
-				_process_packet(receiver_id, current)
-			if(!length(receivers)) // pop it if done
-				count_broadcasts_packets++
-				POP_PACKET(current)
-		else // else set up a broadcast or send a single targete
-			// check if we are sending to a network or to a single target
-			target_interface = interfaces_by_hardware_id[current.receiver_id]
-			if(target_interface) // a single sender id
-				_process_packet(current.receiver_id, current) // single target
-				POP_PACKET(current)
-			else // ok so lets find the network to send it too
-				var/datum/ntnet/net = networks[current.network_id]		// get the sending network
-				net = net?.networks[current.receiver_id]				// find the target network to broadcast
-				if(net)		// we found it
-					current.receiver_id = net.collect_interfaces()		// make a list of all the sending targets
-				else
-					// We got an error, the network is bad so send a NAK
-					target_interface = interfaces_by_hardware_id[current.sender_id]
-					if(!QDELETED(target_interface))
-						SEND_SIGNAL(target_interface.parent, COMSIG_COMPONENT_NTNET_NAK, current , NETWORK_ERROR_BAD_NETWORK)
-					POP_PACKET(current) // and get rid of it
-		if (MC_TICK_CHECK)
-			return
-
-#undef POP_PACKET
 
 /*
  * Main function to queue a packet.  As long as we have valid receiver_id and network_id we will take it
@@ -177,17 +131,38 @@ SUBSYSTEM_DEF(networks)
  * Arguments:
  * * data - packet to be sent
  */
-/datum/controller/subsystem/networks/proc/transmit(datum/netdata/data)
-	data.next = null // sanity check
+// dm
+// filepath: /d:/ss13/BeeStation-Hornet/code/controllers/subsystem/processing/networks.dm
 
-	if(!last)
-		first = last = data
-	else
-		last.next = data
-		last = data
-	packet_count++
-	// We do error checking when the packet is sent
-	return NETWORK_ERROR_OK
+/datum/controller/subsystem/networks/proc/transmit(datum/netdata/data)
+    // Instead of queuing the packet, process it immediately
+    // data.receiver_id can be a single receiver or a list for broadcasts
+
+    var/datum/component/ntnet_interface/sending_interface = interfaces_by_hardware_id[data.sender_id]
+
+    if(islist(data.receiver_id))
+        // Handle broadcast packets
+        for(var/receiver_id in data.receiver_id)
+            _process_packet(receiver_id, data)
+    else
+        // Check if we're sending to a single device or broadcasting to a network
+        var/datum/component/ntnet_interface/target_interface = interfaces_by_hardware_id[data.receiver_id]
+        if(target_interface)
+            // Send to a single device
+            _process_packet(data.receiver_id, data)
+        else
+            // Attempt to broadcast to a network
+            var/datum/ntnet/net = networks[data.network_id]
+            net = net?.networks[data.receiver_id]
+            if(net)
+                var/list/receivers = net.collect_interfaces()
+                for(var/receiver_id in receivers)
+                    _process_packet(receiver_id, data)
+            else
+                // Invalid target network, send NAK to sender
+                if(!QDELETED(sending_interface))
+                    SEND_SIGNAL(sending_interface.parent, COMSIG_COMPONENT_NTNET_NAK, data, NETWORK_ERROR_BAD_NETWORK)
+    return NETWORK_ERROR_OK
 
 
 /datum/controller/subsystem/networks/proc/check_relay_operation(zlevel=0)	//can be expanded later but right now it's true/false.
