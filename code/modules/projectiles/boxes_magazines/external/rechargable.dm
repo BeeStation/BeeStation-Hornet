@@ -34,6 +34,17 @@
 		return null
 	return ..()
 
+/obj/item/ammo_box/magazine/recharge/security
+	name = "LP-12 powercell"
+	desc = "A rechargeable powercell designed to fit in the chamber of an LP-12."
+	icon_state = "security-10"
+	max_ammo = 10
+	ammo_type = /obj/item/ammo_casing/caseless/laser/disabler
+
+/obj/item/ammo_box/magazine/recharge/security/update_icon()
+	..()
+	icon_state = "security-[CEILING(ammo_count(),2)]"
+
 /obj/item/ammo_box/magazine/recharge/service
 	name = "energy pistol magazine"
 	desc = "A rechargeable energy pack used by service pistols."

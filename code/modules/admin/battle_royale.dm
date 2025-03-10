@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/syndie_kit/bundle_A,
 		/obj/item/storage/box/syndie_kit/bundle_B,
 		/obj/item/gun/ballistic/automatic/pistol,
-		/obj/item/gun/energy/disabler,
+		/obj/item/gun/ballistic/automatic/pistol/security,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
 		/obj/item/book/granter/action/spell/knock,
