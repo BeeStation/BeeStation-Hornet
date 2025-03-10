@@ -109,6 +109,8 @@
 
 #define STATUS_EFFECT_IPC_EMP /datum/status_effect/ipc/emp //EMP'd IPC
 
+#define	STATUS_EFFECT_CYBORG_MALFUNCTION /datum/status_effect/cyborg_malfunction //Cyborg malfunction, for EMP/Flash
+
 #define STATUS_EFFECT_SLIMEGRUB /datum/status_effect/slimegrub //infected slime
 
 #define STATUS_EFFECT_AMOK /datum/status_effect/amok //Makes the target automatically strike out at adjecent non-heretics.
