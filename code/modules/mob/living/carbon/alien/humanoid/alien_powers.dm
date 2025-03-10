@@ -258,30 +258,30 @@ Doesn't work on other aliens/AI.*/
 	update_buttons()
 	on_who.update_icons()
 
-/datum/action/alien/acid/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/alien/acid/neurotoxin/InterceptClickOn(mob/living/clicker, params, atom/target)
 	. = ..()
 	if(!.)
-		unset_click_ability(caller, refund_cooldown = FALSE)
+		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 
 	// We do this in InterceptClickOn() instead of Activate()
 	// because we use the click parameters for aiming the projectile
 	// (or something like that)
-	var/turf/user_turf = caller.loc
-	var/turf/target_turf = get_step(caller, target.dir) // Get the tile infront of the move, based on their direction
+	var/turf/user_turf = clicker.loc
+	var/turf/target_turf = get_step(clicker, target.dir) // Get the tile infront of the move, based on their direction
 	if(!isturf(target_turf))
 		return FALSE
 
 	var/modifiers = params2list(params)
-	caller.visible_message(
-		("<span class='danger'>[caller] spits neurotoxin!</span>"),
+	clicker.visible_message(
+		("<span class='danger'>[clicker] spits neurotoxin!</span>"),
 		("<span class='alienalert'>You spit neurotoxin.</span>"),
 	)
-	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(caller.loc)
-	neurotoxin.preparePixelProjectile(target, caller, modifiers)
-	neurotoxin.firer = caller
+	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(clicker.loc)
+	neurotoxin.preparePixelProjectile(target, clicker, modifiers)
+	neurotoxin.firer = clicker
 	neurotoxin.fire()
-	caller.newtonian_move(get_dir(target_turf, user_turf))
+	clicker.newtonian_move(get_dir(target_turf, user_turf))
 	return TRUE
 
 // Has to return TRUE, otherwise is skipped.

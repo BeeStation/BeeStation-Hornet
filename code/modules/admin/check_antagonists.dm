@@ -136,7 +136,7 @@
 	if(!SSticker.HasRoundStarted())
 		alert("The game hasn't started yet!")
 		return
-	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Round Status</title></head><body><h1><B>Round Status</B></h1>")
+	var/list/dat = list("<h1><B>Round Status</B></h1>")
 	if(SSticker.mode.replacementmode)
 		dat += "Former Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Replacement Game Mode: <B>[SSticker.mode.replacementmode.name]</B><BR>"
@@ -212,5 +212,4 @@
 
 	dat += build_antag_listing()
 
-	dat += "</body></html>"
-	usr << browse(dat.Join(), "window=roundstatus;size=500x500")
+	usr << browse(HTML_SKELETON_TITLE("Round Status", dat.Join()), "window=roundstatus;size=500x500")

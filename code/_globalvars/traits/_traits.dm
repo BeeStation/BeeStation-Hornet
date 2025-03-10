@@ -323,6 +323,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	/mob/living = list(
 		"TRAIT_NO_BUMP_SLAM" = TRAIT_NO_BUMP_SLAM,
+		"TRAIT_NO_MOVE_PULL" = TRAIT_NO_MOVE_PULL,
 	),
 	/mob/living/carbon = list(
 		"TRAIT_OVERRIDE_SKIN_COLOUR" = TRAIT_OVERRIDE_SKIN_COLOUR,
