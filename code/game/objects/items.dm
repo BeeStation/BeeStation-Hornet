@@ -497,13 +497,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/attack_hand(mob/user, modifiers)
 	. = ..()
-	if(.)
+	if(. || !user || anchored)
 		return
-	if(!user)
-		return
-	if(anchored)
-		return
+	return attempt_pickup(user)
 
+/obj/item/proc/attempt_pickup(mob/user)
 	. = TRUE
 
 	if(resistance_flags & ON_FIRE)
@@ -546,9 +544,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!do_after(user, 30*grav_power, src))
 			return
 
-
 	//If the item is in a storage item, take it out
-	SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user.loc, TRUE)
+	if(SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user, TRUE)) // this calls 'remove_from_storage()' proc
+		return
+
 	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
 		return
 
@@ -558,12 +557,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
-	. = FALSE
+	move_to_mobhand(user, isturf(user.loc) && get_turf(loc))
+	return
+
+/obj/item/proc/move_to_mobhand(mob/user, turf/animation_turf = null)
 	remove_outline()
 	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, FALSE))
+	if(!user.put_in_active_hand(src, FALSE, animation_turf))
 		user.dropItemToGround(src)
-		return TRUE
 
 /obj/item/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -575,22 +576,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return TRUE
 
 /obj/item/attack_paw(mob/user)
-	if(!user)
+	. = ..()
+	if(. || !user || anchored)
 		return
-	if(anchored)
-		return
-
-	SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user.loc, TRUE)
-
-	if(throwing)
-		throwing.finalize(FALSE)
-	if(loc == user)
-		if(!user.temporarilyRemoveItemFromInventory(src))
-			return
-
-	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, FALSE))
-		user.dropItemToGround(src)
+	return attempt_pickup(user)
 
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
