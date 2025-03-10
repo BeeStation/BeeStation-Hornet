@@ -148,7 +148,7 @@
 	if(isethereal(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/species/ethereal/E = H.dna.species
-		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if((E.drain_time < world.time) && LAZYACCESS(modifiers, RIGHT_CLICK) && stomach)
 			if(H.combat_mode)
 				if(cell.charge <= (cell.maxcharge / 2)) // ethereals can't drain APCs under half charge, this is so that they are forced to look to alternative power sources if the station is running low
