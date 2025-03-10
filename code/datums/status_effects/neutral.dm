@@ -247,3 +247,30 @@
 	tick_interval = INFINITY
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
+
+
+/atom/movable/screen/alert/status_effect/leaning
+	name = "Leaning"
+	desc = "You're leaning on something!"
+	icon_state = "buckled"
+
+/atom/movable/screen/alert/status_effect/leaning/Click()
+	var/mob/living/L = usr
+	if(!istype(L) || L != owner)
+		return
+	L.changeNext_move(CLICK_CD_RESIST)
+	if(L.last_special <= world.time)
+		return L.stop_leaning()
+
+/datum/status_effect/leaning
+	id = "leaning"
+	duration = -1
+	tick_interval = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/leaning
+
+/datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)
+	. = ..()
+	if(!.)
+		return
+	new_owner.start_leaning(object, leaning_offset)
