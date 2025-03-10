@@ -19,3 +19,5 @@
 
 //Car trait flags
 #define CAN_KIDNAP 1
+
+#define COMSIG_VEHICLE_MOVE "vehicle_move"
