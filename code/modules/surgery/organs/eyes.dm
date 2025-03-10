@@ -44,7 +44,7 @@
 			human_owner.eye_color = eye_color
 		else
 			eye_color = human_owner.eye_color
-		if(HAS_TRAIT(human_owner, TRAIT_NIGHT_VISION) && !lighting_alpha)
+		if(HAS_TRAIT(human_owner, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	eye_owner.update_tint()
 	owner.update_sight()
@@ -141,10 +141,9 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	if(prob(10 * severity))
-		return
-	to_chat(owner, span_warning("Static obfuscates your vision!"))
-	owner.flash_act(visual = 1)
+	if(prob(30/severity))
+		to_chat(owner, span_warning("Static obfuscates your vision!"))
+		owner.flash_act(visual = 1)
 
 /obj/item/organ/eyes/robotic/xray
 	name = "\improper X-ray eyes"

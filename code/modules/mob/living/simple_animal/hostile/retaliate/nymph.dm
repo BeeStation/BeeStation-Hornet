@@ -78,7 +78,6 @@
 	. = ..()
 	if(!is_drone)
 		update_progression()
-	get_stat_tab_status()
 	if(stat != CONSCIOUS)
 		remove_status_effect(STATUS_EFFECT_PLANTHEALING)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing

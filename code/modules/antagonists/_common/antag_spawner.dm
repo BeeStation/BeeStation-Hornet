@@ -39,7 +39,7 @@
 		dat += "<I>Your apprentice is training to cast spells without their robes. They know Knock and Mindswap.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_WILDMAGIC]'>Wild Magic</A><BR>"
 		dat += "<I>Your apprentice is training wild magic. You don't know which spells they got from the wild magic, but it's how the school of wild magic is.</I><BR><BR>"
-	user << browse(dat, "window=radio")
+	user << browse(HTML_SKELETON(dat), "window=radio")
 	onclose(user, "radio")
 	return
 

@@ -56,6 +56,11 @@
 	name = "Produce Blobbernaut (40)"
 	desc = "Produces a strong, smart blobbernaut from a factory blob for 40 resources.<br>The factory blob used will become fragile and unable to produce spores."
 
+/atom/movable/screen/blob/Blobbernaut/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	name = "Produce Blobbernaut ([BLOBMOB_BLOBBERNAUT_RESOURCE_COST])"
+	desc = "Produces a strong, smart blobbernaut from a factory blob for [BLOBMOB_BLOBBERNAUT_RESOURCE_COST] resources.<br>The factory blob used will become fragile and unable to produce spores."
+
 /atom/movable/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
@@ -65,6 +70,11 @@
 	icon_state = "ui_resource"
 	name = "Produce Resource Blob (40)"
 	desc = "Produces a resource blob for 40 resources.<br>Resource blobs will give you resources every few seconds."
+
+/atom/movable/screen/blob/ResourceBlob/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	name = "Produce Resource Blob ([BLOB_STRUCTURE_RESOURCE_COST])"
+	desc = "Produces a resource blob for [BLOB_STRUCTURE_RESOURCE_COST] resources.<br>Resource blobs will give you resources every few seconds."
 
 /atom/movable/screen/blob/ResourceBlob/Click()
 	if(isovermind(usr))
@@ -76,6 +86,11 @@
 	name = "Produce Node Blob (50)"
 	desc = "Produces a node blob for 50 resources.<br>Node blobs will expand and activate nearby resource and factory blobs."
 
+/atom/movable/screen/blob/NodeBlob/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	name = "Produce Node Blob ([BLOB_STRUCTURE_NODE_COST])"
+	desc = "Produces a node blob for [BLOB_STRUCTURE_NODE_COST] resources.<br>Node blobs will expand and activate nearby resource and factory blobs."
+
 /atom/movable/screen/blob/NodeBlob/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
@@ -85,6 +100,11 @@
 	icon_state = "ui_factory"
 	name = "Produce Factory Blob (60)"
 	desc = "Produces a factory blob for 60 resources.<br>Factory blobs will produce spores every few seconds."
+
+/atom/movable/screen/blob/FactoryBlob/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	name = "Produce Factory Blob ([BLOB_STRUCTURE_FACTORY_COST])"
+	desc = "Produces a factory blob for [BLOB_STRUCTURE_FACTORY_COST] resources.<br>Factory blobs will produce spores every few seconds."
 
 /atom/movable/screen/blob/FactoryBlob/Click()
 	if(isovermind(usr))
@@ -96,6 +116,11 @@
 	name = "Readapt Strain"
 	desc = "Allows you to choose a new strain from 4 random choices for 40 resources."
 
+/atom/movable/screen/blob/ReadaptStrain/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	name = "Readapt Strain ([BLOB_POWER_REROLL_COST])"
+	desc = "Allows you to choose a new strain from [BLOB_POWER_REROLL_CHOICES] random choices for [BLOB_POWER_REROLL_COST] resources."
+
 /atom/movable/screen/blob/ReadaptStrain/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		var/mob/camera/blob/B = hud.mymob
@@ -103,7 +128,7 @@
 			name = "[initial(name)] (FREE)"
 			desc = "Randomly rerolls your strain for free."
 		else
-			name = "[initial(name)] ([BLOB_REROLL_COST])"
+			name = "[initial(name)] ([BLOB_POWER_REROLL_COST])"
 			desc = initial(desc)
 	..()
 
@@ -116,6 +141,11 @@
 	icon_state = "ui_swap"
 	name = "Relocate Core (80)"
 	desc = "Swaps a node and your core for 80 resources."
+
+/atom/movable/screen/blob/RelocateCore/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	name = "Relocate Core ([BLOB_POWER_RELOCATE_COST])"
+	desc = "Swaps a node and your core for [BLOB_POWER_RELOCATE_COST] resources."
 
 /atom/movable/screen/blob/RelocateCore/Click()
 	if(isovermind(usr))

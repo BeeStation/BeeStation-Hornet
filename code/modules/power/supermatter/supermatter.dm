@@ -23,6 +23,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
 	interacts_with_air = TRUE
+	zmm_flags = ZMM_MANGLE_PLANES
 
 	var/gasefficency = 0.15
 
@@ -743,7 +744,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			Consume(dust_arm)
 			Consume(W)
 			return
-		if(cig.lit || user.a_intent != INTENT_HELP)
+		if(cig.lit || user.combat_mode)
 			user.visible_message(span_danger("A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea..."))
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(W)

@@ -20,10 +20,6 @@
 /savefile/byond_version = MIN_COMPILER_VERSION
 #endif
 
-#if defined(FASTDMM) || defined(CIBUILDING) || defined(SPACEMAN_DMM)
-#define YES_I_WANT_515
-#endif
-
 // 515 split call for external libraries into call_ext
 #if DM_VERSION < 515
 #define LIBCALL call

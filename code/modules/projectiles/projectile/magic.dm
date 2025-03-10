@@ -253,9 +253,9 @@
 							/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
 							/mob/living/simple_animal/hostile/gorilla,
 							/mob/living/simple_animal/parrot,
-							/mob/living/simple_animal/pet/dog/corgi,
+							/mob/living/basic/pet/dog/corgi,
 							/mob/living/simple_animal/crab,
-							/mob/living/simple_animal/pet/dog/pug,
+							/mob/living/basic/pet/dog/pug,
 							/mob/living/simple_animal/pet/cat,
 							/mob/living/simple_animal/mouse,
 							/mob/living/simple_animal/chicken,
@@ -299,7 +299,7 @@
 
 	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 
-	new_mob.a_intent = INTENT_HARM
+	new_mob.set_combat_mode(TRUE)
 
 	M.wabbajack_act(new_mob)
 

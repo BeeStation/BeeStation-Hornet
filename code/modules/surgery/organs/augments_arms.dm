@@ -159,10 +159,12 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(prob(15/severity) && owner)
+	if(prob(80/severity) && owner)
 		to_chat(owner, span_warning("The electro magnetic pulse causes [src] to malfunction!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
+		owner.drop_all_held_items()
+		Extend(pick(contents))
 
 /obj/item/organ/cyberimp/arm/proc/Retract()
 	if(!active_item || (active_item in src))
@@ -237,7 +239,6 @@
 	else
 		Retract()
 
-
 /obj/item/organ/cyberimp/arm/gun/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
@@ -251,8 +252,7 @@
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
 		organ_flags |= ORGAN_FAILING
-
-
+   
 /obj/item/organ/cyberimp/arm/gun/laser
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."

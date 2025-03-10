@@ -25,30 +25,19 @@
 	if(!has_buckled_mobs())
 		. += span_notice("Drag your sprite to sit in it.")
 
-/obj/structure/chair/ComponentInitialize()
+/obj/structure/chair/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
+	MakeRotate()
 
-/obj/structure/chair/proc/can_be_rotated(mob/user)
-	return TRUE
-
-/obj/structure/chair/proc/can_user_rotate(mob/user)
-	var/mob/living/L = user
-
-	if(istype(L))
-		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-			return FALSE
-		else
-			return TRUE
-	else if(isobserver(user) && CONFIG_GET(flag/ghost_interaction))
-		return TRUE
-	return FALSE
+///This proc adds the rotate component, overwrite this if you for some reason want to change some specific args.
+/obj/structure/chair/proc/MakeRotate()
+	AddComponent(/datum/component/simple_rotation, ROTATION_IGNORE_ANCHORED|ROTATION_GHOSTS_ALLOWED)
 
 /obj/structure/chair/Destroy()
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
 	return ..()
 
-/obj/structure/chair/deconstruct()
+/obj/structure/chair/deconstruct(disassembled)
 	// If we have materials, and don't have the NOCONSTRUCT flag
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(buildstacktype)
@@ -72,13 +61,11 @@
 	B.setDir(dir)
 	qdel(src)
 
+/obj/structure/chair/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1))
-		to_chat(user, span_notice("You start deconstructing [src]..."))
-		if(W.use_tool(src, user, 30, volume=50))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			deconstruct(TRUE, 1)
-	else if(istype(W, /obj/item/assembly/shock_kit))
+	if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
 			return
 		var/obj/item/assembly/shock_kit/SK = W
@@ -91,6 +78,14 @@
 		qdel(src)
 	else
 		return ..()
+
+/obj/structure/chair/wrench_act_secondary(mob/living/user, obj/item/weapon)
+	if(flags_1&NODECONSTRUCT_1)
+		return TRUE
+	..()
+	weapon.play_tool_sound(src)
+	deconstruct(disassembled = TRUE)
+	return TRUE
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
@@ -395,9 +390,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || !usr.can_hold_items() || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
+		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 			return
 		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
 		var/obj/item/C = new item_chair(loc)
@@ -405,6 +400,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 		TransferComponents(C)
 		usr.put_in_hands(C)
 		qdel(src)
+
+/obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+	return ..()
 
 /obj/structure/chair/stool/bar
 	name = "bar stool"
