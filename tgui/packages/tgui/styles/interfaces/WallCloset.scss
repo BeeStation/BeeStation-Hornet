@@ -1,0 +1,15 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss';
+
+
+.WallCloset_FlexItem {
+  margin:5px;
+}
+
+.WallCloset_box {
+  height: 100%;
+  width: 100%;
+  border: 1px dashed black;
+}
+

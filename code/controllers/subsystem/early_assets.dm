@@ -10,13 +10,13 @@ SUBSYSTEM_DEF(early_assets)
 
 /datum/controller/subsystem/early_assets/Initialize()
 	for (var/datum/asset/asset_type as anything in subtypesof(/datum/asset))
-		if (initial(asset_type._abstract) == asset_type)
+		if (asset_type::_abstract == asset_type)
 			continue
 
-		if (!initial(asset_type.early))
+		if (!asset_type::early)
 			continue
 
-		if (!get_asset_datum(asset_type))
+		if (!load_asset_datum(asset_type))
 			stack_trace("Could not initialize early asset [asset_type]!")
 
 		CHECK_TICK
