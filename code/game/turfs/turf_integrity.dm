@@ -153,7 +153,7 @@
 	take_damage(I.force, I.damtype, MELEE, 1)
 
 /turf/attackby(obj/item/W, mob/user, params)
-	if (!user.IsAdvancedToolUser())
+	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 
@@ -204,7 +204,7 @@
 /turf/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if (!can_hit)
 		return ..()
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		..(user, 1)
 		user.visible_message(span_danger("[user] smashes [src]!"), span_danger("You smash [src]!"), null, COMBAT_MESSAGE_RANGE)
 		if(density)

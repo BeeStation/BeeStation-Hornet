@@ -11,7 +11,7 @@
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 30 SECONDS
 
-	invocation = "RE'L'TY PH'S'E"
+	invocation = "RE'L'TY PH'S'E."
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
@@ -21,13 +21,14 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/spell/pointed/void_phase/is_valid_spell(mob/user, atom/target)
-	// We do the close range check first
-	if(get_dist(get_turf(owner), get_turf(target)) < min_cast_range)
-		owner.balloon_alert(owner, "too close!")
-		return FALSE
+/datum/action/spell/pointed/void_phase/pre_cast(mob/user, atom/target)
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
 
-	return ..()
+	if(owner && get_dist(user, target) < min_cast_range)
+		user.balloon_alert(owner, "too close!")
+		return . | SPELL_CANCEL_CAST
 
 /datum/action/spell/pointed/void_phase/on_cast(mob/user, atom/target)
 	. = ..()

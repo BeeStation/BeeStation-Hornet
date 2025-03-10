@@ -6,4 +6,5 @@ export const fullscreen: FeatureToggle = {
   subcategory: 'Quality',
   description: 'Enabling this will cause the game window to take up the entire screen space, hiding the taskbar.',
   component: CheckboxInput,
+  important: true,
 };
