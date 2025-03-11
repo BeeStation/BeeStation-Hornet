@@ -45,7 +45,7 @@
 		return FALSE
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
 		return FALSE
-	if(ISDIAGONALDIR(get_dir(leaner, source))) //Not leaning on a corner, idiot
+	if(ISDIAGONALDIR(get_dir(leaner, source)) || ((get_dir(leaner, source)) == SOUTH)) //Not leaning on a corner, idiot, or a south wall because it looks bad
 		return FALSE
 	if(!is_currently_leanable) //Is the object currently able to be leaned on?
 		return FALSE
@@ -70,8 +70,6 @@
 	var/new_x = lean_target.pixel_x + base_pixel_x + body_position_pixel_x_offset
 	var/new_y = lean_target.pixel_y + base_pixel_y + body_position_pixel_y_offset
 	switch(get_dir(src, lean_target))
-		if(SOUTH)
-			new_y -= leaning_offset
 		if(NORTH)
 			new_y += leaning_offset
 		if(WEST)
