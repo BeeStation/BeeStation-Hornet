@@ -132,6 +132,14 @@
 	if(moving_diagonally)//no mob swap during diagonal moves.
 		return TRUE
 
+	var/either_combat_mode = combat_mode
+	var/target_combat_mode = FALSE
+	if (isliving(M))
+		var/mob/living/L = M
+		if (L.stat == CONSCIOUS)
+			either_combat_mode ||= L.combat_mode
+			target_combat_mode = L.combat_mode
+
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap = FALSE
 		var/too_strong = (M.move_resist > move_force) //can't swap with immovable objects unless they help us
@@ -144,8 +152,8 @@
 				mob_swap = TRUE
 			else if(
 				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !combat_mode) &&\
-				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !combat_mode)
+				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !either_combat_mode) &&\
+				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !either_combat_mode)
 			)
 				mob_swap = TRUE
 		if(mob_swap)
@@ -185,16 +193,9 @@
 		var/mob/living/L = M
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
 			return TRUE
-	//If they're a human, and they're not in help intent, block pushing
-	if(ishuman(M))
-		var/mob/living/carbon/human/human = M
-		if(human.combat_mode)
-			return TRUE
-	//if they are a cyborg, and they're alive and in combat mode, block pushing
-	if(iscyborg(M))
-		var/mob/living/silicon/robot/borg = M
-		if(borg.combat_mode && borg.stat != DEAD)
-			return TRUE
+	// Don't allow pushing the target if they are in combat mode.
+	if(target_combat_mode)
+		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
 		if(!isclothing(M))
@@ -399,7 +400,11 @@
 
 	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
-	else if(!combat_mode) //Don;'t cancel pulls if misclicking in combat mode.
+	else
+		// If we click on a turf adjacent to a target while we have them in an aggro-grab
+		// then we won't cancel the grab
+		if (ismob(pulling) && grab_state >= GRAB_AGGRESSIVE && isturf(AM) && get_dist(AM, pulling) <= 1)
+			return
 		stop_pulling()
 
 /mob/living/stop_pulling()
@@ -554,8 +559,8 @@
 				to_chat(src, span_notice("You stand up."))
 			get_up(instant)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
-
 
 /// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
@@ -1224,7 +1229,7 @@
 		return mind.soulOwner == mind
 	return TRUE
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
 
@@ -1576,13 +1581,13 @@
 	. += {"
 		<br><font size='1'>[VV_HREF_TARGETREF(refid, VV_HK_GIVE_DIRECT_CONTROL, "[ckey || "no ckey"]")] / [VV_HREF_TARGETREF_1V(refid, VV_HK_BASIC_EDIT, "[real_name || "no real name"]", NAMEOF(src, real_name))]</font>
 		<br><font size='1'>
-			BRUTE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brute' id='brute'>[getBruteLoss()]</a>
-			FIRE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=fire' id='fire'>[getFireLoss()]</a>
-			TOXIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[getToxLoss()]</a>
-			OXY:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
-			CLONE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
-			BRAIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
-			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
+			BRUTE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brute' id='brute'>[getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=fire' id='fire'>[getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[getToxLoss()]</a>
+			OXY:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
 
@@ -1732,6 +1737,7 @@
 		return
 	. = body_position
 	body_position = new_value
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BODY_POSITION)
 	if(new_value == LYING_DOWN) // From standing to lying down.
 		on_lying_down()
 	else // From lying down to standing up.

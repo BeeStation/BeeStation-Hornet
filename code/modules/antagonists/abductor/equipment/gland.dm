@@ -24,7 +24,7 @@
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
-	if((user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING)) || isobserver(user))
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
 /obj/item/organ/heart/gland/proc/ownerCheck()

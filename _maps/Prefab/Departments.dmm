@@ -463,7 +463,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/walter{
 	density = 0
 	},
 /mob/living/simple_animal/kalo{
@@ -1305,7 +1305,7 @@
 /area/space)
 "JM" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -1731,7 +1731,7 @@
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
 "So" = (
-/mob/living/simple_animal/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/Ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4
