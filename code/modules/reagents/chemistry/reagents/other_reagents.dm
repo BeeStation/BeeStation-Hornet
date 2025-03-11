@@ -653,6 +653,14 @@
 	race = /datum/species/oozeling
 	taste_description = "burning ooze"
 
+/datum/reagent/mutationtoxin/ipc
+	name = "IPC Mutation Toxin"
+	description = "A metallic toxin"
+	color = "#5EFF3B"
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	race = /datum/species/ipc
+	taste_description = "copper wire"
+
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
 	name = "Skeleton Mutation Toxin"
