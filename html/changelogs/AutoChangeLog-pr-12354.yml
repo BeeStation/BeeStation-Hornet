@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Reduces the mail spawn rate, but expands the mail item pools to include
+      more items.
+  - bugfix: Mail with multiple items in will now open correctly.
