@@ -69,7 +69,7 @@
 		/obj/projectile/magic/wipe
 	)
 
-/obj/item/gun/magic/staff/chaos/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	chambered.projectile_type = pick(allowed_projectile_types)
 	. = ..()
 

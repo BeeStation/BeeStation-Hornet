@@ -138,6 +138,11 @@
 		select_fire(user)
 
 /obj/item/gun/energy/can_shoot()
+	if (!..())
+		return FALSE
+	// When we shoot, try to charge a new shot if necessary (we may have just been recharged)
+	if (!chambered)
+		recharge_newshot()
 	//Cannot shoot while EMPed
 	if(obj_flags & OBJ_EMPED)
 		return FALSE
@@ -158,25 +163,16 @@
 		var/obj/item/ammo_casing/energy/AC = ammo_type[select]
 		if(cell.charge >= AC.e_cost) //if there's enough power in the cell cell...
 			chambered = AC //...prepare a new shot based on the current ammo type selected
-			if(!chambered.BB)
-				chambered.newshot()
+			chambered.newshot()
 
-/obj/item/gun/energy/process_chamber()
-	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
-		var/obj/item/ammo_casing/energy/shot = chambered
-		cell.use(shot.e_cost)//... drain the cell cell
-	chambered = null //either way, released the prepared shot
-	recharge_newshot() //try to charge a new shot
-
-/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	if(!chambered && can_shoot())
-		process_chamber()	// If the gun was drained and then recharged, load a new shot.
-	return ..()
-
-/obj/item/gun/energy/process_burst(mob/living/user, atom/target, message = TRUE, params = null, zone_override="", sprd = 0, randomized_gun_spread = 0, randomized_bonus_spread = 0, rand_spr = 0, iteration = 0)
-	if(!chambered && can_shoot())
-		process_chamber()	// Ditto.
-	return ..()
+/obj/item/gun/energy/on_chamber_fired()
+	// Consume power
+	var/obj/item/ammo_casing/energy/shot = chambered
+	cell.use(shot.e_cost)
+	// Null the chambered round (Don't delete it)
+	chambered = null
+	// Recharge the next shot
+	recharge_newshot()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
