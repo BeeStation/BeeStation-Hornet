@@ -1,3 +1,8 @@
+/obj/item/organ/cyberimp/eyes/emp_act(severity)
+	if(prob(30/severity)) //They same effect as having cybernetic eyes
+		to_chat(owner, span_warning("Static obfuscates your vision!"))
+		owner.flash_act(visual = 1)
+
 /obj/item/organ/cyberimp/eyes/hud
 	name = "cybernetic hud"
 	desc = "artificial photoreceptors with specialized functionality"

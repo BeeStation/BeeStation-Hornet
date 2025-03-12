@@ -247,6 +247,7 @@ export const FeatureIconnedDropdownInput = (
                 className={classes([`${serverData.icon_sheet}32x32`, icon])}
                 style={{
                   transform: 'scale(0.8)',
+                  verticalAlign: 'bottom',
                 }}
               />
             </Stack.Item>

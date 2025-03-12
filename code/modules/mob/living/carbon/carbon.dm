@@ -154,6 +154,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	var/atom/movable/thrown_thing
 	var/obj/item/held_item = get_active_held_item()
+	var/verb_text = pick("throw", "toss", "hurl", "chuck", "fling")
 	if(!held_item)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
 			var/mob/living/throwable_mob = pulling
@@ -177,8 +178,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/sound/throwsound = 'sound/weapons/throw.ogg'
 	playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
 	log_message("has thrown [thrown_thing].", LOG_ATTACK)
-	visible_message(span_danger("[src] throws [thrown_thing]."), \
-					span_danger("You throw [thrown_thing]."))
+	visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
+						span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
 	log_message("has thrown [thrown_thing]", LOG_ATTACK)
 
 	newtonian_move(get_dir(target, src))
