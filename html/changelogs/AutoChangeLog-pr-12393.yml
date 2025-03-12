@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - tweak: cult actions are at the top of the screen now like all other actions
-  - tweak: cult runes are now created by interacting with the dagger in-hand
-  - tweak: switched the cult rune creation to tgui
