@@ -1,9 +1,0 @@
-author: TheSmallBlue, MarioWizard119, stylemistake ported by Hardly
-delete-after: true
-changes:
-  - tweak: Makes cult chat look more distinct from warnings
-  - tweak: Makes dark chat theme's command chat gold to keep it consistent with the
-      light theme's
-  - tweak: Deadsay is now pink on the dark chat theme
-  - admin: Better colors for some of admin logs and says
-  - tweak: Service is easier on the eyes for the dark chat theme.

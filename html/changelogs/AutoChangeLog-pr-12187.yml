@@ -1,8 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - rscadd: Added virology, genetics, and nanite scanners as new ghost scanners.
-  - tweak: Improved the genetics sequencer to be more visually pleasing as well as
-      more in-line with other scanner outputs.
-  - refactor: Refactored related scan procs to no longer require the items related
-      to them
