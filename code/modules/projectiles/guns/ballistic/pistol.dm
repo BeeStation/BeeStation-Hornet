@@ -145,7 +145,7 @@
 /obj/item/gun/ballistic/automatic/pistol/service
 	name = "service pistol"
 	desc = "A commemorative pistol given to Nanotrasen officers designed to use higher densities of energy to emulate the ballistic service pistols that they replaced. \
-	It primarilly serves as a symbol of power, but has proven to be an effective tool at enforcing the power that is portrays. \
+	It primarilly serves as a symbol of power, but has proven to be an effective tool at enforcing the power that it portrays. \
 	It fires less-lethal rounds which stun the area of the body that they burn."
 	icon_state = "officer"
 	w_class = WEIGHT_CLASS_NORMAL
