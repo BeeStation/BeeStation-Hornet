@@ -26,7 +26,8 @@
 		var/obj/item/stack/sheet/iron/iron = held_item
 		var/quantity = iron.amount
 		if(iron.use(quantity))
-			new /obj/item/stack/sheet/fleshymass(get_turf(owner), quantity)
+			var/fleshymass = new /obj/item/stack/sheet/fleshymass(get_turf(owner), quantity)
+			owner.put_in_hands(fleshymass)
 			to_chat(owner, span_warning("You bleed on the iron transforming it with your vampiric blood"))
 			SEND_SOUND(owner, sound('sound/effects/magic.ogg', 0, 1, 25))
 	deactivate_power()
