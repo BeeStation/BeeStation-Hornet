@@ -97,9 +97,12 @@
 	foodtypes = GRAIN | RAW
 	microwaved_type = /obj/item/food/boiledrice
 
+/obj/item/food/uncooked_rice/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/boiledrice, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
+
 /*
-/obj/item/food/salad/ricebowl/make_microwaveable()
-	AddElement(/datum/element/microwavable, /obj/item/food/salad/boiledrice)
+/obj/item/food/uncooked_rice/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/boiledrice)
 */
 
 /obj/item/food/boiledrice

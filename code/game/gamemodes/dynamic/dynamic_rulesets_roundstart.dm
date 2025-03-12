@@ -24,7 +24,6 @@
 	name = "Traitor"
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
-	banned_roles = list(JOB_NAME_CYBORG)
 	weight = 5
 	points_cost = 5
 
@@ -53,6 +52,31 @@
 	antag_datum = /datum/antagonist/heretic
 	weight = 4
 	points_cost = 5
+
+//////////////////////////////////////////////
+//                                          //
+//         MALFUNCTIONING AI                //
+//                              		    //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/malf
+	name = "Malfunctioning AI"
+	role_preference = /datum/role_preference/antagonist/malfunctioning_ai
+	antag_datum = /datum/antagonist/malf_ai
+	minimum_points_required = 24
+	weight = 4
+	points_cost = 13
+	flags = LONE_RULESET
+
+/datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
+	var/list/living_players = mode.current_players[CURRENT_LIVING_PLAYERS]
+	for(var/mob/living/player in living_players)
+		if(isAI(player))
+			candidates -= player
+			player.mind.special_role = ROLE_MALF
+			player.mind.add_antag_datum(antag_datum)
+			return DYNAMIC_EXECUTE_SUCCESS
+	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 //////////////////////////////////////////////
 //                                          //
