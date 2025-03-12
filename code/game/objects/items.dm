@@ -234,6 +234,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// If the item is able to be used as a seed in a hydroponics tray.
 	var/obj/item/seeds/fake_seed
 
+	/// Used if we want to have a custom verb text for throwing. "John Spaceman flicks the ciggerate" for example.
+	var/throw_verb
+
 /obj/item/Initialize(mapload)
 
 	if(attack_verb_continuous)
