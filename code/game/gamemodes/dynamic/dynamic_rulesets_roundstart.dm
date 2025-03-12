@@ -2,6 +2,18 @@
 	rule_category = DYNAMIC_ROUNDSTART
 	use_antag_reputation = TRUE
 
+	/// The minimum number of points dynamic that had to initially generate for this to be drafted.
+	var/minimum_points_required = 0
+
+/datum/dynamic_ruleset/roundstart/allowed()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(dynamic.roundstart_points < minimum_points_required)
+		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
+		return FALSE
+
 //////////////////////////////////////////////
 //                                          //
 //               TRAITOR	                //

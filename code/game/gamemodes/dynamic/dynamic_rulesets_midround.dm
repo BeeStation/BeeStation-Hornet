@@ -7,7 +7,8 @@
 
 /datum/dynamic_ruleset/midround // Can be drafted once in a while during a round
 	rule_category = DYNAMIC_MIDROUND
-	var/midround_ruleset_style
+
+	var/severity = DYNAMIC_MIDROUND_LIGHT
 	/// If the ruleset should be restricted from ghost roles.
 	var/restrict_ghost_roles = TRUE
 	/// What mob type the ruleset is restricted to.

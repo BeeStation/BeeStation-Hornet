@@ -21,28 +21,35 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	reroll_friendly = FALSE
 
 	/*
-	 * Roundstart
+	 * Roundstart variables
 	*/
 
 	/// Set at the beginning of the round. Used to purchase rules.
 	var/roundstart_points = 0
 	/// The list of rulesets to be executed at roundstart
-	var/executed_roundstart_rulesets = list()
-	/// List of candidates used on roundstart rulesets.
+	var/roundstart_executed_rulesets = list()
+	/// List of players ready on candidates used on roundstart rulesets.
 	var/list/roundstart_candidates = list()
 
-	/// Configurable
+	/*
+	 * Midround variables
+	*/
 
-	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
-	/// These should always be greater than 0 and an integer. NO DECIMALS!
-	/// These are defined here so they can be configured in 'dynamic.json'
-	var/divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
-	var/divergence_percent_upper = DYNAMIC_POINT_DIVERGENCE_UPPER
-	/// How many roundstart points should be granted per player based off their status (OBSERVING, READY, UNREADY)
-	/// Defined here so they can be configured in 'dynamic.json'
-	var/roundstart_points_per_observer = DYNAMIC_POINTS_PER_OBSERVER
-	var/roundstart_points_per_ready = DYNAMIC_POINTS_PER_READY
-	var/roundstart_points_per_unready = DYNAMIC_POINTS_PER_UNREADY
+	/// A total list of all midrounds executed, for logging purposes
+	var/midround_executed_rulesets = list()
+	/// How many points we currently have to spend on the next midround. Constantly changing
+	var/midround_points = 0
+	/// The midround that we are currently saving points up for.
+	/// Set in choose_midround_ruleset()
+	var/datum/dynamic_ruleset/midround/midround_chosen_ruleset
+	/// A list if midround rulesets configured from 'dynamic.json'
+	var/list/configured_midround_rulesets
+
+	/// The chances for each type of midround ruleset to be picked
+	/// Set in pre_setup()
+	var/midround_light_chance
+	var/midround_medium_chance
+	var/midround_heavy_chance
 
 	/*
 	 * Other variables
@@ -53,7 +60,33 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/// Some rulesets (like revolution) need to process
 	var/list/rulesets_to_process = list()
 
+	/*
+	 * Configurable variables
+	 * All of these variables can be customized in 'dynamic.json'
+	*/
 
+	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
+	/// These should always be decimals. e.g: 0.8, 1.4
+	var/roundstart_divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
+	var/roundstart_divergence_percent_upper = DYNAMIC_POINT_DIVERGENCE_UPPER
+	/// How many roundstart points should be granted per player based off their ready status (OBSERVING, READY, UNREADY)
+	var/roundstart_points_per_ready = DYNAMIC_POINTS_PER_READY
+	var/roundstart_points_per_unready = DYNAMIC_POINTS_PER_UNREADY
+	var/roundstart_points_per_observer = DYNAMIC_POINTS_PER_OBSERVER
+
+	/// The chances for each type of midround ruleset to be picked
+	var/midround_light_starting_chance = DYNAMIC_MIDROUND_LIGHT_STARTING_CHANCE
+	var/midround_medium_starting_chance = DYNAMIC_MIDROUND_MEDIUM_STARTING_CHANCE
+	var/midround_heavy_starting_chance = DYNAMIC_MIDROUND_HEAVY_STARTING_CHANCE
+	/// At this time the chance for a Light or Medium midround will reach 0%
+	/// When configuring these in 'dynamic.json' be sure to have them set in deciseconds (minutes * 600)
+	var/midround_light_end_time = DYNAMIC_MIDROUND_LIGHT_END_TIME
+	var/midround_medium_end_time = DYNAMIC_MIDROUND_MEDIUM_END_TIME
+	/// What percent of the Light Point Decrease should be given to the Medium Ruleset Chance
+	/// The heavy ratio is calculated by doing 1 - midround_medium_increase_ratio
+	var/midround_medium_increase_ratio = DYNAMIC_MIDROUND_INCREASE_RATIO
+	/// The time at which midrounds can start
+	var/midround_grace_period = DYNAMIC_MIDROUND_GRACEPERIOD
 
 // Yes, this is copy pasted from game_mode
 /datum/game_mode/dynamic/check_finished(force_ending)
@@ -90,20 +123,26 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 						continue
 					vars[variable] = dynamic_configuration["Dynamic"][variable]
 
+	midround_light_chance = midround_light_starting_chance
+	midround_medium_chance = midround_medium_starting_chance
+	midround_heavy_chance = midround_heavy_starting_chance
+
 	// Apply 'dynamic.json' configurations into each roundstart ruleset
 	var/list/configured_roundstart_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
 	// Set our points according to pop and a bit of RNG
 	set_roundstart_points()
 
-	// Log ready the configured roundstart rulesets and ready players
-	log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] round start rulesets, and [length(roundstart_candidates)] players ready.")
-	if(!length(roundstart_candidates))
+	// Log stuff
+	if(length(roundstart_candidates))
+		log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] round start rulesets, and [length(roundstart_candidates)] players ready.")
+	else
 		log_game("DYNAMIC: FAIL: no roundstart candidates.")
 		return TRUE
 
 	// Pick rulesets to be executed from 'configured_roundstart_rulesets'
 	pick_roundstart_rulesets(configured_roundstart_rulesets)
+	return TRUE
 
 /*
 * Returns a list of all ruleset types (Roundstart, Midround, Latejoin) and configures their variables by calling configure_ruleset()
@@ -162,8 +201,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		else
 			roundstart_points += roundstart_points_per_unready
 
-	var/point_divergence = 1 + rand(-divergence_percent_lower, divergence_percent_upper) / 100
-	roundstart_points *= point_divergence
+	roundstart_points *= rand(roundstart_divergence_percent_lower, roundstart_divergence_percent_upper)
 
 	roundstart_points = round(roundstart_points, 1)
 
@@ -181,25 +219,37 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	for(var/datum/dynamic_ruleset/roundstart/rule in roundstart_rules)
 		if(!rule.weight)
 			continue
-		if(roundstart_points < rule.minimum_points_required)
-			log_game("DYNAMIC: FAIL: [rule.name] is not allowed: The minimum point requirement (minimum: [rule.minimum_points_required]) was not met! (points: [roundstart_points])")
-			continue
 
 		rule.candidates = roundstart_candidates.Copy()
 		rule.trim_candidates()
 
-		if(rule.allowed())
-			possible_rulesets[rule] = rule.weight
+		if(!rule.allowed())
+			continue
+
+		possible_rulesets[rule] = rule.weight
 
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
 	while(roundstart_points_left > 0)
 		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight_allow_zero(possible_rulesets)
 
-		// Uh oh, ran out of rulesets
+		// Ran out of rulesets
 		if(isnull(ruleset))
-			log_game("DYNAMIC: No more rules can be applied, stopping with [roundstart_points_left] points left.")
+			log_game("DYNAMIC: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
 			break
+
+		// Stop infinite loops
+		if(!ruleset.points_cost)
+			stack_trace("[ruleset] cost is 0, this is going to result in an infinite loop.")
+			possible_rulesets[ruleset] = null
+			continue
+
+		// Something changed and this ruleset is no longer allowed
+		// Most common occurance is all previous candidates were assigned an antag position
+		ruleset.trim_candidates()
+		if(!ruleset.allowed())
+			possible_rulesets[ruleset] = null
+			continue
 
 		// Not enough points left
 		if(ruleset.points_cost > roundstart_points_left)
@@ -207,22 +257,19 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			continue
 
 		// check_is_ruleset_blocked()
-		if(check_is_ruleset_blocked(ruleset, executed_roundstart_rulesets))
+		if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
 			possible_rulesets[ruleset] = null
 			continue
 
-		// Apply cost and add ruleset to 'executed_roundstart_rulesets'
+		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
-		executed_roundstart_rulesets += ruleset
+		roundstart_executed_rulesets[ruleset] += 1
+		ruleset.pre_execute()
 
-		if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
-			rulesets_to_process += ruleset
+		log_game("DYNAMIC: Chose [ruleset] with [roundstart_points_left] points left")
 
 /*
-* Checks if a ruleset is allowed to run based off of the other ones.
-* A blood and clock cult cannot both run
-* Two rulesets with the 'HIGH_IMPACT_RULESET' cannot run
-* Returns TRUE if blocked and FALSE if allowed
+* Checks if a ruleset is allowed to run based off of the other ruleset flags.
 */
 /datum/game_mode/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, applied_rulesets)
 	// Check for blocked rulesets
@@ -238,33 +285,137 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			return TRUE
 
-		// Check for 'NO_OTHER_ROUNDSTART_RULESETS'
-		if(CHECK_BITFIELD(other_ruleset.flags, NO_OTHER_ROUNDSTART_RULESETS))
-			return TRUE
-
 		// Check for 'LONE_RULESET'
 		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.flags, LONE_RULESET))
 			return TRUE
 	return FALSE
 
 /*
-* Execute all roundstart rulesets
+* Execute all roundstart rulesets and initiate midrounds
 */
 /datum/game_mode/dynamic/post_setup(report)
-	for(var/datum/dynamic_ruleset/roundstart/rule in executed_roundstart_rulesets)
-		rule.execute()
+	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
+		execute_ruleset(ruleset)
+
+	init_midround()
 	. = ..()
 
 /*
-* Some rulesets (like revolution) need to process each tick. Lets give them the opportunity to do so.
-* Also try for midrounds.
+* Some rulesets need to process each tick. Lets give them the opportunity to do so.
 */
 /datum/game_mode/dynamic/process()
 	for(var/datum/dynamic_ruleset/rule in rulesets_to_process)
-		if(rule.rule_process() == RULESET_STOP_PROCESSING) // If rule_process() returns 1 (RULESET_STOP_PROCESSING), stop processing.
+		if(rule.rule_process() == RULESET_STOP_PROCESSING)
 			rulesets_to_process -= rule
 
-	// TODO: try_midround_roll()
+/*
+* Execute a ruleset and if it needs to process, add it to the list
+*/
+/datum/game_mode/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
+	ruleset.execute()
+
+	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
+		rulesets_to_process += ruleset
+
+/*
+* Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
+*/
+/datum/game_mode/dynamic/proc/init_midround()
+	configured_midround_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
+
+	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
+
+/*
+* Set the chosen midround ruleset based off a severity
+* Leave the 'severity' variable blank if you want to pick from any midround type
+*/
+/datum/game_mode/dynamic/proc/try_midround_roll()
+	update_midround_points()
+	update_midround_chances()
+
+	if(midround_chosen_ruleset)
+		if(midround_points >= midround_chosen_ruleset.points_cost)
+			execute_ruleset(midround_chosen_ruleset)
+			midround_executed_rulesets += midround_chosen_ruleset
+			midround_chosen_ruleset = null
+	else if(world.time >= DYNAMIC_MIDROUND_GRACEPERIOD)
+		choose_midround_ruleset()
+
+
+/datum/game_mode/dynamic/proc/update_midround_points()
+	midround_points++
+
+	log_game("DYNAMIC: Updated midround points. [midround_points]")
+
+/*
+* At roundstart the chance for a Light ruleset to spawn is 100%
+* As the round progresses, this chance will decrease and the chance to spawn a Medium and Heavy ruleset will increase.
+* After reaching 60 minutes the chance for a Light ruleset to spawn will reach 0%
+* Alongside this, the chance to roll a Medium ruleset will start to decrease and the chance to roll a Heavy ruleset will increase.
+*/
+/datum/game_mode/dynamic/proc/update_midround_chances()
+	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / 1 MINUTES)
+
+	// Decrease light chance
+	midround_light_chance = max(0, midround_light_chance - light_decrease_rate)
+
+	if(world.time > midround_light_end_time)
+		// Light is 0%, lets start to lower Medium
+		var/medium_decrease_rate = 100 * midround_medium_increase_ratio / ((midround_medium_end_time - midround_light_end_time) / 1 MINUTES)
+
+		midround_medium_chance = max(midround_medium_chance - medium_decrease_rate, 0)
+		midround_heavy_chance = min(midround_heavy_chance + medium_decrease_rate, 100)
+	else
+		// Increase Medium and Heavy chances
+		var/medium_ratio = midround_medium_increase_ratio
+		var/heavy_ratio = 1 - medium_ratio
+
+		midround_medium_chance += light_decrease_rate * medium_ratio
+		midround_heavy_chance += light_decrease_rate * heavy_ratio
+
+    // Ensure the total chance is 100%
+	var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
+	if(total_current_chance != 100)
+		var/adjustment_factor = 100 / total_current_chance
+		midround_light_chance *= adjustment_factor
+		midround_medium_chance *= adjustment_factor
+		midround_heavy_chance *= adjustment_factor
+
+	log_game("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
+
+/*
+* Choose the midround ruleset to save towards
+*/
+/datum/game_mode/dynamic/proc/choose_midround_ruleset()
+	if(!length(configured_midround_rulesets))
+		stack_trace("configured_midround_rulesets is empty.")
+		return
+
+	// Pick severity
+	var/severity
+	var/random_value = rand(1, 100)
+	if(random_value <= midround_light_chance)
+		severity = DYNAMIC_MIDROUND_LIGHT
+	else if(random_value <= midround_light_chance + midround_medium_chance)
+		severity = DYNAMIC_MIDROUND_MEDIUM
+	else
+		severity = DYNAMIC_MIDROUND_HEAVY
+
+	// Get possible rulesets
+	var/list/possible_rulesets = list()
+	for(var/datum/dynamic_ruleset/midround/rule in configured_midround_rulesets)
+		if(!rule.weight)
+			continue
+		if(!rule.allowed())
+			continue
+		if(severity && rule.severity != severity)
+			continue
+
+		rule.trim_candidates()
+		possible_rulesets[rule] = rule.weight
+
+	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
+	log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
 
 /*
 * latejoin

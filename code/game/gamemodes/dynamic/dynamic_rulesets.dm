@@ -19,8 +19,6 @@
 	var/rule_category
 	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
-	/// The minimum number of points dynamic that had to initially generate for this to be drafted.
-	var/minimum_points_required = 0
 	/// How many points this ruleset costs to run. (How many players for one of this antagonist to spawn)
 	var/points_cost = 5
 	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
@@ -67,10 +65,10 @@
 
 		// Connected?
 		if(!client || !player.mind)
-			candidates. -= player
+			candidates -= player
 			continue
 
-		// Antag banned/disabled or not enough hours?
+		// Antag banned? Disabled? Not enough hours?
 		if(!client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
 			role_preference_key = role_preference,
@@ -90,15 +88,16 @@
 */
 /datum/dynamic_ruleset/proc/allowed()
 	if(length(candidates) < drafted_players_amount)
-		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
+		log_game("DYNAMIC: FAIL: [name] is not allowed: The minimum candidate requirement (drafted players: [drafted_players_amount]) was not met! (candidates: [length(candidates)])")
 		return FALSE
+
 	return TRUE
 
 /*
 * Picks a player from the list of candidates.
 * If 'use_antag_reputation' is set to TRUE, take antag_rep into account.
 */
-/datum/dynamic_ruleset/proc/select_player(candidates)
+/datum/dynamic_ruleset/proc/select_player()
 	var/mob/dead/new_player/selected_player = dynamic && use_antag_reputation ? dynamic.antag_pick(candidates, role_preference) : pick(candidates)
 
 	if(selected_player)
@@ -108,7 +107,7 @@
 /*
 * Choose candidates
 * Apply special_role and banned_roles
-* Called from 'dynamic.dm' 'execute_roundstart_rulesets()'
+* Called from 'dynamic.dm' pick_roundstart_rulesets()
 */
 /datum/dynamic_ruleset/proc/pre_execute()
 	for(var/i = 1 to drafted_players_amount)
@@ -123,7 +122,7 @@
 
 /*
 * Give your chosen_minds their antag datums.
-* Called from 'dynamic.dm' 'post_setup'
+* Called from 'dynamic.dm' post_setup()
 */
 /datum/dynamic_ruleset/proc/execute()
 	for(var/datum/mind/chosen_mind in chosen_minds)

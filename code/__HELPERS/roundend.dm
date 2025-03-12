@@ -374,9 +374,27 @@
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 
-		parts += "[FOURSPACES]Executed rules:"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_roundstart_rulesets)
-			parts += "[FOURSPACES][FOURSPACES][rule.rule_category] - <b>[rule.name]</b>"
+		// Roundstart
+		parts += "[FOURSPACES]Executed roundstart rulesets:"
+		var/list/roundstart_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
+			if(roundstart_rule_counts[rule])
+				roundstart_rule_counts[rule]++
+			else
+				roundstart_rule_counts[rule] = 1
+		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
+			parts += "[FOURSPACES][FOURSPACES]<b>[rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
+
+		parts += "[FOURSPACES]Executed midround rulesets:"
+		var/list/midround_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
+			if(midround_rule_counts[rule])
+				midround_rule_counts[rule]++
+			else
+				midround_rule_counts[rule] = 1
+		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
+			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
+
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -786,9 +804,27 @@
 	discordmsg += "Gamemode: [SSticker.mode.name]\n"
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
-		discordmsg += "Executed rules:\n"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_roundstart_rulesets)
-			discordmsg += "[rule.rule_category] - <b>[rule.name]</b>\n"
+
+		// Roundstart
+		discordmsg += "Executed roundstart rulesets:\n"
+		var/list/roundstart_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
+			if(roundstart_rule_counts[rule])
+				roundstart_rule_counts[rule]++
+			else
+				roundstart_rule_counts[rule] = 1
+		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
+			discordmsg += "<b>[rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+
+		discordmsg += "Executed midround rulesets:\n"
+		var/list/midround_rule_counts = list()
+		for(var/datum/dynamic_ruleset/rule in mode.roundstart_executed_rulesets)
+			if(midround_rule_counts[rule])
+				midround_rule_counts[rule]++
+			else
+				midround_rule_counts[rule] = 1
+		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
+			discordmsg += "<b>[rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"

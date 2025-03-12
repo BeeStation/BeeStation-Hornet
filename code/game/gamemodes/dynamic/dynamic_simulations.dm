@@ -32,7 +32,7 @@
 
 	var/total_antags = 0
 	var/list/roundstart_rulesets = list()
-	for(var/_ruleset in dynamic.executed_roundstart_rulesets)
+	for(var/_ruleset in dynamic.roundstart_executed_rulesets)
 		var/datum/dynamic_ruleset/ruleset = _ruleset
 		roundstart_rulesets += ruleset.name
 		total_antags += ruleset.drafted_players_amount
