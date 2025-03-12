@@ -43,6 +43,8 @@ const Cell = (props) => {
             icon={props.icon}
             icon_state={props.icon_state}
             fallback={<Icon mr={1} name="spinner" spin />}
+            height="100%"
+            width="100%"
           />
         </Box>
         <Box className="WallCloset_ItemLabel">

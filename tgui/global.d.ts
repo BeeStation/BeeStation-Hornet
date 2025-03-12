@@ -176,12 +176,13 @@ type ByondType = {
    * Loads a script into the document.
    */
   loadJs(url: string): void;
-};
 
-  /**
+    /**
    * Maps icons to their ref
    */
   iconRefMap: Record<string, string>;
+};
+
 
 /**
  * Object that provides access to Byond Skin API and is available in
