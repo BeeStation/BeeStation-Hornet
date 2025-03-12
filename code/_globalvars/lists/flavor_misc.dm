@@ -278,8 +278,6 @@ GLOBAL_LIST_INIT(admiral_messages, list(
 	"You knew the risks coming in.",
 ))
 
-GLOBAL_LIST_INIT(junkmail_messages, world.file2list("strings/junkmail.txt"))
-
 // All valid inputs to status display post_status
 GLOBAL_LIST_INIT(status_display_approved_pictures, list(
 	"blank",
@@ -357,4 +355,58 @@ GLOBAL_LIST_INIT(junkie_drugs, list(
 	/datum/reagent/drug/happiness,
 	/datum/reagent/drug/methamphetamine,
 	/datum/reagent/drug/ketamine
+))
+
+/// Naturally occuring hair colours
+GLOBAL_LIST_INIT(natural_hair_colours, list(
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+	"#A0785F",
+	"#996F53",
+	"#60463D",
+	"#9E7046",
+	"#9B7257",
+	"#523F38",
+	"#50362F",
+	"#A55A3B",
+	"#4D3B2C",
+	"#312016",
+	"#432C20",
+	"#2C1C11",
+	"#2E3239",
+	"#693822",
+	"#663423"
+))
+
+/// Hair colours that aren't naturaly but relatively normal (I'll save the anime hair colours for custom characters)
+GLOBAL_LIST_INIT(female_dyed_hair_colours, list(
+	"#733338",
+	"#593333",
+	"#401B24",
+	"#492D38",
+	"#3E262D",
+))
+
+GLOBAL_LIST_INIT(secondary_dye_hair_colours, list(
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+))
+
+GLOBAL_LIST_INIT(secondary_dye_female_hair_colours, list(
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+	"#733338",
+	"#593333",
+	"#401B24",
+	"#492D38",
+	"#3E262D",
 ))

@@ -350,6 +350,56 @@
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
 	return S
 
+////////////////////////////////  STAGGER /////////////////////////////////////
+
+/mob/living/proc/is_staggered() //If we're asleep
+	return has_status_effect(STATUS_EFFECT_STAGGERED)
+
+/mob/living/proc/amount_staggered() //How many deciseconds remain in our sleep
+	var/datum/status_effect/staggered/S = is_staggered()
+	if(S)
+		return S.duration - world.time
+	return 0
+
+/mob/living/proc/staggered(amount) //Can't go below remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
+		return
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/staggered/S = is_staggered()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_STAGGERED, amount)
+	return S
+
+/mob/living/proc/set_staggered(amount) //Sets remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
+		return
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/staggered/S = is_staggered()
+	if(amount <= 0)
+		if(S)
+			qdel(S)
+	else if(S)
+		S.duration = world.time + amount
+	else
+		S = apply_status_effect(STATUS_EFFECT_STAGGERED, amount)
+	return S
+
+/mob/living/proc/adjust_staggered(amount) //Adds to remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
+		return
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/staggered/S = is_staggered()
+	if(S)
+		S.duration += amount
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_STAGGERED, amount)
+	return S
+
 ///////////////////////////////// FROZEN /////////////////////////////////////
 
 /mob/living/proc/IsFrozen()
