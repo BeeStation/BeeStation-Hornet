@@ -1,0 +1,14 @@
+{
+	"map_name": "Backrooms",
+	"map_link": "backrooms",
+	"map_path": "map_files/Backrooms",
+	"map_file": "Backrooms.dmm",
+	"shuttles": {
+		"cargo": "cargo_box",
+		"ferry": "ferry_standard",
+		"whiteship": "whiteship_meta",
+		"emergency": "emergency_meta"
+	},
+	"traits": [{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true},
+		{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true}]
+}
