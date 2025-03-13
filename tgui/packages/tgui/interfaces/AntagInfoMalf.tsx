@@ -1,8 +1,9 @@
-import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { multiline } from 'common/string';
+import { GenericUplink } from './Uplink';
+import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -19,28 +20,113 @@ const goalstyle = {
   fontWeight: 'bold',
 };
 
+type Objective = {
+  count: number;
+  name: string;
+  explanation: string;
+};
+
 type Info = {
   has_codewords: BooleanLike;
   phrases: string;
   responses: string;
+  theme: string;
+  allies: string;
+  goal: string;
+  intro: string;
+  processingTime: string;
   objectives: Objective[];
 };
 
-const IntroSection = (_props) => {
+const ObjectivePrintout = (props) => {
+  const { data } = useBackend<Info>();
+  const { objectives } = data;
   return (
-    <Section>
-      <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
-        You are the{' '}
-        <Box inline textColor="bad">
-          Malfunctioning AI
-        </Box>
-        !
-      </h1>
+    <Stack vertical>
+      <Stack.Item bold>Your prime objectives:</Stack.Item>
+      <Stack.Item>
+        {(!objectives && 'None!') ||
+          objectives.map((objective) => (
+            <Stack.Item key={objective.count}>
+              &#8805-{objective.count}: {objective.explanation}
+            </Stack.Item>
+          ))}
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const IntroductionSection = (props) => {
+  const { act, data } = useBackend<Info>();
+  const { intro } = data;
+  return (
+    <Section fill title="Intro" scrollable>
+      <Stack vertical fill>
+        <Stack.Item fontSize="25px">{intro}</Stack.Item>
+        <Stack.Item grow>
+          <ObjectivePrintout />
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
 
-const CodewordsSection = (_props) => {
+const FlavorSection = (props) => {
+  const { data } = useBackend<Info>();
+  const { allies, goal } = data;
+  return (
+    <Section
+      fill
+      title="Diagnostics"
+      buttons={
+        <Button
+          mr={-0.8}
+          mt={-0.5}
+          icon="hammer"
+          tooltip={multiline`
+            This is a gameplay suggestion for bored AIs.
+            You don't have to follow it, unless you want some
+            ideas for how to spend the round.`}
+          tooltipPosition="bottom-start">
+          Policy
+        </Button>
+      }>
+      <Stack vertical fill>
+        <Stack.Item grow>
+          <Stack fill vertical>
+            <Stack.Item style={{ backgroundColor: 'black' }}>
+              <span style={goalstyle}>
+                System Integrity Report:
+                <br />
+              </span>
+              &gt;{goal}
+            </Stack.Item>
+            <Stack.Divider />
+            <Stack.Item grow style={{ backgroundColor: 'black' }}>
+              <span style={allystyle}>
+                Morality Core Report:
+                <br />
+              </span>
+              &gt;{allies}
+            </Stack.Item>
+            <Stack.Divider />
+            <Stack.Item style={{ backgroundColor: 'black' }}>
+              <span style={badstyle}>
+                Overall Sentience Coherence Grade: FAILING.
+                <br />
+              </span>
+              &gt;Report to Nanotrasen?
+              <br />
+              &gt;&gt;N
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+const CodewordsSection = (props) => {
   const { data } = useBackend<Info>();
   const { has_codewords, phrases, responses } = data;
   return (
@@ -82,22 +168,47 @@ const CodewordsSection = (_props) => {
   );
 };
 
-export const AntagInfoMalf = (_props) => {
+export const AntagInfoMalf = (props) => {
   const { data } = useBackend<Info>();
-  const { objectives } = data;
+  const { processingTime } = data;
+  const [antagInfoTab, setAntagInfoTab] = useLocalState('antagInfoTab', 0);
   return (
-    <Window width={660} height={530} theme="hackerman">
-      <Window.Content style={{ fontFamily: 'Consolas, monospace' }}>
+    <Window width={660} height={530} theme={(antagInfoTab === 0 && 'hackerman') || 'malfunction'}>
+      <Window.Content style={{ 'font-family': 'Consolas, monospace' }}>
         <Stack vertical fill>
           <Stack.Item>
-            <IntroSection />
+            <Tabs fluid>
+              <Tabs.Tab icon="info" selected={antagInfoTab === 0} onClick={() => setAntagInfoTab(0)}>
+                Information
+              </Tabs.Tab>
+              <Tabs.Tab icon="code" selected={antagInfoTab === 1} onClick={() => setAntagInfoTab(1)}>
+                Malfunction Modules
+              </Tabs.Tab>
+            </Tabs>
           </Stack.Item>
-          <Stack.Item grow>
-            <ObjectivesSection objectives={objectives} />
-          </Stack.Item>
-          <Stack.Item>
-            <CodewordsSection />
-          </Stack.Item>
+          {(antagInfoTab === 0 && (
+            <>
+              <Stack.Item grow>
+                <Stack fill>
+                  <Stack.Item width="70%">
+                    <IntroductionSection />
+                  </Stack.Item>
+                  <Stack.Item width="30%">
+                    <FlavorSection />
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
+              <Stack.Item>
+                <CodewordsSection />
+              </Stack.Item>
+            </>
+          )) || (
+            <Stack.Item>
+              <Section>
+                <GenericUplink currencyAmount={processingTime} currencySymbol="PT" />
+              </Section>
+            </Stack.Item>
+          )}
         </Stack>
       </Window.Content>
     </Window>
