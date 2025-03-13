@@ -89,9 +89,9 @@
 /datum/nanite_program/explosive/proc/boom()
 	var/nanite_amount = nanites.nanite_volume
 	var/max_nanites_over500 = max(nanites.max_nanites, 500)
-	var/dev_range = FLOOR(nanite_amount/(max_nanites * 0.4), 1) - 1
-	var/heavy_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
-	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.1), 1) - 1
+	var/dev_range = FLOOR(nanite_amount/(max_nanites_over500 * 0.4), 1) - 1
+	var/heavy_range = FLOOR(nanite_amount/(max_nanites_over500 * 0.2), 1) - 1
+	var/light_range = FLOOR(nanite_amount/(max_nanites_over500 * 0.1), 1) - 1
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 
