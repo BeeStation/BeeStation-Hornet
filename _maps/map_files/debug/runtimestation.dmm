@@ -1031,9 +1031,8 @@
 /turf/open/floor/iron,
 /area/storage/primary)
 "dD" = (
-/obj/effect/landmark/observer_start,
 /turf/open/floor/iron,
-/area/storage/primary)
+/area/construction)
 "dE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2211,6 +2210,14 @@
 	},
 /turf/open/floor/iron,
 /area/construction)
+"iZ" = (
+/obj/effect/landmark/observer_start,
+/obj/structure/wall_closet/hydro/directional/north,
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/turf/open/floor/iron,
+/area/storage/primary)
 "jb" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
@@ -2413,6 +2420,10 @@
 /obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"tk" = (
+/obj/structure/wall_closet/hydro/directional/north,
+/turf/open/floor/iron,
+/area/construction)
 "tn" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -2453,6 +2464,9 @@
 	},
 /turf/open/floor/iron,
 /area/science)
+"vh" = (
+/turf/closed/wall/mineral,
+/area/construction)
 "vm" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/aft)
@@ -2515,6 +2529,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"zl" = (
+/obj/structure/wall_closet/generic/directional/north,
+/turf/open/floor/iron,
+/area/construction)
 "zo" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable{
@@ -2745,6 +2763,30 @@
 	dir = 1
 	},
 /area/medical/medbay)
+"GU" = (
+/obj/structure/wall_closet/med/directional/south,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/surgicaldrill,
+/obj/item/swapper,
+/obj/item/syndie_glue,
+/obj/item/tank/internals/emergency_oxygen/engi/empty,
+/obj/item/screwdriver/cyborg,
+/obj/item/rsf,
+/obj/item/sbeacondrop,
+/obj/item/rollerbed,
+/obj/item/robot_module,
+/obj/item/resonator,
+/obj/item/research_disk_pinpointer,
+/obj/item/rcd_upgrade,
+/obj/item/rcd_ammo,
+/obj/item/rack_parts,
+/obj/item/quantum_keycard,
+/obj/item/pushbroom,
+/obj/item/prison_scanner,
+/obj/item/price_tagger,
+/obj/item/rcd_ammo,
+/turf/open/floor/iron,
+/area/storage/primary)
 "Ha" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -2778,6 +2820,23 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/engine/atmos)
+"KT" = (
+/obj/structure/wall_closet/generic/directional/north,
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/gun/magic/wand/death/debug{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/turf/open/floor/iron,
+/area/storage/primary)
+"Li" = (
+/obj/structure/wall_closet/med/directional/east,
+/turf/open/floor/iron,
+/area/construction)
 "Ly" = (
 /obj/machinery/chem_dispenser/chem_synthesizer,
 /turf/open/floor/iron/dark,
@@ -2813,6 +2872,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"Nr" = (
+/obj/structure/wall_closet/fire/directional/west,
+/turf/open/floor/iron,
+/area/construction)
 "NQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2834,6 +2897,14 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"Oz" = (
+/obj/machinery/light/floor,
+/turf/open/floor/iron,
+/area/construction)
+"OP" = (
+/obj/structure/wall_closet/syndicate/directional/north,
+/turf/open/floor/iron,
+/area/storage/primary)
 "OU" = (
 /obj/item/disk/tech_disk/debug,
 /turf/open/floor/iron,
@@ -2889,6 +2960,10 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"Se" = (
+/obj/structure/wall_closet/tool/directional/south,
+/turf/open/floor/iron,
+/area/construction)
 "Sj" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/tile/blue{
@@ -2911,6 +2986,34 @@
 "UG" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/turf/open/floor/iron,
+/area/storage/primary)
+"Vb" = (
+/obj/structure/wall_closet/science/directional/south,
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver{
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
@@ -3003,6 +3106,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
+"Yv" = (
+/obj/structure/wall_closet/science/directional/south,
+/turf/open/floor/iron,
+/area/construction)
 "Yy" = (
 /obj/machinery/light{
 	dir = 1
@@ -3038,6 +3145,10 @@
 	},
 /turf/open/floor/iron,
 /area/bridge)
+"YT" = (
+/obj/structure/wall_closet/freezer/directional/west,
+/turf/open/floor/iron,
+/area/construction)
 "YU" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -3051,6 +3162,21 @@
 /obj/machinery/suit_storage_unit/ce,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"ZF" = (
+/obj/structure/wall_closet/tool/directional/south,
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/screwdriver/abductor,
+/obj/item/screwdriver/brass,
+/obj/item/screwdriver/caravan,
+/obj/item/screwdriver/cyborg,
+/turf/open/floor/iron,
+/area/storage/primary)
+"ZM" = (
+/obj/structure/wall_closet/syndicate/directional/east,
+/turf/open/floor/iron,
+/area/construction)
 "ZW" = (
 /obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -6587,13 +6713,13 @@ bE
 ef
 cY
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+vh
+vh
+vh
+vh
+vh
+vh
 dn
 dn
 dL
@@ -6679,13 +6805,13 @@ bE
 ef
 cY
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+dD
+Nr
+dD
+YT
+dD
+vh
 dn
 dn
 dL
@@ -6771,13 +6897,13 @@ bE
 cN
 dW
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+zl
+Oz
+dD
+Oz
+Se
+vh
 dn
 dn
 dL
@@ -6863,13 +6989,13 @@ bE
 cN
 cY
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+dD
+dD
+dD
+dD
+dD
+vh
 dn
 dn
 dL
@@ -6955,13 +7081,13 @@ bE
 cN
 cY
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+tk
+Oz
+dD
+Oz
+Yv
+vh
 dn
 dn
 dZ
@@ -7047,13 +7173,13 @@ bE
 cN
 cY
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+dD
+ZM
+dD
+Li
+dD
+vh
 dn
 dn
 dL
@@ -7139,13 +7265,13 @@ bE
 ef
 cY
 dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+vh
+vh
+vh
+vh
+vh
+vh
+vh
 dn
 dn
 dL
@@ -7878,7 +8004,7 @@ dq
 dJ
 dJ
 dJ
-dI
+dJ
 dJ
 dJ
 dJ
@@ -7970,7 +8096,7 @@ dr
 dJ
 dJ
 dJ
-dI
+dJ
 dJ
 dJ
 dJ
@@ -8061,9 +8187,9 @@ fz
 ds
 dJ
 dJ
+KT
 dJ
-dI
-dJ
+Vb
 dJ
 dJ
 dJ
@@ -8152,10 +8278,10 @@ ek
 fA
 dt
 dJ
-dD
 dJ
+iZ
 dI
-dJ
+ZF
 dJ
 dJ
 dJ
@@ -8245,9 +8371,9 @@ fC
 du
 dJ
 dJ
+OP
 dJ
-dI
-dJ
+GU
 dJ
 dJ
 dJ
@@ -8338,7 +8464,7 @@ dv
 dJ
 dJ
 dJ
-dI
+dJ
 dJ
 dJ
 dJ
@@ -8430,7 +8556,7 @@ dw
 dJ
 dJ
 dJ
-dI
+dJ
 dJ
 dJ
 dJ
