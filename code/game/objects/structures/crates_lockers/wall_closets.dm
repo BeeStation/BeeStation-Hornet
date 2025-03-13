@@ -1,37 +1,62 @@
 /obj/structure/wall_closet
 	name = "wall closet"
 	desc = "It's a basic, wall mounted, storage unit."
+	anchored = TRUE
 	icon = 'icons/obj/storage/wall_closet.dmi'
 	icon_state = "generic"
 	var/theme_color = "#5f5f5f"
-	var/storage_capacity = 20
 	var/list/closet_contents
 
 /obj/structure/wall_closet/Initialize(mapload)
 	. = ..()
+	Initalize_closet_storage()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/wall_closet/LateInitialize()
-	. = ..()
-	take_contents()
-	compose_closet_contents()
+	Pickup_items()
 
-/obj/structure/wall_closet/proc/insert(obj/item/AM)
-	if(contents.len >= storage_capacity)
-		return -1
-	AM.forceMove(src)
+/obj/structure/wall_closet/proc/Initalize_closet_storage()
+	closet_contents = list()
+	for(var/i = 1, i <= 20, i++)
+		var/list/item_entry = list()
+		closet_contents += list(item_entry)
+
+/obj/structure/wall_closet/proc/Pickup_items()
+	var/atom/L = drop_location()
+	for(var/obj/item/I in L)
+		if(!Closet_insert_item(I))
+			break
+
+/obj/structure/wall_closet/proc/Closet_insert_item(obj/item/inserted_item, ui_index)
+	if(contents.len >= 20)
+		return FALSE
+	if(!ui_index)
+		for(var/index = 1, index <= closet_contents.len, index++)
+			var/list/L = list()
+			L = closet_contents[index]
+			if(L.len <= 0)
+				ui_index = index
+				break
+	inserted_item.forceMove(src)
+	closet_contents[ui_index]["item"] = inserted_item
+	closet_contents[ui_index]["name"] = inserted_item.name
+	closet_contents[ui_index]["icon"] = inserted_item.icon
+	closet_contents[ui_index]["icon_state"] = inserted_item.icon_state
+	closet_contents[ui_index]["show"] = TRUE
 	return TRUE
 
-/obj/structure/wall_closet/proc/take_contents()
-	var/atom/L = drop_location()
-	for(var/obj/item/AM in L)
-		if(AM != src && insert(AM) == -1) // limit reached
-			break
+/obj/structure/wall_closet/proc/Closet_remove_item(ui_index)
+	var/obj/item/removed_item = closet_contents[ui_index]["item"]
+	usr.put_in_hands(removed_item)
+	var/list/L = list()
+	L = closet_contents[ui_index]
+	L.Cut()
 
 /obj/structure/wall_closet/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "WallCloset")
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/structure/wall_closet/ui_data(mob/user)
@@ -45,35 +70,34 @@
 	if(.)
 		return
 	switch(action)
-		if("takeOut")
-			message_admins("param[params["item"]]")
-			var/index = text2num(params["item"]) + 1
-			message_admins("index[index]")
-			var/obj/item/I = contents[index]
-			usr.put_in_hands(I)
-			message_admins("user[usr]")
-			compose_closet_contents()
-			return TRUE
+		if("ItemClick")
+			var/ui_index = params["SlotKey"]
+			if(closet_contents[ui_index]["item"])
+				Closet_remove_item(ui_index)
+				return TRUE
 
-/obj/structure/wall_closet/proc/compose_closet_contents()
-	closet_contents = list()
-	var/obj/item/I
-	for(I in contents)
-		var/list/item_entry = list()
-		item_entry["name"] = I.name
-		message_admins("composing[I.name]")
-		item_entry["icon"] = I.icon
-		item_entry["icon_state"] = I.icon_state
-		closet_contents += list(item_entry)
+			if(usr.get_active_held_item())
+				var/obj/item/I = usr.get_active_held_item()
+				Closet_insert_item(I, ui_index)
+
+			return TRUE
 
 /obj/structure/wall_closet/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item) && !user.combat_mode)
-		I.forceMove(src)
-		compose_closet_contents()
+		Closet_insert_item(I)
 		ui_update()
 		return
 	. = ..()
 
+/obj/structure/wall_closet/Destroy()
+	dump_contents()
+	return ..()
+
+/obj/structure/wall_closet/dump_contents()
+	var/atom/L = drop_location()
+	new /obj/item/stack/sheet/iron (L, 2)
+	for(var/obj/item/I in src)
+		I.forceMove(L)
 
 //closet variants
 
@@ -176,3 +200,32 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/hydro, 30)
 	theme_color = "#915252"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/syndicate, 30)
+
+/obj/item/wallframe/wall_closet
+	name = "wall closet frame"
+	desc = "A closet, on a wall!"
+	icon = 'icons/obj/storage/wall_closet.dmi'
+	icon_state = "generic"
+	result_path = /obj/structure/wall_closet
+	pixel_shift = 30
+
+/obj/item/wallframe/wall_closet/emergency
+	name = "emergency wall closet frame"
+	icon_state = "emergency"
+	result_path = /obj/structure/wall_closet/emergency
+
+/obj/item/wallframe/wall_closet/fire
+	name = "fire wall closet frame"
+	icon_state = "fire"
+	result_path = /obj/structure/wall_closet/fire
+
+/obj/item/wallframe/wall_closet/tool
+	name = "tool wall closet frame"
+	icon_state = "tool"
+	result_path = /obj/structure/wall_closet/tool
+
+/obj/item/wallframe/wall_closet/freezer
+	name = "freezer wall closet frame"
+	icon_state = "freezer"
+	result_path = /obj/structure/wall_closet/freezer
+
