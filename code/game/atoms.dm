@@ -896,6 +896,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+	return FALSE
 
 /**
   * We have have actually hit the passed in atom
@@ -1924,6 +1925,7 @@
 		return
 	. = density
 	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_DENSITY_CHANGED)
 
 /**
   * Causes effects when the atom gets hit by a rust effect from heretics

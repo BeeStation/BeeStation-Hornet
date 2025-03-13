@@ -298,9 +298,10 @@
 	return ..() + /datum/language/machine + /datum/language/voltaic
 
 /obj/item/organ/tongue/robot/emp_act(severity)
-	owner.emote("scream")
-	owner.apply_status_effect(/datum/status_effect/spanish)
-	owner.apply_status_effect(/datum/status_effect/ipc/emp)
+	if(prob(30/severity))
+		owner.emote("scream")
+		owner.apply_status_effect(STATUS_EFFECT_SPANISH)
+
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
