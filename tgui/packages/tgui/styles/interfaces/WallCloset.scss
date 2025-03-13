@@ -31,10 +31,6 @@
   width: 100%;
 }
 
-.border {
-  border: 1px dotted black;
-}
-
 .WallCloset_Background {
   border-bottom: 50px inset darkgrey;
   border-left: 50px inset darkgrey;
@@ -52,12 +48,4 @@
   height: 10%;
   width: 100%;
   opacity: 0.8;
-}
-
-.WallCloset_ItemLabel {
-  text-align: center;
-  text-transform: capitalize;
-  font-family: monospace;
-  position: absolute;
-  top: 70px;
 }

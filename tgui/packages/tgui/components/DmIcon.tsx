@@ -1,4 +1,4 @@
-import { Component, InfernoNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { resolveAsset } from '../assets';
 import { fetchRetry } from '../http';
 import { BoxProps } from './Box';
@@ -24,7 +24,7 @@ type DmIconProps = {
   /** Facing direction. See direction enum. Default is South */
   direction: Direction;
   /** Fallback icon. */
-  fallback: InfernoNode;
+  fallback: ReactNode;
   /** Frame number. Default is 1 */
   frame: number;
   /** Movement state. Default is false */
