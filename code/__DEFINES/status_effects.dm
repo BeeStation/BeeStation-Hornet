@@ -144,6 +144,8 @@
 
 #define STATUS_EFFECT_BOUNTY /datum/status_effect/bounty //! rewards the person who added this to the target with refreshed spells and a fair heal
 
+#define STATUS_EFFECT_LEANING /datum/status_effect/leaning //! Makes you lean on something
+
 //---------//
 //  SLIME  //
 //---------//
