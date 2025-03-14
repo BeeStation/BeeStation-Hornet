@@ -56,7 +56,7 @@
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
 
-	if(!owner || !owner?.current)
+	if(!owner?.current)
 		return
 	to_chat(owner, vampire_warning_message)
 
