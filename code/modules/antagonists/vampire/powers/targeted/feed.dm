@@ -65,13 +65,16 @@
 	if(!isliving(target_atom))
 		return FALSE
 	var/mob/living/target = target_atom
-	// Mouse and snobby?
-	if(istype(target, /mob/living/simple_animal/mouse) && vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
-		owner.balloon_alert(owner, "too disgusting!")
-		return FALSE
+	// Mice check
+	if(istype(target, /mob/living/simple_animal/mouse))
+		if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
+			owner.balloon_alert(owner, "too disgusting!")
+			return FALSE
+		else
+			return TRUE
 	// Has to be human or a monkey
-	var/mob/living/carbon/human/human_target = target
-	if(!human_target && !ismonkey(target))
+	if(!ishuman(target) && !ismonkey(target))
+		owner.balloon_alert(owner, "cant feed off!")
 		return FALSE
 	// Mindless and snobby?
 	if(!target.mind && vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY && !vampiredatum_power.frenzied)
@@ -79,21 +82,20 @@
 		return FALSE
 	// Cannot be a curator or vampire
 	if(IS_VAMPIRE(target) || IS_CURATOR(target))
+		owner.balloon_alert(owner, "too powerful!")
 		return FALSE
 
-	// If a target has gotten this far that means it must be a monkey or human.
-	// If it's a monkey, lets go ahead and return since the next checks only apply to humans.
-	if(!human_target)
-		return TRUE
-
-	// Cannot drink from inorganics
-	if(!human_target.dna?.species || !(human_target.mob_biotypes & MOB_ORGANIC))
-		owner.balloon_alert(owner, "no blood!")
-		return FALSE
-	// Cannot be wearing super thick gear
-	if(!human_target.can_inject(owner, BODY_ZONE_HEAD, INJECT_CHECK_PENETRATE_THICK))
-		owner.balloon_alert(owner, "suit too thick!")
-		return FALSE
+	// Human checks
+	if(ishuman(target))
+		// Cannot drink from inorganics
+		var/mob/living/carbon/human/human_target = target
+		if(!human_target.dna?.species || !(human_target.mob_biotypes & MOB_ORGANIC))
+			owner.balloon_alert(owner, "no blood!")
+			return FALSE
+		// Cannot be wearing super thick gear
+		if(!human_target.can_inject(owner, BODY_ZONE_HEAD, INJECT_CHECK_PENETRATE_THICK))
+			owner.balloon_alert(owner, "suit too thick!")
+			return FALSE
 
 /datum/action/cooldown/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
@@ -154,6 +156,10 @@
 
 /datum/action/cooldown/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
+
+	if(!target_ref)
+		power_activated_sucessfully()
+		return
 	var/mob/living/feed_target = target_ref.resolve()
 
 	if(!ContinueActive())
@@ -228,6 +234,9 @@
 /datum/action/cooldown/vampire/targeted/feed/deactivate_power()
 	. = ..()
 
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
+	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
+
 	if(target_ref)
 		var/mob/living/feed_target = target_ref.resolve()
 		log_combat(owner, feed_target, "fed on blood", addition="(and took [blood_taken] blood)")
@@ -238,9 +247,6 @@
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
-
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_FEED)
-	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FEED)
 
 #undef FEED_SILENT_NOTICE_RANGE
 #undef FEED_LOUD_NOTICE_RANGE
