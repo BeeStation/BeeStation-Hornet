@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/proc/create_mail()
 	//Early return if there's no mail waiting to prevent taking up a slot.
-	if(!SSeconomy.mail_waiting)
+	if(SSeconomy.mail_waiting < MAIL_REQUIRED_BEFORE_SPAWN)
 		return
 	//spawn crate
 	var/list/empty_turfs = list()

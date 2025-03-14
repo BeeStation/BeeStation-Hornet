@@ -353,7 +353,7 @@
 	uniform = /obj/item/clothing/under/costume/soviet
 	head = /obj/item/clothing/head/costume/pirate/captain
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	ears = /obj/item/radio/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	suit = /obj/item/clothing/suit/costume/pirate/captain

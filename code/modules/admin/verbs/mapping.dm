@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 					output += "<li><font color='red'>Camera not connected to wall at [ADMIN_VERBOSEJMP(C1)] Network: [json_encode(C1.network)]</font></li>"
 
 	output += "</ul>"
-	usr << browse(output,"window=airreport;size=1000x500")
+	usr << browse(HTML_SKELETON(output),"window=airreport;size=1000x500")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/intercom_view()
@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 		dat += "[ADMIN_VERBOSEJMP(T)]\n"
 		dat += "<br>"
 
-	usr << browse(dat, "window=at_list")
+	usr << browse(HTML_SKELETON(dat), "window=at_list")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Roundstart Active Turfs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
