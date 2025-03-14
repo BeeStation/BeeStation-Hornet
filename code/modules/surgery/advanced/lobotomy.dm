@@ -45,6 +45,8 @@
 			"[user] successfully lobotomizes [target]!",
 			"[user] completes the surgery on [target]'s brain.")
 	target.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
+	if(target.ai_controller)
+		target.ai_controller.Destroy()	//we just cut a piece of an already simple mind, there is no turning back.
 	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
 		unbrainwash(target)
 	switch(rand(0, 3))//Now let's see what hopefully-not-important part of the brain we cut off
