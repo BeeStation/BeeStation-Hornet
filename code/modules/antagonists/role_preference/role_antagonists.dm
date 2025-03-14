@@ -328,6 +328,13 @@
 
 #undef TRAITOR_DESC_DETAILS
 
+/datum/role_preference/antagonist/malfunctioning_ai
+	name = "Malfunctioning AI"
+	description = "With a law zero to complete your objectives at all costs, combine your \
+	omnipotence and malfunction modules to wreak havoc across the station. \
+	Go delta to destroy the station and all those who opposed you."
+	antag_datum = /datum/antagonist/malf_ai
+
 /datum/role_preference/midround_living/malfunctioning_ai
 	name = "Value Drifted AI"
 	description = "With a law zero to complete your objectives at all costs, combine your \
