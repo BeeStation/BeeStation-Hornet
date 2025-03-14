@@ -57127,6 +57127,9 @@
 /obj/effect/turf_decal/tile/dark_red/half{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_y = 26
+	},
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
 "qlJ" = (
