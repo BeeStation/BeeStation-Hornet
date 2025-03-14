@@ -682,6 +682,7 @@
 			break
 		var/mob/selected_mobs = pick_n_take(candidates)
 		assigned += selected_mobs.mind
+		selected_mobs.mind.special_role = ROLE_VAMPIRE
 		selected_mobs.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += selected_mobs.mind
 	return TRUE
@@ -690,5 +691,4 @@
 	for(var/datum/mind/candidate_mind as anything in assigned)
 		candidate_mind.make_vampire()
 		GLOB.pre_setup_antags -= candidate_mind
-		candidate_mind.special_role = ROLE_VAMPIRE
 	return TRUE
