@@ -1033,7 +1033,12 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "ajz" = (
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/security/warden)
 "ajD" = (
 /turf/closed/wall,
@@ -1748,7 +1753,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/anticorner{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_corner,
 /area/security/warden)
 "aqa" = (
 /turf/closed/wall/r_wall,
@@ -1918,7 +1926,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "arc" = (
 /obj/structure/cable/yellow{
@@ -1927,7 +1935,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "arl" = (
 /obj/effect/spawner/room/threexthree,
@@ -2007,7 +2015,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/anticorner{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth_corner{
+	dir = 4
+	},
 /area/security/warden)
 "asq" = (
 /obj/effect/landmark/start/warden,
@@ -2021,7 +2034,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "asr" = (
 /obj/machinery/computer/crew{
@@ -2030,7 +2046,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "asQ" = (
 /obj/machinery/door/airlock/maintenance{
@@ -15904,7 +15923,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "chi" = (
 /obj/structure/table,
@@ -19766,7 +19788,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "cQV" = (
 /obj/item/flashlight/lantern{
@@ -29359,7 +29381,10 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/warden,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/security/warden)
 "fYI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -31108,7 +31133,8 @@
 	name = "Outer Window"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "gKE" = (
 /obj/machinery/door/airlock/external{
@@ -31826,7 +31852,12 @@
 /area/science/xenobiology)
 "gXh" = (
 /obj/machinery/computer/holodeck/prison,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/anticorner{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_corner{
+	dir = 8
+	},
 /area/security/warden)
 "gXq" = (
 /turf/open/space/basic,
@@ -32323,9 +32354,6 @@
 /obj/machinery/light{
 	dir = 8;
 	light_color = "#e8eaff"
-	},
-/obj/effect/turf_decal/tile/dark_red/anticorner{
-	dir = 8
 	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
@@ -35306,7 +35334,11 @@
 	},
 /obj/structure/closet/secure_closet/warden,
 /obj/item/gun/energy/laser,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/red,
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "ika" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -35548,7 +35580,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "ioT" = (
 /obj/structure/window/reinforced,
@@ -36275,7 +36307,13 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/security/warden)
 "iCT" = (
 /obj/structure/disposalpipe/segment{
@@ -37143,7 +37181,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "iSU" = (
 /obj/structure/sign/departments/medbay/alt,
@@ -41766,7 +41804,8 @@
 /obj/item/folder/red,
 /obj/item/poster/random_official,
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "kGJ" = (
 /obj/structure/cable/yellow{
@@ -45489,7 +45528,10 @@
 /obj/machinery/computer/records/security{
 	dir = 1
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "mcV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -46492,7 +46534,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "mxH" = (
 /obj/structure/cable/yellow{
@@ -49054,7 +49099,10 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "nrZ" = (
 /obj/structure/cable/yellow{
@@ -52955,7 +53003,10 @@
 	pixel_x = 10;
 	pixel_y = 3
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "oIj" = (
 /obj/structure/disposalpipe/segment{
@@ -53583,7 +53634,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/rnd/production/techfab/department/security,
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "oUz" = (
 /obj/structure/disposalpipe/segment{
@@ -57356,7 +57410,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/smooth_large,
 /area/security/warden)
 "qru" = (
 /obj/structure/cable{
@@ -62149,7 +62203,10 @@
 	pixel_x = 29;
 	pixel_y = -28
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/anticorner,
+/turf/open/floor/iron/smooth_corner{
+	dir = 1
+	},
 /area/security/warden)
 "seq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -74223,7 +74280,10 @@
 /obj/structure/filingcabinet/chestdrawer{
 	pixel_y = 2
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 8
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "wxT" = (
 /obj/structure/disposalpipe/segment{
@@ -76130,7 +76190,10 @@
 /obj/item/wirecutters{
 	pixel_y = 2
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/dark_red/half{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth_half,
 /area/security/warden)
 "xgR" = (
 /obj/effect/decal/cleanable/dirt,
