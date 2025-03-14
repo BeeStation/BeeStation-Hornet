@@ -87,7 +87,7 @@
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	suit_store = /obj/item/gun/ballistic/automatic/pistol
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/storage/belt/military
@@ -112,7 +112,7 @@
 	suit = /obj/item/clothing/suit/armor/hos
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/m1911
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	belt = /obj/item/storage/belt/sabre
@@ -182,6 +182,8 @@
 
 	implants = list(/obj/item/implant/sad_trombone)
 
+/datum/outfit/vip_target/clown/pre_equip(mob/living/carbon/human/H)
+	H.dna.add_mutation(CLOWNMUT)
+
 /datum/outfit/vip_target/clown/post_equip(mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
-	H.dna.add_mutation(CLOWNMUT)
