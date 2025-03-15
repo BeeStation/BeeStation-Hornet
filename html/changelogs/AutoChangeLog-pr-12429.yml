@@ -1,0 +1,5 @@
+author: Gilgax
+delete-after: true
+changes:
+  - balance: Nanite chain detonation is now based on nanite volume percentage, not
+      total nanite count (you can't maxcap people anymore with nanites).
