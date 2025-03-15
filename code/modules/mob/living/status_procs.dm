@@ -353,7 +353,7 @@
 ////////////////////////////////  STAGGER /////////////////////////////////////
 
 /mob/living/proc/is_staggered() //If we're asleep
-	return has_status_effect(STATUS_EFFECT_STAGGERED)
+	return has_status_effect(/datum/status_effect/staggered)
 
 /mob/living/proc/amount_staggered() //How many deciseconds remain in our sleep
 	var/datum/status_effect/staggered/S = is_staggered()
@@ -370,7 +370,7 @@
 	if(S)
 		S.duration = max(world.time + amount, S.duration)
 	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_STAGGERED, amount)
+		S = apply_status_effect(/datum/status_effect/staggered, amount)
 	return S
 
 /mob/living/proc/set_staggered(amount) //Sets remaining duration
@@ -385,7 +385,7 @@
 	else if(S)
 		S.duration = world.time + amount
 	else
-		S = apply_status_effect(STATUS_EFFECT_STAGGERED, amount)
+		S = apply_status_effect(/datum/status_effect/staggered, amount)
 	return S
 
 /mob/living/proc/adjust_staggered(amount) //Adds to remaining duration
@@ -397,7 +397,7 @@
 	if(S)
 		S.duration += amount
 	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_STAGGERED, amount)
+		S = apply_status_effect(/datum/status_effect/staggered, amount)
 	return S
 
 ///////////////////////////////// FROZEN /////////////////////////////////////
