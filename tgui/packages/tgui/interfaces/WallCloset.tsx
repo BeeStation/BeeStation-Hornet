@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 type WallClosetData = {
   color: number;
   contents: StoredItems[];
-}
+};
 
 type StoredItems = {
   icon: string;
@@ -14,7 +14,7 @@ type StoredItems = {
   image: string;
   name: string;
   show: boolean;
-}
+};
 
 export const WallCloset = (props) => {
   const { data } = useBackend<WallClosetData>();
@@ -46,16 +46,17 @@ export const WallCloset = (props) => {
             </Flex.Item>
           </Flex>
         </Box>
-        <Flex wrap width='360px'>
+        <Flex wrap width="360px">
           {contents.map((item, index) => (
             <Cell
-            show={item.show}
-            index={index}
-            key={index}
-            icon={item.icon}
-            icon_state={item.icon_state}
-            name={item.name}
-            image={item.image} />
+              show={item.show}
+              index={index}
+              key={index}
+              icon={item.icon}
+              icon_state={item.icon_state}
+              name={item.name}
+              image={item.image}
+            />
           ))}
         </Flex>
       </Window.Content>
@@ -65,33 +66,38 @@ export const WallCloset = (props) => {
 
 const Cell = (props) => {
   const { act, data } = useBackend<WallClosetData>();
-  return(
-    <Flex.Item className="WallCloset_FlexItem" width='80px' height='80px'>
+  return (
+    <Flex.Item className="WallCloset_FlexItem" width="80px" height="80px">
       <Box className="WallCloset_Box" position="relative">
         <Box className="WallCloset_Box">
-          {props.show &&
-          <Box className="WallCloset_Box">
-          {!props.image ?
-            <DmIcon
-              mb={-2}
-              icon={props.icon}
-              icon_state={props.icon_state}
-              fallback={<Icon mr={1} name="spinner" spin fontSize="30px" />}
-              height="100%"
-              width="100%"
-              backgroundColor="red"
-            />
-            :
-            <Box as="img" src={props.image} width="100%" height="100%"
-              style={{
-                msInterpolationMode: 'nearest-neighbor',
-                textAlign: 'center',
-                verticalAlign: 'middle',
-                imageRendering: 'pixelated' }}
-            />
-          }
-          </Box>
-          }
+          {props.show && (
+            <Box className="WallCloset_Box">
+              {!props.image ? (
+                <DmIcon
+                  mb={-2}
+                  icon={props.icon}
+                  icon_state={props.icon_state}
+                  fallback={<Icon mr={1} name="spinner" spin fontSize="30px" />}
+                  height="100%"
+                  width="100%"
+                  backgroundColor="red"
+                />
+              ) : (
+                <Box
+                  as="img"
+                  src={`data:image/jpeg;base64,${props.image}`}
+                  width="100%"
+                  height="100%"
+                  style={{
+                    msInterpolationMode: 'nearest-neighbor',
+                    textAlign: 'center',
+                    verticalAlign: 'middle',
+                    imageRendering: 'pixelated',
+                  }}
+                />
+              )}
+            </Box>
+          )}
           <Box className="WallCloset_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
             {props.name}
           </Box>
@@ -100,4 +106,3 @@ const Cell = (props) => {
     </Flex.Item>
   );
 };
-

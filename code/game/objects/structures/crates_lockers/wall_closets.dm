@@ -41,7 +41,7 @@
 	for(var/image in inserted_item.overlays)
 		var/image/current_overlay = image
 		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE)
-			closet_contents[ui_index]["image"] = FAST_REF(inserted_item.appearance)
+			closet_contents[ui_index]["image"] = icon2base64(getFlatIcon(inserted_item.appearance))
 			break
 	if(!closet_contents[ui_index]["image"])
 		closet_contents[ui_index]["icon"] = inserted_item.icon
