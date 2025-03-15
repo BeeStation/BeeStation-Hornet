@@ -258,3 +258,7 @@
 	screen_wide_fire_spell.Grant(user)
 	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/ash_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)

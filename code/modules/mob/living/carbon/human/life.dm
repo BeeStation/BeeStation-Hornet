@@ -36,8 +36,12 @@
 				if(we_breath)
 					adjustOxyLoss(4 * delta_time)
 					Unconscious(80)
-				// Tissues die without blood circulation
-				adjustBruteLoss(1 * delta_time)
+				
+				// Tissues die without blood circulation, machines burn without coolant circulation
+				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+					adjustFireLoss(0.5 * delta_time)
+				else
+					adjustBruteLoss(1 * delta_time)
 			handle_liver()
 
 		//Body temperature stability and damage

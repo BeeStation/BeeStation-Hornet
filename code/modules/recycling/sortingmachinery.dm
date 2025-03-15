@@ -207,14 +207,14 @@
 	for (var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
 		if (GLOB.TAGGERLOCATIONS[i] in GLOB.disabled_tagger_locations)
 			continue
-		dat += "<td><a href='?src=[REF(src)];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
+		dat += "<td><a href='byond://?src=[REF(src)];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
 
 		if(i%4==0)
 			dat += "</tr><tr>"
 
 	dat += "</tr></table><br>Current Selection: [currTag ? GLOB.TAGGERLOCATIONS[currTag] : "None"]</tt>"
 
-	user << browse(dat, "window=destTagScreen;size=450x350")
+	user << browse(HTML_SKELETON(dat), "window=destTagScreen;size=450x350")
 	onclose(user, "destTagScreen")
 
 /obj/item/dest_tagger/attack_self(mob/user)

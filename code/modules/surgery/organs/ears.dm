@@ -155,19 +155,12 @@
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/ears/robot/emp_act(severity)
-	switch(severity)
-		if(1)
-			owner.Jitter(30)
-			owner.Dizzy(30)
-			owner.Knockdown(200)
-			to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
-		if(2)
-			owner.Jitter(15)
-			owner.Dizzy(15)
-			owner.Knockdown(100)
-			to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+	. = ..()
+	if(prob(30/severity))
+		owner.Jitter(30/severity)
+		owner.Dizzy(30/severity)
+		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
+
 
 /obj/item/organ/ears/diona
 	name = "trichomes"
