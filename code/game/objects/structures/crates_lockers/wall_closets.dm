@@ -40,8 +40,8 @@
 	inserted_item.forceMove(src)
 	for(var/image in inserted_item.overlays)
 		var/image/current_overlay = image
-		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE)
-			closet_contents[ui_index]["image"] = icon2base64(getFlatIcon(inserted_item.appearance))
+		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE || initial(inserted_item.greyscale_colors))
+			closet_contents[ui_index]["image"] = icon2base64(getFlatIcon(inserted_item))
 			break
 	if(!closet_contents[ui_index]["image"])
 		closet_contents[ui_index]["icon"] = inserted_item.icon
