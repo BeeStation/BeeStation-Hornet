@@ -54,7 +54,7 @@
 
 	uniform = /obj/item/clothing/under/rank/prisoner
 	id = /obj/item/card/id/silver/bounty
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -88,10 +88,11 @@
 	suit = /obj/item/clothing/suit/armor/riot
 	glasses = /obj/item/clothing/glasses/eyepatch
 	r_hand = /obj/item/autosurgeon/hydraulic_blade
+	l_hand = /obj/item/bountytrap
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/pinpointer/shuttle = 1,
-		/obj/item/bountytrap = 4
+		/obj/item/bountytrap = 2
 		)
 
 /datum/outfit/bounty/synth/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

@@ -144,7 +144,7 @@
 	mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	on_handsblocked_start()
 	if (active_storage)
-		active_storage.hide_from(src)
+		active_storage.hide_contents(src)
 	update_action_buttons_icon(TRUE)
 
 /// Called when [TRAIT_HANDS_BLOCKED] is removed from the mob.

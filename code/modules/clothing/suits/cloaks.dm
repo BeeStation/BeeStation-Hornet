@@ -9,7 +9,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESUITSTORAGE
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/cloak
+
+/obj/item/clothing/neck/cloak/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/exo/cloak)
 
 /obj/item/clothing/neck/cloak/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

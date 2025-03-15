@@ -561,7 +561,7 @@
 					to_chat(user, span_warning("[src]'s compartment is full."))
 					break
 				if(canLoadItem(the_item) && loadingAttempt(the_item,user))
-					SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, the_item, src, TRUE)
+					T.atom_storage?.attempt_remove(the_item, src)
 					loaded++
 				else
 					denied_items++
@@ -1387,8 +1387,7 @@
 	if(isitem(target))
 		var/obj/item/I = target
 		I.custom_price = price
-		var/has_component = I.GetComponent(/datum/component/storage)
-		if(has_component)
+		if(atom_storage)
 			for(var/atom/A in I.contents)
 				A.custom_price = price
 			to_chat(user, span_notice("You set the price of [I] and everything inside of it to [price] cr."))

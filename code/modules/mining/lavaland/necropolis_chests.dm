@@ -554,22 +554,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 
 /obj/item/shared_storage/red/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = AddComponent(/datum/component/storage/concrete)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 60
-	STR.max_items = 21
-	new /obj/item/shared_storage/blue(drop_location(), STR)
+
+	create_storage(max_total_storage = 60, max_slots = 21)
+
+	new /obj/item/shared_storage/blue(drop_location(), src)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
-/obj/item/shared_storage/blue/Initialize(mapload, datum/component/storage/concrete/master)
+/obj/item/shared_storage/blue/Initialize(mapload, atom/master)
 	. = ..()
 	if(!istype(master))
 		return INITIALIZE_HINT_QDEL
-	var/datum/component/storage/STR = AddComponent(/datum/component/storage, master)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 60
-	STR.max_items = 21
+	create_storage(max_total_storage = 60, max_slots = 21)
+
+	atom_storage.set_real_location(master)
 
 //Book of Babel
 
