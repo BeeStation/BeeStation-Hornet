@@ -37899,7 +37899,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/lp12,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "lKH" = (
