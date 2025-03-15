@@ -62,10 +62,10 @@
 /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink/Initialize(mapload)
 	. = ..()
 	var/obj/item/computer_hardware/hard_drive/small/syndicate/hard_drive = new
-	var/datum/computer_file/program/contract_uplink/uplink = new
+	var/datum/computer_file/program/contract_uplink/uplink = new(src)
 
 	active_program = uplink
-	uplink.program_state = PROGRAM_STATE_ACTIVE
+	uplink.set_program_state(PROGRAM_STATE_ACTIVE)
 	uplink.computer = src
 
 	hard_drive.store_file(uplink)
