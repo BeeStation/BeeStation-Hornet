@@ -66,6 +66,7 @@
 	minimum_points_required = 24
 	weight = 4
 	points_cost = 13
+	restricted_roles = list(JOB_NAME_CYBORG)
 	flags = LONE_RULESET
 
 /datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
@@ -144,7 +145,7 @@
 	name = "Blood Cult"
 	role_preference = /datum/role_preference/antagonist/blood_cultist
 	antag_datum = /datum/antagonist/cult
-	banned_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 2
 	weight = 3
 	points_cost = 20
@@ -185,7 +186,7 @@
 	name = "Clockwork Cult"
 	role_preference = /datum/role_preference/antagonist/clock_cultist
 	antag_datum = /datum/antagonist/servant_of_ratvar
-	banned_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 4
 	weight = 3
 	points_cost = 35
@@ -321,7 +322,7 @@
 	name = "Revolution"
 	role_preference = /datum/role_preference/antagonist/revolutionary
 	antag_datum = /datum/antagonist/rev/head
-	banned_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	drafted_players_amount = 3
 	weight = 3
 	points_cost = 20
@@ -377,7 +378,7 @@
 
 /datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
 	incursion_team = new
-	incursion_team.forge_team_objectives(banned_roles)
+	incursion_team.forge_team_objectives(restricted_roles)
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
 

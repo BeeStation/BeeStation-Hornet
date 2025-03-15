@@ -30,7 +30,7 @@
 	/// If the config flag 'protect_roles_from_antagonist' is TRUE, then these roles are excluded
 	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	/// The roles that can never have this ruleset applied to them regardless of the config
-	var/list/banned_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)
 	var/list/blocking_rulesets = list()
 	/// Should the chosen player(s) be picked based off of their antagonist reputation
@@ -106,7 +106,7 @@
 
 /*
 * Choose candidates
-* Apply special_role and banned_roles
+* Apply special_role and restricted_roles
 * Called from 'dynamic.dm' pick_roundstart_rulesets()
 */
 /datum/dynamic_ruleset/proc/pre_execute()
@@ -117,7 +117,7 @@
 		chosen_minds += chosen_mind
 
 		chosen_mind.special_role = antag_datum.special_role
-		chosen_mind.restricted_roles = banned_roles
+		chosen_mind.restricted_roles = restricted_roles
 	return TRUE
 
 /*

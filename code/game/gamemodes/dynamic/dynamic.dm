@@ -172,13 +172,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 			continue
 		ruleset.vars[variable] = rule_conf[variable]
 
-	// Check config for additional banned_roles
+	// Check config for additional restricted_roles
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		ruleset.banned_roles |= ruleset.protected_roles
+		ruleset.restricted_roles |= ruleset.protected_roles
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		ruleset.banned_roles |= JOB_NAME_ASSISTANT
+		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		ruleset.banned_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
+		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
 	return ruleset
 
 /*
