@@ -64,7 +64,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 				dat+="</ul>"
 			if(scribble_page==curr_page)
 				dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
-			dat+= "<HR><DIV STYLE='float:right;'><A href='?src=[REF(src)];next_page=1'>Next Page</A></DIV> <div style='float:left;'><A href='?src=[REF(human_user)];mach_close=newspaper_main'>Done reading</A></DIV>"
+			dat+= "<HR><DIV STYLE='float:right;'><A href='byond://?src=[REF(src)];next_page=1'>Next Page</A></DIV> <div style='float:left;'><A href='byond://?src=[REF(human_user)];mach_close=newspaper_main'>Done reading</A></DIV>"
 		if(1) // X channel pages inbetween.
 			for(var/datum/feed_channel/NP in news_content)
 				pages++
@@ -93,7 +93,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 					dat+="</ul>"
 			if(scribble_page==curr_page)
 				dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
-			dat+= "<BR><HR><DIV STYLE='float:left;'><A href='?src=[REF(src)];prev_page=1'>Previous Page</A></DIV> <DIV STYLE='float:right;'><A href='?src=[REF(src)];next_page=1'>Next Page</A></DIV>"
+			dat+= "<BR><HR><DIV STYLE='float:left;'><A href='byond://?src=[REF(src)];prev_page=1'>Previous Page</A></DIV> <DIV STYLE='float:right;'><A href='byond://?src=[REF(src)];next_page=1'>Next Page</A></DIV>"
 		if(2) //Last page
 			for(var/datum/feed_channel/NP in news_content)
 				pages++
@@ -111,9 +111,9 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 				dat+="<I>Apart from some uninteresting classified ads, there's nothing on this page...</I>"
 			if(scribble_page==curr_page)
 				dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
-			dat+= "<HR><DIV STYLE='float:left;'><A href='?src=[REF(src)];prev_page=1'>Previous Page</A></DIV>"
+			dat+= "<HR><DIV STYLE='float:left;'><A href='byond://?src=[REF(src)];prev_page=1'>Previous Page</A></DIV>"
 	dat+="<BR><HR><div align='center'>[curr_page+1]</div>"
-	human_user << browse(dat, "window=newspaper_main;size=300x400")
+	human_user << browse(HTML_SKELETON(dat), "window=newspaper_main;size=300x400")
 	onclose(human_user, "newspaper_main")
 
 /obj/item/newspaper/proc/notContent(list/L)

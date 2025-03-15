@@ -51,14 +51,15 @@
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
-	var/list/datum/AI_Module/current_modules = list()
+	var/list/datum/ai_module/current_modules = list()
 	var/can_dominate_mechs = FALSE
-	var/shunted = FALSE	//1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
-
+	var/shunted = FALSE //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
+	var/obj/machinery/ai_voicechanger/ai_voicechanger = null // reference to machine that holds the voicechanger
 	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click()
-	var/malfhacking = FALSE // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
+	var/malf_cooldown = 0 SECONDS //Cooldown var for malf modules, stores a worldtime + cooldown
 
 	var/obj/machinery/power/apc/malfhack
+	var/malfhacking = FALSE
 	var/explosive = FALSE //does the AI explode when it dies?
 
 	var/mob/living/silicon/ai/parent
@@ -87,6 +88,7 @@
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
+	var/datum/action/innate/choose_modules/modules_action
 	var/chnotify = 0
 
 	var/multicam_on = FALSE
@@ -223,7 +225,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	linked_core = null
 	apc_override = null
 	ShutOffDoomsdayDevice()
+	if(ai_voicechanger)
+		ai_voicechanger.owner = null
+		ai_voicechanger = null
 	. = ..()
+
+/mob/living/silicon/ai/proc/remove_malf_abilities()
+	QDEL_NULL(modules_action)
+	for(var/datum/ai_module/malf/AM in current_modules)
+		for(var/datum/action/A in actions)
+			if(istype(A, initial(AM.power_type)))
+				qdel(A)
 
 /mob/living/silicon/ai/IgniteMob()
 	fire_stacks = 0
@@ -553,12 +565,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if (length(cameras))
 		var/obj/machinery/camera/cam = cameras[1]
 		if (cam.can_use())
-			queueAlarm("--- [alarm_type] alarm detected in [home_name]! (<A HREF=?src=[REF(src)];switchcamera=[REF(cam)]>[cam.c_tag]</A>)", alarm_type)
+			queueAlarm("--- [alarm_type] alarm detected in [home_name]! (<a href='byond://?src=[REF(src)];switchcamera=[REF(cam)]'>[cam.c_tag]</a>)", alarm_type)
 		else
 			var/first_run = FALSE
 			var/dat2 = ""
 			for (var/obj/machinery/camera/camera as anything in cameras)
-				dat2 += "[(!first_run) ? "" : " | "]<A HREF=?src=[REF(src)];switchcamera=[REF(camera)]>[camera.c_tag]</A>"
+				dat2 += "[(!first_run) ? "" : " | "]<a href='byond://?src=[REF(src)];switchcamera=[REF(camera)]'>[camera.c_tag]</a>"
 				first_run = TRUE
 			queueAlarm("--- [alarm_type] alarm detected in [home_name]! ([dat2])", alarm_type)
 	else
@@ -612,13 +624,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				break
 	to_chat(src, span_notice("Switched to the \"[uppertext(network)]\" camera network."))
 //End of code by Mord_Sith
-
-
-/mob/living/silicon/ai/proc/choose_modules()
-	set category = "Malfunction"
-	set name = "Choose Module"
-
-	malf_picker.use(src)
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
@@ -813,7 +818,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mods)
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
 	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
@@ -850,7 +855,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = span_message(say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods)))
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
 	if (ishuman(speaker))
@@ -902,11 +907,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			Slave.show_laws()
 
 /mob/living/silicon/ai/proc/add_malf_picker()
-	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
-	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
-	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	add_verb(/mob/living/silicon/ai/proc/choose_modules)
+	if(malf_picker)
+		stack_trace("Attempted to give malf AI malf picker to \[[src]\], who already has a malf picker.")
+		return
 	malf_picker = new /datum/module_picker
+	if(!IS_MALF_AI(src)) //antagonists have their modules built into their antag info panel. this is for adminbus and the combat upgrade
+		modules_action = new(malf_picker)
+		modules_action.Grant(src)
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
@@ -945,9 +952,66 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		set_core_display_icon(display_icon_override)
 		set_eyeobj_visible(TRUE)
 
+/mob/living/silicon/ai/proc/tilt(turf/target, damage, chance_to_crit, paralyze_time, damage_type = BRUTE, rotation = 90)
+	if(!target.is_blocked_turf(TRUE, src, list(src)))
+		for(var/atom/atom_target in (target.contents) + target)
+			if(isarea(atom_target))
+				continue
+
+			var/crit_case = 0
+			if(prob(chance_to_crit))
+				crit_case = rand(1,3)
+
+			if(isliving(atom_target))
+				var/mob/living/carbon/living_target = atom_target
+				if(iscarbon(living_target))
+					var/mob/living/carbon/carbon_target = living_target
+
+					switch(crit_case) // only carbons can have the fun crits
+						if(1) // shatter their legs and bleed 'em
+							carbon_target.bleed(150)
+							var/obj/item/bodypart/l_leg/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
+							if(l)
+								l.receive_damage(brute=200, updating_health=TRUE)
+							var/obj/item/bodypart/r_leg/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
+							if(r)
+								r.receive_damage(brute=200, updating_health=TRUE)
+							if(l || r)
+								carbon_target.visible_message(span_danger("[carbon_target]'s legs shatter with a sickening crunch!"), \
+									span_userdanger("Your legs shatter with a sickening crunch!"))
+						if(2) // paralyze this binch
+							// the new paraplegic gets like 4 lines of losing their legs so skip them
+							visible_message(span_danger("[carbon_target]'s spinal cord is obliterated with a sickening crunch!"))
+							carbon_target.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
+						if(3) // skull squish!
+							var/obj/item/bodypart/head/head = carbon_target.get_bodypart(BODY_ZONE_HEAD)
+							if(head)
+								carbon_target.visible_message(span_danger("[head] explodes in a shower of gore beneath [src]!"), \
+									span_userdanger("Oh f-"))
+								head.dismember()
+								head.drop_organs()
+								qdel(head)
+								new /obj/effect/gibspawner/human/bodypartless(get_turf(target))
+
+					carbon_target.apply_damage(damage, forced = TRUE)
+				else
+					living_target.apply_damage(damage, forced = TRUE)
+
+				living_target.Paralyze(paralyze_time)
+				living_target.emote("scream")
+				forceMove(target)
+				playsound(living_target, 'sound/effects/blobattack.ogg', 40, TRUE)
+				playsound(living_target, 'sound/effects/splat.ogg', 50, TRUE)
+
+	var/matrix/M = matrix()
+	M.Turn(rotation)
+	transform = M
+	playsound(target, 'sound/effects/bang.ogg', 50, TRUE)
+	throw_at(target, 1, 1, spin = FALSE)
+
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null
-	malfhacking = 0
+	malfhacking = FALSE
 	clear_alert("hackingapc")
 
 	if(!istype(apc) || QDELETED(apc) || apc.machine_stat & BROKEN)
@@ -957,14 +1021,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		to_chat(src, span_danger("Hack aborted. \The [apc] is no longer responding to our systems."))
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, TRUE, ignore_walls = FALSE)
 	else
-		malf_picker.processing_time += 10
-
+		var/turf/turf = get_turf(apc)
+		if(istype(get_area(turf), /area/crew_quarters/heads))
+			malf_picker.processing_time += 20
+		else
+			malf_picker.processing_time += 10
 		apc.malfai = parent || src
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
-		var/turf/T = get_turf(apc)
-		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
+		log_message("hacked APC [apc] at [AREACOORD(turf)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
@@ -1096,5 +1162,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 		return
 
 	aicamera.adjust_zoom(src)
+
+/mob/living/silicon/ai/GetVoice()
+	. = ..()
+	if(ai_voicechanger && ai_voicechanger.changing_voice)
+		return ai_voicechanger.say_name
+	return
 
 #undef CALL_BOT_COOLDOWN

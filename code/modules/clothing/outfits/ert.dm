@@ -435,7 +435,7 @@
 	W.registered_name = H.real_name
 	W.access |= ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
-	H.dna.add_mutation(CLOWNMUT)
+	H.dna.add_mutation(/datum/mutation/clumsy)
 
 /datum/outfit/centcom/centcom_clown/honk_squad
 	name = "HONK Squad Trooper"

@@ -5,6 +5,7 @@
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
+	inherent_traits = list(TRAIT_TACKLING_TAILED_DEFENDER)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list("tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None",
 						"frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "body_size" = "Normal")
@@ -19,7 +20,7 @@
 	meat = /obj/item/food/meat/slab/human/mutant/lizard
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	exotic_bloodtype = "L"
-	//inert_mutation = FIREBREATH
+	inert_mutation = /datum/mutation/firebreath
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
 	digitigrade_customization = DIGITIGRADE_OPTIONAL

@@ -332,11 +332,11 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?[href]=[C.findStealthKey()]'>"
+				. += "<a href='byond://?[href]=[C.findStealthKey()]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='?[href]=[ckey]'>"
+				. += "<a href='byond://?[href]=[ckey]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"

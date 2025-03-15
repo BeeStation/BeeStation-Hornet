@@ -21,13 +21,13 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/spell/pointed/void_phase/pre_cast(atom/cast_on)
+/datum/action/spell/pointed/void_phase/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(owner && get_dist(get_turf(owner), get_turf(cast_on)) < min_cast_range)
-		cast_on.balloon_alert(owner, "too close!")
+	if(owner && get_dist(user, target) < min_cast_range)
+		user.balloon_alert(owner, "too close!")
 		return . | SPELL_CANCEL_CAST
 
 /datum/action/spell/pointed/void_phase/on_cast(mob/user, atom/target)
