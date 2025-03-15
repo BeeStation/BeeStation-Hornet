@@ -33,7 +33,8 @@ SUBSYSTEM_DEF(autotransfer)
 		if(decay_start)
 			decay_count++
 
-		required_votes_to_leave = length(GLOB.clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
+		required_votes_to_leave = max(length(GLOB.clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count), 1)
+
 		if(connected_votes_to_leave >= required_votes_to_leave)
 			if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE
 				SSshuttle.requestEvac(null, "Crew Transfer Requested.")
