@@ -7,13 +7,8 @@
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 0
-	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
-
-
-/datum/armor/color_yellow
-	bio = 50
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
@@ -55,10 +50,6 @@
 	armor_type = /datum/armor/color_fyellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
-
-
-/datum/armor/color_fyellow
-	bio = 25
 
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
 	. = ..()
@@ -114,7 +105,6 @@
 	name = "insulated gloves"
 	desc = "These gloves provide protection against electric shock."
 	siemens_coefficient = 0
-	armor_type = /datum/armor/none
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/rainbow
@@ -185,13 +175,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor_type = /datum/armor/color_captain
-
-
-/datum/armor/color_captain
-	bio = 90
-	fire = 70
-	acid = 50
+	armor_type = /datum/armor/security_padded
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"

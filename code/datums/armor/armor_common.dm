@@ -76,7 +76,7 @@
 /// Metal security items (Chaplain armour, Security hardsuits)
 /datum/armor/security_metal
 	penetration = 45
-	blunt = 15
+	blunt = 25
 	absorption = 15
 	reflectivity = 50
 	heat = 10
@@ -84,7 +84,7 @@
 /// ERT/other military hardsuits
 /datum/armor/military_metal
 	penetration = 60
-	blunt = 25
+	blunt = 40
 	absorption = 30
 	reflectivity = 50
 	heat = 20
@@ -160,9 +160,32 @@
 	heat = 80
 
 // ===============================
-// Generic
-// For structures as their health is primaryilly controlled
-// by integrity.
+// Runed
+// The runes protect you
 // ===============================
 
+/datum/armor/civilian_runed_cloth
+	penetration = 40
+	blunt = 30
+	absorption = 90
+	reflectivity = 40
+	heat = 40
 
+/datum/armor/security_runed_cloth
+	penetration = 55
+	blunt = 40
+	absorption = 90
+	reflectivity = 50
+	heat = 50
+
+/datum/armor/military_runed_cloth
+	penetration = 70
+	blunt = 50
+	absorption = 90
+	reflectivity = 60
+	heat = 50
+
+// ===============================
+// Generic
+// For various armours that need to fit outside these categories
+// ===============================

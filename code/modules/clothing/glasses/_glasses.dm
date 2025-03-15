@@ -144,12 +144,6 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor_type = /datum/armor/glasses_science
-
-
-/datum/armor/glasses_science
-	fire = 80
-	acid = 100
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -161,13 +155,7 @@
 	icon_state = "prescscihud"
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
-	armor_type = /datum/armor/science_prescription
 	vision_correction = 1
-
-
-/datum/armor/science_prescription
-	fire = 20
-	acid = 40
 
 /obj/item/clothing/glasses/science/sciencesun
 	name = "science sunglasses"

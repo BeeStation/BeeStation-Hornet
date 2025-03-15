@@ -356,20 +356,9 @@
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
-	armor_type = /datum/armor/under_chameleon
+	armor_type = /datum/armor/security_padded
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
-
-/datum/armor/under_chameleon
-	melee = 10
-	bullet = 10
-	laser = 10
-	bio = 10
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/under/chameleon/envirosuit
 	name = "plasma envirosuit"
@@ -444,19 +433,9 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
-	armor_type = /datum/armor/suit_chameleon
+	armor_type = /datum/armor/security_padded
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
-
-/datum/armor/suit_chameleon
-	melee = 10
-	bullet = 10
-	laser = 10
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/suit/chameleon/Initialize(mapload)
 	. = ..()
@@ -498,19 +477,9 @@
 	icon_state = "meson"
 	item_state = "meson"
 	resistance_flags = NONE
-	armor_type = /datum/armor/glasses_chameleon
+	armor_type = /datum/armor/security_padded
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
-
-/datum/armor/glasses_chameleon
-	melee = 10
-	bullet = 10
-	laser = 10
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
 	. = ..()
@@ -561,19 +530,9 @@
 	worn_icon_state = "ygloves"
 
 	resistance_flags = NONE
-	armor_type = /datum/armor/gloves_chameleon
+	armor_type = /datum/armor/security_padded
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
-
-/datum/armor/gloves_chameleon
-	melee = 10
-	bullet = 10
-	laser = 10
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/gloves/chameleon/Initialize(mapload)
 	. = ..()
@@ -621,18 +580,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	armor_type = /datum/armor/chameleon_combat
-
-
-/datum/armor/chameleon_combat
-	melee = 10
-	bullet = 10
-	laser = 10
-	bio = 50
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
+	armor_type = /datum/armor/security_padded
 
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
@@ -642,19 +590,9 @@
 	clothing_flags = SNUG_FIT
 	icon_state = "greysoft"
 	resistance_flags = NONE
-	armor_type = /datum/armor/head_chameleon
+	armor_type = /datum/armor/security_padded
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
-
-/datum/armor/head_chameleon
-	melee = 5
-	bullet = 5
-	laser = 5
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/head/chameleon/Initialize(mapload)
 	. = ..()
@@ -770,7 +708,7 @@
 	icon_state = "gas_alt"
 	item_state = "gas_alt"
 	resistance_flags = NONE
-	armor_type = /datum/armor/mask_chameleon
+	armor_type = /datum/armor/security_padded
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	gas_transfer_coefficient = 0.01
@@ -780,17 +718,6 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 	var/datum/action/item_action/chameleon/tongue_change/tongue_action
-
-
-/datum/armor/mask_chameleon
-	melee = 5
-	bullet = 5
-	laser = 5
-	bio = 100
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
@@ -849,13 +776,9 @@
 
 /obj/item/clothing/mask/chameleon/drone
 	//Same as the drone chameleon hat, undroppable and no protection
-	armor_type = /datum/armor/chameleon_drone
+	armor_type = /datum/armor/none
 	// Can drones use the voice changer part? Let's not find out.
 	voice_change = FALSE
-
-
-/datum/armor/chameleon_drone
-	bleed = 10
 
 /obj/item/clothing/mask/chameleon/drone/Initialize(mapload)
 	. = ..()
@@ -877,21 +800,10 @@
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
 	desc = "A pair of black shoes."
 	resistance_flags = NONE
-	armor_type = /datum/armor/shoes_chameleon
+	armor_type = /datum/armor/security_padded
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
-
-
-/datum/armor/shoes_chameleon
-	melee = 10
-	bullet = 10
-	laser = 10
-	bio = 90
-	fire = 50
-	acid = 50
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/shoes/chameleon/Initialize(mapload)
 	. = ..()
@@ -1128,12 +1040,6 @@
 	desc = "A neosilk clip-on tie."
 	icon_state = "blacktie"
 	resistance_flags = NONE
-	armor_type = /datum/armor/neck_chameleon
-
-
-/datum/armor/neck_chameleon
-	fire = 50
-	acid = 50
 
 /obj/item/clothing/neck/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action

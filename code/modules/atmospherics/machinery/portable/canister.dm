@@ -9,7 +9,6 @@
 	greyscale_colors = "#ffff00#000000"
 	density = TRUE
 	volume = 1000
-	armor_type = /datum/armor/portable_atmospherics_canister
 	max_integrity = 250
 	integrity_failure = 0.4
 	pressure_resistance = 7 * ONE_ATMOSPHERE
@@ -53,17 +52,6 @@
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
-
-
-/datum/armor/portable_atmospherics_canister
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 100
-	bomb = 10
-	rad = 100
-	fire = 80
-	acid = 50
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
 	. = ..()

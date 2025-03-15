@@ -408,26 +408,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
-	armor_type = /datum/armor/space_changeling
+	armor_type = /datum/armor/civilian_chitin
 	slowdown = 0.1
 	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
 	actions_types = list()
 	cell = null
 	show_hud = FALSE
-
-
-/datum/armor/space_changeling
-	melee = 35
-	bullet = 25
-	laser = 25
-	energy = 30
-	bomb = 30
-	bio = 100
-	rad = 20
-	fire = 90
-	acid = 90
-	stamina = 10
-	bleed = 80
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -506,21 +492,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	icon_state = "lingarmorhelmet"
 	item_state = null
 	item_flags = DROPDEL
-	armor_type = /datum/armor/helmet_changeling
+	armor_type = /datum/armor/civilian_chitin
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
-
-
-/datum/armor/helmet_changeling
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 25
-	bio = 10
-	fire = 25
-	acid = 25
-	stamina = 30
-	bleed = 90
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()

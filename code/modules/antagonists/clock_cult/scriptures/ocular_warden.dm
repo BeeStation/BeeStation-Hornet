@@ -37,11 +37,7 @@
 
 
 /datum/armor/clockwork_ocular_warden
-	melee = -80
-	bullet = -50
-	laser = 40
-	energy = 40
-	bomb = 20
+	reflectivity = 80
 
 /obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	//Can we fire?

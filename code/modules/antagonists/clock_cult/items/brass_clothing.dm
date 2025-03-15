@@ -5,27 +5,13 @@
 	icon_state = "clockwork_cuirass"
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	worn_icon_state = "clockwork_cuirass"
-	armor_type = /datum/armor/suit_clockwork
+	armor_type = /datum/armor/military_runed_cloth
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/stack/sheet/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 	var/allow_any = FALSE
-
-
-/datum/armor/suit_clockwork
-	melee = 50
-	bullet = 60
-	laser = 30
-	energy = 80
-	bomb = 80
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 60
-	bleed = 60
 
 /obj/item/clothing/suit/clockwork/anyone
 	allow_any = TRUE
@@ -57,28 +43,14 @@
 	worn_icon_state = "clockwork_cuirass_speed"
 	slowdown = -0.3
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor_type = /datum/armor/clockwork_speed
-
-
-/datum/armor/clockwork_speed
-	melee = 40
-	bullet = 40
-	laser = 10
-	energy = -20
-	bomb = 60
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 30
-	bleed = 40
+	armor_type = /datum/armor/civilian_runed_cloth
 
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon_state = "clockwork_cloak"
 	worn_icon_state = "clockwork_cloak"
-	armor_type = /datum/armor/clockwork_cloak
+	armor_type = /datum/armor/civilian_runed_cloth
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
@@ -86,20 +58,6 @@
 	var/f
 	var/start
 	var/previous_alpha
-
-
-/datum/armor/clockwork_cloak
-	melee = 10
-	bullet = 60
-	laser = 40
-	energy = 20
-	bomb = 40
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 20
-	bleed = 20
 
 /obj/item/clothing/suit/clockwork/cloak/equipped(mob/user, slot)
 	. = ..()
@@ -189,25 +147,11 @@
 	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet"
-	armor_type = /datum/armor/helmet_clockcult
+	armor_type = /datum/armor/military_runed_cloth
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	flash_protect = 1
 	bang_protect = 3
-
-
-/datum/armor/helmet_clockcult
-	melee = 50
-	bullet = 60
-	laser = 30
-	energy = 80
-	bomb = 80
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 60
-	bleed = 60
 
 /obj/item/clothing/shoes/clockcult
 	name = "brass treads"
@@ -227,11 +171,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor_type = /datum/armor/gloves_clockcult
-
-
-/datum/armor/gloves_clockcult
-	bio = 90
-	fire = 80
-	acid = 50
-	bleed = 20
+	armor_type = /datum/armor/military_runed_cloth

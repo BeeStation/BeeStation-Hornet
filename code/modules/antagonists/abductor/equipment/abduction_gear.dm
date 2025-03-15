@@ -879,12 +879,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "abductor-suit"
 	item_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
-	armor_type = /datum/armor/under_abductor
 	can_adjust = FALSE
-
-/datum/armor/under_abductor
-	bomb = 10
-	bio = 10
 
 #undef VEST_STEALTH
 #undef VEST_COMBAT
