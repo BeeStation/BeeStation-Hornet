@@ -695,7 +695,7 @@
 		M.playsound_local(M, 'sound/effects/singlebeat.ogg', 100, 0)
 
 	if(prob(7))
-		to_chat(M, span_notice("[pick("Your head pounds.", "You feel a tight pain in your chest.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
+		to_chat(M, span_notice(pick("Your head pounds.", "You feel a tight pain in your chest.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")))
 
 	if(prob(33))
 		M.adjustToxLoss(1*REM, 0)

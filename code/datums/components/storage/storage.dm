@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		var/obj/item/valid_item = valid_type
 		desc += "\a [initial(valid_item.name)]"
 
-	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
+	return "\n\t[span_notice(desc.Join("\n\t"))]"
 
 /datum/component/storage/proc/update_actions()
 	if(!isitem(parent) || !allow_quick_gather)

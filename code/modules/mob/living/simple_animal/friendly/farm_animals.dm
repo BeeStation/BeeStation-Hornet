@@ -184,7 +184,7 @@
 	else
 		seen_message = "[src] seems resigned to its fate."
 		self_message = "You resign yourself to your fate."
-	visible_message(span_notice("[seen_message]"), span_notice("[self_message]"))
+	visible_message(span_notice(seen_message), span_notice(self_message))
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"
