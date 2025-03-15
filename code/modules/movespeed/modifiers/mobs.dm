@@ -1,5 +1,5 @@
 /datum/movespeed_modifier/obesity
-	multiplicative_slowdown = 1.5
+	multiplicative_slowdown = 1.65
 
 /datum/movespeed_modifier/monkey_reagent_speedmod
 	variable = TRUE
