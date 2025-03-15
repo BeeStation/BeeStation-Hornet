@@ -13,9 +13,9 @@ type VampireInformation = {
 };
 
 type ClanInfo = {
-  name: string;
-  description: string;
-  icon: string;
+  clan_name: string;
+  clan_description: string;
+  clan_icon: string;
 };
 
 type PowerInfo = {
@@ -453,7 +453,7 @@ const PowerSection = (_props) => {
                     <Box
                       inline
                       as="img"
-                      src={`data:image/jpeg;base64,${power.icon}`}
+                      src={resolveAsset(`${power.icon}.png`)}
                       width="32px"
                       style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
                     />
@@ -524,7 +524,7 @@ const ClanSection = (props: any) => {
           <Stack.Item>
             <Box
               as="img"
-              src={`data:image/jpeg;base64,${ClanInfo.icon}`}
+              src={resolveAsset(`${ClanInfo.clan_icon}.png`)}
               width="128px"
               style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
             />
@@ -532,10 +532,10 @@ const ClanSection = (props: any) => {
           <Stack.Item grow>
             <Stack.Item textAlign="center">
               <Box inline fontSize="20px" textColor="red">
-                You are part of the <b>{ClanInfo.name}!</b>
+                You are part of the <b>{ClanInfo.clan_name}!</b>
               </Box>
             </Stack.Item>
-            <Box fontSize="16px">{ClanInfo.description}</Box>
+            <Box fontSize="16px">{ClanInfo.clan_description}</Box>
           </Stack.Item>
         </Stack>
       ))}

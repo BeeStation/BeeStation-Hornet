@@ -320,9 +320,9 @@
 	data["in_clan"] = !!my_clan
 	var/list/clan_data = list()
 	if(my_clan)
-		clan_data["name"] = my_clan.name
-		clan_data["description"] = my_clan.description
-		clan_data["icon"] = icon2base64(icon(my_clan.join_icon, my_clan.join_icon_state, frame=1))
+		clan_data["clan_name"] = my_clan.name
+		clan_data["clan_description"] = my_clan.description
+		clan_data["clan_icon"] = my_clan.join_icon_state
 
 	data["clan"] += list(clan_data)
 
@@ -331,7 +331,7 @@
 
 		power_data["name"] = power.name
 		power_data["explanation"] = power.power_explanation
-		power_data["icon"] = icon2base64(icon(power.button_icon, power.button_icon_state, frame=1))
+		power_data["icon"] = power.button_icon_state
 
 		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
 		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
