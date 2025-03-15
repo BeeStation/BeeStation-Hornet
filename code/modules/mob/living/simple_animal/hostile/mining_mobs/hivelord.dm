@@ -276,7 +276,7 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
 	. = ..()
-	H.dna.add_mutation(DWARFISM)
+	H.dna.add_mutation(/datum/mutation/dwarfism)
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pick_weight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,JOB_NAME_CLOWN = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))

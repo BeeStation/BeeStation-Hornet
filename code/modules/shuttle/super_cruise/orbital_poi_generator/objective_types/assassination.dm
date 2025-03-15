@@ -183,7 +183,7 @@
 	implants = list(/obj/item/implant/sad_trombone)
 
 /datum/outfit/vip_target/clown/pre_equip(mob/living/carbon/human/H)
-	H.dna.add_mutation(CLOWNMUT)
+	H.dna.add_mutation(/datum/mutation/clumsy)
 
 /datum/outfit/vip_target/clown/post_equip(mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))

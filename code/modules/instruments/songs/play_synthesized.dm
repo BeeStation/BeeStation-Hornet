@@ -64,7 +64,7 @@
 		var/mob/M = i
 		if(user && HAS_TRAIT(user, TRAIT_MUSICIAN) && isliving(M))
 			var/mob/living/L = M
-			L.apply_status_effect(STATUS_EFFECT_GOOD_MUSIC)
+			L.apply_status_effect(/datum/status_effect/good_music)
 		if(!M?.client?.prefs.read_player_preference(/datum/preference/toggle/sound_instruments))
 			continue
 		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, null, channel, null, copy)
