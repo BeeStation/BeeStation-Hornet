@@ -3,7 +3,6 @@
 	icon_state = "eyeballs"
 	desc = "I see you!"
 	visual = TRUE
-	zone = BODY_ZONE_PRECISE_EYES
 	slot = ORGAN_SLOT_EYES
 	gender = PLURAL
 
