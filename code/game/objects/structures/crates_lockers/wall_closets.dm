@@ -38,10 +38,16 @@
 				ui_index = index
 				break
 	inserted_item.forceMove(src)
+	for(var/image in inserted_item.overlays)
+		var/image/current_overlay = image
+		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE || inserted_item.greyscale_colors || inserted_item.greyscale_config)
+			closet_contents[ui_index]["image"] = icon2base64(getFlatIcon(inserted_item))
+			break
+	if(!closet_contents[ui_index]["image"])
+		closet_contents[ui_index]["icon"] = inserted_item.icon
+		closet_contents[ui_index]["icon_state"] = inserted_item.icon_state
 	closet_contents[ui_index]["item"] = inserted_item
 	closet_contents[ui_index]["name"] = inserted_item.name
-	closet_contents[ui_index]["icon"] = inserted_item.icon
-	closet_contents[ui_index]["icon_state"] = inserted_item.icon_state
 	closet_contents[ui_index]["show"] = TRUE
 	return TRUE
 
