@@ -1,3 +1,4 @@
+/*
 //////////////////////////////////////////////
 //                                          //
 //            LATEJOIN RULESETS             //
@@ -117,3 +118,4 @@
 	new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
 
 	return DYNAMIC_EXECUTE_SUCCESS
+*/

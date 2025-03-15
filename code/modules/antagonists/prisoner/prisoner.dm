@@ -2,6 +2,7 @@
 	name = "Prisoner"
 	roundend_category = "Prisoner"
 	banning_key = ROLE_PRISONER
+	special_role = ROLE_PRISONER
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Prisoners"
 	show_to_ghosts = TRUE
