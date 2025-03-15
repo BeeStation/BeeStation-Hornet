@@ -1,0 +1,7 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - code_imp: removed typepath defines for mutations and status effects
+  - bugfix: reverted undocumented change preventing lizards from having firebreath
+      gene, and oozelings from having acidhands gene
+  - rscdel: removed necropolis code added 8 years ago but never used
