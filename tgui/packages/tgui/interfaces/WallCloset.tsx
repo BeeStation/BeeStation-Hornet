@@ -11,6 +11,7 @@ type WallClosetData = {
 type StoredItems = {
   icon: string;
   icon_state: string;
+  image: string;
   name: string;
   show: boolean;
 }
@@ -47,7 +48,14 @@ export const WallCloset = (props) => {
         </Box>
         <Flex wrap width='360px'>
           {contents.map((item, index) => (
-            <Cell show={item.show} index={index} key={index} icon={item.icon} icon_state={item.icon_state} name={item.name} />
+            <Cell
+            show={item.show}
+            index={index}
+            key={index}
+            icon={item.icon}
+            icon_state={item.icon_state}
+            name={item.name}
+            image={item.image} />
           ))}
         </Flex>
       </Window.Content>
@@ -61,8 +69,9 @@ const Cell = (props) => {
     <Flex.Item className="WallCloset_FlexItem" width='80px' height='80px'>
       <Box className="WallCloset_Box" position="relative">
         <Box className="WallCloset_Box">
+          {props.show &&
           <Box className="WallCloset_Box">
-          {props.show && (
+          {!props.image ?
             <DmIcon
               mb={-2}
               icon={props.icon}
@@ -70,9 +79,19 @@ const Cell = (props) => {
               fallback={<Icon mr={1} name="spinner" spin fontSize="30px" />}
               height="100%"
               width="100%"
+              backgroundColor="red"
             />
-          )}
+            :
+            <Box as="img" src={props.image} width="100%" height="100%"
+              style={{
+                msInterpolationMode: 'nearest-neighbor',
+                textAlign: 'center',
+                verticalAlign: 'middle',
+                imageRendering: 'pixelated' }}
+            />
+          }
           </Box>
+          }
           <Box className="WallCloset_Slot" onClick={() => act('ItemClick', { 'SlotKey': props.index + 1 })}>
             {props.name}
           </Box>

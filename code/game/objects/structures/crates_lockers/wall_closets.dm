@@ -38,10 +38,16 @@
 				ui_index = index
 				break
 	inserted_item.forceMove(src)
+	for(var/image in inserted_item.overlays)
+		var/image/current_overlay = image
+		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE)
+			closet_contents[ui_index]["image"] = FAST_REF(inserted_item.appearance)
+			break
+	if(!closet_contents[ui_index]["image"])
+		closet_contents[ui_index]["icon"] = inserted_item.icon
+		closet_contents[ui_index]["icon_state"] = inserted_item.icon_state
 	closet_contents[ui_index]["item"] = inserted_item
 	closet_contents[ui_index]["name"] = inserted_item.name
-	closet_contents[ui_index]["icon"] = inserted_item.icon
-	closet_contents[ui_index]["icon_state"] = inserted_item.icon_state
 	closet_contents[ui_index]["show"] = TRUE
 	return TRUE
 
