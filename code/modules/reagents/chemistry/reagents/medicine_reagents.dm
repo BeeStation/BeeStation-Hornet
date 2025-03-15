@@ -845,7 +845,7 @@
 	taste_description = "dull toxin"
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/M)
-	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	eyes.applyOrganDamage(-2)
@@ -1303,7 +1303,7 @@
 
 /datum/reagent/medicine/hepanephrodaxon/on_mob_life(var/mob/living/carbon/M)
 	var/repair_strength = 1
-	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/L = M.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(L.damage > 0)
 		L.damage = max(L.damage - 4 * repair_strength, 0)
 		M.confused = (2)

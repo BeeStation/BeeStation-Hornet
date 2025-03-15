@@ -25,7 +25,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	var/mob/living/carbon/C = parent
-	E = C.getorganslot(ORGAN_SLOT_EYES)
+	E = C.get_organ_slot(ORGAN_SLOT_EYES)
 
 	if(E)
 		START_PROCESSING(SSdcs, src)
