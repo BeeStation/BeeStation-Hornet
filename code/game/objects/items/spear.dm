@@ -21,14 +21,9 @@
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
-	armor_type = /datum/armor/item_spear
+	armor_type = /datum/armor/civilian_metal
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
-
-
-/datum/armor/item_spear
-	fire = 50
-	acid = 30
 
 /obj/item/spear/ComponentInitialize()
 	. = ..()

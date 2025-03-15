@@ -23,7 +23,6 @@
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 400
-	armor_type = /datum/armor/shuttle_heater
 	layer = OBJ_LAYER
 	showpipe = TRUE
 
@@ -32,14 +31,6 @@
 	var/gas_type = GAS_PLASMA
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
-
-
-/datum/armor/shuttle_heater
-	energy = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 30
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/New()
 	. = ..()

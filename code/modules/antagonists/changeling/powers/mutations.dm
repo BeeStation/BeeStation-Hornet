@@ -455,22 +455,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
 	clothing_flags = STOPSPRESSUREDAMAGE
-	armor_type = /datum/armor/space_changeling
+	armor_type = /datum/armor/security_chitin
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-
-/datum/armor/space_changeling
-	melee = 35
-	bullet = 25
-	laser = 25
-	energy = 30
-	bomb = 30
-	bio = 100
-	rad = 20
-	fire = 90
-	acid = 90
-	stamina = 10
-	bleed = 80
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
@@ -501,25 +487,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/gun/magic/tentacle)
 	item_state = null
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor_type = /datum/armor/armor_changeling
+	armor_type = /datum/armor/military_chitin
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
 	slowdown = 0
-
-
-/datum/armor/armor_changeling
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 25
-	bio = 10
-	fire = 25
-	acid = 25
-	stamina = 30
-	bleed = 90
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()

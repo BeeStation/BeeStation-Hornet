@@ -7,7 +7,7 @@
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 0.25
-	armor_type = /datum/armor/structure_closet
+	armor_type = /datum/armor/security_metal
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = LETPASSCLICKS | PASSSTRUCTURE
 	interaction_flags_atom = NONE
@@ -59,15 +59,6 @@
 
 	//should be just for crates, right?
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
-
-
-/datum/armor/structure_closet
-	melee = 20
-	bullet = 10
-	laser = 10
-	bomb = 10
-	fire = 70
-	acid = 60
 
 /obj/structure/closet/Initialize(mapload)
 	. = ..()

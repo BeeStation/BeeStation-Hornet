@@ -10,9 +10,9 @@
 	layer = BELOW_MOB_LAYER
 	pass_flags_self = PASSBLOB
 	CanAtmosPass = ATMOS_PASS_PROC
+	resistance_flags = FIRE_PROOF
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	max_integrity = 30
-	armor_type = /datum/armor/structure_blob
 	var/health_regen = 2 //how much health this blob regens when pulsed
 	var/pulse_timestamp = 0 //we got pulsed when?
 	var/heal_timestamp = 0 //we got healed when?
@@ -22,11 +22,6 @@
 	var/mob/camera/blob/overmind
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
-
-
-/datum/armor/structure_blob
-	fire = 80
-	acid = 70
 
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()

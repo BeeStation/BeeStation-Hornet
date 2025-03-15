@@ -10,7 +10,6 @@
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
 
-	armor_type = /datum/armor/machinery_camera
 	max_integrity = 100
 	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
@@ -55,14 +54,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/emp_proof, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/motion, 0)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
-
-/datum/armor/machinery_camera
-	melee = 50
-	bullet = 20
-	laser = 20
-	energy = 20
-	fire = 90
-	acid = 50
 
 /obj/machinery/camera/preset/toxins //Bomb test site in space
 	name = "Hardened Bomb-Test Camera"

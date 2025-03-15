@@ -6,15 +6,9 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
-	armor_type = /datum/armor/item_powertool
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
-
-
-/datum/armor/item_powertool
-	fire = 50
-	acid = 30
 
 /obj/item/powertool/attack_self(mob/user)
 	toggle_mode(user)

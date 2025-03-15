@@ -26,7 +26,6 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/screwdriver_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/screwdriver_inhand_right
 	greyscale_config_belt = /datum/greyscale_config/screwdriver_belt
-	armor_type = /datum/armor/item_screwdriver
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	/// If the item should be assigned a random color
@@ -41,11 +40,6 @@
 		"cyan" = "#18a2d5",
 		"yellow" = "#ffa500"
 	)
-
-
-/datum/armor/item_screwdriver
-	fire = 50
-	acid = 30
 
 /obj/item/screwdriver/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

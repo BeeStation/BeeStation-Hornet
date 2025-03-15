@@ -6,7 +6,8 @@
 	var/upgrade_name
 
 /datum/armor/armor_plate
-	melee = 10
+	penetration = 10
+	blunt = 10
 
 /datum/component/armor_plate/Initialize(_maxamount, obj/item/_upgrade_item, datum/armor/_added_armor)
 	if(!isobj(parent))

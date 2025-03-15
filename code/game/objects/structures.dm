@@ -12,8 +12,7 @@
 	armor_type = /datum/armor/obj_structure
 
 /datum/armor/obj_structure
-	fire = 50
-	acid = 50
+	absorption = 50
 
 /obj/structure/Initialize(mapload)
 	. = ..()

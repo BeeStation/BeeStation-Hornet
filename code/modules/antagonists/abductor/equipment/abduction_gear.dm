@@ -30,32 +30,6 @@
 	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
 
-/datum/armor/abductor_combat
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 50
-	rad = 15
-	bio = 50
-	fire = 90
-	acid = 90
-	stamina = 30
-	bleed = 40
-
-/datum/armor/abductor_vest
-	melee = 15
-	bullet = 15
-	laser = 15
-	energy = 25
-	bomb = 15
-	rad = 50
-	bio = 15
-	fire = 70
-	acid = 70
-	stamina = 60
-	bleed = 80
-
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
 		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
@@ -69,11 +43,11 @@
 		if(VEST_STEALTH)
 			mode = VEST_COMBAT
 			DeactivateStealth()
-			set_armor(/datum/armor/abductor_combat)
+			set_armor(/datum/armor/military_light_armor)
 			icon_state = "vest_combat"
 		if(VEST_COMBAT)// TO STEALTH
 			mode = VEST_STEALTH
-			set_armor(/datum/armor/abductor_vest)
+			set_armor(/datum/armor/civilian_light_armor)
 			icon_state = "vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc

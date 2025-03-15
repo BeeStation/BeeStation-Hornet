@@ -37,10 +37,8 @@
 	var/hacked = FALSE
 	var/list/possible_colors = list("red", "blue", "green", "purple")
 
-
 /datum/armor/item_dualsaber
-	fire = 100
-	acid = 70
+	absorption = 70
 
 /obj/item/dualsaber/Initialize(mapload)
 	if(LAZYLEN(possible_colors))

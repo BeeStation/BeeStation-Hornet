@@ -14,17 +14,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
-	armor_type = /datum/armor/machinery_blackbox_recorder
 	var/obj/item/stored
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
-
-
-/datum/armor/machinery_blackbox_recorder
-	melee = 25
-	bullet = 10
-	laser = 10
-	fire = 50
-	acid = 70
 
 /obj/machinery/blackbox_recorder/Initialize(mapload)
 	. = ..()

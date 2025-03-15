@@ -8,15 +8,6 @@
 	icon = 'icons/turf/shuttle.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	max_integrity = 500
-	armor_type = /datum/armor/structure_shuttle
-
-
-/datum/armor/structure_shuttle
-	melee = 100
-	bullet = 10
-	laser = 10
-	fire = 50
-	acid = 70
 
 /obj/structure/shuttle/engine
 	name = "engine"

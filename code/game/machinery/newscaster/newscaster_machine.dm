@@ -9,7 +9,6 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor_type = /datum/armor/machinery_newscaster
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?
@@ -60,12 +59,6 @@
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
-
-
-/datum/armor/machinery_newscaster
-	melee = 50
-	fire = 50
-	acid = 30
 
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
