@@ -65,6 +65,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	 * All of these variables can be customized in 'dynamic.json'
 	*/
 
+	/// Roundstart
+
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
 	/// These should always be decimals. e.g: 0.8, 1.4
 	var/roundstart_divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
@@ -73,6 +75,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	var/roundstart_points_per_ready = DYNAMIC_POINTS_PER_READY
 	var/roundstart_points_per_unready = DYNAMIC_POINTS_PER_UNREADY
 	var/roundstart_points_per_observer = DYNAMIC_POINTS_PER_OBSERVER
+
+	/// Midround
 
 	/// The chances for each type of midround ruleset to be picked
 	var/midround_light_starting_chance = DYNAMIC_MIDROUND_LIGHT_STARTING_CHANCE
@@ -216,17 +220,19 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	// Trim the rulesets
 	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/roundstart/rule in roundstart_rules)
-		if(!rule.weight)
+	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_rules)
+		if(!ruleset.weight)
+			continue
+		if(!ruleset.points_cost)
 			continue
 
-		rule.candidates = roundstart_candidates.Copy()
-		rule.trim_candidates()
+		ruleset.candidates = roundstart_candidates.Copy()
+		ruleset.trim_candidates()
 
-		if(!rule.allowed())
+		if(!ruleset.allowed())
 			continue
 
-		possible_rulesets[rule] = rule.weight
+		possible_rulesets[ruleset] = ruleset.weight
 
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
@@ -237,12 +243,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(isnull(ruleset))
 			log_game("DYNAMIC: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
 			break
-
-		// Stop infinite loops
-		if(!ruleset.points_cost)
-			stack_trace("[ruleset] cost is 0, this is going to result in an infinite loop.")
-			possible_rulesets[ruleset] = null
-			continue
 
 		// Something changed and this ruleset is no longer allowed
 		// Most common occurance is all previous candidates were assigned an antag position
@@ -343,9 +343,10 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 
 /datum/game_mode/dynamic/proc/update_midround_points()
+	var/previous_midround_points = midround_points
 	midround_points++
 
-	log_game("DYNAMIC: Updated midround points. [midround_points]")
+	log_game("DYNAMIC: Updated midround points. [previous_midround_points] --> [midround_points]")
 
 /*
 * At roundstart the chance for a Light ruleset to spawn is 100%
@@ -354,14 +355,15 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Alongside this, the chance to roll a Medium ruleset will start to decrease and the chance to roll a Heavy ruleset will increase.
 */
 /datum/game_mode/dynamic/proc/update_midround_chances()
-	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / 1 MINUTES)
+	// How much should we decrease per minute to reach 0% by the configured time?
+	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / (1 MINUTES))
 
 	// Decrease light chance
 	midround_light_chance = max(0, midround_light_chance - light_decrease_rate)
 
 	if(world.time > midround_light_end_time)
 		// Light is 0%, lets start to lower Medium
-		var/medium_decrease_rate = 100 * midround_medium_increase_ratio / ((midround_medium_end_time - midround_light_end_time) / 1 MINUTES)
+		var/medium_decrease_rate = 100 * midround_medium_increase_ratio / ((midround_medium_end_time - midround_light_end_time) / (1 MINUTES))
 
 		midround_medium_chance = max(midround_medium_chance - medium_decrease_rate, 0)
 		midround_heavy_chance = min(midround_heavy_chance + medium_decrease_rate, 100)

@@ -70,7 +70,7 @@
 	flags = LONE_RULESET
 
 /datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
-	var/list/living_players = mode.current_players[CURRENT_LIVING_PLAYERS]
+	var/list/living_players = dynamic.current_players[CURRENT_LIVING_PLAYERS]
 	for(var/mob/living/player in living_players)
 		if(isAI(player))
 			candidates -= player
