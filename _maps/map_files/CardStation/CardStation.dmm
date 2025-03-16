@@ -103605,7 +103605,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/item/reagent_containers/cup/glass/coffee_cup,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissaryRandom)
 "vTW" = (
