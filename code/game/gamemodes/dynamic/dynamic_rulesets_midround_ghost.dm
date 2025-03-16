@@ -537,6 +537,7 @@
 /datum/dynamic_ruleset/midround/ghost/prisoners
 	name = "Prisoners"
 	severity = DYNAMIC_MIDROUND_LIGHT
+	antag_datum = /datum/antagonist/prisoner
 	role_preference = /datum/role_preference/midround_ghost/prisoner
 	points_cost = 20
 	weight = 4
@@ -573,6 +574,7 @@
 /datum/dynamic_ruleset/midround/ghost/fugitives
 	name = "Fugitives"
 	severity = DYNAMIC_MIDROUND_LIGHT
+	antag_datum = /datum/antagonist/fugitive
 	role_preference = /datum/role_preference/midround_ghost/fugitive
 	points_cost = 20
 	weight = 4
