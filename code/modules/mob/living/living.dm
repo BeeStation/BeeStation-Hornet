@@ -1207,7 +1207,7 @@
 			to_chat(src, "<span class='warning'>You are too far away!</span>")
 			return FALSE
 		var/datum/dna/D = has_dna()
-		if(!D || !D.check_mutation(TK) || !tkMaxRangeCheck(src, M))
+		if(!D || !D.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, M))
 			to_chat(src, "<span class='warning'>You are too far away!</span>")
 			return FALSE
 	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,

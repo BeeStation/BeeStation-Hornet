@@ -95,7 +95,7 @@
 		return
 	var/mob/living/carbon/itemUser = user
 	usedHand = itemUser.get_held_index_of_item(src)
-	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
+	if(itemUser.has_status_effect(/datum/status_effect/hippocratic_oath))
 		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
 	var/failText = span_warning("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
@@ -121,7 +121,7 @@
 		to_chat(itemUser, failText)
 		return
 	to_chat(itemUser, span_notice("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+	var/datum/status_effect/hippocratic_oath/effect = itemUser.apply_status_effect(/datum/status_effect/hippocratic_oath)
 	effect.hand = usedHand
 	activated()
 	itemUser.regenerate_icons()
@@ -817,10 +817,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
 /obj/item/melee/transforming/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
-	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
+	var/datum/status_effect/saw_bleed/B = target.has_status_effect(/datum/status_effect/saw_bleed)
 	if(!B)
 		if(!active) //This isn't in the above if-check so that the else doesn't care about active
-			target.apply_status_effect(STATUS_EFFECT_SAWBLEED)
+			target.apply_status_effect(/datum/status_effect/saw_bleed)
 	else
 		B.add_bleed(B.bleed_buildup)
 

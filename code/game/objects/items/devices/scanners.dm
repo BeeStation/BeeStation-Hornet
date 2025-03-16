@@ -420,7 +420,7 @@ GENE SCANNER
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t[span_info("Genetic Stability: [H.dna.stability]%.")]"
-			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+			if(H.has_status_effect(/datum/status_effect/ling_transformation))
 				message += "\t[span_info("Subject's DNA appears to be in an unstable state.")]"
 
 		// Embedded Items
@@ -432,7 +432,7 @@ GENE SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
-		var/mutant = H.dna.check_mutation(HULK) \
+		var/mutant = H.dna.check_mutation(/datum/mutation/hulk) \
 			|| S.mutantlungs != initial(S.mutantlungs) \
 			|| S.mutantbrain != initial(S.mutantbrain) \
 			|| S.mutantheart != initial(S.mutantheart) \
@@ -875,7 +875,7 @@ GENE SCANNER
 	if(T.cores > 1)
 		message += "Multiple cores detected"
 	message += "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]"
-	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
+	if(T.has_status_effect(/datum/status_effect/slimegrub))
 		message += "<b>Redgrub infestation detected. Quarantine immediately.</b>"
 		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat"
 	if(T.effectmod)

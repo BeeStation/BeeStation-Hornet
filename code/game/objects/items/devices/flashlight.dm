@@ -169,7 +169,7 @@
 	else
 		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 			results += span_warning("[M.p_their(TRUE)] pupils don't react to the light!")
-		else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
+		else if(M.has_dna() && M.dna.check_mutation(/datum/mutation/thermal/x_ray))	//mob has X-ray vision
 			results += span_danger("[M.p_their(TRUE)] pupils give an eerie glow!")
 		else //they're okay!
 			results += span_notice("[M.p_their(TRUE)] pupils narrow.")
