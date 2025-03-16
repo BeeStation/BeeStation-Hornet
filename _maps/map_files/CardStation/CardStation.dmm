@@ -4611,7 +4611,6 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/north,
-/obj/structure/wall_closet/med/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/booth)
 "aYr" = (
@@ -16797,7 +16796,6 @@
 /obj/item/ammo_box/magazine/toy/smg,
 /obj/item/ammo_box/magazine/toy/smg,
 /obj/item/clothing/mask/russian_balaclava,
-/obj/item/gun/ballistic/automatic/toy,
 /turf/open/floor/mineral/plastitanium/red,
 /area/syndicate_sat)
 "dyy" = (
@@ -25364,7 +25362,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
-/obj/structure/wall_closet/chemistry/directional/north,
+/obj/structure/wall_closet/med/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/booth)
 "fwo" = (
@@ -25609,7 +25607,9 @@
 /obj/item/pen/red{
 	pixel_y = 8
 	},
-/obj/item/pen/blue,
+/obj/item/pen/blue{
+	pixel_y = 1
+	},
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -29739,6 +29739,7 @@
 /obj/item/book/manual/wiki/infections{
 	pixel_y = 7
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "gpD" = (
@@ -30750,6 +30751,10 @@
 /obj/effect/mapping_helpers/Mapper_Comment{
 	desc = "These are meant to be test sites for explosive and non explosive nades because chem deserves a gimmick. Also it gives chemists an excuse as to why they would me making grenades at work - BarteG";
 	name = "Cardstation - Chem Test Lab"
+	},
+/obj/item/book/manual/wiki/grenades{
+	pixel_y = 11;
+	pixel_x = 12
 	},
 /turf/open/floor/engine,
 /area/medical/chemistry)
@@ -70352,10 +70357,10 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/gondola,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
+/mob/living/basic/pet/gondola,
 /turf/open/floor/wood/big,
 /area/maintenance/central)
 "oTt" = (
@@ -73993,10 +73998,6 @@
 /area/science/server)
 "pFD" = (
 /obj/structure/table/wood,
-/obj/item/origami/paperboat{
-	pixel_y = 7;
-	pixel_x = 23
-	},
 /obj/effect/turf_decal/siding/white,
 /obj/machinery/computer/libraryconsole{
 	pixel_y = 10
@@ -77579,10 +77580,6 @@
 	name = "Chemistry Counter"
 	},
 /obj/item/book/manual/wiki/plumbing,
-/obj/item/book/manual/wiki/grenades{
-	pixel_y = 3;
-	pixel_x = 2
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistbot";
@@ -82695,6 +82692,10 @@
 	pixel_y = 13
 	},
 /obj/item/pen,
+/obj/item/origami/paperboat{
+	pixel_y = 12;
+	pixel_x = -6
+	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "rzd" = (
@@ -102526,7 +102527,7 @@
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/wall_closet/freezer/directional/east,
-/obj/item/organ/heart,
+/obj/item/organ/heart/cybernetic/upgraded,
 /turf/open/floor/noslip/white,
 /area/maintenance/starboard/central)
 "vJn" = (
@@ -112666,6 +112667,7 @@
 	dir = 5
 	},
 /obj/item/extrapolator,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "xSl" = (
@@ -113468,16 +113470,16 @@
 /area/engine/atmos)
 "yci" = (
 /obj/structure/table/wood,
-/obj/item/paper/pamphlet/violent_video_games{
-	pixel_y = 5;
-	pixel_x = -3
-	},
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
 /obj/item/flashlight/lamp{
 	pixel_x = 17;
 	pixel_y = -1
+	},
+/obj/item/paper/pamphlet/violent_video_games{
+	pixel_y = 5;
+	pixel_x = -3
 	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
