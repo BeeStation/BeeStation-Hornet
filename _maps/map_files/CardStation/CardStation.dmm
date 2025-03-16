@@ -24665,7 +24665,6 @@
 /obj/structure/sign/poster/official/obey{
 	pixel_y = -32
 	},
-/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/white/textured_half,
 /area/security/checkpoint/medical)
 "fnZ" = (
@@ -86814,6 +86813,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/smooth,
 /area/security/checkpoint/medical)
 "swL" = (
