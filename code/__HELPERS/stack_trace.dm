@@ -1,12 +1,26 @@
-GLOBAL_DATUM_INIT(runtime_helper, /datum/stack_trace_data_holder, new)
+// using datum is best, but "SHOULD_BE_PURE" lint doesn't like that way. list works well.
+GLOBAL_LIST_INIT(runtime_helper, list(
+	"runtime_message" = STACK_TRACE_NULL_HINT,
+	"file",
+	"line",
+	"procname",
+	"error_type"
+))
+
+#define BUILD_STACK_TRACE_HELPER(msg, _file, _line, _proc, _type) \
+GLOB.runtime_helper["runtime_message"] = msg;\
+GLOB.runtime_helper["file"] = _file;\
+GLOB.runtime_helper["line"] = _line;\
+GLOB.runtime_helper["procname"] = _proc;\
+GLOB.runtime_helper["error_type"] = _type;
 
 /// gives us the stack trace from CRASH() without ending the current proc.
 /proc/_stack_trace(msg, _file, _line, _proc, _type)
-	GLOB.runtime_helper.relay_data(msg, _file, _line, _proc, _type)
+	BUILD_STACK_TRACE_HELPER(msg, _file, _line, _proc, _type)
 	CRASH(msg)
 
 /datum/proc/_stack_trace(msg, _file, _line, _proc, _type)
-	GLOB.runtime_helper.relay_data(msg, _file, _line, _proc, _type)
+	BUILD_STACK_TRACE_HELPER(msg, _file, _line, _proc, _type)
 	CRASH(msg)
 
 GLOBAL_REAL_VAR(list/stack_trace_storage)
@@ -16,20 +30,3 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 	stack_trace_storage.Cut(1, min(3,stack_trace_storage.len))
 	. = stack_trace_storage
 	stack_trace_storage = null
-
-/datum/stack_trace_data_holder
-	var/runtime_message = STACK_TRACE_NULL_HINT
-	var/line
-	var/file
-	var/procname
-	var/error_type
-
-/datum/stack_trace_data_holder/proc/relay_data(_msg, _file, _line, _proc, _type)
-	runtime_message = _msg
-	file = _file
-	line = _line
-	procname = _proc
-	error_type = _type
-
-/datum/stack_trace_data_holder/proc/report()
-	return " ## STACK TRACE INFO: [file],[line]. Proc: [procname] / Type: [error_type || "null"]"

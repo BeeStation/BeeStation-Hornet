@@ -12,11 +12,11 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		return ..()
 
 	// a trick that helps /proc/stack_trace()
-	if(E.name == GLOB.runtime_helper.runtime_message)
-		E.file = GLOB.runtime_helper.file
-		E.line = GLOB.runtime_helper.line
-		E.desc += GLOB.runtime_helper.report()
-		GLOB.runtime_helper.runtime_message = STACK_TRACE_NULL_HINT
+	if(E.name == GLOB.runtime_helper["runtime_message"])
+		E.file = GLOB.runtime_helper["file"]
+		E.line = GLOB.runtime_helper["line"]
+		E.desc += " ## STACK TRACE INFO: [E.file], line [E.line]. Proc: [GLOB.runtime_helper["procname"]] / Type: [GLOB.runtime_helper["error_type"] || "null"]"
+		GLOB.runtime_helper["runtime_message"] = STACK_TRACE_NULL_HINT
 
 	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
 	if(copytext(E.name, 1, 32) == "Maximum recursion level reached")//32 == length() of that string + 1
