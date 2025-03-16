@@ -1045,16 +1045,16 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "aiB" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;31;48"
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -2716,7 +2716,7 @@
 "ato" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_one_access_txt = "12;31;48"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3363,7 +3363,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Cargo Maintenance";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line,
@@ -3766,7 +3766,7 @@
 "ays" = (
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Warehouse";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -13919,7 +13919,7 @@
 "bRW" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Office";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -38894,10 +38894,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Warehouse Maintenance";
-	req_access_txt = "31"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -38912,6 +38908,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Cargo Maintenance";
+	req_one_access_txt = "31;48"
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -54876,7 +54876,7 @@
 	},
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Bay";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -55340,7 +55340,7 @@
 "lQb" = (
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Bay";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -63051,10 +63051,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -63069,6 +63065,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;31;48"
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -73705,7 +73705,7 @@
 "rCX" = (
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Warehouse";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -75862,10 +75862,6 @@
 /area/ai_monitored/turret_protected/ai)
 "skq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -75883,6 +75879,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;31;48"
 	},
 /turf/open/floor/iron,
 /area/maintenance/disposal)
@@ -94296,10 +94296,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Warehouse Maintenance";
-	req_access_txt = "31"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -94307,6 +94303,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Cargo Maintenance";
+	req_one_access_txt = "31;48"
+	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "xVZ" = (

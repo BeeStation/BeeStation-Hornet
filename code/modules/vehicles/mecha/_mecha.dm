@@ -699,7 +699,7 @@
 		use_power(phasing_energy_drain)
 	if(strafe)
 		setDir(olddir)
-
+	after_move(direction)
 
 /obj/vehicle/sealed/mecha/Bump(atom/obstacle)
 	. = ..()
@@ -845,7 +845,6 @@
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))
 				for(var/ejectee in occupants)
 					mob_exit(ejectee, TRUE, TRUE) //IT IS MINE, NOW. SUCK IT, RD!
-				AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
 			AI = card.AI
