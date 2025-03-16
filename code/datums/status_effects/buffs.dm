@@ -22,7 +22,7 @@
 /datum/status_effect/shadow_mend/on_remove()
 	owner.visible_message(span_warning("The violet light around [owner] glows black!"), span_warning("The tendrils around you cinch tightly and reap their toll..."))
 	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
-	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
+	owner.apply_status_effect(/datum/status_effect/void_price)
 
 
 /datum/status_effect/void_price
@@ -99,7 +99,7 @@
 		if(HG.awakened)
 			graces++
 	if(!graces)
-		owner.apply_status_effect(STATUS_EFFECT_HISWRATH)
+		owner.apply_status_effect(/datum/status_effect/his_wrath)
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
@@ -434,7 +434,7 @@
 	icon_state = "changeling_mindshield"
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
-/datum/status_effect/hippocraticOath
+/datum/status_effect/hippocratic_oath
 	id = "Hippocratic Oath"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
@@ -444,19 +444,19 @@
 	var/hand
 	var/deathTick = 0
 
-/datum/status_effect/hippocraticOath/on_apply()
+/datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
 	return ..()
 
-/datum/status_effect/hippocraticOath/on_remove()
+/datum/status_effect/hippocratic_oath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
-/datum/status_effect/hippocraticOath/tick()
+/datum/status_effect/hippocratic_oath/tick()
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
 			deathTick += 1

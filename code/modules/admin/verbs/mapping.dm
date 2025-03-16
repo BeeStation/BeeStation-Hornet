@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug_mapping, list(
 	/client/proc/show_line_profiling,
 	/client/proc/create_mapping_job_icons,
 	/client/proc/debug_z_levels,
+	/client/proc/test_partial_z,
 	/client/proc/place_ruin,
 	/client/proc/test_tgui_inputs,
 	/client/proc/analyze_openturf,
@@ -143,7 +144,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 					output += "<li><font color='red'>Camera not connected to wall at [ADMIN_VERBOSEJMP(C1)] Network: [json_encode(C1.network)]</font></li>"
 
 	output += "</ul>"
-	usr << browse(output,"window=airreport;size=1000x500")
+	usr << browse(HTML_SKELETON(output),"window=airreport;size=1000x500")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/intercom_view()
@@ -177,7 +178,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 		dat += "[ADMIN_VERBOSEJMP(T)]\n"
 		dat += "<br>"
 
-	usr << browse(dat, "window=at_list")
+	usr << browse(HTML_SKELETON(dat), "window=at_list")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Roundstart Active Turfs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -399,3 +400,20 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 		in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id \
 		est laborum.", 1024, TRUE)
 	to_chat(usr, response)
+
+/client/proc/test_partial_z()
+	set name = "Create Debug Multi Z-Level Area"
+	set category = "Mapping"
+	for (var/i in 1 to 5)
+		for (var/x in 1 to 2 * 5 - 1)
+			for (var/y in 1 to 2 * 5 - 1)
+				var/turf/T = locate(mob.x + x + i * 10, mob.y + y, mob.z)
+				if (x > 5 - i && x < 5 + i && y > 5 - i && y < 5 + i)
+					if (i != 1)
+						T.ChangeTurf(/turf/open/openspace)
+					continue
+				T.ChangeTurf(/turf/open/floor/plating)
+	for (var/i in 2 to 5)
+		var/turf/BBL = locate(mob.x + (i - 1) * 10 + 1, mob.y, mob.z)
+		var/turf/ABL = locate(mob.x + (i) * 10 + 1, mob.y, mob.z)
+		link_region(BBL, ABL, 9, 9)

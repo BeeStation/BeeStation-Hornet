@@ -128,8 +128,8 @@
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)) && !IS_DEAD_OR_INCAP(target))
-		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
+	if(istype(target, /mob/living) && !(istype(target, /mob/living/basic/pet/dog/corgi)) && !IS_DEAD_OR_INCAP(target))
+		var/mob/living/basic/pet/dog/corgi/new_corgi = transform(target)
 		timer = addtimer(CALLBACK(src, PROC_REF(transform_back), new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= new_corgi
 		X.cooldownmod = (X.charge*0.8) SECONDS
@@ -142,7 +142,7 @@
 		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	ADD_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new(target.loc)
+	var/mob/living/basic/pet/dog/corgi/new_corgi = new(target.loc)
 	H = new(new_corgi,src,target)
 	//hat check
 	var/mob/living/carbon/C = target
@@ -153,7 +153,7 @@
 	RegisterSignal(new_corgi, COMSIG_MOB_DEATH, PROC_REF(transform_back))
 	return new_corgi
 
-/datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/simple_animal/pet/dog/corgi/new_corgi)
+/datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/basic/pet/dog/corgi/new_corgi)
 	//Kill timer
 	deltimer(timer)
 	timer = null
@@ -177,7 +177,7 @@
 /datum/xenoartifact_trait/major/corginator/Destroy() //Transform goobers back if artifact is deleted.
 	. = ..()
 	if(victims.len)
-		for(var/mob/living/simple_animal/pet/dog/corgi/H as() in victims)
+		for(var/mob/living/basic/pet/dog/corgi/H as() in victims)
 			transform_back(H)
 
 ///============

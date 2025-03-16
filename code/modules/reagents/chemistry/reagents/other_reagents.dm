@@ -122,7 +122,7 @@
 	color = "#ecca7f"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
+	var/mob/living/basic/pet/dog/corgi/new_corgi
 
 /datum/reagent/corgium/on_mob_metabolize(mob/living/L)
 	. = ..()
@@ -652,6 +652,14 @@
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/oozeling
 	taste_description = "burning ooze"
+
+/datum/reagent/mutationtoxin/ipc
+	name = "IPC Mutation Toxin"
+	description = "A metallic toxin"
+	color = "#5EFF3B"
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	race = /datum/species/ipc
+	taste_description = "copper wire"
 
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
@@ -1760,7 +1768,7 @@
 			var/mob/living/carbon/human/H = M
 			var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
 			var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
-			H.hair_style = picked_hair
+			H.hair_style = picked_hair.name
 			H.facial_hair_style = picked_beard
 			H.update_hair()
 
@@ -2298,7 +2306,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	glass_name = "glass of ants"
 	glass_desc = "Bottoms up...?"
 	/// How much damage the ants are going to be doing (rises with each tick the ants are in someone's body)
-	var/ant_damage = 0
+	var/ant_damage = 0 // Not actual damage, only way to check how long they were inside
 	/// Tells the debuff how many ants we are being covered with.
 	var/amount_left = 0
 	/// List of possible common statements to scream when eating ants
@@ -2336,7 +2344,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		return
 	if(method == PATCH||TOUCH||VAPOR)
 		amount_left = round(reac_volume,0.1)
-		exposed_mob.apply_status_effect(STATUS_EFFECT_ANTS, amount_left)
+		exposed_mob.apply_status_effect(/datum/status_effect/ants, amount_left)
 
 /datum/reagent/ants/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
