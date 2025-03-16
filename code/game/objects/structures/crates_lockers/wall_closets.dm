@@ -24,10 +24,10 @@
 /obj/structure/wall_closet/proc/Pickup_items()
 	var/atom/L = drop_location()
 	for(var/obj/item/I in L)
-		if(!Closet_insert_item(I))
+		if(!Closet_insert_item(I, update_icons = FALSE))
 			break
 
-/obj/structure/wall_closet/proc/Closet_insert_item(obj/item/inserted_item, ui_index)
+/obj/structure/wall_closet/proc/Closet_insert_item(obj/item/inserted_item, ui_index, update_icons = TRUE)
 	if(contents.len >= 20)
 		return FALSE
 	if(!ui_index)
@@ -37,19 +37,27 @@
 			if(L.len <= 0)
 				ui_index = index
 				break
-	inserted_item.forceMove(src)
-	for(var/image in inserted_item.overlays)
-		var/image/current_overlay = image
-		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE || inserted_item.greyscale_colors || inserted_item.greyscale_config)
-			closet_contents[ui_index]["image"] = FAST_REF(inserted_item.appearance)
-			break
-	if(!closet_contents[ui_index]["image"])
-		closet_contents[ui_index]["icon"] = inserted_item.icon
-		closet_contents[ui_index]["icon_state"] = inserted_item.icon_state
 	closet_contents[ui_index]["item"] = inserted_item
-	closet_contents[ui_index]["name"] = inserted_item.name
-	closet_contents[ui_index]["show"] = TRUE
+	inserted_item.forceMove(src)
+	if(update_icons)
+		update_contents_icons()
 	return TRUE
+
+/obj/structure/wall_closet/proc/update_contents_icons()
+	for(var/list/list_item in closet_contents)
+		if(!list_item.len <= 0)
+			var/obj/item/current_item = list_item["item"]
+			for(var/image in current_item.overlays)
+				var/image/current_overlay = image
+				if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE || current_item.greyscale_colors || current_item.greyscale_config || current_item.color) //i HATE this "list of shit that breaks" but i have no idea how to solve this any other way
+					list_item["image"] = FAST_REF(current_item.appearance)
+					usr << output(current_item, "push_appearance_placeholder_id")
+					break
+			if(!list_item["image"])
+				list_item["icon"] = current_item.icon
+				list_item["icon_state"] = current_item.icon_state
+			list_item["name"] = current_item.name
+			list_item["show"] = TRUE
 
 /obj/structure/wall_closet/proc/Closet_remove_item(ui_index)
 	var/obj/item/removed_item = closet_contents[ui_index]["item"]
@@ -59,8 +67,7 @@
 	L.Cut()
 
 /obj/structure/wall_closet/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
-	for(var/item in contents)
-		user << output(item, "push_appearance_placeholder_id")
+	update_contents_icons()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "WallCloset")
