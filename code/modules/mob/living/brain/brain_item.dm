@@ -44,6 +44,10 @@
 		C.update_hair()
 		return
 
+	if(ai_controller && !special)	//are we a monkey brain?
+		ai_controller.PossessPawn(C)	//Posession code was designed to handle everything
+		ai_controller = null
+
 	if(brainmob)
 		if(C.key)
 			C.ghostize()
@@ -69,6 +73,11 @@
 		var/datum/brain_trauma/BT = X
 		BT.on_lose(TRUE)
 		BT.owner = null
+
+	if(C.ai_controller && !special)	//special is called in humanisation/dehumanisation
+		C.ai_controller.set_ai_status(AI_STATUS_OFF)
+		src.ai_controller = C.ai_controller	//AI is stored in the brain but doesn't control it.
+		C.ai_controller.UnpossessPawn(FALSE)	//The body no longer has AI.
 
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		if(C.mind)
