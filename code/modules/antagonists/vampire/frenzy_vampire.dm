@@ -60,6 +60,7 @@
 	// Give the other Frenzy effects
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
 	ADD_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
+	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
 	if(!HAS_TRAIT(owner, TRAIT_DISCOORDINATED))
 		was_tooluser = TRUE
 		ADD_TRAIT(owner, TRAIT_DISCOORDINATED, TRAIT_FRENZY)
@@ -77,6 +78,7 @@
 	owner.balloon_alert(owner, "you come back to your senses.")
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_FRENZY)
 	REMOVE_TRAIT(owner, TRAIT_DEAF, TRAIT_FRENZY)
+	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
 	if(was_tooluser)
 		REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED, TRAIT_FRENZY)
 		was_tooluser = FALSE

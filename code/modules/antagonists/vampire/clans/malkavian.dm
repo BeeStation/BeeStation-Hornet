@@ -10,12 +10,6 @@
 		and are the enforcer of the Masquerade code. You can also travel through Phobetor tears, rifts through spacetime only you can travel through."
 	COOLDOWN_DECLARE(revelation_cooldown)
 
-/datum/vampire_clan/malkavian/on_enter_frenzy(datum/antagonist/vampire/source)
-	ADD_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
-
-/datum/vampire_clan/malkavian/on_exit_frenzy(datum/antagonist/vampire/source)
-	REMOVE_TRAIT(vampiredatum.owner.current, TRAIT_STUNIMMUNE, TRAIT_FRENZY)
-
 /datum/vampire_clan/malkavian/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE, PROC_REF(on_vampire_broke_masquerade))
