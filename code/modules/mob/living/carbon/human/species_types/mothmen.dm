@@ -12,6 +12,7 @@
 	bodyflag = FLAG_MOTH
 	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
+	inherent_traits = list(TRAIT_TACKLING_WINGED_ATTACKER)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
 	attack_verb = "slash"
@@ -24,7 +25,7 @@
 	mutanttongue = /obj/item/organ/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	inert_mutation = STRONGWINGS
+	inert_mutation = /datum/mutation/strongwings
 	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	species_chest = /obj/item/bodypart/chest/moth
@@ -116,7 +117,7 @@
 		H.forceMove(C)
 		H.Sleeping(20, FALSE)
 		C.done_regenerating = FALSE
-		H.apply_status_effect(STATUS_EFFECT_COCOONED)
+		H.apply_status_effect(/datum/status_effect/cocooned)
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
@@ -132,7 +133,7 @@
 //Removes moth from cocoon, restores burnt wings
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
-		if(!H.has_status_effect(STATUS_EFFECT_COCOONED))
+		if(!H.has_status_effect(/datum/status_effect/cocooned))
 			return
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
 		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
@@ -170,10 +171,10 @@
 	else
 		visible_message(span_danger("[src] is torn open, harming the Mothperson within!"))
 	for(var/mob/living/carbon/human/H in contents)
-		if(H.has_status_effect(STATUS_EFFECT_COCOONED) && !done_regenerating)
+		if(H.has_status_effect(/datum/status_effect/cocooned) && !done_regenerating)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
 			H.SetSleeping(0, FALSE)
-		H.remove_status_effect(STATUS_EFFECT_COCOONED)
+		H.remove_status_effect(/datum/status_effect/cocooned)
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
 		H.forceMove(loc)

@@ -151,6 +151,9 @@
 /datum/action/proc/Remove(mob/remove_from)
 	SHOULD_CALL_PARENT(TRUE)
 
+	if (!remove_from)
+		return
+
 	for(var/datum/hud/hud in viewers)
 		if(!hud.mymob)
 			continue
@@ -182,21 +185,23 @@
 /// If you want to implement an action, override:
 /// - on_activate to do the effect
 /// - is_available for things that need checks (only if you handle button icon updates, otherwise put the check in pre_activation)
-/datum/action/proc/trigger()
+/datum/action/proc/trigger(trigger_flags)
 	SHOULD_NOT_OVERRIDE(TRUE)
+	// We don't return a value, so the things we call are allowed to sleep
+	set waitfor = FALSE
 	if(!is_available())
-		return FALSE
+		return
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
-		return FALSE
+		return
 	if(!owner)
-		return FALSE
+		return
 
 	var/mob/user = usr || owner
 
 	// If we were active and we clicked again, disable the action
 	if (active && toggleable)
 		deactivate(user)
-		return TRUE
+		return
 
 	// If our cooldown action is a requires_target action:
 	// The actual action is activated on whatever the user clicks on -
@@ -206,21 +211,23 @@
 		var/datum/action/already_set = user.click_intercept
 		if(already_set == src)
 			// if we clicked ourself and we're already set, unset and return
-			return unset_click_ability(user, refund_cooldown = TRUE)
+			unset_click_ability(user, refund_cooldown = TRUE)
+			return
 
 		else if(istype(already_set))
 			// if we have an active set already, unset it before we set our's
 			already_set.unset_click_ability(user, refund_cooldown = TRUE)
 
-		return set_click_ability(user)
+		set_click_ability(user)
+		return
 
 	// If our cooldown action is not a requires_target action:
 	// We can just continue on and use the action
 	// the target is the user of the action (often, the owner)
-	return pre_activate(user, master)
+	pre_activate(user, master, trigger_flags)
 
 /// Adds the ability for signals to intercept the ability
-/datum/action/proc/pre_activate(mob/user, atom/target)
+/datum/action/proc/pre_activate(mob/user, atom/target, trigger_flags)
 	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src) & COMPONENT_BLOCK_ABILITY_START)
 		return
 	// If we successfully activated and are a toggle action, become active
@@ -229,7 +236,7 @@
 		if (target)
 			selected_target = target
 			RegisterSignal(selected_target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
-	. = on_activate(user, target)
+	. = on_activate(user, target, trigger_flags)
 	// There is a possibility our action (or owner) is qdeleted in on_activate().
 	if(!QDELETED(src) && !QDELETED(owner))
 		SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
@@ -237,7 +244,7 @@
 /// Override to implement behaviour
 /// If this action is not a targetted spell, target will be the master
 /// If this action is a toggleable action, must return true to signify successful activation
-/datum/action/proc/on_activate(mob/user, atom/target)
+/datum/action/proc/on_activate(mob/user, atom/target, trigger_flags)
 	return
 
 /// Deactivates the action. Can be called internally if an action
@@ -262,23 +269,28 @@
 /// Intercepts client owner clicks to activate the ability
 /// This proc is called via reflection, do not change the name if you do
 /// not know what that means.
-/datum/action/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/InterceptClickOn(mob/living/clicker, params, atom/target)
+	return _internal_InterceptClickOn(clicker, params, target)
+
+/datum/action/proc/_internal_InterceptClickOn(mob/living/clicker, params, atom/target)
+	set waitfor = FALSE
 	if(!is_available())
-		unset_click_ability(caller, refund_cooldown = FALSE)
+		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 	if(!target)
 		return FALSE
+	// Once we are here, there is no reason we should ever allow the click to go through as
+	// normal, even if the action isn't able to run; the user asked for it after all.
+	. = TRUE
 	// The actual action begins here
-	if(!pre_activate(caller, target))
-		return FALSE
+	if(!pre_activate(clicker, target))
+		return
 
 	// And if we reach here, the action was complete successfully
 	if(unset_after_click)
 		start_cooldown()
-		unset_click_ability(caller, refund_cooldown = FALSE)
-	caller.next_click = world.time + click_cd_override
-
-	return TRUE
+		unset_click_ability(clicker, refund_cooldown = FALSE)
+	clicker.next_click = world.time + click_cd_override
 
 /// Whether our action is currently available to use or not
 /datum/action/proc/is_available()

@@ -70,7 +70,7 @@
 		update_buttons()
 	return TRUE
 
-/datum/action/spell/pointed/InterceptClickOn(mob/living/caller, params, atom/click_target)
+/datum/action/spell/pointed/InterceptClickOn(mob/living/clicker, params, atom/click_target)
 
 	var/atom/aim_assist_target
 	if(aim_assist && isturf(click_target))
@@ -80,18 +80,23 @@
 			// If we didn't find a human, we settle for any living at all
 			aim_assist_target = locate(/mob/living) in click_target
 
-	return ..(caller, params, aim_assist_target || click_target)
+	return ..(clicker, params, aim_assist_target || click_target)
 
 /datum/action/spell/pointed/is_valid_spell(mob/user, atom/target)
 	if(target == owner)
 		to_chat(owner, ("<span class='warning'>You cannot cast [src] on yourself!</span>"))
 		return FALSE
 
-	if(get_dist(owner, target) > cast_range)
-		to_chat(owner, ("<span class='warning'>[target.p_theyre(TRUE)] too far away!</span>"))
-		return FALSE
-
 	return TRUE
+
+/datum/action/spell/pointed/pre_cast(atom/cast_on)
+	. = ..()
+	if(. & SPELL_CANCEL_CAST)
+		return
+
+	if(owner && get_dist(get_turf(owner), get_turf(cast_on)) > cast_range)
+		cast_on.balloon_alert(owner, "too far away!")
+		return . | SPELL_CANCEL_CAST
 
 /**
  * ### Pointed projectile spells

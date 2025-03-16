@@ -21,13 +21,10 @@
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 
 	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
-	var/secondsElectrified = MACHINE_NOT_ELECTRIFIED
-	var/shockedby
 	var/visible = TRUE
 	var/operating = FALSE
 	var/glass = FALSE
 	var/welded = FALSE
-	var/normalspeed = 1
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE // Emergency access override
 	var/sub_door = FALSE // true if it's meant to go under another door.
@@ -35,7 +32,6 @@
 	var/autoclose = FALSE //does it automatically close after some time
 	var/safe = TRUE //whether the door detects things and mobs in its way and reopen or crushes them.
 	var/locked = FALSE //whether the door is bolted or not.
-	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
@@ -128,7 +124,6 @@
 			open()
 		else
 			do_animate("deny")
-		return
 
 /obj/machinery/door/Move()
 	var/turf/T = loc
@@ -166,7 +161,7 @@
 /obj/machinery/door/proc/bumpopen(mob/user)
 	activate_door_base(user, FALSE)
 
-/obj/machinery/door/attack_hand(mob/user)
+/obj/machinery/door/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -202,20 +197,46 @@
 /obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
 	return
 
-/obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
+/// Called when the user right-clicks on the door with a welding tool.
+/obj/machinery/door/proc/try_to_weld_secondary(obj/item/weldingtool/tool, mob/user)
 	return
 
-/obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe)))
-		try_to_crowbar(I, user)
-		return 1
-	else if(I.tool_behaviour == TOOL_WELDER)
-		try_to_weld(I, user)
-		return 1
-	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
-		try_to_activate_door(I, user)
-		return 1
+
+/obj/machinery/door/proc/try_to_crowbar(obj/item/acting_object, mob/user)
+	return
+
+/obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
+	try_to_weld(tool, user)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
+	if(user.combat_mode)
+		return
+
+	var/forced_open = HAS_TRAIT(tool, TRAIT_DOOR_PRYER) ? TRUE : FALSE
+	try_to_crowbar(tool, user, forced_open)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/door/attackby(obj/item/I, mob/living/user, params)
+	if(!user.combat_mode && istype(I, /obj/item/fireaxe))
+		try_to_crowbar(I, user, FALSE)
+		return TRUE
+	else if(I.item_flags & NOBLUDGEON || user.combat_mode)
+		return ..()
+	else if(!user.combat_mode && istype(I, /obj/item/stack/sheet/wood))
+		return ..() // we need this so our can_barricade element can be called using COMSIG_PARENT_ATTACKBY
+	else if(try_to_activate_door(I, user))
+		return TRUE
 	return ..()
+
+/obj/machinery/door/welder_act_secondary(mob/living/user, obj/item/tool)
+	try_to_weld_secondary(tool, user)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/door/crowbar_act_secondary(mob/living/user, obj/item/tool)
+	var/forced_open = HAS_TRAIT(tool, TRAIT_DOOR_PRYER) ? TRUE : FALSE
+	try_to_crowbar(tool, user, forced_open)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
@@ -227,13 +248,13 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(glass)
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
 			else if(damage_amount)
-				playsound(loc, 'sound/weapons/smash.ogg', 50, 1)
+				playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/emp_act(severity)
 	. = ..()
@@ -241,14 +262,6 @@
 		return
 	if(prob(20/severity) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
 		INVOKE_ASYNC(src, PROC_REF(open))
-	if(prob(severity*10 - 20))
-		if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
-			secondsElectrified = MACHINE_ELECTRIFIED_PERMANENT
-			LAZYADD(shockedby, "\[[time_stamp()]\]EM Pulse")
-			addtimer(CALLBACK(src, PROC_REF(unelectrify)), 300)
-
-/obj/machinery/door/proc/unelectrify()
-	secondsElectrified = MACHINE_NOT_ELECTRIFIED
 
 /obj/machinery/door/update_icon_state()
 	icon_state = "[base_icon_state][density]"

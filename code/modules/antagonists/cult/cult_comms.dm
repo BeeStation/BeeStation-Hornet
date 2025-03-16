@@ -88,7 +88,7 @@
 	return ..()
 
 /datum/action/innate/cult/mastervote/on_activate()
-	var/choice = alert(owner, "The mantle of leadership is heavy. Success in this role requires an expert level of communication and experience. Are you sure?",, "Yes", "No")
+	var/choice = tgui_alert(owner, "The mantle of leadership is heavy. Success in this role requires an expert level of communication and experience. Are you sure?",, list("Yes", "No"))
 	if(choice == "Yes" && is_available())
 		var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 		pollCultists(owner,C.cult_team)
@@ -228,12 +228,12 @@
 	/// The duration of the mark itself
 	var/cult_mark_duration = 90 SECONDS
 
-/datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/caller, params, atom/clicked_on)
-	var/turf/caller_turf = get_turf(caller)
-	if(!isturf(caller_turf))
+/datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
 
-	if(!(clicked_on in view(7, caller_turf)))
+	if(!(clicked_on in view(7, clicker_turf)))
 		return FALSE
 	return ..()
 
@@ -347,15 +347,15 @@
 	/// Weakref to whoever we're currently about to toss
 	var/datum/weakref/throwee_ref
 
-/datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
-	var/turf/caller_turf = get_turf(caller)
-	if(!isturf(caller_turf))
+/datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
 
-	if(!(clicked_on in view(7, caller_turf)))
+	if(!(clicked_on in view(7, clicker_turf)))
 		return FALSE
 
-	if(clicked_on == caller)
+	if(clicked_on == clicker)
 		return FALSE
 	return ..()
 

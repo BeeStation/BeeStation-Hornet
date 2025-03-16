@@ -92,6 +92,7 @@ Buildable meters
 	pipe_type = /obj/machinery/atmospherics/pipe/smart
 /obj/item/pipe/quaternary/pipe/crafted
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 /obj/item/pipe/quaternary/pipe/crafted/Initialize(mapload, _pipe_type, _dir, obj/machinery/atmospherics/make_from, device_color, device_init_dir = SOUTH)
 	. = ..()
 	pipe_type = /obj/machinery/atmospherics/pipe/smart
@@ -117,7 +118,8 @@ Buildable meters
 	pixel_x += rand(-5, 5)
 	pixel_y += rand(-5, 5)
 
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
+	//Flipping handled manually due to custom handling for trinary pipes
+	AddComponent(/datum/component/simple_rotation, ROTATION_NO_FLIPPING)
 
 	// Only 'normal' pipes
 	if(type != /obj/item/pipe/quaternary)
@@ -161,6 +163,23 @@ Buildable meters
 	icon_state = initial(fakeA.pipe_state)
 	if(ispath(pipe_type,/obj/machinery/atmospherics/pipe/heat_exchanging))
 		resistance_flags |= FIRE_PROOF | LAVA_PROOF
+
+/obj/item/pipe/verb/flip()
+	set category = "Object"
+	set name = "Invert Pipe"
+	set src in view(1)
+
+	if(usr.incapacitated() || !isliving(usr))
+		return
+
+	do_a_flip()
+
+/obj/item/pipe/proc/do_a_flip()
+	setDir(turn(dir, -180))
+
+/obj/item/pipe/trinary/flippable/do_a_flip()
+	setDir(turn(dir, flipped ? 45 : -45))
+	flipped = !flipped
 
 /obj/item/pipe/Move()
 	var/old_dir = dir
@@ -347,6 +366,31 @@ Buildable meters
 /obj/item/pipe/examine(mob/user)
 	. = ..()
 	. += span_notice("The pipe layer is set to [piping_layer].")
+	. += "<span class='notice'>You can change the pipe layer by Right-Clicking the device.</span>"
+
+/obj/item/pipe/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	var/layer_to_set = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
+	set_piping_layer(layer_to_set)
+	balloon_alert(user, "pipe layer set to [piping_layer]")
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/pipe/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
+/obj/item/pipe/trinary/flippable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can flip the device by Right-Clicking it.</span>"
+
+/obj/item/pipe/trinary/flippable/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	do_a_flip()
+	balloon_alert(user, "pipe was flipped")
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/pipe_meter
 	name = "meter"

@@ -40,7 +40,8 @@
 /////////////////////// ZMIMIC
 
 ///Enables Multi-Z lighting
-#define ZMIMIC_LIGHT_BLEED
+/// Doesn't work and causes artifacts when lights are deleted
+//#define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
 //#define PROFILE_MAPLOAD_INIT_ATOM
@@ -106,10 +107,10 @@
 #endif
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
-#define MAX_COMPILER_VERSION 515
+#define MAX_COMPILER_VERSION 516
 #define MAX_COMPILER_BUILD 1700
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (515.1700)! Stability is not guaranteed.
+#warn WARNING: Your BYOND version is over the recommended version (516.1700)! Stability is not guaranteed.
 #endif
 //Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
 #if DM_VERSION >= 514 && DM_BUILD >= 1556

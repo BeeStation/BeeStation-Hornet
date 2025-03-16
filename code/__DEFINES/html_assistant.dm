@@ -32,3 +32,9 @@
 "[(GLOB.tooltips[config_key] ? "<div class='tooltip'>[hover_me]<span class='tooltiptext' style='width: [width_px]px'>[GLOB.tooltips[config_key]]</span></div>" : "[hover_me]")]"
 
 #define OPEN_WIKI(wiki_url, text) (CONFIG_GET(string/wikiurl) ? "<a href='[CONFIG_GET(string/wikiurl)+"/"+wiki_url]' target='_blank'>[text]</a>" : "[text]")
+
+#define HTML_SKELETON_INTERNAL(head, body) \
+"<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'>[head]</head><body>[body]</body></html>"
+
+#define HTML_SKELETON_TITLE(title, body) HTML_SKELETON_INTERNAL("<title>[title]</title>", body)
+#define HTML_SKELETON(body) HTML_SKELETON_INTERNAL("", body)

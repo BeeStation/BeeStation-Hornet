@@ -126,6 +126,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/slowdown = 0
 	/// Percentage of armour effectiveness to remove
 	var/armour_penetration = 0
+	/// The click cooldown given after attacking. Lower numbers means faster attacks
+	var/attack_speed = CLICK_CD_MELEE
+	/// The click cooldown on secondary attacks. Lower numbers mean faster attacks. Will use attack_speed if undefined.
+	var/secondary_attack_speed
 	/// A list of items that can be put in this item for like suit storage or something?? I honestly have no idea.
 	var/list/allowed = null
 	/// In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets etc.
@@ -230,12 +234,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// If the item is able to be used as a seed in a hydroponics tray.
 	var/obj/item/seeds/fake_seed
 
+	/// Used if we want to have a custom verb text for throwing. "John Spaceman flicks the ciggerate" for example.
+	var/throw_verb
+
 /obj/item/Initialize(mapload)
 
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
 	if(attack_verb_simple)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
+
+	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * toolspeed)
 
 	. = ..()
 	for(var/path in actions_types)
@@ -251,7 +261,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(loc, /obj/item/robot_module))
 		var/obj/item/robot_module/parent_module = loc
 		var/mob/living/silicon/parent_robot = parent_module.loc
-		pickup(parent_robot)
+		if (istype(parent_robot))
+			pickup(parent_robot)
 
 	if(!hitsound)
 		if(damtype == BURN)
@@ -487,7 +498,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	add_fingerprint(usr)
 	return ..()
 
-/obj/item/attack_hand(mob/user)
+/obj/item/attack_hand(mob/user, modifiers)
 	. = ..()
 	if(.)
 		return
@@ -557,6 +568,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		user.dropItemToGround(src)
 		return TRUE
 
+/obj/item/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	// Do not pickup items on a right click action
+	if (. == SECONDARY_ATTACK_CALL_NORMAL)
+		. = SECONDARY_ATTACK_CONTINUE_CHAIN
+
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
@@ -581,7 +598,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
-	if(!A.has_fine_manipulation)
+	if(!user.can_hold_items(src))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.dropItemToGround(src)
 		to_chat(user, span_warning("Your claws aren't capable of such fine manipulation!"))
@@ -605,6 +622,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
 		return TRUE
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
@@ -698,7 +717,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
 		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
-			L.attackby(src, owner)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 			owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
@@ -707,14 +726,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(istype(L, /mob/living/simple_animal))
 				var/mob/living/simple_animal/S = L
 				if(!S.hardattacks)
-					S.attackby(src, owner)
+					INVOKE_ASYNC(S, TYPE_PROC_REF(/atom, attackby), src, owner)
 					owner.visible_message(span_danger("[S] injures themselves on [owner]'s [src]!"))
 			else
-				L.attackby(src, owner)
+				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
-		owner.blockbreak()
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
 	if(attackforce)
 		owner.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
@@ -896,7 +915,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
-	log_combat(user, M, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
+	log_combat(user, M, "attacked", "[src.name]", "(Combat mode: [user.combat_mode ? "On" : "Off"])")
 
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
@@ -952,7 +971,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
 	thrownby = WEAKREF(thrower)
@@ -1319,6 +1338,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return TRUE
 	if(istype(src, /obj/item/shrapnel))
 		src.disableEmbedding()
+
+///Called by the carbon throw_item() proc. Returns null if the item negates the throw, or a reference to the thing to suffer the throw else.
+/obj/item/proc/on_thrown(mob/living/carbon/user, atom/target)
+	if((item_flags & ABSTRACT) || HAS_TRAIT(src, TRAIT_NODROP))
+		return
+	user.dropItemToGround(src, silent = TRUE)
+	if(throwforce && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("You set [src] down gently on the ground."))
+		return
+	return src
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.

@@ -242,6 +242,10 @@
 			to_chat(user, span_warning("This sacrifice is sentient! [GLOB.deity] will not accept this offering."))
 			chosen_sacrifice = null
 			return FALSE
+		if(chosen_sacrifice.flags_1 & HOLOGRAM_1)
+			to_chat(user, span_warning("You cannot sacrifice this. It is not made of flesh!"))
+			chosen_sacrifice = null
+			return FALSE
 		var/mob/living/carbon/C = creature
 		if(!isnull(C))
 			cuff(C)
