@@ -381,7 +381,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_medium_chance += light_decrease_rate * medium_ratio
 		midround_heavy_chance += light_decrease_rate * heavy_ratio
 
-    // Ensure the total chance is 100%
+	// Ensure the total chance is 100%
 	var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
 	if(total_current_chance != 100)
 		var/adjustment_factor = 100 / total_current_chance
