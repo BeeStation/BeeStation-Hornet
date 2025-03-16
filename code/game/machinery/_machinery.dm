@@ -589,7 +589,7 @@
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
 			var/mob/living/carbon/C = L
-			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(TK)))
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated

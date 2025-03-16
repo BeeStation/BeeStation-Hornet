@@ -243,7 +243,7 @@
 		if(isliving(owner))
 			var/mob/living/L = owner
 			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
-			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+			L.remove_status_effect(/datum/status_effect/strandling)
 
 /datum/status_effect/syringe
 	id = "syringe"
@@ -306,7 +306,7 @@
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
-		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))
+		if(!C.has_status_effect(/datum/status_effect/syringe))
 			C.clear_alert("syringealert")
 
 
@@ -496,11 +496,11 @@
 		H.emote(pick("gasp", "gag", "choke"))
 
 /mob/living/proc/apply_necropolis_curse(set_curse)
-	var/datum/status_effect/necropolis_curse/C = has_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
+	var/datum/status_effect/necropolis_curse/C = has_status_effect(/datum/status_effect/necropolis_curse)
 	if(!set_curse)
-		set_curse = pick(CURSE_BLINDING, CURSE_SPAWNING, CURSE_WASTING, CURSE_GRASPING)
+		set_curse = pick(CURSE_BLINDING, CURSE_WASTING, CURSE_GRASPING)
 	if(QDELETED(C))
-		apply_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE, set_curse)
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
 	else
 		C.apply_curse(set_curse)
 		C.duration += 3000 //additional curses add 5 minutes
@@ -552,16 +552,6 @@
 		owner.adjustFireLoss(0.75)
 	if(effect_last_activation <= world.time)
 		effect_last_activation = world.time + effect_cooldown
-		if(curse_flags & CURSE_SPAWNING)
-			var/turf/spawn_turf
-			var/sanity = 10
-			while(!spawn_turf && sanity)
-				spawn_turf = locate(owner.x + pick(rand(10, 15), rand(-10, -15)), owner.y + pick(rand(10, 15), rand(-10, -15)), owner.z)
-				sanity--
-			if(spawn_turf)
-				var/mob/living/simple_animal/hostile/asteroid/curseblob/C = new (spawn_turf)
-				C.set_target = owner
-				C.GiveTarget()
 		if(curse_flags & CURSE_GRASPING)
 			var/grab_dir = turn(owner.dir, pick(-90, 90, 180, 180)) //grab them from a random direction other than the one faced, favoring grabbing from behind
 			var/turf/spawn_turf = get_ranged_target_turf(owner, grab_dir, 5)
@@ -584,20 +574,20 @@
 	. = ..()
 	deltimer(timerid)
 
-/datum/status_effect/gonbolaPacify
+/datum/status_effect/gonbola_pacify
 	id = "gonbolaPacify"
 	status_type = STATUS_EFFECT_MULTIPLE
 	tick_interval = -1
 	alert_type = null
 
-/datum/status_effect/gonbolaPacify/on_apply()
+/datum/status_effect/gonbola_pacify/on_apply()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
 	ADD_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
 	ADD_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
 	to_chat(owner, span_notice("You suddenly feel at peace and feel no need to make any sudden or rash actions."))
 	return ..()
 
-/datum/status_effect/gonbolaPacify/on_remove()
+/datum/status_effect/gonbola_pacify/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
 	REMOVE_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
 	REMOVE_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
@@ -1232,7 +1222,7 @@
 
 /datum/status_effect/ants/proc/ants_washed()
 	SIGNAL_HANDLER
-	owner.remove_status_effect(STATUS_EFFECT_ANTS)
+	owner.remove_status_effect(/datum/status_effect/ants)
 	//return COMPONENT_CLEANED
 
 /datum/status_effect/ants/tick()
@@ -1265,7 +1255,7 @@
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
 	if(ants_remaining <= 0 || victim.stat >= HARD_CRIT)
-		victim.remove_status_effect(STATUS_EFFECT_ANTS) //If this person has no more ants on them or are dead, they are no longer affected.
+		victim.remove_status_effect(/datum/status_effect/ants) //If this person has no more ants on them or are dead, they are no longer affected.
 
 /atom/movable/screen/alert/status_effect/ants
 	name = "Ants!"

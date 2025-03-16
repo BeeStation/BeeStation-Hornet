@@ -14,7 +14,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
-	inert_mutation = CATCLAWS
+	inert_mutation = /datum/mutation/catclaws
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 

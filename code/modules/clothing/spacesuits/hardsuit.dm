@@ -24,6 +24,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	var/geiger_counter = TRUE
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
@@ -115,11 +116,14 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
 	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
+	if(amount <= RAD_BACKGROUND_RADIATION || !geiger_counter)
 		return
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	if(!geiger_counter)
+		return
+
 	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
 
 	if(current_tick_amount)
