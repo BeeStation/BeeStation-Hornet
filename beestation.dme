@@ -13,7 +13,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "_dm_before_bigbang\__odlint.dm"
+#include "__odlint.dm"
 #include "_dm_before_bigbang\_byond_version_compat.dm"
 #include "_dm_before_bigbang\_compile_options.dm"
 #include "_dm_before_bigbang\_debugger.dm"
