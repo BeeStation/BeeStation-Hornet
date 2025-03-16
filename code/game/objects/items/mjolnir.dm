@@ -118,7 +118,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 		QDEL_NULL(contained)
 	return ..()
 
-/obj/structure/anchored_mjolnir/attack_hand(mob/user)
+/obj/structure/anchored_mjolnir/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if (iswizard(user))
 		var/hammer = contained

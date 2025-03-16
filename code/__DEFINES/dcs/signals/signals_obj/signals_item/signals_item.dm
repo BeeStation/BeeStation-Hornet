@@ -47,6 +47,11 @@
 ///for any tool behaviors: (mob/living/user, obj/item/I, list/recipes)
 #define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
 	#define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
+///for any rightclick tool behaviors: (mob/living/user, obj/item/I)
+#define COMSIG_ATOM_SECONDARY_TOOL_ACT(tooltype) "tool_secondary_act_[tooltype]"
+	// We have the same returns here as COMSIG_ATOM_TOOL_ACT
+	// #define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
+
 //not widely used yet, but has lot of potential
 
 #define COMSIG_ITEM_ATTACK_EFFECT "item_effect_attacked"
@@ -94,3 +99,14 @@
 
 /// Sent to a beam when any turf the beam covers changes: (list/datum/callback/post_change_callbacks)
 #define COMSIG_BEAM_TURFS_CHANGED "beam_turfs_changed"
+
+// signals for painting canvases, tools and the /datum/component/palette component
+
+///from base of /item/proc/set_painting_tool_color(): (chosen_color)
+#define COMSIG_PAINTING_TOOL_SET_COLOR "painting_tool_set_color"
+
+/// from base of /item/canvas/ui_data(): (data)
+#define COMSIG_PAINTING_TOOL_GET_ADDITIONAL_DATA "painting_tool_get_data"
+
+///from base of /item/canvas/ui_act(), "change_color" action: (chosen_color, color_index)
+#define COMSIG_PAINTING_TOOL_PALETTE_COLOR_CHANGED "painting_tool_palette_color_changed"

@@ -62,11 +62,12 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		mode() // Activate held item
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/surgery/S in surgeries)
 		if(body_position == LYING_DOWN || !S.lying_required)
-			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
-				if(S.next_step(user,user.a_intent))
+			var/list/modifiers = params2list(params)
+			if((S.self_operable || user != src) && !user.combat_mode)
+				if(S.next_step(user, modifiers))
 					return TRUE
 	return ..()
 
@@ -152,9 +153,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return FALSE
 
 	var/atom/movable/thrown_thing
-	var/obj/item/I = get_active_held_item()
-
-	if(!I)
+	var/obj/item/held_item = get_active_held_item()
+	var/verb_text = pick("throw", "toss", "hurl", "chuck", "fling")
+	if(!held_item)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
 			var/mob/living/throwable_mob = pulling
 			if(!throwable_mob.buckled)
@@ -162,31 +163,33 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				stop_pulling()
 				if(HAS_TRAIT(src, TRAIT_PACIFISM))
 					to_chat(src, span_notice("You gently let go of [throwable_mob]."))
-				var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-				var/turf/end_T = get_turf(target)
-				if(start_T && end_T)
-					log_combat(src, throwable_mob, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
+					return FALSE
+	else
+		thrown_thing = held_item.on_thrown(src, target)
+	if(!thrown_thing)
+		return FALSE
+	if(isliving(thrown_thing))
+		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+		var/turf/end_T = get_turf(target)
+		if(start_T && end_T)
+			log_combat(src, thrown_thing, "thrown", addition="grab from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
 
-	else if(!CHECK_BITFIELD(I.item_flags, ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
-		thrown_thing = I
-		var/pacifist = FALSE
-		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			pacifist = TRUE
-		else
-			I.item_flags |= WAS_THROWN
-		dropItemToGround(I, silent = TRUE)
-		if(pacifist)
-			to_chat(src, span_notice("You set [I] down gently on the ground."))
-			return TRUE
+	do_attack_animation(target, no_effect = 1)
+	var/sound/throwsound = 'sound/weapons/throw.ogg'
+	playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
+	log_message("has thrown [thrown_thing].", LOG_ATTACK)
 
-	if(thrown_thing)
-		visible_message(span_danger("[src] throws [thrown_thing]."), \
-						span_danger("You throw [thrown_thing]."))
-		log_message("has thrown [thrown_thing]", LOG_ATTACK)
-		newtonian_move(get_dir(target, src))
-		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
-		return TRUE
-	return FALSE
+	if (!held_item)
+		visible_message(span_danger("[src] [verb_text] [thrown_thing]."), \
+							span_danger("You [verb_text] [thrown_thing]."))
+	else
+		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
+							span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
+	log_message("has thrown [thrown_thing]", LOG_ATTACK)
+
+	newtonian_move(get_dir(target, src))
+	thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	return TRUE
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
@@ -801,7 +804,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			set_stat(CONSCIOUS)
 			if(!is_blind())
 				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
-				B?.RemoveComponent()
+				B?.ClearFromParent()
 	update_damage_hud()
 	update_health_hud()
 	update_stamina_hud()
@@ -1238,6 +1241,50 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		set_lying_angle(new_lying_angle)
 
+/mob/living/carbon/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, disgust))
+			set_disgust(var_value)
+			. = TRUE
+		if(NAMEOF(src, hal_screwyhud))
+			set_screwyhud(var_value)
+			. = TRUE
+		if(NAMEOF(src, handcuffed))
+			set_handcuffed(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	return ..()
+
+/mob/living/carbon/get_attack_type()
+	var/datum/species/species = dna?.species
+	if (species)
+		return species.attack_type
+	return ..()
+
 /mob/living/carbon/proc/_signal_body_part_update(datum/source)
 	SIGNAL_HANDLER
 	update_body_parts()
+
+/// Returns whether or not the carbon should be able to be shocked
+/mob/living/carbon/proc/should_electrocute(power_source)
+	if (ismecha(loc))
+		return FALSE
+
+	if (wearing_shock_proof_gloves())
+		return FALSE
+
+	if(!get_powernet_info_from_source(power_source))
+		return FALSE
+
+	if (HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+		return FALSE
+
+	return TRUE
+
+/// Returns if the carbon is wearing shock proof gloves
+/mob/living/carbon/proc/wearing_shock_proof_gloves()
+	return gloves?.siemens_coefficient == 0

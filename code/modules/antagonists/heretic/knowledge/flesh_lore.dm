@@ -55,10 +55,8 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user)
+/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.heretic_path = route
 
 	var/datum/objective/heretic_summon/summon_objective = new()
 	summon_objective.owner = our_heretic.owner
@@ -77,10 +75,10 @@
 	cost = 1
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user)
+/datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user)
+/datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -227,11 +225,11 @@
 	cost = 2
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/flesh_mark/on_gain(mob/user)
+/datum/heretic_knowledge/flesh_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/flesh_mark/on_lose(mob/user)
+/datum/heretic_knowledge/flesh_mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/heretic_knowledge/flesh_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -293,10 +291,10 @@
 	cost = 2
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/flesh_blade_upgrade/on_gain(mob/user)
+/datum/heretic_knowledge/flesh_blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/flesh_blade_upgrade/on_lose(mob/user)
+/datum/heretic_knowledge/flesh_blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
 
 /datum/heretic_knowledge/flesh_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
@@ -361,6 +359,10 @@
 	ritual_ghoul.limit *= 3
 	var/datum/heretic_knowledge/limited_amount/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/base_flesh)
 	blade_ritual.limit = 999
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/flesh_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH

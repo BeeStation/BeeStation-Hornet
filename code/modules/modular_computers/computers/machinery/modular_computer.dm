@@ -40,6 +40,12 @@
 	. = ..()
 	. += get_modular_computer_parts_examine(user)
 
+/obj/machinery/modular_computer/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
+
 /obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)
 	. = ..()
 	if(.)
@@ -117,8 +123,8 @@
 	if(cpu)
 		return cpu.screwdriver_act(user, tool)
 
-/obj/machinery/modular_computer/attackby(var/obj/item/W as obj, mob/user)
-	if(user.a_intent == INTENT_HELP && cpu && !(flags_1 & NODECONSTRUCT_1))
+/obj/machinery/modular_computer/attackby(obj/item/W as obj, mob/living/user)
+	if(!user.combat_mode && cpu && !(flags_1 & NODECONSTRUCT_1))
 		return cpu.attackby(W, user)
 	return ..()
 

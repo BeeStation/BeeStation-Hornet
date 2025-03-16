@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("floor tile",								/obj/item/stack/tile/iron, 1, 4, 20), \
 	new/datum/stack_recipe("iron rod",									/obj/item/stack/rods, 1, 2, 60), \
 	null, \
-	new/datum/stack_recipe("wall girders",								/obj/structure/girder, 2, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
+	new/datum/stack_recipe("wall girders (anchored)",								/obj/structure/girder, 2, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 	null, \
 	new/datum/stack_recipe("computer frame",							/obj/structure/frame/computer, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("modular console",							/obj/machinery/modular_computer/console/buildable/, 10, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
@@ -87,7 +87,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	)), \
 	null, \
 	new/datum/stack_recipe("firelock frame",							/obj/structure/firelock_frame, 3, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
-	new/datum/stack_recipe("directional firelock frame",				/obj/structure/firelock_frame/border, 3, one_per_turf = FALSE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("turret frame",								/obj/machinery/porta_turret_construct, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("meatspike frame",							/obj/structure/kitchenspike_frame, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("reflector frame",							/obj/structure/reflector, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \

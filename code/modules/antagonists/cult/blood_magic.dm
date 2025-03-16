@@ -2,7 +2,6 @@
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
-	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
 
@@ -16,23 +15,6 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/blood_magic/proc/Positioning()
-	for(var/datum/hud/hud as anything in viewers)
-		var/our_view = hud.mymob?.client?.view || "15x15"
-		var/atom/movable/screen/movable/action_button/button = viewers[hud]
-		var/position = screen_loc_to_offset(button.screen_loc)
-		var/spells_iterated = 0
-		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
-			spells_iterated += 1
-			if(blood_spell.positioned)
-				continue
-			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
-			if(!moving_button)
-				continue
-			var/our_x = position[1] + spells_iterated * world.icon_size // Offset any new buttons into our list
-			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
-			blood_spell.positioned = TRUE
-
 /datum/action/innate/cult/blood_magic/on_activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
@@ -45,10 +27,10 @@
 			to_chat(owner, span_cultitalic("You cannot store more than [MAX_BLOODCHARGE] spells. <b>Pick a spell to remove.</b>"))
 		else
 			to_chat(owner, span_cultitalic("<b><u>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune! Pick a spell to remove.</b></u>"))
-		var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
-		if(nullify_spell)
-			qdel(nullify_spell)
-		return
+		var/nullify_spell = tgui_input_list(owner, "Spell to remove", "Current Spells", spells)
+		if(isnull(nullify_spell))
+			return
+		qdel(nullify_spell)
 	var/entered_spell_name
 	var/datum/action/innate/cult/blood_spell/BS
 	var/list/possible_spells = list()
@@ -57,12 +39,14 @@
 		var/cult_name = initial(J.name)
 		possible_spells[cult_name] = J
 	possible_spells += "(REMOVE SPELL)"
-	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
-	if(entered_spell_name == "(REMOVE SPELL)")
-		var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
-		if(nullify_spell)
-			qdel(nullify_spell)
+	entered_spell_name = tgui_input_list(owner, "Blood spell to prepare", "Spell Choices", possible_spells)
+	if(isnull(entered_spell_name))
 		return
+	if(entered_spell_name == "(REMOVE SPELL)")
+		var/nullify_spell = tgui_input_list(owner, "Spell to remove", "Current Spells", spells)
+		if(isnull(nullify_spell))
+			return
+		qdel(nullify_spell)
 	BS = possible_spells[entered_spell_name]
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (spells.len >= limit))
 		return
@@ -80,7 +64,6 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		new_spell.Grant(owner, src)
 		spells += new_spell
-		Positioning()
 		to_chat(owner, span_warning("Your wounds glow with power, you have prepared a [new_spell.name] invocation!"))
 	channeling = FALSE
 
@@ -221,12 +204,12 @@
 	enable_text = ("<span class='cult'>You prepare to horrify a target...</span>")
 	disable_text = ("<span class='cult'>You dispel the magic...</span>")
 
-/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
-	var/turf/caller_turf = get_turf(caller)
-	if(!isturf(caller_turf))
+/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
 
-	if(!ishuman(clicked_on) || get_dist(caller, clicked_on) > 7)
+	if(!ishuman(clicked_on) || get_dist(clicker, clicked_on) > 7)
 		return FALSE
 
 	var/mob/living/carbon/human/human_clicked = clicked_on

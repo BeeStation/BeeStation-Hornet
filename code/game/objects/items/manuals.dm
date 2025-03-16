@@ -12,19 +12,7 @@
 	author = "Farmer John" // Whoever wrote the paper or book, can be changed by pen or PC. It is not automatically assigned.
 	title = "The Human Harvest - From seed to market"
 	//book contents below
-	dat = {"<html>
-				<head>
-				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<h3>Growing Humans</h3>
+	dat = {"<h3>Growing Humans</h3>
 
 				Why would you want to grow humans? Well I'm expecting most readers to be in the slave trade, but a few might actually
 				want to revive fallen comrades. Growing pod people is easy, but prone to disaster.
@@ -37,30 +25,14 @@
 				<li>Tend to the plants water and nutrition levels until it is time to harvest the cloned human.</li>
 				</ol>
 				<p>
-				It really is that easy! Good luck!
-
-				</body>
-				</html>
-				"}
+				It really is that easy! Good luck!"}
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	icon_state ="book"
 	author = "Weyland-Yutani Corp"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
-	dat = {"<html>
-				<head>
-				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<center>
+	dat = {"<center>
 				<b style='font-size: 12px;'>Weyland-Yutani - Building Better Worlds</b>
 				<h1>Autonomous Power Loader Unit \"Ripley\"</h1>
 				</center>
@@ -102,39 +74,23 @@
 				<li>Secure the external reinforced armor plating with a wrench.</li>
 				<li>Weld the external reinforced armor plating to the chassis.</li>
 				</ol>
-				</body>
-				</html>
 
 				<h2>Operation:</h2>
-				Please consult the Nanotrasen compendium "Robotics for Dummies".
-			"}
+				Please consult the Nanotrasen compendium "Robotics for Dummies"."}
 
 /obj/item/book/manual/chef_recipes
 	name = "Chef Recipes"
 	icon_state = "cooked_book"
 	author = "Lord Frenrir Cageth"
 	title = "Chef Recipes"
-	dat = {"<html>
-				<head>
-				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-
-				<h1>Food for Dummies</h1>
+	dat = {"<h1>Food for Dummies</h1>
 				Here is a guide on basic food recipes and also how to not poison your customers accidentally.
 
 
 				<h2>Basic ingredients preparation:</h2>
 
 				<b>Dough:</b> 10u water + 15u flour for simple dough.<br>
-				15u egg yolk + 15u flour + 5u sugar for cake batter.<br>
+				6u egg yolk + 12 egg white + 15u flour + 5u sugar for cake batter.<br>
 				Doughs can be transformed by using a knife and rolling pin.<br>
 				All doughs can be microwaved.<br>
 				<b>Bowl:</b> Add water to it for soup preparation.<br>
@@ -186,22 +142,14 @@
 				<b>Fries:</b> Process potato.
 
 				<h2>Sharing your food:</h2>
-				You can put your meals on your kitchen counter or load them in the snack vending machines.
-				</body>
-				</html>
-			"}
+				You can put your meals on your kitchen counter or load them in the snack vending machines."}
 
 /obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
 	icon_state ="bookNuclear"
 	author = "Syndicate"
 	title = "Fission Mailed: Nuclear Sabotage 101"
-	dat = {"<html>
-			<head>
-			<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-			</head>
-			<body>
-			Nuclear Explosives 101:<br>
+	dat = {"Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
 			First and foremost, DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.<br>
@@ -227,9 +175,7 @@
 			Good luck. Remember the order:<br>
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
 			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
-			Good luck!
-			</body>
-			</html>"}
+			Good luck!"}
 
 // Wiki books that are linked to the configured wiki link.
 

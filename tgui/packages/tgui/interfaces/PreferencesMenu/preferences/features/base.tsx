@@ -19,6 +19,8 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
   description?: string;
   predictable?: boolean;
   small_supplemental?: boolean;
+  /** Indicates that a preference is important and likely to be frequently changed by the user. */
+  important?: boolean;
 };
 
 /**
@@ -149,8 +151,9 @@ export const StandardizedDropdown = (props: {
   value?: string;
   buttons?: boolean;
   displayHeight?: string;
+  menuWidth?: string;
 }) => {
-  const { choices, disabled, buttons, displayNames, onSetValue, displayHeight, value } = props;
+  const { choices, disabled, buttons, displayNames, onSetValue, displayHeight, menuWidth, value } = props;
 
   return (
     <Dropdown
@@ -160,6 +163,7 @@ export const StandardizedDropdown = (props: {
       onSelected={onSetValue}
       clipSelectedText={false}
       displayHeight={displayHeight}
+      menuWidth={menuWidth}
       width="100%"
       displayText={value ? displayNames[value] : ''}
       displayTextFirst
@@ -243,6 +247,7 @@ export const FeatureIconnedDropdownInput = (
                 className={classes([`${serverData.icon_sheet}32x32`, icon])}
                 style={{
                   transform: 'scale(0.8)',
+                  verticalAlign: 'bottom',
                 }}
               />
             </Stack.Item>

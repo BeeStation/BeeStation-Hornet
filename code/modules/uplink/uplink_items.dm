@@ -665,7 +665,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/dangerous/carbine
 	name = "M-90gl Carbine"
 	desc = "A fully-loaded, specialized three-round burst carbine that fires 5.56mm ammunition from a 30 round magazine \
-			with a toggleable 40mm underbarrel grenade launcher."
+			with a 40mm underbarrel grenade launcher. Use secondary-fire to fire the grenade launcher."
 	item = /obj/item/gun/ballistic/automatic/m90
 	cost = 14
 	surplus = 50
@@ -1955,6 +1955,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms \
 			and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
+	cost = 2
+
+
+/datum/uplink_item/device_tools/guerrillagloves
+	name = "Guerrilla Gloves"
+	desc = "A pair of highly robust combat gripper gloves that excels at performing takedowns at close range, with an added lining of insulation. Careful not to hit a wall!"
+	item = /obj/item/clothing/gloves/tackler/combat/insulated
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	cost = 2
 
 // Implants

@@ -1,5 +1,5 @@
-/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user)
-	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && user.a_intent == INTENT_HELP && !is_type_in_typecache(I, blacklisted_hats))
+/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user, params)
+	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && !user.combat_mode && !is_type_in_typecache(I, blacklisted_hats))
 		to_chat(user, span_notice("You begin to place [I] on [src]'s head..."))
 		to_chat(src, span_notice("[user] is placing [I] on your head..."))
 		if(do_after(user, 30, target = src))
@@ -10,8 +10,8 @@
 		spark_system.start()
 	return ..()
 
-/mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if (M.a_intent == INTENT_DISARM)
+/mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M, modifiers)
+	if (LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(body_position == STANDING_UP)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			var/obj/item/I = get_active_held_item()
@@ -31,7 +31,7 @@
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime shock
 		flash_act()
 		if(M.powerlevel)
@@ -55,23 +55,18 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if(opened && !wiresexposed && !issilicon(user))
-		if(cell)
-			cell.update_icon()
-			cell.add_fingerprint(user)
-			user.put_in_active_hand(cell)
-			to_chat(user, span_notice("You remove \the [cell]."))
-			cell = null
-			update_icons()
-			diag_hud_set_borgcell()
-
 	if(!opened)
-		if(..()) // hulk attack
-			spark_system.start()
-			spawn(0)
-				step_away(src,user,15)
-				sleep(3)
-				step_away(src,user,15)
+		return ..()
+	if(!wiresexposed && !issilicon(user))
+		if(!cell)
+			return
+		cell.update_icon()
+		cell.add_fingerprint(user)
+		user.put_in_active_hand(cell)
+		to_chat(user, span_notice("You remove \the [cell]."))
+		cell = null
+		update_icons()
+		diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them

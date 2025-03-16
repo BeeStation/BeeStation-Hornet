@@ -25,14 +25,6 @@
 #define APPRENTICE_HEALING "healing"
 #define APPRENTICE_WILDMAGIC "wildmagic"
 
-
-//Blob
-#define BLOB_REROLL_TIME 2400 //blob gets a free reroll every X time
-#define BLOB_SPREAD_COST 4
-#define BLOB_ATTACK_REFUND 2 //blob refunds this much if it attacks and doesn't spread
-#define BLOB_REFLECTOR_COST 15
-#define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
-
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3
@@ -124,9 +116,19 @@
 /// TC to charge someone if they get a free implant through choice or
 /// because they have nothing else that supports an implant.
 #define UPLINK_IMPLANT_TELECRYSTAL_COST 3
-// Traitor types
-#define TRAITOR_HUMAN "human"
-#define TRAITOR_AI	  "AI"
+
+GLOBAL_LIST_INIT(ai_employers, list(
+	"Biohazard",
+	"Despotic Ruler",
+	"Fanatical Revelation",
+	"Logic Core Error",
+	"Problem Solver",
+	"S.E.L.F.",
+	"Something's Wrong",
+	"Spam Virus",
+	"SyndOS",
+	"Unshackled",
+))
 
 /// The Classic Wizard wizard loadout.
 #define WIZARD_LOADOUT_CLASSIC "loadout_classic"
@@ -150,6 +152,8 @@
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
+///Checks if the given mob is a malfunctioning AI
+#define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4

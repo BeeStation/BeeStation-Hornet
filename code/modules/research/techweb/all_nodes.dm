@@ -2404,7 +2404,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2447,7 +2447,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/circular_saw/alien,
@@ -2486,7 +2486,7 @@
 	)
 	boost_item_paths = list(
 		/obj/item/abductor,
-		/obj/item/abductor/baton,
+		/obj/item/melee/baton/abductor,
 		/obj/item/circuitboard/machine/abductor,
 		/obj/item/crowbar/abductor,
 		/obj/item/multitool/abductor,
@@ -2551,6 +2551,17 @@
 	)
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 2500
+	hidden = TRUE
+
+/datum/techweb_node/tackle_advanced
+	id = "tackle_advanced"
+	display_name = "Advanced Grapple Technology"
+	description = "Nanotrasen would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
+	will no longer be accepted in its academic journals."
+	design_ids = list("tackle_dolphin", "tackle_rocket")
+
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 2500
 	hidden = TRUE
 

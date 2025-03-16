@@ -28,7 +28,6 @@
 	force = 5
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
-	emulate_door_bumps = TRUE
 	COOLDOWN_DECLARE(mecha_bump_smash)
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -520,22 +519,23 @@
 ////////////////////////////
 
 ///Called when a driver clicks somewhere. Handles everything like equipment, punches, etc.
-/obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, params)
+/obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
+	if(modifiers[SHIFT_CLICK]) //Allows things to be examined.
+		return
 	if(!isturf(target) && !isturf(target.loc)) // Prevents inventory from being drilled
 		return
 	if(completely_disabled || is_currently_ejecting)
 		return
-	var/list/mouse_control = params2list(params)
-	if(isAI(user) == !mouse_control["middle"])//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
+	if(isAI(user) == !LAZYACCESS(modifiers, MIDDLE_CLICK))//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
 		return
 	if(phasing)
-		to_chat(occupants, "[icon2html(src, occupants)][span_warning("Unable to interact with objects while phasing.")]")
+		balloon_alert(user, "not while [phasing]!")
 		return
 	if(user.incapacitated())
 		return
 	if(construction_state)
-		to_chat(occupants, "[icon2html(src, occupants)][span_warning("Maintenance protocols in effect.")]")
+		balloon_alert(user, "end maintenance first!")
 		return
 	if(!get_charge())
 		return
@@ -552,13 +552,13 @@
 			if(HAS_TRAIT(livinguser, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(livinguser, span_warning("You don't want to harm other living beings!"))
 				return
-			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, modifiers)
 			return
 		if((selected.range & MECHA_MELEE) && Adjacent(target))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(livinguser, TRAIT_PACIFISM))
 				to_chat(livinguser, span_warning("You don't want to harm other living beings!"))
 				return
-			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, modifiers)
 			return
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_MELEE_ATTACK) || !Adjacent(target))
 		return
@@ -611,6 +611,11 @@
 		step_silent = TRUE
 		return TRUE
 	return FALSE
+
+/obj/vehicle/sealed/mecha/relaymove(mob/living/user, direction)
+	if(canmove)
+		vehicle_move(direction)
+	return TRUE
 
 /obj/vehicle/sealed/mecha/vehicle_move(direction, forcerotate = FALSE)
 	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
@@ -687,14 +692,14 @@
 			return TRUE
 
 
-	//set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
+	set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
 	//Otherwise just walk normally
 	. = step(src,direction, dir)
 	if(phasing)
 		use_power(phasing_energy_drain)
 	if(strafe)
 		setDir(olddir)
-
+	after_move(direction)
 
 /obj/vehicle/sealed/mecha/Bump(atom/obstacle)
 	. = ..()
@@ -777,7 +782,7 @@
 			to_chat(user, "[B.get_mecha_info()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[REF(user)];ai_take_control=[REF(src)]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 		return
 	examine(user)
 	if(length(return_drivers()) > 0)
@@ -791,7 +796,7 @@
 	if(!can_control_mech)
 		to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 		return
-	to_chat(user, "<a href='?src=[REF(user)];ai_take_control=[REF(src)]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
+	to_chat(user, "<a href='byond://?src=[REF(user)];ai_take_control=[REF(src)]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
 
 /obj/vehicle/sealed/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	. = ..()
@@ -840,7 +845,6 @@
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))
 				for(var/ejectee in occupants)
 					mob_exit(ejectee, TRUE, TRUE) //IT IS MINE, NOW. SUCK IT, RD!
-				AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
 			AI = card.AI

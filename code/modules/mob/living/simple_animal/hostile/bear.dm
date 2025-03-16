@@ -85,6 +85,15 @@
 	obj_damage = 30
 	melee_damage = 10
 
+/mob/living/simple_animal/hostile/bear/Login()
+	. = ..()
+	if(!. || !client)
+		return FALSE
+
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/bear)
+	can_buckle = TRUE
+	buckle_lying = 0
+
 /mob/living/simple_animal/hostile/bear/update_icons()
 	..()
 	if(armored)
@@ -139,7 +148,7 @@
 
 /mob/living/simple_animal/hostile/bear/butter/attack_hand(mob/living/L) //Borrowed code from Cak, feeds people if they hit you. More nutriment but less vitamin to represent BUTTER.
 	..()
-	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
+	if(L.combat_mode && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 1)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.1)
 
