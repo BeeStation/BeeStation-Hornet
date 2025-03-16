@@ -401,14 +401,14 @@
 	points_cost = 20
 	weight = 6
 
-/datum/dynamic_ruleset/midround/pirates/allowed()
+/datum/dynamic_ruleset/midround/ghost/pirates/allowed()
 	if(!SSmapping.empty_space)
 		return FALSE
 	if(GLOB.pirates_spawned)
 		return FALSE
 	return TRUE
 
-/datum/dynamic_ruleset/midround/pirates/execute()
+/datum/dynamic_ruleset/midround/ghost/pirates/execute()
 	if(GLOB.pirates_spawned)
 		return DYNAMIC_EXECUTE_FAILURE
 
