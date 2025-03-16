@@ -79,7 +79,7 @@
 	if(!is_drone)
 		update_progression()
 	if(stat != CONSCIOUS)
-		remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+		remove_status_effect(/datum/status_effect/planthealing)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(loc)) //else, there's considered to be no light
 		var/turf/T = loc
@@ -88,11 +88,11 @@
 			time_spent_in_light++  //If so, how long have we been somewhere with light?
 			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
 				if(stat != CONSCIOUS)
-					remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+					remove_status_effect(/datum/status_effect/planthealing)
 					return
-				apply_status_effect(STATUS_EFFECT_PLANTHEALING)
+				apply_status_effect(/datum/status_effect/planthealing)
 		else
-			remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+			remove_status_effect(/datum/status_effect/planthealing)
 			time_spent_in_light = 0  //No light? Reset the timer.
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)

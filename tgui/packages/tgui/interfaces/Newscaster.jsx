@@ -66,11 +66,8 @@ const NewscasterChannelModal = ({ header, submit_content, override_bg }) => {
     },
   } = useBackend();
   const modalStyle = { border: '1px solid #2c4461' };
-  if (override_bg) {
-    modalStyle['backgroundColor'] = `${override_bg} !important`;
-  }
   return (
-    <Modal textAlign="center" mr={1.5} pt={0} style={modalStyle} width="350px">
+    <Modal textAlign="center" mr={1.5} pt={0} style={modalStyle} backgroundColor={override_bg} width="350px">
       <h2>{header}</h2>
       <Stack vertical fill>
         <Stack.Item>
@@ -184,7 +181,7 @@ const NewscasterCommentCreation = (props) => {
     return null;
   }
   return (
-    <Modal textAlign="center" style={override_bg ? { backgroundColor: `${override_bg} !important` } : undefined} mr={1.5}>
+    <Modal textAlign="center" backgroundColor={override_bg} mr={1.5}>
       <Stack vertical>
         <Stack.Item>
           <Box pb={1}>
@@ -231,11 +228,7 @@ const NewscasterWantedScreen = (props) => {
     return null;
   }
   return (
-    <Modal
-      textAlign="center"
-      style={override_bg ? { backgroundColor: `${override_bg} !important` } : undefined}
-      mr={1.5}
-      width={25}>
+    <Modal textAlign="center" backgroundColor={override_bg} mr={1.5} width={25}>
       {!editing_wanted
         ? wanted
           .filter((wanted) => wanted.criminal)

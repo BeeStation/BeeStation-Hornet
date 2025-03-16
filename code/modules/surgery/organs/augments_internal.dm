@@ -34,9 +34,11 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	var/stun_amount = 200/severity
-	owner.Stun(stun_amount)
-	to_chat(owner, span_warning("Your body seizes up!"))
+	if(prob(30/severity))
+		owner.drop_all_held_items()
+		owner.Knockdown((6 SECONDS)/severity)
+		owner.Jitter((4 SECONDS)/severity)
+		to_chat(owner, span_warning("Your body seizes up!"))
 
 
 /obj/item/organ/cyberimp/brain/anti_drop
@@ -57,7 +59,7 @@
 		var/list/hold_list = owner.get_empty_held_indexes()
 		if(LAZYLEN(hold_list) == owner.held_items.len)
 			to_chat(owner, span_notice("You are not holding any items, your hands relax..."))
-			active = 0
+			active = FALSE
 			stored_items = list()
 		else
 			for(var/obj/item/I in stored_items)
@@ -69,19 +71,9 @@
 
 
 /obj/item/organ/cyberimp/brain/anti_drop/emp_act(severity)
-	. = ..()
-	if(!owner || . & EMP_PROTECT_SELF)
-		return
-	var/range = severity ? 10 : 5
-	var/atom/A
 	if(active)
 		release_items()
-	for(var/obj/item/I in stored_items)
-		A = pick(oview(range))
-		I.throw_at(A, range, 2)
-		to_chat(owner, span_warning("Your [owner.get_held_index_name(owner.get_held_index_of_item(I))] spasms and throws the [I.name]!"))
-	stored_items = list()
-
+	..()
 
 /obj/item/organ/cyberimp/brain/anti_drop/proc/release_items()
 	for(var/obj/item/I in stored_items)
@@ -129,16 +121,6 @@
 		owner.SetKnockdown(0)
 		owner.SetImmobilized(0)
 		owner.SetParalyzed(0)
-
-/obj/item/organ/cyberimp/brain/anti_stun/emp_act(severity)
-	. = ..()
-	if((organ_flags & ORGAN_FAILING) || . & EMP_PROTECT_SELF)
-		return
-	organ_flags |= ORGAN_FAILING
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
-
-/obj/item/organ/cyberimp/brain/anti_stun/proc/reboot()
-	organ_flags &= ~ORGAN_FAILING
 
 /obj/item/organ/cyberimp/brain/anti_stun/syndicate
 	syndicate_implant = TRUE

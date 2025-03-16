@@ -87,6 +87,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 				if(swipe_id == event_source.triggering_card)
 					to_chat(usr, span_warning("Invalid ID. Confirmation ID must not equal trigger ID."))
 					return
+				var/current_sec_level = SSsecurity_level.get_current_level_as_number()
+				if(current_sec_level > SEC_LEVEL_RED)
+					to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
+					return
 				event_source.trigger_event(usr)
 				event_source = null
 				update_appearance()

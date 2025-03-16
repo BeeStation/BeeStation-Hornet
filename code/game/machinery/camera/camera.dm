@@ -327,7 +327,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
 
-				AI.last_tablet_note_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
+				AI.last_tablet_note_seen = HTML_SKELETON_TITLE(itemname, "<tt>[info]</tt>")
 
 				if(user.name == "Unknown")
 					to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
@@ -337,7 +337,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 			if (O.client?.eye == src)
 				to_chat(O, "[user] holds \a [itemname] up to one of the cameras ...")
-				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
+				O << browse(HTML_SKELETON_TITLE(itemname, "<tt>[info]</tt>"), "window=[itemname]")
 		return
 
 	if(istype(attacking_item, /obj/item/paper))
