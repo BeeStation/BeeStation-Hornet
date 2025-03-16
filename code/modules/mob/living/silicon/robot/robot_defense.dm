@@ -114,7 +114,7 @@
 		return TRUE // signal is inverted
 	if(world.time < emag_cooldown)
 		return TRUE
-	if(has_status_effect(STATUS_EFFECT_CYBORG_MALFUNCTION))
+	if(has_status_effect(/datum/status_effect/cyborg_malfunction))
 		return FALSE //Malfunctions simplify the process for gameplay reasons
 	if(!opened)
 		if(!locked) //Tell the player what went wrong instead of just leaving them in the dark
