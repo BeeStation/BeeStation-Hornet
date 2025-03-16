@@ -136,7 +136,7 @@
 		else
 			hacker.use_charge()
 
-	if(!has_status_effect(STATUS_EFFECT_CYBORG_MALFUNCTION) && !opened && locked) //Cover is locked closed, and the cyborg isn't already compromised
+	if(!has_status_effect(/datum/status_effect/cyborg_malfunction) && !opened && locked) //Cover is locked closed, and the cyborg isn't already compromised
 		to_chat(user, span_notice("You emag the cover lock."))
 		locked = FALSE
 		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
