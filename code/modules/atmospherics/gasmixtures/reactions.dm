@@ -506,51 +506,6 @@
 		air.temperature = max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB) //the air cools down when reacting
 	return REACTING
 
-
-/**
- * Nitryl Decomposition:
- *
- * The decomposition of nitryl.
- * Exothermic.
- * Requires oxygen as catalyst.
- */
-/datum/gas_reaction/nitryl_decomposition
-	priority_group = PRIORITY_PRE_FORMATION
-	name = "Nitryl Decomposition"
-	id = "nitryl_decomp"
-	desc = "Decomposition of nitryl when exposed to oxygen under normal temperatures."
-
-/datum/gas_reaction/nitryl_decomposition/init_reqs()
-	requirements = list(
-		/datum/gas/oxygen = MINIMUM_MOLE_COUNT,
-		/datum/gas/nitryl = MINIMUM_MOLE_COUNT,
-		"MAX_TEMP" = NITRYL_DECOMPOSITION_MAX_TEMP,
-	)
-
-/datum/gas_reaction/nitryl_decomposition/react(datum/gas_mixture/air)
-	var/list/cached_gases = air.gases
-	var/temperature = air.temperature
-
-	//This reaction is aggressively slow. like, a tenth of a mole per fire slow. Keep that in mind
-	var/heat_efficiency = min(temperature / NITRYL_DECOMPOSITION_TEMP_DIVISOR, cached_gases[/datum/gas/nitryl][MOLES])
-
-	if (heat_efficiency <= 0 || (cached_gases[/datum/gas/nitryl][MOLES] - heat_efficiency < 0)) //Shouldn't produce gas from nothing.
-		return NO_REACTION
-
-	var/old_heat_capacity = air.heat_capacity()
-	air.assert_gases(/datum/gas/nitrogen)
-	cached_gases[/datum/gas/nitryl][MOLES] -= heat_efficiency
-	cached_gases[/datum/gas/nitrogen][MOLES] += heat_efficiency
-
-	SET_REACTION_RESULTS(heat_efficiency)
-	var/energy_released = heat_efficiency * NITRYL_DECOMPOSITION_ENERGY
-	var/new_heat_capacity = air.heat_capacity()
-	if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-		air.temperature = max(((temperature * old_heat_capacity + energy_released) / new_heat_capacity), TCMB) //the air heats up when reacting
-	return REACTING
-
-
-
 /datum/gas_reaction/stimformation //Stimulum formation follows a strange pattern of how effective it will be at a given temperature, having some multiple peaks and some large dropoffs. Exo and endo thermic.
 	priority_group = PRIORITY_FORMATION
 	name = "Stimulum formation"
