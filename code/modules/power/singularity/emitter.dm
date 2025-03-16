@@ -395,6 +395,7 @@
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
 	fire_delay = fire_shoot_delay
+	laser_structural_damage = las_structural_damage
 	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
 		power_usage -= 50 * manipulator.rating
 	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
