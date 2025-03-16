@@ -383,14 +383,14 @@
 	var/fire_shoot_delay = 12 SECONDS
 	var/min_fire_delay = 2.4 SECONDS
 	var/las_damage = 0
-	var/las_structural_damage = 100
+	var/las_structural_damage = 50
 	var/power_usage = 350
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
 		max_fire_delay -= 2 SECONDS * laser.rating
 		min_fire_delay -= 0.4 SECONDS * laser.rating
 		fire_shoot_delay -= 2 SECONDS * laser.rating
 		las_damage += 5 * laser.rating
-		las_structural_damage += 100 * laser.rating
+		las_structural_damage += 50 * laser.rating
 	laser_damage = las_damage
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
