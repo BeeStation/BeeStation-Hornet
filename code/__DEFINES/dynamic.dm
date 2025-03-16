@@ -23,7 +23,7 @@
 #define DYNAMIC_MIDROUND_INCREASE_RATIO 0.75
 
 /// The time at which dynamic will start choosing midrounds
-#define DYNAMIC_MIDROUND_GRACEPERIOD 0 MINUTES
+#define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
 
 /// Only one ruleset with this flag will be picked.
 #define HIGH_IMPACT_RULESET (1 << 0)
@@ -32,11 +32,11 @@
 /// If this flag is set dynamic will call rule_process() every tick
 #define SHOULD_PROCESS_RULESET (1 << 2)
 
-// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
+/// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
 #define DYNAMIC_MIDROUND_LIGHT "Light"
-// For round disruptive antagonists (Abductors, Malf AI, Slaughter Demon, etc.)
+/// For round disruptive antagonists (Abductors, Malf AI, Slaughter Demon, etc.)
 #define DYNAMIC_MIDROUND_MEDIUM "Medium"
-// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
+/// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
 #define DYNAMIC_MIDROUND_HEAVY "Heavy"
 
 #define DYNAMIC_EXECUTE_FAILURE 0
@@ -45,6 +45,7 @@
 
 #define RULESET_STOP_PROCESSING 1
 
+/// Ruleset types
 #define DYNAMIC_ROUNDSTART "Roundstart"
 #define DYNAMIC_MIDROUND "Midround"
 #define DYNAMIC_LATEJOIN "Latejoin"

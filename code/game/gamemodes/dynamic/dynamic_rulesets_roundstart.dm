@@ -1,9 +1,22 @@
+/*
+* Order of operations
+*
+* trim_candidates() from pick_roundstart_rulesets() - pre_setup()
+* allowed() from pick_roundstart_rulesets() - pre_setup()
+* pre_execute() from pick_roundstart_rulesets() - pre_setup()
+* execute() from execute_ruleset() - post_setup()
+* rule_process() from process()
+*/
+
 /datum/dynamic_ruleset/roundstart
 	rule_category = DYNAMIC_ROUNDSTART
 	use_antag_reputation = TRUE
 
 	/// The minimum number of points dynamic that had to initially generate for this to be drafted.
 	var/minimum_points_required = 0
+
+/datum/dynamic_ruleset/roundstart/get_candidates()
+	candidates = dynamic.roundstart_candidates.Copy()
 
 /datum/dynamic_ruleset/roundstart/allowed()
 	. = ..()
@@ -14,9 +27,20 @@
 		log_game("DYNAMIC: FAIL: [src] is not allowed: The minimum point requirement (minimum: [minimum_points_required]) was not met! (points: [dynamic.roundstart_points])")
 		return FALSE
 
+/datum/dynamic_ruleset/roundstart/pre_execute()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_minds)
+		GLOB.pre_setup_antags += chosen_mind
+		chosen_mind.restricted_roles = restricted_roles
+
+/datum/dynamic_ruleset/roundstart/execute()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_minds)
+		GLOB.pre_setup_antags -= chosen_mind
+
 //////////////////////////////////////////////
 //                                          //
-//               TRAITOR	                //
+//               TRAITOR                    //
 //                                          //
 //////////////////////////////////////////////
 
@@ -29,7 +53,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               CHANGELING	                //
+//               CHANGELING                 //
 //                                          //
 //////////////////////////////////////////////
 
@@ -42,7 +66,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//                HERETIC	                //
+//                HERETIC                   //
 //                                          //
 //////////////////////////////////////////////
 
@@ -56,7 +80,7 @@
 //////////////////////////////////////////////
 //                                          //
 //         MALFUNCTIONING AI                //
-//                              		    //
+//                                          //
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/roundstart/malf
@@ -77,6 +101,7 @@
 			player.mind.special_role = ROLE_MALF
 			player.mind.add_antag_datum(antag_datum)
 			return DYNAMIC_EXECUTE_SUCCESS
+
 	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 //////////////////////////////////////////////
@@ -124,16 +149,15 @@
 
 /datum/dynamic_ruleset/roundstart/brothers/pre_execute()
 	. = ..()
+
 	team = new
+	team.pick_meeting_area()
+	team.forge_brother_objectives()
+	team.update_name()
+
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		team.add_member(chosen_mind)
 		GLOB.pre_setup_antags -= chosen_mind
-
-/datum/dynamic_ruleset/roundstart/brothers/execute()
-	team.pick_meeting_area()
-	team.forge_brother_objectives()
-	. = ..()
-	team.update_name()
 
 //////////////////////////////////////////////
 //                                          //
@@ -304,7 +328,7 @@
 	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
 	weight = 2
 
-/datum/dynamic_ruleset/roundstart/nuclear/clown_ops/pre_execute()
+/datum/dynamic_ruleset/roundstart/nuclear/clown_ops/execute()
 	. = ..()
 	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
 		var/turf/turf = get_turf(nuke)
@@ -314,7 +338,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               REVOLUTION		            //
+//               REVOLUTION                 //
 //                                          //
 //////////////////////////////////////////////
 

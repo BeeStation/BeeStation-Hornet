@@ -2,6 +2,8 @@
 GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 /*
+* Order of operations
+*
 * pre_setup()
 * 	init_rulesets()
 * 	configure_ruleset()
@@ -138,8 +140,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	set_roundstart_points()
 
 	// Log stuff
+	log_game("DYNAMIC: Starting with [roundstart_points] points.")
 	if(length(roundstart_candidates))
-		log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] round start rulesets, and [length(roundstart_candidates)] players ready.")
+		log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
 	else
 		log_game("DYNAMIC: FAIL: no roundstart candidates.")
 		return TRUE
@@ -226,7 +229,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(!ruleset.points_cost)
 			continue
 
-		ruleset.candidates = roundstart_candidates.Copy()
+		ruleset.get_candidates()
 		ruleset.trim_candidates()
 
 		if(!ruleset.allowed())
@@ -312,10 +315,10 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Execute a ruleset and if it needs to process, add it to the list
 */
 /datum/game_mode/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
-	ruleset.execute()
-
 	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
 		rulesets_to_process += ruleset
+
+	return ruleset.execute()
 
 /*
 * Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
@@ -335,10 +338,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	if(midround_chosen_ruleset)
 		if(midround_points >= midround_chosen_ruleset.points_cost)
-			execute_ruleset(midround_chosen_ruleset)
-			midround_executed_rulesets += midround_chosen_ruleset
+			midround_chosen_ruleset.get_candidates()
+			if(execute_ruleset(midround_chosen_ruleset) == DYNAMIC_EXECUTE_SUCCESS)
+				midround_executed_rulesets += midround_chosen_ruleset
+				midround_points -= midround_chosen_ruleset.points_cost
+
 			midround_chosen_ruleset = null
-	else if(world.time >= DYNAMIC_MIDROUND_GRACEPERIOD)
+	else if(world.time >= midround_grace_period)
 		choose_midround_ruleset()
 
 
@@ -390,11 +396,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 */
 /datum/game_mode/dynamic/proc/choose_midround_ruleset()
 	if(!length(configured_midround_rulesets))
-		stack_trace("configured_midround_rulesets is empty.")
+		stack_trace("DYNAMIC: configured_midround_rulesets is empty.")
 		return
 
 	// Pick severity
-	var/severity
+	var/severity = DYNAMIC_MIDROUND_LIGHT
 	var/random_value = rand(1, 100)
 	if(random_value <= midround_light_chance)
 		severity = DYNAMIC_MIDROUND_LIGHT
@@ -405,19 +411,26 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 	// Get possible rulesets
 	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/midround/rule in configured_midround_rulesets)
-		if(!rule.weight)
+	for(var/datum/dynamic_ruleset/midround/ruleset in configured_midround_rulesets)
+		if(!ruleset.weight)
 			continue
-		if(!rule.allowed())
-			continue
-		if(severity && rule.severity != severity)
+		if(ruleset.severity != severity)
 			continue
 
-		rule.trim_candidates()
-		possible_rulesets[rule] = rule.weight
+		ruleset.get_candidates()
+		ruleset.trim_candidates()
 
-	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
-	log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
+		if(!ruleset.allowed())
+			continue
+
+		possible_rulesets[ruleset] = ruleset.weight
+
+	if(length(possible_rulesets))
+		midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
+		log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
+		message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
+	else
+		log_game("DYNAMIC: FAIL: No midrounds of the [severity] severity could be chosen because possible_rulesets is empty.")
 
 /*
 * latejoin

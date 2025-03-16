@@ -1,13 +1,3 @@
-/*
-* Order of procs being called by 'dynamic.dm'
-*
-* trim_candidates()
-* allowed()
-* pre_execute()
-* execute()
-* rule_process()
-*/
-
 /datum/dynamic_ruleset
 	/*
 	 * Configurable Variables
@@ -55,31 +45,38 @@
 	. = ..()
 
 /*
+* Get a list of candidates
+*/
+/datum/dynamic_ruleset/proc/get_candidates()
+	return
+
+/*
 * Remove candidates that do not meet your requirements.
 * Usually this doesn't need to be changed unless you need some specific requirements from your candidates.
-* Called from 'dynamic.dm' 'pick_roundstart_rulesets()'
 */
 /datum/dynamic_ruleset/proc/trim_candidates()
-	for(var/mob/dead/new_player/player in candidates)
-		var/client/client = GET_CLIENT(player)
+	for(var/mob/candidate in candidates)
+		var/client/client = GET_CLIENT(candidate)
 
 		// Connected?
-		if(!client || !player.mind)
-			candidates -= player
+		if(!client || !candidate.mind)
+			candidates -= candidate
 			continue
 
-		// Antag banned? Disabled? Not enough hours?
+		// Antag banned?
+		// Antag disabled?
+		// Not enough hours?
 		if(!client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
 			role_preference_key = role_preference,
 			req_hours = antag_datum.required_living_playtime
 		))
-			candidates -= player
+			candidates -= candidate
 			continue
 
 		// Already assigned antag?
-		if(player.mind.special_role)
-			candidates -= player
+		if(candidate.mind.special_role)
+			candidates -= candidate
 			continue
 
 /*
@@ -106,28 +103,22 @@
 
 /*
 * Choose candidates
-* Apply special_role and restricted_roles
-* Called from 'dynamic.dm' pick_roundstart_rulesets()
 */
 /datum/dynamic_ruleset/proc/pre_execute()
 	for(var/i = 1 to drafted_players_amount)
 		var/datum/mind/chosen_mind = select_player()
 
-		GLOB.pre_setup_antags += chosen_mind
 		chosen_minds += chosen_mind
-
 		chosen_mind.special_role = antag_datum.special_role
-		chosen_mind.restricted_roles = restricted_roles
 	return TRUE
 
 /*
-* Give your chosen_minds their antag datums.
-* Called from 'dynamic.dm' post_setup()
+* Give your chosen minds their antag datums.
 */
 /datum/dynamic_ruleset/proc/execute()
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		chosen_mind.add_antag_datum(antag_datum)
-		GLOB.pre_setup_antags -= chosen_mind
+
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /*
@@ -140,8 +131,6 @@
 /// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
 /datum/dynamic_ruleset/proc/round_result()
 	return
-
-
 
 /datum/dynamic_ruleset/latejoin
 	rule_category = DYNAMIC_LATEJOIN
