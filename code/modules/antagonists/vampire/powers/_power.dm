@@ -196,6 +196,8 @@
 
 /// Checks to make sure this power can stay active
 /datum/action/cooldown/vampire/proc/ContinueActive()
+	if(!owner)
+		return FALSE
 	if(vampiredatum_power.vampire_blood_volume < constant_bloodcost)
 		return FALSE
 
