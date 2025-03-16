@@ -85,7 +85,7 @@ const Cell = (props) => {
               ) : (
                 <Box
                   as="img"
-                  src={`data:image/jpeg;base64,${props.image}`}
+                  src={props.image}
                   width="100%"
                   height="100%"
                   style={{

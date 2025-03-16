@@ -41,7 +41,7 @@
 	for(var/image in inserted_item.overlays)
 		var/image/current_overlay = image
 		if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE || inserted_item.greyscale_colors || inserted_item.greyscale_config)
-			closet_contents[ui_index]["image"] = icon2base64(getFlatIcon(inserted_item))
+			closet_contents[ui_index]["image"] = FAST_REF(inserted_item.appearance)
 			break
 	if(!closet_contents[ui_index]["image"])
 		closet_contents[ui_index]["icon"] = inserted_item.icon
@@ -59,6 +59,8 @@
 	L.Cut()
 
 /obj/structure/wall_closet/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
+	for(var/item in contents)
+		user << output(item, "push_appearance_placeholder_id")
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "WallCloset")
