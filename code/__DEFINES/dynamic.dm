@@ -24,7 +24,7 @@
 #define DYNAMIC_MIDROUND_INCREASE_RATIO 0.75
 
 /// The time at which dynamic will start choosing midrounds
-#define DYNAMIC_MIDROUND_GRACEPERIOD 0 MINUTES
+#define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
 
 /// Only one ruleset with this flag will be picked
 #define HIGH_IMPACT_RULESET (1 << 0)
