@@ -19,17 +19,18 @@
 #define DYNAMIC_MIDROUND_MEDIUM_STARTING_CHANCE 0
 #define DYNAMIC_MIDROUND_HEAVY_STARTING_CHANCE 0
 
-/// What percent of the Light Point Decrease should be given to the Medium Ruleset Chance
+/// What percent of the Light Point Decrease should be given to the Medium Ruleset %
+/// DYNAMIC_HEAVY_INCREASE_RATIO is not defined because it is calculated by doing 1 - DYNAMIC_MIDROUND_INCREASE_RATIO
 #define DYNAMIC_MIDROUND_INCREASE_RATIO 0.75
 
 /// The time at which dynamic will start choosing midrounds
-#define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
+#define DYNAMIC_MIDROUND_GRACEPERIOD 0 MINUTES
 
-/// Only one ruleset with this flag will be picked.
+/// Only one ruleset with this flag will be picked
 #define HIGH_IMPACT_RULESET (1 << 0)
-/// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
-#define LONE_RULESET (1 << 1)
-/// If this flag is set dynamic will call rule_process() every tick
+/// This ruleset can only be picked once
+#define CANNOT_REPEAT (1 << 1)
+/// Dynamic will call rule_process each tick if this is set
 #define SHOULD_PROCESS_RULESET (1 << 2)
 
 /// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)

@@ -91,7 +91,7 @@
 	weight = 4
 	points_cost = 13
 	restricted_roles = list(JOB_NAME_CYBORG)
-	flags = LONE_RULESET
+	flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
 	var/list/living_players = dynamic.current_players[CURRENT_LIVING_PLAYERS]
@@ -120,10 +120,11 @@
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
 	. = ..()
+	if(!.)
+		return FALSE
+
 	if(!length(GLOB.wizardstart))
-		var/msg = "Cannot accept Wizard ruleset. Couldn't find any wizard spawn points."
-		log_admin(msg)
-		message_admins(msg)
+		log_game("DYNAMIC: FAIL: Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		return FALSE
 
 /datum/dynamic_ruleset/roundstart/wizard/execute()

@@ -288,8 +288,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		if(CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			return TRUE
 
-		// Check for 'LONE_RULESET'
-		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.flags, LONE_RULESET))
+		// Check for 'CANNOT_REPEAT'
+		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.flags, CANNOT_REPEAT))
 			return TRUE
 	return FALSE
 
