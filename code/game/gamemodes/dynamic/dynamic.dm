@@ -430,7 +430,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
 		message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
 	else
-		log_game("DYNAMIC: FAIL: No midrounds of the [severity] severity could be chosen because possible_rulesets is empty.")
+		log_game("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
 
 /*
 * latejoin
