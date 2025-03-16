@@ -155,6 +155,11 @@
 	impact_light_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
+/obj/projectile/beam/emitter/on_hit(atom/target, blocked)
+	if(istype(target, /obj/structure/blob))
+		damage = damage * 0.25
+	. = ..()
+
 /obj/projectile/beam/emitter/drill
 	name = "driller beam"
 	icon_state = "emitter"
@@ -169,9 +174,11 @@
 		damage = structural_damage
 	if(isturf(target))
 		damage = structural_damage
-	else if(istype(target, /turf/closed/mineral))
+	if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
 		T.gets_drilled()
+	if(istype(target, /obj/structure/blob))
+		damage = damage * 0.25
 	. = ..()
 
 /obj/projectile/beam/emitter/drill/hitscan
