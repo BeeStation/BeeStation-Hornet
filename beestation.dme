@@ -13,15 +13,15 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "__odlint.dm"
+#include "_dm_before_bigbang\__odlint.dm"
+#include "_dm_before_bigbang\_byond_version_compat.dm"
+#include "_dm_before_bigbang\_compile_options.dm"
+#include "_dm_before_bigbang\_debugger.dm"
+#include "_dm_before_bigbang\globals.dm"
+#include "_dm_before_bigbang\world.dm"
 #include "_maps\_basemap.dm"
-#include "code\__byond_version_compat.dm"
-#include "code\_compile_options.dm"
-#include "code\_debugger.dm"
-#include "code\world.dm"
 #include "code\__DEFINES\_atoms.dm"
 #include "code\__DEFINES\_click.dm"
-#include "code\__DEFINES\_globals.dm"
 #include "code\__DEFINES\_helpers.dm"
 #include "code\__DEFINES\_profile.dm"
 #include "code\__DEFINES\_protect.dm"
