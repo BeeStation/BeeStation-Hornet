@@ -17811,6 +17811,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/north,
+/obj/structure/wall_closet/hydro/directional/north,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
 "dKc" = (
@@ -20313,6 +20314,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/railing,
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
 "eql" = (
@@ -45691,6 +45693,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "jKU" = (
@@ -50877,6 +50882,22 @@
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/maintenance/port/central)
+"kNj" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/turf/open/floor/catwalk_floor/iron,
+/area/maintenance/department/chapel)
 "kNm" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 9
@@ -88216,6 +88237,22 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/gateway)
+"sLZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/railing,
+/turf/open/floor/catwalk_floor/iron,
+/area/maintenance/department/chapel)
 "sMe" = (
 /turf/open/floor/iron/stairs/left{
 	dir = 8
@@ -92705,6 +92742,24 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
+"tJK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/obj/structure/railing,
+/turf/open/floor/iron,
+/area/maintenance/department/chapel)
 "tJR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing/corner{
@@ -95177,6 +95232,9 @@
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
+	},
+/obj/structure/chair/foldable{
+	dir = 1
 	},
 /turf/open/floor/iron/checker/other,
 /area/crew_quarters/bar)
@@ -98558,6 +98616,10 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 5
 	},
+/obj/item/modular_computer/laptop/preset/civillian{
+	pixel_y = 3
+	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/checker/other,
 /area/crew_quarters/bar)
 "uUI" = (
@@ -154255,7 +154317,7 @@ dkf
 dkf
 oGN
 oGN
-wdc
+kNj
 aHR
 mSl
 mny
@@ -154512,7 +154574,7 @@ vyQ
 vyQ
 xMK
 uHl
-wdc
+sLZ
 aHR
 pLt
 mny
@@ -154769,7 +154831,7 @@ vyQ
 vyQ
 vyQ
 nAP
-epR
+tJK
 aHR
 mgW
 qoW
