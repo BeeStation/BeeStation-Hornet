@@ -88,7 +88,7 @@
 /mob/living/silicon/robot/proc/trigger_malfunction(major_malfunction = FALSE)
 
 	//Apply the basic slowdown status effect regardless of what caused the malfunction
-	apply_status_effect(STATUS_EFFECT_CYBORG_MALFUNCTION)
+	apply_status_effect(/datum/status_effect/cyborg_malfunction)
 	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 
 	//If the malfunction was caused by EMP instead of simply flash, there's a bit more to it
