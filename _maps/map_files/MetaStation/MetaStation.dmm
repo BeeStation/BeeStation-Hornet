@@ -77270,7 +77270,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/security/glass{
-	name = s;
+	name = "Security EVA Storage";
 	req_one_access_txt = "1;4"
 	},
 /obj/machinery/door/firedoor,
