@@ -434,7 +434,7 @@
 		tray.weedlevel = (rand(8, 10))
 
 /datum/action/spell/teleport/area_teleport/revenant
-	name = "Teleport"
+	name = "Revenant Teleport"
 	desc = "Brings you to a location of your choosing on the station"
 	background_icon_state = "bg_revenant"
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
