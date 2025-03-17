@@ -67,6 +67,26 @@
 	L = closet_contents[ui_index]
 	L.Cut()
 
+/obj/structure/wall_closet/attackby(obj/item/I, mob/living/user)
+	if(!user.combat_mode)
+		if(Closet_insert_item(I))
+			to_chat(user, span_notice("you stash \the [I.name] into \the [src.name]"))
+		ui_update()
+		return
+	return ..()
+
+/obj/structure/wall_closet/wrench_act_secondary(mob/living/user, obj/item/tool)
+	if(contents.len)
+		user.balloon_alert_to_viewers("The [src.name] still has items inside!")
+		return TRUE
+	tool.play_tool_sound(src, 75)
+	if(!do_after(user, 5 SECONDS, target = src))
+		return TRUE
+	playsound(src.loc, 'sound/machines/click.ogg', 75, TRUE)
+	to_chat(user, span_notice("you take apart the [src.name]"))
+	qdel(src)
+	return TRUE
+
 /obj/structure/wall_closet/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	update_contents_icons()
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -97,13 +117,6 @@
 				Closet_insert_item(I, ui_index)
 
 			return TRUE
-
-/obj/structure/wall_closet/attacked_by(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item) && !user.combat_mode)
-		Closet_insert_item(I)
-		ui_update()
-		return
-	. = ..()
 
 /obj/structure/wall_closet/Destroy()
 	dump_contents()
