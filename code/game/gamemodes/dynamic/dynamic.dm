@@ -70,13 +70,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/// Roundstart
 
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
-	/// These should always be decimals. e.g: 0.8, 1.4
-	var/roundstart_divergence_percent_lower = DYNAMIC_POINT_DIVERGENCE_LOWER
-	var/roundstart_divergence_percent_upper = DYNAMIC_POINT_DIVERGENCE_UPPER
+	/// These should always be integers. i.e: -20, 40
+	var/roundstart_divergence_percent_lower = DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER
+	var/roundstart_divergence_percent_upper = DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER
 	/// How many roundstart points should be granted per player based off their ready status (OBSERVING, READY, UNREADY)
-	var/roundstart_points_per_ready = DYNAMIC_POINTS_PER_READY
-	var/roundstart_points_per_unready = DYNAMIC_POINTS_PER_UNREADY
-	var/roundstart_points_per_observer = DYNAMIC_POINTS_PER_OBSERVER
+	var/roundstart_points_per_ready = DYNAMIC_ROUNDSTART_POINTS_PER_READY
+	var/roundstart_points_per_unready = DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY
+	var/roundstart_points_per_observer = DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER
 
 	/// Midround
 
@@ -208,7 +208,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		else
 			roundstart_points += roundstart_points_per_unready
 
-	roundstart_points *= rand(roundstart_divergence_percent_lower, roundstart_divergence_percent_upper)
+	var/point_divergence = 1 + rand(-roundstart_divergence_percent_lower, roundstart_divergence_percent_upper) / 100
+	roundstart_points *= point_divergence
 
 	roundstart_points = round(roundstart_points, 1)
 
@@ -324,7 +325,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Configure the midround rulesets from 'dynamic.json' and start rolling midrounds
 */
 /datum/game_mode/dynamic/proc/init_midround()
-	configured_midround_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
+	configured_midround_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
 
 	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
 
@@ -339,7 +340,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	if(midround_chosen_ruleset)
 		if(midround_points >= midround_chosen_ruleset.points_cost)
 			midround_chosen_ruleset.get_candidates()
-			if(execute_ruleset(midround_chosen_ruleset) == DYNAMIC_EXECUTE_SUCCESS)
+
+			var/result = execute_ruleset(midround_chosen_ruleset)
+			message_admins("DYNAMIC: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+
+			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				midround_executed_rulesets += midround_chosen_ruleset
 				midround_points -= midround_chosen_ruleset.points_cost
 
@@ -350,7 +355,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 /datum/game_mode/dynamic/proc/update_midround_points()
 	var/previous_midround_points = midround_points
-	midround_points++
+	midround_points += 10
 
 	log_game("DYNAMIC: Updated midround points. [previous_midround_points] --> [midround_points]")
 
@@ -389,7 +394,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		midround_medium_chance *= adjustment_factor
 		midround_heavy_chance *= adjustment_factor
 
+
 	log_game("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
+#ifdef TESTING
+	message_admins("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
+#endif
 
 /*
 * Choose the midround ruleset to save towards
@@ -431,6 +440,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
 	else
 		log_game("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+		message_admins("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
 
 /*
 * latejoin

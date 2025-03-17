@@ -5,7 +5,7 @@
 
 	/// For admin logging and round end screen. (traitors, wizard, nuclear emergency)
 	var/name = "Ruleset"
-	/// For admin logging and round end screen. (Roundstart, Midround, Latejoin)
+	/// For admin logging and round end screen. (DYNAMIC_ROUNDSTART, DYNAMIC_MIDROUND, DYNAMIC_LATEJOIN)
 	var/rule_category
 	/// Ranging from 0 - 9. The probability of this ruleset being picked against other rulesets.
 	var/weight = 5
@@ -66,6 +66,7 @@
 		// Antag banned?
 		// Antag disabled?
 		// Not enough hours?
+#if !defined(TESTING)
 		if(!client.should_include_for_role(
 			banning_key = antag_datum.banning_key,
 			role_preference_key = role_preference,
@@ -73,6 +74,7 @@
 		))
 			candidates -= candidate
 			continue
+#endif
 
 		// Already assigned antag?
 		if(candidate.mind.special_role)

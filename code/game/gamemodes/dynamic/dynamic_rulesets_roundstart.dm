@@ -93,12 +93,15 @@
 	restricted_roles = list(JOB_NAME_CYBORG)
 	flags = CANNOT_REPEAT
 
-/datum/dynamic_ruleset/roundstart/malf/execute(forced = FALSE)
+/datum/dynamic_ruleset/roundstart/malf/pre_execute()
+	return
+
+/datum/dynamic_ruleset/roundstart/malf/execute()
 	var/list/living_players = dynamic.current_players[CURRENT_LIVING_PLAYERS]
 	for(var/mob/living/player in living_players)
 		if(isAI(player))
 			candidates -= player
-			player.mind.special_role = ROLE_MALF
+			player.mind.special_role = antag_datum.special_role
 			player.mind.add_antag_datum(antag_datum)
 			return DYNAMIC_EXECUTE_SUCCESS
 

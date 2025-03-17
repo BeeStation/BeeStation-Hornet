@@ -1,14 +1,13 @@
-/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value.
-/// These should always be greater than 0 and an integer. NO DECIMALS!
-/// These should ideally be configured in 'dynamic.json'
-#define DYNAMIC_POINT_DIVERGENCE_LOWER 0.8
-#define DYNAMIC_POINT_DIVERGENCE_UPPER 1.4
+/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
+/// These should always be integers. i.e: -20, 40
+#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER -20
+#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER 40
 
 /// How many roundstart points should be granted per player based off their status (OBSERVING, READY, UNREADY)
 /// Same as the previous definitions, these should be configured in 'dynamic.json'
-#define DYNAMIC_POINTS_PER_READY 1
-#define DYNAMIC_POINTS_PER_UNREADY 0.5
-#define DYNAMIC_POINTS_PER_OBSERVER 0
+#define DYNAMIC_ROUNDSTART_POINTS_PER_READY 1
+#define DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY 0.5
+#define DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER 0
 
 // At this time the chance for a Light or Medium midround will reach 0%
 #define DYNAMIC_MIDROUND_LIGHT_END_TIME 60 MINUTES
@@ -24,7 +23,7 @@
 #define DYNAMIC_MIDROUND_INCREASE_RATIO 0.75
 
 /// The time at which dynamic will start choosing midrounds
-#define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
+#define DYNAMIC_MIDROUND_GRACEPERIOD 0 MINUTES
 
 /// Only one ruleset with this flag will be picked
 #define HIGH_IMPACT_RULESET (1 << 0)
@@ -40,13 +39,13 @@
 /// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
 #define DYNAMIC_MIDROUND_HEAVY "Heavy"
 
+/// Ruleset types
+#define DYNAMIC_ROUNDSTART "Roundstart"
+#define DYNAMIC_MIDROUND "Midround"
+#define DYNAMIC_LATEJOIN "Latejoin"
+
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
 #define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
 
 #define RULESET_STOP_PROCESSING 1
-
-/// Ruleset types
-#define DYNAMIC_ROUNDSTART "Roundstart"
-#define DYNAMIC_MIDROUND "Midround"
-#define DYNAMIC_LATEJOIN "Latejoin"

@@ -25,6 +25,10 @@
 			candidates -= candidate
 			continue
 
+/datum/dynamic_ruleset/midround/execute()
+	pre_execute()
+	. = ..()
+
 /datum/dynamic_ruleset/midround/get_candidates()
 	candidates = dynamic.current_players[CURRENT_LIVING_PLAYERS]
 

@@ -61,7 +61,6 @@
 				continue
 
 	if(!length(candidates))
-		message_admins("No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
 		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
 
 /*
