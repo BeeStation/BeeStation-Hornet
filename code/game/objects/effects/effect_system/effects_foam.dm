@@ -24,7 +24,7 @@
 	/turf/open/chasm,
 	/turf/open/lava))
 	var/slippery_foam = TRUE
-	var/vulernable_to_atmos = TRUE // if foam shoudl be affected by atmosfericconditions
+	var/vulernable_to_atmos = TRUE // if foam shoudl be affected by atmosferic conditions
 
 
 /obj/effect/particle_effect/foam/firefighting
