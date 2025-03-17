@@ -4,6 +4,7 @@
 	var/list/results = new/list()
 	var/list/required_reagents = new/list()
 	var/list/required_catalysts = new/list()
+	var/list/hints = list()
 
 	// Both of these variables are mostly going to be used with slime cores - but if you want to, you can use them for other things
 	var/required_container = null // the exact container path required for the reaction to happen
@@ -15,6 +16,9 @@
 	var/is_cold_recipe = 0 // Set to 1 if you want the recipe to only react when it's BELOW the required temp.
 	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
 	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
+
+	/// Tags for the reactions
+	var/reaction_tags = NONE
 
 // Extra checks for the reaction to occur.
 /datum/chemical_reaction/proc/can_react(datum/reagents/holder)

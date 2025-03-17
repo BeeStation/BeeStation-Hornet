@@ -42,7 +42,7 @@
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
-	backpack_contents = list(/obj/item/storage/box/beanbag=1)
+	l_hand = /obj/item/storage/box/beanbag
 	shoes = /obj/item/clothing/shoes/laceup
 
 
