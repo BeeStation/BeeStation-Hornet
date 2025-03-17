@@ -24,6 +24,8 @@
 	/turf/open/chasm,
 	/turf/open/lava))
 	var/slippery_foam = TRUE
+	var/vulernable_to_atmos = TRUE // if foam shoudl be affected by atmosfericconditions
+
 
 /obj/effect/particle_effect/foam/firefighting
 	name = "firefighting foam"
@@ -74,6 +76,7 @@
 	metal = ALUMINUM_FOAM
 	icon_state = "mfoam"
 	slippery_foam = FALSE
+	vulernable_to_atmos = FALSE
 
 /obj/effect/particle_effect/foam/metal/smart
 	name = "smart foam"
@@ -210,7 +213,9 @@
 		F.metal = metal
 
 /obj/effect/particle_effect/foam/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
-	return exposed_temperature > 475
+	if(vulernable_to_atmos)
+		return exposed_temperature > 475
+	return FALSE
 
 /obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
