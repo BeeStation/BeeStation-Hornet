@@ -1266,7 +1266,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"
-	camera_networks = list(CAMERA_NETWORK_PRISON)
+	camera_networks = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /area/security/processing/cremation
 	name = "Security Crematorium"
