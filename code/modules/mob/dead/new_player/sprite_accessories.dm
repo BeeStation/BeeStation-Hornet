@@ -2747,6 +2747,34 @@
 	name = "Color Test"
 	icon_state = "tv"
 
+/datum/sprite_accessory/ipc_screens/mask
+	name = "Mask"
+	icon_state = "mask"
+
+/datum/sprite_accessory/ipc_screens/alpha
+	name = "Alpha"
+	icon_state = "alpha"
+
+/datum/sprite_accessory/ipc_screens/omega
+	name = "Omega"
+	icon_state = "omega"
+
+/datum/sprite_accessory/ipc_screens/psi
+	name = "Psi"
+	icon_state = "psi"
+
+/datum/sprite_accessory/ipc_screens/phi
+	name = "Phi"
+	icon_state = "phi"
+
+/datum/sprite_accessory/ipc_screens/theta
+	name = "Theta"
+	icon_state = "theta"
+
+/datum/sprite_accessory/ipc_screens/sigma
+	name = "Sigma"
+	icon_state = "sigma"
+
 /datum/sprite_accessory/ipc_antennas
 	icon = 'icons/mob/ipc_accessories.dmi'
 	color_src = HAIR
