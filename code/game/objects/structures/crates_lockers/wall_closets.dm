@@ -186,7 +186,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/tool, 30)
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/emergency, 30)
 
 /obj/structure/wall_closet/fire
-	name = "fire wall closet"
+	name = "fire-safety wall closet"
 	desc = "It's a basic, wall mounted, storage unit."
 	icon_state = "fire"
 	theme_color = "#971717"
@@ -239,7 +239,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/command, 30)
 	result_path = /obj/structure/wall_closet/emergency
 
 /obj/item/wallframe/wall_closet/fire
-	name = "fire wall closet frame"
+	name = "fire-safety wall closet frame"
 	icon_state = "fire"
 	result_path = /obj/structure/wall_closet/fire
 
