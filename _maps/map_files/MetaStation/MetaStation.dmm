@@ -29821,28 +29821,28 @@
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
 /obj/item/clothing/head/cone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/cone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/cone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/cone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/cone{
-	pixel_x = -4;
+	pixel_x = -10;
 	pixel_y = 4
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/siding/white{
 	dir = 1
+	},
+/obj/item/clothing/head/cone{
+	pixel_x = -10;
+	pixel_y = 4
+	},
+/obj/item/clothing/head/cone{
+	pixel_x = -10;
+	pixel_y = 4
+	},
+/obj/item/clothing/head/cone{
+	pixel_x = -10;
+	pixel_y = 4
+	},
+/obj/item/clothing/head/cone{
+	pixel_x = -10;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/techmaint,
 /area/security/main)
