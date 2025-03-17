@@ -168,7 +168,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	if(isturf(loc))
 		add_verb(list(
-			/mob/living/silicon/ai/proc/ai_network_change,
+//			/mob/living/silicon/ai/proc/ai_network_change,
 			/mob/living/silicon/ai/proc/ai_hologram_change,
 			/mob/living/silicon/ai/proc/botcall,
 			/mob/living/silicon/ai/proc/control_integrated_radio,
@@ -584,6 +584,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
+/*
 /mob/living/silicon/ai/proc/ai_network_change()
 	set category = "AI Commands"
 	set name = "Jump To Network"
@@ -624,7 +625,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				break
 	to_chat(src, span_notice("Switched to the \"[uppertext(network)]\" camera network."))
 //End of code by Mord_Sith
-
+*/
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Change Hologram"

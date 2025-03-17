@@ -8,10 +8,13 @@
 	var/list/T = list()
 
 	for (var/obj/machinery/camera/C in L)
-		var/list/tempnetwork = C.network&src.network
-		if (tempnetwork.len)
+		if(!(is_station_level(C.z) || is_mining_level(C.z)))
+			continue
+		if(!C.can_use())
+			continue
+		var/list/ainetworkall = C
+		if (ainetworkall)
 			T["[C.c_tag][(C.can_use() ? null : " (Deactivated)")]"] = C
-
 	return T
 
 /mob/living/silicon/ai/proc/show_camera_list()
