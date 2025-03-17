@@ -10,7 +10,8 @@
 /obj/structure/wall_closet/Initialize(mapload)
 	. = ..()
 	Initalize_closet_storage()
-	return INITIALIZE_HINT_LATELOAD
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/wall_closet/LateInitialize()
 	Pickup_items()
@@ -146,7 +147,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/chemistry, 30)
 
 /obj/structure/wall_closet/sec
 	name = "security wall closet"
-	desc = "It's a basic, wall mounted, storage unit."
+	desc = "It's a just, wall mounted, storage unit."
 	icon_state = "sec"
 	theme_color = "#8b3737"
 
@@ -194,7 +195,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/fire, 30)
 
 /obj/structure/wall_closet/science
 	name = "science wall closet"
-	desc = "It's a basic, wall mounted, storage unit."
+	desc = "It's a scientific, wall mounted, storage unit."
 	icon_state = "science"
 	theme_color = "#e7e7e7"
 
@@ -215,6 +216,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/hydro, 30)
 	theme_color = "#915252"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/syndicate, 30)
+
+/obj/structure/wall_closet/command
+	name = "command wall closet"
+	desc = "It's a high quality, wall mounted, storage unit."
+	icon_state = "command"
+	theme_color = "#325171"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/wall_closet/command, 30)
 
 /obj/item/wallframe/wall_closet
 	name = "wall closet frame"
