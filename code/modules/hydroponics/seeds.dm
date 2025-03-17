@@ -395,10 +395,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, span_info("*---------*\n This is \a [span_name("[src]")]."))
+		to_chat(user, span_info("*---------*\n This is \a [span_name(src)]."))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, EXAMINE_BLOCK(span_notice("[text]")))
+			to_chat(user, EXAMINE_BLOCK(span_notice(text)))
 
 		return
 

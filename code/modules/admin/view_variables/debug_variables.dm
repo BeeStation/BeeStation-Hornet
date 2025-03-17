@@ -87,7 +87,7 @@
 		usr << browse_rsc(icon_value, rname)
 		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon ([span_value("[value]")])"
+		return "/icon ([span_value(value)])"
 		#endif
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
@@ -102,7 +102,7 @@
 	var/isfilter = isfilter(value)
 	var/is_child_filter = isfilter && !isdatum(owner) && !isappearance(owner) // 'child_filter' means each /filters in /atom.filters
 	if(is_child_filter)
-		return "/filters\[child\] ([span_value("[value.type]")])"
+		return "/filters\[child\] ([span_value(value.type)])"
 
 	if(isfile(value))
 		return span_value("'[value]'")
@@ -164,7 +164,7 @@
 		else
 			return "NONE"
 	else
-		return span_value("[VV_HTML_ENCODE(value)]")
+		return span_value(VV_HTML_ENCODE(value))
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.
