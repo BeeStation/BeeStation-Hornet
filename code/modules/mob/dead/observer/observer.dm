@@ -898,6 +898,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
+/mob/dead/observer/verb/cancel_camera_ghosts()
+	set name = "Cancel Camera View"
+	set category = "Ghost"
+	reset_perspective(null)
+	unset_machine()
+
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
 	set category = "Ghost"
