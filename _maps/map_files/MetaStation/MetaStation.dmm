@@ -55249,9 +55249,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/main)
 "pBf" = (
