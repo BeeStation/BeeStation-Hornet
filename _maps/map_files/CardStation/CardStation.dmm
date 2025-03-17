@@ -88669,9 +88669,7 @@
 /obj/structure/wall_closet/med/directional/north,
 /obj/item/reagent_containers/cup/bottle/formaldehyde,
 /obj/item/reagent_containers/cup/bottle/formaldehyde,
-/obj/item/reagent_containers/syringe{
-	pixel_y = 13
-	},
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "sQW" = (
