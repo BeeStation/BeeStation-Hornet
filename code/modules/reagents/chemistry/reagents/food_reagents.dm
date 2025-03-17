@@ -131,7 +131,7 @@
 		exposed_obj.visible_message(span_notice("The hot oil has no effect on [exposed_obj]!"))
 		return
 	// if we are holding an item/atom inside, we dont want to arbitrarily fry this item
-	if(exposed_obj.atom_storage)
+	if(SEND_SIGNAL(exposed_obj, COMSIG_CONTAINS_STORAGE))
 		exposed_obj.visible_message(span_notice("The hot oil splatters about as [exposed_obj] touches it. It seems too full to cook properly!"))
 		return
 

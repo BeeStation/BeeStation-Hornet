@@ -306,11 +306,12 @@
 	w_class = WEIGHT_CLASS_LARGE
 	req_access = list(ACCESS_CAPTAIN)
 
-/obj/item/storage/lockbox/dueling/Initialize(mapload)
+/obj/item/storage/lockbox/dueling/ComponentInitialize()
 	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
-	atom_storage.max_slots = 2
-	atom_storage.set_holdable(list(/obj/item/gun/energy/dueling))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_SMALL
+	STR.max_items = 2
+	STR.set_holdable(list(/obj/item/gun/energy/dueling))
 
 /obj/item/storage/lockbox/dueling/PopulateContents()
 	. = ..()

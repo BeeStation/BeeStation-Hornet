@@ -163,9 +163,10 @@
 	throwforce = 18
 	material_flags = NONE
 
-/obj/item/storage/toolbox/syndicate/Initialize(mapload)
+/obj/item/storage/toolbox/syndicate/ComponentInitialize()
 	. = ..()
-	atom_storage.silent = TRUE
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.silent = TRUE
 
 /obj/item/storage/toolbox/syndicate/PopulateContents()
 	new /obj/item/screwdriver/nuke(src)
@@ -205,11 +206,12 @@
 	attack_verb_simple = list("robust")
 	material_flags = NONE
 
-/obj/item/storage/toolbox/brass/Initialize(mapload)
+/obj/item/storage/toolbox/brass/ComponentInitialize()
 	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
-	atom_storage.max_total_storage = 28
-	atom_storage.max_slots = 28
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 28
+	STR.max_items = 28
 
 /obj/item/storage/toolbox/brass/prefilled/PopulateContents()
 	new /obj/item/screwdriver/brass(src)
@@ -230,10 +232,11 @@
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
 	material_flags = NONE
 
-/obj/item/storage/toolbox/artistic/Initialize(mapload)
+/obj/item/storage/toolbox/artistic/ComponentInitialize()
 	. = ..()
-	atom_storage.max_total_storage = 20
-	atom_storage.max_slots = 10
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 20
+	STR.max_items = 10
 
 /obj/item/storage/toolbox/artistic/PopulateContents()
 	new /obj/item/storage/crayons(src)
@@ -269,10 +272,11 @@
 	name = "ammo crate (.38)"
 	desc = "It contains a few boxes of bullets."
 
-/obj/item/storage/toolbox/ammo/c38/Initialize(mapload)
+/obj/item/storage/toolbox/ammo/c38/ComponentInitialize()
 	. = ..()
-	atom_storage.max_total_storage = 10
-	atom_storage.max_slots = 5
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 10
+	STR.max_items = 5
 
 /obj/item/storage/toolbox/ammo/c38/PopulateContents()
 	new /obj/item/ammo_box/c38/box(src)

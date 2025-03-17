@@ -62,13 +62,12 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,
+		/obj/item/flashlight/seclite=1,\
 		/obj/item/knife/combat/survival=1,
 		/obj/item/mining_voucher=1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		)
-
-	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
+		/obj/item/gun/energy/recharge/kinetic_accelerator=1,\
+		/obj/item/stack/marker_beacon/ten=1)
 
 /datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

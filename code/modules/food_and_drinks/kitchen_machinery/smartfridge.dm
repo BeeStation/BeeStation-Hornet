@@ -185,8 +185,8 @@
 		else
 			. = TRUE
 	else
-		if(O.loc.atom_storage)
-			return O.loc.atom_storage.attempt_remove(O, src, silent = TRUE)
+		if(SEND_SIGNAL(O.loc, COMSIG_CONTAINS_STORAGE))
+			. = SEND_SIGNAL(O.loc, COMSIG_TRY_STORAGE_TAKE, O, src)
 		else
 			O.forceMove(src)
 			. = TRUE

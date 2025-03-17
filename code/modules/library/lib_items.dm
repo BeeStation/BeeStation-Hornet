@@ -104,14 +104,15 @@
 				set_anchored(FALSE)
 
 		if(BOOKCASE_FINISHED)
+			var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
 			if(is_type_in_list(I, allowed_books))
 				if(!user.transferItemToLoc(I, src))
 					return
 				update_appearance()
-			else if(atom_storage)
+			else if(STR)
 				for(var/obj/item/T in I.contents)
 					if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook))
-						atom_storage.attempt_remove(T, src)
+						STR.remove_from_storage(T, src)
 				to_chat(user, span_notice("You empty \the [I] into \the [src]."))
 				update_appearance()
 			else if(istype(I, /obj/item/pen))

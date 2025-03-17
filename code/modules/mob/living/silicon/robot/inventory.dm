@@ -17,7 +17,7 @@
 		sight_mode &= ~S.sight_mode
 		update_sight()
 	else if(istype(O, /obj/item/storage/bag/tray/))
-		O.atom_storage.remove_all(loc)
+		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_QUICK_EMPTY)
 	if(client)
 		client.screen -= O
 	observer_screen_update(O,FALSE)

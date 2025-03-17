@@ -10,9 +10,10 @@
 	var/title = "book"
 	item_flags = ISWEAPON
 
-/obj/item/storage/book/Initialize(mapload)
+/obj/item/storage/book/ComponentInitialize()
 	. = ..()
-	atom_storage.max_slots = 1
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
 
 /obj/item/storage/book/attack_self(mob/user)
 	to_chat(user, span_notice("The pages of [title] have been cut out!"))

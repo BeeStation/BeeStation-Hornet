@@ -395,7 +395,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	name = "Sweatsplash"
 
 /obj/effect/sweatsplash/Initialize(mapload)
-	. = ..()
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
 

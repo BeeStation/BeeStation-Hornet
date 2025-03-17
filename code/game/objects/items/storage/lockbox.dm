@@ -12,27 +12,28 @@
 	var/open = FALSE
 	base_icon_state = "lockbox"
 
-/obj/item/storage/lockbox/Initialize(mapload)
+/obj/item/storage/lockbox/ComponentInitialize()
 	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
-	atom_storage.max_total_storage = 14
-	atom_storage.max_slots = 4
-	atom_storage.locked = FALSE
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 14
+	STR.max_items = 4
+	STR.locked = TRUE
 
 /obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
-	var/locked = atom_storage.locked
+	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if(W.GetID())
 		if(broken)
 			to_chat(user, span_danger("It appears to be broken."))
 			return
 		if(allowed(user))
-			atom_storage.locked = !locked
-			locked = atom_storage.locked
+			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, !locked)
+			locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 			if(locked)
 				icon_state = "[base_icon_state]+l"
 				item_state = "[base_icon_state]+l"
 				to_chat(user, span_danger("You lock the [src.name]!"))
-				atom_storage.close_all()
+				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 				return
 			else
 				icon_state = "[base_icon_state]"
@@ -53,7 +54,7 @@
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
 	broken = TRUE
-	atom_storage.locked = FALSE
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
 	desc += "It appears to be broken."
 	icon_state = "[src.base_icon_state]+b"
 	item_state = "[src.base_icon_state]+b"
@@ -87,21 +88,22 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	req_access = list(ACCESS_CAPTAIN)
 
-/obj/item/storage/lockbox/medal/Initialize(mapload)
+/obj/item/storage/lockbox/medal/ComponentInitialize()
 	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
-	atom_storage.max_slots = 10
-	atom_storage.max_total_storage = 20
-	atom_storage.set_holdable(list(/obj/item/clothing/accessory/medal))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_SMALL
+	STR.max_items = 10
+	STR.max_combined_w_class = 20
+	STR.set_holdable(list(/obj/item/clothing/accessory/medal))
 
 /obj/item/storage/lockbox/medal/examine(mob/user)
 	. = ..()
-	if(!atom_storage.locked)
+	if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
 		. += span_notice("Alt-click to [open ? "close":"open"] it.")
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
-		if(!atom_storage.locked)
+		if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
 			open = (open ? FALSE : TRUE)
 			update_icon()
 
@@ -117,7 +119,8 @@
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
 /obj/item/storage/lockbox/medal/update_icon_state()
-	if(atom_storage?.locked)
+	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	if(locked)
 		icon_state = "[base_icon_state]+l"
 		item_state = "[base_icon_state]+l"
 	else
@@ -134,7 +137,8 @@
 	. = ..()
 	if(!contents || !open)
 		return
-	if(atom_storage?.locked)
+	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	if(locked)
 		return
 	for (var/i in 1 to contents.len)
 		var/obj/item/clothing/accessory/medal/M = contents[i]

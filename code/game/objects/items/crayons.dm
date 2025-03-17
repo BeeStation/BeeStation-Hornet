@@ -523,7 +523,9 @@
 
 /obj/item/storage/crayons/Initialize(mapload)
 	. = ..()
-	create_storage(canhold = list(/obj/item/toy/crayon))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.set_holdable(list(/obj/item/toy/crayon))
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
@@ -654,7 +656,7 @@
 		return ..()
 
 	if(is_capped)
-		if(is_type_in_typecache(target, spraycan_touch_normally) || target.atom_storage)
+		if(is_type_in_typecache(target, spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
 			return ..()
 		to_chat(user, span_warning("Take the cap off first!"))
 		return
