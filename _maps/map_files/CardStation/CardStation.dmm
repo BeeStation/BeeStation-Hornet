@@ -1202,7 +1202,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/directional/east,
-/obj/structure/wall_closet/generic/directional/east,
+/obj/structure/wall_closet/command/directional/east,
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
 	},
@@ -16742,14 +16742,6 @@
 /turf/open/floor/plating,
 /area/science/lab)
 "dxO" = (
-/obj/structure/rack,
-/obj/item/extinguisher{
-	pixel_x = 7
-	},
-/obj/item/extinguisher,
-/obj/item/extinguisher{
-	pixel_x = -7
-	},
 /obj/machinery/light_switch/directional/east,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 4
@@ -36180,10 +36172,6 @@
 /turf/open/floor/iron/ridged/steel,
 /area/medical/cryo)
 "hGG" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/research_and_development{
-	pixel_y = 4
-	},
 /obj/machinery/firealarm{
 	pixel_x = -28;
 	dir = 4
@@ -36195,6 +36183,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
+/obj/structure/closet/l3closet,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -65284,8 +65273,8 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/camera/directional/north,
+/obj/structure/wall_closet/science/directional/north,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "nOM" = (
@@ -68900,6 +68889,11 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/research_and_development{
+	pixel_y = 4;
+	pixel_x = 5
+	},
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -69313,14 +69307,20 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "oJm" = (
-/obj/structure/closet/l3closet,
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/east,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
+/obj/item/extinguisher{
+	pixel_x = -7
+	},
+/obj/item/extinguisher,
+/obj/item/extinguisher{
+	pixel_x = 7
+	},
+/obj/structure/wall_closet/fire/directional/east,
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -75205,6 +75205,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/structure/wall_closet/command/directional/north,
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
 "pTH" = (
