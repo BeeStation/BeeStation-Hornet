@@ -443,6 +443,16 @@
 	cooldown_time = 10 SECONDS
 	spell_requirements = NONE
 
+/datum/action/spell/teleport/area_teleport/revenant/on_cast(mob/user, atom/target)
+	if((isrevenant(user)))
+		var/mob/living/simple_animal/revenant/revenant = user
+
+		//If the revenant is currently recovering from casting an ability which stuns and forcibly reveals them
+		if(revenant.unreveal_time)
+			to_chat(user, span_warning("You can't pass through the incorporeal plane right now! You need to recover!"))
+			return
+	..()
+
 /datum/action/revenant_phase_shift
 	name = "Phase Shift"
 	desc = "Shift in and out of your corporeal form"
