@@ -166,7 +166,7 @@
 	telepathy_span = "revennotice"
 	bold_telepathy_span = "revenboldnotice"
 
-	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
+	use_runechat_telepathy = TRUE
 
 /datum/action/spell/aoe/revenant
 	background_icon_state = "bg_revenant"
