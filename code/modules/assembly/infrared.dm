@@ -127,6 +127,7 @@
 	RegisterSignal(active_beam, COMSIG_BEAM_ENTERED, PROC_REF(beam_entered))
 	RegisterSignal(active_beam, COMSIG_BEAM_TURFS_CHANGED, PROC_REF(beam_turfs_changed))
 	update_visible()
+	addtimer(CALLBACK(src, PROC_REF(update_visible)), 0.5 SECONDS) // This is hack needed to fix some problems with rotating the infrared
 	// Buffer can be null (if we're at map edge for an example) but this fine
 	if(!isnull(buffer_turf))
 		// We need to check the state of the turf at the end of the beam, to determine when we need to re-grow (if blocked)
