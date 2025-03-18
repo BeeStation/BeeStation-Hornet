@@ -333,25 +333,27 @@
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)
 	if(!equipped_item) // We also let you equip an item like this
 		if(!thing)
-			to_chat(src, "<span class='warning'>You have no [slot_item_name] to take something out of!</span>")
+			to_chat(src, span_warning("You have no [slot_item_name] to take something out of!"))
 			return
 		if(equip_to_slot_if_possible(thing, slot_type))
 			update_inv_hands()
 		return
-	var/datum/component/storage/storage = equipped_item.GetComponent(/datum/component/storage)
+	var/datum/storage/storage = equipped_item.atom_storage
 	if(!storage)
 		if(!thing)
 			equipped_item.attack_hand(src)
 		else
-			to_chat(src, "<span class='warning'>You can't fit [thing] into your [equipped_item.name]!</span>")
+			to_chat(src, span_warning("You can't fit [thing] into your [equipped_item.name]!"))
+		return
+	if(!storage.supports_smart_equip)
 		return
 	if(thing) // put thing in storage item
-		if(!SEND_SIGNAL(equipped_item, COMSIG_TRY_STORAGE_INSERT, thing, src))
-			to_chat(src, "<span class='warning'>You can't fit [thing] into your [equipped_item.name]!</span>")
+		if(!equipped_item.atom_storage?.attempt_insert(thing, src))
+			to_chat(src, span_warning("You can't fit [thing] into your [equipped_item.name]!"))
 		return
-	var/atom/real_location = storage.real_location()
+	var/atom/real_location = storage.real_location?.resolve()
 	if(!real_location.contents.len) // nothing to take out
-		to_chat(src, "<span class='warning'>There's nothing in your [equipped_item.name] to take out!</span>")
+		to_chat(src, span_warning("There's nothing in your [equipped_item.name] to take out!"))
 		return
 	var/obj/item/stored = real_location.contents[real_location.contents.len]
 	if(!stored || stored.on_found(src))

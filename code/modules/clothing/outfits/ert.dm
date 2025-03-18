@@ -313,6 +313,7 @@
 	id = /obj/item/card/id/ert/kudzu
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	glasses = /obj/item/clothing/glasses/night
+	back = /obj/item/storage/backpack/ert
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/janitor/ertfull
 	r_pocket = /obj/item/grenade/chem_grenade/antiweed
@@ -321,8 +322,9 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
-		/obj/item/choice_beacon/pet/goat,
-		/obj/item/grenade/clusterbuster/antiweed=2)
+		/obj/item/choice_beacon/pet/goat=1,
+		/obj/item/grenade/clusterbuster/antiweed=2,
+	)
 
 /datum/outfit/centcom/ert/kudzu/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

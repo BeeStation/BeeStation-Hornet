@@ -9,50 +9,49 @@
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
 	required_slots = list(ITEM_SLOT_BACK)
-	/// The storage component of the module.
-	var/datum/component/storage/concrete/storage
 	/// Max weight class of items in the storage.
 	var/max_w_class = WEIGHT_CLASS_NORMAL
 	/// Max combined weight of all items in the storage.
 	var/max_combined_w_class = 15
 	/// Max amount of items in the storage.
 	var/max_items = 7
+	/// Is nesting same-size storage items allowed?
+	var/big_nesting = FALSE
 
 /obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
-	storage = AddComponent(/datum/component/storage/concrete)
-	storage.max_w_class = max_w_class
-	storage.max_combined_w_class = max_combined_w_class
-	storage.max_items = max_items
-	storage.allow_big_nesting = TRUE
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
+	create_storage(max_specific_storage = max_w_class, max_total_storage = max_combined_w_class, max_slots = max_items)
+	atom_storage.allow_big_nesting = TRUE
+	atom_storage.locked = TRUE
 
 /obj/item/mod/module/storage/on_install()
-	var/datum/component/storage/modstorage = mod.AddComponent(/datum/component/storage, storage)
-	modstorage.max_w_class = max_w_class
-	modstorage.max_combined_w_class = max_combined_w_class
-	modstorage.max_items = max_items
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+	var/datum/storage/modstorage = mod.create_storage(max_specific_storage = max_w_class, max_total_storage = max_combined_w_class, max_slots = max_items)
+	modstorage.set_real_location(src)
+	modstorage.allow_big_nesting = big_nesting
+	atom_storage.locked = FALSE
 	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
 	if(istype(suit))
 		RegisterSignal(suit, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_suit_unequip))
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
-	var/datum/component/storage/modstorage = mod.GetComponent(/datum/component/storage)
-	storage.slaves -= modstorage
+	var/datum/storage/modstorage = mod.atom_storage
+	atom_storage.locked = TRUE
 	qdel(modstorage)
+	if(!deleting)
+		atom_storage.remove_all(get_turf(src))
 	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
 	if(istype(suit))
 		UnregisterSignal(suit, COMSIG_ITEM_PRE_UNEQUIP)
-	if(!deleting)
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_QUICK_EMPTY, drop_location())
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 
 /obj/item/mod/module/storage/proc/on_suit_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
 	if(QDELETED(source) || !mod.wearer || newloc == mod.wearer || !mod.wearer.s_store)
 		return
-	to_chat(mod.wearer, span_notice("[src] tries to store [mod.wearer.s_store] inside itself."))
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, mod.wearer.s_store, mod.wearer, TRUE)
+	if(!atom_storage?.attempt_insert(mod.wearer.s_store, mod.wearer, override = TRUE))
+		balloon_alert(mod.wearer, "storage failed!")
+		to_chat(mod.wearer, span_warning("[src] fails to store [mod.wearer.s_store] inside itself!"))
+		return
+	to_chat(mod.wearer, span_notice("[src] stores [mod.wearer.s_store] inside itself."))
+	mod.wearer.temporarilyRemoveItemFromInventory(mod.wearer.s_store)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
@@ -93,7 +92,7 @@
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 60
 	max_items = 21
-
+	big_nesting = TRUE
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack

@@ -1378,6 +1378,7 @@
 	var/charge_increment_delay = 1 SECONDS
 
 /obj/item/clothing/suit/armor/vest/ctf/Initialize(mapload)
+	. = ..()
 	AddComponent(
 		/datum/component/shielded, \
 		max_integrity = shield_integrity, \
