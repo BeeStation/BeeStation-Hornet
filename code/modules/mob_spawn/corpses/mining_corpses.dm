@@ -20,7 +20,7 @@
 
 /obj/effect/mob_spawn/corpse/human/legioninfested/dwarf/special(mob/living/carbon/human/spawned_human)
 	. = ..()
-	spawned_human.dna.add_mutation(DWARFISM)
+	spawned_human.dna.add_mutation(/datum/mutation/dwarfism)
 
 //main type, rolls a pool of legion victims
 /obj/effect/mob_spawn/corpse/human/legioninfested

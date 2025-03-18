@@ -93,7 +93,7 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	bum.dna.add_mutation(STONER)
+	bum.dna.add_mutation(bum.dna.add_mutation(/datum/mutation/stoner))
 
 /datum/outfit/beachbum/lifeguard
 	name = "Beach Lifeguard"
