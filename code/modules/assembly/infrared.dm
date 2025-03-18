@@ -172,6 +172,7 @@
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
 	playsound(src, 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE, extrarange = hearing_range - SOUND_RANGE + 1, falloff_distance = hearing_range)
 	COOLDOWN_START(src, next_activate, 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(make_beam)), 2 SECONDS)
 
 /obj/item/assembly/infra/activate()
 	. = ..()
