@@ -51574,9 +51574,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/light{
 	dir = 4
