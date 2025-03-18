@@ -18,17 +18,21 @@
 	var/ghost_ready = FALSE
 	var/grow_time = 60 // Grow time (in seconds because delta-time)
 	// The types of spiders the egg sac can produce by default.
-	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
-								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster)
+	var/list/mob/living/potential_spawns = list(
+		/mob/living/simple_animal/hostile/poison/giant_spider/guard,
+		/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+		/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+		/mob/living/simple_animal/hostile/poison/giant_spider/netcaster
+	)
 	// The types of spiders the egg sac produces when we proc an enriched spawn
-	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
-								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
-								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
-								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+	var/list/mob/living/potential_enriched_spawns = list(
+		/mob/living/simple_animal/hostile/poison/giant_spider/guard,
+		/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+		/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+		/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
+		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
+		/mob/living/simple_animal/hostile/poison/giant_spider/broodmother
+	)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = base_pixel_x + rand(3,-3)
@@ -49,7 +53,7 @@
 	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
 		if(enriched_spawns && prob(enriched_spawn_prob))
 			using_enriched_spawn = TRUE
-		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()

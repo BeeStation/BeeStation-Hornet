@@ -1,10 +1,10 @@
-//predominantly negative traits
+//These traits primarily present a disadvantage to the players, some worse than others.
 
 /datum/quirk/badback
 	name = "Bad Back"
 	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evently weighted objects are fine, though."
 	icon = "hiking"
-	value = -2
+	quirk_value = -1
 	mood_quirk = TRUE
 	medical_record_text = "Patient scans indicate severe and chronic back pain."
 	gain_text = span_danger("Your back REALLY hurts!")
@@ -22,7 +22,7 @@
 	name = "Blood Deficiency"
 	desc = "Your body can't produce enough blood to sustain itself."
 	icon = "tint"
-	value = -2
+	quirk_value = -1
 	gain_text = span_danger("You feel your vigor slowly fading away.")
 	lose_text = span_notice("You feel vigorous again.")
 	medical_record_text = "Patient requires regular treatment for blood loss due to low production of blood."
@@ -39,7 +39,7 @@
 	name = "Blind"
 	desc = "You are completely blind, nothing can counteract this."
 	icon = "eye-slash"
-	value = -4
+	quirk_value = -1
 	gain_text = span_danger("You can't see anything.")
 	lose_text = span_notice("You miraculously gain back your vision.")
 	medical_record_text = "Patient has permanent blindness."
@@ -61,8 +61,8 @@
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Thankfully, you start with a bottle of mannitol pills."
 	icon = "brain"
+	quirk_value = -1
 	mob_trait = TRAIT_BRAIN_TUMOR
-	value = -3
 	gain_text = span_danger("You feel smooth.")
 	lose_text = span_notice("You feel wrinkled again.")
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
@@ -106,7 +106,7 @@
 	name = "Deaf"
 	desc = "You are incurably deaf."
 	icon = "deaf"
-	value = -2
+	quirk_value = -1
 	mob_trait = TRAIT_DEAF
 	gain_text = span_danger("You can't hear anything.")
 	lose_text = span_notice("You're able to hear again!")
@@ -116,8 +116,8 @@
 	name = "Depression"
 	desc = "You sometimes just hate life."
 	icon = "frown"
+	quirk_value = -1
 	mob_trait = TRAIT_DEPRESSION
-	value = -1
 	gain_text = span_danger("You start feeling depressed.")
 	lose_text = span_notice("You no longer feel depressed.") //if only it were that easy!
 	medical_record_text = "Patient has a severe mood disorder causing them to experience sudden moments of sadness."
@@ -132,7 +132,7 @@
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
 	icon = "toolbox"
-	value = -1
+	quirk_value = -1
 	mood_quirk = TRUE
 	process = TRUE
 	medical_record_text = "Patient demonstrates an unnatural attachment to a family heirloom."
@@ -236,7 +236,7 @@
 /datum/quirk/family_heirloom/post_spawn()
 	if(where == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
-		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
+		H.back.atom_storage.show_contents(H)
 
 	to_chat(quirk_target, span_boldnotice("There is a precious family [heirloom.name] [where], passed down from generation to generation. Keep it safe!"))
 
@@ -260,7 +260,7 @@
 	name = "Frail"
 	desc = "Your bones might as well be made of glass! Your limbs can take less damage before they become disabled."
 	icon = "skull"
-	value = -2
+	quirk_value = -1
 	mob_trait = TRAIT_EASYLIMBDISABLE
 	gain_text = span_danger("You feel frail.")
 	lose_text = span_notice("You feel sturdy again.")
@@ -270,7 +270,7 @@
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
 	icon = "question-circle"
-	value = -1
+	quirk_value = -1
 	gain_text = span_notice("The words being spoken around you don't make any sense.")
 	lose_text = span_notice("You've developed fluency in Galactic Common.")
 	medical_record_text = "Patient does not speak Galactic Common and may require an interpreter."
@@ -291,7 +291,7 @@
 	name = "Heavy Sleeper"
 	desc = "You sleep like a rock! Whenever you're put to sleep or knocked unconscious, you take a little bit longer to wake up."
 	icon = "bed"
-	value = -1
+	quirk_value = -1
 	mob_trait = TRAIT_HEAVY_SLEEPER
 	gain_text = span_danger("You feel sleepy.")
 	lose_text = span_notice("You feel awake again.")
@@ -301,26 +301,16 @@
 	name = "Hypersensitive"
 	desc = "Bad things affect your mood more than they should."
 	icon = "flushed"
-	value = -1
+	quirk_value = -1
 	gain_text = span_danger("You seem to make a big deal out of everything.")
 	lose_text = span_notice("You don't seem to make a big deal out of everything anymore.")
 	medical_record_text = "Patient demonstrates a high level of emotional volatility."
-
-/datum/quirk/light_drinker
-	name = "Light Drinker"
-	desc = "You just can't handle your drinks and get drunk very quickly."
-	icon = "cocktail"
-	value = -1
-	mob_trait = TRAIT_LIGHT_DRINKER
-	gain_text = span_notice("Just the thought of drinking alcohol makes your head spin.")
-	lose_text = span_danger("You're no longer severely affected by alcohol.")
-	medical_record_text = "Patient demonstrates a low tolerance for alcohol."
 
 /datum/quirk/nearsighted //t. errorage
 	name = "Nearsighted"
 	desc = "You are nearsighted without prescription glasses, but spawn with a pair."
 	icon = "glasses"
-	value = -1
+	quirk_value = -1
 	gain_text = span_danger("Things far away from you start looking blurry.")
 	lose_text = span_notice("You start seeing faraway things normally again.")
 	medical_record_text = "Patient requires prescription glasses in order to counteract nearsightedness."
@@ -342,7 +332,7 @@
 	name = "Nyctophobia"
 	desc = "As far as you can remember, you've always been afraid of the dark. While in the dark without a light source, you instinctually act careful, and constantly feel a sense of dread."
 	icon = "lightbulb"
-	value = -1
+	quirk_value = -1
 	process = TRUE
 	medical_record_text = "Patient demonstrates a fear of the dark."
 
@@ -363,7 +353,7 @@
 	name = "Pacifist"
 	desc = "The thought of violence makes you sick. So much so, in fact, that you can't hurt anyone."
 	icon = "peace"
-	value = -2
+	quirk_value = -1
 	mob_trait = TRAIT_PACIFISM
 	gain_text = span_danger("You feel repulsed by the thought of violence!")
 	lose_text = span_notice("You think you can defend yourself again.")
@@ -373,7 +363,7 @@
 	name = "Paraplegic"
 	desc = "Your legs do not function. Nothing will ever fix this. But hey, free wheelchair!"
 	icon = "wheelchair"
-	value = -3
+	quirk_value = -1
 	medical_record_text = "Patient has an untreatable impairment in motor function in the lower extremities."
 	trauma_type = /datum/brain_trauma/severe/paralysis/paraplegic/
 
@@ -401,7 +391,7 @@
 	name = "Poor Aim"
 	desc = "You're terrible with guns and can't line up a straight shot to save your life. Dual-wielding is right out."
 	icon = "bullseye"
-	value = -1
+	quirk_value = -1
 	mob_trait = TRAIT_POOR_AIM
 	medical_record_text = "Patient possesses a strong tremor in both hands."
 
@@ -409,7 +399,7 @@
 	name = "Prosopagnosia"
 	desc = "You have a mental disorder that prevents you from being able to recognize faces at all."
 	icon = "user-secret"
-	value = -1
+	quirk_value = -1
 	mob_trait = TRAIT_PROSOPAGNOSIA
 	medical_record_text = "Patient suffers from prosopagnosia and cannot recognize faces."
 
@@ -417,7 +407,7 @@
 	name = "Prosthetic Limb"
 	desc = "An accident caused you to lose one of your limbs. Because of this, you now have a random prosthetic!"
 	icon = "tg-prosthetic-leg"
-	value = -1
+	quirk_value = -1
 	var/slot_string = "limb"
 
 /datum/quirk/prosthetic_limb/on_spawn()
@@ -451,7 +441,7 @@
 	name = "Pushover"
 	desc = "Your first instinct is always to let people push you around. Resisting out of grabs will take conscious effort."
 	icon = "handshake"
-	value = -2
+	quirk_value = -1
 	mob_trait = TRAIT_GRABWEAKNESS
 	gain_text = span_danger("You feel like a pushover.")
 	lose_text = span_notice("You feel like standing up for yourself.")
@@ -461,7 +451,7 @@
 	name = "Reality Dissociation Syndrome"
 	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. This is NOT a license to grief."
 	icon = "grin-tongue-wink"
-	value = -2
+	quirk_value = -1
 	//no mob trait because it's handled uniquely
 	gain_text = span_userdanger("...")
 	lose_text = span_notice("You feel in tune with the world again.")
@@ -488,7 +478,7 @@
 	name = "Social Anxiety"
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
 	icon = "comment-slash"
-	value = -1
+	quirk_value = -1
 	gain_text = span_danger("You start worrying about what you're saying.")
 	lose_text = span_notice("You feel comfortable with talking again.") //if only it were that easy!
 	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
@@ -520,7 +510,7 @@
 	name = "Junkie"
 	desc = "You can't get enough of hard drugs."
 	icon = "pills"
-	value = -2
+	quirk_value = -1
 	gain_text = span_danger("You suddenly feel the craving for drugs.")
 	lose_text = span_notice("You feel like you should kick your drug habit.")
 	medical_record_text = "Patient has a history of hard drugs."
@@ -569,7 +559,7 @@
 /datum/quirk/junkie/post_spawn()
 	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
-		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
+		H.back.atom_storage.show_contents(H)
 
 /datum/quirk/junkie/proc/announce_drugs()
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] of [initial(reagent_type.name)] [where_drug]. Better hope you don't run out..."))
@@ -590,7 +580,7 @@
 	name = "Smoker"
 	desc = "Sometimes you just really want a smoke. Probably not great for your lungs."
 	icon = "smoking"
-	value = -1
+	quirk_value = -1
 	gain_text = span_danger("You could really go for a smoke right about now.")
 	lose_text = span_notice("You feel like you should quit smoking.")
 	medical_record_text = "Patient is a current smoker."
@@ -623,7 +613,7 @@
 	name = "Alcoholic"
 	desc = "You can't stand being sober."
 	icon = "angry"
-	value = -1
+	quirk_value = -1
 	gain_text = span_danger("You could really go for a drink right about now.")
 	lose_text = span_notice("You feel like you should quit drinking.")
 	medical_record_text = "Patient is an alcohol abuser."
@@ -686,7 +676,7 @@
 	name = "Unstable"
 	desc = "Due to past troubles, you are unable to recover your sanity if you lose it. Be very careful managing your mood!"
 	icon = "cloud-rain"
-	value = -2
+	quirk_value = -1
 	mob_trait = TRAIT_UNSTABLE
 	gain_text = span_danger("There's a lot on your mind right now.")
 	lose_text = span_notice("Your mind finally feels calm.")
@@ -696,7 +686,7 @@
 	name = "Phobia"
 	desc = "Because of a traumatic event in your past you have developed a strong phobia."
 	icon = "spider"
-	value = -2
+	quirk_value = -1
 	gain_text = null // these are handled by the trauma itself
 	lose_text = null
 	medical_record_text = "Patient suffers from a deeply-rooted phobia."

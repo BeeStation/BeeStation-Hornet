@@ -51,7 +51,7 @@
 
 	if(!islist && !isdatum(thing) && !isappearance)
 		return
-	
+
 	var/refid = REF(thing)
 
 	// Prepares '/fake_type' for better readibility.
@@ -63,14 +63,14 @@
 
 	// special_list flag
 	var/read_only_special_list = (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
-	
+
 	// Hints how this debug proc will write output data
 	var/debug_output_style = \
 		isappearance ? STYLE_APPEARANCE \
 		: read_only_special_list ? STYLE_READ_ONLY_LIST \
 		: special_list_secure_level ? STYLE_SPECIAL_LIST \
 		: islist ? STYLE_LIST \
-		: STYLE_DATUM 
+		: STYLE_DATUM
 
 
 	// ------------------------------------------------------
@@ -100,7 +100,7 @@
 		if(LAZYFIND(holder.tagged_datums, thing))
 			var/tag_index = LAZYFIND(holder.tagged_datums, thing)
 			tagged_line = VV_MSG_TAGGED(tag_index)
-			
+
 	var/varedited_line
 	var/deleted_line
 	if(!islist)
@@ -222,7 +222,7 @@
 			var/list_flags = (read_only_special_list ? VV_READ_ONLY : null)
 			// If TRUE, instead of sending actual '/special_list' instance, we send 'vv_spectre' which delegates that /special_list
 			var/should_delegate_list = (special_list_secure_level ? TRUE : FALSE)
-			
+
 			var/list/list_value = thing
 			for(var/i in 1 to list_value.len)
 				var/key = list_value[i]
@@ -247,6 +247,7 @@
 	// ------------------------------------------------------
 	// Builds html text - finalization
 	var/html = {"
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
@@ -374,7 +375,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='?_src_=vars;[HrefToken()];[href_reference_string]'>Refresh</a>
+							<a id='refresh_link' href='byond://?_src_=vars;[HrefToken()];[href_reference_string]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"

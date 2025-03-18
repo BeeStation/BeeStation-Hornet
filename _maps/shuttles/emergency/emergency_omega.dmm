@@ -2,11 +2,6 @@
 "aa" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ab" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ac" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
@@ -547,6 +542,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"Dr" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "Eg" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
@@ -739,9 +739,9 @@ Ls
 ac
 Mg
 aa
-ab
-ab
-ab
+Dr
+Dr
+Dr
 aa
 wN
 ac
@@ -757,7 +757,7 @@ aa
 ad
 ak
 al
-ab
+Dr
 az
 aD
 aJ
@@ -765,7 +765,7 @@ aJ
 aJ
 aD
 az
-ab
+Dr
 az
 bd
 bj
@@ -774,7 +774,7 @@ br
 bv
 "}
 (3,1,1) = {"
-ab
+Dr
 ae
 al
 al
@@ -790,16 +790,16 @@ Ui
 aW
 be
 bk
-ab
+Dr
 bs
 bv
 "}
 (4,1,1) = {"
-ab
+Dr
 ae
 al
 al
-ab
+Dr
 RT
 aF
 aK
@@ -811,7 +811,7 @@ Ui
 aX
 bf
 bl
-ab
+Dr
 bt
 bv
 "}
@@ -820,7 +820,7 @@ aa
 af
 al
 ar
-ab
+Dr
 RT
 aG
 aL
@@ -828,7 +828,7 @@ aI
 aM
 aG
 eC
-ab
+Dr
 aY
 bg
 bm
@@ -838,9 +838,9 @@ bv
 "}
 (6,1,1) = {"
 ac
-ab
+Dr
 Rm
-ab
+Dr
 aw
 uy
 aH
@@ -851,7 +851,7 @@ aH
 Sv
 aU
 aZ
-ab
+Dr
 aZ
 aZ
 br
@@ -862,7 +862,7 @@ aa
 rd
 Bj
 qB
-ab
+Dr
 RT
 aI
 aM
@@ -870,7 +870,7 @@ aG
 aL
 aI
 eC
-ab
+Dr
 nP
 sO
 mG
@@ -879,7 +879,7 @@ bt
 bv
 "}
 (8,1,1) = {"
-ab
+Dr
 BS
 LT
 Bj
@@ -895,16 +895,16 @@ Eg
 Lt
 Lt
 YJ
-ab
+Dr
 bt
 bv
 "}
 (9,1,1) = {"
-ab
+Dr
 Sa
 Bj
 Pn
-ab
+Dr
 RT
 Tg
 Tg
@@ -916,12 +916,12 @@ Eg
 Lt
 Lt
 Tw
-ab
+Dr
 bt
 bv
 "}
 (10,1,1) = {"
-ab
+Dr
 NX
 cC
 Pw
@@ -933,7 +933,7 @@ aF
 aF
 aF
 aS
-ab
+Dr
 HX
 KO
 LO
@@ -943,16 +943,16 @@ bv
 "}
 (11,1,1) = {"
 aa
-ab
-ab
+Dr
+Dr
 aa
 ac
 aa
-ab
-ab
-ab
-ab
-ab
+Dr
+Dr
+Dr
+Dr
+Dr
 aa
 ac
 aa

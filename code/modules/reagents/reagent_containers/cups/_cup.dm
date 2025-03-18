@@ -417,7 +417,7 @@
 			to_chat(user, span_danger("You can't grind this!"))
 			return
 
-	if(I.juice_typepath || I.grind_results)
+	if(I.grind_results || I.juice_typepath || I.is_grindable())
 		I.forceMove(src)
 		grinded = I
 		return
