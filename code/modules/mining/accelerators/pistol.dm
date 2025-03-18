@@ -3,7 +3,7 @@
 	desc = "A mini-version of a standard kinetic accelerator that can handle double the modules, but is known to lock-up due if you have some certain module combinations."
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticpistol"
-	no_charge_state = "kineticpistol_empty"
+	base_icon_state = "kineticpistol"
 	recharge_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/glock)
 	can_bayonet = FALSE

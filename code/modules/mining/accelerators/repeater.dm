@@ -3,7 +3,7 @@
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure and has a built-in repeater module that lets it shooter rapidly in a short period of time."
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticrepeater"
-	no_charge_state = "kineticrepeater_empty"
+	base_icon_state = "kineticrepeater"
 	recharge_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/repeater)
 	max_mod_capacity = 60

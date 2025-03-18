@@ -3,7 +3,7 @@
 	desc = "A self recharging, weak shockwave-based mining tool, that deals increased damage in low pressure."
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticshockwave"
-	no_charge_state = "kineticshockwave_empty"
+	base_icon_state = "kineticshockwave"
 	recharge_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shockwave)
 	can_bayonet = FALSE
