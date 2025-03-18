@@ -500,19 +500,29 @@
 	cost = 0
 	restricted_mod_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	var/chassis_icon = "kineticgun_u"
+	var/chassic_item = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/recharge/kinetic_accelerator/KA, mob/user)
+	if(is_type_in_list(KA, list(/obj/item/gun/energy/recharge/kinetic_accelerator/glock,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/railgun,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/repeater,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/shockwave,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/shotgun)))
+		to_chat(user, span_warning("[src] is not compatible with [KA]."))
+		return FALSE
 	. = ..()
-	if(.)
-		KA.icon_state = chassis_icon
-		KA.name = chassis_name
-		if(iscarbon(KA.loc))
-			var/mob/living/carbon/holder = KA.loc
-			holder.update_inv_hands()
+	KA.icon_state = chassis_icon
+	KA.item_state = chassic_item
+	KA.name = chassis_name
+	if(iscarbon(KA.loc))
+		var/mob/living/carbon/holder = KA.loc
+		holder.update_inv_hands()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
+	. = ..()
 	KA.icon_state = initial(KA.icon_state)
+	KA.item_state = initial(KA.item_state)
 	KA.name = initial(KA.name)
 	if(iscarbon(KA.loc))
 		var/mob/living/carbon/holder = KA.loc
@@ -523,6 +533,7 @@
 	name = "hyper chassis"
 	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
 	chassis_icon = "kineticgun_h"
+	chassic_item = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/tracer
