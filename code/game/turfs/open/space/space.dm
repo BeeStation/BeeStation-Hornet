@@ -59,6 +59,7 @@
  * intentionally ommitted from this implementation.
  */
 /turf/open/space/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new

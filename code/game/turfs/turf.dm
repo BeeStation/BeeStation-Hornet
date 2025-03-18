@@ -22,6 +22,15 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
 	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
 
+	/// The turf that we are linked to below
+	var/tmp/turf/below = null
+	/// The turf that we are linked to above
+	var/tmp/turf/above = null
+	/// The turf that we are linked to below
+	var/tmp/below_known = FALSE
+	/// The turf that we are linked to above
+	var/tmp/above_known = FALSE
+
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
@@ -102,6 +111,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
 		return FALSE
+	switch (var_name)
+		if ("above")
+			set_above(new_value, TRUE)
+			return TRUE
+		if ("below")
+			set_below(new_value, TRUE)
+			return TRUE
 	. = ..()
 
 /turf/vv_get_dropdown()
@@ -115,7 +131,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			return
 		air_update_turf(TRUE, FALSE)
 
+/**
+  * Turf Initialize
+  *
+  * Doesn't call parent, see [/atom/proc/Initialize]
+  */
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -417,23 +439,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/Bless()
 	new /obj/effect/blessing(src)
 
-/turf/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
-	. = ..()
-	if(.)
-		return
-	if(length(src_object.contents()))
-		balloon_alert(usr, "You dump out the contents.")
-		if(!do_after(usr,20,target=src_object.parent))
-			return FALSE
-
-	var/list/things = src_object.contents()
-	var/datum/progressbar/progress = new(user, things.len, src)
-	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
-		stoplag(1)
-	progress.end_progress()
-
-	return TRUE
-
 //////////////////////////////
 //Distance procs
 //////////////////////////////
@@ -548,11 +553,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
  * Arguments:
- * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * pathfinding_atom: The movable, if one exists, being used for mobility checks to see what tiles it can reach
  * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
 */
-/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only)
+/turf/proc/reachableAdjacentTurfs(pathfinding_atom, ID, simulated_only)
 	var/static/space_type_cache = typecacheof(/turf/open/space)
 	. = list()
 
@@ -560,7 +565,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		var/turf/turf_to_check = get_step(src,iter_dir)
 		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
 			continue
-		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, pathfinding_atom, ID))
 			continue
 		. += turf_to_check
 

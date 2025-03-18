@@ -12,7 +12,7 @@
 	if(!loc)
 		return
 
-	if(!has_status_effect(STATUS_EFFECT_STASIS))
+	if(!has_status_effect(/datum/status_effect/grouped/stasis))
 
 		if(stat != DEAD)
 			//Mutations and radiation
