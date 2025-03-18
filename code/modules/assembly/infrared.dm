@@ -194,11 +194,11 @@
 
 /obj/item/assembly/infra/proc/update_visible() // Updates the visibility of the beam (if active).
 	if(visible)
-		for(var/obj/effect/ebeam/beam as anything in active_beam?.elements)
-			beam.invisibility = FALSE
+		for(var/atom/beam as anything in active_beam?.elements)
+			beam.alpha = initial(beam.alpha)
 	else
-		for(var/obj/effect/ebeam/beam as anything in active_beam?.elements)
-			beam.invisibility = TRUE
+		for(var/atom/beam as anything in active_beam?.elements)
+			beam.alpha = 0
 
 /obj/item/assembly/infra/vv_edit_var(var_name, var_value)
 	. = ..()
