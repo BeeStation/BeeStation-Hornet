@@ -574,34 +574,6 @@
 	icon_state = "donkpocketboxbanana"
 	donktype = /obj/item/food/donkpocket/honk
 
-
-/obj/item/storage/box/coffeepack
-	icon_state = "arabica_beans"
-	name = "arabica beans"
-	desc = "A bag containing fresh, dry coffee arabica beans. Ethically sourced and packaged by Waffle Corp."
-	illustration = null
-	icon = 'icons/obj/food/containers.dmi'
-	var/beantype = /obj/item/food/grown/coffee
-
-/obj/item/storage/box/coffeepack/Initialize(mapload)
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/food/grown/coffee))
-
-/obj/item/storage/box/coffeepack/PopulateContents()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
-	for(var/i in 1 to 5)
-		var/obj/item/food/grown/coffee/bean = new beantype(src)
-		ADD_TRAIT(bean, TRAIT_DRIED, ELEMENT_TRAIT(type))
-		bean.add_atom_colour(COLOR_DRIED_TAN, FIXED_COLOUR_PRIORITY) //give them the tan just like from the drying rack
-
-/obj/item/storage/box/coffeepack/robusta
-	icon_state = "robusta_beans"
-	name = "robusta beans"
-	desc = "A bag containing fresh, dry coffee robusta beans. Ethically sourced and packaged by Waffle Corp."
-	beantype = /obj/item/food/grown/coffee/robusta
-
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
@@ -1345,3 +1317,29 @@
 	new /obj/item/encryptionkey/heads/ce/fake(src)
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
+
+/obj/item/storage/box/coffeepack
+	icon_state = "arabica_beans"
+	name = "arabica beans"
+	desc = "A bag containing fresh, dry coffee arabica beans. Ethically sourced and packaged by Waffle Corp."
+	illustration = null
+	icon = 'icons/obj/food/containers.dmi'
+	var/beantype = /obj/item/food/grown/coffee
+
+/obj/item/storage/box/coffeepack/Initialize(mapload)
+	. = ..()
+	atom_storage.set_holdable(list(/obj/item/food/grown/coffee))
+
+/obj/item/storage/box/coffeepack/PopulateContents()
+	atom_storage.max_slots = 5
+	for(var/i in 1 to 5)
+		var/obj/item/food/grown/coffee/bean = new beantype(src)
+		ADD_TRAIT(bean, TRAIT_DRIED, ELEMENT_TRAIT(type))
+		bean.add_atom_colour(COLOR_DRIED_TAN, FIXED_COLOUR_PRIORITY) //give them the tan just like from the drying rack
+
+/obj/item/storage/box/coffeepack/robusta
+	icon_state = "robusta_beans"
+	name = "robusta beans"
+	desc = "A bag containing fresh, dry coffee robusta beans. Ethically sourced and packaged by Waffle Corp."
+	beantype = /obj/item/food/grown/coffee/robusta
+

@@ -490,14 +490,13 @@
 	contents_tag = "coffee cartridge"
 	is_open = TRUE
 	spawn_type = /obj/item/coffee_cartridge
+	spawn_count = 4
 
 /obj/item/storage/fancy/coffee_cart_rack/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 4
-	STR.set_holdable(list(/obj/item/coffee_cartridge))
+	atom_storage.set_holdable(list(/obj/item/coffee_cartridge))
 
-/*
+ /*
  * impressa coffee maker
  * its supposed to be a premium line product, so its cargo-only, the board cant be therefore researched
  */
