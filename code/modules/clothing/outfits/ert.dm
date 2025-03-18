@@ -273,7 +273,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	suit_store = /obj/item/storage/bag/trash/bluespace
 	glasses = /obj/item/clothing/glasses/night
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 
@@ -306,16 +306,17 @@
 	id = /obj/item/card/id/ert/kudzu
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	glasses = /obj/item/clothing/glasses/night
-	back = /obj/item/storage/backpack
+	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_pocket = /obj/item/grenade/chem_grenade/antiweed
 	l_hand = /obj/item/scythe
-	backpack_contents = list(/obj/item/storage/box/survival/engineer=1,
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/choice_beacon/pet/goat,
-		/obj/item/grenade/clusterbuster/antiweed=2)
+		/obj/item/choice_beacon/pet/goat=1,
+		)
 
 /datum/outfit/centcom/ert/kudzu/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -428,7 +429,7 @@
 	W.registered_name = H.real_name
 	W.access |= ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
-	H.dna.add_mutation(CLOWNMUT)
+	H.dna.add_mutation(/datum/mutation/clumsy)
 
 /datum/outfit/centcom/centcom_clown/honk_squad
 	name = "HONK Squad Trooper"
@@ -457,7 +458,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	glasses = /obj/item/clothing/glasses/hud/toggle/thermal
-	back = /obj/item/storage/backpack/security
+	back = /obj/item/storage/backpack/ert/security
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 	r_pocket = /obj/item/shield/energy
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
@@ -466,7 +467,8 @@
 	id = /obj/item/card/id/centcom
 	ears = /obj/item/radio/headset/headset_cent/alt
 
-	backpack_contents = list(/obj/item/storage/box=1,\
+	backpack_contents = list(
+		/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
 		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\

@@ -56,7 +56,7 @@
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
 		for(var/datum/mutation/M as() in mutations)
-			if(!istype(M, RACEMUT))
+			if(!istype(M, /datum/mutation/race))
 				destination.dna.add_mutation(M, M.class)
 	if(transfer_species)
 		destination.set_species(species.type, icon_update=0)
@@ -152,11 +152,11 @@
 	default_mutation_genes.Cut()
 	shuffle_inplace(mutations_temp)
 	if(ismonkey(holder))
-		mutations |= new RACEMUT(MUT_NORMAL)
-		mutation_index[RACEMUT] = GET_SEQUENCE(RACEMUT)
+		mutations |= new /datum/mutation/race(MUT_NORMAL)
+		mutation_index[/datum/mutation/race] = GET_SEQUENCE(/datum/mutation/race)
 	else
-		mutation_index[RACEMUT] = create_sequence(RACEMUT, FALSE)
-	default_mutation_genes[RACEMUT] = mutation_index[RACEMUT]
+		mutation_index[/datum/mutation/race] = create_sequence(/datum/mutation/race, FALSE)
+	default_mutation_genes[/datum/mutation/race] = mutation_index[/datum/mutation/race]
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)
 		var/datum/mutation/M = mutations_temp[i]
 		mutation_index[M.type] = create_sequence(M.type, FALSE, M.difficulty)
@@ -265,7 +265,7 @@
 				if(-INFINITY to 0)
 					message = span_boldwarning("You can feel your DNA exploding, we need to do something fast!")
 		if(stability <= 0)
-			holder.apply_status_effect(STATUS_EFFECT_DNA_MELT)
+			holder.apply_status_effect(/datum/status_effect/dna_melt)
 		if(message)
 			to_chat(holder, message)
 
@@ -556,7 +556,7 @@
 		if((!sequence || dna.mutation_in_sequence(A.type)) && !dna.get_mutation(A.type))
 			possible += A.type
 	if(exclude_monkey)
-		possible.Remove(RACEMUT)
+		possible.Remove(/datum/mutation/race)
 	if(LAZYLEN(possible))
 		var/mutation = pick(possible)
 		. = dna.activate_mutation(mutation)
@@ -646,7 +646,7 @@
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
 			if(6)
-				apply_status_effect(STATUS_EFFECT_GO_AWAY)
+				apply_status_effect(/datum/status_effect/go_away)
 			if(7)
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				ForceContractDisease(new/datum/disease/decloning()) //slow acting, non-viral clone damage based GBS

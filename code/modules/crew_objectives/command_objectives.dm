@@ -30,7 +30,7 @@
 		return TRUE
 	if(!owner?.current)
 		return FALSE
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/goodboy in GLOB.mob_list)
+	for(var/mob/living/basic/pet/dog/corgi/Ian/goodboy in GLOB.mob_list)
 		if(goodboy.stat != DEAD && SSshuttle.emergency.shuttle_areas[get_area(goodboy)])
 			return TRUE
 	return FALSE

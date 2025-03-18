@@ -21,14 +21,26 @@
 /obj/vehicle/sealed/MouseDrop_T(atom/dropping, mob/M)
 	if(!istype(dropping) || !istype(M))
 		return ..()
-	if(M == dropping)
-		mob_try_enter(M)
+	if(M != dropping)
+		return ..()
+	if(occupant_amount() >= max_occupants)
+		LoadComponent(/datum/component/leanable, dropping)
+		return ..()
+	mob_try_enter(M)
 	return ..()
 
 /obj/vehicle/sealed/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(ismob(gone))
 		remove_occupant(gone)
+
+// so that we can check the access of the vehicle's occupants. Ridden vehicles do this in the riding component, but these don't have that
+/obj/vehicle/sealed/Bump(atom/A)
+	. = ..()
+	if(istype(A, /obj/machinery/door))
+		var/obj/machinery/door/conditionalwall = A
+		for(var/m in occupants)
+			conditionalwall.bumpopen(m)
 
 /obj/vehicle/sealed/after_add_occupant(mob/M)
 	. = ..()
@@ -132,4 +144,13 @@
 
 
 /obj/vehicle/sealed/AllowDrop()
+	return FALSE
+
+/obj/vehicle/sealed/relaymove(mob/living/user, direction)
+	if(canmove)
+		vehicle_move(direction)
+	return TRUE
+
+/// Sinced sealed vehicles (cars and mechs) don't have riding components, the actual movement is handled here from [/obj/vehicle/sealed/proc/relaymove]
+/obj/vehicle/sealed/proc/vehicle_move(direction)
 	return FALSE

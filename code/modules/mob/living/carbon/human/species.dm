@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
-	var/inert_mutation 	= DWARFISM //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
+	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
 	var/deathsound //used to set the mobs deathsound on species change
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
 	/// What bleed status effect should we apply?
-	var/bleed_effect = STATUS_EFFECT_BLEED
+	var/bleed_effect = /datum/status_effect/bleeding
 
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
@@ -585,7 +585,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
 		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
-		if(S)
+		if(S?.icon_state)
 
 			//List of all valid dynamic_fhair_suffixes
 			var/static/list/fextensions
@@ -658,7 +658,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				current_gradient_style = worn_wig.gradient_style
 				current_gradient_color = worn_wig.gradient_color
 			S = GLOB.hair_styles_list[current_hair_style]
-			if(S)
+			if(S?.icon_state)
 
 				//List of all valid dynamic_hair_suffixes
 				var/static/list/extensions
@@ -817,7 +817,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.gender == MALE))
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.use_default_gender == MALE))
 					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), FEMALE_UNIFORM_FULL)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1080,7 +1080,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
 
 
-			if(!S || S.icon_state == "none")
+			if(!S || S.icon_state == "none" || !S?.icon_state)
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
@@ -1375,9 +1375,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACKPACK)
-			if(H.back)
-				if(SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_CAN_INSERT, I, H, TRUE))
-					return TRUE
+			if(H.back && H.back.atom_storage?.can_insert(I, H, messages = TRUE))
+				return TRUE
 			return FALSE
 	return FALSE //Unsupported slot
 
@@ -1440,6 +1439,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.overeatduration < 100)
 			to_chat(H, span_notice("You feel fit again!"))
 			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
+			REMOVE_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
@@ -1447,6 +1447,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.overeatduration >= 100)
 			to_chat(H, span_danger("You suddenly feel blubbery!"))
 			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
+			ADD_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()

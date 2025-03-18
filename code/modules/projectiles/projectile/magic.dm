@@ -253,9 +253,9 @@
 							/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
 							/mob/living/simple_animal/hostile/gorilla,
 							/mob/living/simple_animal/parrot,
-							/mob/living/simple_animal/pet/dog/corgi,
+							/mob/living/basic/pet/dog/corgi,
 							/mob/living/simple_animal/crab,
-							/mob/living/simple_animal/pet/dog/pug,
+							/mob/living/basic/pet/dog/pug,
 							/mob/living/simple_animal/pet/cat,
 							/mob/living/simple_animal/mouse,
 							/mob/living/simple_animal/chicken,
@@ -506,7 +506,7 @@
 		if(L.can_block_magic(antimagic_flags) || !firer)
 			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
 			return BULLET_ACT_BLOCK
-		L.apply_status_effect(STATUS_EFFECT_BOUNTY, firer)
+		L.apply_status_effect(/datum/status_effect/bounty, firer)
 
 /obj/projectile/magic/antimagic
 	name = "bolt of antimagic"
@@ -520,7 +520,7 @@
 		if(L.can_block_magic(antimagic_flags))
 			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
 			return BULLET_ACT_BLOCK
-		L.apply_status_effect(STATUS_EFFECT_ANTIMAGIC)
+		L.apply_status_effect(/datum/status_effect/antimagic)
 
 /obj/projectile/magic/fetch
 	name = "bolt of fetching"

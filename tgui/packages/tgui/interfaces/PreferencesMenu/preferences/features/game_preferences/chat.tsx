@@ -27,6 +27,7 @@ export const chat_ghostears: FeatureToggle = {
     When disabled, you will only be able to hear nearby speech.
   `,
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_ghostlaws: FeatureToggle = {
@@ -59,6 +60,7 @@ export const chat_ghostsight: FeatureToggle = {
   subcategory: 'Chat',
   description: 'When enabled, see all emotes as a ghost.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_ghostwhisper: FeatureToggle = {
@@ -70,6 +72,7 @@ export const chat_ghostwhisper: FeatureToggle = {
     When disabled, you will only be able to hear nearby whispers.
   `,
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_ooc: FeatureToggle = {
@@ -95,6 +98,7 @@ export const chat_dead: FeatureToggle = {
   subcategory: 'Chat',
   description: 'Hear all deadchat while adminned.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_prayer: FeatureToggle = {
@@ -102,6 +106,7 @@ export const chat_prayer: FeatureToggle = {
   category: 'ADMIN',
   subcategory: 'Chat',
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_radio: FeatureToggle = {
@@ -110,4 +115,5 @@ export const chat_radio: FeatureToggle = {
   subcategory: 'Chat',
   description: 'Hear all radio messages while adminned.',
   component: CheckboxInput,
+  important: true,
 };
