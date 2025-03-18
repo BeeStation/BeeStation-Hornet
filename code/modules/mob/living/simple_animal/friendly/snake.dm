@@ -1,15 +1,4 @@
-/mob/living/simple_animal/hostile/retaliate/poison
-	var/poison_per_bite = 0
-	var/poison_type = /datum/reagent/toxin
-
-/mob/living/simple_animal/hostile/retaliate/poison/AttackingTarget()
-	. = ..()
-	if(. && isliving(target))
-		var/mob/living/L = target
-		if(L.reagents && !poison_per_bite == 0)
-			L.reagents.add_reagent(poison_type, poison_per_bite)
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake
+/mob/living/simple_animal/hostile/retaliate/snake
 	name = "snake"
 	desc = "A slithery snake. These legless reptiles are the bane of mice and adventurers alike."
 	icon_state = "snake"
@@ -37,18 +26,18 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	chat_color = "#26F55A"
-	poison_per_bite = 3
-	poison_type = /datum/reagent/toxin/venom
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "snake"
 
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize(mapload)
-	AddComponent(/datum/component/udder, /obj/item/udder/venom, reagent_produced_typepath = /datum/reagent/toxin/venom)
+/mob/living/simple_animal/hostile/retaliate/snake/Initialize(mapload, special_reagent)
 	. = ..()
-
+	if(!special_reagent)
+		special_reagent = /datum/reagent/toxin/venom
+	AddElement(/datum/element/venomous, special_reagent, 3)
+	AddComponent(/datum/component/udder, /obj/item/udder/venom, reagent_produced_typepath = special_reagent)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	var/atom/target_from = GET_TARGETS_FROM(src)

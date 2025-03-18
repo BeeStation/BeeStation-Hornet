@@ -4254,7 +4254,7 @@
 /area/mine/eva)
 "Ff" = (
 /obj/structure/chair/wood/wings,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/simple_animal/hostile/giant_spider{
 	desc = "No sane person would ever have one of these as a pet.";
 	maxHealth = 350;
 	name = "enlarged giant spider";

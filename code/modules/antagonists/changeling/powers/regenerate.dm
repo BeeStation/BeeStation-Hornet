@@ -70,12 +70,12 @@
 	BP.dismember()
 	BP.Destroy()
 	//Deploy limbsnake
-	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
+	var/mob/living/snek = new /mob/living/simple_animal/hostile/limbsnake(get_turf(user))
 	//assign faction
 	snek.faction |= "[REF(C)]"
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/limbsnake
+/mob/living/simple_animal/hostile/limbsnake
 	name = "limb snake"
 	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
 	icon_state = "snake"
@@ -101,6 +101,8 @@
 	chat_color = "#26F55A"
 	mobchatspan = "chaplain"
 	faction = list(FACTION_HOSTILE,FACTION_CREATURE)
-	poison_per_bite = 4
-	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000
+
+/mob/living/simple_animal/hostile/limbsnake/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/venomous, /datum/reagent/toxin/staminatoxin, 4)

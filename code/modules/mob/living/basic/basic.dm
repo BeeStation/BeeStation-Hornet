@@ -149,11 +149,17 @@
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
-	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
-	// 	return FALSE //but more importantly return before attack_animal called
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src)
-	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
 	return result
+
+/mob/living/basic/vv_edit_var(vname, vval)
+	. = ..()
+	if(vname == NAMEOF(src, speed))
+		datum_flags |= DF_VAR_EDITED
+		set_varspeed(vval)
 
 /mob/living/basic/proc/set_varspeed(var_value)
 	speed = var_value

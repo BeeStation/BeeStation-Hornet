@@ -50,6 +50,11 @@
 	else
 		clear_alert("temp")
 
+/mob/living/simple_animal/hostile/retaliate/clown/Initialize(mapload)
+	. = ..()
+	if(attack_reagent)
+		AddElement(/datum/element/venomous, attack_reagent, list(1, 5))
+
 /mob/living/simple_animal/hostile/retaliate/clown/attack_hand(mob/living/carbon/human/M)
 	..()
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
@@ -61,13 +66,6 @@
 		var/list/adjacent =  T.get_atmos_adjacent_turfs(1)
 		new banana_type(pick(adjacent))
 		banana_time = world.time + rand(30,60)
-
-/mob/living/simple_animal/hostile/retaliate/clown/AttackingTarget()
-	. = ..()
-	if(attack_reagent && . && isliving(target))
-		var/mob/living/L = target
-		if(L.reagents)
-			L.reagents.add_reagent(attack_reagent, 5)
 
 /mob/living/simple_animal/hostile/retaliate/clown/lube
 	name = "Living Lube"

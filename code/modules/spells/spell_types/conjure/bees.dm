@@ -14,5 +14,5 @@
 	invocation_type = INVOCATION_SHOUT
 
 	summon_radius = 3
-	summon_type = list(/mob/living/simple_animal/hostile/poison/bees)
+	summon_type = list(/mob/living/simple_animal/hostile/bee)
 	summon_amount = 9
