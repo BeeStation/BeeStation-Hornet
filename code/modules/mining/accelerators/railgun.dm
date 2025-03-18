@@ -3,6 +3,7 @@
 	desc = "An extremely powerful, self recharging, ranged mining tool that does increased damage in low pressure, but has a very high cooldown."
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticrailgun"
+	no_charge_state = "kineticrailgun_empty"
 	w_class = WEIGHT_CLASS_HUGE
 	recharge_time = 3 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)

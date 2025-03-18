@@ -3,6 +3,7 @@
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure and has been made to shoot thrice at once."
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticshotgun"
+	no_charge_state = "kineticshotgun_empty"
 	recharge_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shotgun)
 	max_mod_capacity = 60
