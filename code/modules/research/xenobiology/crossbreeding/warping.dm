@@ -410,8 +410,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(!GLOB.blue_storage)
 		GLOB.blue_storage = new
 	GLOB.blue_storage.loc = loc
-	var/datum/component/storage/STR = GLOB.blue_storage.GetComponent(/datum/component/storage)
-	STR.show_to(user)
+	GLOB.blue_storage.atom_storage.refresh_views()
 	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
@@ -568,7 +567,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
-		randomize_human(AM)
+		randomize_human(AM, TRUE)
 		activated_on_step = TRUE
 	. = ..()
 
@@ -651,7 +650,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/storage/toolbox/mechanical/old,
 		/obj/item/storage/toolbox/emergency/old,
 		/obj/effect/spawner/lootdrop/three_course_meal,
-		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
+		/mob/living/basic/pet/dog/corgi/puppy/void,
 		/obj/structure/closet/crate/necropolis/tendril,
 		/obj/item/card/emagfake,
 		/obj/item/flashlight/flashdark,

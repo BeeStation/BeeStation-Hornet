@@ -554,7 +554,7 @@
 			else if(!L.down && direction == DOWN)
 				continue
 			ladder = TRUE
-		if(!stepturf?.zPassIn(src, direction, startturf) && !startturf.zPassOut(src, direction, stepturf) && !ladder) //We can't zmove, choose another direction
+		if((!stepturf?.zPassIn(src, direction, startturf) || !startturf.zPassOut(src, direction, stepturf)) && !ladder) //We can't zmove, choose another direction
 			direction = pick(GLOB.cardinals)
 			stepturf = get_step(src,direction)
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it

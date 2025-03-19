@@ -19,6 +19,8 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
   description?: string;
   predictable?: boolean;
   small_supplemental?: boolean;
+  /** Indicates that a preference is important and likely to be frequently changed by the user. */
+  important?: boolean;
 };
 
 /**
@@ -245,6 +247,7 @@ export const FeatureIconnedDropdownInput = (
                 className={classes([`${serverData.icon_sheet}32x32`, icon])}
                 style={{
                   transform: 'scale(0.8)',
+                  verticalAlign: 'bottom',
                 }}
               />
             </Stack.Item>

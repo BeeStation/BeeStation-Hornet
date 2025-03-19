@@ -8,6 +8,7 @@ export const asaycolor: Feature<string> = {
   subcategory: 'Chat',
   description: 'The color of your messages in Adminsay.',
   component: FeatureColorInput,
+  important: true,
 };
 
 export const brief_outfit: Feature<string> = {
@@ -15,6 +16,7 @@ export const brief_outfit: Feature<string> = {
   category: 'ADMIN',
   subcategory: 'Misc',
   description: 'The outfit to gain when spawning as the briefing officer.',
+  important: true,
   component: (
     props: FeatureValueProps<string, string, FeatureChoicedServerData & { outfit_names: Record<string, string> }> & {
       disabled?: boolean;
@@ -158,4 +160,5 @@ export const combohud_lighting: FeatureToggle = {
   subcategory: 'Misc',
   description: 'Whether you see combo HUD lighting as fullbright or not.',
   component: CheckboxInput,
+  important: true,
 };

@@ -158,10 +158,11 @@
 	new /obj/item/storage/box/deputy(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
-	new /obj/item/flashlight/seclite(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 
 	new /obj/item/paper_reader(src)
+
+	new /obj/item/clothing/gloves/tackler/combat(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hos(src)

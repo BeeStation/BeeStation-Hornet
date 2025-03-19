@@ -199,7 +199,7 @@
 	stage3	= list(span_danger("Must... eat... chocolate...."), span_danger("YAP"))
 	stage4	= list(span_danger("Visions of washing machines assail your mind!"))
 	stage5	= list(span_danger("AUUUUUU!!!"))
-	new_form = /mob/living/simple_animal/pet/dog/corgi
+	new_form = /mob/living/basic/pet/dog/corgi
 
 /datum/disease/transformation/corgi/stage_act()
 	..()
@@ -243,7 +243,7 @@
 	stage3	= list(span_danger("A cruel sense of calm overcomes you."), span_danger("You can't feel your arms!"), span_danger("You let go of the urge to hurt clowns."))
 	stage4	= list(span_danger("You can't feel your arms. It does not bother you anymore."), span_danger("You forgive the clown for hurting you."))
 	stage5	= list(span_danger("You have become a Gondola."))
-	new_form = /mob/living/simple_animal/pet/gondola
+	new_form = /mob/living/basic/pet/gondola
 
 /datum/disease/transformation/gondola/stage_act()
 	..()
