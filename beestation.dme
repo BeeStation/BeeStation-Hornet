@@ -3079,7 +3079,6 @@
 #include "code\modules\mining\money_bag.dm"
 #include "code\modules\mining\satchel_ore_box.dm"
 #include "code\modules\mining\shelters.dm"
-#include "code\modules\mining\accelerators\pistol.dm"
 #include "code\modules\mining\accelerators\railgun.dm"
 #include "code\modules\mining\accelerators\repeater.dm"
 #include "code\modules\mining\accelerators\shockwave.dm"

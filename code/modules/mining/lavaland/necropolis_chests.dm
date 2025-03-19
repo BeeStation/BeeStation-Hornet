@@ -47,8 +47,6 @@
 		/obj/item/book_of_babel 											= 35,
 		/obj/item/clothing/neck/necklace/memento_mori						= 35,
 		/obj/item/reagent_containers/cup/glass/waterbottle/relic			= 45,
-		/obj/item/dice/d20/fate/one_use										= 5,
-		/obj/item/book/granter/action/spell/random							= 10,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 25,
 		/obj/item/shared_storage/red										= 45,
 		/obj/item/staff/storm												= 35,
