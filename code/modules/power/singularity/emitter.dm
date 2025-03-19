@@ -27,7 +27,7 @@
 	var/maximum_fire_delay = 10 SECONDS
 	///Min delay before firing
 	var/minimum_fire_delay = 2 SECONDS
-	///Damage of defalut laser
+	///Damage of default laser
 	var/laser_damage = 30
 	///When was the last shot
 	var/last_shot = 0
