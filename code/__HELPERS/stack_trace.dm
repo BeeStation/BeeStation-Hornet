@@ -1,10 +1,10 @@
 // using datum is best, but "SHOULD_BE_PURE" lint doesn't like that way. list works well.
 GLOBAL_LIST_INIT(runtime_helper, list(
 	"runtime_message" = STACK_TRACE_NULL_HINT,
-	"file",
-	"line",
-	"procname",
-	"error_type"
+	"file" = null,
+	"line" = null,
+	"procname" = null,
+	"error_type = null"
 ))
 
 #define BUILD_STACK_TRACE_HELPER(msg, _file, _line, _proc, _type) \
