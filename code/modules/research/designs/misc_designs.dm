@@ -413,6 +413,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/holosignatmos_advanced
+	name = "Advanced ATMOS Holofan Projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmospheric conditions."
+	id = "holosignatmos_Advanced"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000, /datum/material/gold = 2000, /datum/material/silver = 2000)
+	build_path = /obj/item/holosign_creator/atmos
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
 /datum/design/holobarrier_med
 	name = "PENLITE Holobarrier Projector"
 	desc = "PENLITE holobarriers, a device that halts individuals with malicious diseases."
