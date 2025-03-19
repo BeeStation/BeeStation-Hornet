@@ -504,8 +504,7 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/recharge/kinetic_accelerator/KA, mob/user)
-	if(is_type_in_list(KA, list(/obj/item/gun/energy/recharge/kinetic_accelerator/glock,
-								/obj/item/gun/energy/recharge/kinetic_accelerator/railgun,
+	if(is_type_in_list(KA, list(/obj/item/gun/energy/recharge/kinetic_accelerator/railgun,
 								/obj/item/gun/energy/recharge/kinetic_accelerator/repeater,
 								/obj/item/gun/energy/recharge/kinetic_accelerator/shockwave,
 								/obj/item/gun/energy/recharge/kinetic_accelerator/shotgun)))

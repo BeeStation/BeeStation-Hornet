@@ -174,7 +174,6 @@
 		new /datum/data/vendor_equipment("Proto-Kinetic Shotgun",		/obj/item/gun/energy/recharge/kinetic_accelerator/shotgun,			850),
 		new /datum/data/vendor_equipment("Proto-Kinetic Railgun",		/obj/item/gun/energy/recharge/kinetic_accelerator/railgun,			1250),
 		new /datum/data/vendor_equipment("Proto-Kinetic Shockwave",		/obj/item/gun/energy/recharge/kinetic_accelerator/shockwave,		950),
-		new /datum/data/vendor_equipment("Proto-Kinetic Pistol",		/obj/item/gun/energy/recharge/kinetic_accelerator/glock,			250),
 		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
