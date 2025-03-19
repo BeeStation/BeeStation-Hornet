@@ -19,13 +19,13 @@
 	do_colorize(target_atom, user)
 	. = ..()
 
-/obj/item/colorizer/proc/can_use(mob/user)
-	if(!user || !ismob(user) || user.incapacitated())
+/obj/item/colorizer/proc/can_use(atom/target, mob/user)
+	if(!user || !ismob(user) || user.incapacitated() || !user.Adjacent(target))
 		return FALSE
 	return TRUE
 
-/obj/item/colorizer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag && can_use(user))
+/obj/item/colorizer/pre_attack(atom/target, mob/living/user, params)
+	if(can_use(target, user))
 		do_colorize(target, user)
 	. = ..()
 

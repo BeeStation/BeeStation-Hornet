@@ -2,64 +2,6 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-// Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
-#define HULK		/datum/mutation/hulk
-#define XRAY		/datum/mutation/thermal/x_ray
-#define SPACEMUT	/datum/mutation/space_adaptation
-#define TK			/datum/mutation/telekinesis
-#define NERVOUS		/datum/mutation/nervousness
-#define EPILEPSY	/datum/mutation/epilepsy
-#define MUTATE		/datum/mutation/bad_dna
-#define COUGH		/datum/mutation/cough
-#define DWARFISM	/datum/mutation/dwarfism
-#define GIGANTISM	/datum/mutation/gigantism
-#define CLOWNMUT	/datum/mutation/clumsy
-#define TOURETTES	/datum/mutation/tourettes
-#define DEAFMUT		/datum/mutation/deaf
-#define BLINDMUT	/datum/mutation/blind
-#define RACEMUT		/datum/mutation/race
-#define BADSIGHT	/datum/mutation/nearsight
-#define LASEREYES	/datum/mutation/laser_eyes
-#define CHAMELEON	/datum/mutation/chameleon
-#define WACKY		/datum/mutation/wacky
-#define MUT_MUTE	/datum/mutation/mute
-#define SMILE		/datum/mutation/smile
-#define STONER		/datum/mutation/stoner
-#define UNINTELLIGIBLE		/datum/mutation/unintelligible
-#define SWEDISH		/datum/mutation/swedish
-#define CHAV		/datum/mutation/chav
-#define ELVIS		/datum/mutation/elvis
-#define RADIOACTIVE	/datum/mutation/radioactive
-#define GLOWY		/datum/mutation/glow
-#define ANTIGLOWY	/datum/mutation/glow/anti
-#define TELEPATHY	/datum/mutation/telepathy
-#define FIREBREATH	/datum/mutation/firebreath
-#define VOID		/datum/mutation/void
-#define STRONG    	/datum/mutation/strong
-#define FIRESWEAT	/datum/mutation/fire
-#define THERMAL		/datum/mutation/thermal
-#define ANTENNA		/datum/mutation/antenna
-#define PARANOIA	/datum/mutation/paranoia
-#define INSULATED	/datum/mutation/insulated
-#define SHOCKTOUCH	/datum/mutation/shock
-#define OLFACTION	/datum/mutation/olfaction
-#define ACIDFLESH	/datum/mutation/acidflesh
-#define BADBLINK	/datum/mutation/badblink
-#define SPASTIC		/datum/mutation/spastic
-#define EXTRASTUN	/datum/mutation/extrastun
-#define GELADIKINESIS		/datum/mutation/geladikinesis
-#define CRYOKINESIS /datum/mutation/cryokinesis
-#define CLUWNEMUT   /datum/mutation/cluwne
-#define CURSEDCLUWNEMUT	/datum/mutation/cluwne/cursed
-#define WAXSALIVA   /datum/mutation/wax_saliva
-#define STRONGWINGS /datum/mutation/strongwings
-#define CATCLAWS    /datum/mutation/catclaws
-#define OVERLOAD    /datum/mutation/overload
-#define ACIDOOZE    /datum/mutation/acidooze
-#define MEDIEVAL    /datum/mutation/medieval
-#define SPORES      /datum/mutation/spores
-#define DRONE       /datum/mutation/drone
-
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
 

@@ -75,38 +75,29 @@
 	. = ..()
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
-	var/datum/action/spell/night_vision/revenant/vision = new(src)
-	vision.Grant(src)
+	var/datum/action/spell/night_vision/revenant/night_vision = new(src)
+	night_vision.Grant(src)
+	var/datum/action/revenant_phase_shift/revenant_phase_shift = new(src)
+	revenant_phase_shift.Grant(src)
 	var/datum/action/spell/telepathy/revenant/telepathy = new(src)
 	telepathy.Grant(src)
+	var/datum/action/spell/teleport/area_teleport/revenant/revenant_teleport = new(src)
+	revenant_teleport.Grant(src)
 	// Starting spells that start locked
-	var/datum/action/spell/aoe/revenant/overload/lights_go_zap = new(src)
-	lights_go_zap.Grant(src)
-	var/datum/action/spell/aoe/revenant/defile/windows_go_smash = new(src)
-	windows_go_smash.Grant(src)
-	var/datum/action/spell/aoe/revenant/blight/botany_go_mad = new(src)
-	botany_go_mad.Grant(src)
-	var/datum/action/spell/aoe/revenant/malfunction/shuttle_go_emag = new(src)
-	shuttle_go_emag.Grant(src)
-	check_rev_teleport() // they're spawned in non-station for some reason...
+	var/datum/action/spell/aoe/revenant/overload/overload = new(src)
+	overload.Grant(src)
+	var/datum/action/spell/aoe/revenant/defile/defile = new(src)
+	defile.Grant(src)
+	var/datum/action/spell/aoe/revenant/blight/blight = new(src)
+	blight.Grant(src)
+	var/datum/action/spell/aoe/revenant/malfunction/malfunction = new(src)
+	malfunction.Grant(src)
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	grant_all_languages(UNDERSTOOD_LANGUAGE, grant_omnitongue = FALSE, source = LANGUAGE_REVENANT) // rev can understand every langauge
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
-
-/mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
-	. = ..()
-	check_rev_teleport()
-
-/mob/living/simple_animal/revenant/proc/check_rev_teleport()
-	var/datum/action/spell/teleport/area_teleport/wizard/revtele = locate() in actions
-	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
-		revtele = new /datum/action/spell/teleport/area_teleport/wizard
-		revtele.Grant()
-	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
-		revtele.Remove()
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
