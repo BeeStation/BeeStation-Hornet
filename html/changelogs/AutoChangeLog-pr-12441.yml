@@ -1,0 +1,4 @@
+author: Therealdoooc213
+delete-after: true
+changes:
+  - bugfix: replica pods are no longer mentioned in the botanists job description
