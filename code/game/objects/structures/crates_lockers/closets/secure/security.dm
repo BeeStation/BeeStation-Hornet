@@ -168,10 +168,7 @@
 	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
-	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/gun/ballistic/automatic/pistol/service/hos(src)
-	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"
