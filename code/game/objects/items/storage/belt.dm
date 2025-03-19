@@ -117,17 +117,43 @@
 /obj/item/storage/belt/utility/chief/full
 	preload = TRUE
 
-/obj/item/storage/belt/utility/chief/full/PopulateContents()
+/obj/item/storage/belt/utility/chief/full/PopulateContents() // Yes it's the same tools as the normal toolbet, but I feel they are entitled on how good the belt looks :)
+	SSwardrobe.provide_type(/obj/item/screwdriver, src)
+	SSwardrobe.provide_type(/obj/item/wrench, src)
+	SSwardrobe.provide_type(/obj/item/weldingtool, src)
+	SSwardrobe.provide_type(/obj/item/crowbar, src)
+	SSwardrobe.provide_type(/obj/item/wirecutters, src)
+	SSwardrobe.provide_type(/obj/item/multitool, src)
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL,pick("red","yellow","orange"))
+
+/obj/item/storage/belt/utility/chief/full/get_types_to_preload()
+	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
+	to_preload += /obj/item/screwdriver
+	to_preload += /obj/item/wrench
+	to_preload += /obj/item/weldingtool
+	to_preload += /obj/item/crowbar
+	to_preload += /obj/item/wirecutters
+	to_preload += /obj/item/multitool
+	to_preload += /obj/item/stack/cable_coil
+	return to_preload
+
+/obj/item/storage/belt/utility/chief/debug
+	name = "Debug toolbelt"
+
+/obj/item/storage/belt/utility/chief/debug/full
+	preload = TRUE
+
+/obj/item/storage/belt/utility/chief/debug/full/PopulateContents()
 	SSwardrobe.provide_type(/obj/item/powertool/hand_drill, src)
 	SSwardrobe.provide_type(/obj/item/powertool/jaws_of_life, src)
-	SSwardrobe.provide_type(/obj/item/weldingtool/experimental, src)//This can be changed if this is too much
+	SSwardrobe.provide_type(/obj/item/weldingtool/experimental, src)//This can be changed if this is too much // It has been, in fact, changed. This is now only for the Debug Outfit.
 	SSwardrobe.provide_type(/obj/item/multitool, src)
 	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL,pick("red","yellow","orange"))
 	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
 	SSwardrobe.provide_type(/obj/item/analyzer/ranged, src)
 	//much roomier now that we've managed to remove two tools
 
-/obj/item/storage/belt/utility/chief/full/get_types_to_preload()
+/obj/item/storage/belt/utility/chief/debug/full/get_types_to_preload()
 	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
 	to_preload += /obj/item/powertool/hand_drill
 	to_preload += /obj/item/powertool/jaws_of_life

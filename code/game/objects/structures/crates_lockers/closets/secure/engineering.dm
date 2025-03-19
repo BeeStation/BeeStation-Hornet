@@ -32,6 +32,7 @@
 	new /obj/item/paper_reader(src)
 
 	// prioritized items
+	new /obj/item/construction/rcd/arcd(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
 	new /obj/item/door_remote/chief_engineer(src)
@@ -50,10 +51,12 @@
 	new /obj/item/inducer(src)
 	new /obj/item/airlock_painter(src)
 	new /obj/item/extinguisher/advanced(src)
-	new /obj/item/construction/rcd/loaded(src)
+	new /obj/item/construction/arcd/loaded(src)
 	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/holosign_creator/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
+	new /obj/item/extinguisher/mini(src)
+	new /obj/item/analyzer/ranged(src)
 
 /obj/item/storage/box/suitbox/ce
 	name = "compression box of chief engineer outfits"

@@ -84,6 +84,13 @@
 	excludefromjob = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	requiredjob = list(JOB_NAME_CHIEFMEDICALOFFICER)
 
+/datum/objective_item/steal/arcd
+	name = "the advanced rapid-construction-device."
+	targetitem = /obj/item/construction/rcd/arcd
+	difficulty = 5
+	excludefromjob = list(JOB_NAME_CHIEFENGINEER)
+	requiredjob = list(JOB_NAME_CHIEFENGINEER)
+
 /datum/objective_item/steal/nukedisc
 	name = "the nuclear authentication disk."
 	targetitem = /obj/item/disk/nuclear
