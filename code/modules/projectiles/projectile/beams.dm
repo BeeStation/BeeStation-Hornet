@@ -170,15 +170,11 @@
 
 /obj/projectile/beam/emitter/drill/on_hit(atom/target, blocked)
 	damage = initial(damage)
-	if(isobj(target) && !istype(target, /obj/structure/blob))
-		damage = structural_damage
-	if(isturf(target))
-		damage = structural_damage
 	if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
 		T.gets_drilled()
-	if(istype(target, /obj/structure/blob))
-		damage = damage * 0.25
+	else if(isobj(target) && !istype(target, /obj/structure/blob) || isturf(target))
+		damage = structural_damage
 	. = ..()
 
 /obj/projectile/beam/emitter/drill/hitscan
