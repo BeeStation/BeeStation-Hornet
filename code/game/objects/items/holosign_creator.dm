@@ -117,8 +117,17 @@
 	icon_state = "signmaker_atmos"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	sign_name = "holofan"
-	creation_time = 0
+	creation_time = 20
 	max_signs = 3
+
+/obj/item/holosign_creator/atmos/advanced
+	name = "\improper Advanced ATMOS holofan projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
+	icon_state = "signmaker_atmos_advanced"
+	holosign_type = /obj/structure/holosign/barrier/atmos
+	sign_name = "holofan"
+	creation_time = 10
+	max_signs = 6
 
 /obj/item/holosign_creator/medical
 	name = "\improper PENLITE barrier projector"
