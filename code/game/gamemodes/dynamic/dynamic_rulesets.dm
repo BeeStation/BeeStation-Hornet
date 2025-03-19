@@ -59,7 +59,7 @@
 		var/client/client = GET_CLIENT(candidate)
 
 		// Connected?
-		if(!client || !candidate.mind)
+		if(!client || (!candidate.mind && !isobserver(candidate)))
 			candidates -= candidate
 			continue
 

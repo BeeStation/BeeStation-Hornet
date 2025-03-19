@@ -9,6 +9,22 @@
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = dynamic.current_players[CURRENT_DEAD_PLAYERS] | dynamic.current_players[CURRENT_OBSERVERS]
 
+/datum/dynamic_ruleset/midround/ghost/trim_candidates()
+	. = ..()
+	for(var/mob/candidate in candidates)
+		// Must be observing
+		if(!isobserver(candidate))
+			if(candidate.stat == DEAD)
+				// Probably just entered their body after signing up for the midround, lets turn them into a ghost
+				candidate = candidate.ghostize(FALSE, SENTIENCE_ERASE)
+			else
+				// Got revived- smell ya later
+				candidates -= candidate
+				continue
+
+	if(!length(candidates))
+		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
+
 /datum/dynamic_ruleset/midround/ghost/allowed()
 	. = ..()
 	if(!.)
@@ -46,22 +62,6 @@
 		notify_ghosts("[chosen_mind.current.name] has been picked for the ruleset [name]!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
 
 	return DYNAMIC_EXECUTE_SUCCESS
-
-/datum/dynamic_ruleset/midround/ghost/trim_candidates()
-	. = ..()
-	for(var/mob/candidate in candidates)
-		// Must be observing
-		if(!isobserver(candidate))
-			if(candidate.stat == DEAD)
-				// Probably just entered their body after signing up for the midround, lets turn them into a ghost
-				candidate = candidate.ghostize(FALSE, SENTIENCE_ERASE)
-			else
-				// Got revived- smell ya later
-				candidates -= candidate
-				continue
-
-	if(!length(candidates))
-		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
 
 /*
 * Get a list of all possible spawn points

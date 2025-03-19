@@ -355,6 +355,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 /datum/game_mode/dynamic/proc/update_midround_points()
 	var/previous_midround_points = midround_points
+
 	midround_points += 10
 
 	log_game("DYNAMIC: Updated midround points. [previous_midround_points] --> [midround_points]")
@@ -396,9 +397,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 
 	log_game("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
-#ifdef TESTING
-	message_admins("DYNAMIC: Updated midround chances: Light: [midround_light_chance]%, Medium: [midround_medium_chance]%, Heavy: [midround_heavy_chance]%")
-#endif
 
 /*
 * Choose the midround ruleset to save towards

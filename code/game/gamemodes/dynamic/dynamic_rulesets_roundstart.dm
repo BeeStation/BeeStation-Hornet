@@ -79,7 +79,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//         MALFUNCTIONING AI                //
+//            MALFUNCTIONING AI             //
 //                                          //
 //////////////////////////////////////////////
 
@@ -109,7 +109,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//                WIZARD                    //
+//                  WIZARD                  //
 //                                          //
 //////////////////////////////////////////////
 
@@ -137,7 +137,7 @@
 
 //////////////////////////////////////////
 //                                      //
-//           BLOOD BROTHERS             //
+//            BLOOD BROTHERS            //
 //                                      //
 //////////////////////////////////////////
 
@@ -206,7 +206,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               CLOCKCULT                  //
+//                CLOCK CULT                //
 //                                          //
 //////////////////////////////////////////////
 
@@ -256,12 +256,12 @@
 
 //////////////////////////////////////////////
 //                                          //
-//          NUCLEAR OPERATIVES              //
+//            NUCLEAR OPERATIVES            //
 //                                          //
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/roundstart/nuclear
-	name = "Nuclear Emergency"
+	name = "Nuclear Operatives"
 	role_preference = /datum/role_preference/antagonist/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
@@ -273,10 +273,10 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
-	var/leader = TRUE
+	var/has_made_leader = FALSE
 	for(var/datum/mind/chosen_mind in chosen_minds)
-		if(leader)
-			leader = FALSE
+		if(!has_made_leader)
+			has_made_leader = TRUE
 			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
 			leader_datum = leader_datum.nuke_team
 		else
@@ -287,7 +287,7 @@
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
-	var result = nuke_team.get_result()
+	var/result = nuke_team.get_result()
 	switch(result)
 		if(NUKE_RESULT_FLUKE)
 			SSticker.mode_result = "loss - syndicate nuked - disk secured"
@@ -342,7 +342,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               REVOLUTION                 //
+//                REVOLUTION                //
 //                                          //
 //////////////////////////////////////////////
 
@@ -402,23 +402,22 @@
 	minimum_points_required = 22
 	flags = HIGH_IMPACT_RULESET
 
-	var/datum/team/incursion/incursion_team
+	var/datum/team/incursion/team
 
 /datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
-	incursion_team = new
-	incursion_team.forge_team_objectives(restricted_roles)
+	team = new
+	team.forge_team_objectives(restricted_roles)
 	for(var/datum/mind/chosen_mind in chosen_minds)
 		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
 
-		new_incursionist.team = incursion_team
-		incursion_team.add_member(chosen_mind)
+		new_incursionist.team = team
+		team.add_member(chosen_mind)
 		chosen_mind.add_antag_datum(new_incursionist)
 		GLOB.pre_setup_antags -= chosen_mind
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/incursion/round_result()
-	..()
-	if(incursion_team.check_incursion_victory())
+	if(team.check_incursion_victory())
 		SSticker.mode_result = "win - incursion win"
 	else
 		SSticker.mode_result = "loss - staff stopped the incursion"
