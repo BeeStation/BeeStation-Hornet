@@ -34595,7 +34595,7 @@
 /area/medical/virology)
 "lyQ" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "The crows nest";
+	name = "The_crows_nest";
 	req_access_txt = "19"
 	},
 /obj/machinery/door/firedoor,
@@ -65321,7 +65321,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "The crows nest";
+	name = "The_crows_nest";
 	req_access_txt = "19"
 	},
 /turf/open/floor/iron,
