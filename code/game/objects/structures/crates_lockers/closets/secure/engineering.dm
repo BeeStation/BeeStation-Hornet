@@ -51,12 +51,11 @@
 	new /obj/item/inducer(src)
 	new /obj/item/airlock_painter(src)
 	new /obj/item/extinguisher/advanced(src)
-	new /obj/item/construction/arcd/loaded(src)
-	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/holosign_creator/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
+	new /obj/item/construction/rcd/arcd/loaded(src)
+	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/extinguisher/mini(src)
-	new /obj/item/analyzer/ranged(src)
 
 /obj/item/storage/box/suitbox/ce
 	name = "compression box of chief engineer outfits"

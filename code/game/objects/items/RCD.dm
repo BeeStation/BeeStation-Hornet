@@ -790,9 +790,8 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/rcd/loaded
 	matter = 160
 
-/obj/item/construction/arcd/loaded
+/obj/item/construction/rcd/arcd/loaded
 	matter = 180
-
 
 /obj/item/construction/rcd/combat
 	name = "industrial RCD"
