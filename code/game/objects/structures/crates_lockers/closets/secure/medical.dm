@@ -112,7 +112,7 @@
 	new /obj/item/extrapolator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/neck/cloak/cmo(src)
-	new /obj/item/defibrillator/compact/loaded(src)
+	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/wallframe/defib_mount(src)
