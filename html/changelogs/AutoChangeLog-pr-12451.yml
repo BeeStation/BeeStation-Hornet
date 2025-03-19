@@ -1,0 +1,5 @@
+author: wikimody
+delete-after: true
+changes:
+  - bugfix: Took away shield generators ability to stay alive through pure spite despite
+      having negative health (and doubled their health to compensate)
