@@ -589,7 +589,7 @@
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
 			var/mob/living/carbon/C = L
-			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(TK)))
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated
@@ -906,57 +906,69 @@
 					return
 	..()
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
-	if(!istype(W))
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
+	if(!istype(replacer_tool))
 		return FALSE
-	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
+
+	if((flags_1 & NODECONSTRUCT_1) && !replacer_tool.works_from_distance)
 		return FALSE
-	var/shouldplaysound = 0
-	if(component_parts)
-		if(panel_open || W.works_from_distance)
-			var/obj/item/circuitboard/machine/CB = locate(/obj/item/circuitboard/machine) in component_parts
-			var/P
-			if(W.works_from_distance)
-				to_chat(user, display_parts(user))
-			for(var/obj/item/A in component_parts)
-				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
-						P = D
-						break
-				for(var/obj/item/B in W.contents)
-					if(istype(B, P) && istype(A, P))
-						// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
-						if(istype(B, /obj/item/stock_parts/cell) && W.works_from_distance)
-							var/obj/item/stock_parts/cell/checked_cell = B
-							// If it's rigged or corrupted, max the charge. Then explode it.
-							if(checked_cell.rigged || checked_cell.corrupted)
-								checked_cell.charge = checked_cell.maxcharge
-								checked_cell.explode()
-						if(B.get_part_rating() > A.get_part_rating())
-							if(istype(B,/obj/item/stack)) //conveniently this will mean A is also a stack and I will kill the first person to prove me wrong
-								var/obj/item/stack/SA = A
-								var/obj/item/stack/SB = B
-								var/used_amt = SA.get_amount()
-								if(!SB.use(used_amt))
-									continue //if we don't have the exact amount to replace we don't
-								var/obj/item/stack/SN = new SB.merge_type(null,used_amt)
-								component_parts += SN
-							else
-								if(SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE, B, src))
-									component_parts += B
-									B.forceMove(src)
-							SEND_SIGNAL(W, COMSIG_TRY_STORAGE_INSERT, A, null, null, TRUE)
-							component_parts -= A
-							to_chat(user, span_notice("[capitalize(A.name)] replaced with [B.name]."))
-							shouldplaysound = 1 //Only play the sound when parts are actually replaced!
-							break
-			RefreshParts()
-		else
-			to_chat(user, display_parts(user))
+
+	var/shouldplaysound = FALSE
+	if(!component_parts)
+		return FALSE
+
+	if(!panel_open && !replacer_tool.works_from_distance)
+		to_chat(user, display_parts(user))
 		if(shouldplaysound)
-			W.play_rped_sound()
-		return TRUE
-	return FALSE
+			replacer_tool.play_rped_sound()
+		return FALSE
+
+	var/obj/item/circuitboard/machine/machine_board = locate(/obj/item/circuitboard/machine) in component_parts
+	var/required_type
+	if(replacer_tool.works_from_distance)
+		to_chat(user, display_parts(user))
+	if(!machine_board)
+		return FALSE
+
+	for(var/obj/item/primary_part as anything in component_parts)
+		for(var/design_type in machine_board.req_components)
+			if(ispath(primary_part.type, design_type))
+				required_type = design_type
+				break
+		for(var/obj/item/secondary_part in replacer_tool.contents)
+			if(!istype(secondary_part, required_type) || !istype(primary_part, required_type))
+				continue
+			// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+			if(istype(secondary_part, /obj/item/stock_parts/cell) && replacer_tool.works_from_distance)
+				var/obj/item/stock_parts/cell/checked_cell = secondary_part
+				// If it's rigged or corrupted, max the charge. Then explode it.
+				if(checked_cell.rigged || checked_cell.corrupted)
+					checked_cell.charge = checked_cell.maxcharge
+					checked_cell.explode()
+			if(secondary_part.get_part_rating() > primary_part.get_part_rating())
+				if(istype(secondary_part,/obj/item/stack)) //conveniently this will mean primary_part is also a stack and I will kill the first person to prove me wrong
+					var/obj/item/stack/primary_stack = primary_part
+					var/obj/item/stack/secondary_stack = secondary_part
+					var/used_amt = primary_stack.get_amount()
+					if(!secondary_stack.use(used_amt))
+						continue //if we don't have the exact amount to replace we don't
+					var/obj/item/stack/secondary_inserted = new secondary_stack.merge_type(null,used_amt)
+					component_parts += secondary_inserted
+				else
+					if(replacer_tool.atom_storage.attempt_remove(secondary_part, src))
+						component_parts += secondary_part
+						secondary_part.forceMove(src)
+				replacer_tool.atom_storage.attempt_insert(primary_part, user, TRUE)
+				component_parts -= primary_part
+				to_chat(user, "<span class='notice'>[capitalize(primary_part.name)] replaced with [secondary_part.name].</span>")
+				shouldplaysound = TRUE //Only play the sound when parts are actually replaced!
+				break
+
+	RefreshParts()
+
+	if(shouldplaysound)
+		replacer_tool.play_rped_sound()
+	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list()

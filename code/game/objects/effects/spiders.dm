@@ -106,7 +106,7 @@
 	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
 		if(enriched_spawns && prob(enriched_spawn_prob))
 			using_enriched_spawn = TRUE
-		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href='byond://?src=[REF(src)];activate=1'>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()

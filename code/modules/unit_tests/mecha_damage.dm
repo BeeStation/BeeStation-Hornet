@@ -62,16 +62,22 @@
 	var/pre_laser_arm_integrity = left_arm_equipment.get_integrity()
 	dummy_laser.fire_gun(demo_mech, dummy, FALSE)
 
+	// Adjust expected damage for left arm equipment
+	var/left_arm_armor = left_arm_equipment.get_armor_rating(LASER)
+	var/expected_laser_damage_left_arm = round(expected_laser_damage * (1 - left_arm_armor / 100), DAMAGE_PRECISION)
+
 	check_integrity(demo_mech, pre_laser_integrity, expected_laser_damage, "shot with a laser")
-	check_integrity(left_arm_equipment, pre_laser_arm_integrity, expected_laser_damage * 2, "shot with a laser")
+	check_integrity(left_arm_equipment, pre_laser_arm_integrity, expected_laser_damage_left_arm, "shot with a laser")
 
 	// SHOOT IT
 	var/pre_bullet_integrity = demo_mech.get_integrity()
 	var/pre_bullet_arm_integrity = left_arm_equipment.get_integrity()
 	dummy_gun.fire_gun(demo_mech, dummy, FALSE)
 
+	// Similarly, adjust for bullet damage
+	var/expected_bullet_damage_left_arm = round(expected_bullet_damage * (1 - left_arm_armor / 100), DAMAGE_PRECISION)
 	check_integrity(demo_mech, pre_bullet_integrity, expected_bullet_damage, "shot with a bullet")
-	check_integrity(left_arm_equipment, pre_bullet_arm_integrity, expected_bullet_damage, "shot with a bullet")
+	check_integrity(left_arm_equipment, pre_bullet_arm_integrity, expected_bullet_damage_left_arm, "shot with a bullet")
 
 	// Additional check: The right arm of the mech should have taken no damage by this point.
 	var/obj/item/mecha_parts/mecha_equipment/right_arm_equipment = demo_mech.equip_by_category[MECHA_R_ARM]

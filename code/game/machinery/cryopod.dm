@@ -57,13 +57,13 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
 	dat += "<i>Welcome, [user.real_name].</i><br/><br/><hr/>"
-	dat += "<a href='?src=[REF(src)];log=1'>View storage log</a>.<br>"
+	dat += "<a href='byond://?src=[REF(src)];log=1'>View storage log</a>.<br>"
 	if(allow_items)
-		dat += "<a href='?src=[REF(src)];view=1'>View objects</a>.<br>"
-		dat += "<a href='?src=[REF(src)];item=1'>Recover object</a>.<br>"
-		dat += "<a href='?src=[REF(src)];allitems=1'>Recover all objects</a>.<br>"
+		dat += "<a href='byond://?src=[REF(src)];view=1'>View objects</a>.<br>"
+		dat += "<a href='byond://?src=[REF(src)];item=1'>Recover object</a>.<br>"
+		dat += "<a href='byond://?src=[REF(src)];allitems=1'>Recover all objects</a>.<br>"
 
-	user << browse(dat, "window=cryopod_console")
+	user << browse(HTML_SKELETON(dat), "window=cryopod_console")
 	onclose(user, "cryopod_console")
 
 /obj/machinery/computer/cryopod/Topic(href, href_list)
@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			dat += "[person]<br/>"
 		dat += "<hr/>"
 
-		user << browse(dat, "window=cryolog")
+		user << browse(HTML_SKELETON(dat), "window=cryolog")
 
 	if(href_list["view"])
 		if(!allow_items) return
@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			dat += "[I.name]<br/>"
 		dat += "<hr/>"
 
-		user << browse(dat, "window=cryoitems")
+		user << browse(HTML_SKELETON(dat), "window=cryoitems")
 
 	else if(href_list["item"])
 		if(!allowed(user))
@@ -402,9 +402,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	to_chat(target, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
-		message_admins("[span_danger("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>")])")
+		message_admins("[span_danger("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>")])")
 	else
-		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	log_admin(span_notice("[key_name(target)], the [target.job] entered a stasis pod."))
 	add_fingerprint(target)
 

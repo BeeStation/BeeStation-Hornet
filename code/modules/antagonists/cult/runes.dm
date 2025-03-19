@@ -140,7 +140,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/can_invoke(var/mob/living/user=null)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
-	if(user && (allow_ghosts || !user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST)))
+	if(user && (allow_ghosts || !user.has_status_effect(/datum/status_effect/cultghost)))
 		invokers += user
 	else if(user)
 		to_chat(user, span_warning("You do not possess a strong enough physical binding to activate this rune!"))
@@ -152,7 +152,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(iscultist(L))
 				if(L == user)
 					continue
-				if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !allow_ghosts)
+				if(L.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
 					L.visible_message(span_warning("[L] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
 					continue
 				if(ishuman(L))
@@ -711,7 +711,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
 		if(W.get_virtual_z_level() == get_virtual_z_level() && get_dist(src, W) <= 2 && !W.density && !W.recharging)
-			W.density = TRUE
+			W.set_density(TRUE)
 			W.update_state()
 			W.spread_density()
 	density_timer = addtimer(CALLBACK(src, PROC_REF(lose_density)), 3000, TIMER_STOPPABLE)
@@ -885,7 +885,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		fail_invoke()
 		log_game("Manifest rune failed - user not standing on rune")
 		return list()
-	if(user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+	if(user.has_status_effect(/datum/status_effect/cultghost))
 		to_chat(user, span_cultitalic("Ghosts can't summon more ghosts!"))
 		fail_invoke()
 		log_game("Manifest rune failed - user is a ghost")
@@ -922,7 +922,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		new_human.real_name = ghost_to_spawn.real_name
 		new_human.alpha = 150 //Makes them translucent
 		new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
-		new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts
+		new_human.apply_status_effect(/datum/status_effect/cultghost) //ghosts can't summon more ghosts
 		new_human.see_invisible = SEE_INVISIBLE_SPIRIT
 		ghosts++
 		playsound(src, 'sound/magic/exit_blood.ogg', 50, 1)
