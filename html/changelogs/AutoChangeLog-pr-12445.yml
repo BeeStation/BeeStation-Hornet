@@ -1,0 +1,4 @@
+author: Gilgax
+delete-after: true
+changes:
+  - tweak: Paper doesn't move around during mapload
