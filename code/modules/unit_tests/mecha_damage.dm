@@ -30,7 +30,7 @@
 
 	// Get a sample laser weapon.
 	// The captain's laser gun here is chosen primarily because it deals more damage than normal lasers.
-	var/obj/item/gun/energy/laser/dummy_laser = allocate(/obj/item/gun/energy/laser/captain)
+	//var/obj/item/gun/energy/laser/dummy_laser = allocate(/obj/item/gun/energy/laser/captain)
 	//var/obj/item/ammo_casing/laser_ammo = dummy_laser.ammo_type[1]
 	//var/obj/projectile/beam/laser_fired = initial(laser_ammo.projectile_type)
 	//var/expected_laser_damage = round(initial(laser_fired.damage) * (1 - expected_laser_armor / 100), DAMAGE_PRECISION)
