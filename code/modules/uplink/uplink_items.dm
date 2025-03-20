@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/box/syndie_kit/contract_kit
 	cost = 20
 	player_minimum = 15
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_TC/bundle_A
 	name = "Syndi-kit Tactical"
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			With their all new kit, codenamed 'scam' the syndicate attempted to extract the energy of the die of fate to \
 			make a loot-box style system but failed, so instead just fake their randomness using a corgi to sniff out the items to shove in it.\
 			Item price not guaranteed. Can contain normally unobtainable items."
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	uplink_contents = (UPLINK_TRAITORS | UPLINK_NUKE_OPS)
 	player_minimum = 30
 
@@ -420,66 +420,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
-
-/datum/uplink_item/bundles_TC/crate
-	name = "Bulk Hardsuit Bundle"
-	desc = "A crate containing 4 valueable syndicate hardsuits."
-	cost = 18
-	purchasable_from = UPLINK_INCURSION
-	item = /obj/effect/gibspawner/generic
-	var/list/contents = list(
-		/obj/item/clothing/suit/space/hardsuit/syndi = 4,
-		/obj/item/clothing/mask/gas/syndicate = 4,
-		/obj/item/tank/internals/oxygen = 4
-	)
-
-/datum/uplink_item/bundles_TC/crate/purchase(mob/user, datum/component/uplink/U)
-	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
-	if(U.purchase_log)
-		U.purchase_log.LogPurchase(C, src, cost)
-	for(var/I in contents)
-		var/count = contents[I]
-		for(var/index in 1 to count)
-			new I(C)
-	return C
-
-/datum/uplink_item/bundles_TC/crate/medical
-	name = "Syndicate Medical Bundle"
-	desc = "Contains an assortment of syndicate medical equipment for you and your team.\
-			Comes with a variety of first-aid kits, pill bottles, a compact defibrillator and 4 stimpacks."
-	cost = 12
-	contents = list(
-		/obj/item/storage/firstaid/tactical = 2,	//8 TC
-		/obj/item/storage/firstaid/brute = 2,
-		/obj/item/storage/firstaid/fire = 2,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/o2 = 1,
-		/obj/item/storage/pill_bottle/mutadone = 1,
-		/obj/item/storage/pill_bottle/neurine = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpack/traitor = 4
-	)
-
-/datum/uplink_item/bundles_TC/crate/shuttle
-	name = "Stolen Shuttle Creation Kit"
-	desc = "Every syndicate team needs their own shuttle. It's a shame you weren't supplied with one, but thats not a problem\
-			if you can spare some TC! The all new shuttle creation kit (produced by the syndicate) contains everything you need\
-			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
-	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
-	contents = list(
-		/obj/machinery/portable_atmospherics/canister/plasma = 1,
-		/obj/item/construction/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 2,
-		/obj/item/shuttle_creator = 1,
-		/obj/item/pipe_dispenser = 2,
-		/obj/item/storage/toolbox/syndicate = 2,
-		/obj/item/storage/toolbox/electrical = 1,
-		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
-		/obj/item/circuitboard/machine/shuttle/heater = 2,
-		/obj/item/storage/part_replacer/cargo = 1,
-		/obj/item/electronics/apc = 1,
-		/obj/item/wallframe/apc = 1
-	)
 
 // Dangerous Items
 /datum/uplink_item/dangerous
@@ -840,7 +780,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 16
 	player_minimum = 20
 	surplus = 10
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
@@ -1724,7 +1664,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
 	item = /obj/item/survivalcapsule/shuttle/traitor
 	cost = 8
-	purchasable_from = (UPLINK_INCURSION | UPLINK_TRAITORS)
+	purchasable_from = (UPLINK_TRAITORS)
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
@@ -1919,7 +1859,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/encryptionkey/syndicate
 	cost = 2
 	surplus = 75
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE)
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/syndietome
@@ -2017,7 +1956,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			Used just like a regular headset, but can be disabled to use external headsets normally and to avoid detection."
 	item = /obj/item/storage/box/syndie_kit/imp_radio
 	cost = 4
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
 
 /datum/uplink_item/implants/reviver
@@ -2244,7 +2182,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
 	restricted_roles = list(JOB_NAME_CLOWN)
-	purchasable_from = ~UPLINK_INCURSION
 
 /datum/uplink_item/role_restricted/taeclowndo_shoes
 	name = "Tae-clown-do Shoes"
