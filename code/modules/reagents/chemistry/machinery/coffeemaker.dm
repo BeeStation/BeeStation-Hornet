@@ -493,9 +493,8 @@
 
 /obj/item/storage/fancy/coffee_cart_rack/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 4
-	STR.set_holdable(list(/obj/item/coffee_cartridge))
+	atom_storage.max_slots = 4
+	atom_storage.set_holdable(/obj/item/coffee_cartridge)
 
 /*
  * impressa coffee maker

@@ -447,9 +447,8 @@
 
 /obj/item/storage/fancy/coffee_condi_display/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 14
-	STR.set_holdable(list(
+	atom_storage.max_slots = 14
+	atom_storage.set_holdable(list(
 		/obj/item/reagent_containers/condiment/pack/sugar,
 		/obj/item/reagent_containers/condiment/creamer,
 		/obj/item/reagent_containers/condiment/pack/astrotame,

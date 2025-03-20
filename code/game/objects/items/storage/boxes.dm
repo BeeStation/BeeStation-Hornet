@@ -585,12 +585,10 @@
 
 /obj/item/storage/box/coffeepack/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/food/grown/coffee))
+	atom_storage.set_holdable(/obj/item/food/grown/coffee)
 
 /obj/item/storage/box/coffeepack/PopulateContents()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
+	atom_storage.max_slots = 5
 	for(var/i in 1 to 5)
 		var/obj/item/food/grown/coffee/bean = new beantype(src)
 		ADD_TRAIT(bean, TRAIT_DRIED, ELEMENT_TRAIT(type))
