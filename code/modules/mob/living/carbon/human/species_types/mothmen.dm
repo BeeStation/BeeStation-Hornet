@@ -10,7 +10,6 @@
 	plural_form = "Mothpeople"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
-	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
 	inherent_traits = list(TRAIT_TACKLING_WINGED_ATTACKER)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
