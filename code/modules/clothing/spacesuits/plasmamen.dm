@@ -144,7 +144,7 @@
 		return
 
 	user.dropItemToGround(src)
-	balloon_alert(src, "incompatible biology!")
+	user.balloon_alert(user, "incompatible biology!")
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 	to_chat(user, span_danger("[src] buzzes smartly as it detaches from [user]'s head."))
 
