@@ -53,7 +53,7 @@
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/hos/trenchcoat
-	gloves = /obj/item/clothing/gloves/krav_maga/officer
+	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads/head_of_security
@@ -74,3 +74,8 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
+
+/datum/outfit/job/head_of_security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	var/datum/martial_art/krav_maga/krav = new
+	krav.teach(H)
