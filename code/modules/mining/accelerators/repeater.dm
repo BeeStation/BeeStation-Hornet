@@ -6,7 +6,7 @@
 	base_icon_state = "kineticrepeater"
 	recharge_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/repeater)
-	max_mod_capacity = 60
+	max_mod_capacity = 80
 
 /obj/item/ammo_casing/energy/kinetic/repeater
 	projectile_type = /obj/projectile/kinetic/repeater

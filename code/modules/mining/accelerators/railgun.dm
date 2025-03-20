@@ -10,7 +10,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)
 	weapon_weight = WEAPON_HEAVY
 	can_bayonet = FALSE
-	max_mod_capacity = 60
+	max_mod_capacity = 25
 	recoil = 3
 
 /obj/item/ammo_casing/energy/kinetic/railgun
