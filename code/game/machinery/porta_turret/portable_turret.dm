@@ -225,22 +225,22 @@
 /obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	var/dat
-	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
+	dat += "Status: <a href='byond://?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
 	dat += "Behaviour controls are [locked ? "locked" : "unlocked"]<br>"
 
 	if(!locked)
-		dat += "Check for Weapon Authorization: <A href='?src=[REF(src)];operation=authweapon'>[auth_weapons ? "Yes" : "No"]</A><BR>"
-		dat += "Check Security Records: <A href='?src=[REF(src)];operation=checkrecords'>[check_records ? "Yes" : "No"]</A><BR>"
-		dat += "Neutralize Identified Criminals: <A href='?src=[REF(src)];operation=shootcrooks'>[criminals ? "Yes" : "No"]</A><BR>"
-		dat += "Neutralize All Non-Security and Non-Command Personnel: <A href='?src=[REF(src)];operation=shootall'>[stun_all ? "Yes" : "No"]</A><BR>"
-		dat += "Neutralize All Unidentified Life Signs: <A href='?src=[REF(src)];operation=checkxenos'>[check_anomalies ? "Yes" : "No"]</A><BR>"
-		dat += "Neutralize All Non-Loyalty Implanted Personnel: <A href='?src=[REF(src)];operation=checkloyal'>[shoot_unloyal ? "Yes" : "No"]</A><BR>"
-		dat += "Neutralize All Cyborgs: <A href='?src=[REF(src)];operation=checkborg'>[target_cyborgs ? "Yes" : "No"]</A><BR>"
+		dat += "Check for Weapon Authorization: <A href='byond://?src=[REF(src)];operation=authweapon'>[auth_weapons ? "Yes" : "No"]</A><BR>"
+		dat += "Check Security Records: <A href='byond://?src=[REF(src)];operation=checkrecords'>[check_records ? "Yes" : "No"]</A><BR>"
+		dat += "Neutralize Identified Criminals: <A href='byond://?src=[REF(src)];operation=shootcrooks'>[criminals ? "Yes" : "No"]</A><BR>"
+		dat += "Neutralize All Non-Security and Non-Command Personnel: <A href='byond://?src=[REF(src)];operation=shootall'>[stun_all ? "Yes" : "No"]</A><BR>"
+		dat += "Neutralize All Unidentified Life Signs: <A href='byond://?src=[REF(src)];operation=checkxenos'>[check_anomalies ? "Yes" : "No"]</A><BR>"
+		dat += "Neutralize All Non-Loyalty Implanted Personnel: <A href='byond://?src=[REF(src)];operation=checkloyal'>[shoot_unloyal ? "Yes" : "No"]</A><BR>"
+		dat += "Neutralize All Cyborgs: <A href='byond://?src=[REF(src)];operation=checkborg'>[target_cyborgs ? "Yes" : "No"]</A><BR>"
 	if(issilicon(user))
 		if(!manual_control)
 			var/mob/living/silicon/S = user
 			if(S.hack_software)
-				dat += "Assume direct control : <a href='?src=[REF(src)];operation=manual'>Manual Control</a><br>"
+				dat += "Assume direct control : <a href='byond://?src=[REF(src)];operation=manual'>Manual Control</a><br>"
 		else
 			dat += "Warning! Remote control protocol enabled.<br>"
 
@@ -427,7 +427,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	var/turf/temp = get_turf(src)
 	while(temp && (isspaceturf(temp) || temp == get_turf(src)))
 		valid_turfs["[temp.z]"] = temp
-		temp = temp.above()
+		temp = GET_TURF_ABOVE(temp)
 
 	var/list/targets = list()
 	for(var/turf_z as() in valid_turfs)
@@ -691,13 +691,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	check_should_process()
 	return TRUE
 
-/obj/machinery/porta_turret/InterceptClickOn(mob/living/caller, params, atom/A)
+/obj/machinery/porta_turret/InterceptClickOn(mob/living/clicker, params, atom/A)
 	if(!manual_control)
 		return FALSE
-	if(!can_interact(caller))
+	if(!can_interact(clicker))
 		remove_control()
 		return FALSE
-	log_combat(caller,A,"fired with manual turret control at", src)
+	log_combat(clicker,A,"fired with manual turret control at", src)
 	target(A)
 	return TRUE
 
@@ -1157,7 +1157,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 		if(team_color == "red" && istype(H.wear_suit, /obj/item/clothing/suit/bluetag))
 			return
 
-	var/dat = "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a>"
+	var/dat = "Status: <a href='byond://?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a>"
 
 	var/datum/browser/popup = new(user, "autosec", "Automatic Portable Turret Installation", 300, 300)
 	popup.set_content(dat)

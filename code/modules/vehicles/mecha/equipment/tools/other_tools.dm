@@ -134,7 +134,7 @@
 	SSmove_manager.move_away(scatter, target, delay = delay, timeout = delay * dist, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([movable_target||"Nothing"])":null] \[<a href='?src=[REF(src)];mode=1'>S</a>|<a href='?src=[REF(src)];mode=2'>P</a>\]"
+	return "[..()] [mode==1?"([movable_target||"Nothing"])":null] \[<a href='byond://?src=[REF(src)];mode=1'>S</a>|<a href='byond://?src=[REF(src)];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -218,7 +218,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
-	return "<span style=\"color:[activated?"#0f0":"#f00"];\">*</span>&nbsp; [src] - <a href='?src=[REF(src)];toggle_repairs=1'>[activated?"Deactivate":"Activate"]</a>"
+	return "<span style=\"color:[activated?"#0f0":"#f00"];\">*</span>&nbsp; [src] - <a href='byond://?src=[REF(src)];toggle_repairs=1'>[activated?"Deactivate":"Activate"]</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
@@ -323,7 +323,7 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
 	if(!chassis)
 		return
-	return "<span style=\"color:[activated?"#0f0":"#f00"];\">*</span>&nbsp; [src.name] - <a href='?src=[REF(src)];toggle_relay=1'>[activated?"Deactivate":"Activate"]</a>"
+	return "<span style=\"color:[activated?"#0f0":"#f00"];\">*</span>&nbsp; [src.name] - <a href='byond://?src=[REF(src)];toggle_relay=1'>[activated?"Deactivate":"Activate"]</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process(delta_time)
@@ -393,7 +393,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[[fuel]: [round(fuel.amount*MINERAL_MATERIAL_AMOUNT,0.1)] cm<sup>3</sup>\] - <a href='?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
+		return "[output] \[[fuel]: [round(fuel.amount*MINERAL_MATERIAL_AMOUNT,0.1)] cm<sup>3</sup>\] - <a href='byond://?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(mob/source, atom/movable/target, list/modifiers)
 	if(!chassis)
@@ -519,7 +519,7 @@
 /obj/item/mecha_parts/mecha_equipment/thrusters/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] <a href='?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
+		return "[output] <a href='byond://?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(var/movement_dir)
 	if(!chassis)
