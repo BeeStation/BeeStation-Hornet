@@ -108,14 +108,6 @@
 /// The amount of thermal energy consumed when a mole of NITRYL is formed from tritium, nitrogen, and BZ.
 #define NITRYL_FORMATION_ENERGY 100000
 
-/// The maximum temperature NITRYL can decompose into nitrogen and hydrogen at.
-#define NITRYL_DECOMPOSITION_MAX_TEMP (T0C + 70) //Pretty warm, explicitly not fire temps. Time bombs are cool, but not that cool. If it makes you feel any better it's close.
-/// A scaling divisor for the rate of NITRYL decomposition relative to mix temperature.
-#define NITRYL_DECOMPOSITION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
-/// The amount of energy released when a mole of NITRYL decomposes into nitrogen and hydrogen.
-#define NITRYL_DECOMPOSITION_ENERGY 30000
-
-
 // Stimulum:
 #define STIMULUM_HEAT_SCALE 100000
 #define STIMULUM_FIRST_RISE 0.65
