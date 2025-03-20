@@ -377,7 +377,7 @@
 	user.visible_message(span_warning("\The [src] breaks off [user]'s arm!"), span_warning("\The [src] breaks off your arm!"))
 	playsound(user,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, TRUE, -1)
 
-/obj/item/food/proc/i_kill_you(obj/item/I, mob/user)
+/obj/item/food/proc/i_kill_you(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/food/pineappleslice))
 		to_chat(user, "<font color='red' size='7'>If you want something crazy like pineapple, I'll kill you.</font>") //this is in bigger text because it's hard to spam something that gibs you, and so that you're perfectly aware of the reason why you died
 		user.investigate_log("has been gibbed by putting pineapple on an arnold pizza.", INVESTIGATE_DEATHS)

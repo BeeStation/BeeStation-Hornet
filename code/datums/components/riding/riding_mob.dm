@@ -127,7 +127,7 @@
 /datum/component/riding/creature/proc/setup_abilities(mob/living/rider)
 	if(!isliving(parent))
 		return
-		
+
 	var/mob/living/ridden_creature = parent
 
 	for(var/datum/action/action as anything in ridden_creature.actions)
@@ -362,7 +362,7 @@
 	if(istype(parent, /mob/living/simple_animal))
 		var/mob/living/simple_animal/S = parent
 		override_allow_spacemove = S.spacewalk
-		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(handle_mortality))
+		RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(handle_mortality))
 
 /datum/component/riding/creature/tamed/proc/handle_mortality()
 	qdel(src)
