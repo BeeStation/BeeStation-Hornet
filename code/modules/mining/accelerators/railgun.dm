@@ -4,6 +4,7 @@
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticrailgun"
 	base_icon_state = "kineticrailgun"
+	pin = /obj/item/firing_pin/off_station
 	w_class = WEIGHT_CLASS_HUGE
 	recharge_time = 3 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)

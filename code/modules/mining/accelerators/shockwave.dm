@@ -4,6 +4,7 @@
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "kineticshockwave"
 	base_icon_state = "kineticshockwave"
+	pin = /obj/item/firing_pin/off_station
 	recharge_time = 2 SECONDS
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shockwave)
 	can_bayonet = FALSE
