@@ -1,60 +1,62 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	id = MARTIALART_KRAVMAGA
-	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
-	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
-	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
+	var/datum/action/krav_maga/neck_chop/neckchop = new/datum/action/krav_maga/neck_chop()
+	var/datum/action/krav_maga/leg_sweep/legsweep = new/datum/action/krav_maga/leg_sweep()
+	var/datum/action/krav_maga/martial_strikes/martial_strikes = new/datum/action/krav_maga/martial_strikes()
 
-/datum/action/neck_chop
-	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
+/datum/action/krav_maga
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "neckchop"
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/neck_chop/on_activate(mob/user, atom/target)
+/datum/action/krav_maga/on_activate(mob/user, atom/target)
 	if(owner.incapacitated())
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
+
+/datum/action/krav_maga/neck_chop
+	name = "Neck Chop"
+	desc = "Stops the victim from being able to speak for a short while"
+	button_icon_state = "neckchop"
+
+/datum/action/krav_maga/neck_chop/on_activate(mob/user, atom/target)
+	..()
 	if (owner.mind.martial_art.streak == "neck_chop")
-		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
+		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack will be normal.</i></b>")
 		owner.mind.martial_art.streak = ""
 	else
 		owner.visible_message(span_danger("[owner] assumes the Neck Chop stance!"), "<b><i>Your next attack will be a Neck Chop.</i></b>")
 		owner.mind.martial_art.streak = "neck_chop"
 
-/datum/action/leg_sweep
-	name = "Leg Sweep - Trips the victim, knocking them down for a brief moment."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+/datum/action/krav_maga/leg_sweep
+	name = "Leg Sweep"
+	desc = "Trips the victim, knocking them down for a short while"
 	button_icon_state = "legsweep"
-	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/leg_sweep/on_activate()
-	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
-		return
+/datum/action/krav_maga/leg_sweep/on_activate()
+	..()
 	if (owner.mind.martial_art.streak == "leg_sweep")
-		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
+		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack will be normal.</i></b>")
 		owner.mind.martial_art.streak = ""
 	else
 		owner.visible_message(span_danger("[owner] assumes the Leg Sweep stance!"), "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 		owner.mind.martial_art.streak = "leg_sweep"
 
-/datum/action/lung_punch//referred to internally as 'quick choke'
-	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
+/datum/action/krav_maga/martial_strikes
+	name = "Martial Strikes"
+	desc = "Assume a stance that allows repeated strikes which will fatigue your enemy while doing less long-term harm."
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "lungpunch"
+	button_icon_state = "martialstrike"
 	check_flags = AB_CHECK_INCAPACITATED
 
-/datum/action/lung_punch/on_activate()
-	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
-		return
-	if (owner.mind.martial_art.streak == "quick_choke")
-		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
+/datum/action/krav_maga/martial_strikes/on_activate()
+	..()
+	if (owner.mind.martial_art.streak == "martial_strikes")
+		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack will be normal.</i></b>")
 		owner.mind.martial_art.streak = ""
 	else
-		owner.visible_message(span_danger("[owner] assumes the Lung Punch stance!"), "<b><i>Your next attack will be a Lung Punch.</i></b>")
-		owner.mind.martial_art.streak = "quick_choke"//internal name for lung punch
+		owner.visible_message(span_danger("[owner] assumes the Martial Strikes stance!"), "<b><i>Your unarmed strikes will inflict additional fatigue.</i></b>")
+		owner.mind.martial_art.streak = "martial_strikes"
 
 /datum/martial_art/krav_maga/teach(mob/living/owner, make_temporary=FALSE)
 	if(..())
@@ -62,128 +64,85 @@
 		to_chat(owner, span_danger("Place your cursor over a move at the top of the screen to see what it does."))
 		neckchop.Grant(owner)
 		legsweep.Grant(owner)
-		lungpunch.Grant(owner)
+		martial_strikes.Grant(owner)
 
 /datum/martial_art/krav_maga/on_remove(mob/living/owner)
 	to_chat(owner, span_userdanger("You suddenly forget the arts of [name]..."))
 	neckchop.Remove(owner)
 	legsweep.Remove(owner)
-	lungpunch.Remove(owner)
+	martial_strikes.Remove(owner)
 
-/datum/martial_art/krav_maga/proc/check_streak(mob/living/A, mob/living/D)
+/datum/martial_art/krav_maga/proc/check_streak(mob/living/user, mob/living/target)
 	switch(streak)
 		if("neck_chop")
 			streak = ""
-			neck_chop(A,D)
-			return 1
+			return neck_chop(user,target)
 		if("leg_sweep")
 			streak = ""
-			leg_sweep(A,D)
-			return 1
-		if("quick_choke")//is actually lung punch
-			streak = ""
-			quick_choke(A,D)
-			return 1
-	return 0
+			return leg_sweep(user,target)
+		if("martial_strikes")
+			//This one does not reset streak, it can be used consecutively on purpose
+			return martial_strikes(user,target)
+	return FALSE
 
-/datum/martial_art/krav_maga/proc/leg_sweep(mob/living/A, mob/living/D)
-	if(D.stat || D.IsParalyzed())
-		return 0
-	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-	D.visible_message(span_warning("[A] leg sweeps [D]!"), \
-					span_userdanger("Your legs are sweeped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
-	to_chat(A, span_danger("You leg sweep [D]!"))
-	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
-	D.apply_damage(rand(20,30), STAMINA, affecting, armor_block)
-	D.Knockdown(60)
-	log_combat(A, D, "leg sweeped", name)
+/datum/martial_art/krav_maga/proc/leg_sweep(mob/living/user, mob/living/target)
+	if(target.stat || target.IsParalyzed() || target.IsKnockdown())
+		return FALSE
+	var/obj/item/bodypart/affecting = target.get_bodypart(BODY_ZONE_CHEST)
+	var/armor_block = target.run_armor_check(affecting, MELEE)
+	target.visible_message(span_warning("[user] leg sweeps [target]!"), \
+					span_userdanger("Your legs are sweeped by [user]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
+	to_chat(user, span_danger("You leg sweep [target]!"))
+	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	target.apply_damage(rand(15,25), STAMINA, affecting, armor_block)
+	target.Knockdown(4 SECONDS)
+	log_combat(user, target, "leg sweeped", name)
 	return TRUE
 
-/datum/martial_art/krav_maga/proc/quick_choke(mob/living/A, mob/living/D)//is actually lung punch
-	D.visible_message(span_warning("[A] pounds [D] on the chest!"), \
-					span_userdanger("Your chest is slammed by [A]! You can't breathe!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, span_danger("You pound [D] on the chest!"))
-	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-	if(D.losebreath <= 10)
-		D.losebreath = clamp(D.losebreath + 5, 0, 10)
-	D.adjustOxyLoss(10)
-	log_combat(A, D, "quickchoked", name)
+/datum/martial_art/krav_maga/proc/neck_chop(mob/living/user, mob/living/target)
+	if(!iscarbon(target))
+		return FALSE
+	var/mob/living/carbon/carbon_defender = target
+	target.visible_message(span_warning("[user] karate chops [target]'s neck!"), \
+					span_userdanger("Your neck is karate chopped by [user], rendering you unable to speak!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You karate chop [target]'s neck, rendering [target.p_them()] unable to speak!"))
+	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+	target.apply_damage(5, user.get_attack_type())
+	log_combat(user, target, "neck chopped", name)
+	carbon_defender.silent = 10 //10 life() ticks without the ability to speak
 	return TRUE
 
-/datum/martial_art/krav_maga/proc/neck_chop(mob/living/A, mob/living/D)
-	D.visible_message(span_warning("[A] karate chops [D]'s neck!"), \
-					span_userdanger("Your neck is karate chopped by [A], rendering you unable to speak!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, span_danger("You karate chop [D]'s neck, rendering [D.p_them()] unable to speak!"))
-	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-	D.apply_damage(5, A.get_attack_type())
-	if (iscarbon(D))
-		var/mob/living/carbon/carbon_defender = D
-		if(carbon_defender.silent <= 10)
-			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
-	log_combat(A, D, "neck chopped", name)
+
+/datum/martial_art/krav_maga/proc/martial_strikes(mob/living/user, mob/living/target)
+	if(!iscarbon(target))
+		return FALSE
+
+	//I don't really know what I'm describing myself tbh, but it does less damage and more stamina so I went with this
+	target.visible_message(span_warning("[user] deftly strikes at [target] with an open palm!"), \
+					span_userdanger("[user] attacks you with an open palm!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You strike at [target] with an open palm!"))
+	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
+	var/limb_armor = target.run_armor_check(affecting, MELEE)
+
+	//Minor damage, high stamina for an unarmed strike but still not great. This is intended as a "better than nothing" if officer is disarmed.
+	target.apply_damage(2, user.get_attack_type(), affecting, limb_armor)
+	target.apply_damage(17, STAMINA, affecting, limb_armor)
 	return TRUE
 
-/datum/martial_art/krav_maga/grab_act(mob/living/A, mob/living/D)
-	if(check_streak(A,D))
+/datum/martial_art/krav_maga/harm_act(mob/living/user, mob/living/target)
+	if(check_streak(user,target))
 		return TRUE
-	log_combat(A, D, "grabbed (Krav Maga)", name)
-	..()
 
-/datum/martial_art/krav_maga/harm_act(mob/living/A, mob/living/D)
-	if(check_streak(A,D))
+/datum/martial_art/krav_maga/disarm_act(mob/living/user, mob/living/target)
+	if(check_streak(user,target))
 		return TRUE
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-	var/picked_hit_type = pick("punch", "kick")
-	var/bonus_damage = 0
-	if(D.body_position == LYING_DOWN)
-		bonus_damage += 5
-		picked_hit_type = "stomp"
-	D.apply_damage(rand(5,10) + bonus_damage, A.get_attack_type(), affecting, armor_block)
-	if(picked_hit_type == "kick" || picked_hit_type == "stomp")
-		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-	else
-		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-	D.visible_message(span_danger("[A] [picked_hit_type]s [D]!"), \
-					span_userdanger("You're [picked_hit_type]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
-	log_combat(A, D, "[picked_hit_type] with [name]", name)
-	return 1
-
-/datum/martial_art/krav_maga/disarm_act(mob/living/A, mob/living/D)
-	if(check_streak(A,D))
-		return 1
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-	if(D.body_position == STANDING_UP)
-		D.visible_message(span_danger("[A] reprimands [D]!"), \
-					span_userdanger("You're slapped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, span_danger("You jab [D]!"))
-		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(5,10), STAMINA, affecting, armor_block)
-		log_combat(A, D, "punched nonlethally", name)
-	if(D.body_position == LYING_DOWN)
-		D.visible_message(span_danger("[A] reprimands [D]!"), \
-					span_userdanger("You're manhandled by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, span_danger("You stomp [D]!"))
-		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(10,15), STAMINA, affecting, armor_block)
-		log_combat(A, D, "stomped nonlethally", name)
-	if(prob(D.getStaminaLoss()))
-		D.visible_message(span_warning("[D] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
-		D.drop_all_held_items()
-	return 1
 
 //Krav Maga Gloves
-
-/obj/item/clothing/gloves/krav_maga
+/obj/item/clothing/gloves/krav_maga/
 	name = "krav maga gloves"
-	desc = "These gloves can teach you to perform Krav Maga using nanochips."
+	desc = "These gloves can teach you to perform Krav Maga using nanochips. This variety has a commanding red design"
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 	worn_icon_state = "fightgloves"
@@ -203,6 +162,12 @@
 	. = ..()
 	if(user.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		style.remove(user)
+
+/obj/item/clothing/gloves/krav_maga/officer
+	desc = "These gloves can teach you to perform Krav Maga using nanochips. This variety has a sleek black design"
+	icon_state = "cgloves"
+	item_state = "combatgloves"
+	worn_icon_state = "combatgloves"
 
 /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	name = "combat gloves plus"

@@ -21,6 +21,7 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
+					/obj/item/clothing/gloves/krav_maga = 2,
 				   /obj/item/coin/antagtoken = 1,
 				   /obj/item/security_barricade = 4,
 				   /obj/item/clothing/head/helmet/blueshirt = 1,
