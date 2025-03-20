@@ -25,6 +25,7 @@ const GENE_COLORS = {
 const CONSOLE_MODE_STORAGE = 'storage';
 const CONSOLE_MODE_SEQUENCER = 'sequencer';
 const CONSOLE_MODE_ENZYMES = 'enzymes';
+const CONSOLE_MODE_FEATURES = 'features';
 const CONSOLE_MODE_INJECTORS = 'injectors';
 
 const STORAGE_MODE_CONSOLE = 'console';
@@ -68,7 +69,7 @@ const isSameMutation = (a, b) => {
 
 export const DnaConsole = (props) => {
   const { data, act } = useBackend();
-  const { isPulsingRads, radPulseSeconds } = data;
+  const { isPulsingRads, radPulseSeconds, subjectUNI, subjectUF } = data;
   const { consoleMode } = data.view;
   return (
     <Window title="DNA Console" width={539} height={710} resizable>
@@ -85,7 +86,8 @@ export const DnaConsole = (props) => {
         <DnaConsoleCommands />
         {consoleMode === CONSOLE_MODE_STORAGE && <DnaConsoleStorage />}
         {consoleMode === CONSOLE_MODE_SEQUENCER && <DnaConsoleSequencer />}
-        {consoleMode === CONSOLE_MODE_ENZYMES && <DnaConsoleEnzymes />}
+        {consoleMode === CONSOLE_MODE_ENZYMES && <DnaConsoleEnzymes subjectBlock={subjectUNI} type="ui" name="Enzymes" />}
+        {consoleMode === CONSOLE_MODE_FEATURES && <DnaConsoleEnzymes subjectBlock={subjectUF} type="uf" name="Features" />}
       </Window.Content>
     </Window>
   );
@@ -269,6 +271,15 @@ export const DnaConsoleCommands = (props) => {
             onClick={() =>
               act('set_view', {
                 consoleMode: CONSOLE_MODE_ENZYMES,
+              })
+            }
+          />
+          <Button
+            content="Features"
+            selected={consoleMode === CONSOLE_MODE_FEATURES}
+            onClick={() =>
+              act('set_view', {
+                consoleMode: CONSOLE_MODE_FEATURES,
               })
             }
           />
@@ -966,6 +977,7 @@ const GenomeSequencer = (props) => {
 const DnaConsoleEnzymes = (props) => {
   const { data, act } = useBackend();
   const { isScannerConnected, stdDevAcc, stdDevStr } = data;
+  const { subjectBlock, type, name } = props;
   if (!isScannerConnected) {
     return <Section color="bad">DNA Scanner is not connected.</Section>;
   }
@@ -979,7 +991,7 @@ const DnaConsoleEnzymes = (props) => {
           <RadiationEmitterProbs />
         </Flex.Item>
         <Flex.Item grow={1} basis={0}>
-          <RadiationEmitterPulseBoard />
+          <RadiationEmitterPulseBoard subjectBlock={subjectBlock} type={type} name={name} />
         </Flex.Item>
       </Flex>
       <GeneticMakeupBuffers />
@@ -1053,41 +1065,45 @@ const RadiationEmitterProbs = (props) => {
 const RadiationEmitterPulseBoard = (props) => {
   const { data, act } = useBackend();
   const { subjectUNI = [] } = data;
+  const { subjectBlock, type, name } = props;
   // Build blocks of buttons of unique enzymes
   const blocks = [];
   let buffer = [];
-  for (let i = 0; i < subjectUNI.length; i++) {
-    const char = subjectUNI.charAt(i);
-    // Push a button into the buffer
-    const button = (
-      <Button
-        fluid
-        key={i}
-        textAlign="center"
-        content={char}
-        onClick={() =>
-          act('makeup_pulse', {
-            index: i + 1,
-          })
-        }
-      />
-    );
-    buffer.push(button);
-    // Create a block from the current buffer
-    if (buffer.length >= 3) {
-      const block = (
-        <Box inline width="22px" mx="1px">
-          {buffer}
-        </Box>
+  if (subjectBlock) {
+    for (let i = 0; i < subjectBlock.length; i++) {
+      const char = subjectBlock.charAt(i);
+      // Push a button into the buffer
+      const button = (
+        <Button
+          fluid
+          key={i}
+          textAlign="center"
+          content={char}
+          onClick={() =>
+            act('makeup_pulse', {
+              index: i + 1,
+              type: type,
+            })
+          }
+        />
       );
-      blocks.push(block);
-      // Clear the buffer
-      buffer = [];
+      buffer.push(button);
+      // Create a block from the current buffer
+      if (buffer.length >= 3) {
+        const block = (
+          <Box inline width="22px" mx="1px">
+            {buffer}
+          </Box>
+        );
+        blocks.push(block);
+        // Clear the buffer
+        buffer = [];
+      }
     }
   }
   return (
-    <Section title="Unique Enzymes" minHeight="100%" position="relative">
-      <Box mx="-1px">{blocks}</Box>
+    <Section title={'Unique ' + name} minHeight="100%" position="relative">
+      {(blocks.length && <Box mx="-1px">{blocks}</Box>) || <Box color="label">Nothing to show.</Box>}
     </Section>
   );
 };
@@ -1155,6 +1171,7 @@ const GeneticMakeupInfo = (props) => {
         <LabeledList.Item label="Blood Type">{makeup.blood_type || 'None'}</LabeledList.Item>
         <LabeledList.Item label="Unique Enzyme">{makeup.UE || 'None'}</LabeledList.Item>
         <LabeledList.Item label="Unique Identifier">{makeup.UI || 'None'}</LabeledList.Item>
+        <LabeledList.Item label="Unique Features">{makeup.UF || 'None'}</LabeledList.Item>
       </LabeledList>
     </Section>
   );
@@ -1163,9 +1180,11 @@ const GeneticMakeupInfo = (props) => {
 const GeneticMakeupBufferInfo = (props) => {
   const { index, makeup } = props;
   const { act, data } = useBackend();
-  const { isViableSubject, hasDisk, diskReadOnly, isInjectorReady } = data;
+  const { isViableSubject, hasDisk, diskReadOnly, isInjectorReady, selectedMakeup } = data;
+  const { useIdentity, useEnzymes, useFeatures } = selectedMakeup;
   // Type of the action for applying makeup
   const ACTION_MAKEUP_APPLY = isViableSubject ? 'makeup_apply' : 'makeup_delay';
+  const MAKEUP_SELECTED = useIdentity || useEnzymes || useFeatures;
   if (!makeup) {
     return <Box color="average">No stored subject data.</Box>;
   }
@@ -1177,75 +1196,58 @@ const GeneticMakeupBufferInfo = (props) => {
         Makeup Actions
       </Box>
       <LabeledList>
-        <LabeledList.Item label="Enzymes">
-          <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
+        <LabeledList.Item label="Select">
+          <Button.Checkbox
+            checked={useIdentity}
+            content="Identity"
             onClick={() =>
-              act('makeup_injector', {
-                index,
-                type: 'ue',
-              })
-            }
-          />
-          <Button
-            icon="exchange-alt"
-            onClick={() =>
-              act(ACTION_MAKEUP_APPLY, {
-                index,
-                type: 'ue',
-              })
-            }>
-            Transfer
-            {!isViableSubject && ' (Delayed)'}
-          </Button>
-        </LabeledList.Item>
-        <LabeledList.Item label="Identity">
-          <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
-            onClick={() =>
-              act('makeup_injector', {
+              act('select_makeup_type', {
                 index,
                 type: 'ui',
               })
             }
           />
-          <Button
-            icon="exchange-alt"
+          <Button.Checkbox
+            checked={useEnzymes}
+            content="Enzymes"
             onClick={() =>
-              act(ACTION_MAKEUP_APPLY, {
+              act('select_makeup_type', {
                 index,
-                type: 'ui',
+                type: 'ue',
               })
-            }>
-            Transfer
-            {!isViableSubject && ' (Delayed)'}
-          </Button>
+            }
+          />
+          <Button.Checkbox
+            checked={useFeatures}
+            content="Features"
+            onClick={() =>
+              act('select_makeup_type', {
+                index,
+                type: 'uf',
+              })
+            }
+          />
         </LabeledList.Item>
-        <LabeledList.Item label="Full Makeup">
+        <LabeledList.Item label="Inject">
           <Button
-            icon="syringe"
-            disabled={!isInjectorReady}
-            content="Print"
+            icon="print"
+            disabled={!(isInjectorReady && MAKEUP_SELECTED)}
+            content="Print Timed Injector"
             onClick={() =>
               act('makeup_injector', {
                 index,
-                type: 'mixed',
               })
             }
           />
           <Button
             icon="exchange-alt"
+            disabled={!MAKEUP_SELECTED}
             onClick={() =>
               act(ACTION_MAKEUP_APPLY, {
                 index,
-                type: 'mixed',
               })
             }>
-            Transfer
+            Inject Into Subject
             {!isViableSubject && ' (Delayed)'}
           </Button>
         </LabeledList.Item>

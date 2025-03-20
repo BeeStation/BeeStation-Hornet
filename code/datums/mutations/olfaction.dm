@@ -17,6 +17,17 @@
 	var/mob/living/carbon/tracking_target
 	var/list/mob/living/carbon/possible = list()
 
+/datum/action/spell/olfaction/is_valid_spell(mob/user, atom/cast_on)
+	if(!isliving(cast_on))
+		return FALSE
+
+	var/mob/living/living_cast_on = cast_on
+	if(ishuman(living_cast_on) && !living_cast_on.get_bodypart(BODY_ZONE_HEAD))
+		to_chat(owner, span_warning("You have no nose!"))
+		return FALSE
+
+	return TRUE
+
 /datum/action/spell/olfaction/on_cast(mob/user, atom/target)
 	. = ..()
 	var/atom/sniffed = user.get_active_held_item()
@@ -25,7 +36,7 @@
 		possible = list()
 		var/list/prints = sniffed.return_fingerprints()
 		for(var/mob/living/carbon/potential_target in GLOB.carbon_list)
-			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna.uni_identity)])
+			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna?.unique_identity)])
 				possible |= potential_target
 		if(!length(possible))
 			to_chat(user, "<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")
