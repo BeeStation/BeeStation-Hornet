@@ -118,10 +118,6 @@
 		return FALSE
 
 	//I don't really know what I'm describing myself tbh, but it does less damage and more stamina so I went with this
-	target.visible_message(span_warning("[user] deftly strikes at [target] with an open palm!"), \
-					span_userdanger("[user] attacks you with an open palm!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, span_danger("You strike at [target] with an open palm!"))
-	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 	var/limb_armor = target.run_armor_check(affecting, MELEE)
@@ -129,6 +125,11 @@
 	//Minor damage, high stamina for an unarmed strike but still not great. This is intended as a "better than nothing" if officer is disarmed.
 	target.apply_damage(2, user.get_attack_type(), affecting, limb_armor)
 	target.apply_damage(17, STAMINA, affecting, limb_armor)
+
+	target.visible_message(span_warning("[user] deftly strikes at [target] in the [affecting.plaintext_zone] with an open palm!"), \
+					span_userdanger("[user] attacks you in the [affecting.plaintext_zone] with an open palm!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, span_danger("You strike at [target] in the [affecting.plaintext_zone] with an open palm!"))
+	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	return TRUE
 
 /datum/martial_art/krav_maga/harm_act(mob/living/user, mob/living/target)
