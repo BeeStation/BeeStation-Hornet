@@ -95,14 +95,16 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(surgery.location != I.zone || target.getorganslot(I.slot))
-			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(surgery.location)]!"))
+		var/obj/item/bodypart/target_bodypart = target.get_bodypart(check_zone(surgery.location))
+		if (!target_bodypart)
+			CRASH("Surgery somehow was completed when the target didn't have the correct bodypart at [surgery.location].")
+		if (!(I.slot in target_bodypart.organ_slots) || target.getorganslot(I.slot))
+			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(check_zone(surgery.location))]!"))
 			return -1
 		if(istype(I, /obj/item/organ/brain/positron))
-			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
-			if(!affected)
+			if(!target_bodypart)
 				return -1
-			if(IS_ORGANIC_LIMB(affected))
+			if(IS_ORGANIC_LIMB(target_bodypart))
 				to_chat(user, span_notice("You can't put [I] into a meat enclosure!"))
 				return -1
 			if(!isipc(target))
@@ -125,7 +127,7 @@
 			return -1
 		else
 			for(var/obj/item/organ/O in organs)
-				O.on_find(user)
+				O.on_find(user, surgery.location)
 				organs -= O
 				organs[O.name] = O
 
