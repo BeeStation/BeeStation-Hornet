@@ -113,7 +113,7 @@
 /obj/item/broken_bottle
 	name = "broken bottle"
 	desc = "A bottle with a sharp broken bottom."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/drinks.dmi'
 	icon_state = "broken_bottle"
 	force = 9
 	throwforce = 5
@@ -128,7 +128,7 @@
 	attack_verb_simple = list("stab", "slash", "attack")
 	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
-	var/static/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
+	var/static/icon/broken_outline = icon('icons/obj/drinks/drinks.dmi', "broken")
 
 /obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
@@ -139,7 +139,7 @@
 /// Takes the broken bottle to mimic, and the thing the bottle was broken agaisnt as args
 /obj/item/broken_bottle/proc/mimic_broken(obj/item/reagent_containers/cup/glass/to_mimic, atom/target)
 	icon_state = to_mimic.icon_state
-	var/icon/drink_icon = new('icons/obj/drinks.dmi', icon_state)
+	var/icon/drink_icon = new('icons/obj/drinks/drinks.dmi', icon_state)
 	drink_icon.Blend(broken_outline, ICON_OVERLAY, rand(5), 1)
 	drink_icon.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	icon = drink_icon
