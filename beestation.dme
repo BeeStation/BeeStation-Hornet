@@ -1604,6 +1604,7 @@
 #include "code\game\objects\items\grenades\_grenade.dm"
 #include "code\game\objects\items\grenades\antigravity.dm"
 #include "code\game\objects\items\grenades\chem_grenade.dm"
+#include "code\game\objects\items\grenades\premade_grenade.dm"
 #include "code\game\objects\items\grenades\clusterbuster.dm"
 #include "code\game\objects\items\grenades\discogrenade.dm"
 #include "code\game\objects\items\grenades\emgrenade.dm"
