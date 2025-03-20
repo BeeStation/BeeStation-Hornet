@@ -163,8 +163,8 @@
 /obj/projectile/beam/emitter/drill
 	name = "driller beam"
 	icon_state = "emitter"
-	damage = 30
-	var/structural_damage = 100
+	damage = 5
+	var/structural_damage = 75
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = COLOR_DARK_ORANGE
 
