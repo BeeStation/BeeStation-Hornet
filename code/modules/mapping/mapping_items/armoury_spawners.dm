@@ -37,10 +37,10 @@
 	minimum = 1
 	linear_scaling_rate = 0.3
 
-/obj/effect/loot_jobscale/armoury/disabler
-	icon = 'icons/obj/guns/energy.dmi'
-	icon_state = "disabler"
-	loot = list(/obj/item/gun/energy/disabler)
+/obj/effect/loot_jobscale/armoury/lp12
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "security"
+	loot = list(/obj/item/gun/ballistic/automatic/pistol/security)
 	fan_out_items = TRUE
 	minimum = 2
 	linear_scaling_rate = 0.6
