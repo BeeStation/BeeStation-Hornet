@@ -653,6 +653,14 @@
 	race = /datum/species/oozeling
 	taste_description = "burning ooze"
 
+/datum/reagent/mutationtoxin/ipc
+	name = "IPC Mutation Toxin"
+	description = "A metallic toxin"
+	color = "#5EFF3B"
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	race = /datum/species/ipc
+	taste_description = "copper wire"
+
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
 	name = "Skeleton Mutation Toxin"
@@ -1390,6 +1398,7 @@
 	description = "A powder that is used for coloring things."
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 207, 54, 0
+	color_intensity = 50
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "the back of class"
 
@@ -1760,7 +1769,7 @@
 			var/mob/living/carbon/human/H = M
 			var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
 			var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
-			H.hair_style = picked_hair
+			H.hair_style = picked_hair.name
 			H.facial_hair_style = picked_beard
 			H.update_hair()
 
@@ -2336,7 +2345,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		return
 	if(method == PATCH||TOUCH||VAPOR)
 		amount_left = round(reac_volume,0.1)
-		exposed_mob.apply_status_effect(STATUS_EFFECT_ANTS, amount_left)
+		exposed_mob.apply_status_effect(/datum/status_effect/ants, amount_left)
 
 /datum/reagent/ants/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()

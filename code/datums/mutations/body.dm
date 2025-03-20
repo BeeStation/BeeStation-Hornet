@@ -80,12 +80,13 @@
 	quality = POSITIVE
 	difficulty = 16
 	instability = 5
-	conflicts = list(GIGANTISM)
+	conflicts = list(/datum/mutation/gigantism)
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
+	ADD_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
 	owner.resize = 0.8
 	owner.update_transform()
 	passtable_on(owner, GENETIC_MUTATION)
@@ -94,6 +95,7 @@
 /datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
+	REMOVE_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
 	owner.resize = 1.25
 	owner.update_transform()
 	passtable_off(owner, GENETIC_MUTATION)
@@ -167,7 +169,7 @@
 	quality = POSITIVE
 	instability = 5
 	power_coeff = 1
-	conflicts = list(ANTIGLOWY)
+	conflicts = list(/datum/mutation/glow/anti)
 	var/glow_power = 2.5
 	var/glow_range = 2.5
 	var/glow_color
@@ -205,7 +207,7 @@
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
 	glow_power = -1.5
-	conflicts = list(GLOWY)
+	conflicts = list(/datum/mutation/glow)
 	locked = TRUE
 
 /datum/mutation/glow/anti/get_glow_color()
@@ -302,11 +304,12 @@
 	desc = "The cells within the subject spread out to cover more area, making them appear larger."
 	quality = MINOR_NEGATIVE
 	difficulty = 12
-	conflicts = list(DWARFISM)
+	conflicts = list(/datum/mutation/dwarfism)
 
 /datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
+	ADD_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
 	owner.resize = 1.25
 	owner.update_transform()
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
@@ -314,6 +317,7 @@
 /datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
+	REMOVE_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
 	owner.resize = 0.8
 	owner.update_transform()
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
@@ -327,12 +331,12 @@
 /datum/mutation/spastic/on_acquiring()
 	if(..())
 		return
-	owner.apply_status_effect(STATUS_EFFECT_SPASMS)
+	owner.apply_status_effect(/datum/status_effect/spasms)
 
 /datum/mutation/spastic/on_losing()
 	if(..())
 		return
-	owner.remove_status_effect(STATUS_EFFECT_SPASMS)
+	owner.remove_status_effect(/datum/status_effect/spasms)
 
 /datum/mutation/extrastun
 	name = "Two Left Feet"

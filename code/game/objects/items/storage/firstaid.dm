@@ -65,13 +65,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/firstaid/medical/ComponentInitialize()
+/obj/item/storage/firstaid/medical/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
-	STR.max_items = 12
-	STR.max_combined_w_class = 24
-	STR.set_holdable(list(
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
+	atom_storage.max_slots = 12
+	atom_storage.max_total_storage = 24
+	atom_storage.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -145,13 +144,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/firstaid/medical/paramedic/ComponentInitialize()
+/obj/item/storage/firstaid/medical/paramedic/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
-	STR.max_items = 13
-	STR.max_combined_w_class = 24
-	STR.set_holdable(list(
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
+	atom_storage.max_slots = 12
+	atom_storage.max_total_storage = 24
+	atom_storage.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -401,10 +399,9 @@
 	item_state = "firstaid-mystery"
 	skin_type = NONE
 
-/obj/item/storage/firstaid/random/ComponentInitialize()
+/obj/item/storage/firstaid/random/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/firstaid/random/PopulateContents()
 	if(empty)
@@ -450,15 +447,14 @@
 	. = ..()
 	icon_state = pick("firstaid-combat","firstaid-combatalt")
 
-/obj/item/storage/firstaid/tactical/ComponentInitialize()
+/obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_LARGE
-	STR.max_items = 7
-	STR.max_combined_w_class = 56 //any combination of allowed items
+	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	STR.set_holdable(list(
+	atom_storage.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -570,12 +566,10 @@
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
-/obj/item/storage/pill_bottle/ComponentInitialize()
+/obj/item/storage/pill_bottle/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.allow_quick_gather = TRUE
-	STR.click_gather = TRUE
-	STR.set_holdable(list(/obj/item/reagent_containers/pill, /obj/item/dice))
+	atom_storage.allow_quick_gather = TRUE
+	atom_storage.set_holdable(list(/obj/item/reagent_containers/pill))
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

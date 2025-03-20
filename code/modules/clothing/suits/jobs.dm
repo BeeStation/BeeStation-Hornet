@@ -23,7 +23,10 @@
 		/obj/item/hatchet,
 		/obj/item/storage/bag/plants
 	)
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
+
+/obj/item/clothing/suit/apron/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/exo/large)
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -152,7 +155,10 @@
 		/obj/item/radio
 	)
 	resistance_flags = NONE
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
+
+/obj/item/clothing/suit/hazardvest/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/exo/large)
 
 //Lawyer
 /obj/item/clothing/suit/toggle/lawyer

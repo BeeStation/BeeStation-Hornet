@@ -243,7 +243,7 @@
 		if(isliving(owner))
 			var/mob/living/L = owner
 			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
-			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+			L.remove_status_effect(/datum/status_effect/strandling)
 
 /datum/status_effect/syringe
 	id = "syringe"
@@ -306,7 +306,7 @@
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
-		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))
+		if(!C.has_status_effect(/datum/status_effect/syringe))
 			C.clear_alert("syringealert")
 
 
@@ -496,11 +496,11 @@
 		H.emote(pick("gasp", "gag", "choke"))
 
 /mob/living/proc/apply_necropolis_curse(set_curse)
-	var/datum/status_effect/necropolis_curse/C = has_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
+	var/datum/status_effect/necropolis_curse/C = has_status_effect(/datum/status_effect/necropolis_curse)
 	if(!set_curse)
-		set_curse = pick(CURSE_BLINDING, CURSE_SPAWNING, CURSE_WASTING, CURSE_GRASPING)
+		set_curse = pick(CURSE_BLINDING, CURSE_WASTING, CURSE_GRASPING)
 	if(QDELETED(C))
-		apply_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE, set_curse)
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
 	else
 		C.apply_curse(set_curse)
 		C.duration += 3000 //additional curses add 5 minutes
@@ -552,16 +552,6 @@
 		owner.adjustFireLoss(0.75)
 	if(effect_last_activation <= world.time)
 		effect_last_activation = world.time + effect_cooldown
-		if(curse_flags & CURSE_SPAWNING)
-			var/turf/spawn_turf
-			var/sanity = 10
-			while(!spawn_turf && sanity)
-				spawn_turf = locate(owner.x + pick(rand(10, 15), rand(-10, -15)), owner.y + pick(rand(10, 15), rand(-10, -15)), owner.z)
-				sanity--
-			if(spawn_turf)
-				var/mob/living/simple_animal/hostile/asteroid/curseblob/C = new (spawn_turf)
-				C.set_target = owner
-				C.GiveTarget()
 		if(curse_flags & CURSE_GRASPING)
 			var/grab_dir = turn(owner.dir, pick(-90, 90, 180, 180)) //grab them from a random direction other than the one faced, favoring grabbing from behind
 			var/turf/spawn_turf = get_ranged_target_turf(owner, grab_dir, 5)
@@ -584,20 +574,20 @@
 	. = ..()
 	deltimer(timerid)
 
-/datum/status_effect/gonbolaPacify
+/datum/status_effect/gonbola_pacify
 	id = "gonbolaPacify"
 	status_type = STATUS_EFFECT_MULTIPLE
 	tick_interval = -1
 	alert_type = null
 
-/datum/status_effect/gonbolaPacify/on_apply()
+/datum/status_effect/gonbola_pacify/on_apply()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
 	ADD_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
 	ADD_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
 	to_chat(owner, span_notice("You suddenly feel at peace and feel no need to make any sudden or rash actions."))
 	return ..()
 
-/datum/status_effect/gonbolaPacify/on_remove()
+/datum/status_effect/gonbola_pacify/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
 	REMOVE_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
 	REMOVE_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
@@ -1039,7 +1029,7 @@
 
 /datum/status_effect/spanish
 	id = "spanish"
-	duration = 120 SECONDS
+	duration = 25 SECONDS
 	alert_type = null
 
 /datum/status_effect/spanish/on_apply(mob/living/new_owner, ...)
@@ -1057,9 +1047,10 @@
 /datum/status_effect/ipc/emp
 	id = "ipc_emp"
 	examine_text = span_warning("SUBJECTPRONOUN is buzzing and twitching!")
-	duration = 120 SECONDS
+	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
 	status_type = STATUS_EFFECT_REFRESH
+
 /atom/movable/screen/alert/status_effect/emp
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
@@ -1231,7 +1222,7 @@
 
 /datum/status_effect/ants/proc/ants_washed()
 	SIGNAL_HANDLER
-	owner.remove_status_effect(STATUS_EFFECT_ANTS)
+	owner.remove_status_effect(/datum/status_effect/ants)
 	//return COMPONENT_CLEANED
 
 /datum/status_effect/ants/tick()
@@ -1264,7 +1255,7 @@
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
 	if(ants_remaining <= 0 || victim.stat >= HARD_CRIT)
-		victim.remove_status_effect(STATUS_EFFECT_ANTS) //If this person has no more ants on them or are dead, they are no longer affected.
+		victim.remove_status_effect(/datum/status_effect/ants) //If this person has no more ants on them or are dead, they are no longer affected.
 
 /atom/movable/screen/alert/status_effect/ants
 	name = "Ants!"
@@ -1388,3 +1379,51 @@
 	var/datum/status_effect/ling_transformation/new_effect = new_body.apply_status_effect(/datum/status_effect/ling_transformation, target_dna, original_dna, TRUE)
 	if(new_effect)
 		new_effect.charge_left = charge_left
+
+/// Staggered can occur most often via tackles.
+/datum/status_effect/staggered
+	id = "staggered"
+	tick_interval = 0.8 SECONDS
+	alert_type = null
+
+/datum/status_effect/staggered/on_creation(mob/living/new_owner, duration = 10 SECONDS)
+	src.duration = duration
+	return ..()
+
+/datum/status_effect/staggered/on_apply()
+	//you can't stagger the dead.
+	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_NO_STAGGER))
+		return FALSE
+
+	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(clear_staggered))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/staggered)
+	return TRUE
+
+/datum/status_effect/staggered/on_remove()
+	UnregisterSignal(owner, COMSIG_LIVING_DEATH)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/staggered)
+
+/// Signal proc that self deletes our staggered effect
+/datum/status_effect/staggered/proc/clear_staggered(datum/source)
+	SIGNAL_HANDLER
+
+	qdel(src)
+
+/datum/status_effect/staggered/tick(seconds_between_ticks)
+	//you can't stagger the dead - in case somehow you die mid-stagger
+	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_NO_STAGGER))
+		qdel(src)
+		return
+	if(HAS_TRAIT(owner, TRAIT_FAKEDEATH))
+		return
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living, do_stagger_animation))
+
+/// Helper proc that causes the mob to do a stagger animation.
+/// Doesn't change significantly, just meant to represent swaying back and forth
+/mob/living/proc/do_stagger_animation()
+	var/normal_pos = base_pixel_x + body_position_pixel_x_offset
+	var/jitter_right = normal_pos + 4
+	var/jitter_left = normal_pos - 4
+	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
+	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
+	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
