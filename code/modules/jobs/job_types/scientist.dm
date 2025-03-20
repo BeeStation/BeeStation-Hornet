@@ -5,7 +5,7 @@
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
-	total_positions = 5
+	total_positions = 4
 	spawn_positions = 3
 	selection_color = "#ffeeff"
 	exp_requirements = 120
