@@ -1,5 +1,6 @@
 ///Called when a mech melee attacks an atom
 /atom/proc/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha_attacker)
 	return
 
 /turf/closed/wall/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker)
