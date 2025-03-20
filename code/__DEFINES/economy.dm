@@ -1,9 +1,16 @@
+/// Number of paychecks jobs start with at the creation of a new bank account for a player (So at shift-start or game join, but not a blank new account.)
 #define STARTING_PAYCHECKS 5
 
-#define PAYCHECK_ASSISTANT 15
+//Current Paycheck values.
+///Paygrade for Prisoners, Assistants, and gimmicks (not VIP).
+#define PAYCHECK_LOWER 15
+///Paygrade for Civilians
 #define PAYCHECK_MINIMAL 30
+///Paygrade for Service and menial tasks
 #define PAYCHECK_EASY 35
+///Paygrade for most regular crew with importance to the station
 #define PAYCHECK_MEDIUM 60
+///Second only to heads, these people die.
 #define PAYCHECK_HARD 90
 // given from nanotrasen to heads
 #define PAYCHECK_COMMAND_NT 20

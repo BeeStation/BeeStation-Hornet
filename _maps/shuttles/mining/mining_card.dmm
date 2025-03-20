@@ -1,0 +1,401 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"e" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/mining)
+"g" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/mining)
+"i" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 5
+	},
+/obj/item/storage/pod{
+	pixel_x = 5;
+	pixel_y = 30
+	},
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"j" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dwidth = 2;
+	height = 8;
+	id = "mining";
+	name = "mining shuttle";
+	port_direction = 2;
+	width = 5;
+	dir = 4;
+	preferred_direction = 2
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"k" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/mining)
+"l" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 5
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"n" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"p" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"r" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"s" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/ore_box,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"t" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"w" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 10
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/yellow/warning_offset{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"x" = (
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/orange/hidden{
+	dir = 8
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"D" = (
+/obj/structure/shuttle/engine/propulsion/left{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"E" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/open/floor/iron/stairs{
+	dir = 4
+	},
+/area/shuttle/mining)
+"H" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/turf/open/floor/catwalk_floor,
+/area/shuttle/mining)
+"I" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"J" = (
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_in/brown,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"L" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/item/toy/figure/miner{
+	pixel_x = -3
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden{
+	dir = 6
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"M" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/turf/open/floor/catwalk_floor,
+/area/shuttle/mining)
+"N" = (
+/obj/structure/shuttle/engine/propulsion/right{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"P" = (
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/effect/turf_decal/alphabet/letter_n/cardinal{
+	dir = 8
+	},
+/obj/effect/turf_decal/alphabet/symbol_dot/cardinal{
+	dir = 8
+	},
+/obj/effect/turf_decal/alphabet/number_6/cardinal{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"Q" = (
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_in/brown,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"S" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 9
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/north,
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"T" = (
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/structure/closet/crate/internals,
+/obj/item/pickaxe/emergency,
+/obj/item/pickaxe/emergency,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"U" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 10
+	},
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"Y" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal,
+/obj/effect/turf_decal/tile/techfloorgrid/diagonal{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 9
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+
+(1,1,1) = {"
+e
+b
+j
+b
+e
+"}
+(2,1,1) = {"
+e
+Y
+Q
+s
+e
+"}
+(3,1,1) = {"
+p
+r
+P
+T
+I
+"}
+(4,1,1) = {"
+e
+i
+J
+w
+g
+"}
+(5,1,1) = {"
+e
+S
+U
+E
+e
+"}
+(6,1,1) = {"
+t
+L
+x
+l
+t
+"}
+(7,1,1) = {"
+k
+M
+H
+M
+k
+"}
+(8,1,1) = {"
+a
+N
+n
+D
+a
+"}
