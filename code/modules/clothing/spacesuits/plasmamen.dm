@@ -133,6 +133,21 @@
 				update_button_icons(user)
 		return
 
+/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/user, slot)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/lungs/living_lungs = human_user.getorganslot(ORGAN_SLOT_LUNGS)
+	//Early return if its not on the head slot, on a mob that breathes plasma
+	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma)
+		return
+
+	user.dropItemToGround(src)
+	user.balloon_alert(user, "incompatible biology!")
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+	to_chat(user, span_danger("[src] buzzes smartly as it detaches from [user]'s head."))
+
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
