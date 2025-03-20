@@ -375,16 +375,16 @@
 	name = "drill"
 	desc = "A heavy-duty industrial laser, modified to destroy structures and rocks."
 	laser_damage = 5
-	var/laser_structural_damage = 75
+	var/laser_structural_damage = 100
 	projectile_type = /obj/projectile/beam/emitter/drill/hitscan
 
 /obj/machinery/power/emitter/drill/RefreshParts()
 	..()
 	var/las_damage = 0
-	var/las_structural_damage = 0
+	var/las_structural_damage = 50
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
 		las_damage += 5 * laser.rating
-		las_structural_damage += 75 * laser.rating
+		las_structural_damage += 50 * laser.rating
 	laser_damage = las_damage
 	laser_structural_damage = las_structural_damage
 
