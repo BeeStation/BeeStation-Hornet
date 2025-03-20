@@ -117,7 +117,7 @@
 	icon_state = "signmaker_atmos"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	sign_name = "holofan"
-	creation_time = 20
+	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/atmos/advanced
@@ -126,7 +126,7 @@
 	icon_state = "signmaker_atmos_advanced"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	sign_name = "holofan"
-	creation_time = 10
+	creation_time = 0
 	max_signs = 6
 
 /obj/item/holosign_creator/medical
