@@ -344,7 +344,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set category = "OOC"
 	set desc = "Votes to end the round"
 
-	if(player_details.voted_to_leave)
+	if(isnewplayer(mob))
+		to_chat(src, "<font color='purple'>You cannot vote from the lobby.</font>")
+	else if(player_details.voted_to_leave)
 		player_details.voted_to_leave = FALSE
 		SSautotransfer.connected_votes_to_leave--
 		to_chat(src, "<font color='purple'>You are no longer voting for the current round to end.</font>")
