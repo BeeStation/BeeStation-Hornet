@@ -164,12 +164,6 @@
 	if(user.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		style.remove(user)
 
-/obj/item/clothing/gloves/krav_maga/officer
-	desc = "These gloves can teach you to perform Krav Maga using nanochips. This variety has a sleek black design"
-	icon_state = "cgloves"
-	item_state = "combatgloves"
-	worn_icon_state = "combatgloves"
-
 /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	name = "combat gloves plus"
 	desc = "These tactical gloves are fireproof and shock resistant, and using nanochip technology it teaches you the powers of krav maga."
