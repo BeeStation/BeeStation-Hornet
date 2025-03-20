@@ -69,7 +69,7 @@
 		owner.apply_status_effect(/datum/status_effect/regenerative_core)
 	qdel(src)
 
-/obj/item/organ/regenerative_core/on_life()
+/obj/item/organ/regenerative_core/on_life(delta_time, times_fired)
 	..()
 	if(owner.health <= owner.crit_threshold)
 		ui_action_click()

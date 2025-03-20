@@ -7,7 +7,7 @@
 	agent = "Shenanigans"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/alien)
 	danger = DISEASE_BIOHAZARD
-	stage_prob = 10
+	stage_prob = 5
 	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 	disease_flags = CURABLE
 	var/is_mutagenic = FALSE
@@ -29,23 +29,26 @@
 	D.new_form = D.new_form
 	return D
 
-/datum/disease/transformation/stage_act()
-	..()
+/datum/disease/transformation/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(1)
-			if (prob(stage_prob) && length(stage1))
+			if (stage1 && DT_PROB(stage_prob, delta_time))
 				to_chat(affected_mob, pick(stage1))
 		if(2)
-			if (prob(stage_prob) && length(stage2))
+			if (stage2 && DT_PROB(stage_prob, delta_time))
 				to_chat(affected_mob, pick(stage2))
 		if(3)
-			if (prob(stage_prob*2) && length(stage3))
+			if (stage3 && DT_PROB(stage_prob * 2, delta_time))
 				to_chat(affected_mob, pick(stage3))
 		if(4)
-			if (prob(stage_prob*2) && length(stage4))
+			if (stage4 && DT_PROB(stage_prob * 2, delta_time))
 				to_chat(affected_mob, pick(stage4))
 		if(5)
-			if(is_mutagenic)	//we don't do it normally
+			if(is_mutagenic) //we don't do it normally
 				form_mutagen(affected_mob)
 				return
 			do_disease_transformation(affected_mob)
@@ -97,7 +100,7 @@
 	name = "Robotic Transformation"
 	cure_text = "An injection of copper."
 	cures = list(/datum/reagent/copper)
-	cure_chance = 5
+	cure_chance = 2.5
 	agent = "R2D2 Nanomachines"
 	desc = "An acute nanomachine infection which converts its host into a cyborg."
 	danger = DISEASE_BIOHAZARD
@@ -111,17 +114,21 @@
 	infectable_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_ROBOTIC)
 	bantype = JOB_NAME_CYBORG
 
-/datum/disease/transformation/robot/stage_act()
-	..()
+
+/datum/disease/transformation/robot/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(3)
-			if (prob(8))
+			if (DT_PROB(4, delta_time))
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"), forced = "robotic transformation")
-			if (prob(4))
+			if (DT_PROB(2, delta_time))
 				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.Unconscious(40)
 		if(4)
-			if (prob(20))
+			if (DT_PROB(10, delta_time))
 				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."), forced = "robotic transformation")
 
 
@@ -130,8 +137,8 @@
 	name = "Xenomorph Transformation"
 	cure_text = "Spaceacillin & Glycerol"
 	cures = list(/datum/reagent/medicine/spaceacillin, /datum/reagent/glycerol)
-	cure_chance = 5
-	agent = "Rip-LEY Alien Microbes"
+	cure_chance = 2.5
+	agent = "Rip-LEY Alien Microbes" //I would have said nostramos, personally, guy from September 2013 -rkz
 	desc = "This disease changes the victim into a xenomorph."
 	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
@@ -143,15 +150,19 @@
 	new_form = /mob/living/carbon/alien/humanoid/hunter
 	bantype = ROLE_ALIEN
 
-/datum/disease/transformation/xeno/stage_act()
-	..()
+
+/datum/disease/transformation/xeno/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(3)
-			if (prob(4))
+			if(DT_PROB(2, delta_time))
 				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.Unconscious(40)
 		if(4)
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"), forced = "xenomorph transformation")
 
 
@@ -170,11 +181,16 @@
 	stage5	= list(span_danger("You have become a slime."))
 	new_form = /mob/living/simple_animal/slime
 
-/datum/disease/transformation/slime/stage_act()
-	..()
+/datum/disease/transformation/slime/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	var/mob/living/carbon/H = affected_mob
 	if(H.bodytemperature < T0C)
 		cure()
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(ishuman(affected_mob) && affected_mob.dna)
@@ -201,14 +217,16 @@
 	stage5	= list(span_danger("AUUUUUU!!!"))
 	new_form = /mob/living/basic/pet/dog/corgi
 
-/datum/disease/transformation/corgi/stage_act()
-	..()
+/datum/disease/transformation/corgi/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
 	switch(stage)
 		if(3)
-			if (prob(8))
+			if (DT_PROB(4, delta_time))
 				affected_mob.say(pick("YAP", "Woof!"), forced = "corgi transformation")
 		if(4)
-			if (prob(20))
+			if (DT_PROB(10, delta_time))
 				affected_mob.say(pick("Bark!", "AUUUUUU"), forced = "corgi transformation")
 
 /datum/disease/transformation/morph
@@ -217,7 +235,7 @@
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
-	stage_prob = 20
+	stage_prob = 10
 	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("Your stomach rumbles.")
@@ -232,8 +250,8 @@
 	name = "Gondola Transformation"
 	cure_text = "Condensed Capsaicin, ingested or injected." //getting pepper sprayed doesn't help
 	cures = list(/datum/reagent/consumable/condensedcapsaicin) //beats the hippie crap right out of your system
-	cure_chance = 80
-	stage_prob = 5
+	cure_chance = 55
+	stage_prob = 2.5
 	agent = "Tranquility"
 	desc = "Consuming the flesh of a Gondola comes at a terrible price."
 	danger = DISEASE_BIOHAZARD
@@ -245,28 +263,33 @@
 	stage5	= list(span_danger("You have become a Gondola."))
 	new_form = /mob/living/basic/pet/gondola
 
-/datum/disease/transformation/gondola/stage_act()
-	..()
+
+/datum/disease/transformation/gondola/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	switch(stage)
 		if(2)
-			if (prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("smile")
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
 		if(3)
-			if (prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("smile")
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
 		if(4)
-			if (prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("smile")
-			if (prob(20))
+			if(DT_PROB(10, delta_time))
 				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
-			if (prob(2))
-				to_chat(affected_mob, span_danger("You let go of what you were holding."))
-				var/obj/item/I = affected_mob.get_active_held_item()
-				affected_mob.dropItemToGround(I)
+			if(DT_PROB(1, delta_time))
+				var/obj/item/held_item = affected_mob.get_active_held_item()
+				if(held_item)
+					to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
+					affected_mob.dropItemToGround(held_item)
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"
