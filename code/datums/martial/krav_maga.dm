@@ -1,27 +1,22 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	id = MARTIALART_KRAVMAGA
-	var/datum/action/krav_maga/neck_chop/neckchop = new/datum/action/krav_maga/neck_chop()
-	var/datum/action/krav_maga/leg_sweep/legsweep = new/datum/action/krav_maga/leg_sweep()
-	var/datum/action/krav_maga/martial_strikes/martial_strikes = new/datum/action/krav_maga/martial_strikes()
+	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
+	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
+	var/datum/action/martial_strikes/martial_strikes = new/datum/action/martial_strikes()
 
-/datum/action/krav_maga
+/datum/action/neck_chop
+	name = "Neck Chop"
+	desc = "Stops the victim from being able to speak for a short while"
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "martialstrike" //if I don't define something here it fails lint.
 	check_flags = AB_CHECK_INCAPACITATED
+	button_icon_state = "neckchop"
 
-/datum/action/krav_maga/on_activate(mob/user, atom/target)
+
+/datum/action/neck_chop/on_activate(mob/user, atom/target)
 	if(owner.incapacitated())
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
 		return
-
-/datum/action/krav_maga/neck_chop
-	name = "Neck Chop"
-	desc = "Stops the victim from being able to speak for a short while"
-	button_icon_state = "neckchop"
-
-/datum/action/krav_maga/neck_chop/on_activate(mob/user, atom/target)
-	..()
 	if (owner.mind.martial_art.streak == "neck_chop")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack will be normal.</i></b>")
 		owner.mind.martial_art.streak = ""
@@ -29,13 +24,17 @@
 		owner.visible_message(span_danger("[owner] assumes the Neck Chop stance!"), "<b><i>Your next attack will be a Neck Chop.</i></b>")
 		owner.mind.martial_art.streak = "neck_chop"
 
-/datum/action/krav_maga/leg_sweep
+/datum/action/leg_sweep
 	name = "Leg Sweep"
 	desc = "Trips the victim, knocking them down for a short while"
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	check_flags = AB_CHECK_INCAPACITATED
 	button_icon_state = "legsweep"
 
-/datum/action/krav_maga/leg_sweep/on_activate()
-	..()
+/datum/action/leg_sweep/on_activate()
+	if(owner.incapacitated())
+		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
+		return
 	if (owner.mind.martial_art.streak == "leg_sweep")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack will be normal.</i></b>")
 		owner.mind.martial_art.streak = ""
@@ -43,14 +42,18 @@
 		owner.visible_message(span_danger("[owner] assumes the Leg Sweep stance!"), "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 		owner.mind.martial_art.streak = "leg_sweep"
 
-/datum/action/krav_maga/martial_strikes
+/datum/action/martial_strikes
 	name = "Martial Strikes"
 	desc = "Assume a stance that allows repeated strikes which will fatigue your enemy while doing less long-term harm."
-	button_icon_state = "martialstrike" //This is where the icon is actually intended
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	check_flags = AB_CHECK_INCAPACITATED
+	button_icon_state = "martialstrike"
 
 
-/datum/action/krav_maga/martial_strikes/on_activate()
-	..()
+/datum/action/martial_strikes/on_activate()
+	if(owner.incapacitated())
+		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
+		return
 	if (owner.mind.martial_art.streak == "martial_strikes")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack will be normal.</i></b>")
 		owner.mind.martial_art.streak = ""
