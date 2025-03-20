@@ -1,0 +1,1 @@
+/obj/item/grenade/chem_grenade : /obj/item/grenade/chem_grenade/premade {@OLD}
