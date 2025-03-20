@@ -7,6 +7,7 @@
 
 /datum/action/krav_maga
 	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "martialstrike" //if I don't define something here it fails lint.
 	check_flags = AB_CHECK_INCAPACITATED
 
 /datum/action/krav_maga/on_activate(mob/user, atom/target)
@@ -45,9 +46,8 @@
 /datum/action/krav_maga/martial_strikes
 	name = "Martial Strikes"
 	desc = "Assume a stance that allows repeated strikes which will fatigue your enemy while doing less long-term harm."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
-	button_icon_state = "martialstrike"
-	check_flags = AB_CHECK_INCAPACITATED
+	button_icon_state = "martialstrike" //This is where the icon is actually intended
+
 
 /datum/action/krav_maga/martial_strikes/on_activate()
 	..()
