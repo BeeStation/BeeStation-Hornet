@@ -12,7 +12,6 @@
 	check_flags = AB_CHECK_INCAPACITATED
 	button_icon_state = "neckchop"
 
-
 /datum/action/neck_chop/on_activate(mob/user, atom/target)
 	if(owner.incapacitated())
 		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
@@ -90,6 +89,7 @@
 
 /datum/martial_art/krav_maga/proc/leg_sweep(mob/living/user, mob/living/target)
 	if(target.stat || target.IsParalyzed() || target.IsKnockdown())
+		to_chat(owner, span_warning("You can't leg sweep something that isn't standing!"))
 		return FALSE
 	var/obj/item/bodypart/affecting = target.get_bodypart(BODY_ZONE_CHEST)
 	var/armor_block = target.run_armor_check(affecting, MELEE)
@@ -104,6 +104,7 @@
 
 /datum/martial_art/krav_maga/proc/neck_chop(mob/living/user, mob/living/target)
 	if(!iscarbon(target))
+		to_chat(owner, span_warning("You aren't able to neck chop [target]!"))
 		return FALSE
 	var/mob/living/carbon/carbon_defender = target
 	target.visible_message(span_warning("[user] karate chops [target]'s neck!"), \
