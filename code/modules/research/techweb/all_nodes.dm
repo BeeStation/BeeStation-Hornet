@@ -1558,6 +1558,7 @@
 		"mechanicalpinches",
 		"searingtool",
 		"wirebrush_adv",
+		"holosignatmos_advanced"
 	)
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -1602,7 +1603,9 @@
 	tech_tier = 4
 	display_name = "Advanced RCD Designs Upgrade"
 	description = "Unlocks new RCD designs."
-	design_ids = list("rcd_upgrade_silo_link")
+	design_ids = list("rcd_upgrade_silo_link",
+		"arcd_loaded"
+	)
 	prereq_ids = list(
 		"bluespace_travel",
 		"rcd_upgrade",
