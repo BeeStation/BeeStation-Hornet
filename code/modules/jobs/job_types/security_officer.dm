@@ -171,6 +171,11 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	suit = /obj/item/clothing/suit/armor/bulletproof
 
 
+/datum/outfit/job/security_officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	var/datum/martial_art/krav_maga/krav = new
+	krav.teach(H)
+
 /obj/item/radio/headset/headset_sec/alt/department/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/radio(src)

@@ -74,3 +74,8 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
+
+/datum/outfit/job/head_of_security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	var/datum/martial_art/krav_maga/krav = new
+	krav.teach(H)
