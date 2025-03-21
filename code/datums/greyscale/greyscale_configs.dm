@@ -214,6 +214,7 @@
 
 /datum/greyscale_config/beret/worn
 	name = "Beret Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
 	json_config = 'code/datums/greyscale/json_configs/beret_worn.json'
 
 /datum/greyscale_config/beret_badge
@@ -223,6 +224,7 @@
 
 /datum/greyscale_config/beret_badge/worn
 	name = "Beret With Badge Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
 	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'
 
 /datum/greyscale_config/bandana

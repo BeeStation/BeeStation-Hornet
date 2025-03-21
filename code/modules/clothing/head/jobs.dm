@@ -158,6 +158,7 @@
 	desc = "A beret, a mime's favorite headwear."
 	icon_state = "beret"
 	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state_preview = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
 	greyscale_config = /datum/greyscale_config/beret
