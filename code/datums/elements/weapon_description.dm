@@ -87,6 +87,8 @@
 			readout += "It has [span_warning("[weapon_tag_convert(source.armour_penetration)]")] armor-piercing capability."
 
 		if(source.block_level || source.block_upgrade_walk)
+			//empty line
+			readout += ""
 			if(source.block_upgrade_walk == 1 && !source.block_level)
 				readout += "While walking, it can block attacks in a <b>narrow</b> arc."
 			else
