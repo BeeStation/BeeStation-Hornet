@@ -20,7 +20,7 @@
 		return FALSE
 	if(target.suiciding || target.ishellbound() || HAS_TRAIT(target, TRAIT_HUSK))
 		return FALSE
-	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!B)
 		return FALSE
 	return TRUE

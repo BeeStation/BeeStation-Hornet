@@ -431,7 +431,7 @@
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
-	if(isvampire(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
+	if(IS_VAMPIRE(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
 		if(prob(min(25,current_cycle)))
 			to_chat(M, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			M.Paralyze(10)
@@ -651,7 +651,7 @@
 			if(!M.is_mouth_covered() && !M.is_eyes_covered())
 				unprotected = TRUE
 	if(unprotected)
-		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
+		if(!M.get_organ_slot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
 			to_chat(M, span_notice("Your eye sockets feel wet."))
 		else
 			if(!M.eye_blurry)
@@ -802,7 +802,7 @@
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/M)
 	if(HAS_TRAIT(M, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/stomach = M.getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/stomach = M.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(stomach))
 			stomach.adjust_charge(40*REM)
 	else if(prob(3)) //scp13 optimization

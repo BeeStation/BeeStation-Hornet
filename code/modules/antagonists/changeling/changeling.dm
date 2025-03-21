@@ -104,7 +104,7 @@
 	//We'll be using this from now on
 	var/mob/living/carbon/C = owner.current
 	if(istype(C))
-		var/obj/item/organ/brain/B = C.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = C.get_organ_slot(ORGAN_SLOT_BRAIN)
 		if(B && (B.decoy_override != initial(B.decoy_override)))
 			B.organ_flags |= ORGAN_VITAL
 			B.decoy_override = FALSE
@@ -360,8 +360,8 @@
 	var/datum/changelingprofile/removeprofile = get_profile_to_remove()
 	if(removeprofile)
 		stored_profiles -= removeprofile
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/antagonist/changeling/proc/create_initial_profile()
@@ -390,7 +390,7 @@
 	//Brains optional.
 	var/mob/living/carbon/C = owner.current
 	if(istype(C))
-		var/obj/item/organ/brain/B = C.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = C.get_organ_slot(ORGAN_SLOT_BRAIN)
 		if(B)
 			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
