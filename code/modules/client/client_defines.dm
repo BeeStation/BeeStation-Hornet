@@ -147,3 +147,9 @@
 	var/mouse_down_icon = null
 	///used to override the mouse cursor so it doesnt get reset
 	var/mouse_override_icon = null
+
+
+	/// Whether or not we want to show screentips
+	var/show_screentips = TRUE
+	/// Should extended screentips be shown?
+	var/show_extended_screentips = FALSE
