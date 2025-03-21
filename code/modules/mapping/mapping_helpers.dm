@@ -742,6 +742,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	layer = TEXT_EFFECT_UI_LAYER
 
 /obj/effect/mapping_helpers/Mapper_Comment/Initialize(mapload)
+	..()
 	return INITIALIZE_HINT_QDEL
 
 //loads crate shelves with crates on mapload. Done via a helper because of linters

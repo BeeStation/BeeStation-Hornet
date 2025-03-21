@@ -1,7 +1,0 @@
-author: St0rmC4st3r
-delete-after: true
-changes:
-  - rscadd: You can now lobotomise monkeys and humanised monkeys to get rid of their
-      behaviour.
-  - tweak: AI controllers are now transferrable by removing/implanting the brain or
-      head.
