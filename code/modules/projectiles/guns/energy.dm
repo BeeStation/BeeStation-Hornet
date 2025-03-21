@@ -67,19 +67,25 @@
  *
  */
 /obj/item/gun/energy/proc/add_notes_energy()
-	var/list/readout = list("")
+	var/list/readout = list()
 	// Make sure there is something to actually retrieve
-	if(!ammo_type)
+	if(!ammo_type.len)
 		return
 	var/obj/projectile/exam_proj
-	readout += "Standard models of this projectile weapon have <span class='warning'>[ammo_type.len]</span> mode\s"
+	readout += "\nStandard models of this projectile weapon have [span_warning("[ammo_type.len] mode\s")]"
 	readout += "Our heroic interns have shown that one can theoretically stay standing after..."
-	for(var/obj/item/ammo_casing/energy/for_ammo in ammo_type)
-		exam_proj = for_ammo.BB
-		if(exam_proj.damage > 0) // Don't divide by 0!!!!!
-			readout += "<span class='warning'>[round(100 / exam_proj.damage, 0.1)]</span> shot\s on <span class='warning'>[for_ammo.select_name]</span> mode before collapsing from [exam_proj.damage_type == STAMINA ? "immense pain" : "their wounds"]."
+	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
+		exam_proj = for_ammo.projectile_type
+		if(!ispath(exam_proj))
+			continue
+
+		if(initial(exam_proj.damage) > 0) // Don't divide by 0!!!!!
+			readout += "[span_warning("[HITS_TO_CRIT(initial(exam_proj.damage) * for_ammo.pellets)] shot\s")] on [span_warning("[for_ammo.select_name]")] mode before collapsing from [initial(exam_proj.damage_type) == STAMINA ? "immense pain" : "their wounds"]."
+			if(initial(exam_proj.stamina) > 0) // In case a projectile does damage AND stamina damage (Energy Crossbow)
+				readout += "[span_warning("[HITS_TO_CRIT(initial(exam_proj.stamina) * for_ammo.pellets)] shot\s")] on [span_warning("[for_ammo.select_name]")] mode before collapsing from immense pain."
 		else
-			readout += "an infinite number of shots on <span class='warning'>[for_ammo.select_name] mode</span>."
+			readout += "a theoretically infinite number of shots on [span_warning("[for_ammo.select_name]")] mode."
+
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
 
 /obj/item/gun/energy/Initialize(mapload)
