@@ -120,6 +120,13 @@
 	///Generic flags
 	var/simple_mob_flags = NONE
 
+	///Is this animal horrible at hunting?
+	var/inept_hunter = FALSE
+
+	///Limits how often mobs can hunt other mobs
+	COOLDOWN_DECLARE(emote_cooldown)
+	var/turns_since_scan = 0
+
 	var/special_process = FALSE
 
 	///set it TRUE if "health" is not relable to this simple mob.
@@ -615,24 +622,13 @@
 //ANIMAL RIDING
 
 /mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-	if(riding_datum)
-		if(user.incapacitated())
+	if(user.incapacitated())
+		return
+	for(var/atom/movable/A in get_turf(src))
+		if(A != src && A != M && A.density)
 			return
-		for(var/atom/movable/A in get_turf(src))
-			if(A != src && A != M && A.density)
-				return
-		M.forceMove(get_turf(src))
-		return ..()
 
-/mob/living/simple_animal/relaymove(mob/living/user, direction)
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-	if(tame && riding_datum)
-		riding_datum.handle_ride(user, direction)
-
-/mob/living/simple_animal/buckle_mob(mob/living/buckled_mob, force = 0, check_loc = 1)
-	. = ..()
-	LoadComponent(/datum/component/riding)
+	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))
@@ -675,3 +671,44 @@
 	. = ..()
 	if(.)
 		sentience_act(user)
+
+//Makes this mob hunt the prey, be it living or an object. Will kill living creatures, and delete objects.
+/mob/living/simple_animal/proc/hunt(hunted)
+	if(src == hunted) //Make sure it doesn't eat itself. While not likely to ever happen, might as well check just in case.
+		return
+	stop_automated_movement = FALSE
+	if(!isturf(src.loc)) // Are we on a proper turf?
+		return
+	if(stat || resting || buckled) // Are we concious, upright, and not buckled?
+		return
+	if(!COOLDOWN_FINISHED(src, emote_cooldown)) // Has the cooldown on this ended?
+		return
+	if(!Adjacent(hunted))
+		stop_automated_movement = TRUE
+		walk_to(src,hunted,0,3)
+		if(Adjacent(hunted))
+			hunt(hunted) // In case it gets next to the target immediately, skip the scan timer and kill it.
+		return
+	if(isliving(hunted)) // Are we hunting a living mob?
+		var/mob/living/prey = hunted
+		if(inept_hunter) // Make your hunter inept to have them unable to catch their prey.
+			visible_message("<span class='warning'>[src] chases [prey] around, to no avail!</span>")
+			step(prey, pick(GLOB.cardinals))
+			COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
+			return
+		if(!(prey.stat))
+			manual_emote("chomps [prey]!")
+			prey.death()
+			prey = null
+			COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
+			return
+	else // We're hunting an object, and should delete it instead of killing it. Mostly useful for decal bugs like ants or spider webs.
+		manual_emote("chomps [hunted]!")
+		qdel(hunted)
+		hunted = null
+		COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
+		return
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)

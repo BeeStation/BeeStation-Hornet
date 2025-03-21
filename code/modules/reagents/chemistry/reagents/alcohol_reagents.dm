@@ -736,7 +736,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/manly_dorf/on_mob_metabolize(mob/living/M)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || (C.has_dna() && C.dna.check_mutation(DWARFISM)))
+		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || HAS_TRAIT(C, TRAIT_DWARF))
 			to_chat(C, span_notice("Now THAT is MANLY!"))
 			boozepwr = 5 //We've had worse in the mines
 			dorf_mode = TRUE
@@ -2423,7 +2423,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/list/trauma_list
 
 /datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
-	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
+	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - typesof(/datum/brain_trauma/special/imaginary_friend) = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
 	trauma_list = list()

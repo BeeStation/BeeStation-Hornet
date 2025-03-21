@@ -46,6 +46,7 @@ export const tgui_input_large: FeatureToggle = {
   subcategory: 'TGUI Input',
   description: 'Makes TGUI buttons fill the size of the box.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const tgui_input_swapped: FeatureToggle = {
@@ -70,6 +71,7 @@ export const tgui_say_light_mode: FeatureToggle = {
   subcategory: 'TGUI Say',
   description: 'Sets TGUI Say to use light mode.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const tgui_asay: FeatureToggle = {
