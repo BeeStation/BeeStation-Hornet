@@ -109,11 +109,6 @@
 	name = "botanist's jumpsuit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
-	armor_type = /datum/armor/civilian_hydroponics
-
-
-/datum/armor/civilian_hydroponics
-	bio = 50
 
 /obj/item/clothing/under/rank/civilian/hydroponics/skirt
 	name = "botanist's jumpskirt"
@@ -130,12 +125,6 @@
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
 	name = "janitor's jumpsuit"
 	icon_state = "janitor"
-	armor_type = /datum/armor/civilian_janitor
-
-
-/datum/armor/civilian_janitor
-	bio = 10
-	bleed = 10
 
 /obj/item/clothing/under/rank/civilian/janitor/skirt
 	name = "janitor's jumpskirt"

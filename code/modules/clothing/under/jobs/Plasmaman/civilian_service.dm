@@ -5,7 +5,7 @@
 	item_state = "plasmaman"
 	icon = 'icons/obj/clothing/under/plasmaman.dmi'
 	worn_icon = 'icons/mob/clothing/under/plasmaman.dmi'
-	armor_type = /datum/armor/under_plasmaman
+	armor_type = /datum/armor/civilian_padded
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	can_adjust = FALSE
 	strip_delay = 80
@@ -14,13 +14,6 @@
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 5
 	envirosealed = TRUE
-
-
-
-/datum/armor/under_plasmaman
-	bio = 100
-	fire = 95
-	acid = 95
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()

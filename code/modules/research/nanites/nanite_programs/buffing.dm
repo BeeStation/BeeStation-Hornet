@@ -40,8 +40,8 @@
 	var/datum/armor/nanite_armor = /datum/armor/hardening_armor
 
 /datum/armor/hardening_armor
-	melee = 30
-	bullet = 30
+	penetration = 35
+	blunt = 15
 
 //TODO on_hit effect that turns skin grey for a moment
 

@@ -12,7 +12,7 @@
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	hoodtype = /obj/item/clothing/head/hooded/explorer
-	armor_type = /datum/armor/hooded_explorer
+	armor_type = /datum/armor/civilian_light_armor
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
@@ -26,19 +26,6 @@
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
 
-
-/datum/armor/hooded_explorer
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 50
-	rad = 50
-	fire = 50
-	acid = 50
-	stamina = 20
-	bleed = 30
-
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
 	desc = "An armoured hood for exploring harsh environments."
@@ -51,22 +38,9 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	armor_type = /datum/armor/hooded_explorer
+	armor_type = /datum/armor/civilian_light_armor
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
-
-
-/datum/armor/hooded_explorer
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 20
-	bomb = 50
-	rad = 50
-	fire = 50
-	acid = 50
-	stamina = 20
-	bleed = 30
 
 /obj/item/clothing/suit/hooded/explorer/Initialize(mapload)
 	. = ..()
@@ -86,20 +60,7 @@
 	visor_flags_inv = HIDEFACIALHAIR
 	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/adjust)
-	armor_type = /datum/armor/gas_explorer
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/gas_explorer
-	melee = 10
-	bullet = 5
-	laser = 5
-	energy = 5
-	bio = 50
-	fire = 20
-	acid = 40
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
@@ -123,22 +84,9 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
-	armor_type = /datum/armor/space_hostile_environment
+	armor_type = /datum/armor/security_heavy_armor
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
-
-
-/datum/armor/space_hostile_environment
-	melee = 70
-	bullet = 40
-	laser = 20
-	energy = 20
-	bomb = 50
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 40
-	bleed = 50
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
@@ -164,22 +112,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_flags = THICKMATERIAL // no space protection
-	armor_type = /datum/armor/space_hostile_environment
+	armor_type = /datum/armor/security_heavy_armor
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
-
-
-/datum/armor/space_hostile_environment
-	melee = 70
-	bullet = 40
-	laser = 20
-	energy = 20
-	bomb = 50
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 40
-	bleed = 50
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()

@@ -147,17 +147,6 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor_type = /datum/armor/structure_ice_stasis
-
-
-/datum/armor/structure_ice_stasis
-	melee = 30
-	bullet = 50
-	laser = -50
-	energy = -50
-	rad = 100
-	fire = -80
-	acid = 30
 
 /obj/structure/ice_stasis/Initialize(mapload)
 	. = ..()

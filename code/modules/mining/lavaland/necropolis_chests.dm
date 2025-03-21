@@ -684,19 +684,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = LAVA_PROOF | FIRE_PROOF //they are from lavaland after all
-	armor_type = /datum/armor/gloves_concussive_gauntlets
-
-
-/datum/armor/gloves_concussive_gauntlets
-	melee = 15
-	bullet = 35
-	laser = 35
-	energy = 20
-	bomb = 35
-	bio = 35
-	rad = 35
-	stamina = 20
-	bleed = 20
+	armor_type = /datum/armor/civilian_metal
 
 /obj/item/clothing/gloves/concussive_gauntlets/equipped(mob/user, slot)
 	. = ..()

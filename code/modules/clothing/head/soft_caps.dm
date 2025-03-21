@@ -100,20 +100,8 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor_type = /datum/armor/soft_sec
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
-
-
-/datum/armor/soft_sec
-	melee = 30
-	bullet = 25
-	laser = 25
-	energy = 10
-	bomb = 25
-	fire = 20
-	acid = 50
-	stamina = 30
-	bleed = 10
 
 /obj/item/clothing/head/soft/sec/brig_physician
 	name = "security medic cap"

@@ -180,11 +180,7 @@
 
 
 /datum/armor/sealed_mecha
-	melee = 20
-	bullet = 10
-	bomb = 10
-	fire = 100
-	acid = 100
+	penetration = 80
 
 /obj/item/radio/mech //this has to go somewhere
 	subspace_transmission = TRUE

@@ -32,23 +32,12 @@
 	icon_state = "captain"
 	item_state = "that"
 	flags_inv = 0
-	armor_type = /datum/armor/hats_caphat
+	armor_type = /datum/armor/military_padded
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
-
-/datum/armor/hats_caphat
-	melee = 25
-	bullet = 15
-	laser = 25
-	energy = 30
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 30
 
 /obj/item/clothing/head/hats/caphat/parade
 	name = "captain's parade cap"
@@ -62,22 +51,11 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	armor_type = /datum/armor/hats_hopcap
+	armor_type = /datum/armor/security_padded
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
-
-/datum/armor/hats_hopcap
-	melee = 25
-	bullet = 15
-	laser = 25
-	energy = 30
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 15
 
 /obj/item/clothing/head/chaplain/nun_hood
 	name = "nun hood"
@@ -98,24 +76,12 @@
 /obj/item/clothing/head/fedora/det_hat
 	name = "detective's fedora"
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
-	armor_type = /datum/armor/fedora_det_hat
+	armor_type = /datum/armor/security_padded
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
-
-
-/datum/armor/fedora_det_hat
-	melee = 25
-	bullet = 5
-	laser = 25
-	energy = 30
-	fire = 30
-	acid = 50
-	stamina = 25
-	bleed = 20
-
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
@@ -206,43 +172,18 @@
 	name = "durathread beret"
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
-	armor_type = /datum/armor/beret_durathread
+	armor_type = /datum/armor/durathread
 
 //Security
-
-
-/datum/armor/beret_durathread
-	melee = 15
-	bullet = 25
-	laser = 15
-	energy = 20
-	bomb = 10
-	fire = 30
-	acid = 5
-	stamina = 20
-	bleed = 45
 
 /obj/item/clothing/head/hats/hos
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	armor_type = /datum/armor/hats_hos
+	armor_type = /datum/armor/security_padded
 	strip_delay = 80
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
-
-
-/datum/armor/hats_hos
-	melee = 40
-	bullet = 30
-	laser = 25
-	energy = 30
-	bomb = 25
-	bio = 10
-	fire = 50
-	acid = 60
-	stamina = 30
-	bleed = 30
 
 /obj/item/clothing/head/hats/hos/syndicate
 	name = "syndicate cap"
@@ -265,21 +206,9 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	armor_type = /datum/armor/hats_warden
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
-
-
-/datum/armor/hats_warden
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 30
-	acid = 60
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/hats/warden/drill
 	name = "warden's campaign hat"
@@ -354,78 +283,30 @@
 	name = "corporate warden beret"
 	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
 	icon_state = "beret_corporate_warden"
-	armor_type = /datum/armor/beret_corpwarden
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_corpwarden
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 30
-	acid = 60
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
-	armor_type = /datum/armor/beret_sec
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
 	dog_fashion = null
-
-
-/datum/armor/beret_sec
-	melee = 35
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/corpsec
 	name = "corporate security beret"
 	desc = "A special black beret for the mundane life of a corporate security officer."
 	icon_state = "beret_corporate_officer"
-	armor_type = /datum/armor/beret_corpsec
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_corpsec
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 20
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/spacepol
 	name = "spacepol officer beret"
 	desc = "A special black beret for the mundane life of a SpacePol officer."
 	icon_state = "beret_corporate_officer"
-	armor_type = /datum/armor/beret_spacepol
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_spacepol
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 30
-	bomb = 25
-	fire = 20
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/sec/navyhos
 	name = "head of security's beret"
@@ -436,20 +317,8 @@
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "wardenberet"
-	armor_type = /datum/armor/sec_navywarden
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
-
-
-/datum/armor/sec_navywarden
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 10
-	bomb = 25
-	fire = 30
-	acid = 50
-	stamina = 30
-	bleed = 25
 
 /obj/item/clothing/head/beret/sec/navyofficer
 	desc = "A special beret with the security insignia emblazoned on it. For officers with class."
@@ -465,260 +334,118 @@
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "beret_engineering"
-	armor_type = /datum/armor/beret_eng
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_eng
-	rad = 10
-	fire = 10
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
 	icon_state = "beret_atmospherics"
-	armor_type = /datum/armor/beret_atmos
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_atmos
-	rad = 10
-	fire = 10
 
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
-	armor_type = /datum/armor/beret_ce
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_ce
-	rad = 20
-	fire = 30
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
-	armor_type = /datum/armor/beret_sci
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_sci
-	bomb = 5
-	bio = 5
-	fire = 5
-	acid = 10
 
 /obj/item/clothing/head/beret/supply
 	name = "supply beret"
 	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
 	icon_state = "beret_supply"
-	armor_type = /datum/armor/beret_supply
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
 
 //Medical
-
-/datum/armor/beret_supply
-	rad = 10
-	fire = 10
 
 /obj/item/clothing/head/beret/med
 	name = "medical beret"
 	desc = "A white beret with a blue cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
-	armor_type = /datum/armor/beret_med
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_med
-	bio = 20
 
 /obj/item/clothing/head/beret/cmo
 	name = "chief medical officer beret"
 	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
 	icon_state = "beret_cmo"
-	armor_type = /datum/armor/beret_cmo
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 60
 
 //CentCom
-
-/datum/armor/beret_cmo
-	bio = 30
-	rad = 10
-	acid = 20
 
 /obj/item/clothing/head/beret/cccaptain
 	name = "central command captain beret"
 	desc = "A pure white beret with a Captain insignia of Central Command."
 	icon_state = "beret_centcom_captain"
-	armor_type = /datum/armor/beret_cccaptain
+	armor_type = /datum/armor/military_padded
 	strip_delay = 120
-
-
-/datum/armor/beret_cccaptain
-	melee = 80
-	bullet = 80
-	laser = 80
-	energy = 80
-	bomb = 80
-	bio = 80
-	rad = 80
-	fire = 80
-	acid = 80
-	stamina = 80
-	bleed = 80
 
 /obj/item/clothing/head/beret/ccofficer
 	name = "central command officer beret"
 	desc = "A black Central Command Officer beret with matching insignia."
 	icon_state = "beret_centcom_officer"
-	armor_type = /datum/armor/beret_ccofficer
+	armor_type = /datum/armor/military_padded
 	strip_delay = 120
-
-
-/datum/armor/beret_ccofficer
-	melee = 80
-	bullet = 80
-	laser = 80
-	energy = 80
-	bomb = 80
-	bio = 80
-	rad = 80
-	fire = 80
-	acid = 80
-	stamina = 80
-	bleed = 80
 
 /obj/item/clothing/head/beret/ccofficernavy
 	name = "central command naval officer beret"
 	desc = "A Navy beret commonly worn by Central Command Naval Officers."
 	icon_state = "beret_centcom_officer_navy"
-	armor_type = /datum/armor/beret_ccofficernavy
+	armor_type = /datum/armor/military_padded
 	strip_delay = 120
 
 //For blueshields, but those aren't in so I renamed them to centcom guards
-
-/datum/armor/beret_ccofficernavy
-	melee = 80
-	bullet = 80
-	laser = 80
-	energy = 80
-	bomb = 80
-	bio = 80
-	rad = 80
-	fire = 80
-	acid = 80
-	stamina = 80
-	bleed = 80
 
 /obj/item/clothing/head/beret/ccguard
 	name = "officer beret"
 	desc = "A black CentCom guard's beret."
 	icon_state = "beret_centcom_officer"
-	armor_type = /datum/armor/beret_ccguard
+	armor_type = /datum/armor/military_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_ccguard
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 5
-	rad = 5
-	fire = 5
-	acid = 30
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
 	desc = "A navy CentCom guard's beret."
 	icon_state = "beret_centcom_officer_navy"
-	armor_type = /datum/armor/beret_ccguardnavy
+	armor_type = /datum/armor/military_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_ccguardnavy
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 5
-	rad = 5
-	fire = 5
-	acid = 30
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
 	desc = "A navy SpacePol sergeant's beret."
 	icon_state = "beret_centcom_officer_navy"
-	armor_type = /datum/armor/beret_sergeant
+	armor_type = /datum/armor/security_padded
 	strip_delay = 60
-
-
-/datum/armor/beret_sergeant
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 10
-	bomb = 10
-	bio = 5
-	rad = 5
-	fire = 5
-	acid = 30
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/head/beret/captain
 	name = "captain beret"
 	desc = "A lovely blue Captain beret with a gold and white insignia."
 	icon_state = "beret_captain"
-	armor_type = /datum/armor/beret_captain
+	armor_type = /datum/armor/security_padded
 	strip_delay = 90
 
 
 //CentCom
-
-/datum/armor/beret_captain
-	melee = 50
-	bullet = 30
-	laser = 20
-	energy = 30
-	bomb = 15
-	bio = 10
-	rad = 10
-	fire = 10
-	acid = 60
-	stamina = 40
-	bleed = 20
 
 /obj/item/clothing/head/beret/centcom_formal
 	name = "\improper CentCom Formal Beret"
 	desc = "Sometimes, a compromise between fashion and defense needs to be made. Thanks to Nanotrasen's most recent nano-fabric durability enhancements, this time, it's not the case."
 	icon_state = "beret_badge"
 	greyscale_colors = "#46b946#f2c42e"
-	armor_type = /datum/armor/beret_centcom_formal
+	armor_type = /datum/armor/security_padded
 	strip_delay = 10 SECONDS
 
 #undef DRILL_DEFAULT
 #undef DRILL_SHOUTING
 #undef DRILL_YELLING
 #undef DRILL_CANADIAN
-
-
-/datum/armor/beret_centcom_formal
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 90

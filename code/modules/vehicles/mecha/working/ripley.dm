@@ -32,14 +32,7 @@
 
 
 /datum/armor/working_ripley
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 20
-	bomb = 40
-	rad = 20
-	fire = 100
-	acid = 100
+	penetration = 40
 
 /obj/vehicle/sealed/mecha/working/ripley/Move()
 	. = ..()
@@ -62,9 +55,8 @@
 	AddComponent(/datum/component/armor_plate, 3 ,/obj/item/stack/sheet/animalhide/goliath_hide, /datum/armor/armor_plate_ripley_goliath)
 
 /datum/armor/armor_plate_ripley_goliath
-	melee = 10
-	bullet = 5
-	laser = 5
+	penetration = 10
+	blunt = 10
 
 /obj/vehicle/sealed/mecha/working/ripley/Destroy()
 	for(var/atom/movable/A in cargo)
@@ -89,13 +81,7 @@
 
 
 /datum/armor/ripley_mk2
-	melee = 40
-	bullet = 20
-	laser = 10
-	energy = 20
-	bomb = 40
-	fire = 100
-	acid = 100
+	penetration = 50
 
 /obj/vehicle/sealed/mecha/working/ripley/mk2/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)

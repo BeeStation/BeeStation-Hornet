@@ -8,13 +8,8 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor_type = /datum/armor/hooded_hoodie
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	hoodtype = /obj/item/clothing/head/hooded/hoodie
-
-
-/datum/armor/hooded_hoodie
-	bio = 10
 
 /obj/item/clothing/head/hooded/hoodie
 	name = "white hoodie hood"
@@ -131,31 +126,11 @@
 	name = "durathread hoodie"
 	desc = "A hoodie made from durathread, its resilient fibres provide some protection to the wearer."
 	color = "#8291a1"
-	armor_type = /datum/armor/hoodie_durathread
+	armor_type = /datum/armor/durathread
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/durathread
-
-
-/datum/armor/hoodie_durathread
-	melee = 15
-	bullet = 25
-	laser = 10
-	fire = 40
-	acid = 10
-	bomb = 5
-	stamina = 30
 
 /obj/item/clothing/head/hooded/hoodie/durathread
 	name = "durathread hoodie hood"
 	desc = "A duratread hood attached to your hoodie, robust as."
-	armor_type = /datum/armor/hoodie_durathread
+	armor_type = /datum/armor/durathread
 	color = "#8291a1"
-
-
-/datum/armor/hoodie_durathread
-	melee = 5
-	bullet = 5
-	laser = 5
-	fire = 20
-	acid = 5
-	bomb = 5
-	stamina = 15

@@ -7,7 +7,7 @@
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
 	item_state = null
-	armor_type = /datum/armor/utility_hardhat
+	armor_type = /datum/armor/hardhat
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
@@ -23,20 +23,6 @@
 	var/hat_type = "yellow"
 	///Whether the headlamp is on or off.
 	var/on = FALSE
-
-
-/datum/armor/utility_hardhat
-	melee = 15
-	bullet = 5
-	laser = 20
-	energy = 10
-	bomb = 20
-	bio = 50
-	rad = 20
-	fire = 100
-	acid = 50
-	stamina = 20
-	bleed = 60
 
 /obj/item/clothing/head/utility/hardhat/Initialize(mapload)
 	. = ..()
@@ -187,13 +173,8 @@
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
-	armor_type = /datum/armor/hardhat_pumpkinhead
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
-
-
-/datum/armor/hardhat_pumpkinhead
-	stamina = 10
 
 /obj/item/clothing/head/utility/hardhat/reindeer
 	name = "novelty reindeer hat"

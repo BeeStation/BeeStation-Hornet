@@ -18,14 +18,7 @@
 	desc = "The uniform worn by engineering/security officers."
 	icon_state = "trek_engsec"
 	item_state = "r_suit"
-	armor_type = /datum/armor/trek_engsec
 	strip_delay = 50
-
-
-/datum/armor/trek_engsec
-	melee = 10
-	bio = 10
-	bleed = 10
 
 /obj/item/clothing/under/trek/medsci
 	name = "medsci uniform"

@@ -4,23 +4,9 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor_type = /datum/armor/space_chronos
+	armor_type = /datum/armor/military_heavy_armor
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit
-
-
-/datum/armor/space_chronos
-	melee = 60
-	bullet = 60
-	laser = 60
-	energy = 60
-	bomb = 30
-	bio = 90
-	rad = 90
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 80
 
 /obj/item/clothing/head/helmet/space/chronos/dropped()
 	..()

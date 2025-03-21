@@ -23,19 +23,10 @@
 		           /obj/item/clothing/head/utility/welding = 2,
 		           /obj/item/clothing/gloves/color/yellow = 1)
 	refill_canister = /obj/item/vending_refill/tool
-	armor_type = /datum/armor/vending_tool
 	resistance_flags = FIRE_PROOF
 	default_price = 10
 	extra_price = 80
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
-
-/datum/armor/vending_tool
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	fire = 100
-	acid = 70
 
 /obj/item/vending_refill/tool
 	machine_name = "YouTool"

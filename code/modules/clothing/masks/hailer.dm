@@ -34,19 +34,7 @@
 	aggressiveness = 3
 	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDEEYES | HIDEEARS | HIDEHAIR | HIDESNOUT
 	visor_flags_inv = 0
-	armor_type = /datum/armor/sechailer_swat
-
-
-/datum/armor/sechailer_swat
-	melee = 10
-	bullet = 5
-	laser = 5
-	energy = 5
-	bio = 50
-	fire = 20
-	acid = 40
-	stamina = 30
-	bleed = 30
+	armor_type = /datum/armor/security_padded
 
 /obj/item/clothing/mask/gas/sechailer/swat/emagged
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. This one seems to have the safety toggled off..."

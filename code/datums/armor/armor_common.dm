@@ -9,6 +9,70 @@
  */
 
 // ===============================
+// Durathread
+// Durathread armour
+// ===============================
+
+/datum/armor/durathread
+	penetration = 40
+	blunt = 20
+	absorption = 50
+	reflectivity = 10
+	heat = 10
+
+/datum/armor/hardhat
+	penetration = 10
+	blunt = 35
+	absorption = 45
+	reflectivity = 5
+	heat = 5
+
+/datum/armor/bulletproof
+	penetration = 85
+	blunt = 20
+	absorption = 15
+	reflectivity = 5
+	heat = 5
+
+/datum/armor/riot
+	penetration = 15
+	blunt = 60
+	absorption = 30
+	reflectivity = 5
+	heat = 5
+
+/datum/armor/foil
+	penetration = 0
+	blunt = 0
+	absorption = 0
+	reflectivity = 70
+	heat = 0
+
+/datum/armor/suit
+	penetration = 3
+
+/datum/armor/laserproof
+	penetration = 10
+	blunt = 20
+	absorption = 50
+	reflectivity = 80
+	heat = 50
+
+/datum/armor/firesuit
+	penetration = 10
+	blunt = 10
+	absorption = 80
+	heat = 80
+	reflectivity = 0
+
+/datum/armor/bomb
+	penetration = 5
+	blunt = 5
+	absorption = 80
+	heat = 100
+	reflectivity = 0
+
+// ===============================
 // Padded clothing
 // Unarmoured, but with some protective padding for safety.
 // ===============================
@@ -23,14 +87,14 @@
 /// Non-armoured but padded security clothing. (Padded gloves and other protective clothing)
 /datum/armor/security_padded
 	penetration = 10
-	blunt = 10
+	blunt = 20
 	heat = 10
 	absorption = 50
 
 /// For non-armoured military clothing that is padded (Military padded gloves and other protective clothing)
 /datum/armor/military_padded
 	penetration = 20
-	blunt = 20
+	blunt = 25
 	heat = 10
 	absorption = 70
 
@@ -103,14 +167,14 @@
 	heat = 20
 
 /datum/armor/security_light_armor
-	penetration = 70
+	penetration = 55
 	blunt = 30
 	absorption = 40
 	reflectivity = 30
 	heat = 30
 
 /datum/armor/military_light_armor
-	penetration = 90
+	penetration = 70
 	blunt = 40
 	absorption = 40
 	reflectivity = 40

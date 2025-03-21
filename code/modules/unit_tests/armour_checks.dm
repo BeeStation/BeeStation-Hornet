@@ -78,15 +78,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/suit/test_vest)
 /obj/item/clothing/suit/test_vest/Initialize(mapload, armour_values)
 	set_armor_rating(MELEE, armour_values)
 	. = ..()
-
-/datum/armor/armor50
-	melee = 50
-
-/datum/armor/armor100
-	melee = 100
-
-/datum/armor/armor200
-	melee = 200
-
-/datum/armor/armorN50
-	melee = -50

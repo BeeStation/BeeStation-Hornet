@@ -16,14 +16,7 @@
 
 
 /datum/armor/combat_durand
-	melee = 40
-	bullet = 35
-	laser = 15
-	energy = 10
-	bomb = 20
-	rad = 50
-	fire = 100
-	acid = 100
+	penetration = 150
 
 /obj/vehicle/sealed/mecha/combat/durand/Initialize(mapload)
 	. = ..()

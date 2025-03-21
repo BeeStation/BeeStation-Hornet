@@ -46,7 +46,6 @@
 	icon = 'icons/obj/clothing/suits/jacket.dmi'
 	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	gas_transfer_coefficient = 0.9
-	armor_type = /datum/armor/toggle_chef
 	body_parts_covered = CHEST|GROIN|ARMS
 	allowed = list(
 		/obj/item/kitchen,
@@ -55,10 +54,6 @@
 	toggle_noun = "sleeves"
 
 //Cook
-
-/datum/armor/toggle_chef
-	bio = 50
-
 /obj/item/clothing/suit/apron/chef
 	name = "cook's apron"
 	desc = "A basic, dull, white chef's apron."
@@ -79,7 +74,7 @@
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|GROIN|ARMS
-	armor_type = /datum/armor/jacket_det_suit
+	armor_type = /datum/armor/civilian_light_armor
 	cold_protection = CHEST|GROIN|ARMS
 	heat_protection = CHEST|GROIN|ARMS
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
@@ -88,16 +83,6 @@
 		/obj/item/melee/classic_baton,
 		/obj/item/clothing/accessory/holster/detective,
 		) //Trench coats are a little more apt at carrying larger objects.
-
-
-/datum/armor/jacket_det_suit
-	melee = 25
-	bullet = 10
-	laser = 25
-	energy = 10
-	acid = 45
-	stamina = 40
-	bleed = 30
 
 /obj/item/clothing/suit/jacket/det_suit/Initialize(mapload)
 	. = ..()
@@ -124,17 +109,9 @@
 	icon_state = "brig_phys_vest"
 	item_state = "sec_helm"//looks kinda similar, I guess
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/storage/firstaid, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/soap, /obj/item/sensor_device, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	armor_type = /datum/armor/hazardvest_brig_physician
+	armor_type = /datum/armor/civilian_light_armor
 
 //Engineering
-
-/datum/armor/hazardvest_brig_physician
-	melee = 10
-	bio = 10
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 20
 
 /obj/item/clothing/suit/hazardvest
 	name = "hazard vest"
@@ -255,21 +232,11 @@
 		/obj/item/tank/internals,
 		/obj/item/melee/curator_whip
 	)
-	armor_type = /datum/armor/jacket_curator
+	armor_type = /datum/armor/civilian_padded
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
 
 //Roboticist
-
-
-/datum/armor/jacket_curator
-	melee = 25
-	bullet = 10
-	laser = 25
-	energy = 10
-	acid = 45
-	stamina = 30
-	bleed = 10
 
 /obj/item/clothing/suit/hooded/techpriest
 	name = "techpriest robes"

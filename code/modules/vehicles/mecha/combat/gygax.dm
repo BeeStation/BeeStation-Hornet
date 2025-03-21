@@ -18,12 +18,7 @@
 
 
 /datum/armor/combat_gygax
-	melee = 25
-	bullet = 20
-	laser = 30
-	energy = 15
-	fire = 100
-	acid = 100
+	penetration = 110
 
 /obj/vehicle/sealed/mecha/combat/gygax/dark
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
@@ -43,14 +38,7 @@
 
 
 /datum/armor/gygax_dark
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 35
-	bomb = 20
-	rad = 20
-	fire = 100
-	acid = 100
+	penetration = 140
 
 /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()

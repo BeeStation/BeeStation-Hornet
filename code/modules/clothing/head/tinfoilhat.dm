@@ -4,16 +4,10 @@
 	icon_state = "foilhat"
 	item_state = null
 	clothing_flags = EFFECT_HAT | SNUG_FIT
-	armor_type = /datum/armor/costume_foilhat
+	armor_type = /datum/armor/foil
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
 	var/mutable_appearance/psychic_overlay
-
-
-/datum/armor/costume_foilhat
-	laser = -5
-	rad = -5
-	stamina = 50
 
 /obj/item/clothing/head/costume/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -67,7 +61,7 @@
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
 	clothing_flags = STOPSPRESSUREDAMAGE | EFFECT_HAT | SNUG_FIT | HEADINTERNALS
-	armor_type = /datum/armor/foilhat_plasmaman
+	armor_type = /datum/armor/foil
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	light_system = MOVABLE_LIGHT
 	light_range = 4
@@ -83,13 +77,6 @@
 	dog_fashion = null
 	///Is the light on?
 	var/on = FALSE
-
-
-/datum/armor/foilhat_plasmaman
-	bio = 100
-	fire = 50
-	acid = 50
-	stamina = 50
 
 /obj/item/clothing/head/costume/foilhat/plasmaman/attack_self(mob/user)
 	on = !on

@@ -18,9 +18,7 @@
 
 
 /datum/armor/combat_honker
-	melee = -20
-	fire = 100
-	acid = 100
+	penetration = 30
 
 /obj/vehicle/sealed/mecha/combat/honker/get_stats_part(mob/user)
 	var/integrity = atom_integrity/max_integrity*100
@@ -202,13 +200,7 @@
 
 
 /datum/armor/honker_dark
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 35
-	bomb = 20
-	fire = 100
-	acid = 100
+	penetration = 110
 
 /obj/vehicle/sealed/mecha/combat/honker/dark/add_cell(obj/item/stock_parts/cell/C)
 	if(C)

@@ -222,12 +222,7 @@
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
 	medaltype = "medal-plasma"
-	armor_type = /datum/armor/medal_plasma
 	custom_materials = list(/datum/material/plasma=1000)
-
-
-/datum/armor/medal_plasma
-	fire = -10
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -364,16 +359,8 @@
 
 
 /datum/armor/accessory_talisman
-	melee = 5
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 20
-	bio = 20
-	rad = 5
-	acid = 25
-	stamina = 10
-	bleed = 10
+	penetration = 5
+	blunt = 5
 
 /obj/item/clothing/accessory/skullcodpiece
 	name = "skull codpiece"
@@ -385,16 +372,8 @@
 
 
 /datum/armor/accessory_skullcodpiece
-	melee = 5
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 20
-	bio = 20
-	rad = 5
-	acid = 25
-	stamina = 10
-	bleed = 10
+	penetration = 5
+	blunt = 5
 
 /obj/item/clothing/accessory/holster
 	name = "shoulder holster"

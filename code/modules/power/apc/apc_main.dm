@@ -12,7 +12,7 @@
 	icon_state = "apc0"
 	use_power = NO_POWER_USE
 	req_access = null
-	max_integrity = 200
+	max_integrity = 250
 	integrity_failure = 0.25
 	damage_deflection = 10
 	resistance_flags = FIRE_PROOF
@@ -22,8 +22,6 @@
 	zmm_flags = ZMM_MANGLE_PLANES
 
 	light_power = 0.85
-
-
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
@@ -129,18 +127,6 @@
 
 	/// To prevent sound loop bugs
 	var/apc_sound_stage = null
-
-	armor_type = /datum/armor/power_apc
-
-/datum/armor/power_apc
-	melee = 20
-	bullet = 20
-	laser = 10
-	energy = 100
-	bomb = 30
-	rad = 100
-	fire = 90
-	acid = 50
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)

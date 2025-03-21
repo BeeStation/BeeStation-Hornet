@@ -22,25 +22,11 @@ Contains:
 	desc = "An advanced tactical space helmet."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor_type = /datum/armor/hardsuit_deathsquad
+	armor_type = /datum/armor/military_heavy_armor
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	actions_types = list()
-
-
-/datum/armor/hardsuit_deathsquad
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
 
 /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/attack_self(mob/user)
 	return
@@ -51,7 +37,7 @@ Contains:
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/knife/combat)
-	armor_type = /datum/armor/hardsuit_deathsquad
+	armor_type = /datum/armor/military_heavy_armor
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -59,20 +45,6 @@ Contains:
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 	cell = /obj/item/stock_parts/cell/bluespace
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
-
-
-/datum/armor/hardsuit_deathsquad
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
 
 /obj/item/clothing/head/helmet/space/beret
 	name = "CentCom officer's beret"
@@ -84,24 +56,10 @@ Contains:
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	flags_inv = 0
-	armor_type = /datum/armor/space_beret
+	armor_type = /datum/armor/military_heavy_armor
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-
-/datum/armor/space_beret
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
 
 /obj/item/clothing/suit/space/officer
 	name = "CentCom officer's coat"
@@ -117,25 +75,12 @@ Contains:
 	flags_inv = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor_type = /datum/armor/space_officer
+	armor_type = /datum/armor/military_heavy_armor
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 	//NASA Voidsuit
-
-/datum/armor/space_officer
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
 
 /obj/item/clothing/head/helmet/space/nasavoid
 	name = "NASA Void Helmet"
@@ -172,25 +117,11 @@ Contains:
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor_type = /datum/armor/space_pirate
+	armor_type = /datum/armor/security_light_armor
 	flags_inv = HIDEHAIR
 	strip_delay = 40
 	equip_delay_other = 20
 	flags_cover = HEADCOVERSEYES
-
-
-/datum/armor/space_pirate
-	melee = 30
-	bullet = 50
-	laser = 30
-	energy = 15
-	bomb = 30
-	bio = 30
-	rad = 30
-	fire = 60
-	acid = 75
-	stamina = 20
-	bleed = 20
 
 /obj/item/clothing/head/helmet/space/pirate/bandana
 	name = "pirate bandana"
@@ -207,24 +138,11 @@ Contains:
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/cup/glass/bottle/rum)
 	slowdown = 0
-	armor_type = /datum/armor/space_pirate
+	armor_type = /datum/armor/military_padded
 	strip_delay = 40
 	equip_delay_other = 20
 
 	//Emergency Response Team suits
-
-/datum/armor/space_pirate
-	melee = 30
-	bullet = 50
-	laser = 30
-	energy = 15
-	bomb = 30
-	bio = 30
-	rad = 30
-	fire = 60
-	acid = 75
-	stamina = 20
-	bleed = 20
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert
 	name = "emergency response team commander helmet"
@@ -232,7 +150,7 @@ Contains:
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "hardsuit0-ert_commander"
 	hardsuit_type = "ert_commander"
-	armor_type = /datum/armor/hardsuit_ert
+	armor_type = /datum/armor/security_light_armor
 	strip_delay = 130
 	light_range = 7
 	resistance_flags = FIRE_PROOF
@@ -243,20 +161,6 @@ Contains:
 	)
 	var/beacon_colour = "#4b48ec"
 	var/beacon_zdiff_colour = "#0b0a47"
-
-
-/datum/armor/hardsuit_ert
-	melee = 65
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 50
-	bio = 100
-	rad = 100
-	fire = 80
-	acid = 80
-	stamina = 70
-	bleed = 70
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize(mapload)
 	. = ..()
@@ -279,7 +183,7 @@ Contains:
 	item_state = "ert_command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor_type = /datum/armor/hardsuit_ert
+	armor_type = /datum/armor/security_light_armor
 	slowdown = 0
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF
@@ -292,19 +196,6 @@ Contains:
 	)
 
 // ERT suit's gets EMP Protection
-
-/datum/armor/hardsuit_ert
-	melee = 65
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 50
-	bio = 100
-	rad = 100
-	fire = 80
-	acid = 80
-	stamina = 70
-	bleed = 70
 
 /obj/item/clothing/suit/space/hardsuit/ert/Initialize(mapload)
 	. = ..()
@@ -387,15 +278,7 @@ Contains:
 	icon_state = "space"
 	item_state = "eva_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	armor_type = /datum/armor/space_eva
-
-
-/datum/armor/space_eva
-	bio = 100
-	rad = 20
-	fire = 50
-	acid = 65
-	bleed = 30
+	armor_type = /datum/armor/civilian_padded
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -403,15 +286,7 @@ Contains:
 	item_state = "eva_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flash_protect = 0
-	armor_type = /datum/armor/space_eva
-
-
-/datum/armor/space_eva
-	bio = 100
-	rad = 20
-	fire = 50
-	acid = 65
-	bleed = 30
+	armor_type = /datum/armor/civilian_padded
 
 /obj/item/clothing/head/helmet/space/freedom
 	name = "eagle helmet"
@@ -420,24 +295,10 @@ Contains:
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "griffinhat"
 	item_state = null
-	armor_type = /datum/armor/space_freedom
+	armor_type = /datum/armor/security_padded
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF | FIRE_PROOF
-
-
-/datum/armor/space_freedom
-	melee = 20
-	bullet = 40
-	laser = 30
-	energy = 25
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 80
-	acid = 80
-	stamina = 10
-	bleed = 30
 
 /obj/item/clothing/suit/space/freedom
 	name = "eagle suit"
@@ -445,25 +306,11 @@ Contains:
 	icon_state = "freedom"
 	item_state = "freedom"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor_type = /datum/armor/space_freedom
+	armor_type = /datum/armor/security_padded
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	slowdown = 0
-
-
-/datum/armor/space_freedom
-	melee = 20
-	bullet = 40
-	laser = 30
-	energy = 25
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 80
-	acid = 80
-	stamina = 10
-	bleed = 30
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	name = "paranormal response team helmet"
@@ -540,16 +387,9 @@ Contains:
 	desc = "A bulky, air-tight helmet meant to protect the user during emergency situations. It doesn't look very durable."
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
-	armor_type = /datum/armor/space_fragile
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 65
 	flash_protect = 0
-
-
-/datum/armor/space_fragile
-	melee = 5
-	bio = 10
-	rad = 10
-	bleed = 5
 
 /obj/item/clothing/suit/space/fragile
 	name = "emergency space suit"
@@ -558,16 +398,9 @@ Contains:
 	icon_state = "syndicate-orange"
 	item_state = "syndicate-orange"
 	slowdown = 2
-	armor_type = /datum/armor/space_fragile
+	armor_type = /datum/armor/civilian_padded
 	strip_delay = 65
 	w_class = WEIGHT_CLASS_NORMAL
-
-
-/datum/armor/space_fragile
-	melee = 5
-	bio = 10
-	rad = 10
-	bleed = 5
 
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!torn && prob(50))
@@ -585,24 +418,10 @@ Contains:
 	icon_state = "hunter"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/knife/combat)
-	armor_type = /datum/armor/space_hunter
+	armor_type = /datum/armor/security_light_armor
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	cell = /obj/item/stock_parts/cell/hyper
-
-
-/datum/armor/space_hunter
-	melee = 60
-	bullet = 40
-	laser = 40
-	energy = 50
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 70
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"
@@ -612,7 +431,6 @@ Contains:
 	item_state = "skinsuit_helmet"
 	max_integrity = 200
 	desc = "An airtight helmet meant to protect the wearer during emergency situations."
-	armor_type = /datum/armor/hardsuit_skinsuit
 	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
 	heat_protection = NONE
 	flash_protect = 0
@@ -621,11 +439,6 @@ Contains:
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	max_heat_protection_temperature = 100
 	actions_types = null
-
-
-/datum/armor/hardsuit_skinsuit
-	bio = 100
-	bleed = 10
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
 	return
@@ -645,17 +458,11 @@ Contains:
 	clothing_flags = STOPSPRESSUREDAMAGE
 	species_restricted = null
 	gas_transfer_coefficient = 0.5
-	armor_type = /datum/armor/hardsuit_skinsuit
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	min_cold_protection_temperature = EMERGENCY_SUIT_MIN_TEMP_PROTECT
 	heat_protection = NONE
 	max_heat_protection_temperature = 100
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
-
-
-/datum/armor/hardsuit_skinsuit
-	bio = 50
-	bleed = 10
 
 /obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
 	return
@@ -666,12 +473,4 @@ Contains:
 	icon_state = "hunter"
 	item_state = "hunter"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor_type = /datum/armor/space_hunter
-
-
-/datum/armor/space_hunter
-	melee = 5
-	bullet = 5
-	laser = 5
-	stamina = 20
-	bleed = 40
+	armor_type = /datum/armor/security_light_armor

@@ -8,20 +8,9 @@
 	desc = "It's good to be emperor."
 	item_state = "that"
 	flags_inv = NONE
-	armor_type = /datum/armor/hats_centhat
+	armor_type = /datum/armor/security_padded
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
-
-
-/datum/armor/hats_centhat
-	melee = 30
-	bullet = 15
-	laser = 30
-	energy = 10
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
 
 /obj/item/clothing/head/hats/centcom_cap
 	name = "\improper CentCom commander cap"
@@ -29,19 +18,8 @@
 	desc = "Worn by the finest of CentCom commanders. Inside the lining of the cap, lies two faint initials."
 	item_state = "that"
 	flags_inv = 0
-	armor_type = /datum/armor/hats_centcom_cap
+	armor_type = /datum/armor/security_padded
 	strip_delay = (8 SECONDS)
-
-
-/datum/armor/hats_centcom_cap
-	melee = 30
-	bullet = 15
-	laser = 30
-	energy = 10
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
 
 /obj/item/clothing/head/costume/canada
 	name = "striped red tophat"
@@ -65,12 +43,7 @@
 	item_state = "that"
 	icon_state = "plaguedoctor"
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
-	armor_type = /datum/armor/costume_plague
 	flags_inv = HIDEHAIR
-
-
-/datum/armor/costume_plague
-	bio = 100
 
 /obj/item/clothing/head/costume/nursehat
 	name = "nurse's hat"

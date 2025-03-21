@@ -22,19 +22,9 @@
 						/obj/item/toy/katana = 10,
 						/obj/item/dualsaber/toy = 5,
 						/obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
-	armor_type = /datum/armor/vending_toyliberationstation
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "donksoft-light-mask"
-
-
-/datum/armor/vending_toyliberationstation
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	fire = 100
-	acid = 50

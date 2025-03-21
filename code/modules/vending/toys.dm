@@ -23,21 +23,11 @@
 		/obj/item/gun/ballistic/automatic/l6_saw/toy/unrestricted = 10,
 		/obj/item/toy/katana = 10,
 		/obj/item/dualsaber/toy = 5)
-
-	armor_type = /datum/armor/vending_donksofttoyvendor
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
-
-/datum/armor/vending_donksofttoyvendor
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	fire = 100
-	acid = 50
 
 /obj/item/vending_refill/donksoft
 	machine_name = "Donksoft Toy Vendor"

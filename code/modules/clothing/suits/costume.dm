@@ -216,21 +216,9 @@
 	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
 	icon_state = "ponchoshame_alt"
 	item_state = "ponchoshame_alt"
-	armor_type = /datum/armor/ponchoshame_outlaw
+	armor_type = /datum/armor/security_padded
 	body_parts_covered = CHEST|GROIN
 	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
-
-
-/datum/armor/ponchoshame_outlaw
-	melee = 25
-	bullet = 25
-	laser = 25
-	energy = 20
-	bomb = 30
-	bio = 30
-	rad = 20
-	acid = 30
-	stamina = 35
 
 /obj/item/clothing/suit/costume/whitedress
 	name = "white dress"
@@ -261,7 +249,7 @@
 	icon_state = "carp_suit"
 	item_state = "space_suit_syndicate"
 	slowdown = 0	//Space carp magic, never stop believing
-	armor_type = /datum/armor/carp_costume_spaceproof
+	armor_type = /datum/armor/security_light_armor
 	allowed = list(
 		/obj/item/tank/internals,
 		/obj/item/pneumatic_cannon/speargun,
@@ -278,19 +266,6 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof
 	resistance_flags = NONE
-
-
-/datum/armor/carp_costume_spaceproof
-	melee = 20
-	bullet = 10
-	laser = 20
-	energy = 20
-	bomb = 30
-	bio = 100
-	rad = 75
-	fire = 60
-	acid = 75
-	stamina = 40
 
 /obj/item/clothing/suit/hooded/ian_costume	//It's Ian, rub his bell- oh god what happened to his inside parts?
 	name = "corgi costume"

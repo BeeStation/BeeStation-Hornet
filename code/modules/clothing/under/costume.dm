@@ -292,19 +292,11 @@
 	item_state = null
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	alt_covers_chest = TRUE
-	armor_type = /datum/armor/costume_russian_officer
+	armor_type = /datum/armor/security_padded
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-
-
-/datum/armor/costume_russian_officer
-	melee = 10
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 15
 
 /obj/item/clothing/under/costume/swagoutfit
 	name = "swag outfit"

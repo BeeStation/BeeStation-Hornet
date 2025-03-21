@@ -5,7 +5,7 @@
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "helmet"
 	item_state = "helmet"
-	armor_type = /datum/armor/head_helmet
+	armor_type = /datum/armor/security_light_armor
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
 	heat_protection = HEAD
@@ -17,18 +17,6 @@
 	flags_inv = HIDEHAIR
 	bang_protect = 1
 	clothing_flags = THICKMATERIAL
-
-
-/datum/armor/head_helmet
-	melee = 35
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 50
 
 /obj/item/clothing/head/helmet/Initialize(mapload)
 	. = ..()
@@ -69,19 +57,7 @@
 	desc = "A bulletproof combat helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "helmetalt"
 	item_state = "helmetalt"
-	armor_type = /datum/armor/helmet_alt
-
-
-/datum/armor/helmet_alt
-	melee = 15
-	bullet = 60
-	laser = 10
-	energy = 15
-	bomb = 40
-	fire = 50
-	acid = 50
-	stamina = 30
-	bleed = 50
+	armor_type = /datum/armor/bulletproof
 
 /obj/item/clothing/head/helmet/alt/Initialize(mapload)
 	. = ..()
@@ -140,24 +116,13 @@
 	item_state = "helmet"
 	toggle_message = "You pull the visor down on"
 	alt_toggle_message = "You push the visor up on"
-	armor_type = /datum/armor/toggleable_riot
+	armor_type = /datum/armor/riot
 	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT
 	strip_delay = 80
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-
-/datum/armor/toggleable_riot
-	melee = 50
-	bullet = 10
-	laser = 10
-	energy = 15
-	fire = 80
-	acid = 80
-	stamina = 50
-	bleed = 70
 
 /obj/item/clothing/head/helmet/toggleable/riot/Initialize(mapload)
 	. = ..()
@@ -207,27 +172,13 @@
 	desc = "An extremely robust, space-worthy helmet in a nefarious red and black stripe pattern."
 	icon_state = "swatsyndie"
 	item_state = "swatsyndie"
-	armor_type = /datum/armor/helmet_swat
+	armor_type = /datum/armor/security_heavy_armor
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
-
-
-/datum/armor/helmet_swat
-	melee = 40
-	bullet = 30
-	laser = 30
-	energy = 40
-	bomb = 50
-	bio = 90
-	rad = 20
-	fire = 50
-	acid = 50
-	stamina = 50
-	bleed = 70
 
 /obj/item/clothing/head/helmet/police
 	name = "police officer's hat"
@@ -247,64 +198,32 @@
 	flags_inv = HIDEEARS|HIDEHAIR
 	icon_state = "thunderdome"
 	item_state = "thunderdome"
-	armor_type = /datum/armor/helmet_thunderdome
+	armor_type = /datum/armor/security_heavy_armor
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 
-
-/datum/armor/helmet_thunderdome
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 90
-	acid = 90
-
 /obj/item/clothing/head/helmet/thunderdome/holosuit
 	cold_protection = null
 	heat_protection = null
-	armor_type = /datum/armor/thunderdome_holosuit
-
-
-/datum/armor/thunderdome_holosuit
-	melee = 10
-	bullet = 10
+	armor_type = /datum/armor/civilian_padded
 
 /obj/item/clothing/head/helmet/roman
 	name = "\improper Roman helmet"
 	desc = "An ancient helmet made of bronze and leather."
 	flags_inv = HIDEEARS|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor_type = /datum/armor/helmet_roman
+	armor_type = /datum/armor/military_metal
 	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
 
-
-/datum/armor/helmet_roman
-	melee = 25
-	laser = 25
-	energy = 30
-	bomb = 10
-	fire = 100
-	acid = 50
-	stamina = 40
-	bleed = 50
-
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."
-	armor_type = /datum/armor/roman_fake
-
-
-/datum/armor/roman_fake
-	bleed = 10
+	armor_type = /datum/armor/civilian_padded
 
 /obj/item/clothing/head/helmet/roman/legionnaire
 	name = "\improper Roman legionnaire helmet"
@@ -314,11 +233,7 @@
 
 /obj/item/clothing/head/helmet/roman/legionnaire/fake
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
-	armor_type = /datum/armor/legionnaire_fake
-
-
-/datum/armor/legionnaire_fake
-	bleed = 10
+	armor_type = /datum/armor/civilian_metal
 
 /obj/item/clothing/head/helmet/gladiator
 	name = "gladiator helmet"
@@ -334,18 +249,7 @@
 	icon_state = "redtaghelm"
 	flags_cover = HEADCOVERSEYES
 	item_state = "redtaghelm"
-	armor_type = /datum/armor/helmet_redtaghelm
-
-
-/datum/armor/helmet_redtaghelm
-	melee = 15
-	bullet = 10
-	laser = 20
-	energy = 30
-	bomb = 20
-	acid = 50
-	stamina = 10
-	bleed = 10
+	armor_type = /datum/armor/civilian_light_armor
 
 /obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
@@ -353,40 +257,18 @@
 	icon_state = "bluetaghelm"
 	flags_cover = HEADCOVERSEYES
 	item_state = "bluetaghelm"
-	armor_type = /datum/armor/helmet_bluetaghelm
-
-
-/datum/armor/helmet_bluetaghelm
-	melee = 15
-	bullet = 10
-	laser = 20
-	energy = 30
-	bomb = 20
-	acid = 50
-	stamina = 10
-	bleed = 10
+	armor_type = /datum/armor/civilian_light_armor
 
 /obj/item/clothing/head/helmet/knight
 	name = "medieval helmet"
 	desc = "A classic metal helmet."
 	icon_state = "knight_green"
 	item_state = "knight_green"
-	armor_type = /datum/armor/helmet_knight
+	armor_type = /datum/armor/security_metal
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	bang_protect = 1
-
-
-/datum/armor/helmet_knight
-	melee = 50
-	bullet = 10
-	laser = 10
-	energy = 10
-	fire = 80
-	acid = 80
-	stamina = 50
-	bleed = 10
 
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
@@ -405,22 +287,10 @@
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES
-	armor_type = /datum/armor/helmet_skull
+	armor_type = /datum/armor/civilian_chitin
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
-
-
-/datum/armor/helmet_skull
-	melee = 35
-	bullet = 25
-	laser = 25
-	energy = 10
-	bomb = 25
-	fire = 50
-	acid = 50
-	stamina = 20
-	bleed = 40
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -428,40 +298,16 @@
 	icon_state = "durathread"
 	item_state = "durathread"
 	resistance_flags = FLAMMABLE
-	armor_type = /datum/armor/helmet_durathread
+	armor_type = /datum/armor/durathread
 	strip_delay = 60
-
-
-/datum/armor/helmet_durathread
-	melee = 20
-	bullet = 40
-	laser = 30
-	energy = 5
-	bomb = 15
-	fire = 40
-	acid = 50
-	stamina = 30
-	bleed = 60
 
 /obj/item/clothing/head/helmet/rus_helmet
 	name = "russian helmet"
 	desc = "It can hold a bottle of vodka."
 	icon_state = "rus_helmet"
 	item_state = "rus_helmet"
-	armor_type = /datum/armor/helmet_rus_helmet
+	armor_type = /datum/armor/security_padded
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
-
-
-/datum/armor/helmet_rus_helmet
-	melee = 25
-	bullet = 30
-	energy = 15
-	bomb = 10
-	rad = 20
-	fire = 20
-	acid = 50
-	stamina = 20
-	bleed = 15
 
 /obj/item/clothing/head/helmet/rus_ushanka
 	name = "battle ushanka"
@@ -471,21 +317,7 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	armor_type = /datum/armor/helmet_rus_ushanka
-
-
-/datum/armor/helmet_rus_ushanka
-	melee = 25
-	bullet = 20
-	laser = 20
-	energy = 10
-	bomb = 20
-	bio = 50
-	rad = 20
-	fire = -10
-	acid = 50
-	stamina = 20
-	bleed = 15
+	armor_type = /datum/armor/security_padded
 
 /obj/item/clothing/head/helmet/outlaw
 	name = "outlaw's hat"
@@ -496,17 +328,4 @@
 	item_state = "cowboy"
 	worn_icon_state = "cowboy_outlaw"
 	body_parts_covered = HEAD
-	armor_type = /datum/armor/helmet_outlaw
-
-
-/datum/armor/helmet_outlaw
-	melee = 25
-	bullet = 25
-	laser = 20
-	energy = 10
-	bomb = 30
-	bio = 30
-	rad = 20
-	acid = 40
-	stamina = 25
-	bleed = 15
+	armor_type = /datum/armor/civilian_padded

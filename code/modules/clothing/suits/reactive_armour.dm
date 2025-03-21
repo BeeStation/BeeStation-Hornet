@@ -33,7 +33,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor_type = /datum/armor/armor_reactive
+	armor_type = /datum/armor/civilian_light_armor
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -50,12 +50,6 @@
 	///The cooldown itself of the reactive armor for when it can activate again.
 	COOLDOWN_DECLARE(reactivearmor_cooldown)
 	pocket_storage_component_path = FALSE
-
-
-/datum/armor/armor_reactive
-	fire = 100
-	acid = 100
-	bleed = 10
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)

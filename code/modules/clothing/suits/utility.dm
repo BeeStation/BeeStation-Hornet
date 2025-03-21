@@ -31,7 +31,7 @@
 		/obj/item/powertool/jaws_of_life
 	)
 	slowdown = 1
-	armor_type = /datum/armor/utility_fire
+	armor_type = /datum/armor/firesuit
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -41,20 +41,6 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	resistance_flags = FIRE_PROOF
-
-
-/datum/armor/utility_fire
-	melee = 15
-	bullet = 5
-	laser = 20
-	energy = 10
-	bomb = 20
-	bio = 50
-	rad = 20
-	fire = 100
-	acid = 50
-	stamina = 10
-	bleed = 25
 
 /obj/item/clothing/suit/utility/fire/firefighter
 	icon_state = "firesuit"
@@ -83,7 +69,7 @@
 	desc = "Use in case of bomb."
 	icon_state = "bombsuit"
 	clothing_flags = THICKMATERIAL | SNUG_FIT
-	armor_type = /datum/armor/utility_bomb_hood
+	armor_type = /datum/armor/bomb
 	flags_inv = HIDEFACE|HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
@@ -96,18 +82,6 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 
-
-
-/datum/armor/utility_bomb_hood
-	melee = 20
-	laser = 20
-	energy = 10
-	bomb = 100
-	fire = 80
-	acid = 50
-	stamina = 10
-	bleed = 25
-
 /obj/item/clothing/suit/utility/bomb_suit
 	name = "bomb suit"
 	desc = "A suit designed for safety when handling explosives."
@@ -118,7 +92,7 @@
 	clothing_flags = THICKMATERIAL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor_type = /datum/armor/utility_bomb_suit
+	armor_type = /datum/armor/bomb
 	flags_inv = HIDEJUMPSUIT
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -127,18 +101,6 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
-
-
-/datum/armor/utility_bomb_suit
-	melee = 20
-	laser = 20
-	energy = 10
-	bomb = 100
-	bio = 50
-	fire = 80
-	acid = 50
-	stamina = 10
-	bleed = 25
 
 /obj/item/clothing/head/utility/bomb_hood/security
 	icon_state = "bombsuit_sec"

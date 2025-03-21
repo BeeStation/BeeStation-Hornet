@@ -2,8 +2,7 @@
 	name = "clown car"
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
-	max_integrity = 150
-	armor_type = /datum/armor/car_clowncar
+	max_integrity = 250
 	enter_delay = 20
 	max_occupants = 50
 	movedelay = 0.6
@@ -19,12 +18,10 @@
 
 
 /datum/armor/car_clowncar
-	melee = 70
-	bullet = 40
-	laser = 40
-	bomb = 30
-	fire = 80
-	acid = 80
+	// Generally pretty protective for the inhabitants, although not
+	// super protective since security massacring the entire crew
+	// would be pretty funny
+	penetration = 50
 
 /obj/vehicle/sealed/car/clowncar/generate_actions()
 	. = ..()

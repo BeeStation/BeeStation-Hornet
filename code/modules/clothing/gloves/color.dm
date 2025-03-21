@@ -184,14 +184,9 @@
 	item_state = "latex"
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
-	armor_type = /datum/armor/color_latex
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	var/carrytrait = TRAIT_QUICKER_CARRY
-
-
-/datum/armor/color_latex
-	bio = 100
 
 /obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
 	..()

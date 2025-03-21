@@ -25,14 +25,9 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
-
 /datum/armor/obj_vehicle
-	melee = 30
-	bullet = 30
-	laser = 30
-	bomb = 30
-	fire = 60
-	acid = 60
+	blunt = 30
+	penetration = 30
 
 /obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles

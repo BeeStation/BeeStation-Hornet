@@ -9,13 +9,7 @@
 
 
 /datum/armor/mecha_combat
-	melee = 30
-	bullet = 30
-	laser = 15
-	energy = 20
-	bomb = 20
-	fire = 100
-	acid = 100
+	penetration = 130
 
 /obj/vehicle/sealed/mecha/combat/restore_equipment()
 	mouse_pointer = 'icons/mecha/mecha_mouse.dmi'

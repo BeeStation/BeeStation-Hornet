@@ -60,16 +60,8 @@
 	item_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	armor_type = /datum/armor/backpack_snail
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-
-/datum/armor/backpack_snail
-	melee = 20
-	bullet = 10
-	laser = 10
-	energy = 10
 
 /obj/item/storage/backpack/snail/Initialize(mapload)
 	. = ..()

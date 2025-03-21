@@ -20,12 +20,7 @@
 
 
 /datum/armor/combat_reticence
-	melee = 25
-	bullet = 20
-	laser = 30
-	energy = 15
-	fire = 100
-	acid = 100
+	penetration = 110
 
 /obj/vehicle/sealed/mecha/combat/reticence/loaded/Initialize(mapload)
 	. = ..()

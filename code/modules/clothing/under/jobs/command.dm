@@ -3,20 +3,11 @@
 	name = "captain's jumpsuit"
 	icon_state = "captain"
 	item_state = "b_suit"
-	armor_type = /datum/armor/rank_captain
+	armor_type = /datum/armor/civilian_padded
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
-
-
-/datum/armor/rank_captain
-	melee = 10
-	bio = 10
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 10
 
 /obj/item/clothing/under/rank/captain/skirt
 	name = "captain's jumpskirt"

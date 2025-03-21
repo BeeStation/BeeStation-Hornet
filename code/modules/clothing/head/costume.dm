@@ -126,16 +126,7 @@
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet_old"
 	flags_inv = HIDEEARS|HIDEHAIR
-	armor_type = /datum/armor/costume_bronze
-
-
-/datum/armor/costume_bronze
-	melee = 5
-	laser = -5
-	bomb = 10
-	fire = 20
-	acid = 20
-	stamina = 30
+	armor_type = /datum/armor/civilian_metal
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
@@ -172,23 +163,10 @@
 	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
 	icon_state = "carp_helm"
 	item_state = "syndicate"
-	armor_type = /datum/armor/carp_hood_spaceproof
+	armor_type = /datum/armor/military_padded
 	light_system = NO_LIGHT_SUPPORT
 	light_range = 0 //luminosity when on
 	actions_types = list()
-
-
-/datum/armor/carp_hood_spaceproof
-	melee = 20
-	bullet = 10
-	laser = 20
-	energy = 20
-	bomb = 30
-	bio = 100
-	rad = 75
-	fire = 60
-	acid = 75
-	stamina = 40
 
 /obj/item/clothing/head/hooded/carp_hood/spaceproof/Initialize(mapload)
 	. = ..()
@@ -197,15 +175,7 @@
 /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
 	name = "battered carp helmet"
 	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
-	armor_type = /datum/armor/spaceproof_old
-
-
-/datum/armor/spaceproof_old
-	bio = 100
-	rad = 50
-	fire = 80
-	acid = 70
-	stamina = 10
+	armor_type = /datum/armor/military_padded
 
 /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old
 	name = "battered carp space suit"
@@ -240,31 +210,11 @@
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
-	armor_type = /datum/armor/bee_costume_syndie
+	armor_type = /datum/armor/military_padded
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
 
-
-/datum/armor/bee_costume_syndie
-	melee = 20
-	bullet = 20
-	laser = 20
-	energy = 40
-	bio = 60
-	acid = 50
-	stamina = 40
-
 /obj/item/clothing/head/hooded/bee_hood/syndie
-	armor_type = /datum/armor/bee_hood_syndie
-
-
-/datum/armor/bee_hood_syndie
-	melee = 20
-	bullet = 20
-	laser = 20
-	energy = 40
-	bio = 60
-	acid = 50
-	stamina = 40
+	armor_type = /datum/armor/military_padded
 
 /obj/item/clothing/head/hooded/human_head
 	name = "bloated human head"

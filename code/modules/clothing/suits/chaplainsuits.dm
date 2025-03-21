@@ -9,19 +9,9 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor_type = /datum/armor/chaplainsuit_armor
+	armor_type = /datum/armor/security_metal
 	strip_delay = 80
 	equip_delay_other = 60
-
-
-/datum/armor/chaplainsuit_armor
-	melee = 50
-	bullet = 10
-	laser = 10
-	energy = 10
-	fire = 80
-	acid = 80
-	stamina = 35
 
 /obj/item/clothing/suit/hooded/chaplainsuit
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
@@ -125,21 +115,11 @@
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "knight_templar"
 	item_state = null
-	armor_type = /datum/armor/helmet_chaplain
+	armor_type = /datum/armor/security_metal
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
-
-
-/datum/armor/helmet_chaplain
-	melee = 50
-	bullet = 10
-	laser = 10
-	energy = 10
-	fire = 80
-	acid = 80
-	stamina = 40
 
 /obj/item/clothing/suit/chaplainsuit/armor/templar
 	name = "crusader armour"
@@ -159,19 +139,7 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
-	armor_type = /datum/armor/plate_crusader
-
-
-/datum/armor/plate_crusader
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 40
-	bomb = 60
-	fire = 60
-	acid = 60
-	stamina = 50
-	bleed = 60
+	armor_type = /datum/armor/security_metal
 
 /obj/item/clothing/head/helmet/plate/crusader/blue
 	icon_state = "crusader-blue"
@@ -189,22 +157,8 @@
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	item_state = null
 	flags_1 = 0
-	armor_type = /datum/armor/crusader_prophet
+	armor_type = /datum/armor/security_metal
 	worn_y_offset = 6
-
-
-/datum/armor/crusader_prophet
-	melee = 60
-	bullet = 60
-	laser = 60
-	energy = 50
-	bomb = 70
-	bio = 50
-	rad = 50
-	fire = 60
-	acid = 60
-	stamina = 60
-	bleed = 60
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/red
 	icon_state = "prophet-red"
@@ -264,18 +218,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slowdown = 2.0 //gotta pretend we're balanced.
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor_type = /datum/armor/armor_crusader
-
-
-/datum/armor/armor_crusader
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 40
-	bomb = 60
-	fire = 60
-	acid = 60
-	stamina = 50
+	armor_type = /datum/armor/security_metal
 
 /obj/item/clothing/suit/chaplainsuit/armor/crusader/red
 	icon_state = "crusader-red"
@@ -342,13 +285,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor_type = /datum/armor/gloves_graverobber_gloves
-
-
-/datum/armor/gloves_graverobber_gloves
-	bio = 10
-	fire = 30
-	acid = 20
+	armor_type = /datum/armor/security_padded
 
 /obj/item/clothing/under/rank/civilian/graverobber_under
 	name = "grave robber uniform"

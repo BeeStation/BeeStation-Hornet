@@ -47,19 +47,12 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	blocks_shove_knockdown = TRUE
 
-
 /datum/armor/misc_adminsuit
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
+	penetration = 100
+	blunt = 100
+	heat = 100
+	absorption = 100
+	reflectivity = 100
 
 /obj/item/clothing/under/misc/burial
 	name = "burial garments"

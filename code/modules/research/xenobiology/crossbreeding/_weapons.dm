@@ -83,13 +83,11 @@ Slimecrossing Weapons
 
 
 /datum/armor/shield_adamantineshield
-	melee = 50
-	bullet = 50
-	laser = 50
-	bomb = 30
-	fire = 80
-	acid = 70
-	stamina = 70
+	blunt = 50
+	penetration = 80
+	absorption = 40
+	heat = 50
+	reflectivity = 50
 
 /obj/item/shield/adamantineshield/ComponentInitialize()
 	. = ..()
