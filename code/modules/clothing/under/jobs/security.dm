@@ -225,7 +225,7 @@
 	item_state = "gy_suit"
 
 /obj/item/clothing/under/rank/security/head_of_security/grey
-	name = "head of security's white jumpsuit"
+	name = "head of security's grey jumpsuit"
 	desc = "There are old men, and there are bold men, but there are very few old, bold men."
 	icon_state = "hos"
 	item_state = "gy_suit"
