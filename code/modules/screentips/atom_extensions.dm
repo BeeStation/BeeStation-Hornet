@@ -61,16 +61,15 @@
 		// If we have a cache type, use that instead
 		if (most_restrictive_type)
 			cache = cache.cache_states[most_restrictive_type]
-		// Make sure that the item we are holding is also cachable
-		// The assoc value might be null if we haven't generated the cache for this yet
-		if (cache?.generated && (!held_item || GLOB.screentip_contextless_items["[held_item.type]"]))
+		// Caching doesn't take place if we are holding an item
+		if (cache?.generated && !held_item)
 			if (held_item?.tool_behaviour || client.show_extended_screentips)
-				if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
+				if (ishuman(client.mob) && !held_item)
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message][cache.tool_message]")]</span>")]</span>"
 				else
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message][cache.tool_message]")]</span>")]</span>"
 			else
-				if (ishuman(client.mob) && client.mob.get_active_held_item() == null)
+				if (ishuman(client.mob) && !held_item)
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.attack_hand][cache.message]")]</span>")]</span>"
 				else
 					client.mob.hud_used.screentip.maptext = "<span valign='top'>[screentip_message][MAPTEXT("<span style='color:[SCREEN_TIP_NORMAL]'>[CENTER("[cache.message]")]</span>")]</span>"
