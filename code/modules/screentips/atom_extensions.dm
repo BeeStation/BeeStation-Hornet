@@ -38,6 +38,8 @@
 /atom/proc/on_mouse_enter(client/client)
 	if (!client.show_screentips)
 		return
+	if (isnewplayer(client.mob))
+		return
 	// =====================================================
 	// Initialise data
 	// =====================================================
