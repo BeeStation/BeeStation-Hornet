@@ -345,10 +345,11 @@
 	var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
 	var/datum/armor/armor = get_armor()
+	var/datum/armor/comparison_armor = compare_to?.get_armor()
 	var/added_damage_header = FALSE
 	for(var/damage_key in ARMOR_LIST_DAMAGE)
 		var/rating = armor.get_rating(damage_key)
-		var/second_rating = compare_to?.armor?.get_rating(damage_key)
+		var/second_rating = comparison_armor?.get_rating(damage_key)
 		if(!rating && !second_rating)
 			continue
 		if(!added_damage_header)
@@ -359,7 +360,7 @@
 	var/added_durability_header = FALSE
 	for(var/durability_key in ARMOR_LIST_DURABILITY)
 		var/rating = armor.get_rating(durability_key)
-		var/second_rating = compare_to?.armor?.get_rating(durability_key)
+		var/second_rating = comparison_armor?.get_rating(durability_key)
 		if(!rating && !second_rating)
 			continue
 		if(!added_durability_header)
