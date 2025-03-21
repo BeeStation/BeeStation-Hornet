@@ -125,14 +125,11 @@
 	tiled_dirt = FALSE
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 	resistance_flags = INDESTRUCTIBLE
-	var/static/datum/gas_mixture/immutable/planetary/GM
+	planetary_atmos = TRUE
+	init_air = FALSE //grass should act almost like space tiles as has the entire plannets atmos to cycle with
+	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
+	heat_capacity = 700000
 
-/turf/open/floor/plating/grass/Initialize(mapload)
-	if(!GM)
-		GM = new
-	. = ..()
-	air = GM
-	return
 
 /turf/open/floor/plating/beach
 	name = "beach"
