@@ -27,8 +27,8 @@
 	var/maximum_fire_delay = 10 SECONDS
 	///Min delay before firing
 	var/minimum_fire_delay = 2 SECONDS
-	///Damage of default laser
-	var/laser_damage = 30
+	///Determines bonus damage per tier of laser used to build the emitter
+	var/parts_damage_bonus = 5
 	///When was the last shot
 	var/last_shot = 0
 	///Number of shots made (gets reset every few shots)
@@ -40,7 +40,7 @@
 	///Used to stop interactions with the object (mainly in the wabbajack statue)
 	var/allow_switch_interact = TRUE
 	///What projectile type are we shooting?
-	var/projectile_type = /obj/projectile/beam/emitter/hitscan
+	var/projectile_type = /obj/projectile/beam/emitter
 	///What's the projectile sound?
 	var/projectile_sound = 'sound/weapons/emitter.ogg'
 	///Sparks emitted with every shot
@@ -88,14 +88,12 @@
 	var/max_fire_delay = 12 SECONDS
 	var/fire_shoot_delay = 12 SECONDS
 	var/min_fire_delay = 2.4 SECONDS
-	var/las_damage = 25
 	var/power_usage = 350
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
 		max_fire_delay -= 2 SECONDS * laser.rating
 		min_fire_delay -= 0.4 SECONDS * laser.rating
 		fire_shoot_delay -= 2 SECONDS * laser.rating
-		las_damage += 5 * laser.rating
-	laser_damage = las_damage
+		parts_damage_bonus = 5 * laser.rating
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
 	fire_delay = fire_shoot_delay
@@ -223,8 +221,7 @@
 		sparks.start()
 	projectile.firer = user ? user : src
 	projectile.fired_from = src
-	if(istype(projectile,/obj/projectile/beam/emitter))
-		projectile.damage = laser_damage
+	projectile.damage += parts_damage_bonus
 	if(last_projectile_params)
 		projectile.p_x = last_projectile_params[2]
 		projectile.p_y = last_projectile_params[3]
@@ -374,148 +371,7 @@
 /obj/machinery/power/emitter/drill
 	name = "drill"
 	desc = "A heavy-duty industrial laser, modified to destroy structures and rocks."
-	laser_damage = 5
-	var/laser_structural_damage = 100
-	projectile_type = /obj/projectile/beam/emitter/drill/hitscan
-
-/obj/machinery/power/emitter/drill/RefreshParts()
-	..()
-	var/las_damage = 0
-	var/las_structural_damage = 50
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		las_damage += 5 * laser.rating
-		las_structural_damage += 50 * laser.rating
-	laser_damage = las_damage
-	laser_structural_damage = las_structural_damage
-
-
-/obj/machinery/power/emitter/drill/fire_beam(mob/user)
-	var/obj/projectile/projectile = new projectile_type(get_turf(src))
-	playsound(src, projectile_sound, 50, TRUE)
-	if(prob(35))
-		sparks.start()
-	projectile.firer = user ? user : src
-	projectile.fired_from = src
-	if(istype(projectile,/obj/projectile/beam/emitter/drill))
-		var/obj/projectile/beam/emitter/drill/D = projectile
-		D.damage = laser_damage
-		D.structural_damage = laser_structural_damage
-	if(last_projectile_params)
-		projectile.p_x = last_projectile_params[2]
-		projectile.p_y = last_projectile_params[3]
-		projectile.fire(last_projectile_params[1])
-	else
-		projectile.fire(dir2angle(dir))
-	if(!manual)
-		last_shot = world.time
-		if(shot_number < 3)
-			fire_delay = 20
-			shot_number ++
-		else
-			fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
-			shot_number = 0
-	return projectile
-
-
-/obj/machinery/power/emitter/prototype
-	name = "Prototype Emitter"
-	icon = 'icons/obj/turrets.dmi'
-	icon_state = "protoemitter"
-	base_icon_state = "protoemitter"
-	icon_state_on = "protoemitter_+a"
-	icon_state_underpowered = "protoemitter_+u"
-	can_buckle = TRUE
-	buckle_lying = 0
-	///Sets the view size for the user
-	var/view_range = 4.5
-	///Grants the buckled mob the action button
-	var/datum/action/innate/proto_emitter/firing/auto
-
-//BUCKLE HOOKS
-
-/obj/machinery/power/emitter/prototype/unbuckle_mob(mob/living/buckled_mob,force = 0)
-	playsound(src,'sound/mecha/mechmove01.ogg', 50, TRUE)
-	manual = FALSE
-	for(var/obj/item/item in buckled_mob.held_items)
-		if(istype(item, /obj/item/turret_control))
-			qdel(item)
-	if(istype(buckled_mob))
-		buckled_mob.pixel_x = buckled_mob.base_pixel_x
-		buckled_mob.pixel_y = buckled_mob.base_pixel_y
-		if(buckled_mob.client)
-			buckled_mob.client.view_size.resetToDefault()
-	auto.Remove(buckled_mob)
-	. = ..()
-
-/obj/machinery/power/emitter/prototype/user_buckle_mob(mob/living/buckled_mob, mob/user, check_loc = TRUE)
-	if(user.incapacitated() || !istype(user))
-		return
-	for(var/atom/movable/atom in get_turf(src))
-		if(atom.density && (atom != src && atom != buckled_mob))
-			return
-	buckled_mob.forceMove(get_turf(src))
-	..()
-	playsound(src,'sound/mecha/mechmove01.ogg', 50, TRUE)
-	buckled_mob.pixel_y = 14
-	layer = 4.1
-	if(buckled_mob.client)
-		buckled_mob.client.view_size.setTo(view_range)
-	if(!auto)
-		auto = new()
-	auto.Grant(buckled_mob, src)
-
-/datum/action/innate/proto_emitter
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
-	///Stores the emitter the user is currently buckled on
-	var/obj/machinery/power/emitter/prototype/proto_emitter
-	///Stores the mob instance that is buckled to the emitter
-	var/mob/living/carbon/buckled_mob
-
-/datum/action/innate/proto_emitter/Destroy()
-	proto_emitter = null
-	buckled_mob = null
-	return ..()
-
-/datum/action/innate/proto_emitter/Grant(mob/living/carbon/user, obj/machinery/power/emitter/prototype/proto)
-	proto_emitter = proto
-	buckled_mob = user
-	. = ..()
-
-/datum/action/innate/proto_emitter/firing
-	name = "Switch to Manual Firing"
-	desc = "The emitter will only fire on your command and at your designated target"
-	button_icon_state = "mech_zoom_on"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
-
-/datum/action/innate/proto_emitter/firing/on_activate()
-	if(proto_emitter.manual)
-		playsound(proto_emitter,'sound/mecha/mechmove01.ogg', 50, TRUE)
-		proto_emitter.manual = FALSE
-		name = "Switch to Manual Firing"
-		desc = "The emitter will only fire on your command and at your designated target"
-		button_icon_state = "mech_zoom_on"
-		for(var/obj/item/item in buckled_mob.held_items)
-			if(istype(item, /obj/item/turret_control))
-				qdel(item)
-		update_buttons()
-		return
-	playsound(proto_emitter,'sound/mecha/mechmove01.ogg', 50, TRUE)
-	name = "Switch to Automatic Firing"
-	desc = "Emitters will switch to periodic firing at your last target"
-	button_icon_state = "mech_zoom_off"
-	proto_emitter.manual = TRUE
-	for(var/things in buckled_mob.held_items)
-		var/obj/item/item = things
-		if(istype(item))
-			if(!buckled_mob.dropItemToGround(item))
-				continue
-			var/obj/item/turret_control/turret_control = new /obj/item/turret_control()
-			buckled_mob.put_in_hands(turret_control)
-		else //Entries in the list should only ever be items or null, so if it's not an item, we can assume it's an empty hand
-			var/obj/item/turret_control/turret_control = new /obj/item/turret_control()
-			buckled_mob.put_in_hands(turret_control)
-	update_buttons()
-
+	projectile_type = /obj/projectile/beam/emitter/drill
 
 /obj/item/turret_control
 	name = "turret controls"
