@@ -41,6 +41,8 @@
 		"plastitanium",
 		"plastitaniumglass",
 		"plumbing_rcd",
+		"reinforced_beaker",
+		"reinforced_large_beaker",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",

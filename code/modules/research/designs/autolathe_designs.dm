@@ -542,6 +542,24 @@
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/reinforced_beaker
+    name = "Beaker"
+    id = "reinforced_beaker"
+    build_type = AUTOLATHE | PROTOLATHE
+    materials = list(/datum/material/glass = 500, /datum/material/iron=250)
+    build_path = /obj/item/reagent_containers/cup/beaker/reinforced
+    category = list("initial", "Medical", "Medical Designs")
+    departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/reinforced_large_beaker
+    name = "Reinforced Large Beaker"
+    id = "reinforced_large_beaker"
+    build_type = AUTOLATHE | PROTOLATHE
+    materials = list(/datum/material/glass = 2500, /datum/material/iron=1500)
+    build_path = /obj/item/reagent_containers/cup/beaker/large/reinforced
+    category = list("initial", "Medical", "Medical Designs")
+    departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/healthanalyzer
 	name = "Health Analyzer"
 	id = "healthanalyzer"
