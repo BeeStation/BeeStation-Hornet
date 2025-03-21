@@ -133,7 +133,6 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		SEND_SOUND(servant, 'sound/machines/clockcult/ark_recall.ogg')
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
-	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
