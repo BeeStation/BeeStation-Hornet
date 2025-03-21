@@ -1,6 +1,6 @@
 /datum/dynamic_ruleset/midround
 	rule_category = DYNAMIC_MIDROUND
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, "Positronic Brain")
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 
 	/// How dangerous/disruptive the ruleset is. (DYNAMIC_MIDROUND_LIGHT, DYNAMIC_MIDROUND_MEDIUM, DYNAMIC_MIDROUND_HEAVY)
 	var/severity

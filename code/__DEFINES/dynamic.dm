@@ -1,10 +1,10 @@
 /// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
-/// These should always be integers. i.e: -20, 40
-#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER -20
-#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER 40
+/// A random value will be chosen inbetween the lower and upper cap and then mulitplied to the calculated roundstart points
+/// These should be floats. i.e: 0.20, 0.75, 1.0
+#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER 0.8
+#define DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER 1.4
 
 /// How many roundstart points should be granted per player based off their status (OBSERVING, READY, UNREADY)
-/// Same as the previous definitions, these should be configured in 'dynamic.json'
 #define DYNAMIC_ROUNDSTART_POINTS_PER_READY 1
 #define DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY 0.5
 #define DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER 0
@@ -23,7 +23,7 @@
 #define DYNAMIC_MIDROUND_INCREASE_RATIO 0.75
 
 /// The time at which dynamic will start choosing midrounds
-#define DYNAMIC_MIDROUND_GRACEPERIOD 0 MINUTES
+#define DYNAMIC_MIDROUND_GRACEPERIOD 15 MINUTES
 
 /// Only one ruleset with this flag will be picked
 #define HIGH_IMPACT_RULESET (1 << 0)

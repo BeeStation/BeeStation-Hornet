@@ -73,7 +73,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/// These should always be integers. i.e: -20, 40
 	var/roundstart_divergence_percent_lower = DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_LOWER
 	var/roundstart_divergence_percent_upper = DYNAMIC_ROUNDSTART_POINT_DIVERGENCE_UPPER
-	/// How many roundstart points should be granted per player based off their ready status (OBSERVING, READY, UNREADY)
+	/// How many roundstart points should be granted per player based off ready status (OBSERVING, READY, UNREADY)
 	var/roundstart_points_per_ready = DYNAMIC_ROUNDSTART_POINTS_PER_READY
 	var/roundstart_points_per_unready = DYNAMIC_ROUNDSTART_POINTS_PER_UNREADY
 	var/roundstart_points_per_observer = DYNAMIC_ROUNDSTART_POINTS_PER_OBSERVER
@@ -88,8 +88,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	/// When configuring these in 'dynamic.json' be sure to have them set in deciseconds (minutes * 600)
 	var/midround_light_end_time = DYNAMIC_MIDROUND_LIGHT_END_TIME
 	var/midround_medium_end_time = DYNAMIC_MIDROUND_MEDIUM_END_TIME
-	/// What percent of the Light Point Decrease should be given to the Medium Ruleset Chance
+	/// The ratio of percentage points from the light ruleset decrease rate given to the medium ruleset chance
 	/// The heavy ratio is calculated by doing 1 - midround_medium_increase_ratio
+	/// These should always be on a range of 0 - 1. i.e: 0.20, 0.75, 1.0
 	var/midround_medium_increase_ratio = DYNAMIC_MIDROUND_INCREASE_RATIO
 	/// The time at which midrounds can start
 	var/midround_grace_period = DYNAMIC_MIDROUND_GRACEPERIOD
@@ -139,8 +140,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 	// Set our points according to pop and a bit of RNG
 	set_roundstart_points()
 
-	// Log stuff
-	log_game("DYNAMIC: Starting with [roundstart_points] points.")
 	if(length(roundstart_candidates))
 		log_game("DYNAMIC: Listing [length(configured_roundstart_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
 	else
@@ -208,10 +207,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		else
 			roundstart_points += roundstart_points_per_unready
 
-	var/point_divergence = 1 + rand(-roundstart_divergence_percent_lower, roundstart_divergence_percent_upper) / 100
-	roundstart_points *= point_divergence
+	// Kapu wrote this code for the randomized point divergence
+	var/point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
+	roundstart_points = round(roundstart_points * point_divergence, 1)
 
-	roundstart_points = round(roundstart_points, 1)
+	log_game("DYNAMIC: Starting with [roundstart_points] roundstart points and a divergence of [round(point_divergence * 100, 1)]%")
 
 /*
 * Pick the roundstart rulesets to run based off of their configured variables (weight, cost, etc.)
@@ -326,6 +326,9 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 */
 /datum/game_mode/dynamic/proc/init_midround()
 	configured_midround_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
+	if(!length(configured_midround_rulesets))
+		stack_trace("DYNAMIC: configured_midround_rulesets is empty. It's impossible to roll midrounds")
+		return
 
 	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
 
@@ -334,6 +337,11 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Leave the 'severity' variable blank if you want to pick from any midround type
 */
 /datum/game_mode/dynamic/proc/try_midround_roll()
+	if(GLOB.dynamic_forced_extended)
+		return
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+		return
+
 	update_midround_points()
 	update_midround_chances()
 
@@ -402,10 +410,6 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 * Choose the midround ruleset to save towards
 */
 /datum/game_mode/dynamic/proc/choose_midround_ruleset()
-	if(!length(configured_midround_rulesets))
-		stack_trace("DYNAMIC: configured_midround_rulesets is empty.")
-		return
-
 	// Pick severity
 	var/severity = DYNAMIC_MIDROUND_LIGHT
 	var/random_value = rand(1, 100)
@@ -432,13 +436,13 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 
 		possible_rulesets[ruleset] = ruleset.weight
 
-	if(length(possible_rulesets))
-		midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
-		log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
-		message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
-	else
-		log_game("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
-		message_admins("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+	if(!length(possible_rulesets))
+		stack_trace("Tried to roll a [severity] midround but there are no possible rulesets.")
+
+	// Pick ruleset and log
+	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
+	log_game("DYNAMIC: A new midround has been chosen to save up for: [midround_chosen_ruleset]")
+	message_admins("DYNAMIC: A new midround ruleset has been chosen to save up for: [midround_chosen_ruleset]")
 
 /*
 * latejoin

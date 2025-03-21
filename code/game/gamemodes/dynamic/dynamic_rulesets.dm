@@ -3,7 +3,7 @@
 	 * Configurable Variables
 	*/
 
-	/// For admin logging and round end screen. (traitors, wizard, nuclear emergency)
+	/// For admin logging and round end screen.
 	var/name = "Ruleset"
 	/// For admin logging and round end screen. (DYNAMIC_ROUNDSTART, DYNAMIC_MIDROUND, DYNAMIC_LATEJOIN)
 	var/rule_category
@@ -25,7 +25,7 @@
 	var/list/blocking_rulesets = list()
 	/// Should the chosen player(s) be picked based off of their antagonist reputation
 	var/use_antag_reputation = FALSE
-	/// A flag that determines how the ruleset is handled. Check __DEFINES/dynamic.dm for an explanation of the accepted values.
+	/// A flag that determines how the ruleset is handled. (HIGH_IMPACT_RULESET, CANNOT_REPEAT, SHOULD_PROCESS_RULESET)
 	var/flags = NONE
 
 	/*
