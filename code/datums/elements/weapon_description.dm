@@ -84,7 +84,17 @@
 		else
 			readout += "It does not deal noticeable throwing damage."
 		if(source.armour_penetration > 0 || source.block_level > 0)
-			readout += "It has [span_warning("[weapon_tag_convert(source.armour_penetration)]")] armor-piercing capability and [span_warning("[weapon_tag_convert(source.block_level)]")] blocking capability."
+			readout += "It has [span_warning("[weapon_tag_convert(source.armour_penetration)]")] armor-piercing capability."
+
+		if(source.block_level || source.block_upgrade_walk)
+			if(source.block_upgrade_walk == 1 && !source.block_level)
+				readout += "While walking, it can block attacks in a <b>narrow</b> arc."
+			else
+				readout += "It can block attacks in a [span_warning("[weapon_tag_convert(source.block_upgrade_walk + source.block_level)]")] arc."
+				if(source.block_upgrade_walk)
+					readout += "It is [span_warning("less")] effective at blocking while the user is [span_warning("running")]."
+			readout += "It has [span_warning("[weapon_tag_convert(source.block_power)]")] blocking ability."
+
 	// Custom manual notes
 	if(source.offensive_notes)
 		readout += source.offensive_notes
