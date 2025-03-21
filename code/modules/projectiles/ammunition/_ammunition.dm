@@ -9,6 +9,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 500)
+	override_notes = TRUE
 	//What sound should play when this ammo is fired
 	var/fire_sound = null
 	//Which kind of guns it can be loaded into
@@ -44,7 +45,7 @@
 	pixel_x = base_pixel_x + rand(-10, 10)
 	pixel_y = base_pixel_y + rand(-10, 10)
 	setDir(pick(GLOB.alldirs))
-	update_icon()
+	update_appearance()
 
 /obj/item/ammo_casing/Destroy()
 	var/turf/T = get_turf(src)
@@ -53,10 +54,38 @@
 	QDEL_NULL(BB)
 	return ..()
 
-/obj/item/ammo_casing/update_icon()
-	. = ..()
-	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
-	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+/obj/item/ammo_casing/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = .proc/add_notes_ammo)
+
+/**
+ *
+ * Outputs type-specific weapon stats for ammunition based on the projectile loaded inside the casing.
+ * Distinguishes between critting and stam-critting in separate lines
+ *
+ */
+/obj/item/ammo_casing/proc/add_notes_ammo()
+	// Make sure there is actually something IN the casing
+	if(BB)
+		var/list/readout = list("")
+		// No dividing by 0
+		if(BB.damage > 0)
+			readout += "Most monkeys our legal team subjected to these rounds succumbed to their wounds after <span class='warning'>[round(100 / (BB.damage * pellets), 0.1)]</span> discharge\s at point-blank, taking <span class='warning'>[pellets]</span> shot\s per round"
+		if(BB.stamina > 0)
+			readout += "[BB.damage == 0 ? "Most Monkeys" : "More Fortunate Monkeys" ] collapsed from exhaustion after <span class='warning'>[round(100 / ((BB.damage + BB.stamina) * pellets), 0.1)]</span> of these rounds"
+		if(BB.damage == 0 && BB.stamina == 0)
+			return "Our legal team has determined the offensive nature of these rounds to be esoteric"
+		return readout.Join("\n") // Sending over a single string, rather than the whole list
+	else
+		// Labels don't do well with extreme forces
+		return "The warning label was blown away..."
+
+/obj/item/ammo_casing/update_icon_state()
+	icon_state = "[initial(icon_state)][BB ? "-live" : null]"
+	return ..()
+
+/obj/item/ammo_casing/update_desc()
+	desc = "[initial(desc)][BB ? null : " This one is spent."]"
+	return ..()
 
 //proc to magically refill a casing with a new projectile
 /obj/item/ammo_casing/proc/newshot() //For energy weapons, syringe gun, shotgun shells and wands (!).
@@ -78,7 +107,7 @@
 				else
 					continue
 			if (boolets > 0)
-				box.update_icon()
+				box.update_appearance()
 				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 			else
 				to_chat(user, span_warning("You fail to collect anything!"))
@@ -91,7 +120,7 @@
 	return ..()
 
 /obj/item/ammo_casing/proc/bounce_away(still_warm = FALSE, bounce_delay = 3)
-	update_icon()
+	update_appearance()
 	SpinAnimation(10, 1)
 	var/turf/T = get_turf(src)
 	if(still_warm && T && T.bullet_sizzle)
