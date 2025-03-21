@@ -42,6 +42,10 @@
 /mob/living/proc/getarmor(def_zone, type, penetration = 0)
 	return 0
 
+/// Get percentage of the body protected by radiation
+/mob/living/proc/get_radiation_protection()
+	return 0
+
 //this returns the mob's protection against eye damage (number between -1 and 2) from bright lights
 /mob/living/proc/get_eye_protection()
 	return 0

@@ -30,7 +30,7 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, RAD)
+	var/resist = L.get_radiation_protection() * 100
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L

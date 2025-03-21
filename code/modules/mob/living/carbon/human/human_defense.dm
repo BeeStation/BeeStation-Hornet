@@ -889,3 +889,21 @@
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
 		return FALSE
 	return ..()
+
+/// Get radiation protection proportion, 1 for fully protected and 0 for no protection
+/mob/living/carbon/human/get_radiation_protection()
+	var/list/zones = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_R_LEG
+	)
+	var/protected = 0
+	for (var/part in zones)
+		for (var/obj/item/clothing/covering_clothes in clothingonpart(part))
+			if (covering_clothes.rad_flags & RAD_PROTECT_CONTENTS)
+				protected ++
+				break
+	return protected / length(zones)

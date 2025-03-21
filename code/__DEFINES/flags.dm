@@ -189,7 +189,10 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
 
 // radiation
+/// Contents cannot be contaminated by radiation. For clothing this
+/// will also protect the wearer from radiation.
 #define RAD_PROTECT_CONTENTS (1<<0)
+/// Object itself cannot be contaminated by radiation
 #define RAD_NO_CONTAMINATE (1<<1)
 
 //alternate appearance flags

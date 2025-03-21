@@ -161,7 +161,7 @@
 	if(!target.has_dna() || HAS_TRAIT(target, TRAIT_BADDNA))
 		return
 
-	var/resist = target.getarmor(null, RAD)
+	var/resist = target.get_radiation_protection() * 100
 	if(prob(max(0,100-resist)))
 		target.randmuti()
 		if(prob(20))

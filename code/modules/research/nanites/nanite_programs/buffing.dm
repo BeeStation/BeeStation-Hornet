@@ -66,8 +66,8 @@
 	var/datum/armor/nanite_armor = /datum/armor/refractive_armor
 
 /datum/armor/refractive_armor
-	laser = 30
-	energy = 30
+	heat = 40
+	reflectivity = 40
 
 /datum/nanite_program/refractive/enable_passive_effect()
 	. = ..()

@@ -130,20 +130,10 @@
 	desc = "A hood with radiation protective properties. The label reads, 'Made with lead. Please do not consume insulation.'"
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	armor_type = /datum/armor/utility_radiation
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	rad_flags = RAD_PROTECT_CONTENTS
-
-
-/datum/armor/utility_radiation
-	bio = 60
-	rad = 100
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 15
+	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 
 /obj/item/clothing/suit/utility/radiation
 	name = "radiation suit"
@@ -156,20 +146,10 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/geiger_counter)
 	slowdown = 1.5
-	armor_type = /datum/armor/utility_radiation
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
-	rad_flags = RAD_PROTECT_CONTENTS
-
-
-/datum/armor/utility_radiation
-	bio = 60
-	rad = 100
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 15
+	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 
 /obj/item/clothing/suit/utility/radiation/ComponentInitialize()
 	. = ..()
