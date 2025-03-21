@@ -13,7 +13,6 @@
 	armor_type = /datum/armor/test_second
 
 /datum/unit_test/armour_readout/Run()
-	var/mob/living/carbon/human/person = allocate(/mob/living/carbon/human/consistent)
 	var/obj/item/clothing/first = allocate(/obj/item/clothing/suit/armor/test_first)
 	var/obj/item/clothing/second = allocate(/obj/item/clothing/suit/armor/test_second)
 	TEST_ASSERT_EQUAL(first.generate_armor_readout(), "<span class='notice'><u><b>PROTECTION CLASSES</u></b>\n<b>ARMOR (I-X)</b>\nMELEE \Roman["I"]\nBULLET \Roman["I"]</span>", "Failed")
