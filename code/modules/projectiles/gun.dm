@@ -290,7 +290,7 @@
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
-	return fire_gun(target, user, flag, params, aimed)
+	fire_gun(target, user, flag, params, aimed)
 
 /obj/item/gun/proc/fire_gun(atom/target, mob/living/user, flag, params, aimed)
 	if(QDELETED(target))
@@ -300,9 +300,9 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || !user.combat_mode) //melee attack
+		if(!ismob(target) || user.combat_mode) //melee attack
 			return
-		if(target == user && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
@@ -311,9 +311,8 @@
 			return
 
 	if(flag)
-		var/simplified_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
 		var/mob/living/living_target = target
-		if (!simplified_mode)
+		if (!user.client || user.client.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_INTENT)
 			if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 				handle_suicide(user, target, params)
 				return
@@ -329,6 +328,7 @@
 
 	if (ranged_cooldown>world.time)
 		return
+
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
@@ -401,10 +401,9 @@
 			firing_burst = FALSE
 			return FALSE
 	if(chambered && chambered.BB)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-			if(chambered.harmful) // Is the bullet chambered harmful?
-				to_chat(user, span_notice(" [src] is lethally chambered! You don't want to risk harming anyone..."))
-				return
+		if(HAS_TRAIT(user, TRAIT_PACIFISM) && chambered.harmful) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+			to_chat(user, span_notice(" [src] is lethally chambered! You don't want to risk harming anyone..."))
+			return
 		var/sprd = 0
 		if(randomspread)
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
@@ -655,7 +654,9 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 5
 
-	process_fire(target, user, TRUE, params)
+	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
+	if(!fired && chambered?.BB)
+		chambered.BB.damage /= 5
 
 /obj/item/gun/proc/unlock() //used in summon guns and as a convience for admins
 	if(pin)

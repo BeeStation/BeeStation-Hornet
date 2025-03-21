@@ -414,11 +414,11 @@
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
 			alarmed = TRUE
 			update_icon()
-		if (bolt_type == BOLT_TYPE_LOCKING)
+		if (bolt_type == BOLT_TYPE_LOCKING && semi_auto)
 			bolt_locked = TRUE
 			update_icon()
 
-/obj/item/gun/ballistic/afterattack()
+/obj/item/gun/ballistic/fire_gun(atom/target, mob/living/user, flag, params, aimed)
 	prefire_empty_checks()
 	. = ..() //The gun actually firing
 	postfire_empty_checks()
