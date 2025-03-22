@@ -168,6 +168,20 @@
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_beaker"
+	isGlass = TRUE
+	throwforce = 10
+
+/obj/item/reagent_containers/cup/beaker/throw_impact(mob/living/target, mob/thrower)
+	SplashReagents(target, TRUE, override_spillable = TRUE)
+	if(isGlass)
+		var/obj/item/shard/B = new(loc)
+		target.Bumped(B)
+		playsound(loc, "shatter", 100, 1)
+		qdel(src)
+	else
+		target.Bumped(src)
+
+	return TRUE
 
 /obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
@@ -184,6 +198,7 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = null
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/large
 	name = "large beaker"
@@ -204,6 +219,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120)
 	label_icon = "label_beakerlarge"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/meta
 	name = "metamaterial beaker"
@@ -215,6 +231,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120,180)
 	fill_icon_thresholds = list(1, 10, 25, 35, 50, 60, 80, 100)
 	label_icon = "label_beakerlarge"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/noreact
 	name = "cryostasis beaker"
@@ -228,6 +245,7 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = null
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/bluespace
 	name = "bluespace beaker"
@@ -242,6 +260,7 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = "label_beakerlarge"
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
