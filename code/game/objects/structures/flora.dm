@@ -17,9 +17,9 @@
 		if(W.is_sharp() && W.force > 0)
 			if(W.hitsound)
 				playsound(get_turf(src), W.hitsound, 100, 0, 0)
-			user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>","<span class='notice'>You begin to cut down [src] with [W].</span>", "You hear the sound of sawing.")
+			user.visible_message(span_notice("[user] begins to cut down [src] with [W]."),span_notice("You begin to cut down [src] with [W]."), "You hear the sound of sawing.")
 			if(do_after(user, 1000/W.force, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
-				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>You fell [src] with the [W].</span>", "You hear the sound of a tree falling.")
+				user.visible_message(span_notice("[user] fells [src] with the [W]."),span_notice("You fell [src] with the [W]."), "You hear the sound of a tree falling.")
 				playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100 , 0, 0)
 				for(var/i=1 to log_amount)
 					new /obj/item/grown/log/tree(get_turf(src))
@@ -80,9 +80,9 @@
 		return
 
 	if(took_presents[user.ckey] && !unlimited)
-		to_chat(user, "<span class='warning'>There are no presents with your name on.</span>")
+		to_chat(user, span_warning("There are no presents with your name on."))
 		return
-	to_chat(user, "<span class='warning'>After a bit of rummaging, you locate a gift with your name on it!</span>")
+	to_chat(user, span_warning("After a bit of rummaging, you locate a gift with your name on it!"))
 
 	if(!unlimited)
 		took_presents[user.ckey] = TRUE
@@ -320,16 +320,18 @@
 	throw_range = 4
 	item_flags = NO_PIXEL_RANDOM_DROP
 
+/obj/item/kirbyplants/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/implant)
+
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
-	AddComponent(/datum/component/storage/concrete/kirbyplants)
 
-/datum/component/storage/concrete/kirbyplants
-	max_items = 1
-	max_w_class = WEIGHT_CLASS_NORMAL
-	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
+/datum/storage/kirbyplants
+	max_slots = 1
+	max_specific_storage = WEIGHT_CLASS_NORMAL
 	animated = FALSE
 
 /obj/item/kirbyplants/random

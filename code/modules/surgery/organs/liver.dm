@@ -49,7 +49,7 @@
 			C.reagents.metabolize(C, can_overdose=TRUE)
 
 			if(provide_pain_message && damage > 10 && prob(damage/3))//the higher the damage the higher the probability
-				to_chat(C, "<span class='warning'>You feel a dull pain in your abdomen.</span>")
+				to_chat(C, span_warning("You feel a dull pain in your abdomen."))
 
 		else	//for when our liver's failing
 			C.reagents.end_metabolization(C, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
@@ -58,7 +58,7 @@
 				return
 			C.adjustToxLoss(4, TRUE,  TRUE)
 			if(prob(30))
-				to_chat(C, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
+				to_chat(C, span_warning("You feel a stabbing pain in your abdomen!"))
 
 	if(damage > maxHealth)//cap liver damage
 		damage = maxHealth
@@ -111,11 +111,8 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	switch(severity)
-		if(1)
-			damage+=100
-		if(2)
-			damage+=50
+	if(prob(30/severity))
+		damage += (30/severity)
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc
 	name = "substance processor"
@@ -129,12 +126,9 @@
 	status = ORGAN_ROBOTIC
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc/emp_act(severity)
-	to_chat(owner, "<span class='warning'>Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance.</span>")
-	switch(severity)
-		if(1)
-			owner.toxloss += 15
-		if(2)
-			owner.toxloss += 5
+	if(prob(30/severity))
+		to_chat(owner, span_warning("Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance."))
+		owner.adjustToxLoss(8/severity)
 
 /obj/item/organ/liver/diona
 	name = "liverwort"

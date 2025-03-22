@@ -7,15 +7,16 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3)// immediately gets overwritten. This exists to not set off the edibility unit test.
 
 /obj/item/food/donkpocket/random/Initialize(mapload)
+	. = ..()
 	var/list/donkblock = list(
-	/obj/item/food/donkpocket/warm,
-	/obj/item/food/donkpocket/warm/spicy,
-	/obj/item/food/donkpocket/warm/teriyaki,
-	/obj/item/food/donkpocket/warm/pizza,
-	/obj/item/food/donkpocket/warm/honk,
-	/obj/item/food/donkpocket/warm/berry,
-	/obj/item/food/donkpocket/gondola,
-	/obj/item/food/donkpocket/warm/gondola,
+		/obj/item/food/donkpocket/warm,
+		/obj/item/food/donkpocket/warm/spicy,
+		/obj/item/food/donkpocket/warm/teriyaki,
+		/obj/item/food/donkpocket/warm/pizza,
+		/obj/item/food/donkpocket/warm/honk,
+		/obj/item/food/donkpocket/warm/berry,
+		/obj/item/food/donkpocket/gondola,
+		/obj/item/food/donkpocket/warm/gondola,
 	)
 
 	var donk_type = pick(subtypesof(/obj/item/food/donkpocket) - donkblock)

@@ -15,7 +15,7 @@
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/item/assembly_holder/Destroy()
 	QDEL_LAZYLIST(assemblies)
@@ -37,7 +37,7 @@
 	for(var/assembly in assemblies)
 		if(istype(assembly, /obj/item/assembly/timer))
 			var/obj/item/assembly/timer/timer = assembly
-			. += "<span class='notice'>The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].</span>"
+			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
 /obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
 	. = ..()
@@ -98,7 +98,7 @@
 	update_appearance()
 
 /obj/item/assembly_holder/proc/attach(obj/item/assembly/A, mob/user)
-	if(!A.remove_item_from_storage(src))
+	if(!A.remove_item_from_storage(src, user))
 		if(user)
 			user.transferItemToLoc(A, src)
 		else
@@ -144,7 +144,7 @@
 	for(var/obj/item/assembly/assembly as anything in assemblies)
 		assembly.dropped(user)
 
-/obj/item/assembly_holder/attack_hand(mob/living/user, list/modifiers)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
+/obj/item/assembly_holder/attack_hand(mob/living/user, list/modifiers)//Perhaps this should be a holder_pickup proc instead, can add if need-be I guess
 	. = ..()
 	if(.)
 		return

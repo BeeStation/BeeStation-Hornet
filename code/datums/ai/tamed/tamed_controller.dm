@@ -140,9 +140,9 @@
 /// Someone's interacting with us by hand, see if they're being nice or mean
 /datum/ai_controller/tamed/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
-	if(user.a_intent == INTENT_HELP)
+	if(!user.combat_mode)
 		if(prob(25))
-			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+			user.visible_message("[source] nuzzles [user]!", span_notice("[source] nuzzles you!"))
 		return
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		anger++

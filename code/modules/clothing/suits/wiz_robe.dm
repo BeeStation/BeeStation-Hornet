@@ -9,7 +9,7 @@
 	armor_type = /datum/armor/security_light_armor
 	strip_delay = 50
 	equip_delay_other = 50
-	clothing_flags = SNUG_FIT | THICKMATERIAL
+	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
@@ -77,7 +77,7 @@
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()
 	. = ..()
@@ -183,7 +183,7 @@
 	if(!isliving(usr))
 		return
 	if(!robe_charge)
-		to_chat(usr, "<span class='warning'>The robe's internal magic supply is still recharging!</span>")
+		to_chat(usr, span_warning("The robe's internal magic supply is still recharging!"))
 		return
 
 	usr.say("Rise, my creation! Off your page into this realm!", forced = "stickman summoning")
@@ -194,7 +194,7 @@
 	src.robe_charge = FALSE
 	sleep(30)
 	src.robe_charge = TRUE
-	to_chat(usr, "<span class='notice'>The robe hums, its internal magic supply restored.</span>")
+	to_chat(usr, span_notice("The robe hums, its internal magic supply restored."))
 
 
 //Shielded Armour
@@ -212,7 +212,21 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	armor_type = /datum/armor/security_heavy_armor
 	slowdown = 0
+	clothing_flags = CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/equipped(mob/user, slot)
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/dropped(mob/user, slot)
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
 	AddComponent(/datum/component/shielded, max_integrity = 600, charge_recovery = 0 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
@@ -224,6 +238,7 @@
 	item_state = "battlemage"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	clothing_flags = CASTING_CLOTHES
 	armor_type = /datum/armor/security_heavy_armor
 	actions_types = null //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF

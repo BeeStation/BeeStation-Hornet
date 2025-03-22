@@ -16,10 +16,12 @@
 	var/move_sound = null
 	var/footstep = 0
 	var/mob/listeningTo
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
+	var/pockets = TRUE
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
+	if(pockets)
+		create_storage(storage_type = /datum/storage/pockets/exo)
 	setup_shielding()
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)

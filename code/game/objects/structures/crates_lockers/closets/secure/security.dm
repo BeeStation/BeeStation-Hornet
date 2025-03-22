@@ -113,7 +113,6 @@
 /obj/structure/closet/secure_closet/brig_physician/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
-	new /obj/item/blood_filter(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/toxin(src)
@@ -125,6 +124,7 @@
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
+	new /obj/item/wallframe/defib_mount(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -158,10 +158,11 @@
 	new /obj/item/storage/box/deputy(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
-	new /obj/item/flashlight/seclite(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 
 	new /obj/item/paper_reader(src)
+
+	new /obj/item/clothing/gloves/tackler/combat(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hos(src)

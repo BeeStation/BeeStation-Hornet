@@ -35,7 +35,7 @@
 	. = ..()
 	if(mapload)
 		for(var/obj/item/I in loc)
-			if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
+			if(I.w_class < WEIGHT_CLASS_NORMAL)
 				I.forceMove(src)
 
 /obj/structure/filingcabinet/deconstruct(disassembled = TRUE)
@@ -45,21 +45,22 @@
 			I.forceMove(loc)
 	qdel(src)
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/documents))
-		if(!user.transferItemToLoc(P, src))
-			return
-		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
-		icon_state = "[initial(icon_state)]-open"
-		sleep(5)
-		icon_state = initial(icon_state)
-		updateUsrDialog()
-	else if(P.tool_behaviour == TOOL_WRENCH)
+/obj/structure/filingcabinet/attackby(obj/item/P, mob/living/user, params)
+	var/list/modifiers = params2list(params)
+	if(P.tool_behaviour == TOOL_WRENCH && LAZYACCESS(modifiers, RIGHT_CLICK))
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(P.use_tool(src, user, 20, volume=50))
 			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
 			set_anchored(!anchored)
-	else if(user.a_intent != INTENT_HARM)
+	else if(P.w_class < WEIGHT_CLASS_NORMAL)
+		if(!user.transferItemToLoc(P, src))
+			return
+		to_chat(user, span_notice("You put [P] in [src]."))
+		icon_state = "[initial(icon_state)]-open"
+		sleep(5)
+		icon_state = initial(icon_state)
+		updateUsrDialog()
+	else if(!user.combat_mode)
 		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
 	else
 		return ..()
@@ -68,16 +69,16 @@
 /obj/structure/filingcabinet/ui_interact(mob/user)
 	. = ..()
 	if(contents.len <= 0)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 		return
 
 	var/dat = "<center><table>"
 	var/i
 	for(i=contents.len, i>=1, i--)
 		var/obj/item/P = contents[i]
-		dat += "<tr><td><a href='?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='byond://?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
-	user << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>[name]</title></head><body>[dat]</body></html>", "window=filingcabinet;size=350x300")
+	user << browse(HTML_SKELETON_TITLE(name, dat), "window=filingcabinet;size=350x300")
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
 	if(anchored)
@@ -92,15 +93,15 @@
 			I.forceMove(loc)
 			if(prob(25))
 				step_rand(I)
-			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
+			to_chat(user, span_notice("You pull \a [I] out of [src] at random."))
 			return
-	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
+	to_chat(user, span_notice("You find nothing in [src]."))
 
 /obj/structure/filingcabinet/Topic(href, href_list)
-	if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+	if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)))
 		return
 	if(href_list["retrieve"])
-		usr << browse("", "window=filingcabinet") // Close the menu
+		usr << browse(null, "window=filingcabinet") // Close the menu
 
 		var/obj/item/P = locate(href_list["retrieve"]) in src //contents[retrieveindex]
 		if(istype(P) && in_range(src, usr))
@@ -196,5 +197,5 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 		sleep(100) // prevents the devil from just instantly emptying the cabinet, ensuring an easy win.
 		cooldown = 0
 	else
-		to_chat(user, "<span class='warning'>[src] is jammed, give it a few seconds.</span>")
+		to_chat(user, span_warning("[src] is jammed, give it a few seconds."))
 	..()

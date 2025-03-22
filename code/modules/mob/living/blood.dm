@@ -132,7 +132,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/proc/is_bandaged()
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE
 	return bleed.bandaged_bleeding > 0
@@ -140,7 +140,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/proc/is_bleeding()
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE
 	return bleed.bleed_rate > 0
@@ -149,10 +149,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
-	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
+	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
-		to_chat(src, "<span class='user_danger'>Blood starts rushing out of the open wound!</span>")
+		to_chat(src, "[span_userdanger("Blood starts rushing out of the open wound!")]")
 	if(bleed_level >= BLEED_CUT)
 		add_splatter_floor(src.loc)
 	else
@@ -164,13 +164,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	..()
 
 /mob/living/carbon/proc/get_bleed_intensity()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return 0
 	return 3 ** bleed.bleed_rate
 
 /mob/living/carbon/proc/get_bleed_rate()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	return bleed?.bleed_rate
 
 /// Can we heal bleeding using a welding tool?
@@ -182,7 +182,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return "0.0/s"
 
 /mob/living/carbon/get_bleed_rate_string()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return "0.0/s"
 	var/final_bleed_rate = bleed.bleed_rate
@@ -196,12 +196,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return "[final_bleed_rate]/s"
 
 /mob/living/carbon/proc/cauterise_wounds(amount = INFINITY)
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return FALSE
 	bleed.bleed_rate -= amount
 	if (bleed.bleed_rate <= 0)
-		remove_status_effect(STATUS_EFFECT_BLEED)
+		remove_status_effect(/datum/status_effect/bleeding)
 	return TRUE
 
 /mob/living/carbon/proc/hold_wounds()
@@ -222,7 +222,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/obj/item/offhand/bleeding_suppress/supressed_thing = new()
 	put_in_active_hand(supressed_thing)
 	balloon_alert(src, "You apply pressure to your wounds...")
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return
 	bleed.update_icon()
@@ -234,13 +234,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		located = TRUE
 	if (located)
 		balloon_alert(src, "You stop applying pressure to your wounds...")
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return
 	bleed.update_icon()
 
 /mob/living/carbon/proc/suppress_bloodloss(amount)
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(/datum/status_effect/bleeding)
 	if (!bleed)
 		return
 	var/reduced_amount = min(bleed.bleed_rate, amount)
@@ -298,7 +298,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			switch(blood_volume)
 				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
 					if(prob(3))
-						to_chat(src, "<span class='warning'>Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")].</span>")
+						to_chat(src, span_warning("Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")]."))
 				if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 					desired_damage = getMaxHealth() * 2.0
 					// Rapidly die with no saving you
@@ -309,16 +309,16 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, span_warning("You feel [word]."))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				if(prob(5))
 					blur_eyes(6)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				if(prob(30))
 					blur_eyes(6)
 					Unconscious(rand(3,6))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				desired_damage = getMaxHealth() * 2.0
 				// Rapidly die with no saving you

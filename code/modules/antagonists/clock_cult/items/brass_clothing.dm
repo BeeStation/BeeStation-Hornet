@@ -18,12 +18,12 @@
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(istype(user, /mob/living/carbon/human/consistent) || istype(user, /mob/living/carbon/human/dummy))
+	if((istype(user, /mob/living/carbon/human/consistent) && !user.client) || (istype(user, /mob/living/carbon/human/dummy) && !user.client))
 		//Fake people need not apply (it fucks up my unit tests)
 		return
-	if(is_servant_of_ratvar(user) && allow_any)
+	if(is_servant_of_ratvar(user) || allow_any)
 		return
-	to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+	to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 	user.dropItemToGround(src, TRUE)
 	var/mob/living/carbon/C = user
 	if(ishuman(C))
@@ -84,7 +84,7 @@
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+		to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
 		if(ishuman(C))
@@ -122,7 +122,7 @@
 		wearer = user
 		applied_eye_damage = 0
 		START_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to falter...</span>")
+		to_chat(user, span_nezbere("You suddenly see so much more, but your eyes begin to falter..."))
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/process(delta_time)
 	. = ..()
@@ -136,7 +136,7 @@
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
 	..()
 	if(wearer && is_servant_of_ratvar(wearer))
-		to_chat(user, "<span class='nezbere'>You feel your eyes slowly recovering.</span>")
+		to_chat(user, span_nezbere("You feel your eyes slowly recovering."))
 		addtimer(CALLBACK(wearer, TYPE_PROC_REF(/mob/living, adjustOrganLoss), ORGAN_SLOT_EYES, -applied_eye_damage), 600)
 		wearer = null
 		applied_eye_damage = 0

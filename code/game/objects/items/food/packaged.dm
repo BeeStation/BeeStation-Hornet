@@ -14,6 +14,7 @@
 	food_flags = FOOD_IN_CONTAINER
 	w_class = WEIGHT_CLASS_NORMAL
 	max_volume = 30
+	preserved_food = TRUE
 	var/maint = FALSE
 	var/maint_overlay = ""
 	crafting_complexity = FOOD_COMPLEXITY_1
@@ -38,7 +39,7 @@
 
 /obj/item/food/canned/attack(mob/living/M, mob/user, def_zone)
 	if (!is_drainable())
-		to_chat(user, "<span class='warning'>[src]'s lid hasn't been opened!</span>")
+		to_chat(user, span_warning("[src]'s lid hasn't been opened!"))
 		return 0
 	return ..()
 

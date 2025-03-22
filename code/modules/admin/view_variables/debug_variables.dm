@@ -55,10 +55,10 @@
 	var/name_part = VV_HTML_ENCODE(name)
 	if(level > 0 || islist(owner)) //handling keys in assoc lists
 		if(istype(name,/datum))
-			name_part = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(name)]'>[VV_HTML_ENCODE(name)] [REF(name)]</a>"
+			name_part = "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(name)]'>[VV_HTML_ENCODE(name)] [REF(name)]</a>"
 		else if(islist(name))
 			var/list/list_value = name
-			name_part = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(name)]'> /list ([length(list_value)]) [REF(name)]</a>"
+			name_part = "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(name)]'> /list ([length(list_value)]) [REF(name)]</a>"
 
 	. = "[.][name_part] = "
 
@@ -71,13 +71,13 @@
 	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] [REF(value)])" // Make sure this line can never runtime
 
 	if(isnull(value))
-		return "<span class='value'>null</span>"
+		return span_value("null")
 
 	if(iscolortext(value))
-		return "<span class='value'>\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span></span>"
+		return span_value("\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span>")
 
 	if(istext(value))
-		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
 	if(isicon(value))
 		#ifdef VARSICON
@@ -85,27 +85,27 @@
 		var/rnd = rand(1,10000)
 		var/rname = "tmp[REF(icon_value)][rnd].png"
 		usr << browse_rsc(icon_value, rname)
-		return "(<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon (<span class='value'>[value]</span>)"
+		return "/icon ([span_value("[value]")])"
 		#endif
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance (<span class='value'>[get_appearance_vv_summary_name(value)]</span>) [REF(value)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
 
 	if(isimage(value))
 		var/image/image = value
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] (<span class='value'>[get_appearance_vv_summary_name(image)]</span>) [REF(value)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] ([span_value("[get_appearance_vv_summary_name(image)]")]) [REF(value)]</a>"
 
 	// fun fact: there are two types of /filters. `/filters(/filters(), /filters(), ...)`
 	// isfilter() doesn't know if it's a parent filter(that has [/filters]s inside of itself), or a child filter
 	var/isfilter = isfilter(value)
 	var/is_child_filter = isfilter && !isdatum(owner) && !isappearance(owner) // 'child_filter' means each /filters in /atom.filters
 	if(is_child_filter)
-		return "/filters\[child\] (<span class='value'>[value.type]</span>)"
+		return "/filters\[child\] ([span_value("[value.type]")])"
 
 	if(isfile(value))
-		return "<span class='value'>'[value]'</span>"
+		return span_value("'[value]'")
 
 	if(isdatum(value))
 		var/datum/datum_value = value
@@ -132,7 +132,7 @@
 				special_list_secure_level \
 				? "dmlist_origin_ref=[REF(owner)];dmlist_varname=[name]" \
 				: "Vars=[REF(value)]"
-			a_open = "<a href='?_src_=vars;[HrefToken()];[href_reference_string]'>"
+			a_open = "<a href='byond://?_src_=vars;[HrefToken()];[href_reference_string]'>"
 			a_close = "</a>"
 
 		var/should_fold_list_items = (display_flags & VV_ALWAYS_CONTRACT_LIST) || length(list_value) > VV_BIG_SIZED_LIST_THRESHOLD
@@ -164,17 +164,17 @@
 		else
 			return "NONE"
 	else
-		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return span_value("[VV_HTML_ENCODE(value)]")
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[src] [type] [REF(src)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[src] [type] [REF(src)]</a>"
 	else
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[type] [REF(src)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[type] [REF(src)]</a>"
 
 /datum/weakref/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	. = ..()
-	return "[.] <a href='?_src_=vars;[HrefToken()];Vars=[reference]'>(Resolve)</a>"
+	return "[.] <a href='byond://?_src_=vars;[HrefToken()];Vars=[reference]'>(Resolve)</a>"
 
 /matrix/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	return {"<span class='value'>

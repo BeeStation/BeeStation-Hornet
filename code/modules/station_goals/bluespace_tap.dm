@@ -25,7 +25,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? span_greenannounce("[highscore]") : span_boldannounce("[highscore]")]")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -112,7 +112,7 @@
 		/obj/item/bedsheet/syndie = 2,
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/tackler/combat = 5
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -125,9 +125,9 @@
 		/obj/item/dnainjector/telemut = 5,
 		/obj/item/dnainjector/chameleonmut = 5,
 		/obj/item/dnainjector/dwarf = 5,
-		/mob/living/simple_animal/pet/dog/corgi/ = 5,
+		/mob/living/basic/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
-		/mob/living/simple_animal/pet/dog/bullterrier = 5,
+		/mob/living/basic/pet/dog/bullterrier = 5,
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/parrot = 5,
 		/obj/item/slimepotion/slime/sentience = 5,
@@ -353,7 +353,7 @@
 	return data
 
 
-/obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+/obj/machinery/power/bluespace_tap/attack_hand(mob/user, list/modifiers)
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -409,7 +409,7 @@
 /obj/machinery/power/bluespace_tap/on_emag(mob/user)
 	..()
 	do_sparks(5, FALSE, src)
-	user?.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+	user?.visible_message(span_warning("[user] overrides the safety protocols of [src]."), span_warning("You override the safety protocols."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

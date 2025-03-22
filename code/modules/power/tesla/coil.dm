@@ -8,7 +8,7 @@
 
 	// Executing a traitor caught releasing tesla was never this fun!
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	buckle_requires_restraints = TRUE
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
@@ -46,9 +46,9 @@
 /obj/machinery/power/tesla_coil/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.</span>"
+		. += span_notice("The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.")
 
-/obj/machinery/power/tesla_coil/on_construction()
+/obj/machinery/power/tesla_coil/on_construction(mob/user)
 	if(anchored)
 		connect_to_network()
 
@@ -152,7 +152,7 @@
 		return
 	return ..()
 
-/obj/machinery/power/tesla_coil/research/on_construction()
+/obj/machinery/power/tesla_coil/research/on_construction(mob/user)
 	if(anchored)
 		connect_to_network()
 
@@ -165,7 +165,7 @@
 	density = TRUE
 
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	buckle_requires_restraints = TRUE
 
 /obj/machinery/power/grounding_rod/default_unfasten_wrench(mob/user, obj/item/I, time = 20)

@@ -87,14 +87,21 @@
 	using.icon = ui_style
 	static_inventory += using
 
+	using = new/atom/movable/screen/navigate
+	using.icon = ui_style
+	using.hud = src
+	static_inventory += using
+
 	using = new /atom/movable/screen/area_creator
 	using.icon = ui_style
 	static_inventory += using
 
-	action_intent = new /atom/movable/screen/act_intent/segmented
-	action_intent.icon_state = mymob.a_intent
+	action_intent = new /atom/movable/screen/combattoggle/flashy()
 	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
+
 
 	using = new /atom/movable/screen/mov_intent
 	using.icon = ui_style
@@ -305,10 +312,6 @@
 	rest_icon.hud = src
 	static_inventory += rest_icon
 
-	internals = new /atom/movable/screen/internals()
-	internals.hud = src
-	infodisplay += internals
-
 	spacesuit = new /atom/movable/screen/spacesuit
 	spacesuit.hud = src
 	infodisplay += spacesuit
@@ -340,15 +343,14 @@
 	lingstingdisplay.hud = src
 	infodisplay += lingstingdisplay
 
-	devilsouldisplay = new /atom/movable/screen/devil/soul_counter
-	devilsouldisplay.hud = src
-	infodisplay += devilsouldisplay
-
 	zone_select =  new /atom/movable/screen/zone_sel()
 	zone_select.icon = ui_style
 	zone_select.update_icon()
 	zone_select.hud = src
 	static_inventory += zone_select
+
+	combo_display = new /atom/movable/screen/combo()
+	infodisplay += combo_display
 
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
