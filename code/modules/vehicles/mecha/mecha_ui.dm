@@ -87,10 +87,23 @@
 		"MECHA_INT_SHORT_CIRCUIT" = MECHA_INT_SHORT_CIRCUIT,
 	)
 
-	//var/list/regions = list()
-	//for(var/region in get_region_accesses())
-	//	regions += tgui_region_data[region]
-	//data["regions"] = regions
+	var/list/regions = list()
+	for(var/i in 1 to 7)
+		var/list/accesses = list()
+		for(var/access in get_region_accesses(i))
+			if (get_access_desc(access))
+				accesses += list(list(
+					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
+					"ref" = access,
+				))
+
+		regions += list(list(
+			"name" = get_region_accesses_name(i),
+			"regid" = i,
+			"accesses" = accesses
+		))
+
+	data["regions"] = regions
 	return data
 
 /obj/vehicle/sealed/mecha/ui_data(mob/user)

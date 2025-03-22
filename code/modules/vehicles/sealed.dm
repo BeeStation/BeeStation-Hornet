@@ -39,8 +39,8 @@
 	. = ..()
 	if(istype(A, /obj/machinery/door))
 		var/obj/machinery/door/conditionalwall = A
-		for(var/m in occupants)
-			conditionalwall.bumpopen(m)
+		for(var/mob/occupant as anything in return_drivers())
+			conditionalwall.bumpopen(occupant)
 
 /obj/vehicle/sealed/after_add_occupant(mob/M)
 	. = ..()

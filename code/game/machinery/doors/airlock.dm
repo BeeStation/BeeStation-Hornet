@@ -1160,7 +1160,7 @@
 		charge = null
 		return
 	//End Airlock Charges
-	if(I?.tool_behaviour == TOOL_CROWBAR && should_try_removing_electronics() && !operating)
+	if(I.tool_behaviour == TOOL_CROWBAR && should_try_removing_electronics() && !operating)
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 			span_notice("You start to remove electronics from the airlock assembly..."))
 		if(I.use_tool(src, user, 40, volume=100))
@@ -1185,7 +1185,7 @@
 				var/time_to_open = 50
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
 				prying_so_hard = TRUE
-				if(do_after(user, time_to_open, src))
+				if(I.use_tool(src, user, time_to_open, volume = 100))
 					if(check_electrified && shock(user,100))
 						prying_so_hard = FALSE
 						return
