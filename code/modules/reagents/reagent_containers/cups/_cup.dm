@@ -210,20 +210,6 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100)
 	label_icon = "label_beakerlarge"
 
-obj/item/reagent_containers/cup/beaker/reinforced
-    name = "reinforced beaker"
-    desc = "A reinforced beaker. Holds up to 50 units, and doesn't break when thrown." //these don't break when thrown
-    icon_state = "rbeaker"
-    custom_materials = custom_materials = list(/datum/material/glass=500, /datum/material/iron=250)
-    isGlass = false
-
-obj/item/reagent_containers/cup/beaker/large/reinforced //these don't break when thrown
-    name = "reinforced large beaker"
-    desc = "A large beaker. Can hold up to 100 units. Reinforced, so it won't break when thrown"
-    icon_state = "rbeakerlarge"
-    custom_materials = list(/datum/material/glass=2500, /datum/material/iron=1500)
-    isGlass = false
-
 /obj/item/reagent_containers/cup/beaker/vial
 	name = "Vial"
 	desc = "A  very small recipent for the strongest potions for going into battle."
