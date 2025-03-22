@@ -36,6 +36,11 @@
 		BB.def_zone = user.get_combat_bodyzone(target)
 	BB.suppressed = quiet
 
+	if(isgun(fired_from))
+		var/obj/item/gun/G = fired_from
+		loaded_projectile.damage *= G.projectile_damage_multiplier
+		loaded_projectile.stamina *= G.projectile_damage_multiplier
+
 	if(reagents && BB.reagents)
 		reagents.trans_to(BB, reagents.total_volume, transfered_by = user) //For chemical darts/bullets
 		qdel(reagents)

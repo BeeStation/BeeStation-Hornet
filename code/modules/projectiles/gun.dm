@@ -46,6 +46,10 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/dual_wield_spread = 24			//additional spread when dual wielding
+
+	/// Just 'slightly' snowflakey way to modify projectile damage for projectiles fired from this gun.
+	var/projectile_damage_multiplier = 1
+
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
 	var/requires_wielding = TRUE
@@ -185,7 +189,7 @@
 		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
 			. += span_info("[bayonet] looks like it can be <b>unscrewed</b> from [src].")
-	else if(can_bayonet)
+	if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
 	if(weapon_weight == WEAPON_HEAVY)

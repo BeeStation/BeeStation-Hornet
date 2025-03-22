@@ -40,7 +40,7 @@
 	update_icon()
 
 /obj/item/ammo_box/add_weapon_description()
-	AddElement(/datum/element/weapon_description, attached_proc = .proc/add_notes_box)
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_box))
 
 /obj/item/ammo_box/proc/add_notes_box()
 	var/list/readout = list()
