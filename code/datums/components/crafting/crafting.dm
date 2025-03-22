@@ -487,7 +487,7 @@
 	var/static/list/sprite_sheets
 	if(isnull(sprite_sheets))
 		sprite_sheets = ui_assets()
-	var/datum/asset/spritesheet/sheet = sprite_sheets[mode ? 2 : 1]
+	var/datum/asset/spritesheet_batched/sheet = sprite_sheets[mode ? 2 : 1]
 
 	data["icon_data"] = list()
 	for(var/atom/atom as anything in atoms)
