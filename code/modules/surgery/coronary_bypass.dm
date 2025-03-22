@@ -15,7 +15,7 @@
 //an incision but with greater bleed, and a 90% base success chance
 /datum/surgery_step/incise_heart
 	name = "incise heart"
-	implements = list(TOOL_SCALPEL = 90, /obj/item/melee/transforming/energy/sword = 45, /obj/item/knife = 45,
+	implements = list(TOOL_SCALPEL = 90, /obj/item/melee/energy/sword = 45, /obj/item/knife = 45,
 		/obj/item/shard = 25)
 	time = 16
 	preop_sound = 'sound/surgery/scalpel1.ogg'

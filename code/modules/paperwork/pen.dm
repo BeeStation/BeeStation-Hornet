@@ -126,6 +126,10 @@
 	. = ..()
 
 /obj/item/pen/attack_self(mob/living/carbon/user)
+	. = ..()
+	if(.)
+		return
+
 	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
 	if(deg && (deg > 0 && deg <= 360))
 		degrees = deg
@@ -224,56 +228,61 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP
-	var/on = FALSE
+	/// The real name of our item when extended.
+	var/hidden_name = "energy dagger"
 
 /obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/blade1.ogg')
+	AddComponent(/datum/component/butchering, _speed = 6 SECONDS, _butcher_sound = 'sound/weapons/blade1.ogg')
+	AddComponent(/datum/component/transforming, \
+		force_on = 18, \
+		throwforce_on = 35, \
+		throw_speed_on = 4, \
+		bleedforce_on = BLEED_CUT, \
+		sharpness_on = SHARP, \
+		w_class_on = WEIGHT_CLASS_NORMAL, \
+		inhand_icon_change = FALSE, \
+	)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
-/obj/item/pen/edagger/is_sharp()
-	return on * sharpness
-
-/obj/item/pen/edagger/attack_self(mob/living/user)
-	if(on)
-		on = FALSE
-		force = initial(force)
-		throw_speed = initial(throw_speed)
-		w_class = initial(w_class)
-		name = initial(name)
-		hitsound = initial(hitsound)
-		embedding = list(embed_chance = EMBED_CHANCE, armour_block = 30)
-		throwforce = initial(throwforce)
-		sharpness = initial(sharpness)
-		bleed_force = initial(bleed_force)
-		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
-		to_chat(user, span_warning("[src] can now be concealed."))
+/obj/item/pen/edagger/suicide_act(mob/living/user)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+		user.visible_message(span_suicide("[user] forcefully rams the pen into their mouth!"))
 	else
-		on = TRUE
-		force = 18
-		throw_speed = 4
-		w_class = WEIGHT_CLASS_NORMAL
-		name = "energy dagger"
-		hitsound = 'sound/weapons/edagger.ogg'
-		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
-		throwforce = 35
-		sharpness = SHARP_DISMEMBER
-		bleed_force = BLEED_CUT
-		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
-		to_chat(user, span_warning("[src] is now active."))
-	updateEmbedding()
-	update_icon()
+		user.visible_message(span_suicide("[user] is holding a pen up to their mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
+		attack_self(user)
+	return BRUTELOSS
 
-/obj/item/pen/edagger/update_icon()
-	if(on)
+/*
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ *
+ * Handles swapping their icon files to edagger related icon files -
+ * as they're supposed to look like a normal pen.
+ */
+/obj/item/pen/edagger/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+
+	if(active)
+		name = hidden_name
 		icon_state = "edagger"
 		item_state = "edagger"
 		lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 		righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+		embedding = list(embed_chance = 100) // Rule of cool
 	else
-		icon_state = initial(icon_state) //looks like a normal pen when off.
+		name = initial(name)
+		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
+		embedding = list(embed_chance = EMBED_CHANCE)
+
+	updateEmbedding()
+	if(user)
+		balloon_alert(user, "[hidden_name] [active ? "active" : "concealed"]")
+	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 5, TRUE)
+	set_light_on(active)
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
 
 /*
@@ -281,50 +290,39 @@
  */
 
 /obj/item/pen/screwdriver
-	var/extended = FALSE
 	desc = "A pen with an extendable screwdriver tip. This one has a yellow cap."
 	icon_state = "pendriver"
-	toolspeed = 1.20  // gotta have some downside
+	toolspeed = 1.2  // gotta have some downside
 
-/obj/item/pen/screwdriver/attack_self(mob/living/user)
-	if(extended)
-		extended = FALSE
-		w_class = initial(w_class)
+/obj/item/pen/screwdriver/Initialize(mapload)
+	. = ..()
+	AddComponent( \
+		/datum/component/transforming, \
+		throwforce_on = 5, \
+		w_class_on = WEIGHT_CLASS_SMALL, \
+		sharpness_on = TRUE, \
+		inhand_icon_change = FALSE, \
+	)
+
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(toggle_screwdriver))
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/pen/screwdriver/proc/toggle_screwdriver(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+
+	if(user)
+		balloon_alert(user, active ? "extended" : "retracted")
+	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+
+	if(!active)
 		tool_behaviour = initial(tool_behaviour)
-		force = initial(force)
-		throwforce = initial(throwforce)
-		throw_speed = initial(throw_speed)
-		throw_range = initial(throw_range)
-		to_chat(user, "You retract the screwdriver.")
-
 	else
-		extended = TRUE
 		tool_behaviour = TOOL_SCREWDRIVER
-		w_class = WEIGHT_CLASS_SMALL  // still can fit in pocket
-		force = 4  // copies force from screwdriver
-		throwforce = 5
-		throw_speed = 3
-		throw_range = 5
-		to_chat(user, "You extend the screwdriver.")
-	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE) // click
-	update_icon()
 
-/obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!extended)
-		return ..()
-	if(!istype(M))
-		return ..()
-	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES) && !user.is_zone_selected(BODY_ZONE_HEAD))
-		return ..()
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("You don't want to harm [M]!"))
-		return
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
+	update_appearance(UPDATE_ICON)
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
-/obj/item/pen/screwdriver/update_icon()
-	if(extended)
-		icon_state = "pendriverout"
-	else
-		icon_state = initial(icon_state)
+/obj/item/pen/screwdriver/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "_out" : null]"
+	item_state = initial(item_state) //since transforming component switches the icon.
