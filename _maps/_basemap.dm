@@ -3,7 +3,6 @@
 
 // uncomment this for a map you need to use
 // #define FORCE_MAP "corgstation"
-// #define FORCE_MAP "boxstation"
 // #define FORCE_MAP "metastation"
 // #define FORCE_MAP "deltastation"
 // #define FORCE_MAP "kilostation"
@@ -22,7 +21,6 @@
 		#include "map_files\CorgStation\CorgStation.dmm"
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
-		#include "map_files\BoxStation\BoxStation.dmm"
 		#include "map_files\KiloStation\KiloStation.dmm"
 		#include "map_files\flandstation\flandstation.dmm"
 		#include "map_files\RadStation\RadStation.dmm"

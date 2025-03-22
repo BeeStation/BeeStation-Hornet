@@ -377,7 +377,7 @@
 	suffix = "box"
 	name = "Box Station Emergency Shuttle"
 	credit_cost = 2000
-	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
+	description = "The good ol' classic standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
