@@ -26,11 +26,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "This shouldn't exist. If it does, create an issue report."
 
-/obj/item/storage/secure/ComponentInitialize()
+/obj/item/storage/secure/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_SMALL
-	STR.max_combined_w_class = 14
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	atom_storage.max_total_storage = 14
 
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
@@ -38,7 +37,7 @@
 		. += "The service panel is currently <b>[open ? "unscrewed" : "screwed shut"]</b>."
 
 /obj/item/storage/secure/attackby(obj/item/W, mob/user, params)
-	if(can_hack_open && SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
+	if(can_hack_open && atom_storage.locked)
 		if (W.tool_behaviour == TOOL_SCREWDRIVER)
 			if (W.use_tool(src, user, 20))
 				open = !open
@@ -67,7 +66,7 @@
 	return ..()
 
 /obj/item/storage/secure/attack_self(mob/user)
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	var/locked = atom_storage.locked
 	user.set_machine(src)
 	var/dat = "<TT><B>[src]</B><BR>\n\nLock Status: [(locked ? "LOCKED" : "UNLOCKED")]"
 	var/message = "Code"
@@ -78,11 +77,11 @@
 	message = "[code]"
 	if (!locked)
 		message = "*****"
-	dat += "<HR>\n>[message]<BR>\n<A href='?src=[REF(src)];type=1'>1</A>-<A href='?src=[REF(src)];type=2'>2</A>-<A href='?src=[REF(src)];type=3'>3</A><BR>\n \
-			<A href='?src=[REF(src)];type=4'>4</A>-<A href='?src=[REF(src)];type=5'>5</A>-<A href='?src=[REF(src)];type=6'>6</A><BR>\n \
-			<A href='?src=[REF(src)];type=7'>7</A>-<A href='?src=[REF(src)];type=8'>8</A>-<A href='?src=[REF(src)];type=9'>9</A><BR>\n \
-			<A href='?src=[REF(src)];type=R'>R</A>-<A href='?src=[REF(src)];type=0'>0</A>-<A href='?src=[REF(src)];type=E'>E</A><BR>\n</TT>"
-	user << browse(dat, "window=caselock;size=300x280")
+	dat += "<HR>\n>[message]<BR>\n<A href='byond://?src=[REF(src)];type=1'>1</A>-<A href='byond://?src=[REF(src)];type=2'>2</A>-<A href='byond://?src=[REF(src)];type=3'>3</A><BR>\n \
+			<A href='byond://?src=[REF(src)];type=4'>4</A>-<A href='byond://?src=[REF(src)];type=5'>5</A>-<A href='byond://?src=[REF(src)];type=6'>6</A><BR>\n \
+			<A href='byond://?src=[REF(src)];type=7'>7</A>-<A href='byond://?src=[REF(src)];type=8'>8</A>-<A href='byond://?src=[REF(src)];type=9'>9</A><BR>\n \
+			<A href='byond://?src=[REF(src)];type=R'>R</A>-<A href='byond://?src=[REF(src)];type=0'>0</A>-<A href='byond://?src=[REF(src)];type=E'>E</A><BR>\n</TT>"
+	user << browse(HTML_SKELETON(dat), "window=caselock;size=300x280")
 
 /obj/item/storage/secure/Topic(href, href_list)
 	..()
@@ -94,7 +93,7 @@
 				l_code = code
 				l_set = 1
 			else if ((code == l_code) && (l_set == 1))
-				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+				atom_storage.locked = FALSE
 				cut_overlays()
 				add_overlay(icon_opened)
 				code = null
@@ -102,10 +101,10 @@
 				code = "ERROR"
 		else
 			if ((href_list["type"] == "R") && (!l_setshort))
-				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
+				atom_storage.locked = TRUE
 				cut_overlays()
 				code = null
-				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_FROM, usr)
+				atom_storage.hide_contents(usr)
 			else
 				code += "[sanitize_text(href_list["type"])]"
 				if (length(code) > 5)
@@ -140,11 +139,10 @@
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
 
-/obj/item/storage/secure/briefcase/ComponentInitialize()
+/obj/item/storage/secure/briefcase/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 21
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 21
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie
@@ -153,8 +151,7 @@
 
 /obj/item/storage/secure/briefcase/syndie/PopulateContents()
 	..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	for(var/i in 1 to STR.max_items - 2)
+	for(var/iterator in 1 to 5)
 		new /obj/item/stack/spacecash/c1000(src)
 
 /obj/item/storage/secure/briefcase/hitman/PopulateContents()
@@ -187,11 +184,10 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
 
-/obj/item/storage/secure/safe/ComponentInitialize()
+/obj/item/storage/secure/safe/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.cant_hold = typecacheof(list(/obj/item/storage/secure/briefcase))
-	STR.max_w_class = 8						//??
+	atom_storage.set_holdable(cant_hold_list = list(/obj/item/storage/secure/briefcase))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 
 /obj/item/storage/secure/safe/PopulateContents()
 	new /obj/item/paper(src)
@@ -241,13 +237,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 1
-	STR.set_holdable(list(
+	atom_storage.max_slots = 1
+	atom_storage.set_holdable(list(
 		/obj/item/card/id/))
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
+	atom_storage.locked = FALSE
+	update_appearance()
 
 /obj/item/storage/secure/safe/caps_spare/PopulateContents()
 	new /obj/item/card/id/captains_spare(src)

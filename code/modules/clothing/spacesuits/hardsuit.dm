@@ -24,6 +24,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	var/geiger_counter = TRUE
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
@@ -115,11 +116,14 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
 	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
+	if(amount <= RAD_BACKGROUND_RADIATION || !geiger_counter)
 		return
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	if(!geiger_counter)
+		return
+
 	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
 
 	if(current_tick_amount)
@@ -1031,13 +1035,13 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
-	var/obj/machinery/doppler_array/integrated/bomb_radar
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
 	)
 
+	var/obj/machinery/doppler_array/integrated/bomb_radar
 
 /datum/armor/hardsuit_rd
 	melee = 30
@@ -1076,12 +1080,10 @@
 	supports_variations = DIGITIGRADE_VARIATION
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
-	/obj/item/hand_tele, /obj/item/aicard)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
 	armor_type = /datum/armor/hardsuit_research_director
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 	cell = /obj/item/stock_parts/cell/super
-
 
 /datum/armor/hardsuit_research_director
 	melee = 30
@@ -1229,12 +1231,14 @@
 
 /obj/item/clothing/suit/space/hardsuit/swat
 	name = "\improper MK.II SWAT Suit"
-	desc = "A MK.II SWAT suit with streamlined joints and armor made out of superior materials, insulated against intense heat. The most advanced tactical armor available."
+	desc = "A tactical suit first developed in a joint effort by the defunct IS-ERI and Nanotrasen in 2321 for military operations. \
+		It has a minor slowdown, but offers decent protection and helps the wearer resist shoving in close quarters."
 	icon_state = "swat2"
 	item_state = "swat2"
 	armor_type = /datum/armor/hardsuit_swat
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	blocks_shove_knockdown = TRUE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT //this needed to be added a long fucking time ago
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 

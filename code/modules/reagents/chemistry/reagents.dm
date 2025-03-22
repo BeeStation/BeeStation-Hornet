@@ -44,6 +44,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/volume = 0
 	/// color it looks in containers etc
 	var/color = "#000000" // rgb: 0, 0, 0
+	/// intensity of color provided, dyes or things that should work like a dye will more strongly affect the final color of a reagent
+	var/color_intensity = 1
 	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH
 	var/chem_flags = CHEMICAL_NOT_DEFINED
 	///how fast the reagent is metabolized by the mob
@@ -72,7 +74,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	holder = null
 
 /// Applies this reagent to an [/atom]
-/datum/reagent/proc/expose_atom(atom/A, volume)
+/datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
+	SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
 	return
 
 /// Applies this reagent to a [/mob/living]

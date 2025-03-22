@@ -366,13 +366,13 @@
 /area/shuttle/abandoned/engine)
 "bi" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/light/small/built,
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bj" = (
@@ -856,11 +856,11 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "cQ" = (
@@ -883,11 +883,11 @@
 /area/shuttle/abandoned/cargo)
 "cU" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/processor,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "cV" = (
@@ -1400,7 +1400,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
@@ -1410,6 +1409,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/engine)
 "eZ" = (
@@ -1906,7 +1906,6 @@
 "vC" = (
 /obj/machinery/light/small/built,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/white/line,
@@ -1920,6 +1919,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bar)
 "vN" = (

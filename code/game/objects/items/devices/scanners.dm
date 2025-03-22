@@ -420,7 +420,7 @@ GENE SCANNER
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t[span_info("Genetic Stability: [H.dna.stability]%.")]"
-			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+			if(H.has_status_effect(/datum/status_effect/ling_transformation))
 				message += "\t[span_info("Subject's DNA appears to be in an unstable state.")]"
 
 		// Embedded Items
@@ -432,7 +432,7 @@ GENE SCANNER
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
-		var/mutant = H.dna.check_mutation(HULK) \
+		var/mutant = H.dna.check_mutation(/datum/mutation/hulk) \
 			|| S.mutantlungs != initial(S.mutantlungs) \
 			|| S.mutantbrain != initial(S.mutantbrain) \
 			|| S.mutantheart != initial(S.mutantheart) \
@@ -526,6 +526,90 @@ GENE SCANNER
 	else
 		return(jointext(message, "\n"))
 
+/**
+ * Scans an atom, showing any (detectable) diseases they may have.
+ */
+/proc/virusscan(mob/user, atom/target, var/maximum_stealth, var/maximum, var/list/extracted_ids)
+	. = TRUE
+	var/list/result = target?.extrapolator_act(user, target)
+	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
+	if(!length(diseases))
+		return FALSE
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
+		return
+	var/list/message = list()
+	if(length(diseases))
+		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
+		message += span_noticebold("[costly_icon2html(target, user)] [target] scan results]")
+		for(var/datum/disease/disease in diseases)
+			if(istype(disease, /datum/disease/advance))
+				var/datum/disease/advance/advance_disease = disease
+				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
+					continue
+				var/list/properties
+				if(!advance_disease.mutable)
+					LAZYADD(properties, "immutable")
+				if(advance_disease.faltered)
+					LAZYADD(properties, "faltered")
+				if(advance_disease.carrier)
+					LAZYADD(properties, "carrier")
+				message += span_info("<b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]")
+				if(extracted_ids[advance_disease.GetDiseaseID()])
+					message += span_infoitalics("This virus has been extracted previously.")
+				message += span_infobold("[advance_disease.name] has the following symptoms:")
+				for(var/datum/symptom/symptom in advance_disease.symptoms)
+					message += "[symptom.name]"
+			else
+				message += span_info("<b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].")
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
+/proc/genescan(mob/living/carbon/C, mob/user, list/discovered)
+	. = TRUE
+	if(!iscarbon(C) || !C.has_dna())
+		return FALSE
+	if(HAS_TRAIT(C, TRAIT_RADIMMUNE) || HAS_TRAIT(C, TRAIT_BADDNA))
+		return FALSE
+	var/list/message = list()
+	var/list/active_inherent_muts = list()
+	var/list/active_injected_muts = list()
+	var/list/inherent_muts = list()
+	var/list/mut_index = C.dna.mutation_index.Copy()
+
+	for(var/datum/mutation/each in C.dna.mutations)
+		//get name and alias if discovered (or no discovered list was provided) or just alias if not
+		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each.type) //have to do this as instances of mutation do not have alias but global ones do....
+		var/each_mut_details = "ERROR"
+		if(!discovered || (each_mutation.type in discovered))
+			each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
+		else
+			each_mut_details = span_info("[each_mutation.alias]")
+
+		if(each_mutation.type in mut_index)
+			//add mutation readout for all active inherent mutations
+			active_inherent_muts += "[each_mut_details][span_infobold(" : Active ")]"
+			mut_index -= each_mutation.type
+		else
+			//add mutation readout for all injected (not inherent) mutations
+			active_injected_muts += each_mut_details
+
+	for(var/each in mut_index)
+		var/datum/mutation/each_mutation = GET_INITIALIZED_MUTATION(each)
+		var/each_mut_details = "ERROR"
+		if(each_mutation)
+			//repeating this code twice is nasty, but nested procs (if even possible??) or more global procs then needed is... less so
+			if(!discovered || (each_mutation.type in discovered))
+				each_mut_details = span_info("[each_mutation.name] ([each_mutation.alias])")
+			else
+				each_mut_details = span_info("[each_mutation.alias]")
+		inherent_muts += each_mut_details
+
+	message += span_noticebold("[C] scan results")
+	active_inherent_muts.len > 0 ? (message += "[jointext(active_inherent_muts, "\n")]") : ""
+	inherent_muts.len > 0 ? (message += "[jointext(inherent_muts, "\n")]") : ""
+	active_injected_muts.len > 0 ? (message += "[span_infobold("Injected mutations:\n")][jointext(active_injected_muts, "\n")]") : ""
+
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Switch Verbosity"
 	set category = "Object"
@@ -547,11 +631,6 @@ GENE SCANNER
 #undef SCANMODE_COUNT
 #undef SCANNER_CONDENSED
 #undef SCANNER_VERBOSE
-
-
-
-
-
 
 
 /obj/item/analyzer
@@ -794,7 +873,7 @@ GENE SCANNER
 	if(T.cores > 1)
 		message += "Multiple cores detected"
 	message += "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]"
-	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
+	if(T.has_status_effect(/datum/status_effect/slimegrub))
 		message += "<b>Redgrub infestation detected. Quarantine immediately.</b>"
 		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat"
 	if(T.effectmod)
@@ -934,25 +1013,8 @@ GENE SCANNER
 	if(!iscarbon(C) || !C.has_dna())
 		return
 	buffer = C.dna.mutation_index
-	to_chat(user, span_notice("Subject [C.name]'s DNA sequence has been saved to buffer."))
-
-	var/list/full_list_mutations = list()
-	for(var/each in buffer) // get inherent mutations first
-		full_list_mutations[each] = FALSE
-	for(var/datum/mutation/each_mutation in C.dna.mutations)
-		if(each_mutation.type in buffer) // active inherent mutation
-			full_list_mutations[each_mutation.type] = "Activated"
-		else // active artificial mutation
-			full_list_mutations[each_mutation.type] = "Injected"
-	for(var/datum/mutation/each_mutation in C.dna.temporary_mutations)
-		full_list_mutations[each_mutation.type] = "Temporary"
-
-	for(var/A in full_list_mutations)
-		to_chat(user, "\t[span_notice("[get_display_name(A)]")]") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
-	to_chat(user, "\t[span_info("Genetic Stability: [C.dna.stability]%.")]")
-	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
-		to_chat(user, "\t[span_info("Subject's DNA appears to be in an unstable state.")]")
-
+	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
+	genescan(C, user, discovered)
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
 	if(!LAZYLEN(buffer) || !ready)
@@ -1133,7 +1195,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 			// extrapolator_act did some sort of special behavior, we don't need to do anything further
 			return
 		if(scan)
-			scan(user, target)
+			virusscan(user, target, maximum_stealth, maximum_level, extracted_ids)
 		else
 			extrapolate(user, target)
 	else
@@ -1149,43 +1211,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 		if(length(result[EXTRAPOLATOR_RESULT_DISEASES]))
 			. += target_to_try
 
-/**
- * Scans an atom, showing any (detectable) diseases they may have.
- */
-/obj/item/extrapolator/proc/scan(mob/living/user, atom/target)
-	. = TRUE
-	var/list/result = target?.extrapolator_act(user, target)
-	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
-	if(!length(diseases))
-		return FALSE
-	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
-		return
-	var/list/message = list()
-	if(length(diseases))
-		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
-		message += span_boldnotice("[costly_icon2html(target, user)] [target] scan results")
-		message += span_boldnotice("[icon2html(src, user)] \The [src] detects the following diseases:")
-		for(var/datum/disease/disease in diseases)
-			if(istype(disease, /datum/disease/advance))
-				var/datum/disease/advance/advance_disease = disease
-				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
-					continue
-				var/list/properties
-				if(!advance_disease.mutable)
-					LAZYADD(properties, "immutable")
-				if(advance_disease.faltered)
-					LAZYADD(properties, "faltered")
-				if(advance_disease.carrier)
-					LAZYADD(properties, "carrier")
-				message += span_info("<b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]")
-				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += span_infoitalics("This virus has been extracted by \the [src] previously.")
-				message += span_infobold("[advance_disease.name] has the following symptoms:")
-				for(var/datum/symptom/symptom in advance_disease.symptoms)
-					message += "[symptom.name]"
-			else
-				message += span_info("<b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].")
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
 
 /**
  * Attempts to either extract a disease from an atom, or isolate a symptom from an advance disease.

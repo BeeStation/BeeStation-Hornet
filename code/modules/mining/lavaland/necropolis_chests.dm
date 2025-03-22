@@ -95,7 +95,7 @@
 		return
 	var/mob/living/carbon/itemUser = user
 	usedHand = itemUser.get_held_index_of_item(src)
-	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
+	if(itemUser.has_status_effect(/datum/status_effect/hippocratic_oath))
 		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
 	var/failText = span_warning("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
@@ -121,7 +121,7 @@
 		to_chat(itemUser, failText)
 		return
 	to_chat(itemUser, span_notice("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+	var/datum/status_effect/hippocratic_oath/effect = itemUser.apply_status_effect(/datum/status_effect/hippocratic_oath)
 	effect.hand = usedHand
 	activated()
 	itemUser.regenerate_icons()
@@ -554,22 +554,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 
 /obj/item/shared_storage/red/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = AddComponent(/datum/component/storage/concrete)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 60
-	STR.max_items = 21
-	new /obj/item/shared_storage/blue(drop_location(), STR)
+
+	create_storage(max_total_storage = 60, max_slots = 21)
+
+	new /obj/item/shared_storage/blue(drop_location(), src)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
-/obj/item/shared_storage/blue/Initialize(mapload, datum/component/storage/concrete/master)
+/obj/item/shared_storage/blue/Initialize(mapload, atom/master)
 	. = ..()
 	if(!istype(master))
 		return INITIALIZE_HINT_QDEL
-	var/datum/component/storage/STR = AddComponent(/datum/component/storage, master)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 60
-	STR.max_items = 21
+	create_storage(max_total_storage = 60, max_slots = 21)
+
+	atom_storage.set_real_location(master)
 
 //Book of Babel
 
@@ -846,11 +844,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/item/melee/cleaving_saw/proc/nemesis_effects(mob/living/user, mob/living/target)
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite))
 		return
-	var/datum/status_effect/stacking/saw_bleed/existing_bleed = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
+	var/datum/status_effect/stacking/saw_bleed/existing_bleed = target.has_status_effect(/datum/status_effect/stacking/saw_bleed)
 	if(existing_bleed)
 		existing_bleed.add_stacks(bleed_stacks_per_hit)
 	else
-		target.apply_status_effect(STATUS_EFFECT_SAWBLEED, bleed_stacks_per_hit)
+		target.apply_status_effect(/datum/status_effect/stacking/saw_bleed, bleed_stacks_per_hit)
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -925,7 +923,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
 	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!",
-		enter_link="<a href=?src=[REF(src)];orbit=1>(Click to help)</a>",
+		enter_link="<a href='byond://?src=[REF(src)];orbit=1'>(Click to help)</a>",
 		source = user, action=NOTIFY_ORBIT, ignore_key = POLL_IGNORE_SPECTRAL_BLADE, header = "Spectral blade")
 
 	summon_cooldown = world.time + 600
