@@ -421,7 +421,7 @@
 					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
 		. = TRUE
 	if(length(message))
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+		to_chat(user, examine_block(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /datum/component/nanites/proc/nanite_ui_data(datum/source, list/data, scan_level)
 	SIGNAL_HANDLER

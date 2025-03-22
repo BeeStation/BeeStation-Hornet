@@ -9,6 +9,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 500)
+	override_notes = TRUE
 	//What sound should play when this ammo is fired
 	var/fire_sound = null
 	//Which kind of guns it can be loaded into
@@ -44,7 +45,7 @@
 	pixel_x = base_pixel_x + rand(-10, 10)
 	pixel_y = base_pixel_y + rand(-10, 10)
 	setDir(pick(GLOB.alldirs))
-	update_icon()
+	update_appearance()
 
 /obj/item/ammo_casing/Destroy()
 	var/turf/T = get_turf(src)
@@ -53,10 +54,55 @@
 	QDEL_NULL(BB)
 	return ..()
 
-/obj/item/ammo_casing/update_icon()
-	. = ..()
-	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
-	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+/obj/item/ammo_casing/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ammo))
+
+/**
+ *
+ * Outputs type-specific weapon stats for ammunition based on the projectile loaded inside the casing.
+ * Distinguishes between critting and stam-critting in separate lines
+ *
+ */
+/obj/item/ammo_casing/proc/add_notes_ammo()
+	// Try to get a projectile to derive stats from
+	var/obj/projectile/exam_proj = projectile_type
+	var/initial_damage = initial(exam_proj.damage)
+	var/initial_stamina = initial(exam_proj.stamina)
+	// projectile damage multiplier for guns with snowflaked damage multipliers
+	var/proj_damage_mult = 1
+	if(!ispath(exam_proj) || pellets == 0)
+		return
+
+	// are we in an ammo box?
+	if(isammobox(loc))
+		var/obj/item/ammo_box/our_box = loc
+		// is our ammo box in a gun?
+		if(isgun(our_box.loc))
+			var/obj/item/gun/our_gun = our_box.loc
+			// grab the damage multiplier
+			proj_damage_mult = our_gun.projectile_damage_multiplier
+	// if not, are we just in a gun e.g. chambered
+	else if(isgun(loc))
+		var/obj/item/gun/our_gun = loc
+		// grab the damage multiplier.
+		proj_damage_mult = our_gun.projectile_damage_multiplier
+	var/list/readout = list()
+	if(proj_damage_mult <= 0 || (initial_damage <= 0 && initial_stamina <= 0))
+		return "Our legal team has determined the offensive nature of these [span_warning(caliber)] rounds to be esoteric."
+	// No dividing by 0
+	if(initial_damage)
+		readout += "Most monkeys our legal team subjected to these [span_warning(caliber)] rounds succumbed to their wounds after [span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] shot\s")] at point-blank, taking [span_warning("[pellets] shot\s")] per round."
+	if(initial_stamina)
+		readout += "[!readout.len ? "Most monkeys" : "More fortunate monkeys"] collapsed from exhaustion after [span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_damage_mult) * pellets)] impact\s")] of these [span_warning("[caliber]")] rounds."
+	return readout.Join("\n") // Sending over a single string, rather than the whole list
+
+/obj/item/ammo_casing/update_icon_state()
+	icon_state = "[initial(icon_state)][BB ? "-live" : null]"
+	return ..()
+
+/obj/item/ammo_casing/update_desc()
+	desc = "[initial(desc)][BB ? null : " This one is spent."]"
+	return ..()
 
 //proc to magically refill a casing with a new projectile
 /obj/item/ammo_casing/proc/newshot() //For energy weapons, syringe gun, shotgun shells and wands (!).
@@ -78,7 +124,7 @@
 				else
 					continue
 			if (boolets > 0)
-				box.update_icon()
+				box.update_appearance()
 				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 			else
 				to_chat(user, span_warning("You fail to collect anything!"))
@@ -91,7 +137,7 @@
 	return ..()
 
 /obj/item/ammo_casing/proc/bounce_away(still_warm = FALSE, bounce_delay = 3)
-	update_icon()
+	update_appearance()
 	SpinAnimation(10, 1)
 	var/turf/T = get_turf(src)
 	if(still_warm && T && T.bullet_sizzle)
