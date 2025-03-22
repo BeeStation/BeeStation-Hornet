@@ -224,32 +224,14 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
  */
 /proc/armor_to_protection_name(armor_type)
 	switch(armor_type)
-		if(ACID)
-			return "ACID"
-		if(BIO)
-			return "BIOHAZARD"
-		if(BLEED)
-			return "BLEEDING"
-		if(BOMB)
-			return "EXPLOSIVE"
-		if(BULLET)
-			return "BULLET"
-		if(CONSUME)
-			return "CONSUMING"
-		if(ENERGY)
-			return "ENERGY"
-		if(FIRE)
-			return "FIRE"
-		if(LASER)
-			return "LASER"
-		if(MELEE)
-			return "MELEE"
-		if(RAD)
-			return "RAD"
-		if(STAMINA)
-			return "STAMINA"
-		/*
-		if(WOUND)
-			return "WOUNDING"
-		*/
+		if(ARMOUR_PENETRATION)
+			return "PENETRATION"
+		if(ARMOUR_BLUNT)
+			return "BLUNT"
+		if(ARMOUR_ABSORPTION)
+			return "ABSORPTION"
+		if(ARMOUR_REFLECTIVITY)
+			return "REFLECTIVITY"
+		if(ARMOUR_HEAT)
+			return "HEAT"
 	CRASH("Unknown armor type '[armor_type]'")

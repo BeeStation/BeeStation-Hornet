@@ -20,32 +20,31 @@
 
 //Damage flag defines //
 
+#define ARMOUR_PENETRATION "penetration"
+#define ARMOUR_BLUNT "blunt"
+#define ARMOUR_ABSORPTION "absorption"
+#define ARMOUR_REFLECTIVITY "reflectivity"
+#define ARMOUR_HEAT "heat"
+
 /// Involves corrosive substances.
-#define ACID "acid"
-/// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
-#define BIO "bio"
-/// Bleed prevention
-#define BLEED "bleed"
+/// 100% absorption
+/// 100% blunt
+#define DAMAGE_ACID "acid"
 /// Involves a shockwave, usually from an explosion.
-#define BOMB "bomb"
-/// Involves a solid projectile.
-#define BULLET "bullet"
-/// Involves being eaten
-#define CONSUME "consume"
+/// 50% heat
+/// 50% absorption
+/// 50% blunt
+#define DAMAGE_BOMB "bomb"
 /// Involves an EMP or energy-based projectile.
-#define ENERGY "energy"
+/// 100% reflectivity
+#define DAMAGE_ENERGY "energy"
 /// Involves fire or temperature extremes.
-#define FIRE "fire"
+/// 100% heat
+#define DAMAGE_FIRE "fire"
 /// Involves a laser.
-#define LASER "laser"
-/// Involves a melee attack or a thrown object.
-#define MELEE "melee"
-/// Involves ionizing radiation.
-#define RAD	"rad"
-/*
-/// Involved in checking the likelihood of applying a wound to a mob.
-#define WOUND "wound"
-*/
+/// 50% reflectivity
+/// 50% heat
+#define DAMAGE_LASER "laser"
 
 #define ARMOR_ALL "all_damage_types"
 
@@ -247,11 +246,36 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLUNT					0
 /// Has some sharpness, but isn't the most powerful and won't penetrate all the way to the bone
 /// Deals skin damage but cannot hurt the bone due to penetration falling off
-#define SHARP					25
+#define SHARP					20
 /// Item can dismember damaged limbs, or if the target has no armour at all
 #define SHARP_DISMEMBER			45
 /// Very penetrating item, dismembers easy even through armour
 #define SHARP_DISMEMBER_EASY	65
+
+/// Completely blunt weapon, will not penetrate anything
+#define SHARP_NONE 0
+/// Extremely weak, protected by basically any amount of armour but will deal
+/// some additional damage to unarmoured targets. Utensils, rods, etc.
+#define SHARP_I 10
+/// Glass Shards
+#define SHARP_II 20
+/// Knives
+#define SHARP_III 30
+/// Larger knives / cleavers
+#define SHARP_IV 40
+/// 45 - CAN DISMBEMBER
+/// Fire-axes
+#define SHARP_V 50
+/// Cult/Antag Weapons
+#define SHARP_VI 60
+/// Energy Swords, Katanas
+#define SHARP_VII 70
+/// Katanas, Weak Bullets
+#define SHARP_VIII 80
+/// Medium Bullets
+#define SHARP_IX 90
+/// Powerful Bullets
+#define SHARP_X 100
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.

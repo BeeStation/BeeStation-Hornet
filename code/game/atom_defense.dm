@@ -1,5 +1,11 @@
 /// The essential proc to call when an atom must receive damage of any kind.
-/atom/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
+/// amount: The amount of damage to be recieved
+/// penetration: The amount of penetration that the damage is applying
+/// type: The damage type being dealt
+/// flag: Defines a special DAMAGE_ flag, which changes the behaviour of how armour is calculated.
+/// hit_direction: The direction that the attack was performed from.
+/// sound_effect: Should we play the attack sound effect?
+/atom/proc/apply_damage(amount, penetration, type = BRUTE, flag = null, hit_direction = NONE, sound_effect = TRUE)
 	if(!uses_integrity)
 		CRASH("[src] had /atom/proc/take_damage() called on it without it being a type that has uses_integrity = TRUE!")
 	if(QDELETED(src))
@@ -10,10 +16,10 @@
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE))
 		return
-	damage_amount = run_atom_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
+	damage_amount = run_atom_armor(damage_amount, damage_type, damage_flag, hit_direction, armour_penetration)
 	if(damage_amount < DAMAGE_PRECISION)
 		return
-	if(SEND_SIGNAL(src, COMSIG_ATOM_TAKE_DAMAGE, damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration) & COMPONENT_NO_TAKE_DAMAGE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_TAKE_DAMAGE, damage_amount, damage_type, damage_flag, sound_effect, hit_direction, armour_penetration) & COMPONENT_NO_TAKE_DAMAGE)
 		return
 
 	. = damage_amount
