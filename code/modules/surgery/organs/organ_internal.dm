@@ -33,6 +33,8 @@
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
+	/// Traits that are given to the holder of the organ.
+	var/list/organ_traits = list()
 
 // Players can look at prefs before atoms SS init, and without this
 // they would not be able to see external organs, such as moth wings.
@@ -54,28 +56,31 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(organ_flags & ORGAN_SYNTHETIC)
 		juice_typepath = null
 
-/obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	if(!iscarbon(M) || owner == M)
+/obj/item/organ/proc/Insert(mob/living/carbon/organ_owner, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+	if(!iscarbon(organ_owner) || owner == organ_owner)
 		return
 
-	var/obj/item/organ/replaced = M.getorganslot(slot)
+	var/obj/item/organ/replaced = organ_owner.getorganslot(slot)
 	if(replaced)
-		replaced.Remove(M, special = 1, pref_load = pref_load)
+		replaced.Remove(organ_owner, special = 1, pref_load = pref_load)
 		if(drop_if_replaced)
-			replaced.forceMove(get_turf(M))
+			replaced.forceMove(get_turf(organ_owner))
 		else
 			qdel(replaced)
 
-	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, M)
-	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
+	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src)
 
-	owner = M
-	M.internal_organs |= src
-	M.internal_organs_slot[slot] = src
+	owner = organ_owner
+	organ_owner.internal_organs |= src
+	organ_owner.internal_organs_slot[slot] = src
 	moveToNullspace()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Grant(M)
+	for(var/trait in organ_traits)
+		ADD_TRAIT(organ_owner, trait, REF(src))
+
+	for(var/datum/action/action as anything in actions)
+		action.Grant(organ_owner)
+
 	STOP_PROCESSING(SSobj, src)
 
 //Special is for instant replacement like autosurgeons
@@ -89,15 +94,31 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			if(organ_owner.stat != DEAD)
 				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 			organ_owner.death()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Remove(organ_owner)
+
+	for(var/trait in organ_traits)
+		REMOVE_TRAIT(organ_owner, trait, REF(src))
+
+	for(var/datum/action/action as anything in actions)
+		action.Remove(organ_owner)
 
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	START_PROCESSING(SSobj, src)
 
+/// Add a trait to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_trait(trait)
+	LAZYADD(organ_traits, trait)
+	if(isnull(owner))
+		return
+	ADD_TRAIT(owner, trait, REF(src))
+
+/// Removes a trait from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_trait(trait)
+	LAZYREMOVE(organ_traits, trait)
+	if(isnull(owner))
+		return
+	REMOVE_TRAIT(owner, trait, REF(src))
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return

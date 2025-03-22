@@ -156,6 +156,7 @@
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
 		ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
+		ADD_TRAIT(src, TRAIT_CAN_STRIP, ROUNDSTART_TRAIT)
 	if(is_flying_animal)
 		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
@@ -492,18 +493,6 @@
 		var/turf/target = get_turf(loc)
 		if(target)
 			return new childspawn(target)
-
-/mob/living/simple_animal/stripPanelUnequip(obj/item/what, mob/who, where)
-	if(!canUseTopic(who, BE_CLOSE))
-		return
-	else
-		..()
-
-/mob/living/simple_animal/stripPanelEquip(obj/item/what, mob/who, where)
-	if(!canUseTopic(who, BE_CLOSE))
-		return
-	else
-		..()
 
 /mob/living/simple_animal/update_resting()
 	if(resting)
