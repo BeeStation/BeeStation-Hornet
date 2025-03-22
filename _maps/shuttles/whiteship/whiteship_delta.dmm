@@ -312,14 +312,14 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bl" = (
@@ -811,8 +811,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -820,6 +818,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "cO" = (
@@ -1280,8 +1280,8 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/white,
 /area/shuttle/abandoned/medbay)
 "dP" = (
@@ -1982,11 +1982,11 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/crew)
 "GD" = (
@@ -2088,7 +2088,6 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "NM" = (
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/secure_closet/freezer{
@@ -2104,6 +2103,7 @@
 /obj/item/food/sandwich,
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "Qd" = (

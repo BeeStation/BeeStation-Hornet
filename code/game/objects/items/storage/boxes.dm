@@ -26,7 +26,7 @@
 	name = "box"
 	desc = "It's just an ordinary box."
 	icon = 'icons/obj/storage/box.dmi'
-	w_class = WEIGHT_CLASS_LARGE
+	w_class = WEIGHT_CLASS_MEDIUM
 	icon_state = "box"
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -39,9 +39,9 @@
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 8
-	STR.max_combined_w_class = 8
+	atom_storage.max_slots = 8
+	atom_storage.max_total_storage = 8
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
@@ -168,10 +168,9 @@
 
 /obj/item/storage/box/survival/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
-	STR.max_combined_w_class = 21
-	STR.max_w_class = WEIGHT_CLASS_TINY
+	atom_storage.max_slots = 5
+	atom_storage.max_total_storage = 21
+	atom_storage.max_specific_storage = WEIGHT_CLASS_TINY
 	var/static/list/exception_hold = typecacheof(list(
 		/obj/item/flashlight/flare,
 		/obj/item/radio,
@@ -181,7 +180,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman/belt
 		))
-	STR.exception_hold = exception_hold
+	atom_storage.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
 	if(!isplasmaman(loc))
@@ -535,10 +534,9 @@
 	var/donktype = /obj/item/food/donkpocket
 	donktype = /obj/item/food/donkpocket
 
-/obj/item/storage/box/donkpockets/ComponentInitialize()
+/obj/item/storage/box/donkpockets/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/food/donkpocket))
+	atom_storage.set_holdable(list(/obj/item/food/donkpocket))
 
 /obj/item/storage/box/donkpockets/donkpocketspicy
 	name = "box of spicy-flavoured donk-pockets"
@@ -583,11 +581,10 @@
 	illustration = null
 	var/cube_type = /obj/item/food/monkeycube
 
-/obj/item/storage/box/monkeycubes/ComponentInitialize()
+/obj/item/storage/box/monkeycubes/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 7
-	STR.set_holdable(list(/obj/item/food/monkeycube))
+	atom_storage.max_slots = 7
+	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/monkeycubes/PopulateContents()
 	for(var/i in 1 to 5)
@@ -603,11 +600,10 @@
 	icon_state = "monkeycubebox"
 	illustration = null
 
-/obj/item/storage/box/gorillacubes/ComponentInitialize()
+/obj/item/storage/box/gorillacubes/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 3
-	STR.set_holdable(list(/obj/item/food/monkeycube))
+	atom_storage.max_slots = 3
+	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
 
 /obj/item/storage/box/gorillacubes/PopulateContents()
 	for(var/i in 1 to 3)
@@ -769,14 +765,14 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
 
-/obj/item/storage/box/snappops/ComponentInitialize()
+/obj/item/storage/box/snappops/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/toy/snappop))
-	STR.max_items = 8
+	atom_storage.set_holdable(list(/obj/item/toy/snappop))
+	atom_storage.max_slots = 8
 
 /obj/item/storage/box/snappops/PopulateContents()
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_FILL_TYPE, /obj/item/toy/snappop)
+	for(var/i in 1 to 8)
+		new /obj/item/toy/snappop(src)
 
 /obj/item/storage/box/matches
 	name = "matchbox"
@@ -790,14 +786,14 @@
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 
-/obj/item/storage/box/matches/ComponentInitialize()
+/obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 10
-	STR.set_holdable(list(/obj/item/match))
+	atom_storage.max_slots = 10
+	atom_storage.set_holdable(list(/obj/item/match))
 
 /obj/item/storage/box/matches/PopulateContents()
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_FILL_TYPE, /obj/item/match)
+	for(var/i in 1 to 10)
+		new /obj/item/match(src)
 
 /obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/match))
@@ -815,11 +811,10 @@
 
 /obj/item/storage/box/lights/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 21
-	STR.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
-	STR.max_combined_w_class = 21
-	STR.click_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
+	atom_storage.max_slots = 21
+	atom_storage.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
+	atom_storage.max_total_storage = 21
+	atom_storage.allow_quick_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
 
 /obj/item/storage/box/lights/bulbs/PopulateContents()
 	for(var/i in 1 to 21)
@@ -1198,14 +1193,13 @@
 	name = "box of materials"
 	illustration = "implant"
 
-/obj/item/storage/box/material/ComponentInitialize()
+/obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 1000
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.allow_big_nesting = TRUE
+	atom_storage.max_specific_storage = 1000
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_slots = 1000
+	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/material/PopulateContents()
 	var/static/items_inside = list(

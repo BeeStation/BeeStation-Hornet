@@ -24,6 +24,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
               className={classes(['preferences64x32', icon])}
               style={{
                 transform: 'scale(0.8)',
+                verticalAlign: 'bottom',
               }}
             />
           </Stack.Item>
@@ -61,6 +62,7 @@ export const ui_style: FeatureChoiced = {
   category: 'UI',
   subcategory: 'HUD',
   component: UIStyleInput,
+  important: true,
 };
 
 export const intent_style: FeatureToggle = {
