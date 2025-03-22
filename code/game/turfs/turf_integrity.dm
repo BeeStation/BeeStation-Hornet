@@ -71,7 +71,7 @@
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
 		if (damage_flag == BOMB || damage_flag == ACID || damage_flag == FIRE)
-			take_damage(additional_damage, BRUTE, damage_flag, FALSE)
+			apply_damage(additional_damage, 0, BRUTE, damage_flag, sound = FALSE)
 
 //====================================
 // Generic Hits
@@ -81,7 +81,11 @@
 	if (!can_hit)
 		return ..()
 	..()
-	take_damage(AM.throwforce, BRUTE, MELEE, 1, get_dir(src, AM))
+	if (isitem(AM))
+		var/obj/item/thrown = AM
+		apply_damage(AM.throwforce, thrown.sharpness, MELEE_ATTACK, null, get_dir(src, AM))
+	else
+		apply_damage(AM.throwforce, 0, BRUTE, MELEE, null, get_dir(src, AM))
 
 //====================================
 // Explosives
@@ -92,17 +96,17 @@
 		return ..()
 	..() //contents explosion
 	if(target == src)
-		take_damage(INFINITY, BRUTE, BOMB, 0)
+		apply_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		return
 	switch(severity)
 		if(1)
-			take_damage(INFINITY, BRUTE, BOMB, 0)
+			apply_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		if(2)
 			hotspot_expose(1000,CELL_VOLUME)
-			take_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
+			apply_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		if(3)
 			hotspot_expose(1000,CELL_VOLUME)
-			take_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
+			apply_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 
 /turf/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -131,7 +135,7 @@
 	playsound(src, P.hitsound, 50, 1)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
-	take_damage(P.damage, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration)
+	apply_damage(P.damage, P.sharpness, P.damage_type, P.armor_flag, turn(P.dir, 180), FALSE)
 
 //====================================
 // Generic Attack Chain
@@ -150,7 +154,7 @@
 					span_danger("You hit [src] with [I]!"), null, COMBAT_MESSAGE_RANGE)
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
-	take_damage(I.force, I.damtype, MELEE, 1)
+	apply_damage(I.force, I.sharpness, I.damtype)
 
 /turf/attackby(obj/item/W, mob/user, params)
 	if (!ISADVANCEDTOOLUSER(user))
@@ -212,7 +216,7 @@
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
+		apply_damage(hulk_damage(), 0, BRUTE, dir = get_dir(src, user), sound = FALSE)
 		return 1
 	return 0
 
@@ -221,7 +225,7 @@
 		return ..()
 	if (!..())
 		return
-	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
+	apply_damage(400, 0, BRUTE, dir = get_dir(src, B), sound = FALSE)
 
 /turf/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if (!can_hit)
@@ -285,7 +289,7 @@
 			else
 				return FALSE
 	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"), null, COMBAT_MESSAGE_RANGE)
-	return take_damage(M.force*3, mech_damtype, MELEE, play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	return apply_damage(M.force*3, 0, mech_damtype, dir = get_dir(src, M), sound = play_soundeffect) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 //====================================
 // Singularity
@@ -337,7 +341,7 @@
 	if (resistance_flags & INDESTRUCTIBLE)
 		return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
+		apply_damage(clamp(0.02 * exposed_temperature, 0, 20), 0, BURN, DAMAGE_FIRE, sound = 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfire_burning.processing[src] = src

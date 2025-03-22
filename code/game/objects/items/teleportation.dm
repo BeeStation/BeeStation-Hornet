@@ -344,7 +344,7 @@
 	var/direction = (EMP_D || length(bagholding)) ? pick(GLOB.cardinals) : user.dir
 	var/turf/destination = get_ranged_target_turf(user, direction, teleport_distance)
 
-	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
+	var/turf/new_location = do_dash(user, original_location, destination, obj_damage=150, obj_penetration=0, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(telefrag), user))
 	if(isnull(new_location))
 		to_chat(user, span_notice("\The [src] is malfunctioning."))
 		return

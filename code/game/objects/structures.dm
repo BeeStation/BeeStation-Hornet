@@ -61,5 +61,5 @@
 				return  span_warning("It's falling apart!")
 
 /obj/structure/rust_heretic_act()
-	take_damage(500, BRUTE, MELEE, 1)
+	apply_damage(500, 0, BRUTE, DAMAGE_ACID)
 	return TRUE

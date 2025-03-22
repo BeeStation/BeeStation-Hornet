@@ -631,7 +631,7 @@
 	var/list/obj/object_targets = oview(1, src)
 	for(var/obj/vehicle/sealed/mecha/mechs in object_targets)
 		mechs.emp_act(1)
-		mechs.take_damage(35, BURN, ENERGY, 1) //Makes them take the same amount of damage as cyborgs when combined with the EMP
+		mechs.apply_damage(35, 0, BURN, DAMAGE_ENERGY) //Makes them take the same amount of damage as cyborgs when combined with the EMP
 		COOLDOWN_START(mechs, cooldown_vehicle_move, 3 SECONDS) //"Stuns" the mech for the duration of equipment disable, overriding their normal step cooldown
 
 /obj/effect/temp_visual/shock_trap_activate

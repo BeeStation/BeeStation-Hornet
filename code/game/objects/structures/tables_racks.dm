@@ -171,7 +171,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	pushed_mob.Knockdown(30)
 	pushed_mob?.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
 	pushed_mob.apply_damage(60, STAMINA)
-	take_damage(50)
+	apply_damage(50, 0)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableheadsmash.ogg", 90, TRUE)
@@ -522,7 +522,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 50, TRUE)
 
 /obj/structure/table/brass/narsie_act()
-	take_damage(rand(15, 45), BRUTE)
+	apply_damage(rand(15, 45), 0, BRUTE)
 	if(src) //do we still exist?
 		var/previouscolor = color
 		color = "#960000"
@@ -698,7 +698,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message(span_danger("[user] kicks [src]."), null, null, COMBAT_MESSAGE_RANGE)
-	take_damage(rand(4,8), BRUTE, MELEE, 1)
+	apply_damage(rand(4,8), 0, BRUTE)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

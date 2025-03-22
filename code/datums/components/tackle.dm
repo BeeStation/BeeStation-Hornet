@@ -603,7 +603,7 @@
 							"<span class='userdanger'>You smacks into [windscreen_casualty] like a bug!</span>")
 		user.Paralyze(1 SECONDS)
 		user.Knockdown(3 SECONDS)
-		windscreen_casualty.take_damage(30 * speed)
+		windscreen_casualty.apply_damage(30 * speed, 0)
 		user.adjustStaminaLoss(10 * speed, updating_health=FALSE)
 		user.adjustBruteLoss(5 * speed)
 

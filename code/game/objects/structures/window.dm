@@ -374,7 +374,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	return exposed_temperature > T0C + heat_resistance
 
 /obj/structure/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(round(air.return_volume() / 100), BURN, 0, 0)
+	apply_damage(round(air.return_volume() / 100), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
@@ -710,7 +710,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		return
 	add_fingerprint(user)
 	if(user.combat_mode)
-		take_damage(4,BRUTE,MELEE, 0)
+		apply_damage(4, 0, BRUTE, sound = 0)
 		if(!QDELETED(src))
 			update_appearance()
 

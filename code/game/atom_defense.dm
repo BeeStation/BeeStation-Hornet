@@ -5,9 +5,9 @@
 /// flag: Defines a special DAMAGE_ flag, which changes the behaviour of how armour is calculated.
 /// hit_direction: The direction that the attack was performed from.
 /// sound_effect: Should we play the attack sound effect?
-/atom/proc/apply_damage(amount, penetration, type = BRUTE, flag = null, hit_direction = NONE, sound_effect = TRUE)
+/atom/proc/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	if(!uses_integrity)
-		CRASH("[src] had /atom/proc/take_damage() called on it without it being a type that has uses_integrity = TRUE!")
+		CRASH("[src] had /atom/proc/apply_damage() called on it without it being a type that has uses_integrity = TRUE!")
 	if(QDELETED(src))
 		CRASH("[src] taking damage after deletion")
 	if(atom_integrity <= 0)
@@ -104,7 +104,7 @@
 		CRASH("unimplemented /atom/proc/attack_generic()!")
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+	return apply_damage(damage_amount, armor_penetration, damage_type, damage_flag, get_dir(src, user), sound_effect)
 
 /// Called after the atom takes damage and integrity is below integrity_failure level
 /atom/proc/atom_break(damage_flag)

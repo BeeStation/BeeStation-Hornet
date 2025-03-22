@@ -156,5 +156,5 @@
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.take_damage(45, BURN, MELEE, 1)
+			M.apply_damage(45, 0, BURN)
 		sleep(0.15 SECONDS)

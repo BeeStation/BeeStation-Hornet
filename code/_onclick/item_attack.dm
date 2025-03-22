@@ -254,7 +254,7 @@
 	if(!attacking_item.force)
 		return
 
-	var/damage = take_damage(attacking_item.force, attacking_item.sharpness, attacking_item.damtype)
+	var/damage = apply_damage(attacking_item.force, attacking_item.sharpness, attacking_item.damtype)
 
 	//only witnesses close by and the victim see a hit message.
 	user.visible_message(span_danger("[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), \

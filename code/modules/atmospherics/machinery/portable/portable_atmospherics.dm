@@ -77,7 +77,7 @@
 	if(!taking_damage)
 		return FALSE
 
-	take_damage(clamp(temp_damage * pressure_damage, 5, 50), BURN, 0)
+	apply_damage(clamp(temp_damage * pressure_damage, 5, 50), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 	return TRUE
 
 /obj/machinery/portable_atmospherics/return_air()
@@ -229,11 +229,10 @@
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(machine_stat & BROKEN))
-		take_damage(0)
-	else
-		investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)
-		add_fingerprint(user)
-		..()
+		return
+	investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)
+	add_fingerprint(user)
+	..()
 
 /// Holding tanks can get to zero integrity and be destroyed without other warnings due to pressure change.
 /// This checks for that case and removes our reference to it.

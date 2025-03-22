@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 /obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && ricochet_damage_mod)
-		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet
+		apply_damage(P.damage * ricochet_damage_mod, P.sharpness, P.damage_type, P.armor_flag, turn(P.dir, 180), 0) // pass along ricochet_damage_mod damage to the structure for the ricochet
 
 /obj/update_overlays()
 	. = ..()

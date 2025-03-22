@@ -379,7 +379,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
  *
  * returns: ``turf/landing_turf``, which represents where the dash ended, or ``null`` if the jaunt's teleport check failed
  */
-/proc/do_dash(atom/movable/AM, turf/current_turf, turf/target_turf, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
+/proc/do_dash(atom/movable/AM, turf/current_turf, turf/target_turf, obj_damage=0, obj_penetration=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
 	// current loc
 	if(!istype(current_turf) || is_away_level(current_turf.z) || is_centcom_level(current_turf.z))
 		return
@@ -399,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 		if (obj_damage > 0) // should skip this if not needed
 			for (var/obj/object in checked_turf.contents)
 				if (object.density)
-					object.take_damage(obj_damage)
+					object.apply_damage(obj_damage, obj_penetration)
 		// check if we should stop due to obstacles
 		if (!phase && checked_turf.is_blocked_turf(TRUE))
 			break // stop moving forward

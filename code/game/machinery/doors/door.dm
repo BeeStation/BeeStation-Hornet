@@ -359,7 +359,7 @@
 		L.add_splatter_floor(location)
 		log_combat(src, L, "crushed", src)
 	for(var/obj/vehicle/sealed/mecha/M in get_turf(src))
-		M.take_damage(DOOR_CRUSH_DAMAGE)
+		M.apply_damage(DOOR_CRUSH_DAMAGE, 0)
 		log_combat(src, M, "crushed", src)
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)

@@ -189,7 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	if(istype(P))
 		playsound(src, 'sound/weapons/pierce.ogg', 50, 1) //we don't have a hitsound so lets just overwrite it here
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
-		take_damage((P.energy)*0.6)
+		apply_damage((P.energy)*0.6, P.sharpness)
 	else
 		. = ..()
 
@@ -207,9 +207,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	..()
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
-			take_damage(power/400, BURN, ENERGY)
+			apply_damage(power/400, 0, BURN, DAMAGE_ENERGY)
 	else
-		take_damage(power/400, BURN, ENERGY)
+		apply_damage(power/400, 0, BURN, DAMAGE_ENERGY)
 
 /obj/structure/blob/extinguish()
 	..()

@@ -336,7 +336,7 @@
 	for(var/obj/machinery/dna_scannernew/dna in victim)
 		dna.open_machine()
 	for(var/obj/structure/window/window in victim)
-		window.take_damage(rand(30, 80))
+		window.apply_damage(rand(30, 80), 0)
 		if(window?.fulltile)
 			new /obj/effect/temp_visual/revenant/cracks(window.loc)
 	for(var/obj/machinery/light/light in victim)

@@ -156,7 +156,7 @@
 
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
-	
+
 	///Is this machine currently in the atmos machinery queue?
 	var/atmos_processing = FALSE
 
@@ -660,7 +660,7 @@
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		var/damage = apply_damage(4, SHARP_II, BRUTE, MELEE, 1)
 		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
@@ -1006,7 +1006,7 @@
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, ENERGY)
+		apply_damage(power/2000, 0, BURN, DAMAGE_ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 
@@ -1032,7 +1032,7 @@
 		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
-	take_damage(500, BRUTE, MELEE, 1)
+	apply_damage(500, 0, BRUTE, DAMAGE_ACID, sound_effect = TRUE)
 	return TRUE
 
 /obj/machinery/vv_edit_var(vname, vval)

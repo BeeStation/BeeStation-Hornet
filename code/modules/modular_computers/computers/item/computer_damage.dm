@@ -10,7 +10,7 @@
 		for(var/I in all_components)
 			var/obj/item/computer_hardware/H = all_components[I]
 			if(prob(component_probability))
-				H.take_damage(round(damage_amount*0.5), damage_type, damage_flag, 0)
+				H.apply_damage(round(damage_amount*0.5), 0, damage_type, damage_flag, sound = 0)
 
 
 /obj/item/modular_computer/deconstruct(disassembled = TRUE)
@@ -28,6 +28,6 @@
 			uninstall_component(H)
 			H.forceMove(newloc)
 			if(prob(25))
-				H.take_damage(rand(10,30), BRUTE, 0, 0)
+				H.apply_damage(rand(10,30), 0, BRUTE, sound = 0)
 	relay_qdel()
 	qdel(src)

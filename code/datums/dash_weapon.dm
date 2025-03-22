@@ -36,7 +36,7 @@
 	var/turf/T = get_turf(target)
 	if(user in viewers(user.client.view, T))
 		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-		var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
+		var/turf/new_location = do_dash(user, get_turf(user), T, obj_damage=200, obj_penetration=SHARP_VII, phase=FALSE, on_turf_cross=CALLBACK(src, PROC_REF(dashslash), user))
 		if(new_location)
 			playsound(T, dash_sound, 25, 1)
 			var/obj/spot2 = new phasein(new_location, user.dir)

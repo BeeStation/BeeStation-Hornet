@@ -410,7 +410,7 @@
 		newlight.setDir(src.dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
-			newlight.take_damage(newlight.max_integrity * 0.5, sound_effect=FALSE)
+			newlight.apply_damage(newlight.max_integrity * 0.5, 0, sound = FALSE)
 			if(status != LIGHT_BROKEN)
 				break_light_tube()
 			if(status != LIGHT_EMPTY)

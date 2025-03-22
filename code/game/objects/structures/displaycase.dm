@@ -222,7 +222,7 @@
 		user.visible_message(span_danger("[user] kicks the display case."), null, null, COMBAT_MESSAGE_RANGE)
 		log_combat(user, src, "kicks", important = FALSE)
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-		take_damage(2)
+		apply_damage(2, 0)
 
 /obj/structure/displaycase_chassis
 	name = "display case chassis"

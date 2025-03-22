@@ -170,7 +170,7 @@
 	return exposed_temperature > 300
 
 /obj/structure/glowshroom/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(5, BURN, 0, 0)
+	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1

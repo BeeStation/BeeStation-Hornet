@@ -69,7 +69,7 @@
 	for(var/obj/vehicle/sealed/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
 			M.emp_act(EMP_HEAVY)
-			M.take_damage(400 * delta_time)
+			M.apply_damage(400 * delta_time, 0)
 			do_sparks(4, TRUE, M)
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/repowered()

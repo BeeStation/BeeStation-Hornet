@@ -181,7 +181,7 @@
 		var/turf/legionturf = get_turf(src)
 		var/turf/pileturf = get_turf(mypile)
 		if(legionturf == pileturf)
-			mypile.take_damage(100)
+			mypile.apply_damage(100, 0)
 			mypile = null
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)

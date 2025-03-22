@@ -45,7 +45,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/core)
 
 /obj/structure/blob/core/ex_act(severity, target)
 	var/damage = 50 - 10 * severity //remember, the core takes half brute damage, so this is 20/15/10 damage based on severity
-	take_damage(damage, BRUTE, BOMB, 0)
+	apply_damage(damagek 0, BRUTE, DAMAGE_BOMB, sound = 0)
 
 /obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()

@@ -33,7 +33,7 @@
 	return exposed_temperature > 300
 
 /obj/structure/spider/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(5, BURN, 0, 0)
+	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
@@ -135,7 +135,7 @@
 	return exposed_temperature > 300
 
 /obj/structure/spider/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	take_damage(5, BURN, 0, 0)
+	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/structure/spider/eggcluster/Destroy()
 	var/list/spawners = GLOB.mob_spawners[name]

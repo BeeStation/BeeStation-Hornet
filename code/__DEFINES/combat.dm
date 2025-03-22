@@ -45,6 +45,9 @@
 /// 50% reflectivity
 /// 50% heat
 #define DAMAGE_LASER "laser"
+/// Standard penetration based damage
+/// 100% blunt, with sharpness converting to blunt
+#define DAMAGE_STANDARD "standard"
 
 #define ARMOR_ALL "all_damage_types"
 

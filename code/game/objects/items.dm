@@ -1338,15 +1338,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, BOMB, 0)
+		apply_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
 		return
 	switch(severity)
 		if(1)
-			take_damage(250, BRUTE, BOMB, 0)
+			apply_damage(250, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
 		if(2)
-			take_damage(75, BRUTE, BOMB, 0)
+			apply_damage(75, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
 		if(3)
-			take_damage(20, BRUTE, BOMB, 0)
+			apply_damage(20, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
 
 ///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
 /obj/item/proc/isEmbedHarmless()
