@@ -10,6 +10,7 @@
 	taste_description = "alcohol"
 	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/beer
 	var/boozepwr = 65 //Higher numbers equal higher hardness, higher hardness equals more intense alcohol poisoning
 
 /*
@@ -251,6 +252,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "glass of vodka"
 	glass_desc = "The glass contain wodka. Xynta."
 	shot_glass_icon_state = "shotglassclear"
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/vodka
 
 /datum/reagent/consumable/ethanol/vodka/on_mob_life(mob/living/carbon/M)
 	M.radiation = max(M.radiation-2,0)
@@ -312,6 +314,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "glass of rum"
 	glass_desc = "Now you want to Pray for a pirate suit, don't you?"
 	shot_glass_icon_state = "shotglassbrown"
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/rum
 
 /datum/reagent/consumable/ethanol/tequila
 	name = "Tequila"
@@ -348,6 +351,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "glass of wine"
 	glass_desc = "A very classy looking drink."
 	shot_glass_icon_state = "shotglassred"
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/wine
 
 /datum/reagent/consumable/ethanol/lizardwine
 	name = "Lizard wine"

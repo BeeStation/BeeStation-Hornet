@@ -107,37 +107,6 @@ Metals Sheets
 /obj/item/stack/sheet/plasteel/get_recipes()
 	return GLOB.plasteel_recipes
 
-/* Runed Metal */
-
-/obj/item/stack/sheet/runed_metal
-	name = "runed metal"
-	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal sheet"
-	icon_state = "sheet-runed"
-	item_state = "sheet-runed"
-	//icon = 'icons/obj/stacks/mineral.dmi'
-	sheettype = "runed"
-	merge_type = /obj/item/stack/sheet/runed_metal
-	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/blood = 15)
-
-/obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/sheet/brass(loc, amount)
-	qdel(src)
-
-/obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
-	if(!iscultist(user))
-		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
-		return
-	var/turf/T = get_turf(user) //we may have moved. adjust as needed...
-	var/area/A = get_area(user)
-	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !(A.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))))
-		to_chat(user, span_warning("The veil is not weak enough here."))
-		return FALSE
-	return ..()
-
-/obj/item/stack/sheet/runed_metal/get_recipes()
-	return GLOB.runed_metal_recipes
-
 /* Brass - the cult one */
 
 /obj/item/stack/sheet/brass
