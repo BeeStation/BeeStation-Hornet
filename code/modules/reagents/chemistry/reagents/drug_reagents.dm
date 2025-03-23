@@ -573,25 +573,15 @@
 
 
 ///Can bring a corpse back to life temporarily (if heart is intact)
-///Makes wounds bleed more, if it brought someone back, they take additional brute and heart damage
-///They can't die during this, but if they're past crit then take increasing stamina damage
-///If they're past fullcrit, their movement is slowed by half
-///If they OD, their heart explodes (if they were brought back from the dead)
+///And prevents dying
 /datum/reagent/drug/nooartrium
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
-	overdose_threshold = 20
+	overdose_threshold = 25
 	self_consuming = TRUE //No pesky liver shenanigans
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
-	/// List of trait buffs to give to the affected mob, and remove as needed.
-	var/static/list/trait_buffs = list(
-		TRAIT_NOCRITDAMAGE,
-		TRAIT_NODEATH,
-		TRAIT_NOHARDCRIT,
-		TRAIT_NOSOFTCRIT,
-		TRAIT_STABLEHEART
-	)
+
 
 /datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
@@ -618,7 +608,7 @@
 	if(affected_mob.suiciding)
 		return
 	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired
-	metabolization_rate = 0.6 * REM
+	metabolization_rate = 0.6 * REM // Keeping dead corpse moving is harder
 	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
 	back_from_the_dead = TRUE
 	affected_mob.emote("gasp")
@@ -629,11 +619,10 @@
 	. = ..()
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	if(affected_mob.layer)
-	affected_mob.adjustBruteLoss(1 * seconds_per_tick)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 2 * seconds_per_tick)
+	affected_mob.adjustBruteLoss(2 * seconds_per_tick)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 4 * seconds_per_tick, 200)
 	if(back_from_the_dead)
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 1 * seconds_per_tick)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 2 * seconds_per_tick, 200) // Keeping dead corpse moving is harder
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
 	affected_mob.add_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
@@ -653,8 +642,8 @@
 /datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
 	. = ..()
 	to_chat(affected_mob, span_userdanger("You feel your heart tearing itself apart as it tries to beat stronger!"))
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
-	affected_mob.SetStun(4 SECONDS)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 40, 200)
+	affected_mob.SetParalyzed(6 SECONDS)
 
 
 /datum/reagent/drug/nooartrium/proc/remove_buffs(mob/living/carbon/affected_mob)
