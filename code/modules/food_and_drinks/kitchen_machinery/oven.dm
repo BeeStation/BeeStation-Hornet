@@ -196,7 +196,6 @@
 	icon_state = "oven_tray"
 	max_items = 6
 
-
 /particles/smoke
 	icon = 'icons/effects/particles/smoke.dmi'
 	icon_state = list("smoke_1" = 1, "smoke_2" = 1, "smoke_3" = 2)
@@ -233,3 +232,4 @@
 
 #undef OVEN_TRAY_Y_OFFSET
 #undef OVEN_TRAY_X_OFFSET
+
