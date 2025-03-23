@@ -8,7 +8,7 @@
 	req_human = 1
 
 // Fake Voice
-/datum/action/changeling/mimicvoice/sting_action(mob/user)
+/datum/action/changeling/mimicvoice/sting_action(mob/living/user)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling.mimicing)
 		changeling.mimicing = ""

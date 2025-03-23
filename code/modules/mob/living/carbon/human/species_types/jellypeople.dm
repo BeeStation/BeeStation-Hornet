@@ -580,7 +580,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	if(living_target)
 		RegisterSignal(living_target, COMSIG_MOB_LOGIN, PROC_REF(login_notify))
 		if(death)
-			RegisterSignal(living_target, COMSIG_MOB_DEATH, PROC_REF(link_death))
+			RegisterSignal(living_target, COMSIG_LIVING_DEATH, PROC_REF(link_death))
 	if(mind_target && mind_transfer)
 		RegisterSignal(mind_target, COMSIG_MIND_TRANSFER_TO, PROC_REF(mind_transfer))
 
@@ -605,7 +605,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	else
 		CRASH("Passed invalid target to stargazer/unregister_mob_signals")
 	if(living_target)
-		UnregisterSignal(living_target, list(COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
+		UnregisterSignal(living_target, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_DEATH))
 	if(mind_target && mind_transfer)
 		UnregisterSignal(mind_target, COMSIG_MIND_TRANSFER_TO)
 
