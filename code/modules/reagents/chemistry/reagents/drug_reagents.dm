@@ -612,7 +612,7 @@
 	if(!back_from_the_dead)
 		to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength!"))
 		return
-	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired (doesnt work?)
+	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired
 	metabolization_rate = 0.4 * REM// Keeping dead corpse moving is harder
 	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
 	affected_mob.emote("gasp")
