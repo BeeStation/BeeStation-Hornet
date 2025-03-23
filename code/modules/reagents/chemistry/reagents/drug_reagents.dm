@@ -617,6 +617,7 @@
 		return
 	if(affected_mob.suiciding)
 		return
+	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired
 	metabolization_rate = 0.6 * REM
 	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
 	back_from_the_dead = TRUE
@@ -632,10 +633,9 @@
 	affected_mob.adjustBruteLoss(1 * seconds_per_tick)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 2 * seconds_per_tick)
 	if(back_from_the_dead)
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 2 * seconds_per_tick)
-	if(affected_mob.health < HEALTH_THRESHOLD_DEAD)
-		affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
-		affected_mob.add_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
+		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 1 * seconds_per_tick)
+	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
+	affected_mob.add_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		remove_buffs(affected_mob)
@@ -666,6 +666,7 @@
 	REMOVE_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
 	REMOVE_TRAIT(affected_mob, TRAIT_NOLIMBDISABLE, FROM_NOOARTRIUM)
 	REMOVE_TRAIT(affected_mob, TRAIT_STUNRESISTANCE, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM)
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
 	affected_mob.remove_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
 	affected_mob.update_sight()
