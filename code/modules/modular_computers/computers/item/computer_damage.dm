@@ -1,4 +1,4 @@
-/obj/item/modular_computer/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/item/modular_computer/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	var/component_probability = min(50, max(damage_amount*0.1, 1 - atom_integrity/max_integrity))
 	switch(damage_flag)

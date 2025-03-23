@@ -1,16 +1,14 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
 	damage = 41
-	armour_penetration = 0
-	sharpness = 60
+	sharpness = SHARP_VI
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 10
 	stamina = 50
-	armour_penetration = -20
 	bleed_force = BLEED_TINY
-	sharpness = 30
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -66,14 +64,12 @@
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
 	bleed_force = BLEED_SCRATCH
-	sharpness = 30
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
 	damage = 8
 	tile_dropoff = 0.5
-	armour_penetration = 20
-	sharpness = 40
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
@@ -85,9 +81,8 @@
 	ricochet_chance = 80
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
-	armour_penetration = -20
 	bleed_force = BLEED_TINY
-	sharpness = 20
+	sharpness = SHARP_NONE
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(damage <= 0 && tile_dropoff_s == 0)
@@ -113,7 +108,7 @@
 /obj/projectile/bullet/pellet/shotgun_improvised
 	tile_dropoff = 0.3		//Come on it does 6 damage don't be like that.
 	damage = 5
-	sharpness = 10
+	sharpness = SHARP_I
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
@@ -129,7 +124,7 @@
 	range = 8
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
-	sharpness = 70
+	sharpness = SHARP_VII
 
 /obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
 	. = ..()
@@ -142,7 +137,7 @@
 /obj/projectile/bullet/scattershot
 	damage = 18
 	bleed_force = BLEED_SURFACE
-	sharpness = 40
+	sharpness = SHARP_IV
 
 //Breaching Ammo
 
@@ -152,7 +147,7 @@
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	damage = 10 //does shit damage to everything except doors and windows
 	bleed_force = BLEED_SURFACE
-	sharpness = 10
+	sharpness = SHARP_X
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
 	if(isstructure(target) || ismachinery(target))

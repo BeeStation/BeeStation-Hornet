@@ -77,7 +77,7 @@
 	if(!taking_damage)
 		return FALSE
 
-	apply_damage(clamp(temp_damage * pressure_damage, 5, 50), 0, BURN, DAMAGE_FIRE, sound = FALSE)
+	deal_damage(clamp(temp_damage * pressure_damage, 5, 50), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 	return TRUE
 
 /obj/machinery/portable_atmospherics/return_air()

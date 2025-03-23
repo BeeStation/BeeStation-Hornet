@@ -22,18 +22,16 @@
 			to_chat(user, span_danger("The [I] gets stuck in \the [src]!"))
 	return ..()
 
-/obj/structure/spider/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE)
-		switch(damage_type)
-			if(BURN)
-				damage_amount *= 2
-	. = ..()
+/obj/structure/spider/deal_damage(amount, penetration, type = BRUTE, flag = DAMAGE_STANDARD, dir = NONE, sound = TRUE, zone = null)
+	if (type == BURN)
+		amount *= 2
+	..()
 
 /obj/structure/spider/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return exposed_temperature > 300
 
 /obj/structure/spider/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
+	deal_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
@@ -135,7 +133,7 @@
 	return exposed_temperature > 300
 
 /obj/structure/spider/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
+	deal_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/structure/spider/eggcluster/Destroy()
 	var/list/spawners = GLOB.mob_spawners[name]

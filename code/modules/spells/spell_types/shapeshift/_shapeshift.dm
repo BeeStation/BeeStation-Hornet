@@ -168,7 +168,7 @@
 		var/damage_percent = (stored.maxHealth - stored.health) / stored.maxHealth;
 		var/damapply = damage_percent * shape.maxHealth;
 
-		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE);
+		shape.take_direct_damage(damapply, source.convert_damage_type, forced = TRUE)
 		shape.blood_volume = stored.blood_volume;
 
 	RegisterSignals(shape, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(shape_death))

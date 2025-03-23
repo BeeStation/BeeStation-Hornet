@@ -33,4 +33,4 @@
 
 /datum/reagent/blob/replicating_foam/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	reac_volume = ..()
-	M.apply_damage(0.7*reac_volume, BRUTE)
+	M.take_direct_damage(0.7*reac_volume, BRUTE)

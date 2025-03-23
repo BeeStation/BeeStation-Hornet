@@ -184,7 +184,7 @@
 	block_upgrade_walk = 1
 	block_power = 55
 	attack_weight = 2
-	armour_penetration = 80
+	sharpness = SHARP_IV
 	//wound_bonus = -50
 	attack_verb_continuous = list("slaps", "slathers")
 	attack_verb_simple = list("slap", "slather")

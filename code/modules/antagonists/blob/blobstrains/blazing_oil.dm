@@ -14,7 +14,7 @@
 	reagent = /datum/reagent/blob/blazing_oil
 
 /datum/blobstrain/reagent/blazing_oil/extinguish_reaction(obj/structure/blob/B)
-	B.apply_damage(1.5, 0, BURN, DAMAGE_ENERGY)
+	B.deal_damage(1.5, 0, BURN, DAMAGE_ENERGY)
 
 /datum/blobstrain/reagent/blazing_oil/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if(damage_type == BURN && damage_flag != DAMAGE_ENERGY)
@@ -37,6 +37,6 @@
 	M.adjust_fire_stacks(round(reac_volume/10))
 	M.IgniteMob()
 	if(M)
-		M.apply_damage(0.8*reac_volume, BURN)
+		M.take_direct_damage(0.8*reac_volume, BURN)
 	if(iscarbon(M))
 		M.emote("scream")

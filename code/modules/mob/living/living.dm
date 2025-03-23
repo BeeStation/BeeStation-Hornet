@@ -68,7 +68,7 @@
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
-			apply_damage(5, BRUTE)
+			take_direct_damage(5, BRUTE)
 			Paralyze(40)
 			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
@@ -1780,6 +1780,8 @@
 /mob/living/proc/get_attack_type()
 	return BRUTE
 
+/mob/living/proc/get_attack_sharpness()
+	return SHARP_NONE
 
 /**
  * Apply a martial art move from src to target.

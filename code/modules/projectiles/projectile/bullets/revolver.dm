@@ -3,7 +3,6 @@
 /obj/projectile/bullet/n762
 	name = "7.62x38mmR bullet"
 	damage = 55
-	armour_penetration = 12
 	sharpness = 120
 
 // .50AE (Desert Eagle)
@@ -43,12 +42,12 @@
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
 	ricochet_decay_damage = 0.9
-	armour_penetration = -20
+	sharpness = SHARP_III
 
 /obj/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
 	damage = 15
-	armour_penetration = -30
+	sharpness = SHARP_III
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/c38/dumdum
 
@@ -132,11 +131,11 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
-	sharpness = 140
+	sharpness = SHARP_X
 
 /obj/projectile/bullet/a357/improv
 	damage = 50
-	armour_penetration = -10
+	sharpness = SHARP_III
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

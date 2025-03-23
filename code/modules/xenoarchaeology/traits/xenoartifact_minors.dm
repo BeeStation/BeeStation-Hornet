@@ -80,13 +80,12 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
-	X.sharpness = SHARP
 	X.bleed_force = BLEED_CUT
 	X.force = X.charge_req*0.12
 	X.attack_verb_continuous = list("cleaves", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	X.attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	X.attack_weight = 2
-	X.armour_penetration = 5
+	X.sharpness += SHARP_IV
 
 //============
 // Cooler, reduces cooldown times

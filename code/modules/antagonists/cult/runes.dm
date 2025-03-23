@@ -172,7 +172,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(invocation)
 				L.say(invocation, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
 			if(invoke_damage)
-				L.apply_damage(invoke_damage, BRUTE)
+				L.take_direct_damage(invoke_damage, BRUTE)
 				to_chat(L, span_cultitalic("[src] saps your strength!"))
 		else if(istype(M, /obj/item/toy/plush/narplush))
 			var/obj/item/toy/plush/narplush/P = M
@@ -705,7 +705,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 						span_cultitalic("You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it."))
 	if(carbon_user)
 		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		C.take_direct_damage(2, BRUTE, zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 /obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
@@ -936,7 +936,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 		while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
 			if(user.stat != CONSCIOUS || HAS_TRAIT(new_human, TRAIT_CRITICAL_CONDITION))
 				break
-			user.apply_damage(0.1, BRUTE)
+			user.take_direct_damage(0.1, BRUTE)
 			sleep(1)
 
 		qdel(N)

@@ -293,7 +293,7 @@
 	return cell
 
 /obj/vehicle/sealed/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
+	deal_damage(500, 0, BRUTE, DAMAGE_ACID)
 	return TRUE
 
 /obj/vehicle/sealed/mecha/proc/restore_equipment()
@@ -408,7 +408,7 @@
 			if(cabin_air && cabin_air.return_volume()>0)
 				cabin_air.temperature = (min(6000+T0C, cabin_air.return_temperature()+rand(10,15)))
 				if(cabin_air.return_temperature() > max_temperature/2)
-					take_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
+					apply_damage(delta_time*2/round(max_temperature/cabin_air.return_temperature(),0.1), 0, BURN, sound = 0)
 
 		if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 			if(internal_tank)

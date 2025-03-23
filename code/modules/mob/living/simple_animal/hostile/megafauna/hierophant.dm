@@ -49,7 +49,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list(FACTION_BOSS) //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration = 50
+	sharpness = SHARP_NONE
 	melee_damage = 15
 	speed = 10
 	move_to_delay = 10

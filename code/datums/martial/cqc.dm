@@ -48,7 +48,6 @@
 	return FALSE
 
 /datum/martial_art/cqc/proc/Slam(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(D.body_position == STANDING_UP)
@@ -56,13 +55,12 @@
 						span_userdanger("You're slammed into the ground by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 		to_chat(A, span_danger("You slam [D] into the ground!"))
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
-		D.apply_damage(10, BRUTE, blocked = def_check)
+		D.deal_damage(10, 0, BRUTE, zone = BODY_ZONE_CHEST)
 		D.Paralyze(12 SECONDS)
 		log_combat(A, D, "slammed (CQC)", name)
 		return TRUE
 
 /datum/martial_art/cqc/proc/Kick(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat || !D.IsParalyzed())
@@ -72,7 +70,7 @@
 		playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
-		D.apply_damage(10, A.get_attack_type(), blocked = def_check)
+		D.deal_damage(10, 0, A.get_attack_type(), zone = BODY_ZONE_CHEST)
 		log_combat(A, D, "kicked (CQC)", name)
 		. = TRUE
 	if(D.IsParalyzed() && !D.stat)
@@ -113,7 +111,6 @@
 		return TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
@@ -126,7 +123,7 @@
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			A.put_in_hands(I)
 		D.adjustStaminaLoss(50)
-		D.apply_damage(25, A.get_attack_type(), blocked = def_check)
+		D.deal_damage(25, 0, A.get_attack_type(), zone = BODY_ZONE_CHEST)
 		return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)
@@ -148,7 +145,6 @@
 		return FALSE
 
 /datum/martial_art/cqc/harm_act(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
 	add_to_streak("H",D)
@@ -161,7 +157,7 @@
 	if(D.body_position == LYING_DOWN)
 		bonus_damage += 5
 		picked_hit_type = "stomp"
-	D.apply_damage(bonus_damage, BRUTE, blocked = def_check)
+	D.deal_damage(bonus_damage, 0, BRUTE, zone = BODY_ZONE_CHEST)
 	if(picked_hit_type == "kick" || picked_hit_type == "stomp")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 	else
@@ -175,13 +171,12 @@
 		D.visible_message(span_danger("[A] leg sweeps [D]!"), span_userdanger("Your legs are sweeped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 		to_chat(A, span_danger("You leg sweep [D]!"))
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.apply_damage(10, BRUTE, blocked = def_check)
+		D.deal_damage(10, 0, BRUTE, zone = BODY_ZONE_CHEST)
 		D.Paralyze(6 SECONDS)
 		log_combat(A, D, "sweeped (CQC)", name)
 	return TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
 	add_to_streak("D",D)
@@ -209,7 +204,7 @@
 			if(I && D.temporarilyRemoveItemFromInventory(I))
 				A.put_in_hands(I)
 			D.Jitter(2)
-			D.apply_damage(5, A.get_attack_type(), blocked = def_check)
+			D.deal_damage(5, 0, A.get_attack_type(), zone = BODY_ZONE_CHEST)
 	else
 		D.visible_message("<span class='danger'>[A] fails to disarm [D]!</span>", \
 						"<span class='userdanger'>You're nearly disarmed by [A]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, A)

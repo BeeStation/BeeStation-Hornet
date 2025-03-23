@@ -486,7 +486,7 @@
 		new /obj/effect/temp_visual/ratvar/beam/grille(get_turf(src))
 
 /obj/structure/grille/ratvar/narsie_act()
-	apply_damage(rand(1, 3), 0, BRUTE)
+	take_direct_damage(rand(1, 3), BRUTE)
 	if(src)
 		var/previouscolor = color
 		color = "#960000"
@@ -533,7 +533,7 @@
 
 /obj/structure/grille/ratvar/broken/Initialize(mapload)
 	. = ..()
-	apply_damage(max_integrity * 0.6, 0)
+	take_direct_damage(max_integrity * 0.6)
 
 //=================================================
 //Ratvar Window: A transparent window
@@ -567,7 +567,7 @@
 	..()
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
-	apply_damage(rand(25, 75), 0, BRUTE)
+	take_direct_damage(rand(25, 75), BRUTE)
 	if(!QDELETED(src))
 		var/previouscolor = color
 		color = "#960000"

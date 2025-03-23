@@ -389,11 +389,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	return ..()
 
-/obj/machinery/camera/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(machine_stat & BROKEN)
-		return damage_amount
-	. = ..()
-
 /obj/machinery/camera/atom_break(damage_flag)
 	if(!status)
 		return

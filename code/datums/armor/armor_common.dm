@@ -14,28 +14,28 @@
 // ===============================
 
 /datum/armor/durathread
-	penetration = 40
+	penetration = 50
 	blunt = 20
 	absorption = 50
 	reflectivity = 10
 	heat = 10
 
 /datum/armor/hardhat
-	penetration = 10
+	penetration = 15
 	blunt = 35
 	absorption = 45
 	reflectivity = 5
 	heat = 5
 
 /datum/armor/bulletproof
-	penetration = 85
+	penetration = 95
 	blunt = 20
 	absorption = 15
 	reflectivity = 5
 	heat = 5
 
 /datum/armor/riot
-	penetration = 15
+	penetration = 25
 	blunt = 60
 	absorption = 30
 	reflectivity = 5
@@ -49,7 +49,7 @@
 	heat = 0
 
 /datum/armor/suit
-	penetration = 3
+	penetration = 5
 
 /datum/armor/laserproof
 	penetration = 10

@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = TRUE
-	armour_penetration = 100
+	sharpness = SHARP_X
 	armor_flag = NONE
 	martial_arts_no_deflect = TRUE
 	/// determines what type of antimagic can block the spell projectile
@@ -790,7 +790,7 @@
 		if(istype(adjacent_object, /obj/structure/destructible/cult))
 			continue
 
-		adjacent_object.take_damage(90, BRUTE, MELEE, 0)
+		adjacent_object.apply_damage(90, 0, BRUTE, sound = 0)
 		new /obj/effect/temp_visual/cult/turf/floor(get_turf(adjacent_object))
 
 //still magic related, but a different path
@@ -801,5 +801,4 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = FALSE
-	armour_penetration = 100
 	temperature = -200 // Cools you down greatly per hit

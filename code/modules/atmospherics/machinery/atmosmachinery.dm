@@ -459,7 +459,7 @@
 			var/obj/item/pipe/stored = new construction_type(loc, null, dir, src, pipe_color)
 			stored.set_piping_layer(piping_layer)
 			if(!disassembled)
-				stored.apply_damage(stored.max_integrity * 0.5, 0, sound=FALSE)
+				stored.deal_damage(stored.max_integrity * 0.5, 0, sound=FALSE)
 			transfer_fingerprints_to(stored)
 			. = stored
 	..()

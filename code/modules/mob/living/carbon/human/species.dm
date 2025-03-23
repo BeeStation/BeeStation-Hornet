@@ -63,6 +63,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/staminamod = 1		// multiplier for stun duration
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
+	var/attack_sharpness = SHARP_NONE
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
@@ -2130,7 +2131,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			humi.emote("scream")
 
 		// Apply the damage to all body parts
-		humi.apply_damage(burn_damage, BURN)
+		humi.take_direct_damage(burn_damage, BURN)
 
 	// Apply some burn damage to the body
 	if(humi.coretemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))

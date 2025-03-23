@@ -183,8 +183,3 @@
 		area.power_equip = FALSE
 		area.power_environ = FALSE
 	area.power_change()
-
-/obj/machinery/power/apc/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(machine_stat & BROKEN)
-		return damage_amount
-	. = ..()

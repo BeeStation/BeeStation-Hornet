@@ -262,12 +262,12 @@
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE)) // golems, etc
 			to_chat(H, span_warning("[src] cuts into your hand!"))
-			H.apply_damage(force*0.5, BRUTE, hit_hand)
+			H.take_direct_damage(force*0.5, BRUTE, zone = hit_hand)
 	else if(ismonkey(user))
 		var/mob/living/carbon/monkey/M = user
 		if(!HAS_TRAIT(M, TRAIT_PIERCEIMMUNE))
 			to_chat(M, span_warning("[src] cuts into your hand!"))
-			M.apply_damage(force*0.5, BRUTE, hit_hand)
+			M.take_direct_damage(force*0.5, BRUTE, zone = hit_hand)
 
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)

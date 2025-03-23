@@ -110,7 +110,7 @@
 		)
 
 
-	H.apply_damage(damage, BRUTE, picked_def_zone/*, wound_bonus = CANT_WOUND*/)
+	H.deal_damage(damage, SHARP_I, BRUTE, zone = picked_def_zone)
 	H.add_bleeding(BLEED_SCRATCH)
 
 	if(!(flags & CALTROP_NOSTUN)) // Won't set off the paralysis.

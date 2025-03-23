@@ -41,7 +41,7 @@ Difficulty: Medium
 	friendly_verb_continuous = "stares down"
 	friendly_verb_simple = "stare down"
 	speak_emote = list("roars")
-	armour_penetration = 40
+	sharpness = SHARP_IV
 	melee_damage = 40
 	speed = 5
 	move_to_delay = 5

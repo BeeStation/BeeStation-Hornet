@@ -27,7 +27,7 @@
 	. = ..()
 	desc = (atom_integrity < (max_integrity * 0.5)) ? "[damaged_desc]" : initial(desc)
 
-/obj/structure/blob/shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/blob/shield/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(. && atom_integrity > 0)
 		atmosblock = atom_integrity < (max_integrity * 0.5)

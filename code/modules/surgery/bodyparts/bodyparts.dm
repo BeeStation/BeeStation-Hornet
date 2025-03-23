@@ -148,7 +148,7 @@
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
 
 /obj/item/bodypart/blob_act()
-	take_damage(max_damage)
+	take_direct_damage(max_damage)
 
 /obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
 	if(ishuman(C))
@@ -690,7 +690,7 @@
 	var/blunt_damage = (current_damage * (1 - proportion)) * BLUNT_DAMAGE_RATIO
 	var/sharp_damage = current_damage * proportion
 	skin_health -= sharp_damage
-	if (damage_flag == FIRE || damage_flag == LASER || damage_flag == ACID || damage_flag == BOMB)
+	if (damage_flag == DAMAGE_FIRE || damage_flag == DAMAGE_LASER || damage_flag == DAMAGE_BOMB || damage_flag == DAMAGE_ACID)
 		skin_health -= blunt_damage
 	if (skin_health < 0)
 		message_admins("Injury gained: Broken skin")
@@ -736,7 +736,7 @@
 		organ.applyOrganDamage(sharp_damage * ORGAN_DAMAGE_MULTIPLIER)
 	// If the penetration power is still high, then lose the limb
 	// The head cannot be delimbed if the most is alive since it causes instant death
-	if (((penetration_power > 0 && prob(50 + penetration_power)) || bone_health <= 0) && dismemberable && damage_flag == MELEE && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
+	if (((penetration_power > 0 && prob(50 + penetration_power)) || bone_health <= 0) && dismemberable && damage_flag == DAMAGE_STANDARD && (!dismemberment_requires_death || owner.stat != CONSCIOUS))
 		dismember()
 
 /obj/item/bodypart/proc/check_effectiveness()

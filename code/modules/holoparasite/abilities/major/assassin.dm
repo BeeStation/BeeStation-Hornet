@@ -68,7 +68,7 @@
 		to_chat(owner, span_dangerbold("You cannot yet enter stealth, wait another [COOLDOWN_TIMELEFT_TEXT(src, stealth_cooldown)]!"))
 		return FALSE
 	owner.melee_damage = 50
-	owner.armour_penetration = 100
+	owner.sharpness = 100
 	owner.obj_damage = 0
 	owner.environment_smash = ENVIRONMENT_SMASH_NONE
 	new /obj/effect/temp_visual/holoparasite/phase/out(get_turf(owner))
@@ -82,7 +82,7 @@
  */
 /datum/holoparasite_ability/major/assassin/proc/exit_assassin(forced = FALSE)
 	owner.melee_damage = initial(owner.melee_damage)
-	owner.armour_penetration = initial(owner.armour_penetration)
+	owner.sharpness = initial(owner.sharpness)
 	owner.obj_damage = initial(owner.obj_damage)
 	owner.environment_smash = initial(owner.environment_smash)
 	owner.alpha = initial(owner.alpha)

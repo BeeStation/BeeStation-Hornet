@@ -233,7 +233,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 15
 	throwforce = 10
-	armour_penetration = 15
+	sharpness = SHARP_IV
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -329,7 +329,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 24
 	throw_speed = 4
 	embedding = list("pain_mult" = 4, "embed_chance" = 300, "fall_chance" = 0, "armour_block" = 70)
-	armour_penetration = 40
+	sharpness = SHARP_IV
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -489,7 +489,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
-	armour_penetration = 100
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines")
 	attack_verb_simple = list("bludgeon", "whack", "discipline")
 	resistance_flags = FLAMMABLE
@@ -581,7 +580,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "mounted energy chainsaw"
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
-	armour_penetration = 50
+	sharpness = SHARP_IIX
 	hitsound = 'sound/weapons/echainsawhit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
@@ -600,7 +599,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "mounted super energy chainsaw"
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
-	armour_penetration = 75
+	sharpness = SHARP_IIX
 	hitsound = 'sound/weapons/echainsawhit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()
@@ -964,23 +963,19 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		if(H.check_shields(src, breakforce))
 			return
 		else
-			var/def_check = H.getarmor(type = MELEE)
-			H.apply_damage(stamforce, STAMINA, blocked = def_check)
+			H.deal_damage(stamforce, 0, STAMINA, zone = user.get_combat_bodyzone())
 	return ..()
 
 /obj/item/club/pre_attack(atom/A, mob/living/user, params)
 	force = initial(force)
-	armour_penetration = initial(armour_penetration)
 	if(isstructure(A) || ismachinery(A))
 		force *= 2.5
-		armour_penetration += 50
 		// To prevent unnecessary force string calculation (we want this to be treated
 		// as if it wasn't changed)
 		last_force_string_check = force
 		return ..()
 	else if(isturf(A))
 		force *= 1.5
-		armour_penetration += 50
 		last_force_string_check = force
 		return ..()
 
@@ -1027,7 +1022,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "vibro sword"
 	desc = "A potent weapon capable of cutting through nearly anything. Wielding it in two hands will allow you to deflect gunfire."
-	armour_penetration = 100
+	sharpness = SHARP_X
 	block_level = 1
 	block_upgrade_walk = 2
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE

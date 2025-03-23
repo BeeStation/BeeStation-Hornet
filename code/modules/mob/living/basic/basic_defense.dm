@@ -127,7 +127,7 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
-/mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE, actuallydamage = TRUE)
+/mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = DAMAGE_STANDARD, actuallydamage = TRUE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -138,11 +138,11 @@
 		visible_message(span_warning("[src] looks unharmed."))
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		deal_damage(damage, 0, damagetype)
 		return TRUE
 
 /mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	apply_damage(Proj.damage, Proj.damage_type)
+	deal_damage(Proj.damage, Proj.sharpness, Proj.damage_type, Proj.armor_flag, zone = Proj.def_zone)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
@@ -153,11 +153,11 @@
 	..()
 	if(QDELETED(src))
 		return
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = get_armor_rating(ARMOUR_HEAT) * 0.5 + get_armor_rating(ARMOUR_ABSORPTION) * 0.5 + get_armor_rating(ARMOUR_BLUNT) * 0.5
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
-				adjustBruteLoss(500)
+				deal_damage(500, 0, BRUTE, DAMAGE_BOMB)
 			else
 				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
@@ -166,13 +166,13 @@
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			deal_damage(bloss, 0, BRUTE, DAMAGE_BOMB)
 
 		if (EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			deal_damage(bloss, 0, BRUTE, DAMAGE_BOMB)
 
 /mob/living/basic/blob_act(obj/structure/blob/B)
 	adjustBruteLoss(20)

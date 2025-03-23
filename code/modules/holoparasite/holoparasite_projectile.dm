@@ -22,7 +22,7 @@
 			other_holopara.degrade_projectile(src)
 		else
 			damage = max(FLOOR(damage * 0.8, 1), max(round(initial(damage) * 0.1), 1))
-			armour_penetration = FLOOR(armour_penetration * 0.85, 1)
+			sharpness = FLOOR(sharpness * 0.85, 1)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
@@ -45,4 +45,4 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/degrade_projectile(obj/projectile/projectile)
 	projectile.damage = max(FLOOR(projectile.damage * (stats.defense * 0.15), 1), max(round(initial(projectile.damage) * 0.1), 1))
-	projectile.armour_penetration = FLOOR(projectile.armour_penetration * (stats.defense * 0.1), 1)
+	projectile.sharpness = FLOOR(projectile.sharpness * (stats.defense * 0.1), 1)

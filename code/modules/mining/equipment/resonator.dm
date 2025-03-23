@@ -115,7 +115,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/resonance)
 		if(creator)
 			log_combat(creator, L, "used a resonator field on", "resonator")
 		to_chat(L, span_userdanger("[src] ruptured with you in it!"))
-		L.apply_damage(resonance_damage, BRUTE)
+		L.take_direct_damage(resonance_damage, BRUTE)
 	qdel(src)
 
 /obj/effect/temp_visual/resonance_crush

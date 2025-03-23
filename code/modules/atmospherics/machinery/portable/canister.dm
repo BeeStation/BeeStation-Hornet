@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	return (exposed_temperature > TEMPERATURE_RESISTANCE && !shielding_powered)
 
 /obj/machinery/portable_atmospherics/canister/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
+	deal_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/machinery/portable_atmospherics/canister/on_deconstruction(disassembled = TRUE)
 	if(!(machine_stat & BROKEN))
@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(gone == internal_cell)
 		internal_cell = null
 
-/obj/machinery/portable_atmospherics/canister/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
+/obj/machinery/portable_atmospherics/canister/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(!. || QDELETED(src))
 		return

@@ -362,8 +362,7 @@
 		if ((target.body_position == LYING_DOWN) || !target.density || user == target)
 			continue
 		// Run armour checks and apply damage
-		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, MELEE)
-		target.apply_damage(25, BRUTE, blocked = armor_block)
+		target.deal_damage(25, 0, BRUTE, zone = BODY_ZONE_CHEST)
 		target.Paralyze(10 * (100 - armor_block) / 100)
 		target.Knockdown(40 * (100 - armor_block) / 100)
 		// Check if we successfully knocked them down

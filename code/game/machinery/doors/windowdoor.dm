@@ -250,7 +250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return (exposed_temperature > T0C + (reinf ? 1600 : 800))
 
 /obj/machinery/door/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(round(exposed_temperature / 200), 0, BURN, DAMAGE_FIRE, sound_effect = FALSE)
+	deal_damage(round(exposed_temperature / 200), 0, BURN, DAMAGE_FIRE, sound_effect = FALSE)
 
 /obj/machinery/door/window/should_emag(mob/user)
 	// Don't allow emag if the door is currently open or moving
@@ -474,7 +474,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return FALSE
 
 /obj/machinery/door/window/clockwork/narsie_act()
-	apply_damage(rand(30, 60), 0, BRUTE, DAMAGE_ACID)
+	deal_damage(rand(30, 60), 0, BRUTE, DAMAGE_ACID)
 	if(src)
 		var/previouscolor = color
 		color = "#960000"

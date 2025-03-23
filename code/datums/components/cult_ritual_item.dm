@@ -289,7 +289,7 @@
 	log_game("[key_name(cultist)] has begun inscribing the Narsie summon rune at [AREACOORD(cultist)]")
 
 	if(cultist.blood_volume)
-		cultist.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // *cuts arm* *bone explodes* ever have one of those days?
+		cultist.take_sharpness_damage(initial(rune_to_scribe.scribe_damage), BRUTE, DAMAGE_STANDARD, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // *cuts arm* *bone explodes* ever have one of those days?
 		if (iscarbon(cultist))
 			var/mob/living/carbon/carbon_cultist = cultist
 			carbon_cultist.add_bleeding(BLEED_TINY)

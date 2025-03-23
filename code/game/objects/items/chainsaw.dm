@@ -70,7 +70,7 @@
 /obj/item/chainsaw/doomslayer
 	name = "THE GREAT COMMUNICATOR"
 	desc = span_warning("VRRRRRRR!!!")
-	armour_penetration = 100
+	sharpness = SHARP_X
 	force_on = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -94,7 +94,7 @@
 	attack_verb_simple = list("saw", "shred", "rend", "gut", "eviscerate")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
-	armour_penetration = 50
+	sharpness = SHARP_IIX
 	light_color = "#ff0000"
 	var/onsound
 	var/offsound
@@ -136,7 +136,7 @@
 	block_power = 75
 	block_level = 1
 	attack_weight = 3 //fear him
-	armour_penetration = 75
+	sharpness = IIX
 	var/knockdown = 1
 	light_range = 6
 

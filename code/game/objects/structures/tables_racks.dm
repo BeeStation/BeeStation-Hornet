@@ -158,7 +158,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(pushed_mob.loc != loc) //Something prevented the tabling
 		return
 	pushed_mob.Knockdown(30)
-	pushed_mob.apply_damage(40, STAMINA)
+	pushed_mob.take_direct_damage(40, STAMINA)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableslam.ogg", 90, TRUE)
@@ -169,9 +169,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 
 /obj/structure/table/proc/tableheadsmash(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.Knockdown(30)
-	pushed_mob?.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
-	pushed_mob.apply_damage(60, STAMINA)
-	apply_damage(50, 0)
+	pushed_mob?.deal_damage(50, 0, BRUTE, zone = BODY_ZONE_HEAD)
+	take_direct_damage(50, 0)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableheadsmash.ogg", 90, TRUE)
@@ -522,7 +521,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 50, TRUE)
 
 /obj/structure/table/brass/narsie_act()
-	apply_damage(rand(15, 45), 0, BRUTE)
+	take_direct_damage(rand(15, 45), BRUTE)
 	if(src) //do we still exist?
 		var/previouscolor = color
 		color = "#960000"
@@ -698,7 +697,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message(span_danger("[user] kicks [src]."), null, null, COMBAT_MESSAGE_RANGE)
-	apply_damage(rand(4,8), 0, BRUTE)
+	deal_damage(rand(4,8), user.get_attack_sharpness(), BRUTE)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

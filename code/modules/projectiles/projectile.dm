@@ -127,8 +127,6 @@
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/armor_flag = null //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
-	///How much armor this projectile pierces.
-	var/armour_penetration = 0
 	var/projectile_type = /obj/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will deletze the projectile.
 	var/decayedRange //stores original range

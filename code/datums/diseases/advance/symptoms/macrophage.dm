@@ -58,12 +58,12 @@
 	if(gigagerms)
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
 		phage.melee_damage = max(5, A.resistance)
-		M.apply_damage(rand(10, 20))
+		M.take_direct_damage(rand(10, 20))
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")
 	else
 		phage = new(M.loc)
-		M.apply_damage(rand(1, 7))
+		M.take_direct_damage(rand(1, 7))
 	phage.health += A.resistance
 	phage.maxHealth += A.resistance
 	phage.infections += A

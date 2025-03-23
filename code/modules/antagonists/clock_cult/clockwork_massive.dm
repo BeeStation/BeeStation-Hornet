@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	SSticker.force_ending = TRUE
 	qdel(src)
 
-/obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+/obj/structure/destructible/clockwork/massive/celestial_gateway/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(!.)
 		return

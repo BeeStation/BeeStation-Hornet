@@ -23,7 +23,7 @@
 		to_chat(user, span_changeling("We discrete an acidic solution from our pours onto [user.pulledby]."))
 		to_chat(target, span_userdanger("A burning glob of acid pours onto your hand!"))
 		target.Paralyze(20)
-		target.apply_damage(5, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+		target.take_direct_damage(5, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 		target.emote("scream")
 		target.stop_pulling()
 		. = TRUE

@@ -51,7 +51,7 @@
 			atom_integrity = 1
 			shatter(owner)
 			return FALSE
-		apply_damage(attackforce * ((100-(block_power))/100), sharpness)
+		deal_damage(attackforce * ((100-(block_power))/100), sharpness)
 		return TRUE
 	else
 		return ..()

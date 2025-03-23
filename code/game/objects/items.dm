@@ -124,8 +124,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/siemens_coefficient = 1
 	/// How much clothing is slowing you down. Negative values speeds you up
 	var/slowdown = 0
-	/// Percentage of armour effectiveness to remove
-	var/armour_penetration = 0
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 	/// The click cooldown on secondary attacks. Lower numbers mean faster attacks. Will use attack_speed if undefined.
@@ -743,7 +741,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
 				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power, FALSE, attackflag, sharpness)
+	owner.take_direct_damage(attackforce * (100 - block_power) * 0.01, STAMINA, attackflag, blockhand)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
 	if(attackforce)
@@ -885,10 +883,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
 
 	var/is_human_victim
-	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
-		if(!affecting) //no head!
-			return
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
@@ -920,7 +915,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting, 0, FALSE, MELEE, sharpness)
+		U.deal_damage(7, sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_HEAD)
 
 	else
 		M.take_bodypart_damage(7)
@@ -1338,15 +1333,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(QDELETED(src))
 		return
 	if(target == src)
-		apply_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
+		deal_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 		return
 	switch(severity)
 		if(1)
-			apply_damage(250, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
+			deal_damage(250, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 		if(2)
-			apply_damage(75, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
+			deal_damage(75, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 		if(3)
-			apply_damage(20, 0, BRUTE, DAMAGE_BOMB, sound_effect = FALSE)
+			deal_damage(20, 0, BRUTE, DAMAGE_BOMB, sound = FALSE)
 
 ///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
 /obj/item/proc/isEmbedHarmless()
@@ -1441,10 +1436,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		victim.visible_message(span_warning("[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!"), \
 							span_boldwarning("OH GOD! Was that a crunch? That didn't feel good at all!!"))
 
-		victim.apply_damage(max(15, force), BRUTE, BODY_ZONE_HEAD, 0, FALSE, CONSUME, sharpness)
+		victim.deal_damage(max(15, force), sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_HEAD)
 		victim.losebreath += 2
 		if(tryEmbed(victim.get_bodypart(BODY_ZONE_CHEST), forced = TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
-			victim.apply_damage(max(25, force*1.5), BRUTE, BODY_ZONE_CHEST, 0, FALSE, CONSUME, sharpness)
+			victim.deal_damage(max(25, force*1.5), sharpness, BRUTE, sound = FALSE, zone = BODY_ZONE_CHEST)
 			victim.losebreath += 6
 			discover_after = FALSE
 		if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)

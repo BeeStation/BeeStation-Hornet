@@ -30,7 +30,7 @@
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
 	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(user, damage_radius))
-		nearby_living.apply_damage(30, BRUTE)
+		nearby_living.take_direct_damage(30, BRUTE)
 
 /datum/action/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 0)
 	var/list/things = list()

@@ -289,7 +289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return FALSE
 	return TRUE
 
-/obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/window/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(.) //received damage
 		update_nearby_icons()
@@ -710,7 +710,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		return
 	add_fingerprint(user)
 	if(user.combat_mode)
-		apply_damage(4, 0, BRUTE, sound = 0)
+		deal_damage(4, user.get_attack_sharpness(), BRUTE, sound = 0)
 		if(!QDELETED(src))
 			update_appearance()
 

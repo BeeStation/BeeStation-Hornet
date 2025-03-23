@@ -15,7 +15,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
-	armour_penetration = 35
+	sharpness = SHARP_IIX
 	item_flags = ISWEAPON
 	var/saber_color = "green"
 	light_color = "#00ff00"//green

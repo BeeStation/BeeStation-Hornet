@@ -34,8 +34,8 @@
 			if(FACTION_BLOB in L.faction) //no friendly fire
 				continue
 			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.getarmor(null, BIO) * 0.01, O)
-			L.apply_damage(0.4*aoe_volume, BRUTE)
+			L.take_direct_damage(0.4*aoe_volume, BRUTE)
 		if(M)
-			M.apply_damage(0.6*reac_volume, BRUTE)
+			M.take_direct_damage(0.6*reac_volume, BRUTE)
 	else
-		M.apply_damage(0.6*reac_volume, BRUTE)
+		M.take_direct_damage(0.6*reac_volume, BRUTE)

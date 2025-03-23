@@ -102,7 +102,7 @@
 		owner.held_items = list(null, null)
 	owner.melee_damage = 6 + round((master_stats.damage - 1) * 0.8) // approximately the same as an average human's punch
 	owner.obj_damage = 0
-	owner.armour_penetration = 0
+	owner.sharpness = 0
 	owner.ranged = FALSE
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = "punch"
@@ -121,7 +121,7 @@
 	crafting?.ClearFromParent()
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
-	owner.armour_penetration = initial(owner.armour_penetration)
+	owner.sharpness = initial(owner.armour_sharpnesspenetration)
 	owner.ranged = initial(owner.ranged)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)

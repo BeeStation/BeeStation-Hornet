@@ -45,12 +45,12 @@
 	for(var/mob/living/living_mob in range(damage_radius, source_turf))
 		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
 			continue
-		living_mob.apply_damage(40, BRUTE)
+		living_mob.take_direct_damage(40, BRUTE)
 
 	for(var/mob/living/living_mob in range(damage_radius, targeted_turf))
 		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
 			continue
-		living_mob.apply_damage(40, BRUTE)
+		living_mob.take_direct_damage(40, BRUTE)
 
 	do_teleport(
 		user,

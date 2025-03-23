@@ -372,7 +372,7 @@
 
 	for(var/datum/spacevine_mutation/SM in mutations)
 		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	apply_damage(damage_dealt, I.sharpness, I.damtype)
+	deal_damage(damage_dealt, I.sharpness, I.damtype)
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -560,10 +560,10 @@
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it
 		for(var/obj/structure/S in stepturf)
 			if(S.density && !istype(S, /obj/structure/alien/resin/flower_bud) && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
-				S.apply_damage(25, SHARP_I)
+				S.deal_damage(25, SHARP_I)
 		for(var/obj/machinery/M in stepturf)
 			if(M.density && !istype(M, /obj/machinery/power/smes) && !istype(M, /obj/machinery/door/airlock/external) && !istype(M, /obj/machinery/door/firedoor)) //please don't sabotage power or cause a hullbreach!
-				M.apply_damage(40, SHARP_I) //more damage, because machines are more commonplace and tend to be more durable
+				M.deal_damage(40, SHARP_I) //more damage, because machines are more commonplace and tend to be more durable
 	if(!isspaceturf(stepturf) && stepturf.Enter(src))
 		var/obj/structure/spacevine/spot_taken = locate() in stepturf //Locates any vine on target turf. Calls that vine "spot_taken".
 		var/datum/spacevine_mutation/vine_eating/E = locate() in mutations //Locates the vine eating trait in our own seed and calls it E.

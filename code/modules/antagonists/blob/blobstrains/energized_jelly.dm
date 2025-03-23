@@ -19,7 +19,7 @@
 
 /datum/blobstrain/reagent/energized_jelly/emp_reaction(obj/structure/blob/B, severity)
 	var/damage = rand(30, 50) - severity * rand(10, 15)
-	B.apply_damage(damage, 0, BURN, DAMAGE_ENERGY)
+	B.deal_damage(damage, 0, BURN, DAMAGE_ENERGY)
 
 /datum/reagent/blob/energized_jelly
 	name = "Energized Jelly"
@@ -32,4 +32,4 @@
 	M.losebreath += round(0.2*reac_volume)
 	M.adjustStaminaLoss(reac_volume)
 	if(M)
-		M.apply_damage(0.6*reac_volume, OXY)
+		M.take_direct_damage(0.6*reac_volume, OXY)

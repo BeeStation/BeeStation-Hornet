@@ -80,7 +80,7 @@
 		update_parents()
 
 	if(air_contents.return_pressure() > max_pressure)
-		apply_damage(0.1, 0, BRUTE, sound = FALSE)
+		deal_damage(0.1, 0, BRUTE, sound = FALSE)
 		if(prob(40))
 			playsound(src, 'sound/effects/spray3.ogg', 30, vary = TRUE)
 

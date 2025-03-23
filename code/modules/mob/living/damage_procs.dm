@@ -1,48 +1,17 @@
-
-/*
-	apply_damage(a,b,c)
-	args
-	a:damage - How much damage to take
-	b:damage_type - What type of damage to take, brute, burn
-	c:def_zone - Where to take the damage if its brute or burn
-	Returns
-	standard 0 if fail
-*/
-/mob/living/proc/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, damage_flag = NONE, sharpness = 0)
-	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
-	var/hit_percent = (100-blocked)/100
-	if(!damage || (!forced && hit_percent <= 0))
-		return 0
-	var/damage_amount =  forced ? damage : damage * hit_percent
-	switch(damagetype)
+/mob/living/take_direct_damage(amount, type = BRUTE, flag = DAMAGE_STANDARD, zone = null)
+	switch(type)
 		if(BRUTE)
-			adjustBruteLoss(damage_amount, forced = forced)
+			adjustBruteLoss(amount)
 		if(BURN)
-			adjustFireLoss(damage_amount, forced = forced)
+			adjustFireLoss(amount)
 		if(TOX)
-			adjustToxLoss(damage_amount, forced = forced)
+			adjustToxLoss(amount)
 		if(OXY)
-			adjustOxyLoss(damage_amount, forced = forced)
+			adjustOxyLoss(amount)
 		if(CLONE)
-			adjustCloneLoss(damage_amount, forced = forced)
+			adjustCloneLoss(amount)
 		if(STAMINA)
-			adjustStaminaLoss(damage_amount, forced = forced)
-	return 1
-
-/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
-	switch(damagetype)
-		if(BRUTE)
-			return adjustBruteLoss(damage)
-		if(BURN)
-			return adjustFireLoss(damage)
-		if(TOX)
-			return adjustToxLoss(damage)
-		if(OXY)
-			return adjustOxyLoss(damage)
-		if(CLONE)
-			return adjustCloneLoss(damage)
-		if(STAMINA)
-			return adjustStaminaLoss(damage)
+			adjustStaminaLoss(amount)
 
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)

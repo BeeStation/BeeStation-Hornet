@@ -204,10 +204,10 @@
 		if(!deductcharge(cell_hit_cost))
 			return FALSE
 
-	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
+	var/zone = ran_zone(user.get_combat_bodyzone(target))
 	var/armor_block = target.run_armor_check(affecting, STAMINA)
 	// L.adjustStaminaLoss(stun_time)
-	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
+	target.deal_damage(stun_time, 0, STAMINA, zone = zone)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 	target.stuttering = 20

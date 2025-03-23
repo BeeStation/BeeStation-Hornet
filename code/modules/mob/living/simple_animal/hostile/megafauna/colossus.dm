@@ -36,7 +36,7 @@ Difficulty: Very Hard
 	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
-	armour_penetration = 40
+	sharpness = SHARP_VI
 	melee_damage = 40
 	speed = 10
 	move_to_delay = 10
@@ -320,7 +320,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/at_shield)
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 25
-	armour_penetration = 100
+	sharpness = SHARP_X
 	speed = 2
 	eyeblur = 0
 	damage_type = BRUTE

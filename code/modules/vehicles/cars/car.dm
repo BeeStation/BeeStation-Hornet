@@ -24,12 +24,12 @@
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = 10
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD)
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST)
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG)
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG)
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM)
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM)
+	H.take_direct_damage(2*damage, BRUTE, zone = BODY_ZONE_HEAD)
+	H.take_direct_damage(2*damage, BRUTE, zone = BODY_ZONE_CHEST)
+	H.take_direct_damage(0.5*damage, BRUTE, zone = BODY_ZONE_L_LEG)
+	H.take_direct_damage(0.5*damage, BRUTE, zone = BODY_ZONE_R_LEG)
+	H.take_direct_damage(0.5*damage, BRUTE, zone = BODY_ZONE_L_ARM)
+	H.take_direct_damage(0.5*damage, BRUTE, zone = BODY_ZONE_R_ARM)
 
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)

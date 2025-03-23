@@ -436,7 +436,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 			return TRUE
 	return FALSE
 
-/obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/machinery/firealarm/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(.) //damage received
 		if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)

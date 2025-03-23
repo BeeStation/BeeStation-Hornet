@@ -955,7 +955,7 @@
 		// And roughly 75% of their items will take a smack, too
 		for(var/obj/item/thing in carbon_owner.get_all_gear())
 			if(!QDELETED(thing) && prob(75) && !istype(thing, /obj/item/grenade))
-				thing.apply_damage(100, 0, BRUTE, DAMAGE_ACID)
+				thing.deal_damage(100, 0, BRUTE, DAMAGE_ACID)
 	return ..()
 
 /datum/status_effect/corrosion_curse

@@ -54,7 +54,7 @@
 				playsound(src,'sound/weapons/drill.ogg',40,TRUE)
 			else if(isobj(target))
 				var/obj/O = target
-				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
+				O.deal_damage(15, SHARP_III, BRUTE, dir = get_dir(chassis, target), sound = FALSE)
 				playsound(src,'sound/weapons/drill.ogg',40,TRUE)
 
 			if(QDELETED(target))

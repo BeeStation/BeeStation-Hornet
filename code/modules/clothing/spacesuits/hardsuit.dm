@@ -274,7 +274,7 @@
 	. = ..()
 	var/mob/living/carbon/human/user = src.loc
 	if(istype(user))
-		user.apply_damage(HARDSUIT_EMP_BURN, BURN)
+		user.take_direct_damage(HARDSUIT_EMP_BURN, BURN)
 		to_chat(user, span_warning("You feel \the [src] heat up from the EMP burning you slightly."))
 
 		// Chance to scream

@@ -148,7 +148,7 @@
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
 
-	take_damage(max_integrity * 0.5, sound_effect=FALSE) //Low starting health
+	take_direct_damage(max_integrity * 0.5) //Low starting health
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)

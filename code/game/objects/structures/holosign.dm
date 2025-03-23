@@ -10,7 +10,7 @@
 	var/obj/item/holosign_creator/projector
 
 /obj/structure/holosign/emp_act(severity)
-	apply_damage(max_integrity/severity, 0, BRUTE)
+	deal_damage(max_integrity/severity, 0, BRUTE)
 
 /obj/structure/holosign/New(loc, source_projector)
 	if(source_projector)
@@ -37,7 +37,7 @@
 		return
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	user.changeNext_move(CLICK_CD_MELEE)
-	apply_damage(5, 0, BRUTE)
+	deal_damage(5, 0, BRUTE)
 
 /obj/structure/holosign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -129,11 +129,11 @@
 	allow_walk = 0
 
 /obj/structure/holosign/barrier/cyborg/bullet_act(obj/projectile/P)
-	apply_damage((P.damage / 5), P.sharpness, BRUTE)	//Doesn't really matter what damage flag it is.
+	deal_damage((P.damage / 5), P.sharpness, BRUTE)	//Doesn't really matter what damage flag it is.
 	if(istype(P, /obj/projectile/energy/electrode))
-		apply_damage(10, P.sharpness, BRUTE)	//Tasers aren't harmful.
+		deal_damage(10, P.sharpness, BRUTE)	//Tasers aren't harmful.
 	if(istype(P, /obj/projectile/beam/disabler))
-		apply_damage(5, P.sharpness, BRUTE)	//Disablers aren't harmful.
+		deal_damage(5, P.sharpness, BRUTE)	//Disablers aren't harmful.
 	return BULLET_ACT_HIT
 
 /obj/structure/holosign/barrier/medical
@@ -189,7 +189,7 @@
 	var/shockcd = 0
 
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
-	apply_damage(P.damage, P.sharpness, BRUTE)	//Yeah no this doesn't get projectile resistance.
+	deal_damage(P.damage, P.sharpness, BRUTE)	//Yeah no this doesn't get projectile resistance.
 	return BULLET_ACT_HIT
 
 /obj/structure/holosign/barrier/cyborg/hacked/proc/cooldown()

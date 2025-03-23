@@ -104,8 +104,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	force = 20
-	armour_penetration = 75
+	force = 24
+	sharpness = SHARP_VI
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND

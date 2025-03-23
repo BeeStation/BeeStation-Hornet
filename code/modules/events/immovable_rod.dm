@@ -128,11 +128,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(isturf(clong))
 		if(clong.density)
 			var/turf/hit_turf = clong
-			hit_turf.apply_damage(hit_turf.integrity, SHARP_X)
+			hit_turf.deal_damage(hit_turf.integrity, SHARP_X)
 	else if (isobj(clong))
 		if(clong.density)
 			var/obj/hit_obj = clong
-			hit_obj.apply_damage(hit_obj.get_integrity(), SHARP_X)
+			hit_obj.deal_damage(hit_obj.get_integrity(), SHARP_X)
 	else if(isliving(clong))
 		penetrate(clong)
 	else if(istype(clong, type))
@@ -167,7 +167,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				U.visible_message(span_boldwarning("[src] transforms into [wizard] as [U] suplexes them!"), span_warning("As you grab [src], it suddenly turns into [wizard] as you suplex them!"))
 				to_chat(wizard, span_boldwarning("You're suddenly jolted out of rod-form as [U] somehow manages to grab you, slamming you into the ground!"))
 				wizard.Stun(60)
-				wizard.apply_damage(25, BRUTE)
+				wizard.take_direct_damage(25, BRUTE)
 				qdel(src)
 			else
 				U.client.give_award(/datum/award/achievement/misc/feat_of_strength, U) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only

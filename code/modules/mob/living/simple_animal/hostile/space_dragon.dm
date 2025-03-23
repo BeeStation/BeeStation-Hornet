@@ -45,7 +45,7 @@
 	mob_size = MOB_SIZE_LARGE
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	armour_penetration = 30
+	sharpness = SHARP_VI
 	pixel_x = -16
 	turns_per_move = 5
 	ranged = TRUE

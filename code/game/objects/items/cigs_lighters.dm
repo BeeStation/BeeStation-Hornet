@@ -200,7 +200,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(lit && user.combat_mode)
 		force = 4
 		var/target_zone = user.get_combat_bodyzone()
-		M.apply_damage(force, BURN, target_zone)
+		M.take_direct_damage(force, BURN, zone = target_zone)
 		qdel(src)
 		var/cig_butt = new type_butt()
 		user.put_in_hands(cig_butt)
@@ -721,7 +721,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					user.visible_message("After a few attempts, [user] manages to light [src].", span_notice("After a few attempts, you manage to light [src]."))
 				else
 					var/hitzone = user.held_index_to_dir(user.active_hand_index) == "r" ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND
-					user.apply_damage(5, BURN, hitzone)
+					user.take_direct_damage(5, BURN, zone = hitzone)
 					user.visible_message(span_warning("After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn [user.p_their()] finger in the process."), span_warning("You burn yourself while lighting the lighter!"))
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "burnt_thumb", /datum/mood_event/burnt_thumb)
 				playsound(src.loc, 'sound/items/lighter_on.ogg', 100, 1)
@@ -1020,7 +1020,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 		vapetime -= vapedelay
 		if(prob(5))//small chance for the vape to break and deal damage if it's emagged
 			playsound(get_turf(src), 'sound/effects/pop_expl.ogg', 50, 0)
-			M.apply_damage(20, BURN, BODY_ZONE_HEAD)
+			M.take_direct_damage(20, BURN, zone = BODY_ZONE_HEAD)
 			M.Paralyze(300)
 			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
 			sp.set_up(5, 1, src)

@@ -220,8 +220,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 		return
 	var/mob/living/carbon/carbon_victim = victim
 	carbon_victim.Paralyze(5 SECONDS)
-	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
-	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
+	carbon_victim.take_direct_damage(20, BRUTE, zone = BODY_ZONE_R_LEG)
+	carbon_victim.take_direct_damage(20, BRUTE, zone = BODY_ZONE_L_LEG)
 	playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 
 /obj/structure/trap/eldritch/mad

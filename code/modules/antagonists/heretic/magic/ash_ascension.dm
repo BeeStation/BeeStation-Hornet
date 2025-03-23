@@ -55,7 +55,7 @@
 		new /obj/effect/hotspot(nearby_turf)
 		nearby_turf.hotspot_expose(750, 25 * delta_time, 1)
 		for(var/mob/living/fried_living in nearby_turf.contents - owner)
-			fried_living.apply_damage(2.5 * delta_time, BURN)
+			fried_living.take_direct_damage(2.5 * delta_time, BURN)
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
 /datum/action/spell/fire_cascade
@@ -87,7 +87,7 @@
 			new /obj/effect/hotspot(nearby_turf)
 			nearby_turf.hotspot_expose(750, 50, 1)
 			for(var/mob/living/fried_living in nearby_turf.contents - centre)
-				fried_living.apply_damage(5, BURN)
+				fried_living.take_direct_damage(5, BURN)
 
 		stoplag(0.3 SECONDS)
 
@@ -156,5 +156,5 @@
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.apply_damage(45, 0, BURN)
+			M.take_direct_damage(45, BURN)
 		sleep(0.15 SECONDS)

@@ -59,7 +59,7 @@
 					tail.Remove(M)
 					tail.forceMove(get_turf(M))
 					M.add_splatter_floor(get_turf(M))
-					M.apply_damage(5, BRUTE)
+					M.take_direct_damage(5, BRUTE)
 					M.emote("laugh")
 					playsound(M, 'sound/misc/desecration-01.ogg', 50, 1)
 			else if(!ears || !tail)
@@ -96,7 +96,7 @@
 		to_chat(H, span_hypnophrase("You pet [cat]!"))
 		cat.visible_message(span_warning("[H] grabs [cat] roughly!"), span_userdanger("[H] roughly grabs you by the neck!"))
 		H.emote("laugh")
-		cat.apply_damage(5, BRUTE)
+		cat.take_direct_damage(5, BRUTE)
 		dnacounter += 2 //real cats are purer, scarcer, and all around better
 	else if(H.throw_at(cat, 7, 2))
 		if(get_dist(cat, H) > 1)
@@ -116,7 +116,7 @@
 					targettail.forceMove(get_turf(target))
 					target.emote("scream")
 					target.add_splatter_floor(get_turf(target))
-					target.apply_damage(5, BRUTE)
+					target.take_direct_damage(5, BRUTE)
 					H.put_in_hands(targettail)
 					dnacounter += 1
 					playsound(target, 'sound/misc/desecration-01.ogg', 50, 1)
@@ -135,14 +135,14 @@
 					targetears.forceMove(get_turf(target))
 					target.emote("scream")
 					target.add_splatter_floor(get_turf(target))
-					target.apply_damage(5, BRUTE)
+					target.take_direct_damage(5, BRUTE)
 					H.put_in_hands(targetears)
 					playsound(target, 'sound/misc/desecration-01.ogg', 50, 1)
 				else
 					H.visible_message(span_warning("[H] yanks on [target]'s ears!"), span_hypnophrase("You scratch behind [target]'s ears!"))
 					to_chat(target, span_userdanger("[H] yanks on your ears!"))
 					H.emote("laugh")
-			target.apply_damage(rand(1, 10), BRUTE)
+			target.take_direct_damage(rand(1, 10), BRUTE)
 
 /datum/symptom/toxoplasmosis/End(datum/disease/advance/A)
 	. = ..()

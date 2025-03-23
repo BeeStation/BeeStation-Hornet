@@ -454,7 +454,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 35
+	sharpness = SHARP_IV
 	block_level = 1
 	block_power = 15
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -802,7 +802,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	armour_penetration = 35
+	sharpness = SHARP_NONE
 	damtype = BRAIN
 	attack_verb_continuous = list("pulses", "mends", "cuts")
 	attack_verb_simple = list("pulse", "mend", "cut")
@@ -817,8 +817,7 @@
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	icon = 'icons/obj/clockwork_objects.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	armour_penetration = 10
-	sharpness = SHARP
+	sharpness = SHARP_III
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("stabs", "pokes", "slashes", "clocks")

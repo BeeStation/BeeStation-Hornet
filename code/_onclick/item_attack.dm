@@ -254,7 +254,7 @@
 	if(!attacking_item.force)
 		return
 
-	var/damage = apply_damage(attacking_item.force, attacking_item.sharpness, attacking_item.damtype)
+	var/damage = deal_damage(attacking_item.force, attacking_item.sharpness, attacking_item.damtype)
 
 	//only witnesses close by and the victim see a hit message.
 	user.visible_message(span_danger("[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), \
@@ -268,8 +268,7 @@
 	send_item_attack_message(I, user)
 	if(!I.force)
 		return FALSE
-	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
-	apply_damage(I.force, I.damtype, blocked = armour_block, damage_flag = MELEE, sharpness = I.sharpness)
+	deal_damage(I.force, I.sharpness, I.damtype)
 	if(I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)
 		var/turf/location = get_turf(src)
@@ -285,7 +284,7 @@
 		return ..()
 
 /mob/living/basic/attacked_by(obj/item/I, mob/living/user)
-	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE))
+	if(!attack_threshold_check(I.force, I.damtype, DAMAGE_STANDARD, FALSE))
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 	else
 		return ..()

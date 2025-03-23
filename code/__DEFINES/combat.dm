@@ -7,6 +7,11 @@
 #define BRUTE "brute"
 /// Scorching and charring of the material.
 #define BURN "burn"
+/// Conciousness damage. Unlike stamina damage, this
+/// damage type stacks up with regular damage and will
+/// result in you falling unconcious if you go over the crit
+/// limit. Heals naturally over time
+#define CONSCIOUSNESS "consciousness"
 /// Poisoning. Mostly caused by reagents.
 #define TOX "toxin"
 /// Suffocation.
@@ -26,10 +31,13 @@
 #define ARMOUR_REFLECTIVITY "reflectivity"
 #define ARMOUR_HEAT "heat"
 
-/// Involves corrosive substances.
+/// Involves corrosive substances and rust.
 /// 100% absorption
 /// 100% blunt
 #define DAMAGE_ACID "acid"
+/// Caused by an item protecting a human from an attack
+/// 100% absorption
+#define DAMAGE_ABSORPTION "absorption"
 /// Involves a shockwave, usually from an explosion.
 /// 50% heat
 /// 50% absorption
@@ -52,13 +60,13 @@
 #define ARMOR_ALL "all_damage_types"
 
 /// Armor values that are used for damage
-#define ARMOR_LIST_DAMAGE list(BIO, BLEED, BOMB, BULLET, ENERGY, LASER, MELEE, RAD)
+#define ARMOR_LIST_DAMAGE list(ARMOUR_PENETRATION, ARMOUR_BLUNT, ARMOUR_REFLECTIVITY, ARMOUR_HEAT)
 
 /// Armor values that are used for durability
-#define ARMOR_LIST_DURABILITY list(ACID, FIRE)
+#define ARMOR_LIST_DURABILITY list(ARMOUR_ABSORPTION)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(ACID, BIO, BLEED, BOMB, BULLET, CONSUME, ENERGY, FIRE, LASER, MELEE, RAD, STAMINA)
+#define ARMOR_LIST_ALL list(ARMOUR_PENETRATION, ARMOUR_BLUNT, ARMOUR_REFLECTIVITY, ARMOUR_HEAT, ARMOUR_ABSORPTION)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -265,11 +273,13 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 /// Energy Swords, Katanas
 #define SHARP_VII 70
 /// Katanas, Weak Bullets
-#define SHARP_VIII 80
+#define SHARP_IIX 80
 /// Medium Bullets
 #define SHARP_IX 90
 /// Powerful Bullets
 #define SHARP_X 100
+/// Armour-piercing bullets
+#define SHARP_XII 120
 
 //! ### His Grace.
 #define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.

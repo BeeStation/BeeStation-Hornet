@@ -217,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 
 	if(atom_integrity>25)
 		next_health_to_teleport -= round(max_integrity/60)
-		apply_damage(round(max_integrity/60), 0) // self-damage for self-destruction
+		take_direct_damage(round(max_integrity/60)) // self-damage for self-destruction
 
 	addtimer(CALLBACK(src, PROC_REF(dump)), 150) //Drain every 15 seconds
 

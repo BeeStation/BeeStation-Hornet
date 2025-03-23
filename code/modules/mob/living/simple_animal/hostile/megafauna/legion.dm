@@ -21,7 +21,7 @@ Difficulty: Medium
 	attack_verb_simple = "chomp"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	speak_emote = list("echoes")
-	armour_penetration = 50
+	sharpness = SHARP_IV
 	melee_damage = 25
 	speed = 5
 	ranged = TRUE

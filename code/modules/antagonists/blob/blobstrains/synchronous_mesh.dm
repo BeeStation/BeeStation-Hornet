@@ -19,7 +19,7 @@
 				damagesplit += 1
 		for(var/obj/structure/blob/C in orange(1, B))
 			if(!istype(C, /obj/structure/blob/core) && !istype(C, /obj/structure/blob/node) && C.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) //only hurt blobs that have the same overmind chemical and aren't cores or nodes
-				C.apply_damage(damage/damagesplit, 0, CLONE, sound = FALSE)
+				C.deal_damage(damage/damagesplit, 0, CLONE, sound = FALSE)
 		return damage / damagesplit
 	else
 		return damage * 1.25
@@ -32,9 +32,9 @@
 
 /datum/reagent/blob/synchronous_mesh/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
-	M.apply_damage(0.2*reac_volume, BRUTE)
+	M.take_direct_damage(0.2*reac_volume, BRUTE)
 	if(M && reac_volume)
 		for(var/obj/structure/blob/B in range(1, M)) //if the target is completely surrounded, this is 2.4*reac_volume bonus damage, total of 2.6*reac_volume
 			if(M)
 				B.blob_attack_animation(M) //show them they're getting a bad time
-				M.apply_damage(0.3*reac_volume, BRUTE)
+				M.take_direct_damage(0.3*reac_volume, BRUTE)

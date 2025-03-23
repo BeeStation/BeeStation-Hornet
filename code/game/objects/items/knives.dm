@@ -165,7 +165,7 @@
 	force = 8 // 3 more than base glass shard
 	throwforce = 8
 	throw_speed = 5 //yeets
-	armour_penetration = 10 //spear has 10 armour pen, I think its fitting another glass tipped item should have it too
+	sharpness = SHARP_II
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
 	attack_verb_continuous = list("sticks", "shanks")
 	attack_verb_simple = list("stuck", "shank")

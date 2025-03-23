@@ -15,6 +15,7 @@
 	resistance_flags = NONE
 	/// If damage is less than this value for melee attacks, it will deal 0 damage
 	damage_deflection = 5
+	uses_integrity = TRUE
 
 /turf/examine(mob/user)
 	. = ..()
@@ -36,33 +37,30 @@
 		else
 			. += span_warning("It doesn't look like you can damage this...")
 
-/turf/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	if(QDELETED(src))
-		CRASH("[src] taking damage after deletion")
-	if(sound_effect)
-		play_attack_sound(damage_amount, damage_type, damage_flag)
-	if((resistance_flags & INDESTRUCTIBLE) || integrity <= 0)
-		return
-	damage_amount = run_atom_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
-	if(damage_amount < DAMAGE_PRECISION)
-		return
-	. = damage_amount
-	var/old_integ = integrity
-	integrity = old_integ - damage_amount
+/turf/take_direct_damage(amount, type, flag)
+	if (!atom_integrity)
+		CRASH("take_direct_damage called on something not using atom integrity which also hasn't implemented it's own handling.")
+	var/previous_atom_integrity = atom_integrity
+	var/new_integrity = atom_integrity - amount
+
+	update_integrity(new_integrity)
+	var/additional_damage = max(-new_integrity, 0)
+
+	var/integrity_failure_amount = integrity_failure * max_integrity
+
+	//BREAKING FIRST
+	if(integrity_failure && previous_atom_integrity > integrity_failure_amount && atom_integrity <= integrity_failure_amount)
+		atom_break(flag)
 
 	//DESTROYING SECOND
-	if(integrity <= 0)
-		turf_destruction(damage_flag, -integrity)
-	else
-		after_damage(damage_amount, damage_type, damage_flag)
-
-/turf/proc/after_damage(damage_amount, damage_type, damage_flag)
-	return
+	if(atom_integrity <= 0 && previous_atom_integrity > 0)
+		atom_destruction(flag)
+		turf_destruction(additional_damage, flag)
 
 /// Destroy the turf and replace it with a new one
 /// Note that due to the behaviour of turfs, the reference of src changes during ScrapeAway, so calling
 /// the parent is not recommended.
-/turf/proc/turf_destruction(damage_flag, additional_damage)
+/turf/proc/turf_destruction(additional_damage, flag)
 	var/previous_type = type
 	ScrapeAway()
 	// If we scrape away into a turf of the same type, don't go any deeper.
@@ -70,8 +68,8 @@
 		return
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
-		if (damage_flag == BOMB || damage_flag == ACID || damage_flag == FIRE)
-			apply_damage(additional_damage, 0, BRUTE, damage_flag, sound = FALSE)
+		if (flag == DAMAGE_BOMB || flag == DAMAGE_ACID || flag == DAMAGE_FIRE)
+			deal_damage(additional_damage, 0, BRUTE, flag, sound = FALSE)
 
 //====================================
 // Generic Hits
@@ -83,9 +81,9 @@
 	..()
 	if (isitem(AM))
 		var/obj/item/thrown = AM
-		apply_damage(AM.throwforce, thrown.sharpness, MELEE_ATTACK, null, get_dir(src, AM))
+		deal_damage(AM.throwforce, thrown.sharpness, MELEE_ATTACK, null, get_dir(src, AM))
 	else
-		apply_damage(AM.throwforce, 0, BRUTE, MELEE, null, get_dir(src, AM))
+		deal_damage(AM.throwforce, 0, BRUTE, MELEE, null, get_dir(src, AM))
 
 //====================================
 // Explosives
@@ -96,17 +94,17 @@
 		return ..()
 	..() //contents explosion
 	if(target == src)
-		apply_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
+		deal_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		return
 	switch(severity)
 		if(1)
-			apply_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
+			deal_damage(INFINITY, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		if(2)
 			hotspot_expose(1000,CELL_VOLUME)
-			apply_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, 0, BRUTE, DAMAGE_BOMB, sound = 0)
+			deal_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 		if(3)
 			hotspot_expose(1000,CELL_VOLUME)
-			apply_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, 0, BRUTE, DAMAGE_BOMB, sound = 0)
+			deal_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, 0, BRUTE, DAMAGE_BOMB, sound = 0)
 
 /turf/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -135,7 +133,7 @@
 	playsound(src, P.hitsound, 50, 1)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
-	apply_damage(P.damage, P.sharpness, P.damage_type, P.armor_flag, turn(P.dir, 180), FALSE)
+	deal_damage(P.damage, P.sharpness, P.damage_type, P.armor_flag, turn(P.dir, 180), FALSE)
 
 //====================================
 // Generic Attack Chain
@@ -154,7 +152,7 @@
 					span_danger("You hit [src] with [I]!"), null, COMBAT_MESSAGE_RANGE)
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
-	apply_damage(I.force, I.sharpness, I.damtype)
+	deal_damage(I.force, I.sharpness, I.damtype)
 
 /turf/attackby(obj/item/W, mob/user, params)
 	if (!ISADVANCEDTOOLUSER(user))
@@ -216,7 +214,7 @@
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		apply_damage(hulk_damage(), 0, BRUTE, dir = get_dir(src, user), sound = FALSE)
+		deal_damage(hulk_damage(), 0, BRUTE, dir = get_dir(src, user), sound = FALSE)
 		return 1
 	return 0
 
@@ -225,7 +223,7 @@
 		return ..()
 	if (!..())
 		return
-	apply_damage(400, 0, BRUTE, dir = get_dir(src, B), sound = FALSE)
+	deal_damage(400, 0, BRUTE, dir = get_dir(src, B), sound = FALSE)
 
 /turf/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if (!can_hit)
@@ -289,7 +287,7 @@
 			else
 				return FALSE
 	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"), null, COMBAT_MESSAGE_RANGE)
-	return apply_damage(M.force*3, 0, mech_damtype, dir = get_dir(src, M), sound = play_soundeffect) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	return deal_damage(M.force*3, 0, mech_damtype, dir = get_dir(src, M), sound = play_soundeffect) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 //====================================
 // Singularity
@@ -341,7 +339,7 @@
 	if (resistance_flags & INDESTRUCTIBLE)
 		return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		apply_damage(clamp(0.02 * exposed_temperature, 0, 20), 0, BURN, DAMAGE_FIRE, sound = 0)
+		deal_damage(clamp(0.02 * exposed_temperature, 0, 20), 0, BURN, DAMAGE_FIRE, sound = 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfire_burning.processing[src] = src

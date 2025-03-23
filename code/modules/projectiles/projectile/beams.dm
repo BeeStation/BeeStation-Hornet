@@ -49,7 +49,7 @@
 
 /obj/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
 	damage = 15
-	armour_penetration = 50
+	sharpness = SHARP_IIX
 
 /obj/projectile/beam/practice
 	name = "practice laser"
@@ -68,7 +68,7 @@
 	damage = 15
 	irradiate = 300
 	range = 15
-	armour_penetration = 60
+	sharpness = SHARP_IIX
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser

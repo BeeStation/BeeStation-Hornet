@@ -594,9 +594,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(!user.combat_mode)
 		to_chat(user, span_warning("The newscaster controls are far too complicated for your tiny brain!"))
 	else
-		apply_damage(5, SHARP_III, BRUTE)
+		deal_damage(5, SHARP_III, BRUTE)
 
-/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/machinery/newscaster/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	update_icon()
 

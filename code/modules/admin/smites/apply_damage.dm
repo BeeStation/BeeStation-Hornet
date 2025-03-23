@@ -10,4 +10,4 @@
 	if(isnull(damage_punishment) || isnull(damage_amount)) //The user pressed "Cancel"
 		return
 
-	target.apply_damage_type(damage_amount, damage_punishment)
+	target.take_direct_damage(damage_amount, damage_punishment)

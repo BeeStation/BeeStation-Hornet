@@ -6,7 +6,7 @@
 	damage = 70
 	knockdown = 5
 	dismemberment = 50
-	armour_penetration = 50
+	sharpness = SHARP_XII
 	// Will penetrate but damage anything not a wall
 	projectile_piercing = PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
 	var/breakthings = TRUE
@@ -14,7 +14,7 @@
 /obj/projectile/bullet/p50/on_hit(atom/target, blocked = 0)
 	if(isobj(target) && (blocked != 100) && breakthings)
 		var/obj/O = target
-		O.take_damage(80, BRUTE, BULLET, FALSE)
+		O.apply_damage(80, sharpness, BRUTE, sound = FALSE)
 	return ..()
 
 /obj/projectile/bullet/p50/penetrator
@@ -35,7 +35,7 @@
 	range = 16
 
 /obj/projectile/bullet/p50/utility
-	armour_penetration = 0
+	sharpness = SHARP_NONE
 	damage = 20
 	dismemberment = 0
 	knockdown = 0

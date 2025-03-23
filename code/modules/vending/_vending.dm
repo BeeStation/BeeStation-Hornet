@@ -672,9 +672,9 @@
 			else
 				L.visible_message(span_danger("[L] is crushed by [src]!"), \
 				span_userdanger("You are crushed by [src]!"))
-				L.apply_damage(squish_damage, forced=TRUE)
+				L.take_direct_damage(squish_damage)
 				if(crit_case)
-					L.apply_damage(squish_damage, forced=TRUE)
+					L.take_direct_damage(squish_damage)
 
 			L.Paralyze(60)
 			L.emote("scream")

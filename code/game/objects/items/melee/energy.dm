@@ -79,7 +79,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	w_class_on = WEIGHT_CLASS_HUGE
 	flags_1 = CONDUCT_1
-	armour_penetration = 100
+	sharpness = SHARP_VII
 	attack_verb_off = list("attacks", "chops", "cleaves", "tears", "lacerates", "cuts")
 	attack_verb_on = list()
 	light_color = "#40ceff"
@@ -104,7 +104,7 @@
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force_on = BLEED_DEEP_WOUND
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
-	armour_penetration = 35
+	sharpness = SHARP_VII
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 35

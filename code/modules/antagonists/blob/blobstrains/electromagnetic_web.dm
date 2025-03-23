@@ -29,4 +29,4 @@
 	if(prob(reac_volume*2))
 		M.emp_act(EMP_LIGHT)
 	if(M)
-		M.apply_damage(reac_volume, BURN)
+		M.take_direct_damage(reac_volume, BURN)

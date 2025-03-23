@@ -11,14 +11,14 @@
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
 
-/obj/structure/alien/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE)
-		switch(damage_type)
+/obj/structure/alien/deal_damage(amount, penetration, type = BRUTE, flag = DAMAGE_STANDARD, dir = NONE, sound = TRUE, zone = null)
+	if(flag == DAMAGE_STANDARD)
+		switch(type)
 			if(BRUTE)
-				damage_amount *= 0.25
+				amount *= 0.25
 			if(BURN)
-				damage_amount *= 2
-	. = ..()
+				amount *= 2
+	..()
 
 /obj/structure/alien/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -197,7 +197,7 @@
 	return exposed_temperature > 300
 
 /obj/structure/alien/weeds/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
+	deal_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 //Weed nodes
 /obj/structure/alien/weeds/node
@@ -355,7 +355,7 @@
 	return exposed_temperature > 500
 
 /obj/structure/alien/egg/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
+	deal_damage(5, 0, BURN, DAMAGE_FIRE, sound = 0)
 
 /obj/structure/alien/egg/HasProximity(atom/movable/AM)
 	if(status == GROWN)

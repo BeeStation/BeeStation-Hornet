@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			// Throw our current heart out of our chest, violently
 			user.visible_message(span_boldwarning("[user]'s [our_heart.name] bursts suddenly out of [user.p_their()] chest!"))
 			INVOKE_ASYNC(user, /mob/proc/emote, "scream")
-			user.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
+			user.take_direct_damage(20, BRUTE, zone = BODY_ZONE_CHEST)
 			// And put our organic heart in its place
 			our_replacement_heart.Insert(user, special = TRUE, drop_if_replaced = TRUE)
 			our_heart.throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), 2, 2)

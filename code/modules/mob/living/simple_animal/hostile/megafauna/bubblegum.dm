@@ -39,7 +39,7 @@ Difficulty: Hard
 	friendly_verb_simple = "stare down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
-	armour_penetration = 40
+	sharpness = SHARP_IIX
 	melee_damage = 40
 	speed = 5
 	move_to_delay = 5

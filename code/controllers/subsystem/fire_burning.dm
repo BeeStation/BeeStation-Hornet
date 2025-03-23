@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(fire_burning)
 
 		if(O.resistance_flags & ON_FIRE) //in case an object is extinguished while still in currentrun
 			if(!(O.resistance_flags & FIRE_PROOF))
-				O.apply_damage(10 * delta_time, 0, BURN, DAMAGE_FIRE, NONE, FALSE)
+				O.deal_damage(10 * delta_time, 0, BURN, DAMAGE_FIRE, NONE, FALSE)
 			else
 				O.extinguish()
 

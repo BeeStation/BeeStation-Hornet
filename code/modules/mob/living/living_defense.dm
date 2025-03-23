@@ -2,8 +2,8 @@
 /// 0 represents 0% protection, while 100 represents 100% protection.
 /// The return value for this proc can be negative, indicating that the damage values should be increased.
 /// A message will be thrown to the user if their armour protects them, unless the silent flag is set.
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
-	var/armor = getarmor(def_zone, attack_flag, penetration = armour_penetration)
+/mob/living/proc/run_armor_check(def_zone = null, armour_flag = ARMOUR_BLUNT, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
+	var/armor = getarmor(def_zone, armour_flag, penetration = armour_penetration)
 
 	if(armor <= 0)
 		return armor
@@ -31,6 +31,8 @@
 		else
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
+
+/mob/living/proc/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 
 /// Get the armour value for a specific damage type, targetting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.

@@ -214,7 +214,7 @@
 	maxHealth = 500
 	health = 500
 	speed = -2
-	armour_penetration = 20
+	sharpness = SHARP_II
 	attack_verb_continuous = "steals the girlfriend of"
 	attack_verb_simple = "steal the girlfriend of"
 	attack_sound = 'sound/items/airhorn2.ogg'
@@ -254,7 +254,7 @@
 	health = 400
 	speed = 5
 	melee_damage = 30
-	armour_penetration = 30
+	sharpness = SHARP_III
 	stat_attack = HARD_CRIT
 	attack_verb_continuous = "acts out divine vengeance on"
 	attack_verb_simple = "act out divine vengeance on"

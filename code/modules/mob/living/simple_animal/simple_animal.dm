@@ -54,7 +54,7 @@
 	///how much damage this simple animal does to objects, if any.
 	var/obj_damage = 0
 	///How much armour they ignore, as a flat reduction from the targets armour value.
-	var/armour_penetration = 0
+	var/sharpness = 0
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source.
@@ -199,6 +199,9 @@
 /mob/living/simple_animal/updatehealth()
 	. = ..()
 	health = clamp(health, 0, maxHealth)
+
+/mob/living/simple_animal/get_attack_sharpness()
+	return sharpnses
 
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)

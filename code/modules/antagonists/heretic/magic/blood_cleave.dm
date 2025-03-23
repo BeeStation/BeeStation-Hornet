@@ -42,7 +42,7 @@
 			span_danger("Your veins burst from within and unholy flame erupts from your blood!")
 		)
 		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
-		victim.apply_damage(20, BURN, bodypart)
+		victim.take_direct_damage(20, BURN, zone = ran_zone(BODY_ZONE_CHEST, 0))
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 

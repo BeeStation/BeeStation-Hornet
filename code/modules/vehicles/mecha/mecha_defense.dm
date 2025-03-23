@@ -6,7 +6,7 @@
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
-/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/vehicle/sealed/mecha/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(. && atom_integrity > 0)
 		spark_system.start()
@@ -101,7 +101,7 @@
 
 /obj/vehicle/sealed/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
-	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
+	sound = play_soundeffect(30, 0, BRUTE, dir = get_dir(src, B), sound = FALSE)
 
 /obj/vehicle/sealed/mecha/attack_tk()
 	return
@@ -163,7 +163,7 @@
 		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
-		take_damage(30 / severity, BURN, ENERGY, 1)
+		sound = play_soundeffect(30 / severity, 0, BURN, DAMAGE_ENERGY)
 	log_message("EMP detected", LOG_MECHA, color="red")
 
 	if(istype(src, /obj/vehicle/sealed/mecha/combat))
@@ -181,8 +181,7 @@
 
 /obj/vehicle/sealed/mecha/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
-	take_damage(5, BURN, 0, 1)
-
+	sound = play_soundeffect(5, 0, BURN, DAMAGE_FIRE)
 
 /obj/vehicle/sealed/mecha/attackby(obj/item/W, mob/user, params)
 

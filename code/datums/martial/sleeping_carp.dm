@@ -52,7 +52,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		D.emote("scream")
 		D.dropItemToGround(D.get_active_held_item())
-		D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		D.take_direct_damage(5, BRUTE, zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		D.Stun(60)
 		return 1
 
@@ -90,14 +90,13 @@
 	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/headKick(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!D.stat && !D.IsParalyzed())
 		log_combat(A, D, "head kicked (Sleeping Carp)", name)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message("<span class='warning'>[A] kicks [D] in the head!</span>", \
 						"<span class='userdanger'>Your jaw is kicked by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 		to_chat(A, "<span class='danger'>You kick [D] in the jaw!</span>")
-		D.apply_damage(20, A.get_attack_type(), BODY_ZONE_HEAD, blocked = def_check)
+		D.deal_damage(20, A.get_attack_sharpness(), A.get_attack_type(), zone = BODY_ZONE_HEAD)
 		D.drop_all_held_items()
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		D.Stun(80)
@@ -105,7 +104,6 @@
 	return FALSE
 
 /datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(D.body_position == LYING_DOWN)
 		log_combat(A, D, "elbow dropped (Sleeping Carp)", name)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -114,7 +112,7 @@
 		to_chat(A, span_danger("You piledrive [D] with your elbow!"))
 		if(D.stat)
 			D.death() //FINISH HIM!
-		D.apply_damage(50, A.get_attack_type(), BODY_ZONE_CHEST, blocked = def_check)
+		D.deal_damage(50, A.get_attack_sharpness(), A.get_attack_type(), zone = BODY_ZONE_CHEST)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		return 1
 	return FALSE
@@ -140,7 +138,6 @@
 	return FALSE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
 		return 1
@@ -149,7 +146,7 @@
 	D.visible_message(span_danger("[A] [atk_verb]s [D]!"), \
 					span_userdanger("[A] [atk_verb]s you!"), null, null, A)
 	to_chat(A, span_danger("You [atk_verb] [D]!"))
-	D.apply_damage(15, BRUTE, blocked = def_check)
+	D.deal_damage(15, A.get_attack_sharpness(), BRUTE, zone = BODY_ZONE_CHEST)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	log_combat(A, D, "[atk_verb] (Sleeping Carp)", name)
 	return TRUE
@@ -222,7 +219,7 @@
 		user.Paralyze(60)
 		if(ishuman(user))
 			var/mob/living/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			H.take_direct_damage(2*force, BRUTE, zone = BODY_ZONE_HEAD)
 		else
 			user.take_bodypart_damage(2*force)
 		return

@@ -226,7 +226,7 @@
 	try_to_crowbar(tool, user, forced_open)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/machinery/door/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(. && atom_integrity > 0)
 		if(damage_amount >= 10 && prob(30))
@@ -359,7 +359,7 @@
 		L.add_splatter_floor(location)
 		log_combat(src, L, "crushed", src)
 	for(var/obj/vehicle/sealed/mecha/M in get_turf(src))
-		M.apply_damage(DOOR_CRUSH_DAMAGE, 0)
+		M.take_direct_damage(DOOR_CRUSH_DAMAGE)
 		log_combat(src, M, "crushed", src)
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)

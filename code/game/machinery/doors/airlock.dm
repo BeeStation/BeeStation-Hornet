@@ -847,7 +847,7 @@
 				H.visible_message(span_danger("[user] headbutts the airlock."), \
 									span_userdanger("You headbutt the airlock!"))
 				H.Paralyze(100)
-				H.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+				H.take_direct_damage(10, BRUTE, BODY_ZONE_HEAD)
 			else
 				visible_message(span_danger("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
 
@@ -1222,7 +1222,7 @@
 			H.Unconscious(160)
 			H.adjust_fire_stacks(20)
 			H.IgniteMob() //Guaranteed knockout and ignition for nearby people
-			H.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
+			H.take_direct_damage(40, BRUTE, BODY_ZONE_CHEST)
 		return
 	if(forced < 2)
 		if(!protected_door)
@@ -1461,7 +1461,7 @@
 		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
-/obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/machinery/door/airlock/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	if((damage_amount >= atom_integrity) && (damage_flag == BOMB))
 		flags_1 |= NODECONSTRUCT_1  //If an explosive took us out, don't drop the assembly
 	. = ..()

@@ -23,7 +23,7 @@
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 15
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
-	armour_penetration = 35
+	sharpness = SHARP_IV
 
 /obj/item/melee/cultblade/dagger/Initialize(mapload)
 	. = ..()
@@ -475,7 +475,7 @@ Striking a noncultist, however, will tear their flesh."}
 	force = 17
 	throwforce = 40
 	throw_speed = 2
-	armour_penetration = 30
+	sharpness = SHARP_VI
 	block_upgrade_walk = 1
 	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")

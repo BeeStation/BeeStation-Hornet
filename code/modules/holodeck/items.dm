@@ -23,7 +23,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = "swing_hit"
-	armour_penetration = 50
+	sharpness = SHARP_V
 	var/active = 0
 	var/saber_color
 
@@ -87,7 +87,7 @@
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/M = hit_atom
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-		M.apply_damage(10, STAMINA)
+		M.take_direct_damage(10, STAMINA)
 		if(prob(5))
 			M.Paralyze(60)
 			visible_message(span_danger("[M] is knocked right off [M.p_their()] feet!"))

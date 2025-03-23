@@ -209,7 +209,7 @@
 	var/potential_outcome = (roll * 10)
 
 	if(ishuman(target))
-		potential_outcome *= ((100 - target.run_armor_check(BODY_ZONE_CHEST, MELEE)) /100)
+		potential_outcome *= ((100 - target.get_bodyzone_armor_flag(BODY_ZONE_CHEST, ARMOUR_BLUNT)) /100)
 	else
 		potential_outcome *= 0.9
 
@@ -222,7 +222,7 @@
 								"<span class='userdanger'>You land a solid [tackle_word] on [target], knocking you both down hard!</span>", ignored_mobs = target)
 			to_chat(target, "<span class='userdanger'>[user] lands a solid [tackle_word] on you, knocking you both down hard!</span>")
 
-			target.apply_damage(30, STAMINA)
+			target.take_direct_damage(30, STAMINA)
 			target.Paralyze(0.5 SECONDS)
 			user.Knockdown(1 SECONDS)
 			target.Knockdown(2 SECONDS)
@@ -237,7 +237,7 @@
 			user.SetKnockdown(0, ignore_canstun = TRUE)
 			user.get_up(TRUE)
 			user.forceMove(get_turf(target))
-			target.apply_damage(40, STAMINA)
+			target.take_direct_damage(40, STAMINA)
 			target.Paralyze(0.5 SECONDS)
 			target.Knockdown(3 SECONDS)
 			adjust_staggered_up_to(target, STAGGERED_SLOWDOWN_LENGTH * 2, 10 SECONDS)
@@ -250,7 +250,7 @@
 									"<span class='userdanger'>You land a monsterly reckless [tackle_word] on [target], knocking both of you senseless!</span>", ignored_mobs = target)
 				to_chat(target, "<span class='userdanger'>[user] lands a monsterly reckless [tackle_word] on you, knocking the both of you senseless!</span>")
 				user.forceMove(get_turf(target))
-				target.apply_damage(100, STAMINA) // CRASHING THIS PLANE WITH NO SURVIVORS
+				target.take_direct_damage(100, STAMINA) // CRASHING THIS PLANE WITH NO SURVIVORS
 				target.Paralyze(1 SECONDS)
 				target.Knockdown(5 SECONDS)
 				adjust_staggered_up_to(target, STAGGERED_SLOWDOWN_LENGTH * 3, 10 SECONDS)
@@ -263,7 +263,7 @@
 				user.SetKnockdown(0, ignore_canstun = TRUE)
 				user.get_up(TRUE)
 				user.forceMove(get_turf(target))
-				target.apply_damage(60, STAMINA)
+				target.take_direct_damage(60, STAMINA)
 				target.Paralyze(0.5 SECONDS)
 				target.Knockdown(3 SECONDS)
 				adjust_staggered_up_to(target, STAGGERED_SLOWDOWN_LENGTH * 3, 10 SECONDS)
@@ -308,7 +308,7 @@
 	var/potential_roll_outcome = (roll * -10)
 
 	if(ishuman(user))
-		potential_roll_outcome *= ((100 - target.run_armor_check(BODY_ZONE_CHEST, MELEE)) /100)
+		potential_roll_outcome *= ((100 - target.run_armor_check(BODY_ZONE_CHEST, ARMOUR_BLUNT)) /100)
 	else
 		potential_roll_outcome *= 0.9
 
@@ -326,7 +326,7 @@
 
 			user.Knockdown(1 SECONDS)
 			adjust_staggered_up_to(user, STAGGERED_SLOWDOWN_LENGTH * 2, 10 SECONDS)
-			target.apply_damage(20, STAMINA)
+			target.take_direct_damage(20, STAMINA)
 			adjust_staggered_up_to(target, STAGGERED_SLOWDOWN_LENGTH * 2, 10 SECONDS)
 
 		if(21 to 49) // oughe
@@ -335,7 +335,7 @@
 			to_chat(target, "<span class='userdanger'>[user] lands a dreadful [tackle_word] on you, briefly knocking [user.p_them()] to the ground!</span>")
 
 			user.Knockdown(3 SECONDS)
-			user.apply_damage(40, STAMINA)
+			user.take_direct_damage(40, STAMINA)
 			adjust_staggered_up_to(user, STAGGERED_SLOWDOWN_LENGTH * 2, 10 SECONDS)
 
 		if(50 to INFINITY) // It has been decided that you will suffer
@@ -344,8 +344,8 @@
 			to_chat(target, "<span class='userdanger'>[user] botches [user.p_their()] [tackle_word] and slams [user.p_their()] head into you, knocking [user.p_them()]self silly!</span>")
 
 			user.Paralyze(3 SECONDS)
-			user.apply_damage(80, STAMINA)
-			user.apply_damage(20, BRUTE, BODY_ZONE_HEAD)
+			user.take_direct_damage(80, CONSCIOUSNESS)
+			user.take_direct_damage(20, BRUTE, zone = BODY_ZONE_HEAD)
 			user.gain_trauma(/datum/brain_trauma/mild/concussion)
 			adjust_staggered_up_to(user, STAGGERED_SLOWDOWN_LENGTH * 3, 10 SECONDS)
 
@@ -512,8 +512,8 @@
 			// can you imagine standing around minding your own business when all of the sudden some guy fucking launches himself into a wall at full speed and irreparably paralyzes himself?
 			user.visible_message("<span class='danger'>[user] slams face-first into [hit] at an awkward angle, severing [user.p_their()] spinal column with a sickening crack! Fucking shit!</span>",
 								"<span class='userdanger'>You slam face-first into [hit] at an awkward angle, severing your spinal column with a sickening crack! Fucking shit!</span>")
-			user.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
-			user.apply_damage(30, STAMINA)
+			user.take_direct_damage(40, BRUTE, zone = BODY_ZONE_HEAD)
+			user.take_direct_damage(40, CONSCIOUSNESS)
 			playsound(user, 'sound/effects/blobattack.ogg', 60, TRUE)
 			playsound(user, 'sound/effects/splat.ogg', 70, TRUE)
 			user.emote("scream")
@@ -524,8 +524,8 @@
 		if(97 to 98)
 			user.visible_message("<span class='danger'>[user] slams skull-first into [hit] with a sound like crumpled paper, revealing a horrifying breakage in [user.p_their()] cranium! Holy shit!</span>",
 								"<span class='userdanger'>You slam skull-first into [hit] and your senses are filled with warm goo flooding across your face! Your skull is open!</span>")
-			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
-			user.apply_damage(30, STAMINA)
+			user.take_direct_damage(30, BRUTE, BODY_ZONE_HEAD)
+			user.take_direct_damage(70, CONSCIOUSNESS)
 			user.gain_trauma_type(BRAIN_TRAUMA_MILD)
 			playsound(user, 'sound/effects/blobattack.ogg', 60, TRUE)
 			playsound(user, 'sound/effects/splat.ogg', 70, TRUE)
@@ -536,9 +536,8 @@
 		if(93 to 96)
 			user.visible_message("<span class='danger'>[user] slams face-first into [hit] with a concerning squish, immediately going limp!</span>",
 								"<span class='userdanger'>You slam face-first into [hit], and immediately lose consciousness!</span>")
-			user.apply_damage(30, BRUTE)
-			user.apply_damage(30, STAMINA)
-			user.Unconscious(10 SECONDS)
+			user.take_direct_damage(30, BRUTE, zone = BODY_ZONE_HEAD)
+			user.take_direct_damage(200, CONSCIOUSNESS)
 			user.gain_trauma_type(BRAIN_TRAUMA_MILD)
 			user.playsound_local(get_turf(user), 'sound/weapons/flashbang.ogg', 100, TRUE, 8)
 			shake_camera(user, 6, 6)
@@ -547,8 +546,8 @@
 		if(86 to 92)
 			user.visible_message("<span class='danger'>[user] slams head-first into [hit], suffering major cranial trauma!</span>",
 								"<span class='userdanger'>You slam head-first into [hit], and the world explodes around you!</span>")
-			user.apply_damage(30, BRUTE)
-			user.apply_damage(30, STAMINA)
+			user.take_direct_damage(30, BRUTE, zone = BODY_ZONE_HEAD)
+			user.take_direct_damage(50, CONSCIOUSNESS)
 			user.confused += 15
 			if(prob(80))
 				user.gain_trauma(/datum/brain_trauma/mild/concussion)
@@ -560,8 +559,8 @@
 		if(68 to 85)
 			user.visible_message("<span class='danger'>[user] slams hard into [hit], knocking [user.p_them()] senseless!</span>",
 								"<span class='userdanger'>You slam hard into [hit], knocking yourself senseless!</span>")
-			user.apply_damage(10, BRUTE)
-			user.apply_damage(30, STAMINA)
+			user.take_direct_damage(10, BRUTE)
+			user.take_direct_damage(30, CONSCIOUSNESS)
 			user.confused += 10
 			user.Knockdown(3 SECONDS)
 			shake_camera(user, 3, 4)
@@ -569,8 +568,8 @@
 		if(1 to 67)
 			user.visible_message("<span class='danger'>[user] slams into [hit]!</span>",
 								"<span class='userdanger'>You slam into [hit]!</span>")
-			user.apply_damage(10, BRUTE)
-			user.apply_damage(20, STAMINA)
+			user.take_direct_damage(10, BRUTE)
+			user.take_direct_damage(20, CONSCIOUSNESS)
 			user.Knockdown(2 SECONDS)
 			shake_camera(user, 2, 2)
 
@@ -603,7 +602,7 @@
 							"<span class='userdanger'>You smacks into [windscreen_casualty] like a bug!</span>")
 		user.Paralyze(1 SECONDS)
 		user.Knockdown(3 SECONDS)
-		windscreen_casualty.apply_damage(30 * speed, 0)
+		windscreen_casualty.take_direct_damage(30 * speed, BRUTE)
 		user.adjustStaminaLoss(10 * speed, updating_health=FALSE)
 		user.adjustBruteLoss(5 * speed)
 

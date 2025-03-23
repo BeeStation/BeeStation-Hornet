@@ -426,13 +426,13 @@
 				visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber."))
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
 			if(helmet)
-				helmet.apply_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
+				helmet.deal_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
 			if(suit)
-				suit.apply_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
+				suit.deal_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
 			if(mask)
-				mask.apply_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
+				mask.deal_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
 			if(storage)
-				storage.apply_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
+				storage.deal_damage(burn_damage * 10, 0, BURN, DAMAGE_FIRE)
 			// The wires get damaged too.
 			wires.cut_all(null)
 		if(!toasted) //Special toast check to prevent a double finishing message.

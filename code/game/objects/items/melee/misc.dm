@@ -69,8 +69,7 @@
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 75
-	sharpness = SHARP_DISMEMBER
+	sharpness = SHARP_V
 	bleed_force = BLEED_CUT
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -252,8 +251,6 @@
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
-	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
-
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, span_danger("You hit yourself over the head."))
@@ -262,7 +259,7 @@
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			H.deal_damage(2*force, sharpness, BRUTE, zone = BODY_ZONE_HEAD)
 		else
 			user.take_bodypart_damage(2*force)
 		return
@@ -310,7 +307,7 @@
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			additional_effects_carbon(target, user)
 			if((user.is_zone_selected(BODY_ZONE_HEAD)) || (user.is_zone_selected(BODY_ZONE_CHEST)))
-				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
+				target.deal_damage(stamina_damage, sharpness, STAMINA, zone = BODY_ZONE_CHEST)
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
 			if((user.is_zone_selected(BODY_ZONE_R_LEG)) || (user.is_zone_selected(BODY_ZONE_L_LEG)))
@@ -319,11 +316,11 @@
 				target.visible_message(desc["visibletrip"], desc["localtrip"])
 			var/combat_zone = user.get_combat_bodyzone(target)
 			if(combat_zone == BODY_ZONE_L_ARM)
-				target.apply_damage(50, STAMINA, BODY_ZONE_L_ARM, def_check)
+				target.deal_damage(50, sharpness, STAMINA, zone = BODY_ZONE_L_ARM)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 			if(combat_zone == BODY_ZONE_R_ARM)
-				target.apply_damage(50, STAMINA, BODY_ZONE_R_ARM, def_check)
+				target.deal_damage(50, sharpness, STAMINA, zone = BODY_ZONE_R_ARM)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
@@ -503,7 +500,7 @@
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			H.deal_damage(2*force, sharpness, BRUTE, zone = BODY_ZONE_HEAD)
 		else
 			user.take_bodypart_damage(2*force)
 		return
@@ -612,7 +609,7 @@
 	slot_flags = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 0.001
-	armour_penetration = 1000
+	sharpness = 1000
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
 	block_level = 1
@@ -939,7 +936,7 @@
 
 /obj/item/melee/tonfa/attack(mob/living/target, mob/living/user)
 	var/target_zone = user.get_combat_bodyzone(target)
-	var/armour_level = target.getarmor(target_zone, STAMINA, penetration = armour_penetration - 15)
+	var/armour_level = target.get_bodyzone_armor_flag(target_zone, STAMINA, penetration = armour_penetration - 15)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -950,7 +947,7 @@
 		force = initial(force)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			H.deal_damage(2*force, sharpness, BRUTE, zone = BODY_ZONE_HEAD)
 		else
 			user.take_bodypart_damage(2*force)
 		return

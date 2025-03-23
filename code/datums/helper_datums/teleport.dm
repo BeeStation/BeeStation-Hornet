@@ -399,7 +399,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 		if (obj_damage > 0) // should skip this if not needed
 			for (var/obj/object in checked_turf.contents)
 				if (object.density)
-					object.apply_damage(obj_damage, obj_penetration)
+					object.deal_damage(obj_damage, obj_penetration)
 		// check if we should stop due to obstacles
 		if (!phase && checked_turf.is_blocked_turf(TRUE))
 			break // stop moving forward

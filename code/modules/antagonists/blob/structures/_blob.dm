@@ -189,7 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	if(istype(P))
 		playsound(src, 'sound/weapons/pierce.ogg', 50, 1) //we don't have a hitsound so lets just overwrite it here
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
-		apply_damage((P.energy)*0.6, P.sharpness)
+		deal_damage((P.energy)*0.6, P.sharpness, P.damage_type, P.armor_flag)
 	else
 		. = ..()
 
@@ -207,9 +207,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 	..()
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
-			apply_damage(power/400, 0, BURN, DAMAGE_ENERGY)
+			deal_damage(power/400, 0, BURN, DAMAGE_ENERGY)
 	else
-		apply_damage(power/400, 0, BURN, DAMAGE_ENERGY)
+		deal_damage(power/400, 0, BURN, DAMAGE_ENERGY)
 
 /obj/structure/blob/extinguish()
 	..()
@@ -282,7 +282,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		damage_amount = overmind.blobstrain.damage_reaction(src, damage_amount, damage_type, damage_flag)
 	return damage_amount
 
-/obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/blob/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(. && atom_integrity > 0)
 		update_icon()

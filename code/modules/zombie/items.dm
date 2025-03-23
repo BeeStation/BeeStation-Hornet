@@ -54,7 +54,7 @@
 			check_feast(target, user)
 	if((istype(target, /obj/structure) || istype(target, /obj/machinery)) && viral)
 		var/obj/O = target
-		O.take_damage(21, BRUTE, MELEE, 0)
+		O.deal_damage(21, sharpness, BRUTE, sound = 0)
 
 /proc/try_to_zombie_infect(mob/living/carbon/human/target)
 	CHECK_DNA_AND_SPECIES(target)

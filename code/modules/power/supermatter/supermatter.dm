@@ -660,7 +660,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(blob.get_integrity() > 100)
 		blob.visible_message(span_danger("\The [blob] strikes at \the [src] and flinches away!"),\
 		span_italics("You hear a loud crack as you are washed with a wave of heat."))
-		blob.apply_damage(100, 0, BURN)
+		blob.take_direct_damage(100, 0, BURN)
 	else
 		blob.visible_message(span_danger("\The [blob] strikes at \the [src] and rapidly flashes to ash."),\
 		span_italics("You hear a loud crack as you are washed with a wave of heat."))
