@@ -577,37 +577,31 @@
 ///They can't die during this, but if they're past crit then take increasing stamina damage
 ///If they're past fullcrit, their movement is slowed by half
 ///If they OD, their heart explodes (if they were brought back from the dead)
-/datum/reagent/inverse/penthrite
+/datum/reagent/drug/nooartrium
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
-	ph = 14
-	metabolization_rate = 0.05 * REM
-	addiction_types = list(/datum/addiction/medicine = 12)
 	overdose_threshold = 20
 	self_consuming = TRUE //No pesky liver shenanigans
-	chemical_flags = REAGENT_DONOTSPLIT | REAGENT_DEAD_PROCESS
-	affected_organ_flags = NONE
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
 	/// List of trait buffs to give to the affected mob, and remove as needed.
 	var/static/list/trait_buffs = list(
 		TRAIT_NOCRITDAMAGE,
-		TRAIT_NOCRITOVERLAY,
 		TRAIT_NODEATH,
 		TRAIT_NOHARDCRIT,
 		TRAIT_NOSOFTCRIT,
-		TRAIT_STABLEHEART,
+		TRAIT_STABLEHEART
 	)
 
-/datum/reagent/inverse/penthrite/on_mob_dead(mob/living/carbon/affected_mob, seconds_per_tick)
-	. = ..()
-	if (HAS_TRAIT(affected_mob, TRAIT_SUICIDED))
-		return
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+/datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
+	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		return
-	metabolization_rate = 0.2 * REM
-	affected_mob.add_traits(trait_buffs, type)
+	ADD_TRAIT(affected_mob, TRAIT_NOCRITDAMAGE, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NODEATH, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NOHARDCRIT, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NOSOFTCRIT, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
 	affected_mob.set_stat(CONSCIOUS) //This doesn't touch knocked out
 	affected_mob.updatehealth()
 	affected_mob.update_sight()
@@ -616,58 +610,52 @@
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT) //Prevents the user from being knocked out by oxyloss
 	affected_mob.set_resting(FALSE) //Please get up, no one wants a deaththrows juggernaught that lies on the floor all the time
 	affected_mob.SetAllImmobility(0)
+	if(affected_mob.stat != DEAD)
+		return
+	if(affected_mob.suiciding)
+		return
+	metabolization_rate = 0.2 * REM
 	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
 	back_from_the_dead = TRUE
 	affected_mob.emote("gasp")
-	affected_mob.playsound_local(affected_mob, 'sound/effects/health/fastbeat.ogg', 65)
 
-/datum/reagent/inverse/penthrite/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+/datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(!back_from_the_dead)
-		return
 	//Following is for those brought back from the dead only
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	for(var/datum/wound/iter_wound as anything in affected_mob.all_wounds)
-		iter_wound.adjust_blood_flow(1-creation_purity)
 	var/need_mob_update
-	need_mob_update = affected_mob.adjustBruteLoss(5 * (1-creation_purity) * seconds_per_tick, required_bodytype = affected_bodytype)
-	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (1 + (1-creation_purity)) * seconds_per_tick, required_organ_flag = affected_organ_flags)
+	need_mob_update += affected_mob.adjustBruteLoss(1 * seconds_per_tick)
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 1 * seconds_per_tick)
 	if(affected_mob.health < HEALTH_THRESHOLD_CRIT)
 		affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
 	if(affected_mob.health < HEALTH_THRESHOLD_FULLCRIT)
 		affected_mob.add_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		remove_buffs(affected_mob)
-	if(need_mob_update)
-		return UPDATE_MOB_HEALTH
 
-/datum/reagent/inverse/penthrite/on_mob_delete(mob/living/carbon/affected_mob)
+
+/datum/reagent/drug/nooartrium/on_mob_delete(mob/living/carbon/affected_mob)
 	. = ..()
 	remove_buffs(affected_mob)
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	if(affected_mob.health < -500 || heart.organ_flags & ORGAN_FAILING)//Honestly commendable if you get -500
-		explosion(affected_mob, light_impact_range = 1, explosion_cause = src)
+		explosion(affected_mob, light_impact_range = 1)
 		qdel(heart)
 		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
 
-/datum/reagent/inverse/penthrite/overdose_start(mob/living/carbon/affected_mob)
+/datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
 	. = ..()
-	if(!back_from_the_dead)
-		return ..()
-	var/obj/item/organ/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
-	if(!heart) //No heart? No life!
-		REMOVE_TRAIT(affected_mob, TRAIT_NODEATH, type)
-		affected_mob.stat = DEAD
-		return ..()
-	explosion(affected_mob, light_impact_range = 1, explosion_cause = src)
-	qdel(heart)
-	affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
-	return..()
 
-/datum/reagent/inverse/penthrite/proc/remove_buffs(mob/living/carbon/affected_mob)
-	affected_mob.remove_traits(trait_buffs, type)
+
+
+/datum/reagent/drug/nooartrium/proc/remove_buffs(mob/living/carbon/affected_mob)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOCRITDAMAGE, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NODEATH, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOHARDCRIT, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_NOSOFTCRIT, FROM_NOOARTRIUM)
+	REMOVE_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
 	affected_mob.remove_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
 	affected_mob.update_sight()
