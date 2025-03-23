@@ -64,6 +64,6 @@
 /datum/chemical_reaction/nooartrium
 	name = "Nooartrium"
 	results = list(/datum/reagent/drug/nooartrium = 1)
-	required_reagents = list(/datum/reagent/medicine/atropine = 1, /datum/reagent/toxin/morphine = 1, /datum/reagent/toxin/Teslium = 1, /datum/reagent/medicine/tricordrazine =1)
+	required_reagents = list(/datum/reagent/medicine/atropine = 1, /datum/reagent/medicine/morphine = 1, /datum/reagent/teslium = 1, /datum/reagent/medicine/tricordrazine =1)
 	required_temp = 500
 	reaction_tags = REACTION_TAG_DRUG
