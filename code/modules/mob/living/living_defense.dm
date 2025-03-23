@@ -32,6 +32,8 @@
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
+/mob/living/proc/get_average_armor_flag(armour_flag = ARMOUR_BLUNT)
+
 /mob/living/proc/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 
 /// Get the armour value for a specific damage type, targetting a particular zone.

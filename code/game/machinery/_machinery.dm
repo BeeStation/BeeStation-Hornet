@@ -660,7 +660,7 @@
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = deal_damage(4, SHARP_II, BRUTE, MELEE, 1, zone = ran_zone(user.get_combat_bodyzone()))
+		var/damage = deal_damage(4, SHARP_II, BRUTE, DAMAGE_STANDARD, 1, zone = ran_zone(user.get_combat_bodyzone()))
 		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
@@ -1027,7 +1027,7 @@
 		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
-	deal_damage(500, 0, BRUTE, DAMAGE_ACID, sound_effect = TRUE)
+	deal_damage(500, 0, BRUTE, DAMAGE_ACID, sound = TRUE)
 	return TRUE
 
 /obj/machinery/vv_edit_var(vname, vval)

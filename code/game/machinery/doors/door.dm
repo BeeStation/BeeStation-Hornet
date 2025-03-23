@@ -229,7 +229,7 @@
 /obj/machinery/door/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
 	. = ..()
 	if(. && atom_integrity > 0)
-		if(damage_amount >= 10 && prob(30))
+		if(amount >= 10 && prob(30))
 			spark_system.start()
 
 /obj/machinery/door/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

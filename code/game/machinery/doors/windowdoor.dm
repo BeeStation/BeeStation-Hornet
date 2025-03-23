@@ -250,7 +250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return (exposed_temperature > T0C + (reinf ? 1600 : 800))
 
 /obj/machinery/door/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	deal_damage(round(exposed_temperature / 200), 0, BURN, DAMAGE_FIRE, sound_effect = FALSE)
+	deal_damage(round(exposed_temperature / 200), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
 /obj/machinery/door/window/should_emag(mob/user)
 	// Don't allow emag if the door is currently open or moving

@@ -138,10 +138,10 @@
 		switch(severity)
 			if(1)
 				if(prob(50))
-					atom_break(ENERGY)
+					atom_break(DAMAGE_ENERGY)
 			if(2)
 				if(prob(10))
-					atom_break(ENERGY)
+					atom_break(DAMAGE_ENERGY)
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()

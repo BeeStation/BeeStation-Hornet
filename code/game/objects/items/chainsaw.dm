@@ -136,7 +136,7 @@
 	block_power = 75
 	block_level = 1
 	attack_weight = 3 //fear him
-	sharpness = IIX
+	sharpness = SHARP_IIX
 	var/knockdown = 1
 	light_range = 6
 

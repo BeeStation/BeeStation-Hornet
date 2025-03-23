@@ -363,8 +363,9 @@
 			continue
 		// Run armour checks and apply damage
 		target.deal_damage(25, 0, BRUTE, zone = BODY_ZONE_CHEST)
-		target.Paralyze(10 * (100 - armor_block) / 100)
-		target.Knockdown(40 * (100 - armor_block) / 100)
+		var/armour_block = target.get_bodyzone_armor_flag(BODY_ZONE_CHEST, ARMOUR_BLUNT)
+		target.Paralyze(10 * (100 - armour_block) / 100)
+		target.Knockdown(40 * (100 - armour_block) / 100)
 		// Check if we successfully knocked them down
 		if (target.body_position == LYING_DOWN)
 			to_chat(target, span_userdanger("[user] teleports into you, knocking you to the floor with the bluespace wave!"))

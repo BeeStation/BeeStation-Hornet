@@ -53,10 +53,10 @@
 		var/turf/T = loc
 		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
-	deal_damage(400, 0, BRUTE, MELEE, 0, get_dir(src, B))
+	deal_damage(400, 0, BRUTE, DAMAGE_STANDARD, 0, get_dir(src, B))
 
 /obj/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(attack_generic(user, 60, BRUTE, MELEE, 0))
+	if(attack_generic(user, 60, BRUTE, DAMAGE_STANDARD, 0))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
 /obj/attack_basic_mob(mob/living/basic/user)
@@ -65,9 +65,9 @@
 		return FALSE
 	else
 		if(user.obj_damage)
-			. = attack_generic(user, user.obj_damage, user.melee_damage_type, MELEE, TRUE, user.armour_penetration)
+			. = attack_generic(user, user.obj_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.armour_penetration)
 		else
-			. = attack_generic(user, user.melee_damage, user.melee_damage_type, MELEE, TRUE, user.armour_penetration)
+			. = attack_generic(user, user.melee_damage, user.melee_damage_type, DAMAGE_STANDARD, TRUE, user.armour_penetration)
 		if(.)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
@@ -80,9 +80,9 @@
 		if(M.environment_smash)
 			play_soundeffect = 0
 		if(M.obj_damage)
-			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.armour_penetration)
 		else
-			. = attack_generic(M, M.melee_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.melee_damage, M.melee_damage_type, DAMAGE_STANDARD, play_soundeffect, M.armour_penetration)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
@@ -103,7 +103,7 @@
 	var/damage = rand(15)
 	if(user.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
-	attack_generic(user, damage, MELEE, 1)
+	attack_generic(user, damage, DAMAGE_STANDARD, 1)
 
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
@@ -133,11 +133,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
 		for(var/armour_value in get_armor_rating())
-			if(armour_value != ACID && armour_value != FIRE)
+			if(armour_value != DAMAGE_ACID && armour_value != DAMAGE_FIRE)
 				set_armor(get_armor().generate_new_with_modifiers(list(0 - round(sqrt(acid_level)*0.1))))
 		if(prob(33))
 			playsound(loc, 'sound/items/welder.ogg', 150, 1)
-		deal_damage(min(1 + round(sqrt(acid_level)*0.3), 300), 0, BURN, DAMAGE_ACID, sound_effect = FALSE)
+		deal_damage(min(1 + round(sqrt(acid_level)*0.3), 300), 0, BURN, DAMAGE_ACID, sound = FALSE)
 
 	acid_level = max(acid_level - (5 + 3*round(sqrt(acid_level))), 0)
 	if(!acid_level)
@@ -201,9 +201,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 //what happens when the obj's integrity reaches zero.
 /obj/atom_destruction(damage_flag)
 	. = ..()
-	if(damage_flag == ACID)
+	if(damage_flag == DAMAGE_ACID)
 		acid_melt()
-	else if(damage_flag == FIRE)
+	else if(damage_flag == DAMAGE_FIRE)
 		burn()
 	else
 		deconstruct(FALSE)

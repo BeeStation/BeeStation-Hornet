@@ -756,7 +756,7 @@
 	target.visible_message(span_danger("[user] knocks [target] off [target.p_their()] feet!"), span_userdanger("[user] yanks your legs out from under you!"))
 
 /obj/item/melee/curator_whip/proc/whip_lash(mob/living/user, mob/living/target)
-	if(target.getarmor(type = MELEE, penetration = armour_penetration) < 16)
+	if(target.get_average_armor_flag(DAMAGE_STANDARD) < 16)
 		target.emote("scream")
 		target.visible_message(span_danger("[user] whips [target]!"), span_userdanger("[user] whips you! It stings!"))
 
@@ -936,7 +936,7 @@
 
 /obj/item/melee/tonfa/attack(mob/living/target, mob/living/user)
 	var/target_zone = user.get_combat_bodyzone(target)
-	var/armour_level = target.get_bodyzone_armor_flag(target_zone, STAMINA, penetration = armour_penetration - 15)
+	var/armour_level = target.get_bodyzone_armor_flag(target_zone)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -989,9 +989,9 @@
 			target.Move(target_shove_turf, shove_dir)
 		if (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG) || user.is_zone_selected(BODY_ZONE_L_ARM) || user.is_zone_selected(BODY_ZONE_R_ARM))
 			// 4-5 hits on an unarmoured target
-			target.apply_damage(stamina_force*0.6, STAMINA, target_zone, armour_level)
+			target.deal_damage(stamina_force*0.6, 0, STAMINA, zone = target_zone)
 		else
 			// 4-5 hits on an unarmoured target
-			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
+			target.deal_damage(stamina_force, 0, STAMINA, zone = target_zone)
 
 	return ..()

@@ -283,7 +283,7 @@
 
 	if(pressure >= TANK_LEAK_PRESSURE)
 		var/pressure_damage_ratio = (pressure - TANK_LEAK_PRESSURE) / (TANK_RUPTURE_PRESSURE - TANK_LEAK_PRESSURE)
-		deal_damage(max_integrity * pressure_damage_ratio * delta_time, BRUTE, BOMB, FALSE, NONE)
+		deal_damage(max_integrity * pressure_damage_ratio * delta_time, BRUTE, DAMAGE_BOMB, FALSE, NONE)
 		return TRUE
 	return FALSE
 
