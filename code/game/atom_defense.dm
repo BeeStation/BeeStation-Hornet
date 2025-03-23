@@ -85,11 +85,11 @@
 			// In between the 2 values (armour rating between 0 and penetration),
 			// then we have a linear amount of penetration damage being blocked
 			var/penetration_proportion = penetration <= 0 ? 0 : CLAMP01((penetration - penetration_rating) / penetration)
-			var/penetration_damage = damage_amount * penetration_proportion
+			var/penetration_damage = amount * penetration_proportion
 			// Unprotected damage
 			take_sharpness_damage(penetration_damage, type, flag, zone)
 			// Protected damage
-			var/blunt_damage = damage_amount * (1 - penetration_proportion)
+			var/blunt_damage = amount * (1 - penetration_proportion)
 			var/blunt_rating = 100 - (get_armor_rating(ARMOUR_BLUNT) / 100)
 			var/absorbed_damage = blunt_damage * (1 - blunt_rating)
 			var/taken_damage = blunt_damage * blunt_rating

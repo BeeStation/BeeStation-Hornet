@@ -133,7 +133,7 @@
 	playsound(src, P.hitsound, 50, 1)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
-	deal_damage(P.damage, P.sharpness, P.damage_type, P.armor_flag, turn(P.dir, 180), FALSE)
+	deal_damage(P.damage, P.sharpness, P.damage_type, P.damage_flag, turn(P.dir, 180), FALSE)
 
 //====================================
 // Generic Attack Chain

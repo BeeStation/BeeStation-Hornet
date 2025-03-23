@@ -3,7 +3,7 @@
 	icon_state = "e_netting"
 	damage = 10
 	damage_type = STAMINA
-	armor_flag = STAMINA
+	damage_flag = DAMAGE_ENERGY
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 10
 

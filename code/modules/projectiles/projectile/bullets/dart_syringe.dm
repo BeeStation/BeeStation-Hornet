@@ -60,7 +60,7 @@
 	name = "bee"
 	icon_state = "bee"
 	damage = 1
-	armor_flag = MELEE
+	damage_flag = DAMAGE_STANDARD
 	piercing = TRUE
 
 /obj/projectile/bullet/dart/bee/on_hit(atom/target, blocked)

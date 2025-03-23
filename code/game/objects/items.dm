@@ -695,7 +695,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/blockhand = 0
 	var/attackforce = 0
-	var/attackflag = MELEE
+	var/attackflag = DAMAGE_STANDARD
 	var/sharpness = 0
 	if(owner.get_active_held_item() == src) //this feels so hacky...
 		if(owner.active_hand_index == 1)
@@ -711,7 +711,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/projectile/P = hitby
 		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
-		attackflag = P.armor_flag
+		attackflag = P.damage_flag
 		sharpness = P.sharpness
 	else if(isitem(hitby))
 		var/obj/item/I = hitby

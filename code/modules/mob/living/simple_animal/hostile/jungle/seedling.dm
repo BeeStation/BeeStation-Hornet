@@ -39,7 +39,7 @@
 	damage = 10
 	damage_type = BURN
 	light_range = 2
-	armor_flag = ENERGY
+	damage_flag = DAMAGE_ENERGY
 	light_color = LIGHT_COLOR_DIM_YELLOW
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'

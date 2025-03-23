@@ -73,9 +73,9 @@
 		return BULLET_ACT_BLOCK
 	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
 		return BULLET_ACT_HIT
-	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
+	var/armor = run_armor_check(def_zone, P.damage_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, armor, FALSE, P.armor_flag, P.sharpness)
+		apply_damage(P.damage, P.damage_type, def_zone, armor, FALSE, P.damage_flag, P.sharpness)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK

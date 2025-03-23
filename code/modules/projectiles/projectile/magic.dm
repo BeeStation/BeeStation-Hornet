@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	sharpness = SHARP_X
-	armor_flag = NONE
+	damage_flag = DAMAGE_STANDARD
 	martial_arts_no_deflect = TRUE
 	/// determines what type of antimagic can block the spell projectile
 	var/antimagic_flags = MAGIC_RESISTANCE
