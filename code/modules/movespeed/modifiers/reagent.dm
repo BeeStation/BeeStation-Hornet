@@ -38,4 +38,4 @@
 	multiplicative_slowdown = -0.25
 
 /datum/movespeed_modifier/reagent/nooartrium
-	multiplicative_slowdown = 0.4
+	multiplicative_slowdown = 0.25
