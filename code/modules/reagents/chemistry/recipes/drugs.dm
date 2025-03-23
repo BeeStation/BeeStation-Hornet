@@ -53,3 +53,17 @@
 	required_reagents = list(/datum/reagent/medicine/morphine = 3, /datum/reagent/toxin/chloralhydrate = 3, /datum/reagent/toxin/fentanyl = 3, /datum/reagent/medicine/epinephrine =3)
 	required_temp = 370
 	reaction_tags = REACTION_TAG_DRUG
+
+/datum/chemical_reaction/ketamine
+	name = "Ketamine"
+	results = list(/datum/reagent/drug/ketamine = 3)
+	required_reagents = list(/datum/reagent/medicine/morphine = 3, /datum/reagent/toxin/chloralhydrate = 3, /datum/reagent/toxin/fentanyl = 3, /datum/reagent/medicine/epinephrine =3)
+	required_temp = 370
+	reaction_tags = REACTION_TAG_DRUG
+
+/datum/chemical_reaction/nooartrium
+	name = "Nooartrium"
+	results = list(/datum/reagent/drug/nooartrium = 1)
+	required_reagents = list(/datum/reagent/medicine/atropine = 1, /datum/reagent/toxin/morphine = 1, /datum/reagent/toxin/Teslium = 1, /datum/reagent/medicine/Tricordrazine =1)
+	required_temp = 500
+	reaction_tags = REACTION_TAG_DRUG
