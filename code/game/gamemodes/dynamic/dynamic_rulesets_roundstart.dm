@@ -120,6 +120,7 @@
 	weight = 2
 	points_cost = 15
 	flags = HIGH_IMPACT_RULESET
+	use_antag_reputation = FALSE
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
 	. = ..()

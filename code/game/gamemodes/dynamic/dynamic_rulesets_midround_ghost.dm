@@ -22,9 +22,6 @@
 				candidates -= candidate
 				continue
 
-	if(!length(candidates))
-		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
-
 /datum/dynamic_ruleset/midround/ghost/allowed()
 	. = ..()
 	if(!.)
@@ -44,6 +41,8 @@
 	send_applications()
 	// Trim candidates
 	trim_candidates()
+	if(!length(candidates))
+		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
 
 	// Choose antags
 	for(var/i = 1 to drafted_players_amount)

@@ -327,7 +327,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 /datum/game_mode/dynamic/proc/init_midround()
 	configured_midround_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
 	if(!length(configured_midround_rulesets))
-		stack_trace("DYNAMIC: configured_midround_rulesets is empty. It's impossible to roll midrounds")
+		stack_trace("DYNAMIC: configured_midround_rulesets is empty. It is impossible to roll midrounds")
 		return
 
 	addtimer(CALLBACK(src, PROC_REF(try_midround_roll)), 1 MINUTES, TIMER_LOOP)
@@ -437,7 +437,8 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 		possible_rulesets[ruleset] = ruleset.weight
 
 	if(!length(possible_rulesets))
-		stack_trace("Tried to roll a [severity] midround but there are no possible rulesets.")
+		log_game("DYNAMIC: FAIL: Tried to roll a [severity] midround but there are no possible rulesets.")
+		return
 
 	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight_allow_zero(possible_rulesets)
