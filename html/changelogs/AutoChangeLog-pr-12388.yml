@@ -1,8 +1,0 @@
-author: ClownMoff, Reds88
-delete-after: true
-changes:
-  - rscadd: Added vials, small potions and potions,  glass bottles resprites that
-      can be printed in the autolathe
-  - tweak: Bottles now break when thrown, as they are made out of glass
-  - imageadd: Resprited the xenobio potions
-  - imageadd: Resprited the potion of flight icons

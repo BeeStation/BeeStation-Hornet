@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: fixed void cloak storage
-  - bugfix: removed storage from several things that weren't supposed to have it
