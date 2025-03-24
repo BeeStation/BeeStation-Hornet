@@ -1,4 +1,6 @@
-#define HEART_RESPAWN_THRESHOLD 40
+/// How many life ticks are required for the nightmare's heart to revive the nightmare.
+#define HEART_RESPAWN_THRESHOLD (80 SECONDS)
+/// A special flag value used to make a nightmare heart not grant a light eater. Appears to be unused.
 #define HEART_SPECIAL_SHADOWIFY 2
 
 /datum/species/shadow
@@ -25,7 +27,7 @@
 	var/shadow_sect_dependency = 0 // only important if shadow sect is at play, is a way to check what level of rituals it completed, used by shadow hearts
 
 
-/datum/species/shadow/spec_life(mob/living/carbon/human/H)
+/datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
@@ -243,14 +245,14 @@
 /obj/item/organ/heart/nightmare/update_icon()
 	return //always beating visually
 
-/obj/item/organ/heart/nightmare/on_death()
+/obj/item/organ/heart/nightmare/on_death(delta_time, times_fired)
 	if(!owner)
 		return
 	var/turf/T = get_turf(owner)
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
-			respawn_progress++
+			respawn_progress += delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
