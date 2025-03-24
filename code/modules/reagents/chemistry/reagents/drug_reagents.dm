@@ -664,4 +664,3 @@
 	REMOVE_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM)
 	REMOVE_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN, FROM_NOOARTRIUM)
 	affected_mob.update_sight()
-	if(consequnces)
