@@ -577,7 +577,6 @@
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
 	overdose_threshold = 25
-	metabolization_rate = 0.2 * REM
 	self_consuming = TRUE //No pesky liver shenanigans
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
@@ -617,32 +616,31 @@
 	to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength, forcing your battered body to move!"))
 
 
-/datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+/datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if (times_fired > 35 && !consequnces)
+	if (times_fired > 500 && !consequnces)
 		consequnces = TRUE
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	affected_mob.adjustBruteLoss(0.5)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (((affected_mob.getBruteLoss() + affected_mob.getFireLoss()) / 200) + 0.5))
+	affected_mob.adjustBruteLoss(0.25 * delta_time)
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (((affected_mob.getBruteLoss() + affected_mob.getFireLoss()) / 200) + 0.5)* delta_time/6)
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		on_mob_delete(affected_mob)
 	else
-		heart.maxHealth -= 0.5
+		heart.maxHealth -= 0.25 * delta_time/3
 
 
 /datum/reagent/drug/nooartrium/on_mob_delete(mob/living/carbon/affected_mob)
 	. = ..()
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	remove_buffs(affected_mob)
-	if(affected_mob.health < -300 || heart.organ_flags & ORGAN_FAILING)
+	if(affected_mob.health < -300 || !heart || heart.organ_flags & ORGAN_FAILING)
 		affected_mob.add_splatter_floor(get_turf(affected_mob))
 		qdel(heart)
 		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
 	else if(consequnces)
-		var/datum/disease/D = new /datum/disease/heart_failure()
-		affected_mob.ForceContractDisease(D, FALSE, TRUE)
+		affected_mob.set_heartattack(TRUE)
 
 /datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
 	. = ..()
