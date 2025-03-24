@@ -81,11 +81,11 @@
 		return
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
-		blob_options += /obj/structure/blob/factory/lone
+		blob_options += /obj/structure/blob/special/factory/lone
 	if(strong_blob)
 		blob_options += /obj/structure/blob/shield/
 	if(node_blob)
-		blob_options += /obj/structure/blob/node/lone
+		blob_options += /obj/structure/blob/special/node/lone
 	var/pick_blob = pick(blob_options)
 	if(ready_to_pop)
 		var/list/blob_color = list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
