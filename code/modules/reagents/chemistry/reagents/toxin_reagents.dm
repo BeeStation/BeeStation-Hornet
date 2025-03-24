@@ -11,9 +11,9 @@
 	var/toxpwr = 1.5
 	var/silent_toxin = FALSE //won't produce a pain message when processed by liver/life() if there isn't another non-silent toxin present.
 
-/datum/reagent/toxin/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(toxpwr)
-		M.adjustToxLoss(toxpwr*REM, 0)
+		M.adjustToxLoss(toxpwr * REM * delta_time, 0)
 		. = TRUE
 	..()
 
@@ -49,8 +49,8 @@
 		M.domutcheck()
 	..()
 
-/datum/reagent/toxin/mutagen/on_mob_life(mob/living/carbon/C)
-	C.apply_effect(5,EFFECT_IRRADIATE,0)
+/datum/reagent/toxin/mutagen/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	C.apply_effect(5 * REM * delta_time, EFFECT_IRRADIATE, 0)
 	return ..()
 
 /datum/reagent/toxin/plasma
@@ -64,10 +64,10 @@
 	toxpwr = 3
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C)
+/datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
-		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2*REM)
-	C.adjustPlasma(20)
+		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
+	C.adjustPlasma(20 * REM * delta_time)
 	return ..()
 
 /datum/reagent/toxin/plasma/expose_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
@@ -84,16 +84,16 @@
 	toxpwr = 0
 	taste_description = "acid"
 
-/datum/reagent/toxin/lexorin/on_mob_life(mob/living/carbon/C)
+/datum/reagent/toxin/lexorin/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	. = TRUE
 
 	if(HAS_TRAIT(C, TRAIT_NOBREATH))
 		. = FALSE
 
 	if(.)
-		C.adjustOxyLoss(5, 0)
-		C.losebreath += 2
-		if(prob(20))
+		C.adjustOxyLoss(5 * REM * delta_time, 0)
+		C.losebreath += 2 * REM * delta_time
+		if(DT_PROB(10, delta_time))
 			C.emote("gasp")
 	..()
 
@@ -106,14 +106,14 @@
 	taste_description = "slime"
 	taste_mult = 1.3
 
-/datum/reagent/toxin/slimejelly/on_mob_life(mob/living/carbon/M)
-	if(prob(10))
+/datum/reagent/toxin/slimejelly/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(5, delta_time))
 		to_chat(M, span_danger("Your insides are burning!"))
-		M.adjustToxLoss(rand(1,10)*REM, 0)
-		. = 1
-	else if(prob(40))
-		M.heal_bodypart_damage(5*REM)
-		. = 1
+		M.adjustToxLoss(rand(1, 10), 0)
+		. = TRUE
+	else if(DT_PROB(23, delta_time))
+		M.heal_bodypart_damage(5)
+		. = TRUE
 	..()
 
 /datum/reagent/toxin/minttoxin
@@ -124,7 +124,7 @@
 	toxpwr = 0
 	taste_description = "mint"
 
-/datum/reagent/toxin/minttoxin/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/minttoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(HAS_TRAIT_FROM(M, TRAIT_FAT, OBESITY))
 		M.client?.give_award(/datum/award/achievement/misc/mintgib, M)
 		M.investigate_log("has been gibbed by consuming [src] while fat.", INVESTIGATE_DEATHS)
@@ -137,7 +137,7 @@
 	silent_toxin = TRUE
 	color = "#003333" // rgb: 0, 51, 51
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
-	toxpwr = 2
+	toxpwr = 1
 	taste_description = "fish"
 
 /datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
@@ -155,9 +155,9 @@
 	toxpwr = 0
 	taste_description = "death"
 
-/datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/M, delta_time, times_fired)
 	if(current_cycle >= 10) // delayed activation for toxin
-		M.adjustStaminaLoss((current_cycle - 5)*REM, 0)
+		M.adjustStaminaLoss((current_cycle - 5) * REM * delta_time, 0)
 	if(M.getStaminaLoss() >= 145 && !HAS_TRAIT(M, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
 		M.fakedeath(type)
 	..()
@@ -183,10 +183,10 @@
 	REMOVE_TRAIT(L, TRAIT_FAKEDEATH, type)
 	..()
 
-/datum/reagent/toxin/ghoulpowder/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(1*REM, 0)
+/datum/reagent/toxin/ghoulpowder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOxyLoss(1 * REM * delta_time, 0)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/toxin/mindbreaker
 	name = "Mindbreaker Toxin"
@@ -196,9 +196,9 @@
 	toxpwr = 0
 	taste_description = "sourness"
 
-/datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/M)
-	if(!M.has_quirk(/datum/quirk/insanity))
-		M.hallucination += 5
+/datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/metabolizer, delta_time, times_fired)
+	if(!metabolizer.has_quirk(/datum/quirk/insanity))
+		metabolizer.hallucination += 5 * REM * delta_time
 	return ..()
 
 /datum/reagent/toxin/plantbgone
@@ -253,10 +253,10 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 
-/datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/C)
+/datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	C.damageoverlaytemp = 60
 	C.update_damage_hud()
-	C.blur_eyes(3)
+	C.blur_eyes(3 * REM * delta_time)
 	return ..()
 
 /datum/reagent/toxin/spore_burning
@@ -267,8 +267,8 @@
 	toxpwr = 0.5
 	taste_description = "burning"
 
-/datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(2)
+/datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjust_fire_stacks(2 * REM * delta_time)
 	M.IgniteMob()
 	return ..()
 
@@ -282,18 +282,18 @@
 	toxpwr = 0
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
-/datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 10)
-			M.confused += 2
-			M.drowsyness += 2
+			M.confused += 2 * REM * delta_time
+			M.drowsyness += 2 * REM * delta_time
 		if(10 to 50)
-			M.Sleeping(40)
-			. = 1
+			M.Sleeping(40 * REM * delta_time)
+			. = TRUE
 		if(51 to INFINITY)
-			M.Sleeping(40)
-			M.adjustToxLoss((current_cycle - 50)*REM, 0)
-			. = 1
+			M.Sleeping(40 * REM * delta_time)
+			M.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, 0)
+			. = TRUE
 	..()
 
 /datum/reagent/toxin/fakebeer	//disguised as normal beer for use by emagged brobots
@@ -307,13 +307,13 @@
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
 
-/datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 50)
-			M.Sleeping(40)
+			M.Sleeping(40 * REM * delta_time)
 		if(51 to INFINITY)
-			M.Sleeping(40)
-			M.adjustToxLoss((current_cycle - 50)*REM, 0)
+			M.Sleeping(40 * REM * delta_time)
+			M.adjustToxLoss(1 * (current_cycle - 50) * REM * delta_time, 0)
 	return ..()
 
 /datum/reagent/toxin/coffeepowder
@@ -342,8 +342,8 @@
 	toxpwr = 0
 	taste_description = "silence"
 
-/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M)
-	M.silent = max(M.silent, 3)
+/datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.silent = max(M.silent, 3 * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/staminatoxin
@@ -352,14 +352,14 @@
 	silent_toxin = TRUE
 	color = "#6E2828"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	data = 13
+	data = 15
 	toxpwr = 0
 
-/datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/M)
-	M.adjustStaminaLoss(REM * data, 0)
+/datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustStaminaLoss(data * REM * delta_time, 0)
 	data = max(data - 1, 3)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/toxin/polonium
 	name = "Polonium"
@@ -371,8 +371,8 @@
 	toxpwr = 0
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M)
-	M.radiation += 10
+/datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.radiation += 4 * REM * delta_time
 	..()
 
 /datum/reagent/toxin/histamine
@@ -386,8 +386,8 @@
 	overdose_threshold = 30
 	toxpwr = 0
 
-/datum/reagent/toxin/histamine/on_mob_life(mob/living/carbon/M)
-	if(prob(50))
+/datum/reagent/toxin/histamine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(30, delta_time))
 		switch(pick(1, 2, 3, 4))
 			if(1)
 				to_chat(M, span_danger("You can barely see!"))
@@ -400,15 +400,15 @@
 				if(prob(75))
 					to_chat(M, "You scratch at an itch.")
 					M.adjustBruteLoss(2*REM, 0)
-					. = 1
+					. = TRUE
 	..()
 
-/datum/reagent/toxin/histamine/overdose_process(mob/living/M)
-	M.adjustOxyLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
-	M.adjustToxLoss(2*REM, 0)
+/datum/reagent/toxin/histamine/overdose_process(mob/living/M, delta_time, times_fired)
+	M.adjustOxyLoss(2 * REM * delta_time, FALSE)
+	M.adjustBruteLoss(2 * REM * delta_time, FALSE, FALSE, BODYTYPE_ORGANIC)
+	M.adjustToxLoss(2 * REM * delta_time, FALSE)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/toxin/formaldehyde
 	name = "Formaldehyde"
@@ -420,8 +420,8 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 1
 
-/datum/reagent/toxin/formaldehyde/on_mob_life(mob/living/carbon/M)
-	if(prob(5))
+/datum/reagent/toxin/formaldehyde/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(2.5, delta_time))
 		holder.add_reagent(/datum/reagent/toxin/histamine, pick(5,15))
 		holder.remove_reagent(/datum/reagent/toxin/formaldehyde, 1.2)
 	else
@@ -436,13 +436,13 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/venom/on_mob_life(mob/living/carbon/M)
-	toxpwr = 0.2*volume
-	M.adjustBruteLoss((0.3*volume)*REM, 0)
-	. = 1
-	if(prob(15))
+/datum/reagent/toxin/venom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	toxpwr = 0.1 * volume
+	M.adjustBruteLoss((0.3 * volume) * REM * delta_time, 0)
+	. = TRUE
+	if(DT_PROB(8, delta_time))
 		M.reagents.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
-		M.reagents.remove_reagent(/datum/reagent/toxin/venom, 1.1)
+		holder.remove_reagent(/datum/reagent/toxin/venom, 1.1)
 	else
 		..()
 
@@ -462,14 +462,14 @@
 				var/datum/nanite_program/NP = X
 				NP.software_error(1) //all programs are destroyed, nullifying all nanites
 
-/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
-	if(M.getStaminaLoss() <= 70)				//Will never stamcrit
-		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM, 0)
-	if(current_cycle >= 4 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
-		M.Paralyze(3 SECONDS, 0)
-		toxpwr += 0.1							//The venom gets stronger until completely purged.
+/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(M.getStaminaLoss() <= 70) //Will never stamcrit
+		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM * delta_time, FALSE)
+	if(current_cycle >= 4 && prob(current_cycle + (volume * 0.3))) //The longer it is in your system and the more of it you have the more frequently you drop
+		M.Paralyze(3 SECONDS * REM * delta_time, 0)
+		toxpwr += 0.1 //The venom gets stronger until completely purged.
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal) || holder.has_reagent(/datum/reagent/medicine/carthatoline))
-		current_cycle += 5						// Prevents using purgatives while in combat
+		current_cycle += 5 // Prevents using purgatives while in combat
 	..()
 
 /datum/reagent/toxin/fentanyl
@@ -481,12 +481,12 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/M)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3*REM, 150)
+/datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3 * REM * delta_time, 150)
 	if(M.toxloss <= 60)
-		M.adjustToxLoss(1*REM, 0)
+		M.adjustToxLoss(1 * REM * delta_time, 0)
 	if(current_cycle >= 18)
-		M.Sleeping(40)
+		M.Sleeping(40 * REM * delta_time)
 	..()
 	return TRUE
 
@@ -499,10 +499,10 @@
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 1.25
 
-/datum/reagent/toxin/cyanide/on_mob_life(mob/living/carbon/M)
-	if(prob(5))
+/datum/reagent/toxin/cyanide/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(2.5, delta_time))
 		M.losebreath += 1
-	if(prob(8))
+	if(DT_PROB(4, delta_time))
 		to_chat(M, "You feel horrendously weak!")
 		M.Stun(40)
 		M.adjustToxLoss(2*REM, 0)
@@ -532,20 +532,20 @@
 	if(method == TOUCH || method == VAPOR)
 		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
-/datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M)
-	if(prob(15))
-		to_chat(M, "You scratch at your head.")
+/datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(8, delta_time))
+		to_chat(M, "<span class='danger'>You scratch at your head.</span>")
 		M.adjustBruteLoss(0.2*REM, 0)
-		. = 1
-	if(prob(15))
-		to_chat(M, "You scratch at your leg.")
+		. = TRUE
+	if(DT_PROB(8, delta_time))
+		to_chat(M, "<span class='danger'>You scratch at your leg.</span>")
 		M.adjustBruteLoss(0.2*REM, 0)
-		. = 1
-	if(prob(15))
-		to_chat(M, "You scratch at your arm.")
+		. = TRUE
+	if(DT_PROB(8, delta_time))
+		to_chat(M, "<span class='danger'>You scratch at your arm.</span>")
 		M.adjustBruteLoss(0.2*REM, 0)
-		. = 1
-	if(prob(3))
+		. = TRUE
+	if(DT_PROB(1.5, delta_time))
 		M.reagents.add_reagent(/datum/reagent/toxin/histamine,rand(1,3))
 		M.reagents.remove_reagent(/datum/reagent/toxin/itching_powder,1.2)
 		return
@@ -561,8 +561,8 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 2.5
 
-/datum/reagent/toxin/initropidril/on_mob_life(mob/living/carbon/C)
-	if(prob(25))
+/datum/reagent/toxin/initropidril/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	if(DT_PROB(13, delta_time))
 		var/picked_option = rand(1,3)
 		switch(picked_option)
 			if(1)
@@ -594,11 +594,11 @@
 	toxpwr = 0
 	taste_mult = 0 // undetectable, I guess?
 
-/datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle >= 10)
-		M.Stun(40)
+		M.Stun(40 * REM * delta_time)
 		. = TRUE
-	if(prob(20))
+	if(DT_PROB(10, delta_time))
 		M.losebreath += 4
 	..()
 
@@ -612,10 +612,10 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle >= 10)
-		M.Sleeping(40)
-	M.adjustStaminaLoss(10*REM, 0)
+		M.Sleeping(40 * REM * delta_time)
+	M.adjustStaminaLoss(10 * REM * delta_time, 0)
 	..()
 	return TRUE
 
@@ -629,9 +629,9 @@
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 0.5
 
-/datum/reagent/toxin/sulfonal/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/sulfonal/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle >= 22)
-		M.Sleeping(40)
+		M.Sleeping(40 * REM * delta_time)
 	return ..()
 
 /datum/reagent/toxin/amanitin
@@ -661,10 +661,10 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/lipolicide/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/lipolicide/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.nutrition <= NUTRITION_LEVEL_STARVING)
-		M.adjustToxLoss(1*REM, 0)
-	M.adjust_nutrition(-3) // making the chef more valuable, one meme trap at a time
+		M.adjustToxLoss(1 * REM * delta_time, 0)
+	M.adjust_nutrition(-3 * REM * delta_time) // making the chef more valuable, one meme trap at a time
 	M.overeatduration = 0
 	return ..()
 
@@ -677,8 +677,8 @@
 	metabolization_rate = 0.06 * REAGENTS_METABOLISM
 	toxpwr = 1.75
 
-/datum/reagent/toxin/coniine/on_mob_life(mob/living/carbon/M)
-	M.losebreath += 5
+/datum/reagent/toxin/coniine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.losebreath += 5 * REM * delta_time
 	return ..()
 
 /datum/reagent/toxin/spewium
@@ -692,17 +692,17 @@
 	toxpwr = 0
 	taste_description = "vomit"
 
-/datum/reagent/toxin/spewium/on_mob_life(mob/living/carbon/C)
+/datum/reagent/toxin/spewium/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
 	.=..()
-	if(current_cycle >=11 && prob(min(50,current_cycle)))
+	if(current_cycle >= 11 && DT_PROB(min(30, current_cycle), delta_time))
 		C.vomit(10, prob(10), prob(50), rand(0,4), TRUE, prob(30))
 		for(var/datum/reagent/toxin/R in C.reagents.reagent_list)
 			if(R != src)
 				C.reagents.remove_reagent(R.type,1)
 
-/datum/reagent/toxin/spewium/overdose_process(mob/living/carbon/C)
+/datum/reagent/toxin/spewium/overdose_process(mob/living/carbon/C, delta_time, times_fired)
 	. = ..()
-	if(current_cycle >=33 && prob(15))
+	if(current_cycle >= 33 && DT_PROB(7.5, delta_time))
 		C.spew_organ()
 		C.vomit(0, TRUE, TRUE, 4)
 		to_chat(C, span_userdanger("You feel something lumpy come up as you vomit."))
@@ -716,11 +716,11 @@
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 1
 
-/datum/reagent/toxin/curare/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/curare/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle >= 11)
-		M.Paralyze(60)
-	M.adjustOxyLoss(1*REM, 0)
-	. = 1
+		M.Paralyze(60 * REM * delta_time)
+	M.adjustOxyLoss(0.5*REM*delta_time, 0)
+	. = TRUE
 	..()
 
 /datum/reagent/toxin/heparin //Based on a real-life anticoagulant. I'm not a doctor, so this won't be realistic.
@@ -733,13 +733,13 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	toxpwr = 0
 
-/datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if (!H.is_bleeding())
 			H.add_bleeding(BLEED_SURFACE)
-		H.adjustBruteLoss(1, 0) //Brute damage increases with the amount they're bleeding
-		. = 1
+		H.adjustBruteLoss(1 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0) //Brute damage increases with the amount they're bleeding
+		. = TRUE
 	return ..() || .
 
 
@@ -755,9 +755,9 @@
 	taste_description = "spinning"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/rotatium/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/rotatium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.hud_used)
-		if(current_cycle >= 20 && current_cycle%20 == 0)
+		if(current_cycle >= 20 && (current_cycle % 20) == 0)
 			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle/20), 89) // By this point the player is probably puking and quitting anyway
 			for(var/key in pm_controller.controlled_planes)
@@ -781,12 +781,12 @@
 	metabolization_rate = 0.08 * REAGENTS_METABOLISM
 	toxpwr = 0.15
 
-/datum/reagent/toxin/anacea/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/anacea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/remove_amt = 5
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid))
 		remove_amt = 0.5
 	for(var/datum/reagent/medicine/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type,remove_amt)
+		M.reagents.remove_reagent(R.type, remove_amt * REM * delta_time)
 	return ..()
 
 //ACID
@@ -835,9 +835,9 @@
 	toxpwr = 2
 	acidpwr = 42.0
 
-/datum/reagent/toxin/acid/fluacid/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(current_cycle/10, 0)
-	. = 1
+/datum/reagent/toxin/acid/fluacid/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustFireLoss((current_cycle/15) * REM * delta_time, 0)
+	. = TRUE
 	..()
 
 /datum/reagent/toxin/delayed
@@ -851,13 +851,13 @@
 	var/actual_toxpwr = 5
 	var/delay = 30
 
-/datum/reagent/toxin/delayed/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/delayed/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle > delay)
-		holder.remove_reagent(type, actual_metaboliztion_rate * M.metabolism_efficiency)
-		M.adjustToxLoss(actual_toxpwr*REM, 0)
-		if(prob(10))
+		holder.remove_reagent(type, actual_metaboliztion_rate * M.metabolism_efficiency * delta_time)
+		M.adjustToxLoss(actual_toxpwr * REM * delta_time, 0)
+		if(DT_PROB(5, delta_time))
 			M.Paralyze(20)
-		. = 1
+		. = TRUE
 	..()
 
 /datum/reagent/toxin/mimesbane
@@ -888,9 +888,9 @@
 /datum/reagent/toxin/bonehurtingjuice/on_mob_metabolize(mob/living/carbon/M)
 	M.say("Oof ouch my bones!", forced = /datum/reagent/toxin/bonehurtingjuice)
 
-/datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/M)
-	M.adjustStaminaLoss(7.5, 0)
-	if(prob(20))
+/datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustStaminaLoss(7.5 * REM * delta_time, 0)
+	if(DT_PROB(10, delta_time))
 		switch(rand(1, 3))
 			if(1)
 				var/list/possible_says = list("oof.", "ouch!", "my bones.", "oof ouch.", "oof ouch my bones.")
@@ -902,8 +902,8 @@
 				to_chat(M, span_warning("Your bones hurt!"))
 	return ..()
 
-/datum/reagent/toxin/bonehurtingjuice/overdose_process(mob/living/carbon/M)
-	if(prob(4) && iscarbon(M)) //big oof
+/datum/reagent/toxin/bonehurtingjuice/overdose_process(mob/living/carbon/M, delta_time, times_fired)
+	if(DT_PROB(2, delta_time) && iscarbon(M)) //big oof
 		var/selected_part
 		switch(rand(1, 4)) //God help you if the same limb gets picked twice quickly.
 			if(1)
@@ -945,13 +945,13 @@
 	toxpwr = 0
 	taste_description = "tannin"
 
-/datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/M)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 3)
+/datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
 	M.confused = M.dizziness //add a tertiary effect here if this is isn't an effective poison.
-	if(current_cycle >= 12 && prob(8))
+	if(current_cycle >= 12 && DT_PROB(4, delta_time))
 		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
 		to_chat(M, span_notice("[tox_message]"))
-	. = 1
+	. = TRUE
 	..()
 
 //This reagent is intentionally not designed to give much fighting chance. Its only ever used when morph manages to trick somebody into interacting with its disguised form
@@ -964,11 +964,11 @@
 	taste_description = "salt"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
-/datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.set_drugginess(5)
-	M.adjustStaminaLoss(30)
-	M.silent = max(M.silent, 3)
-	M.confused = max(M.confused, 3)
+	M.adjustStaminaLoss(30 * REM * delta_time)
+	M.silent = max(M.silent, 3 * REM * delta_time)
+	M.confused = max(M.confused, 3 * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/morphvenom/mimite
