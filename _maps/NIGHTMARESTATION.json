@@ -1,0 +1,12 @@
+{
+    "map_name": "NIGHTMARE STATION",
+    "map_link": "NIGHTMARESTATION",
+    "map_path": "map_files/NIGHTMARESTATION",
+    "map_file": "NIGHTMARESTATION.dmm",
+    "shuttles": {
+		"cargo": "cargo_fland",
+		"ferry": "ferry_fland",
+		"whiteship": "whiteship_fland",
+		"emergency": "emergency_fland"
+    }
+}
