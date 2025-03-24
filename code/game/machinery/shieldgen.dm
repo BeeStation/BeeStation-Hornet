@@ -78,7 +78,7 @@
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
-	max_integrity = 100
+	max_integrity = 200
 	var/active = FALSE
 	var/list/deployed_shields
 	var/locked = FALSE
@@ -120,6 +120,7 @@
 /obj/machinery/shieldgen/deconstruct(disassembled = TRUE)
 	atom_break()
 	locked = pick(0,1)
+	return ..()
 
 /obj/machinery/shieldgen/interact(mob/user)
 	. = ..()
@@ -132,7 +133,7 @@
 		to_chat(user, span_warning("The panel must be closed before operating this machine!"))
 		return
 
-	if (active)
+	if(active)
 		user.visible_message("[user] deactivated \the [src].", \
 			span_notice("You deactivate \the [src]."), \
 			span_italics("You hear heavy droning fade out."))
@@ -373,7 +374,7 @@
 		connect_to_network()
 
 
-/obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, item))
 		update_appearance()
 		updateUsrDialog()
@@ -386,7 +387,7 @@
 		wires.interact(user)
 		return TRUE
 
-	if(user.a_intent == INTENT_HARM) //so we can hit the machine
+	if(user.combat_mode) //so we can hit the machine
 		return ..()
 
 	if(machine_stat)
@@ -510,13 +511,7 @@
 
 /obj/machinery/power/shieldwallgen/atmos/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
-
-/obj/machinery/power/shieldwallgen/atmos/proc/can_be_rotated(mob/user, rotation_type)
-	if (anchored)
-		to_chat(user, span_warning("It is fastened to the floor!"))
-		return FALSE
-	return TRUE
+	AddComponent(/datum/component/simple_rotation)
 
 /// Same as in the normal shieldwallgen, but with the shieldwalls replaced with atmos shieldwalls
 /obj/machinery/power/shieldwallgen/atmos/setup_field(direction)

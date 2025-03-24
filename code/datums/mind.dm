@@ -50,7 +50,7 @@
 	var/list/restricted_roles = list()
 	var/linglink
 	/// Martial art on this mind
-	var/datum/martial_art/martial_art
+	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
 	var/hellbound = FALSE
@@ -451,7 +451,7 @@
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
-		recipient << browse(output,"window=memory")
+		recipient << browse(HTML_SKELETON(output),"window=memory")
 	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 
@@ -661,6 +661,9 @@
 		for(var/datum/objective/O as() in antag_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
+		// Objectives are often stored in the static data of antag uis, so we should update those as well
+		for(var/datum/antagonist/antag as anything in antag_datums)
+			antag.update_static_data(current)
 	if(crew_objectives.len)
 		to_chat(current, span_notice("Your optional objectives:"))
 		for(var/datum/objective/C as() in crew_objectives)

@@ -74,7 +74,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(obj/item/O, mob/user, params)
+/obj/machinery/smartfridge/attackby(obj/item/O, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, O))
 		cut_overlays()
 		if(panel_open)
@@ -152,7 +152,7 @@
 				to_chat(user, span_warning("There is nothing in [O] to put into [src]!"))
 				return FALSE
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		to_chat(user, span_warning("\The [src] smartly refuses [O]."))
 		return FALSE
 	else
@@ -185,8 +185,8 @@
 		else
 			. = TRUE
 	else
-		if(SEND_SIGNAL(O.loc, COMSIG_CONTAINS_STORAGE))
-			. = SEND_SIGNAL(O.loc, COMSIG_TRY_STORAGE_TAKE, O, src)
+		if(O.loc.atom_storage)
+			return O.loc.atom_storage.attempt_remove(O, src, silent = TRUE)
 		else
 			O.forceMove(src)
 			. = TRUE
@@ -404,8 +404,10 @@
 	if(drying || forceoff)
 		drying = FALSE
 		current_user = FALSE
+		update_use_power(IDLE_POWER_USE)
 	else
 		drying = TRUE
+		update_use_power(ACTIVE_POWER_USE) //how does it use power? just don't question it!
 		if(user?.mind)
 			current_user = WEAKREF(user.mind)
 	update_appearance()

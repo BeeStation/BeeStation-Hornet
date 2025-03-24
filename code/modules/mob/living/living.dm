@@ -55,7 +55,7 @@
 	return ..()
 
 /mob/living/proc/can_bumpslam()
-	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
+	REMOVE_TRAIT(src, TRAIT_NO_BUMP_SLAM, type)
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
 /mob/living/Bump(atom/A)
@@ -63,8 +63,8 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if(confused && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))
-		APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
+	if(confused && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
+		ADD_TRAIT(src, TRAIT_NO_BUMP_SLAM, type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
@@ -132,6 +132,14 @@
 	if(moving_diagonally)//no mob swap during diagonal moves.
 		return TRUE
 
+	var/either_combat_mode = combat_mode
+	var/target_combat_mode = FALSE
+	if (isliving(M))
+		var/mob/living/L = M
+		if (L.stat == CONSCIOUS)
+			either_combat_mode ||= L.combat_mode
+			target_combat_mode = L.combat_mode
+
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap = FALSE
 		var/too_strong = (M.move_resist > move_force) //can't swap with immovable objects unless they help us
@@ -140,12 +148,12 @@
 				mob_swap = TRUE
 		else
 			//You can swap with the person you are dragging on grab intent, and restrained people in most cases
-			if(M.pulledby == src && a_intent == INTENT_GRAB && !too_strong)
+			if(M.pulledby == src && !too_strong)
 				mob_swap = TRUE
 			else if(
 				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || M.a_intent == INTENT_HELP) &&\
-				(HAS_TRAIT(src, TRAIT_RESTRAINED) || a_intent == INTENT_HELP)
+				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || !either_combat_mode) &&\
+				(HAS_TRAIT(src, TRAIT_RESTRAINED) || !either_combat_mode)
 			)
 				mob_swap = TRUE
 		if(mob_swap)
@@ -185,8 +193,8 @@
 		var/mob/living/L = M
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
 			return TRUE
-	//If they're a human, and they're not in help intent, block pushing
-	if(ishuman(M) && (M.a_intent != INTENT_HELP))
+	// Don't allow pushing the target if they are in combat mode.
+	if(target_combat_mode)
 		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
@@ -330,6 +338,7 @@
 				to_chat(src, span_notice("You grab [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!")) //Message sent to grabber
 		if(isliving(M))
 			var/mob/living/L = M
+
 			//Share diseases that are spread by touch
 			for(var/thing in diseases)
 				var/datum/disease/D = thing
@@ -344,7 +353,7 @@
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
 				if(HAS_TRAIT(src, TRAIT_STRONG_GRABBER))
-					C.grippedby(src)
+					C.grabbedby(src)
 
 			update_pull_movespeed()
 
@@ -392,6 +401,10 @@
 	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
 	else
+		// If we click on a turf adjacent to a target while we have them in an aggro-grab
+		// then we won't cancel the grab
+		if (ismob(pulling) && grab_state >= GRAB_AGGRESSIVE && isturf(AM) && get_dist(AM, pulling) <= 1)
+			return
 		stop_pulling()
 
 /mob/living/stop_pulling()
@@ -451,11 +464,11 @@
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return TRUE
 
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED) && !(flags & IGNORE_RESTRAINTS))
+	if(!(flags & IGNORE_RESTRAINTS) && HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return TRUE
-	if(IS_IN_STASIS(src) && !(flags & IGNORE_STASIS))
+	if(!(flags & IGNORE_GRAB) && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		return TRUE
-	if((pulledby && pulledby.grab_state >= GRAB_NECK) && !(flags & IGNORE_GRAB))
+	if(!(flags & IGNORE_STASIS) && IS_IN_STASIS(src))
 		return TRUE
 	return FALSE
 
@@ -546,8 +559,8 @@
 				to_chat(src, span_notice("You stand up."))
 			get_up(instant)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
-
 
 /// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
@@ -582,7 +595,7 @@
 		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
-	density = FALSE // We lose density and stop bumping passable dense things.
+	ADD_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 
@@ -594,15 +607,21 @@
 	density = initial(density) // We were prone before, so we become dense and things can bump into us again.
 	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
 
+/mob/living/proc/update_density()
+	if(HAS_TRAIT(src, TRAIT_UNDENSE))
+		set_density(FALSE)
+	else
+		set_density(TRUE)
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.
 /mob/living/get_contents()
 	var/list/ret = list()
-	ret |= contents						//add our contents
-	for(var/i in ret.Copy())			//iterate storage objects
+	ret |= contents //add our contents
+	for(var/i in ret.Copy()) //iterate storage objects
 		var/atom/A = i
-		SEND_SIGNAL(A, COMSIG_TRY_STORAGE_RETURN_INVENTORY, ret)
+		A.atom_storage.return_inv(ret)
 	for(var/obj/item/folder/F in ret.Copy())		//very snowflakey-ly iterate folders
 		ret |= F.contents
 	return ret
@@ -615,9 +634,29 @@
 			return TRUE
 	return FALSE
 
-// Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
+/**
+ * Returns whether or not the mob can be injected. Should not perform any side effects.
+ *
+ * Arguments:
+ * * user - The user trying to inject the mob.
+ * * target_zone - The zone being targeted.
+ * * injection_flags - A bitflag for extra properties to check.
+ *   Check __DEFINES/injection.dm for more details, specifically the ones prefixed INJECT_CHECK_*.
+ */
+/mob/living/proc/can_inject(mob/user, target_zone, injection_flags)
 	return TRUE
+
+/**
+ * Like can_inject, but it can perform side effects.
+ *
+ * Arguments:
+ * * user - The user trying to inject the mob.
+ * * target_zone - The zone being targeted.
+ * * injection_flags - A bitflag for extra properties to check. Check __DEFINES/injection.dm for more details.
+ *   Check __DEFINES/injection.dm for more details. Unlike can_inject, the INJECT_TRY_* defines will behave differently.
+ */
+/mob/living/proc/try_inject(mob/user, target_zone, injection_flags)
+	return can_inject(user, target_zone, injection_flags)
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
@@ -638,7 +677,42 @@
 	update_stat()
 	med_hud_set_health()
 	med_hud_set_status()
+	update_health_hud()
 	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+
+/mob/living/update_health_hud()
+	var/severity = 0
+	var/healthpercent = (health/maxHealth) * 100
+	if(hud_used?.healthdoll) //to really put you in the boots of a simplemob
+		var/atom/movable/screen/healthdoll/living/livingdoll = hud_used.healthdoll
+		switch(healthpercent)
+			if(100 to INFINITY)
+				severity = 0
+			if(80 to 100)
+				severity = 1
+			if(60 to 80)
+				severity = 2
+			if(40 to 60)
+				severity = 3
+			if(20 to 40)
+				severity = 4
+			if(1 to 20)
+				severity = 5
+			else
+				severity = 6
+		livingdoll.icon_state = "living[severity]"
+		if(!livingdoll.filtered)
+			livingdoll.filtered = TRUE
+			var/icon/mob_mask = icon(icon, icon_state)
+			if(mob_mask.Height() > world.icon_size || mob_mask.Width() > world.icon_size)
+				var/health_doll_icon_state = health_doll_icon ? health_doll_icon : "megasprite"
+				mob_mask = icon('icons/hud/screen_gen.dmi', health_doll_icon_state) //swap to something generic if they have no special doll
+			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
+			livingdoll.add_filter("inset_drop_shadow", 2, drop_shadow_filter(size = -1))
+	if(severity > 0)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+	else
+		clear_fullscreen("brute")
 
 //proc used to ressuscitate a mob
 /mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE)
@@ -781,8 +855,8 @@
 			var/mob/living/L = pulledby
 			L.set_pull_offsets(src, pulledby.grab_state)
 
-	if(active_storage && !(CanReach(active_storage.parent,view_only = TRUE)))
-		active_storage.close(src)
+	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
+		active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
@@ -873,7 +947,11 @@
 	. = ..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
+	if(next_move > world.time)
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
+		return FALSE
+	return TRUE
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -911,13 +989,12 @@
 
 /mob/living/resist_grab(moving_resist)
 	. = TRUE
-	if(pulledby.grab_state || resting || HAS_TRAIT(src, TRAIT_GRABWEAKNESS))
+	if(pulledby.grab_state || body_position == LYING_DOWN || HAS_TRAIT(src, TRAIT_GRABWEAKNESS))
 		var/altered_grab_state = pulledby.grab_state
-		if((resting || HAS_TRAIT(src, TRAIT_GRABWEAKNESS)) && pulledby.grab_state < GRAB_KILL) //If resting, resisting out of a grab is equivalent to 1 grab state higher. wont make the grab state exceed the normal max, however
+		if((body_position == LYING_DOWN || HAS_TRAIT(src, TRAIT_GRABWEAKNESS)) && pulledby.grab_state < GRAB_KILL) //If prone, resisting out of a grab is equivalent to 1 grab state higher. won't make the grab state exceed the normal max, however
 			altered_grab_state++
-
-		var/resist_chance = BASE_GRAB_RESIST_CHANCE // see defines/combat.dm
-		resist_chance = max(resist_chance/altered_grab_state-sqrt((getStaminaLoss()+getBruteLoss()/2)*(3-altered_grab_state)), 0) // https://i.imgur.com/6yAT90T.png for sample output values
+		var/resist_chance = BASE_GRAB_RESIST_CHANCE /// see defines/combat.dm, this should be baseline 60%
+		resist_chance = (resist_chance/altered_grab_state) ///Resist chance divided by the value imparted by your grab state. It isn't until you reach neckgrab that you gain a penalty to escaping a grab.
 		if(prob(resist_chance))
 			visible_message(span_danger("[src] breaks free of [pulledby]'s grip!"), \
 							span_danger("You break free of [pulledby]'s grip!"), null, null, pulledby)
@@ -930,7 +1007,7 @@
 							span_warning("You struggle as you fail to break free of [pulledby]'s grip!"), null, null, pulledby)
 			to_chat(pulledby, span_danger("[src] struggles as they fail to break free of your grip!"))
 		if(moving_resist && client) //we resisted by trying to move
-			client.move_delay = world.time + 2 SECONDS
+			client.move_delay = world.time + 4 SECONDS
 	else
 		pulledby.stop_pulling()
 		return FALSE
@@ -1118,21 +1195,32 @@
 /mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
 	return
 
-/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-	if(incapacitated())
-		to_chat(src, span_warning("You can't do that right now!"))
+/mob/living/can_hold_items(obj/item/I)
+	return usable_hands && ..()
+
+/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
+	if(!(mobility_flags & MOBILITY_UI) && !floor_okay)
+		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
-	if(be_close && !in_range(M, src))
-		to_chat(src, span_warning("You are too far away!"))
+	if(be_close && !Adjacent(M) && (M.loc != src))
+		if(no_tk)
+			to_chat(src, "<span class='warning'>You are too far away!</span>")
+			return FALSE
+		var/datum/dna/D = has_dna()
+		if(!D || !D.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, M))
+			to_chat(src, "<span class='warning'>You are too far away!</span>")
+			return FALSE
+	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,
+		to_chat(src, "<span class='warning'>You don't have the physical ability to do this!</span>")
 		return FALSE
-	if(!no_dexterity)
-		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+	if(!no_dexterity && !ISADVANCEDTOOLUSER(src))
+		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
-		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !ISADVANCEDTOOLUSER(src))
+		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 	return TRUE
 
@@ -1147,7 +1235,7 @@
 		return mind.soulOwner == mind
 	return TRUE
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
 
@@ -1499,13 +1587,13 @@
 	. += {"
 		<br><font size='1'>[VV_HREF_TARGETREF(refid, VV_HK_GIVE_DIRECT_CONTROL, "[ckey || "no ckey"]")] / [VV_HREF_TARGETREF_1V(refid, VV_HK_BASIC_EDIT, "[real_name || "no real name"]", NAMEOF(src, real_name))]</font>
 		<br><font size='1'>
-			BRUTE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brute' id='brute'>[getBruteLoss()]</a>
-			FIRE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=fire' id='fire'>[getFireLoss()]</a>
-			TOXIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[getToxLoss()]</a>
-			OXY:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
-			CLONE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
-			BRAIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
-			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
+			BRUTE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brute' id='brute'>[getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=fire' id='fire'>[getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[getToxLoss()]</a>
+			OXY:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
 
@@ -1655,6 +1743,7 @@
 		return
 	. = body_position
 	body_position = new_value
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BODY_POSITION)
 	if(new_value == LYING_DOWN) // From standing to lying down.
 		on_lying_down()
 	else // From lying down to standing up.
@@ -1686,3 +1775,32 @@
 /mob/living/proc/on_handsblocked_end()
 	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
 	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)
+
+/// Returns the attack damage type of a living mob such as [BRUTE].
+/mob/living/proc/get_attack_type()
+	return BRUTE
+
+
+/**
+ * Apply a martial art move from src to target.
+ *
+ * This is used to process martial art attacks against nonhumans.
+ * It is also used to process martial art attacks by nonhumans, even against humans
+ * Human vs human attacks are handled in species code right now.
+ */
+/mob/living/proc/apply_martial_art(mob/living/target, modifiers, is_grab = FALSE)
+	if(HAS_TRAIT(target, TRAIT_MARTIAL_ARTS_IMMUNE))
+		return MARTIAL_ATTACK_INVALID
+	var/datum/martial_art/style = mind?.martial_art
+	if (!style)
+		return MARTIAL_ATTACK_INVALID
+	// will return boolean below since it's not invalid
+	if (is_grab)
+		return style.grab_act(src, target)
+	if (LAZYACCESS(modifiers, RIGHT_CLICK))
+		return style.disarm_act(src, target)
+	if(combat_mode)
+		if (HAS_TRAIT(src, TRAIT_PACIFISM))
+			return FALSE
+		return style.harm_act(src, target)
+	return style.help_act(src, target)

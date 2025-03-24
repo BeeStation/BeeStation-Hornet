@@ -244,6 +244,10 @@
 				I.righthand_file = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_inhand_right), initial(picked_item.greyscale_colors))
 		I.worn_icon_state = initial(picked_item.worn_icon_state)
 		I.item_state = initial(picked_item.item_state)
+		if(!keepname)
+			I.name = initial(picked_item.name)
+		I.desc = initial(picked_item.desc)
+		I.icon_state = initial(picked_item.icon_state)
 		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
@@ -291,10 +295,6 @@
 				comp.update_id_display()
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
-	if(!keepname)
-		name = initial(picked_item.name)
-	//desc = initial(picked_item.desc)
-	//icon_state = initial(picked_item.icon_state)
 
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
@@ -710,15 +710,15 @@
 	clothing_flags = SNUG_FIT
 	armor_type = /datum/armor/none
 	// which means it offers no protection, it's just air and light
+	actions_types = list(
+		/datum/action/item_action/chameleon/drone/togglehatmask,
+		/datum/action/item_action/chameleon/drone/randomise
+	)
 
 /obj/item/clothing/head/chameleon/drone/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
-	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
-	togglehatmask_action.update_buttons()
-	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
-	randomise_action.update_buttons()
 
 /datum/action/item_action/chameleon/tongue_change
 	name = "Tongue Change"
@@ -845,7 +845,10 @@
 	armor_type = /datum/armor/chameleon_drone
 	// Can drones use the voice changer part? Let's not find out.
 	voice_change = FALSE
-
+	actions_types = list(
+		/datum/action/item_action/chameleon/drone/togglehatmask,
+		/datum/action/item_action/chameleon/drone/randomise
+	)
 
 /datum/armor/chameleon_drone
 	bleed = 10
@@ -854,10 +857,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
-	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
-	togglehatmask_action.update_buttons()
-	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
-	randomise_action.update_buttons()
 
 /obj/item/clothing/mask/chameleon/drone/attack_self(mob/user)
 	to_chat(user, span_notice("[src] does not have a voice changer."))
@@ -871,7 +870,6 @@
 	desc = "A pair of black shoes."
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_chameleon
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -888,6 +886,9 @@
 
 /obj/item/clothing/shoes/chameleon/Initialize(mapload)
 	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
+
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/shoes
 	chameleon_action.chameleon_name = "Shoes"
@@ -977,10 +978,7 @@
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 
-/obj/item/storage/belt/chameleon/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.silent = TRUE
+	atom_storage.silent = TRUE
 
 /obj/item/storage/belt/chameleon/emp_act(severity)
 	. = ..()

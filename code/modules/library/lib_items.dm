@@ -104,15 +104,14 @@
 				set_anchored(FALSE)
 
 		if(BOOKCASE_FINISHED)
-			var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
 			if(is_type_in_list(I, allowed_books))
 				if(!user.transferItemToLoc(I, src))
 					return
 				update_appearance()
-			else if(STR)
+			else if(atom_storage)
 				for(var/obj/item/T in I.contents)
 					if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook))
-						STR.remove_from_storage(T, src)
+						atom_storage.attempt_remove(T, src)
 				to_chat(user, span_notice("You empty \the [I] into \the [src]."))
 				update_appearance()
 			else if(istype(I, /obj/item/pen))
@@ -246,7 +245,7 @@
 
 /obj/item/book/proc/on_read(mob/user)
 	if(dat)
-		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
+		user << browse(HTML_SKELETON_TITLE(title, "<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]"), "window=book[window_size != null ? ";size=[window_size]" : ""]")
 		onclose(user, "book")
 	else
 		to_chat(user, span_notice("This book is completely blank!"))

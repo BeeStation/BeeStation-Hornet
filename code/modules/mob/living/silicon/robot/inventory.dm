@@ -17,7 +17,7 @@
 		sight_mode &= ~S.sight_mode
 		update_sight()
 	else if(istype(O, /obj/item/storage/bag/tray/))
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_QUICK_EMPTY)
+		O.atom_storage.remove_all(loc)
 	if(client)
 		client.screen -= O
 	observer_screen_update(O,FALSE)
@@ -213,3 +213,6 @@
 
 /mob/living/silicon/robot/swap_hand()
 	cycle_modules()
+
+/mob/living/silicon/robot/can_hold_items(obj/item/I)
+	return (I && (I in module.modules)) //Only if it's part of our module.

@@ -33,10 +33,10 @@
 	var/explosion_block = 0
 
 	/**
-	  * used to store the different colors on an atom
-	  *
-	  * its inherent color, the colored paint applied on it, special color effect etc...
-	  */
+	 * used to store the different colors on an atom
+	 *
+	 * its inherent color, the colored paint applied on it, special color effect etc...
+	 */
 	var/list/atom_colours
 
 
@@ -141,6 +141,9 @@
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 
+	/// the datum handler for our contents - see create_storage() for creation method
+	var/datum/storage/atom_storage
+
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
 
@@ -226,9 +229,11 @@
   * * /turf/Initialize
   * * /turf/open/space/Initialize
   */
-CREATION_TEST_IGNORE_SUBTYPES(/atom)
 
 /atom/proc/Initialize(mapload, ...)
+	//SHOULD_NOT_SLEEP(TRUE) //TODO: We shouldn't be sleeping initialize
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -309,6 +314,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		each_client.mob.reset_perspective()
 	eye_users = null
 
+	if (chat_messages)
+		for (var/chatmessage in chat_messages)
+			qdel(chatmessage)
+		chat_messages = null
+	if (balloon_alerts)
+		for (var/balloon_alerts in balloon_alerts)
+			qdel(balloon_alerts)
+		balloon_alerts = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -317,6 +331,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(reagents)
 		QDEL_NULL(reagents)
 
+	if(atom_storage)
+		QDEL_NULL(atom_storage)
+
 	orbit_datum = null // The component is attached to us normaly and will be deleted elsewhere
 
 	// Checking length(overlays) before cutting has significant speed benefits
@@ -324,10 +341,49 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 
 	return ..()
+
+/// A quick and easy way to create a storage datum for an atom
+/atom/proc/create_storage(
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+	numerical_stacking = FALSE,
+	allow_quick_gather = FALSE,
+	allow_quick_empty = FALSE,
+	collection_mode = COLLECT_ONE,
+	attack_hand_interact = TRUE,
+	list/canhold,
+	list/canthold,
+	storage_type = /datum/storage,
+)
+
+	if(atom_storage)
+		QDEL_NULL(atom_storage)
+
+	atom_storage = new storage_type(src, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, collection_mode, attack_hand_interact)
+
+	if(canhold || canthold)
+		atom_storage.set_holdable(canhold, canthold)
+
+	return atom_storage
+
+/// A quick and easy way to /clone/ a storage datum for an atom (does not copy over contents, only the datum details)
+/atom/proc/clone_storage(datum/storage/cloning)
+	if(atom_storage)
+		QDEL_NULL(atom_storage)
+
+	atom_storage = new cloning.type(src, cloning.max_slots, cloning.max_specific_storage, cloning.max_total_storage, cloning.numerical_stacking, cloning.allow_quick_gather, cloning.collection_mode, cloning.attack_hand_interact)
+
+	if(cloning.can_hold || cloning.cant_hold)
+		atom_storage.set_holdable(cloning.can_hold, cloning.cant_hold)
+
+	return atom_storage
 
 /atom/proc/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
@@ -834,6 +890,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		to_chat(user, span_warning("You can't move while buckled to [src]!"))
 	return
 
+/**
+ * A special case of relaymove() in which the person relaying the move may be "driving" this atom
+ *
+ * This is a special case for vehicles and ridden animals where the relayed movement may be handled
+ * by the riding component attached to this atom. Returns TRUE as long as there's nothing blocking
+ * the movement, or FALSE if the signal gets a reply that specifically blocks the movement
+ */
+/atom/proc/relaydrive(mob/living/user, direction)
+	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)
 	return //For handling the effects of explosions on contents that would not normally be effected
@@ -876,6 +942,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+	return FALSE
 
 /**
   * We have have actually hit the passed in atom
@@ -1079,46 +1146,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, extrapolator, dry_run, .)
 
 /**
-  * Implement the behaviour for when a user click drags a storage object to your atom
-  *
-  * This behaviour is usually to mass transfer, but this is no longer a used proc as it just
-  * calls the underyling /datum/component/storage dump act if a component exists
-  *
-  * TODO these should be purely component items that intercept the atom clicks higher in the
-  * call chain
-  */
-/atom/proc/storage_contents_dump_act(obj/item/storage/src_object, mob/user)
-	if(GetComponent(/datum/component/storage))
-		return component_storage_contents_dump_act(src_object, user)
-	return FALSE
-
-/**
-  * Implement the behaviour for when a user click drags another storage item to you
-  *
-  * In this case we get as many of the tiems from the target items compoent storage and then
-  * put everything into ourselves (or our storage component)
-  *
-  * TODO these should be purely component items that intercept the atom clicks higher in the
-  * call chain
-  */
-/atom/proc/component_storage_contents_dump_act(datum/component/storage/src_object, mob/user)
-	var/list/things = src_object.contents()
-	var/datum/progressbar/progress = new(user, things.len, src)
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
-		stoplag(1)
-	progress.end_progress()
-	to_chat(user, span_notice("You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can."))
-	STR.orient2hud(user)
-	src_object.orient2hud(user)
-	if(user.active_storage) //refresh the HUD to show the transfered contents
-		user.active_storage.close(user)
-		user.active_storage.show_to(user)
-	src_object.update_icon()
-	return TRUE
-
-///Get the best place to dump the items contained in the source storage item?
-/atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
+ * If someone's trying to dump items onto our atom, where should they be dumped to?
+ *
+ * Return a loc to place objects, or null to stop dumping.
+ */
+/atom/proc/get_dumping_location()
 	return null
 
 /**
@@ -1300,7 +1332,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	if(!ismovable(src))
 		var/turf/curturf = get_turf(src)
 		if(curturf)
-			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
+			. += "<option value='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_TRANSFORM, "Modify Transform")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
@@ -1433,7 +1465,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 	. = ..()
 	var/refid = REF(src)
 	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
-	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
+	. += "<br><font size='1'><a href='byond://?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='byond://?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='byond://?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
 ///Where atoms should drop if taken from this atom
 /atom/proc/drop_location()
@@ -1486,32 +1518,52 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
   *
   * Must return  parent proc ..() in the end if overridden
   */
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+/atom/proc/tool_act(mob/living/user, obj/item/tool, tool_type, is_right_clicking)
+	var/act_result
 	var/signal_result
 
-	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
-	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
-	if(processing_recipes.len)
-		process_recipes(user, I, processing_recipes)
-	if(QDELETED(I))
-		return TRUE
+	var/is_left_clicking = !is_right_clicking
+
+	if(is_left_clicking) // Left click first for sensibility
+		var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
+		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, tool, processing_recipes)
+		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
+			return TOOL_ACT_SIGNAL_BLOCKING
+		if(processing_recipes.len)
+			process_recipes(user, tool, processing_recipes)
+		if(QDELETED(tool))
+			return TRUE
+	else
+		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_SECONDARY_TOOL_ACT(tool_type), user, tool)
+		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
+			return TOOL_ACT_SIGNAL_BLOCKING
+
 	switch(tool_type)
 		if(TOOL_CROWBAR)
-			. = crowbar_act(user, I)
+			act_result = is_left_clicking ? crowbar_act(user, tool) : crowbar_act_secondary(user, tool)
 		if(TOOL_MULTITOOL)
-			. = multitool_act(user, I)
+			act_result = is_left_clicking ? multitool_act(user, tool) : multitool_act_secondary(user, tool)
 		if(TOOL_SCREWDRIVER)
-			. = screwdriver_act(user, I)
+			act_result = is_left_clicking ? screwdriver_act(user, tool) : screwdriver_act_secondary(user, tool)
 		if(TOOL_WRENCH)
-			. = wrench_act(user, I)
+			act_result = is_left_clicking ? wrench_act(user, tool) : wrench_act_secondary(user, tool)
 		if(TOOL_WIRECUTTER)
-			. = wirecutter_act(user, I)
+			act_result = is_left_clicking ? wirecutter_act(user, tool) : wirecutter_act_secondary(user, tool)
 		if(TOOL_WELDER)
-			. = welder_act(user, I)
+			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
 		if(TOOL_ANALYZER)
-			. = analyzer_act(user, I)
-	if(. || signal_result & COMPONENT_BLOCK_TOOL_ATTACK) //Either the proc or the signal handled the tool's events in some way.
-		return TRUE
+			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+	if(!act_result)
+		return
+
+	// A tooltype_act has completed successfully
+	if(is_left_clicking)
+		investigate_log("[key_name(user)] used [tool] on [src] at [AREACOORD(src)]", INVESTIGATE_TOOLS)
+		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_PRIMARY(tool_type), src)
+	else
+		investigate_log("[key_name(user)] used [tool] on [src] (right click) at [AREACOORD(src)]", INVESTIGATE_TOOLS)
+		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_SECONDARY(tool_type), src)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /atom/proc/process_recipes(mob/living/user, obj/item/I, list/processing_recipes)
 	//Only one recipe? use the first
@@ -1571,32 +1623,60 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 //! Tool-specific behavior procs.
 ///
 
-///Crowbar act
-/atom/proc/crowbar_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with crowbar capabilities is used to left click an object
+/atom/proc/crowbar_act(mob/living/user, obj/item/tool)
 	return
 
-///Multitool act
-/atom/proc/multitool_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with crowbar capabilities is used to right click an object
+/atom/proc/crowbar_act_secondary(mob/living/user, obj/item/tool)
 	return
 
-///Screwdriver act
-/atom/proc/screwdriver_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with multitool capabilities is used to left click an object
+/atom/proc/multitool_act(mob/living/user, obj/item/tool)
 	return
 
-///Wrench act
-/atom/proc/wrench_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with multitool capabilities is used to right click an object
+/atom/proc/multitool_act_secondary(mob/living/user, obj/item/tool)
 	return
 
-///Wirecutter act
-/atom/proc/wirecutter_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with screwdriver capabilities is used to left click an object
+/atom/proc/screwdriver_act(mob/living/user, obj/item/tool)
 	return
 
-///Welder act
-/atom/proc/welder_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with screwdriver capabilities is used to right click an object
+/atom/proc/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	return
 
-///Analyzer act
-/atom/proc/analyzer_act(mob/living/user, obj/item/I)
+/// Called on an object when a tool with wrench capabilities is used to left click an object
+/atom/proc/wrench_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with wrench capabilities is used to right click an object
+/atom/proc/wrench_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with wirecutter capabilities is used to left click an object
+/atom/proc/wirecutter_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with wirecutter capabilities is used to right click an object
+/atom/proc/wirecutter_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with welder capabilities is used to left click an object
+/atom/proc/welder_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with welder capabilities is used to right click an object
+/atom/proc/welder_act_secondary(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with analyzer capabilities is used to left click an object
+/atom/proc/analyzer_act(mob/living/user, obj/item/tool)
+	return
+
+/// Called on an object when a tool with analyzer capabilities is used to right click an object
+/atom/proc/analyzer_act_secondary(mob/living/user, obj/item/tool)
 	return
 
 ///Connect this atom to a shuttle
@@ -1856,6 +1936,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom)
 		return
 	. = density
 	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_DENSITY_CHANGED)
 
 /**
   * Causes effects when the atom gets hit by a rust effect from heretics

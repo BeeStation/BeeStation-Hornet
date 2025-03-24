@@ -190,7 +190,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		. += "There are [get_amount()] in the stack."
 	else
 		. += "There is [get_amount()] in the stack."
-	. += span_notice("Alt-click to take a custom amount.")
+	. += "<span class='notice'><b>Right-click</b> with an empty hand to take a custom amount.</span>"
 
 /obj/item/stack/proc/get_amount()
 	if(is_cyborg)
@@ -514,7 +514,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	return ..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/stack/attack_hand(mob/user)
+/obj/item/stack/attack_hand(mob/user, list/modifiers)
 	if(user.get_inactive_held_item() == src)
 		if(is_zero_amount(delete_if_zero = TRUE))
 			return
@@ -522,17 +522,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	else
 		. = ..()
 
-/obj/item/stack/AltClick(mob/living/user)
+//If we attack ourselves with the same hand
+/obj/item/stack/attack_self_secondary(mob/user, modifiers)
+	. = ..()
+	src.attack_hand_secondary(user, modifiers)
+
+//If we attack ourselves with a different hand
+/obj/item/stack/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
 	if(is_cyborg || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		return
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	if(is_zero_amount(delete_if_zero = TRUE))
-		return
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	var/max = get_amount()
 	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack?", "Stack Split", max_value = max)
 	if(!stackmaterial || QDELETED(user) || QDELETED(src) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK, !iscyborg(user)))
-		return
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	split_stack(user, stackmaterial)
 	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /** Splits the stack into two stacks.
   *
@@ -547,6 +558,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	. = F
 	F.set_mats_per_unit(mats_per_unit, 1) // Required for greyscale sheets and tiles.
 	F.copy_evidences(src)
+	loc.atom_storage?.refresh_views()
 	if(user)
 		if(!user.put_in_hands(F, merge_stacks = FALSE))
 			F.forceMove(user.drop_location())

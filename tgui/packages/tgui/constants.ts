@@ -152,7 +152,7 @@ const GASES = [
     'id': 'n2',
     'name': 'Nitrogen',
     'label': 'N₂',
-    'color': 'red',
+    'color': 'yellow',
   },
   {
     'id': 'co2',

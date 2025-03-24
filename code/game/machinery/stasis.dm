@@ -125,14 +125,14 @@
 	//we could check inherent_traits, but thats too many var defines. KISS principle.
 	if(HAS_TRAIT(target, TRAIT_NOSTASIS))
 		return
-	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	target.ExtinguishMob()
-	use_power = ACTIVE_POWER_USE
+	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	if(target == occupant)
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/stasis/post_buckle_mob(mob/living/L)
 	if(!can_be_occupant(L))
@@ -150,7 +150,7 @@
 
 /obj/machinery/stasis/process()
 	if(!(occupant && isliving(occupant) && check_nap_violations()))
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())

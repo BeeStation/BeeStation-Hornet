@@ -15,16 +15,16 @@
 
 /datum/generecipe/hulk
 	required = "/datum/mutation/strong; /datum/mutation/radioactive"
-	result = HULK
+	result = /datum/mutation/hulk
 
 /datum/generecipe/shock
 	required = "/datum/mutation/insulated; /datum/mutation/radioactive"
-	result = SHOCKTOUCH
+	result = /datum/mutation/shock
 
 /datum/generecipe/antiglow
 	required = "/datum/mutation/glow; /datum/mutation/void"
-	result = ANTIGLOWY
+	result = /datum/mutation/glow/anti
 
 /datum/generecipe/cluwne
 	required = "/datum/mutation/clumsy; /datum/mutation/badblink"
-	result = CLUWNEMUT
+	result = /datum/mutation/cluwne

@@ -5,6 +5,7 @@
 /obj/item/food/muffin
 	name = "muffin"
 	desc = "A delicious and spongy little cake."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "muffin"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -68,6 +69,7 @@
 /obj/item/food/waffles
 	name = "waffles"
 	desc = "Mmm, waffles."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "waffles"
 	trash_type = /obj/item/trash/waffles
 	food_reagents = list(
@@ -82,6 +84,7 @@
 /obj/item/food/soylentgreen
 	name = "\improper Soylent Green"
 	desc = "Not made of people. Honest*." //Totally people.
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "soylent_green"
 	trash_type = /obj/item/trash/waffles
 	food_reagents = list(
@@ -98,6 +101,7 @@
 /obj/item/food/soylenviridians
 	name = "\improper Soylent Virdians"
 	desc = "Not made of people. Honest." //Actually honest for once.
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "soylent_yellow"
 	trash_type = /obj/item/trash/waffles
 	food_reagents = list(
@@ -113,6 +117,7 @@
 /obj/item/food/rofflewaffles
 	name = "roffle waffles"
 	desc = "Waffles from Roffle. Co."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "rofflewaffles"
 	trash_type = /obj/item/trash/waffles
 	bite_consumption = 4
@@ -131,6 +136,7 @@
 /obj/item/food/cookie
 	name = "cookie"
 	desc = "COOKIE!!!"
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "COOKIE!!!"
 	bite_consumption = 1
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
@@ -147,6 +153,7 @@
 /obj/item/food/fortunecookie
 	name = "fortune cookie"
 	desc = "A true prophecy in each cookie!"
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "fortune_cookie"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("cookie" = 1)
@@ -194,6 +201,7 @@
 /obj/item/food/chococornet
 	name = "chocolate cornet"
 	desc = "Which side's the head, the fat end or the thin end?"
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "chococornet"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -207,6 +215,7 @@
 /obj/item/food/poppypretzel
 	name = "poppy pretzel"
 	desc = "It's all twisted up!"
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "poppypretzel"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -220,6 +229,7 @@
 /obj/item/food/plumphelmetbiscuit
 	name = "plump helmet biscuit"
 	desc = "This is a finely-prepared plump helmet biscuit. The ingredients are exceptionally minced plump helmet, and well-minced dwarven wheat flour."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "phelmbiscuit"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -248,6 +258,7 @@
 /obj/item/food/cracker
 	name = "cracker"
 	desc = "It's a salted cracker."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "cracker"
 	bite_consumption = 1
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
@@ -260,6 +271,7 @@
 /obj/item/food/khachapuri
 	name = "khachapuri"
 	desc = "Bread with egg and cheese?"
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "khachapuri"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 11,
@@ -274,6 +286,7 @@
 /obj/item/food/cherrycupcake
 	name = "cherry cupcake"
 	desc = "A sweet cupcake with cherry bits."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "cherrycupcake"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -288,6 +301,7 @@
 /obj/item/food/cherrycupcake/blue
 	name = "blue cherry cupcake"
 	desc = "Blue cherries inside a delicious cupcake."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "bluecherrycupcake"
 	tastes = list("cake" = 3, "blue cherry" = 1)
 	crafting_complexity = FOOD_COMPLEXITY_3
@@ -295,6 +309,7 @@
 /obj/item/food/jupitercupcake
 	name = "jupiter-cup-cake"
 	desc = "A static dessert."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "jupitercupcake"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -309,6 +324,7 @@
 /obj/item/food/honeybun
 	name = "honey bun"
 	desc = "A sticky pastry bun glazed with honey."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "honeybun"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -322,6 +338,7 @@
 /obj/item/food/ravtart
 	name = "Rav'tart"
 	desc = "A brass colored tart with a red filling. Originally baked by TRNE Corp, it is supposedly blessed by a certain eldritch god."
+	icon = 'icons/obj/food/pastries.dmi'
 	icon_state = "ravtart"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 7,

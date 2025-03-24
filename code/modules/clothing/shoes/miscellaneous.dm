@@ -9,8 +9,6 @@
 	armor_type = /datum/armor/shoes_combat
 	strip_delay = 40
 	resistance_flags = NONE
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
-
 
 /datum/armor/shoes_combat
 	melee = 25
@@ -23,6 +21,11 @@
 	acid = 50
 	stamina = 30
 	bleed = 20
+
+/obj/item/clothing/shoes/combat/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT boots"
@@ -109,12 +112,12 @@
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
 	var/datum/component/waddle
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/shoes/clown)
 	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
@@ -162,11 +165,14 @@
 	equip_delay_other = 50
 	resistance_flags = NONE
 	armor_type = /datum/armor/shoes_jackboots
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /datum/armor/shoes_jackboots
 	bio = 90
 
+/obj/item/clothing/shoes/jackboots/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
@@ -198,10 +204,14 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /datum/armor/shoes_winterboots
 	bio = 80
+
+/obj/item/clothing/shoes/winterboots/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/winterboots/noslip
 	name = "high-traction winter boots"
@@ -226,11 +236,15 @@
 	armor_type = /datum/armor/shoes_workboots
 	strip_delay = 20
 	equip_delay_other = 40
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 
 /datum/armor/shoes_workboots
 	bio = 80
+
+/obj/item/clothing/shoes/workboots/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
@@ -283,7 +297,11 @@
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+
+/obj/item/clothing/shoes/griffin/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
@@ -291,7 +309,6 @@
 	icon_state = "jetboots"
 	item_state = "jetboots"
 	resistance_flags = FIRE_PROOF
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	actions_types = list(/datum/action/item_action/bhop)
 	armor_type = /datum/armor/shoes_bhop
 	strip_delay = 30
@@ -303,6 +320,11 @@
 
 /datum/armor/shoes_bhop
 	bio = 90
+
+/obj/item/clothing/shoes/bhop/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))
@@ -379,7 +401,11 @@
 	desc = "Comfy shoes."
 	icon_state = "rus_shoes"
 	item_state = "rus_shoes"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+
+/obj/item/clothing/shoes/russian/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/shoes)
 
 /obj/item/clothing/shoes/swagshoes
 	name = "swag shoes"

@@ -347,7 +347,7 @@
   * Mostly tries to put the item into the slot if possible, or call attack hand
   * on the item in the slot if the users active hand is empty
   */
-/mob/proc/attack_ui(slot)
+/mob/proc/attack_ui(slot, params)
 	if(world.time <= usr.next_move)
 		return FALSE
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -363,7 +363,8 @@
 		// Activate the item
 		var/obj/item/I = get_item_by_slot(slot)
 		if(istype(I))
-			I.attack_hand(src)
+			var/list/modifiers = params2list(params)
+			I.attack_hand(src, modifiers)
 
 	return FALSE
 
@@ -464,9 +465,8 @@
 				if(!put_in_hands(B))
 					return // box could not be placed in players hands.  I don't know what to do here...
 			//Now, B represents a container we can insert W into.
-			var/datum/component/storage/STR = B.GetComponent(/datum/component/storage)
-			if(STR.can_be_inserted(W, stop_messages=TRUE))
-				STR.handle_item_insertion(W,1)
+			if(B.atom_storage.can_insert(W))
+				B.atom_storage.attempt_insert(W)
 			return B
 
 /**
@@ -580,11 +580,10 @@
 
 	//now we touch the thing we're examining
 	/// our current intent, so we can go back to it after touching
-	var/previous_intent = a_intent
-	a_intent = INTENT_HELP
+	var/previous_combat_mode = combat_mode
+	set_combat_mode(FALSE)
 	examined_thing.attack_hand(src)
-	a_intent = previous_intent
-
+	set_combat_mode(previous_combat_mode)
 	return TRUE
 
 /**
@@ -871,10 +870,6 @@
 	if(.)
 		client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
 
-///This might need a rename but it should replace the can this mob use things check
-/mob/proc/IsAdvancedToolUser()
-	return FALSE
-
 /mob/proc/swap_hand()
 	var/obj/item/held_item = get_active_held_item()
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
@@ -1000,13 +995,11 @@
 			return src
 
 /**
-  * Buckle a living mob to this mob
-  *
-  * You can buckle on mobs if you're next to them since most are dense
-  *
-  * Turns you to face the other mob too
-  */
-/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+ * Buckle a living mob to this mob. Also turns you to face the other mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ */
+/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(M.buckled && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -1043,14 +1036,14 @@
 	if(IsAdminGhost(src))
 		return TRUE
 	var/datum/dna/mob_dna = has_dna()
-	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
+	if(mob_dna?.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, A))
 		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE
 	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
+/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
 	return
 
 ///Can this mob use storage
@@ -1191,6 +1184,8 @@
 		return
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
 	if(istype(loc, /obj/vehicle/sealed))
 		var/obj/vehicle/sealed/E = loc
 		if(E.mouse_pointer)
@@ -1236,10 +1231,6 @@
 		return FALSE
 
 	return TRUE
-
-///Can this mob hold items
-/mob/proc/can_hold_items()
-	return FALSE
 
 ///Get the id card on this mob
 /mob/proc/get_idcard(hand_first)
@@ -1358,16 +1349,5 @@
 	. = stat
 	stat = new_stat
 	update_action_buttons_icon(TRUE)
-
-/mob/proc/set_active_storage(new_active_storage)
-	if(active_storage)
-		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
-	active_storage = new_active_storage
-	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
-
-/mob/proc/active_storage_deleted(datum/source)
-	SIGNAL_HANDLER
-	set_active_storage(null)
 
 #undef MOB_FACE_DIRECTION_DELAY

@@ -219,6 +219,8 @@
 		to_chat(user, span_notice("You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\"."))
 	return FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
+
 /// Borg Built-in tablet interface
 /obj/item/modular_computer/tablet/integrated
 	name = "modular interface"
@@ -305,13 +307,13 @@
 	robo.toggle_headlamp(FALSE, TRUE)
 	return TRUE
 
-/obj/item/modular_computer/tablet/integrated/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
-	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
+/obj/item/modular_computer/tablet/integrated/alert_call(datum/computer_file/program/alerting_program, alerttext, sound = 'sound/machines/twobeep_high.ogg')
+	if(!alerting_program || !alerting_program.alert_able || alerting_program.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
 		return
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		sound = pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg')
 	borgo.playsound_local(src, sound, 50, TRUE)
-	to_chat(borgo, span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]"))
+	to_chat(borgo, span_notice("The [src] displays a [alerting_program.filedesc] notification: [alerttext]"))
 
 /obj/item/modular_computer/tablet/integrated/ui_state(mob/user)
 	return GLOB.reverse_contained_state

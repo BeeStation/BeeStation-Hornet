@@ -89,7 +89,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	air_contents.merge(removed)
 	trunk_check()
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 	if(!pressure_charging && !full_pressure && !flush)
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -107,7 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 				deconstruct()
 			return
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
 			return
 		place_item_in_disposal(I, user)
@@ -176,8 +176,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	user.forceMove(loc)
 	update_appearance()
 
-// monkeys and xenos can only pull the flush lever
+// clumsy monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
+	if(ISADVANCEDTOOLUSER(user))
+		return ..()
 	if(machine_stat & BROKEN)
 		return
 	flush = !flush
@@ -233,20 +235,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		AM.forceMove(get_turf(src))
 	..()
 
-/obj/machinery/disposal/get_dumping_location(obj/item/storage/source,mob/user)
-	return src
-
 //How disposal handles getting a storage dump from a storage object
-/obj/machinery/disposal/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
-	. = ..()
-	if(.)
-		return
-	for(var/obj/item/I in src_object.parent)
-		if(user.active_storage != src_object)
-			if(I.on_found(user))
-				return
-		src_object.remove_from_storage(I, src)
-	return TRUE
+/obj/machinery/disposal/proc/on_storage_dump(datum/source, obj/item/storage_source, mob/user)
+	SIGNAL_HANDLER
+
+	. = STORAGE_DUMP_HANDLED
+
+	to_chat(user, span_notice("You dump out [storage_source] into [src]."))
+
+	for(var/obj/item/to_dump in storage_source)
+		if(to_dump.loc != storage_source)
+			continue
+		if(user.active_storage != storage_source && to_dump.on_found(user))
+			return
+		if(!storage_source.atom_storage.attempt_remove(to_dump, src, silent = TRUE))
+			continue
+		to_dump.pixel_x = to_dump.base_pixel_x + rand(-5, 5)
+		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)
 
 // Disposal bin
 // Holds items for disposal into pipe system
@@ -263,12 +268,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 // attack by item places it in to disposal
 /obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))	//Not doing component overrides because this is a specific type.
-		var/obj/item/storage/bag/trash/T = I
-		var/datum/component/storage/STR = T.GetComponent(/datum/component/storage)
+		var/obj/item/storage/bag/trash/bag = I
 		to_chat(user, span_warning("You empty the bag."))
-		for(var/obj/item/O in T.contents)
-			STR.remove_from_storage(O,src)
-		T.update_appearance()
+		bag.atom_storage.remove_all(src)
 		update_appearance()
 	else
 		return ..()

@@ -4,8 +4,8 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your throat is burning!</span>"
-	text_lose_indication = "<span class='notice'>Your throat is cooling down.</span>"
+	text_gain_indication = span_notice("Your throat is burning!")
+	text_lose_indication = span_notice("Your throat is cooling down.")
 	power_path = /datum/action/spell/cone/staggered/fire_breath
 	instability = 30
 	energy_coeff = 1
@@ -54,7 +54,7 @@
 
 	our_lizard.adjust_fire_stacks(cone_levels)
 	our_lizard.IgniteMob()
-	to_chat(our_lizard, ("<span class='warning'>Something in front of your mouth catches fire!</span>"))
+	to_chat(our_lizard, span_warning("Something in front of your mouth catches fire!"))
 
 /datum/action/spell/cone/staggered/fire_breath/post_cast(mob/user, atom/target)
 	. = ..()
@@ -73,10 +73,8 @@
 	living_cast_on.setDir(original_dir)
 
 /datum/action/spell/cone/staggered/fire_breath/calculate_cone_shape(current_level)
-	// This makes the cone shoot out into a 3 wide column of flames.
-	// You may be wondering, "that equation doesn't seem like it'd make a 3 wide column"
-	// well it does, and that's all that matters.
-	return (2 * current_level) - 1
+	// This makes the cone shoot out into a 3 wide column of flames no matter the distance
+	return 3
 
 /datum/action/spell/cone/staggered/fire_breath/do_turf_cone_effect(turf/target_turf, atom/caster, level)
 	// Further turfs experience less exposed_temperature and exposed_volume

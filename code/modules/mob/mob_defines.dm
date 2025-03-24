@@ -44,6 +44,8 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// A list of chameleon actions we have specifically
 	/// This can be unified with the actions list
 	var/list/datum/action/item_action/chameleon/chameleon_item_actions
+	///Cursor icon used when holding shift over things
+	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
 
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
 	var/stat = CONSCIOUS
@@ -116,10 +118,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// How many ticks this mob has been over reating
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 
-	/// The current intent of the mob
-	var/a_intent = INTENT_HELP//Living
-	/// List of possible intents a mob can have
-	var/list/possible_a_intents = null//Living
 	/// The movement intent of the mob (run/wal)
 	var/m_intent = MOVE_INTENT_RUN//Living
 
@@ -148,7 +146,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	//HUD things
 
 	/// Storage component (for mob inventory)
-	var/datum/component/storage/active_storage
+	var/datum/storage/active_storage
 	/// Active hud
 	var/datum/hud/hud_used = null
 	/// I have no idea tbh
@@ -233,3 +231,5 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/active_typing_indicator
 	///the icon currently used for the thinking indicator's bubble
 	var/active_thinking_indicator
+	/// Should shift be used to open the context menu?
+	var/shift_to_open_context_menu = TRUE

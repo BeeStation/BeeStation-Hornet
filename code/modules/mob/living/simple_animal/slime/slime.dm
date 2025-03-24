@@ -45,7 +45,6 @@
 
 	footstep_type = FOOTSTEP_MOB_SLIME
 
-	hud_type = /datum/hud/slime
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
 	discovery_points = 1000
@@ -179,36 +178,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 			mod += 2
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_healthmod, multiplicative_slowdown = mod)
 
-/mob/living/simple_animal/slime/update_health_hud()
-	if(hud_used)
-		var/severity = 0
-		var/healthpercent = (health/maxHealth) * 100
-		switch(healthpercent)
-			if(100 to INFINITY)
-				hud_used.healths.icon_state = "slime_health0"
-			if(80 to 100)
-				hud_used.healths.icon_state = "slime_health1"
-				severity = 1
-			if(60 to 80)
-				hud_used.healths.icon_state = "slime_health2"
-				severity = 2
-			if(40 to 60)
-				hud_used.healths.icon_state = "slime_health3"
-				severity = 3
-			if(20 to 40)
-				hud_used.healths.icon_state = "slime_health4"
-				severity = 4
-			if(1 to 20)
-				hud_used.healths.icon_state = "slime_health5"
-				severity = 5
-			else
-				hud_used.healths.icon_state = "slime_health7"
-				severity = 6
-		if(severity > 0)
-			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-		else
-			clear_fullscreen("brute")
-
 /mob/living/simple_animal/slime/adjust_bodytemperature()
 	. = ..()
 	var/mod = 0
@@ -295,10 +264,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return
 
-/mob/living/simple_animal/slime/attack_ui(slot)
+/mob/living/simple_animal/slime/attack_ui(slot, params)
 	return
 
-/mob/living/simple_animal/slime/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/simple_animal/slime/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		if(M == src)
 			return
@@ -325,16 +294,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(..()) //successful monkey bite.
 		attacked += 10
 
-/mob/living/simple_animal/slime/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/slime/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(..()) //successful larva bite.
 		attacked += 10
 
 /mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		discipline_slime(user)
 		return ..()
 
-/mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M)
+/mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M, modifiers)
 	if(buckled)
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(bucklestrength >= 0)
@@ -351,9 +320,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 			discipline_slime(M)
 	else
 		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
+			if(!M.combat_mode || LAZYACCESS(modifiers, RIGHT_CLICK))
 				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M,M.a_intent))
+					if(S.next_step(M, modifiers))
 						return 1
 		if(..()) //successful attack
 			attacked += 10
@@ -366,9 +335,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 /mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, params)
 	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
+		var/list/modifiers = params2list(params)
+		if(!user.combat_mode || (LAZYACCESS(modifiers, RIGHT_CLICK)))
 			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user,user.a_intent))
+				if(S.next_step(user, modifiers))
 					return 1
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		add_friendship(user, 1)
@@ -400,7 +370,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		var/hasFound = FALSE //Have we found an extract to be added?
 		for(var/obj/item/slime_extract/S in P.contents)
 			if(S.effectmod == effectmod)
-				SEND_SIGNAL(P, COMSIG_TRY_STORAGE_TAKE, S, get_turf(src), TRUE)
+				P.atom_storage.attempt_remove(S, get_turf(src), silent = TRUE)
 				qdel(S)
 				applied++
 				hasFound = TRUE

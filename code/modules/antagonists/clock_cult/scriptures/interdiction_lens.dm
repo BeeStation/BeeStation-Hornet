@@ -37,7 +37,7 @@
 	QDEL_NULL(internal_dampener)
 	. = ..()
 
-/obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user, list/modifiers)
 	if(is_servant_of_ratvar(user))
 		if(!anchored)
 			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
@@ -65,7 +65,7 @@
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
 	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
 		if(!is_servant_of_ratvar(L) && use_power(5))
-			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
+			L.apply_status_effect(/datum/status_effect/interdiction)
 	for(var/obj/vehicle/sealed/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
 			M.emp_act(EMP_HEAVY)

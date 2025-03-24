@@ -95,7 +95,7 @@
 		return
 	var/mob/living/carbon/itemUser = user
 	usedHand = itemUser.get_held_index_of_item(src)
-	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
+	if(itemUser.has_status_effect(/datum/status_effect/hippocratic_oath))
 		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
 	var/failText = span_warning("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
@@ -121,7 +121,7 @@
 		to_chat(itemUser, failText)
 		return
 	to_chat(itemUser, span_notice("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+	var/datum/status_effect/hippocratic_oath/effect = itemUser.apply_status_effect(/datum/status_effect/hippocratic_oath)
 	effect.hand = usedHand
 	activated()
 	itemUser.regenerate_icons()
@@ -399,14 +399,19 @@
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | ISWEAPON
+	sharpness = SHARP
 	force = 15
 	attack_weight = 2
+
+/obj/item/gun/magic/hook/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, "<span class='warning'>[src] isn't ready to fire yet!</span>")
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
 	desc = "A hook."
 	projectile_type = /obj/projectile/hook
 	caliber = "hook"
+	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/projectile/hook
 	name = "hook"
@@ -446,9 +451,6 @@
 /obj/item/gun/magic/hook/bounty
 	name = "hook"
 	ammo_type = /obj/item/ammo_casing/magic/hook/bounty
-
-/obj/item/gun/magic/hook/bounty/shoot_with_empty_chamber(mob/living/user)
-	to_chat(user, span_warning("The [src] isn't ready to fire yet!"))
 
 /obj/item/ammo_casing/magic/hook/bounty
 	projectile_type = /obj/projectile/hook/bounty
@@ -552,22 +554,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 
 /obj/item/shared_storage/red/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = AddComponent(/datum/component/storage/concrete)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 60
-	STR.max_items = 21
-	new /obj/item/shared_storage/blue(drop_location(), STR)
+
+	create_storage(max_total_storage = 60, max_slots = 21)
+
+	new /obj/item/shared_storage/blue(drop_location(), src)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
-/obj/item/shared_storage/blue/Initialize(mapload, datum/component/storage/concrete/master)
+/obj/item/shared_storage/blue/Initialize(mapload, atom/master)
 	. = ..()
 	if(!istype(master))
 		return INITIALIZE_HINT_QDEL
-	var/datum/component/storage/STR = AddComponent(/datum/component/storage, master)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 60
-	STR.max_items = 21
+	create_storage(max_total_storage = 60, max_slots = 21)
+
+	atom_storage.set_real_location(master)
 
 //Book of Babel
 
@@ -811,10 +811,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
 /obj/item/melee/transforming/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
-	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
+	var/datum/status_effect/saw_bleed/B = target.has_status_effect(/datum/status_effect/saw_bleed)
 	if(!B)
 		if(!active) //This isn't in the above if-check so that the else doesn't care about active
-			target.apply_status_effect(STATUS_EFFECT_SAWBLEED)
+			target.apply_status_effect(/datum/status_effect/saw_bleed)
 	else
 		B.add_bleed(B.bleed_buildup)
 
@@ -896,7 +896,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
 	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!",
-		enter_link="<a href=?src=[REF(src)];orbit=1>(Click to help)</a>",
+		enter_link="<a href='byond://?src=[REF(src)];orbit=1'>(Click to help)</a>",
 		source = user, action=NOTIFY_ORBIT, ignore_key = POLL_IGNORE_SPECTRAL_BLADE, header = "Spectral blade")
 
 	summon_cooldown = world.time + 600
@@ -1211,7 +1211,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		to_chat(user, span_warning("[name] is too far from the source of its power!"))
 	else
 		power = 15
-	if(user.mind.martial_art.no_guns)
+	if(HAS_TRAIT_FROM(user, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT))
 		to_chat(user, span_warning("To use this weapon would bring dishonor to the clan."))
 		return
 	var/turf/T = get_turf(target)

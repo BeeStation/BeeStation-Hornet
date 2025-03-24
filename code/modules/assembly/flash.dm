@@ -125,7 +125,7 @@
 	attack(user,user)
 	return FIRELOSS
 
-/obj/item/assembly/flash/update_icon(flash = FALSE)
+/obj/item/assembly/flash/update_icon(updates=ALL, flash = FALSE)
 	cut_overlays()
 	attached_overlays = list()
 	if(!bulb)
@@ -224,7 +224,7 @@
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
-	update_icon(TRUE)
+	update_icon(flash=TRUE)
 	if(user && !clown_check(user))
 		return FALSE
 	return TRUE
@@ -293,7 +293,7 @@
 	else if(issilicon(M))
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
-		update_icon(1)
+		update_icon(flash=TRUE)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
 		if(R.last_flashed + FLASHED_COOLDOWN < world.time)
 			R.last_flashed = world.time
@@ -396,7 +396,7 @@
 	overheat = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), flashcd)
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
-	update_icon(1)
+	update_icon(flash=TRUE)
 	return TRUE
 
 
@@ -440,7 +440,7 @@
 				M.confused += min(M.confused + 10, 20)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
-				M.apply_status_effect(STATUS_EFFECT_PACIFY, 100)
+				M.apply_status_effect(/datum/status_effect/pacify, 100)
 
 
 
@@ -454,7 +454,7 @@
 		M.confused += min(M.confused + 4, 20)
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
-		M.apply_status_effect(STATUS_EFFECT_PACIFY, 40)
+		M.apply_status_effect(/datum/status_effect/pacify, 40)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

@@ -102,7 +102,6 @@
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
 
 
@@ -118,6 +117,9 @@
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
+
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
@@ -125,14 +127,16 @@
 	. += span_notice("Alt-click to take a candy corn.")
 
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)) && loc == user)
-		if(candy_cooldown < world.time)
-			var/obj/item/food/candy_corn/CC = new /obj/item/food/candy_corn(src)
-			user.put_in_hands(CC)
-			to_chat(user, "You slip a candy corn from your hat.")
-			candy_cooldown = world.time+1200
-		else
-			to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
+	. = ..()
+	if(loc != user || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
+		return
+	if(candy_cooldown < world.time)
+		var/obj/item/food/candy_corn/CC = new /obj/item/food/candy_corn(src)
+		user.put_in_hands(CC)
+		to_chat(user, "You slip a candy corn from your hat.")
+		candy_cooldown = world.time+1200
+	else
+		to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
 
 /obj/item/clothing/head/fedora/det_hat/noir
 	name = "noir fedora"

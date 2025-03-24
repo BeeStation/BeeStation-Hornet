@@ -33,7 +33,7 @@
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
 						[internal_damage&MECHA_INT_TEMP_CONTROL?"<font color='red'><b>CLOWN SUPPORT SYSTEM MALFUNCTION</b></font><br>":null]
 						[internal_damage&MECHA_INT_TANK_BREACH?"<font color='red'><b>GAS TANK HONK</b></font><br>":null]
-						[internal_damage&MECHA_INT_CONTROL_LOST?"<font color='red'><b>HONK-A-DOODLE</b></font> - <a href='?src=[REF(src)];repair_int_control_lost=1'>Recalibrate</a><br>":null]
+						[internal_damage&MECHA_INT_CONTROL_LOST?"<font color='red'><b>HONK-A-DOODLE</b></font> - <a href='byond://?src=[REF(src)];repair_int_control_lost=1'>Recalibrate</a><br>":null]
 						<b>IntegriHONK: </b> [integrity]%<br>
 						<b>PowerHONK charge: </b>[isnull(cell_charge)?"No power cell installed":"[cell.percent()]%"]<br>
 						<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>
@@ -45,7 +45,7 @@
 					"}
 
 /obj/vehicle/sealed/mecha/combat/honker/get_stats_html(mob/user)
-	return {"<html>
+	return {"<!DOCTYPE html><html>
 						<head>
 						<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 						<title>[src.name] data</title>
@@ -107,19 +107,19 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Sounds of HONK:</div>
 						<div class='links'>
-						<a href='?src=[REF(src)];play_sound=sadtrombone'>Sad Trombone</a>
-						<a href='?src=[REF(src)];play_sound=bikehorn'>Bike Horn</a>
-						<a href='?src=[REF(src)];play_sound=airhorn2'>Air Horn</a>
-						<a href='?src=[REF(src)];play_sound=carhorn'>Car Horn</a>
-						<a href='?src=[REF(src)];play_sound=party_horn'>Party Horn</a>
-						<a href='?src=[REF(src)];play_sound=reee'>Reee</a>
-						<a href='?src=[REF(src)];play_sound=weeoo1'>Siren</a>
-						<a href='?src=[REF(src)];play_sound=hiss1'>Hissing Creature</a>
-						<a href='?src=[REF(src)];play_sound=armbomb'>Armed Grenade</a>
-						<a href='?src=[REF(src)];play_sound=saberon'>Energy Sword</a>
-						<a href='?src=[REF(src)];play_sound=airlock_alien_prying'>Airlock Prying</a>
-						<a href='?src=[REF(src)];play_sound=lightningbolt'>Lightning Bolt</a>
-						<a href='?src=[REF(src)];play_sound=explosionfar'>Distant Explosion</a>
+						<a href='byond://?src=[REF(src)];play_sound=sadtrombone'>Sad Trombone</a>
+						<a href='byond://?src=[REF(src)];play_sound=bikehorn'>Bike Horn</a>
+						<a href='byond://?src=[REF(src)];play_sound=airhorn2'>Air Horn</a>
+						<a href='byond://?src=[REF(src)];play_sound=carhorn'>Car Horn</a>
+						<a href='byond://?src=[REF(src)];play_sound=party_horn'>Party Horn</a>
+						<a href='byond://?src=[REF(src)];play_sound=reee'>Reee</a>
+						<a href='byond://?src=[REF(src)];play_sound=weeoo1'>Siren</a>
+						<a href='byond://?src=[REF(src)];play_sound=hiss1'>Hissing Creature</a>
+						<a href='byond://?src=[REF(src)];play_sound=armbomb'>Armed Grenade</a>
+						<a href='byond://?src=[REF(src)];play_sound=saberon'>Energy Sword</a>
+						<a href='byond://?src=[REF(src)];play_sound=airlock_alien_prying'>Airlock Prying</a>
+						<a href='byond://?src=[REF(src)];play_sound=lightningbolt'>Lightning Bolt</a>
+						<a href='byond://?src=[REF(src)];play_sound=explosionfar'>Distant Explosion</a>
 						</div>
 						</div>
 						"}
@@ -134,7 +134,7 @@
 	if(equipment.len)
 		for(var/X in equipment)
 			var/obj/item/mecha_parts/mecha_equipment/W = X
-			. += "[W.name] [W.detachable?"<a href='?src=[REF(W)];detach=1'>Detach</a><br>":"\[Non-removable\]<br>"]"
+			. += "[W.name] [W.detachable?"<a href='byond://?src=[REF(W)];detach=1'>Detach</a><br>":"\[Non-removable\]<br>"]"
 	. += {"<b>Available equipment slots:</b> [max_equip-equipment.len]
 	</div>
 	</div>"}

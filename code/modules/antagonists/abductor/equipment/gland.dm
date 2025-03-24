@@ -24,7 +24,7 @@
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
-	if((user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING)) || isobserver(user))
+	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
@@ -189,7 +189,7 @@
 
 /obj/item/organ/heart/gland/pop/activate()
 	to_chat(owner, span_notice("You feel unlike yourself."))
-	randomize_human(owner)
+	randomize_human(owner, TRUE)
 	var/species = pick(list(/datum/species/human, /datum/species/lizard, /datum/species/moth, /datum/species/fly))
 	owner.set_species(species)
 

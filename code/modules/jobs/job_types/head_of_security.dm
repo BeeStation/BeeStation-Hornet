@@ -56,7 +56,6 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	suit_store = /obj/item/gun/energy/disabler
 	r_pocket = /obj/item/modular_computer/tablet/pda/heads/head_of_security
 	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
 
@@ -75,5 +74,3 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
-	backpack_contents = list(/obj/item/melee/baton/loaded=1)
-

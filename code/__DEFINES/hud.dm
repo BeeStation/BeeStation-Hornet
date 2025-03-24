@@ -1,33 +1,37 @@
-/*!
-## HUD styles.
+//HUD styles.  Index order defines how they are cycled in F12.
+/// Standard hud
+#define HUD_STYLE_STANDARD 1
+/// Reduced hud (just hands and intent switcher)
+#define HUD_STYLE_REDUCED 2
+/// No hud (for screenshots)
+#define HUD_STYLE_NOHUD 3
 
-**Index order defines how they are cycled in F12.**
-*/
-
-#define HUD_STYLE_STANDARD 1 //! Standard hud
-#define HUD_STYLE_REDUCED 2 //! Reduced hud (just hands and intent switcher)
-#define HUD_STYLE_NOHUD 3 //! No hud (for screenshots)
-
-#define HUD_VERSIONS 3	//! Used in show_hud(); Please ensure this is the same as the maximum index.
+/// Used in show_hud(); Please ensure this is the same as the maximum index.
+#define HUD_VERSIONS 3
 
 #define HOVER_OUTLINE_FILTER "hover_outline"
 
 // Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)
 /// Used for progress bars and chat messages
-#define APPEARANCE_UI_IGNORE_ALPHA			(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
+#define APPEARANCE_UI_IGNORE_ALPHA (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
 /// Used for HUD objects
-#define APPEARANCE_UI						(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|PIXEL_SCALE)
+#define APPEARANCE_UI (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|PIXEL_SCALE)
 
 /*
 	These defines specificy screen locations.  For more information, see the byond documentation on the screen_loc var.
+
 	The short version:
+
 	Everything is encoded as strings because apparently that's how Byond rolls.
+
 	"1,1" is the bottom left square of the user's screen.  This aligns perfectly with the turf grid.
 	"1:2,3:4" is the square (1,3) with pixel offsets (+2, +4); slightly right and slightly above the turf grid.
 	Pixel offsets are used so you don't perfectly hide the turf under them, that would be crappy.
+
 	In addition, the keywords NORTH, SOUTH, EAST, WEST and CENTER can be used to represent their respective
 	screen borders. NORTH-1, for example, is the row just below the upper edge. Useful if you want your
 	UI to scale with screen size.
+
 	The size of the user's screen is defined by client.view (indirectly by world.view), in our case "15x15".
 	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
 */
@@ -89,6 +93,11 @@
 #define ui_living_healthdoll "EAST-1:28,CENTER-1:15"
 
 //Cyborgs
+//borgs
+#define ui_borg_health "EAST-1:28,CENTER-1:15"
+#define ui_borg_pull "EAST-2:26,SOUTH+1:7"
+#define ui_borg_radio "EAST-1:28,SOUTH+1:7"
+#define ui_borg_intents "EAST-2:26,SOUTH:5"
 #define ui_borg_lamp "CENTER-3:16, SOUTH:5"
 #define ui_borg_tablet "CENTER-4:16, SOUTH:5"
 #define ui_inv1 "CENTER-2:16,SOUTH:5"
@@ -99,6 +108,7 @@
 #define ui_borg_camera "CENTER+3:21,SOUTH:5"
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"
 #define ui_borg_language_menu "CENTER+4:19,SOUTH+1:6"
+#define ui_borg_navigate_menu "CENTER+4:19,SOUTH+1:6"
 
 //AI
 #define ui_ai_core "SOUTH:6,WEST"
@@ -137,6 +147,7 @@
 #define ui_pai_view_images "SOUTH:6,WEST+13"
 #define ui_pai_radio "SOUTH:6,WEST+14"
 #define ui_pai_language_menu "SOUTH+1:8,WEST+13:31"
+#define ui_pai_navigate_menu "SOUTH+1:8,WEST+13:31"
 
 //Ghosts
 
@@ -165,10 +176,6 @@
 #define ui_monkey_neck "CENTER-3:16,SOUTH:5"	//monkey
 #define ui_monkey_back "CENTER-2:17,SOUTH:5"	//monkey
 
-//#define ui_alien_storage_l "CENTER-2:14,SOUTH:5"//alien
-#define ui_alien_storage_r "CENTER+1:18,SOUTH:5"//alien
-#define ui_alien_language_menu "EAST-3:26,SOUTH:5" //alien
-
 #define ui_drone_drop "CENTER+1:18,SOUTH:5"     //maintenance drones
 #define ui_drone_pull "CENTER+2:2,SOUTH:5"      //maintenance drones
 #define ui_drone_storage "CENTER-2:14,SOUTH:5"  //maintenance drones
@@ -185,10 +192,7 @@
 #define ui_crafting	"EAST-4:22,SOUTH:5"
 #define ui_building "EAST-4:22,SOUTH:21"
 #define ui_language_menu "EAST-4:6,SOUTH:21"
-
-#define ui_borg_pull "EAST-2:26,SOUTH+1:7"
-#define ui_borg_radio "EAST-1:28,SOUTH+1:7"
-#define ui_borg_intents "EAST-2:26,SOUTH:5"
+#define ui_navigate_menu "EAST-4:22,SOUTH:5"
 
 
 //Upper-middle right (alerts)
@@ -207,13 +211,13 @@
 #define ui_spacesuit "EAST-1:28,CENTER-4:10"
 #define ui_stamina "EAST-1:28,CENTER-3:10"
 
-//borgs
-#define ui_borg_health "EAST-1:28,CENTER-1:15"		//borgs have the health display where humans have the pressure damage indicator.
-
 //aliens
 #define ui_alien_health "EAST,CENTER-1:15"	//aliens have the health display where humans have the pressure damage indicator.
 #define ui_alienplasmadisplay "EAST,CENTER-2:15"
 #define ui_alien_queen_finder "EAST,CENTER-3:15"
+#define ui_alien_storage_r "CENTER+1:18,SOUTH:5"
+#define ui_alien_language_menu "EAST-4:20,SOUTH:5"
+#define ui_alien_navigate_menu "EAST-4:20,SOUTH:5"
 
 //constructs
 #define ui_construct_pull "EAST,CENTER-2:15"

@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
-	var/inert_mutation 	= DWARFISM //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
+	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
 	var/deathsound //used to set the mobs deathsound on species change
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
 	/// What bleed status effect should we apply?
-	var/bleed_effect = STATUS_EFFECT_BLEED
+	var/bleed_effect = /datum/status_effect/bleeding
 
 	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
 	var/species_bitflags = NONE
@@ -585,7 +585,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
 		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
-		if(S)
+		if(S?.icon_state)
 
 			//List of all valid dynamic_fhair_suffixes
 			var/static/list/fextensions
@@ -658,7 +658,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				current_gradient_style = worn_wig.gradient_style
 				current_gradient_color = worn_wig.gradient_color
 			S = GLOB.hair_styles_list[current_hair_style]
-			if(S)
+			if(S?.icon_state)
 
 				//List of all valid dynamic_hair_suffixes
 				var/static/list/extensions
@@ -817,7 +817,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.gender == MALE))
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.use_default_gender == MALE))
 					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), FEMALE_UNIFORM_FULL)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1080,7 +1080,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
 
 
-			if(!S || S.icon_state == "none")
+			if(!S || S.icon_state == "none" || !S?.icon_state)
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
@@ -1375,9 +1375,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACKPACK)
-			if(H.back)
-				if(SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_CAN_INSERT, I, H, TRUE))
-					return TRUE
+			if(H.back && H.back.atom_storage?.can_insert(I, H, messages = TRUE))
+				return TRUE
 			return FALSE
 	return FALSE //Unsupported slot
 
@@ -1440,6 +1439,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.overeatduration < 100)
 			to_chat(H, span_notice("You feel fit again!"))
 			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
+			REMOVE_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
@@ -1447,6 +1447,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.overeatduration >= 100)
 			to_chat(H, span_danger("You suddenly feel blubbery!"))
 			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
+			ADD_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
@@ -1622,6 +1623,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style?.help_act(user, target) == MARTIAL_ATTACK_SUCCESS)
+		return TRUE
+
 	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
 		target.help_shake_act(user)
 		if(target != user)
@@ -1636,29 +1640,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [user]'s grab!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, span_warning("Your grab at [target] was blocked!"))
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user,target))
+	if(attacker_style?.grab_act(user,target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
-	else
-		//Steal them shoes
-		if(target.body_position == LYING_DOWN && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
-			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
-				target.grabbedby(user)
-				return TRUE
-			var/obj/item/I = target.shoes
-			user.visible_message(span_warning("[user] starts stealing [target]'s [I.name]!"),
-							span_danger("You start stealing [target]'s [I.name]..."), null, null, target)
-			to_chat(target, span_userdanger("[user] starts stealing your [I.name]!"))
-			if(do_after(user, I.strip_delay, target))
-				target.dropItemToGround(I, TRUE)
-				user.put_in_hands(I)
-				user.visible_message(span_warning("[user] stole [target]'s [I.name]!"),
-								span_notice("You stole [target]'s [I.name]!"), null, null, target)
-				to_chat(target, span_userdanger("[user] stole your [I.name]!"))
-		target.grabbedby(user)
-		return TRUE
+	target.grabbedby(user)
+	return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) && !attacker_style?.pacifist_style)
 		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return FALSE
 	if(target.check_block())
@@ -1666,7 +1654,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [user]'s attack!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, span_warning("Your attack at [target] was blocked!"))
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user,target))
+	if(attacker_style?.harm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
 	else
 
@@ -1706,7 +1694,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
-		user.dna.species.spec_unarmedattacked(user, target)
+		user.dna.species.spec_unarmedattack(user, target)
 
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
@@ -1723,8 +1711,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				target.force_say()
 			log_combat(user, target, "punched", "punch")
 
-/datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	return
+/datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target, modifiers)
+	return FALSE
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1732,7 +1720,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_danger("You block [user]'s shove!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, span_warning("Your shove at [target] was blocked!"))
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user,target))
+	if(attacker_style?.disarm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
 	if(user.resting || user.IsKnockdown())
 		return FALSE
@@ -1746,7 +1734,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style, modifiers)
 	if(!istype(M))
 		return
 	CHECK_DNA_AND_SPECIES(M)
@@ -1756,28 +1744,25 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 	if(M.mind)
 		attacker_style = M.mind.martial_art
-	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
+	if((M != H) && M.combat_mode && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		log_combat(M, H, "attempted to touch")
-		H.visible_message(span_warning("[M] attempts to touch [H]!"), \
-						span_danger("[M] attempts to touch you!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, span_warning("You attempt to touch [H]!"))
-		return 0
+		H.visible_message("<span class='warning'>[M] attempts to touch [H]!</span>", \
+						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, M)
+		to_chat(M, "<span class='warning'>You attempt to touch [H]!</span>")
+		return
+
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
 	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
-	switch(M.a_intent)
-		if("help")
-			help(M, H, attacker_style)
 
-		if("grab")
-			grab(M, H, attacker_style)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		disarm(M, H, attacker_style)
+		return // dont attack after
+	if(M.combat_mode)
+		harm(M, H, attacker_style)
+	else
+		help(M, H, attacker_style)
 
-		if("harm")
-			harm(M, H, attacker_style)
-
-		if("disarm")
-			disarm(M, H, attacker_style)
-
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
 	if(user != H)
 		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))

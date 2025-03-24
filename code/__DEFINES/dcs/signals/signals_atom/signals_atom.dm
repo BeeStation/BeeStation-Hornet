@@ -97,7 +97,7 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
-///! from base of atom/setDir(): (old_dir, new_dir)
+///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
 ///! from base of atom/handle_atom_del(): (atom/deleted)
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
@@ -128,11 +128,6 @@
 /// called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 
-///from base of atom/expose_reagents():
-#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
-	/// Prevents the atom from being exposed to reagents if returned on [COMPONENT_ATOM_EXPOSE_REAGENTS]
-	#define COMPONENT_NO_EXPOSE_REAGENTS (1<<0)
-
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
 ///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
@@ -141,6 +136,9 @@
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
+///from base of atom/throw_impact, sent by the target hit by a thrown object. (hit_atom, thrown_atom, datum/thrownthing/throwingdatum)
+#define COMSIG_ATOM_PREHITBY "atom_pre_hitby"
+	#define COMSIG_HIT_PREVENTED (1<<0)
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 
@@ -151,16 +149,6 @@
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
 /////////////////
-#define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
-#define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
-	#define COMPONENT_ALLOW_EXAMINATE 1 						//Allows the user to examinate regardless of client.eye.
-#define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
-#define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
-	#define COMPONENT_INTERCEPT_ALT 1
-#define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"				//! from base of atom/CtrlShiftClick(/mob)
-#define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"					//! from base of atom/MouseDrop(): (/atom/over, /mob/user)
-	#define COMPONENT_NO_MOUSEDROP 1
-#define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//! from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 
 /// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
@@ -173,3 +161,8 @@
 
 #define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
 #define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.
+
+//////////////////
+
+// From /atom/proc/set_density(new_value) for when an atom changes density
+#define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"

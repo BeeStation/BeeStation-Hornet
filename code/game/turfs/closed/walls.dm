@@ -30,6 +30,8 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 	var/list/dent_decals
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
@@ -45,6 +47,10 @@
 			underlay_appearance.icon = fixed_underlay["icon"]
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		underlays += underlay_appearance
+
+/turf/closed/wall/MouseDrop_T(atom/dropping, mob/user, params)
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /turf/closed/wall/atom_destruction(damage_flag)
 	. = ..()
@@ -109,7 +115,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	return attack_hand(user)
 
-/turf/closed/wall/attack_hand(mob/user)
+/turf/closed/wall/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -118,8 +124,8 @@
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 
-/turf/closed/wall/try_clean(obj/item/W, mob/user, turf/T)
-	if((user.a_intent != INTENT_HELP) || !LAZYLEN(dent_decals))
+/turf/closed/wall/try_clean(obj/item/W, mob/living/user, turf/T)
+	if((user.combat_mode) || !LAZYLEN(dent_decals))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -132,6 +138,7 @@
 				balloon_alert(user, "You fix some dents on the wall.")
 				cut_overlay(dent_decals)
 				dent_decals.Cut()
+			integrity = max_integrity
 			return TRUE
 
 	return FALSE

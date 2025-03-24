@@ -78,7 +78,7 @@
 
 /obj/structure/closet/supplypod/extractionpod
 	name = "Syndicate Extraction Pod"
-	desc = "A specalised, blood-red styled pod for extracting high-value targets out of active mission areas. <b>Targets must be manually stuffed inside the pod for proper delivery.</b>"
+	desc = "A specialised, blood-red styled pod for extracting high-value targets out of active mission areas. <b>Targets must be manually stuffed inside the pod for proper delivery.</b>"
 	specialised = TRUE
 	style = STYLE_SYNDICATE
 	bluespace = TRUE
@@ -99,6 +99,15 @@
 	delays = list(POD_TRANSIT = 40, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30) //Very slow
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 20
+
+/obj/structure/closet/supplypod/droppod
+	name = "'HELLE' Infiltration Drop Pod" //TODO: Add some cool name with a serial number in front I guess
+	desc = "A HELLE-class Drop Pod intended for operative insertion behind enemy lines. <b>Nuclear Operative ADDENDUM: After deployment, the Pod cannot be retrieved. Be certain of your designated target before launch.</b>"
+	specialised = TRUE
+	style = STYLE_DROPPOD
+	bluespace = FALSE // We want the pod to persist after landing. Unusable, but proof a nukie dropped.
+	delays = list(POD_TRANSIT = 20, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30)
+	reversing = FALSE //Under no circumstances should it reverse
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 
@@ -285,7 +294,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 		qdel(src)
 		return
 	if (style == STYLE_GONDOLA) //Checks if we are supposed to be a gondola pod. If so, create a gondolapod mob, and move this pod to nullspace. I'd like to give a shout out, to my man oranges
-		var/mob/living/simple_animal/pet/gondola/gondolapod/benis = new(turf_underneath, src)
+		var/mob/living/basic/pet/gondola/gondolapod/benis = new(turf_underneath, src)
 		benis.contents |= contents //Move the contents of this supplypod into the gondolapod mob.
 		moveToNullspace()
 		addtimer(CALLBACK(src, PROC_REF(open_pod), benis), delays[POD_OPENING]) //After the opening delay passes, we use the open proc from this supplyprod while referencing the contents of the "holder", in this case the gondolapod mob

@@ -392,7 +392,7 @@
 			SM.on_cross(src, AM)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/structure/spacevine/attack_hand(mob/user)
+/obj/structure/spacevine/attack_hand(mob/user, list/modifiers)
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_hit(src, user)
 	user_unbuckle_mob(user, user)
@@ -554,7 +554,7 @@
 			else if(!L.down && direction == DOWN)
 				continue
 			ladder = TRUE
-		if(!stepturf?.zPassIn(src, direction, startturf) && !ladder) //We can't go up, choose another direction
+		if((!stepturf?.zPassIn(src, direction, startturf) || !startturf.zPassOut(src, direction, stepturf)) && !ladder) //We can't zmove, choose another direction
 			direction = pick(GLOB.cardinals)
 			stepturf = get_step(src,direction)
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it

@@ -43,12 +43,12 @@
 	if(istype(T) && user.transferItemToLoc(T, drop_location()))
 		pinned_target = T
 		T.pinnedLoc = src
-		T.density = TRUE
+		T.set_density(TRUE)
 		T.layer = OBJ_LAYER + 0.01
 		handle_density()
 		to_chat(user, span_notice("You slide the target into the stake."))
 
-/obj/structure/target_stake/attack_hand(mob/user)
+/obj/structure/target_stake/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

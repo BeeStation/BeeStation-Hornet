@@ -33,7 +33,7 @@
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED, 20) //Swimming is really good excercise!
+		L.apply_status_effect(/datum/status_effect/exercised, 20) //Swimming is really good excercise!
 		lengths = 0
 
 //Damn edge cases
@@ -45,7 +45,7 @@
 	if(istype(C) && C?.dna?.species)
 		component_type = C.dna.species.swimming_component
 	var/mob/M = parent
-	RemoveComponent()
+	ClearFromParent()
 	M.AddComponent(component_type)
 
 /datum/component/swimming/proc/try_leave_pool(datum/source, turf/clicked_turf)
@@ -66,7 +66,7 @@
 /datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
 	L.forceMove(clicked_turf)
 	L.visible_message(span_notice("[parent] climbs out of the pool."))
-	RemoveComponent()
+	ClearFromParent()
 
 /datum/component/swimming/proc/pull_out(var/mob/living/L, turf/clicked_turf)
 	to_chat(parent, span_notice("You start to climb out of the pool..."))
@@ -78,7 +78,7 @@
 			L.visible_message(span_notice("[parent] pulls [pulled_object] out of the pool."))
 			var/datum/component/swimming/swimming_comp = pulled_object.GetComponent(/datum/component/swimming)
 			if(swimming_comp)
-				swimming_comp.RemoveComponent()
+				swimming_comp.ClearFromParent()
 
 /datum/component/swimming/UnregisterFromParent()
 	exit_pool()

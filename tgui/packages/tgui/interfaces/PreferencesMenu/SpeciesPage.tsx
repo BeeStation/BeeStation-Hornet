@@ -6,6 +6,7 @@ import { createSetPreference, Food, Perk, PreferencesMenuData, ServerData, Speci
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const FOOD_ICONS = {
+  [Food.Bugs]: 'bug',
   [Food.Cloth]: 'tshirt',
   [Food.Dairy]: 'cheese',
   [Food.Fried]: 'bacon',
@@ -21,6 +22,7 @@ const FOOD_ICONS = {
 };
 
 const FOOD_NAMES: Record<keyof typeof FOOD_ICONS, string> = {
+  [Food.Bugs]: 'Bugs',
   [Food.Cloth]: 'Clothing',
   [Food.Dairy]: 'Dairy',
   [Food.Fried]: 'Fried food',
@@ -35,7 +37,7 @@ const FOOD_NAMES: Record<keyof typeof FOOD_ICONS, string> = {
   [Food.Vegetables]: 'Vegetables',
 };
 
-const IGNORE_UNLESS_LIKED: Set<Food> = new Set([Food.Cloth, Food.Gross, Food.Toxic]);
+const IGNORE_UNLESS_LIKED: Set<Food> = new Set([Food.Bugs, Food.Cloth, Food.Gross, Food.Toxic]);
 
 const notIn = function <T>(set: Set<T>) {
   return (value: T) => {
@@ -213,7 +215,7 @@ const SpeciesPageInner = (props: { handleClose: () => void; species: ServerData[
       <Stack.Item grow>
         <Stack fill>
           <Stack.Item>
-            <Box height="calc(100vh - 170px)" overflowY="auto" pr={3}>
+            <Box height="calc(100vh - 170px)" overflowY="auto" overflowX="hidden" mr={3}>
               {selectableSpecies.map(([speciesKey, species]) => {
                 return !currentSpecies.selectable ? (
                   <Button.Confirm
