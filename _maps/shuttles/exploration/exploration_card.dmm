@@ -986,7 +986,13 @@
 "Zh" = (
 /obj/machinery/button/door{
 	pixel_x = -24;
-	id = "exploshittlebot"
+	id = "exploshittlebot";
+	pixel_y = -5
+	},
+/obj/machinery/button/shieldwallgen/directional/west{
+	id = "exploholo";
+	pixel_y = 5;
+	color = "#fa4422"
 	},
 /turf/open/floor/catwalk_floor,
 /area/shuttle/exploration)
