@@ -844,6 +844,11 @@
 /obj/item/reagent_containers/dropper{
 	pixel_y = 8
 	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 8;
+	pixel_x = 9;
+	desc = "A small storage vessel for samples."
+	},
 /turf/open/floor/iron/tech/grid,
 /area/science/xenobiology)
 "aiL" = (
@@ -8803,6 +8808,12 @@
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/dropper{
 	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/bottle/small_potion{
+	pixel_y = 15;
+	pixel_x = 9;
+	desc = "Used for heating, boiling and distillation.";
+	name = "Small round bottom flask"
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/medical/chemistry)
@@ -18170,6 +18181,10 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/requests_console/auto_name/directional/west,
+/obj/item/reagent_containers/cup/glass/bottle/holywater{
+	pixel_x = -2;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "dOn" = (
@@ -20038,8 +20053,15 @@
 	},
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 1;
-	pixel_x = -4
+	pixel_x = -5
 	},
+/obj/item/reagent_containers/cup/bottle/big_potion{
+	pixel_x = 16;
+	pixel_y = 9;
+	name = "Round bottom flask";
+	desc = "Used for heating, boiling and distillation."
+	},
+/obj/item/reagent_containers/cup/beaker/plastic,
 /turf/open/floor/iron/ridged,
 /area/medical/apothecary)
 "ekB" = (
@@ -29971,6 +29993,10 @@
 	pixel_y = 13;
 	pixel_x = -30
 	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 20;
+	pixel_x = -9
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
 "gqR" = (
@@ -30230,6 +30256,23 @@
 /obj/item/storage/box,
 /obj/item/storage/box,
 /obj/item/storage/box,
+/obj/item/reagent_containers/cup/bottle/small_potion{
+	pixel_y = 15;
+	pixel_x = 9;
+	desc = "Used for heating, boiling and distillation.";
+	name = "Small round bottom flask"
+	},
+/obj/item/reagent_containers/cup/bottle/big_potion{
+	pixel_x = 16;
+	pixel_y = 9;
+	name = "Round bottom flask";
+	desc = "Used for heating, boiling and distillation."
+	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 8;
+	pixel_x = -17;
+	desc = "A small storage vessel for samples."
+	},
 /turf/open/floor/iron/smooth,
 /area/medical/apothecary)
 "guj" = (
@@ -51757,6 +51800,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/item/reagent_containers/cup/glass/bottle/holywater{
+	pixel_x = 16;
+	pixel_y = 4
+	},
 /turf/open/floor/carpet/red,
 /area/chapel/office)
 "kXb" = (
@@ -71851,6 +71898,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 20;
+	pixel_x = -9
+	},
 /turf/open/floor/wood,
 /area/chapel/office)
 "pfj" = (
@@ -80807,6 +80858,14 @@
 /obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
+"rbq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = -2;
+	pixel_x = -8
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "rbx" = (
 /obj/machinery/smoke_machine{
 	name = "water vapor sprayer"
@@ -85699,6 +85758,16 @@
 /obj/machinery/firealarm{
 	pixel_y = 28
 	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 16;
+	pixel_x = -9;
+	desc = "A small storage vessel for samples."
+	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 17;
+	pixel_x = -16;
+	desc = "A small storage vessel for samples."
+	},
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "sfD" = (
@@ -86581,15 +86650,15 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
-/obj/item/reagent_containers/cup/bottle/toxin{
-	pixel_x = -6;
-	name = "mysterious bottle";
-	desc = "A small bottle. You have no idea what it could contain."
-	},
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "face";
 	pixel_y = -11;
 	pixel_x = 31
+	},
+/obj/item/reagent_containers/cup/bottle/toxin{
+	pixel_x = -6;
+	name = "mysterious bottle";
+	desc = "A small bottle. You have no idea what it could contain."
 	},
 /turf/open/floor/plating/rust,
 /area/maintenance/department/eva)
@@ -90221,6 +90290,21 @@
 	},
 /obj/item/reagent_containers/medspray/sterilizine{
 	pixel_y = 8
+	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 12;
+	pixel_x = -12;
+	desc = "A small storage vessel for samples."
+	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 9;
+	pixel_x = -17;
+	desc = "A small storage vessel for samples."
+	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 8;
+	pixel_x = -7;
+	desc = "A small storage vessel for samples."
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -109132,8 +109216,8 @@
 	pixel_x = 4
 	},
 /obj/item/reagent_containers/dropper{
-	pixel_y = 8;
-	pixel_x = -13
+	pixel_y = 10;
+	pixel_x = -2
 	},
 /turf/open/floor/iron/ridged,
 /area/medical/apothecary)
@@ -113473,6 +113557,26 @@
 "xXo" = (
 /turf/closed/wall/r_wall,
 /area/medical/chemistry)
+"xXw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/bottle/big_potion{
+	pixel_y = 2;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/bottle/small_potion{
+	pixel_y = -2;
+	pixel_x = -1
+	},
+/obj/item/reagent_containers/cup/bottle/vial{
+	pixel_y = 10;
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/greenglow/filled{
+	pixel_y = 13;
+	pixel_x = 10
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/medical)
 "xXE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -169292,8 +169396,8 @@ aTb
 vAJ
 rnC
 wZS
-vIv
-vIv
+rbq
+xXw
 ksv
 kiB
 kiB
