@@ -40,7 +40,6 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15)
 	label_icon = "label_potion"
-	isGlass = TRUE
 
 /obj/item/reagent_containers/cup/bottle/small_potion
 	name = "Small potion"
@@ -51,7 +50,6 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30)
 	label_icon = "label_potion"
-	isGlass = TRUE
 
 /obj/item/reagent_containers/cup/bottle/big_potion
 	name = "potion"
@@ -62,7 +60,6 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,75)
 	label_icon = "label_potion"
-	isGlass = TRUE
 
 /obj/item/reagent_containers/cup/bottle/epinephrine
 	name = "epinephrine bottle"
