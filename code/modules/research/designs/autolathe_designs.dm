@@ -1121,7 +1121,7 @@
 	name = "Small Potion Bottle"
 	id = "small_potion"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/glass = 450)
+	materials = list(/datum/material/glass = 200)
 	build_path = /obj/item/reagent_containers/cup/bottle/small_potion
 	category = list("Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
@@ -1130,7 +1130,7 @@
 	name = "Vial Bottle"
 	id = "vial"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/glass = 400)
+	materials = list(/datum/material/glass = 100)
 	build_path = /obj/item/reagent_containers/cup/bottle/vial
 	category = list("Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
