@@ -13,6 +13,12 @@
 	isGlass = TRUE
 	throwforce = 10
 
+/obj/item/reagent_containers/cup/bottle/Initialize(mapload)
+	. = ..()
+	if(!icon_state)
+		icon_state = "bottle"
+	update_appearance()
+
 /obj/item/reagent_containers/cup/bottle/throw_impact(mob/living/target, mob/thrower)
 	SplashReagents(target, TRUE, override_spillable = TRUE)
 	if(isGlass)
@@ -24,12 +30,6 @@
 		target.Bumped(src)
 
 	return TRUE
-
-/obj/item/reagent_containers/cup/bottle/Initialize(mapload)
-	. = ..()
-	if(!icon_state)
-		icon_state = "bottle"
-	update_appearance()
 
 /obj/item/reagent_containers/cup/bottle/vial
 	name = "Vial"
