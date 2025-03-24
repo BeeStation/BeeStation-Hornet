@@ -1,0 +1,6 @@
+author: rkz, temporaloroboros, Rohesie, ATH1909, NotRanged
+delete-after: true
+changes:
+  - code_imp: moves life() onto delta_time. There should not be a significant difference
+      apparent to the player.
+  - refactor: refactors disease code
