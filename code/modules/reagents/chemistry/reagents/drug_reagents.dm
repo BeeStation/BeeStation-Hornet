@@ -581,6 +581,7 @@
 	self_consuming = TRUE //No pesky liver shenanigans
 	///If we brought someone back from the dead
 	var/back_from_the_dead = FALSE
+	var/consequnces = FALSE // This cant be healthy?
 
 
 /datum/reagent/drug/nooartrium/on_mob_add(mob/living/affected_mob)
@@ -596,13 +597,13 @@
 	ADD_TRAIT(affected_mob, TRAIT_STABLEHEART, FROM_NOOARTRIUM)
 	ADD_TRAIT(affected_mob, TRAIT_NOLIMBDISABLE, FROM_NOOARTRIUM)
 	ADD_TRAIT(affected_mob, TRAIT_STUNRESISTANCE, FROM_NOOARTRIUM)
+	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired
+	ADD_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN, FROM_NOOARTRIUM)
 	if(affected_mob.stat == DEAD)
 		back_from_the_dead = TRUE
 	affected_mob.set_stat(CONSCIOUS) //This doesn't touch knocked out
 	affected_mob.updatehealth()
 	affected_mob.update_sight()
-	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
-	affected_mob.add_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, STAT_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT) //Because these are normally updated using set_health() - but we don't want to adjust health, and the addition of NOHARDCRIT blocks it being added after, but doesn't remove it if it was added before
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT) //Prevents the user from being knocked out by oxyloss
@@ -611,8 +612,6 @@
 	if(!back_from_the_dead)
 		to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength!"))
 		return
-	ADD_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM) // Moving corpses dont get tired
-	metabolization_rate = 0.4 * REM// Keeping dead corpse moving is harder
 	affected_mob.grab_ghost(force = FALSE) //Shoves them back into their freshly reanimated corpse.
 	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_userdanger("You feel your heart start beating with incredible strength, forcing your battered body to move!"))
@@ -620,31 +619,37 @@
 
 /datum/reagent/drug/nooartrium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
+	if (times_fired > 35 && !consequnces)
+		consequnces = TRUE
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
 	REMOVE_TRAIT(affected_mob, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	affected_mob.adjustBruteLoss(0.5)
-	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 0.5)
-	if(back_from_the_dead)
-		affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 0.25) // Keeping dead corpse moving is harder
+	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, (((affected_mob.getBruteLoss() + affected_mob.getFireLoss()) / 200) + 0.5))
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
 	if(!heart || heart.organ_flags & ORGAN_FAILING)
 		on_mob_delete(affected_mob)
+	else
+		heart.maxHealth -= 0.5
 
 
 /datum/reagent/drug/nooartrium/on_mob_delete(mob/living/carbon/affected_mob)
 	. = ..()
-	remove_buffs(affected_mob)
 	var/obj/item/organ/heart/heart = affected_mob.getorganslot(ORGAN_SLOT_HEART)
-	if(affected_mob.health < -500 || heart.organ_flags & ORGAN_FAILING)//Honestly commendable if you get -500
-		explosion(affected_mob, light_impact_range = 1)
+	remove_buffs(affected_mob)
+	if(affected_mob.health < -300 || heart.organ_flags & ORGAN_FAILING)
+		affected_mob.add_splatter_floor(get_turf(affected_mob))
 		qdel(heart)
 		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))
+	else if(consequnces)
+		var/datum/disease/D = new /datum/disease/heart_failure()
+		affected_mob.ForceContractDisease(D, FALSE, TRUE)
 
 /datum/reagent/drug/nooartrium/overdose_start(mob/living/carbon/affected_mob)
 	. = ..()
 	to_chat(affected_mob, span_userdanger("You feel your heart tearing itself apart as it tries to beat stronger!"))
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
 	affected_mob.SetParalyzed(6 SECONDS)
+	consequnces = TRUE
 
 
 /datum/reagent/drug/nooartrium/proc/remove_buffs(mob/living/carbon/affected_mob)
@@ -657,6 +662,6 @@
 	REMOVE_TRAIT(affected_mob, TRAIT_NOLIMBDISABLE, FROM_NOOARTRIUM)
 	REMOVE_TRAIT(affected_mob, TRAIT_STUNRESISTANCE, FROM_NOOARTRIUM)
 	REMOVE_TRAIT(affected_mob, TRAIT_NOSTAMCRIT, FROM_NOOARTRIUM)
-	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nooartrium)
-	affected_mob.remove_actionspeed_modifier(/datum/actionspeed_modifier/nooartrium)
+	REMOVE_TRAIT(affected_mob, TRAIT_IGNOREDAMAGESLOWDOWN, FROM_NOOARTRIUM)
 	affected_mob.update_sight()
+	if(consequnces)

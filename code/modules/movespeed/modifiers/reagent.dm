@@ -37,5 +37,3 @@
 /datum/movespeed_modifier/reagent/nuka_cola
 	multiplicative_slowdown = -0.25
 
-/datum/movespeed_modifier/reagent/nooartrium
-	multiplicative_slowdown = 0.25
