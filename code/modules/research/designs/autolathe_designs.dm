@@ -1113,7 +1113,7 @@
 	id = "potion"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 500)
-	build_path = /obj/item/reagent_containers/cup/bottle/potion
+	build_path = /obj/item/reagent_containers/cup/bottle/big_potion
 	category = list("Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
 

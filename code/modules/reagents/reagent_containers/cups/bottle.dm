@@ -53,7 +53,7 @@
 	label_icon = "label_potion"
 	isGlass = TRUE
 
-/obj/item/reagent_containers/cup/bottle/potion
+/obj/item/reagent_containers/cup/bottle/big_potion
 	name = "potion"
 	desc = "A recipent for the strongest potions for going into battle." ///https://www.youtube.com/watch?v=R_FQU4KzN7A
 	icon_state = "potion"
