@@ -34,34 +34,25 @@
 	var/output_pressure = coolant_output.return_pressure()
 
 	pressure = output_pressure // set our pressure to the pressure of the coolant output (NB: this is taken before adding gases so oscillations are not setup from our output buffer not immediately equalising with the external pipenet)
-	last_output_temperature = coolant_output.temperature
+	last_output_temperature = coolant_output.temperature // used for GUI
 
-	if(temperature < 0) // Not letting power get into the negatives, because -22% power is just absurd.
+	if(temperature < 0) // Not letting temperature get into the negatives, because -22% power is just absurd.
 		temperature = 0
 
 	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
 
+	// First, deal with things that heat us up
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 	var/depletion_modifier = 0.035 //How rapidly do your rods decay
-	var/total_permeability_moles = 0
 	gas_absorption_effectiveness = gas_absorption_constant
 	last_power_produced = 0
-
-	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
-	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
-		rate_of_reaction = 0
-	else
-		for(var/obj/item/fuel_rod/reactor_fuel_rod in fuel_rods)
-			rate_of_reaction += reactor_fuel_rod.fuel_power
-			fuel_power += reactor_fuel_rod.fuel_power
-			reactor_fuel_rod.deplete(depletion_modifier)
 
 	//Next up, handle moderators!
 	var/moderator_input_total_mols = moderator_input.total_moles()
 	if(moderator_input_total_mols >= minimum_coolant_level)
 		var/total_fuel_moles = GET_MOLES(/datum/gas/plasma, moderator_input) + (GET_MOLES(/datum/gas/nitrous_oxide, moderator_input)*2) + (GET_MOLES(/datum/gas/tritium, moderator_input)*10) //n2o is 50% more efficient as fuel than plasma, but is harder to produce
-		var/power_modifier = max(GET_MOLES(/datum/gas/oxygen, moderator_input) / moderator_input_total_mols * 10, 1) //You can never have negative IPM. For now.
-		if(total_fuel_moles >= minimum_coolant_level) //You at least need SOME fuel.
+		var/power_modifier = max(GET_MOLES(/datum/gas/oxygen, moderator_input) / moderator_input_total_mols * 10, 1) //You can never have a negative power modifier. For now.
+		if(total_fuel_moles >= minimum_coolant_level) //You at least need SOME fuel if you want to make some power.
 			var/power_produced = max((total_fuel_moles / moderator_input_total_mols * 10), 1)
 			last_power_produced = max(0,((power_produced*power_modifier)*moderator_input_total_mols))
 			last_power_produced *= (max(0,power)/100) //Aaaand here comes the cap. Hotter reactor => more power.
@@ -75,7 +66,7 @@
 			control_rod_effectiveness = initial(control_rod_effectiveness) + control_bonus
 			radioactivity_spice_multiplier += GET_MOLES(/datum/gas/nitrogen, moderator_input) / 25 //An example setup of 50 moles of n2 (for dealing with spent fuel) leaves us with a radioactivity spice multiplier of 3.
 			radioactivity_spice_multiplier += GET_MOLES(/datum/gas/carbon_dioxide, moderator_input) / 12.5
-		total_permeability_moles = GET_MOLES(/datum/gas/bz, moderator_input) + (GET_MOLES(/datum/gas/water_vapor, moderator_input)*2) + (GET_MOLES(/datum/gas/hypernoblium, moderator_input)*10)
+		var/total_permeability_moles = GET_MOLES(/datum/gas/bz, moderator_input) + (GET_MOLES(/datum/gas/water_vapor, moderator_input)*2) + (GET_MOLES(/datum/gas/hypernoblium, moderator_input)*10)
 		if(total_permeability_moles >= minimum_coolant_level)
 			var/permeability_bonus = total_permeability_moles / 500
 			gas_absorption_effectiveness = gas_absorption_constant + permeability_bonus
@@ -89,9 +80,18 @@
 
 	var/rate_of_reaction_orig = rate_of_reaction
 
-	//Firstly, find the difference between the two numbers.
+	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
+	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
+		rate_of_reaction = 0
+	else
+		for(var/obj/item/fuel_rod/reactor_fuel_rod in fuel_rods)
+			rate_of_reaction += reactor_fuel_rod.fuel_power
+			fuel_power += reactor_fuel_rod.fuel_power
+			reactor_fuel_rod.deplete(depletion_modifier)
+
+	// find the difference between the what we want to be at, and the current rate
 	var/difference = abs(rate_of_reaction - desired_reate_of_reaction)
-	//Then, hit as much of that goal with our cooling per tick as we possibly can.
+	//Then, hit as much of that goal with our control rod effectiveness
 	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the rate_of_reaction to what we want, so let's zap as much of it as we can manage....
 	if(difference > fuel_power && desired_reate_of_reaction > rate_of_reaction)
 		difference = 0 //Again, to stop you being able to run off of 1 fuel rod. (we've already added in one x fuel power in the fuel rod calculation above)
@@ -101,13 +101,13 @@
 		else if(desired_reate_of_reaction < rate_of_reaction)
 			rate_of_reaction -= difference
 
-	rate_of_reaction = clamp(rate_of_reaction, 0, RBMK_MAX_CRITICALITY)
+	rate_of_reaction = clamp(rate_of_reaction, 0, RBMK_MAX_CRITICALITY) // let's try not to go turbonuclear immediately
 
 	// take rate_of_reaction, or the power produced scaled down to a similar range as our temperature gain (if no moderator is applied, this will be just rate_of_reaction. with extra gases it can get interesting!)
-	var/equivalent_temperature_gain = last_power_produced * LAURIE_RBMK_POWER_TO_TEMPERATURE_MULTIPLIER
-	var/temperature_gain = rate_of_reaction * max(1, equivalent_temperature_gain) * LAURIE_RBMK_TEMPERATURE_MULTIPLIER // as this temperature rise is applied after cooling, if sudden changes in rate_of_reaction occur the temperature can rise very quickly!
+	var/equivalent_temperature_gain = last_power_produced * RBMK_POWER_TO_TEMPERATURE_MULTIPLIER
+	var/temperature_gain = rate_of_reaction * max(1, equivalent_temperature_gain) * RBMK_TEMPERATURE_MULTIPLIER // as this temperature rise is applied after cooling, if sudden changes in rate_of_reaction occur the temperature can rise very quickly!
 
-
+	// apply the temperature gain
 	if(has_fuel())
 		temperature += temperature_gain
 	else
@@ -117,7 +117,7 @@
 	if((input_moles >= minimum_coolant_level) && (input_pressure > output_pressure))
 		last_coolant_temperature = clamp(coolant_input.temperature, TCMB, INFINITY)
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = (last_coolant_temperature - temperature) * LAURIE_RBMK_BASE_COOLING_FACTOR * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
+		var/heat_delta = (last_coolant_temperature - temperature) * RBMK_BASE_COOLING_FACTOR * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta // HEAT DELTA COULD BE NEGATIVE!!
 		temperature += heat_delta
 		temperature = clamp(temperature, TCMB, INFINITY) // ensure nothing silly happens
@@ -125,8 +125,8 @@
 		//And now, shove the input into the output.
 
 		// calculate how many moles to transfer to equalise pressures
-		// use similar calculation to circulators
-		var/pressure_delta = (input_pressure - output_pressure) / 2 * LAURIE_RBMK_COOLANT_FLOW_RESTRICTION
+		// use similar calculation to circulators - move the required number of moles to equalise the pressures (with a restriction as we don't want things to be too easy)
+		var/pressure_delta = (input_pressure - output_pressure) / 2 * RBMK_COOLANT_FLOW_RESTRICTION
 		var/output_temperature = clamp(coolant_output.temperature, last_coolant_temperature, INFINITY) // output should not be lower than input gas (at least until it subtracts heat_delta), and not return 0 if the output is empty
 		var/transfer_moles = (pressure_delta*coolant_input.return_volume())/(output_temperature * R_IDEAL_GAS_EQUATION)
 
@@ -138,13 +138,8 @@
 		else
 			removed.temperature -= heat_delta
 
-		to_chat(world, span_notice("LaurieChange: deltaP: [pressure_delta] n: [transfer_moles] T:[removed.temperature] dt [delta_time] permeMol [total_permeability_moles]"))
-
 		coolant_output.merge(removed)
 
-
-		to_chat(world, span_notice("RBMK FromMerge  T: [coolant_output.temperature], P: [coolant_output.return_pressure()]"))
-		to_chat(world, span_notice("RBMK InputIsNow T: [coolant_input.temperature], P: [coolant_input.return_pressure()]"))
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
 	else
 		if(has_fuel())
