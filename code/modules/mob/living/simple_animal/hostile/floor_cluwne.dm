@@ -466,7 +466,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(sac_target)
 	sac_target.update_handcuffed()
-	sac_target.do_jitter_animation(100)
+	sac_target.do_jitter_animation()
 
 	if(sac_target.legcuffed)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
@@ -474,8 +474,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		sac_target.legcuffed = null
 		sac_target.update_inv_legcuffed()
 
-	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
-	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
+	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
+	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
 	// Grab their ghost, just in case they're dead or something.
 	sac_target.grab_ghost()
@@ -538,7 +538,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.flash_act()
 	sac_target.blur_eyes(15)
-	sac_target.Jitter(10)
+	sac_target.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	sac_target.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	sac_target.hallucination += 12
 	sac_target.emote("scream")
@@ -615,7 +615,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	// Oh god where are we?
 	sac_target.flash_act()
-	sac_target.Jitter(60)
+	sac_target.set_timed_status_effect(120 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	sac_target.blur_eyes(50)
 	sac_target.set_timed_status_effect(60 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	sac_target.AdjustKnockdown(80)

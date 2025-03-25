@@ -88,7 +88,7 @@
 		if(prob(40))
 			M.Knockdown(200*mul)
 		else
-			M.Jitter(500*mul)
+			M.set_timed_status_effect(1000 SECONDS*mul, /datum/status_effect/jitter, only_if_higher = TRUE)
 
 	. = ..()
 

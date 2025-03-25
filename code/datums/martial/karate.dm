@@ -94,7 +94,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.blur_eyes(10)
 		D.adjust_timed_status_effect(2 SECONDS, /datum/status_effect/confusion)
-		D.Jitter(20)
+		D.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		return 1
 	return FALSE
 

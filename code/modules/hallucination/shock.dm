@@ -18,16 +18,14 @@
 	addtimer(CALLBACK(src, PROC_REF(reset_shock_animation)), 40)
 	target.playsound_local(get_turf(src), "sparks", 100, 1)
 	target.staminaloss += 50
-	target.Stun(40)
-	target.jitteriness += 1000
-	target.do_jitter_animation(target.jitteriness)
-	addtimer(CALLBACK(src, PROC_REF(shock_drop)), 20)
+	target.Stun(4 SECONDS)
+	target.do_jitter_animation(300) // Maximum jitter
+	target.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
+	addtimer(CALLBACK(src, PROC_REF(shock_drop)), 2 SECONDS)
 
 /datum/hallucination/shock/proc/reset_shock_animation()
-	if(target.client)
-		target.client.images.Remove(shock_image)
-		target.client.images.Remove(electrocution_skeleton_anim)
+	target.client?.images.Remove(shock_image)
+	target.client?.images.Remove(electrocution_skeleton_anim)
 
 /datum/hallucination/shock/proc/shock_drop()
-	target.jitteriness = max(target.jitteriness - 990, 10) //Still jittery, but vastly less
-	target.Paralyze(60)
+	target.Paralyze(6 SECONDS)

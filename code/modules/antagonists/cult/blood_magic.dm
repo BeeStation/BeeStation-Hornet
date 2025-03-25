@@ -412,7 +412,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				C.silent += 6
 				C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/stutter)
 				C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/slurring/cult)
-				C.Jitter(15)
+				C.set_timed_status_effect(30 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)

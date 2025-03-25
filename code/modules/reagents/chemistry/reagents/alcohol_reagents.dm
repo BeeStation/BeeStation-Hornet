@@ -161,7 +161,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.Jitter(5)
+		M.set_timed_status_effect(10 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	..()
 	. = TRUE
 
@@ -197,13 +197,13 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.Jitter(5)
+		M.set_timed_status_effect(10 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	return ..()
 
 /datum/reagent/consumable/ethanol/thirteenloko/overdose_start(mob/living/M)
 	to_chat(M, span_userdanger("Your entire body violently jitters as you start to feel queasy. You really shouldn't have drank all of that [name]!"))
-	M.Jitter(20)
-	M.Stun(15)
+	M.set_timed_status_effect(40 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.Stun(1.5 SECONDS)
 
 /datum/reagent/consumable/ethanol/thirteenloko/overdose_process(mob/living/M, delta_time, times_fired)
 	if(DT_PROB(3.5, delta_time) && iscarbon(M))
@@ -211,7 +211,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		if(I)
 			M.dropItemToGround(I)
 			to_chat(M, span_notice("Your hands jitter and you drop what you were holding!"))
-			M.Jitter(10)
+			M.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 
 	if(DT_PROB(3.5, delta_time))
 		to_chat(M, span_notice("[pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
@@ -233,7 +233,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(DT_PROB(1.5, delta_time) && iscarbon(M))
 		M.visible_message(span_danger("[M] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		M.Unconscious(100)
-		M.Jitter(350)
+		M.set_timed_status_effect(700 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 
 	if(DT_PROB(0.5, delta_time) && iscarbon(M))
 		var/datum/disease/D = new /datum/disease/heart_failure
@@ -688,7 +688,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(2)
+	M.set_timed_status_effect(4 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(M.mind != null && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
@@ -2288,7 +2288,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/trappist/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.mind?.holy_role)
 		M.adjustFireLoss(-2.5 * REM * delta_time, 0)
-		M.jitteriness = max(M.jitteriness - (1 * REM * delta_time), 0)
+		M.adjust_timed_status_effect(-2 SECONDS * REM * delta_time, /datum/status_effect/jitter)
 		M.adjust_timed_status_effect(-2 SECONDS * REM * delta_time, /datum/status_effect/speech/stutter)
 	return ..()
 
@@ -2434,7 +2434,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/datum/brain_trauma/OD_trauma
-	M.Jitter(2)
+	M.set_timed_status_effect(4 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(DT_PROB(2.5, delta_time) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
 			if(10 to 50)

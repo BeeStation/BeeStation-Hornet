@@ -184,7 +184,7 @@
 	if(spam_flag == 0)
 		if(ishuman(C))
 			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
-			C.Jitter(50)
+			C.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 			C.Paralyze(60)
 			C.set_timed_status_effect(40 SECONDS, /datum/status_effect/speech/stutter)
 			var/mob/living/carbon/human/H = C

@@ -157,7 +157,7 @@
 /obj/item/organ/ears/robot/emp_act(severity)
 	. = ..()
 	if(prob(30/severity))
-		owner.Jitter(30/severity)
+		owner.set_timed_status_effect(60 SECONDS/severity, /datum/status_effect/jitter, only_if_higher = TRUE)
 		owner.set_timed_status_effect(60 SECONDS/severity, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
 

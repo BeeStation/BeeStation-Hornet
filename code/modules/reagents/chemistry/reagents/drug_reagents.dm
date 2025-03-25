@@ -219,7 +219,7 @@
 	M.AdjustImmobilized(-40 * REM * delta_time)
 	M.adjustStaminaLoss(-40 * REM * delta_time, 0)
 	M.drowsyness = max(M.drowsyness - (60 * REM * delta_time), 0)
-	M.Jitter(2 * REM * delta_time)
+	M.set_timed_status_effect(4 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(DT_PROB(2.5, delta_time))
 		M.emote(pick("twitch", "shiver"))
@@ -241,13 +241,13 @@
 	. = TRUE
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage1(mob/living/M)
-	M.Jitter(5)
+	M.set_timed_status_effect(10 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage2(mob/living/M)
-	M.Jitter(10)
+	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
@@ -257,7 +257,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 4, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(15)
+	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
@@ -267,7 +267,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(20)
+	M.set_timed_status_effect(40 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(40 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustToxLoss(5, 0)
 	if(prob(50))
@@ -339,7 +339,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(5)
+	M.set_timed_status_effect(10 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
@@ -350,7 +350,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(10)
+	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(30))
@@ -362,7 +362,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 12, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(15)
+	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(40))
@@ -374,7 +374,7 @@
 	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 16, i++)
 			step(M, pick(GLOB.cardinals))
-	M.Jitter(50)
+	M.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(100 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustToxLoss(5, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
@@ -430,7 +430,7 @@
 	..()
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.jitteriness = 0
+	M.remove_status_effect(/datum/status_effect/jitter)
 	M.remove_status_effect(/datum/status_effect/confusion)
 	M.disgust = 0
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * REM * delta_time)
@@ -457,7 +457,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage1(mob/living/M)// all work and no play makes jack a dull boy
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(min(mood.sanity, SANITY_DISTURBED))
-	M.Jitter(5)
+	M.set_timed_status_effect(10 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(prob(20))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -465,7 +465,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage2(mob/living/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(min(mood.sanity, SANITY_UNSTABLE))
-	M.Jitter(10)
+	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(prob(30))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -473,7 +473,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage3(mob/living/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(min(mood.sanity, SANITY_CRAZY))
-	M.Jitter(15)
+	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(prob(40))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -481,7 +481,7 @@
 /datum/reagent/drug/happiness/addiction_act_stage4(mob/living/carbon/human/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood?.setSanity(SANITY_INSANE)
-	M.Jitter(20)
+	M.set_timed_status_effect(40 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(prob(50))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
@@ -518,7 +518,7 @@
 			. = TRUE
 	//Providing a Mood Boost
 	M.adjust_timed_status_effect(-3 SECONDS * REM * delta_time, /datum/status_effect/confusion)
-	M.jitteriness -= 5 * REM * delta_time
+	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/jitter)
 	M.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
 	M.hallucination += 5 * REM * delta_time
@@ -549,7 +549,7 @@
 /datum/reagent/drug/ketamine/addiction_act_stage1(mob/living/M)
 	if(prob(20))
 		M.drop_all_held_items()
-		M.Jitter(2)
+		M.set_timed_status_effect(4 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	..()
 
 /datum/reagent/drug/ketamine/addiction_act_stage2(mob/living/M)
@@ -557,7 +557,7 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(2*REM, 0)
 		. = 1
-		M.Jitter(3)
+		M.set_timed_status_effect(6 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		M.set_timed_status_effect(6 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()
 
@@ -566,6 +566,6 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(3*REM, 0)
 		. = 1
-		M.Jitter(4)
+		M.set_timed_status_effect(8 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		M.set_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()

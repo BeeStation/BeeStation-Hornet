@@ -16,7 +16,7 @@
 		if(5 to 7)
 			L.adjust_timed_status_effect(1 SECONDS, /datum/status_effect/confusion, max_duration = 5 SECONDS)
 		if(8 to 12)
-			L.Jitter(10)
+			L.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		if(13 to 14)
 			shake_camera(L, 15, 1)
 			L.emote("whimper")

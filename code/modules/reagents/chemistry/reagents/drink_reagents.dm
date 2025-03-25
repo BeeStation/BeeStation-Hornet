@@ -315,7 +315,7 @@
 	glass_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 
 /datum/reagent/consumable/coffee/overdose_process(mob/living/M, delta_time, times_fired)
-	M.Jitter(5 * REM * delta_time)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	..()
 
 /datum/reagent/consumable/coffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -343,7 +343,7 @@
 /datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_timed_status_effect(-4 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
 	M.adjust_drowsyness(-1 * REM * delta_time)
-	M.jitteriness = max(M.jitteriness - (3 * REM * delta_time), 0)
+	M.adjust_timed_status_effect(-6 SECONDS * REM * delta_time, /datum/status_effect/jitter)
 	M.AdjustSleeping(-20 * REM * delta_time)
 	if(M.getToxLoss() && DT_PROB(10, delta_time))
 		M.adjustToxLoss(-1, 0)
@@ -397,7 +397,7 @@
 	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	..()
 	. = TRUE
 
@@ -457,7 +457,7 @@
 	..()
 
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(20 * REM * delta_time)
+	M.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.set_timed_status_effect(1 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
 	M.adjust_timed_status_effect(3 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
 	M.set_drowsyness(0)
@@ -487,7 +487,7 @@
 	..()
 
 /datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(20 * REM * delta_time)
+	M.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
 	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
@@ -508,7 +508,7 @@
 	M.adjust_drowsyness(-7 * REM * delta_time)
 	M.AdjustSleeping(-20 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	..()
 	. = TRUE
 
@@ -630,7 +630,7 @@
 	glass_desc = "You can unleash the ape, but without the pop of the can?"
 
 /datum/reagent/consumable/monkey_energy/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.Jitter(40 * REM * delta_time)
+	M.set_timed_status_effect(80 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
 	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
@@ -677,7 +677,7 @@
 	M.adjust_drowsyness(-3 *REM * delta_time)
 	M.SetSleeping(0)
 	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(M.getBruteLoss() && DT_PROB(10, delta_time))
 		M.heal_bodypart_damage(1,0, 0)
 	..()
@@ -699,7 +699,7 @@
 	M.adjust_drowsyness(-6 * REM * delta_time)
 	M.SetSleeping(0)
 	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	M.Jitter(5 * REM * delta_time)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
 	if(M.getBruteLoss() && DT_PROB(10, delta_time))
 		M.heal_bodypart_damage(1, 0, 0)
 	..()

@@ -454,7 +454,7 @@
 	return span_danger("The baton is still charging!")
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(2 SECONDS)
+	target.set_timed_status_effect(4 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	target.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/stutter)
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)

@@ -103,15 +103,6 @@
 	//Status effects
 	. += get_status_effect_examinations()
 
-	//Jitters
-	switch(jitteriness)
-		if(300 to INFINITY)
-			. += span_warning("<B>[t_He] [t_is] convulsing violently!</B>")
-		if(200 to 300)
-			. += span_warning("[t_He] [t_is] extremely jittery.")
-		if(100 to 200)
-			. += span_warning("[t_He] [t_is] twitching ever so slightly.")
-
 	var/appears_dead = FALSE
 	var/just_sleeping = FALSE
 	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))

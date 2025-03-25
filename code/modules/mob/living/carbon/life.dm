@@ -404,14 +404,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			AdjustSleeping(100)
 			Unconscious(100)
 
-	//Jitteriness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-		jitteriness = max(jitteriness - (restingpwr * delta_time), 0)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "jittery", /datum/mood_event/jittery)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
-
 	if(silent)
 		silent = max(silent - (0.5 * delta_time), 0)
 

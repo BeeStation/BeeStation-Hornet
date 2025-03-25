@@ -264,7 +264,7 @@
 		data = list("misc" = 0)
 
 	data["misc"] += delta_time SECONDS * REM
-	M.jitteriness = min(M.jitteriness + (2 * delta_time), 10)
+	M.adjust_timed_status_effect(4 SECONDS * delta_time, /datum/status_effect/jitter, max_duration = 20 SECONDS)
 	if(iscultist(M))
 		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 			to_chat(M, span_cultlarge("Your blood rites falter as holy water scours your body!"))
@@ -292,7 +292,7 @@
 				SSticker.mode.remove_cultist(M.mind, FALSE, TRUE)
 			if(is_servant_of_ratvar(M))
 				remove_servant_of_ratvar(M.mind)
-			M.jitteriness = 0
+			M.remove_status_effect(/datum/status_effect/jitter)
 			M.remove_status_effect(/datum/status_effect/speech/stutter)
 			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
@@ -1057,7 +1057,7 @@
 /datum/reagent/bluespace/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(current_cycle > 10 && DT_PROB(7.5, delta_time))
 		to_chat(M, span_warning("You feel unstable..."))
-		M.Jitter(2)
+		M.set_timed_status_effect(2 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 		current_cycle = 1
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 	..()
@@ -1194,7 +1194,7 @@
 	taste_description = "numbness"
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.jitteriness = max(M.jitteriness - (2.5*delta_time),0)
+	M.adjust_timed_status_effect(-5 SECONDS * delta_time, /datum/status_effect/jitter)
 	if(DT_PROB(55, delta_time))
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))

@@ -106,8 +106,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	/// Drowsyness level of the mob
 	var/drowsyness = 0//Carbon
-	/// Jitteryness level of the mob
-	var/jitteriness = 0//Carbon
 	/// Hunger level of the mob
 	var/nutrition = NUTRITION_LEVEL_START_MIN // randomised in Initialize
 	/// Satiation level of the mob

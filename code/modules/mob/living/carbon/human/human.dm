@@ -761,7 +761,7 @@
 /mob/living/carbon/human/is_literate()
 	return TRUE
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
+/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
 	if(blood && (NOBLOOD in dna.species.species_traits))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
