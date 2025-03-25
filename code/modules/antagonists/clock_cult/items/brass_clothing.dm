@@ -44,8 +44,8 @@
 		var/mob/living/carbon/human/H = C
 		H.electrocution_animation(20)
 	C.do_jitter_animation(300) // Maximum jitter
-	C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
-	C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/stutter)
+	C.adjust_jitter(20 SECONDS)
+	C.adjust_stutter(20 SECONDS)
 	spawn(20)
 	if(C)
 		C.remove_status_effect(/datum/status_effect/jitter)
@@ -133,8 +133,8 @@
 			var/mob/living/carbon/human/H = C
 			H.electrocution_animation(20)
 		C.do_jitter_animation(300) // Maximum jitter
-		C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
-		C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/stutter)
+		C.adjust_jitter(20 SECONDS)
+		C.adjust_stutter(20 SECONDS)
 		spawn(20)
 		if(C)
 			C.remove_status_effect(/datum/status_effect/jitter)

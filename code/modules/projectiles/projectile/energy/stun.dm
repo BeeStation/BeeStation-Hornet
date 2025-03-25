@@ -23,7 +23,7 @@
 		var/mob/living/carbon/C = target
 		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "tased", /datum/mood_event/tased)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
-		C.set_timed_status_effect(10 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)
+		C.set_confusion_if_lower(10 SECONDS)
 		if(C.has_dna() && C.dna.check_mutation(/datum/mutation/hulk))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		else if((C.status_flags & CANKNOCKDOWN) && !HAS_TRAIT(C, TRAIT_STUNIMMUNE))

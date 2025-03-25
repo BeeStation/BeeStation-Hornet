@@ -23,7 +23,7 @@
 			return
 	M.apply_damage(80, STAMINA, blocked = armor_block)
 	user.do_attack_animation(M)
-	M.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/speech/stutter)
+	M.adjust_stutter(10 SECONDS)
 
 	M.visible_message(span_danger("[user] has prodded [M] with [src]!"), \
 					span_userdanger("[user] has prodded you with [src]!"))
@@ -402,7 +402,8 @@
 		for(var/mob/living/carbon/M in hearers(9, user))
 			if(M.get_ear_protection())
 				continue
-			M.adjust_timed_status_effect(6 SECONDS, /datum/status_effect/confusion)
+			M.adjust_confusion(6 SECONDS)
+
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
@@ -419,14 +420,14 @@
 			var/bang_effect = C.soundbang_act(2, 0, 0, 5)
 			switch(bang_effect)
 				if(1)
-					C.adjust_timed_status_effect(5 SECONDS, /datum/status_effect/confusion)
-					C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/stutter)
-					C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
+					C.adjust_confusion(5 SECONDS)
+					C.adjust_stutter(20 SECONDS)
+					C.adjust_jitter(20 SECONDS)
 				if(2)
 					C.Paralyze(40)
-					C.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion)
-					C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/stutter)
-					C.adjust_timed_status_effect(50 SECONDS, /datum/status_effect/jitter)
+					C.adjust_confusion(10 SECONDS)
+					C.adjust_stutter(30 SECONDS)
+					C.adjust_jitter(50 SECONDS)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600
 		log_game("[key_name(user)] used an emagged Cyborg Harm Alarm in [AREACOORD(user)]")

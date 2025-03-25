@@ -127,7 +127,7 @@
 			if(fear_state <= PHOBIA_STATE_EDGY)
 				fear_state = PHOBIA_STATE_UNEASY
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia)
-				owner.set_timed_status_effect(10 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+				owner.set_jitter_if_lower(10 SECONDS)
 				if(prob(stress * 5))
 					fearscore = 17
 		if(17 to 28)
@@ -160,7 +160,7 @@
 				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia, TRUE)
 				owner.visible_message(span_danger("[owner] collapses into a fetal position and cowers in fear!"), span_userdanger("I'm done for..."))
 				owner.Paralyze(80)
-				owner.set_timed_status_effect(16 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+				owner.set_jitter_if_lower(16 SECONDS)
 				stress++
 				if(prob(stress * 5))
 					fearscore = 36 //we immediately keel over and faint
@@ -180,7 +180,7 @@
 						to_chat(owner, span_userdanger("Your heart stops!"))
 				else
 					owner.visible_message(span_danger("[owner] looks ghostly pale, trembling uncontrollably!"), span_userdanger("This is HELL! OUT!! NOW!!!"))
-					owner.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+					owner.set_jitter_if_lower(20 SECONDS)
 					stress++
 
 
@@ -239,11 +239,11 @@
 		fearscore ++ //I have no idea how this would happen. just increase fear by one, with no cap
 	switch(fear_state)//only happens once every five or so seconds, while scared
 		if(PHOBIA_STATE_EDGY)
-			owner.set_timed_status_effect(1 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+			owner.set_jitter_if_lower(1 SECONDS)
 			if(reason)
 				to_chat(owner, span_warning("[reason] sets you on edge..."))
 		if(PHOBIA_STATE_UNEASY)
-			owner.set_timed_status_effect(1 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+			owner.set_jitter_if_lower(1 SECONDS)
 			if(reason)
 				to_chat(owner, span_warning("[reason] makes you uneasy..."))
 		if(PHOBIA_STATE_FIGHTORFLIGHT)

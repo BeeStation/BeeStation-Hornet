@@ -15,8 +15,8 @@
 			var/mob/living/carbon/C = M
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
 				C.adjustEarDamage(0, 30)
-				C.adjust_timed_status_effect(15 SECONDS, /datum/status_effect/confusion)
-				C.set_timed_status_effect(40 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+				C.adjust_confusion(15 SECONDS)
+				C.set_jitter_if_lower(40 SECONDS)
 			else
 				SEND_SOUND(C, sound('sound/effects/screech.ogg'))
 

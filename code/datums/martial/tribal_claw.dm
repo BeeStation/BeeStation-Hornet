@@ -46,7 +46,7 @@
 	D.visible_message(span_warning("[A] scratches [D]'s face with their claws!"), \
 						span_userdanger("[A] scratches your face with their claws!"))
 	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
-	D.adjust_timed_status_effect(5 SECONDS, /datum/status_effect/confusion)
+	D.adjust_confusion(5 SECONDS)
 	D.blur_eyes(5)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 	playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)

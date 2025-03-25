@@ -218,7 +218,7 @@
 /datum/status_effect/bonechill/tick()
 	if(prob(50))
 		owner.adjustFireLoss(1)
-		owner.set_timed_status_effect(6 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+		owner.set_jitter_if_lower(6 SECONDS)
 		owner.adjust_bodytemperature(-10)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/humi = owner
@@ -901,7 +901,7 @@
 	var/datum/weakref/draining_ref
 
 /datum/status_effect/stabilized/black/on_apply()
-	RegisterSignal(owner, COMSIG_MOVABLE_SET_GRAB_STATE, .proc/on_grab)
+	RegisterSignal(owner, COMSIG_MOVABLE_SET_GRAB_STATE, PROC_REF(on_grab))
 	return ..()
 
 /datum/status_effect/stabilized/black/on_remove()

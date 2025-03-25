@@ -315,11 +315,11 @@
 	glass_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 
 /datum/reagent/consumable/coffee/overdose_process(mob/living/M, delta_time, times_fired)
-	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 	..()
 
 /datum/reagent/consumable/coffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	//310.15 is the normal bodytemp.
@@ -341,9 +341,9 @@
 	glass_desc = "Drinking it from here would not seem right."
 
 /datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-4 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-4 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-1 * REM * delta_time)
-	M.adjust_timed_status_effect(-6 SECONDS * REM * delta_time, /datum/status_effect/jitter)
+	M.adjust_jitter(-6 SECONDS * REM * delta_time)
 	M.AdjustSleeping(-20 * REM * delta_time)
 	if(M.getToxLoss() && DT_PROB(10, delta_time))
 		M.adjustToxLoss(-1, 0)
@@ -393,11 +393,11 @@
 	glass_desc = "A drink to perk you up and refresh you!"
 
 /datum/reagent/consumable/icecoffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 	..()
 	. = TRUE
 
@@ -413,7 +413,7 @@
 	glass_desc = "All natural, antioxidant-rich flavour sensation."
 
 /datum/reagent/consumable/icetea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-4 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-4 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-1 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	if(M.getToxLoss() && DT_PROB(10, delta_time))
@@ -457,9 +457,9 @@
 	..()
 
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
-	M.set_timed_status_effect(1 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
-	M.adjust_timed_status_effect(3 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.set_jitter_if_lower(40 SECONDS * REM * delta_time)
+	M.set_drugginess(1 MINUTES * REM * delta_time)
+	M.adjust_dizzy(3 SECONDS * REM * delta_time)
 	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -487,8 +487,8 @@
 	..()
 
 /datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
-	M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.set_jitter_if_lower(40 SECONDS * REM * delta_time)
+	M.adjust_dizzy(2 SECONDS * REM * delta_time)
 	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -508,7 +508,7 @@
 	M.adjust_drowsyness(-7 * REM * delta_time)
 	M.AdjustSleeping(-20 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
-	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 	..()
 	. = TRUE
 
@@ -596,7 +596,7 @@
 	glass_desc = "Soda water. Why not make a scotch and soda?"
 
 /datum/reagent/consumable/sodawater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
@@ -612,7 +612,7 @@
 	glass_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 
 /datum/reagent/consumable/tonic/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -630,8 +630,8 @@
 	glass_desc = "You can unleash the ape, but without the pop of the can?"
 
 /datum/reagent/consumable/monkey_energy/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_timed_status_effect(80 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
-	M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.set_jitter_if_lower(80 SECONDS * REM * delta_time)
+	M.adjust_dizzy(2 SECONDS * REM * delta_time)
 	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -673,11 +673,11 @@
 	glass_desc = "A nice and refreshing beverage while you're reading."
 
 /datum/reagent/consumable/soy_latte/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-3 *REM * delta_time)
 	M.SetSleeping(0)
 	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 	if(M.getBruteLoss() && DT_PROB(10, delta_time))
 		M.heal_bodypart_damage(1,0, 0)
 	..()
@@ -695,11 +695,11 @@
 	glass_desc = "A nice, strong and refreshing beverage while you're reading."
 
 /datum/reagent/consumable/cafe_latte/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjust_timed_status_effect(-10 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
+	M.adjust_dizzy(-10 SECONDS * REM * delta_time)
 	M.adjust_drowsyness(-6 * REM * delta_time)
 	M.SetSleeping(0)
 	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
-	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+	M.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 	if(M.getBruteLoss() && DT_PROB(10, delta_time))
 		M.heal_bodypart_damage(1, 0, 0)
 	..()

@@ -285,7 +285,7 @@
 /datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	switch(current_cycle)
 		if(1 to 10)
-			M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/confusion)
+			M.adjust_confusion(2 SECONDS * REM * delta_time)
 			M.adjust_drowsyness(2 * REM * delta_time)
 		if(10 to 50)
 			M.Sleeping(40 * REM * delta_time)
@@ -974,7 +974,7 @@
 	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	M.adjustStaminaLoss(30 * REM * delta_time)
 	M.silent = max(M.silent, 3 * REM * delta_time)
-	M.adjust_timed_status_effect(3 SECONDS * REM * delta_time, /datum/status_effect/confusion)
+	M.adjust_confusion(3 SECONDS * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/morphvenom/mimite

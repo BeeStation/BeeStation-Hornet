@@ -538,8 +538,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.flash_act()
 	sac_target.blur_eyes(15)
-	sac_target.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
-	sac_target.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
+	sac_target.set_jitter_if_lower(20 SECONDS)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.hallucination += 12
 	sac_target.emote("scream")
 
@@ -580,7 +580,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	// Wherever we end up, we sure as hell won't be able to explain
 	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
-	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/stutter)
+	sac_target.adjust_stutter(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	if(is_station_level(sac_target.z))

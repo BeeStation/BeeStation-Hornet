@@ -410,9 +410,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			else if(iscarbon(target))
 				var/mob/living/carbon/C = L
 				C.silent += 6
-				C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/stutter)
+				C.adjust_stutter(30 SECONDS)
 				C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/slurring/cult)
-				C.set_timed_status_effect(30 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+				C.set_jitter_if_lower(30 SECONDS)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)

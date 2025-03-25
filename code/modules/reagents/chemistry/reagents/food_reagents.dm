@@ -341,7 +341,7 @@
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.set_timed_status_effect(5 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)
+			victim.set_confusion_if_lower(5 SECONDS)
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()
@@ -401,7 +401,7 @@
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(ispsyphoza(M))
 		return
-	M.set_timed_status_effect(1 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk, only_if_higher = TRUE)
+	M.set_slurring_if_lower(1 SECONDS * REM * delta_time)
 
 	switch(current_cycle)
 		if(1 to 5)
@@ -436,7 +436,7 @@
 		if(DT_PROB(min(current_cycle/2, 12.5), delta_time))
 			to_chat(M, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			M.Paralyze(10)
-			M.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+			M.set_jitter_if_lower(20 SECONDS)
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.job == JOB_NAME_COOK)

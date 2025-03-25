@@ -601,7 +601,7 @@
 /datum/status_effect/trance/tick()
 	if(stun)
 		owner.Stun(6 SECONDS, TRUE)
-	owner.set_timed_status_effect(40 SECONDS, /datum/status_effect/dizziness)
+	owner.set_dizzy(40 SECONDS)
 
 /datum/status_effect/trance/on_apply()
 	if(!iscarbon(owner))
@@ -720,7 +720,7 @@
 				span_notice("[H]'s hand convulses, and they drop their [I.name]!"),
 				span_userdanger("Your hand convulses violently, and you drop what you were holding!"),
 			)
-			H.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/jitter)
+			H.adjust_jitter(10 SECONDS)
 
 /atom/movable/screen/alert/status_effect/convulsing
 	name = "Shaky Hands"
@@ -785,7 +785,7 @@
 /datum/status_effect/interdiction/tick()
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
-		owner.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion, max_duration = 10 SECONDS)
+		owner.adjust_confusion_up_to(10 SECONDS, max_duration = 10 SECONDS)
 		running_toggled = TRUE
 		to_chat(owner, span_warning("You know you shouldn't be running here."))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)

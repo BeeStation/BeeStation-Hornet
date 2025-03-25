@@ -226,7 +226,7 @@
 				span_userdanger("The [M.name] has shocked you!"))
 			do_sparks(5, TRUE, src)
 			Knockdown(power * 5)
-			set_timed_status_effect(power * 5, /datum/status_effect/speech/stutter, only_if_higher = TRUE)
+			set_stutter_if_lower(power * 5)
 			if(M.transformeffects & SLIME_EFFECT_ORANGE)
 				adjust_fire_stacks(2)
 				IgniteMob()
@@ -320,8 +320,8 @@
 		Paralyze(40)
 	//Jitter and other fluff.
 	do_jitter_animation(300)
-	adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
-	adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/stutter)
+	adjust_jitter(20 SECONDS)
+	adjust_stutter(4 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 2 SECONDS)
 	return shock_damage
 

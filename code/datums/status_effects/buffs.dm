@@ -579,10 +579,11 @@
 	status_type = STATUS_EFFECT_REFRESH
 
 /datum/status_effect/good_music/tick()
-	owner.adjust_timed_status_effect(-4 SECONDS, /datum/status_effect/dizziness)
-	owner.adjust_timed_status_effect(-4 SECONDS, /datum/status_effect/jitter)
-	owner.adjust_timed_status_effect(-1 SECONDS, /datum/status_effect/confusion)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
+	if(owner.can_hear())
+		owner.adjust_dizzy(-4 SECONDS)
+		owner.adjust_jitter(-4 SECONDS)
+		owner.adjust_confusion(-1 SECONDS)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
 
 /datum/status_effect/antimagic
 	id = "antimagic"

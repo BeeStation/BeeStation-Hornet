@@ -17,7 +17,7 @@
 
 /datum/reagent/blob/regenerative_materia/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
-	M.adjust_timed_status_effect(reac_volume * 2 SECONDS, /datum/status_effect/drugginess)
+	M.adjust_drugginess(reac_volume * 2 SECONDS)
 	if(M.reagents)
 		M.reagents.add_reagent(/datum/reagent/blob/regenerative_materia, 0.2*reac_volume)
 		M.reagents.add_reagent(/datum/reagent/toxin/spore, 0.2*reac_volume)

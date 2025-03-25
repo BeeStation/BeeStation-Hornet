@@ -50,7 +50,7 @@
 
 			if(prob(3) && !M.has_status_effect(/datum/status_effect/jitter)) //We dont want to stack this with other effects.
 				to_chat(M, span_notice("You feel a bit jittery."))
-				M.set_timed_status_effect(1 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+				M.set_jitter_if_lower(1 SECONDS)
 		if(2)
 			if(prob(1) && iscarbon(M))
 				var/mob/living/carbon/C = M

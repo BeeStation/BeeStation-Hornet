@@ -214,7 +214,7 @@
 	var/armor_block = target.run_armor_check(affecting, STAMINA)
 	// L.adjustStaminaLoss(stun_time)
 	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
-	target.adjust_timed_status_effect(stun_time, /datum/status_effect/speech/stutter)
+	target.adjust_stutter(stun_time)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 
 	// Shoving

@@ -93,8 +93,8 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.blur_eyes(10)
-		D.adjust_timed_status_effect(2 SECONDS, /datum/status_effect/confusion)
-		D.set_timed_status_effect(20 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+		D.adjust_confusion(2 SECONDS)
+		D.set_jitter_if_lower(20 SECONDS)
 		return 1
 	return FALSE
 

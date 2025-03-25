@@ -444,8 +444,8 @@
 				flashed.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
 				to_chat(flashed, span_notice("The light makes you feel oddly relaxed..."))
-				flashed.set_timed_status_effect(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER, /datum/status_effect/confusion, only_if_higher = TRUE)
-				flashed.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, max_duration = 40 SECONDS)
+				flashed.set_confusion_if_lower(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER)
+				flashed.adjust_dizzy_up_to(20 SECONDS, 40 SECONDS)
 				flashed.adjust_drowsyness(min(flashed.drowsyness+10, 20))
 				flashed.apply_status_effect(/datum/status_effect/pacify, 100)
 
@@ -458,8 +458,8 @@
 
 	else if(flashed.flash_act())
 		to_chat(flashed, span_notice("Such a pretty light..."))
-		flashed.set_timed_status_effect(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER, /datum/status_effect/confusion, only_if_higher = TRUE)
-		flashed.adjust_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, max_duration = 40 SECONDS)
+		flashed.set_confusion_if_lower(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER)
+		flashed.adjust_dizzy_up_to(8 SECONDS, 40 SECONDS)
 		flashed.adjust_drowsyness(min(flashed.drowsyness+4, 20))
 		flashed.apply_status_effect(/datum/status_effect/pacify, 40)
 

@@ -41,7 +41,7 @@
 	user.SpinAnimation(7,1)
 	if(isliving(user))
 		var/mob/living/L = user
-		L.adjust_timed_status_effect(2 SECONDS, /datum/status_effect/confusion)
+		L.adjust_confusion(2 SECONDS)
 
 /datum/emote/flip/check_cooldown(mob/user, intentional)
 	. = ..()

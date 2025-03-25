@@ -401,7 +401,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 				GiveHint(target)
 			if(BODY_ZONE_HEAD)
 				to_chat(user, span_notice("You smack the doll's head with your hand."))
-				target.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
+				target.set_dizzy_if_lower(20 SECONDS)
 				to_chat(target, span_warning("You suddenly feel as if your head was hit with a hammer!"))
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
