@@ -32,29 +32,32 @@
 	return TRUE
 
 /obj/item/reagent_containers/cup/bottle/vial
-	name = "Vial"
-	desc = "A  very small recipent for the strongest potions for going into battle."
+	name = "vial"
+	desc = "A very small recipent for the strongest potions for going into battle."
 	icon_state = "vial_potion"
+	fill_icon_state = null
 	custom_materials = list(/datum/material/glass=2500)
 	volume = 15
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15)
-	label_icon = "label_potion"
+	label_icon = "label_vial_potion"
 
 /obj/item/reagent_containers/cup/bottle/small_potion
-	name = "Small potion"
+	name = "small potion"
 	desc = "A small recipent for the strongest potions for going into battle."
 	icon_state = "small_potion"
+	fill_icon_state = null
 	custom_materials = list(/datum/material/glass=2500)
 	volume = 30
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30)
-	label_icon = "label_potion"
+	label_icon = "label_small_potion"
 
 /obj/item/reagent_containers/cup/bottle/big_potion
 	name = "potion"
 	desc = "A recipent for the strongest potions for going into battle." ///https://www.youtube.com/watch?v=R_FQU4KzN7A
 	icon_state = "potion"
+	fill_icon_state = null
 	custom_materials = list(/datum/material/glass=2500)
 	volume = 75
 	amount_per_transfer_from_this = 10
