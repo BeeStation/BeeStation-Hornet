@@ -92,8 +92,8 @@
 	// slightly worse than normal cult robes
 	armor_type = /datum/armor/cultrobes_void
 	body_parts_covered = CHEST|GROIN|ARMS
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/void_cloak
 	qdel_hood = TRUE
+	pockets = FALSE
 
 
 /datum/armor/cultrobes_void
@@ -107,6 +107,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/void_cloak)
 	make_visible()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
