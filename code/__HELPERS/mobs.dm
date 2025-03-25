@@ -756,8 +756,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
  */
 /proc/get_temp_change_amount(temp_diff, change_rate = 0.06)
 	if(temp_diff < 0)
-		return (log((temp_diff * -1) * change_rate + 1) * BODYTEMP_AUTORECOVERY_DIVISOR) * -1
-	return log(temp_diff * change_rate + 1) * BODYTEMP_AUTORECOVERY_DIVISOR
+		return -(BODYTEMP_AUTORECOVERY_DIVISOR / 2) * log(1 - (temp_diff * change_rate))
+	return (BODYTEMP_AUTORECOVERY_DIVISOR / 2) * log(1 + (temp_diff * change_rate))
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(preference_type, client/C)

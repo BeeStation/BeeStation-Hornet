@@ -834,7 +834,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		harvest_plant(user)
 		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
-			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
+			O.atom_storage?.attempt_insert(G, user, TRUE)
 
 	else if(default_unfasten_wrench(user, O))
 		return
