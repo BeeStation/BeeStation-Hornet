@@ -161,6 +161,11 @@
 		owner.Dizzy(30/severity)
 		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
 
+/obj/item/organ/ears/cat/robot
+	name = "robotic cat ears"
+	gender = PLURAL
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/ears/diona
 	name = "trichomes"

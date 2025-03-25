@@ -9,12 +9,12 @@
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
-	mutanttongue = /obj/item/organ/tongue/robot
+	mutanttongue = /obj/item/organ/tongue/robot/cat
 	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
 	mutantstomach = /obj/item/organ/stomach/battery/ipc
-	mutantears = /obj/item/organ/ears/robot
+	mutantears = /obj/item/organ/ears/cat/robot
 	mutantheart = /obj/item/organ/heart/cybernetic/ipc
-	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
+	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord, /obj/item/organ/tail/cat)
 	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
@@ -102,7 +102,7 @@
 	C.update_body()
 
 /datum/action/innate/change_screen
-	name = "Change Display"	
+	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
@@ -279,6 +279,12 @@
 			SPECIES_PERK_ICON = "magnet",
 			SPECIES_PERK_NAME = "EMP Vulnerable",
 			SPECIES_PERK_DESC = "IPC organs are cybernetic, and thus susceptible to electromagnetic interference. Getting hit by an EMP may stop your heart.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "paw",
+			SPECIES_PERK_NAME = "Kittified",
+			SPECIES_PERK_DESC = "Meow meow mrrp mrrp. This model seems to appeal to specific tastes. You'll be back to normal soon... probably",
 		),
 	)
 
