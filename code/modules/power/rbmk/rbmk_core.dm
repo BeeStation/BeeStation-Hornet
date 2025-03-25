@@ -84,7 +84,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/pressure = 0 //Lose control of this -> Blowout
 	var/rate_of_reaction = 0 //Rate of reaction.
 	var/desired_reate_of_reaction = 0
-	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
+	var/control_rod_effectiveness = 0.5 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
 	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
 	var/power_modifier = 1 //Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
 	var/list/fuel_rods = list()
