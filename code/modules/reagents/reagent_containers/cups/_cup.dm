@@ -157,6 +157,17 @@
 
 	return ..()
 
+/obj/item/reagent_containers/cup/throw_impact(mob/living/target, mob/thrower) //if you want them to break upon impact, set isGlass to TRUE
+	SplashReagents(target, TRUE, override_spillable = TRUE)
+	if(isGlass)
+		var/obj/item/shard/B = new(loc)
+		target.Bumped(B)
+		playsound(loc, "shatter", 100, 1)
+		qdel(src)
+	else
+		target.Bumped(src)
+
+	return TRUE
 
 /obj/item/reagent_containers/cup/beaker
 	name = "beaker"
@@ -242,6 +253,37 @@
 	fill_icon_state = null
 	fill_icon_thresholds = null
 	label_icon = "label_beakerlarge"
+
+/obj/item/reagent_containers/cup/beaker/potion
+	name = "potion"
+	desc = "A recipent for the strongest potions for going into battle." ///https://www.youtube.com/watch?v=R_FQU4KzN7A
+	icon_state = "potion"
+	custom_materials = list(/datum/material/glass=400)
+	volume = 75
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15,20,25,30,50,75)
+	label_icon = "label_potion"
+	isGlass = TRUE
+
+/obj/item/reagent_containers/cup/beaker/potion/small_potion
+	name = "Small potion"
+	desc = "A small recipent for the strongest potions for going into battle."
+	icon_state = "small_potion"
+	custom_materials = list(/datum/material/glass=200)
+	volume = 30
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15,20,25,30)
+	label_icon = "label_small_potion"
+
+/obj/item/reagent_containers/cup/beaker/potion/vial
+	name = "Vial"
+	desc = "A  very small recipent for the strongest potions for going into battle."
+	icon_state = "vial_potion"
+	custom_materials = list(/datum/material/glass=100)
+	volume = 15
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5,10,15)
+	label_icon = "label_vial_potion"
 
 /obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)

@@ -1113,8 +1113,8 @@
 	id = "potion"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 500)
-	build_path = /obj/item/reagent_containers/cup/bottle/big_potion
-	category = list("Medical")
+	build_path = /obj/item/reagent_containers/cup/beaker/potion
+	category = list("initial","Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/small_potion
@@ -1122,8 +1122,8 @@
 	id = "small_potion"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 200)
-	build_path = /obj/item/reagent_containers/cup/bottle/small_potion
-	category = list("Medical")
+	build_path = /obj/item/reagent_containers/cup/beaker/potion/small_potion
+	category = list("initial","Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/vial
@@ -1131,6 +1131,6 @@
 	id = "vial"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/glass = 100)
-	build_path = /obj/item/reagent_containers/cup/bottle/vial
-	category = list("Medical")
+	build_path = /obj/item/reagent_containers/cup/beaker/potion/vial
+	category = list("initial","Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL

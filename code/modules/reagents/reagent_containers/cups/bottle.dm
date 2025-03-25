@@ -19,48 +19,6 @@
 		icon_state = "bottle"
 	update_appearance()
 
-/obj/item/reagent_containers/cup/bottle/throw_impact(mob/living/target, mob/thrower)
-	SplashReagents(target, TRUE, override_spillable = TRUE)
-	if(isGlass)
-		var/obj/item/shard/B = new(loc)
-		target.Bumped(B)
-		playsound(loc, "shatter", 100, 1)
-		qdel(src)
-	else
-		target.Bumped(src)
-
-	return TRUE
-
-/obj/item/reagent_containers/cup/bottle/vial
-	name = "Vial"
-	desc = "A  very small recipent for the strongest potions for going into battle."
-	icon_state = "vial_potion"
-	custom_materials = list(/datum/material/glass=2500)
-	volume = 15
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15)
-	label_icon = "label_potion"
-
-/obj/item/reagent_containers/cup/bottle/small_potion
-	name = "Small potion"
-	desc = "A small recipent for the strongest potions for going into battle."
-	icon_state = "small_potion"
-	custom_materials = list(/datum/material/glass=2500)
-	volume = 30
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,20,25,30)
-	label_icon = "label_potion"
-
-/obj/item/reagent_containers/cup/bottle/big_potion
-	name = "potion"
-	desc = "A recipent for the strongest potions for going into battle." ///https://www.youtube.com/watch?v=R_FQU4KzN7A
-	icon_state = "potion"
-	custom_materials = list(/datum/material/glass=2500)
-	volume = 75
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,20,25,30,50,75)
-	label_icon = "label_potion"
-
 /obj/item/reagent_containers/cup/bottle/epinephrine
 	name = "epinephrine bottle"
 	label_name = "epinephrine"
