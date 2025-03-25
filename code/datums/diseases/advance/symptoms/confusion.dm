@@ -16,7 +16,6 @@ Bonus
 */
 
 /datum/symptom/confusion
-
 	name = "Confusion"
 	desc = "The virus interferes with the proper function of the neural system, leading to bouts of confusion and erratic movement."
 	stealth = 1
@@ -50,6 +49,10 @@ Bonus
 	if(A.stealth >= 4)
 		suppress_warning = TRUE
 
+/datum/symptom/confusion/End(datum/disease/advance/A)
+	A.affected_mob.set_confusion(0)
+	return ..()
+
 /datum/symptom/confusion/Activate(datum/disease/advance/A)
 	if(!..())
 		return
@@ -62,7 +65,7 @@ Bonus
 				to_chat(M, span_warning("[pick("Your head hurts.", "Your mind blanks for a moment.")]"))
 		else
 			to_chat(M, span_userdanger("You can't think straight!"))
-			M.confused = min(100 * power, M.confused + 8)
+			M.add_confusion(16 * power)
 			if(brain_damage)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN,3 * power, 80)
 				M.updatehealth()

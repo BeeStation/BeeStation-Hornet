@@ -288,7 +288,7 @@
 			if(DT_PROB(1, delta_time))
 				var/obj/item/held_item = affected_mob.get_active_held_item()
 				if(held_item)
-					to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
+					to_chat(affected_mob, span_danger("You let go of what you were holding."))
 					affected_mob.dropItemToGround(held_item)
 
 /datum/disease/transformation/felinid

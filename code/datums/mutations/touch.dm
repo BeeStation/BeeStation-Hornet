@@ -42,7 +42,7 @@
 		var/mob/living/carbon/ctarget = target
 		if(ctarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)) //doesnt stun. never let this stun
 			ctarget.drop_all_held_items()
-			ctarget.confused += zap
+			ctarget.add_confusion(zap)
 			ctarget.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
 		else
 			user.visible_message(span_warning("[user] fails to electrocute [target]!"))

@@ -16,7 +16,7 @@
 	if(is_changeling(M))
 		return FALSE
 	if(..())
-		M.confused = max(M.confused, 12)
+		M.set_confusion(max(M.get_confusion(), 12))
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "cough")
 		return TRUE
 

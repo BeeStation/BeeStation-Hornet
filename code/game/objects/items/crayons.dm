@@ -674,7 +674,7 @@
 			C.blur_eyes(3)
 			C.adjust_blindness(1)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
-			C.confused = max(C.confused, 3)
+			C.set_confusion(max(C.get_confusion(), 3))
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
 			var/mob/living/carbon/human/H = C

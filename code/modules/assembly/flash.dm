@@ -261,7 +261,7 @@
 				M.Paralyze(70 * flash_proportion)
 			else
 				M.Knockdown(max(70 * flash_proportion, 5))
-			M.confused = max(M.confused, 4)
+			M.set_confusion(max(M.get_confusion(), 4))
 
 		//Basic flash protection, only blind
 		else if(M.flash_act(2, TRUE))
@@ -437,7 +437,7 @@
 				M.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
 				to_chat(M, span_notice("The light makes you feel oddly relaxed..."))
-				M.confused += min(M.confused + 10, 20)
+				M.add_confusion(min(M.get_confusion() + 10, 20))
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
 				M.apply_status_effect(/datum/status_effect/pacify, 100)
@@ -451,7 +451,7 @@
 
 	else if(M.flash_act())
 		to_chat(M, span_notice("Such a pretty light..."))
-		M.confused += min(M.confused + 4, 20)
+		M.add_confusion(min(M.get_confusion() + 4, 20))
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
 		M.apply_status_effect(/datum/status_effect/pacify, 40)

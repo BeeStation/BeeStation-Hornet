@@ -214,8 +214,8 @@
 		brain.applyOrganDamage(rand(20, 40), HOLOPARA_MAX_BRAIN_DAMAGE)
 	// straight to stamcrit with you!!
 	new_body.take_overall_damage(stamina = rand(new_body.maxHealth * 1.1, new_body.maxHealth * 1.5), updating_health = TRUE)
-	if(new_body.confused < 120)
-		new_body.confused = 120
+	if(new_body.get_confusion() < 120)
+		new_body.set_confusion(120)
 	to_chat(owner, span_userdanger("The process of moving your mind and its manifestations to a new body greatly strains both your mind and body!"))
 
 /**

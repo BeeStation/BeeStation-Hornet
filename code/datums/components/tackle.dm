@@ -162,9 +162,8 @@
 	tackle.force = MOVE_FORCE_WEAK
 
 	if(target.check_shields(user, 0, user.name, attack_type = LEAP_ATTACK))
-		user.visible_message("<span class='danger'>[user]'s tackle is blocked by [target], softening the effect!</span>",
-							"<span class='userdanger'>Your tackle is blocked by [target], softening the effect!</span>", ignored_mobs = target)
-		to_chat(target, "<span class='userdanger'>[target] blocks [user]'s tackle attempt, softening the effect!</span>")
+		user.visible_message(span_danger("[user]'s tackle is blocked by [target], softening the effect!"), span_userdanger("Your tackle is blocked by [target], softening the effect!"), ignored_mobs = target)
+		to_chat(target, span_userdanger("[target] blocks [user]'s tackle attempt, softening the effect!"))
 		neutral_outcome(user, target, tackle_word) //Forces a neutral outcome so you're not screwed too much from being blocked while tackling
 		return COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH
 
@@ -549,7 +548,7 @@
 								"<span class='userdanger'>You slam head-first into [hit], and the world explodes around you!</span>")
 			user.apply_damage(30, BRUTE)
 			user.apply_damage(30, STAMINA)
-			user.confused += 15
+			user.add_confusion(15)
 			if(prob(80))
 				user.gain_trauma(/datum/brain_trauma/mild/concussion)
 			user.playsound_local(get_turf(user), 'sound/weapons/flashbang.ogg', 100, TRUE, 8)
@@ -562,7 +561,7 @@
 								"<span class='userdanger'>You slam hard into [hit], knocking yourself senseless!</span>")
 			user.apply_damage(10, BRUTE)
 			user.apply_damage(30, STAMINA)
-			user.confused += 10
+			user.add_confusion(10)
 			user.Knockdown(3 SECONDS)
 			shake_camera(user, 3, 4)
 

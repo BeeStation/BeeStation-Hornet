@@ -14,8 +14,8 @@
 			to_chat(parent, span_userdanger("You can't touch the bottom!"))
 			L.emote("scream")
 		if(5 to 7)
-			if(L.confused < 5)
-				L.confused += 1
+			if(L.get_confusion() < 5)
+				L.add_confusion(1)
 		if(8 to 12)
 			L.Jitter(10)
 		if(13 to 14)

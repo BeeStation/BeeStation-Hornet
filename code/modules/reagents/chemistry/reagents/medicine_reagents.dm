@@ -66,7 +66,7 @@
 	M.SetUnconscious(0)
 	M.SetParalyzed(0)
 	M.SetImmobilized(0)
-	M.confused = 0
+	M.set_confusion(0)
 	M.SetSleeping(0)
 
 	M.silent = FALSE
@@ -1051,7 +1051,7 @@
 		M.dizziness = 0
 		M.drowsyness = 0
 		M.slurring = 0
-		M.confused = 0
+		M.set_confusion(0)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.drunkenness = max(H.drunkenness - (10 * REM * delta_time), 0)
@@ -1320,14 +1320,14 @@
 	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
 	if(L.damage > 0)
 		L.damage = max(L.damage - 4 * repair_strength, 0)
-		M.confused = (2)
+		M.set_confusion(2)
 	M.adjustToxLoss(-6)
 	..()
 	. = 1
 
 /datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-	M.confused = (2)
+	M.set_confusion(2)
 	..()
 	. = 1
 
@@ -1641,7 +1641,7 @@
 	dosage++
 	M.jitteriness = max(M.jitteriness - (6 * REM * delta_time), 0)
 	M.dizziness = max(M.dizziness - (6 * REM * delta_time), 0)
-	M.confused = max(M.confused - (6 * REM * delta_time), 0)
+	M.set_confusion(max(M.get_confusion() - (6 * REM * delta_time), 0))
 	M.disgust = max(M.disgust - (6 * REM * delta_time), 0)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	if(mood != null && mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...

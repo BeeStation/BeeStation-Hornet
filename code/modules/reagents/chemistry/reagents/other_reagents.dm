@@ -1176,9 +1176,7 @@
 
 /datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.Dizzy(1)
-	if(!M.confused)
-		M.confused = 1
-	M.confused = max(M.confused, 20)
+	M.set_confusion(clamp(M.get_confusion(), 1, 20))
 	..()
 
 /datum/reagent/impedrezene
@@ -1332,7 +1330,7 @@
 		H.blood_volume = max(H.blood_volume - (10 * REM * delta_time), 0)
 	if(DT_PROB(10, delta_time))
 		M.losebreath += 2
-		M.confused = min(M.confused + 2, 5)
+		M.set_confusion(min(M.get_confusion() + 2, 5))
 	..()
 
 /datum/reagent/stimulum
@@ -2080,8 +2078,8 @@
 	taste_description = "dizziness"
 
 /datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(M.confused < 6)
-		M.confused = clamp(M.confused + (3 * REM * delta_time), 0, 5)
+	if(M.get_confusion() < 6)
+		M.set_confusion(clamp(M.get_confusion() + (3 * REM * delta_time), 0, 5))
 	if(M.dizziness < 6)
 		M.dizziness = clamp(M.dizziness + (3 * REM * delta_time), 0, 5)
 	if(DT_PROB(10, delta_time))

@@ -1402,7 +1402,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.set_drugginess(50 * REM * delta_time)
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
-		M.confused = max(M.confused + (2 * REM * delta_time),0)
+		M.set_confusion(max(M.get_confusion() + (2 * REM * delta_time),0))
 		M.Dizzy(10 * REM * delta_time)
 	if (!M.slurring)
 		M.slurring = 1 * REM * delta_time
@@ -1438,7 +1438,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.slurring += 3 * REM * delta_time
 		if(45 to 55)
 			if(DT_PROB(30, delta_time))
-				M.confused = max(M.confused + 3, 0)
+				M.set_confusion(max(M.get_confusion() + 3, 0))
 		if(55 to 200)
 			M.set_drugginess(55 * REM * delta_time)
 		if(200 to INFINITY)

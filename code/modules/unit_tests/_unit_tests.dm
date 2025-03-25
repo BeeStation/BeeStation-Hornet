@@ -24,6 +24,7 @@
 #include "closets.dm"
 #include "combat.dm"
 #include "component_tests.dm"
+#include "confusion.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
 /*

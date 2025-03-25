@@ -39,7 +39,7 @@
 				reagents.expose(M, INJECT)
 				reagents.trans_to(M, reagents.total_volume)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 170)
-				M.confused += 3
+				M.add_confusion(3)
 				return BULLET_ACT_HIT
 			else
 				blocked = 100

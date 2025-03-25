@@ -53,13 +53,13 @@
 		if(H.disgust >= DISGUST_LEVEL_GROSS)
 			if(DT_PROB(5, delta_time))
 				H.stuttering += 1
-				H.confused += 2
+				H.add_confusion(2)
 			if(DT_PROB(5, delta_time) && !H.stat)
 				to_chat(H, span_warning("You feel kind of iffy..."))
 			H.jitteriness = max(H.jitteriness - 3, 0)
 		if(H.disgust >= DISGUST_LEVEL_VERYGROSS)
 			if(DT_PROB(pukeprob, delta_time)) //iT hAndLeS mOrE ThaN PukInG
-				H.confused += 2.5
+				H.add_confusion(2.5)
 				H.stuttering += 1
 				H.vomit(10, 0, 1, 0, 1, 0)
 			H.Dizzy(5)
