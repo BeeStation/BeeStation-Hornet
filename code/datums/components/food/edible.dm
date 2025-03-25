@@ -333,7 +333,7 @@ Behavior that's still missing from this component that original food items had t
 			eater.visible_message(span_notice("[eater] [eatverb]s \the [parent]."), span_notice("You [eatverb] \the [parent]."))
 		else if(fullness > 500 && fullness < 600)
 			eater.visible_message(span_notice("[eater] unwillingly [eatverb]s a bit of \the [parent]."), span_notice("You unwillingly [eatverb] a bit of \the [parent]."))
-		else if(fullness > (600 * (1 + eater.overeatduration / 2000)))	// The more you eat - the more you can eat
+		else if(fullness > (600 * (1 + eater.overeatduration / (4000 SECONDS))))	// The more you eat - the more you can eat
 			eater.visible_message(span_warning("[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!"), span_warning("You cannot force any more of \the [parent] to go down your throat!"))
 			return
 
@@ -341,7 +341,7 @@ Behavior that's still missing from this component that original food items had t
 		if(isbrain(eater))
 			to_chat(feeder, span_warning("[eater] doesn't seem to have a mouth!"))
 			return
-		if(fullness <= (600 * (1 + eater.overeatduration / 1000)))
+		if(fullness <= (600 * (1 + eater.overeatduration / (2000 SECONDS))))
 			eater.visible_message(
 				span_danger("[feeder] attempts to feed [eater] [parent]."), \
 				span_userdanger("[feeder] attempts to feed you [parent].")

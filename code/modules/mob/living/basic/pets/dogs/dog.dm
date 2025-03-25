@@ -13,8 +13,11 @@
 	see_in_dark = 5
 	ai_controller = /datum/ai_controller/dog
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 
 /mob/living/basic/pet/dog/Initialize(mapload)
 	. = ..()
@@ -30,38 +33,26 @@
 	speech.emote_hear = string_list(list("barks!", "woofs!", "yaps.","pants."))
 	speech.emote_see = string_list(list("shakes [p_their()] head.", "chases [p_their()] tail.","shivers."))
 
-/mob/living/basic/pet/dog/corgi/Ian/Life()
-	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE)
-		memory_saved = TRUE
-	..()
-
-/mob/living/basic/pet/dog/corgi/Ian/death()
-	if(!memory_saved)
-		Write_Memory(TRUE)
-	..()
-
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/basic/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
-	desc = "It's a corgi."
+	desc = "They're a corgi."
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
+	held_state = "corgi"
 	butcher_results = list(/obj/item/food/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_icon_state = "corgi"
 	ai_controller = /datum/ai_controller/dog/corgi
-	held_state = "corgi"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	/// Access card for Ian.
 	var/obj/item/card/id/access_card = null
-	worn_slot_flags = ITEM_SLOT_HEAD
 	var/shaved = FALSE
-	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	var/nofur = FALSE //Corgis that have risen past the material plane of existence.
 	/// Is this corgi physically slow due to age, etc?
 	var/is_slow = FALSE
 
@@ -92,7 +83,6 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/food/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
-	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_icon_state = "pug"
 	held_state = "pug"
 
@@ -106,7 +96,6 @@
 	icon_dead = "bullterrier_dead"
 	butcher_results = list(/obj/item/food/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
-	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_icon_state = "bullterrier"
 	held_state = "bullterrier"
 	head_icon = 'icons/mob/pets_held_large.dmi'
@@ -389,7 +378,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
 	desc = "It's the HoP's beloved corgi."
-	var/obj/movement_target
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "bops"
@@ -402,7 +390,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	var/record_age = 1
 	var/memory_saved = FALSE
 	var/saved_head //path
-	worn_slot_flags = ITEM_SLOT_HEAD
 
 
 /mob/living/basic/pet/dog/corgi/Ian/Initialize(mapload)
@@ -424,6 +411,17 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		held_state = "old_corgi"
 		ai_controller?.blackboard[BB_DOG_IS_SLOW] = TRUE
 		is_slow = TRUE
+
+/mob/living/basic/pet/dog/corgi/Ian/Life(delta_time = SSMOBS_DT, times_fired)
+	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
+		Write_Memory(FALSE)
+		memory_saved = TRUE
+	..()
+
+/mob/living/basic/pet/dog/corgi/Ian/death()
+	if(!memory_saved)
+		Write_Memory(TRUE)
+	..()
 
 /mob/living/basic/pet/dog/corgi/Ian/proc/Read_Memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
@@ -487,7 +485,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	held_state = "narsian"
 	worn_slot_flags = null
 
-/mob/living/basic/pet/dog/corgi/narsie/Life()
+/mob/living/basic/pet/dog/corgi/narsie/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	for(var/mob/living/basic/pet/P in ohearers(1, src))
 		if(!istype(P,/mob/living/basic/pet/dog/corgi/narsie))
@@ -575,7 +573,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_icon_state = "puppy"
-	worn_slot_flags = ITEM_SLOT_HEAD
 
 //puppies cannot wear anything.
 /mob/living/basic/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -600,7 +597,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_dead = "void_puppy_dead"
 	nofur = TRUE
 	held_state = "void_puppy"
-	worn_slot_flags = ITEM_SLOT_HEAD
 
 /mob/living/basic/pet/dog/corgi/puppy/void/Initialize(mapload)
 	. = ..()
@@ -628,7 +624,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	held_state = "lisa"
-	worn_slot_flags = ITEM_SLOT_HEAD
 	var/puppies = 0
 
 //Lisa already has a cute bow!
@@ -677,7 +672,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_icon_state = "puppy"
-	worn_slot_flags = ITEM_SLOT_HEAD
 
 /mob/living/basic/pet/dog/corgi/capybara
 	name = "\improper capybara"

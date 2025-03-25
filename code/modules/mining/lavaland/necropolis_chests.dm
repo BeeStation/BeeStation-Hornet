@@ -989,7 +989,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
-	stage_prob = 20
+	stage_prob = 10
 	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("Your bones ache.")
