@@ -479,6 +479,15 @@
 	if (in_range(src, user) && !headset)
 		. += span_info("Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.")
 
+/obj/item/radio/attackby(obj/item/attacking_item, mob/user, params)
+	add_fingerprint(user)
+
+	if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
+		unscrewed = !unscrewed
+		to_chat(user, span_notice(unscrewed ? "The radio can now be attached and modified!" : "The radio can no longer be modified or attached!"))
+	else
+		return ..()
+
 /obj/item/radio/emp_act(severity)
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
