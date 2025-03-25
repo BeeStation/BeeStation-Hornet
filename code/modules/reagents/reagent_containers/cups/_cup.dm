@@ -277,7 +277,7 @@
 
 /obj/item/reagent_containers/cup/beaker/potion/vial
 	name = "Vial"
-	desc = "A  very small recipent for the strongest potions for going into battle."
+	desc = "A very small recipent for the strongest potions for going into battle."
 	icon_state = "vial_potion"
 	custom_materials = list(/datum/material/glass=100)
 	volume = 15
