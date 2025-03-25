@@ -286,7 +286,7 @@
 	switch(current_cycle)
 		if(1 to 10)
 			M.add_confusion(2 * REM * delta_time)
-			M.drowsyness += 2 * REM * delta_time
+			M.adjust_drowsyness(2 * REM * delta_time)
 		if(10 to 50)
 			M.Sleeping(40 * REM * delta_time)
 			. = TRUE

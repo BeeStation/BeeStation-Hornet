@@ -77,7 +77,7 @@
 			if(2)
 				host_mob.add_confusion(10)
 			if(3)
-				host_mob.drowsyness += 10
+				host_mob.adjust_drowsyness(10)
 			if(4)
 				host_mob.slurring += 10
 

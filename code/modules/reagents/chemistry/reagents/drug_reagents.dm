@@ -512,7 +512,7 @@
 		if(10)
 			to_chat(M, span_warning("You start to feel tired...") )
 		if(11 to 25)
-			M.drowsyness += 1 * REM * delta_time
+			M.adjust_drowsyness(1 * REM * delta_time)
 		if(26 to INFINITY)
 			M.Sleeping(60 * REM * delta_time, 0)
 			. = TRUE

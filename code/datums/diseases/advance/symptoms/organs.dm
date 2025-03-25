@@ -35,7 +35,7 @@
 
 	if(A.stage >= 3)
 		M.dizziness = max(0, M.dizziness - 2)
-		M.drowsyness = max(0, M.drowsyness - 2)
+		M.adjust_drowsyness(-2)
 		M.slurring = max(0, M.slurring - 2)
 		M.set_confusion(max(0, M.get_confusion() - 2))
 		if(purge_alcohol)
@@ -45,7 +45,7 @@
 				H.drunkenness = max(H.drunkenness - 5, 0)
 
 	if(A.stage >= 4)
-		M.drowsyness = max(0, M.drowsyness - 2)
+		M.adjust_drowsyness(-2)
 		if(M.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
 			M.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5)
 		if(M.reagents.has_reagent(/datum/reagent/toxin/histamine))

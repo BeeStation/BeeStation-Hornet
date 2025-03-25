@@ -433,7 +433,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		dizziness = max(dizziness - (restingpwr * delta_time), 0)
 
 	if(drowsyness)
-		drowsyness = max(drowsyness - (restingpwr * delta_time), 0)
+		adjust_drowsyness(-1 * restingpwr * delta_time)
 		blur_eyes(1 * delta_time)
 		if(DT_PROB(2.5, delta_time))
 			AdjustSleeping(100)

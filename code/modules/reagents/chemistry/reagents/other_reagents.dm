@@ -328,8 +328,8 @@
 	REMOVE_TRAIT(L, TRAIT_NO_BLEEDING, type)
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(iscultist(M))
-		M.drowsyness = max(M.drowsyness - (5* REM * delta_time), 0)
+	if(IS_CULTIST(M))
+		M.adjust_drowsyness(-5* REM * delta_time)
 		M.AdjustAllImmobility(-40 *REM* REM * delta_time)
 		M.adjustStaminaLoss(-10 * REM * delta_time, 0)
 		M.adjustToxLoss(-2 * REM * delta_time, 0)
@@ -1191,7 +1191,7 @@
 	if(DT_PROB(55, delta_time))
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))
-		M.drowsyness = max(M.drowsyness, 3)
+		M.adjust_drowsyness(3)
 	if(DT_PROB(5, delta_time))
 		M.emote("drool")
 	..()
@@ -1319,12 +1319,12 @@
 		var/temp = holder ? holder.chem_temp : T20C
 		T.atmos_spawn_air("n2o=[reac_volume/5];TEMP=[temp]")
 
-/datum/reagent/nitrous_oxide/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume)
 	if(method == VAPOR)
-		M.drowsyness += max(round(reac_volume, 1), 2)
+		exposed_mob.adjust_drowsyness(max(round(reac_volume, 1), 2))
 
 /datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness += 2 * REM * delta_time
+	M.adjust_drowsyness(2 * REM * delta_time)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.blood_volume = max(H.blood_volume - (10 * REM * delta_time), 0)
@@ -2159,7 +2159,7 @@
 
 /datum/reagent/eldritch/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(IS_HERETIC(M))
-		M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
+		M.adjust_drowsyness(-5 * REM * delta_time)
 		M.AdjustAllImmobility(-40 * REM * delta_time)
 		M.adjustStaminaLoss(-10 * REM * delta_time, FALSE)
 		M.adjustToxLoss(-2 * REM * delta_time, FALSE)

@@ -320,7 +320,7 @@
 
 /datum/reagent/consumable/coffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
+	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	//310.15 is the normal bodytemp.
 	M.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
@@ -342,7 +342,7 @@
 
 /datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (2 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (1 * REM * delta_time), 0)
+	M.adjust_drowsyness(-1 * REM * delta_time)
 	M.jitteriness = max(M.jitteriness - (3 * REM * delta_time), 0)
 	M.AdjustSleeping(-20 * REM * delta_time)
 	if(M.getToxLoss() && DT_PROB(10, delta_time))
@@ -394,7 +394,7 @@
 
 /datum/reagent/consumable/icecoffee/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
+	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	M.Jitter(5 * REM * delta_time)
@@ -414,7 +414,7 @@
 
 /datum/reagent/consumable/icetea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (2 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (1 * REM * delta_time), 0)
+	M.adjust_drowsyness(-1 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	if(M.getToxLoss() && DT_PROB(10, delta_time))
 		M.adjustToxLoss(-1, 0)
@@ -433,7 +433,7 @@
 	glass_desc = "A glass of refreshing Space Cola."
 
 /datum/reagent/consumable/space_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
+	M.adjust_drowsyness(-5 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
 
@@ -460,7 +460,7 @@
 	M.Jitter(20 * REM * delta_time)
 	M.set_drugginess(30 * REM * delta_time)
 	M.dizziness += 1.5 * REM * delta_time
-	M.drowsyness = 0
+	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	M.radiation += 4 * REM * delta_time
@@ -489,7 +489,7 @@
 /datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.Jitter(20 * REM * delta_time)
 	M.dizziness += 1 * REM * delta_time
-	M.drowsyness = 0
+	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
@@ -505,7 +505,7 @@
 	glass_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
 
 /datum/reagent/consumable/spacemountainwind/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (7 * REM * delta_time), 0)
+	M.adjust_drowsyness(-7 * REM * delta_time)
 	M.AdjustSleeping(-20 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	M.Jitter(5 * REM * delta_time)
@@ -523,7 +523,7 @@
 	glass_desc = "Dr. Gibb. Not as dangerous as the glass_name might imply."
 
 /datum/reagent/consumable/dr_gibb/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.drowsyness = max(M.drowsyness - (6 * REM * delta_time), 0)
+	M.adjust_drowsyness(-6 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
 
@@ -597,7 +597,7 @@
 
 /datum/reagent/consumable/sodawater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
+	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
 
@@ -613,7 +613,7 @@
 
 /datum/reagent/consumable/tonic/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 * REM * delta_time), 0)
+	M.adjust_drowsyness(-3 * REM * delta_time)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
@@ -632,7 +632,7 @@
 /datum/reagent/consumable/monkey_energy/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.Jitter(40 * REM * delta_time)
 	M.dizziness += 1 * REM * delta_time
-	M.drowsyness = 0
+	M.set_drowsyness(0)
 	M.AdjustSleeping(-40 * REM * delta_time)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
 	..()
@@ -674,7 +674,7 @@
 
 /datum/reagent/consumable/soy_latte/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (3 *REM * delta_time), 0)
+	M.adjust_drowsyness(-3 *REM * delta_time)
 	M.SetSleeping(0)
 	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
 	M.Jitter(5 * REM * delta_time)
@@ -696,7 +696,7 @@
 
 /datum/reagent/consumable/cafe_latte/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
-	M.drowsyness = max(M.drowsyness - (6 * REM * delta_time), 0)
+	M.adjust_drowsyness(-6 * REM * delta_time)
 	M.SetSleeping(0)
 	M.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, 0, M.get_body_temp_normal())
 	M.Jitter(5 * REM * delta_time)
