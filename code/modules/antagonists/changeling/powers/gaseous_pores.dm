@@ -16,8 +16,8 @@
 	if(is_changeling(M))
 		return FALSE
 	if(..())
-		M.set_confusion(max(M.get_confusion(), 12))
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "cough")
+		M.set_timed_status_effect(12 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)
+		M.manual_emote("cough")
 		return TRUE
 
 /datum/effect_system/smoke_spread/confusing/changeling

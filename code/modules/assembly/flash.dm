@@ -156,7 +156,7 @@
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		flash_carbon(user, user, 15, 0)
+		flash_carbon(user, user, confusion_duration = 15 SECONDS, targeted = FALSE)
 		return FALSE
 	return TRUE
 
@@ -188,14 +188,14 @@
 	return TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!
-/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, power = 5, targeted = FALSE, mob/user)
+/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, confusion_duration = 5 SECONDS, targeted = FALSE, mob/user)
 	if(!bypass_checks && !try_use_flash())
 		return FALSE
 	var/list/mob/targets = get_flash_targets(get_turf(src), range, FALSE)
 	if(user)
 		targets -= user
-	for(var/mob/living/carbon/C in targets)
-		flash_carbon(C, user, power, targeted, TRUE)
+	for(var/mob/living/carbon/nearby_carbon in targets)
+		flash_carbon(nearby_carbon, user, confusion_duration = confusion_duration, targeted = targeted, generic_message = TRUE)
 	return TRUE
 
 /obj/item/assembly/flash/proc/get_flash_targets(atom/target_loc, range = 3, override_vision_checks = FALSE)
@@ -233,56 +233,63 @@
 /obj/item/assembly/flash/proc/flash_end()
 	set_light_on(FALSE)
 
-
-/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
-	if(!istype(M))
+ /*
+ * Arguments:
+ * * M - Victim
+ * * user - Attacker
+ * * confusion_duration - handles the amount of confusion it gives you
+ * * targeted - determines if it was aoe or targeted
+ * * generic_message - checks if it should display default message.
+ */
+/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/flashed, mob/user, confusion_duration = 15 SECONDS, targeted = TRUE, generic_message = FALSE)
+	if(!istype(flashed))
 		return
 	if(user)
-		log_combat(user, M, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
+		log_combat(user, flashed, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
 	else //caused by emp/remote signal
-		M.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
-	if(generic_message && M != user)
-		to_chat(M, span_disarm("[src] emits a blinding light!"))
+		flashed.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
+	if(generic_message && flashed != user)
+		to_chat(flashed, span_disarm("[src] emits a blinding light!"))
 	if(targeted)
 		//No flash protection, blind and stun
-		if(M.flash_act(1))
+		if(flashed.flash_act(1))
 			if(user)
-				terrible_conversion_proc(M, user)
-				visible_message(span_disarm("[user] blinds [M] with the flash!"))
-				to_chat(user, span_danger("You blind [M] with the flash!"))
-				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
+				terrible_conversion_proc(flashed, user)
+				visible_message(span_disarm("[user] blinds [flashed] with the flash!"))
+				to_chat(user, span_danger("You blind [flashed] with the flash!"))
+				to_chat(flashed, span_userdanger("[user] blinds you with the flash!"))
 			else
-				to_chat(M, span_userdanger("You are blinded by [src]!"))
+				to_chat(flashed, span_userdanger("You are blinded by [src]!"))
 			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
-			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
-			if (M.body_position == LYING_DOWN)
+			var/flash_proportion = CLAMP01(flashed.getStaminaLoss() / (flashed.maxHealth - flashed.crit_threshold))
+			if (flashed.body_position == LYING_DOWN)
 				flash_proportion = 1
 			if(flash_proportion > 0.4)
-				M.Paralyze(70 * flash_proportion)
+				flashed.Paralyze(70 * flash_proportion)
 			else
-				M.Knockdown(max(70 * flash_proportion, 5))
-			M.set_confusion(max(M.get_confusion(), 4))
+				flashed.Knockdown(max(70 * flash_proportion, 5))
+			flashed.set_timed_status_effect(4 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)
 
 		//Basic flash protection, only blind
-		else if(M.flash_act(2, TRUE))
+		else if(flashed.flash_act(2, TRUE))
 			if(user)
 				//Tell the user that their flash failed
-				visible_message(span_disarm("[user] fails to blind [M] with the flash!"))
-				to_chat(user, span_warning("You fail to blind [M] with the flash!"))
+				visible_message(span_disarm("[user] fails to blind [flashed] with the flash!"))
+				to_chat(user, span_warning("You fail to blind [flashed] with the flash!"))
 				//Tell the victim that they have been blinded
-				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
+				to_chat(flashed, span_userdanger("[user] blinds you with the flash!"))
 			else
-				to_chat(M, span_userdanger("You are blinded by [src]!"))
+				to_chat(flashed, span_userdanger("You are blinded by [src]!"))
 
 		//Complete failure to blind
 		else if(user)
-			visible_message(span_disarm("[user] fails to blind [M] with the flash!"))
-			to_chat(user, span_warning("You fail to blind [M] with the flash!"))
-			to_chat(M, span_danger("[user] fails to blind you with the flash!"))
+			visible_message(span_disarm("[user] fails to blind [flashed] with the flash!"))
+			to_chat(user, span_warning("You fail to blind [flashed] with the flash!"))
+			to_chat(flashed, span_danger("[user] fails to blind you with the flash!"))
 		else
-			to_chat(M, span_danger("[src] fails to blind you!"))
+			to_chat(flashed, span_danger("[src] fails to blind you!"))
 	else
-		M.flash_act(2)
+		flashed.flash_act(2)
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
@@ -419,42 +426,42 @@
 /obj/item/assembly/flash/hypnotic/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
-	if(!istype(M))
+/obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/flashed, mob/user, confusion_duration = 15, targeted = TRUE, generic_message = FALSE)
+	if(!istype(flashed))
 		return
 	if(user)
-		log_combat(user, M, "[targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]", src)
+		log_combat(user, flashed, "[targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]", src)
 	else //caused by emp/remote signal
-		M.log_message("was [targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]",LOG_ATTACK)
-	if(generic_message && M != user)
-		to_chat(M, span_disarm("[src] emits a soothing light..."))
+		flashed.log_message("was [targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]",LOG_ATTACK)
+	if(generic_message && flashed != user)
+		to_chat(flashed, span_disarm("[src] emits a soothing light..."))
 	if(targeted)
-		if(M.flash_act(1, 1))
+		if(flashed.flash_act(1, 1))
 			if(user)
-				user.visible_message(span_disarm("[user] blinds [M] with the flash!"), span_danger("You hypno-flash [M]!"))
+				user.visible_message(span_disarm("[user] blinds [flashed] with the flash!"), span_danger("You hypno-flash [flashed]!"))
 
-			if(M.hypnosis_vulnerable())
-				M.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
+			if(flashed.hypnosis_vulnerable())
+				flashed.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
-				to_chat(M, span_notice("The light makes you feel oddly relaxed..."))
-				M.add_confusion(min(M.get_confusion() + 10, 20))
-				M.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, max_duration = 40 SECONDS)
-				M.adjust_drowsyness(min(M.drowsyness+10, 20))
-				M.apply_status_effect(/datum/status_effect/pacify, 100)
+				to_chat(flashed, span_notice("The light makes you feel oddly relaxed..."))
+				flashed.set_timed_status_effect(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER, /datum/status_effect/confusion, only_if_higher = TRUE)
+				flashed.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, max_duration = 40 SECONDS)
+				flashed.adjust_drowsyness(min(flashed.drowsyness+10, 20))
+				flashed.apply_status_effect(/datum/status_effect/pacify, 100)
 
 
 
 		else if(user)
-			user.visible_message(span_disarm("[user] fails to blind [M] with the flash!"), span_warning("You fail to hypno-flash [M]!"))
+			user.visible_message(span_disarm("[user] fails to blind [flashed] with the flash!"), span_warning("You fail to hypno-flash [flashed]!"))
 		else
-			to_chat(M, span_danger("[src] fails to blind you!"))
+			to_chat(flashed, span_danger("[src] fails to blind you!"))
 
-	else if(M.flash_act())
-		to_chat(M, span_notice("Such a pretty light..."))
-		M.add_confusion(min(M.get_confusion() + 4, 20))
-		M.adjust_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, max_duration = 40 SECONDS)
-		M.adjust_drowsyness(min(M.drowsyness+4, 20))
-		M.apply_status_effect(/datum/status_effect/pacify, 40)
+	else if(flashed.flash_act())
+		to_chat(flashed, span_notice("Such a pretty light..."))
+		flashed.set_timed_status_effect(confusion_duration * CONFUSION_STACK_MAX_MULTIPLIER, /datum/status_effect/confusion, only_if_higher = TRUE)
+		flashed.adjust_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, max_duration = 40 SECONDS)
+		flashed.adjust_drowsyness(min(flashed.drowsyness+4, 20))
+		flashed.apply_status_effect(/datum/status_effect/pacify, 40)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

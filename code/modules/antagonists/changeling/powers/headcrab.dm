@@ -40,7 +40,7 @@
 			H.Stun(20)
 			H.blur_eyes(20)
 			eyes?.applyOrganDamage(5)
-			H.add_confusion(10)
+			H.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion)
 		else if(issilicon(A))
 			var/mob/living/silicon/S = A
 			to_chat(S, span_userdanger("Your sensors are disabled by a shower of blood!"))

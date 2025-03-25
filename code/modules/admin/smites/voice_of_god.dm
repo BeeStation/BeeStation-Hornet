@@ -12,5 +12,5 @@
 	target.playsound_local(get_turf(target), target_sound, 200, 1)
 	target.Paralyze(300, ignore_canstun = TRUE)
 	target.Jitter(100)
-	target.add_confusion(50)
+	target.adjust_timed_status_effect(50 SECONDS, /datum/status_effect/confusion)
 

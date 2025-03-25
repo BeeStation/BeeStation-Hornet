@@ -782,8 +782,7 @@
 /datum/status_effect/interdiction/tick()
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
-		if(owner.get_confusion() < 10)
-			owner.set_confusion(10)
+		owner.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion, max_duration = 10 SECONDS)
 		running_toggled = TRUE
 		to_chat(owner, span_warning("You know you shouldn't be running here."))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
@@ -1424,19 +1423,3 @@
 	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
 	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
-
-/// A status effect used for specifying confusion on a living mob.
-/// Created automatically with /mob/living/set_confusion.
-/datum/status_effect/confusion
-	id = "confusion"
-	alert_type = null
-	var/strength
-
-/datum/status_effect/confusion/tick()
-	strength -= 1
-	if (strength <= 0)
-		owner.remove_status_effect(/datum/status_effect/confusion)
-		return
-
-/datum/status_effect/confusion/proc/set_strength(new_strength)
-	strength = new_strength

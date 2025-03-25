@@ -341,7 +341,7 @@
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.set_confusion(max(M.get_confusion(), 5)) // 10 seconds
+			victim.set_timed_status_effect(5 SECONDS, /datum/status_effect/confusion, only_if_higher = TRUE)
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()

@@ -167,7 +167,7 @@
 		// Heal them up - gets them out of crit/soft crit.
 		M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)
 		M.flash_act()
-		M.add_confusion(10)
+		M.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion)
 		M.blur_eyes(5)
 		to_chat(M, span_warning("You feel strange..."))
 		sleep(60)
@@ -176,7 +176,7 @@
 		sleep(65)
 		to_chat(M, span_warning("Your head pounds... It feels like it's going to burst out your skull!"))
 		M.flash_act()
-		M.add_confusion(20)
+		M.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/confusion)
 		M.blur_eyes(3)
 		sleep(30)
 		to_chat(M, span_warning("Your head pounds..."))
@@ -188,7 +188,7 @@
 					so it's only a matter of time before we ship you back...\"</i>"))
 		M.blur_eyes(10)
 		M.set_timed_status_effect(30 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
-		M.add_confusion(20)
+		M.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/confusion)
 
 // We're returning the victim
 /datum/syndicate_contract/proc/returnVictim(var/mob/living/M)
@@ -227,7 +227,7 @@
 		M.flash_act()
 		M.blur_eyes(30)
 		M.set_timed_status_effect(70 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
-		M.add_confusion(20)
+		M.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/confusion)
 
 		new /obj/effect/pod_landingzone(possible_drop_loc[pod_rand_loc], return_pod)
 	else

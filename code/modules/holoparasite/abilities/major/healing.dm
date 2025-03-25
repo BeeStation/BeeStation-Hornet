@@ -165,7 +165,7 @@
 		target.adjust_blurriness(-actual_effect_heal_amt)
 		target.adjust_disgust(-actual_effect_heal_amt)
 		target.adjust_timed_status_effect(-actual_effect_heal_amt, /datum/status_effect/dizziness)
-		target.set_confusion(max(target.get_confusion() - actual_effect_heal_amt, 0))
+		target.adjust_timed_status_effect(-actual_effect_heal_amt, /datum/status_effect/confusion)
 		target.hallucination = max(target.hallucination - actual_effect_heal_amt, 0)
 	if(heal_clone)
 		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)
