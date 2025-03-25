@@ -62,7 +62,7 @@
 				H.add_confusion(2.5)
 				H.adjust_timed_status_effect(2 SECONDS, /datum/status_effect/speech/stutter)
 				H.vomit(10, 0, 1, 0, 1, 0)
-			H.Dizzy(5)
+			H.set_timed_status_effect(10 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		if(H.disgust >= DISGUST_LEVEL_DISGUSTED)
 			if(DT_PROB(13, delta_time))
 				H.blur_eyes(3) //We need to add more shit down here

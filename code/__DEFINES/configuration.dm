@@ -38,7 +38,10 @@
 #define ION_FILE "ion_laws.json"
 #define PIRATE_NAMES_FILE "pirates.json"
 #define REDPILL_FILE "redpill.json"
+/// File location for wanted posters messages
 #define WANTED_FILE "wanted_message.json"
+/// File location for really dumb suggestions memes
+#define VISTA_FILE "steve.json"
 #define REVENANT_NAME_FILE "revenant_names.json"
 #define ITALIAN_TALK_FILE "italian_replacement.json"
 #define VALENTINE_FILE "valentines.json"

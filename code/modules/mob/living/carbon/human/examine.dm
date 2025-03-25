@@ -10,7 +10,6 @@
 	var/obscure_name
 	var/obscure_examine
 
-	var/obscured = check_obscured_slots()
 	var/skipface = ((wear_mask?.flags_inv & HIDEFACE) || (head?.flags_inv & HIDEFACE))
 
 	if(isliving(user))
@@ -28,6 +27,8 @@
 
 	if(obscure_examine)
 		return list(span_warning("You're struggling to make out any details..."))
+
+	var/obscured = check_obscured_slots()
 
 	//Psychic soul stuff
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
@@ -100,7 +101,7 @@
 		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user)]."
 
 	//Status effects
-	. += status_effect_examines()
+	. += get_status_effect_examinations()
 
 	//Jitters
 	switch(jitteriness)
@@ -276,45 +277,34 @@
 	if(just_sleeping)
 		msg += "[user.p_they(TRUE)] isn't responding to anything around [user.p_them()] and seems to be asleep.\n"
 
-	if(drunkenness && !skipface && !appears_dead) //Drunkenness
-		switch(drunkenness)
-			if(11 to 21)
-				msg += "[t_He] [t_is] slightly flushed.\n"
-			if(21.01 to 41) //.01s are used in case drunkenness ends up to be a small decimal
-				msg += "[t_He] [t_is] flushed.\n"
-			if(41.01 to 51)
-				msg += "[t_He] [t_is] quite flushed and [t_his] breath smells of alcohol.\n"
-			if(51.01 to 61)
-				msg += "[t_He] [t_is] very flushed and [t_his] movements jerky, with breath reeking of alcohol.\n"
-			if(61.01 to 91)
-				msg += "[t_He] look[p_s()] like a drunken mess.\n"
-			if(91.01 to INFINITY)
-				msg += "[t_He] [t_is] a shitfaced, slobbering wreck.\n"
-
-	if(ismob(user))
-		if(HAS_TRAIT(user, TRAIT_EMPATH) && !appears_dead && (src != user))
-			if (combat_mode)
-				msg += "[t_He] seem[p_s()] to be on guard.\n"
-			if (getOxyLoss() >= 10)
-				msg += "[t_He] seem[p_s()] winded.\n"
-			if (getToxLoss() >= 10)
-				msg += "[t_He] seem[p_s()] sickly.\n"
-			var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)
-			if(mood.sanity <= SANITY_DISTURBED)
-				msg += "[t_He] seem[p_s()] distressed.\n"
-				SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "empath", /datum/mood_event/sad_empath, src)
-			if (is_blind())
-				msg += "[t_He] appear[p_s()] to be staring off into space.\n"
-			if (HAS_TRAIT(src, TRAIT_DEAF))
-				msg += "[t_He] appear[p_s()] to not be responding to noises.\n"
-
-	msg += "</span>"
-
-	if(HAS_TRAIT(user, TRAIT_SPIRITUAL) && mind?.holy_role)
-		msg += "[t_He] [t_has] a holy aura about [t_him].\n"
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
-
 	if(!appears_dead)
+		if(src != user)
+			if(HAS_TRAIT(user, TRAIT_EMPATH))
+				if (combat_mode)
+					msg += "[t_He] seem[p_s()] to be on guard.\n"
+				if (getOxyLoss() >= 10)
+					msg += "[t_He] seem[p_s()] winded.\n"
+				if (getToxLoss() >= 10)
+					msg += "[t_He] seem[p_s()] sickly.\n"
+				var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)
+				if(mood.sanity <= SANITY_DISTURBED)
+					msg += "[t_He] seem[p_s()] distressed.\n"
+					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "empath", /datum/mood_event/sad_empath, src)
+				if (is_blind())
+					msg += "[t_He] appear[p_s()] to be staring off into space.\n"
+				if (HAS_TRAIT(src, TRAIT_DEAF))
+					msg += "[t_He] appear[p_s()] to not be responding to noises.\n"
+				if (bodytemperature > dna.species.bodytemp_heat_damage_limit)
+					msg += "[t_He] [t_is] flushed and wheezing.\n"
+				if (bodytemperature < dna.species.bodytemp_cold_damage_limit)
+					msg += "[t_He] [t_is] shivering.\n"
+
+			msg += "</span>"
+
+			if(HAS_TRAIT(user, TRAIT_SPIRITUAL) && mind?.holy_role)
+				msg += "[t_He] [t_has] a holy aura about [t_him].\n"
+				SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
+
 		switch(stat)
 			if(UNCONSCIOUS, HARD_CRIT)
 				msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"
@@ -397,19 +387,23 @@
 	else if(isobserver(user) && traitstring)
 		. += span_info("<b>Traits:</b> [traitstring]")
 
-/mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
-	var/list/dat = list()
-	if(!pronoun_replacement)
-		pronoun_replacement = p_they(TRUE)
-	for(var/V in status_effects)
-		var/datum/status_effect/E = V
-		var/effect_text = E.get_examine_text()
-		if(effect_text)
-			var/new_text = replacetext(effect_text, "SUBJECTPRONOUN", pronoun_replacement)
-			new_text = replacetext(new_text, "[pronoun_replacement] is", "[pronoun_replacement] [p_are()]") //To make sure something become "They are" or "She is", not "They are" and "She are"
-			dat += "[new_text]\n" //dat.Join("\n") doesn't work here, for some reason
-	if(dat.len)
-		return dat.Join()
+/**
+ * Shows any and all examine text related to any status effects the user has.
+ */
+/mob/living/proc/get_status_effect_examinations()
+	var/list/examine_list = list()
+
+	for(var/datum/status_effect/effect as anything in status_effects)
+		var/effect_text = effect.get_examine_text()
+		if(!effect_text)
+			continue
+
+		examine_list += effect_text
+
+	if(!length(examine_list))
+		return
+
+	return examine_list.Join("\n")
 
 /mob/proc/soul_departed()
 	return !key && !get_ghost(FALSE, TRUE)

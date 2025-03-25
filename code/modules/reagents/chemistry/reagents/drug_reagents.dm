@@ -248,7 +248,7 @@
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage2(mob/living/M)
 	M.Jitter(10)
-	M.Dizzy(10)
+	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -258,7 +258,7 @@
 		for(var/i = 0, i < 4, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
-	M.Dizzy(15)
+	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -268,7 +268,7 @@
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(20)
-	M.Dizzy(20)
+	M.set_timed_status_effect(40 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustToxLoss(5, 0)
 	if(prob(50))
 		M.emote(pick("twitch","drool","moan"))
@@ -351,7 +351,7 @@
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(10)
-	M.Dizzy(10)
+	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
@@ -363,7 +363,7 @@
 		for(var/i = 0, i < 12, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
-	M.Dizzy(15)
+	M.set_timed_status_effect(30 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
@@ -375,7 +375,7 @@
 		for(var/i = 0, i < 16, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(50)
-	M.Dizzy(50)
+	M.set_timed_status_effect(100 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.adjustToxLoss(5, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(50))
@@ -446,7 +446,7 @@
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_good_od)
 			if(2)
 				M.emote("sway")
-				M.Dizzy(25)
+				M.set_timed_status_effect(50 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 			if(3)
 				M.emote("frown")
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
@@ -542,7 +542,7 @@
 		else
 			to_chat(M, span_warning("You feel like you your limbs won't move..."))
 		M.drop_all_held_items()
-		M.Dizzy(5)
+		M.set_timed_status_effect(10 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()
 
 //Addiction Gradient
@@ -558,7 +558,7 @@
 		M.adjustToxLoss(2*REM, 0)
 		. = 1
 		M.Jitter(3)
-		M.Dizzy(3)
+		M.set_timed_status_effect(6 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()
 
 /datum/reagent/drug/ketamine/addiction_act_stage3(mob/living/M)
@@ -567,5 +567,5 @@
 		M.adjustToxLoss(3*REM, 0)
 		. = 1
 		M.Jitter(4)
-		M.Dizzy(4)
+		M.set_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	..()

@@ -113,6 +113,7 @@
 /datum/mood_event/religiously_comforted
 	description = span_nicegreen("I feel comforted by the presence of a holy person.")
 	mood_change = 3
+	timeout = 5 MINUTES
 
 /datum/mood_event/clownshoes
 	description = span_nicegreen("The shoes are a clown's legacy, I never want to take them off!")

@@ -26,6 +26,10 @@ Because if you select a player mob as owner it tries to do the proc for
 But you can call procs that are of type /mob/living/carbon/human/proc/ for that player.
 */
 
+/* 3/25/2025
+Updated by Tsar-salat -- Not anymore, champ
+*/
+
 /client/proc/Cell()
 	set category = "Debug"
 	set name = "Air Status in Location"

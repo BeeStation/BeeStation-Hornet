@@ -70,7 +70,7 @@
 	M.SetSleeping(0)
 
 	M.silent = FALSE
-	M.dizziness = 0
+	M.remove_status_effect(/datum/status_effect/dizziness)
 	M.disgust = 0
 	M.drowsyness = 0
 	// Remove all speech related status effects
@@ -245,7 +245,7 @@
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, delta_time, times_fired)
 	M.adjustToxLoss(1 * REM * delta_time, 0)
-	M.Dizzy(5 * REM * delta_time)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.Jitter(5 * REM * delta_time)
 	..()
 	. = TRUE
@@ -813,7 +813,7 @@
 /datum/reagent/medicine/morphine/overdose_process(mob/living/M, delta_time, times_fired)
 	if(DT_PROB(18, delta_time))
 		M.drop_all_held_items()
-		M.Dizzy(2)
+		M.set_timed_status_effect(4 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		M.Jitter(2)
 	..()
 
@@ -828,7 +828,7 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(1*REM, 0)
 		. = 1
-		M.Dizzy(3)
+		M.set_timed_status_effect(6 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		M.Jitter(3)
 	..()
 
@@ -837,7 +837,7 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(2*REM, 0)
 		. = 1
-		M.Dizzy(4)
+		M.set_timed_status_effect(8 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		M.Jitter(4)
 	..()
 
@@ -846,7 +846,7 @@
 		M.drop_all_held_items()
 		M.adjustToxLoss(3*REM, 0)
 		. = 1
-		M.Dizzy(5)
+		M.set_timed_status_effect(10 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		M.Jitter(5)
 	..()
 
@@ -898,7 +898,7 @@
 		. = TRUE
 	M.losebreath = 0
 	if(DT_PROB(10, delta_time))
-		M.Dizzy(5)
+		M.set_timed_status_effect(10 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
 		M.Jitter(5)
 		M.drop_all_held_items()
 	..()
@@ -907,7 +907,7 @@
 	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 	M.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2 * REM * delta_time)
 	. = TRUE
-	M.Dizzy(1 * REM * delta_time)
+	M.set_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
 	M.Jitter(1 * REM * delta_time)
 	..()
 
@@ -1049,13 +1049,11 @@
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(!HAS_TRAIT(M, TRAIT_LIGHT_DRINKER))
-		M.dizziness = 0
+		M.remove_status_effect(/datum/status_effect/dizziness)
 		M.set_drowsyness(0)
 		M.remove_status_effect(/datum/status_effect/speech/slurring/drunk)
 		M.set_confusion(0)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.drunkenness = max(H.drunkenness - (10 * REM * delta_time), 0)
+		M.adjust_drunk_effect(-10 * REM * delta_time)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
 	M.adjustToxLoss(-0.2 * REM * delta_time, 0)
 	..()
@@ -1594,7 +1592,7 @@
 		if(1 to 40)
 			M.jitteriness = min(M.jitteriness + (1 * REM * delta_time), 10)
 			M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/speech/stutter, max_duration = 20 SECONDS)
-			M.Dizzy(5 * REM * delta_time)
+			M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
 			if(DT_PROB(30, delta_time))
 				M.losebreath++
 		if(41 to 80)
@@ -1602,7 +1600,7 @@
 			M.adjustStaminaLoss(0.1 * REM * delta_time, 0)
 			M.jitteriness = min(M.jitteriness + (1 * REM * delta_time), 20)
 			M.adjust_timed_status_effect(2 SECONDS * REM * delta_time, /datum/status_effect/speech/stutter, max_duration = 40 SECONDS)
-			M.Dizzy(10 * REM * delta_time)
+			M.set_timed_status_effect(20 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
 			if(DT_PROB(30, delta_time))
 				M.losebreath++
 			if(DT_PROB(10, delta_time))
@@ -1641,7 +1639,7 @@
 /datum/reagent/medicine/psicodine/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	dosage++
 	M.jitteriness = max(M.jitteriness - (6 * REM * delta_time), 0)
-	M.dizziness = max(M.dizziness - (6 * REM * delta_time), 0)
+	M.adjust_timed_status_effect(-12 SECONDS * REM * delta_time, /datum/status_effect/dizziness)
 	M.set_confusion(max(M.get_confusion() - (6 * REM * delta_time), 0))
 	M.disgust = max(M.disgust - (6 * REM * delta_time), 0)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
