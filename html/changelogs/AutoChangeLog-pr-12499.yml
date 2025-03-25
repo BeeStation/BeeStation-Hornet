@@ -1,6 +1,0 @@
-author: Varo10, Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Fixed the errors with potions - they are now possible to create at autolathes
-      as intended, and also fixed some oversights with the liquid being displayed
-      improperly.
