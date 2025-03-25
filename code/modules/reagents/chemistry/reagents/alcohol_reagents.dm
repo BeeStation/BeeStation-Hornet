@@ -1404,9 +1404,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
 		M.set_confusion(max(M.get_confusion() + (2 * REM * delta_time),0))
 		M.Dizzy(10 * REM * delta_time)
-	if (!M.slurring)
-		M.slurring = 1 * REM * delta_time
-	M.slurring += 3 * REM * delta_time
+	M.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk)
 	switch(current_cycle)
 		if(51 to 200)
 			M.Sleeping(100 * REM * delta_time)
@@ -1433,9 +1431,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.dizziness += 1.5 * REM * delta_time
 	switch(current_cycle)
 		if(15 to 45)
-			if(!M.slurring)
-				M.slurring = 1 * REM * delta_time
-			M.slurring += 3 * REM * delta_time
+			M.adjust_timed_status_effect(3 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk)
+
 		if(45 to 55)
 			if(DT_PROB(30, delta_time))
 				M.set_confusion(max(M.get_confusion() + 3, 0))
@@ -1510,8 +1507,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if (!M.slurring)
-		M.slurring = 1 * REM * delta_time
+	M.set_timed_status_effect(1 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk, only_if_higher = TRUE)
+
 	switch(current_cycle)
 		if(1 to 5)
 			M.Dizzy(10 * REM * delta_time)
@@ -1569,9 +1566,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 
 /datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.cultslurring = min(M.cultslurring + (3 * REM * delta_time), 3)
-	M.stuttering = min(M.stuttering + (3 * REM * delta_time), 3)
-	..()
+	M.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/cult, max_duration = 6 SECONDS)
+	M.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/stutter, max_duration = 6 SECONDS)
+	return ..()
 
 /datum/reagent/consumable/ethanol/triple_sec
 	name = "Triple Sec"
@@ -2291,7 +2288,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(M.mind?.holy_role)
 		M.adjustFireLoss(-2.5 * REM * delta_time, 0)
 		M.jitteriness = max(M.jitteriness - (1 * REM * delta_time), 0)
-		M.stuttering = max(M.stuttering - (1 * REM * delta_time), 0)
+		M.adjust_timed_status_effect(-2 SECONDS * REM * delta_time, /datum/status_effect/speech/stutter)
 	return ..()
 
 /datum/reagent/consumable/ethanol/blazaam
@@ -2474,9 +2471,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/ratvander/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(5, delta_time))
 		to_chat(M, span_warning(pick("You can faintly hear the sound of gears.","You can feel an unnatural hatred towards exposed blood.","You swear you can feel steam eminating from the drink.","You hear faint, pleasant whispers.","You can see a white void within your mind.")))
-	M.clockslurring = min(M.clockslurring + (3 * REM * delta_time), 3)
-	M.stuttering = min(M.stuttering + (3 * REM * delta_time), 3)
-	..()
+	M.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/clock, max_duration = 6 SECONDS)
+	M.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/stutter, max_duration = 6 SECONDS)
+	return ..()
 
 /datum/reagent/consumable/ethanol/icewing
 	name = "Icewing"

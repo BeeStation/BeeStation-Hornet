@@ -45,7 +45,7 @@
 		H.electrocution_animation(20)
 	C.jitteriness += 1000
 	C.do_jitter_animation(C.jitteriness)
-	C.stuttering += 1
+	C.adjust_timed_status_effect(2 SECONDS, /datum/status_effect/speech/stutter)
 	spawn(20)
 	if(C)
 		C.jitteriness = max(C.jitteriness - 990, 10)
@@ -134,7 +134,7 @@
 			H.electrocution_animation(20)
 		C.jitteriness += 1000
 		C.do_jitter_animation(C.jitteriness)
-		C.stuttering += 1
+		C.adjust_timed_status_effect(2 SECONDS, /datum/status_effect/speech/stutter)
 		spawn(20)
 		if(C)
 			C.jitteriness = max(C.jitteriness - 990, 10)

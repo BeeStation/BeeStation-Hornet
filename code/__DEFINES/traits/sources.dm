@@ -21,6 +21,7 @@
 #define CULT_TRAIT "cult"
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
+/// A trait given by any status effect
 #define STATUS_EFFECT_TRAIT "status-effect"
 #define CLOTHING_TRAIT "clothing"
 #define CLOTHING_FEET_TRAIT "feet"

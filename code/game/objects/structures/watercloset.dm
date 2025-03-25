@@ -306,7 +306,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 		if(B.cell && B.cell.charge && B.turned_on)
 			flick("baton_active", src)
 			user.Paralyze(B.stun_time)
-			user.stuttering = B.stun_time/20
+			user.set_timed_status_effect(B.stun_time, /datum/status_effect/speech/stutter)
 			B.deductcharge(B.cell_hit_cost)
 			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [B.name]!"), \
 								span_userdanger("You unwisely attempt to wash [B] while it's still on."))

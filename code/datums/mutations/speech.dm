@@ -8,7 +8,7 @@
 
 /datum/mutation/nervousness/on_life(delta_time, times_fired)
 	if(DT_PROB(5, delta_time))
-		owner.stuttering = max(10, owner.stuttering)
+		owner.set_timed_status_effect(20 SECONDS, /datum/status_effect/speech/stutter, only_if_higher = TRUE)
 
 /datum/mutation/wacky
 	name = "Wacky"

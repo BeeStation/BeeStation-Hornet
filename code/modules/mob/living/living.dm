@@ -815,10 +815,9 @@
 	fire_stacks = 0
 	dizziness = 0
 	set_drowsyness(0)
-	stuttering = 0
-	slurring = 0
 	jitteriness = 0
 	stop_sound_channel(CHANNEL_HEARTBEAT)
+	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, admin_revive)
 
 
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
@@ -1596,6 +1595,19 @@
 		</font>
 	"}
 
+/mob/living/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPEECH_IMPEDIMENT, "Impede Speech (Slurring, stuttering, etc)")
+
+/mob/living/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(href_list[VV_HK_GIVE_SPEECH_IMPEDIMENT])
+		if(!check_rights(NONE))
+			return
+		admin_give_speech_impediment(usr)
+
 /mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
@@ -1803,3 +1815,25 @@
 			return FALSE
 		return style.harm_act(src, target)
 	return style.help_act(src, target)
+
+/// Admin only proc for giving a certain speech impediment to this mob
+/mob/living/proc/admin_give_speech_impediment(mob/admin)
+	if(!admin || !check_rights(NONE))
+		return
+
+	var/list/impediments = list()
+	for(var/datum/status_effect/possible as anything in typesof(/datum/status_effect/speech))
+		if(!initial(possible.id))
+			continue
+
+		impediments[initial(possible.id)] = possible
+
+	var/chosen = tgui_input_list(admin, "What speech impediment?", "Impede Speech", impediments)
+	if(!chosen || !ispath(impediments[chosen], /datum/status_effect/speech) || QDELETED(src) || !check_rights(NONE))
+		return
+
+	var/duration = tgui_input_number(admin, "How long should it last (in seconds)? Max is infinite duration.", "Duration", 0, INFINITY, 0 SECONDS)
+	if(!isnum(duration) || duration <= 0 || QDELETED(src) || !check_rights(NONE))
+		return
+
+	adjust_timed_status_effect(duration SECONDS, impediments[chosen])

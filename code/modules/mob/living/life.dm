@@ -104,8 +104,12 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 25 * delta_time, TRUE)
 
-//this updates all special effects: knockdown, druggy, stuttering, etc..
+/*
+ * this updates some effects: mostly old stuff such as drunkness, druggy, etc.
+ * that should be converted to status effect datums one day.
+ */
 /mob/living/proc/handle_status_effects(delta_time, times_fired)
+	return
 
 /mob/living/proc/handle_traits(delta_time, times_fired)
 	//Eyes

@@ -119,7 +119,7 @@
 
 	owner.jitteriness += 30
 	owner.add_confusion(30)
-	owner.stuttering += 30
+	owner.adjust_timed_status_effect(1 MINUTES, /datum/status_effect/speech/stutter)
 
 	recent_queen_death = TRUE
 	owner.throw_alert("alien_noqueen", /atom/movable/screen/alert/alien_vulnerable)

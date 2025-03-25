@@ -79,7 +79,7 @@
 			if(3)
 				host_mob.adjust_drowsyness(10)
 			if(4)
-				host_mob.slurring += 10
+				host_mob.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/slurring)
 
 //Generic skin-affecting programs will decay into this
 /datum/nanite_program/skin_decay

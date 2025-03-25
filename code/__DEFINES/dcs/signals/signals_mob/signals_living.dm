@@ -62,11 +62,16 @@
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
-	#define COMPONENT_NO_STUN (1<<0)		//For all of them
-#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
+///from end of fully_heal(): (heal_flags)
+#define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
+	#define COMPONENT_NO_STUN (1<<0) //For all of them
+///from base of mob/living/Stagger() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"
 
-#define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
-#define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
+/// sent when a mob is put into stasis.
+#define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"
+/// sent when a mob exits stasis.
+#define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"
 
 ///From wabbajack(): ()
 #define COMSIG_LIVING_PRE_WABBAJACKED "living_mob_wabbajacked"
@@ -101,3 +106,6 @@
 
 /// From /mob/living/proc/stop_leaning()
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
+
+/// From mob/living/treat_message(): (list/message_args)
+#define COMSIG_LIVING_TREAT_MESSAGE "living_treat_message"

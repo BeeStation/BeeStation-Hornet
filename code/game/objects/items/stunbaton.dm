@@ -30,7 +30,7 @@
 
 	var/stun_sound = 'sound/weapons/egloves.ogg'
 
-	var/stutter_amt = 20
+	var/stutter_amt = 40 SECONDS
 	var/stamina_loss_amt = 60
 	var/stun_time = 4 SECONDS
 
@@ -165,7 +165,7 @@
 		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!"), \
 							span_userdanger("You accidentally hit yourself with [src], electrocuting yourself badly!"))
 		user.adjustStaminaLoss(stun_time*3)
-		user.stuttering = stutter_amt
+		user.set_timed_status_effect(stutter_amt, /datum/status_effect/speech/stutter)
 		user.do_jitter_animation(20)
 		deductcharge(cell_hit_cost)
 		return TRUE
@@ -214,9 +214,8 @@
 	var/armor_block = target.run_armor_check(affecting, STAMINA)
 	// L.adjustStaminaLoss(stun_time)
 	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
-	target.apply_effect(EFFECT_STUTTER, stun_time)
+	target.adjust_timed_status_effect(stun_time, /datum/status_effect/speech/stutter)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-	target.stuttering = 20
 
 	// Shoving
 	var/list/modifiers = params2list(params)

@@ -7,7 +7,7 @@
 	armor_flag = STAMINA
 	nodamage = FALSE
 	knockdown = 30
-	stutter = 5
+	stutter = 10 SECONDS
 	jitter = 20
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 7

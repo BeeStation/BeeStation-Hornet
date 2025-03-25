@@ -241,7 +241,7 @@
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
 	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
-	C.apply_effect(EFFECT_STUTTER, 50)
+	C.set_timed_status_effect(10 SECONDS, /datum/status_effect/speech/stutter)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\
 		span_userdanger("[src] has stunned you!")

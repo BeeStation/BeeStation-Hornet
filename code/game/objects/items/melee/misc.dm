@@ -455,7 +455,7 @@
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
 	target.Jitter(2 SECONDS)
-	target.stuttering += 2 SECONDS
+	target.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/stutter)
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
 	on = !on

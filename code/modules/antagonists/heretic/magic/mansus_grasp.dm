@@ -40,7 +40,7 @@
 	if(iscarbon(victim))
 		var/mob/living/carbon/carbon_hit = victim
 		carbon_hit.silent = 3 SECONDS
-		carbon_hit.slurring = 7 SECONDS
+		carbon_hit.adjust_timed_status_effect(7 SECONDS, /datum/status_effect/speech/slurring/heretic)
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
 

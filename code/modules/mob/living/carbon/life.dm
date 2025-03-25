@@ -391,8 +391,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 												"You ever wonder if /dev/null supports sharding?",
 												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?"))
 
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
+// This updates all special effects that really should be status effect datums: Druggy, Hallucinations, Drunkenness, Mute, etc..
 /mob/living/carbon/handle_status_effects(delta_time, times_fired)
 	..()
 
@@ -400,37 +399,36 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 	//Dizziness
 	if(dizziness)
-		var/client/C = client
-		var/pixel_x_diff = 0
-		var/pixel_y_diff = 0
-		var/temp
-		var/saved_dizz = dizziness
-		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness * world.time) + 1) // This shit is annoying at high strength
-			src = null
-			spawn(0)
-				if(C)
-					temp = amplitude * sin(saved_dizz * world.time)
-					pixel_x_diff += temp
-					C.pixel_x += temp
-					temp = amplitude * cos(saved_dizz * world.time)
-					pixel_y_diff += temp
-					C.pixel_y += temp
-					sleep(3)
-					if(C)
-						temp = amplitude * sin(saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-					sleep(3)
-					if(C)
-						C.pixel_x -= pixel_x_diff
-						C.pixel_y -= pixel_y_diff
-			src = oldsrc
+		var/old_dizzy = dizziness
 		dizziness = max(dizziness - (restingpwr * delta_time), 0)
+
+		if(client)
+			//Want to be able to offset things by the time the animation should be "playing" at
+			var/time = world.time
+			var/delay = 0
+			var/pixel_x_diff = 0
+			var/pixel_y_diff = 0
+
+			var/amplitude = old_dizzy*(sin(old_dizzy * (time)) + 1) // This shit is annoying at high strengthvar/pixel_x_diff = 0
+			var/x_diff = amplitude * sin(old_dizzy * time)
+			var/y_diff = amplitude * cos(old_dizzy * time)
+			pixel_x_diff += x_diff
+			pixel_y_diff += y_diff
+			// Brief explanation. We're basically snapping between different pixel_x/ys instantly, with delays between
+			// Doing this with relative changes. This way we don't override any existing pixel_x/y values
+			// We use EASE_OUT here for similar reasons, we want to act at the end of the delay, not at its start
+			// Relative animations are weird, so we do actually need this
+			animate(client, pixel_x = x_diff, pixel_y = y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)
+			delay += 0.3 SECONDS // This counts as a 0.3 second wait, so we need to shift the sine wave by that much
+
+			x_diff = amplitude * sin(dizziness * (time + delay))
+			y_diff = amplitude * cos(dizziness * (time + delay))
+			pixel_x_diff += x_diff
+			pixel_y_diff += y_diff
+			animate(pixel_x = x_diff, pixel_y = y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)
+
+			// Now we reset back to our old pixel_x/y, since these animates are relative
+			animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)
 
 	if(drowsyness)
 		adjust_drowsyness(-1 * restingpwr * delta_time)
@@ -447,23 +445,11 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
 
-	if(stuttering)
-		stuttering = max(stuttering - (0.5 * delta_time), 0)
-
-	if(slurring)
-		slurring = max(slurring - (0.5 * delta_time),0)
-
-	if(cultslurring)
-		cultslurring = max(cultslurring - (0.5 * delta_time), 0)
-
-	if(clockslurring)
-		clockslurring = max(clockslurring - (0.5 * delta_time), 0)
+	if(druggy)
+		adjust_drugginess(-0.5 * delta_time)
 
 	if(silent)
 		silent = max(silent - (0.5 * delta_time), 0)
-
-	if(druggy)
-		adjust_drugginess(-0.5 * delta_time)
 
 	if(hallucination)
 		handle_hallucinations(delta_time, times_fired)
@@ -473,7 +459,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 6)
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
 			if(DT_PROB(16, delta_time))
-				slurring += 2
+				adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/drunk)
 			jitteriness = max(jitteriness - (1.5 * delta_time), 0)
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 		else
@@ -481,8 +467,10 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			sound_environment_override = SOUND_ENVIRONMENT_NONE
 			clear_alert("drunk")
 
-		if(drunkenness >= 11 && slurring < 5)
-			slurring += 0.6 * delta_time
+		if(drunkenness >= 11)
+			var/datum/status_effect/speech/slurring/drunk/already_slurring = has_status_effect(/datum/status_effect/speech/slurring/drunk)
+			if(!already_slurring || already_slurring.duration - world.time <= 10 SECONDS)
+				adjust_timed_status_effect(1.2 SECONDS * delta_time, /datum/status_effect/speech/slurring/drunk)
 
 		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
 			if(SSresearch.science_tech)

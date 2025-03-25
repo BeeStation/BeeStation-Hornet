@@ -1,0 +1,27 @@
+{
+	"replacements": {
+		"characters": {
+			"common": {
+				"o": "u",
+				"t": "tch",
+				"a": "ah",
+				"u": "oo",
+				"r": " RAT ",
+				"e": " VAR "
+			},
+			"uncommon": {
+				" ": " the brass... ",
+				"H": " CLOCK TICKS... "
+			}
+		},
+		"string_replacements": [
+			"'",
+			"tik",
+			"kth",
+			"toc"
+		],
+		"string_additions": [
+			"cht"
+		]
+	}
+}

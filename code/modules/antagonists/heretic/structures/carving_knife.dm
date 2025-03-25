@@ -237,7 +237,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 	var/mob/living/carbon/carbon_victim = victim
 	carbon_victim.adjustStaminaLoss(80)
 	carbon_victim.silent += 10
-	carbon_victim.stuttering += 30
+	carbon_victim.adjust_timed_status_effect(1 MINUTES, /datum/status_effect/speech/stutter)
 	carbon_victim.Jitter(10)
 	carbon_victim.Dizzy(20)
 	carbon_victim.adjust_blindness(2)

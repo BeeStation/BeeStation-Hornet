@@ -201,7 +201,7 @@
 			continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.stuttering += 20
+		M.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/stutter)
 		M.adjustEarDamage(0, 30)
 		M.Paralyze(60)
 		if(prob(30))

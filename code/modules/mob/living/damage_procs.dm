@@ -98,11 +98,6 @@
 			Unconscious(effect * hit_percent)
 		if(EFFECT_IRRADIATE)
 			radiation += max(effect * hit_percent, 0)
-		if(EFFECT_SLUR)
-			slurring = max(slurring,(effect * hit_percent))
-		if(EFFECT_STUTTER)
-			if((status_flags & CANSTUN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) // stun is usually associated with stutter
-				stuttering = max(stuttering,(effect * hit_percent))
 		if(EFFECT_EYE_BLUR)
 			blur_eyes(effect * hit_percent)
 		if(EFFECT_DROWSY)
@@ -112,10 +107,30 @@
 				jitteriness = max(jitteriness,(effect * hit_percent))
 	return 1
 
-
-/mob/living/proc/apply_effects(stun = 0, knockdown = 0, unconscious = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = FALSE, stamina = 0, jitter = 0, paralyze = 0, immobilize = 0)
+/**
+ * Applies multiple effects at once via [/mob/living/proc/apply_effect]
+ *
+ * Pretty much only used for projectiles applying effects on hit,
+ * don't use this for anything else please just cause the effects directly
+ */
+/mob/living/proc/apply_effects(
+		stun = 0,
+		knockdown = 0,
+		unconscious = 0,
+		irradiate = 0,
+		slur = 0 SECONDS, // Speech impediment, not technically an effect
+		stutter = 0 SECONDS, // Ditto
+		eyeblur = 0,
+		drowsy = 0,
+		blocked = 0, // This one's not an effect, don't be confused - it's block chance
+		stamina = 0, // This one's a damage type, and not an effect
+		jitter = 0,
+		paralyze = 0,
+		immobilize = 0
+	)
 	if(blocked >= 100)
-		return BULLET_ACT_BLOCK
+		return FALSE
+
 	if(stun)
 		apply_effect(stun, EFFECT_STUN, blocked)
 	if(knockdown)
@@ -128,19 +143,22 @@
 		apply_effect(immobilize, EFFECT_IMMOBILIZE, blocked)
 	if(irradiate)
 		apply_effect(irradiate, EFFECT_IRRADIATE, blocked)
-	if(slur)
-		apply_effect(slur, EFFECT_SLUR, blocked)
-	if(stutter)
-		apply_effect(stutter, EFFECT_STUTTER, blocked)
 	if(eyeblur)
 		apply_effect(eyeblur, EFFECT_EYE_BLUR, blocked)
 	if(drowsy)
 		apply_effect(drowsy, EFFECT_DROWSY, blocked)
-	if(stamina)
-		apply_damage(stamina, STAMINA, null, blocked)
 	if(jitter)
 		apply_effect(jitter, EFFECT_JITTER, blocked)
-	return BULLET_ACT_HIT
+
+	if(stamina)
+		apply_damage(stamina, STAMINA, null, blocked)
+
+	if(slur)
+		adjust_timed_status_effect(slur, /datum/status_effect/speech/slurring/drunk)
+	if(stutter)
+		adjust_timed_status_effect(stutter, /datum/status_effect/speech/stutter)
+
+	return TRUE
 
 
 /mob/living/proc/getBruteLoss()

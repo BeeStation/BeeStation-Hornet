@@ -401,8 +401,8 @@
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(ispsyphoza(M))
 		return
-	if(!M.slurring)
-		M.slurring = 1 * REM * delta_time
+	M.set_timed_status_effect(1 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk, only_if_higher = TRUE)
+
 	switch(current_cycle)
 		if(1 to 5)
 			M.Dizzy(5 * REM * delta_time)

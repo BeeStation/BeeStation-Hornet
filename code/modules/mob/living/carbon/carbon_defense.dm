@@ -219,18 +219,18 @@
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
-		if(M.powerlevel > 0)
-			M.powerlevel--
+		var/power = M.powerlevel
+		if(power > 0)
+			power--
 			visible_message(span_danger("The [M.name] has shocked [src]!"), \
 				span_userdanger("The [M.name] has shocked you!"))
 			do_sparks(5, TRUE, src)
-			Knockdown(M.powerlevel*5)
-			if(stuttering < M.powerlevel)
-				stuttering = M.powerlevel
+			Knockdown(power * 5)
+			set_timed_status_effect(power * 5, /datum/status_effect/speech/stutter, only_if_higher = TRUE)
 			if(M.transformeffects & SLIME_EFFECT_ORANGE)
 				adjust_fire_stacks(2)
 				IgniteMob()
-			adjustFireLoss(M.powerlevel * 3)
+			adjustFireLoss(power * 3)
 			updatehealth()
 		return TRUE
 
@@ -321,7 +321,7 @@
 	//Jitter and other fluff.
 	jitteriness += 1000
 	do_jitter_animation(jitteriness)
-	stuttering += 2
+	adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/stutter)
 	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 20)
 	return shock_damage
 

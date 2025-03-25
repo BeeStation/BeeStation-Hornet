@@ -8,7 +8,7 @@
 	stamina = 60
 	eyeblur = 10
 	knockdown = 10
-	slur = 5
+	slur = 10 SECONDS
 
 /obj/projectile/energy/bolt/radbolt
 	name = "bolt"

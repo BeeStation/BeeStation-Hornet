@@ -183,10 +183,10 @@
 		sensor_blink()
 	if(spam_flag == 0)
 		if(ishuman(C))
-			C.stuttering = 20
 			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)
 			C.Paralyze(60)
+			C.set_timed_status_effect(40 SECONDS, /datum/status_effect/speech/stutter)
 			var/mob/living/carbon/human/H = C
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
@@ -204,7 +204,7 @@
 			C.visible_message(span_danger("[src] has honked [C]!"),\
 					span_userdanger("[src] has honked you!"))
 		else
-			C.stuttering = 20
+			C.set_timed_status_effect(40 SECONDS, /datum/status_effect/speech/stutter)
 			C.Paralyze(80)
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 

@@ -222,12 +222,6 @@
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
 
-
-/mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
-	..()
-	if(stuttering)
-		stuttering = 0
-
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
 	return
