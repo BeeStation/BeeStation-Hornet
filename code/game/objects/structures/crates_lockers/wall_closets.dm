@@ -67,10 +67,14 @@
 	L = closet_contents[ui_index]
 	L.Cut()
 
+/obj/structure/wall_closet/ui_close()
+	playsound(src, 'sound/machines/closet_close.ogg', 30, 1, -3)
+
 /obj/structure/wall_closet/attackby(obj/item/I, mob/living/user)
 	if(!user.combat_mode)
 		if(Closet_insert_item(I))
 			to_chat(user, span_notice("you stash \the [I.name] into \the [src.name]"))
+			playsound(src, 'sound/machines/closet_close.ogg', 30, 1, -3)
 		ui_update()
 		return
 	return ..()
@@ -94,6 +98,7 @@
 		ui = new(user, src, "WallCloset")
 		ui.set_autoupdate(FALSE)
 		ui.open()
+		playsound(src, 'sound/machines/closet_open.ogg', 30, 1, -3)
 
 /obj/structure/wall_closet/ui_data(mob/user)
 	var/list/data = list()
@@ -117,6 +122,8 @@
 				Closet_insert_item(I, ui_index)
 
 			return TRUE
+
+
 
 /obj/structure/wall_closet/Destroy()
 	dump_contents()
