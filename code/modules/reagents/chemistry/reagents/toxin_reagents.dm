@@ -965,7 +965,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(5)
+	M.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	M.adjustStaminaLoss(30 * REM * delta_time)
 	M.silent = max(M.silent, 3 * REM * delta_time)
 	M.set_confusion(max(M.get_confusion(), 3 * REM * delta_time))

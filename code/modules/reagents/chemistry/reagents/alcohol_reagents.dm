@@ -287,7 +287,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A glass of this is sure to prevent a meltdown."
 
 /datum/reagent/consumable/ethanol/threemileisland/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(50 * REM * delta_time)
+	M.set_timed_status_effect(100 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	return ..()
 
 /datum/reagent/consumable/ethanol/gin
@@ -851,7 +851,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 
 /datum/reagent/consumable/ethanol/manhattan_proj/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(30 * REM * delta_time)
+	M.set_timed_status_effect(1 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
 	return ..()
 
 /datum/reagent/consumable/ethanol/whiskeysoda
@@ -1400,7 +1400,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
 
 /datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(50 * REM * delta_time)
+	M.set_timed_status_effect(100 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
 		M.set_confusion(max(M.get_confusion() + (2 * REM * delta_time),0))
 		M.Dizzy(10 * REM * delta_time)
@@ -1437,7 +1437,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			if(DT_PROB(30, delta_time))
 				M.set_confusion(max(M.get_confusion() + 3, 0))
 		if(55 to 200)
-			M.set_drugginess(55 * REM * delta_time)
+			M.set_timed_status_effect(110 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 		if(200 to INFINITY)
 			M.adjustToxLoss(2 * REM * delta_time, 0)
 			. = TRUE
@@ -1461,7 +1461,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	return (pick(TRAIT_PARALYSIS_L_ARM,TRAIT_PARALYSIS_R_ARM,TRAIT_PARALYSIS_R_LEG,TRAIT_PARALYSIS_L_LEG))
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_drugginess(50 * REM * delta_time)
+	M.set_timed_status_effect(100 SECONDS * REM * delta_time, /datum/status_effect/drugginess)
 	M.dizziness += 2 * REM * delta_time
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
 	if(DT_PROB(10, delta_time))
@@ -1506,35 +1506,35 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A drink enjoyed by people during the 1960's."
 
 
-/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.set_timed_status_effect(1 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk, only_if_higher = TRUE)
+/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
+	drinker.set_timed_status_effect(1 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/drunk, only_if_higher = TRUE)
 
 	switch(current_cycle)
 		if(1 to 5)
-			M.Dizzy(10 * REM * delta_time)
-			M.set_drugginess(30 * REM * delta_time)
+			drinker.set_timed_status_effect(20 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(1 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(5, delta_time))
-				M.emote(pick("twitch","giggle"))
+				drinker.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			M.Jitter(20 * REM * delta_time)
-			M.Dizzy(20 * REM * delta_time)
-			M.set_drugginess(45 * REM * delta_time)
+			drinker.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(40 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(1.5 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(10, delta_time))
-				M.emote(pick("twitch","giggle"))
+				drinker.emote(pick("twitch","giggle"))
 		if (10 to 200)
-			M.Jitter(40 * REM * delta_time)
-			M.Dizzy(40 * REM * delta_time)
-			M.set_drugginess(60 * REM * delta_time)
+			drinker.set_timed_status_effect(80 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(80 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(2 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(16, delta_time))
-				M.emote(pick("twitch","giggle"))
+				drinker.emote(pick("twitch","giggle"))
 		if(200 to INFINITY)
-			M.Jitter(60 * REM * delta_time)
-			M.Dizzy(60 * REM * delta_time)
-			M.set_drugginess(75 * REM * delta_time)
+			drinker.set_timed_status_effect(120 SECONDS * REM * delta_time, /datum/status_effect/jitter, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(120 SECONDS * REM * delta_time, /datum/status_effect/dizziness, only_if_higher = TRUE)
+			drinker.set_timed_status_effect(2.5 MINUTES * REM * delta_time, /datum/status_effect/drugginess)
 			if(DT_PROB(23, delta_time))
-				M.emote(pick("twitch","giggle"))
+				drinker.emote(pick("twitch","giggle"))
 			if(DT_PROB(16, delta_time))
-				M.adjustToxLoss(2, 0)
+				drinker.adjustToxLoss(2, 0)
 				. = TRUE
 	..()
 

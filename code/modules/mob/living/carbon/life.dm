@@ -445,9 +445,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
 
-	if(druggy)
-		adjust_drugginess(-0.5 * delta_time)
-
 	if(silent)
 		silent = max(silent - (0.5 * delta_time), 0)
 

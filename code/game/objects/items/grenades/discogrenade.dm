@@ -121,14 +121,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/discogrenade/subgrenade)
 
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.show_message(span_warning("You resist your inner urges to break out your best moves."), 2)
-		M.set_drugginess(5)
+		M.set_timed_status_effect(10 SECONDS /datum/status_effect/drugginess)
 		return
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(M, span_userdanger("THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!"))
 		M.emote("scream")
 		return
 
-	M.set_drugginess(10)
+	M.set_timed_status_effect(20 SECONDS, /datum/status_effect/drugginess)
 	M.show_message(span_warning("You feel a strong rythme and your muscles spasm uncontrollably, you begin dancing and cannot move!"), 2)
 	M.Immobilize(30)
 

@@ -17,29 +17,6 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
 	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
 
-
-/mob/living/carbon/adjust_drugginess(amount)
-	druggy = max(druggy+amount, 0)
-	if(druggy)
-		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
-		throw_alert("high", /atom/movable/screen/alert/high)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "high", /datum/mood_event/high)
-		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
-	else
-		clear_fullscreen("high")
-		clear_alert("high")
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "high")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
-
-/mob/living/carbon/set_drugginess(amount)
-	druggy = max(amount, 0)
-	if(druggy)
-		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
-		throw_alert("high", /atom/movable/screen/alert/high)
-	else
-		clear_fullscreen("high")
-		clear_alert("high")
-
 /mob/living/carbon/adjust_disgust(amount)
 	disgust = clamp(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)
 

@@ -108,7 +108,6 @@
 /mob/living/carbon/death(gibbed)
 	. = ..()
 
-	set_drugginess(0)
 	set_disgust(0)
 	update_damage_hud()
 
