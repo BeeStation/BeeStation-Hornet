@@ -4,6 +4,7 @@
 	weight = 15
 	earliest_start = 10 MINUTES
 	max_occurrences = 6
+	map_blacklist = list("Echo Station")
 
 /datum/round_event/dolphin_migration
 	announceWhen = 3

@@ -14,6 +14,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	max_occurrences = 5
 	var/atom/special_target
 	can_malf_fake_alert = TRUE
+	map_blacklist = list("Echo Station")
 
 
 /datum/round_event_control/immovable_rod/admin_setup()

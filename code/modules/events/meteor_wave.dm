@@ -8,6 +8,7 @@
 	max_occurrences = 3
 	earliest_start = 30 MINUTES
 	can_malf_fake_alert = TRUE
+	map_blacklist = list("Echo Station")
 
 /datum/round_event/meteor_wave
 	announceWhen	= 150
