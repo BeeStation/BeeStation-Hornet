@@ -433,3 +433,18 @@
 		qdel(src)
 		return
 	return ..()
+
+/obj/item/reagent_containers/cup/coconutcup
+	name = "coconut cup"
+	desc = "A showy form of cup typically intended for both use and display."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coconutcup_empty"
+	amount_per_transfer_from_this = 10
+	volume = 50
+	spillable = TRUE
+	resistance_flags = ACID_PROOF
+	obj_flags = UNIQUE_RENAME
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+/*	drop_sound = 'sound/items/handling/coconuthalf_drop.ogg'
+	pickup_sound = 'sound/items/handling/coconuthalf_pickup.ogg'*/
