@@ -78,8 +78,6 @@
 		moderator_input.remove(moderator_input_total_mols) //Woosh. And the soul is gone.
 		rate_of_reaction += total_fuel_moles / 1000
 
-	var/rate_of_reaction_orig = rate_of_reaction
-
 	var/fuel_power = 0 //So that you can't magically generate rate_of_reaction with your control rods.
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
 		rate_of_reaction = 0
@@ -169,7 +167,7 @@
 
 	last_power_produced *= base_power_modifier * (fuel_power * 5) //Finally, we turn it into actual usable numbers. more fuel power => more power (push people towards using more than 1 fuel rod, otherwise it's boring).
 	if(!last_power_produced)
-		last_power_produced =  150000 //Passively make 150KW if we dont have moderator
+		last_power_produced =  fuel_power * 500000 //Passively make 50KW per fuel rod if we dont have moderator
 	var/turf/reactor_turf = get_turf(src)
 	var/obj/structure/cable/reactor_cable = reactor_turf.get_cable_node()
 	if(reactor_cable)
