@@ -28567,7 +28567,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/turf_decal/edges/borderfloor{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/iron/textured,
 /area/maintenance/department/engine)
@@ -52821,6 +52821,10 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"lfi" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/maintenance/department/science/xenobiology)
 "lfm" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -66913,12 +66917,12 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell{
-	pixel_x = 5;
+	pixel_x = 6;
 	pixel_y = 8
 	},
 /obj/machinery/recharger{
-	pixel_x = -4;
-	pixel_y = 1
+	pixel_x = -6;
+	pixel_y = 3
 	},
 /obj/machinery/door/window/westleft{
 	dir = 4;
@@ -83098,6 +83102,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/structure/fluff/fans{
+	pixel_y = 24
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "rym" = (
@@ -83830,9 +83837,6 @@
 /area/hallway/secondary/entry)
 "rJI" = (
 /obj/machinery/grill/unwrenched,
-/obj/structure/fluff/fans{
-	pixel_x = 24
-	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "rJR" = (
@@ -85528,10 +85532,12 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 3
 	},
 /obj/machinery/recharger{
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark/smooth_corner{
@@ -138785,7 +138791,7 @@ vcB
 ovR
 uiq
 aZG
-wVc
+lfi
 rJI
 vKv
 cti
