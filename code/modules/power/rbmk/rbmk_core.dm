@@ -208,6 +208,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	soundloop = new(src,  FALSE)
 	alarmloop = new(src, FALSE)
 	check_part_connectivity()
+	set_init_directions()
+	connect_nodes()
 	update_appearance()
 	update_pipenets()
 
