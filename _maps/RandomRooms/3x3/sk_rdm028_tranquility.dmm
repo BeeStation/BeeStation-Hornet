@@ -11,7 +11,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "d" = (
-/mob/living/basic/pet/gondola,
+/mob/living/simple_animal/pet/gondola,
 /turf/open/floor/grass,
 /area/template_noop)
 "e" = (

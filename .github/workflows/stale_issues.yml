@@ -12,8 +12,7 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-label: 'Stale'
-        exempt-issue-labels: 'Triaged'
-        exempt-pr-labels: 'Triaged'
+        exempt-labels: 'Triaged'
         days-before-issue-stale: 210
         days-before-issue-close: 5
         exempt-all-issue-milestones: true

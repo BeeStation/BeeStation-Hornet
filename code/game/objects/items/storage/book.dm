@@ -10,9 +10,10 @@
 	var/title = "book"
 	item_flags = ISWEAPON
 
-/obj/item/storage/book/Initialize(mapload)
+/obj/item/storage/book/ComponentInitialize()
 	. = ..()
-	atom_storage.max_slots = 1
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
 
 /obj/item/storage/book/attack_self(mob/user)
 	to_chat(user, span_notice("The pages of [title] have been cut out!"))
@@ -56,7 +57,7 @@
 			if(icon_state == "honk1" || icon_state == "honk2")
 				var/mob/living/carbon/C = H
 				if(C.has_dna())
-					C.dna.add_mutation(/datum/mutation/clumsy)
+					C.dna.add_mutation(CLOWNMUT)
 				C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 			src.update_icon()
 			return
@@ -115,7 +116,7 @@
 		if(choice == "Clown Bible" || choice == "Banana Bible")
 			var/mob/living/carbon/C = M
 			if(C.has_dna())
-				C.dna.add_mutation(/datum/mutation/clumsy)
+				C.dna.add_mutation(CLOWNMUT)
 			C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 		to_chat(M, "[src] is now skinned as '[choice].'")
 		src.update_icon()

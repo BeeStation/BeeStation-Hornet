@@ -19,20 +19,14 @@
 	var/contents_tag = "errors"
 	/// What type of thing to fill this storage with.
 	var/spawn_type = null
-	/// How many of the things to fill this storage with.
-	var/spawn_count = 0
 	/// Whether the container is open or not
 	var/is_open = FALSE
-
-/obj/item/storage/fancy/Initialize(mapload)
-	. = ..()
-
-	atom_storage.max_slots = spawn_count
 
 /obj/item/storage/fancy/PopulateContents()
 	if(!spawn_type)
 		return
-	for(var/i = 1 to spawn_count)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	for(var/i = 1 to STR.max_items)
 		new spawn_type(src)
 
 /obj/item/storage/fancy/update_icon_state()
@@ -76,13 +70,14 @@
 	icon_state = "donutbox"
 	base_icon_state = "donutbox"
 	spawn_type = /obj/item/food/donut/premade
-	spawn_count = 6
 	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
 
-/obj/item/storage/fancy/donut_box/Initialize(mapload)
+/obj/item/storage/fancy/donut_box/ComponentInitialize()
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/food/donut))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+	STR.set_holdable(list(/obj/item/food/donut))
 
 /obj/item/storage/fancy/donut_box/PopulateContents()
 	. = ..()
@@ -124,12 +119,13 @@
 	name = "egg box"
 	desc = "A carton for containing eggs."
 	spawn_type = /obj/item/food/egg
-	spawn_count = 12
 	contents_tag = "egg"
 
-/obj/item/storage/fancy/egg_box/Initialize(mapload)
+/obj/item/storage/fancy/egg_box/ComponentInitialize()
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/food/egg))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 12
+	STR.set_holdable(list(/obj/item/food/egg))
 
 /*
  * Candle Box
@@ -146,9 +142,14 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 2
 	spawn_type = /obj/item/candle
-	spawn_count = 5
 	is_open = TRUE
 	contents_tag = "candle"
+
+/obj/item/storage/fancy/candle_box/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 5
+	STR.set_holdable(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
@@ -168,49 +169,46 @@
 	throwforce = 0
 	slot_flags = ITEM_SLOT_BELT
 	spawn_type = /obj/item/clothing/mask/cigarette/space_cigarette
-	spawn_count = 6
 	contents_tag = "cigarette"
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
-/obj/item/storage/fancy/cigarettes/Initialize(mapload)
+/obj/item/storage/fancy/cigarettes/ComponentInitialize()
 	. = ..()
-	atom_storage.display_contents = FALSE
-	atom_storage.set_holdable(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
-
-/obj/item/storage/fancy/cigarettes/attack_hand_secondary(mob/user, list/modifiers)
-	. = ..()
-	quick_remove_item(/obj/item/clothing/mask/cigarette, user)
-
-/obj/item/storage/fancy/cigarettes/AltClick(mob/user)
-	. = ..()
-	var/obj/item/lighter = locate(/obj/item/lighter) in contents
-	if(lighter)
-		quick_remove_item(lighter, user)
-	else
-		quick_remove_item(/obj/item/clothing/mask/cigarette, user)
-
-/// Removes an item from the packet if there is one
-/obj/item/storage/fancy/cigarettes/proc/quick_remove_item(obj/item/grabbies, mob/user)
-	var/obj/item/finger = locate(grabbies) in contents
-	if(finger)
-		atom_storage.attempt_remove(finger, drop_location())
-		user.put_in_hands(finger)
-
-/*
-/obj/item/storage/fancy/cigarettes/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-	if(locate(/obj/item/lighter) in contents)
-		context[SCREENTIP_CONTEXT_ALT_LMB] = "Remove lighter"
-	context[SCREENTIP_CONTEXT_RMB] = "Remove [contents_tag]"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
+	. += span_notice("Alt-click to extract contents.")
 	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
 	if(L)
-		. += span_notice("There seems to be a lighter inside. Alt-click to pull it out.")
+		. += span_notice("There seems to be a lighter inside. Ctrl-click to pull it out.")
+
+/obj/item/storage/fancy/cigarettes/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
+		return
+	var/obj/item/I = locate(/obj/item) in contents
+	if(I && contents.len > 0)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
+		user.put_in_hands(I)
+		contents -= I
+		to_chat(user, span_notice("You take \a [I] out of the pack."))
+	else
+		to_chat(user, span_notice("There are no [contents_tag]s left in the pack."))
+
+/obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	var/obj/item/I = locate(/obj/item/lighter) in contents
+	if(I)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
+		user.put_in_hands(I)
+		contents -= I
+		to_chat(user, span_notice("You take \a [I] out of the pack."))
+	else
+		to_chat(user, span_warning("There is no lighter in the pack."))
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	. = ..()
@@ -241,6 +239,22 @@
 
 		. += "[use_icon_state]_[cig_position]"
 		cig_position++
+
+/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/target, mob/living/carbon/user)
+	if(!istype(target))
+		return
+
+	var/obj/item/clothing/mask/cigarette/cig = locate() in contents
+	if(!cig)
+		to_chat(user, span_notice("There are no [contents_tag]s left in the pack."))
+		return
+	if(target != user || !contents.len || user.wear_mask)
+		return ..()
+
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, cig, target)
+	target.equip_to_slot_if_possible(cig, ITEM_SLOT_MASK)
+	contents -= cig
+	to_chat(user, span_notice("You take \a [cig] out of the pack."))
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
@@ -327,13 +341,13 @@
 	icon_state = "cig_paper_pack"
 	base_icon_state = "cig_paper_pack"
 	contents_tag = "rolling paper"
-	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
 
-/obj/item/storage/fancy/rollingpapers/Initialize(mapload)
+/obj/item/storage/fancy/rollingpapers/ComponentInitialize()
 	. = ..()
-	atom_storage.max_slots = 10
-	atom_storage.set_holdable(list(/obj/item/rollingpaper))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 10
+	STR.set_holdable(list(/obj/item/rollingpaper))
 
 /obj/item/storage/fancy/rollingpapers/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
@@ -359,9 +373,11 @@
 	spawn_type = /obj/item/clothing/mask/cigarette/cigar
 	display_cigs = FALSE
 
-/obj/item/storage/fancy/cigarettes/cigars/Initialize(mapload)
+/obj/item/storage/fancy/cigarettes/cigars/ComponentInitialize()
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/clothing/mask/cigarette/cigar))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 5
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette/cigar))
 
 /obj/item/storage/fancy/cigarettes/cigars/update_icon_state()
 	. = ..()
@@ -406,11 +422,12 @@
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	contents_tag = "chocolate"
 	spawn_type = /obj/item/food/bonbon
-	spawn_count = 8
 
-/obj/item/storage/fancy/heart_box/Initialize(mapload)
+/obj/item/storage/fancy/heart_box/ComponentInitialize()
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/food/bonbon))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 8
+	STR.set_holdable(list(/obj/item/food/bonbon))
 
 
 /obj/item/storage/fancy/nugget_box
@@ -421,8 +438,9 @@
 	base_icon_state = "nuggetbox"
 	contents_tag = "nugget"
 	spawn_type = /obj/item/food/nugget
-	spawn_count = 6
 
-/obj/item/storage/fancy/nugget_box/Initialize(mapload)
+/obj/item/storage/fancy/nugget_box/ComponentInitialize()
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/food/nugget))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+	STR.set_holdable(list( /obj/item/food/nugget))

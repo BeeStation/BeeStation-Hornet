@@ -3,10 +3,10 @@
 	if(get_turf(user) != src)
 		return
 	var/list/tool_list = list()
-	var/turf/above = GET_TURF_ABOVE(src)
+	var/turf/above = above()
 	if(above)
 		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
-	var/turf/below = GET_TURF_BELOW(src)
+	var/turf/below = below()
 	if(below)
 		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
 

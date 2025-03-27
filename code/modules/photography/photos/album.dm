@@ -15,9 +15,10 @@
 
 /obj/item/storage/photo_album/Initialize(mapload)
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/photo))
-	atom_storage.max_total_storage = 42
-	atom_storage.max_slots = 21
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.set_holdable(list(/obj/item/photo))
+	STR.max_combined_w_class = 42
+	STR.max_items = 21
 	LAZYADD(SSpersistence.photo_albums, src)
 
 /obj/item/storage/photo_album/Destroy()
@@ -51,7 +52,7 @@
 			continue
 		var/obj/item/photo/P = load_photo_from_disk(i)
 		if(istype(P))
-			if(!atom_storage?.attempt_insert(P, override = TRUE))
+			if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, P, null, TRUE, TRUE))
 				qdel(P)
 
 /obj/item/storage/photo_album/HoS

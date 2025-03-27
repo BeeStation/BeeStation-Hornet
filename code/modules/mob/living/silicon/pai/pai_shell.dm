@@ -20,7 +20,7 @@
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), emittercd)
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
-	ADD_TRAIT(src, TRAIT_UNDENSE, PAI_FOLDED)
+	set_density(TRUE)
 	if(isliving(card.loc))
 		var/mob/living/L = card.loc
 		if(!L.temporarilyRemoveItemFromInventory(card))
@@ -66,7 +66,7 @@
 	forceMove(card)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
-	REMOVE_TRAIT(src, TRAIT_UNDENSE, PAI_FOLDED)
+	set_density(FALSE)
 	set_light_on(FALSE)
 	holoform = FALSE
 	set_resting(resting)

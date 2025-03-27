@@ -47552,7 +47552,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "mQV" = (
-/mob/living/basic/pet/dog/pug{
+/mob/living/simple_animal/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -49826,7 +49826,7 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "nJM" = (
-/mob/living/basic/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -62076,7 +62076,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/basic/pet/dog/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1

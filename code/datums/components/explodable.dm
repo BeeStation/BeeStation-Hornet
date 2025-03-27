@@ -16,19 +16,15 @@
 		return COMPONENT_INCOMPATIBLE
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(explodable_attack))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, PROC_REF(explodable_insert_item))
 	RegisterSignal(parent, COMSIG_ATOM_EX_ACT, PROC_REF(detonate))
 	if(ismovable(parent))
 		RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(explodable_impact))
 		RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(explodable_bump))
 		if(isitem(parent))
 			RegisterSignals(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(explodable_attack))
-			if(isclothing(parent))
-				RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
-				RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-
-	var/atom/atom_parent = parent
-	if(atom_parent.atom_storage)
-		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(explodable_insert_item))
+			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
+			RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 	if (devastation_range)
 		src.devastation_range = devastation_range
@@ -41,10 +37,8 @@
 	src.uncapped = uncapped
 	src.delete_after = delete_after
 
-/datum/component/explodable/proc/explodable_insert_item(datum/source, obj/item/I)
+/datum/component/explodable/proc/explodable_insert_item(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
-	if(!(I.item_flags & IN_STORAGE))
-		return
 
 	check_if_detonate(I)
 

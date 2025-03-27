@@ -10,9 +10,9 @@
 	gain_text = span_notice("You feel a higher power inside your mind...")
 	lose_text = span_warning("The divine presence leaves your head, no longer interested.")
 
-/datum/brain_trauma/special/godwoken/on_life(delta_time, times_fired)
+/datum/brain_trauma/special/godwoken/on_life()
 	..()
-	if(DT_PROB(2, delta_time))
+	if(prob(4))
 		if(prob(33) && (owner.IsStun() || owner.IsParalyzed() || owner.IsUnconscious()))
 			speak("unstun", TRUE)
 		else if(prob(60) && owner.health <= owner.crit_threshold)
@@ -73,53 +73,49 @@
 		D.ClearFromParent()
 	..()
 
+
 /datum/brain_trauma/special/bluespace_prophet
 	name = "Bluespace Prophecy"
 	desc = "Patient can sense the bob and weave of bluespace around them, showing them passageways no one else can see."
 	scan_desc = "bluespace attunement"
 	gain_text = span_notice("You feel the bluespace pulsing around you...")
 	lose_text = span_warning("The faint pulsing of bluespace fades into silence.")
-	/// Cooldown so we can't teleport literally everywhere on a whim
-	COOLDOWN_DECLARE(portal_cooldown)
+	var/next_portal = 0
 
-/datum/brain_trauma/special/bluespace_prophet/on_life(delta_time, times_fired)
-	if(!COOLDOWN_FINISHED(src, portal_cooldown))
-		return
+/datum/brain_trauma/special/bluespace_prophet/on_life()
+	if(world.time > next_portal)
+		next_portal = world.time + 100
+		var/list/turf/possible_turfs = list()
+		for(var/turf/T as() in RANGE_TURFS(8, owner))
+			if(!T.density)
+				var/clear = TRUE
+				for(var/obj/O in T)
+					if(O.density)
+						clear = FALSE
+						break
+				if(clear)
+					possible_turfs += T
 
-	COOLDOWN_START(src, portal_cooldown, 10 SECONDS)
-	var/list/turf/possible_turfs = list()
-	for(var/turf/T as anything in RANGE_TURFS(8, owner))
-		if(T.density)
-			continue
+		if(!LAZYLEN(possible_turfs))
+			return
 
-		var/clear = TRUE
-		for(var/obj/O in T)
-			if(O.density)
-				clear = FALSE
-				break
-		if(clear)
-			possible_turfs += T
+		var/turf/first_turf = pick(possible_turfs)
+		if(!first_turf)
+			return
 
-	if(!LAZYLEN(possible_turfs))
-		return
+		possible_turfs -= (possible_turfs & RANGE_TURFS(3, first_turf))
 
-	var/turf/first_turf = pick(possible_turfs)
-	if(!first_turf)
-		return
+		var/turf/second_turf = pick(possible_turfs)
+		if(!second_turf)
+			return
 
-	possible_turfs -= (possible_turfs & RANGE_TURFS(3, first_turf))
+		var/obj/effect/hallucination/simple/bluespace_stream/first = new(first_turf, owner)
+		var/obj/effect/hallucination/simple/bluespace_stream/second = new(second_turf, owner)
 
-	var/turf/second_turf = pick(possible_turfs)
-	if(!second_turf)
-		return
-
-	var/obj/effect/hallucination/simple/bluespace_stream/first = new(first_turf, owner)
-	var/obj/effect/hallucination/simple/bluespace_stream/second = new(second_turf, owner)
-
-	first.linked_to = second
-	second.linked_to = first
-	first.seer = owner
-	second.seer = owner
+		first.linked_to = second
+		second.linked_to = first
+		first.seer = owner
+		second.seer = owner
 
 /obj/effect/hallucination/simple/bluespace_stream
 	name = "bluespace stream"

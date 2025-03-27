@@ -658,41 +658,41 @@ h2.alert {
   color: #3b2769;
 }
 .cult {
-  color: #973e3b;
+  color: #960000;
 }
 
 .cultitalic {
-  color: #973e3b;
+  color: #960000;
   font-style: italic;
 }
 .cultbold {
-  color: #973e3b;
+  color: #960000;
   font-style: italic;
   font-weight: bold;
 }
 .cultboldtalic {
-  color: #973e3b;
+  color: #960000;
   font-weight: bold;
   font-size: 24px;
 }
 
 .cultlarge {
-  color: #973e3b;
+  color: #960000;
   font-weight: bold;
   font-size: 24px;
 }
 .narsie {
-  color: #973e3b;
+  color: #960000;
   font-weight: bold;
   font-size: 120px;
 }
 .narsiesmall {
-  color: #973e3b;
+  color: #960000;
   font-weight: bold;
   font-size: 48px;
 }
 .narsiesmaller {
-  color: #973e3b;
+  color: #960000;
   font-weight: bold;
   font-size: 24px;
 }
@@ -1347,7 +1347,7 @@ h2.alert {
   color: #543354;
 }
 .cultmobsay {
-  color: #973e3b;
+  color: #960000;
 }
 .slimemobsay {
   color: #00ced1;
@@ -1419,9 +1419,6 @@ $alert-stripe-colors: (
   'red': #ffb3b3,
   'purple': #fac2ff,
   'grey': #e3e3e3,
-  'cyan': #b3fff3,
-  'darkred': #ff5757,
-  'black': #474747,
 );
 
 $alert-stripe-alternate-colors: (
@@ -1434,9 +1431,6 @@ $alert-stripe-alternate-colors: (
   'red': #ffc2c2,
   'purple': #fbd1ff,
   'grey': #ebebeb,
-  'cyan': #4cffe4,
-  'darkred': #ff3535,
-  'black': #2e2d2d,
 );
 
 $alert-major-header-colors: (
@@ -1449,9 +1443,6 @@ $alert-major-header-colors: (
   'red': #800029,
   'purple': #450d8c,
   'grey': #800033,
-  'cyan': #000000,
-  'darkred': #751b1b,
-  'black': #ec0000,
 );
 
 $alert-subheader-header-colors: (
@@ -1464,9 +1455,6 @@ $alert-subheader-header-colors: (
   'red': #002c85,
   'purple': #002c85,
   'grey': #002c85,
-  'cyan': #acfff3,
-  'darkred': #ff7e7e,
-  'black': #ec0000,
 );
 
 $border-width: 4;

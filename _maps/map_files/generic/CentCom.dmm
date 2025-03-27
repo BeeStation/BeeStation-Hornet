@@ -6069,7 +6069,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/mob/living/basic/pet/dog/corgi/capybara{
+/mob/living/simple_animal/pet/dog/corgi/capybara{
 	name = "Tincho"
 	},
 /obj/structure/bed/dogbed{

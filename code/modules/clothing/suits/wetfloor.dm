@@ -15,7 +15,7 @@
 	attack_verb_continuous = list("warns", "cautions", "smashes")
 	attack_verb_simple = list("warn", "caution", "smash")
 	armor_type = /datum/armor/suit_caution
-	pockets = FALSE
+	pocket_storage_component_path = null
 
 
 /datum/armor/suit_caution

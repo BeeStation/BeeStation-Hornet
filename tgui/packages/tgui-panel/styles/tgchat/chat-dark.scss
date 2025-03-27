@@ -424,10 +424,10 @@ em {
 }
 
 .adminsay {
-  color: #ff4500;
+  color: #b6c653;
 }
 .admin {
-  color: #5975da;
+  color: #243fa3;
   font-weight: bold;
 }
 
@@ -466,7 +466,7 @@ em {
 }
 
 .deadsay {
-  color: #e2c1ff;
+  color: #b866ff;
 }
 .binarysay {
   color: #20c20e;
@@ -490,7 +490,7 @@ em {
   color: #7ed4c2;
 }
 .comradio {
-  color: #fcdf03;
+  color: #5177ff;
 }
 .secradio {
   color: #dd3535;
@@ -505,7 +505,7 @@ em {
   color: #b88646;
 }
 .servradio {
-  color: #6ca729;
+  color: #4e7a1f;
 }
 .syndradio {
   color: #8f4a4b;
@@ -658,41 +658,41 @@ em {
   color: #8e8a99;
 }
 .cult {
-  color: #973e3b;
+  color: #aa1c1c;
 }
 
 .cultitalic {
-  color: #973e3b;
+  color: #aa1c1c;
   font-style: italic;
 }
 .cultbold {
-  color: #973e3b;
+  color: #aa1c1c;
   font-style: italic;
   font-weight: bold;
 }
 .cultboldtalic {
-  color: #973e3b;
+  color: #aa1c1c;
   font-weight: bold;
   font-size: 24px;
 }
 
 .cultlarge {
-  color: #973e3b;
+  color: #aa1c1c;
   font-weight: bold;
   font-size: 24px;
 }
 .narsie {
-  color: #973e3b;
+  color: #aa1c1c;
   font-weight: bold;
   font-size: 120px;
 }
 .narsiesmall {
-  color: #973e3b;
+  color: #aa1c1c;
   font-weight: bold;
   font-size: 48px;
 }
 .narsiesmaller {
-  color: #973e3b;
+  color: #aa1c1c;
   font-weight: bold;
   font-size: 24px;
 }
@@ -1342,7 +1342,7 @@ em {
   color: #855d85;
 }
 .cultmobsay {
-  color: #973e3b;
+  color: #aa1c1c;
 }
 .slimemobsay {
   color: #00ced1;
@@ -1414,9 +1414,6 @@ $alert-stripe-colors: (
   'red': #420000,
   'purple': #2c0030,
   'grey': #252525,
-  'cyan': #109186,
-  'darkred': #ff3131,
-  'black': #575757,
 );
 
 $alert-stripe-alternate-colors: (
@@ -1429,9 +1426,6 @@ $alert-stripe-alternate-colors: (
   'red': #520000,
   'purple': #38003d,
   'grey': #292929,
-  'cyan': #0eccbc,
-  'darkred': #cf4242,
-  'black': #797979,
 );
 
 $alert-major-header-colors: (
@@ -1444,9 +1438,6 @@ $alert-major-header-colors: (
   'red': #ff5297,
   'purple': #c7a1f7,
   'grey': #ff5297,
-  'cyan': #292929,
-  'darkred': #530000,
-  'black': #dddddd,
 );
 
 $alert-subheader-header-colors: (
@@ -1459,9 +1450,6 @@ $alert-subheader-header-colors: (
   'red': #33d5ff,
   'purple': #33d5ff,
   'grey': #33d5ff,
-  'cyan': #127dd4,
-  'darkred': #fa0000,
-  'black': #999999,
 );
 
 $border-width: 4;

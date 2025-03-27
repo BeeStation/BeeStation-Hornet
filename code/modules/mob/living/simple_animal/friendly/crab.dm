@@ -32,7 +32,7 @@
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "crab"
 
-/mob/living/simple_animal/crab/Life(delta_time = SSMOBS_DT, times_fired)
+/mob/living/simple_animal/crab/Life()
 	..()
 	//CRAB movement
 	if(!ckey && !stat)

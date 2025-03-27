@@ -1,15 +1,7 @@
 /// This divisor controls how fast body temperature changes to match the environment
-#define BODYTEMP_DIVISOR 16
+#define BODYTEMP_DIVISOR 8
 
-/**
- * Handles the biological and general over-time processes of the mob.
- *
- *
- * Arguments:
- * - delta_time: The amount of time that has elapsed since this last fired.
- * - times_fired: The number of times SSmobs has fired
- */
-/mob/living/proc/Life(delta_time = SSMOBS_DT, times_fired)
+/mob/living/proc/Life(delta_time, times_fired)
 	set waitfor = FALSE
 	set invisibility = 0
 
@@ -20,37 +12,37 @@
 	if(!loc)
 		return
 
-	if(!has_status_effect(/datum/status_effect/grouped/stasis))
+	if(!has_status_effect(STATUS_EFFECT_STASIS))
 
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations_and_radiation(delta_time, times_fired)
+			handle_mutations_and_radiation()
 
 		if(stat != DEAD)
 			//Breathing, if applicable
-			handle_breathing(delta_time, times_fired)
+			handle_breathing(times_fired)
 
-		handle_diseases(delta_time, times_fired)// DEAD check is in the proc itself; we want it to spread even if the mob is dead, but to handle its disease-y properties only if you're not.
+		handle_diseases()// DEAD check is in the proc itself; we want it to spread even if the mob is dead, but to handle its disease-y properties only if you're not.
 
 		if (QDELETED(src)) // diseases can qdel the mob via transformations
 			return
 
 		if(stat != DEAD)
 			//Random events (vomiting etc)
-			handle_random_events(delta_time, times_fired)
+			handle_random_events()
 
 		//Handle temperature/pressure differences between body and environment
 		var/datum/gas_mixture/environment = loc.return_air()
 		if(environment)
-			handle_environment(environment, delta_time, times_fired)
+			handle_environment(environment)
 
 		handle_gravity(delta_time, times_fired)
 
 		if(stat != DEAD)
-			handle_traits(delta_time, times_fired) // eye, ear, brain damages
-			handle_status_effects(delta_time, times_fired) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
+			handle_traits(delta_time) // eye, ear, brain damages
+			handle_status_effects(delta_time) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
-	handle_fire(delta_time, times_fired)
+	handle_fire()
 
 	if(machine)
 		machine.check_eye(src)
@@ -58,42 +50,38 @@
 	if(stat != DEAD)
 		return 1
 
-/mob/living/proc/handle_breathing(delta_time, times_fired)
+/mob/living/proc/handle_breathing(times_fired)
 	// SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, delta_time, times_fired)
-	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired) //Bee edit: Holy shit I do not want to port delta time Life() refactor just for my mothroach behavior to be better
 	return
 
-/mob/living/proc/handle_mutations_and_radiation(delta_time, times_fired)
+/mob/living/proc/handle_mutations_and_radiation()
 	radiation = 0 //so radiation don't accumulate in simple animals
 	return
 
-/mob/living/proc/handle_diseases(delta_time, times_fired)
+/mob/living/proc/handle_diseases()
 	return
 
-//mob/living/proc/handle_wounds(delta_time, times_fired)
-//	return
-
-/mob/living/proc/handle_random_events(delta_time, times_fired)
+/mob/living/proc/handle_random_events()
 	return
 
 // Base mob environment handler for body temperature
-/mob/living/proc/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
+/mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	var/loc_temp = get_temperature(environment)
-	var/temp_delta = loc_temp - bodytemperature
 
-	if(temp_delta < 0) // it is cold here
+	if(loc_temp < bodytemperature) // it is cold here
 		if(!on_fire) // do not reduce body temp when on fire
-			adjust_bodytemperature(max(max(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_COOLING_MAX) * delta_time, temp_delta))
+			adjust_bodytemperature(max((loc_temp - bodytemperature) / BODYTEMP_DIVISOR, BODYTEMP_COOLING_MAX))
 	else // this is a hot place
-		adjust_bodytemperature(min(min(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX) * delta_time, temp_delta))
+		adjust_bodytemperature(min((loc_temp - bodytemperature) / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX))
 
-/mob/living/proc/handle_fire(delta_time, times_fired)
+/mob/living/proc/handle_fire()
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
-		fire_stacks = min(0, fire_stacks + (0.5 * delta_time)) //So we dry ourselves back to default, nonflammable.
+		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
 		return TRUE //the mob is no longer on fire, no need to do the rest.
 	if(fire_stacks > 0)
-		adjust_fire_stacks(-0.05 * delta_time) //the fire is slowly consumed
+		adjust_fire_stacks(-0.1) //the fire is slowly consumed
 	else
 		ExtinguishMob()
 		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
@@ -102,14 +90,14 @@
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return TRUE
 	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 25 * delta_time, TRUE)
+	location.hotspot_expose(700, 50, 1)
 
 //this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects(delta_time, times_fired)
+/mob/living/proc/handle_status_effects(delta_time)
 	if(confused)
 		confused = max(0, confused - (1 * delta_time))
 
-/mob/living/proc/handle_traits(delta_time, times_fired)
+/mob/living/proc/handle_traits(delta_time)
 	//Eyes
 	if(eye_blind) //blindness, heals slowly over time
 		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
@@ -138,5 +126,4 @@
 
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
 	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
-
 #undef BODYTEMP_DIVISOR

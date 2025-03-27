@@ -13,12 +13,12 @@
 		return
 	..()
 
-	if(!user.has_status_effect(/datum/status_effect/changeling/camouflage))
-		user.apply_status_effect(/datum/status_effect/changeling/camouflage)
+	if(!user.has_status_effect(STATUS_EFFECT_CHANGELING_CAMO))
+		user.apply_status_effect(STATUS_EFFECT_CHANGELING_CAMO)
 	else
-		user.remove_status_effect(/datum/status_effect/changeling/camouflage)
+		user.remove_status_effect(STATUS_EFFECT_CHANGELING_CAMO)
 	return TRUE
 
 /datum/action/changeling/refractive_chitin/Remove(mob/living/user)
-	user.remove_status_effect(/datum/status_effect/changeling/camouflage)
+	user.remove_status_effect(STATUS_EFFECT_CHANGELING_CAMO)
 	..()

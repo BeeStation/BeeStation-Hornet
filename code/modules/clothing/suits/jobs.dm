@@ -12,7 +12,6 @@
 	item_state = null
 	blood_overlay_type = "armor"
 	body_parts_covered = CHEST|GROIN
-	pockets = FALSE
 	allowed = list(
 		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/plant_analyzer,
@@ -24,10 +23,7 @@
 		/obj/item/hatchet,
 		/obj/item/storage/bag/plants
 	)
-
-/obj/item/clothing/suit/apron/Initialize(mapload)
-	. = ..()
-	create_storage(storage_type = /datum/storage/pockets/exo/large)
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -156,10 +152,7 @@
 		/obj/item/radio
 	)
 	resistance_flags = NONE
-
-/obj/item/clothing/suit/hazardvest/Initialize(mapload)
-	. = ..()
-	create_storage(storage_type = /datum/storage/pockets/exo/large)
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
 
 //Lawyer
 /obj/item/clothing/suit/toggle/lawyer

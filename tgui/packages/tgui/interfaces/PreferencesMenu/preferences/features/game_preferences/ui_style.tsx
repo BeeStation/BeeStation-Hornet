@@ -24,7 +24,6 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
               className={classes(['preferences64x32', icon])}
               style={{
                 transform: 'scale(0.8)',
-                verticalAlign: 'bottom',
               }}
             />
           </Stack.Item>

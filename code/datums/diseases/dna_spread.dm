@@ -14,18 +14,12 @@
 	danger = DISEASE_MEDIUM
 
 
-/datum/disease/dnaspread/stage_act(delta_time, times_fired)
-	. = ..()
-	if(!.)
-		return
-
+/datum/disease/dnaspread/stage_act()
+	..()
 	if(!affected_mob.dna)
 		cure()
-		return FALSE
-
 	if((NOTRANSSTING in affected_mob.dna.species.species_traits) || (NO_DNA_COPY in affected_mob.dna.species.species_traits)) //Only species that can be spread by transformation sting can be spread by the retrovirus
 		cure()
-		return FALSE
 
 	if(!strain_data["dna"])
 		//Absorbs the target DNA.
@@ -37,18 +31,19 @@
 
 	switch(stage)
 		if(2, 3) //Pretend to be a cold and give time to spread.
-			if(DT_PROB(4, delta_time))
+			if(prob(8))
 				affected_mob.emote("sneeze")
-			if(DT_PROB(4, delta_time))
+			if(prob(8))
 				affected_mob.emote("cough")
-			if(DT_PROB(0.5, delta_time))
+			if(prob(1))
 				to_chat(affected_mob, span_danger("Your muscles ache."))
 				if(prob(20))
-					affected_mob.take_bodypart_damage(1, updating_health = FALSE)
-			if(DT_PROB(0.5, delta_time))
+					affected_mob.take_bodypart_damage(1)
+			if(prob(1))
 				to_chat(affected_mob, span_danger("Your stomach hurts."))
 				if(prob(20))
-					affected_mob.adjustToxLoss(2, FALSE)
+					affected_mob.adjustToxLoss(2)
+					affected_mob.updatehealth()
 		if(4)
 			if(!transformed && !carrier)
 				//Save original dna for when the disease is cured.
@@ -65,6 +60,8 @@
 
 				transformed = 1
 				carrier = 1 //Just chill out at stage 4
+
+	return
 
 /datum/disease/dnaspread/Destroy()
 	if (original_dna && transformed && affected_mob)

@@ -17,23 +17,19 @@
 	name = replacetext(name, "REAL_NAME", M.real_name)
 	desc = replacetext(desc, "NAME", name)
 
-/datum/dog_fashion/proc/apply(mob/living/basic/pet/dog/D)
+/datum/dog_fashion/proc/apply(mob/living/simple_animal/pet/dog/D)
 	if(name)
 		D.name = name
 	if(desc)
 		D.desc = desc
-	if(speak_emote)
-		D.speak_emote = string_list(speak_emote)
-
-/datum/dog_fashion/proc/apply_to_speech(datum/ai_planning_subtree/random_speech/speech)
 	if(emote_see)
-		speech.emote_see = string_list(emote_see)
+		D.emote_see = emote_see
 	if(emote_hear)
-		speech.emote_hear = string_list(emote_hear)
+		D.emote_hear = emote_hear
 	if(speak)
-		speech.speak = speak
+		D.speak = speak
 	if(speak_emote)
-		speech.speak = string_list(speak)
+		D.speak_emote = speak_emote
 
 /datum/dog_fashion/proc/get_overlay(var/dir)
 	if(icon_file && obj_icon_state)
@@ -48,9 +44,6 @@
 
 /datum/dog_fashion/back
 	icon_file = 'icons/mob/corgi_back.dmi'
-
-/datum/dog_fashion/back/armorvest
-	obj_icon_state = "armor"
 
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"

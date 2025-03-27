@@ -66,7 +66,7 @@
 	GiveTarget(null)
 	return ..()
 
-/mob/living/simple_animal/hostile/Life(delta_time = SSMOBS_DT, times_fired)
+/mob/living/simple_animal/hostile/Life()
 	. = ..()
 	if(!.) //dead
 		SSmove_manager.stop_looping(src)

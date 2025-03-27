@@ -44,12 +44,12 @@
 	else
 		qdel(src)
 
-/datum/brain_trauma/severe/split_personality/on_life(delta_time, times_fired)
+/datum/brain_trauma/severe/split_personality/on_life()
 	if(owner.stat == DEAD)
 		if(current_controller != OWNER)
 			switch_personalities(TRUE)
 		qdel(src)
-	else if(DT_PROB(1.5, delta_time))
+	else if(prob(3))
 		switch_personalities()
 	..()
 
@@ -145,7 +145,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 		trauma = _trauma
 	return ..()
 
-/mob/living/split_personality/Life(delta_time = SSMOBS_DT, times_fired)
+/mob/living/split_personality/Life()
 	if(QDELETED(body))
 		qdel(src) //in case trauma deletion doesn't already do it
 
@@ -217,7 +217,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	else
 		qdel(src)
 
-/datum/brain_trauma/severe/split_personality/brainwashing/on_life(delta_time, times_fired)
+/datum/brain_trauma/severe/split_personality/brainwashing/on_life()
 	return //no random switching
 
 /datum/brain_trauma/severe/split_personality/brainwashing/handle_hearing(datum/source, list/hearing_args)

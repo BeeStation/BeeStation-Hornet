@@ -96,7 +96,7 @@
 		//Our last attempt, we force the item into the backpack
 		if(istype(mob.back, /obj/item/storage/backpack))
 			var/obj/item/storage/backpack/B = mob.back
-			B.atom_storage?.attempt_insert(B, T, null, TRUE, TRUE)
+			SEND_SIGNAL(B, COMSIG_TRY_STORAGE_INSERT, T, null, TRUE, TRUE)
 			to_chat(mob, span_danger("You have a [item_name] in your backpack."))
 			return TRUE
 		else
@@ -105,7 +105,7 @@
 	else
 		to_chat(mob, span_danger("You have a [item_name] in your [where]."))
 		if(where == "backpack")
-			mob.back.atom_storage?.show_contents(mob)
+			SEND_SIGNAL(mob.back, COMSIG_TRY_STORAGE_SHOW, mob)
 		return TRUE
 
 /datum/antagonist/cult/apply_innate_effects(mob/living/mob_override)

@@ -492,7 +492,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 	var/turf/current = loc
 	if (!istype(current))
 		return FALSE
-	var/turf/below = GET_TURF_BELOW(current)
+	var/turf/below = current.below()
 	//Move down a layer and fall again
 	if (below != null)
 		forceMove(below)

@@ -451,7 +451,7 @@
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
-		recipient << browse(HTML_SKELETON(output),"window=memory")
+		recipient << browse(output,"window=memory")
 	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 

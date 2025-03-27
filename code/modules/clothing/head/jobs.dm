@@ -102,6 +102,7 @@
 	icon_state = "detective"
 	item_state = "det_hat"
 	var/candy_cooldown = 0
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
 
 
@@ -117,9 +118,6 @@
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
-
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)

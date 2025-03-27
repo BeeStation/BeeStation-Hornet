@@ -215,7 +215,7 @@
 	// L.adjustStaminaLoss(stun_time)
 	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 	target.stuttering = 20
 
 	// Shoving

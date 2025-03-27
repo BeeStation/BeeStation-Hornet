@@ -22,7 +22,7 @@
 	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
-	inert_mutation = /datum/mutation/wax_saliva
+	inert_mutation = WAXSALIVA
 	var/cold_cycle = 0
 
 	species_chest = /obj/item/bodypart/chest/apid

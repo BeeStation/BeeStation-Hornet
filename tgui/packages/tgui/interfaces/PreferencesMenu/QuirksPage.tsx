@@ -82,6 +82,10 @@ const QuirkList = (props: {
                       <Stack.Item grow basis="content">
                         <b>{quirk.name}</b>
                       </Stack.Item>
+
+                      <Stack.Item>
+                        <b>{quirk.value}</b>
+                      </Stack.Item>
                     </Stack>
                   </Stack.Item>
 
@@ -141,10 +145,11 @@ export const QuirksPage = (props) => {
           if (quirkA.value === quirkB.value) {
             return quirkA.name > quirkB.name ? 1 : -1;
           } else {
-            return quirkB.value - quirkA.value;
+            return quirkA.value - quirkB.value;
           }
         });
 
+        let balance = 0;
         let positiveQuirks = 0;
 
         for (const selectedQuirkName of selectedQuirks) {
@@ -156,6 +161,8 @@ export const QuirksPage = (props) => {
           if (selectedQuirk.value > 0) {
             positiveQuirks += 1;
           }
+
+          balance += selectedQuirk.value;
         }
 
         const getReasonToNotAdd = (quirkName: string) => {
@@ -164,6 +171,8 @@ export const QuirksPage = (props) => {
           if (quirk.value > 0) {
             if (positiveQuirks >= maxPositiveQuirks) {
               return "You can't have any more positive quirks!";
+            } else if (balance + quirk.value > 0) {
+              return 'You need a negative quirk to balance this out!';
             }
           }
 
@@ -186,10 +195,30 @@ export const QuirksPage = (props) => {
           return undefined;
         };
 
+        const getReasonToNotRemove = (quirkName: string) => {
+          const quirk = quirkInfo[quirkName];
+
+          if (balance - quirk.value > 0) {
+            return 'You need to remove a positive quirk first!';
+          }
+
+          return undefined;
+        };
+
         return (
           <Stack align="center" fill>
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
+                <Stack.Item>
+                  <Box fontSize="1.3em">Positive Quirks</Box>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <StatDisplay>
+                    {positiveQuirks} / {maxPositiveQuirks}
+                  </StatDisplay>
+                </Stack.Item>
+
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
                     Available Quirks
@@ -224,24 +253,21 @@ export const QuirksPage = (props) => {
                 </Stack.Item>
               </Stack>
             </Stack.Item>
-            <Stack vertical fill align="center">
-              <Stack.Item>
-                <Box fontSize="1.3em">Positive Quirks</Box>
-              </Stack.Item>
 
-              <Stack.Item>
-                <StatDisplay>
-                  {positiveQuirks} / {maxPositiveQuirks}
-                </StatDisplay>
-              </Stack.Item>
-
-              <Stack.Item>
-                <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
-              </Stack.Item>
-            </Stack>
+            <Stack.Item>
+              <Icon name="exchange-alt" size={1.5} ml={2} mr={2} />
+            </Stack.Item>
 
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
+                <Stack.Item>
+                  <Box fontSize="1.3em">Quirk Balance</Box>
+                </Stack.Item>
+
+                <Stack.Item>
+                  <StatDisplay>{balance}</StatDisplay>
+                </Stack.Item>
+
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
                     Current Quirks
@@ -251,6 +277,10 @@ export const QuirksPage = (props) => {
                 <Stack.Item grow width="100%">
                   <QuirkList
                     onClick={(quirkName, quirk) => {
+                      if (getReasonToNotRemove(quirkName) !== undefined) {
+                        return;
+                      }
+
                       setSelectedQuirks(selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk));
 
                       act('remove_quirk', { quirk: quirk.name });
@@ -264,7 +294,7 @@ export const QuirksPage = (props) => {
                           quirkName,
                           {
                             ...quirk,
-                            failTooltip: getReasonToNotAdd(quirkName),
+                            failTooltip: getReasonToNotRemove(quirkName),
                           },
                         ];
                       })}

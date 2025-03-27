@@ -15,17 +15,14 @@
 	//Stages
 	var/stage = 1
 	var/max_stages = 0
-	/// The probability of this infection advancing a stage every second the cure is not present.
-	var/stage_prob = 2
+	var/stage_prob = 4
 
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
 	var/mob/living/carbon/affected_mob = null
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
-	/// The probability of spreading through the air every second
-	var/infectivity = 20
-	/// The probability of this infection being cured every second the cure is present
-	var/cure_chance = 4
+	var/infectivity = 10
+	var/cure_chance = 8
 	var/carrier = FALSE //If our host is only a carrier
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/spreading_modifier = 1
@@ -67,24 +64,28 @@
 /datum/disease/proc/admin_details()
 	return "[src.name] : [src.type]"
 
-///Proc to process the disease and decide on whether to advance, cure or make the sympthoms appear. Returns a boolean on whether to continue acting on the symptoms or not.
-/datum/disease/proc/stage_act(delta_time, times_fired)
+/datum/disease/proc/stage_act()
+	var/cure = has_cure()
+
 	var/mob/living/L = affected_mob
 	if(IS_IN_STASIS(L))
 		return
 
-	if(has_cure())
-		if(DT_PROB(cure_chance, delta_time))
+	if(carrier && !cure)
+		return
+
+	stage = min(stage, max_stages)
+
+	if(!cure)
+		if(prob(stage_prob))
+			update_stage(min(stage + 1,max_stages))
+	else
+		if(prob(cure_chance))
 			update_stage(max(stage - 1, 1))
 
-		if(disease_flags & CURABLE && DT_PROB(cure_chance, delta_time))
+	if(disease_flags & CURABLE)
+		if(cure && prob(cure_chance))
 			cure()
-			return FALSE
-
-	else if(DT_PROB(stage_prob, delta_time))
-		update_stage(min(stage + 1, max_stages))
-
-	return !carrier
 
 /datum/disease/proc/update_stage(new_stage)
 	stage = new_stage

@@ -9,12 +9,12 @@
 
 /obj/projectile/ion/on_hit(atom/target, blocked = FALSE)
 	..()
-	target.emp_act(EMP_LIGHT)
+	empulse(target, 1, 1)
 	return BULLET_ACT_HIT
 
 /obj/projectile/ion/weak
 
 /obj/projectile/ion/weak/on_hit(atom/target, blocked = FALSE)
 	..()
-	target.emp_act(EMP_HEAVY)
+	empulse(target, 0, 0)
 	return BULLET_ACT_HIT

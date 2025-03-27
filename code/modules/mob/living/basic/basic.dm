@@ -133,7 +133,7 @@
 		..()
 
 // copied from simplemobs
-/mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/basic/revive(full_heal = 0, admin_revive = 0)
 	. = ..()
 	if(!.)
 		return

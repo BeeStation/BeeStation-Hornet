@@ -6,8 +6,8 @@
 	desc = "A hereditary mutation characterized by its signature speech disorder."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/nervousness/on_life(delta_time, times_fired)
-	if(DT_PROB(5, delta_time))
+/datum/mutation/nervousness/on_life()
+	if(prob(10))
 		owner.stuttering = max(10, owner.stuttering)
 
 /datum/mutation/wacky
@@ -190,15 +190,15 @@
 	quality = MINOR_NEGATIVE
 	locked = TRUE
 
-/datum/mutation/elvis/on_life(delta_time, times_fired)
+/datum/mutation/elvis/on_life()
 	switch(pick(1,2))
 		if(1)
-			if(DT_PROB(7.5, delta_time))
+			if(prob(15))
 				var/list/dancetypes = list("swinging", "fancy", "stylish", "20'th century", "jivin'", "rock and roller", "cool", "salacious", "bashing", "smashing")
 				var/dancemoves = pick(dancetypes)
 				owner.visible_message("<b>[owner]</b> busts out some [dancemoves] moves!")
 		if(2)
-			if(DT_PROB(7.5, delta_time))
+			if(prob(15))
 				owner.visible_message("<b>[owner]</b> [pick("jiggles their hips", "rotates their hips", "gyrates their hips", "taps their foot", "dances to an imaginary song", "jiggles their legs", "snaps their fingers")]!")
 
 /datum/mutation/elvis/on_acquiring(mob/living/carbon/owner)

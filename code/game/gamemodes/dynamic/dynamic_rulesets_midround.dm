@@ -226,24 +226,32 @@
 
 //////////////////////////////////////////////
 //                                          //
-//         	Value Drifted AI               	//
+//         Malfunctioning AI                //
 //                              		    //
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/malf
-	name = "Value Drifted AI"
+	name = "Malfunctioning AI"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_datum = /datum/antagonist/malf_ai
+	antag_datum = /datum/antagonist/traitor
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_SCIENTIST, JOB_NAME_CHEMIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFENGINEER)
 	exclusive_roles = list(JOB_NAME_AI)
+	required_enemies = list(3,3,2,2,2,1,1,1,1,0)
 	required_candidates = 1
-	minimum_players = 30
-	weight = 4
+	minimum_players = 0 // Handled by /datum/dynamic_ruleset/proc/acceptable override
+	weight = 2
 	cost = 13
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
+
+/datum/dynamic_ruleset/midround/malf/acceptable(population = 0, threat_level = 0)
+	. = ..()
+	if(population < CONFIG_GET(number/malf_ai_minimum_pop))
+		return FALSE
 
 /datum/dynamic_ruleset/midround/malf/trim_candidates()
 	..()
@@ -259,19 +267,17 @@
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/execute(forced = FALSE)
-	if(!length(candidates))
-		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
-	var/mob/living/silicon/ai/AI = antag_pick_n_take(candidates)
-	assigned += AI.mind
-	var/datum/antagonist/malf_ai/malf_datum = new
-	AI.mind.special_role = ROLE_MALF
-	AI.mind.add_antag_datum(malf_datum)
+	var/mob/living/silicon/ai/M = antag_pick_n_take(candidates)
+	assigned += M.mind
+	var/datum/antagonist/traitor/AI = new
+	M.mind.special_role = "Malf AI"
+	M.mind.add_antag_datum(AI)
 	if(prob(ion_announce))
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
 		if(prob(removeDontImproveChance))
-			AI.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
+			M.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 		else
-			AI.add_ion_law(generate_ion_law())
+			M.add_ion_law(generate_ion_law())
 	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////

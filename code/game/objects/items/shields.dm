@@ -209,7 +209,7 @@
 /obj/item/shield/riot/flash/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
 	if (. && !embedded_flash.burnt_out)
-		INVOKE_ASYNC(embedded_flash, TYPE_PROC_REF(/obj/item/assembly/flash/handheld, activate))
+		embedded_flash.activate()
 		update_icon()
 
 

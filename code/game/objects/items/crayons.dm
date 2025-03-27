@@ -12,8 +12,6 @@
 #define PAINT_LARGE_HORIZONTAL	2
 #define PAINT_LARGE_HORIZONTAL_ICON	'icons/effects/96x32.dmi'
 
-#define AVAILABLE_SPRAYCAN_SPACE 8 // enough to fill one radial menu page
-
 /*
  * Crayons
  */
@@ -89,15 +87,7 @@
 
 	dye_color = crayon_color
 
-	if(can_change_colour)
-		AddComponent(/datum/component/palette, AVAILABLE_SPRAYCAN_SPACE, paint_color)
-
 	refill()
-
-/obj/item/toy/crayon/set_painting_tool_color(chosen_color)
-	. = ..()
-	paint_color = chosen_color
-	update_appearance()
 
 /obj/item/toy/crayon/proc/refill()
 	if(charges == -1)
@@ -227,10 +217,8 @@
 	.["current_colour"] = paint_color
 
 /obj/item/toy/crayon/ui_act(action, list/params)
-	. = ..()
-	if(.)
+	if(..())
 		return
-
 	switch(action)
 		if("toggle_cap")
 			if(has_cap)
@@ -248,7 +236,14 @@
 			else
 				paint_mode = PAINT_NORMAL
 		if("select_colour")
-			. = can_change_colour && pick_painting_tool_color(usr, paint_color)
+			if(can_change_colour)
+				var/chosen_colour = tgui_color_picker(usr,"","Choose Color",paint_color)
+
+				if (!isnull(chosen_colour))
+					paint_color = chosen_colour
+					. = TRUE
+				else
+					. = FALSE
 		if("enter_text")
 			var/txt = stripped_input(usr,"Choose what to write.",
 				"Scribbles",default = text_buffer)
@@ -507,7 +502,7 @@
 	charges = -1
 
 /obj/item/toy/crayon/rainbow/afterattack(atom/target, mob/user, proximity, params)
-	set_painting_tool_color(rgb(rand(0,255), rand(0,255), rand(0,255)))
+	paint_color = rgb(rand(0,255), rand(0,255), rand(0,255))
 	. = ..()
 
 /*
@@ -523,7 +518,9 @@
 
 /obj/item/storage/crayons/Initialize(mapload)
 	. = ..()
-	create_storage(canhold = list(/obj/item/toy/crayon))
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.set_holdable(list(/obj/item/toy/crayon))
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
@@ -621,7 +618,7 @@
 		if(pre_noise || post_noise)
 			playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		if(can_change_colour)
-			set_painting_tool_color("#C0C0C0")
+			paint_color = "#C0C0C0"
 		update_icon()
 		if(actually_paints)
 			H.lip_style = "spray_face"
@@ -637,8 +634,10 @@
 	. = ..()
 	// If default crayon red colour, pick a more fun spraycan colour
 	if(!paint_color)
-		set_painting_tool_color(pick("#DA0000", "#FF9300", "#FFF200", "#A8E61D", "#00B7EF", "#DA00FF"))
+		paint_color = pick("#DA0000","#FF9300","#FFF200","#A8E61D","#00B7EF",
+		"#DA00FF")
 	refill()
+	update_icon()
 
 
 /obj/item/toy/crayon/spraycan/examine(mob/user)
@@ -654,7 +653,7 @@
 		return ..()
 
 	if(is_capped)
-		if(is_type_in_typecache(target, spraycan_touch_normally) || target.atom_storage)
+		if(is_type_in_typecache(target, spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
 			return ..()
 		to_chat(user, span_warning("Take the cap off first!"))
 		return
@@ -824,5 +823,3 @@
 #undef PAINT_NORMAL
 #undef PAINT_LARGE_HORIZONTAL
 #undef PAINT_LARGE_HORIZONTAL_ICON
-
-#undef AVAILABLE_SPRAYCAN_SPACE

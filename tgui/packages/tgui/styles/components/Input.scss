@@ -56,7 +56,6 @@ $border-radius: base.$border-radius !default;
   color: $text-color;
   color: inherit;
 
-  &::placeholder,
   &:-ms-input-placeholder {
     font-style: italic;
     color: #777;

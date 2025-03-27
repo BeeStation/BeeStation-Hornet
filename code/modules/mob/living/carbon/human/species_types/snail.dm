@@ -27,11 +27,11 @@
 	species_l_leg = /obj/item/bodypart/l_leg/snail
 	species_r_leg = /obj/item/bodypart/r_leg/snail
 
-/datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
-		H.adjustFireLoss(2 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustFireLoss(2)
 		playsound(H, 'sound/weapons/sear.ogg', 30, 1)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
 
