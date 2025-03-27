@@ -232,7 +232,8 @@
 		else
 			parts |= box
 	if(length(parts) == 8)
-		build_reactor(parts)
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
+		newCore.activate(user)
 	return
 
 /obj/item/RBMK_box/core/proc/build_reactor(list/parts)
@@ -252,7 +253,10 @@
 			waste_output_machine.dir = box.dir
 			waste_output_machine.set_init_directions()
 			waste_output_machine.connect_nodes()
-	new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE)
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE) // create object before qdel'ing ourselves
+
 	for(var/obj/item/RBMK_box/box in parts)
 		qdel(box)
 	qdel(src)
+
+	return newCore
