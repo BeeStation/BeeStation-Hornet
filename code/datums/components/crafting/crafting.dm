@@ -567,8 +567,8 @@
 
 /datum/component/personal_crafting/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/crafting),
-		get_asset_datum(/datum/asset/spritesheet_batched/crafting/cooking),
+		get_asset_datum(/datum/asset/spritesheet/crafting),
+		get_asset_datum(/datum/asset/spritesheet/crafting/cooking),
 	)
 
 /datum/component/personal_crafting/proc/build_crafting_data(datum/crafting_recipe/recipe)
