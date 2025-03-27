@@ -93,6 +93,7 @@
 	armor_type = /datum/armor/cultrobes_void
 	body_parts_covered = CHEST|GROIN|ARMS
 	qdel_hood = TRUE
+	pockets = FALSE
 
 
 /datum/armor/cultrobes_void

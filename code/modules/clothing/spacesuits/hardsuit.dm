@@ -166,7 +166,6 @@
 	)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
-	pocket_storage_component_path = null
 	var/hardsuit_type
 	/// Whether the helmet is on.
 	var/helmet_on = FALSE

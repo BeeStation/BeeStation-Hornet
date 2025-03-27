@@ -38,7 +38,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
 	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
 
-/datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
+/datum/species/plasmaman/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	var/atmos_sealed = FALSE
 	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -69,7 +69,7 @@
 		internal_fire = FALSE
 	H.update_fire()
 
-/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, no_protection)
+/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
@@ -106,18 +106,18 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
+			H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
 		H.heal_bodypart_damage(1.5,0, 0)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5, 0)
-		H.adjustBruteLoss(0.5, 0)
-		if(prob(20))
+		H.adjustStaminaLoss(7.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		H.adjustBruteLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		if(DT_PROB(10, delta_time))
 			switch(rand(1, 3))
 				if(1)
 					H.say(pick("oof.", "ouch.", "my bones.", "oof ouch.", "oof ouch my bones."), forced = /datum/reagent/toxin/bonehurtingjuice)
@@ -126,7 +126,7 @@
 				if(3)
 					to_chat(H, span_warning("Your bones hurt!"))
 		if(chem.overdosed)
-			if(prob(4) && iscarbon(H)) //big oof
+			if(DT_PROB(2, delta_time) && iscarbon(H)) //big oof
 				var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) //God help you if the same limb gets picked twice quickly.
 				var/obj/item/bodypart/bp = H.get_bodypart(selected_part) //We're so sorry skeletons, you're so misunderstood
 				if(bp)
@@ -137,7 +137,7 @@
 				else
 					to_chat(H, span_warning("Your missing arm aches from wherever you left it."))
 					H.emote("sigh")
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
 	return ..()
 
