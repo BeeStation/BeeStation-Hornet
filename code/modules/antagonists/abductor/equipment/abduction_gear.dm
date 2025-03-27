@@ -165,6 +165,14 @@
 			break
 	. = ..()
 
+//backpack with mildly more slots to accomodate outfit spawning
+/obj/item/storage/backpack/abductor
+
+/obj/item/storage/backpack/abductor/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 30
+	atom_storage.max_total_storage = 30
+
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
@@ -388,6 +396,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"
@@ -907,7 +916,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "The most advanced form of jumpsuit known to reality, looks uncomfortable."
 	name = "alien jumpsuit"
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
-	icon_state = "abductor-suit"
+	icon_state = "abductor"
 	item_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	armor_type = /datum/armor/under_abductor

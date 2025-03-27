@@ -194,6 +194,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that stores the skin colour of a mob
 #define TRAIT_OVERRIDE_SKIN_COLOUR "skin_colour"
 #define TRAIT_STEALTH_PICKPOCKET "stealth_pickpocket" // The user can take something off of someone via the strip menu without sending a message.
+/// Trait that prevents you from being moved when pulled.
+#define TRAIT_NO_MOVE_PULL "no_move_pull"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
@@ -206,6 +208,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALIEN_SNEAK "sneaking_alien"
 /// This mob is phased out of reality from magic, either a jaunt or rod form
 #define TRAIT_MAGICALLY_PHASED "magically_phased"
+#define TRAIT_GIANT				"giant"
+#define TRAIT_DWARF				"dwarf"
+#define TRAIT_OFF_BALANCE_TACKLER "off_balance_tackler" // Applies tackling defense bonus to any mob that has it
+#define TRAIT_NO_STAGGER "no_stagger" // Prevents staggering.
+
+/// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
+#define TRAIT_UNDENSE "undense"
+/// A trait gained by leaning against a wall
+#define TRAIT_LEANING "leaning"
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -231,6 +242,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait for psyphoza, flag for examine logic
 #define TRAIT_PSYCHIC_SENSE "psychic_sense"
 
+///Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
+
 /**
  * Atom Traits
  */
@@ -249,6 +263,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AREA_SENSITIVE "area-sensitive"
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+///every object that is currently the active storage of some client mob has this trait
+#define TRAIT_ACTIVE_STORAGE "active_storage"
 
 /**
  * Item Traits
@@ -320,6 +336,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
+
+/// Makes a character be better/worse at tackling depending on their wing's status
+#define TRAIT_TACKLING_WINGED_ATTACKER "tacking_winged_attacker"
+
+/// Makes a character be frail and more likely to roll bad results if they hit a wall
+#define TRAIT_TACKLING_FRAIL_ATTACKER "tackling_frail_attacker"
+
+/// Makes a character be better/worse at defending against tackling depending on their tail's status
+#define TRAIT_TACKLING_TAILED_DEFENDER "tackling_tailed_defender"
 
 /// Is runechat for this atom/movable currently disabled, regardless of prefs or anything?
 #define TRAIT_RUNECHAT_HIDDEN "runechat_hidden"

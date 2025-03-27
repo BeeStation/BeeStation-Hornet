@@ -8,14 +8,10 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
-	legs_required = 0
-	arms_required = 0
 
 /obj/vehicle/ridden/lavaboat/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.keytype = /obj/item/oar
-	D.allowed_turf_typecache = typecacheof(/turf/open/lava)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lavaboat)
 
 /obj/item/oar
 	name = "oar"
@@ -51,7 +47,4 @@
 
 /obj/vehicle/ridden/lavaboat/dragon/Initialize(mapload)
 	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 1
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
-	D.keytype = null
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/lavaboat/dragonboat)
