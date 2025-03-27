@@ -34,6 +34,7 @@
 /obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pick_weight(loot)
 	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
 		/obj/item/clothing/glasses/godeye									= 15,
+		/obj/item/toy/crayon/spraycan/hellcan								= 15,
 		/obj/item/reagent_containers/cup/bottle/potion/flight				= 15,
 		/obj/item/clothing/gloves/concussive_gauntlets						= 35,
 		/obj/item/rod_of_asclepius											= 35,
