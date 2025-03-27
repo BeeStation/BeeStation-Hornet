@@ -148,20 +148,20 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
 		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
-		for(var/mob/living/L in viewers(1, src))
-			if(iscultist(L))
-				if(L == user)
-					continue
-				if(L.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
-					L.visible_message(span_warning("[L] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
-					continue
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)
-						continue
-				if(L.stat)
-					continue
-				invokers += L
+		for(var/mob/living/cultist in viewers(1, src))
+			if(!IS_CULTIST(cultist))
+				continue
+			if(cultist == user)
+				continue
+			if(!cultist.can_speak(allow_mimes = TRUE))
+				continue
+			if(cultist.has_status_effect(/datum/status_effect/cultghost) && !allow_ghosts)
+				cultist.visible_message(span_warning("[cultist] appears to shudder as they fail to perform the ritual, their soul is too fragile!"), span_narsie("You do not possess a strong enough physical binding to activate this rune!"))
+				continue
+			if(cultist.stat != CONSCIOUS)
+				continue
+			invokers += cultist
+
 	return invokers
 
 /obj/effect/rune/proc/invoke(var/list/invokers)

@@ -409,7 +409,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/C = L
-				C.silent += 6
+				C.adjust_silence(12 SECONDS)
 				C.adjust_stutter(30 SECONDS)
 				C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/slurring/cult)
 				C.set_jitter_if_lower(30 SECONDS)
@@ -491,7 +491,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
-				C.silent += 5
+				C.adjust_silence(10 SECONDS)
 				to_chat(user, span_notice("You shackle [C]."))
 				log_combat(user, C, "shackled", src)
 				uses--

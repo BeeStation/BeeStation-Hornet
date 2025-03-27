@@ -343,7 +343,8 @@
 	taste_description = "silence"
 
 /datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.silent = max(M.silent, 3 * REM * delta_time)
+	// Gain approximately 12 seconds * creation purity seconds of silence every metabolism tick.
+	M.set_silence_if_lower(6 SECONDS * REM * delta_time)
 	..()
 
 /datum/reagent/toxin/staminatoxin

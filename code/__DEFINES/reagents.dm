@@ -32,8 +32,10 @@
 #define REM_REAGENT		3	// reagent removed (may still exist)
 #define CLEAR_REAGENTS	4	// all reagents were cleared
 
-#define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
-#define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
+// How long do mime drinks silence the drinker (if they are a mime)?
+#define MIMEDRINK_SILENCE_DURATION 1 MINUTES
+//Health treshold for synthflesh and rezadone to unhusk someone
+#define THRESHOLD_UNHUSK 50
 
 
 //Used in holder.dm/equlibrium.dm to set values and volume limits

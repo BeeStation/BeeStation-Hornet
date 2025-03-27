@@ -108,7 +108,7 @@
 		message_simple = S.deathmessage
 	. = ..()
 	message_simple = initial(message_simple)
-	if(!user.can_speak_vocal() || user.getOxyLoss() >= 50)
+	if(!user.can_speak() || user.getOxyLoss() >= 50)
 		return //stop the sound if oxyloss too high/cant speak
 	var/mob/living/carbon/carbon_user = user
 	// For masks that give unique death sounds
@@ -265,10 +265,7 @@
 	vary = TRUE
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
-	. = ..()
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		return !C.silent
+	return ..() && user.can_speak(allow_mimes = TRUE)
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
 	if(!iscarbon(user) || user.mind?.miming)

@@ -289,7 +289,7 @@
 			H.adjustFireLoss(10)
 			if (prob(nitryl_pp/2))
 				to_chat(H, span_alert("Your throat closes up!"))
-				H.silent = max(H.silent, 3)
+				H.set_silence_if_lower(6 SECONDS)
 		else
 			H.adjustFireLoss(nitryl_pp/4)
 		gas_breathed = PP(breath,/datum/gas/nitryl)

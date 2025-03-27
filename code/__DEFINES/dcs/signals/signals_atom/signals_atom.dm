@@ -166,3 +166,8 @@
 
 // From /atom/proc/set_density(new_value) for when an atom changes density
 #define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"
+
+/// Sent from /obj/item/radio/talk_into(): (obj/item/radio/used_radio)
+#define COMSIG_MOVABLE_USING_RADIO "movable_radio"
+	/// Return to prevent the movable from talking into the radio.
+	#define COMPONENT_CANNOT_USE_RADIO (1<<0)

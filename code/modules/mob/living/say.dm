@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
 		return
 
-	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
+	if(!try_speak(original_message, ignore_spam, forced) || check_emote(original_message, forced))
 		return TRUE
 
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
@@ -129,10 +129,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// if you add a new language that works like everyone doesn't understand (i.e. anti-metalanguage), add an additional condition after this
 	// i.e.) if(!language) language = /datum/language/nobody_understands
 	// This works as an additional failsafe for get_selected_language() has no language to return
-
-	if(!can_speak_vocal(message))
-		to_chat(src, span_warning("You find yourself unable to speak!"))
-		return
 
 	var/message_range = 7
 
@@ -335,28 +331,38 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/proc/binarycheck()
 	return FALSE
 
-/mob/living/can_speak(message) //For use outside of Say()
-	if(!is_muted(message) && can_speak_vocal(message))
-		return TRUE
-
-/mob/living/proc/is_muted(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
-	if(client)
+/mob/living/try_speak(message, ignore_spam = FALSE, forced = FALSE)
+	if(client && !(ignore_spam || forced))
 		if(client.prefs && (client.prefs.muted & MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (muted)."))
 			return TRUE
-		if(!ignore_spam && !forced && client.handle_spam_prevention(message, MUTE_IC))
-			return TRUE
+		if(client.handle_spam_prevention(message, MUTE_IC))
+			return FALSE
 
-	return FALSE
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_TRY_SPEECH, message, ignore_spam, forced)
+	if(sigreturn & COMPONENT_CAN_ALWAYS_SPEAK)
+		return TRUE
 
-/mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
+
+	if(!can_speak())
+		if(mind?.miming)
+			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
+		else
+			to_chat(src, span_warning("You find yourself unable to speak!"))
+		return FALSE
+
+	return TRUE
+
+/mob/living/can_speak(allow_mimes = FALSE)
+	if(!allow_mimes && mind?.miming)
+		return FALSE
+
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
 
 	if(is_muzzled())
-		return FALSE
-
-	if(!IsVocal())
 		return FALSE
 
 	return TRUE

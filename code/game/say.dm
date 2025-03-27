@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	))
 
 /atom/movable/proc/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, range = 7, atom/source=src)
-	if(!can_speak())
+	if(!try_speak(message, ignore_spam, forced))
 		return
 	if(message == "" || !message)
 		return
@@ -32,8 +32,30 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 
-/atom/movable/proc/can_speak()
-	//SHOULD_BE_PURE(TRUE) // TODO: Make calls to this actually pure. Its a lot of work, best done in its own PR.
+/**
+ * Attempts to / checks if our movable can speak the passed message.
+ * CAN include feedback messages about why someone can or can't speak
+ *
+ * Used in [proc/say] and other methods of speech (radios) after a movable has inputted some message.
+ * If you just want to check if the movable is able to speak in character, use [proc/can_speak] instead.
+ */
+/atom/movable/proc/try_speak(message, ignore_spam = FALSE, forced = FALSE)
+	return TRUE
+
+/**
+ * Checks if our movable can currently speak, vocally, in general.
+ * Should NOT include feedback messages about why someone can or can't speak
+ * Used in various places to check if a movable is simply able to speak in general,
+ * regardless of OOC status (being muted) and regardless of what they're actually saying.
+ *
+ * Checked AFTER handling of xeno channels.
+ * (I'm not sure what this comment means, but it was here in the past, so I'll maintain it here.)
+ *
+ * allow_mimes - Determines if this check should skip over mimes. (Only matters for living mobs and up.)
+ * If FALSE, this check will always fail if the movable has a mind and is miming.
+ * if TRUE, we will check if the movable can speak REGARDLESS of if they have an active mime vow.
+ */
+/atom/movable/proc/can_speak(allow_mimes = FALSE)
 	return TRUE
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list())
@@ -201,9 +223,6 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 /atom/movable/proc/GetVoice()
 	return "[src]"	//Returns the atom's name, prepended with 'The' if it's not a proper noun
-
-/atom/movable/proc/IsVocal()
-	return 1
 
 /atom/movable/proc/get_alt_name()
 

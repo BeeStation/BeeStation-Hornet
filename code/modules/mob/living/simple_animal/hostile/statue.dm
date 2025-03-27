@@ -167,9 +167,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	. = ..()
 	return . - creator
 
-/mob/living/simple_animal/hostile/netherworld/statue/sentience_act()
-	faction -= "neutral"
-
 // Statue powers
 
 // Flicker lights
