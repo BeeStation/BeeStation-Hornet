@@ -7,7 +7,7 @@
 	instability = 25
 	power_coeff = 1
 	/// How much the user's alpha is reduced every life tick they are not moving.
-	var/effect_speed = 25
+	var/effect_speed = 12.5
 
 /datum/mutation/chameleon/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -19,8 +19,8 @@
 		return
 	owner.alpha = 255
 
-/datum/mutation/chameleon/on_life()
-	owner.alpha = max(0, owner.alpha - effect_speed)
+/datum/mutation/chameleon/on_life(delta_time, times_fired)
+	owner.alpha = max(owner.alpha - (effect_speed * delta_time), 0)
 
 /datum/mutation/chameleon/on_move()
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY

@@ -69,8 +69,9 @@
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	if (!mapload)
+		pixel_y = rand(-8, 8)
+		pixel_x = rand(-9, 9)
 
 	if(default_raw_text)
 		add_raw_text(default_raw_text)

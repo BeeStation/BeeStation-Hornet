@@ -178,8 +178,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/sound/throwsound = 'sound/weapons/throw.ogg'
 	playsound(src, throwsound, min(8*min(get_dist(loc,target),thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1)
 	log_message("has thrown [thrown_thing].", LOG_ATTACK)
-	visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
-						span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
+
+	if (!held_item)
+		visible_message(span_danger("[src] [verb_text] [thrown_thing]."), \
+							span_danger("You [verb_text] [thrown_thing]."))
+	else
+		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
+							span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
 	log_message("has thrown [thrown_thing]", LOG_ATTACK)
 
 	newtonian_move(get_dir(target, src))
@@ -453,6 +458,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!blood)
 		adjust_nutrition(-lost_nutrition)
 		adjustToxLoss(-3)
+
 	for(var/i=0 to distance)
 		if(blood)
 			if(T)
@@ -466,9 +472,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(T)
 				T.add_vomit_floor(src, toxic, purge)//toxic barf looks different
 		T = get_step(T, dir)
-		if (T.is_blocked_turf())
+		if (T?.is_blocked_turf())
 			break
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
