@@ -18,7 +18,7 @@
 	//Prechecks
 	if(!can_stick(target) || !proximity_flag)
 		return
-	if(isliving(target) || isstructure(target) || target.GetComponent(/datum/component/xenoartifact) || target.GetComponent(/datum/component/storage) || istype(target, /obj/item/sticker/trait_pearl))
+	if(isliving(target) || isstructure(target) || target.GetComponent(/datum/component/xenoartifact) || target.atom_storage || istype(target, /obj/item/sticker/trait_pearl))
 		to_chat(user, "<span class='warning'>You are unable to affix [src] to [target].</span>")
 		return
 	//Stop people adding too many traits, and check the trait limits
