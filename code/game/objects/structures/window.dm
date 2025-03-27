@@ -33,6 +33,8 @@
 	var/hitsound = 'sound/effects/glasshit.ogg'
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.4
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
 
 
 
@@ -84,6 +86,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+	if (flags_1 & ON_BORDER_1)
+		return
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/structure/window/ComponentInitialize()
 	. = ..()
@@ -376,7 +386,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
 
-/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
 	if(!density)
 		return 1
 	if(fulltile || (dir == to_dir))

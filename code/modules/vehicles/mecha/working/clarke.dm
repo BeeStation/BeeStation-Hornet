@@ -95,7 +95,7 @@
 	hostmech.box.dump_box_contents()
 
 /obj/item/mecha_parts/mecha_equipment/orebox_manager/get_equip_info()
-	return "[..()] [hostmech?.box ? "<a href='?src=[REF(src)];mode=0'>Unload Cargo</a>" : "Error"]"
+	return "[..()] [hostmech?.box ? "<a href='byond://?src=[REF(src)];mode=0'>Unload Cargo</a>" : "Error"]"
 
 #define SEARCH_COOLDOWN 1 MINUTES
 

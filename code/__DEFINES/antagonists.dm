@@ -103,11 +103,6 @@
 #define LOG_SPELL_TYPE "type"
 #define LOG_SPELL_AMOUNT "amount"
 
-
-
-/// How much does it cost to reroll strains?
-#define BLOB_REROLL_COST 40
-
 /// How many telecrystals a normal traitor starts with
 #define TELECRYSTALS_DEFAULT 20
 /// How many telecrystals mapper/admin only "precharged" uplink implant
@@ -116,9 +111,19 @@
 /// TC to charge someone if they get a free implant through choice or
 /// because they have nothing else that supports an implant.
 #define UPLINK_IMPLANT_TELECRYSTAL_COST 3
-// Traitor types
-#define TRAITOR_HUMAN "human"
-#define TRAITOR_AI	  "AI"
+
+GLOBAL_LIST_INIT(ai_employers, list(
+	"Biohazard",
+	"Despotic Ruler",
+	"Fanatical Revelation",
+	"Logic Core Error",
+	"Problem Solver",
+	"S.E.L.F.",
+	"Something's Wrong",
+	"Spam Virus",
+	"SyndOS",
+	"Unshackled",
+))
 
 /// The Classic Wizard wizard loadout.
 #define WIZARD_LOADOUT_CLASSIC "loadout_classic"
@@ -142,6 +147,8 @@
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
+///Checks if the given mob is a malfunctioning AI
+#define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4

@@ -41,14 +41,14 @@
 	AddComponent(/datum/component/udder)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/goat/Life()
+/mob/living/simple_animal/hostile/retaliate/goat/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(.)
 		//chance to go crazy and start wacking stuff
-		if(!enemies.len && prob(1))
+		if(!enemies.len && DT_PROB(0.5, delta_time))
 			Retaliate()
 
-		if(enemies.len && prob(10))
+		if(enemies.len && DT_PROB(5, delta_time))
 			clear_enemies()
 			LoseTarget()
 			src.visible_message(span_notice("[src] calms down."))
@@ -98,10 +98,11 @@
 			H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), \
 									span_userdanger("[src] takes a big chomp out of your [NB]!"))
 			NB.dismember()
+
 /mob/living/simple_animal/hostile/retaliate/goat/rabid
 	name = "Rabid Maintenance Pete"
 	faction = list(FACTION_HOSTILE)
-
+			
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -140,36 +141,50 @@
 
 /mob/living/simple_animal/cow/Initialize(mapload)
 	AddComponent(/datum/component/udder)
+	AddComponent(/datum/component/tippable, \
+		tip_time = 0.5 SECONDS, \
+		untip_time = 0.5 SECONDS, \
+		self_right_time = rand(25 SECONDS, 50 SECONDS), \
+		post_tipped_callback = CALLBACK(src, PROC_REF(after_cow_tipped)))
 	. = ..()
 
-/mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M, modifiers)
-	if(!stat && modifiers && LAZYACCESS(modifiers, RIGHT_CLICK) && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] tips over [src]."),
-			span_notice("You tip over [src]."))
-		to_chat(src, span_userdanger("You are tipped over by [M]!"))
-		Paralyze(60, ignore_canstun = TRUE)
-		icon_state = icon_dead
-		addtimer(CALLBACK(src, PROC_REF(tip_back), M), rand(20,50))
-	else
-		..()
+/*
+ * Proc called via callback after the cow is tipped by the tippable component.
+ * Begins a timer for us pleading for help.
+ *
+ * tipper - the mob who tipped us
+ */
+/mob/living/simple_animal/cow/proc/after_cow_tipped(mob/living/carbon/tipper)
+	addtimer(CALLBACK(src, PROC_REF(look_for_help), tipper), rand(10 SECONDS, 20 SECONDS))
 
-/mob/living/simple_animal/cow/proc/tip_back(mob/living/carbon/M)
-	if(stat && M)
-		return
-	icon_state = icon_living
-	var/external
-	var/internal
-	switch(pick(1,2,3,4))
-		if(1,2,3)
-			var/text = pick("imploringly.", "pleadingly.",
-				"with a resigned expression.")
-			external = "[src] looks at [M] [text]"
-			internal = "You look at [M] [text]"
-		if(4)
-			external = "[src] seems resigned to its fate."
-			internal = "You resign yourself to your fate."
-	visible_message(span_notice("[external]"),
-		span_revennotice("[internal]"))
+/*
+ * Find a mob in a short radius around us (prioritizing the person who originally tipped us)
+ * and either look at them for help, or give up. No actual mechanical difference between the two.
+ *
+ * tipper - the mob who originally tipped us
+ */
+/mob/living/simple_animal/cow/proc/look_for_help(mob/living/carbon/tipper)
+	// visible part of the visible message
+	var/seen_message = ""
+	// self part of the visible message
+	var/self_message = ""
+	// the mob we're looking to for aid
+	var/mob/living/carbon/savior
+	// look for someone in a radius around us for help. If our original tipper is in range, prioritize them
+	for(var/mob/living/carbon/potential_aid in oview(3, get_turf(src)))
+		if(potential_aid == tipper)
+			savior = tipper
+			break
+		savior = potential_aid
+
+	if(prob(75) && savior)
+		var/text = pick("imploringly", "pleadingly", "with a resigned expression")
+		seen_message = "[src] looks at [savior] [text]."
+		self_message = "You look at [savior] [text]."
+	else
+		seen_message = "[src] seems resigned to its fate."
+		self_message = "You resign yourself to your fate."
+	visible_message(span_notice("[seen_message]"), span_notice("[self_message]"))
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"
@@ -217,12 +232,12 @@
 	pixel_y = base_pixel_y + rand(0, 10)
 	GLOB.total_chickens++
 
-/mob/living/simple_animal/chick/Life()
+/mob/living/simple_animal/chick/Life(delta_time = SSMOBS_DT, times_fired)
 	. =..()
 	if(!.)
 		return
 	if(!stat && !ckey)
-		amount_grown += rand(1,2)
+		amount_grown += rand(0.5 * delta_time, 1 * delta_time)
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
 			qdel(src)
@@ -322,11 +337,11 @@
 	else
 		..()
 
-/mob/living/simple_animal/chicken/Life()
+/mob/living/simple_animal/chicken/Life(delta_time = SSMOBS_DT, times_fired)
 	. =..()
 	if(!.)
 		return
-	if((!stat && prob(3) && eggsleft > 0) && egg_type && GLOB.total_chickens < CONFIG_GET(number/max_chickens))
+	if((!stat && DT_PROB(1.5, delta_time) && eggsleft > 0) && egg_type && GLOB.total_chickens < CONFIG_GET(number/max_chickens))
 		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
