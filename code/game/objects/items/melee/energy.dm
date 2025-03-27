@@ -121,6 +121,7 @@
 		heat = initial(heat)
 		STOP_PROCESSING(SSobj, src)
 
+	tool_behaviour = (active ? TOOL_SAW : NONE)
 	balloon_alert(user, "[name] [active ? "enabled":"disabled"]")
 	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, TRUE)
 	set_light_on(active)
