@@ -105,7 +105,7 @@
 	SIGNAL_HANDLER
 	return
 
-/datum/mutation/proc/on_life()
+/datum/mutation/proc/on_life(delta_time, times_fired)
 	return
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)

@@ -18,7 +18,7 @@
 	description = "You should never see this. Contact an administrator or coder"
 	chem_flags = CHEMICAL_NOT_DEFINED
 
-/datum/reagent/metabolite/on_mob_life(mob/living/carbon/M)
+/datum/reagent/metabolite/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(volume > MAX_METABOLITES)
 		volume = MAX_METABOLITES
 	. = ..()
