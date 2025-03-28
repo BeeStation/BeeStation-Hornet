@@ -1298,6 +1298,10 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/dark,
+/obj/item/trash/can{
+	pixel_y = 17;
+	pixel_x = -5
+	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
 "anN" = (
@@ -2195,10 +2199,12 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+/obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
+/obj/structure/cable/yellow{
+	icon_state = "4-10"
+	},
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -12985,7 +12991,8 @@
 /obj/structure/lattice,
 /obj/item/storage/toolbox/artistic{
 	pixel_y = 6;
-	pixel_x = -5
+	pixel_x = -5;
+	name = "time toolbox"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -15073,7 +15080,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "deh" = (
-/obj/item/trash/semki,
+/obj/item/trash/semki{
+	pixel_y = -5;
+	pixel_x = 6
+	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 9
 	},
@@ -15892,7 +15902,6 @@
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
 	},
-/obj/machinery/light_switch/directional/east,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -20987,6 +20996,9 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-5"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/server)
@@ -26677,7 +26689,10 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "fJh" = (
-/obj/item/trash/chips,
+/obj/item/trash/chips{
+	pixel_x = -8;
+	pixel_y = -7
+	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
@@ -27003,7 +27018,8 @@
 /obj/structure/lattice,
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = -5;
-	pixel_x = 3
+	pixel_x = 3;
+	name = "space toolbox"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -27603,6 +27619,13 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
+	pixel_y = 20
+	},
+/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty{
+	pixel_y = 17;
+	pixel_x = 8
 	},
 /turf/open/floor/iron/smooth,
 /area/maintenance/department/engine/atmos)
@@ -35489,6 +35512,7 @@
 	icon_state = "0-5"
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark/smooth_large,
 /area/tcommsat/computer)
 "hyc" = (
@@ -44060,7 +44084,7 @@
 	},
 /obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -6;
-	pixel_y = 3
+	pixel_y = 2
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
@@ -55559,6 +55583,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 10
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -63458,6 +63483,14 @@
 /obj/structure/closet/wardrobe/pjs,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
+"nss" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/tcommsat/server)
 "nsu" = (
 /obj/structure/flora/junglebush/large,
 /obj/machinery/camera/directional/south,
@@ -71074,6 +71107,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "snake";
+	pixel_y = 32;
+	pixel_x = -10;
+	paint_colour = "#45b53a"
+	},
 /turf/open/floor/iron/smooth,
 /area/maintenance/department/engine/atmos)
 "oWK" = (
@@ -76361,7 +76400,8 @@
 	pixel_x = 13
 	},
 /obj/item/storage/toolbox/emergency{
-	pixel_x = -1
+	pixel_x = -1;
+	name = "reality toolbox"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -81622,7 +81662,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark{
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
@@ -81636,6 +81676,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 5
 	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -81893,7 +81934,8 @@
 /obj/structure/lattice,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = -4;
-	pixel_y = -1
+	pixel_y = -1;
+	name = "mind toolbox"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -85059,16 +85101,25 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Telecomms Server Room";
-	req_one_access_txt = "19; 61";
-	normalspeed = 0
-	},
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 8
+	},
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "Telecomms Server Room";
+	req_one_access_txt = "19; 61"
+	},
+/obj/machinery/door/window/brigdoor/eastright{
+	name = "Telecomms Server Room";
+	req_one_access_txt = "19; 61"
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -90226,12 +90277,12 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "tdo" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
-/obj/item/radio/intercom/directional/west,
-/turf/open/floor/iron/dark/smooth_large,
-/area/tcommsat/computer)
+/turf/open/floor/plating,
+/area/tcommsat/server)
 "tdA" = (
 /obj/effect/turf_decal/trimline/blue/filled/corner{
 	dir = 4
@@ -97466,6 +97517,12 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "disk";
+	pixel_x = 27;
+	pixel_y = 11;
+	paint_colour = "#2565bf"
 	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/bridge)
@@ -104965,6 +105022,9 @@
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/dark,
+/obj/item/trash/semki{
+	pixel_x = -4
+	},
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
 "wcL" = (
@@ -110755,7 +110815,9 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/item/food/chips,
+/obj/item/food/chips{
+	pixel_x = 5
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -135879,7 +135941,7 @@ qxv
 qxv
 qxv
 qxv
-nvg
+loV
 eQV
 hfh
 euU
@@ -143940,9 +144002,9 @@ xdT
 hhb
 hhb
 hhb
-hhb
+tdo
 rXA
-hhb
+nss
 hhb
 hhb
 nzj
@@ -144199,7 +144261,7 @@ qnk
 lTi
 sNW
 rYV
-tdo
+cyF
 hyb
 xMH
 nzj
