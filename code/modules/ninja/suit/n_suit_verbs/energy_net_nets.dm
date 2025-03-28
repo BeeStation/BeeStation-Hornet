@@ -80,7 +80,7 @@ It is possible to destroy the net by the occupant or someone else.
 		to_chat(master, span_notice("<b>SUCCESS</b>: transport procedure of [affecting] complete."))
 		// Give them a point towards their objective
 		for (var/datum/antagonist/antag in master.mind?.antag_datums)
-			for (var/datum/objective/capture/capture in antag.objectives)
+			for (var/datum/objective/capture/capture in antag.get_objectives())
 				capture.register_capture(affecting)
 	do_sparks(5, FALSE, affecting)
 	playsound(affecting, 'sound/effects/phasein.ogg', 25, 1)

@@ -174,7 +174,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 			A.blend_mode = 0
 	var/datum/antagonist/blob/B = mind.has_antag_datum(/datum/antagonist/blob)
 	if(B)
-		var/datum/objective/blob_takeover/main_objective = locate() in B.objectives
+		var/datum/objective/blob_takeover/main_objective = locate() in B.get_objectives()
 		if(main_objective)
 			main_objective.completed = TRUE
 	to_chat(world, "<B>[real_name] consumed the station in an unstoppable tide!</B>")

@@ -1356,8 +1356,6 @@
 			if(changeling.changeling_speak)
 				return LINGHIVE_LING
 			return LINGHIVE_OUTSIDER
-	if(mind?.linglink)
-		return LINGHIVE_LINK
 	return LINGHIVE_NONE
 
 /mob/living/forceMove(atom/destination)

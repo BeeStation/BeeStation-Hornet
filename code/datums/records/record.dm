@@ -588,42 +588,37 @@
  * Cloning record
  */
 /datum/record/cloning
-
 	var/id
 	var/datum/weakref/weakref_dna
 	var/uni_identity
 	var/SE
 	var/datum/weakref/weakref_mind
-	var/last_death
 	var/factions
 	var/traumas
-	var/body_only
 	var/implant
 	var/UE
 	var/bank_account
 
 
 /datum/record/cloning/New(
-	id,
-	age = "??",
-	blood_type = "?",
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	species = "Unknown",
-	weakref_dna,
-	uni_identity,
-	SE,
-	weakref_mind,
-	last_death,
-	factions,
-	traumas,
-	body_only,
-	implant,
-	UE,
-	bank_account
+		id,
+		age = "??",
+		blood_type = "?",
+		dna_string = "Unknown",
+		fingerprint = "?????",
+		gender = "Other",
+		initial_rank = "Unassigned",
+		name = "Unknown",
+		species = "Unknown",
+		weakref_dna,
+		uni_identity,
+		SE,
+		weakref_mind,
+		factions,
+		traumas,
+		implant,
+		UE,
+		bank_account
 	)
 	src.id = id
 	src.age = age
@@ -638,10 +633,8 @@
 	src.uni_identity = uni_identity
 	src.SE = SE
 	src.weakref_mind = weakref_mind
-	src.last_death = last_death
 	src.factions = factions
 	src.traumas = traumas
-	src.body_only = body_only
 	src.implant = implant
 	src.UE = UE
 	src.bank_account = bank_account
@@ -661,10 +654,8 @@
 	uni_identity = target.uni_identity
 	SE = target.SE
 	weakref_mind = target.weakref_mind
-	last_death = target.last_death
 	factions = target.factions
 	traumas = target.traumas
-	body_only = target.body_only
 	implant = target.implant
 	UE = target.UE
 	return

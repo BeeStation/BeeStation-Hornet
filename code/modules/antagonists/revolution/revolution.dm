@@ -280,7 +280,7 @@
 		objectives += new /datum/objective/revolution()
 	for(var/datum/mind/M in members)
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
-		R.objectives |= objectives
+		R.add_objective(objectives)
 		for(var/datum/objective/O in objectives)
 			log_objective(M, O.explanation_text)
 

@@ -68,7 +68,7 @@
 		user.mind.memory += "<BR><b>We've absorbed [target]'s memories into our own...</b><BR>[suckedbrain.memory]<BR>"
 		for(var/A in suckedbrain.antag_datums)
 			var/datum/antagonist/antag_types = A
-			var/list/all_objectives = antag_types.objectives.Copy()
+			var/list/all_objectives = antag_types.get_objectives().Copy()
 			if(antag_types.antag_memory)
 				user.mind.memory += "[antag_types.antag_memory]<BR>"
 			if(LAZYLEN(all_objectives))

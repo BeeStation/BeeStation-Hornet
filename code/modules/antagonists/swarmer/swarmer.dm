@@ -790,7 +790,7 @@
 	for(var/datum/mind/M in members)
 		var/datum/antagonist/swarmer/S = M.has_antag_datum(/datum/antagonist/swarmer)
 		if(S)
-			S.objectives |= objectives
+			S.add_objective(objectives)
 
 /datum/antagonist/swarmer/on_gain()
 	if(swarm)

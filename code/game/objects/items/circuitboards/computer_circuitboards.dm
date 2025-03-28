@@ -354,11 +354,6 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/pandemic
 
-/obj/item/circuitboard/computer/cloning/prototype
-	name = "prototype cloning console (Computer Board)"
-	icon_state = "medical"
-	build_path = /obj/machinery/computer/cloning/prototype
-
 /obj/item/circuitboard/computer/scan_consolenew
 	name = "DNA machine (Computer Board)"
 	icon_state = "medical"
