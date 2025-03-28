@@ -3,6 +3,7 @@
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/retract_skin, /datum/surgery_step/saw, /datum/surgery_step/clamp_bleeders,
 				/datum/surgery_step/lobectomy, /datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
+	required_trait = TRAIT_SURGEON
 
 /datum/surgery/lobectomy/can_start(mob/user, mob/living/carbon/target, target_zone)
 	var/obj/item/organ/lungs/L = target.getorganslot(ORGAN_SLOT_LUNGS)

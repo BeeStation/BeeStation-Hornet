@@ -34,6 +34,7 @@ export const JOB2ICON = {
   Janitor: 'soap',
   Lawyer: 'gavel',
   'Medical Doctor': 'staff-snake',
+  'Surgeon': 'user-nurse',
   Mime: 'comment-slash',
   Paramedic: 'truck-medical',
   'Personal AI': 'mobile-alt',

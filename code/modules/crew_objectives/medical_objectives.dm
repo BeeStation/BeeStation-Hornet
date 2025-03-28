@@ -6,6 +6,7 @@
 		JOB_NAME_CHIEFMEDICALOFFICER,
 		JOB_NAME_GENETICIST,
 		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_SURGEON,
 	)
 	var/static/list/medical_areas = typecacheof(list(
 		/area/medical/cryo,
@@ -85,18 +86,3 @@
 		for(var/obj/item/reagent_containers/container in fridge.contents)
 			units_total += container.reagents?.get_reagent_amount(target_chemical)
 	return units_total >= target_amount
-
-/datum/objective/crew/noinfections
-	explanation_text = "Make sure there are no living crew members with harmful diseases at the end of the shift."
-	jobs = JOB_NAME_VIROLOGIST
-
-/datum/objective/crew/noinfections/check_completion()
-	if(..())
-		return TRUE
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.stat == DEAD || (!is_station_level(H.z) && !SSshuttle.emergency.shuttle_areas[get_area(H)]))
-			continue
-		for(var/datum/disease/D as anything in H.diseases)
-			if(get_disease_danger_value(D.danger) >= 6) // >= DISEASE_HARMFUL
-				return FALSE
-	return TRUE

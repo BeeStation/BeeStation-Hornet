@@ -195,14 +195,14 @@
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
+			if (JOB_NAME_SURGEON)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/scalpel, /obj/item/circular_saw, /obj/item/cautery, /obj/item/retractor)
 			if(JOB_NAME_MEDICALDOCTOR)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
 			if(JOB_NAME_PARAMEDIC)
 				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/cup/chem_heirloom
-			if(JOB_NAME_VIROLOGIST)
-				heirloom_type = /obj/item/reagent_containers/dropper
 			if(JOB_NAME_GENETICIST)
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering

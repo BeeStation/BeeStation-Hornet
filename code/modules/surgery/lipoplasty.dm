@@ -2,6 +2,7 @@
 	name = "lipoplasty"
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/cut_fat, /datum/surgery_step/remove_fat, /datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
+	required_trait = TRAIT_SURGEON
 
 /datum/surgery/lipoplasty/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(HAS_TRAIT(target, TRAIT_FAT))

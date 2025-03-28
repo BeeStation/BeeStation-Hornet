@@ -2346,7 +2346,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/cup/bottle/fluspanish
 	cost = 12
-	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_SURGEON)
 
 /datum/uplink_item/role_restricted/retrovirus
 	name = "Retrovirus Culture Bottle"
@@ -2354,7 +2354,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/cup/bottle/retrovirus
 	cost = 12
-	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
+	restricted_roles = list(JOB_NAME_SURGEON, JOB_NAME_GENETICIST)
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"
@@ -2362,7 +2362,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/cup/bottle/anxiety
 	cost = 4
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_NAME_SURGEON)
 
 /datum/uplink_item/role_restricted/explosive_hot_potato
 	name = "Exploding Hot Potato"
@@ -2433,7 +2433,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A deadly energy saw. Comes in a slick black finish."
 	cost = 5
 	item = /obj/item/melee/transforming/energy/sword/esaw
-	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic", "Brig Physician")
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic", "Brig Physician", "Surgeon")
 
 /datum/uplink_item/role_restricted/esaw_arm
 	name = "Energy Saw Arm Implant"
