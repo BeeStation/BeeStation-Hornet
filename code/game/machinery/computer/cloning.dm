@@ -465,11 +465,17 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui)
 	updatemodules(TRUE)
+	if (!HAS_TRAIT(user.mind, TRAIT_GENETICIST))
+		to_chat(user, span_warning("You have no idea how to use this machine!"))
+		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningConsole", "Cloning System Control")
 		ui.open()
 		ui.set_autoupdate(TRUE)
+
+/obj/machinery/computer/cloning/ui_state(mob/user)
+	return GLOB.geneticist_state
 
 /obj/machinery/computer/cloning/proc/finish_scan(mob/living/carbon_mob, mob/user, prev_locked)
 	if(!scanner || !carbon_mob)
