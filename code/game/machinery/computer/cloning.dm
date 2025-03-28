@@ -26,8 +26,6 @@
 	var/loading = FALSE // Nice loading text
 	var/autoprocess = FALSE
 
-	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.
-
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/cloning/Initialize(mapload)
@@ -63,8 +61,8 @@
 			else if(!. && pod.is_operational && !(pod.occupant || pod.mess) && pod.efficiency > 5)
 				. = pod
 
-/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/cloning_record, experimental)
-	return pod.growclone(cloning_record.name, cloning_record.uni_identity, cloning_record.SE, cloning_record.resolve_mind(), cloning_record.last_death, cloning_record.species, cloning_record.resolve_dna_features(), cloning_record.factions, cloning_record.resolve_mind_account_id(), cloning_record.traumas, cloning_record.body_only, experimental)
+/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/cloning_record)
+	return pod.growclone(cloning_record.name, cloning_record.uni_identity, cloning_record.SE, cloning_record.resolve_mind(), cloning_record.species, cloning_record.resolve_dna_features(), cloning_record.factions, cloning_record.resolve_mind_account_id(), cloning_record.traumas)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -83,7 +81,7 @@
 		if(pod.occupant)
 			break
 
-		var/result = grow_clone_from_record(pod, cloning_record, experimental)
+		var/result = grow_clone_from_record(pod, cloning_record)
 		if(result & CLONING_SUCCESS)
 			temp = "[cloning_record.name] => Cloning cycle in progress..."
 			log_cloning("Cloning of [key_name(cloning_record.resolve_mind())] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
@@ -286,13 +284,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			var/cloning_attempt_result = pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.last_death, clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas, clone_record.body_only, experimental)
+			var/cloning_attempt_result = pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas)
 			switch(cloning_attempt_result)
 				if(CLONING_SUCCESS)
 					temp = "Notice: [clone_record.name] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-					if(!clone_record.body_only)
-						records.Remove(clone_record)
 					return TRUE
 				if(CLONING_SUCCESS_EXPERIMENTAL)
 					temp = "Notice: [clone_record.name] => Experimental cloning cycle in progress..."
@@ -353,7 +349,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	playsound(src, scanner.locked ? 'sound/machines/terminal_prompt_deny.ogg' : 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	. = TRUE
 
-/obj/machinery/computer/cloning/proc/Scan(mob/user, body_only = FALSE)
+/obj/machinery/computer/cloning/proc/Scan(mob/user)
 	if(!scanner.is_operational || !scanner.occupant)
 		return
 	scantemp = "[scantemp_name] => Scanning..."
@@ -362,7 +358,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	say("Initiating scan...")
 	var/prev_locked = scanner.locked
 	scanner.locked = TRUE
-	addtimer(CALLBACK(src, PROC_REF(finish_scan), scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_scan), scanner.occupant, user, prev_locked), 2 SECONDS)
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Toggle_autoprocess(mob/user)
@@ -397,8 +393,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 				record_entry["UI"] = "[cloning_record.uni_identity]"
 				record_entry["UE"] = "[cloning_record.dna_string]"
 				record_entry["blood_type"] = "[cloning_record.blood_type]"
-				record_entry["last_death"] = cloning_record.last_death
-				record_entry["body_only"] = cloning_record.body_only
 				records_to_send += list(record_entry)
 			data["records"] = records_to_send
 		else
@@ -410,8 +404,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			disk_data["UI"] = "[diskette.data.uni_identity]"
 			disk_data["UE"] = "[diskette.data.dna_string]"
 			disk_data["blood_type"] = "[diskette.data.blood_type]"
-			disk_data["last_death"] = diskette.data.last_death
-			disk_data["body_only"] = diskette.data.body_only
 			data["diskData"] = disk_data
 		else
 			data["diskData"] = list()
@@ -439,7 +431,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	data["scannerLocked"] = scanner?.locked
 	data["hasOccupant"] = scanner?.occupant
 	data["recordsLength"] = "View Records ([length(records)])"
-	data["experimental"] = experimental
 	data["diskette"] = diskette
 	return data
 
@@ -454,9 +445,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			. = Toggle_autoprocess(usr)
 		if("scan")
 			Scan(usr, FALSE)
-			. = TRUE
-		if("scan_body_only")
-			Scan(usr, TRUE)
 			. = TRUE
 		if("toggle_lock")
 			. = Toggle_lock(usr)
@@ -483,12 +471,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/cloning/proc/finish_scan(mob/living/carbon_mob, mob/user, prev_locked, body_only)
+/obj/machinery/computer/cloning/proc/finish_scan(mob/living/carbon_mob, mob/user, prev_locked)
 	if(!scanner || !carbon_mob)
 		return
 	add_fingerprint(user)
 	if(use_records)
-		scan_occupant(carbon_mob, user, body_only)
+		scan_occupant(carbon_mob, user)
 	else
 		clone_occupant(carbon_mob, user)
 
@@ -527,12 +515,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
+		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, clone_species, dna.blood_type, mob_occupant.faction)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
 
-/obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, datum/bank_account/account, body_only)
+/obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, datum/bank_account/account)
 	if(!istype(dna))
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -540,6 +528,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(NO_DNA_COPY in dna.species.species_traits)
 		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		return FALSE
+	if (mob_occupant.stat == DEAD)
+		scantemp = "Subject is dead, cannot proceed with mind-sync."
+		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
 		scantemp = "Subject's body is too damaged to scan properly."
@@ -549,23 +541,22 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = "Subject's DNA is damaged beyond any hope of recovery."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
-	if(!experimental)
-		if(!body_only && (mob_occupant.suiciding || mob_occupant.ishellbound()))
-			scantemp = "Subject's brain is not responding to scanning stimuli."
+	if(mob_occupant.suiciding || mob_occupant.ishellbound())
+		scantemp = "Subject's brain is not responding to scanning stimuli."
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		return FALSE
+	if(isnull(mob_occupant.mind))
+		scantemp = "Mental interface failure."
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		return FALSE
+	if(SSeconomy.full_ancap)
+		if(!account)
+			scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
-		if(!body_only && isnull(mob_occupant.mind))
-			scantemp = "Mental interface failure."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return FALSE
-		if(!body_only && SSeconomy.full_ancap)
-			if(!account)
-				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				return FALSE
 	return TRUE
 
-/obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/user, body_only)
+/obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/user)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	var/datum/bank_account/has_bank_account
@@ -582,10 +573,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(isbrain(mob_occupant))
 		dna = human_brain.stored_dna
 
-	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
+	if(!can_scan(dna, mob_occupant, has_bank_account))
 		return
 
-	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type, dna.unique_enzymes, md5(dna.uni_identity), mob_occupant.gender, mob_occupant.mind.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.uni_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+	var/datum/mind/mind = mob_occupant.mind.get_prime_for_cloning_scan()
+
+	if (mind != mob_occupant.mind)
+		to_chat(mob_occupant, span_deathmessage("[span_warning("You feel the scanner integrating with your brain, a flash of memories other than your own awaken in your mind!")]<br>Another player is currently in control of a duplicate of your body! Kill them and get re-scanned to become the prime instance and regain control of your soul.<br>You will not be revived if a clone is made while you are dead until you become the prime instance again."))
+
+	// Make the mind that is the prime become the real prime now that it has been
+	// scanned.
+	mind.become_prime()
+
+	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type, dna.unique_enzymes, md5(dna.uni_identity), mob_occupant.gender, mob_occupant.mind.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.uni_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), mob_occupant.faction, list(), null, dna.unique_enzymes, has_bank_account)
 
 	if(dna.species)
 		// We store the instance rather than the path, because some
@@ -598,12 +598,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
 
 	cloning_record.name = mob_occupant.real_name
-	if(experimental) //even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
-		cloning_record.id =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β+" //beta plus
-	else if(body_only)
-		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β" //beta
-	else
-		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
+	cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
 		cloning_record.traumas = human_brain.get_traumas()
@@ -612,24 +607,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
 	cloning_record.bank_account = has_bank_account
-	if(!experimental)
-		cloning_record.weakref_mind = WEAKREF(mob_occupant.mind)
-		cloning_record.last_death = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
-		cloning_record.body_only = body_only
-	else
-		cloning_record.last_death = FALSE
-		cloning_record.body_only = FALSE
-
-	if(!body_only || experimental && mob_occupant.stat != DEAD)
-		//Add an implant if needed
-		var/obj/item/implant/health/implant
-		for(var/obj/item/implant/health/health_implant in mob_occupant.implants)
-			implant = health_implant
-			break
-		if(!implant)
-			implant = new /obj/item/implant/health(mob_occupant)
-			implant.implant(mob_occupant)
-		cloning_record.implant = "[REF(implant)]"
+	cloning_record.weakref_mind = WEAKREF(mob_occupant.mind)
 
 	var/found_old_record = null
 	for(var/datum/record/cloning/old_record as anything in records)
@@ -645,21 +623,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	records += cloning_record
 
-	if(!experimental)
-		log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
-	else
-		log_cloning("[user ? key_name(user) : "Autoprocess"] added the experimental record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+	log_cloning("[user ? key_name(user) : "Autoprocess"] added the record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
 	ui_update()
-
-//Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
-/obj/machinery/computer/cloning/prototype
-	name = "prototype cloning console"
-	desc = "Used to operate an experimental cloner."
-	icon_screen = "dna"
-	icon_keyboard = "med_key"
-	circuit = /obj/item/circuitboard/computer/cloning/prototype
-	clonepod_type = /obj/machinery/clonepod/experimental
-	experimental = TRUE
 
 #undef AUTOCLONING_MINIMAL_LEVEL

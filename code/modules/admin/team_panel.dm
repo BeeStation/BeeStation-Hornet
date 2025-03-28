@@ -94,7 +94,7 @@
 					custom_antag_name = "Team Member"
 			team_antag.name = custom_antag_name
 			M.add_antag_datum(team_antag,src)
-		team_antag.objectives |= O
+		team_antag.add_objective(O)
 		log_objective(M, O.explanation_text, usr)
 
 	message_admins("[key_name_admin(usr)] added objective \"[O.explanation_text]\" to [name]")
@@ -124,11 +124,11 @@
 	for(var/datum/mind/M in members)
 		objective_pos = 0
 		for(var/datum/antagonist/A in M.antag_datums)
-			objective_pos = A.objectives.Find(old_objective)
+			objective_pos = A.get_objectives().Find(old_objective)
 			if(objective_pos) //Just in case an admin messed with their individual objectives
 				//And yes, we'll assume it was intentional. They can always remove and re-add the objective.
-				A.objectives -= old_objective
-				A.objectives.Insert(objective_pos, new_objective)
+				A.remove_objective(old_objective)
+				A.insert_objective(objective_pos, new_objective)
 				break
 		if(!objective_pos)
 			to_chat(user, span_warning("It seems like [M.current] does not have this objective despite being part of the team. If this is not intentional, consider removing and re-adding the objective."))
@@ -139,7 +139,7 @@
 /datum/team/proc/admin_remove_objective(mob/user,datum/objective/O)
 	for(var/datum/mind/M in members)
 		for(var/datum/antagonist/A in M.antag_datums)
-			A.objectives -= O
+			A.remove_objective(O)
 	objectives -= O
 
 	message_admins("[key_name_admin(usr)] removed objective \"[O.explanation_text]\" from [name]")

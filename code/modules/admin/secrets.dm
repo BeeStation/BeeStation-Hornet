@@ -437,16 +437,11 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/datum/antagonist/T = new selected_antag()
 				T.give_objectives = FALSE
 				var/datum/antagonist/A = H.mind.add_antag_datum(T)
-				A.objectives = list()
+				A.clear_objectives()
 				new_objective.owner = H
-				A.objectives += new_objective
+				A.add_objective(new_objective)
 				log_objective(A, new_objective.explanation_text, usr)
-				var/obj_count = 1
-				to_chat(T.owner, span_alertsyndie("Your contractors have updated your objectives."))
-				for(var/objective in A.objectives)
-					var/datum/objective/O = objective
-					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
-					obj_count++
+				A.print_objectives()
 			message_admins(span_adminnotice("[key_name_admin(usr)] used mass antag secret. Objective is: [objective_explanation]"))
 			log_admin("[key_name(usr)] used mass antag secret. Objective is: [objective_explanation]")
 

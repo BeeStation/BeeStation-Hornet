@@ -120,7 +120,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 			for(var/objective in objectives)
 				var/datum/objective/O = new/datum/objective(objective)
 				O.owner = MM
-				A.objectives += O
+				A.add_objective(O)
 				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole

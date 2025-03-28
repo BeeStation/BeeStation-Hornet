@@ -12,7 +12,7 @@
 			var/datum/objective/brainwashing/objective = new(directive)
 			if(source)
 				objective.source = source
-			brainwash.objectives += objective
+			brainwash.add_objective(objective)
 			. += WEAKREF(objective)
 			log_objective(victim_mind, objective.explanation_text)
 		brainwash.greet()
@@ -22,7 +22,7 @@
 			var/datum/objective/brainwashing/objective = new(directive)
 			if(source)
 				objective.source = source
-			brainwash.objectives += objective
+			brainwash.add_objective(objective)
 			. += WEAKREF(objective)
 			log_objective(victim_mind, objective.explanation_text)
 		victim_mind.add_antag_datum(brainwash)
@@ -53,18 +53,18 @@
 				directive = D
 			if(!directive || !istype(directive))
 				continue
-			brainwash.objectives -= directive
+			brainwash.remove_objective(directive)
 			removed_objectives += directive
 		log_admin("[key_name(victim)] had the following brainwashing objective[length(removed_objectives) > 1 ? "s" : ""] removed: [english_list(removed_objectives)].")
-		if(LAZYLEN(brainwash.objectives))
+		if(LAZYLEN(brainwash.get_objectives()))
 			to_chat(victim, "<big>[span_warning("<b>[length(removed_objectives) > 1 ? "Some" : "One"] of your Directives fade away! You only have to obey the remaining Directives now.</b>")]</big>")
 			victim.mind.announce_objectives()
 		else
 			victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 		QDEL_LIST(removed_objectives)
 	else
-		log_admin("[key_name(victim)] had all of their brainwashing objectives removed: [english_list(brainwash.objectives)].")
-		QDEL_LIST(brainwash.objectives)
+		log_admin("[key_name(victim)] had all of their brainwashing objectives removed: [english_list(brainwash.get_objectives())].")
+		brainwash.clear_objectives()
 		victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 
 /datum/antagonist/brainwashed

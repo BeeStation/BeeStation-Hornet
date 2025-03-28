@@ -17,7 +17,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/required_living_playtime = 1
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
-	var/list/objectives = list()
+	VAR_PRIVATE/list/objectives = list()
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
@@ -32,6 +32,10 @@ GLOBAL_LIST(admin_antag_list)
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
 	var/show_to_ghosts = FALSE // Should this antagonist be shown as antag to ghosts? Shouldn't be used for stealthy antagonists like traitors
+	/// List of antag datums that are copies of us
+	/// Some shared things like objectives should copy into here
+	var/list/copy_instances = list()
+	var/datum/antagonist/parent_instance = null
 
 	/// Weakref to button to access antag interface
 	var/datum/weakref/info_button_ref
@@ -58,6 +62,11 @@ GLOBAL_LIST(admin_antag_list)
 	GLOB.antagonists -= src
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
+	if (parent_instance)
+		parent_instance.copy_instances -= src
+		parent_instance = null
+	for (var/datum/antagonist/copy in copy_instances)
+		copy.parent_instance = null
 	owner = null
 	return ..()
 
@@ -253,7 +262,7 @@ GLOBAL_LIST(admin_antag_list)
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.
-/datum/antagonist/proc/get_objectives()
+/datum/antagonist/proc/get_objectives_string()
 	var/objective_count = 1
 	var/list/objective_data = list()
 	//all obj
@@ -270,7 +279,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/ui_static_data(mob/user)
 	var/list/data = list()
 	data["antag_name"] = name
-	data["objectives"] = get_objectives()
+	data["objectives"] = get_objectives_string()
 	return data
 
 /datum/antagonist/ui_assets(mob/user)
@@ -395,6 +404,77 @@ GLOBAL_LIST(admin_antag_list)
 				to_chat(C, span_boldnotice("[message]"))
 		else
 			C.dna.add_mutation(/datum/mutation/clumsy) // We're removing their antag status, add back clumsy
+
+/datum/antagonist/proc/print_objectives()
+	var/obj_count = 1
+	to_chat(owner.current, span_alertsyndie("Your objectives have been updated."))
+	for(var/datum/objective/objective in objectives)
+		to_chat(owner.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		obj_count++
+	for (var/datum/antagonist/copy in copy_instances)
+		copy.print_objectives()
+
+/datum/antagonist/proc/get_objectives()
+	RETURN_TYPE(/list)
+	return objectives
+
+/datum/antagonist/proc/clear_objectives()
+	objectives.Cut()
+	for (var/datum/antagonist/copy in copy_instances)
+		copy.clear_objectives()
+
+/datum/antagonist/proc/add_objective(datum/objective/objective)
+	objectives += objective
+	for (var/datum/antagonist/copy in copy_instances)
+		copy.add_objective(objective)
+	log_objective(owner, objective.explanation_text)
+
+/datum/antagonist/proc/insert_objective(index, datum/objective/objective)
+	objectives.Insert(index, objective)
+	for (var/datum/antagonist/copy in copy_instances)
+		copy.insert_objective(index, objective)
+	log_objective(owner, objective.explanation_text)
+
+/datum/antagonist/proc/remove_objective(datum/objective/objective)
+	objectives -= objective
+	for (var/datum/antagonist/copy in copy_instances)
+		copy.remove_objective(objective)
+
+/// Create a copy of the antagonist
+/// Doesn't actually apply any innate effects by default, if you want those
+/// you need to overwrite this proc and create a custom copy type, as creating
+/// the same type would result in antagonists such as nuclear operatives equipping
+/// and teleporting the copy to the spawn location, which is undesirable for a
+/// generic behaviour.
+/datum/antagonist/proc/create_copy()
+	RETURN_TYPE(/datum/antagonist)
+	var/datum/antagonist/copy = new /datum/antagonist()
+	copy.tips = tips
+	copy.name = "[name] (Duplicate)"
+	copy.roundend_category = "Duplicates"
+	copy.show_in_roundend = TRUE
+	copy.prevent_roundtype_conversion = FALSE
+	copy.silent = silent
+	copy.can_coexist_with_others = can_coexist_with_others
+	copy.typecache_datum_blacklist = typecache_datum_blacklist
+	copy.banning_key = banning_key
+	copy.required_living_playtime = required_living_playtime
+	copy.give_objectives = FALSE
+	copy.replace_banned = replace_banned
+	copy.delay_roundend = delay_roundend
+	copy.antag_memory = antag_memory
+	copy.antag_moodlet = antag_moodlet
+	copy.ui_name = ui_name
+	copy.can_elimination_hijack = can_elimination_hijack
+	copy.hijack_speed = hijack_speed
+	copy.count_against_dynamic_roll_chance = FALSE
+	copy.show_in_antagpanel = show_in_antagpanel
+	copy.antagpanel_category = "Duplicates"
+	copy.show_name_in_check_antagonists = show_name_in_check_antagonists
+	copy.show_to_ghosts = show_to_ghosts
+	copy.parent_instance = null
+	copy.objectives = objectives.Copy()
+	return copy
 
 //button for antags to review their descriptions/info
 /datum/action/antag_info
