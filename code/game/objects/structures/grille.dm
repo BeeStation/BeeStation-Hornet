@@ -28,8 +28,8 @@
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
-/obj/structure/grille/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
+/obj/structure/grille/take_direct_damage(amount, type, flag, zone)
+	..()
 	update_appearance()
 
 /obj/structure/grille/update_appearance(updates)

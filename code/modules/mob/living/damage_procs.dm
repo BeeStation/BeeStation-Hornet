@@ -33,19 +33,19 @@
 	if(blocked >= 100)
 		return 0
 	if(brute)
-		apply_damage(brute, BRUTE, def_zone, blocked)
+		take_direct_damage(brute, BRUTE, DAMAGE_STANDARD, def_zone)
 	if(burn)
-		apply_damage(burn, BURN, def_zone, blocked)
+		take_direct_damage(burn, BURN, DAMAGE_STANDARD, def_zone)
 	if(tox)
-		apply_damage(tox, TOX, def_zone, blocked)
+		take_direct_damage(tox, TOX, DAMAGE_STANDARD, def_zone)
 	if(oxy)
-		apply_damage(oxy, OXY, def_zone, blocked)
+		take_direct_damage(oxy, OXY, DAMAGE_STANDARD, def_zone)
 	if(clone)
-		apply_damage(clone, CLONE, def_zone, blocked)
+		take_direct_damage(clone, CLONE, DAMAGE_STANDARD, def_zone)
 	if(stamina)
-		apply_damage(stamina, STAMINA, def_zone, blocked)
+		take_direct_damage(stamina, STAMINA, DAMAGE_STANDARD, def_zone)
 	if(brain)
-		apply_damage(brain, BRAIN, def_zone, blocked)
+		take_direct_damage(brain, BRAIN, DAMAGE_STANDARD, def_zone)
 	return 1
 
 
@@ -106,7 +106,7 @@
 	if(drowsy)
 		apply_effect(drowsy, EFFECT_DROWSY, blocked)
 	if(stamina)
-		apply_damage(stamina, STAMINA, null, blocked)
+		take_direct_damage(stamina, STAMINA)
 	if(jitter)
 		apply_effect(jitter, EFFECT_JITTER, blocked)
 	return BULLET_ACT_HIT
@@ -251,7 +251,7 @@
 	for(var/i in damage_types)
 		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have
 		if(amount_to_heal)
-			apply_damage_type(-amount_to_heal, i)
+			take_direct_damage(-amount_to_heal, i)
 			amount -= amount_to_heal //remove what we healed from our current amount
 		if(!amount)
 			break

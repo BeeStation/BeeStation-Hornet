@@ -56,7 +56,7 @@
 
 	/// How much clothing damage has been dealt to each of the limbs of the clothing, assuming it covers more than one limb
 	var/list/damage_by_parts
-	/// How much integrity is in a specific limb before that limb is disabled (for use in [/obj/item/clothing/proc/take_damage_zone], and only if we cover multiple zones.) Set to 0 to disable shredding.
+	/// How much integrity is in a specific limb before that limb is disabled Set to 0 to disable shredding.
 	var/limb_integrity = 0
 	/// How many zones (body parts, not precise) we have disabled so far, for naming purposes
 	var/zones_disabled
@@ -121,7 +121,7 @@
 
 	if(istype(resolved_item, /obj/item/clothing))
 		var/obj/item/clothing/resolved_clothing = resolved_item
-		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
+		resolved_clothing.deal_damage(MOTH_EATING_CLOTHING_DAMAGE, 0, sound = FALSE)
 		return
 	else if(istype(resolved_item, /obj/item/stack/sheet))
 		var/obj/item/stack/sheet/resolved_stack = resolved_item
@@ -184,33 +184,7 @@
 	update_appearance()
 
 /**
-  * take_damage_zone() is used for dealing damage to specific bodyparts on a worn piece of clothing, meant to be called from [/obj/item/bodypart/proc/check_woundings_mods()]
-  *
-  *	This proc only matters when a bodypart that this clothing is covering is harmed by a direct attack (being on fire or in space need not apply), and only if this clothing covers
-  * more than one bodypart to begin with. No point in tracking damage by zone for a hat, and I'm not cruel enough to let you fully break them in a few shots.
-  * Also if limb_integrity is 0, then this clothing doesn't have bodypart damage enabled so skip it.
-  *
-  * Arguments:
-  * * def_zone: The bodypart zone in question
-  * * damage_amount: Incoming damage
-  * * damage_type: BRUTE or BURN
-  * * armour_penetration: If the attack had armour_penetration
-  */
-/obj/item/clothing/proc/take_damage_zone(def_zone, damage_amount, damage_type, armour_penetration)
-	if(!def_zone || !limb_integrity || (initial(body_parts_covered) in GLOB.bitflags)) // the second check sees if we only cover one bodypart anyway and don't need to bother with this
-		return
-	var/list/covered_limbs = body_parts_covered2organ_names(body_parts_covered) // what do we actually cover?
-	if(!(def_zone in covered_limbs))
-		return
-
-	var/damage_dealt = take_damage(damage_amount * 0.1, damage_type, armour_penetration, FALSE) * 10 // only deal 10% of the damage to the general integrity damage, then multiply it by 10 so we know how much to deal to limb
-	LAZYINITLIST(damage_by_parts)
-	damage_by_parts[def_zone] += damage_dealt
-	if(damage_by_parts[def_zone] > limb_integrity)
-		disable_zone(def_zone, damage_type)
-
-/**
-  * disable_zone() is used to disable a given bodypart's protection on our clothing item, mainly from [/obj/item/clothing/proc/take_damage_zone()]
+  * disable_zone() is used to disable a given bodypart's protection on our clothing item
   *
   * This proc disables all protection on the specified bodypart for this piece of clothing: it'll be as if it doesn't cover it at all anymore (because it won't!)
   * If every possible bodypart has been disabled on the clothing, we put it out of commission entirely and mark it as shredded, whereby it will have to be repaired in
@@ -540,18 +514,11 @@ BLIND     // can't see anything
 	new /obj/effect/decal/cleanable/shreds(get_turf(src), name)
 
 /obj/item/clothing/atom_destruction(damage_flag)
-	if(damage_flag == BOMB)
+	if(damage_flag == DAMAGE_BOMB)
 		//so the shred survives potential turf change from the explosion.
 		addtimer(CALLBACK(src, PROC_REF(_spawn_shreds)), 1)
 		deconstruct(FALSE)
-	if(damage_flag == CONSUME) //This allows for moths to fully consume clothing, rather than damaging it like other sources like brute
-		var/turf/current_position = get_turf(src)
-		new /obj/effect/decal/cleanable/shreds(current_position, name)
-		if(isliving(loc))
-			var/mob/living/possessing_mob = loc
-			possessing_mob.visible_message(span_danger("[src] is consumed until naught but shreds remains!"), span_boldwarning("[src] falls apart into little bits!"))
-		deconstruct(FALSE)
-	else if(!(damage_flag in list(ACID, FIRE)))
+	else if(!(damage_flag in list(DAMAGE_ACID, DAMAGE_FIRE)))
 		body_parts_covered = NONE
 		slot_flags = NONE
 		update_clothes_damaged_state(CLOTHING_SHREDDED)

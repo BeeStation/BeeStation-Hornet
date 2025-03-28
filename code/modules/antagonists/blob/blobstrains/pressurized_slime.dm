@@ -13,12 +13,12 @@
 	reagent = /datum/reagent/blob/pressurized_slime
 
 /datum/blobstrain/reagent/pressurized_slime/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if((damage_flag == MELEE || damage_flag == BULLET || damage_flag == LASER) || damage_type != BURN)
+	if((damage_flag == DAMAGE_STANDARD || damage_flag == DAMAGE_LASER) || damage_type != BURN)
 		extinguisharea(B, damage)
 	return ..()
 
 /datum/blobstrain/reagent/pressurized_slime/death_reaction(obj/structure/blob/B, damage_flag)
-	if(damage_flag == MELEE || damage_flag == BULLET || damage_flag == LASER)
+	if(damage_flag == DAMAGE_STANDARD || damage_flag == DAMAGE_LASER)
 		B.visible_message(span_boldwarning("The blob ruptures, spraying the area with liquid!"))
 		extinguisharea(B, 50)
 

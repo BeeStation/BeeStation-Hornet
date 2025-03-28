@@ -1462,7 +1462,7 @@
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	if((amount >= atom_integrity) && (damage_flag == DAMAGE_BOMB))
+	if((amount >= atom_integrity) && (flag == DAMAGE_BOMB))
 		flags_1 |= NODECONSTRUCT_1  //If an explosive took us out, don't drop the assembly
 	. = ..()
 	if(atom_integrity < (0.75 * max_integrity))

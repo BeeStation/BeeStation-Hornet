@@ -493,7 +493,7 @@
 		if(head)
 			hit_clothes = head
 		if(hit_clothes)
-			hit_clothes.apply_damage(damage_amount, 0, damage_type, damage_flag, sound = 0)
+			hit_clothes.deal_damage(damage_amount, 0, damage_type, damage_flag, sound = 0)
 
 /mob/living/carbon/can_hear()
 	. = FALSE

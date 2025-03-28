@@ -77,12 +77,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/fireaxecabinet/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
+/obj/structure/fireaxecabinet/take_direct_damage(amount, type, flag, zone)
 	if(open)
 		return
-	. = ..()
-	if(.)
-		update_appearance()
+	..()
+	update_appearance()
 
 /obj/structure/fireaxecabinet/atom_break(damage_flag)
 	. = ..()

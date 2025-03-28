@@ -78,10 +78,6 @@
 	icon_state = "guerrilla"
 	worn_icon_state = "guerrilla"
 	siemens_coefficient = 0
-	armor_type = /datum/armor/combat_insulated
-
-/datum/armor/combat_insulated
-	bio = 50
 
 /obj/item/clothing/gloves/tackler/rocket
 	name = "rocket gloves"

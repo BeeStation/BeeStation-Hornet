@@ -282,9 +282,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		damage_amount = overmind.blobstrain.damage_reaction(src, damage_amount, damage_type, damage_flag)
 	return damage_amount
 
-/obj/structure/blob/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(. && atom_integrity > 0)
+/obj/structure/blob/take_direct_damage(amount, type, flag, zone)
+	..()
+	if (atom_integrity > 0)
 		update_icon()
 
 /obj/structure/blob/atom_destruction(damage_flag)

@@ -33,8 +33,13 @@
 	return armor
 
 /mob/living/proc/get_average_armor_flag(armour_flag = ARMOUR_BLUNT)
-
-/mob/living/proc/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
+	return (get_bodyzone_armor_flag(BODY_ZONE_CHEST, armour_flag)
+		+ get_bodyzone_armor_flag(BODY_ZONE_HEAD, armour_flag)
+		+ get_bodyzone_armor_flag(BODY_ZONE_L_ARM, armour_flag)
+		+ get_bodyzone_armor_flag(BODY_ZONE_L_LEG, armour_flag)
+		+ get_bodyzone_armor_flag(BODY_ZONE_R_ARM, armour_flag)
+		+ get_bodyzone_armor_flag(BODY_ZONE_R_LEG, armour_flag)
+		) / 6
 
 /// Get the armour value for a specific damage type, targetting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
@@ -42,8 +47,7 @@
 /// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
 /// Returns: An integer value with 0 representing 0% protection and 100 representing 100% protection.
 /// - The return value can be negative which indicates additional armour, but will never exceed 100.
-/// - Armour penetration should not be applied on the return value of this proc, due to its upper bound of 100.
-/mob/living/proc/getarmor(def_zone, type, penetration = 0)
+/mob/living/proc/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 	return 0
 
 /// Get percentage of the body protected by radiation
@@ -68,7 +72,7 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, P.def_zone)
 	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
 		return BULLET_ACT_FORCE_PIERCE
 	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
@@ -77,7 +81,7 @@
 		return BULLET_ACT_HIT
 	var/armor = run_armor_check(def_zone, P.damage_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, armor, FALSE, P.damage_flag, P.sharpness)
+		deal_damage(P.damage, P.sharpness, P.damage_type, P.damage_flag, null, def_zone, zone = P.def_zone)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK

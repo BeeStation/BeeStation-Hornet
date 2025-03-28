@@ -34,7 +34,7 @@
 		if(1)
 			qdel(src)
 		if(2)
-			deal_damage(50, 0, BRUTE, DAMAGE_ENERGY, sound_effect = FALSE)
+			deal_damage(50, 0, BRUTE, DAMAGE_ENERGY, sound = FALSE)
 
 /obj/structure/emergency_shield/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -43,10 +43,9 @@
 		if(BRUTE)
 			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 
-/obj/structure/emergency_shield/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(.) //damage was dealt
-		new /obj/effect/temp_visual/impact_effect/ion(loc)
+/obj/structure/emergency_shield/take_direct_damage(amount, type, flag, zone)
+	..()
+	new /obj/effect/temp_visual/impact_effect/ion(loc)
 
 /obj/structure/emergency_shield/sanguine
 	name = "sanguine barrier"
@@ -619,8 +618,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 
 //the shield wall is immune to damage but it drains the stored power of the generators.
-/obj/machinery/shieldwall/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
+/obj/machinery/shieldwall/take_direct_damage(amount, type, flag, zone)
+	..()
 	if(type == BRUTE || type == BURN)
 		drain_power(amount)
 

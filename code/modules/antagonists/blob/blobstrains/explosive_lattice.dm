@@ -12,9 +12,9 @@
 	reagent = /datum/reagent/blob/explosive_lattice
 
 /datum/blobstrain/reagent/explosive_lattice/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if(damage_flag == BOMB)
+	if(damage_flag == DAMAGE_BOMB)
 		return 0
-	else if(damage_flag != MELEE && damage_flag != BULLET && damage_flag != LASER)
+	else if(damage_flag != DAMAGE_STANDARD && damage_flag != DAMAGE_LASER)
 		return damage * 1.5
 	return ..()
 

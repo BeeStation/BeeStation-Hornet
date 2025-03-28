@@ -596,8 +596,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	else
 		deal_damage(5, SHARP_III, BRUTE)
 
-/obj/machinery/newscaster/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
+/obj/machinery/newscaster/take_direct_damage(amount, type, flag, zone)
+	..()
 	update_icon()
 
 /**

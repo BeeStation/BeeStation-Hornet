@@ -436,12 +436,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 			return TRUE
 	return FALSE
 
-/obj/machinery/firealarm/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(.) //damage received
-		if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)
-			if(prob(33))
-				alarm()
+/obj/machinery/firealarm/take_direct_damage(amount, type, flag, zone)
+	..()
+	if(atom_integrity > 0 && !(machine_stat & BROKEN) && buildstage != FIRE_ALARM_BUILD_NO_CIRCUIT)
+		if(prob(33))
+			alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)
 	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure

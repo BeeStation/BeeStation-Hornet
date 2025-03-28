@@ -33,7 +33,7 @@
 			target_stabbed = TRUE
 			to_chat(M, span_userdanger("You are impaled by [src]!"))
 			M.emote("scream")
-			M.deal_damage(40, SHARP_IIV, BRUTE, BODY_ZONE_CHEST)
+			M.deal_damage(40, SHARP_IIX, BRUTE, BODY_ZONE_CHEST)
 	if(target_stabbed)
 		if(!stab_overlay)
 			stab_overlay = mutable_appearance('icons/obj/clockwork_objects.dmi', "brass_skewer_pokeybit", layer=ABOVE_MOB_LAYER)

@@ -1675,7 +1675,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/damage = user.dna.species.punchdamage
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
+		var/obj/item/bodypart/zone = ran_zone(user.get_combat_bodyzone(target))
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
@@ -1684,8 +1684,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			to_chat(user, span_warning("Your [atk_verb] misses [target]!"))
 			log_combat(user, target, "attempted to punch")
 			return FALSE
-
-		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1701,13 +1699,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block, FALSE, MELEE, 0)
+			target.deal_damage(damage*1, user.dna.species.attack_sharpness, attack_type, zone = zone)
 			if((damage * 1.5) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked", "punch")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block, FALSE, MELEE, 0)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+			target.deal_damage(damage, user.dna.species.attack_sharpness, attack_type, zone = zone)
+			target.deal_damage(damage*1.5, 0, STAMINA, zone = zone)
 			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "punched", "punch")
@@ -1766,7 +1764,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
 	if(user != H)
-		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
+		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.sharpness))
 			return 0
 	if(H.check_block())
 		H.visible_message(span_warning("[H] blocks [I]!"), \
@@ -1780,7 +1778,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	hit_area = parse_zone(affecting.body_zone)
 	var/def_zone = affecting.body_zone
 
-	var/armor_block = H.run_armor_check(affecting, MELEE, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),I.armour_penetration)
+	var/armor_block = H.run_armor_check(affecting, MELEE, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"), I.sharpness)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 	apply_damage(I.force, I.damtype, def_zone, armor_block, H, FALSE, MELEE, I.sharpness)

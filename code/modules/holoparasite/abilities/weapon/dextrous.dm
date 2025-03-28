@@ -121,7 +121,7 @@
 	crafting?.ClearFromParent()
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
-	owner.sharpness = initial(owner.armour_sharpnesspenetration)
+	owner.sharpness = initial(owner.sharpness)
 	owner.ranged = initial(owner.ranged)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)

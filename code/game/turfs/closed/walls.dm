@@ -107,8 +107,9 @@
 	if(girder_type)
 		new /obj/item/stack/sheet/iron(src)
 
-/turf/closed/wall/after_damage(damage_amount, damage_type, damage_flag)
-	if (damage_flag == MELEE)
+/turf/closed/wall/take_direct_damage(amount, type, flag)
+	..()
+	if (type == DAMAGE_STANDARD)
 		add_dent(WALL_DENT_HIT)
 
 /turf/closed/wall/attack_paw(mob/living/user)

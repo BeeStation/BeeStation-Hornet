@@ -159,13 +159,13 @@
 
 		if (EXPLODE_HEAVY)
 			take_overall_damage(60, 60)
-			damage_clothes(200, BRUTE, BOMB)
+			damage_clothes(200, BRUTE, DAMAGE_BOMB)
 			adjustEarDamage(30, 120)
 			Unconscious(200)
 
 		if(EXPLODE_LIGHT)
 			take_overall_damage(30, 0)
-			damage_clothes(50, BRUTE, BOMB)
+			damage_clothes(50, BRUTE, DAMAGE_BOMB)
 			adjustEarDamage(15,60)
 			Unconscious(160)
 

@@ -289,10 +289,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return FALSE
 	return TRUE
 
-/obj/structure/window/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(.) //received damage
-		update_nearby_icons()
+/obj/structure/window/take_direct_damage(amount, type, flag, zone)
+	..()
+	//received damage
+	update_nearby_icons()
 
 /obj/structure/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -374,7 +374,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	return exposed_temperature > T0C + heat_resistance
 
 /obj/structure/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	apply_damage(round(air.return_volume() / 100), 0, BURN, DAMAGE_FIRE, sound = FALSE)
+	deal_damage(round(air.return_volume() / 100), 0, BURN, DAMAGE_FIRE, sound = FALSE)
 
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null

@@ -81,9 +81,9 @@
 	..()
 	if (isitem(AM))
 		var/obj/item/thrown = AM
-		deal_damage(AM.throwforce, thrown.sharpness, MELEE_ATTACK, null, get_dir(src, AM))
+		deal_damage(AM.throwforce, thrown.sharpness, MELEE_ATTACK, DAMAGE_STANDARD, get_dir(src, AM))
 	else
-		deal_damage(AM.throwforce, 0, BRUTE, MELEE, null, get_dir(src, AM))
+		deal_damage(AM.throwforce, 0, BRUTE, DAMAGE_STANDARD, get_dir(src, AM))
 
 //====================================
 // Explosives

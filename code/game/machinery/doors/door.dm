@@ -226,9 +226,8 @@
 	try_to_crowbar(tool, user, forced_open)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/door/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(. && atom_integrity > 0)
+/obj/machinery/door/take_direct_damage(amount, type, flag, zone)
+	if(atom_integrity > 0)
 		if(amount >= 10 && prob(30))
 			spark_system.start()
 
@@ -342,9 +341,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
-			var/armour = L.run_armor_check(BODY_ZONE_CHEST, MELEE)
-			var/multiplier = clamp(1 - (armour * 0.01), 0, 1)
-			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
+			L.deal_damage(multiplier * DOOR_CRUSH_DAMAGE, 0, zone = BODY_ZONE_CHEST)
 			L.emote("scream")
 			if(!L.IsParalyzed())
 				L.Paralyze(60)

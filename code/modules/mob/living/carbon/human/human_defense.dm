@@ -1,20 +1,20 @@
-/mob/living/carbon/human/getarmor(def_zone, type, penetration)
+/mob/living/carbon/human/get_bodyzone_armor_flag(bodyzone = null, armour_flag = ARMOUR_BLUNT)
 	var/armorval = 0
 	var/organnum = 0
 
-	if(def_zone)
-		if(isbodypart(def_zone))
-			var/obj/item/bodypart/bp = def_zone
+	if(bodyzone)
+		if(isbodypart(bodyzone))
+			var/obj/item/bodypart/bp = bodyzone
 			if(bp)
-				return checkarmor(def_zone, type, penetration)
-		var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
+				return checkarmor(bodyzone, type)
+		var/obj/item/bodypart/affecting = get_bodypart(check_zone(bodyzone))
 		if(affecting)
-			return checkarmor(affecting, type, penetration)
+			return checkarmor(affecting, type)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		armorval += checkarmor(BP, type, penetration)
+		armorval += checkarmor(BP, type)
 		organnum++
 	return (armorval/max(organnum, 1))
 
@@ -27,11 +27,8 @@
 /// -50 = (1 - (1 * 1.5) = -50%)
 /// Any armour that exceeds 100% protection will be clamped down to 100%
 /// Input armour values should never exceed 100%, or be at 100% as 100% represents
-/// full protection outside of armour penetration.
-/// The penetration value will affect the armour value for each individual armour peice directly,
-/// before it is clamped to 100%. This means that an armour of 130% with a penetration of 20% will become
 /// an armour value of 130 - (130 * 0.2) = 104% ~= 100%.
-/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type, penetration)
+/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type)
 	if(!d_type)
 		return 0
 	var/protection = 1
@@ -42,7 +39,7 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection *= 1 - min((C.get_armor_rating(d_type) / 100) * (1 - (penetration / 100)), 1)
+				protection *= 1 - min(C.get_armor_rating(d_type) / 100, 1)
 
 	protection *= 1 - CLAMP01(physiology.physio_armor.get_rating(d_type) / 100)
 	return (1 - protection) * 100
@@ -106,7 +103,7 @@
 
 				return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
-		if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
+		if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.sharpness))
 			P.on_hit(src, 100, def_zone, piercing_hit)
 			return BULLET_ACT_HIT
 
@@ -121,8 +118,8 @@
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
-	SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, AM, attack_text, damage, attack_type, armour_penetration)
+/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, sharpness = 0)
+	SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, AM, attack_text, damage, attack_type, sharpness)
 	for(var/obj/item/I in held_items)
 		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
@@ -404,9 +401,7 @@
 		return
 	show_message(span_userdanger("The blob attacks you!"))
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
-
+	take_direct_damage(5, BRUTE, zone = dam_zone)
 
 ///Calculates the siemens coeff based on clothing and species, can also restart hearts.
 /mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
@@ -451,7 +446,7 @@
 			if(prob(30/severity)) //Random chance to disable and burn limbs
 				bodypart.receive_damage(burn = 5)
 				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-				L.run_limb_injuries(10, FIRE, 0)
+				bodypart.owner.run_limb_injuries(10, FIRE, 0)
 			else
 				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
@@ -573,12 +568,12 @@
 	//DAMAGE//
 	for(var/obj/item/bodypart/affecting in damaged)
 		affecting.receive_damage(acidity, 2*acidity)
-		affecting.run_limb_injuries(2*acidity, ACID, 0)
+		affecting.run_limb_injuries(2*acidity, DAMAGE_ACID, 0)
 
 		if(affecting.name == BODY_ZONE_HEAD)
 			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity, 2*acidity)
-				affecting.run_limb_injuries(2*acidity, ACID, 0)
+				affecting.run_limb_injuries(2*acidity, DAMAGE_ACID, 0)
 				emote("scream")
 				facial_hair_style = "Shaved"
 				hair_style = "Bald"
@@ -859,7 +854,7 @@
 			torn_items |= leg_clothes
 
 	for(var/obj/item/I in torn_items)
-		I.apply_damage(damage_amount, 0, damage_type, damage_flag, sound = 0)
+		I.deal_damage(damage_amount, 0, damage_type, damage_flag, sound = 0)
 
 /mob/living/carbon/human/proc/blockbreak()
 	to_chat(src, span_userdanger("Your block was broken!"))

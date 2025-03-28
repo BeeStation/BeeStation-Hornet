@@ -209,9 +209,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(gone == internal_cell)
 		internal_cell = null
 
-/obj/machinery/portable_atmospherics/canister/apply_damage(amount, penetration, type = BRUTE, flag = null, dir = NONE, sound = TRUE)
-	. = ..()
-	if(!. || QDELETED(src))
+/obj/machinery/portable_atmospherics/canister/take_direct_damage(amount, type, flag, zone)
+	..()
+	if (QDELETED(src))
 		return
 	SSair.start_processing_machine(src)
 
