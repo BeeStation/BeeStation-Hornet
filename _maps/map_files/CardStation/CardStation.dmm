@@ -56270,6 +56270,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/tcommsat/computer)
 "lTm" = (
@@ -88883,7 +88884,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 9
 	},
-/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark/smooth_large,
 /area/tcommsat/computer)
 "sOi" = (
