@@ -434,6 +434,7 @@
 		return
 	return ..()
 
+//A cup made from coconuts harvested in botany
 /obj/item/reagent_containers/cup/coconutcup
 	name = "coconut cup"
 	desc = "A showy form of cup typically intended for both use and display."
@@ -441,10 +442,12 @@
 	icon_state = "coconutcup_empty"
 	amount_per_transfer_from_this = 10
 	volume = 50
+	//list_reagents = list(/datum/reagent/consumable/coconutmilk = 50) wish to transfer reagents from plant to here
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
-/*	drop_sound = 'sound/items/handling/coconuthalf_drop.ogg'
-	pickup_sound = 'sound/items/handling/coconuthalf_pickup.ogg'*/
+/*	drop_sound = 'sound/items/handling/coconutcup_drop.ogg'
+	pickup_sound = 'sound/items/handling/coconutcup_pickup.ogg'*/
+

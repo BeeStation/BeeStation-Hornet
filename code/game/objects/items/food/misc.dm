@@ -355,11 +355,12 @@
 	desc = "The white flesh of a coconut."
 	icon_state = "coconutflesh"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 0.2,
-		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/water = 1,
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 0.2,
 	)
 	tastes = list("coconut" = 1)
 	foodtypes = FRUIT
 	food_flags = FOOD_FINGER_FOOD
-	//juice_typepath = /datum/reagent/consumable/coconutjuice - add later
+	juice_typepath = /datum/reagent/consumable/coconutjuice
 	w_class = WEIGHT_CLASS_SMALL
