@@ -67,7 +67,7 @@
 	beating = FALSE
 	update_icon()
 
-/obj/item/organ/heart/on_life()
+/obj/item/organ/heart/on_life(delta_time, times_fired)
 	..()
 	if(owner.client && beating)
 		failed = FALSE
@@ -129,7 +129,7 @@
 	else
 		return ..()
 
-/obj/item/organ/heart/cursed/on_life()
+/obj/item/organ/heart/cursed/on_life(delta_time, times_fired)
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
@@ -202,7 +202,7 @@
 		Stop()
 		addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
-/obj/item/organ/heart/cybernetic/on_life()
+/obj/item/organ/heart/cybernetic/on_life(delta_time, times_fired)
 	. = ..()
 	if(dose_available && owner.stat == UNCONSCIOUS && !owner.reagents.has_reagent(rid))
 		owner.reagents.add_reagent(rid, ramount)
@@ -229,12 +229,13 @@
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
 	organ_flags = ORGAN_SYNTHETIC //the power of freedom prevents heart attacks
-	var/min_next_adrenaline = 0
+	/// The cooldown until the next time this heart can give the host an adrenaline boost.
+	COOLDOWN_DECLARE(adrenaline_cooldown)
 
-/obj/item/organ/heart/freedom/on_life()
+/obj/item/organ/heart/freedom/on_life(delta_time, times_fired)
 	. = ..()
-	if(owner.health < 5 && world.time > min_next_adrenaline)
-		min_next_adrenaline = world.time + rand(250, 600) //anywhere from 4.5 to 10 minutes
+	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
+		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
 		to_chat(owner, span_userdanger("You feel yourself dying, but you refuse to give up!"))
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
