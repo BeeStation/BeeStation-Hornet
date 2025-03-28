@@ -192,7 +192,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/simple_animal/hostile/retaliate/snake,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (

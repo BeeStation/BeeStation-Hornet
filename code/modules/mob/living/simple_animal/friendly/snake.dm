@@ -39,7 +39,7 @@
 	AddElement(/datum/element/venomous, special_reagent, 3)
 	AddComponent(/datum/component/udder, /obj/item/udder/venom, reagent_produced_typepath = special_reagent)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
+/mob/living/simple_animal/hostile/retaliate/snake/ListTargets(atom/the_target)
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	var/list/living_mobs = list()
 	var/list/mice = list()
@@ -56,7 +56,7 @@
 		return living_mobs & enemies
 	return mice
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/AttackingTarget()
+/mob/living/simple_animal/hostile/retaliate/snake/AttackingTarget()
 	if(istype(target, /mob/living/simple_animal/mouse))
 		visible_message(span_notice("[name] consumes [target] in a single gulp!"), span_notice("You consume [target] in a single gulp!"))
 		QDEL_NULL(target)
