@@ -31,7 +31,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/der38
 	name = "palm pistol"
-	desc = "An 'Infiltrator' double-barreled derringer, chambered in .38-special. Not the best for head-on engagements."
+	desc = "An 'Infiltrator' double-barreled derringer, chambered in the powerful .357. Useful in a pinch but inadequate for longer engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = null //Too small to show in hand, unless examined
@@ -47,8 +47,6 @@
 	fire_sound_volume = 60
 	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
 	weapon_weight = WEAPON_LIGHT * 0.5 //Equivelant weight to 0.5 (Stechkin has weight 1)
-	wild_spread = TRUE
-	wild_factor = 0.70 //Minimum spread is 70% of spread value
 	equip_time = 0
 	has_weapon_slowdown = FALSE
 
@@ -110,13 +108,13 @@
 
 /obj/item/gun/ballistic/automatic/pistol/stickman/equipped(mob/user, slot)
 	..()
-	to_chat(user, "<span class='notice'>As you try to manipulate [src], it slips out of your possession..</span>")
+	to_chat(user, span_notice("As you try to manipulate [src], it slips out of your possession.."))
 	if(prob(50))
-		to_chat(user, "<span class='notice'>..and vanishes from your vision! Where the hell did it go?</span>")
+		to_chat(user, span_notice("..and vanishes from your vision! Where the hell did it go?"))
 		qdel(src)
 		user.update_icons()
 	else
-		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
+		to_chat(user, span_notice("..and falls into view. Whew, that was a close one."))
 		user.dropItemToGround(src)
 
 

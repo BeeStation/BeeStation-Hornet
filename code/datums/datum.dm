@@ -273,6 +273,13 @@
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
 
+///Generate a tag for this /datum, if it implements one
+///Should be called as early as possible, best would be in New, to avoid weakref mistargets
+///Really just don't use this, you don't need it, global lists will do just fine MOST of the time
+///We really only use it for mobs to make id'ing people easier
+/datum/proc/GenerateTag()
+	datum_flags |= DF_USE_TAG
+
 /// Return text from this proc to provide extra context to hard deletes that happen to it
 /// Optional, you should use this for cases where replication is difficult and extra context is required
 /// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
@@ -285,3 +292,8 @@
 		return
 	harddel_deets_dumped = TRUE
 	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"
+
+/// Intercept click on when registered as a click intercept
+/datum/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
+	SHOULD_NOT_SLEEP(TRUE)
+	return FALSE

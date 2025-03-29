@@ -1,4 +1,4 @@
-#define PAI_MISSING_SOFTWARE_MESSAGE "<span class='warning'>You must download the required software to use this.</span>"
+#define PAI_MISSING_SOFTWARE_MESSAGE span_warning("You must download the required software to use this.")
 
 /atom/movable/screen/pai
 	icon = 'icons/hud/screen_pai.dmi'
@@ -82,15 +82,20 @@
 	icon_state = "host_monitor"
 	required_software = PAI_PROGRAM_HOST_SCAN
 
-/atom/movable/screen/pai/host_monitor/Click()
-	if(!..())
+/atom/movable/screen/pai/host_monitor/Click(location, control, params)
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/silicon/pai/pAI = usr
+	var/list/modifiers = params2list(params)
 	var/mob/living/carbon/holder = get(pAI.card.loc, /mob/living/carbon)
 	if(holder)
-		pAI.hostscan.attack(holder, pAI)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			pAI.hostscan.attack_secondary(holder, pAI)
+		else
+			pAI.hostscan.attack(holder, pAI)
 	else
-		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
+		to_chat(usr, span_warning("You are not being carried by anyone!"))
 		return 0
 
 /atom/movable/screen/pai/crew_manifest
@@ -215,6 +220,11 @@
 // Language menu
 	using = new /atom/movable/screen/language_menu
 	using.screen_loc = ui_borg_language_menu
+	static_inventory += using
+
+// Navigation
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_pai_navigate_menu
 	static_inventory += using
 
 // Host Monitor

@@ -30,7 +30,7 @@
 	req_access = list()
 	req_one_access = list()
 	playsound(src, "sparks", 100, 1)
-	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
+	to_chat(user, span_warning("You short out the access controller."))
 
 /obj/machinery/doorButtons/proc/removeMe()
 
@@ -59,7 +59,7 @@
 	if(busy)
 		return
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return
 	if(controller && !controller.busy && door)
 		if(controller.machine_stat & NOPOWER)
@@ -125,7 +125,7 @@
 	if(busy)
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(href_list["command"])
 		if("close_exterior")
@@ -263,29 +263,29 @@
 		if(!exteriorAirlock || !interiorAirlock)
 			if(!exteriorAirlock)
 				if(interiorAirlock.density)
-					output = "<A href='?src=[REF(src)];command=open_interior'>Open Interior Airlock</A><BR>"
+					output = "<A href='byond://?src=[REF(src)];command=open_interior'>Open Interior Airlock</A><BR>"
 				else
-					output = "<A href='?src=[REF(src)];command=close_interior'>Close Interior Airlock</A><BR>"
+					output = "<A href='byond://?src=[REF(src)];command=close_interior'>Close Interior Airlock</A><BR>"
 			else
 				if(exteriorAirlock.density)
-					output = "<A href='?src=[REF(src)];command=open_exterior'>Open Exterior Airlock</A><BR>"
+					output = "<A href='byond://?src=[REF(src)];command=open_exterior'>Open Exterior Airlock</A><BR>"
 				else
-					output = "<A href='?src=[REF(src)];command=close_exterior'>Close Exterior Airlock</A><BR>"
+					output = "<A href='byond://?src=[REF(src)];command=close_exterior'>Close Exterior Airlock</A><BR>"
 		else
 			if(exteriorAirlock.density)
 				if(interiorAirlock.density)
-					output = {"<A href='?src=[REF(src)];command=open_exterior'>Open Exterior Airlock</A><BR>
-					<A href='?src=[REF(src)];command=open_interior'>Open Interior Airlock</A><BR>"}
+					output = {"<A href='byond://?src=[REF(src)];command=open_exterior'>Open Exterior Airlock</A><BR>
+					<A href='byond://?src=[REF(src)];command=open_interior'>Open Interior Airlock</A><BR>"}
 				else
-					output = {"<A href='?src=[REF(src)];command=cycle_exterior'>Cycle to Exterior Airlock</A><BR>
-					<A href='?src=[REF(src)];command=close_interior'>Close Interior Airlock</A><BR>"}
+					output = {"<A href='byond://?src=[REF(src)];command=cycle_exterior'>Cycle to Exterior Airlock</A><BR>
+					<A href='byond://?src=[REF(src)];command=close_interior'>Close Interior Airlock</A><BR>"}
 			else
 				if(interiorAirlock.density)
-					output = {"<A href='?src=[REF(src)];command=close_exterior'>Close Exterior Airlock</A><BR>
-					<A href='?src=[REF(src)];command=cycle_interior'>Cycle to Interior Airlock</A><BR>"}
+					output = {"<A href='byond://?src=[REF(src)];command=close_exterior'>Close Exterior Airlock</A><BR>
+					<A href='byond://?src=[REF(src)];command=cycle_interior'>Cycle to Interior Airlock</A><BR>"}
 				else
-					output = {"<A href='?src=[REF(src)];command=close_exterior'>Close Exterior Airlock</A><BR>
-					<A href='?src=[REF(src)];command=close_interior'>Close Interior Airlock</A><BR>"}
+					output = {"<A href='byond://?src=[REF(src)];command=close_exterior'>Close Exterior Airlock</A><BR>
+					<A href='byond://?src=[REF(src)];command=close_interior'>Close Interior Airlock</A><BR>"}
 
 
 	output = {"<B>Access Control Console</B><HR>

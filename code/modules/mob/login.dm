@@ -43,6 +43,7 @@
 	if(!real_eye)
 		reset_perspective()
 	client.set_eye(real_eye, client.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
+	client.set_right_click_menu_mode(shift_to_open_context_menu)
 
 	if(!hud_used)
 		create_mob_hud() // creating a hud will add it to the client's screen, which can process a disconnect
@@ -135,6 +136,10 @@
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+
+	// Set mouse pointer
+	client.mouse_override_icon = null
+	update_mouse_pointer()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
 

@@ -7,7 +7,7 @@
 /mob/living/silicon/ai/compose_track_href(atom/movable/speaker, namepart)
 	var/mob/M = speaker.GetSource()
 	if(M)
-		return "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+		return "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	return ""
 
 /mob/living/silicon/ai/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
@@ -21,7 +21,7 @@
 	if(incapacitated())
 		return FALSE
 	if(!radio_enabled) //AI cannot speak if radio is disabled (via intellicard) or depowered.
-		to_chat(src, "<span class='danger'>Your radio transmitter is offline!</span>")
+		to_chat(src, span_danger("Your radio transmitter is offline!"))
 		return FALSE
 	..()
 
@@ -32,7 +32,7 @@
 	if (!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 
 	if(!QDELETED(ai_hologram))
@@ -50,8 +50,8 @@
 		if(istype(D) && D.display_icon(src))
 			language_icon = "[D.get_icon()] "
 
-		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
-		message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
+		message = span_robot(say_emphasis(lang_treat(src, language, message)))
+		message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(real_name)]</b> [message]")
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
@@ -89,7 +89,7 @@
 	var/index = 0
 	for(var/word in GLOB.vox_sounds)
 		index++
-		dat += "<A href='?src=[REF(src)];say_word=[word]'>[capitalize(word)]</A>"
+		dat += "<A href='byond://?src=[REF(src)];say_word=[word]'>[capitalize(word)]</A>"
 		if(index != GLOB.vox_sounds.len)
 			dat += " / "
 
@@ -101,7 +101,7 @@
 /mob/living/silicon/ai/proc/announcement()
 	var/static/announcing_vox = 0 // Stores the time of the last announcement
 	if(announcing_vox > world.time)
-		to_chat(src, "<span class='notice'>Please wait [DisplayTimeText(announcing_vox - world.time)].</span>")
+		to_chat(src, span_notice("Please wait [DisplayTimeText(announcing_vox - world.time)]."))
 		return
 
 	var/message = capped_input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", src.last_announcement)
@@ -115,7 +115,7 @@
 		return
 
 	if(control_disabled)
-		to_chat(src, "<span class='warning'>Wireless interface disabled, unable to interact with announcement PA.</span>")
+		to_chat(src, span_warning("Wireless interface disabled, unable to interact with announcement PA."))
 		return
 
 	var/list/words = splittext(trim(message), " ")
@@ -133,7 +133,7 @@
 			incorrect_words += word
 
 	if(incorrect_words.len)
-		to_chat(src, "<span class='notice'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
+		to_chat(src, span_notice("These words are not available on the announcement system: [english_list(incorrect_words)]."))
 		return
 
 	announcing_vox = world.time + VOX_DELAY

@@ -105,12 +105,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gib1"
 	layer = LOW_OBJ_LAYER
+	plane = GAME_PLANE
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	mergeable_decal = FALSE
 	turf_loc_check = FALSE
 
 	dryname = "rotting gibs"
 	drydesc = "They look bloody and gruesome while some terrible smell fills the air."
+	decal_reagent = /datum/reagent/liquidgibs
+	reagent_amount = 5
 	///Information about the diseases our streaking spawns
 	var/list/streak_diseases
 
@@ -118,7 +121,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
-	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
@@ -280,9 +282,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs/old)
 
 	for(var/Ddir in GLOB.cardinals)
 		if(old_entered_dirs & Ddir)
-			entered_dirs |= angle2dir_cardinal(dir2angle(Ddir) + ang_change)
+			entered_dirs |= turn_cardinal(Ddir, ang_change)
 		if(old_exited_dirs & Ddir)
-			exited_dirs |= angle2dir_cardinal(dir2angle(Ddir) + ang_change)
+			exited_dirs |= turn_cardinal(Ddir, ang_change)
 
 	update_appearance()
 	return ..()

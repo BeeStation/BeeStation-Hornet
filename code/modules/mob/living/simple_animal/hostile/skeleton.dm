@@ -10,7 +10,7 @@
 	turns_per_move = 5
 	speak_emote = list("rattles")
 	emote_see = list("rattles")
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	maxHealth = 40
 	health = 40
 	speed = 1
@@ -26,7 +26,7 @@
 	robust_searching = 1
 	stat_attack = HARD_CRIT
 	gold_core_spawnable = HOSTILE_SPAWN
-	faction = list("skeleton")
+	faction = list(FACTION_SKELETON)
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "collapses into a pile of bones!"

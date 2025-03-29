@@ -6,6 +6,7 @@ export const ooccolor: Feature<string> = {
   subcategory: 'OOC',
   description: 'The color of your OOC messages.',
   component: FeatureColorInput,
+  important: true,
 };
 
 export const member_public: FeatureToggle = {
@@ -13,4 +14,5 @@ export const member_public: FeatureToggle = {
   category: 'BYOND MEMBER',
   description: 'Whether to show your BYOND membership in OOC or not.',
   component: CheckboxInput,
+  important: true,
 };

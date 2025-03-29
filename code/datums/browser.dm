@@ -102,7 +102,7 @@
 /datum/browser/proc/open(use_onclose = TRUE)
 	if(isnull(window_id))	//null check because this can potentially nuke goonchat
 		WARNING("Browser [title] tried to open with a null ID")
-		to_chat(user, "<span class='userdanger'>The [title] browser you tried to open failed a sanity check! Please report this on github!</span>")
+		to_chat(user, span_userdanger("The [title] browser you tried to open failed a sanity check! Please report this on github!"))
 		return
 	var/window_size = ""
 	if (width && height)
@@ -140,13 +140,13 @@
 
 	var/output =  {"<center><b>[Message]</b></center><br />
 		<div style="text-align:center">
-		<a style="font-size:large;float:[( Button2 ? "left" : "right" )]" href="?src=[REF(src)];button=1">[Button1]</a>"}
+		<a style="font-size:large;float:[( Button2 ? "left" : "right" )]" href="byond://?src=[REF(src)];button=1">[Button1]</a>"}
 
 	if (Button2)
-		output += {"<a style="font-size:large;[( Button3 ? "" : "float:right" )]" href="?src=[REF(src)];button=2">[Button2]</a>"}
+		output += {"<a style="font-size:large;[( Button3 ? "" : "float:right" )]" href="byond://?src=[REF(src)];button=2">[Button2]</a>"}
 
 	if (Button3)
-		output += {"<a style="font-size:large;float:right" href="?src=[REF(src)];button=3">[Button3]</a>"}
+		output += {"<a style="font-size:large;float:right" href="byond://?src=[REF(src)];button=3">[Button3]</a>"}
 
 	output += {"</div>"}
 
@@ -348,11 +348,11 @@
 		var/setting = settings["mainsettings"][name]
 		if (setting["type"] == "datum")
 			if (setting["subtypesonly"])
-				dat += "<b>[setting["desc"]]:</b> <a href='?src=[REF(src)];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[REF(src)];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
 			else
-				dat += "<b>[setting["desc"]]:</b> <a href='?src=[REF(src)];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[REF(src)];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
 		else
-			dat += "<b>[setting["desc"]]:</b> <a href='?src=[REF(src)];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><BR>"
+			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[REF(src)];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><BR>"
 
 	if (preview_icon)
 		dat += "<td valign='center'>"
@@ -363,7 +363,7 @@
 
 	dat += "</tr></table>"
 
-	dat += "<hr><center><a href='?src=[REF(src)];button=1'>Ok</a> "
+	dat += "<hr><center><a href='byond://?src=[REF(src)];button=1'>Ok</a> "
 
 	dat += "</center>"
 
@@ -391,7 +391,7 @@
 			if ("color")
 				settings["mainsettings"][setting]["value"] = input(user, "Enter new value for [settings["mainsettings"][setting]["desc"]]", "Enter new value for [settings["mainsettings"][setting]["desc"]]", settings["mainsettings"][setting]["value"]) as color
 			if ("boolean")
-				settings["mainsettings"][setting]["value"] = input(user, "[settings["mainsettings"][setting]["desc"]]?") in list("Yes","No")
+				settings["mainsettings"][setting]["value"] = (settings["mainsettings"][setting]["value"] == "Yes") ? "No" : "Yes"
 			if ("ckey")
 				settings["mainsettings"][setting]["value"] = input(user, "[settings["mainsettings"][setting]["desc"]]?") in list("none") + GLOB.directory
 		if (settings["mainsettings"][setting]["callback"])

@@ -7,9 +7,13 @@
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
+	armor_type = /datum/armor/color_yellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
+
+
+/datum/armor/color_yellow
+	bio = 50
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
@@ -41,16 +45,20 @@
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
 
 
-/obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
+/obj/item/clothing/gloves/color/fyellow //Cheap Chinese Crap
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
 	name = "budget insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
-	siemens_coefficient = 1			//Set to a default of 1, gets overridden in Initialize()
-	permeability_coefficient = 0.05
+	siemens_coefficient = 1 //Set to a default of 1, gets overridden in Initialize()
+	armor_type = /datum/armor/color_fyellow
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
+
+
+/datum/armor/color_fyellow
+	bio = 25
 
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
 	. = ..()
@@ -106,7 +114,7 @@
 	name = "insulated gloves"
 	desc = "These gloves provide protection against electric shock."
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
+	armor_type = /datum/armor/none
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/rainbow
@@ -172,13 +180,18 @@
 	item_state = "egloves"
 	worn_icon_state = "egloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/color_captain
+
+
+/datum/armor/color_captain
+	bio = 90
+	fire = 70
+	acid = 50
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -187,10 +200,14 @@
 	item_state = "latex"
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
-	permeability_coefficient = 0.01
+	armor_type = /datum/armor/color_latex
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	var/carrytrait = TRAIT_QUICKER_CARRY
+
+
+/datum/armor/color_latex
+	bio = 100
 
 /obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
 	..()
@@ -207,7 +224,7 @@
 			REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/atom_break()
-	..()
+	. = ..()
 	if(ishuman(loc))
 		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 

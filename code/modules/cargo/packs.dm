@@ -72,12 +72,14 @@
 	cost = 1500
 	contraband = TRUE
 	max_supply = 2
-	contains = list(/obj/vehicle/ridden/atv,
-					/obj/item/key,
-					/obj/item/clothing/suit/jacket/leather/overcoat,
-					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft/cargo,
-					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
+	contains = list(
+		/obj/vehicle/ridden/atv,
+		/obj/item/key/atv,
+		/obj/item/clothing/suit/jacket/leather/overcoat,
+		/obj/item/clothing/gloves/color/black,
+		/obj/item/clothing/head/soft/cargo,
+		/obj/item/clothing/mask/bandana/skull/black,//so you can properly #cargoniabikergang
+	)
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
 
@@ -312,9 +314,9 @@
 					/obj/item/clothing/mask/balaclava,
 					/obj/item/clothing/mask/balaclava,
 					/obj/item/clothing/mask/balaclava,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/tackler/combat,
+					/obj/item/clothing/gloves/tackler/combat,
+					/obj/item/clothing/gloves/tackler/combat,
 					/obj/item/clothing/head/hats/hos/beret/syndicate,
 					/obj/item/clothing/head/hats/hos/beret/syndicate,
 					/obj/item/clothing/head/hats/hos/beret/syndicate,
@@ -793,7 +795,7 @@
 		/obj/item/clothing/suit/armor/vest/russian,
 		/obj/item/clothing/head/helmet/rus_helmet,
 		/obj/item/clothing/shoes/russian,
-		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/gloves/tackler/combat,
 		/obj/item/clothing/under/syndicate/rus_army,
 		/obj/item/clothing/under/costume/soviet,
 		/obj/item/clothing/mask/russian_balaclava,
@@ -903,8 +905,8 @@
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/storage/belt/military/assault,
 					/obj/item/storage/belt/military/assault,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat)
+					/obj/item/clothing/gloves/tackler/combat,
+					/obj/item/clothing/gloves/tackler/combat)
 	crate_name = "swat crate"
 
 /datum/supply_pack/security/armory/wt550_single
@@ -1099,6 +1101,17 @@
 	crate_name = "power cell crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
+/datum/supply_pack/engineering/sealant
+	name = "Engine Sealant Crate"
+	desc = "Nuclear reactor looking a bit cracked? Don't be afraid to slap on some NT brand sealant to patch those holes right up!"
+	cost = 1000
+	max_supply = 1
+	contains = list(/obj/item/sealant,
+					/obj/item/sealant,
+					/obj/item/sealant)
+	crate_name = "sealant crate"
+	crate_type = /obj/structure/closet/crate/engineering/
+
 /datum/supply_pack/engineering/shuttle_engine
 	name = "Shuttle Engine Crate"
 	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
@@ -1124,6 +1137,20 @@
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
 	crate_name = "toolbox crate"
+
+/datum/supply_pack/engineering/fuel_rods
+	name = "Uranium Fuel Rod Crate"
+	desc = "A five nuclear reactor grade fuel rod crate. Warning: Due to budget constraints, this crate is not lead-lined! Wear radiation protection around this crate."
+	cost = 3000
+	max_supply = 2
+	access_budget = ACCESS_ENGINE
+	contains = list(/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod)
+	crate_name = "fuel rod crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_pack/engineering/vending/engineering
 	name = "Engineering Vending Crate"
@@ -1335,6 +1362,28 @@
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
 	crate_name = "collector crate"
+
+/datum/supply_pack/engine/nuclear_reactor
+	name = "RBMK Nuclear Reactor Engine Crate"
+	desc = "Contains the boards for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
+	cost = 7000
+	max_supply = 1
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
+	contains = list(/obj/item/RBMK_box/core,
+					/obj/item/RBMK_box/body/coolant_input,
+					/obj/item/RBMK_box/body/moderator_input,
+					/obj/item/RBMK_box/body/waste_output,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/circuitboard/computer/control_rods,
+					/obj/item/book/manual/wiki/rbmk)
+	crate_name = "nuclear engine crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
 
 /datum/supply_pack/engine/sing_gen
 	name = "Singularity Generator Crate"
@@ -2758,17 +2807,17 @@
 	name = "Corgi Crate"
 	desc = "Considered the optimal dog breed by thousands of research scientists, this Corgi is but one dog from the millions of Ian's noble bloodline. Comes with a cute collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/corgi,
+	contains = list(/mob/living/basic/pet/dog/corgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "corgi crate"
 
 /datum/supply_pack/critter/corgi/generate()
 	. = ..()
 	if(prob(50))
-		var/mob/living/simple_animal/pet/dog/corgi/D = locate() in .
+		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/simple_animal/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/Lisa(.)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
@@ -2794,7 +2843,7 @@
 	name = "Exotic Corgi Crate"
 	desc = "Corgis fit for a king, these corgis come in a unique color to signify their superiority. Comes with a cute collar!"
 	cost = 5500
-	contains = list(/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
+	contains = list(/mob/living/basic/pet/dog/corgi/exoticcorgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "exotic corgi crate"
 
@@ -2833,7 +2882,7 @@
 	name = "Pug Crate"
 	desc = "Like a normal dog, but... squished. Comes with a nice collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/pug,
+	contains = list(/mob/living/basic/pet/dog/pug,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "pug crate"
 
@@ -2841,7 +2890,7 @@
 	name = "Bull Terrier Crate"
 	desc = "Like a normal dog, but with a head the shape of an egg. Comes with a nice collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/bullterrier,
+	contains = list(/mob/living/basic/pet/dog/bullterrier,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "bull terrier crate"
 
@@ -2859,7 +2908,7 @@
 	name = "Capybara Crate"
 	desc = "Coconut doggy"
 	cost = 10000
-	contains = list(/mob/living/simple_animal/pet/dog/corgi/capybara)
+	contains = list(/mob/living/basic/pet/dog/corgi/capybara)
 	crate_name = "capybara crate"
 
 //////////////////////////////////////////////////////////////////////////////
