@@ -69,6 +69,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	///is it currently metabolizing
 	var/metabolizing = FALSE
 
+	///The default reagent container for the reagent, used for icon generation
+	var/obj/item/reagent_containers/default_container = /obj/item/reagent_containers/cup/bottle
+
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
 	holder = null

@@ -13,6 +13,7 @@
 	glass_icon_state = "glass_orange"
 	glass_name = "glass of orange juice"
 	glass_desc = "Vitamins! Yay!"
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 
 /datum/reagent/consumable/orangejuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.getOxyLoss() && DT_PROB(16, delta_time))
@@ -29,6 +30,7 @@
 	glass_icon_state = "glass_red"
 	glass_name = "glass of tomato juice"
 	glass_desc = "Are you sure this is tomato juice?"
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice
 
 /datum/reagent/consumable/tomatojuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.getFireLoss() && DT_PROB(10, delta_time))
@@ -45,6 +47,7 @@
 	glass_icon_state = "glass_green"
 	glass_name = "glass of lime juice"
 	glass_desc = "A glass of sweet-sour lime juice."
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice
 
 /datum/reagent/consumable/limejuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.getToxLoss() && DT_PROB(10, delta_time))
@@ -228,6 +231,7 @@
 	glass_name = "glass of milk"
 	glass_desc = "White and nutritious goodness!"
 	overdose_threshold = 500 //High calcium intake is bad for bone health. OD is exactly like having taken a normal-ish bone hurt juice. If anyone hits the superoverdose, well I'll be damned
+	default_container = /obj/item/reagent_containers/condiment/milk
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.getBruteLoss() && DT_PROB(10, delta_time))
@@ -271,6 +275,7 @@
 	glass_icon_state = "glass_white"
 	glass_name = "glass of soy milk"
 	glass_desc = "White and nutritious soy goodness!"
+	default_container = /obj/item/reagent_containers/condiment/soymilk
 
 
 /datum/reagent/consumable/soymilk/on_mob_add(mob/living/L)
@@ -295,6 +300,7 @@
 	glass_icon_state  = "glass_white"
 	glass_name = "glass of cream"
 	glass_desc = "Ewwww..."
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/cream
 
 /datum/reagent/consumable/cream/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.getBruteLoss() && DT_PROB(10, delta_time))
@@ -339,6 +345,7 @@
 	glass_icon_state = "teaglass"
 	glass_name = "glass of tea"
 	glass_desc = "Drinking it from here would not seem right."
+	default_container = /obj/item/reagent_containers/cup/glass/mug/tea
 
 /datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (2 * REM * delta_time), 0)
@@ -656,6 +663,7 @@
 	glass_icon_state = "iceglass"
 	glass_name = "glass of ice"
 	glass_desc = "Generally, you're supposed to put something else in there too..."
+	default_container = /obj/item/reagent_containers/cup/glass/ice
 
 /datum/reagent/consumable/ice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -933,6 +941,7 @@
 	glass_icon_state = "glass_green"
 	glass_name = "glass of menthol"
 	glass_desc = "Tastes naturally minty, and imparts a very mild numbing sensation."
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/menthol
 
 /datum/reagent/consumable/menthol/on_mob_life(mob/living/L)
 	L.apply_status_effect(/datum/status_effect/throat_soothed)
@@ -971,6 +980,7 @@
 	taste_description = "pineapple"
 	glass_name = "glass of pineapple juice"
 	glass_desc = "Tart, tropical, and hotly debated."
+	default_container = /obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice
 
 /datum/reagent/consumable/cream_soda
 	name = "Cream Soda"
