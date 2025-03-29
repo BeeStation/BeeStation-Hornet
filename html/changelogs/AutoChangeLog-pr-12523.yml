@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Fixes a record console security exploit.
+  - bugfix: Fixes users being unable to enter numbers other than 18 and 85 into the
+      age section.
