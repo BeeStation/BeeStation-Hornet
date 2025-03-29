@@ -11,9 +11,6 @@
 	/// What storage type to use for this item
 	var/datum/storage/storage_type = /datum/storage
 
-/obj/item/storage/get_dumping_location(obj/item/storage/source,mob/user)
-	return src
-
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
