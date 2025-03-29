@@ -51,7 +51,8 @@ with open(file_reference, 'r') as file:
             reading = True
             continue
         elif line == "// END_INCLUDE":
-            break
+            reading = False
+            continue
         elif not reading:
             continue
 

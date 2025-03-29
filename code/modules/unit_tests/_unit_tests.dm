@@ -6,6 +6,8 @@
 // Outside here to satisfy ticked file enforcement while still providing defines
 #include "__DEFINES\test_defines.dm"
 
+#if !defined(NO_QUICK_TESTS)
+
 // BEGIN_INCLUDE
 
 #include "achievement_validation.dm"
@@ -26,9 +28,6 @@
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
-/*
-#include "create_and_destroy.dm"
-*/
 #include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "emoting.dm"
@@ -47,7 +46,6 @@
 #include "heretic_rituals.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "icon_smoothing_unit_test.dm"
-#include "janky_actions.dm"
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
 #include "merge_type.dm"
@@ -87,7 +85,6 @@
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "trait_tests.dm"
-#include "unit_test.dm"
 #include "walls_have_sheets.dm"
 #include "wizard_loadout.dm"
 #include "worn_icons.dm"
@@ -102,6 +99,28 @@
 #include "mapping\check_disposals.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
+
+// END_INCLUDE
+
+#endif
+
+#if defined(SPACEMAN_DMM) || defined(LONG_RUNNING_TESTS)
+
+// BEGIN_INCLUDE
+
+// TODO: Solve this
+/*
+#include "create_and_destroy.dm"
+*/
+#include "janky_actions.dm"
+
+// END_INCLUDE
+
+#endif
+
+// BEGIN_INCLUDE
+
+#include "unit_test.dm"
 #include "mapping\map_test.dm"
 
 // END_INCLUDE
