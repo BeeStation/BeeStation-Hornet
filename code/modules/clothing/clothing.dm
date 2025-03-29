@@ -329,36 +329,51 @@
 	. = ..()
 
 	if(href_list["list_armor"])
-		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
+		var/obj/item/clothing/compare_to = null
+		for (var/flag in bitfield_to_list(slot_flags))
+			var/thing = usr.get_item_by_slot(flag)
+			if (istype(thing, /obj/item/clothing))
+				compare_to = thing
+				break
+		to_chat(usr, EXAMINE_BLOCK("[generate_armor_readout(compare_to)]"))
 
-		var/datum/armor/armor = get_armor()
-		var/added_damage_header = FALSE
-		for(var/damage_key in ARMOR_LIST_DAMAGE)
-			var/rating = armor.get_rating(damage_key)
-			if(!rating)
-				continue
-			if(!added_damage_header)
-				readout += "\n<b>ARMOR (I-X)</b>"
-				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating)]"
+/obj/item/clothing/proc/generate_armor_readout(obj/item/clothing/compare_to)
+	var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
-		var/added_durability_header = FALSE
-		for(var/durability_key in ARMOR_LIST_DURABILITY)
-			var/rating = armor.get_rating(durability_key)
-			if(!rating)
-				continue
-			if(!added_durability_header)
-				readout += "\n<b>DURABILITY (I-X)</b>"
-				added_damage_header = TRUE
-			readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating)]"
+	var/datum/armor/armor = get_armor()
+	var/datum/armor/comparison_armor = compare_to?.get_armor()
+	var/added_damage_header = FALSE
+	for(var/damage_key in ARMOR_LIST_DAMAGE)
+		var/rating = armor.get_rating(damage_key)
+		var/second_rating = comparison_armor?.get_rating(damage_key)
+		if(!rating && !second_rating)
+			continue
+		if(!added_damage_header)
+			readout += "\n<b>ARMOR (I-X)</b>"
+			added_damage_header = TRUE
+		readout += "\n[armor_to_protection_name(damage_key)] [armor_to_protection_class(rating, second_rating)]"
 
-		if(flags_cover & HEADCOVERSMOUTH)
-			readout += "<br /><b>COVERAGE</b>"
-			readout += "<br />It will block Facehuggers."
+	var/added_durability_header = FALSE
+	for(var/durability_key in ARMOR_LIST_DURABILITY)
+		var/rating = armor.get_rating(durability_key)
+		var/second_rating = comparison_armor?.get_rating(durability_key)
+		if(!rating && !second_rating)
+			continue
+		if(!added_durability_header)
+			readout += "\n<b>DURABILITY (I-X)</b>"
+			added_damage_header = TRUE
+		readout += "\n[armor_to_protection_name(durability_key)] [armor_to_protection_class(rating, second_rating)]"
 
-		readout += "</span>"
+	if(flags_cover & HEADCOVERSMOUTH)
+		readout += "<br /><b>COVERAGE</b>"
+		readout += "<br />It will block Facehuggers."
+		/* We dont have the tooltips for this
+		readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
+		*/
 
-		to_chat(usr, EXAMINE_BLOCK("[readout.Join()]"))
+	readout += "</span>"
+
+	return readout.Join()
 
 /**
  * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
