@@ -97,7 +97,7 @@
 
 			var/mob/living/carbon/human/H = A
 			if(!H.gloves)
-				fingerprints += rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
+				fingerprints += rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)
 
 		else if(!ismob(A))
 
