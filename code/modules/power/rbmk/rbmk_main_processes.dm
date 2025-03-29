@@ -125,8 +125,6 @@
 		temperature += heat_delta
 		temperature = clamp(temperature, TCMB, INFINITY) // ensure nothing silly happens
 
-		//And now, shove the input into the output.
-
 		// calculate how many moles to transfer to equalise pressures
 		// use similar calculation to circulators - move the required number of moles to equalise the pressures (with a restriction as we don't want things to be too easy)
 		var/pressure_delta = (input_pressure - output_pressure) / 2 * RBMK_COOLANT_FLOW_RESTRICTION
@@ -173,6 +171,7 @@
 	last_power_produced *= base_power_modifier * (fuel_power * 5) //Finally, we turn it into actual usable numbers. more fuel power => more power (push people towards using more than 1 fuel rod, otherwise it's boring).
 	if(!last_power_produced)
 		last_power_produced =  fuel_power * 500000 //Passively make 50KW per fuel rod if we dont have moderator
+
 	var/turf/reactor_turf = get_turf(src)
 	var/obj/structure/cable/reactor_cable = reactor_turf.get_cable_node()
 	if(reactor_cable)

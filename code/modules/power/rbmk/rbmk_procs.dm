@@ -520,9 +520,9 @@ Arguments:
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
-	// make a little bit of spicy mess
+	// make a little bit of spicy mess, maximum of 4+25=29 tile radius, minimum of 4+4=8 tile radius, scaled on how far over temperature it is
 	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner(get_turf(src))
-	nuclear_sludge_spawner.range = 4 + min(15,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // make it a bit more spicy if you've managed to let it get crazy hot (scales by an extra tile radius per 100% over maximum)
+	nuclear_sludge_spawner.range = 4 + min(25,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // scales by an extra 4 tile radius per 100% over maximum
 	nuclear_sludge_spawner.fire()
 	Destroy()
 
