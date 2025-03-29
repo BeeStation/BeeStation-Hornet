@@ -325,7 +325,7 @@
 	if (!citation)
 		return
 	var/crime_console = r_crime_console.resolve()
-	if (citation.paid >= citation.fine)
+	if (citation.paid >= citation.fine || !citation.valid)
 		return
 	citation.valid = FALSE
 	add_crime(citation.author, "112: Fine Avoidance", 0, "Failed to pay citation valued at [citation.fine - citation.paid] credits which was issued for [citation.name].", crime_console)
