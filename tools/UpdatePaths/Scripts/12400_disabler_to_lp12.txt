@@ -1,0 +1,1 @@
+/obj/item/gun/energy/disabler : /obj/item/gun/ballistic/automatic/pistol/security{@OLD}
