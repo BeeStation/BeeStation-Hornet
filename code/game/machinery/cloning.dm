@@ -282,6 +282,7 @@
 				H.gain_trauma(cloned_trauma, BT.resilience)
 
 		H.set_cloned_appearance()
+		H.cure_trauma_type(/datum/brain_trauma/severe/paralysis/paraplegic, TRAUMA_RESILIENCE_ABSOLUTE)
 
 		H.set_suicide(FALSE)
 
