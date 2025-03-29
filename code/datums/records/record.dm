@@ -305,7 +305,7 @@
 		crimes += new_crime
 		wanted_status = WANTED_ARREST
 		user.investigate_log("New Crime: <strong>[input_name]</strong> | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
-		user.alert_owner(user, crime_console, name, "A warrant for your arrest has been filed for [input_name]. Please appear before security immediately.")
+		new_crime.alert_owner(user, crime_console, name, "A warrant for your arrest has been filed for [input_name]. Please appear before security immediately.")
 
 		update_matching_security_huds(name)
 		return TRUE
@@ -328,7 +328,7 @@
 	if (citation.paid >= citation.fine)
 		return
 	citation.valid = FALSE
-	add_crime(citation.author, citation.name, 0, "112 Minor: Failed to pay citation valued at [citation.fine - citation.paid] credits.", crime_console)
+	add_crime(citation.author, "112: Fine Avoidance.", 0, "Failed to pay citation valued at [citation.fine - citation.paid] credits which was issued for [citation.name].", crime_console)
 
 /// Handles editing a crime on a particular record. Also includes citations.
 /datum/record/crew/proc/edit_crime(mob/user, name, description, crime_ref)
