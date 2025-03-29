@@ -390,6 +390,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen that connects to the auxillary base's camera."
 	network = list(CAMERA_NETWORK_AUXBASE)
 
+/obj/machinery/computer/security/telescreen/mining
+	name = "outpost camera monitor"
+	desc = "A telescreen that connects to the mining outpost."
+	network = list(CAMERA_NETWORK_AUXBASE, CAMERA_NETWORK_MINE)
+
 /obj/machinery/computer/security/telescreen/minisat
 	name = "minisat monitor"
 	desc = "A telescreen that connects to the minisat's camera network."
