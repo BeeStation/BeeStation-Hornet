@@ -42,7 +42,7 @@ map kilostation
 endmap
 
 map flandstation
-	minplayers 40
+	minplayers 45
 	votable
 endmap
 
