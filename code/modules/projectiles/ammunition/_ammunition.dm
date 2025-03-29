@@ -21,8 +21,8 @@
 	var/pellets = 1
 	//Variance for inaccuracy fundamental to the casing
 	var/variance = 0
-	//Randomspread for automatics
-	var/randomspread = 0
+	// Should weapons that fire more than 1 pellets be evenly distributed?
+	var/even_distribution = FALSE
 	//Delay for energy weapons
 	var/delay = 0
 	//the visual effect appearing when the ammo is fired.
@@ -32,6 +32,8 @@
 	var/harmful = TRUE
 	var/click_cooldown_override = 0
 	var/exists = TRUE
+	/// Amount of damage that the projectile causes to the gun when fired.
+	var/gun_damage = 0
 
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"
