@@ -317,7 +317,7 @@
 	user.investigate_log("New Citation: <strong>[input_name]</strong> Fine: [fine_amount] | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
 
 	// Attach to the citation
-	addtimer(CALLBACK(src, PROC_REF(escalate_citation), WEAKREF(new_citation), WEAKREF(crime_console)), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(escalate_citation), WEAKREF(new_citation), WEAKREF(crime_console)), 15 MINUTES)
 	return TRUE
 
 /datum/record/crew/proc/escalate_citation(datum/weakref/r_citation, datum/weakref/r_crime_console)
@@ -328,7 +328,7 @@
 	if (citation.paid >= citation.fine)
 		return
 	citation.valid = FALSE
-	add_crime(citation.author, "112: Fine Avoidance.", 0, "Failed to pay citation valued at [citation.fine - citation.paid] credits which was issued for [citation.name].", crime_console)
+	add_crime(citation.author, "112: Fine Avoidance", 0, "Failed to pay citation valued at [citation.fine - citation.paid] credits which was issued for [citation.name].", crime_console)
 
 /// Handles editing a crime on a particular record. Also includes citations.
 /datum/record/crew/proc/edit_crime(mob/user, name, description, crime_ref)
