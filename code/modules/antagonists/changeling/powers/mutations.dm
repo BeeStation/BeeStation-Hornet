@@ -162,6 +162,8 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
+	//Fuck you, *crowbars your fleshy thing
+	tool_behaviour = TOOL_CROWBAR
 	var/can_drop = FALSE
 	var/fake = FALSE
 
