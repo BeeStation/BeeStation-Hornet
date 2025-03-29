@@ -10,6 +10,7 @@
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
 	banning_key = ROLE_CULTIST
+	special_role = ROLE_CULTIST
 	required_living_playtime = 4
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
@@ -334,7 +335,6 @@
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
-		set_dynamic_high_impact_event("cult has gained halos")
 
 
 /datum/team/cult/proc/rise(cultist)
