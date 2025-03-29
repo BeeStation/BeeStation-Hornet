@@ -11,7 +11,7 @@
 	// Requires a round in medical, this is a decent role for new players but is poorly
 	// communicated. Once the onboarding is better for this role, playtime requirements
 	// should be removed.
-	exp_requirements = 60
+	exp_requirements = 120
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/geneticist
 

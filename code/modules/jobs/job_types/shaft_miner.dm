@@ -10,7 +10,7 @@
 	spawn_positions = 3
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
-	exp_requirements = 120
+	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/miner
