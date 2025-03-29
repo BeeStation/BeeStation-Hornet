@@ -139,9 +139,9 @@
 		if(mangled_state == BODYPART_MANGLED_BOTH)
 			extra_wound_details = ", threatening to sever it entirely"
 		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] through to the bone"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] through to the bone"
 		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] at the remaining tissue"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] at the remaining tissue"
 	*/
 
 	var/message_hit_area = ""
