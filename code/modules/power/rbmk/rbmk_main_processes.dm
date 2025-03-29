@@ -120,8 +120,7 @@
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
 		var/heat_delta = (last_coolant_temperature - temperature) * RBMK_BASE_COOLING_FACTOR * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta // HEAT DELTA COULD BE NEGATIVE!!
-		if (heat_delta>0)
-			heat_delta *= RBMK_COOLANT_TEMPERATURE_MULTIPLIER // make it harder to cool down output gases
+
 		temperature += heat_delta
 		temperature = clamp(temperature, TCMB, INFINITY) // ensure nothing silly happens
 
@@ -133,11 +132,11 @@
 
 		var/datum/gas_mixture/removed = coolant_input.remove(transfer_moles)
 
-		// changed the moved gas' temperature by the heat delta
-		if (heat_delta<0) // don't generate magic cooling based on the multiplier
-			removed.temperature -= heat_delta // opposite sign to our own temperature change
-		else
-			removed.temperature -= heat_delta
+		// changed the moved gas' temperature by the heat delta (remembering negative heat delta is cooling the reactor, heating up coolant gas)
+		if (heat_delta<0)
+			heat_delta *= RBMK_COOLANT_TEMPERATURE_MULTIPLIER // make it harder to cool down output gases
+
+		removed.temperature -= heat_delta
 
 		coolant_output.merge(removed)
 
