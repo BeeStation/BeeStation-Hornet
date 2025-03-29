@@ -44,7 +44,7 @@
 	switch(action)
 		if("edit_field")
 			if (!target_record)
-				return
+				return FALSE
 			if (!authenticated)
 				return FALSE
 			var/field = params["field"]
