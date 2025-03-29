@@ -41,14 +41,17 @@
 	if(params["record_ref"])
 		target_record = locate(params["record_ref"]) in GLOB.manifest.general
 
+	if (!target_record)
+		return
+
 	switch(action)
 		if("edit_field")
 			target_record = locate(params["record_ref"]) in GLOB.manifest.general
 			var/field = params["field"]
-			if(!field || !(field in target_record?.vars))
+			if(!field || !can_edit_field(field))
 				return FALSE
 			var/text = "[params["value"]]" //Converts the value to a string, due to fuckery in TGUI.
-			var/value = trim(text, MAX_BROADCAST_LEN)
+			var/value = sanitize_ic(trim(text, MAX_BROADCAST_LEN))
 			target_record.vars[field] = value || null
 			update_all_security_huds()
 			return TRUE
@@ -94,9 +97,12 @@
 				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(user, params["character_preview_view"], target_record)
+			update_preview(user, sanitize(params["character_preview_view"]), target_record)
 			return TRUE
 
+	return FALSE
+
+/obj/machinery/computer/records/proc/can_edit_field(field)
 	return FALSE
 
 /// Creates a character preview view for the UI.

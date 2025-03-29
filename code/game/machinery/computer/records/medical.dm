@@ -67,7 +67,7 @@
 
 	switch(action)
 		if("add_note")
-			target_record.add_medical_note(params["content"], usr.name)
+			target_record.add_medical_note(sanitize_ic(params["content"]), usr.name)
 			return TRUE
 
 		if("delete_note")
@@ -75,12 +75,25 @@
 			return TRUE
 
 		if("set_physical_status")
-			target_record.set_physical_status(params["physical_status"])
+			target_record.set_physical_status(sanitize_ic(params["physical_status"]))
 			return TRUE
 
 		if("set_mental_status")
-			target_record.set_mental_status(params["mental_status"])
+			target_record.set_mental_status(sanitize_ic(params["mental_status"]))
 			return TRUE
 
 	return FALSE
 
+/obj/machinery/computer/records/medical/can_edit_field(field)
+	switch (field)
+		if ("age")
+			return TRUE
+		if ("species")
+			return TRUE
+		if ("gender")
+			return TRUE
+		if ("dna")
+			return TRUE
+		if ("blood_type")
+			return TRUE
+	return FALSE
