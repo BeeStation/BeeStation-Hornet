@@ -84,7 +84,7 @@
 	else
 		var/atom/movable/source = speaker.GetSource() || speaker
 		message_part = source.say_quote(message, spans, message_mods)
-	message_part = span_message("[summoner.say_emphasis(message_part)]")
+	message_part = span_message(summoner.say_emphasis(message_part))
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
 	to_chat(owner.list_summoner_and_or_holoparasites(), final_message)

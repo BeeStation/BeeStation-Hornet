@@ -14,11 +14,11 @@
 	if(sanitize)
 		msg = sanitize(msg)
 	msg = treat_message_min(msg)
-	var/preliminary_message = "[span_srtradioholoparasiteboldmessage("[msg]")]" // Apply basic color and bolding.
-	var/my_message = "[span_srtradioholoparasitebold("[span_nameitalics("[src]")]: [preliminary_message]")]" // Add source, and color said source with the default grey.
+	var/preliminary_message = span_srtradioholoparasiteboldmessage(msg) // Apply basic color and bolding.
+	var/my_message = span_srtradioholoparasitebold(span_nameitalics("[src]: [preliminary_message]")) // Add source, and color said source with the default grey.
 
 	to_chat(src, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
-	to_chat(holoparas, "[span_bolditalics("[span_name("[src]")]:")] [preliminary_message]", type = MESSAGE_TYPE_RADIO)
+	to_chat(holoparas, "[span_bolditalics("[span_name(src)]:")] [preliminary_message]", type = MESSAGE_TYPE_RADIO)
 	create_chat_message(src, /datum/language/metalanguage, holoparas + src, raw_message = msg, spans = list("holoparasite"))
 	for(var/ghost in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(ghost, src)
@@ -39,9 +39,9 @@
 	if(sanitize)
 		msg = sanitize(msg)
 	msg = treat_message_min(msg)
-	var/preliminary_message = "[span_srtradioholoparasiteboldmessage("[msg]")]" // Apply basic color and bolding.
+	var/preliminary_message = span_srtradioholoparasiteboldmessage(msg) // Apply basic color and bolding.
 	var/my_message = "[span_srtradiobolditalics("[color_name]:")] [preliminary_message]" // Add source, and color said source with the holoparasite's color.
-	var/ghost_message = "[span_srtradiobolditalics("[color_name] -> [span_name("[summoner.name]")]:")] [preliminary_message]"
+	var/ghost_message = "[span_srtradiobolditalics("[color_name] -> [span_name(summoner.name)]:")] [preliminary_message]"
 
 	var/list/recipients = list_summoner_and_or_holoparasites()
 	to_chat(src, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)

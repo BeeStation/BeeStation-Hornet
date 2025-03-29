@@ -392,7 +392,7 @@ GLOBAL_LIST(admin_antag_list)
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(/datum/mutation/clumsy)
 			if(!silent && message)
-				to_chat(C, span_boldnotice("[message]"))
+				to_chat(C, span_boldnotice(message))
 		else
 			C.dna.add_mutation(/datum/mutation/clumsy) // We're removing their antag status, add back clumsy
 
