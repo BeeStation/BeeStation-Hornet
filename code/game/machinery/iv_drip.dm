@@ -187,6 +187,14 @@
 	else
 		toggle_mode()
 
+/obj/machinery/iv_drip/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	if (attached)
+		context.add_attack_hand_action("Detach [capitalize(attached.name)]")
+	else if (beaker)
+		context.add_attack_hand_action("Eject Beaker")
+	else
+		context.add_attack_hand_action("Toggle Mode")
+
 /obj/machinery/iv_drip/verb/eject_beaker()
 	set category = "Object"
 	set name = "Remove IV Container"
@@ -257,7 +265,6 @@
 		qdel(item)
 		new /obj/machinery/anesthetic_machine(loc)
 		qdel(src)
-
 
 /obj/machinery/iv_drip/saline
 	name = "saline drip"

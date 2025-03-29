@@ -14,7 +14,7 @@
 
 /obj/item/food/sushi_roll/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/sushi_slice
 	name = "Sushi Slice Parent"
