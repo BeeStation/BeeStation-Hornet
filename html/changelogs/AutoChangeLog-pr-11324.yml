@@ -1,0 +1,6 @@
+author: rkz, Mothblocks, MrMelbert
+delete-after: true
+changes:
+  - code_imp: converted transformation typepath into a component
+  - refactor: refactors most of the cleaving saw's snowflake code into its status_effect
+  - tweak: the advanced cautery now starts... as a cautery, not the drill.
