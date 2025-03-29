@@ -83,6 +83,7 @@
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
 		rate_of_reaction = 0
 		last_power_produced = 0 // no free-wheeling power from a hot reactor!
+		power = 0
 	else
 		for(var/obj/item/fuel_rod/reactor_fuel_rod in fuel_rods)
 			rate_of_reaction += reactor_fuel_rod.fuel_power
@@ -119,6 +120,8 @@
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
 		var/heat_delta = (last_coolant_temperature - temperature) * RBMK_BASE_COOLING_FACTOR * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at rate_of_reaction=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta // HEAT DELTA COULD BE NEGATIVE!!
+		if (heat_delta>0)
+			heat_delta *= RBMK_COOLANT_TEMPERATURE_MULTIPLIER // make it harder to cool down output gases
 		temperature += heat_delta
 		temperature = clamp(temperature, TCMB, INFINITY) // ensure nothing silly happens
 
