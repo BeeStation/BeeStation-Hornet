@@ -1,0 +1,6 @@
+author: wikimody
+delete-after: true
+changes:
+  - tweak: Key card device now gives you 5 seconds instead of 2 to authorise
+  - bugfix: Alert levels above red no longer block activating BSA and emergency main
+      access
