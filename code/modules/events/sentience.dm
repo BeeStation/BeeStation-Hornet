@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	/mob/living/simple_animal/hostile/retaliate/bat,
 	/mob/living/simple_animal/hostile/carp/cayenne,
 	/mob/living/simple_animal/butterfly,
-	/mob/living/simple_animal/hostile/retaliate/poison/snake,
+	/mob/living/simple_animal/hostile/retaliate/snake,
 	/mob/living/simple_animal/bot/secbot/beepsky
 )))
 
