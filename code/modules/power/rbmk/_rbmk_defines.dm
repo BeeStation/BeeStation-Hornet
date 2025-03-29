@@ -13,7 +13,7 @@
 #define RBMK_POWER_FLAVOURISER 800 //To turn those KWs into something usable
 
 #define RBMK_BASE_COOLING_FACTOR 1.00 // How well the coolant gas cools the reactor. A value of 1 (excluding gas absorption effectiveness and random gas absorption constant) will immediately set the reactor temperature to coolant temperature
-#define RBMK_COOLANT_TEMPERATURE_MULTIPLIER 2.0 // a penalty to increase the output gas temperature beyond what the internal temperature is (makes it so there is more of a challenge to cool down output gases)
+#define RBMK_COOLANT_TEMPERATURE_MULTIPLIER 2.5 // a penalty to increase the output gas temperature beyond what the internal temperature is (makes it so there is more of a challenge to cool down output gases)
 #define RBMK_COOLANT_FLOW_RESTRICTION 0.9 // How well can the coolant gas flow through the reactor, a value of 1.0 assumes there is no restriction (gas will immediately equalise from input to output buffers)
 #define RBMK_TEMPERATURE_MULTIPLIER 2.0 // How much based on the rate of reaction do we heat up in kelvin (signifying the heat dissipation from fuel of the reactor)
 #define RBMK_POWER_TO_TEMPERATURE_MULTIPLIER 0.02 // how much does produced power increase our internal temperature

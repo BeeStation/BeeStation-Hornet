@@ -522,7 +522,7 @@ Arguments:
 
 	// make a little bit of spicy mess
 	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner(get_turf(src))
-	nuclear_sludge_spawner.range = min(15,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // make it a bit more spicy if you've managed to let it get crazy hot (scales by an extra tile radius per 100% over maximum)
+	nuclear_sludge_spawner.range = 4 + min(15,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // make it a bit more spicy if you've managed to let it get crazy hot (scales by an extra tile radius per 100% over maximum)
 	nuclear_sludge_spawner.fire()
 	Destroy()
 
