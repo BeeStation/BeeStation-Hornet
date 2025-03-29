@@ -1591,3 +1591,8 @@ $border-width-px: $border-width * 1px;
     background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
   }
 }
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed #000;
+}

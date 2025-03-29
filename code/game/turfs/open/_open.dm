@@ -37,6 +37,9 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	if(wet)
 		AddComponent(/datum/component/wet_floor, wet, INFINITY, 0, INFINITY, TRUE)
 
+/turf/open/examine_descriptor(mob/user)
+	return "floor"
+
 //direction is direction of travel of A
 /turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	if(direction == DOWN)

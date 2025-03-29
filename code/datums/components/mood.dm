@@ -92,7 +92,7 @@
 	if(thought_msg)
 		msg += "[span_notice("Thoughts:")]\n"
 		msg += thought_msg
-	to_chat(user || parent, EXAMINE_BLOCK(msg))
+	to_chat(user || parent, examine_block(msg))
 
 ///Called after moodevent/s have been added/removed.
 /datum/component/mood/proc/update_mood()
