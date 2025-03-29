@@ -238,7 +238,7 @@
 		/obj/item/organ/tongue/bone/plasmaman = 1,
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
-		/obj/effect/mob_spawn/human/corpse/assistant = 1,
+		/obj/effect/mob_spawn/corpse/human/assistant = 1,
 		/obj/item/organ/wings/moth/robust = 1,
 		/obj/item/organ/wings/dragon = 1)
 
@@ -268,7 +268,7 @@
 		/obj/item/organ/wings/cybernetic = 2,
 		/obj/item/organ/tongue/robot/clockwork/better = 2,
 		/obj/effect/gibspawner/robot = 4,
-		/obj/effect/mob_spawn/drone = 1,
+		/obj/effect/mob_spawn/ghost_role/drone = 1,
 		)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
@@ -315,7 +315,7 @@
 		/mob/living/basic/pet/gondola = 2,
 		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
-		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
+		/obj/effect/mob_spawn/corpse/human/assistant/brainrot_infection = 1,
 		/mob/living/simple_animal/hostile/retaliate/frog = 2)
 
 /obj/effect/spawner/lootdrop/costume
