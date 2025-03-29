@@ -127,6 +127,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 	var/mob/user = ui.user
 	var/datum/record/crew/target_record
+
+	if (!authenticated)
+		return FALSE
+
+	if (action == "set_amount")
+		set_print_amount(sanitize_integer(params["new_amount"]))
+		return TRUE
+
 	if(params["record_ref"])
 		target_record = locate(params["record_ref"]) in GLOB.manifest.general
 	if(!target_record)
@@ -165,13 +173,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			target_record.set_wanted_status(sanitize_ic(params["status"]))
 			return TRUE
 
-		if("set_amount")
-			set_print_amount(sanitize_integer(params["new_amount"]))
-			return TRUE
-
 	return FALSE
 
-/obj/machinery/computer/records/medical/can_edit_field(field)
+/obj/machinery/computer/records/security/can_edit_field(field)
 	switch (field)
 		if ("name")
 			return TRUE

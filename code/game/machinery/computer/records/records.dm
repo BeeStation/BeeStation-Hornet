@@ -41,12 +41,12 @@
 	if(params["record_ref"])
 		target_record = locate(params["record_ref"]) in GLOB.manifest.general
 
-	if (!target_record)
-		return
-
 	switch(action)
 		if("edit_field")
-			target_record = locate(params["record_ref"]) in GLOB.manifest.general
+			if (!target_record)
+				return
+			if (!authenticated)
+				return FALSE
 			var/field = params["field"]
 			if(!field || !can_edit_field(field))
 				return FALSE
@@ -58,6 +58,8 @@
 
 		if("anonymize_record")
 			if(!target_record)
+				return FALSE
+			if (!authenticated)
 				return FALSE
 
 			target_record.anonymize_record_info()
@@ -78,6 +80,8 @@
 			return TRUE
 
 		if("purge_records")
+			if (!authenticated)
+				return FALSE
 			ui.close()
 			balloon_alert(user, "purging records")
 			playsound(src, 'sound/machines/terminal_alert.ogg', 70, TRUE)
@@ -94,6 +98,8 @@
 
 		if("view_record")
 			if(!target_record)
+				return FALSE
+			if (!authenticated)
 				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
