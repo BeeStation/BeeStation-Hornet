@@ -579,7 +579,7 @@ BLIND     // can't see anything
 	var/turf/T = get_turf(src)
 	if(!T || !(d_type in high_pressure_multiplier_types))
 		return
-	if (is_mining_level(T.z))
+	if (!is_mining_level(T.z))
 		return . * high_pressure_multiplier
 
 #undef SENSORS_OFF
