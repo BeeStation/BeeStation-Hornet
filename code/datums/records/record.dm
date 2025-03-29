@@ -305,7 +305,7 @@
 		crimes += new_crime
 		wanted_status = WANTED_ARREST
 		user.investigate_log("New Crime: <strong>[input_name]</strong> | Added to [name] by [key_name(user)]", INVESTIGATE_RECORDS)
-		new_crime.alert_owner(user, crime_console, name, "A warrant for your arrest has been filed for [input_name]. Please appear before security immediately.")
+		new_crime.alert_owner(user, crime_console, name, "A warrant for your arrest has been filed. Please appear before security immediately to discuss this matter. Failure to comply may result in increased punitive action.")
 
 		update_matching_security_huds(name)
 		return TRUE
