@@ -5524,6 +5524,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
 "bgw" = (
@@ -26168,7 +26169,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
 	},
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 4
 	},
@@ -55131,20 +55131,6 @@
 	broken = 1
 	},
 /area/maintenance/aft)
-"pUY" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/dark_green/opposingcorners,
-/obj/effect/landmark/start/virologist,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/freezer,
-/area/medical/virology)
 "pVe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -103038,7 +103024,7 @@ lpC
 ouf
 aoH
 kfg
-pUY
+hNA
 qVy
 vlT
 rJv

@@ -5150,7 +5150,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/iron/grid,
 /area/medical/virology)
 "blc" = (
@@ -10075,7 +10074,6 @@
 	dir = 1;
 	pixel_y = 3
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "cGZ" = (
@@ -20473,7 +20471,6 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "fpA" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -46306,6 +46303,10 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"lLz" = (
+/obj/effect/landmark/start/surgeon,
+/turf/open/floor/iron/white,
+/area/medical/surgery)
 "lLM" = (
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -68974,7 +68975,6 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/iron/grid,
 /area/medical/virology)
 "rLa" = (
@@ -124328,7 +124328,7 @@ uKW
 aBo
 iIH
 xLt
-xLt
+lLz
 xLt
 wLJ
 fEu

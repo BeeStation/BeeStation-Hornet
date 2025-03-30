@@ -29311,9 +29311,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 2
-	},
+/obj/machinery/light,
 /obj/item/rcl/pre_loaded,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
@@ -47510,6 +47508,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "xjy" = (
@@ -48461,9 +48460,7 @@
 /obj/machinery/computer/atmos_control/oxygen_tank{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 2
-	},
+/obj/machinery/light,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "xIl" = (
