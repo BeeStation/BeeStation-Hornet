@@ -55,4 +55,4 @@
 	name = "\improper smiting touch"
 	desc = "This hand of mine glows with an awesome power!"
 	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	inhand_icon_state = "disintegrate"

@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "radio headset"
 	desc = "An updated, modular intercom that fits over the head. Takes encryption keys."
 	icon_state = "headset"
-	item_state = "headset"
+	inhand_icon_state = "headset"
 	worn_icon_state = "headset"
 	custom_materials = list(/datum/material/iron=75)
 	subspace_transmission = TRUE
@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	icon_state = "syndie_headset"
-	item_state = "syndie_headset"
+	inhand_icon_state = "syndie_headset"
 	bang_protect = 1
 
 /obj/item/radio/headset/syndicate/alt/leader

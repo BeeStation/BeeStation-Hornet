@@ -8,7 +8,7 @@
 	icon = 'icons/obj/pet_carrier.dmi'
 	base_icon_state = "pet_carrier"
 	icon_state = "pet_carrier_open"
-	item_state = "pet_carrier"
+	inhand_icon_state = "pet_carrier"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 5

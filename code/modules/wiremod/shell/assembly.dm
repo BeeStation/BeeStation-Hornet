@@ -8,7 +8,7 @@
 	name = "modular assembly"
 	desc = "a modified remote signalling device with its wiring removed and adapted for integrated circuitry."
 	icon_state = "wiremod"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 

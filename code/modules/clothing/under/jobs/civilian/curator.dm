@@ -3,7 +3,7 @@
 	desc = "It's very... sensible."
 	icon = 'icons/obj/clothing/under/suits.dmi'
 	icon_state = "red_suit"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon = 'icons/mob/clothing/under/suits.dmi'
 	can_adjust = FALSE
 
@@ -12,7 +12,7 @@
 	desc = "It's very... sensible."
 	icon = 'icons/obj/clothing/under/suits.dmi'
 	icon_state = "red_suit_skirt"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon = 'icons/mob/clothing/under/suits.dmi'
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
@@ -24,14 +24,14 @@
 	desc = "A rugged uniform suitable for treasure hunting."
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 	icon_state = "curator"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
 
 /obj/item/clothing/under/rank/civilian/curator/nasa
 	name = "\improper NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
 	icon_state = "jumpsuit"
-	item_state = "jumpsuit"
+	inhand_icon_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit

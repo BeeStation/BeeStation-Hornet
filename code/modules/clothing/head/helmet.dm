@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/head/helmet.dmi'
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "helmet"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 	armor_type = /datum/armor/head_helmet
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
@@ -68,7 +68,7 @@
 	name = "bulletproof helmet"
 	desc = "A bulletproof combat helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "helmetalt"
-	item_state = "helmetalt"
+	inhand_icon_state = "helmetalt"
 	armor_type = /datum/armor/helmet_alt
 
 
@@ -96,7 +96,7 @@
 	name = "blue helmet"
 	desc = "A reliable, blue tinted helmet reminding you that you <i>still</i> owe that engineer a beer."
 	icon_state = "blueshift"
-	item_state = "blueshift"
+	inhand_icon_state = "blueshift"
 	custom_premium_price = 450
 
 /obj/item/clothing/head/helmet/toggleable
@@ -137,7 +137,7 @@
 	name = "riot helmet"
 	desc = "It's a helmet specifically designed to protect against close range attacks."
 	icon_state = "riot"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 	toggle_message = "You pull the visor down on"
 	alt_toggle_message = "You push the visor up on"
 	armor_type = /datum/armor/toggleable_riot
@@ -167,7 +167,7 @@
 	name = "helmet of justice"
 	desc = "WEEEEOOO. WEEEEEOOO. WEEEEOOOO."
 	icon_state = "justice"
-	item_state = "justice_helmet"
+	inhand_icon_state = "justice_helmet"
 	toggle_message = "You turn off the lights on"
 	alt_toggle_message = "You turn on the lights on"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
@@ -206,7 +206,7 @@
 	name = "\improper SWAT helmet"
 	desc = "An extremely robust, space-worthy helmet in a nefarious red and black stripe pattern."
 	icon_state = "swatsyndie"
-	item_state = "swatsyndie"
+	inhand_icon_state = "swatsyndie"
 	armor_type = /datum/armor/helmet_swat
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -239,14 +239,14 @@
 	name = "\improper SWAT helmet"
 	desc = "An extremely robust, space-worthy helmet with the Nanotrasen logo emblazoned on the top."
 	icon_state = "swat"
-	item_state = "swat"
+	inhand_icon_state = "swat"
 
 /obj/item/clothing/head/helmet/thunderdome
 	name = "\improper Thunderdome helmet"
 	desc = "<i>'Let the battle commence!'</i>"
 	flags_inv = HIDEEARS|HIDEHAIR
 	icon_state = "thunderdome"
-	item_state = "thunderdome"
+	inhand_icon_state = "thunderdome"
 	armor_type = /datum/armor/helmet_thunderdome
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -284,7 +284,7 @@
 	armor_type = /datum/armor/helmet_roman
 	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
-	item_state = "roman"
+	inhand_icon_state = "roman"
 	strip_delay = 100
 
 
@@ -310,7 +310,7 @@
 	name = "\improper Roman legionnaire helmet"
 	desc = "An ancient helmet made of bronze and leather. Has a red crest on top of it."
 	icon_state = "roman_c"
-	item_state = "roman_c"
+	inhand_icon_state = "roman_c"
 
 /obj/item/clothing/head/helmet/roman/legionnaire/fake
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
@@ -324,7 +324,7 @@
 	name = "gladiator helmet"
 	desc = "Ave, Imperator, morituri te salutant."
 	icon_state = "gladiator"
-	item_state = "gladiator"
+	inhand_icon_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
@@ -333,7 +333,7 @@
 	desc = "They have chosen their own end."
 	icon_state = "redtaghelm"
 	flags_cover = HEADCOVERSEYES
-	item_state = "redtaghelm"
+	inhand_icon_state = "redtaghelm"
 	armor_type = /datum/armor/helmet_redtaghelm
 
 
@@ -352,7 +352,7 @@
 	desc = "They'll need more men."
 	icon_state = "bluetaghelm"
 	flags_cover = HEADCOVERSEYES
-	item_state = "bluetaghelm"
+	inhand_icon_state = "bluetaghelm"
 	armor_type = /datum/armor/helmet_bluetaghelm
 
 
@@ -370,7 +370,7 @@
 	name = "medieval helmet"
 	desc = "A classic metal helmet."
 	icon_state = "knight_green"
-	item_state = "knight_green"
+	inhand_icon_state = "knight_green"
 	armor_type = /datum/armor/helmet_knight
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -390,15 +390,15 @@
 
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
-	item_state = "knight_blue"
+	inhand_icon_state = "knight_blue"
 
 /obj/item/clothing/head/helmet/knight/yellow
 	icon_state = "knight_yellow"
-	item_state = "knight_yellow"
+	inhand_icon_state = "knight_yellow"
 
 /obj/item/clothing/head/helmet/knight/red
 	icon_state = "knight_red"
-	item_state = "knight_red"
+	inhand_icon_state = "knight_red"
 
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
@@ -407,7 +407,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor_type = /datum/armor/helmet_skull
 	icon_state = "skull"
-	item_state = "skull"
+	inhand_icon_state = "skull"
 	strip_delay = 100
 
 
@@ -426,7 +426,7 @@
 	name = "durathread helmet"
 	desc = "A helmet made from durathread, a strong material commonly used for ballistic protection."
 	icon_state = "durathread"
-	item_state = "durathread"
+	inhand_icon_state = "durathread"
 	resistance_flags = FLAMMABLE
 	armor_type = /datum/armor/helmet_durathread
 	strip_delay = 60
@@ -447,7 +447,7 @@
 	name = "russian helmet"
 	desc = "It can hold a bottle of vodka."
 	icon_state = "rus_helmet"
-	item_state = "rus_helmet"
+	inhand_icon_state = "rus_helmet"
 	armor_type = /datum/armor/helmet_rus_helmet
 
 /datum/armor/helmet_rus_helmet
@@ -470,7 +470,7 @@
 	name = "battle ushanka"
 	desc = "100% bear."
 	icon_state = "rus_ushanka"
-	item_state = "rus_ushanka"
+	inhand_icon_state = "rus_ushanka"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -496,7 +496,7 @@
 	icon = 'icons/obj/clothing/head/cowboy.dmi'
 	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy"
-	item_state = "cowboy"
+	inhand_icon_state = "cowboy"
 	worn_icon_state = "cowboy_outlaw"
 	body_parts_covered = HEAD
 	armor_type = /datum/armor/helmet_outlaw

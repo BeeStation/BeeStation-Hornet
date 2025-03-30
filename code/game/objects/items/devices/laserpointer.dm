@@ -3,7 +3,7 @@
 	desc = "Don't shine it in your eyes!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
 	var/pointer_icon_state
 	flags_1 = CONDUCT_1
@@ -82,7 +82,7 @@
 		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 		return
 	add_fingerprint(user)
-	
+
 	//nothing happens if the battery is drained
 	if(recharge_locked)
 		to_chat(user, span_notice("You point [src] at [target], but it's still charging."))

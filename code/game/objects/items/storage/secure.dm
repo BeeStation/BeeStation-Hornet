@@ -123,7 +123,7 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	icon_state = "sec-case"
-	item_state = "sec-case"
+	inhand_icon_state = "sec-case"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	desc = "A large briefcase with a digital locking system."

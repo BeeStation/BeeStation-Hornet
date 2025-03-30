@@ -14,7 +14,7 @@
 	name = "\improper shock touch"
 	desc = "This is kind of like when you rub your feet on a shag rug so you can zap your friends, only a lot less safe."
 	icon_state = "zapper"
-	item_state = "zapper"
+	inhand_icon_state = "zapper"
 
 /datum/action/spell/touch/shock
 	name = "Shock Touch"

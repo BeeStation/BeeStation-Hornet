@@ -54,7 +54,7 @@
 	desc = "A very REAL ratvarian spear.";
 	icon = 'icons/obj/clockwork_objects.dmi';
 	icon_state = "ratvarian_spear";
-	item_state = "ratvarian_spear";
+	inhand_icon_state = "ratvarian_spear";
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	name = "toy spear";
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'

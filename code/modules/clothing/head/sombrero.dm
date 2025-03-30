@@ -2,7 +2,7 @@
 	name = "sombrero"
 	icon = 'icons/obj/clothing/head/sombrero.dmi'
 	icon_state = "sombrero"
-	item_state = "sombrero"
+	inhand_icon_state = "sombrero"
 	desc = "You can practically taste the fiesta."
 	flags_inv = HIDEHAIR
 
@@ -12,7 +12,7 @@
 	name = "green sombrero"
 	desc = "As elegant as a dancing cactus."
 	icon_state = "greensombrero"
-	item_state = "greensombrero"
+	inhand_icon_state = "greensombrero"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 	dog_fashion = null
 
@@ -20,7 +20,7 @@
 	name = "shamebrero"
 	desc = "Once it's on, it never comes off."
 	icon_state = "shamebrero"
-	item_state = "shamebrero"
+	inhand_icon_state = "shamebrero"
 	dog_fashion = null
 
 /obj/item/clothing/head/costume/sombrero/shamebrero/Initialize(mapload)
