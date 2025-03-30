@@ -47,6 +47,7 @@
 #include "heretic_rituals.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "icon_smoothing_unit_test.dm"
+#include "inhands.dm"
 #include "janky_actions.dm"
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
