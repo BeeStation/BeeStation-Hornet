@@ -430,5 +430,21 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 /obj/machinery/computer/holodeck/small/LateInitialize()
 	..()
 
+// ---------------------------------------------
+//                DEBUG Holodeck
+// ---------------------------------------------
+/obj/machinery/computer/holodeck/debug
+	name = "CentCom holodeck console"
+	desc = "This seems to be a proof of a suspicion that our shifts are not real... Nevermind, I was joking."
+
+	mapped_start_area = /area/holodeck/debug
+	program_type = /datum/map_template/holodeck/debug
+	offline_program = "Debug - Offline"
+	req_access = list(ACCESS_CENT_GENERAL)
+
+	idle_power_usage = 0
+	active_power_usage = 0
+
+
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD
