@@ -18,7 +18,7 @@
 	icon = 'icons/obj/guillotine.dmi'
 	icon_state = "guillotine_raised"
 	icon_preview = 'icons/obj/previews.dmi'
-	icon_state_preview = "guilliotine"
+	icon_state_preview = "guillotine"
 	can_buckle = TRUE
 	anchored = TRUE
 	density = TRUE
