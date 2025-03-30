@@ -38,7 +38,7 @@
 	if(isitem(target))
 		RegisterSignal(target, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(checkEmbed))
 		RegisterSignal(target, COMSIG_ELEMENT_ATTACH, PROC_REF(severancePackage))
-		RegisterSignal(target, COMSIG_ATOM_EXAMINE_TAGS, PROC_REF(examined_tags))
+		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examined))
 		RegisterSignal(target, COMSIG_EMBED_TRY_FORCE, PROC_REF(tryForceEmbed))
 		RegisterSignal(target, COMSIG_ITEM_DISABLE_EMBED, PROC_REF(detachFromWeapon))
 		if(!initialized)
@@ -133,13 +133,13 @@
 	Detach(weapon)
 
 ///Someone inspected our embeddable item
-/datum/element/embed/proc/examined_tags(obj/item/I, mob/user, list/examine_list)
+/datum/element/embed/proc/examined(obj/item/I, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
 	if(I.isEmbedHarmless())
-		examine_list["sticky"] = "[I] feels sticky, and could probably get stuck to someone if thrown properly!"
+		examine_list += "[I] feels sticky, and could probably get stuck to someone if thrown properly!"
 	else
-		examine_list["embeddable"] = "[I] has a fine point, and could probably embed in someone if thrown properly!"
+		examine_list += "[I] has a fine point, and could probably embed in someone if thrown properly!"
 
 /**
   * checkEmbedProjectile() is what we get when a projectile with a defined shrapnel_type impacts a target.
