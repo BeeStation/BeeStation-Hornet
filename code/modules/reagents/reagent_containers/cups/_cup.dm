@@ -442,7 +442,6 @@
 	icon_state = "coconutcup_empty"
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
-	//list_reagents = list(/datum/reagent/consumable/coconutmilk = 50)
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
@@ -450,4 +449,9 @@
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 /*	drop_sound = 'sound/items/handling/coconutcup_drop.ogg'
 	pickup_sound = 'sound/items/handling/coconutcup_pickup.ogg'*/
+/obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
+	if (reagents && reagents.total_volume > 0)
+		icon_state = "coconutcup_full"
+	else
+		icon_state = "coconutcup_empty"
 
