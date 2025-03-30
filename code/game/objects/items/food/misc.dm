@@ -355,7 +355,7 @@
 	desc = "The white flesh of a coconut."
 	icon_state = "coconutflesh"
 	food_reagents = list(
-		/datum/reagent/water = 1,
+		/datum/reagent/consumable/coconutmilk = 1,
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 0.2,
 	)
