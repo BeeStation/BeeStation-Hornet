@@ -447,8 +447,7 @@
 	obj_flags = UNIQUE_RENAME
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
-/*	drop_sound = 'sound/items/handling/coconutcup_drop.ogg'
-	pickup_sound = 'sound/items/handling/coconutcup_pickup.ogg'*/
+
 /obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
 	if (reagents && reagents.total_volume > 0)
 		icon_state = "coconutcup_full"
