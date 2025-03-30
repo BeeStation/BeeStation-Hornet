@@ -11,6 +11,10 @@
 GLOBAL_DATUM_INIT(geneticist_state, /datum/ui_state/geneticist, new)
 
 /datum/ui_state/geneticist/can_use_topic(src_object, mob/user)
+	if (IsAdminGhost(user))
+		return UI_INTERACTIVE
+	if (isobserver(user))
+		return UI_DISABLED
 	if (!user.mind || !HAS_TRAIT(user.mind, TRAIT_GENETICIST))
 		if (user.default_can_use_topic(src_object) != UI_CLOSE)
 			return UI_DISABLED
