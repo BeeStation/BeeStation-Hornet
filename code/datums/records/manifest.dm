@@ -138,6 +138,9 @@
 		quirk_notes = person.get_quirk_string(TRUE, CAT_QUIRK_NOTES),
 		hud = person.get_job_id(),
 	)
+	// Add cloning records by default
+	for (var/obj/machinery/computer/cloning/cloning_computer in GLOB.machines)
+		cloning_computer.scan_occupant(person, null)
 	if(!nosignal)
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
