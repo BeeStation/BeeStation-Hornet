@@ -145,7 +145,7 @@ const CitationManager = (props) => {
         <LabeledList.Item label="Paid">{paid}</LabeledList.Item>
         {fine > 0 && (
           <LabeledList.Item label="Pay">
-            <RestrictedInput maxValue={fine} minValue={5} onChange={(event, value) => setPaying(value)} value={paying} />
+            <RestrictedInput maxValue={fine} minValue={5} onEnter={(event, value) => setPaying(value)} value={paying} />
             <Button.Confirm
               content="Pay"
               onClick={() =>
