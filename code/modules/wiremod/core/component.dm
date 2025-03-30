@@ -12,6 +12,8 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "component"
 	inhand_icon_state = "electronic"
+	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
 	/// The name of the component shown on the UI

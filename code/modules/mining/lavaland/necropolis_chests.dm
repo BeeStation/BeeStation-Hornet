@@ -80,7 +80,23 @@
 	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
 	block_flags = null //not active, so it's null
 	var/activated = FALSE
-	var/usedHand
+
+/obj/item/rod_of_asclepius/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/rod_of_asclepius/update_desc(updates)
+	. = ..()
+	desc = activated ? "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you." : initial(desc)
+
+/obj/item/rod_of_asclepius/update_icon_state()
+	. = ..()
+	icon_state = inhand_icon_state = "ascelpius_[activated ? "active" : "dormant"]"
+
+/obj/item/rod_of_asclepius/vv_edit_var(vname, vval)
+	. = ..()
+	if(vname == NAMEOF(src, activated) && activated)
+		activated()
 
 /obj/item/rod_of_asclepius/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(!activated)
@@ -94,7 +110,7 @@
 		to_chat(user, span_warning("The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath."))
 		return
 	var/mob/living/carbon/itemUser = user
-	usedHand = itemUser.get_held_index_of_item(src)
+	var/usedHand = itemUser.get_held_index_of_item(src)
 	if(itemUser.has_status_effect(/datum/status_effect/hippocratic_oath))
 		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
@@ -129,10 +145,8 @@
 /obj/item/rod_of_asclepius/proc/activated()
 	item_flags = DROPDEL
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
-	icon_state = "asclepius_active"
-	inhand_icon_state = "asclepius_active"
 	activated = TRUE
+	update_appearance()
 
 //Memento Mori
 /obj/item/clothing/neck/necklace/memento_mori

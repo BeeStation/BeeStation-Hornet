@@ -3,6 +3,7 @@
 	desc = "Retracts stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
+	inhand_icon_state = "retractor"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	inhand_icon_state = "clamps"
@@ -29,6 +30,7 @@
 	desc = "You think you have seen this before."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
+	inhand_icon_state = "hemostat"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	inhand_icon_state = "clamps"
@@ -59,6 +61,7 @@
 	desc = "This stops bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
+	inhand_icon_state = "cautery"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	inhand_icon_state = "cautery"
@@ -88,6 +91,7 @@
 	desc = "It projects a high power laser used for medical applications."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "e_cautery"
+	inhand_icon_state = "e_cautery"
 	hitsound = 'sound/items/welder.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	toolspeed = 0.7
@@ -143,6 +147,7 @@
 	desc = "You can drill using this item. You dig?"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
+	inhand_icon_state = "drill"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
@@ -182,6 +187,7 @@
 	desc = "Cut, cut, and once more cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
+	inhand_icon_state = "scalpel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	inhand_icon_state = "scalpel"
@@ -232,6 +238,7 @@
 	desc = "For heavy duty cutting."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw"
+	inhand_icon_state = "saw"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
@@ -390,6 +397,7 @@
 	desc = "An advanced scalpel which uses laser technology to cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "e_scalpel"
+	inhand_icon_state = "e_scalpel"
 	hitsound = 'sound/weapons/blade1.ogg'
 	force = 16
 	toolspeed = 0.7
@@ -440,6 +448,9 @@
 	desc = "An agglomerate of rods and gears."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "adv_retractor"
+	inhand_icon_state = "adv_retractor"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	toolspeed = 0.7
 
 /obj/item/retractor/advanced/Initialize(mapload)

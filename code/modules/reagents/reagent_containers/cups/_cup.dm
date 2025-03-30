@@ -164,6 +164,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	inhand_icon_state = "beaker"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	worn_icon_state = "beaker"
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)

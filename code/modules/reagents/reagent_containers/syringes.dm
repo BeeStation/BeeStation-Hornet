@@ -2,11 +2,12 @@
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
+	icon_state = "syringe_0"
 	inhand_icon_state = "syringe_0"
+	worn_icon_state = "pen"
 	base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	icon_state = "syringe_0"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
@@ -93,15 +94,18 @@
 				return
 			if(living_target.reagents.total_volume >= living_target.reagents.maximum_volume)
 				return
-			living_target.visible_message("<span class='danger'>[user] injects [living_target] with the syringe!</span>", \
-							"<span class='userdanger'>[user] injects you with the syringe!</span>")
+			living_target.visible_message(
+				span_danger("[user] injects [living_target] with the syringe!"),
+				span_userdanger("[user] injects you with the syringe!"),
+			)
 
 		if (living_target == user)
 			living_target.log_message("injected themselves ([contained]) with [name]", LOG_ATTACK, color="orange")
 		else
 			log_combat(user, living_target, "injected", src, addition="which had [contained]")
+
 	reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, method = INJECT)
-	to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
+	to_chat(user, span_notice("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))
 	target.update_appearance()
 
 /obj/item/reagent_containers/syringe/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
@@ -109,15 +113,17 @@
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 	if(reagents.total_volume >= reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>[src] is full.</span>")
+		to_chat(user, span_notice("[src] is full."))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 	if(isliving(target))
 		var/mob/living/living_target = target
 		var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 		if(target != user)
-			target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
-							"<span class='userdanger'>[user] is trying to take a blood sample from you!</span>")
+			target.visible_message(
+				span_danger("[user] is trying to take a blood sample from [target]!"),
+				span_userdanger("[user] is trying to take a blood sample from you!"),
+			)
 			busy = TRUE
 			if(!do_after(user, 3 SECONDS, target, extra_checks = CALLBACK(living_target, TYPE_PROC_REF(/mob/living, try_inject), user, null, INJECT_TRY_SHOW_ERROR_MESSAGE)))
 				busy = FALSE
@@ -126,36 +132,47 @@
 				return SECONDARY_ATTACK_CONTINUE_CHAIN
 		busy = FALSE
 		if(living_target.transfer_blood_to(src, drawn_amount))
-			user.visible_message("<span class='notice'>[user] takes a blood sample from [living_target].</span>")
+			user.visible_message(span_notice("[user] takes a blood sample from [living_target]."))
 		else
-			to_chat(user, "<span class='warning'>You are unable to draw any blood from [living_target]!</span>")
+			to_chat(user, span_warning("You are unable to draw any blood from [living_target]!"))
 	else
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty!</span>")
+			to_chat(user, span_warning("[target] is empty!"))
 			return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 		if(!target.is_drawable(user))
-			to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
+			to_chat(user, span_warning("You cannot directly remove reagents from [target]!"))
 			return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
 
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
-
+		to_chat(user, span_notice("You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units."))
+		target.update_appearance()
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/reagent_containers/syringe/update_icon()
-	cut_overlays()
-	var/rounded_vol
+/obj/item/reagent_containers/syringe/update_icon_state()
+	var/rounded_vol = get_rounded_vol()
+	icon_state = inhand_icon_state = "[base_icon_state]_[rounded_vol]"
+	return ..()
+
+/obj/item/reagent_containers/syringe/update_overlays()
+	. = ..()
+	var/list/reagent_overlays = update_reagent_overlay()
+	if(reagent_overlays)
+		. += reagent_overlays
+
+/// Returns a list of overlays to add that relate to the reagents inside the syringe
+/obj/item/reagent_containers/syringe/proc/update_reagent_overlay()
 	if(reagents?.total_volume)
-		rounded_vol = clamp(round((reagents.total_volume / volume * 15),5), 1, 15)
-		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
+		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[get_rounded_vol()]")
 		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling_overlay)
-	else
-		rounded_vol = 0
-	icon_state = "[base_icon_state]_[rounded_vol]"
-	inhand_icon_state = "[base_icon_state]_[rounded_vol]"
+		. += filling_overlay
+
+///Used by update_appearance() and update_overlays()
+/obj/item/reagent_containers/syringe/proc/get_rounded_vol()
+	if(!reagents?.total_volume)
+		return 0
+	return clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
 
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(/datum/status_effect/syringe, src, injectmult)
@@ -251,6 +268,7 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(10, 20, 30, 40, 50, 60)
 	icon_state = "bluespace_0"
+	inhand_icon_state = "bluespace_0"
 	base_icon_state = "bluespace"
 	volume = 60
 	units_per_tick = 2
@@ -292,6 +310,7 @@
 	name = "piercing syringe"
 	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
 	icon_state = "piercing_0"
+	inhand_icon_state = "piercing_0"
 	base_icon_state = "piercing"
 	volume = 10
 	possible_transfer_amounts = list(5, 10)

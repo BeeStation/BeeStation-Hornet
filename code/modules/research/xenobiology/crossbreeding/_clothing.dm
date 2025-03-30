@@ -9,7 +9,7 @@ Slimecrossing Armor
 	name = "rebreather mask"
 	desc = "A transparent mask, resembling a conventional breath mask, but made of bluish slime. Seems to lack any air supply tube, though."
 	icon_state = "slime"
-	inhand_icon_state = "slime"
+	inhand_icon_state = "b_mask"
 	body_parts_covered = NONE
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0
@@ -140,7 +140,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	name = "adamantine armor"
 	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do. The locked joints appear to move under their own power, making this suit of armor impossible to speed up."
 	icon_state = "adamsuit"
-	inhand_icon_state = "adamsuit"
+	inhand_icon_state = null
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
 	var/hit_reflect_chance = 40

@@ -556,7 +556,7 @@
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
 	icon_state = "godeye"
-	inhand_icon_state = "godeye"
+	inhand_icon_state = null
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER

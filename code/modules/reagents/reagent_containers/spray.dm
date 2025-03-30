@@ -177,6 +177,8 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
 	inhand_icon_state = "sunflower"
+	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
 	amount_per_transfer_from_this = 1
 	has_variable_transfer_amount = FALSE
 	can_toggle_range = FALSE

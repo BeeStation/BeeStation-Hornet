@@ -105,6 +105,9 @@
 	name = "cycler shotgun"
 	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
+	inhand_icon_state = "bulldog"
+	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	worn_icon_state = "cshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE

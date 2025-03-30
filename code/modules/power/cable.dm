@@ -1,15 +1,3 @@
-GLOBAL_LIST_INIT(cable_colors, list(
-	"yellow" = "#ffff00",
-	"green" = "#00aa00",
-	"blue" = "#1919c8",
-	"pink" = "#ff3cc8",
-	"orange" = "#ff8000",
-	"cyan" = "#00ffff",
-	"white" = "#ffffff",
-	"red" = "#ff0000"
-	))
-
-
 ///////////////////////////////
 //CABLE STRUCTURE
 ///////////////////////////////
@@ -43,6 +31,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	flags_1 = STAT_UNIQUE_1
+	color = CABLE_HEX_COLOR_RED
+	var/cable_color = CABLE_COLOR_RED
 	var/d1 = 0   // cable direction 1 (see above)
 	var/d2 = 1   // cable direction 2 (see above)
 	var/datum/powernet/powernet
@@ -53,36 +43,37 @@ By design, d1 is the smallest direction and d2 is the highest
 		pipe_group = "cable-[cable_color]"\
 	)
 
-	var/cable_color = "red"
-	color = "#ff0000"
-
 /obj/structure/cable/yellow
-	cable_color = "yellow"
-	color = "#ffff00"
+	color = CABLE_HEX_COLOR_YELLOW
+	cable_color = CABLE_COLOR_YELLOW
 
 /obj/structure/cable/green
-	cable_color = "green"
-	color = "#00aa00"
+	color = CABLE_HEX_COLOR_GREEN
+	cable_color = CABLE_COLOR_GREEN
 
 /obj/structure/cable/blue
-	cable_color = "blue"
-	color = "#1919c8"
+	color = CABLE_HEX_COLOR_BLUE
+	cable_color = CABLE_COLOR_BLUE
 
 /obj/structure/cable/pink
-	cable_color = "pink"
-	color = "#ff3cc8"
+	color = CABLE_HEX_COLOR_PINK
+	cable_color = CABLE_COLOR_YELLOW
 
 /obj/structure/cable/orange
-	cable_color = "orange"
-	color = "#ff8000"
+	color = CABLE_HEX_COLOR_ORANGE
+	cable_color = CABLE_COLOR_ORANGE
 
 /obj/structure/cable/cyan
-	cable_color = "cyan"
-	color = "#00ffff"
+	color = CABLE_HEX_COLOR_CYAN
+	cable_color = CABLE_COLOR_CYAN
 
 /obj/structure/cable/white
-	cable_color = "white"
-	color = "#ffffff"
+	color = CABLE_HEX_COLOR_WHITE
+	cable_color = CABLE_COLOR_WHITE
+
+/obj/structure/cable/brown
+	color = CABLE_HEX_COLOR_BROWN
+	cable_color = CABLE_COLOR_BROWN
 
 // the power cable object
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)

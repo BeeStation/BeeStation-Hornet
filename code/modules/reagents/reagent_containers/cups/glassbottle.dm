@@ -561,6 +561,8 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice
 	custom_price = PAYCHECK_MEDIUM
 	inhand_icon_state = "carton"
+	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice

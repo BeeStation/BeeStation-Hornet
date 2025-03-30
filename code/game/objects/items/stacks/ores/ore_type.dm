@@ -7,7 +7,6 @@
 	name = "uranium ore"
 	desc = "The fuel of the late 20th century."
 	icon_state = "uranium_ore"
-	inhand_icon_state = "uranium_ore"
 	singular_name = "uranium ore chunk"
 	points = 38
 	material_flags = NONE
@@ -25,7 +24,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/uranium)
 	name = "iron ore"
 	desc = "The most abundant material around, yet so scarce."
 	icon_state = "iron_ore"
-	inhand_icon_state = "iron_ore"
 	singular_name = "iron ore chunk"
 	points = 2
 	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
@@ -42,7 +40,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	name = "sand pile"
 	desc = "A pile of sandy quartz."
 	icon_state = "sand"
-	inhand_icon_state = "sand"
 	singular_name = "sand pile"
 	points = 2
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
@@ -96,7 +93,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 	name = "plasma ore"
 	desc = "The fuel of our times."
 	icon_state = "plasma_ore"
-	inhand_icon_state = "plasma_ore"
 	singular_name = "plasma ore chunk"
 	points = 19
 	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
@@ -117,7 +113,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/plasma)
 	name = "copper ore"
 	desc = "The base for all your electronics."
 	icon_state = "copper_ore"
-	inhand_icon_state = "Copper_ore"
 	singular_name = "Copper ore chunk"
 	points = 6
 	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
@@ -134,7 +129,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/copper)
 	name = "silver ore"
 	desc = "Purity in mineral form."
 	icon_state = "silver_ore"
-	inhand_icon_state = "silver_ore"
 	singular_name = "silver ore chunk"
 	points = 20
 	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
@@ -168,7 +162,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/gold)
 	name = "diamond ore"
 	desc = "Densly packed coal, wonder how it got here..."
 	icon_state = "diamond_ore"
-	inhand_icon_state = "diamond_ore"
 	singular_name = "diamond ore chunk"
 	points = 63
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
@@ -184,7 +177,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/diamond)
 	name = "bananium ore"
 	desc = "Unlike bananas, this ore is rather funny."
 	icon_state = "bananium_ore"
-	inhand_icon_state = "bananium_ore"
 	singular_name = "bananium ore chunk"
 	points = 75
 	mats_per_unit = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
@@ -200,7 +192,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bananium)
 	name = "titanium ore"
 	desc = "A strong material for ship construction."
 	icon_state = "titanium_ore"
-	inhand_icon_state = "titanium_ore"
 	singular_name = "titanium ore chunk"
 	points = 38
 	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
@@ -217,7 +208,6 @@ STACKSIZE_MACRO(/obj/item/stack/ore/titanium)
 	name = "slag"
 	desc = "Completely useless."
 	icon_state = "slag"
-	inhand_icon_state = "slag"
 	singular_name = "slag chunk"
 	merge_type = /obj/item/stack/ore/slag
 
