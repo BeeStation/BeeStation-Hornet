@@ -1,6 +1,11 @@
 // DM Environment file for beestation.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
 // New source code should be placed in .dm files: choose File/New --> Code File.
+
+// This should always be the VERY FIRST THING. No exceptions. Read the file for more info, but basically, this needs to be here so that we can ensure specific code is always the very first thing to execute.
+#include "code\genesis_call.dme"
+// Again, DO NOT MOVE IT OR ALLOW ANY OTHER #include TO PRECEDE THE ONE ABOVE.
+
 // BEGIN_INTERNALS
 // END_INTERNALS
 
@@ -777,6 +782,7 @@
 #include "code\datums\components\thermite.dm"
 #include "code\datums\components\tippable.dm"
 #include "code\datums\components\toggle_suit.dm"
+#include "code\datums\components\transforming.dm"
 #include "code\datums\components\twohanded.dm"
 #include "code\datums\components\udder.dm"
 #include "code\datums\components\uplink.dm"
@@ -1637,7 +1643,6 @@
 #include "code\game\objects\items\implants\implantuplink.dm"
 #include "code\game\objects\items\melee\energy.dm"
 #include "code\game\objects\items\melee\misc.dm"
-#include "code\game\objects\items\melee\transforming.dm"
 #include "code\game\objects\items\robot\ai_upgrades.dm"
 #include "code\game\objects\items\robot\robot_items.dm"
 #include "code\game\objects\items\robot\robot_parts.dm"
@@ -4459,7 +4464,6 @@
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
 #include "code\~overrides\quickstart.dm"
-#include "code\~~genesis_call\genesis_call.dm"
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
