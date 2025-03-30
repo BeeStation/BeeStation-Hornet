@@ -440,9 +440,9 @@
 	desc = "A showy form of cup typically intended for both use and display."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coconutcup_empty"
-	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
-	//list_reagents = list(/datum/reagent/consumable/coconutmilk = 50) wish to transfer reagents from plant to here
+	//list_reagents = list(/datum/reagent/consumable/coconutmilk = 50)
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
