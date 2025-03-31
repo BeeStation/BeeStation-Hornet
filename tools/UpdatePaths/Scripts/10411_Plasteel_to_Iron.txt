@@ -1,3 +1,0 @@
-/turf/open/floor/plasteel/@SUBTYPES : /turf/open/floor/iron/@SUBTYPES{@OLD}
-
-/obj/item/stack/tile/plasteel/@SUBTYPES : /obj/item/stack/tile/iron/@SUBTYPES{@OLD}

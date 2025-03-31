@@ -1,1 +1,0 @@
-/obj/machinery/power/emitter/anchored : /obj/machinery/power/emitter/welded{@OLD; state = @SKIP}

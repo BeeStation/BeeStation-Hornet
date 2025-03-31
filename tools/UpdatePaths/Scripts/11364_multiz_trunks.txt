@@ -1,2 +1,0 @@
-/obj/structure/disposalpipe/trunk/multiz:/obj/structure/disposalpipe/multiz{@OLD}
-/obj/structure/disposalpipe/trunk/multiz/down:/obj/structure/disposalpipe/multiz/down{@OLD}
