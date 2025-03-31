@@ -356,17 +356,20 @@
 /////////////////////Lavaland Base Syndicate Explosive Walls /////////////////////
 
 /turf/closed/wall/mineral/plastitanium/explosive
-	var/obj/item/bombcore/large/syndicate_base/bombcore
+	///Ensures the payload can only go off once, because of shenanigans where it didn't
+	var/payload_active = TRUE
 
-/turf/closed/wall/mineral/plastitanium/explosive/Initialize(mapload)
-	. = ..()
-	bombcore = new /obj/item/bombcore/large/syndicate_base(src)
+/turf/closed/wall/mineral/plastitanium/explosive/proc/try_detonate()
+	if(payload_active)
+		payload_active = FALSE
+		explosion(src, 12, 16, 20, 20, 20)
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	bombcore.detonate()
+	try_detonate()
+	..()
 
 /turf/closed/wall/mineral/plastitanium/explosive/Destroy()
-	qdel(bombcore)
+	try_detonate()
 	..()
 
 //have to copypaste this code
