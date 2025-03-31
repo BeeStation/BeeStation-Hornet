@@ -439,7 +439,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	mapped_start_area = /area/holodeck/debug
 	program_type = /datum/map_template/holodeck/debug
-	offline_program = "Debug - Offline"
+	offline_program = "debug-offline"
 	req_access = list(ACCESS_CENT_GENERAL)
 
 	idle_power_usage = 0
