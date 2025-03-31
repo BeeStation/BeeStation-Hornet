@@ -58,3 +58,7 @@
 
 /area/holodeck/small //7x7
 	name = "\improper Small Recreational Holodeck"
+
+// DEBUG only
+/area/holodeck/debug // Size undetermined
+	name = "\improper Debug Holodeck"
