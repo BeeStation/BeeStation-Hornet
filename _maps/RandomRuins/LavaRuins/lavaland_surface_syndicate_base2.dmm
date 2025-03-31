@@ -897,9 +897,6 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"iY" = (
-/turf/closed/wall/mineral/plastitanium/explosive,
-/area/ruin/unpowered/syndicate_lava_base/bridge)
 "iZ" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/dirt,
@@ -3547,9 +3544,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
-"Iy" = (
-/turf/closed/wall/mineral/plastitanium/explosive,
-/area/ruin/unpowered/syndicate_lava_base/virology)
 "IF" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -5879,7 +5873,7 @@ Ta
 Ta
 Ta
 OZ
-bw
+DA
 DA
 ED
 eM
@@ -5888,7 +5882,7 @@ lL
 Gz
 XV
 ED
-Iy
+dq
 dq
 CG
 Ta
@@ -6017,7 +6011,7 @@ ix
 lo
 Ol
 dq
-Iy
+dq
 dq
 dq
 oL
@@ -6266,7 +6260,7 @@ Yy
 pk
 dq
 dq
-Iy
+dq
 dq
 CG
 Ta
@@ -6310,7 +6304,7 @@ Ta
 OZ
 DA
 DA
-bw
+DA
 DA
 DA
 ba
@@ -6324,7 +6318,7 @@ AX
 DA
 Rn
 Xy
-Iy
+dq
 dq
 CG
 Ta
@@ -6444,7 +6438,7 @@ RD
 sA
 Eh
 rC
-bw
+DA
 Rf
 IY
 JE
@@ -6703,7 +6697,7 @@ wY
 GC
 wY
 wY
-Gw
+le
 HW
 Ta
 Ta
@@ -6770,7 +6764,7 @@ le
 le
 le
 le
-Gw
+le
 le
 le
 le
@@ -6923,7 +6917,7 @@ Ta
 Ta
 UU
 hb
-iY
+Ru
 Ru
 Of
 Qz
@@ -7084,7 +7078,7 @@ AR
 xt
 Zv
 YO
-Ia
+YO
 YO
 YO
 dN
@@ -7419,7 +7413,7 @@ Ta
 Ta
 EY
 hb
-iY
+Ru
 Ru
 Of
 Kl
@@ -7639,7 +7633,7 @@ YO
 YO
 YO
 YO
-Ia
+YO
 YO
 YO
 Ta
@@ -7997,7 +7991,7 @@ jL
 Zo
 Zo
 Zo
-Sz
+Zo
 qX
 Ta
 Ta
@@ -8046,7 +8040,7 @@ Ta
 Wo
 Pi
 Pi
-FC
+Pi
 Pi
 Pi
 KK
@@ -8374,7 +8368,7 @@ Hg
 Zo
 Zo
 Zo
-Sz
+Zo
 Zo
 Bt
 Ta
@@ -8418,12 +8412,12 @@ Ta
 Ta
 Wo
 Pi
-FC
+Pi
 Pi
 Pi
 iZ
 FS
-Sz
+Zo
 QH
 Ud
 EP
@@ -8493,7 +8487,7 @@ OO
 IF
 Zo
 Zo
-Sz
+Zo
 qX
 Ta
 Ta
