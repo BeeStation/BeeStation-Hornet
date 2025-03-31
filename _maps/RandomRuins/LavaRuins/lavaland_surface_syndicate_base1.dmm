@@ -925,6 +925,9 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
+"hx" = (
+/turf/closed/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "hy" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable/yellow{
@@ -1242,6 +1245,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"ld" = (
+/turf/closed/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/chemistry)
 "lx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -1838,6 +1844,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer4,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
+"rK" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/mineral/plastitanium/explosive,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "rS" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/engine,
@@ -5797,11 +5807,11 @@ ab
 ab
 ab
 ac
-mn
+mo
 mn
 mN
 va
-mn
+mo
 mn
 mn
 ab
@@ -5831,7 +5841,7 @@ eh
 Dp
 tg
 xq
-eh
+UP
 eh
 ab
 ab
@@ -5876,7 +5886,7 @@ ab
 ab
 ab
 ab
-eh
+UP
 pj
 xR
 LV
@@ -5954,7 +5964,7 @@ Xc
 bg
 Vf
 ov
-mn
+mo
 ab
 ab
 ab
@@ -6033,7 +6043,7 @@ pw
 qp
 cw
 wM
-eh
+UP
 ab
 ab
 ab
@@ -6096,7 +6106,7 @@ pl
 pl
 pl
 jy
-jy
+jP
 mT
 Ak
 mT
@@ -6153,7 +6163,7 @@ uJ
 Wn
 qn
 ol
-mT
+hx
 ab
 ab
 ab
@@ -6249,7 +6259,7 @@ lE
 tz
 mT
 mT
-mT
+hx
 NF
 hy
 mT
@@ -6273,7 +6283,7 @@ ae
 ae
 ae
 ae
-ae
+aL
 ae
 ae
 cS
@@ -6338,7 +6348,7 @@ hb
 fi
 RD
 jy
-jy
+jP
 KB
 fW
 BS
@@ -6352,7 +6362,7 @@ db
 oq
 BC
 TX
-mT
+hx
 mT
 mT
 oF
@@ -6620,13 +6630,13 @@ ab
 ab
 ab
 ae
+aL
 ae
 ae
 ae
 ae
 ae
-ae
-ae
+aL
 ae
 oP
 qZ
@@ -6643,7 +6653,7 @@ lD
 cu
 hz
 jy
-jy
+jP
 jz
 PW
 hN
@@ -6739,7 +6749,7 @@ Al
 Uq
 Pe
 hz
-hz
+hO
 hz
 hz
 Lo
@@ -6749,7 +6759,7 @@ fX
 hN
 KP
 jy
-jy
+jP
 id
 oX
 BW
@@ -6903,7 +6913,7 @@ kT
 Sq
 jb
 kQ
-kQ
+Ra
 ab
 ab
 ab
@@ -6923,7 +6933,7 @@ ab
 ab
 as
 as
-as
+ld
 An
 QP
 ZZ
@@ -7101,7 +7111,7 @@ mf
 Uw
 lI
 WY
-kQ
+Ra
 kQ
 ac
 ac
@@ -7174,7 +7184,7 @@ ab
 ab
 ab
 dy
-dy
+dP
 ML
 iE
 Wq
@@ -7252,7 +7262,7 @@ cn
 Jm
 ju
 od
-ju
+hA
 oz
 ju
 ju
@@ -7399,7 +7409,7 @@ ue
 DA
 se
 sd
-nf
+rK
 ju
 ju
 ju
@@ -7428,7 +7438,7 @@ DF
 dy
 eE
 fe
-dy
+dP
 gd
 dy
 RU
@@ -7483,7 +7493,7 @@ gf
 dy
 ho
 hD
-dy
+dP
 dy
 ha
 ha
@@ -7642,13 +7652,13 @@ ab
 ab
 ab
 ab
-ju
+hA
 yx
 ze
-ju
+hA
 Zo
 zf
-ju
+hA
 ab
 ab
 ab
