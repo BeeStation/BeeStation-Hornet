@@ -3152,6 +3152,7 @@
 #include "code\modules\mob\living\brain\brain.dm"
 #include "code\modules\mob\living\brain\brain_item.dm"
 #include "code\modules\mob\living\brain\death.dm"
+#include "code\modules\mob\living\brain\emote.dm"
 #include "code\modules\mob\living\brain\life.dm"
 #include "code\modules\mob\living\brain\MMI.dm"
 #include "code\modules\mob\living\brain\posibrain.dm"
