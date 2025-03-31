@@ -1,0 +1,138 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/structure/window{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"d" = (
+/obj/machinery/door/window/westleft{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron,
+/area/template_noop)
+"f" = (
+/obj/structure/window{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"g" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/template_noop)
+"h" = (
+/obj/item/food/cheese/wheel,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/template_noop)
+"j" = (
+/obj/item/food/cheesewedge,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/template_noop)
+"k" = (
+/obj/structure/window{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/template_noop)
+"t" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/window{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"u" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/template_noop)
+"E" = (
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 4
+	},
+/obj/structure/window{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted,
+/turf/open/floor/iron,
+/area/template_noop)
+"F" = (
+/obj/structure/window,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"G" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"P" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"S" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+
+(1,1,1) = {"
+S
+c
+t
+P
+"}
+(2,1,1) = {"
+F
+g
+j
+G
+"}
+(3,1,1) = {"
+d
+g
+l
+k
+"}
+(4,1,1) = {"
+F
+h
+g
+G
+"}
+(5,1,1) = {"
+O
+f
+E
+u
+"}

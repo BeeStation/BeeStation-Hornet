@@ -1,0 +1,296 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"v" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"w" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"x" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"z" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"B" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks,
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"C" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"D" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"F" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"I" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"J" = (
+/obj/machinery/vending/boozeomat,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"K" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"L" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = -5
+	},
+/obj/structure/sign/plaques/deempisi{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"M" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"O" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"R" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"S" = (
+/obj/structure/chair/stool/bar/directional/south,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"T" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"U" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"V" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"X" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"Z" = (
+/obj/structure/table/reinforced,
+/obj/item/lighter,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/tdome/arena)
+
+(1,1,1) = {"
+C
+O
+O
+O
+O
+O
+O
+V
+"}
+(2,1,1) = {"
+x
+x
+x
+x
+x
+x
+x
+x
+"}
+(3,1,1) = {"
+U
+x
+U
+x
+x
+x
+x
+x
+"}
+(4,1,1) = {"
+x
+x
+U
+S
+x
+x
+x
+x
+"}
+(5,1,1) = {"
+T
+x
+Z
+S
+R
+w
+v
+x
+"}
+(6,1,1) = {"
+M
+x
+U
+S
+x
+x
+x
+x
+"}
+(7,1,1) = {"
+J
+x
+U
+S
+x
+X
+x
+x
+"}
+(8,1,1) = {"
+L
+x
+U
+S
+x
+w
+x
+x
+"}
+(9,1,1) = {"
+J
+x
+U
+S
+x
+z
+x
+x
+"}
+(10,1,1) = {"
+B
+x
+U
+S
+x
+x
+x
+x
+"}
+(11,1,1) = {"
+F
+x
+Z
+S
+R
+w
+v
+x
+"}
+(12,1,1) = {"
+x
+x
+U
+S
+x
+x
+x
+x
+"}
+(13,1,1) = {"
+U
+x
+U
+x
+x
+x
+x
+x
+"}
+(14,1,1) = {"
+x
+x
+x
+x
+x
+x
+x
+x
+"}
+(15,1,1) = {"
+K
+I
+I
+I
+I
+I
+I
+D
+"}

@@ -1,0 +1,142 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/mirror{
+	pixel_x = -26;
+	pixel_y = 28
+	},
+/obj/item/shard,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/mob/living/simple_animal/hostile/cat_butcherer,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/effect/trap/trigger/all,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/item/shard,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/surgical_drapes,
+/obj/item/clothing/mask/surgical,
+/obj/effect/trap/nexus/doorbolt,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/table,
+/obj/item/restraints/handcuffs/cable/red,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/weldingtool/mini,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/item/circuitboard/computer/operating,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/obj/structure/closet/crate/freezer{
+	name = "organ storage"
+	},
+/obj/item/organ/tail/cat,
+/obj/item/organ/tail/cat,
+/obj/item/organ/ears/cat,
+/obj/item/organ/ears/cat,
+/obj/item/organ/heart,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/blood/random{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/item/shard,
+/obj/effect/trap/trigger/all,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8;
+	icon_state = "0"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+g
+j
+o
+"}
+(2,1,1) = {"
+b
+f
+k
+p
+"}
+(3,1,1) = {"
+g
+i
+p
+q
+"}
+(4,1,1) = {"
+p
+h
+m
+r
+"}
+(5,1,1) = {"
+e
+g
+n
+s
+"}

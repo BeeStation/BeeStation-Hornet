@@ -1,0 +1,96 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"d" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"j" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"l" = (
+/obj/structure/mopbucket,
+/obj/item/mop/cyborg,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"y" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/item/soap/nanotrasen,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"H" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"M" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"S" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/item/reagent_containers/cup/bucket,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"W" = (
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+M
+M
+M
+M
+M
+"}
+(2,1,1) = {"
+M
+y
+w
+S
+M
+"}
+(3,1,1) = {"
+M
+H
+W
+W
+b
+"}
+(4,1,1) = {"
+M
+l
+j
+d
+M
+"}
+(5,1,1) = {"
+M
+M
+M
+M
+M
+"}
