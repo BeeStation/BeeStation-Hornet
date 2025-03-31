@@ -51,9 +51,10 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/apron/surgical
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	suit_store = /obj/item/storage/firstaid/medical
 	mask = /obj/item/clothing/mask/surgical
 	head = /obj/item/clothing/head/beret/med
+
+	backpack_contents = list(/obj/item/storage/firstaid/medical = 1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
