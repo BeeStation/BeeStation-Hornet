@@ -5,15 +5,15 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "ap" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "cd" = (
 /obj/structure/window/plasma/reinforced,
 /obj/structure/window/plasma/reinforced{
@@ -23,19 +23,19 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "cn" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "cX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "dN" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -45,11 +45,11 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "dP" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "ff" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
@@ -60,7 +60,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "fi" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -76,13 +76,13 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "fZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "gv" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -92,14 +92,14 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "hf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "hJ" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
@@ -107,40 +107,31 @@
 	req_access_txt = "10"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "id" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/engine,
-/area/space)
-"iK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "iU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "jA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "lS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "mf" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 4
@@ -149,15 +140,15 @@
 	dir = 6
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "mE" = (
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4;
 	filter_type = list(/datum/gas/nitrogen)
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "nQ" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -172,21 +163,21 @@
 	},
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "oG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "pg" = (
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "pW" = (
 /obj/machinery/shower{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/make_non_slip,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "qd" = (
 /obj/structure/reflector/box/anchored,
 /obj/structure/cable/yellow{
@@ -196,7 +187,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "qK" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 1
@@ -208,8 +199,8 @@
 	dir = 10
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "si" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/structure/cable{
@@ -219,7 +210,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "sv" = (
 /obj/machinery/power/emitter/welded{
 	dir = 8
@@ -228,7 +219,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "vd" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 4
@@ -237,8 +228,8 @@
 	dir = 10
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "vs" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -248,7 +239,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "wi" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
@@ -258,7 +249,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "ws" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 8
@@ -267,18 +258,18 @@
 	dir = 6
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "wA" = (
 /obj/structure/reflector/box/anchored{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "xt" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "xE" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 4
@@ -287,19 +278,19 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "xI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/portable_atmospherics/scrubber/huge/movable,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "yb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/closed/wall/r_wall,
-/area/space)
+/area/template_noop)
 "yF" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 8
@@ -308,56 +299,41 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "Aw" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Gas to Chamber"
 	},
-/obj/machinery/power/apc/auto_name/directional/east{
-	areastring = "/area/engine/supermatter"
-	},
 /obj/machinery/light/small,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "CL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "CN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Ex" = (
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "EN" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
 	name = "External Gas to Loop"
 	},
 /turf/open/floor/engine,
-/area/space)
-"ET" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Fa" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
@@ -369,14 +345,14 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/circuit/green,
-/area/space)
+/area/template_noop)
 "Fp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
 /obj/structure/reflector/box/anchored{
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Gy" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
@@ -393,14 +369,14 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "GD" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Il" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
@@ -412,7 +388,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/green,
-/area/space)
+/area/template_noop)
 "Ip" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/structure/cable{
@@ -422,11 +398,11 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Jq" = (
 /obj/machinery/air_sensor/engine_chamber,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Ku" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 4
@@ -435,14 +411,14 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "KJ" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Lh" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -454,21 +430,21 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "LC" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/closet/radiation,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "LJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes/engineering,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Me" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -478,17 +454,14 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "MM" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "NM" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Cooling Loop Bypass"
@@ -497,16 +470,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
-"NQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "NZ" = (
 /obj/structure/reflector/box/anchored,
 /obj/structure/cable/yellow{
@@ -519,26 +483,26 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "OH" = (
 /obj/structure/table,
 /obj/item/pipe_dispenser/debug,
 /obj/item/clothing/glasses/meson/night,
 /obj/item/storage/part_replacer/bluespace/tier4,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Pm" = (
 /obj/machinery/modular_computer/console/preset/engineering{
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Po" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Ps" = (
 /obj/structure/window/plasma/reinforced,
 /obj/structure/window/plasma/reinforced{
@@ -548,27 +512,27 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "Px" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "PR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Qa" = (
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "RR" = (
 /obj/machinery/power/emitter/welded{
 	dir = 4
@@ -577,7 +541,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Sh" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 1
@@ -589,18 +553,18 @@
 	dir = 6
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/open/floor/engine,
+/area/template_noop)
 "SB" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "TL" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Up" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -616,23 +580,23 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "UR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "VZ" = (
 /turf/closed/wall/r_wall,
-/area/space)
+/area/template_noop)
 "Wo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "Ww" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -642,18 +606,18 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Wx" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/engine,
-/area/space)
+/area/template_noop)
 "YA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/closed/wall/r_wall,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 pW
@@ -754,11 +718,11 @@ Qa
 dP
 "}
 (8,1,1) = {"
-NQ
-ET
+UR
+Po
 MM
 hJ
-iK
+pg
 ff
 Jq
 cn
