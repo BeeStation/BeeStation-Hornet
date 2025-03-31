@@ -185,7 +185,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "aL" = (
-/obj/machinery/computer/cloning/prototype,
+/obj/machinery/computer/cloning,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "aM" = (

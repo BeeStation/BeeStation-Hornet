@@ -42,7 +42,7 @@
 /turf/open/floor/iron/white,
 /area/template_noop)
 "K" = (
-/obj/machinery/computer/cloning/prototype,
+/obj/machinery/computer/cloning,
 /obj/machinery/light{
 	dir = 1
 	},
