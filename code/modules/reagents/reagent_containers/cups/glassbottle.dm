@@ -172,7 +172,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/beer/syndicate
 	name = "syndicate beer"
 	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
-	icon_state = "syndicatebeer"
+	icon_state = "beer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
 
 /obj/item/reagent_containers/cup/glass/bottle/beer/light

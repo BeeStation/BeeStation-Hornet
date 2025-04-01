@@ -97,34 +97,6 @@
 	desc = "A freezing pint of beer."
 	icon_state = "beerglass"
 
-/datum/reagent/consumable/ethanol/ftliver
-	name = "Faster-Than-Liver"
-	description = "A beverage born among the stars, it's said drinking too much feels just like FTL transit."
-	color = "#0D0D0D" // rgb: 13, 13, 13
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
-	boozepwr = 52
-	taste_description = "empty space"
-	var/HasTraveled = 0
-
-/datum/glass_style/drinking_glass/ftliver
-	required_drink_type = /datum/reagent/consumable/ethanol/ftliver
-	name = "glass of Faster-Than-Liver"
-	desc = "My god, it's full of stars!"
-	icon_state = "ftliver"
-
-/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	if(!HasTraveled && prob(volume))
-		HasTraveled = 1
-		M.AdjustKnockdown(15)
-		M.become_nearsighted("ftliver")
-		shake_camera(M,15)
-		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
-		addtimer(CALLBACK(src, PROC_REF(Recover), M), 55)
-	return ..()
-
-/datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
-	M.cure_nearsighted("ftliver")
-
 /datum/reagent/consumable/ethanol/beer/light
 	name = "Light Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety has reduced calorie and alcohol content."
@@ -2914,6 +2886,7 @@
 	required_drink_type = /datum/reagent/consumable/ethanol/fourthwall
 	name = "Fourth Wall"
 	desc = "Just looking at this makes your head hurt."
+	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "fourthwallglass"
 
 /datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
@@ -2965,6 +2938,7 @@
 	required_drink_type = /datum/reagent/consumable/ethanol/ratvander
 	name = "Rat'vander Cocktail"
 	desc = "A new cocktail originally mixed by TRNE Corp. Said to be embued with eldritch magic."
+	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "ratvander"
 
 /datum/reagent/consumable/ethanol/ratvander/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -3073,3 +3047,32 @@
 		M.adjustFireLoss(-1.5 * REM * delta_time, 0)
 		M.adjustToxLoss(-1 * REM * delta_time, 0)
 	. = ..()
+
+/datum/reagent/consumable/ethanol/ftliver
+	name = "Faster-Than-Liver"
+	description = "A beverage born among the stars, it's said drinking too much feels just like FTL transit."
+	color = "#0D0D0D" // rgb: 13, 13, 13
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	boozepwr = 52
+	taste_description = "empty space"
+	var/HasTraveled = 0
+
+/datum/glass_style/drinking_glass/ftliver
+	required_drink_type = /datum/reagent/consumable/ethanol/ftliver
+	name = "glass of Faster-Than-Liver"
+	desc = "My god, it's full of stars!"
+	icon = 'icons/obj/drinks/mixed_drinks.dmi'
+	icon_state = "ftliver"
+
+/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(!HasTraveled && prob(volume))
+		HasTraveled = 1
+		M.AdjustKnockdown(15)
+		M.become_nearsighted("ftliver")
+		shake_camera(M,15)
+		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
+		addtimer(CALLBACK(src, PROC_REF(Recover), M), 55)
+	return ..()
+
+/datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
+	M.cure_nearsighted("ftliver")

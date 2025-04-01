@@ -110,7 +110,6 @@
 	required_drink_type = /datum/reagent/consumable/berryjuice
 	name = "glass of berry juice"
 	desc = "Berry juice. Or maybe it's jam. Who cares?"
-	icon_state = "berryjuice"
 
 /datum/reagent/consumable/applejuice
 	name = "Apple Juice"
@@ -137,7 +136,6 @@
 	required_drink_type = /datum/reagent/consumable/poisonberryjuice
 	name = "glass of berry juice"
 	desc = "Berry juice. Or maybe it's poison. Who cares?"
-	icon_state = "poisonberryjuice"
 
 /datum/reagent/consumable/poisonberryjuice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustToxLoss(1 * REM * delta_time, 0)
@@ -529,7 +527,7 @@
 	required_drink_type = /datum/reagent/consumable/space_cola
 	name = "glass of Space Cola"
 	desc = "A glass of refreshing Space Cola."
-	icon_state = "spacecola"
+	icon_state = "glass_brown"
 
 /datum/reagent/consumable/space_cola/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.drowsyness = max(M.drowsyness - (5 * REM * delta_time), 0)
@@ -667,7 +665,7 @@
 	required_drink_type = /datum/reagent/consumable/lemon_lime
 	name = "glass of lemon-lime"
 	desc = "You're pretty certain a real fruit has never actually touched this."
-	icon_state = "lemonlime"
+	icon_state = "glass_yellow"
 
 /datum/reagent/consumable/lemon_lime/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -684,7 +682,7 @@
 	required_drink_type = /datum/reagent/consumable/pwr_game
 	name = "glass of Pwr Game"
 	desc = "Goes well with a Vlad's salad."
-	icon_state = "pwrgame"
+	icon_state = "glass_red"
 
 /datum/reagent/consumable/pwr_game/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -701,7 +699,7 @@
 	required_drink_type = /datum/reagent/consumable/shamblers
 	name = "glass of Shambler's juice"
 	desc = "Mmm mm, shambly."
-	icon_state = "shamblerjuice"
+	icon_state = "glass_red"
 
 /datum/reagent/consumable/shamblers/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjust_bodytemperature(-8 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, M.get_body_temp_normal())
@@ -718,7 +716,7 @@
 	required_drink_type = /datum/reagent/consumable/sodawater
 	name = "glass of soda water"
 	desc = "Soda water. Why not make a scotch and soda?"
-	icon_state = "glass_clearcarb"
+	icon_state = "glass_clear"
 
 /datum/reagent/consumable/sodawater/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
@@ -737,7 +735,7 @@
 	required_drink_type = /datum/reagent/consumable/tonic
 	name = "glass of tonic water"
 	desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
-	icon_state = "glass_clearcarb"
+	icon_state = "glass_clear"
 
 /datum/reagent/consumable/tonic/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.dizziness = max(M.dizziness - (5 * REM * delta_time), 0)
