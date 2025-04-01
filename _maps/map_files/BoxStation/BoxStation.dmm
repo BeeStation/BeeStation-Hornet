@@ -43418,7 +43418,7 @@
 "odu" = (
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
 	},
@@ -49746,7 +49746,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 9;
 	pixel_y = -3
 	},
@@ -59452,7 +59452,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 7;
 	pixel_y = 10
 	},

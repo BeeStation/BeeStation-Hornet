@@ -205,15 +205,6 @@
 	desc = "A small bottle. Contains a small amount of fluorosulfuric acid."
 	list_reagents = list(/datum/reagent/toxin/acid/fluacid = 30)
 
-/obj/item/reagent_containers/cup/bottle/adminordrazine
-	name = "Adminordrazine bottle"
-	label_name = "Adminordrazine"
-	desc = "A small bottle. Contains the liquid essence of the gods."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "holyflask"
-	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
-	label_icon = null
-
 /obj/item/reagent_containers/cup/bottle/viralbase
 	name = "Highly potent Viral Base bottle"
 	label_name = "Highly potent Viral Base"

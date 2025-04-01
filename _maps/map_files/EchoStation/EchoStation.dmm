@@ -3302,7 +3302,7 @@
 	pixel_x = -1;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	desc = "Kingston's personal cup.";
 	pixel_x = 16
 	},
@@ -15485,7 +15485,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 14
 	},
@@ -15563,7 +15563,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 5;
 	pixel_y = 8
 	},
@@ -24428,7 +24428,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = 7;
 	pixel_y = 10
 	},
