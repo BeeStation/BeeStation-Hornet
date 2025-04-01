@@ -362,7 +362,10 @@
 /turf/closed/wall/mineral/plastitanium/explosive/proc/try_detonate()
 	if(payload_active)
 		payload_active = FALSE
-		explosion(src, 12, 16, 20, 20, 20)
+		var/devastation_range = 12
+		var/heavy_impact_range = 16
+		var/light_impact_range = 20
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, devastation_range, heavy_impact_range, light_impact_range), 1 SECONDS)
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	try_detonate()
