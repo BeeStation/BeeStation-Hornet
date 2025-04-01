@@ -102,7 +102,7 @@ This proc checks the surrounding of the core to ensure that the machine has been
 */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_part_connectivity()
 	. = TRUE
-	if(!anchored || panel_open)
+	if(!anchored)
 		return FALSE
 
 	for(var/obj/machinery/rbmk/object in orange(1,src))
@@ -373,8 +373,7 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler(delta_time)
 	critical_threshold_proximity_archived = critical_threshold_proximity
-	if(rate_of_reaction <= 0 && temperature <= 0 && !has_fuel())
-		deactivate()
+
 	//First alert condition: Overheat
 	var/turf/core_turf = get_turf(src)
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
