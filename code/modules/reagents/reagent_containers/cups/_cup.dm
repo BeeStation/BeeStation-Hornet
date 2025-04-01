@@ -157,6 +157,15 @@
 
 	return ..()
 
+/// Callback for [datum/component/takes_reagent_appearance] to inherent style footypes
+/obj/item/reagent_containers/cup/proc/on_cup_change(datum/glass_style/has_foodtype/style)
+	if(!istype(style))
+		return
+	drink_type = style.drink_type
+
+/// Callback for [datum/component/takes_reagent_appearance] to reset to no foodtypes
+/obj/item/reagent_containers/cup/proc/on_cup_reset()
+	drink_type = NONE
 
 /obj/item/reagent_containers/cup/beaker
 	name = "beaker"

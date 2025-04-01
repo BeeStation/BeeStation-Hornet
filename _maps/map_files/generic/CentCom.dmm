@@ -10347,7 +10347,7 @@
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -7;
 	pixel_y = -1
 	},
@@ -11767,7 +11767,7 @@
 /area/centcom/control)
 "aDu" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/brigdoor{
@@ -13491,7 +13491,7 @@
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/cup/glass/britcup,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,

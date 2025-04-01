@@ -87,7 +87,7 @@
 	var/list/items = list(
 		"Eldritch Whetstone" = image(icon = 'icons/obj/cult.dmi', icon_state = "cult_sharpener"),
 		"Construct Shell" = image(icon = 'icons/obj/wizard.dmi', icon_state = "construct_cult"),
-		"Flask of Unholy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask")
+		"Flask of Unholy Water" = image(icon = 'icons/obj/drinks/drinks.dmi', icon_state = "holyflask")
 		)
 	var/choice = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	var/list/pickedtype = list()

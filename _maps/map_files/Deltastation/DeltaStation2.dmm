@@ -16453,7 +16453,7 @@
 "ciH" = (
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
 	},
@@ -71977,7 +71977,7 @@
 /area/quartermaster/office)
 "rhP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/britcup,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
@@ -78696,7 +78696,7 @@
 	pixel_x = 25
 	},
 /obj/item/paper_bin,
-/obj/item/reagent_containers/cup/glass/britcup,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "tku" = (
@@ -79389,7 +79389,7 @@
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/cup/glass/britcup,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
