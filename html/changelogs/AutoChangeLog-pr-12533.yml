@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Updated rust-g to v3.8.0
+  - code_imp: Added 64-bit rustg DLL to the repository
