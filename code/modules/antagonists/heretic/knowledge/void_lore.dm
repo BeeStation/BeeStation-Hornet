@@ -259,10 +259,12 @@
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
 /datum/heretic_knowledge/final/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
 	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].

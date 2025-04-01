@@ -19,15 +19,15 @@
 
 	var/disgust_metabolism = 1
 
-/obj/item/organ/stomach/on_life()
+/obj/item/organ/stomach/on_life(delta_time, times_fired)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	var/datum/reagent/nutriment
 
 	if(istype(H))
 		if(!(organ_flags & ORGAN_FAILING))
-			H.dna.species.handle_digestion(H)
-		handle_disgust(H)
+			H.dna.species.handle_digestion(H, delta_time, times_fired)
+		handle_disgust(H, delta_time, times_fired)
 
 	if(damage < low_threshold)
 		return
@@ -47,27 +47,27 @@
 /obj/item/organ/stomach/get_availability(datum/species/S)
 	return !(NOSTOMACH in S.species_traits)
 
-/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H)
+/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.disgust)
-		var/pukeprob = 5 + 0.05 * H.disgust
+		var/pukeprob = 2.5 + (0.025 * H.disgust)
 		if(H.disgust >= DISGUST_LEVEL_GROSS)
-			if(prob(10))
+			if(DT_PROB(5, delta_time))
 				H.stuttering += 1
 				H.confused += 2
-			if(prob(10) && !H.stat)
+			if(DT_PROB(5, delta_time) && !H.stat)
 				to_chat(H, span_warning("You feel kind of iffy..."))
 			H.jitteriness = max(H.jitteriness - 3, 0)
 		if(H.disgust >= DISGUST_LEVEL_VERYGROSS)
-			if(prob(pukeprob)) //iT hAndLeS mOrE ThaN PukInG
+			if(DT_PROB(pukeprob, delta_time)) //iT hAndLeS mOrE ThaN PukInG
 				H.confused += 2.5
 				H.stuttering += 1
 				H.vomit(10, 0, 1, 0, 1, 0)
 			H.Dizzy(5)
 		if(H.disgust >= DISGUST_LEVEL_DISGUSTED)
-			if(prob(25))
+			if(DT_PROB(13, delta_time))
 				H.blur_eyes(3) //We need to add more shit down here
 
-		H.adjust_disgust(-0.5 * disgust_metabolism)
+		H.adjust_disgust(-0.25 * disgust_metabolism * delta_time)
 	switch(H.disgust)
 		if(0 to DISGUST_LEVEL_GROSS)
 			H.clear_alert("disgust")

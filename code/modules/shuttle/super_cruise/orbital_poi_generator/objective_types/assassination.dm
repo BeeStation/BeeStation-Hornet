@@ -149,13 +149,13 @@
 	head = /obj/item/clothing/head/chameleon
 	back = /obj/item/storage/backpack/chameleon
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol, //They do not get an extra magazine like the other two
 		/obj/item/suppressor,
-		/obj/item/storage/box/rxglasses/spyglasskit,
 		/obj/item/switchblade/plastitanium,
 		/obj/item/storage/firstaid/infiltrator,
 		/obj/item/flashlight
 	)
+	r_hand = /obj/item/storage/box/rxglasses/spyglasskit
+	l_hand = /obj/item/gun/ballistic/automatic/pistol //They do not get an extra magazine like the other two
 
 //=====================
 // Clown
@@ -183,7 +183,7 @@
 	implants = list(/obj/item/implant/sad_trombone)
 
 /datum/outfit/vip_target/clown/pre_equip(mob/living/carbon/human/H)
-	H.dna.add_mutation(CLOWNMUT)
+	H.dna.add_mutation(/datum/mutation/clumsy)
 
 /datum/outfit/vip_target/clown/post_equip(mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
