@@ -44,6 +44,14 @@
 	for(var/i in 1 to created_volume)
 		new /obj/item/food/chocolatebar(location)
 
+/datum/chemical_reaction/food/chocolate_bar3
+	required_reagents = list(/datum/reagent/consumable/milk = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/sugar = 2)
+
+/datum/chemical_reaction/food/chocolate_bar3/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/chocolatebar(location)
+
 /datum/chemical_reaction/food/soysauce
 	name = "Soy Sauce"
 	results = list(/datum/reagent/consumable/soysauce = 5)
@@ -156,3 +164,13 @@
 /datum/chemical_reaction/food/gravy
 	results = list(/datum/reagent/consumable/gravy = 3)
 	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/flour = 1)
+
+/datum/chemical_reaction/food/olive_oil_upconvert
+	required_catalysts = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 1)
+	required_reagents = list( /datum/reagent/consumable/nutriment/fat/oil = 2)
+	results = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 2)
+	mix_message = "The cooking oil dilutes the quality oil- how delightfully devilish..."
+
+//datum/chemical_reaction/food/olive_oil
+//	results = list(/datum/reagent/consumable/nutriment/fat/oil/olive = 2)
+//	required_reagents = list(/datum/reagent/consumable/olivepaste = 4, /datum/reagent/water = 1)

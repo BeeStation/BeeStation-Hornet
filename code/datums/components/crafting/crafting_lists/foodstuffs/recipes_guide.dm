@@ -5,7 +5,7 @@
 /datum/crafting_recipe/shiv
 	reqs = list(
 		/obj/item/shard = 1,
-		/obj/item/stack/sheet/cloth = 1,
+		/obj/item/stack/sheet/cotton/cloth = 1,
 	)
 	result = /obj/item/knife/shiv
 	category = CAT_WEAPON_MELEE
@@ -55,11 +55,6 @@
 /datum/crafting_recipe/food/reaction/tofu
 	reaction = /datum/chemical_reaction/food/tofu
 	result = /obj/item/food/tofu
-
-/datum/crafting_recipe/food/reaction/candycorn
-	reaction = /datum/chemical_reaction/food/candycorn
-	result = /obj/item/food/candy_corn
-	category = CAT_PASTRY
 
 /datum/crafting_recipe/food/reaction/chocolatepudding
 	reaction = /datum/chemical_reaction/food/chocolatepudding
@@ -140,12 +135,12 @@
 	result = /datum/reagent/consumable/gravy
 	reaction = /datum/chemical_reaction/food/gravy
 
-/datum/crafting_recipe/food/reaction/quality_oil
-	result = /datum/reagent/consumable/quality_oil
-	reaction = /datum/chemical_reaction/food/quality_oil
+//datum/crafting_recipe/food/reaction/olive_oil
+//	result = /datum/reagent/consumable/nutriment/fat/oil/olive
+//	reaction = /datum/chemical_reaction/food/olive_oil
 
-/datum/crafting_recipe/food/reaction/quality_oil/upconvert
-	reaction = /datum/chemical_reaction/food/quality_oil_upconvert
+/datum/crafting_recipe/food/reaction/olive_oil/upconvert
+	reaction = /datum/chemical_reaction/food/olive_oil_upconvert
 
 /datum/crafting_recipe/food/reaction/moonshine
 	reaction = /datum/chemical_reaction/drink/moonshine
@@ -173,10 +168,6 @@
 	result = /obj/item/food/raw_patty
 	category = CAT_MEAT
 
-/datum/crafting_recipe/food/rollingpin/pizza_sheet
-	reqs = list(/obj/item/food/pizzaslice/margherita = 1)
-	result = /obj/item/stack/sheet/pizza
-
 // Tools: Knife
 
 /datum/crafting_recipe/food/knife
@@ -189,10 +180,6 @@
 	reqs = list(/obj/item/food/bread/plain = 1)
 	result = /obj/item/food/breadslice/plain
 	category = CAT_BREAD
-
-/datum/crafting_recipe/food/knife/breadslice/root
-	reqs = list(/obj/item/food/bread/root = 1)
-	result = /obj/item/food/breadslice/root
 
 /datum/crafting_recipe/food/knife/cakeslice
 	reqs = list(/obj/item/food/cake/plain = 1)
@@ -295,11 +282,6 @@
 	result = /obj/item/food/griddle_toast
 	category = CAT_BREAD
 
-/datum/crafting_recipe/food/grill/frenchtoast
-	reqs = list(/obj/item/food/raw_frenchtoast = 1)
-	result = /obj/item/food/frenchtoast
-	category = CAT_BREAD
-
 /datum/crafting_recipe/food/grill/khinkali
 	reqs = list(/obj/item/food/rawkhinkali = 1)
 	result = /obj/item/food/khinkali
@@ -308,7 +290,12 @@
 /datum/crafting_recipe/food/grill/grilled_cheese_sandwich
 	reqs = list(/obj/item/food/cheese_sandwich = 1)
 	result = /obj/item/food/grilled_cheese_sandwich
-	category = CAT_BREAD
+	category = CAT_SANDWICH
+
+/datum/crafting_recipe/food/grill/grilled_cheese
+	reqs = list(/obj/item/food/cheese/wedge = 1)
+	result = /obj/item/food/grilled_cheese_sandwich
+	category = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/grill/friedegg
 	reqs = list(/obj/item/food/egg = 1)

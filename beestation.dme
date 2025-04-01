@@ -806,6 +806,7 @@
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_cake.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_egg.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_frozen.dm"
+#include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_guide.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_meat.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_mexican.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_misc.dm"
