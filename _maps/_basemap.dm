@@ -19,7 +19,7 @@
 	#ifdef ALL_MAPS
 		#include "map_files\Mining\Lavaland.dmm"
 		#include "map_files\debug\runtimestation.dmm"
-		#include "map_files\Backrooms\Backrooms.dm"
+		#include "map_files\Backrooms\Backrooms.dmm"
 		#include "map_files\CorgStation\CorgStation.dmm"
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
