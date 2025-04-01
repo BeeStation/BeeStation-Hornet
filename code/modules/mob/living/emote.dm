@@ -708,6 +708,7 @@
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/whistle
+	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime)
 	key="whistle"
 	key_third_person="whistle"
 	message = "whistles a few notes"
