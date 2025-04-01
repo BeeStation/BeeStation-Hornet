@@ -6,9 +6,12 @@
 	var/list/required_catalysts = new/list()
 	var/list/hints = list()
 
-	// Both of these variables are mostly going to be used with slime cores - but if you want to, you can use them for other things
-	var/required_container = null // the exact container path required for the reaction to happen
-	var/required_other = 0 // an integer required for the reaction to happen
+	/// If required_container will check for the exact type, or will also accept subtypes
+	var/required_container_accepts_subtypes = FALSE
+	/// the exact container path required for the reaction to happen, typepath
+	var/atom/required_container
+	/// Set this to true to call pre_reaction_other_checks() on react and do some more interesting reaction logic
+	var/required_other = FALSE
 
 	var/mob_react = TRUE //Determines if a chemical reaction can occur inside a mob
 
@@ -26,6 +29,25 @@
 	SHOULD_BE_PURE(TRUE)
 	return TRUE
 
+/**
+ * Checks if this reaction can occur. Only is ran if required_other is set to TRUE.
+ */
+/datum/chemical_reaction/proc/pre_reaction_other_checks(datum/reagents/holder)
+	return TRUE
+
+/**
+ * Shit that happens on reaction
+ * Only procs at the START of a reaction
+ * use reaction_step() for each step of a reaction
+ * or reaction_end() when the reaction stops
+ * If reaction_flags & REACTION_INSTANT then this is the only proc that is called.
+ *
+ * Proc where the additional magic happens.
+ * You dont want to handle mob spawning in this since there is a dedicated proc for that.client
+ * Arguments:
+ * * holder - the datum that holds this reagent, be it a beaker or anything else
+ * * created_volume - volume created when this is mixed. look at 'var/list/results'.
+ */
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 	//I recommend you set the result amount to the total volume of all components.

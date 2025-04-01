@@ -20,10 +20,18 @@ GLOBAL_LIST(chemical_reactions_list)				//list of all /datum/chemical_reaction d
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_EMPTY(tech_list)					//list of all /datum/tech datums indexed by id.
 GLOBAL_LIST_EMPTY(surgeries_list)				//list of all surgeries by name, associated with their path.
-GLOBAL_LIST_EMPTY(crafting_recipes) //list of all crafting recipes
-GLOBAL_LIST_EMPTY(crafting_recipes_atoms) //list of all atoms occuring in crafting recipes
-GLOBAL_LIST_EMPTY(cooking_recipes) //list of all cooking recipes
-GLOBAL_LIST_EMPTY(cooking_recipes_atoms) //list of all atoms occuring in cooking recipes
+
+/// Global list of all non-cooking related crafting recipes.
+GLOBAL_LIST_EMPTY(crafting_recipes)
+/// This is a global list of typepaths, these typepaths are atoms or reagents that are associated with crafting recipes.
+/// This includes stuff like recipe components and results.
+GLOBAL_LIST_EMPTY(crafting_recipes_atoms)
+/// Global list of all cooking related crafting recipes.
+GLOBAL_LIST_EMPTY(cooking_recipes)
+/// This is a global list of typepaths, these typepaths are atoms or reagents that are associated with cooking recipes.
+/// This includes stuff like recipe components and results.
+GLOBAL_LIST_EMPTY(cooking_recipes_atoms)
+
 GLOBAL_LIST_EMPTY(rcd_list)					//list of Rapid Construction Devices.
 GLOBAL_LIST_EMPTY(intercoms_list)					//list of all wallmounted intercoms, used for malf AI
 GLOBAL_LIST_EMPTY(apcs_list)						//list of all Area Power Controller machines, separate from machines for powernet speeeeeeed.

@@ -1,8 +1,12 @@
 
 /datum/crafting_recipe
 	///in-game display name
-	///in-game display name
+	/// in-game display name
+	/// Optional, if not set uses result name
 	var/name
+	/// description displayed in game
+	/// Optional, if not set uses result desc
+	var/desc
 	///type paths of items consumed associated with how many are needed
 	var/list/reqs = list()
 	///type paths of items explicitly not allowed as an ingredient
@@ -78,3 +82,7 @@
 
 /datum/crafting_recipe/proc/on_craft_completion(mob/user, atom/result)
 	return
+
+/// Additional UI data to be passed to the crafting UI for this recipe
+/datum/crafting_recipe/proc/crafting_ui_data()
+	return list()
