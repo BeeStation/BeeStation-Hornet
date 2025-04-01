@@ -1243,20 +1243,11 @@
 "auW" = (
 /obj/item/flashlight/flare/torch,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "avf" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -1274,20 +1265,11 @@
 "avr" = (
 /mob/living/simple_animal/hostile/statue,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "avy" = (
 /obj/machinery/door/window{
 	base_state = "right";
@@ -2688,20 +2670,11 @@
 "aRG" = (
 /obj/structure/closet,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "aRX" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 10
@@ -8555,11 +8528,11 @@
 	pixel_y = -25
 	},
 /obj/machinery/door/window{
+	atom_integrity = 300;
 	base_state = "rightsecure";
 	dir = 4;
 	icon_state = "rightsecure";
 	name = "Secondary AI Core Access";
-	atom_integrity = 300;
 	pixel_x = 4;
 	req_access_txt = "16"
 	},
@@ -9657,8 +9630,8 @@
 /area/security/main)
 "dcI" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Atmospherics - Port-Aft"
@@ -10648,8 +10621,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/machinery/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -13157,8 +13130,8 @@
 "ebl" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Gateway Maintenance";
-	security_level = 6;
-	req_one_access_txt = "62"
+	req_one_access_txt = "62";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -14243,20 +14216,11 @@
 "eul" = (
 /obj/item/clothing/head/utility/radiation,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "euo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15230,20 +15194,11 @@
 	id = 456
 	},
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "eHv" = (
 /obj/machinery/camera/directional/north{
 	c_tag = "Starboard Primary Hallway - Tech Storage"
@@ -15497,8 +15452,8 @@
 /area/bridge)
 "eLw" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -16471,8 +16426,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/navigate_destination{
-	navigation_id = "HOPline";
-	name = "HOPline navigate verb destination"
+	name = "HOPline navigate verb destination";
+	navigation_id = "HOPline"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
@@ -30101,8 +30056,8 @@
 /area/engine/engineering)
 "jhV" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/structure/displaycase/trophy,
 /obj/effect/turf_decal/siding/wood{
@@ -30194,8 +30149,8 @@
 /area/maintenance/starboard)
 "jjE" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/machinery/light{
 	dir = 8
@@ -30806,8 +30761,8 @@
 	pixel_y = 30
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /turf/open/floor/iron/dark/smooth_corner,
 /area/security/checkpoint/engineering)
@@ -32675,8 +32630,8 @@
 /area/hallway/primary/port)
 "jZh" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -33081,8 +33036,8 @@
 /obj/item/hand_tele,
 /obj/item/beacon,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -33111,8 +33066,8 @@
 /area/hallway/primary/central)
 "kiq" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -34241,8 +34196,8 @@
 /area/science/robotics/mechbay)
 "kAt" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/iron/dark/telecomms,
@@ -35730,8 +35685,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
@@ -37055,11 +37010,11 @@
 	pixel_y = -25
 	},
 /obj/machinery/door/window{
+	atom_integrity = 300;
 	base_state = "leftsecure";
 	dir = 8;
 	icon_state = "leftsecure";
 	name = "Tertiary AI Core Access";
-	atom_integrity = 300;
 	pixel_x = -3;
 	req_access_txt = "16"
 	},
@@ -38408,16 +38363,7 @@
 /area/hallway/secondary/entry)
 "lMJ" = (
 /turf/open/space/basic,
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "lMK" = (
 /obj/structure/table,
 /obj/item/aiModule/reset,
@@ -41360,20 +41306,11 @@
 /mob/living/simple_animal/hostile/statue,
 /obj/machinery/light/floor,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "mIr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
 	dir = 8
@@ -42289,11 +42226,11 @@
 /area/security/brig)
 "mYk" = (
 /obj/machinery/door/window{
+	atom_integrity = 300;
 	base_state = "rightsecure";
 	dir = 4;
 	icon_state = "rightsecure";
 	name = "Primary AI Core Access";
-	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /obj/machinery/camera/directional/north{
@@ -42347,8 +42284,8 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
@@ -42961,8 +42898,8 @@
 "nil" = (
 /obj/machinery/rnd/destructive_analyzer,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -49032,8 +48969,8 @@
 	name = "Evidence Closet 2"
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -53041,20 +52978,11 @@
 "pZd" = (
 /obj/machinery/light/floor,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "pZk" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -55039,16 +54967,7 @@
 /turf/closed/indestructible/sandstone{
 	name = "strange wall"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "qGZ" = (
 /obj/machinery/computer/atmos_control/carbon_tank{
 	dir = 8
@@ -56169,8 +56088,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/showroom/corporate)
@@ -58292,8 +58211,8 @@
 	},
 /obj/machinery/portable_atmospherics/canister,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/bot{
 	dir = 1
@@ -59543,8 +59462,8 @@
 /area/crew_quarters/heads/captain/private)
 "sei" = (
 /obj/structure/ladder/unbreakable{
-	id = 456;
-	height = 1
+	height = 1;
+	id = 456
 	},
 /turf/open/floor/engine,
 /area/maintenance/department/science/xenobiology)
@@ -62084,6 +62003,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
+"sWT" = (
+/obj/item/book/granter/action/spell/random,
+/turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
+	icon_state = "hierophant1";
+	name = "strange floor"
+	},
+/area/maintenance/backrooms)
 "sXb" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -63581,8 +63508,8 @@
 /area/crew_quarters/fitness/recreation)
 "tvc" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/kitchen";
@@ -64048,20 +63975,11 @@
 "tCz" = (
 /obj/item/clothing/suit/utility/radiation,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "tDa" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -64106,8 +64024,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/pump{
-	name = "N2 to Pure";
-	dir = 1
+	dir = 1;
+	name = "N2 to Pure"
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -65183,9 +65101,9 @@
 /obj/machinery/button/door{
 	id = "Prisongate";
 	name = "Prison Wing Lockdown";
+	pixel_x = -7;
 	pixel_y = 3;
-	req_access_txt = "2";
-	pixel_x = -7
+	req_access_txt = "2"
 	},
 /obj/machinery/button/door{
 	id = "Secure Gate";
@@ -68799,8 +68717,8 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
@@ -72588,11 +72506,11 @@
 	pixel_y = -23
 	},
 /obj/machinery/door/window{
+	atom_integrity = 300;
 	base_state = "leftsecure";
 	dir = 8;
 	icon_state = "leftsecure";
 	name = "Primary AI Core Access";
-	atom_integrity = 300;
 	req_access_txt = "16"
 	},
 /obj/machinery/newscaster{
@@ -73985,8 +73903,8 @@
 /area/hydroponics/garden)
 "wtY" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -75962,20 +75880,11 @@
 "xaK" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "xbv" = (
 /obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/iron,
@@ -77075,8 +76984,8 @@
 /area/crew_quarters/theatre)
 "xso" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -77218,20 +77127,11 @@
 /area/library)
 "xvg" = (
 /turf/open/indestructible{
+	desc = "This looks very strange... and feels way too solid.";
 	icon_state = "hierophant1";
-	name = "strange floor";
-	desc = "This looks very strange... and feels way too solid."
+	name = "strange floor"
 	},
-/area/maintenance/central{
-	teleport_restriction = 1;
-	default_gravity = 1;
-	requires_power = 0;
-	clockwork_warp_allowed = 0;
-	mood_job_allowed = null;
-	mood_job_reverse = 0;
-	camera_networks = null;
-	name = "Backrooms"
-	})
+/area/maintenance/backrooms)
 "xvi" = (
 /obj/structure/table,
 /obj/item/folder/red,
@@ -77422,8 +77322,8 @@
 /area/science/xenobiology)
 "xyw" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	air_conditioning = 0;
+	pixel_x = -23
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Research Division Hallway - Mech Bay"
@@ -87864,7 +87764,7 @@ aaa
 aaa
 aaa
 qGT
-xvg
+sWT
 xvg
 xvg
 xvg
@@ -89960,7 +89860,7 @@ aaa
 aaa
 aaa
 qGT
-xvg
+sWT
 pZd
 qGT
 aaa
@@ -99791,7 +99691,7 @@ xvg
 xvg
 xvg
 xvg
-xvg
+sWT
 qGT
 aaa
 aaa
@@ -102502,7 +102402,7 @@ aaa
 qGT
 xvg
 xvg
-xvg
+sWT
 qGT
 xvg
 xvg
@@ -105101,7 +105001,7 @@ qGT
 aaa
 qGT
 avr
-xvg
+sWT
 xvg
 pZd
 xvg
@@ -119802,7 +119702,7 @@ qGT
 qGT
 xvg
 xvg
-xvg
+sWT
 xvg
 qGT
 aaa
@@ -124933,7 +124833,7 @@ aaa
 aaa
 aaa
 qGT
-xvg
+sWT
 qGT
 aaa
 aaa
@@ -125903,7 +125803,7 @@ aaa
 aaa
 aaa
 qGT
-xvg
+sWT
 xvg
 qGT
 aaa
