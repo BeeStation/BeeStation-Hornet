@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: When a crime is added to a player's record which sets them to arrest, the
-      player will be notified and asked to appear before security.
-  - tweak: Not paying a fine within 15 minutes results in an automatic arrest warrant
-      being created for fine avoidance.
