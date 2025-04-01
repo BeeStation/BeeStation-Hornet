@@ -30,6 +30,7 @@
 	)
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/on_reagent_change(changetype)
+	. = ..()
 	if(!length(reagents.reagent_list))
 		renamedByPlayer = FALSE //so new drinks can rename the glass
 

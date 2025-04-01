@@ -215,7 +215,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	reagents.expose_temperature(temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/update_overlays()
 	. = ..()

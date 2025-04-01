@@ -121,7 +121,7 @@
 	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
 	custom_price = PAYCHECK_EASY * 0.6
-	icon_state = "icecup"
+	icon_state = "iceglass"
 	list_reagents = list(/datum/reagent/consumable/ice = 30)
 	spillable = TRUE
 	isGlass = FALSE
