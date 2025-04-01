@@ -139,8 +139,6 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/next_flicker = 0
 	//For logging purposes
 	var/last_power_produced = 0
-	//Power modifier for producing power.
-	var/base_power_modifier = RBMK_POWER_FLAVOURISER
 	///Var used in the meltdown phase
 	var/final_countdown = FALSE
 

@@ -167,9 +167,11 @@
 		grill_time += delta_time
 		grilled_item.AddComponent(/datum/component/sizzle)
 
-	last_power_produced *= base_power_modifier * (fuel_power * 5) //Finally, we turn it into actual usable numbers. more fuel power => more power (push people towards using more than 1 fuel rod, otherwise it's boring).
-	if(!last_power_produced)
-		last_power_produced =  fuel_power * 500000 //Passively make 50KW per fuel rod if we dont have moderator
+
+
+	last_power_produced *= 5*fuel_power //Finally, we turn it into actual usable numbers. more fuel power => more power (push people towards using more than 1 fuel rod, otherwise it's boring). 5x scales one new fuel rod = 1.0 multiplier
+	last_power_produced = min(RBMK_POWER_FLAVOURISER_LOW * (last_power_produced ** 2), RBMK_POWER_FLAVOURISER_HIGH * last_power_produced) // scale according to square law up until linear relationship takes over
+	last_power_produced += fuel_power * 500000 //Passively make 50KW per fuel rod if we dont have moderator
 
 	var/turf/reactor_turf = get_turf(src)
 	var/obj/structure/cable/reactor_cable = reactor_turf.get_cable_node()

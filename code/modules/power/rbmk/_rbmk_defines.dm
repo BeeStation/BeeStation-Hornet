@@ -10,7 +10,9 @@
 
 #define RBMK_MAX_CRITICALITY 3 //No more criticality than N for now.
 
-#define RBMK_POWER_FLAVOURISER 800 //To turn those KWs into something usable
+#define RBMK_POWER_FLAVOURISER_LOW 0.6 // To turn into something usable (kW), used at lower powers as a square law, transitions to high power linear relationship
+#define RBMK_POWER_FLAVOURISER_HIGH 800 // used at high powers, linear relationship
+
 
 #define RBMK_BASE_COOLING_FACTOR 1.00 // How well the coolant gas cools the reactor. A value of 1 (excluding gas absorption effectiveness and random gas absorption constant) will immediately set the reactor temperature to coolant temperature
 #define RBMK_COOLANT_TEMPERATURE_MULTIPLIER 2.5 // a penalty to increase the output gas temperature beyond what the internal temperature is (makes it so there is more of a challenge to cool down output gases)
