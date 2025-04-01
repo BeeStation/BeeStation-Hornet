@@ -371,7 +371,7 @@
 	try_detonate()
 	..()
 
-/turf/closed/wall/mineral/plastitanium/explosive/Destroy()
+/turf/closed/wall/mineral/plastitanium/explosive/dismantle_wall()
 	try_detonate()
 	..()
 
