@@ -1123,3 +1123,4 @@
 	glass_icon_state = "glass_white"
 	glass_name = "glass of coconut juice"
 	glass_desc = "a glass of coconut juice"
+	
