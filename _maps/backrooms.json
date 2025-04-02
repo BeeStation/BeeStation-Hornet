@@ -9,6 +9,6 @@
 		"whiteship": "whiteship_meta",
 		"emergency": "emergency_meta"
 	},
-	"traits": [{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true},
-		{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true}]
+	"traits": [{"Up" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true},
+		{"Down" : true, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross", "Gravity": true}]
 }
