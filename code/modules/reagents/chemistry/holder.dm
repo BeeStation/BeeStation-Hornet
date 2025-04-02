@@ -26,9 +26,12 @@
 	for(var/path in paths)
 		var/datum/chemical_reaction/D = new path()
 		var/list/reaction_ids = list()
+		var/list/reagents = list()
 
 		if(!D.required_reagents || !D.required_reagents.len) //Skip impossible reactions
 			continue
+
+		GLOB.chemical_reactions_list[path] = D
 
 		for(var/reaction in D.required_reagents)
 			reaction_ids += reaction
@@ -36,6 +39,7 @@
 			if(!istype(reagent))
 				stack_trace("Invalid reagent found in [D] required_reagents: [reaction]")
 				continue
+			reagents += list(list("name" = reagent.name, "id" = reagent.type))
 
 		for(var/product in D.results)
 			var/datum/reagent/reagent = find_reagent_object_from_type(product)
