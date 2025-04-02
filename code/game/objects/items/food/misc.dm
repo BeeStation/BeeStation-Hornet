@@ -364,3 +364,4 @@
 	food_flags = FOOD_FINGER_FOOD
 	juice_typepath = /datum/reagent/consumable/coconutjuice
 	w_class = WEIGHT_CLASS_SMALL
+	
