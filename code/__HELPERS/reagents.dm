@@ -1,4 +1,8 @@
 /proc/chem_recipes_do_conflict(datum/chemical_reaction/r1, datum/chemical_reaction/r2)
+	// Ensure both arguments are valid chemical reactions
+	if(!istype(r1, /datum/chemical_reaction) || !istype(r2, /datum/chemical_reaction))
+		return FALSE
+
 	//do the non-list tests first, because they are cheaper
 	if(r1.required_container != r2.required_container)
 		return FALSE
