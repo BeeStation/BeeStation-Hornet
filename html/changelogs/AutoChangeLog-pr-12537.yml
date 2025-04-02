@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Syndicate bases no longer spawn bomb cores and instead explode directly
+      when the walls are exposed to explosive force or destroyed.
