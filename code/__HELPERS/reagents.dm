@@ -1,10 +1,6 @@
 /proc/chem_recipes_do_conflict(datum/chemical_reaction/r1, datum/chemical_reaction/r2)
-	// Handle required_container as a list or single value
-	var/list/containers_r1 = islist(r1.required_container) ? r1.required_container : list(r1.required_container)
-	var/list/containers_r2 = islist(r2.required_container) ? r2.required_container : list(r2.required_container)
-
-	// Check if there is any overlap between the two lists
-	if(!containers_r1 || !containers_r2 || !(containers_r1 & containers_r2).len)
+	//do the non-list tests first, because they are cheaper
+	if(r1.required_container != r2.required_container)
 		return FALSE
 
 	//do the non-list tests first, because they are cheaper

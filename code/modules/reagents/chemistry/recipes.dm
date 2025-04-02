@@ -9,7 +9,7 @@
 	/// If required_container will check for the exact type, or will also accept subtypes
 	var/required_container_accepts_subtypes = FALSE
 	/// the exact container path required for the reaction to happen, typepath
-	var/atom/required_container
+	var/required_container
 	/// Set this to true to call pre_reaction_other_checks() on react and do some more interesting reaction logic
 	var/required_other = FALSE
 

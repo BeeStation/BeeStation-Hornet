@@ -643,9 +643,10 @@
 			if(!data["steps"])
 				data["steps"] = list()
 			if(reaction.required_container)
+				var/atom/req_atom = reaction.required_container
 				var/id = atoms.Find(reaction.required_container)
 				data["reqs"]["[id]"] = 1
-				data["steps"] += "Add all ingredients into \a [initial(reaction.required_container.name)]"
+				data["steps"] += "Add all ingredients into \a [initial(req_atom.name)]"
 			else if(length(recipe.reqs) > 1 || length(reaction.required_catalysts))
 				data["steps"] += "Mix all ingredients together"
 			if(reaction.required_temp > T20C)
