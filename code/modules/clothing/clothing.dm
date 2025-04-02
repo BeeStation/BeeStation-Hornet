@@ -637,17 +637,15 @@ BLIND	 // can't see anything
 	if(prob(0.2))
 		to_chat(L, span_warning("The damaged threads on your [src.name] chafe!"))
 
-/*
 /obj/item/clothing/get_armor_rating(d_type)
 	. = ..()
 	if(high_pressure_multiplier == 1)
 		return
-	var/turf/T = get_turf(usr)
+	var/turf/T = get_turf(src)
 	if(!T || !(d_type in high_pressure_multiplier_types))
 		return
-	if(!lavaland_equipment_pressure_check(T))
-		. *= high_pressure_multiplier
-*/
+	if (!is_mining_level(T.z))
+		return . * high_pressure_multiplier
 
 #undef SENSORS_OFF
 #undef SENSORS_BINARY
