@@ -47,14 +47,13 @@
 	id = /obj/item/card/id/job/surgeon
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/doctor/blue
-	belt = /obj/item/modular_computer/tablet/pda/surgeon
+	belt = /obj/item/storage/belt/medical/surgeon
+	r_pocket = /obj/item/modular_computer/tablet/pda/surgeon
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/apron/surgical
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	mask = /obj/item/clothing/mask/surgical
 	head = /obj/item/clothing/head/beret/med
-
-	backpack_contents = list(/obj/item/storage/firstaid/medical = 1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

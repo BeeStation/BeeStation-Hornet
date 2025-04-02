@@ -332,6 +332,19 @@
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/gun/medbeam(src)
 
+/obj/item/storage/belt/medical/surgeon
+	name = "surgical belt"
+	desc = "A belt containing field surgical supplies for use by a surgeon"
+
+/obj/item/storage/belt/medical/surgeon/PopulateContents()
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/scalpel(src)
+	new /obj/item/retractor(src)
+	new /obj/item/circular_saw(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/cautery(src)
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
