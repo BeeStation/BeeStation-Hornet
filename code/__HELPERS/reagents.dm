@@ -1,7 +1,13 @@
 /proc/chem_recipes_do_conflict(datum/chemical_reaction/r1, datum/chemical_reaction/r2)
-	//do the non-list tests first, because they are cheaper
-	if(r1.required_container != r2.required_container)
+	// Handle required_container as a list or single value
+	var/list/containers_r1 = islist(r1.required_container) ? r1.required_container : list(r1.required_container)
+	var/list/containers_r2 = islist(r2.required_container) ? r2.required_container : list(r2.required_container)
+
+	// Check if there is any overlap between the two lists
+	if(!containers_r1 || !containers_r2 || !(containers_r1 & containers_r2).len)
 		return FALSE
+
+	//do the non-list tests first, because they are cheaper
 	if(r1.is_cold_recipe == r2.is_cold_recipe)
 		if(r1.required_temp != r2.required_temp)
 			//one reaction requires a more extreme temperature than the other, so there is no conflict
