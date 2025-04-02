@@ -16,7 +16,8 @@ GLOBAL_LIST_EMPTY_TYPED(singularities, /datum/component/singularity)				    //li
 GLOBAL_LIST_EMPTY(uploads_list)						//list of all silicon uploads
 GLOBAL_LIST_EMPTY(fax_machines)						//list of all fax machines
 
-GLOBAL_LIST(chemical_reactions_list)				//list of all /datum/chemical_reaction datums. Used during chemical reactions
+GLOBAL_LIST(chemical_reactions_list) //list of all /datum/chemical_reaction datums indexed by their typepath. Use this for general lookup stuff
+GLOBAL_LIST(chemical_reactions_list_reactant_index) //list of all /datum/chemical_reaction datums. Used during chemical reactions. Indexed by REACTANT types
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_EMPTY(tech_list)					//list of all /datum/tech datums indexed by id.
 GLOBAL_LIST_EMPTY(surgeries_list)				//list of all surgeries by name, associated with their path.

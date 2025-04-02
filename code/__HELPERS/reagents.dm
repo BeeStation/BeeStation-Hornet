@@ -53,32 +53,32 @@
 		//there is at least one unique catalyst for the short reaction, so there is no conflict
 		return FALSE
 
-	//if we got this far, the longer reaction will be impossible to create if the shorter one is earlier in GLOB.chemical_reactions_list, and will require the reagents to be added in a particular order otherwise
+	//if we got this far, the longer reaction will be impossible to create if the shorter one is earlier in GLOB.chemical_reactions_list_reactant_index, and will require the reagents to be added in a particular order otherwise
 	return TRUE
 
 /proc/get_chemical_reaction(id)
-	if(!GLOB.chemical_reactions_list)
+	if(!GLOB.chemical_reactions_list_reactant_index)
 		return
-	for(var/reagent in GLOB.chemical_reactions_list)
-		for(var/R in GLOB.chemical_reactions_list[reagent])
-			var/datum/reac
+	for(var/reagent in GLOB.chemical_reactions_list_reactant_index)
+		for(var/R in GLOB.chemical_reactions_list_reactant_index[reagent])
+			var/datum/reac = R
 			if(reac.type == id)
 				return R
 
 /proc/remove_chemical_reaction(datum/chemical_reaction/R)
-	if(!GLOB.chemical_reactions_list || !R)
+	if(!GLOB.chemical_reactions_list_reactant_index || !R)
 		return
 	for(var/rid in R.required_reagents)
-		GLOB.chemical_reactions_list[rid] -= R
+		GLOB.chemical_reactions_list_reactant_index[rid] -= R
 
 //see build_chemical_reactions_list in holder.dm for explanations
 /proc/add_chemical_reaction(datum/chemical_reaction/add)
-	if(!GLOB.chemical_reactions_list || !add.required_reagents || !add.required_reagents.len)
+	if(!GLOB.chemical_reactions_list_reactant_index || !add.required_reagents || !add.required_reagents.len)
 		return
 	var/rand_reagent = pick(add.required_reagents)
-	if(!GLOB.chemical_reactions_list[rand_reagent])
-		GLOB.chemical_reactions_list[rand_reagent] = list()
-	GLOB.chemical_reactions_list[rand_reagent] += add
+	if(!GLOB.chemical_reactions_list_reactant_index[rand_reagent])
+		GLOB.chemical_reactions_list_reactant_index[rand_reagent] = list()
+	GLOB.chemical_reactions_list_reactant_index[rand_reagent] += add
 
 /proc/find_reagent_object_from_type(input)
 	if(GLOB.chemical_reagents_list[input]) //prefer IDs!

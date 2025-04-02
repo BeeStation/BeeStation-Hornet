@@ -15,13 +15,14 @@
 	//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 	// It is filtered into multiple lists within a list.
 	// For example:
-	// chemical_reaction_list[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
+	// chemical_reactions_list_reactant_index[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
 
-	if(GLOB.chemical_reactions_list)
+	if(GLOB.chemical_reactions_list_reactant_index)
 		return
 
 	var/paths = subtypesof(/datum/chemical_reaction)
-	GLOB.chemical_reactions_list = list()
+	GLOB.chemical_reactions_list = list() //typepath to reaction list
+	GLOB.chemical_reactions_list_reactant_index = list() //reagents to reaction list
 
 	for(var/path in paths)
 		var/datum/chemical_reaction/D = new path()
@@ -49,9 +50,9 @@
 
 		// Create filters based on each reagent id in the required reagents list
 		for(var/id in reaction_ids)
-			if(!GLOB.chemical_reactions_list[id])
-				GLOB.chemical_reactions_list[id] = list()
-			GLOB.chemical_reactions_list[id] += D
+			if(!GLOB.chemical_reactions_list_reactant_index[id])
+				GLOB.chemical_reactions_list_reactant_index[id] = list()
+			GLOB.chemical_reactions_list_reactant_index[id] += D
 			break // Don't bother adding ourselves to other reagent ids, it is redundant
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -504,7 +505,7 @@
 		return //Yup, no reactions here. No siree.
 
 	var/list/cached_reagents = reagent_list
-	var/list/cached_reactions = GLOB.chemical_reactions_list
+	var/list/cached_reactions = GLOB.chemical_reactions_list_reactant_index
 	var/datum/cached_my_atom = my_atom
 
 	var/reaction_occurred = 0
