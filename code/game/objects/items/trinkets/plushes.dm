@@ -588,6 +588,7 @@
 	item_flags = ABSTRACT
 
 /obj/item/toy/plush/slimeplushie/random/Initialize(mapload)
+	. = ..()
 	var sloime_type = pick(subtypesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random/)
 	new sloime_type(loc)
 	return INITIALIZE_HINT_QDEL
@@ -677,6 +678,7 @@
 	item_flags = ABSTRACT
 
 /obj/item/toy/plush/moth/random/Initialize(mapload)
+	. = ..()
 	var moff_type = pick(subtypesof(/obj/item/toy/plush/moth) - /obj/item/toy/plush/moth/random/)
 	new moff_type(loc)
 	return INITIALIZE_HINT_QDEL

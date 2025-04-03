@@ -8,8 +8,8 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/epilepsy/on_life()
-	if(prob(1 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
+/datum/mutation/epilepsy/on_life(delta_time, times_fired)
+	if(DT_PROB(0.5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS)
 		owner.visible_message(span_danger("[owner] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
 		owner.Jitter(1000 * GET_MUTATION_POWER(src))
@@ -53,8 +53,8 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/cough/on_life()
-	if(prob(5 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
+/datum/mutation/cough/on_life(delta_time, times_fired)
+	if(DT_PROB(2.5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS)
 		owner.drop_all_held_items()
 		owner.emote("cough")
 		if(GET_MUTATION_POWER(src) > 1)
@@ -67,8 +67,8 @@
 	desc = "Subject is easily terrified, and may suffer from hallucinations."
 	quality = NEGATIVE
 
-/datum/mutation/paranoia/on_life()
-	if(prob(5) && owner.stat == CONSCIOUS)
+/datum/mutation/paranoia/on_life(delta_time, times_fired)
+	if(DT_PROB(2.5, delta_time) && owner.stat == CONSCIOUS)
 		owner.emote("scream")
 		if(prob(25))
 			owner.hallucination += 20
@@ -80,12 +80,13 @@
 	quality = POSITIVE
 	difficulty = 16
 	instability = 5
-	conflicts = list(GIGANTISM)
+	conflicts = list(/datum/mutation/gigantism)
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
+	ADD_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
 	owner.resize = 0.8
 	owner.update_transform()
 	passtable_on(owner, GENETIC_MUTATION)
@@ -94,6 +95,7 @@
 /datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
+	REMOVE_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
 	owner.resize = 1.25
 	owner.update_transform()
 	passtable_off(owner, GENETIC_MUTATION)
@@ -114,8 +116,8 @@
 	quality = NEGATIVE
 	synchronizer_coeff = 1
 
-/datum/mutation/tourettes/on_life()
-	if(prob(10 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS && !owner.IsStun())
+/datum/mutation/tourettes/on_life(delta_time, times_fired)
+	if(DT_PROB(5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS && !owner.IsStun())
 		owner.Stun(20)
 		switch(rand(1, 3))
 			if(1)
@@ -167,7 +169,7 @@
 	quality = POSITIVE
 	instability = 5
 	power_coeff = 1
-	conflicts = list(ANTIGLOWY)
+	conflicts = list(/datum/mutation/glow/anti)
 	var/glow_power = 2.5
 	var/glow_range = 2.5
 	var/glow_color
@@ -205,7 +207,7 @@
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
 	glow_power = -1.5
-	conflicts = list(GLOWY)
+	conflicts = list(/datum/mutation/glow)
 	locked = TRUE
 
 /datum/mutation/glow/anti/get_glow_color()
@@ -233,8 +235,8 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/fire/on_life()
-	if(prob((1+(100-dna.stability)/10)) * GET_MUTATION_SYNCHRONIZER(src))
+/datum/mutation/fire/on_life(delta_time, times_fired)
+	if(DT_PROB((0.05+(100-dna.stability)/19.5) * GET_MUTATION_SYNCHRONIZER(src), delta_time))
 		owner.adjust_fire_stacks(2 * GET_MUTATION_POWER(src))
 		owner.IgniteMob()
 
@@ -263,8 +265,8 @@
 	power_coeff = 1
 	var/warpchance = 0
 
-/datum/mutation/badblink/on_life()
-	if(prob(warpchance))
+/datum/mutation/badblink/on_life(delta_time, times_fired)
+	if(DT_PROB(warpchance, delta_time))
 		var/warpmessage = pick(
 			span_warning("With a sickening 720 degree twist of their back, [owner] vanishes into thin air."),
 			span_warning("[owner] does some sort of strange backflip into another dimension. It looks pretty painful."),
@@ -278,17 +280,18 @@
 		warpchance = 0
 		owner.visible_message(span_danger("[owner] appears out of nowhere!"))
 	else
-		warpchance += 0.25 * GET_MUTATION_ENERGY(src)
+		warpchance += 0.0625 * GET_MUTATION_ENERGY(src) * delta_time
 
 /datum/mutation/acidflesh
 	name = "Acidic Flesh"
 	desc = "Subject has acidic chemicals building up underneath their skin. This is often lethal."
 	quality = NEGATIVE
 	difficulty = 18//high so it's hard to unlock and use on others
+	/// The cooldown for the warning message
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/mutation/acidflesh/on_life()
-	if(prob(25))
+/datum/mutation/acidflesh/on_life(delta_time, times_fired)
+	if(DT_PROB(13, delta_time))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(owner, span_danger("Your acid flesh bubbles..."))
 			COOLDOWN_START(src, message_cooldown, 20 SECONDS)
@@ -302,11 +305,12 @@
 	desc = "The cells within the subject spread out to cover more area, making them appear larger."
 	quality = MINOR_NEGATIVE
 	difficulty = 12
-	conflicts = list(DWARFISM)
+	conflicts = list(/datum/mutation/dwarfism)
 
 /datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
+	ADD_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
 	owner.resize = 1.25
 	owner.update_transform()
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
@@ -314,6 +318,7 @@
 /datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
+	REMOVE_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
 	owner.resize = 0.8
 	owner.update_transform()
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
@@ -327,12 +332,12 @@
 /datum/mutation/spastic/on_acquiring()
 	if(..())
 		return
-	owner.apply_status_effect(STATUS_EFFECT_SPASMS)
+	owner.apply_status_effect(/datum/status_effect/spasms)
 
 /datum/mutation/spastic/on_losing()
 	if(..())
 		return
-	owner.remove_status_effect(STATUS_EFFECT_SPASMS)
+	owner.remove_status_effect(/datum/status_effect/spasms)
 
 /datum/mutation/extrastun
 	name = "Two Left Feet"

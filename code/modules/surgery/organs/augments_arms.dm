@@ -170,10 +170,12 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(prob(15/severity) && owner)
+	if(prob(80/severity) && owner)
 		to_chat(owner, span_warning("The electro magnetic pulse causes [src] to malfunction!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
+		owner.drop_all_held_items()
+		Extend(pick(contents))
 
 /obj/item/organ/cyberimp/arm/proc/Retract()
 	if(!active_item || (active_item in src))
@@ -248,22 +250,6 @@
 	else
 		Retract()
 
-
-/obj/item/organ/cyberimp/arm/gun/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(30/severity) && owner && !(organ_flags & ORGAN_FAILING))
-		Retract()
-		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!"))
-		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!"))
-		owner.adjust_fire_stacks(20)
-		owner.IgniteMob()
-		owner.adjustFireLoss(25)
-		organ_flags |= ORGAN_FAILING
-
-
 /obj/item/organ/cyberimp/arm/gun/laser
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."
@@ -316,7 +302,7 @@
 	name = "arm-mounted energy blade"
 	desc = "An illegal and highly dangerous cybernetic implant that can project a deadly blade of concentrated energy."
 	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/blade/hardlight)
+	items_to_create = list(/obj/item/melee/energy/blade/hardlight)
 
 /obj/item/organ/cyberimp/arm/medibeam
 	name = "integrated medical beamgun"
@@ -356,7 +342,7 @@
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
 	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/assembly/flash/armimplant)
+	items_to_create = list(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/assembly/flash/armimplant)
 
 /obj/item/organ/cyberimp/arm/combat/Initialize(mapload)
 	. = ..()
@@ -381,9 +367,9 @@
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
-	icon_state = "implant-esaw_0"
+	icon_state = "implant-esaw"
 	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/sword/esaw/implant)
+	items_to_create = list(/obj/item/melee/energy/sword/esaw/implant)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade
 	name = "arm-mounted hydraulic blade"

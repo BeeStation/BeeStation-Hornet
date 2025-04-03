@@ -26,8 +26,11 @@
 		to_chat(affected_mob, span_notice("You feel better."))
 	..()
 
-/datum/disease/revblight/stage_act()
-	..()
+/datum/disease/revblight/stage_act(delta_time, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	affected_mob.adjustStaminaLoss(1) //Provides gradual exhaustion, but mostly to prevent regeneration and set an upper limit on disease duration to about five minutes
 	if(affected_mob.body_position == LYING_DOWN)
 		if(HAS_TRAIT_FROM(affected_mob, TRAIT_INCAPACITATED, STAMINA) && !finalstage)
@@ -39,22 +42,22 @@
 			cure()
 	else
 		startresting = null
-	if(prob(stage*3) && !finalstage && affected_mob.staminaloss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
+	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.staminaloss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
 		to_chat(affected_mob, span_revennotice("You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))
 		affected_mob.confused += 8
-		affected_mob.adjustStaminaLoss(15) //Where the real exhaustion builds up.
+		affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE) //Where the real exhaustion builds up.
 		new /obj/effect/temp_visual/revenant(affected_mob.loc)
 
 	switch(stage)
 		if(3)
-			if(prob(5))
+			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote(pick("pale","shiver"))
 		if(4)
-			if(prob(10))
+			if(DT_PROB(5, delta_time))
 				affected_mob.emote(pick("pale","shiver","cries"))
 		if(5)
 			if(affected_mob.staminaloss <= 200) //check required to prevent randomly screaming from limbs being crippled at extreme stamina
-				affected_mob.adjustStaminaLoss(15) //No longer realistically possible to counteract with stimulants
+				affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE) //No longer realistically possible to counteract with stimulants
 			if(!finalstage)
 				finalstage = TRUE
 				to_chat(affected_mob, span_revenbignotice("You feel like [pick("you just can't go on", "you should just give up", "there's nothing you can do", "everything is hopeless")]."))
