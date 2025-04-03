@@ -2,6 +2,7 @@
 	name = "Fugitive"
 	roundend_category = "Fugitive"
 	banning_key = ROLE_FUGITIVE
+	special_role = ROLE_FUGITIVE
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Fugitives"
 	show_to_ghosts = TRUE
