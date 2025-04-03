@@ -49,7 +49,7 @@
 	return TRUE
 
 /// Sends a citation alert message to the target's PDA.
-/datum/crime_record/citation/proc/alert_owner(mob/sender, atom/source, target_name, message)
+/datum/crime_record/proc/alert_owner(mob/sender, atom/source, target_name, message)
 	for(var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
 		if(tablet.saved_identification != target_name)
 			continue
