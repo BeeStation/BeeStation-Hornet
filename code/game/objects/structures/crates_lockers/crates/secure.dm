@@ -55,7 +55,7 @@
 
 /obj/structure/closet/crate/secure/gear/debug
 	name = "debug crate"
-
+	storage_capacity = 300 // unit test blames extreme amount
 
 /obj/structure/closet/crate/secure/gear/debug/cyborg
 	name = "debug mech equipment"
