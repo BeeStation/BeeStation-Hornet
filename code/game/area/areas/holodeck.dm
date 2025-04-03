@@ -60,5 +60,6 @@
 	name = "\improper Small Recreational Holodeck"
 
 // DEBUG only
-/area/holodeck/debug // Size undetermined
+/area/holodeck/debug // 12x12
+	requires_power = FALSE
 	name = "\improper Debug Holodeck"

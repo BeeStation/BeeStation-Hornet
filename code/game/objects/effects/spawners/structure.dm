@@ -11,8 +11,18 @@ again.
 
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
-	for(var/spawn_type in spawn_list)
-		new spawn_type(loc)
+
+	// I hate this code. should check if area is holodeck to prevent breaking
+	var/area/holodeck/holodeck_area = get_area(src)
+	if(istype(holodeck_area, /area/holodeck))
+		var/obj/machinery/computer/holodeck/holocomputer = holodeck_area.linked
+		for(var/spawn_type as anything in spawn_list)
+			holocomputer.from_spawner += new spawn_type(loc)
+
+	// original spawner code
+	else
+		for(var/spawn_type in spawn_list)
+			new spawn_type(loc)
 
 //normal windows
 

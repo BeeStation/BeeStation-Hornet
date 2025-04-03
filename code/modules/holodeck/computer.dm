@@ -73,6 +73,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
 	var/list/effects = list() //like above, but for holo effects
+	var/list/from_spawner = list() // spawner-created atoms aren't working well for going into 'spawned' list
 
 	///TRUE if the holodeck is using extra power because of a program, FALSE otherwise
 	var/active = FALSE
@@ -253,6 +254,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	if(!debug_holodeck)
 		nerf(!(obj_flags & EMAGGED))
 
+	spawned += from_spawner
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
 			spawned -= holo_atom
@@ -276,21 +278,25 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 		if(isobj(holo_atom))
 			var/obj/holo_object = holo_atom
-			holo_object.resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+			if(!debug_holodeck)
+				holo_object.resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 			if(isstructure(holo_object))
-				holo_object.flags_1 |= NODECONSTRUCT_1
+				if(!debug_holodeck)
+					holo_object.flags_1 |= NODECONSTRUCT_1
 				continue
 
 			if(ismachinery(holo_object))
 				var/obj/machinery/holo_machine = holo_object
-				holo_machine.flags_1 |= NODECONSTRUCT_1
+				if(!debug_holodeck)
+					holo_machine.flags_1 |= NODECONSTRUCT_1
 				holo_machine.power_change()
 
 				if(istype(holo_machine, /obj/machinery/button))
 					var/obj/machinery/button/holo_button = holo_machine
 					holo_button.setup_device()
 
+	from_spawner.Cut()
 	spawning_simulation = FALSE
 
 ///this qdels holoitems that should no longer exist for whatever reason

@@ -3,27 +3,40 @@
 // ---------------------------------------------
 /datum/map_template/holodeck/debug
 
+/datum/map_template/holodeck/debug/on_placement_completed(datum/async_map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+	. = ..()
+	var/static/warn_once = TRUE
+	for(var/turf/each_turf in get_affected_turfs(T))
+		each_turf.holodeck_compatible = TRUE
+		if(warn_once && !istype(get_area(each_turf), /area/holodeck))
+			message_admins("Holodeck template '[name]' does not have /area/template_noop")
+			stack_trace("Holodeck template '[name]' does not have /area/template_noop")
+			warn_once = FALSE
+
 /datum/map_template/holodeck/debug/empty
-	name = "Debug - Offline"
+	name = "Holodeck - Offline"
 	template_id = "debug-offline"
 	mappath = "_maps/holodeck/debug/empty.dmm"
 
 /datum/map_template/holodeck/debug/space
 	name = "Holodeck - Space"
-	template_id = "space-debug"
+	template_id = "debug-space"
 	mappath = "_maps/holodeck/debug/space.dmm"
 
-/datum/map_template/holodeck/debug/medicalsim
-	name = "Holodeck - Medical"
-	template_id = "medicalsim-debug"
-	mappath = "_maps/holodeck/debug/test_medicalsim.dmm"
-
+// ------------------------------------------------
+//         List of real templates below:
+// ------------------------------------------------
 /datum/map_template/holodeck/debug/engi_sm
-	name = "Holodeck - Engineering SM"
-	template_id = "engi-sm-debug"
-	mappath = "_maps/holodeck/debug/engi-sm.dmm"
+	name = "Holodeck - Engineering N2 SM"
+	template_id = "debug-engi-n2-sm"
+	mappath = "_maps/holodeck/debug/engi-n2-sm.dmm"
+
+/datum/map_template/holodeck/debug/engi_sm/co2
+	name = "Holodeck - Engineering CO2 SM"
+	template_id = "debug-engi-co2-sm"
+	mappath = "_maps/holodeck/debug/engi-co2-sm.dmm"
 
 /datum/map_template/holodeck/debug/sci_robotics
 	name = "Holodeck - Science Robotics"
-	template_id = "sci-rob-debug"
+	template_id = "debug-sci-rob"
 	mappath = "_maps/holodeck/debug/sci-rob.dmm"

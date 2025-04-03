@@ -17,13 +17,6 @@
 /turf/open/floor/holofloor/break_tile()
 	return //you can't break a hologram!
 
-// This is necessary for holodeck support...
-/turf/open/space/pseudo_holofloor
-	name = "Hyper realistic space"
-	desc = "This is a holofloor, but for some reason, it feels real."
-	holodeck_compatible = TRUE
-
-
 /turf/open/floor/holofloor/plating
 	name = "holodeck projector floor"
 	icon_state = "engine"
