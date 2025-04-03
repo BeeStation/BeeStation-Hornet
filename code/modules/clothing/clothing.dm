@@ -393,7 +393,7 @@
 				things_blocked += span_tooltip("Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing facehuggers.", "facehuggers")
 			if(length(things_blocked))
 				readout += "<br /><b>COVERAGE</b>"
-				readout += "It will block [english_list(things_blocked)]."
+				readout += "\nIt will block [english_list(things_blocked)]."
 
 		if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 			var/list/parts_covered = list()
